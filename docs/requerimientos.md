@@ -24,7 +24,7 @@ Gradus es una plataforma de práctica adaptativa web mobile-first que entrena el
 | Principio | Implementación |
 | :---- | :---- |
 | Evocación activa | El estudiante recupera la respuesta antes de verla, no la reconoce pasivamente |
-| Repetición espaciada | El algoritmo SM-2 determina cuándo volver a mostrar cada tipo de función |
+| Repetición espaciada | Algoritmo Dual-Loop: adquisición con repetición intra-sesión + SM-2 para retención post-graduación |
 | Ludificación | Sistema de cinturones BJJ con rayas por dimensión de habilidad |
 | Estética minimalista | Interfaz sin distracciones, preparada para portar a React Native en V2 |
 
@@ -173,67 +173,93 @@ Cada estudiante tiene un avatar que porta el cinturón correspondiente a su nive
 
 * Customización avanzada general
 
-# **8\. Algoritmo de Progresión (SM-2 Adaptado)**
+# **8\. Algoritmo de Progresión (Dual-Loop)**
 
-El algoritmo gestiona 21 ítems independientes por estudiante, uno por cada combinación de función y dimensión de habilidad. Cada ítem tiene su propio estado que evoluciona con cada respuesta.
+El algoritmo gestiona 21 ítems independientes por estudiante, uno por cada combinación de función y dimensión de habilidad. Cada ítem atraviesa dos fases con lógicas distintas: una fase de adquisición con repetición intra-sesión, y una fase de retención con espaciado creciente. La especificación técnica completa se encuentra en [docs/algoritmo.md](algoritmo.md).
 
-## **8.1 Estado de cada ítem**
+## **8.1 Diseño de dos fases**
 
-| ease factor        → arranca en 2.5 intervalo          → arranca en 1 dia repeticiones       → arranca en 0 next\_review        → hoy revisiones válidas → arranca en 0  (contador hacia graduación) |
+La separación explícita entre adquisición y retención resuelve el problema central de SM-2 puro: en la fase de aprendizaje inicial, el espaciado importa menos que la repetición inmediata. Una vez consolidado el concepto, el espaciado creciente garantiza retención a largo plazo con mínima carga.
+
+| Fase | Nombre | Mecanismo | Objetivo |
+| :---- | :---- | :---- | :---- |
+| Loop Corto | Adquisición | Pasos fijos: misma sesión → 1 día → 3 días | Consolidar el concepto en días |
+| Loop Largo | Retención | SM-2: intervalos crecientes hasta 21 días | Retención permanente con mínima carga |
+
+## **8.2 Estado de cada ítem**
+
+| phase            → "learning" o "review" step\_index       → paso actual en learning (0, 1, 2) ease\_factor      → relevante en review; arranca en 2.5 al graduarse intervalo         → días hasta próxima revisión repeticiones      → repeticiones consecutivas exitosas en review next\_review      → fecha de próxima aparición |
 | :---- |
 
-## **8.2 Calificación por respuesta**
+## **8.3 Calificación por respuesta**
 
 El sistema infiere una calificación del 0 al 5 combinando acierto y tiempo de respuesta:
 
-| Acierto \+ tiempo \< 4s   → calificación 5  (perfecto, sin dudar) Acierto \+ tiempo 4-8s   → calificación 4  (bien, pequeña duda) Acierto \+ tiempo \> 8s   → calificación 3  (recordó con esfuerzo) Error                   → calificación 1  (fallo) |
+| Acierto \+ tiempo \< 4s   → calificación 5  (fluente, sin dudar) Acierto \+ tiempo 4-8s   → calificación 4  (bien, pequeña pausa) Acierto \+ tiempo \> 8s   → calificación 3  (recordó con esfuerzo) Error                   → calificación 1  (fallo) |
 | :---- |
 
-## **8.3 Actualización del estado del item**
+## **8.4 Loop Corto — Fase de Adquisición**
 
-| Si calificacion \< 3:     intervalo          \= 1 día     repeticiones       \= 0     revisiones validas \= 0     EF baja según fórmula SM-2 Si calificacion \>= 3:     Si repeticiones \== 0: intervalo \= 1     Si repeticiones \== 1: intervalo \= 2     Si repeticiones \>  1: intervalo \= intervalo anterior x EF     intervalo    \= min(intervalo calculado, techo máximo)     repeticiones \= repeticiones \+ 1     EF           \= max(EF actualizado, 1.3) |
+Los ítems nuevos comienzan en step 0. Cada respuesta exitosa (calificación ≥ 3) avanza al siguiente paso. Un fallo retrocede un paso. Al completar el último paso con éxito, el ítem se gradúa y entra en review.
+
+| Paso | Intervalo | Comportamiento ante fallo |
+| :---- | :---- | :---- |
+| Step 0 | misma sesión | Reinsertar en la sesión actual (máx. 2 veces) |
+| Step 1 | 1 día | Volver a step 0, next\_review = hoy |
+| Step 2 | 3 días | Volver a step 1, next\_review = hoy + 1 día |
+
+La reinserción en step 0 permite al estudiante corregir el error dentro de la misma sesión, imitando la práctica de repetición inmediata antes de espaciar.
+
+## **8.5 Loop Largo — Fase de Retención (SM-2)**
+
+Una vez graduado, el ítem sigue el algoritmo SM-2: los intervalos crecen según el Ease Factor (EF) del estudiante. No hay repetición intra-sesión en esta fase.
+
+| Si calificación \< 3:     intervalo    \= 1 día     repeticiones \= 0     EF baja según fórmula SM-2 Si calificación \>= 3:     Si repeticiones \== 0: intervalo \= 1     Si repeticiones \== 1: intervalo \= 6     Si repeticiones \>  1: intervalo \= intervalo anterior × EF     intervalo    \= min(intervalo calculado, 21 días)     repeticiones \= repeticiones \+ 1     EF           \= max(EF actualizado, 1.3) |
 | :---- |
 
-El techo máximo es 7 días en general. Una vez que el estudiante se gradúa en una dimensión, el techo sube a 21 días para los ítems de esa dimensión, liberando espacio en la sesión para contenido nuevo.
+## **8.6 Criterio de graduación**
 
-## **8.4 Dificultad del ejercicio generado**
+Un ítem se gradúa al completar el paso 2 (último paso del loop corto) con calificación ≥ 3. La graduación es inmediata y permanente: el ítem no regresa a learning aunque el estudiante falle en review.
 
-Antes de mostrar un ejercicio, el algoritmo lee el EF actual del item y selecciona el nivel de dificultad del generador:
+Cada graduación otorga una dimensión aprobada para la función correspondiente. Cuando las tres dimensiones de una función están aprobadas, el estudiante avanza de cinturón.
 
-| EF \< 1.8          → dificultad 1  (ejercicio fácil) EF entre 1.8-2.4  → dificultad 2  (ejercicio medio) EF \> 2.4          → dificultad 3  (ejercicio difícil) |
+## **8.7 Dificultad del ejercicio generado**
+
+| Condición | Dificultad |
+| :---- | :---- |
+| Ítem en learning step 0 | Fácil |
+| Ítem en learning step 1–2 | Media |
+| Ítem en review con EF \< 1.8 | Fácil |
+| Ítem en review con EF 1.8–2.4 | Media |
+| Ítem en review con EF \> 2.4 | Difícil |
+
+## **8.8 Construcción de la sesión**
+
+| Paso 1 — Ítems de learning vencidos   Buscar ítems en phase="learning" con next\_review \<= hoy   Prioridad sobre ítems de review (ventana de repaso más estrecha) Paso 2 — Ítems de review vencidos   Buscar ítems en phase="review" con next\_review \<= hoy   Ordenar por next\_review ascendente Paso 3 — Completar con contenido nuevo   Si hay menos de 5 ítems vencidos, incorporar ítem nuevo del cinturón actual Paso 4 — Limitar y reordenar   Cortar al máximo de 15 ejercicios por sesión   Garantizar distancia mínima de 2 entre ejercicios de la misma función |
 | :---- |
 
-Un estudiante experto en una dimensión tiene EF alto y estable, por lo que recibe únicamente ejercicios de dificultad 3 de forma natural, sin lógica adicional.
+Los ítems en step 0 pueden reinsertarse al final de la cola durante la sesión si el estudiante falla (máximo 2 reinserciones).
 
-## **8.5 Criterio de graduación en una dimensión**
+## **8.9 Parámetros del modelo**
 
-| ¿El intervalo está en el techo (7 días)?   → SI ¿El EF es \>= 2.5?                          → SI → revisiones validas \+= 1 Si revisiones válidas \== 3:     → GRADUADO en esta dimensión     → se otorga una raya en el cinturón actual Si el estudiante falla en cualquier revisión:     → revisiones validas \= 0  (reset) |
-| :---- |
+Todos los parámetros viven en `SM2Config` y pueden ajustarse sobre datos reales sin modificar la lógica del algoritmo.
 
-## **8.6 Construcción de la sesion**
-
-| Paso 1 — Ítems vencidos   Buscar items dónde next review \<= hoy   Ordenar por next review ascendente (el más atrasado primero) Paso 2 — Completar si hay menos del mínimo items sesión vencidos   Incorporar item nuevo según progresión de cinturones del estudiante Paso 3 — Limitar al máximo de ejercicios por sesión   Cortar la lista en max ejercicios sesion items Paso 4 — Mezclar   Garantizar distancia mínima entre ejercicios de la misma función |
-| :---- |
-
-## **8.7 Parámetros del modelo**
-
-Todos los parámetros viven en un archivo de configuración en el backend y pueden ajustarse sobre datos reales sin modificar la lógica del algoritmo.
-
-| \# | Parámetro | Valor sugerido | Impacto potencial |
+| \# | Parámetro | Valor | Impacto |
 | :---- | :---- | :---- | :---- |
-| **1** | Intervalo máximo general (techo) | 7 días | *Determina la frecuencia mínima de aparición de cualquier ítem. Si es muy alto el estudiante puede quedarse sin contenido en próximas sesiones. Si es muy bajo el repaso se vuelve redundante y reduce la motivación.* |
-| **2** | EF mínimo para revisión válida | 2.5 | *Umbral de fluidez requerido para contar hacia la graduación. Un valor alto exige dominio sólido antes de graduar; uno bajo permite graduaciones con recuerdo inestable.* |
-| **3** | Revisiones válidas consecutivas para graduacion | 3 | *Cantidad de evidencia sostenida requerida. Valores altos reducen falsos positivos en la graduación pero enlentecen la progresión percibida.* |
-| **4** | Máximo de ejercicios por sesión | 10 | *Controla la carga cognitiva y el tiempo de uso. Sesiones muy largas generan fatiga y abandono; muy cortas pueden no alcanzar masa crítica de repaso.* |
-| **5** | EF inicial | 2.5 | *Punto de partida de todo ítem nuevo. Un valor alto asume competencia previa y sube la dificultad rápido; uno bajo es conservador y puede aburrir a estudiantes con base sólida.* |
-| **6** | EF mínimo absoluto (piso) | 1.3 | *Evita que items muy difíciles aparecen diariamente de forma indefinida. Un piso muy alto protege la experiencia pero puede enmascarar dificultades reales.* |
-| **7** | Umbrales de tiempo de respuesta | 4s / 8s | *Definen si un acierto vale 5, 4 o 3\. Umbrales muy estrictos penalizan a estudiantes reflexivos; muy permisivos no distinguen fluidez real de recuerdo lento.* |
-| **8** | Intervalo máximo post-graduación | 21 días | *Una vez graduado en una dimensión, los ítems pueden espaciarse más. Libera capacidad en la sesión para contenido nuevo sin abandonar la retención a largo plazo.* |
-| **9** | Umbrales de EF para dificultad del generador | 1.8 / 2.4 | *Mapean el EF al nivel de ejercicio generado. Si los cortes están mal calibrados, estudiantes avanzados reciben ejercicios triviales o principiantes reciben ejercicios inaccesibles.* |
-| **10** | Mínimo de ejercicios antes de introducir contenido nuevo | 5 | *Si hay menos ítems vencidos que este valor el sistema incorpora material nuevo. Un umbral bajo introduce novedades demasiado rápido; uno alto puede generar sesiones repetitivas.* |
-| **11** | Distancia mínima entre ejercicios de la misma función en sesión | 2 | *Impide que el estudiante resuelva por contexto inmediato en lugar de por reconocimiento genuino. Crítico para la honestidad pedagógica de cada sesión.* |
+| **1** | Pasos de aprendizaje | \[0, 1, 3\] días | Velocidad de graduación. El valor 0 habilita repetición intra-sesión. |
+| **2** | Máx. reinserciones intra-sesión | 2 | Cuántas veces puede reaparecer un ítem en step 0 por sesión. |
+| **3** | Calificación mínima para avanzar | 3 | Por debajo = fallo. |
+| **4** | Intervalo inicial en review | 7 días | Primera separación post-graduación. |
+| **5** | Intervalo máximo en review | 21 días | Techo de espaciado para ítems retenidos. |
+| **6** | EF inicial en review | 2.5 | Punto de partida del Ease Factor al graduarse. |
+| **7** | EF mínimo absoluto | 1.3 | Piso del EF; evita aparición diaria indefinida de ítems muy difíciles. |
+| **8** | EF mínimo para dominio sólido | 2.5 | Umbral de fluidez en review. |
+| **9** | Umbrales de tiempo de respuesta | 4s / 8s | Definen si un acierto vale 5, 4 o 3. |
+| **10** | Máximo de ejercicios por sesión | 15 | Techo de carga por sesión (~5 minutos). |
+| **11** | Mínimo antes de introducir contenido nuevo | 5 | Si hay menos ítems vencidos, se incorpora material nuevo. |
+| **12** | Distancia mínima entre ejercicios de la misma función | 2 | Impide que el estudiante resuelva por contexto inmediato. |
 
-| La tabla de intentos como activo de datos *Cada respuesta queda registrada con función, dimensión, acierto, calificación y tiempo. Este historial permite identificar los distractores que generan mayor confusión, las funciones con mayor tasa de abandono, y si el tiempo de respuesta predice la retención. Es el insumo para superar SM-2 puro con modelos propios en versiones futuras.* |
+| La tabla de intentos como activo de datos *Cada respuesta queda registrada con función, dimensión, acierto, calificación y tiempo. Este historial permite identificar los distractores que generan mayor confusión, las funciones con mayor tasa de abandono, y si el tiempo de respuesta predice la retención. Es el insumo para superar el algoritmo actual con modelos propios en versiones futuras.* |
 | :---- |
 
 # **9\. Monetización**
@@ -314,11 +340,13 @@ Escala: Supa Base USD 50 a 100/mes según volumen, backend con autoscaling en AW
 
 ## **11.3 Algoritmo de Progresión**
 
-* Implementación de SM-2 por par función-dimension
+* Algoritmo Dual-Loop por par función-dimensión: fase de adquisición (loop corto) y fase de retención (SM-2)
 
 * Calificación 0 a 5 inferida de acierto y tiempo de respuesta
 
-* Criterio de graduación por intervalo en techo y EF estabilizado
+* Repetición intra-sesión para ítems en step 0 del loop corto (máximo 2 reinserciones)
+
+* Graduación al completar los pasos del loop corto; SM-2 aplicado únicamente post-graduación
 
 * Todos los parámetros del modelo configurables sin modificar código
 

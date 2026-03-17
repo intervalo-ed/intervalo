@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python data/notebooks/write_nb.py)"
+    ]
+  }
+}

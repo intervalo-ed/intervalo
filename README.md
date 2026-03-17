@@ -1,4 +1,4 @@
-Gradus — MVP
+Gradus
 ============
 
 Este repositorio contiene el MVP de Gradus, una plataforma web de práctica adaptativa para reconocimiento de funciones matemáticas.
