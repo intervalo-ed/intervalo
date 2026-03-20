@@ -34,12 +34,13 @@ def build_session(
     today: date | None = None,
     config: SM2Config | None = None,
     introduce_new_item: callable | None = None,
+    item_priority: dict[ItemKey, int] | None = None,
 ) -> list[SessionItem]:
     """
     Dual-Loop session builder:
     - Step 1: collect overdue items. Learning items have priority over review.
-              Learning sorted by step_index asc (step 0 primero).
-              Review sorted by next_review asc (más atrasado primero).
+              If item_priority provided, sorts by priority (lower index = higher priority).
+              Otherwise: learning sorted by step_index asc, review by next_review asc.
     - Step 2: if fewer than min_items_before_new_content, introduce new items.
     - Step 3: cap at max_exercises_per_session.
     - Step 4: greedy mix ensuring min_distance_same_function between same families.
@@ -54,19 +55,27 @@ def build_session(
     learning_overdue = [i for i in overdue if i.state.phase == "learning"]
     review_overdue = [i for i in overdue if i.state.phase == "review"]
 
-    learning_overdue.sort(key=lambda x: x.state.step_index)
-    review_overdue.sort(key=lambda x: x.state.next_review)
+    if item_priority is not None:
+        learning_overdue.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
+        review_overdue.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
+    else:
+        learning_overdue.sort(key=lambda x: x.state.step_index)
+        review_overdue.sort(key=lambda x: x.state.next_review)
 
     candidates = learning_overdue + review_overdue
 
     # Step 2: introduce new content if not enough overdue items.
     if introduce_new_item is not None and len(candidates) < config.min_items_before_new_content:
         needed = config.min_items_before_new_content - len(candidates)
+        new_items: list[SessionItem] = []
         for _ in range(needed):
             new_key = introduce_new_item()
             if new_key is None or new_key in items:
                 break
-            candidates.append(SessionItem(key=new_key, state=SM2ItemState()))
+            new_items.append(SessionItem(key=new_key, state=SM2ItemState()))
+        if item_priority is not None:
+            new_items.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
+        candidates.extend(new_items)
 
     # Step 3: cap total session length.
     candidates = candidates[: config.max_exercises_per_session]
