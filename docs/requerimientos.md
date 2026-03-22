@@ -266,9 +266,10 @@ Todos los parámetros viven en `SM2Config` y pueden ajustarse sobre datos reales
 | **7** | EF mínimo absoluto | 1.3 | Piso del EF; evita aparición diaria indefinida de ítems muy difíciles. |
 | **8** | EF mínimo para dominio sólido | 2.5 | Umbral de fluidez en review. |
 | **9** | Umbrales de tiempo de respuesta | 4s / 8s | Definen si un acierto vale 5, 4 o 3. |
-| **10** | Máximo de ejercicios por sesión | 15 | Techo de carga por sesión (~5 minutos). |
+| **10** | Máximo de ejercicios por sesión | 12 | Techo de carga por sesión (~5 minutos). |
 | **11** | Mínimo antes de introducir contenido nuevo | 5 | Si hay menos ítems vencidos, se incorpora material nuevo. |
 | **12** | Distancia mínima entre ejercicios de la misma función | 2 | Impide que el estudiante resuelva por contexto inmediato. |
+| **13** | Probabilidad de ejercicio gráfico | 0.66 | Proporción de ejercicios con gráfico SVG vs. expresión escrita, por sesión. |
 
 | La tabla de intentos como activo de datos *Cada respuesta queda registrada con función, dimensión, acierto, calificación y tiempo. Este historial permite identificar los distractores que generan mayor confusión, las funciones con mayor tasa de abandono, y si el tiempo de respuesta predice la retención. Es el insumo para superar el algoritmo actual con modelos propios en versiones futuras.* |
 | :---- |
@@ -412,11 +413,12 @@ La base de datos está implementada en PostgreSQL. Las seis entidades principale
 
 | Capa | Tecnología |
 | :---- | :---- |
-| Frontend web | React (mobile-first, preparado para React Native en V2) |
-| Backend | Fast API (Python) |
-| Base de datos | PostgreSQL via Supabase |
-| Gráficos de funciones | Desmos API en MVP; render propio en V2 |
-| Algoritmo SM-2 | Implementación propia en Python |
+| Frontend web | React + Vite (mobile-first, preparado para React Native en V2) |
+| Backend | FastAPI (Python) |
+| Base de datos | PostgreSQL via Supabase (en MVP: estado en memoria) |
+| Gráficos de funciones | SVG propio con detección de discontinuidades (sin dependencias externas) |
+| Renderizado matemático | KaTeX (fórmulas LaTeX inline) |
+| Algoritmo SM-2 | Implementación propia en Python, modular y parametrizable |
 | Deploy backend | Railway o Render |
 | Distribución web | Vercel o Netlify |
 
