@@ -66,8 +66,10 @@ const WHITE_BELT_TOPICS = [
   { key: "trigonometric", label: "Trigonométrica" },
 ];
 const WHITE_BELT_SKILLS = ["CLSF", "LEXI", "FORM"];
-// Stripe thresholds [primera raya, segunda raya, promoción]
-const STRIPE_THRESHOLDS = [3, 9, 18];
+// Rayas: 2 grados internos antes de la promoción
+const STRIPE_THRESHOLDS  = [3, 9];   // ítems graduados para primera y segunda raya
+const PROMOTION_THRESHOLD = 18;       // ítems graduados para ascender al siguiente cinturón
+const MASTERY_TOTAL       = 21;       // total de ítems del cinturón (últimos 3 son maestría opcional)
 
 // ── Design tokens ──────────────────────────────────────────────────────────────
 
@@ -713,7 +715,8 @@ function SummaryScreen({ summary, avatar, onRestart }) {
   // ── Belt stripe calculation — counts across the full belt, not just this session ──
   const graduatedCount = Object.values(skillStates)
     .filter(s => s?.phase === "review").length;
-  const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length; // 0-3
+  const stripes  = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length; // 0, 1 o 2
+  const promoted = graduatedCount >= PROMOTION_THRESHOLD;
 
   // ── Item color by maturity ────────────────────────────────────────────────
   function itemCell(entry) {
@@ -819,7 +822,7 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                   Cinturón Blanco
                 </div>
                 <div style={{ display: "flex", gap: 5 }}>
-                  {[0, 1, 2].map(i => (
+                  {[0, 1].map(i => (
                     <div key={i} style={{
                       width: 22, height: 10, borderRadius: 999,
                       background: i < stripes ? "#D97706" : "#E5E7EB",
@@ -829,15 +832,17 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                   ))}
                 </div>
                 <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
-                  {graduatedCount} de 18 ítems graduados
+                  {graduatedCount} / {MASTERY_TOTAL} ítems
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "0.68rem", color: C.muted }}>Próxima franja</div>
-                <div style={{ fontSize: "0.88rem", fontWeight: 700, color: C.text }}>
-                  {stripes < 3
-                    ? `${STRIPE_THRESHOLDS[stripes] - graduatedCount} ítems más`
-                    : "Completado ✓"}
+                <div style={{ fontSize: "0.68rem", color: C.muted }}>
+                  {promoted ? "Cinturón completado" : stripes < 2 ? "Próxima raya" : "Para ascender"}
+                </div>
+                <div style={{ fontSize: "0.88rem", fontWeight: 700, color: promoted ? C.success : C.text }}>
+                  {promoted
+                    ? "Promovido ✓"
+                    : `${(stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD) - graduatedCount} ítems más`}
                 </div>
               </div>
             </div>

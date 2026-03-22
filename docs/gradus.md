@@ -260,7 +260,11 @@ La restricción de distancia previene que el estudiante resuelva por contexto in
 
 El sistema organiza el contenido en **cinturones**. Cada cinturón cubre un dominio matemático del curso de cálculo univariable y contiene un conjunto de temas evaluados a través de tres habilidades.
 
-Al alcanzar el umbral de promoción de un cinturón, el sistema comienza a introducir ítems del siguiente cinturón en la sesión aunque el cinturón actual no esté completamente dominado.
+Todos los cinturones comparten la misma mecánica de progresión:
+
+- **2 grados internos (rayas)** basados en el conteo total de ítems graduados del cinturón.
+- **Umbral de promoción**: al alcanzarlo, el sistema introduce ítems del siguiente cinturón en la sesión aunque el actual no esté completo.
+- **Maestría opcional**: los ítems restantes entre el umbral de promoción y el total del cinturón no bloquean el avance.
 
 ```
 Blanco (Funciones) → Azul (Límites) → Violeta (Derivadas) → Marrón (Integrales) → Negro (TBD)
