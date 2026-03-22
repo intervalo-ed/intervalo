@@ -5,7 +5,7 @@ from datetime import date
 from typing import Iterable
 
 from .config import SM2Config
-from .domain import FunctionFamily, ItemKey
+from .domain import Belt, BeltCatalog, ItemKey, WHITE_BELT
 from .sm2 import SM2ItemState
 
 
@@ -15,12 +15,12 @@ class SessionItem:
     state: SM2ItemState
 
 
-def _function_distance_ok(session: list[SessionItem], candidate: SessionItem, *, min_distance: int) -> bool:
+def _topic_distance_ok(session: list[SessionItem], candidate: SessionItem, *, min_distance: int) -> bool:
     if min_distance <= 0:
         return True
     last_same_idx = None
     for i in range(len(session) - 1, -1, -1):
-        if session[i].key.function_family == candidate.key.function_family:
+        if session[i].key.topic == candidate.key.topic:
             last_same_idx = i
             break
     if last_same_idx is None:
@@ -43,7 +43,7 @@ def build_session(
               Otherwise: learning sorted by step_index asc, review by next_review asc.
     - Step 2: if fewer than min_items_before_new_content, introduce new items.
     - Step 3: cap at max_exercises_per_session.
-    - Step 4: greedy mix ensuring min_distance_same_function between same families.
+    - Step 4: greedy mix ensuring min_distance_same_function between same topics.
     """
     config = config or SM2Config()
     today = today or date.today()
@@ -53,7 +53,7 @@ def build_session(
     ]
 
     learning_overdue = [i for i in overdue if i.state.phase == "learning"]
-    review_overdue = [i for i in overdue if i.state.phase == "review"]
+    review_overdue   = [i for i in overdue if i.state.phase == "review"]
 
     if item_priority is not None:
         learning_overdue.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
@@ -80,13 +80,13 @@ def build_session(
     # Step 3: cap total session length.
     candidates = candidates[: config.max_exercises_per_session]
 
-    # Step 4: greedy mix with distance constraint.
+    # Step 4: greedy mix with topic distance constraint.
     session: list[SessionItem] = []
     remaining = candidates[:]
     while remaining:
         placed = False
         for idx, cand in enumerate(remaining):
-            if _function_distance_ok(session, cand, min_distance=config.min_distance_same_function):
+            if _topic_distance_ok(session, cand, min_distance=config.min_distance_same_function):
                 session.append(cand)
                 remaining.pop(idx)
                 placed = True
@@ -99,8 +99,8 @@ def build_session(
 
 def should_reinsert(state: SM2ItemState, intra_session_count: int, *, config: SM2Config | None = None) -> bool:
     """
-    Retorna True si un ítem fallido en step 0 debe reinsertarse en la sesión actual.
-    El backend/controlador de sesión llama a esta función después de cada respuesta incorrecta.
+    Returns True if a failed item in step 0 should be reinserted in the current session.
+    Called by the session controller after each incorrect answer.
     """
     config = config or SM2Config()
     return (
@@ -110,12 +110,21 @@ def should_reinsert(state: SM2ItemState, intra_session_count: int, *, config: SM
     )
 
 
-def default_catalog() -> list[ItemKey]:
-    """Convenience: full MVP catalog = all function families x 3 skill types."""
-    from .domain import SkillType
+def default_catalog(belt: BeltCatalog = WHITE_BELT) -> list[ItemKey]:
+    """Returns all ItemKeys for the given belt catalog. Defaults to the white belt."""
+    return belt.all_keys()
 
-    keys: list[ItemKey] = []
-    for fam in FunctionFamily:
-        for skill in SkillType:
-            keys.append(ItemKey(function_family=fam, skill_type=skill))
-    return keys
+
+def belt_item_priority(catalog: BeltCatalog) -> dict[ItemKey, int]:
+    """
+    Returns a priority map for a belt catalog: CLSF/GRAF first, then LEXI/RESV/DERI/INTG,
+    then FORM/APLI. Within each skill group, topics follow catalog order.
+    This controls the order in which new items are introduced in a session.
+    """
+    priority: dict[ItemKey, int] = {}
+    idx = 0
+    for topic in catalog.topics:
+        for skill in catalog.skills:
+            priority[ItemKey(belt=catalog.belt, topic=topic, skill=skill)] = idx
+            idx += 1
+    return priority

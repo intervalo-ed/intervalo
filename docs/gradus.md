@@ -9,7 +9,7 @@
 5. [Loop Largo — Fase de Retención](#5-loop-largo--fase-de-retención)
 6. [Calificación por respuesta](#6-calificación-por-respuesta)
 7. [Construcción de la sesión](#7-construcción-de-la-sesión)
-8. [Graduación y progresión de cinturones](#8-graduación-y-progresión-de-cinturones)
+8. [Cinturones y progresión](#8-cinturones-y-progresión)
 9. [Dificultad del ejercicio generado](#9-dificultad-del-ejercicio-generado)
 10. [Parámetros de configuración](#10-parámetros-de-configuración)
 11. [Ejemplo completo — estudiante promedio](#11-ejemplo-completo--estudiante-promedio)
@@ -53,18 +53,28 @@ El algoritmo de Gradus separa explícitamente dos fases con lógicas distintas:
 
 ## 2. Unidad de seguimiento: el Ítem
 
-El algoritmo gestiona **21 ítems independientes** por estudiante, uno por cada combinación de familia de función y tipo de habilidad:
+El algoritmo gestiona ítems independientes por estudiante, organizados en **cinturones**. Cada ítem representa la combinación de un tema del cinturón y una habilidad.
 
 ```
-7 familias × 3 habilidades = 21 ítems
-
-Familias: Lineal, Cuadrática, Polinomial, Exponencial,
-          Logarítmica, Trigonométrica, Racional
-
-Habilidades: Reconocimiento Visual, Vocabulario, Identificación de Parámetros
+Ítems por cinturón = N temas × 3 habilidades
 ```
 
-Cada ítem tiene su propio estado y evoluciona de forma completamente independiente. Un estudiante puede tener "Lineal / Reconocimiento Visual" graduado mientras todavía está en paso 1 de "Lineal / Vocabulario".
+Cada ítem tiene su propio estado y evoluciona de forma completamente independiente.
+
+### Habilidades
+
+Las habilidades son transversales a todos los cinturones. Cada una tiene un código de 4 letras en mayúscula:
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| CLSF | Clasificación | Identifica y categoriza a partir de representaciones visuales o gráficas |
+| LEXI | Léxico | Nombra y clasifica usando vocabulario matemático correcto |
+| FORM | Formulación | Extrae y construye la expresión formal a partir de una representación |
+| GRAF | Graficación | Interpreta el comportamiento de un concepto desde una gráfica |
+| RESV | Resolución | Calcula y simplifica expresiones aplicando técnicas algebraicas |
+| DERI | Derivación | Aplica reglas de derivación con precisión |
+| INTG | Integración | Aplica técnicas de integración al tipo de expresión correcto |
+| APLI | Aplicación | Usa el concepto del cinturón en problemas de contexto real o analítico |
 
 ### Estado del ítem
 
@@ -77,7 +87,6 @@ class SM2ItemState:
     interval: int          # días hasta próxima revisión
     repetitions: int       # repeticiones consecutivas exitosas en review
     next_review: date      # cuándo mostrar de nuevo
-    valid_reviews: int     # contador hacia graduación en review (legacy, puede eliminarse)
 ```
 
 ---
@@ -203,9 +212,9 @@ El sistema infiere una calificación de 0 a 5 combinando acierto y tiempo de res
 
 | Resultado | Tiempo | Calificación | Interpretación |
 |---|---|---|---|
-| Correcto | < 4 segundos | **5** | Fluente, sin dudar |
-| Correcto | 4 – 8 segundos | **4** | Bien, con pequeña pausa |
-| Correcto | > 8 segundos | **3** | Recordó con esfuerzo |
+| Correcto | < 6 segundos | **5** | Fluente, sin dudar |
+| Correcto | 6 – 12 segundos | **4** | Bien, con pequeña pausa |
+| Correcto | > 12 segundos | **3** | Recordó con esfuerzo |
 | Incorrecto | cualquiera | **1** | Fallo |
 
 La calificación 0 y 2 no se usan actualmente. La calificación 3 es el umbral mínimo para que una respuesta cuente como éxito.
@@ -231,56 +240,133 @@ Los ítems en `step_index = 0` que aparecen en la sesión se marcan como candida
 
 ### Paso 3 — Completar con contenido nuevo
 
-Si hay menos de `min_items_before_new_content` ítems vencidos, el sistema incorpora ítems nuevos del cinturón actual del estudiante. El orden de introducción sigue la secuencia: Reconocimiento Visual → Vocabulario → Identificación de Parámetros para cada función del cinturón activo.
+Si hay menos de `min_items_before_new_content` ítems vencidos, el sistema incorpora ítems nuevos del cinturón actual del estudiante. El orden de introducción sigue la secuencia CLSF → LEXI → FORM (cinturón blanco) o GRAF → [habilidad de cálculo] → APLI (cinturones siguientes) para cada tema del cinturón activo.
 
 ### Paso 4 — Limitar y reordenar
 
 ```
-Cortar al máximo de ejercicios por sesión (15)
+Cortar al máximo de ejercicios por sesión (12)
 
-Garantizar distancia mínima entre ejercicios de la misma función:
+Garantizar distancia mínima entre ejercicios del mismo tema:
     min_distance_same_function = 2
-    (nunca dos ejercicios de "Cuadrática" consecutivos)
+    (nunca dos ejercicios del mismo tema consecutivos)
 ```
 
 La restricción de distancia previene que el estudiante resuelva por contexto inmediato en lugar de por reconocimiento genuino.
 
 ---
 
-## 8. Graduación y progresión de cinturones
+## 8. Cinturones y progresión
 
-### Graduación de un ítem
+El sistema organiza el contenido en **cinturones**. Cada cinturón cubre un dominio matemático del curso de cálculo univariable y contiene un conjunto de temas evaluados a través de tres habilidades.
 
-Un ítem se **gradúa** cuando completa el último paso del loop corto con `quality >= 3`. No existe un criterio de graduación adicional en el loop largo: una vez en review, el ítem está graduado de forma permanente.
-
-Si el EF en review cae por debajo de `ef_min_for_valid_review` (2.5), el ítem puede ser marcado como "en riesgo" y priorizarse en la sesión, pero no regresa a learning.
-
-### Rayas y promoción de cinturón
-
-Cada ítem graduado otorga **una dimensión aprobada** para la función correspondiente:
+Al alcanzar el umbral de promoción de un cinturón, el sistema comienza a introducir ítems del siguiente cinturón en la sesión aunque el cinturón actual no esté completamente dominado.
 
 ```
-3 dimensiones aprobadas para una función del cinturón actual
-→ esa función está completamente dominada
-
-Dominio de todas las funciones del cinturón actual
-→ PROMOCIÓN al siguiente cinturón
+Blanco (Funciones) → Azul (Límites) → Violeta (Derivadas) → Marrón (Integrales) → Negro (TBD)
 ```
 
-Las rayas se otorgan cuando 2 de las 3 dimensiones de la función están aprobadas. La tercera otorga la promoción.
+---
 
-```
-Estado             Reconocimiento   Vocabulario   Parámetros
-─────────────────────────────────────────────────────────────
-Sin rayas          —                —             —
-Primera raya       ✓                —             —   (o cualquier 1 de 3)
-Segunda raya       ✓                ✓             —   (o cualquier 2 de 3)
-Promoción          ✓                ✓             ✓
-```
+### Cinturón Blanco — Funciones
 
-### Caso especial: Cinturón Negro
+Cubre el reconocimiento, vocabulario y formulación de las familias de funciones fundamentales.
 
-La función Racional (cinturón negro) otorga hasta dos rayas sobre las dos dimensiones que el estudiante elija completar primero. La tercera dimensión queda como objetivo de maestría permanente sin promoción ulterior.
+**Temas (7):** Lineal, Cuadrática, Polinomial, Exponencial, Logarítmica, Trigonométrica, Racional
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| CLSF | Clasificación | Identifica la familia de función a partir de su gráfica |
+| LEXI | Léxico | Nombra y clasifica usando vocabulario matemático correcto |
+| FORM | Formulación | Extrae parámetros clave y construye la expresión de la ecuación |
+
+**Total ítems:** 7 × 3 = 21
+
+| Grado | Ítems graduados | Efecto |
+|---|---|---|
+| Primera raya | 3 | Progreso visible |
+| Segunda raya | 9 | Progreso visible |
+| Promoción a Azul | 18 | Desbloquea cinturón Azul |
+| Maestría | 21 | Opcional, sin efecto en progresión |
+
+---
+
+### Cinturón Azul — Límites
+
+Cubre el concepto de límite, continuidad y técnicas algebraicas para su cálculo.
+
+**Temas (6):** Límites algebraicos, Límites laterales, Límites al infinito, Continuidad, Formas indeterminadas, L'Hôpital
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| GRAF | Graficación | Interpreta límites y comportamiento de funciones desde una gráfica |
+| RESV | Resolución | Calcula límites aplicando técnicas algebraicas |
+| CLSF | Clasificación | Identifica tipos de discontinuidad y reconoce formas indeterminadas |
+
+**Total ítems:** 6 × 3 = 18
+
+| Grado | Ítems graduados | Efecto |
+|---|---|---|
+| Primera raya | 2 | Progreso visible |
+| Segunda raya | 6 | Progreso visible |
+| Promoción | 15 | Desbloquea cinturón Violeta |
+| Maestría | 18 | Opcional, sin efecto en progresión |
+
+---
+
+### Cinturón Violeta — Derivadas
+
+Cubre la definición, reglas de derivación y aplicaciones de la derivada.
+
+**Temas (6):** Definición como límite, Reglas básicas, Producto y cociente, Regla de la cadena, Funciones especiales (trig/exp/log), Derivadas implícitas
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| GRAF | Graficación | Lee la derivada geométricamente: tangente, monotonía y concavidad |
+| DERI | Derivación | Aplica reglas de derivación con precisión |
+| APLI | Aplicación | Usa derivadas en optimización, tasas de cambio y análisis de curvas |
+
+**Total ítems:** 6 × 3 = 18
+
+| Grado | Ítems graduados | Efecto |
+|---|---|---|
+| Primera raya | 2 | Progreso visible |
+| Segunda raya | 6 | Progreso visible |
+| Promoción | 15 | Desbloquea cinturón Marrón |
+| Maestría | 18 | Opcional, sin efecto en progresión |
+
+---
+
+### Cinturón Marrón — Integrales
+
+Cubre la integral definida e indefinida, el Teorema Fundamental del Cálculo y las principales técnicas de integración.
+
+**Temas (5):** Integral indefinida, Teorema Fundamental del Cálculo, Sustitución, Integración por partes, Integrales impropias
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| GRAF | Graficación | Interpreta la integral como área acumulada bajo la curva |
+| INTG | Integración | Aplica técnicas de integración al tipo de expresión correcto |
+| APLI | Aplicación | Resuelve problemas de área, acumulación y volumen de revolución |
+
+**Total ítems:** 5 × 3 = 15
+
+| Grado | Ítems graduados | Efecto |
+|---|---|---|
+| Primera raya | 2 | Progreso visible |
+| Segunda raya | 5 | Progreso visible |
+| Promoción | 12 | Desbloquea cinturón Negro |
+| Maestría | 15 | Opcional, sin efecto en progresión |
+
+---
+
+### Cinturón Negro — TBD
+
+Cubre los temas restantes del curso de cálculo univariable.
+
+| Código | Habilidad | Descripción |
+|---|---|---|
+| TBD | TBD | TBD |
 
 ---
 
@@ -306,19 +392,19 @@ Todos los parámetros viven en `SM2Config` y pueden ajustarse sin modificar la l
 
 | # | Parámetro | Valor por defecto | Impacto |
 |---|---|---|---|
-| 1 | `learning_steps` | `[0, 1, 3]` | Intervalos en días para cada paso del loop corto. `0` = misma sesión. Valores bajos aceleran la graduación; valores altos exigen más evidencia sostenida. |
-| 2 | `max_intra_session_reps` | `2` | Máximo de reinserciones de un ítem en step 0 dentro de la misma sesión. Evita que un ítem difícil monopolice la sesión. |
+| 1 | `learning_steps` | `[0, 1, 3]` | Intervalos en días para cada paso del loop corto. `0` = misma sesión. |
+| 2 | `max_intra_session_reps` | `2` | Máximo de reinserciones de un ítem en step 0 dentro de la misma sesión. |
 | 3 | `quality_threshold_pass` | `3` | Calidad mínima para avanzar un paso. Por debajo = fallo. |
-| 4 | `review_initial_interval` | `7` | Intervalo en días al entrar en review. Más alto = mayor separación desde el primer repaso post-graduación. |
-| 5 | `post_graduation_max_interval` | `21` | Techo de intervalo en review. Evita que ítems de retención desaparezcan por demasiado tiempo. |
-| 6 | `ef_initial` | `2.5` | EF al entrar en review. Asume competencia promedio al graduarse. |
-| 7 | `ef_min_absolute` | `1.3` | Piso de EF. Evita que ítems muy difíciles aparezcan diariamente de forma indefinida. |
+| 4 | `review_initial_interval` | `7` | Intervalo en días al entrar en review. |
+| 5 | `post_graduation_max_interval` | `21` | Techo de intervalo en review. |
+| 6 | `ef_initial` | `2.5` | EF al entrar en review. |
+| 7 | `ef_min_absolute` | `1.3` | Piso de EF. |
 | 8 | `ef_min_for_valid_review` | `2.5` | EF mínimo para considerar que el dominio es sólido en review. |
-| 9 | `response_time_threshold_fast` | `4.0` s | Por debajo → calificación 5. Define el umbral de fluidez. |
-| 10 | `response_time_threshold_slow` | `8.0` s | Por encima → calificación 3. Define el umbral de recuerdo lento. |
-| 11 | `max_exercises_per_session` | `15` | Techo de ejercicios por sesión (~5 minutos). |
+| 9 | `response_time_threshold_fast` | `6.0` s | Por debajo → calificación 5. |
+| 10 | `response_time_threshold_slow` | `12.0` s | Por encima → calificación 3. |
+| 11 | `max_exercises_per_session` | `12` | Techo de ejercicios por sesión. |
 | 12 | `min_items_before_new_content` | `5` | Si hay menos ítems vencidos, incorporar contenido nuevo. |
-| 13 | `min_distance_same_function` | `2` | Distancia mínima entre ejercicios de la misma familia en una sesión. |
+| 13 | `min_distance_same_function` | `2` | Distancia mínima entre ejercicios del mismo tema en una sesión. |
 
 ---
 
@@ -328,7 +414,7 @@ Todos los parámetros viven en `SM2Config` y pueden ajustarse sin modificar la l
 
 ### Semana 1
 
-| Día | Sesión | Ítem: Lineal / Reconocimiento | Estado |
+| Día | Sesión | Ítem: Lineal / CLSF | Estado |
 |---|---|---|---|
 | Lunes | 1 | Primera vez — step 0 | quality 4 → avanza a step 1 |
 | Lunes | 1 | (no repite en la sesión — éxito) | next_review = martes |
@@ -336,7 +422,7 @@ Todos los parámetros viven en `SM2Config` y pueden ajustarse sin modificar la l
 | Viernes | 3 | step 2 | quality 4 → **GRADUADO** → entra en review |
 | Viernes | 3 | Próxima aparición en review: next_review = viernes + 7 días |
 
-**Resultado:** primera graduación en 5 días corridos, 3 sesiones. Primera raya posible en semana 1.
+**Resultado:** primera graduación en 5 días corridos, 3 sesiones.
 
 ### Semana 2 en adelante (review)
 
@@ -354,14 +440,14 @@ Mes 2: aparece cada 21 días
 
 | Día | Sesión | Ítem | quality | Resultado |
 |---|---|---|---|---|
-| Lunes | 1 | step 0 | 5 (< 4s, correcto) | → step 1, next_review mañana |
+| Lunes | 1 | step 0 | 5 (< 6s, correcto) | → step 1, next_review mañana |
 | Martes | 2 | step 1 | 5 | → step 2, next_review en 3 días |
 | Viernes | 3 | step 2 | 5 | → **GRADUADO** |
 
-**Resultado:** graduación en 5 días con 3 sesiones, idéntico al promedio pero con mayor EF inicial en review (puede empezar con interval más largo si se implementa EF dinámico en learning).
+**Resultado:** graduación en 5 días con 3 sesiones.
 
 **Diferencia real:** el curtido no necesita repetición intra-sesión. El promedio puede necesitar 1–2 reinserciones en step 0 antes de consolidar. El curtido completa el camino sin fricciones.
 
 ---
 
-*Documento técnico interno — Gradus. Última actualización: 2026-03-17.*
+*Documento técnico interno — Gradus. Última actualización: 2026-03-22.*

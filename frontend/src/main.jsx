@@ -31,37 +31,42 @@ const KIMONO_OPTIONS = [
 ];
 
 const BELTS = [
-  { name: "Blanco",  color: "#F5F5DC", text: "#7A6A30", xpMax: 30  },
-  { name: "Azul",    color: "#1C3A8B", text: "#fff",    xpMax: 90  },
-  { name: "Violeta", color: "#6B2D8B", text: "#fff",    xpMax: 180 },
-  { name: "Marrón",  color: "#6B3A1F", text: "#fff",    xpMax: 300 },
-  { name: "Negro",   color: "#111111", text: "#fff",    xpMax: Infinity },
+  { name: "Blanco",  color: "#F5F5DC", text: "#7A6A30", total: 21, stripeAt: [3, 9], promoteAt: 18   },
+  { name: "Azul",    color: "#1C3A8B", text: "#fff",    total: 18, stripeAt: [2, 6], promoteAt: 15   },
+  { name: "Violeta", color: "#6B2D8B", text: "#fff",    total: 18, stripeAt: [2, 6], promoteAt: 15   },
+  { name: "Marrón",  color: "#6B3A1F", text: "#fff",    total: 15, stripeAt: [2, 5], promoteAt: 12   },
+  { name: "Negro",   color: "#111111", text: "#fff",    total: null, stripeAt: [],   promoteAt: null  },
 ];
 
 const SKILL_LABELS = {
-  vocabulary: "Vocabulario",
-  visual_recognition: "Reconocimiento visual",
-  parameter_identification: "Identificación de parámetros",
+  CLSF: "Clasificación",
+  LEXI: "Léxico",
+  FORM: "Formulación",
+  GRAF: "Graficación",
+  RESV: "Resolución",
+  DERI: "Derivación",
+  INTG: "Integración",
+  APLI: "Aplicación",
 };
 
 const FAMILY_LABELS = {
-  linear: "Lineal", quadratic: "Cuadrática", exponential: "Exponencial",
-  logarithmic: "Logarítmica", trigonometric: "Trigonométrica",
-  rational: "Racional", absolute_value: "Valor absoluto",
+  linear: "Lineal", quadratic: "Cuadrática", polynomial: "Polinomial",
+  exponential: "Exponencial", logarithmic: "Logarítmica",
+  trigonometric: "Trigonométrica", rational: "Racional",
 };
 
-// Topics for white belt — ordered (trig before rational)
+// White belt: 7 function families × 3 skills = 21 items
 const WHITE_BELT_TOPICS = [
-  { key: "linear",         label: "Lineales" },
-  { key: "quadratic",      label: "Cuadráticas" },
-  { key: "exponential",    label: "Exponenciales" },
-  { key: "logarithmic",    label: "Logarítmicas" },
-  { key: "trigonometric",  label: "Trigonométricas" },
-  { key: "rational",       label: "Racionales" },
-  { key: "absolute_value", label: "Valor absoluto" },
+  { key: "linear",        label: "Lineal" },
+  { key: "quadratic",     label: "Cuadrática" },
+  { key: "polynomial",    label: "Polinomial" },
+  { key: "exponential",   label: "Exponencial" },
+  { key: "logarithmic",   label: "Logarítmica" },
+  { key: "rational",      label: "Racional" },
+  { key: "trigonometric", label: "Trigonométrica" },
 ];
-const WHITE_BELT_SKILLS = ["vocabulary", "visual_recognition", "parameter_identification"];
-// Stripe thresholds: graduated items needed per stripe
+const WHITE_BELT_SKILLS = ["CLSF", "LEXI", "FORM"];
+// Stripe thresholds [primera raya, segunda raya, promoción]
 const STRIPE_THRESHOLDS = [3, 9, 18];
 
 // ── Design tokens ──────────────────────────────────────────────────────────────
@@ -608,7 +613,7 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
           <div style={{ ...card, marginBottom: "1rem" }}>
             <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
               padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
-              {SKILL_LABELS[ex.skill] || ex.skill}
+              {SKILL_LABELS[ex.skill] ?? ex.skill}
             </span>
 
             <p style={{ fontSize: "1.1rem", fontWeight: 600, color: C.text,
@@ -702,12 +707,12 @@ function SummaryScreen({ summary, avatar, onRestart }) {
   const xp = total;
 
   const skillStates = summary.skill_states || {};
-  // Only highlight items actually exercised in this session
-  const touchedKeys = new Set(items.map(it => `${it.family}:${it.skill}`));
+  // Items exercised this session get a visual highlight in the grid
+  const touchedKeys = new Set(items.map(it => `${it.topic ?? it.family}:${it.skill}`));
 
-  // ── Belt stripe calculation ───────────────────────────────────────────────
-  const graduatedCount = [...touchedKeys]
-    .filter(k => skillStates[k]?.phase === "review").length;
+  // ── Belt stripe calculation — counts across the full belt, not just this session ──
+  const graduatedCount = Object.values(skillStates)
+    .filter(s => s?.phase === "review").length;
   const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length; // 0-3
 
   // ── Item color by maturity ────────────────────────────────────────────────
@@ -842,7 +847,7 @@ function SummaryScreen({ summary, avatar, onRestart }) {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 52px 52px 52px",
               gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
               <div />
-              {["VOCA", "VISU", "PARM"].map(h => (
+              {WHITE_BELT_SKILLS.map(h => (
                 <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
                   textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
                   {h}
@@ -861,7 +866,8 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                   </div>
                   {WHITE_BELT_SKILLS.map(skill => {
                     const k = `${topicKey}:${skill}`;
-                    const entry = touchedKeys.has(k) ? skillStates[k] : undefined;
+                    const entry = skillStates[k];
+                    const wasTouched = touchedKeys.has(k);
                     const { bg, label: cellLabel, textColor } = itemCell(entry);
                     return (
                       <div key={skill} style={{
@@ -869,6 +875,8 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                         display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: "0.65rem", fontWeight: 700, color: textColor,
                         transition: "background 0.4s ease",
+                        outline: wasTouched ? `2px solid ${C.primary}` : "none",
+                        outlineOffset: "-2px",
                       }}>
                         {cellLabel}
                       </div>
@@ -912,7 +920,7 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                     {item.correct ? "✓" : "✗"}
                   </span>
                   <span style={{ fontWeight: 600, color: C.text, fontSize: "0.85rem", flex: 1 }}>
-                    {FAMILY_LABELS[item.family] || item.family}
+                    {FAMILY_LABELS[item.topic ?? item.family] || item.topic || item.family}
                     <span style={{ fontWeight: 400, color: C.muted, marginLeft: "0.3rem" }}>
                       — {SKILL_LABELS[item.skill] || item.skill}
                     </span>
