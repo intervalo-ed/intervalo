@@ -45,21 +45,21 @@ Gradus es una plataforma de práctica adaptativa web mobile-first que entrena el
 
 El MVP se enfoca exclusivamente en reconocimiento de funciones en dos dimensiones, entregado como aplicación web. El objetivo principal es conseguir usuarios orgánicos tempranos para validar el modelo pedagógico y ajustar el algoritmo con datos reales antes de invertir en desarrollo móvil nativo.
 
-## **4.1 Tipos de función incluidos**
+## **4.1 Topics incluidos en el MVP (orden de aparición)**
 
-* Lineal
-
-* Cuadrática
-
-* Polinomial (grado 3 en adelante)
-
-* Exponencial
-
-* Logarítmica
-
-* Trigonométrica (seno, coseno, tangente)
-
-* Racional (con asíntotas)
+| # | Topic | Cinturón |
+| :---- | :---- | :---- |
+| 1 | Lineal | Blanco |
+| 2 | Cuadrática | Blanco |
+| 3 | Exponencial | Blanco |
+| 4 | Logarítmica | Blanco |
+| 5 | Trigonométrica (seno, coseno, tangente) | Blanco |
+| 6 | Racional (con asíntotas) | Blanco |
+| 7 | Valor absoluto | Blanco |
+| 8–13 | Límites y continuidad (6 topics) | Azul |
+| 14–19 | Derivadas (6 topics) | Violeta |
+| 20–25 | Integrales (6 topics) | Marrón |
+| — | Análisis avanzado | Negro (TBD) |
 
 ## **4.2 Fuera del MVP**
 
@@ -111,45 +111,56 @@ Se muestra el gráfico de una función. El estudiante elige entre cuatro combina
 
 # **6\. Sistema de Progresión: Cinturones BJJ**
 
-Cada estudiante posee un único cinturón que representa su nivel global. La progresión es por demostración real de habilidad, no por tiempo acumulado. Dentro de cada cinturón existen dos rayas posibles, correspondientes a dos de las tres dimensiones evaluadas: reconocimiento visual, vocabulario matemático e identificación de parámetros. El orden de obtención de las rayas es libre.
+Cada estudiante posee un único cinturón que representa su nivel global. La progresión es por demostración real de habilidad (ítems graduados), no por tiempo acumulado.
 
-Las funciones de cada cinturón son las que el estudiante debe dominar para avanzar al siguiente. En toda sesión aparecen también ejercicios de cinturones anteriores con frecuencia ajustada por el algoritmo SM-2, garantizando retención a largo plazo sobre todo el contenido previo.
+Cada cinturón tiene 3 franjas posibles, desbloqueadas por cantidad de ítems graduados dentro del cinturón actual. Un ítem se considera graduado cuando completa el loop corto (step 2 aprobado) y entra en fase de review.
 
-## **6.1 Lógica de rayas y promoción**
+En toda sesión aparecen también ejercicios de cinturones anteriores con frecuencia ajustada por el algoritmo SM-2, garantizando retención a largo plazo.
 
-| Estado | Reconocimiento | Vocabulario | Parámetros |
+## **6.1 Lógica de franjas — Cinturón Blanco**
+
+El cinturón blanco tiene 21 ítems (7 topics × 3 habilidades). Las 3 franjas se otorgan por ítems graduados acumulados:
+
+| Estado | Ítems graduados | Hito pedagógico |
+| :---- | :---- | :---- |
+| Sin franjas | 0–2 | Inicio del camino |
+| Primera franja | 3 | Primera familia dominada (~lineales completas) |
+| Segunda franja | 9 | Tres familias dominadas (base sólida) |
+| Tercera franja | 18 | Seis familias dominadas (listo para promover) |
+| **Promoción a Azul** | 21 | Las 7 familias completas (3 ítems sobrantes de margen) |
+
+La misma lógica se aplica a cada cinturón con su cantidad total de ítems.
+
+## **6.2 Cinturones, topics y lógica pedagógica**
+
+| Cinturón | Topics a dominar | Ítems totales | Lógica pedagógica |
 | :---- | :---- | :---- | :---- |
-| Sin rayas | — | — | — |
-| Una raya | **Aprobado** | — | — |
-| Una raya | — | **Aprobado** | — |
-| Una raya | — | — | **Aprobado** |
-| Dos rayas | **Aprobado** | **Aprobado** | — |
-| Dos rayas | **Aprobado** | — | **Aprobado** |
-| Dos rayas | — | **Aprobado** | **Aprobado** |
-| **Promoción al siguiente cinturón** | **Aprobado** | **Aprobado** | **Aprobado** |
+| **Blanco** | Lineales, Cuadráticas, Exponenciales, Logarítmicas, Trigonométricas, Racionales, Valor absoluto | 21 | *Familias elementales del análisis. Base visual e intuitiva: forma, parámetros y vocabulario fundamental.* |
+| **Azul** | Límites y continuidad (6 topics) | 18 | *Primer salto formal. Introduce límites finitos e infinitos, continuidad, discontinuidades y asíntotas.* |
+| **Violeta** | Derivadas (6 topics) | 18 | *Introduces la variación instantánea. Reglas de derivación, regla de la cadena, aplicaciones (monotonía, extremos).* |
+| **Marrón** | Integrales (6 topics) | 18 | *Cálculo de área y acumulación. Integral indefinida, técnicas (sustitución, partes), integral definida y TFC.* |
+| **Negro** | TBD | TBD | *Análisis avanzado. Contenido y lógica de maestría a definir.* |
 
-| Caso especial: cinturon negro *El cinturon negro otorga hasta dos rayas sobre las dimensiones de la funcion racional a eleccion del estudiante. La tercera dimensión queda como objetivo de maestría permanente sin promoción ulterior, dado que no existe un cinturón siguiente.* |
-| :---- |
+## **6.3 Topics por cinturón — detalle Azul, Violeta, Marrón**
 
-## **6.2 Cinturones, funciones y lógica pedagógica**
+**Azul — Límites y continuidad:**
+Límites finitos (algebraico + gráfico) · Límites al infinito y asíntotas · Límites laterales y discontinuidades · Continuidad en un punto · Límites notables (sin x/x, etc.) · Indeterminaciones (L'Hôpital)
 
-| Cinturón | Color | Funciones a dominar | Lógica pedagógica |
-| :---- | :---- | :---- | :---- |
-| **Blanco** |  | Lineal | *Introduce pendiente e intercepto como primeros parámetros. Base visual e intuitiva del reconocimiento de funciones.* |
-| **Azul** |  | Cuadrática, Polinomica | *Introduce vértice, apertura y raíces múltiples. Primer salto de complejidad paramétrica.* |
-| **Violeta** |  | Exponencial, Logarítmica | *Par natural por ser inversas entre sí. Introduce asíntotas y bases como parámetro clave.* |
-| **Marrón** |  | Trigonométricas | *Introduce periodo y amplitud, parámetros ausentes en todas las funciones anteriores. El salto más exigente.* |
-| **Negro** |  | Racional | *Introduce la función racional con síntomas verticales y horizontales simultáneos. Las dos rayas se obtienen sobre dos dimensiones a elección del estudiante. La tercera dimensión es maestría permanente sin promoción ulterior.* |
+**Violeta — Derivadas:**
+Definición y notación · Reglas básicas (potencia, suma) · Regla del producto y cociente · Regla de la cadena · Derivadas de funciones elementales · Aplicaciones (monotonía, extremos)
 
-## **6.3 Saltos entre cinturones**
+**Marrón — Integrales:**
+Integral indefinida y antiderivadas · Reglas básicas de integración · Sustitución simple · Integración por partes · Integral definida (Riemann → TFC) · Aplicaciones (área, área entre curvas)
 
-* **Blanco a Azul**: la cuadrática introduce vértice y apertura. Primer salto de complejidad paramétrica.
+## **6.4 Saltos entre cinturones**
 
-* **Azul a Violeta**: primer encuentro con asíntotas y funciones inversas entre sí. El estudiante comienza a percibir relaciones entre familias.
+* **Blanco a Azul**: transición del objeto (funciones) al comportamiento (límites). Primer contacto con el análisis formal.
 
-* **Violeta a Marrón**: las trigonométricas introducen periodo y amplitud, parámetros ausentes en todas las funciones anteriores. El salto conceptualmente más exigente.
+* **Azul a Violeta**: de observar comportamientos a cuantificarlos. La derivada como herramienta operativa.
 
-* **Marron a Negro**: la funcion racional combina asintotas verticales y horizontales simultaneas, incorporando complejidad estructural que ninguna funcion anterior presenta de forma combinada.
+* **Violeta a Marrón**: el salto de la derivación a la integración. Acumulación como operación inversa.
+
+* **Marrón a Negro**: TBD.
 
 # **7\. Avatar del Estudiante**
 
@@ -352,15 +363,15 @@ Escala: Supa Base USD 50 a 100/mes según volumen, backend con autoscaling en AW
 
 * Historial completo de intentos almacenado para análisis futuro
 
-## **11.4 Sistema de Cinturones y Rayas**
+## **11.4 Sistema de Cinturones y Franjas**
 
-* Un cinturon unico por estudiante: Blanco, Azul, Violeta, Marron, Negro
+* Un cinturón único por estudiante: Blanco, Azul, Violeta, Marrón, Negro
 
-* Dos rayas posibles por cinturón, obtenibles en orden libre
+* Tres franjas por cinturón, desbloqueadas por ítems graduados acumulados (umbrales: 3 / 9 / 18)
 
-* Las dos rayas más la dimensión pendiente completan la promoción al siguiente cinturón
+* La promoción al siguiente cinturón requiere completar todos los ítems del cinturón actual
 
-* El cinturon negro otorga dos rayas sobre la funcion racional; la tercera dimension es maestria permanente
+* Cinturón Negro: contenido y mecánica de maestría TBD
 
 ## **11.5 Monetización**
 

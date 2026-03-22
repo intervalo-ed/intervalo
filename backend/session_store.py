@@ -59,6 +59,9 @@ _sessions: dict[str, SessionState] = {}
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
+_default_config = SM2Config()
+
+
 def create_session(user_name: str) -> SessionState:
     """Crea una nueva sesión y devuelve el estado inicial."""
     session_id = str(uuid.uuid4())[:8]
@@ -77,7 +80,7 @@ def create_session(user_name: str) -> SessionState:
     for idx, si in enumerate(session_items):
         family_value = si.key.function_family.value
         skill_value = si.key.skill_type.value
-        ex = get_exercise(family_value, skill_value)
+        ex = get_exercise(family_value, skill_value, _default_config.graph_exercise_probability)
         exercise_id = f"ex_{idx:03d}"
         exercises.append(
             ExerciseInSession(
@@ -172,6 +175,16 @@ def get_summary(session_id: str) -> dict:
             "phase": result["new_phase"],
         })
 
+    # Estado final de cada ítem (family:skill → SM2 state actual)
+    skill_states = {}
+    for key, item_state in state.item_states.items():
+        k = f"{key.function_family.value}:{key.skill_type.value}"
+        skill_states[k] = {
+            "phase": item_state.phase,
+            "step_index": item_state.step_index,
+            "next_review": item_state.next_review.isoformat() if item_state.next_review else None,
+        }
+
     return {
         "session_id": session_id,
         "user_name": state.user_name,
@@ -179,4 +192,5 @@ def get_summary(session_id: str) -> dict:
         "correct": correct_count,
         "incorrect": incorrect_count,
         "items": items,
+        "skill_states": skill_states,
     }
