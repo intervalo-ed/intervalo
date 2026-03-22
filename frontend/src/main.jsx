@@ -700,13 +700,13 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
 // ── SummaryScreen ──────────────────────────────────────────────────────────────
 
 function SummaryScreen({ summary, avatar, onRestart }) {
-  const { user_name, total, correct, incorrect, items } = summary;
+  const { user_name, total, correct, incorrect, items, xp_earned = 0, level_info } = summary;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
   const scoreColor = pct >= 70 ? C.success : pct >= 40 ? "#D97706" : C.error;
   const scoreBg    = pct >= 70 ? C.successBg : pct >= 40 ? "#FEF3C7" : C.errorBg;
 
   // ── XP & belt progress ──────────────────────────────────────────────────────
-  const xp = total;
+  const xp = xp_earned;
 
   const skillStates = summary.skill_states || {};
   // Items exercised this session get a visual highlight in the grid
@@ -795,19 +795,53 @@ function SummaryScreen({ summary, avatar, onRestart }) {
             </div>
           </div>
 
-          {/* XP card */}
-          <div style={{ ...card, marginBottom: "1rem", display: "flex",
-            alignItems: "center", justifyContent: "space-between" }}>
-            <div>
-              <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-                textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                Experiencia ganada
+          {/* XP + Level card */}
+          <div style={{ ...card, marginBottom: "1rem" }}>
+            {/* XP earned row */}
+            <div style={{ display: "flex", alignItems: "center",
+              justifyContent: "space-between", marginBottom: "1rem" }}>
+              <div>
+                <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                  textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  Experiencia ganada
+                </div>
+                <div style={{ fontSize: "2rem", fontWeight: 800, color: C.primary, lineHeight: 1.1 }}>
+                  +{xp} XP
+                </div>
               </div>
-              <div style={{ fontSize: "2rem", fontWeight: 800, color: C.primary, lineHeight: 1.1 }}>
-                +{xp} XP
-              </div>
+              <div style={{ fontSize: "2rem" }}>⚡</div>
             </div>
-            <div style={{ fontSize: "2rem" }}>⚡</div>
+
+            {/* Level progress bar */}
+            {level_info && (
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between",
+                  alignItems: "baseline", marginBottom: "0.4rem" }}>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: C.text }}>
+                    Nivel {level_info.level}
+                  </div>
+                  <div style={{ fontSize: "0.68rem", color: C.muted }}>
+                    {level_info.xp_in_level} / {level_info.xp_required} XP
+                  </div>
+                </div>
+                <div style={{ width: "100%", height: 10, background: C.border,
+                  borderRadius: 999, overflow: "hidden" }}>
+                  <div style={{
+                    width: `${Math.min(level_info.progress_pct, 100)}%`,
+                    height: "100%",
+                    background: `linear-gradient(90deg, ${C.primary}, #7C3AED)`,
+                    borderRadius: 999,
+                    transition: "width 0.8s ease",
+                  }} />
+                </div>
+                <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.35rem",
+                  textAlign: "right" }}>
+                  {level_info.xp_missing > 0
+                    ? `Faltan ${level_info.xp_missing} XP para el nivel ${level_info.level + 1}`
+                    : `¡Nivel ${level_info.level} completado!`}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Belt + topic progress card */}

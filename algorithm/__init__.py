@@ -17,6 +17,20 @@ from .graduation import BeltProgress, belt_progress, is_graduated
 from .scoring import quality_from_attempt
 from .session import SessionItem, belt_item_priority, build_session, default_catalog, should_reinsert
 from .sm2 import SM2ItemState, update_item_state
+from .xp import (
+    LevelProgress,
+    XP_BONUS_BELT,
+    XP_BONUS_Q3,
+    XP_BONUS_Q4,
+    XP_BONUS_Q5,
+    XP_BONUS_RAYA,
+    XP_BONUS_STREAK10,
+    XP_BONUS_STREAK5,
+    XP_TABLE,
+    level_from_xp,
+    level_progress,
+    xp_for_quality,
+)
 
 __all__ = [
     "Belt",
@@ -30,12 +44,21 @@ __all__ = [
     "FunctionFamily",
     "GeneratedExercise",
     "ItemKey",
+    "LevelProgress",
     "SM2Config",
     "SM2ItemState",
     "SessionItem",
     "SkillCode",
     "VIOLET_BELT",
     "WHITE_BELT",
+    "XP_BONUS_BELT",
+    "XP_BONUS_Q3",
+    "XP_BONUS_Q4",
+    "XP_BONUS_Q5",
+    "XP_BONUS_RAYA",
+    "XP_BONUS_STREAK10",
+    "XP_BONUS_STREAK5",
+    "XP_TABLE",
     "belt_item_priority",
     "belt_progress",
     "build_session",
@@ -43,7 +66,10 @@ __all__ = [
     "difficulty_from_state",
     "generate_exercise",
     "is_graduated",
+    "level_from_xp",
+    "level_progress",
     "quality_from_attempt",
     "should_reinsert",
     "update_item_state",
+    "xp_for_quality",
 ]

@@ -49,7 +49,7 @@ def start_session(body: StartSessionRequest):
             "options": ex.options,
             "correct_index": ex.correct_index,
             "has_math": ex.has_math,
-            "skill": ex.item_key.skill_type.value,
+            "skill": ex.item_key.skill.value,
             "graph_fn": ex.graph_fn,
             "graph_view": ex.graph_view,
         }
