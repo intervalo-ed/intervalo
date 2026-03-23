@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 from session_store import create_session, record_answer, get_summary, get_session
 
-app = FastAPI(title="Gradus Backend")
+app = FastAPI(title="Intervalo Backend")
 
 app.add_middleware(
     CORSMiddleware,

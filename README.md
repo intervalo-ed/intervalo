@@ -1,6 +1,16 @@
-# Itervalo
+# Intervalo
 
 ## Índice
+
+1. [Fundamento](#1-fundamento)
+2. [Principios](#2-principios)
+3. [Algoritmo Dual-Loop](#3-algoritmo-dual-loop)
+4. [Gamificación](#4-gamificación)
+5. [Monetización](#5-monetización)
+6. [Equipo](#6-equipo)
+7. [Roadmap](#7-roadmap)
+
+---
 
 # **1\. Fundamento**
 
@@ -24,7 +34,7 @@ Hipótesis | Descripción | Justificación
 
 # **2\. Principios**
 
-Gradus es una plataforma de práctica adaptativa web mobile-first que acompaña la cursada de materias STEM mediante sesiones cortas y frecuentes. Combina evocación activa, repetición espaciada y una capa de progresión inspirada en el sistema de cinturones del Jiu-Jitsu Brasilero. La estética es deliberadamente minimalista para mantener el foco en el contenido.
+Intervalo es una plataforma de práctica adaptativa web mobile-first que acompaña la cursada de materias STEM mediante sesiones cortas y frecuentes. Combina evocación activa, repetición espaciada y una capa de progresión inspirada en el sistema de cinturones del Jiu-Jitsu Brasilero. La estética es deliberadamente minimalista para mantener el foco en el contenido.
 
 | Principio | Implementación |
 | :---- | :---- |
@@ -73,7 +83,7 @@ Un ítem se gradúa al completar el último paso del loop corto (step 2) con cal
 
 # **5\. Monetización**
 
-Gradus es gratuito para todos los estudiantes. El acceso al sistema de práctica adaptativa, los cinturones, los niveles y el progreso pedagógico no tienen costo ni condición económica.
+Intervalo es gratuito para todos los estudiantes. El acceso al sistema de práctica adaptativa, los cinturones, los niveles y el progreso pedagógico no tienen costo ni condición económica.
 
 ## **5.1 Donación voluntaria al graduarse de cinturón Azul**
 
@@ -107,7 +117,7 @@ Una vez que el sistema madure a través de usuarios orgánicos gratuitos y el al
 | Desarrollador Frontend | React mobile-first, integración con API, diseño de interfaz con estética minimalista |
 | Analista de Crecimiento | Mapeo de comunidades universitarias (grupos de Facebook, Discord, WhatsApp por comisión), adquisición orgánica temprana, obtención de feedback, retención de usuarios |
 
-| Orientación del proyecto *Gradus es una plataforma de práctica adaptativa con orientación académica y alma de startup. Rigor en el contenido pedagógico y el modelo algorítmico; mentalidad ágil en la ejecución, el crecimiento y la iteración sobre datos reales.* |
+| Orientación del proyecto *Intervalo es una plataforma de práctica adaptativa con orientación académica y alma de startup. Rigor en el contenido pedagógico y el modelo algorítmico; mentalidad ágil en la ejecución, el crecimiento y la iteración sobre datos reales.* |
 | :---- |
 
 # **7\. Roadmap**

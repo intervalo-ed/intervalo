@@ -168,21 +168,24 @@ function BJJAvatar({ gender = "male", skin = "#FDDBB4", hair = "#1C1C1C", kimono
   );
 }
 
-// ── GradusLogo — pixel art ────────────────────────────────────────────────────
+// ── IntervaLoLogo — pixel art ──────────────────────────────────────────────────
 const LETTER_PIXELS = {
-  G: [[0,1,1,0],[1,0,0,0],[1,0,1,1],[1,0,0,1],[0,1,1,1]],
+  I: [[1,1,1,1],[0,1,1,0],[0,1,1,0],[0,1,1,0],[1,1,1,1]],
+  N: [[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
+  T: [[1,1,1,1],[0,1,1,0],[0,1,1,0],[0,1,1,0],[0,1,1,0]],
+  E: [[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,1,1,1]],
   R: [[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,1,0],[1,0,0,1]],
+  V: [[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0],[0,1,1,0]],
   A: [[0,1,1,0],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
-  D: [[1,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,1,1,0]],
-  U: [[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
-  S: [[0,1,1,1],[1,0,0,0],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
+  L: [[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,1,1,1]],
+  O: [[0,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
 };
 const BELT_STRIPE = ['#E0DDD0','#1C3A8B','#6B2D8B','#6B3A1F','#111111'];
 
-function GradusLogo({ px = 4 }) {
+function IntervaLoLogo({ px = 4 }) {
   const gap = Math.max(2, px - 1);
   const lw = 4 * px, lh = 5 * px;
-  const word = ['G','R','A','D','U','S'];
+  const word = ['I','N','T','E','R','V','A','L','O'];
   const totalW = word.length * lw + (word.length - 1) * gap;
   const beltY = lh + px;
   const beltH = px;
@@ -340,7 +343,7 @@ function HomeScreen({ onStart }) {
       {/* Nav */}
       <nav style={{ background: C.nav, height: 52, display: "flex",
         alignItems: "center", justifyContent: "center" }}>
-        <GradusLogo px={4} />
+        <IntervaLoLogo px={4} />
       </nav>
 
       <div style={{ display: "flex", justifyContent: "center", padding: "2rem 1rem 3rem" }}>
@@ -579,7 +582,7 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "system-ui, sans-serif" }}>
       <nav style={{ background: C.nav, padding: "0 1.5rem", height: 52,
         display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <GradusLogo px={4} />
+        <IntervaLoLogo px={4} />
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           {avatar && (
             <div style={{ width: 32, height: 32, borderRadius: "50%",
@@ -745,7 +748,7 @@ function SummaryScreen({ summary, avatar, onRestart }) {
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "system-ui, sans-serif" }}>
       <nav style={{ background: C.nav, height: 52, display: "flex",
         alignItems: "center", justifyContent: "center" }}>
-        <GradusLogo px={4} />
+        <IntervaLoLogo px={4} />
       </nav>
 
       <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 3rem" }}>

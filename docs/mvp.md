@@ -1,8 +1,58 @@
-# **4\. Alcance del MVP**
+# MVP — Intervalo
 
-El MVP se enfoca en el cinturón blanco —reconocimiento de funciones elementales en dos dimensiones— entregado como aplicación web. El objetivo principal es conseguir usuarios orgánicos tempranos para validar el modelo pedagógico y ajustar el algoritmo con datos reales.
+## Propósito de este documento
 
-## **4.1 Topics incluidos en el MVP (orden de aparición)**
+Lista las features del MVP, el contenido cubierto y la mecánica de progresión. El MVP está orientado a un curso de **Análisis Matemático I** y su objetivo es conseguir usuarios orgánicos tempranos que permitan validar el modelo pedagógico e iterar con datos reales.
+
+---
+
+# **1. Features del MVP**
+
+| Feature | Descripción |
+| :---- | :---- |
+| **Flujo de sesión** | Pregunta → selección de respuesta → feedback inmediato con respuesta correcta |
+| **Generador de ejercicios** | Ejercicios paramétricos para cinturón blanco (7 topics × 3 habilidades = 21 ítems) |
+| **Sistema de cinturones** | Cinturones Blanco, Azul, Violeta y Marrón con rayas internas y umbral de promoción |
+| **Sistema de XP y niveles** | XP por ejercicio con bonuses de racha e hitos; barra de nivel al final de cada sesión |
+| **Pantalla de progreso post-sesión** | Resumen con XP ganada, avance de nivel y ítems graduados |
+| **Avatar básico** | Personaje configurable (género, peinado, color de pelo) al iniciar |
+| **Donación voluntaria** | Pantalla de celebración con opción de donación al graduarse de cinturón Azul por primera vez |
+| **Web mobile-first** | Aplicación web responsiva, optimizada para uso desde el celular |
+
+## **1.1 Fuera del MVP**
+
+* Login y cuentas de usuario persistentes (V1 puede arrancar con sesión local)
+* Funciones en tres dimensiones
+* Razonamiento paramétrico con sliders interactivos
+* Contribución de ejercicios por docentes
+* Mecánica grupal y cursos (modelo "for educators")
+* Aplicaciones mobile nativas iOS y Android (V2)
+
+---
+
+# **2. Flujo de la aplicación**
+
+```
+Inicio
+  └─ Configuración de avatar (una vez)
+       └─ Pantalla principal / Dashboard
+            └─ Iniciar sesión
+                 └─ [loop] Pregunta → Respuesta → Feedback
+                      └─ Fin de sesión
+                           └─ Resumen: XP ganada · avance de nivel · ítems graduados
+                                └─ [si corresponde] Pantalla de raya o promoción de cinturón
+                                     └─ [si cinturón Azul por primera vez] Pantalla de donación voluntaria
+```
+
+Cada sesión trabaja sobre los ítems debidos según el algoritmo Dual-Loop: ítems en adquisición (loop corto) y ítems en revisión (loop largo SM-2). La sesión termina cuando se agotan los ítems programados para el día.
+
+---
+
+# **3. Contenido: Análisis Matemático I**
+
+El contenido está organizado en cinturones. El MVP arranca con el cinturón blanco completo y los cinturones siguientes quedan desbloqueados a medida que el estudiante progresa.
+
+## **3.1 Topics por cinturón (orden de aparición)**
 
 | # | Topic | Cinturón |
 | :---- | :---- | :---- |
@@ -18,19 +68,9 @@ El MVP se enfoca en el cinturón blanco —reconocimiento de funciones elemental
 | 20–24 | Integrales (5 topics) | Marrón |
 | — | Análisis avanzado | Negro (TBD) |
 
-## **4.2 Fuera del MVP**
+---
 
-* Funciones en tres dimensiones
-
-* Razonamiento paramétrico con sliders interactivos
-
-* Contribución de ejercicios por docentes
-
-* Mecánica grupal y cursos (modelo "for educators")
-
-* Aplicaciones mobile nativas iOS y Android (V2)
-
-# **5\. Habilidades**
+# **4. Habilidades**
 
 Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una tiene un código de 4 letras en mayúscula, como los atributos en un juego de rol. Son transversales al sistema: el mismo código puede aparecer en distintos cinturones evaluando el mismo tipo de pensamiento aplicado a un dominio diferente.
 
@@ -47,7 +87,7 @@ Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una
 
 Cada cinturón selecciona 3 habilidades de este catálogo según su dominio matemático. El conjunto de habilidades de un cinturón define qué tipo de ejercicios puede generar el sistema para ese nivel.
 
-## **5.1 Habilidades por cinturón**
+## **4.1 Habilidades por cinturón**
 
 | Cinturón | Habilidades | Racional pedagógico |
 | :---- | :---- | :---- |
@@ -57,7 +97,7 @@ Cada cinturón selecciona 3 habilidades de este catálogo según su dominio mate
 | **Marrón** | GRAF · INTG · APLI | Área acumulada, técnicas de integración y aplicaciones del cálculo integral |
 | **Negro** | TBD | TBD |
 
-## **5.2 Tipos de ejercicio por habilidad (cinturón blanco)**
+## **4.2 Tipos de ejercicio por habilidad (cinturón blanco)**
 
 **CLSF — Clasificación:** Se muestra el gráfico de una función. El estudiante elige a qué familia pertenece entre cuatro opciones. Los distractores reflejan confusiones frecuentes entre familias visualmente similares.
 
@@ -65,11 +105,13 @@ Cada cinturón selecciona 3 habilidades de este catálogo según su dominio mate
 
 **FORM — Formulación:** Se muestra el gráfico de una función. El estudiante elige entre cuatro combinaciones de parámetros cuál corresponde a la curva observada. Entrena la conexión entre la representación visual y la expresión algebraica.
 
-# **6\. Sistema de Progresión**
+---
 
-Gradus combina dos capas de progresión: **cinturones** que representan el dominio de un contenido matemático, y **niveles de XP** que reflejan la actividad acumulada del estudiante en el sistema. Ambas capas son independientes: los cinturones dependen de la calidad del aprendizaje; los niveles, del esfuerzo sostenido.
+# **5. Sistema de Progresión**
 
-## **6.1 Cinturones**
+Intervalo combina dos capas de progresión: **cinturones** que representan el dominio de un contenido matemático, y **niveles de XP** que reflejan la actividad acumulada del estudiante en el sistema. Ambas capas son independientes: los cinturones dependen de la calidad del aprendizaje; los niveles, del esfuerzo sostenido.
+
+## **5.1 Cinturones**
 
 Cada cinturón cubre un dominio matemático del curso de cálculo univariable y tiene un catálogo de ítems definido por la combinación de temas × habilidades. La progresión es por demostración real de dominio —ítems graduados— no por tiempo acumulado.
 
@@ -139,14 +181,14 @@ Blanco (Funciones) → Azul (Límites) → Violeta (Derivadas) → Marrón (Inte
 
 Cubre los temas restantes del curso de cálculo univariable. Contenido y mecánica de maestría a definir una vez consolidados los cinturones anteriores con datos reales de usuarios.
 
-## **6.2 Saltos entre cinturones**
+## **5.2 Saltos entre cinturones**
 
 * **Blanco a Azul**: transición del objeto (funciones) al comportamiento (límites). Primer contacto con el análisis formal.
 * **Azul a Violeta**: de observar comportamientos a cuantificarlos. La derivada como herramienta operativa.
 * **Violeta a Marrón**: de la derivación a la integración. Acumulación como operación inversa.
 * **Marrón a Negro**: TBD.
 
-## **6.3 Sistema de XP y Niveles**
+## **5.3 Sistema de XP y Niveles**
 
 Los niveles son una capa de reconocimiento transversal basada en el esfuerzo acumulado. Cada ejercicio otorga XP independientemente de si el estudiante acierta o no; el acierto y la velocidad de respuesta determinan cuánto.
 
@@ -166,19 +208,21 @@ Los niveles son una capa de reconocimiento transversal basada en el esfuerzo acu
 | Obtener una raya | +50 bonus de hito |
 | Promoción de cinturón | +200 bonus de hito |
 
-Al terminar cada clase, el estudiante ve su progreso de nivel: XP ganada en la sesión y barra de avance hacia el siguiente nivel.
+Al terminar cada sesión, el estudiante ve su progreso de nivel: XP ganada en la sesión y barra de avance hacia el siguiente nivel.
 
-# **7\. Avatar del Estudiante**
+---
 
-Cada estudiante tiene un avatar que porta el cinturón correspondiente a su nivel actual. La personalización inicial es minimalista y se configura una única vez al crear la cuenta.
+# **6. Avatar del Estudiante**
 
-## **7.1 Opciones disponibles en el MVP**
+Cada estudiante tiene un avatar que porta el cinturón correspondiente a su nivel actual. La personalización se configura una única vez al iniciar y es lo primero que ve el usuario antes de su primera sesión.
+
+## **6.1 Opciones disponibles en el MVP**
 
 * Género del personaje
 * Peinado (selección de opciones predefinidas)
 * Color de pelo
 
-## **7.2 Fuera del MVP — V3**
+## **6.2 Fuera del MVP — V3**
 
 * Kimonos y accesorios desbloqueables
 * Vista de avatares en contexto grupal

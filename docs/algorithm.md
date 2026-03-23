@@ -1,4 +1,4 @@
-# Algoritmo de Progresión — Gradus
+# Algoritmo de Progresión — Intervalo
 
 ## Índice
 
@@ -23,14 +23,14 @@
 
 SM-2 es un algoritmo diseñado para **retención a largo plazo**: aumenta los intervalos entre revisiones de forma exponencial. Funciona bien una vez que el material está adquirido, pero en la fase inicial de aprendizaje presenta un problema: un ítem visto por primera vez puede no volver a aparecer hasta el día siguiente, y la graduación tarda semanas.
 
-Para Gradus, esto genera dos problemas concretos:
+Para Intervalo, esto genera dos problemas concretos:
 
 1. **Engagement temprano**: un estudiante nuevo que practica funciones lineales y no recibe señal de progreso en la primera semana abandona.
 2. **Adquisición vs. retención**: la memoria de trabajo necesita repetición dentro de la misma sesión para consolidar; el espaciado importa más una vez que el concepto ya fue adquirido.
 
 ### La solución: Dual-Loop
 
-El algoritmo de Gradus separa explícitamente dos fases con lógicas distintas:
+El algoritmo de Intervalo separa explícitamente dos fases con lógicas distintas:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -454,4 +454,4 @@ Mes 2: aparece cada 21 días
 
 ---
 
-*Documento técnico interno — Gradus. Última actualización: 2026-03-22.*
+*Documento técnico interno — Intervalo. Última actualización: 2026-03-22.*

@@ -1,5 +1,5 @@
 """
-xp.py — Sistema de XP y niveles de Gradus.
+xp.py — Sistema de XP y niveles de Intervalo.
 
 La curva de niveles está basada en φ^(1/6) (razón áurea sexta parte),
 que produce una progresión suave y perceptiblemente creciente.

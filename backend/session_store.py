@@ -1,5 +1,5 @@
 """
-session_store.py — Gestión de sesiones en memoria para Gradus.
+session_store.py — Gestión de sesiones en memoria para Intervalo.
 """
 
 from __future__ import annotations
