@@ -22,8 +22,8 @@ SM-2 es un algoritmo diseñado para retención a largo plazo: aumenta los interv
 
 Para Intervalo, esto genera dos problemas concretos:
 
-1. **Engagement temprano**: un estudiante nuevo que no recibe señal de progreso en la primera semana abandona.
-2. **Entendimiento vs. retención**: la memoria necesita repetición dentro de la misma sesión para consolidar; el espaciado importa más una vez que el concepto ya fue adquirido.
+1. **Engagement**: un estudiante nuevo que no recibe señal de progreso en la primera semana tiene más probabilidades de abandonar.
+2. **Entendimiento vs. Retención**: la memoria necesita repetición dentro de la misma sesión para consolidar; el espaciado importa más una vez que el concepto ya fue adquirido.
 
 **2F** separa explícitamente dos fases con lógicas distintas: una fase de entendimiento con intervalos cortos y repetición intra-sesión, y una fase de retención basada en SM-2.
 
@@ -56,7 +56,7 @@ class ItemState:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│  ADQUISICIÓN                                             │
+│  ENTENDIMIENTO                                           │
 │  Intervalos fijos cortos: misma sesión → 24h → 72h       │
 │  Repetición intra-sesión permitida                       │
 │  Objetivo: consolidar el concepto en días                │

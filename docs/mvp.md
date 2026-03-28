@@ -1,6 +1,8 @@
 # MVP
 
-El MVP está orientado a un curso de **Análisis Matemático I**. Desde la perspectiva del estudiante, el objetivo es incorporar *Intervalo* como hábito de repaso, hacer sesiones cortas con frecuencia, acumular progreso visible y llegar mejor preparado a los exámenes. Desde la perspectiva del equipo, el objetivo es conseguir usuarios orgánicos tempranos que usen el sistema de manera real, generen datos de comportamiento y permitan validar la mecánica e iterar con evidencia.
+El MVP está orientado a un curso de **Análisis Matemático I**. 
+Desde la perspectiva del estudiante, el objetivo es incorporar *Intervalo* como hábito de repaso, hacer sesiones cortas con frecuencia, acumular progreso visible y llegar mejor preparado a los exámenes. 
+Desde la perspectiva del equipo, el objetivo es conseguir usuarios orgánicos tempranos que usen el sistema de manera real, generen datos de comportamiento y permitan validar la mecánica e iterar con evidencia.
 
 ---
 
@@ -23,7 +25,7 @@ El MVP está orientado a un curso de **Análisis Matemático I**. Desde la persp
 
 El banco está organizado en cinturones. Cada cinturón cubre un dominio matemático del curso y define un conjunto de ítems a partir de la combinación de temas y habilidades evaluadas en ese nivel.
 
-## **2\.1\. Topics por cinturón**
+## **2\.1\. Temas**
 
 | Items | Tema | Cinturón |
 | :---- | :---- | :---- |
@@ -53,20 +55,6 @@ Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una
 | DERI | Derivación | Aplica reglas de derivación con precisión |
 | INTG | Integración | Aplica técnicas de integración al tipo de expresión correcto |
 | APLI | Aplicación | Usa el concepto del cinturón en problemas de contexto real o analítico |
-
-Cada cinturón selecciona 3 habilidades de este catálogo según su dominio matemático. El conjunto de habilidades de un cinturón define qué tipo de ejercicios puede generar el sistema para ese nivel.
-
-## **2\.3\. Habilidades por cinturón**
-
-| Cinturón | Habilidades | Racional |
-| :---- | :---- | :---- |
-| **Blanco** | CLSF · LEXI · FORM | Reconocimiento, vocabulario y formulación de funciones elementales |
-| **Azul** | GRAF · RESL · CLSF | Lectura gráfica, resolución algebraica e identificación de discontinuidades |
-| **Violeta** | GRAF · DERI · APLI | Interpretación geométrica, derivación y aplicaciones de la derivada |
-| **Marrón** | GRAF · INTG · APLI | Área acumulada, técnicas de integración y aplicaciones del cálculo integral |
-| **Negro** | TBD | TBD |
-
----
 
 # **3\. Algoritmo de Repetición Espaciada**
 
@@ -126,9 +114,11 @@ Cada cinturón corresponde a un dominio matemático del curso y se obtiene gradu
 
 ## **9\.1\. Blanco — Funciones**
 
-**Temas (7):** Lineal, Cuadrática, Polinomial, Exponencial, Logarítmica, Racional, Trigonométrica
+**Temas:** Lineal, Cuadrática, Polinomial, Exponencial, Logarítmica, Racional, Trigonométrica
 
-**Habilidades:** CLSF · LEXI · FORM — **Total ítems:** 7 × 3 = 21
+**Habilidades:** CLSF · LEXI · FORM
+
+**Ítems:** 7 × 3 = 21
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
@@ -139,9 +129,11 @@ Cada cinturón corresponde a un dominio matemático del curso y se obtiene gradu
 
 ## **9\.2\. Azul — Límites**
 
-**Temas (6):** Límites algebraicos, Límites laterales, Límites al infinito, Continuidad, Formas indeterminadas, L'Hôpital
+**Temas:** Límites algebraicos, Límites laterales, Límites al infinito, Continuidad, Formas indeterminadas, L'Hôpital
 
-**Habilidades:** GRAF · RESL · CLSF — **Total ítems:** 6 × 3 = 18
+**Habilidades:** GRAF · RESL · CLSF
+
+**Ítems:** 6 × 3 = 18
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
@@ -152,9 +144,11 @@ Cada cinturón corresponde a un dominio matemático del curso y se obtiene gradu
 
 ## **9\.3\. Violeta — Derivadas**
 
-**Temas (4):** Definición como límite, Reglas básicas, Producto y cociente, Regla de la cadena
+**Temas:** Definición como límite, Reglas básicas, Producto y cociente, Regla de la cadena
 
-**Habilidades:** GRAF · DERI · APLI — **Total ítems:** 4 × 3 = 12
+**Habilidades:** GRAF · DERI · APLI
+
+**Ítems:** 4 × 3 = 12
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
@@ -165,9 +159,11 @@ Cada cinturón corresponde a un dominio matemático del curso y se obtiene gradu
 
 ## **9\.4\. Marrón — Integrales**
 
-**Temas (5):** Integral indefinida, Teorema Fundamental del Cálculo, Sustitución, Integración por partes, Integrales definidas
+**Temas:** Integral indefinida, Teorema Fundamental del Cálculo, Sustitución, Integración por partes, Integrales definidas
 
-**Habilidades:** GRAF · INTG · APLI — **Total ítems:** 5 × 3 = 15
+**Habilidades:** GRAF · INTG · APLI — 
+
+**Ítems:** 5 × 3 = 15
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
