@@ -13,7 +13,6 @@
 9. [Dificultad del ejercicio generado](#9-dificultad-del-ejercicio-generado)
 10. [Parámetros de configuración](#10-parámetros-de-configuración)
 11. [Ejemplo completo — estudiante promedio](#11-ejemplo-completo--estudiante-promedio)
-12. [Ejemplo completo — estudiante curtido](#12-ejemplo-completo--estudiante-curtido)
 
 ---
 
@@ -435,23 +434,3 @@ Semana 2: aparece 1 vez (interval = 7 días)
 Semana 3: aparece 1 vez (interval = 7 días si EF < 2.5, o 15–21 días si EF ≥ 2.5)
 Mes 2: aparece cada 21 días
 ```
-
----
-
-## 12. Ejemplo completo — estudiante curtido
-
-**Contexto:** estudiante con sólida base en funciones lineales. Responde rápido y correcto desde el primer intento.
-
-| Día | Sesión | Ítem | quality | Resultado |
-|---|---|---|---|---|
-| Lunes | 1 | step 0 | 5 (< 6s, correcto) | → step 1, next_review mañana |
-| Martes | 2 | step 1 | 5 | → step 2, next_review en 3 días |
-| Viernes | 3 | step 2 | 5 | → **GRADUADO** |
-
-**Resultado:** graduación en 5 días con 3 sesiones.
-
-**Diferencia real:** el curtido no necesita repetición intra-sesión. El promedio puede necesitar 1–2 reinserciones en step 0 antes de consolidar. El curtido completa el camino sin fricciones.
-
----
-
-*Documento técnico interno — Intervalo. Última actualización: 2026-03-22.*
