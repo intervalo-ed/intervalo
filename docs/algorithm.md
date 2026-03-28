@@ -5,7 +5,7 @@
 1. [Diseño](#1-diseño)
 2. [Ítem](#2-ítem)
 3. [Arquitectura](#3-arquitectura)
-4. [Adquisición](#4-adquisición)
+4. [Entendimiento](#4-entendimiento)
 5. [Retención](#5-retención)
 6. [Calificación](#6-calificación)
 7. [Sesión](#7-sesión)
@@ -23,9 +23,9 @@ SM-2 es un algoritmo diseñado para retención a largo plazo: aumenta los interv
 Para Intervalo, esto genera dos problemas concretos:
 
 1. **Engagement temprano**: un estudiante nuevo que no recibe señal de progreso en la primera semana abandona.
-2. **Adquisición vs. retención**: la memoria necesita repetición dentro de la misma sesión para consolidar; el espaciado importa más una vez que el concepto ya fue adquirido.
+2. **Entendimiento vs. retención**: la memoria necesita repetición dentro de la misma sesión para consolidar; el espaciado importa más una vez que el concepto ya fue adquirido.
 
-**2F** separa explícitamente dos fases con lógicas distintas: una fase de adquisición con intervalos cortos y repetición intra-sesión, y una fase de retención basada en SM-2.
+**2F** separa explícitamente dos fases con lógicas distintas: una fase de entendimiento con intervalos cortos y repetición intra-sesión, y una fase de retención basada en SM-2.
 
 ---
 
@@ -43,7 +43,7 @@ Cada ítem tiene su propio estado y evoluciona de forma completamente independie
 @dataclass
 class ItemState:
     phase: Literal["learning", "review"]  # en qué fase está
-    step_index: int        # paso actual en adquisición (0, 1, 2)
+    step_index: int        # paso actual en entendimiento (0, 1, 2)
     ease_factor: float     # EF — solo relevante en retención
     interval: int          # días hasta próxima revisión
     repetitions: int       # repeticiones consecutivas exitosas en retención
@@ -104,7 +104,7 @@ Un ítem comienza siempre en `phase = "learning"`, `step_index = 0`. Transiciona
 
 ---
 
-# **4\. Adquisición**
+# **4\. Entendimiento**
 
 Los `learning_steps` definen el intervalo entre cada paso en días:
 
@@ -198,7 +198,7 @@ learning items con next_review <= hoy     → priorizados
 review items con next_review <= hoy       → ordenados por next_review ascendente
 ```
 
-Los ítems en adquisición tienen prioridad sobre los de retención, porque su ventana de repaso es más estrecha.
+Los ítems en entendimiento tienen prioridad sobre los de retención, porque su ventana de repaso es más estrecha.
 
 **Paso 2 — Marcar candidatos a reinserción**
 
@@ -243,8 +243,8 @@ Antes de mostrar un ejercicio, 2F lee el estado del ítem y selecciona el nivel 
 
 | Condición | Dificultad |
 |---|---|
-| Adquisición, step 0 | Fácil |
-| Adquisición, step 1–2 | Media |
+| Entendimiento, step 0 | Fácil |
+| Entendimiento, step 1–2 | Media |
 | Retención, EF < 1.8 | Fácil |
 | Retención, EF 1.8–2.4 | Media |
 | Retención, EF > 2.4 | Difícil |
@@ -257,7 +257,7 @@ Todos los parámetros viven en `SM2Config` y pueden ajustarse sin modificar la l
 
 | # | Parámetro | Default | Impacto |
 |---|---|---|---|
-| 1 | `learning_steps` | `[0, 1, 3]` | Intervalos en días para cada paso de adquisición. `0` = misma sesión. |
+| 1 | `learning_steps` | `[0, 1, 3]` | Intervalos en días para cada paso de entendimiento. `0` = misma sesión. |
 | 2 | `max_intra_session_reps` | `2` | Máximo de reinserciones de un ítem en step 0 dentro de la misma sesión. |
 | 3 | `quality_threshold_pass` | `3` | Calidad mínima para avanzar un paso. |
 | 4 | `review_initial_interval` | `7` | Intervalo en días al entrar en retención. |
