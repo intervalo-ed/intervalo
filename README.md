@@ -14,7 +14,7 @@ El **entendimiento** y el **repaso** son dos partes esenciales del proceso de **
 
 Sin un repaso constante, los conceptos sobre los cuales ocupamos tiempo y energía en entender, se van degradando de manera gradual hasta quedar prácticamente olvidados. 
 
-Por lo tanto, repasar con frecuencia es lo que determina si un concepto va a estar disponible cuando se lo necesita, ya sea para aplicarlo o para entender un nuevo concepto.
+Por lo tanto, repasar con frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos, ya sea para dar una respuesta, identificar y resolver un problema o como base para entender otro concepto.
 
 El repaso se puede pensar en dos dimensiones, cómo se repasa y con qué frecuencia.
 
