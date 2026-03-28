@@ -4,32 +4,18 @@ El MVP está orientado a un curso de **Análisis Matemático I**. Desde la persp
 
 ---
 
-## Índice
-
-1. [Features](#1-features)
-2. [Banco de Ejercicios](#2-banco-de-ejercicios)
-3. [Algoritmo de Repetición Espaciada](#3-algoritmo-de-repetición-espaciada)
-4. [Home](#4-home)
-5. [Registro](#5-registro)
-6. [Flujo de Repaso](#6-flujo-de-repaso)
-7. [Tutorial](#7-tutorial)
-8. [Sistema de XP](#8-sistema-de-xp)
-9. [Sistema de Cinturones](#9-sistema-de-cinturones)
-
----
-
 # **1\. Features**
 
 | Feature | Descripción |
 | :---- | :---- |
-| **Banco de Ejercicios** | Múltiples ejercicios para cada una de las combinaciones de temas y habilidades (ítems) dentro del curso, junto con explicaciones breves|
-| **Algoritmo de Repetición Espaciada** |  |
-| **Home** | Permite al usuario iniciar repasos, ver su progreso progreso, compartir la app y ver más info sobre el proyecto |
-| **Registro vía Google y Login Automático** | Registro con Google OAuth y acceso directo en visitas subsiguientes |
-| **Flujo de Repaso** | Sesiones de repaso de aproximadamente 12 ejercicios cada una, con feedback inmediato sobre si la respuesta fue correcta y explicaciones breves. Al final de cada sesión se muestran los resultados y el progreso |
-| **Tutorial** | Tutorial en formato de sesión de ejercicios que explica los fundamentos y pilares del sistema. También recolecta el dato de tipo de carrera y universidad. |
-| **Sistema de XP** | XP por ejercicio con bonuses de racha e hitos, barra de nivel al final de cada repaso y en la home |
-| **Sistema de Cinturones** | Cinturones Blanco, Azul, Violeta y Marrón con grados internos. A medida que el estudiante gradua ítems, progresa en el sistema  |
+| [**Banco de Ejercicios**](#2-banco-de-ejercicios) | Múltiples ejercicios para cada combinación de tema y habilidad dentro del curso, con explicaciones breves por ítem |
+| [**Algoritmo de Repetición Espaciada**](#3-algoritmo-de-repetición-espaciada) | Cada ítem tiene un intervalo de repaso individual que se ajusta según el desempeño del estudiante, priorizando los ítems difíciles y espaciando los dominados |
+| [**Home**](#4-home) | Pantalla principal desde donde el estudiante inicia repasos, consulta su progreso, comparte la app y accede al sitio del proyecto |
+| [**Registro vía Google y Login Automático**](#5-registro) | Autenticación con Google OAuth sin contraseña y acceso directo automático en visitas posteriores |
+| [**Repaso**](#6-flujo-de-repaso) | Sesión de aproximadamente 12 ejercicios con feedback inmediato y explicaciones breves, con resumen de resultados y progreso al finalizar |
+| [**Tutorial**](#7-tutorial) | Primera sesión guiada que presenta el sistema de forma interactiva y recolecta el tipo de carrera y universidad del estudiante |
+| [**Sistema de XP**](#8-sistema-de-xp) | Puntos de experiencia por ejercicio con bonuses de racha e hitos, y barra de nivel visible al finalizar cada repaso y en la home |
+| [**Sistema de Cinturones**](#9-sistema-de-cinturones) | Cuatro cinturones (Blanco, Azul, Violeta, Marrón) con grados internos que el estudiante avanza graduando ítems con desempeño sostenido |
 
 ---
 
