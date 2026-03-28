@@ -216,8 +216,12 @@ def get_summary(session_id: str) -> dict:
         })
 
     # Estado final de cada ítem (topic:skill → SM2 state actual)
+    # Solo incluir ítems que fueron practicados en esta sesión
+    practiced_keys = {r["item_key"] for r in state.results}
     skill_states = {}
     for key, item_state in state.item_states.items():
+        if key not in practiced_keys:
+            continue
         k = f"{key.topic}:{key.skill.value}"
         skill_states[k] = {
             "phase": item_state.phase,

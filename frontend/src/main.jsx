@@ -20,16 +20,6 @@ const CARRERAS = [
   { value: "otra",        label: "Otra" },
 ];
 
-const SKIN_COLORS = ["#FDDBB4", "#D4956A", "#A0622A", "#5C3317"];
-const HAIR_COLORS = ["#1C1C1C", "#5C3317", "#C8A450", "#B0A090"];
-
-const KIMONO_OPTIONS = [
-  { value: "cream",    swatch: "#F2E8D0" },
-  { value: "charcoal", swatch: "#2A2A3A" },
-  { value: "blue",     swatch: "#0F2244" },
-  { value: "red",      swatch: "#8B1A1A" },
-];
-
 const BELTS = [
   { name: "Blanco",  color: "#F5F5DC", text: "#7A6A30", total: 21, stripeAt: [3, 9], promoteAt: 18   },
   { name: "Azul",    color: "#1C3A8B", text: "#fff",    total: 18, stripeAt: [2, 6], promoteAt: 15   },
@@ -38,15 +28,12 @@ const BELTS = [
   { name: "Negro",   color: "#111111", text: "#fff",    total: null, stripeAt: [],   promoteAt: null  },
 ];
 
+const BELT_COLORS = ['#E0DDD0','#1C3A8B','#6B2D8B','#6B3A1F','#111111'];
+
 const SKILL_LABELS = {
-  CLSF: "Clasificación",
-  LEXI: "Léxico",
-  FORM: "Formulación",
-  GRAF: "Graficación",
-  RESV: "Resolución",
-  DERI: "Derivación",
-  INTG: "Integración",
-  APLI: "Aplicación",
+  CLSF: "Clasificación", LEXI: "Léxico", FORM: "Formulación",
+  GRAF: "Graficación", RESV: "Resolución", DERI: "Derivación",
+  INTG: "Integración", APLI: "Aplicación",
 };
 
 const FAMILY_LABELS = {
@@ -55,7 +42,6 @@ const FAMILY_LABELS = {
   trigonometric: "Trigonométrica", rational: "Racional",
 };
 
-// White belt: 7 function families × 3 skills = 21 items
 const WHITE_BELT_TOPICS = [
   { key: "linear",        label: "Lineal" },
   { key: "quadratic",     label: "Cuadrática" },
@@ -66,31 +52,55 @@ const WHITE_BELT_TOPICS = [
   { key: "trigonometric", label: "Trigonométrica" },
 ];
 const WHITE_BELT_SKILLS = ["CLSF", "LEXI", "FORM"];
-// Rayas: 2 grados internos antes de la promoción
-const STRIPE_THRESHOLDS  = [3, 9];   // ítems graduados para primera y segunda raya
-const PROMOTION_THRESHOLD = 18;       // ítems graduados para ascender al siguiente cinturón
-const MASTERY_TOTAL       = 21;       // total de ítems del cinturón (últimos 3 son maestría opcional)
+const STRIPE_THRESHOLDS  = [3, 9];
+const PROMOTION_THRESHOLD = 18;
+const MASTERY_TOTAL       = 21;
 
-// ── Design tokens ──────────────────────────────────────────────────────────────
+// Example exercise for the tutorial
+const TUTORIAL_EXERCISE = {
+  id: "tutorial-example",
+  question: "¿Cuál de estas expresiones representa una función lineal?",
+  options: ["f(x) = 5x − 2", "f(x) = x²", "f(x) = 3ˣ", "f(x) = log(x)"],
+  correct_index: 0,
+  has_math: false,
+  skill: "CLSF",
+  graph_fn: null,
+  graph_view: null,
+  feedback_correct: "¡Correcto! Una función lineal tiene la forma f(x) = mx + b, donde m y b son constantes.",
+  feedback_incorrect: "Una función lineal tiene la forma f(x) = mx + b. La opción correcta es f(x) = 5x − 2.",
+};
+
+// ── Design tokens (pseudo dark mode) ─────────────────────────────────────────
+
+const fonts = {
+  heading: "'Roboto Serif', Georgia, serif",
+  body: "'Inter', system-ui, sans-serif",
+};
 
 const C = {
-  bg: "#F7F8FA", card: "#FFFFFF", nav: "#0A0A14",
-  primary: "#6366f1", success: "#16a34a", successBg: "#dcfce7",
-  error: "#dc2626", errorBg: "#fee2e2",
-  border: "#E5E7EB", text: "#111827", muted: "#6B7280",
-  pill: "#EEF2FF", pillText: "#6366f1",
+  bg: "#131324", bgCard: "#1E1E34", bgElevated: "#2A2A4A",
+  nav: "#1A1A2A", border: "#38385A",
+  primary: "#7E80F7", primaryHover: "#9698FA",
+  success: "#36D87A", successBg: "rgba(54,216,122,0.15)",
+  error: "#F76565", errorBg: "rgba(247,101,101,0.15)",
+  text: "#F6F8FC", textSecondary: "#A4B3C6", muted: "#768899",
+  pill: "rgba(126,128,247,0.15)", pillText: "#BCBDFC",
 };
+
 const card = {
-  background: C.card, borderRadius: 20,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.06)",
+  background: C.bgCard, borderRadius: 20,
+  boxShadow: "0 2px 8px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.15)",
   padding: "1.75rem",
 };
+
 const inputStyle = {
   width: "100%", padding: "0.7rem 1rem",
-  border: `1.5px solid ${C.border}`, borderRadius: 10,
+  border: `1px solid ${C.border}`, borderRadius: 10,
   fontSize: "0.95rem", outline: "none", color: C.text,
-  background: "#fff", boxSizing: "border-box",
+  background: C.bgElevated, boxSizing: "border-box",
+  fontFamily: fonts.body,
 };
+
 const labelSt = {
   display: "block", fontWeight: 600, fontSize: "0.78rem", color: C.muted,
   textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.4rem",
@@ -113,130 +123,38 @@ function MathText({ text }) {
   );
 }
 
-// ── BJJAvatar — pixel art ─────────────────────────────────────────────────────
-// 12 cols × 18 rows, PX=9 → viewBox "0 0 108 162"
-// _ transparent · S skin · H hair · G gi · g gi-dark · B belt · b belt-dark
+// ── Logo (text-based) ──────────────────────────────────────────────────────────
 
-function BJJAvatar({ gender = "male", skin = "#FDDBB4", hair = "#1C1C1C", kimono = "charcoal" }) {
-  const GI = {
-    cream:    { gi: "#F2E8D0", giD: "#D4C8A8" },
-    charcoal: { gi: "#2A2A3A", giD: "#16161F" },
-    blue:     { gi: "#0F2244", giD: "#071530" },
-    red:      { gi: "#8B1A1A", giD: "#5A0F0F" },
-  };
-  const { gi, giD } = GI[kimono] || GI.charcoal;
-  const COLORS = { S: skin, H: hair, G: gi, g: giD, B: "#E8E0B0", b: "#A8986A" };
-  const f = gender === "female";
-
-  // 12 cols × 18 rows
-  // arms (cols 1-2, 9-10) extend independently from torso (cols 4-7)
-  const rows = [
-    f ? '___________' : '___________', //  0 hair
-    f ? '____HHH____' : '____HHH____', //  1 face
-    f ? '___HSSSH___' : '___HSSSH___', //  2 face
-    f ? '___HSSSH___' : '___HSSSH___', //  3 face
-    f ? '___HSSSH___' : '___HSSSH___', //  4 chin
-    f ? '___HSSSH___' : '____SSS____',                       //  5 neck
-    f ? '__GHHGHHG__' : '__GGGGGGG__',                       //  6 collar
-    f ? '_GGGHGHGGG_' : '_GGGGGGGGG_',                       //  7 shoulders wide
-    '_GGgGGGgGG_',                       //  8 arms + narrow torso
-    '_GGgGGGgGG_',                       //  9 arms + torso
-    '_GGgGGGgGG_',                       // 10 belt (torso-width)
-    '_GGBGGGBGG_',                       // 11 arms + lower torso
-    '_SSGBBBGSS_',                       // 12 arms continue, torso ends
-    '___GGgGG___',                       // 13 long arms
-    '___GGgGG___',                       // 14 legs full
-    '___GGgGG___',                       // 15 legs crossing
-    '___GGgGG___',                       // 16 feet
-    '__SSS_SSS__',                       // 17 feet detail
-  ];
-
-  const PX = 9;
+function Logo({ size = "1.4rem" }) {
   return (
-    <svg viewBox="0 0 108 162" xmlns="http://www.w3.org/2000/svg"
-      style={{ width: "100%", height: "100%" }}>
-      <ellipse cx="54" cy="158" rx="40" ry="4" fill="rgba(0,0,0,0.08)" />
-      {rows.map((row, r) =>
-        [...row].map((ch, c) => {
-          const fill = COLORS[ch];
-          if (!fill) return null;
-          return <rect key={`${r}-${c}`} x={c * PX} y={r * PX}
-            width={PX} height={PX} fill={fill} shapeRendering="crispEdges" />;
-        })
-      )}
-    </svg>
+    <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+      <span style={{
+        fontFamily: fonts.heading, fontWeight: 600, fontSize: size,
+        color: C.text, letterSpacing: "normal", lineHeight: 1,
+      }}>
+        intervalo
+      </span>
+      <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden" }}>
+        {BELT_COLORS.map((col, i) => (
+          <div key={i} style={{ flex: 1, background: col }} />
+        ))}
+      </div>
+    </div>
   );
 }
 
-// ── IntervaLoLogo — pixel art ──────────────────────────────────────────────────
-const LETTER_PIXELS = {
-  I: [[1,1,1,1],[0,1,1,0],[0,1,1,0],[0,1,1,0],[1,1,1,1]],
-  N: [[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
-  T: [[1,1,1,1],[0,1,1,0],[0,1,1,0],[0,1,1,0],[0,1,1,0]],
-  E: [[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,1,1,1]],
-  R: [[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,1,0],[1,0,0,1]],
-  V: [[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0],[0,1,1,0]],
-  A: [[0,1,1,0],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
-  L: [[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,1,1,1]],
-  O: [[0,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
-};
-const BELT_STRIPE = ['#E0DDD0','#1C3A8B','#6B2D8B','#6B3A1F','#111111'];
+// ── Nav ────────────────────────────────────────────────────────────────────────
 
-function IntervaLoLogo({ px = 4 }) {
-  const gap = Math.max(2, px - 1);
-  const lw = 4 * px, lh = 5 * px;
-  const word = ['I','N','T','E','R','V','A','L','O'];
-  const totalW = word.length * lw + (word.length - 1) * gap;
-  const beltY = lh + px;
-  const beltH = px;
-  const beltW = totalW / BELT_STRIPE.length;
+function Nav({ rightContent }) {
   return (
-    <svg viewBox={`0 0 ${totalW} ${beltY + beltH}`}
-      style={{ height: lh + beltH + px, display: "block" }}>
-      {word.map((ch, li) => {
-        const ox = li * (lw + gap);
-        return LETTER_PIXELS[ch].flatMap((row, r) =>
-          row.map((on, c) => on
-            ? <rect key={`${li}-${r}-${c}`} x={ox + c * px} y={r * px}
-                width={px} height={px} fill="#CC1111" shapeRendering="crispEdges" />
-            : null)
-        );
-      })}
-      {BELT_STRIPE.map((col, i) => (
-        <rect key={i} x={i * beltW} y={beltY} width={beltW} height={beltH} fill={col} />
-      ))}
-    </svg>
-  );
-}
-
-// ── ColorSwatch ────────────────────────────────────────────────────────────────
-
-function ColorSwatch({ color, selected, onClick, size = 28 }) {
-  return (
-    <button onClick={() => onClick(color)}
-      style={{
-        width: size, height: size, borderRadius: "50%", background: color,
-        border: selected ? `2.5px solid ${C.primary}` : "2px solid rgba(0,0,0,0.12)",
-        cursor: "pointer", outline: "none", flexShrink: 0,
-        boxShadow: selected ? `0 0 0 2px #fff, 0 0 0 4px ${C.primary}` : "none",
-        transition: "all 0.15s",
-      }} />
-  );
-}
-
-// ── ToggleBtn ──────────────────────────────────────────────────────────────────
-
-function ToggleBtn({ active, onClick, children, style = {} }) {
-  return (
-    <button onClick={onClick} style={{
-      flex: 1, padding: "0.45rem 0", borderRadius: 8, border: "none",
-      background: active ? C.primary : C.bg,
-      color: active ? "#fff" : C.muted,
-      fontWeight: 600, fontSize: "0.85rem", cursor: "pointer",
-      transition: "all 0.15s", ...style,
+    <nav style={{
+      background: C.nav, padding: "0 1.5rem", height: 52,
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      borderBottom: `1px solid ${C.border}`,
     }}>
-      {children}
-    </button>
+      <Logo size="1.1rem" />
+      {rightContent && <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>{rightContent}</div>}
+    </nav>
   );
 }
 
@@ -248,6 +166,7 @@ function FunctionPlot({ fnStr, view }) {
   const pw = W - 2 * PAD, ph = H - 2 * PAD;
   const toX = x => PAD + ((x - xMin) / (xMax - xMin)) * pw;
   const toY = y => H - PAD - ((y - yMin) / (yMax - yMin)) * ph;
+  const plotId = useRef(`plot-${Math.random().toString(36).slice(2, 8)}`).current;
 
   let fn;
   try {
@@ -279,266 +198,648 @@ function FunctionPlot({ fnStr, view }) {
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`}
-      style={{ width: "100%", borderRadius: 10, display: "block", background: "#F8FAFC" }}>
-      {xTicks.map(x => <line key={`gx${x}`} x1={toX(x)} y1={PAD} x2={toX(x)} y2={H-PAD} stroke="#E2E8F0" strokeWidth="1" />)}
-      {yTicks.map(y => <line key={`gy${y}`} x1={PAD} y1={toY(y)} x2={W-PAD} y2={toY(y)} stroke="#E2E8F0" strokeWidth="1" />)}
-      <line x1={PAD} y1={ay} x2={W-PAD} y2={ay} stroke="#94A3B8" strokeWidth="1.5" />
-      <line x1={ax} y1={PAD} x2={ax} y2={H-PAD} stroke="#94A3B8" strokeWidth="1.5" />
-      <polygon points={`${W-PAD+1},${ay} ${W-PAD-7},${ay-4} ${W-PAD-7},${ay+4}`} fill="#94A3B8" />
-      <polygon points={`${ax},${PAD-1} ${ax-4},${PAD+7} ${ax+4},${PAD+7}`} fill="#94A3B8" />
+      style={{ width: "100%", borderRadius: 10, display: "block", background: "#FAFBFC" }}>
+      {xTicks.map(x => <line key={`gx${x}`} x1={toX(x)} y1={PAD} x2={toX(x)} y2={H-PAD} stroke="#E2E5EA" strokeWidth="1" />)}
+      {yTicks.map(y => <line key={`gy${y}`} x1={PAD} y1={toY(y)} x2={W-PAD} y2={toY(y)} stroke="#E2E5EA" strokeWidth="1" />)}
+      <line x1={PAD} y1={ay} x2={W-PAD} y2={ay} stroke="#9CA3AF" strokeWidth="1.5" />
+      <line x1={ax} y1={PAD} x2={ax} y2={H-PAD} stroke="#9CA3AF" strokeWidth="1.5" />
+      <polygon points={`${W-PAD+1},${ay} ${W-PAD-7},${ay-4} ${W-PAD-7},${ay+4}`} fill="#9CA3AF" />
+      <polygon points={`${ax},${PAD-1} ${ax-4},${PAD+7} ${ax+4},${PAD+7}`} fill="#9CA3AF" />
       {xTicks.map(x => (
         <g key={`tx${x}`}>
-          <line x1={toX(x)} y1={ay-4} x2={toX(x)} y2={ay+4} stroke="#94A3B8" strokeWidth="1" />
-          <text x={toX(x)} y={ay+15} textAnchor="middle" fontSize="11" fill="#94A3B8">{x}</text>
+          <line x1={toX(x)} y1={ay-4} x2={toX(x)} y2={ay+4} stroke="#9CA3AF" strokeWidth="1" />
+          <text x={toX(x)} y={ay+15} textAnchor="middle" fontSize="11" fill="#4B5563">{x}</text>
         </g>
       ))}
       {yTicks.map(y => (
         <g key={`ty${y}`}>
-          <line x1={ax-4} y1={toY(y)} x2={ax+4} y2={toY(y)} stroke="#94A3B8" strokeWidth="1" />
-          <text x={ax-8} y={toY(y)+4} textAnchor="end" fontSize="11" fill="#94A3B8">{y}</text>
+          <line x1={ax-4} y1={toY(y)} x2={ax+4} y2={toY(y)} stroke="#9CA3AF" strokeWidth="1" />
+          <text x={ax-8} y={toY(y)+4} textAnchor="end" fontSize="11" fill="#4B5563">{y}</text>
         </g>
       ))}
-      <clipPath id="plot-area"><rect x={PAD} y={PAD} width={pw} height={ph} /></clipPath>
+      <clipPath id={plotId}><rect x={PAD} y={PAD} width={pw} height={ph} /></clipPath>
       {segments.map((s, i) => (
         <polyline key={i} points={s.map(([x,y]) => `${x},${y}`).join(" ")}
-          fill="none" stroke="#6366f1" strokeWidth="2.5"
-          strokeLinecap="round" strokeLinejoin="round" clipPath="url(#plot-area)" />
+          fill="none" stroke="#4F46E5" strokeWidth="2.5"
+          strokeLinecap="round" strokeLinejoin="round" clipPath={`url(#${plotId})`} />
       ))}
     </svg>
   );
 }
 
-// ── HomeScreen — two-step setup ────────────────────────────────────────────────
+// ── ProgressGrid ───────────────────────────────────────────────────────────────
 
-function HomeScreen({ onStart }) {
-  const [step, setStep]       = useState(1);
-  const [name, setName]       = useState("");
-  const [gender, setGender]   = useState("male");
-  const [skin, setSkin]       = useState(SKIN_COLORS[0]);
-  const [hair, setHair]       = useState(HAIR_COLORS[0]);
-  const [kimono, setKimono]   = useState("charcoal");
-  const [uni, setUni]         = useState("");
-  const [career, setCareer]   = useState("");
+function itemCell(entry) {
+  if (!entry) return { bg: C.bgElevated, label: "—", textColor: C.muted };
+
+  if (entry.phase === "review") {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const diff = entry.next_review
+      ? Math.round((new Date(entry.next_review + "T00:00:00") - today) / 86400000)
+      : 999;
+    if (diff <= 0)  return { bg: "#FCD34D", label: "Hoy",      textColor: "#78350F" };
+    if (diff <= 2)  return { bg: "#86EFAC", label: `${diff}d`,  textColor: "#14532D" };
+    if (diff <= 6)  return { bg: "#4ADE80", label: `${diff}d`,  textColor: "#14532D" };
+    if (diff <= 13) return { bg: "#22C55E", label: `${diff}d`,  textColor: "#fff" };
+    if (diff <= 20) return { bg: "#16A34A", label: `${diff}d`,  textColor: "#fff" };
+    return                  { bg: "#15803D", label: `${diff}d`, textColor: "#fff" };
+  }
+
+  const si = entry.step_index || 0;
+  const learningBg = ["#065F46", "#047857", "#059669"][si] || "#065F46";
+  return { bg: learningBg, label: `${si + 1}/3`, textColor: "#D1FAE5" };
+}
+
+function ProgressGrid({ skillStates, touchedKeys }) {
+  const touched = touchedKeys || new Set();
+  return (
+    <div>
+      {/* Column headers */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 52px 52px 52px",
+        gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
+        <div />
+        {WHITE_BELT_SKILLS.map(h => (
+          <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
+            textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+            {h}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        {WHITE_BELT_TOPICS.map(({ key: topicKey, label }) => (
+          <div key={topicKey} style={{ display: "grid",
+            gridTemplateColumns: "1fr 52px 52px 52px", gap: "3px", alignItems: "center" }}>
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
+              {label}
+            </div>
+            {WHITE_BELT_SKILLS.map(skill => {
+              const k = `${topicKey}:${skill}`;
+              const entry = skillStates[k];
+              const wasTouched = touched.has(k);
+              const { bg, label: cellLabel, textColor } = itemCell(entry);
+              return (
+                <div key={skill} style={{
+                  background: bg, borderRadius: 6, height: 26,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "0.65rem", fontWeight: 700, color: textColor,
+                  transition: "background 0.4s ease",
+                  outline: wasTouched ? `2px solid ${C.primary}` : "none",
+                  outlineOffset: "-2px",
+                }}>
+                  {cellLabel}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
+        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem" }}>
+        {[
+          { bg: C.bgElevated, label: "Sin iniciar", textColor: C.muted },
+          { bg: "#065F46", label: "Aprendiendo", textColor: "#D1FAE5" },
+          { bg: "#FCD34D", label: "Repasar hoy", textColor: "#78350F" },
+          { bg: "#22C55E", label: "En progreso", textColor: "#fff" },
+          { bg: "#15803D", label: "Maduro",      textColor: "#fff" },
+        ].map(({ bg, label: ll, textColor }) => (
+          <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
+              border: bg === C.bgElevated ? `1px solid ${C.border}` : "none" }} />
+            <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Slide wrapper (Brilliant-style transition) ─────────────────────────────────
+
+function SlideTransition({ slideKey, direction, children }) {
+  const anim = direction >= 0 ? "slideInRight" : "slideInLeft";
+  return (
+    <div key={slideKey} style={{
+      animation: `${anim} 0.3s ease-out`,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+// ── TutorialScreen ─────────────────────────────────────────────────────────────
+
+const TOTAL_SLIDES = 9;
+
+function TutorialScreen({ onStart }) {
+  const [slide, setSlide] = useState(0);
+  const [dir, setDir] = useState(1);
+  const [name, setName] = useState("");
+  const [career, setCareer] = useState("");
+  const [uni, setUni] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
+  const [error, setError] = useState(null);
 
-  const step1Valid = name.trim().length > 0;
-  const step2Valid = (uni || uni === "otra") && career;
+  // Tutorial exercise state
+  const [exAnswered, setExAnswered] = useState(false);
+  const [exSelected, setExSelected] = useState(null);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!step2Valid) return;
+  function canAdvance() {
+    if (slide === 0) return name.trim().length > 0;
+    if (slide === 5) return exAnswered;
+    if (slide === 6) return career !== "";
+    if (slide === 7) return uni !== "";
+    return true;
+  }
+
+  function goNext() {
+    if (!canAdvance()) return;
+    setDir(1);
+    setSlide(s => Math.min(s + 1, TOTAL_SLIDES - 1));
+  }
+
+  function goBack() {
+    setDir(-1);
+    setSlide(s => Math.max(s - 1, 0));
+  }
+
+  async function handleStart() {
     setLoading(true); setError(null);
     try {
-      await onStart({ name: name.trim(), university: uni, career,
-        avatar: { gender, skin, hair, kimono } });
+      await onStart({ name: name.trim(), university: uni, career });
     } catch {
       setError("No se pudo conectar con el servidor.");
       setLoading(false);
     }
   }
 
-  return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "system-ui, sans-serif" }}>
-      {/* Nav */}
-      <nav style={{ background: C.nav, height: 52, display: "flex",
-        alignItems: "center", justifyContent: "center" }}>
-        <IntervaLoLogo px={4} />
-      </nav>
+  function handleExAnswer(idx) {
+    if (exAnswered) return;
+    setExSelected(idx);
+    setExAnswered(true);
+  }
 
-      <div style={{ display: "flex", justifyContent: "center", padding: "2rem 1rem 3rem" }}>
-        <div style={{ width: "100%", maxWidth: 520 }}>
+  // Progress dots
+  const dots = (
+    <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginBottom: "2rem" }}>
+      {Array.from({ length: TOTAL_SLIDES }, (_, i) => (
+        <div key={i} style={{
+          width: i === slide ? 24 : 8, height: 8, borderRadius: 999,
+          background: i <= slide ? C.primary : C.border,
+          transition: "all 0.3s ease",
+        }} />
+      ))}
+    </div>
+  );
 
-          {/* Step indicator */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem",
-            justifyContent: "center", marginBottom: "1.5rem" }}>
-            {[1, 2].map(s => (
-              <React.Fragment key={s}>
-                <div style={{
-                  width: 28, height: 28, borderRadius: "50%",
-                  background: s <= step ? C.primary : C.border,
-                  color: s <= step ? "#fff" : C.muted,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontWeight: 700, fontSize: "0.8rem", transition: "all 0.2s",
-                }}>{s}</div>
-                {s < 2 && <div style={{ width: 40, height: 2,
-                  background: step >= 2 ? C.primary : C.border,
-                  borderRadius: 999, transition: "all 0.3s" }} />}
-              </React.Fragment>
-            ))}
-          </div>
+  const continueBtn = (label = "Continuar", onClick = goNext) => (
+    <button onClick={onClick} disabled={!canAdvance()}
+      style={{
+        width: "100%", padding: "0.9rem", marginTop: "2rem",
+        background: canAdvance() ? C.primary : C.border,
+        color: canAdvance() ? "#fff" : C.muted,
+        border: "none", borderRadius: 12, fontSize: "1rem",
+        fontWeight: 700, cursor: canAdvance() ? "pointer" : "not-allowed",
+        fontFamily: fonts.body, transition: "all 0.2s",
+      }}>
+      {label}
+    </button>
+  );
 
-          <div style={{ ...card }}>
+  const backBtn = slide > 0 ? (
+    <button onClick={goBack}
+      style={{ background: "none", border: "none", color: C.muted,
+        cursor: "pointer", fontSize: "0.85rem", padding: "0.5rem 0",
+        fontFamily: fonts.body, marginTop: "0.5rem", width: "100%", textAlign: "center" }}>
+      ← Volver
+    </button>
+  ) : null;
 
-            {/* ── STEP 1: Avatar + name ── */}
-            {step === 1 && (
-              <div>
-                <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: C.text,
-                  margin: "0 0 1.5rem", textAlign: "center" }}>
-                  Creá tu personaje
-                </h2>
+  const slides = {
+    // Slide 0: Name
+    0: (
+      <div style={{ textAlign: "center" }}>
+        <Logo size="2rem" />
+        <h1 style={{ fontFamily: fonts.heading, fontSize: "1.4rem", fontWeight: 600,
+          color: "rgba(244,247,251,0.75)", margin: "2rem 0 0.75rem" }}>
+          ¡Hola!
+        </h1>
+        <p style={{ color: C.textSecondary, fontSize: "1.1rem", lineHeight: 1.6, marginBottom: "2rem" }}>
+          ¿Cómo te gustaría que te llamen?
+        </p>
+        <input type="text" value={name} onChange={e => setName(e.target.value)}
+          placeholder="Tu nombre"
+          autoFocus
+          onKeyDown={e => e.key === "Enter" && canAdvance() && goNext()}
+          style={{
+            ...inputStyle, textAlign: "center", fontSize: "1.2rem",
+            padding: "0.9rem 1rem", borderRadius: 14,
+          }}
+          onFocus={e => e.target.style.borderColor = C.primary}
+          onBlur={e => e.target.style.borderColor = C.border}
+        />
+        {continueBtn()}
+      </div>
+    ),
 
-                {/* Avatar preview */}
-                <div style={{ width: 140, height: 140, margin: "0 auto 1.5rem" }}>
-                  <BJJAvatar gender={gender} skin={skin} hair={hair} kimono={kimono} />
-                </div>
+    // Slide 1: Welcome with name
+    1: (
+      <div style={{ textAlign: "center" }}>
+        <Logo size="1.6rem" />
+        <h1 style={{ fontFamily: fonts.heading, fontSize: "1.7rem", fontWeight: 800,
+          color: C.text, margin: "2rem 0 0.75rem" }}>
+          ¡Bienvenido, {name.trim() || "..."}!
+        </h1>
+        <p style={{ color: C.textSecondary, fontSize: "1.05rem", lineHeight: 1.7 }}>
+          <strong style={{ color: C.text }}>Intervalo</strong> es un sistema de repaso adaptativo
+          para Análisis Matemático I. Sesiones cortas y frecuentes que te preparan para los exámenes.
+        </p>
+        {continueBtn()}
+      </div>
+    ),
 
-                {/* Controls */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-
-                  {/* Gender */}
-                  <div>
-                    <div style={labelSt}>Género</div>
-                    <div style={{ display: "flex", gap: "0.4rem",
-                      background: C.bg, borderRadius: 10, padding: "0.3rem" }}>
-                      <ToggleBtn active={gender === "male"} onClick={() => setGender("male")}>
-                        Masculino
-                      </ToggleBtn>
-                      <ToggleBtn active={gender === "female"} onClick={() => setGender("female")}>
-                        Femenino
-                      </ToggleBtn>
-                    </div>
-                  </div>
-
-                  {/* Piel · Pelo · Kimono — 3 columnas en una línea */}
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    {[
-                      { label: "Color de piel", items: SKIN_COLORS,
-                        isActive: c => skin === c, onPick: setSkin },
-                      { label: "Color de pelo", items: HAIR_COLORS,
-                        isActive: c => hair === c, onPick: setHair },
-                      { label: "Kimono",
-                        items: KIMONO_OPTIONS.map(k => k.swatch),
-                        isActive: c => KIMONO_OPTIONS.find(k => k.swatch === c)?.value === kimono,
-                        onPick: c => setKimono(KIMONO_OPTIONS.find(k => k.swatch === c)?.value) },
-                    ].map(({ label, items, isActive, onPick }) => (
-                      <div key={label} style={{ flex: 1, textAlign: "center" }}>
-                        <div style={{ ...labelSt, textAlign: "center", marginBottom: "0.5rem" }}>
-                          {label}
-                        </div>
-                        <div style={{ display: "flex", gap: "0.35rem", justifyContent: "center",
-                          flexWrap: "wrap" }}>
-                          {items.map(c => (
-                            <ColorSwatch key={c} color={c} selected={isActive(c)} onClick={onPick} />
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Name */}
-                  <div>
-                    <label htmlFor="name" style={labelSt}>Tu nombre</label>
-                    <input id="name" type="text" value={name}
-                      onChange={e => setName(e.target.value)}
-                      placeholder="Ej. Martín García"
-                      style={inputStyle}
-                      onFocus={e => e.target.style.borderColor = C.primary}
-                      onBlur={e => e.target.style.borderColor = C.border}
-                    />
-                  </div>
-                </div>
-
-                <button onClick={() => setStep(2)} disabled={!step1Valid}
-                  style={{
-                    width: "100%", marginTop: "1.5rem", padding: "0.85rem",
-                    background: step1Valid ? C.primary : "#C7D2FE",
-                    color: "#fff", border: "none", borderRadius: 12,
-                    fontSize: "1rem", fontWeight: 700,
-                    cursor: step1Valid ? "pointer" : "not-allowed",
-                  }}>
-                  Siguiente →
-                </button>
+    // Slide 2: Evocación Activa
+    2: (
+      <div>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", textAlign: "center" }}>
+          Evocación Activa
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, textAlign: "center", marginBottom: "1.5rem" }}>
+          Resolver desde la memoria es más efectivo que releer apuntes.
+          Vas a recuperar conceptos sin material de consulta.
+        </p>
+        <FlipCard
+          front={
+            <div style={{ padding: "1.5rem", textAlign: "center" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 600, color: C.muted,
+                textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
+                Pregunta
               </div>
-            )}
+              <p style={{ color: C.text, fontSize: "1rem", fontWeight: 600 }}>
+                ¿Qué forma tiene una función lineal?
+              </p>
+              <p style={{ color: C.muted, fontSize: "0.8rem", marginTop: "1rem" }}>Tocá para ver la respuesta</p>
+            </div>
+          }
+          back={
+            <div style={{ padding: "1.5rem", textAlign: "center" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 600, color: C.primary,
+                textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
+                Respuesta
+              </div>
+              <p style={{ color: C.text, fontSize: "1rem", fontWeight: 600 }}>
+                f(x) = mx + b
+              </p>
+              <p style={{ color: C.textSecondary, fontSize: "0.85rem", marginTop: "0.5rem" }}>
+                donde m es la pendiente y b la ordenada al origen
+              </p>
+            </div>
+          }
+        />
+        {continueBtn()}
+      </div>
+    ),
 
-            {/* ── STEP 2: University + career ── */}
-            {step === 2 && (
-              <form onSubmit={handleSubmit}>
-                {/* Back + small avatar */}
-                <div style={{ display: "flex", alignItems: "center",
-                  gap: "0.75rem", marginBottom: "1.5rem" }}>
-                  <button type="button" onClick={() => setStep(1)}
-                    style={{ background: "none", border: "none", color: C.muted,
-                      cursor: "pointer", fontSize: "0.9rem", padding: 0 }}>
-                    ← Volver
-                  </button>
-                  <div style={{ flex: 1 }} />
-                  <div style={{ width: 40, height: 40, borderRadius: "50%",
-                    background: C.bg, overflow: "hidden", padding: 3 }}>
-                    <BJJAvatar gender={gender} skin={skin} hair={hair} kimono={kimono} />
-                  </div>
-                  <span style={{ fontWeight: 600, color: C.text, fontSize: "0.9rem" }}>{name}</span>
-                </div>
+    // Slide 3: Repetición Espaciada
+    3: (
+      <div>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", textAlign: "center" }}>
+          Repetición Espaciada
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, textAlign: "center", marginBottom: "1.5rem" }}>
+          El algoritmo ajusta qué repasar y cuándo. Lo difícil aparece más seguido, lo dominado se espacia.
+        </p>
+        <SpacedTimeline />
+        {continueBtn()}
+      </div>
+    ),
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                  {/* University */}
-                  <div>
-                    <label style={labelSt}>¿En qué universidad estudiás?</label>
-                    <select value={uni} onChange={e => setUni(e.target.value)}
-                      style={{ ...inputStyle, cursor: "pointer" }}>
-                      <option value="">Seleccioná una opción</option>
-                      {UNIVERSIDADES.map(u => <option key={u} value={u}>{u}</option>)}
-                      <option value="otra">Otra</option>
-                    </select>
-                  </div>
+    // Slide 4: Gamificación
+    4: (
+      <div>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", textAlign: "center" }}>
+          Gamificación
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, textAlign: "center", marginBottom: "1.5rem" }}>
+          Tu progreso se mide a través de ítems. Cada ítem evalúa una habilidad sobre un tema.
+          A medida que demostrás dominio sostenido, los ítems se gradúan y avanzás de cinturón.
+        </p>
+        <BeltSequence />
+        {continueBtn()}
+      </div>
+    ),
 
-                  {/* Career */}
-                  <div>
-                    <div style={labelSt}>¿Qué tipo de carrera estudiás?</div>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center" }}>
-                      {CARRERAS.map(c => (
-                        <button key={c.value} type="button"
-                          onClick={() => setCareer(c.value)}
-                          style={{
-                            padding: "0.5rem 1rem", borderRadius: 10, border: "none",
-                            background: career === c.value ? C.primary : C.bg,
-                            color: career === c.value ? "#fff" : C.text,
-                            fontWeight: 600, fontSize: "0.9rem", cursor: "pointer",
-                            transition: "all 0.15s",
-                          }}>
-                          {c.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+    // Slide 5: Example exercise
+    5: (
+      <div>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.3rem", fontWeight: 800,
+          color: C.text, marginBottom: "0.5rem", textAlign: "center" }}>
+          Así se ve un ejercicio
+        </h2>
+        <p style={{ color: C.muted, fontSize: "0.85rem", textAlign: "center", marginBottom: "1.25rem" }}>
+          Probá resolver este ejemplo
+        </p>
+        <ExerciseCard
+          exercise={TUTORIAL_EXERCISE}
+          answered={exAnswered}
+          selected={exSelected}
+          onAnswer={handleExAnswer}
 
-                  {error && (
-                    <p style={{ color: C.error, background: C.errorBg,
-                      borderRadius: 8, padding: "0.6rem 0.9rem",
-                      fontSize: "0.875rem", margin: 0 }}>
-                      {error}
-                    </p>
-                  )}
+        />
+        {continueBtn()}
+      </div>
+    ),
 
-                  <button type="submit" disabled={loading || !step2Valid}
-                    style={{
-                      width: "100%", padding: "0.9rem",
-                      background: loading || !step2Valid ? "#C7D2FE" : C.primary,
-                      color: "#fff", border: "none", borderRadius: 12,
-                      fontSize: "1rem", fontWeight: 700,
-                      cursor: loading || !step2Valid ? "not-allowed" : "pointer",
-                    }}>
-                    {loading ? "Iniciando…" : "Comenzar clase →"}
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
+    // Slide 6: Career
+    6: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "0.75rem" }}>
+          ¿Qué tipo de carrera estudiás?
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "0.95rem", marginBottom: "1.5rem" }}>
+          Para personalizar tu experiencia
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", justifyContent: "center" }}>
+          {CARRERAS.map(c => (
+            <button key={c.value} onClick={() => setCareer(c.value)}
+              style={{
+                padding: "0.65rem 1.2rem", borderRadius: 12,
+                border: career === c.value ? `2px solid ${C.primary}` : `2px solid ${C.border}`,
+                background: career === c.value ? C.primary : C.bgElevated,
+                color: career === c.value ? "#fff" : C.text,
+                fontWeight: 600, fontSize: "0.95rem", cursor: "pointer",
+                fontFamily: fonts.body, transition: "all 0.15s",
+              }}>
+              {c.label}
+            </button>
+          ))}
+        </div>
+        {continueBtn()}
+      </div>
+    ),
+
+    // Slide 7: University
+    7: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "0.75rem" }}>
+          ¿En qué universidad?
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "0.95rem", marginBottom: "1.5rem" }}>
+          Si no está en la lista, elegí "Otra"
+        </p>
+        <select value={uni} onChange={e => setUni(e.target.value)}
+          style={{ ...inputStyle, cursor: "pointer", textAlign: "center", fontSize: "1rem" }}>
+          <option value="">Seleccioná una opción</option>
+          {UNIVERSIDADES.map(u => <option key={u} value={u}>{u}</option>)}
+          <option value="otra">Otra</option>
+        </select>
+        {continueBtn()}
+      </div>
+    ),
+
+    // Slide 8: Ready
+    8: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.6rem", fontWeight: 800,
+          color: C.text, marginBottom: "0.75rem" }}>
+          ¡Todo listo!
+        </h2>
+        <p style={{ color: C.textSecondary, fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "0.5rem" }}>
+          Tu primer repaso tiene 12 ejercicios y te va a tomar menos de 3 minutos. ¿Arrancamos?
+        </p>
+        {error && (
+          <p style={{ color: C.error, background: C.errorBg, borderRadius: 8,
+            padding: "0.6rem 0.9rem", fontSize: "0.875rem", margin: "1rem 0" }}>
+            {error}
+          </p>
+        )}
+        {continueBtn(loading ? "Iniciando…" : "Iniciar Repaso →", handleStart)}
+      </div>
+    ),
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+      <div style={{ display: "flex", justifyContent: "center", padding: "2.5rem 1rem 3rem" }}>
+        <div style={{ width: "100%", maxWidth: 520 }}>
+          {dots}
+          <SlideTransition slideKey={slide} direction={dir}>
+            <div style={{ ...card }}>
+              {slides[slide]}
+            </div>
+          </SlideTransition>
+          {backBtn}
         </div>
       </div>
     </div>
   );
 }
 
+// ── Tutorial micro-interactions ────────────────────────────────────────────────
+
+function FlipCard({ front, back }) {
+  const [flipped, setFlipped] = useState(false);
+  return (
+    <div onClick={() => setFlipped(!flipped)}
+      style={{ cursor: "pointer", perspective: 800 }}>
+      <div style={{
+        position: "relative", transformStyle: "preserve-3d",
+        transition: "transform 0.5s ease",
+        transform: flipped ? "rotateY(180deg)" : "rotateY(0)",
+      }}>
+        <div style={{
+          background: C.bgElevated, borderRadius: 14, border: `1px solid ${C.border}`,
+          backfaceVisibility: "hidden", minHeight: 140,
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          {front}
+        </div>
+        <div style={{
+          position: "absolute", top: 0, left: 0, width: "100%",
+          background: C.bgElevated, borderRadius: 14, border: `1px solid ${C.primary}`,
+          backfaceVisibility: "hidden", transform: "rotateY(180deg)",
+          minHeight: 140, display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          {back}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpacedTimeline() {
+  const intervals = [
+    { label: "1d", desc: "Día 1" },
+    { label: "3d", desc: "Día 3" },
+    { label: "7d", desc: "Día 7" },
+    { label: "21d", desc: "Día 21" },
+  ];
+  const [visible, setVisible] = useState(0);
+
+  useEffect(() => {
+    const timers = intervals.map((_, i) =>
+      setTimeout(() => setVisible(i + 1), 400 * (i + 1))
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center",
+      gap: 0, padding: "1rem 0" }}>
+      {intervals.map((item, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && (
+            <div style={{
+              flex: 1, height: 2, background: i < visible ? C.primary : C.border,
+              transition: "background 0.4s ease", maxWidth: 60,
+            }} />
+          )}
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+            opacity: i < visible ? 1 : 0.2, transition: "opacity 0.5s ease",
+          }}>
+            <div style={{
+              width: 40, height: 40, borderRadius: "50%",
+              background: i < visible ? C.primary : C.border,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#fff", fontSize: "0.7rem", fontWeight: 700,
+              transition: "all 0.4s ease",
+            }}>
+              {item.label}
+            </div>
+            <span style={{ fontSize: "0.65rem", color: C.muted }}>{item.desc}</span>
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function BeltSequence() {
+  const beltNames = ["Blanco", "Azul", "Violeta", "Marrón", "Negro"];
+  const [lit, setLit] = useState(0);
+
+  useEffect(() => {
+    const timers = beltNames.map((_, i) =>
+      setTimeout(() => setLit(i + 1), 500 * (i + 1))
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center",
+      padding: "1rem 0", flexWrap: "wrap" }}>
+      {beltNames.map((name, i) => (
+        <div key={name} style={{
+          display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+          opacity: i < lit ? 1 : 0.2, transition: "opacity 0.5s ease",
+          transform: i < lit ? "scale(1)" : "scale(0.85)",
+        }}>
+          <div style={{
+            width: 44, height: 44, borderRadius: "50%",
+            background: BELT_COLORS[i],
+            border: i === 0 ? `2px solid ${C.border}` : "none",
+            boxShadow: i < lit ? `0 0 12px ${BELT_COLORS[i]}44` : "none",
+            transition: "all 0.4s ease",
+          }} />
+          <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.textSecondary }}>{name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── ExerciseCard (shared between tutorial and session) ─────────────────────────
+
+function ExerciseCard({ exercise: ex, answered, selected, onAnswer }) {
+  const isCorrect = selected === ex.correct_index;
+  const feedbackText = isCorrect ? ex.feedback_correct : ex.feedback_incorrect;
+
+  return (
+    <div style={{ ...card, padding: "1.25rem" }}>
+      <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+        padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+        {SKILL_LABELS[ex.skill] ?? ex.skill}
+      </span>
+
+      <p style={{ fontSize: "1.05rem", fontWeight: 600, color: C.text,
+        lineHeight: 1.6, margin: "0.9rem 0 1.25rem",
+        fontFamily: fonts.body }}>
+        {ex.has_math ? <MathText text={ex.question} /> : ex.question}
+      </p>
+
+      {ex.graph_fn && ex.graph_view && (
+        <div style={{ marginBottom: "1.25rem" }}>
+          <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+        </div>
+      )}
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+        {ex.options.map((opt, i) => {
+          const optCorrect  = i === ex.correct_index;
+          const optSelected = i === selected;
+          let bg = C.bgElevated, border = `1.5px solid ${C.border}`,
+            color = C.text, opacity = 1;
+          if (answered) {
+            if (optCorrect)       { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
+            else if (optSelected) { bg = C.errorBg;   border = `1.5px solid ${C.error}`;   color = C.error; }
+            else                  { opacity = 0.4; }
+          }
+          return (
+            <button key={i} onClick={() => onAnswer(i)} disabled={answered}
+              style={{ width: "100%", padding: "0.8rem 1rem", background: bg,
+                border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
+                color, cursor: answered ? "default" : "pointer", textAlign: "left",
+                opacity, transition: "all 0.15s", fontFamily: fonts.body,
+                display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <span style={{ display: "inline-flex", alignItems: "center",
+                justifyContent: "center", width: 24, height: 24, borderRadius: "50%",
+                flexShrink: 0, fontSize: "0.72rem", fontWeight: 700,
+                transition: "all 0.15s",
+                background: answered
+                  ? optCorrect ? C.success : optSelected ? C.error : C.border
+                  : C.border,
+                color: answered && (optCorrect || optSelected) ? "#fff" : C.muted }}>
+                {["A","B","C","D"][i]}
+              </span>
+              {ex.has_math ? <MathText text={opt} /> : opt}
+            </button>
+          );
+        })}
+      </div>
+
+      {answered && (
+        <div style={{ marginTop: "1rem" }}>
+          <p style={{ padding: "0.7rem 1rem", borderRadius: 10,
+            fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
+            background: isCorrect ? C.successBg : C.errorBg,
+            color: isCorrect ? C.success : C.error }}>
+            {isCorrect ? "✓ " : "✗ "}
+            {ex.has_math ? <MathText text={feedbackText} /> : feedbackText}
+          </p>
+
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── SessionScreen ──────────────────────────────────────────────────────────────
 
-function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
+function SessionScreen({ sessionId, userName, exercises, onComplete }) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answered, setAnswered]     = useState(false);
   const [selected, setSelected]     = useState(null);
   const [result, setResult]         = useState(null);
   const [elapsed, setElapsed]       = useState(0);
+  const [slideDir, setSlideDir]     = useState(1);
   const startRef = useRef(Date.now());
   const timerRef = useRef(null);
 
@@ -567,33 +868,24 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
       const ok = idx === ex.correct_index;
       setResult({ correct: ok, feedback: ok ? "¡Correcto!" : "Incorrecto." });
     }
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 50);
   }
 
   async function handleNext() {
     if (currentIdx === exercises.length - 1) await onComplete(sessionId);
-    else setCurrentIdx(i => i + 1);
+    else { setSlideDir(1); setCurrentIdx(i => i + 1); }
   }
 
   const ex    = exercises[currentIdx];
   const total = exercises.length;
   const pct   = (currentIdx / total) * 100;
+  const isCorrect = selected === ex.correct_index;
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "system-ui, sans-serif" }}>
-      <nav style={{ background: C.nav, padding: "0 1.5rem", height: 52,
-        display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <IntervaLoLogo px={4} />
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          {avatar && (
-            <div style={{ width: 32, height: 32, borderRadius: "50%",
-              background: "#ffffff18", overflow: "hidden", padding: 2 }}>
-              <BJJAvatar gender={avatar.gender} skin={avatar.skin}
-                hair={avatar.hair} kimono={avatar.kimono} />
-            </div>
-          )}
-          <span style={{ color: "#ffffff99", fontSize: "0.85rem" }}>{userName}</span>
-        </div>
-      </nav>
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+      <Nav rightContent={
+        <span style={{ color: C.textSecondary, fontSize: "0.85rem" }}>{userName}</span>
+      } />
 
       <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 2rem" }}>
         <div style={{ width: "100%", maxWidth: 560 }}>
@@ -615,77 +907,81 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
               borderRadius: 999, transition: "width 0.4s ease" }} />
           </div>
 
-          <div style={{ ...card, marginBottom: "1rem" }}>
-            <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
-              padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
-              {SKILL_LABELS[ex.skill] ?? ex.skill}
-            </span>
+          <SlideTransition slideKey={currentIdx} direction={slideDir}>
+            <div style={{ ...card, marginBottom: "1rem" }}>
+              <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                {SKILL_LABELS[ex.skill] ?? ex.skill}
+              </span>
 
-            <p style={{ fontSize: "1.1rem", fontWeight: 600, color: C.text,
-              lineHeight: 1.6, margin: "0.9rem 0",
-              marginBottom: ex.graph_fn ? "0.75rem" : "1.5rem" }}>
-              {ex.has_math ? <MathText text={ex.question} /> : ex.question}
-            </p>
+              <p style={{ fontSize: "1.1rem", fontWeight: 600, color: C.text,
+                lineHeight: 1.6, margin: "0.9rem 0",
+                marginBottom: ex.graph_fn ? "0.75rem" : "1.5rem" }}>
+                {ex.has_math ? <MathText text={ex.question} /> : ex.question}
+              </p>
 
-            {ex.graph_fn && ex.graph_view && (
-              <div style={{ marginBottom: "1.5rem" }}>
-                <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+              {ex.graph_fn && ex.graph_view && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+                </div>
+              )}
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                {ex.options.map((opt, i) => {
+                  const optCorrect  = i === ex.correct_index;
+                  const optSelected = i === selected;
+                  let bg = C.bgElevated, border = `1.5px solid ${C.border}`,
+                    color = C.text, opacity = 1;
+                  if (answered) {
+                    if (optCorrect)       { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
+                    else if (optSelected) { bg = C.errorBg;   border = `1.5px solid ${C.error}`;   color = C.error; }
+                    else                  { opacity = 0.4; }
+                  }
+                  return (
+                    <button key={i} onClick={() => handleAnswer(i)} disabled={answered}
+                      style={{ width: "100%", padding: "0.8rem 1rem", background: bg,
+                        border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
+                        color, cursor: answered ? "default" : "pointer", textAlign: "left",
+                        opacity, transition: "all 0.15s", fontFamily: fonts.body,
+                        display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center",
+                        justifyContent: "center", width: 24, height: 24, borderRadius: "50%",
+                        flexShrink: 0, fontSize: "0.72rem", fontWeight: 700,
+                        transition: "all 0.15s",
+                        background: answered
+                          ? optCorrect ? C.success : optSelected ? C.error : C.border
+                          : C.border,
+                        color: answered && (optCorrect || optSelected) ? "#fff" : C.muted }}>
+                        {["A","B","C","D"][i]}
+                      </span>
+                      {ex.has_math ? <MathText text={opt} /> : opt}
+                    </button>
+                  );
+                })}
               </div>
-            )}
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-              {ex.options.map((opt, i) => {
-                const isCorrect  = i === ex.correct_index;
-                const isSelected = i === selected;
-                let bg = C.card, border = `1.5px solid ${C.border}`,
-                  color = C.text, opacity = 1;
-                if (answered) {
-                  if (isCorrect)       { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
-                  else if (isSelected) { bg = C.errorBg;   border = `1.5px solid ${C.error}`;   color = C.error; }
-                  else                 { opacity = 0.4; }
-                }
-                return (
-                  <button key={i} onClick={() => handleAnswer(i)} disabled={answered}
-                    style={{ width: "100%", padding: "0.8rem 1rem", background: bg,
-                      border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
-                      color, cursor: answered ? "default" : "pointer", textAlign: "left",
-                      opacity, transition: "all 0.15s",
-                      display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                    <span style={{ display: "inline-flex", alignItems: "center",
-                      justifyContent: "center", width: 24, height: 24, borderRadius: "50%",
-                      flexShrink: 0, fontSize: "0.72rem", fontWeight: 700,
-                      transition: "all 0.15s",
-                      background: answered
-                        ? isCorrect ? C.success : isSelected ? C.error : C.border
-                        : C.border,
-                      color: answered && (isCorrect || isSelected) ? "#fff" : C.muted }}>
-                      {["A","B","C","D"][i]}
-                    </span>
-                    {ex.has_math ? <MathText text={opt} /> : opt}
+              {answered && result && (
+                <div style={{ marginTop: "1.1rem" }}>
+                  <p style={{ padding: "0.7rem 1rem", borderRadius: 10,
+                    fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
+                    marginBottom: "0.75rem",
+                    background: result.correct ? C.successBg : C.errorBg,
+                    color: result.correct ? C.success : C.error }}>
+                    {result.correct ? "✓ " : "✗ "}
+                    {ex.has_math ? <MathText text={result.feedback} /> : result.feedback}
+                  </p>
+
+                  <button onClick={handleNext}
+                    style={{ width: "100%", padding: "0.85rem", background: C.primary,
+                      color: "#fff", border: "none", borderRadius: 10,
+                      fontSize: "1rem", fontWeight: 700, cursor: "pointer",
+                      fontFamily: fonts.body }}>
+                    {currentIdx === exercises.length - 1 ? "Ver resultados →" : "Siguiente →"}
                   </button>
-                );
-              })}
+                </div>
+              )}
             </div>
-
-            {answered && result && (
-              <div style={{ marginTop: "1.1rem" }}>
-                <p style={{ padding: "0.7rem 1rem", borderRadius: 10,
-                  fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
-                  marginBottom: "0.9rem",
-                  background: result.correct ? C.successBg : C.errorBg,
-                  color: result.correct ? C.success : C.error }}>
-                  {result.correct ? "✓ " : "✗ "}
-                  {ex.has_math ? <MathText text={result.feedback} /> : result.feedback}
-                </p>
-                <button onClick={handleNext}
-                  style={{ width: "100%", padding: "0.85rem", background: C.primary,
-                    color: "#fff", border: "none", borderRadius: 10,
-                    fontSize: "1rem", fontWeight: 700, cursor: "pointer" }}>
-                  {currentIdx === exercises.length - 1 ? "Ver resultados →" : "Siguiente →"}
-                </button>
-              </div>
-            )}
-          </div>
+          </SlideTransition>
 
           <div style={{ display: "flex", gap: "0.3rem", justifyContent: "center", flexWrap: "wrap" }}>
             {exercises.map((_, i) => (
@@ -702,155 +998,145 @@ function SessionScreen({ sessionId, userName, exercises, avatar, onComplete }) {
 
 // ── SummaryScreen ──────────────────────────────────────────────────────────────
 
-function SummaryScreen({ summary, avatar, onRestart }) {
+function XPCounter({ targetXP, levelInfo }) {
+  const [displayXP, setDisplayXP] = useState(0);
+  const [barPct, setBarPct] = useState(0);
+  const [displayLevel, setDisplayLevel] = useState(levelInfo ? levelInfo.level : 1);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+
+  useEffect(() => {
+    if (targetXP === 0) return;
+    const duration = 1200;
+    const steps = 40;
+    const stepTime = duration / steps;
+    let current = 0;
+
+    // If level_info exists, calculate if we crossed a level boundary
+    // We simulate XP filling from 0 to targetXP
+    const finalPct = levelInfo ? Math.min(levelInfo.progress_pct, 100) : 0;
+    const startLevel = levelInfo ? Math.max(1, levelInfo.level - (levelInfo.xp_in_level < targetXP ? 1 : 0)) : 1;
+    const didLevelUp = levelInfo && startLevel < levelInfo.level;
+
+    if (didLevelUp) setDisplayLevel(startLevel);
+
+    const timer = setInterval(() => {
+      current++;
+      const progress = current / steps;
+      // Ease-out curve
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayXP(Math.round(eased * targetXP));
+
+      if (didLevelUp) {
+        // First half: fill to 100%, second half: reset and fill to final
+        if (progress < 0.5) {
+          setBarPct(Math.min(100, eased * 200));
+        } else if (progress < 0.55) {
+          setBarPct(100);
+          setShowLevelUp(true);
+          setDisplayLevel(levelInfo.level);
+        } else {
+          setBarPct(finalPct * ((progress - 0.55) / 0.45));
+        }
+      } else {
+        setBarPct(eased * finalPct);
+      }
+
+      if (current >= steps) {
+        clearInterval(timer);
+        setDisplayXP(targetXP);
+        setBarPct(finalPct);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [targetXP]);
+
+  return (
+    <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
+      <div style={{ fontSize: "2.5rem", fontWeight: 800, color: C.primary, lineHeight: 1,
+        fontFamily: fonts.heading, marginBottom: "0.25rem" }}>
+        +{displayXP} XP
+      </div>
+      <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.muted,
+        textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "1.25rem" }}>
+        Experiencia ganada
+      </div>
+
+      {levelInfo && (
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between",
+            alignItems: "baseline", marginBottom: "0.4rem" }}>
+            <div style={{ fontSize: "0.85rem", fontWeight: 700, color: C.text }}>
+              Nivel {displayLevel}
+              {showLevelUp && (
+                <span style={{ color: C.primary, marginLeft: "0.5rem", fontSize: "0.75rem" }}>
+                  LEVEL UP!
+                </span>
+              )}
+            </div>
+            <div style={{ fontSize: "0.68rem", color: C.muted }}>
+              {levelInfo.xp_in_level} / {levelInfo.xp_required} XP
+            </div>
+          </div>
+          <div style={{ width: "100%", height: 10, background: C.border,
+            borderRadius: 999, overflow: "hidden" }}>
+            <div style={{
+              width: `${barPct}%`, height: "100%",
+              background: `linear-gradient(90deg, ${C.primary}, #7C3AED)`,
+              borderRadius: 999, transition: "width 0.05s linear",
+            }} />
+          </div>
+          <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.35rem", textAlign: "right" }}>
+            {levelInfo.xp_missing > 0
+              ? `Faltan ${levelInfo.xp_missing} XP para el nivel ${levelInfo.level + 1}`
+              : `¡Nivel ${levelInfo.level} completado!`}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SummaryScreen({ summary, onRestart, onRegister }) {
   const { user_name, total, correct, incorrect, items, xp_earned = 0, level_info } = summary;
-  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
-  const scoreColor = pct >= 70 ? C.success : pct >= 40 ? "#D97706" : C.error;
-  const scoreBg    = pct >= 70 ? C.successBg : pct >= 40 ? "#FEF3C7" : C.errorBg;
-
-  // ── XP & belt progress ──────────────────────────────────────────────────────
-  const xp = xp_earned;
-
   const skillStates = summary.skill_states || {};
-  // Items exercised this session get a visual highlight in the grid
   const touchedKeys = new Set(items.map(it => `${it.topic ?? it.family}:${it.skill}`));
 
-  // ── Belt stripe calculation — counts across the full belt, not just this session ──
   const graduatedCount = Object.values(skillStates)
     .filter(s => s?.phase === "review").length;
-  const stripes  = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length; // 0, 1 o 2
+  const stripes  = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length;
   const promoted = graduatedCount >= PROMOTION_THRESHOLD;
 
-  // ── Item color by maturity ────────────────────────────────────────────────
-  function itemCell(entry) {
-    if (!entry) return { bg: "#E5E7EB", label: "—", textColor: "#9CA3AF" };
+  const [registering, setRegistering] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
-    if (entry.phase === "review") {
-      const today = new Date(); today.setHours(0, 0, 0, 0);
-      const diff  = entry.next_review
-        ? Math.round((new Date(entry.next_review + "T00:00:00") - today) / 86400000)
-        : 999;
-      if (diff <= 0)  return { bg: "#FCD34D", label: "Hoy",        textColor: "#78350F" };
-      if (diff <= 2)  return { bg: "#86EFAC", label: `${diff}d`,   textColor: "#14532D" };
-      if (diff <= 6)  return { bg: "#4ADE80", label: `${diff}d`,   textColor: "#14532D" };
-      if (diff <= 13) return { bg: "#22C55E", label: `${diff}d`,   textColor: "#fff" };
-      if (diff <= 20) return { bg: "#16A34A", label: `${diff}d`,   textColor: "#fff" };
-      return                  { bg: "#15803D", label: `${diff}d`,  textColor: "#fff" };
-    }
-
-    // Learning phase
-    const si = entry.step_index || 0;
-    const learningBg = ["#D1FAE5", "#A7F3D0", "#6EE7B7"][si] || "#D1FAE5";
-    return { bg: learningBg, label: `${si + 1}/3`, textColor: "#065F46" };
+  function handleRegister() {
+    setRegistering(true);
+    setTimeout(() => {
+      setRegistering(false);
+      setRegistered(true);
+      if (onRegister) onRegister();
+    }, 1500);
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "system-ui, sans-serif" }}>
-      <nav style={{ background: C.nav, height: 52, display: "flex",
-        alignItems: "center", justifyContent: "center" }}>
-        <IntervaLoLogo px={4} />
-      </nav>
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+      <Nav />
 
       <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 3rem" }}>
         <div style={{ width: "100%", maxWidth: 540 }}>
 
-          {/* Header card */}
-          <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
-            {avatar && (
-              <div style={{ width: 100, height: 100, margin: "0 auto 0.75rem" }}>
-                <BJJAvatar gender={avatar.gender} skin={avatar.skin}
-                  hair={avatar.hair} kimono={avatar.kimono} />
-              </div>
-            )}
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: C.text, margin: "0 0 0.25rem" }}>
-              ¡Clase completada!
-            </h2>
-            <p style={{ color: C.muted, margin: "0 0 1.25rem" }}>{user_name}</p>
+          {/* Header */}
+          <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+            color: C.text, textAlign: "center", margin: "0 0 1.25rem" }}>
+            ¡Repaso completado!
+          </h2>
 
-            {/* Score circle */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
-              justifyContent: "center", width: 106, height: 106, borderRadius: "50%",
-              background: scoreBg, border: `4px solid ${scoreColor}`,
-              margin: "0 auto 1.1rem" }}>
-              <span style={{ fontSize: "1.7rem", fontWeight: 800, color: scoreColor, lineHeight: 1 }}>
-                {correct}/{total}
-              </span>
-              <span style={{ fontSize: "0.75rem", color: scoreColor, fontWeight: 600 }}>{pct}%</span>
-            </div>
-
-            <div style={{ width: "100%", height: 7, background: C.border,
-              borderRadius: 999, overflow: "hidden", marginBottom: "1rem" }}>
-              <div style={{ width: `${pct}%`, height: "100%", background: scoreColor,
-                borderRadius: 999, transition: "width 0.6s ease" }} />
-            </div>
-
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
-              <div style={{ background: C.successBg, borderRadius: 10,
-                padding: "0.5rem 1.1rem", textAlign: "center" }}>
-                <div style={{ fontSize: "1.3rem", fontWeight: 800, color: C.success }}>{correct}</div>
-                <div style={{ fontSize: "0.72rem", color: C.success }}>Correctas</div>
-              </div>
-              <div style={{ background: C.errorBg, borderRadius: 10,
-                padding: "0.5rem 1.1rem", textAlign: "center" }}>
-                <div style={{ fontSize: "1.3rem", fontWeight: 800, color: C.error }}>{incorrect}</div>
-                <div style={{ fontSize: "0.72rem", color: C.error }}>Incorrectas</div>
-              </div>
-            </div>
-          </div>
-
-          {/* XP + Level card */}
-          <div style={{ ...card, marginBottom: "1rem" }}>
-            {/* XP earned row */}
-            <div style={{ display: "flex", alignItems: "center",
-              justifyContent: "space-between", marginBottom: "1rem" }}>
-              <div>
-                <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-                  textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  Experiencia ganada
-                </div>
-                <div style={{ fontSize: "2rem", fontWeight: 800, color: C.primary, lineHeight: 1.1 }}>
-                  +{xp} XP
-                </div>
-              </div>
-              <div style={{ fontSize: "2rem" }}>⚡</div>
-            </div>
-
-            {/* Level progress bar */}
-            {level_info && (
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between",
-                  alignItems: "baseline", marginBottom: "0.4rem" }}>
-                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: C.text }}>
-                    Nivel {level_info.level}
-                  </div>
-                  <div style={{ fontSize: "0.68rem", color: C.muted }}>
-                    {level_info.xp_in_level} / {level_info.xp_required} XP
-                  </div>
-                </div>
-                <div style={{ width: "100%", height: 10, background: C.border,
-                  borderRadius: 999, overflow: "hidden" }}>
-                  <div style={{
-                    width: `${Math.min(level_info.progress_pct, 100)}%`,
-                    height: "100%",
-                    background: `linear-gradient(90deg, ${C.primary}, #7C3AED)`,
-                    borderRadius: 999,
-                    transition: "width 0.8s ease",
-                  }} />
-                </div>
-                <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.35rem",
-                  textAlign: "right" }}>
-                  {level_info.xp_missing > 0
-                    ? `Faltan ${level_info.xp_missing} XP para el nivel ${level_info.level + 1}`
-                    : `¡Nivel ${level_info.level} completado!`}
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Animated XP + Level */}
+          <XPCounter targetXP={xp_earned} levelInfo={level_info} />
 
           {/* Belt + topic progress card */}
           <div style={{ ...card, marginBottom: "1rem" }}>
-
-            {/* Belt stripe header */}
             <div style={{ display: "flex", alignItems: "center",
               justifyContent: "space-between", marginBottom: "1rem" }}>
               <div>
@@ -862,8 +1148,7 @@ function SummaryScreen({ summary, avatar, onRestart }) {
                   {[0, 1].map(i => (
                     <div key={i} style={{
                       width: 22, height: 10, borderRadius: 999,
-                      background: i < stripes ? "#D97706" : "#E5E7EB",
-                      border: i < stripes ? "none" : "1px solid #D1D5DB",
+                      background: i < stripes ? "#D97706" : C.border,
                       transition: "background 0.4s ease",
                     }} />
                   ))}
@@ -884,106 +1169,146 @@ function SummaryScreen({ summary, avatar, onRestart }) {
               </div>
             </div>
 
-            {/* Topic × Skill grid */}
-            {/* Column headers */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 52px 52px 52px",
-              gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
-              <div />
-              {WHITE_BELT_SKILLS.map(h => (
-                <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
-                  textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
-                  {h}
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              {WHITE_BELT_TOPICS.map(({ key: topicKey, label }) => (
-                <div key={topicKey} style={{ display: "grid",
-                  gridTemplateColumns: "1fr 52px 52px 52px", gap: "3px",
-                  alignItems: "center" }}>
-                  <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.text,
-                    paddingLeft: "4px" }}>
-                    {label}
-                  </div>
-                  {WHITE_BELT_SKILLS.map(skill => {
-                    const k = `${topicKey}:${skill}`;
-                    const entry = skillStates[k];
-                    const wasTouched = touchedKeys.has(k);
-                    const { bg, label: cellLabel, textColor } = itemCell(entry);
-                    return (
-                      <div key={skill} style={{
-                        background: bg, borderRadius: 6, height: 26,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "0.65rem", fontWeight: 700, color: textColor,
-                        transition: "background 0.4s ease",
-                        outline: wasTouched ? `2px solid ${C.primary}` : "none",
-                        outlineOffset: "-2px",
-                      }}>
-                        {cellLabel}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-
-            {/* Legend */}
-            <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
-              flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem" }}>
-              {[
-                { bg: "#E5E7EB", label: "Sin iniciar", textColor: "#9CA3AF" },
-                { bg: "#D1FAE5", label: "Aprendiendo", textColor: "#065F46" },
-                { bg: "#FCD34D", label: "Repasar hoy", textColor: "#78350F" },
-                { bg: "#22C55E", label: "En progreso", textColor: "#fff" },
-                { bg: "#15803D", label: "Maduro",      textColor: "#fff" },
-              ].map(({ bg, label: ll, textColor }) => (
-                <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                  <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
-                    border: bg === "#E5E7EB" ? "1px solid #D1D5DB" : "none" }} />
-                  <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
-                </div>
-              ))}
-            </div>
+            <ProgressGrid skillStates={skillStates} touchedKeys={touchedKeys} />
           </div>
 
-          {/* Items detail */}
-          <div style={{ ...card, marginBottom: "1rem" }}>
-            <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: C.text,
-              margin: "0 0 0.85rem" }}>
-              Detalle por ejercicio
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              {items.map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.6rem",
-                  padding: "0.5rem 0.7rem", borderRadius: 8,
-                  background: item.correct ? "#F0FDF4" : "#FFF5F5" }}>
-                  <span style={{ color: item.correct ? C.success : C.error, flexShrink: 0 }}>
-                    {item.correct ? "✓" : "✗"}
-                  </span>
-                  <span style={{ fontWeight: 600, color: C.text, fontSize: "0.85rem", flex: 1 }}>
-                    {FAMILY_LABELS[item.topic ?? item.family] || item.topic || item.family}
-                    <span style={{ fontWeight: 400, color: C.muted, marginLeft: "0.3rem" }}>
-                      — {SKILL_LABELS[item.skill] || item.skill}
-                    </span>
-                  </span>
-                  <span style={{ background: item.phase === "review" ? "#DBEAFE" : C.pill,
-                    color: item.phase === "review" ? "#1D4ED8" : C.pillText,
-                    borderRadius: 999, padding: "0.15rem 0.5rem",
-                    fontSize: "0.68rem", fontWeight: 600, flexShrink: 0 }}>
-                    {item.phase === "review" ? "repaso" : "aprendiendo"}
-                  </span>
-                </div>
-              ))}
+          {/* Register with Google card */}
+          {onRegister && !registered && (
+            <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
+              <h3 style={{ fontFamily: fonts.heading, fontSize: "1.1rem", fontWeight: 700,
+                color: C.text, margin: "0 0 0.4rem" }}>
+                Guardá tu progreso
+              </h3>
+              <p style={{ color: C.muted, fontSize: "0.88rem", margin: "0 0 1.25rem" }}>
+                Registrate para no perder tu avance
+              </p>
+              <button onClick={handleRegister} disabled={registering}
+                style={{
+                  width: "100%", padding: "0.8rem 1rem", borderRadius: 12,
+                  background: "#fff", border: "none", cursor: "pointer",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
+                  fontSize: "0.95rem", fontWeight: 600, color: "#333",
+                  fontFamily: fonts.body, transition: "all 0.15s",
+                  opacity: registering ? 0.7 : 1,
+                }}>
+                {registering ? (
+                  <span>Registrando...</span>
+                ) : (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 48 48">
+                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                    Registrarse con Google
+                  </>
+                )}
+              </button>
             </div>
-          </div>
+          )}
 
           <button onClick={onRestart}
             style={{ width: "100%", padding: "0.9rem", background: C.primary,
               color: "#fff", border: "none", borderRadius: 12,
-              fontSize: "1rem", fontWeight: 700, cursor: "pointer" }}>
-            Nueva clase
+              fontSize: "1rem", fontWeight: 700, cursor: "pointer",
+              fontFamily: fonts.body }}>
+            {onRegister ? "Nueva clase" : "Volver al inicio"}
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── HomeScreen (post-registration) ─────────────────────────────────────────────
+
+function HomeScreen({ userName, lastSummary, onStartSession }) {
+  const skillStates = lastSummary?.skill_states || {};
+  const levelInfo = lastSummary?.level_info;
+  const xpTotal = lastSummary?.xp_earned || 0;
+
+  const graduatedCount = Object.values(skillStates)
+    .filter(s => s?.phase === "review").length;
+  const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length;
+
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+      <Nav rightContent={
+        levelInfo && (
+          <span style={{ color: C.textSecondary, fontSize: "0.82rem", fontWeight: 600 }}>
+            Nivel {levelInfo.level}
+          </span>
+        )
+      } />
+
+      <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 3rem" }}>
+        <div style={{ width: "100%", maxWidth: 540 }}>
+
+          {/* Welcome card */}
+          <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
+            <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+              color: C.text, margin: "0 0 0.5rem" }}>
+              Hola, {userName}
+            </h2>
+            <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center",
+              flexWrap: "wrap", marginBottom: "0.25rem" }}>
+              <span style={{ fontSize: "0.85rem", color: C.textSecondary }}>
+                Cinturón Blanco
+              </span>
+              {levelInfo && (
+                <span style={{ fontSize: "0.85rem", color: C.textSecondary }}>
+                  Nivel {levelInfo.level} · {xpTotal} XP
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Start session CTA */}
+          <button onClick={onStartSession}
+            style={{
+              width: "100%", padding: "1.1rem", marginBottom: "1rem",
+              background: C.primary, color: "#fff", border: "none", borderRadius: 14,
+              fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
+              fontFamily: fonts.body, transition: "all 0.15s",
+            }}>
+            Iniciar sesión →
+          </button>
+
+          {/* Progress grid */}
+          <div style={{ ...card, marginBottom: "1rem" }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+              textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
+              Progreso — Cinturón Blanco
+            </div>
+            <ProgressGrid skillStates={skillStates} />
+          </div>
+
+          {/* Share card */}
+          <div style={{ ...card, textAlign: "center" }}>
+            <p style={{ color: C.textSecondary, fontSize: "0.9rem", marginBottom: "0.75rem" }}>
+              Compartí Intervalo con tus compañeros
+            </p>
+            <button onClick={handleCopy}
+              style={{
+                padding: "0.6rem 1.5rem", borderRadius: 10,
+                background: C.bgElevated, border: `1px solid ${C.border}`,
+                color: copied ? C.success : C.textSecondary,
+                fontSize: "0.88rem", fontWeight: 600, cursor: "pointer",
+                fontFamily: fonts.body, transition: "all 0.2s",
+              }}>
+              {copied ? "✓ Enlace copiado" : "Copiar enlace"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -993,20 +1318,28 @@ function SummaryScreen({ summary, avatar, onRestart }) {
 // ── App ────────────────────────────────────────────────────────────────────────
 
 function App() {
-  const [screen, setScreen]   = useState("home");
-  const [session, setSession] = useState(null);
-  const [summary, setSummary] = useState(null);
-  const [avatar, setAvatar]   = useState(null);
+  const [screen, setScreen]         = useState("tutorial");
+  const [session, setSession]       = useState(null);
+  const [summary, setSummary]       = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [userName, setUserName]     = useState("");
+  const [userInfo, setUserInfo]     = useState(null);
 
-  async function handleStart({ name, university, career, avatar: av }) {
+  async function startSession(name) {
     const res = await fetch(`${API}/session/start`, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_name: name }),
+      body: JSON.stringify({ user_name: name || userName }),
     });
     if (!res.ok) throw new Error("Error al iniciar sesión");
-    setSession(await res.json());
-    setAvatar(av);
+    const data = await res.json();
+    setSession(data);
     setScreen("session");
+  }
+
+  async function handleTutorialStart({ name, university, career }) {
+    setUserName(name);
+    setUserInfo({ university, career });
+    await startSession(name);
   }
 
   async function handleComplete(sessionId) {
@@ -1016,16 +1349,36 @@ function App() {
     setScreen("summary");
   }
 
+  function handleRegister() {
+    setIsRegistered(true);
+    setScreen("home");
+  }
+
+  async function handleNewSession() {
+    await startSession();
+  }
+
+  if (screen === "tutorial")
+    return <TutorialScreen onStart={handleTutorialStart} />;
+
+  if (screen === "session" && session)
+    return <SessionScreen sessionId={session.session_id} userName={userName}
+      exercises={session.exercises} onComplete={handleComplete} />;
+
+  if (screen === "summary" && summary)
+    return <SummaryScreen summary={summary}
+      onRestart={isRegistered
+        ? () => setScreen("home")
+        : () => { setScreen("tutorial"); setSession(null); setSummary(null); }}
+      onRegister={!isRegistered ? handleRegister : null}
+    />;
+
   if (screen === "home")
-    return <HomeScreen onStart={handleStart} />;
-  if (screen === "session")
-    return <SessionScreen sessionId={session.session_id} userName={session.user_name}
-      exercises={session.exercises} avatar={avatar} onComplete={handleComplete} />;
-  if (screen === "summary")
-    return <SummaryScreen summary={summary} avatar={avatar}
-      onRestart={() => { setScreen("home"); setSession(null); setSummary(null); setAvatar(null); }} />;
+    return <HomeScreen userName={userName} lastSummary={summary}
+      onStartSession={handleNewSession} />;
+
+  return null;
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode><App /></React.StrictMode>
-);
+const root = globalThis.__ROOT ??= ReactDOM.createRoot(document.getElementById("root"));
+root.render(<React.StrictMode><App /></React.StrictMode>);
