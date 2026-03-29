@@ -4,6 +4,7 @@ session_store.py — Gestión de sesiones en memoria para Intervalo.
 
 from __future__ import annotations
 
+import random
 import sys
 import uuid
 from dataclasses import dataclass, field
@@ -105,13 +106,18 @@ def create_session(user_name: str) -> SessionState:
         skill_bank_key = _SKILL_TO_BANK.get(si.key.skill.value, si.key.skill.value)
         ex = get_exercise(topic_value, skill_bank_key, _default_config.graph_exercise_probability)
         exercise_id = f"ex_{idx:03d}"
+        # Shuffle options, tracking the new position of the correct answer
+        correct_answer = ex["options"][ex["correct_index"]]
+        shuffled = ex["options"][:]
+        random.shuffle(shuffled)
+        new_correct_index = shuffled.index(correct_answer)
         exercises.append(
             ExerciseInSession(
                 exercise_id=exercise_id,
                 item_key=si.key,
                 question=ex["question"],
-                options=ex["options"],
-                correct_index=ex["correct_index"],
+                options=shuffled,
+                correct_index=new_correct_index,
                 feedback_correct=ex["feedback_correct"],
                 feedback_incorrect=ex["feedback_incorrect"],
                 has_math=ex.get("has_math", False),
@@ -218,6 +224,8 @@ def get_summary(session_id: str) -> dict:
     # Estado final de cada ítem (topic:skill → SM2 state actual)
     # Solo incluir ítems que fueron practicados en esta sesión
     practiced_keys = {r["item_key"] for r in state.results}
+    # Ítems que tuvieron al menos un fallo en esta sesión
+    failed_keys = {r["item_key"] for r in state.results if not r["is_correct"]}
     skill_states = {}
     for key, item_state in state.item_states.items():
         if key not in practiced_keys:
@@ -227,6 +235,7 @@ def get_summary(session_id: str) -> dict:
             "phase": item_state.phase,
             "step_index": item_state.step_index,
             "next_review": item_state.next_review.isoformat() if item_state.next_review else None,
+            "failed": key in failed_keys,
         }
 
     # Progreso del cinturón

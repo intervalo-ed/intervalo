@@ -52,6 +52,8 @@ def start_session(body: StartSessionRequest):
             "skill": ex.item_key.skill.value,
             "graph_fn": ex.graph_fn,
             "graph_view": ex.graph_view,
+            "feedback_correct": ex.feedback_correct,
+            "feedback_incorrect": ex.feedback_incorrect,
         }
         for ex in state.exercises
     ]
