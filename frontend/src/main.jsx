@@ -5,7 +5,7 @@ import "katex/dist/katex.min.css";
 
 const API = "http://localhost:8001";
 
-const VOLUME = 0.65;
+const VOLUME = 0.5;
 const popAudio          = Object.assign(new Audio("/pop.mp3"),               { volume: VOLUME });
 const popCorrectAudio   = Object.assign(new Audio("/pop_correct.mp3"),       { volume: VOLUME });
 const popWrongAudio     = Object.assign(new Audio("/pop_wrong.mp3"),         { volume: VOLUME });
@@ -397,10 +397,15 @@ function TutorialScreen({ onStart }) {
   // Slide 0 intro sequence
   const [logoBarShown, setLogoBarShown] = useState(false);
   const [holaStart, setHolaStart]       = useState(false);
+  // 2-second readiness gate before continue is enabled
+  const [readyToAdvance, setReadyToAdvance] = useState(false);
   useEffect(() => {
     setTitleDone(false);
     setLogoBarShown(false);
     setHolaStart(false);
+    setReadyToAdvance(false);
+    const t = setTimeout(() => setReadyToAdvance(true), 2000);
+    return () => clearTimeout(t);
   }, [slide]);
   const onTitleDone = () => setTitleDone(true);
 
@@ -411,9 +416,9 @@ function TutorialScreen({ onStart }) {
   const [exResult, setExResult]               = useState(null);
 
   function canAdvance() {
+    if (!readyToAdvance) return false;
     if (slide === 0) return name.trim().length > 0;
-    if (slide === 5) return exCorrectFound;
-    if (slide === 6) return career !== "";
+    if (slide === 2) return exCorrectFound;
     if (slide === 7) return uni !== "";
     return true;
   }
@@ -576,34 +581,14 @@ function TutorialScreen({ onStart }) {
             Este tipo de práctica se llama evocación activa o <em>active recall</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={220}>
-          <FlipCard
-            front={
-              <div style={{ padding: "1.5rem", textAlign: "center" }}>
-                <div style={{ fontSize: "0.7rem", fontWeight: 600, color: C.muted,
-                  textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
-                  Pregunta
-                </div>
-                <p style={{ color: C.text, fontSize: "1rem", fontWeight: 600 }}>
-                  ¿Qué forma tiene una función lineal?
-                </p>
-                <p style={{ color: C.muted, fontSize: "0.8rem", marginTop: "1rem" }}>Tocá para ver la respuesta</p>
-              </div>
-            }
-            back={
-              <div style={{ padding: "1.5rem", textAlign: "center" }}>
-                <div style={{ fontSize: "0.7rem", fontWeight: 600, color: C.primary,
-                  textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
-                  Respuesta
-                </div>
-                <p style={{ color: C.text, fontSize: "1rem", fontWeight: 600 }}>
-                  <MathText text="$f(x) = mx + b$" />
-                </p>
-                <p style={{ color: C.textSecondary, fontSize: "0.85rem", marginTop: "0.5rem" }}>
-                  donde <MathText text="$m$" /> es la pendiente y <MathText text="$b$" /> la ordenada al origen
-                </p>
-              </div>
-            }
+        <FadeIn show={titleDone} delay={220} style={{ textAlign: "left" }}>
+          <ExerciseCard
+            exercise={TUTORIAL_EXERCISE}
+            wrongAttempts={exWrongAttempts}
+            correctFound={exCorrectFound}
+            shakeIdx={exShakeIdx}
+            result={exResult}
+            onAnswer={handleExAnswer}
           />
         </FadeIn>
         <FadeIn show={titleDone} delay={450}>
@@ -633,8 +618,33 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 4: Gamificación
+    // Slide 4: Ítems
     4: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
+          <Typewriter text="Ítems" onDone={onTitleDone} />
+        </h2>
+        <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem", textAlign: "left" }}>
+            El ejercicio que acabás de resolver es un <strong style={{ color: C.text }}>ítem</strong>:
+            evalúa una habilidad específica sobre un tema (en este caso, <em>Clasificación</em> de funciones <em>Lineales</em>).
+            La primera vez que aparece está <strong style={{ color: C.text }}>Nuevo</strong>.
+            Si lo respondés bien pasa a <strong style={{ color: C.text }}>Aprendiendo</strong>,
+            y si mostrás dominio sostenido se <strong style={{ color: C.text }}>Gradúa</strong>.
+          </p>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={220}>
+          <ItemStates />
+        </FadeIn>
+        <FadeIn show={titleDone} delay={450}>
+          {continueBtn()}
+        </FadeIn>
+      </div>
+    ),
+
+    // Slide 5: Progreso
+    5: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
@@ -648,34 +658,6 @@ function TutorialScreen({ onStart }) {
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
           <BeltSequence />
-        </FadeIn>
-        <FadeIn show={titleDone} delay={450}>
-          {continueBtn()}
-        </FadeIn>
-      </div>
-    ),
-
-    // Slide 5: Example exercise
-    5: (
-      <div style={{ textAlign: "center" }}>
-        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.3rem", fontWeight: 800,
-          color: C.text, marginBottom: "0.5rem", minHeight: "1.7em" }}>
-          <Typewriter text="Así se ve un ejercicio" onDone={onTitleDone} />
-        </h2>
-        <FadeIn show={titleDone} delay={0}>
-          <p style={{ color: C.muted, fontSize: "0.85rem", marginBottom: "1.25rem" }}>
-            Probá resolver este ejemplo
-          </p>
-        </FadeIn>
-        <FadeIn show={titleDone} delay={220} style={{ textAlign: "left" }}>
-          <ExerciseCard
-            exercise={TUTORIAL_EXERCISE}
-            wrongAttempts={exWrongAttempts}
-            correctFound={exCorrectFound}
-            shakeIdx={exShakeIdx}
-            result={exResult}
-            onAnswer={handleExAnswer}
-          />
         </FadeIn>
         <FadeIn show={titleDone} delay={450}>
           {continueBtn()}
@@ -968,6 +950,52 @@ function BeltSequence() {
   );
 }
 
+// ── ItemStates ─────────────────────────────────────────────────────────────────
+
+function ItemStates() {
+  const STATES = [
+    { label: "Nuevo",       bg: C.bgElevated,            border: C.border,   text: C.muted        },
+    { label: "Pendiente",   bg: "rgba(180,83,9,0.25)",   border: "#B45309",  text: "#FDE68A"      },
+    { label: "Aprendiendo", bg: "rgba(29,78,216,0.25)",  border: "#3B82F6",  text: "#BFDBFE"      },
+    { label: "Graduado",    bg: "rgba(21,128,61,0.25)",  border: "#22C55E",  text: "#BBF7D0"      },
+  ];
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (active >= STATES.length - 1) return;
+    const t = setTimeout(() => setActive(a => a + 1), 950);
+    return () => clearTimeout(t);
+  }, [active]);
+
+  return (
+    <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center",
+      alignItems: "center", padding: "1rem 0", flexWrap: "wrap" }}>
+      {STATES.map((s, i) => (
+        <React.Fragment key={s.label}>
+          <div style={{
+            padding: "0.5rem 1rem", borderRadius: 10,
+            background: i <= active ? s.bg : C.bgElevated,
+            color: i <= active ? s.text : C.muted,
+            border: `1.5px solid ${i <= active ? s.border : C.border}`,
+            fontWeight: 600, fontSize: "0.9rem",
+            transition: "all 0.55s ease",
+            opacity: i <= active ? 1 : 0.35,
+          }}>
+            {s.label}
+          </div>
+          {i < STATES.length - 1 && (
+            <span style={{
+              color: C.muted, fontSize: "0.8rem",
+              opacity: i < active ? 0.8 : 0.2,
+              transition: "opacity 0.55s ease",
+            }}>→</span>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
 // ── ExerciseCard (shared between tutorial and session) ─────────────────────────
 
 function ExerciseCard({ exercise: ex, wrongAttempts = new Set(), correctFound = false, shakeIdx = null, result = null, onAnswer }) {
@@ -1135,7 +1163,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
 
       <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 2rem" }}>
         <div style={{ width: "100%", maxWidth: 560,
-          animation: endPhase === "exiting" ? "slideOutLeft 0.6s ease-out forwards" : undefined }}>
+          animation: endPhase === "exiting" ? "slideOutLeft 0.3s ease-out forwards" : undefined }}>
           <div style={{ display: "flex", justifyContent: "space-between",
             alignItems: "center", marginBottom: "0.6rem" }}>
             <span style={{ fontWeight: 700, color: C.text, fontSize: "0.9rem" }}>
@@ -1295,13 +1323,9 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
 
   return (
     <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
-      <div style={{ fontSize: "2.5rem", fontWeight: 800, color: C.primary, lineHeight: 1,
-        fontFamily: fonts.heading, marginBottom: "0.25rem" }}>
+      <div style={{ fontSize: "2.5rem", fontWeight: 800, color: C.text, lineHeight: 1,
+        fontFamily: fonts.heading, marginBottom: "1.25rem" }}>
         +{displayXP} XP
-      </div>
-      <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.muted,
-        textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "1.25rem" }}>
-        Experiencia ganada
       </div>
 
       {levelInfo && (
@@ -1320,18 +1344,13 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
               {levelInfo.xp_in_level} / {levelInfo.xp_required} XP
             </div>
           </div>
-          <div style={{ width: "100%", height: 10, background: C.border,
+          <div style={{ width: "100%", height: 8, background: "rgba(255,255,255,0.1)",
             borderRadius: 999, overflow: "hidden" }}>
             <div style={{
               width: `${barPct}%`, height: "100%",
-              background: `linear-gradient(90deg, ${C.primary}, #7C3AED)`,
+              background: "rgba(255,255,255,0.55)",
               borderRadius: 999, transition: "width 0.05s linear",
             }} />
-          </div>
-          <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.35rem", textAlign: "right" }}>
-            {levelInfo.xp_missing > 0
-              ? `Faltan ${levelInfo.xp_missing} XP para el nivel ${levelInfo.level + 1}`
-              : `¡Nivel ${levelInfo.level} completado!`}
           </div>
         </div>
       )}
