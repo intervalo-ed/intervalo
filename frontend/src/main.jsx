@@ -27,11 +27,11 @@ const UNIVERSIDADES = [
 ];
 
 const CARRERAS = [
-  { value: "ciencias",    label: "Ciencias" },
-  { value: "tecnologia",  label: "Tecnología" },
-  { value: "ingenieria",  label: "Ingeniería" },
-  { value: "matematica",  label: "Matemática" },
-  { value: "otra",        label: "Otra" },
+  { value: "ciencias",    label: "Ciencias",    emoji: "🔬" },
+  { value: "tecnologia",  label: "Tecnología",  emoji: "💻" },
+  { value: "ingenieria",  label: "Ingeniería",  emoji: "⚙️" },
+  { value: "matematica",  label: "Matemática",  emoji: "📐" },
+  { value: "otra",        label: "Otra",        emoji: null },
 ];
 
 const BELTS = [
@@ -249,18 +249,19 @@ function FunctionPlot({ fnStr, view }) {
 //   learning, si>0  → Aprendiendo  (racha: 1/3 o 2/3)
 //   review          → Maduro       (graduado: 3/3)
 function itemCell(entry) {
-  if (!entry) return { bg: C.bgElevated, label: "—", textColor: C.muted };
+  if (!entry) return { bg: C.bgElevated, label: "-", textColor: C.muted };
 
   if (entry.phase === "review") {
-    return { bg: "#15803D", label: "3/3", textColor: "#fff" };
+    return { bg: "rgba(21,128,61,0.35)", label: "3/3", textColor: "#BBF7D0" };
   }
 
   const si = entry.step_index ?? 0;
   if (si === 0) {
-    // step 0 en learning = fallo registrado por el algoritmo
-    return { bg: "#5C6E00", label: "0/3", textColor: "#F0FFA0" };
+    // Pendiente: attempted but failed, scheduled for review (orange)
+    return { bg: "rgba(180,83,9,0.32)", label: "0/3", textColor: "#FDE68A" };
   }
-  return { bg: "#047857", label: `${si}/3`, textColor: "#D1FAE5" };
+  // Aprendiendo: correct answers, progressing (lime)
+  return { bg: "rgba(101,163,13,0.32)", label: `${si}/3`, textColor: "#D9F99D" };
 }
 
 function ProgressGrid({ skillStates, revealedKeys }) {
@@ -268,7 +269,7 @@ function ProgressGrid({ skillStates, revealedKeys }) {
   return (
     <div>
       {/* Column headers */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 52px 52px 52px",
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 44px 44px 44px",
         gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
         <div />
         {WHITE_BELT_SKILLS.map(h => (
@@ -282,7 +283,7 @@ function ProgressGrid({ skillStates, revealedKeys }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
         {WHITE_BELT_TOPICS.map(({ key: topicKey, label }) => (
           <div key={topicKey} style={{ display: "grid",
-            gridTemplateColumns: "1fr 52px 52px 52px", gap: "3px", alignItems: "center" }}>
+            gridTemplateColumns: "1fr 44px 44px 44px", gap: "3px", alignItems: "center" }}>
             <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
               {label}
             </div>
@@ -308,16 +309,18 @@ function ProgressGrid({ skillStates, revealedKeys }) {
 
       {/* Legend */}
       <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
-        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem" }}>
+        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
+        justifyContent: "center" }}>
         {[
-          { bg: C.bgElevated, label: "Sin iniciar", textColor: C.muted },
-          { bg: "#5C6E00",    label: "Reiniciado",  textColor: "#F0FFA0" },
-          { bg: "#047857",    label: "Aprendiendo", textColor: "#D1FAE5" },
-          { bg: "#15803D",    label: "Maduro",      textColor: "#fff" },
-        ].map(({ bg, label: ll, textColor }) => (
+          { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
+          { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
+          { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
+          { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
+          { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
+        ].map(({ bg, border, label: ll }) => (
           <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
             <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
-              border: bg === C.bgElevated ? `1px solid ${C.border}` : "none" }} />
+              border: `1px solid ${border}` }} />
             <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
           </div>
         ))}
@@ -404,7 +407,7 @@ function TutorialScreen({ onStart }) {
     setLogoBarShown(false);
     setHolaStart(false);
     setReadyToAdvance(false);
-    const t = setTimeout(() => setReadyToAdvance(true), 2000);
+    const t = setTimeout(() => setReadyToAdvance(true), 5000);
     return () => clearTimeout(t);
   }, [slide]);
   const onTitleDone = () => setTitleDone(true);
@@ -416,10 +419,11 @@ function TutorialScreen({ onStart }) {
   const [exResult, setExResult]               = useState(null);
 
   function canAdvance() {
+    if (slide === 7) return uni !== "";
+    if (slide === 8) return true;
     if (!readyToAdvance) return false;
     if (slide === 0) return name.trim().length > 0;
     if (slide === 2) return exCorrectFound;
-    if (slide === 7) return uni !== "";
     return true;
   }
 
@@ -516,7 +520,9 @@ function TutorialScreen({ onStart }) {
             />
           </span>
           <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden",
-            opacity: logoBarShown ? 1 : 0, transition: "opacity 0.75s ease" }}>
+            transform: logoBarShown ? "scaleX(1)" : "scaleX(0)",
+            transformOrigin: "left center",
+            transition: logoBarShown ? "transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)" : "none" }}>
             {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
           </div>
         </div>
@@ -626,12 +632,14 @@ function TutorialScreen({ onStart }) {
           <Typewriter text="Ítems" onDone={onTitleDone} />
         </h2>
         <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem", textAlign: "left" }}>
+            El ejercicio que acabás de resolver es un <strong style={{ color: C.text }}>ítem</strong>,
+            que evalúa una habilidad específica sobre un tema. En este caso, <em>clasificación</em> de funciones <em>lineales</em>.
+          </p>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem", textAlign: "left" }}>
-            El ejercicio que acabás de resolver es un <strong style={{ color: C.text }}>ítem</strong>:
-            evalúa una habilidad específica sobre un tema (en este caso, <em>Clasificación</em> de funciones <em>Lineales</em>).
-            La primera vez que aparece está <strong style={{ color: C.text }}>Nuevo</strong>.
-            Si lo respondés bien pasa a <strong style={{ color: C.text }}>Aprendiendo</strong>,
-            y si mostrás dominio sostenido se <strong style={{ color: C.text }}>Gradúa</strong>.
+            Si todavía no resolviste ejercicios sobre un ítem, va a aparecer como <strong style={{ color: C.text }}>nuevo</strong>.
+            Si tenés un repaso para hacer hoy, va a aparecer como <strong style={{ color: C.text }}>pendiente</strong>.
+            A medida que resolvés bien los ejercicios de cada ítem y demostrás dominio, van a pasar de <strong style={{ color: C.text }}>aprendiendo</strong> a <strong style={{ color: C.text }}>graduado</strong>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
@@ -652,8 +660,9 @@ function TutorialScreen({ onStart }) {
         </h2>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-            Tu progreso se mide a través de ítems. Cada ítem evalúa una habilidad sobre un tema.
-            A medida que demostrás dominio sostenido, los ítems se gradúan y avanzás de cinturón.
+            Cuando suficientes ítems se <strong style={{ color: C.text }}>gradúan</strong>, avanzás de <strong style={{ color: C.text }}>cinturón</strong>.
+            Hay <strong style={{ color: C.text }}>5 cinturones</strong>, desde blanco hasta negro,
+            cada uno con <strong style={{ color: C.text }}>grados intermedios</strong>, representando un nivel mayor de <strong style={{ color: C.text }}>dominio</strong> sobre los contenidos de cada curso.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
@@ -690,7 +699,10 @@ function TutorialScreen({ onStart }) {
                   fontWeight: 600, fontSize: "1rem", cursor: "pointer",
                   fontFamily: fonts.body, transition: "all 0.22s",
                 }}>
-                {c.label}
+                <span style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "0.4rem" }}>
+                  <span>{c.label}</span>
+                  {c.emoji && <span>{c.emoji}</span>}
+                </span>
               </button>
             ))}
           </div>
@@ -954,9 +966,9 @@ function BeltSequence() {
 
 function ItemStates() {
   const STATES = [
-    { label: "Nuevo",       bg: C.bgElevated,            border: C.border,   text: C.muted        },
+    { label: "Nuevo",       bg: "rgba(29,78,216,0.25)",  border: "#3B82F6",  text: "#BFDBFE"      },
     { label: "Pendiente",   bg: "rgba(180,83,9,0.25)",   border: "#B45309",  text: "#FDE68A"      },
-    { label: "Aprendiendo", bg: "rgba(29,78,216,0.25)",  border: "#3B82F6",  text: "#BFDBFE"      },
+    { label: "Aprendiendo", bg: "rgba(101,163,13,0.25)", border: "#84CC16",  text: "#D9F99D"      },
     { label: "Graduado",    bg: "rgba(21,128,61,0.25)",  border: "#22C55E",  text: "#BBF7D0"      },
   ];
   const [active, setActive] = useState(0);
@@ -969,7 +981,7 @@ function ItemStates() {
 
   return (
     <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center",
-      alignItems: "center", padding: "1rem 0", flexWrap: "wrap" }}>
+      alignItems: "center", padding: "1rem 0", flexWrap: "nowrap" }}>
       {STATES.map((s, i) => (
         <React.Fragment key={s.label}>
           <div style={{
@@ -1475,8 +1487,8 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
           {/* Belt + progress grid card — appears after title */}
           {title2Done && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
           <div style={{ ...card, marginBottom: "1rem" }}>
-            <div style={{ display: "flex", alignItems: "center",
-              justifyContent: "space-between", marginBottom: "1rem" }}>
+            {/* Header row: left info + belt centered above LEXI */}
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "0.85rem" }}>
               <div>
                 <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
                   textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
@@ -1490,19 +1502,12 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
                   ))}
                 </div>
                 <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
-                  {graduatedCount} / {MASTERY_TOTAL} ítems
+                  {graduatedCount} / {promoted ? MASTERY_TOTAL : (stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD)} ítems para el próximo grado
                 </div>
               </div>
-              <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "0.68rem", color: C.muted }}>
-                  {promoted ? "Cinturón completado" : stripes < 2 ? "Próximo grado" : "Para ascender"}
-                </div>
-                <div style={{ fontSize: "0.88rem", fontWeight: 700, color: promoted ? C.success : C.text }}>
-                  {promoted
-                    ? "Promovido"
-                    : `${(stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD) - graduatedCount} ítems más`}
-                </div>
-              </div>
+              <img src="/belt_white.png" alt="Cinturón Blanco"
+                style={{ width: 100, height: "auto", opacity: 0.85,
+                  marginLeft: "auto", marginRight: 20 }} />
             </div>
             <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
           </div>
@@ -1536,6 +1541,22 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
                   </>
                 )}
               </button>
+              <button onClick={handleRegister} disabled={registering}
+                style={{ width: "100%", padding: "0.8rem 1rem", borderRadius: 12, marginTop: "0.6rem",
+                  background: "rgba(255,255,255,0.08)", border: `1px solid ${C.border}`,
+                  cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                  gap: "0.75rem", fontSize: "0.9rem", fontWeight: 500, color: C.textSecondary,
+                  fontFamily: fonts.body, transition: "all 0.22s", opacity: registering ? 0.5 : 1 }}>
+                {registering ? <span>Registrando...</span> : (
+                  <>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/>
+                      <path d="M2 8l10 6 10-6"/>
+                    </svg>
+                    Registrarse con Email
+                  </>
+                )}
+              </button>
             </div>
           )}
 
@@ -1547,17 +1568,70 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
 
 // ── HomeScreen (post-registration) ─────────────────────────────────────────────
 
+function CountUp({ target, duration = 600, color }) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (target === 0) { setVal(0); return; }
+    const steps = Math.min(target, 10);
+    const stepMs = duration / steps;
+    let i = 0;
+    const t = setInterval(() => {
+      i++;
+      setVal(Math.round((i / steps) * target));
+      if (i >= steps) clearInterval(t);
+    }, stepMs);
+    return () => clearInterval(t);
+  }, [target]);
+  return <span style={{ fontSize: "1.1rem", fontWeight: 700, color }}>{val}</span>;
+}
+
 function HomeScreen({ userName, lastSummary, onStartSession }) {
   const skillStates = lastSummary?.skill_states || {};
   const levelInfo = lastSummary?.level_info;
-  const xpTotal = lastSummary?.xp_earned || 0;
 
-  const graduatedCount = Object.values(skillStates)
-    .filter(s => s?.phase === "review").length;
+  const allEntries = Object.values(skillStates);
+  const pendienteCount = allEntries.filter(s => s?.phase === "learning" && (s.step_index ?? 0) === 0).length;
+  const nuevoCount = 0;
+  const aprendiendoCount = allEntries.filter(s => s?.phase === "learning" && (s.step_index ?? 0) > 0).length;
+  const graduatedCount = allEntries.filter(s => s?.phase === "review").length;
   const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length;
 
-  const [copied, setCopied] = useState(false);
+  const STATUS_CHIPS = [
+    { label: "Nuevos",      count: nuevoCount,       color: "#BFDBFE", bg: "rgba(29,78,216,0.30)",  border: "#3B82F6" },
+    { label: "Pendientes",  count: pendienteCount,   color: "#FDE68A", bg: "rgba(180,83,9,0.32)",   border: "#B45309" },
+    { label: "Aprendiendo", count: aprendiendoCount, color: "#D9F99D", bg: "rgba(101,163,13,0.32)", border: "#84CC16" },
+    { label: "Graduados",   count: graduatedCount,   color: "#BBF7D0", bg: "rgba(21,128,61,0.35)",  border: "#22C55E" },
+  ];
 
+  // Animation sequence
+  const [titleDone, setTitleDone] = useState(false);
+  const [chipsReady, setChipsReady] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
+  const [showGrid, setShowGrid] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+
+  useEffect(() => {
+    if (titleDone) {
+      const t1 = setTimeout(() => setChipsReady(true), 300);
+      const t2 = setTimeout(() => setShowBtn(true), 900);
+      const t3 = setTimeout(() => setShowGrid(true), 1300);
+      const t4 = setTimeout(() => setShowShare(true), 1800);
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+    }
+  }, [titleDone]);
+
+  // Grid reveal stagger (same as summary)
+  const touchedList = Object.keys(skillStates);
+  const [revealedCount, setRevealedCount] = useState(0);
+  useEffect(() => {
+    if (!showGrid) return;
+    if (revealedCount >= touchedList.length) return;
+    const t = setTimeout(() => setRevealedCount(c => c + 1), 70);
+    return () => clearTimeout(t);
+  }, [showGrid, revealedCount]);
+  const revealedKeys = showGrid ? new Set(touchedList.slice(0, revealedCount)) : new Set();
+
+  const [copied, setCopied] = useState(false);
   function handleCopy() {
     navigator.clipboard.writeText(window.location.href).then(() => {
       setCopied(true);
@@ -1586,66 +1660,87 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
       <div style={{ display: "flex", justifyContent: "center", padding: "1.5rem 1rem 3rem" }}>
         <div style={{ width: "100%", maxWidth: 540 }}>
 
-          {/* Welcome card */}
+          {/* Welcome card with animated chips */}
           <div style={{ ...card, marginBottom: "1rem", textAlign: "center" }}>
-            <img src="/belt_white.png" alt="Cinturón Blanco"
-              style={{ width: 56, height: "auto", marginBottom: "0.75rem", opacity: 0.9 }} />
             <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
-              color: C.text, margin: "0 0 0.4rem" }}>
-              Hola, {userName}
+              color: C.text, margin: "0 0 1rem", minHeight: "1.9em" }}>
+              <Typewriter text={`Hola, ${userName}`} onDone={() => setTitleDone(true)} />
             </h2>
-            <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center",
-              flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontSize: "0.85rem", color: C.textSecondary }}>
-                Cinturón Blanco
-              </span>
-              {levelInfo && (
-                <span style={{ fontSize: "0.85rem", color: C.muted }}>·</span>
-              )}
-              {levelInfo && (
-                <span style={{ fontSize: "0.85rem", color: C.textSecondary }}>
-                  Nivel {levelInfo.level} · {xpTotal} XP
-                </span>
-              )}
-            </div>
+            <FadeIn show={titleDone} delay={150}>
+              <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+                {STATUS_CHIPS.map(({ label, count, color, bg, border }) => (
+                  <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center",
+                    padding: "0.5rem 0.65rem", borderRadius: 10, background: bg,
+                    border: `1px solid ${border}`, flex: 1 }}>
+                    {chipsReady ? <CountUp target={count} color={color} /> :
+                      <span style={{ fontSize: "1.1rem", fontWeight: 700, color }}>0</span>}
+                    <span style={{ fontSize: "0.6rem", fontWeight: 600, color: C.muted, marginTop: 2 }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
           </div>
 
-          {/* Progress grid */}
-          <div style={{ ...card, marginBottom: "1rem" }}>
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-              textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.75rem" }}>
-              Progreso — Cinturón Blanco
-            </div>
-            <ProgressGrid skillStates={skillStates} />
-          </div>
+          {/* Start session CTA — between welcome and grid */}
+          <FadeIn show={showBtn} delay={0}>
+            <button onClick={() => { playStart(); onStartSession(); }}
+              style={{
+                width: "100%", padding: "1.1rem", marginBottom: "1rem",
+                background: C.primary, color: "#fff", border: "none", borderRadius: 14,
+                fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
+                fontFamily: fonts.body, transition: "all 0.22s",
+              }}>
+              Iniciar
+            </button>
+          </FadeIn>
 
-          {/* Start session CTA */}
-          <button onClick={() => { playStart(); onStartSession(); }}
-            style={{
-              width: "100%", padding: "1.1rem", marginBottom: "1rem",
-              background: C.primary, color: "#fff", border: "none", borderRadius: 14,
-              fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
-              fontFamily: fonts.body, transition: "all 0.22s",
-            }}>
-            Iniciar
-          </button>
+          {/* Progress grid — animated slide-in */}
+          {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
+            <div style={{ ...card, marginBottom: "1rem" }}>
+              {/* Header row: left info + belt icon */}
+              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.85rem" }}>
+                <div>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                    textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
+                    Cinturón Blanco
+                  </div>
+                  <div style={{ display: "flex", gap: 5 }}>
+                    {[0, 1].map(i => (
+                      <div key={i} style={{ width: 22, height: 10, borderRadius: 999,
+                        background: i < stripes ? "#D97706" : C.border,
+                        transition: "background 0.55s ease" }} />
+                    ))}
+                  </div>
+                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
+                    {graduatedCount} / {stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD} ítems para el próximo grado
+                  </div>
+                </div>
+                <img src="/belt_white.png" alt="Cinturón Blanco"
+                  style={{ width: 100, height: "auto", opacity: 0.85,
+                    marginLeft: "auto", marginRight: 20 }} />
+              </div>
+              <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
+            </div>
+          </div>}
 
           {/* Share card */}
-          <div style={{ ...card, textAlign: "center" }}>
-            <p style={{ color: C.textSecondary, fontSize: "0.9rem", marginBottom: "0.75rem" }}>
-              Compartí Intervalo con tus compañeros
-            </p>
-            <button onClick={handleCopy}
-              style={{
-                padding: "0.6rem 1.5rem", borderRadius: 10,
-                background: C.bgElevated, border: `1px solid ${C.border}`,
-                color: copied ? C.success : C.textSecondary,
-                fontSize: "0.88rem", fontWeight: 600, cursor: "pointer",
-                fontFamily: fonts.body, transition: "all 0.3s",
-              }}>
-              {copied ? "✓ Enlace copiado" : "Copiar enlace"}
-            </button>
-          </div>
+          {showShare && (
+            <div style={{ ...card, textAlign: "center", animation: "slideInRight 0.5s ease-out" }}>
+              <p style={{ color: C.textSecondary, fontSize: "0.9rem", marginBottom: "0.75rem" }}>
+                Compartí Intervalo con tus compañeros
+              </p>
+              <button onClick={handleCopy}
+                style={{
+                  padding: "0.6rem 1.5rem", borderRadius: 10,
+                  background: C.bgElevated, border: `1px solid ${C.border}`,
+                  color: copied ? C.success : C.textSecondary,
+                  fontSize: "0.88rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: fonts.body, transition: "all 0.3s",
+                }}>
+                {copied ? "✓ Enlace copiado" : "Copiar enlace"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
