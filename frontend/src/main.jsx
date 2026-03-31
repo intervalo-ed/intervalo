@@ -384,7 +384,7 @@ function FadeIn({ show, delay = 0, style, children }) {
 
 // ── TutorialScreen ─────────────────────────────────────────────────────────────
 
-const TOTAL_SLIDES = 10;
+const TOTAL_SLIDES = 11;
 
 function TutorialScreen({ onStart }) {
   const [slide, setSlide] = useState(0);
@@ -421,6 +421,7 @@ function TutorialScreen({ onStart }) {
   function canAdvance() {
     if (slide === 8) return uni !== "";
     if (slide === 9) return true;
+    if (slide === 10) return true;
     if (!readyToAdvance) return false;
     if (slide === 0) return name.trim().length > 0;
     if (slide === 3) return exCorrectFound;
@@ -762,8 +763,58 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 9: Ready
+    // Slide 9: Cinturón Blanco
     9: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
+          <Typewriter text="Cinturón Blanco" onDone={onTitleDone} />
+        </h2>
+        <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.75rem" }}>
+            En esta primera etapa vas a trabajar tu capacidad para <strong style={{ color: C.text }}>reconocer, describir y manipular</strong> las distintas familias de funciones que se suelen ver en las cátedras de Análisis Matemático I. Funciones <strong style={{ color: C.text }}>lineales, cuadráticas, polinomiales, exponenciales, logarítmicas, racionales y trigonométricas</strong>.
+          </p>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={300}>
+          <img src="/belt_white.png" alt="Cinturón Blanco"
+            style={{
+              width: 180, height: "auto", display: "block", margin: "0 auto 1.75rem",
+              animation: titleDone ? "beltReveal 1.2s ease-out forwards" : "none",
+              opacity: 0,
+            }} />
+        </FadeIn>
+        <FadeIn show={titleDone} delay={600}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "0.5rem" }}>
+            Los cinturones siguientes trabajan <strong style={{ color: C.text }}>límites, continuidad, diferenciabilidad, derivadas e integrales</strong>.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1rem" }}>
+            {BELTS.map((b, i) => (
+              <div key={b.name} style={{
+                display: "flex", flexDirection: "column", alignItems: "center", gap: "0.3rem",
+                opacity: i === 0 ? 1 : 0.35,
+                transition: "opacity 0.3s",
+              }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: "50%",
+                  background: b.color,
+                  border: i === 0 ? `2px solid ${C.primary}` : `1.5px solid ${C.border}`,
+                  boxShadow: i === 0 ? `0 0 8px ${C.primary}55` : "none",
+                }} />
+                <span style={{ fontSize: "0.65rem", color: i === 0 ? C.text : C.muted, fontWeight: i === 0 ? 700 : 400 }}>
+                  {b.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={850}>
+          {continueBtn()}
+        </FadeIn>
+      </div>
+    ),
+
+    // Slide 10: Ready
+    10: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.6rem", fontWeight: 800,
           color: C.text, marginBottom: "0.75rem", minHeight: "2em" }}>
