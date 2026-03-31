@@ -5,7 +5,7 @@ import "katex/dist/katex.min.css";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8001";
 
-const VOLUME = 0.3;
+const VOLUME = 0.2;
 const popAudio          = Object.assign(new Audio("/pop.mp3"),               { volume: VOLUME });
 const popCorrectAudio   = Object.assign(new Audio("/pop_correct.mp3"),       { volume: VOLUME });
 const popWrongAudio     = Object.assign(new Audio("/pop_wrong.mp3"),         { volume: VOLUME });
