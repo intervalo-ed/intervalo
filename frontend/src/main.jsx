@@ -1172,7 +1172,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
   async function handleNext() {
     if (currentIdx === exercises.length - 1) {
       playTerminar();
-      playConteo();
+      setTimeout(() => playConteo(), 2200);
       setEndPhase("pressed");
       const fetchPromise = fetch(`${API}/session/${sessionId}/summary`)
         .then(r => r.json()).catch(() => null);
