@@ -1172,6 +1172,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
   async function handleNext() {
     if (currentIdx === exercises.length - 1) {
       playTerminar();
+      playConteo();
       setEndPhase("pressed");
       const fetchPromise = fetch(`${API}/session/${sessionId}/summary`)
         .then(r => r.json()).catch(() => null);
@@ -1314,7 +1315,6 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
 
   useEffect(() => {
     if (targetXP === 0) { onDone?.(); return; }
-    playConteo(); // sound starts exactly with animation
     const STEPS    = 10;
     const STEP_MS  = 70;  // 10 × 70ms = 700ms total
     let current = 0;
