@@ -1693,7 +1693,7 @@ function RegisteredScreen({ userName, onContinue }) {
       <div style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", gap: "1.5rem", position: "relative" }}>
         <Confetti />
         <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 18, padding: "2rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <h2 style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: "1.6rem", color: C.text, margin: 0, lineHeight: 1.25, minHeight: "2em" }}>
+          <h2 style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: "1.6rem", color: C.text, margin: 0, lineHeight: 1.25, minHeight: "2em", textAlign: "center" }}>
             <Typewriter text={`¡Listo, ${userName}!`} speed={40} onDone={() => setTitleDone(true)} />
           </h2>
           <FadeIn show={titleDone} delay={0}>
