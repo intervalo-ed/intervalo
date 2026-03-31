@@ -1618,48 +1618,111 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
 
 // ── RegisteredScreen ───────────────────────────────────────────────────────────
 
+const CONFETTI_COLORS = [...BELT_COLORS, "#7E80F7", "#36D87A", "#F76565"];
+
+function Confetti() {
+  const particles = useRef(
+    Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      x: 45 + Math.random() * 10,
+      vx: (Math.random() - 0.5) * 140,
+      vy: -(120 + Math.random() * 100),
+      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      size: 7 + Math.random() * 6,
+      rot: Math.random() * 360,
+      vrot: (Math.random() - 0.5) * 600,
+    }))
+  ).current;
+
+  const [tick, setTick] = useState(0);
+  const stateRef = useRef(particles.map(p => ({ ...p, y: 50, alive: true })));
+  const rafRef = useRef(null);
+  const lastRef = useRef(null);
+
+  useEffect(() => {
+    const animate = (ts) => {
+      if (!lastRef.current) lastRef.current = ts;
+      const dt = Math.min((ts - lastRef.current) / 1000, 0.05);
+      lastRef.current = ts;
+      let anyAlive = false;
+      stateRef.current = stateRef.current.map(p => {
+        if (!p.alive) return p;
+        const ny = p.y + p.vy * dt;
+        const nx = p.x + p.vx * dt;
+        const nvy = p.vy + 320 * dt;
+        const nrot = p.rot + p.vrot * dt;
+        const alive = ny < 110;
+        if (alive) anyAlive = true;
+        return { ...p, x: nx, y: ny, vy: nvy, rot: nrot, alive };
+      });
+      setTick(t => t + 1);
+      if (anyAlive) rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return (
+    <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+      {stateRef.current.filter(p => p.alive).map(p => (
+        <div key={p.id} style={{
+          position: "absolute",
+          left: `${p.x}%`, top: `${p.y}%`,
+          width: p.size, height: p.size,
+          background: p.color,
+          borderRadius: 2,
+          transform: `rotate(${p.rot}deg)`,
+          opacity: 0.9,
+        }} />
+      ))}
+    </div>
+  );
+}
+
 function RegisteredScreen({ userName, onContinue }) {
-  const [secondsLeft, setSecondsLeft] = useState(5);
+  const [titleDone, setTitleDone] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSecondsLeft(s => {
-        if (s <= 1) { clearInterval(interval); setReady(true); return 0; }
-        return s - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
+    const t = setTimeout(() => setReady(true), 5000);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
-      <div style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <div style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", gap: "1.5rem", position: "relative" }}>
+        <Confetti />
         <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 18, padding: "2rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <h2 style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: "1.6rem", color: C.text, margin: 0, lineHeight: 1.25 }}>
-            ¡Listo, {userName}!
+          <h2 style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: "1.6rem", color: C.text, margin: 0, lineHeight: 1.25, minHeight: "2em" }}>
+            <Typewriter text={`¡Listo, ${userName}!`} speed={40} onDone={() => setTitleDone(true)} />
           </h2>
-          <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
-            Tu repaso quedó registrado. Si ves <strong style={{ color: C.text }}>ítems pendientes</strong>, intentá repasarlos hoy. Si no quedó ninguno, ya podés descansar, mañana va a haber <strong style={{ color: C.text }}>nuevos ejercicios</strong> esperándote.
-          </p>
-          <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
-            A medida que vayas <strong style={{ color: C.text }}>graduando ítems</strong>, se van desbloqueando otros nuevos. La idea es que avances progresivamente para que los repasos <strong style={{ color: C.text }}>no se extiendan demasiado</strong>.
-          </p>
+          <FadeIn show={titleDone} delay={0}>
+            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+              Tu repaso quedó registrado. Si ves <strong style={{ color: C.text }}>ítems pendientes</strong>, intentá repasarlos hoy. Si no quedó ninguno, ya podés descansar, mañana va a haber <strong style={{ color: C.text }}>nuevos ejercicios</strong> esperándote.
+            </p>
+          </FadeIn>
+          <FadeIn show={titleDone} delay={300}>
+            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+              A medida que vayas <strong style={{ color: C.text }}>graduando ítems</strong>, se van desbloqueando otros nuevos. La idea es que avances progresivamente para que los repasos <strong style={{ color: C.text }}>no se extiendan demasiado</strong>.
+            </p>
+          </FadeIn>
         </div>
 
-        <button
-          onClick={ready ? onContinue : undefined}
-          disabled={!ready}
-          style={{
-            width: "100%", padding: "0.9rem", borderRadius: 12, border: "none",
-            background: ready ? C.primary : C.bgElevated,
-            color: ready ? "#fff" : C.muted,
-            fontFamily: fonts.body, fontWeight: 700, fontSize: "1rem",
-            cursor: ready ? "pointer" : "default",
-            transition: "all 0.3s",
-          }}>
-          ¡Entendí!
-        </button>
+        <FadeIn show={titleDone} delay={600}>
+          <button
+            onClick={() => { if (!ready) return; playPop(); onContinue(); }}
+            disabled={!ready}
+            style={{
+              width: "100%", padding: "0.9rem", borderRadius: 12, border: "none",
+              background: ready ? C.primary : C.bgElevated,
+              color: ready ? "#fff" : C.muted,
+              fontFamily: fonts.body, fontWeight: 700, fontSize: "1rem",
+              cursor: ready ? "pointer" : "default",
+              transition: "all 0.3s",
+            }}>
+            ¡Entendí!
+          </button>
+        </FadeIn>
       </div>
     </div>
   );
