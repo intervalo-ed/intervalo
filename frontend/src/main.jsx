@@ -1538,7 +1538,7 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
           <div style={{ ...card, marginBottom: "1rem" }}>
             {/* Header row: left info + belt centered above LEXI */}
             <div style={{ display: "flex", alignItems: "center", marginBottom: "0.85rem" }}>
-              <div>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
                   textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
                   Cinturón Blanco
@@ -1556,7 +1556,7 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
               </div>
               <img src="/belt_white.png" alt="Cinturón Blanco"
                 style={{ width: 100, height: "auto", opacity: 0.85,
-                  marginLeft: "auto", marginRight: 20 }} />
+                  marginLeft: "auto", marginRight: 20, flexShrink: 0 }} />
             </div>
             <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
           </div>
@@ -1850,7 +1850,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
             <div style={{ ...card, marginBottom: "1rem" }}>
               {/* Header row: left info + belt icon */}
               <div style={{ display: "flex", alignItems: "center", marginBottom: "0.85rem" }}>
-                <div>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
                     textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
                     Cinturón Blanco
@@ -1868,7 +1868,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
                 </div>
                 <img src="/belt_white.png" alt="Cinturón Blanco"
                   style={{ width: 100, height: "auto", opacity: 0.85,
-                    marginLeft: "auto", marginRight: 20 }} />
+                    marginLeft: "auto", marginRight: 20, flexShrink: 0 }} />
               </div>
               <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
             </div>
