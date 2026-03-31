@@ -1775,6 +1775,7 @@ function App() {
   function handleRegister() {
     setIsRegistered(true);
     setScreen("home");
+    window.scrollTo({ top: 0 });
   }
 
   async function handleNewSession() {
