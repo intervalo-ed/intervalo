@@ -384,7 +384,7 @@ function FadeIn({ show, delay = 0, style, children }) {
 
 // ── TutorialScreen ─────────────────────────────────────────────────────────────
 
-const TOTAL_SLIDES = 9;
+const TOTAL_SLIDES = 10;
 
 function TutorialScreen({ onStart }) {
   const [slide, setSlide] = useState(0);
@@ -419,11 +419,11 @@ function TutorialScreen({ onStart }) {
   const [exResult, setExResult]               = useState(null);
 
   function canAdvance() {
-    if (slide === 7) return uni !== "";
-    if (slide === 8) return true;
+    if (slide === 8) return uni !== "";
+    if (slide === 9) return true;
     if (!readyToAdvance) return false;
     if (slide === 0) return name.trim().length > 0;
-    if (slide === 2) return exCorrectFound;
+    if (slide === 3) return exCorrectFound;
     return true;
   }
 
@@ -564,7 +564,7 @@ function TutorialScreen({ onStart }) {
         </h1>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1.05rem", lineHeight: 1.7 }}>
-            Intervalo es un sistema de repaso adaptativo pensado para acompañarte durante tu cursada. Un algoritmo aprende de tus respuestas y prioriza lo que necesitás repasar. Este tutorial dura menos de 5 minutos.
+            Intervalo es un sistema de <strong style={{ color: C.text }}>repaso adaptativo</strong> pensado para acompañarte durante tu cursada. Un algoritmo <strong style={{ color: C.text }}>aprende de tus respuestas</strong> y <strong style={{ color: C.text }}>prioriza</strong> lo que necesitás repasar. Este tutorial dura menos de 5 minutos.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
@@ -573,8 +573,32 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 2: Evocación Activa
+    // Slide 2: Cursos
     2: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
+          <Typewriter text="Cursos" onDone={onTitleDone} />
+        </h2>
+        <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
+            Intervalo está en <strong style={{ color: C.text }}>fase de incubación</strong> y todavía estamos ajustando el producto. Usándolo, colaborás para que la herramienta sea cada vez más útil para los estudiantes.
+          </p>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
+            La plataforma se organiza en <strong style={{ color: C.text }}>cursos</strong>, orientados a materias comunes de carreras de ciencias, tecnología, ingeniería y matemáticas.
+          </p>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7 }}>
+            El único curso disponible por ahora es el de <strong style={{ color: C.text }}>Análisis Matemático I</strong>.
+          </p>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={220}>
+          {continueBtn()}
+        </FadeIn>
+      </div>
+    ),
+
+    // Slide 3: Evocación Activa
+    3: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
@@ -582,9 +606,9 @@ function TutorialScreen({ onStart }) {
         </h2>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-            Para rendir bien en los exámenes necesitás poder recuperar conceptos sin fuentes externas.
-            La idea es que contestes preguntas breves y puntuales, sin material de consulta.
-            Este tipo de práctica se llama evocación activa o <em>active recall</em>.
+            Para rendir bien en los exámenes necesitás poder <strong style={{ color: C.text }}>recuperar conceptos</strong> sin fuentes externas.
+            La idea es que contestes preguntas breves y puntuales, <strong style={{ color: C.text }}>sin material de consulta</strong>.
+            Este tipo de práctica se llama <strong style={{ color: C.text }}>evocación activa</strong> o <em>active recall</em>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220} style={{ textAlign: "left" }}>
@@ -603,8 +627,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 3: Repetición Espaciada
-    3: (
+    // Slide 4: Repetición Espaciada
+    4: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
@@ -612,7 +636,7 @@ function TutorialScreen({ onStart }) {
         </h2>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-            Repasar con cierta frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos. El algoritmo ajusta qué repasar y cada cuándo. Lo que te resulte difícil va a aparecer más seguido. Lo que ya dominás va a aparecer cada vez menos. Esta práctica se llama repetición espaciada o <em>spaced repetition</em>.
+            Repasar con cierta frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos. El algoritmo ajusta <strong style={{ color: C.text }}>qué repasar</strong> y <strong style={{ color: C.text }}>cada cuándo</strong>. Lo que te resulte difícil va a aparecer <strong style={{ color: C.text }}>más seguido</strong>. Lo que ya dominás va a aparecer <strong style={{ color: C.text }}>cada vez menos</strong>. Esta práctica se llama <strong style={{ color: C.text }}>repetición espaciada</strong> o <em>spaced repetition</em>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
@@ -624,8 +648,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 4: Ítems
-    4: (
+    // Slide 5: Ítems
+    5: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
@@ -651,8 +675,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 5: Progreso
-    5: (
+    // Slide 6: Progreso
+    6: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "1rem", minHeight: "1.9em" }}>
@@ -674,8 +698,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 6: Career
-    6: (
+    // Slide 7: Career
+    7: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "0.75rem", minHeight: "1.9em" }}>
@@ -710,8 +734,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 7: University
-    7: (
+    // Slide 8: University
+    8: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
           color: C.text, marginBottom: "0.75rem", minHeight: "1.9em" }}>
@@ -736,8 +760,8 @@ function TutorialScreen({ onStart }) {
       </div>
     ),
 
-    // Slide 8: Ready
-    8: (
+    // Slide 9: Ready
+    9: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.6rem", fontWeight: 800,
           color: C.text, marginBottom: "0.75rem", minHeight: "2em" }}>
@@ -980,12 +1004,12 @@ function ItemStates() {
   }, [active]);
 
   return (
-    <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center",
-      alignItems: "center", padding: "1rem 0", flexWrap: "nowrap" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
+      gap: "0.3rem", padding: "0.75rem 0" }}>
       {STATES.map((s, i) => (
         <React.Fragment key={s.label}>
           <div style={{
-            padding: "0.5rem 1rem", borderRadius: 10,
+            padding: "0.5rem 2rem", borderRadius: 10, width: "100%", textAlign: "center",
             background: i <= active ? s.bg : C.bgElevated,
             color: i <= active ? s.text : C.muted,
             border: `1.5px solid ${i <= active ? s.border : C.border}`,
@@ -1000,7 +1024,7 @@ function ItemStates() {
               color: C.muted, fontSize: "0.8rem",
               opacity: i < active ? 0.8 : 0.2,
               transition: "opacity 0.55s ease",
-            }}>→</span>
+            }}>↓</span>
           )}
         </React.Fragment>
       ))}
@@ -1287,7 +1311,6 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
   const [displayXP, setDisplayXP] = useState(0);
   const [barPct, setBarPct] = useState(0);
   const [displayLevel, setDisplayLevel] = useState(levelInfo ? levelInfo.level : 1);
-  const [showLevelUp, setShowLevelUp] = useState(false);
 
   useEffect(() => {
     if (targetXP === 0) { onDone?.(); return; }
@@ -1313,7 +1336,6 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
           setBarPct(Math.min(100, eased * 200));
         } else if (progress < 0.6) {
           setBarPct(100);
-          setShowLevelUp(true);
           setDisplayLevel(levelInfo.level);
         } else {
           setBarPct(finalPct * ((progress - 0.6) / 0.4));
@@ -1346,11 +1368,6 @@ function XPCounter({ targetXP, levelInfo, onDone }) {
             alignItems: "baseline", marginBottom: "0.4rem" }}>
             <div style={{ fontSize: "0.85rem", fontWeight: 700, color: C.text }}>
               Nivel {displayLevel}
-              {showLevelUp && (
-                <span style={{ color: C.primary, marginLeft: "0.5rem", fontSize: "0.75rem" }}>
-                  LEVEL UP!
-                </span>
-              )}
             </div>
             <div style={{ fontSize: "0.68rem", color: C.muted }}>
               {levelInfo.xp_in_level} / {levelInfo.xp_required} XP
@@ -1608,15 +1625,13 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
   const [chipsReady, setChipsReady] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
-  const [showShare, setShowShare] = useState(false);
 
   useEffect(() => {
     if (titleDone) {
       const t1 = setTimeout(() => setChipsReady(true), 300);
       const t2 = setTimeout(() => setShowBtn(true), 900);
       const t3 = setTimeout(() => setShowGrid(true), 1300);
-      const t4 = setTimeout(() => setShowShare(true), 1800);
-      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
     }
   }, [titleDone]);
 
@@ -1630,14 +1645,6 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
     return () => clearTimeout(t);
   }, [showGrid, revealedCount]);
   const revealedKeys = showGrid ? new Set(touchedList.slice(0, revealedCount)) : new Set();
-
-  const [copied, setCopied] = useState(false);
-  function handleCopy() {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
@@ -1690,7 +1697,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
                 fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
                 fontFamily: fonts.body, transition: "all 0.22s",
               }}>
-              Iniciar
+              Repasar
             </button>
           </FadeIn>
 
@@ -1723,24 +1730,6 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
             </div>
           </div>}
 
-          {/* Share card */}
-          {showShare && (
-            <div style={{ ...card, textAlign: "center", animation: "slideInRight 0.5s ease-out" }}>
-              <p style={{ color: C.textSecondary, fontSize: "0.9rem", marginBottom: "0.75rem" }}>
-                Compartí Intervalo con tus compañeros
-              </p>
-              <button onClick={handleCopy}
-                style={{
-                  padding: "0.6rem 1.5rem", borderRadius: 10,
-                  background: C.bgElevated, border: `1px solid ${C.border}`,
-                  color: copied ? C.success : C.textSecondary,
-                  fontSize: "0.88rem", fontWeight: 600, cursor: "pointer",
-                  fontFamily: fonts.body, transition: "all 0.3s",
-                }}>
-                {copied ? "✓ Enlace copiado" : "Copiar enlace"}
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
@@ -1803,17 +1792,7 @@ function App() {
   }
 
   if (screen === "tutorial")
-    return (
-      <>
-        <TutorialScreen onStart={handleTutorialStart} />
-        <button onClick={handleDebugLastEx} style={{
-          position: "fixed", bottom: 16, right: 16, zIndex: 9999,
-          background: "#F59E0B", color: "#000", border: "none", borderRadius: 8,
-          padding: "0.4rem 0.8rem", fontSize: "0.75rem", fontWeight: 700,
-          cursor: "pointer", opacity: 0.85, fontFamily: "monospace",
-        }}>⚡ skip to last</button>
-      </>
-    );
+    return <TutorialScreen onStart={handleTutorialStart} />;
 
   if (screen === "session" && session)
     return <SessionScreen sessionId={session.session_id} userName={userName}
