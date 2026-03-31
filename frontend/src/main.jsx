@@ -431,11 +431,13 @@ function TutorialScreen({ onStart }) {
     if (!canAdvance()) return;
     setDir(1);
     setSlide(s => Math.min(s + 1, TOTAL_SLIDES - 1));
+    window.scrollTo({ top: 0 });
   }
 
   function goBack() {
     setDir(-1);
     setSlide(s => Math.max(s - 1, 0));
+    window.scrollTo({ top: 0 });
   }
 
   async function handleStart() {
