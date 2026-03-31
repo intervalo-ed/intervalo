@@ -87,7 +87,7 @@ const TUTORIAL_EXERCISE = {
 // ── Design tokens (pseudo dark mode) ─────────────────────────────────────────
 
 const fonts = {
-  heading: "'Roboto Serif', Georgia, serif",
+  heading: "'Computer Modern Serif', 'Roboto Serif', Georgia, serif",
   body: "'Inter', system-ui, sans-serif",
 };
 
@@ -559,7 +559,6 @@ function TutorialScreen({ onStart }) {
     // Slide 1: Welcome with name
     1: (
       <div style={{ textAlign: "center" }}>
-        <Logo size="1.6rem" />
         <h1 style={{ fontFamily: fonts.heading, fontSize: "1.7rem", fontWeight: 800,
           color: C.text, margin: "2rem 0 0.75rem", minHeight: "2.1em" }}>
           <Typewriter text={`¡Bienvenido, ${name.trim() || "..."}!`} onDone={onTitleDone} />
