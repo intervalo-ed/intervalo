@@ -1627,7 +1627,7 @@ function RegisteredScreen({ userName, onContinue }) {
             cursor: ready ? "pointer" : "default",
             transition: "all 0.3s",
           }}>
-          {ready ? "¡Entendí!" : `¡Entendí! (${secondsLeft})`}
+          ¡Entendí!
         </button>
       </div>
     </div>
