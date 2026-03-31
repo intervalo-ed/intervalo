@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -11,9 +12,11 @@ from session_store import create_session, record_answer, get_summary, get_sessio
 
 app = FastAPI(title="Intervalo Backend")
 
+ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_methods=["*"],
     allow_headers=["*"],
 )
