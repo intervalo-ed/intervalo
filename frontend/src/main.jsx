@@ -1585,6 +1585,55 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
   );
 }
 
+// ── RegisteredScreen ───────────────────────────────────────────────────────────
+
+function RegisteredScreen({ userName, onContinue }) {
+  const [secondsLeft, setSecondsLeft] = useState(5);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSecondsLeft(s => {
+        if (s <= 1) { clearInterval(interval); setReady(true); return 0; }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
+      <div style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 18, padding: "2rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <h2 style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: "1.6rem", color: C.text, margin: 0, lineHeight: 1.25 }}>
+            ¡Listo, {userName}!
+          </h2>
+          <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+            Tu repaso quedó registrado. Si ves <strong style={{ color: C.text }}>ítems pendientes</strong>, intentá repasarlos hoy. Si no quedó ninguno, ya podés descansar, mañana va a haber <strong style={{ color: C.text }}>nuevos ejercicios</strong> esperándote.
+          </p>
+          <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+            A medida que vayas <strong style={{ color: C.text }}>graduando ítems</strong>, se van desbloqueando otros nuevos. La idea es que avances progresivamente para que los repasos <strong style={{ color: C.text }}>no se extiendan demasiado</strong>.
+          </p>
+        </div>
+
+        <button
+          onClick={ready ? onContinue : undefined}
+          disabled={!ready}
+          style={{
+            width: "100%", padding: "0.9rem", borderRadius: 12, border: "none",
+            background: ready ? C.primary : C.bgElevated,
+            color: ready ? "#fff" : C.muted,
+            fontFamily: fonts.body, fontWeight: 700, fontSize: "1rem",
+            cursor: ready ? "pointer" : "default",
+            transition: "all 0.3s",
+          }}>
+          {ready ? "¡Entendí!" : `¡Entendí! (${secondsLeft})`}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── HomeScreen (post-registration) ─────────────────────────────────────────────
 
 function CountUp({ target, duration = 600, color }) {
@@ -1774,7 +1823,7 @@ function App() {
 
   function handleRegister() {
     setIsRegistered(true);
-    setScreen("home");
+    setScreen("registered");
     window.scrollTo({ top: 0 });
   }
 
@@ -1809,6 +1858,9 @@ function App() {
         : () => { setScreen("tutorial"); setSession(null); setSummary(null); }}
       onRegister={!isRegistered ? handleRegister : null}
     />;
+
+  if (screen === "registered")
+    return <RegisteredScreen userName={userName} onContinue={() => { setScreen("home"); window.scrollTo({ top: 0 }); }} />;
 
   if (screen === "home")
     return <HomeScreen userName={userName} lastSummary={summary}
