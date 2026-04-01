@@ -2048,7 +2048,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
               { name: "Marrón",  img: "/belt_brown.png"  },
               { name: "Negro",   img: "/belt_black.png"  },
             ].map(b => (
-              <div key={b.name} style={{ ...card, marginBottom: "0.6rem",
+              <div key={b.name} style={{ ...card, marginBottom: "1rem",
                 paddingTop: "0.65rem", paddingBottom: "0.65rem", opacity: 0.75 }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -2059,7 +2059,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
                     <div style={{ fontSize: "0.68rem", color: C.muted }}>Bloqueado</div>
                   </div>
                   <img src={b.img} alt={`Cinturón ${b.name}`}
-                    style={{ width: 80, height: "auto", opacity: 0.4, flexShrink: 0 }} />
+                    style={{ width: 115, height: "auto", opacity: 0.4, flexShrink: 0 }} />
                 </div>
               </div>
             ))}
