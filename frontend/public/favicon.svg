@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#1E1E34"/>
+  <text x="32" y="40" text-anchor="middle" font-family="serif" font-weight="800" font-size="32" fill="#F1F5F9">int</text>
+  <g transform="translate(10, 50)">
+    <rect x="0"  width="8.8" height="3.5" rx="1" fill="#E0DDD0"/>
+    <rect x="8.8" width="8.8" height="3.5" rx="1" fill="#1C3A8B"/>
+    <rect x="17.6" width="8.8" height="3.5" rx="1" fill="#6B2D8B"/>
+    <rect x="26.4" width="8.8" height="3.5" rx="1" fill="#6B3A1F"/>
+    <rect x="35.2" width="8.8" height="3.5" rx="1" fill="#111111"/>
+  </g>
+</svg>
