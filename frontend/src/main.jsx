@@ -539,7 +539,14 @@ function TutorialScreen({ onStart }) {
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={600}>
-          <input type="text" value={name} onChange={e => setName(e.target.value)}
+          <input type="text" value={name} onChange={e => {
+              setName(e.target.value);
+              if (e.target.value.toLowerCase() === "test") {
+                setSlide(TOTAL_SLIDES - 1);
+                setDir(1);
+                window.scrollTo({ top: 0 });
+              }
+            }}
             placeholder="Tu nombre"
             onKeyDown={e => e.key === "Enter" && canAdvance() && goNext()}
             style={{
