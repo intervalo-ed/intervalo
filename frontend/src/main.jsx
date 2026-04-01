@@ -762,8 +762,11 @@ function TutorialScreen({ onStart, onGoHome }) {
           <Typewriter text="Repetición Espaciada" onDone={onTitleDone} />
         </h2>
         <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "0.8rem" }}>
+            Repasar con cierta frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos.
+          </p>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-            Repasar con cierta frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos. El algoritmo ajusta <strong style={{ color: C.text }}>qué repasar</strong> y <strong style={{ color: C.text }}>cada cuándo</strong>. Lo que te resulte difícil va a aparecer <strong style={{ color: C.text }}>más seguido</strong>. Lo que ya dominás va a aparecer <strong style={{ color: C.text }}>cada vez menos</strong>. Esta práctica se llama <strong style={{ color: C.text }}>repetición espaciada</strong> o <em>spaced repetition</em>.
+            El algoritmo ajusta <strong style={{ color: C.text }}>qué repasar</strong> y <strong style={{ color: C.text }}>cada cuándo</strong>. Lo que te resulte difícil va a aparecer <strong style={{ color: C.text }}>más seguido</strong>. Lo que ya dominás va a aparecer <strong style={{ color: C.text }}>cada vez menos</strong>. Esta práctica se llama <strong style={{ color: C.text }}>repetición espaciada</strong> o <em>spaced repetition</em>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={220}>
