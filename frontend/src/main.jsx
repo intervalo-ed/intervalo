@@ -2100,7 +2100,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
               { name: "Negro",   img: "/belt_black.png"  },
             ].map(b => (
               <div key={b.name} style={{ ...card, marginBottom: "0.6rem",
-                paddingTop: "0.65rem", paddingBottom: "0.65rem", opacity: 0.5 }}>
+                paddingTop: "0.65rem", paddingBottom: "0.65rem", opacity: 0.75 }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
