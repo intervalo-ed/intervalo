@@ -616,7 +616,7 @@ function TutorialScreen({ onStart }) {
       style={{ background: "none", border: "none", color: C.muted,
         cursor: "pointer", fontSize: "0.85rem", padding: "0.5rem 0",
         fontFamily: fonts.body, marginTop: "0.5rem", width: "100%", textAlign: "center" }}>
-      ← Volver
+      Volver
     </button>
   ) : null;
 
