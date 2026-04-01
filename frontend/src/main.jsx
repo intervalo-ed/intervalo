@@ -1854,9 +1854,9 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
 
           {/* Progress grid — animated slide-in */}
           {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
-            <div style={{ ...card, marginBottom: "1rem" }}>
+            <div style={{ ...card, marginBottom: "1rem", paddingTop: "1rem", paddingBottom: "1rem" }}>
               {/* Header row: left info + belt icon */}
-              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.85rem" }}>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
                     textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
