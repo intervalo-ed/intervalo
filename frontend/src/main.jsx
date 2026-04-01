@@ -1555,8 +1555,8 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
                 </div>
               </div>
               <img src="/belt_white.png" alt="Cinturón Blanco"
-                style={{ width: 100, height: "auto", opacity: 0.85,
-                  marginLeft: "auto", marginRight: 20, flexShrink: 0 }} />
+                style={{ width: 115, height: "auto", opacity: 0.85,
+                  flexShrink: 0 }} />
             </div>
             <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
           </div>
@@ -1867,8 +1867,8 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
                   </div>
                 </div>
                 <img src="/belt_white.png" alt="Cinturón Blanco"
-                  style={{ width: 100, height: "auto", opacity: 0.85,
-                    marginLeft: "auto", marginRight: 20, flexShrink: 0 }} />
+                  style={{ width: 115, height: "auto", opacity: 0.85,
+                    flexShrink: 0 }} />
               </div>
               <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
             </div>
