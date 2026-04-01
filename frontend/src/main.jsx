@@ -2067,7 +2067,53 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
 
           {/* Progress grid — animated slide-in */}
           {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
-            <BeltCarousel skillStates={skillStates} revealedKeys={revealedKeys} />
+            {/* White belt card */}
+            <div style={{ ...card, marginBottom: "1rem", paddingTop: "1rem", paddingBottom: "1rem" }}>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                    textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
+                    Cinturón Blanco
+                  </div>
+                  <div style={{ display: "flex", gap: 5 }}>
+                    {[0, 1].map(i => (
+                      <div key={i} style={{ width: 22, height: 10, borderRadius: 999,
+                        background: i < stripes ? "#D97706" : C.border,
+                        transition: "background 0.55s ease" }} />
+                    ))}
+                  </div>
+                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
+                    {graduatedCount} / {stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD} ítems para el próximo grado
+                  </div>
+                </div>
+                <img src="/belt_white.png" alt="Cinturón Blanco"
+                  style={{ width: 115, height: "auto", opacity: 0.85, flexShrink: 0 }} />
+              </div>
+              <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
+            </div>
+
+            {/* Locked belts */}
+            {[
+              { name: "Azul",    img: "/belt_blue.png"   },
+              { name: "Violeta", img: "/belt_purple.png" },
+              { name: "Marrón",  img: "/belt_brown.png"  },
+              { name: "Negro",   img: "/belt_black.png"  },
+            ].map(b => (
+              <div key={b.name} style={{ ...card, marginBottom: "0.6rem",
+                paddingTop: "0.65rem", paddingBottom: "0.65rem", opacity: 0.5 }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                      textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.2rem" }}>
+                      Cinturón {b.name}
+                    </div>
+                    <div style={{ fontSize: "0.68rem", color: C.muted }}>Bloqueado</div>
+                  </div>
+                  <img src={b.img} alt={`Cinturón ${b.name}`}
+                    style={{ width: 80, height: "auto", opacity: 0.4, flexShrink: 0 }} />
+                </div>
+              </div>
+            ))}
           </div>}
 
         </div>
