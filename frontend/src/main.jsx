@@ -1440,7 +1440,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
                         fontFamily: fonts.body, marginTop: "0.75rem",
                         transition: "background 0.3s ease",
                       }}>
-                      {currentIdx === exercises.length - 1 ? "Terminar" : "Siguiente →"}
+                      {currentIdx === exercises.length - 1 ? "Terminar" : "Siguiente"}
                     </button>
                   )}
                 </div>
@@ -1635,7 +1635,7 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
                 color: "#fff", border: "none", borderRadius: 12,
                 fontSize: "1rem", fontWeight: 700, cursor: "pointer",
                 fontFamily: fonts.body, marginTop: "0.5rem" }}>
-              Continuar →
+              Continuar
             </button>
           </FadeIn>
 
