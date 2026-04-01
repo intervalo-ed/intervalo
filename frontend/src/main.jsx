@@ -990,117 +990,73 @@ function FlipCard({ front, back }) {
 }
 
 function SpacedTimeline() {
-  const LABELS = ["1d", "3d", "7d", "14d", "21d"];
+  const EASY_DAYS  = [1, 3, 7, 15, 30];
+  const HARD_DAYS  = [1, 2, 3, 5, 7, 9, 12, 16, 20, 25, 30];
+  const TOTAL_DAYS = 30;
+  const EASY_COLOR = "#36D87A";
+  const HARD_COLOR = "#F97316";
 
-  // Each frame = array of 5 node states: "dim" | "green" | "yellow"
-  const EASY = [
-    ["dim",   "dim",   "dim",   "dim",   "dim"],
-    ["green", "dim",   "dim",   "dim",   "dim"],
-    ["green", "green", "dim",   "dim",   "dim"],
-    ["green", "green", "green", "dim",   "dim"],
-    ["green", "green", "green", "green", "dim"],
-    ["green", "green", "green", "green", "green"],
-  ];
-
-  // Fails at 3d, 7d, 14d before eventually graduating
-  const HARD = [
-    ["dim",    "dim",    "dim",    "dim",   "dim"],
-    ["green",  "dim",    "dim",    "dim",   "dim"],   // 1d ✓
-    ["green",  "yellow", "dim",    "dim",   "dim"],   // 3d ✗ (intento)
-    ["yellow", "dim",    "dim",    "dim",   "dim"],   // reset → 1d
-    ["green",  "dim",    "dim",    "dim",   "dim"],   // 1d ✓ de nuevo
-    ["green",  "green",  "dim",    "dim",   "dim"],   // 3d ✓
-    ["green",  "green",  "yellow", "dim",   "dim"],   // 7d ✗
-    ["green",  "yellow", "dim",    "dim",   "dim"],   // reset → 3d
-    ["green",  "green",  "dim",    "dim",   "dim"],   // 3d ✓ de nuevo
-    ["green",  "green",  "green",  "dim",   "dim"],   // 7d ✓
-    ["green",  "green",  "green",  "yellow","dim"],   // 14d ✗
-    ["green",  "green",  "yellow", "dim",   "dim"],   // reset → 7d
-    ["green",  "green",  "green",  "dim",   "dim"],   // 7d ✓ de nuevo
-    ["green",  "green",  "green",  "green", "dim"],   // 14d ✓
-    ["green",  "green",  "green",  "green", "green"], // 21d ✓
-  ];
-
-  const [ef, setEf] = useState(0);
-  const [hf, setHf] = useState(0);
+  const [eVisible, setEVisible] = useState(0);
+  const [hVisible, setHVisible] = useState(0);
 
   useEffect(() => {
-    const EASY_MS = 980;
-    const HARD_MS = 680;
-    const PAUSE   = 2200;
-    let eT, hT;
-
-    let i = 0;
-    const nextEasy = () => {
-      i++;
-      if (i < EASY.length) { setEf(i); eT = setTimeout(nextEasy, EASY_MS); }
-    };
-    eT = setTimeout(nextEasy, EASY_MS);
-
-    let j = 0;
-    const nextHard = () => {
-      j++;
-      if (j < HARD.length) { setHf(j); hT = setTimeout(nextHard, HARD_MS); }
-    };
-    hT = setTimeout(nextHard, HARD_MS);
-
-    return () => { clearTimeout(eT); clearTimeout(hT); };
+    const EASY_MS = 820;
+    const HARD_MS = 390;
+    const eTimers = EASY_DAYS.map((_, i) =>
+      setTimeout(() => setEVisible(i + 1), (i + 1) * EASY_MS)
+    );
+    const hTimers = HARD_DAYS.map((_, i) =>
+      setTimeout(() => setHVisible(i + 1), (i + 1) * HARD_MS)
+    );
+    return () => { [...eTimers, ...hTimers].forEach(clearTimeout); };
   }, []);
 
-  const EASY_COLOR = "#36D87A"; // verde teal
-  const HARD_COLOR = "#F97316"; // naranja
-
-  // Cada color tiene versión brillante (borde) y opaca (fondo)
-  const nodeStyle = (s, pathColor) => {
-    if (s === "dim")    return { bg: C.bgElevated,              border: `1.5px solid ${C.border}`,         text: C.muted  };
-    if (s === "green")  return { bg: `${pathColor}22`,          border: `2px solid ${pathColor}`,           text: pathColor };
-    /* yellow */        return { bg: `${WARNING}22`,            border: `2px solid ${WARNING}`,             text: WARNING  };
-  };
-  const lineBg = (a, b, pathColor) => {
-    if (a === "green" && b === "green") return pathColor;
-    if (a === "yellow" || b === "yellow") return WARNING;
-    return C.border;
-  };
-
-  const renderRow = (rowLabel, frames, fi, pathColor) => {
-    const frame = frames[fi];
+  const renderRow = (label, days, visible, color) => {
+    const done = visible >= days.length;
     return (
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "0.9rem" }}>
-        <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.muted,
-          width: 46, textAlign: "right", paddingRight: 10, flexShrink: 0 }}>
-          {rowLabel}
-        </span>
-        <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
-          {LABELS.map((lbl, i) => {
-            const ns = nodeStyle(frame[i], pathColor);
-            return (
-              <React.Fragment key={i}>
-                {i > 0 && (
-                  <div style={{ flex: 1, height: 2, minWidth: 8,
-                    background: lineBg(frame[i - 1], frame[i], pathColor),
-                    transition: "background 0.4s ease" }} />
-                )}
-                <div style={{
-                  width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
-                  background: ns.bg, border: ns.border,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: ns.text, fontSize: "0.6rem", fontWeight: 700,
-                  transition: "all 0.4s ease",
-                }}>
-                  {lbl}
-                </div>
-              </React.Fragment>
-            );
-          })}
+      <div style={{ marginBottom: "1.1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.muted,
+            width: 44, textAlign: "right", flexShrink: 0 }}>
+            {label}
+          </span>
+          <div style={{ position: "relative", flex: 1, height: 2,
+            background: C.border, borderRadius: 1 }}>
+            {days.slice(0, visible).map((day, i) => (
+              <div key={i} style={{
+                position: "absolute",
+                left: `${(day / TOTAL_DAYS) * 100}%`,
+                top: "50%",
+                width: 11, height: 11, borderRadius: "50%",
+                background: color,
+                boxShadow: `0 0 6px ${color}99`,
+                animation: "dotPop 0.28s ease-out forwards",
+              }} />
+            ))}
+          </div>
+          <div style={{ width: 54, flexShrink: 0,
+            opacity: done ? 1 : 0, transition: "opacity 0.5s ease" }}>
+            <span style={{ fontSize: "0.7rem", fontWeight: 700, color,
+              background: `${color}22`, border: `1px solid ${color}55`,
+              borderRadius: 6, padding: "2px 7px", whiteSpace: "nowrap" }}>
+              {days.length} rep.
+            </span>
+          </div>
+        </div>
+        <div style={{ display: "flex", paddingLeft: 52, paddingRight: 54,
+          marginTop: "0.3rem" }}>
+          <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 0</span>
+          <div style={{ flex: 1 }} />
+          <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 30</span>
         </div>
       </div>
     );
   };
 
   return (
-    <div style={{ padding: "0.75rem 0 0.25rem" }}>
-      {renderRow("Fácil",   EASY, ef, EASY_COLOR)}
-      {renderRow("Difícil", HARD, hf, HARD_COLOR)}
+    <div style={{ padding: "0.5rem 0 0.25rem" }}>
+      {renderRow("Fácil",   EASY_DAYS, eVisible, EASY_COLOR)}
+      {renderRow("Difícil", HARD_DAYS, hVisible, HARD_COLOR)}
     </div>
   );
 }
