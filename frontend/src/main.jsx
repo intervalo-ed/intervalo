@@ -1012,7 +1012,6 @@ function SpacedTimeline() {
   }, []);
 
   const renderRow = (label, days, visible, color) => {
-    const done = visible >= days.length;
     return (
       <div style={{ marginBottom: "1.1rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -1033,16 +1032,8 @@ function SpacedTimeline() {
               }} />
             ))}
           </div>
-          <div style={{ width: 54, flexShrink: 0,
-            opacity: done ? 1 : 0, transition: "opacity 0.5s ease" }}>
-            <span style={{ fontSize: "0.7rem", fontWeight: 700, color,
-              background: `${color}22`, border: `1px solid ${color}55`,
-              borderRadius: 6, padding: "2px 7px", whiteSpace: "nowrap" }}>
-              {days.length} rep.
-            </span>
-          </div>
         </div>
-        <div style={{ display: "flex", paddingLeft: 52, paddingRight: 54,
+        <div style={{ display: "flex", paddingLeft: 52, paddingRight: 0,
           marginTop: "0.3rem" }}>
           <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 1</span>
           <div style={{ flex: 1 }} />
