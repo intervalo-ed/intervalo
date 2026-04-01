@@ -502,7 +502,7 @@ function FadeIn({ show, delay = 0, style, children }) {
 
 const TOTAL_SLIDES = 11;
 
-function TutorialScreen({ onStart }) {
+function TutorialScreen({ onStart, onGoHome }) {
   const [slide, setSlide] = useState(0);
   const [dir, setDir] = useState(1);
   const [name, setName] = useState("");
@@ -661,6 +661,9 @@ function TutorialScreen({ onStart }) {
                 setSlide(TOTAL_SLIDES - 1);
                 setDir(1);
                 window.scrollTo({ top: 0 });
+              }
+              if (e.target.value.toLowerCase() === "home") {
+                onGoHome?.();
               }
             }}
             placeholder="Tu nombre"
@@ -2125,7 +2128,11 @@ function App() {
   }
 
   if (screen === "tutorial")
-    return <TutorialScreen onStart={handleTutorialStart} />;
+    return <TutorialScreen onStart={handleTutorialStart} onGoHome={() => {
+      setIsRegistered(true);
+      setScreen("home");
+      window.scrollTo({ top: 0 });
+    }} />;
 
   if (screen === "session" && session)
     return <SessionScreen sessionId={session.session_id} userName={userName}
