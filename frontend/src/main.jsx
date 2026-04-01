@@ -70,6 +70,59 @@ const STRIPE_THRESHOLDS  = [3, 9];
 const PROMOTION_THRESHOLD = 18;
 const MASTERY_TOTAL       = 21;
 
+const BELT_DATA = [
+  {
+    name: "Blanco", img: "/belt_white.png", colorIdx: 0,
+    skills: ["CLSF", "LEXI", "FORM"],
+    topics: [
+      { key: "linear",        label: "Lineal" },
+      { key: "quadratic",     label: "Cuadrática" },
+      { key: "polynomial",    label: "Polinomial" },
+      { key: "exponential",   label: "Exponencial" },
+      { key: "logarithmic",   label: "Logarítmica" },
+      { key: "rational",      label: "Racional" },
+      { key: "trigonometric", label: "Trigonométrica" },
+    ],
+    stripeAt: [3, 9], promoteAt: 18, total: 21,
+  },
+  {
+    name: "Azul", img: "/belt_blue.png", colorIdx: 1,
+    skills: ["GRAF", "RESL", "CLSF"],
+    topics: [
+      { key: "lim_algebraic", label: "Lím. algebraicos" },
+      { key: "lim_lateral",   label: "Lím. laterales" },
+      { key: "lim_infinity",  label: "Lím. al infinito" },
+      { key: "continuity",    label: "Continuidad" },
+      { key: "indeterminate", label: "Indet." },
+      { key: "lhopital",      label: "L'Hôpital" },
+    ],
+    stripeAt: [2, 6], promoteAt: 15, total: 18,
+  },
+  {
+    name: "Violeta", img: "/belt_purple.png", colorIdx: 2,
+    skills: ["GRAF", "DERI", "APLI"],
+    topics: [
+      { key: "deriv_def",     label: "Definición" },
+      { key: "deriv_basic",   label: "Reglas básicas" },
+      { key: "deriv_product", label: "Prod./Cociente" },
+      { key: "deriv_chain",   label: "Cadena" },
+    ],
+    stripeAt: [2, 5], promoteAt: 10, total: 12,
+  },
+  {
+    name: "Marrón", img: "/belt_brown.png", colorIdx: 3,
+    skills: ["GRAF", "INTG", "APLI"],
+    topics: [
+      { key: "integ_indef", label: "Indefinida" },
+      { key: "integ_ftc",   label: "T. Fundamental" },
+      { key: "integ_subs",  label: "Sustitución" },
+      { key: "integ_parts", label: "Por partes" },
+      { key: "integ_def",   label: "Definidas" },
+    ],
+    stripeAt: [2, 5], promoteAt: 12, total: 15,
+  },
+];
+
 // Example exercise for the tutorial
 const TUTORIAL_EXERCISE = {
   id: "tutorial-example",
@@ -308,6 +361,69 @@ function ProgressGrid({ skillStates, revealedKeys }) {
       </div>
 
       {/* Legend */}
+      <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
+        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
+        justifyContent: "center" }}>
+        {[
+          { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
+          { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
+          { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
+          { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
+          { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
+        ].map(({ bg, border, label: ll }) => (
+          <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
+              border: `1px solid ${border}` }} />
+            <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── BeltGrid (generalized grid for any belt) ───────────────────────────────────
+
+function BeltGrid({ topics, skills, skillStates, revealedKeys }) {
+  const revealed = revealedKeys || null;
+  return (
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 44px 44px 44px",
+        gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
+        <div />
+        {skills.map(h => (
+          <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
+            textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+            {h}
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        {topics.map(({ key: topicKey, label }) => (
+          <div key={topicKey} style={{ display: "grid",
+            gridTemplateColumns: "1fr 44px 44px 44px", gap: "3px", alignItems: "center" }}>
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
+              {label}
+            </div>
+            {skills.map(skill => {
+              const k = `${topicKey}:${skill}`;
+              const isRevealed = revealed === null || revealed.has(k);
+              const entry = isRevealed ? skillStates?.[k] : undefined;
+              const { bg, label: cellLabel, textColor } = itemCell(entry);
+              return (
+                <div key={skill} style={{
+                  background: bg, borderRadius: 6, height: 26,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "0.65rem", fontWeight: 700, color: textColor,
+                  transition: "background 0.4s ease",
+                }}>
+                  {cellLabel}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
       <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
         flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
         justifyContent: "center" }}>
@@ -1734,6 +1850,103 @@ function RegisteredScreen({ userName, onContinue }) {
   );
 }
 
+// ── BeltCarousel ───────────────────────────────────────────────────────────────
+
+function BeltCarousel({ skillStates, revealedKeys }) {
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef(null);
+
+  function handleTouchStart(e) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+  function handleTouchEnd(e) {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (dx < -40 && active < BELT_DATA.length - 1) setActive(a => a + 1);
+    if (dx > 40 && active > 0) setActive(a => a - 1);
+    touchStartX.current = null;
+  }
+
+  return (
+    <div>
+      {/* Belt tabs */}
+      <div style={{ display: "flex", gap: "0.25rem", marginBottom: "1rem", justifyContent: "center" }}>
+        {BELT_DATA.map((belt, i) => (
+          <button key={belt.name} onClick={() => setActive(i)} style={{
+            background: "none", border: "none", cursor: "pointer",
+            padding: "0.25rem 0.6rem",
+            borderBottom: i === active ? `2px solid ${BELT_COLORS[belt.colorIdx]}` : "2px solid transparent",
+            color: i === active ? C.text : C.muted,
+            fontSize: "0.75rem", fontWeight: i === active ? 700 : 500,
+            transition: "all 0.2s", fontFamily: fonts.body,
+          }}>
+            {belt.name}
+          </button>
+        ))}
+      </div>
+
+      {/* Carousel track */}
+      <div style={{ overflow: "hidden" }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}>
+        <div style={{
+          display: "flex",
+          transform: `translateX(-${active * 100}%)`,
+          transition: "transform 0.35s ease",
+        }}>
+          {BELT_DATA.map((belt, i) => {
+            const states = i === 0 ? skillStates : {};
+            const revealed = i === 0 ? revealedKeys : null;
+            const graduated = i === 0
+              ? Object.values(skillStates).filter(s => s?.phase === "review").length
+              : 0;
+            const stripes = belt.stripeAt.filter(t => graduated >= t).length;
+            const isLocked = i > 0;
+            const nextTarget = stripes < belt.stripeAt.length
+              ? belt.stripeAt[stripes]
+              : belt.promoteAt;
+
+            return (
+              <div key={belt.name} style={{ minWidth: "100%", flexShrink: 0 }}>
+                {/* Header */}
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                      textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
+                      Cinturón {belt.name}
+                    </div>
+                    <div style={{ display: "flex", gap: 5 }}>
+                      {[0, 1].map(idx => (
+                        <div key={idx} style={{ width: 22, height: 10, borderRadius: 999,
+                          background: idx < stripes ? "#D97706" : C.border,
+                          transition: "background 0.55s ease" }} />
+                      ))}
+                    </div>
+                    <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
+                      {isLocked
+                        ? "Bloqueado"
+                        : `${graduated} / ${nextTarget} ítems para el próximo grado`}
+                    </div>
+                  </div>
+                  <img src={belt.img} alt={`Cinturón ${belt.name}`}
+                    style={{ width: 115, height: "auto", opacity: isLocked ? 0.3 : 0.85, flexShrink: 0 }} />
+                </div>
+                {/* Grid */}
+                <BeltGrid
+                  topics={belt.topics}
+                  skills={belt.skills}
+                  skillStates={states}
+                  revealedKeys={revealed}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── HomeScreen (post-registration) ─────────────────────────────────────────────
 
 function CountUp({ target, duration = 600, color }) {
@@ -1854,31 +2067,7 @@ function HomeScreen({ userName, lastSummary, onStartSession }) {
 
           {/* Progress grid — animated slide-in */}
           {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
-            <div style={{ ...card, marginBottom: "1rem", paddingTop: "1rem", paddingBottom: "1rem" }}>
-              {/* Header row: left info + belt icon */}
-              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-                    textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
-                    Cinturón Blanco
-                  </div>
-                  <div style={{ display: "flex", gap: 5 }}>
-                    {[0, 1].map(i => (
-                      <div key={i} style={{ width: 22, height: 10, borderRadius: 999,
-                        background: i < stripes ? "#D97706" : C.border,
-                        transition: "background 0.55s ease" }} />
-                    ))}
-                  </div>
-                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
-                    {graduatedCount} / {stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD} ítems para el próximo grado
-                  </div>
-                </div>
-                <img src="/belt_white.png" alt="Cinturón Blanco"
-                  style={{ width: 115, height: "auto", opacity: 0.85,
-                    flexShrink: 0 }} />
-              </div>
-              <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
-            </div>
+            <BeltCarousel skillStates={skillStates} revealedKeys={revealedKeys} />
           </div>}
 
         </div>
