@@ -1029,7 +1029,6 @@ function SpacedTimeline() {
                 top: "50%",
                 width: 11, height: 11, borderRadius: "50%",
                 background: color,
-                boxShadow: `0 0 6px ${color}99`,
                 animation: "dotPop 0.28s ease-out forwards",
               }} />
             ))}
@@ -1045,7 +1044,7 @@ function SpacedTimeline() {
         </div>
         <div style={{ display: "flex", paddingLeft: 52, paddingRight: 54,
           marginTop: "0.3rem" }}>
-          <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 0</span>
+          <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 1</span>
           <div style={{ flex: 1 }} />
           <span style={{ fontSize: "0.56rem", color: C.muted, opacity: 0.5 }}>Día 30</span>
         </div>
