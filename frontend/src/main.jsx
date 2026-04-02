@@ -1860,12 +1860,6 @@ function Confetti() {
 
 function RegisteredScreen({ userName, onContinue }) {
   const [titleDone, setTitleDone] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setReady(true), 1500);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
@@ -1889,15 +1883,12 @@ function RegisteredScreen({ userName, onContinue }) {
 
         <FadeIn show={titleDone} delay={600}>
           <button
-            onClick={() => { if (!ready) return; playPop(); onContinue(); }}
-            disabled={!ready}
+            onClick={() => { playPop(); onContinue(); }}
             style={{
               width: "100%", padding: "0.9rem", borderRadius: 12, border: "none",
-              background: ready ? C.primary : C.bgElevated,
-              color: ready ? "#fff" : C.muted,
+              background: C.primary, color: "#fff",
               fontFamily: fonts.body, fontWeight: 700, fontSize: "1rem",
-              cursor: ready ? "pointer" : "default",
-              transition: "all 0.3s",
+              cursor: "pointer",
             }}>
             ¡Entendí!
           </button>
