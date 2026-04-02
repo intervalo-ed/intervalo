@@ -694,7 +694,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             Intervalo es un sistema de <strong style={{ color: C.text }}>repaso adaptativo</strong> pensado para acompañarte durante tu cursada. Un algoritmo <strong style={{ color: C.text }}>aprende de tus respuestas</strong> y <strong style={{ color: C.text }}>prioriza</strong> lo que necesitás repasar. Este tutorial dura menos de 5 minutos.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={220}>
+        <FadeIn show={titleDone} delay={3000}>
           {continueBtn()}
         </FadeIn>
       </div>
