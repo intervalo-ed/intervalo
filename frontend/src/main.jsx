@@ -529,8 +529,9 @@ function TutorialScreen({ onStart, onGoHome }) {
   const onTitleDone = () => setTitleDone(true);
 
   // Delayed animation triggers for components that animate on mount
-  const [timelineStarted, setTimelineStarted] = useState(false);
-  const [beltSeqStarted,  setBeltSeqStarted]  = useState(false);
+  const [timelineStarted,    setTimelineStarted]    = useState(false);
+  const [beltSeqStarted,     setBeltSeqStarted]     = useState(false);
+  const [itemStatesStarted,  setItemStatesStarted]  = useState(false);
   useEffect(() => {
     if (!titleDone || slide !== 4) { setTimelineStarted(false); return; }
     const t = setTimeout(() => setTimelineStarted(true), 11000);
@@ -538,7 +539,12 @@ function TutorialScreen({ onStart, onGoHome }) {
   }, [titleDone, slide]);
   useEffect(() => {
     if (!titleDone || slide !== 6) { setBeltSeqStarted(false); return; }
-    const t = setTimeout(() => setBeltSeqStarted(true), 6000);
+    const t = setTimeout(() => setBeltSeqStarted(true), 3000);
+    return () => clearTimeout(t);
+  }, [titleDone, slide]);
+  useEffect(() => {
+    if (!titleDone || slide !== 5) { setItemStatesStarted(false); return; }
+    const t = setTimeout(() => setItemStatesStarted(true), 5000);
     return () => clearTimeout(t);
   }, [titleDone, slide]);
 
@@ -807,18 +813,21 @@ function TutorialScreen({ onStart, onGoHome }) {
         </h2>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
-            El ejercicio que acabás de resolver es un <strong style={{ color: C.text }}>ítem</strong>,
+            El ejercicio que acabás de resolver es parte de un <strong style={{ color: C.text }}>ítem</strong>,
             que evalúa una habilidad específica sobre un tema. En este caso, <em>clasificación</em> de funciones <em>lineales</em>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={5000}>
-          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+          <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
             Si todavía no resolviste ejercicios sobre un ítem, va a aparecer como <strong style={{ color: C.text }}>nuevo</strong>.
             Si tenés un repaso para hacer hoy, va a aparecer como <strong style={{ color: C.text }}>pendiente</strong>.
             A medida que resolvés bien los ejercicios de cada ítem y demostrás dominio, van a pasar de <strong style={{ color: C.text }}>aprendiendo</strong> a <strong style={{ color: C.text }}>graduado</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={13500}>
+        <FadeIn show={titleDone} delay={5000}>
+          <ItemStates start={itemStatesStarted} />
+        </FadeIn>
+        <FadeIn show={titleDone} delay={9500}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -838,10 +847,10 @@ function TutorialScreen({ onStart, onGoHome }) {
             cada uno con <strong style={{ color: C.text }}>grados intermedios</strong>, representando un nivel mayor de <strong style={{ color: C.text }}>dominio</strong> sobre los contenidos de cada curso.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={6000}>
+        <FadeIn show={titleDone} delay={3000}>
           <BeltSequence start={beltSeqStarted} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={10000}>
+        <FadeIn show={titleDone} delay={7000}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -859,7 +868,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             En esta primera etapa vas a trabajar tu capacidad para <strong style={{ color: C.text }}>reconocer, describir y manipular</strong> las distintas familias de funciones que se suelen ver en las cátedras de Análisis Matemático I.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={5500}>
+        <FadeIn show={titleDone} delay={0}>
           <img src="/belt_white.png" alt="Cinturón Blanco"
             style={{
               width: 180, height: "auto", display: "block", margin: "0 auto 1.75rem",
@@ -867,12 +876,12 @@ function TutorialScreen({ onStart, onGoHome }) {
               opacity: 0,
             }} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={7500}>
+        <FadeIn show={titleDone} delay={5500}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             Los cinturones siguientes trabajan <strong style={{ color: C.text }}>límites, continuidad, diferenciabilidad, derivadas e integrales</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={9500}>
+        <FadeIn show={titleDone} delay={7500}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -918,24 +927,38 @@ function TutorialScreen({ onStart, onGoHome }) {
     9: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
-          color: C.text, marginBottom: "0.75rem", minHeight: "1.9em" }}>
+          color: C.text, marginBottom: "1.25rem", minHeight: "1.9em" }}>
           <Typewriter text="¿En qué universidad?" onDone={onTitleDone} />
         </h2>
         <FadeIn show={titleDone} delay={0}>
-          <p style={{ color: C.textSecondary, fontSize: "0.95rem", marginBottom: "1.5rem" }}>
-            Si no está en la lista, elegí "Otra".
-          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+            {[
+              { value: "UBA",   font: "'Montserrat', sans-serif", size: "1.5rem", weight: 350 },
+              { value: "UTN",   font: "'Archivo Black', sans-serif", size: "1.5rem", weight: 400 },
+              { value: "UNSAM", font: "'Saira', sans-serif",   size: "1.2rem", weight: 600, spacing: "0.12em" },
+              { value: "Otra",  font: fonts.body,              size: "1rem",   weight: 600 },
+            ].map(({ value, font, size, weight, spacing }) => {
+              const selected = uni === value;
+              return (
+                <button key={value} onClick={() => setUni(value)} style={{
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  width: "100%", padding: "1rem 1.5rem",
+                  borderRadius: 14,
+                  background: selected ? "rgba(99,102,241,0.18)" : C.bgElevated,
+                  border: `1.5px solid ${selected ? "#6366F1" : C.border}`,
+                  color: selected ? "#A5B4FC" : C.text,
+                  fontFamily: font, fontSize: size, fontWeight: weight,
+                  letterSpacing: spacing ?? (value === "UTN" ? "0.05em" : undefined),
+                  cursor: "pointer", transition: "all 0.2s ease",
+                }}>
+                  {value}
+                </button>
+              );
+            })}
+          </div>
         </FadeIn>
-        <FadeIn show={titleDone} delay={220}>
-          <select value={uni} onChange={e => setUni(e.target.value)}
-            style={{ ...inputStyle, cursor: "pointer", textAlign: "center", fontSize: "1rem" }}>
-            <option value="">Seleccioná una opción</option>
-            {UNIVERSIDADES.map(u => <option key={u} value={u}>{u}</option>)}
-            <option value="otra">Otra</option>
-          </select>
-        </FadeIn>
-        <FadeIn show={titleDone} delay={450}>
-          {continueBtn()}
+        <FadeIn show={titleDone} delay={300}>
+          <div style={{ marginTop: "1.25rem" }}>{continueBtn()}</div>
         </FadeIn>
       </div>
     ),
@@ -1116,17 +1139,22 @@ function BeltSequence({ start }) {
 
 // ── ItemStates ─────────────────────────────────────────────────────────────────
 
-function ItemStates() {
+function ItemStates({ start }) {
   const STATES = [
     { label: "Nuevo",       bg: "rgba(29,78,216,0.25)",  border: "#3B82F6",  text: "#BFDBFE"      },
     { label: "Pendiente",   bg: "rgba(180,83,9,0.25)",   border: "#B45309",  text: "#FDE68A"      },
     { label: "Aprendiendo", bg: "rgba(101,163,13,0.25)", border: "#84CC16",  text: "#D9F99D"      },
     { label: "Graduado",    bg: "rgba(21,128,61,0.25)",  border: "#22C55E",  text: "#BBF7D0"      },
   ];
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(-1);
 
   useEffect(() => {
-    if (active >= STATES.length - 1) return;
+    if (!start) { setActive(-1); return; }
+    setActive(0);
+  }, [start]);
+
+  useEffect(() => {
+    if (active < 0 || active >= STATES.length - 1) return;
     const t = setTimeout(() => setActive(a => a + 1), 950);
     return () => clearTimeout(t);
   }, [active]);
