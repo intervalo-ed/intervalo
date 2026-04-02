@@ -524,7 +524,7 @@ function TutorialScreen({ onStart, onGoHome }) {
     setLogoBarShown(false);
     setHolaStart(false);
     setReadyToAdvance(false);
-    const t = setTimeout(() => setReadyToAdvance(true), 5000);
+    const t = setTimeout(() => setReadyToAdvance(true), 2500);
     return () => clearTimeout(t);
   }, [slide]);
   const onTitleDone = () => setTitleDone(true);
@@ -535,17 +535,17 @@ function TutorialScreen({ onStart, onGoHome }) {
   const [itemStatesStarted,  setItemStatesStarted]  = useState(false);
   useEffect(() => {
     if (!titleDone || slide !== 4) { setTimelineStarted(false); return; }
-    const t = setTimeout(() => setTimelineStarted(true), 11000);
+    const t = setTimeout(() => setTimelineStarted(true), 5500);
     return () => clearTimeout(t);
   }, [titleDone, slide]);
   useEffect(() => {
     if (!titleDone || slide !== 6) { setBeltSeqStarted(false); return; }
-    const t = setTimeout(() => setBeltSeqStarted(true), 3000);
+    const t = setTimeout(() => setBeltSeqStarted(true), 1500);
     return () => clearTimeout(t);
   }, [titleDone, slide]);
   useEffect(() => {
     if (!titleDone || slide !== 5) { setItemStatesStarted(false); return; }
-    const t = setTimeout(() => setItemStatesStarted(true), 12000);
+    const t = setTimeout(() => setItemStatesStarted(true), 6000);
     return () => clearTimeout(t);
   }, [titleDone, slide]);
 
@@ -682,12 +682,12 @@ function TutorialScreen({ onStart, onGoHome }) {
           color: "rgba(244,247,251,0.75)", margin: "2rem 0 0.75rem", minHeight: "1.7em" }}>
           <Typewriter text="¡Hola!" speed={80} start={holaStart} onDone={onTitleDone} />
         </h1>
-        <FadeIn show={titleDone} delay={450}>
+        <FadeIn show={titleDone} delay={225}>
           <p style={{ color: C.textSecondary, fontSize: "1.1rem", lineHeight: 1.6, marginBottom: "2rem" }}>
             ¿Cómo te gustaría que te llamen?
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={600}>
+        <FadeIn show={titleDone} delay={300}>
           <input type="text" value={name} onChange={e => {
               setName(e.target.value);
               if (e.target.value.toLowerCase() === "test") {
@@ -709,7 +709,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             onBlur={e => e.target.style.borderColor = C.border}
           />
         </FadeIn>
-        <FadeIn show={titleDone} delay={900}>
+        <FadeIn show={titleDone} delay={450}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -727,7 +727,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             Intervalo es un sistema de <strong style={{ color: C.text }}>repaso adaptativo</strong> pensado para acompañarte durante tu cursada. Un algoritmo <strong style={{ color: C.text }}>aprende de tus respuestas</strong> y <strong style={{ color: C.text }}>prioriza</strong> lo que necesitás repasar. Este tutorial dura menos de 5 minutos.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={6500}>
+        <FadeIn show={titleDone} delay={3250}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -745,17 +745,17 @@ function TutorialScreen({ onStart, onGoHome }) {
             Intervalo está en <strong style={{ color: C.text }}>fase de incubación</strong>. Usándolo, <strong style={{ color: C.text }}>colaborás</strong> para que la herramienta sea cada vez más <strong style={{ color: C.text }}>útil</strong> para otros estudiantes.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={5500}>
+        <FadeIn show={titleDone} delay={2750}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
             La plataforma se organiza en <strong style={{ color: C.text }}>cursos</strong>, orientados a materias comunes de carreras de <strong style={{ color: C.text }}>ciencias</strong>, <strong style={{ color: C.text }}>tecnología</strong>, <strong style={{ color: C.text }}>ingeniería</strong> y <strong style={{ color: C.text }}>matemáticas</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={9000}>
+        <FadeIn show={titleDone} delay={4500}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             El único curso disponible por ahora es el de <strong style={{ color: C.text }}>Análisis Matemático I</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={11500}>
+        <FadeIn show={titleDone} delay={5750}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -775,7 +775,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             Este tipo de práctica se llama <strong style={{ color: C.text }}>evocación activa</strong> o <em>active recall</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={7500} style={{ textAlign: "left" }}>
+        <FadeIn show={titleDone} delay={3750} style={{ textAlign: "left" }}>
           <ExerciseCard
             exercise={TUTORIAL_EXERCISE}
             wrongAttempts={exWrongAttempts}
@@ -801,15 +801,15 @@ function TutorialScreen({ onStart, onGoHome }) {
             Repasar <strong style={{ color: C.text }}>con cierta frecuencia</strong> es lo que determina si lo que entendimos en un momento va a estar <strong style={{ color: C.text }}>disponible cuando lo necesitamos</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={4000}>
+        <FadeIn show={titleDone} delay={2000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             El algoritmo ajusta <strong style={{ color: C.text }}>qué repasar</strong> y <strong style={{ color: C.text }}>cada cuándo</strong>. Lo que te resulte difícil va a aparecer <strong style={{ color: C.text }}>más seguido</strong>. Lo que ya dominás va a aparecer <strong style={{ color: C.text }}>cada vez menos</strong>. Esta práctica se llama <strong style={{ color: C.text }}>repetición espaciada</strong> o <em>spaced repetition</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={11000}>
+        <FadeIn show={titleDone} delay={5500}>
           <SpacedTimeline start={timelineStarted} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={15000}>
+        <FadeIn show={titleDone} delay={7500}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -828,17 +828,17 @@ function TutorialScreen({ onStart, onGoHome }) {
             que evalúa una habilidad específica sobre un tema. En este caso, <em>clasificación</em> de funciones <em>lineales</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={5000}>
+        <FadeIn show={titleDone} delay={2500}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
             Si todavía no resolviste ejercicios sobre un ítem, va a aparecer como <strong style={{ color: C.text }}>nuevo</strong>.
             Si tenés un repaso para hacer hoy, va a aparecer como <strong style={{ color: C.text }}>pendiente</strong>.
             A medida que resolvés bien los ejercicios de cada ítem y demostrás dominio, van a pasar de <strong style={{ color: C.text }}>aprendiendo</strong> a <strong style={{ color: C.text }}>graduado</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={12000}>
+        <FadeIn show={titleDone} delay={6000}>
           <ItemStates start={itemStatesStarted} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={16500}>
+        <FadeIn show={titleDone} delay={8250}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -858,10 +858,10 @@ function TutorialScreen({ onStart, onGoHome }) {
             cada uno con <strong style={{ color: C.text }}>grados intermedios</strong>, representando un nivel mayor de <strong style={{ color: C.text }}>dominio</strong> sobre los contenidos de cada curso.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={3000}>
+        <FadeIn show={titleDone} delay={1500}>
           <BeltSequence start={beltSeqStarted} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={7000}>
+        <FadeIn show={titleDone} delay={3500}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -887,12 +887,12 @@ function TutorialScreen({ onStart, onGoHome }) {
               opacity: 0,
             }} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={5500}>
+        <FadeIn show={titleDone} delay={2750}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             Los cinturones siguientes trabajan <strong style={{ color: C.text }}>límites, continuidad, diferenciabilidad, derivadas e integrales</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={7500}>
+        <FadeIn show={titleDone} delay={3750}>
           {continueBtn()}
         </FadeIn>
       </div>
