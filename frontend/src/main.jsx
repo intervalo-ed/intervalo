@@ -2273,32 +2273,69 @@ function App() {
     setScreen("session");
   }
 
+  const pwaDebug = (
+    <div style={{
+      position: "fixed", bottom: "1rem", right: "1rem",
+      background: pwaReady ? "rgba(34,197,94,0.9)" : "rgba(239,68,68,0.9)",
+      color: "#fff", padding: "0.4rem 0.8rem", borderRadius: 6,
+      fontSize: "0.7rem", fontWeight: 600, zIndex: 9999, fontFamily: "monospace",
+      border: "1px solid rgba(255,255,255,0.3)"
+    }}>
+      {pwaReady ? "✅ PWA Ready" : "❌ PWA Not Available"}
+    </div>
+  );
+
   if (screen === "tutorial")
-    return <TutorialScreen onStart={handleTutorialStart} onGoHome={() => {
-      setIsRegistered(true);
-      setScreen("home");
-      window.scrollTo({ top: 0 });
-    }} onInstallPWA={handleInstallPWA} />;
+    return (
+      <>
+        <TutorialScreen onStart={handleTutorialStart} onGoHome={() => {
+          setIsRegistered(true);
+          setScreen("home");
+          window.scrollTo({ top: 0 });
+        }} onInstallPWA={handleInstallPWA} />
+        {pwaDebug}
+      </>
+    );
 
   if (screen === "session" && session)
-    return <SessionScreen sessionId={session.session_id} userName={userName}
-      exercises={session.exercises} onComplete={handleComplete}
-      initialIdx={debugLastEx ? session.exercises.length - 1 : 0} />;
+    return (
+      <>
+        <SessionScreen sessionId={session.session_id} userName={userName}
+          exercises={session.exercises} onComplete={handleComplete}
+          initialIdx={debugLastEx ? session.exercises.length - 1 : 0} />
+        {pwaDebug}
+      </>
+    );
 
   if (screen === "summary" && summary)
-    return <SummaryScreen summary={summary}
-      onRestart={isRegistered
-        ? () => setScreen("home")
-        : () => { setScreen("tutorial"); setSession(null); setSummary(null); }}
-      onRegister={!isRegistered ? handleRegister : null}
-    />;
+    return (
+      <>
+        <SummaryScreen summary={summary}
+          onRestart={isRegistered
+            ? () => setScreen("home")
+            : () => { setScreen("tutorial"); setSession(null); setSummary(null); }}
+          onRegister={!isRegistered ? handleRegister : null}
+        />
+        {pwaDebug}
+      </>
+    );
 
   if (screen === "registered")
-    return <RegisteredScreen userName={userName} onContinue={() => { setScreen("home"); window.scrollTo({ top: 0 }); }} />;
+    return (
+      <>
+        <RegisteredScreen userName={userName} onContinue={() => { setScreen("home"); window.scrollTo({ top: 0 }); }} />
+        {pwaDebug}
+      </>
+    );
 
   if (screen === "home")
-    return <HomeScreen userName={userName} lastSummary={summary}
-      onStartSession={handleNewSession} />;
+    return (
+      <>
+        <HomeScreen userName={userName} lastSummary={summary}
+          onStartSession={handleNewSession} />
+        {pwaDebug}
+      </>
+    );
 
   return null;
 }
