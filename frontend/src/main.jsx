@@ -2193,9 +2193,24 @@ function App() {
 
   // PWA install prompt — captured before it auto-shows, triggered after login
   const deferredInstallPrompt = useRef(null);
+  const [pwaReady, setPwaReady] = useState(false);
   useEffect(() => {
-    const handler = (e) => { e.preventDefault(); deferredInstallPrompt.current = e; };
+    const handler = (e) => {
+      e.preventDefault();
+      deferredInstallPrompt.current = e;
+      setPwaReady(true);
+      console.log("✅ beforeinstallprompt captured", e);
+    };
     window.addEventListener("beforeinstallprompt", handler);
+
+    // Log PWA readiness
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.ready.then(() => {
+        console.log("✅ Service Worker ready");
+      });
+    }
+    console.log("🔍 PWA setup: listening for beforeinstallprompt");
+
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
