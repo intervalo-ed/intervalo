@@ -742,12 +742,12 @@ function TutorialScreen({ onStart, onGoHome }) {
         </h2>
         <FadeIn show={titleDone} delay={0}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
-            Intervalo está en <strong style={{ color: C.text }}>fase de incubación</strong> y todavía estamos ajustando el producto. Usándolo, colaborás para que la herramienta sea cada vez más útil para los estudiantes.
+            Intervalo está en <strong style={{ color: C.text }}>fase de incubación</strong>. Usándolo, <strong style={{ color: C.text }}>colaborás</strong> para que la herramienta sea cada vez más <strong style={{ color: C.text }}>útil</strong> para otros estudiantes.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={5500}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
-            La plataforma se organiza en <strong style={{ color: C.text }}>cursos</strong>, orientados a materias comunes de carreras de ciencias, tecnología, ingeniería y matemáticas.
+            La plataforma se organiza en <strong style={{ color: C.text }}>cursos</strong>, orientados a materias comunes de carreras de <strong style={{ color: C.text }}>ciencias</strong>, <strong style={{ color: C.text }}>tecnología</strong>, <strong style={{ color: C.text }}>ingeniería</strong> y <strong style={{ color: C.text }}>matemáticas</strong>.
           </p>
         </FadeIn>
         <FadeIn show={titleDone} delay={9000}>
@@ -784,9 +784,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             result={exResult}
             onAnswer={handleExAnswer}
           />
-        </FadeIn>
-        <FadeIn show={titleDone} delay={10500}>
-          {continueBtn()}
+          <div style={{ marginTop: "1rem" }}>{continueBtn()}</div>
         </FadeIn>
       </div>
     ),
@@ -2192,6 +2190,14 @@ function App() {
   const [userInfo, setUserInfo]     = useState(null);
   const [debugLastEx, setDebugLastEx] = useState(false);
 
+  // PWA install prompt — captured before it auto-shows, triggered after login
+  const deferredInstallPrompt = useRef(null);
+  useEffect(() => {
+    const handler = (e) => { e.preventDefault(); deferredInstallPrompt.current = e; };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
   async function startSession(name) {
     const res = await fetch(`${API}/session/start`, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -2206,6 +2212,11 @@ function App() {
   async function handleTutorialStart({ name, university, career }) {
     setUserName(name);
     setUserInfo({ university, career });
+    // Trigger PWA install prompt (placeholder for post-login; will move to Google OAuth later)
+    if (deferredInstallPrompt.current) {
+      deferredInstallPrompt.current.prompt();
+      deferredInstallPrompt.current = null;
+    }
     await startSession(name);
   }
 
