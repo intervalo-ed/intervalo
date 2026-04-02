@@ -712,17 +712,17 @@ function TutorialScreen({ onStart, onGoHome }) {
             Intervalo está en <strong style={{ color: C.text }}>fase de incubación</strong> y todavía estamos ajustando el producto. Usándolo, colaborás para que la herramienta sea cada vez más útil para los estudiantes.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={2000}>
+        <FadeIn show={titleDone} delay={3000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1rem" }}>
             La plataforma se organiza en <strong style={{ color: C.text }}>cursos</strong>, orientados a materias comunes de carreras de ciencias, tecnología, ingeniería y matemáticas.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={4000}>
+        <FadeIn show={titleDone} delay={9000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             El único curso disponible por ahora es el de <strong style={{ color: C.text }}>Análisis Matemático I</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={6000}>
+        <FadeIn show={titleDone} delay={9000}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -742,7 +742,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             Este tipo de práctica se llama <strong style={{ color: C.text }}>evocación activa</strong> o <em>active recall</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={220} style={{ textAlign: "left" }}>
+        <FadeIn show={titleDone} delay={3000} style={{ textAlign: "left" }}>
           <ExerciseCard
             exercise={TUTORIAL_EXERCISE}
             wrongAttempts={exWrongAttempts}
@@ -752,7 +752,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             onAnswer={handleExAnswer}
           />
         </FadeIn>
-        <FadeIn show={titleDone} delay={450}>
+        <FadeIn show={titleDone} delay={3200}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -770,15 +770,15 @@ function TutorialScreen({ onStart, onGoHome }) {
             Repasar con cierta frecuencia es lo que determina si lo que entendimos en un momento va a estar disponible cuando lo necesitamos.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={2000}>
+        <FadeIn show={titleDone} delay={3000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             El algoritmo ajusta <strong style={{ color: C.text }}>qué repasar</strong> y <strong style={{ color: C.text }}>cada cuándo</strong>. Lo que te resulte difícil va a aparecer <strong style={{ color: C.text }}>más seguido</strong>. Lo que ya dominás va a aparecer <strong style={{ color: C.text }}>cada vez menos</strong>. Esta práctica se llama <strong style={{ color: C.text }}>repetición espaciada</strong> o <em>spaced repetition</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={4000}>
+        <FadeIn show={titleDone} delay={9000}>
           <SpacedTimeline />
         </FadeIn>
-        <FadeIn show={titleDone} delay={6000}>
+        <FadeIn show={titleDone} delay={9000}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -797,17 +797,17 @@ function TutorialScreen({ onStart, onGoHome }) {
             que evalúa una habilidad específica sobre un tema. En este caso, <em>clasificación</em> de funciones <em>lineales</em>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={2000}>
+        <FadeIn show={titleDone} delay={3000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             Si todavía no resolviste ejercicios sobre un ítem, va a aparecer como <strong style={{ color: C.text }}>nuevo</strong>.
             Si tenés un repaso para hacer hoy, va a aparecer como <strong style={{ color: C.text }}>pendiente</strong>.
             A medida que resolvés bien los ejercicios de cada ítem y demostrás dominio, van a pasar de <strong style={{ color: C.text }}>aprendiendo</strong> a <strong style={{ color: C.text }}>graduado</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={4000}>
+        <FadeIn show={titleDone} delay={9000}>
           <ItemStates />
         </FadeIn>
-        <FadeIn show={titleDone} delay={6000}>
+        <FadeIn show={titleDone} delay={9000}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -848,7 +848,7 @@ function TutorialScreen({ onStart, onGoHome }) {
             En esta primera etapa vas a trabajar tu capacidad para <strong style={{ color: C.text }}>reconocer, describir y manipular</strong> las distintas familias de funciones que se suelen ver en las cátedras de Análisis Matemático I.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={2000}>
+        <FadeIn show={titleDone} delay={3000}>
           <img src="/belt_white.png" alt="Cinturón Blanco"
             style={{
               width: 180, height: "auto", display: "block", margin: "0 auto 1.75rem",
@@ -856,12 +856,12 @@ function TutorialScreen({ onStart, onGoHome }) {
               opacity: 0,
             }} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={4000}>
+        <FadeIn show={titleDone} delay={9000}>
           <p style={{ color: C.textSecondary, fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
             Los cinturones siguientes trabajan <strong style={{ color: C.text }}>límites, continuidad, diferenciabilidad, derivadas e integrales</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={6000}>
+        <FadeIn show={titleDone} delay={9000}>
           {continueBtn()}
         </FadeIn>
       </div>
