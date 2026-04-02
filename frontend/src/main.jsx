@@ -500,7 +500,7 @@ function FadeIn({ show, delay = 0, style, children }) {
 
 // ── TutorialScreen ─────────────────────────────────────────────────────────────
 
-const TOTAL_SLIDES = 11;
+const TOTAL_SLIDES = 12;
 
 function TutorialScreen({ onStart, onGoHome }) {
   const [slide, setSlide] = useState(0);
@@ -508,6 +508,7 @@ function TutorialScreen({ onStart, onGoHome }) {
   const [name, setName] = useState("");
   const [career, setCareer] = useState("");
   const [uni, setUni] = useState("");
+  const [uniCustom, setUniCustom] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -544,7 +545,7 @@ function TutorialScreen({ onStart, onGoHome }) {
   }, [titleDone, slide]);
   useEffect(() => {
     if (!titleDone || slide !== 5) { setItemStatesStarted(false); return; }
-    const t = setTimeout(() => setItemStatesStarted(true), 5000);
+    const t = setTimeout(() => setItemStatesStarted(true), 12000);
     return () => clearTimeout(t);
   }, [titleDone, slide]);
 
@@ -555,8 +556,9 @@ function TutorialScreen({ onStart, onGoHome }) {
   const [exResult, setExResult]               = useState(null);
 
   function canAdvance() {
-    if (slide === 9) return uni !== "";
-    if (slide === 10) return true;
+    if (slide === 9)  return false; // no Continuar button on this slide
+    if (slide === 10) return uniCustom.trim().length > 0;
+    if (slide === 11) return true;
     if (!readyToAdvance) return false;
     if (slide === 0) return name.trim().length > 0;
     if (slide === 3) return exCorrectFound;
@@ -566,13 +568,24 @@ function TutorialScreen({ onStart, onGoHome }) {
   function goNext() {
     if (!canAdvance()) return;
     setDir(1);
-    setSlide(s => Math.min(s + 1, TOTAL_SLIDES - 1));
+    if (slide === 9 && uni !== "Otra") {
+      setSlide(11);
+    } else if (slide === 10) {
+      setUni(uniCustom.trim());
+      setSlide(11);
+    } else {
+      setSlide(s => Math.min(s + 1, TOTAL_SLIDES - 1));
+    }
     window.scrollTo({ top: 0 });
   }
 
   function goBack() {
     setDir(-1);
-    setSlide(s => Math.max(s - 1, 0));
+    if (slide === 11 && uni !== "Otra") {
+      setSlide(9);
+    } else {
+      setSlide(s => Math.max(s - 1, 0));
+    }
     window.scrollTo({ top: 0 });
   }
 
@@ -660,7 +673,7 @@ function TutorialScreen({ onStart, onGoHome }) {
           <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden",
             transform: logoBarShown ? "scaleX(1)" : "scaleX(0)",
             transformOrigin: "left center",
-            transition: logoBarShown ? "transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)" : "none" }}>
+            transition: logoBarShown ? "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)" : "none" }}>
             {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
           </div>
         </div>
@@ -824,10 +837,10 @@ function TutorialScreen({ onStart, onGoHome }) {
             A medida que resolvés bien los ejercicios de cada ítem y demostrás dominio, van a pasar de <strong style={{ color: C.text }}>aprendiendo</strong> a <strong style={{ color: C.text }}>graduado</strong>.
           </p>
         </FadeIn>
-        <FadeIn show={titleDone} delay={5000}>
+        <FadeIn show={titleDone} delay={12000}>
           <ItemStates start={itemStatesStarted} />
         </FadeIn>
-        <FadeIn show={titleDone} delay={9500}>
+        <FadeIn show={titleDone} delay={16500}>
           {continueBtn()}
         </FadeIn>
       </div>
@@ -927,44 +940,89 @@ function TutorialScreen({ onStart, onGoHome }) {
     9: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
-          color: C.text, marginBottom: "1.25rem", minHeight: "1.9em" }}>
+          color: C.text, marginBottom: "0.5rem", minHeight: "1.9em" }}>
           <Typewriter text="¿En qué universidad?" onDone={onTitleDone} />
         </h2>
         <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "0.95rem", marginBottom: "1.25rem" }}>
+            Nos interesa saber de dónde venís.
+          </p>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={0}>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-            {[
-              { value: "UBA",   font: "'Montserrat', sans-serif", size: "1.5rem", weight: 350 },
-              { value: "UTN",   font: "'Archivo Black', sans-serif", size: "1.5rem", weight: 400 },
-              { value: "UNSAM", font: "'Saira', sans-serif",   size: "1.2rem", weight: 600, spacing: "0.12em" },
-              { value: "Otra",  font: fonts.body,              size: "1rem",   weight: 600 },
-            ].map(({ value, font, size, weight, spacing }) => {
-              const selected = uni === value;
-              return (
-                <button key={value} onClick={() => setUni(value)} style={{
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  width: "100%", padding: "1rem 1.5rem",
+            {/* 3 universities in a row */}
+            <div style={{ display: "flex", gap: "0.65rem" }}>
+              {[
+                { value: "UBA",   font: "'Montserrat', sans-serif",   size: "1.35rem", weight: 350, spacing: "0.12em" },
+                { value: "UTN",   font: "'Archivo Black', sans-serif", size: "1.25rem", weight: 400 },
+                { value: "UNSAM", font: "'Saira', sans-serif",         size: "1rem",   weight: 600, spacing: "0.1em" },
+              ].map(({ value, font, size, weight, spacing }) => (
+                <button key={value} onClick={() => {
+                  playPop(); setUni(value); setDir(1); setSlide(11); window.scrollTo({ top: 0 });
+                }} style={{
+                  flex: 1, padding: "1rem 0.5rem",
                   borderRadius: 14,
-                  background: selected ? "rgba(99,102,241,0.18)" : C.bgElevated,
-                  border: `1.5px solid ${selected ? "#6366F1" : C.border}`,
-                  color: selected ? "#A5B4FC" : C.text,
+                  background: C.bgElevated,
+                  border: `1.5px solid ${C.border}`,
+                  color: C.text,
                   fontFamily: font, fontSize: size, fontWeight: weight,
-                  letterSpacing: spacing ?? (value === "UTN" ? "0.05em" : undefined),
+                  letterSpacing: spacing,
                   cursor: "pointer", transition: "all 0.2s ease",
                 }}>
                   {value}
                 </button>
-              );
-            })}
+              ))}
+            </div>
+            {/* Otra full-width */}
+            <button onClick={() => {
+              playPop(); setUni("Otra"); setDir(1); setSlide(10); window.scrollTo({ top: 0 });
+            }} style={{
+              width: "100%", padding: "0.85rem",
+              borderRadius: 14,
+              background: C.bgElevated,
+              border: `1.5px solid ${C.border}`,
+              color: C.text,
+              fontFamily: fonts.body, fontSize: "1rem", fontWeight: 600,
+              cursor: "pointer", transition: "all 0.2s ease",
+            }}>
+              Otra
+            </button>
           </div>
-        </FadeIn>
-        <FadeIn show={titleDone} delay={300}>
-          <div style={{ marginTop: "1.25rem" }}>{continueBtn()}</div>
         </FadeIn>
       </div>
     ),
 
-    // Slide 10: Ready
+    // Slide 10: Custom university (only reached when "Otra" selected)
     10: (
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ fontFamily: fonts.heading, fontSize: "1.5rem", fontWeight: 800,
+          color: C.text, marginBottom: "0.5rem", minHeight: "1.9em" }}>
+          <Typewriter text="¿Cuál?" onDone={onTitleDone} />
+        </h2>
+        <FadeIn show={titleDone} delay={0}>
+          <p style={{ color: C.textSecondary, fontSize: "0.95rem", marginBottom: "1.25rem" }}>
+            Por favor, especificanos el nombre de tu universidad.
+          </p>
+        </FadeIn>
+        <FadeIn show={titleDone} delay={200}>
+          <input
+            type="text"
+            value={uniCustom}
+            onChange={e => setUniCustom(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && goNext()}
+            placeholder="Ej: UNLP, UNQ, UNLa…"
+            style={{ ...inputStyle, marginBottom: "1.25rem" }}
+            autoFocus
+          />
+        </FadeIn>
+        <FadeIn show={titleDone} delay={350}>
+          {continueBtn()}
+        </FadeIn>
+      </div>
+    ),
+
+    // Slide 11: Ready
+    11: (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ fontFamily: fonts.heading, fontSize: "1.6rem", fontWeight: 800,
           color: C.text, marginBottom: "0.75rem", minHeight: "2em" }}>
