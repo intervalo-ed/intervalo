@@ -2194,22 +2194,59 @@ function App() {
   // PWA install prompt — captured before it auto-shows, triggered after login
   const deferredInstallPrompt = useRef(null);
   const [pwaReady, setPwaReady] = useState(false);
+  const [pwaDebugInfo, setPwaDebugInfo] = useState("");
+
   useEffect(() => {
+    let debugInfo = [];
+
     const handler = (e) => {
       e.preventDefault();
       deferredInstallPrompt.current = e;
       setPwaReady(true);
-      console.log("✅ beforeinstallprompt captured", e);
+      debugInfo.push("✅ beforeinstallprompt captured");
     };
     window.addEventListener("beforeinstallprompt", handler);
 
-    // Log PWA readiness
-    if (navigator.serviceWorker) {
-      navigator.serviceWorker.ready.then(() => {
-        console.log("✅ Service Worker ready");
+    // Check manifest
+    fetch("/manifest.json")
+      .then(r => {
+        if (r.ok) debugInfo.push("✅ manifest.json found");
+        else debugInfo.push("❌ manifest.json not found (404)");
+        return r.json();
+      })
+      .then(manifest => {
+        debugInfo.push(`✅ manifest valid: ${manifest.name}`);
+        debugInfo.push(`  icons: ${manifest.icons?.length || 0}`);
+      })
+      .catch(e => debugInfo.push(`❌ manifest error: ${e.message}`))
+      .finally(() => {
+        // Check icons
+        const iconTests = ["/icons/icon-192.png", "/icons/icon-512.png"];
+        Promise.all(
+          iconTests.map(url =>
+            fetch(url, { method: "HEAD" }).then(r => ({
+              url,
+              status: r.status,
+              ok: r.ok,
+            }))
+          )
+        ).then(results => {
+          results.forEach(r => {
+            debugInfo.push(r.ok ? `✅ ${r.url} (${r.status})` : `❌ ${r.url} (${r.status})`);
+          });
+
+          // Check SW
+          if (navigator.serviceWorker) {
+            navigator.serviceWorker.ready
+              .then(() => debugInfo.push("✅ Service Worker registered"))
+              .catch(e => debugInfo.push(`❌ SW error: ${e}`))
+              .finally(() => setPwaDebugInfo(debugInfo.join("\n")));
+          } else {
+            debugInfo.push("❌ Service Worker not supported");
+            setPwaDebugInfo(debugInfo.join("\n"));
+          }
+        });
       });
-    }
-    console.log("🔍 PWA setup: listening for beforeinstallprompt");
 
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
@@ -2277,11 +2314,12 @@ function App() {
     <div style={{
       position: "fixed", bottom: "1rem", right: "1rem",
       background: pwaReady ? "rgba(34,197,94,0.9)" : "rgba(239,68,68,0.9)",
-      color: "#fff", padding: "0.4rem 0.8rem", borderRadius: 6,
-      fontSize: "0.7rem", fontWeight: 600, zIndex: 9999, fontFamily: "monospace",
-      border: "1px solid rgba(255,255,255,0.3)"
+      color: "#fff", padding: "0.6rem 0.8rem", borderRadius: 6,
+      fontSize: "0.65rem", fontWeight: 500, zIndex: 9999, fontFamily: "monospace",
+      border: "1px solid rgba(255,255,255,0.3)", maxWidth: "180px", textAlign: "left",
+      whiteSpace: "pre-wrap", lineHeight: 1.3
     }}>
-      {pwaReady ? "✅ PWA Ready" : "❌ PWA Not Available"}
+      {pwaDebugInfo || (pwaReady ? "✅ PWA Ready" : "🔄 Checking PWA...")}
     </div>
   );
 
