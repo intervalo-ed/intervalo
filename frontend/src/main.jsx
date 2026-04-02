@@ -2194,59 +2194,55 @@ function App() {
   // PWA install prompt — captured before it auto-shows, triggered after login
   const deferredInstallPrompt = useRef(null);
   const [pwaReady, setPwaReady] = useState(false);
-  const [pwaDebugInfo, setPwaDebugInfo] = useState("");
+  const [pwaDebugInfo, setPwaDebugInfo] = useState("🔄 Checking PWA...");
 
   useEffect(() => {
-    let debugInfo = [];
-
     const handler = (e) => {
       e.preventDefault();
       deferredInstallPrompt.current = e;
       setPwaReady(true);
-      debugInfo.push("✅ beforeinstallprompt captured");
     };
     window.addEventListener("beforeinstallprompt", handler);
 
-    // Check manifest
-    fetch("/manifest.json")
-      .then(r => {
-        if (r.ok) debugInfo.push("✅ manifest.json found");
-        else debugInfo.push("❌ manifest.json not found (404)");
-        return r.json();
-      })
-      .then(manifest => {
-        debugInfo.push(`✅ manifest valid: ${manifest.name}`);
-        debugInfo.push(`  icons: ${manifest.icons?.length || 0}`);
-      })
-      .catch(e => debugInfo.push(`❌ manifest error: ${e.message}`))
-      .finally(() => {
-        // Check icons
-        const iconTests = ["/icons/icon-192.png", "/icons/icon-512.png"];
-        Promise.all(
-          iconTests.map(url =>
-            fetch(url, { method: "HEAD" }).then(r => ({
-              url,
-              status: r.status,
-              ok: r.ok,
-            }))
-          )
-        ).then(results => {
-          results.forEach(r => {
-            debugInfo.push(r.ok ? `✅ ${r.url} (${r.status})` : `❌ ${r.url} (${r.status})`);
-          });
+    // Simple PWA checks with timeout
+    (async () => {
+      let debugInfo = [];
 
-          // Check SW
-          if (navigator.serviceWorker) {
-            navigator.serviceWorker.ready
-              .then(() => debugInfo.push("✅ Service Worker registered"))
-              .catch(e => debugInfo.push(`❌ SW error: ${e}`))
-              .finally(() => setPwaDebugInfo(debugInfo.join("\n")));
-          } else {
-            debugInfo.push("❌ Service Worker not supported");
-            setPwaDebugInfo(debugInfo.join("\n"));
-          }
-        });
-      });
+      try {
+        // Check manifest
+        const manifestRes = await fetch("/manifest.json");
+        if (manifestRes.ok) {
+          const manifest = await manifestRes.json();
+          debugInfo.push(`✅ manifest: ${manifest.name}`);
+          debugInfo.push(`   icons: ${manifest.icons?.length || 0}`);
+        } else {
+          debugInfo.push(`❌ manifest not found (${manifestRes.status})`);
+        }
+      } catch (e) {
+        debugInfo.push(`❌ manifest error: ${e.message}`);
+      }
+
+      try {
+        // Check icons
+        const iconRes = await fetch("/icons/icon-192.png", { method: "HEAD" });
+        debugInfo.push(iconRes.ok ? `✅ icons available (${iconRes.status})` : `❌ icons not found (${iconRes.status})`);
+      } catch (e) {
+        debugInfo.push(`❌ icon check failed: ${e.message}`);
+      }
+
+      // Check SW
+      if (navigator.serviceWorker) {
+        debugInfo.push("✅ Service Worker supported");
+      } else {
+        debugInfo.push("❌ Service Worker not supported");
+      }
+
+      if (!pwaReady) {
+        debugInfo.push("⏳ beforeinstallprompt not fired yet");
+      }
+
+      setPwaDebugInfo(debugInfo.join("\n"));
+    })();
 
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
