@@ -502,7 +502,7 @@ function FadeIn({ show, delay = 0, style, children }) {
 
 const TOTAL_SLIDES = 12;
 
-function TutorialScreen({ onStart, onGoHome }) {
+function TutorialScreen({ onStart, onGoHome, onInstallPWA }) {
   const [slide, setSlide] = useState(0);
   const [dir, setDir] = useState(1);
   const [name, setName] = useState("");
@@ -1045,7 +1045,17 @@ function TutorialScreen({ onStart, onGoHome }) {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body, position: "relative" }}>
+      {/* PWA Install Button — Debug only */}
+      <button onClick={onInstallPWA}
+        style={{
+          position: "absolute", top: "1rem", right: "1rem",
+          background: C.primary, color: "#fff", border: "none",
+          borderRadius: 8, padding: "0.5rem 0.8rem", fontSize: "0.8rem",
+          fontWeight: 600, cursor: "pointer", fontFamily: fonts.body,
+        }}>
+        📱 Instalar
+      </button>
       <div style={{ display: "flex", justifyContent: "center", padding: "2.5rem 1rem 3rem" }}>
         <div style={{ width: "100%", maxWidth: 520 }}>
           {dots}
@@ -2227,6 +2237,15 @@ function App() {
     await startSession();
   }
 
+  function handleInstallPWA() {
+    if (deferredInstallPrompt.current) {
+      deferredInstallPrompt.current.prompt();
+      deferredInstallPrompt.current = null;
+    } else {
+      alert("PWA install no disponible en este navegador");
+    }
+  }
+
   async function handleDebugLastEx() {
     setUserName("Debug");
     const res = await fetch(`${API}/session/start`, {
@@ -2244,7 +2263,7 @@ function App() {
       setIsRegistered(true);
       setScreen("home");
       window.scrollTo({ top: 0 });
-    }} />;
+    }} onInstallPWA={handleInstallPWA} />;
 
   if (screen === "session" && session)
     return <SessionScreen sessionId={session.session_id} userName={userName}
