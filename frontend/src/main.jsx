@@ -1863,7 +1863,7 @@ function RegisteredScreen({ userName, onContinue }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 5000);
+    const t = setTimeout(() => setReady(true), 1500);
     return () => clearTimeout(t);
   }, []);
 
