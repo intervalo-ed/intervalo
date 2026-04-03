@@ -1440,7 +1440,7 @@ function ExerciseCard({ exercise: ex, wrongAttempts = new Set(), correctFound = 
 const WARNING = "#F59E0B";
 const WARNING_BG = "rgba(245,158,11,0.15)";
 
-function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx = 0 }) {
+function SessionScreen({ sessionId, userName, exercises, onComplete, token, initialIdx = 0 }) {
   const [currentIdx, setCurrentIdx] = useState(initialIdx);
   const [wrongAttempts, setWrongAttempts] = useState(new Set());
   const [correctFound, setCorrectFound]   = useState(false);
@@ -1524,10 +1524,34 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
         headers["Authorization"] = `Bearer ${token}`;
       }
       const fetchPromise = fetch(`${API}/session/${sessionId}/summary`, { headers })
-        .then(r => r.json()).catch(() => null);
+        .then(r => {
+          if (!r.ok) {
+            throw new Error(`Summary fetch failed: ${r.status} ${r.statusText}`);
+          }
+          return r.json();
+        })
+        .catch(err => {
+          console.error("Error fetching session summary:", err, "sessionId:", sessionId);
+          return null;
+        });
       setTimeout(async () => {
         setEndPhase("exiting");
         const data = await fetchPromise;
+        if (!data) {
+          console.error("No summary data received, retrying...");
+          try {
+            const retryRes = await fetch(`${API}/session/${sessionId}/summary`, { headers });
+            if (retryRes.ok) {
+              const retryData = await retryRes.json();
+              setTimeout(() => onComplete(retryData), 640);
+              return;
+            }
+          } catch (e) {
+            console.error("Retry failed:", e);
+          }
+          alert("Error al cargar el resumen. Por favor, recarga la página.");
+          return;
+        }
         setTimeout(() => onComplete(data), 640);
       }, 600);
     } else {
@@ -2532,7 +2556,7 @@ function App() {
     return (
       <>
         <SessionScreen sessionId={session.session_id} userName={userName}
-          exercises={session.exercises} onComplete={handleComplete}
+          exercises={session.exercises} onComplete={handleComplete} token={token}
           initialIdx={debugLastEx ? session.exercises.length - 1 : 0} />
         {pwaDebug}
       </>
