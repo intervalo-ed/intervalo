@@ -339,9 +339,10 @@ def record_answer_db(
     """
     Registra respuesta en BD, actualiza SM-2, y retorna feedback.
 
-    Usa la sesión en-memory si existe, o reconstruye lógica.
+    Usa la sesión en-memory si existe, o reconstruye desde BD y catálogo.
     Persiste en BD: Answer, ItemState updates, Session counters.
     """
+    print(f"DEBUG: record_answer_db called for session {session_id_db}, exercise {exercise_id}")
     from models import Answer
 
     # Obtener sesión desde BD para validación
@@ -357,8 +358,72 @@ def record_answer_db(
     session_id_in_memory = str(session_id_db)
     state = _sessions.get(session_id_in_memory)
 
+    # Si no está en memoria, reconstruir desde BD y catálogo
     if state is None:
-        raise KeyError(f"Sesión en memoria no cargada. Reinicia la sesión.")
+        print(f"DEBUG: Session {session_id_in_memory} not in memory, reconstructing from DB...")
+        # Reconstruir el estado desde BD
+        catalog_keys = default_catalog()
+        item_states: dict[ItemKey, SM2ItemState] = {}
+
+        for item_key in catalog_keys:
+            db_item_state = db.query(ItemState).filter(
+                ItemState.user_id == user_id,
+                ItemState.course_id == course_id,
+                ItemState.belt == item_key.belt.value,
+                ItemState.topic == item_key.topic,
+                ItemState.skill == item_key.skill.value,
+            ).first()
+
+            if db_item_state:
+                item_states[item_key] = SM2ItemState(
+                    phase=db_item_state.phase,
+                    step_index=db_item_state.step_index,
+                    ease_factor=db_item_state.ease_factor,
+                    interval=db_item_state.interval_days,
+                    repetitions=db_item_state.repetitions,
+                    next_review=db_item_state.next_due,
+                )
+            else:
+                item_states[item_key] = SM2ItemState()
+
+        # Reconstruir ejercicios usando build_session
+        session_items = build_session(item_states)
+        exercises: list[ExerciseInSession] = []
+        for idx, si in enumerate(session_items):
+            topic_value = si.key.topic
+            skill_bank_key = _SKILL_TO_BANK.get(si.key.skill.value, si.key.skill.value)
+            ex = get_exercise(topic_value, skill_bank_key, _default_config.graph_exercise_probability)
+            exercise_id_gen = f"ex_{idx:03d}"
+            correct_answer = ex["options"][ex["correct_index"]]
+            shuffled = ex["options"][:]
+            random.shuffle(shuffled)
+            new_correct_index = shuffled.index(correct_answer)
+            exercises.append(
+                ExerciseInSession(
+                    exercise_id=exercise_id_gen,
+                    item_key=si.key,
+                    question=ex["question"],
+                    options=shuffled,
+                    correct_index=new_correct_index,
+                    feedback_correct=ex["feedback_correct"],
+                    feedback_incorrect=ex["feedback_incorrect"],
+                    has_math=ex.get("has_math", False),
+                    graph_fn=ex.get("graph_fn", ""),
+                    graph_view=ex.get("graph_view", None),
+                )
+            )
+
+        # Crear SessionState y almacenar en memoria para futuros usos
+        state = SessionState(
+            session_id=session_id_in_memory,
+            user_name="",
+            item_states=item_states,
+            exercises=exercises,
+            results=[],
+            xp_session=0,
+            streak=0,
+        )
+        _sessions[session_id_in_memory] = state
 
     # Busca el ejercicio correspondiente
     exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
