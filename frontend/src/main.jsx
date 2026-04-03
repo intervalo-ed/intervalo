@@ -2409,12 +2409,33 @@ function App() {
   async function handleTutorialStart({ name, university, career }) {
     setUserName(name);
     setUserInfo({ university, career });
-    // Trigger PWA install prompt (placeholder for post-login; will move to Google OAuth later)
-    if (deferredInstallPrompt.current) {
-      deferredInstallPrompt.current.prompt();
-      deferredInstallPrompt.current = null;
+
+    try {
+      // Enroll user in course with onboarding data
+      const enrollRes = await fetch(`${API}/user/enroll`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ university, career })
+      });
+
+      if (!enrollRes.ok) {
+        throw new Error(`Enrollment failed: ${enrollRes.status}`);
+      }
+
+      // Trigger PWA install prompt (placeholder for post-login; will move to Google OAuth later)
+      if (deferredInstallPrompt.current) {
+        deferredInstallPrompt.current.prompt();
+        deferredInstallPrompt.current = null;
+      }
+
+      await startSession(name);
+    } catch (error) {
+      console.error("Error during enrollment:", error);
+      alert("Error al completar el registro. Intenta de nuevo.");
     }
-    await startSession(name);
   }
 
   function handleComplete(summaryData) {

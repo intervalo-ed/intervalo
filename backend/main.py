@@ -31,6 +31,27 @@ app = FastAPI(title="Intervalo Backend")
 # Initialize database on startup
 init_db()
 
+
+@app.on_event("startup")
+def startup_event():
+    """Create default course if it doesn't exist."""
+    from models import Course
+
+    db = SessionLocal()
+    try:
+        # Check if default course exists
+        course = db.query(Course).filter(Course.slug == "analisis-1").first()
+        if not course:
+            default_course = Course(
+                slug="analisis-1",
+                name="Análisis Matemático I",
+                description="Sistema de repaso adaptativo para Análisis Matemático I",
+            )
+            db.add(default_course)
+            db.commit()
+    finally:
+        db.close()
+
 ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
 
 app.add_middleware(

@@ -231,9 +231,22 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
 
     db.commit()
 
+    # Almacenar en memoria para acceso rápido durante la sesión activa
+    session_id_str = str(session_id_db)
+    session_state = SessionState(
+        session_id=session_id_str,
+        user_name="",
+        item_states={key: SM2ItemState() for key in catalog_keys},
+        exercises=exercises,
+        results=[],
+        xp_session=0,
+        streak=0,
+    )
+    _sessions[session_id_str] = session_state
+
     # Retornar datos con session_id de BD (convertido a string)
     return {
-        "session_id": str(session_id_db),
+        "session_id": session_id_str,
         "user_name": "",  # No tenemos user_name en BD, se envía desde frontend
         "total": len(exercises),
         "exercises": [
