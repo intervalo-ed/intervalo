@@ -504,32 +504,26 @@ function LoginScreen({ onLoginSuccess }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Check if we're on the OAuth callback with a code
+  // Check if we're on the OAuth callback with a token
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
+    const token = params.get("token");
+    const name = params.get("name");
 
-    if (code && !isLoading) {
-      // Handle OAuth callback
-      setIsLoading(true);
-      setError(null);
-
-      fetch(`${API}/auth/google/callback?code=${code}`)
-        .then(res => res.ok ? res.json() : Promise.reject("OAuth failed"))
-        .then(data => {
-          // Save JWT token
-          localStorage.setItem("access_token", data.access_token);
-          // Clean up URL and redirect
-          window.history.replaceState({}, document.title, "/");
-          // Trigger login success
-          onLoginSuccess(data.access_token, data.name);
-        })
-        .catch(err => {
-          setError("Error al conectar con Google. Intenta de nuevo.");
-          setIsLoading(false);
-        });
+    if (token) {
+      // Handle OAuth callback response from backend
+      try {
+        // Save JWT token
+        localStorage.setItem("access_token", token);
+        // Clean up URL
+        window.history.replaceState({}, document.title, "/");
+        // Trigger login success
+        onLoginSuccess(token, name || "Usuario");
+      } catch (err) {
+        setError("Error al procesar autenticación. Intenta de nuevo.");
+      }
     }
-  }, [onLoginSuccess, isLoading]);
+  }, [onLoginSuccess]);
 
   const handleGoogleLogin = () => {
     // Redirect to backend OAuth endpoint

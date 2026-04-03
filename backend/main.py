@@ -116,10 +116,15 @@ async def auth_google_callback(
     code: str,
     db: Session = Depends(get_db)
 ):
-    """Handle Google OAuth callback."""
+    """Handle Google OAuth callback and redirect to frontend with token."""
     try:
         result = await authenticate_with_google(code, db)
-        return result
+        # Redirect to frontend with token in URL
+        frontend_url = ALLOWED_ORIGINS[0] if ALLOWED_ORIGINS else "http://localhost:5173"
+        return RedirectResponse(
+            url=f"{frontend_url}?token={result.access_token}&name={result.name}",
+            status_code=302
+        )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
