@@ -1,11 +1,17 @@
 import os
 from datetime import datetime, timedelta
 from typing import Optional
+from pathlib import Path
+from dotenv import load_dotenv
 import httpx
 from jose import JWTError, jwt
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from models import User
+
+# Load environment variables from .env file
+env_path = Path(__file__).parent / ".env"
+load_dotenv(env_path)
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
