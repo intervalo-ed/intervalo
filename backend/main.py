@@ -217,6 +217,22 @@ def enroll_user(
     }
 
 
+@app.get("/user/progress")
+def get_user_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get user's current progress (skill states and level info)."""
+    from session_store import get_user_progress_db
+
+    try:
+        # Default course
+        course_id = 1
+        return get_user_progress_db(current_user.id, course_id, db)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ── Session endpoints ─────────────────────────────────────────────────────────
 
 @app.post("/session/start")

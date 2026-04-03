@@ -1,0 +1,115 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\intervalo\\backend']
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     Started reloader process [11772] using StatReload
+INFO:     Started server process [18968]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'session_store.py'. Reloading...
+ INFO:     127.0.0.1:57983 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57983 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57983 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57983 - "OPTIONS /session/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60008 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60008 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60008 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60008 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60008 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60155 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50698 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50700 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57696 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57701 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57706 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57708 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64852 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52096 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52098 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53556 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53558 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63710 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63712 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64497 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64499 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64502 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53190 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53192 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64467 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64638 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64467 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64467 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64467 - "OPTIONS /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64638 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64638 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64638 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49212 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49212 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61983 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53703 - "OPTIONS /session/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53703 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53703 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53703 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57253 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57253 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55988 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55988 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55988 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55988 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64099 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58087 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58087 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58087 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58087 - "OPTIONS /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64099 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64099 - "OPTIONS /session/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58087 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50735 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50735 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57336 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57336 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57336 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57336 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53481 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52186 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52186 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49949 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49949 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49919 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49919 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64684 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61574 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61574 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61574 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61574 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55318 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55318 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57121 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57121 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57121 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57121 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57121 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58097 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58097 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58097 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "OPTIONS /session/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53487 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59746 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51183 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51183 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51183 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65472 - "OPTIONS /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65472 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65472 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59579 - "POST /session/answer HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59579 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59579 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50481 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50481 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50481 - "POST /session/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50481 - "POST /session/answer HTTP/1.1" 404 Not Found

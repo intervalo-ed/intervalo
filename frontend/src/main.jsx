@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8001";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8002";
 
 const VOLUME = 0.2;
 const popAudio          = Object.assign(new Audio("/pop.mp3"),               { volume: VOLUME });
@@ -1484,8 +1484,14 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, token, init
             body: JSON.stringify({ session_id: sessionId, exercise_id: ex.id,
               answer_index: idx, response_time_s: t }),
           });
-          setResult(await res.json());
-        } catch { setResult({ correct: true, feedback: ex.feedback_correct || "¡Correcto!" }); }
+          const jsonData = await res.json();
+          if (!res.ok) {
+            throw new Error(`Server error: ${res.status}`);
+          }
+          setResult(jsonData);
+        } catch (e) {
+          setResult({ correct: true, feedback: ex.feedback_correct || "¡Correcto!" });
+        }
       } else {
         setResult({ correct: true, feedback: ex.feedback_correct });
       }
@@ -1934,6 +1940,17 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
             </div>
           )}
 
+          {/* Continue Button */}
+          <button onClick={onRestart}
+            style={{
+              width: "100%", padding: "1rem", borderRadius: 12,
+              background: C.primary, border: "none", cursor: "pointer",
+              fontSize: "1rem", fontWeight: 700, color: "#fff",
+              fontFamily: fonts.body, transition: "all 0.22s",
+              marginTop: "2rem", marginBottom: "1rem"
+            }}>
+            Continuar
+          </button>
         </div>
       </div>
     </div>
@@ -2159,9 +2176,33 @@ function CountUp({ target, duration = 600, color }) {
   return <span style={{ fontSize: "1.1rem", fontWeight: 700, color }}>{val}</span>;
 }
 
-function HomeScreen({ userName, lastSummary, onStartSession }) {
-  const skillStates = lastSummary?.skill_states || {};
-  const levelInfo = lastSummary?.level_info;
+function HomeScreen({ userName, lastSummary, onStartSession, token }) {
+  const [skillStates, setSkillStates] = useState(lastSummary?.skill_states || {});
+  const [levelInfo, setLevelInfo] = useState(lastSummary?.level_info || null);
+  const [loading, setLoading] = useState(!lastSummary); // Only load if no lastSummary
+
+  // Load user progress from backend
+  useEffect(() => {
+    if (!loading) return; // Skip if we have lastSummary
+
+    const fetchProgress = async () => {
+      try {
+        const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+        const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:8002"}/user/progress`, { headers });
+        if (res.ok) {
+          const data = await res.json();
+          setSkillStates(data.skill_states || {});
+          setLevelInfo(data.level_info || null);
+        }
+      } catch (e) {
+        console.error("Error loading progress:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgress();
+  }, [loading, token]);
 
   const allEntries = Object.values(skillStates);
   const pendienteCount = allEntries.filter(s => s?.phase === "learning" && (s.step_index ?? 0) === 0).length;
@@ -2586,7 +2627,7 @@ function App() {
   if (screen === "home")
     return (
       <>
-        <HomeScreen userName={userName} lastSummary={summary}
+        <HomeScreen userName={userName} lastSummary={summary} token={token}
           onStartSession={handleNewSession} />
         {pwaDebug}
       </>

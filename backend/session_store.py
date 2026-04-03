@@ -36,6 +36,7 @@ from algorithm import (
 from exercise_bank import get_exercise
 from datetime import datetime
 from sqlalchemy.orm import Session as DBSession
+from sqlalchemy import func
 from models import Session as SessionModel, ItemState
 
 
@@ -503,6 +504,61 @@ def record_answer_db(
         "quality": quality,
         "feedback": feedback,
         "xp_earned": xp_earned,
+    }
+
+
+def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
+    """
+    Get user's current progress (skill states and level info).
+
+    Returns:
+    {
+        "skill_states": {...},
+        "level_info": {...}
+    }
+    """
+    from models import Answer
+
+    # Get all item states for user/course
+    catalog_keys = default_catalog()
+    skill_states: dict[str, dict] = {}
+
+    for item_key in catalog_keys:
+        db_item_state = db.query(ItemState).filter(
+            ItemState.user_id == user_id,
+            ItemState.course_id == course_id,
+            ItemState.belt == item_key.belt.value,
+            ItemState.topic == item_key.topic,
+            ItemState.skill == item_key.skill.value,
+        ).first()
+
+        if db_item_state:
+            key_str = f"{item_key.topic}:{item_key.skill.value}"
+            skill_states[key_str] = {
+                "phase": db_item_state.phase,
+                "step_index": db_item_state.step_index,
+                "next_review": db_item_state.next_due.isoformat() if db_item_state.next_due else None,
+                "failed": False
+            }
+
+    # Calculate total XP from all answers
+    total_xp = db.query(func.sum(Answer.xp_earned)).filter(
+        Answer.user_id == user_id,
+        Answer.course_id == course_id,
+    ).scalar() or 0
+
+    # Calculate level info
+    lp = level_progress(total_xp)
+    level_info = {
+        "level": lp.level,
+        "xp_in_level": lp.xp_in_level,
+        "xp_required": lp.xp_required,
+        "progress_pct": lp.progress_pct,
+    }
+
+    return {
+        "skill_states": skill_states,
+        "level_info": level_info,
     }
 
 
