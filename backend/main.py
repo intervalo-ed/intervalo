@@ -144,51 +144,122 @@ def get_current_user_info(
     )
 
 
-# ── Session endpoints ─────────────────────────────────────────────────────────
+# ── User enrollment ───────────────────────────────────────────────────────────
 
-@app.post("/session/start")
-def start_session(body: StartSessionRequest):
-    state = create_session(body.user_name)
-    exercises = [
-        {
-            "id": ex.exercise_id,
-            "question": ex.question,
-            "options": ex.options,
-            "correct_index": ex.correct_index,
-            "has_math": ex.has_math,
-            "skill": ex.item_key.skill.value,
-            "graph_fn": ex.graph_fn,
-            "graph_view": ex.graph_view,
-            "feedback_correct": ex.feedback_correct,
-            "feedback_incorrect": ex.feedback_incorrect,
-        }
-        for ex in state.exercises
-    ]
+class EnrollmentRequest(BaseModel):
+    university: str
+    career: str
+
+
+@app.post("/user/enroll")
+def enroll_user(
+    body: EnrollmentRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Enroll user in a course with onboarding data."""
+    from models import Enrollment, Course
+
+    # Default course_id to 1 for now (analisis-1)
+    course_id = 1
+
+    # Check if course exists
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=400, detail="Course not found")
+
+    # Check if already enrolled
+    existing = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id,
+        Enrollment.course_id == course_id,
+    ).first()
+
+    if existing:
+        # Update enrollment
+        existing.university = body.university
+        existing.career = body.career
+    else:
+        # Create new enrollment
+        enrollment = Enrollment(
+            user_id=current_user.id,
+            course_id=course_id,
+            university=body.university,
+            career=body.career,
+        )
+        db.add(enrollment)
+
+    db.commit()
+
     return {
-        "session_id": state.session_id,
-        "user_name": state.user_name,
-        "total": len(exercises),
-        "exercises": exercises,
+        "success": True,
+        "message": "Enrollment successful",
     }
 
 
+# ── Session endpoints ─────────────────────────────────────────────────────────
+
+@app.post("/session/start")
+def start_session(
+    body: StartSessionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Start a new session linked to authenticated user in database."""
+    from session_store import create_session_db
+
+    # Default course_id to 1 for now (analyze-1)
+    course_id = 1
+
+    # Create session in database
+    result = create_session_db(current_user.id, course_id, db)
+
+    return result
+
+
 @app.post("/session/answer")
-def submit_answer(body: AnswerRequest):
+def submit_answer(
+    body: AnswerRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Submit answer for exercise - validates ownership and saves to DB."""
+    from session_store import record_answer_db
+
     try:
-        result = record_answer(
-            body.session_id,
+        # Parse session_id as integer (it's stored as string in frontend but is DB ID)
+        session_id_db = int(body.session_id)
+        course_id = 1  # Default for now
+
+        result = record_answer_db(
+            session_id_db,
+            current_user.id,
+            course_id,
             body.exercise_id,
             body.answer_index,
             body.response_time_s,
+            db,
         )
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid session_id format")
+
     return result
 
 
 @app.get("/session/{session_id}/summary")
-def session_summary(session_id: str):
+def session_summary(
+    session_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get session summary from database - validates ownership."""
+    from session_store import get_summary_db
+
     try:
-        return get_summary(session_id)
+        session_id_db = int(session_id)
+        return get_summary_db(session_id_db, current_user.id, db)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid session_id format")
