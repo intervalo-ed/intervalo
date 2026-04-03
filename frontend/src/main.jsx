@@ -498,6 +498,127 @@ function FadeIn({ show, delay = 0, style, children }) {
   );
 }
 
+// ── LoginScreen ────────────────────────────────────────────────────────────────
+
+function LoginScreen({ onLoginSuccess }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Check if we're on the OAuth callback with a code
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code && !isLoading) {
+      // Handle OAuth callback
+      setIsLoading(true);
+      setError(null);
+
+      fetch(`${API}/auth/google/callback?code=${code}`)
+        .then(res => res.ok ? res.json() : Promise.reject("OAuth failed"))
+        .then(data => {
+          // Save JWT token
+          localStorage.setItem("access_token", data.access_token);
+          // Clean up URL and redirect
+          window.history.replaceState({}, document.title, "/");
+          // Trigger login success
+          onLoginSuccess(data.access_token, data.name);
+        })
+        .catch(err => {
+          setError("Error al conectar con Google. Intenta de nuevo.");
+          setIsLoading(false);
+        });
+    }
+  }, [onLoginSuccess, isLoading]);
+
+  const handleGoogleLogin = () => {
+    // Redirect to backend OAuth endpoint
+    window.location.href = `${API}/auth/google`;
+  };
+
+  return (
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "100vh",
+      background: "#131324",
+      padding: "2rem"
+    }}>
+      <div style={{
+        maxWidth: "400px",
+        width: "100%",
+        textAlign: "center"
+      }}>
+        <h1 style={{
+          fontSize: "2.5rem",
+          fontWeight: 800,
+          marginBottom: "1rem",
+          background: "linear-gradient(135deg, #667EEA 0%, #764BA2 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent"
+        }}>
+          intervalo
+        </h1>
+
+        <p style={{
+          fontSize: "1rem",
+          color: "#A1A8C1",
+          marginBottom: "2rem",
+          lineHeight: "1.6"
+        }}>
+          Sistema de repaso adaptativo con repetición espaciada
+        </p>
+
+        {error && (
+          <div style={{
+            background: "rgba(220, 53, 69, 0.2)",
+            border: "1px solid #DC3545",
+            borderRadius: "8px",
+            padding: "1rem",
+            marginBottom: "1.5rem",
+            color: "#FF6B7A",
+            fontSize: "0.9rem"
+          }}>
+            {error}
+          </div>
+        )}
+
+        <button
+          onClick={handleGoogleLogin}
+          disabled={isLoading}
+          style={{
+            width: "100%",
+            padding: "1rem 2rem",
+            borderRadius: "12px",
+            border: "none",
+            background: "linear-gradient(135deg, #667EEA 0%, #764BA2 100%)",
+            color: "#FFF",
+            fontSize: "1rem",
+            fontWeight: 600,
+            cursor: isLoading ? "not-allowed" : "pointer",
+            opacity: isLoading ? 0.6 : 1,
+            transition: "all 0.22s",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.75rem"
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          {isLoading ? "Conectando..." : "Continuar con Google"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── TutorialScreen ─────────────────────────────────────────────────────────────
 
 const TOTAL_SLIDES = 12;
@@ -1360,8 +1481,12 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
       if (!calledRef.current) {
         calledRef.current = true;
         try {
+          const headers = { "Content-Type": "application/json" };
+          if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+          }
           const res = await fetch(`${API}/session/answer`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
+            method: "POST", headers,
             body: JSON.stringify({ session_id: sessionId, exercise_id: ex.id,
               answer_index: idx, response_time_s: t }),
           });
@@ -1380,8 +1505,12 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
       if (!calledRef.current) {
         calledRef.current = true;
         try {
+          const headers = { "Content-Type": "application/json" };
+          if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+          }
           await fetch(`${API}/session/answer`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
+            method: "POST", headers,
             body: JSON.stringify({ session_id: sessionId, exercise_id: ex.id,
               answer_index: idx, response_time_s: t }),
           });
@@ -1396,7 +1525,11 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, initialIdx 
       playTerminar();
       setTimeout(() => playConteo(), 2200);
       setEndPhase("pressed");
-      const fetchPromise = fetch(`${API}/session/${sessionId}/summary`)
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+      const fetchPromise = fetch(`${API}/session/${sessionId}/summary`, { headers })
         .then(r => r.json()).catch(() => null);
       setTimeout(async () => {
         setEndPhase("exiting");
@@ -2175,10 +2308,43 @@ function App() {
   const [userInfo, setUserInfo]     = useState(null);
   const [debugLastEx, setDebugLastEx] = useState(false);
 
+  // Authentication with JWT
+  const [token, setToken] = useState(localStorage.getItem("access_token") || null);
+  const [authChecked, setAuthChecked] = useState(false);
+
   // PWA install prompt — captured before it auto-shows, triggered after login
   const deferredInstallPrompt = useRef(null);
   const [pwaReady, setPwaReady] = useState(false);
   const [pwaDebugInfo, setPwaDebugInfo] = useState("🔄 Checking PWA...");
+
+  // Check authentication on app load
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+    if (storedToken) {
+      // Verify token validity with backend
+      fetch(`${API}/auth/me`, {
+        headers: { "Authorization": `Bearer ${storedToken}` }
+      })
+      .then(res => res.ok ? res.json() : null)
+      .then(user => {
+        if (user) {
+          setToken(storedToken);
+          setUserName(user.name);
+          setIsRegistered(true);
+          setScreen("home");
+        } else {
+          localStorage.removeItem("access_token");
+          setToken(null);
+        }
+        setAuthChecked(true);
+      })
+      .catch(() => {
+        setAuthChecked(true);
+      });
+    } else {
+      setAuthChecked(true);
+    }
+  }, []);
 
   useEffect(() => {
     const handler = (e) => {
@@ -2232,8 +2398,12 @@ function App() {
   }, []);
 
   async function startSession(name) {
+    const headers = { "Content-Type": "application/json" };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
     const res = await fetch(`${API}/session/start`, {
-      method: "POST", headers: { "Content-Type": "application/json" },
+      method: "POST", headers,
       body: JSON.stringify({ user_name: name || userName }),
     });
     if (!res.ok) throw new Error("Error al iniciar sesión");
@@ -2302,6 +2472,34 @@ function App() {
       {pwaDebugInfo || (pwaReady ? "✅ PWA Ready" : "🔄 Checking PWA...")}
     </div>
   );
+
+  // Show loading screen while checking authentication
+  if (!authChecked) {
+    return (
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "#131324",
+        color: "#A1A8C1"
+      }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>intervalo</div>
+          <div>Cargando...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login screen if no token
+  if (!token) {
+    return <LoginScreen onLoginSuccess={(newToken, name) => {
+      setToken(newToken);
+      setUserName(name);
+      setScreen("tutorial");
+    }} />;
+  }
 
   if (screen === "tutorial")
     return (
