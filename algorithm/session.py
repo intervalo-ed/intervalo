@@ -35,34 +35,39 @@ def build_session(
     config: SM2Config | None = None,
     introduce_new_item: callable | None = None,
     item_priority: dict[ItemKey, int] | None = None,
+    item_attempted: dict[ItemKey, bool] | None = None,
 ) -> list[SessionItem]:
     """
-    Dual-Loop session builder:
-    - Step 1: collect overdue items. Learning items have priority over review.
-              If item_priority provided, sorts by priority (lower index = higher priority).
-              Otherwise: learning sorted by step_index asc, review by next_review asc.
+    Dual-Loop session builder (updated for Nuevo/Aprendiendo/Pendiente/Graduado):
+    - Step 1: collect items that are "Nuevo" (not attempted) or "Pendiente" (overdue).
     - Step 2: if fewer than min_items_before_new_content, introduce new items.
     - Step 3: cap at max_exercises_per_session.
     - Step 4: greedy mix ensuring min_distance_same_function between same topics.
     """
     config = config or SM2Config()
     today = today or date.today()
+    item_attempted = item_attempted or {}
 
-    overdue = [
-        SessionItem(key=k, state=s) for k, s in items.items() if s.next_review <= today
-    ]
+    # Collect items that are either:
+    # - "Nuevo": not attempted yet (attempted=False, in learning phase)
+    # - "Pendiente": overdue (next_review <= today), regardless of phase
+    candidates = []
+    for k, s in items.items():
+        is_attempted = item_attempted.get(k, False)
+        is_new = not is_attempted and s.phase == "learning"
+        is_pending = s.next_review <= today
 
-    learning_overdue = [i for i in overdue if i.state.phase == "learning"]
-    review_overdue   = [i for i in overdue if i.state.phase == "review"]
+        if is_new or is_pending:
+            candidates.append(SessionItem(key=k, state=s))
 
     if item_priority is not None:
-        learning_overdue.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
-        review_overdue.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
+        candidates.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
     else:
-        learning_overdue.sort(key=lambda x: x.state.step_index)
-        review_overdue.sort(key=lambda x: x.state.next_review)
-
-    candidates = learning_overdue + review_overdue
+        # Sort by: new items first, then pending by next_review
+        candidates.sort(key=lambda x: (
+            not (not item_attempted.get(x.key, False) and x.state.phase == "learning"),  # new items first
+            x.state.next_review
+        ))
 
     # Step 2: introduce new content if not enough overdue items.
     if introduce_new_item is not None and len(candidates) < config.min_items_before_new_content:

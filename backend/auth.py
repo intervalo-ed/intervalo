@@ -156,9 +156,31 @@ def get_or_create_user(
     return user
 
 
+def create_guest_user(db: Session, name: str) -> TokenResponse:
+    """Create an anonymous guest user and return JWT."""
+    import uuid
+    guest_id = str(uuid.uuid4())[:8]
+    user = User(
+        email=f"guest_{guest_id}@intervalo.tmp",
+        name=name,
+        display_name=name,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    jwt_token = create_access_token(user.id, user.email)
+    return TokenResponse(
+        access_token=jwt_token,
+        user_id=user.id,
+        email=user.email,
+        name=name,
+    )
+
+
 async def authenticate_with_google(
     code: str,
-    db: Session
+    db: Session,
+    link_user_id: int | None = None,
 ) -> TokenResponse:
     """
     Complete Google OAuth flow:
@@ -185,8 +207,19 @@ async def authenticate_with_google(
     if not email or not google_id:
         raise ValueError("Failed to get email or ID from Google")
 
-    # Get or create user in database
-    user = get_or_create_user(db, email, name, google_id)
+    # Link to existing anonymous user, or get/create by email
+    if link_user_id:
+        existing = db.query(User).filter(User.id == link_user_id).first()
+        if existing and existing.email.endswith("@intervalo.tmp"):
+            existing.email = email
+            existing.google_id = google_id
+            existing.name = name  # keep display_name from tutorial
+            db.commit()
+            user = existing
+        else:
+            user = get_or_create_user(db, email, name, google_id)
+    else:
+        user = get_or_create_user(db, email, name, google_id)
 
     # Generate JWT
     jwt_token = create_access_token(user.id, user.email)

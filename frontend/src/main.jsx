@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8002";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8006";
 
 const VOLUME = 0.2;
 const popAudio          = Object.assign(new Audio("/pop.mp3"),               { volume: VOLUME });
@@ -304,17 +304,26 @@ function FunctionPlot({ fnStr, view }) {
 function itemCell(entry) {
   if (!entry) return { bg: C.bgElevated, label: "-", textColor: C.muted };
 
-  if (entry.phase === "review") {
-    return { bg: "rgba(21,128,61,0.35)", label: "3/3", textColor: "#BBF7D0" };
+  let progressLabel = entry.progress || "-";
+  let bgColor = C.bgElevated;
+  let textColor = C.muted;
+
+  // Pendiente overrides: if item is due for review today (attempted + is_pending), show orange
+  if (entry.attempted && entry.is_pending) {
+    bgColor = "rgba(180,83,9,0.32)"; // Orange — pendiente
+    textColor = "#FDE68A";
+  } else if (entry.status === "nuevo") {
+    bgColor = "rgba(29,78,216,0.30)"; // Blue
+    textColor = "#BFDBFE";
+  } else if (entry.status === "aprendiendo") {
+    bgColor = "rgba(101,163,13,0.32)"; // Green/yellow
+    textColor = "#D9F99D";
+  } else if (entry.status === "graduado") {
+    bgColor = "rgba(21,128,61,0.35)"; // Dark green
+    textColor = "#BBF7D0";
   }
 
-  const si = entry.step_index ?? 0;
-  if (si === 0) {
-    // Pendiente: attempted but failed, scheduled for review (orange)
-    return { bg: "rgba(180,83,9,0.32)", label: "0/3", textColor: "#FDE68A" };
-  }
-  // Aprendiendo: correct answers, progressing (lime)
-  return { bg: "rgba(101,163,13,0.32)", label: `${si}/3`, textColor: "#D9F99D" };
+  return { bg: bgColor, label: progressLabel, textColor };
 }
 
 function ProgressGrid({ skillStates, revealedKeys }) {
@@ -477,6 +486,36 @@ function Typewriter({ text, speed = 30, style, onDone, start = true }) {
   return <span style={style}>{text.slice(0, count)}</span>;
 }
 
+function TypewriterWithPause({ parts, pause = 400, speed = 35, onDone, start = true }) {
+  const [text, setText] = useState("");
+  const cancelled = useRef(false);
+  useEffect(() => {
+    if (!start) { setText(""); return; }
+    cancelled.current = false;
+    setText("");
+    const full = parts.join("");
+    let i = 0;
+    let charsSoFar = 0;
+    let partIdx = 0;
+    const tick = () => {
+      if (cancelled.current) return;
+      if (i >= full.length) { onDone?.(); return; }
+      if (partIdx < parts.length - 1 && i === charsSoFar + parts[partIdx].length) {
+        charsSoFar += parts[partIdx].length;
+        partIdx++;
+        setTimeout(tick, pause);
+        return;
+      }
+      i++;
+      setText(full.slice(0, i));
+      setTimeout(tick, speed);
+    };
+    setTimeout(tick, speed);
+    return () => { cancelled.current = true; };
+  }, [start]);
+  return <span>{text}</span>;
+}
+
 // ── FadeIn ──────────────────────────────────────────────────────────────────────
 
 function FadeIn({ show, delay = 0, style, children }) {
@@ -498,116 +537,44 @@ function FadeIn({ show, delay = 0, style, children }) {
   );
 }
 
-// ── LoginScreen ────────────────────────────────────────────────────────────────
+// ── SplashScreen ──────────────────────────────────────────────────────────────
 
-function LoginScreen({ onLoginSuccess }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+function SplashScreen({ onDone }) {
+  const [barShown, setBarShown] = useState(false);
+  const [typingDone, setTypingDone] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+  const onDoneRef = useRef(onDone);
+  onDoneRef.current = onDone;
 
-  // Check if we're on the OAuth callback with a token
+  // After typewriter → bar → pause → fade out → done
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
-    const name = params.get("name");
-
-    if (token) {
-      // Handle OAuth callback response from backend
-      try {
-        // Save JWT token
-        localStorage.setItem("access_token", token);
-        // Clean up URL
-        window.history.replaceState({}, document.title, "/");
-        // Trigger login success
-        onLoginSuccess(token, name || "Usuario");
-      } catch (err) {
-        setError("Error al procesar autenticación. Intenta de nuevo.");
-      }
-    }
-  }, [onLoginSuccess]);
-
-  const handleGoogleLogin = () => {
-    // Redirect to backend OAuth endpoint
-    window.location.href = `${API}/auth/google`;
-  };
+    if (!typingDone) return;
+    const t1 = setTimeout(() => setBarShown(true), 550);
+    const t2 = setTimeout(() => setFadeOut(true), 1800);
+    const t3 = setTimeout(() => onDoneRef.current?.(), 2200);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [typingDone]);
 
   return (
     <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      minHeight: "100vh",
-      background: "#131324",
-      padding: "2rem"
+      display: "flex", flexDirection: "column", alignItems: "center",
+      justifyContent: "center", minHeight: "100vh",
+      background: C.bg, fontFamily: fonts.body,
+      opacity: fadeOut ? 0 : 1, transition: "opacity 0.4s ease",
     }}>
-      <div style={{
-        maxWidth: "400px",
-        width: "100%",
-        textAlign: "center"
-      }}>
-        <h1 style={{
-          fontSize: "2.5rem",
-          fontWeight: 800,
-          marginBottom: "1rem",
-          background: "linear-gradient(135deg, #667EEA 0%, #764BA2 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
+      <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+        <span style={{ fontFamily: fonts.heading, fontWeight: 100, fontSize: "2.5rem",
+          color: C.text, letterSpacing: "normal", lineHeight: 1 }}>
+          <Typewriter text="intervalo" speed={100} onDone={() => setTypingDone(true)} />
+        </span>
+        <div style={{
+          display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden",
+          transform: barShown ? "scaleX(1)" : "scaleX(0)",
+          transformOrigin: "left center",
+          transition: barShown ? "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
         }}>
-          intervalo
-        </h1>
-
-        <p style={{
-          fontSize: "1rem",
-          color: "#A1A8C1",
-          marginBottom: "2rem",
-          lineHeight: "1.6"
-        }}>
-          Sistema de repaso adaptativo con repetición espaciada
-        </p>
-
-        {error && (
-          <div style={{
-            background: "rgba(220, 53, 69, 0.2)",
-            border: "1px solid #DC3545",
-            borderRadius: "8px",
-            padding: "1rem",
-            marginBottom: "1.5rem",
-            color: "#FF6B7A",
-            fontSize: "0.9rem"
-          }}>
-            {error}
-          </div>
-        )}
-
-        <button
-          onClick={handleGoogleLogin}
-          disabled={isLoading}
-          style={{
-            width: "100%",
-            padding: "1rem 2rem",
-            borderRadius: "12px",
-            border: "none",
-            background: "linear-gradient(135deg, #667EEA 0%, #764BA2 100%)",
-            color: "#FFF",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: isLoading ? "not-allowed" : "pointer",
-            opacity: isLoading ? 0.6 : 1,
-            transition: "all 0.22s",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.75rem"
-          }}
-        >
-          <svg width="20" height="20" viewBox="0 0 48 48">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
-          {isLoading ? "Conectando..." : "Continuar con Google"}
-        </button>
+          {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
+        </div>
       </div>
     </div>
   );
@@ -629,15 +596,10 @@ function TutorialScreen({ onStart, onGoHome, onInstallPWA }) {
 
   // Animation state per slide
   const [titleDone, setTitleDone] = useState(false);
-  // Slide 0 intro sequence
-  const [logoBarShown, setLogoBarShown] = useState(false);
-  const [holaStart, setHolaStart]       = useState(false);
   // 2-second readiness gate before continue is enabled
   const [readyToAdvance, setReadyToAdvance] = useState(false);
   useEffect(() => {
     setTitleDone(false);
-    setLogoBarShown(false);
-    setHolaStart(false);
     setReadyToAdvance(false);
     const t = setTimeout(() => setReadyToAdvance(true), 2500);
     return () => clearTimeout(t);
@@ -772,36 +734,27 @@ function TutorialScreen({ onStart, onGoHome, onInstallPWA }) {
     // Slide 0: Name
     0: (
       <div style={{ textAlign: "center" }}>
-        {/* Logo animado: primero el texto, luego la barra */}
-        <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-          <span style={{ fontFamily: fonts.heading, fontWeight: 100, fontSize: "2rem",
-            color: C.text, letterSpacing: "normal", lineHeight: 1 }}>
-            <Typewriter
-              text="intervalo"
-              speed={100}
-              onDone={() => setTimeout(() => {
-                setLogoBarShown(true);
-                setTimeout(() => setHolaStart(true), 850);
-              }, 550)}
-            />
-          </span>
-          <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden",
-            transform: logoBarShown ? "scaleX(1)" : "scaleX(0)",
-            transformOrigin: "left center",
-            transition: logoBarShown ? "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)" : "none" }}>
-            {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
+        {/* Logo — simple fade in */}
+        <FadeIn show={true} delay={0}>
+          <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 4, marginBottom: "1.5rem" }}>
+            <span style={{ fontFamily: fonts.heading, fontWeight: 100, fontSize: "2rem",
+              color: C.text, letterSpacing: "normal", lineHeight: 1 }}>
+              intervalo
+            </span>
+            <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden" }}>
+              {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
+            </div>
           </div>
-        </div>
-
-        <h1 style={{ fontFamily: fonts.heading, fontSize: "1.4rem", fontWeight: 600,
-          color: "rgba(244,247,251,0.75)", margin: "2rem 0 0.75rem", minHeight: "1.7em" }}>
-          <Typewriter text="¡Hola!" speed={80} start={holaStart} onDone={onTitleDone} />
-        </h1>
-        <FadeIn show={titleDone} delay={225}>
-          <p style={{ color: C.textSecondary, fontSize: "1.1rem", lineHeight: 1.6, marginBottom: "2rem" }}>
-            ¿Cómo te gustaría que te llamen?
-          </p>
         </FadeIn>
+
+        <p style={{ fontFamily: fonts.heading, color: "rgba(244,247,251,0.75)", fontSize: "1.25rem", fontWeight: 400, lineHeight: 1.5, marginBottom: "2rem", minHeight: "1.5em" }}>
+          <TypewriterWithPause
+            parts={["¡Hola! ", "¿Cómo te gustaría que te llamen?"]}
+            pause={400}
+            speed={35}
+            onDone={onTitleDone}
+          />
+        </p>
         <FadeIn show={titleDone} delay={300}>
           <input type="text" value={name} onChange={e => {
               setName(e.target.value);
@@ -826,6 +779,36 @@ function TutorialScreen({ onStart, onGoHome, onInstallPWA }) {
         </FadeIn>
         <FadeIn show={titleDone} delay={450}>
           {continueBtn()}
+        </FadeIn>
+        <FadeIn show={titleDone} delay={600}>
+          <div style={{ marginTop: "2rem", borderTop: `1px solid ${C.border}`, paddingTop: "1.5rem" }}>
+            <p style={{ color: C.muted, fontSize: "0.85rem", marginBottom: "0.75rem" }}>¿Ya tenés cuenta?</p>
+            <button
+              onClick={() => { window.location.href = `${API}/auth/google`; }}
+              style={{
+                padding: "0.7rem 1.5rem",
+                borderRadius: "10px",
+                border: `1px solid ${C.border}`,
+                background: "rgba(255,255,255,0.05)",
+                color: C.textSecondary,
+                fontSize: "0.9rem",
+                fontWeight: 500,
+                cursor: "pointer",
+                transition: "all 0.22s",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem"
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              </svg>
+              Iniciar sesión con Google
+            </button>
+          </div>
         </FadeIn>
       </div>
     ),
@@ -1161,16 +1144,6 @@ function TutorialScreen({ onStart, onGoHome, onInstallPWA }) {
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body, position: "relative" }}>
-      {/* PWA Install Button — Debug only */}
-      <button onClick={onInstallPWA}
-        style={{
-          position: "absolute", top: "1rem", right: "1rem",
-          background: C.primary, color: "#fff", border: "none",
-          borderRadius: 8, padding: "0.5rem 0.8rem", fontSize: "0.8rem",
-          fontWeight: 600, cursor: "pointer", fontFamily: fonts.body,
-        }}>
-        📱 Instalar
-      </button>
       <div style={{ display: "flex", justifyContent: "center", padding: "2.5rem 1rem 3rem" }}>
         <div style={{ width: "100%", maxWidth: 520 }}>
           {dots}
@@ -1797,8 +1770,6 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
   // page 2
   const [revealedCount, setRevealedCount] = useState(0);
   const [showRegister, setShowRegister]   = useState(false);
-  const [registering, setRegistering]     = useState(false);
-  const [registered, setRegistered]       = useState(false);
 
   // Delay title on page 1 by 500ms after mount (container has just disappeared)
   useEffect(() => {
@@ -1829,8 +1800,7 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
   const revealedKeys = page === 2 ? new Set(touchedList.slice(0, revealedCount)) : new Set();
 
   function handleRegister() {
-    setRegistering(true);
-    setTimeout(() => { setRegistering(false); setRegistered(true); onRegister?.(); }, 1500);
+    onRegister?.();
   }
 
   // ── PAGE 1: ¡Listo! + XP ───────────────────────────────────────────────────
@@ -1910,7 +1880,7 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
           </div>}
 
           {/* Register with Google — appears after stagger completes */}
-          {onRegister && !registered && showRegister && (
+          {onRegister && showRegister && (
             <div style={{ ...card, textAlign: "center", animation: "slideInRight 0.5s ease-out" }}>
               <h3 style={{ fontFamily: fonts.heading, fontSize: "1.1rem", fontWeight: 700,
                 color: C.text, margin: "0 0 0.4rem" }}>
@@ -1919,23 +1889,19 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
               <p style={{ color: C.muted, fontSize: "0.88rem", margin: "0 0 1.25rem" }}>
                 Registrate para no perder tu avance
               </p>
-              <button onClick={handleRegister} disabled={registering}
+              <button onClick={handleRegister}
                 style={{ width: "100%", padding: "0.8rem 1rem", borderRadius: 12,
                   background: "#fff", border: "none", cursor: "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
                   fontSize: "0.95rem", fontWeight: 600, color: "#333",
-                  fontFamily: fonts.body, transition: "all 0.22s", opacity: registering ? 0.7 : 1 }}>
-                {registering ? <span>Registrando...</span> : (
-                  <>
-                    <svg width="20" height="20" viewBox="0 0 48 48">
-                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                    </svg>
-                    Registrarse con Google
-                  </>
-                )}
+                  fontFamily: fonts.body, transition: "all 0.22s" }}>
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+                Registrarse con Google
               </button>
             </div>
           )}
@@ -2176,7 +2142,7 @@ function CountUp({ target, duration = 600, color }) {
   return <span style={{ fontSize: "1.1rem", fontWeight: 700, color }}>{val}</span>;
 }
 
-function HomeScreen({ userName, lastSummary, onStartSession, token }) {
+function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onGoogleRegister }) {
   const [skillStates, setSkillStates] = useState(lastSummary?.skill_states || {});
   const [levelInfo, setLevelInfo] = useState(lastSummary?.level_info || null);
   const [loading, setLoading] = useState(!lastSummary); // Only load if no lastSummary
@@ -2188,14 +2154,15 @@ function HomeScreen({ userName, lastSummary, onStartSession, token }) {
     const fetchProgress = async () => {
       try {
         const headers = token ? { "Authorization": `Bearer ${token}` } : {};
-        const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:8002"}/user/progress`, { headers });
+        const api = import.meta.env.VITE_API_URL || "http://localhost:8006";
+        const res = await fetch(`${api}/user/progress`, { headers });
         if (res.ok) {
           const data = await res.json();
           setSkillStates(data.skill_states || {});
           setLevelInfo(data.level_info || null);
         }
       } catch (e) {
-        console.error("Error loading progress:", e);
+        // Silent fail, maintain current state
       } finally {
         setLoading(false);
       }
@@ -2205,10 +2172,11 @@ function HomeScreen({ userName, lastSummary, onStartSession, token }) {
   }, [loading, token]);
 
   const allEntries = Object.values(skillStates);
-  const pendienteCount = allEntries.filter(s => s?.phase === "learning" && (s.step_index ?? 0) === 0).length;
-  const nuevoCount = 0;
-  const aprendiendoCount = allEntries.filter(s => s?.phase === "learning" && (s.step_index ?? 0) > 0).length;
-  const graduatedCount = allEntries.filter(s => s?.phase === "review").length;
+  const nuevoCount = allEntries.filter(s => s?.status === "nuevo").length;
+  const aprendiendoCount = allEntries.filter(s => s?.status === "aprendiendo").length;
+  const graduatedCount = allEntries.filter(s => s?.status === "graduado").length;
+  // Pendientes = items that were attempted AND are due for review (not just any item that's due)
+  const pendienteCount = allEntries.filter(s => s?.attempted && s?.is_pending).length;
   const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length;
 
   const STATUS_CHIPS = [
@@ -2287,17 +2255,52 @@ function HomeScreen({ userName, lastSummary, onStartSession, token }) {
           </div>
 
           {/* Start session CTA — between welcome and grid */}
-          <FadeIn show={showBtn} delay={0}>
-            <button onClick={() => { playStart(); onStartSession(); }}
-              style={{
-                width: "100%", padding: "1.1rem", marginBottom: "1rem",
-                background: C.primary, color: "#fff", border: "none", borderRadius: 14,
-                fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
-                fontFamily: fonts.body, transition: "all 0.22s",
-              }}>
-              Repasar
-            </button>
-          </FadeIn>
+          {(() => {
+            const canReview = nuevoCount > 0 || pendienteCount > 0;
+            return (
+              <FadeIn show={showBtn} delay={0}>
+                <button
+                  onClick={() => { if (canReview) { playStart(); onStartSession(); } }}
+                  disabled={!canReview}
+                  style={{
+                    width: "100%", padding: "1.1rem", marginBottom: "1rem",
+                    background: C.primary, color: "#fff", border: "none", borderRadius: 14,
+                    fontSize: "1.1rem", fontWeight: 700,
+                    cursor: canReview ? "pointer" : "default",
+                    fontFamily: fonts.body, transition: "all 0.22s",
+                    opacity: canReview ? 1 : 0.4,
+                  }}>
+                  Repasar
+                </button>
+              </FadeIn>
+            );
+          })()}
+
+          {/* Google registration banner for guest users */}
+          {isGuest && showBtn && (
+            <FadeIn show={showBtn} delay={200}>
+              <div style={{ ...card, marginBottom: "1rem", textAlign: "center",
+                padding: "1rem 1.25rem" }}>
+                <p style={{ color: C.muted, fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
+                  Guardá tu progreso registrándote con Google
+                </p>
+                <button onClick={onGoogleRegister}
+                  style={{ width: "100%", padding: "0.7rem 1rem", borderRadius: 10,
+                    background: "#fff", border: "none", cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem",
+                    fontSize: "0.88rem", fontWeight: 600, color: "#333",
+                    fontFamily: fonts.body, transition: "all 0.22s" }}>
+                  <svg width="18" height="18" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  </svg>
+                  Registrarse con Google
+                </button>
+              </div>
+            </FadeIn>
+          )}
 
           {/* Progress grid — animated slide-in */}
           {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
@@ -2359,12 +2362,13 @@ function HomeScreen({ userName, lastSummary, onStartSession, token }) {
 // ── App ────────────────────────────────────────────────────────────────────────
 
 function App() {
-  const [screen, setScreen]         = useState("tutorial");
+  const [screen, setScreen]         = useState("splash");
   const [session, setSession]       = useState(null);
   const [summary, setSummary]       = useState(null);
-  const [isRegistered, setIsRegistered] = useState(false);
   const [userName, setUserName]     = useState("");
-  const [userInfo, setUserInfo]     = useState(null);
+  const [userId, setUserId]         = useState(null);
+  const [isGuest, setIsGuest]       = useState(true);
+  const [hasEnrollment, setHasEnrollment] = useState(false);
   const [debugLastEx, setDebugLastEx] = useState(false);
 
   // Authentication with JWT
@@ -2373,11 +2377,41 @@ function App() {
 
   // PWA install prompt — captured before it auto-shows, triggered after login
   const deferredInstallPrompt = useRef(null);
-  const [pwaReady, setPwaReady] = useState(false);
-  const [pwaDebugInfo, setPwaDebugInfo] = useState("🔄 Checking PWA...");
 
-  // Check authentication on app load
+  // Helper: process /auth/me response
+  function applyUserInfo(user) {
+    setUserName(user.name);
+    setUserId(user.id);
+    setIsGuest(!user.google_id);
+  }
+
+  // Check authentication on app load (also handles OAuth callback)
   useEffect(() => {
+    // Handle OAuth callback: ?token=...&name=...
+    const params = new URLSearchParams(window.location.search);
+    const callbackToken = params.get("token");
+    if (callbackToken) {
+      localStorage.setItem("access_token", callbackToken);
+      window.history.replaceState({}, document.title, "/");
+      setToken(callbackToken);
+
+      // User returned from Google OAuth (linked account or existing login)
+      fetch(`${API}/auth/me`, {
+        headers: { "Authorization": `Bearer ${callbackToken}` }
+      })
+      .then(res => res.ok ? res.json() : null)
+      .then(user => {
+        if (user) {
+          applyUserInfo(user);
+          setHasEnrollment(true);
+          setScreen("home");
+        }
+        setAuthChecked(true);
+      })
+      .catch(() => setAuthChecked(true));
+      return;
+    }
+
     const storedToken = localStorage.getItem("access_token");
     if (storedToken) {
       // Verify token validity with backend
@@ -2388,19 +2422,22 @@ function App() {
       .then(user => {
         if (user) {
           setToken(storedToken);
-          setUserName(user.name);
-          setIsRegistered(true);
-          setScreen("home");
+          applyUserInfo(user);
+          setHasEnrollment(true);
+          // Stay on splash — autoNavigate will transition to home after animation
         } else {
           localStorage.removeItem("access_token");
           setToken(null);
+          setScreen("splash");
         }
         setAuthChecked(true);
       })
       .catch(() => {
+        setScreen("splash");
         setAuthChecked(true);
       });
     } else {
+      setScreen("splash");
       setAuthChecked(true);
     }
   }, []);
@@ -2409,50 +2446,8 @@ function App() {
     const handler = (e) => {
       e.preventDefault();
       deferredInstallPrompt.current = e;
-      setPwaReady(true);
     };
     window.addEventListener("beforeinstallprompt", handler);
-
-    // Simple PWA checks with timeout
-    (async () => {
-      let debugInfo = [];
-
-      try {
-        // Check manifest
-        const manifestRes = await fetch("/manifest.json");
-        if (manifestRes.ok) {
-          const manifest = await manifestRes.json();
-          debugInfo.push(`✅ manifest: ${manifest.name}`);
-          debugInfo.push(`   icons: ${manifest.icons?.length || 0}`);
-        } else {
-          debugInfo.push(`❌ manifest not found (${manifestRes.status})`);
-        }
-      } catch (e) {
-        debugInfo.push(`❌ manifest error: ${e.message}`);
-      }
-
-      try {
-        // Check icons
-        const iconRes = await fetch("/icons/icon-192.png", { method: "HEAD" });
-        debugInfo.push(iconRes.ok ? `✅ icons available (${iconRes.status})` : `❌ icons not found (${iconRes.status})`);
-      } catch (e) {
-        debugInfo.push(`❌ icon check failed: ${e.message}`);
-      }
-
-      // Check SW
-      if (navigator.serviceWorker) {
-        debugInfo.push("✅ Service Worker supported");
-      } else {
-        debugInfo.push("❌ Service Worker not supported");
-      }
-
-      if (!pwaReady) {
-        debugInfo.push("⏳ beforeinstallprompt not fired yet");
-      }
-
-      setPwaDebugInfo(debugInfo.join("\n"));
-    })();
-
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
@@ -2476,24 +2471,33 @@ function App() {
     setUserInfo({ university, career });
 
     try {
+      // If no token, create a guest user first
+      let currentToken = token;
+      if (!currentToken) {
+        const guestRes = await fetch(`${API}/auth/guest`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name }),
+        });
+        if (!guestRes.ok) throw new Error("Failed to create guest");
+        const guestData = await guestRes.json();
+        currentToken = guestData.access_token;
+        localStorage.setItem("access_token", currentToken);
+        setToken(currentToken);
+      }
+
       // Enroll user in course with onboarding data
       const enrollRes = await fetch(`${API}/user/enroll`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer ${currentToken}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ university, career })
+        body: JSON.stringify({ university, career, name })
       });
 
       if (!enrollRes.ok) {
         throw new Error(`Enrollment failed: ${enrollRes.status}`);
-      }
-
-      // Trigger PWA install prompt (placeholder for post-login; will move to Google OAuth later)
-      if (deferredInstallPrompt.current) {
-        deferredInstallPrompt.current.prompt();
-        deferredInstallPrompt.current = null;
       }
 
       await startSession(name);
@@ -2509,10 +2513,13 @@ function App() {
     setScreen("summary");
   }
 
-  function handleRegister() {
-    setIsRegistered(true);
-    setScreen("registered");
-    window.scrollTo({ top: 0 });
+  function handleGoogleRegister() {
+    // Redirect to Google OAuth with link param to merge guest account
+    if (userId) {
+      window.location.href = `${API}/auth/google?link=${userId}`;
+    } else {
+      window.location.href = `${API}/auth/google`;
+    }
   }
 
   async function handleNewSession() {
@@ -2540,44 +2547,14 @@ function App() {
     setScreen("session");
   }
 
-  const pwaDebug = (
-    <div style={{
-      position: "fixed", bottom: "1rem", right: "1rem",
-      background: pwaReady ? "rgba(34,197,94,0.9)" : "rgba(239,68,68,0.9)",
-      color: "#fff", padding: "0.6rem 0.8rem", borderRadius: 6,
-      fontSize: "0.65rem", fontWeight: 500, zIndex: 9999, fontFamily: "monospace",
-      border: "1px solid rgba(255,255,255,0.3)", maxWidth: "180px", textAlign: "left",
-      whiteSpace: "pre-wrap", lineHeight: 1.3
-    }}>
-      {pwaDebugInfo || (pwaReady ? "✅ PWA Ready" : "🔄 Checking PWA...")}
-    </div>
-  );
-
-  // Show loading screen while checking authentication
-  if (!authChecked) {
-    return (
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        background: "#131324",
-        color: "#A1A8C1"
-      }}>
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>intervalo</div>
-          <div>Cargando...</div>
-        </div>
-      </div>
-    );
-  }
-
-  // Show login screen if no token
-  if (!token) {
-    return <LoginScreen onLoginSuccess={(newToken, name) => {
-      setToken(newToken);
-      setUserName(name);
-      setScreen("tutorial");
+  // Splash screen: universal entry point — typewriter + fade → auto-route
+  if (screen === "splash") {
+    return <SplashScreen onDone={() => {
+      if (token && hasEnrollment) {
+        setScreen("home");
+      } else {
+        setScreen("tutorial");
+      }
     }} />;
   }
 
@@ -2585,11 +2562,10 @@ function App() {
     return (
       <>
         <TutorialScreen onStart={handleTutorialStart} onGoHome={() => {
-          setIsRegistered(true);
+          setHasEnrollment(true);
           setScreen("home");
           window.scrollTo({ top: 0 });
         }} onInstallPWA={handleInstallPWA} />
-        {pwaDebug}
       </>
     );
 
@@ -2599,7 +2575,6 @@ function App() {
         <SessionScreen sessionId={session.session_id} userName={userName}
           exercises={session.exercises} onComplete={handleComplete} token={token}
           initialIdx={debugLastEx ? session.exercises.length - 1 : 0} />
-        {pwaDebug}
       </>
     );
 
@@ -2607,20 +2582,9 @@ function App() {
     return (
       <>
         <SummaryScreen summary={summary}
-          onRestart={isRegistered
-            ? () => setScreen("home")
-            : () => { setScreen("tutorial"); setSession(null); setSummary(null); }}
-          onRegister={!isRegistered ? handleRegister : null}
+          onRestart={() => { setHasEnrollment(true); setScreen("home"); window.scrollTo({ top: 0 }); }}
+          onRegister={isGuest ? handleGoogleRegister : null}
         />
-        {pwaDebug}
-      </>
-    );
-
-  if (screen === "registered")
-    return (
-      <>
-        <RegisteredScreen userName={userName} onContinue={() => { setScreen("home"); window.scrollTo({ top: 0 }); }} />
-        {pwaDebug}
       </>
     );
 
@@ -2628,8 +2592,8 @@ function App() {
     return (
       <>
         <HomeScreen userName={userName} lastSummary={summary} token={token}
-          onStartSession={handleNewSession} />
-        {pwaDebug}
+          onStartSession={handleNewSession}
+          isGuest={isGuest} onGoogleRegister={handleGoogleRegister} />
       </>
     );
 

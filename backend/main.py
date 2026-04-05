@@ -15,11 +15,12 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from session_store import create_session, record_answer, get_summary, get_session
+from session_store import create_session, record_answer, get_summary, get_session, get_user_progress_db
 from database import SessionLocal, init_db
 from auth import (
     get_google_oauth_url,
     authenticate_with_google,
+    create_guest_user,
     verify_token,
     TokenPayload,
     UserResponse,
@@ -126,20 +127,37 @@ def health_check():
 
 # ── Authentication ────────────────────────────────────────────────────────────
 
+class GuestRequest(BaseModel):
+    name: str
+
+
+@app.post("/auth/guest")
+def auth_guest(body: GuestRequest, db: Session = Depends(get_db)):
+    """Create anonymous guest user and return JWT."""
+    result = create_guest_user(db, body.name)
+    return {"access_token": result.access_token, "name": result.name}
+
+
 @app.get("/auth/google")
-def auth_google():
-    """Redirect to Google OAuth consent screen."""
-    return RedirectResponse(url=get_google_oauth_url())
+def auth_google(link: int = None):
+    """Redirect to Google OAuth consent screen. Pass link=<user_id> to merge with anonymous user."""
+    from urllib.parse import urlencode
+    url = get_google_oauth_url()
+    if link:
+        url += f"&state={link}"
+    return RedirectResponse(url=url)
 
 
 @app.get("/auth/google/callback")
 async def auth_google_callback(
     code: str,
+    state: str = None,
     db: Session = Depends(get_db)
 ):
     """Handle Google OAuth callback and redirect to frontend with token."""
     try:
-        result = await authenticate_with_google(code, db)
+        link_user_id = int(state) if state else None
+        result = await authenticate_with_google(code, db, link_user_id=link_user_id)
         # Redirect to frontend with token in URL
         frontend_url = ALLOWED_ORIGINS[0] if ALLOWED_ORIGINS else "http://localhost:5173"
         return RedirectResponse(
@@ -160,7 +178,7 @@ def get_current_user_info(
     return UserResponse(
         id=current_user.id,
         email=current_user.email,
-        name=current_user.name,
+        name=current_user.display_name or current_user.name,
         google_id=current_user.google_id,
     )
 
@@ -170,6 +188,7 @@ def get_current_user_info(
 class EnrollmentRequest(BaseModel):
     university: str
     career: str
+    name: str | None = None
 
 
 @app.post("/user/enroll")
@@ -209,6 +228,10 @@ def enroll_user(
         )
         db.add(enrollment)
 
+    # Save display name from tutorial
+    if body.name:
+        current_user.display_name = body.name
+
     db.commit()
 
     return {
@@ -223,12 +246,15 @@ def get_user_progress(
     db: Session = Depends(get_db)
 ):
     """Get user's current progress (skill states and level info)."""
-    from session_store import get_user_progress_db
-
     try:
-        # Default course
-        course_id = 1
-        return get_user_progress_db(current_user.id, course_id, db)
+        course_id = 1  # Default course
+        result = get_user_progress_db(current_user.id, course_id, db)
+        # Debug: check first item
+        skill_states = result.get('skill_states', {})
+        if skill_states:
+            first_item = list(skill_states.values())[0]
+            print(f"DEBUG ENDPOINT: progress={first_item.get('progress')}, status={first_item.get('status')}")
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -24,6 +24,7 @@ class User(Base):
     google_id = Column(String(200), unique=True, index=True, nullable=True)
     email = Column(String(200), unique=True, index=True, nullable=False)
     name = Column(String(200), nullable=False)
+    display_name = Column(String(200), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -93,6 +94,7 @@ class ItemState(Base):
     interval_days = Column(Integer, default=1)
     repetitions = Column(Integer, default=0)
     next_due = Column(Date, nullable=True)
+    attempted = Column(Boolean, default=False)  # True if user has attempted this item
 
     # Tracking
     created_at = Column(DateTime, default=datetime.utcnow)

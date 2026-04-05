@@ -34,7 +34,7 @@ from algorithm import (
     XP_BONUS_BELT,
 )
 from exercise_bank import get_exercise
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import func
 from models import Session as SessionModel, ItemState
@@ -145,26 +145,146 @@ def get_session(session_id: str) -> Optional[SessionState]:
     return _sessions.get(session_id)
 
 
+def _unlock_next_item(user_id: int, course_id: int, graduated_item_key: ItemKey, db: DBSession) -> None:
+    """Unlock the next item in sequence when one graduates."""
+    catalog_keys = default_catalog()
+
+    # Find the index of the graduated item
+    graduated_idx = None
+    for idx, key in enumerate(catalog_keys):
+        if (key.belt == graduated_item_key.belt and
+            key.topic == graduated_item_key.topic and
+            key.skill == graduated_item_key.skill):
+            graduated_idx = idx
+            break
+
+    if graduated_idx is None:
+        return
+
+    # Find the next item that doesn't exist yet
+    for idx in range(graduated_idx + 1, len(catalog_keys)):
+        next_key = catalog_keys[idx]
+        existing = db.query(ItemState).filter(
+            ItemState.user_id == user_id,
+            ItemState.course_id == course_id,
+            ItemState.belt == next_key.belt.value,
+            ItemState.topic == next_key.topic,
+            ItemState.skill == next_key.skill.value,
+        ).first()
+
+        if not existing:
+            # Create the next item
+            db_item_state = ItemState(
+                user_id=user_id,
+                course_id=course_id,
+                belt=next_key.belt.value,
+                topic=next_key.topic,
+                skill=next_key.skill.value,
+                phase="learning",
+                step_index=0,
+                ease_factor=2.5,
+                interval_days=1,
+                repetitions=0,
+                next_due=date.today(),
+                attempted=False,
+            )
+            db.add(db_item_state)
+            break  # Only unlock one at a time
+
+
+def _get_unlocked_items_count(user_id: int, course_id: int, db: DBSession) -> int:
+    """Count items in Nuevo + Aprendiendo states."""
+    nuevo_count = db.query(ItemState).filter(
+        ItemState.user_id == user_id,
+        ItemState.course_id == course_id,
+        ItemState.phase == "learning",
+        ItemState.attempted == False,
+    ).count()
+
+    aprendiendo_count = db.query(ItemState).filter(
+        ItemState.user_id == user_id,
+        ItemState.course_id == course_id,
+        ItemState.phase == "learning",
+        ItemState.attempted == True,
+    ).count()
+
+    return nuevo_count + aprendiendo_count
+
+
+def _should_unlock_item(index: int, current_total: int) -> bool:
+    """Determine if item at index should be unlocked. Max 15 in nuevo+aprendiendo."""
+    return current_total < 15
+
+
 def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """
     Crea una nueva sesión en la BD y devuelve los datos iniciales con session_id de BD.
 
-    Retorna:
-    {
-        "session_id": int (ID de la tabla sessions),
-        "user_name": str,
-        "total": int,
-        "exercises": list[ExerciseInSession]
-    }
+    Implements progressive unlock: max 15 items in Nuevo + Aprendiendo states.
+    Rest remain locked and are created as previous items graduate.
     """
-    # Inicializa todos los ítems del catálogo con estado inicial
     catalog_keys = default_catalog()
-    item_states: dict[ItemKey, SM2ItemState] = {
-        key: SM2ItemState() for key in catalog_keys
-    }
+    item_states: dict[ItemKey, SM2ItemState] = {}
+    item_attempted: dict[ItemKey, bool] = {}
+
+    # Count current unlocked items
+    unlocked_count = _get_unlocked_items_count(user_id, course_id, db)
+
+    # Load existing item states from BD
+    for idx, item_key in enumerate(catalog_keys):
+        db_item_state = db.query(ItemState).filter(
+            ItemState.user_id == user_id,
+            ItemState.course_id == course_id,
+            ItemState.belt == item_key.belt.value,
+            ItemState.topic == item_key.topic,
+            ItemState.skill == item_key.skill.value,
+        ).first()
+
+        if db_item_state:
+            # Item exists in BD
+            item_states[item_key] = SM2ItemState(
+                phase=db_item_state.phase,
+                step_index=db_item_state.step_index,
+                ease_factor=db_item_state.ease_factor,
+                interval=db_item_state.interval_days,
+                repetitions=db_item_state.repetitions,
+                next_review=db_item_state.next_due or datetime.now().date(),
+            )
+            item_attempted[item_key] = db_item_state.attempted
+        elif _should_unlock_item(idx, unlocked_count):
+            # Create new unlocked item
+            item_states[item_key] = SM2ItemState()
+            item_attempted[item_key] = False
+            unlocked_count += 1  # Track newly unlocked items towards the 15 limit
+
+            db_item_state = ItemState(
+                user_id=user_id,
+                course_id=course_id,
+                belt=item_key.belt.value,
+                topic=item_key.topic,
+                skill=item_key.skill.value,
+                phase="learning",
+                step_index=0,
+                ease_factor=2.5,
+                interval_days=1,
+                repetitions=0,
+                next_due=date.today(),
+                attempted=False,
+            )
+            db.add(db_item_state)
+        else:
+            # Item locked - don't create it yet
+            pass
+
+    db.commit()
 
     # Construye la secuencia de la sesión usando el algoritmo SM-2
-    session_items = build_session(item_states)
+    # Only select items that are "Nuevo" (not attempted) or "Pendiente" (next_review <= today)
+    session_items = build_session(
+        item_states,
+        item_attempted=item_attempted,
+        introduce_new_item=None  # All unlocked items already exist in catalog
+    )
 
     # Crea los ejercicios mapeando cada SessionItem a un ejercicio concreto
     exercises: list[ExerciseInSession] = []
@@ -204,32 +324,8 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     db.flush()  # Asegura que se genera el ID sin commitear todo
     session_id_db = db_session.id
 
-    # Inicializar ItemStates en BD para este usuario/curso
-    for item_key in catalog_keys:
-        existing = db.query(ItemState).filter(
-            ItemState.user_id == user_id,
-            ItemState.course_id == course_id,
-            ItemState.belt == item_key.belt.value,
-            ItemState.topic == item_key.topic,
-            ItemState.skill == item_key.skill.value,
-        ).first()
-
-        if not existing:
-            db_item_state = ItemState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=item_key.belt.value,
-                topic=item_key.topic,
-                skill=item_key.skill.value,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=None,
-            )
-            db.add(db_item_state)
-
+    # Items already created in the loop above (lines 234-276) respecting the 15-item limit.
+    # No need to create more here.
     db.commit()
 
     # Almacenar en memoria para acceso rápido durante la sesión activa
@@ -237,7 +333,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     session_state = SessionState(
         session_id=session_id_str,
         user_name="",
-        item_states={key: SM2ItemState() for key in catalog_keys},
+        item_states=item_states,  # Use loaded item_states, not fresh ones
         exercises=exercises,
         results=[],
         xp_session=0,
@@ -365,6 +461,7 @@ def record_answer_db(
         # Reconstruir el estado desde BD
         catalog_keys = default_catalog()
         item_states: dict[ItemKey, SM2ItemState] = {}
+        item_attempted: dict[ItemKey, bool] = {}
 
         for item_key in catalog_keys:
             db_item_state = db.query(ItemState).filter(
@@ -382,13 +479,15 @@ def record_answer_db(
                     ease_factor=db_item_state.ease_factor,
                     interval=db_item_state.interval_days,
                     repetitions=db_item_state.repetitions,
-                    next_review=db_item_state.next_due,
+                    next_review=db_item_state.next_due or datetime.now().date(),
                 )
+                item_attempted[item_key] = db_item_state.attempted
             else:
                 item_states[item_key] = SM2ItemState()
+                item_attempted[item_key] = False
 
         # Reconstruir ejercicios usando build_session
-        session_items = build_session(item_states)
+        session_items = build_session(item_states, item_attempted=item_attempted)
         exercises: list[ExerciseInSession] = []
         for idx, si in enumerate(session_items):
             topic_value = si.key.topic
@@ -481,14 +580,20 @@ def record_answer_db(
     ).first()
 
     if db_item_state:
+        old_phase = db_item_state.phase
         db_item_state.phase = new_state.phase
         db_item_state.step_index = new_state.step_index
         db_item_state.ease_factor = new_state.ease_factor
         db_item_state.interval_days = new_state.interval
         db_item_state.repetitions = new_state.repetitions
         db_item_state.next_due = new_state.next_review
+        db_item_state.attempted = True  # Mark as attempted after first response
         db_item_state.updated_at = datetime.utcnow()
         db_item_state.last_reviewed_at = datetime.utcnow()
+
+        # If item just graduated from learning → review, unlock next item
+        if old_phase == "learning" and new_state.phase == "review":
+            _unlock_next_item(user_id, course_id, exercise.item_key, db)
 
     # Actualizar contador de correctas en sesión
     if is_correct:
@@ -511,6 +616,11 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """
     Get user's current progress (skill states and level info).
 
+    Only includes unlocked items (those that exist in BD).
+    Locked items are not created yet and don't appear here.
+
+    On first call (no items exist), creates the first 15 items.
+
     Returns:
     {
         "skill_states": {...},
@@ -519,8 +629,38 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """
     from models import Answer
 
-    # Get all item states for user/course
     catalog_keys = default_catalog()
+
+    # Check if user has any items yet
+    item_count = db.query(ItemState).filter(
+        ItemState.user_id == user_id,
+        ItemState.course_id == course_id,
+    ).count()
+
+    # If no items exist, create the first 15
+    if item_count == 0:
+        for idx, item_key in enumerate(catalog_keys):
+            if idx >= 15:  # Max 15 initial items
+                break
+            db_item_state = ItemState(
+                user_id=user_id,
+                course_id=course_id,
+                belt=item_key.belt.value,
+                topic=item_key.topic,
+                skill=item_key.skill.value,
+                phase="learning",
+                step_index=0,
+                ease_factor=2.5,
+                interval_days=1,
+                repetitions=0,
+                next_due=date.today(),
+                attempted=False,
+            )
+            db.add(db_item_state)
+        db.commit()
+
+    # Get all item states for user/course
+    # Items exist in DB only if they've been unlocked (limit enforced at creation time)
     skill_states: dict[str, dict] = {}
 
     for item_key in catalog_keys:
@@ -534,9 +674,33 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
 
         if db_item_state:
             key_str = f"{item_key.topic}:{item_key.skill.value}"
+
+            # Determine status based ONLY on actual item state, not on due date
+            if db_item_state.phase == "learning":
+                if not db_item_state.attempted:
+                    status = "nuevo"  # 0/3 - never attempted
+                    progress = "0/3"
+                    print(f"DEBUG: {key_str} is nuevo (attempted={db_item_state.attempted}, phase={db_item_state.phase})")
+                else:
+                    status = "aprendiendo"  # Naranja - in learning phase, was attempted
+                    # Progress based on step_index: 0→0/3, 1→1/3, 2→2/3
+                    progress = f"{db_item_state.step_index}/3"
+            else:  # phase == "review"
+                status = "graduado"  # 3/3 - graduated
+                progress = "3/3"
+
+            # Check if item is pending (due for review)
+            from datetime import date as date_module
+            today = date_module.today()
+            is_pending = db_item_state.next_due and db_item_state.next_due <= today
+
             skill_states[key_str] = {
                 "phase": db_item_state.phase,
                 "step_index": db_item_state.step_index,
+                "status": status,  # nuevo, aprendiendo, graduado
+                "progress": progress,  # Visual representation (0/3, aprendiendo, 3/3)
+                "is_pending": is_pending,  # True if next_review <= today
+                "attempted": db_item_state.attempted,
                 "next_review": db_item_state.next_due.isoformat() if db_item_state.next_due else None,
                 "failed": False
             }
@@ -667,25 +831,63 @@ def get_summary_db(
             "phase": "review" if answer.is_correct else "learning",  # Simplified
         })
 
-    # Estado final de ítems practicados
+    # Estado final de TODOS los ítems (practicados y no practicados)
     skill_states = {}
-    for answer in answers:
-        k = f"{answer.topic}:{answer.skill}"
-        if k not in skill_states:
-            # Obtener ItemState actual
-            item_state = db.query(ItemState).filter(
-                ItemState.user_id == user_id,
-                ItemState.topic == answer.topic,
-                ItemState.skill == answer.skill,
-            ).first()
+    course_id = 1  # Default course
+    catalog_keys = default_catalog()
 
-            if item_state:
-                skill_states[k] = {
-                    "phase": item_state.phase,
-                    "step_index": item_state.step_index,
-                    "next_review": item_state.next_due.isoformat() if item_state.next_due else None,
-                    "failed": not answer.is_correct,
-                }
+    # Obtener todos los ItemStates del usuario para este curso
+    all_item_states = db.query(ItemState).filter(
+        ItemState.user_id == user_id,
+        ItemState.course_id == course_id,
+    ).all()
+
+    # Crear un diccionario de búsqueda rápida
+    item_state_map = {
+        (item.topic, item.skill): item
+        for item in all_item_states
+    }
+
+    # Iterar sobre todos los items del catálogo
+    for item_key in catalog_keys:
+        k = f"{item_key.topic}:{item_key.skill.value}"
+
+        # Obtener el ItemState de BD
+        item_state = item_state_map.get((item_key.topic, item_key.skill.value))
+
+        if item_state:
+            # Determinar status y progress igual que en get_user_progress_db
+            if item_state.phase == "learning":
+                if not item_state.attempted:
+                    status = "nuevo"
+                    progress = "0/3"
+                else:
+                    status = "aprendiendo"
+                    # Progress based on step_index: 0→0/3, 1→1/3, 2→2/3
+                    progress = f"{item_state.step_index}/3"
+            else:  # phase == "review"
+                status = "graduado"
+                progress = "3/3"
+
+            # Revisar si fue practicado en esta sesión
+            was_practiced = any(a.topic == item_state.topic and a.skill == item_state.skill for a in answers)
+            failed_in_session = was_practiced and not any(a.topic == item_state.topic and a.skill == item_state.skill and a.is_correct for a in answers)
+
+            # Revisar si es pendiente (next_due <= hoy)
+            from datetime import date as date_module
+            today = date_module.today()
+            is_pending = item_state.next_due and item_state.next_due <= today
+
+            skill_states[k] = {
+                "phase": item_state.phase,
+                "step_index": item_state.step_index,
+                "status": status,
+                "progress": progress,
+                "is_pending": is_pending,
+                "attempted": item_state.attempted,
+                "next_review": item_state.next_due.isoformat() if item_state.next_due else None,
+                "failed": failed_in_session,
+            }
 
     # Calcular XP total de la sesión
     xp_earned = sum(a.xp_earned or 0 for a in answers)
@@ -694,6 +896,14 @@ def get_summary_db(
     db_session.finished_at = datetime.utcnow()
     db_session.xp_earned = xp_earned
     db.commit()
+
+    # Calcular XP total acumulado del usuario (no solo la sesión)
+    total_xp = db.query(func.sum(Answer.xp_earned)).filter(
+        Answer.user_id == user_id,
+        Answer.course_id == 1,
+    ).scalar() or 0
+
+    lp = level_progress(total_xp)
 
     # Retornar datos del resumen
     return {
@@ -712,10 +922,10 @@ def get_summary_db(
         },
         "xp_earned": xp_earned,
         "level_info": {
-            "level": 1,
-            "xp_in_level": xp_earned % 1000,
-            "xp_required": 1000,
-            "xp_missing": max(0, 1000 - (xp_earned % 1000)),
-            "progress_pct": ((xp_earned % 1000) / 1000) * 100,
+            "level": lp.level,
+            "xp_in_level": lp.xp_in_level,
+            "xp_required": lp.xp_required,
+            "xp_missing": lp.xp_missing,
+            "progress_pct": lp.progress_pct,
         },
     }
