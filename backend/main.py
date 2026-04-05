@@ -135,7 +135,7 @@ class GuestRequest(BaseModel):
 def auth_guest(body: GuestRequest, db: Session = Depends(get_db)):
     """Create anonymous guest user and return JWT."""
     result = create_guest_user(db, body.name)
-    return {"access_token": result.access_token, "name": result.name}
+    return {"access_token": result.access_token, "name": result.name, "user_id": result.user_id}
 
 
 @app.get("/auth/google")
@@ -160,8 +160,9 @@ async def auth_google_callback(
         result = await authenticate_with_google(code, db, link_user_id=link_user_id)
         # Redirect to frontend with token in URL
         frontend_url = ALLOWED_ORIGINS[0] if ALLOWED_ORIGINS else "http://localhost:5173"
+        linked_flag = "&linked=1" if link_user_id else ""
         return RedirectResponse(
-            url=f"{frontend_url}?token={result.access_token}&name={result.name}",
+            url=f"{frontend_url}?token={result.access_token}&name={result.name}{linked_flag}",
             status_code=302
         )
     except ValueError as e:

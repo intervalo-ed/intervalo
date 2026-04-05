@@ -1906,17 +1906,19 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
             </div>
           )}
 
-          {/* Continue Button */}
-          <button onClick={onRestart}
-            style={{
-              width: "100%", padding: "1rem", borderRadius: 12,
-              background: C.primary, border: "none", cursor: "pointer",
-              fontSize: "1rem", fontWeight: 700, color: "#fff",
-              fontFamily: fonts.body, transition: "all 0.22s",
-              marginTop: "2rem", marginBottom: "1rem"
-            }}>
-            Continuar
-          </button>
+          {/* Continue Button — hidden for guests (they must register) */}
+          {!onRegister && (
+            <button onClick={onRestart}
+              style={{
+                width: "100%", padding: "1rem", borderRadius: 12,
+                background: C.primary, border: "none", cursor: "pointer",
+                fontSize: "1rem", fontWeight: 700, color: "#fff",
+                fontFamily: fonts.body, transition: "all 0.22s",
+                marginTop: "2rem", marginBottom: "1rem"
+              }}>
+              Continuar
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -2276,32 +2278,6 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
             );
           })()}
 
-          {/* Google registration banner for guest users */}
-          {isGuest && showBtn && (
-            <FadeIn show={showBtn} delay={200}>
-              <div style={{ ...card, marginBottom: "1rem", textAlign: "center",
-                padding: "1rem 1.25rem" }}>
-                <p style={{ color: C.muted, fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
-                  Guardá tu progreso registrándote con Google
-                </p>
-                <button onClick={onGoogleRegister}
-                  style={{ width: "100%", padding: "0.7rem 1rem", borderRadius: 10,
-                    background: "#fff", border: "none", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem",
-                    fontSize: "0.88rem", fontWeight: 600, color: "#333",
-                    fontFamily: fonts.body, transition: "all 0.22s" }}>
-                  <svg width="18" height="18" viewBox="0 0 48 48">
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                  </svg>
-                  Registrarse con Google
-                </button>
-              </div>
-            </FadeIn>
-          )}
-
           {/* Progress grid — animated slide-in */}
           {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
             {/* White belt card */}
@@ -2404,7 +2380,9 @@ function App() {
         if (user) {
           applyUserInfo(user);
           setHasEnrollment(true);
-          setScreen("home");
+          // Was this a guest linking their account? Show confetti screen.
+          const wasLinking = params.get("linked") === "1";
+          setScreen(wasLinking ? "registered" : "home");
         }
         setAuthChecked(true);
       })
@@ -2451,10 +2429,11 @@ function App() {
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  async function startSession(name) {
+  async function startSession(name, overrideToken) {
+    const useToken = overrideToken || token;
     const headers = { "Content-Type": "application/json" };
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+    if (useToken) {
+      headers["Authorization"] = `Bearer ${useToken}`;
     }
     const res = await fetch(`${API}/session/start`, {
       method: "POST", headers,
@@ -2468,10 +2447,12 @@ function App() {
 
   async function handleTutorialStart({ name, university, career }) {
     setUserName(name);
-    setUserInfo({ university, career });
 
     try {
-      // If no token, create a guest user first
+      // If no token, create a guest user first.
+      // NOTE: Guest tokens are NOT persisted to localStorage — if user doesn't
+      // register with Google after the first session, their data is forgotten
+      // (they'll need to do the tutorial again next time).
       let currentToken = token;
       if (!currentToken) {
         const guestRes = await fetch(`${API}/auth/guest`, {
@@ -2482,8 +2463,9 @@ function App() {
         if (!guestRes.ok) throw new Error("Failed to create guest");
         const guestData = await guestRes.json();
         currentToken = guestData.access_token;
-        localStorage.setItem("access_token", currentToken);
         setToken(currentToken);
+        setUserId(guestData.user_id);
+        setIsGuest(true);
       }
 
       // Enroll user in course with onboarding data
@@ -2500,7 +2482,7 @@ function App() {
         throw new Error(`Enrollment failed: ${enrollRes.status}`);
       }
 
-      await startSession(name);
+      await startSession(name, currentToken);
     } catch (error) {
       console.error("Error during enrollment:", error);
       alert("Error al completar el registro. Intenta de nuevo.");
@@ -2588,12 +2570,18 @@ function App() {
       </>
     );
 
+  if (screen === "registered")
+    return (
+      <>
+        <RegisteredScreen userName={userName} onContinue={() => { setScreen("home"); window.scrollTo({ top: 0 }); }} />
+      </>
+    );
+
   if (screen === "home")
     return (
       <>
         <HomeScreen userName={userName} lastSummary={summary} token={token}
-          onStartSession={handleNewSession}
-          isGuest={isGuest} onGoogleRegister={handleGoogleRegister} />
+          onStartSession={handleNewSession} />
       </>
     );
 
