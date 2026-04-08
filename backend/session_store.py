@@ -33,24 +33,11 @@ from algorithm import (
     XP_BONUS_RAYA,
     XP_BONUS_BELT,
 )
-from exercise_bank import get_exercise
+from exercise_bank import get_exercise_db
 from datetime import datetime, date
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import func
 from models import Session as SessionModel, ItemState
-
-
-# Mapeo de SkillCode a claves del banco de ejercicios
-_SKILL_TO_BANK: dict[str, str] = {
-    "CLSF": "visual_recognition",
-    "LEXI": "vocabulary",
-    "FORM": "parameter_identification",
-    "GRAF": "graphing",
-    "RESV": "problem_solving",
-    "DERI": "derivation",
-    "INTG": "integration",
-    "APLI": "application",
-}
 
 
 # ── Data classes ──────────────────────────────────────────────────────────────
@@ -91,53 +78,8 @@ _default_config = SM2Config()
 
 
 def create_session(user_name: str) -> SessionState:
-    """Crea una nueva sesión y devuelve el estado inicial."""
-    session_id = str(uuid.uuid4())[:8]
-
-    # Inicializa todos los ítems del catálogo con estado inicial
-    catalog_keys = default_catalog()
-    item_states: dict[ItemKey, SM2ItemState] = {
-        key: SM2ItemState() for key in catalog_keys
-    }
-
-    # Construye la secuencia de la sesión usando el algoritmo SM-2
-    session_items = build_session(item_states)
-
-    # Crea los ejercicios mapeando cada SessionItem a un ejercicio concreto
-    exercises: list[ExerciseInSession] = []
-    for idx, si in enumerate(session_items):
-        topic_value = si.key.topic
-        skill_bank_key = _SKILL_TO_BANK.get(si.key.skill.value, si.key.skill.value)
-        ex = get_exercise(topic_value, skill_bank_key, _default_config.graph_exercise_probability)
-        exercise_id = f"ex_{idx:03d}"
-        # Shuffle options, tracking the new position of the correct answer
-        correct_answer = ex["options"][ex["correct_index"]]
-        shuffled = ex["options"][:]
-        random.shuffle(shuffled)
-        new_correct_index = shuffled.index(correct_answer)
-        exercises.append(
-            ExerciseInSession(
-                exercise_id=exercise_id,
-                item_key=si.key,
-                question=ex["question"],
-                options=shuffled,
-                correct_index=new_correct_index,
-                feedback_correct=ex["feedback_correct"],
-                feedback_incorrect=ex["feedback_incorrect"],
-                has_math=ex.get("has_math", False),
-                graph_fn=ex.get("graph_fn", ""),
-                graph_view=ex.get("graph_view", None),
-            )
-        )
-
-    state = SessionState(
-        session_id=session_id,
-        user_name=user_name,
-        item_states=item_states,
-        exercises=exercises,
-    )
-    _sessions[session_id] = state
-    return state
+    """Crea una nueva sesión en memoria (legacy, sin BD)."""
+    raise NotImplementedError("Use create_session_db() instead.")
 
 
 def get_session(session_id: str) -> Optional[SessionState]:
@@ -289,9 +231,10 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     # Crea los ejercicios mapeando cada SessionItem a un ejercicio concreto
     exercises: list[ExerciseInSession] = []
     for idx, si in enumerate(session_items):
-        topic_value = si.key.topic
-        skill_bank_key = _SKILL_TO_BANK.get(si.key.skill.value, si.key.skill.value)
-        ex = get_exercise(topic_value, skill_bank_key, _default_config.graph_exercise_probability)
+        ex = get_exercise_db(
+            course_id, si.key.belt.value, si.key.topic,
+            si.key.skill.value, _default_config.graph_exercise_probability, db,
+        )
         exercise_id = f"ex_{idx:03d}"
         # Shuffle options, tracking the new position of the correct answer
         correct_answer = ex["options"][ex["correct_index"]]
@@ -490,9 +433,10 @@ def record_answer_db(
         session_items = build_session(item_states, item_attempted=item_attempted)
         exercises: list[ExerciseInSession] = []
         for idx, si in enumerate(session_items):
-            topic_value = si.key.topic
-            skill_bank_key = _SKILL_TO_BANK.get(si.key.skill.value, si.key.skill.value)
-            ex = get_exercise(topic_value, skill_bank_key, _default_config.graph_exercise_probability)
+            ex = get_exercise_db(
+                course_id, si.key.belt.value, si.key.topic,
+                si.key.skill.value, _default_config.graph_exercise_probability, db,
+            )
             exercise_id_gen = f"ex_{idx:03d}"
             correct_answer = ex["options"][ex["correct_index"]]
             shuffled = ex["options"][:]

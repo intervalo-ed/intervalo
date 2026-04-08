@@ -540,19 +540,27 @@ function FadeIn({ show, delay = 0, style, children }) {
 // ── SplashScreen ──────────────────────────────────────────────────────────────
 
 function SplashScreen({ onDone }) {
-  const [barShown, setBarShown] = useState(false);
   const [typingDone, setTypingDone] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
   const onDoneRef = useRef(onDone);
   onDoneRef.current = onDone;
 
-  // After typewriter → bar → pause → fade out → done
+  // After typewriter → reveal belt colors one by one → fade out → done
   useEffect(() => {
     if (!typingDone) return;
-    const t1 = setTimeout(() => setBarShown(true), 550);
-    const t2 = setTimeout(() => setFadeOut(true), 1800);
-    const t3 = setTimeout(() => onDoneRef.current?.(), 2200);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    const timers = [];
+    const GAP = 70; // ms entre cada color
+    BELT_COLORS.forEach((_, i) => {
+      timers.push(setTimeout(() => {
+        setVisibleCount(i + 1);
+      }, 320 + i * GAP));
+    });
+    // Después de que todos aparecen, pausa y fade out
+    const allDone = 400 + BELT_COLORS.length * GAP;
+    timers.push(setTimeout(() => setFadeOut(true), allDone + 500));
+    timers.push(setTimeout(() => onDoneRef.current?.(), allDone + 900));
+    return () => timers.forEach(clearTimeout);
   }, [typingDone]);
 
   return (
@@ -567,13 +575,16 @@ function SplashScreen({ onDone }) {
           color: C.text, letterSpacing: "normal", lineHeight: 1 }}>
           <Typewriter text="intervalo" speed={100} onDone={() => setTypingDone(true)} />
         </span>
-        <div style={{
-          display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden",
-          transform: barShown ? "scaleX(1)" : "scaleX(0)",
-          transformOrigin: "left center",
-          transition: barShown ? "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
-        }}>
-          {BELT_COLORS.map((col, i) => <div key={i} style={{ flex: 1, background: col }} />)}
+        <div style={{ display: "flex", height: 3, width: "100%", borderRadius: 2, overflow: "hidden" }}>
+          {BELT_COLORS.map((col, i) => (
+            <div key={i} style={{
+              flex: 1, background: col,
+              opacity: i < visibleCount ? 1 : 0,
+              transform: i < visibleCount ? "scaleY(1)" : "scaleY(0)",
+              transition: "opacity 0.12s ease, transform 0.12s ease",
+              transformOrigin: "center",
+            }} />
+          ))}
         </div>
       </div>
     </div>

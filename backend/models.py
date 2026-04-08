@@ -53,6 +53,7 @@ class Course(Base):
     sessions = relationship("Session", back_populates="course")
     answers = relationship("Answer", back_populates="course")
     push_subscriptions = relationship("PushSubscription", back_populates="course")
+    exercises = relationship("Exercise", back_populates="course")
 
 
 class Enrollment(Base):
@@ -192,6 +193,38 @@ class Answer(Base):
     session = relationship("Session", back_populates="answers")
     user = relationship("User", back_populates="answers")
     course = relationship("Course", back_populates="answers")
+
+
+class Exercise(Base):
+    """Exercise model - question bank scoped by course, belt, topic, skill."""
+    __tablename__ = "exercises"
+
+    id = Column(Integer, primary_key=True, index=True)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    belt = Column(String(20), nullable=False)
+    topic = Column(String(50), nullable=False)
+    skill = Column(String(10), nullable=False)
+    subtype = Column(String(10), nullable=False)  # "text" or "graph"
+    question = Column(Text, nullable=False)
+    option_a = Column(Text, nullable=False)
+    option_b = Column(Text, nullable=False)
+    option_c = Column(Text, nullable=False)
+    option_d = Column(Text, nullable=False)
+    correct_index = Column(Integer, nullable=False)
+    has_math = Column(Boolean, default=False)
+    feedback_correct = Column(Text, nullable=False)
+    feedback_incorrect = Column(Text, nullable=False)
+    graph_fn = Column(String(500), nullable=True)
+    graph_view = Column(String(100), nullable=True)  # JSON string: "[-4,4,-8,10]"
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_exercises_lookup", "course_id", "belt", "topic", "skill"),
+    )
+
+    # Relationships
+    course = relationship("Course", back_populates="exercises")
 
 
 class PushSubscription(Base):
