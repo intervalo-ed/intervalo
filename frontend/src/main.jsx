@@ -35,19 +35,19 @@ const CARRERAS = [
 ];
 
 const BELTS = [
-  { name: "Blanco",  color: "#F5F5DC", text: "#7A6A30", total: 21, stripeAt: [3, 9], promoteAt: 18   },
-  { name: "Azul",    color: "#1C3A8B", text: "#fff",    total: 18, stripeAt: [2, 6], promoteAt: 15   },
-  { name: "Violeta", color: "#6B2D8B", text: "#fff",    total: 18, stripeAt: [2, 6], promoteAt: 15   },
-  { name: "Marrón",  color: "#6B3A1F", text: "#fff",    total: 15, stripeAt: [2, 5], promoteAt: 12   },
-  { name: "Negro",   color: "#111111", text: "#fff",    total: null, stripeAt: [],   promoteAt: null  },
+  { name: "Blanco",  color: "#F5F5DC", text: "#7A6A30", total: 23, stripeAt: [3, 9],  promoteAt: 20 },
+  { name: "Azul",    color: "#1C3A8B", text: "#fff",    total: 17, stripeAt: [3, 8],  promoteAt: 14 },
+  { name: "Violeta", color: "#6B2D8B", text: "#fff",    total: 20, stripeAt: [4, 10], promoteAt: 17 },
+  { name: "Marrón",  color: "#6B3A1F", text: "#fff",    total: 12, stripeAt: [3, 7],  promoteAt: 10 },
+  { name: "Negro",   color: "#111111", text: "#fff",    total: 13, stripeAt: [5, 9],  promoteAt: 13 },
 ];
 
 const BELT_COLORS = ['#E0DDD0','#1C3A8B','#6B2D8B','#6B3A1F','#111111'];
 
 const SKILL_LABELS = {
-  CLSF: "Clasificación", LEXI: "Léxico", FORM: "Formulación",
-  GRAF: "Graficación", RESV: "Resolución", DERI: "Derivación",
-  INTG: "Integración", APLI: "Aplicación",
+  CLSF: "Clasificación", LEXI: "Léxico",    FORM: "Formulación",
+  GRAF: "Graficación",   RESL: "Resolución", ESTR: "Estrategia",
+  DERI: "Derivación",    INTG: "Integración", APLI: "Aplicación",
 };
 
 const FAMILY_LABELS = {
@@ -56,72 +56,71 @@ const FAMILY_LABELS = {
   trigonometric: "Trigonométrica", rational: "Racional",
 };
 
-const WHITE_BELT_TOPICS = [
-  { key: "linear",        label: "Lineal" },
-  { key: "quadratic",     label: "Cuadrática" },
-  { key: "polynomial",    label: "Polinomial" },
-  { key: "exponential",   label: "Exponencial" },
-  { key: "logarithmic",   label: "Logarítmica" },
-  { key: "rational",      label: "Racional" },
-  { key: "trigonometric", label: "Trigonométrica" },
-];
-const WHITE_BELT_SKILLS = ["CLSF", "LEXI", "FORM"];
-const STRIPE_THRESHOLDS  = [3, 9];
-const PROMOTION_THRESHOLD = 18;
-const MASTERY_TOTAL       = 21;
-
 const BELT_DATA = [
   {
     name: "Blanco", img: "/belt_white.png", colorIdx: 0,
-    skills: ["CLSF", "LEXI", "FORM"],
     topics: [
-      { key: "linear",        label: "Lineal" },
-      { key: "quadratic",     label: "Cuadrática" },
-      { key: "polynomial",    label: "Polinomial" },
-      { key: "exponential",   label: "Exponencial" },
-      { key: "logarithmic",   label: "Logarítmica" },
-      { key: "rational",      label: "Racional" },
-      { key: "trigonometric", label: "Trigonométrica" },
+      { key: "linear",        label: "Lineal",         skills: ["CLSF","LEXI","FORM"] },
+      { key: "quadratic",     label: "Cuadrática",     skills: ["CLSF","LEXI","FORM"] },
+      { key: "polynomial",    label: "Polinomial",     skills: ["CLSF","LEXI","FORM"] },
+      { key: "exponential",   label: "Exponencial",    skills: ["CLSF","LEXI","FORM"] },
+      { key: "logarithmic",   label: "Logarítmica",    skills: ["CLSF","LEXI","FORM"] },
+      { key: "rational",      label: "Racional",       skills: ["CLSF","LEXI","FORM","GRAF"] },
+      { key: "trigonometric", label: "Trigonométrica", skills: ["CLSF","LEXI","FORM","GRAF"] },
     ],
-    stripeAt: [3, 9], promoteAt: 18, total: 21,
+    stripeAt: [3, 9], promoteAt: 20, total: 23,
   },
   {
     name: "Azul", img: "/belt_blue.png", colorIdx: 1,
-    skills: ["GRAF", "RESL", "CLSF"],
     topics: [
-      { key: "lim_algebraic", label: "Lím. algebraicos" },
-      { key: "lim_lateral",   label: "Lím. laterales" },
-      { key: "lim_infinity",  label: "Lím. al infinito" },
-      { key: "continuity",    label: "Continuidad" },
-      { key: "indeterminate", label: "Indet." },
-      { key: "lhopital",      label: "L'Hôpital" },
+      { key: "algebraic_limits", label: "Lím. algebraicos", skills: ["LEXI","RESL","ESTR"] },
+      { key: "lateral_limits",   label: "Lím. laterales",   skills: ["LEXI","RESL","GRAF"] },
+      { key: "infinite_limits",  label: "Lím. al infinito", skills: ["LEXI","RESL","GRAF"] },
+      { key: "continuity",       label: "Continuidad",      skills: ["CLSF","RESL","GRAF"] },
+      { key: "factorizacion",    label: "Factorización",    skills: ["LEXI","RESL","ESTR"] },
+      { key: "racionalizacion",  label: "Racionalización",  skills: ["RESL","ESTR"] },
     ],
-    stripeAt: [2, 6], promoteAt: 15, total: 18,
+    stripeAt: [3, 8], promoteAt: 14, total: 17,
   },
   {
     name: "Violeta", img: "/belt_purple.png", colorIdx: 2,
-    skills: ["GRAF", "DERI", "APLI"],
     topics: [
-      { key: "deriv_def",     label: "Definición" },
-      { key: "deriv_basic",   label: "Reglas básicas" },
-      { key: "deriv_product", label: "Prod./Cociente" },
-      { key: "deriv_chain",   label: "Cadena" },
+      { key: "limit_definition",         label: "Def. de límite",     skills: ["LEXI","ESTR","CLSF","GRAF"] },
+      { key: "geometric_interpretation", label: "Interp. geométrica", skills: ["LEXI","GRAF","APLI","ESTR"] },
+      { key: "basic_rules",              label: "Reglas básicas",     skills: ["LEXI","DERI","ESTR"] },
+      { key: "product_quotient",         label: "Prod./Cociente",     skills: ["DERI","ESTR","APLI"] },
+      { key: "chain_rule",               label: "Cadena",             skills: ["DERI","ESTR","APLI"] },
+      { key: "lhopital",                 label: "L'Hôpital",          skills: ["RESL","ESTR","APLI"] },
     ],
-    stripeAt: [2, 5], promoteAt: 10, total: 12,
+    stripeAt: [4, 10], promoteAt: 17, total: 20,
   },
   {
     name: "Marrón", img: "/belt_brown.png", colorIdx: 3,
-    skills: ["GRAF", "INTG", "APLI"],
     topics: [
-      { key: "integ_indef", label: "Indefinida" },
-      { key: "integ_ftc",   label: "T. Fundamental" },
-      { key: "integ_subs",  label: "Sustitución" },
-      { key: "integ_parts", label: "Por partes" },
-      { key: "integ_def",   label: "Definidas" },
+      { key: "indefinite_integral",  label: "Integral indef.", skills: ["LEXI","INTG","ESTR"] },
+      { key: "substitution",         label: "Sustitución",     skills: ["INTG","ESTR","APLI"] },
+      { key: "integration_by_parts", label: "Por partes",      skills: ["INTG","ESTR","APLI"] },
+      { key: "definite_integral",    label: "Integral def.",   skills: ["INTG","GRAF","APLI"] },
     ],
-    stripeAt: [2, 5], promoteAt: 12, total: 15,
+    stripeAt: [3, 7], promoteAt: 10, total: 12,
+  },
+  {
+    name: "Negro", img: "/belt_black.png", colorIdx: 4,
+    topics: [
+      { key: "function_analysis", label: "Análisis func.",  skills: ["DERI","APLI","CLSF","GRAF"] },
+      { key: "optimization",      label: "Optimización",    skills: ["DERI","APLI","ESTR"] },
+      { key: "area_calculation",  label: "Cálculo de área", skills: ["INTG","APLI","GRAF"] },
+      { key: "ftc",               label: "T. Fundamental",  skills: ["INTG","APLI","ESTR"] },
+    ],
+    stripeAt: [5, 9], promoteAt: 13, total: 13,
   },
 ];
+
+// Derived constants from white belt
+const WHITE_BELT_TOPICS   = BELT_DATA[0].topics;
+const STRIPE_THRESHOLDS   = BELT_DATA[0].stripeAt;
+const PROMOTION_THRESHOLD = BELT_DATA[0].promoteAt;
+const MASTERY_TOTAL       = BELT_DATA[0].total;
 
 // Example exercise for the tutorial
 const TUTORIAL_EXERCISE = {
@@ -327,29 +326,28 @@ function itemCell(entry) {
 }
 
 function ProgressGrid({ skillStates, revealedKeys }) {
+  const topics = BELT_DATA[0].topics;
+  const allSkills = [...new Set(topics.flatMap(t => t.skills))];
+  const colTemplate = `1fr ${allSkills.map(() => "34px").join(" ")}`;
   const revealed = revealedKeys || null; // null = show all (home screen), Set = animated (summary)
   return (
     <div>
       {/* Column headers */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 44px 44px 44px",
+      <div style={{ display: "grid", gridTemplateColumns: colTemplate,
         gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
         <div />
-        {WHITE_BELT_SKILLS.map(h => (
-          <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
-            textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
-            {h}
-          </div>
-        ))}
+        {allSkills.map(h => <div key={h} />)}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {WHITE_BELT_TOPICS.map(({ key: topicKey, label }) => (
+        {topics.map(({ key: topicKey, label, skills }) => (
           <div key={topicKey} style={{ display: "grid",
-            gridTemplateColumns: "1fr 44px 44px 44px", gap: "3px", alignItems: "center" }}>
+            gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
             <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
               {label}
             </div>
-            {WHITE_BELT_SKILLS.map(skill => {
+            {allSkills.map(skill => {
+              if (!skills.includes(skill)) return <div key={skill} />;
               const k = `${topicKey}:${skill}`;
               const isRevealed = revealed === null || revealed.has(k);
               const entry = isRevealed ? skillStates[k] : undefined;
@@ -393,28 +391,26 @@ function ProgressGrid({ skillStates, revealedKeys }) {
 
 // ── BeltGrid (generalized grid for any belt) ───────────────────────────────────
 
-function BeltGrid({ topics, skills, skillStates, revealedKeys }) {
+function BeltGrid({ topics, skillStates, revealedKeys }) {
+  const allSkills = [...new Set(topics.flatMap(t => t.skills))];
+  const colTemplate = `1fr ${allSkills.map(() => "34px").join(" ")}`;
   const revealed = revealedKeys || null;
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 44px 44px 44px",
+      <div style={{ display: "grid", gridTemplateColumns: colTemplate,
         gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
         <div />
-        {skills.map(h => (
-          <div key={h} style={{ fontSize: "0.62rem", fontWeight: 700, color: C.muted,
-            textAlign: "center", textTransform: "uppercase", letterSpacing: "0.04em" }}>
-            {h}
-          </div>
-        ))}
+        {allSkills.map(h => <div key={h} />)}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {topics.map(({ key: topicKey, label }) => (
+        {topics.map(({ key: topicKey, label, skills }) => (
           <div key={topicKey} style={{ display: "grid",
-            gridTemplateColumns: "1fr 44px 44px 44px", gap: "3px", alignItems: "center" }}>
+            gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
             <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
               {label}
             </div>
-            {skills.map(skill => {
+            {allSkills.map(skill => {
+              if (!skills.includes(skill)) return <div key={skill} />;
               const k = `${topicKey}:${skill}`;
               const isRevealed = revealed === null || revealed.has(k);
               const entry = isRevealed ? skillStates?.[k] : undefined;
@@ -1756,8 +1752,8 @@ function SummaryScreen({ summary, onRestart, onRegister }) {
 
   // ── shared derived data ─────────────────────────────────────────────────────
   const touchedList = [];
-  for (const { key: topicKey } of WHITE_BELT_TOPICS)
-    for (const skill of WHITE_BELT_SKILLS) {
+  for (const { key: topicKey, skills } of WHITE_BELT_TOPICS)
+    for (const skill of skills) {
       const k = `${topicKey}:${skill}`;
       if (skillStates[k]) touchedList.push(k);
     }
@@ -2123,7 +2119,6 @@ function BeltCarousel({ skillStates, revealedKeys }) {
                 {/* Grid */}
                 <BeltGrid
                   topics={belt.topics}
-                  skills={belt.skills}
                   skillStates={states}
                   revealedKeys={revealed}
                 />
@@ -2339,6 +2334,20 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
               </div>
             ))}
           </div>}
+
+          {/* Footer */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center",
+            gap: "0.4rem", paddingTop: "0.5rem", paddingBottom: "1.5rem", marginTop: "0.5rem" }}>
+            <span style={{ fontSize: "0.72rem", color: C.text, fontFamily: fonts.body }}>
+              Desarrollado por Nicolás Vrancovich
+            </span>
+            <a href="https://www.linkedin.com/in/nvrancovich/" target="_blank" rel="noreferrer"
+              style={{ display: "flex", alignItems: "center", color: C.text, lineHeight: 0 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+          </div>
 
         </div>
       </div>

@@ -17,33 +17,28 @@ Desde la perspectiva del equipo, el objetivo es conseguir usuarios orgánicos te
 | [**Repaso**](#6-flujo-de-repaso) | Sesión de aproximadamente 12 ejercicios con feedback inmediato y explicaciones breves, con resumen de resultados y progreso al finalizar |
 | [**Tutorial**](#7-tutorial) | Primera sesión guiada que presenta el sistema de forma interactiva y recolecta el tipo de carrera y universidad del estudiante |
 | [**Sistema de XP**](#8-sistema-de-xp) | Puntos de experiencia por ejercicio con bonuses de racha e hitos, y barra de nivel visible al finalizar cada repaso y en la home |
-| [**Sistema de Cinturones**](#9-sistema-de-cinturones) | Cuatro cinturones (Blanco, Azul, Violeta, Marrón) con grados internos que el estudiante avanza graduando ítems con desempeño sostenido |
+| [**Sistema de Cinturones**](#9-sistema-de-cinturones) | Cinco cinturones (Blanco, Azul, Violeta, Marrón, Negro) con grados internos que el estudiante avanza graduando ítems con desempeño sostenido |
 
 ---
 
 # **2\. Banco de Ejercicios**
 
-El banco está organizado en cinturones. Cada cinturón cubre un dominio matemático del curso y define un conjunto de ítems a partir de la combinación de temas y habilidades evaluadas en ese nivel.
+El banco está organizado en cinturones. Cada cinturón cubre un dominio matemático del curso y define un conjunto de ítems. Las habilidades se asignan a nivel de tema: cada tema tiene su propio subconjunto de habilidades según su densidad conceptual (entre 2 y 4 habilidades por tema).
 
-## **2\.1\. Temas**
+## **2\.1\. Temas e ítems**
 
-| Items | Tema | Cinturón |
+| Cinturón | Temas | Ítems |
 | :---- | :---- | :---- |
-| 1 | Funciones Lineales | Blanco |
-| 2 | Funciones Cuadráticas | Blanco |
-| 3 | Funciones Polinomiales | Blanco |
-| 4 | Funciones Exponenciales | Blanco |
-| 5 | Funciones Logarítmicas | Blanco |
-| 6 | Funciones Racionales | Blanco |
-| 7 | Funciones Trigonométricas | Blanco |
-| 8–13 | Límites y Continuidad | Azul |
-| 14–17 | Derivadas | Violeta |
-| 18–22 | Integrales | Marrón |
-| TBD | TBD | Negro |
+| Blanco | Lineal, Cuadrática, Polinomial, Exponencial, Logarítmica, Racional, Trigonométrica | 23 |
+| Azul | Lím. algebraicos, Lím. laterales, Lím. al infinito, Continuidad, Factorización, Racionalización | 17 |
+| Violeta | Def. de límite, Interp. geométrica, Reglas básicas, Prod./Cociente, Cadena, L'Hôpital | 20 |
+| Marrón | Integral indefinida, Sustitución, Integración por partes, Integral definida | 12 |
+| Negro | Análisis de funciones, Optimización, Cálculo de área, T. Fundamental | 13 |
+| **Total** | | **85** |
 
 ## **2\.2\. Habilidades**
 
-Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una tiene un código de 4 letras en mayúscula, como los atributos en un juego de rol. Son transversales al sistema: el mismo código puede aparecer en distintos cinturones evaluando el mismo tipo de pensamiento aplicado a un dominio diferente.
+Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una tiene un código de 4 letras en mayúscula, como los atributos en un juego de rol. Son transversales al sistema: el mismo código puede aparecer en distintos cinturones evaluando el mismo tipo de pensamiento aplicado a un dominio diferente. Las habilidades se asignan a nivel de tema individual, no de manera uniforme por cinturón.
 
 | Código | Habilidad | Descripción |
 | :---- | :---- | :---- |
@@ -52,6 +47,7 @@ Las habilidades son las dimensiones evaluadas dentro de cada cinturón. Cada una
 | FORM | Formulación | Extrae y construye la expresión formal a partir de una representación |
 | GRAF | Graficación | Interpreta el comportamiento de un concepto desde una gráfica |
 | RESL | Resolución | Calcula y simplifica expresiones aplicando técnicas algebraicas |
+| ESTR | Estrategia | Elige y justifica la técnica adecuada para abordar un problema |
 | DERI | Derivación | Aplica reglas de derivación con precisión |
 | INTG | Integración | Aplica técnicas de integración al tipo de expresión correcto |
 | APLI | Aplicación | Usa el concepto del cinturón en problemas de contexto real o analítico |
@@ -114,60 +110,101 @@ Cada cinturón corresponde a un dominio matemático del curso y se obtiene gradu
 
 ## **9\.1\. Blanco — Funciones**
 
-**Temas:** Lineal, Cuadrática, Polinomial, Exponencial, Logarítmica, Racional, Trigonométrica
+**Temas y habilidades por tema:**
 
-**Habilidades:** CLSF · LEXI · FORM
-
-**Ítems:** 7 × 3 = 21
+| Tema | Habilidades | Ítems |
+| :---- | :---- | :---- |
+| Lineal | CLSF · LEXI · FORM | 3 |
+| Cuadrática | CLSF · LEXI · FORM | 3 |
+| Polinomial | CLSF · LEXI · FORM | 3 |
+| Exponencial | CLSF · LEXI · FORM | 3 |
+| Logarítmica | CLSF · LEXI · FORM | 3 |
+| Racional | CLSF · LEXI · FORM · GRAF | 4 |
+| Trigonométrica | CLSF · LEXI · FORM · GRAF | 4 |
+| **Total** | | **23** |
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
 | Primer grado | 3 | Progreso visible |
 | Segundo grado | 9 | Progreso visible |
-| **Promoción a Azul** | 18 | Desbloquea cinturón Azul |
-| Maestría | 21 | Opcional, sin efecto en promoción |
+| **Promoción a Azul** | 20 | Desbloquea cinturón Azul |
+| Maestría | 23 | Opcional, sin efecto en promoción |
 
 ## **9\.2\. Azul — Límites**
 
-**Temas:** Límites algebraicos, Límites laterales, Límites al infinito, Continuidad, Formas indeterminadas, L'Hôpital
+**Temas y habilidades por tema:**
 
-**Habilidades:** GRAF · RESL · CLSF
-
-**Ítems:** 6 × 3 = 18
+| Tema | Habilidades | Ítems |
+| :---- | :---- | :---- |
+| Lím. algebraicos | LEXI · RESL · ESTR | 3 |
+| Lím. laterales | LEXI · RESL · GRAF | 3 |
+| Lím. al infinito | LEXI · RESL · GRAF | 3 |
+| Continuidad | CLSF · RESL · GRAF | 3 |
+| Factorización | LEXI · RESL · ESTR | 3 |
+| Racionalización | RESL · ESTR | 2 |
+| **Total** | | **17** |
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
-| Primer grado | 2 | Progreso visible |
-| Segundo grado | 6 | Progreso visible |
-| **Promoción a Violeta** | 15 | Desbloquea cinturón Violeta |
-| Maestría | 18 | Opcional, sin efecto en promoción |
+| Primer grado | 3 | Progreso visible |
+| Segundo grado | 8 | Progreso visible |
+| **Promoción a Violeta** | 14 | Desbloquea cinturón Violeta |
+| Maestría | 17 | Opcional, sin efecto en promoción |
 
 ## **9\.3\. Violeta — Derivadas**
 
-**Temas:** Definición como límite, Reglas básicas, Producto y cociente, Regla de la cadena
+**Temas y habilidades por tema:**
 
-**Habilidades:** GRAF · DERI · APLI
-
-**Ítems:** 4 × 3 = 12
+| Tema | Habilidades | Ítems |
+| :---- | :---- | :---- |
+| Def. de límite | LEXI · ESTR · CLSF · GRAF | 4 |
+| Interp. geométrica | LEXI · GRAF · APLI · ESTR | 4 |
+| Reglas básicas | LEXI · DERI · ESTR | 3 |
+| Prod./Cociente | DERI · ESTR · APLI | 3 |
+| Cadena | DERI · ESTR · APLI | 3 |
+| L'Hôpital | RESL · ESTR · APLI | 3 |
+| **Total** | | **20** |
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
-| Primer grado | 2 | Progreso visible |
-| Segundo grado | 5 | Progreso visible |
-| **Promoción a Marrón** | 10 | Desbloquea cinturón Marrón |
-| Maestría | 12 | Opcional, sin efecto en promoción |
+| Primer grado | 4 | Progreso visible |
+| Segundo grado | 10 | Progreso visible |
+| **Promoción a Marrón** | 17 | Desbloquea cinturón Marrón |
+| Maestría | 20 | Opcional, sin efecto en promoción |
 
 ## **9\.4\. Marrón — Integrales**
 
-**Temas:** Integral indefinida, Teorema Fundamental del Cálculo, Sustitución, Integración por partes, Integrales definidas
+**Temas y habilidades por tema:**
 
-**Habilidades:** GRAF · INTG · APLI — 
-
-**Ítems:** 5 × 3 = 15
+| Tema | Habilidades | Ítems |
+| :---- | :---- | :---- |
+| Integral indefinida | LEXI · INTG · ESTR | 3 |
+| Sustitución | INTG · ESTR · APLI | 3 |
+| Integración por partes | INTG · ESTR · APLI | 3 |
+| Integral definida | INTG · GRAF · APLI | 3 |
+| **Total** | | **12** |
 
 | Grado | Ítems graduados | Efecto |
 | :---- | :---- | :---- |
-| Primer grado | 2 | Progreso visible |
-| Segundo grado | 5 | Progreso visible |
-| **Promoción a Negro** | 12 | Desbloquea cinturón Negro |
-| Maestría | 15 | Opcional, sin efecto en promoción |
+| Primer grado | 3 | Progreso visible |
+| Segundo grado | 7 | Progreso visible |
+| **Promoción a Negro** | 10 | Desbloquea cinturón Negro |
+| Maestría | 12 | Opcional, sin efecto en promoción |
+
+## **9\.5\. Negro — Análisis**
+
+**Temas y habilidades por tema:**
+
+| Tema | Habilidades | Ítems |
+| :---- | :---- | :---- |
+| Análisis de funciones | DERI · APLI · CLSF · GRAF | 4 |
+| Optimización | DERI · APLI · ESTR | 3 |
+| Cálculo de área | INTG · APLI · GRAF | 3 |
+| T. Fundamental | INTG · APLI · ESTR | 3 |
+| **Total** | | **13** |
+
+| Grado | Ítems graduados | Efecto |
+| :---- | :---- | :---- |
+| Primer grado | 5 | Progreso visible |
+| Segundo grado | 9 | Progreso visible |
+| **Maestría** | 13 | Cinturón final |

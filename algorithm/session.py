@@ -122,14 +122,14 @@ def default_catalog(belt: BeltCatalog = WHITE_BELT) -> list[ItemKey]:
 
 def belt_item_priority(catalog: BeltCatalog) -> dict[ItemKey, int]:
     """
-    Returns a priority map for a belt catalog: CLSF/GRAF first, then LEXI/RESV/DERI/INTG,
-    then FORM/APLI. Within each skill group, topics follow catalog order.
+    Returns a priority map for a belt catalog following the topic_specs order.
+    Items are introduced topic by topic, skill by skill within each topic.
     This controls the order in which new items are introduced in a session.
     """
     priority: dict[ItemKey, int] = {}
     idx = 0
-    for topic in catalog.topics:
-        for skill in catalog.skills:
-            priority[ItemKey(belt=catalog.belt, topic=topic, skill=skill)] = idx
+    for ts in catalog.topic_specs:
+        for skill in ts.skills:
+            priority[ItemKey(belt=catalog.belt, topic=ts.key, skill=skill)] = idx
             idx += 1
     return priority
