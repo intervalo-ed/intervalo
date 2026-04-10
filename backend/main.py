@@ -25,7 +25,7 @@ from auth import (
     TokenPayload,
     UserResponse,
 )
-from models import User
+from models import User, BeltInfo
 
 app = FastAPI(title="Intervalo Backend")
 
@@ -123,6 +123,18 @@ class AnswerRequest(BaseModel):
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+
+# ── Course info ───────────────────────────────────────────────────────────────
+
+@app.get("/course/{course_id}/belts")
+def get_belt_info(course_id: int, db: Session = Depends(get_db)):
+    """Returns descriptive info (headline + description) for each belt in a course."""
+    rows = db.query(BeltInfo).filter(BeltInfo.course_id == course_id).all()
+    return {
+        row.belt: {"headline": row.headline, "description": row.description}
+        for row in rows
+    }
 
 
 # ── Authentication ────────────────────────────────────────────────────────────

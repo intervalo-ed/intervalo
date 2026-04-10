@@ -54,6 +54,7 @@ class Course(Base):
     answers = relationship("Answer", back_populates="course")
     push_subscriptions = relationship("PushSubscription", back_populates="course")
     exercises = relationship("Exercise", back_populates="course")
+    belt_infos = relationship("BeltInfo", back_populates="course")
 
 
 class Enrollment(Base):
@@ -225,6 +226,24 @@ class Exercise(Base):
 
     # Relationships
     course = relationship("Course", back_populates="exercises")
+
+
+class BeltInfo(Base):
+    """Descriptive info for each belt within a course (headline + description)."""
+    __tablename__ = "belt_info"
+
+    id          = Column(Integer, primary_key=True, index=True)
+    course_id   = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    belt        = Column(String(20), nullable=False)   # "white", "blue", "violet", "brown", "black"
+    headline    = Column(String(200), nullable=False)
+    description = Column(Text, nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint("course_id", "belt", name="uq_belt_info_course_belt"),
+    )
+
+    # Relationships
+    course = relationship("Course", back_populates="belt_infos")
 
 
 class PushSubscription(Base):

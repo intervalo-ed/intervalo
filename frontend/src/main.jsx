@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import ReactDOM from "react-dom/client";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -58,20 +58,20 @@ const FAMILY_LABELS = {
 
 const BELT_DATA = [
   {
-    name: "Blanco", img: "/belt_white.png", colorIdx: 0,
+    name: "Blanco", beltKey: "white", img: "/belt_white.png", colorIdx: 0,
     topics: [
-      { key: "linear",        label: "Lineal",         skills: ["CLSF","LEXI","FORM"] },
-      { key: "quadratic",     label: "Cuadrática",     skills: ["CLSF","LEXI","FORM"] },
-      { key: "polynomial",    label: "Polinomial",     skills: ["CLSF","LEXI","FORM"] },
-      { key: "exponential",   label: "Exponencial",    skills: ["CLSF","LEXI","FORM"] },
-      { key: "logarithmic",   label: "Logarítmica",    skills: ["CLSF","LEXI","FORM"] },
-      { key: "rational",      label: "Racional",       skills: ["CLSF","LEXI","FORM","GRAF"] },
-      { key: "trigonometric", label: "Trigonométrica", skills: ["CLSF","LEXI","FORM","GRAF"] },
+      { key: "linear",        label: "Lineales",        skills: ["CLSF","LEXI","FORM"] },
+      { key: "quadratic",     label: "Cuadráticas",     skills: ["CLSF","LEXI","FORM"] },
+      { key: "polynomial",    label: "Polinomiales",    skills: ["CLSF","LEXI","FORM"] },
+      { key: "exponential",   label: "Exponenciales",   skills: ["CLSF","LEXI","FORM"] },
+      { key: "logarithmic",   label: "Logarítmicas",    skills: ["CLSF","LEXI","FORM"] },
+      { key: "rational",      label: "Racionales",      skills: ["CLSF","LEXI","FORM","GRAF"] },
+      { key: "trigonometric", label: "Trigonométricas", skills: ["CLSF","LEXI","FORM","GRAF"] },
     ],
     stripeAt: [3, 9], promoteAt: 20, total: 23,
   },
   {
-    name: "Azul", img: "/belt_blue.png", colorIdx: 1,
+    name: "Azul", beltKey: "blue", img: "/belt_blue.png", colorIdx: 1,
     topics: [
       { key: "algebraic_limits", label: "Lím. algebraicos", skills: ["LEXI","RESL","ESTR"] },
       { key: "lateral_limits",   label: "Lím. laterales",   skills: ["LEXI","RESL","GRAF"] },
@@ -83,7 +83,7 @@ const BELT_DATA = [
     stripeAt: [3, 8], promoteAt: 14, total: 17,
   },
   {
-    name: "Violeta", img: "/belt_purple.png", colorIdx: 2,
+    name: "Violeta", beltKey: "violet", img: "/belt_purple.png", colorIdx: 2,
     topics: [
       { key: "limit_definition",         label: "Def. de límite",     skills: ["LEXI","ESTR","CLSF","GRAF"] },
       { key: "geometric_interpretation", label: "Interp. geométrica", skills: ["LEXI","GRAF","APLI","ESTR"] },
@@ -95,7 +95,7 @@ const BELT_DATA = [
     stripeAt: [4, 10], promoteAt: 17, total: 20,
   },
   {
-    name: "Marrón", img: "/belt_brown.png", colorIdx: 3,
+    name: "Marrón", beltKey: "brown", img: "/belt_brown.png", colorIdx: 3,
     topics: [
       { key: "indefinite_integral",  label: "Integral indef.", skills: ["LEXI","INTG","ESTR"] },
       { key: "substitution",         label: "Sustitución",     skills: ["INTG","ESTR","APLI"] },
@@ -105,7 +105,7 @@ const BELT_DATA = [
     stripeAt: [3, 7], promoteAt: 10, total: 12,
   },
   {
-    name: "Negro", img: "/belt_black.png", colorIdx: 4,
+    name: "Negro", beltKey: "black", img: "/belt_black.png", colorIdx: 4,
     topics: [
       { key: "function_analysis", label: "Análisis func.",  skills: ["DERI","APLI","CLSF","GRAF"] },
       { key: "optimization",      label: "Optimización",    skills: ["DERI","APLI","ESTR"] },
@@ -325,126 +325,238 @@ function itemCell(entry) {
   return { bg: bgColor, label: progressLabel, textColor };
 }
 
-function ProgressGrid({ skillStates, revealedKeys }) {
+function ProgressGrid({ skillStates, revealedKeys, showLegend = true }) {
   const topics = BELT_DATA[0].topics;
-  const allSkills = [...new Set(topics.flatMap(t => t.skills))];
-  const colTemplate = `1fr ${allSkills.map(() => "34px").join(" ")}`;
   const revealed = revealedKeys || null; // null = show all (home screen), Set = animated (summary)
   return (
     <div>
-      {/* Column headers */}
-      <div style={{ display: "grid", gridTemplateColumns: colTemplate,
-        gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
-        <div />
-        {allSkills.map(h => <div key={h} />)}
-      </div>
-
       <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {topics.map(({ key: topicKey, label, skills }) => (
-          <div key={topicKey} style={{ display: "grid",
-            gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
-              {label}
+        {topics.map(({ key: topicKey, label, skills }) => {
+          const colTemplate = `1fr ${skills.map(() => "34px").join(" ")}`;
+          return (
+            <div key={topicKey} style={{ display: "grid",
+              gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
+              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
+                {label}
+              </div>
+              {skills.map(skill => {
+                const k = `${topicKey}:${skill}`;
+                const isRevealed = revealed === null || revealed.has(k);
+                const entry = isRevealed ? skillStates[k] : undefined;
+                const { bg, label: cellLabel, textColor } = itemCell(entry);
+                return (
+                  <div key={skill} style={{
+                    background: bg, borderRadius: 6, height: 26,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "0.65rem", fontWeight: 700, color: textColor,
+                    transition: "background 0.4s ease",
+                  }}>
+                    {cellLabel}
+                  </div>
+                );
+              })}
             </div>
-            {allSkills.map(skill => {
-              if (!skills.includes(skill)) return <div key={skill} />;
-              const k = `${topicKey}:${skill}`;
-              const isRevealed = revealed === null || revealed.has(k);
-              const entry = isRevealed ? skillStates[k] : undefined;
-              const { bg, label: cellLabel, textColor } = itemCell(entry);
-              return (
-                <div key={skill} style={{
-                  background: bg, borderRadius: 6, height: 26,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "0.65rem", fontWeight: 700, color: textColor,
-                  transition: "background 0.4s ease",
-                }}>
-                  {cellLabel}
-                </div>
-              );
-            })}
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Legend */}
-      <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
-        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
-        justifyContent: "center" }}>
-        {[
-          { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
-          { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
-          { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
-          { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
-          { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
-        ].map(({ bg, border, label: ll }) => (
-          <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
-              border: `1px solid ${border}` }} />
-            <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
-          </div>
-        ))}
-      </div>
+      {/* Legend — solo para el cinturón activo */}
+      {showLegend && (
+        <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
+          flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
+          justifyContent: "center" }}>
+          {[
+            { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
+            { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
+            { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
+            { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
+            { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
+          ].map(({ bg, border, label: ll }) => (
+            <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+              <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
+                border: `1px solid ${border}` }} />
+              <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 // ── BeltGrid (generalized grid for any belt) ───────────────────────────────────
 
-function BeltGrid({ topics, skillStates, revealedKeys }) {
-  const allSkills = [...new Set(topics.flatMap(t => t.skills))];
-  const colTemplate = `1fr ${allSkills.map(() => "34px").join(" ")}`;
+function BeltGrid({ topics, skillStates, revealedKeys, showLegend = false, muted = false }) {
   const revealed = revealedKeys || null;
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: colTemplate,
-        gap: "3px", marginBottom: "4px", paddingLeft: "4px" }}>
-        <div />
-        {allSkills.map(h => <div key={h} />)}
-      </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {topics.map(({ key: topicKey, label, skills }) => (
-          <div key={topicKey} style={{ display: "grid",
-            gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
-              {label}
+        {topics.map(({ key: topicKey, label, skills }) => {
+          const colTemplate = `1fr ${skills.map(() => "34px").join(" ")}`;
+          return (
+            <div key={topicKey} style={{ display: "grid",
+              gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
+              <div style={{ fontSize: "0.78rem", fontWeight: 600,
+                color: muted ? C.muted : C.textSecondary, paddingLeft: "4px" }}>
+                {label}
+              </div>
+              {skills.map(skill => {
+                const k = `${topicKey}:${skill}`;
+                const isRevealed = revealed === null || revealed.has(k);
+                const entry = isRevealed ? skillStates?.[k] : undefined;
+                const { bg, label: cellLabel, textColor } = itemCell(entry);
+                return (
+                  <div key={skill} style={{
+                    background: bg, borderRadius: 6, height: 26,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "0.65rem", fontWeight: 700, color: textColor,
+                    transition: "background 0.4s ease",
+                  }}>
+                    {cellLabel}
+                  </div>
+                );
+              })}
             </div>
-            {allSkills.map(skill => {
-              if (!skills.includes(skill)) return <div key={skill} />;
-              const k = `${topicKey}:${skill}`;
-              const isRevealed = revealed === null || revealed.has(k);
-              const entry = isRevealed ? skillStates?.[k] : undefined;
-              const { bg, label: cellLabel, textColor } = itemCell(entry);
-              return (
-                <div key={skill} style={{
-                  background: bg, borderRadius: 6, height: 26,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "0.65rem", fontWeight: 700, color: textColor,
-                  transition: "background 0.4s ease",
-                }}>
-                  {cellLabel}
-                </div>
-              );
-            })}
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
-        flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
-        justifyContent: "center" }}>
-        {[
-          { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
-          { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
-          { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
-          { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
-          { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
-        ].map(({ bg, border, label: ll }) => (
-          <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
-              border: `1px solid ${border}` }} />
-            <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
+      {!showLegend && <div style={{ height: "0.5rem" }} />}
+      {showLegend && (
+        <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.85rem",
+          flexWrap: "wrap", borderTop: `1px solid ${C.border}`, paddingTop: "0.7rem",
+          justifyContent: "center" }}>
+          {[
+            { bg: C.bgElevated,            border: C.border,   label: "Bloqueado"   },
+            { bg: "rgba(29,78,216,0.30)",  border: "#3B82F6",  label: "Nuevo"       },
+            { bg: "rgba(180,83,9,0.32)",   border: "#B45309",  label: "Pendiente"   },
+            { bg: "rgba(101,163,13,0.32)", border: "#84CC16",  label: "Aprendiendo" },
+            { bg: "rgba(21,128,61,0.35)",  border: "#22C55E",  label: "Graduado"    },
+          ].map(({ bg, border, label: ll }) => (
+            <div key={ll} style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+              <div style={{ width: 12, height: 12, borderRadius: 3, background: bg,
+                border: `1px solid ${border}` }} />
+              <span style={{ fontSize: "0.65rem", color: C.muted }}>{ll}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── BeltFlipCard ──────────────────────────────────────────────────────────────
+
+function BeltFlipCard({ belt, skillStates, revealedKeys, isCurrent, isLocked, graduatedCount, beltInfo }) {
+  const [flipped, setFlipped] = useState(false);
+  const innerRef = useRef(null);
+  const frontRef = useRef(null);
+  const backRef  = useRef(null);
+  const stripes = isCurrent ? belt.stripeAt.filter(t => graduatedCount >= t).length : 0;
+  const info = (beltInfo && beltInfo[belt.beltKey]) || { headline: belt.name, description: "" };
+
+  // Altura inicial = frente; re-mide si las imágenes cargan después
+  useLayoutEffect(() => {
+    const measure = () => {
+      if (innerRef.current && frontRef.current)
+        innerRef.current.style.height = frontRef.current.scrollHeight + "px";
+    };
+    measure();
+    const t = setTimeout(measure, 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Anima la altura junto con la rotación al voltear
+  useLayoutEffect(() => {
+    if (!innerRef.current || !frontRef.current || !backRef.current) return;
+    const ref = flipped ? backRef : frontRef;
+    innerRef.current.style.height = ref.current.scrollHeight + "px";
+  }, [flipped]);
+
+  return (
+    <div className="flip-scene" style={{ marginBottom: "1rem" }}>
+      <div ref={innerRef} className={`flip-inner${flipped ? " flipped" : ""}`}>
+
+        {/* ── FRENTE ── */}
+        <div ref={frontRef} className="flip-face" style={{ ...card, paddingTop: "1rem", paddingBottom: "1rem" }}>
+          {/* Header: nombre + ? + imagen */}
+          <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                  textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  Cinturón {belt.name}
+                </span>
+                <button
+                  onClick={() => setFlipped(true)}
+                  style={{
+                    width: 17, height: 17, borderRadius: "50%",
+                    background: "transparent", border: `1px solid ${C.border}`,
+                    color: C.muted, fontSize: "0.6rem", fontWeight: 700,
+                    cursor: "pointer", display: "flex", alignItems: "center",
+                    justifyContent: "center", padding: 0, flexShrink: 0, lineHeight: 1,
+                  }}>?</button>
+              </div>
+
+              {isCurrent && (
+                <>
+                  <div style={{ display: "flex", gap: 5, marginTop: "0.3rem" }}>
+                    {[0, 1].map(i => (
+                      <div key={i} style={{ width: 22, height: 10, borderRadius: 999,
+                        background: i < stripes ? "#D97706" : C.border,
+                        transition: "background 0.55s ease" }} />
+                    ))}
+                  </div>
+                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
+                    {graduatedCount} / {stripes < 2 ? belt.stripeAt[stripes] : belt.promoteAt} ítems para el próximo grado
+                  </div>
+                </>
+              )}
+              {isLocked && (
+                <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.2rem" }}>
+                  Bloqueado
+                </div>
+              )}
+            </div>
+            <img src={belt.img} alt={`Cinturón ${belt.name}`}
+              style={{ width: 115, height: "auto",
+                opacity: isLocked ? 0.35 : 0.85, flexShrink: 0 }} />
           </div>
-        ))}
+
+          {/* Grid */}
+          {isCurrent
+            ? <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} showLegend={true} />
+            : <BeltGrid topics={belt.topics} skillStates={{}} showLegend={false} muted={true} />
+          }
+        </div>
+
+        {/* ── REVERSO ── */}
+        <div ref={backRef} className="flip-face flip-back"
+          style={{ ...card, paddingTop: "2.25rem", paddingBottom: "0.85rem",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", textAlign: "center" }}>
+
+          <div style={{ fontSize: "1.2rem", fontWeight: 700, color: C.text,
+            fontFamily: fonts.heading, marginBottom: "0.7rem" }}>
+            {info.headline}
+          </div>
+          <p style={{ fontSize: "0.93rem", color: C.textSecondary,
+            lineHeight: 1.65, margin: 0, marginBottom: "1.25rem" }}>
+            {info.description}
+          </p>
+          <img src={belt.img} alt={`Cinturón ${belt.name}`}
+            style={{ width: 140, height: "auto", opacity: isLocked ? 0.3 : 0.85,
+              transform: "translateY(-1.2rem)" }} />
+
+          {/* Volver — absoluto abajo a la derecha, dentro del paddingBottom del card */}
+          <button onClick={() => setFlipped(false)} style={{
+            position: "absolute", bottom: "1.4rem", right: "1.75rem",
+            background: "transparent", border: `1px solid ${C.border}`,
+            borderRadius: 8, color: C.muted, fontSize: "0.78rem", fontWeight: 600,
+            padding: "0.35rem 1rem", cursor: "pointer", fontFamily: fonts.body,
+            lineHeight: 1,
+          }}>Volver</button>
+        </div>
+
       </div>
     </div>
   );
@@ -2007,12 +2119,12 @@ function RegisteredScreen({ userName, onContinue }) {
             <Typewriter text={`¡Listo, ${userName}!`} speed={40} onDone={() => setTitleDone(true)} />
           </h2>
           <FadeIn show={titleDone} delay={0}>
-            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0, textAlign: "center" }}>
               Tu repaso quedó registrado. Si ves <strong style={{ color: C.text }}>ítems pendientes</strong>, intentá repasarlos hoy. Si no quedó ninguno, ya podés descansar, mañana va a haber <strong style={{ color: C.text }}>nuevos ejercicios</strong> esperándote.
             </p>
           </FadeIn>
           <FadeIn show={titleDone} delay={300}>
-            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontFamily: fonts.body, fontSize: "0.97rem", color: C.textSecondary, lineHeight: 1.7, margin: 0, textAlign: "center" }}>
               A medida que vayas <strong style={{ color: C.text }}>graduando ítems</strong>, se van desbloqueando otros nuevos. La idea es que avances progresivamente para que los repasos <strong style={{ color: C.text }}>no se extiendan demasiado</strong>.
             </p>
           </FadeIn>
@@ -2027,7 +2139,7 @@ function RegisteredScreen({ userName, onContinue }) {
               fontFamily: fonts.body, fontWeight: 700, fontSize: "1rem",
               cursor: "pointer",
             }}>
-            ¡Entendí!
+            Continuar
           </button>
         </FadeIn>
       </div>
@@ -2154,6 +2266,7 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
   const [skillStates, setSkillStates] = useState(lastSummary?.skill_states || {});
   const [levelInfo, setLevelInfo] = useState(lastSummary?.level_info || null);
   const [loading, setLoading] = useState(!lastSummary); // Only load if no lastSummary
+  const [beltInfo, setBeltInfo] = useState({});
 
   // Load user progress from backend
   useEffect(() => {
@@ -2179,6 +2292,14 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
     fetchProgress();
   }, [loading, token]);
 
+  // Load belt descriptions from backend (public, no auth required)
+  useEffect(() => {
+    fetch(`${API}/course/1/belts`)
+      .then(r => r.json())
+      .then(data => setBeltInfo(data))
+      .catch(() => {});
+  }, []);
+
   const allEntries = Object.values(skillStates);
   const nuevoCount = allEntries.filter(s => s?.status === "nuevo").length;
   const aprendiendoCount = allEntries.filter(s => s?.status === "aprendiendo").length;
@@ -2186,6 +2307,17 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
   // Pendientes = items that were attempted AND are due for review (not just any item that's due)
   const pendienteCount = allEntries.filter(s => s?.attempted && s?.is_pending).length;
   const stripes = STRIPE_THRESHOLDS.filter(t => graduatedCount >= t).length;
+
+  // Cinturón activo: el de mayor índice que tiene algún estado
+  const currentBeltIdx = (() => {
+    for (let i = BELT_DATA.length - 1; i >= 0; i--) {
+      const hasStates = BELT_DATA[i].topics.some(t =>
+        t.skills.some(s => skillStates[`${t.key}:${s}`])
+      );
+      if (hasStates) return i;
+    }
+    return 0;
+  })();
 
   const STATUS_CHIPS = [
     { label: "Nuevos",      count: nuevoCount,       color: "#BFDBFE", bg: "rgba(29,78,216,0.30)",  border: "#3B82F6" },
@@ -2284,56 +2416,23 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
             );
           })()}
 
-          {/* Progress grid — animated slide-in */}
-          {showGrid && <div style={{ animation: "slideInRight 0.5s ease-out" }}>
-            {/* White belt card */}
-            <div style={{ ...card, marginBottom: "1rem", paddingTop: "1rem", paddingBottom: "1rem" }}>
-              <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-                    textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.3rem" }}>
-                    Cinturón Blanco
-                  </div>
-                  <div style={{ display: "flex", gap: 5 }}>
-                    {[0, 1].map(i => (
-                      <div key={i} style={{ width: 22, height: 10, borderRadius: 999,
-                        background: i < stripes ? "#D97706" : C.border,
-                        transition: "background 0.55s ease" }} />
-                    ))}
-                  </div>
-                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
-                    {graduatedCount} / {stripes < 2 ? STRIPE_THRESHOLDS[stripes] : PROMOTION_THRESHOLD} ítems para el próximo grado
-                  </div>
-                </div>
-                <img src="/belt_white.png" alt="Cinturón Blanco"
-                  style={{ width: 115, height: "auto", opacity: 0.85, flexShrink: 0 }} />
-              </div>
-              <ProgressGrid skillStates={skillStates} revealedKeys={revealedKeys} />
+          {/* Belt cards — animated slide-in */}
+          {showGrid && (
+            <div style={{ animation: "slideInRight 0.5s ease-out" }}>
+              {BELT_DATA.map((belt, i) => (
+                <BeltFlipCard
+                  key={belt.name}
+                  belt={belt}
+                  skillStates={skillStates}
+                  revealedKeys={i === currentBeltIdx ? revealedKeys : null}
+                  isCurrent={i === currentBeltIdx}
+                  isLocked={i > currentBeltIdx}
+                  graduatedCount={i === currentBeltIdx ? graduatedCount : 0}
+                  beltInfo={beltInfo}
+                />
+              ))}
             </div>
-
-            {/* Locked belts */}
-            {[
-              { name: "Azul",    img: "/belt_blue.png"   },
-              { name: "Violeta", img: "/belt_purple.png" },
-              { name: "Marrón",  img: "/belt_brown.png"  },
-              { name: "Negro",   img: "/belt_black.png"  },
-            ].map(b => (
-              <div key={b.name} style={{ ...card, marginBottom: "1rem",
-                paddingTop: "0.65rem", paddingBottom: "0.65rem", opacity: 0.75 }}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
-                      textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.2rem" }}>
-                      Cinturón {b.name}
-                    </div>
-                    <div style={{ fontSize: "0.68rem", color: C.muted }}>Bloqueado</div>
-                  </div>
-                  <img src={b.img} alt={`Cinturón ${b.name}`}
-                    style={{ width: 115, height: "auto", opacity: 0.4, flexShrink: 0 }} />
-                </div>
-              </div>
-            ))}
-          </div>}
+          )}
 
           {/* Footer */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center",
