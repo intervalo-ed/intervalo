@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8006";
+const API = (import.meta.env.VITE_API_URL || "http://localhost:8006").replace(/\/$/, "");
 
 const VOLUME = 0.2;
 const popAudio          = Object.assign(new Audio("/pop.mp3"),               { volume: VOLUME });
