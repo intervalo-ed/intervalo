@@ -28,8 +28,9 @@ def upgrade() -> None:
     )
     op.create_index('ix_belt_info_id', 'belt_info', ['id'])
 
-    # Seed: Análisis Matemático I (course_id=1)
-    op.bulk_insert(belt_info_table, [
+    # Datos de belt_info eliminados de la migración.
+    # El seed lo hace seed_content.py (corre en startup vía main.py).
+    _seed = [
         {
             "id": 1,
             "course_id": 1,
@@ -85,7 +86,8 @@ def upgrade() -> None:
                 "Teorema Fundamental del Cálculo."
             ),
         },
-    ])
+    ]
+    # op.bulk_insert(belt_info_table, _seed)  # datos manejados por seed_content.py
 
 
 def downgrade() -> None:

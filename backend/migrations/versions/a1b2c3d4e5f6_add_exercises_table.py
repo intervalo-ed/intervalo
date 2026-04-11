@@ -53,11 +53,10 @@ def upgrade() -> None:
     op.create_index('idx_exercises_lookup', 'exercises', ['course_id', 'belt', 'topic', 'skill'])
     op.create_index('ix_exercises_id', 'exercises', ['id'])
 
-    # Seed all 43 exercises from the original exercise bank
-    # All are white belt, course_id=1 (Análisis Matemático I)
-    import json
-
-    seed = [
+    # Datos de ejercicios eliminados de la migración.
+    # El seed lo hace seed_content.py (corre en startup vía main.py).
+    # Esto evita el ForeignKeyViolation cuando courses está vacío.
+    _seed = [
         # ── LINEAR / LEXI ────────────────────────────────────────────────
         {
             "course_id": 1, "belt": "white", "topic": "linear", "skill": "LEXI",
@@ -543,7 +542,7 @@ def upgrade() -> None:
         },
     ]
 
-    op.bulk_insert(exercises_table, seed)
+    # op.bulk_insert(exercises_table, _seed)  # datos manejados por seed_content.py
 
 
 def downgrade() -> None:
