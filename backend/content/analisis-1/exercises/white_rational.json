@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_rational_lexi_01",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas es una función racional?",
+    "options": [
+      "$f(x) = \\dfrac{x+1}{x-2}$",
+      "$f(x) = x^2 - 1$",
+      "$f(x) = 3^x$",
+      "$f(x) = \\sqrt{x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función racional es el cociente de dos polinomios.",
+    "feedback_incorrect": "Una función racional es un cociente de polinomios. La correcta es $f(x) = \\dfrac{x+1}{x-2}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_rational_lexi_02",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llaman las líneas que esta curva se aproxima pero nunca llega a tocar?",
+    "options": [
+      "Asíntotas",
+      "Tangentes",
+      "Ejes de simetría",
+      "Rectas directrices"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Las líneas que una curva se acerca indefinidamente sin tocar se llaman asíntotas.",
+    "feedback_incorrect": "Esas líneas se llaman asíntotas. Esta función racional tiene una vertical ($x = 2$) y una horizontal ($y = 1$).",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ]
+  },
+  {
+    "external_id": "white_rational_clsf_01",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Racional",
+      "Polinómica",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Las dos ramas con asíntotas corresponden a $f(x) = \\dfrac{x+1}{x-2}$, una función racional.",
+    "feedback_incorrect": "Las asíntotas vertical y horizontal con dos ramas separadas son propias de una racional: $f(x) = \\dfrac{x+1}{x-2}$.",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ]
+  },
+  {
+    "external_id": "white_rational_clsf_02",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\dfrac{x+1}{x-2}$?",
+    "options": [
+      "Racional",
+      "Polinómica",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\dfrac{x+1}{x-2}$ es el cociente de dos polinomios: es una función racional.",
+    "feedback_incorrect": "$f(x) = \\dfrac{x+1}{x-2}$ es un cociente de polinomios: pertenece a la familia racional.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_rational_form_01",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Para qué valor de $x$ no está definida $f(x) = \\dfrac{2x + 3}{x - 5}$?",
+    "options": [
+      "$x = 5$",
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función no está definida cuando el denominador se anula: $x - 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_incorrect": "La función no está definida donde el denominador es cero: $x - 5 = 0 \\Rightarrow x = 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_rational_form_02",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-1}$",
+      "$f(x) = \\dfrac{1}{x+1}$",
+      "$f(x) = \\dfrac{x}{x-1}$",
+      "$f(x) = \\dfrac{1}{x^2-1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La asíntota vertical en $x = 1$ y la horizontal en $y = 0$ corresponden a $f(x) = \\dfrac{1}{x-1}$.",
+    "feedback_incorrect": "La asíntota vertical está en $x = 1$ (denominador = 0) y la horizontal en $y = 0$: $f(x) = \\dfrac{1}{x-1}$.",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [
+      -4,
+      6,
+      -6,
+      6
+    ]
+  }
+]

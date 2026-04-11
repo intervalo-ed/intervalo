@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_linear_lexi_01",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones representa una función lineal?",
+    "options": [
+      "$f(x) = 5x - 2$",
+      "$f(x) = x^2$",
+      "$f(x) = 3^x$",
+      "$f(x) = \\log(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
+    "feedback_incorrect": "Una función lineal tiene la forma $f(x) = mx + b$. La opción correcta es $f(x) = 5x - 2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_02",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama el punto donde la recta corta el eje Y?",
+    "options": [
+      "Ordenada al origen",
+      "Pendiente",
+      "Raíz",
+      "Vértice"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El valor de $f(0)$ se llama ordenada al origen (o intercepto en Y).",
+    "feedback_incorrect": "El punto donde la recta corta el eje Y se llama ordenada al origen ($f(0) = b$ en $f(x) = mx + b$).",
+    "graph_fn": "3*x + 2",
+    "graph_view": [
+      -4,
+      4,
+      -8,
+      10
+    ]
+  },
+  {
+    "external_id": "white_linear_clsf_01",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La gráfica es una línea recta: $f(x) = 2x - 5$, una función lineal.",
+    "feedback_incorrect": "La gráfica es una línea recta ($f(x) = 2x - 5$), característica de una función lineal.",
+    "graph_fn": "2*x - 5",
+    "graph_view": [
+      -4,
+      6,
+      -10,
+      10
+    ]
+  },
+  {
+    "external_id": "white_linear_clsf_02",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = 2x - 5$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$: es una función lineal.",
+    "feedback_incorrect": "$f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$, que define una función lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_01",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = -3x + 8$, ¿cuál es la ordenada al origen?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$-3x$",
+      "$x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la ordenada al origen es $b = 8$.",
+    "feedback_incorrect": "En $f(x) = mx + b$, $b$ es la ordenada al origen. Aquí $b = 8$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_02",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la recta del gráfico?",
+    "options": [
+      "$y = 2x - 3$",
+      "$y = -2x + 3$",
+      "$y = 3x - 2$",
+      "$y = 2x + 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La recta tiene pendiente 2 e intercepto −3: $y = 2x - 3$.",
+    "feedback_incorrect": "La recta sube 2 unidades por cada unidad en x y corta el eje Y en −3: $y = 2x - 3$.",
+    "graph_fn": "2*x - 3",
+    "graph_view": [
+      -3,
+      5,
+      -8,
+      8
+    ]
+  }
+]

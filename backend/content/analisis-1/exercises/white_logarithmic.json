@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_logarithmic_lexi_01",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones es una función logarítmica?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = 2^x$",
+      "$f(x) = x^2$",
+      "$f(x) = 1/x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función logarítmica tiene la forma $f(x) = \\log_a(x)$.",
+    "feedback_incorrect": "Una función logarítmica usa el logaritmo de la variable. La correcta es $f(x) = \\log_2(x)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_logarithmic_lexi_02",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama la línea vertical que actúa como frontera para esta función?",
+    "options": [
+      "Asíntota vertical",
+      "Asíntota horizontal",
+      "Eje de simetría",
+      "Tangente"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Las funciones logarítmicas tienen una asíntota vertical ($x = 0$ en su forma básica).",
+    "feedback_incorrect": "La línea vertical que la función no puede cruzar se llama asíntota vertical. Aquí está en $x = 0$.",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      6,
+      -4,
+      5
+    ]
+  },
+  {
+    "external_id": "white_logarithmic_clsf_01",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Logarítmica",
+      "Exponencial",
+      "Racional",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva crece lentamente para $x > 0$: $f(x) = \\log_2(x) + 1$, una función logarítmica.",
+    "feedback_incorrect": "La asíntota vertical en $x = 0$ y el crecimiento lento son propios de una logarítmica: $f(x) = \\log_2(x) + 1$.",
+    "graph_fn": "log2(x) + 1",
+    "graph_view": [
+      -0.5,
+      6,
+      -4,
+      5
+    ]
+  },
+  {
+    "external_id": "white_logarithmic_clsf_02",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\log_2(x) + 1$?",
+    "options": [
+      "Logarítmica",
+      "Exponencial",
+      "Racional",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = \\log_2(x) + 1$ aplica un logaritmo a $x$: es una función logarítmica.",
+    "feedback_incorrect": "$f(x) = \\log_2(x) + 1$ usa el logaritmo de la variable: pertenece a la familia logarítmica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_logarithmic_form_01",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = \\log_5(x)$, ¿cuál es la base del logaritmo?",
+    "options": [
+      "$5$",
+      "$x$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $\\log_5(x)$, el subíndice $5$ es la base.",
+    "feedback_incorrect": "En $\\log_a(x)$, $a$ es la base. En $\\log_5(x)$, la base es $5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_logarithmic_form_02",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x+1)$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x-1)$",
+      "$f(x) = -\\log_2(x+1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva pasa por (0, 0) y tiene asíntota en $x = -1$: $f(x) = \\log_2(x+1)$.",
+    "feedback_incorrect": "La asíntota vertical en $x = -1$ y el cruce por el origen indican $f(x) = \\log_2(x+1)$.",
+    "graph_fn": "log2(x + 1)",
+    "graph_view": [
+      -1,
+      6,
+      -3,
+      4
+    ]
+  }
+]

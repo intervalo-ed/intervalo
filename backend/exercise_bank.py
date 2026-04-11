@@ -16,18 +16,6 @@ from sqlalchemy import func
 from models import Exercise
 
 
-# ── Fallback exercise ──────────────────────────────────────────────────────────
-_FALLBACK: dict = {
-    "subtype": "text",
-    "question": "¿Cuál de estas expresiones representa una función lineal?",
-    "options": ["$f(x) = 5x - 2$", "$f(x) = x^2$", "$f(x) = 3^x$", "$f(x) = \\log(x)$"],
-    "correct_index": 0,
-    "has_math": True,
-    "feedback_correct": "¡Correcto! Una función lineal tiene la forma $f(x) = mx + b$.",
-    "feedback_incorrect": "La opción correcta es $f(x) = 5x - 2$, que es una función lineal.",
-}
-
-
 def _row_to_dict(row: Exercise) -> dict:
     """Convert an Exercise DB row to the dict format expected by session_store."""
     gv = None
@@ -61,7 +49,8 @@ def get_exercise_db(
 
     Elige el subtipo (graph/text) según graph_probability.
     Si el subtipo preferido no tiene ejercicios, usa cualquier disponible.
-    Si no hay ejercicios, retorna _FALLBACK.
+    Si no hay ejercicios para la combinación solicitada, lanza LookupError —
+    el seeder garantiza que el banco esté completo.
     """
     preferred = "graph" if random.random() < graph_probability else "text"
 
@@ -94,6 +83,10 @@ def get_exercise_db(
         )
 
     if row is None:
-        return _FALLBACK.copy()
+        raise LookupError(
+            f"No hay ejercicios en BD para course_id={course_id} "
+            f"belt={belt!r} topic={topic!r} skill={skill!r}. "
+            f"Revisá el seeder (backend/seed_content.py)."
+        )
 
     return _row_to_dict(row)

@@ -3,8 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 
-# Database URL from environment or use SQLite for development
+# Database URL from environment or use SQLite for development.
+# Railway exposes the Postgres URL with the legacy `postgres://` scheme that
+# SQLAlchemy no longer recognizes; normalize it to `postgresql://`.
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./intervalo.db")
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # Configure engine based on database type
 if DATABASE_URL.startswith("sqlite"):

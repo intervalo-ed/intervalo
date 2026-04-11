@@ -5,7 +5,7 @@ from datetime import date
 from typing import Iterable
 
 from .config import SM2Config
-from .domain import Belt, BeltCatalog, ItemKey, WHITE_BELT
+from .domain import Belt, BeltCatalog, ItemKey
 from .sm2 import SM2ItemState
 
 
@@ -115,8 +115,8 @@ def should_reinsert(state: SM2ItemState, intra_session_count: int, *, config: SM
     )
 
 
-def default_catalog(belt: BeltCatalog = WHITE_BELT) -> list[ItemKey]:
-    """Returns all ItemKeys for the given belt catalog. Defaults to the white belt."""
+def default_catalog(belt: BeltCatalog) -> list[ItemKey]:
+    """Returns all ItemKeys for the given belt catalog."""
     return belt.all_keys()
 
 

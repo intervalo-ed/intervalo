@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_quadratic_lexi_01",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones representa una función cuadrática?",
+    "options": [
+      "$f(x) = 2x^2 - x + 1$",
+      "$f(x) = 4x - 7$",
+      "$f(x) = 2^x$",
+      "$f(x) = \\sqrt{x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función cuadrática tiene la forma $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
+    "feedback_incorrect": "Una función cuadrática incluye un término de segundo grado ($x^2$). La correcta es $f(x) = 2x^2 - x + 1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_02",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama el punto más bajo (o más alto) de esta parábola?",
+    "options": [
+      "Vértice",
+      "Raíz",
+      "Ordenada al origen",
+      "Asíntota"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El punto extremo de una parábola se llama vértice.",
+    "feedback_incorrect": "El punto más bajo (mínimo) o más alto (máximo) de una parábola se llama vértice.",
+    "graph_fn": "x*x - 4*x + 3",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      8
+    ]
+  },
+  {
+    "external_id": "white_quadratic_clsf_01",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La gráfica es una parábola: $f(x) = x^2 - 4x + 3$, una función cuadrática.",
+    "feedback_incorrect": "La gráfica es una parábola ($f(x) = x^2 - 4x + 3$), característica de una función cuadrática.",
+    "graph_fn": "x*x - 4*x + 3",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      8
+    ]
+  },
+  {
+    "external_id": "white_quadratic_clsf_02",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = x^2 - 4x + 3$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^2 - 4x + 3$ tiene la forma $ax^2 + bx + c$: es una función cuadrática.",
+    "feedback_incorrect": "$f(x) = x^2 - 4x + 3$ tiene un término $x^2$ como mayor potencia: es una función cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_01",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el coeficiente del término cuadrático?",
+    "options": [
+      "$3$",
+      "$-6$",
+      "$2$",
+      "$-3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = ax^2 + bx + c$, el coeficiente cuadrático es $a = 3$.",
+    "feedback_incorrect": "En $f(x) = ax^2 + bx + c$, $a$ es el coeficiente cuadrático. Aquí $a = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_02",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la parábola del gráfico?",
+    "options": [
+      "$f(x) = (x-2)^2 - 1$",
+      "$f(x) = (x+2)^2 - 1$",
+      "$f(x) = -(x-2)^2 - 1$",
+      "$f(x) = (x-2)^2 + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El vértice está en (2, −1) y la parábola se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
+    "feedback_incorrect": "La parábola tiene vértice en (2, −1) y se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
+    "graph_fn": "pow(x-2, 2) - 1",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      8
+    ]
+  }
+]

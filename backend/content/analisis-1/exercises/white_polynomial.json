@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_polynomial_lexi_01",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas funciones es un polinomio de grado 3?",
+    "options": [
+      "$f(x) = x^3 - 2x + 5$",
+      "$f(x) = x^2 + 1$",
+      "$f(x) = 4x - 1$",
+      "$f(x) = x^4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Un polinomio de grado 3 tiene como término de mayor grado $x^3$.",
+    "feedback_incorrect": "Un polinomio de grado 3 tiene $x^3$ como potencia máxima. La correcta es $f(x) = x^3 - 2x + 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_02",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántas raíces reales puede tener como máximo esta función polinómica?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "Infinitas"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Un polinomio de grado 3 puede tener hasta 3 raíces reales.",
+    "feedback_incorrect": "El número máximo de raíces reales de un polinomio es igual a su grado. Aquí el grado es 3.",
+    "graph_fn": "pow(x, 3) - 3*x",
+    "graph_view": [
+      -3,
+      3,
+      -5,
+      5
+    ]
+  },
+  {
+    "external_id": "white_polynomial_clsf_01",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Polinómica",
+      "Cuadrática",
+      "Lineal",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva es un polinomio de grado 3: $f(x) = x^3 - 2x^2 + x - 1$.",
+    "feedback_incorrect": "La curva con dos cambios de dirección es $f(x) = x^3 - 2x^2 + x - 1$, un polinomio de grado 3.",
+    "graph_fn": "pow(x, 3) - 2*pow(x, 2) + x - 1",
+    "graph_view": [
+      -2,
+      3,
+      -5,
+      4
+    ]
+  },
+  {
+    "external_id": "white_polynomial_clsf_02",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = x^3 - 2x^2 + x - 1$?",
+    "options": [
+      "Polinómica",
+      "Cuadrática",
+      "Lineal",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^3 - 2x^2 + x - 1$ es un polinomio de grado 3.",
+    "feedback_incorrect": "$f(x) = x^3 - 2x^2 + x - 1$ tiene $x^3$ como término de mayor grado: es un polinomio de grado 3.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_01",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el grado de $p(x) = 4x^5 - 3x^3 + x - 7$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El grado es la potencia más alta. En $4x^5 - 3x^3 + x - 7$, el grado es $5$.",
+    "feedback_incorrect": "El grado es la potencia más alta de $x$. En $4x^5 - 3x^3 + x - 7$, el grado es $5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_02",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = x^3 - 3x$",
+      "$f(x) = x^3 + 3x$",
+      "$f(x) = -x^3 + 3x$",
+      "$f(x) = x^2 - 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva tiene raíces en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$, consistente con $f(x) = x^3 - 3x$.",
+    "feedback_incorrect": "La curva cruza el eje X en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$ con pendiente positiva en el origen: $f(x) = x^3 - 3x$.",
+    "graph_fn": "pow(x, 3) - 3*x",
+    "graph_view": [
+      -3,
+      3,
+      -5,
+      5
+    ]
+  }
+]

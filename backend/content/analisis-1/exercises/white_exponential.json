@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_exponential_lexi_01",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones representa una función exponencial?",
+    "options": [
+      "$f(x) = 5 \\cdot 2^x$",
+      "$f(x) = x^5$",
+      "$f(x) = 3x + 1$",
+      "$f(x) = \\ln(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En una función exponencial, la variable $x$ aparece en el exponente: $f(x) = a \\cdot b^x$.",
+    "feedback_incorrect": "En una función exponencial la variable está en el exponente. La correcta es $f(x) = 5 \\cdot 2^x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_02",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama la línea horizontal que esta curva se aproxima pero nunca alcanza?",
+    "options": [
+      "Asíntota horizontal",
+      "Asíntota vertical",
+      "Eje de simetría",
+      "Tangente"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Las funciones exponenciales tienen una asíntota horizontal ($y = 0$ en su forma básica).",
+    "feedback_incorrect": "La línea horizontal que una curva se aproxima infinitamente sin tocarla se llama asíntota horizontal.",
+    "graph_fn": "pow(2, x)",
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      10
+    ]
+  },
+  {
+    "external_id": "white_exponential_clsf_01",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva crece aceleradamente: $f(x) = 3 \\cdot 2^x$, una función exponencial.",
+    "feedback_incorrect": "El crecimiento acelerado con asíntota en $y = 0$ es propio de una exponencial: $f(x) = 3 \\cdot 2^x$.",
+    "graph_fn": "3 * pow(2, x)",
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      12
+    ]
+  },
+  {
+    "external_id": "white_exponential_clsf_02",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = 3 \\cdot 2^x$?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = 3 \\cdot 2^x$, la variable $x$ está en el exponente: es una función exponencial.",
+    "feedback_incorrect": "En $f(x) = 3 \\cdot 2^x$, la variable aparece en el exponente. Eso define una función exponencial.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_01",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 3 \\cdot (0{,}5)^x$, ¿cuál es la base de la exponencial?",
+    "options": [
+      "$0{,}5$",
+      "$3$",
+      "$x$",
+      "$1{,}5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = a \\cdot b^x$, la base es $b = 0{,}5$. Como $0 < b < 1$, la función es decreciente.",
+    "feedback_incorrect": "En $f(x) = a \\cdot b^x$, $b$ es la base. Aquí $b = 0{,}5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_02",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = (0{,}5)^x$",
+      "$f(x) = 2^x$",
+      "$f(x) = -2^x$",
+      "$f(x) = 2 \\cdot x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva decrece hacia 0: base menor que 1, $f(x) = (0{,}5)^x$.",
+    "feedback_incorrect": "La curva decrece (base $b < 1$) con asíntota en $y = 0$: corresponde a $f(x) = (0{,}5)^x$.",
+    "graph_fn": "pow(0.5, x)",
+    "graph_view": [
+      -3,
+      4,
+      -0.5,
+      6
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "belt": "white",
+    "headline": "Funciones",
+    "description": "Trabajás tu capacidad para reconocer, describir y manipular las distintas familias de funciones que se suelen ver en Análisis Matemático I."
+  },
+  {
+    "belt": "blue",
+    "headline": "Límites y Continuidad",
+    "description": "Explorás el comportamiento de funciones al acercarse a un punto. Aprendés a calcular límites con técnicas algebraicas e identificar continuidad e indeterminaciones."
+  },
+  {
+    "belt": "violet",
+    "headline": "Derivadas",
+    "description": "Dominás las reglas de derivación y su interpretación geométrica. Usás derivadas para analizar funciones y resolver problemas de optimización."
+  },
+  {
+    "belt": "brown",
+    "headline": "Integrales",
+    "description": "Aprendés a calcular integrales indefinidas y definidas usando sustitución e integración por partes, conectando con el Teorema Fundamental del Cálculo."
+  },
+  {
+    "belt": "black",
+    "headline": "Análisis completo",
+    "description": "Integrás todo lo aprendido para analizar funciones en profundidad, resolver problemas de optimización y área, y aplicar el Teorema Fundamental del Cálculo."
+  }
+]

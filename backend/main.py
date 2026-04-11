@@ -16,7 +16,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from session_store import create_session, record_answer, get_summary, get_session, get_user_progress_db
-from database import SessionLocal, init_db
+from database import SessionLocal
 from auth import (
     get_google_oauth_url,
     authenticate_with_google,
@@ -29,27 +29,20 @@ from models import User, BeltInfo
 
 app = FastAPI(title="Intervalo Backend")
 
-# Initialize database on startup
-init_db()
-
 
 @app.on_event("startup")
 def startup_event():
-    """Create default course if it doesn't exist."""
-    from models import Course
+    """
+    Seed course content from backend/content/ on every startup.
+
+    Idempotent upsert — safe to run on each deploy. Alembic handles schema;
+    this only touches editable content (courses, belt_info, exercises).
+    """
+    from seed_content import seed_all
 
     db = SessionLocal()
     try:
-        # Check if default course exists
-        course = db.query(Course).filter(Course.slug == "analisis-1").first()
-        if not course:
-            default_course = Course(
-                slug="analisis-1",
-                name="Análisis Matemático I",
-                description="Sistema de repaso adaptativo para Análisis Matemático I",
-            )
-            db.add(default_course)
-            db.commit()
+        seed_all(db)
     finally:
         db.close()
 

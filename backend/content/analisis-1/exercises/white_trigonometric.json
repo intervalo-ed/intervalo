@@ -1,0 +1,137 @@
+[
+  {
+    "external_id": "white_trigonometric_lexi_01",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas es una función trigonométrica?",
+    "options": [
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = e^x$",
+      "$f(x) = x^3$",
+      "$f(x) = \\ln(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El seno, coseno y tangente son las funciones trigonométricas básicas.",
+    "feedback_incorrect": "Las funciones trigonométricas son seno, coseno y tangente. La correcta es $f(x) = \\operatorname{sen}(x)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_02",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama la distancia entre el valor máximo de la curva y su eje de simetría horizontal?",
+    "options": [
+      "Amplitud",
+      "Período",
+      "Frecuencia",
+      "Fase"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La amplitud es la distancia del máximo (o mínimo) al eje central. Aquí vale 2.",
+    "feedback_incorrect": "Esa distancia se llama amplitud. En $f(x) = 2 \\cdot \\operatorname{sen}(x)$, la amplitud es 2.",
+    "graph_fn": "2 * sin(x)",
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ]
+  },
+  {
+    "external_id": "white_trigonometric_clsf_01",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Trigonométrica",
+      "Exponencial",
+      "Polinómica",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La oscilación periódica corresponde a $f(x) = 2 \\cdot \\operatorname{sen}(x)$, una función trigonométrica.",
+    "feedback_incorrect": "La forma de onda periódica entre −2 y 2 es propia de una trigonométrica: $f(x) = 2 \\cdot \\operatorname{sen}(x)$.",
+    "graph_fn": "2 * sin(x)",
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ]
+  },
+  {
+    "external_id": "white_trigonometric_clsf_02",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = 2\\operatorname{sen}(x)$?",
+    "options": [
+      "Trigonométrica",
+      "Exponencial",
+      "Polinómica",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2\\operatorname{sen}(x)$ usa la función seno: es trigonométrica.",
+    "feedback_incorrect": "La función seno pertenece a la familia trigonométrica. $f(x) = 2\\operatorname{sen}(x)$ es trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_01",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 3\\operatorname{sen}(2x + \\pi/4)$, ¿cuál es la amplitud?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$\\pi/4$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $A \\cdot \\operatorname{sen}(Bx + C)$, la amplitud es $A = 3$.",
+    "feedback_incorrect": "En $A \\cdot \\operatorname{sen}(Bx + C)$, $A$ es la amplitud. Aquí $A = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_02",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\cos(x)$",
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = 2\\cos(x)$",
+      "$f(x) = \\cos(2x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva parte de su máximo en $x = 0$ con amplitud 1: $f(x) = \\cos(x)$.",
+    "feedback_incorrect": "La curva comienza en su valor máximo (1) cuando $x = 0$: eso es $f(x) = \\cos(x)$, no el seno.",
+    "graph_fn": "cos(x)",
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ]
+  }
+]

@@ -2,3 +2,29 @@
 .idea
 node_modules/
 dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Base de datos local (SQLite de desarrollo)
+*.db
+*.sqlite
+*.sqlite3
+
+# Variables de entorno (secretos)
+.env
+.env.*
+!.env.example
+
+# Alembic cache
+backend/migrations/__pycache__/
+backend/migrations/versions/__pycache__/

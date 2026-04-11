@@ -202,6 +202,7 @@ class Exercise(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    external_id = Column(String(100), nullable=True)  # stable id from JSON source
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
     skill = Column(String(10), nullable=False)
@@ -222,6 +223,8 @@ class Exercise(Base):
 
     __table_args__ = (
         Index("idx_exercises_lookup", "course_id", "belt", "topic", "skill"),
+        UniqueConstraint("course_id", "external_id", name="uq_exercises_course_external_id"),
+        Index("idx_exercises_external_id", "course_id", "external_id"),
     )
 
     # Relationships

@@ -18,7 +18,9 @@ from algorithm import (
     ItemKey,
     FunctionFamily,
     SkillCode,
-    WHITE_BELT,
+    Belt,
+    BeltCatalog,
+    load_belt_catalogs,
     build_session,
     quality_from_attempt,
     update_item_state,
@@ -37,7 +39,31 @@ from exercise_bank import get_exercise_db
 from datetime import datetime, date
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import func
-from models import Session as SessionModel, ItemState
+from models import Session as SessionModel, ItemState, Course
+
+
+# ── Course slug resolution ────────────────────────────────────────────────────
+# Resolve course_id → slug once per process. Slugs are stable within a deploy,
+# so this cache never needs invalidation in normal use.
+
+_COURSE_SLUG_CACHE: dict[int, str] = {}
+
+
+def _get_course_slug(course_id: int, db: DBSession) -> str:
+    slug = _COURSE_SLUG_CACHE.get(course_id)
+    if slug is not None:
+        return slug
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if course is None:
+        raise ValueError(f"Course id={course_id} no encontrado en BD")
+    _COURSE_SLUG_CACHE[course_id] = course.slug
+    return course.slug
+
+
+def _get_white_catalog(course_id: int, db: DBSession) -> BeltCatalog:
+    """Current single-belt selection: siempre empieza por el cinturón blanco."""
+    slug = _get_course_slug(course_id, db)
+    return load_belt_catalogs(slug)[Belt.WHITE]
 
 
 # ── Data classes ──────────────────────────────────────────────────────────────
@@ -89,7 +115,7 @@ def get_session(session_id: str) -> Optional[SessionState]:
 
 def _unlock_next_item(user_id: int, course_id: int, graduated_item_key: ItemKey, db: DBSession) -> None:
     """Unlock the next item in sequence when one graduates."""
-    catalog_keys = default_catalog()
+    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
 
     # Find the index of the graduated item
     graduated_idx = None
@@ -165,7 +191,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     Implements progressive unlock: max 15 items in Nuevo + Aprendiendo states.
     Rest remain locked and are created as previous items graduate.
     """
-    catalog_keys = default_catalog()
+    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
     item_states: dict[ItemKey, SM2ItemState] = {}
     item_attempted: dict[ItemKey, bool] = {}
 
@@ -402,7 +428,7 @@ def record_answer_db(
     if state is None:
         print(f"DEBUG: Session {session_id_in_memory} not in memory, reconstructing from DB...")
         # Reconstruir el estado desde BD
-        catalog_keys = default_catalog()
+        catalog_keys = default_catalog(_get_white_catalog(course_id, db))
         item_states: dict[ItemKey, SM2ItemState] = {}
         item_attempted: dict[ItemKey, bool] = {}
 
@@ -573,7 +599,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """
     from models import Answer
 
-    catalog_keys = default_catalog()
+    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
 
     # Check if user has any items yet
     item_count = db.query(ItemState).filter(
@@ -708,7 +734,8 @@ def get_summary(session_id: str) -> dict:
         }
 
     # Progreso del cinturón
-    bp = belt_progress(state.item_states, WHITE_BELT)
+    # Legacy in-memory path: no tenemos course_id en scope, usamos analisis-1.
+    bp = belt_progress(state.item_states, load_belt_catalogs("analisis-1")[Belt.WHITE])
 
     # Progreso de nivel XP (basado en XP de la sesión como MVP)
     lp = level_progress(state.xp_session)
@@ -778,7 +805,7 @@ def get_summary_db(
     # Estado final de TODOS los ítems (practicados y no practicados)
     skill_states = {}
     course_id = 1  # Default course
-    catalog_keys = default_catalog()
+    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
 
     # Obtener todos los ItemStates del usuario para este curso
     all_item_states = db.query(ItemState).filter(

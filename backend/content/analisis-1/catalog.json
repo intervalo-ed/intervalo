@@ -1,0 +1,66 @@
+{
+  "belts": [
+    {
+      "key": "white",
+      "stripe_thresholds": [3, 9],
+      "promotion_threshold": 20,
+      "topics": [
+        { "key": "linear",        "skills": ["CLSF", "LEXI", "FORM"] },
+        { "key": "quadratic",     "skills": ["CLSF", "LEXI", "FORM"] },
+        { "key": "polynomial",    "skills": ["CLSF", "LEXI", "FORM"] },
+        { "key": "exponential",   "skills": ["CLSF", "LEXI", "FORM"] },
+        { "key": "logarithmic",   "skills": ["CLSF", "LEXI", "FORM"] },
+        { "key": "rational",      "skills": ["CLSF", "LEXI", "FORM", "GRAF"] },
+        { "key": "trigonometric", "skills": ["CLSF", "LEXI", "FORM", "GRAF"] }
+      ]
+    },
+    {
+      "key": "blue",
+      "stripe_thresholds": [3, 8],
+      "promotion_threshold": 14,
+      "topics": [
+        { "key": "algebraic_limits", "skills": ["LEXI", "RESL", "ESTR"] },
+        { "key": "lateral_limits",   "skills": ["LEXI", "RESL", "GRAF"] },
+        { "key": "infinite_limits",  "skills": ["LEXI", "RESL", "GRAF"] },
+        { "key": "continuity",       "skills": ["CLSF", "RESL", "GRAF"] },
+        { "key": "factorizacion",    "skills": ["LEXI", "RESL", "ESTR"] },
+        { "key": "racionalizacion",  "skills": ["RESL", "ESTR"] }
+      ]
+    },
+    {
+      "key": "violet",
+      "stripe_thresholds": [4, 10],
+      "promotion_threshold": 17,
+      "topics": [
+        { "key": "limit_definition",        "skills": ["LEXI", "ESTR", "CLSF", "GRAF"] },
+        { "key": "geometric_interpretation","skills": ["LEXI", "GRAF", "APLI", "ESTR"] },
+        { "key": "basic_rules",             "skills": ["LEXI", "DERI", "ESTR"] },
+        { "key": "product_quotient",        "skills": ["DERI", "ESTR", "APLI"] },
+        { "key": "chain_rule",              "skills": ["DERI", "ESTR", "APLI"] },
+        { "key": "lhopital",                "skills": ["RESL", "ESTR", "APLI"] }
+      ]
+    },
+    {
+      "key": "brown",
+      "stripe_thresholds": [3, 7],
+      "promotion_threshold": 10,
+      "topics": [
+        { "key": "indefinite_integral",  "skills": ["LEXI", "INTG", "ESTR"] },
+        { "key": "substitution",         "skills": ["INTG", "ESTR", "APLI"] },
+        { "key": "integration_by_parts", "skills": ["INTG", "ESTR", "APLI"] },
+        { "key": "definite_integral",    "skills": ["INTG", "GRAF", "APLI"] }
+      ]
+    },
+    {
+      "key": "black",
+      "stripe_thresholds": [5, 9],
+      "promotion_threshold": 13,
+      "topics": [
+        { "key": "function_analysis", "skills": ["DERI", "APLI", "CLSF", "GRAF"] },
+        { "key": "optimization",      "skills": ["DERI", "APLI", "ESTR"] },
+        { "key": "area_calculation",  "skills": ["INTG", "APLI", "GRAF"] },
+        { "key": "ftc",               "skills": ["INTG", "APLI", "ESTR"] }
+      ]
+    }
+  ]
+}
