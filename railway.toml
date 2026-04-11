@@ -1,2 +1,5 @@
 [deploy]
 startCommand = "cd /app/backend && python -m alembic upgrade head && python -m uvicorn main:app --host 0.0.0.0 --port $PORT"
+
+[build]
+builder = "NIXPACKS"
