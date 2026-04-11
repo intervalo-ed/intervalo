@@ -5,8 +5,14 @@ from sqlalchemy import pool
 
 from alembic import context
 
-# Import our database models
+# Import our database models (models must be imported so their tables register in Base.metadata)
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))  # repo root (for algorithm/)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))          # backend/
+
 from database import Base
+import models  # noqa: F401 — registra todas las tablas en Base.metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -60,9 +66,14 @@ def run_migrations_online() -> None:
     """
     configuration = config.get_section(config.config_ini_section, {})
 
-    # Use DATABASE_URL environment variable if set
+    # Use DATABASE_URL environment variable if set.
+    # Railway expone la URL con el esquema legacy "postgres://" que SQLAlchemy 2
+    # ya no acepta — lo normalizamos a "postgresql://".
     if "DATABASE_URL" in os.environ:
-        configuration["sqlalchemy.url"] = os.environ["DATABASE_URL"]
+        db_url = os.environ["DATABASE_URL"]
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1)
+        configuration["sqlalchemy.url"] = db_url
 
     connectable = engine_from_config(
         configuration,
