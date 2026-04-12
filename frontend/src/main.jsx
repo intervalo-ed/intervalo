@@ -2275,7 +2275,7 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
     const fetchProgress = async () => {
       try {
         const headers = token ? { "Authorization": `Bearer ${token}` } : {};
-        const api = import.meta.env.VITE_API_URL || "http://localhost:8006";
+        const api = API;
         const res = await fetch(`${api}/user/progress`, { headers });
         if (res.ok) {
           const data = await res.json();
