@@ -336,7 +336,7 @@ function ProgressGrid({ skillStates, revealedKeys, showLegend = true }) {
           return (
             <div key={topicKey} style={{ display: "grid",
               gridTemplateColumns: colTemplate, gap: "3px", alignItems: "center" }}>
-              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textSecondary, paddingLeft: "4px" }}>
+              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.text, paddingLeft: "4px" }}>
                 {label}
               </div>
               {skills.map(skill => {
@@ -482,7 +482,7 @@ function BeltFlipCard({ belt, skillStates, revealedKeys, isCurrent, isLocked, gr
           <div style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span style={{ fontSize: "0.72rem", fontWeight: 600, color: C.muted,
+                <span style={{ fontSize: "0.72rem", fontWeight: 600, color: isLocked ? C.muted : C.text,
                   textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   Cinturón {belt.name}
                 </span>
@@ -506,7 +506,7 @@ function BeltFlipCard({ belt, skillStates, revealedKeys, isCurrent, isLocked, gr
                         transition: "background 0.55s ease" }} />
                     ))}
                   </div>
-                  <div style={{ fontSize: "0.68rem", color: C.muted, marginTop: "0.3rem" }}>
+                  <div style={{ fontSize: "0.68rem", color: C.textSecondary, marginTop: "0.3rem" }}>
                     {graduatedCount} / {stripes < 2 ? belt.stripeAt[stripes] : belt.promoteAt} ítems para el próximo grado
                   </div>
                 </>
