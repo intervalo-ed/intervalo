@@ -37,12 +37,167 @@
     "feedback_correct": "¡Correcto! El valor de $f(0)$ se llama ordenada al origen (o intercepto en Y).",
     "feedback_incorrect": "El punto donde la recta corta el eje Y se llama ordenada al origen ($f(0) = b$ en $f(x) = mx + b$).",
     "graph_fn": "3*x + 2",
-    "graph_view": [
-      -4,
-      4,
-      -8,
-      10
-    ]
+    "graph_view": [-4, 4, -8, 10]
+  },
+  {
+    "external_id": "white_linear_lexi_03",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se llama el coeficiente $m$ en $f(x) = mx + b$?",
+    "options": [
+      "Pendiente",
+      "Ordenada al origen",
+      "Raíz",
+      "Coeficiente cuadrático"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $m$ se llama pendiente e indica cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": "El coeficiente $m$ en $f(x) = mx + b$ se llama pendiente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_04",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Una función lineal con pendiente positiva ($m > 0$) es...",
+    "options": [
+      "Creciente",
+      "Decreciente",
+      "Constante",
+      "Periódica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Si $m > 0$, la recta sube de izquierda a derecha: la función es creciente.",
+    "feedback_incorrect": "Cuando $m > 0$, la recta sube al avanzar en $x$: la función es creciente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_05",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones NO es una función lineal?",
+    "options": [
+      "$f(x) = x^2 + 1$",
+      "$f(x) = 3x - 4$",
+      "$f(x) = -x + 7$",
+      "$f(x) = 5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^2 + 1$ tiene un término cuadrático, por eso NO es lineal.",
+    "feedback_incorrect": "$f(x) = x^2 + 1$ contiene $x^2$, lo que la excluye de la familia lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_06",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántas veces corta esta recta al eje $X$?",
+    "options": [
+      "Una vez",
+      "Dos veces",
+      "Ninguna vez",
+      "Infinitas veces"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función lineal con $m \\neq 0$ corta al eje $X$ exactamente una vez (en su raíz).",
+    "feedback_incorrect": "Una recta con pendiente no nula siempre corta al eje $X$ en exactamente un punto.",
+    "graph_fn": "x - 2",
+    "graph_view": [-2, 6, -5, 5]
+  },
+  {
+    "external_id": "white_linear_lexi_07",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se llama una función lineal cuya pendiente es cero?",
+    "options": [
+      "Función constante",
+      "Función identidad",
+      "Función cuadrática",
+      "Función afín"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Cuando $m = 0$, $f(x) = b$ es constante: su gráfica es una recta horizontal.",
+    "feedback_incorrect": "Si la pendiente es 0, $f(x) = b$ no varía con $x$: se llama función constante.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_08",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la característica visual distintiva de una función lineal?",
+    "options": [
+      "Su gráfica es una línea recta",
+      "Su gráfica es una parábola",
+      "Tiene asíntotas horizontales",
+      "Es periódica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La gráfica de toda función lineal $f(x) = mx + b$ es siempre una línea recta.",
+    "feedback_incorrect": "La característica más reconocible de una función lineal es que su gráfica es una línea recta.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_lexi_09",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Qué indica la pendiente de esta recta?",
+    "options": [
+      "Cuánto varía $f(x)$ por cada unidad que avanza $x$",
+      "El valor máximo de la función",
+      "Dónde corta el eje $Y$",
+      "La raíz de la función"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La pendiente mide la variación de $f(x)$ por cada unidad de variación en $x$.",
+    "feedback_incorrect": "La pendiente $m$ indica cuánto cambia $f(x)$ cuando $x$ aumenta en una unidad.",
+    "graph_fn": "3*x - 1",
+    "graph_view": [-2, 3, -7, 8]
+  },
+  {
+    "external_id": "white_linear_lexi_10",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "En $f(x) = 7 - 3x$, ¿cómo se llama el número $7$?",
+    "options": [
+      "Ordenada al origen",
+      "Pendiente",
+      "Raíz",
+      "Coeficiente lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El $7$ es la ordenada al origen: $f(0) = 7$.",
+    "feedback_incorrect": "El término independiente ($7$) es la ordenada al origen, es decir, $f(0)$.",
+    "graph_fn": null,
+    "graph_view": null
   },
   {
     "external_id": "white_linear_clsf_01",
@@ -62,12 +217,7 @@
     "feedback_correct": "¡Correcto! La gráfica es una línea recta: $f(x) = 2x - 5$, una función lineal.",
     "feedback_incorrect": "La gráfica es una línea recta ($f(x) = 2x - 5$), característica de una función lineal.",
     "graph_fn": "2*x - 5",
-    "graph_view": [
-      -4,
-      6,
-      -10,
-      10
-    ]
+    "graph_view": [-4, 6, -10, 10]
   },
   {
     "external_id": "white_linear_clsf_02",
@@ -86,6 +236,166 @@
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$: es una función lineal.",
     "feedback_incorrect": "$f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$, que define una función lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_03",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = -7x + 4$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $-7x + 4$ tiene la forma $mx + b$: es una función lineal.",
+    "feedback_incorrect": "$f(x) = -7x + 4$ sigue el patrón $mx + b$: pertenece a la familia lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_04",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\dfrac{1}{2}x - 3$?",
+    "options": [
+      "Lineal",
+      "Polinómica de grado 2",
+      "Logarítmica",
+      "Trigonométrica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\frac{1}{2}x - 3$ es de la forma $mx + b$: función lineal.",
+    "feedback_incorrect": "$\\frac{1}{2}x - 3$ tiene $x$ elevada a la primera potencia: es una función lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_05",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La recta decreciente es $f(x) = -x + 3$, una función lineal.",
+    "feedback_incorrect": "La gráfica es una línea recta decreciente ($f(x) = -x + 3$): función lineal.",
+    "graph_fn": "-x + 3",
+    "graph_view": [-3, 6, -4, 7]
+  },
+  {
+    "external_id": "white_linear_clsf_06",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones pertenece a la familia lineal?",
+    "options": [
+      "$f(x) = 4 - x$",
+      "$f(x) = x^3 - 1$",
+      "$f(x) = 2^x$",
+      "$f(x) = \\ln(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $4 - x$ puede escribirse como $-x + 4$, forma $mx + b$: función lineal.",
+    "feedback_incorrect": "$f(x) = 4 - x$ equivale a $-x + 4$, que sigue el patrón $mx + b$: es lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_07",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = 5$?",
+    "options": [
+      "Lineal (constante)",
+      "Cuadrática",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 5$ equivale a $0 \\cdot x + 5$: es una función lineal constante.",
+    "feedback_incorrect": "$f(x) = 5$ es un caso particular de $mx + b$ con $m = 0$: función lineal constante.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_08",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Trigonométrica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La recta horizontal ($f(x) = 2$) es una función lineal con pendiente cero.",
+    "feedback_incorrect": "La recta horizontal es $f(x) = 2$, un caso de función lineal ($m = 0$).",
+    "graph_fn": "0*x + 2",
+    "graph_view": [-4, 4, -1, 5]
+  },
+  {
+    "external_id": "white_linear_clsf_09",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = -x$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = -x$ es la forma $mx + b$ con $m = -1$ y $b = 0$: función lineal.",
+    "feedback_incorrect": "$f(x) = -x$ tiene $x$ a la primera potencia sin otros términos: es lineal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_clsf_10",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones NO pertenece a la familia lineal?",
+    "options": [
+      "$f(x) = x^2 - 3x + 1$",
+      "$f(x) = 6x - 2$",
+      "$f(x) = -4$",
+      "$f(x) = \\dfrac{x}{3} + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 - 3x + 1$ tiene un término $x^2$: es cuadrática, no lineal.",
+    "feedback_incorrect": "$f(x) = x^2 - 3x + 1$ incluye $x^2$, por lo que no pertenece a la familia lineal.",
     "graph_fn": null,
     "graph_view": null
   },
@@ -127,11 +437,166 @@
     "feedback_correct": "¡Correcto! La recta tiene pendiente 2 e intercepto −3: $y = 2x - 3$.",
     "feedback_incorrect": "La recta sube 2 unidades por cada unidad en x y corta el eje Y en −3: $y = 2x - 3$.",
     "graph_fn": "2*x - 3",
-    "graph_view": [
-      -3,
-      5,
-      -8,
-      8
-    ]
+    "graph_view": [-3, 5, -8, 8]
+  },
+  {
+    "external_id": "white_linear_form_03",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 4x - 7$, ¿cuál es la pendiente?",
+    "options": [
+      "$4$",
+      "$-7$",
+      "$-4$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la pendiente es $m = 4$.",
+    "feedback_incorrect": "En $f(x) = mx + b$, $m$ es la pendiente. Aquí $m = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_04",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = -2x + 5$, ¿cuál es la ordenada al origen?",
+    "options": [
+      "$5$",
+      "$-2$",
+      "$2$",
+      "$-5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La ordenada al origen es $b = 5$ (el valor de $f(0)$).",
+    "feedback_incorrect": "En $f(x) = mx + b$, $b$ es la ordenada al origen. Aquí $b = 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_05",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la recta del gráfico?",
+    "options": [
+      "$y = -2x + 1$",
+      "$y = 2x + 1$",
+      "$y = -x + 2$",
+      "$y = -2x - 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La recta baja 2 unidades por cada unidad en $x$ y corta el eje $Y$ en 1: $y = -2x + 1$.",
+    "feedback_incorrect": "La recta tiene pendiente $-2$ (baja) e intercepto $1$ en el eje $Y$: $y = -2x + 1$.",
+    "graph_fn": "-2*x + 1",
+    "graph_view": [-2, 4, -6, 5]
+  },
+  {
+    "external_id": "white_linear_form_06",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "Si una recta pasa por $(0,\\, 3)$ con pendiente $2$, ¿cuál es su ecuación?",
+    "options": [
+      "$f(x) = 2x + 3$",
+      "$f(x) = 3x + 2$",
+      "$f(x) = 2x - 3$",
+      "$f(x) = -2x + 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Pendiente $m = 2$ y ordenada al origen $b = 3$: $f(x) = 2x + 3$.",
+    "feedback_incorrect": "Con $m = 2$ y $b = 3$ (pasa por $(0,3)$), la ecuación es $f(x) = 2x + 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_07",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = \\dfrac{3}{2}x - 4$, ¿cuál es la pendiente?",
+    "options": [
+      "$\\dfrac{3}{2}$",
+      "$-4$",
+      "$\\dfrac{2}{3}$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la pendiente es $m = \\frac{3}{2}$.",
+    "feedback_incorrect": "La pendiente es el coeficiente de $x$: $m = \\frac{3}{2}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_08",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la recta del gráfico?",
+    "options": [
+      "$f(x) = \\dfrac{1}{2}x + 1$",
+      "$f(x) = 2x + 1$",
+      "$f(x) = \\dfrac{1}{2}x - 1$",
+      "$f(x) = -\\dfrac{1}{2}x + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La recta sube lentamente (pendiente $\\frac{1}{2}$) y corta el eje $Y$ en $1$: $f(x) = \\frac{1}{2}x + 1$.",
+    "feedback_incorrect": "La recta tiene pendiente $\\frac{1}{2}$ e intercepto $1$: $f(x) = \\frac{1}{2}x + 1$.",
+    "graph_fn": "0.5*x + 1",
+    "graph_view": [-4, 6, -2, 5]
+  },
+  {
+    "external_id": "white_linear_form_09",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "Si $m = -1$ y $b = 4$, ¿cuál es la función lineal?",
+    "options": [
+      "$f(x) = -x + 4$",
+      "$f(x) = x - 4$",
+      "$f(x) = 4x - 1$",
+      "$f(x) = -4x + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con $m = -1$ y $b = 4$, la función es $f(x) = -x + 4$.",
+    "feedback_incorrect": "Usando $f(x) = mx + b$ con $m = -1$ y $b = 4$: $f(x) = -x + 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_linear_form_10",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿En qué valor de $x$ cruza el eje $X$ la función $f(x) = 2x - 6$?",
+    "options": [
+      "$x = 3$",
+      "$x = 6$",
+      "$x = -3$",
+      "$x = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 0 \\Rightarrow 2x - 6 = 0 \\Rightarrow x = 3$.",
+    "feedback_incorrect": "Para hallar la raíz: $2x - 6 = 0 \\Rightarrow x = 3$.",
+    "graph_fn": null,
+    "graph_view": null
   }
 ]

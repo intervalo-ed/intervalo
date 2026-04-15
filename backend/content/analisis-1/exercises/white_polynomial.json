@@ -37,12 +37,167 @@
     "feedback_correct": "¡Correcto! Un polinomio de grado 3 puede tener hasta 3 raíces reales.",
     "feedback_incorrect": "El número máximo de raíces reales de un polinomio es igual a su grado. Aquí el grado es 3.",
     "graph_fn": "pow(x, 3) - 3*x",
-    "graph_view": [
-      -3,
-      3,
-      -5,
-      5
-    ]
+    "graph_view": [-3, 3, -5, 5]
+  },
+  {
+    "external_id": "white_polynomial_lexi_03",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es el grado de $p(x) = x^7 - 3x^4 + 2$?",
+    "options": [
+      "$7$",
+      "$4$",
+      "$2$",
+      "$11$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El grado es la potencia más alta de $x$. En $x^7 - 3x^4 + 2$, el grado es $7$.",
+    "feedback_incorrect": "El grado es la mayor potencia de $x$ que aparece. Aquí es $7$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_04",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se llama el coeficiente del término de mayor grado en un polinomio?",
+    "options": [
+      "Coeficiente principal (o líder)",
+      "Término independiente",
+      "Raíz",
+      "Coeficiente constante"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El coeficiente del término de mayor grado se llama coeficiente principal o líder.",
+    "feedback_incorrect": "El coeficiente del término con la mayor potencia de $x$ se llama coeficiente principal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_05",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones NO es un polinomio?",
+    "options": [
+      "$f(x) = \\sqrt{x}$",
+      "$f(x) = x^4 - 3x + 1$",
+      "$f(x) = 5$",
+      "$f(x) = x^2 - x + 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\sqrt{x} = x^{1/2}$ tiene un exponente fraccionario: no es un polinomio.",
+    "feedback_incorrect": "$f(x) = \\sqrt{x}$ equivale a $x^{1/2}$, que no tiene exponente entero no negativo: no es polinomio.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_06",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántos cambios de dirección (máximos y mínimos locales) puede tener como máximo esta curva?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "1"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Un polinomio de grado 4 puede tener hasta $4 - 1 = 3$ cambios de dirección.",
+    "feedback_incorrect": "Un polinomio de grado $n$ puede tener hasta $n - 1$ cambios de dirección locales.",
+    "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
+    "graph_view": [-3, 3, -2, 8]
+  },
+  {
+    "external_id": "white_polynomial_lexi_07",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es el término independiente de $p(x) = x^4 - 3x + 7$?",
+    "options": [
+      "$7$",
+      "$-3$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El término independiente es la constante sin $x$: en este caso, $7$.",
+    "feedback_incorrect": "El término independiente es el valor de $p(0)$: aquí $p(0) = 7$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_08",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántas raíces reales tiene este polinomio de grado 4?",
+    "options": [
+      "4",
+      "2",
+      "0",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva corta al eje $X$ en cuatro puntos distintos: tiene 4 raíces reales.",
+    "feedback_incorrect": "La curva cruza el eje $X$ en 4 puntos: el polinomio tiene 4 raíces reales.",
+    "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
+    "graph_view": [-3, 3, -2, 8]
+  },
+  {
+    "external_id": "white_polynomial_lexi_09",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas es un polinomio?",
+    "options": [
+      "$f(x) = 3x^4 - x^2 + 5$",
+      "$f(x) = \\dfrac{1}{x} + 3$",
+      "$f(x) = 2^x - 1$",
+      "$f(x) = \\ln(x+1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3x^4 - x^2 + 5$ tiene exponentes enteros no negativos: es un polinomio de grado 4.",
+    "feedback_incorrect": "$f(x) = 3x^4 - x^2 + 5$ cumple la definición de polinomio: exponentes enteros no negativos.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_lexi_10",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuántos términos tiene $p(x) = 4x^5 - x^3 + 2x - 9$?",
+    "options": [
+      "4",
+      "5",
+      "3",
+      "2"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El polinomio tiene 4 términos: $4x^5$, $-x^3$, $2x$ y $-9$.",
+    "feedback_incorrect": "Contando los monomios: $4x^5$, $-x^3$, $2x$ y $-9$ son 4 términos.",
+    "graph_fn": null,
+    "graph_view": null
   },
   {
     "external_id": "white_polynomial_clsf_01",
@@ -62,12 +217,7 @@
     "feedback_correct": "¡Correcto! La curva es un polinomio de grado 3: $f(x) = x^3 - 2x^2 + x - 1$.",
     "feedback_incorrect": "La curva con dos cambios de dirección es $f(x) = x^3 - 2x^2 + x - 1$, un polinomio de grado 3.",
     "graph_fn": "pow(x, 3) - 2*pow(x, 2) + x - 1",
-    "graph_view": [
-      -2,
-      3,
-      -5,
-      4
-    ]
+    "graph_view": [-2, 3, -5, 4]
   },
   {
     "external_id": "white_polynomial_clsf_02",
@@ -86,6 +236,166 @@
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = x^3 - 2x^2 + x - 1$ es un polinomio de grado 3.",
     "feedback_incorrect": "$f(x) = x^3 - 2x^2 + x - 1$ tiene $x^3$ como término de mayor grado: es un polinomio de grado 3.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_03",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = x^4 - 2x^2 + 1$?",
+    "options": [
+      "Polinómica (grado 4)",
+      "Cuadrática",
+      "Logarítmica",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^4 - 2x^2 + 1$ tiene exponentes enteros no negativos con grado 4: es polinómica.",
+    "feedback_incorrect": "$f(x) = x^4 - 2x^2 + 1$ es un polinomio de grado 4.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_04",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones es un polinomio?",
+    "options": [
+      "$f(x) = -2x^3 + x - 7$",
+      "$f(x) = \\dfrac{x+1}{x-2}$",
+      "$f(x) = e^x$",
+      "$f(x) = \\sqrt{x-1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $-2x^3 + x - 7$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
+    "feedback_incorrect": "$f(x) = -2x^3 + x - 7$ tiene la estructura de un polinomio: sumas de potencias enteras de $x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_05",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Polinómica (grado 4)",
+      "Cuadrática",
+      "Lineal",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva con 3 cambios de dirección corresponde a un polinomio de grado 4.",
+    "feedback_incorrect": "Una curva con hasta 3 extremos locales es típica de un polinomio de grado 4.",
+    "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
+    "graph_view": [-3, 3, -2, 8]
+  },
+  {
+    "external_id": "white_polynomial_clsf_06",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = -2x^3 + x$?",
+    "options": [
+      "Polinómica",
+      "Cuadrática",
+      "Exponencial",
+      "Trigonométrica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $-2x^3 + x$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
+    "feedback_incorrect": "$f(x) = -2x^3 + x$ es un polinomio de grado 3.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_07",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO pertenece a la familia polinómica?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x^2}$",
+      "$f(x) = x^5 - 3x$",
+      "$f(x) = x^2 - x + 1$",
+      "$f(x) = 7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\frac{1}{x^2} = x^{-2}$ tiene exponente negativo: no es un polinomio.",
+    "feedback_incorrect": "$f(x) = \\frac{1}{x^2}$ equivale a $x^{-2}$, que tiene exponente negativo: no es polinomio.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_08",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Polinómica (grado 3)",
+      "Cuadrática",
+      "Lineal",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva antisimétrica con un cambio de dirección es $f(x) = -x^3 + x$, un polinomio de grado 3.",
+    "feedback_incorrect": "La curva que baja a la derecha con un cambio de dirección es un polinomio de grado 3.",
+    "graph_fn": "-pow(x, 3) + x",
+    "graph_view": [-2, 2, -3, 3]
+  },
+  {
+    "external_id": "white_polynomial_clsf_09",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = x^5$?",
+    "options": [
+      "Polinómica (grado 5)",
+      "Exponencial",
+      "Cuadrática",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^5$ es el monomio de grado 5: un polinomio de grado 5.",
+    "feedback_incorrect": "$f(x) = x^5$ es el caso más simple de un polinomio de grado 5.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_clsf_10",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones pertenece a la familia polinómica?",
+    "options": [
+      "$f(x) = 3x^4 - x + 2$",
+      "$f(x) = 3^x + 2$",
+      "$f(x) = \\log_3(x)$",
+      "$f(x) = \\dfrac{x^2}{x+1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3x^4 - x + 2$ tiene exponentes enteros no negativos: es un polinomio.",
+    "feedback_incorrect": "$f(x) = 3x^4 - x + 2$ tiene la estructura de un polinomio de grado 4.",
     "graph_fn": null,
     "graph_view": null
   },
@@ -127,11 +437,166 @@
     "feedback_correct": "¡Correcto! La curva tiene raíces en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$, consistente con $f(x) = x^3 - 3x$.",
     "feedback_incorrect": "La curva cruza el eje X en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$ con pendiente positiva en el origen: $f(x) = x^3 - 3x$.",
     "graph_fn": "pow(x, 3) - 3*x",
-    "graph_view": [
-      -3,
-      3,
-      -5,
-      5
-    ]
+    "graph_view": [-3, 3, -5, 5]
+  },
+  {
+    "external_id": "white_polynomial_form_03",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el grado de $p(x) = 2x^3 - x^5 + 4$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$4$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El término $-x^5$ tiene la mayor potencia: el grado es $5$.",
+    "feedback_incorrect": "Aunque no es el primer término, $-x^5$ tiene el mayor exponente: el grado es $5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_04",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el coeficiente principal de $p(x) = -2x^3 + 5x - 1$?",
+    "options": [
+      "$-2$",
+      "$5$",
+      "$-1$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El coeficiente principal es el del término de mayor grado: $-2$ (del término $-2x^3$).",
+    "feedback_incorrect": "El coeficiente principal es el del término de mayor grado ($x^3$): es $-2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_05",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = x^4 - 5x^2 + 4$",
+      "$f(x) = x^4 + 5x^2 + 4$",
+      "$f(x) = -x^4 + 5x^2 - 4$",
+      "$f(x) = x^3 - 5x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva tiene 4 raíces y sus extremos van hacia $+\\infty$: $f(x) = x^4 - 5x^2 + 4$.",
+    "feedback_incorrect": "Con raíces en $\\pm 1$ y $\\pm 2$ y extremos positivos, la fórmula es $f(x) = x^4 - 5x^2 + 4$.",
+    "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
+    "graph_view": [-3, 3, -2, 8]
+  },
+  {
+    "external_id": "white_polynomial_form_06",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el valor de $p(0)$ para $p(x) = x^3 - 4x + 3$?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$-4$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $p(0) = 0^3 - 4(0) + 3 = 3$. Esto coincide con el término independiente.",
+    "feedback_incorrect": "Evaluando en $x = 0$: $p(0) = 0 - 0 + 3 = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_07",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones representa un polinomio de grado 2?",
+    "options": [
+      "$f(x) = 3x^2 - 7$",
+      "$f(x) = x^3 + 2$",
+      "$f(x) = 4x - 1$",
+      "$f(x) = x^4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3x^2 - 7$ tiene grado 2 (máxima potencia de $x$ es 2).",
+    "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es de grado 2.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_08",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = -x^3 + x$",
+      "$f(x) = x^3 - x$",
+      "$f(x) = -x^3 - x$",
+      "$f(x) = x^3 + x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva baja hacia $+\\infty$ a la derecha (coef. negativo) y cruza el eje $X$ en $-1$, $0$ y $1$: $f(x) = -x^3 + x$.",
+    "feedback_incorrect": "Con coef. principal negativo y raíces en $\\{-1, 0, 1\\}$, la fórmula es $f(x) = -x^3 + x$.",
+    "graph_fn": "-pow(x, 3) + x",
+    "graph_view": [-2, 2, -3, 3]
+  },
+  {
+    "external_id": "white_polynomial_form_09",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuántos términos tiene $p(x) = x^5 - x^3 + x - 1$?",
+    "options": [
+      "$4$",
+      "$5$",
+      "$3$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El polinomio tiene 4 términos: $x^5$, $-x^3$, $x$ y $-1$.",
+    "feedback_incorrect": "Contando: $x^5$, $-x^3$, $x$ y $-1$ son 4 monomios distintos.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_polynomial_form_10",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el valor de $p(1)$ para $p(x) = x^4 - 2x^2 + 1$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$-2$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $p(1) = 1^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$. ¡Es una raíz!",
+    "feedback_incorrect": "Evaluando: $p(1) = 1 - 2 + 1 = 0$. El valor $x = 1$ es una raíz del polinomio.",
+    "graph_fn": null,
+    "graph_view": null
   }
 ]

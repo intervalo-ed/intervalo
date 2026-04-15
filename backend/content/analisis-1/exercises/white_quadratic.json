@@ -37,12 +37,167 @@
     "feedback_correct": "¡Correcto! El punto extremo de una parábola se llama vértice.",
     "feedback_incorrect": "El punto más bajo (mínimo) o más alto (máximo) de una parábola se llama vértice.",
     "graph_fn": "x*x - 4*x + 3",
-    "graph_view": [
-      -1,
-      5,
-      -2,
-      8
-    ]
+    "graph_view": [-1, 5, -2, 8]
+  },
+  {
+    "external_id": "white_quadratic_lexi_03",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se llama la gráfica de una función cuadrática?",
+    "options": [
+      "Parábola",
+      "Hipérbola",
+      "Recta",
+      "Circunferencia"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La gráfica de toda función cuadrática es una parábola.",
+    "feedback_incorrect": "La gráfica de una función cuadrática se llama parábola.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_04",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Una parábola con coeficiente $a > 0$ se abre...",
+    "options": [
+      "Hacia arriba (tiene mínimo)",
+      "Hacia abajo (tiene máximo)",
+      "Hacia la derecha",
+      "Hacia la izquierda"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando $a > 0$ en $f(x) = ax^2 + bx + c$, la parábola se abre hacia arriba y tiene un mínimo.",
+    "feedback_incorrect": "Si $a > 0$, la parábola se abre hacia arriba y su vértice es el punto mínimo.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_05",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es una función cuadrática?",
+    "options": [
+      "$f(x) = 2^x$",
+      "$f(x) = x^2 + 3$",
+      "$f(x) = -x^2 + 1$",
+      "$f(x) = (x-1)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2^x$ es exponencial: la variable está en el exponente, no al cuadrado.",
+    "feedback_incorrect": "$f(x) = 2^x$ es una función exponencial, no cuadrática. Las cuadráticas tienen $x^2$ como término principal.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_06",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántas raíces reales tiene esta parábola?",
+    "options": [
+      "Dos raíces reales",
+      "Una raíz real",
+      "Ninguna raíz real",
+      "Infinitas raíces"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La parábola corta el eje $X$ en dos puntos: tiene dos raíces reales.",
+    "feedback_incorrect": "Cuando la parábola cruza el eje $X$ en dos puntos distintos, la función tiene dos raíces reales.",
+    "graph_fn": "x*x - 4",
+    "graph_view": [-4, 4, -5, 6]
+  },
+  {
+    "external_id": "white_quadratic_lexi_07",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuántas raíces reales puede tener como máximo una función cuadrática?",
+    "options": [
+      "2",
+      "1",
+      "3",
+      "Infinitas"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Una función cuadrática puede tener 0, 1 o 2 raíces reales, como máximo 2.",
+    "feedback_incorrect": "Una función cuadrática tiene como máximo 2 raíces reales.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_08",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cómo se llama la recta vertical que divide la parábola en dos partes simétricas?",
+    "options": [
+      "Eje de simetría",
+      "Asíntota",
+      "Directriz",
+      "Tangente"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El eje de simetría de una parábola pasa por el vértice y la divide en dos mitades iguales.",
+    "feedback_incorrect": "La recta vertical que divide la parábola simétricamente se llama eje de simetría.",
+    "graph_fn": "pow(x-2, 2) - 3",
+    "graph_view": [-1, 5, -4, 6]
+  },
+  {
+    "external_id": "white_quadratic_lexi_09",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "En $f(x) = ax^2 + bx + c$, ¿qué ocurre cuando $a < 0$?",
+    "options": [
+      "La parábola tiene un máximo (se abre hacia abajo)",
+      "La parábola tiene un mínimo (se abre hacia arriba)",
+      "La función es decreciente en todo su dominio",
+      "La función no tiene raíces reales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando $a < 0$, la parábola se abre hacia abajo y el vértice es el punto máximo.",
+    "feedback_incorrect": "Con $a < 0$, la parábola se abre hacia abajo: su vértice es un máximo.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_lexi_10",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la forma estándar de una función cuadrática?",
+    "options": [
+      "$f(x) = ax^2 + bx + c$, con $a \\neq 0$",
+      "$f(x) = mx + b$",
+      "$f(x) = a \\cdot b^x$",
+      "$f(x) = \\log_a(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La forma estándar de una cuadrática es $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
+    "feedback_incorrect": "La forma estándar de una función cuadrática es $f(x) = ax^2 + bx + c$, con $a \\neq 0$.",
+    "graph_fn": null,
+    "graph_view": null
   },
   {
     "external_id": "white_quadratic_clsf_01",
@@ -62,12 +217,7 @@
     "feedback_correct": "¡Correcto! La gráfica es una parábola: $f(x) = x^2 - 4x + 3$, una función cuadrática.",
     "feedback_incorrect": "La gráfica es una parábola ($f(x) = x^2 - 4x + 3$), característica de una función cuadrática.",
     "graph_fn": "x*x - 4*x + 3",
-    "graph_view": [
-      -1,
-      5,
-      -2,
-      8
-    ]
+    "graph_view": [-1, 5, -2, 8]
   },
   {
     "external_id": "white_quadratic_clsf_02",
@@ -86,6 +236,166 @@
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = x^2 - 4x + 3$ tiene la forma $ax^2 + bx + c$: es una función cuadrática.",
     "feedback_incorrect": "$f(x) = x^2 - 4x + 3$ tiene un término $x^2$ como mayor potencia: es una función cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_03",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = -2x^2 + x - 5$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica",
+      "Trigonométrica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $-2x^2 + x - 5$ tiene la forma $ax^2 + bx + c$ con $a = -2 \\neq 0$: cuadrática.",
+    "feedback_incorrect": "$f(x) = -2x^2 + x - 5$ tiene $x^2$ como término de mayor grado: es cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_04",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = (x-1)^2$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Polinómica de grado 3",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $(x-1)^2 = x^2 - 2x + 1$: es una función cuadrática en forma de vértice.",
+    "feedback_incorrect": "$(x-1)^2$ se expande a $x^2 - 2x + 1$, que es una cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_05",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La parábola invertida es $f(x) = -x^2 + 4$, una función cuadrática con $a < 0$.",
+    "feedback_incorrect": "La parábola que se abre hacia abajo es $f(x) = -x^2 + 4$, una función cuadrática.",
+    "graph_fn": "-x*x + 4",
+    "graph_view": [-4, 4, -2, 6]
+  },
+  {
+    "external_id": "white_quadratic_clsf_06",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones es una función cuadrática?",
+    "options": [
+      "$f(x) = 3x^2 - 7$",
+      "$f(x) = x^3 - 1$",
+      "$f(x) = 5 \\cdot 2^x$",
+      "$f(x) = \\ln(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3x^2 - 7$ tiene $x^2$ como término principal con $a = 3 \\neq 0$: cuadrática.",
+    "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es una función cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_07",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = x^2$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Polinómica de grado 3",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^2$ es la cuadrática más simple ($a=1$, $b=0$, $c=0$).",
+    "feedback_incorrect": "$f(x) = x^2$ es la parábola básica: pertenece a la familia cuadrática.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_08",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La parábola con vértice en $(1, -4)$ es $f(x) = x^2 - 2x - 3$, una cuadrática.",
+    "feedback_incorrect": "La curva en forma de U es una parábola ($f(x) = x^2 - 2x - 3$): función cuadrática.",
+    "graph_fn": "x*x - 2*x - 3",
+    "graph_view": [-2, 4, -5, 5]
+  },
+  {
+    "external_id": "white_quadratic_clsf_09",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es una función cuadrática?",
+    "options": [
+      "$f(x) = x^3 - 2$",
+      "$f(x) = 5x^2$",
+      "$f(x) = x^2 - x$",
+      "$f(x) = -(x+1)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^3 - 2$ es un polinomio de grado 3, no cuadrático.",
+    "feedback_incorrect": "$f(x) = x^3 - 2$ tiene grado 3: no es cuadrática. Las cuadráticas tienen grado exactamente 2.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_clsf_10",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = 5x^2 - 3$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $5x^2 - 3$ tiene la forma $ax^2 + c$ con $a = 5 \\neq 0$: es cuadrática.",
+    "feedback_incorrect": "$f(x) = 5x^2 - 3$ es un polinomio de grado 2: pertenece a la familia cuadrática.",
     "graph_fn": null,
     "graph_view": null
   },
@@ -127,11 +437,166 @@
     "feedback_correct": "¡Correcto! El vértice está en (2, −1) y la parábola se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
     "feedback_incorrect": "La parábola tiene vértice en (2, −1) y se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
     "graph_fn": "pow(x-2, 2) - 1",
-    "graph_view": [
-      -1,
-      5,
-      -2,
-      8
-    ]
+    "graph_view": [-1, 5, -2, 8]
+  },
+  {
+    "external_id": "white_quadratic_form_03",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 2x^2 - 5x + 1$, ¿cuál es el coeficiente lineal ($b$)?",
+    "options": [
+      "$-5$",
+      "$2$",
+      "$1$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $ax^2 + bx + c$, $b$ es el coeficiente de $x$. Aquí $b = -5$.",
+    "feedback_incorrect": "En $f(x) = ax^2 + bx + c$, $b$ es el coeficiente lineal. Aquí $b = -5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_04",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = -(x-3)^2 + 2$, ¿cuáles son las coordenadas del vértice?",
+    "options": [
+      "$(3,\\; 2)$",
+      "$(-3,\\; 2)$",
+      "$(3,\\; -2)$",
+      "$(-3,\\; -2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En la forma $a(x-h)^2 + k$, el vértice es $(h, k) = (3, 2)$.",
+    "feedback_incorrect": "En $a(x-h)^2 + k$, el vértice está en $(h, k)$. Aquí $(h, k) = (3, 2)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_05",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la parábola del gráfico?",
+    "options": [
+      "$f(x) = -x^2 + 4$",
+      "$f(x) = x^2 + 4$",
+      "$f(x) = -x^2 - 4$",
+      "$f(x) = -(x-4)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La parábola se abre hacia abajo con vértice en $(0, 4)$: $f(x) = -x^2 + 4$.",
+    "feedback_incorrect": "La parábola tiene vértice en $(0, 4)$ y se abre hacia abajo: $f(x) = -x^2 + 4$.",
+    "graph_fn": "-x*x + 4",
+    "graph_view": [-4, 4, -2, 6]
+  },
+  {
+    "external_id": "white_quadratic_form_06",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es la forma de vértice de una parábola con vértice en $(1, -3)$ y $a = 1$?",
+    "options": [
+      "$f(x) = (x-1)^2 - 3$",
+      "$f(x) = (x+1)^2 - 3$",
+      "$f(x) = (x-1)^2 + 3$",
+      "$f(x) = x^2 - 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con vértice $(1, -3)$ y $a = 1$: $f(x) = (x-1)^2 - 3$.",
+    "feedback_incorrect": "La forma de vértice es $f(x) = a(x-h)^2 + k$. Con $(h,k)=(1,-3)$: $f(x) = (x-1)^2 - 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_07",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 2x^2 - 8x + 6$, ¿cuál es el término independiente ($c$)?",
+    "options": [
+      "$6$",
+      "$2$",
+      "$-8$",
+      "$-6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $ax^2 + bx + c$, $c$ es el término independiente. Aquí $c = 6$.",
+    "feedback_incorrect": "El término independiente $c$ es la constante sin $x$. Aquí $c = 6$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_08",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la parábola del gráfico?",
+    "options": [
+      "$f(x) = x^2 - 2x - 3$",
+      "$f(x) = x^2 + 2x - 3$",
+      "$f(x) = x^2 - 2x + 3$",
+      "$f(x) = -x^2 - 2x + 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La parábola tiene raíces en $x = -1$ y $x = 3$, y se abre hacia arriba: $f(x) = x^2 - 2x - 3$.",
+    "feedback_incorrect": "Con raíces en $-1$ y $3$ y apertura hacia arriba, la fórmula es $f(x) = x^2 - 2x - 3$.",
+    "graph_fn": "x*x - 2*x - 3",
+    "graph_view": [-2, 4, -5, 5]
+  },
+  {
+    "external_id": "white_quadratic_form_09",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuáles son las raíces de $f(x) = (x-2)(x+1)$?",
+    "options": [
+      "$x = 2$ y $x = -1$",
+      "$x = -2$ y $x = 1$",
+      "$x = 2$ y $x = 1$",
+      "$x = -2$ y $x = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 0$ cuando $x - 2 = 0$ (es decir, $x = 2$) o cuando $x + 1 = 0$ (es decir, $x = -1$).",
+    "feedback_incorrect": "Las raíces anulan cada factor: $x - 2 = 0 \\Rightarrow x = 2$ y $x + 1 = 0 \\Rightarrow x = -1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_quadratic_form_10",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = -3(x+1)^2 + 5$, ¿cuál es el vértice?",
+    "options": [
+      "$(-1,\\; 5)$",
+      "$(1,\\; 5)$",
+      "$(-1,\\; -5)$",
+      "$(1,\\; -5)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $a(x-h)^2 + k$, el vértice es $(h, k)$. Aquí $h = -1$ y $k = 5$.",
+    "feedback_incorrect": "En la forma $a(x-h)^2 + k$, el vértice es $(h, k)$. Con $-(x+1)^2 + 5$: vértice $(-1, 5)$.",
+    "graph_fn": null,
+    "graph_view": null
   }
 ]

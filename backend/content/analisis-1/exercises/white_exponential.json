@@ -37,12 +37,167 @@
     "feedback_correct": "¡Correcto! Las funciones exponenciales tienen una asíntota horizontal ($y = 0$ en su forma básica).",
     "feedback_incorrect": "La línea horizontal que una curva se aproxima infinitamente sin tocarla se llama asíntota horizontal.",
     "graph_fn": "pow(2, x)",
-    "graph_view": [
-      -4,
-      4,
-      -1,
-      10
-    ]
+    "graph_view": [-4, 4, -1, 10]
+  },
+  {
+    "external_id": "white_exponential_lexi_03",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Dónde aparece la variable $x$ en una función exponencial $f(x) = a \\cdot b^x$?",
+    "options": [
+      "En el exponente",
+      "En la base",
+      "Como coeficiente",
+      "Dentro de un logaritmo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La característica definitoria de una función exponencial es que $x$ aparece en el exponente.",
+    "feedback_incorrect": "En $f(x) = a \\cdot b^x$, la variable $x$ está en el exponente. Eso es lo que la hace exponencial.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_04",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Una función exponencial $f(x) = b^x$ con $b > 1$ es...",
+    "options": [
+      "Creciente",
+      "Decreciente",
+      "Constante",
+      "Periódica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con base $b > 1$, la función crece sin límite al aumentar $x$.",
+    "feedback_incorrect": "Si $b > 1$, la función $f(x) = b^x$ crece cuando $x$ aumenta: es creciente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_05",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es una función exponencial?",
+    "options": [
+      "$f(x) = x^3$",
+      "$f(x) = 3^x$",
+      "$f(x) = e^x$",
+      "$f(x) = (0{,}5)^x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^3$ tiene $x$ en la base (función polinómica), no en el exponente.",
+    "feedback_incorrect": "$f(x) = x^3$ es una función polinómica. Las exponenciales tienen la forma $b^x$ con $x$ en el exponente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_06",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuál es la ecuación de la asíntota horizontal de esta curva?",
+    "options": [
+      "$y = 0$",
+      "$y = 1$",
+      "$x = 0$",
+      "$y = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La asíntota horizontal de $f(x) = 2^x$ (en su forma básica) es $y = 0$.",
+    "feedback_incorrect": "La función $f(x) = 2^x$ se aproxima a $y = 0$ cuando $x \\to -\\infty$: esa es su asíntota horizontal.",
+    "graph_fn": "pow(2, x)",
+    "graph_view": [-4, 4, -1, 10]
+  },
+  {
+    "external_id": "white_exponential_lexi_07",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuándo es decreciente la función $f(x) = b^x$?",
+    "options": [
+      "Cuando $0 < b < 1$",
+      "Cuando $b > 1$",
+      "Cuando $b = 1$",
+      "Cuando $b < 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con $0 < b < 1$, la función decrece: cuanto mayor es $x$, menor es $b^x$.",
+    "feedback_incorrect": "Si $0 < b < 1$, la base es una fracción y la función disminuye al crecer $x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_08",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuánto vale $f(0)$ para cualquier función $f(x) = b^x$ con $b > 0$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$b$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = b^0 = 1$ para cualquier base $b > 0$. La curva siempre pasa por $(0, 1)$.",
+    "feedback_incorrect": "Toda potencia con exponente 0 vale 1: $b^0 = 1$. La función siempre pasa por $(0, 1)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_lexi_09",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Por cuál punto del eje $Y$ pasa esta curva exponencial?",
+    "options": [
+      "$(0,\\; 1)$",
+      "$(0,\\; 0)$",
+      "$(1,\\; 0)$",
+      "$(0,\\; -1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = e^0 = 1$: la curva corta el eje $Y$ en el punto $(0, 1)$.",
+    "feedback_incorrect": "Evaluando en $x = 0$: $f(0) = e^0 = 1$. El punto de corte con el eje $Y$ es $(0, 1)$.",
+    "graph_fn": "exp(x)",
+    "graph_view": [-3, 3, -1, 8]
+  },
+  {
+    "external_id": "white_exponential_lexi_10",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas funciones es creciente?",
+    "options": [
+      "$f(x) = 3^x$",
+      "$f(x) = (0{,}2)^x$",
+      "$f(x) = (0{,}9)^x$",
+      "$f(x) = (1/3)^x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 3^x$ tiene base $3 > 1$: es creciente.",
+    "feedback_incorrect": "Solo las exponenciales con base $b > 1$ son crecientes. $f(x) = 3^x$ cumple esa condición.",
+    "graph_fn": null,
+    "graph_view": null
   },
   {
     "external_id": "white_exponential_clsf_01",
@@ -62,12 +217,7 @@
     "feedback_correct": "¡Correcto! La curva crece aceleradamente: $f(x) = 3 \\cdot 2^x$, una función exponencial.",
     "feedback_incorrect": "El crecimiento acelerado con asíntota en $y = 0$ es propio de una exponencial: $f(x) = 3 \\cdot 2^x$.",
     "graph_fn": "3 * pow(2, x)",
-    "graph_view": [
-      -3,
-      3,
-      -1,
-      12
-    ]
+    "graph_view": [-3, 3, -1, 12]
   },
   {
     "external_id": "white_exponential_clsf_02",
@@ -86,6 +236,166 @@
     "has_math": true,
     "feedback_correct": "¡Correcto! En $f(x) = 3 \\cdot 2^x$, la variable $x$ está en el exponente: es una función exponencial.",
     "feedback_incorrect": "En $f(x) = 3 \\cdot 2^x$, la variable aparece en el exponente. Eso define una función exponencial.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_03",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\left(\\dfrac{1}{3}\\right)^x$?",
+    "options": [
+      "Exponencial",
+      "Racional",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La base es $\\frac{1}{3}$ y $x$ está en el exponente: función exponencial decreciente.",
+    "feedback_incorrect": "$f(x) = (1/3)^x$ tiene $x$ en el exponente: es una función exponencial (decreciente por $b < 1$).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_04",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = 4 \\cdot e^x$?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Trigonométrica",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $e$ es la base del número de Euler y $x$ está en el exponente: función exponencial.",
+    "feedback_incorrect": "$f(x) = 4 \\cdot e^x$ usa el número $e$ como base con $x$ en el exponente: es exponencial.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_05",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva decrece aceleradamente hacia $y = 0$: $f(x) = (0{,}5)^x$, exponencial con $b < 1$.",
+    "feedback_incorrect": "La curva que decrece con asíntota en $y = 0$ es una exponencial decreciente: $f(x) = (0{,}5)^x$.",
+    "graph_fn": "pow(0.5, x)",
+    "graph_view": [-3, 4, -0.5, 6]
+  },
+  {
+    "external_id": "white_exponential_clsf_06",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas es una función exponencial?",
+    "options": [
+      "$f(x) = 2 \\cdot 5^x$",
+      "$f(x) = x^5$",
+      "$f(x) = 5x + 2$",
+      "$f(x) = \\log_5(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $2 \\cdot 5^x$, la variable $x$ está en el exponente: función exponencial.",
+    "feedback_incorrect": "$f(x) = 2 \\cdot 5^x$ tiene $x$ en el exponente (no en la base): es exponencial.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_07",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = e^{-x}$?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $e^{-x} = (e^{-1})^x$: base $e^{-1} \\approx 0{,}368$, con $x$ en el exponente. Exponencial decreciente.",
+    "feedback_incorrect": "$f(x) = e^{-x}$ tiene $x$ en el exponente: es una función exponencial (decreciente).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_08",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica",
+      "Trigonométrica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva creciente con asíntota en $y = 0$ es $f(x) = 3^x$: función exponencial.",
+    "feedback_incorrect": "El crecimiento rápido desde $y = 0$ hacia arriba es propio de una exponencial: $f(x) = 3^x$.",
+    "graph_fn": "pow(3, x)",
+    "graph_view": [-3, 3, -0.5, 10]
+  },
+  {
+    "external_id": "white_exponential_clsf_09",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es una función exponencial?",
+    "options": [
+      "$f(x) = x^4$",
+      "$f(x) = 4^x$",
+      "$f(x) = 4 \\cdot e^x$",
+      "$f(x) = (1{,}5)^x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^4$ tiene $x$ en la base (polinómica de grado 4), no en el exponente.",
+    "feedback_incorrect": "$f(x) = x^4$ es una función polinómica, no exponencial. En las exponenciales, $x$ está en el exponente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_clsf_10",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = 10^x$?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $10^x$ tiene base 10 y $x$ en el exponente: es una función exponencial.",
+    "feedback_incorrect": "$f(x) = 10^x$ tiene $x$ en el exponente: pertenece a la familia exponencial.",
     "graph_fn": null,
     "graph_view": null
   },
@@ -127,11 +437,166 @@
     "feedback_correct": "¡Correcto! La curva decrece hacia 0: base menor que 1, $f(x) = (0{,}5)^x$.",
     "feedback_incorrect": "La curva decrece (base $b < 1$) con asíntota en $y = 0$: corresponde a $f(x) = (0{,}5)^x$.",
     "graph_fn": "pow(0.5, x)",
-    "graph_view": [
-      -3,
-      4,
-      -0.5,
-      6
-    ]
+    "graph_view": [-3, 4, -0.5, 6]
+  },
+  {
+    "external_id": "white_exponential_form_03",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 4 \\cdot 3^x$, ¿cuál es el factor de escala (coeficiente $a$)?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$x$",
+      "$12$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $f(x) = a \\cdot b^x$, el factor de escala es $a = 4$.",
+    "feedback_incorrect": "En $f(x) = a \\cdot b^x$, $a$ es el factor de escala. Aquí $a = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_04",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 5 \\cdot 2^x$, ¿cuánto vale $f(0)$?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$2$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$.",
+    "feedback_incorrect": "$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$. El valor inicial de la exponencial es $a$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_05",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = 3^x$",
+      "$f(x) = 2^x$",
+      "$f(x) = (0{,}5)^x$",
+      "$f(x) = 3 \\cdot x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva crece más rápido que $2^x$ y pasa por $(1, 3)$: es $f(x) = 3^x$.",
+    "feedback_incorrect": "La curva pasa por $(0, 1)$ y $(1, 3)$: la base es 3. La fórmula es $f(x) = 3^x$.",
+    "graph_fn": "pow(3, x)",
+    "graph_view": [-3, 3, -0.5, 10]
+  },
+  {
+    "external_id": "white_exponential_form_06",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es la base de la función $f(x) = e^x$?",
+    "options": [
+      "$e \\approx 2{,}718$",
+      "$\\pi \\approx 3{,}14$",
+      "$10$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $e \\approx 2{,}718$ es el número de Euler, base de la exponencial natural.",
+    "feedback_incorrect": "La base de $f(x) = e^x$ es el número de Euler: $e \\approx 2{,}718$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_07",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "Si $f(x) = a \\cdot b^x$ y $f(0) = 3$, ¿cuánto vale $a$?",
+    "options": [
+      "$3$",
+      "$b$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = a \\cdot b^0 = a \\cdot 1 = a = 3$.",
+    "feedback_incorrect": "$f(0) = a \\cdot b^0 = a$. Si $f(0) = 3$, entonces $a = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_08",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = 2^{x+1}$",
+      "$f(x) = 2^x$",
+      "$f(x) = 2^{x-1}$",
+      "$f(x) = 2 \\cdot x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva pasa por $(-1, 1)$ (desplazada a la izquierda respecto a $2^x$): $f(x) = 2^{x+1}$.",
+    "feedback_incorrect": "La curva está desplazada una unidad a la izquierda respecto a $2^x$: $f(x) = 2^{x+1}$.",
+    "graph_fn": "pow(2, x + 1)",
+    "graph_view": [-4, 3, -0.5, 10]
+  },
+  {
+    "external_id": "white_exponential_form_09",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuánto vale $f(1)$ para $f(x) = 4 \\cdot 2^x$?",
+    "options": [
+      "$8$",
+      "$4$",
+      "$6$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(1) = 4 \\cdot 2^1 = 4 \\cdot 2 = 8$.",
+    "feedback_incorrect": "Evaluando en $x = 1$: $f(1) = 4 \\cdot 2^1 = 4 \\cdot 2 = 8$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_exponential_form_10",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuánto vale $f(2)$ para $f(x) = 2^x$?",
+    "options": [
+      "$4$",
+      "$2$",
+      "$8$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(2) = 2^2 = 4$.",
+    "feedback_incorrect": "Evaluando: $f(2) = 2^2 = 4$.",
+    "graph_fn": null,
+    "graph_view": null
   }
 ]

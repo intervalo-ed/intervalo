@@ -37,12 +37,167 @@
     "feedback_correct": "¡Correcto! La amplitud es la distancia del máximo (o mínimo) al eje central. Aquí vale 2.",
     "feedback_incorrect": "Esa distancia se llama amplitud. En $f(x) = 2 \\cdot \\operatorname{sen}(x)$, la amplitud es 2.",
     "graph_fn": "2 * sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      3
-    ]
+    "graph_view": [-7, 7, -3, 3]
+  },
+  {
+    "external_id": "white_trigonometric_lexi_03",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuánto vale el período de $f(x) = \\operatorname{sen}(x)$?",
+    "options": [
+      "$2\\pi$",
+      "$\\pi$",
+      "$1$",
+      "$4\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función seno se repite cada $2\\pi$ radianes: ese es su período.",
+    "feedback_incorrect": "El período del seno básico $f(x) = \\operatorname{sen}(x)$ es $2\\pi$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_04",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la amplitud de $f(x) = 4 \\cdot \\cos(x)$?",
+    "options": [
+      "$4$",
+      "$\\pi$",
+      "$2\\pi$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $A \\cdot \\cos(x)$, la amplitud es $|A| = 4$.",
+    "feedback_incorrect": "La amplitud en $f(x) = A \\cdot \\cos(x)$ es el valor absoluto de $A$. Aquí $A = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_05",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es una función trigonométrica?",
+    "options": [
+      "$f(x) = e^x$",
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = \\cos(x)$",
+      "$f(x) = \\tan(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = e^x$ es una función exponencial, no trigonométrica.",
+    "feedback_incorrect": "$f(x) = e^x$ es exponencial. Las funciones trigonométricas son seno, coseno y tangente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_06",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿Cuántos máximos locales tiene esta función en el intervalo $[0,\\, 2\\pi]$?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = \\operatorname{sen}(x)$ tiene exactamente un máximo (en $x = \\pi/2$) en el intervalo $[0, 2\\pi]$.",
+    "feedback_incorrect": "En $[0, 2\\pi]$, $f(x) = \\operatorname{sen}(x)$ tiene un solo máximo: en $x = \\pi/2$.",
+    "graph_fn": "sin(x)",
+    "graph_view": [-0.5, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_lexi_07",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se llama la longitud de un ciclo completo de una función trigonométrica?",
+    "options": [
+      "Período",
+      "Amplitud",
+      "Frecuencia",
+      "Fase"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El período es la longitud de un ciclo completo de la función.",
+    "feedback_incorrect": "La longitud de un ciclo completo se llama período.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_08",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál función trigonométrica vale 0 en $x = 0$ y alcanza su máximo en $x = \\pi/2$?",
+    "options": [
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = \\cos(x)$",
+      "$f(x) = \\tan(x)$",
+      "$f(x) = -\\operatorname{sen}(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\operatorname{sen}(0) = 0$ y $\\operatorname{sen}(\\pi/2) = 1$ (su máximo).",
+    "feedback_incorrect": "La función seno parte de 0 y llega a su máximo 1 en $x = \\pi/2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_lexi_09",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "graph",
+    "question": "¿La función $\\cos(x)$ es par o impar?",
+    "options": [
+      "Par (simétrica respecto al eje $Y$)",
+      "Impar (simétrica respecto al origen)",
+      "Ni par ni impar",
+      "Periódica pero no par"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\cos(-x) = \\cos(x)$: la gráfica es simétrica respecto al eje $Y$. Es par.",
+    "feedback_incorrect": "$\\cos(x)$ cumple $\\cos(-x) = \\cos(x)$: es una función par (simétrica respecto al eje $Y$).",
+    "graph_fn": "cos(x)",
+    "graph_view": [-7, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_lexi_10",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es el valor máximo de $f(x) = \\operatorname{sen}(x)$?",
+    "options": [
+      "$1$",
+      "$2\\pi$",
+      "$\\pi$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El seno oscila entre $-1$ y $1$: su valor máximo es $1$.",
+    "feedback_incorrect": "La función seno tiene rango $[-1, 1]$: el máximo absoluto es $1$.",
+    "graph_fn": null,
+    "graph_view": null
   },
   {
     "external_id": "white_trigonometric_clsf_01",
@@ -62,12 +217,7 @@
     "feedback_correct": "¡Correcto! La oscilación periódica corresponde a $f(x) = 2 \\cdot \\operatorname{sen}(x)$, una función trigonométrica.",
     "feedback_incorrect": "La forma de onda periódica entre −2 y 2 es propia de una trigonométrica: $f(x) = 2 \\cdot \\operatorname{sen}(x)$.",
     "graph_fn": "2 * sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      3
-    ]
+    "graph_view": [-7, 7, -3, 3]
   },
   {
     "external_id": "white_trigonometric_clsf_02",
@@ -86,6 +236,166 @@
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = 2\\operatorname{sen}(x)$ usa la función seno: es trigonométrica.",
     "feedback_incorrect": "La función seno pertenece a la familia trigonométrica. $f(x) = 2\\operatorname{sen}(x)$ es trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_03",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\cos(x)$?",
+    "options": [
+      "Trigonométrica",
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El coseno es una de las funciones trigonométricas básicas.",
+    "feedback_incorrect": "La función coseno pertenece a la familia trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_04",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\tan(x)$?",
+    "options": [
+      "Trigonométrica",
+      "Racional",
+      "Polinómica",
+      "Exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La tangente es una función trigonométrica: $\\tan(x) = \\frac{\\operatorname{sen}(x)}{\\cos(x)}$.",
+    "feedback_incorrect": "La tangente pertenece a la familia trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_05",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Trigonométrica",
+      "Exponencial",
+      "Lineal",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva que comienza en su máximo ($x = 0$) con oscilación periódica es $f(x) = \\cos(x)$: trigonométrica.",
+    "feedback_incorrect": "La onda que empieza en el máximo (valor 1) cuando $x = 0$ es el coseno: función trigonométrica.",
+    "graph_fn": "cos(x)",
+    "graph_view": [-7, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_clsf_06",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas es una función trigonométrica?",
+    "options": [
+      "$f(x) = 3 \\cdot \\operatorname{sen}(2x)$",
+      "$f(x) = 3 \\cdot 2^x$",
+      "$f(x) = 3x^2 - 1$",
+      "$f(x) = \\log_3(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3 \\cdot \\operatorname{sen}(2x)$ usa la función seno: es trigonométrica.",
+    "feedback_incorrect": "$f(x) = 3 \\cdot \\operatorname{sen}(2x)$ contiene la función seno: pertenece a la familia trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_07",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia pertenece $f(x) = -\\operatorname{sen}(x)$?",
+    "options": [
+      "Trigonométrica",
+      "Exponencial",
+      "Racional",
+      "Polinómica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Multiplicar por $-1$ refleja la onda, pero sigue siendo la función seno: trigonométrica.",
+    "feedback_incorrect": "El signo negativo invierte la amplitud, pero $f(x) = -\\operatorname{sen}(x)$ sigue siendo trigonométrica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_08",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Trigonométrica",
+      "Polinómica",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La onda con el doble de frecuencia corresponde a $f(x) = \\operatorname{sen}(2x)$: trigonométrica.",
+    "feedback_incorrect": "La oscilación periódica más rápida es $f(x) = \\operatorname{sen}(2x)$: función trigonométrica.",
+    "graph_fn": "sin(2*x)",
+    "graph_view": [-5, 5, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_clsf_09",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas NO es trigonométrica?",
+    "options": [
+      "$f(x) = 2^x$",
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = \\cos(3x)$",
+      "$f(x) = \\operatorname{sen}(x) + \\cos(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2^x$ es exponencial: $x$ está en el exponente, no dentro de una función trigonométrica.",
+    "feedback_incorrect": "$f(x) = 2^x$ es exponencial. Las funciones trigonométricas usan seno, coseno o tangente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_clsf_10",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\operatorname{sen}(x) + \\cos(x)$?",
+    "options": [
+      "Trigonométrica",
+      "Polinómica",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La suma de funciones trigonométricas sigue siendo trigonométrica.",
+    "feedback_incorrect": "$\\operatorname{sen}(x) + \\cos(x)$ combina dos funciones trigonométricas: la suma es también trigonométrica.",
     "graph_fn": null,
     "graph_view": null
   },
@@ -127,11 +437,366 @@
     "feedback_correct": "¡Correcto! La curva parte de su máximo en $x = 0$ con amplitud 1: $f(x) = \\cos(x)$.",
     "feedback_incorrect": "La curva comienza en su valor máximo (1) cuando $x = 0$: eso es $f(x) = \\cos(x)$, no el seno.",
     "graph_fn": "cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      3
-    ]
+    "graph_view": [-7, 7, -3, 3]
+  },
+  {
+    "external_id": "white_trigonometric_form_03",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = 2 \\cdot \\operatorname{sen}(3x)$, ¿cuál es el período?",
+    "options": [
+      "$\\dfrac{2\\pi}{3}$",
+      "$2\\pi$",
+      "$3\\pi$",
+      "$\\dfrac{\\pi}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El período de $\\operatorname{sen}(Bx)$ es $\\frac{2\\pi}{B}$. Con $B = 3$: período $= \\frac{2\\pi}{3}$.",
+    "feedback_incorrect": "Para $\\operatorname{sen}(Bx)$, el período es $\\frac{2\\pi}{B}$. Aquí $B = 3$, entonces el período es $\\frac{2\\pi}{3}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_04",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = \\cos(x/2)$, ¿cuál es el período?",
+    "options": [
+      "$4\\pi$",
+      "$2\\pi$",
+      "$\\pi$",
+      "$8\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con $B = \\frac{1}{2}$: período $= \\frac{2\\pi}{1/2} = 4\\pi$.",
+    "feedback_incorrect": "El período es $\\frac{2\\pi}{B}$. Con $B = \\frac{1}{2}$: $\\frac{2\\pi}{1/2} = 4\\pi$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_05",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\operatorname{sen}(x) + 1$",
+      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = \\operatorname{sen}(x) - 1$",
+      "$f(x) = 2\\operatorname{sen}(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La onda oscila entre 0 y 2 (desplazada 1 unidad hacia arriba): $f(x) = \\operatorname{sen}(x) + 1$.",
+    "feedback_incorrect": "La curva está desplazada 1 unidad hacia arriba respecto al seno básico: $f(x) = \\operatorname{sen}(x) + 1$.",
+    "graph_fn": "sin(x) + 1",
+    "graph_view": [-7, 7, -1, 3]
+  },
+  {
+    "external_id": "white_trigonometric_form_06",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "En $f(x) = A \\cdot \\operatorname{sen}(Bx + C)$, ¿qué representa $B$?",
+    "options": [
+      "Afecta el período (período $= 2\\pi/B$)",
+      "Es la amplitud",
+      "Es el desplazamiento vertical",
+      "Es la fase inicial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $B$ determina el período: $T = \\frac{2\\pi}{B}$. A mayor $B$, más ciclos por unidad.",
+    "feedback_incorrect": "El coeficiente $B$ afecta al período: $T = \\frac{2\\pi}{B}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_07",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuánto vale $f(\\pi/2)$ para $f(x) = \\operatorname{sen}(x)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-1$",
+      "$\\pi/2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\operatorname{sen}(\\pi/2) = 1$: es el valor máximo del seno.",
+    "feedback_incorrect": "$\\operatorname{sen}(\\pi/2) = 1$. En $x = \\pi/2$ la función seno alcanza su máximo.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_08",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "graph",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = 2 \\cdot \\cos(x)$",
+      "$f(x) = \\cos(x)$",
+      "$f(x) = 2 \\cdot \\operatorname{sen}(x)$",
+      "$f(x) = \\cos(2x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva oscila entre $-2$ y $2$, comienza en su máximo ($x=0$): $f(x) = 2\\cos(x)$.",
+    "feedback_incorrect": "La amplitud 2 y el comienzo en el máximo ($x = 0$) identifican a $f(x) = 2\\cos(x)$.",
+    "graph_fn": "2 * cos(x)",
+    "graph_view": [-7, 7, -3, 3]
+  },
+  {
+    "external_id": "white_trigonometric_form_09",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuánto vale $f(\\pi)$ para $f(x) = \\operatorname{sen}(x)$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$-1$",
+      "$\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\operatorname{sen}(\\pi) = 0$: el seno vale cero en todos los múltiplos de $\\pi$.",
+    "feedback_incorrect": "$\\operatorname{sen}(\\pi) = 0$. La función seno se anula en $x = 0, \\pi, 2\\pi, \\ldots$",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_form_10",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es la amplitud de $f(x) = -3 \\cdot \\cos(x)$?",
+    "options": [
+      "$3$",
+      "$-3$",
+      "$1$",
+      "$2\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La amplitud es el valor absoluto del coeficiente: $|-3| = 3$.",
+    "feedback_incorrect": "La amplitud se toma como valor absoluto del coeficiente $A$: $|-3| = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_graf_01",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuántos máximos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El seno tiene un único máximo (en $x = \\pi/2$) en cada período $[0, 2\\pi]$.",
+    "feedback_incorrect": "En $[0, 2\\pi]$, el seno tiene exactamente un máximo: en $x = \\pi/2$.",
+    "graph_fn": "sin(x)",
+    "graph_view": [-0.5, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_graf_02",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "text",
+    "question": "¿Cuántos ceros tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$ (incluyendo los extremos)?",
+    "options": [
+      "3 (en $x = 0$, $\\pi$ y $2\\pi$)",
+      "2",
+      "1",
+      "4"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\operatorname{sen}(0) = \\operatorname{sen}(\\pi) = \\operatorname{sen}(2\\pi) = 0$: hay 3 ceros en $[0, 2\\pi]$.",
+    "feedback_incorrect": "El seno se anula en $x = 0$, $x = \\pi$ y $x = 2\\pi$: son 3 ceros en ese intervalo.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_graf_03",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuál es el período de esta función trigonométrica según la gráfica?",
+    "options": [
+      "$\\pi$",
+      "$2\\pi$",
+      "$\\pi/2$",
+      "$4\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La onda completa un ciclo en $\\pi$ radianes: período $= \\pi$, consistente con $\\operatorname{sen}(2x)$.",
+    "feedback_incorrect": "La gráfica muestra un ciclo completo en $\\pi$ radianes: ese es el período.",
+    "graph_fn": "sin(2*x)",
+    "graph_view": [-5, 5, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_graf_04",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿La función $\\cos(x)$ es par o impar según su gráfica?",
+    "options": [
+      "Par (simétrica respecto al eje $Y$)",
+      "Impar (simétrica respecto al origen)",
+      "Ni par ni impar",
+      "No tiene simetría"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La gráfica del coseno es simétrica respecto al eje $Y$: es una función par.",
+    "feedback_incorrect": "El coseno es par: su gráfica es simétrica respecto al eje $Y$, es decir, $\\cos(-x) = \\cos(x)$.",
+    "graph_fn": "cos(x)",
+    "graph_view": [-7, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_graf_05",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "text",
+    "question": "¿Cuántos máximos tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 4\\pi]$?",
+    "options": [
+      "2",
+      "1",
+      "4",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El coseno tiene un máximo por período ($2\\pi$): en $[0, 4\\pi]$ hay exactamente 2 máximos.",
+    "feedback_incorrect": "El período del coseno es $2\\pi$, y en cada período hay un máximo. En $[0, 4\\pi]$ hay 2 períodos: 2 máximos.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_graf_06",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuál es la amplitud de esta función según la gráfica?",
+    "options": [
+      "3",
+      "1",
+      "2",
+      "$2\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La curva oscila entre $-3$ y $3$: la amplitud (distancia del eje al máximo) es 3.",
+    "feedback_incorrect": "La amplitud es la distancia del eje central al valor máximo. La curva llega hasta 3: amplitud = 3.",
+    "graph_fn": "3 * sin(x)",
+    "graph_view": [-7, 7, -4, 4]
+  },
+  {
+    "external_id": "white_trigonometric_graf_07",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "text",
+    "question": "¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
+    "options": [
+      "2 (en $x = \\pi/2$ y $x = 3\\pi/2$)",
+      "3",
+      "1",
+      "0"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\cos(\\pi/2) = \\cos(3\\pi/2) = 0$: hay 2 ceros del coseno en $[0, 2\\pi]$.",
+    "feedback_incorrect": "El coseno se anula en $x = \\pi/2$ y $x = 3\\pi/2$ dentro de $[0, 2\\pi]$: son 2 ceros.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_graf_08",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuál es la principal diferencia visual entre las gráficas de $\\operatorname{sen}(x)$ y $\\cos(x)$?",
+    "options": [
+      "El coseno comienza en su máximo ($y=1$) en $x=0$; el seno comienza en $y=0$",
+      "El coseno tiene mayor amplitud",
+      "El seno tiene período más corto",
+      "El coseno no tiene ceros"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\cos(0) = 1$ (máximo) y $\\operatorname{sen}(0) = 0$: esa es la diferencia clave en $x = 0$.",
+    "feedback_incorrect": "La diferencia principal: en $x = 0$, el coseno vale 1 (máximo) y el seno vale 0.",
+    "graph_fn": "sin(x)",
+    "graph_view": [-7, 7, -2, 2]
+  },
+  {
+    "external_id": "white_trigonometric_graf_09",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "text",
+    "question": "¿Cuántos períodos completos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 4\\pi]$?",
+    "options": [
+      "2",
+      "1",
+      "4",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El período es $2\\pi$: en $[0, 4\\pi]$ caben exactamente 2 períodos completos.",
+    "feedback_incorrect": "Con período $2\\pi$, en $4\\pi$ caben $\\frac{4\\pi}{2\\pi} = 2$ períodos completos.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "white_trigonometric_graf_10",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuántos períodos completos muestra la gráfica en el intervalo visible?",
+    "options": [
+      "2",
+      "1",
+      "3",
+      "4"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! La función $\\operatorname{sen}(2x)$ tiene período $\\pi$: en $[0, 2\\pi]$ se completan 2 ciclos.",
+    "feedback_incorrect": "El período de $\\operatorname{sen}(2x)$ es $\\pi$: en el intervalo visible $[0, 2\\pi]$ hay 2 ciclos completos.",
+    "graph_fn": "sin(2*x)",
+    "graph_view": [-0.5, 7, -2, 2]
   }
 ]
