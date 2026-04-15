@@ -1,0 +1,402 @@
+[
+  {
+    "external_id": "blue_racionalizacion_resl_01",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+4}-2}{x}$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$0$",
+      "$\\dfrac{1}{2}$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Multiplicando por el conjugado: $\\dfrac{(\\sqrt{x+4}-2)(\\sqrt{x+4}+2)}{x(\\sqrt{x+4}+2)} = \\dfrac{x}{x(\\sqrt{x+4}+2)} = \\dfrac{1}{\\sqrt{x+4}+2} \\to \\dfrac{1}{4}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$: el numerador se convierte en $(x+4)-4 = x$. Cancela con el $x$ del denominador: queda $\\dfrac{1}{\\sqrt{x+4}+2} \\to \\dfrac{1}{4}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_02",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{\\sqrt{x}-1}{x-1}$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$1$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Multiplicando por $\\dfrac{\\sqrt{x}+1}{\\sqrt{x}+1}$: $\\dfrac{x-1}{(x-1)(\\sqrt{x}+1)} = \\dfrac{1}{\\sqrt{x}+1} \\to \\dfrac{1}{2}$.",
+    "feedback_incorrect": "Conjugado: $\\dfrac{(\\sqrt{x}-1)(\\sqrt{x}+1)}{(x-1)(\\sqrt{x}+1)} = \\dfrac{x-1}{(x-1)(\\sqrt{x}+1)} = \\dfrac{1}{\\sqrt{x}+1} \\to \\dfrac{1}{2}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_03",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 5} \\dfrac{\\sqrt{x+4}-3}{x-5}$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{3}$",
+      "$0$",
+      "$\\dfrac{1}{5}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(x+4)-9}{(x-5)(\\sqrt{x+4}+3)} = \\dfrac{x-5}{(x-5)(\\sqrt{x+4}+3)} = \\dfrac{1}{\\sqrt{x+4}+3} \\to \\dfrac{1}{6}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{x+4}+3}{\\sqrt{x+4}+3}$: numerador $= x-5$. Cancelar: $\\dfrac{1}{\\sqrt{x+4}+3} \\to \\dfrac{1}{3+3} = \\dfrac{1}{6}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_04",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 3} \\dfrac{\\sqrt{x+1}-2}{x-3}$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$0$",
+      "$\\dfrac{1}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(x+1)-4}{(x-3)(\\sqrt{x+1}+2)} = \\dfrac{x-3}{(x-3)(\\sqrt{x+1}+2)} = \\dfrac{1}{\\sqrt{x+1}+2} \\to \\dfrac{1}{4}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{x+1}+2}{\\sqrt{x+1}+2}$: numerador $= (x+1)-4 = x-3$. Cancelar: $\\dfrac{1}{\\sqrt{x+1}+2} \\to \\dfrac{1}{4}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_05",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{\\sqrt{9+x}-3}{x}$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{3}$",
+      "$0$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(9+x)-9}{x(\\sqrt{9+x}+3)} = \\dfrac{x}{x(\\sqrt{9+x}+3)} = \\dfrac{1}{\\sqrt{9+x}+3} \\to \\dfrac{1}{6}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{9+x}+3}{\\sqrt{9+x}+3}$: numerador $= x$. Cancelar: $\\dfrac{1}{\\sqrt{9+x}+3} \\to \\dfrac{1}{3+3} = \\dfrac{1}{6}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_06",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$0$",
+      "$1$",
+      "$\\dfrac{1}{4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(x+1)-1}{x(\\sqrt{x+1}+1)} = \\dfrac{x}{x(\\sqrt{x+1}+1)} = \\dfrac{1}{\\sqrt{x+1}+1} \\to \\dfrac{1}{2}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{x+1}+1}{\\sqrt{x+1}+1}$: numerador $= x$. Cancelar: $\\dfrac{1}{\\sqrt{x+1}+1} \\to \\dfrac{1}{2}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_07",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\dfrac{x-4}{\\sqrt{x}-2}$?",
+    "options": [
+      "$4$",
+      "$2$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Multiplicar por $\\dfrac{\\sqrt{x}+2}{\\sqrt{x}+2}$: $\\dfrac{(x-4)(\\sqrt{x}+2)}{x-4} = \\sqrt{x}+2 \\to 4$.",
+    "feedback_incorrect": "Aquí la raíz está en el denominador. Multiplicar por $\\dfrac{\\sqrt{x}+2}{\\sqrt{x}+2}$: denominador $= x-4$. Cancelar: queda $\\sqrt{x}+2 \\to 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_08",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 7} \\dfrac{\\sqrt{x+2}-3}{x-7}$?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{3}$",
+      "$0$",
+      "$\\dfrac{1}{4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(x+2)-9}{(x-7)(\\sqrt{x+2}+3)} = \\dfrac{x-7}{(x-7)(\\sqrt{x+2}+3)} = \\dfrac{1}{\\sqrt{x+2}+3} \\to \\dfrac{1}{6}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{x+2}+3}{\\sqrt{x+2}+3}$: numerador $= x-7$. Cancelar: $\\dfrac{1}{\\sqrt{x+2}+3} \\to \\dfrac{1}{3+3} = \\dfrac{1}{6}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_09",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{x}{\\sqrt{x+4}-2}$?",
+    "options": [
+      "$4$",
+      "$2$",
+      "$0$",
+      "$\\dfrac{1}{4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Multiplicar por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$: $\\dfrac{x(\\sqrt{x+4}+2)}{(x+4)-4} = \\dfrac{x(\\sqrt{x+4}+2)}{x} = \\sqrt{x+4}+2 \\to 4$.",
+    "feedback_incorrect": "Aquí la raíz está en el denominador. Multiplicar por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$: denominador $= x$. Cancela: $\\sqrt{x+4}+2 \\to 2+2 = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_resl_10",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{\\sqrt{4+x}-2}{x}$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Conjugado: $\\dfrac{(4+x)-4}{x(\\sqrt{4+x}+2)} = \\dfrac{x}{x(\\sqrt{4+x}+2)} = \\dfrac{1}{\\sqrt{4+x}+2} \\to \\dfrac{1}{4}$.",
+    "feedback_incorrect": "Multiplicar por $\\dfrac{\\sqrt{4+x}+2}{\\sqrt{4+x}+2}$: numerador $= x$. Cancelar: $\\dfrac{1}{\\sqrt{4+x}+2} \\to \\dfrac{1}{4}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_01",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuándo se usa la racionalización para resolver un límite?",
+    "options": [
+      "Cuando hay una raíz cuadrada y se genera una indeterminación $\\dfrac{0}{0}$",
+      "Cuando el numerador es un polinomio de grado $2$",
+      "Cuando el límite tiende a infinito",
+      "Siempre que aparezca una raíz cuadrada"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La racionalización se aplica cuando hay una raíz cuadrada en el numerador o denominador y la sustitución directa da $0/0$.",
+    "feedback_incorrect": "Se usa racionalización cuando la presencia de una raíz genera la indeterminación $0/0$ y no se puede factorizar algebraicamente de otra forma.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_02",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál es el conjugado de $\\sqrt{x+4}-2$?",
+    "options": [
+      "$\\sqrt{x+4}+2$",
+      "$\\sqrt{x+4}-2$",
+      "$-(\\sqrt{x+4}+2)$",
+      "$\\sqrt{x+4} \\cdot 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El conjugado de $a - b$ es $a + b$. Aquí: conjugado de $\\sqrt{x+4}-2$ es $\\sqrt{x+4}+2$.",
+    "feedback_incorrect": "El conjugado de una expresión $a - b$ es $a + b$ (se cambia el signo del segundo término). Aquí el conjugado es $\\sqrt{x+4}+2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_03",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál es el conjugado de $\\sqrt{x}-3$?",
+    "options": [
+      "$\\sqrt{x}+3$",
+      "$-\\sqrt{x}+3$",
+      "$\\sqrt{x}-3$",
+      "$3-\\sqrt{x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El conjugado de $\\sqrt{x}-3$ es $\\sqrt{x}+3$ (cambiar $-$ por $+$).",
+    "feedback_incorrect": "El conjugado cambia el signo del segundo término: conjugado de $\\sqrt{x}-3$ es $\\sqrt{x}+3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_04",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Al multiplicar por el conjugado, ¿qué identidad algebraica usamos?",
+    "options": [
+      "$(a-b)(a+b) = a^2-b^2$",
+      "$(a+b)^2 = a^2+2ab+b^2$",
+      "$(a-b)^2 = a^2-2ab+b^2$",
+      "$a^3-b^3 = (a-b)(a^2+ab+b^2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $(a-b)(a+b) = a^2-b^2$ permite eliminar la raíz: $(\\sqrt{x+4}-2)(\\sqrt{x+4}+2) = (x+4)-4 = x$.",
+    "feedback_incorrect": "La identidad clave es $(a-b)(a+b) = a^2-b^2$. Esto convierte $\\sqrt{x+4}-2$ multiplicado por su conjugado en $(x+4)-4 = x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_05",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál de estos límites requiere racionalización?",
+    "options": [
+      "$\\lim_{x \\to 1} \\dfrac{\\sqrt{x}-1}{x-1}$",
+      "$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$",
+      "$\\lim_{x \\to 2} (x^2+1)$",
+      "$\\lim_{x \\to \\infty} \\dfrac{3x}{x+1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to 1} \\dfrac{\\sqrt{x}-1}{x-1}$ tiene raíz cuadrada y genera $0/0$: se racionaliza multiplicando por $\\dfrac{\\sqrt{x}+1}{\\sqrt{x}+1}$.",
+    "feedback_incorrect": "Solo $\\dfrac{\\sqrt{x}-1}{x-1}$ combina raíz cuadrada con indeterminación $0/0$. Los demás se resuelven por factorización, sustitución directa, o límites en el infinito.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_06",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Al simplificar $\\dfrac{\\sqrt{x+1}-1}{x} \\cdot \\dfrac{\\sqrt{x+1}+1}{\\sqrt{x+1}+1}$, ¿qué obtenemos?",
+    "options": [
+      "$\\dfrac{1}{\\sqrt{x+1}+1}$",
+      "$\\dfrac{x}{\\sqrt{x+1}+1}$",
+      "$\\dfrac{\\sqrt{x+1}+1}{x}$",
+      "$\\dfrac{x+1}{x(\\sqrt{x+1}+1)}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El numerador se convierte en $(x+1)-1 = x$, y al cancelar con el $x$ del denominador queda $\\dfrac{1}{\\sqrt{x+1}+1}$.",
+    "feedback_incorrect": "$(\\sqrt{x+1}-1)(\\sqrt{x+1}+1) = (x+1)-1 = x$. Entonces $\\dfrac{x}{x(\\sqrt{x+1}+1)} = \\dfrac{1}{\\sqrt{x+1}+1}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_07",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Por qué multiplicamos por el conjugado al racionalizar?",
+    "options": [
+      "Para eliminar la raíz cuadrada y obtener un factor cancelable",
+      "Para aumentar el grado del numerador",
+      "Para convertir el límite en una derivada",
+      "Para hacer el numerador igual a cero"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Al multiplicar por el conjugado usamos $(a-b)(a+b) = a^2-b^2$, que elimina la raíz y produce un factor que cancela con el denominador.",
+    "feedback_incorrect": "El conjugado convierte la raíz cuadrada en una diferencia de cuadrados ($a^2-b^2$), que suele cancelar con el factor que genera la indeterminación.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_08",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+9}-3}{x}$, ¿cuál es el primer paso estratégico?",
+    "options": [
+      "Multiplicar por $\\dfrac{\\sqrt{x+9}+3}{\\sqrt{x+9}+3}$",
+      "Factorizar el numerador",
+      "Sustituir $x=0$ directamente",
+      "Dividir numerador y denominador por $x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La presencia de $\\sqrt{x+9}-3$ indica que hay que racionalizar multiplicando por el conjugado $\\sqrt{x+9}+3$.",
+    "feedback_incorrect": "El primer paso es reconocer que hay una raíz y racionalizar: multiplicar por $\\dfrac{\\sqrt{x+9}+3}{\\sqrt{x+9}+3}$ para eliminar la raíz.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_09",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Si el numerador tiene $\\sqrt{x} - \\sqrt{a}$, ¿por qué se multiplica arriba y abajo?",
+    "options": [
+      "Por $\\sqrt{x}+\\sqrt{a}$ (el conjugado)",
+      "Por $\\sqrt{x}-\\sqrt{a}$ (la misma expresión)",
+      "Por $\\sqrt{x} \\cdot \\sqrt{a}$",
+      "Por $x - a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El conjugado de $\\sqrt{x}-\\sqrt{a}$ es $\\sqrt{x}+\\sqrt{a}$. Al multiplicar: $(\\sqrt{x}-\\sqrt{a})(\\sqrt{x}+\\sqrt{a}) = x - a$.",
+    "feedback_incorrect": "El conjugado de $\\sqrt{x}-\\sqrt{a}$ es $\\sqrt{x}+\\sqrt{a}$. Su producto da $x-a$, que suele cancelar con el denominador.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_racionalizacion_estr_10",
+    "belt": "blue",
+    "topic": "racionalizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Qué resultado da $(\\sqrt{x+4}-2)(\\sqrt{x+4}+2)$?",
+    "options": [
+      "$x$",
+      "$x+8$",
+      "$x^2+4$",
+      "$(x+4)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $(\\sqrt{x+4})^2 - 2^2 = (x+4) - 4 = x$. Por eso al racionalizar, el $x$ resultante cancela con el denominador.",
+    "feedback_incorrect": "$(a-b)(a+b) = a^2-b^2$. Aquí $a=\\sqrt{x+4}$ y $b=2$: $(\\sqrt{x+4})^2-4 = (x+4)-4 = x$.",
+    "graph_fn": null,
+    "graph_view": null
+  }
+]

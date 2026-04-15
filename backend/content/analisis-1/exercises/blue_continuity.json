@@ -1,0 +1,602 @@
+[
+  {
+    "external_id": "blue_continuity_clsf_01",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuáles son las tres condiciones para que $f$ sea continua en $x = a$?",
+    "options": [
+      "$f(a)$ existe, $\\lim_{x \\to a} f(x)$ existe, y $\\lim_{x \\to a} f(x) = f(a)$",
+      "$f(a) = 0$, $f'(a)$ existe, y $f$ es positiva en $a$",
+      "$f(a)$ existe y $f$ es diferenciable en $a$",
+      "El límite existe y es finito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las tres condiciones son: (1) $f(a)$ existe, (2) el límite existe, (3) ambos coinciden.",
+    "feedback_incorrect": "Para continuidad en $x=a$ se necesitan exactamente tres condiciones: que $f(a)$ esté definida, que el límite exista, y que sean iguales.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_02",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Una discontinuidad es \"removible\" cuando...",
+    "options": [
+      "El límite bilateral existe, pero no coincide con $f(a)$ (o $f(a)$ no está definida)",
+      "Los límites laterales son distintos",
+      "El límite tiende a infinito",
+      "La función no está definida en ningún punto cerca de $a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La discontinuidad es removible si el límite existe pero $f(a)$ falta o difiere. Se puede \"arreglar\" redefiniendo $f(a)$.",
+    "feedback_incorrect": "Una discontinuidad removible es aquella donde $\\lim_{x \\to a} f(x)$ existe, pero $f(a)$ no está definida o tiene un valor distinto al límite.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_03",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Una discontinuidad es \"de salto\" cuando...",
+    "options": [
+      "Los límites laterales existen pero son distintos: $\\lim^- \\neq \\lim^+$",
+      "El límite bilateral existe pero $f(a)$ no está definida",
+      "El límite tiende a $\\pm\\infty$",
+      "La función tiene un pico (máximo local)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En la discontinuidad de salto, la función \"salta\" de un valor a otro: $\\lim^- \\neq \\lim^+$.",
+    "feedback_incorrect": "La discontinuidad de salto ocurre cuando los dos límites laterales existen pero son distintos, causando un salto en la gráfica.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_04",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Una discontinuidad es \"esencial\" (o infinita) cuando...",
+    "options": [
+      "Al menos uno de los límites laterales es $\\pm\\infty$",
+      "Los límites laterales son iguales pero $f(a)$ no está definida",
+      "La función salta de un valor finito a otro",
+      "La función tiene un valor máximo en $x = a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La discontinuidad esencial/infinita ocurre cuando la función explota ($\\to \\pm\\infty$) cerca de $x=a$, como en las asíntotas verticales.",
+    "feedback_incorrect": "Una discontinuidad esencial ocurre cuando el límite (o un límite lateral) tiende a $\\pm\\infty$, como en $f(x) = 1/x$ en $x=0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_05",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Dada $f(x) = \\begin{cases} x+1 & x < 2 \\\\ 5 & x = 2 \\\\ x+1 & x > 2 \\end{cases}$, ¿es $f$ continua en $x=2$?",
+    "options": [
+      "No: $\\lim_{x \\to 2} f(x) = 3$ pero $f(2) = 5$",
+      "Sí: $f(2) = 5$ está definida",
+      "Sí: $\\lim_{x \\to 2} f(x) = 5$",
+      "No: el límite no existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite existe ($\\lim^- = \\lim^+ = 3$), pero $f(2)=5 \\neq 3$. Discontinuidad removible.",
+    "feedback_incorrect": "$\\lim_{x \\to 2} (x+1) = 3$ pero $f(2) = 5 \\neq 3$. La tercera condición de continuidad falla: discontinuidad removible.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_06",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "La gráfica muestra un hueco (punto removido) en $x=2$. ¿Qué tipo de discontinuidad es?",
+    "options": [
+      "Removible",
+      "De salto",
+      "Esencial",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Un hueco en la gráfica (el límite existe pero $f(a)$ falta o difiere) indica discontinuidad removible.",
+    "feedback_incorrect": "Un hueco o punto removido en la gráfica es la representación visual de una discontinuidad removible: el límite existe pero $f(a)$ es distinto o no está definido.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [-1, 5, -1, 8]
+  },
+  {
+    "external_id": "blue_continuity_clsf_07",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "La gráfica salta de $y=1$ a $y=4$ en $x=0$. ¿Qué tipo de discontinuidad es?",
+    "options": [
+      "De salto",
+      "Removible",
+      "Esencial",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Un salto visible en la gráfica (dos ramas separadas) indica una discontinuidad de salto.",
+    "feedback_incorrect": "Cuando la gráfica salta de un nivel a otro, es una discontinuidad de salto. Los límites laterales existen pero son distintos.",
+    "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
+    "graph_view": [-3, 3, -1, 6]
+  },
+  {
+    "external_id": "blue_continuity_clsf_08",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "La gráfica de $f(x) = \\dfrac{1}{x}$ tiene una discontinuidad en $x=0$. ¿De qué tipo es?",
+    "options": [
+      "Esencial (infinita)",
+      "Removible",
+      "De salto",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 1/x$ tiene $\\lim_{x \\to 0} = \\pm\\infty$ (asíntota vertical), que es una discontinuidad esencial.",
+    "feedback_incorrect": "En $x=0$, $1/x \\to \\pm\\infty$: los límites laterales son infinitos. Esto es una discontinuidad esencial.",
+    "graph_fn": "1 / x",
+    "graph_view": [-4, 4, -6, 6]
+  },
+  {
+    "external_id": "blue_continuity_clsf_09",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Toda función polinómica (como $f(x) = x^3 - 2x + 5$) es continua en todo $\\mathbb{R}$?",
+    "options": [
+      "Sí, los polinomios son continuos en todos los reales",
+      "No, pueden tener discontinuidades en algunos puntos",
+      "Solo si tienen grado par",
+      "Solo si su coeficiente líder es positivo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Toda función polinómica es continua en $\\mathbb{R}$: en cualquier punto $a$, $\\lim_{x \\to a} p(x) = p(a)$.",
+    "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. No tienen discontinuidades sin importar su grado o coeficientes.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_clsf_10",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "CLSF",
+    "subtype": "graph",
+    "question": "La gráfica muestra una curva suave sin interrupciones en el intervalo $[-2, 4]$. ¿Es continua allí?",
+    "options": [
+      "Sí, la curva sin interrupciones indica continuidad",
+      "No, solo si la función es un polinomio",
+      "No se puede determinar solo con la gráfica",
+      "Sí, pero solo en los puntos donde la derivada existe"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Una curva sin saltos, huecos ni asíntotas en el intervalo indica que la función es continua allí.",
+    "feedback_incorrect": "Una gráfica sin saltos, huecos ni asíntotas verticales en un intervalo indica continuidad en ese intervalo.",
+    "graph_fn": "x**2 - 2*x + 1",
+    "graph_view": [-3, 5, -1, 10]
+  },
+  {
+    "external_id": "blue_continuity_resl_01",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Sea $f(x) = \\begin{cases} x^2-1 & x \\neq 1 \\\\ 0 & x=1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "Sí: $\\lim_{x \\to 1}(x^2-1) = 0 = f(1)$, las tres condiciones se cumplen",
+      "No: el límite no existe porque $f$ cambia de definición en $x=1$",
+      "No: $\\lim_{x \\to 1} = 0$ pero $f(1) = 1$",
+      "No: $f(1)$ no está definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to 1}(x^2-1) = 0$ y $f(1) = 0$. Las tres condiciones se cumplen: $f$ es continua.",
+    "feedback_incorrect": "$\\lim_{x \\to 1}(x^2-1) = 1-1 = 0$ y $f(1) = 0$. Como límite $=$ valor, $f$ es continua en $x=1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_02",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Sea $f(x) = \\begin{cases} x+3 & x < 1 \\\\ x^2+1 & x \\geq 1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "No: $\\lim^- = 4$ pero $f(1) = 2$",
+      "Sí: ambos lados dan el mismo valor",
+      "No: el límite no existe",
+      "Sí: $f(1) = 2$ está definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim^- = 1+3=4$ y $f(1) = 1+1=2$. Como $4 \\neq 2$, la función no es continua en $x=1$.",
+    "feedback_incorrect": "$\\lim_{x \\to 1^-} = 4$ y $f(1) = 2$. No coinciden: discontinuidad en $x=1$ (de salto, ya que $\\lim^+ = 2$).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_03",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Hallar $k$ para que $f(x) = \\begin{cases} kx+1 & x < 2 \\\\ x^2-1 & x \\geq 2 \\end{cases}$ sea continua en $x=2$.",
+    "options": [
+      "$k = 1$",
+      "$k = 2$",
+      "$k = 3$",
+      "$k = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Se necesita $\\lim^- = f(2)$: $2k+1 = 4-1 = 3$, entonces $2k = 2$, $k=1$.",
+    "feedback_incorrect": "Para continuidad: $\\lim^- = \\lim^+$. $\\lim^- = 2k+1$ y $f(2) = 4-1=3$. Entonces $2k+1=3 \\Rightarrow k=1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_04",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Hallar $k$ para que $f(x) = \\begin{cases} 3x-k & x \\leq 1 \\\\ x^2+2 & x > 1 \\end{cases}$ sea continua en $x=1$.",
+    "options": [
+      "$k = 0$",
+      "$k = 3$",
+      "$k = 1$",
+      "$k = -3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para continuidad: $3(1)-k = 1+2 = 3$, entonces $3-k=3$, $k=0$.",
+    "feedback_incorrect": "Igualar: $f(1^-) = 3(1)-k = 3-k$ y $f(1^+) = 1+2 = 3$. Entonces $3-k = 3 \\Rightarrow k=0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_05",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Es $f(x) = \\dfrac{x^2-4}{x-2}$ continua en $x=2$?",
+    "options": [
+      "No: $f(2)$ no está definida (aunque el límite existe y vale $4$)",
+      "Sí: el límite en $x=2$ vale $4$",
+      "Sí: porque el límite existe",
+      "No: el límite no existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(2)$ no está definida (división por cero), así que la primera condición de continuidad falla. Hay una discontinuidad removible.",
+    "feedback_incorrect": "Para continuidad, $f(a)$ debe estar definida. Como $f(2)$ no existe (denominador = 0), no es continua en $x=2$, aunque $\\lim_{x \\to 2} = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_06",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Es $f(x) = |x|$ continua en $x=0$?",
+    "options": [
+      "Sí: $f(0) = 0$ y $\\lim_{x \\to 0} |x| = 0$",
+      "No: la función tiene un ángulo en $x=0$",
+      "No: los límites laterales son distintos",
+      "Sí, pero solo por la derecha"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = 0$, $\\lim^- = 0$, $\\lim^+ = 0$. Las tres condiciones se cumplen: $|x|$ es continua en $x=0$.",
+    "feedback_incorrect": "$|x|$: $\\lim^- = 0$ y $\\lim^+ = 0$, ambos iguales a $f(0) = 0$. La función es continua aunque tenga un vértice.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_07",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Es $f(x) = \\dfrac{1}{x}$ continua en $x=0$?",
+    "options": [
+      "No: $f(0)$ no está definida",
+      "Sí: el límite existe",
+      "Sí: $f(0) = 0$",
+      "No: el límite vale infinito pero eso es suficiente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(0) = 1/0$ no está definida. La primera condición de continuidad falla. Además, $\\lim_{x \\to 0} 1/x = \\pm\\infty$.",
+    "feedback_incorrect": "$f(0)$ no está definida (división por cero) y $\\lim_{x \\to 0} = \\pm\\infty$. Hay una discontinuidad esencial en $x=0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_08",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Hallar $a$ para que $f(x) = \\begin{cases} x^2 & x \\leq 3 \\\\ ax-6 & x > 3 \\end{cases}$ sea continua en $x=3$.",
+    "options": [
+      "$a = 5$",
+      "$a = 3$",
+      "$a = 9$",
+      "$a = 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para continuidad: $f(3^-) = 9$ y $f(3^+) = 3a-6$. Igualando: $3a-6=9$, entonces $a=5$.",
+    "feedback_incorrect": "Condición: $9 = 3a-6 \\Rightarrow 3a = 15 \\Rightarrow a = 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_09",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Dada $f(x) = \\sin(\\pi x)$, se sabe que $f(1) = 0$ y $\\lim_{x \\to 1} \\sin(\\pi x) = 0$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "Sí: $f(1) = 0$, el límite existe y vale $0$, y $\\lim = f(1)$",
+      "No: las funciones trigonométricas no son continuas",
+      "No: el límite no coincide con el valor",
+      "Solo si $x$ es un número entero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las tres condiciones se cumplen: $f(1)=0$, $\\lim=0$, y $\\lim=f(1)$. $f$ es continua en $x=1$.",
+    "feedback_incorrect": "Las tres condiciones de continuidad se verifican: $f(1)=0$, $\\lim_{x \\to 1} = 0$, y coinciden. $f$ es continua.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_resl_10",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Hallar $c$ para que $f(x) = \\begin{cases} cx^2+2 & x < 1 \\\\ x+4 & x \\geq 1 \\end{cases}$ sea continua en $x=1$.",
+    "options": [
+      "$c = 3$",
+      "$c = 1$",
+      "$c = 5$",
+      "$c = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(1^+) = 1+4 = 5$. Para continuidad: $c(1)^2+2 = 5$, entonces $c+2=5$, $c=3$.",
+    "feedback_incorrect": "Igualar: $c+2 = 1+4 = 5 \\Rightarrow c = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_continuity_graf_01",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica, ¿en cuál punto la función NO es continua?",
+    "options": [
+      "$x = 2$",
+      "$x = 0$",
+      "$x = -1$",
+      "$x = 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $x=2$ hay un hueco en la gráfica: la función no está definida o tiene un valor distinto al límite.",
+    "feedback_incorrect": "En la gráfica, el hueco o punto removido en $x=2$ es el punto de discontinuidad.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [-1, 5, -1, 8]
+  },
+  {
+    "external_id": "blue_continuity_graf_02",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la misma gráfica con hueco en $x=2$, ¿qué tipo de discontinuidad es?",
+    "options": [
+      "Removible",
+      "De salto",
+      "Esencial",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Un hueco en la gráfica indica discontinuidad removible: el límite existe pero no coincide con $f(a)$.",
+    "feedback_incorrect": "El hueco indica que el límite existe (la gráfica se acerca a un valor) pero $f(a)$ tiene otro valor o no está definida: discontinuidad removible.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [-1, 5, -1, 8]
+  },
+  {
+    "external_id": "blue_continuity_graf_03",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica salta en $x=0$. ¿Es $f$ continua en $x=0$?",
+    "options": [
+      "No: los límites laterales son distintos",
+      "Sí: la función está definida en $x=0$",
+      "Sí: el valor de $f(0)$ coincide con $\\lim^+$",
+      "No: $f(0)$ no está definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Un salto implica $\\lim^- \\neq \\lim^+$, por lo que el límite bilateral no existe y la función no es continua.",
+    "feedback_incorrect": "El salto hace que los límites laterales sean distintos: el límite bilateral no existe y la función no puede ser continua en ese punto.",
+    "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
+    "graph_view": [-3, 3, -1, 6]
+  },
+  {
+    "external_id": "blue_continuity_graf_04",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica muestra una parábola $f(x) = x^2$ sin interrupciones. ¿En cuál de los puntos marcados ($x=-1$, $x=0$, $x=2$) es $f$ continua?",
+    "options": [
+      "En todos: $x=-1$, $x=0$ y $x=2$",
+      "Solo en $x=0$",
+      "Solo en $x=2$",
+      "En ninguno"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Un polinomio como $x^2$ es continuo en todo $\\mathbb{R}$, así que lo es en todos los puntos marcados.",
+    "feedback_incorrect": "La parábola $x^2$ es continua en todo $\\mathbb{R}$. En $x=-1$, $0$ y $2$ no hay ninguna interrupción.",
+    "graph_fn": "x**2",
+    "graph_view": [-3, 3, -1, 9]
+  },
+  {
+    "external_id": "blue_continuity_graf_05",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica de $f(x) = 1/x$ tiene una discontinuidad en $x=0$. ¿Qué tipo es?",
+    "options": [
+      "Esencial (infinita)",
+      "Removible",
+      "De salto",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La gráfica muestra una asíntota vertical en $x=0$: $\\lim = \\pm\\infty$. Discontinuidad esencial.",
+    "feedback_incorrect": "La asíntota vertical en $x=0$ (con la función tendiendo a $\\pm\\infty$) corresponde a una discontinuidad esencial.",
+    "graph_fn": "1 / x",
+    "graph_view": [-4, 4, -6, 6]
+  },
+  {
+    "external_id": "blue_continuity_graf_06",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica tiene discontinuidades en $x=0$ (salto) y $x=3$ (hueco). ¿Cuántos puntos de discontinuidad hay?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Hay dos puntos de discontinuidad: $x=0$ (salto) y $x=3$ (removible).",
+    "feedback_incorrect": "Se identifican dos puntos de discontinuidad: uno en $x=0$ (salto) y otro en $x=3$ (discontinuidad removible).",
+    "graph_fn": "Piecewise((x, x < 0), (x + 2, (0 <= x) & (x != 3)), (6, x == 3))",
+    "graph_view": [-2, 5, -2, 8]
+  },
+  {
+    "external_id": "blue_continuity_graf_07",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica es continua en el intervalo $[1, 4]$. ¿En cuál intervalo alternativo también es continua?",
+    "options": [
+      "$[0, 5]$",
+      "$[-1, 0]$",
+      "$[4, 6]$",
+      "En ningún otro intervalo"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! Si la función es continua en $[1,4]$, también lo es en $[0,5]$ si no hay discontinuidades en ese rango más amplio.",
+    "feedback_incorrect": "La continuidad en $[1,4]$ puede extenderse al intervalo $[0,5]$ si la gráfica no muestra ninguna interrupción en ese rango.",
+    "graph_fn": "x**2 - 2*x + 1",
+    "graph_view": [-1, 6, -1, 10]
+  },
+  {
+    "external_id": "blue_continuity_graf_08",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica tiene un hueco en $x=2$ (punto removido). ¿Existe $\\lim_{x \\to 2} f(x)$ aunque $f(2)$ no esté definida?",
+    "options": [
+      "Sí: el límite puede existir aunque $f(2)$ no esté definida",
+      "No: si $f(2)$ no existe, el límite tampoco existe",
+      "Solo si la función es polinómica",
+      "Solo si el hueco está sobre el eje $x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite depende del comportamiento de $f$ cerca de $x=2$, no en $x=2$. Puede existir aunque $f(2)$ no esté definida.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to 2}$ depende de lo que pasa alrededor de $x=2$, no en el punto mismo. Puede existir aunque $f(2)$ falte.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (None, x == 2))",
+    "graph_view": [-1, 5, -1, 7]
+  },
+  {
+    "external_id": "blue_continuity_graf_09",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica de $f(x) = x^2 - 3$ es una parábola sin interrupciones. ¿Es continua para todo $x$ real?",
+    "options": [
+      "Sí, es continua en todo $\\mathbb{R}$",
+      "No, solo en $x > 0$",
+      "Solo para $x \\geq -\\sqrt{3}$",
+      "No, tiene una discontinuidad en $x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Todo polinomio es continuo en $\\mathbb{R}$. La parábola $x^2-3$ no tiene ninguna discontinuidad.",
+    "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. La parábola $x^2-3$ es continua en todos los reales.",
+    "graph_fn": "x**2 - 3",
+    "graph_view": [-4, 4, -4, 13]
+  },
+  {
+    "external_id": "blue_continuity_graf_10",
+    "belt": "blue",
+    "topic": "continuity",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica tiene un salto en $x=-1$ y un hueco en $x=2$. ¿Cuántos tipos distintos de discontinuidad muestra?",
+    "options": [
+      "$2$ (de salto y removible)",
+      "$1$ (solo removible)",
+      "$2$ (de salto y esencial)",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "¡Correcto! El salto es una discontinuidad de salto y el hueco es una discontinuidad removible: dos tipos distintos.",
+    "feedback_incorrect": "Un salto corresponde a discontinuidad de salto, y un hueco (punto removido) corresponde a discontinuidad removible. Son dos tipos distintos.",
+    "graph_fn": "Piecewise((x, x < -1), (x + 3, (-1 <= x) & (x != 2)), (6, x == 2))",
+    "graph_view": [-3, 4, -3, 7]
+  }
+]

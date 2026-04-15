@@ -1,0 +1,602 @@
+[
+  {
+    "external_id": "blue_algebraic_limits_lexi_01",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué describe la expresión $\\lim_{x \\to a} f(x) = L$?",
+    "options": [
+      "El valor al que se acerca $f(x)$ cuando $x$ se aproxima a $a$",
+      "El valor de $f(a)$",
+      "La pendiente de $f$ en $x = a$",
+      "El área bajo la curva en $x = a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite describe el comportamiento de $f(x)$ cuando $x$ se acerca a $a$, no necesariamente el valor en ese punto.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x) = L$ describe el valor al que se aproxima $f(x)$ cuando $x$ tiende a $a$, independientemente de lo que valga $f(a)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_02",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué significa la notación $x \\to 3$?",
+    "options": [
+      "$x$ se aproxima a $3$ sin necesariamente llegar a valer $3$",
+      "$x$ es igual a $3$",
+      "$x$ es mayor que $3$",
+      "$x$ tiende a $3$ solo por la derecha"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La notación $x \\to 3$ indica que $x$ se acerca a $3$, pero no necesariamente toma ese valor.",
+    "feedback_incorrect": "La notación $x \\to 3$ significa que $x$ se aproxima a $3$ desde ambos lados, sin necesariamente llegar a ese valor.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_03",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Si al sustituir $x = a$ en $\\dfrac{f(x)}{g(x)}$ obtenemos $\\dfrac{0}{0}$, ¿cómo se llama esta situación?",
+    "options": [
+      "Indeterminación",
+      "Discontinuidad",
+      "Asíntota",
+      "Límite infinito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\dfrac{0}{0}$ es una indeterminación: el límite puede existir, pero no se puede evaluar directamente.",
+    "feedback_incorrect": "Cuando la sustitución directa da $\\dfrac{0}{0}$, se llama indeterminación. Hay que aplicar otra técnica (factorización, racionalización, etc.).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_04",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuándo se puede resolver $\\lim_{x \\to a} f(x)$ por sustitución directa?",
+    "options": [
+      "Cuando $f$ es continua en $x = a$",
+      "Cuando $f(a) = 0$",
+      "Cuando $f$ tiene una asíntota en $x = a$",
+      "Siempre, sin importar la función"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Si $f$ es continua en $a$, entonces $\\lim_{x \\to a} f(x) = f(a)$ y basta con sustituir.",
+    "feedback_incorrect": "La sustitución directa funciona cuando $f$ es continua en $x = a$, es decir, cuando $\\lim_{x \\to a} f(x) = f(a)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_05",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué significa que $\\lim_{x \\to a} f(x)$ sea un límite finito?",
+    "options": [
+      "Que $L$ es un número real",
+      "Que $f(a)$ está definida",
+      "Que $f$ solo está definida en un intervalo acotado",
+      "Que el límite vale cero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Un límite finito significa que $L \\in \\mathbb{R}$, es decir, el límite existe y es un número real.",
+    "feedback_incorrect": "Un límite finito es aquel donde $L$ es un número real (no $\\pm\\infty$). No depende de si $f(a)$ está definida.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_06",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones genera una indeterminación $\\dfrac{0}{0}$ al sustituir $x = 2$?",
+    "options": [
+      "$\\dfrac{x^2 - 4}{x - 2}$",
+      "$\\dfrac{x + 3}{x - 5}$",
+      "$\\dfrac{x^2 + 1}{x + 1}$",
+      "$\\dfrac{2x}{x^2 + 4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al sustituir $x = 2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{0}{0}$, que es una indeterminación.",
+    "feedback_incorrect": "Al sustituir $x=2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{4-4}{2-2} = \\dfrac{0}{0}$. Las otras opciones dan valores definidos.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_07",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la escritura correcta del límite de $f(x)$ cuando $x$ tiende a $5$?",
+    "options": [
+      "$\\lim_{x \\to 5} f(x)$",
+      "$\\lim_{f \\to 5} x$",
+      "$f(x) \\to 5$",
+      "$\\lim_{x = 5} f(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La notación estándar es $\\lim_{x \\to 5} f(x)$, donde la variable que tiende al valor va debajo del símbolo $\\lim$.",
+    "feedback_incorrect": "La notación correcta es $\\lim_{x \\to 5} f(x)$. Usamos $\\to$ (tiende a) debajo del símbolo de límite para indicar a qué valor se aproxima $x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_08",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Si $f(2) = 7$ pero $\\lim_{x \\to 2} f(x) = 5$, ¿qué podemos concluir?",
+    "options": [
+      "El límite y el valor de la función en $x=2$ pueden ser distintos",
+      "Hay un error, porque el límite siempre debe ser igual a $f(a)$",
+      "La función no está definida en $x = 2$",
+      "El límite no existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite describe el comportamiento de $f$ cerca de $x=2$, no en $x=2$. Pueden tener valores distintos.",
+    "feedback_incorrect": "El límite y el valor de la función pueden diferir. $\\lim_{x \\to 2} f(x)$ depende del comportamiento de $f$ cerca de $2$, no del valor $f(2)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_09",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál de estas expresiones NO es una indeterminación?",
+    "options": [
+      "$\\dfrac{1}{0}$",
+      "$\\dfrac{0}{0}$",
+      "$\\dfrac{\\infty}{\\infty}$",
+      "$\\infty - \\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\dfrac{1}{0}$ no es una indeterminación: indica que el límite tiende a $\\pm\\infty$. Las indeterminaciones son formas como $\\dfrac{0}{0}$, $\\dfrac{\\infty}{\\infty}$, $\\infty - \\infty$, etc.",
+    "feedback_incorrect": "$\\dfrac{1}{0}$ no es una indeterminación sino un límite infinito ($\\pm\\infty$). Las indeterminaciones son $\\dfrac{0}{0}$, $\\dfrac{\\infty}{\\infty}$, $\\infty - \\infty$, entre otras.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_lexi_10",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué afirma $\\lim_{x \\to a} f(x) = L$ sobre el comportamiento de $f(x)$?",
+    "options": [
+      "Que $f(x)$ se acerca a $L$ cuando $x$ se acerca a $a$",
+      "Que $f(a) = L$ siempre",
+      "Que $f$ es constante e igual a $L$",
+      "Que $f(x) > L$ para todo $x$ cercano a $a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite expresa que $f(x)$ se aproxima a $L$ a medida que $x$ se aproxima a $a$.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x) = L$ significa que $f(x)$ se acerca tanto como queramos a $L$ cuando $x$ se acerca a $a$, sin importar $f(a)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_01",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 2} (3x^2 - x + 1)$?",
+    "options": [
+      "$11$",
+      "$9$",
+      "$13$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo directamente: $3(4) - 2 + 1 = 12 - 2 + 1 = 11$.",
+    "feedback_incorrect": "Se sustituye $x=2$ directamente: $3(2)^2 - 2 + 1 = 12 - 2 + 1 = 11$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_02",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x+3}{x+2}$?",
+    "options": [
+      "$\\dfrac{4}{3}$",
+      "$\\dfrac{1}{2}$",
+      "$2$",
+      "$\\dfrac{3}{2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=1$: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$.",
+    "feedback_incorrect": "Se sustituye $x=1$ directamente: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$. No hay indeterminación.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_03",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} (2x^3 + 5x - 1)$?",
+    "options": [
+      "$-1$",
+      "$0$",
+      "$1$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=0$: $2(0) + 5(0) - 1 = -1$.",
+    "feedback_incorrect": "Sustituir $x=0$: $2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_04",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 7} 4$?",
+    "options": [
+      "$4$",
+      "$7$",
+      "$0$",
+      "$28$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite de una constante es la constante misma: $\\lim_{x \\to 7} 4 = 4$.",
+    "feedback_incorrect": "El límite de una función constante es siempre esa constante, independientemente del valor al que tiende $x$: $\\lim_{x \\to 7} 4 = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_05",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -3} x$?",
+    "options": [
+      "$-3$",
+      "$3$",
+      "$0$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El límite de la función identidad $f(x) = x$ cuando $x \\to a$ es simplemente $a$.",
+    "feedback_incorrect": "Para $f(x) = x$, el límite cuando $x \\to -3$ es $-3$. La función identidad tiende al mismo valor al que se acerca $x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_06",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Si $\\lim_{x \\to a} f(x) = 3$ y $\\lim_{x \\to a} g(x) = 5$, ¿cuánto vale $\\lim_{x \\to a} [f(x) + g(x)]$?",
+    "options": [
+      "$8$",
+      "$15$",
+      "$2$",
+      "$\\dfrac{3}{5}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Por la propiedad de suma: $\\lim [f + g] = \\lim f + \\lim g = 3 + 5 = 8$.",
+    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) + g(x)] = \\lim f(x) + \\lim g(x) = 3 + 5 = 8$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_07",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Si $\\lim_{x \\to a} f(x) = 2$ y $\\lim_{x \\to a} g(x) = -4$, ¿cuánto vale $\\lim_{x \\to a} [f(x) \\cdot g(x)]$?",
+    "options": [
+      "$-8$",
+      "$8$",
+      "$-2$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Por la propiedad de producto: $\\lim [f \\cdot g] = \\lim f \\cdot \\lim g = 2 \\cdot (-4) = -8$.",
+    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) \\cdot g(x)] = \\lim f(x) \\cdot \\lim g(x) = 2 \\cdot (-4) = -8$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_08",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\sqrt{x + 5}$?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$\\sqrt{5}$",
+      "$\\sqrt{9} + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo: $\\sqrt{4+5} = \\sqrt{9} = 3$.",
+    "feedback_incorrect": "Se sustituye $x=4$ directamente: $\\sqrt{4+5} = \\sqrt{9} = 3$. No hay indeterminación.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_09",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -1} (x^3 + 2x^2 - x + 3)$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$-1$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
+    "feedback_incorrect": "Sustituir $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_resl_10",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuál de estos límites se puede resolver directamente por sustitución (sin indeterminación)?",
+    "options": [
+      "$\\lim_{x \\to 3} (x^2 + 1)$",
+      "$\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$",
+      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1} - 1}{x}$",
+      "$\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to 3} (x^2 + 1) = 9 + 1 = 10$, sin indeterminación. Los demás generan $\\dfrac{0}{0}$.",
+    "feedback_incorrect": "Solo $\\lim_{x \\to 3} (x^2 + 1)$ no genera indeterminación al sustituir: $3^2 + 1 = 10$. Los demás dan $\\dfrac{0}{0}$ al sustituir.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_01",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Al evaluar $\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$ por sustitución directa, ¿qué obtenemos?",
+    "options": [
+      "$\\dfrac{0}{0}$, hay que usar otra técnica",
+      "$2$, el límite es $2$ directamente",
+      "$0$, el límite es $0$",
+      "La expresión no tiene límite"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=2$: $\\dfrac{4-4}{2-2} = \\dfrac{0}{0}$, una indeterminación. Hay que factorizar.",
+    "feedback_incorrect": "Sustituir $x=2$ da $\\dfrac{0}{0}$, que es una indeterminación. Se debe factorizar el numerador: $(x-2)(x+2)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_02",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál de estos límites requiere factorización para resolverse?",
+    "options": [
+      "$\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$",
+      "$\\lim_{x \\to 2} (x^2 + 5)$",
+      "$\\lim_{x \\to 1} \\dfrac{x + 3}{x + 2}$",
+      "$\\lim_{x \\to 0} 7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ da $\\dfrac{0}{0}$ al sustituir y requiere factorizar $x^2-9 = (x-3)(x+3)$.",
+    "feedback_incorrect": "Solo $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ produce una indeterminación al sustituir y necesita factorización. Los demás se resuelven directamente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_03",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "En $\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$, el numerador $x^2 - 9$ es una...",
+    "options": [
+      "Diferencia de cuadrados: $(x-3)(x+3)$",
+      "Suma de cuadrados: $(x+3)^2$",
+      "Trinomio cuadrado perfecto",
+      "Diferencia de cubos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 - 9 = x^2 - 3^2 = (x-3)(x+3)$. Esto permite cancelar el factor $(x-3)$ con el denominador.",
+    "feedback_incorrect": "$x^2 - 9 = (x-3)(x+3)$ es una diferencia de cuadrados. Al cancelar $(x-3)$ queda $x+3$, y el límite es $6$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_04",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para resolver $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+4} - 2}{x}$, ¿qué técnica es más adecuada?",
+    "options": [
+      "Racionalización (multiplicar por el conjugado)",
+      "Factorización del denominador",
+      "Sustitución directa",
+      "Regla de L'Hôpital (no vista aún)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al haber una raíz cuadrada y la indeterminación $\\dfrac{0}{0}$, la técnica es racionalizar multiplicando por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$.",
+    "feedback_incorrect": "Cuando el numerador tiene una raíz cuadrada y se genera $\\dfrac{0}{0}$, la técnica correcta es racionalizar multiplicando por el conjugado $\\sqrt{x+4}+2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_05",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál es el orden correcto del proceso para calcular un límite algebraico?",
+    "options": [
+      "Sustituir → si da $\\frac{0}{0}$, simplificar → sustituir de nuevo",
+      "Simplificar → sustituir → verificar",
+      "Factorizar siempre antes de sustituir",
+      "Calcular la derivada y luego sustituir"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El primer paso es siempre intentar la sustitución directa. Si da indeterminación, se aplica la técnica adecuada y luego se vuelve a sustituir.",
+    "feedback_incorrect": "El proceso correcto es: (1) intentar sustitución directa, (2) si da $\\frac{0}{0}$, aplicar factorización o racionalización, (3) sustituir nuevamente.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_06",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "En $\\dfrac{x^2 + 5x + 6}{x + 2}$, ¿qué factor del numerador cancela con el denominador?",
+    "options": [
+      "$(x + 2)$",
+      "$(x + 3)$",
+      "$(x - 2)$",
+      "$(x + 6)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 + 5x + 6 = (x+2)(x+3)$. El factor $(x+2)$ cancela con el denominador, quedando $(x+3)$.",
+    "feedback_incorrect": "$x^2+5x+6 = (x+2)(x+3)$. El factor que cancela con el denominador $(x+2)$ es $(x+2)$, dejando $(x+3)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_07",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Después de cancelar $(x+2)$ en $\\dfrac{(x+2)(x+3)}{x+2}$, ¿cuánto vale $\\lim_{x \\to -2}$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-1$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Tras cancelar, queda $\\lim_{x \\to -2}(x+3) = -2+3 = 1$.",
+    "feedback_incorrect": "Tras cancelar el factor $(x+2)$, queda $x+3$. Sustituyendo $x=-2$: $-2+3 = 1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_08",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para $\\lim_{x \\to \\infty} \\dfrac{3x^2}{x^2 + 1}$, ¿qué técnica se aplica?",
+    "options": [
+      "Dividir numerador y denominador por $x^2$",
+      "Factorizar el numerador",
+      "Racionalizar",
+      "Sustitución directa con $x = \\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para límites en el infinito de funciones racionales, se divide por la potencia más alta: $\\dfrac{3}{1 + 1/x^2} \\to 3$.",
+    "feedback_incorrect": "Para límites cuando $x \\to \\infty$ en racionales, se divide numerador y denominador por el término de mayor grado ($x^2$ aquí), obteniendo $\\dfrac{3}{1+1/x^2} \\to 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_09",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál de estas afirmaciones es FALSA sobre el proceso para resolver un límite?",
+    "options": [
+      "Si obtenemos $\\dfrac{0}{0}$, el límite no existe",
+      "Siempre se intenta primero la sustitución directa",
+      "$\\dfrac{0}{0}$ es una indeterminación que requiere simplificación",
+      "Después de simplificar, se vuelve a sustituir"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\dfrac{0}{0}$ es una indeterminación, no significa que el límite no exista. Con la técnica adecuada suele resolverse.",
+    "feedback_incorrect": "La afirmación falsa es que $\\dfrac{0}{0}$ implica que el límite no existe. Es solo una indeterminación: el límite puede existir y encontrarse con factorización o racionalización.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_algebraic_limits_estr_10",
+    "belt": "blue",
+    "topic": "algebraic_limits",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál de estos límites se resuelve con factorización de trinomio $ax^2 + bx + c$?",
+    "options": [
+      "$\\lim_{x \\to -1} \\dfrac{x^2 + 3x + 2}{x + 1}$",
+      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+9} - 3}{x}$",
+      "$\\lim_{x \\to \\infty} \\dfrac{2x}{x+1}$",
+      "$\\lim_{x \\to 3} (x^2 - 1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2+3x+2 = (x+1)(x+2)$. Se cancela $(x+1)$ con el denominador y el límite da $-1+2 = 1$.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$ requiere factorizar el trinomio: $(x+1)(x+2)$. Los demás usan otras técnicas.",
+    "graph_fn": null,
+    "graph_view": null
+  }
+]

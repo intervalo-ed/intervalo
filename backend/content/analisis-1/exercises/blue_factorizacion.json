@@ -1,0 +1,602 @@
+[
+  {
+    "external_id": "blue_factorizacion_lexi_01",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué significa \"factorizar\" una expresión algebraica?",
+    "options": [
+      "Reescribirla como producto de factores más simples",
+      "Sumar todos sus términos",
+      "Derivarla respecto a $x$",
+      "Simplificar eliminando denominadores"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Factorizar es expresar una suma/diferencia de términos como un producto: $x^2-4 = (x-2)(x+2)$.",
+    "feedback_incorrect": "Factorizar es reescribir una expresión como un producto de factores. Por ejemplo, $x^2-4 = (x-2)(x+2)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_02",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la fórmula de la diferencia de cuadrados?",
+    "options": [
+      "$a^2 - b^2 = (a-b)(a+b)$",
+      "$a^2 - b^2 = (a+b)^2$",
+      "$a^2 - b^2 = a^2 + 2ab + b^2$",
+      "$a^2 - b^2 = (a-b)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La diferencia de cuadrados factoriza como $a^2 - b^2 = (a-b)(a+b)$.",
+    "feedback_incorrect": "La diferencia de cuadrados: $a^2 - b^2 = (a-b)(a+b)$. Verificar: $(a-b)(a+b) = a^2 + ab - ab - b^2 = a^2 - b^2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_03",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué es un trinomio cuadrado perfecto?",
+    "options": [
+      "Una expresión de la forma $a^2 + 2ab + b^2 = (a+b)^2$",
+      "Un polinomio con tres términos cualquiera",
+      "Un polinomio de grado $3$",
+      "Una diferencia de dos cuadrados perfectos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El trinomio cuadrado perfecto es $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$.",
+    "feedback_incorrect": "Un trinomio cuadrado perfecto tiene la forma $a^2 + 2ab + b^2 = (a+b)^2$ o $a^2 - 2ab + b^2 = (a-b)^2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_04",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se clasifica $x^2 - 16$?",
+    "options": [
+      "Diferencia de cuadrados: $(x-4)(x+4)$",
+      "Trinomio cuadrado perfecto",
+      "Factor común",
+      "Diferencia de cubos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 - 16 = x^2 - 4^2 = (x-4)(x+4)$: diferencia de cuadrados.",
+    "feedback_incorrect": "$x^2 - 16 = x^2 - 4^2 = (x-4)(x+4)$: es una diferencia de cuadrados.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_05",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se clasifica $x^2 + 6x + 9$?",
+    "options": [
+      "Trinomio cuadrado perfecto: $(x+3)^2$",
+      "Diferencia de cuadrados",
+      "No factoriza",
+      "Factor común de $x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 + 6x + 9 = (x+3)^2$: trinomio cuadrado perfecto.",
+    "feedback_incorrect": "$x^2 + 6x + 9 = (x+3)^2$ porque $2(x)(3) = 6x$ y $3^2 = 9$. Es un trinomio cuadrado perfecto.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_06",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Por qué factorizamos cuando tenemos $\\dfrac{0}{0}$ en un límite?",
+    "options": [
+      "Para cancelar el factor que produce la indeterminación",
+      "Para convertir el límite en una suma",
+      "Para aplicar la regla del cociente",
+      "Porque la función deja de ser racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al factorizar, encontramos el factor común en numerador y denominador que genera el $0/0$, lo cancelamos, y el límite se puede evaluar.",
+    "feedback_incorrect": "Factorizamos para encontrar y cancelar el factor que hace que numerador y denominador sean cero al mismo tiempo, eliminando la indeterminación.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_07",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué significa \"sacar factor común\" en $3x^2 + 6x$?",
+    "options": [
+      "Escribirlo como $3x(x+2)$, donde $3x$ es el factor común",
+      "Dividir todos los términos por $3$",
+      "Cancelar el término $6x$",
+      "Elevar al cuadrado la expresión"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $3x^2 + 6x = 3x(x+2)$: el factor $3x$ está en ambos términos y se \"saca\" como factor común.",
+    "feedback_incorrect": "Sacar factor común es identificar el mayor factor que divide a todos los términos: $3x^2+6x = 3x(x+2)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_08",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué factor se cancela en $\\dfrac{(x-2)(x+3)}{x-2}$ para $x \\to 2$?",
+    "options": [
+      "$(x-2)$",
+      "$(x+3)$",
+      "El cociente completo",
+      "No se puede cancelar nada"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El factor $(x-2)$ aparece en numerador y denominador, y se cancela (con $x \\neq 2$), dejando $(x+3)$.",
+    "feedback_incorrect": "El factor $(x-2)$ está en el numerador y en el denominador. Se cancela (para $x \\neq 2$), resultando en $x+3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_09",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "En $\\lim_{x \\to 2} \\dfrac{x^2-4}{x-2}$, ¿cómo se llama $x=2$ respecto al factor $(x-2)$?",
+    "options": [
+      "Raíz del factor $(x-2)$",
+      "Asíntota vertical",
+      "Punto de discontinuidad esencial",
+      "Valor del límite"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x=2$ es la raíz del factor $(x-2)$, es decir, el valor que lo hace igual a cero.",
+    "feedback_incorrect": "$x=2$ hace que $(x-2) = 0$: se llama raíz (o cero) del factor. Es por eso que genera la indeterminación.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_lexi_10",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué queda en el numerador tras cancelar en $\\lim_{x \\to 2} \\dfrac{(x-2)(x+2)}{x-2}$?",
+    "options": [
+      "$x+2$",
+      "$x-2$",
+      "$(x+2)(x-2)$",
+      "$x^2-4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Tras cancelar $(x-2)$, queda $\\dfrac{x+2}{1} = x+2$. Luego $\\lim_{x \\to 2}(x+2) = 4$.",
+    "feedback_incorrect": "Al cancelar $(x-2)$ del numerador y denominador, queda $x+2$. Entonces $\\lim_{x \\to 2}(x+2) = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_01",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 2} \\dfrac{x^2-4}{x-2}$?",
+    "options": [
+      "$4$",
+      "$0$",
+      "$2$",
+      "$\\dfrac{0}{0}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to 2}(x+2) = 4$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x-2} = x+2$ (para $x \\neq 2$). Luego $\\lim_{x \\to 2}(x+2) = 4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_02",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$?",
+    "options": [
+      "$6$",
+      "$0$",
+      "$3$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-9 = (x-3)(x+3)$. Cancelando: $\\lim_{x \\to 3}(x+3) = 6$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-3)(x+3)}{x-3} = x+3$. Entonces $\\lim_{x \\to 3}(x+3) = 3+3 = 6$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_03",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$2$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2+3x+2 = (x+1)(x+2)$. Cancelando: $\\lim_{x \\to -1}(x+2) = 1$.",
+    "feedback_incorrect": "Factorizar el numerador: $(x+1)(x+2)$. Cancelar $(x+1)$: queda $x+2$. $\\lim_{x \\to -1}(x+2) = 1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_04",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^2-1}{x^2+x-2}$?",
+    "options": [
+      "$\\dfrac{2}{3}$",
+      "$1$",
+      "$0$",
+      "$\\dfrac{1}{2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-1 = (x-1)(x+1)$ y $x^2+x-2 = (x-1)(x+2)$. Cancelando: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
+    "feedback_incorrect": "Factorizar ambos: numerador $(x-1)(x+1)$, denominador $(x-1)(x+2)$. Cancelar $(x-1)$: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_05",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -2} \\dfrac{x^2-4}{x+2}$?",
+    "options": [
+      "$-4$",
+      "$4$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to -2}(x-2) = -4$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x+2} = x-2$. Entonces $\\lim_{x \\to -2}(x-2) = -2-2 = -4$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_06",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\dfrac{x^2-16}{x-4}$?",
+    "options": [
+      "$8$",
+      "$4$",
+      "$0$",
+      "$16$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-16 = (x-4)(x+4)$. Cancelando: $\\lim_{x \\to 4}(x+4) = 8$.",
+    "feedback_incorrect": "$\\dfrac{(x-4)(x+4)}{x-4} = x+4$. $\\lim_{x \\to 4}(x+4) = 8$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_07",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{x^2+3x}{x}$?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$1$",
+      "No existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Factor común $x$: $\\dfrac{x(x+3)}{x} = x+3$. $\\lim_{x \\to 0}(x+3) = 3$.",
+    "feedback_incorrect": "Factor común: $\\dfrac{x(x+3)}{x} = x+3$ (para $x \\neq 0$). Entonces $\\lim_{x \\to 0}(x+3) = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_08",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -3} \\dfrac{x^2+6x+9}{x+3}$?",
+    "options": [
+      "$0$",
+      "$3$",
+      "$6$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2+6x+9 = (x+3)^2$. Cancelando: $\\lim_{x \\to -3}(x+3) = 0$.",
+    "feedback_incorrect": "Trinomio cuadrado perfecto: $(x+3)^2$. Cancelar $(x+3)$: queda $(x+3) \\to 0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_09",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 5} \\dfrac{x^2-10x+25}{x-5}$?",
+    "options": [
+      "$0$",
+      "$5$",
+      "$25$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-10x+25 = (x-5)^2$. Cancelando: $\\lim_{x \\to 5}(x-5) = 0$.",
+    "feedback_incorrect": "$(x-5)^2 = (x-5)(x-5)$. Cancelar un $(x-5)$: queda $x-5 \\to 0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_resl_10",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^3-1}{x-1}$?",
+    "options": [
+      "$3$",
+      "$1$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelando: $\\lim_{x \\to 1}(x^2+x+1) = 3$.",
+    "feedback_incorrect": "Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelar $(x-1)$: queda $x^2+x+1 \\to 1+1+1 = 3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_01",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Qué técnica se debe usar en $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$?",
+    "options": [
+      "Factorizar diferencia de cuadrados",
+      "Racionalización",
+      "Sustitución directa",
+      "Dividir por $x^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-9 = (x-3)(x+3)$: diferencia de cuadrados. Se cancela $(x-3)$ y el límite vale $6$.",
+    "feedback_incorrect": "Hay indeterminación $0/0$ y el numerador $x^2-9$ es diferencia de cuadrados. La técnica es factorizar.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_02",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Qué factor hay que cancelar en $\\dfrac{(x+1)(x-4)}{x-4}$ para calcular $\\lim_{x \\to 4}$?",
+    "options": [
+      "$(x-4)$",
+      "$(x+1)$",
+      "No se puede cancelar",
+      "El numerador completo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El factor $(x-4)$ está en numerador y denominador y se cancela, dejando $(x+1) \\to 5$.",
+    "feedback_incorrect": "El factor común en numerador y denominador es $(x-4)$. Al cancelarlo, queda $x+1$, y el límite vale $5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_03",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cómo se factoriza $x^2 - 5x + 6$?",
+    "options": [
+      "$(x-2)(x-3)$",
+      "$(x+2)(x+3)$",
+      "$(x-1)(x-6)$",
+      "$(x-6)(x+1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Se buscan dos números que sumen $-5$ y multipliquen $6$: son $-2$ y $-3$. Entonces $(x-2)(x-3)$.",
+    "feedback_incorrect": "Para factorizar $x^2-5x+6$: necesitamos dos números que sumen $-5$ y multipliquen $6$: $-2$ y $-3$. Resultado: $(x-2)(x-3)$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_04",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál de estos límites se resuelve con factorización de trinomio?",
+    "options": [
+      "$\\lim_{x \\to 2} \\dfrac{x^2-3x+2}{x-2}$",
+      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$",
+      "$\\lim_{x \\to \\infty} \\dfrac{3x}{x+1}$",
+      "$\\lim_{x \\to 2} (x^2-1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2-3x+2 = (x-2)(x-1)$. Al cancelar $(x-2)$: $\\lim_{x \\to 2}(x-1) = 1$.",
+    "feedback_incorrect": "Solo $\\lim_{x \\to 2} \\dfrac{x^2-3x+2}{x-2}$ requiere factorizar el trinomio. Los demás usan otras técnicas.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_05",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para $\\lim_{x \\to 2} \\dfrac{x^2+x-6}{x-2}$: ¿hay indeterminación al sustituir y qué factor cancela?",
+    "options": [
+      "Sí hay $\\dfrac{0}{0}$; cancela $(x-2)$ del numerador",
+      "No hay indeterminación; se sustituye directamente",
+      "Sí; cancela $(x+3)$",
+      "No hay factores comunes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=2$: $\\dfrac{0}{0}$. Factorizando: $(x-2)(x+3)$. Cancela $(x-2)$, queda $x+3 \\to 5$.",
+    "feedback_incorrect": "Al sustituir: $\\dfrac{0}{0}$. Factorizar $x^2+x-6 = (x-2)(x+3)$. Cancelar $(x-2)$: queda $x+3 \\to 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_06",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Primero intenté sustitución directa y obtuve $\\dfrac{0}{0}$. ¿Cuál es el siguiente paso?",
+    "options": [
+      "Factorizar el numerador o denominador para cancelar el factor problemático",
+      "Concluir que el límite no existe",
+      "Derivar numerador y denominador",
+      "Reemplazar $0/0$ por $1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La indeterminación $0/0$ indica que hay un factor cancelable. El siguiente paso es factorizar.",
+    "feedback_incorrect": "La indeterminación $0/0$ no significa que el límite no exista. El siguiente paso es factorizar para encontrar y cancelar el factor común.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_07",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Por qué NO podemos concluir que $\\dfrac{0}{0} = 1$?",
+    "options": [
+      "Porque $\\dfrac{0}{0}$ es una forma indeterminada, sin valor definido",
+      "Porque $0/0 = 0$",
+      "Porque $0/0 = \\infty$",
+      "Porque solo es válido si $x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $0/0$ es una indeterminación: no tiene un valor algebraico definido. Por eso necesitamos otra técnica.",
+    "feedback_incorrect": "$0/0$ no es una operación definida en los reales: es una forma indeterminada. No se puede simplificar directamente como si fuera una fracción cualquiera.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_08",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Qué técnica se debe usar para $\\lim_{x \\to -4} \\dfrac{x^2+5x+4}{x+4}$?",
+    "options": [
+      "Factorización de trinomio",
+      "Racionalización",
+      "Sustitución directa (no hay indeterminación)",
+      "Dividir por $x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Sustituyendo $x=-4$: $0/0$. Factorizar: $x^2+5x+4 = (x+4)(x+1)$. Cancelar $(x+4)$.",
+    "feedback_incorrect": "Hay indeterminación $0/0$. Factorizar el trinomio: $x^2+5x+4 = (x+4)(x+1)$. Cancelar $(x+4)$: queda $x+1$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_09",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para $\\lim_{x \\to -4} \\dfrac{(x+4)(x+1)}{x+4}$, ¿cuánto vale el límite tras cancelar?",
+    "options": [
+      "$-3$",
+      "$4$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Tras cancelar $(x+4)$: $\\lim_{x \\to -4}(x+1) = -4+1 = -3$.",
+    "feedback_incorrect": "Cancelar $(x+4)$: queda $x+1$. Sustituir $x=-4$: $-4+1 = -3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_factorizacion_estr_10",
+    "belt": "blue",
+    "topic": "factorizacion",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Si en el numerador hay una raíz cuadrada como $\\sqrt{x+1} - 1$, ¿qué técnica corresponde en vez de factorización?",
+    "options": [
+      "Racionalización (multiplicar por el conjugado)",
+      "Factorización de trinomio",
+      "Diferencia de cuadrados estándar",
+      "Factor común de $x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando hay raíz cuadrada en el numerador y se genera $0/0$, se usa racionalización, no factorización directa.",
+    "feedback_incorrect": "La presencia de una raíz cuadrada indica que la técnica correcta es racionalizar multiplicando por el conjugado, no la factorización algebraica estándar.",
+    "graph_fn": null,
+    "graph_view": null
+  }
+]

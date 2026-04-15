@@ -1,0 +1,602 @@
+[
+  {
+    "external_id": "blue_infinite_limits_lexi_01",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué es una asíntota vertical?",
+    "options": [
+      "Una recta vertical $x = a$ hacia la cual $|f(x)| \\to \\infty$",
+      "Una recta horizontal $y = L$ hacia la cual tiende la función",
+      "El punto donde la función vale cero",
+      "Una línea oblicua que la función nunca cruza"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una asíntota vertical es una recta $x = a$ tal que $f(x) \\to \\pm\\infty$ cuando $x \\to a$.",
+    "feedback_incorrect": "Una asíntota vertical es la recta vertical $x = a$ hacia la que la función crece (o decrece) sin límite cuando $x$ se acerca a $a$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_02",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué es una asíntota horizontal?",
+    "options": [
+      "Una recta $y = L$ tal que $\\lim_{x \\to \\pm\\infty} f(x) = L$",
+      "Una recta vertical que la función no puede cruzar",
+      "El valor máximo de la función",
+      "Una recta $y = 0$ que la función cruza en el origen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una asíntota horizontal es la recta $y = L$ hacia la que se acerca la función cuando $x \\to \\pm\\infty$.",
+    "feedback_incorrect": "La asíntota horizontal $y = L$ describe el comportamiento de $f(x)$ cuando $x$ tiende a $\\pm\\infty$: $\\lim_{x \\to \\pm\\infty} f(x) = L$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_03",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué significa $\\lim_{x \\to a} f(x) = +\\infty$?",
+    "options": [
+      "Que $f(x)$ crece sin cota cuando $x$ se acerca a $a$",
+      "Que $f(a) = +\\infty$",
+      "Que el límite existe y es un número muy grande",
+      "Que la función está definida en todo $\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to a} f(x) = +\\infty$ significa que los valores de $f(x)$ crecen sin límite al acercarnos a $a$.",
+    "feedback_incorrect": "$\\lim_{x \\to a} f(x) = +\\infty$ significa que $f(x)$ se hace arbitrariamente grande cerca de $x=a$. No es un número real: el límite no existe (en el sentido finito).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_04",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cómo se detecta una asíntota vertical en una función racional $\\dfrac{p(x)}{q(x)}$?",
+    "options": [
+      "Cuando $q(a) = 0$ y $p(a) \\neq 0$",
+      "Cuando $p(a) = 0$ y $q(a) \\neq 0$",
+      "Cuando tanto $p(a) = 0$ como $q(a) = 0$",
+      "Cuando la función tiene grado mayor en el numerador"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Si el denominador se anula en $x=a$ pero el numerador no, hay una asíntota vertical $x=a$.",
+    "feedback_incorrect": "Una asíntota vertical $x=a$ existe en una racional cuando $q(a)=0$ y $p(a)\\neq 0$. Si ambos son cero, puede ser una indeterminación removible.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_05",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la diferencia entre un \"límite infinito\" y un \"límite en el infinito\"?",
+    "options": [
+      "En el límite infinito, $f(x) \\to \\infty$; en el límite en el infinito, $x \\to \\infty$",
+      "Son la misma cosa, solo se nombran distinto",
+      "En el límite en el infinito, $f(x) \\to \\infty$; en el límite infinito, $x \\to \\infty$",
+      "El límite infinito no existe nunca"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! \"Límite infinito\" → el resultado es $\\pm\\infty$. \"Límite en el infinito\" → la variable $x$ tiende a $\\pm\\infty$.",
+    "feedback_incorrect": "Límite infinito: $\\lim_{x \\to a} f(x) = \\infty$ (el valor crece sin límite). Límite en el infinito: $\\lim_{x \\to \\infty} f(x) = L$ (la variable se aleja al infinito).",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_06",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Qué describe la notación $\\lim_{x \\to \\infty} f(x)$?",
+    "options": [
+      "El comportamiento de $f(x)$ cuando $x$ crece sin límite",
+      "El valor de $f$ en el punto más lejano de su dominio",
+      "El máximo de la función",
+      "El límite cuando la función tiende a infinito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\lim_{x \\to \\infty} f(x)$ describe hacia dónde se acerca $f(x)$ cuando $x$ se hace arbitrariamente grande.",
+    "feedback_incorrect": "$\\lim_{x \\to \\infty} f(x)$ describe el comportamiento de la función cuando la variable $x$ crece sin límite.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_07",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuántas asíntotas horizontales puede tener una función racional?",
+    "options": [
+      "Máximo $2$ (una cuando $x \\to +\\infty$ y otra cuando $x \\to -\\infty$)",
+      "Siempre exactamente $1$",
+      "Infinitas",
+      "Ninguna, solo puede tener asíntotas verticales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función racional puede tener a lo sumo $2$ asíntotas horizontales: una para $x \\to +\\infty$ y otra para $x \\to -\\infty$ (aunque usualmente son la misma).",
+    "feedback_incorrect": "Una racional puede tener hasta $2$ asíntotas horizontales, aunque en la mayoría de los casos son la misma recta para $+\\infty$ y $-\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_08",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{1}{x-3}$?",
+    "options": [
+      "$x = 3$",
+      "$y = 3$",
+      "$x = 0$",
+      "$y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El denominador se anula en $x=3$ (y el numerador es $1 \\neq 0$), así que $x=3$ es la asíntota vertical.",
+    "feedback_incorrect": "El denominador $x-3 = 0$ cuando $x=3$. Como el numerador es $1 \\neq 0$, hay una asíntota vertical en $x=3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_09",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{2x}{x+1}$?",
+    "options": [
+      "$y = 2$",
+      "$y = 1$",
+      "$x = -1$",
+      "$y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Numerador y denominador tienen el mismo grado, así que la asíntota horizontal es el cociente de los coeficientes líderes: $y = 2/1 = 2$.",
+    "feedback_incorrect": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es $y = \\frac{\\text{coef. líder num.}}{\\text{coef. líder den.}} = \\frac{2}{1} = 2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_lexi_10",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "Se dice que una función \"diverge\" en $x = a$ cuando...",
+    "options": [
+      "$\\lim_{x \\to a} f(x) = \\pm\\infty$",
+      "$f(a) = 0$",
+      "El límite bilateral no existe por un salto",
+      "La función es constante cerca de $a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Una función diverge en $x=a$ si su límite es $+\\infty$ o $-\\infty$ en ese punto.",
+    "feedback_incorrect": "\"Divergir\" en $x=a$ significa que $|f(x)| \\to \\infty$ cuando $x \\to a$, es decir, $\\lim_{x \\to a} f(x) = \\pm\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_01",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to \\infty} \\dfrac{2x}{x+5}$?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$\\infty$",
+      "$\\dfrac{2}{5}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Mismo grado en numerador y denominador: $\\dfrac{2}{1} = 2$. O bien, dividiendo por $x$: $\\dfrac{2}{1+5/x} \\to 2$.",
+    "feedback_incorrect": "Dividir por $x$: $\\dfrac{2x/x}{(x+5)/x} = \\dfrac{2}{1+5/x}$. Cuando $x \\to \\infty$, $5/x \\to 0$, así que el límite es $2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_02",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to \\infty} \\dfrac{3}{x^2}$?",
+    "options": [
+      "$0$",
+      "$3$",
+      "$\\infty$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El numerador es constante y el denominador $x^2 \\to \\infty$, por lo que el cociente tiende a $0$.",
+    "feedback_incorrect": "Cuando el grado del denominador es mayor que el del numerador, el límite en el infinito es $0$: $3/x^2 \\to 0$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_03",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to \\infty} \\dfrac{x^3}{x+1}$?",
+    "options": [
+      "$+\\infty$",
+      "$0$",
+      "$1$",
+      "$-\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El grado del numerador ($3$) es mayor que el del denominador ($1$), por lo que el cociente tiende a $+\\infty$.",
+    "feedback_incorrect": "Cuando el numerador tiene mayor grado que el denominador, el límite en el infinito es $\\pm\\infty$. Aquí $x^3/(x+1) \\to +\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_04",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to \\infty} \\dfrac{4x^2 - 1}{2x^2 + 3}$?",
+    "options": [
+      "$2$",
+      "$\\dfrac{1}{3}$",
+      "$4$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Mismo grado: cociente de coeficientes líderes $= 4/2 = 2$. O dividiendo por $x^2$: $\\dfrac{4 - 1/x^2}{2 + 3/x^2} \\to 4/2 = 2$.",
+    "feedback_incorrect": "Con igual grado en numerador y denominador, el límite es el cociente de coeficientes líderes: $4/2 = 2$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_05",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 2^+} \\dfrac{1}{x-2}$?",
+    "options": [
+      "$+\\infty$",
+      "$-\\infty$",
+      "$0$",
+      "$\\dfrac{1}{2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para $x > 2$, $(x-2) > 0$ y tiende a $0^+$, así que $\\dfrac{1}{x-2} \\to +\\infty$.",
+    "feedback_incorrect": "Por la derecha, $x-2 > 0$ y tiende a $0^+$. El cociente $\\dfrac{1}{x-2}$ tiende a $+\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_06",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 2^-} \\dfrac{1}{x-2}$?",
+    "options": [
+      "$-\\infty$",
+      "$+\\infty$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para $x < 2$, $(x-2) < 0$ y tiende a $0^-$, así que $\\dfrac{1}{x-2} \\to -\\infty$.",
+    "feedback_incorrect": "Por la izquierda, $x-2 < 0$ (tiende a $0^-$). El cociente $\\dfrac{1}{x-2}$ tiende a $-\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_07",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to -\\infty} \\dfrac{5x}{x-3}$?",
+    "options": [
+      "$5$",
+      "$-5$",
+      "$0$",
+      "$-\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Dividiendo por $x$: $\\dfrac{5}{1 - 3/x}$. Cuando $x \\to -\\infty$, $3/x \\to 0$, por lo que el límite es $5/1 = 5$.",
+    "feedback_incorrect": "Dividir por $x$: $\\dfrac{5}{1-3/x} \\to \\dfrac{5}{1-0} = 5$. El límite es $5$ independientemente del signo de $x$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_08",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to \\infty} \\dfrac{x^2 + 2x}{3x^2}$?",
+    "options": [
+      "$\\dfrac{1}{3}$",
+      "$\\dfrac{2}{3}$",
+      "$0$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Dividiendo por $x^2$: $\\dfrac{1 + 2/x}{3} \\to \\dfrac{1}{3}$.",
+    "feedback_incorrect": "Dividir por $x^2$: $\\dfrac{1+2/x}{3}$. Cuando $x \\to \\infty$, $2/x \\to 0$, entonces el límite es $1/3$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_09",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale $\\lim_{x \\to 0^+} \\dfrac{-3}{x}$?",
+    "options": [
+      "$-\\infty$",
+      "$+\\infty$",
+      "$0$",
+      "$-3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para $x > 0$ tendiendo a $0$: $x \\to 0^+$, entonces $\\dfrac{-3}{x} \\to -\\infty$.",
+    "feedback_incorrect": "El numerador $-3 < 0$ y el denominador $x \\to 0^+$ (positivo), así que $-3/x \\to -\\infty$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_resl_10",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Dado $f(x) = \\dfrac{ax^2}{x^2+1}$, si $\\lim_{x \\to \\infty} f(x) = 5$, ¿cuánto vale $a$?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$0$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con igual grado, el límite es $a/1 = a$. Si ese límite es $5$, entonces $a = 5$.",
+    "feedback_incorrect": "$\\lim_{x \\to \\infty} \\dfrac{ax^2}{x^2+1} = \\dfrac{a}{1} = a$. Para que el límite sea $5$, se necesita $a = 5$.",
+    "graph_fn": null,
+    "graph_view": null
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_01",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota vertical?",
+    "options": [
+      "$x = 1$",
+      "$x = 0$",
+      "$y = 1$",
+      "$y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La recta vertical $x=1$ es la asíntota: la función explota cuando $x \\to 1$.",
+    "feedback_incorrect": "El denominador se anula en $x=1$, por lo que la gráfica muestra una asíntota vertical en $x=1$.",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [-3, 5, -6, 6]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_02",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la misma gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota horizontal?",
+    "options": [
+      "$y = 0$",
+      "$y = 1$",
+      "$x = 0$",
+      "$y = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando $x \\to \\pm\\infty$, $1/(x-1) \\to 0$. La asíntota horizontal es $y = 0$.",
+    "feedback_incorrect": "Como $1/(x-1) \\to 0$ cuando $x \\to \\pm\\infty$, la asíntota horizontal es $y=0$ (el eje $x$).",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [-3, 5, -6, 6]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_03",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{x+1}{x-2}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-1$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Con igual grado, el límite es $1/1 = 1$. La gráfica se acerca a $y=1$ para $x$ grande.",
+    "feedback_incorrect": "Cociente de coeficientes líderes: $1/1 = 1$. La asíntota horizontal es $y=1$.",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [-4, 8, -5, 7]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_04",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{2x}{x+3}$, ¿cuál es la asíntota horizontal?",
+    "options": [
+      "$y = 2$",
+      "$y = 3$",
+      "$y = 0$",
+      "$y = -3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cociente de coeficientes líderes $= 2/1 = 2$. La gráfica se acerca a $y=2$.",
+    "feedback_incorrect": "La asíntota horizontal es el cociente de coeficientes líderes: $2/1 = 2$.",
+    "graph_fn": "(2 * x) / (x + 3)",
+    "graph_view": [-8, 8, -4, 5]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_05",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2}$, ¿qué signo tiene la función cerca de $x = 0$ desde ambos lados?",
+    "options": [
+      "Siempre positivo: $f(x) \\to +\\infty$ tanto por la izquierda como por la derecha",
+      "Positivo por la derecha y negativo por la izquierda",
+      "Negativo en ambos lados",
+      "La función no tiene asíntota en $x=0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $x^2 > 0$ siempre (excepto en $0$), así que $1/x^2 > 0$ y tiende a $+\\infty$ desde ambos lados.",
+    "feedback_incorrect": "Como $x^2 > 0$ para $x \\neq 0$, $1/x^2$ siempre es positivo y tiende a $+\\infty$ al acercarse a $0$ desde cualquier lado.",
+    "graph_fn": "1 / x**2",
+    "graph_view": [-3, 3, -0.5, 8]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_06",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{-1}{x+2}$, ¿hacia dónde tiende $f(x)$ cuando $x \\to -2^+$?",
+    "options": [
+      "$-\\infty$",
+      "$+\\infty$",
+      "$0$",
+      "$-2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para $x > -2$ cerca de $-2$: $(x+2) \\to 0^+$, entonces $-1/(x+2) \\to -\\infty$.",
+    "feedback_incorrect": "Por la derecha de $-2$: $(x+2) \\to 0^+$. Con numerador negativo: $-1/(x+2) \\to -\\infty$.",
+    "graph_fn": "-1 / (x + 2)",
+    "graph_view": [-6, 2, -8, 8]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_07",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica de $f(x) = \\dfrac{3x}{x-1}$ tiene asíntota horizontal $y=3$. ¿Cuántas asíntotas horizontales muestra la gráfica?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$0$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función $3x/(x-1)$ tiene una sola asíntota horizontal $y=3$, válida tanto para $x \\to +\\infty$ como para $x \\to -\\infty$.",
+    "feedback_incorrect": "Para este tipo de racional, el límite en $+\\infty$ y en $-\\infty$ coinciden en $y=3$. Hay una sola asíntota horizontal.",
+    "graph_fn": "(3 * x) / (x - 1)",
+    "graph_view": [-5, 7, -5, 8]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_08",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2+1}$, ¿a qué valor se acerca $f(x)$ cuando $x \\to \\infty$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$\\infty$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El grado del denominador es mayor, así que $1/(x^2+1) \\to 0$ cuando $x \\to \\infty$.",
+    "feedback_incorrect": "Como el denominador crece más rápido que el numerador constante, $1/(x^2+1) \\to 0$.",
+    "graph_fn": "1 / (x**2 + 1)",
+    "graph_view": [-5, 5, -0.2, 1.5]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_09",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "La gráfica de $f(x) = \\dfrac{1}{(x-1)(x+3)}$ tiene asíntotas verticales. ¿Cuántas tiene?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las raíces del denominador son $x=1$ y $x=-3$: dos asíntotas verticales.",
+    "feedback_incorrect": "El denominador $(x-1)(x+3)$ se anula en $x=1$ y $x=-3$. Eso da dos asíntotas verticales.",
+    "graph_fn": "1 / ((x - 1) * (x + 3))",
+    "graph_view": [-6, 4, -5, 5]
+  },
+  {
+    "external_id": "blue_infinite_limits_graf_10",
+    "belt": "blue",
+    "topic": "infinite_limits",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = 2^{-x}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$2$",
+      "$+\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $2^{-x} = (1/2)^x \\to 0$ cuando $x \\to \\infty$. La asíntota horizontal es $y=0$.",
+    "feedback_incorrect": "La función $2^{-x}$ decrece exponencialmente hacia $0$ cuando $x$ crece. La asíntota horizontal es $y=0$.",
+    "graph_fn": "2**(-x)",
+    "graph_view": [-2, 6, -0.2, 4]
+  }
+]
