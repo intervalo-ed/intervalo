@@ -6,7 +6,7 @@
   },
   {
     "belt": "blue",
-    "headline": "Límites y Continuidad",
+    "headline": "Límites",
     "description": "Explorás el comportamiento de funciones al acercarse a un punto. Aprendés a calcular límites con técnicas algebraicas e identificar continuidad e indeterminaciones."
   },
   {
@@ -21,7 +21,7 @@
   },
   {
     "belt": "black",
-    "headline": "Análisis completo",
+    "headline": "Aplicaciones",
     "description": "Integrás todo lo aprendido para analizar funciones en profundidad, resolver problemas de optimización y área, y aplicar el Teorema Fundamental del Cálculo."
   }
 ]
