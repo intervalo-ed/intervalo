@@ -3,6 +3,13 @@ import ReactDOM from "react-dom/client";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
+// Override KaTeX display math vertical spacing (managed via wrapper div margin instead)
+(() => {
+  const s = document.createElement("style");
+  s.textContent = ".katex-display { margin: 0 !important; }";
+  document.head.appendChild(s);
+})();
+
 const API = (import.meta.env.VITE_API_URL || "http://localhost:8006").replace(/\/$/, "");
 
 const VOLUME = 0.2;
@@ -54,6 +61,9 @@ const FAMILY_LABELS = {
   linear: "Lineal", quadratic: "Cuadrática", polynomial: "Polinomial",
   exponential: "Exponencial", logarithmic: "Logarítmica",
   trigonometric: "Trigonométrica", rational: "Racional",
+  algebraic_limits: "Límites algebraicos", lateral_limits: "Límites laterales",
+  infinite_limits: "Límites al infinito", continuity: "Continuidad",
+  factorizacion: "Factorización", racionalizacion: "Racionalización",
 };
 
 const BELT_DATA = [
@@ -130,10 +140,12 @@ const TUTORIAL_EXERCISE = {
   correct_index: 0,
   has_math: true,
   skill: "CLSF",
+  topic: "linear",
   graph_fn: null,
   graph_view: null,
   feedback_correct: "¡Correcto! Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
   feedback_incorrect: "Una función lineal tiene la forma $f(x) = mx + b$. La opción correcta es $f(x) = 5x - 2$.",
+  explanation: "**Funciones lineales**\n\nUna función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes de la forma estándar:**\n• $m$ es la **pendiente** — mide la inclinación de la recta y cuánto varía $f(x)$ por cada unidad de $x$.\n• $b$ es la **ordenada al origen** — el valor de $f(x)$ cuando $x = 0$.\n\nLa variable $x$ debe aparecer únicamente con exponente 1. Cuando aparece elevada al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.",
 };
 
 // ── Design tokens (pseudo dark mode) ─────────────────────────────────────────
@@ -186,6 +198,71 @@ function MathText({ text }) {
         )
       )}
     </span>
+  );
+}
+
+// ── ExplanationText — soporta $$...$$, **bold** (con $...$), $...$ y \n ────────
+// Tokeniza en un solo paso para que ** que contienen $...$ no se partan.
+
+function ExplanationText({ text }) {
+  if (!text) return null;
+
+  const TOKEN_RE = /\$\$([^$]+)\$\$|\*\*([^*]+)\*\*|\$([^$]+)\$|(\n)/g;
+  const tokens = [];
+  let lastIdx = 0;
+  let m;
+
+  while ((m = TOKEN_RE.exec(text)) !== null) {
+    if (m.index > lastIdx) tokens.push({ t: "text", v: text.slice(lastIdx, m.index) });
+    if      (m[1] !== undefined) tokens.push({ t: "display", v: m[1] });
+    else if (m[2] !== undefined) tokens.push({ t: "bold",    v: m[2] });
+    else if (m[3] !== undefined) tokens.push({ t: "inline",  v: m[3] });
+    else                         tokens.push({ t: "br" });
+    lastIdx = TOKEN_RE.lastIndex;
+  }
+  if (lastIdx < text.length) tokens.push({ t: "text", v: text.slice(lastIdx) });
+
+  // Drop <br> tokens immediately before or after a display math block — spacing
+  // is handled by the display wrapper's margin instead.
+  const rendered = tokens.filter((tok, i, arr) => {
+    if (tok.t !== "br") return true;
+    const prev = arr[i - 1];
+    const next = arr[i + 1];
+    return prev?.t !== "display" && next?.t !== "display";
+  });
+
+  return (
+    <div>
+      {rendered.map((tok, i) => {
+        if (tok.t === "display") {
+          return (
+            <div key={i} style={{ textAlign: "center", margin: "0.6rem 0" }}
+              dangerouslySetInnerHTML={{
+                __html: katex.renderToString(tok.v.trim(), { throwOnError: false, displayMode: true }),
+              }}
+            />
+          );
+        }
+        if (tok.t === "bold") {
+          // bold content may itself contain inline $...$
+          const parts = tok.v.split(/\$([^$]+)\$/g);
+          return (
+            <strong key={i}>
+              {parts.map((p, j) =>
+                j % 2 === 1
+                  ? <span key={j} dangerouslySetInnerHTML={{ __html: katex.renderToString(p, { throwOnError: false }) }} />
+                  : <span key={j}>{p}</span>
+              )}
+            </strong>
+          );
+        }
+        if (tok.t === "inline") {
+          return <span key={i} dangerouslySetInnerHTML={{ __html: katex.renderToString(tok.v, { throwOnError: false }) }} />;
+        }
+        if (tok.t === "br") return <br key={i} />;
+        return <span key={i}>{tok.v}</span>;
+      })}
+    </div>
   );
 }
 
@@ -1464,65 +1541,127 @@ function ItemStates({ start }) {
 // ── ExerciseCard (shared between tutorial and session) ─────────────────────────
 
 function ExerciseCard({ exercise: ex, wrongAttempts = new Set(), correctFound = false, shakeIdx = null, result = null, onAnswer }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const answered = correctFound || wrongAttempts.size > 0;
+
   return (
-    <div style={{ ...card, padding: "1.25rem" }}>
-      <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
-        padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
-        {SKILL_LABELS[ex.skill] ?? ex.skill}
-      </span>
+    <div style={{ perspective: "1200px" }}>
+      <div style={{
+        display: "grid",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.5s ease",
+        transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+      }}>
+        {/* ── CARA DELANTERA ── */}
+        <div style={{ gridArea: "1/1", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}>
+          <div style={{ ...card, padding: "1.25rem" }}>
+            <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+              padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+              {SKILL_LABELS[ex.skill] ?? ex.skill}
+            </span>
 
-      <p style={{ fontSize: "1.05rem", fontWeight: 600, color: C.text,
-        lineHeight: 1.6, margin: "0.9rem 0 1.25rem", fontFamily: fonts.body }}>
-        <MathText text={ex.question} />
-      </p>
+            <p style={{ fontSize: "1.05rem", fontWeight: 600, color: C.text,
+              lineHeight: 1.6, margin: "0.9rem 0 1.25rem", fontFamily: fonts.body }}>
+              <MathText text={ex.question} />
+            </p>
 
-      {ex.graph_fn && ex.graph_view && (
-        <div style={{ marginBottom: "1.25rem" }}>
-          <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+            {ex.graph_fn && ex.graph_view && (
+              <div style={{ marginBottom: "1.25rem" }}>
+                <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+              </div>
+            )}
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+              {ex.options.map((opt, i) => {
+                const isWrong   = wrongAttempts.has(i);
+                const isCorrect = correctFound && i === ex.correct_index;
+                const isShaking = shakeIdx === i;
+                const isDimmed  = correctFound && i !== ex.correct_index && !isWrong;
+                let bg     = C.bgElevated;
+                let border = `1.5px solid ${C.border}`;
+                let color  = C.text;
+                let opacity = isDimmed ? 0.4 : 1;
+                if (isCorrect) { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
+                else if (isWrong) { bg = "rgba(245,158,11,0.15)"; border = `1.5px solid #F59E0B`; color = "#F59E0B"; }
+                return (
+                  <button key={i}
+                    onClick={() => onAnswer(i)}
+                    disabled={correctFound || wrongAttempts.has(i)}
+                    style={{
+                      width: "100%", padding: "0.8rem 1rem", background: bg,
+                      border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
+                      color, cursor: (correctFound || wrongAttempts.has(i)) ? "default" : "pointer",
+                      textAlign: "left", opacity,
+                      transition: isShaking ? "none" : "all 0.22s",
+                      animation: isShaking ? "shake 0.5s ease" : "none",
+                      fontFamily: fonts.body,
+                    }}>
+                    <MathText text={opt} />
+                  </button>
+                );
+              })}
+            </div>
+
+            {result && (
+              <p style={{ marginTop: "1rem", padding: "0.7rem 1rem", borderRadius: 10,
+                fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
+                background: result.correct ? C.successBg : "rgba(245,158,11,0.15)",
+                color: result.correct ? C.success : "#F59E0B" }}>
+                <MathText text={result.feedback} />
+              </p>
+            )}
+
+            {answered && (
+              <button onClick={() => setIsFlipped(true)}
+                style={{ width: "100%", marginTop: "0.75rem", padding: "0.75rem",
+                  background: C.primary, color: "#fff", border: "none", borderRadius: 10,
+                  fontSize: "0.9rem", fontWeight: 600, cursor: "pointer",
+                  fontFamily: fonts.body, transition: "background 0.2s",
+                }}>
+                ¿Por qué?
+              </button>
+            )}
+          </div>
         </div>
-      )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-        {ex.options.map((opt, i) => {
-          const isWrong   = wrongAttempts.has(i);
-          const isCorrect = correctFound && i === ex.correct_index;
-          const isShaking = shakeIdx === i;
-          const isDimmed  = correctFound && i !== ex.correct_index && !isWrong;
-          let bg     = C.bgElevated;
-          let border = `1.5px solid ${C.border}`;
-          let color  = C.text;
-          let opacity = isDimmed ? 0.4 : 1;
-          if (isCorrect) { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
-          else if (isWrong) { bg = "rgba(245,158,11,0.15)"; border = `1.5px solid #F59E0B`; color = "#F59E0B"; }
-          return (
-            <button key={i}
-              onClick={() => onAnswer(i)}
-              disabled={correctFound || wrongAttempts.has(i)}
-              style={{
-                width: "100%", padding: "0.8rem 1rem", background: bg,
-                border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
-                color, cursor: (correctFound || wrongAttempts.has(i)) ? "default" : "pointer",
-                textAlign: "left", opacity,
-                transition: isShaking ? "none" : "all 0.22s",
-                animation: isShaking ? "shake 0.5s ease" : "none",
-                fontFamily: fonts.body,
+        {/* ── CARA TRASERA — explicación teórica ── */}
+        <div style={{
+          gridArea: "1/1",
+          backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
+          transform: "rotateY(180deg)",
+        }}>
+          <div style={{ ...card, padding: "1.25rem" }}>
+            <span style={{ fontWeight: 700, fontSize: "1rem", color: C.text,
+              display: "block", marginBottom: "0.75rem" }}>
+              Explicación
+            </span>
+            <div style={{ fontSize: "0.93rem", lineHeight: 1.75,
+              color: C.text, fontFamily: fonts.body }}>
+              <ExplanationText text={ex.explanation || ex.feedback_correct} />
+            </div>
+            <div style={{ display: "flex", gap: "0.4rem", marginTop: "1rem", flexWrap: "wrap" }}>
+              {ex.topic && (
+                <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                  padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                  {FAMILY_LABELS[ex.topic] ?? ex.topic}
+                </span>
+              )}
+              <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                {SKILL_LABELS[ex.skill] ?? ex.skill}
+              </span>
+            </div>
+            <button onClick={() => setIsFlipped(false)}
+              style={{ width: "100%", marginTop: "0.75rem", padding: "0.75rem",
+                background: C.primary, color: "#fff", border: "none", borderRadius: 10,
+                fontSize: "0.9rem", fontWeight: 600, cursor: "pointer",
+                fontFamily: fonts.body, transition: "background 0.2s",
               }}>
-              <MathText text={opt} />
+              Volver
             </button>
-          );
-        })}
-      </div>
-
-      {result && (
-        <div style={{ marginTop: "1rem" }}>
-          <p style={{ padding: "0.7rem 1rem", borderRadius: 10,
-            fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
-            background: result.correct ? C.successBg : "rgba(245,158,11,0.15)",
-            color: result.correct ? C.success : "#F59E0B" }}>
-            <MathText text={result.feedback} />
-          </p>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -1540,6 +1679,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, token, init
   const [result, setResult]               = useState(null);
   const [elapsed, setElapsed]             = useState(0);
   const [slideDir, setSlideDir]           = useState(1);
+  const [isFlipped, setIsFlipped]         = useState(false);
   const [endPhase, setEndPhase]           = useState(null); // null | "pressed" | "exiting"
   const startRef  = useRef(Date.now());
   const timerRef  = useRef(null);
@@ -1548,7 +1688,7 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, token, init
   useEffect(() => {
     startRef.current = Date.now();
     setElapsed(0); setWrongAttempts(new Set()); setCorrectFound(false);
-    setShakeIdx(null); setResult(null); calledRef.current = false;
+    setShakeIdx(null); setResult(null); setIsFlipped(false); calledRef.current = false;
     timerRef.current = setInterval(() =>
       setElapsed(Math.floor((Date.now() - startRef.current) / 1000)), 100);
     return () => clearInterval(timerRef.current);
@@ -1691,76 +1831,147 @@ function SessionScreen({ sessionId, userName, exercises, onComplete, token, init
           </div>
 
           <SlideTransition slideKey={currentIdx} direction={slideDir}>
-            <div style={{ ...card, marginBottom: "1rem" }}>
-              <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
-                padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
-                {SKILL_LABELS[ex.skill] ?? ex.skill}
-              </span>
+            <div style={{ perspective: "1200px", marginBottom: "1rem" }}>
+              <div style={{
+                display: "grid",
+                transformStyle: "preserve-3d",
+                transition: "transform 0.5s ease",
+                transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+              }}>
+                {/* ── CARA DELANTERA — ejercicio ── */}
+                <div style={{
+                  gridArea: "1/1",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                }}>
+                  <div style={{ ...card }}>
+                    <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                      padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                      {SKILL_LABELS[ex.skill] ?? ex.skill}
+                    </span>
 
-              <p style={{ fontSize: "1.1rem", fontWeight: 600, color: C.text,
-                lineHeight: 1.6, margin: "0.9rem 0",
-                marginBottom: ex.graph_fn ? "0.75rem" : "1.5rem" }}>
-                <MathText text={ex.question} />
-              </p>
+                    <p style={{ fontSize: "1.1rem", fontWeight: 600, color: C.text,
+                      lineHeight: 1.6, margin: "0.9rem 0",
+                      marginBottom: ex.graph_fn ? "0.75rem" : "1.5rem" }}>
+                      <MathText text={ex.question} />
+                    </p>
 
-              {ex.graph_fn && ex.graph_view && (
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+                    {ex.graph_fn && ex.graph_view && (
+                      <div style={{ marginBottom: "1.5rem" }}>
+                        <FunctionPlot fnStr={ex.graph_fn} view={ex.graph_view} />
+                      </div>
+                    )}
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                      {ex.options.map((opt, i) => {
+                        const isWrong   = wrongAttempts.has(i);
+                        const isCorrect = i === ex.correct_index && correctFound;
+                        const isShaking = i === shakeIdx;
+                        const isDone    = correctFound || isWrong;
+                        let bg = C.bgElevated, border = `1.5px solid ${C.border}`,
+                          color = C.text, opacity = 1;
+                        if (isCorrect)    { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
+                        else if (isWrong) { bg = WARNING_BG;  border = `1.5px solid ${WARNING}`;   color = WARNING; opacity = 0.6; }
+                        else if (correctFound) { opacity = 0.35; }
+                        return (
+                          <button key={i} onClick={() => handleAnswer(i)}
+                            disabled={isDone || correctFound}
+                            style={{ width: "100%", padding: "0.8rem 1rem", background: bg,
+                              border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
+                              color, cursor: (isDone || correctFound) ? "default" : "pointer",
+                              textAlign: "left", opacity, fontFamily: fonts.body,
+                              transition: isShaking ? "none" : "all 0.22s",
+                              animation: isShaking ? "shake 0.5s ease" : "none",
+                            }}>
+                            <MathText text={opt} />
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {result && (
+                      <p style={{ marginTop: "1.1rem", padding: "0.7rem 1rem", borderRadius: 10,
+                        fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5, marginBottom: 0,
+                        background: result.correct ? C.successBg : WARNING_BG,
+                        color: result.correct ? C.success : WARNING }}>
+                        <MathText text={result.feedback} />
+                      </p>
+                    )}
+
+                    {(correctFound || wrongAttempts.size > 0) && (
+                      <div style={{ display: "flex", gap: "0.6rem", marginTop: "0.75rem" }}>
+                        <button onClick={() => setIsFlipped(true)}
+                          style={{ flex: "0 0 auto", padding: "0.75rem 1.1rem",
+                            background: C.primary, color: "#fff",
+                            border: "none", borderRadius: 10,
+                            fontSize: "0.9rem", fontWeight: 600,
+                            cursor: "pointer", fontFamily: fonts.body,
+                            transition: "background 0.2s",
+                          }}>
+                          ¿Por qué?
+                        </button>
+                        {correctFound && (
+                          <button onClick={handleNext} disabled={endPhase !== null}
+                            style={{ flex: 1, padding: "0.75rem",
+                              background: endPhase !== null ? "#239954" : "#2db368",
+                              color: "#fff", border: "none", borderRadius: 10,
+                              fontSize: "1rem", fontWeight: 700,
+                              cursor: endPhase !== null ? "default" : "pointer",
+                              fontFamily: fonts.body,
+                              transition: "background 0.3s ease",
+                            }}>
+                            {currentIdx === exercises.length - 1 ? "Terminar" : "Siguiente"}
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-                {ex.options.map((opt, i) => {
-                  const isWrong   = wrongAttempts.has(i);
-                  const isCorrect = i === ex.correct_index && correctFound;
-                  const isShaking = i === shakeIdx;
-                  const isDone    = correctFound || isWrong;
-                  let bg = C.bgElevated, border = `1.5px solid ${C.border}`,
-                    color = C.text, opacity = 1;
-                  if (isCorrect)    { bg = C.successBg; border = `1.5px solid ${C.success}`; color = C.success; }
-                  else if (isWrong) { bg = WARNING_BG;  border = `1.5px solid ${WARNING}`;   color = WARNING; opacity = 0.6; }
-                  else if (correctFound) { opacity = 0.35; }
-                  return (
-                    <button key={i} onClick={() => handleAnswer(i)}
-                      disabled={isDone || correctFound}
-                      style={{ width: "100%", padding: "0.8rem 1rem", background: bg,
-                        border, borderRadius: 10, fontSize: "0.93rem", fontWeight: 500,
-                        color, cursor: (isDone || correctFound) ? "default" : "pointer",
-                        textAlign: "left", opacity, fontFamily: fonts.body,
-                        transition: isShaking ? "none" : "all 0.22s",
-                        animation: isShaking ? "shake 0.5s ease" : "none",
-                      }}>
-                      <MathText text={opt} />
-                    </button>
-                  );
-                })}
-              </div>
+                {/* ── CARA TRASERA — explicación teórica ── */}
+                <div style={{
+                  gridArea: "1/1",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                }}>
+                  <div style={{ ...card }}>
+                    <span style={{ fontWeight: 700, fontSize: "1rem", color: C.text,
+                      display: "block", marginBottom: "0.75rem" }}>
+                      Explicación
+                    </span>
 
-              {result && (
-                <div style={{ marginTop: "1.1rem" }}>
-                  <p style={{ padding: "0.7rem 1rem", borderRadius: 10,
-                    fontWeight: 600, fontSize: "0.88rem", lineHeight: 1.5,
-                    marginBottom: correctFound ? "0.75rem" : 0,
-                    background: result.correct ? C.successBg : WARNING_BG,
-                    color: result.correct ? C.success : WARNING }}>
-                    <MathText text={result.feedback} />
-                  </p>
+                    <div style={{ fontSize: "0.93rem", lineHeight: 1.75,
+                      color: C.text, fontFamily: fonts.body }}>
+                      <ExplanationText text={ex.explanation || ex.feedback_correct} />
+                    </div>
 
-                  {correctFound && (
-                    <button onClick={handleNext} disabled={endPhase !== null}
-                      style={{ width: "100%", padding: "0.85rem",
-                        background: endPhase !== null ? "#4B4DE0" : C.primary,
+                    <div style={{ display: "flex", gap: "0.4rem", marginTop: "1rem", flexWrap: "wrap" }}>
+                      {ex.topic && (
+                        <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                          padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                          {FAMILY_LABELS[ex.topic] ?? ex.topic}
+                        </span>
+                      )}
+                      <span style={{ background: C.pill, color: C.pillText, borderRadius: 999,
+                        padding: "0.22rem 0.7rem", fontSize: "0.75rem", fontWeight: 600 }}>
+                        {SKILL_LABELS[ex.skill] ?? ex.skill}
+                      </span>
+                    </div>
+
+                    <button onClick={() => setIsFlipped(false)}
+                      style={{ width: "100%", padding: "0.85rem", marginTop: "0.75rem",
+                        background: C.primary,
                         color: "#fff", border: "none", borderRadius: 10,
                         fontSize: "1rem", fontWeight: 700,
-                        cursor: endPhase !== null ? "default" : "pointer",
-                        fontFamily: fonts.body, marginTop: "0.75rem",
+                        cursor: "pointer", fontFamily: fonts.body,
                         transition: "background 0.3s ease",
                       }}>
-                      {currentIdx === exercises.length - 1 ? "Terminar" : "Siguiente"}
+                      Volver
                     </button>
-                  )}
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           </SlideTransition>
 

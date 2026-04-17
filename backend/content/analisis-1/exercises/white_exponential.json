@@ -17,7 +17,8 @@
     "feedback_correct": "¡Correcto! En una función exponencial, la variable $x$ aparece en el exponente: $f(x) = a \\cdot b^x$.",
     "feedback_incorrect": "En una función exponencial la variable está en el exponente. La correcta es $f(x) = 5 \\cdot 2^x$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La forma canónica de una función exponencial es $f(x) = a \\cdot b^x$, donde la variable $x$ está en el **exponente**.\n\nEn $5 \\cdot 2^x$, el exponente es $x$: es exponencial.\n\nEn $x^5$, la variable está en la **base** (función potencial o polinómica): no es exponencial.\n\nEl criterio clave: si $x$ está arriba (en el exponente), es exponencial; si está abajo (en la base), es polinómica."
   },
   {
     "external_id": "white_exponential_lexi_02",
@@ -37,7 +38,8 @@
     "feedback_correct": "¡Correcto! Las funciones exponenciales tienen una asíntota horizontal ($y = 0$ en su forma básica).",
     "feedback_incorrect": "La línea horizontal que una curva se aproxima infinitamente sin tocarla se llama asíntota horizontal.",
     "graph_fn": "pow(2, x)",
-    "graph_view": [-4, 4, -1, 10]
+    "graph_view": [-4, 4, -1, 10],
+    "explanation": "Una **asíntota horizontal** es una recta horizontal $y = k$ que la curva se aproxima infinitamente pero nunca toca.\n\nPara $f(x) = 2^x$, cuando $x \\to -\\infty$:\n$$2^x \\to 0^+$$\nLa función se acerca a $y = 0$ sin llegar. La imagen de $f$ es siempre positiva: $(0, +\\infty)$.\n\nEsta propiedad vale para toda exponencial $a \\cdot b^x$ con $a > 0$: la asíntota horizontal es $y = 0$."
   },
   {
     "external_id": "white_exponential_lexi_03",
@@ -57,7 +59,8 @@
     "feedback_correct": "¡Correcto! La característica definitoria de una función exponencial es que $x$ aparece en el exponente.",
     "feedback_incorrect": "En $f(x) = a \\cdot b^x$, la variable $x$ está en el exponente. Eso es lo que la hace exponencial.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el exponente:\n$$f(x) = a \\cdot b^x \\quad (b > 0,\\; b \\neq 1)$$\nContraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio."
   },
   {
     "external_id": "white_exponential_lexi_04",
@@ -77,7 +80,8 @@
     "feedback_correct": "¡Correcto! Con base $b > 1$, la función crece sin límite al aumentar $x$.",
     "feedback_incorrect": "Si $b > 1$, la función $f(x) = b^x$ crece cuando $x$ aumenta: es creciente.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El comportamiento de $f(x) = b^x$ depende completamente de la **base** $b$:\n\n$$b > 1 \\implies \\text{función creciente} \\quad (\\text{ej.: } 2^x,\\; 3^x,\\; e^x)$$\n\nAl aumentar $x$, se multiplica por $b > 1$ repetidamente, lo que genera **crecimiento exponencial**. Cuando $x \\to +\\infty$, $f(x) \\to +\\infty$; cuando $x \\to -\\infty$, $f(x) \\to 0^+$."
   },
   {
     "external_id": "white_exponential_lexi_05",
@@ -97,7 +101,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^3$ tiene $x$ en la base (función polinómica), no en el exponente.",
     "feedback_incorrect": "$f(x) = x^3$ es una función polinómica. Las exponenciales tienen la forma $b^x$ con $x$ en el exponente.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = x^3$ es una función **polinómica** de grado 3: la variable $x$ está en la base y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$, con la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\n\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial)."
   },
   {
     "external_id": "white_exponential_lexi_06",
@@ -117,7 +122,8 @@
     "feedback_correct": "¡Correcto! La asíntota horizontal de $f(x) = 2^x$ (en su forma básica) es $y = 0$.",
     "feedback_incorrect": "La función $f(x) = 2^x$ se aproxima a $y = 0$ cuando $x \\to -\\infty$: esa es su asíntota horizontal.",
     "graph_fn": "pow(2, x)",
-    "graph_view": [-4, 4, -1, 10]
+    "graph_view": [-4, 4, -1, 10],
+    "explanation": "Para $f(x) = 2^x$, analizamos el límite cuando $x$ tiende a $-\\infty$:\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nLa función se acerca arbitrariamente a $y = 0$ sin tocarlo nunca, ya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la asíntota horizontal. Recordar: no hay asíntota vertical en las funciones exponenciales."
   },
   {
     "external_id": "white_exponential_lexi_07",
@@ -137,7 +143,8 @@
     "feedback_correct": "¡Correcto! Con $0 < b < 1$, la función decrece: cuanto mayor es $x$, menor es $b^x$.",
     "feedback_incorrect": "Si $0 < b < 1$, la base es una fracción y la función disminuye al crecer $x$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando la base satisface $0 < b < 1$, multiplicar por $b$ repetidamente **reduce** el valor:\n$$0 < b < 1 \\implies f(x) = b^x \\text{ es decreciente}$$\nPor ejemplo, $(0{,}5)^x$: al aumentar $x$, el valor se reduce a la mitad cada vez.\n\nNota: la base debe ser positiva ($b > 0$) para que $b^x$ esté definida en todos los reales. Con $b = 1$ la función es constante; con $b < 0$ no está bien definida."
   },
   {
     "external_id": "white_exponential_lexi_08",
@@ -157,7 +164,8 @@
     "feedback_correct": "¡Correcto! $f(0) = b^0 = 1$ para cualquier base $b > 0$. La curva siempre pasa por $(0, 1)$.",
     "feedback_incorrect": "Toda potencia con exponente 0 vale 1: $b^0 = 1$. La función siempre pasa por $(0, 1)$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Toda exponencial $f(x) = b^x$ pasa por el punto $(0, 1)$, ya que:\n$$f(0) = b^0 = 1 \\quad \\text{para cualquier } b > 0$$\nEsta es una propiedad universal de las potencias: cualquier número positivo elevado a cero es 1.\n\nEn la gráfica, el punto $(0, 1)$ es la **ordenada al origen** de toda exponencial de la forma $b^x$. Si la función tiene coeficiente $a$, entonces $f(0) = a \\cdot b^0 = a$."
   },
   {
     "external_id": "white_exponential_lexi_09",
@@ -177,7 +185,8 @@
     "feedback_correct": "¡Correcto! $f(0) = e^0 = 1$: la curva corta el eje $Y$ en el punto $(0, 1)$.",
     "feedback_incorrect": "Evaluando en $x = 0$: $f(0) = e^0 = 1$. El punto de corte con el eje $Y$ es $(0, 1)$.",
     "graph_fn": "exp(x)",
-    "graph_view": [-3, 3, -1, 8]
+    "graph_view": [-3, 3, -1, 8],
+    "explanation": "El punto de corte con el eje $Y$ se obtiene evaluando en $x = 0$:\n$$f(0) = e^0 = 1$$\nEsto vale para **cualquier** exponencial de la forma $b^x$: siempre pasa por $(0, 1)$.\n\nLa base $e \\approx 2{,}718$ es el **número de Euler**, fundamental en cálculo. La función $e^x$ es la **exponencial natural** y coincide con su propia derivada: $\\frac{d}{dx}e^x = e^x$."
   },
   {
     "external_id": "white_exponential_lexi_10",
@@ -197,7 +206,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 3^x$ tiene base $3 > 1$: es creciente.",
     "feedback_incorrect": "Solo las exponenciales con base $b > 1$ son crecientes. $f(x) = 3^x$ cumple esa condición.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La regla es simple: una exponencial $b^x$ es creciente si y solo si $b > 1$.\n\n$$3^x: \\quad b = 3 > 1 \\implies \\text{creciente} \\checkmark$$\n\nLas otras opciones tienen bases menores que 1 ($0{,}2$; $0{,}9$; $1/3$), por lo que son todas decrecientes. Incluso $0{,}9$ —que parece cercano a 1— genera decrecimiento, aunque lento."
   },
   {
     "external_id": "white_exponential_clsf_01",
@@ -217,7 +227,8 @@
     "feedback_correct": "¡Correcto! La curva crece aceleradamente: $f(x) = 3 \\cdot 2^x$, una función exponencial.",
     "feedback_incorrect": "El crecimiento acelerado con asíntota en $y = 0$ es propio de una exponencial: $f(x) = 3 \\cdot 2^x$.",
     "graph_fn": "3 * pow(2, x)",
-    "graph_view": [-3, 3, -1, 12]
+    "graph_view": [-3, 3, -1, 12],
+    "explanation": "Para clasificar una curva como exponencial, buscar estas señales:\n- **Crecimiento acelerado** (no lineal ni constante)\n- **Asíntota horizontal** en $y = 0$ hacia la izquierda\n- La curva **nunca toca el eje $x$** y siempre es positiva\n\nLa función graficada es $f(x) = 3 \\cdot 2^x$: base $2 > 1$ (creciente), coeficiente $a = 3$ que fija el valor en $x = 0$: $f(0) = 3$."
   },
   {
     "external_id": "white_exponential_clsf_02",
@@ -237,7 +248,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = 3 \\cdot 2^x$, la variable $x$ está en el exponente: es una función exponencial.",
     "feedback_incorrect": "En $f(x) = 3 \\cdot 2^x$, la variable aparece en el exponente. Eso define una función exponencial.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En $f(x) = 3 \\cdot 2^x$, reconocemos la forma canónica $a \\cdot b^x$ con $a = 3$ y $b = 2$.\n\nEl coeficiente $a = 3$ **escala verticalmente** la curva (no cambia la familia). La variable $x$ sigue en el exponente: es una **función exponencial** creciente.\n\nNo confundir con $3x^2$ (polinómica) ni con $\\log_2(3x)$ (logarítmica). El criterio es siempre la posición de $x$."
   },
   {
     "external_id": "white_exponential_clsf_03",
@@ -257,7 +269,8 @@
     "feedback_correct": "¡Correcto! La base es $\\frac{1}{3}$ y $x$ está en el exponente: función exponencial decreciente.",
     "feedback_incorrect": "$f(x) = (1/3)^x$ tiene $x$ en el exponente: es una función exponencial (decreciente por $b < 1$).",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = \\left(\\frac{1}{3}\\right)^x$ tiene base $b = \\frac{1}{3}$ con $x$ en el exponente: es una **función exponencial**.\n\nComo $0 < \\frac{1}{3} < 1$, la función es **decreciente**. Se puede reescribir:\n$$\\left(\\frac{1}{3}\\right)^x = 3^{-x}$$\nNo es racional (esas son cocientes de polinomios). El nombre correcto de la familia siempre se determina por la forma $b^x$."
   },
   {
     "external_id": "white_exponential_clsf_04",
@@ -277,7 +290,8 @@
     "feedback_correct": "¡Correcto! $e$ es la base del número de Euler y $x$ está en el exponente: función exponencial.",
     "feedback_incorrect": "$f(x) = 4 \\cdot e^x$ usa el número $e$ como base con $x$ en el exponente: es exponencial.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = 4 \\cdot e^x$ tiene la forma $a \\cdot b^x$ con $a = 4$ y base $b = e \\approx 2{,}718$: es una **función exponencial**.\n\nEl **número de Euler** $e$ es una constante irracional que aparece naturalmente en modelos de crecimiento continuo (interés compuesto, poblaciones, desintegración radiactiva). Como $e > 1$, la función es creciente.\n\nEl coeficiente $4$ solo escala la amplitud: $f(0) = 4 \\cdot e^0 = 4$."
   },
   {
     "external_id": "white_exponential_clsf_05",
@@ -297,7 +311,8 @@
     "feedback_correct": "¡Correcto! La curva decrece aceleradamente hacia $y = 0$: $f(x) = (0{,}5)^x$, exponencial con $b < 1$.",
     "feedback_incorrect": "La curva que decrece con asíntota en $y = 0$ es una exponencial decreciente: $f(x) = (0{,}5)^x$.",
     "graph_fn": "pow(0.5, x)",
-    "graph_view": [-3, 4, -0.5, 6]
+    "graph_view": [-3, 4, -0.5, 6],
+    "explanation": "Una curva exponencial **decreciente** tiene estas características visuales:\n- Decrece rápidamente de izquierda a derecha\n- Tiene una **asíntota horizontal** en $y = 0$ hacia la derecha\n- Siempre es positiva (nunca cruza el eje $x$)\n\nEsto corresponde a $f(x) = (0{,}5)^x$ con base $b = 0{,}5 < 1$. Las logarítmicas tienen forma diferente: crecen lentamente y tienen asíntota vertical."
   },
   {
     "external_id": "white_exponential_clsf_06",
@@ -317,7 +332,8 @@
     "feedback_correct": "¡Correcto! En $2 \\cdot 5^x$, la variable $x$ está en el exponente: función exponencial.",
     "feedback_incorrect": "$f(x) = 2 \\cdot 5^x$ tiene $x$ en el exponente (no en la base): es exponencial.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Análisis de cada opción:\n- $2 \\cdot 5^x$: $x$ en el exponente → **exponencial** ✓\n- $x^5$: $x$ en la base, exponente constante → polinómica\n- $5x + 2$: grado 1 en $x$ → lineal\n- $\\log_5(x)$: función inversa de la exponencial → logarítmica\n\nSolo $f(x) = 2 \\cdot 5^x$ tiene la variable en el exponente con base constante."
   },
   {
     "external_id": "white_exponential_clsf_07",
@@ -337,7 +353,8 @@
     "feedback_correct": "¡Correcto! $e^{-x} = (e^{-1})^x$: base $e^{-1} \\approx 0{,}368$, con $x$ en el exponente. Exponencial decreciente.",
     "feedback_incorrect": "$f(x) = e^{-x}$ tiene $x$ en el exponente: es una función exponencial (decreciente).",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = e^{-x}$ sigue siendo una **función exponencial**: la variable $x$ está en el exponente.\n\nSe puede reescribir como:\n$$e^{-x} = \\left(e^{-1}\\right)^x = \\left(\\frac{1}{e}\\right)^x \\approx (0{,}368)^x$$\nComo la base efectiva $\\frac{1}{e} < 1$, la función es **decreciente**. Este tipo aparece frecuentemente en modelos de decaimiento y en la función de densidad normal."
   },
   {
     "external_id": "white_exponential_clsf_08",
@@ -357,7 +374,8 @@
     "feedback_correct": "¡Correcto! La curva creciente con asíntota en $y = 0$ es $f(x) = 3^x$: función exponencial.",
     "feedback_incorrect": "El crecimiento rápido desde $y = 0$ hacia arriba es propio de una exponencial: $f(x) = 3^x$.",
     "graph_fn": "pow(3, x)",
-    "graph_view": [-3, 3, -0.5, 10]
+    "graph_view": [-3, 3, -0.5, 10],
+    "explanation": "Las claves visuales para identificar una exponencial **creciente** en una gráfica:\n- Crece más y más rápido (aceleración positiva)\n- Asíntota horizontal en $y = 0$ hacia la izquierda\n- Siempre positiva, pasa por $(0, 1)$\n\nLa curva graficada es $f(x) = 3^x$. Una polinómica también puede crecer, pero su crecimiento es más simétrico y no tiene asíntota horizontal."
   },
   {
     "external_id": "white_exponential_clsf_09",
@@ -377,7 +395,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^4$ tiene $x$ en la base (polinómica de grado 4), no en el exponente.",
     "feedback_incorrect": "$f(x) = x^4$ es una función polinómica, no exponencial. En las exponenciales, $x$ está en el exponente.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El **intruso** es $f(x) = x^4$: tiene $x$ en la base y $4$ como exponente constante → es una función **polinómica** de grado 4.\n\nLas demás son exponenciales:\n- $4^x$: base $4$, $x$ en exponente\n- $4 \\cdot e^x$: base $e$, escalada por $4$\n- $(1{,}5)^x$: base $1{,}5 > 1$, creciente\n\nRegla mnemotécnica: si el número con $x$ está \"arriba\" → exponencial; si está \"abajo\" → polinómica."
   },
   {
     "external_id": "white_exponential_clsf_10",
@@ -397,7 +416,8 @@
     "feedback_correct": "¡Correcto! $10^x$ tiene base 10 y $x$ en el exponente: es una función exponencial.",
     "feedback_incorrect": "$f(x) = 10^x$ tiene $x$ en el exponente: pertenece a la familia exponencial.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = 10^x$ es una función **exponencial** con base $b = 10$. Como $10 > 1$, es creciente.\n\nEs notable porque $10^x$ crece enormemente: $10^1 = 10$, $10^2 = 100$, $10^3 = 1000$... La **escala logarítmica** usada en ciencias (decibeles, pH, magnitud sísmica) está basada precisamente en la función inversa de $10^x$, que es $\\log_{10}(x)$."
   },
   {
     "external_id": "white_exponential_form_01",
@@ -417,7 +437,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = a \\cdot b^x$, la base es $b = 0{,}5$. Como $0 < b < 1$, la función es decreciente.",
     "feedback_incorrect": "En $f(x) = a \\cdot b^x$, $b$ es la base. Aquí $b = 0{,}5$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En la forma canónica $f(x) = a \\cdot b^x$, los parámetros son:\n- $a$ = **factor de escala** (coeficiente delante)\n- $b$ = **base** (número que se eleva a $x$)\n\nEn $f(x) = 3 \\cdot (0{,}5)^x$: $a = 3$ y $b = 0{,}5$. La base es $0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**. El $3$ no es la base: es el valor de $f(0) = 3 \\cdot 1 = 3$."
   },
   {
     "external_id": "white_exponential_form_02",
@@ -437,7 +458,8 @@
     "feedback_correct": "¡Correcto! La curva decrece hacia 0: base menor que 1, $f(x) = (0{,}5)^x$.",
     "feedback_incorrect": "La curva decrece (base $b < 1$) con asíntota en $y = 0$: corresponde a $f(x) = (0{,}5)^x$.",
     "graph_fn": "pow(0.5, x)",
-    "graph_view": [-3, 4, -0.5, 6]
+    "graph_view": [-3, 4, -0.5, 6],
+    "explanation": "Para leer una exponencial desde su gráfica:\n1. ¿Crece o decrece? → **Decrece**: $b < 1$\n2. ¿Pasa por $(0, 1)$? → Sí: $a = 1$ (no hay coeficiente extra)\n3. ¿Cuál es la base? → En $(1, 0{,}5)$: $f(1) = b = 0{,}5$\n\nLa fórmula es $f(x) = (0{,}5)^x$. No es $-2^x$ porque esa función es negativa; esta curva es siempre positiva."
   },
   {
     "external_id": "white_exponential_form_03",
@@ -457,7 +479,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = a \\cdot b^x$, el factor de escala es $a = 4$.",
     "feedback_incorrect": "En $f(x) = a \\cdot b^x$, $a$ es el factor de escala. Aquí $a = 4$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En $f(x) = a \\cdot b^x$, el **factor de escala** $a$ multiplica toda la función:\n$$f(x) = 4 \\cdot 3^x \\implies a = 4,\\quad b = 3$$\nEl coeficiente $a$ determina la **ordenada al origen**: $f(0) = a \\cdot b^0 = a = 4$.\n\nVisualmente, $a$ estira o comprime la curva verticalmente sin cambiar su forma ni la posición de la asíntota horizontal."
   },
   {
     "external_id": "white_exponential_form_04",
@@ -477,7 +500,8 @@
     "feedback_correct": "¡Correcto! $f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$.",
     "feedback_incorrect": "$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$. El valor inicial de la exponencial es $a$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para evaluar $f(0)$ en $f(x) = 5 \\cdot 2^x$:\n$$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$$\nSe usa la propiedad $b^0 = 1$ para cualquier $b > 0$.\n\nEsto confirma la regla general: en $f(x) = a \\cdot b^x$, el valor en $x = 0$ es siempre igual al **coeficiente** $a$. Por eso $a$ se llama también **valor inicial** en modelos de crecimiento."
   },
   {
     "external_id": "white_exponential_form_05",
@@ -497,7 +521,8 @@
     "feedback_correct": "¡Correcto! La curva crece más rápido que $2^x$ y pasa por $(1, 3)$: es $f(x) = 3^x$.",
     "feedback_incorrect": "La curva pasa por $(0, 1)$ y $(1, 3)$: la base es 3. La fórmula es $f(x) = 3^x$.",
     "graph_fn": "pow(3, x)",
-    "graph_view": [-3, 3, -0.5, 10]
+    "graph_view": [-3, 3, -0.5, 10],
+    "explanation": "Para distinguir $2^x$ de $3^x$ en una gráfica, verificar el punto $(1, f(1))$:\n$$2^1 = 2 \\quad \\text{vs.} \\quad 3^1 = 3$$\nLa curva pasa por $(0, 1)$ y $(1, 3)$: la base es $b = 3$.\n\nTambién: mayor base → crecimiento más empinado. $3^x$ crece más rápido que $2^x$ para $x > 0$ y decrece más rápido hacia 0 para $x < 0$."
   },
   {
     "external_id": "white_exponential_form_06",
@@ -517,7 +542,8 @@
     "feedback_correct": "¡Correcto! $e \\approx 2{,}718$ es el número de Euler, base de la exponencial natural.",
     "feedback_incorrect": "La base de $f(x) = e^x$ es el número de Euler: $e \\approx 2{,}718$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:\n$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$\nEs irracional y transcendente. La función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nNo confundir con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal)."
   },
   {
     "external_id": "white_exponential_form_07",
@@ -537,7 +563,8 @@
     "feedback_correct": "¡Correcto! $f(0) = a \\cdot b^0 = a \\cdot 1 = a = 3$.",
     "feedback_incorrect": "$f(0) = a \\cdot b^0 = a$. Si $f(0) = 3$, entonces $a = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Evaluando en $x = 0$:\n$$f(0) = a \\cdot b^0 = a \\cdot 1 = a$$\nEntonces $f(0) = a$. Si nos dicen que $f(0) = 3$, concluimos que $a = 3$.\n\nEsta es la forma más directa de determinar el **coeficiente** $a$: basta leer el valor de la función en el eje $Y$ (la ordenada al origen). No hace falta conocer $b$."
   },
   {
     "external_id": "white_exponential_form_08",
@@ -557,7 +584,8 @@
     "feedback_correct": "¡Correcto! La curva pasa por $(-1, 1)$ (desplazada a la izquierda respecto a $2^x$): $f(x) = 2^{x+1}$.",
     "feedback_incorrect": "La curva está desplazada una unidad a la izquierda respecto a $2^x$: $f(x) = 2^{x+1}$.",
     "graph_fn": "pow(2, x + 1)",
-    "graph_view": [-4, 3, -0.5, 10]
+    "graph_view": [-4, 3, -0.5, 10],
+    "explanation": "La función $f(x) = 2^{x+1}$ es un **desplazamiento horizontal** de $2^x$:\n$$2^{x+1} = 2^x \\cdot 2^1 = 2 \\cdot 2^x$$\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$. En general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda; restar $h$, a la derecha."
   },
   {
     "external_id": "white_exponential_form_09",
@@ -577,7 +605,8 @@
     "feedback_correct": "¡Correcto! $f(1) = 4 \\cdot 2^1 = 4 \\cdot 2 = 8$.",
     "feedback_incorrect": "Evaluando en $x = 1$: $f(1) = 4 \\cdot 2^1 = 4 \\cdot 2 = 8$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para evaluar $f(1)$ en $f(x) = 4 \\cdot 2^x$, sustituir $x = 1$:\n$$f(1) = 4 \\cdot 2^1 = 4 \\cdot 2 = 8$$\nObservar el patrón: $f(0) = 4$ y $f(1) = 8$. El valor se **duplicó** al aumentar $x$ en 1 unidad.\n\nEsta es la propiedad clave de una exponencial con base $2$: cada paso en $x$ multiplica el resultado por $2$ (la base). En general, de $x$ a $x+1$, $f$ se multiplica por $b$."
   },
   {
     "external_id": "white_exponential_form_10",
@@ -597,6 +626,7 @@
     "feedback_correct": "¡Correcto! $f(2) = 2^2 = 4$.",
     "feedback_incorrect": "Evaluando: $f(2) = 2^2 = 4$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Evaluación directa en $f(x) = 2^x$:\n$$f(2) = 2^2 = 4$$\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$, $f(3) = 8$, ...\n\nCada incremento de $1$ en $x$ **duplica** el valor. Este crecimiento multiplicativo (en lugar de aditivo) es la esencia del **crecimiento exponencial**."
   }
 ]

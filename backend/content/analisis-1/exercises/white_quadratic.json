@@ -17,7 +17,8 @@
     "feedback_correct": "¡Correcto! Una función cuadrática tiene la forma $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
     "feedback_incorrect": "Una función cuadrática incluye un término de segundo grado ($x^2$). La correcta es $f(x) = 2x^2 - x + 1$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n$$f(x) = ax^2 + bx + c, \\quad a \\neq 0$$\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). $f(x) = \\sqrt{x}$ es una función raíz (potencia $1/2$).\n\nSolo $f(x) = 2x^2 - x + 1$ tiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**."
   },
   {
     "external_id": "white_quadratic_lexi_02",
@@ -37,7 +38,8 @@
     "feedback_correct": "¡Correcto! El punto extremo de una parábola se llama vértice.",
     "feedback_incorrect": "El punto más bajo (mínimo) o más alto (máximo) de una parábola se llama vértice.",
     "graph_fn": "x*x - 4*x + 3",
-    "graph_view": [-1, 5, -2, 8]
+    "graph_view": [-1, 5, -2, 8],
+    "explanation": "El **vértice** es el punto extremo de la parábola: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n$$x_v = -\\frac{b}{2a}$$\nluego $y_v = f(x_v)$. Para $f(x) = x^2 - 4x + 3$: $x_v = -(-4)/(2 \\cdot 1) = 2$, $y_v = 4 - 8 + 3 = -1$. El vértice es $(2, -1)$.\n\nLas raíces son las intersecciones con el eje $X$, la ordenada al origen es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas."
   },
   {
     "external_id": "white_quadratic_lexi_03",
@@ -57,7 +59,8 @@
     "feedback_correct": "¡Correcto! La gráfica de toda función cuadrática es una parábola.",
     "feedback_incorrect": "La gráfica de una función cuadrática se llama parábola.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada eje de simetría, y posee exactamente un punto extremo llamado vértice.\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales. La parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas)."
   },
   {
     "external_id": "white_quadratic_lexi_04",
@@ -77,7 +80,8 @@
     "feedback_correct": "¡Correcto! Cuando $a > 0$ en $f(x) = ax^2 + bx + c$, la parábola se abre hacia arriba y tiene un mínimo.",
     "feedback_incorrect": "Si $a > 0$, la parábola se abre hacia arriba y su vértice es el punto mínimo.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El signo del coeficiente $a$ determina la **concavidad** de la parábola:\n$$a > 0 \\implies \\text{abre hacia arriba} \\implies \\text{vértice es mínimo}$$\n$$a < 0 \\implies \\text{abre hacia abajo} \\implies \\text{vértice es máximo}$$\nIntuitivamente: cuando $|x|$ crece, el término $ax^2$ domina. Si $a > 0$, los valores de $f$ crecen sin límite en ambas direcciones, por lo que el vértice es el punto más bajo.\n\nEsta propiedad es fundamental: determina si el problema tiene solución mínima o máxima (optimización)."
   },
   {
     "external_id": "white_quadratic_lexi_05",
@@ -97,7 +101,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 2^x$ es exponencial: la variable está en el exponente, no al cuadrado.",
     "feedback_incorrect": "$f(x) = 2^x$ es una función exponencial, no cuadrática. Las cuadráticas tienen $x^2$ como término principal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: $f(x) = x^2$.\nEn una función **exponencial**, la base es la constante y $x$ es el exponente: $f(x) = 2^x$.\n\nLas demás opciones son cuadráticas: $x^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), y $(x-1)^2 = x^2 - 2x + 1$ (forma de vértice). Solo $2^x$ pertenece a otra familia."
   },
   {
     "external_id": "white_quadratic_lexi_06",
@@ -117,7 +122,8 @@
     "feedback_correct": "¡Correcto! La parábola corta el eje $X$ en dos puntos: tiene dos raíces reales.",
     "feedback_incorrect": "Cuando la parábola cruza el eje $X$ en dos puntos distintos, la función tiene dos raíces reales.",
     "graph_fn": "x*x - 4",
-    "graph_view": [-4, 4, -5, 6]
+    "graph_view": [-4, 4, -5, 6],
+    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la parábola intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n$$\\Delta > 0 \\implies \\text{dos raíces reales distintas}$$\n$$\\Delta = 0 \\implies \\text{una raíz real (doble)}$$\n$$\\Delta < 0 \\implies \\text{ninguna raíz real}$$\nPara $f(x) = x^2 - 4$: $\\Delta = 0 - 4(1)(-4) = 16 > 0$, hay dos raíces: $x = 2$ y $x = -2$."
   },
   {
     "external_id": "white_quadratic_lexi_07",
@@ -137,7 +143,8 @@
     "feedback_correct": "¡Correcto! Una función cuadrática puede tener 0, 1 o 2 raíces reales, como máximo 2.",
     "feedback_incorrect": "Una función cuadrática tiene como máximo 2 raíces reales.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Un polinomio de grado $n$ tiene a lo sumo $n$ raíces reales. Como una función cuadrática tiene **grado 2**, puede tener como máximo **2 raíces reales**.\n\nLos tres casos posibles son:\n- **2 raíces**: la parábola corta el eje $X$ en dos puntos distintos ($\\Delta > 0$)\n- **1 raíz**: la parábola es tangente al eje $X$ en el vértice ($\\Delta = 0$)\n- **0 raíces**: la parábola no toca el eje $X$ ($\\Delta < 0$)\n\nNingún polinomio de grado 2 puede tener 3 o más raíces reales distintas."
   },
   {
     "external_id": "white_quadratic_lexi_08",
@@ -157,7 +164,8 @@
     "feedback_correct": "¡Correcto! El eje de simetría de una parábola pasa por el vértice y la divide en dos mitades iguales.",
     "feedback_incorrect": "La recta vertical que divide la parábola simétricamente se llama eje de simetría.",
     "graph_fn": "pow(x-2, 2) - 3",
-    "graph_view": [-1, 5, -4, 6]
+    "graph_view": [-1, 5, -4, 6],
+    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el vértice y divide la parábola en dos mitades especulares.\n\nSu ecuación se obtiene con:\n$$x = -\\frac{b}{2a}$$\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una raíz $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene $x_v = (r_1 + r_2)/2$. Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas)."
   },
   {
     "external_id": "white_quadratic_lexi_09",
@@ -177,7 +185,8 @@
     "feedback_correct": "¡Correcto! Cuando $a < 0$, la parábola se abre hacia abajo y el vértice es el punto máximo.",
     "feedback_incorrect": "Con $a < 0$, la parábola se abre hacia abajo: su vértice es un máximo.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático es negativo para todo $x \\neq 0$. Esto hace que la parábola se **abra hacia abajo** y su vértice sea un **máximo**.\n\nComparación directa:\n- $a > 0$: parábola en forma de U, vértice es **mínimo global**\n- $a < 0$: parábola en forma de $\\cap$, vértice es **máximo global**\n\nNota: una parábola con $a < 0$ no es decreciente en todo su dominio — decrece solo a la derecha del vértice y crece a la izquierda. La existencia de raíces reales depende del discriminante, no del signo de $a$."
   },
   {
     "external_id": "white_quadratic_lexi_10",
@@ -197,7 +206,8 @@
     "feedback_correct": "¡Correcto! La forma estándar de una cuadrática es $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
     "feedback_incorrect": "La forma estándar de una función cuadrática es $f(x) = ax^2 + bx + c$, con $a \\neq 0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes:\n\n**Forma estándar:** $f(x) = ax^2 + bx + c$ — muestra directamente los coeficientes $a$, $b$, $c$.\n**Forma de vértice:** $f(x) = a(x-h)^2 + k$ — el vértice es $(h, k)$, útil para graficar.\n**Forma factorizada:** $f(x) = a(x - r_1)(x - r_2)$ — las raíces son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica. La condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal."
   },
   {
     "external_id": "white_quadratic_clsf_01",
@@ -217,7 +227,8 @@
     "feedback_correct": "¡Correcto! La gráfica es una parábola: $f(x) = x^2 - 4x + 3$, una función cuadrática.",
     "feedback_incorrect": "La gráfica es una parábola ($f(x) = x^2 - 4x + 3$), característica de una función cuadrática.",
     "graph_fn": "x*x - 4*x + 3",
-    "graph_view": [-1, 5, -2, 8]
+    "graph_view": [-1, 5, -2, 8],
+    "explanation": "Para clasificar una función a partir de su gráfica, observar la **forma de la curva** es el criterio principal.\n\nUna parábola se reconoce por: forma de U (o U invertida), **simetría** respecto a una recta vertical, y presencia de exactamente un punto extremo (vértice). Ninguna otra función elemental tiene estas tres características simultáneamente.\n\nLa gráfica mostrada es $f(x) = x^2 - 4x + 3$: tiene forma de U, vértice en $(2, -1)$ y eje de simetría $x = 2$. Conclusión: es una función **cuadrática**."
   },
   {
     "external_id": "white_quadratic_clsf_02",
@@ -237,7 +248,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^2 - 4x + 3$ tiene la forma $ax^2 + bx + c$: es una función cuadrática.",
     "feedback_incorrect": "$f(x) = x^2 - 4x + 3$ tiene un término $x^2$ como mayor potencia: es una función cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para clasificar una función algebraica, identificar el **término de mayor grado** es el paso clave.\n\nEn $f(x) = x^2 - 4x + 3$, los términos son $x^2$ (grado 2), $-4x$ (grado 1) y $3$ (grado 0). El término de mayor grado es $x^2$, con coeficiente $a = 1 \\neq 0$.\n\nEsto la ubica exactamente en la forma $ax^2 + bx + c$ con $a=1$, $b=-4$, $c=3$: es una función **cuadrática**. Su gráfica es una parábola con vértice en $(2,-1)$ y raíces en $x=1$ y $x=3$."
   },
   {
     "external_id": "white_quadratic_clsf_03",
@@ -257,7 +269,8 @@
     "feedback_correct": "¡Correcto! $-2x^2 + x - 5$ tiene la forma $ax^2 + bx + c$ con $a = -2 \\neq 0$: cuadrática.",
     "feedback_incorrect": "$f(x) = -2x^2 + x - 5$ tiene $x^2$ como término de mayor grado: es cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El coeficiente negativo $a = -2$ no cambia la familia: $f(x) = -2x^2 + x - 5$ sigue siendo **cuadrática**.\n\nIdentificación directa: $a = -2$, $b = 1$, $c = -5$. La condición $a \\neq 0$ se cumple, así que la función pertenece a la familia $ax^2 + bx + c$.\n\nEl signo de $a$ solo afecta la **concavidad**: como $a < 0$, la parábola se abre hacia abajo y tiene un máximo. Además, $\\Delta = 1 - 4(-2)(-5) = 1 - 40 = -39 < 0$, por lo que esta parábola no tiene raíces reales (no cruza el eje $X$)."
   },
   {
     "external_id": "white_quadratic_clsf_04",
@@ -277,7 +290,8 @@
     "feedback_correct": "¡Correcto! $(x-1)^2 = x^2 - 2x + 1$: es una función cuadrática en forma de vértice.",
     "feedback_incorrect": "$(x-1)^2$ se expande a $x^2 - 2x + 1$, que es una cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = (x-1)^2$ está escrita en **forma de vértice** $a(x-h)^2 + k$ con $a=1$, $h=1$, $k=0$.\n\nExpandiendo:\n$$(x-1)^2 = x^2 - 2x + 1$$\nque es exactamente la forma estándar $ax^2 + bx + c$ con $a=1$, $b=-2$, $c=1$.\n\nConclusión: es **cuadrática**. Su vértice es $(1, 0)$, toca el eje $X$ en $x=1$ (raíz doble, $\\Delta = 0$) y se abre hacia arriba. La forma $(x-h)^2 + k$ no cambia la familia: siempre que el exponente más alto sea 2, la función es cuadrática."
   },
   {
     "external_id": "white_quadratic_clsf_05",
@@ -297,7 +311,8 @@
     "feedback_correct": "¡Correcto! La parábola invertida es $f(x) = -x^2 + 4$, una función cuadrática con $a < 0$.",
     "feedback_incorrect": "La parábola que se abre hacia abajo es $f(x) = -x^2 + 4$, una función cuadrática.",
     "graph_fn": "-x*x + 4",
-    "graph_view": [-4, 4, -2, 6]
+    "graph_view": [-4, 4, -2, 6],
+    "explanation": "Una parábola **invertida** (que se abre hacia abajo, forma de $\\cap$) sigue siendo una función cuadrática; simplemente tiene $a < 0$.\n\nLa gráfica es $f(x) = -x^2 + 4$: misma simetría y forma de U que cualquier parábola, pero con el vértice arriba. El vértice es $(0, 4)$ y las raíces son $x = \\pm 2$.\n\nNo confundir con funciones exponenciales (que no tienen simetría respecto a un eje vertical) ni logarítmicas (que solo están definidas para $x > 0$). La forma en $\\cap$ es la firma visual de una cuadrática con $a < 0$."
   },
   {
     "external_id": "white_quadratic_clsf_06",
@@ -317,7 +332,8 @@
     "feedback_correct": "¡Correcto! $3x^2 - 7$ tiene $x^2$ como término principal con $a = 3 \\neq 0$: cuadrática.",
     "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es una función cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Analizando cada opción por su **término de mayor grado** o estructura:\n\n- $f(x) = 3x^2 - 7$: tiene $x^2$ con $a = 3 \\neq 0$ y $b = 0$. Es la forma $ax^2 + c$: **cuadrática**.\n- $f(x) = x^3 - 1$: término de mayor grado $x^3$, grado 3: **cúbica** (no cuadrática).\n- $f(x) = 5 \\cdot 2^x$: la variable $x$ está en el exponente: **exponencial**.\n- $f(x) = \\ln(x)$: función **logarítmica**, no polinómica.\n\nNota: en $3x^2 - 7$ el coeficiente lineal es $b = 0$, pero eso no le quita el carácter cuadrático. La condición es $a \\neq 0$, no $b \\neq 0$."
   },
   {
     "external_id": "white_quadratic_clsf_07",
@@ -337,7 +353,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^2$ es la cuadrática más simple ($a=1$, $b=0$, $c=0$).",
     "feedback_incorrect": "$f(x) = x^2$ es la parábola básica: pertenece a la familia cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = x^2$ es la **parábola básica**: la función cuadrática más simple posible.\n\nEn la forma estándar $ax^2 + bx + c$: $a = 1$, $b = 0$, $c = 0$. La condición $a \\neq 0$ se cumple con $a = 1$.\n\nSus propiedades: vértice en el origen $(0, 0)$, eje de simetría $x = 0$ (eje $Y$), se abre hacia arriba, una única raíz $x = 0$ (doble). Toda parábola puede entenderse como una transformación (traslación, reflexión, escala) de esta parábola básica $f(x) = x^2$."
   },
   {
     "external_id": "white_quadratic_clsf_08",
@@ -357,7 +374,8 @@
     "feedback_correct": "¡Correcto! La parábola con vértice en $(1, -4)$ es $f(x) = x^2 - 2x - 3$, una cuadrática.",
     "feedback_incorrect": "La curva en forma de U es una parábola ($f(x) = x^2 - 2x - 3$): función cuadrática.",
     "graph_fn": "x*x - 2*x - 3",
-    "graph_view": [-2, 4, -5, 5]
+    "graph_view": [-2, 4, -5, 5],
+    "explanation": "La gráfica muestra una curva en forma de U con **simetría bilateral**: esto es la firma visual inconfundible de una **parábola**, gráfica de toda función cuadrática.\n\nLa función correspondiente es $f(x) = x^2 - 2x - 3$. Verificación: el vértice está en $x_v = -(-2)/(2 \\cdot 1) = 1$, $y_v = 1 - 2 - 3 = -4$, es decir, $(1, -4)$, que coincide con el mínimo visible en la gráfica.\n\nUna función lineal daría una recta, una logarítmica crece sin simetría, y una racional tendría asíntotas. La curva simétrica con mínimo es característica de la familia **cuadrática**."
   },
   {
     "external_id": "white_quadratic_clsf_09",
@@ -377,7 +395,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^3 - 2$ es un polinomio de grado 3, no cuadrático.",
     "feedback_incorrect": "$f(x) = x^3 - 2$ tiene grado 3: no es cuadrática. Las cuadráticas tienen grado exactamente 2.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una función cuadrática tiene **grado exactamente 2**: el término de mayor potencia en $x$ es $x^2$.\n\n$f(x) = x^3 - 2$ tiene $x^3$ como término principal: es un polinomio de **grado 3** (cúbico), no cuadrático.\n\nLas otras tres son cuadráticas: $5x^2$ tiene $a=5$, $b=0$, $c=0$; $x^2 - x$ tiene $a=1$, $b=-1$, $c=0$; $-(x+1)^2 = -x^2 - 2x - 1$ tiene $a=-1$. Todas cumplen $a \\neq 0$ con grado máximo 2. El grado 3 excluye automáticamente a $x^3 - 2$ de la familia cuadrática."
   },
   {
     "external_id": "white_quadratic_clsf_10",
@@ -397,7 +416,8 @@
     "feedback_correct": "¡Correcto! $5x^2 - 3$ tiene la forma $ax^2 + c$ con $a = 5 \\neq 0$: es cuadrática.",
     "feedback_incorrect": "$f(x) = 5x^2 - 3$ es un polinomio de grado 2: pertenece a la familia cuadrática.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = 5x^2 - 3$ es la forma $ax^2 + c$ con $a = 5$ y $c = -3$ (el coeficiente lineal $b = 0$).\n\nLa ausencia del término $bx$ no cambia la familia: la condición para ser cuadrática es solo $a \\neq 0$, y aquí $a = 5 \\neq 0$. Es una función **cuadrática** sin término lineal.\n\nSu parábola es **simétrica respecto al eje $Y$** (eje de simetría $x = 0$), con vértice en $(0, -3)$ y se abre hacia arriba. Las raíces son $x = \\pm\\sqrt{3/5}$, ya que $5x^2 - 3 = 0 \\Rightarrow x^2 = 3/5$."
   },
   {
     "external_id": "white_quadratic_form_01",
@@ -417,7 +437,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = ax^2 + bx + c$, el coeficiente cuadrático es $a = 3$.",
     "feedback_incorrect": "En $f(x) = ax^2 + bx + c$, $a$ es el coeficiente cuadrático. Aquí $a = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente tiene un nombre y rol específico:\n\n- $a$ = **coeficiente cuadrático** (acompaña a $x^2$): determina concavidad y amplitud\n- $b$ = **coeficiente lineal** (acompaña a $x$): desplaza el eje de simetría\n- $c$ = **término independiente** (constante): es el valor $f(0)$\n\nPara $f(x) = 3x^2 - 6x + 2$: $a = 3$, $b = -6$, $c = 2$.\nEl coeficiente cuadrático es $a = \\mathbf{3}$. No confundir con $b = -6$ (coeficiente de $x$, no de $x^2$)."
   },
   {
     "external_id": "white_quadratic_form_02",
@@ -437,7 +458,8 @@
     "feedback_correct": "¡Correcto! El vértice está en (2, −1) y la parábola se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
     "feedback_incorrect": "La parábola tiene vértice en (2, −1) y se abre hacia arriba: $f(x) = (x-2)^2 - 1$.",
     "graph_fn": "pow(x-2, 2) - 1",
-    "graph_view": [-1, 5, -2, 8]
+    "graph_view": [-1, 5, -2, 8],
+    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite leer directamente el vértice $(h, k)$ y la concavidad desde $a$.\n\nDe la gráfica: vértice en $(2, -1)$ y apertura hacia arriba ($a > 0$). Entonces $h = 2$, $k = -1$, $a = 1$:\n$$f(x) = 1 \\cdot (x-2)^2 + (-1) = (x-2)^2 - 1$$\nAtención con los signos: $(x-2)^2$ significa $h = +2$ (no $h = -2$). La opción $(x+2)^2 - 1$ daría vértice en $(-2, -1)$, no en $(2, -1)$."
   },
   {
     "external_id": "white_quadratic_form_03",
@@ -457,7 +479,8 @@
     "feedback_correct": "¡Correcto! En $ax^2 + bx + c$, $b$ es el coeficiente de $x$. Aquí $b = -5$.",
     "feedback_incorrect": "En $f(x) = ax^2 + bx + c$, $b$ es el coeficiente lineal. Aquí $b = -5$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en $f(x) = ax^2 + bx + c$.\n\nPara $f(x) = 2x^2 - 5x + 1$, el término en $x$ es $-5x$, por lo que $b = -5$. El signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$, y $c = 1$ es la constante. El valor de $b$ influye en la posición del eje de simetría: $x_v = -b/(2a) = -(-5)/(2 \\cdot 2) = 5/4$. Un error frecuente es escribir $b = 5$ (sin el signo negativo)."
   },
   {
     "external_id": "white_quadratic_form_04",
@@ -477,7 +500,8 @@
     "feedback_correct": "¡Correcto! En la forma $a(x-h)^2 + k$, el vértice es $(h, k) = (3, 2)$.",
     "feedback_incorrect": "En $a(x-h)^2 + k$, el vértice está en $(h, k)$. Aquí $(h, k) = (3, 2)$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$: comparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$, entonces $h = +3$ (no $h = -3$). La regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$. El vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**."
   },
   {
     "external_id": "white_quadratic_form_05",
@@ -497,7 +521,8 @@
     "feedback_correct": "¡Correcto! La parábola se abre hacia abajo con vértice en $(0, 4)$: $f(x) = -x^2 + 4$.",
     "feedback_incorrect": "La parábola tiene vértice en $(0, 4)$ y se abre hacia abajo: $f(x) = -x^2 + 4$.",
     "graph_fn": "-x*x + 4",
-    "graph_view": [-4, 4, -2, 6]
+    "graph_view": [-4, 4, -2, 6],
+    "explanation": "De la gráfica se leen dos datos: el **vértice** y la **concavidad**.\n\nVértice en $(0, 4)$: en forma de vértice $a(x-h)^2 + k$, esto da $h = 0$ y $k = 4$, es decir $a(x-0)^2 + 4 = ax^2 + 4$.\nLa parábola se abre hacia **abajo**: $a < 0$, y la amplitud parece ser $|a| = 1$, entonces $a = -1$.\n\nResultado: $f(x) = -x^2 + 4$. Verificación: $f(0) = 4$ ✓, $f(2) = -4 + 4 = 0$ ✓ (raíz en $x=2$). La opción $x^2 + 4$ tendría $a > 0$ (apertura hacia arriba), incorrecta."
   },
   {
     "external_id": "white_quadratic_form_06",
@@ -517,7 +542,8 @@
     "feedback_correct": "¡Correcto! Con vértice $(1, -3)$ y $a = 1$: $f(x) = (x-1)^2 - 3$.",
     "feedback_incorrect": "La forma de vértice es $f(x) = a(x-h)^2 + k$. Con $(h,k)=(1,-3)$: $f(x) = (x-1)^2 - 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Construir la forma de vértice a partir de datos es directo: usar la plantilla $f(x) = a(x-h)^2 + k$ con los valores dados.\n\nDatos: vértice $(h, k) = (1, -3)$ y $a = 1$. Sustituyendo:\n$$f(x) = 1 \\cdot (x - 1)^2 + (-3) = (x-1)^2 - 3$$\nAtención con los signos: el vértice tiene $h = 1$, entonces el factor es $(x - 1)$, no $(x + 1)$. La opción $(x+1)^2 - 3$ correspondería al vértice $(-1, -3)$, no $(1, -3)$.\n\nExpandiendo: $(x-1)^2 - 3 = x^2 - 2x + 1 - 3 = x^2 - 2x - 2$."
   },
   {
     "external_id": "white_quadratic_form_07",
@@ -537,7 +563,8 @@
     "feedback_correct": "¡Correcto! En $ax^2 + bx + c$, $c$ es el término independiente. Aquí $c = 6$.",
     "feedback_incorrect": "El término independiente $c$ es la constante sin $x$. Aquí $c = 6$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El **término independiente** $c$ es la constante en $f(x) = ax^2 + bx + c$: el número que no multiplica a ninguna potencia de $x$.\n\nPara $f(x) = 2x^2 - 8x + 6$: $a = 2$ (coeficiente de $x^2$), $b = -8$ (coeficiente de $x$), $c = 6$ (constante).\n\nInterpretación geométrica importante: $c = f(0)$, es decir, $c$ es la **ordenada al origen** (el punto donde la parábola cruza el eje $Y$). Verificación: $f(0) = 2(0)^2 - 8(0) + 6 = 6$ ✓."
   },
   {
     "external_id": "white_quadratic_form_08",
@@ -557,7 +584,8 @@
     "feedback_correct": "¡Correcto! La parábola tiene raíces en $x = -1$ y $x = 3$, y se abre hacia arriba: $f(x) = x^2 - 2x - 3$.",
     "feedback_incorrect": "Con raíces en $-1$ y $3$ y apertura hacia arriba, la fórmula es $f(x) = x^2 - 2x - 3$.",
     "graph_fn": "x*x - 2*x - 3",
-    "graph_view": [-2, 4, -5, 5]
+    "graph_view": [-2, 4, -5, 5],
+    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en $x = -1$ y $x = 3$, y la apertura hacia arriba ($a > 0$).\n\nCon raíces $r_1 = -1$ y $r_2 = 3$ y $a = 1$, la forma factorizada es:\n$$f(x) = (x+1)(x-3) = x^2 - 3x + x - 3 = x^2 - 2x - 3$$\nVerificación: $f(-1) = 1 + 2 - 3 = 0$ ✓, $f(3) = 9 - 6 - 3 = 0$ ✓.\n\nLa opción $x^2 + 2x - 3$ tendría raíces en $x = 1$ y $x = -3$ (distintas). El eje de simetría es $x = (-1+3)/2 = 1$, que coincide con el vértice visible en la gráfica."
   },
   {
     "external_id": "white_quadratic_form_09",
@@ -577,7 +605,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 0$ cuando $x - 2 = 0$ (es decir, $x = 2$) o cuando $x + 1 = 0$ (es decir, $x = -1$).",
     "feedback_incorrect": "Las raíces anulan cada factor: $x - 2 = 0 \\Rightarrow x = 2$ y $x + 1 = 0 \\Rightarrow x = -1$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En la **forma factorizada** $f(x) = a(x - r_1)(x - r_2)$, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n$$x - 2 = 0 \\implies x = 2$$\n$$x + 1 = 0 \\implies x = -1$$\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo. El factor $(x-2)$ da la raíz $x = +2$ (no $-2$), y el factor $(x+1) = (x-(-1))$ da la raíz $x = -1$ (no $+1$). La forma factorizada hace que leer las raíces sea inmediato, sin necesidad de usar la fórmula cuadrática."
   },
   {
     "external_id": "white_quadratic_form_10",
@@ -597,6 +626,7 @@
     "feedback_correct": "¡Correcto! En $a(x-h)^2 + k$, el vértice es $(h, k)$. Aquí $h = -1$ y $k = 5$.",
     "feedback_incorrect": "En la forma $a(x-h)^2 + k$, el vértice es $(h, k)$. Con $-(x+1)^2 + 5$: vértice $(-1, 5)$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para identificar el vértice en $f(x) = -3(x+1)^2 + 5$, reescribir como $a(x-h)^2 + k$:\n$$-3(x+1)^2 + 5 = -3(x-(-1))^2 + 5$$\nEntonces $a = -3$, $h = -1$, $k = 5$. El vértice es $\\mathbf{(-1, 5)}$.\n\nTrampa del signo: $(x+1) = (x - (-1))$, por lo que $h = -1$, **no** $h = +1$. La regla general: el valor de $h$ es el que hace cero el paréntesis $(x - h) = 0$.\n\nComo $a = -3 < 0$, la parábola se abre hacia abajo y el vértice $(-1, 5)$ es el **máximo** de la función."
   }
 ]

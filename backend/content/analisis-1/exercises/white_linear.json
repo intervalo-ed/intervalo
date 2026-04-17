@@ -17,7 +17,8 @@
     "feedback_correct": "¡Correcto! Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
     "feedback_incorrect": "Una función lineal tiene la forma $f(x) = mx + b$. La opción correcta es $f(x) = 5x - 2$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes:**\n• $m$ es la **pendiente** — mide la inclinación de la recta.\n• $b$ es la **ordenada al origen** — el valor de $f(0)$.\n\nLa variable $x$ debe aparecer únicamente con exponente 1. Si aparece elevada al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia."
   },
   {
     "external_id": "white_linear_lexi_02",
@@ -37,7 +38,8 @@
     "feedback_correct": "¡Correcto! El valor de $f(0)$ se llama ordenada al origen (o intercepto en Y).",
     "feedback_incorrect": "El punto donde la recta corta el eje Y se llama ordenada al origen ($f(0) = b$ en $f(x) = mx + b$).",
     "graph_fn": "3*x + 2",
-    "graph_view": [-4, 4, -8, 10]
+    "graph_view": [-4, 4, -8, 10],
+    "explanation": "Una recta puede intersectar ambos ejes coordenados. Cada intersección recibe un nombre específico:\n\n**Intercepto en $Y$ (ordenada al origen):** se calcula haciendo $x = 0$:\n$$f(0) = b$$\nEs el valor del parámetro $b$ en la forma estándar.\n\n**Intercepto en $X$ (raíz o cero):** se obtiene resolviendo $f(x) = 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m} \\quad (m \\neq 0)$$\n\nPara $f(x) = 3x + 2$: el intercepto en $Y$ es $(0,\\, 2)$ y el intercepto en $X$ es $\\left(-\\frac{2}{3},\\, 0\\right)$."
   },
   {
     "external_id": "white_linear_lexi_03",
@@ -57,7 +59,8 @@
     "feedback_correct": "¡Correcto! $m$ se llama pendiente e indica cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
     "feedback_incorrect": "El coeficiente $m$ en $f(x) = mx + b$ se llama pendiente.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cada símbolo de la forma estándar tiene un significado geométrico preciso:\n\n**Pendiente** ($m$): mide la **tasa de cambio** de la función. Indica cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad:\n$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{f(x_2) - f(x_1)}{x_2 - x_1}$$\n\n**Ordenada al origen** ($b$): el valor de la función en $x = 0$, es decir, donde la recta corta el eje $Y$:\n$$f(0) = b$$\n\nJuntos, $m$ y $b$ determinan por completo la posición e inclinación de la recta en el plano."
   },
   {
     "external_id": "white_linear_lexi_04",
@@ -77,7 +80,8 @@
     "feedback_correct": "¡Correcto! Si $m > 0$, la recta sube de izquierda a derecha: la función es creciente.",
     "feedback_incorrect": "Cuando $m > 0$, la recta sube al avanzar en $x$: la función es creciente.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El signo de la pendiente $m$ en $f(x) = mx + b$ determina el comportamiento en todo el dominio:\n\n$$m > 0 \\implies \\text{creciente}$$\n$$m < 0 \\implies \\text{decreciente}$$\n$$m = 0 \\implies \\text{constante (recta horizontal)}$$\n\nEsta propiedad es **global**: una función lineal mantiene el mismo comportamiento en todo $\\mathbb{R}$. A diferencia de funciones cuadráticas o trigonométricas, una recta con $m \\neq 0$ nunca cambia de dirección."
   },
   {
     "external_id": "white_linear_lexi_05",
@@ -97,7 +101,8 @@
     "feedback_correct": "¡Correcto! $f(x) = x^2 + 1$ tiene un término cuadrático, por eso NO es lineal.",
     "feedback_incorrect": "$f(x) = x^2 + 1$ contiene $x^2$, lo que la excluye de la familia lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Solo pertenecen a la familia lineal aquellas funciones que pueden escribirse como $f(x) = mx + b$. Cuando $x$ aparece de otras formas, la función deja de ser lineal:\n\n• **Función cuadrática:** $x$ aparece elevada al cuadrado ($ax^2 + bx + c$). Su gráfica es una parábola.\n• **Función exponencial:** $x$ está en el exponente ($a \\cdot b^x$). Crece o decrece de forma acelerada.\n• **Función logarítmica:** involucra $\\log(x)$ o $\\ln(x)$. Crece muy lentamente.\n\nLa **función constante** $f(x) = c$ es el caso especial con $m = 0$: sigue siendo lineal porque puede escribirse como $f(x) = 0 \\cdot x + c$."
   },
   {
     "external_id": "white_linear_lexi_06",
@@ -117,7 +122,8 @@
     "feedback_correct": "¡Correcto! Una función lineal con $m \\neq 0$ corta al eje $X$ exactamente una vez (en su raíz).",
     "feedback_incorrect": "Una recta con pendiente no nula siempre corta al eje $X$ en exactamente un punto.",
     "graph_fn": "x - 2",
-    "graph_view": [-2, 6, -5, 5]
+    "graph_view": [-2, 6, -5, 5],
+    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ corta al eje $X$ exactamente **una vez**.\n\nSu única raíz se obtiene resolviendo $f(x) = 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\n\nComo $m \\neq 0$, siempre existe exactamente una solución. En cambio, una función constante ($m = 0$) no cruza el eje $X$ si $b \\neq 0$, o lo coincide completamente si $b = 0$."
   },
   {
     "external_id": "white_linear_lexi_07",
@@ -137,7 +143,8 @@
     "feedback_correct": "¡Correcto! Cuando $m = 0$, $f(x) = b$ es constante: su gráfica es una recta horizontal.",
     "feedback_incorrect": "Si la pendiente es 0, $f(x) = b$ no varía con $x$: se llama función constante.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando la pendiente es cero ($m = 0$), la función lineal $f(x) = mx + b$ se reduce a:\n$$f(x) = b$$\nEsta función se llama **función constante**: devuelve siempre el mismo valor $b$ sin importar $x$.\n\nSu gráfica es una **recta horizontal** que corta el eje $Y$ en $(0, b)$ y nunca corta el eje $X$ (salvo que $b = 0$). No crece ni decrece: la tasa de cambio es exactamente cero."
   },
   {
     "external_id": "white_linear_lexi_08",
@@ -157,7 +164,8 @@
     "feedback_correct": "¡Correcto! La gráfica de toda función lineal $f(x) = mx + b$ es siempre una línea recta.",
     "feedback_incorrect": "La característica más reconocible de una función lineal es que su gráfica es una línea recta.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es siempre una **línea recta**.\n\nEsto se debe a que la función tiene **tasa de cambio constante**: por cada unidad que avanza $x$, $f(x)$ cambia exactamente $m$ unidades. No se curva, no oscila, no tiene extremos.\n\n• $m > 0$: recta ascendente (sube de izquierda a derecha)\n• $m < 0$: recta descendente (baja de izquierda a derecha)\n• $m = 0$: recta horizontal (constante)"
   },
   {
     "external_id": "white_linear_lexi_09",
@@ -177,7 +185,8 @@
     "feedback_correct": "¡Correcto! La pendiente mide la variación de $f(x)$ por cada unidad de variación en $x$.",
     "feedback_incorrect": "La pendiente $m$ indica cuánto cambia $f(x)$ cuando $x$ aumenta en una unidad.",
     "graph_fn": "3*x - 1",
-    "graph_view": [-2, 3, -7, 8]
+    "graph_view": [-2, 3, -7, 8],
+    "explanation": "La **pendiente** $m$ de una función lineal indica cuánto cambia $f(x)$ cuando $x$ aumenta una unidad:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\n\nGeométricamente, es el cociente entre el ascenso vertical y el avance horizontal. En $f(x) = 3x - 1$, por cada unidad que $x$ avanza, $f(x)$ sube $3$ unidades.\n\nUna pendiente **grande** implica una recta muy inclinada; una pendiente **pequeña** (cercana a 0) implica una recta casi horizontal."
   },
   {
     "external_id": "white_linear_lexi_10",
@@ -197,7 +206,8 @@
     "feedback_correct": "¡Correcto! El $7$ es la ordenada al origen: $f(0) = 7$.",
     "feedback_incorrect": "El término independiente ($7$) es la ordenada al origen, es decir, $f(0)$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para identificar los parámetros, reescribir en forma canónica $f(x) = mx + b$:\n$$f(x) = 7 - 3x = -3x + 7$$\nAquí $m = -3$ (pendiente) y $b = 7$ (**ordenada al origen**).\n\nLa ordenada al origen es el valor que toma la función cuando $x = 0$: $f(0) = 7$. Es el punto donde la recta corta el eje $Y$. No importa si la función está escrita en orden invertido: $b$ siempre es el término independiente."
   },
   {
     "external_id": "white_linear_clsf_01",
@@ -217,7 +227,8 @@
     "feedback_correct": "¡Correcto! La gráfica es una línea recta: $f(x) = 2x - 5$, una función lineal.",
     "feedback_incorrect": "La gráfica es una línea recta ($f(x) = 2x - 5$), característica de una función lineal.",
     "graph_fn": "2*x - 5",
-    "graph_view": [-4, 6, -10, 10]
+    "graph_view": [-4, 6, -10, 10],
+    "explanation": "Para clasificar una función desde su gráfica, observar la **forma de la curva**.\n\nUna **función lineal** produce siempre una línea recta. Las características que la delatan:\n• La gráfica no se curva en ningún punto.\n• La inclinación es constante en todo el dominio.\n• No tiene máximos, mínimos ni puntos de inflexión.\n\nEn este caso la gráfica es una recta ($f(x) = 2x - 5$): pertenece a la familia **lineal**."
   },
   {
     "external_id": "white_linear_clsf_02",
@@ -237,7 +248,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$: es una función lineal.",
     "feedback_incorrect": "$f(x) = 2x - 5$ tiene la forma $f(x) = mx + b$, que define una función lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una función pertenece a la familia **lineal** si y solo si puede escribirse en la forma:\n$$f(x) = mx + b$$\ndonde $m$ y $b$ son constantes reales.\n\nPara $f(x) = 2x - 5$: $m = 2$ y $b = -5$. La variable $x$ aparece únicamente a la primera potencia, sin estar en el exponente, bajo una raíz ni dentro de un logaritmo.\n\nConclusión: $f(x) = 2x - 5$ es **lineal** con pendiente $2$ y ordenada al origen $-5$."
   },
   {
     "external_id": "white_linear_clsf_03",
@@ -257,7 +269,8 @@
     "feedback_correct": "¡Correcto! $-7x + 4$ tiene la forma $mx + b$: es una función lineal.",
     "feedback_incorrect": "$f(x) = -7x + 4$ sigue el patrón $mx + b$: pertenece a la familia lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para clasificar $f(x) = -7x + 4$, verificar si ajusta al patrón $mx + b$.\n\nComparando: $m = -7$ (pendiente negativa — la recta es decreciente) y $b = 4$ (ordenada al origen).\n\nLa variable $x$ aparece únicamente con exponente 1. No hay $x^2$, no hay $b^x$, no hay $\\log(x)$: es una **función lineal**. El signo negativo de $m$ solo indica que la recta baja; no cambia la familia."
   },
   {
     "external_id": "white_linear_clsf_04",
@@ -277,7 +290,8 @@
     "feedback_correct": "¡Correcto! $\\frac{1}{2}x - 3$ es de la forma $mx + b$: función lineal.",
     "feedback_incorrect": "$\\frac{1}{2}x - 3$ tiene $x$ elevada a la primera potencia: es una función lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La pendiente puede ser cualquier número real, incluyendo fracciones. Para $f(x) = \\frac{1}{2}x - 3$:\n$$m = \\frac{1}{2}, \\quad b = -3$$\n\nUna pendiente fraccionaria solo significa que la recta tiene una inclinación suave: sube $1$ unidad por cada $2$ unidades que avanza $x$.\n\nEl criterio es claro: si $x$ aparece multiplicado por una constante y sumado a otra constante (sin $x^2$, sin $b^x$, sin $\\log x$), la función es **lineal**."
   },
   {
     "external_id": "white_linear_clsf_05",
@@ -297,7 +311,8 @@
     "feedback_correct": "¡Correcto! La recta decreciente es $f(x) = -x + 3$, una función lineal.",
     "feedback_incorrect": "La gráfica es una línea recta decreciente ($f(x) = -x + 3$): función lineal.",
     "graph_fn": "-x + 3",
-    "graph_view": [-3, 6, -4, 7]
+    "graph_view": [-3, 6, -4, 7],
+    "explanation": "Una recta decreciente (que baja de izquierda a derecha) es igualmente una **función lineal**.\n\nLo que determina la familia es la **forma de la curva**, no su dirección. La recta $f(x) = -x + 3$ tiene $m = -1 < 0$, lo que la hace decreciente, pero sigue siendo rectilínea con tasa de cambio constante.\n\nDiferencia visual con otras familias: la parábola se curva en forma de U; la exponencial curva acelerándose; el logaritmo curva desacelerándose. Solo la lineal es una recta perfecta."
   },
   {
     "external_id": "white_linear_clsf_06",
@@ -317,7 +332,8 @@
     "feedback_correct": "¡Correcto! $4 - x$ puede escribirse como $-x + 4$, forma $mx + b$: función lineal.",
     "feedback_incorrect": "$f(x) = 4 - x$ equivale a $-x + 4$, que sigue el patrón $mx + b$: es lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "A veces una función lineal no está escrita en la forma canónica. Para clasificarla, reescribir:\n$$f(x) = 4 - x = -x + 4 = -1 \\cdot x + 4$$\n\nAhora se ve claramente: $m = -1$ y $b = 4$. La función **es lineal**, aunque el orden de los términos esté invertido.\n\nTrampa común: $x^3 - 1$ es polinómica de grado 3; $2^x$ es exponencial; $\\ln(x)$ es logarítmica. Solo $4 - x$ puede llevarse a $mx + b$."
   },
   {
     "external_id": "white_linear_clsf_07",
@@ -337,7 +353,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 5$ equivale a $0 \\cdot x + 5$: es una función lineal constante.",
     "feedback_incorrect": "$f(x) = 5$ es un caso particular de $mx + b$ con $m = 0$: función lineal constante.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La función $f(x) = 5$ puede reescribirse como:\n$$f(x) = 0 \\cdot x + 5$$\n\nEsto la convierte en un caso particular de $f(x) = mx + b$ con $m = 0$. Por eso pertenece a la familia **lineal** (con el nombre especial de **función constante**).\n\nSu gráfica es una recta horizontal. Produce siempre el mismo resultado ($5$) sin importar $x$: el dominio es $\\mathbb{R}$ y la imagen es el conjunto $\\{5\\}$."
   },
   {
     "external_id": "white_linear_clsf_08",
@@ -357,7 +374,8 @@
     "feedback_correct": "¡Correcto! La recta horizontal ($f(x) = 2$) es una función lineal con pendiente cero.",
     "feedback_incorrect": "La recta horizontal es $f(x) = 2$, un caso de función lineal ($m = 0$).",
     "graph_fn": "0*x + 2",
-    "graph_view": [-4, 4, -1, 5]
+    "graph_view": [-4, 4, -1, 5],
+    "explanation": "Una **recta horizontal** es la forma más simple de función lineal: $f(x) = c$ (constante).\n\nEn este caso la gráfica es $f(x) = 2$: la recta está a altura $2$ en todo el dominio. Pertenece a la familia lineal con $m = 0$ y $b = 2$.\n\nCómo distinguirla en la gráfica:\n• Lineal constante: línea horizontal sin inclinación.\n• Lineal no constante: línea diagonal con $m \\neq 0$.\n• Cuadrática, exponencial u otras: curvas con alguna curvatura."
   },
   {
     "external_id": "white_linear_clsf_09",
@@ -377,7 +395,8 @@
     "feedback_correct": "¡Correcto! $f(x) = -x$ es la forma $mx + b$ con $m = -1$ y $b = 0$: función lineal.",
     "feedback_incorrect": "$f(x) = -x$ tiene $x$ a la primera potencia sin otros términos: es lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x) = -x$ corresponde a la forma $mx + b$ con:\n$$m = -1, \\quad b = 0$$\n\nLa ordenada al origen cero significa que la recta pasa por el origen $(0, 0)$. Con pendiente $-1$, baja exactamente $1$ unidad por cada unidad que avanza $x$.\n\nNo hace falta que $b \\neq 0$ para que sea lineal. $f(x) = -x$ es una **función lineal** completamente válida que pasa por el origen."
   },
   {
     "external_id": "white_linear_clsf_10",
@@ -397,7 +416,8 @@
     "feedback_correct": "¡Correcto! $x^2 - 3x + 1$ tiene un término $x^2$: es cuadrática, no lineal.",
     "feedback_incorrect": "$f(x) = x^2 - 3x + 1$ incluye $x^2$, por lo que no pertenece a la familia lineal.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para reconocer el intruso, verificar qué potencia de $x$ aparece en cada expresión:\n• $6x - 2$: potencia 1 → **lineal** ✓\n• $-4$: constante (potencia 0) → **lineal** ✓\n• $\\frac{x}{3} + 1$: potencia 1 → **lineal** ✓\n• $x^2 - 3x + 1$: potencia **2** → **cuadrática** ✗\n\nEl término $x^2$ es la marca de la familia cuadrática. Cualquier polinomio cuya mayor potencia sea 2 queda fuera de la familia lineal."
   },
   {
     "external_id": "white_linear_form_01",
@@ -417,7 +437,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la ordenada al origen es $b = 8$.",
     "feedback_incorrect": "En $f(x) = mx + b$, $b$ es la ordenada al origen. Aquí $b = 8$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En la forma estándar $f(x) = mx + b$:\n• $m$ es la **pendiente** (coeficiente de $x$)\n• $b$ es la **ordenada al origen** (término independiente)\n\nPara $f(x) = -3x + 8$: $m = -3$ y $b = 8$.\n\nVerificación: $f(0) = -3(0) + 8 = 8$ ✓\n\nLa recta corta el eje $Y$ en el punto $(0,\\, 8)$."
   },
   {
     "external_id": "white_linear_form_02",
@@ -437,7 +458,8 @@
     "feedback_correct": "¡Correcto! La recta tiene pendiente 2 e intercepto −3: $y = 2x - 3$.",
     "feedback_incorrect": "La recta sube 2 unidades por cada unidad en x y corta el eje Y en −3: $y = 2x - 3$.",
     "graph_fn": "2*x - 3",
-    "graph_view": [-3, 5, -8, 8]
+    "graph_view": [-3, 5, -8, 8],
+    "explanation": "Para leer la ecuación de una recta desde su gráfica, se necesitan dos datos:\n\n**Pendiente** $m$: contar cuánto sube (o baja) la recta por cada unidad horizontal. Una recta que sube $2$ unidades por cada $1$ tiene $m = 2$.\n\n**Ordenada al origen** $b$: el punto donde la recta cruza el eje $Y$. Si cruza en $(0, -3)$, entonces $b = -3$.\n\nCon $m = 2$ y $b = -3$: la ecuación es $y = 2x - 3$."
   },
   {
     "external_id": "white_linear_form_03",
@@ -457,7 +479,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la pendiente es $m = 4$.",
     "feedback_incorrect": "En $f(x) = mx + b$, $m$ es la pendiente. Aquí $m = 4$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = 4x - 7$: el coeficiente de $x$ es $4$, entonces $m = 4$. El $-7$ es la ordenada al origen ($b = -7$).\n\nSignificado geométrico: la recta sube $4$ unidades por cada unidad que avanza $x$. No confundir $m$ con $b$: la pendiente está **multiplicando** a $x$; la ordenada al origen es la **constante** que se suma."
   },
   {
     "external_id": "white_linear_form_04",
@@ -477,7 +500,8 @@
     "feedback_correct": "¡Correcto! La ordenada al origen es $b = 5$ (el valor de $f(0)$).",
     "feedback_incorrect": "En $f(x) = mx + b$, $b$ es la ordenada al origen. Aquí $b = 5$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** $b$ es el término independiente: el número que no tiene $x$ multiplicando.\n\nEn $f(x) = -2x + 5$: la pendiente es $m = -2$ y la ordenada al origen es $b = 5$.\n\nVerificación: $f(0) = -2(0) + 5 = 5$ ✓\n\nEs el punto donde la recta corta el eje $Y$. Una recta con $b = 5$ siempre pasa por $(0,\\, 5)$ independientemente de cuál sea su pendiente."
   },
   {
     "external_id": "white_linear_form_05",
@@ -497,7 +521,8 @@
     "feedback_correct": "¡Correcto! La recta baja 2 unidades por cada unidad en $x$ y corta el eje $Y$ en 1: $y = -2x + 1$.",
     "feedback_incorrect": "La recta tiene pendiente $-2$ (baja) e intercepto $1$ en el eje $Y$: $y = -2x + 1$.",
     "graph_fn": "-2*x + 1",
-    "graph_view": [-2, 4, -6, 5]
+    "graph_view": [-2, 4, -6, 5],
+    "explanation": "Al leer la ecuación de una recta con pendiente negativa:\n\n**Pendiente** $m$: si la recta baja $2$ unidades por cada unidad hacia la derecha, $m = -2$ (negativa porque desciende).\n\n**Ordenada al origen** $b$: el punto donde la recta toca el eje $Y$. Si cruza en $(0,\\, 1)$, entonces $b = 1$.\n\nCon $m = -2$ y $b = 1$: la ecuación es $y = -2x + 1$. Una pendiente negativa siempre produce una recta decreciente."
   },
   {
     "external_id": "white_linear_form_06",
@@ -517,7 +542,8 @@
     "feedback_correct": "¡Correcto! Pendiente $m = 2$ y ordenada al origen $b = 3$: $f(x) = 2x + 3$.",
     "feedback_incorrect": "Con $m = 2$ y $b = 3$ (pasa por $(0,3)$), la ecuación es $f(x) = 2x + 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para construir la ecuación de una recta a partir de sus parámetros, usar la forma estándar:\n$$f(x) = mx + b$$\n\nDatos: pendiente $m = 2$ y el punto $(0,\\, 3)$. Pasar por $(0,\\, 3)$ significa $f(0) = 3$, lo cual implica directamente $b = 3$.\n\nSustituyendo: $f(x) = 2x + 3$.\n\nRegla rápida: si el enunciado dice \"pasa por $(0,\\, k)$\", entonces $b = k$ directamente."
   },
   {
     "external_id": "white_linear_form_07",
@@ -537,7 +563,8 @@
     "feedback_correct": "¡Correcto! En $f(x) = mx + b$, la pendiente es $m = \\frac{3}{2}$.",
     "feedback_incorrect": "La pendiente es el coeficiente de $x$: $m = \\frac{3}{2}$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La pendiente puede ser cualquier número real, incluyendo fracciones. En $f(x) = \\frac{3}{2}x - 4$:\n$$m = \\frac{3}{2}, \\quad b = -4$$\n\nInterpretación de $m = \\frac{3}{2}$: la recta sube $3$ unidades por cada $2$ unidades que avanza $x$ (equivalente a $1{,}5$ por unidad).\n\nNo confundir con el recíproco $\\frac{2}{3}$: ese sería la pendiente de una recta perpendicular. La pendiente de esta recta es exactamente $\\frac{3}{2}$."
   },
   {
     "external_id": "white_linear_form_08",
@@ -557,7 +584,8 @@
     "feedback_correct": "¡Correcto! La recta sube lentamente (pendiente $\\frac{1}{2}$) y corta el eje $Y$ en $1$: $f(x) = \\frac{1}{2}x + 1$.",
     "feedback_incorrect": "La recta tiene pendiente $\\frac{1}{2}$ e intercepto $1$: $f(x) = \\frac{1}{2}x + 1$.",
     "graph_fn": "0.5*x + 1",
-    "graph_view": [-4, 6, -2, 5]
+    "graph_view": [-4, 6, -2, 5],
+    "explanation": "Cuando la recta tiene una inclinación suave, su pendiente es una fracción entre $0$ y $1$.\n\nPara leerla, elegir dos puntos de la gráfica y calcular:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\n\nSi la recta pasa por $(0,\\, 1)$ y $(2,\\, 2)$: $m = \\frac{2-1}{2-0} = \\frac{1}{2}$.\n\nCon $m = \\frac{1}{2}$ y $b = 1$: la ecuación es $f(x) = \\frac{1}{2}x + 1$."
   },
   {
     "external_id": "white_linear_form_09",
@@ -577,7 +605,8 @@
     "feedback_correct": "¡Correcto! Con $m = -1$ y $b = 4$, la función es $f(x) = -x + 4$.",
     "feedback_incorrect": "Usando $f(x) = mx + b$ con $m = -1$ y $b = 4$: $f(x) = -x + 4$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Dados los parámetros $m$ y $b$, construir la función es directo: sustituir en $f(x) = mx + b$.\n\nCon $m = -1$ y $b = 4$:\n$$f(x) = -1 \\cdot x + 4 = -x + 4$$\n\nLa pendiente $m = -1$ indica que la recta desciende $1$ unidad por cada unidad que avanza $x$. La ordenada al origen $b = 4$ indica que la recta corta el eje $Y$ en $(0,\\, 4)$."
   },
   {
     "external_id": "white_linear_form_10",
@@ -597,6 +626,7 @@
     "feedback_correct": "¡Correcto! $f(x) = 0 \\Rightarrow 2x - 6 = 0 \\Rightarrow x = 3$.",
     "feedback_incorrect": "Para hallar la raíz: $2x - 6 = 0 \\Rightarrow x = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La **raíz** (o cero) de una función lineal es el valor de $x$ donde la recta corta el eje $X$, es decir, donde $f(x) = 0$.\n\nPara $f(x) = 2x - 6$:\n$$2x - 6 = 0 \\implies 2x = 6 \\implies x = 3$$\n\nVerificación: $f(3) = 2(3) - 6 = 0$ ✓\n\nFórmula general para la raíz de $f(x) = mx + b$:\n$$x = -\\frac{b}{m}$$\nAquí: $x = -(-6)/2 = 3$."
   }
 ]
