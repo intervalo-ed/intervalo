@@ -28,3 +28,4 @@ env/
 # Alembic cache
 backend/migrations/__pycache__/
 backend/migrations/versions/__pycache__/
+backend/intervalo.db

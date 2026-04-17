@@ -218,6 +218,7 @@ class Exercise(Base):
     feedback_incorrect = Column(Text, nullable=False)
     graph_fn = Column(String(500), nullable=True)
     graph_view = Column(String(100), nullable=True)  # JSON string: "[-4,4,-8,10]"
+    explanation = Column(Text, nullable=True)  # extended theoretical explanation (supports LaTeX)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

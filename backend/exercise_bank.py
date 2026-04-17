@@ -34,6 +34,7 @@ def _row_to_dict(row: Exercise) -> dict:
         "feedback_incorrect": row.feedback_incorrect,
         "graph_fn": row.graph_fn or "",
         "graph_view": gv,
+        "explanation": row.explanation,
     }
 
 

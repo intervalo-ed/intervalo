@@ -214,6 +214,7 @@ def seed_exercises(
                     feedback_incorrect=entry["feedback_incorrect"],
                     graph_fn=entry.get("graph_fn"),
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
+                    explanation=entry.get("explanation"),
                 ))
                 inserted += 1
             else:
@@ -233,6 +234,7 @@ def seed_exercises(
                     "feedback_incorrect": entry["feedback_incorrect"],
                     "graph_fn":           entry.get("graph_fn"),
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
+                    "explanation":        entry.get("explanation"),
                 }
                 changed = False
                 for k, v in fields.items():

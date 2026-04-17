@@ -80,6 +80,7 @@ class ExerciseInSession:
     has_math: bool = False
     graph_fn: str = ""
     graph_view: list = None
+    explanation: str = None
 
 
 @dataclass
@@ -279,6 +280,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
                 has_math=ex.get("has_math", False),
                 graph_fn=ex.get("graph_fn", ""),
                 graph_view=ex.get("graph_view", None),
+                explanation=ex.get("explanation"),
             )
         )
 
@@ -323,10 +325,12 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
                 "correct_index": ex.correct_index,
                 "has_math": ex.has_math,
                 "skill": ex.item_key.skill.value,
+                "topic": ex.item_key.topic,
                 "graph_fn": ex.graph_fn,
                 "graph_view": ex.graph_view,
                 "feedback_correct": ex.feedback_correct,
                 "feedback_incorrect": ex.feedback_incorrect,
+                "explanation": ex.explanation,
             }
             for ex in exercises
         ],
@@ -480,6 +484,7 @@ def record_answer_db(
                     has_math=ex.get("has_math", False),
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view", None),
+                    explanation=ex.get("explanation"),
                 )
             )
 
