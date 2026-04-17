@@ -11,26 +11,21 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from session_store import create_session, record_answer, get_summary, get_session, get_user_progress_db
 from database import SessionLocal
 from auth import (
-    get_google_oauth_url,
-    authenticate_with_google,
-    create_guest_user,
-    verify_token,
-    TokenPayload,
     UserResponse,
+    get_or_create_user_from_clerk,
+    verify_clerk_token,
 )
 from models import User, BeltInfo
 from schemas import (
     AnswerResponse,
     BeltEntry,
     EnrollmentResponse,
-    GuestAuthResponse,
     HealthResponse,
     SessionStartResponse,
     SessionSummaryResponse,
@@ -81,7 +76,12 @@ def get_current_user(
     authorization: str = Header(None),
     db: Session = Depends(get_db)
 ) -> User:
-    """Get current authenticated user from JWT token."""
+    """
+    Resolve the authenticated user from a Clerk session JWT.
+
+    Clerk issues the token on the frontend; we verify the signature against
+    Clerk's JWKS and JIT-provision a local `User` row on first sight.
+    """
     if not authorization:
         raise HTTPException(status_code=401, detail="Authorization header missing")
 
@@ -93,17 +93,20 @@ def get_current_user(
     except ValueError:
         raise HTTPException(status_code=401, detail="Invalid authorization header")
 
-    # Verify token
-    payload = verify_token(token)
-    if not payload:
+    try:
+        claims = verify_clerk_token(token)
+    except RuntimeError as exc:
+        # Missing CLERK_* env vars — server misconfiguration, not a client error.
+        raise HTTPException(status_code=503, detail=str(exc))
+
+    if not claims:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
-    # Get user from database
-    user = db.query(User).filter(User.id == payload.user_id).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
-
-    return user
+    try:
+        return get_or_create_user_from_clerk(db, claims)
+    except ValueError as exc:
+        # e.g. Clerk token has no email and no secret key is configured
+        raise HTTPException(status_code=401, detail=str(exc))
 
 
 # ── Pydantic models ───────────────────────────────────────────────────────────
@@ -141,50 +144,11 @@ def get_belt_info(course_id: int, db: Session = Depends(get_db)):
 
 
 # ── Authentication ────────────────────────────────────────────────────────────
-
-class GuestRequest(BaseModel):
-    name: str
-
-
-@app.post("/auth/guest", response_model=GuestAuthResponse)
-def auth_guest(body: GuestRequest, db: Session = Depends(get_db)):
-    """Create anonymous guest user and return JWT."""
-    result = create_guest_user(db, body.name)
-    return {"access_token": result.access_token, "name": result.name, "user_id": result.user_id}
-
-
-@app.get("/auth/google")
-def auth_google(link: int = None):
-    """Redirect to Google OAuth consent screen. Pass link=<user_id> to merge with anonymous user."""
-    from urllib.parse import urlencode
-    url = get_google_oauth_url()
-    if link:
-        url += f"&state={link}"
-    return RedirectResponse(url=url)
-
-
-@app.get("/auth/google/callback")
-async def auth_google_callback(
-    code: str,
-    state: str = None,
-    db: Session = Depends(get_db)
-):
-    """Handle Google OAuth callback and redirect to frontend with token."""
-    try:
-        link_user_id = int(state) if state else None
-        result = await authenticate_with_google(code, db, link_user_id=link_user_id)
-        # Redirect to frontend with token in URL
-        frontend_url = ALLOWED_ORIGINS[0] if ALLOWED_ORIGINS else "http://localhost:5173"
-        linked_flag = "&linked=1" if link_user_id else ""
-        return RedirectResponse(
-            url=f"{frontend_url}?token={result.access_token}&name={result.name}{linked_flag}",
-            status_code=302
-        )
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Authentication failed: {str(e)}")
-
+#
+# Sign-in / sign-up is handled by Clerk on the frontend. The backend only
+# verifies the resulting session JWT (see `get_current_user` above) and
+# surfaces the current user via `/auth/me`. No OAuth redirects live here
+# anymore.
 
 @app.get("/auth/me", response_model=UserResponse)
 def get_current_user_info(
@@ -195,7 +159,7 @@ def get_current_user_info(
         id=current_user.id,
         email=current_user.email,
         name=current_user.display_name or current_user.name,
-        google_id=current_user.google_id,
+        clerk_user_id=current_user.clerk_user_id,
     )
 
 

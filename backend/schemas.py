@@ -29,14 +29,6 @@ class BeltEntry(BaseModel):
     description: str
 
 
-# ── Auth ──────────────────────────────────────────────────────────────────────
-
-class GuestAuthResponse(BaseModel):
-    access_token: str
-    name: str
-    user_id: int
-
-
 # ── Enrollment ────────────────────────────────────────────────────────────────
 
 class EnrollmentResponse(BaseModel):

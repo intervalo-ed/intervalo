@@ -17,11 +17,14 @@ from database import Base
 
 
 class User(Base):
-    """User model with Google OAuth support."""
+    """User model — identity is owned by Clerk; `clerk_user_id` is the link."""
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    google_id = Column(String(200), unique=True, index=True, nullable=True)
+    # Clerk's stable user id (the `sub` claim on the session JWT, e.g. "user_2aBc...").
+    # Nullable only so Alembic can add the column on an existing DB; in practice
+    # every row ends up with a value on first request.
+    clerk_user_id = Column(String(200), unique=True, index=True, nullable=True)
     email = Column(String(200), unique=True, index=True, nullable=False)
     name = Column(String(200), nullable=False)
     display_name = Column(String(200), nullable=True)

@@ -1,232 +1,237 @@
+"""
+auth.py — Clerk-based authentication.
+
+The frontend talks to Clerk directly and gets a short-lived session JWT (RS256,
+signed by Clerk). It attaches that JWT as `Authorization: Bearer <token>` on
+every API request. We verify the token against Clerk's JWKS endpoint and
+look up / lazily provision the matching `User` row in our DB.
+
+Environment variables:
+  CLERK_JWKS_URL     — e.g. https://<your-clerk-domain>/.well-known/jwks.json
+  CLERK_ISSUER       — e.g. https://<your-clerk-domain>  (value of `iss` claim)
+  CLERK_AUDIENCE     — optional, only set if your session template uses `aud`
+"""
+
 import os
-from datetime import datetime, timedelta
-from typing import Optional
+import time
 from pathlib import Path
-from dotenv import load_dotenv
+from typing import Optional
+
 import httpx
-from jose import JWTError, jwt
+import jwt
+from dotenv import load_dotenv
+from jwt import PyJWKClient
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+
 from models import User
 
 # Load environment variables from .env file
 env_path = Path(__file__).parent / ".env"
 load_dotenv(env_path)
 
-# Configuration
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
-GOOGLE_REDIRECT_URI = os.environ.get(
-    "GOOGLE_REDIRECT_URI",
-    "http://localhost:8000/auth/google/callback"
-)
+# ── Configuration ────────────────────────────────────────────────────────────
 
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "dev-secret-key-change-in-production-12345678901234567890"
-)
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30  # 30 days
+CLERK_JWKS_URL = os.environ.get("CLERK_JWKS_URL", "")
+CLERK_ISSUER = os.environ.get("CLERK_ISSUER", "")
+CLERK_AUDIENCE = os.environ.get("CLERK_AUDIENCE") or None
+CLERK_SECRET_KEY = os.environ.get("CLERK_SECRET_KEY", "")  # only needed for JIT user enrichment
 
-# Pydantic schemas
-class TokenResponse(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
-    user_id: int
-    email: str
-    name: str
+# Clerk rotates signing keys, so we reuse a PyJWKClient (it caches keys by kid)
+# instead of re-fetching the JWKS on every request.
+_jwks_client: Optional[PyJWKClient] = None
 
+
+def _get_jwks_client() -> PyJWKClient:
+    global _jwks_client
+    if _jwks_client is None:
+        if not CLERK_JWKS_URL:
+            raise RuntimeError(
+                "CLERK_JWKS_URL is not set. Add it to backend/.env "
+                "(see your Clerk dashboard → API Keys)."
+            )
+        _jwks_client = PyJWKClient(CLERK_JWKS_URL, cache_keys=True, lifespan=3600)
+    return _jwks_client
+
+
+# ── Pydantic schemas ─────────────────────────────────────────────────────────
 
 class UserResponse(BaseModel):
     id: int
     email: str
     name: str
-    google_id: Optional[str] = None
+    clerk_user_id: Optional[str] = None
 
 
-class TokenPayload(BaseModel):
-    user_id: int
-    email: str
-    exp: datetime
+class ClerkClaims(BaseModel):
+    """Subset of the Clerk session JWT claims we care about."""
+    sub: str                          # Clerk user id, e.g. "user_2aBcDeF..."
+    email: Optional[str] = None
+    name: Optional[str] = None
 
 
-# Google OAuth helper functions
-def get_google_oauth_url() -> str:
-    """Generate Google OAuth consent URL."""
-    return (
-        f"https://accounts.google.com/o/oauth2/v2/auth?"
-        f"client_id={GOOGLE_CLIENT_ID}&"
-        f"redirect_uri={GOOGLE_REDIRECT_URI}&"
-        f"response_type=code&"
-        f"scope=openid%20email%20profile&"
-        f"access_type=offline"
-    )
+# ── JWT verification ─────────────────────────────────────────────────────────
 
+def verify_clerk_token(token: str) -> Optional[ClerkClaims]:
+    """
+    Verify a Clerk session JWT. Returns None on any failure (invalid sig,
+    expired, wrong issuer, etc).
 
-async def exchange_code_for_token(code: str) -> dict:
-    """Exchange Google authorization code for access token."""
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            "https://oauth2.googleapis.com/token",
-            data={
-                "client_id": GOOGLE_CLIENT_ID,
-                "client_secret": GOOGLE_CLIENT_SECRET,
-                "code": code,
-                "grant_type": "authorization_code",
-                "redirect_uri": GOOGLE_REDIRECT_URI,
-            },
-        )
-        response.raise_for_status()
-        return response.json()
-
-
-async def get_google_user_info(access_token: str) -> dict:
-    """Get user info from Google using access token."""
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            "https://www.googleapis.com/oauth2/v2/userinfo",
-            headers={"Authorization": f"Bearer {access_token}"},
-        )
-        response.raise_for_status()
-        return response.json()
-
-
-# JWT helper functions
-def create_access_token(
-    user_id: int,
-    email: str,
-    expires_delta: Optional[timedelta] = None
-) -> str:
-    """Create JWT access token."""
-    if expires_delta is None:
-        expires_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-
-    expire = datetime.utcnow() + expires_delta
-    to_encode = {
-        "user_id": user_id,
-        "email": email,
-        "exp": expire,
-    }
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-
-def verify_token(token: str) -> Optional[TokenPayload]:
-    """Verify and decode JWT token."""
+    Clerk session JWTs are RS256 and carry `sub` (user id) plus whatever
+    claims the session template exposes. By default we read `email` and
+    `name` from the token; if your template doesn't expose them, set up one
+    that does, or we'll fall back to the Clerk REST API (see
+    `fetch_clerk_user` below).
+    """
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = payload.get("user_id")
-        email: str = payload.get("email")
-        if user_id is None or email is None:
-            return None
-        return TokenPayload(
-            user_id=user_id,
-            email=email,
-            exp=datetime.fromtimestamp(payload.get("exp"))
+        signing_key = _get_jwks_client().get_signing_key_from_jwt(token).key
+        payload = jwt.decode(
+            token,
+            signing_key,
+            algorithms=["RS256"],
+            issuer=CLERK_ISSUER or None,
+            audience=CLERK_AUDIENCE,  # None → skip aud check
+            options={
+                "require": ["exp", "sub"],
+                "verify_aud": CLERK_AUDIENCE is not None,
+            },
+            leeway=10,  # small clock skew tolerance
         )
-    except JWTError:
+    except jwt.PyJWTError:
         return None
 
+    sub = payload.get("sub")
+    if not sub:
+        return None
 
-# User management functions
-def get_or_create_user(
-    db: Session,
-    email: str,
-    name: str,
-    google_id: str
-) -> User:
-    """Get existing user or create new one."""
-    user = db.query(User).filter(User.email == email).first()
+    # Clerk's default session template exposes these under these names; custom
+    # templates may rename them. We keep lookups defensive.
+    email = (
+        payload.get("email")
+        or payload.get("primary_email")
+        or payload.get("email_address")
+    )
+    name = (
+        payload.get("name")
+        or payload.get("full_name")
+        or _join_name(payload.get("first_name"), payload.get("last_name"))
+    )
+
+    return ClerkClaims(sub=sub, email=email, name=name)
+
+
+def _join_name(first: Optional[str], last: Optional[str]) -> Optional[str]:
+    parts = [p for p in (first, last) if p]
+    return " ".join(parts) if parts else None
+
+
+# ── Fallback: fetch user details from the Clerk REST API ─────────────────────
+
+_clerk_user_cache: dict[str, tuple[float, dict]] = {}
+_CLERK_USER_CACHE_TTL = 300  # seconds
+
+
+def fetch_clerk_user(clerk_user_id: str) -> Optional[dict]:
+    """
+    Fetch user details from Clerk's Backend API as a fallback when the session
+    JWT doesn't carry email/name. Requires CLERK_SECRET_KEY.
+
+    Result is cached in-process for 5 minutes to keep signup latency down.
+    """
+    if not CLERK_SECRET_KEY:
+        return None
+
+    now = time.time()
+    cached = _clerk_user_cache.get(clerk_user_id)
+    if cached and cached[0] > now:
+        return cached[1]
+
+    try:
+        resp = httpx.get(
+            f"https://api.clerk.com/v1/users/{clerk_user_id}",
+            headers={"Authorization": f"Bearer {CLERK_SECRET_KEY}"},
+            timeout=5.0,
+        )
+        resp.raise_for_status()
+    except httpx.HTTPError:
+        return None
+
+    data = resp.json()
+    _clerk_user_cache[clerk_user_id] = (now + _CLERK_USER_CACHE_TTL, data)
+    return data
+
+
+def _extract_email_and_name(user_data: dict) -> tuple[Optional[str], Optional[str]]:
+    """Pull (email, name) out of a Clerk Backend API user payload."""
+    # Primary email
+    email = None
+    primary_id = user_data.get("primary_email_address_id")
+    for addr in user_data.get("email_addresses", []) or []:
+        if addr.get("id") == primary_id:
+            email = addr.get("email_address")
+            break
+    if not email and user_data.get("email_addresses"):
+        email = user_data["email_addresses"][0].get("email_address")
+
+    # Name
+    name = _join_name(user_data.get("first_name"), user_data.get("last_name"))
+    if not name:
+        name = user_data.get("username") or email
+
+    return email, name
+
+
+# ── User management ──────────────────────────────────────────────────────────
+
+def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
+    """
+    Find the local `User` row for this Clerk identity, or create one on first
+    sight (JIT provisioning). Safe to call on every authenticated request.
+
+    Matching order:
+      1. `clerk_user_id` (stable id from Clerk, `sub` claim)
+      2. `email` (covers users who existed before the Clerk switch, if any)
+    """
+    # 1. Exact Clerk ID match
+    user = db.query(User).filter(User.clerk_user_id == claims.sub).first()
     if user:
-        # Update google_id if not set
-        if not user.google_id:
-            user.google_id = google_id
-            db.commit()
         return user
 
-    # Create new user
+    # We need email + name to create/attach. Token might not carry them.
+    email = claims.email
+    name = claims.name
+    if not email or not name:
+        data = fetch_clerk_user(claims.sub)
+        if data:
+            fallback_email, fallback_name = _extract_email_and_name(data)
+            email = email or fallback_email
+            name = name or fallback_name
+
+    if not email:
+        raise ValueError(
+            f"Clerk user {claims.sub} has no email on the JWT and no "
+            "CLERK_SECRET_KEY is configured to look it up."
+        )
+    if not name:
+        name = email  # last-ditch fallback so NOT NULL constraint holds
+
+    # 2. Existing row matched by email → link to Clerk
+    user = db.query(User).filter(User.email == email).first()
+    if user:
+        user.clerk_user_id = claims.sub
+        if not user.name:
+            user.name = name
+        db.commit()
+        db.refresh(user)
+        return user
+
+    # 3. Brand new — create it
     user = User(
+        clerk_user_id=claims.sub,
         email=email,
         name=name,
-        google_id=google_id,
     )
     db.add(user)
     db.commit()
     db.refresh(user)
     return user
-
-
-def create_guest_user(db: Session, name: str) -> TokenResponse:
-    """Create an anonymous guest user and return JWT."""
-    import uuid
-    guest_id = str(uuid.uuid4())[:8]
-    user = User(
-        email=f"guest_{guest_id}@intervalo.tmp",
-        name=name,
-        display_name=name,
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    jwt_token = create_access_token(user.id, user.email)
-    return TokenResponse(
-        access_token=jwt_token,
-        user_id=user.id,
-        email=user.email,
-        name=name,
-    )
-
-
-async def authenticate_with_google(
-    code: str,
-    db: Session,
-    link_user_id: int | None = None,
-) -> TokenResponse:
-    """
-    Complete Google OAuth flow:
-    1. Exchange code for access token
-    2. Get user info from Google
-    3. Create/update user in database
-    4. Generate JWT
-    """
-    # Exchange code for access token
-    token_response = await exchange_code_for_token(code)
-    access_token = token_response.get("access_token")
-
-    if not access_token:
-        raise ValueError("Failed to obtain access token from Google")
-
-    # Get user info from Google
-    google_user = await get_google_user_info(access_token)
-
-    # Extract user info
-    google_id = google_user.get("id")
-    email = google_user.get("email")
-    name = google_user.get("name", email)
-
-    if not email or not google_id:
-        raise ValueError("Failed to get email or ID from Google")
-
-    # Link to existing anonymous user, or get/create by email
-    if link_user_id:
-        existing = db.query(User).filter(User.id == link_user_id).first()
-        if existing and existing.email.endswith("@intervalo.tmp"):
-            existing.email = email
-            existing.google_id = google_id
-            existing.name = name  # keep display_name from tutorial
-            db.commit()
-            user = existing
-        else:
-            user = get_or_create_user(db, email, name, google_id)
-    else:
-        user = get_or_create_user(db, email, name, google_id)
-
-    # Generate JWT
-    jwt_token = create_access_token(user.id, user.email)
-
-    return TokenResponse(
-        access_token=jwt_token,
-        user_id=user.id,
-        email=user.email,
-        name=user.name,
-    )
