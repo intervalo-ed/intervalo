@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "types:api": "openapi-typescript http://127.0.0.1:8000/openapi.json -o src/lib/api/schema.ts",
+    "types:api:file": "openapi-typescript ../backend/openapi.json -o src/lib/api/schema.ts"
   },
   "dependencies": {
     "next": "16.2.4",
+    "openapi-fetch": "^0.17.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -21,6 +24,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "openapi-typescript": "^7.13.0",
     "prettier": "3.8.3",
     "tailwindcss": "^4",
     "typescript": "^5"

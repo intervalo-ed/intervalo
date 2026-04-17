@@ -26,6 +26,16 @@ from auth import (
     UserResponse,
 )
 from models import User, BeltInfo
+from schemas import (
+    AnswerResponse,
+    BeltEntry,
+    EnrollmentResponse,
+    GuestAuthResponse,
+    HealthResponse,
+    SessionStartResponse,
+    SessionSummaryResponse,
+    UserProgressResponse,
+)
 
 app = FastAPI(title="Intervalo Backend")
 
@@ -113,14 +123,14 @@ class AnswerRequest(BaseModel):
 
 # ── Health check ──────────────────────────────────────────────────────────────
 
-@app.get("/health")
+@app.get("/health", response_model=HealthResponse)
 def health_check():
     return {"status": "ok"}
 
 
 # ── Course info ───────────────────────────────────────────────────────────────
 
-@app.get("/course/{course_id}/belts")
+@app.get("/course/{course_id}/belts", response_model=dict[str, BeltEntry])
 def get_belt_info(course_id: int, db: Session = Depends(get_db)):
     """Returns descriptive info (headline + description) for each belt in a course."""
     rows = db.query(BeltInfo).filter(BeltInfo.course_id == course_id).all()
@@ -136,7 +146,7 @@ class GuestRequest(BaseModel):
     name: str
 
 
-@app.post("/auth/guest")
+@app.post("/auth/guest", response_model=GuestAuthResponse)
 def auth_guest(body: GuestRequest, db: Session = Depends(get_db)):
     """Create anonymous guest user and return JWT."""
     result = create_guest_user(db, body.name)
@@ -197,7 +207,7 @@ class EnrollmentRequest(BaseModel):
     name: str | None = None
 
 
-@app.post("/user/enroll")
+@app.post("/user/enroll", response_model=EnrollmentResponse)
 def enroll_user(
     body: EnrollmentRequest,
     current_user: User = Depends(get_current_user),
@@ -246,7 +256,7 @@ def enroll_user(
     }
 
 
-@app.get("/user/progress")
+@app.get("/user/progress", response_model=UserProgressResponse)
 def get_user_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -267,7 +277,7 @@ def get_user_progress(
 
 # ── Session endpoints ─────────────────────────────────────────────────────────
 
-@app.post("/session/start")
+@app.post("/session/start", response_model=SessionStartResponse)
 def start_session(
     body: StartSessionRequest,
     current_user: User = Depends(get_current_user),
@@ -285,7 +295,7 @@ def start_session(
     return result
 
 
-@app.post("/session/answer")
+@app.post("/session/answer", response_model=AnswerResponse)
 def submit_answer(
     body: AnswerRequest,
     current_user: User = Depends(get_current_user),
@@ -316,7 +326,7 @@ def submit_answer(
     return result
 
 
-@app.get("/session/{session_id}/summary")
+@app.get("/session/{session_id}/summary", response_model=SessionSummaryResponse)
 def session_summary(
     session_id: str,
     current_user: User = Depends(get_current_user),
