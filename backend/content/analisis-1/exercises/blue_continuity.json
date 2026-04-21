@@ -17,7 +17,8 @@
     "feedback_correct": "¡Correcto! Las tres condiciones son: (1) $f(a)$ existe, (2) el límite existe, (3) ambos coinciden.",
     "feedback_incorrect": "Para continuidad en $x=a$ se necesitan exactamente tres condiciones: que $f(a)$ esté definida, que el límite exista, y que sean iguales.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La **continuidad en un punto** requiere que tres condiciones se cumplan simultáneamente. Basta que falle una sola para que la función sea discontinua.\n\n$$f \\text{ continua en } a \\iff \\begin{cases} \\text{1) } f(a) \\text{ existe} \\\\ \\text{2) } \\lim_{x \\to a} f(x) \\text{ existe} \\\\ \\text{3) } \\lim_{x \\to a} f(x) = f(a) \\end{cases}$$\n\nInformalmente: la función debe estar definida en $a$, acercarse a algo desde ambos lados, y ese «algo» debe coincidir con el valor real de la función en $a$."
   },
   {
     "external_id": "blue_continuity_clsf_02",
@@ -37,7 +38,8 @@
     "feedback_correct": "¡Correcto! La discontinuidad es removible si el límite existe pero $f(a)$ falta o difiere. Se puede \"arreglar\" redefiniendo $f(a)$.",
     "feedback_incorrect": "Una discontinuidad removible es aquella donde $\\lim_{x \\to a} f(x)$ existe, pero $f(a)$ no está definida o tiene un valor distinto al límite.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una **discontinuidad removible** es la más «leve»: el límite bilateral existe, pero algo falla en el valor puntual. En la gráfica se ve como un hueco o un punto fuera de lugar.\n\n$$\\lim_{x \\to a} f(x) = L \\quad \\text{pero} \\quad f(a) \\neq L \\text{ (o } f(a) \\text{ no existe)}$$\n\nSe llama removible porque puede «arreglarse» redefiniendo $f(a) = L$ sin cambiar el resto de la función. Ejemplo: $\\dfrac{x^2-4}{x-2}$ tiene una discontinuidad removible en $x=2$, que desaparece al simplificar."
   },
   {
     "external_id": "blue_continuity_clsf_03",
@@ -57,7 +59,8 @@
     "feedback_correct": "¡Correcto! En la discontinuidad de salto, la función \"salta\" de un valor a otro: $\\lim^- \\neq \\lim^+$.",
     "feedback_incorrect": "La discontinuidad de salto ocurre cuando los dos límites laterales existen pero son distintos, causando un salto en la gráfica.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una **discontinuidad de salto** ocurre cuando los límites laterales existen y son finitos, pero no son iguales entre sí. El límite bilateral no existe y la gráfica «salta» de un nivel a otro.\n\n$$\\lim_{x \\to a^-} f(x) = L_1 \\quad \\text{y} \\quad \\lim_{x \\to a^+} f(x) = L_2, \\quad L_1 \\neq L_2$$\n\nEjemplo clásico: las funciones escalera o las funciones a trozos con valores distintos a izquierda y derecha de $a$. A diferencia de la removible, este tipo no puede arreglarse con una simple redefinición."
   },
   {
     "external_id": "blue_continuity_clsf_04",
@@ -77,7 +80,8 @@
     "feedback_correct": "¡Correcto! La discontinuidad esencial/infinita ocurre cuando la función explota ($\\to \\pm\\infty$) cerca de $x=a$, como en las asíntotas verticales.",
     "feedback_incorrect": "Una discontinuidad esencial ocurre cuando el límite (o un límite lateral) tiende a $\\pm\\infty$, como en $f(x) = 1/x$ en $x=0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una **discontinuidad esencial** (también llamada infinita) es la más grave: al menos uno de los límites laterales es $\\pm\\infty$. La función «explota» cerca de $x=a$, generando una asíntota vertical.\n\n$$\\lim_{x \\to a^-} f(x) = +\\infty \\quad \\text{o} \\quad \\lim_{x \\to a^+} f(x) = -\\infty$$\n\nEjemplo canónico: $f(x) = \\dfrac{1}{x}$ en $x=0$. No puede arreglarse redefiniendo un punto: la discontinuidad es estructural e imposible de eliminar."
   },
   {
     "external_id": "blue_continuity_clsf_05",
@@ -97,7 +101,8 @@
     "feedback_correct": "¡Correcto! El límite existe ($\\lim^- = \\lim^+ = 3$), pero $f(2)=5 \\neq 3$. Discontinuidad removible.",
     "feedback_incorrect": "$\\lim_{x \\to 2} (x+1) = 3$ pero $f(2) = 5 \\neq 3$. La tercera condición de continuidad falla: discontinuidad removible.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para analizar continuidad en $x=2$, verificamos las tres condiciones. Aquí $f(2)=5$ (primera condición: ok) y el límite existe, pero calculamos cuánto vale.\n\n$$\\lim_{x \\to 2^-}(x+1) = 3 \\quad \\text{y} \\quad \\lim_{x \\to 2^+}(x+1) = 3 \\quad \\Rightarrow \\quad \\lim_{x \\to 2} f(x) = 3$$\n\nComo $\\lim = 3 \\neq 5 = f(2)$, la tercera condición falla. La función tiene una **discontinuidad removible**: el límite existe, pero el punto fue «pegado» en el lugar incorrecto."
   },
   {
     "external_id": "blue_continuity_clsf_06",
@@ -117,7 +122,8 @@
     "feedback_correct": "¡Correcto! Un hueco en la gráfica (el límite existe pero $f(a)$ falta o difiere) indica discontinuidad removible.",
     "feedback_incorrect": "Un hueco o punto removido en la gráfica es la representación visual de una discontinuidad removible: el límite existe pero $f(a)$ es distinto o no está definido.",
     "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
-    "graph_view": [-1, 5, -1, 8]
+    "graph_view": [-1, 5, -1, 8],
+    "explanation": "En la gráfica, un **hueco** (círculo abierto) indica que la función se acerca a un valor concreto desde ambos lados, pero el punto en sí está mal definido o ausente. Eso es exactamente la discontinuidad removible.\n\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x-2} = \\lim_{x \\to 2}(x+2) = 4 \\quad \\text{pero} \\quad f(2) = 5$$\n\nEl hueco aparece en $y=4$ (adonde tiende la curva) y hay un punto separado en $y=5$ (el valor definido). Si redefinimos $f(2)=4$, la discontinuidad desaparece: de ahí el nombre «removible»."
   },
   {
     "external_id": "blue_continuity_clsf_07",
@@ -137,7 +143,8 @@
     "feedback_correct": "¡Correcto! Un salto visible en la gráfica (dos ramas separadas) indica una discontinuidad de salto.",
     "feedback_incorrect": "Cuando la gráfica salta de un nivel a otro, es una discontinuidad de salto. Los límites laterales existen pero son distintos.",
     "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
-    "graph_view": [-3, 3, -1, 6]
+    "graph_view": [-3, 3, -1, 6],
+    "explanation": "La gráfica tiene dos ramas horizontales: una en $y=1$ para $x<0$ y otra en $y=4$ para $x \\geq 0$. Los límites laterales existen y son finitos, pero son distintos.\n\n$$\\lim_{x \\to 0^-} f(x) = 1 \\quad \\neq \\quad \\lim_{x \\to 0^+} f(x) = 4$$\n\nComo los límites laterales no coinciden, el límite bilateral no existe. Esto es una **discontinuidad de salto**: la función salta abruptamente de un nivel al otro y ninguna redefinición puntual puede arreglarlo."
   },
   {
     "external_id": "blue_continuity_clsf_08",
@@ -157,7 +164,8 @@
     "feedback_correct": "¡Correcto! $f(x) = 1/x$ tiene $\\lim_{x \\to 0} = \\pm\\infty$ (asíntota vertical), que es una discontinuidad esencial.",
     "feedback_incorrect": "En $x=0$, $1/x \\to \\pm\\infty$: los límites laterales son infinitos. Esto es una discontinuidad esencial.",
     "graph_fn": "1 / x",
-    "graph_view": [-4, 4, -6, 6]
+    "graph_view": [-4, 4, -6, 6],
+    "explanation": "La gráfica de $\\dfrac{1}{x}$ muestra una **asíntota vertical** en $x=0$: la curva se dispara hacia $+\\infty$ por la derecha y hacia $-\\infty$ por la izquierda.\n\n$$\\lim_{x \\to 0^+} \\frac{1}{x} = +\\infty \\qquad \\lim_{x \\to 0^-} \\frac{1}{x} = -\\infty$$\n\nComo al menos un límite lateral es infinito, la discontinuidad es **esencial**. Es la más severa de las tres: no hay forma de redefinir $f(0)$ para hacerla continua."
   },
   {
     "external_id": "blue_continuity_clsf_09",
@@ -177,7 +185,8 @@
     "feedback_correct": "¡Correcto! Toda función polinómica es continua en $\\mathbb{R}$: en cualquier punto $a$, $\\lim_{x \\to a} p(x) = p(a)$.",
     "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. No tienen discontinuidades sin importar su grado o coeficientes.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Los **polinomios** son la familia más «amigable» en términos de continuidad: para cualquier polinomio $p(x)$ y cualquier punto $a \\in \\mathbb{R}$, la sustitución directa siempre funciona.\n\n$$\\lim_{x \\to a} p(x) = p(a) \\quad \\text{para todo } a \\in \\mathbb{R}$$\n\nEsto se debe a que los polinomios están definidos en todos los reales y no tienen denominadores que puedan anularse. Las tres condiciones de continuidad se cumplen automáticamente en todo punto, sin importar el grado ni los coeficientes."
   },
   {
     "external_id": "blue_continuity_clsf_10",
@@ -197,7 +206,8 @@
     "feedback_correct": "¡Correcto! Una curva sin saltos, huecos ni asíntotas en el intervalo indica que la función es continua allí.",
     "feedback_incorrect": "Una gráfica sin saltos, huecos ni asíntotas verticales en un intervalo indica continuidad en ese intervalo.",
     "graph_fn": "x**2 - 2*x + 1",
-    "graph_view": [-3, 5, -1, 10]
+    "graph_view": [-3, 5, -1, 10],
+    "explanation": "La **continuidad geométrica** se reconoce visualmente: una función es continua en un intervalo si su gráfica puede trazarse sin levantar el lápiz del papel — sin saltos, sin huecos, sin asíntotas verticales.\n\n$$f \\text{ continua en } [a, b] \\iff \\text{gráfica sin interrupciones en } [a, b]$$\n\nUna curva «suave» puede tener vértices (ángulos) y seguir siendo continua: la continuidad no exige suavidad de la derivada. La parábola $(x-1)^2$ es continua en todo $\\mathbb{R}$ aunque tenga un mínimo bien definido."
   },
   {
     "external_id": "blue_continuity_resl_01",
@@ -217,7 +227,8 @@
     "feedback_correct": "¡Correcto! $\\lim_{x \\to 1}(x^2-1) = 0$ y $f(1) = 0$. Las tres condiciones se cumplen: $f$ es continua.",
     "feedback_incorrect": "$\\lim_{x \\to 1}(x^2-1) = 1-1 = 0$ y $f(1) = 0$. Como límite $=$ valor, $f$ es continua en $x=1$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Verificamos las tres condiciones una por una. Primero, $f(1) = 0$ (está definida ✓). Luego calculamos el límite:\n\n$$\\lim_{x \\to 1}(x^2 - 1) = 1^2 - 1 = 0$$\n\nEl límite existe y vale $0$ ✓. Finalmente, $\\lim = 0 = f(1)$ ✓. Las tres condiciones se cumplen, así que $f$ es **continua** en $x=1$. Que la función esté definida por partes no implica discontinuidad: aquí la rama principal y el valor en el punto coinciden perfectamente."
   },
   {
     "external_id": "blue_continuity_resl_02",
@@ -237,7 +248,8 @@
     "feedback_correct": "¡Correcto! $\\lim^- = 1+3=4$ y $f(1) = 1+1=2$. Como $4 \\neq 2$, la función no es continua en $x=1$.",
     "feedback_incorrect": "$\\lim_{x \\to 1^-} = 4$ y $f(1) = 2$. No coinciden: discontinuidad en $x=1$ (de salto, ya que $\\lim^+ = 2$).",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "En funciones a trozos, calculamos los límites laterales usando la rama correspondiente a cada lado:\n\n$$\\lim_{x \\to 1^-}(x+3) = 4 \\qquad \\lim_{x \\to 1^+}(x^2+1) = 2 \\qquad f(1) = 1^2+1 = 2$$\n\nComo $\\lim^- = 4 \\neq 2 = \\lim^+$, el límite bilateral no existe y la tercera condición falla. Es una **discontinuidad de salto**: la gráfica salta de $y=4$ (desde la izquierda) a $y=2$ (desde la derecha y en el punto)."
   },
   {
     "external_id": "blue_continuity_resl_03",
@@ -257,7 +269,8 @@
     "feedback_correct": "¡Correcto! Se necesita $\\lim^- = f(2)$: $2k+1 = 4-1 = 3$, entonces $2k = 2$, $k=1$.",
     "feedback_incorrect": "Para continuidad: $\\lim^- = \\lim^+$. $\\lim^- = 2k+1$ y $f(2) = 4-1=3$. Entonces $2k+1=3 \\Rightarrow k=1$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para que $f$ sea continua en $x=2$, los límites laterales deben coincidir con $f(2)$. Calculamos cada parte y **planteamos la ecuación**:\n\n$$\\lim_{x \\to 2^-}(kx+1) = 2k+1 \\qquad f(2) = 2^2-1 = 3$$\n\nIgualando: $2k+1 = 3 \\Rightarrow 2k = 2 \\Rightarrow k = 1$. El proceso general es siempre el mismo: evaluar cada rama en el punto de «unión» y despejar el parámetro desconocido."
   },
   {
     "external_id": "blue_continuity_resl_04",
@@ -277,7 +290,8 @@
     "feedback_correct": "¡Correcto! Para continuidad: $3(1)-k = 1+2 = 3$, entonces $3-k=3$, $k=0$.",
     "feedback_incorrect": "Igualar: $f(1^-) = 3(1)-k = 3-k$ y $f(1^+) = 1+2 = 3$. Entonces $3-k = 3 \\Rightarrow k=0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La condición de continuidad en $x=1$ exige que la función valga lo mismo desde ambos lados y en el punto. Calculamos:\n\n$$f(1^-) = 3(1) - k = 3 - k \\qquad f(1^+) = 1^2 + 2 = 3$$\n\nImponemos $3 - k = 3 \\Rightarrow k = 0$. Con $k=0$, la rama izquierda es $3x$ y vale $3$ en $x=1$, que coincide con $1+2=3$ de la rama derecha. La función queda continua."
   },
   {
     "external_id": "blue_continuity_resl_05",
@@ -297,7 +311,8 @@
     "feedback_correct": "¡Correcto! $f(2)$ no está definida (división por cero), así que la primera condición de continuidad falla. Hay una discontinuidad removible.",
     "feedback_incorrect": "Para continuidad, $f(a)$ debe estar definida. Como $f(2)$ no existe (denominador = 0), no es continua en $x=2$, aunque $\\lim_{x \\to 2} = 4$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Aunque el límite existe y vale $4$, la **primera condición** de continuidad ya falla:\n\n$$f(2) = \\frac{2^2-4}{2-2} = \\frac{0}{0} \\quad \\text{— no está definida}$$\n\nPor lo tanto $f$ no es continua en $x=2$. Es una **discontinuidad removible**: si redefinimos $f(2) = 4$, la función sería continua. Pero en su forma original, sin esa corrección, la discontinuidad existe."
   },
   {
     "external_id": "blue_continuity_resl_06",
@@ -317,7 +332,8 @@
     "feedback_correct": "¡Correcto! $f(0) = 0$, $\\lim^- = 0$, $\\lim^+ = 0$. Las tres condiciones se cumplen: $|x|$ es continua en $x=0$.",
     "feedback_incorrect": "$|x|$: $\\lim^- = 0$ y $\\lim^+ = 0$, ambos iguales a $f(0) = 0$. La función es continua aunque tenga un vértice.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El valor absoluto se define como $|x| = x$ si $x \\geq 0$ y $|x| = -x$ si $x < 0$. Verificamos los límites laterales en $x=0$:\n\n$$\\lim_{x \\to 0^-}(-x) = 0 \\qquad \\lim_{x \\to 0^+}(x) = 0 \\qquad f(0) = 0$$\n\nLas tres condiciones se cumplen: $f$ es **continua** en $x=0$. El ángulo (vértice) que se ve en la gráfica no es una discontinuidad — la continuidad no exige que la derivada exista, solo que los valores se peguen."
   },
   {
     "external_id": "blue_continuity_resl_07",
@@ -337,7 +353,8 @@
     "feedback_correct": "¡Correcto! $f(0) = 1/0$ no está definida. La primera condición de continuidad falla. Además, $\\lim_{x \\to 0} 1/x = \\pm\\infty$.",
     "feedback_incorrect": "$f(0)$ no está definida (división por cero) y $\\lim_{x \\to 0} = \\pm\\infty$. Hay una discontinuidad esencial en $x=0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Basta verificar la primera condición: $f(0) = \\dfrac{1}{0}$ no está definida. Eso alcanza para concluir que $f$ **no es continua** en $x=0$.\n\n$$\\lim_{x \\to 0^+} \\frac{1}{x} = +\\infty \\qquad \\lim_{x \\to 0^-} \\frac{1}{x} = -\\infty$$\n\nAdemás, los límites laterales son infinitos, así que tampoco hay límite bilateral. La discontinuidad es **esencial**: la más grave de las tres categorías. No puede corregirse redefiniendo un punto."
   },
   {
     "external_id": "blue_continuity_resl_08",
@@ -357,7 +374,8 @@
     "feedback_correct": "¡Correcto! Para continuidad: $f(3^-) = 9$ y $f(3^+) = 3a-6$. Igualando: $3a-6=9$, entonces $a=5$.",
     "feedback_incorrect": "Condición: $9 = 3a-6 \\Rightarrow 3a = 15 \\Rightarrow a = 5$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Evaluamos cada rama en el punto de unión $x=3$:\n\n$$f(3^-) = 3^2 = 9 \\qquad f(3^+) = 3a - 6$$\n\nImponemos $3a - 6 = 9 \\Rightarrow 3a = 15 \\Rightarrow a = 5$. Con $a=5$, la rama derecha vale $5(3)-6 = 9$, que coincide con $3^2 = 9$. La función empalma perfectamente en $x=3$ y queda continua."
   },
   {
     "external_id": "blue_continuity_resl_09",
@@ -377,7 +395,8 @@
     "feedback_correct": "¡Correcto! Las tres condiciones se cumplen: $f(1)=0$, $\\lim=0$, y $\\lim=f(1)$. $f$ es continua en $x=1$.",
     "feedback_incorrect": "Las tres condiciones de continuidad se verifican: $f(1)=0$, $\\lim_{x \\to 1} = 0$, y coinciden. $f$ es continua.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Las funciones trigonométricas como $\\sin$ son continuas en todo $\\mathbb{R}$. En $x=1$ simplemente verificamos las tres condiciones:\n\n$$f(1) = \\sin(\\pi \\cdot 1) = \\sin(\\pi) = 0 \\qquad \\lim_{x \\to 1}\\sin(\\pi x) = 0$$\n\nComo $\\lim = 0 = f(1)$, las tres condiciones se cumplen y $f$ es **continua** en $x=1$. Al igual que los polinomios, las funciones trigonométricas no necesitan verificación caso por caso: son continuas globalmente."
   },
   {
     "external_id": "blue_continuity_resl_10",
@@ -397,7 +416,8 @@
     "feedback_correct": "¡Correcto! $f(1^+) = 1+4 = 5$. Para continuidad: $c(1)^2+2 = 5$, entonces $c+2=5$, $c=3$.",
     "feedback_incorrect": "Igualar: $c+2 = 1+4 = 5 \\Rightarrow c = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Calculamos el valor de cada rama en $x=1$ y planteamos la ecuación de continuidad:\n\n$$f(1^-) = c(1)^2 + 2 = c + 2 \\qquad f(1) = 1 + 4 = 5$$\n\nCondición: $c + 2 = 5 \\Rightarrow c = 3$. Verificación: con $c=3$, la rama izquierda vale $3(1)+2=5$, que coincide con $1+4=5$ de la rama derecha. La función es continua en $x=1$."
   },
   {
     "external_id": "blue_continuity_graf_01",
@@ -417,7 +437,8 @@
     "feedback_correct": "¡Correcto! En $x=2$ hay un hueco en la gráfica: la función no está definida o tiene un valor distinto al límite.",
     "feedback_incorrect": "En la gráfica, el hueco o punto removido en $x=2$ es el punto de discontinuidad.",
     "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
-    "graph_view": [-1, 5, -1, 8]
+    "graph_view": [-1, 5, -1, 8],
+    "explanation": "Para identificar una discontinuidad en la gráfica, buscamos tres señales: un **hueco** (punto removido), un **salto** (dos ramas separadas) o una **asíntota vertical** (la curva escapa al infinito).\n\n$$\\text{Hueco en } x=2 \\Rightarrow \\lim_{x \\to 2} f(x) \\neq f(2)$$\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados, pero el punto definido está en $y=5$. La discontinuidad está en $x=2$; los demás puntos marcados ($x=0$, $x=-1$, $x=4$) son partes continuas de la gráfica."
   },
   {
     "external_id": "blue_continuity_graf_02",
@@ -437,7 +458,8 @@
     "feedback_correct": "¡Correcto! Un hueco en la gráfica indica discontinuidad removible: el límite existe pero no coincide con $f(a)$.",
     "feedback_incorrect": "El hueco indica que el límite existe (la gráfica se acerca a un valor) pero $f(a)$ tiene otro valor o no está definida: discontinuidad removible.",
     "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
-    "graph_view": [-1, 5, -1, 8]
+    "graph_view": [-1, 5, -1, 8],
+    "explanation": "El **diccionario visual** de los tres tipos de discontinuidad es:\n\n$$\\text{Hueco} \\leftrightarrow \\text{Removible} \\qquad \\text{Salto} \\leftrightarrow \\text{De salto} \\qquad \\text{Asíntota vertical} \\leftrightarrow \\text{Esencial}$$\n\nUn hueco (círculo vacío en la curva, con o sin punto suelto) indica que el límite existe — la curva se acerca a un valor — pero $f(a)$ difiere o falta. Eso es exactamente la definición de discontinuidad removible. En esta gráfica, la curva tiende a $y=4$ pero el punto está en $y=5$."
   },
   {
     "external_id": "blue_continuity_graf_03",
@@ -457,7 +479,8 @@
     "feedback_correct": "¡Correcto! Un salto implica $\\lim^- \\neq \\lim^+$, por lo que el límite bilateral no existe y la función no es continua.",
     "feedback_incorrect": "El salto hace que los límites laterales sean distintos: el límite bilateral no existe y la función no puede ser continua en ese punto.",
     "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
-    "graph_view": [-3, 3, -1, 6]
+    "graph_view": [-3, 3, -1, 6],
+    "explanation": "La gráfica tiene dos ramas horizontales: $y=1$ para $x<0$ y $y=4$ para $x\\geq 0$. El salto visible en $x=0$ nos dice que los límites laterales son distintos:\n\n$$\\lim_{x \\to 0^-} f(x) = 1 \\quad \\neq \\quad \\lim_{x \\to 0^+} f(x) = 4$$\n\nComo los límites laterales no coinciden, el límite bilateral no existe, y la segunda condición de continuidad falla. Aunque $f(0)=4$ está definida, la discontinuidad de salto no puede corregirse."
   },
   {
     "external_id": "blue_continuity_graf_04",
@@ -477,7 +500,8 @@
     "feedback_correct": "¡Correcto! Un polinomio como $x^2$ es continuo en todo $\\mathbb{R}$, así que lo es en todos los puntos marcados.",
     "feedback_incorrect": "La parábola $x^2$ es continua en todo $\\mathbb{R}$. En $x=-1$, $0$ y $2$ no hay ninguna interrupción.",
     "graph_fn": "x**2",
-    "graph_view": [-3, 3, -1, 9]
+    "graph_view": [-3, 3, -1, 9],
+    "explanation": "La parábola $f(x)=x^2$ es un polinomio de grado $2$. Los polinomios son continuos en todo $\\mathbb{R}$ sin excepciones.\n\n$$\\lim_{x \\to a} x^2 = a^2 = f(a) \\quad \\text{para cualquier } a$$\n\nEn $x=-1$: $\\lim = 1 = f(-1)$ ✓. En $x=0$: $\\lim = 0 = f(0)$ ✓. En $x=2$: $\\lim = 4 = f(2)$ ✓. La curva suave y sin interrupciones de la gráfica confirma visualmente la continuidad en todos los puntos marcados."
   },
   {
     "external_id": "blue_continuity_graf_05",
@@ -497,7 +521,8 @@
     "feedback_correct": "¡Correcto! La gráfica muestra una asíntota vertical en $x=0$: $\\lim = \\pm\\infty$. Discontinuidad esencial.",
     "feedback_incorrect": "La asíntota vertical en $x=0$ (con la función tendiendo a $\\pm\\infty$) corresponde a una discontinuidad esencial.",
     "graph_fn": "1 / x",
-    "graph_view": [-4, 4, -6, 6]
+    "graph_view": [-4, 4, -6, 6],
+    "explanation": "La gráfica de $1/x$ muestra una **asíntota vertical** en $x=0$: la curva sube hacia $+\\infty$ por la derecha y baja hacia $-\\infty$ por la izquierda. El «diccionario visual» lo clasifica directamente:\n\n$$\\text{Asíntota vertical en } x=0 \\longleftrightarrow \\text{Discontinuidad esencial}$$\n\nLos límites laterales son $+\\infty$ y $-\\infty$ respectivamente, ninguno es un número real finito. Es la categoría más grave: la función no tiene «solución de arreglo» en $x=0$."
   },
   {
     "external_id": "blue_continuity_graf_06",
@@ -517,7 +542,8 @@
     "feedback_correct": "¡Correcto! Hay dos puntos de discontinuidad: $x=0$ (salto) y $x=3$ (removible).",
     "feedback_incorrect": "Se identifican dos puntos de discontinuidad: uno en $x=0$ (salto) y otro en $x=3$ (discontinuidad removible).",
     "graph_fn": "Piecewise((x, x < 0), (x + 2, (0 <= x) & (x != 3)), (6, x == 3))",
-    "graph_view": [-2, 5, -2, 8]
+    "graph_view": [-2, 5, -2, 8],
+    "explanation": "Para contar discontinuidades en una gráfica, recorremos visualmente la curva y anotamos cada interrupción:\n\n$$x=0: \\text{ salto (dos ramas separadas)} \\quad + \\quad x=3: \\text{ hueco (punto mal definido)}$$\n\nTotal: **2 puntos de discontinuidad**. El truco es no confundir el tipo con el conteo: hay dos puntos problemáticos, no importa si son del mismo tipo o de tipos distintos. El resto de la gráfica es continuo."
   },
   {
     "external_id": "blue_continuity_graf_07",
@@ -537,7 +563,8 @@
     "feedback_correct": "¡Correcto! Si la función es continua en $[1,4]$, también lo es en $[0,5]$ si no hay discontinuidades en ese rango más amplio.",
     "feedback_incorrect": "La continuidad en $[1,4]$ puede extenderse al intervalo $[0,5]$ si la gráfica no muestra ninguna interrupción en ese rango.",
     "graph_fn": "x**2 - 2*x + 1",
-    "graph_view": [-1, 6, -1, 10]
+    "graph_view": [-1, 6, -1, 10],
+    "explanation": "La función graficada es $(x-1)^2$, un polinomio continuo en todo $\\mathbb{R}$. Si es continua en $[1,4]$, lo es en cualquier intervalo que no contenga discontinuidades.\n\n$$[0,5] \\supset [1,4] \\quad \\text{y la gráfica no tiene interrupciones en } [0,5]$$\n\nLos intervalos $[-1,0]$ y $[4,6]$ no incluyen partes nuevas con problemas en este caso, pero la gráfica confirma que $[0,5]$ es el intervalo alternativo más amplio que contiene $[1,4]$ y permanece continuo."
   },
   {
     "external_id": "blue_continuity_graf_08",
@@ -557,7 +584,8 @@
     "feedback_correct": "¡Correcto! El límite depende del comportamiento de $f$ cerca de $x=2$, no en $x=2$. Puede existir aunque $f(2)$ no esté definida.",
     "feedback_incorrect": "El límite $\\lim_{x \\to 2}$ depende de lo que pasa alrededor de $x=2$, no en el punto mismo. Puede existir aunque $f(2)$ falte.",
     "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (None, x == 2))",
-    "graph_view": [-1, 5, -1, 7]
+    "graph_view": [-1, 5, -1, 7],
+    "explanation": "Esta es una distinción fundamental: el **límite** describe el comportamiento de $f$ *alrededor* de $x=a$, no *en* $x=a$. Por definición, $x \\to 2$ significa $x$ se acerca a $2$ pero $x \\neq 2$.\n\n$$\\lim_{x \\to 2} \\frac{x^2-4}{x-2} = \\lim_{x \\to 2}(x+2) = 4 \\quad \\text{aunque } f(2) \\text{ no exista}$$\n\nEl hueco en la gráfica muestra exactamente esto: la curva se dirige hacia $y=4$ desde ambos lados (el límite existe), pero el punto en $x=2$ está ausente ($f(2)$ no definida)."
   },
   {
     "external_id": "blue_continuity_graf_09",
@@ -577,7 +605,8 @@
     "feedback_correct": "¡Correcto! Todo polinomio es continuo en $\\mathbb{R}$. La parábola $x^2-3$ no tiene ninguna discontinuidad.",
     "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. La parábola $x^2-3$ es continua en todos los reales.",
     "graph_fn": "x**2 - 3",
-    "graph_view": [-4, 4, -4, 13]
+    "graph_view": [-4, 4, -4, 13],
+    "explanation": "La función $f(x) = x^2 - 3$ es un polinomio de grado $2$. La gráfica — una parábola desplazada — no tiene huecos, saltos ni asíntotas en ninguna parte.\n\n$$\\lim_{x \\to a}(x^2 - 3) = a^2 - 3 = f(a) \\quad \\text{para todo } a \\in \\mathbb{R}$$\n\nLas opciones incorrectas confunden continuidad con dominio de raíces o signo de valores: que $f(0) = -3 < 0$ o que $f(x) = 0$ en $x = \\pm\\sqrt{3}$ no tiene nada que ver con la continuidad del polinomio."
   },
   {
     "external_id": "blue_continuity_graf_10",
@@ -597,6 +626,7 @@
     "feedback_correct": "¡Correcto! El salto es una discontinuidad de salto y el hueco es una discontinuidad removible: dos tipos distintos.",
     "feedback_incorrect": "Un salto corresponde a discontinuidad de salto, y un hueco (punto removido) corresponde a discontinuidad removible. Son dos tipos distintos.",
     "graph_fn": "Piecewise((x, x < -1), (x + 3, (-1 <= x) & (x != 2)), (6, x == 2))",
-    "graph_view": [-3, 4, -3, 7]
+    "graph_view": [-3, 4, -3, 7],
+    "explanation": "El **diccionario visual** aplicado a esta gráfica: el salto en $x=-1$ (dos ramas con distintos niveles) es una discontinuidad de salto, y el hueco en $x=2$ (punto mal definido con límite existente) es una discontinuidad removible.\n\n$$x=-1: \\lim^- \\neq \\lim^+ \\rightarrow \\text{de salto} \\qquad x=2: \\lim \\neq f(2) \\rightarrow \\text{removible}$$\n\nSon **dos tipos distintos** de discontinuidad en la misma función. El conteo de tipos (2) coincide con el conteo de puntos problemáticos (2), pero eso no siempre ocurre: una función puede tener tres saltos (3 puntos, 1 tipo) o un salto y un hueco (2 puntos, 2 tipos)."
   }
 ]
