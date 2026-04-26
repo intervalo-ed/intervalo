@@ -28,12 +28,12 @@
     "subtype": "text",
     "question": "¿Qué significa la notación $x \\to 3$?",
     "options": [
-      "$x$ se aproxima a $3$ sin necesariamente llegar a valer $3$",
       "$x$ es igual a $3$",
+      "$x$ se aproxima a $3$ sin necesariamente llegar a valer $3$",
       "$x$ es mayor que $3$",
       "$x$ tiende a $3$ solo por la derecha"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La notación $x \\to 3$ indica que $x$ se acerca a $3$, pero no necesariamente toma ese valor.",
     "feedback_incorrect": "La notación $x \\to 3$ significa que $x$ se aproxima a $3$ desde ambos lados, sin necesariamente llegar a ese valor.",
@@ -49,12 +49,12 @@
     "subtype": "text",
     "question": "Si al sustituir $x = a$ en $\\dfrac{f(x)}{g(x)}$ obtenemos $\\dfrac{0}{0}$, ¿cómo se llama esta situación?",
     "options": [
-      "Indeterminación",
-      "Discontinuidad",
       "Asíntota",
+      "Discontinuidad",
+      "Indeterminación",
       "Límite infinito"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\dfrac{0}{0}$ es una indeterminación: el límite puede existir, pero no se puede evaluar directamente.",
     "feedback_incorrect": "Cuando la sustitución directa da $\\dfrac{0}{0}$, se llama indeterminación. Hay que aplicar otra técnica (factorización, racionalización, etc.).",
@@ -70,12 +70,12 @@
     "subtype": "text",
     "question": "¿Cuándo se puede resolver $\\lim_{x \\to a} f(x)$ por sustitución directa?",
     "options": [
-      "Cuando $f$ es continua en $x = a$",
+      "Siempre, sin importar la función",
       "Cuando $f(a) = 0$",
       "Cuando $f$ tiene una asíntota en $x = a$",
-      "Siempre, sin importar la función"
+      "Cuando $f$ es continua en $x = a$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Si $f$ es continua en $a$, entonces $\\lim_{x \\to a} f(x) = f(a)$ y basta con sustituir.",
     "feedback_incorrect": "La sustitución directa funciona cuando $f$ es continua en $x = a$, es decir, cuando $\\lim_{x \\to a} f(x) = f(a)$.",
@@ -112,12 +112,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas expresiones genera una indeterminación $\\dfrac{0}{0}$ al sustituir $x = 2$?",
     "options": [
-      "$\\dfrac{x^2 - 4}{x - 2}$",
       "$\\dfrac{x + 3}{x - 5}$",
+      "$\\dfrac{x^2 - 4}{x - 2}$",
       "$\\dfrac{x^2 + 1}{x + 1}$",
       "$\\dfrac{2x}{x^2 + 4}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Al sustituir $x = 2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{0}{0}$, que es una indeterminación.",
     "feedback_incorrect": "Al sustituir $x=2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{4-4}{2-2} = \\dfrac{0}{0}$. Las otras opciones dan valores definidos.",
@@ -133,12 +133,12 @@
     "subtype": "text",
     "question": "¿Cuál es la escritura correcta del límite de $f(x)$ cuando $x$ tiende a $5$?",
     "options": [
-      "$\\lim_{x \\to 5} f(x)$",
-      "$\\lim_{f \\to 5} x$",
       "$f(x) \\to 5$",
+      "$\\lim_{f \\to 5} x$",
+      "$\\lim_{x \\to 5} f(x)$",
       "$\\lim_{x = 5} f(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La notación estándar es $\\lim_{x \\to 5} f(x)$, donde la variable que tiende al valor va debajo del símbolo $\\lim$.",
     "feedback_incorrect": "La notación correcta es $\\lim_{x \\to 5} f(x)$. Usamos $\\to$ (tiende a) debajo del símbolo de límite para indicar a qué valor se aproxima $x$.",
@@ -154,12 +154,12 @@
     "subtype": "text",
     "question": "Si $f(2) = 7$ pero $\\lim_{x \\to 2} f(x) = 5$, ¿qué podemos concluir?",
     "options": [
-      "El límite y el valor de la función en $x=2$ pueden ser distintos",
+      "El límite no existe",
       "Hay un error, porque el límite siempre debe ser igual a $f(a)$",
       "La función no está definida en $x = 2$",
-      "El límite no existe"
+      "El límite y el valor de la función en $x=2$ pueden ser distintos"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! El límite describe el comportamiento de $f$ cerca de $x=2$, no en $x=2$. Pueden tener valores distintos.",
     "feedback_incorrect": "El límite y el valor de la función pueden diferir. $\\lim_{x \\to 2} f(x)$ depende del comportamiento de $f$ cerca de $2$, no del valor $f(2)$.",
@@ -196,12 +196,12 @@
     "subtype": "text",
     "question": "¿Qué afirma $\\lim_{x \\to a} f(x) = L$ sobre el comportamiento de $f(x)$?",
     "options": [
-      "Que $f(x)$ se acerca a $L$ cuando $x$ se acerca a $a$",
       "Que $f(a) = L$ siempre",
+      "Que $f(x)$ se acerca a $L$ cuando $x$ se acerca a $a$",
       "Que $f$ es constante e igual a $L$",
       "Que $f(x) > L$ para todo $x$ cercano a $a$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El límite expresa que $f(x)$ se aproxima a $L$ a medida que $x$ se aproxima a $a$.",
     "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x) = L$ significa que $f(x)$ se acerca tanto como queramos a $L$ cuando $x$ se acerca a $a$, sin importar $f(a)$.",
@@ -238,12 +238,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x+3}{x+2}$?",
     "options": [
-      "$\\dfrac{4}{3}$",
       "$\\dfrac{1}{2}$",
+      "$\\dfrac{4}{3}$",
       "$2$",
       "$\\dfrac{3}{2}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Sustituyendo $x=1$: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$.",
     "feedback_incorrect": "Se sustituye $x=1$ directamente: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$. No hay indeterminación.",
@@ -259,12 +259,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\lim_{x \\to 0} (2x^3 + 5x - 1)$?",
     "options": [
-      "$-1$",
-      "$0$",
       "$1$",
+      "$0$",
+      "$-1$",
       "$5$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Sustituyendo $x=0$: $2(0) + 5(0) - 1 = -1$.",
     "feedback_incorrect": "Sustituir $x=0$: $2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$.",
@@ -280,12 +280,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\lim_{x \\to 7} 4$?",
     "options": [
-      "$4$",
+      "$28$",
       "$7$",
       "$0$",
-      "$28$"
+      "$4$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! El límite de una constante es la constante misma: $\\lim_{x \\to 7} 4 = 4$.",
     "feedback_incorrect": "El límite de una función constante es siempre esa constante, independientemente del valor al que tiende $x$: $\\lim_{x \\to 7} 4 = 4$.",
@@ -322,12 +322,12 @@
     "subtype": "text",
     "question": "Si $\\lim_{x \\to a} f(x) = 3$ y $\\lim_{x \\to a} g(x) = 5$, ¿cuánto vale $\\lim_{x \\to a} [f(x) + g(x)]$?",
     "options": [
-      "$8$",
       "$15$",
+      "$8$",
       "$2$",
       "$\\dfrac{3}{5}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Por la propiedad de suma: $\\lim [f + g] = \\lim f + \\lim g = 3 + 5 = 8$.",
     "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) + g(x)] = \\lim f(x) + \\lim g(x) = 3 + 5 = 8$.",
@@ -343,12 +343,12 @@
     "subtype": "text",
     "question": "Si $\\lim_{x \\to a} f(x) = 2$ y $\\lim_{x \\to a} g(x) = -4$, ¿cuánto vale $\\lim_{x \\to a} [f(x) \\cdot g(x)]$?",
     "options": [
-      "$-8$",
-      "$8$",
       "$-2$",
+      "$8$",
+      "$-8$",
       "$6$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Por la propiedad de producto: $\\lim [f \\cdot g] = \\lim f \\cdot \\lim g = 2 \\cdot (-4) = -8$.",
     "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) \\cdot g(x)] = \\lim f(x) \\cdot \\lim g(x) = 2 \\cdot (-4) = -8$.",
@@ -364,12 +364,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\lim_{x \\to 4} \\sqrt{x + 5}$?",
     "options": [
-      "$3$",
+      "$\\sqrt{9} + 1$",
       "$2$",
       "$\\sqrt{5}$",
-      "$\\sqrt{9} + 1$"
+      "$3$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Sustituyendo: $\\sqrt{4+5} = \\sqrt{9} = 3$.",
     "feedback_incorrect": "Se sustituye $x=4$ directamente: $\\sqrt{4+5} = \\sqrt{9} = 3$. No hay indeterminación.",
@@ -406,12 +406,12 @@
     "subtype": "text",
     "question": "¿Cuál de estos límites se puede resolver directamente por sustitución (sin indeterminación)?",
     "options": [
-      "$\\lim_{x \\to 3} (x^2 + 1)$",
       "$\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$",
+      "$\\lim_{x \\to 3} (x^2 + 1)$",
       "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1} - 1}{x}$",
       "$\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\lim_{x \\to 3} (x^2 + 1) = 9 + 1 = 10$, sin indeterminación. Los demás generan $\\dfrac{0}{0}$.",
     "feedback_incorrect": "Solo $\\lim_{x \\to 3} (x^2 + 1)$ no genera indeterminación al sustituir: $3^2 + 1 = 10$. Los demás dan $\\dfrac{0}{0}$ al sustituir.",
@@ -448,12 +448,12 @@
     "subtype": "text",
     "question": "¿Cuál de estos límites requiere factorización para resolverse?",
     "options": [
-      "$\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$",
       "$\\lim_{x \\to 2} (x^2 + 5)$",
+      "$\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$",
       "$\\lim_{x \\to 1} \\dfrac{x + 3}{x + 2}$",
       "$\\lim_{x \\to 0} 7$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ da $\\dfrac{0}{0}$ al sustituir y requiere factorizar $x^2-9 = (x-3)(x+3)$.",
     "feedback_incorrect": "Solo $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ produce una indeterminación al sustituir y necesita factorización. Los demás se resuelven directamente.",
@@ -469,12 +469,12 @@
     "subtype": "text",
     "question": "En $\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$, el numerador $x^2 - 9$ es una...",
     "options": [
-      "Diferencia de cuadrados: $(x-3)(x+3)$",
-      "Suma de cuadrados: $(x+3)^2$",
       "Trinomio cuadrado perfecto",
+      "Suma de cuadrados: $(x+3)^2$",
+      "Diferencia de cuadrados: $(x-3)(x+3)$",
       "Diferencia de cubos"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^2 - 9 = x^2 - 3^2 = (x-3)(x+3)$. Esto permite cancelar el factor $(x-3)$ con el denominador.",
     "feedback_incorrect": "$x^2 - 9 = (x-3)(x+3)$ es una diferencia de cuadrados. Al cancelar $(x-3)$ queda $x+3$, y el límite es $6$.",
@@ -490,12 +490,12 @@
     "subtype": "text",
     "question": "Para resolver $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+4} - 2}{x}$, ¿qué técnica es más adecuada?",
     "options": [
-      "Racionalización (multiplicar por el conjugado)",
+      "Regla de L'Hôpital (no vista aún)",
       "Factorización del denominador",
       "Sustitución directa",
-      "Regla de L'Hôpital (no vista aún)"
+      "Racionalización (multiplicar por el conjugado)"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Al haber una raíz cuadrada y la indeterminación $\\dfrac{0}{0}$, la técnica es racionalizar multiplicando por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$.",
     "feedback_incorrect": "Cuando el numerador tiene una raíz cuadrada y se genera $\\dfrac{0}{0}$, la técnica correcta es racionalizar multiplicando por el conjugado $\\sqrt{x+4}+2$.",
@@ -532,12 +532,12 @@
     "subtype": "text",
     "question": "En $\\dfrac{x^2 + 5x + 6}{x + 2}$, ¿qué factor del numerador cancela con el denominador?",
     "options": [
-      "$(x + 2)$",
       "$(x + 3)$",
+      "$(x + 2)$",
       "$(x - 2)$",
       "$(x + 6)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^2 + 5x + 6 = (x+2)(x+3)$. El factor $(x+2)$ cancela con el denominador, quedando $(x+3)$.",
     "feedback_incorrect": "$x^2+5x+6 = (x+2)(x+3)$. El factor que cancela con el denominador $(x+2)$ es $(x+2)$, dejando $(x+3)$.",
@@ -553,12 +553,12 @@
     "subtype": "text",
     "question": "Después de cancelar $(x+2)$ en $\\dfrac{(x+2)(x+3)}{x+2}$, ¿cuánto vale $\\lim_{x \\to -2}$?",
     "options": [
-      "$1$",
-      "$0$",
       "$-1$",
+      "$0$",
+      "$1$",
       "$5$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Tras cancelar, queda $\\lim_{x \\to -2}(x+3) = -2+3 = 1$.",
     "feedback_incorrect": "Tras cancelar el factor $(x+2)$, queda $x+3$. Sustituyendo $x=-2$: $-2+3 = 1$.",
@@ -574,12 +574,12 @@
     "subtype": "text",
     "question": "Para $\\lim_{x \\to \\infty} \\dfrac{3x^2}{x^2 + 1}$, ¿qué técnica se aplica?",
     "options": [
-      "Dividir numerador y denominador por $x^2$",
+      "Sustitución directa con $x = \\infty$",
       "Factorizar el numerador",
       "Racionalizar",
-      "Sustitución directa con $x = \\infty$"
+      "Dividir numerador y denominador por $x^2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Para límites en el infinito de funciones racionales, se divide por la potencia más alta: $\\dfrac{3}{1 + 1/x^2} \\to 3$.",
     "feedback_incorrect": "Para límites cuando $x \\to \\infty$ en racionales, se divide numerador y denominador por el término de mayor grado ($x^2$ aquí), obteniendo $\\dfrac{3}{1+1/x^2} \\to 3$.",
@@ -616,12 +616,12 @@
     "subtype": "text",
     "question": "¿Cuál de estos límites se resuelve con factorización de trinomio $ax^2 + bx + c$?",
     "options": [
-      "$\\lim_{x \\to -1} \\dfrac{x^2 + 3x + 2}{x + 1}$",
       "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+9} - 3}{x}$",
+      "$\\lim_{x \\to -1} \\dfrac{x^2 + 3x + 2}{x + 1}$",
       "$\\lim_{x \\to \\infty} \\dfrac{2x}{x+1}$",
       "$\\lim_{x \\to 3} (x^2 - 1)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^2+3x+2 = (x+1)(x+2)$. Se cancela $(x+1)$ con el denominador y el límite da $-1+2 = 1$.",
     "feedback_incorrect": "El límite $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$ requiere factorizar el trinomio: $(x+1)(x+2)$. Los demás usan otras técnicas.",

@@ -28,12 +28,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale la derivada de una función constante $f(x) = c$?",
     "options": [
-      "$0$",
       "$c$",
+      "$0$",
       "$1$",
       "$c \\cdot x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Una constante no cambia, por lo que su tasa de cambio es $0$.",
     "feedback_incorrect": "La derivada de cualquier constante es $0$: $\\frac{d}{dx}[c] = 0$. Una función constante no crece ni decrece.",
@@ -49,12 +49,12 @@
     "subtype": "text",
     "question": "Si $k$ es una constante, ¿cuánto vale $(k \\cdot f(x))'$?",
     "options": [
-      "$k \\cdot f'(x)$",
-      "$k + f'(x)$",
       "$k \\cdot f(x) \\cdot f'(x)$",
+      "$k + f'(x)$",
+      "$k \\cdot f'(x)$",
       "$f'(x) / k$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La constante sale afuera de la derivada: $(k \\cdot f)' = k \\cdot f'$.",
     "feedback_incorrect": "La **regla del múltiplo constante**: $(k \\cdot f)' = k \\cdot f'$. La constante se mantiene como factor.",
@@ -70,12 +70,12 @@
     "subtype": "text",
     "question": "La derivada de $f(x) + g(x)$ es igual a...",
     "options": [
-      "$f'(x) + g'(x)$",
+      "$\\dfrac{f'(x)}{g'(x)}$",
       "$f'(x) \\cdot g'(x)$",
       "$f(x) \\cdot g'(x) + f'(x) \\cdot g(x)$",
-      "$\\dfrac{f'(x)}{g'(x)}$"
+      "$f'(x) + g'(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La regla de la suma: la derivada de la suma es la suma de las derivadas.",
     "feedback_incorrect": "La **regla de la suma**: $(f+g)' = f' + g'$. No se multiplican las derivadas.",
@@ -112,12 +112,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\ln x]$?",
     "options": [
-      "$\\dfrac{1}{x}$",
       "$\\ln x$",
+      "$\\dfrac{1}{x}$",
       "$e^x$",
       "$\\dfrac{1}{\\ln x}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada del logaritmo natural es $1/x$.",
     "feedback_incorrect": "$\\frac{d}{dx}[\\ln x] = \\frac{1}{x}$ (definida para $x > 0$).",
@@ -133,12 +133,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\sin x]$?",
     "options": [
-      "$\\cos x$",
-      "$-\\cos x$",
       "$-\\sin x$",
+      "$-\\cos x$",
+      "$\\cos x$",
       "$\\tan x$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada del seno es el coseno.",
     "feedback_incorrect": "$(\\sin x)' = \\cos x$. La derivada del coseno es $-\\sin x$ (con signo negativo).",
@@ -154,12 +154,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\cos x]$?",
     "options": [
-      "$-\\sin x$",
+      "$\\tan x$",
       "$\\sin x$",
       "$-\\cos x$",
-      "$\\tan x$"
+      "$-\\sin x$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada del coseno es $-\\sin x$ (con signo negativo).",
     "feedback_incorrect": "$(\\cos x)' = -\\sin x$. El signo negativo es importante: no confundir con la derivada del seno.",
@@ -196,12 +196,12 @@
     "subtype": "text",
     "question": "¿Cuál es la derivada de $\\sqrt{x}$?",
     "options": [
-      "$\\dfrac{1}{2\\sqrt{x}}$",
       "$\\dfrac{1}{\\sqrt{x}}$",
+      "$\\dfrac{1}{2\\sqrt{x}}$",
       "$2\\sqrt{x}$",
       "$\\sqrt{x}/2$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\sqrt{x} = x^{1/2}$, entonces la derivada es $\\frac{1}{2}x^{-1/2} = \\frac{1}{2\\sqrt{x}}$.",
     "feedback_incorrect": "Reescribí $\\sqrt{x} = x^{1/2}$ y aplicá la regla de la potencia: $\\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$.",
@@ -238,12 +238,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = 3x^4$?",
     "options": [
-      "$12x^3$",
       "$12x^4$",
+      "$12x^3$",
       "$3x^3$",
       "$4x^3$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Múltiplo constante + potencia: $3 \\cdot 4x^3 = 12x^3$.",
     "feedback_incorrect": "Combinar: constante $3$ afuera, luego potencia: $3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$.",
@@ -259,12 +259,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = x^3 - 2x + 1$?",
     "options": [
-      "$3x^2 - 2$",
-      "$3x^2 - 2x$",
       "$3x^2 + 2$",
+      "$3x^2 - 2x$",
+      "$3x^2 - 2$",
       "$x^2 - 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Término a término: $(x^3)' - (2x)' + (1)' = 3x^2 - 2 + 0$.",
     "feedback_incorrect": "Derivá término a término: $(x^3)' = 3x^2$, $(2x)' = 2$, $(1)' = 0$. Total: $3x^2 - 2$.",
@@ -280,12 +280,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = 5x^2 + 3x - 7$?",
     "options": [
-      "$10x + 3$",
+      "$5x + 3$",
       "$10x^2 + 3$",
       "$10x + 3x$",
-      "$5x + 3$"
+      "$10x + 3$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(5x^2)' + (3x)' + (-7)' = 10x + 3 + 0$.",
     "feedback_incorrect": "Derivá cada término: $(5x^2)' = 10x$, $(3x)' = 3$, $(-7)' = 0$. Total: $10x + 3$.",
@@ -322,12 +322,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = 4e^x - 3$?",
     "options": [
-      "$4e^x$",
       "$4e^x - 3$",
+      "$4e^x$",
       "$4xe^{x-1}$",
       "$4e^x + 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(4e^x)' = 4e^x$ y $(-3)' = 0$.",
     "feedback_incorrect": "$(4e^x)' = 4 \\cdot e^x$ (constante afuera) y $(-3)' = 0$. Total: $4e^x$.",
@@ -343,12 +343,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = 2\\sin x + \\cos x$?",
     "options": [
-      "$2\\cos x - \\sin x$",
-      "$2\\cos x + \\sin x$",
       "$-2\\cos x - \\sin x$",
+      "$2\\cos x + \\sin x$",
+      "$2\\cos x - \\sin x$",
       "$2\\sin x - \\cos x$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(2\\sin x)' = 2\\cos x$ y $(\\cos x)' = -\\sin x$.",
     "feedback_incorrect": "$(2\\sin x)' = 2\\cos x$ y $(\\cos x)' = -\\sin x$. No olvides el signo negativo del coseno.",
@@ -364,12 +364,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = \\ln x + x^2$?",
     "options": [
-      "$\\dfrac{1}{x} + 2x$",
+      "$\\dfrac{1}{x^2} + 2x$",
       "$\\dfrac{1}{x} + x^2$",
       "$\\ln x + 2x$",
-      "$\\dfrac{1}{x^2} + 2x$"
+      "$\\dfrac{1}{x} + 2x$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(\\ln x)' = 1/x$ y $(x^2)' = 2x$.",
     "feedback_incorrect": "$(\\ln x)' = \\frac{1}{x}$ y $(x^2)' = 2x$. La suma de derivadas da $\\frac{1}{x} + 2x$.",
@@ -406,12 +406,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f'(x)$ si $f(x) = 6x^{1/3}$?",
     "options": [
-      "$2x^{-2/3}$",
       "$6x^{-2/3}$",
+      "$2x^{-2/3}$",
       "$2x^{1/3}$",
       "$\\dfrac{1}{3}x^{-2/3}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $6 \\cdot \\frac{1}{3} x^{1/3-1} = 2x^{-2/3}$.",
     "feedback_incorrect": "Regla de la potencia con exponente fraccionario: $6 \\cdot \\frac{1}{3} x^{-2/3} = 2x^{-2/3}$.",
@@ -448,12 +448,12 @@
     "subtype": "text",
     "question": "¿Cómo se reescribe $\\sqrt{x}$ para poder aplicar la regla de la potencia?",
     "options": [
-      "$x^{1/2}$",
       "$x^2$",
+      "$x^{1/2}$",
       "$x^{-1/2}$",
       "$2x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\sqrt{x} = x^{1/2}$, así la regla de la potencia aplica directamente.",
     "feedback_incorrect": "La raíz cuadrada es la potencia $1/2$: $\\sqrt{x} = x^{1/2}$.",
@@ -469,12 +469,12 @@
     "subtype": "text",
     "question": "¿Qué regla permite derivar $x^3 - 5x^2 + 2$ término a término?",
     "options": [
-      "Regla de la suma y diferencia",
-      "Regla del producto",
       "Regla de la cadena",
+      "Regla del producto",
+      "Regla de la suma y diferencia",
       "Regla del cociente"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La regla de la suma y diferencia permite derivar cada término por separado.",
     "feedback_incorrect": "La **regla de la suma/diferencia** dice que $(f \\pm g)' = f' \\pm g'$: se derivan los términos por separado.",
@@ -490,12 +490,12 @@
     "subtype": "text",
     "question": "¿Por qué la derivada de la constante $f(x) = 7$ es $0$?",
     "options": [
-      "Porque una constante no cambia: su tasa de cambio instantánea es siempre cero",
+      "Por convención matemática, sin justificación real",
       "Porque $7' = 7-1 = 6$ no tiene sentido",
       "Porque la regla de la potencia no aplica a constantes",
-      "Por convención matemática, sin justificación real"
+      "Porque una constante no cambia: su tasa de cambio instantánea es siempre cero"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada mide el cambio. Una constante no cambia, entonces su derivada es $0$.",
     "feedback_incorrect": "La derivada es la tasa de cambio instantánea. Si $f(x)=7$ siempre, $f$ no cambia → $f'=0$.",
@@ -532,18 +532,18 @@
     "subtype": "text",
     "question": "Para derivar $f(x) = \\dfrac{4}{x^3}$, ¿cuál es el primer paso correcto?",
     "options": [
-      "Reescribir como $4x^{-3}$ para aplicar la regla de la potencia",
       "Usar la regla del cociente con $u=4$ y $v=x^3$",
+      "Reescribir como $4x^{-3}$ para aplicar la regla de la potencia",
       "Calcular el límite de la definición de derivada directamente",
       "Aplicar $\\ln$ a ambos lados"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Reescribir como potencia negativa es el camino más directo.",
     "feedback_incorrect": "El paso más eficiente: $\\frac{4}{x^3} = 4x^{-3}$, luego aplicar la regla de la potencia.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Estrategia:** convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso."
+    "explanation": "La estrategia es convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso."
   },
   {
     "external_id": "violet_basic_rules_estr_07",
@@ -553,12 +553,12 @@
     "subtype": "text",
     "question": "¿Se puede aplicar la regla de la potencia para calcular $(e^x)'$?",
     "options": [
-      "No: en $e^x$ la variable está en el exponente, no en la base",
-      "Sí: $(e^x)' = x \\cdot e^{x-1}$",
       "Sí, porque $e$ es una constante",
+      "Sí: $(e^x)' = x \\cdot e^{x-1}$",
+      "No: en $e^x$ la variable está en el exponente, no en la base",
       "No, porque $e^x$ no es diferenciable"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La regla de la potencia aplica a $x^n$ (base variable, exponente constante), no a $a^x$.",
     "feedback_incorrect": "La regla de la potencia es para $x^n$ (base $x$, exponente constante $n$). En $e^x$, $x$ está en el exponente: se usa $(e^x)' = e^x$.",
@@ -574,12 +574,12 @@
     "subtype": "text",
     "question": "Aplicando la regla de la potencia a $f(x) = x^{-3}$: ¿cuál es $f'(x)$?",
     "options": [
-      "$-3x^{-4}$",
+      "$-4x^{-3}$",
       "$-3x^{-2}$",
       "$3x^{-4}$",
-      "$-4x^{-3}$"
+      "$-3x^{-4}$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! El exponente $-3$ baja y el nuevo exponente es $-3-1=-4$: $-3x^{-4}$.",
     "feedback_incorrect": "$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4}$. Exponente $-3$ baja, nuevo exponente $-4$.",
@@ -616,12 +616,12 @@
     "subtype": "text",
     "question": "Si $f'(x) = g'(x)$ para todo $x$: ¿qué relación existe entre $f$ y $g$?",
     "options": [
-      "Difieren en una constante: $f(x) = g(x) + C$",
       "Son la misma función: $f(x) = g(x)$",
+      "Difieren en una constante: $f(x) = g(x) + C$",
       "Una es el doble de la otra: $f(x) = 2g(x)$",
       "No se puede decir nada sobre $f$ y $g$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Igual derivada implica que difieren en una constante.",
     "feedback_incorrect": "Si $f'=g'$, entonces $(f-g)'=0$, lo que implica $f-g=C$ (constante). Así $f(x)=g(x)+C$.",

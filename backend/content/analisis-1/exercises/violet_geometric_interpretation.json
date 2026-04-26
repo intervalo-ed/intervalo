@@ -28,12 +28,12 @@
     "subtype": "text",
     "question": "¿Cómo se llama la recta que pasa por dos puntos distintos de la curva?",
     "options": [
-      "Recta secante",
       "Recta tangente",
+      "Recta secante",
       "Recta normal",
       "Recta asíntota"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La recta secante une dos puntos de la curva y su pendiente es el cociente incremental.",
     "feedback_incorrect": "La recta tangente toca la curva en un solo punto. La que pasa por dos puntos es la **secante**.",
@@ -49,12 +49,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ecuación de la recta tangente a $f$ en el punto $x=a$?",
     "options": [
-      "$y - f(a) = f'(a)(x - a)$",
-      "$y = f(a) \\cdot x$",
       "$y = f'(a) + f(a)$",
+      "$y = f(a) \\cdot x$",
+      "$y - f(a) = f'(a)(x - a)$",
       "$y - a = f(a)(x - f'(a))$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Es la ecuación punto-pendiente con punto $(a, f(a))$ y pendiente $f'(a)$.",
     "feedback_incorrect": "La tangente usa la forma punto-pendiente: $y - f(a) = f'(a)(x-a)$, donde $f'(a)$ es la pendiente y $(a, f(a))$ el punto de tangencia.",
@@ -70,12 +70,12 @@
     "subtype": "text",
     "question": "¿Cuál es la pendiente de la recta secante entre $(a,\\, f(a))$ y $(a+h,\\, f(a+h))$?",
     "options": [
-      "$\\dfrac{f(a+h)-f(a)}{h}$",
+      "$\\dfrac{f(a)}{h}$",
       "$f'(a)$",
       "$f(a+h) - f(a)$",
-      "$\\dfrac{f(a)}{h}$"
+      "$\\dfrac{f(a+h)-f(a)}{h}$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Ese cociente es la pendiente de la secante, también llamado cociente incremental.",
     "feedback_incorrect": "La pendiente de cualquier recta entre dos puntos es $\\Delta y / \\Delta x$. Aquí: $\\frac{f(a+h)-f(a)}{h}$.",
@@ -112,12 +112,12 @@
     "subtype": "text",
     "question": "Si $f'(a) = 0$, la recta tangente en $x=a$ es...",
     "options": [
-      "Horizontal",
       "Vertical",
+      "Horizontal",
       "Paralela a $y = x$",
       "Inexistente"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Pendiente cero significa tangente horizontal.",
     "feedback_incorrect": "Una recta tiene pendiente $0$ cuando es horizontal. Si $f'(a)=0$, la tangente es horizontal en $x=a$.",
@@ -133,12 +133,12 @@
     "subtype": "text",
     "question": "La pendiente de la recta secante representa...",
     "options": [
-      "La tasa de cambio media de $f$ en el intervalo $[a,\\, a+h]$",
-      "La tasa de cambio instantánea de $f$ en $x=a$",
       "La aceleración de $f$",
+      "La tasa de cambio instantánea de $f$ en $x=a$",
+      "La tasa de cambio media de $f$ en el intervalo $[a,\\, a+h]$",
       "El valor máximo de $f$ en el intervalo"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La secante promedia el cambio de $f$ a lo largo del intervalo.",
     "feedback_incorrect": "La tasa de cambio instantánea la da la **tangente** ($f'(a)$). La **secante** promedia el cambio entre dos puntos: es la tasa de cambio media.",
@@ -154,12 +154,12 @@
     "subtype": "text",
     "question": "$f'(a) > 0$ geométricamente indica que la tangente en $x=a$...",
     "options": [
-      "Tiene pendiente positiva (sube de izquierda a derecha)",
+      "Es perpendicular al eje $x$",
       "Es horizontal",
       "Tiene pendiente negativa",
-      "Es perpendicular al eje $x$"
+      "Tiene pendiente positiva (sube de izquierda a derecha)"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Pendiente positiva significa que la recta sube al moverse hacia la derecha.",
     "feedback_incorrect": "Si la pendiente es positiva, la recta **sube** de izquierda a derecha. Eso implica que $f$ es localmente creciente en $x=a$.",
@@ -196,12 +196,12 @@
     "subtype": "text",
     "question": "$f'(a)$ es el límite de ___ cuando $h \\to 0$.",
     "options": [
-      "Las pendientes de las rectas secantes",
       "Los valores de $f(a+h)$",
+      "Las pendientes de las rectas secantes",
       "Las áreas bajo la curva en $[a, a+h]$",
       "Los cocientes $f(a)/h$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada es el límite de las pendientes de las secantes.",
     "feedback_incorrect": "$f'(a) = \\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}$: el límite de las **pendientes de las secantes**, no de los valores de $f$.",
@@ -238,12 +238,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ecuación de la recta tangente a $f(x)=x^2+1$ en $x=0$?",
     "options": [
-      "$y = 1$",
       "$y = x + 1$",
+      "$y = 1$",
       "$y = 0$",
       "$y = 2x + 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(0)=1$ y $f'(0)=0$, así que la tangente es la horizontal $y=1$.",
     "feedback_incorrect": "La derivada es $f'(x)=2x$, por lo que $f'(0)=0$. Con pendiente $0$ y punto $(0,1)$, la tangente es $y=1$.",
@@ -259,12 +259,12 @@
     "subtype": "text",
     "question": "¿Cuál es la pendiente de la recta secante a $f(x)=x^2$ entre $x=1$ y $x=3$?",
     "options": [
-      "$4$",
-      "$2$",
       "$6$",
+      "$2$",
+      "$4$",
       "$8$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(f(3)-f(1))/(3-1) = (9-1)/2 = 4$.",
     "feedback_incorrect": "Calculá $f(1)=1$ y $f(3)=9$, luego dividí el cambio por el intervalo: $(9-1)/(3-1)=4$.",
@@ -280,12 +280,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ecuación de la recta tangente a $f(x)=2x+1$ en $x=3$?",
     "options": [
-      "$y = 2x + 1$",
+      "$y = 3x + 1$",
       "$y = 7x + 2$",
       "$y = 2x + 7$",
-      "$y = 3x + 1$"
+      "$y = 2x + 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Como $f$ es lineal, su tangente en cualquier punto es la propia recta $y=2x+1$.",
     "feedback_incorrect": "$f(x)=2x+1$ es una recta, su derivada es $f'(x)=2$ (constante). La tangente en cualquier punto es la misma recta.",
@@ -322,12 +322,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ecuación de la recta tangente a $f(x)=x^3$ en $x=1$?",
     "options": [
-      "$y = 3x - 2$",
       "$y = 3x + 1$",
+      "$y = 3x - 2$",
       "$y = x^3$",
       "$y = 3x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(1)=1$, $f'(1)=3$, entonces $y - 1 = 3(x-1) \\Rightarrow y = 3x - 2$.",
     "feedback_incorrect": "Con $f(1)=1$ y $f'(x)=3x^2 \\Rightarrow f'(1)=3$: aplicá $y - 1 = 3(x-1)$.",
@@ -343,12 +343,12 @@
     "subtype": "text",
     "question": "¿Cuál es la pendiente de la recta secante a $f(x)=x^2$ entre $x=0$ y $x=2$?",
     "options": [
-      "$2$",
-      "$4$",
       "$1$",
+      "$4$",
+      "$2$",
       "$0$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(f(2)-f(0))/(2-0) = (4-0)/2 = 2$.",
     "feedback_incorrect": "Calculá $f(0)=0$ y $f(2)=4$: pendiente de la secante $= (4-0)/(2-0) = 2$.",
@@ -364,12 +364,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ecuación de la recta tangente a $f(x)=-x^2+4$ en $x=1$?",
     "options": [
-      "$y = -2x + 5$",
+      "$y = 4x - 1$",
       "$y = 2x + 1$",
       "$y = -2x - 5$",
-      "$y = 4x - 1$"
+      "$y = -2x + 5$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(1)=3$, $f'(1)=-2$, entonces $y - 3 = -2(x-1) \\Rightarrow y = -2x + 5$.",
     "feedback_incorrect": "Con $f(1) = -1+4 = 3$ y $f'(x) = -2x \\Rightarrow f'(1) = -2$: aplicá $y - 3 = -2(x-1)$.",
@@ -406,12 +406,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ordenada al origen de la recta tangente a $f(x)=x^2+1$ en $x=2$?",
     "options": [
-      "$-3$",
       "$3$",
+      "$-3$",
       "$5$",
       "$-5$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La tangente es $y = 4x - 3$, cuya ordenada al origen es $-3$.",
     "feedback_incorrect": "$f(2)=5$, $f'(2)=4$. Tangente: $y-5=4(x-2) \\Rightarrow y=4x-3$. En $x=0$: $y=-3$.",
@@ -437,7 +437,12 @@
     "feedback_correct": "¡Correcto! El vértice de la parábola está en $x=1$, donde $f'(1)=0$.",
     "feedback_incorrect": "La tangente horizontal corresponde al vértice de la parábola. Completando el cuadrado: $f(x)=(x-1)^2-1$, vértice en $x=1$.",
     "graph_fn": "x**2 - 2*x",
-    "graph_view": { "xMin": -2, "xMax": 5, "yMin": -3, "yMax": 5 },
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 5,
+      "yMin": -3,
+      "yMax": 5
+    },
     "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^2 - 2x$:\n\n$$f'(x) = 2x - 2 = 0 \\Rightarrow x = 1$$\n\nEn $x=1$, $f(1) = 1 - 2 = -1$: ese es el **vértice** de la parábola. Geométricamente, en el vértice la curva cambia de sentido y la tangente queda perfectamente horizontal."
   },
   {
@@ -448,17 +453,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=x^2$. ¿Cuál es la pendiente de la recta tangente en $x=2$?",
     "options": [
-      "$4$",
       "$2$",
+      "$4$",
       "$1$",
       "$8$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x$, entonces $f'(2)=4$.",
     "feedback_incorrect": "La derivada de $x^2$ es $2x$. En $x=2$: pendiente $= 2(2) = 4$.",
     "graph_fn": "x**2",
-    "graph_view": { "xMin": -4, "xMax": 4, "yMin": -1, "yMax": 8 },
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 8
+    },
     "explanation": "Para $f(x) = x^2$, la derivada es $f'(x) = 2x$.\n\nEn $x = 2$: $f'(2) = 2 \\times 2 = 4$.\n\nEsto significa que la tangente en $(2, 4)$ tiene pendiente $4$: por cada unidad que avanza a la derecha, sube $4$ unidades. La parábola se va haciendo más empinada a medida que $|x|$ crece."
   },
   {
@@ -469,17 +479,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿Cuántos puntos de la curva tienen tangente horizontal?",
     "options": [
-      "$2$",
-      "$0$",
       "$1$",
+      "$0$",
+      "$2$",
       "$3$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=3x^2-3=0$ tiene dos soluciones: $x=-1$ y $x=1$.",
     "feedback_incorrect": "Igualá $f'(x)=3x^2-3=0$: $x^2=1$, $x=\\pm 1$. Hay dos puntos con tangente horizontal.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": { "xMin": -3, "xMax": 3, "yMin": -4, "yMax": 4 },
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -4,
+      "yMax": 4
+    },
     "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^3 - 3x$:\n\n$$f'(x) = 3x^2 - 3 = 3(x^2-1) = 3(x-1)(x+1) = 0$$\n\nSoluciones: $x = 1$ y $x = -1$. En $x=1$: mínimo local ($f(1)=-2$). En $x=-1$: máximo local ($f(-1)=2$). **Dos** tangentes horizontales."
   },
   {
@@ -490,17 +505,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=-(x-2)^2+4$. ¿Cuánto vale $f'$ en el punto más alto de la curva?",
     "options": [
-      "$0$",
+      "$-2$",
       "$4$",
       "$2$",
-      "$-2$"
+      "$0$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! En el máximo la tangente es horizontal, así que $f'=0$ allí.",
     "feedback_incorrect": "En cualquier máximo o mínimo de una función diferenciable, la tangente es horizontal y $f'=0$.",
     "graph_fn": "-(x-2)**2 + 4",
-    "graph_view": { "xMin": -1, "xMax": 5, "yMin": -1, "yMax": 6 },
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -1,
+      "yMax": 6
+    },
     "explanation": "El punto más alto de $f(x) = -(x-2)^2 + 4$ es el vértice, en $x=2$, $f(2)=4$.\n\nLa derivada es $f'(x) = -2(x-2)$, entonces $f'(2) = 0$.\n\nEn un **máximo local**, la función deja de crecer y empieza a decrecer: en ese instante la tangente es horizontal y $f'=0$."
   },
   {
@@ -521,7 +541,12 @@
     "feedback_correct": "¡Correcto! $f'(x)=2x=0$ en $x=0$.",
     "feedback_incorrect": "$f'(x) = 2x = 0$ se anula en $x=0$. En $x=\\pm 2$ la función vale $0$ pero la pendiente no es $0$.",
     "graph_fn": "x**2 - 4",
-    "graph_view": { "xMin": -4, "xMax": 4, "yMin": -5, "yMax": 5 },
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -5,
+      "yMax": 5
+    },
     "explanation": "Para $f(x) = x^2 - 4$:\n\n$$f'(x) = 2x = 0 \\Rightarrow x = 0$$\n\nEl vértice de la parábola está en $x=0$, $f(0)=-4$. Ahí la tangente es horizontal.\n\nCuidado: $x=\\pm 2$ son los ceros de $f$ (donde la curva cruza el eje $x$), no donde la tangente es horizontal."
   },
   {
@@ -532,17 +557,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En cuál de estos intervalos es $f'(x)>0$?",
     "options": [
-      "$x < -1$ y $x > 1$",
       "$-1 < x < 1$",
+      "$x < -1$ y $x > 1$",
       "$x > 0$",
       "$x < 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=3(x-1)(x+1)>0$ fuera del intervalo $(-1,1)$.",
     "feedback_incorrect": "$f'(x) = 3x^2-3 = 3(x-1)(x+1)$. Analizá el signo: es positivo cuando $x<-1$ o $x>1$.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": { "xMin": -3, "xMax": 3, "yMin": -4, "yMax": 4 },
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -4,
+      "yMax": 4
+    },
     "explanation": "$f'(x) = 3x^2 - 3 = 3(x+1)(x-1)$.\n\nAnálisis de signo:\n- $x < -1$: $(x+1)<0$, $(x-1)<0$ → producto positivo → $f'>0$ ✓\n- $-1 < x < 1$: $(x+1)>0$, $(x-1)<0$ → producto negativo → $f'<0$\n- $x > 1$: ambos positivos → $f'>0$ ✓\n\nLa función **crece** fuera de $(-1, 1)$ y **decrece** dentro."
   },
   {
@@ -553,17 +583,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=x^2-2x$. ¿En qué intervalo es $f$ decreciente?",
     "options": [
-      "$x < 1$",
-      "$x > 1$",
       "$x < 0$",
+      "$x > 1$",
+      "$x < 1$",
       "$x > 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x-2<0$ para $x<1$, así que $f$ decrece en ese intervalo.",
     "feedback_incorrect": "$f'(x) = 2x-2 < 0 \\Leftrightarrow x < 1$. La parábola baja hasta su vértice en $x=1$.",
     "graph_fn": "x**2 - 2*x",
-    "graph_view": { "xMin": -2, "xMax": 5, "yMin": -3, "yMax": 5 },
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 5,
+      "yMin": -3,
+      "yMax": 5
+    },
     "explanation": "$f'(x) = 2x - 2$.\n\n- $f'(x) < 0 \\Leftrightarrow 2x - 2 < 0 \\Leftrightarrow x < 1$ → $f$ es **decreciente** en $(-\\infty, 1)$.\n- $f'(x) > 0 \\Leftrightarrow x > 1$ → $f$ es **creciente** en $(1, +\\infty)$.\n\nEl vértice en $x=1$ es el mínimo: la parábola baja hasta allí y luego sube."
   },
   {
@@ -574,17 +609,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=-(x-1)^2+3$. ¿Cuál es la pendiente de la tangente en $x=0$?",
     "options": [
-      "$2$",
+      "$3$",
       "$-2$",
       "$0$",
-      "$3$"
+      "$2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=-2(x-1)$, entonces $f'(0)=-2(-1)=2$.",
     "feedback_incorrect": "$f'(x) = -2(x-1)$. En $x=0$: $f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$.",
     "graph_fn": "-(x-1)**2 + 3",
-    "graph_view": { "xMin": -2, "xMax": 4, "yMin": -1, "yMax": 5 },
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 5
+    },
     "explanation": "Derivando $f(x) = -(x-1)^2 + 3$:\n\n$$f'(x) = -2(x-1)$$\n\nEn $x = 0$:\n$$f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$$\n\nLa tangente en $x=0$ sube (pendiente positiva): estamos a la izquierda del vértice $x=1$, donde la parábola invertida todavía está creciendo."
   },
   {
@@ -605,7 +645,12 @@
     "feedback_correct": "¡Correcto! $f(-1)=1$, $f'(-1)=-2$, entonces $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
     "feedback_incorrect": "Con $f(-1)=1$ y $f'(x)=2x \\Rightarrow f'(-1)=-2$: $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
     "graph_fn": "x**2",
-    "graph_view": { "xMin": -4, "xMax": 4, "yMin": -1, "yMax": 8 },
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 8
+    },
     "explanation": "1. **Punto:** $f(-1) = (-1)^2 = 1$ → $(-1, 1)$.\n2. **Pendiente:** $f'(x) = 2x$, entonces $f'(-1) = -2$.\n3. **Tangente:** $y - 1 = -2(x - (-1)) = -2(x+1)$\n$$y = -2x - 2 + 1 = -2x - 1$$\n\nPendiente negativa en $x=-1$: la parábola todavía está bajando hacia su vértice en $x=0$."
   },
   {
@@ -616,17 +661,22 @@
     "subtype": "graph",
     "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En qué intervalo la tangente tiene pendiente negativa?",
     "options": [
-      "$-1 < x < 1$",
       "$x < -1$",
+      "$-1 < x < 1$",
       "$x > 1$",
       "$x < 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=3x^2-3<0$ exactamente cuando $-1<x<1$.",
     "feedback_incorrect": "$f'(x) = 3x^2-3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": { "xMin": -3, "xMax": 3, "yMin": -4, "yMax": 4 },
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -4,
+      "yMax": 4
+    },
     "explanation": "La pendiente de la tangente es negativa cuando $f'(x) < 0$.\n\n$$f'(x) = 3x^2 - 3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$$\n\nEn ese intervalo la función **decrece**: va desde el máximo local en $x=-1$ hasta el mínimo local en $x=1$. Geométricamente, las tangentes tienen pendiente negativa en toda esa región."
   },
   {
@@ -658,12 +708,12 @@
     "subtype": "text",
     "question": "¿En qué punto de $f(x)=x^2$ la recta tangente tiene pendiente $6$?",
     "options": [
-      "$x = 3$",
       "$x = 6$",
+      "$x = 3$",
       "$x = 2$",
       "$x = 4$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x=6 \\Rightarrow x=3$.",
     "feedback_incorrect": "Igualá la derivada a $6$: $f'(x) = 2x = 6 \\Rightarrow x = 3$.",
@@ -679,12 +729,12 @@
     "subtype": "text",
     "question": "¿Para qué valor de $x$ la recta tangente a $f(x)=x^3$ es horizontal?",
     "options": [
-      "$x = 0$",
-      "$x = 1$",
       "$x = -1$",
+      "$x = 1$",
+      "$x = 0$",
       "No existe ninguno"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=3x^2=0 \\Rightarrow x=0$.",
     "feedback_incorrect": "$f'(x) = 3x^2 = 0$ solo si $x=0$. En ese punto la tangente es horizontal, pero no es un extremo local.",
@@ -700,12 +750,12 @@
     "subtype": "text",
     "question": "La recta $y = 4x - 4$ es tangente a $f(x)=x^2$ en $x = ...$",
     "options": [
-      "$x = 2$",
+      "$x = -2$",
       "$x = 1$",
       "$x = 4$",
-      "$x = -2$"
+      "$x = 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La pendiente $4 = f'(x) = 2x$ da $x=2$, y $f(2)=4=4(2)-4$ ✓.",
     "feedback_incorrect": "La pendiente de $y=4x-4$ es $4$. Igualá con $f'(x)=2x=4 \\Rightarrow x=2$. Verificá: $f(2)=4$ y $y(2)=4$ ✓.",
@@ -742,12 +792,12 @@
     "subtype": "text",
     "question": "La secante a $f(x)=x^2$ entre $x=1$ y $x=3$ tiene pendiente $4$. ¿La tangente en $x=2$ tiene la misma pendiente?",
     "options": [
-      "Sí, $f'(2) = 4$",
       "No, $f'(2) = 2$",
+      "Sí, $f'(2) = 4$",
       "No, $f'(2) = 8$",
       "Sí, pero es pura coincidencia"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(2)=4$, igual que la pendiente de la secante. Lo garantiza el Teorema del Valor Medio.",
     "feedback_incorrect": "$f'(2) = 2(2) = 4$. Coincide con la pendiente de la secante entre $x=1$ y $x=3$: el Teorema del Valor Medio asegura que existe tal punto.",
@@ -763,12 +813,12 @@
     "subtype": "text",
     "question": "¿En qué punto de $f(x)=x^2$ la recta tangente es paralela a $y = 6x - 1$?",
     "options": [
-      "$x = 3$",
-      "$x = 2$",
       "$x = 6$",
+      "$x = 2$",
+      "$x = 3$",
       "$x = 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Dos rectas son paralelas si tienen igual pendiente: $f'(x)=2x=6 \\Rightarrow x=3$.",
     "feedback_incorrect": "La pendiente de $y=6x-1$ es $6$. Igualá $f'(x)=2x=6 \\Rightarrow x=3$.",
@@ -784,12 +834,12 @@
     "subtype": "text",
     "question": "¿La recta tangente a $f(x)=x^2$ en $x=1$ pasa por el origen?",
     "options": [
-      "No, pasa por $(0,\\,-1)$",
+      "No, pasa por $(1,\\,0)$",
       "Sí, pasa por el origen",
       "No, pasa por $(0,\\,1)$",
-      "No, pasa por $(1,\\,0)$"
+      "No, pasa por $(0,\\,-1)$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La tangente es $y=2x-1$. En $x=0$: $y=-1$, no $0$.",
     "feedback_incorrect": "La tangente en $x=1$: $f(1)=1$, $f'(1)=2$, $y=2x-1$. En $x=0$: $y=-1 \\neq 0$. No pasa por el origen.",
@@ -826,12 +876,12 @@
     "subtype": "text",
     "question": "¿Cuál es la ordenada al origen de la recta tangente a $f(x)=x^2+1$ en $x=2$?",
     "options": [
-      "$-3$",
       "$3$",
+      "$-3$",
       "$5$",
       "$-5$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La tangente es $y=4x-3$. En $x=0$: $y=-3$.",
     "feedback_incorrect": "$f(2)=5$, $f'(2)=4$. Tangente: $y-5=4(x-2) \\Rightarrow y=4x-3$. En $x=0$: $y=-3$.",

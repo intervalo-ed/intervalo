@@ -28,17 +28,22 @@
     "subtype": "graph",
     "question": "¿Cómo se llama la distancia entre el valor máximo de la curva y su eje de simetría horizontal?",
     "options": [
-      "Amplitud",
       "Período",
+      "Amplitud",
       "Frecuencia",
       "Fase"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La amplitud es la distancia del máximo (o mínimo) al eje central. Aquí vale 2.",
     "feedback_incorrect": "Esa distancia se llama amplitud. En $f(x) = 2 \\cdot \\operatorname{sen}(x)$, la amplitud es 2.",
     "graph_fn": "2 * sin(x)",
-    "graph_view": [-7, 7, -3, 3],
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ],
     "explanation": "La **amplitud** es la distancia del eje central ($y=0$) al valor máximo (o mínimo) de la onda.\nEn una función de la forma $A\\cdot\\operatorname{sen}(x)$, la amplitud es $|A|$.\nEn este gráfico la curva llega hasta $y=2$ y baja hasta $y=-2$: amplitud $=2$.\nEl período y la frecuencia describen la velocidad de la oscilación, no su tamaño vertical. La fase desplaza la onda horizontalmente."
   },
   {
@@ -49,12 +54,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale el período de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
-      "$2\\pi$",
-      "$\\pi$",
       "$1$",
+      "$\\pi$",
+      "$2\\pi$",
       "$4\\pi$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La función seno se repite cada $2\\pi$ radianes: ese es su período.",
     "feedback_incorrect": "El período del seno básico $f(x) = \\operatorname{sen}(x)$ es $2\\pi$.",
@@ -70,12 +75,12 @@
     "subtype": "text",
     "question": "¿Cuál es la amplitud de $f(x) = 4 \\cdot \\cos(x)$?",
     "options": [
-      "$4$",
+      "$1$",
       "$\\pi$",
       "$2\\pi$",
-      "$1$"
+      "$4$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! En $A \\cdot \\cos(x)$, la amplitud es $|A| = 4$.",
     "feedback_incorrect": "La amplitud en $f(x) = A \\cdot \\cos(x)$ es el valor absoluto de $A$. Aquí $A = 4$.",
@@ -112,17 +117,22 @@
     "subtype": "graph",
     "question": "¿Cuántos máximos locales tiene esta función en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
-      "1",
       "2",
+      "1",
       "0",
       "3"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = \\operatorname{sen}(x)$ tiene exactamente un máximo (en $x = \\pi/2$) en el intervalo $[0, 2\\pi]$.",
     "feedback_incorrect": "En $[0, 2\\pi]$, $f(x) = \\operatorname{sen}(x)$ tiene un solo máximo: en $x = \\pi/2$.",
     "graph_fn": "sin(x)",
-    "graph_view": [-0.5, 7, -2, 2],
+    "graph_view": [
+      -0.5,
+      7,
+      -2,
+      2
+    ],
     "explanation": "En cada período $[0,2\\pi]$, el seno **sube una vez** hasta su máximo en $x=\\pi/2$ (valor $1$) y luego **baja** hasta su mínimo en $x=3\\pi/2$ (valor $-1$).\nHay exactamente **un máximo local** por período.\nSi el intervalo fuera $[0,4\\pi]$ habría 2 máximos; en $[0,2\\pi]$ solo hay 1.\nIdentificá el máximo buscando el pico más alto de la onda en el gráfico."
   },
   {
@@ -133,13 +143,13 @@
     "subtype": "text",
     "question": "¿Cómo se llama la longitud de un ciclo completo de una función trigonométrica?",
     "options": [
-      "Período",
-      "Amplitud",
       "Frecuencia",
+      "Amplitud",
+      "Período",
       "Fase"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 2,
+    "has_math": true,
     "feedback_correct": "¡Correcto! El período es la longitud de un ciclo completo de la función.",
     "feedback_incorrect": "La longitud de un ciclo completo se llama período.",
     "graph_fn": null,
@@ -154,12 +164,12 @@
     "subtype": "text",
     "question": "¿Cuál función trigonométrica vale 0 en $x = 0$ y alcanza su máximo en $x = \\pi/2$?",
     "options": [
-      "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = -\\operatorname{sen}(x)$",
       "$f(x) = \\cos(x)$",
       "$f(x) = \\tan(x)$",
-      "$f(x) = -\\operatorname{sen}(x)$"
+      "$f(x) = \\operatorname{sen}(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\operatorname{sen}(0) = 0$ y $\\operatorname{sen}(\\pi/2) = 1$ (su máximo).",
     "feedback_incorrect": "La función seno parte de 0 y llega a su máximo 1 en $x = \\pi/2$.",
@@ -185,7 +195,12 @@
     "feedback_correct": "¡Correcto! $\\cos(-x) = \\cos(x)$: la gráfica es simétrica respecto al eje $Y$. Es par.",
     "feedback_incorrect": "$\\cos(x)$ cumple $\\cos(-x) = \\cos(x)$: es una función par (simétrica respecto al eje $Y$).",
     "graph_fn": "cos(x)",
-    "graph_view": [-7, 7, -2, 2],
+    "graph_view": [
+      -7,
+      7,
+      -2,
+      2
+    ],
     "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: es una función **par**.\nSu gráfica es simétrica respecto al eje $Y$: la mitad izquierda es el espejo de la derecha.\nEl seno, en cambio, es **impar**: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\nEn el gráfico podés verificarlo: los valores en $x<0$ replican exactamente los de $x>0$."
   },
   {
@@ -196,12 +211,12 @@
     "subtype": "text",
     "question": "¿Cuál es el valor máximo de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
-      "$1$",
       "$2\\pi$",
+      "$1$",
       "$\\pi$",
       "$\\infty$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El seno oscila entre $-1$ y $1$: su valor máximo es $1$.",
     "feedback_incorrect": "La función seno tiene rango $[-1, 1]$: el máximo absoluto es $1$.",
@@ -223,11 +238,16 @@
       "Racional"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La oscilación periódica corresponde a $f(x) = 2 \\cdot \\operatorname{sen}(x)$, una función trigonométrica.",
     "feedback_incorrect": "La forma de onda periódica entre −2 y 2 es propia de una trigonométrica: $f(x) = 2 \\cdot \\operatorname{sen}(x)$.",
     "graph_fn": "2 * sin(x)",
-    "graph_view": [-7, 7, -3, 3],
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ],
     "explanation": "La **oscilación periódica acotada** es la firma visual de una función trigonométrica.\nLa onda que sube y baja indefinidamente entre dos valores fijos (aquí entre $-2$ y $2$) corresponde a $f(x)=2\\operatorname{sen}(x)$.\nUna exponencial solo crece o decrece sin oscilar. Una polinómica no es acotada.\nUna racional puede tener asíntotas verticales, pero no la oscilación regular que se ve aquí."
   },
   {
@@ -238,12 +258,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = 2\\operatorname{sen}(x)$?",
     "options": [
-      "Trigonométrica",
       "Exponencial",
+      "Trigonométrica",
       "Polinómica",
       "Racional"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = 2\\operatorname{sen}(x)$ usa la función seno: es trigonométrica.",
     "feedback_incorrect": "La función seno pertenece a la familia trigonométrica. $f(x) = 2\\operatorname{sen}(x)$ es trigonométrica.",
@@ -259,12 +279,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\cos(x)$?",
     "options": [
-      "Trigonométrica",
-      "Exponencial",
       "Logarítmica",
+      "Exponencial",
+      "Trigonométrica",
       "Polinómica"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El coseno es una de las funciones trigonométricas básicas.",
     "feedback_incorrect": "La función coseno pertenece a la familia trigonométrica.",
@@ -280,12 +300,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\tan(x)$?",
     "options": [
-      "Trigonométrica",
+      "Exponencial",
       "Racional",
       "Polinómica",
-      "Exponencial"
+      "Trigonométrica"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La tangente es una función trigonométrica: $\\tan(x) = \\frac{\\operatorname{sen}(x)}{\\cos(x)}$.",
     "feedback_incorrect": "La tangente pertenece a la familia trigonométrica.",
@@ -307,11 +327,16 @@
       "Racional"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva que comienza en su máximo ($x = 0$) con oscilación periódica es $f(x) = \\cos(x)$: trigonométrica.",
     "feedback_incorrect": "La onda que empieza en el máximo (valor 1) cuando $x = 0$ es el coseno: función trigonométrica.",
     "graph_fn": "cos(x)",
-    "graph_view": [-7, 7, -2, 2],
+    "graph_view": [
+      -7,
+      7,
+      -2,
+      2
+    ],
     "explanation": "La curva que comienza en su **máximo** ($y=1$) en $x=0$ y luego desciende es $f(x)=\\cos(x)$.\nEl seno, en cambio, empieza en $y=0$ y sube. Esta diferencia en $x=0$ es la clave para identificarlos.\nLa oscilación periódica acotada confirma que es trigonométrica, no exponencial ni lineal.\nUna función lineal es recta; una exponencial no oscila."
   },
   {
@@ -322,12 +347,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas es una función trigonométrica?",
     "options": [
-      "$f(x) = 3 \\cdot \\operatorname{sen}(2x)$",
       "$f(x) = 3 \\cdot 2^x$",
+      "$f(x) = 3 \\cdot \\operatorname{sen}(2x)$",
       "$f(x) = 3x^2 - 1$",
       "$f(x) = \\log_3(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $3 \\cdot \\operatorname{sen}(2x)$ usa la función seno: es trigonométrica.",
     "feedback_incorrect": "$f(x) = 3 \\cdot \\operatorname{sen}(2x)$ contiene la función seno: pertenece a la familia trigonométrica.",
@@ -343,12 +368,12 @@
     "subtype": "text",
     "question": "¿A qué familia pertenece $f(x) = -\\operatorname{sen}(x)$?",
     "options": [
-      "Trigonométrica",
-      "Exponencial",
       "Racional",
+      "Exponencial",
+      "Trigonométrica",
       "Polinómica"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Multiplicar por $-1$ refleja la onda, pero sigue siendo la función seno: trigonométrica.",
     "feedback_incorrect": "El signo negativo invierte la amplitud, pero $f(x) = -\\operatorname{sen}(x)$ sigue siendo trigonométrica.",
@@ -364,17 +389,22 @@
     "subtype": "graph",
     "question": "¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
-      "Trigonométrica",
+      "Logarítmica",
       "Polinómica",
       "Exponencial",
-      "Logarítmica"
+      "Trigonométrica"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La onda con el doble de frecuencia corresponde a $f(x) = \\operatorname{sen}(2x)$: trigonométrica.",
     "feedback_incorrect": "La oscilación periódica más rápida es $f(x) = \\operatorname{sen}(2x)$: función trigonométrica.",
     "graph_fn": "sin(2*x)",
-    "graph_view": [-5, 5, -2, 2],
+    "graph_view": [
+      -5,
+      5,
+      -2,
+      2
+    ],
     "explanation": "$f(x)=\\operatorname{sen}(2x)$ tiene el doble de **frecuencia** que el seno básico (período $\\pi$ en lugar de $2\\pi$).\nSin embargo, sigue siendo una función trigonométrica: la función base es el seno.\nLa oscilación acotada y periódica descarta las otras familias: polinómica, exponencial y logarítmica no oscilan de esta forma.\nA mayor coeficiente en el argumento, mayor frecuencia y menor período."
   },
   {
@@ -406,12 +436,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\operatorname{sen}(x) + \\cos(x)$?",
     "options": [
-      "Trigonométrica",
       "Polinómica",
+      "Trigonométrica",
       "Exponencial",
       "Racional"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La suma de funciones trigonométricas sigue siendo trigonométrica.",
     "feedback_incorrect": "$\\operatorname{sen}(x) + \\cos(x)$ combina dos funciones trigonométricas: la suma es también trigonométrica.",
@@ -448,17 +478,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = \\cos(x)$",
       "$f(x) = \\operatorname{sen}(x)$",
+      "$f(x) = \\cos(x)$",
       "$f(x) = 2\\cos(x)$",
       "$f(x) = \\cos(2x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva parte de su máximo en $x = 0$ con amplitud 1: $f(x) = \\cos(x)$.",
     "feedback_incorrect": "La curva comienza en su valor máximo (1) cuando $x = 0$: eso es $f(x) = \\cos(x)$, no el seno.",
     "graph_fn": "cos(x)",
-    "graph_view": [-7, 7, -3, 3],
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ],
     "explanation": "$\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$. La curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es $f(x)=\\cos(x)$, no el seno.\n$2\\cos(x)$ llegaría hasta $y=2$, pero la amplitud del gráfico es $1$.\n$\\cos(2x)$ tendría período $\\pi$ (más corto), pero el gráfico muestra período $2\\pi$.\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula."
   },
   {
@@ -469,12 +504,12 @@
     "subtype": "text",
     "question": "En $f(x) = 2 \\cdot \\operatorname{sen}(3x)$, ¿cuál es el período?",
     "options": [
-      "$\\dfrac{2\\pi}{3}$",
-      "$2\\pi$",
       "$3\\pi$",
+      "$2\\pi$",
+      "$\\dfrac{2\\pi}{3}$",
       "$\\dfrac{\\pi}{3}$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El período de $\\operatorname{sen}(Bx)$ es $\\frac{2\\pi}{B}$. Con $B = 3$: período $= \\frac{2\\pi}{3}$.",
     "feedback_incorrect": "Para $\\operatorname{sen}(Bx)$, el período es $\\frac{2\\pi}{B}$. Aquí $B = 3$, entonces el período es $\\frac{2\\pi}{3}$.",
@@ -490,12 +525,12 @@
     "subtype": "text",
     "question": "En $f(x) = \\cos(x/2)$, ¿cuál es el período?",
     "options": [
-      "$4\\pi$",
+      "$8\\pi$",
       "$2\\pi$",
       "$\\pi$",
-      "$8\\pi$"
+      "$4\\pi$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Con $B = \\frac{1}{2}$: período $= \\frac{2\\pi}{1/2} = 4\\pi$.",
     "feedback_incorrect": "El período es $\\frac{2\\pi}{B}$. Con $B = \\frac{1}{2}$: $\\frac{2\\pi}{1/2} = 4\\pi$.",
@@ -521,7 +556,12 @@
     "feedback_correct": "¡Correcto! La onda oscila entre 0 y 2 (desplazada 1 unidad hacia arriba): $f(x) = \\operatorname{sen}(x) + 1$.",
     "feedback_incorrect": "La curva está desplazada 1 unidad hacia arriba respecto al seno básico: $f(x) = \\operatorname{sen}(x) + 1$.",
     "graph_fn": "sin(x) + 1",
-    "graph_view": [-7, 7, -1, 3],
+    "graph_view": [
+      -7,
+      7,
+      -1,
+      3
+    ],
     "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$\\operatorname{sen}(x)+1$ oscila entre $0$ y $2$ (centrada en $y=1$ en lugar de $y=0$).\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$.\n$\\operatorname{sen}(x)-1$ bajaría hasta $y=-2$. $2\\operatorname{sen}(x)$ oscilaría simétricamente entre $-2$ y $2$."
   },
   {
@@ -532,12 +572,12 @@
     "subtype": "text",
     "question": "En $f(x) = A \\cdot \\operatorname{sen}(Bx + C)$, ¿qué representa $B$?",
     "options": [
-      "Afecta el período (período $= 2\\pi/B$)",
       "Es la amplitud",
+      "Afecta el período (período $= 2\\pi/B$)",
       "Es el desplazamiento vertical",
       "Es la fase inicial"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $B$ determina el período: $T = \\frac{2\\pi}{B}$. A mayor $B$, más ciclos por unidad.",
     "feedback_incorrect": "El coeficiente $B$ afecta al período: $T = \\frac{2\\pi}{B}$.",
@@ -553,12 +593,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f(\\pi/2)$ para $f(x) = \\operatorname{sen}(x)$?",
     "options": [
-      "$1$",
-      "$0$",
       "$-1$",
+      "$0$",
+      "$1$",
       "$\\pi/2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\operatorname{sen}(\\pi/2) = 1$: es el valor máximo del seno.",
     "feedback_incorrect": "$\\operatorname{sen}(\\pi/2) = 1$. En $x = \\pi/2$ la función seno alcanza su máximo.",
@@ -574,17 +614,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = 2 \\cdot \\cos(x)$",
+      "$f(x) = \\cos(2x)$",
       "$f(x) = \\cos(x)$",
       "$f(x) = 2 \\cdot \\operatorname{sen}(x)$",
-      "$f(x) = \\cos(2x)$"
+      "$f(x) = 2 \\cdot \\cos(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva oscila entre $-2$ y $2$, comienza en su máximo ($x=0$): $f(x) = 2\\cos(x)$.",
     "feedback_incorrect": "La amplitud 2 y el comienzo en el máximo ($x = 0$) identifican a $f(x) = 2\\cos(x)$.",
     "graph_fn": "2 * cos(x)",
-    "graph_view": [-7, 7, -3, 3],
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ],
     "explanation": "La curva oscila entre $-2$ y $2$ (amplitud $2$) y arranca en su máximo en $x=0$: eso define a $f(x)=2\\cos(x)$.\nEl coseno \"empieza en el techo\", el seno \"empieza en el medio\".\n$\\cos(x)$ tendría amplitud $1$ (llegaría solo hasta $y=1$). $2\\operatorname{sen}(x)$ empezaría en $y=0$.\n$\\cos(2x)$ tendría período $\\pi$ (la mitad del visible). Amplitud y valor en $x=0$ determinan la expresión."
   },
   {
@@ -616,12 +661,12 @@
     "subtype": "text",
     "question": "¿Cuál es la amplitud de $f(x) = -3 \\cdot \\cos(x)$?",
     "options": [
-      "$3$",
       "$-3$",
+      "$3$",
       "$1$",
       "$2\\pi$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La amplitud es el valor absoluto del coeficiente: $|-3| = 3$.",
     "feedback_incorrect": "La amplitud se toma como valor absoluto del coeficiente $A$: $|-3| = 3$.",
@@ -647,7 +692,12 @@
     "feedback_correct": "¡Correcto! El seno tiene un único máximo (en $x = \\pi/2$) en cada período $[0, 2\\pi]$.",
     "feedback_incorrect": "En $[0, 2\\pi]$, el seno tiene exactamente un máximo: en $x = \\pi/2$.",
     "graph_fn": "sin(x)",
-    "graph_view": [-0.5, 7, -2, 2],
+    "graph_view": [
+      -0.5,
+      7,
+      -2,
+      2
+    ],
     "explanation": "En cada período $[0,2\\pi]$, el seno **sube una vez** (máximo en $x=\\pi/2$, valor $1$) y **baja una vez** (mínimo en $x=3\\pi/2$, valor $-1$).\nHay exactamente un máximo local por período.\nSi buscás 2 máximos necesitás el intervalo $[0,4\\pi]$.\nEn la gráfica, identificá el único pico positivo dentro de $[0,2\\pi]$."
   },
   {
@@ -658,12 +708,12 @@
     "subtype": "text",
     "question": "¿Cuántos ceros tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$ (incluyendo los extremos)?",
     "options": [
-      "3 (en $x = 0$, $\\pi$ y $2\\pi$)",
       "2",
+      "3 (en $x = 0$, $\\pi$ y $2\\pi$)",
       "1",
       "4"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\operatorname{sen}(0) = \\operatorname{sen}(\\pi) = \\operatorname{sen}(2\\pi) = 0$: hay 3 ceros en $[0, 2\\pi]$.",
     "feedback_incorrect": "El seno se anula en $x = 0$, $x = \\pi$ y $x = 2\\pi$: son 3 ceros en ese intervalo.",
@@ -679,17 +729,22 @@
     "subtype": "graph",
     "question": "¿Cuál es el período de esta función trigonométrica según la gráfica?",
     "options": [
-      "$\\pi$",
-      "$2\\pi$",
       "$\\pi/2$",
+      "$2\\pi$",
+      "$\\pi$",
       "$4\\pi$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La onda completa un ciclo en $\\pi$ radianes: período $= \\pi$, consistente con $\\operatorname{sen}(2x)$.",
     "feedback_incorrect": "La gráfica muestra un ciclo completo en $\\pi$ radianes: ese es el período.",
     "graph_fn": "sin(2*x)",
-    "graph_view": [-5, 5, -2, 2],
+    "graph_view": [
+      -5,
+      5,
+      -2,
+      2
+    ],
     "explanation": "$\\operatorname{sen}(2x)$ tiene $B=2$, así que su período es $T=2\\pi/2=\\pi$.\nLa gráfica muestra un **ciclo completo** (sube y baja) en un intervalo de longitud $\\pi$.\nComparalo con el seno básico $\\operatorname{sen}(x)$: ese necesita $2\\pi$ para completar un ciclo.\nPara leer el período de un gráfico, medí la distancia entre dos picos (o dos ceros consecutivos del mismo tipo)."
   },
   {
@@ -700,17 +755,22 @@
     "subtype": "graph",
     "question": "¿La función $\\cos(x)$ es par o impar según su gráfica?",
     "options": [
-      "Par (simétrica respecto al eje $Y$)",
+      "No tiene simetría",
       "Impar (simétrica respecto al origen)",
       "Ni par ni impar",
-      "No tiene simetría"
+      "Par (simétrica respecto al eje $Y$)"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La gráfica del coseno es simétrica respecto al eje $Y$: es una función par.",
     "feedback_incorrect": "El coseno es par: su gráfica es simétrica respecto al eje $Y$, es decir, $\\cos(-x) = \\cos(x)$.",
     "graph_fn": "cos(x)",
-    "graph_view": [-7, 7, -2, 2],
+    "graph_view": [
+      -7,
+      7,
+      -2,
+      2
+    ],
     "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: la mitad izquierda del gráfico es el **espejo** de la derecha respecto al eje $Y$.\nEsto lo define como función **par**.\nEl seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\nEn el gráfico verificás la paridad mirando si los valores en $x<0$ replican los de $x>0$."
   },
   {
@@ -742,17 +802,22 @@
     "subtype": "graph",
     "question": "¿Cuál es la amplitud de esta función según la gráfica?",
     "options": [
-      "3",
       "1",
+      "3",
       "2",
       "$2\\pi$"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva oscila entre $-3$ y $3$: la amplitud (distancia del eje al máximo) es 3.",
     "feedback_incorrect": "La amplitud es la distancia del eje central al valor máximo. La curva llega hasta 3: amplitud = 3.",
     "graph_fn": "3 * sin(x)",
-    "graph_view": [-7, 7, -4, 4],
+    "graph_view": [
+      -7,
+      7,
+      -4,
+      4
+    ],
     "explanation": "La **amplitud** es la distancia del eje central ($y=0$) al valor extremo de la onda.\nLa curva llega hasta $y=3$ y baja hasta $y=-3$: amplitud $=3$.\nNo se suma $3+3=6$: la amplitud es solo la mitad del recorrido total, medida desde el eje.\n$2\\pi$ es un valor de período, no de amplitud. Amplitud $=1$ sería el seno sin escalar."
   },
   {
@@ -763,12 +828,12 @@
     "subtype": "text",
     "question": "¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
-      "2 (en $x = \\pi/2$ y $x = 3\\pi/2$)",
-      "3",
       "1",
+      "3",
+      "2 (en $x = \\pi/2$ y $x = 3\\pi/2$)",
       "0"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\cos(\\pi/2) = \\cos(3\\pi/2) = 0$: hay 2 ceros del coseno en $[0, 2\\pi]$.",
     "feedback_incorrect": "El coseno se anula en $x = \\pi/2$ y $x = 3\\pi/2$ dentro de $[0, 2\\pi]$: son 2 ceros.",
@@ -784,17 +849,22 @@
     "subtype": "graph",
     "question": "¿Cuál es la principal diferencia visual entre las gráficas de $\\operatorname{sen}(x)$ y $\\cos(x)$?",
     "options": [
-      "El coseno comienza en su máximo ($y=1$) en $x=0$; el seno comienza en $y=0$",
+      "El coseno no tiene ceros",
       "El coseno tiene mayor amplitud",
       "El seno tiene período más corto",
-      "El coseno no tiene ceros"
+      "El coseno comienza en su máximo ($y=1$) en $x=0$; el seno comienza en $y=0$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\cos(0) = 1$ (máximo) y $\\operatorname{sen}(0) = 0$: esa es la diferencia clave en $x = 0$.",
     "feedback_incorrect": "La diferencia principal: en $x = 0$, el coseno vale 1 (máximo) y el seno vale 0.",
     "graph_fn": "sin(x)",
-    "graph_view": [-7, 7, -2, 2],
+    "graph_view": [
+      -7,
+      7,
+      -2,
+      2
+    ],
     "explanation": "La diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\nEl coseno arranca desde el techo; el seno desde el eje.\nAmbos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno."
   },
   {
@@ -826,17 +896,22 @@
     "subtype": "graph",
     "question": "¿Cuántos períodos completos muestra la gráfica en el intervalo visible?",
     "options": [
-      "2",
       "1",
+      "2",
       "3",
       "4"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La función $\\operatorname{sen}(2x)$ tiene período $\\pi$: en $[0, 2\\pi]$ se completan 2 ciclos.",
     "feedback_incorrect": "El período de $\\operatorname{sen}(2x)$ es $\\pi$: en el intervalo visible $[0, 2\\pi]$ hay 2 ciclos completos.",
     "graph_fn": "sin(2*x)",
-    "graph_view": [-0.5, 7, -2, 2],
+    "graph_view": [
+      -0.5,
+      7,
+      -2,
+      2
+    ],
     "explanation": "$\\operatorname{sen}(2x)$ tiene período $\\pi$. En el intervalo visible $[0,2\\pi]$ hay $\\frac{2\\pi}{\\pi}=2$ **ciclos completos**.\nA mayor $B$, más ciclos caben en el mismo intervalo.\nEn el gráfico contás los picos positivos (o los ceros del mismo tipo): si hay 2 picos, hay 2 ciclos.\nComparalo con $\\operatorname{sen}(x)$: en $[0,2\\pi]$ habría solo 1 ciclo completo."
   }
 ]

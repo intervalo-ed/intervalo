@@ -28,17 +28,22 @@
     "subtype": "graph",
     "question": "¿Cuántas raíces reales puede tener como máximo esta función polinómica?",
     "options": [
-      "3",
       "2",
+      "3",
       "1",
       "Infinitas"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Un polinomio de grado 3 puede tener hasta 3 raíces reales.",
     "feedback_incorrect": "El número máximo de raíces reales de un polinomio es igual a su grado. Aquí el grado es 3.",
     "graph_fn": "pow(x, 3) - 3*x",
-    "graph_view": [-3, 3, -5, 5],
+    "graph_view": [
+      -3,
+      3,
+      -5,
+      5
+    ],
     "explanation": "Una **raíz real** de $p(x)$ es un valor $r \\in \\mathbb{R}$ tal que $p(r) = 0$, es decir, un punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de grado $n$ tiene exactamente $n$ raíces en $\\mathbb{C}$ (contando multiplicidades). Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara $f(x) = x^3 - 3x$ (grado $3$): el máximo es $3$ raíces reales. En este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$."
   },
   {
@@ -49,12 +54,12 @@
     "subtype": "text",
     "question": "¿Cuál es el grado de $p(x) = x^7 - 3x^4 + 2$?",
     "options": [
-      "$7$",
-      "$4$",
       "$2$",
+      "$4$",
+      "$7$",
       "$11$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El grado es la potencia más alta de $x$. En $x^7 - 3x^4 + 2$, el grado es $7$.",
     "feedback_incorrect": "El grado es la mayor potencia de $x$ que aparece. Aquí es $7$.",
@@ -70,13 +75,13 @@
     "subtype": "text",
     "question": "¿Cómo se llama el coeficiente del término de mayor grado en un polinomio?",
     "options": [
-      "Coeficiente principal (o líder)",
+      "Coeficiente constante",
       "Término independiente",
       "Raíz",
-      "Coeficiente constante"
+      "Coeficiente principal (o líder)"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! El coeficiente del término de mayor grado se llama coeficiente principal o líder.",
     "feedback_incorrect": "El coeficiente del término con la mayor potencia de $x$ se llama coeficiente principal.",
     "graph_fn": null,
@@ -112,17 +117,22 @@
     "subtype": "graph",
     "question": "¿Cuántos cambios de dirección (máximos y mínimos locales) puede tener como máximo esta curva?",
     "options": [
-      "3",
       "2",
+      "3",
       "4",
       "1"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Un polinomio de grado 4 puede tener hasta $4 - 1 = 3$ cambios de dirección.",
     "feedback_incorrect": "Un polinomio de grado $n$ puede tener hasta $n - 1$ cambios de dirección locales.",
     "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
-    "graph_view": [-3, 3, -2, 8],
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      8
+    ],
     "explanation": "Los **cambios de dirección** (extremos locales) de un polinomio ocurren donde la derivada se anula. La derivada de un polinomio de grado $n$ es de grado $n-1$, y puede tener como máximo $n-1$ raíces reales.\n\nPor lo tanto, un polinomio de grado $n$ tiene **a lo sumo $n - 1$ extremos locales**.\n\nPara $f(x) = x^4 - 5x^2 + 4$ (grado $4$):\n$$\\text{máximo de cambios de dirección} = 4 - 1 = 3$$\nEn este caso el máximo se alcanza efectivamente: hay dos mínimos locales y un máximo local."
   },
   {
@@ -133,12 +143,12 @@
     "subtype": "text",
     "question": "¿Cuál es el término independiente de $p(x) = x^4 - 3x + 7$?",
     "options": [
-      "$7$",
-      "$-3$",
       "$1$",
+      "$-3$",
+      "$7$",
       "$4$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El término independiente es la constante sin $x$: en este caso, $7$.",
     "feedback_incorrect": "El término independiente es el valor de $p(0)$: aquí $p(0) = 7$.",
@@ -154,17 +164,22 @@
     "subtype": "graph",
     "question": "¿Cuántas raíces reales tiene este polinomio de grado 4?",
     "options": [
-      "4",
+      "3",
       "2",
       "0",
-      "3"
+      "4"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva corta al eje $X$ en cuatro puntos distintos: tiene 4 raíces reales.",
     "feedback_incorrect": "La curva cruza el eje $X$ en 4 puntos: el polinomio tiene 4 raíces reales.",
     "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
-    "graph_view": [-3, 3, -2, 8],
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      8
+    ],
     "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$, es decir, donde $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n$$f(x) = (x^2 - 1)(x^2 - 4) = (x-1)(x+1)(x-2)(x+2)$$\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas. La gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos."
   },
   {
@@ -196,12 +211,12 @@
     "subtype": "text",
     "question": "¿Cuántos términos tiene $p(x) = 4x^5 - x^3 + 2x - 9$?",
     "options": [
-      "4",
       "5",
+      "4",
       "3",
       "2"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El polinomio tiene 4 términos: $4x^5$, $-x^3$, $2x$ y $-9$.",
     "feedback_incorrect": "Contando los monomios: $4x^5$, $-x^3$, $2x$ y $-9$ son 4 términos.",
@@ -223,11 +238,16 @@
       "Exponencial"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva es un polinomio de grado 3: $f(x) = x^3 - 2x^2 + x - 1$.",
     "feedback_incorrect": "La curva con dos cambios de dirección es $f(x) = x^3 - 2x^2 + x - 1$, un polinomio de grado 3.",
     "graph_fn": "pow(x, 3) - 2*pow(x, 2) + x - 1",
-    "graph_view": [-2, 3, -5, 4],
+    "graph_view": [
+      -2,
+      3,
+      -5,
+      4
+    ],
     "explanation": "Para clasificar una función a partir de su gráfica, se observan sus características globales:\n\n- **Recta**: función lineal o constante.\n- **Parábola** (1 cambio de dirección): cuadrática (grado 2).\n- **Curva en S** (hasta 2 cambios de dirección, extremos opuestos): polinómica de grado 3.\n- **Curva en W o M** (hasta 3 cambios de dirección): polinómica de grado 4.\n\nEsta gráfica presenta dos cambios de dirección y sus extremos van hacia $+\\infty$ (derecha) y $-\\infty$ (izquierda): comportamiento típico de un **polinomio de grado 3** con coeficiente principal positivo."
   },
   {
@@ -238,12 +258,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = x^3 - 2x^2 + x - 1$?",
     "options": [
-      "Polinómica",
       "Cuadrática",
+      "Polinómica",
       "Lineal",
       "Exponencial"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = x^3 - 2x^2 + x - 1$ es un polinomio de grado 3.",
     "feedback_incorrect": "$f(x) = x^3 - 2x^2 + x - 1$ tiene $x^3$ como término de mayor grado: es un polinomio de grado 3.",
@@ -259,12 +279,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = x^4 - 2x^2 + 1$?",
     "options": [
-      "Polinómica (grado 4)",
-      "Cuadrática",
       "Logarítmica",
+      "Cuadrática",
+      "Polinómica (grado 4)",
       "Racional"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^4 - 2x^2 + 1$ tiene exponentes enteros no negativos con grado 4: es polinómica.",
     "feedback_incorrect": "$f(x) = x^4 - 2x^2 + 1$ es un polinomio de grado 4.",
@@ -280,12 +300,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas expresiones es un polinomio?",
     "options": [
-      "$f(x) = -2x^3 + x - 7$",
+      "$f(x) = \\sqrt{x-1}$",
       "$f(x) = \\dfrac{x+1}{x-2}$",
       "$f(x) = e^x$",
-      "$f(x) = \\sqrt{x-1}$"
+      "$f(x) = -2x^3 + x - 7$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $-2x^3 + x - 7$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
     "feedback_incorrect": "$f(x) = -2x^3 + x - 7$ tiene la estructura de un polinomio: sumas de potencias enteras de $x$.",
@@ -307,11 +327,16 @@
       "Racional"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva con 3 cambios de dirección corresponde a un polinomio de grado 4.",
     "feedback_incorrect": "Una curva con hasta 3 extremos locales es típica de un polinomio de grado 4.",
     "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
-    "graph_view": [-3, 3, -2, 8],
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      8
+    ],
     "explanation": "Las pistas visuales para identificar un **polinomio de grado 4** en una gráfica son:\n\n- Hasta **3 cambios de dirección** (extremos locales).\n- **Ambos extremos** de la curva van en la misma dirección ($+\\infty$ o $-\\infty$), a diferencia del grado 3 donde van en sentidos opuestos.\n- La curva es continua y suave, sin asíntotas ni saltos.\n\nEsta gráfica muestra dos mínimos locales y un máximo local (3 cambios de dirección) con ambos extremos apuntando hacia arriba: patrón típico de un **polinomio de grado 4 con coeficiente principal positivo**."
   },
   {
@@ -322,12 +347,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = -2x^3 + x$?",
     "options": [
-      "Polinómica",
       "Cuadrática",
+      "Polinómica",
       "Exponencial",
       "Trigonométrica"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $-2x^3 + x$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
     "feedback_incorrect": "$f(x) = -2x^3 + x$ es un polinomio de grado 3.",
@@ -343,12 +368,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas NO pertenece a la familia polinómica?",
     "options": [
-      "$f(x) = \\dfrac{1}{x^2}$",
-      "$f(x) = x^5 - 3x$",
       "$f(x) = x^2 - x + 1$",
+      "$f(x) = x^5 - 3x$",
+      "$f(x) = \\dfrac{1}{x^2}$",
       "$f(x) = 7$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{1}{x^2} = x^{-2}$ tiene exponente negativo: no es un polinomio.",
     "feedback_incorrect": "$f(x) = \\frac{1}{x^2}$ equivale a $x^{-2}$, que tiene exponente negativo: no es polinomio.",
@@ -364,17 +389,22 @@
     "subtype": "graph",
     "question": "¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
-      "Polinómica (grado 3)",
+      "Exponencial",
       "Cuadrática",
       "Lineal",
-      "Exponencial"
+      "Polinómica (grado 3)"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva antisimétrica con un cambio de dirección es $f(x) = -x^3 + x$, un polinomio de grado 3.",
     "feedback_incorrect": "La curva que baja a la derecha con un cambio de dirección es un polinomio de grado 3.",
     "graph_fn": "-pow(x, 3) + x",
-    "graph_view": [-2, 2, -3, 3],
+    "graph_view": [
+      -2,
+      2,
+      -3,
+      3
+    ],
     "explanation": "Esta gráfica corresponde a $f(x) = -x^3 + x$. Las características que la identifican como un **polinomio de grado 3**:\n\n- La curva tiene **simetría antisimétrica** respecto al origen (función impar: $f(-x) = -f(x)$).\n- Presenta exactamente un **cambio de dirección** visible, con un máximo local y un mínimo local.\n- Los extremos van en **sentidos opuestos**: hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha (coeficiente principal negativo).\n\nEste comportamiento de extremos opuestos es exclusivo de los polinomios de **grado impar**."
   },
   {
@@ -406,12 +436,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas expresiones pertenece a la familia polinómica?",
     "options": [
-      "$f(x) = 3x^4 - x + 2$",
       "$f(x) = 3^x + 2$",
+      "$f(x) = 3x^4 - x + 2$",
       "$f(x) = \\log_3(x)$",
       "$f(x) = \\dfrac{x^2}{x+1}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $3x^4 - x + 2$ tiene exponentes enteros no negativos: es un polinomio.",
     "feedback_incorrect": "$f(x) = 3x^4 - x + 2$ tiene la estructura de un polinomio de grado 4.",
@@ -448,17 +478,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = x^3 - 3x$",
       "$f(x) = x^3 + 3x$",
+      "$f(x) = x^3 - 3x$",
       "$f(x) = -x^3 + 3x$",
       "$f(x) = x^2 - 3$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva tiene raíces en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$, consistente con $f(x) = x^3 - 3x$.",
     "feedback_incorrect": "La curva cruza el eje X en $-\\sqrt{3}$, $0$ y $\\sqrt{3}$ con pendiente positiva en el origen: $f(x) = x^3 - 3x$.",
     "graph_fn": "pow(x, 3) - 3*x",
-    "graph_view": [-3, 3, -5, 5],
+    "graph_view": [
+      -3,
+      3,
+      -5,
+      5
+    ],
     "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1. Raíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$, raíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$. La gráfica confirma tres cruces con el eje $X$.\n\n**2. Comportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos. La opción $x^3 + 3x$ no tiene raíces reales distintas de $0$."
   },
   {
@@ -469,12 +504,12 @@
     "subtype": "text",
     "question": "¿Cuál es el grado de $p(x) = 2x^3 - x^5 + 4$?",
     "options": [
-      "$5$",
-      "$3$",
       "$4$",
+      "$3$",
+      "$5$",
       "$2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El término $-x^5$ tiene la mayor potencia: el grado es $5$.",
     "feedback_incorrect": "Aunque no es el primer término, $-x^5$ tiene el mayor exponente: el grado es $5$.",
@@ -490,12 +525,12 @@
     "subtype": "text",
     "question": "¿Cuál es el coeficiente principal de $p(x) = -2x^3 + 5x - 1$?",
     "options": [
-      "$-2$",
+      "$3$",
       "$5$",
       "$-1$",
-      "$3$"
+      "$-2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! El coeficiente principal es el del término de mayor grado: $-2$ (del término $-2x^3$).",
     "feedback_incorrect": "El coeficiente principal es el del término de mayor grado ($x^3$): es $-2$.",
@@ -521,7 +556,12 @@
     "feedback_correct": "¡Correcto! La curva tiene 4 raíces y sus extremos van hacia $+\\infty$: $f(x) = x^4 - 5x^2 + 4$.",
     "feedback_incorrect": "Con raíces en $\\pm 1$ y $\\pm 2$ y extremos positivos, la fórmula es $f(x) = x^4 - 5x^2 + 4$.",
     "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
-    "graph_view": [-3, 3, -2, 8],
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      8
+    ],
     "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1. Extremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo. Descarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2. Raíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$. La opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$."
   },
   {
@@ -532,18 +572,18 @@
     "subtype": "text",
     "question": "¿Cuál es el valor de $p(0)$ para $p(x) = x^3 - 4x + 3$?",
     "options": [
-      "$3$",
       "$0$",
+      "$3$",
       "$-4$",
       "$1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $p(0) = 0^3 - 4(0) + 3 = 3$. Esto coincide con el término independiente.",
     "feedback_incorrect": "Evaluando en $x = 0$: $p(0) = 0 - 0 + 3 = 3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Evaluar** un polinomio en un punto significa sustituir $x$ por ese valor y calcular.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n$$p(0) = (0)^3 - 4(0) + 3 = 0 - 0 + 3 = 3$$\n\nObservación importante: $p(0)$ siempre es igual al **término independiente** $a_0$, ya que todos los términos con $x$ se anulan. Esto significa que $p(0)$ da la ordenada al origen: el punto donde la curva **cruza el eje $Y$** es $(0, 3)$."
+    "explanation": "Para **evaluar** un polinomio en un punto, se sustituye $ por ese valor. En este caso sustituir $x$ por ese valor y calcular.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n$$p(0) = (0)^3 - 4(0) + 3 = 0 - 0 + 3 = 3$$\n\nObservación importante: $p(0)$ siempre es igual al **término independiente** $a_0$, ya que todos los términos con $x$ se anulan. Esto significa que $p(0)$ da la ordenada al origen: el punto donde la curva **cruza el eje $Y$** es $(0, 3)$."
   },
   {
     "external_id": "white_polynomial_form_07",
@@ -553,12 +593,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas expresiones representa un polinomio de grado 2?",
     "options": [
-      "$f(x) = 3x^2 - 7$",
-      "$f(x) = x^3 + 2$",
       "$f(x) = 4x - 1$",
+      "$f(x) = x^3 + 2$",
+      "$f(x) = 3x^2 - 7$",
       "$f(x) = x^4$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $3x^2 - 7$ tiene grado 2 (máxima potencia de $x$ es 2).",
     "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es de grado 2.",
@@ -574,17 +614,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = -x^3 + x$",
+      "$f(x) = x^3 + x$",
       "$f(x) = x^3 - x$",
       "$f(x) = -x^3 - x$",
-      "$f(x) = x^3 + x$"
+      "$f(x) = -x^3 + x$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva baja hacia $+\\infty$ a la derecha (coef. negativo) y cruza el eje $X$ en $-1$, $0$ y $1$: $f(x) = -x^3 + x$.",
     "feedback_incorrect": "Con coef. principal negativo y raíces en $\\{-1, 0, 1\\}$, la fórmula es $f(x) = -x^3 + x$.",
     "graph_fn": "-pow(x, 3) + x",
-    "graph_view": [-2, 2, -3, 3],
+    "graph_view": [
+      -2,
+      2,
+      -3,
+      3
+    ],
     "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$. En cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$."
   },
   {
@@ -616,12 +661,12 @@
     "subtype": "text",
     "question": "¿Cuál es el valor de $p(1)$ para $p(x) = x^4 - 2x^2 + 1$?",
     "options": [
-      "$0$",
       "$1$",
+      "$0$",
       "$-2$",
       "$4$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $p(1) = 1^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$. ¡Es una raíz!",
     "feedback_incorrect": "Evaluando: $p(1) = 1 - 2 + 1 = 0$. El valor $x = 1$ es una raíz del polinomio.",

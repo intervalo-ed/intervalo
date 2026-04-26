@@ -1,0 +1,212 @@
+[
+  {
+    "external_id": "violet_lhopital_resl_01",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuánto vale el límite $\\lim_{x \\to 0} \\dfrac{\\sin(3x)}{x}$ usando la Regla de L'Hôpital?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$3$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Derivando numerador y denominador obtenés $3\\cos(3x)/1$, que tiende a 3.",
+    "feedback_incorrect": "Al evaluar tenés $0/0$. Derivá el numerador ($3\\cos(3x)$) y el denominador ($1$) para resolverlo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar el límite directamente, obtenés la indeterminación $\\frac{0}{0}$. Aplicando la **Regla de L'Hôpital**, derivamos el numerador y el denominador por separado:\n\n$$( \\sin(3x) )' = 3\\cos(3x) \\quad \\text{y} \\quad ( x )' = 1$$\n\nReescribiendo el límite:\n\n$$\\lim_{x \\to 0} \\frac{3\\cos(3x)}{1} = 3\\cos(0) = 3 \\cdot 1 = 3$$\n\nEste método es mucho más rápido que usar límites notables cuando ya conocés las reglas de derivación."
+  },
+  {
+    "external_id": "violet_lhopital_resl_02",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Calculá $\\lim_{x \\to \\infty} \\dfrac{\\ln(x)}{x}$.",
+    "options": [
+      "$1$",
+      "$0$",
+      "$\\infty$",
+      "$e$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La derivada es $(1/x)/1$, que tiende a 0 cuando $x$ crece.",
+    "feedback_incorrect": "Es una indeterminación $\\infty/\\infty$. Derivá ambos términos: $1/x$ dividido 1 tiende a 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Estamos ante una indeterminación del tipo $\\frac{\\infty}{\\infty}$. La **Regla de L'Hôpital** nos permite derivar arriba y abajo:\n\n$$\\frac{d}{dx}[\\ln(x)] = \\frac{1}{x} \\quad \\text{y} \\quad \\frac{d}{dx}[x] = 1$$\n\nEl nuevo límite es:\n\n$$\\lim_{x \\to \\infty} \\frac{1/x}{1} = \\lim_{x \\to \\infty} \\frac{1}{x} = 0$$\n\nEsto demuestra formalmente que la función lineal $x$ crece mucho más rápido que la función logarítmica $\\ln(x)$."
+  },
+  {
+    "external_id": "violet_lhopital_resl_03",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Si aplicás L'Hôpital a $\\lim_{x \\to 0} \\dfrac{e^x - 1}{x^2 + x}$, ¿qué resultado obtenés?",
+    "options": [
+      "$0$",
+      "$\\infty$",
+      "$1$",
+      "$\\frac{1}{2}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La derivada es $e^x / (2x + 1)$, que en $x=0$ vale $1/1 = 1$.",
+    "feedback_incorrect": "La indeterminación es $0/0$. Derivá: arriba queda $e^x$ y abajo $2x+1$. Evaluando en 0 da 1.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar en $x=0$ surge la forma $\\frac{0}{0}$. Aplicamos la **Regla de L'Hôpital** derivando ambos componentes:\n\n$$(e^x - 1)' = e^x \\quad \\text{y} \\quad (x^2 + x)' = 2x + 1$$\n\nEvaluamos el límite de la nueva fracción:\n\n$$\\lim_{x \\to 0} \\frac{e^x}{2x + 1} = \\frac{e^0}{2(0) + 1} = \\frac{1}{1} = 1$$\n\nFijate que si el denominador hubiera sido solo $x^2$, habríamos necesitado aplicar la regla una segunda vez."
+  },
+  {
+    "external_id": "violet_lhopital_estr_01",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Cuál es la condición necesaria antes de aplicar la Regla de L'Hôpital a un límite $\\lim \\frac{f(x)}{g(x)}$?",
+    "options": [
+      "Que el límite sea una indeterminación de la forma $0/0$ o $\\infty/\\infty$",
+      "Que ambas funciones sean constantes",
+      "Que el denominador sea siempre mayor al numerador",
+      "Que $x$ tienda siempre a cero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! L'Hôpital solo es válido para las formas indeterminadas $0/0$ o $\\infty/\\infty$.",
+    "feedback_incorrect": "No podés usar L'Hôpital en cualquier límite. Solo funciona si tenés indeterminaciones $0/0$ o $\\infty/\\infty$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **Regla de L'Hôpital** es una herramienta potente pero condicionada. Solo podés usarla si al evaluar el límite obtenés una **indeterminación** de tipo cociente:\n\n$$\\frac{0}{0} \\quad \\text{o} \\quad \\frac{\\infty}{\\infty}$$\n\nSi el límite tiene un valor definido (como $5/2$ o $0/1$), aplicar la regla te daría un resultado erróneo. Por eso, el primer paso siempre es evaluar para confirmar que la regla es aplicable."
+  },
+  {
+    "external_id": "violet_lhopital_estr_02",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Tenés el límite $\\lim_{x \\to 0^+} x \\cdot \\ln(x)$. ¿Cómo deberías reescribirlo para aplicar L'Hôpital?",
+    "options": [
+      "No se puede aplicar porque es un producto",
+      "Como $\\dfrac{\\ln(x)}{1/x}$ para tener la forma $\\infty/\\infty$",
+      "Como $\\dfrac{x}{1/\\ln(x)}$ para tener la forma $0/0$",
+      "Derivando directamente el producto $x \\cdot \\ln(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Transformar el producto en cociente $\\ln(x) / (1/x)$ permite usar la regla.",
+    "feedback_incorrect": "L'Hôpital requiere un cociente. Reescribí $x$ como $1/(1/x)$ en el denominador para obtener la forma $\\infty/\\infty$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando tenés una indeterminación de tipo $0 \\cdot \\infty$, no podés aplicar la regla directamente porque no es un cociente. La **estrategia** consiste en reescribir la expresión:\n\n$$x \\cdot \\ln(x) = \\frac{\\ln(x)}{1/x}$$\n\nAhora, cuando $x \\to 0^+$, el numerador tiende a $-\\infty$ y el denominador tiende a $+\\infty$. Al tener la forma $\\frac{\\infty}{\\infty}$, ya podés derivar numerador y denominador para resolver el límite."
+  },
+  {
+    "external_id": "violet_lhopital_apli_01",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Se estudia el crecimiento de una población $P(t) = \\dfrac{500t}{e^{0.1t}}$. ¿A qué valor tiende la población cuando el tiempo $t$ tiende a infinito?",
+    "options": [
+      "$500$",
+      "$\\infty$",
+      "$0$",
+      "$50$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Por L'Hôpital, la derivada del denominador crece más rápido, llevando el límite a 0.",
+    "feedback_incorrect": "Es un límite $\\infty/\\infty$. Al derivar arriba te queda 500 y abajo una exponencial que sigue creciendo; el cociente va a 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para analizar el comportamiento a largo plazo, calculamos $\\lim_{t \\to \\infty} P(t)$. Como tenemos la forma $\\frac{\\infty}{\\infty}$, aplicamos **L'Hôpital**:\n\n$$\\lim_{t \\to \\infty} \\frac{500}{0.1 e^{0.1t}}$$\n\nEn esta nueva expresión, el numerador es constante ($500$) mientras que el denominador sigue tendiendo a infinito. Por lo tanto, el valor de la población tiende a **0**.\n\nFísicamente, esto indica que después de un tiempo la población se extingue porque el factor exponencial de decaimiento domina sobre el crecimiento lineal."
+  },
+  {
+    "external_id": "violet_lhopital_resl_04",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "Calculá $\\lim_{x \\to 0} \\dfrac{1 - \\cos(x)}{x^2}$.",
+    "options": [
+      "$1$",
+      "$0$",
+      "$\\frac{1}{2}$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicando L'Hôpital dos veces obtenés $\\cos(x)/2$, que tiende a $1/2$.",
+    "feedback_incorrect": "Requiere L'Hôpital dos veces. La primera derivada da $\\sin(x)/2x$ (sigue $0/0$), y la segunda $\\cos(x)/2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este límite es un clásico que requiere **L'Hôpital sucesivo**. La primera evaluación da $0/0$. Derivamos:\n\n$$\\lim_{x \\to 0} \\frac{\\sin(x)}{2x}$$\n\nComo sigue dando $0/0$, aplicamos la regla por segunda vez:\n\n$$\\lim_{x \\to 0} \\frac{\\cos(x)}{2} = \\frac{1}{2}$$\n\nEs fundamental verificar que la indeterminación persista antes de aplicar la regla por segunda vez. Si la primera derivada ya no fuera indeterminada, no podrías seguir."
+  },
+  {
+    "external_id": "violet_lhopital_estr_03",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Al aplicar L'Hôpital a $\\frac{f(x)}{g(x)}$, ¿cómo se deben calcular las derivadas?",
+    "options": [
+      "Usando la regla del cociente: $\\frac{f'g - fg'}{g^2}$",
+      "Derivando $f(x)$ y $g(x)$ de forma independiente",
+      "Derivando solo el denominador",
+      "Multiplicando por el conjugado"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El error más común es intentar usar la regla del cociente; L'Hôpital usa derivadas independientes.",
+    "feedback_incorrect": "¡Cuidado! No es la derivada de la función cociente. Debés derivar el de arriba por un lado y el de abajo por el otro.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El error procedimental más frecuente es confundir la **Regla de L'Hôpital** con la regla de la derivada de un cociente. \n\nPara el límite de una fracción, L'Hôpital dice que:\n\n$$\\lim \\frac{f(x)}{g(x)} = \\lim \\frac{f'(x)}{g'(x)}$$\n\nEs decir, derivás el numerador solo y el denominador solo. **Nunca** uses la regla de $\\frac{u'v - uv'}{v^2}$ dentro de L'Hôpital, ya que eso es para calcular la derivada de la función, no para resolver la indeterminación del límite."
+  },
+  {
+    "external_id": "violet_lhopital_apli_02",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Una empresa determina que su costo medio es $C(x) = \\dfrac{20x + 100\\ln(x)}{x}$. ¿Cuál es el costo marginal a largo plazo (cuando $x \\to \\infty$)?",
+    "options": [
+      "$20$",
+      "$0$",
+      "$\\infty$",
+      "$100$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El término con $\\ln(x)/x$ tiende a 0, dejando solo el 20.",
+    "feedback_incorrect": "Separá la fracción en $20 + 100\\ln(x)/x$. El límite de $\\ln(x)/x$ por L'Hôpital es 0, así que queda 20.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar el comportamiento del costo cuando la producción $x$ crece indefinidamente, calculamos el límite:\n\n$$\\lim_{x \\to \\infty} \\left( 20 + \\frac{100\\ln(x)}{x} \\right)$$\n\nAnalizamos el segundo término mediante **L'Hôpital** por ser $\\infty/\\infty$:\n\n$$\\lim_{x \\to \\infty} \\frac{100/x}{1} = 0$$\n\nSumando los resultados, el costo tiende a **20**. Esto significa que para niveles de producción muy altos, el costo fijo representado por el logaritmo se diluye y el costo se estabiliza en la componente lineal."
+  },
+  {
+    "external_id": "violet_lhopital_resl_05",
+    "belt": "violet",
+    "topic": "lhopital",
+    "skill": "RESL",
+    "subtype": "text",
+    "question": "¿Cuál es el valor de $\\lim_{x \\to 0} \\dfrac{x - \\sin(x)}{x^3}$?",
+    "options": [
+      "$\\frac{1}{6}$",
+      "$0$",
+      "$\\frac{1}{3}$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Requiere tres aplicaciones de L'Hôpital para llegar a $\\cos(x)/6$.",
+    "feedback_incorrect": "Derivá sucesivamente. Primera: $(1-\\cos x)/3x^2$. Segunda: $\\sin x / 6x$. Tercera: $\\cos x / 6$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este ejercicio requiere aplicar la **Regla de L'Hôpital** tres veces consecutivas porque la indeterminación $0/0$ persiste:\n\n1) $\\lim_{x \\to 0} \\frac{1 - \\cos(x)}{3x^2}$ (Sigue $0/0$)\n2) $\\lim_{x \\to 0} \\frac{\\sin(x)}{6x}$ (Sigue $0/0$)\n3) $\\lim_{x \\to 0} \\frac{\\cos(x)}{6} = \\frac{1}{6}$\n\nEste resultado es la base para entender por qué, en aproximaciones de Taylor, $\\sin(x) \\approx x - \\frac{x^3}{6}$ cerca de cero."
+  }
+]

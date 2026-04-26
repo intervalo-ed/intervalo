@@ -1,0 +1,212 @@
+[
+  {
+    "external_id": "brown_substitution_intg_01",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el resultado de la integral $\\int 2x \\cdot e^{x^2} \\, dx$?",
+    "options": [
+      "$e^{x^2} + C$",
+      "$2e^{x^2} + C$",
+      "$\\frac{1}{2} e^{x^2} + C$",
+      "$x^2 e^{x^2} + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al elegir $u = x^2$, la derivada $2x$ está servida para el diferencial.",
+    "feedback_incorrect": "Probá haciendo el cambio de variable $u = x^2$. Notá que su derivada $2x$ ya está multiplicando en el integrando.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver esta integral usamos el método de **sustitución**. Observamos que la derivada del exponente ($x^2$) es casi exactamente lo que acompaña a la exponencial.\n\nElegimos $u = x^2$, por lo tanto, derivando ambos miembros tenemos $du = 2x \\, dx$. Sustituyendo en la integral original:\n\n$$\\int e^u \\, du = e^u + C$$\n\nFinalmente, volvemos a la variable original reemplazando $u$ por $x^2$, lo que nos da $e^{x^2} + C$. Siempre recordá sumar la constante de integración en las indefinidas."
+  },
+  {
+    "external_id": "brown_substitution_estr_01",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Si querés resolver $\\int \\frac{\\ln(x)}{x} \\, dx$, ¿cuál es la sustitución $u$ más conveniente?",
+    "options": [
+      "$u = x$",
+      "$u = \\frac{1}{x}$",
+      "$u = \\ln(x)$",
+      "$u = x \\cdot \\ln(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como la derivada de $\\ln(x)$ es $1/x$, el diferencial $du$ queda perfecto.",
+    "feedback_incorrect": "Buscá una parte de la función cuya derivada también esté presente en la integral (quizás 'escondida' en el denominador).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el método de **sustitución**, la clave es elegir una parte de la expresión como $u$ tal que su derivada $du$ aparezca multiplicando en el resto de la integral.\n\nSi elegimos $u = \\ln(x)$, calculamos su diferencial:\n\n$$du = \\frac{1}{x} \\, dx$$\n\nLa integral original se puede ver como $\\int \\ln(x) \\cdot \\frac{1}{x} \\, dx$. Al sustituir, se convierte en la integral simple $\\int u \\, du$. Si hubieras elegido $u=x$, la expresión no se simplificaría en absoluto."
+  },
+  {
+    "external_id": "brown_substitution_intg_02",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá la integral indefinida $\\int \\sin(5x - 2) \\, dx$.",
+    "options": [
+      "$5 \\cos(5x - 2) + C$",
+      "$- \\frac{1}{5} \\cos(5x - 2) + C$",
+      "$\\frac{1}{5} \\cos(5x - 2) + C$",
+      "$-\\cos(5x - 2) + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! No te olvidaste del signo negativo de la integral del seno ni del factor $1/5$.",
+    "feedback_incorrect": "Ojo con el signo: la integral del seno es el coseno negativo. También recordá compensar la constante de la derivada interna.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Estamos ante una sustitución lineal simple. Definimos $u = 5x - 2$. Al derivar, obtenemos $du = 5 \\, dx$, o lo que es lo mismo, $dx = \\frac{1}{5} \\, du$.\n\nReemplazamos en la integral:\n\n$$\\int \\sin(u) \\cdot \\frac{1}{5} \\, du = \\frac{1}{5} \\int \\sin(u) \\, du$$\n\nComo la integral de $\\sin(u)$ es $-\\cos(u)$, obtenemos $-\\frac{1}{5} \\cos(u) + C$. Finalmente, deshacemos el cambio para volver a la variable $x$."
+  },
+  {
+    "external_id": "brown_substitution_apli_01",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Al aplicar el cambio de variable $u = x^2 + 1$ para resolver la integral definida $\\int_{0}^{2} x(x^2 + 1)^3 \\, dx$, ¿cuáles son los nuevos límites de integración para la variable $u$?",
+    "options": [
+      "De $0$ a $2$",
+      "De $1$ a $5$",
+      "De $1$ a $4$",
+      "De $0$ a $5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Evaluaste $u(0) = 0^2 + 1 = 1$ y $u(2) = 2^2 + 1 = 5$.",
+    "feedback_incorrect": "Cuando cambiás de variable en una integral definida, tenés que evaluar el límite inferior y superior en la función $u(x)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando trabajás con **integrales definidas** y aplicás una sustitución $u = g(x)$, es fundamental actualizar los límites de integración para no tener que volver a la variable original al final.\n\nSi el límite inferior original es $x = 0$, el nuevo límite es:\n$$u(0) = 0^2 + 1 = 1$$\n\nSi el límite superior original es $x = 2$, el nuevo límite es:\n$$u(2) = 2^2 + 1 = 5$$\n\nLa nueva integral será $\\int_{1}^{5} \\frac{1}{2} u^3 \\, du$. Esto facilita el cálculo directo usando el Teorema Fundamental del Cálculo sin pasos extra de 'deshacer' la sustitución."
+  },
+  {
+    "external_id": "brown_substitution_estr_02",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "Para la integral $\\int x^2 \\sqrt{x^3 + 1} \\, dx$, ¿qué expresión representa correctamente a $du$ si elegimos $u = x^3 + 1$?",
+    "options": [
+      "$du = x^2 \\, dx$",
+      "$du = 3x^2 \\, dx$",
+      "$du = \\frac{1}{3} x^2 \\, dx$",
+      "$du = 3x^3 \\, dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La derivada de $x^3+1$ es $3x^2$, por lo que $du = 3x^2 \\, dx$.",
+    "feedback_incorrect": "Derivá $u = x^3 + 1$ respecto a $x$ usando la regla de la potencia. No te olvides del símbolo $dx$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El paso crítico en la sustitución es calcular el **diferencial** $du$. Si definimos una función $u = g(x)$, entonces el diferencial se calcula como $du = g'(x) \\, dx$.\n\nPara $g(x) = x^3 + 1$, su derivada es $g'(x) = 3x^2$. Por lo tanto:\n\n$$du = 3x^2 \\, dx$$\n\nEn la integral original tenés $x^2 \\, dx$. Como te falta el $3$, vos podés escribir $x^2 \\, dx = \\frac{1}{3} du$ para completar la sustitución. Esto te permite transformar una raíz con un polinomio adentro en una simple raíz de $u$."
+  },
+  {
+    "external_id": "brown_substitution_intg_03",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Resolvé $\\int \\frac{1}{3x + 4} \\, dx$.",
+    "options": [
+      "$\\ln|3x + 4| + C$",
+      "$3 \\ln|3x + 4| + C$",
+      "$\\frac{1}{3} \\ln|3x + 4| + C$",
+      "$\\frac{1}{(3x + 4)^2} + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al derivar el logaritmo aparecería un $3$ por regla de la cadena, así que el $1/3$ es necesario para compensar.",
+    "feedback_incorrect": "Esta integral tiene forma de logaritmo natural. Usá $u = 3x+4$ y fijate qué pasa con el diferencial.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es una integral que da como resultado un **logaritmo natural**. Hacemos el cambio de variable $u = 3x + 4$. Entonces $du = 3 \\, dx$, lo que implica que $dx = \\frac{1}{3} du$.\n\nSustituyendo en la integral:\n\n$$\\int \\frac{1}{u} \\cdot \\frac{1}{3} \\, du = \\frac{1}{3} \\int \\frac{1}{u} \\, du = \\frac{1}{3} \\ln|u| + C$$\n\nReemplazando $u$ volvemos a la expresión original: $\\frac{1}{3} \\ln|3x + 4| + C$. Recordá siempre usar barras de valor absoluto dentro del logaritmo porque el dominio de la función original puede incluir valores donde el argumento es negativo."
+  },
+  {
+    "external_id": "brown_substitution_apli_02",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Calculá el valor exacto de $\\int_{0}^{1} e^{2x} \\, dx$.",
+    "options": [
+      "$e^2 - 1$",
+      "$\\frac{e^2 - 1}{2}$",
+      "$\\frac{e^2}{2}$",
+      "$2(e^2 - 1)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La primitiva es $\\frac{1}{2} e^{2x}$. Evaluada en $1$ y $0$ da exactamente eso.",
+    "feedback_incorrect": "La primitiva de $e^{ax}$ es $\\frac{1}{a} e^{ax}$. No te olvides de restar el valor de la función en el límite inferior ($x=0$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver esta integral definida, primero buscamos la primitiva de $f(x) = e^{2x}$. Usando sustitución con $u = 2x$, vemos que la primitiva es $F(x) = \\frac{1}{2} e^{2x}$.\n\nAplicamos la **Regla de Barrow**:\n\n$$\\int_{0}^{1} e^{2x} \\, dx = \\left[ \\frac{1}{2} e^{2x} \\right]_{0}^{1} = \\frac{1}{2} e^{2(1)} - \\frac{1}{2} e^{2(0)}$$\n\nComo $e^0 = 1$, el resultado es:\n\n$$\\frac{e^2}{2} - \\frac{1}{2} = \\frac{e^2 - 1}{2}$$\n\nEste valor representa el área bajo la curva de la función exponencial entre $x=0$ y $x=1$."
+  },
+  {
+    "external_id": "brown_substitution_intg_04",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Hallá la primitiva de $f(x) = x \\cos(x^2)$.",
+    "options": [
+      "$\\frac{1}{2} \\sin(x^2) + C$",
+      "$\\sin(x^2) + C$",
+      "$- \\frac{1}{2} \\sin(x^2) + C$",
+      "$\\frac{x^2}{2} \\sin(x^2) + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al derivar $\\frac{1}{2}\\sin(x^2)$, el $2x$ de la cadena se cancela con el $1/2$.",
+    "feedback_incorrect": "Probá la sustitución $u = x^2$. La derivada del argumento está afuera (salvo por una constante).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos que la función interna es $x^2$ y su derivada es $2x$. Como en el integrando tenemos solo $x$, la sustitución $u = x^2$ funcionará perfecto.\n\nSi $u = x^2$, entonces $du = 2x \\, dx$, por lo que $x \\, dx = \\frac{1}{2} du$. Reemplazamos:\n\n$$\\int \\cos(u) \\cdot \\frac{1}{2} \\, du = \\frac{1}{2} \\sin(u) + C$$\n\nVolviendo a $x$:\n\n$$F(x) = \\frac{1}{2} \\sin(x^2) + C$$\n\nEste es un ejemplo clásico de cómo la sustitución deshace una **regla de la cadena** que ocurrió durante una derivación previa."
+  },
+  {
+    "external_id": "brown_substitution_estr_03",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "ESTR",
+    "subtype": "text",
+    "question": "¿Por qué el método de sustitución también es conocido como 'regla de la cadena a la inversa'?",
+    "options": [
+      "Porque se usa para derivar funciones compuestas",
+      "Porque busca cancelar la derivada de la función interna que surgió al derivar",
+      "Porque solo sirve para funciones polinómicas encadenadas",
+      "Porque permite sumar constantes a las funciones"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La sustitución detecta esa 'derivada interna' y la integra junto con la función principal.",
+    "feedback_incorrect": "Pensá en qué sucede cuando derivás $f(g(x))$. Aparece un $g'(x)$ multiplicando. La sustitución busca ese término.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El método de **sustitución** es la contrapartida de la **regla de la cadena**. Cuando derivás una composición $f(g(x))$, el resultado es $f'(g(x)) \\cdot g'(x)$.\n\nAl integrar, si vos encontrás una estructura donde hay una función compuesta multiplicada por la derivada de su interior, la sustitución te permite 'colapsar' esa expresión de nuevo a su forma original.\n\n$$ \\int f'(g(x)) g'(x) \\, dx = f(g(x)) + C $$\n\nEn la práctica, $u$ toma el lugar de $g(x)$ y $du$ absorbe a $g'(x) \\, dx$, simplificando la operación al núcleo de la función externa."
+  },
+  {
+    "external_id": "brown_substitution_apli_03",
+    "belt": "brown",
+    "topic": "substitution",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Calculá el área bajo la curva de $f(x) = \\frac{x}{x^2 + 1}$ desde $x=0$ hasta $x=1$.",
+    "options": [
+      "$\\ln(2)$",
+      "$\\frac{1}{2} \\ln(2)$",
+      "$2 \\ln(2)$",
+      "$\\frac{1}{2}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La integral da $\\frac{1}{2}(\\ln(2) - \\ln(1))$, y como $\\ln(1)=0$, queda $\\frac{1}{2}\\ln(2)$.",
+    "feedback_incorrect": "Planteá la integral definida. Usá la sustitución $u = x^2+1$ y no olvides cambiar los límites o volver a $x$ antes de evaluar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el **área** calculamos la integral definida $\\int_{0}^{1} \\frac{x}{x^2 + 1} \\, dx$. \n\nUsamos $u = x^2 + 1$, de donde $du = 2x \\, dx$, o sea $x \\, dx = \\frac{1}{2} du$. Los nuevos límites son $u(0)=1$ y $u(1)=2$. La integral queda:\n\n$$\\int_{1}^{2} \\frac{1}{2u} \\, du = \\left[ \\frac{1}{2} \\ln|u| \\right]_{1}^{2}$$\n\nEvaluando:\n\n$$\\frac{1}{2} \\ln(2) - \\frac{1}{2} \\ln(1) = \\frac{1}{2} \\ln(2) - 0 = \\frac{1}{2} \\ln(2)$$\n\nComo la función es siempre positiva en ese intervalo, este valor representa el área geométrica buscada."
+  }
+]

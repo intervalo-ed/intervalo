@@ -28,12 +28,12 @@
     "subtype": "text",
     "question": "¿Cómo se llama la expresión $\\frac{f(a+h)-f(a)}{h}$?",
     "options": [
-      "Cociente incremental",
       "Derivada en un punto",
+      "Cociente incremental",
       "Diferencial de $f$",
       "Límite lateral"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El cociente incremental representa la tasa de cambio promedio de $f$ en el intervalo $[a, a+h]$.",
     "feedback_incorrect": "La expresión $\\frac{f(a+h)-f(a)}{h}$ se llama **cociente incremental**: es la pendiente de la secante antes de tomar el límite.",
@@ -49,12 +49,12 @@
     "subtype": "text",
     "question": "En la definición $\\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$, ¿qué variable tiende a $0$?",
     "options": [
-      "$h$",
-      "$x$",
       "$a$",
+      "$x$",
+      "$h$",
       "$f(a)$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $h$ es el incremento en $x$; es quien achicamos hasta cero para obtener la tasa instantánea.",
     "feedback_incorrect": "En la definición, $h$ es el incremento que tiende a $0$. El punto $a$ es fijo; $x$ no aparece en esta forma de la definición.",
@@ -70,12 +70,12 @@
     "subtype": "text",
     "question": "¿Cuál de las siguientes es la notación de Leibniz para la derivada de $f$ respecto de $x$?",
     "options": [
-      "$\\dfrac{df}{dx}$",
+      "$Df$",
       "$\\Delta f / \\Delta x$",
       "$f'$",
-      "$Df$"
+      "$\\dfrac{df}{dx}$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La notación $\\dfrac{df}{dx}$ es la notación de Leibniz; enfatiza que la derivada es una razón de cambios infinitesimales.",
     "feedback_incorrect": "La notación de Leibniz para la derivada es $\\dfrac{df}{dx}$. Las otras opciones son notaciones válidas de derivada (Lagrange, Euler) o el cociente incremental finito.",
@@ -112,12 +112,12 @@
     "subtype": "text",
     "question": "¿Qué diferencia hay entre $f(a)$ y $f'(a)$?",
     "options": [
-      "$f(a)$ es el valor de la función en $a$; $f'(a)$ es su tasa de cambio instantánea",
       "$f(a)$ es la derivada; $f'(a)$ es el valor de la función",
+      "$f(a)$ es el valor de la función en $a$; $f'(a)$ es su tasa de cambio instantánea",
       "Son iguales si $f$ es continua en $a$",
       "$f'(a)$ es siempre mayor que $f(a)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(a)$ y $f'(a)$ son objetos distintos: valor de la función vs. pendiente de la tangente.",
     "feedback_incorrect": "$f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto. Son conceptos completamente distintos.",
@@ -133,12 +133,12 @@
     "subtype": "text",
     "question": "¿Cuál de las siguientes es la definición correcta de $f'(x)$?",
     "options": [
-      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{h}$",
-      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{x}$",
       "$\\lim_{x\\to0}\\dfrac{f(x+h)-f(x)}{h}$",
+      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{x}$",
+      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{h}$",
       "$\\dfrac{f(x+h)-f(x)}{h}$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El límite cuando $h \\to 0$ del cociente $\\frac{f(x+h)-f(x)}{h}$ define la derivada.",
     "feedback_incorrect": "La definición correcta divide la variación de $f$ por $h$ (no por $x$) y toma el límite cuando $h \\to 0$ (no $x \\to 0$). Sin el límite, es solo el cociente incremental.",
@@ -154,12 +154,12 @@
     "subtype": "text",
     "question": "La derivada $f'(a)$ mide la ___ de $f$ en el punto $x=a$.",
     "options": [
-      "Tasa de cambio instantánea",
+      "Área acumulada hasta $x=a$",
       "Tasa de cambio promedio en $[0, a]$",
       "Valor máximo de $f$",
-      "Área acumulada hasta $x=a$"
+      "Tasa de cambio instantánea"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada captura la tasa de cambio en un instante, no en un intervalo.",
     "feedback_incorrect": "La derivada $f'(a)$ mide la **tasa de cambio instantánea** en $x=a$: cómo cambia $f$ en ese punto exacto, no en un intervalo.",
@@ -196,12 +196,12 @@
     "subtype": "text",
     "question": "$f'(a)$ es el límite del cociente incremental cuando ___.",
     "options": [
-      "$h \\to 0$ (el incremento tiende a cero)",
       "$x \\to 0$",
+      "$h \\to 0$ (el incremento tiende a cero)",
       "$a \\to 0$",
       "$f(a) \\to 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El incremento $h$ es quien tiende a cero en la definición de la derivada.",
     "feedback_incorrect": "En la definición $f'(a) = \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$, es $h$ quien tiende a $0$. El punto $a$ es fijo.",
@@ -238,12 +238,12 @@
     "subtype": "text",
     "question": "Usando la definición de derivada, calculá $f'(x)$ para $f(x) = x^2$.",
     "options": [
-      "$2x$",
       "$x^2$",
+      "$2x$",
       "$2$",
       "$x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Expandir $(x+h)^2$, cancelar $x^2$ y dividir por $h$ da $2x+h$; al límite resulta $2x$.",
     "feedback_incorrect": "Expandiendo: $\\frac{(x+h)^2-x^2}{h} = \\frac{2xh+h^2}{h} = 2x+h \\xrightarrow{h\\to0} 2x$.",
@@ -259,12 +259,12 @@
     "subtype": "text",
     "question": "Primer paso de la definición: calculá $f(x+h)$ para $f(x) = x^2 + 1$.",
     "options": [
-      "$x^2 + 2xh + h^2 + 1$",
-      "$x^2 + h^2 + 1$",
       "$x^2 + h + 1$",
+      "$x^2 + h^2 + 1$",
+      "$x^2 + 2xh + h^2 + 1$",
       "$(x+h)^2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $(x+h)^2 = x^2+2xh+h^2$, más el $+1$ de la función.",
     "feedback_incorrect": "Reemplazamos $x$ por $(x+h)$: $f(x+h) = (x+h)^2+1 = x^2+2xh+h^2+1$. No olvidar el término cruzado $2xh$.",
@@ -280,12 +280,12 @@
     "subtype": "text",
     "question": "Simplificá el cociente incremental: $\\dfrac{(x+h)^2 - x^2}{h}$.",
     "options": [
-      "$2x + h$",
+      "$2xh$",
       "$2x$",
       "$h + 2x^2$",
-      "$2xh$"
+      "$2x + h$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Expandir, cancelar $x^2$ y factorizar $h$ en el numerador da $2x+h$.",
     "feedback_incorrect": "Expandiendo: $\\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$.",
@@ -322,12 +322,12 @@
     "subtype": "text",
     "question": "Calculá $f'(2)$ para $f(x) = x^2$ usando la definición.",
     "options": [
-      "$4$",
       "$2$",
+      "$4$",
       "$8$",
       "$1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x$, entonces $f'(2)=4$. La tangente a $x^2$ en $x=2$ tiene pendiente $4$.",
     "feedback_incorrect": "Usando $f'(x)=2x$ (o la definición directa con $a=2$): $f'(2)=2\\cdot2=4$.",
@@ -343,12 +343,12 @@
     "subtype": "text",
     "question": "Sea $f(x) = 5$ (función constante). Calculá $f'(x)$ usando la definición.",
     "options": [
-      "$0$",
-      "$5$",
       "$1$",
+      "$5$",
+      "$0$",
       "No existe"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El numerador $f(x+h)-f(x)=5-5=0$ siempre, así que el límite es $0$.",
     "feedback_incorrect": "Para $f(x)=5$: $\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = 0$. El límite cuando $h\\to0$ es $0$.",
@@ -364,12 +364,12 @@
     "subtype": "text",
     "question": "¿En qué paso del proceso de la definición se puede cancelar $h$ del denominador?",
     "options": [
-      "Al factorizar $h$ en el numerador, antes de tomar el límite",
+      "Solo si $h > 0$",
       "Después de tomar el límite cuando $h\\to0$",
       "Al principio, antes de expandir $f(x+h)$",
-      "Solo si $h > 0$"
+      "Al factorizar $h$ en el numerador, antes de tomar el límite"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Primero se factoriza $h$ en el numerador, luego se cancela con el denominador, y recién entonces se toma el límite.",
     "feedback_incorrect": "La cancelación de $h$ ocurre durante la simplificación algebraica: factorizar $h$ en el numerador y luego cancelar, antes de aplicar $h\\to0$.",
@@ -406,12 +406,12 @@
     "subtype": "text",
     "question": "Calculá $f'(0)$ para $f(x) = x^2 - 3x$ usando la definición.",
     "options": [
-      "$-3$",
       "$0$",
+      "$-3$",
       "$3$",
       "$-6$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x-3$, entonces $f'(0)=2(0)-3=-3$.",
     "feedback_incorrect": "La definición con $a=0$: $\\frac{h^2-3h}{h} = h-3 \\xrightarrow{h\\to0} -3$. O bien: $f'(x)=2x-3$, evaluado en $x=0$ da $-3$.",
@@ -448,12 +448,12 @@
     "subtype": "text",
     "question": "Si $f'(a)$ existe, entonces $f$ es ___ en $x=a$.",
     "options": [
-      "Continua",
       "Diferenciable en todo $\\mathbb{R}$",
+      "Continua",
       "Constante cerca de $a$",
       "Igual a $f'(a)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Diferenciabilidad implica continuidad: si $f'(a)$ existe, $f$ es continua en $x=a$.",
     "feedback_incorrect": "Si $f'(a)$ existe, entonces $f$ es **continua** en $x=a$. La diferenciabilidad implica continuidad (pero no al revés).",
@@ -469,12 +469,12 @@
     "subtype": "text",
     "question": "Si $f$ es continua en $x=a$, ¿es necesariamente diferenciable allí?",
     "options": [
-      "No: $f(x)=|x|$ es continua pero no diferenciable en $x=0$",
-      "Sí, siempre",
       "Solo si $f'(a) > 0$",
+      "Sí, siempre",
+      "No: $f(x)=|x|$ es continua pero no diferenciable en $x=0$",
       "Solo si $f(a) = 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La continuidad no garantiza diferenciabilidad: $|x|$ es el contraejemplo clásico.",
     "feedback_incorrect": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en $x=0$ pero no diferenciable: tiene una esquina.",
@@ -490,12 +490,12 @@
     "subtype": "text",
     "question": "Una función con una esquina (vértice abrupto) en $x=a$ es ___ en ese punto.",
     "options": [
-      "No diferenciable: las derivadas laterales son distintas",
+      "Discontinua en $x=a$",
       "Diferenciable con $f'(a)=0$",
       "Continua y diferenciable",
-      "Discontinua en $x=a$"
+      "No diferenciable: las derivadas laterales son distintas"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Una esquina significa que las tangentes desde la izquierda y la derecha tienen distinta pendiente: $f'(a)$ no existe.",
     "feedback_incorrect": "Una esquina en $x=a$ implica que las derivadas laterales difieren, por lo que $f'(a)$ no existe: la función **no es diferenciable** allí. Puede ser continua igual.",
@@ -532,12 +532,12 @@
     "subtype": "text",
     "question": "¿Es $f(x) = x^3$ diferenciable en $x=0$?",
     "options": [
-      "Sí: $f'(0) = 0$ (tangente horizontal)",
       "No: tiene una esquina en $x=0$",
+      "Sí: $f'(0) = 0$ (tangente horizontal)",
       "No: el cociente incremental no existe en $x=0$",
       "Sí: $f'(0) = 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x)=x^3$ es suave en el origen: $\\frac{h^3}{h}=h^2\\to0$, por lo que $f'(0)=0$.",
     "feedback_incorrect": "$f(x)=x^3$ es diferenciable en todo $\\mathbb{R}$. En $x=0$: $\\frac{(0+h)^3-0}{h}=h^2\\to0$, luego $f'(0)=0$. No hay esquina: la curva pasa suavemente por el origen.",
@@ -553,12 +553,12 @@
     "subtype": "text",
     "question": "Una función con una discontinuidad de salto en $x=1$, ¿es diferenciable en $x=1$?",
     "options": [
-      "No: la diferenciabilidad requiere continuidad, que no se cumple",
-      "Sí, si el salto es pequeño",
       "Solo si el valor $f(1)$ está definido",
+      "Sí, si el salto es pequeño",
+      "No: la diferenciabilidad requiere continuidad, que no se cumple",
       "Depende de la pendiente a cada lado del salto"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Toda discontinuidad implica no-diferenciabilidad: diferenciable implica continua.",
     "feedback_incorrect": "La diferenciabilidad requiere continuidad como condición previa. Un salto es una discontinuidad, y donde $f$ no es continua tampoco puede ser diferenciable.",
@@ -574,12 +574,12 @@
     "subtype": "text",
     "question": "Si $f'(a) = 0$, ¿qué indica geométricamente?",
     "options": [
-      "La recta tangente en $x=a$ es horizontal",
+      "La función es creciente en $x=a$",
       "$f(a) = 0$: la curva cruza el eje $x$",
       "$f$ tiene una discontinuidad en $x=a$",
-      "La función es creciente en $x=a$"
+      "La recta tangente en $x=a$ es horizontal"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La derivada es la pendiente de la tangente; si $f'(a)=0$, la tangente es horizontal.",
     "feedback_incorrect": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**. No implica que $f(a)=0$.",
@@ -616,12 +616,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas condiciones garantiza que $f$ es diferenciable en $x=a$?",
     "options": [
-      "El límite $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ existe y es un número real finito",
       "$f(a)$ está definido y $f$ es continua en $a$",
+      "El límite $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ existe y es un número real finito",
       "$f'(x)>0$ para todo $x$ cercano a $a$",
       "La gráfica de $f$ es una recta cerca de $a$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Esa es exactamente la definición de diferenciabilidad: el límite del cociente incremental existe como número real.",
     "feedback_incorrect": "La definición de diferenciabilidad es que $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ exista como número real finito. Continuidad (opción B) es necesaria pero no suficiente.",
@@ -647,7 +647,12 @@
     "feedback_correct": "¡Correcto! En el vértice $x=0$ la tangente es horizontal: $f'(0)=2\\cdot0=0$.",
     "feedback_incorrect": "La tangente es horizontal donde $f'(x)=0$. Para $f(x)=x^2-4$, $f'(x)=2x=0$ en $x=0$ (el vértice de la parábola).",
     "graph_fn": "x**2 - 4",
-    "graph_view": {"xMin": -4, "xMax": 4, "yMin": -5, "yMax": 5},
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -5,
+      "yMax": 5
+    },
     "explanation": "La **tangente horizontal** ocurre donde $f'(x)=0$. Para $f(x)=x^2-4$, derivamos: $f'(x)=2x$, que se anula en $x=0$.\n\n$$f'(x) = 2x = 0 \\implies x = 0$$\n\nGeométricamente, $x=0$ es el vértice de la parábola: el punto más bajo. En ese punto la curva «cambia de bajada a subida» y la tangente es exactamente horizontal."
   },
   {
@@ -658,17 +663,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = x^2 - 2x$. ¿En cuál de estos intervalos es $f'(x) > 0$?",
     "options": [
-      "$x > 1$",
       "$x < 0$",
+      "$x > 1$",
       "$x < 1$",
       "$x > 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=2x-2>0$ cuando $x>1$: la curva sube a la derecha del vértice.",
     "feedback_incorrect": "$f'(x)=2x-2$. Para que sea positivo: $2x-2>0 \\Rightarrow x>1$. El vértice está en $x=1$; a la derecha la función crece.",
     "graph_fn": "x**2 - 2*x",
-    "graph_view": {"xMin": -2, "xMax": 4, "yMin": -2, "yMax": 4},
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 4,
+      "yMin": -2,
+      "yMax": 4
+    },
     "explanation": "La derivada $f'(x)=2x-2$ es positiva cuando $2x-2>0$, es decir, cuando $x>1$.\n\n$$f'(x) = 2x-2 > 0 \\iff x > 1$$\n\nGeométricamente: la curva **sube** (de izquierda a derecha) en $x>1$. El vértice de la parábola está en $x=1$ (donde $f'(1)=0$); a la derecha la función crece, a la izquierda decrece."
   },
   {
@@ -679,17 +689,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = |x-2|$. ¿Es $f$ diferenciable en $x=2$?",
     "options": [
-      "No: hay una esquina en $x=2$ y los límites laterales del cociente son distintos",
-      "Sí: $f(2)=0$ y la función es continua allí",
       "Sí: $f'(2)=0$ porque la esquina es el mínimo",
+      "Sí: $f(2)=0$ y la función es continua allí",
+      "No: hay una esquina en $x=2$ y los límites laterales del cociente son distintos",
       "No: $f(2)$ no está definido"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La esquina en $x=2$ impide la diferenciabilidad: los cocientes laterales dan $-1$ y $+1$.",
     "feedback_incorrect": "La gráfica muestra una esquina en $x=2$: la tangente desde la izquierda tiene pendiente $-1$ y desde la derecha $+1$. Como difieren, $f'(2)$ no existe.",
     "graph_fn": "Piecewise((-(x-2), x < 2), (x-2, x >= 2))",
-    "graph_view": {"xMin": -1, "xMax": 5, "yMin": -1, "yMax": 4},
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -1,
+      "yMax": 4
+    },
     "explanation": "La gráfica muestra una **esquina** en $x=2$. Las derivadas laterales son:\n\n$$\\lim_{h\\to0^-}\\frac{f(2+h)-0}{h} = -1 \\quad \\neq \\quad \\lim_{h\\to0^+}\\frac{f(2+h)-0}{h} = +1$$\n\nComo difieren, $f'(2)$ no existe: la función **no es diferenciable** en $x=2$. Sin embargo sí es continua: la curva pasa por $(2,0)$ sin saltos."
   },
   {
@@ -700,17 +715,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = x^2$. Calculá la pendiente de la recta secante que pasa por los puntos $(1, f(1))$ y $(3, f(3))$.",
     "options": [
-      "$4$",
+      "$9$",
       "$2$",
       "$6$",
-      "$9$"
+      "$4$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$.",
     "feedback_incorrect": "$f(1)=1$ y $f(3)=9$. La pendiente de la secante es $\\frac{9-1}{3-1} = \\frac{8}{2} = 4$.",
     "graph_fn": "x**2",
-    "graph_view": {"xMin": -3, "xMax": 4, "yMin": -1, "yMax": 9},
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 9
+    },
     "explanation": "La **pendiente de la secante** entre dos puntos de la curva es el cociente incremental finito:\n\n$$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = \\frac{8}{2} = 4$$\n\nEste valor es la tasa de cambio *promedio* de $f$ en $[1,3]$. Si achicáramos el intervalo hasta $h\\to0$, convergeríamos a la tasa instantánea $f'(1)=2$ o $f'(3)=6$, según el extremo elegido."
   },
   {
@@ -731,7 +751,12 @@
     "feedback_correct": "¡Correcto! $x^2-1=0 \\Rightarrow x=\\pm1$: en esos puntos $f$ puede tener un extremo local.",
     "feedback_incorrect": "Los ceros de $f'$ son donde la gráfica cruza el eje $x$: $x^2-1=0 \\Rightarrow x=\\pm1$. En $x=-1$ y $x=1$, la tangente a $f$ es horizontal.",
     "graph_fn": "x**2 - 1",
-    "graph_view": {"xMin": -3, "xMax": 3, "yMin": -2, "yMax": 4},
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -2,
+      "yMax": 4
+    },
     "explanation": "Los ceros de $f'$ (donde la gráfica de $f'$ cruza el eje $x$) son los puntos donde la tangente a $f$ es horizontal: **candidatos a extremos locales**.\n\n$$f'(x) = x^2-1 = 0 \\implies x = \\pm 1$$\n\nEn $x=-1$ y $x=1$, la función $f$ tiene tangente horizontal. Para determinar si son máximos, mínimos o inflexiones, habría que analizar el signo de $f'$ a cada lado."
   },
   {
@@ -742,17 +767,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = 5 - x^2$. En $x=3$, ¿qué signo tiene $f'(3)$?",
     "options": [
-      "Negativo: la curva desciende en $x=3$",
       "Positivo: $f(3)=-4<0$ indica crecimiento",
+      "Negativo: la curva desciende en $x=3$",
       "Cero: $f'(3)=0$",
       "No se puede determinar a partir de la gráfica"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=-2x$, entonces $f'(3)=-6<0$: la curva baja en $x=3$.",
     "feedback_incorrect": "En $x=3$ la curva está bajando (mirá la gráfica). Algebraicamente: $f'(x)=-2x$, $f'(3)=-6<0$. Derivada negativa = función decreciente.",
     "graph_fn": "5 - x**2",
-    "graph_view": {"xMin": -1, "xMax": 4, "yMin": -5, "yMax": 6},
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 4,
+      "yMin": -5,
+      "yMax": 6
+    },
     "explanation": "La derivada $f'(x)=-2x$ en $x=3$ vale $f'(3)=-6<0$.\n\n$$f'(3) = -2 \\cdot 3 = -6 < 0$$\n\nGeométricamente: en $x=3$ la curva **desciende** (la tangente tiene pendiente negativa). La función $5-x^2$ es una parábola invertida con vértice en $x=0$; para $x>0$ siempre decrece."
   },
   {
@@ -763,17 +793,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = x^3 - 3x$. ¿En cuántos puntos la recta tangente es horizontal?",
     "options": [
-      "$2$ (en $x=-1$ y $x=1$)",
-      "$0$",
       "$1$ (solo en $x=0$)",
+      "$0$",
+      "$2$ (en $x=-1$ y $x=1$)",
       "$3$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f'(x)=3x^2-3=0 \\Rightarrow x=\\pm1$: dos puntos con tangente horizontal.",
     "feedback_incorrect": "$f'(x)=3x^2-3=3(x-1)(x+1)=0$ en $x=1$ y $x=-1$. Son dos puntos con tangente horizontal: el máximo local en $x=-1$ y el mínimo local en $x=1$.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": {"xMin": -3, "xMax": 3, "yMin": -4, "yMax": 4},
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -4,
+      "yMax": 4
+    },
     "explanation": "Buscamos donde $f'(x)=0$: $f'(x)=3x^2-3=3(x-1)(x+1)$.\n\n$$3x^2-3=0 \\implies x^2=1 \\implies x=\\pm 1$$\n\nEn $x=-1$ la función tiene un **máximo local** ($f(-1)=2$) y en $x=1$ un **mínimo local** ($f(1)=-2$). En ambos puntos la tangente es horizontal: la curva «da vuelta»."
   },
   {
@@ -784,17 +819,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = -(x-2)^2 + 4$. Observando la gráfica, ¿qué signo tiene $f'(x)$ para $x \\in (2, 4)$?",
     "options": [
-      "Negativo: la curva desciende en ese intervalo",
+      "No definido en ese intervalo",
       "Positivo: la curva asciende",
       "Cero: la curva es constante",
-      "No definido en ese intervalo"
+      "Negativo: la curva desciende en ese intervalo"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Para $x>2$, la parábola desciende desde el vértice: $f'(x)=-2(x-2)<0$.",
     "feedback_incorrect": "En el intervalo $(2,4)$, la curva baja desde el vértice $(2,4)$. Algebraicamente: $f'(x)=-2(x-2)<0$ para $x>2$.",
     "graph_fn": "-(x-2)**2 + 4",
-    "graph_view": {"xMin": -1, "xMax": 5, "yMin": -2, "yMax": 5},
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -2,
+      "yMax": 5
+    },
     "explanation": "Para $x>2$, la parábola $-(x-2)^2+4$ desciende desde el vértice $(2,4)$ hacia abajo. Eso se refleja en la derivada:\n\n$$f'(x) = -2(x-2) < 0 \\quad \\text{para } x > 2$$\n\nGeométricamente: **función decreciente ↔ derivada negativa**. El vértice en $x=2$ es donde $f'(2)=0$ y la curva cambia de sentido."
   },
   {
@@ -815,7 +855,12 @@
     "feedback_correct": "¡Correcto! $f'(x)=2x$ es una función lineal: recta con pendiente $2$ que pasa por el origen.",
     "feedback_incorrect": "La derivada de $f(x)=x^2$ es $f'(x)=2x$: una función **lineal** (recta), no otra parábola. Pasa por el origen con pendiente $2$.",
     "graph_fn": "x**2",
-    "graph_view": {"xMin": -3, "xMax": 3, "yMin": -1, "yMax": 6},
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 6
+    },
     "explanation": "Derivamos $f(x)=x^2$ por definición y obtenemos $f'(x)=2x$.\n\n$$f'(x) = 2x \\quad \\text{— una función lineal (recta)}$$\n\nLa gráfica de $f'$ es la recta $y=2x$: pasa por el origen con pendiente $2$. Esto confirma lo que se ve en la parábola: en $x=0$ la tangente es horizontal ($f'(0)=0$), y la pendiente crece simétricamente a los costados."
   },
   {
@@ -826,17 +871,22 @@
     "subtype": "graph",
     "question": "La gráfica muestra $f(x) = x^2$. Sabiendo que $f(1)=1$ y $f'(1)=2$, ¿cuál es la ecuación de la recta tangente en $x=1$?",
     "options": [
-      "$y = 2x - 1$",
       "$y = 2x + 1$",
+      "$y = 2x - 1$",
       "$y = x + 1$",
       "$y = 2x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
     "feedback_incorrect": "Usando la fórmula punto-pendiente: $y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
     "graph_fn": "x**2",
-    "graph_view": {"xMin": -3, "xMax": 3, "yMin": -1, "yMax": 6},
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 6
+    },
     "explanation": "La ecuación de la recta tangente usa la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x-a) \\implies y - 1 = 2(x-1) \\implies y = 2x-1$$\n\nLa recta pasa por $(1,1)$ con pendiente $f'(1)=2$. Es la mejor aproximación lineal a la parábola cerca de $x=1$: si nos alejamos poco de $x=1$, la recta tangente es casi indistinguible de la curva."
   }
 ]

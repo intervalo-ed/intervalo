@@ -1,0 +1,682 @@
+[
+  {
+    "external_id": "brown_definite_integral_intg_01",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el valor de $\\int_0^1 x^2 \\, dx$?",
+    "options": [
+      "$1$",
+      "$\\frac{1}{2}$",
+      "$\\frac{1}{3}$",
+      "$\\frac{1}{4}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicaste bien la Regla de Barrow: $[x^3/3]_0^1 = 1/3 - 0 = 1/3$.",
+    "feedback_incorrect": "Buscá la primitiva $x^3/3$ y evaluá en el límite superior (1) y restale el valor en el inferior (0).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver una **integral definida**, usamos la **Regla de Barrow**. Primero buscamos una primitiva de la función $f(x) = x^2$, que por la regla de la potencia es:\n\n$$F(x) = \\frac{x^3}{3}$$\n\nLuego evaluamos en los límites de integración $[0, 1]$:\n\n$$F(1) - F(0) = \\frac{1^3}{3} - \\frac{0^3}{3} = \\frac{1}{3}$$\n\nFijate que no sumamos la constante $C$, ya que al restar $F(b) - F(a)$ esa constante siempre se termina cancelando."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_02",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Si $\\int_a^b f(x) \\, dx = 5$, ¿cuánto vale $\\int_b^a f(x) \\, dx$?",
+    "options": [
+      "$5$",
+      "$-5$",
+      "$0$",
+      "No se puede determinar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cambiar el orden de los límites de integración invierte el signo del resultado.",
+    "feedback_incorrect": "Una propiedad fundamental es que si invertís los límites, el resultado cambia de signo: $\\int_b^a f = -\\int_a^b f$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una de las **propiedades de la integral definida** establece que si permutamos (intercambiamos) los límites de integración, el valor de la integral cambia su signo:\n\n$$\\int_a^b f(x) \\, dx = -\\int_b^a f(x) \\, dx$$\n\nEsto se deduce directamente de la **Regla de Barrow**, ya que $F(b) - F(a)$ es exactamente el opuesto de $F(a) - F(b)$.\n\nPor ejemplo, si la integral de una función entre 0 y 2 te da 10, entonces entre 2 y 0 te va a dar -10."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_03",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá el valor de $\\int_1^e \\frac{1}{x} \\, dx$.",
+    "options": [
+      "$0$",
+      "$e$",
+      "$1$",
+      "$\\ln(e) - 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La primitiva es $\\ln|x|$, y evaluando te queda $\\ln(e) - \\ln(1) = 1 - 0 = 1$.",
+    "feedback_incorrect": "La primitiva de $1/x$ es $\\ln|x|$. Recordá que $\\ln(e) = 1$ y $\\ln(1) = 0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver $\\int_1^e \\frac{1}{x} \\, dx$, recordamos que la **primitiva de la función logarítmica** es:\n\n$$F(x) = \\ln|x|$$\n\nEvaluamos usando los límites de integración dados:\n\n$$[\\ln(x)]_1^e = \\ln(e) - \\ln(1)$$\n\nComo el logaritmo natural de $e$ es $1$ y el de $1$ es $0$, el resultado final es $1 - 0 = 1$. Esto representa el área bajo la curva $1/x$ entre el 1 y el número de Euler."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_04",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el valor de $\\int_{-2}^{-2} (x^5 - 3x^2 + 1) \\, dx$?",
+    "options": [
+      "$-2$",
+      "$0$",
+      "$1$",
+      "$5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Si los límites son iguales, el área es nula sin importar la función.",
+    "feedback_incorrect": "Cualquier integral definida donde el límite inferior y superior sean el mismo ($a=b$) siempre vale $0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es una **propiedad de nulidad** de la integral definida. Cuando el intervalo de integración tiene longitud cero (es decir, $a = b$):\n\n$$\\int_a^a f(x) \\, dx = 0$$\n\nGeométricamente, no se está encerrando ninguna superficie bajo la curva, ya que el ancho del intervalo es nulo. Algebraicamente, por Barrow tenés $F(a) - F(a)$, lo que siempre resulta en cero para cualquier función continua."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_05",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá $\\int_0^{\\pi} \\sin(x) \\, dx$.",
+    "options": [
+      "$0$",
+      "$1$",
+      "$-2$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $[-\\cos(x)]_0^{\\pi} = -(-1) - (-1) = 1 + 1 = 2$.",
+    "feedback_incorrect": "La primitiva de $\\sin(x)$ es $-\\cos(x)$. Ojo con los signos al evaluar: $-\\cos(\\pi) - (-\\cos(0))$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La primitiva de $f(x) = \\sin(x)$ es $F(x) = -\\cos(x)$. Aplicamos la **Regla de Barrow** en el intervalo $[0, \\pi]$:\n\n$$\\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi} = -\\cos(\\pi) - (-\\cos(0))$$\n\nSabiendo que $\\cos(\\pi) = -1$ y $\\cos(0) = 1$:\n\n$$(-(-1)) - (-1) = 1 + 1 = 2$$\n\nEsto significa que el área de una 'montaña' de la función seno (de $0$ a $\\pi$) es exactamente de 2 unidades cuadradas."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_06",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Si $\\int_0^3 f(x) \\, dx = 10$ y $\\int_0^3 g(x) \\, dx = 4$, ¿cuánto vale $\\int_0^3 [f(x) - 2g(x)] \\, dx$?",
+    "options": [
+      "$6$",
+      "$2$",
+      "$18$",
+      "$14$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Por linealidad: $10 - 2(4) = 10 - 8 = 2$.",
+    "feedback_incorrect": "Usá la propiedad de linealidad: la integral de la resta es la resta de las integrales, y podés sacar constantes fuera.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La integral definida es un **operador lineal**, lo que nos permite separar sumas y sacar constantes fuera de la integral:\n\n$$\\int_a^b [k \\cdot f(x) + g(x)] \\, dx = k \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$$\n\nEn este caso:\n\n$$\\int_0^3 f(x) \\, dx - 2 \\int_0^3 g(x) \\, dx = 10 - 2(4) = 2$$\n\nEsta propiedad es muy útil para descomponer problemas complejos en partes más simples que ya conocemos."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_07",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá el valor de $\\int_0^1 e^x \\, dx$.",
+    "options": [
+      "$e$",
+      "$e - 1$",
+      "$1$",
+      "$e + 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La primitiva es $e^x$, y evaluando queda $e^1 - e^0 = e - 1$.",
+    "feedback_incorrect": "La primitiva de $e^x$ es ella misma. Evaluá $e^1$ y restale $e^0$. Recordá que $e^0 = 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función exponencial $f(x) = e^x$ es su propia primitiva. Para resolver la **integral definida** en $[0, 1]$, simplemente evaluamos:\n\n$$\\int_0^1 e^x \\, dx = [e^x]_0^1 = e^1 - e^0$$\n\nComo cualquier número (distinto de cero) elevado a la cero es uno:\n\n$$e^1 - e^0 = e - 1$$\n\nEste valor es aproximadamente $1.718$ y representa el área bajo la curva exponencial desde el origen hasta $x=1$."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_08",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Usando la aditividad del intervalo, si $\\int_1^5 f(x) \\, dx = 12$ y $\\int_4^5 f(x) \\, dx = 3$, ¿cuánto vale $\\int_1^4 f(x) \\, dx$?",
+    "options": [
+      "$15$",
+      "$9$",
+      "$-9$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como el intervalo $[1,5]$ se divide en $[1,4]$ y $[4,5]$, restamos $12 - 3 = 9$.",
+    "feedback_incorrect": "Recordá la aditividad: $\\int_1^5 f = \\int_1^4 f + \\int_4^5 f$. Despejá el valor que te falta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad de aditividad** nos dice que si tenemos un punto intermedio $c$ en el intervalo $[a, b]$, la integral total es la suma de las integrales de los subintervalos:\n\n$$\\int_1^5 f(x) \\, dx = \\int_1^4 f(x) \\, dx + \\int_4^5 f(x) \\, dx$$\n\nSustituyendo los valores que conocemos:\n\n$$12 = \\int_1^4 f(x) \\, dx + 3 \\Rightarrow \\int_1^4 f(x) \\, dx = 9$$\n\nEsta propiedad es válida incluso si el punto de división no está estrictamente 'dentro' del intervalo original, siempre que la función sea integrable."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_09",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá $\\int_0^2 (3x+1) \\, dx$.",
+    "options": [
+      "$8$",
+      "$7$",
+      "$6$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La primitiva es $\\frac{3}{2}x^2 + x$. Evaluando: $\\frac{3}{2}(4) + 2 = 6 + 2 = 8$.",
+    "feedback_incorrect": "Integrá término a término: $\\frac{3x^2}{2} + x$. Luego aplicá Barrow evaluando en 2 y en 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver esta integral, primero encontramos la **primitiva de un polinomio**:\n\n$$F(x) = \\int (3x + 1) \\, dx = \\frac{3x^2}{2} + x$$\n\nEvaluamos en los extremos del intervalo $[0, 2]$:\n\n$$F(2) = \\frac{3(2)^2}{2} + 2 = \\frac{12}{2} + 2 = 6 + 2 = 8$$\n$$F(0) = \\frac{3(0)^2}{2} + 0 = 0$$\n\nLa resta $F(2) - F(0)$ nos da $8$. Este resultado coincide con el área de un trapecio, ya que la función $3x+1$ es una recta."
+  },
+  {
+    "external_id": "brown_definite_integral_intg_10",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Si $f(x)$ es una función impar (como $x^3$), ¿cuánto vale $\\int_{-a}^{a} f(x) \\, dx$?",
+    "options": [
+      "$2 \\int_0^a f(x) \\, dx$",
+      "$a$",
+      "$0$",
+      "$-a$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En funciones impares, el área negativa a la izquierda cancela exactamente al área positiva a la derecha.",
+    "feedback_incorrect": "Recordá la simetría de las funciones impares: lo que ocurre en el lado negativo es el opuesto de lo que ocurre en el positivo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función impar** cumple que $f(-x) = -f(x)$. Cuando integramos este tipo de funciones en un intervalo simétrico respecto al origen $[-a, a]$, el resultado siempre es **cero**.\n\n$$\\int_{-a}^{a} f(x) \\, dx = 0 \\quad (\\text{si } f \\text{ es impar})$$\n\nEsto sucede porque el área 'acumulada' de un lado del eje $Y$ tiene el mismo valor absoluto pero signo contrario que la del otro lado, cancelándose mutuamente.\n\nUn ejemplo clásico es $\\int_{-1}^1 x^3 \\, dx = 0$ o la integral de $\\sin(x)$ en cualquier intervalo $[-\\pi, \\pi]$."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_01",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la función $f(x) = x$ en el intervalo $[0, 2]$. ¿A qué área geométrica corresponde el valor de $\\int_0^2 x \\, dx$?",
+    "options": [
+      "Un cuadrado de lado 2",
+      "Un triángulo de base 2 y altura 2",
+      "Un círculo de radio 2",
+      "Un rectángulo de base 2 y altura 1"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función $y=x$ forma un triángulo con los ejes, de base 2 y altura $f(2)=2$.",
+    "feedback_incorrect": "Graficá la recta $y=x$. Entre $x=0$ y $x=2$, la región encerrada con el eje $X$ es un triángulo.",
+    "graph_fn": "x",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 3
+    },
+    "explanation": "La **interpretación geométrica** de $\\int_0^2 x \\, dx$ es el área de la región bajo la recta $y=x$ sobre el intervalo $[0, 2]$.\n\nSi dibujás esta región, verás que es un **triángulo rectángulo** con:\n- Base: $2 - 0 = 2$\n- Altura: $f(2) = 2$\n\nEl área de un triángulo es $(\\text{base} \\cdot \\text{altura})/2$, es decir $(2 \\cdot 2)/2 = 2$. Si calculás la integral por Barrow: $[x^2/2]_0^2 = 4/2 - 0 = 2$. ¡Los resultados coinciden!"
+  },
+  {
+    "external_id": "brown_definite_integral_graf_02",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Mirando la gráfica de $f(x) = -2$, ¿cuál es el valor de $\\int_1^4 -2 \\, dx$?",
+    "options": [
+      "$-6$",
+      "$6$",
+      "$-2$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es un rectángulo 'debajo' del eje, de base 3 y altura 2, por lo que la integral es negativa: $-6$.",
+    "feedback_incorrect": "La función es constante. El área es base $\\times$ altura, pero al estar bajo el eje $X$, el signo de la integral debe ser negativo.",
+    "graph_fn": "-2 + 0*x",
+    "graph_view": {
+      "xMin": 0,
+      "xMax": 5,
+      "yMin": -4,
+      "yMax": 2
+    },
+    "explanation": "Cuando una función es **negativa** en todo el intervalo, la integral definida resulta en un valor negativo.\n\nGeométricamente, estamos calculando el área de un rectángulo:\n- Base: $4 - 1 = 3$\n- 'Altura' (valor de la función): $-2$\n\n$$\\int_1^4 -2 \\, dx = -2 \\cdot (4 - 1) = -6$$\n\nEs fundamental recordar que la integral definida mide el **área neta**. Si la curva está por debajo del eje $X$, ese tramo suma de forma negativa al valor total de la integral."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_03",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la gráfica de $f(x) = x^2 - 1$, ¿qué signo tendrá la integral $\\int_0^1 (x^2 - 1) \\, dx$?",
+    "options": [
+      "Positivo",
+      "Negativo",
+      "Cero",
+      "No se puede saber sin calcular"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En el intervalo $[0, 1]$, la parábola $x^2-1$ está siempre por debajo del eje $X$.",
+    "feedback_incorrect": "Observá la posición de la curva respecto al eje $X$. Si está por debajo en todo el intervalo, la integral es negativa.",
+    "graph_fn": "x**2 - 1",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 2,
+      "yMin": -2,
+      "yMax": 2
+    },
+    "explanation": "Para determinar el **signo de una integral** a partir de su gráfica, debemos observar si la función está por encima o por debajo del eje horizontal.\n\nPara $f(x) = x^2 - 1$:\n- En $x=0$, $f(0)=-1$.\n- En $x=1$, $f(1)=0$.\n\nEn todo el intervalo $(0, 1)$, la función toma valores menores a cero. Por lo tanto, la región encerrada está íntegramente 'colgada' debajo del eje $X$, lo que garantiza que el valor de la integral definida será **negativo**."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_04",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la gráfica de $\\sin(x)$ en el intervalo $[0, 2\\pi]$. ¿Cuál es el valor de $\\int_0^{2\\pi} \\sin(x) \\, dx$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$0$",
+      "$-2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El área de la montaña positiva cancela exactamente el área de la montaña negativa.",
+    "feedback_incorrect": "La función seno tiene una parte positiva de $0$ a $\\pi$ y una igual pero negativa de $\\pi$ a $2\\pi$. Sumalas.",
+    "graph_fn": "sin(x)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 7,
+      "yMin": -1.5,
+      "yMax": 1.5
+    },
+    "explanation": "La integral definida calcula el **área neta** (o balance de áreas). En la gráfica del seno entre $0$ y $2\\pi$:\n\n1. En $[0, \\pi]$, la función es positiva y encierra un área de $2$.\n2. En $[\\pi, 2\\pi]$, la función es negativa y su integral vale $-2$.\n\nAl sumar ambos tramos para obtener la integral total en $[0, 2\\pi]$:\n\n$$\\int_0^{2\\pi} \\sin(x) \\, dx = 2 + (-2) = 0$$\n\nEste es un claro ejemplo de cómo una función puede tener mucha 'superficie' visual pero una integral nula si las partes positivas y negativas se compensan."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_05",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = |x|$, ¿cuánto vale el área entre la curva y el eje $X$ de $x=-1$ a $x=1$?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$2$",
+      "$\\\\frac{1}{2}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Son dos triángulos de área $1/2$ cada uno. $1/2 + 1/2 = 1$.",
+    "feedback_incorrect": "La función valor absoluto siempre es positiva. Son dos triángulos de base 1 y altura 1. Calculá sus áreas.",
+    "graph_fn": "abs(x)",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 2,
+      "yMin": -1,
+      "yMax": 2
+    },
+    "explanation": "La función **valor absoluto** $f(x) = |x|$ forma una 'V'. Para calcular $\\int_{-1}^1 |x| \\, dx$, podemos dividir la región en dos figuras geométricas simples:\n\n- Un triángulo a la izquierda (de $-1$ a $0$) con base $1$ y altura $f(-1)=1$.\n- Un triángulo a la derecha (de $0$ a $1$) con base $1$ y altura $f(1)=1$.\n\nEl área de cada triángulo es $(1 \\cdot 1)/2 = 0.5$. Como la función es siempre positiva, la integral es la suma de las áreas:\n\n$$0.5 + 0.5 = 1$$\n\nAl ser una función par, también podrías haber calculado $2 \\int_0^1 x \\, dx$."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_06",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "¿Cuál es la integral definida que representa el área de la región sombreada bajo $f(x) = \\sqrt{x}$ entre $x=1$ y $x=4$?",
+    "options": [
+      "$\\int_1^4 \\sqrt{x} \\, dx$",
+      "$\\int_0^4 \\sqrt{x} \\, dx$",
+      "$\\int_1^4 x^2 \\, dx$",
+      "$\\int_1^2 \\sqrt{x} \\, dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Los límites de integración coinciden con los valores de $x$ que delimitan la región en el eje horizontal.",
+    "feedback_incorrect": "Identificá la función que está arriba (techo) y los valores de $x$ donde empieza y termina la zona sombreada.",
+    "graph_fn": "sqrt(x)",
+    "graph_view": {
+      "xMin": -0.5,
+      "xMax": 5,
+      "yMin": -0.5,
+      "yMax": 2.5
+    },
+    "explanation": "La **notación de la integral definida** conecta directamente con la gráfica. En la expresión:\n\n$$\\int_a^b f(x) \\, dx$$\n\n- $f(x)$ es la función que delimita la región por arriba (en este caso $\\sqrt{x}$).\n- $a$ es el límite izquierdo del área sombreada en el eje $X$ ($a=1$).\n- $b$ es el límite derecho ($b=4$).\n\nPor lo tanto, la integral que representa esa área exacta es $\\int_1^4 \\sqrt{x} \\, dx$. Resolverla te daría el valor numérico de esa superficie en unidades cuadradas."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_07",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observando la gráfica de la función constante $f(x) = 3$. ¿Cuál es el valor de $\\int_{-1}^{2} 3 \\, dx$?",
+    "options": [
+      "$6$",
+      "$3$",
+      "$0$",
+      "$9$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El área es un rectángulo de base $3$ (de $-1$ a $2$) y altura $3$. $3 \\times 3 = 9$.",
+    "feedback_incorrect": "Calculá el ancho del intervalo $[-1, 2]$ y multiplicalo por la altura constante de la función.",
+    "graph_fn": "3 + 0*x",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 5
+    },
+    "explanation": "Integrar una **función constante** $f(x) = c$ es el caso más sencillo de área bajo la curva, ya que la región es un **rectángulo**.\n\n- El ancho (base) es $b - a = 2 - (-1) = 3$.\n- La altura es el valor constante $c = 3$.\n\nÁrea = Base $\\cdot$ Altura = $3 \\cdot 3 = 9$.\n\nSi usamos la Regla de Barrow: $\\int_{-1}^2 3 \\, dx = [3x]_{-1}^2 = 3(2) - 3(-1) = 6 - (-3) = 9$. Como ves, la geometría y el cálculo integral siempre llegan a la misma conclusión."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_08",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la parábola $f(x) = x^2$, compará las áreas $A = \\int_0^1 x^2 \\, dx$ y $B = \\int_1^2 x^2 \\, dx$. ¿Cuál es mayor?",
+    "options": [
+      "$A$ es mayor que $B$",
+      "$B$ es mayor que $A$",
+      "Son iguales",
+      "No se puede comparar sin calcular"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como $x^2$ es creciente para $x>0$, el área bajo la curva es mayor a medida que nos movemos a la derecha.",
+    "feedback_incorrect": "Mirá la gráfica de $x^2$. En el intervalo $[1, 2]$ la función está mucho más 'alta' que en $[0, 1]$, por lo que encierra más área.",
+    "graph_fn": "x**2",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 5
+    },
+    "explanation": "Al observar la gráfica de una **función creciente** como $f(x) = x^2$ para $x \\geq 0$, podemos comparar áreas visualmente basándonos en la altura de la curva.\n\n- En el intervalo $[0, 1]$, la función va de $0$ a $1$.\n- En el intervalo $[1, 2]$, la función va de $1$ a $4$.\n\nComo ambos intervalos tienen el mismo ancho ($\\Delta x = 1$), el que tenga valores de función más grandes (más altura) tendrá una integral definida mayor. Por lo tanto, el área $B$ es claramente superior al área $A$."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_09",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\cos(x)$, ¿cuál es el signo de $\\int_0^{\\pi} \\cos(x) \\, dx$?",
+    "options": [
+      "Positivo",
+      "Negativo",
+      "Cero",
+      "Infinito"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! De $0$ a $\\pi/2$ es positiva y de $\\pi/2$ a $\\pi$ es negativa; por simetría se cancelan.",
+    "feedback_incorrect": "Graficá el coseno entre $0$ y $\\pi$. Verás que tiene una parte sobre el eje y otra igual bajo el eje.",
+    "graph_fn": "cos(x)",
+    "graph_view": {
+      "xMin": -0.5,
+      "xMax": 4,
+      "yMin": -1.5,
+      "yMax": 1.5
+    },
+    "explanation": "La función **coseno** en el intervalo $[0, \\pi]$ presenta una simetría respecto al punto $(\\pi/2, 0)$:\n\n1. En $[0, \\pi/2]$, la curva está sobre el eje $X$ (área positiva).\n2. En $[\\pi/2, \\pi]$, la curva está bajo el eje $X$ con la misma forma (área negativa).\n\nDebido a esta simetría, los valores se cancelan exactamente:\n\n$$\\int_0^{\\pi} \\cos(x) \\, dx = \\sin(\\pi) - \\sin(0) = 0 - 0 = 0$$\n\nVisualmente, el 'lóbulo' positivo arriba del eje tiene exactamente la misma superficie que el lóbulo negativo debajo."
+  },
+  {
+    "external_id": "brown_definite_integral_graf_10",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la gráfica de $f(x) = e^{-x}$, ¿qué sucede con el valor de $\\int_0^b e^{-x} \\, dx$ a medida que $b$ aumenta?",
+    "options": [
+      "El valor aumenta y tiende a 1",
+      "El valor disminuye hacia 0",
+      "El valor aumenta hacia el infinito",
+      "El valor se mantiene constante"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Estamos acumulando área bajo una curva positiva, pero cada vez sumamos menos área ya que la función tiende a cero.",
+    "feedback_incorrect": "A medida que $b$ crece, estamos agregando más región a la derecha. Como la función es positiva, la integral debe aumentar.",
+    "graph_fn": "exp(-x)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -0.5,
+      "yMax": 1.5
+    },
+    "explanation": "Este ejercicio explora la idea de **área acumulada**. Al integrar una función que es siempre positiva, como $f(x) = e^{-x}$, el valor de la integral definida aumenta a medida que extendemos el límite superior $b$.\n\nSin embargo, como la función decae rápidamente hacia cero, cada vez estamos agregando trozos de área más pequeños. \n\n$$\\int_0^b e^{-x} \\, dx = [-e^{-x}]_0^b = -e^{-b} - (-e^0) = 1 - e^{-b}$$\n\nCuando $b \\to \\infty$, el término $e^{-b}$ tiende a $0$, por lo que el área total bajo la curva en todo el semieje positivo tiende a $1$."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_01",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "La velocidad de un objeto es $v(t) = 2t + 1$ m/s. ¿Qué distancia recorre en los primeros 3 segundos?",
+    "options": [
+      "$6 \\text{ m}$",
+      "$12 \\text{ m}$",
+      "$9 \\text{ m}$",
+      "$10 \\text{ m}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^3 (2t+1) \\, dt = [t^2+t]_0^3 = 9+3 = 12$.",
+    "feedback_incorrect": "La distancia es la integral de la velocidad. Calculá $\\int_0^3 (2t+1) \\, dt$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En física, la **distancia recorrida** por un objeto (cuando la velocidad es positiva) se calcula integrando la función de velocidad respecto al tiempo:\n\n$$\\Delta x = \\int_{t_1}^{t_2} v(t) \\, dt$$\n\nPara $v(t) = 2t + 1$ entre $t=0$ y $t=3$:\n\n$$\\int_0^3 (2t + 1) \\, dt = [t^2 + t]_0^3 = (3^2 + 3) - (0^2 + 0) = 9 + 3 = 12 \\text{ metros}$$\n\nEste uso de la integral es fundamental en cinemática para pasar de información sobre cambios instantáneos (velocidad) a información sobre cambios totales (posición)."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_02",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "El costo marginal de producir $x$ unidades es $C'(x) = 10 - 0.2x$. ¿Cuánto aumenta el costo total al pasar de producir 10 a 20 unidades?",
+    "options": [
+      "$70$",
+      "$100$",
+      "$85$",
+      "$30$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Integramos el costo marginal: $[10x - 0.1x^2]_{10}^{20} = (200-40) - (100-10) = 160 - 90 = 70$.",
+    "feedback_incorrect": "El cambio en el costo total es la integral del costo marginal en el intervalo de producción deseado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En economía, el **costo marginal** representa la derivada del costo total. Por lo tanto, para encontrar la variación del costo total al cambiar el nivel de producción, integramos la función marginal:\n\n$$\\Delta C = \\int_{x_1}^{x_2} C'(x) \\, dx$$\n\n$$\\int_{10}^{20} (10 - 0.2x) \\, dx = [10x - 0.1x^2]_{10}^{20}$$\n\nEvaluando: $(200 - 40) - (100 - 10) = 160 - 90 = 70$. Producir esas 10 unidades adicionales incrementa el costo en 70 unidades monetarias."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_03",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "¿Cuál es el área de la región encerrada por $f(x) = x^3$ y el eje $X$ entre $x=0$ y $x=2$?",
+    "options": [
+      "$8$",
+      "$4$",
+      "$2$",
+      "$16$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^2 x^3 \\, dx = [x^4/4]_0^2 = 16/4 = 4$.",
+    "feedback_incorrect": "Planteá la integral definida de la función $x^3$ en el intervalo $[0, 2]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para calcular el **área bajo la curva**, planteamos la integral definida. Como $x^3$ es positiva en el intervalo $[0, 2]$, el área coincide directamente con el valor de la integral:\n\n$$\\text{Área} = \\int_0^2 x^3 \\, dx$$\n\nBuscamos la primitiva: $F(x) = x^4/4$. Luego aplicamos Barrow:\n\n$$F(2) - F(0) = \\frac{2^4}{4} - \\frac{0^4}{4} = \\frac{16}{4} = 4$$\n\nLa región encerrada tiene una superficie de 4 unidades cuadradas. Si la función fuera negativa en algún tramo, deberíamos usar el valor absoluto para que las áreas no se resten."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_04",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Un tanque de agua se llena a una tasa de $r(t) = 5\\sqrt{t}$ litros por minuto. ¿Cuánta agua ingresa entre el minuto 0 y el minuto 4?",
+    "options": [
+      "$20 \\text{ L}$",
+      "$\\frac{80}{3} \\text{ L}$",
+      "$40 \\text{ L}$",
+      "$10 \\text{ L}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^4 5t^{1/2} \\, dt = [5 \\cdot \\frac{2}{3}t^{3/2}]_0^4 = \\frac{10}{3}(8) = 80/3$.",
+    "feedback_incorrect": "La cantidad total es la integral de la tasa de llenado. Integrá $5t^{1/2}$ de 0 a 4.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando conocemos la **tasa de cambio** de una cantidad (en este caso litros/minuto), la integral definida nos permite obtener el cambio total acumulado de esa magnitud.\n\n$$\\text{Agua total} = \\int_0^4 5t^{1/2} \\, dt$$\n\nLa primitiva de $t^{1/2}$ es $\\frac{t^{3/2}}{3/2} = \\frac{2}{3}t^{3/2}$. Multiplicando por la constante 5:\n\n$$F(t) = \\frac{10}{3}t^{3/2} \\Rightarrow F(4) = \\frac{10}{3}(4^{3/2}) = \\frac{10}{3}(8) = \\frac{80}{3}$$\n\nIngresaron aproximadamente $26.67$ litros de agua en esos 4 minutos."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_05",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Calculá el valor promedio de la función $f(x) = 3x^2$ en el intervalo $[1, 3]$.",
+    "options": [
+      "$13$",
+      "$26$",
+      "$12$",
+      "$39$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\frac{1}{3-1} \\int_1^3 3x^2 \\, dx = \\frac{1}{2} [x^3]_1^3 = \\frac{1}{2}(27-1) = 13$.",
+    "feedback_incorrect": "El valor promedio es la integral dividida por la longitud del intervalo: $\\frac{1}{b-a} \\int_a^b f(x) \\, dx$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Valor Promedio** de una función continua en un intervalo $[a, b]$ se define como la integral de la función dividida por la longitud del intervalo:\n\n$$f_{prom} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx$$\n\nPara $f(x) = 3x^2$ en $[1, 3]$:\n- La integral es $\\int_1^3 3x^2 \\, dx = [x^3]_1^3 = 27 - 1 = 26$.\n- La longitud del intervalo es $3 - 1 = 2$.\n\nPor lo tanto, el promedio es $26 / 2 = 13$. Esto representa la altura de un rectángulo que tendría la misma área que la región bajo la curva en ese intervalo."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_06",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "La fuerza aplicada sobre un resorte es $F(x) = 50x$ Newtons. ¿Qué trabajo se realiza al estirarlo desde $x=0$ hasta $x=0.2$ metros?",
+    "options": [
+      "$10 \\text{ J}$",
+      "$5 \\text{ J}$",
+      "$1 \\text{ J}$",
+      "$2 \\text{ J}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $W = \\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25(0.04) = 1$.",
+    "feedback_incorrect": "El trabajo es la integral de la fuerza respecto a la posición. Integrá $50x$ de 0 a 0.2.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En física, el **trabajo realizado** por una fuerza variable $F(x)$ se calcula mediante la integral definida:\n\n$$W = \\int_{x_1}^{x_2} F(x) \\, dx$$\n\nPara un resorte que sigue la ley de Hooke ($F=kx$):\n\n$$\\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25 \\cdot (0.2)^2 = 25 \\cdot 0.04 = 1 \\text{ Joule}$$\n\nLa integral definida nos permite sumar el aporte de fuerza infinitesimal en cada pequeño tramo del desplazamiento para obtener la energía total consumida."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_07",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Se estima que una población crece a una tasa de $P'(t) = 100 e^{0.1t}$ individuos/año. ¿Cuánto crece la población entre el año 0 y el año 10?",
+    "options": [
+      "$1000(e - 1)$",
+      "$100e$",
+      "$1000e$",
+      "$e - 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^{10} 100e^{0.1t} \\, dt = [\\frac{100}{0.1} e^{0.1t}]_0^{10} = 1000(e^1 - e^0) = 1000(e-1)$.",
+    "feedback_incorrect": "Integrá la tasa de crecimiento. No olvides dividir por 0.1 (o multiplicar por 10) al buscar la primitiva de $e^{0.1t}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **crecimiento poblacional total** se obtiene integrando la tasa de crecimiento en el tiempo deseado:\n\n$$\\Delta P = \\int_0^{10} 100 e^{0.1t} \\, dt$$\n\nUsamos sustitución simple o la regla de integración de exponenciales con argumento lineal:\n\n$$F(t) = 100 \\cdot \\frac{e^{0.1t}}{0.1} = 1000 e^{0.1t}$$\n\nEvaluando en el intervalo $[0, 10]$:\n\n$$1000 e^{0.1(10)} - 1000 e^{0} = 1000 e^1 - 1000 = 1000(e - 1)$$\n\nComo $e \\approx 2.718$, la población creció en aproximadamente 1718 individuos."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_08",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Calculá el área encerrada por la curva $y = 1 - x^2$ y el eje $X$.",
+    "options": [
+      "$\\frac{2}{3}$",
+      "$\\frac{4}{3}$",
+      "$1$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las raíces son $-1$ y $1$. $\\int_{-1}^1 (1-x^2) \\, dx = [x-x^3/3]_{-1}^1 = (2/3) - (-2/3) = 4/3$.",
+    "feedback_incorrect": "Primero encontrá dónde la función corta al eje $X$ (raíces) para saber los límites de integración. Luego integrá.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el **área encerrada por una función y el eje X**, primero buscamos las raíces de $1 - x^2 = 0$, que son $x = -1$ y $x = 1$. Estos serán nuestros límites de integración.\n\n$$\\text{Área} = \\int_{-1}^1 (1 - x^2) \\, dx = [x - \\frac{x^3}{3}]_{-1}^1$$\n\nEvaluamos en $1$: $1 - 1/3 = 2/3$.\nEvaluamos en $-1$: $-1 - (-1/3) = -2/3$.\n\nRestamos: $2/3 - (-2/3) = 4/3$. Este valor representa la superficie de la 'colina' que forma la parábola invertida sobre el eje horizontal."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_09",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Un flujo de calor es $q(t) = \\sin(t) + 2$. ¿Cuánto calor total se transfiere desde $t=0$ hasta $t=\\pi$?",
+    "options": [
+      "$2 + \\pi$",
+      "$2\\pi + 2$",
+      "$\\pi$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^{\\pi} (\\sin t + 2) \\, dt = [-\\cos t + 2t]_0^{\\pi} = (1 + 2\\pi) - (-1) = 2\\pi + 2$.",
+    "feedback_incorrect": "Integrá cada término por separado: la primitiva de $\\sin(t)$ es $-\\cos(t)$ y la de $2$ es $2t$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para obtener la **cantidad total de calor**, integramos el flujo térmico en el tiempo dado:\n\n$$\\text{Calor} = \\int_0^{\\pi} (\\sin(t) + 2) \\, dt$$\n\nLa primitiva es $F(t) = -\\cos(t) + 2t$. Aplicamos Barrow:\n\n$$F(\\pi) = -\\cos(\\pi) + 2\\pi = -(-1) + 2\\pi = 1 + 2\\pi$$\n$$F(0) = -\\cos(0) + 2(0) = -1$$\n\nLa transferencia total es $(1 + 2\\pi) - (-1) = 2\\pi + 2$. El término $2\\pi$ viene del flujo constante y el $2$ del aporte variable de la función seno."
+  },
+  {
+    "external_id": "brown_definite_integral_apli_10",
+    "belt": "brown",
+    "topic": "definite_integral",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "La aceleración de un móvil es constante $a(t) = 4 \\text{ m/s}^2$. Si en $t=0$ está quieto, ¿cuál es su velocidad en $t=5$ segundos?",
+    "options": [
+      "$20 \\text{ m/s}$",
+      "$10 \\text{ m/s}$",
+      "$4 \\text{ m/s}$",
+      "$25 \\text{ m/s}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El cambio de velocidad es la integral de la aceleración: $\\int_0^5 4 \\, dt = [4t]_0^5 = 20$.",
+    "feedback_incorrect": "Recordá que el cambio de velocidad $\\Delta v$ es igual a la integral definida de la aceleración.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **cambio de velocidad** de un cuerpo se puede hallar integrando su aceleración respecto al tiempo:\n\n$$\\Delta v = v(t_2) - v(t_1) = \\int_{t_1}^{t_2} a(t) \\, dt$$\n\nEn este caso, con aceleración constante de $4$ entre $t=0$ y $t=5$:\n\n$$\\int_0^5 4 \\, dt = [4t]_0^5 = 4(5) - 4(0) = 20 \\text{ m/s}$$\n\nComo el móvil partió del reposo ($v(0)=0$), su velocidad final a los 5 segundos es exactamente de 20 m/s. La integral definida simplifica el cálculo de acumulaciones en procesos con tasas constantes o variables."
+  }
+]
