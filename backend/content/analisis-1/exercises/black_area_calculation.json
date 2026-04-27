@@ -1,0 +1,682 @@
+[
+  {
+    "external_id": "black_area_calculation_intg_01",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el área de la región encerrada por la curva $f(x) = x^2$ y el eje $X$ entre $x=0$ y $x=3$?",
+    "options": [
+      "$9$",
+      "$27$",
+      "$\\frac{9}{2}$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Calculaste la integral definida $\\int_0^3 x^2 \\, dx = [x^3/3]_0^3 = 9$.",
+    "feedback_incorrect": "Tenés que integrar la función en el intervalo dado. La integral de $x^2$ es $x^3/3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el **área bajo la curva** de una función positiva, aplicamos la integral definida en el intervalo indicado. En este caso, la función $f(x) = x^2$ es siempre no negativa.\n\n$$A = \\int_0^3 x^2 \\, dx = \\left[ \\frac{x^3}{3} \\right]_0^3$$\n\nEvaluando en los límites de integración según la **Regla de Barrow**, obtenemos $27/3 - 0 = 9$. El resultado representa la superficie exacta entre la parábola y el eje horizontal en ese tramo."
+  },
+  {
+    "external_id": "black_area_calculation_intg_02",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá el área encerrada entre las funciones $f(x) = x$ y $g(x) = x^2$.",
+    "options": [
+      "$\\frac{1}{2}$",
+      "$\\frac{1}{6}$",
+      "$\\frac{1}{3}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las curvas se cruzan en $x=0$ y $x=1$, y la integral de $x - x^2$ da $1/6$.",
+    "feedback_incorrect": "Primero buscá las intersecciones igualando las funciones. Luego integrá (Techo - Piso).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero debemos encontrar los **puntos de intersección** igualando las funciones: $x = x^2 \\Rightarrow x^2 - x = 0$, lo que nos da $x=0$ y $x=1$.\n\nEn el intervalo $(0, 1)$, notamos que $x \\geq x^2$ (la recta es el 'techo'). Entonces planteamos la integral:\n\n$$A = \\int_0^1 (x - x^2) \\, dx = \\left[ \\frac{x^2}{2} - \\frac{x^3}{3} \\right]_0^1$$\n\nEsto resulta en $\\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$. Siempre restamos la función superior menos la inferior para asegurar un área positiva."
+  },
+  {
+    "external_id": "black_area_calculation_intg_03",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Determiná el área de la región limitada por $f(x) = \\sin(x)$ y el eje $X$ en el intervalo $[0, \\pi]$.",
+    "options": [
+      "$0$",
+      "$\\pi$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La integral de $\\sin(x)$ evaluada de $0$ a $\\pi$ es $1 - (-1) = 2$.",
+    "feedback_incorrect": "La integral es $-\\cos(x)$. Evaluá con cuidado los signos en $\\pi$ y $0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función seno es positiva en el intervalo $[0, \\pi]$, por lo que el área coincide con la integral definida directa.\n\n$$A = \\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi}$$\n\nEvaluando obtenemos: $-\\cos(\\pi) - (-\\cos(0)) = -(-1) + 1 = 1 + 1 = 2$. Si hubieras integrado en un periodo completo $[0, 2\\pi]$, el área total sería 4, aunque la integral daría 0 por la cancelación de áreas positivas y negativas."
+  },
+  {
+    "external_id": "black_area_calculation_intg_04",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el área encerrada por $y = e^x$, $y = 0$, $x = 0$ y $x = 1$?",
+    "options": [
+      "$e$",
+      "$e - 1$",
+      "$1$",
+      "$e + 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_0^1 e^x \\, dx = [e^x]_0^1 = e^1 - e^0 = e - 1$.",
+    "feedback_incorrect": "Recordá que la primitiva de $e^x$ es $e^x$, pero tenés que restar el valor en el límite inferior ($e^0=1$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Estamos buscando el área bajo la **función exponencial** básica en el intervalo $[0, 1]$. Como $e^x$ siempre es mayor a cero, planteamos la integral directamente:\n\n$$A = \\int_0^1 e^x \\, dx = \\left[ e^x \\right]_0^1$$\n\nAl aplicar Barrow, hacemos $e^1 - e^0$. Como todo número elevado a la cero es 1, el resultado final es $e - 1$. Este valor es aproximadamente $1.718$ unidades de superficie."
+  },
+  {
+    "external_id": "black_area_calculation_intg_05",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Hallá el área comprendida entre $f(x) = \\sqrt{x}$ y el eje $X$ desde $x=0$ hasta $x=4$.",
+    "options": [
+      "$\\frac{16}{3}$",
+      "$4$",
+      "$\\frac{8}{3}$",
+      "$\\frac{32}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La primitiva de $x^{1/2}$ es $\\frac{2}{3}x^{3/2}$. Evaluada en 4 da $16/3$.",
+    "feedback_incorrect": "Escribí la raíz como potencia: $x^{1/2}$. Luego aplicá la regla de la potencia para integrar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para integrar $f(x) = \\sqrt{x}$, la expresamos como una potencia: $x^{1/2}$. Aplicamos la regla de integración sumando 1 al exponente:\n\n$$\\int x^{1/2} \\, dx = \\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}$$\n\nEvaluando en el intervalo $[0, 4]$:\n\n$$A = \\frac{2}{3}(4)^{3/2} - 0 = \\frac{2}{3}(\\sqrt{4})^3 = \\frac{2}{3} \\cdot 8 = \\frac{16}{3}$$\n\nEste cálculo nos da la superficie de la región parabólica 'acostada' bajo el arco de la raíz."
+  },
+  {
+    "external_id": "black_area_calculation_intg_06",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá el área de la región entre $f(x) = x^3$ y el eje $X$ para $x \\in [-1, 1]$. Recordá que el área es una magnitud positiva.",
+    "options": [
+      "$0$",
+      "$\\frac{1}{2}$",
+      "$\\frac{1}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como la función es impar, calculás $2 \\cdot \\int_0^1 x^3 \\, dx = 2 \\cdot (1/4) = 1/2$.",
+    "feedback_incorrect": "¡Cuidado! Si integrás directo de $-1$ a $1$ te da $0$, pero el área física no es cero. Usá valor absoluto.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = x^3$ es una **función impar**. Esto significa que la región entre $[-1, 0]$ está por debajo del eje $X$ y la región entre $[0, 1]$ está por encima.\n\nPara calcular el área física, debemos separar la integral o usar el valor absoluto:\n\n$$A = \\int_{-1}^0 -x^3 \\, dx + \\int_0^1 x^3 \\, dx$$\n\nEsto equivale a $2 \\int_0^1 x^3 \\, dx = 2 [x^4/4]_0^1 = 2(1/4) = 1/2$. Es fundamental graficar o analizar los signos para no anular áreas erróneamente."
+  },
+  {
+    "external_id": "black_area_calculation_intg_07",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "¿Cuál es el área entre las parábolas $f(x) = 2x^2$ y $g(x) = 4 - 2x^2$?",
+    "options": [
+      "$\\frac{16}{3}$",
+      "$\\frac{8}{3}$",
+      "$4$",
+      "$\\frac{4}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Se cortan en $x = \\pm 1$. La integral de $(4 - 4x^2)$ de $-1$ a $1$ da $16/3$.",
+    "feedback_incorrect": "Igualá las funciones para hallar los límites. Restá la parábola que abre hacia abajo menos la que abre hacia arriba.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero igualamos $2x^2 = 4 - 2x^2 \\Rightarrow 4x^2 = 4 \\Rightarrow x = \\pm 1$. Estos son nuestros **límites de integración**.\n\nEn el intervalo $(-1, 1)$, la parábola $4 - 2x^2$ (cóncava hacia abajo) está por encima de $2x^2$. Planteamos:\n\n$$A = \\int_{-1}^1 (4 - 2x^2 - 2x^2) \\, dx = \\int_{-1}^1 (4 - 4x^2) \\, dx$$\n\nIntegrando: $[4x - \\frac{4x^3}{3}]_{-1}^1 = (4 - 4/3) - (-4 + 4/3) = 8/3 + 8/3 = 16/3$. Aprovechando la simetría podrías haber calculado $2 \\int_0^1 (4 - 4x^2) \\, dx$."
+  },
+  {
+    "external_id": "black_area_calculation_intg_08",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Determiná el área de la región encerrada por $f(x) = 1/x$, el eje $X$ y las rectas $x=1$ y $x=e$.",
+    "options": [
+      "$e$",
+      "$1$",
+      "$\\ln(e) - 1$",
+      "$\\frac{1}{e}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La integral de $1/x$ es $\\ln|x|$. Evaluando: $\\ln(e) - \\ln(1) = 1 - 0 = 1$.",
+    "feedback_incorrect": "La primitiva de $1/x$ es el logaritmo natural. Aplicá Barrow entre $1$ y $e$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Buscamos el área bajo la **hipérbola equilátera** $f(x) = 1/x$ en el intervalo $[1, e]$. Sabemos que la integral de esta función es el logaritmo natural:\n\n$$A = \\int_1^e \\frac{1}{x} \\, dx = \\left[ \\ln|x| \\right]_1^e$$\n\nEvaluando en los límites: $\\ln(e) - \\ln(1)$. Por definición de logaritmo, $\\ln(e) = 1$ y $\\ln(1) = 0$. Por lo tanto, el área es exactamente $1$. Este es un resultado fundamental que relaciona la hipérbola con el número $e$."
+  },
+  {
+    "external_id": "black_area_calculation_intg_09",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Calculá el área de la región limitada por la curva $y = x^2 - 4$ y el eje $X$.",
+    "options": [
+      "$\\frac{32}{3}$",
+      "$\\frac{16}{3}$",
+      "$8$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La integral de $-(x^2-4)$ entre $-2$ y $2$ da $32/3$.",
+    "feedback_incorrect": "Ojo que la función está por debajo del eje $X$ entre sus raíces $-2$ y $2$. Debés integrar el negativo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La parábola $y = x^2 - 4$ tiene sus raíces en $x = 2$ y $x = -2$. En ese intervalo, la función toma valores **negativos** (está bajo el eje $X$).\n\nEl área se calcula como la integral del opuesto de la función para obtener un valor positivo:\n\n$$A = \\int_{-2}^2 (0 - (x^2 - 4)) \\, dx = \\int_{-2}^2 (4 - x^2) \\, dx$$\n\nIntegrando obtenemos $[4x - \\frac{x^3}{3}]_{-2}^2 = (8 - 8/3) - (-8 + 8/3) = 16/3 + 16/3 = 32/3$. Si integrás directamente la función, obtendrías $-32/3$, lo cual no tiene sentido para un área física."
+  },
+  {
+    "external_id": "black_area_calculation_intg_10",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "INTG",
+    "subtype": "text",
+    "question": "Hallá el área de la región encerrada por $f(x) = −x^2 + 4x$ y el eje $X$.",
+    "options": [
+      "$\\frac{32}{3}$",
+      "$\\frac{8}{3}$",
+      "$\\frac{16}{3}$",
+      "$8$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las raíces son $0$ y $4$. La integral de $(-x^2+4x)$ en ese intervalo es $32/3$.",
+    "feedback_incorrect": "Buscá las raíces igualando a cero. Luego integrá la función entre esos dos puntos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero encontramos las intersecciones con el eje $X$: $-x^2 + 4x = 0 \\Rightarrow x(-x + 4) = 0$, de donde $x=0$ y $x=4$.\n\nComo es una parábola cóncava hacia abajo, entre sus raíces es positiva. Planteamos la integral:\n\n$$A = \\int_0^4 (-x^2 + 4x) \\, dx = \\left[ -\\frac{x^3}{3} + 2x^2 \\right]_0^4$$\n\nEvaluando: $(-\\frac{64}{3} + 2(16)) - 0 = -\\frac{64}{3} + 32 = \\frac{-64 + 96}{3} = \\frac{32}{3}$. Este valor representa la superficie del arco parabólico formado sobre el eje horizontal."
+  },
+  {
+    "external_id": "black_area_calculation_apli_01",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Si queremos calcular el área entre $f(x) = x^2 - 1$ y $g(x) = x + 1$, ¿cuál es el primer paso fundamental según la estrategia estándar?",
+    "options": [
+      "Calcular la derivada de ambas funciones",
+      "Igualar $f(x) = g(x)$ para encontrar los límites de integración",
+      "Integrar $f(x)$ de $0$ a $1$",
+      "Reemplazar $x$ por cero en ambas expresiones"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Identificar los puntos de cruce es vital para definir el intervalo de la integral.",
+    "feedback_incorrect": "Para saber 'dónde empieza y dónde termina' la región, necesitás los puntos de intersección.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En problemas de **áreas entre curvas**, la región de interés suele estar delimitada por los cruces de las funciones. Sin los límites de integración, no podemos plantear la integral definida.\n\nAl igualar $x^2 - 1 = x + 1$, resolvemos la ecuación cuadrática $x^2 - x - 2 = 0$ para obtener los valores de $x$ donde las gráficas se tocan.\n\nUna vez obtenidos estos puntos (en este caso $x=-1$ y $x=2$), podemos determinar cuál función es el **techo** y cuál es el **piso** para armar la integral $(g - f)$ o $(f - g)$ correctamente."
+  },
+  {
+    "external_id": "black_area_calculation_apli_02",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Se desea calcular el área encerrada entre $f(x) = x^3$ y $g(x) = x$. ¿Por qué es necesario dividir la integral en dos partes si integramos desde $x = -1$ hasta $x = 1$?",
+    "options": [
+      "Porque las funciones cambian de posición relativa (cuál es mayor)",
+      "Porque la integral de $x^3$ no existe para valores negativos",
+      "Porque el área siempre debe dar cero",
+      "Porque una de las funciones es constante"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Entre $-1$ y $0$ el techo es $x^3$, pero entre $0$ y $1$ el techo es $x$.",
+    "feedback_incorrect": "Fijate que las curvas se cruzan en el medio. Si no dividís la integral, las áreas se restan en lugar de sumarse.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando calculamos el área entre dos curvas, debemos asegurar que el integrando sea siempre **Techo - Piso** (una cantidad positiva).\n\nEn el intervalo $[-1, 0]$, la función $x^3$ está por encima de $x$. Sin embargo, en el intervalo $[0, 1]$, la recta $x$ está por encima de $x^3$.\n\nSi hiciéramos una sola integral de $(x - x^3)$, la parte donde $x^3 > x$ daría un resultado negativo que se restaría del área total. Por eso, dividimos en dos integrales o usamos el **valor absoluto** para sumar ambas superficies físicas."
+  },
+  {
+    "external_id": "black_area_calculation_apli_03",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Una empresa mide el flujo de ingresos marginales como $R'(t) = 100e^{0.1t}$ dólares/año. ¿Qué representa el área bajo esta curva desde $t=0$ hasta $t=5$?",
+    "options": [
+      "La tasa de crecimiento en el año 5",
+      "El ingreso total acumulado en los primeros 5 años",
+      "El promedio de ingresos anuales",
+      "El tiempo necesario para duplicar los ingresos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El área bajo la tasa de cambio (derivada) representa la variación total de la magnitud original.",
+    "feedback_incorrect": "La integral de una tasa de cambio nos da la acumulación total de esa magnitud en el tiempo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este es un uso clásico de la **integral definida** en economía. Si conocemos la derivada (ingreso marginal), su integral nos devuelve la función original (ingreso total).\n\nGeométricamente, el área bajo la curva de $R'(t)$ entre dos instantes de tiempo representa el cambio neto en $R(t)$.\n\n$$A = \\int_0^5 100e^{0.1t} \\, dt = R(5) - R(0)$$\n\nComo el área bajo una función de tasa siempre mide acumulación, en este contexto nos indica cuántos dólares totales ingresaron a la caja durante ese quinquenio."
+  },
+  {
+    "external_id": "black_area_calculation_apli_04",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "¿Cómo se define el área de una región limitada por $f(x)$ y $g(x)$ en el intervalo $[a, b]$ si $g(x) \\geq f(x)$ para todo $x$ en ese intervalo?",
+    "options": [
+      "$A = \\int_a^b [g(x) - f(x)] \\, dx$",
+      "$A = \\int_a^b [f(x) - g(x)] \\, dx$",
+      "$A = \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$",
+      "$A = g(b) - f(a)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Siempre se resta la función superior (techo) menos la inferior (piso).",
+    "feedback_incorrect": "La regla es 'Superior menos Inferior'. Como $g$ es mayor, va primero en la resta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El área entre dos funciones se calcula mediante la integral de la diferencia entre ellas. Para obtener un valor de área (que por definición es positivo), debemos restar la función con valores de $y$ más altos menos la función con valores de $y$ más bajos.\n\n$$A = \\int_a^b (\\text{Techo} - \\text{Piso}) \\, dx$$\n\nSi $g(x) \\geq f(x)$, entonces $g(x) - f(x) \\geq 0$, lo que garantiza que la integral acumulada sea positiva. Si intercambiáramos el orden, obtendríamos el mismo valor numérico pero con signo negativo."
+  },
+  {
+    "external_id": "black_area_calculation_apli_05",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Si una función $f(x)$ es simétrica respecto al eje $Y$ (par), ¿cómo podrías simplificar el cálculo del área bajo la curva en el intervalo $[-a, a]$?",
+    "options": [
+      "Es igual a $0$",
+      "Es igual a $2 \\cdot \\int_0^a f(x) \\, dx$",
+      "Es igual a $\\int_0^a f(x) \\, dx$",
+      "No se puede simplificar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al ser par, la región a la izquierda del eje $Y$ es idéntica a la de la derecha.",
+    "feedback_incorrect": "Las funciones pares tienen gráficas 'espejo'. Podés calcular la mitad y multiplicar por dos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **simetría** es una herramienta poderosa en el cálculo de áreas. Una función par cumple que $f(x) = f(-x)$, lo que significa que el área entre $-a$ y $0$ es exactamente igual al área entre $0$ y $a$.\n\nPlanteando la integral:\n\n$$\\int_{-a}^a f(x) \\, dx = \\int_{-a}^0 f(x) \\, dx + \\int_0^a f(x) \\, dx = 2 \\int_0^a f(x) \\, dx$$\n\nEsto simplifica mucho el trabajo, ya que evaluar en $0$ suele ser más sencillo que evaluar en un límite negativo. Ejemplos comunes de esto son las funciones $x^2$, $\\cos(x)$ o $|x|$."
+  },
+  {
+    "external_id": "black_area_calculation_apli_06",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Para hallar el área entre $y^2 = x$ y $y = x - 2$, ¿qué estrategia suele ser más conveniente?",
+    "options": [
+      "Integrar respecto a $x$ dividiendo en dos partes",
+      "Integrar respecto a $y$ como $A = \\int (x_{derecha} - x_{izquierda}) \\, dy$",
+      "Usar coordenadas polares",
+      "No se puede calcular por integración"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Al despejar $x$ en función de $y$, se evita tener que partir la integral por el cambio de 'piso'.",
+    "feedback_incorrect": "Integrar respecto a $y$ es más directo porque el límite 'derecho' es siempre la misma recta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A veces es más fácil ver el área 'de costado'. Si integramos respecto a $x$, la función inferior cambia: en una parte es $-\\sqrt{x}$ y en otra es la recta $x-2$.\n\nSi despejamos $x$ en ambas ecuaciones:\n1. $x = y^2$\n2. $x = y + 2$\n\nAhora tenemos funciones de $y$. La recta queda a la **derecha** de la parábola para toda la región. El área se plantea como:\n\n$$A = \\int_{y_1}^{y_2} [ (y+2) - y^2 ] \\, dy$$\n\nEsta integral única respecto a $y$ es mucho más simple de resolver que separar el problema en múltiples tramos de $x$."
+  },
+  {
+    "external_id": "black_area_calculation_apli_07",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Si una integral definida $\\int_a^b f(x) \\, dx$ da como resultado $-5$, ¿qué podemos afirmar sobre el área física $A$ entre la curva y el eje $X$?",
+    "options": [
+      "El área es $5$ y la función está mayormente bajo el eje $X$",
+      "El área es $-5$",
+      "No existe tal área",
+      "La función es impar"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El área física es la magnitud $|-5| = 5$. El signo indica la posición respecto al eje.",
+    "feedback_incorrect": "El área siempre es positiva. Si la integral dio negativa, es porque la región está por debajo del eje $X$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Es vital distinguir entre **integral definida** y **área**. La integral definida es una 'suma con signo'. Si la curva está debajo del eje $X$, sus rectángulos de Riemann tienen altura negativa, resultando en un valor negativo.\n\nEl área física, en cambio, es una medida de superficie y siempre es positiva. Si calculás una integral y te da negativa, el área de esa región es simplemente el valor absoluto del resultado.\n\n$$A = \\left| \\int_a^b f(x) \\, dx \\right| = 5$$\n\nEsto sucede habitualmente con funciones como $x^2 - 9$ en el intervalo $[-3, 3]$ o el seno entre $\\pi$ y $2\\pi$."
+  },
+  {
+    "external_id": "black_area_calculation_apli_08",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Al buscar el área encerrada por $f(x) = x^2 - 4$ y el eje $X$, un estudiante plantea $\\int_{-2}^2 (x^2 - 4) \\, dx$. ¿Por qué obtendrá un resultado erróneo para el área?",
+    "options": [
+      "Porque los límites están mal calculados",
+      "Porque la integral dará un valor negativo",
+      "Porque la función no es continua",
+      "Porque hay que derivar antes de integrar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La parábola está por debajo del eje en ese intervalo, por lo que la integral directa da el opuesto del área.",
+    "feedback_incorrect": "La superficie física debe ser positiva. Esa integral te va a dar $-32/3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La parábola $x^2 - 4$ abre hacia arriba y cruza el eje $X$ en $-2$ y $2$. En el tramo entre raíces, el vértice está en $(0, -4)$, por lo que toda la región está **bajo el eje $X$**.\n\nSi planteás la integral directa:\n$$\\int_{-2}^2 (x^2 - 4) \\, dx = \\left[ \\frac{x^3}{3} - 4x \\right]_{-2}^2 = (8/3 - 8) - (-8/3 + 8) = -32/3$$\n\nPara que sea el área correcta, debés tomar el valor absoluto o integrar la función opuesta: $\\int_{-2}^2 (4 - x^2) \\, dx = 32/3$. Siempre verificá la posición de la curva respecto al eje."
+  },
+  {
+    "external_id": "black_area_calculation_apli_09",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "¿Qué indica el Teorema Fundamental del Cálculo en relación al área bajo una curva continua $f(t)$?",
+    "options": [
+      "Que la función área $A(x) = \\int_a^x f(t) \\, dt$ es una primitiva de $f(x)$",
+      "Que el área siempre es igual al valor de la función en el punto medio",
+      "Que el área solo se puede calcular para polinomios",
+      "Que la derivada de una integral es siempre cero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El TFC vincula la acumulación (área) con la operación inversa de la derivación.",
+    "feedback_incorrect": "El TFC dice que si derivás la función que mide el área acumulada, recuperás la función original.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Teorema Fundamental del Cálculo** es el puente entre las derivadas y las integrales. Nos dice que si definimos una función $F(x)$ como el área acumulada bajo $f(t)$ desde un punto fijo $a$ hasta $x$, entonces la derivada de esa función área es la función original:\n\n$$F'(x) = \\frac{d}{dx} \\int_a^x f(t) \\, dt = f(x)$$\n\nEsto significa que para encontrar áreas (integrales), el camino más eficiente es buscar una **primitiva** (antiderivada) de la función, permitiendo resolver problemas geométricos mediante el álgebra de funciones."
+  },
+  {
+    "external_id": "black_area_calculation_apli_10",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Querés calcular el área de un círculo de radio $r$ usando integrales. Si planteás la integral de la semicircunferencia superior $y = \\sqrt{r^2 - x^2}$, ¿qué deberías hacer para obtener el área total?",
+    "options": [
+      "Multiplicar el resultado por 2",
+      "Elevar el resultado al cuadrado",
+      "Dividir el resultado por 2",
+      "Restar el valor del radio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La integral de la raíz solo te da la mitad superior del círculo.",
+    "feedback_incorrect": "La función $\\sqrt{r^2 - x^2}$ solo describe el semicírculo de arriba. Te falta el de abajo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La ecuación de un círculo es $x^2 + y^2 = r^2$. Al despejar $y$, obtenemos dos ramas: $y = \\sqrt{r^2 - x^2}$ (superior) y $y = -\\sqrt{r^2 - x^2}$ (inferior).\n\nIntegrando la rama superior entre $-r$ y $r$ obtenemos el área del **semicírculo**:\n\n$$\\int_{-r}^r \\sqrt{r^2 - x^2} \\, dx = \\frac{1}{2} \\pi r^2$$\n\nComo el círculo es simétrico respecto al eje $X$, el área total es simplemente el doble de esa integral. Es un gran ejemplo de cómo las integrales pueden demostrar fórmulas geométricas clásicas que usamos desde la escuela."
+  },
+  {
+    "external_id": "black_area_calculation_graf_01",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la gráfica de $f(x) = x^2$ y $g(x) = 4$. ¿Cuál es el área de la región encerrada entre ambas?",
+    "options": [
+      "$\\frac{32}{3}$",
+      "$\\frac{16}{3}$",
+      "$8$",
+      "$\\frac{8}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Los cruces son en $x = \\pm 2$. La integral de $(4 - x^2)$ da $32/3$.",
+    "feedback_incorrect": "Identificá los puntos de corte en el gráfico ($x=-2$ y $x=2$). El 'techo' es la recta $y=4$.",
+    "graph_fn": "4, x**2",
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 5
+    },
+    "explanation": "Mirando la gráfica, vemos que la recta horizontal $y=4$ está por encima de la parábola $y=x^2$ en el tramo central. Los puntos donde se cruzan son $(-2, 4)$ y $(2, 4)$.\n\nPlanteamos la integral de la diferencia:\n\n$$A = \\int_{-2}^2 (4 - x^2) \\, dx = \\left[ 4x - \\frac{x^3}{3} \\right]_{-2}^2$$\n\nEvaluando: $(8 - 8/3) - (-8 + 8/3) = 16/3 + 16/3 = 32/3$. Visualmente, es el área del 'cuenco' que se forma entre la recta y la curva azul."
+  },
+  {
+    "external_id": "black_area_calculation_graf_02",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la gráfica de $f(x) = x^3 - x$, ¿cuánto vale el área total entre la curva y el eje $X$?",
+    "options": [
+      "$0$",
+      "$\\frac{1}{2}$",
+      "$1$",
+      "$\\frac{1}{4}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La región tiene dos lóbulos iguales de área $1/4$ cada uno. Total $1/2$.",
+    "feedback_incorrect": "El gráfico muestra dos regiones: una sobre el eje y otra bajo el eje. Debés sumar sus áreas absolutas.",
+    "graph_fn": "x**3 - x",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 2,
+      "yMin": -1,
+      "yMax": 1
+    },
+    "explanation": "La función $f(x) = x^3 - x$ cruza el eje $X$ en $-1, 0$ y $1$. Al ser una función impar, el lóbulo izquierdo (positivo) y el lóbulo derecho (negativo) tienen la misma superficie.\n\nEl área del lóbulo en $[0, 1]$ es:\n$$\\left| \\int_0^1 (x^3 - x) \\, dx \\right| = \\left| [x^4/4 - x^2/2]_0^1 \\right| = |1/4 - 1/2| = |-1/4| = 1/4$$\n\nComo hay dos lóbulos idénticos, el área física total es $1/4 + 1/4 = 1/2$. No confundir con la integral de $-1$ a $1$, que daría cero."
+  },
+  {
+    "external_id": "black_area_calculation_graf_03",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = e^x - 1$, se sombrea el área entre la curva, el eje $X$ y $x=2$. ¿Qué integral la representa?",
+    "options": [
+      "$\\int_{-1}^2 (e^x - 1) \\, dx$",
+      "$\\int_0^2 e^x \\, dx$",
+      "$\\int_0^2 (e^x - 1) \\, dx$",
+      "$\\int_0^1 (e^x - 1) \\, dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La curva pasa por el origen y es positiva para $x > 0$.",
+    "feedback_incorrect": "La función corta al eje $X$ en $x=0$, ya que $e^0 - 1 = 0$. El intervalo es de $0$ a $2$.",
+    "graph_fn": "exp(x) - 1",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 3,
+      "yMin": -2,
+      "yMax": 8
+    },
+    "explanation": "Al observar la gráfica de $e^x - 1$, notamos que la curva interseca al eje horizontal en el punto $(0,0)$. Hacia la derecha, la función crece rápidamente.\n\nLa región sombreada está limitada a la izquierda por el origen ($x=0$) y a la derecha por la recta vertical $x=2$. Como la función es positiva en todo ese tramo, el área es simplemente la integral definida:\n\n$$A = \\int_0^2 (e^x - 1) \\, dx = [e^x - x]_0^2 = (e^2 - 2) - (e^0 - 0) = e^2 - 3$$\n\nEste valor representa la superficie entre la exponencial desplazada y el eje $X$."
+  },
+  {
+    "external_id": "black_area_calculation_graf_04",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Considerá $f(x) = \\cos(x)$ en el gráfico. ¿Cuál es el área de la región bajo la curva en el primer arco positivo (de $-\\pi/2$ a $\\pi/2$)?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$\\pi$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\int_{-\\pi/2}^{\\pi/2} \\cos(x) \\, dx = \\sin(\\pi/2) - \\sin(-\\pi/2) = 1 - (-1) = 2$.",
+    "feedback_incorrect": "El primer arco del coseno está centrado en el origen. Los límites son donde el coseno se hace cero.",
+    "graph_fn": "cos(x)",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 2,
+      "yMin": -0.5,
+      "yMax": 1.5
+    },
+    "explanation": "La gráfica del coseno muestra una 'campaña' sobre el eje $X$ entre sus raíces consecutivas $-\\pi/2$ y $\\pi/2$. Para hallar esa superficie, integramos la función:\n\n$$A = \\int_{-\\pi/2}^{\\pi/2} \\cos(x) \\, dx = \\left[ \\sin(x) \\right]_{-\\pi/2}^{\\pi/2}$$\n\nSustituyendo los límites: $\\sin(\\pi/2) - \\sin(-\\pi/2) = 1 - (-1) = 2$. Es un resultado clásico: cada 'lóbulo' de las funciones seno o coseno tiene un área exacta de 2 unidades cuadradas."
+  },
+  {
+    "external_id": "black_area_calculation_graf_05",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Mirá las curvas $f(x) = \\sqrt{x}$ y $g(x) = x/2$. ¿En qué puntos se intersecan según la gráfica?",
+    "options": [
+      "$(0,0)$ y $(4,2)$",
+      "$(0,0)$ y $(2,1)$",
+      "$(1,1)$ y $(4,2)$",
+      "Solo en $(0,0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $x=4$, $\\sqrt{4}=2$ y $4/2=2$. Coinciden.",
+    "feedback_incorrect": "Igualá las funciones o fijate dónde se cruzan los hilos en el gráfico. Probá con $x=4$.",
+    "graph_fn": "sqrt(x), x/2",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 6,
+      "yMin": -1,
+      "yMax": 4
+    },
+    "explanation": "Al observar el gráfico, identificamos dos puntos de contacto. Uno es claramente el origen $(0,0)$. El otro ocurre más a la derecha.\n\nPara verificarlo analíticamente: $\\sqrt{x} = x/2 \\Rightarrow x = x^2/4 \\Rightarrow 4x = x^2$. Las soluciones son $x=0$ y $x=4$.\n\nEsto define nuestro intervalo de integración $[0, 4]$. Para el cálculo de área, notaríamos que la raíz (curva) está por encima de la recta, por lo que integraríamos $(\\sqrt{x} - x/2)$."
+  },
+  {
+    "external_id": "black_area_calculation_graf_06",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observando el gráfico de $f(x) = 1 - x^2$, ¿cuál es el área de la región encerrada con el eje $X$?",
+    "options": [
+      "$\\frac{2}{3}$",
+      "$\\frac{4}{3}$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Raíces en $\\pm 1$. Integral: $[x - x^3/3]$ de $-1$ a $1$ da $4/3$.",
+    "feedback_incorrect": "La parábola está invertida y corta en $-1$ y $1$. Integrá la función entre esos puntos.",
+    "graph_fn": "1 - x**2",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 2,
+      "yMin": -1,
+      "yMax": 2
+    },
+    "explanation": "La gráfica muestra una parábola cóncava hacia abajo con vértice en $(0,1)$. Sus intersecciones con el eje horizontal se dan cuando $1 - x^2 = 0$, es decir, en $x=1$ y $x=-1$.\n\nComo la región está sobre el eje, el área es:\n\n$$A = \\int_{-1}^1 (1 - x^2) \\, dx = \\left[ x - \\frac{x^3}{3} \\right]_{-1}^1$$\n\nEvaluando: $(1 - 1/3) - (-1 + 1/3) = 2/3 - (-2/3) = 4/3$. Esta superficie representa el 'domo' central de la figura."
+  },
+  {
+    "external_id": "black_area_calculation_graf_07",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la gráfica de $f(x) = 1/x^2$, ¿qué sucede con el área bajo la curva desde $x=1$ hacia $+\\infty$?",
+    "options": [
+      "Es igual a $0$",
+      "Es infinita",
+      "Es finita e igual a $1$",
+      "No se puede integrar"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es una integral impropia convergente: $[-1/x]_1^{\\infty} = 0 - (-1) = 1$.",
+    "feedback_incorrect": "Aunque la región es infinitamente larga, su área puede ser finita si la curva se pega rápido al eje.",
+    "graph_fn": "1/x**2",
+    "graph_view": {
+      "xMin": 0.5,
+      "xMax": 10,
+      "yMin": -0.5,
+      "yMax": 2
+    },
+    "explanation": "Este es un ejemplo fascinante de una **integral impropia**. A pesar de que la región se extiende infinitamente hacia la derecha, la 'altura' de la función disminuye tan rápido que la superficie total acumulada es un número finito.\n\n$$A = \\int_1^{\\infty} x^{-2} \\, dx = \\lim_{b \\to \\infty} \\left[ -\\frac{1}{x} \\right]_1^b = \\lim_{b \\to \\infty} \\left( -\\frac{1}{b} + 1 \\right) = 1$$\n\nVisualmente, la curva se 'pega' al eje $X$ con suficiente velocidad como para que el área bajo ella no 'explote' al infinito, sumando exactamente 1 unidad."
+  },
+  {
+    "external_id": "black_area_calculation_graf_08",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica se ven $f(x) = x^2$ y $g(x) = 8 - x^2$. ¿Cuál es el planteo correcto para el área sombreada entre ellas?",
+    "options": [
+      "$\\int_{-2}^2 (8 - x^2) \\, dx$",
+      "$\\int_{-2}^2 (2x^2 - 8) \\, dx$",
+      "$\\int_{0}^2 (8 - x^2) \\, dx$",
+      "$\\int_{-2}^2 (8 - 2x^2) \\, dx$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Techo ($8-x^2$) menos Piso ($x^2$) resulta en $8 - 2x^2$.",
+    "feedback_incorrect": "Las curvas se cortan en $x=2$ y $x=-2$. Restá la que abre hacia abajo menos la que abre hacia arriba.",
+    "graph_fn": "x**2, 8 - x**2",
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 10
+    },
+    "explanation": "Observando el gráfico, vemos una región cerrada tipo 'ojo'. La curva superior es la parábola desplazada hacia arriba y cóncava hacia abajo ($8 - x^2$). La curva inferior es la parábola estándar ($x^2$).\n\nIgualando: $x^2 = 8 - x^2 \\Rightarrow 2x^2 = 8 \\Rightarrow x^2 = 4 \\Rightarrow x = \\pm 2$.\n\nEl integrando debe ser $(\\text{Techo} - \\text{Piso})$:\n$$(8 - x^2) - (x^2) = 8 - 2x^2$$\n\nIntegrar esta expresión entre $-2$ y $2$ nos dará el área exacta de la lenteja formada por ambas funciones."
+  },
+  {
+    "external_id": "black_area_calculation_graf_09",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Si $f(x)$ es la función mostrada y sabemos que $\\int_1^3 f(x) \\, dx = 4$, ¿cuál es el área de la región entre la curva y el eje $X$ en ese intervalo?",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$2$",
+      "No se puede saber"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como la gráfica está toda por encima del eje $X$, área e integral coinciden.",
+    "feedback_incorrect": "Si la función es siempre positiva, el área es directamente el valor de la integral definida.",
+    "graph_fn": "0.5*x**2 + 0.5",
+    "graph_view": {
+      "xMin": 0,
+      "xMax": 4,
+      "yMin": -1,
+      "yMax": 6
+    },
+    "explanation": "Cuando una función es **no negativa** en un intervalo $[a, b]$, la integral definida representa exactamente el área geométrica bajo la curva. No hace falta aplicar valores absolutos ni cambiar signos.\n\nEn la gráfica se observa que para el tramo $[1, 3]$, todos los valores de $y$ son mayores a cero. Por lo tanto, si la integral acumuló 4 unidades, esas son exactamente las unidades de superficie de la región sombreada.\n\nSi la curva cruzara el eje $X$, tendríamos que haber tenido más cuidado, pero aquí la relación es directa y sencilla."
+  },
+  {
+    "external_id": "black_area_calculation_graf_10",
+    "belt": "black",
+    "topic": "area_calculation",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Mirando la función $f(x) = -x$, ¿cuál es el área encerrada entre la curva, el eje $X$ y las rectas $x=-2$ y $x=0$?",
+    "options": [
+      "$-2$",
+      "$2$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es un triángulo de base 2 y altura 2. Área = $(2 \\cdot 2)/2 = 2$.",
+    "feedback_incorrect": "Es una región triangular. Podés usar la integral de $-x$ de $-2$ a $0$, que da $2$.",
+    "graph_fn": "-x",
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 1,
+      "yMin": -1,
+      "yMax": 3
+    },
+    "explanation": "La región descrita es un **triángulo rectángulo**. Sus vértices son $(-2, 0)$, $(0, 0)$ y $(-2, 2)$. La base mide 2 unidades (de $-2$ a $0$) y la altura mide 2 unidades (de $0$ a $2$ en el eje $Y$).\n\nUsando integrales:\n$$A = \\int_{-2}^0 (-x) \\, dx = \\left[ -\\frac{x^2}{2} \\right]_{-2}^0 = 0 - (-\\frac{(-2)^2}{2}) = 0 - (-2) = 2$$\n\nEste ejercicio muestra cómo el cálculo integral coincide perfectamente con las fórmulas de geometría básica (Base $\\cdot$ Altura / 2) para figuras rectilíneas."
+  }
+]

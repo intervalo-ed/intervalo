@@ -1,0 +1,892 @@
+[
+  {
+    "external_id": "black_function_analysis_deri_01",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Si tenés la función $f(x) = x^3 - 6x^2 + 9x + 1$, ¿cuál es la expresión de su derivada primera para hallar los puntos críticos?",
+    "options": [
+      "$f'(x) = 3x^2 - 12x + 9$",
+      "$f'(x) = 3x^2 - 6x + 9$",
+      "$f'(x) = x^2 - 12x + 9$",
+      "$f'(x) = 3x^3 - 12x^2 + 9x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Derivaste cada término bajando el exponente y restando uno.",
+    "feedback_incorrect": "Recordá la regla de la potencia: $(x^n)' = n x^{n-1}$. Bajás el exponente y lo multiplicás por el coeficiente original.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para realizar el **análisis de funciones**, el primer paso suele ser hallar la derivada primera para identificar puntos críticos. \n\nUsando la **regla de la potencia** término a término:\n\n$$(x^3)' = 3x^2 \\quad , \\quad (-6x^2)' = -12x \\quad , \\quad (9x)' = 9$$\n\nSumando los resultados y sabiendo que la derivada de una constante es cero, obtenés $f'(x) = 3x^2 - 12x + 9$. Igualar esta expresión a cero te permitirá encontrar los valores de $x$ donde la función tiene posibles máximos o mínimos."
+  },
+  {
+    "external_id": "black_function_analysis_deri_02",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "¿Cuál es la derivada segunda de $f(x) = e^{-x^2}$, necesaria para analizar la concavidad?",
+    "options": [
+      "$f''(x) = -2e^{-x^2}$",
+      "$f''(x) = (4x^2 - 2)e^{-x^2}$",
+      "$f''(x) = 4x^2 e^{-x^2}$",
+      "$f''(x) = -2x e^{-x^2}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicaste regla de la cadena y luego regla del producto con éxito.",
+    "feedback_incorrect": "Tenés que derivar dos veces. La primera requiere regla de la cadena; la segunda, regla del producto.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la **concavidad**, necesitás la derivada segunda. \n\nPrimero, derivás una vez usando la **regla de la cadena**:\n\n$$f'(x) = e^{-x^2} \\cdot (-2x) = -2x e^{-x^2}$$\n\nLuego, aplicás la **regla del producto** para la segunda derivada:\n\n$$f''(x) = (-2)e^{-x^2} + (-2x)e^{-x^2}(-2x) = -2e^{-x^2} + 4x^2 e^{-x^2}$$\n\nFactorizando, llegás a $(4x^2 - 2)e^{-x^2}$. Los ceros de esta función te indican los posibles puntos de inflexión."
+  },
+  {
+    "external_id": "black_function_analysis_deri_03",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Calculá la derivada de $f(x) = \\dfrac{x}{x^2 + 1}$ para determinar sus intervalos de crecimiento.",
+    "options": [
+      "$f'(x) = \\dfrac{1}{2x}$",
+      "$f'(x) = \\dfrac{x^2 - 1}{(x^2 + 1)^2}$",
+      "$f'(x) = \\dfrac{1 - x^2}{(x^2 + 1)^2}$",
+      "$f'(x) = \\dfrac{1 + x^2}{(x^2 + 1)^2}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicaste la regla del cociente: $(u/v)' = (u'v - uv')/v^2$.",
+    "feedback_incorrect": "Usá la regla del cociente. El signo en el numerador es fundamental para no invertir los intervalos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar una función racional, la **regla del cociente** es tu herramienta principal:\n\n$$f'(x) = \\frac{1 \\cdot (x^2 + 1) - x \\cdot (2x)}{(x^2 + 1)^2}$$\n\nSimplificando el numerador: $x^2 + 1 - 2x^2 = 1 - x^2$. \n\nComo el denominador siempre es positivo, el signo de la derivada depende solo de $1 - x^2$. Esto significa que la función crece cuando $|x| < 1$, permitiéndote realizar un **estudio de monotonía** preciso."
+  },
+  {
+    "external_id": "black_function_analysis_deri_04",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Dada $f(x) = \\ln(x^2 + 1)$, ¿cuál es su derivada segunda $f''(x)$?",
+    "options": [
+      "$f''(x) = \\dfrac{-4x^2}{(x^2 + 1)^2}$",
+      "$f''(x) = \\dfrac{2x}{x^2 + 1}$",
+      "$f''(x) = \\dfrac{2}{x^2 + 1}$",
+      "$f''(x) = \\dfrac{2(1 - x^2)}{(x^2 + 1)^2}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Primero derivaste el logaritmo y luego aplicaste el cociente.",
+    "feedback_incorrect": "Derivá una vez con regla de la cadena para obtener $2x/(x^2+1)$, y luego derivá eso con la regla del cociente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la **concavidad** de una logarítmica, derivamos dos veces. \n\nPrimera derivada (regla de la cadena):\n\n$$f'(x) = \\frac{1}{x^2 + 1} \\cdot (2x) = \\frac{2x}{x^2 + 1}$$\n\nSegunda derivada (regla del cociente):\n\n$$f''(x) = \\frac{2(x^2 + 1) - (2x)(2x)}{(x^2 + 1)^2} = \\frac{2x^2 + 2 - 4x^2}{(x^2 + 1)^2} = \\frac{2 - 2x^2}{(x^2 + 1)^2}$$\n\nFactorizando el 2, obtenés la expresión final. Si $f''(x) > 0$, la función es **cóncava hacia arriba** (convexa)."
+  },
+  {
+    "external_id": "black_function_analysis_deri_05",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Hallá la derivada de $f(x) = x \\ln(x)$ para encontrar su mínimo relativo.",
+    "options": [
+      "$f'(x) = 1 + \\ln(x)$",
+      "$f'(x) = \\ln(x)$",
+      "$f'(x) = 1 / x$",
+      "$f'(x) = 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicaste la regla del producto: $(x)' \\ln(x) + x (\\ln x)'$.",
+    "feedback_incorrect": "Recordá la regla del producto. La derivada de $x$ es 1 y la de $\\ln(x)$ es $1/x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el **análisis de funciones**, las funciones con logaritmos suelen tener dominios restringidos (aquí $x > 0$). \n\nUsamos la **regla del producto**:\n\n$$f'(x) = (1) \\cdot \\ln(x) + x \\cdot \\left(\\frac{1}{x}\\right) = \\ln(x) + 1$$\n\nPara hallar el mínimo, igualamos a cero: $\\ln(x) + 1 = 0 \\Rightarrow \\ln(x) = -1 \\Rightarrow x = e^{-1}$. Este es el valor de $x$ donde la función alcanza su punto más bajo en el dominio dado."
+  },
+  {
+    "external_id": "black_function_analysis_deri_06",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Calculá $f''(x)$ para $f(x) = \\sin(x) + \\cos(x)$.",
+    "options": [
+      "$f''(x) = \\cos(x) - \\sin(x)$",
+      "$f''(x) = -\\sin(x) - \\cos(x)$",
+      "$f''(x) = -\\sin(x) + \\cos(x)$",
+      "$f''(x) = 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Derivaste dos veces respetando los cambios de signo de las trigonométricas.",
+    "feedback_incorrect": "Cuidado con los signos: $(\\sin x)' = \\cos x$ y $(\\cos x)' = -\\sin x$. Repetí el proceso.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las funciones trigonométricas tienen derivadas cíclicas. \n\nPrimera derivada:\n$$f'(x) = \\cos(x) - \\sin(x)$$\n\nSegunda derivada:\n$$f''(x) = -\\sin(x) - \\cos(x)$$\n\nNotá que $f''(x) = -f(x)$. Esto es una propiedad fundamental de las funciones seno y coseno, y en el **análisis de funciones**, nos indica que los puntos de inflexión coinciden con las raíces de la función original."
+  },
+  {
+    "external_id": "black_function_analysis_deri_07",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Si $f(x) = \\dfrac{x-1}{x+2}$, ¿cuál es la pendiente de la recta tangente en $x = 0$?",
+    "options": [
+      "$-3/4$",
+      "$1/4$",
+      "$3/4$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Derivaste y evaluaste en $x=0$.",
+    "feedback_incorrect": "Derivá usando la regla del cociente y luego reemplazá la $x$ por 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente de la tangente** es el valor de la derivada en el punto. \n\nUsando la regla del cociente:\n\n$$f'(x) = \\frac{1 \\cdot (x + 2) - (x - 1) \\cdot 1}{(x + 2)^2} = \\frac{x + 2 - x + 1}{(x + 2)^2} = \\frac{3}{(x + 2)^2}$$\n\nEvaluando en $x=0$:\n\n$$f'(0) = \\frac{3}{(0 + 2)^2} = \\frac{3}{4}$$\n\nComo la derivada es siempre positiva (excepto en la asíntota $x=-2$), sabemos que la función es **estrictamente creciente** en todo su dominio."
+  },
+  {
+    "external_id": "black_function_analysis_deri_08",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Para $f(x) = x^4 - 6x^2$, ¿cuál es la derivada segunda $f''(x)$?",
+    "options": [
+      "$12x - 12$",
+      "$4x^3 - 12x$",
+      "$12x^2 - 6$",
+      "$12x^2 - 12$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Derivaste dos veces el polinomio término a término.",
+    "feedback_incorrect": "Derivá $4x^3 - 12x$ una vez más para obtener la derivada segunda.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En polinomios, la derivación es directa. \n\n$f'(x) = 4x^3 - 12x$\n\n$f''(x) = 12x^2 - 12$\n\nPara el **estudio de la concavidad**, buscamos los ceros de $f''(x)$:\n\n$12x^2 - 12 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = \\pm 1$. \n\nEstos son los puntos donde la función cambia de forma, pasando de ser convexa a cóncava o viceversa (**puntos de inflexión**)."
+  },
+  {
+    "external_id": "black_function_analysis_deri_09",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Calculá la derivada de $f(x) = \\sqrt{x^2 + 1}$.",
+    "options": [
+      "$\\dfrac{x}{\\sqrt{x^2 + 1}}$",
+      "$\\dfrac{1}{2\\sqrt{x^2 + 1}}$",
+      "$\\dfrac{2x}{\\sqrt{x^2 + 1}}$",
+      "$x\\sqrt{x^2 + 1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Aplicaste la regla de la cadena para la raíz y la función interna.",
+    "feedback_incorrect": "Recordá que $(\\sqrt{u})' = \\frac{1}{2\\sqrt{u}} \\cdot u'$. No olvides multiplicar por la derivada de $x^2+1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta función representa una hipérbola suavizada. \n\nEscribimos la raíz como exponente: $f(x) = (x^2 + 1)^{1/2}$. \n\nPor **regla de la cadena**:\n\n$$f'(x) = \\frac{1}{2}(x^2 + 1)^{-1/2} \\cdot (2x) = \\frac{x}{\\sqrt{x^2 + 1}}$$\n\nEn el **análisis de funciones**, observamos que el único punto crítico es $x=0$. Como el denominador es siempre positivo, el signo de $f'$ es el mismo que el de $x$, indicando un mínimo en el origen."
+  },
+  {
+    "external_id": "black_function_analysis_deri_10",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "DERI",
+    "subtype": "text",
+    "question": "Hallá $f''(x)$ para la función $f(x) = x e^x$.",
+    "options": [
+      "$(x + 1)e^x$",
+      "$(x + 2)e^x$",
+      "$e^x$",
+      "$2e^x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cada derivación agrega un término $e^x$ al factor polinómico.",
+    "feedback_incorrect": "Derivá primero con regla del producto para obtener $(x+1)e^x$, y luego derivá eso de nuevo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Derivamos la primera vez con la **regla del producto**:\n\n$$f'(x) = 1 \\cdot e^x + x \\cdot e^x = (x + 1)e^x$$\n\nDerivamos la segunda vez, nuevamente con la regla del producto:\n\n$$f''(x) = 1 \\cdot e^x + (x + 1) \\cdot e^x = (1 + x + 1)e^x = (x + 2)e^x$$\n\nEn general, la derivada n-ésima de $x e^x$ es $(x + n)e^x$. El punto de inflexión ocurre en $x = -2$, donde la función cambia su **curvatura**."
+  },
+  {
+    "external_id": "black_function_analysis_apli_01",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Un proyectil sigue la trayectoria $h(t) = -5t^2 + 20t + 2$ metros. ¿En qué momento alcanza su altura máxima?",
+    "options": [
+      "$t = 2$ segundos",
+      "$t = 4$ segundos",
+      "$t = 20$ segundos",
+      "$t = 0$ segundos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La altura máxima ocurre donde la velocidad (derivada) se anula.",
+    "feedback_incorrect": "Derivá $h(t)$ e igualá a cero para encontrar el tiempo del vértice.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En problemas de física, la **altura máxima** de un objeto se alcanza cuando su velocidad vertical es cero. \n\nDerivamos la función de posición para obtener la velocidad:\n\n$$v(t) = h'(t) = -10t + 20$$\n\nIgualando a cero: $-10t + 20 = 0 \\Rightarrow t = 2$. \n\nComo la función es una parábola que abre hacia abajo (coeficiente de $t^2$ negativo), sabemos que este punto crítico es efectivamente un **máximo absoluto**."
+  },
+  {
+    "external_id": "black_function_analysis_apli_02",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Una empresa determina que su beneficio diario en pesos está dado por $B(x) = -x^2 + 100x - 500$, donde $x$ es la cantidad de artículos vendidos. ¿Cuántos artículos debe vender para maximizar su beneficio?",
+    "options": [
+      "$100$ artículos",
+      "$50$ artículos",
+      "$500$ artículos",
+      "$25$ artículos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Optimizaste la función hallando el punto donde la derivada es cero.",
+    "feedback_incorrect": "Derivá la función de beneficio e igualala a cero para encontrar el nivel de producción óptimo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Maximizar el **beneficio** es una aplicación clásica del análisis de funciones en economía. \n\nCalculamos la derivada primera:\n\n$$B'(x) = -2x + 100$$\n\nBuscamos el punto crítico: $-2x + 100 = 0 \\Rightarrow x = 50$.\n\nPara verificar que es un máximo, podemos ver que $B''(x) = -2 < 0$, lo que confirma que la función es **cóncava hacia abajo** en todo su dominio y el punto hallado es el máximo."
+  },
+  {
+    "external_id": "black_function_analysis_apli_03",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Querés cercar un jardín rectangular contra una pared (solo necesitás cercar 3 lados) con 40 metros de alambre. ¿Cuál debe ser el ancho $x$ perpendicular a la pared para que el área sea máxima?",
+    "options": [
+      "$13.3$ metros",
+      "$20$ metros",
+      "$10$ metros",
+      "$5$ metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Modelaste el área como $A(x) = x(40-2x)$ y derivaste.",
+    "feedback_incorrect": "Si el ancho es $x$, el largo es $40-2x$. Optimizá la función área $A = x(40-2x)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este es un problema de **optimización con restricciones**. \n\nSi llamamos $x$ al ancho y $y$ al largo, la restricción de alambre es: $2x + y = 40 \\Rightarrow y = 40 - 2x$. \n\nEl área es $A = x \\cdot y = x(40 - 2x) = 40x - 2x^2$. \n\nDerivamos para optimizar: $A'(x) = 40 - 4x$. Igualando a cero, obtenemos $x = 10$. \n\nCon $x=10$, el largo será $y=20$, logrando un **área máxima** de 200 metros cuadrados."
+  },
+  {
+    "external_id": "black_function_analysis_apli_04",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Si la posición de una partícula es $s(t) = t^3 - 6t^2 + 9t$, ¿en qué intervalos de tiempo se mueve hacia atrás (velocidad negativa)?",
+    "options": [
+      "$(0, 3)$",
+      "$(0, 1)$",
+      "$(3, \\infty)$",
+      "$(1, 3)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Analizaste el signo de la velocidad $v(t) = 3t^2 - 12t + 9$.",
+    "feedback_incorrect": "Hallá la derivada (velocidad) y determiná en qué intervalo es menor a cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La partícula se mueve **hacia atrás** cuando su velocidad es negativa. \n\nCalculamos la velocidad:\n\n$$v(t) = s'(t) = 3t^2 - 12t + 9 = 3(t^2 - 4t + 3)$$\n\nFactorizando: $v(t) = 3(t - 1)(t - 3)$. \n\nLas raíces son $t=1$ y $t=3$. Analizando el signo entre raíces (por ejemplo, evaluando en $t=2$), vemos que $v(2) = 3(1)(-1) = -3 < 0$. Por lo tanto, retrocede en el intervalo $(1, 3)$."
+  },
+  {
+    "external_id": "black_function_analysis_apli_05",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Se desea construir una caja abierta a partir de una hoja de cartón cuadrada de 12 cm de lado, cortando cuadraditos de lado $x$ en las esquinas. ¿Qué valor de $x$ maximiza el volumen?",
+    "options": [
+      "$2$ cm",
+      "$3$ cm",
+      "$4$ cm",
+      "$6$ cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El volumen es $V(x) = x(12-2x)^2$. Derivando hallaste el máximo.",
+    "feedback_incorrect": "El volumen es $V = largo \\cdot ancho \\cdot alto = (12-2x) \\cdot (12-2x) \\cdot x$. Optimizá esa función.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen de la caja es $V(x) = x(12 - 2x)^2$. \n\nDerivamos usando regla del producto y cadena:\n\n$$V'(x) = 1 \\cdot (12-2x)^2 + x \\cdot 2(12-2x)(-2) = (12-2x)(12-2x-4x) = (12-2x)(12-6x)$$\n\nLos puntos críticos son $x=6$ (que anula el volumen) y $x=2$. \n\nEn el contexto físico, $x$ debe estar entre $0$ y $6$. El valor $x=2$ maximiza la capacidad de la caja, siendo una aplicación directa de los **puntos críticos** en diseño."
+  },
+  {
+    "external_id": "black_function_analysis_apli_06",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "¿Cuál es el punto de la recta $y = 2x + 3$ que está más cerca del origen $(0,0)$?",
+    "options": [
+      "$( 0 , 3 )$",
+      "$( -6/5 , 3/5 )$",
+      "$( -1 , 1 )$",
+      "$( -3/2 , 0 )$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Maximizaste el cuadrado de la distancia $d^2 = x^2 + (2x+3)^2$.",
+    "feedback_incorrect": "Optimizá la función distancia al origen $D(x) = \\sqrt{x^2 + (2x+3)^2}$. Es más fácil optimizar $D^2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para minimizar la **distancia**, es equivalente minimizar el cuadrado de la distancia para evitar la raíz:\n\n$$f(x) = x^2 + (2x + 3)^2 = x^2 + 4x^2 + 12x + 9 = 5x^2 + 12x + 9$$\n\nDerivamos: $f'(x) = 10x + 12$. \n\nIgualando a cero: $10x = -12 \\Rightarrow x = -6/5$. \n\nSustituyendo en la recta: $y = 2(-6/5) + 3 = -12/5 + 15/5 = 3/5$. El punto $(-1.2, 0.6)$ es el más cercano al origen."
+  },
+  {
+    "external_id": "black_function_analysis_apli_07",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "En un modelo de crecimiento bacteriano $P(t) = \\dfrac{1000}{1 + 9e^{-t}}$, ¿en qué momento el crecimiento es más rápido (punto de inflexión)?",
+    "options": [
+      "$t = 9$",
+      "$t = 0$",
+      "$t = \\ln(9)$",
+      "$t = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El crecimiento máximo ocurre cuando la derivada segunda es cero.",
+    "feedback_incorrect": "Buscá el punto de inflexión de la función logística, que es donde la derivada primera tiene su máximo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es la **función logística**. El crecimiento es máximo en el **punto de inflexión**, donde la población alcanza la mitad de su capacidad de carga. \n\nLa derivada segunda de una función de la forma $1/(1+ae^{-t})$ se anula cuando $ae^{-t} = 1$. \n\nEn este caso: $9e^{-t} = 1 \\Rightarrow e^t = 9 \\Rightarrow t = \\ln(9)$. \n\nEn este instante, la curva cambia de convexa a cóncava y la tasa de contagio o crecimiento empieza a disminuir."
+  },
+  {
+    "external_id": "black_function_analysis_apli_08",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Si el costo total de producir $x$ unidades es $C(x) = 0.5x^2 + 10x + 100$, ¿para qué valor de $x$ el costo promedio por unidad es mínimo?",
+    "options": [
+      "$0$",
+      "$10$",
+      "$20$",
+      "$\\sqrt{200} \\approx 14.14$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Minimizaste $\\bar{C}(x) = C(x)/x = 0.5x + 10 + 100/x$.",
+    "feedback_incorrect": "Calculá el costo promedio $\\bar{C}(x) = C(x)/x$, derivalo e igualalo a cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **costo promedio** es $\\bar{C}(x) = \\frac{C(x)}{x} = 0.5x + 10 + \\frac{100}{x}$. \n\nDerivamos para hallar el mínimo:\n\n$$\\bar{C}'(x) = 0.5 - \\frac{100}{x^2}$$\n\nIgualando a cero: $0.5 = 100/x^2 \\Rightarrow x^2 = 200 \\Rightarrow x = \\sqrt{200}$. \n\nEste punto es donde el costo marginal iguala al costo promedio, un concepto clave en el **análisis de producción**."
+  },
+  {
+    "external_id": "black_function_analysis_apli_09",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "Un cilindro circular recto debe tener un volumen de $16\\pi$ cm³. ¿Qué radio $r$ minimiza el área de la superficie total (cerrado)?",
+    "options": [
+      "$2$ cm",
+      "$4$ cm",
+      "$\\sqrt{8}$ cm",
+      "$1$ cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Usaste la relación $h = 16/r^2$ para optimizar $A = 2\\pi r^2 + 32\\pi/r$.",
+    "feedback_incorrect": "Expresá el área en función del radio: $A = 2\\pi r^2 + 2\\pi r h$. Usá el volumen para despejar $h$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen es $V = \\pi r^2 h = 16\\pi \\Rightarrow h = 16/r^2$. \n\nEl área superficial es $A = 2\\pi r^2 + 2\\pi r h = 2\\pi r^2 + 2\\pi r (16/r^2) = 2\\pi r^2 + 32\\pi/r$. \n\nDerivamos: $A'(r) = 4\\pi r - 32\\pi/r^2$. \n\nIgualando a cero: $4\\pi r = 32\\pi/r^2 \\Rightarrow r^3 = 8 \\Rightarrow r = 2$. Con $r=2$ se utiliza la **menor cantidad de material** posible."
+  },
+  {
+    "external_id": "black_function_analysis_apli_10",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "APLI",
+    "subtype": "text",
+    "question": "La intensidad de luz $I$ a una distancia $x$ de una fuente es $I(x) = k/x^2$. Si te alejás de la fuente, ¿qué tan rápido disminuye la intensidad?",
+    "options": [
+      "A una tasa de $k/x$",
+      "A una tasa de $-2k/x^3$",
+      "A una tasa constante de $-2k$",
+      "A una tasa de $-k/x^2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La velocidad de cambio es la derivada $I'(x)$.",
+    "feedback_incorrect": "Derivá la función $I(x) = k x^{-2}$ con respecto a $x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tasa de cambio de cualquier magnitud física se halla mediante la **derivada**. \n\nPara $I(x) = k x^{-2}$, aplicamos la regla de la potencia:\n\n$$I'(x) = -2k x^{-3} = -\\frac{2k}{x^3}$$\n\nEl signo negativo indica que la intensidad **disminuye** al aumentar la distancia. Notá que la caída es mucho más drástica cerca de la fuente (donde $x$ es chico) que lejos de ella."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_01",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Si $f'(c) = 0$ y $f''(c) > 0$, ¿qué tipo de punto tiene la función en $x = c$?",
+    "options": [
+      "Mínimo relativo",
+      "Máximo relativo",
+      "Punto de inflexión",
+      "Punto de discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es el criterio de la derivada segunda para mínimos.",
+    "feedback_incorrect": "Si la derivada es cero hay un extremo, y si es cóncava hacia arriba ($f''>0$), ese extremo es un mínimo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **criterio de la derivada segunda** es fundamental para clasificar puntos críticos. \n\nSi $f'(c) = 0$, la recta tangente es horizontal. Si además $f''(c) > 0$, la función es **cóncava hacia arriba** (forma de 'U') en ese entorno. \n\nPor lo tanto, el punto tiene que ser necesariamente un **mínimo relativo**, ya que la curva sube a ambos lados del punto $c$."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_02",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "En un punto de inflexión, ¿cuál de estas condiciones se cumple siempre para una función dos veces derivable?",
+    "options": [
+      "La derivada primera es cero",
+      "La concavidad cambia de signo",
+      "La función tiene un máximo",
+      "La función es discontinua"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Esa es la definición geométrica de un punto de inflexión.",
+    "feedback_incorrect": "El punto de inflexión se define por el cambio de curvatura (de cóncava a convexa o viceversa).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **punto de inflexión** es el lugar donde la gráfica de la función cambia su sentido de curvatura. \n\nAnalíticamente, esto ocurre cuando la **derivada segunda** cambia de signo (pasa de positiva a negativa o viceversa). \n\nNo siempre implica que $f'(x)=0$ (como en $f(x)=x^3$ en el origen) ni que la función sea nula; simplemente marca la transición en la **monotonía de la pendiente**."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_03",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cómo se clasifica una función donde $f(-x) = -f(x)$ para todo $x$ en su dominio?",
+    "options": [
+      "Función periódica",
+      "Función par",
+      "Función impar",
+      "Función monótona"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es la definición de simetría respecto al origen.",
+    "feedback_incorrect": "Si el signo sale afuera, es impar. Si desaparece, es par.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **simetría** es un paso clave en el análisis de funciones para reducir el trabajo de cálculo. \n\nUna **función impar** es simétrica respecto al origen de coordenadas (una rotación de 180° deja la gráfica igual). \n\nEjemplos típicos son $f(x) = x^3$, $f(x) = \\sin(x)$ o $f(x) = 1/x$. Saber esto permite graficar solo la mitad positiva y luego 'reflejar' respecto al origen."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_04",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Si $f'(x) > 0$ para todo $x$ en un intervalo $I$, la función en ese intervalo es:",
+    "options": [
+      "Cóncava hacia abajo",
+      "Estrictamente decreciente",
+      "Cóncava hacia arriba",
+      "Estrictamente creciente"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El signo de la derivada primera determina la monotonía.",
+    "feedback_incorrect": "Derivada positiva significa que la pendiente de la recta tangente es positiva, por lo tanto la función sube.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **teorema del valor medio** nos asegura que si la derivada es positiva en un intervalo, la función 'sube' en ese rango. \n\nEn el **análisis de funciones**, llamamos a esto **monotonía**. \n\nSi $f'(x) > 0$, la función es estrictamente creciente. Si $f'(x) < 0$, es estrictamente decreciente. Los puntos donde $f'(x)$ cambia de signo son los que definen los extremos locales."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_05",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Qué ocurre en $x = a$ si $\\lim_{x \\to a^+} f(x) = +\\infty$?",
+    "options": [
+      "Hay una asíntota vertical",
+      "Hay una asíntota horizontal",
+      "Hay un punto de inflexión",
+      "La función es continua"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Un límite infinito al acercarse a un valor finito define la asíntota vertical.",
+    "feedback_incorrect": "Si el valor de $y$ se dispara al infinito cuando $x$ se acerca a un número, tenés una línea vertical que la función no cruza.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **asíntotas verticales** ocurren en valores de $x$ donde la función no está definida y su comportamiento 'explota' hacia el infinito. \n\nSuelen encontrarse buscando las raíces del denominador en funciones racionales que no se cancelan con el numerador. \n\nEs un elemento crítico en el **análisis global** de la función para entender sus límites de dominio."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_06",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Si $f''(x) < 0$ para todo $x$ en un intervalo, se dice que la función es:",
+    "options": [
+      "Cóncava hacia arriba (convexa)",
+      "Cóncava hacia abajo",
+      "Decreciente",
+      "Discontinua"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La derivada segunda negativa indica que la pendiente está disminuyendo.",
+    "feedback_incorrect": "Asociá $f'' < 0$ con una curva que 'se cierra' hacia abajo, como una montaña.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **concavidad** describe hacia dónde se curva la función. \n\nSi $f''(x) < 0$, la pendiente de la recta tangente va disminuyendo a medida que avanzamos hacia la derecha. Visualmente, esto genera una forma de 'paraguas' o montaña, llamada **cóncava hacia abajo**. \n\nEn estos intervalos, la recta tangente siempre se encuentra por encima de la gráfica de la función."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_07",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Un punto crítico donde la derivada no existe (como el pico de un valor absoluto) puede ser:",
+    "options": [
+      "Solo una asíntota",
+      "Solo un punto de inflexión",
+      "Un extremo relativo",
+      "Nunca puede ser un máximo"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Los extremos pueden ocurrir donde $f'=0$ o donde $f'$ no existe.",
+    "feedback_incorrect": "Recordá la función $|x|$. Tiene un mínimo en $x=0$, pero no es derivable ahí.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el **estudio de funciones**, los candidatos a extremos son todos los **puntos críticos**. \n\nUn punto crítico es aquel donde $f'(x) = 0$ o donde $f'(x)$ **no existe**. \n\nUn ejemplo clásico es $f(x) = |x|$, que tiene un mínimo absoluto en $x=0$ a pesar de tener un 'pico' (no es derivable) en ese punto. No los ignores al buscar valores óptimos."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_08",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Si $\\lim_{x \\to \\infty} f(x) = 5$, ¿qué característica presenta la función?",
+    "options": [
+      "Crecimiento infinito",
+      "Asíntota vertical en $x = 5$",
+      "Raíz en $x = 5$",
+      "Asíntota horizontal en $y = 5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El comportamiento al infinito define la asíntota horizontal.",
+    "feedback_incorrect": "Cuando $x$ crece mucho y la función se estabiliza en un valor, tenés una línea horizontal de guía.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **comportamiento en el infinito** nos dice hacia dónde tiende la función cuando nos alejamos del origen. \n\nSi el límite es un número real $L$, la recta $y = L$ es una **asíntota horizontal**. \n\nEsto significa que, para valores de $x$ muy grandes (o muy pequeños), la gráfica de la función se pega a esa línea recta sin necesariamente tocarla."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_09",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Qué es un 'punto crítico' de una función $f$?",
+    "options": [
+      "Un valor de $x$ tal que $f'(x) = 0$ o no existe",
+      "Un valor de $x$ tal que $f(x) = 0$",
+      "Un valor de $x$ tal que $f''(x) = 0$",
+      "Un valor de $x$ donde la función es discontinua"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Son los candidatos a ser máximos o mínimos.",
+    "feedback_incorrect": "Los puntos críticos se encuentran analizando la primera derivada exclusivamente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El concepto de **punto crítico** es el corazón de la optimización. \n\nSon los lugares donde la 'velocidad' de cambio de la función es nula o donde la función tiene un comportamiento abrupto (como un ángulo). \n\nEn el **análisis de funciones**, primero hallamos estos puntos y luego usamos la derivada segunda o el análisis de signos de la primera para clasificarlos en máximos, mínimos o puntos de silla."
+  },
+  {
+    "external_id": "black_function_analysis_clsf_10",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Si una función es par, su derivada será siempre:",
+    "options": [
+      "Una función par",
+      "Una función impar",
+      "Una constante",
+      "Positiva"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La derivada de una par es impar, y viceversa.",
+    "feedback_incorrect": "Pensá en $x^2$ (par). Su derivada es $2x$, que es impar. Siempre ocurre así.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es una propiedad de simetría muy útil. \n\nSi $f$ es **par**, su gráfica es simétrica respecto al eje $Y$. Esto implica que las pendientes de las tangentes en $x$ y $-x$ deben tener el mismo valor absoluto pero signo opuesto. \n\nMatemáticamente: si $f(x) = f(-x)$, entonces $f'(x) = -f'(-x)$, lo cual es la definición de una **función impar**."
+  },
+  {
+    "external_id": "black_function_analysis_graf_01",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observando la gráfica de $f(x) = x^3 - 3x$, ¿en qué intervalos la función es decreciente?",
+    "options": [
+      "$(-1, 1)$",
+      "$(-\\infty, -1) \\cup (1, \\infty)$",
+      "$(0, \\infty)$",
+      "$(-\\infty, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Entre los picos de la montaña y el valle, la función baja.",
+    "feedback_incorrect": "Buscá el tramo de la curva donde, al avanzar hacia la derecha, el valor de $y$ disminuye.",
+    "graph_fn": "x**3 - 3*x",
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -4,
+      "yMax": 4
+    },
+    "explanation": "Una función es **decreciente** donde su pendiente es negativa ($f' < 0$). \n\nEn la gráfica de $f(x) = x^3 - 3x$, los puntos críticos están en $x = -1$ (máximo local) y $x = 1$ (mínimo local). \n\nEntre esos dos valores, podés ver que la curva va hacia abajo. Por lo tanto, el **intervalo de decrecimiento** es $(-1, 1)$. En el resto del dominio, la función sube."
+  },
+  {
+    "external_id": "black_function_analysis_graf_02",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Mirá la gráfica de $f(x) = x^4 - 4x^2$. ¿Cuántos mínimos relativos tiene la función?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Se ven claramente dos 'valles' profundos al mismo nivel.",
+    "feedback_incorrect": "Contá cuántos puntos bajos locales (valles) tiene la forma de 'W' que ves en pantalla.",
+    "graph_fn": "x**4 - 4*x**2",
+    "graph_view": {
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -5,
+      "yMax": 2
+    },
+    "explanation": "Esta función tiene una forma similar a una 'W'. \n\nAl realizar el **análisis de extremos**, derivamos $f'(x) = 4x^3 - 8x = 4x(x^2 - 2)$. \n\nLos puntos críticos son $x=0$ (máximo relativo) y $x = \\pm \\sqrt{2}$. En la gráfica, se observa que en $x = -\\sqrt{2}$ y $x = \\sqrt{2}$ la función alcanza sus **mínimos relativos**, que en este caso también son absolutos."
+  },
+  {
+    "external_id": "black_function_analysis_graf_03",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada $f(x) = \\dfrac{1}{x^2 + 1}$, ¿en qué valor de $x$ se encuentra el máximo absoluto?",
+    "options": [
+      "No tiene máximo",
+      "$x = 1$",
+      "$x = 0$",
+      "$x = -1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función alcanza su pico más alto cuando el denominador es mínimo.",
+    "feedback_incorrect": "La función es una 'campana'. Buscá el punto más alto en el centro.",
+    "graph_fn": "1/(x**2 + 1)",
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -0.5,
+      "yMax": 1.5
+    },
+    "explanation": "La función $f(x) = 1/(x^2 + 1)$ es siempre positiva y tiende a cero cuando $x$ se aleja hacia los infinitos. \n\nComo el denominador $x^2+1$ tiene su valor mínimo en $x=0$, la fracción completa alcanza su **valor máximo** en ese punto. \n\nGeométricamente, la gráfica es simétrica (función par) y tiene una forma de campana con su **máximo absoluto** en $(0, 1)$."
+  },
+  {
+    "external_id": "black_function_analysis_graf_04",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la función $f(x) = x e^{-x}$. ¿Qué sucede cuando $x \\to +\\infty$?",
+    "options": [
+      "Se acerca a $1$",
+      "Tiende a $+\\infty$",
+      "Tiende a $-\\infty$",
+      "Se acerca a $0$ por arriba"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La exponencial decreciente domina sobre el crecimiento de $x$.",
+    "feedback_incorrect": "Mirá el extremo derecho de la gráfica. ¿Hacia qué valor de $y$ se estabiliza la curva?",
+    "graph_fn": "x * exp(-x)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 10,
+      "yMin": -1,
+      "yMax": 1
+    },
+    "explanation": "Este es un caso típico de **asíntota horizontal**. \n\nAunque $x$ crece, el término $e^{-x} = 1/e^x$ crece mucho más rápido en el denominador. Por regla de L'Hôpital o jerarquía de infinitos, el límite es $0$. \n\nEn la gráfica, ves que la función sube hasta un máximo en $x=1$ y luego empieza a bajar 'muriendo' lentamente contra el eje $X$. Decimos que $y=0$ es la asíntota para $x \\to \\infty$."
+  },
+  {
+    "external_id": "black_function_analysis_graf_05",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "En la gráfica de $f(x) = \\ln(x)$, ¿cuál es el dominio de la función?",
+    "options": [
+      "$(0, \\infty)$",
+      "$(-\\infty, \\infty)$",
+      "$[0, \\infty)$",
+      "$(-\\infty, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La gráfica solo existe para valores positivos de $x$.",
+    "feedback_incorrect": "Observá el eje $X$. ¿A partir de qué valor empieza a aparecer la curva azul?",
+    "graph_fn": "log(x)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -3,
+      "yMax": 2
+    },
+    "explanation": "El **dominio** de una función se identifica en la gráfica observando qué valores de $x$ tienen una imagen. \n\nPara el logaritmo natural, la curva se dispara hacia abajo (asíntota vertical) cuando nos acercamos a cero desde la derecha, pero nunca cruza hacia el lado negativo. \n\nPor lo tanto, el dominio son los **reales positivos** $(0, \\infty)$. Notá que $x=0$ no está incluido porque el límite allí es $-\\infty$."
+  },
+  {
+    "external_id": "black_function_analysis_graf_06",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Analizá $f(x) = x^2 - x^4$. ¿Dónde se encuentran los puntos de inflexión?",
+    "options": [
+      "En $x = 0$",
+      "En $x = \\pm \\sqrt{1/6}$",
+      "En $x = \\pm 1$",
+      "No tiene puntos de inflexión"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Es donde la curva cambia de 'panza arriba' a 'panza abajo'.",
+    "feedback_incorrect": "Buscá los puntos de la curva donde la concavidad cambia. Parecen estar cerca de $\\pm 0.4$.",
+    "graph_fn": "x**2 - x**4",
+    "graph_view": {
+      "xMin": -2,
+      "xMax": 2,
+      "yMin": -1,
+      "yMax": 0.5
+    },
+    "explanation": "Los **puntos de inflexión** ocurren donde $f''(x)$ cambia de signo. \n\nCalculamos: $f'(x) = 2x - 4x^3$ y $f''(x) = 2 - 12x^2$. \n\nIgualando a cero: $12x^2 = 2 \\Rightarrow x^2 = 1/6 \\Rightarrow x = \\pm \\sqrt{1/6} \\approx \\pm 0.408$. \n\nEn la gráfica, podés ver que cerca del origen la función es convexa (cóncava hacia arriba), pero al alejarse un poco empieza a curvarse hacia abajo para caer hacia $-\\infty$."
+  },
+  {
+    "external_id": "black_function_analysis_graf_07",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la función $f(x) = \\sin(x)$. ¿Cuántos extremos relativos hay en el intervalo $[0, 2\\pi]$?",
+    "options": [
+      "$3$",
+      "$1$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El máximo en $\\pi/2$ y el mínimo en $3\\pi/2$.",
+    "feedback_incorrect": "Contá cuántas 'crestas' y cuántos 'valles' hay en un ciclo completo de la onda.",
+    "graph_fn": "sin(x)",
+    "graph_view": {
+      "xMin": -0.5,
+      "xMax": 7,
+      "yMin": -1.5,
+      "yMax": 1.5
+    },
+    "explanation": "En un período completo de la función seno (de $0$ a $2\\pi$), la curva sube hasta su valor máximo y baja hasta su valor mínimo. \n\n1. En $x = \\pi/2 \\approx 1.57$, hay un **máximo relativo** (y absoluto) con valor $y=1$. \n2. En $x = 3\\pi/2 \\approx 4.71$, hay un **mínimo relativo** (y absoluto) con valor $y=-1$. \n\nAmbos son puntos críticos donde la tangente es horizontal ($f' = \\cos(x) = 0$)."
+  },
+  {
+    "external_id": "black_function_analysis_graf_08",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Mirá la gráfica de $f(x) = |x - 2|$. ¿Es derivable la función en $x = 2$?",
+    "options": [
+      "No, porque hay una asíntota",
+      "Sí, porque es continua",
+      "Sí, y la derivada vale $0$",
+      "No, porque hay un 'punto anguloso'"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las funciones con picos no tienen una tangente única definida ahí.",
+    "feedback_incorrect": "Fijate en la forma de la curva en $x=2$. ¿Es una curva suave o un cambio brusco de dirección?",
+    "graph_fn": "Abs(x - 2)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -1,
+      "yMax": 4
+    },
+    "explanation": "Para que una función sea **derivable**, su gráfica debe ser 'suave'. \n\nEn $x = 2$, la función $|x-2|$ forma una 'V'. Si venís por la izquierda, la pendiente es $-1$; por la derecha, es $1$. Como los límites laterales de la derivada no coinciden, la derivada no existe. \n\nA pesar de no ser derivable, $x=2$ es un **mínimo absoluto**, demostrando que los extremos pueden ocurrir en puntos de no derivabilidad."
+  },
+  {
+    "external_id": "black_function_analysis_graf_09",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Dada la gráfica de $f(x) = e^x$, ¿cuál es el rango (imagen) de la función?",
+    "options": [
+      "$(0, \\infty)$",
+      "$(-\\infty, \\infty)$",
+      "$[0, \\infty)$",
+      "$(1, \\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La exponencial nunca llega a tocar el eje $X$ ni pasa para abajo.",
+    "feedback_incorrect": "Mirá el eje $Y$. ¿Existen valores de $y$ negativos o iguales a cero para esta curva?",
+    "graph_fn": "exp(x)",
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 10
+    },
+    "explanation": "El **rango o imagen** es el conjunto de todos los valores de $y$ que la función puede tomar. \n\nEn la gráfica de la exponencial, vemos que a medida que $x$ se hace muy negativo, la curva se acerca infinitamente al eje $X$ pero nunca lo toca ($y=0$ es asíntota horizontal). Hacia la derecha, crece sin cota. \n\nPor eso, la imagen son todos los reales estrictamente mayores a cero: $(0, \\infty)$."
+  },
+  {
+    "external_id": "black_function_analysis_graf_10",
+    "belt": "black",
+    "topic": "function_analysis",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la función $f(x) = \\dfrac{x-1}{x-2}$. ¿Dónde se ubica la asíntota vertical?",
+    "options": [
+      "$x = 1$",
+      "$x = 2$",
+      "$y = 1$",
+      "No tiene asíntota vertical"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $x=2$ el denominador se anula y el límite es infinito.",
+    "feedback_incorrect": "Buscá el valor de $x$ donde la curva se quiebra y se escapa hacia arriba y hacia abajo.",
+    "graph_fn": "(x - 1)/(x - 2)",
+    "graph_view": {
+      "xMin": -1,
+      "xMax": 5,
+      "yMin": -5,
+      "yMax": 5
+    },
+    "explanation": "Las **asíntotas verticales** ocurren en los ceros del denominador que no son raíces del numerador. \n\nPara $f(x) = (x-1)/(x-2)$, el denominador se hace cero en $x=2$. Al acercarnos a ese valor, el numerador tiende a $1$, por lo que la fracción tiende a $\\infty$ o $-\\infty$. \n\nEn la gráfica, esto se visualiza como una barrera vertical que separa dos ramas de la función que se alejan en sentidos opuestos."
+  }
+]
