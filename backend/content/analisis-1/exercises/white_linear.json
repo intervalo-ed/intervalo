@@ -673,5 +673,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **raíz** (o cero) de una función lineal es el valor de $x$ donde la recta corta el eje $X$, es decir, donde $f(x) = 0$.\n\nPara $f(x) = 2x - 6$:\n$$2x - 6 = 0 \\implies 2x = 6 \\implies x = 3$$\n\nVerificación: $f(3) = 2(3) - 6 = 0$ ✓\n\nFórmula general para la raíz de $f(x) = mx + b$:\n$$x = -\\frac{b}{m}$$\nAquí: $x = -(-6)/2 = 3$."
+  },
+  {
+    "external_id": "white_linear_lexi_11",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio natural de cualquier función lineal $f(x) = ax + b$ (con $a, b \\in \\mathbb{R}$)?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$[-a, +\\infty)$",
+      "$\\mathbb{R}$ (todos los reales)",
+      "$\\mathbb{R} \\setminus \\{0\\}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Las funciones lineales están definidas para todo $x \\in \\mathbb{R}$, ya que solo involucran suma y multiplicación.",
+    "feedback_incorrect": "El dominio natural es el conjunto más grande de reales donde la función está definida. Como $f(x) = ax + b$ solo usa multiplicación y suma (operaciones siempre válidas), el dominio es $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** de una función es el conjunto más grande de valores reales para los que la función está definida.\n\nPara $f(x) = ax + b$, las únicas operaciones son multiplicar $x$ por $a$ y sumar $b$. Esas operaciones siempre tienen resultado, sin importar el valor de $x$.\n\nPor eso el dominio de toda función lineal es $\\mathbb{R}$, es decir, todos los números reales.\n\nEjemplo concreto: $f(x) = 3x - 7$ tiene dominio $\\mathbb{R}$, y la función constante $f(x) = 5$ también, aunque su **imagen** sea solo $\\{5\\}$."
+  },
+  {
+    "external_id": "white_linear_clsf_11",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál es la imagen de la función constante $f(x) = 5$?",
+    "options": [
+      "$\\{5\\}$",
+      "$\\mathbb{R}$",
+      "$[0, 5]$",
+      "$(0, +\\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función siempre devuelve $5$, sin importar el valor de $x$. La imagen es el conjunto unitario $\\{5\\}$.",
+    "feedback_incorrect": "La imagen de una función es el conjunto de valores que realmente toma. Como $f(x) = 5$ para todo $x$, el único valor producido es $5$. La imagen es $\\{5\\}$, no $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** (o recorrido) de una función es el conjunto de todos los valores que efectivamente toma $f(x)$.\n\nEn $f(x) = 5$, sin importar qué $x$ uses, la función siempre devuelve $5$. Por eso la imagen es el conjunto unitario $\\{5\\}$.\n\nEsto contrasta con el **dominio**, que sigue siendo $\\mathbb{R}$: la función acepta cualquier $x$ como entrada, pero siempre produce la misma salida.\n\nEl **codominio** podría declararse como $\\mathbb{R}$, pero la imagen (los valores realmente alcanzados) es solo $\\{5\\}$. Esta distinción entre codominio e imagen es fundamental en teoría de funciones."
+  },
+  {
+    "external_id": "white_linear_form_11",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "Si restringís el dominio de $f(x) = 2x$ al intervalo $[1, 4]$, ¿cuál es la imagen resultante?",
+    "options": [
+      "$[1, 4]$",
+      "$[2, 8]$",
+      "$[0, 8]$",
+      "$(2, 8)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(1) = 2$ y $f(4) = 8$. Como $f$ es creciente y continua, la imagen de $[1, 4]$ es $[2, 8]$.",
+    "feedback_incorrect": "Calculá los extremos: $f(1) = 2 \\cdot 1 = 2$ y $f(4) = 2 \\cdot 4 = 8$. Como $f$ es continua y creciente, la imagen del intervalo $[1, 4]$ es $[2, 8]$, no $[1, 4]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar la imagen de una función lineal sobre un **dominio restringido**, evaluá los extremos del intervalo, ya que $f$ es continua y monótona.\n\n$$f(1) = 2 \\cdot 1 = 2, \\qquad f(4) = 2 \\cdot 4 = 8$$\n\nComo $f(x) = 2x$ es creciente ($a = 2 > 0$), la imagen del intervalo $[1, 4]$ es $[2, 8]$.\n\nSi la función fuera decreciente (coeficiente $a < 0$), los extremos se invertirían: el menor valor del dominio produciría el mayor valor de la imagen."
   }
 ]

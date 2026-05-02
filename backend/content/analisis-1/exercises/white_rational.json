@@ -913,5 +913,68 @@
       8
     ],
     "explanation": "La **asíntota vertical** está donde el denominador $x+1$ vale cero: $x+1=0\\Rightarrow x=-1$. En el gráfico, la función \"explota\" verticalmente al acercarse a $x=-1$."
+  },
+  {
+    "external_id": "white_rational_lexi_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Por qué las funciones racionales $f(x) = \\dfrac{p(x)}{q(x)}$ tienen restricciones en su dominio?",
+    "options": [
+      "Porque la división por cero no está definida, y $q(x)$ puede valer cero para ciertos $x$",
+      "Porque el numerador $p(x)$ puede ser cero",
+      "Porque el denominador siempre es negativo",
+      "Porque las funciones racionales solo están definidas para $x$ entero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El dominio excluye los valores de $x$ donde el denominador $q(x) = 0$, ya que la división por cero no está definida.",
+    "feedback_incorrect": "La restricción viene del denominador, no del numerador. Si $q(x_0) = 0$, entonces $\\dfrac{p(x_0)}{q(x_0)}$ no está definido. El dominio excluye esos valores $x_0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una función racional $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl dominio de $f$ es $\\mathbb{R}$ menos los ceros del denominador:\n\n$$\\text{Dom}(f) = \\{x \\in \\mathbb{R} : q(x) \\neq 0\\}$$\n\nEl numerador puede valer cero sin problema (produce $f(x) = 0$, no una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio $\\mathbb{R} \\setminus \\{1\\}$, porque $q(1) = 0$."
+  },
+  {
+    "external_id": "white_rational_clsf_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{1}{x^2 - 4}$?",
+    "options": [
+      "$\\mathbb{R} \\setminus \\{4\\}$",
+      "$(-2, 2)$",
+      "$\\mathbb{R} \\setminus \\{-2,\\, 2\\}$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El denominador $x^2 - 4 = (x-2)(x+2)$ se anula en $x = 2$ y $x = -2$. El dominio excluye ambos valores.",
+    "feedback_incorrect": "El denominador es $x^2 - 4 = (x-2)(x+2)$, que se anula en $x = 2$ y $x = -2$. El dominio es $\\mathbb{R} \\setminus \\{-2, 2\\}$, no $\\mathbb{R} \\setminus \\{4\\}$ ni el intervalo $(-2, 2)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el dominio de $f(x) = \\dfrac{1}{x^2 - 4}$, buscamos los ceros del denominador:\n\n$$x^2 - 4 = 0 \\iff x^2 = 4 \\iff x = \\pm 2$$\n\nHay dos valores excluidos: $x = -2$ y $x = 2$.\n\nEl dominio es $\\mathbb{R} \\setminus \\{-2,\\, 2\\}$, o en notación de intervalos: $(-\\infty, -2) \\cup (-2, 2) \\cup (2, +\\infty)$.\n\nError común: ver '$x^2 - 4$' y pensar que hay que excluir solo $x = 4$. Siempre factorizá el denominador para encontrar todos sus ceros."
+  },
+  {
+    "external_id": "white_rational_form_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x + 1}{x - 3}$ expresado en notación de intervalos?",
+    "options": [
+      "$(-\\infty, 3]$",
+      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$(3, +\\infty)$",
+      "$(-3, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El denominador se anula en $x = 3$, que queda excluido. El dominio es $(-\\infty, 3) \\cup (3, +\\infty)$.",
+    "feedback_incorrect": "El denominador $x - 3$ se anula solo en $x = 3$. El dominio excluye ese punto: $(-\\infty, 3) \\cup (3, +\\infty)$. Usá paréntesis abiertos en $3$, porque ese punto no pertenece al dominio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El denominador de $f(x) = \\dfrac{x+1}{x-3}$ es $x - 3$, que se anula en $x = 3$.\n\nEl dominio excluye ese punto:\n\n$$\\text{Dom}(f) = \\mathbb{R} \\setminus \\{3\\} = (-\\infty,\\, 3) \\cup (3,\\, +\\infty)$$\n\nObservá que los paréntesis en $3$ son abiertos: el punto $3$ no está incluido en ninguno de los dos intervalos.\n\nEn la gráfica, esto aparece como una **asíntota vertical** en $x = 3$: la función crece o decrece sin límite a medida que $x$ se acerca a $3$."
   }
 ]

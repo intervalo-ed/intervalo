@@ -673,5 +673,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para identificar el vértice en $f(x) = -3(x+1)^2 + 5$, reescribir como $a(x-h)^2 + k$:\n$$-3(x+1)^2 + 5 = -3(x-(-1))^2 + 5$$\nEntonces $a = -3$, $h = -1$, $k = 5$. El vértice es $\\mathbf{(-1, 5)}$.\n\nTrampa del signo: $(x+1) = (x - (-1))$, por lo que $h = -1$, **no** $h = +1$. La regla general: el valor de $h$ es el que hace cero el paréntesis $(x - h) = 0$.\n\nComo $a = -3 < 0$, la parábola se abre hacia abajo y el vértice $(-1, 5)$ es el **máximo** de la función."
+  },
+  {
+    "external_id": "white_quadratic_lexi_11",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Por qué la imagen de $f(x) = x^2$ no incluye números negativos?",
+    "options": [
+      "Porque $f$ solo está definida para $x \\geq 0$",
+      "Porque el dominio de $f$ es $[0, +\\infty)$",
+      "Porque $x^2$ crece más rápido que $x$",
+      "Porque elevar al cuadrado cualquier número real siempre da un resultado mayor o igual a cero"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Para todo $x \\in \\mathbb{R}$, se cumple $x^2 \\geq 0$. Por eso la imagen de $f(x) = x^2$ es $[0, +\\infty)$.",
+    "feedback_incorrect": "El dominio de $f(x) = x^2$ sí es $\\mathbb{R}$ (acepta cualquier $x$). Lo que se restringe es la imagen: como $x^2 \\geq 0$ para todo real, la imagen es $[0, +\\infty)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\n$$(-3)^2 = 9 \\geq 0, \\quad 0^2 = 0, \\quad 5^2 = 25 \\geq 0$$\n\nEl dominio de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce."
+  },
+  {
+    "external_id": "white_quadratic_clsf_11",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál es la imagen de $f(x) = -(x - 2)^2 + 3$?",
+    "options": [
+      "$[3, +\\infty)$",
+      "$(-\\infty, 3]$",
+      "$\\mathbb{R}$",
+      "$\\{3\\}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La parábola abre hacia abajo con vértice en $(2, 3)$. El valor máximo es $3$, por lo que la imagen es $(-\\infty, 3]$.",
+    "feedback_incorrect": "La función $-(x-2)^2 + 3$ abre hacia abajo: el término $-(x-2)^2 \\leq 0$, así que $f(x) \\leq 3$. El máximo es $f(2) = 3$. La imagen es $(-\\infty, 3]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = -(x-2)^2 + 3$ es una parábola en **forma canónica** con vértice en $(2, 3)$ y coeficiente negativo (abre hacia abajo).\n\nComo $(x-2)^2 \\geq 0$ para todo $x$, se tiene:\n\n$$f(x) = \\underbrace{-(x-2)^2}_{\\leq\\, 0} + 3 \\leq 3$$\n\nEl valor máximo $f(2) = 3$ se alcanza en el vértice. Además, como la parábola baja sin límite, la imagen es $(-\\infty, 3]$.\n\nRegla general: si la parábola abre hacia abajo con vértice $(h, k)$, la imagen es $(-\\infty, k]$. Si abre hacia arriba, la imagen es $[k, +\\infty)$."
+  },
+  {
+    "external_id": "white_quadratic_form_11",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = x^2 - 4$?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$[-2, 2]$",
+      "$[0, +\\infty)$",
+      "$\\mathbb{R} \\setminus \\{-2, 2\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^2 - 4$ es un polinomio. Todo polinomio tiene dominio $\\mathbb{R}$.",
+    "feedback_incorrect": "El dominio pregunta: ¿para qué $x$ puede calcularse $f(x)$? Como $f(x) = x^2 - 4$ es un polinomio, no hay restricciones. El dominio es $\\mathbb{R}$. Los valores $x = \\pm 2$ son los ceros de $f$, no restricciones del dominio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Es fácil confundir el dominio de $f(x) = x^2 - 4$ con sus ceros o su imagen.\n\nEl **dominio** pregunta: ¿para qué $x$ puedo calcular $f(x)$? Como $f$ solo usa potencia y resta, siempre podés calcularlo. El dominio es $\\mathbb{R}$.\n\nLos valores $x = -2$ y $x = 2$ son los **ceros** de $f$ (donde $f(x) = 0$), no restricciones del dominio.\n\nLa **imagen** de $f$ sí es $[-4, +\\infty)$, ya que el mínimo se alcanza en $x = 0$: $f(0) = -4$."
   }
 ]

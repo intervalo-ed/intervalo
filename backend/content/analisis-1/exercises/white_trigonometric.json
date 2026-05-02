@@ -913,5 +913,68 @@
       2
     ],
     "explanation": "$\\operatorname{sen}(2x)$ tiene período $\\pi$. En el intervalo visible $[0,2\\pi]$ hay $\\frac{2\\pi}{\\pi}=2$ **ciclos completos**.\nA mayor $B$, más ciclos caben en el mismo intervalo.\nEn el gráfico contás los picos positivos (o los ceros del mismo tipo): si hay 2 picos, hay 2 ciclos.\nComparalo con $\\operatorname{sen}(x)$: en $[0,2\\pi]$ habría solo 1 ciclo completo."
+  },
+  {
+    "external_id": "white_trigonometric_lexi_11",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la imagen de $f(x) = \\sin(x)$?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$[0, 1]$",
+      "$(0, 2\\pi)$",
+      "$[-1, 1]$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El seno oscila entre $-1$ y $1$ inclusive. La imagen de $\\sin(x)$ es $[-1, 1]$.",
+    "feedback_incorrect": "$\\sin(x)$ alcanza el valor $1$ (en $x = \\pi/2$), el valor $-1$ (en $x = 3\\pi/2$) y todos los valores intermedios. La imagen es $[-1, 1]$, no $[0, 1]$ ni $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función seno es **periódica** y oscila continuamente entre dos valores extremos:\n\n- Máximo: $\\sin(\\pi/2) = 1$\n- Mínimo: $\\sin(3\\pi/2) = -1$\n\nComo $\\sin$ es continua, toma todos los valores intermedios entre $-1$ y $1$. La imagen es el intervalo cerrado $[-1, 1]$.\n\nLo mismo aplica al coseno: $\\text{Im}(\\cos) = [-1, 1]$. Esto contrasta con $\\tan$, cuya imagen es $\\mathbb{R}$ (sin acotación)."
+  },
+  {
+    "external_id": "white_trigonometric_clsf_11",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Para qué valores de $x$ la función $f(x) = \\tan(x)$ **no** está definida?",
+    "options": [
+      "$x = n\\pi,\\ n \\in \\mathbb{Z}$",
+      "$x = \\dfrac{\\pi}{2} + n\\pi,\\ n \\in \\mathbb{Z}$",
+      "$x = 2n\\pi,\\ n \\in \\mathbb{Z}$",
+      "Para ningún valor; $\\tan(x)$ está definida en $\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\tan(x) = \\sin(x)/\\cos(x)$ no está definida donde $\\cos(x) = 0$, es decir en $x = \\pi/2 + n\\pi$.",
+    "feedback_incorrect": "$\\tan(x) = \\dfrac{\\sin(x)}{\\cos(x)}$. La función no está definida donde $\\cos(x) = 0$, que ocurre en $x = \\pi/2, 3\\pi/2, -\\pi/2, \\ldots$, resumidos como $x = \\pi/2 + n\\pi$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tangente se define como el cociente:\n\n$$\\tan(x) = \\frac{\\sin(x)}{\\cos(x)}$$\n\nEl denominador $\\cos(x)$ se anula en $x = \\dfrac{\\pi}{2} + n\\pi$ para $n \\in \\mathbb{Z}$:\n\n$$\\ldots,\\ -\\frac{3\\pi}{2},\\ -\\frac{\\pi}{2},\\ \\frac{\\pi}{2},\\ \\frac{3\\pi}{2},\\ \\ldots$$\n\nEn esos puntos, $\\tan(x)$ no está definida (asíntotas verticales). El dominio de $\\tan$ es $\\mathbb{R} \\setminus \\{\\pi/2 + n\\pi : n \\in \\mathbb{Z}\\}$.\n\nContraste: $\\sin$ y $\\cos$ sí tienen dominio $\\mathbb{R}$ completo, ya que no llevan denominador."
+  },
+  {
+    "external_id": "white_trigonometric_form_11",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = \\cos(x)$?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$[-1, 1]$",
+      "$[0, \\pi]$",
+      "$\\mathbb{R} \\setminus \\{\\pi/2 + n\\pi : n \\in \\mathbb{Z}\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\cos(x)$ está definido para todo real $x$. Su dominio es $\\mathbb{R}$.",
+    "feedback_incorrect": "$\\cos(x)$ está definido para todo $x \\in \\mathbb{R}$. El intervalo $[-1, 1]$ es la **imagen**, no el dominio. Y $\\mathbb{R} \\setminus \\{\\pi/2 + n\\pi\\}$ es el dominio de la tangente, no del coseno.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$. No hay denominador, logaritmo ni raíz que genere restricciones.\n\n- **Dominio** de $\\cos$: $\\mathbb{R}$\n- **Imagen** de $\\cos$: $[-1, 1]$\n\nEs un error frecuente confundir ambos. La imagen ($[-1, 1]$) es el rango de valores que produce $\\cos$, no el conjunto de entradas válidas.\n\nContraste con $f(x) = \\tan(x)$: su dominio sí excluye $x = \\pi/2 + n\\pi$, porque $\\tan$ lleva $\\cos(x)$ en el denominador."
   }
 ]

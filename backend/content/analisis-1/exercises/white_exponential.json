@@ -673,5 +673,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Evaluación directa en $f(x) = 2^x$:\n$$f(2) = 2^2 = 4$$\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$, $f(3) = 8$, ...\n\nCada incremento de $1$ en $x$ **duplica** el valor. Este crecimiento multiplicativo (en lugar de aditivo) es la esencia del **crecimiento exponencial**."
+  },
+  {
+    "external_id": "white_exponential_lexi_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la imagen de $f(x) = a^x$, con $a > 0$ y $a \\neq 1$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$[0, +\\infty)$",
+      "$(-\\infty, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función exponencial siempre toma valores positivos: $a^x > 0$ para todo $x \\in \\mathbb{R}$, pero nunca alcanza el cero.",
+    "feedback_incorrect": "La exponencial $a^x$ nunca es negativa ni cero: $a^x > 0$ para todo $x$. Cuando $x \\to -\\infty$ (si $a > 1$), $a^x \\to 0^+$, pero sin llegar a $0$. La imagen es $(0, +\\infty)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la función exponencial $f(x) = a^x$ (con $a > 0, a \\neq 1$):\n\n- $a^x > 0$ para todo $x \\in \\mathbb{R}$, ya que una base positiva elevada a cualquier exponente real siempre es positiva.\n- Cuando $x \\to -\\infty$ (y $a > 1$), $a^x \\to 0^+$: se acerca al cero pero nunca llega.\n- Cuando $x \\to +\\infty$ (y $a > 1$), $a^x \\to +\\infty$.\n\nLa imagen es $(0, +\\infty)$: el cero no se incluye (es un límite asintótico), y los negativos tampoco son alcanzables."
+  },
+  {
+    "external_id": "white_exponential_clsf_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Puede $f(x) = 2^x$ tomar el valor $0$ para algún $x \\in \\mathbb{R}$?",
+    "options": [
+      "Sí, cuando $x = 0$",
+      "Sí, cuando $x \\to -\\infty$",
+      "No, porque $2^x > 0$ para todo $x \\in \\mathbb{R}$",
+      "Sí, cuando $x$ es un número negativo muy grande en valor absoluto"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $2^x > 0$ para todo real $x$. Aunque $2^x \\to 0$ cuando $x \\to -\\infty$, nunca llega exactamente a cero.",
+    "feedback_incorrect": "$2^0 = 1 \\neq 0$. Y aunque $2^x$ se acerca a $0$ cuando $x \\to -\\infty$, nunca lo alcanza. La ecuación $2^x = 0$ no tiene solución real.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene imagen $(0, +\\infty)$: siempre positiva, nunca nula.\n\nCuando $x \\to -\\infty$, $2^x \\to 0$, pero es un **límite asintótico**: la función se acerca al eje $x$ sin tocarlo nunca.\n\nLa ecuación $2^x = 0$ no tiene solución porque:\n\n$$2^x = 0 \\iff x = \\log_2(0)$$\n\ny el logaritmo de cero no existe.\n\nConclución: el valor $0$ no pertenece a la imagen de ninguna exponencial $a^x$ con $a > 0$."
+  },
+  {
+    "external_id": "white_exponential_form_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = 3^{x-2} + 1$?",
+    "options": [
+      "$(2, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$(-\\infty, 2)$",
+      "$\\mathbb{R} \\setminus \\{2\\}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La traslación horizontal no afecta el dominio. $f(x) = 3^{x-2} + 1$ está definida para todo $x \\in \\mathbb{R}$.",
+    "feedback_incorrect": "La exponencial $3^u$ está definida para todo $u$ real. El exponente $u = x - 2$ es real para cualquier $x$, sin restricciones. El dominio es $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el dominio de $f(x) = 3^{x-2} + 1$, analizamos si hay algún $x$ para el que la función no esté definida.\n\nEl exponente es $u = x - 2$: una traslación que toma valores en $\\mathbb{R}$ sin restricción.\n\nComo $3^u$ está definida para todo $u \\in \\mathbb{R}$, el dominio de $f$ es $\\mathbb{R}$.\n\nImportante: las traslaciones como $3^{x-2}$ o los escalados como $3^{2x}$ **no restringen el dominio**. Lo que sí restringiría el dominio sería, por ejemplo, $\\log(x-2)$, que exige $x > 2$."
   }
 ]

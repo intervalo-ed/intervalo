@@ -673,5 +673,47 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Se evalúa sustituyendo $x = 1$ en cada término:\n$$p(1) = (1)^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$$\n\nEl resultado $p(1) = 0$ significa que $x = 1$ es una **raíz** del polinomio. De hecho:\n$$p(x) = x^4 - 2x^2 + 1 = (x^2 - 1)^2 = (x-1)^2(x+1)^2$$\n\nPor lo tanto, tanto $x = 1$ como $x = -1$ son raíces **dobles**: la curva toca el eje $X$ sin cruzarlo en esos puntos."
+  },
+  {
+    "external_id": "white_polynomial_lexi_11",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "$\\mathbb{R}$ (todos los reales)",
+      "Depende del grado del polinomio"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Todo polinomio está definido para todo real, ya que solo usa suma, producto y potencias enteras no negativas.",
+    "feedback_incorrect": "Los polinomios solo usan suma, producto y potencias con exponentes enteros no negativos: operaciones definidas para todo real. El dominio de cualquier polinomio es siempre $\\mathbb{R}$, sin importar su grado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **polinomio** combina únicamente sumas, restas, multiplicaciones y potencias con exponentes enteros no negativos. Ninguna de esas operaciones genera una indeterminación o restricción.\n\nNo importa el valor de $x$ que uses: siempre podés calcular $p(x)$. Por eso el dominio de todo polinomio es $\\mathbb{R}$.\n\nEsto contrasta con funciones que sí tienen restricciones:\n- Racionales: el denominador no puede ser $0$.\n- Logarítmicas: el argumento debe ser positivo.\n- Raíces de índice par: el radicando debe ser no negativo.\n\nEjemplo: $p(x) = x^{100} - 7x^{50} + 3$ tiene dominio $\\mathbb{R}$."
+  },
+  {
+    "external_id": "white_polynomial_clsf_11",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $p(x) = x^5 - 3x^2 + 7$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$(-\\infty, 0) \\cup (0, +\\infty)$",
+      "$[-7^{1/5},\\, 7^{1/5}]$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $p(x)$ es un polinomio, así que su dominio es $\\mathbb{R}$.",
+    "feedback_incorrect": "$p(x) = x^5 - 3x^2 + 7$ es un polinomio. No hay denominadores, raíces ni logaritmos. El dominio es $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para determinar el dominio de $p(x) = x^5 - 3x^2 + 7$, buscamos restricciones: divisiones por cero, raíces de negativos, logaritmos de no positivos.\n\nNo hay ninguna de esas operaciones. Solo hay potencias enteras y sumas, definidas para todo $x \\in \\mathbb{R}$.\n\nEl dominio es $\\mathbb{R}$.\n\nNota: el intervalo $[-7^{1/5}, 7^{1/5}]$ no tiene ningún significado especial aquí. El dominio de un polinomio no depende de sus raíces ni de los valores que toma, sino solo de las operaciones involucradas."
   }
 ]
