@@ -736,5 +736,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para encontrar la imagen de una función lineal sobre un **dominio restringido**, evaluá los extremos del intervalo, ya que $f$ es continua y monótona.\n\n$$f(1) = 2 \\cdot 1 = 2, \\qquad f(4) = 2 \\cdot 4 = 8$$\n\nComo $f(x) = 2x$ es creciente ($a = 2 > 0$), la imagen del intervalo $[1, 4]$ es $[2, 8]$.\n\nSi la función fuera decreciente (coeficiente $a < 0$), los extremos se invertirían: el menor valor del dominio produciría el mayor valor de la imagen."
+  },
+  {
+    "external_id": "white_linear_clsf_12",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo es creciente $f(x) = 3x - 7$?",
+    "options": [
+      "$(-\\infty,\\ 7/3)$",
+      "$(7/3,\\ +\\infty)$",
+      "$\\mathbb{R}$ (siempre creciente)",
+      "$(0,\\ +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Como $a = 3 > 0$, la función $f(x) = 3x - 7$ es creciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "Para $f(x) = ax + b$, si $a > 0$ la función es creciente en todo $\\mathbb{R}$. Aquí $a = 3 > 0$, así que crece en $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal $f(x) = ax + b$ es **creciente** cuando su coeficiente $a$ (la pendiente) es positivo.\n\nPara $f(x) = 3x - 7$: $a = 3 > 0$, así que la función siempre crece. Por cada unidad que aumenta $x$, $f(x)$ aumenta $3$ unidades.\n\nNo hay un intervalo parcial: la función es creciente en **todo** $\\mathbb{R}$.\n\nContraste: si $a < 0$, la función sería decreciente en todo $\\mathbb{R}$. Si $a = 0$, sería constante (ni creciente ni decreciente)."
+  },
+  {
+    "external_id": "white_linear_clsf_13",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas afirmaciones describe correctamente el comportamiento de $f(x) = -2x + 5$?",
+    "options": [
+      "Decreciente en $\\mathbb{R}$",
+      "Creciente en $\\mathbb{R}$",
+      "Creciente en $(-\\infty,\\ 5)$ y decreciente en $(5,\\ +\\infty)$",
+      "Constante en $\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El coeficiente $a = -2 < 0$ indica que la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "El comportamiento de una función lineal depende del signo de $a$. Como $a = -2 < 0$, la función es decreciente en todo $\\mathbb{R}$, no solo en un intervalo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la función lineal $f(x) = -2x + 5$, la pendiente es $a = -2$.\n\nComo $a < 0$, la función es **decreciente**: cuando $x$ aumenta, $f(x)$ disminuye. Por cada unidad que sube $x$, $f(x)$ baja $2$ unidades.\n\nEsta propiedad vale para todo $x \\in \\mathbb{R}$, sin excepción.\n\nEl valor $x = 5/2$ (donde $f(x) = 0$) es el cero de la función, no un punto de cambio de comportamiento."
+  },
+  {
+    "external_id": "white_linear_clsf_14",
+    "belt": "white",
+    "topic": "linear",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Para qué valores del coeficiente $a$ la función $f(x) = ax + b$ es decreciente en $\\mathbb{R}$?",
+    "options": [
+      "$a > 0$",
+      "$a < 0$",
+      "$a = 0$",
+      "$a \\geq 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Si $a < 0$, cada aumento de $x$ produce una disminución de $f(x)$: la función es decreciente.",
+    "feedback_incorrect": "La pendiente $a$ determina el comportamiento: si $a > 0$ la función crece, si $a < 0$ decrece, si $a = 0$ es constante.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de la **pendiente** $a$ determina si $f(x) = ax + b$ crece o decrece:\n\n- $a > 0$: la función es creciente en $\\mathbb{R}$.\n- $a < 0$: la función es decreciente en $\\mathbb{R}$.\n- $a = 0$: la función es constante (no crece ni decrece).\n\nCuando $a < 0$, cada vez que $x$ aumenta $1$ unidad, $f(x)$ disminuye $|a|$ unidades. La recta tiene inclinación negativa.\n\nEjemplo: $f(x) = -5x + 3$ es decreciente porque $a = -5 < 0$."
   }
 ]

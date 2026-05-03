@@ -976,5 +976,94 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El denominador de $f(x) = \\dfrac{x+1}{x-3}$ es $x - 3$, que se anula en $x = 3$.\n\nEl dominio excluye ese punto:\n\n$$\\text{Dom}(f) = \\mathbb{R} \\setminus \\{3\\} = (-\\infty,\\, 3) \\cup (3,\\, +\\infty)$$\n\nObservá que los paréntesis en $3$ son abiertos: el punto $3$ no está incluido en ninguno de los dos intervalos.\n\nEn la gráfica, esto aparece como una **asíntota vertical** en $x = 3$: la función crece o decrece sin límite a medida que $x$ se acerca a $3$."
+  },
+  {
+    "external_id": "white_rational_clsf_12",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalos es decreciente $f(x) = \\dfrac{1}{x}$?",
+    "options": [
+      "Solo en $(-\\infty,\\ 0)$",
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$ — en cada tramo por separado",
+      "Solo en $(0,\\ +\\infty)$",
+      "En ningún intervalo; la función no es monótona"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x)=1/x$ es decreciente tanto en $(-\\infty,0)$ como en $(0,+\\infty)$, en cada tramo por separado.",
+    "feedback_incorrect": "$f(x) = 1/x$ es decreciente en $(-\\infty, 0)$ y también en $(0, +\\infty)$. Pero ojo: esto no significa que sea decreciente en $\\mathbb{R} \\setminus \\{0\\}$ completo, ya que $f(-1) = -1 < f(1) = 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 1/x$, en cualquier intervalo que no cruce el cero, la función es **decreciente**:\n\n- En $(-\\infty, 0)$: si tomás $x_1 < x_2 < 0$, se cumple $1/x_1 > 1/x_2$ (decrece).\n- En $(0, +\\infty)$: si tomás $0 < x_1 < x_2$, se cumple $1/x_1 > 1/x_2$ (decrece).\n\nImportante: esto **no** significa que $f$ sea decreciente en todo su dominio $\\mathbb{R} \\setminus \\{0\\}$. Comparar $f(-1) = -1$ con $f(1) = 1$ muestra que entre los dos tramos el valor sube."
+  },
+  {
+    "external_id": "white_rational_clsf_13",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En cuál de los siguientes intervalos es decreciente $f(x) = \\dfrac{x + 1}{x - 1}$?",
+    "options": [
+      "Solo en $(1,\\ +\\infty)$",
+      "Solo en $(-\\infty,\\ 1)$",
+      "En $(-\\infty,\\ 1)$ y en $(1,\\ +\\infty)$ — en cada tramo",
+      "En ninguno; la función no es monótona"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = (x+1)/(x-1)$ es decreciente en $(-\\infty, 1)$ y también en $(1, +\\infty)$.",
+    "feedback_incorrect": "Podés reescribir $f(x) = 1 + \\frac{2}{x-1}$. El término $2/(x-1)$ se comporta como $1/x$ trasladado: decrece en cada tramo del dominio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reescribiendo la función:\n\n$$f(x) = \\frac{x+1}{x-1} = \\frac{(x-1)+2}{x-1} = 1 + \\frac{2}{x-1}$$\n\nEl término $\\frac{2}{x-1}$ es proporcional a $\\frac{1}{x-1}$, que es decreciente en cada tramo de su dominio.\n\nPor eso $f$ es **decreciente en $(-\\infty, 1)$** y **decreciente en $(1, +\\infty)$**.\n\nLa asíntota vertical en $x = 1$ divide el dominio en dos tramos, y en cada uno la función decrece."
+  },
+  {
+    "external_id": "white_rational_clsf_14",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo crece $f(x) = \\dfrac{1}{x - 2}$ para $x > 2$?",
+    "options": [
+      "En ninguno; es decreciente en $(2,\\ +\\infty)$",
+      "En $(2,\\ 3)$",
+      "En $(2,\\ +\\infty)$",
+      "Solo para $x > 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 1/(x-2)$ es decreciente en $(2, +\\infty)$: a medida que $x$ aumenta, el denominador crece y la fracción disminuye.",
+    "feedback_incorrect": "Para $x > 2$, el denominador $x - 2 > 0$ crece a medida que $x$ crece. Como el numerador es constante ($1$), la fracción $1/(x-2)$ decrece. No hay ningún intervalo donde crezca.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $x > 2$, el denominador $x - 2$ es positivo y crece a medida que $x$ aumenta.\n\nComo el numerador es constante ($1$), la fracción:\n\n$$f(x) = \\frac{1}{x-2}$$\n\ndisminuye cuando $x$ aumenta: si el denominador crece, la fracción se hace más pequeña.\n\nPor ejemplo: $f(3) = 1$, $f(4) = 1/2$, $f(6) = 1/4$. La función es **decreciente en $(2, +\\infty)$**.\n\nEsta lógica aplica a cualquier $\\frac{c}{x-a}$ con $c > 0$ y $x > a$: siempre decreciente."
+  },
+  {
+    "external_id": "white_rational_graf_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la gráfica de $f(x) = \\dfrac{1}{x}$. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "options": [
+      "Solo en $(-\\infty,\\ 0)$",
+      "Solo en $(0,\\ +\\infty)$",
+      "En ningún intervalo",
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$ — en cada rama por separado"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En la gráfica se ve claramente que ambas ramas bajan de izquierda a derecha: la función decrece en cada tramo de su dominio.",
+    "feedback_incorrect": "Mirá cada rama de la hipérbola por separado: en $(-\\infty,0)$ la curva baja al avanzar hacia la derecha, y lo mismo en $(0,+\\infty)$. La función decrece en ambos tramos.",
+    "graph_fn": "1/x",
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -4,
+      "yMax": 4
+    },
+    "explanation": "La gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn **cada rama**, la curva desciende de izquierda a derecha:\n- Rama izquierda $(-\\infty, 0)$: la función va de valores cercanos a $0^-$ hacia $-\\infty$.\n- Rama derecha $(0, +\\infty)$: la función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos casos la tendencia es **decreciente**.\n\nNota visual: no confundas 'la curva sube entre las dos ramas' con comportamiento creciente; eso es una discontinuidad, no crecimiento."
   }
 ]

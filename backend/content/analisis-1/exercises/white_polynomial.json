@@ -715,5 +715,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para determinar el dominio de $p(x) = x^5 - 3x^2 + 7$, buscamos restricciones: divisiones por cero, raíces de negativos, logaritmos de no positivos.\n\nNo hay ninguna de esas operaciones. Solo hay potencias enteras y sumas, definidas para todo $x \\in \\mathbb{R}$.\n\nEl dominio es $\\mathbb{R}$.\n\nNota: el intervalo $[-7^{1/5}, 7^{1/5}]$ no tiene ningún significado especial aquí. El dominio de un polinomio no depende de sus raíces ni de los valores que toma, sino solo de las operaciones involucradas."
+  },
+  {
+    "external_id": "white_polynomial_clsf_12",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Es $f(x) = x^3$ siempre creciente en $\\mathbb{R}$?",
+    "options": [
+      "Sí, es estrictamente creciente en todo $\\mathbb{R}$",
+      "No; solo crece para $x > 0$",
+      "No; decrece para $x < 0$",
+      "Solo crece en $(-\\infty,\\ 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = x^3$ es estrictamente creciente en todo $\\mathbb{R}$: si $x_1 < x_2$ entonces $x_1^3 < x_2^3$.",
+    "feedback_incorrect": "Aunque $f'(0) = 0$, la función $f(x) = x^3$ nunca decrece. Si $x_1 < x_2$, siempre se tiene $x_1^3 < x_2^3$. Es estrictamente creciente en $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = x^3$ es **estrictamente creciente** en todo $\\mathbb{R}$.\n\nPodés verificarlo directamente: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$ (elevar al cubo preserva el orden).\n\nAlgunos se confunden porque la curva es 'casi plana' cerca de $x = 0$ (el punto de inflexión), pero eso no implica decrecimiento: la función nunca retrocede.\n\nEsto contrasta con $f(x) = x^2$, que sí decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$."
+  },
+  {
+    "external_id": "white_polynomial_clsf_13",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas afirmaciones describe correctamente a $f(x) = -x^3$?",
+    "options": [
+      "Creciente en $\\mathbb{R}$",
+      "Creciente en $(-\\infty,\\ 0)$ y decreciente en $(0,\\ +\\infty)$",
+      "Decreciente en $\\mathbb{R}$",
+      "Decreciente en $(-\\infty,\\ 0)$ y creciente en $(0,\\ +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = -x^3$ es decreciente en todo $\\mathbb{R}$: multiplicar por $-1$ invierte el comportamiento de $x^3$.",
+    "feedback_incorrect": "Como $f(x) = -x^3$, el signo negativo invierte el comportamiento de $x^3$ (que era creciente). El resultado es decreciente en todo $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dado que $f(x) = x^3$ es estrictamente creciente en $\\mathbb{R}$, la función $f(x) = -x^3$ (multiplicada por $-1$) es **estrictamente decreciente** en $\\mathbb{R}$.\n\nLa lógica: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$, y multiplicando por $-1$ se invierte la desigualdad: $-x_1^3 > -x_2^3$.\n\nEso significa que $f(x_1) > f(x_2)$, es decir, la función asigna valores menores a los $x$ más grandes: **decreciente**.\n\nEl punto $x = 0$ es un punto de inflexión, no un extremo."
+  },
+  {
+    "external_id": "white_polynomial_clsf_14",
+    "belt": "white",
+    "topic": "polynomial",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Puede un polinomio de grado par ser siempre creciente en $\\mathbb{R}$?",
+    "options": [
+      "Sí, siempre que el coeficiente principal sea positivo",
+      "Sí, si el grado es 2",
+      "Sí, cualquier polinomio de grado par puede serlo",
+      "No; todo polinomio de grado par tiene al menos un extremo local"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Todo polinomio de grado par $\\geq 2$ tiene al menos un extremo local (un máximo o mínimo), por lo que no puede ser siempre creciente.",
+    "feedback_incorrect": "Un polinomio de grado par (como $x^2$, $x^4$, etc.) siempre tiene un extremo local: decrece en una parte de $\\mathbb{R}$ y crece en otra. No puede ser siempre creciente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los polinomios de **grado par** tienen ambos extremos en la misma dirección: ambos van a $+\\infty$ o ambos a $-\\infty$ según el signo del coeficiente principal.\n\nEsto implica que la función debe 'cambiar de dirección' al menos una vez: tiene al menos un **extremo local** (mínimo o máximo).\n\nPor ejemplo, $f(x) = x^2$ decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$. Ningún polinomio de grado par puede ser monótono en todo $\\mathbb{R}$.\n\nEn contraste, polinomios de grado impar como $x^3$ o $x^5$ sí pueden ser siempre crecientes o siempre decrecientes."
   }
 ]

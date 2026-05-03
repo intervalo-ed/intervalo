@@ -736,5 +736,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para que $f(x) = \\log_2(2x - 6)$ esté definida, imponemos que el argumento sea positivo y despejamos $x$:\n\n$$2x - 6 > 0 \\implies 2x > 6 \\implies x > 3$$\n\nEl dominio es $(3, +\\infty)$.\n\nEl proceso es el mismo para cualquier logaritmo con argumento compuesto: planteás la inecuación 'argumento $> 0$' y la resolvés algebraicamente.\n\nEjemplo adicional: si fuera $\\ln(3x + 9)$, harías $3x + 9 > 0 \\Rightarrow x > -3$, dominio $(-3, +\\infty)$."
+  },
+  {
+    "external_id": "white_logarithmic_clsf_12",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Es $f(x) = \\ln(x)$ siempre creciente en su dominio $(0, +\\infty)$?",
+    "options": [
+      "Sí, es estrictamente creciente en $(0, +\\infty)$",
+      "No; tiene un máximo en $x = 1$ donde $\\ln(1) = 0$",
+      "No; decrece para $x > e$",
+      "Solo crece para $x > 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\ln(x)$ es estrictamente creciente en todo su dominio $(0, +\\infty)$: si $x_1 < x_2$ entonces $\\ln(x_1) < \\ln(x_2)$.",
+    "feedback_incorrect": "El hecho de que $\\ln(1) = 0$ no significa que ahí haya un máximo. $\\ln(x)$ sigue creciendo después de $x=1$ (aunque más lento). Es estrictamente creciente en $(0, +\\infty)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = \\ln(x)$ es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nAlgunos se confunden porque $\\ln(1) = 0$: piensan que ahí hay un máximo, pero no. El logaritmo sigue creciendo:\n\n$$\\ln(1) = 0 < \\ln(e) = 1 < \\ln(e^2) = 2 < \\ln(e^3) = 3 \\ldots$$\n\nSolo se aplana (crece más lentamente) pero nunca deja de crecer ni retrocede.\n\nEsto es coherente con que $\\ln$ y $e^x$ son funciones inversas: una es el espejo de la otra, y $e^x$ es creciente."
+  },
+  {
+    "external_id": "white_logarithmic_clsf_13",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Para qué valores de la base $b$ es $f(x) = \\log_b(x)$ una función decreciente?",
+    "options": [
+      "Para $b > 1$",
+      "Para $b = e$",
+      "Para $0 < b < 1$",
+      "Para $b = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando $0 < b < 1$, $\\log_b(x)$ es decreciente: valores mayores de $x$ producen logaritmos menores.",
+    "feedback_incorrect": "El logaritmo $\\log_b(x)$ crece cuando $b > 1$ (como $\\log_2$, $\\ln$) y decrece cuando $0 < b < 1$ (como $\\log_{0.5}$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El comportamiento de $f(x) = \\log_b(x)$ depende de la **base** $b$, igual que en las exponenciales:\n\n- $b > 1$: logaritmo **creciente**. Ejemplo: $\\log_2(1) = 0 < \\log_2(4) = 2$.\n- $0 < b < 1$: logaritmo **decreciente**. Ejemplo: $\\log_{0.5}(1) = 0 > \\log_{0.5}(2) = -1$.\n- $b = 1$: no está definido como logaritmo.\n\nEsta regla es el espejo exacto de la regla para las exponenciales: $\\log_b$ y $b^x$ son inversas, y comparten el mismo tipo de comportamiento (creciente o decreciente)."
+  },
+  {
+    "external_id": "white_logarithmic_clsf_14",
+    "belt": "white",
+    "topic": "logarithmic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas funciones logarítmicas es decreciente?",
+    "options": [
+      "$\\log_2(x)$",
+      "$\\log_{0.5}(x)$",
+      "$\\ln(x)$",
+      "Ninguna es decreciente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\log_{0.5}(x)$ tiene base $0.5 < 1$, así que es decreciente.",
+    "feedback_incorrect": "$\\log_{0.5}(x)$ tiene base $b = 0.5$, con $0 < 0.5 < 1$. Un base logarítmica menor que $1$ hace que la función sea decreciente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar si $\\log_b(x)$ es creciente o decreciente, revisá la base:\n\n- $\\log_2(x)$: base $b = 2 > 1$ → **creciente**.\n- $\\log_{0.5}(x)$: base $b = 0.5$, con $0 < 0.5 < 1$ → **decreciente**.\n- $\\ln(x)$: base $b = e \\approx 2.718 > 1$ → creciente.\n\nNota útil: $\\log_{0.5}(x) = -\\log_2(x)$. Podés reescribir logaritmos decrecientes como el opuesto de uno creciente.\n\nEsto es coherente con las exponenciales: $0.5^x$ es decreciente, y $\\log_{0.5}$ (su inversa) también lo es."
   }
 ]

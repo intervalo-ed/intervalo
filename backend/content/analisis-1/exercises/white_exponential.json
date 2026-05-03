@@ -736,5 +736,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para hallar el dominio de $f(x) = 3^{x-2} + 1$, analizamos si hay algún $x$ para el que la función no esté definida.\n\nEl exponente es $u = x - 2$: una traslación que toma valores en $\\mathbb{R}$ sin restricción.\n\nComo $3^u$ está definida para todo $u \\in \\mathbb{R}$, el dominio de $f$ es $\\mathbb{R}$.\n\nImportante: las traslaciones como $3^{x-2}$ o los escalados como $3^{2x}$ **no restringen el dominio**. Lo que sí restringiría el dominio sería, por ejemplo, $\\log(x-2)$, que exige $x > 2$."
+  },
+  {
+    "external_id": "white_exponential_clsf_12",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Para qué valores de la base $a$ es $f(x) = a^x$ una función decreciente?",
+    "options": [
+      "Para $a > 1$",
+      "Para $a = 1$",
+      "Para $a > 0$",
+      "Para $0 < a < 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando la base $0 < a < 1$, la función exponencial es decreciente: a medida que $x$ crece, $a^x$ se acerca a cero.",
+    "feedback_incorrect": "La exponencial $a^x$ crece cuando $a > 1$ y decrece cuando $0 < a < 1$. Si $a = 1$, la función es constante ($f(x) = 1$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El comportamiento de $f(x) = a^x$ depende completamente de la **base** $a$:\n\n- $a > 1$: la función es **creciente**. Ejemplo: $2^x$ crece a medida que $x$ aumenta.\n- $0 < a < 1$: la función es **decreciente**. Ejemplo: $(1/2)^x$ decrece porque cada multiplicación por $a$ reduce el valor.\n- $a = 1$: la función es **constante** ($1^x = 1$ para todo $x$).\n\nFísicamente: base mayor que 1 modela crecimiento; base menor que 1 modela decaimiento (ej: desintegración radiactiva)."
+  },
+  {
+    "external_id": "white_exponential_clsf_13",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo es creciente $f(x) = 2^x$?",
+    "options": [
+      "$(0,\\ +\\infty)$",
+      "$\\mathbb{R}$ (siempre creciente)",
+      "$(-\\infty,\\ 0)$",
+      "Solo para $x > 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2^x$ es creciente en todo $\\mathbb{R}$: cuanto mayor sea $x$, mayor es $2^x$.",
+    "feedback_incorrect": "$2^x$ crece para todo $x$ real, no solo para $x > 0$. Por ejemplo, $2^{-3} = 1/8 < 2^{-1} = 1/2 < 2^0 = 1 < 2^2 = 4$: siempre crece.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene base $a = 2 > 1$, así que es **estrictamente creciente en todo $\\mathbb{R}$**.\n\nAlgunos creen que solo crece para $x > 0$, pero eso confunde el dominio con el comportamiento. La función está definida y es creciente para todos los reales:\n\n$$2^{-2} = 0.25 < 2^{-1} = 0.5 < 2^0 = 1 < 2^1 = 2 < 2^2 = 4$$\n\nSiempre que $x$ aumenta, $2^x$ también aumenta. El intervalo de crecimiento es $\\mathbb{R}$."
+  },
+  {
+    "external_id": "white_exponential_clsf_14",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas funciones exponenciales es decreciente?",
+    "options": [
+      "$(1/3)^x$",
+      "$3^x$",
+      "$e^x$",
+      "Ninguna es decreciente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $(1/3)^x$ tiene base $1/3 < 1$, así que es decreciente.",
+    "feedback_incorrect": "$(1/3)^x$ tiene base $a = 1/3$, con $0 < 1/3 < 1$. Una base menor que $1$ hace que la exponencial sea decreciente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar si $a^x$ es creciente o decreciente, fijate en la base:\n\n- $(1/3)^x$: base $a = 1/3$, con $0 < 1/3 < 1$ → **decreciente**.\n- $3^x$: base $a = 3 > 1$ → creciente.\n- $e^x$: base $a = e \\approx 2.718 > 1$ → creciente.\n\nNota: $(1/3)^x = 3^{-x}$. Podés reescribir cualquier exponencial decreciente como una creciente con exponente negativo.\n\nMnemotecnia: base mayor que 1 → crece; base entre 0 y 1 → decrece."
   }
 ]

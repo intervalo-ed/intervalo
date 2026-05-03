@@ -736,5 +736,68 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Es fácil confundir el dominio de $f(x) = x^2 - 4$ con sus ceros o su imagen.\n\nEl **dominio** pregunta: ¿para qué $x$ puedo calcular $f(x)$? Como $f$ solo usa potencia y resta, siempre podés calcularlo. El dominio es $\\mathbb{R}$.\n\nLos valores $x = -2$ y $x = 2$ son los **ceros** de $f$ (donde $f(x) = 0$), no restricciones del dominio.\n\nLa **imagen** de $f$ sí es $[-4, +\\infty)$, ya que el mínimo se alcanza en $x = 0$: $f(0) = -4$."
+  },
+  {
+    "external_id": "white_quadratic_clsf_12",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo es decreciente $f(x) = x^2 - 4x + 1$?",
+    "options": [
+      "$(0,\\ 4)$",
+      "$(-\\infty,\\ 2]$",
+      "$[2,\\ +\\infty)$",
+      "$(4,\\ +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El vértice está en $x = 2$. Como la parábola abre hacia arriba ($a > 0$), decrece en $(-\\infty, 2]$.",
+    "feedback_incorrect": "El vértice de $f(x) = x^2 - 4x + 1$ está en $x = -\\frac{-4}{2 \\cdot 1} = 2$. Como abre hacia arriba, la función decrece antes del vértice: en $(-\\infty, 2]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = x^2 - 4x + 1$ (parábola con $a = 1 > 0$, abre hacia arriba), el vértice se calcula como:\n\n$$x_v = -\\frac{b}{2a} = -\\frac{-4}{2 \\cdot 1} = 2$$\n\nEl vértice es el **punto mínimo**. La función:\n- **Decrece** en $(-\\infty, 2]$: la parábola baja hacia el vértice.\n- **Crece** en $[2, +\\infty)$: la parábola sube a partir del vértice.\n\nRegla general: si $a > 0$, la parábola decrece a la izquierda del vértice y crece a la derecha."
+  },
+  {
+    "external_id": "white_quadratic_clsf_13",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo es creciente $f(x) = -x^2 + 6x$?",
+    "options": [
+      "$(-\\infty,\\ 0)$",
+      "$(0,\\ 3)$",
+      "$(3,\\ +\\infty)$",
+      "$(-\\infty,\\ 3]$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El vértice está en $x = 3$. Como la parábola abre hacia abajo ($a < 0$), crece en $(-\\infty, 3]$.",
+    "feedback_incorrect": "El vértice de $f(x) = -x^2 + 6x$ está en $x = 3$. Como $a = -1 < 0$ (abre hacia abajo), la función crece antes del vértice: en $(-\\infty, 3]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -x^2 + 6x$ (parábola con $a = -1 < 0$, abre hacia abajo), el vértice es:\n\n$$x_v = -\\frac{b}{2a} = -\\frac{6}{2 \\cdot (-1)} = 3$$\n\nEl vértice es el **punto máximo**. La función:\n- **Crece** en $(-\\infty, 3]$: la parábola sube hacia el vértice.\n- **Decrece** en $[3, +\\infty)$: la parábola baja a partir del vértice.\n\nRegla general: si $a < 0$, la parábola crece a la izquierda del vértice y decrece a la derecha."
+  },
+  {
+    "external_id": "white_quadratic_clsf_14",
+    "belt": "white",
+    "topic": "quadratic",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "Para $f(x) = (x - 1)^2 + 2$, ¿en qué intervalo es creciente?",
+    "options": [
+      "$[1,\\ +\\infty)$",
+      "$(-\\infty,\\ 1]$",
+      "$(-\\infty,\\ 2]$",
+      "$[2,\\ +\\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En forma canónica $f(x) = (x-1)^2 + 2$, el vértice es $(1, 2)$. Como abre hacia arriba, crece en $[1, +\\infty)$.",
+    "feedback_incorrect": "La función está en forma canónica $f(x) = (x-h)^2 + k$ con $h = 1, k = 2$. El vértice es $(1, 2)$. Como $a = 1 > 0$ (abre hacia arriba), crece para $x \\geq 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = (x-1)^2 + 2$ está en **forma canónica** $f(x) = a(x-h)^2 + k$, con $a = 1 > 0$, $h = 1$, $k = 2$.\n\nEl vértice es el punto $(h, k) = (1, 2)$: el mínimo de la parábola.\n\nComo $a > 0$ (abre hacia arriba):\n- La función **decrece** en $(-\\infty, 1]$.\n- La función **crece** en $[1, +\\infty)$.\n\nLeer el intervalo de crecimiento directamente de la forma canónica: crece para $x \\geq h$."
   }
 ]

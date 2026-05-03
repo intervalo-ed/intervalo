@@ -976,5 +976,94 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$. No hay denominador, logaritmo ni raíz que genere restricciones.\n\n- **Dominio** de $\\cos$: $\\mathbb{R}$\n- **Imagen** de $\\cos$: $[-1, 1]$\n\nEs un error frecuente confundir ambos. La imagen ($[-1, 1]$) es el rango de valores que produce $\\cos$, no el conjunto de entradas válidas.\n\nContraste con $f(x) = \\tan(x)$: su dominio sí excluye $x = \\pi/2 + n\\pi$, porque $\\tan$ lleva $\\cos(x)$ en el denominador."
+  },
+  {
+    "external_id": "white_trigonometric_clsf_12",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué subintervalo de $[0,\\ 2\\pi]$ es decreciente $f(x) = \\sin(x)$?",
+    "options": [
+      "$[0,\\ \\pi/2]$",
+      "$[\\pi/2,\\ \\pi]$",
+      "$[0,\\ \\pi]$",
+      "$[\\pi/2,\\ 3\\pi/2]$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\sin(x)$ alcanza su máximo en $\\pi/2$ y su mínimo en $3\\pi/2$. Decrece en $[\\pi/2, 3\\pi/2]$.",
+    "feedback_incorrect": "$\\sin(\\pi/2) = 1$ es el máximo y $\\sin(3\\pi/2) = -1$ es el mínimo en $[0, 2\\pi]$. La función desciende de uno al otro: decrece en $[\\pi/2, 3\\pi/2]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el intervalo $[0, 2\\pi]$, $f(x) = \\sin(x)$ tiene la siguiente evolución:\n\n- Crece de $0$ a $1$ en $[0, \\pi/2]$ (sube al máximo).\n- **Decrece** de $1$ a $-1$ en $[\\pi/2, 3\\pi/2]$ (baja del máximo al mínimo).\n- Crece de $-1$ a $0$ en $[3\\pi/2, 2\\pi]$ (sube de vuelta).\n\nEl intervalo de decrecimiento es $[\\pi/2, 3\\pi/2]$.\n\nEn cada período de $2\\pi$, el seno tiene un único intervalo de crecimiento y uno de decrecimiento, cada uno de longitud $\\pi$."
+  },
+  {
+    "external_id": "white_trigonometric_clsf_13",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué subintervalo de $[0,\\ 2\\pi]$ es creciente $f(x) = \\cos(x)$?",
+    "options": [
+      "$[\\pi,\\ 2\\pi]$",
+      "$[0,\\ \\pi]$",
+      "$[0,\\ \\pi/2]$",
+      "$[3\\pi/2,\\ 2\\pi]$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $\\cos(x)$ tiene su mínimo en $\\pi$ ($\\cos(\\pi)=-1$) y sube hasta $\\cos(2\\pi)=1$. Crece en $[\\pi, 2\\pi]$.",
+    "feedback_incorrect": "$\\cos(\\pi) = -1$ es el mínimo y $\\cos(2\\pi) = 1$ es el valor final. La función asciende de $\\pi$ a $2\\pi$: crece en $[\\pi, 2\\pi]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el intervalo $[0, 2\\pi]$, $f(x) = \\cos(x)$ evoluciona así:\n\n- **Decrece** de $1$ a $-1$ en $[0, \\pi]$ (baja del máximo al mínimo).\n- **Crece** de $-1$ a $1$ en $[\\pi, 2\\pi]$ (sube del mínimo al máximo).\n\nEl intervalo de crecimiento es $[\\pi, 2\\pi]$.\n\nComparación con $\\sin$: el coseno va 'medio período adelantado' respecto al seno. $\\cos(x) = \\sin(x + \\pi/2)$, lo que desplaza todos los intervalos de crecimiento/decrecimiento $\\pi/2$ unidades."
+  },
+  {
+    "external_id": "white_trigonometric_clsf_14",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuántas veces cambia $f(x) = \\sin(x)$ de creciente a decreciente en el intervalo $[0,\\ 4\\pi]$?",
+    "options": [
+      "1 vez",
+      "3 veces",
+      "2 veces",
+      "4 veces"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En $[0, 4\\pi]$ hay dos períodos completos. El seno cambia de creciente a decreciente una vez por período: en $x = \\pi/2$ y en $x = 5\\pi/2$. Total: 2 veces.",
+    "feedback_incorrect": "En cada período $[0,2\\pi]$ el seno cambia de creciente a decreciente exactamente una vez (en $x=\\pi/2$). Como $[0,4\\pi]$ tiene dos períodos, el cambio ocurre 2 veces: en $x=\\pi/2$ y en $x=5\\pi/2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El seno tiene **período $2\\pi$**: cada $2\\pi$ unidades repite su comportamiento.\n\nEn cada período, $\\sin(x)$ cambia de creciente a decreciente exactamente **una vez** (en el máximo $x = \\pi/2 + 2k\\pi$).\n\nEn $[0, 4\\pi]$ caben exactamente **dos períodos completos**: $[0, 2\\pi]$ y $[2\\pi, 4\\pi]$.\n\nEn el primero, el cambio ocurre en $x = \\pi/2$.\nEn el segundo, en $x = \\pi/2 + 2\\pi = 5\\pi/2$.\n\nTotal: **2 veces**."
+  },
+  {
+    "external_id": "white_trigonometric_graf_11",
+    "belt": "white",
+    "topic": "trigonometric",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la gráfica de $f(x) = \\sin(x)$. ¿En cuál de los siguientes intervalos la función es creciente?",
+    "options": [
+      "$[-\\pi,\\ 0]$",
+      "$[-\\pi/2,\\ \\pi/2]$",
+      "$[\\pi/2,\\ 3\\pi/2]$",
+      "$[\\pi,\\ 2\\pi]$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En la gráfica se ve que la curva sube desde $-\\pi/2$ hasta $\\pi/2$, pasando por el máximo $\\sin(\\pi/2)=1$.",
+    "feedback_incorrect": "Buscá el tramo donde la curva sube de izquierda a derecha. El seno sube desde su mínimo ($x=-\\pi/2$) hasta su máximo ($x=\\pi/2$). Ese tramo es $[-\\pi/2, \\pi/2]$.",
+    "graph_fn": "sin(x)",
+    "graph_view": {
+      "xMin": -6.5,
+      "xMax": 6.5,
+      "yMin": -2,
+      "yMax": 2
+    },
+    "explanation": "En la gráfica de $f(x) = \\sin(x)$, un tramo **creciente** es aquel donde la curva sube de izquierda a derecha.\n\nLos tramos crecientes de $\\sin$ son $[-\\pi/2 + 2k\\pi,\\ \\pi/2 + 2k\\pi]$ para $k \\in \\mathbb{Z}$.\n\nDe las opciones:\n- $[-\\pi/2, \\pi/2]$: la curva sube desde $-1$ hasta $1$ pasando por el cero. **Creciente**.\n- $[-\\pi, 0]$: la curva baja de $0$ a $-1$ y luego sube de $-1$ a $0$. No es monótona en ese intervalo.\n- $[\\pi/2, 3\\pi/2]$: la curva baja desde $1$ hasta $-1$. **Decreciente**.\n- $[\\pi, 2\\pi]$: la curva baja y luego sube. No es monótona."
   }
 ]
