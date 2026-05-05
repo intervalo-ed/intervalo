@@ -41,66 +41,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/auth/guest": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Auth Guest
-         * @description Create anonymous guest user and return JWT.
-         */
-        post: operations["auth_guest_auth_guest_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/google": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Auth Google
-         * @description Redirect to Google OAuth consent screen. Pass link=<user_id> to merge with anonymous user.
-         */
-        get: operations["auth_google_auth_google_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/google/callback": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Auth Google Callback
-         * @description Handle Google OAuth callback and redirect to frontend with token.
-         */
-        get: operations["auth_google_callback_auth_google_callback_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/auth/me": {
         parameters: {
             query?: never;
@@ -181,6 +121,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/session/start-zen": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Start Zen Session
+         * @description Start a Zen session: random exercises from selected belts, no SM-2 logic.
+         */
+        post: operations["start_zen_session_session_start_zen_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/answer": {
         parameters: {
             query?: never;
@@ -236,17 +196,6 @@ export interface components {
             /** Response Time S */
             response_time_s: number;
         };
-        /** AnswerResponse */
-        AnswerResponse: {
-            /** Correct */
-            correct: boolean;
-            /** Quality */
-            quality: number;
-            /** Feedback */
-            feedback: string;
-            /** Xp Earned */
-            xp_earned: number;
-        };
         /** BeltEntry */
         BeltEntry: {
             /** Headline */
@@ -280,20 +229,6 @@ export interface components {
             success: boolean;
             /** Message */
             message: string;
-        };
-        /** GuestAuthResponse */
-        GuestAuthResponse: {
-            /** Access Token */
-            access_token: string;
-            /** Name */
-            name: string;
-            /** User Id */
-            user_id: number;
-        };
-        /** GuestRequest */
-        GuestRequest: {
-            /** Name */
-            name: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -420,6 +355,15 @@ export interface components {
             /** User Name */
             user_name: string;
         };
+        /** StartZenSessionRequest */
+        StartZenSessionRequest: {
+            /** User Name */
+            user_name: string;
+            /** Belts */
+            belts: string[];
+            /** Count */
+            count: number;
+        };
         /** SummaryItem */
         SummaryItem: {
             /** Topic */
@@ -447,8 +391,8 @@ export interface components {
             email: string;
             /** Name */
             name: string;
-            /** Google Id */
-            google_id?: string | null;
+            /** Clerk User Id */
+            clerk_user_id?: string | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -512,102 +456,6 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["BeltEntry"];
                     };
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    auth_guest_auth_guest_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GuestRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GuestAuthResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    auth_google_auth_google_get: {
-        parameters: {
-            query?: {
-                link?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    auth_google_callback_auth_google_callback_get: {
-        parameters: {
-            query: {
-                code: string;
-                state?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */
@@ -753,6 +601,41 @@ export interface operations {
             };
         };
     };
+    start_zen_session_session_start_zen_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StartZenSessionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     submit_answer_session_answer_post: {
         parameters: {
             query?: never;
@@ -774,7 +657,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AnswerResponse"];
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */
