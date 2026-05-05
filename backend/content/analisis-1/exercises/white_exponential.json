@@ -28,17 +28,22 @@
     "subtype": "graph",
     "question": "¿Cómo se llama la línea horizontal que esta curva se aproxima pero nunca alcanza?",
     "options": [
-      "Asíntota horizontal",
       "Asíntota vertical",
+      "Asíntota horizontal",
       "Eje de simetría",
       "Tangente"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las funciones exponenciales tienen una asíntota horizontal ($y = 0$ en su forma básica).",
     "feedback_incorrect": "La línea horizontal que una curva se aproxima infinitamente sin tocarla se llama asíntota horizontal.",
     "graph_fn": "pow(2, x)",
-    "graph_view": [-4, 4, -1, 10],
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      10
+    ],
     "explanation": "Una **asíntota horizontal** es una recta horizontal $y = k$ que la curva se aproxima infinitamente pero nunca toca.\n\nPara $f(x) = 2^x$, cuando $x \\to -\\infty$:\n$$2^x \\to 0^+$$\nLa función se acerca a $y = 0$ sin llegar. La imagen de $f$ es siempre positiva: $(0, +\\infty)$.\n\nEsta propiedad vale para toda exponencial $a \\cdot b^x$ con $a > 0$: la asíntota horizontal es $y = 0$."
   },
   {
@@ -49,12 +54,12 @@
     "subtype": "text",
     "question": "¿Dónde aparece la variable $x$ en una función exponencial $f(x) = a \\cdot b^x$?",
     "options": [
-      "En el exponente",
-      "En la base",
       "Como coeficiente",
+      "En la base",
+      "En el exponente",
       "Dentro de un logaritmo"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La característica definitoria de una función exponencial es que $x$ aparece en el exponente.",
     "feedback_incorrect": "En $f(x) = a \\cdot b^x$, la variable $x$ está en el exponente. Eso es lo que la hace exponencial.",
@@ -70,12 +75,12 @@
     "subtype": "text",
     "question": "Una función exponencial $f(x) = b^x$ con $b > 1$ es...",
     "options": [
-      "Creciente",
+      "Periódica",
       "Decreciente",
       "Constante",
-      "Periódica"
+      "Creciente"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! Con base $b > 1$, la función crece sin límite al aumentar $x$.",
     "feedback_incorrect": "Si $b > 1$, la función $f(x) = b^x$ crece cuando $x$ aumenta: es creciente.",
@@ -112,17 +117,22 @@
     "subtype": "graph",
     "question": "¿Cuál es la ecuación de la asíntota horizontal de esta curva?",
     "options": [
-      "$y = 0$",
       "$y = 1$",
+      "$y = 0$",
       "$x = 0$",
       "$y = -1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La asíntota horizontal de $f(x) = 2^x$ (en su forma básica) es $y = 0$.",
     "feedback_incorrect": "La función $f(x) = 2^x$ se aproxima a $y = 0$ cuando $x \\to -\\infty$: esa es su asíntota horizontal.",
     "graph_fn": "pow(2, x)",
-    "graph_view": [-4, 4, -1, 10],
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      10
+    ],
     "explanation": "Para $f(x) = 2^x$, analizamos el límite cuando $x$ tiende a $-\\infty$:\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nLa función se acerca arbitrariamente a $y = 0$ sin tocarlo nunca, ya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la asíntota horizontal. Recordar: no hay asíntota vertical en las funciones exponenciales."
   },
   {
@@ -133,12 +143,12 @@
     "subtype": "text",
     "question": "¿Cuándo es decreciente la función $f(x) = b^x$?",
     "options": [
-      "Cuando $0 < b < 1$",
-      "Cuando $b > 1$",
       "Cuando $b = 1$",
+      "Cuando $b > 1$",
+      "Cuando $0 < b < 1$",
       "Cuando $b < 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Con $0 < b < 1$, la función decrece: cuanto mayor es $x$, menor es $b^x$.",
     "feedback_incorrect": "Si $0 < b < 1$, la base es una fracción y la función disminuye al crecer $x$.",
@@ -154,12 +164,12 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f(0)$ para cualquier función $f(x) = b^x$ con $b > 0$?",
     "options": [
-      "$1$",
+      "$-1$",
       "$0$",
       "$b$",
-      "$-1$"
+      "$1$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(0) = b^0 = 1$ para cualquier base $b > 0$. La curva siempre pasa por $(0, 1)$.",
     "feedback_incorrect": "Toda potencia con exponente 0 vale 1: $b^0 = 1$. La función siempre pasa por $(0, 1)$.",
@@ -185,7 +195,12 @@
     "feedback_correct": "¡Correcto! $f(0) = e^0 = 1$: la curva corta el eje $Y$ en el punto $(0, 1)$.",
     "feedback_incorrect": "Evaluando en $x = 0$: $f(0) = e^0 = 1$. El punto de corte con el eje $Y$ es $(0, 1)$.",
     "graph_fn": "exp(x)",
-    "graph_view": [-3, 3, -1, 8],
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      8
+    ],
     "explanation": "El punto de corte con el eje $Y$ se obtiene evaluando en $x = 0$:\n$$f(0) = e^0 = 1$$\nEsto vale para **cualquier** exponencial de la forma $b^x$: siempre pasa por $(0, 1)$.\n\nLa base $e \\approx 2{,}718$ es el **número de Euler**, fundamental en cálculo. La función $e^x$ es la **exponencial natural** y coincide con su propia derivada: $\\frac{d}{dx}e^x = e^x$."
   },
   {
@@ -196,12 +211,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas funciones es creciente?",
     "options": [
-      "$f(x) = 3^x$",
       "$f(x) = (0{,}2)^x$",
+      "$f(x) = 3^x$",
       "$f(x) = (0{,}9)^x$",
       "$f(x) = (1/3)^x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = 3^x$ tiene base $3 > 1$: es creciente.",
     "feedback_incorrect": "Solo las exponenciales con base $b > 1$ son crecientes. $f(x) = 3^x$ cumple esa condición.",
@@ -223,11 +238,16 @@
       "Lineal"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva crece aceleradamente: $f(x) = 3 \\cdot 2^x$, una función exponencial.",
     "feedback_incorrect": "El crecimiento acelerado con asíntota en $y = 0$ es propio de una exponencial: $f(x) = 3 \\cdot 2^x$.",
     "graph_fn": "3 * pow(2, x)",
-    "graph_view": [-3, 3, -1, 12],
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      12
+    ],
     "explanation": "Para clasificar una curva como exponencial, buscar estas señales:\n- **Crecimiento acelerado** (no lineal ni constante)\n- **Asíntota horizontal** en $y = 0$ hacia la izquierda\n- La curva **nunca toca el eje $x$** y siempre es positiva\n\nLa función graficada es $f(x) = 3 \\cdot 2^x$: base $2 > 1$ (creciente), coeficiente $a = 3$ que fija el valor en $x = 0$: $f(0) = 3$."
   },
   {
@@ -238,12 +258,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = 3 \\cdot 2^x$?",
     "options": [
-      "Exponencial",
       "Polinómica",
+      "Exponencial",
       "Logarítmica",
       "Lineal"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! En $f(x) = 3 \\cdot 2^x$, la variable $x$ está en el exponente: es una función exponencial.",
     "feedback_incorrect": "En $f(x) = 3 \\cdot 2^x$, la variable aparece en el exponente. Eso define una función exponencial.",
@@ -259,12 +279,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\left(\\dfrac{1}{3}\\right)^x$?",
     "options": [
-      "Exponencial",
-      "Racional",
       "Logarítmica",
+      "Racional",
+      "Exponencial",
       "Lineal"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! La base es $\\frac{1}{3}$ y $x$ está en el exponente: función exponencial decreciente.",
     "feedback_incorrect": "$f(x) = (1/3)^x$ tiene $x$ en el exponente: es una función exponencial (decreciente por $b < 1$).",
@@ -280,12 +300,12 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = 4 \\cdot e^x$?",
     "options": [
-      "Exponencial",
+      "Logarítmica",
       "Polinómica",
       "Trigonométrica",
-      "Logarítmica"
+      "Exponencial"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $e$ es la base del número de Euler y $x$ está en el exponente: función exponencial.",
     "feedback_incorrect": "$f(x) = 4 \\cdot e^x$ usa el número $e$ como base con $x$ en el exponente: es exponencial.",
@@ -307,11 +327,16 @@
       "Lineal"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva decrece aceleradamente hacia $y = 0$: $f(x) = (0{,}5)^x$, exponencial con $b < 1$.",
     "feedback_incorrect": "La curva que decrece con asíntota en $y = 0$ es una exponencial decreciente: $f(x) = (0{,}5)^x$.",
     "graph_fn": "pow(0.5, x)",
-    "graph_view": [-3, 4, -0.5, 6],
+    "graph_view": [
+      -3,
+      4,
+      -0.5,
+      6
+    ],
     "explanation": "Una curva exponencial **decreciente** tiene estas características visuales:\n- Decrece rápidamente de izquierda a derecha\n- Tiene una **asíntota horizontal** en $y = 0$ hacia la derecha\n- Siempre es positiva (nunca cruza el eje $x$)\n\nEsto corresponde a $f(x) = (0{,}5)^x$ con base $b = 0{,}5 < 1$. Las logarítmicas tienen forma diferente: crecen lentamente y tienen asíntota vertical."
   },
   {
@@ -322,12 +347,12 @@
     "subtype": "text",
     "question": "¿Cuál de estas es una función exponencial?",
     "options": [
-      "$f(x) = 2 \\cdot 5^x$",
       "$f(x) = x^5$",
+      "$f(x) = 2 \\cdot 5^x$",
       "$f(x) = 5x + 2$",
       "$f(x) = \\log_5(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! En $2 \\cdot 5^x$, la variable $x$ está en el exponente: función exponencial.",
     "feedback_incorrect": "$f(x) = 2 \\cdot 5^x$ tiene $x$ en el exponente (no en la base): es exponencial.",
@@ -343,12 +368,12 @@
     "subtype": "text",
     "question": "¿A qué familia pertenece $f(x) = e^{-x}$?",
     "options": [
-      "Exponencial",
-      "Logarítmica",
       "Polinómica",
+      "Logarítmica",
+      "Exponencial",
       "Racional"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $e^{-x} = (e^{-1})^x$: base $e^{-1} \\approx 0{,}368$, con $x$ en el exponente. Exponencial decreciente.",
     "feedback_incorrect": "$f(x) = e^{-x}$ tiene $x$ en el exponente: es una función exponencial (decreciente).",
@@ -364,17 +389,22 @@
     "subtype": "graph",
     "question": "¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
-      "Exponencial",
+      "Trigonométrica",
       "Polinómica",
       "Logarítmica",
-      "Trigonométrica"
+      "Exponencial"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La curva creciente con asíntota en $y = 0$ es $f(x) = 3^x$: función exponencial.",
     "feedback_incorrect": "El crecimiento rápido desde $y = 0$ hacia arriba es propio de una exponencial: $f(x) = 3^x$.",
     "graph_fn": "pow(3, x)",
-    "graph_view": [-3, 3, -0.5, 10],
+    "graph_view": [
+      -3,
+      3,
+      -0.5,
+      10
+    ],
     "explanation": "Las claves visuales para identificar una exponencial **creciente** en una gráfica:\n- Crece más y más rápido (aceleración positiva)\n- Asíntota horizontal en $y = 0$ hacia la izquierda\n- Siempre positiva, pasa por $(0, 1)$\n\nLa curva graficada es $f(x) = 3^x$. Una polinómica también puede crecer, pero su crecimiento es más simétrico y no tiene asíntota horizontal."
   },
   {
@@ -406,12 +436,12 @@
     "subtype": "text",
     "question": "¿A qué familia pertenece $f(x) = 10^x$?",
     "options": [
-      "Exponencial",
       "Polinómica",
+      "Exponencial",
       "Logarítmica",
       "Lineal"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $10^x$ tiene base 10 y $x$ en el exponente: es una función exponencial.",
     "feedback_incorrect": "$f(x) = 10^x$ tiene $x$ en el exponente: pertenece a la familia exponencial.",
@@ -448,17 +478,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = (0{,}5)^x$",
       "$f(x) = 2^x$",
+      "$f(x) = (0{,}5)^x$",
       "$f(x) = -2^x$",
       "$f(x) = 2 \\cdot x$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva decrece hacia 0: base menor que 1, $f(x) = (0{,}5)^x$.",
     "feedback_incorrect": "La curva decrece (base $b < 1$) con asíntota en $y = 0$: corresponde a $f(x) = (0{,}5)^x$.",
     "graph_fn": "pow(0.5, x)",
-    "graph_view": [-3, 4, -0.5, 6],
+    "graph_view": [
+      -3,
+      4,
+      -0.5,
+      6
+    ],
     "explanation": "Para leer una exponencial desde su gráfica:\n1. ¿Crece o decrece? → **Decrece**: $b < 1$\n2. ¿Pasa por $(0, 1)$? → Sí: $a = 1$ (no hay coeficiente extra)\n3. ¿Cuál es la base? → En $(1, 0{,}5)$: $f(1) = b = 0{,}5$\n\nLa fórmula es $f(x) = (0{,}5)^x$. No es $-2^x$ porque esa función es negativa; esta curva es siempre positiva."
   },
   {
@@ -469,12 +504,12 @@
     "subtype": "text",
     "question": "En $f(x) = 4 \\cdot 3^x$, ¿cuál es el factor de escala (coeficiente $a$)?",
     "options": [
-      "$4$",
-      "$3$",
       "$x$",
+      "$3$",
+      "$4$",
       "$12$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! En $f(x) = a \\cdot b^x$, el factor de escala es $a = 4$.",
     "feedback_incorrect": "En $f(x) = a \\cdot b^x$, $a$ es el factor de escala. Aquí $a = 4$.",
@@ -490,12 +525,12 @@
     "subtype": "text",
     "question": "En $f(x) = 5 \\cdot 2^x$, ¿cuánto vale $f(0)$?",
     "options": [
-      "$5$",
+      "$10$",
       "$1$",
       "$2$",
-      "$10$"
+      "$5$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$.",
     "feedback_incorrect": "$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$. El valor inicial de la exponencial es $a$.",
@@ -521,7 +556,12 @@
     "feedback_correct": "¡Correcto! La curva crece más rápido que $2^x$ y pasa por $(1, 3)$: es $f(x) = 3^x$.",
     "feedback_incorrect": "La curva pasa por $(0, 1)$ y $(1, 3)$: la base es 3. La fórmula es $f(x) = 3^x$.",
     "graph_fn": "pow(3, x)",
-    "graph_view": [-3, 3, -0.5, 10],
+    "graph_view": [
+      -3,
+      3,
+      -0.5,
+      10
+    ],
     "explanation": "Para distinguir $2^x$ de $3^x$ en una gráfica, verificar el punto $(1, f(1))$:\n$$2^1 = 2 \\quad \\text{vs.} \\quad 3^1 = 3$$\nLa curva pasa por $(0, 1)$ y $(1, 3)$: la base es $b = 3$.\n\nTambién: mayor base → crecimiento más empinado. $3^x$ crece más rápido que $2^x$ para $x > 0$ y decrece más rápido hacia 0 para $x < 0$."
   },
   {
@@ -532,12 +572,12 @@
     "subtype": "text",
     "question": "¿Cuál es la base de la función $f(x) = e^x$?",
     "options": [
-      "$e \\approx 2{,}718$",
       "$\\pi \\approx 3{,}14$",
+      "$e \\approx 2{,}718$",
       "$10$",
       "$2$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $e \\approx 2{,}718$ es el número de Euler, base de la exponencial natural.",
     "feedback_incorrect": "La base de $f(x) = e^x$ es el número de Euler: $e \\approx 2{,}718$.",
@@ -553,12 +593,12 @@
     "subtype": "text",
     "question": "Si $f(x) = a \\cdot b^x$ y $f(0) = 3$, ¿cuánto vale $a$?",
     "options": [
-      "$3$",
-      "$b$",
       "$0$",
+      "$b$",
+      "$3$",
       "$1$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(0) = a \\cdot b^0 = a \\cdot 1 = a = 3$.",
     "feedback_incorrect": "$f(0) = a \\cdot b^0 = a$. Si $f(0) = 3$, entonces $a = 3$.",
@@ -574,17 +614,22 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = 2^{x+1}$",
+      "$f(x) = 2 \\cdot x$",
       "$f(x) = 2^x$",
       "$f(x) = 2^{x-1}$",
-      "$f(x) = 2 \\cdot x$"
+      "$f(x) = 2^{x+1}$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La curva pasa por $(-1, 1)$ (desplazada a la izquierda respecto a $2^x$): $f(x) = 2^{x+1}$.",
     "feedback_incorrect": "La curva está desplazada una unidad a la izquierda respecto a $2^x$: $f(x) = 2^{x+1}$.",
     "graph_fn": "pow(2, x + 1)",
-    "graph_view": [-4, 3, -0.5, 10],
+    "graph_view": [
+      -4,
+      3,
+      -0.5,
+      10
+    ],
     "explanation": "La función $f(x) = 2^{x+1}$ es un **desplazamiento horizontal** de $2^x$:\n$$2^{x+1} = 2^x \\cdot 2^1 = 2 \\cdot 2^x$$\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$. En general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda; restar $h$, a la derecha."
   },
   {
@@ -616,17 +661,143 @@
     "subtype": "text",
     "question": "¿Cuánto vale $f(2)$ para $f(x) = 2^x$?",
     "options": [
-      "$4$",
       "$2$",
+      "$4$",
       "$8$",
       "$1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $f(2) = 2^2 = 4$.",
     "feedback_incorrect": "Evaluando: $f(2) = 2^2 = 4$.",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Evaluación directa en $f(x) = 2^x$:\n$$f(2) = 2^2 = 4$$\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$, $f(3) = 8$, ...\n\nCada incremento de $1$ en $x$ **duplica** el valor. Este crecimiento multiplicativo (en lugar de aditivo) es la esencia del **crecimiento exponencial**."
+  },
+  {
+    "external_id": "white_exponential_lexi_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Cuál es la imagen de $f(x) = a^x$, con $a > 0$ y $a \\neq 1$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$[0, +\\infty)$",
+      "$(-\\infty, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La función exponencial siempre toma valores positivos: $a^x > 0$ para todo $x \\in \\mathbb{R}$, pero nunca alcanza el cero.",
+    "feedback_incorrect": "La exponencial $a^x$ nunca es negativa ni cero: $a^x > 0$ para todo $x$. Cuando $x \\to -\\infty$ (si $a > 1$), $a^x \\to 0^+$, pero sin llegar a $0$. La imagen es $(0, +\\infty)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la función exponencial $f(x) = a^x$ (con $a > 0, a \\neq 1$):\n\n- $a^x > 0$ para todo $x \\in \\mathbb{R}$, ya que una base positiva elevada a cualquier exponente real siempre es positiva.\n- Cuando $x \\to -\\infty$ (y $a > 1$), $a^x \\to 0^+$: se acerca al cero pero nunca llega.\n- Cuando $x \\to +\\infty$ (y $a > 1$), $a^x \\to +\\infty$.\n\nLa imagen es $(0, +\\infty)$: el cero no se incluye (es un límite asintótico), y los negativos tampoco son alcanzables."
+  },
+  {
+    "external_id": "white_exponential_clsf_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Puede $f(x) = 2^x$ tomar el valor $0$ para algún $x \\in \\mathbb{R}$?",
+    "options": [
+      "Sí, cuando $x = 0$",
+      "Sí, cuando $x \\to -\\infty$",
+      "No, porque $2^x > 0$ para todo $x \\in \\mathbb{R}$",
+      "Sí, cuando $x$ es un número negativo muy grande en valor absoluto"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $2^x > 0$ para todo real $x$. Aunque $2^x \\to 0$ cuando $x \\to -\\infty$, nunca llega exactamente a cero.",
+    "feedback_incorrect": "$2^0 = 1 \\neq 0$. Y aunque $2^x$ se acerca a $0$ cuando $x \\to -\\infty$, nunca lo alcanza. La ecuación $2^x = 0$ no tiene solución real.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene imagen $(0, +\\infty)$: siempre positiva, nunca nula.\n\nCuando $x \\to -\\infty$, $2^x \\to 0$, pero es un **límite asintótico**: la función se acerca al eje $x$ sin tocarlo nunca.\n\nLa ecuación $2^x = 0$ no tiene solución porque:\n\n$$2^x = 0 \\iff x = \\log_2(0)$$\n\ny el logaritmo de cero no existe.\n\nConclución: el valor $0$ no pertenece a la imagen de ninguna exponencial $a^x$ con $a > 0$."
+  },
+  {
+    "external_id": "white_exponential_form_11",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = 3^{x-2} + 1$?",
+    "options": [
+      "$(2, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$(-\\infty, 2)$",
+      "$\\mathbb{R} \\setminus \\{2\\}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! La traslación horizontal no afecta el dominio. $f(x) = 3^{x-2} + 1$ está definida para todo $x \\in \\mathbb{R}$.",
+    "feedback_incorrect": "La exponencial $3^u$ está definida para todo $u$ real. El exponente $u = x - 2$ es real para cualquier $x$, sin restricciones. El dominio es $\\mathbb{R}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el dominio de $f(x) = 3^{x-2} + 1$, analizamos si hay algún $x$ para el que la función no esté definida.\n\nEl exponente es $u = x - 2$: una traslación que toma valores en $\\mathbb{R}$ sin restricción.\n\nComo $3^u$ está definida para todo $u \\in \\mathbb{R}$, el dominio de $f$ es $\\mathbb{R}$.\n\nImportante: las traslaciones como $3^{x-2}$ o los escalados como $3^{2x}$ **no restringen el dominio**. Lo que sí restringiría el dominio sería, por ejemplo, $\\log(x-2)$, que exige $x > 2$."
+  },
+  {
+    "external_id": "white_exponential_clsf_12",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Para qué valores de la base $a$ es $f(x) = a^x$ una función decreciente?",
+    "options": [
+      "Para $a > 1$",
+      "Para $a = 1$",
+      "Para $a > 0$",
+      "Para $0 < a < 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! Cuando la base $0 < a < 1$, la función exponencial es decreciente: a medida que $x$ crece, $a^x$ se acerca a cero.",
+    "feedback_incorrect": "La exponencial $a^x$ crece cuando $a > 1$ y decrece cuando $0 < a < 1$. Si $a = 1$, la función es constante ($f(x) = 1$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El comportamiento de $f(x) = a^x$ depende completamente de la **base** $a$:\n\n- $a > 1$: la función es **creciente**. Ejemplo: $2^x$ crece a medida que $x$ aumenta.\n- $0 < a < 1$: la función es **decreciente**. Ejemplo: $(1/2)^x$ decrece porque cada multiplicación por $a$ reduce el valor.\n- $a = 1$: la función es **constante** ($1^x = 1$ para todo $x$).\n\nFísicamente: base mayor que 1 modela crecimiento; base menor que 1 modela decaimiento (ej: desintegración radiactiva)."
+  },
+  {
+    "external_id": "white_exponential_clsf_13",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo es creciente $f(x) = 2^x$?",
+    "options": [
+      "$(0,\\ +\\infty)$",
+      "$\\mathbb{R}$ (siempre creciente)",
+      "$(-\\infty,\\ 0)$",
+      "Solo para $x > 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 2^x$ es creciente en todo $\\mathbb{R}$: cuanto mayor sea $x$, mayor es $2^x$.",
+    "feedback_incorrect": "$2^x$ crece para todo $x$ real, no solo para $x > 0$. Por ejemplo, $2^{-3} = 1/8 < 2^{-1} = 1/2 < 2^0 = 1 < 2^2 = 4$: siempre crece.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene base $a = 2 > 1$, así que es **estrictamente creciente en todo $\\mathbb{R}$**.\n\nAlgunos creen que solo crece para $x > 0$, pero eso confunde el dominio con el comportamiento. La función está definida y es creciente para todos los reales:\n\n$$2^{-2} = 0.25 < 2^{-1} = 0.5 < 2^0 = 1 < 2^1 = 2 < 2^2 = 4$$\n\nSiempre que $x$ aumenta, $2^x$ también aumenta. El intervalo de crecimiento es $\\mathbb{R}$."
+  },
+  {
+    "external_id": "white_exponential_clsf_14",
+    "belt": "white",
+    "topic": "exponential",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál de estas funciones exponenciales es decreciente?",
+    "options": [
+      "$(1/3)^x$",
+      "$3^x$",
+      "$e^x$",
+      "Ninguna es decreciente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $(1/3)^x$ tiene base $1/3 < 1$, así que es decreciente.",
+    "feedback_incorrect": "$(1/3)^x$ tiene base $a = 1/3$, con $0 < 1/3 < 1$. Una base menor que $1$ hace que la exponencial sea decreciente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar si $a^x$ es creciente o decreciente, fijate en la base:\n\n- $(1/3)^x$: base $a = 1/3$, con $0 < 1/3 < 1$ → **decreciente**.\n- $3^x$: base $a = 3 > 1$ → creciente.\n- $e^x$: base $a = e \\approx 2.718 > 1$ → creciente.\n\nNota: $(1/3)^x = 3^{-x}$. Podés reescribir cualquier exponencial decreciente como una creciente con exponente negativo.\n\nMnemotecnia: base mayor que 1 → crece; base entre 0 y 1 → decrece."
   }
 ]

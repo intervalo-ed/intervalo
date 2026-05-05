@@ -2454,6 +2454,200 @@ function BeltCarousel({ skillStates, revealedKeys }) {
   );
 }
 
+// ── ZenConfigScreen ────────────────────────────────────────────────────────────
+
+const ZEN_COLOR = "#4F46E5";
+
+const ZEN_BELT_OPTIONS = [
+  { key: "white",  label: "Blanco",  color: "#E0DDD0", border: "#B0A880" },
+  { key: "blue",   label: "Azul",    color: "#1C3A8B", border: "#1C3A8B" },
+  { key: "violet", label: "Violeta", color: "#6B2D8B", border: "#6B2D8B" },
+  { key: "brown",  label: "Marrón",  color: "#6B3A1F", border: "#6B3A1F" },
+  { key: "black",  label: "Negro",   color: "#111111", border: "#444"    },
+];
+
+function ZenConfigScreen({ onBegin, onBack }) {
+  const [selectedBelts, setSelectedBelts] = useState(() => {
+    try {
+      const stored = localStorage.getItem("zen_belts");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return new Set(parsed);
+      }
+    } catch {}
+    return new Set(["white", "blue", "violet", "brown", "black"]);
+  });
+
+  const [count, setCount] = useState(() => {
+    try {
+      const stored = localStorage.getItem("zen_count");
+      const n = parseInt(stored, 10);
+      if (!isNaN(n) && n >= 1) return n;
+    } catch {}
+    return 10;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("zen_belts", JSON.stringify([...selectedBelts]));
+  }, [selectedBelts]);
+
+  useEffect(() => {
+    localStorage.setItem("zen_count", String(count));
+  }, [count]);
+
+  function toggleBelt(key) {
+    setSelectedBelts(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        if (next.size === 1) return prev;
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }
+
+  function adjustCount(delta) {
+    setCount(c => Math.max(1, c + delta));
+  }
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: fonts.body }}>
+      <Nav />
+      <div style={{ display: "flex", justifyContent: "center", padding: "2rem 1rem 3rem" }}>
+        <div style={{ width: "100%", maxWidth: 480 }}>
+
+          <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
+            <div style={{ fontSize: "2rem", marginBottom: "0.4rem" }}>🧘</div>
+            <h2 style={{
+              fontFamily: fonts.heading, fontSize: "1.6rem", fontWeight: 800,
+              color: C.text, margin: "0 0 0.4rem",
+            }}>
+              Modo Zen
+            </h2>
+            <p style={{ color: C.textSecondary, fontSize: "0.9rem", margin: 0 }}>
+              Practicá libremente sin presión de repasos.
+            </p>
+          </div>
+
+          <div style={{ ...card, marginBottom: "1rem" }}>
+            <div style={{ ...labelSt, marginBottom: "0.75rem" }}>Cinturones</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              {ZEN_BELT_OPTIONS.map(({ key, label, color, border }) => {
+                const checked = selectedBelts.has(key);
+                return (
+                  <button
+                    key={key}
+                    onClick={() => toggleBelt(key)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "0.75rem",
+                      padding: "0.65rem 0.85rem", borderRadius: 10,
+                      background: checked ? "rgba(79,70,229,0.12)" : C.bgElevated,
+                      border: `1.5px solid ${checked ? ZEN_COLOR : C.border}`,
+                      cursor: "pointer", transition: "all 0.18s",
+                      width: "100%", textAlign: "left",
+                    }}
+                  >
+                    <div style={{
+                      width: 18, height: 18, borderRadius: 5,
+                      background: checked ? ZEN_COLOR : "transparent",
+                      border: `2px solid ${checked ? ZEN_COLOR : C.border}`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0, transition: "all 0.18s",
+                    }}>
+                      {checked && (
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                          <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="2"
+                            strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </div>
+                    <div style={{
+                      width: 32, height: 10, borderRadius: 999,
+                      background: color, border: `1px solid ${border}`,
+                      flexShrink: 0, opacity: checked ? 1 : 0.35,
+                      transition: "opacity 0.18s",
+                    }} />
+                    <span style={{
+                      fontSize: "0.9rem", fontWeight: 600,
+                      color: checked ? C.text : C.muted,
+                      transition: "color 0.18s",
+                    }}>
+                      Cinturón {label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div style={{ ...card, marginBottom: "1.5rem" }}>
+            <div style={{ ...labelSt, marginBottom: "0.75rem" }}>Cantidad de ejercicios</div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+              {[-10, -1].map(delta => (
+                <button key={delta} onClick={() => adjustCount(delta)} style={{
+                  padding: "0.5rem 0.85rem", borderRadius: 8,
+                  background: C.bgElevated, border: `1px solid ${C.border}`,
+                  color: (count === 1 && delta < 0) ? C.muted : C.text,
+                  fontSize: "0.85rem", fontWeight: 700, cursor: "pointer",
+                  fontFamily: fonts.body, transition: "all 0.15s",
+                }}>
+                  {delta === -10 ? "−10" : "−1"}
+                </button>
+              ))}
+              <div style={{
+                minWidth: 64, textAlign: "center",
+                fontSize: "1.8rem", fontWeight: 800, color: C.text,
+                fontFamily: fonts.heading,
+              }}>
+                {count}
+              </div>
+              {[1, 10].map(delta => (
+                <button key={delta} onClick={() => adjustCount(delta)} style={{
+                  padding: "0.5rem 0.85rem", borderRadius: 8,
+                  background: C.bgElevated, border: `1px solid ${C.border}`,
+                  color: C.text,
+                  fontSize: "0.85rem", fontWeight: 700, cursor: "pointer",
+                  fontFamily: fonts.body, transition: "all 0.15s",
+                }}>
+                  {delta === 1 ? "+1" : "+10"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={() => onBegin([...selectedBelts], count)}
+            style={{
+              width: "100%", padding: "1.1rem", marginBottom: "0.75rem",
+              background: ZEN_COLOR, color: "#fff", border: "none", borderRadius: 14,
+              fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
+              fontFamily: fonts.body, transition: "all 0.22s",
+            }}
+          >
+            Comenzar
+          </button>
+
+          <button
+            onClick={onBack}
+            style={{
+              width: "100%", padding: "0.85rem",
+              background: "transparent", color: C.muted,
+              border: `1px solid ${C.border}`, borderRadius: 14,
+              fontSize: "0.95rem", fontWeight: 600, cursor: "pointer",
+              fontFamily: fonts.body,
+            }}
+          >
+            Volver
+          </button>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── HomeScreen (post-registration) ─────────────────────────────────────────────
 
 function CountUp({ target, duration = 600, color }) {
@@ -2473,7 +2667,7 @@ function CountUp({ target, duration = 600, color }) {
   return <span style={{ fontSize: "1.1rem", fontWeight: 700, color }}>{val}</span>;
 }
 
-function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onGoogleRegister }) {
+function HomeScreen({ userName, lastSummary, onStartSession, onZenMode, token, isGuest, onGoogleRegister }) {
   const [skillStates, setSkillStates] = useState(lastSummary?.skill_states || {});
   const [levelInfo, setLevelInfo] = useState(lastSummary?.level_info || null);
   const [loading, setLoading] = useState(!lastSummary); // Only load if no lastSummary
@@ -2608,20 +2802,33 @@ function HomeScreen({ userName, lastSummary, onStartSession, token, isGuest, onG
           {/* Start session CTA — between welcome and grid */}
           {(() => {
             const canReview = nuevoCount > 0 || pendienteCount > 0;
+            if (canReview) {
+              return (
+                <FadeIn show={showBtn} delay={0}>
+                  <button
+                    onClick={() => { playStart(); onStartSession(); }}
+                    style={{
+                      width: "100%", padding: "1.1rem", marginBottom: "1rem",
+                      background: C.primary, color: "#fff", border: "none", borderRadius: 14,
+                      fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
+                      fontFamily: fonts.body, transition: "all 0.22s",
+                    }}>
+                    Repasar
+                  </button>
+                </FadeIn>
+              );
+            }
             return (
               <FadeIn show={showBtn} delay={0}>
                 <button
-                  onClick={() => { if (canReview) { playStart(); onStartSession(); } }}
-                  disabled={!canReview}
+                  onClick={onZenMode}
                   style={{
                     width: "100%", padding: "1.1rem", marginBottom: "1rem",
-                    background: C.primary, color: "#fff", border: "none", borderRadius: 14,
-                    fontSize: "1.1rem", fontWeight: 700,
-                    cursor: canReview ? "pointer" : "default",
+                    background: ZEN_COLOR, color: "#fff", border: "none", borderRadius: 14,
+                    fontSize: "1.1rem", fontWeight: 700, cursor: "pointer",
                     fontFamily: fonts.body, transition: "all 0.22s",
-                    opacity: canReview ? 1 : 0.4,
                   }}>
-                  Repasar
+                  🧘 Modo Zen
                 </button>
               </FadeIn>
             );
@@ -2838,6 +3045,35 @@ function App() {
     await startSession();
   }
 
+  async function startZenSession(belts, count) {
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+    };
+    const res = await fetch(`${API}/session/start-zen`, {
+      method: "POST", headers,
+      body: JSON.stringify({ user_name: userName, belts, count }),
+    });
+    if (!res.ok) throw new Error("Error al iniciar sesión Zen");
+    const data = await res.json();
+    setSession(data);
+    setScreen("session");
+  }
+
+  function handleZenMode() {
+    setScreen("zen-config");
+    window.scrollTo({ top: 0 });
+  }
+
+  async function handleZenBegin(belts, count) {
+    try {
+      playStart();
+      await startZenSession(belts, count);
+    } catch {
+      alert("No se pudo iniciar el Modo Zen. Intentá de nuevo.");
+    }
+  }
+
   function handleInstallPWA() {
     if (deferredInstallPrompt.current) {
       deferredInstallPrompt.current.prompt();
@@ -2907,11 +3143,21 @@ function App() {
       </>
     );
 
+  if (screen === "zen-config")
+    return (
+      <>
+        <ZenConfigScreen
+          onBegin={handleZenBegin}
+          onBack={() => { setScreen("home"); window.scrollTo({ top: 0 }); }}
+        />
+      </>
+    );
+
   if (screen === "home")
     return (
       <>
         <HomeScreen userName={userName} lastSummary={summary} token={token}
-          onStartSession={handleNewSession} />
+          onStartSession={handleNewSession} onZenMode={handleZenMode} />
       </>
     );
 

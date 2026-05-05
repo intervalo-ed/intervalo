@@ -17,7 +17,8 @@
     "feedback_correct": "¡Correcto! Una función racional es el cociente de dos polinomios.",
     "feedback_incorrect": "Una función racional es un cociente de polinomios. La correcta es $f(x) = \\dfrac{x+1}{x-2}$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Una **función racional** es el cociente de dos polinomios $f(x)=P(x)/Q(x)$. Las otras opciones son cuadrática ($x^2-1$), exponencial ($3^x$) y raíz ($\\sqrt{x}$). Solo la fracción algebraica entra en esta familia."
   },
   {
     "external_id": "white_rational_lexi_02",
@@ -27,17 +28,23 @@
     "subtype": "graph",
     "question": "¿Cómo se llaman las líneas que esta curva se aproxima pero nunca llega a tocar?",
     "options": [
-      "Asíntotas",
       "Tangentes",
+      "Asíntotas",
       "Ejes de simetría",
       "Rectas directrices"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las líneas que una curva se acerca indefinidamente sin tocar se llaman asíntotas.",
     "feedback_incorrect": "Esas líneas se llaman asíntotas. Esta función racional tiene una vertical ($x = 2$) y una horizontal ($y = 1$).",
     "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [-5, 7, -8, 8]
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ],
+    "explanation": "Las **asíntotas** son líneas que la curva se aproxima indefinidamente sin llegar a tocarlas. Las racionales pueden tener asíntota vertical (donde el denominador se anula) y asíntota horizontal (comportamiento cuando $x\\to\\pm\\infty$)."
   },
   {
     "external_id": "white_rational_lexi_03",
@@ -47,17 +54,18 @@
     "subtype": "text",
     "question": "¿Cuál propiedad distingue a las funciones racionales?",
     "options": [
-      "Son el cociente de dos polinomios",
-      "Tienen siempre una asíntota oblicua",
       "Son siempre decrecientes",
+      "Tienen siempre una asíntota oblicua",
+      "Son el cociente de dos polinomios",
       "Su dominio es siempre todo número real"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 2,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Una función racional se define como $f(x) = \\frac{P(x)}{Q(x)}$ donde $P$ y $Q$ son polinomios.",
     "feedback_incorrect": "La característica fundamental de una función racional es ser el cociente de dos polinomios.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La propiedad definitoria de una función racional es ser el **cociente de dos polinomios**: $f(x)=\\frac{P(x)}{Q(x)}$. Esto incluye constantes en numerador o denominador."
   },
   {
     "external_id": "white_rational_lexi_04",
@@ -67,17 +75,18 @@
     "subtype": "text",
     "question": "¿Cuándo no está definida una función racional $f(x) = \\dfrac{P(x)}{Q(x)}$?",
     "options": [
-      "Cuando el denominador $Q(x)$ es cero",
+      "Cuando $f(x) < 0$",
       "Cuando el numerador $P(x)$ es cero",
       "Cuando $x < 0$",
-      "Cuando $f(x) < 0$"
+      "Cuando el denominador $Q(x)$ es cero"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La división por cero no está definida: si $Q(x) = 0$, la función no existe en ese punto.",
     "feedback_incorrect": "La función no existe cuando el denominador vale cero ($Q(x) = 0$), porque no se puede dividir por cero.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La función racional no está definida cuando el **denominador es cero** porque la división por cero no existe. Si $Q(x_0)=0$, el punto $x_0$ queda excluido del dominio."
   },
   {
     "external_id": "white_rational_lexi_05",
@@ -97,7 +106,8 @@
     "feedback_correct": "¡Correcto! $\\sqrt{x} = x^{1/2}$: tiene exponente fraccionario, no es un cociente de polinomios.",
     "feedback_incorrect": "$f(x) = \\sqrt{x}$ no es racional porque no es un cociente de polinomios.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\sqrt{x}=x^{1/2}$ tiene un exponente fraccionario: no es un polinomio. Por eso no puede ser racional. Las demás opciones sí son cocientes de polinomios."
   },
   {
     "external_id": "white_rational_lexi_06",
@@ -107,17 +117,23 @@
     "subtype": "graph",
     "question": "¿Cuántas asíntotas verticales tiene esta función racional?",
     "options": [
-      "Una",
       "Dos",
+      "Una",
       "Ninguna",
       "Tres"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La función $f(x) = \\frac{1}{x-1}$ tiene una sola asíntota vertical en $x = 1$.",
     "feedback_incorrect": "La función $f(x) = \\frac{1}{x-1}$ tiene el denominador que se anula solo en $x = 1$: una asíntota vertical.",
     "graph_fn": "1 / (x - 1)",
-    "graph_view": [-4, 6, -6, 6]
+    "graph_view": [
+      -4,
+      6,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** de una racional aparece donde el denominador se anula. En $f(x)=\\frac{1}{x-1}$, el denominador vale cero en $x=1$: ahí está la AV."
   },
   {
     "external_id": "white_rational_lexi_07",
@@ -127,17 +143,18 @@
     "subtype": "text",
     "question": "¿Cómo se llama la asíntota horizontal de $f(x) = \\dfrac{1}{x}$?",
     "options": [
-      "$y = 0$",
-      "$x = 0$",
       "$y = 1$",
+      "$x = 0$",
+      "$y = 0$",
       "$y = -1$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Cuando $x \\to \\pm\\infty$, $\\frac{1}{x} \\to 0$: la asíntota horizontal es $y = 0$.",
     "feedback_incorrect": "Al crecer $|x|$, $\\frac{1}{x}$ se acerca a 0: la asíntota horizontal es $y = 0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función tiende a 0 al ir a $\\pm\\infty$: la **asíntota horizontal** es $y=0$. En $\\frac{1}{x}$: grado 0 < grado 1, entonces AH en $y=0$."
   },
   {
     "external_id": "white_rational_lexi_08",
@@ -147,17 +164,18 @@
     "subtype": "text",
     "question": "¿Cuál es el dominio natural de $f(x) = \\dfrac{1}{x}$?",
     "options": [
-      "Todos los reales excepto $x = 0$",
+      "Solo $x \\geq 1$",
       "Todos los reales",
       "Solo $x > 0$",
-      "Solo $x \\geq 1$"
+      "Todos los reales excepto $x = 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{1}{x}$ no está definida en $x = 0$: el dominio es $\\mathbb{R} \\setminus \\{0\\}$.",
     "feedback_incorrect": "La única restricción de $f(x) = \\frac{1}{x}$ es $x \\neq 0$: el dominio es todos los reales salvo $0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El **dominio natural** de $f(x)=\\frac{1}{x}$ excluye solo $x=0$ (denominador=0). El resto de los reales está permitido: $\\text{Dom}=\\mathbb{R}\\setminus\\{0\\}$."
   },
   {
     "external_id": "white_rational_lexi_09",
@@ -173,11 +191,17 @@
       "4"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! La asíntota vertical divide la gráfica en 2 ramas separadas.",
     "feedback_incorrect": "La asíntota vertical separa la gráfica en dos ramas que no se conectan.",
     "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [-5, 7, -8, 8]
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ],
+    "explanation": "Cada **asíntota vertical** corta el plano y separa la gráfica en ramas que no se conectan. En $(x+1)/(x-2)$ la AV en $x=2$ genera dos ramas independientes."
   },
   {
     "external_id": "white_rational_lexi_10",
@@ -187,17 +211,18 @@
     "subtype": "text",
     "question": "Una función racional puede tener...",
     "options": [
-      "Asíntotas verticales y horizontales",
       "Solo asíntotas verticales",
+      "Asíntotas verticales y horizontales",
       "Solo asíntotas horizontales",
       "Nunca tiene asíntotas"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las racionales pueden tener asíntotas verticales (donde el denominador se anula) y horizontales (comportamiento en el infinito).",
     "feedback_incorrect": "Las funciones racionales pueden tener tanto asíntotas verticales como horizontales.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Las funciones racionales pueden tener **asíntotas verticales** (donde $Q(x)=0$) y **asíntotas horizontales** (por el comportamiento en el infinito). Ambas coexisten en la mayoría de los casos."
   },
   {
     "external_id": "white_rational_clsf_01",
@@ -213,11 +238,17 @@
       "Logarítmica"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las dos ramas con asíntotas corresponden a $f(x) = \\dfrac{x+1}{x-2}$, una función racional.",
     "feedback_incorrect": "Las asíntotas vertical y horizontal con dos ramas separadas son propias de una racional: $f(x) = \\dfrac{x+1}{x-2}$.",
     "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [-5, 7, -8, 8]
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ],
+    "explanation": "El criterio de clasificación es visual: **dos ramas separadas por una asíntota vertical** son la firma de una función racional. Aquí $f(x)=\\frac{x+1}{x-2}$ tiene AV en $x=2$ y AH en $y=1$."
   },
   {
     "external_id": "white_rational_clsf_02",
@@ -227,17 +258,18 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\dfrac{x+1}{x-2}$?",
     "options": [
-      "Racional",
       "Polinómica",
+      "Racional",
       "Lineal",
       "Logarítmica"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\dfrac{x+1}{x-2}$ es el cociente de dos polinomios: es una función racional.",
     "feedback_incorrect": "$f(x) = \\dfrac{x+1}{x-2}$ es un cociente de polinomios: pertenece a la familia racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{x+1}{x-2}$ es el cociente de dos polinomios de grado 1: cumple la definición de **función racional** $f(x)=P(x)/Q(x)$ con $P,Q$ polinomios."
   },
   {
     "external_id": "white_rational_clsf_03",
@@ -247,17 +279,18 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\dfrac{3}{x^2 - 1}$?",
     "options": [
-      "Racional",
-      "Polinómica",
       "Logarítmica",
+      "Polinómica",
+      "Racional",
       "Trigonométrica"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{3}{x^2 - 1}$ es el cociente del polinomio $3$ sobre $x^2 - 1$: función racional.",
     "feedback_incorrect": "$f(x) = \\frac{3}{x^2 - 1}$ divide dos polinomios: pertenece a la familia racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{3}{x^2-1}$ divide el polinomio constante $3$ por el cuadrático $x^2-1$: sigue siendo un **cociente de polinomios** y por lo tanto una función racional."
   },
   {
     "external_id": "white_rational_clsf_04",
@@ -267,17 +300,18 @@
     "subtype": "text",
     "question": "¿A qué familia de funciones pertenece $f(x) = \\dfrac{2x-1}{x+3}$?",
     "options": [
-      "Racional",
+      "Cuadrática",
       "Lineal",
       "Exponencial",
-      "Cuadrática"
+      "Racional"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{2x-1}{x+3}$ es el cociente de dos polinomios lineales: función racional.",
     "feedback_incorrect": "$f(x) = \\frac{2x-1}{x+3}$ divide polinomios: es una función racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{2x-1}{x+3}$ divide dos polinomios lineales. El resultado no es lineal (tiene AV en $x=-3$), pero la clasificación se basa en la **forma algebraica**: cociente de polinomios → racional."
   },
   {
     "external_id": "white_rational_clsf_05",
@@ -293,11 +327,17 @@
       "Trigonométrica"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las dos ramas simétricas respecto al origen con asíntotas en los ejes corresponden a $f(x) = \\frac{1}{x}$: racional.",
     "feedback_incorrect": "La forma de hipérbola con asíntotas en los ejes es característica de $f(x) = \\frac{1}{x}$: función racional.",
     "graph_fn": "1 / x",
-    "graph_view": [-5, 5, -5, 5]
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "$f(x)=\\frac{1}{x}$ es la racional más simple: hipérbola con **asíntotas en los ejes** ($x=0$ vertical, $y=0$ horizontal). Las dos ramas simétricas respecto al origen son su firma gráfica."
   },
   {
     "external_id": "white_rational_clsf_06",
@@ -307,17 +347,18 @@
     "subtype": "text",
     "question": "¿Cuál de estas es una función racional?",
     "options": [
-      "$f(x) = \\dfrac{x}{x^2 + 1}$",
       "$f(x) = x^3 - 2x$",
+      "$f(x) = \\dfrac{x}{x^2 + 1}$",
       "$f(x) = 2^x$",
       "$f(x) = \\ln(x)$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{x}{x^2 + 1}$ divide el polinomio $x$ sobre $x^2 + 1$: función racional.",
     "feedback_incorrect": "$f(x) = \\frac{x}{x^2+1}$ es un cociente de polinomios: es una función racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{x}{x^2+1}$ divide dos polinomios: es **racional**. El denominador $x^2+1>0$ siempre, así que no hay asíntota vertical, pero la clasificación no depende de las asíntotas sino de la forma."
   },
   {
     "external_id": "white_rational_clsf_07",
@@ -327,17 +368,18 @@
     "subtype": "text",
     "question": "¿A qué familia pertenece $f(x) = \\dfrac{x^2 - 4}{x - 2}$?",
     "options": [
-      "Racional",
-      "Cuadrática",
       "Lineal",
+      "Cuadrática",
+      "Racional",
       "Exponencial"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Aunque se simplifica a $x + 2$ para $x \\neq 2$, es formalmente un cociente de polinomios: racional.",
     "feedback_incorrect": "$f(x) = \\frac{x^2-4}{x-2}$ es formalmente un cociente de polinomios: función racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{x^2-4}{x-2}$ es formalmente un **cociente de polinomios** → racional. Aunque se simplifique a $x+2$ para $x\\neq2$, la forma original define la clasificación. En $x=2$ sigue sin estar definida."
   },
   {
     "external_id": "white_rational_clsf_08",
@@ -347,17 +389,23 @@
     "subtype": "graph",
     "question": "¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
-      "Racional",
+      "Trigonométrica",
       "Polinómica",
       "Logarítmica",
-      "Trigonométrica"
+      "Racional"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 3,
+    "has_math": true,
     "feedback_correct": "¡Correcto! Las dos ramas con asíntota vertical en $x = -1$ corresponden a $f(x) = \\frac{2}{x+1}$: racional.",
     "feedback_incorrect": "Las asíntotas y las dos ramas separadas son típicas de funciones racionales.",
     "graph_fn": "2 / (x + 1)",
-    "graph_view": [-6, 4, -8, 8]
+    "graph_view": [
+      -6,
+      4,
+      -8,
+      8
+    ],
+    "explanation": "El gráfico muestra dos ramas con **AV en $x=-1$** y **AH en $y=0$**: eso corresponde a $f(x)=\\frac{2}{x+1}$, una función racional. La AV en $x=-1$ porque $x+1=0$."
   },
   {
     "external_id": "white_rational_clsf_09",
@@ -377,7 +425,8 @@
     "feedback_correct": "¡Correcto! $\\sqrt{x+1}$ tiene un exponente fraccionario: no es un cociente de polinomios.",
     "feedback_incorrect": "$\\sqrt{x+1}$ no es un cociente de polinomios: no pertenece a la familia racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\sqrt{x+1}=(x+1)^{1/2}$ tiene un exponente fraccionario: **no es un polinomio** ni un cociente de polinomios → no es racional. Las otras tres opciones sí lo son."
   },
   {
     "external_id": "white_rational_clsf_10",
@@ -387,17 +436,18 @@
     "subtype": "text",
     "question": "¿A qué familia pertenece $f(x) = \\dfrac{1}{x^2 + 1}$?",
     "options": [
-      "Racional",
       "Cuadrática",
+      "Racional",
       "Exponencial",
       "Logarítmica"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! $\\frac{1}{x^2+1}$ es el cociente del polinomio $1$ sobre $x^2+1$: función racional.",
     "feedback_incorrect": "$f(x) = \\frac{1}{x^2+1}$ divide polinomios: es una función racional.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$\\frac{1}{x^2+1}$ es racional ($1$ sobre un polinomio cuadrático). El denominador $x^2+1\\geq1$ siempre, así que no tiene asíntota vertical. La imagen queda acotada en $(0,1]$."
   },
   {
     "external_id": "white_rational_form_01",
@@ -417,7 +467,8 @@
     "feedback_correct": "¡Correcto! La función no está definida cuando el denominador se anula: $x - 5 = 0 \\Rightarrow x = 5$.",
     "feedback_incorrect": "La función no está definida donde el denominador es cero: $x - 5 = 0 \\Rightarrow x = 5$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Para hallar los valores excluidos del dominio, igualamos el denominador a cero: $x-5=0\\Rightarrow x=5$. Ese es el único valor donde $f(x)=\\frac{2x+3}{x-5}$ no está definida."
   },
   {
     "external_id": "white_rational_form_02",
@@ -427,17 +478,23 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = \\dfrac{1}{x-1}$",
       "$f(x) = \\dfrac{1}{x+1}$",
+      "$f(x) = \\dfrac{1}{x-1}$",
       "$f(x) = \\dfrac{x}{x-1}$",
       "$f(x) = \\dfrac{1}{x^2-1}$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! La asíntota vertical en $x = 1$ y la horizontal en $y = 0$ corresponden a $f(x) = \\dfrac{1}{x-1}$.",
     "feedback_incorrect": "La asíntota vertical está en $x = 1$ (denominador = 0) y la horizontal en $y = 0$: $f(x) = \\dfrac{1}{x-1}$.",
     "graph_fn": "1 / (x - 1)",
-    "graph_view": [-4, 6, -6, 6]
+    "graph_view": [
+      -4,
+      6,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** en $x=1$ indica que el denominador es $x-1$. La **asíntota horizontal** en $y=0$ indica que el grado del numerador (0) es menor al del denominador (1). Resultado: $f(x)=\\frac{1}{x-1}$."
   },
   {
     "external_id": "white_rational_form_03",
@@ -447,17 +504,18 @@
     "subtype": "text",
     "question": "En $f(x) = \\dfrac{x^2 - 1}{x - 1}$, ¿para qué valor de $x$ no está definida?",
     "options": [
-      "$x = 1$",
-      "$x = -1$",
       "$x = 0$",
+      "$x = -1$",
+      "$x = 1$",
       "$x = 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El denominador se anula en $x - 1 = 0$, es decir, $x = 1$.",
     "feedback_incorrect": "La restricción del dominio está donde el denominador es cero: $x - 1 = 0 \\Rightarrow x = 1$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El denominador de $\\frac{x^2-1}{x-1}$ es $x-1$. Se anula en $x-1=0\\Rightarrow x=1$: ese valor excluye el dominio, aunque el numerador también valga cero ahí."
   },
   {
     "external_id": "white_rational_form_04",
@@ -467,17 +525,18 @@
     "subtype": "text",
     "question": "¿Cuáles son los valores excluidos del dominio de $f(x) = \\dfrac{2}{x^2 - 4}$?",
     "options": [
-      "$x = 2$ y $x = -2$",
+      "$x = 2$",
       "$x = 4$ y $x = -4$",
       "$x = 0$",
-      "$x = 2$"
+      "$x = 2$ y $x = -2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^2 - 4 = 0 \\Rightarrow x = \\pm 2$: ambos valores excluyen el dominio.",
     "feedback_incorrect": "$x^2 - 4 = (x-2)(x+2) = 0$ cuando $x = 2$ o $x = -2$: esos puntos están excluidos.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Factorizamos el denominador: $x^2-4=(x-2)(x+2)$. Se anula en $x=2$ y $x=-2$: ambos quedan excluidos del dominio de $f(x)=\\frac{2}{x^2-4}$."
   },
   {
     "external_id": "white_rational_form_05",
@@ -497,7 +556,13 @@
     "feedback_correct": "¡Correcto! La asíntota vertical en $x = -2$ indica que el denominador es $x + 2$: $f(x) = \\frac{1}{x+2}$.",
     "feedback_incorrect": "La asíntota vertical en $x = -2$ corresponde a $x + 2 = 0$: la fórmula es $f(x) = \\frac{1}{x+2}$.",
     "graph_fn": "1 / (x + 2)",
-    "graph_view": [-7, 3, -6, 6]
+    "graph_view": [
+      -7,
+      3,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** en $x=-2$ indica que el denominador es $x+2$ (porque $x+2=0\\Rightarrow x=-2$). La AH en $y=0$ indica grado num < denom. Resultado: $f(x)=\\frac{1}{x+2}$."
   },
   {
     "external_id": "white_rational_form_06",
@@ -507,17 +572,18 @@
     "subtype": "text",
     "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{3x + 1}{x - 2}$ cuando $x \\to \\infty$?",
     "options": [
-      "$y = 3$",
       "$y = 1$",
+      "$y = 3$",
       "$y = -2$",
       "$y = 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Cuando el grado del numerador y denominador es igual, la asíntota horizontal es el cociente de los coeficientes principales: $\\frac{3}{1} = 3$.",
     "feedback_incorrect": "Para $x$ muy grande, $\\frac{3x+1}{x-2} \\approx \\frac{3x}{x} = 3$: la asíntota horizontal es $y = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando el numerador y el denominador tienen el **mismo grado**, la asíntota horizontal es el cociente de los coeficientes principales: $\\frac{3x+1}{x-2}\\to\\frac{3}{1}=3$ cuando $x\\to\\infty$."
   },
   {
     "external_id": "white_rational_form_07",
@@ -527,17 +593,18 @@
     "subtype": "text",
     "question": "En $f(x) = \\dfrac{x+1}{x-3}$, ¿cuál es la asíntota vertical?",
     "options": [
-      "$x = 3$",
-      "$x = -3$",
       "$x = 1$",
+      "$x = -3$",
+      "$x = 3$",
       "$x = -1$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! El denominador se anula en $x - 3 = 0$, es decir, $x = 3$: ahí está la asíntota vertical.",
     "feedback_incorrect": "La asíntota vertical ocurre donde el denominador es cero: $x - 3 = 0 \\Rightarrow x = 3$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "La **asíntota vertical** ocurre donde el denominador vale cero: $x-3=0\\Rightarrow x=3$. Cerca de $x=3$, la función crece o decrece sin límite."
   },
   {
     "external_id": "white_rational_form_08",
@@ -547,17 +614,23 @@
     "subtype": "graph",
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
     "options": [
-      "$f(x) = \\dfrac{1}{x-3} + 1$",
+      "$f(x) = \\dfrac{x}{x-3}$",
       "$f(x) = \\dfrac{1}{x-3}$",
       "$f(x) = \\dfrac{1}{x+3} + 1$",
-      "$f(x) = \\dfrac{x}{x-3}$"
+      "$f(x) = \\dfrac{1}{x-3} + 1$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! La asíntota vertical en $x = 3$ y la horizontal en $y = 1$ (desplazada arriba): $f(x) = \\frac{1}{x-3} + 1$.",
     "feedback_incorrect": "La asíntota horizontal en $y = 1$ indica un desplazamiento vertical: $f(x) = \\frac{1}{x-3} + 1$.",
     "graph_fn": "1 / (x - 3) + 1",
-    "graph_view": [-3, 8, -5, 7]
+    "graph_view": [
+      -3,
+      8,
+      -5,
+      7
+    ],
+    "explanation": "La AV en $x=3$ indica denominador $x-3$. La AH en $y=1$ (no en $y=0$) indica un **desplazamiento vertical** de $+1$: $f(x)=\\frac{1}{x-3}+1$."
   },
   {
     "external_id": "white_rational_form_09",
@@ -577,7 +650,8 @@
     "feedback_correct": "¡Correcto! $x^2 - 9 = (x-3)(x+3) = 0$ cuando $x = 3$ o $x = -3$.",
     "feedback_incorrect": "El denominador $x^2 - 9 = (x-3)(x+3) = 0$ en $x = \\pm 3$: esos valores se excluyen.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Factorizamos: $x^2-9=(x-3)(x+3)=0$ en $x=3$ y $x=-3$. Ambos excluyen el dominio de $\\frac{x-2}{x^2-9}$, generando dos asíntotas verticales."
   },
   {
     "external_id": "white_rational_form_10",
@@ -587,17 +661,18 @@
     "subtype": "text",
     "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{5}{x}$?",
     "options": [
-      "$y = 0$",
       "$y = 5$",
+      "$y = 0$",
       "$x = 0$",
       "$y = -5$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Cuando $x \\to \\pm\\infty$, $\\frac{5}{x} \\to 0$: la asíntota horizontal es $y = 0$.",
     "feedback_incorrect": "Al crecer $|x|$, $\\frac{5}{x}$ se aproxima a 0: la asíntota horizontal es $y = 0$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Cuando el grado del numerador es **menor** que el del denominador, la racional tiende a $0$: $\\frac{5}{x}\\to0$ cuando $x\\to\\pm\\infty$. La asíntota horizontal es $y=0$."
   },
   {
     "external_id": "white_rational_graf_01",
@@ -613,11 +688,17 @@
       "3"
     ],
     "correct_index": 0,
-    "has_math": false,
+    "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = \\frac{1}{x}$ tiene asíntota vertical $x = 0$ y asíntota horizontal $y = 0$: 2 en total.",
     "feedback_incorrect": "La función $f(x) = \\frac{1}{x}$ tiene dos asíntotas: $x = 0$ (vertical) y $y = 0$ (horizontal).",
     "graph_fn": "1 / x",
-    "graph_view": [-5, 5, -5, 5]
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "$f(x)=\\frac{1}{x}$ tiene **AV en $x=0$** (denominador=0) y **AH en $y=0$** (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota."
   },
   {
     "external_id": "white_rational_graf_02",
@@ -627,17 +708,23 @@
     "subtype": "graph",
     "question": "¿En qué cuadrantes se encuentran las ramas de esta función?",
     "options": [
-      "Primero y tercero",
       "Segundo y cuarto",
+      "Primero y tercero",
       "Primero y segundo",
       "Tercero y cuarto"
     ],
-    "correct_index": 0,
-    "has_math": false,
+    "correct_index": 1,
+    "has_math": true,
     "feedback_correct": "¡Correcto! $f(x) = \\frac{1}{x}$ está en el 1.° cuadrante (ambos positivos) y el 3.° (ambos negativos).",
     "feedback_incorrect": "$f(x) = \\frac{1}{x}$: cuando $x > 0$, $f > 0$ (1.° cuadrante); cuando $x < 0$, $f < 0$ (3.° cuadrante).",
     "graph_fn": "1 / x",
-    "graph_view": [-5, 5, -5, 5]
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "En $f(x)=\\frac{1}{x}$: si $x>0$ entonces $f>0$ (1.° cuadrante); si $x<0$ entonces $f<0$ (3.° cuadrante). La hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo."
   },
   {
     "external_id": "white_rational_graf_03",
@@ -647,17 +734,18 @@
     "subtype": "text",
     "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{1}{x^2 - 4}$?",
     "options": [
-      "2 (en $x = 2$ y $x = -2$)",
-      "1 (en $x = 4$)",
       "0",
+      "1 (en $x = 4$)",
+      "2 (en $x = 2$ y $x = -2$)",
       "3"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! $x^2 - 4 = (x-2)(x+2) = 0$ en $x = 2$ y $x = -2$: dos asíntotas verticales.",
     "feedback_incorrect": "El denominador se anula en dos puntos: $x = 2$ y $x = -2$. Hay 2 asíntotas verticales.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El denominador $x^2-4=(x-2)(x+2)$ se anula en **dos puntos**: $x=2$ y $x=-2$. Cada raíz del denominador genera una asíntota vertical → 2 asíntotas verticales en total."
   },
   {
     "external_id": "white_rational_graf_04",
@@ -667,17 +755,23 @@
     "subtype": "graph",
     "question": "¿Dónde está la asíntota vertical de esta función?",
     "options": [
-      "$x = 2$",
+      "$x = 1$",
       "$x = -2$",
       "$x = 0$",
-      "$x = 1$"
+      "$x = 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! El denominador $x - 2$ se anula en $x = 2$: ahí está la asíntota vertical.",
     "feedback_incorrect": "La asíntota vertical ocurre donde el denominador es cero: $x - 2 = 0 \\Rightarrow x = 2$.",
     "graph_fn": "1 / (x - 2)",
-    "graph_view": [-3, 7, -6, 6]
+    "graph_view": [
+      -3,
+      7,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** ocurre donde el denominador $x-2$ se anula: $x-2=0\\Rightarrow x=2$. En el gráfico se ve que la función \"explota\" verticalmente en ese punto."
   },
   {
     "external_id": "white_rational_graf_05",
@@ -697,7 +791,8 @@
     "feedback_correct": "¡Correcto! Solo el denominador $x + 1 = 0$ en $x = -1$ genera una asíntota vertical.",
     "feedback_incorrect": "El denominador $x + 1 = 0$ en $x = -1$: hay solo una asíntota vertical.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "El denominador $x+1$ tiene una sola raíz: $x+1=0\\Rightarrow x=-1$. Una raíz en el denominador equivale a **una sola asíntota vertical**."
   },
   {
     "external_id": "white_rational_graf_06",
@@ -707,17 +802,23 @@
     "subtype": "graph",
     "question": "¿Cuál es la asíntota horizontal de esta función racional?",
     "options": [
-      "$y = 1$",
       "$y = 0$",
+      "$y = 1$",
       "$y = 2$",
       "$y = -1$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! Para $x \\to \\infty$, $\\frac{x+1}{x-2} \\approx \\frac{x}{x} = 1$: la asíntota horizontal es $y = 1$.",
     "feedback_incorrect": "Cuando $x$ crece mucho, $\\frac{x+1}{x-2} \\to 1$: la asíntota horizontal es $y = 1$.",
     "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [-5, 7, -8, 8]
+    "graph_view": [
+      -5,
+      7,
+      -8,
+      8
+    ],
+    "explanation": "Numerador y denominador tienen el **mismo grado** (ambos lineales): la AH es el cociente de coeficientes principales. $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$."
   },
   {
     "external_id": "white_rational_graf_07",
@@ -727,17 +828,18 @@
     "subtype": "text",
     "question": "Para $f(x) = \\dfrac{2x+1}{x-3}$, ¿cuál es la asíntota horizontal?",
     "options": [
-      "$y = 2$",
-      "$y = 1$",
       "$y = -3$",
+      "$y = 1$",
+      "$y = 2$",
       "$y = 0$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
     "feedback_correct": "¡Correcto! Grados iguales: la asíntota horizontal es el cociente de coeficientes principales $\\frac{2}{1} = 2$.",
     "feedback_incorrect": "Cuando numerador y denominador tienen el mismo grado, la asíntota horizontal es el cociente de sus coeficientes principales: $\\frac{2}{1} = 2$.",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "Mismo grado en numerador y denominador → AH = cociente de coeficientes principales: $\\frac{2x+1}{x-3}\\to\\frac{2}{1}=2$ cuando $x\\to\\pm\\infty$."
   },
   {
     "external_id": "white_rational_graf_08",
@@ -747,17 +849,23 @@
     "subtype": "graph",
     "question": "¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
     "options": [
-      "2 ramas: una sube y la otra baja hacia la asíntota vertical",
+      "2 ramas simétricas respecto al eje $X$",
       "1 rama continua",
       "3 ramas separadas",
-      "2 ramas simétricas respecto al eje $X$"
+      "2 ramas: una sube y la otra baja hacia la asíntota vertical"
     ],
-    "correct_index": 0,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "¡Correcto! A cada lado de la asíntota vertical, la función va a $+\\infty$ o $-\\infty$: dos ramas opuestas.",
     "feedback_incorrect": "Las dos ramas de la función racional van en sentidos opuestos cerca de la asíntota vertical.",
     "graph_fn": "1 / (x - 2)",
-    "graph_view": [-3, 7, -6, 6]
+    "graph_view": [
+      -3,
+      7,
+      -6,
+      6
+    ],
+    "explanation": "Cerca de la **asíntota vertical**, las dos ramas van en sentidos opuestos: una tiende a $+\\infty$ y la otra a $-\\infty$. Esto es lo opuesto a una parábola, donde ambos extremos van en el mismo sentido."
   },
   {
     "external_id": "white_rational_graf_09",
@@ -777,7 +885,8 @@
     "feedback_correct": "¡Correcto! $f(x) = \\frac{1}{x-1}$ tiene asíntota vertical en $x=1$ y horizontal en $y=0$: 2 en total.",
     "feedback_incorrect": "La función tiene dos asíntotas: $x = 1$ (vertical, donde el denominador se anula) y $y = 0$ (horizontal, comportamiento en el infinito).",
     "graph_fn": null,
-    "graph_view": null
+    "graph_view": null,
+    "explanation": "$f(x)=\\frac{1}{x-1}$ tiene **AV en $x=1$** (donde el denominador se anula) y **AH en $y=0$** (grado numerador 0 < grado denominador 1). Son 2 asíntotas en total."
   },
   {
     "external_id": "white_rational_graf_10",
@@ -787,16 +896,174 @@
     "subtype": "graph",
     "question": "¿Cuál es la ecuación de la asíntota vertical de esta función?",
     "options": [
-      "$x = -1$",
       "$x = 1$",
+      "$x = -1$",
       "$x = 0$",
       "$x = 2$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "¡Correcto! El denominador $x + 1 = 0$ en $x = -1$: esa es la asíntota vertical.",
     "feedback_incorrect": "La asíntota vertical ocurre donde el denominador se anula: $x + 1 = 0 \\Rightarrow x = -1$.",
     "graph_fn": "2 / (x + 1)",
-    "graph_view": [-6, 4, -8, 8]
+    "graph_view": [
+      -6,
+      4,
+      -8,
+      8
+    ],
+    "explanation": "La **asíntota vertical** está donde el denominador $x+1$ vale cero: $x+1=0\\Rightarrow x=-1$. En el gráfico, la función \"explota\" verticalmente al acercarse a $x=-1$."
+  },
+  {
+    "external_id": "white_rational_lexi_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "LEXI",
+    "subtype": "text",
+    "question": "¿Por qué las funciones racionales $f(x) = \\dfrac{p(x)}{q(x)}$ tienen restricciones en su dominio?",
+    "options": [
+      "Porque la división por cero no está definida, y $q(x)$ puede valer cero para ciertos $x$",
+      "Porque el numerador $p(x)$ puede ser cero",
+      "Porque el denominador siempre es negativo",
+      "Porque las funciones racionales solo están definidas para $x$ entero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El dominio excluye los valores de $x$ donde el denominador $q(x) = 0$, ya que la división por cero no está definida.",
+    "feedback_incorrect": "La restricción viene del denominador, no del numerador. Si $q(x_0) = 0$, entonces $\\dfrac{p(x_0)}{q(x_0)}$ no está definido. El dominio excluye esos valores $x_0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una función racional $f(x) = \\dfrac{p(x)}{q(x)}$, la operación problemática es la **división**: no está definida cuando el divisor es cero.\n\nEl dominio de $f$ es $\\mathbb{R}$ menos los ceros del denominador:\n\n$$\\text{Dom}(f) = \\{x \\in \\mathbb{R} : q(x) \\neq 0\\}$$\n\nEl numerador puede valer cero sin problema (produce $f(x) = 0$, no una indeterminación).\n\nEjemplo: $f(x) = \\dfrac{x^2}{x - 1}$ tiene dominio $\\mathbb{R} \\setminus \\{1\\}$, porque $q(1) = 0$."
+  },
+  {
+    "external_id": "white_rational_clsf_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{1}{x^2 - 4}$?",
+    "options": [
+      "$\\mathbb{R} \\setminus \\{4\\}$",
+      "$(-2, 2)$",
+      "$\\mathbb{R} \\setminus \\{-2,\\, 2\\}$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El denominador $x^2 - 4 = (x-2)(x+2)$ se anula en $x = 2$ y $x = -2$. El dominio excluye ambos valores.",
+    "feedback_incorrect": "El denominador es $x^2 - 4 = (x-2)(x+2)$, que se anula en $x = 2$ y $x = -2$. El dominio es $\\mathbb{R} \\setminus \\{-2, 2\\}$, no $\\mathbb{R} \\setminus \\{4\\}$ ni el intervalo $(-2, 2)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el dominio de $f(x) = \\dfrac{1}{x^2 - 4}$, buscamos los ceros del denominador:\n\n$$x^2 - 4 = 0 \\iff x^2 = 4 \\iff x = \\pm 2$$\n\nHay dos valores excluidos: $x = -2$ y $x = 2$.\n\nEl dominio es $\\mathbb{R} \\setminus \\{-2,\\, 2\\}$, o en notación de intervalos: $(-\\infty, -2) \\cup (-2, 2) \\cup (2, +\\infty)$.\n\nError común: ver '$x^2 - 4$' y pensar que hay que excluir solo $x = 4$. Siempre factorizá el denominador para encontrar todos sus ceros."
+  },
+  {
+    "external_id": "white_rational_form_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "FORM",
+    "subtype": "text",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x + 1}{x - 3}$ expresado en notación de intervalos?",
+    "options": [
+      "$(-\\infty, 3]$",
+      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$(3, +\\infty)$",
+      "$(-3, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! El denominador se anula en $x = 3$, que queda excluido. El dominio es $(-\\infty, 3) \\cup (3, +\\infty)$.",
+    "feedback_incorrect": "El denominador $x - 3$ se anula solo en $x = 3$. El dominio excluye ese punto: $(-\\infty, 3) \\cup (3, +\\infty)$. Usá paréntesis abiertos en $3$, porque ese punto no pertenece al dominio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El denominador de $f(x) = \\dfrac{x+1}{x-3}$ es $x - 3$, que se anula en $x = 3$.\n\nEl dominio excluye ese punto:\n\n$$\\text{Dom}(f) = \\mathbb{R} \\setminus \\{3\\} = (-\\infty,\\, 3) \\cup (3,\\, +\\infty)$$\n\nObservá que los paréntesis en $3$ son abiertos: el punto $3$ no está incluido en ninguno de los dos intervalos.\n\nEn la gráfica, esto aparece como una **asíntota vertical** en $x = 3$: la función crece o decrece sin límite a medida que $x$ se acerca a $3$."
+  },
+  {
+    "external_id": "white_rational_clsf_12",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalos es decreciente $f(x) = \\dfrac{1}{x}$?",
+    "options": [
+      "Solo en $(-\\infty,\\ 0)$",
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$ — en cada tramo por separado",
+      "Solo en $(0,\\ +\\infty)$",
+      "En ningún intervalo; la función no es monótona"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x)=1/x$ es decreciente tanto en $(-\\infty,0)$ como en $(0,+\\infty)$, en cada tramo por separado.",
+    "feedback_incorrect": "$f(x) = 1/x$ es decreciente en $(-\\infty, 0)$ y también en $(0, +\\infty)$. Pero ojo: esto no significa que sea decreciente en $\\mathbb{R} \\setminus \\{0\\}$ completo, ya que $f(-1) = -1 < f(1) = 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 1/x$, en cualquier intervalo que no cruce el cero, la función es **decreciente**:\n\n- En $(-\\infty, 0)$: si tomás $x_1 < x_2 < 0$, se cumple $1/x_1 > 1/x_2$ (decrece).\n- En $(0, +\\infty)$: si tomás $0 < x_1 < x_2$, se cumple $1/x_1 > 1/x_2$ (decrece).\n\nImportante: esto **no** significa que $f$ sea decreciente en todo su dominio $\\mathbb{R} \\setminus \\{0\\}$. Comparar $f(-1) = -1$ con $f(1) = 1$ muestra que entre los dos tramos el valor sube."
+  },
+  {
+    "external_id": "white_rational_clsf_13",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En cuál de los siguientes intervalos es decreciente $f(x) = \\dfrac{x + 1}{x - 1}$?",
+    "options": [
+      "Solo en $(1,\\ +\\infty)$",
+      "Solo en $(-\\infty,\\ 1)$",
+      "En $(-\\infty,\\ 1)$ y en $(1,\\ +\\infty)$ — en cada tramo",
+      "En ninguno; la función no es monótona"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = (x+1)/(x-1)$ es decreciente en $(-\\infty, 1)$ y también en $(1, +\\infty)$.",
+    "feedback_incorrect": "Podés reescribir $f(x) = 1 + \\frac{2}{x-1}$. El término $2/(x-1)$ se comporta como $1/x$ trasladado: decrece en cada tramo del dominio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reescribiendo la función:\n\n$$f(x) = \\frac{x+1}{x-1} = \\frac{(x-1)+2}{x-1} = 1 + \\frac{2}{x-1}$$\n\nEl término $\\frac{2}{x-1}$ es proporcional a $\\frac{1}{x-1}$, que es decreciente en cada tramo de su dominio.\n\nPor eso $f$ es **decreciente en $(-\\infty, 1)$** y **decreciente en $(1, +\\infty)$**.\n\nLa asíntota vertical en $x = 1$ divide el dominio en dos tramos, y en cada uno la función decrece."
+  },
+  {
+    "external_id": "white_rational_clsf_14",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "CLSF",
+    "subtype": "text",
+    "question": "¿En qué intervalo crece $f(x) = \\dfrac{1}{x - 2}$ para $x > 2$?",
+    "options": [
+      "En ninguno; es decreciente en $(2,\\ +\\infty)$",
+      "En $(2,\\ 3)$",
+      "En $(2,\\ +\\infty)$",
+      "Solo para $x > 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! $f(x) = 1/(x-2)$ es decreciente en $(2, +\\infty)$: a medida que $x$ aumenta, el denominador crece y la fracción disminuye.",
+    "feedback_incorrect": "Para $x > 2$, el denominador $x - 2 > 0$ crece a medida que $x$ crece. Como el numerador es constante ($1$), la fracción $1/(x-2)$ decrece. No hay ningún intervalo donde crezca.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $x > 2$, el denominador $x - 2$ es positivo y crece a medida que $x$ aumenta.\n\nComo el numerador es constante ($1$), la fracción:\n\n$$f(x) = \\frac{1}{x-2}$$\n\ndisminuye cuando $x$ aumenta: si el denominador crece, la fracción se hace más pequeña.\n\nPor ejemplo: $f(3) = 1$, $f(4) = 1/2$, $f(6) = 1/4$. La función es **decreciente en $(2, +\\infty)$**.\n\nEsta lógica aplica a cualquier $\\frac{c}{x-a}$ con $c > 0$ y $x > a$: siempre decreciente."
+  },
+  {
+    "external_id": "white_rational_graf_11",
+    "belt": "white",
+    "topic": "rational",
+    "skill": "GRAF",
+    "subtype": "graph",
+    "question": "Observá la gráfica de $f(x) = \\dfrac{1}{x}$. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "options": [
+      "Solo en $(-\\infty,\\ 0)$",
+      "Solo en $(0,\\ +\\infty)$",
+      "En ningún intervalo",
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$ — en cada rama por separado"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "¡Correcto! En la gráfica se ve claramente que ambas ramas bajan de izquierda a derecha: la función decrece en cada tramo de su dominio.",
+    "feedback_incorrect": "Mirá cada rama de la hipérbola por separado: en $(-\\infty,0)$ la curva baja al avanzar hacia la derecha, y lo mismo en $(0,+\\infty)$. La función decrece en ambos tramos.",
+    "graph_fn": "1/x",
+    "graph_view": {
+      "xMin": -4,
+      "xMax": 4,
+      "yMin": -4,
+      "yMax": 4
+    },
+    "explanation": "La gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn **cada rama**, la curva desciende de izquierda a derecha:\n- Rama izquierda $(-\\infty, 0)$: la función va de valores cercanos a $0^-$ hacia $-\\infty$.\n- Rama derecha $(0, +\\infty)$: la función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos casos la tendencia es **decreciente**.\n\nNota visual: no confundas 'la curva sube entre las dos ramas' con comportamiento creciente; eso es una discontinuidad, no crecimiento."
   }
 ]

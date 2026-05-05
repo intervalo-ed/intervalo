@@ -337,6 +337,93 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     }
 
 
+def create_zen_session_db(
+    user_id: int,
+    course_id: int,
+    belts: list[str],
+    count: int,
+    db: DBSession,
+) -> dict:
+    slug = _get_course_slug(course_id, db)
+    all_catalogs = load_belt_catalogs(slug)
+
+    candidate_keys: list[ItemKey] = []
+    for belt_str in belts:
+        try:
+            belt_enum = Belt(belt_str)
+        except ValueError:
+            continue
+        catalog = all_catalogs.get(belt_enum)
+        if catalog:
+            candidate_keys.extend(catalog.all_keys())
+
+    if not candidate_keys:
+        raise ValueError(f"No hay ítems disponibles para los cinturones: {belts}")
+
+    sampled_keys: list[ItemKey] = random.choices(candidate_keys, k=count)
+
+    exercises: list[ExerciseInSession] = []
+    for idx, item_key in enumerate(sampled_keys):
+        ex = get_exercise_db(
+            course_id, item_key.belt.value, item_key.topic,
+            item_key.skill.value, _default_config.graph_exercise_probability, db,
+        )
+        correct_answer = ex["options"][ex["correct_index"]]
+        shuffled = ex["options"][:]
+        random.shuffle(shuffled)
+        new_correct_index = shuffled.index(correct_answer)
+        exercises.append(ExerciseInSession(
+            exercise_id=f"ex_{idx:03d}",
+            item_key=item_key,
+            question=ex["question"],
+            options=shuffled,
+            correct_index=new_correct_index,
+            feedback_correct=ex["feedback_correct"],
+            feedback_incorrect=ex["feedback_incorrect"],
+            has_math=ex.get("has_math", False),
+            graph_fn=ex.get("graph_fn", ""),
+            graph_view=ex.get("graph_view", None),
+            explanation=ex.get("explanation"),
+        ))
+
+    db_session = SessionModel(
+        user_id=user_id, course_id=course_id,
+        started_at=datetime.utcnow(), exercises_total=len(exercises),
+    )
+    db.add(db_session)
+    db.flush()
+    db.commit()
+
+    session_id_str = str(db_session.id)
+    _sessions[session_id_str] = SessionState(
+        session_id=session_id_str,
+        user_name="",
+        item_states={key: SM2ItemState() for key in set(sampled_keys)},
+        exercises=exercises,
+        results=[],
+        xp_session=0,
+        streak=0,
+    )
+
+    return {
+        "session_id": session_id_str,
+        "user_name": "",
+        "total": len(exercises),
+        "exercises": [
+            {
+                "id": ex.exercise_id, "question": ex.question, "options": ex.options,
+                "correct_index": ex.correct_index, "has_math": ex.has_math,
+                "skill": ex.item_key.skill.value, "topic": ex.item_key.topic,
+                "graph_fn": ex.graph_fn, "graph_view": ex.graph_view,
+                "feedback_correct": ex.feedback_correct,
+                "feedback_incorrect": ex.feedback_incorrect,
+                "explanation": ex.explanation,
+            }
+            for ex in exercises
+        ],
+    }
+
+
 def record_answer(
     session_id: str,
     exercise_id: str,
