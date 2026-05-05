@@ -1,5 +1,5 @@
 import Providers from "@/app/providers"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 
@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Intervalo - Repaso Espaciado",
   description: "Sistema de repaso adaptativo con repetición espaciada",
+}
+
+export const viewport: Viewport = {
   themeColor: "#1E1E34",
 }
 
