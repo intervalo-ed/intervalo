@@ -37,6 +37,8 @@ CLERK_ISSUER = os.environ.get("CLERK_ISSUER", "")
 CLERK_AUDIENCE = os.environ.get("CLERK_AUDIENCE") or None
 CLERK_SECRET_KEY = os.environ.get("CLERK_SECRET_KEY", "")  # only needed for JIT user enrichment
 
+print(f"[clerk-auth] JWKS={CLERK_JWKS_URL!r} ISSUER={CLERK_ISSUER!r} AUD={CLERK_AUDIENCE!r}", flush=True)
+
 # Clerk rotates signing keys, so we reuse a PyJWKClient (it caches keys by kid)
 # instead of re-fetching the JWKS on every request.
 _jwks_client: Optional[PyJWKClient] = None
@@ -97,7 +99,8 @@ def verify_clerk_token(token: str) -> Optional[ClerkClaims]:
             },
             leeway=10,  # small clock skew tolerance
         )
-    except jwt.PyJWTError:
+    except jwt.PyJWTError as e:
+        print(f"[clerk-auth] verify failed: {type(e).__name__}: {e}", flush=True)
         return None
 
     sub = payload.get("sub")
