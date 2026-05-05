@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intervalo — Análisis I</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Serif:wght@100;400;700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 210mm;
+      height: 297mm;
+      background: #131324;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #F6F8FC;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ─────────────────────────────────────────────────
+       PAGE WRAPPER
+    ───────────────────────────────────────────────── */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ─────────────────────────────────────────────────
+       TOP AREA — 2/3 de la página
+    ───────────────────────────────────────────────── */
+    .top-area {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+    }
+
+    /* ─────────────────────────────────────────────────
+       ① HERO
+    ───────────────────────────────────────────────── */
+    .hero {
+      flex: 1;
+      background: #1E1E34;
+      border-radius: 16px;
+      padding: 26px 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 0;
+    }
+
+    .hero-title {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-weight: 700;
+      font-size: 5.2rem;
+      color: #F6F8FC;
+      letter-spacing: -0.03em;
+      line-height: 0.88;
+      margin-bottom: 14px;
+    }
+
+    .hero-rule {
+      width: 44px;
+      height: 4px;
+      background: #7E80F7;
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #A4B3C6;
+      line-height: 1.45;
+      max-width: 400px;
+    }
+
+    /* ─────────────────────────────────────────────────
+       ② DESCRIPCIÓN
+    ───────────────────────────────────────────────── */
+    .description {
+      flex-shrink: 0;
+    }
+
+    .description p {
+      font-size: 0.9rem;
+      color: #A4B3C6;
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────────────
+       ③ TARJETAS
+    ───────────────────────────────────────────────── */
+    .cards-row {
+      display: flex;
+      gap: 11px;
+      flex-shrink: 0;
+    }
+
+    .card {
+      flex: 1;
+      background: #1E1E34;
+      border-radius: 13px;
+      padding: 16px 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .card-icon {
+      width: 30px;
+      height: 30px;
+      background: rgba(126,128,247,0.13);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .card-bar {
+      width: 22px;
+      height: 3px;
+      background: #7E80F7;
+      border-radius: 2px;
+    }
+
+    .card-text {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #A4B3C6;
+      line-height: 1.5;
+    }
+
+    /* ─────────────────────────────────────────────────
+       ④ QR + LOGO — 1/3 de la página
+    ───────────────────────────────────────────────── */
+    .qr-section {
+      flex: 1;
+      background: #1E1E34;
+      border-radius: 16px;
+      padding: 0 26px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      position: relative;
+      min-height: 0;
+    }
+
+    .qr-slot {
+      width: 120px;
+      height: 120px;
+      min-width: 120px;
+      border: 2px dashed #38385A;
+      border-radius: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .qr-slot-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #768899;
+    }
+
+    .qr-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .qr-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #768899;
+    }
+
+    .qr-headline {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #F6F8FC;
+      line-height: 1.2;
+    }
+
+    .qr-url {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #7E80F7;
+      margin-top: 5px;
+    }
+
+    .qr-sub {
+      font-size: 0.74rem;
+      color: #768899;
+    }
+
+    /* ─────────────────────────────────────────────────
+       LOGO — bottom right dentro de .qr-section
+    ───────────────────────────────────────────────── */
+    .logo-wrap {
+      position: absolute;
+      bottom: 18px;
+      right: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .logo-name {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-weight: 100;
+      font-size: 1.45rem;
+      color: #F6F8FC;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .logo-belt {
+      display: flex;
+      gap: 3px;
+      height: 3px;
+      width: 100%;
+    }
+
+    .logo-belt span {
+      flex: 1;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP AREA: 2/3 de la página -->
+  <div class="top-area">
+
+    <!-- ① HERO -->
+    <div class="hero">
+      <div class="hero-title">ANÁLISIS I</div>
+      <div class="hero-rule"></div>
+      <div class="hero-tagline">
+        Repasá haciendo ejercicios<br>cortos todos los días.
+      </div>
+    </div>
+
+    <!-- ② DESCRIPCIÓN -->
+    <div class="description">
+      <p>
+        Intervalo aplica el algoritmo de repetición espaciada para que no tengas que estudiar
+        todo de nuevo antes de cada parcial. La plataforma decide qué ejercicio hacés hoy según
+        lo que más necesitás reforzar, y el contenido se va fijando con la práctica diaria.
+      </p>
+    </div>
+
+    <!-- ③ TARJETAS -->
+    <div class="cards-row">
+
+      <div class="card">
+        <div class="card-icon">✏️</div>
+        <div class="card-bar"></div>
+        <div class="card-text">
+          Ejercicios breves y puntuales sobre cada concepto
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-bar"></div>
+        <div class="card-text">
+          Algoritmo que prioriza el contenido que más necesitás reforzar
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <div class="card-bar"></div>
+        <div class="card-text">
+          Progreso acorde al plan de estudios
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /top-area -->
+
+  <!-- ④ QR + LOGO — 1/3 de la página -->
+  <div class="qr-section">
+
+    <!-- QR placeholder -->
+    <div class="qr-slot">
+      <svg width="52" height="52" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2"  y="2"  width="22" height="22" rx="3" stroke="#7E80F7" stroke-width="2.5"/>
+        <rect x="8"  y="8"  width="10" height="10" rx="1.5" fill="#7E80F7"/>
+        <rect x="36" y="2"  width="22" height="22" rx="3" stroke="#7E80F7" stroke-width="2.5"/>
+        <rect x="42" y="8"  width="10" height="10" rx="1.5" fill="#7E80F7"/>
+        <rect x="2"  y="36" width="22" height="22" rx="3" stroke="#7E80F7" stroke-width="2.5"/>
+        <rect x="8"  y="42" width="10" height="10" rx="1.5" fill="#7E80F7"/>
+        <rect x="36" y="36" width="9"  height="9"  rx="1.5" fill="#7E80F7"/>
+        <rect x="51" y="36" width="9"  height="9"  rx="1.5" fill="#7E80F7"/>
+        <rect x="36" y="51" width="9"  height="9"  rx="1.5" fill="#7E80F7"/>
+        <rect x="51" y="51" width="9"  height="9"  rx="1.5" fill="#7E80F7"/>
+        <rect x="43" y="43" width="5"  height="5"  rx="1"   fill="#38385A"/>
+      </svg>
+      <div class="qr-slot-label">Tu QR acá</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="qr-cta">
+      <div class="qr-eyebrow">Empezá hoy</div>
+      <div class="qr-headline">
+        Escaneá y accedé<br>a tu primera sesión
+      </div>
+      <div class="qr-url">intervalo.app</div>
+      <div class="qr-sub">Gratis para estudiantes universitarios</div>
+    </div>
+
+    <!-- Logo intervalo bottom-right -->
+    <div class="logo-wrap">
+      <div class="logo-name">intervalo</div>
+      <div class="logo-belt">
+        <span style="background: #F5F5DC;"></span>
+        <span style="background: #1C3A8B;"></span>
+        <span style="background: #6B2D8B;"></span>
+        <span style="background: #6B3A1F;"></span>
+        <span style="background: #111111;"></span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
