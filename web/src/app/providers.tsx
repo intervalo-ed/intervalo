@@ -2,8 +2,9 @@
 
 import { ClerkProvider } from "@clerk/nextjs"
 import { SoundProvider } from "@web-kits/audio/react"
-import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
+import { ThemeProvider } from "@/components/theme-provider"
 
 function makeQueryClient() {
   return new QueryClient({
@@ -22,7 +23,7 @@ function getQueryClient() {
   // Server: a fresh client per request so state never leaks between users.
   // Browser: a singleton so re-renders (or a Suspense throw during the first
   // render) don't blow away the cache.
-  if (isServer) return makeQueryClient()
+  if (environmentManager.isServer()) return makeQueryClient()
   if (!browserQueryClient) browserQueryClient = makeQueryClient()
   return browserQueryClient
 }
@@ -32,11 +33,18 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ClerkProvider>
-      <QueryClientProvider client={queryClient}>
-        <NuqsAdapter>
-          <SoundProvider>{children}</SoundProvider>
-        </NuqsAdapter>
-      </QueryClientProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <QueryClientProvider client={queryClient}>
+          <NuqsAdapter>
+            <SoundProvider>{children}</SoundProvider>
+          </NuqsAdapter>
+        </QueryClientProvider>
+      </ThemeProvider>
     </ClerkProvider>
   )
 }
