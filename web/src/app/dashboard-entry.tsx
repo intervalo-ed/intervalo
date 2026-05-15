@@ -3,13 +3,11 @@
 import { SignOutButton, useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import BeltCard from "@/components/belt-card"
+import BeltCard from "./belt-card"
 import { BELT_ORDER } from "@/lib/catalog"
 import { beltStats } from "@/lib/catalog/stats"
 import { useUserProgress } from "./UseUserProgress"
 import { useStartSession } from "./UseStartSession"
-
-const COURSE = "analisis-1"
 
 export default function DashboardEntry() {
   const { data, isLoading, isError, error } = useUserProgress()
@@ -117,7 +115,6 @@ export default function DashboardEntry() {
               <BeltCard
                 key={belt}
                 belt={belt}
-                course={COURSE}
                 skillStates={data.skill_states}
               />
             ))}

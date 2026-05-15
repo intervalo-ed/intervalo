@@ -1,7 +1,7 @@
-import { catalog, type Belt, type BeltKey, type Topic } from "./analisis-1.generated"
+import { catalog, type Belt, type BeltKey } from "./analisis-1.generated"
 
 export { catalog }
-export type { Belt, BeltKey, Topic }
+export type { Belt, BeltKey }
 
 const BELT_ASSET: Record<BeltKey, string> = {
   white: "/belt_white.png",
@@ -81,30 +81,6 @@ export function topicLabel({ topic }: { topic: string }): string {
 
 export function getBelt({ key }: { key: BeltKey }): Belt | undefined {
   return catalog.belts.find((b) => b.key === key)
-}
-
-export function getTopic({
-  belt,
-  topic,
-}: {
-  belt: BeltKey
-  topic: string
-}): Topic | undefined {
-  return getBelt({ key: belt })?.topics.find((t) => t.key === topic)
-}
-
-// An "item" = (topic, skill) pair. Catalog stores skills as an array per topic;
-// this materializes the cartesian product so callers can iterate items directly.
-export function getTopicItems({
-  belt,
-  topic,
-}: {
-  belt: BeltKey
-  topic: string
-}): { topic: Topic; skill: string }[] {
-  const t = getTopic({ belt, topic })
-  if (!t) return []
-  return t.skills.map((skill) => ({ topic: t, skill }))
 }
 
 // Matches the backend's `${topic}:${skill}` skill_states key shape.

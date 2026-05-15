@@ -1,26 +1,20 @@
 import Image from "next/image"
-import Link from "next/link"
 import { beltAssetPath, beltLabel, type BeltKey } from "@/lib/catalog"
 import { beltStats } from "@/lib/catalog/stats"
 import type { SkillStates } from "@/lib/api/types"
 
 export default function BeltCard({
   belt,
-  course,
   skillStates,
 }: {
   belt: BeltKey
-  course: string
   skillStates: SkillStates
 }) {
   const stats = beltStats({ belt, skillStates })
   const isActive = stats.unlocked > 0
 
   return (
-    <Link
-      href={`/learn/${course}/${belt}`}
-      className="flex items-center gap-3 rounded-lg border p-3 transition hover:bg-foreground/5"
-    >
+    <div className="flex items-center gap-3 rounded-lg border p-3">
       <Image
         src={beltAssetPath({ belt })}
         alt={beltLabel({ belt })}
@@ -48,7 +42,7 @@ export default function BeltCard({
           <p className="mt-1 text-xs text-foreground/50">Bloqueado</p>
         )}
       </div>
-    </Link>
+    </div>
   )
 }
 
