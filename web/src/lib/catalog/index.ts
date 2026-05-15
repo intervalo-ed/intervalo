@@ -19,6 +19,48 @@ const BELT_LABEL: Record<BeltKey, string> = {
   black: "Negro",
 }
 
+const SKILL_LABEL: Record<string, string> = {
+  CLSF: "Clasificación",
+  LEXI: "Identificación",
+  FORM: "Formal",
+  GRAF: "Gráfica",
+  DERI: "Derivada",
+  INTG: "Integral",
+  RESL: "Resolución",
+  ESTR: "Estructura",
+  APLI: "Aplicación",
+}
+
+const TOPIC_LABEL: Record<string, string> = {
+  linear: "Funciones lineales",
+  quadratic: "Funciones cuadráticas",
+  polynomial: "Funciones polinómicas",
+  exponential: "Funciones exponenciales",
+  logarithmic: "Funciones logarítmicas",
+  rational: "Funciones racionales",
+  trigonometric: "Funciones trigonométricas",
+  algebraic_limits: "Límites algebraicos",
+  lateral_limits: "Límites laterales",
+  infinite_limits: "Límites al infinito",
+  continuity: "Continuidad",
+  factorizacion: "Factorización",
+  racionalizacion: "Racionalización",
+  limit_definition: "Definición de derivada",
+  geometric_interpretation: "Interpretación geométrica",
+  basic_rules: "Reglas básicas",
+  product_quotient: "Producto y cociente",
+  chain_rule: "Regla de la cadena",
+  lhopital: "L'Hôpital",
+  indefinite_integral: "Integral indefinida",
+  substitution: "Sustitución",
+  integration_by_parts: "Integración por partes",
+  definite_integral: "Integral definida",
+  function_analysis: "Análisis de funciones",
+  optimization: "Optimización",
+  area_calculation: "Cálculo de áreas",
+  ftc: "Teorema fundamental",
+}
+
 export const BELT_ORDER: BeltKey[] = ["white", "blue", "violet", "brown", "black"]
 
 export function beltAssetPath({ belt }: { belt: BeltKey }): string {
@@ -27,6 +69,14 @@ export function beltAssetPath({ belt }: { belt: BeltKey }): string {
 
 export function beltLabel({ belt }: { belt: BeltKey }): string {
   return BELT_LABEL[belt]
+}
+
+export function skillLabel({ skill }: { skill: string }): string {
+  return SKILL_LABEL[skill] ?? skill
+}
+
+export function topicLabel({ topic }: { topic: string }): string {
+  return TOPIC_LABEL[topic] ?? topic
 }
 
 export function getBelt({ key }: { key: BeltKey }): Belt | undefined {
@@ -57,15 +107,15 @@ export function getTopicItems({
   return t.skills.map((skill) => ({ topic: t, skill }))
 }
 
-// Matches the backend's `${belt}/${topic}/${skill}` skill_states key shape.
+// Matches the backend's `${topic}:${skill}` skill_states key shape.
+// Topic keys are globally unique across belts in catalog.json, so the belt is
+// not part of the key.
 export function itemKey({
-  belt,
   topic,
   skill,
 }: {
-  belt: BeltKey
   topic: string
   skill: string
 }): string {
-  return `${belt}/${topic}/${skill}`
+  return `${topic}:${skill}`
 }

@@ -1,4 +1,5 @@
-import { auth } from "@clerk/nextjs/server"
+import { auth, currentUser } from "@clerk/nextjs/server"
+import { SignOutButton } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 
@@ -10,9 +11,11 @@ export default async function AppLayout({
   const { userId } = await auth()
   if (!userId) redirect("/sign-in")
 
-  // TODO (Phase 3): check enrollment status and redirect to /onboarding if missing.
-  // Backend has no "is enrolled" endpoint — pick from /auth/me display_name or
-  // /user/progress skill_states being empty. Decide during onboarding implementation.
+  // Backend has no `is_enrolled` field on /auth/me yet (gap #9). We track
+  // onboarding completion in Clerk's unsafeMetadata, set by the wizard on
+  // successful POST /user/enroll.
+  const user = await currentUser()
+  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding")
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -20,7 +23,13 @@ export default async function AppLayout({
         <Link href="/" className="font-semibold">
           Intervalo
         </Link>
-        <nav className="flex items-center gap-4 text-sm">{/* level chip slot */}</nav>
+        <nav className="flex items-center gap-4 text-sm">
+          <SignOutButton>
+            <button className="inline-flex h-8 items-center rounded-md border px-3">
+              Cerrar sesión
+            </button>
+          </SignOutButton>
+        </nav>
       </header>
       <div className="flex-1">{children}</div>
     </div>

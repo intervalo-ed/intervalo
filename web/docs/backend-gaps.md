@@ -87,6 +87,14 @@ Zen-mode answers are recorded to the `answers` table but **do not update SM-2 st
 
 Need a one-line decision per question to keep the dashboard math honest.
 
+## 9. Explicit enrollment-status field on `/auth/me`
+
+The frontend's `(app)/layout.tsx` needs a server-side "is this user enrolled?" check to gate dashboard access vs. redirecting to `/onboarding`. There's no endpoint that returns enrollment status directly. Today the frontend uses `me.name` (display_name) as a proxy — but display_name can also be populated by Clerk JIT-provisioning before `/user/enroll` ever runs, so this misclassifies edge cases.
+
+**Proposed shape:** add an `is_enrolled: boolean` (or `enrolled_in_courses: number[]`) to the existing `UserResponse` returned by `GET /auth/me`. Cheap to compute server-side from a single Enrollment row exists check.
+
+**Current workaround:** the frontend stores an `onboarded: true` flag in Clerk's `unsafeMetadata` after a successful `POST /user/enroll`, and the gate reads it via `currentUser()`. Two costs of this workaround: (a) an extra Clerk backend call per `(app)/*` page navigation, and (b) the flag is in Clerk's storage rather than ours, so a backend-side enrollment delete wouldn't unset it. Once `is_enrolled` ships we can drop the metadata write and the `currentUser()` call.
+
 ## 8. Stable per-exercise IDs across sessions
 
 `SessionExercise.id` is generated as `ex_000`, `ex_001`, … each time `/session/start*` is called — not the underlying `external_id` from the `exercises` table. This blocks any future "share this exact problem" URL, error reporting tied to an exercise, or analytics on per-exercise difficulty.
