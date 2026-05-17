@@ -149,14 +149,6 @@
     }
     .callout-dark strong { font-weight: 700; color: var(--text); }
 
-    /* ── Retention chart ── */
-    .retention-chart-wrap {
-      margin: 0.75rem 0 0.25rem;
-      overflow: hidden;
-    }
-    .retention-chart-wrap canvas {
-      width: 100%; height: auto; display: block;
-    }
     .decay-footer {
       font-size: 0.9rem; font-weight: 500; color: var(--text);
       border-top: 1px solid var(--border); padding-top: 0.875rem; margin-top: 0.875rem;
@@ -315,9 +307,6 @@
         Sin un repaso constante, los conceptos que costaron tiempo y energía entender se degradan
         gradualmente hasta quedar prácticamente olvidados.
       </p>
-      <div class="retention-chart-wrap">
-        <canvas id="retChart"></canvas>
-      </div>
       <p class="decay-footer">
         Repasar con frecuencia determina si lo que entendiste va a estar disponible cuando lo necesitás.
       </p>
@@ -502,114 +491,5 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  const canvas = document.getElementById('retChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  const CW = 720, CH = 240;
-  canvas.width = CW;
-  canvas.height = CH;
-
-  const PAD = { top: 24, right: 28, bottom: 46, left: 50 };
-  const plotW = CW - PAD.left - PAD.right;
-  const plotH = CH - PAD.top - PAD.bottom;
-  const WEEKS = 16;
-  const STEPS = 160;
-
-  function xp(w) { return PAD.left + (w / WEEKS) * plotW; }
-  function yp(p) { return PAD.top  + plotH - (p / 100) * plotH; }
-  function curve(t) { return 100 * Math.exp(-0.17 * t); }
-
-  function draw(prog) {
-    const curT = prog * WEEKS;
-    ctx.clearRect(0, 0, CW, CH);
-
-    // ── Horizontal grid + Y labels
-    ctx.font = '10px "JetBrains Mono", monospace';
-    ctx.textAlign = 'right';
-    for (const p of [20, 40, 60, 80, 100]) {
-      const y = yp(p);
-      ctx.strokeStyle = 'rgba(56,56,90,0.7)';
-      ctx.lineWidth = 0.5;
-      ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + plotW, y); ctx.stroke();
-      ctx.fillStyle = '#768899';
-      ctx.fillText(p + '%', PAD.left - 6, y + 4);
-    }
-
-    // ── Vertical grid + X labels (every 2 weeks)
-    ctx.textAlign = 'center';
-    for (let w = 0; w <= WEEKS; w += 2) {
-      const x = xp(w);
-      ctx.strokeStyle = 'rgba(56,56,90,0.7)';
-      ctx.lineWidth = 0.5;
-      ctx.beginPath(); ctx.moveTo(x, PAD.top); ctx.lineTo(x, PAD.top + plotH); ctx.stroke();
-      ctx.fillStyle = '#768899';
-      ctx.fillText(w, x, PAD.top + plotH + 16);
-    }
-
-    // ── Axes
-    ctx.strokeStyle = 'rgba(56,56,90,0.9)';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.moveTo(PAD.left, PAD.top);
-    ctx.lineTo(PAD.left, PAD.top + plotH);
-    ctx.lineTo(PAD.left + plotW, PAD.top + plotH);
-    ctx.stroke();
-
-    // ── Axis labels
-    ctx.fillStyle = '#A4B3C6';
-    ctx.font = '11px "JetBrains Mono", monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText('semanas', PAD.left + plotW / 2, CH - 4);
-    ctx.save();
-    ctx.translate(12, PAD.top + plotH / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText('retención', 0, 0);
-    ctx.restore();
-
-    // ── Decay curve
-    if (curT > 0) {
-      ctx.strokeStyle = '#7E80F7';
-      ctx.lineWidth = 2.5;
-      ctx.setLineDash([]);
-      ctx.beginPath();
-      let started = false;
-      for (let i = 0; i <= STEPS; i++) {
-        const t = (i / STEPS) * WEEKS;
-        if (t > curT) break;
-        const x = xp(t), y = yp(curve(t));
-        started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
-      }
-      ctx.stroke();
-    }
-  }
-
-  let animating = false, startTime = null;
-  const DURATION = 2800;
-
-  function animate(ts) {
-    if (!startTime) startTime = ts;
-    const t = Math.min((ts - startTime) / DURATION, 1);
-    draw(1 - Math.pow(1 - t, 3));
-    if (t < 1) requestAnimationFrame(animate);
-  }
-
-  document.fonts.ready.then(() => {
-    draw(0);
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !animating) {
-        animating = true;
-        requestAnimationFrame(animate);
-        obs.disconnect();
-      }
-    }, { threshold: 0.3 });
-    obs.observe(canvas);
-  });
-})();
-</script>
 </body>
 </html>
