@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intervalo — Conocer más</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg:          #131324;
+      --bg-card:     #1E1E34;
+      --bg-elevated: #2A2A4A;
+      --nav:         #1A1A2A;
+      --border:      #38385A;
+      --primary:     #7E80F7;
+      --primary-hov: #9698FA;
+      --primary-fg:  #131324;
+      --text:        #F6F8FC;
+      --text-sec:    #A4B3C6;
+      --muted:       #768899;
+      --pill-bg:     rgba(126,128,247,0.15);
+      --pill-text:   #BCBDFC;
+      --belt-white:  #E0DDD0;
+      --belt-blue:   #1C3A8B;
+      --belt-purple: #6B2D8B;
+      --belt-brown:  #6B3A1F;
+      --belt-black:  #111111;
+      --radius: 0.75rem;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-serif: 'Noto Serif', Georgia, serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body  { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a     { text-decoration: none; color: inherit; }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+    .section   { padding: 5rem 1.25rem; }
+    .border-b  { border-bottom: 1px solid var(--border); }
+
+    /* ── Wordmark ── */
+    .wordmark {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      line-height: 1;
+    }
+    .wordmark-text {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--text);
+      font-size: 1.1rem;
+      letter-spacing: normal;
+    }
+    .belt-bar {
+      display: flex;
+      height: 3px;
+      width: 100%;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .belt-bar span { flex: 1; }
+
+    /* ── Nav ── */
+    .page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--nav);
+      border-bottom: 1px solid var(--border);
+      padding: 0.875rem 1.25rem;
+    }
+    .page-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* ── Section headers ── */
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .section-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--pill-text);
+      border: 1px solid rgba(126,128,247,0.3);
+      background: var(--pill-bg);
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Icon wrapper ── */
+    .icon-wrap {
+      width: 2.75rem; height: 2.75rem;
+      background: var(--pill-bg);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+    .icon-wrap svg { width: 1.2rem; height: 1.2rem; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(126,128,247,0.4); }
+
+    /* ── Utility ── */
+    .fg-bold { color: var(--text); font-weight: 500; }
+
+    /* ── Lead / callouts ── */
+    .lead {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: var(--text-sec);
+      max-width: 44rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .callout-dark {
+      background: var(--bg-elevated); color: var(--text-sec);
+      border: 1px solid var(--border);
+      border-radius: 0; padding: 1.25rem 1.5rem;
+      font-size: 0.875rem; line-height: 1.75;
+    }
+    .callout-dark strong { font-weight: 700; color: var(--text); }
+
+    /* ── Decay bar ── */
+    .decay-bar-labels {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .decay-bar-track {
+      height: 8px; background: var(--bg-elevated);
+      border-radius: 9999px; overflow: hidden; margin-bottom: 0.4rem;
+      border: 1px solid var(--border);
+    }
+    .decay-bar-fill {
+      height: 100%; width: 100%; border-radius: 9999px;
+      background: linear-gradient(to right,
+        #7E80F7 0%, #5558d4 35%, #3a3c8a 65%, var(--bg-elevated) 100%
+      );
+    }
+    .decay-bar-pct {
+      display: flex; justify-content: space-between;
+      font-size: 0.65rem; color: var(--muted);
+    }
+    .decay-footer {
+      font-size: 0.9rem; font-weight: 500; color: var(--text);
+      border-top: 1px solid var(--border); padding-top: 0.875rem; margin-top: 0.875rem;
+    }
+
+    /* ── Grids ── */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .proposal-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .proposal-col   { display: flex; flex-direction: column; gap: 0.875rem; }
+    .proposal-col-header { display: flex; align-items: center; gap: 0.75rem; }
+    .proposal-col-title  { font-size: 1.2rem; font-weight: 600; }
+    .proposal-col p { color: var(--text-sec); line-height: 1.75; font-size: 0.875rem; }
+
+    .system-grid        { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .system-card        { display: flex; flex-direction: column; gap: 0.875rem; }
+    .system-card-header { display: flex; align-items: center; gap: 0.875rem; }
+    .system-card-title  { font-size: 1.15rem; font-weight: 600; }
+    .system-card p      { color: var(--text-sec); line-height: 1.75; font-size: 0.875rem; }
+
+    /* ── Section backgrounds ── */
+    #problem {
+      background-color: var(--nav);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    #system  {
+      background-color: var(--nav);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       FOOTER / CTA
+    ══════════════════════════════════════════════════════════════════ */
+    .cta-block {
+      background: var(--primary);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+    }
+    .cta-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 600;
+      color: var(--primary-fg);
+      max-width: 28rem; line-height: 1.25;
+    }
+    .cta-sub { font-size: 0.875rem; color: rgba(19,19,36,0.65); }
+
+    .btn-cta-light {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-weight: 500;
+      font-size: 0.9rem; padding: 0.9rem 2rem;
+      border-radius: 4px; border: none; cursor: pointer;
+      background: var(--bg); color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-cta-light:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,0.4); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-weight: 500;
+      font-size: 0.9rem; padding: 0.9rem 2rem;
+      border-radius: 4px; cursor: pointer;
+      background: transparent; color: var(--primary-fg);
+      border: 1.5px solid rgba(19,19,36,0.35);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-ghost:hover { background: rgba(19,19,36,0.08); border-color: rgba(19,19,36,0.5); }
+
+    .cta-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: center; gap: 0.75rem;
+    }
+
+    .footer-bottom { padding: 2.5rem 1.25rem; background: var(--nav); }
+    .footer-inner  {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1.5rem;
+    }
+    .footer-wordmark .wordmark-text { font-size: 1.1rem; }
+    .footer-wordmark .belt-bar      { height: 2px; }
+    .footer-creators { display: flex; gap: 1.5rem; align-items: center; }
+    .creator-card {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .creator-card:hover { opacity: 0.8; }
+    .creator-photo {
+      width: 44px; height: 44px;
+      border-radius: 6px; object-fit: cover;
+      filter: grayscale(100%) brightness(0.85);
+      border: 1.5px solid rgba(126,128,247,0.3);
+    }
+    .creator-info { display: flex; flex-direction: column; gap: 1px; }
+    .creator-name { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .creator-handle { font-size: 0.7rem; color: var(--muted); font-family: var(--font-mono); }
+    .footer-copy {
+      max-width: 960px; margin: 0 auto;
+      padding-top: 1.5rem;
+      text-align: center; font-size: 0.68rem; color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .section { padding: 3.5rem 1.25rem; }
+      .two-col, .proposal-grid, .system-grid { grid-template-columns: 1fr; }
+      .footer-inner    { flex-direction: column; }
+      .footer-creators { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="page-nav">
+  <div class="page-nav-inner container">
+    <a href="landing-mockup.html" class="wordmark">
+      <span class="wordmark-text">intervalo</span>
+      <div class="belt-bar">
+        <span style="background:var(--belt-white)"></span>
+        <span style="background:var(--belt-blue)"></span>
+        <span style="background:var(--belt-purple)"></span>
+        <span style="background:var(--belt-brown)"></span>
+        <span style="background:var(--belt-black)"></span>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PROBLEM  01
+══════════════════════════════════════════════════════════════════ -->
+<section id="problem" class="section border-b">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">01</span>
+      <h2 class="section-title">El Problema</h2>
+    </div>
+
+    <p class="lead">
+      El <span class="fg-bold">entendimiento</span> y el <span class="fg-bold">repaso</span>
+      son dos partes esenciales del proceso de aprendizaje.
+    </p>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="font-size:0.875rem;color:var(--text-sec);line-height:1.75;margin-bottom:1rem;">
+        Sin un repaso constante, los conceptos que costaron tiempo y energía entender se degradan
+        gradualmente hasta quedar prácticamente olvidados.
+      </p>
+      <div class="decay-bar-labels">
+        <span>Retención</span>
+        <span>Tiempo sin repasar →</span>
+      </div>
+      <div class="decay-bar-track"><div class="decay-bar-fill"></div></div>
+      <div class="decay-bar-pct"><span>100%</span><span>~20%</span></div>
+      <p class="decay-footer">
+        Repasar con frecuencia determina si lo que entendiste va a estar disponible cuando lo necesitás.
+      </p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.875rem;">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:600;">Cómo se repasa</h3>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-sec);line-height:1.75;">
+          La investigación se inclina hacia la <span class="fg-bold">evocación activa</span>: recuperar
+          un concepto desde la memoria sin material de consulta. Más difícil, pero más efectivo.
+        </p>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.875rem;">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:600;">Con qué frecuencia</h3>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-sec);line-height:1.75;">
+          La <span class="fg-bold">repetición espaciada</span> establece que cada repaso reduce la
+          velocidad del olvido. Pero requiere hacer un seguimiento de cada concepto, lo cual es tedioso.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout-dark">
+      <strong>El nudo: </strong>
+      Ambos métodos agregan complejidad. La evocación activa es difícil y por lo tanto menos atractiva.
+      La repetición espaciada es tediosa porque requiere trackear la retención de cada concepto
+      individualmente.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PROPOSAL  02
+══════════════════════════════════════════════════════════════════ -->
+<section id="proposal" class="section border-b">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">02</span>
+      <h2 class="section-title">La Propuesta</h2>
+    </div>
+
+    <p class="lead">
+      <span class="fg-bold" style="font-weight:600;">Intervalo</span> integra ambos métodos a través
+      de una interfaz gamificada y un algoritmo que automatiza las decisiones de repaso.
+    </p>
+
+    <div class="proposal-grid">
+      <div class="proposal-col">
+        <div class="proposal-col-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="17" x2="17.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59l-.99 9.98A2 2 0 0 0 3.72 21a1.93 1.93 0 0 0 1.967-1.57L6.5 15h11l.813 4.43A1.93 1.93 0 0 0 20.28 21a2 2 0 0 0 2.013-2.43l-.99-9.98A4 4 0 0 0 17.32 5z"/></svg>
+          </div>
+          <h3 class="proposal-col-title">Gamificación</h3>
+        </div>
+        <p>Convierte el repaso en una experiencia con <span class="fg-bold">progresión visible</span>. A través de niveles y cinturones, el estudiante ve en todo momento dónde está parado y hacia dónde va.</p>
+        <p>Transforma algo que puede sentirse como una obligación en algo concreto y motivador.</p>
+      </div>
+      <div class="proposal-col">
+        <div class="proposal-col-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+          </div>
+          <h3 class="proposal-col-title">Algoritmo</h3>
+        </div>
+        <p>Registra el desempeño en cada ejercicio y ajusta continuamente <span class="fg-bold">qué practicar y con qué frecuencia</span>.</p>
+        <p>Los conceptos consolidados se repasan menos; los débiles, más. El tiempo se invierte donde más importa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SYSTEM  03
+══════════════════════════════════════════════════════════════════ -->
+<section id="system" class="section border-b">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">03</span>
+      <h2 class="section-title">El Sistema</h2>
+    </div>
+
+    <div class="system-grid">
+      <div class="card system-card">
+        <div class="system-card-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3 class="system-card-title">Cursos</h3>
+        </div>
+        <p>Intervalo se organiza a través de cursos. Cada curso corresponde a una materia y contiene el banco de problemas, los cinturones y el seguimiento de progreso asociados a ella.</p>
+      </div>
+
+      <div class="card system-card">
+        <div class="system-card-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3 class="system-card-title">Temas</h3>
+        </div>
+        <p>Cada curso se divide en temas que agrupan los contenidos conceptuales. Los temas permiten organizar el estudio y visualizar el progreso por área de conocimiento.</p>
+      </div>
+
+      <div class="card system-card">
+        <div class="system-card-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          </div>
+          <h3 class="system-card-title">Habilidades</h3>
+        </div>
+        <p>Dentro de cada tema se definen habilidades específicas a desarrollar. Una habilidad representa un tipo de competencia que el estudiante debe dominar.</p>
+      </div>
+
+      <div class="card system-card">
+        <div class="system-card-header">
+          <div class="icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          </div>
+          <h3 class="system-card-title">Items</h3>
+        </div>
+        <p>Los items son las unidades mínimas de práctica. Cada item corresponde a un problema concreto que ejercita una habilidad dentro de un tema.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="cta-block">
+    <h2 class="cta-title">Retené lo que ya entendiste.</h2>
+    <p class="cta-sub">Repasá de forma inteligente haciendo un poco todos los días.</p>
+    <div class="cta-actions">
+      <a href="landing-mockup.html">
+        <button class="btn-ghost">Volver</button>
+      </a>
+      <a href="https://intervalo-mu.vercel.app" target="_blank" rel="noopener noreferrer">
+        <button class="btn-cta-light">Comenzar ahora</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-inner">
+      <div class="wordmark footer-wordmark">
+        <span class="wordmark-text">intervalo</span>
+        <div class="belt-bar">
+          <span style="background:var(--belt-white)"></span>
+          <span style="background:var(--belt-blue)"></span>
+          <span style="background:var(--belt-purple)"></span>
+          <span style="background:var(--belt-brown)"></span>
+          <span style="background:var(--belt-black)"></span>
+        </div>
+      </div>
+      <div class="footer-creators">
+        <a href="https://github.com/nvranco" target="_blank" rel="noopener noreferrer" class="creator-card">
+          <img src="https://avatars.githubusercontent.com/nvranco" alt="Nicolás Vrancovich" class="creator-photo" />
+          <div class="creator-info">
+            <span class="creator-name">Nicolás Vrancovich</span>
+            <span class="creator-handle">@nvranco</span>
+          </div>
+        </a>
+        <a href="https://github.com/sgalanb" target="_blank" rel="noopener noreferrer" class="creator-card">
+          <img src="https://avatars.githubusercontent.com/sgalanb" alt="Santiago Galán" class="creator-photo" />
+          <div class="creator-info">
+            <span class="creator-name">Santiago Galán</span>
+            <span class="creator-handle">@sgalanb</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>2026 Intervalo. Desarrollado por y para estudiantes de carreras STEM.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

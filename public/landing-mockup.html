@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intervalo — Landing Page Mockup</title>
+
+  <!-- Noto Serif (wordmark) + Inter (body) + JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
+  <style>
+    /* ── Design tokens — dark palette from frontend/src/main.jsx ─────── */
+    :root {
+      --bg:          #131324;
+      --bg-card:     #1E1E34;
+      --bg-elevated: #2A2A4A;
+      --nav:         #1A1A2A;
+      --border:      #38385A;
+      --primary:     #7E80F7;
+      --primary-hov: #9698FA;
+      --primary-fg:  #131324;
+      --text:        #F6F8FC;
+      --text-sec:    #A4B3C6;
+      --muted:       #768899;
+      --pill-bg:     rgba(126,128,247,0.15);
+      --pill-text:   #BCBDFC;
+
+      /* belt stripe colors */
+      --belt-white:  #E0DDD0;
+      --belt-blue:   #1C3A8B;
+      --belt-purple: #6B2D8B;
+      --belt-brown:  #6B3A1F;
+      --belt-black:  #111111;
+
+      --radius: 0.75rem;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-serif: 'Noto Serif', Georgia, serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+
+    /* ── Reset ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body  { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a     { text-decoration: none; color: inherit; }
+
+    /* ── Layout ──────────────────────────────────────────────────────── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+    .section   { padding: 5rem 1.25rem; }
+    .border-b  { border-bottom: 1px solid var(--border); }
+
+    /* ── Wordmark ────────────────────────────────────────────────────── */
+    .wordmark {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      line-height: 1;
+    }
+    .wordmark-text {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: normal;
+    }
+    .belt-bar {
+      display: flex;
+      height: 3px;
+      width: 100%;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .belt-bar span { flex: 1; }
+
+    /* ── Section headers ─────────────────────────────────────────────── */
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .section-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--pill-text);
+      border: 1px solid rgba(126,128,247,0.3);
+      background: var(--pill-bg);
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Icon wrapper ────────────────────────────────────────────────── */
+    .icon-wrap {
+      width: 2.75rem; height: 2.75rem;
+      background: var(--pill-bg);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+    .icon-wrap svg { width: 1.2rem; height: 1.2rem; }
+
+    /* ── Cards ───────────────────────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(126,128,247,0.4); }
+
+    /* ── Utility text ────────────────────────────────────────────────── */
+    .muted   { color: var(--muted); }
+    .sec     { color: var(--text-sec); }
+    .fg-bold { color: var(--text); font-weight: 500; }
+    .serif   { font-family: var(--font-serif); }
+
+    /* ── Feature list ────────────────────────────────────────────────── */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 0.5rem;
+      font-size: 0.875rem; color: var(--text-sec);
+    }
+    .feature-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: 8px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════════════ */
+    #hero {
+      height: 100svh;
+      height: 100vh; /* fallback */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .hero-logo-top {
+      flex-shrink: 0;
+      padding-top: 32px;
+      padding-bottom: 8px;
+    }
+
+    .hero-inner {
+      flex: 1;
+      width: 100%;
+      max-width: 36rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 24px;
+    }
+
+    .hero-footer {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 0;
+      width: 100%;
+    }
+    .hero-wordmark .wordmark-text { font-size: clamp(1.7rem, 6vw, 2.2rem); }
+    .hero-wordmark .belt-bar      { height: 3px; }
+
+    .hero-title {
+      font-size: clamp(1.6rem, 6vw, 2.25rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-desc {
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      color: var(--text-sec);
+      max-width: 28rem;
+      line-height: 1.75;
+    }
+
+    /* ── Notation cycler ─────────────────────────────────────────────── */
+    .notation-cycler {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 90%;
+      max-width: 480px;
+    }
+    .notation-stage-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .notation-belt-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .notation-display {
+      color: var(--text);
+      font-size: 1.45rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 72px;
+      flex-shrink: 0;
+    }
+    /* override KaTeX display mode margin */
+    .notation-display .katex-display { margin: 0; }
+
+    /* ── PRIMARY CTA ─────────────────────────────────────────────────── */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.9rem 2rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-fg);
+      background: var(--primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: cta-breathe 3s ease-in-out infinite;
+      transition: transform 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      background: var(--primary-hov);
+      animation: none;
+      box-shadow: 0 10px 36px rgba(126,128,247,0.4);
+    }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-cta svg { transition: transform 0.2s; }
+    .btn-cta:hover svg { transform: translateX(4px); }
+
+    @keyframes cta-breathe {
+      0%, 100% { box-shadow: 0 4px 20px rgba(126,128,247,0.25), 0 0 0 0   rgba(126,128,247,0.2); }
+      50%       { box-shadow: 0 8px 32px rgba(126,128,247,0.40), 0 0 0 10px rgba(126,128,247,0); }
+    }
+
+    /* ── Stats ───────────────────────────────────────────────────────── */
+    .hero-stats { display: flex; align-items: center; gap: 2.5rem; padding-top: 0.5rem; }
+    .stat       { text-align: center; }
+    .stat-num   {
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--text); line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+    .stat-sep   { width: 1px; height: 2.5rem; background: var(--border); }
+
+    /* ── Scroll cue ──────────────────────────────────────────────────── */
+    .scroll-cue {
+      display: flex; align-items: center;
+      color: var(--muted); opacity: 0.6;
+    }
+    .scroll-cue span {
+      font-family: var(--font-mono); font-size: 0.58rem;
+      text-transform: uppercase; letter-spacing: 0.14em;
+    }
+    .scroll-chevron { animation: bounce-down 1.8s ease-in-out infinite; }
+    @keyframes bounce-down {
+      0%, 100% { transform: translateY(0);   opacity: 0.4; }
+      50%       { transform: translateY(6px); opacity: 1;   }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       PROBLEM
+    ══════════════════════════════════════════════════════════════════ */
+    #problem {
+      background-color: var(--nav);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .lead {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: var(--text-sec);
+      max-width: 44rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .decay-bar-labels {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .decay-bar-track {
+      height: 8px; background: var(--bg-elevated);
+      border-radius: 9999px; overflow: hidden; margin-bottom: 0.4rem;
+      border: 1px solid var(--border);
+    }
+    .decay-bar-fill {
+      height: 100%; width: 100%; border-radius: 9999px;
+      background: linear-gradient(to right,
+        #7E80F7 0%, #5558d4 35%, #3a3c8a 65%, var(--bg-elevated) 100%
+      );
+    }
+    .decay-bar-pct {
+      display: flex; justify-content: space-between;
+      font-size: 0.65rem; color: var(--muted);
+    }
+    .decay-footer {
+      font-size: 0.9rem; font-weight: 500; color: var(--text);
+      border-top: 1px solid var(--border); padding-top: 0.875rem; margin-top: 0.875rem;
+    }
+
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .callout-dark {
+      background: var(--bg-elevated); color: var(--text-sec);
+      border: 1px solid var(--border);
+      border-radius: 0; padding: 1.25rem 1.5rem;
+      font-size: 0.875rem; line-height: 1.75;
+    }
+    .callout-dark strong { font-weight: 700; color: var(--text); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       PROPOSAL
+    ══════════════════════════════════════════════════════════════════ */
+    .proposal-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .proposal-col   { display: flex; flex-direction: column; gap: 0.875rem; }
+    .proposal-col-header { display: flex; align-items: center; gap: 0.75rem; }
+    .proposal-col-title  { font-size: 1.2rem; font-weight: 600; }
+    .proposal-col p { color: var(--text-sec); line-height: 1.75; font-size: 0.875rem; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       PILLARS
+    ══════════════════════════════════════════════════════════════════ */
+    #pillars { background: var(--nav); }
+
+    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .pillar-card  { display: flex; flex-direction: column; gap: 1rem; }
+    .pillar-title { font-size: 1.05rem; font-weight: 600; }
+    .pillar-desc  { font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SYSTEM
+    ══════════════════════════════════════════════════════════════════ */
+    .system-grid        { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .system-card        { display: flex; flex-direction: column; gap: 0.875rem; }
+    .system-card-header { display: flex; align-items: center; gap: 0.875rem; }
+    .system-card-title  { font-size: 1.15rem; font-weight: 600; }
+    .system-card p      { color: var(--text-sec); line-height: 1.75; font-size: 0.875rem; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════════════ */
+    .cta-block {
+      background: var(--primary);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+    }
+    .cta-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 600;
+      color: var(--primary-fg);
+      max-width: 28rem; line-height: 1.25;
+    }
+    .cta-sub { font-size: 0.875rem; color: rgba(19,19,36,0.65); }
+
+    .btn-cta-light {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-weight: 500;
+      font-size: 0.9rem; padding: 0.9rem 2rem;
+      border-radius: 4px; border: none; cursor: pointer;
+      background: var(--bg); color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-cta-light:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,0.4); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-weight: 500;
+      font-size: 0.9rem; padding: 0.9rem 2rem;
+      border-radius: 4px; cursor: pointer;
+      background: transparent; color: var(--primary-fg);
+      border: 1.5px solid rgba(19,19,36,0.35);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-ghost:hover { background: rgba(19,19,36,0.08); border-color: rgba(19,19,36,0.5); }
+
+    .cta-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: center; gap: 0.75rem;
+    }
+
+    .footer-bottom { padding: 2.5rem 1.25rem; background: var(--nav); }
+    .footer-inner  {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1.5rem;
+    }
+    .footer-wordmark .wordmark-text { font-size: 1.1rem; }
+    .footer-wordmark .belt-bar      { height: 2px; }
+
+    .footer-creators { display: flex; gap: 1.5rem; align-items: center; }
+    .creator-card {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .creator-card:hover { opacity: 0.8; }
+    .creator-photo {
+      width: 44px; height: 44px;
+      border-radius: 6px; object-fit: cover;
+      filter: grayscale(100%) brightness(0.85);
+      border: 1.5px solid rgba(126,128,247,0.3);
+    }
+    .creator-info { display: flex; flex-direction: column; gap: 1px; }
+    .creator-name { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .creator-handle { font-size: 0.7rem; color: var(--muted); font-family: var(--font-mono); }
+
+    .footer-copy {
+      max-width: 960px; margin: 0 auto;
+      padding-top: 1.5rem;
+      text-align: center; font-size: 0.68rem; color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       CONTENT INTRO (blue bg)
+    ══════════════════════════════════════════════════════════════════ */
+    .content-intro {
+      padding: 4rem 1.5rem;
+      background: var(--nav);
+      border-bottom: 1px solid var(--border);
+    }
+    .content-intro .container {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .content-intro-title {
+      font-size: clamp(1.6rem, 6vw, 2.25rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      max-width: 28rem;
+    }
+    .content-intro-sub {
+      font-size: clamp(0.95rem, 3vw, 1.1rem);
+      color: var(--text-sec);
+      max-width: 26rem;
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       QUESTION LOOP SECTION
+    ══════════════════════════════════════════════════════════════════ */
+    .question-section {
+      padding: 80px 1.5rem 5rem;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: 0 0;
+    }
+    .question-loop-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    .question-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .q-belt-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .q-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--muted);
+    }
+    .q-tag-sep { color: var(--border); font-size: 0.5rem; }
+    .q-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .q-question {
+      color: var(--text);
+      text-align: center;
+      font-size: clamp(0.85rem, 2.6vw, 1rem);
+      font-family: var(--font-sans);
+    }
+    .q-display {
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 520px;
+    }
+    .q-display .katex { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+    .q-display .katex-display { margin: 0; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       PROGRESS SECTION
+    ══════════════════════════════════════════════════════════════════ */
+    .progress-header-section {
+      background: var(--nav);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+    }
+    .progress-title {
+      font-size: clamp(1.45rem, 5vw, 2rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.65rem;
+    }
+    .progress-sub {
+      font-size: clamp(0.875rem, 2.5vw, 1rem);
+      color: var(--text-sec);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    .progress-chart-section {
+      padding: 3rem 40px;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .chart-content-wrap {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    /* square grid */
+    .sq-grid {
+      display: grid;
+      grid-template-columns: repeat(26, 10px);
+      gap: 1px;
+      width: fit-content;
+    }
+    .sq {
+      width: 10px;
+      height: 10px;
+      border-radius: 1px;
+    }
+
+    /* legend */
+    .chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 1.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Mockup banner ───────────────────────────────────────────────── */
+    .mockup-banner {
+      background: #7E80F7;
+      color: #131324;
+      text-align: center;
+      padding: 0.4rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       MOBILE
+    ══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .section { padding: 3.5rem 1.25rem; }
+      #hero    { padding: 1.5rem 1.25rem 4.5rem; }
+      .hero-desc  { font-size: 0.93rem; }
+      .hero-stats { gap: 1.5rem; }
+      .stat-sep   { display: none; }
+
+      .btn-cta {
+        width: 100%; max-width: 340px;
+        justify-content: center;
+        font-size: 1rem; padding: 1rem 2rem;
+      }
+
+      .two-col, .proposal-grid, .pillars-grid, .system-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner    { flex-direction: column; }
+      .footer-creators { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <!-- Logo pinned to top -->
+  <div class="hero-logo-top wordmark hero-wordmark">
+    <span class="wordmark-text">intervalo</span>
+    <div class="belt-bar">
+      <span style="background:var(--belt-white)"></span>
+      <span style="background:var(--belt-blue)"></span>
+      <span style="background:var(--belt-purple)"></span>
+      <span style="background:var(--belt-brown)"></span>
+      <span style="background:var(--belt-black)"></span>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+
+    <h1 class="hero-title">Repasá un poco todos los días.</h1>
+
+    <p class="hero-desc">
+      Ejercitá las definiciones y propiedades que tanto cuestan entender de forma efectiva.
+    </p>
+
+    <!-- LaTeX notation cycler -->
+    <div class="notation-cycler">
+      <div class="notation-stage-label">
+        <span class="notation-belt-dot" id="notation-dot"></span>
+        <span id="notation-stage-name"></span>
+      </div>
+      <div id="notation-display" class="notation-display"></div>
+    </div>
+
+  </div>
+
+  <div class="hero-footer">
+    <a href="https://intervalo-mu.vercel.app" target="_blank" rel="noopener noreferrer">
+      <button class="btn-cta">Probar ahora</button>
+    </a>
+    <div class="scroll-cue">
+      <svg class="scroll-chevron" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CONTENT INTRO — fondo azul
+══════════════════════════════════════════════════════════════════ -->
+<section class="content-intro">
+  <div class="container">
+    <h2 class="content-intro-title">Mantenete en contacto constante con los contenidos</h2>
+    <p class="content-intro-sub">Un repositorio de ejercicios enfocado en los conceptos fundamentales, organizado por niveles, temas y habilidades.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     QUESTION LOOP — grilla
+══════════════════════════════════════════════════════════════════ -->
+<section class="question-section">
+  <div class="question-loop-wrap">
+    <div class="question-tag-row">
+      <span class="q-belt-dot" id="q-dot"></span>
+      <span class="q-tag" id="q-tag-1"></span>
+      <span class="q-tag-sep">◆</span>
+      <span class="q-tag" id="q-tag-2"></span>
+      <span class="q-tag-sep">◆</span>
+      <span class="q-tag" id="q-tag-3"></span>
+    </div>
+    <div class="q-body">
+      <div class="q-question" id="q-question"></div>
+      <div class="q-display" id="q-display"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PROGRESS HEADER
+══════════════════════════════════════════════════════════════════ -->
+<div class="progress-header-section">
+  <div class="container">
+    <h2 class="progress-title">Progreso acorde al plan de estudios</h2>
+    <p class="progress-sub">Un sistema que incorpora contenido nuevo a medida que lo anterior se consolida, logrando un progreso orgánico que prioriza lo que más necesitás reforzar.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PROGRESS CHART
+══════════════════════════════════════════════════════════════════ -->
+<div class="progress-chart-section" id="progress-section">
+  <div class="chart-content-wrap">
+    <div class="chart-legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#E0DDD0"></span>Funciones</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#1C3A8B"></span>Límites</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#6B2D8B"></span>Derivadas</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#6B3A1F"></span>Integrales</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#3a3a3a;border:1px solid rgba(255,255,255,0.12)"></span>Aplicaciones</div>
+    </div>
+    <div id="sq-grid" class="sq-grid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="cta-block">
+    <h2 class="cta-title">Retené lo que ya entendiste.</h2>
+    <p class="cta-sub">Repasá de forma inteligente haciendo un poco todos los días.</p>
+    <div class="cta-actions">
+      <a href="conocer-mas.html">
+        <button class="btn-ghost">Conocer más</button>
+      </a>
+      <a href="https://intervalo-mu.vercel.app" target="_blank" rel="noopener noreferrer">
+        <button class="btn-cta-light">Comenzar ahora</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-inner">
+      <div class="wordmark footer-wordmark">
+        <span class="wordmark-text">intervalo</span>
+        <div class="belt-bar">
+          <span style="background:var(--belt-white)"></span>
+          <span style="background:var(--belt-blue)"></span>
+          <span style="background:var(--belt-purple)"></span>
+          <span style="background:var(--belt-brown)"></span>
+          <span style="background:var(--belt-black)"></span>
+        </div>
+      </div>
+
+      <div class="footer-creators">
+        <a href="https://github.com/nvranco" target="_blank" rel="noopener noreferrer" class="creator-card">
+          <img src="https://avatars.githubusercontent.com/nvranco" alt="Nicolás Vrancovich" class="creator-photo" />
+          <div class="creator-info">
+            <span class="creator-name">Nicolás Vrancovich</span>
+            <span class="creator-handle">@nvranco</span>
+          </div>
+        </a>
+        <a href="https://github.com/sgalanb" target="_blank" rel="noopener noreferrer" class="creator-card">
+          <img src="https://avatars.githubusercontent.com/sgalanb" alt="Santiago Galán" class="creator-photo" />
+          <div class="creator-info">
+            <span class="creator-name">Santiago Galán</span>
+            <span class="creator-handle">@sgalanb</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-copy">
+      <p>2026 Intervalo. Desarrollado por y para estudiantes de carreras STEM.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const stages = [
+    {
+      name: 'Funciones',
+      color: '#E0DDD0',
+      exprs: [
+        'f(x) = x^2 - 3x + 2',
+        'y = \\sqrt{x^2 + 1}',
+        'f(x) = \\dfrac{1}{x - 2}',
+        'g(x) = e^x \\cdot \\ln(x)',
+        'h(x) = \\sin(x) + \\cos(2x)',
+      ]
+    },
+    {
+      name: 'Límites',
+      color: '#1C3A8B',
+      exprs: [
+        '\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = 1',
+        '\\lim_{x \\to \\infty} \\left(1 + \\dfrac{1}{x}\\right)^x = e',
+        '\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}',
+        '\\lim_{x \\to 0^+} \\ln(x) = -\\infty',
+      ]
+    },
+    {
+      name: 'Derivadas',
+      color: '#6B2D8B',
+      exprs: [
+        "f'(x) = 2x - 3",
+        '\\dfrac{d}{dx}\\left[x^n\\right] = nx^{n-1}',
+        '\\dfrac{\\partial f}{\\partial x}',
+        '\\dfrac{dy}{dx} = \\cos(x)',
+        "(fg)' = f'g + fg'",
+      ]
+    },
+    {
+      name: 'Integrales',
+      color: '#6B3A1F',
+      exprs: [
+        '\\int x^2 \\, dx = \\dfrac{x^3}{3} + C',
+        '\\displaystyle\\int_0^1 x^2 \\, dx = \\dfrac{1}{3}',
+        '\\int \\dfrac{1}{x} \\, dx = \\ln|x| + C',
+        '\\displaystyle\\int_a^b f(x) \\, dx = F(b) - F(a)',
+      ]
+    }
+  ];
+
+  let si = 0;
+  const dot      = document.getElementById('notation-dot');
+  const nameEl   = document.getElementById('notation-stage-name');
+  const displayEl = document.getElementById('notation-display');
+
+  function randomExpr(stage) {
+    return stage.exprs[Math.floor(Math.random() * stage.exprs.length)];
+  }
+
+  function render() {
+    const stage = stages[si];
+    dot.style.background = stage.color;
+    nameEl.textContent   = stage.name;
+    katex.render(randomExpr(stage), displayEl, { throwOnError: false, displayMode: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    render();
+    setInterval(() => {
+      si = (si + 1) % stages.length;
+      render();
+    }, 1000);
+  });
+
+  /* ── Question loop ─────────────────────────────────────────────── */
+  const qDot      = document.getElementById('q-dot');
+  const qTag1     = document.getElementById('q-tag-1');
+  const qTag2     = document.getElementById('q-tag-2');
+  const qTag3     = document.getElementById('q-tag-3');
+  const qQuestion = document.getElementById('q-question');
+  const qDisp     = document.getElementById('q-display');
+
+  const qItems = [
+    { color:'#E0DDD0', t1:'Funciones', t2:'Polinomios', t3:'Léxico',
+      qt:'¿Cuál es el grado del siguiente polinomio?',
+      q:'3x^4 - 2x + 1' },
+    { color:'#E0DDD0', t1:'Funciones', t2:'Lineales', t3:'Formulación',
+      qt:'¿Cuál es la pendiente de la siguiente función?',
+      q:'y = 3x - 5' },
+    { color:'#E0DDD0', t1:'Funciones', t2:'Cuadráticas', t3:'Clasificación',
+      qt:'¿Cuántas raíces reales tiene la siguiente ecuación?',
+      q:'x^2 - 4 = 0' },
+    { color:'#1C3A8B', t1:'Límites', t2:'Directa', t3:'Resolución',
+      qt:'¿Cuál es el resultado del siguiente límite?',
+      q:'\\lim_{x \\to 3}(x^2 + 1)' },
+    { color:'#1C3A8B', t1:'Límites', t2:'Notable', t3:'Formulación',
+      qt:'¿Cuánto vale este límite notable?',
+      q:'\\lim_{x \\to 0}\\dfrac{\\sin x}{x}' },
+    { color:'#1C3A8B', t1:'Límites', t2:'Indeterminación', t3:'Resolución',
+      qt:'¿Cuánto vale el siguiente límite?',
+      q:'\\lim_{x \\to 2}\\dfrac{x^2 - 4}{x - 2}' },
+    { color:'#6B2D8B', t1:'Derivadas', t2:'Potencia', t3:'Derivación',
+      qt:'¿Cuál es la derivada de la siguiente función?',
+      q:"f(x) = x^5" },
+    { color:'#6B2D8B', t1:'Derivadas', t2:'Regla de la cadena', t3:'Derivación',
+      qt:'¿Cuál es la derivada de la siguiente función compuesta?',
+      q:"h(x) = (3x^2 + 1)^4" },
+    { color:'#6B2D8B', t1:'Derivadas', t2:'Exponencial', t3:'Formulación',
+      qt:'¿Cuál es la derivada de la siguiente función?',
+      q:"f(x) = e^{2x}" },
+    { color:'#6B3A1F', t1:'Integrales', t2:'Potencia', t3:'Integración',
+      qt:'¿Cuál es la integral de la siguiente función?',
+      q:'\\int x^4 \\, dx' },
+    { color:'#6B3A1F', t1:'Integrales', t2:'Definida', t3:'Resolución',
+      qt:'¿Cuánto vale la siguiente integral definida?',
+      q:'\\int_0^1 x^2 \\, dx' },
+    { color:'#6B3A1F', t1:'Integrales', t2:'Trigonométricas', t3:'Formulación',
+      qt:'¿Cuál es la integral de la siguiente función?',
+      q:'\\int \\cos(x)\\,dx' },
+  ];
+
+  function renderInlineMath(text, el) {
+    const parts = text.split(/\$([^$]+)\$/);
+    el.innerHTML = '';
+    // Wrap in a single span so flex container doesn't collapse whitespace text nodes
+    const wrap = document.createElement('span');
+    parts.forEach((p, i) => {
+      if (i % 2 === 1) {
+        const span = document.createElement('span');
+        katex.render(p, span, { throwOnError: false, displayMode: false });
+        wrap.appendChild(span);
+      } else {
+        wrap.appendChild(document.createTextNode(p));
+      }
+    });
+    el.appendChild(wrap);
+  }
+
+  let qi = 0;
+  function renderQ() {
+    const item = qItems[qi];
+    qDot.style.background = item.color;
+    qTag1.textContent = item.t1.toUpperCase();
+    qTag2.textContent = item.t2.toUpperCase();
+    qTag3.textContent = item.t3.toUpperCase();
+    qQuestion.textContent = item.qt;
+    katex.render(item.q, qDisp, { throwOnError: false, displayMode: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderQ();
+    setInterval(() => { qi = (qi + 1) % qItems.length; renderQ(); }, 2500);
+  });
+
+  /* ── Square grid progress chart ───────────────────────────────── */
+  (function () {
+    const COLS = 26, ROWS = 40, TOTAL = COLS * ROWS;
+
+    const COLORS = [
+      '#E0DDD0',  // Funciones
+      '#1C3A8B',  // Límites
+      '#6B2D8B',  // Derivadas
+      '#6B3A1F',  // Integrales
+      '#3a3a3a',  // Aplicaciones
+    ];
+
+    // Waypoints: [progress, funciones, limites, derivadas, integrales, aplicaciones]
+    const WP = [
+      [0.00, 1.00, 0.00, 0.00, 0.00, 0.00],
+      [0.15, 0.80, 0.20, 0.00, 0.00, 0.00],
+      [0.30, 0.50, 0.35, 0.15, 0.00, 0.00],
+      [0.45, 0.25, 0.30, 0.35, 0.10, 0.00],
+      [0.60, 0.10, 0.15, 0.35, 0.30, 0.10],
+      [0.75, 0.05, 0.08, 0.20, 0.37, 0.30],
+      [1.00, 0.02, 0.05, 0.10, 0.25, 0.58],
+    ];
+
+    function pickColor(p) {
+      let i = 0;
+      while (i < WP.length - 2 && WP[i + 1][0] <= p) i++;
+      const t = (p - WP[i][0]) / (WP[i + 1][0] - WP[i][0]);
+      const probs = WP[i].slice(1).map((v, j) => v + (WP[i + 1][j + 1] - v) * t);
+      const r = Math.random();
+      let cum = 0;
+      for (let j = 0; j < probs.length; j++) {
+        cum += probs[j];
+        if (r < cum) return COLORS[j];
+      }
+      return COLORS[COLORS.length - 1];
+    }
+
+    // Build grid
+    const grid = document.getElementById('sq-grid');
+    const sqs = [];
+    for (let i = 0; i < TOTAL; i++) {
+      const el = document.createElement('div');
+      el.className = 'sq';
+      grid.appendChild(el);
+      sqs.push(el);
+    }
+
+    // Column heights: how many squares have accumulated from the bottom in each column
+    const colHeights = new Array(COLS).fill(0);
+
+    function spawnSquare() {
+      // Pick a random column that still has space
+      const avail = [];
+      for (let c = 0; c < COLS; c++) {
+        if (colHeights[c] < ROWS) avail.push(c);
+      }
+      if (!avail.length) return;
+      const col = avail[Math.floor(Math.random() * avail.length)];
+      const row = colHeights[col]; // accumulate top→down
+      sqs[row * COLS + col].style.background = pickColor(fillIdx / (TOTAL - 1));
+      colHeights[col]++;
+      fillIdx++;
+    }
+
+    let animated = false, fillIdx = 0;
+    let batchLeft = 0, pauseLeft = 0, batchToggle = false;
+
+    function step() {
+      if (fillIdx >= TOTAL) return;
+
+      if (pauseLeft > 0) {
+        pauseLeft--;
+        requestAnimationFrame(step);
+        return;
+      }
+
+      if (batchLeft === 0) {
+        batchLeft = Math.floor(Math.random() * 6) + 15;  // 15–20 squares
+        pauseLeft = Math.floor(Math.random() * 9) + 12;  // 12–20 frame pause
+        requestAnimationFrame(step);
+        return;
+      }
+
+      batchToggle = !batchToggle;
+      if (batchToggle) {
+        spawnSquare();
+        batchLeft--;
+      }
+      requestAnimationFrame(step);
+    }
+
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !animated) {
+        animated = true;
+        requestAnimationFrame(step);
+      }
+    }, { threshold: 0.1 }).observe(document.getElementById('progress-section'));
+  })();
+</script>
+</body>
+</html>
