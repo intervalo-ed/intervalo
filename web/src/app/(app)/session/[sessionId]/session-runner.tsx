@@ -1,5 +1,6 @@
 "use client"
 
+import MathGraph from "@/components/math-graph"
 import MathText from "@/components/math-text"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -150,9 +151,10 @@ function QuestionView({
         </div>
 
         {exercise.graph_fn && (
-          <div className="rounded border border-dashed border-foreground/30 p-4 text-xs text-muted-foreground">
-            [Gráfico: {exercise.graph_fn}] — pendiente integrar mafs
-          </div>
+          <MathGraph
+            graphFn={exercise.graph_fn}
+            graphView={exercise.graph_view}
+          />
         )}
 
         <motion.div
@@ -246,7 +248,7 @@ function Feedback({
   firstTry: boolean
 }) {
   return (
-    <div className="rounded-md border border-green-500/40 bg-green-500/10 p-3 text-sm">
+    <div className="border border-green-500/40 bg-green-500/10 p-3 text-sm">
       <div className="flex items-center justify-between gap-3">
         <span className="font-medium text-green-700 dark:text-green-300">
           {firstTry ? "¡Correcto!" : "Correcto, pero no en el primer intento"}

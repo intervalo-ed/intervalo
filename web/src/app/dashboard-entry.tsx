@@ -106,6 +106,7 @@ export default function DashboardEntry() {
             variant="outline"
             size="lg"
             className="h-12"
+            nativeButton={false}
             render={<Link href="/zen" />}
           >
             Modo Zen
