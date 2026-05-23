@@ -54,14 +54,14 @@ export default function ZenConfig() {
   return (
     <main className="mx-auto flex max-w-md flex-col gap-6 px-6 py-8">
       <div>
-        <h1 className="text-2xl font-semibold">Modo Zen</h1>
+        <h1 className="text-3xl font-semibold">Modo Zen</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Práctica libre. No actualiza tu progreso.
         </p>
       </div>
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-medium">Cinturones</h2>
+        <h2 className="text-base font-medium">Cinturones</h2>
         <div className="grid grid-cols-2 gap-2">
           {BELT_ORDER.map((belt) => (
             <Toggle
@@ -78,7 +78,7 @@ export default function ZenConfig() {
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-medium">Cantidad</h2>
+        <h2 className="text-base font-medium">Cantidad</h2>
         <div className="flex items-center gap-2">
           <ButtonGroup>
             <Button

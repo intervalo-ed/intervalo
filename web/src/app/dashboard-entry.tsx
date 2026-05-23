@@ -65,10 +65,10 @@ export default function DashboardEntry() {
           )}
           {data && (
             <>
-              <h1 className="text-2xl font-semibold">
+              <h1 className="text-3xl font-semibold">
                 Nivel {data.level_info.level}
               </h1>
-              <p className="mt-2 text-muted-foreground">
+              <p className="mt-2 text-sm text-muted-foreground">
                 {data.level_info.xp_in_level} / {data.level_info.xp_required} XP
               </p>
               <Progress
@@ -124,7 +124,7 @@ export default function DashboardEntry() {
 
       {data && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Cinturones</h2>
+          <h2 className="text-xl font-semibold">Cinturones</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {BELT_ORDER.map((belt) => (
               <BeltCard

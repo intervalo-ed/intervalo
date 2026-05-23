@@ -64,10 +64,10 @@ export default function OnboardingWizard() {
       onSubmit={onSubmit}
       className="mx-auto flex max-w-md flex-col gap-5 px-6 py-16"
     >
-      <h1 className="text-2xl font-semibold">
+      <h1 className="text-3xl font-semibold">
         {greetingName ? `Hola, ${greetingName}` : "Bienvenido"}
       </h1>
-      <p className="text-foreground/70">Contanos un poco antes de empezar.</p>
+      <p className="text-sm text-foreground/70">Contanos un poco antes de empezar.</p>
 
       <label className="flex flex-col gap-1">
         <span className="text-sm font-medium">Carrera</span>

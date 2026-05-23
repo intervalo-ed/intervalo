@@ -28,21 +28,21 @@ export default function BeltCard({
         <div className="flex-1">
           <div className="flex items-baseline justify-between">
             <span className="font-medium">Cinturón {beltLabel({ belt })}</span>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               {stats.unlocked}/{stats.total}
             </span>
           </div>
           {isActive ? (
-            <div className="mt-1 flex flex-wrap gap-1.5 text-xs">
+            <div className="mt-1 flex flex-wrap gap-1.5 text-sm">
               <Chip label="nuevos" value={stats.nuevos} tone="blue" />
               <Chip label="pendientes" value={stats.pendientes} tone="orange" />
               <Chip label="aprendiendo" value={stats.aprendiendo} tone="green" />
               <Chip label="graduados" value={stats.graduados} tone="dark" />
             </div>
           ) : belt === "white" ? (
-            <p className="mt-1 text-xs text-muted-foreground">Sin iniciar</p>
+            <p className="mt-1 text-sm text-muted-foreground">Sin iniciar</p>
           ) : (
-            <p className="mt-1 text-xs text-muted-foreground">Bloqueado</p>
+            <p className="mt-1 text-sm text-muted-foreground">Bloqueado</p>
           )}
         </div>
       </CardContent>

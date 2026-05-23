@@ -68,7 +68,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   return (
     <main className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-8">
       <div>
-        <h1 className="text-2xl font-semibold">Resumen</h1>
+        <h1 className="text-3xl font-semibold">Resumen</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {data.user_name && `${data.user_name} · `}
           {accuracy}% de aciertos
@@ -89,7 +89,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
         <CardContent className="flex flex-col gap-3">
           <div className="text-sm font-medium">XP ganada</div>
           <div className="text-2xl font-semibold">+{data.xp_earned}</div>
-          <div className="text-xs text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             Nivel {data.level_info.level} · {data.level_info.xp_in_level}/
             {data.level_info.xp_required} XP
           </div>
@@ -148,7 +148,7 @@ function Stat({
   return (
     <Card size="sm">
       <CardContent className="text-center">
-        <div className="text-xs text-muted-foreground">{label}</div>
+        <div className="text-sm text-muted-foreground">{label}</div>
         <div className={`mt-1 text-2xl font-semibold ${cls}`}>{value}</div>
       </CardContent>
     </Card>

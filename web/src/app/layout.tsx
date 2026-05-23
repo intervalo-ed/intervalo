@@ -1,22 +1,14 @@
 import Providers from "@/app/providers"
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono, Nunito_Sans, Noto_Serif } from "next/font/google"
+import { Noto_Sans, Noto_Sans_Mono, Noto_Serif } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils";
 
-const notoSerifHeading = Noto_Serif({subsets:['latin'],variable:'--font-heading'});
+const notoSerifHeading = Noto_Serif({ subsets: ["latin"], variable: "--font-heading" });
 
-const nunitoSans = Nunito_Sans({subsets:['latin'],variable:'--font-sans'});
+const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
+const notoSansMono = Noto_Sans_Mono({ subsets: ["latin"], variable: "--font-noto-mono" });
 
 export const metadata: Metadata = {
   title: "Intervalo - Repaso Espaciado",
@@ -35,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", nunitoSans.variable, notoSerifHeading.variable)}
+      className={cn("h-full", "antialiased", "font-sans", notoSans.variable, notoSansMono.variable, notoSerifHeading.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

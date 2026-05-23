@@ -79,7 +79,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 function ProgressBar({ value, max }: { value: number; max: number }) {
   const pct = Math.round((value / max) * 100)
   return (
-    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+    <div className="flex items-center gap-3 text-sm text-muted-foreground">
       <span className="tabular-nums">
         {value} / {max}
       </span>
@@ -139,14 +139,14 @@ function QuestionView({
   return (
     <Card>
       <CardContent className="flex flex-col gap-5">
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-sm">
           <Badge variant="secondary">
             {skillLabel({ skill: exercise.skill })}
           </Badge>
           <span className="text-muted-foreground/40">·</span>
         </div>
 
-        <div className="text-base">
+        <div className="text-lg">
           <MathText text={exercise.question} />
         </div>
 

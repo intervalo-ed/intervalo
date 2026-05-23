@@ -133,7 +133,7 @@ export default function MathGraph({
 
   if (!fn) {
     return (
-      <div className="border border-dashed bg-muted/30 p-4 text-xs text-muted-foreground">
+      <div className="border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
         No se pudo graficar: {graphFn}
       </div>
     )
