@@ -4,6 +4,11 @@ import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryState } from "nuqs"
 import { BELT_ORDER, beltLabel, type BeltKey } from "@/lib/catalog"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
+import { Spinner } from "@/components/ui/spinner"
+import { Toggle } from "@/components/ui/toggle"
 import { useStartZen } from "./UseStartZen"
 
 export default function ZenConfig() {
@@ -50,7 +55,7 @@ export default function ZenConfig() {
     <main className="mx-auto flex max-w-md flex-col gap-6 px-6 py-8">
       <div>
         <h1 className="text-2xl font-semibold">Modo Zen</h1>
-        <p className="mt-1 text-sm text-foreground/60">
+        <p className="mt-1 text-sm text-muted-foreground">
           Práctica libre. No actualiza tu progreso.
         </p>
       </div>
@@ -58,75 +63,67 @@ export default function ZenConfig() {
       <section className="flex flex-col gap-2">
         <h2 className="text-sm font-medium">Cinturones</h2>
         <div className="grid grid-cols-2 gap-2">
-          {BELT_ORDER.map((belt) => {
-            const active = belts.includes(belt)
-            return (
-              <button
-                key={belt}
-                type="button"
-                onClick={() => toggleBelt(belt)}
-                className={`flex h-10 items-center justify-center rounded-md border text-sm transition ${
-                  active
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-foreground/15 hover:bg-foreground/5"
-                }`}
-              >
-                {beltLabel({ belt })}
-              </button>
-            )
-          })}
+          {BELT_ORDER.map((belt) => (
+            <Toggle
+              key={belt}
+              variant="outline"
+              size="lg"
+              pressed={belts.includes(belt)}
+              onPressedChange={() => toggleBelt(belt)}
+            >
+              {beltLabel({ belt })}
+            </Toggle>
+          ))}
         </div>
       </section>
 
       <section className="flex flex-col gap-2">
         <h2 className="text-sm font-medium">Cantidad</h2>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => adjustCount(-10)}
-            className="h-10 w-12 rounded-md border text-sm"
-          >
-            −10
-          </button>
-          <button
-            type="button"
-            onClick={() => adjustCount(-1)}
-            className="h-10 w-10 rounded-md border text-sm"
-          >
-            −1
-          </button>
-          <div className="flex-1 text-center text-2xl font-semibold">
+          <ButtonGroup>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => adjustCount(-10)}
+            >
+              −10
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => adjustCount(-1)}
+            >
+              −1
+            </Button>
+          </ButtonGroup>
+          <div className="flex-1 text-center text-2xl font-semibold tabular-nums">
             {count ?? 10}
           </div>
-          <button
-            type="button"
-            onClick={() => adjustCount(1)}
-            className="h-10 w-10 rounded-md border text-sm"
-          >
-            +1
-          </button>
-          <button
-            type="button"
-            onClick={() => adjustCount(10)}
-            className="h-10 w-12 rounded-md border text-sm"
-          >
-            +10
-          </button>
+          <ButtonGroup>
+            <Button variant="outline" size="lg" onClick={() => adjustCount(1)}>
+              +1
+            </Button>
+            <Button variant="outline" size="lg" onClick={() => adjustCount(10)}>
+              +10
+            </Button>
+          </ButtonGroup>
         </div>
       </section>
 
       {startZen.isError && (
-        <p className="text-sm text-red-500">{startZen.error.message}</p>
+        <Alert variant="destructive">
+          <AlertDescription>{startZen.error.message}</AlertDescription>
+        </Alert>
       )}
 
-      <button
-        type="button"
+      <Button
+        size="lg"
         onClick={onStart}
         disabled={!canStart || startZen.isPending}
-        className="inline-flex h-12 items-center justify-center rounded-md bg-foreground font-medium text-background disabled:opacity-50"
       >
+        {startZen.isPending ? <Spinner /> : null}
         {startZen.isPending ? "Cargando…" : "Empezar"}
-      </button>
+      </Button>
     </main>
   )
 }

@@ -1,14 +1,19 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { motion, AnimatePresence } from "motion/react"
 import MathText from "@/components/math-text"
-import { skillLabel, topicLabel } from "@/lib/catalog"
-import { haptic } from "@/lib/haptics"
-import { useSfx } from "@/lib/audio/UseSfx"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { Spinner } from "@/components/ui/spinner"
 import type { SessionExercise } from "@/lib/api/types"
+import { useSfx } from "@/lib/audio/UseSfx"
+import { skillLabel } from "@/lib/catalog"
+import { haptic } from "@/lib/haptics"
+import { AnimatePresence, motion } from "motion/react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useRef, useState } from "react"
 import { useAnswer } from "./UseAnswer"
 import { useSessionPayload } from "./UseSessionPayload"
 
@@ -19,8 +24,9 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   if (payload === undefined) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-12">
-        <p className="text-foreground/60">Cargando sesión…</p>
+      <main className="mx-auto flex max-w-2xl items-center gap-2 px-6 py-12 text-sm text-muted-foreground">
+        <Spinner />
+        <span>Cargando sesión…</span>
       </main>
     )
   }
@@ -29,15 +35,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     return (
       <main className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
         <h1 className="text-xl font-semibold">Esta sesión expiró</h1>
-        <p className="text-sm text-foreground/70">
+        <p className="text-sm text-muted-foreground">
           Iniciá una nueva desde el inicio.
         </p>
-        <Link
-          href="/"
-          className="inline-flex h-10 items-center rounded-md bg-foreground px-4 font-medium text-background"
-        >
-          Volver al inicio
-        </Link>
+        <Button render={<Link href="/" />}>Volver al inicio</Button>
       </main>
     )
   }
@@ -77,17 +78,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 function ProgressBar({ value, max }: { value: number; max: number }) {
   const pct = Math.round((value / max) * 100)
   return (
-    <div className="flex items-center gap-3 text-xs text-foreground/60">
-      <span>
+    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+      <span className="tabular-nums">
         {value} / {max}
       </span>
-      <div className="h-2 flex-1 overflow-hidden rounded bg-foreground/10">
-        <motion.div
-          className="h-full bg-foreground"
-          animate={{ width: `${pct}%` }}
-          transition={{ duration: 0.3 }}
-        />
-      </div>
+      <Progress value={pct} className="flex-1" />
     </div>
   )
 }
@@ -141,71 +136,65 @@ function QuestionView({
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg border p-6">
-      <div className="flex items-center gap-2 text-xs">
-        <span className="rounded bg-foreground/10 px-2 py-0.5 font-medium">
-          {skillLabel({ skill: exercise.skill })}
-        </span>
-        <span className="text-foreground/40">·</span>
-        <span className="text-foreground/60">
-          {topicLabel({ topic: exercise.topic })}
-        </span>
-      </div>
-
-      <div className="text-base">
-        <MathText text={exercise.question} />
-      </div>
-
-      {exercise.graph_fn && (
-        <div className="rounded border border-dashed border-foreground/30 p-4 text-xs text-foreground/50">
-          [Gráfico: {exercise.graph_fn}] — pendiente integrar mafs
+    <Card>
+      <CardContent className="flex flex-col gap-5">
+        <div className="flex items-center gap-2 text-xs">
+          <Badge variant="secondary">
+            {skillLabel({ skill: exercise.skill })}
+          </Badge>
+          <span className="text-muted-foreground/40">·</span>
         </div>
-      )}
 
-      <motion.div
-        key={shakeKey}
-        animate={shakeKey > 0 ? { x: [0, -6, 6, -4, 4, 0] } : {}}
-        transition={{ duration: 0.35 }}
-        className="flex flex-col gap-2"
-      >
-        {exercise.options.map((opt, i) => (
-          <OptionButton
-            key={i}
-            option={opt}
-            isCorrect={i === exercise.correct_index}
-            wasTried={tried.has(i)}
-            done={done}
-            onSelect={() => onPick(i)}
-          />
-        ))}
-      </motion.div>
+        <div className="text-base">
+          <MathText text={exercise.question} />
+        </div>
 
-      <AnimatePresence>
-        {done && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <Feedback
-              text={exercise.feedback_correct}
-              xp={answer.data?.xp_earned}
-              firstTry={answer.data?.correct === true}
-            />
-          </motion.div>
+        {exercise.graph_fn && (
+          <div className="rounded border border-dashed border-foreground/30 p-4 text-xs text-muted-foreground">
+            [Gráfico: {exercise.graph_fn}] — pendiente integrar mafs
+          </div>
         )}
-      </AnimatePresence>
 
-      <button
-        type="button"
-        onClick={onAdvance}
-        disabled={!done}
-        className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-foreground font-medium text-background disabled:opacity-40"
-      >
-        {isLast ? "Finalizar" : "Siguiente"}
-      </button>
-    </div>
+        <motion.div
+          key={shakeKey}
+          animate={shakeKey > 0 ? { x: [0, -6, 6, -4, 4, 0] } : {}}
+          transition={{ duration: 0.35 }}
+          className="flex flex-col gap-2"
+        >
+          {exercise.options.map((opt, i) => (
+            <OptionButton
+              key={i}
+              option={opt}
+              isCorrect={i === exercise.correct_index}
+              wasTried={tried.has(i)}
+              done={done}
+              onSelect={() => onPick(i)}
+            />
+          ))}
+        </motion.div>
+
+        <AnimatePresence>
+          {done && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden"
+            >
+              <Feedback
+                text={exercise.feedback_correct}
+                xp={answer.data?.xp_earned}
+                firstTry={answer.data?.correct === true}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Button size="lg" onClick={onAdvance} disabled={!done}>
+          {isLast ? "Finalizar" : "Siguiente"}
+        </Button>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -225,20 +214,25 @@ function OptionButton({
   const pickedThis = done && isCorrect
   const struck = wasTried
 
-  let cls = "border-foreground/15 hover:bg-foreground/5"
-  if (pickedThis) cls = "border-green-500 bg-green-500/10 text-green-700 dark:text-green-300"
-  else if (struck) cls = "border-red-500/40 bg-red-500/5 text-foreground/40 line-through"
-  else if (done) cls = "border-foreground/10 text-foreground/50 cursor-not-allowed"
+  let toneCls = ""
+  if (pickedThis) {
+    toneCls =
+      "border-green-500 bg-green-500/10 text-green-700 dark:text-green-300"
+  } else if (struck) {
+    toneCls = "border-red-500/40 bg-red-500/5 text-foreground/40 line-through"
+  } else if (done) {
+    toneCls = "text-muted-foreground cursor-not-allowed"
+  }
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="outline"
       onClick={onSelect}
       disabled={done || struck}
-      className={`flex items-center justify-between rounded-md border px-4 py-3 text-left transition ${cls}`}
+      className={`h-auto min-h-11 justify-start px-4 py-3 text-left text-sm whitespace-normal ${toneCls}`}
     >
       <MathText text={option} />
-    </button>
+    </Button>
   )
 }
 
@@ -252,15 +246,18 @@ function Feedback({
   firstTry: boolean
 }) {
   return (
-    <div className="rounded-md bg-green-500/10 p-3 text-sm">
+    <div className="rounded-md border border-green-500/40 bg-green-500/10 p-3 text-sm">
       <div className="flex items-center justify-between gap-3">
         <span className="font-medium text-green-700 dark:text-green-300">
           {firstTry ? "¡Correcto!" : "Correcto, pero no en el primer intento"}
         </span>
         {xp !== undefined && xp > 0 && (
-          <span className="text-xs text-green-700 dark:text-green-300">
+          <Badge
+            variant="secondary"
+            className="bg-green-500/20 text-green-700 dark:text-green-300"
+          >
             +{xp} XP
-          </span>
+          </Badge>
         )}
       </div>
       <div className="mt-1 text-foreground/85">

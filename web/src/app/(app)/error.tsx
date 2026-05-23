@@ -1,5 +1,8 @@
 "use client"
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+
 export default function AppError({
   error,
   reset,
@@ -8,15 +11,14 @@ export default function AppError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto max-w-md px-6 py-16 text-center">
-      <h2 className="text-lg font-semibold">Algo salió mal</h2>
-      <p className="mt-2 text-sm text-foreground/70">{error.message}</p>
-      <button
-        onClick={reset}
-        className="mt-4 inline-flex h-9 items-center rounded-md border px-4 text-sm"
-      >
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
+      <Alert variant="destructive">
+        <AlertTitle>Algo salió mal</AlertTitle>
+        <AlertDescription>{error.message}</AlertDescription>
+      </Alert>
+      <Button variant="outline" onClick={reset}>
         Reintentar
-      </button>
+      </Button>
     </div>
   )
 }

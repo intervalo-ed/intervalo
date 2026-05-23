@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80">
+  <defs>
+    <clipPath id="beltClip">
+      <rect x="60" y="56" width="200" height="8" rx="4"/>
+    </clipPath>
+  </defs>
+  <text x="160" y="48" text-anchor="middle"
+        font-family="'Computer Modern Serif', 'Roboto Serif', Georgia, serif"
+        font-size="56" font-weight="100" fill="#F6F8FC">intervalo</text>
+  <g clip-path="url(#beltClip)">
+    <rect x="60"  y="56" width="40" height="8" fill="#E0DDD0"/>
+    <rect x="100" y="56" width="40" height="8" fill="#1C3A8B"/>
+    <rect x="140" y="56" width="40" height="8" fill="#6B2D8B"/>
+    <rect x="180" y="56" width="40" height="8" fill="#6B3A1F"/>
+    <rect x="220" y="56" width="40" height="8" fill="#111111"/>
+  </g>
+</svg>

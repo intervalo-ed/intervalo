@@ -1,7 +1,8 @@
-import { auth, currentUser } from "@clerk/nextjs/server"
+import { Button } from "@/components/ui/button"
 import { SignOutButton } from "@clerk/nextjs"
-import { redirect } from "next/navigation"
+import { auth, currentUser } from "@clerk/nextjs/server"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 export default async function AppLayout({
   children,
@@ -25,9 +26,9 @@ export default async function AppLayout({
         </Link>
         <nav className="flex items-center gap-4 text-sm">
           <SignOutButton>
-            <button className="inline-flex h-8 items-center rounded-md border px-3">
+            <Button variant="outline" size="sm">
               Cerrar sesión
-            </button>
+            </Button>
           </SignOutButton>
         </nav>
       </header>

@@ -4,6 +4,12 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
+import { Alert, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Item, ItemActions, ItemContent, ItemGroup, ItemTitle } from "@/components/ui/item"
+import { Progress } from "@/components/ui/progress"
+import { Spinner } from "@/components/ui/spinner"
 import { queryKeys } from "@/lib/query/keys"
 import { skillLabel, topicLabel } from "@/lib/catalog"
 import { clearSession } from "@/lib/session/storage"
@@ -35,24 +41,24 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
 
   if (isLoading) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-12">
-        <p className="text-foreground/60">Cargando resumen…</p>
+      <main className="mx-auto flex max-w-2xl items-center gap-2 px-6 py-12 text-sm text-muted-foreground">
+        <Spinner />
+        <span>Cargando resumen…</span>
       </main>
     )
   }
 
   if (isError || !data) {
     return (
-      <main className="mx-auto max-w-md px-6 py-16 text-center">
-        <p className="text-red-500">
-          {error?.message ?? "No pudimos cargar el resumen"}
-        </p>
-        <button
-          onClick={goHome}
-          className="mt-4 inline-flex h-10 items-center rounded-md border px-4 text-sm"
-        >
+      <main className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
+        <Alert variant="destructive">
+          <AlertTitle>
+            {error?.message ?? "No pudimos cargar el resumen"}
+          </AlertTitle>
+        </Alert>
+        <Button variant="outline" onClick={goHome}>
           Volver al inicio
-        </button>
+        </Button>
       </main>
     )
   }
@@ -63,7 +69,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     <main className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-8">
       <div>
         <h1 className="text-2xl font-semibold">Resumen</h1>
-        <p className="mt-1 text-sm text-foreground/60">
+        <p className="mt-1 text-sm text-muted-foreground">
           {data.user_name && `${data.user_name} · `}
           {accuracy}% de aciertos
         </p>
@@ -79,54 +85,47 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
         <Stat label="Falladas" value={data.incorrect} tone="red" />
       </motion.div>
 
-      <div className="rounded-lg border p-4">
-        <div className="text-sm font-medium">XP ganada</div>
-        <div className="mt-1 text-2xl font-semibold">+{data.xp_earned}</div>
-        <div className="mt-3 text-xs text-foreground/60">
-          Nivel {data.level_info.level} · {data.level_info.xp_in_level}/
-          {data.level_info.xp_required} XP
-        </div>
-        <div className="mt-2 h-2 w-full overflow-hidden rounded bg-foreground/10">
-          <motion.div
-            className="h-full bg-foreground"
-            initial={{ width: 0 }}
-            animate={{ width: `${data.level_info.progress_pct}%` }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          />
-        </div>
-      </div>
+      <Card>
+        <CardContent className="flex flex-col gap-3">
+          <div className="text-sm font-medium">XP ganada</div>
+          <div className="text-2xl font-semibold">+{data.xp_earned}</div>
+          <div className="text-xs text-muted-foreground">
+            Nivel {data.level_info.level} · {data.level_info.xp_in_level}/
+            {data.level_info.xp_required} XP
+          </div>
+          <Progress value={data.level_info.progress_pct} />
+        </CardContent>
+      </Card>
 
       {data.belt_progress.promoted && (
-        <div className="rounded-lg border border-yellow-500/40 bg-yellow-500/10 p-4 text-sm">
-          ¡Cinturón promocionado!
-        </div>
+        <Alert className="border-yellow-500/40 bg-yellow-500/10">
+          <AlertTitle>¡Cinturón promocionado!</AlertTitle>
+        </Alert>
       )}
 
       <section>
-        <h2 className="mb-2 text-sm font-medium text-foreground/70">Ítems</h2>
-        <ul className="flex flex-col gap-1">
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">Ítems</h2>
+        <ItemGroup>
           {data.items.map((item, i) => (
-            <li
-              key={i}
-              className="flex items-center justify-between rounded-md border px-3 py-2 text-sm"
-            >
-              <span>
-                {topicLabel({ topic: item.topic })} · {skillLabel({ skill: item.skill })}
-              </span>
-              <span className={item.correct ? "text-green-600" : "text-red-500"}>
-                {item.correct ? "✓" : "✗"}
-              </span>
-            </li>
+            <Item key={i} variant="outline" size="sm">
+              <ItemContent>
+                <ItemTitle>
+                  {topicLabel({ topic: item.topic })} · {skillLabel({ skill: item.skill })}
+                </ItemTitle>
+              </ItemContent>
+              <ItemActions>
+                <span className={item.correct ? "text-green-600" : "text-red-500"}>
+                  {item.correct ? "✓" : "✗"}
+                </span>
+              </ItemActions>
+            </Item>
           ))}
-        </ul>
+        </ItemGroup>
       </section>
 
-      <button
-        onClick={goHome}
-        className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-foreground font-medium text-background"
-      >
+      <Button size="lg" onClick={goHome}>
         Volver al inicio
-      </button>
+      </Button>
     </main>
   )
 }
@@ -147,9 +146,11 @@ function Stat({
         ? "text-red-500"
         : "text-foreground"
   return (
-    <div className="rounded-lg border p-3 text-center">
-      <div className="text-xs text-foreground/60">{label}</div>
-      <div className={`mt-1 text-2xl font-semibold ${cls}`}>{value}</div>
-    </div>
+    <Card size="sm">
+      <CardContent className="text-center">
+        <div className="text-xs text-muted-foreground">{label}</div>
+        <div className={`mt-1 text-2xl font-semibold ${cls}`}>{value}</div>
+      </CardContent>
+    </Card>
   )
 }

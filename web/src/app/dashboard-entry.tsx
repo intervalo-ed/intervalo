@@ -4,6 +4,10 @@ import { SignOutButton, useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import BeltCard from "./belt-card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { Spinner } from "@/components/ui/spinner"
 import { BELT_ORDER } from "@/lib/catalog"
 import { beltStats } from "@/lib/catalog/stats"
 import { useUserProgress } from "./UseUserProgress"
@@ -46,44 +50,50 @@ export default function DashboardEntry() {
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-12">
       <div className="flex items-start justify-between">
         <div>
-          {isLoading && <p className="text-foreground/60">Cargando progreso…</p>}
+          {isLoading && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Spinner />
+              <span>Cargando progreso…</span>
+            </div>
+          )}
           {isError && (
-            <p className="text-red-500">
-              No pudimos cargar tu progreso: {error.message}
-            </p>
+            <Alert variant="destructive">
+              <AlertDescription>
+                No pudimos cargar tu progreso: {error.message}
+              </AlertDescription>
+            </Alert>
           )}
           {data && (
             <>
               <h1 className="text-2xl font-semibold">
                 Nivel {data.level_info.level}
               </h1>
-              <p className="mt-2 text-foreground/70">
+              <p className="mt-2 text-muted-foreground">
                 {data.level_info.xp_in_level} / {data.level_info.xp_required} XP
               </p>
-              <div className="mt-3 h-2 w-64 overflow-hidden rounded bg-foreground/10">
-                <div
-                  className="h-full bg-foreground"
-                  style={{ width: `${data.level_info.progress_pct}%` }}
-                />
-              </div>
+              <Progress
+                value={data.level_info.progress_pct}
+                className="mt-3 w-64"
+              />
             </>
           )}
         </div>
         <SignOutButton>
-          <button className="inline-flex h-9 items-center rounded-md border px-3 text-sm">
+          <Button variant="outline" size="sm">
             Cerrar sesión
-          </button>
+          </Button>
         </SignOutButton>
       </div>
 
       {totals && (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <button
-            type="button"
+          <Button
+            size="lg"
+            className="h-12 flex-1"
             onClick={onRepasar}
             disabled={!canRepasar || startSession.isPending}
-            className="inline-flex h-12 flex-1 items-center justify-center rounded-md bg-foreground font-medium text-background disabled:opacity-50"
           >
+            {startSession.isPending && <Spinner />}
             {startSession.isPending
               ? "Cargando…"
               : totals.pendientes > 0
@@ -91,20 +101,24 @@ export default function DashboardEntry() {
                 : totals.unlocked === 0
                   ? "Empezar mi primera sesión"
                   : "Empezar sesión"}
-          </button>
-          <Link
-            href="/zen"
-            className="inline-flex h-12 items-center justify-center rounded-md border px-4 font-medium"
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="h-12"
+            render={<Link href="/zen" />}
           >
             Modo Zen
-          </Link>
+          </Button>
         </div>
       )}
 
       {startSession.isError && (
-        <p className="text-sm text-red-500">
-          No pudimos iniciar la sesión: {startSession.error.message}
-        </p>
+        <Alert variant="destructive">
+          <AlertDescription>
+            No pudimos iniciar la sesión: {startSession.error.message}
+          </AlertDescription>
+        </Alert>
       )}
 
       {data && (

@@ -1,6 +1,8 @@
 "use client"
 
 import Link from "next/link"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 
 export default function SessionError({
   error,
@@ -10,22 +12,16 @@ export default function SessionError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto max-w-md px-6 py-16 text-center">
-      <h2 className="text-lg font-semibold">La sesión se interrumpió</h2>
-      <p className="mt-2 text-sm text-foreground/70">{error.message}</p>
-      <div className="mt-4 flex justify-center gap-2">
-        <button
-          onClick={reset}
-          className="inline-flex h-9 items-center rounded-md border px-4 text-sm"
-        >
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
+      <Alert variant="destructive">
+        <AlertTitle>La sesión se interrumpió</AlertTitle>
+        <AlertDescription>{error.message}</AlertDescription>
+      </Alert>
+      <div className="flex justify-center gap-2">
+        <Button variant="outline" onClick={reset}>
           Reintentar
-        </button>
-        <Link
-          href="/"
-          className="inline-flex h-9 items-center rounded-md bg-foreground px-4 text-sm text-background"
-        >
-          Volver al inicio
-        </Link>
+        </Button>
+        <Button render={<Link href="/" />}>Volver al inicio</Button>
       </div>
     </div>
   )
