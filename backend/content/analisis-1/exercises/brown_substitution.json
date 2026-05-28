@@ -3,8 +3,7 @@
     "external_id": "brown_substitution_intg_01",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuál es el resultado de la integral $\\int 2x \\cdot e^{x^2} \\, dx$?",
     "options": [
       "$e^{x^2} + C$",
@@ -24,8 +23,7 @@
     "external_id": "brown_substitution_estr_01",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Si querés resolver $\\int \\frac{\\ln(x)}{x} \\, dx$, ¿cuál es la sustitución $u$ más conveniente?",
     "options": [
       "$u = x$",
@@ -45,8 +43,7 @@
     "external_id": "brown_substitution_intg_02",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Calculá la integral indefinida $\\int \\sin(5x - 2) \\, dx$.",
     "options": [
       "$5 \\cos(5x - 2) + C$",
@@ -66,10 +63,14 @@
     "external_id": "brown_substitution_apli_01",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "APLI",
-    "subtype": "text",
+    "exercise_type": "APLI",
     "question": "Al aplicar el cambio de variable $u = x^2 + 1$ para resolver la integral definida $\\int_{0}^{2} x(x^2 + 1)^3 \\, dx$, ¿cuáles son los nuevos límites de integración para la variable $u$?",
-    "options": ["De $0$ a $2$", "De $1$ a $5$", "De $1$ a $4$", "De $0$ a $5$"],
+    "options": [
+      "De $0$ a $2$",
+      "De $1$ a $5$",
+      "De $1$ a $4$",
+      "De $0$ a $5$"
+    ],
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Evaluaste $u(0) = 0^2 + 1 = 1$ y $u(2) = 2^2 + 1 = 5$.",
@@ -82,8 +83,7 @@
     "external_id": "brown_substitution_estr_02",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Para la integral $\\int x^2 \\sqrt{x^3 + 1} \\, dx$, ¿qué expresión representa correctamente a $du$ si elegimos $u = x^3 + 1$?",
     "options": [
       "$du = x^2 \\, dx$",
@@ -103,8 +103,7 @@
     "external_id": "brown_substitution_intg_03",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Resolvé $\\int \\frac{1}{3x + 4} \\, dx$.",
     "options": [
       "$\\ln|3x + 4| + C$",
@@ -124,8 +123,7 @@
     "external_id": "brown_substitution_apli_02",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "APLI",
-    "subtype": "text",
+    "exercise_type": "APLI",
     "question": "Calculá el valor exacto de $\\int_{0}^{1} e^{2x} \\, dx$.",
     "options": [
       "$e^2 - 1$",
@@ -145,8 +143,7 @@
     "external_id": "brown_substitution_intg_04",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Hallá la primitiva de $f(x) = x \\cos(x^2)$.",
     "options": [
       "$\\frac{1}{2} \\sin(x^2) + C$",
@@ -166,8 +163,7 @@
     "external_id": "brown_substitution_estr_03",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Por qué el método de sustitución también es conocido como 'regla de la cadena a la inversa'?",
     "options": [
       "Porque se usa para derivar funciones compuestas",
@@ -187,8 +183,7 @@
     "external_id": "brown_substitution_apli_03",
     "belt": "brown",
     "topic": "substitution",
-    "skill": "APLI",
-    "subtype": "text",
+    "exercise_type": "APLI",
     "question": "Calculá el área bajo la curva de $f(x) = \\frac{x}{x^2 + 1}$ desde $x=0$ hasta $x=1$.",
     "options": [
       "$\\ln(2)$",

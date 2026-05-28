@@ -47,7 +47,7 @@ def _load_json(path: Path) -> Any:
 
 def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
     required = [
-        "external_id", "belt", "topic", "subtype",
+        "external_id", "belt", "topic", "exercise_type",
         "question", "options", "correct_index",
         "feedback_correct", "feedback_incorrect",
     ]
@@ -66,10 +66,10 @@ def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
             f"{source.name}[{idx}] ({entry['external_id']}): "
             f"'correct_index' debe estar en 0..3"
         )
-    if entry["subtype"] not in ("text", "graph"):
+    if not isinstance(entry["exercise_type"], str) or not entry["exercise_type"]:
         raise ValueError(
             f"{source.name}[{idx}] ({entry['external_id']}): "
-            f"'subtype' debe ser 'text' o 'graph'"
+            f"'exercise_type' debe ser un string no vacío"
         )
 
 
@@ -194,7 +194,7 @@ def seed_exercises(
                     external_id=ext_id,
                     belt=entry["belt"],
                     topic=entry["topic"],
-                    subtype=entry["subtype"],
+                    exercise_type=entry["exercise_type"],
                     question=entry["question"],
                     option_a=options[0],
                     option_b=options[1],
@@ -213,7 +213,7 @@ def seed_exercises(
                 fields = {
                     "belt":               entry["belt"],
                     "topic":              entry["topic"],
-                    "subtype":            entry["subtype"],
+                    "exercise_type":      entry["exercise_type"],
                     "question":           entry["question"],
                     "option_a":           options[0],
                     "option_b":           options[1],

@@ -21,6 +21,18 @@ class TopicKey:
 
 
 @dataclass(frozen=True)
+class UnitKey:
+    """A (belt, topic, exercise_type) triple — the SR unit of knowledge."""
+    belt: Belt
+    topic: str
+    exercise_type: str
+
+    @property
+    def topic_key(self) -> "TopicKey":
+        return TopicKey(belt=self.belt, topic=self.topic)
+
+
+@dataclass(frozen=True)
 class Topic:
     key: str
     name: str

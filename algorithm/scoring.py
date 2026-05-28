@@ -1,7 +1,3 @@
-def quality_from_correctness(is_correct: bool) -> int:
-    """
-    Fixed SM-2 quality score:
-      - Correct   -> 4
-      - Incorrect -> 1
-    """
-    return 4 if is_correct else 1
+def quality_from_attempts(attempts: int) -> int:
+    """SM-2 quality. attempts ∈ {1..4}; 4 means user picked by elimination → fail."""
+    return {1: 5, 2: 4, 3: 3}.get(attempts, 1)

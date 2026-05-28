@@ -104,7 +104,7 @@ function QuestionScreen({
   const startedAt = useRef(Date.now())
   const [tried, setTried] = useState<Set<number>>(new Set())
   const [done, setDone] = useState(false)
-  const [firstSent, setFirstSent] = useState(false)
+  const [firstTry, setFirstTry] = useState(false)
   const [shakeKey, setShakeKey] = useState(0)
   const answer = useAnswer()
   const playCorrect = useSfx({ name: "correct" })
@@ -114,19 +114,15 @@ function QuestionScreen({
     if (done || tried.has(i)) return
     const isCorrect = i === exercise.correct_index
 
-    // Record FIRST attempt to the backend, right or wrong. Subsequent attempts
-    // are visual-only so SM-2 quality scoring reflects the first guess.
-    if (!firstSent) {
+    if (isCorrect) {
       answer.mutate({
         session_id: sessionId,
         exercise_id: exercise.id,
         answer_index: i,
+        attempts: tried.size + 1,
         response_time_s: (Date.now() - startedAt.current) / 1000,
       })
-      setFirstSent(true)
-    }
-
-    if (isCorrect) {
+      setFirstTry(tried.size === 0)
       setDone(true)
       playCorrect()
       haptic({ preset: "success" })
@@ -212,7 +208,7 @@ function QuestionScreen({
               <Feedback
                 text={exercise.feedback_correct}
                 xp={answer.data?.xp_earned}
-                firstTry={answer.data?.correct === true}
+                firstTry={firstTry}
               />
             </motion.div>
           )}

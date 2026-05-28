@@ -1,7 +1,9 @@
 """
 session_store.py — Session lifecycle: build, answer, summarize.
 
-Topic-level spaced repetition: each (belt, topic) pair is one tracked unit.
+Unit-level spaced repetition: each (belt, topic, exercise_type) triple is one
+tracked unit. A topic is considered "mastered" only once *every* one of its
+exercise_types has graduated into the reviewing phase.
 """
 
 from __future__ import annotations
@@ -10,7 +12,7 @@ import random
 import sys
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, date
+from datetime import datetime, date, time
 from pathlib import Path
 from typing import Optional
 
@@ -20,8 +22,9 @@ from algorithm import (
     Belt,
     BeltCatalog,
     SM2Config,
-    SM2TopicState,
+    SM2UnitState,
     TopicKey,
+    UnitKey,
     XP_BELT_PROMOTED,
     XP_CORRECT,
     XP_STREAK_BONUS,
@@ -31,14 +34,15 @@ from algorithm import (
     belt_progress,
     build_session,
     default_catalog,
+    is_topic_mastered,
     level_progress,
     load_belt_catalogs,
-    quality_from_correctness,
-    update_topic_state,
+    quality_from_attempts,
+    update_unit_state,
 )
-from exercise_bank import get_exercise_db
+from exercise_bank import get_exercise_db, topic_exercise_types
 from sqlalchemy.orm import Session as DBSession
-from models import Answer, Course, Session as SessionModel, TopicState, User
+from models import Answer, Course, Session as SessionModel, UnitState, User
 
 
 # ── Course slug resolution ────────────────────────────────────────────────────
@@ -76,12 +80,24 @@ def _get_catalog(course_id: int, belt: Belt, db: DBSession) -> BeltCatalog:
     return load_belt_catalogs(slug)[belt]
 
 
+def _belt_topic_types(
+    course_id: int,
+    catalog: BeltCatalog,
+    db: DBSession,
+) -> dict[TopicKey, list[str]]:
+    """Discover the exercise_types declared per topic for one belt."""
+    return {
+        tk: topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        for tk in catalog.all_keys()
+    }
+
+
 # ── Data classes ──────────────────────────────────────────────────────────────
 
 @dataclass
 class ExerciseInSession:
     exercise_id: str
-    topic_key: TopicKey
+    unit_key: UnitKey
     question: str
     options: list[str]
     correct_index: int
@@ -92,12 +108,20 @@ class ExerciseInSession:
     graph_view: list | None = None
     explanation: str | None = None
 
+    @property
+    def topic_key(self) -> TopicKey:
+        return self.unit_key.topic_key
+
+    @property
+    def exercise_type(self) -> str:
+        return self.unit_key.exercise_type
+
 
 @dataclass
 class SessionState:
     session_id: str
     user_name: str
-    topic_states: dict[TopicKey, SM2TopicState]
+    unit_states: dict[UnitKey, SM2UnitState]
     exercises: list[ExerciseInSession]
     results: list[dict] = field(default_factory=list)
     xp_session: int = 0
@@ -106,7 +130,20 @@ class SessionState:
 
 _sessions: dict[str, SessionState] = {}
 _default_config = SM2Config()
-MAX_UNLOCKED_TOPICS = 5
+
+
+class DailySessionLimitError(Exception):
+    """Raised when the user already started/finished their main session today."""
+
+
+def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool:
+    today_start = datetime.combine(date.today(), time.min)
+    return db.query(SessionModel).filter(
+        SessionModel.user_id == user_id,
+        SessionModel.course_id == course_id,
+        SessionModel.mode == "main",
+        SessionModel.started_at >= today_start,
+    ).first() is not None
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -115,13 +152,42 @@ def _get_session(session_id: str) -> Optional[SessionState]:
     return _sessions.get(session_id)
 
 
-def _unlocked_count(user_id: int, course_id: int, db: DBSession) -> int:
-    """Count topics in the learning phase (both new and in-progress)."""
-    return db.query(TopicState).filter(
-        TopicState.user_id == user_id,
-        TopicState.course_id == course_id,
-        TopicState.phase == "learning",
-    ).count()
+def _topic_has_any_units(
+    user_id: int, course_id: int, topic_key: TopicKey, db: DBSession,
+) -> bool:
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == topic_key.belt.value,
+        UnitState.topic == topic_key.topic,
+    ).first() is not None
+
+
+def _create_topic_units(
+    user_id: int,
+    course_id: int,
+    topic_key: TopicKey,
+    db: DBSession,
+) -> list[str]:
+    """Create UnitState rows for every exercise_type of the given topic."""
+    types = topic_exercise_types(course_id, topic_key.belt.value, topic_key.topic, db)
+    today = date.today()
+    for et in types:
+        db.add(UnitState(
+            user_id=user_id,
+            course_id=course_id,
+            belt=topic_key.belt.value,
+            topic=topic_key.topic,
+            exercise_type=et,
+            phase="learning",
+            step_index=0,
+            ease_factor=2.5,
+            interval_days=1,
+            repetitions=0,
+            next_due=today,
+            attempted=False,
+        ))
+    return types
 
 
 def _unlock_next_topic(
@@ -143,51 +209,45 @@ def _unlock_next_topic(
 
     for idx in range(mastered_idx + 1, len(catalog_keys)):
         next_key = catalog_keys[idx]
-        exists = db.query(TopicState).filter(
-            TopicState.user_id == user_id,
-            TopicState.course_id == course_id,
-            TopicState.belt == next_key.belt.value,
-            TopicState.topic == next_key.topic,
-        ).first()
-        if not exists:
-            db.add(TopicState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=next_key.belt.value,
-                topic=next_key.topic,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            ))
+        if not _topic_has_any_units(user_id, course_id, next_key, db):
+            _create_topic_units(user_id, course_id, next_key, db)
             return
 
 
-def _serialize_topic_state(ts: TopicState, num_steps: int) -> dict:
-    """Project a DB TopicState row into the API-facing dict."""
-    if ts.phase == "learning":
-        if not ts.attempted:
-            status = "nuevo"
-            progress = f"0/{num_steps}"
-        else:
-            status = "aprendiendo"
-            progress = f"{ts.step_index}/{num_steps}"
-    else:
-        status = "dominado"
-        progress = f"{num_steps}/{num_steps}"
+def _aggregate_topic_progress(
+    rows: list[UnitState],
+    expected_types: list[str],
+) -> dict:
+    """Roll per-unit state up into the topic-shaped progress dict the UI expects."""
+    total_types = len(expected_types)
+    mastered = sum(1 for r in rows if r.phase == "review")
+    attempted = any(r.attempted for r in rows)
+    today = date.today()
+    pending = any(r.next_due and r.next_due <= today for r in rows)
 
-    is_pending = bool(ts.next_due and ts.next_due <= date.today())
+    if total_types == 0:
+        status = "nuevo"
+    elif mastered == total_types and total_types > 0:
+        status = "dominado"
+    elif not attempted:
+        status = "nuevo"
+    else:
+        status = "aprendiendo"
+
+    next_dues = [r.next_due for r in rows if r.next_due is not None]
+    next_review = min(next_dues).isoformat() if next_dues else None
+    aggregate_phase = "review" if (
+        total_types > 0 and mastered == total_types
+    ) else "learning"
+
     return {
-        "phase": ts.phase,
-        "step_index": ts.step_index,
+        "phase": aggregate_phase,
+        "step_index": mastered,
         "status": status,
-        "progress": progress,
-        "is_pending": is_pending,
-        "attempted": ts.attempted,
-        "next_review": ts.next_due.isoformat() if ts.next_due else None,
+        "progress": f"{mastered}/{total_types}",
+        "is_pending": pending,
+        "attempted": attempted,
+        "next_review": next_review,
         "failed": False,
     }
 
@@ -211,15 +271,15 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
 
 def _build_exercise(
     idx: int,
-    topic_key: TopicKey,
+    unit_key: UnitKey,
     course_id: int,
     db: DBSession,
 ) -> ExerciseInSession:
     ex = get_exercise_db(
         course_id,
-        topic_key.belt.value,
-        topic_key.topic,
-        _default_config.graph_exercise_probability,
+        unit_key.belt.value,
+        unit_key.topic,
+        unit_key.exercise_type,
         db,
     )
     correct_answer = ex["options"][ex["correct_index"]]
@@ -228,7 +288,7 @@ def _build_exercise(
     new_correct_index = shuffled.index(correct_answer)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
-        topic_key=topic_key,
+        unit_key=unit_key,
         question=ex["question"],
         options=shuffled,
         correct_index=new_correct_index,
@@ -241,75 +301,119 @@ def _build_exercise(
     )
 
 
-def _load_or_unlock_topic_states(
+def _rows_to_unit_states(
+    rows: list[UnitState],
+) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
+    states: dict[UnitKey, SM2UnitState] = {}
+    attempted: dict[UnitKey, bool] = {}
+    for row in rows:
+        uk = UnitKey(
+            belt=Belt(row.belt),
+            topic=row.topic,
+            exercise_type=row.exercise_type,
+        )
+        states[uk] = SM2UnitState(
+            phase=row.phase,
+            step_index=row.step_index,
+            ease_factor=row.ease_factor,
+            interval=row.interval_days,
+            repetitions=row.repetitions,
+            next_review=row.next_due or date.today(),
+        )
+        attempted[uk] = row.attempted
+    return states, attempted
+
+
+def _bootstrap_first_topic_if_empty(
     user_id: int,
     course_id: int,
     db: DBSession,
-) -> tuple[dict[TopicKey, SM2TopicState], dict[TopicKey, bool]]:
+) -> None:
+    """Seed the very first topic when a user has no units yet."""
+    has_any = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).first() is not None
+    if has_any:
+        return
+    for tk in _all_topic_keys(course_id, db):
+        _create_topic_units(user_id, course_id, tk, db)
+        break
+    db.commit()
+
+
+def _load_unit_states(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    return _rows_to_unit_states(rows)
+
+
+def _make_topic_introducer(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+    unit_states: dict[UnitKey, SM2UnitState],
+    unit_attempted: dict[UnitKey, bool],
+):
     """
-    Load existing TopicState rows; create new ones up to MAX_UNLOCKED_TOPICS.
-    Returns (topic_states, topic_attempted) maps for build_session().
+    Return a callback that unlocks the next undiscovered topic on demand,
+    creating UnitState rows and mirroring them into the in-memory maps so
+    build_session sees them. Returns [] when the catalog is exhausted.
     """
     catalog_keys = _all_topic_keys(course_id, db)
-    topic_states: dict[TopicKey, SM2TopicState] = {}
-    topic_attempted: dict[TopicKey, bool] = {}
-    unlocked = _unlocked_count(user_id, course_id, db)
+    cursor = {"idx": 0}
 
-    for key in catalog_keys:
-        row = db.query(TopicState).filter(
-            TopicState.user_id == user_id,
-            TopicState.course_id == course_id,
-            TopicState.belt == key.belt.value,
-            TopicState.topic == key.topic,
-        ).first()
+    def _introduce() -> list[UnitKey]:
+        while cursor["idx"] < len(catalog_keys):
+            tk = catalog_keys[cursor["idx"]]
+            cursor["idx"] += 1
+            if _topic_has_any_units(user_id, course_id, tk, db):
+                continue
+            types = _create_topic_units(user_id, course_id, tk, db)
+            db.commit()
+            new_keys: list[UnitKey] = []
+            for et in types:
+                uk = UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+                unit_states[uk] = SM2UnitState()
+                unit_attempted[uk] = False
+                new_keys.append(uk)
+            return new_keys
+        return []
 
-        if row:
-            topic_states[key] = SM2TopicState(
-                phase=row.phase,
-                step_index=row.step_index,
-                ease_factor=row.ease_factor,
-                interval=row.interval_days,
-                repetitions=row.repetitions,
-                next_review=row.next_due or date.today(),
-            )
-            topic_attempted[key] = row.attempted
-        elif unlocked < MAX_UNLOCKED_TOPICS:
-            topic_states[key] = SM2TopicState()
-            topic_attempted[key] = False
-            unlocked += 1
-            db.add(TopicState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=key.belt.value,
-                topic=key.topic,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            ))
-
-    db.commit()
-    return topic_states, topic_attempted
+    return _introduce
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Create a new session, picking the next batch of exercises with the SR algorithm."""
-    topic_states, topic_attempted = _load_or_unlock_topic_states(user_id, course_id, db)
+    if _has_main_session_today(user_id, course_id, db):
+        raise DailySessionLimitError(
+            "Ya empezaste tu sesión de hoy. Volvé mañana."
+        )
 
-    session_topics = build_session(
-        topic_states,
-        topic_attempted=topic_attempted,
-        introduce_new_topic=None,
+    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
+
+    introduce_new_topic = _make_topic_introducer(
+        user_id, course_id, db, unit_states, unit_attempted,
+    )
+
+    session_units = build_session(
+        unit_states,
+        unit_attempted=unit_attempted,
+        introduce_new_topic=introduce_new_topic,
     )
 
     exercises = [
-        _build_exercise(idx, st.key, course_id, db)
-        for idx, st in enumerate(session_topics)
+        _build_exercise(idx, su.key, course_id, db)
+        for idx, su in enumerate(session_units)
     ]
 
     db_session = SessionModel(
@@ -317,6 +421,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         course_id=course_id,
         started_at=datetime.utcnow(),
         exercises_total=len(exercises),
+        mode="main",
     )
     db.add(db_session)
     db.flush()
@@ -327,7 +432,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     _sessions[session_id_str] = SessionState(
         session_id=session_id_str,
         user_name="",
-        topic_states=topic_states,
+        unit_states=unit_states,
         exercises=exercises,
     )
 
@@ -350,28 +455,34 @@ def create_zen_session_db(
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
-    candidate_keys: list[TopicKey] = []
+    candidate_units: list[UnitKey] = []
     for belt_str in belts:
         try:
             belt_enum = Belt(belt_str)
         except ValueError:
             continue
         catalog = all_catalogs.get(belt_enum)
-        if catalog:
-            candidate_keys.extend(catalog.all_keys())
+        if not catalog:
+            continue
+        for tk in catalog.all_keys():
+            for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db):
+                candidate_units.append(
+                    UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+                )
 
-    if not candidate_keys:
+    if not candidate_units:
         raise ValueError(f"No hay topics disponibles para los cinturones: {belts}")
 
-    sampled_keys = random.choices(candidate_keys, k=count)
+    sampled = random.choices(candidate_units, k=count)
     exercises = [
-        _build_exercise(idx, key, course_id, db)
-        for idx, key in enumerate(sampled_keys)
+        _build_exercise(idx, uk, course_id, db)
+        for idx, uk in enumerate(sampled)
     ]
 
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
+        mode="zen",
     )
     db.add(db_session)
     db.flush()
@@ -381,7 +492,7 @@ def create_zen_session_db(
     _sessions[session_id_str] = SessionState(
         session_id=session_id_str,
         user_name="",
-        topic_states={key: SM2TopicState() for key in set(sampled_keys)},
+        unit_states={uk: SM2UnitState() for uk in set(sampled)},
         exercises=exercises,
     )
 
@@ -400,35 +511,16 @@ def _reconstruct_session_state(
     db: DBSession,
 ) -> SessionState:
     """Rebuild SessionState from DB when the in-memory cache is cold."""
-    catalog_keys = _all_topic_keys(course_id, db)
-    topic_states: dict[TopicKey, SM2TopicState] = {}
-    topic_attempted: dict[TopicKey, bool] = {}
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    unit_states, unit_attempted = _rows_to_unit_states(rows)
 
-    for key in catalog_keys:
-        row = db.query(TopicState).filter(
-            TopicState.user_id == user_id,
-            TopicState.course_id == course_id,
-            TopicState.belt == key.belt.value,
-            TopicState.topic == key.topic,
-        ).first()
-        if row:
-            topic_states[key] = SM2TopicState(
-                phase=row.phase,
-                step_index=row.step_index,
-                ease_factor=row.ease_factor,
-                interval=row.interval_days,
-                repetitions=row.repetitions,
-                next_review=row.next_due or date.today(),
-            )
-            topic_attempted[key] = row.attempted
-        else:
-            topic_states[key] = SM2TopicState()
-            topic_attempted[key] = False
-
-    session_topics = build_session(topic_states, topic_attempted=topic_attempted)
+    session_units = build_session(unit_states, unit_attempted=unit_attempted)
     exercises = [
-        _build_exercise(idx, st.key, course_id, db)
-        for idx, st in enumerate(session_topics)
+        _build_exercise(idx, su.key, course_id, db)
+        for idx, su in enumerate(session_units)
     ]
 
     streak = 0
@@ -447,7 +539,7 @@ def _reconstruct_session_state(
     return SessionState(
         session_id=str(session_id_db),
         user_name="",
-        topic_states=topic_states,
+        unit_states=unit_states,
         exercises=exercises,
         streak=streak,
     )
@@ -459,10 +551,11 @@ def record_answer_db(
     course_id: int,
     exercise_id: str,
     answer_index: int,
+    attempts: int,
     response_time_s: float,
     db: DBSession,
 ) -> dict:
-    """Record an answer, update SM-2 state, and return feedback."""
+    """Record an answer, update SM-2 state for the unit, return feedback."""
     db_session = db.query(SessionModel).filter(
         SessionModel.id == session_id_db,
         SessionModel.user_id == user_id,
@@ -480,12 +573,13 @@ def record_answer_db(
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
 
-    is_correct = answer_index == exercise.correct_index
-    quality = quality_from_correctness(is_correct)
+    unit_key = exercise.unit_key
+    is_correct = attempts <= 3
+    quality = quality_from_attempts(attempts)
 
-    current_state = state.topic_states.get(exercise.topic_key, SM2TopicState())
-    new_state = update_topic_state(current_state, quality)
-    state.topic_states[exercise.topic_key] = new_state
+    current_state = state.unit_states.get(unit_key, SM2UnitState())
+    new_state = update_unit_state(current_state, quality)
+    state.unit_states[unit_key] = new_state
 
     if is_correct:
         state.streak += 1
@@ -496,32 +590,41 @@ def record_answer_db(
         state.streak = 0
         xp_earned = XP_WRONG
 
-    db_ts = db.query(TopicState).filter(
-        TopicState.user_id == user_id,
-        TopicState.course_id == course_id,
-        TopicState.belt == exercise.topic_key.belt.value,
-        TopicState.topic == exercise.topic_key.topic,
+    db_us = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == unit_key.belt.value,
+        UnitState.topic == unit_key.topic,
+        UnitState.exercise_type == unit_key.exercise_type,
     ).first()
 
-    if db_ts:
-        old_phase = db_ts.phase
-        db_ts.phase = new_state.phase
-        db_ts.step_index = new_state.step_index
-        db_ts.ease_factor = new_state.ease_factor
-        db_ts.interval_days = new_state.interval
-        db_ts.repetitions = new_state.repetitions
-        db_ts.next_due = new_state.next_review
-        db_ts.attempted = True
-        db_ts.updated_at = datetime.utcnow()
-        db_ts.last_reviewed_at = datetime.utcnow()
+    if db_us:
+        old_phase = db_us.phase
+        db_us.phase = new_state.phase
+        db_us.step_index = new_state.step_index
+        db_us.ease_factor = new_state.ease_factor
+        db_us.interval_days = new_state.interval
+        db_us.repetitions = new_state.repetitions
+        db_us.next_due = new_state.next_review
+        db_us.attempted = True
+        db_us.updated_at = datetime.utcnow()
+        db_us.last_reviewed_at = datetime.utcnow()
 
         if old_phase == "learning" and new_state.phase == "review":
-            xp_earned += XP_TOPIC_MASTERED
-            _unlock_next_topic(user_id, course_id, exercise.topic_key, db)
+            topic_key = unit_key.topic_key
+            expected_types = topic_exercise_types(
+                course_id, topic_key.belt.value, topic_key.topic, db,
+            )
+            if is_topic_mastered(state.unit_states, topic_key, expected_types):
+                xp_earned += XP_TOPIC_MASTERED
+                _unlock_next_topic(user_id, course_id, topic_key, db)
 
-            belt_catalog = _get_catalog(course_id, exercise.topic_key.belt, db)
-            if belt_progress(state.topic_states, belt_catalog).promoted:
-                xp_earned += XP_BELT_PROMOTED
+                belt_catalog = _get_catalog(course_id, topic_key.belt, db)
+                belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+                if belt_progress(
+                    state.unit_states, belt_catalog, topic_types=belt_types_map,
+                ).promoted:
+                    xp_earned += XP_BELT_PROMOTED
 
     state.xp_session += xp_earned
 
@@ -530,8 +633,9 @@ def record_answer_db(
         user_id=user_id,
         course_id=course_id,
         exercise_id=exercise_id,
-        belt=exercise.topic_key.belt.value,
-        topic=exercise.topic_key.topic,
+        belt=unit_key.belt.value,
+        topic=unit_key.topic,
+        exercise_type=unit_key.exercise_type,
         is_correct=is_correct,
         response_time_ms=int(response_time_s * 1000),
         quality_score=quality,
@@ -549,7 +653,7 @@ def record_answer_db(
 
     state.results.append({
         "exercise_id": exercise_id,
-        "topic_key": exercise.topic_key,
+        "unit_key": unit_key,
         "is_correct": is_correct,
         "quality": quality,
     })
@@ -563,42 +667,33 @@ def record_answer_db(
     }
 
 
+def _topic_rows_index(
+    rows: list[UnitState],
+) -> dict[tuple[str, str], list[UnitState]]:
+    out: dict[tuple[str, str], list[UnitState]] = {}
+    for r in rows:
+        out.setdefault((r.belt, r.topic), []).append(r)
+    return out
+
+
 def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
-    """Return topic states (per-topic SR snapshot) and level info."""
+    """Return topic-level progress (rolled up from per-unit state) and level info."""
     catalog_keys = _all_topic_keys(course_id, db)
 
-    if not db.query(TopicState).filter(
-        TopicState.user_id == user_id, TopicState.course_id == course_id,
-    ).first():
-        for idx, key in enumerate(catalog_keys):
-            if idx >= MAX_UNLOCKED_TOPICS:
-                break
-            db.add(TopicState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=key.belt.value,
-                topic=key.topic,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            ))
-        db.commit()
+    _bootstrap_first_topic_if_empty(user_id, course_id, db)
 
-    num_steps = len(_default_config.learning_steps)
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id, UnitState.course_id == course_id,
+    ).all()
+    rows_by_topic = _topic_rows_index(rows)
+
     topic_states: dict[str, dict] = {}
     for key in catalog_keys:
-        row = db.query(TopicState).filter(
-            TopicState.user_id == user_id,
-            TopicState.course_id == course_id,
-            TopicState.belt == key.belt.value,
-            TopicState.topic == key.topic,
-        ).first()
-        if row:
-            topic_states[key.topic] = _serialize_topic_state(row, num_steps)
+        topic_rows = rows_by_topic.get((key.belt.value, key.topic))
+        if not topic_rows:
+            continue
+        expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
+        topic_states[key.topic] = _aggregate_topic_progress(topic_rows, expected)
 
     user = db.query(User).filter(User.id == user_id).first()
     total_xp = user.total_xp if user else 0
@@ -643,37 +738,30 @@ def get_summary_db(
     ]
 
     course_id = db_session.course_id
-    num_steps = len(_default_config.learning_steps)
     catalog_keys = _all_topic_keys(course_id, db)
 
-    all_states = db.query(TopicState).filter(
-        TopicState.user_id == user_id, TopicState.course_id == course_id,
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id, UnitState.course_id == course_id,
     ).all()
-    state_map = {(s.belt, s.topic): s for s in all_states}
+    rows_by_topic = _topic_rows_index(rows)
 
     failed_in_session: set[tuple[str, str]] = set()
     for a in answers:
         if not a.is_correct:
             failed_in_session.add((a.belt, a.topic))
-    practiced_in_session = {(a.belt, a.topic) for a in answers}
 
     topic_states: dict[str, dict] = {}
-    sm2_states: dict[TopicKey, SM2TopicState] = {}
+    unit_states_map, _ = _rows_to_unit_states(rows)
+
     for key in catalog_keys:
-        row = state_map.get((key.belt.value, key.topic))
-        if row:
-            ts_dict = _serialize_topic_state(row, num_steps)
-            if (row.belt, row.topic) in failed_in_session:
-                ts_dict["failed"] = True
-            topic_states[key.topic] = ts_dict
-            sm2_states[key] = SM2TopicState(
-                phase=row.phase,
-                step_index=row.step_index,
-                ease_factor=row.ease_factor,
-                interval=row.interval_days,
-                repetitions=row.repetitions,
-                next_review=row.next_due or date.today(),
-            )
+        topic_rows = rows_by_topic.get((key.belt.value, key.topic))
+        if not topic_rows:
+            continue
+        expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
+        ts_dict = _aggregate_topic_progress(topic_rows, expected)
+        if (key.belt.value, key.topic) in failed_in_session:
+            ts_dict["failed"] = True
+        topic_states[key.topic] = ts_dict
 
     # Belt progress for the highest belt touched in this session
     if answers:
@@ -683,9 +771,12 @@ def get_summary_db(
             key=lambda b: _BELT_ORDER.index(Belt(b)),
         )
         focus_belt = Belt(focus_belt_str)
-        bp = belt_progress(sm2_states, _get_catalog(course_id, focus_belt, db))
     else:
-        bp = belt_progress(sm2_states, _get_catalog(course_id, Belt.WHITE, db))
+        focus_belt = Belt.WHITE
+
+    belt_catalog = _get_catalog(course_id, focus_belt, db)
+    belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+    bp = belt_progress(unit_states_map, belt_catalog, topic_types=belt_types_map)
 
     xp_earned = sum(a.xp_earned or 0 for a in answers)
     db_session.finished_at = datetime.utcnow()

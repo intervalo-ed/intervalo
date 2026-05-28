@@ -30,7 +30,7 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     enrollments = relationship("Enrollment", back_populates="user")
-    topic_states = relationship("TopicState", back_populates="user")
+    unit_states = relationship("UnitState", back_populates="user")
     sessions = relationship("Session", back_populates="user")
     answers = relationship("Answer", back_populates="user")
     push_subscriptions = relationship("PushSubscription", back_populates="user")
@@ -47,7 +47,7 @@ class Course(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     enrollments = relationship("Enrollment", back_populates="course")
-    topic_states = relationship("TopicState", back_populates="course")
+    unit_states = relationship("UnitState", back_populates="course")
     sessions = relationship("Session", back_populates="course")
     answers = relationship("Answer", back_populates="course")
     push_subscriptions = relationship("PushSubscription", back_populates="course")
@@ -71,9 +71,9 @@ class Enrollment(Base):
     course = relationship("Course", back_populates="enrollments")
 
 
-class TopicState(Base):
-    """SM-2 state for each topic per user per course."""
-    __tablename__ = "topic_states"
+class UnitState(Base):
+    """SM-2 state for each (belt, topic, exercise_type) unit per user per course."""
+    __tablename__ = "unit_states"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
@@ -81,6 +81,7 @@ class TopicState(Base):
 
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
 
     phase = Column(String(20), nullable=False, default="learning")
     step_index = Column(Integer, default=0)
@@ -96,15 +97,15 @@ class TopicState(Base):
 
     __table_args__ = (
         UniqueConstraint(
-            "user_id", "course_id", "belt", "topic",
-            name="unique_user_course_topic",
+            "user_id", "course_id", "belt", "topic", "exercise_type",
+            name="unique_user_course_unit",
         ),
-        Index("idx_topic_states_next_due", "next_due"),
-        Index("idx_topic_states_user_course", "user_id", "course_id"),
+        Index("idx_unit_states_next_due", "next_due"),
+        Index("idx_unit_states_user_course", "user_id", "course_id"),
     )
 
-    user = relationship("User", back_populates="topic_states")
-    course = relationship("Course", back_populates="topic_states")
+    user = relationship("User", back_populates="unit_states")
+    course = relationship("Course", back_populates="unit_states")
 
 
 class Session(Base):
@@ -122,6 +123,10 @@ class Session(Base):
     exercises_total = Column(Integer, nullable=False)
     exercises_correct = Column(Integer, default=0)
     xp_earned = Column(Integer, default=0)
+
+    # "main" for the daily spaced-repetition session, "zen" for free practice.
+    # Only "main" sessions count toward the 1-per-day gate.
+    mode = Column(String(16), nullable=False, default="main", server_default="main")
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -147,6 +152,7 @@ class Answer(Base):
     exercise_id = Column(String(20), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
 
     is_correct = Column(Boolean, nullable=False)
     response_time_ms = Column(Integer, nullable=True)
@@ -179,7 +185,7 @@ class Exercise(Base):
     external_id = Column(String(100), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
-    subtype = Column(String(10), nullable=False)  # "text" or "graph"
+    exercise_type = Column(String(20), nullable=False)
     question = Column(Text, nullable=False)
     option_a = Column(Text, nullable=False)
     option_b = Column(Text, nullable=False)

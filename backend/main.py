@@ -125,6 +125,7 @@ class AnswerRequest(BaseModel):
     session_id: str
     exercise_id: str
     answer_index: int
+    attempts: int
     response_time_s: float
 
 
@@ -248,13 +249,15 @@ def start_session(
     db: Session = Depends(get_db)
 ):
     """Start a new session linked to authenticated user in database."""
-    from session_store import create_session_db
+    from session_store import create_session_db, DailySessionLimitError
 
     # Default course_id to 1 for now (analyze-1)
     course_id = 1
 
-    # Create session in database
-    result = create_session_db(current_user.id, course_id, db)
+    try:
+        result = create_session_db(current_user.id, course_id, db)
+    except DailySessionLimitError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
 
     return result
 
@@ -301,6 +304,7 @@ def submit_answer(
             course_id,
             body.exercise_id,
             body.answer_index,
+            body.attempts,
             body.response_time_s,
             db,
         )

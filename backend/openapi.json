@@ -409,6 +409,10 @@
             "type": "integer",
             "title": "Answer Index"
           },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
           "response_time_s": {
             "type": "number",
             "title": "Response Time S"
@@ -419,6 +423,7 @@
           "session_id",
           "exercise_id",
           "answer_index",
+          "attempts",
           "response_time_s"
         ],
         "title": "AnswerRequest"

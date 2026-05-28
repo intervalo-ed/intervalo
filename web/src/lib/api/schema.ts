@@ -193,6 +193,8 @@ export interface components {
             exercise_id: string;
             /** Answer Index */
             answer_index: number;
+            /** Attempts */
+            attempts: number;
             /** Response Time S */
             response_time_s: number;
         };

@@ -16,8 +16,8 @@ class SM2Config:
     ef_min_absolute: float = 1.3
 
     # Session
-    max_exercises_per_session: int = 12
-    min_topics_before_new_content: int = 5
+    min_session_exercises: int = 7
+    max_session_exercises: int = 14
     min_distance_same_topic: int = 2
 
     # Exercise subtype selection

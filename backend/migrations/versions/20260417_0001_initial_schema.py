@@ -67,14 +67,15 @@ def upgrade() -> None:
         sa.UniqueConstraint("user_id", "course_id", name="unique_user_course"),
     )
 
-    # ── topic_states ─────────────────────────────────────────────────────────
+    # ── unit_states ──────────────────────────────────────────────────────────
     op.create_table(
-        "topic_states",
+        "unit_states",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("course_id", sa.Integer(), nullable=False),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
+        sa.Column("exercise_type", sa.String(20), nullable=False),
         sa.Column("phase", sa.String(20), nullable=False),
         sa.Column("step_index", sa.Integer(), nullable=True),
         sa.Column("ease_factor", sa.Float(), nullable=True),
@@ -89,12 +90,12 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["course_id"], ["courses.id"]),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint(
-            "user_id", "course_id", "belt", "topic",
-            name="unique_user_course_topic",
+            "user_id", "course_id", "belt", "topic", "exercise_type",
+            name="unique_user_course_unit",
         ),
     )
-    op.create_index("idx_topic_states_next_due", "topic_states", ["next_due"])
-    op.create_index("idx_topic_states_user_course", "topic_states", ["user_id", "course_id"])
+    op.create_index("idx_unit_states_next_due", "unit_states", ["next_due"])
+    op.create_index("idx_unit_states_user_course", "unit_states", ["user_id", "course_id"])
 
     # ── sessions ─────────────────────────────────────────────────────────────
     op.create_table(
@@ -128,6 +129,7 @@ def upgrade() -> None:
         sa.Column("exercise_id", sa.String(20), nullable=True),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
+        sa.Column("exercise_type", sa.String(20), nullable=False),
         sa.Column("is_correct", sa.Boolean(), nullable=False),
         sa.Column("response_time_ms", sa.Integer(), nullable=True),
         sa.Column("quality_score", sa.Integer(), nullable=True),
@@ -153,7 +155,7 @@ def upgrade() -> None:
         sa.Column("external_id", sa.String(100), nullable=True),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
-        sa.Column("subtype", sa.String(10), nullable=False),
+        sa.Column("exercise_type", sa.String(20), nullable=False),
         sa.Column("question", sa.Text(), nullable=False),
         sa.Column("option_a", sa.Text(), nullable=False),
         sa.Column("option_b", sa.Text(), nullable=False),
@@ -225,9 +227,9 @@ def downgrade() -> None:
     op.drop_index("idx_sessions_started_at", table_name="sessions")
     op.drop_index("idx_sessions_user_course", table_name="sessions")
     op.drop_table("sessions")
-    op.drop_index("idx_topic_states_user_course", table_name="topic_states")
-    op.drop_index("idx_topic_states_next_due", table_name="topic_states")
-    op.drop_table("topic_states")
+    op.drop_index("idx_unit_states_user_course", table_name="unit_states")
+    op.drop_index("idx_unit_states_next_due", table_name="unit_states")
+    op.drop_table("unit_states")
     op.drop_table("enrollments")
     op.drop_index(op.f("ix_courses_slug"), table_name="courses")
     op.drop_table("courses")

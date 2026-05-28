@@ -3,8 +3,7 @@
     "external_id": "brown_indefinite_integral_lexi_01",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Qué representa el símbolo $\\int f(x) \\, dx$?",
     "options": [
       "La familia de todas las primitivas de $f$",
@@ -24,8 +23,7 @@
     "external_id": "brown_indefinite_integral_lexi_02",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Qué es una primitiva de una función $f$?",
     "options": [
       "El recíproco de la función, $1/f$",
@@ -45,8 +43,7 @@
     "external_id": "brown_indefinite_integral_lexi_03",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "En la expresión $\\int f(x) \\, dx = F(x) + C$, ¿qué nombre recibe la constante $C$?",
     "options": [
       "Variable dependiente",
@@ -66,8 +63,7 @@
     "external_id": "brown_indefinite_integral_lexi_04",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "En el símbolo $\\int f(x) \\, dx$, ¿qué representa el término $f(x)$?",
     "options": [
       "El límite de integración",
@@ -87,8 +83,7 @@
     "external_id": "brown_indefinite_integral_lexi_05",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Qué indica el diferencial $dx$ en una integral?",
     "options": [
       "La variable respecto de la cual se integra",
@@ -108,8 +103,7 @@
     "external_id": "brown_indefinite_integral_lexi_06",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Cuál es la relación principal entre la derivación y la integración indefinida?",
     "options": [
       "Son operaciones independientes",
@@ -129,8 +123,7 @@
     "external_id": "brown_indefinite_integral_lexi_07",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿A qué se refiere el término 'integración indefinida'?",
     "options": [
       "A una integral cuyo resultado es infinito",
@@ -150,8 +143,7 @@
     "external_id": "brown_indefinite_integral_lexi_08",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "Si $F$ y $G$ son dos primitivas de la misma función $f$, ¿qué se puede afirmar?",
     "options": [
       "Sus gráficas se cortan en el origen",
@@ -171,8 +163,7 @@
     "external_id": "brown_indefinite_integral_lexi_09",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Qué significa que la integral sea un 'operador lineal'?",
     "options": [
       "Que respeta la suma y el producto por escalar",
@@ -192,8 +183,7 @@
     "external_id": "brown_indefinite_integral_lexi_10",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "LEXI",
-    "subtype": "text",
+    "exercise_type": "LEXI",
     "question": "¿Cuál es la interpretación geométrica de la familia de primitivas?",
     "options": [
       "Un haz de rectas que pasan por un punto",
@@ -213,8 +203,7 @@
     "external_id": "brown_indefinite_integral_intg_01",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuál es la integral indefinida de $f(x) = x^5$?",
     "options": [
       "$6x^6 + C$",
@@ -234,8 +223,7 @@
     "external_id": "brown_indefinite_integral_intg_02",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuánto vale $\\int e^x \\, dx$?",
     "options": [
       "$\\ln(e^x) + C$",
@@ -255,8 +243,7 @@
     "external_id": "brown_indefinite_integral_intg_03",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Calculá $\\int \\dfrac{1}{x} \\, dx$ para $x > 0$.",
     "options": [
       "$\\ln(x) + C$",
@@ -276,8 +263,7 @@
     "external_id": "brown_indefinite_integral_intg_04",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuál es el resultado de $\\int \\cos(x) \\, dx$?",
     "options": [
       "$-\\sin(x) + C$",
@@ -297,8 +283,7 @@
     "external_id": "brown_indefinite_integral_intg_05",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuánto da la integral $\\int \\sin(x) \\, dx$?",
     "options": [
       "$\\sin(x) + C$",
@@ -318,10 +303,14 @@
     "external_id": "brown_indefinite_integral_intg_06",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Calculá $\\int 7 \\, dx$.",
-    "options": ["$\\dfrac{7x^2}{2} + C$", "$0 + C$", "$7 + C$", "$7x + C$"],
+    "options": [
+      "$\\dfrac{7x^2}{2} + C$",
+      "$0 + C$",
+      "$7 + C$",
+      "$7x + C$"
+    ],
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La integral de una constante es esa constante multiplicada por la variable.",
@@ -334,8 +323,7 @@
     "external_id": "brown_indefinite_integral_intg_07",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuál es la integral de $f(x) = \\sqrt{x}$?",
     "options": [
       "$\\dfrac{2}{3}x^{3/2} + C$",
@@ -355,8 +343,7 @@
     "external_id": "brown_indefinite_integral_intg_08",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Resolvé $\\int (x^2 - x) \\, dx$.",
     "options": [
       "$\\dfrac{x^3}{3} - x + C$",
@@ -376,8 +363,7 @@
     "external_id": "brown_indefinite_integral_intg_09",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "¿Cuál es la integral de $f(x) = \\dfrac{1}{x^3}$?",
     "options": [
       "$\\ln|x^3| + C$",
@@ -397,8 +383,7 @@
     "external_id": "brown_indefinite_integral_intg_10",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "INTG",
-    "subtype": "text",
+    "exercise_type": "INTG",
     "question": "Calculá $\\int 4e^x \\, dx$.",
     "options": [
       "$\\dfrac{4e^{x+1}}{x+1} + C$",
@@ -418,8 +403,7 @@
     "external_id": "brown_indefinite_integral_estr_01",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Cómo podés verificar si el resultado de una integral indefinida es correcto?",
     "options": [
       "Derivando el resultado obtenido",
@@ -439,8 +423,7 @@
     "external_id": "brown_indefinite_integral_estr_02",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Cuál es el primer paso recomendado para calcular $\\int (3x^2 + 5\\sin x) \\, dx$?",
     "options": [
       "Aplicar sustitución con $u = 3x^2$",
@@ -460,8 +443,7 @@
     "external_id": "brown_indefinite_integral_estr_03",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Si tenés $\\int \\dfrac{5}{x} \\, dx$, ¿qué es lo más conveniente hacer con el número 5?",
     "options": [
       "Derivarlo para que dé cero",
@@ -481,8 +463,7 @@
     "external_id": "brown_indefinite_integral_estr_04",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Por qué no se puede aplicar la regla $\\int x^n \\, dx = \\dfrac{x^{n+1}}{n+1}$ cuando $n = -1$?",
     "options": [
       "Porque esa regla solo sirve para números positivos",
@@ -502,8 +483,7 @@
     "external_id": "brown_indefinite_integral_estr_05",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Para resolver $\\int \\dfrac{x^3 + 2x}{x} \\, dx$, ¿qué estrategia simplifica más el cálculo?",
     "options": [
       "Distribuir el denominador y simplificar cada término",
@@ -523,8 +503,7 @@
     "external_id": "brown_indefinite_integral_estr_06",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Al calcular $\\int (x+1)^2 \\, dx$, ¿cuál es un camino válido sin usar sustitución?",
     "options": [
       "Integrar el interior y elevar el resultado al cubo",
@@ -544,8 +523,7 @@
     "external_id": "brown_indefinite_integral_estr_07",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "Si te olvidás de poner el $+C$ en un examen de integral indefinida, ¿qué sucede técnicamente?",
     "options": [
       "La función deja de ser continua",
@@ -565,8 +543,7 @@
     "external_id": "brown_indefinite_integral_estr_08",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Qué regla de derivación 'deshace' la propiedad de linealidad de la integral?",
     "options": [
       "La derivada de la función inversa",
@@ -586,8 +563,7 @@
     "external_id": "brown_indefinite_integral_estr_09",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "¿Cuál es la forma más eficiente de integrar $\\int \\sin(2x) \\, dx$?",
     "options": [
       "Sustitución simple con $u = 2x$",
@@ -607,8 +583,7 @@
     "external_id": "brown_indefinite_integral_estr_10",
     "belt": "brown",
     "topic": "indefinite_integral",
-    "skill": "ESTR",
-    "subtype": "text",
+    "exercise_type": "ESTR",
     "question": "En la integral $\\int \\dfrac{1}{\\sqrt{x}} \\, dx$, ¿qué conviene hacer primero?",
     "options": [
       "Usar la regla del logaritmo",
