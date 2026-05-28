@@ -19,14 +19,12 @@ const OUT = resolve(here, "../src/lib/catalog/analisis-1.generated.ts")
 
 type RawTopic = {
   key: string
-  skills: string[]
+  name: string
   tooltip: string
 }
 
 type RawBelt = {
   key: string
-  stripe_thresholds: [number, number]
-  promotion_threshold: number
   topics: RawTopic[]
 }
 
@@ -45,18 +43,14 @@ function generate() {
 
   const types = `export type BeltKey = ${beltKeys.map((k) => JSON.stringify(k)).join(" | ")}
 
-export type Skill = string
-
 export interface Topic {
   key: string
-  skills: Skill[]
+  name: string
   tooltip: string
 }
 
 export interface Belt {
   key: BeltKey
-  stripe_thresholds: [number, number]
-  promotion_threshold: number
   topics: Topic[]
 }
 

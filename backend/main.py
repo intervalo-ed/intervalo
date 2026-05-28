@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from session_store import create_session, record_answer, get_summary, get_session, get_user_progress_db
+from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
     UserResponse,
@@ -231,16 +231,10 @@ def get_user_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get user's current progress (skill states and level info)."""
+    """Get user's current progress (topic states and level info)."""
     try:
         course_id = 1  # Default course
-        result = get_user_progress_db(current_user.id, course_id, db)
-        # Debug: check first item
-        skill_states = result.get('skill_states', {})
-        if skill_states:
-            first_item = list(skill_states.values())[0]
-            print(f"DEBUG ENDPOINT: progress={first_item.get('progress')}, status={first_item.get('status')}")
-        return result
+        return get_user_progress_db(current_user.id, course_id, db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

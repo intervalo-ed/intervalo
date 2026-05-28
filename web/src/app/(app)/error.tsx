@@ -11,7 +11,7 @@ export default function AppError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-5 py-16 text-center">
       <Alert variant="destructive">
         <AlertTitle>Algo salió mal</AlertTitle>
         <AlertDescription>{error.message}</AlertDescription>

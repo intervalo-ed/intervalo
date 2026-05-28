@@ -1,17 +1,21 @@
 "use client"
 
-import { SignOutButton, useUser } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import BeltCard from "./belt-card"
+import { BottomNav } from "@/components/bottom-nav"
+import { Accordion } from "@/components/ui/accordion"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { BELT_ORDER } from "@/lib/catalog"
-import { beltStats } from "@/lib/catalog/stats"
-import { useUserProgress } from "./UseUserProgress"
+import { beltStats, currentBelt } from "@/lib/catalog/stats"
+import { SignOutButton, useUser } from "@clerk/nextjs"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Logo } from "@/components/logo"
+import BeltCard from "./belt-card"
 import { useStartSession } from "./UseStartSession"
+import { useUserProgress } from "./UseUserProgress"
 
 export default function DashboardEntry() {
   const { data, isLoading, isError, error } = useUserProgress()
@@ -22,7 +26,7 @@ export default function DashboardEntry() {
   const totals = data
     ? BELT_ORDER.reduce(
         (acc, belt) => {
-          const s = beltStats({ belt, skillStates: data.skill_states })
+          const s = beltStats({ belt, topicStates: data.topic_states })
           acc.pendientes += s.pendientes
           acc.nuevos += s.nuevos
           acc.aprendiendo += s.aprendiendo
@@ -33,9 +37,12 @@ export default function DashboardEntry() {
       )
     : null
 
-  // Always allow starting; the backend's first /session/start unlocks the
-  // initial batch of items for fresh users.
-  const canRepasar = totals !== null
+  // Disable starting when the user has unlocked topics but nothing is due —
+  // they need to wait until the next repetition. Fresh users (unlocked === 0)
+  // can still start: the backend's first /session/start seeds initial topics.
+  const waitingForNextRepetition =
+    totals !== null && totals.unlocked > 0 && totals.pendientes === 0
+  const canRepasar = totals !== null && !waitingForNextRepetition
 
   function onRepasar() {
     startSession.mutate(
@@ -47,95 +54,111 @@ export default function DashboardEntry() {
   }
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-12">
-      <div className="flex items-start justify-between">
-        <div>
-          {isLoading && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Spinner />
-              <span>Cargando progreso…</span>
-            </div>
-          )}
-          {isError && (
-            <Alert variant="destructive">
-              <AlertDescription>
-                No pudimos cargar tu progreso: {error.message}
-              </AlertDescription>
-            </Alert>
-          )}
-          {data && (
-            <>
-              <h1 className="text-3xl font-semibold">
-                Nivel {data.level_info.level}
-              </h1>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {data.level_info.xp_in_level} / {data.level_info.xp_required} XP
-              </p>
-              <Progress
-                value={data.level_info.progress_pct}
-                className="mt-3 w-64"
-              />
-            </>
-          )}
-        </div>
+    <Screen>
+      <ScreenHeader>
+        <Link href="/" aria-label="Intervalo">
+          <Logo className="h-6 w-auto" />
+        </Link>
+        <div className="flex-1" />
         <SignOutButton>
           <Button variant="outline" size="sm">
             Cerrar sesión
           </Button>
         </SignOutButton>
-      </div>
+      </ScreenHeader>
 
-      {totals && (
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Button
-            size="lg"
-            className="h-12 flex-1"
-            onClick={onRepasar}
-            disabled={!canRepasar || startSession.isPending}
-          >
-            {startSession.isPending && <Spinner />}
-            {startSession.isPending
-              ? "Cargando…"
-              : totals.pendientes > 0
-                ? `Repasar (${totals.pendientes} pendientes)`
+      <ScreenBody className="gap-8">
+        {isLoading && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Spinner />
+            <span>Cargando progreso…</span>
+          </div>
+        )}
+        {isError && (
+          <Alert variant="destructive">
+            <AlertDescription>
+              No pudimos cargar tu progreso: {error.message}
+            </AlertDescription>
+          </Alert>
+        )}
+        {data && (
+          <div>
+            <h1 className="text-3xl font-semibold">
+              Nivel {data.level_info.level}
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {data.level_info.xp_in_level} / {data.level_info.xp_required} XP
+            </p>
+            <Progress
+              value={data.level_info.progress_pct}
+              className="mt-3 w-64"
+            />
+          </div>
+        )}
+
+        {totals && (
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button
+              size="lg"
+              className="h-12 sm:flex-1"
+              onClick={onRepasar}
+              disabled={!canRepasar || startSession.isPending}
+            >
+              {startSession.isPending && <Spinner />}
+              {startSession.isPending
+                ? "Cargando…"
                 : totals.unlocked === 0
                   ? "Empezar mi primera sesión"
-                  : "Empezar sesión"}
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-12"
-            nativeButton={false}
-            render={<Link href="/zen" />}
-          >
-            Modo Zen
-          </Button>
-        </div>
-      )}
-
-      {startSession.isError && (
-        <Alert variant="destructive">
-          <AlertDescription>
-            No pudimos iniciar la sesión: {startSession.error.message}
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {data && (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold">Cinturones</h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {BELT_ORDER.map((belt) => (
-              <BeltCard
-                key={belt}
-                belt={belt}
-                skillStates={data.skill_states}
-              />
-            ))}
+                  : waitingForNextRepetition
+                    ? "Sin ejercicios pendientes"
+                    : totals.pendientes > 0
+                      ? "Repasar"
+                      : "Empezar sesión"}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12"
+              nativeButton={false}
+              render={<Link href="/zen" />}
+            >
+              Modo Zen
+            </Button>
           </div>
-        </section>
-      )}
-    </main>
+        )}
+
+        {startSession.isError && (
+          <Alert variant="destructive">
+            <AlertDescription>
+              No pudimos iniciar la sesión: {startSession.error.message}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {data && (
+          <section className="flex flex-col gap-3">
+            <h2 className="text-xl font-semibold">Cinturones</h2>
+            <Accordion
+              multiple
+              defaultValue={(() => {
+                const cur = currentBelt({ topicStates: data.topic_states })
+                return cur ? [cur] : []
+              })()}
+              className="flex flex-col"
+            >
+              {BELT_ORDER.map((belt) => (
+                <BeltCard
+                  key={belt}
+                  belt={belt}
+                  topicStates={data.topic_states}
+                />
+              ))}
+            </Accordion>
+          </section>
+        )}
+      </ScreenBody>
+
+      <BottomNav />
+    </Screen>
   )
 }

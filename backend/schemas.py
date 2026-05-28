@@ -4,9 +4,6 @@ schemas.py — Pydantic response models for the HTTP API.
 Kept in a single module so the OpenAPI spec exposes clean, named schemas that
 `openapi-typescript` can turn into useful TypeScript types. Request bodies for
 POSTs still live next to the endpoints that consume them in `main.py`.
-
-Field shapes were lifted directly from the dicts returned by `session_store.py`
-and `main.py` — they preserve current behavior, not improve it.
 """
 
 from __future__ import annotations
@@ -36,12 +33,12 @@ class EnrollmentResponse(BaseModel):
     message: str
 
 
-# ── Progress (used by /user/progress and the summary skill_states map) ────────
+# ── Progress ──────────────────────────────────────────────────────────────────
 
-class SkillState(BaseModel):
+class TopicProgress(BaseModel):
     phase: str          # "learning" | "review"
     step_index: int
-    status: str         # "nuevo" | "aprendiendo" | "graduado"
+    status: str         # "nuevo" | "aprendiendo" | "dominado"
     progress: str       # "0/3" | "1/3" | "2/3" | "3/3"
     is_pending: bool
     attempted: bool
@@ -50,7 +47,6 @@ class SkillState(BaseModel):
 
 
 class LevelInfo(BaseModel):
-    """Level info as returned by /user/progress."""
     level: int
     xp_in_level: int
     xp_required: int
@@ -58,7 +54,6 @@ class LevelInfo(BaseModel):
 
 
 class LevelInfoWithMissing(BaseModel):
-    """Level info as returned by /session/{id}/summary (adds xp_missing)."""
     level: int
     xp_in_level: int
     xp_required: int
@@ -67,7 +62,7 @@ class LevelInfoWithMissing(BaseModel):
 
 
 class UserProgressResponse(BaseModel):
-    skill_states: dict[str, SkillState]
+    topic_states: dict[str, TopicProgress]
     level_info: LevelInfo
 
 
@@ -79,8 +74,8 @@ class SessionExercise(BaseModel):
     options: list[str]
     correct_index: int
     has_math: bool
-    skill: str
     topic: str
+    belt: str
     graph_fn: str
     graph_view: list[Any] | None = None
     feedback_correct: str
@@ -97,22 +92,20 @@ class SessionStartResponse(BaseModel):
 
 class AnswerResponse(BaseModel):
     correct: bool
-    quality: int       # SM-2 quality score, 0–5
+    quality: int       # SM-2 quality score
     feedback: str
     xp_earned: int
 
 
 class SummaryItem(BaseModel):
     topic: str
-    skill: str
+    belt: str
     correct: bool
-    phase: str
 
 
 class BeltProgressInfo(BaseModel):
-    graduated: int
+    mastered: int
     total: int
-    stripes: int
     promoted: bool
 
 
@@ -123,7 +116,7 @@ class SessionSummaryResponse(BaseModel):
     correct: int
     incorrect: int
     items: list[SummaryItem]
-    skill_states: dict[str, SkillState]
+    topic_states: dict[str, TopicProgress]
     belt_progress: BeltProgressInfo
     xp_earned: int
     level_info: LevelInfoWithMissing

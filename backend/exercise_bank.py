@@ -17,7 +17,6 @@ from models import Exercise
 
 
 def _row_to_dict(row: Exercise) -> dict:
-    """Convert an Exercise DB row to the dict format expected by session_store."""
     gv = None
     if row.graph_view:
         try:
@@ -42,34 +41,28 @@ def get_exercise_db(
     course_id: int,
     belt: str,
     topic: str,
-    skill: str,
     graph_probability: float,
     db: DBSession,
 ) -> dict:
-    """Devuelve un ejercicio aleatorio para la combinación (course, belt, topic, skill).
+    """Returns a random exercise for the (course, belt, topic) combination.
 
-    Elige el subtipo (graph/text) según graph_probability.
-    Si el subtipo preferido no tiene ejercicios, usa cualquier disponible.
-    Si no hay ejercicios para la combinación solicitada, lanza LookupError —
-    el seeder garantiza que el banco esté completo.
+    Picks the preferred subtype (graph/text) by graph_probability, falling back
+    to any available subtype if there are none of the preferred kind.
     """
     preferred = "graph" if random.random() < graph_probability else "text"
 
-    # Try preferred subtype first
     row = (
         db.query(Exercise)
         .filter(
             Exercise.course_id == course_id,
             Exercise.belt == belt,
             Exercise.topic == topic,
-            Exercise.skill == skill,
             Exercise.subtype == preferred,
         )
         .order_by(func.random())
         .first()
     )
 
-    # Fallback to any subtype
     if row is None:
         row = (
             db.query(Exercise)
@@ -77,7 +70,6 @@ def get_exercise_db(
                 Exercise.course_id == course_id,
                 Exercise.belt == belt,
                 Exercise.topic == topic,
-                Exercise.skill == skill,
             )
             .order_by(func.random())
             .first()
@@ -86,7 +78,7 @@ def get_exercise_db(
     if row is None:
         raise LookupError(
             f"No hay ejercicios en BD para course_id={course_id} "
-            f"belt={belt!r} topic={topic!r} skill={skill!r}. "
+            f"belt={belt!r} topic={topic!r}. "
             f"Revisá el seeder (backend/seed_content.py)."
         )
 

@@ -90,7 +90,7 @@ export interface paths {
         };
         /**
          * Get User Progress
-         * @description Get user's current progress (skill states and level info).
+         * @description Get user's current progress (topic states and level info).
          */
         get: operations["get_user_progress_user_progress_get"];
         put?: never;
@@ -205,12 +205,10 @@ export interface components {
         };
         /** BeltProgressInfo */
         BeltProgressInfo: {
-            /** Graduated */
-            graduated: number;
+            /** Mastered */
+            mastered: number;
             /** Total */
             total: number;
-            /** Stripes */
-            stripes: number;
             /** Promoted */
             promoted: boolean;
         };
@@ -240,10 +238,7 @@ export interface components {
             /** Status */
             status: string;
         };
-        /**
-         * LevelInfo
-         * @description Level info as returned by /user/progress.
-         */
+        /** LevelInfo */
         LevelInfo: {
             /** Level */
             level: number;
@@ -254,10 +249,7 @@ export interface components {
             /** Progress Pct */
             progress_pct: number;
         };
-        /**
-         * LevelInfoWithMissing
-         * @description Level info as returned by /session/{id}/summary (adds xp_missing).
-         */
+        /** LevelInfoWithMissing */
         LevelInfoWithMissing: {
             /** Level */
             level: number;
@@ -282,10 +274,10 @@ export interface components {
             correct_index: number;
             /** Has Math */
             has_math: boolean;
-            /** Skill */
-            skill: string;
             /** Topic */
             topic: string;
+            /** Belt */
+            belt: string;
             /** Graph Fn */
             graph_fn: string;
             /** Graph View */
@@ -322,33 +314,14 @@ export interface components {
             incorrect: number;
             /** Items */
             items: components["schemas"]["SummaryItem"][];
-            /** Skill States */
-            skill_states: {
-                [key: string]: components["schemas"]["SkillState"];
+            /** Topic States */
+            topic_states: {
+                [key: string]: components["schemas"]["TopicProgress"];
             };
             belt_progress: components["schemas"]["BeltProgressInfo"];
             /** Xp Earned */
             xp_earned: number;
             level_info: components["schemas"]["LevelInfoWithMissing"];
-        };
-        /** SkillState */
-        SkillState: {
-            /** Phase */
-            phase: string;
-            /** Step Index */
-            step_index: number;
-            /** Status */
-            status: string;
-            /** Progress */
-            progress: string;
-            /** Is Pending */
-            is_pending: boolean;
-            /** Attempted */
-            attempted: boolean;
-            /** Next Review */
-            next_review?: string | null;
-            /** Failed */
-            failed: boolean;
         };
         /** StartSessionRequest */
         StartSessionRequest: {
@@ -368,18 +341,35 @@ export interface components {
         SummaryItem: {
             /** Topic */
             topic: string;
-            /** Skill */
-            skill: string;
+            /** Belt */
+            belt: string;
             /** Correct */
             correct: boolean;
+        };
+        /** TopicProgress */
+        TopicProgress: {
             /** Phase */
             phase: string;
+            /** Step Index */
+            step_index: number;
+            /** Status */
+            status: string;
+            /** Progress */
+            progress: string;
+            /** Is Pending */
+            is_pending: boolean;
+            /** Attempted */
+            attempted: boolean;
+            /** Next Review */
+            next_review?: string | null;
+            /** Failed */
+            failed: boolean;
         };
         /** UserProgressResponse */
         UserProgressResponse: {
-            /** Skill States */
-            skill_states: {
-                [key: string]: components["schemas"]["SkillState"];
+            /** Topic States */
+            topic_states: {
+                [key: string]: components["schemas"]["TopicProgress"];
             };
             level_info: components["schemas"]["LevelInfo"];
         };

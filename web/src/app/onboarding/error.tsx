@@ -8,7 +8,7 @@ export default function OnboardingError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto max-w-md px-6 py-16 text-center">
+    <div className="mx-auto max-w-md px-5 py-16 text-center">
       <h2 className="text-lg font-semibold">Algo salió mal</h2>
       <p className="mt-2 text-sm text-foreground/70">{error.message}</p>
       <button

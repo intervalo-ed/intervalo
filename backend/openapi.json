@@ -160,7 +160,7 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (skill states and level info).",
+        "description": "Get user's current progress (topic states and level info).",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
           {
@@ -443,17 +443,13 @@
       },
       "BeltProgressInfo": {
         "properties": {
-          "graduated": {
+          "mastered": {
             "type": "integer",
-            "title": "Graduated"
+            "title": "Mastered"
           },
           "total": {
             "type": "integer",
             "title": "Total"
-          },
-          "stripes": {
-            "type": "integer",
-            "title": "Stripes"
           },
           "promoted": {
             "type": "boolean",
@@ -462,9 +458,8 @@
         },
         "type": "object",
         "required": [
-          "graduated",
+          "mastered",
           "total",
-          "stripes",
           "promoted"
         ],
         "title": "BeltProgressInfo"
@@ -568,8 +563,7 @@
           "xp_required",
           "progress_pct"
         ],
-        "title": "LevelInfo",
-        "description": "Level info as returned by /user/progress."
+        "title": "LevelInfo"
       },
       "LevelInfoWithMissing": {
         "properties": {
@@ -602,8 +596,7 @@
           "xp_missing",
           "progress_pct"
         ],
-        "title": "LevelInfoWithMissing",
-        "description": "Level info as returned by /session/{id}/summary (adds xp_missing)."
+        "title": "LevelInfoWithMissing"
       },
       "SessionExercise": {
         "properties": {
@@ -630,13 +623,13 @@
             "type": "boolean",
             "title": "Has Math"
           },
-          "skill": {
-            "type": "string",
-            "title": "Skill"
-          },
           "topic": {
             "type": "string",
             "title": "Topic"
+          },
+          "belt": {
+            "type": "string",
+            "title": "Belt"
           },
           "graph_fn": {
             "type": "string",
@@ -681,8 +674,8 @@
           "options",
           "correct_index",
           "has_math",
-          "skill",
           "topic",
+          "belt",
           "graph_fn",
           "feedback_correct",
           "feedback_incorrect"
@@ -749,12 +742,12 @@
             "type": "array",
             "title": "Items"
           },
-          "skill_states": {
+          "topic_states": {
             "additionalProperties": {
-              "$ref": "#/components/schemas/SkillState"
+              "$ref": "#/components/schemas/TopicProgress"
             },
             "type": "object",
-            "title": "Skill States"
+            "title": "Topic States"
           },
           "belt_progress": {
             "$ref": "#/components/schemas/BeltProgressInfo"
@@ -775,14 +768,76 @@
           "correct",
           "incorrect",
           "items",
-          "skill_states",
+          "topic_states",
           "belt_progress",
           "xp_earned",
           "level_info"
         ],
         "title": "SessionSummaryResponse"
       },
-      "SkillState": {
+      "StartSessionRequest": {
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "title": "User Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_name"
+        ],
+        "title": "StartSessionRequest"
+      },
+      "StartZenSessionRequest": {
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "title": "User Name"
+          },
+          "belts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Belts"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_name",
+          "belts",
+          "count"
+        ],
+        "title": "StartZenSessionRequest"
+      },
+      "SummaryItem": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "correct": {
+            "type": "boolean",
+            "title": "Correct"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic",
+          "belt",
+          "correct"
+        ],
+        "title": "SummaryItem"
+      },
+      "TopicProgress": {
         "properties": {
           "phase": {
             "type": "string",
@@ -834,83 +889,16 @@
           "attempted",
           "failed"
         ],
-        "title": "SkillState"
-      },
-      "StartSessionRequest": {
-        "properties": {
-          "user_name": {
-            "type": "string",
-            "title": "User Name"
-          }
-        },
-        "type": "object",
-        "required": [
-          "user_name"
-        ],
-        "title": "StartSessionRequest"
-      },
-      "StartZenSessionRequest": {
-        "properties": {
-          "user_name": {
-            "type": "string",
-            "title": "User Name"
-          },
-          "belts": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Belts"
-          },
-          "count": {
-            "type": "integer",
-            "title": "Count"
-          }
-        },
-        "type": "object",
-        "required": [
-          "user_name",
-          "belts",
-          "count"
-        ],
-        "title": "StartZenSessionRequest"
-      },
-      "SummaryItem": {
-        "properties": {
-          "topic": {
-            "type": "string",
-            "title": "Topic"
-          },
-          "skill": {
-            "type": "string",
-            "title": "Skill"
-          },
-          "correct": {
-            "type": "boolean",
-            "title": "Correct"
-          },
-          "phase": {
-            "type": "string",
-            "title": "Phase"
-          }
-        },
-        "type": "object",
-        "required": [
-          "topic",
-          "skill",
-          "correct",
-          "phase"
-        ],
-        "title": "SummaryItem"
+        "title": "TopicProgress"
       },
       "UserProgressResponse": {
         "properties": {
-          "skill_states": {
+          "topic_states": {
             "additionalProperties": {
-              "$ref": "#/components/schemas/SkillState"
+              "$ref": "#/components/schemas/TopicProgress"
             },
             "type": "object",
-            "title": "Skill States"
+            "title": "Topic States"
           },
           "level_info": {
             "$ref": "#/components/schemas/LevelInfo"
@@ -918,7 +906,7 @@
         },
         "type": "object",
         "required": [
-          "skill_states",
+          "topic_states",
           "level_info"
         ],
         "title": "UserProgressResponse"

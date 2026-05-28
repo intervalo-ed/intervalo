@@ -1,7 +1,7 @@
 import type { components } from "./schema"
 
-export type SkillState = components["schemas"]["SkillState"]
-export type SkillStates = Record<string, SkillState>
+export type TopicProgress = components["schemas"]["TopicProgress"]
+export type TopicStates = Record<string, TopicProgress>
 export type LevelInfo = components["schemas"]["LevelInfo"]
 export type LevelInfoWithMissing = components["schemas"]["LevelInfoWithMissing"]
 export type SessionExercise = components["schemas"]["SessionExercise"]

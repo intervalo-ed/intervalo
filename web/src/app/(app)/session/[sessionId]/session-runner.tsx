@@ -2,15 +2,27 @@
 
 import MathGraph from "@/components/math-graph"
 import MathText from "@/components/math-text"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import type { SessionExercise } from "@/lib/api/types"
 import { useSfx } from "@/lib/audio/UseSfx"
-import { skillLabel } from "@/lib/catalog"
+import { topicLabel } from "@/lib/catalog"
 import { haptic } from "@/lib/haptics"
+import { X } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -25,22 +37,30 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   if (payload === undefined) {
     return (
-      <main className="mx-auto flex max-w-2xl items-center gap-2 px-6 py-12 text-sm text-muted-foreground">
-        <Spinner />
-        <span>Cargando sesión…</span>
-      </main>
+      <Screen>
+        <ScreenBody className="items-center justify-center text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Spinner />
+            <span>Cargando sesión…</span>
+          </div>
+        </ScreenBody>
+      </Screen>
     )
   }
 
   if (payload === null) {
     return (
-      <main className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-16 text-center">
-        <h1 className="text-xl font-semibold">Esta sesión expiró</h1>
-        <p className="text-sm text-muted-foreground">
-          Iniciá una nueva desde el inicio.
-        </p>
-        <Button render={<Link href="/" />}>Volver al inicio</Button>
-      </main>
+      <Screen>
+        <ScreenBody className="items-center justify-center text-center">
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="text-xl font-semibold">Esta sesión expiró</h1>
+            <p className="text-sm text-muted-foreground">
+              Iniciá una nueva desde el inicio.
+            </p>
+            <Button render={<Link href="/" />}>Volver al inicio</Button>
+          </div>
+        </ScreenBody>
+      </Screen>
     )
   }
 
@@ -54,49 +74,31 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   return (
-    <main className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-8">
-      <ProgressBar value={idx + 1} max={total} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.2 }}
-        >
-          <QuestionView
-            exercise={exercise}
-            sessionId={sessionId}
-            isLast={idx === total - 1}
-            onAdvance={onAdvance}
-          />
-        </motion.div>
-      </AnimatePresence>
-    </main>
+    <QuestionScreen
+      key={idx}
+      exercise={exercise}
+      sessionId={sessionId}
+      isLast={idx === total - 1}
+      progress={idx + 1}
+      total={total}
+      onAdvance={onAdvance}
+    />
   )
 }
 
-function ProgressBar({ value, max }: { value: number; max: number }) {
-  const pct = Math.round((value / max) * 100)
-  return (
-    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-      <span className="tabular-nums">
-        {value} / {max}
-      </span>
-      <Progress value={pct} className="flex-1" />
-    </div>
-  )
-}
-
-function QuestionView({
+function QuestionScreen({
   exercise,
   sessionId,
   isLast,
+  progress,
+  total,
   onAdvance,
 }: {
   exercise: SessionExercise
   sessionId: string
   isLast: boolean
+  progress: number
+  total: number
   onAdvance: () => void
 }) {
   const startedAt = useRef(Date.now())
@@ -137,45 +139,69 @@ function QuestionView({
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-5">
-        <div className="flex items-center gap-2 text-sm">
-          <Badge variant="secondary">
-            {skillLabel({ skill: exercise.skill })}
-          </Badge>
-          <span className="text-muted-foreground/40">·</span>
+    <Screen>
+      <ScreenHeader>
+        <ExitButton />
+        <div className="flex flex-1 items-center gap-3 text-sm text-muted-foreground">
+          <Progress value={Math.round((progress / total) * 100)} className="flex-1" />
+          <span className="tabular-nums">
+            {progress} / {total}
+          </span>
         </div>
+      </ScreenHeader>
 
-        <div className="text-lg">
-          <MathText text={exercise.question} />
-        </div>
-
-        {exercise.graph_fn && (
-          <MathGraph
-            graphFn={exercise.graph_fn}
-            graphView={exercise.graph_view}
-          />
-        )}
-
+      <ScreenBody>
         <motion.div
-          key={shakeKey}
-          animate={shakeKey > 0 ? { x: [0, -6, 6, -4, 4, 0] } : {}}
-          transition={{ duration: 0.35 }}
-          className="flex flex-col gap-2"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex flex-col gap-5"
         >
-          {exercise.options.map((opt, i) => (
-            <OptionButton
-              key={i}
-              option={opt}
-              isCorrect={i === exercise.correct_index}
-              wasTried={tried.has(i)}
-              done={done}
-              onSelect={() => onPick(i)}
-            />
-          ))}
-        </motion.div>
+            <div className="flex items-center gap-2 text-sm">
+              <Badge variant="secondary">
+                {topicLabel({ topic: exercise.topic })}
+              </Badge>
+            </div>
 
-        <AnimatePresence>
+            <div className="text-lg">
+              <MathText text={exercise.question} />
+            </div>
+
+            {exercise.graph_fn && (
+              <MathGraph
+                graphFn={exercise.graph_fn}
+                graphView={exercise.graph_view}
+              />
+            )}
+
+            <motion.div
+              key={shakeKey}
+              animate={shakeKey > 0 ? { x: [0, -6, 6, -4, 4, 0] } : {}}
+              transition={{ duration: 0.35 }}
+              className="flex flex-col gap-2"
+            >
+              {exercise.options.map((opt, i) => (
+                <OptionButton
+                  key={i}
+                  option={opt}
+                  isCorrect={i === exercise.correct_index}
+                  wasTried={tried.has(i)}
+                  done={done}
+                  onSelect={() => onPick(i)}
+                />
+              ))}
+          </motion.div>
+        </motion.div>
+      </ScreenBody>
+
+      <ScreenFooter
+        className={
+          done
+            ? "border-green-500/40 bg-green-500/10"
+            : undefined
+        }
+      >
+        <AnimatePresence initial={false}>
           {done && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -191,12 +217,43 @@ function QuestionView({
             </motion.div>
           )}
         </AnimatePresence>
-
-        <Button size="lg" onClick={onAdvance} disabled={!done}>
+        <Button
+          size="lg"
+          className="mt-3 h-12 w-full"
+          onClick={onAdvance}
+          disabled={!done}
+        >
           {isLast ? "Finalizar" : "Siguiente"}
         </Button>
-      </CardContent>
-    </Card>
+      </ScreenFooter>
+    </Screen>
+  )
+}
+
+function ExitButton() {
+  const router = useRouter()
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger
+        render={
+          <Button variant="ghost" size="icon" aria-label="Salir de la sesión">
+            <X />
+          </Button>
+        }
+      />
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>¿Salir de la sesión?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Vas a perder el progreso de los ejercicios todavía no respondidos.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Seguir</AlertDialogCancel>
+          <AlertDialogAction onClick={() => router.push("/")}>Salir</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }
 
@@ -248,7 +305,7 @@ function Feedback({
   firstTry: boolean
 }) {
   return (
-    <div className="border border-green-500/40 bg-green-500/10 p-3 text-sm">
+    <div className="text-sm">
       <div className="flex items-center justify-between gap-3">
         <span className="font-medium text-green-700 dark:text-green-300">
           {firstTry ? "¡Correcto!" : "Correcto, pero no en el primer intento"}

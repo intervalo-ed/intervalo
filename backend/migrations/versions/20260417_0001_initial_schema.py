@@ -1,13 +1,11 @@
-"""Initial schema (Clerk-based auth)
+"""Initial schema (Clerk-based auth, topic-level SR)
 
 Revision ID: 20260417_0001
 Revises:
 Create Date: 2026-04-17
 
-Fresh, consolidated initial schema after switching from manual Google OAuth
-(backend-minted JWTs keyed by a `google_id`) to Clerk-managed identities
-(`clerk_user_id` = Clerk's `sub` claim). Five stacked migrations were
-collapsed here since there is no historical data to preserve.
+Fresh, consolidated initial schema. Topic-level spaced repetition: each
+(belt, topic) pair is one tracked unit. No `skill` dimension.
 """
 from typing import Sequence, Union
 
@@ -30,6 +28,7 @@ def upgrade() -> None:
         sa.Column("email", sa.String(200), nullable=False),
         sa.Column("name", sa.String(200), nullable=False),
         sa.Column("display_name", sa.String(200), nullable=True),
+        sa.Column("total_xp", sa.Integer(), nullable=False, server_default="0"),
         sa.Column("created_at", sa.DateTime(), nullable=True),
         sa.Column("updated_at", sa.DateTime(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -68,15 +67,14 @@ def upgrade() -> None:
         sa.UniqueConstraint("user_id", "course_id", name="unique_user_course"),
     )
 
-    # ── item_states ──────────────────────────────────────────────────────────
+    # ── topic_states ─────────────────────────────────────────────────────────
     op.create_table(
-        "item_states",
+        "topic_states",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("course_id", sa.Integer(), nullable=False),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
-        sa.Column("skill", sa.String(10), nullable=False),
         sa.Column("phase", sa.String(20), nullable=False),
         sa.Column("step_index", sa.Integer(), nullable=True),
         sa.Column("ease_factor", sa.Float(), nullable=True),
@@ -91,12 +89,12 @@ def upgrade() -> None:
         sa.ForeignKeyConstraint(["course_id"], ["courses.id"]),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint(
-            "user_id", "course_id", "belt", "topic", "skill",
-            name="unique_user_course_item",
+            "user_id", "course_id", "belt", "topic",
+            name="unique_user_course_topic",
         ),
     )
-    op.create_index("idx_item_states_next_due", "item_states", ["next_due"])
-    op.create_index("idx_item_states_user_course", "item_states", ["user_id", "course_id"])
+    op.create_index("idx_topic_states_next_due", "topic_states", ["next_due"])
+    op.create_index("idx_topic_states_user_course", "topic_states", ["user_id", "course_id"])
 
     # ── sessions ─────────────────────────────────────────────────────────────
     op.create_table(
@@ -111,9 +109,6 @@ def upgrade() -> None:
         sa.Column("exercises_total", sa.Integer(), nullable=False),
         sa.Column("exercises_correct", sa.Integer(), nullable=True),
         sa.Column("xp_earned", sa.Integer(), nullable=True),
-        sa.Column("belt_on_start", sa.String(20), nullable=True),
-        sa.Column("belt_on_finish", sa.String(20), nullable=True),
-        sa.Column("belt_promoted", sa.Boolean(), nullable=True),
         sa.Column("created_at", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"]),
         sa.ForeignKeyConstraint(["course_id"], ["courses.id"]),
@@ -133,7 +128,6 @@ def upgrade() -> None:
         sa.Column("exercise_id", sa.String(20), nullable=True),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
-        sa.Column("skill", sa.String(10), nullable=False),
         sa.Column("is_correct", sa.Boolean(), nullable=False),
         sa.Column("response_time_ms", sa.Integer(), nullable=True),
         sa.Column("quality_score", sa.Integer(), nullable=True),
@@ -149,7 +143,7 @@ def upgrade() -> None:
     op.create_index("idx_answers_session_id", "answers", ["session_id"])
     op.create_index("idx_answers_user_course", "answers", ["user_id", "course_id"])
     op.create_index("idx_answers_answered_at", "answers", ["answered_at"])
-    op.create_index("idx_answers_belt_topic_skill", "answers", ["belt", "topic", "skill"])
+    op.create_index("idx_answers_belt_topic", "answers", ["belt", "topic"])
 
     # ── exercises ────────────────────────────────────────────────────────────
     op.create_table(
@@ -159,7 +153,6 @@ def upgrade() -> None:
         sa.Column("external_id", sa.String(100), nullable=True),
         sa.Column("belt", sa.String(20), nullable=False),
         sa.Column("topic", sa.String(50), nullable=False),
-        sa.Column("skill", sa.String(10), nullable=False),
         sa.Column("subtype", sa.String(10), nullable=False),
         sa.Column("question", sa.Text(), nullable=False),
         sa.Column("option_a", sa.Text(), nullable=False),
@@ -179,7 +172,7 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("course_id", "external_id", name="uq_exercises_course_external_id"),
     )
-    op.create_index("idx_exercises_lookup", "exercises", ["course_id", "belt", "topic", "skill"])
+    op.create_index("idx_exercises_lookup", "exercises", ["course_id", "belt", "topic"])
     op.create_index("idx_exercises_external_id", "exercises", ["course_id", "external_id"])
     op.create_index("ix_exercises_id", "exercises", ["id"])
 
@@ -223,7 +216,7 @@ def downgrade() -> None:
     op.drop_index("idx_exercises_external_id", table_name="exercises")
     op.drop_index("idx_exercises_lookup", table_name="exercises")
     op.drop_table("exercises")
-    op.drop_index("idx_answers_belt_topic_skill", table_name="answers")
+    op.drop_index("idx_answers_belt_topic", table_name="answers")
     op.drop_index("idx_answers_answered_at", table_name="answers")
     op.drop_index("idx_answers_user_course", table_name="answers")
     op.drop_index("idx_answers_session_id", table_name="answers")
@@ -232,9 +225,9 @@ def downgrade() -> None:
     op.drop_index("idx_sessions_started_at", table_name="sessions")
     op.drop_index("idx_sessions_user_course", table_name="sessions")
     op.drop_table("sessions")
-    op.drop_index("idx_item_states_user_course", table_name="item_states")
-    op.drop_index("idx_item_states_next_due", table_name="item_states")
-    op.drop_table("item_states")
+    op.drop_index("idx_topic_states_user_course", table_name="topic_states")
+    op.drop_index("idx_topic_states_next_due", table_name="topic_states")
+    op.drop_table("topic_states")
     op.drop_table("enrollments")
     op.drop_index(op.f("ix_courses_slug"), table_name="courses")
     op.drop_table("courses")

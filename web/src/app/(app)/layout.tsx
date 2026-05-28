@@ -1,7 +1,4 @@
-import { Button } from "@/components/ui/button"
-import { SignOutButton } from "@clerk/nextjs"
 import { auth, currentUser } from "@clerk/nextjs/server"
-import Link from "next/link"
 import { redirect } from "next/navigation"
 
 export default async function AppLayout({
@@ -18,21 +15,5 @@ export default async function AppLayout({
   const user = await currentUser()
   if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding")
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <header className="flex items-center justify-between border-b px-6 py-3">
-        <Link href="/" className="font-semibold">
-          Intervalo
-        </Link>
-        <nav className="flex items-center gap-4 text-sm">
-          <SignOutButton>
-            <Button variant="outline" size="sm">
-              Cerrar sesión
-            </Button>
-          </SignOutButton>
-        </nav>
-      </header>
-      <div className="flex-1">{children}</div>
-    </div>
-  )
+  return <>{children}</>
 }

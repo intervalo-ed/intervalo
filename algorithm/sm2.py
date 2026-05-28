@@ -6,7 +6,7 @@ from .config import SM2Config
 
 
 @dataclass
-class SM2ItemState:
+class SM2TopicState:
     phase: Literal["learning", "review"] = "learning"
     step_index: int = 0
     ease_factor: float = 2.5
@@ -15,13 +15,13 @@ class SM2ItemState:
     next_review: date = field(default_factory=date.today)
 
 
-def update_item_state(
-    state: SM2ItemState,
+def update_topic_state(
+    state: SM2TopicState,
     quality: int,
     *,
     config: SM2Config | None = None,
     today: date | None = None,
-) -> SM2ItemState:
+) -> SM2TopicState:
     config = config or SM2Config()
     today = today or date.today()
 
@@ -31,19 +31,19 @@ def update_item_state(
 
 
 def _update_learning(
-    state: SM2ItemState,
+    state: SM2TopicState,
     quality: int,
     *,
     config: SM2Config,
     today: date,
-) -> SM2ItemState:
+) -> SM2TopicState:
     steps = config.learning_steps
 
     if quality >= config.quality_threshold_pass:
         next_step = state.step_index + 1
         if next_step >= len(steps):
-            # Gradúa: entra en review
-            return SM2ItemState(
+            # Mastered: enters reviewing phase
+            return SM2TopicState(
                 phase="review",
                 step_index=0,
                 ease_factor=config.ef_initial,
@@ -52,7 +52,7 @@ def _update_learning(
                 next_review=today + timedelta(days=config.review_initial_interval),
             )
         interval = steps[next_step]
-        return SM2ItemState(
+        return SM2TopicState(
             phase="learning",
             step_index=next_step,
             ease_factor=state.ease_factor,
@@ -61,10 +61,10 @@ def _update_learning(
             next_review=today + timedelta(days=interval),
         )
     else:
-        # Fallo: retrocede un paso (mínimo step 0)
+        # Failure: drop back one step (min step 0)
         prev_step = max(0, state.step_index - 1)
         interval = steps[prev_step]
-        return SM2ItemState(
+        return SM2TopicState(
             phase="learning",
             step_index=prev_step,
             ease_factor=state.ease_factor,
@@ -75,12 +75,12 @@ def _update_learning(
 
 
 def _update_review(
-    state: SM2ItemState,
+    state: SM2TopicState,
     quality: int,
     *,
     config: SM2Config,
     today: date,
-) -> SM2ItemState:
+) -> SM2TopicState:
     ef = state.ease_factor
     interval = state.interval
     repetitions = state.repetitions
@@ -104,7 +104,7 @@ def _update_review(
             ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)),
         )
 
-    return SM2ItemState(
+    return SM2TopicState(
         phase="review",
         step_index=0,
         ease_factor=ef,

@@ -2,7 +2,10 @@
 
 import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useId, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Screen, ScreenBody, ScreenFooter } from "@/components/ui/screen"
+import { Spinner } from "@/components/ui/spinner"
 import { useEnrollMutation } from "./UseEnrollMutation"
 
 const CAREERS = [
@@ -33,6 +36,7 @@ export default function OnboardingWizard() {
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
   const [universityOther, setUniversityOther] = useState("")
+  const formId = useId()
 
   const greetingName = user?.firstName ?? user?.fullName ?? null
 
@@ -60,79 +64,85 @@ export default function OnboardingWizard() {
   const submitting = enroll.isPending
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="mx-auto flex max-w-md flex-col gap-5 px-6 py-16"
-    >
-      <h1 className="text-3xl font-semibold">
-        {greetingName ? `Hola, ${greetingName}` : "Bienvenido"}
-      </h1>
-      <p className="text-sm text-foreground/70">Contanos un poco antes de empezar.</p>
+    <Screen>
+      <ScreenBody className="max-w-md gap-5">
+        <h1 className="text-3xl font-semibold">
+          {greetingName ? `Hola, ${greetingName}` : "Bienvenido"}
+        </h1>
+        <p className="text-sm text-foreground/70">Contanos un poco antes de empezar.</p>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-sm font-medium">Carrera</span>
-        <select
-          value={career}
-          onChange={(e) => setCareer(e.target.value)}
-          required
-          className="h-10 rounded-md border px-3"
+        <form id={formId} onSubmit={onSubmit} className="flex flex-col gap-5">
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Carrera</span>
+            <select
+              value={career}
+              onChange={(e) => setCareer(e.target.value)}
+              required
+              className="h-10 rounded-md border px-3"
+            >
+              <option value="" disabled>
+                Elegí una opción
+              </option>
+              {CAREERS.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium">Universidad</span>
+            <select
+              value={university}
+              onChange={(e) => setUniversity(e.target.value)}
+              required
+              className="h-10 rounded-md border px-3"
+            >
+              <option value="" disabled>
+                Elegí una opción
+              </option>
+              {UNIVERSITIES.map((u) => (
+                <option key={u} value={u}>
+                  {u}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {university === "Otra" && (
+            <label className="flex flex-col gap-1">
+              <span className="text-sm font-medium">¿Cuál?</span>
+              <input
+                type="text"
+                value={universityOther}
+                onChange={(e) => setUniversityOther(e.target.value)}
+                required
+                className="h-10 rounded-md border px-3"
+              />
+            </label>
+          )}
+
+          {enroll.isError && (
+            <p className="text-sm text-red-500">
+              No pudimos guardar la inscripción: {enroll.error.message}
+            </p>
+          )}
+        </form>
+      </ScreenBody>
+
+      <ScreenFooter innerClassName="max-w-md">
+        <Button
+          type="submit"
+          form={formId}
+          size="lg"
+          className="h-12 w-full"
+          disabled={submitting}
         >
-          <option value="" disabled>
-            Elegí una opción
-          </option>
-          {CAREERS.map((c) => (
-            <option key={c.value} value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="flex flex-col gap-1">
-        <span className="text-sm font-medium">Universidad</span>
-        <select
-          value={university}
-          onChange={(e) => setUniversity(e.target.value)}
-          required
-          className="h-10 rounded-md border px-3"
-        >
-          <option value="" disabled>
-            Elegí una opción
-          </option>
-          {UNIVERSITIES.map((u) => (
-            <option key={u} value={u}>
-              {u}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      {university === "Otra" && (
-        <label className="flex flex-col gap-1">
-          <span className="text-sm font-medium">¿Cuál?</span>
-          <input
-            type="text"
-            value={universityOther}
-            onChange={(e) => setUniversityOther(e.target.value)}
-            required
-            className="h-10 rounded-md border px-3"
-          />
-        </label>
-      )}
-
-      {enroll.isError && (
-        <p className="text-sm text-red-500">
-          No pudimos guardar la inscripción: {enroll.error.message}
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-foreground font-medium text-background disabled:opacity-50"
-      >
-        {submitting ? "Guardando…" : "Empezar"}
-      </button>
-    </form>
+          {submitting && <Spinner />}
+          {submitting ? "Guardando…" : "Empezar"}
+        </Button>
+      </ScreenFooter>
+    </Screen>
   )
 }

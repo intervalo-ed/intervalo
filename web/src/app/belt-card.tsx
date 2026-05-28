@@ -1,75 +1,132 @@
+import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
+import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from "lucide-react"
 import Image from "next/image"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { beltAssetPath, beltLabel, type BeltKey } from "@/lib/catalog"
-import { beltStats } from "@/lib/catalog/stats"
-import type { SkillStates } from "@/lib/api/types"
+import { AccordionContent, AccordionItem } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Progress } from "@/components/ui/progress"
+import type { TopicStates } from "@/lib/api/types"
+import {
+  beltAssetPath,
+  beltInfo,
+  beltLabel,
+  topicLabel,
+  type BeltKey,
+} from "@/lib/catalog"
+import {
+  beltStats,
+  beltTopicStats,
+  type TopicCounts,
+} from "@/lib/catalog/stats"
 
 export default function BeltCard({
   belt,
-  skillStates,
+  topicStates,
 }: {
   belt: BeltKey
-  skillStates: SkillStates
+  topicStates: TopicStates
 }) {
-  const stats = beltStats({ belt, skillStates })
+  const stats = beltStats({ belt, topicStates })
   const isActive = stats.unlocked > 0
+  const topics = beltTopicStats({ belt, topicStates })
+  const info = beltInfo({ belt })
 
   return (
-    <Card size="sm">
-      <CardContent className="flex items-center gap-3">
-        <Image
-          src={beltAssetPath({ belt })}
-          alt={beltLabel({ belt })}
-          width={48}
-          height={48}
-          className={isActive ? "" : "opacity-30"}
-        />
-        <div className="flex-1">
-          <div className="flex items-baseline justify-between">
-            <span className="font-medium">Cinturón {beltLabel({ belt })}</span>
-            <span className="text-sm text-muted-foreground">
-              {stats.unlocked}/{stats.total}
+    <AccordionItem value={belt} disabled={!isActive} className="border-none">
+      <AccordionPrimitive.Header className="flex items-center gap-1">
+        <AccordionPrimitive.Trigger
+          data-slot="accordion-trigger"
+          className="group/accordion-trigger flex flex-1 items-center gap-4 rounded-none border border-transparent py-3 text-left outline-none hover:underline focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50 aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        >
+          <Image
+            src={beltAssetPath({ belt })}
+            alt={beltLabel({ belt })}
+            width={56}
+            height={56}
+            className={isActive ? "" : "opacity-30"}
+          />
+          <div className="flex flex-1 flex-col gap-2 font-sans">
+            <span className="text-lg font-semibold leading-tight">
+              Cinturón {beltLabel({ belt })}
             </span>
+            {isActive && <ProgressRow counts={stats} />}
           </div>
-          {isActive ? (
-            <div className="mt-1 flex flex-wrap gap-1.5 text-sm">
-              <Chip label="nuevos" value={stats.nuevos} tone="blue" />
-              <Chip label="pendientes" value={stats.pendientes} tone="orange" />
-              <Chip label="aprendiendo" value={stats.aprendiendo} tone="green" />
-              <Chip label="graduados" value={stats.graduados} tone="dark" />
-            </div>
-          ) : belt === "white" ? (
-            <p className="mt-1 text-sm text-muted-foreground">Sin iniciar</p>
-          ) : (
-            <p className="mt-1 text-sm text-muted-foreground">Bloqueado</p>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+          <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground group-aria-expanded/accordion-trigger:hidden" />
+          <ChevronUpIcon className="hidden size-4 shrink-0 text-muted-foreground group-aria-expanded/accordion-trigger:inline" />
+        </AccordionPrimitive.Trigger>
+        <BeltInfoDialog
+          beltName={beltLabel({ belt })}
+          headline={info.headline}
+          description={info.description}
+        />
+      </AccordionPrimitive.Header>
+
+      {topics.length > 0 && (
+        <AccordionContent>
+          <ul className="flex flex-col gap-5 pt-2 pb-2">
+            {topics.map((t) => (
+              <li
+                key={t.topic}
+                className={`flex flex-col gap-2 ${t.unlocked === 0 ? "opacity-50" : ""}`}
+              >
+                <span className="text-sm">
+                  {topicLabel({ topic: t.topic })}
+                </span>
+                <ProgressRow counts={t} />
+              </li>
+            ))}
+          </ul>
+        </AccordionContent>
+      )}
+    </AccordionItem>
   )
 }
 
-function Chip({
-  label,
-  value,
-  tone,
+function BeltInfoDialog({
+  beltName,
+  headline,
+  description,
 }: {
-  label: string
-  value: number
-  tone: "blue" | "orange" | "green" | "dark"
+  beltName: string
+  headline: string
+  description: string
 }) {
-  if (value === 0) return null
-  const cls = {
-    blue: "bg-blue-500/15 text-blue-700 dark:text-blue-300",
-    orange: "bg-orange-500/15 text-orange-700 dark:text-orange-300",
-    green: "bg-green-500/15 text-green-700 dark:text-green-300",
-    dark: "bg-foreground/10 text-foreground/80",
-  }[tone]
   return (
-    <Badge variant="secondary" className={cls}>
-      <span className="font-medium">{value}</span>
-      <span className="font-normal">{label}</span>
-    </Badge>
+    <Dialog>
+      <DialogTrigger
+        render={<Button variant="ghost" size="icon-sm" />}
+        aria-label={`Información del cinturón ${beltName}`}
+      >
+        <InfoIcon className="size-4 text-muted-foreground" />
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            Cinturón {beltName} · {headline}
+          </DialogTitle>
+        </DialogHeader>
+        <DialogDescription>{description}</DialogDescription>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function ProgressRow({ counts }: { counts: TopicCounts }) {
+  const pct =
+    counts.total === 0 ? 0 : Math.round((counts.dominados / counts.total) * 100)
+  return (
+    <div className="flex items-center gap-2">
+      <Progress value={pct} className="flex-1" />
+      <span className="text-xs tabular-nums text-muted-foreground">
+        {counts.dominados}/{counts.total}
+      </span>
+    </div>
   )
 }

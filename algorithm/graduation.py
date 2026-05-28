@@ -2,43 +2,29 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .domain import BeltCatalog, ItemKey
-from .sm2 import SM2ItemState
+from .domain import BeltCatalog, TopicKey
+from .sm2 import SM2TopicState
 
 
-def is_graduated(state: SM2ItemState) -> bool:
-    """True when a single item has completed the learning loop."""
+def is_mastered(state: SM2TopicState) -> bool:
+    """True when a topic has completed the learning phase and entered review."""
     return state.phase == "review"
 
 
 @dataclass
 class BeltProgress:
-    graduated: int   # items currently in 'review' phase for this belt
-    total: int       # total items in the belt catalog
-    stripes: int     # stripes earned (0, 1 or 2)
-    promoted: bool   # True when graduated >= catalog.promotion_threshold
+    mastered: int    # topics currently in 'review' phase
+    total: int       # total topics in the belt
+    promoted: bool   # True when every topic in the belt is mastered
 
 
 def belt_progress(
-    items: dict[ItemKey, SM2ItemState],
+    topics: dict[TopicKey, SM2TopicState],
     catalog: BeltCatalog,
 ) -> BeltProgress:
-    """
-    Computes graduation progress for a belt.
-
-    Counts items in 'review' phase across the full belt catalog,
-    regardless of which items were exercised in the current session.
-    Items not yet started are treated as learning/step 0.
-    """
     belt_keys = catalog.all_keys()
-    graduated = sum(
-        1 for k in belt_keys
-        if items.get(k, SM2ItemState()).phase == "review"
+    mastered = sum(
+        1 for k in belt_keys if topics.get(k, SM2TopicState()).phase == "review"
     )
-    stripes = sum(1 for t in catalog.stripe_thresholds if graduated >= t)
-    return BeltProgress(
-        graduated=graduated,
-        total=catalog.total_items,
-        stripes=stripes,
-        promoted=graduated >= catalog.promotion_threshold,
-    )
+    total = catalog.total_topics
+    return BeltProgress(mastered=mastered, total=total, promoted=mastered >= total)
