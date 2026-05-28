@@ -11,6 +11,8 @@ export default function SignInPage() {
       }}
     >
       <SignIn
+        forceRedirectUrl="/onboarding/complete"
+        signUpForceRedirectUrl="/onboarding/complete"
         appearance={{
           variables: {
             colorPrimary: "#7E80F7",
@@ -30,6 +32,9 @@ export default function SignInPage() {
             headerTitle: "font-heading",
             headerSubtitle: "hidden",
             footer: "bg-[#1A1A2A]",
+            footerAction: {
+              display: "none",
+            },
             formButtonPrimary:
               "font-mono uppercase tracking-[0.1em] text-[#131324] hover:bg-[#9698FA]",
           },

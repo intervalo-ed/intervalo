@@ -42,7 +42,9 @@ export default function DashboardEntry() {
   // can still start: the backend's first /session/start seeds initial topics.
   const waitingForNextRepetition =
     totals !== null && totals.unlocked > 0 && totals.pendientes === 0
-  const canRepasar = totals !== null && !waitingForNextRepetition
+  const mainSessionDoneToday = data?.main_session_done_today ?? false
+  const canRepasar =
+    totals !== null && !waitingForNextRepetition && !mainSessionDoneToday
 
   function onRepasar() {
     startSession.mutate(
@@ -107,13 +109,15 @@ export default function DashboardEntry() {
               {startSession.isPending && <Spinner />}
               {startSession.isPending
                 ? "Cargando…"
-                : totals.unlocked === 0
-                  ? "Empezar mi primera sesión"
-                  : waitingForNextRepetition
-                    ? "Sin ejercicios pendientes"
-                    : totals.pendientes > 0
-                      ? "Repasar"
-                      : "Empezar sesión"}
+                : mainSessionDoneToday
+                  ? "Sesión de hoy completada"
+                  : totals.unlocked === 0
+                    ? "Empezar mi primera sesión"
+                    : waitingForNextRepetition
+                      ? "Sin ejercicios pendientes"
+                      : totals.pendientes > 0
+                        ? "Repasar"
+                        : "Empezar sesión"}
             </Button>
             <Button
               variant="outline"

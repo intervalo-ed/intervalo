@@ -8,7 +8,7 @@ export default async function Home() {
   if (!userId) return <MarketingHome />
 
   const user = await currentUser()
-  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding")
+  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding/complete")
 
   return <DashboardEntry />
 }

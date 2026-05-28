@@ -414,7 +414,7 @@ export default function MarketingHome() {
 
         <div className="flex w-full shrink-0 flex-col items-center gap-3">
           <Link
-            href="/sign-in"
+            href="/onboarding"
             className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#5457E5] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#7E80F7] hover:shadow-[0_10px_36px_rgba(84,87,229,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
           >
             Empezar ahora
@@ -477,7 +477,7 @@ export default function MarketingHome() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/sign-in"
+              href="/onboarding"
               className="inline-flex items-center rounded-[4px] bg-[#131324] px-8 py-[0.9rem] font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#7E80F7] transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(0,0,0,0.4)]"
             >
               Empezar ahora

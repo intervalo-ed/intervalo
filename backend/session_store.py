@@ -707,6 +707,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
             "xp_required": lp.xp_required,
             "progress_pct": lp.progress_pct,
         },
+        "main_session_done_today": _has_main_session_today(user_id, course_id, db),
     }
 
 

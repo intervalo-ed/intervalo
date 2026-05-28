@@ -13,7 +13,7 @@ export default async function AppLayout({
   // onboarding completion in Clerk's unsafeMetadata, set by the wizard on
   // successful POST /user/enroll.
   const user = await currentUser()
-  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding")
+  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding/complete")
 
   return <>{children}</>
 }

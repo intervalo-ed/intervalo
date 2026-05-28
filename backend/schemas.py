@@ -64,6 +64,7 @@ class LevelInfoWithMissing(BaseModel):
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
     level_info: LevelInfo
+    main_session_done_today: bool
 
 
 # ── Session ───────────────────────────────────────────────────────────────────
