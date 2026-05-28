@@ -1,6 +1,7 @@
 "use client"
 
 import { ClerkProvider } from "@clerk/nextjs"
+import { esUY } from "@clerk/localizations"
 import { SoundProvider } from "@web-kits/audio/react"
 import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
@@ -32,7 +33,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient()
 
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={esUY}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={cn("h-full", "antialiased", "font-sans", notoSans.variable, notoSansMono.variable, notoSerifHeading.variable)}
       suppressHydrationWarning
     >
