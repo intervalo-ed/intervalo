@@ -415,7 +415,7 @@ export default function MarketingHome() {
         <div className="flex w-full shrink-0 flex-col items-center gap-3">
           <Link
             href="/sign-in"
-            className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#7E80F7] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#131324] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#9698FA] hover:shadow-[0_10px_36px_rgba(126,128,247,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
+            className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#5457E5] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#7E80F7] hover:shadow-[0_10px_36px_rgba(84,87,229,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
           >
             Empezar ahora
           </Link>
@@ -426,8 +426,8 @@ export default function MarketingHome() {
 
         <style>{`
           @keyframes cta-breathe {
-            0%, 100% { box-shadow: 0 4px 20px rgba(126,128,247,0.25), 0 0 0 0 rgba(126,128,247,0.2); }
-            50% { box-shadow: 0 8px 32px rgba(126,128,247,0.40), 0 0 0 10px rgba(126,128,247,0); }
+            0%, 100% { box-shadow: 0 4px 20px rgba(84,87,229,0.25), 0 0 0 0 rgba(84,87,229,0.2); }
+            50% { box-shadow: 0 8px 32px rgba(84,87,229,0.40), 0 0 0 10px rgba(84,87,229,0); }
           }
           @keyframes bounce-down {
             0%, 100% { transform: translateY(0); opacity: 0.4; }
