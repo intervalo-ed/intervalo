@@ -6,6 +6,7 @@ import { SoundProvider } from "@web-kits/audio/react"
 import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ThemeProvider } from "@/components/theme-provider"
+import { PostHogUser } from "@/app/posthog-user"
 
 function makeQueryClient() {
   return new QueryClient({
@@ -34,6 +35,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ClerkProvider localization={esUY}>
+      <PostHogUser />
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
