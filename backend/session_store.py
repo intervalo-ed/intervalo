@@ -614,7 +614,9 @@ def record_answer_db(
         UnitState.exercise_type == unit_key.exercise_type,
     ).first()
 
-    if db_us:
+    # Zen mode is free practice: it only awards XP and must not touch the
+    # student's spaced-repetition progress (phase, interval, due date, mastery).
+    if db_us and db_session.mode != "zen":
         old_phase = db_us.phase
         db_us.phase = new_state.phase
         db_us.step_index = new_state.step_index
