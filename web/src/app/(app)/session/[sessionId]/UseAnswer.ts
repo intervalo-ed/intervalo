@@ -1,7 +1,7 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-import { useApi } from "@/lib/api/UseApi"
+import { useApi } from "@/lib/api/useApi"
 import type { AnswerRequest } from "@/lib/api/types"
 
 export type AnswerResponse = {

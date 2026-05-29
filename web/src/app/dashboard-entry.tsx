@@ -15,7 +15,7 @@ import {
 import { Progress } from "@/components/ui/progress"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
-import { useSfx } from "@/lib/audio/UseSfx"
+import { useSfx } from "@/lib/audio/useSfx"
 import { BELT_ORDER } from "@/lib/catalog"
 import { beltStats, currentBelt } from "@/lib/catalog/stats"
 import { useUser } from "@clerk/nextjs"

@@ -1,7 +1,7 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-import { useApi } from "@/lib/api/UseApi"
+import { useApi } from "@/lib/api/useApi"
 import { stashSession } from "@/lib/session/storage"
 import type { SessionStartResponse } from "@/lib/api/types"
 

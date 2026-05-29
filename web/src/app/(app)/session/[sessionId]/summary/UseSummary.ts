@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { useApi } from "@/lib/api/UseApi"
+import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
 
 export function useSummary({ sessionId }: { sessionId: string }) {

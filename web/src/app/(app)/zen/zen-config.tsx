@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { Toggle } from "@/components/ui/toggle"
-import { useSfx } from "@/lib/audio/UseSfx"
+import { useSfx } from "@/lib/audio/useSfx"
 import { BELT_ORDER, beltLabel, type BeltKey } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
 import { ArrowLeft } from "lucide-react"

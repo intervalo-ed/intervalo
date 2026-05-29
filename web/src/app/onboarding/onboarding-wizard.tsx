@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Wordmark } from "@/components/wordmark"
-import { useSfx } from "@/lib/audio/UseSfx"
+import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
