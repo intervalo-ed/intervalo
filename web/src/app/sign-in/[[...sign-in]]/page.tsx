@@ -1,9 +1,10 @@
 import { SignIn } from "@clerk/nextjs"
+import { dark } from "@clerk/themes"
 
 export default function SignInPage() {
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-center gap-10 bg-[#131324] px-5 py-12"
+      className="flex min-h-screen flex-col items-center justify-center gap-10 bg-[#131324] px-5 py-12 scheme-dark"
       style={{
         backgroundImage:
           "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
@@ -14,6 +15,7 @@ export default function SignInPage() {
         forceRedirectUrl="/onboarding/complete"
         signUpForceRedirectUrl="/onboarding/complete"
         appearance={{
+          theme: dark,
           variables: {
             colorPrimary: "#7E80F7",
             colorBackground: "#1E1E34",
