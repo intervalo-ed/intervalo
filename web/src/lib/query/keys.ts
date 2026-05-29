@@ -5,6 +5,8 @@ export const queryKeys = {
 
   userProgress: () => [...queryKeys.all, "user", "progress"] as const,
 
+  leaderboard: () => [...queryKeys.all, "leaderboard"] as const,
+
   beltInfo: ({ courseId }: { courseId: number }) =>
     [...queryKeys.all, "course", courseId, "belts"] as const,
 

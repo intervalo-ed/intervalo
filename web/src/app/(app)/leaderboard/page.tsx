@@ -1,5 +1,6 @@
 import { BottomNav } from "@/components/bottom-nav"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
+import { LeaderboardContent } from "./leaderboard-content"
 
 export default function LeaderboardPage() {
   return (
@@ -7,7 +8,9 @@ export default function LeaderboardPage() {
       <ScreenHeader>
         <h1 className="text-lg font-semibold">Ranking</h1>
       </ScreenHeader>
-      <ScreenBody />
+      <ScreenBody>
+        <LeaderboardContent />
+      </ScreenBody>
       <BottomNav />
     </Screen>
   )

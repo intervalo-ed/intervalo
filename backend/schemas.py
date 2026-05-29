@@ -67,6 +67,20 @@ class UserProgressResponse(BaseModel):
     main_session_done_today: bool
 
 
+# ── Leaderboard ───────────────────────────────────────────────────────────────
+
+class LeaderboardEntry(BaseModel):
+    rank: int
+    user_id: int
+    name: str
+    total_xp: int
+    is_current_user: bool
+
+
+class LeaderboardResponse(BaseModel):
+    entries: list[LeaderboardEntry]
+
+
 # ── Session ───────────────────────────────────────────────────────────────────
 
 class SessionExercise(BaseModel):

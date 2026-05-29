@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Wordmark } from "@/components/wordmark"
+import { useSfx } from "@/lib/audio/UseSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
@@ -36,6 +37,7 @@ const TOTAL_STEPS = 5
 
 export default function OnboardingWizard() {
   const router = useRouter()
+  const sfx = useSfx()
   const [step, setStep] = useState(0)
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
@@ -43,11 +45,13 @@ export default function OnboardingWizard() {
   const [showOther, setShowOther] = useState(false)
 
   function pickCareer(value: string) {
+    sfx.pop()
     setCareer(value)
     setStep(3)
   }
 
   function pickUniversity(value: string) {
+    sfx.pop()
     setUniversity(value)
     setShowOther(false)
     setStep(4)
@@ -56,6 +60,7 @@ export default function OnboardingWizard() {
   function confirmOther() {
     const value = universityOther.trim()
     if (!value) return
+    sfx.pop()
     setUniversity(value)
     setStep(4)
   }
@@ -63,6 +68,7 @@ export default function OnboardingWizard() {
   function onFinish() {
     const finalUniversity = university.trim()
     if (!career || !finalUniversity) return
+    sfx.pop()
     saveOnboarding({ career, university: finalUniversity })
     router.push("/sign-in")
   }
@@ -87,7 +93,10 @@ export default function OnboardingWizard() {
               <Button
                 size="lg"
                 className="mt-2 h-12 w-full"
-                onClick={() => setStep(1)}
+                onClick={() => {
+                  sfx.pop()
+                  setStep(1)
+                }}
               >
                 Empezar
               </Button>
@@ -137,7 +146,10 @@ export default function OnboardingWizard() {
             <Button
               size="lg"
               className="mt-2 h-12 w-full"
-              onClick={() => setStep(2)}
+              onClick={() => {
+                sfx.pop()
+                setStep(2)
+              }}
             >
               Continuar
             </Button>
@@ -231,6 +243,7 @@ export default function OnboardingWizard() {
       {step > 0 && (
         <button
           onClick={() => {
+            sfx.pop()
             if (step === 3 && showOther) {
               setShowOther(false)
               return

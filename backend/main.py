@@ -27,6 +27,8 @@ from schemas import (
     BeltEntry,
     EnrollmentResponse,
     HealthResponse,
+    LeaderboardEntry,
+    LeaderboardResponse,
     SessionStartResponse,
     SessionSummaryResponse,
     UserProgressResponse,
@@ -238,6 +240,32 @@ def get_user_progress(
         return get_user_progress_db(current_user.id, course_id, db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ── Leaderboard ───────────────────────────────────────────────────────────────
+
+@app.get("/leaderboard", response_model=LeaderboardResponse)
+def get_leaderboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Global leaderboard, ranked by total XP descending."""
+    users = (
+        db.query(User)
+        .order_by(User.total_xp.desc(), User.id.asc())
+        .all()
+    )
+    entries = [
+        LeaderboardEntry(
+            rank=index + 1,
+            user_id=user.id,
+            name=user.display_name or user.name,
+            total_xp=user.total_xp,
+            is_current_user=user.id == current_user.id,
+        )
+        for index, user in enumerate(users)
+    ]
+    return LeaderboardResponse(entries=entries)
 
 
 # ── Session endpoints ─────────────────────────────────────────────────────────

@@ -21,7 +21,6 @@ import { Spinner } from "@/components/ui/spinner"
 import type { SessionExercise } from "@/lib/api/types"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { topicLabel } from "@/lib/catalog"
-import { haptic } from "@/lib/haptics"
 import { X } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
@@ -107,8 +106,7 @@ function QuestionScreen({
   const [firstTry, setFirstTry] = useState(false)
   const [shakeKey, setShakeKey] = useState(0)
   const answer = useAnswer()
-  const playCorrect = useSfx({ name: "correct" })
-  const playWrong = useSfx({ name: "wrong" })
+  const sfx = useSfx()
 
   function onPick(i: number) {
     if (done || tried.has(i)) return
@@ -124,13 +122,11 @@ function QuestionScreen({
       })
       setFirstTry(tried.size === 0)
       setDone(true)
-      playCorrect()
-      haptic({ preset: "success" })
+      sfx.correct()
     } else {
       setTried((prev) => new Set(prev).add(i))
       setShakeKey((k) => k + 1)
-      playWrong()
-      haptic({ preset: "error" })
+      sfx.wrong()
     }
   }
 
@@ -216,7 +212,11 @@ function QuestionScreen({
         <Button
           size="lg"
           className="mt-3 h-12 w-full"
-          onClick={onAdvance}
+          onClick={() => {
+            if (isLast) sfx.end()
+            else sfx.pop()
+            onAdvance()
+          }}
           disabled={!done}
         >
           {isLast ? "Finalizar" : "Siguiente"}

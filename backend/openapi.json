@@ -197,6 +197,46 @@
         }
       }
     },
+    "/leaderboard": {
+      "get": {
+        "summary": "Get Leaderboard",
+        "description": "Global leaderboard, ranked by total XP descending.",
+        "operationId": "get_leaderboard_leaderboard_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/session/start": {
       "post": {
         "summary": "Start Session",
@@ -541,6 +581,55 @@
           "status"
         ],
         "title": "HealthResponse"
+      },
+      "LeaderboardEntry": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp"
+          },
+          "is_current_user": {
+            "type": "boolean",
+            "title": "Is Current User"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "user_id",
+          "name",
+          "total_xp",
+          "is_current_user"
+        ],
+        "title": "LeaderboardEntry"
+      },
+      "LeaderboardResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/LeaderboardEntry"
+            },
+            "type": "array",
+            "title": "Entries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries"
+        ],
+        "title": "LeaderboardResponse"
       },
       "LevelInfo": {
         "properties": {
@@ -907,12 +996,17 @@
           },
           "level_info": {
             "$ref": "#/components/schemas/LevelInfo"
+          },
+          "main_session_done_today": {
+            "type": "boolean",
+            "title": "Main Session Done Today"
           }
         },
         "type": "object",
         "required": [
           "topic_states",
-          "level_info"
+          "level_info",
+          "main_session_done_today"
         ],
         "title": "UserProgressResponse"
       },

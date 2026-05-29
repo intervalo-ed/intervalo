@@ -1,27 +1,39 @@
 "use client"
 
-import { useUser } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
-import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryState } from "nuqs"
-import { ArrowLeft } from "lucide-react"
-import { BELT_ORDER, beltLabel, type BeltKey } from "@/lib/catalog"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
-import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
+import {
+  Screen,
+  ScreenBody,
+  ScreenFooter,
+  ScreenHeader,
+} from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { Toggle } from "@/components/ui/toggle"
+import { useSfx } from "@/lib/audio/UseSfx"
+import { BELT_ORDER, beltLabel, type BeltKey } from "@/lib/catalog"
+import { useUser } from "@clerk/nextjs"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import {
+  parseAsArrayOf,
+  parseAsInteger,
+  parseAsString,
+  useQueryState,
+} from "nuqs"
 import { useStartZen } from "./UseStartZen"
 
 export default function ZenConfig() {
   const { user } = useUser()
   const router = useRouter()
   const startZen = useStartZen()
+  const sfx = useSfx()
 
   const [belts, setBelts] = useQueryState(
     "belts",
-    parseAsArrayOf(parseAsString).withDefault([...BELT_ORDER]),
+    parseAsArrayOf(parseAsString).withDefault([]),
   )
   const [count, setCount] = useQueryState(
     "count",
@@ -40,6 +52,7 @@ export default function ZenConfig() {
 
   function onStart() {
     if (belts.length === 0 || (count ?? 0) < 1) return
+    sfx.start()
     startZen.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",
@@ -69,7 +82,7 @@ export default function ZenConfig() {
         <div className="flex flex-1 flex-col">
           <h1 className="text-lg font-semibold">Modo Zen</h1>
           <p className="text-xs text-muted-foreground">
-            Práctica libre. No actualiza tu progreso.
+            Práctica libre. No actualiza tu progreso. Suma XP.
           </p>
         </div>
       </ScreenHeader>
@@ -85,6 +98,7 @@ export default function ZenConfig() {
                 size="lg"
                 pressed={belts.includes(belt)}
                 onPressedChange={() => toggleBelt(belt)}
+                className="aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90 aria-pressed:hover:text-primary-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
                 {beltLabel({ belt })}
               </Toggle>
@@ -115,10 +129,18 @@ export default function ZenConfig() {
               {count ?? 10}
             </div>
             <ButtonGroup>
-              <Button variant="outline" size="lg" onClick={() => adjustCount(1)}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => adjustCount(1)}
+              >
                 +1
               </Button>
-              <Button variant="outline" size="lg" onClick={() => adjustCount(10)}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => adjustCount(10)}
+              >
                 +10
               </Button>
             </ButtonGroup>

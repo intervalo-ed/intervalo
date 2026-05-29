@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
+import { useSfx } from "@/lib/audio/UseSfx"
 import { BELT_ORDER } from "@/lib/catalog"
 import { beltStats, currentBelt } from "@/lib/catalog/stats"
-import { SignOutButton, useUser } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Logo } from "@/components/logo"
@@ -22,6 +23,7 @@ export default function DashboardEntry() {
   const { user } = useUser()
   const router = useRouter()
   const startSession = useStartSession()
+  const sfx = useSfx()
 
   const totals = data
     ? BELT_ORDER.reduce(
@@ -47,6 +49,7 @@ export default function DashboardEntry() {
     totals !== null && !waitingForNextRepetition && !mainSessionDoneToday
 
   function onRepasar() {
+    sfx.start()
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "" },
       {
@@ -61,12 +64,6 @@ export default function DashboardEntry() {
         <Link href="/" aria-label="Intervalo">
           <Logo className="h-6 w-auto" />
         </Link>
-        <div className="flex-1" />
-        <SignOutButton>
-          <Button variant="outline" size="sm">
-            Cerrar sesión
-          </Button>
-        </SignOutButton>
       </ScreenHeader>
 
       <ScreenBody className="gap-8">

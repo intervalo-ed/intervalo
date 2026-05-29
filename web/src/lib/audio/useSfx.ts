@@ -13,9 +13,15 @@ const SOUND_PATHS = {
 
 export type SfxName = keyof typeof SOUND_PATHS
 
-export function useSfx({ name }: { name: SfxName }) {
-  return useSound(
-    { source: { type: "sample", url: SOUND_PATHS[name] } },
-    { volume: 0.2 },
-  )
+const VOLUME = 0.2
+
+export function useSfx(): Record<SfxName, () => void> {
+  return {
+    pop: useSound({ source: { type: "sample", url: SOUND_PATHS.pop } }, { volume: VOLUME }),
+    correct: useSound({ source: { type: "sample", url: SOUND_PATHS.correct } }, { volume: VOLUME }),
+    wrong: useSound({ source: { type: "sample", url: SOUND_PATHS.wrong } }, { volume: VOLUME }),
+    start: useSound({ source: { type: "sample", url: SOUND_PATHS.start } }, { volume: VOLUME }),
+    end: useSound({ source: { type: "sample", url: SOUND_PATHS.end } }, { volume: VOLUME }),
+    xpCount: useSound({ source: { type: "sample", url: SOUND_PATHS.xpCount } }, { volume: VOLUME }),
+  }
 }

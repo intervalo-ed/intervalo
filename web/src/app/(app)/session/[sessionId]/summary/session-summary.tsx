@@ -12,6 +12,7 @@ import { Progress } from "@/components/ui/progress"
 import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { queryKeys } from "@/lib/query/keys"
+import { useSfx } from "@/lib/audio/UseSfx"
 import { topicLabel } from "@/lib/catalog"
 import { clearSession } from "@/lib/session/storage"
 import { useSummary } from "./UseSummary"
@@ -20,6 +21,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const { data, isLoading, isError, error } = useSummary({ sessionId })
   const qc = useQueryClient()
   const router = useRouter()
+  const sfx = useSfx()
 
   function goHome() {
     router.push("/")
@@ -33,12 +35,13 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   // hits its cache on return and shows stale state.
   useEffect(() => {
     if (!data) return
+    sfx.xpCount()
     clearSession({ id: sessionId })
     qc.invalidateQueries({
       queryKey: queryKeys.userProgress(),
       refetchType: "all",
     })
-  }, [data, sessionId, qc])
+  }, [data, sessionId, qc, sfx])
 
   if (isLoading) {
     return (

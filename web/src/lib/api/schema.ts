@@ -101,6 +101,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/leaderboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Leaderboard
+         * @description Global leaderboard, ranked by total XP descending.
+         */
+        get: operations["get_leaderboard_leaderboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/start": {
         parameters: {
             query?: never;
@@ -240,6 +260,24 @@ export interface components {
             /** Status */
             status: string;
         };
+        /** LeaderboardEntry */
+        LeaderboardEntry: {
+            /** Rank */
+            rank: number;
+            /** User Id */
+            user_id: number;
+            /** Name */
+            name: string;
+            /** Total Xp */
+            total_xp: number;
+            /** Is Current User */
+            is_current_user: boolean;
+        };
+        /** LeaderboardResponse */
+        LeaderboardResponse: {
+            /** Entries */
+            entries: components["schemas"]["LeaderboardEntry"][];
+        };
         /** LevelInfo */
         LevelInfo: {
             /** Level */
@@ -374,6 +412,8 @@ export interface components {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
             level_info: components["schemas"]["LevelInfo"];
+            /** Main Session Done Today */
+            main_session_done_today: boolean;
         };
         /** UserResponse */
         UserResponse: {
@@ -545,6 +585,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_leaderboard_leaderboard_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeaderboardResponse"];
                 };
             };
             /** @description Validation Error */

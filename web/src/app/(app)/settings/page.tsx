@@ -1,5 +1,6 @@
 import { BottomNav } from "@/components/bottom-nav"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
+import { SettingsContent } from "./settings-content"
 
 export default function SettingsPage() {
   return (
@@ -7,7 +8,9 @@ export default function SettingsPage() {
       <ScreenHeader>
         <h1 className="text-lg font-semibold">Ajustes</h1>
       </ScreenHeader>
-      <ScreenBody />
+      <ScreenBody>
+        <SettingsContent />
+      </ScreenBody>
       <BottomNav />
     </Screen>
   )
