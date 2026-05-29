@@ -32,6 +32,7 @@ from schemas import (
     SessionStartResponse,
     SessionSummaryResponse,
     UserProgressResponse,
+    UserStatusResponse,
 )
 
 app = FastAPI(title="Intervalo Backend")
@@ -227,6 +228,34 @@ def enroll_user(
         "success": True,
         "message": "Enrollment successful",
     }
+
+
+@app.get("/user/status", response_model=UserStatusResponse)
+def get_user_status(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Authoritative new-vs-returning check, read from the DB.
+
+    A returning user has an enrollment and/or learning state, regardless of
+    what their Clerk `onboarded` metadata says. The frontend uses this to
+    decide whether to run onboarding or send the user straight to the dashboard.
+    """
+    from models import Enrollment, UnitState
+
+    course_id = 1  # Default course
+
+    enrolled = db.query(Enrollment.id).filter(
+        Enrollment.user_id == current_user.id,
+        Enrollment.course_id == course_id,
+    ).first() is not None
+
+    has_progress = db.query(UnitState.id).filter(
+        UnitState.user_id == current_user.id,
+        UnitState.course_id == course_id,
+    ).first() is not None
+
+    return UserStatusResponse(enrolled=enrolled, has_progress=has_progress)
 
 
 @app.get("/user/progress", response_model=UserProgressResponse)

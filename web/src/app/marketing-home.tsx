@@ -223,11 +223,15 @@ function QuestionLoop() {
         <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
           {item.t1.toUpperCase()}
         </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">◆</span>
+        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+          ◆
+        </span>
         <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
           {item.t2.toUpperCase()}
         </span>
-        <span aria-hidden className="text-[0.5rem] text-[#38385A]">◆</span>
+        <span aria-hidden className="text-[0.5rem] text-[#38385A]">
+          ◆
+        </span>
         <span className="font-mono text-[0.62rem] uppercase tracking-[0.13em] text-[#768899]">
           {item.t3.toUpperCase()}
         </span>
@@ -509,29 +513,6 @@ export default function MarketingHome() {
                   </span>
                   <span className="font-mono text-[0.7rem] text-[#768899]">
                     @nvranco
-                  </span>
-                </div>
-              </a>
-              <a
-                href="https://github.com/sgalanb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 transition-opacity hover:opacity-80"
-              >
-                <Image
-                  src="https://avatars.githubusercontent.com/sgalanb"
-                  alt="Santiago Galán"
-                  width={44}
-                  height={44}
-                  unoptimized
-                  className="rounded-md object-cover grayscale brightness-[0.85]"
-                />
-                <div className="flex flex-col gap-px">
-                  <span className="text-[0.85rem] font-medium text-[#F6F8FC]">
-                    Santiago Galán
-                  </span>
-                  <span className="font-mono text-[0.7rem] text-[#768899]">
-                    @sgalanb
                   </span>
                 </div>
               </a>

@@ -3,6 +3,8 @@ export const queryKeys = {
 
   authMe: () => [...queryKeys.all, "auth", "me"] as const,
 
+  userStatus: () => [...queryKeys.all, "user", "status"] as const,
+
   userProgress: () => [...queryKeys.all, "user", "progress"] as const,
 
   leaderboard: () => [...queryKeys.all, "leaderboard"] as const,
