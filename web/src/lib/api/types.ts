@@ -1,6 +1,7 @@
 import type { components } from "./schema"
 
 export type TopicProgress = components["schemas"]["TopicProgress"]
+export type UnitProgress = components["schemas"]["UnitProgress"]
 export type TopicStates = Record<string, TopicProgress>
 export type LevelInfo = components["schemas"]["LevelInfo"]
 export type LevelInfoWithMissing = components["schemas"]["LevelInfoWithMissing"]

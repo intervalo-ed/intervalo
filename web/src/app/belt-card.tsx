@@ -1,5 +1,5 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
-import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from "lucide-react"
+import { ChevronDownIcon, ChevronUpIcon, InfoIcon, LockIcon } from "lucide-react"
 import Image from "next/image"
 import { AccordionContent, AccordionItem } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
@@ -25,6 +25,7 @@ import {
   beltTopicStats,
   type TopicCounts,
 } from "@/lib/catalog/stats"
+import ExerciseTypePills from "./exercise-type-pills"
 
 export default function BeltCard({
   belt,
@@ -76,10 +77,18 @@ export default function BeltCard({
                 key={t.topic}
                 className={`flex flex-col gap-2 ${t.unlocked === 0 ? "opacity-50" : ""}`}
               >
-                <span className="text-sm">
+                <span className="flex items-center gap-1.5 text-sm">
+                  {t.unlocked === 0 && (
+                    <LockIcon className="size-3.5 shrink-0 text-muted-foreground" />
+                  )}
                   {topicLabel({ topic: t.topic })}
                 </span>
-                <ProgressRow counts={t} />
+                {(() => {
+                  const units = topicStates[t.topic]?.units ?? []
+                  return units.length > 0 ? (
+                    <ExerciseTypePills units={units} />
+                  ) : null
+                })()}
               </li>
             ))}
           </ul>

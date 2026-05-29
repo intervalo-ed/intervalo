@@ -35,6 +35,11 @@ class EnrollmentResponse(BaseModel):
 
 # ── Progress ──────────────────────────────────────────────────────────────────
 
+class UnitProgress(BaseModel):
+    exercise_type: str
+    state: str          # "sin_empezar" | "aprendiendo" | "dominado"
+
+
 class TopicProgress(BaseModel):
     phase: str          # "learning" | "review"
     step_index: int
@@ -44,6 +49,7 @@ class TopicProgress(BaseModel):
     attempted: bool
     next_review: str | None = None
     failed: bool
+    units: list[UnitProgress] = []
 
 
 class LevelInfo(BaseModel):

@@ -240,6 +240,12 @@ def _aggregate_topic_progress(
         total_types > 0 and mastered == total_types
     ) else "learning"
 
+    rows_by_type = {r.exercise_type: r for r in rows}
+    units = [
+        {"exercise_type": et, "state": _unit_state(rows_by_type.get(et))}
+        for et in expected_types
+    ]
+
     return {
         "phase": aggregate_phase,
         "step_index": mastered,
@@ -249,7 +255,17 @@ def _aggregate_topic_progress(
         "attempted": attempted,
         "next_review": next_review,
         "failed": False,
+        "units": units,
     }
+
+
+def _unit_state(row: UnitState | None) -> str:
+    """Per-exercise-type learning state for the UI pills."""
+    if row is None or not row.attempted:
+        return "sin_empezar"
+    if row.phase == "review":
+        return "dominado"
+    return "aprendiendo"
 
 
 def _exercise_to_dict(ex: ExerciseInSession) -> dict:

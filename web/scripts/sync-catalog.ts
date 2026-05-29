@@ -28,7 +28,13 @@ type RawBelt = {
   topics: RawTopic[]
 }
 
-type RawCatalog = { belts: RawBelt[] }
+type RawExerciseType = {
+  id: string
+  label: string
+  description: string
+}
+
+type RawCatalog = { belts: RawBelt[]; exercise_types: RawExerciseType[] }
 
 function generate() {
   const raw: RawCatalog = JSON.parse(readFileSync(SOURCE, "utf8"))
@@ -54,8 +60,15 @@ export interface Belt {
   topics: Topic[]
 }
 
+export interface ExerciseType {
+  id: string
+  label: string
+  description: string
+}
+
 export interface Catalog {
   belts: Belt[]
+  exercise_types: ExerciseType[]
 }
 
 `

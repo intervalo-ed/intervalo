@@ -4,6 +4,14 @@ import { BottomNav } from "@/components/bottom-nav"
 import { Accordion } from "@/components/ui/accordion"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
@@ -11,6 +19,7 @@ import { useSfx } from "@/lib/audio/UseSfx"
 import { BELT_ORDER } from "@/lib/catalog"
 import { beltStats, currentBelt } from "@/lib/catalog/stats"
 import { useUser } from "@clerk/nextjs"
+import { HelpCircle } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Logo } from "@/components/logo"
@@ -60,7 +69,7 @@ export default function DashboardEntry() {
 
   return (
     <Screen>
-      <ScreenHeader>
+      <ScreenHeader innerClassName="justify-center">
         <Link href="/" aria-label="Intervalo">
           <Logo className="h-6 w-auto" />
         </Link>
@@ -96,35 +105,58 @@ export default function DashboardEntry() {
         )}
 
         {totals && (
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button
-              size="lg"
-              className="h-12 sm:flex-1"
-              onClick={onRepasar}
-              disabled={!canRepasar || startSession.isPending}
-            >
-              {startSession.isPending && <Spinner />}
-              {startSession.isPending
-                ? "Cargando…"
-                : mainSessionDoneToday
-                  ? "Sesión de hoy completada"
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                size="lg"
+                className="h-12 sm:flex-1"
+                onClick={onRepasar}
+                disabled={!canRepasar || startSession.isPending}
+              >
+                {startSession.isPending && <Spinner />}
+                {startSession.isPending
+                  ? "Cargando…"
                   : totals.unlocked === 0
                     ? "Empezar mi primera sesión"
-                    : waitingForNextRepetition
-                      ? "Sin ejercicios pendientes"
-                      : totals.pendientes > 0
-                        ? "Repasar"
-                        : "Empezar sesión"}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12"
-              nativeButton={false}
-              render={<Link href="/zen" />}
-            >
-              Modo Zen
-            </Button>
+                    : totals.pendientes > 0
+                      ? "Repasar"
+                      : "Empezar sesión"}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="h-12"
+                nativeButton={false}
+                render={<Link href="/zen" />}
+              >
+                Modo Zen
+              </Button>
+            </div>
+            {!canRepasar && !startSession.isPending && (
+              <Dialog>
+                <DialogTrigger
+                  render={
+                    <button
+                      type="button"
+                      className="inline-flex items-center gap-1.5 self-start text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    />
+                  }
+                >
+                  <HelpCircle className="size-4" />
+                  ¿Por qué no puedo repasar?
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Nada para repasar por hoy</DialogTitle>
+                    <DialogDescription>
+                      Ya completaste todo lo que tenías que repasar hoy. Volvé
+                      mañana para tu próxima sesión, o usá el Modo Zen para
+                      practicar libremente cuando quieras.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            )}
           </div>
         )}
 

@@ -971,6 +971,14 @@
           "failed": {
             "type": "boolean",
             "title": "Failed"
+          },
+          "units": {
+            "items": {
+              "$ref": "#/components/schemas/UnitProgress"
+            },
+            "type": "array",
+            "title": "Units",
+            "default": []
           }
         },
         "type": "object",
@@ -984,6 +992,24 @@
           "failed"
         ],
         "title": "TopicProgress"
+      },
+      "UnitProgress": {
+        "properties": {
+          "exercise_type": {
+            "type": "string",
+            "title": "Exercise Type"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_type",
+          "state"
+        ],
+        "title": "UnitProgress"
       },
       "UserProgressResponse": {
         "properties": {

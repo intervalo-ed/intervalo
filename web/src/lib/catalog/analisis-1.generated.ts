@@ -15,8 +15,15 @@ export interface Belt {
   topics: Topic[]
 }
 
+export interface ExerciseType {
+  id: string
+  label: string
+  description: string
+}
+
 export interface Catalog {
   belts: Belt[]
+  exercise_types: ExerciseType[]
 }
 
 export const catalog: Catalog = {
@@ -180,6 +187,53 @@ export const catalog: Catalog = {
           "tooltip": "El **Teorema Fundamental del Cálculo** conecta derivadas e integrales, mostrando que son operaciones inversas.\n\n**Primera parte (diferenciación de integrales):**\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces:\n$$F'(x) = f(x)$$\n\nLa derivada de una integral recupera la función original.\n\n**Segunda parte (cálculo de integrales definidas):**\nSi $F$ es una antiderivada de $f$, entonces:\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsta parte es lo que usamos para evaluar integrales definidas.\n\n**Impacto histórico:**\nEste teorema unificó el cálculo diferencial (derivadas) e integral (integrales), mostrando que son fundamentalmente relacionados.\n\nEjemplo: Para $\\int_1^3 2x \\, dx$, una antiderivada es $F(x) = x^2$, así que:\n$$\\int_1^3 2x \\, dx = F(3) - F(1) = 9 - 1 = 8$$"
         }
       ]
+    }
+  ],
+  "exercise_types": [
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar funciones, puntos o casos."
+    },
+    {
+      "id": "FORM",
+      "label": "Fórmula",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "GRAF",
+      "label": "Gráficos",
+      "description": "Leer e interpretar información en gráficos."
+    },
+    {
+      "id": "ESTR",
+      "label": "Estrategia",
+      "description": "Elegir el método o las condiciones para resolver."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular el resultado paso a paso."
+    },
+    {
+      "id": "DERI",
+      "label": "Derivación",
+      "description": "Calcular derivadas aplicando las reglas."
+    },
+    {
+      "id": "INTG",
+      "label": "Integración",
+      "description": "Calcular integrales definidas e indefinidas."
+    },
+    {
+      "id": "APLI",
+      "label": "Aplicación",
+      "description": "Resolver problemas y situaciones reales."
     }
   ]
 }

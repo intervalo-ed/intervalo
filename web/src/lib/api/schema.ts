@@ -404,6 +404,18 @@ export interface components {
             next_review?: string | null;
             /** Failed */
             failed: boolean;
+            /**
+             * Units
+             * @default []
+             */
+            units: components["schemas"]["UnitProgress"][];
+        };
+        /** UnitProgress */
+        UnitProgress: {
+            /** Exercise Type */
+            exercise_type: string;
+            /** State */
+            state: string;
         };
         /** UserProgressResponse */
         UserProgressResponse: {

@@ -160,5 +160,52 @@
         }
       ]
     }
+  ],
+  "exercise_types": [
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar funciones, puntos o casos."
+    },
+    {
+      "id": "FORM",
+      "label": "Fórmula",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "GRAF",
+      "label": "Gráficos",
+      "description": "Leer e interpretar información en gráficos."
+    },
+    {
+      "id": "ESTR",
+      "label": "Estrategia",
+      "description": "Elegir el método o las condiciones para resolver."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular el resultado paso a paso."
+    },
+    {
+      "id": "DERI",
+      "label": "Derivación",
+      "description": "Calcular derivadas aplicando las reglas."
+    },
+    {
+      "id": "INTG",
+      "label": "Integración",
+      "description": "Calcular integrales definidas e indefinidas."
+    },
+    {
+      "id": "APLI",
+      "label": "Aplicación",
+      "description": "Resolver problemas y situaciones reales."
+    }
   ]
 }
