@@ -2,20 +2,21 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from typing import Iterable
 
 from .config import SM2Config
-from .domain import Belt, BeltCatalog, ItemKey
-from .sm2 import SM2ItemState
+from .domain import BeltCatalog, TopicKey, UnitKey
+from .sm2 import SM2UnitState
 
 
 @dataclass(frozen=True)
-class SessionItem:
-    key: ItemKey
-    state: SM2ItemState
+class SessionUnit:
+    key: UnitKey
+    state: SM2UnitState
 
 
-def _topic_distance_ok(session: list[SessionItem], candidate: SessionItem, *, min_distance: int) -> bool:
+def _topic_distance_ok(
+    session: list[SessionUnit], candidate: SessionUnit, *, min_distance: int
+) -> bool:
     if min_distance <= 0:
         return True
     last_same_idx = None
@@ -29,69 +30,78 @@ def _topic_distance_ok(session: list[SessionItem], candidate: SessionItem, *, mi
 
 
 def build_session(
-    items: dict[ItemKey, SM2ItemState],
+    units: dict[UnitKey, SM2UnitState],
     *,
     today: date | None = None,
     config: SM2Config | None = None,
-    introduce_new_item: callable | None = None,
-    item_priority: dict[ItemKey, int] | None = None,
-    item_attempted: dict[ItemKey, bool] | None = None,
-) -> list[SessionItem]:
+    introduce_new_topic: callable | None = None,
+    topic_priority: dict[TopicKey, int] | None = None,
+    unit_attempted: dict[UnitKey, bool] | None = None,
+) -> list[SessionUnit]:
     """
-    Dual-Loop session builder (updated for Nuevo/Aprendiendo/Pendiente/Graduado):
-    - Step 1: collect items that are "Nuevo" (not attempted) or "Pendiente" (overdue).
-    - Step 2: if fewer than min_items_before_new_content, introduce new items.
-    - Step 3: cap at max_exercises_per_session.
-    - Step 4: greedy mix ensuring min_distance_same_function between same topics.
+    Builds the next session at the unit (belt, topic, exercise_type) granularity:
+    - Step 1: collect units that are "new" (not attempted) or "pending" (overdue).
+    - Step 2: while candidates < min_session_exercises, ask the caller to
+      introduce the next topic (yielding one unit per exercise_type). Stop
+      when nothing's left to unlock.
+    - Step 3: hard-cap at max_session_exercises. Overflow naturally surfaces
+      tomorrow because unintroduced units stay queued.
+    - Step 4: greedy mix ensuring min_distance_same_topic between same topics.
+
+    `introduce_new_topic` is expected to return a list[UnitKey] for the next
+    unlocked topic (one entry per exercise_type), or [] when there's nothing
+    left to unlock.
     """
     config = config or SM2Config()
     today = today or date.today()
-    item_attempted = item_attempted or {}
+    unit_attempted = unit_attempted or {}
 
-    # Collect items that are either:
-    # - "Nuevo": not attempted yet (attempted=False, in learning phase)
-    # - "Pendiente": overdue (next_review <= today), regardless of phase
-    candidates = []
-    for k, s in items.items():
-        is_attempted = item_attempted.get(k, False)
+    candidates: list[SessionUnit] = []
+    for k, s in units.items():
+        is_attempted = unit_attempted.get(k, False)
         is_new = not is_attempted and s.phase == "learning"
         is_pending = s.next_review <= today
 
         if is_new or is_pending:
-            candidates.append(SessionItem(key=k, state=s))
+            candidates.append(SessionUnit(key=k, state=s))
 
-    if item_priority is not None:
-        candidates.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
+    def _unit_priority(unit: SessionUnit) -> int:
+        if topic_priority is None:
+            return 0
+        return topic_priority.get(unit.key.topic_key, len(topic_priority))
+
+    if topic_priority is not None:
+        candidates.sort(key=_unit_priority)
     else:
-        # Sort by: new items first, then pending by next_review
         candidates.sort(key=lambda x: (
-            not (not item_attempted.get(x.key, False) and x.state.phase == "learning"),  # new items first
-            x.state.next_review
+            not (not unit_attempted.get(x.key, False) and x.state.phase == "learning"),
+            x.state.next_review,
         ))
 
-    # Step 2: introduce new content if not enough overdue items.
-    if introduce_new_item is not None and len(candidates) < config.min_items_before_new_content:
-        needed = config.min_items_before_new_content - len(candidates)
-        new_items: list[SessionItem] = []
-        for _ in range(needed):
-            new_key = introduce_new_item()
-            if new_key is None or new_key in items:
+    if introduce_new_topic is not None and len(candidates) < config.min_session_exercises:
+        guard = 0
+        while len(candidates) < config.min_session_exercises and guard < 50:
+            guard += 1
+            new_keys = introduce_new_topic() or []
+            new_units = [
+                SessionUnit(key=uk, state=SM2UnitState())
+                for uk in new_keys
+                if uk not in units
+            ]
+            if not new_units:
                 break
-            new_items.append(SessionItem(key=new_key, state=SM2ItemState()))
-        if item_priority is not None:
-            new_items.sort(key=lambda x: item_priority.get(x.key, len(item_priority)))
-        candidates.extend(new_items)
+            if topic_priority is not None:
+                new_units.sort(key=_unit_priority)
+            candidates.extend(new_units)
 
-    # Step 3: cap total session length.
-    candidates = candidates[: config.max_exercises_per_session]
+    candidates = candidates[: config.max_session_exercises]
 
-    # Step 4: greedy mix with topic distance constraint.
-    session: list[SessionItem] = []
+    session: list[SessionUnit] = []
     remaining = candidates[:]
     while remaining:
         placed = False
         for idx, cand in enumerate(remaining):
-            if _topic_distance_ok(session, cand, min_distance=config.min_distance_same_function):
+            if _topic_distance_ok(session, cand, min_distance=config.min_distance_same_topic):
                 session.append(cand)
                 remaining.pop(idx)
                 placed = True
@@ -102,10 +112,11 @@ def build_session(
     return session
 
 
-def should_reinsert(state: SM2ItemState, intra_session_count: int, *, config: SM2Config | None = None) -> bool:
+def should_reinsert(
+    state: SM2UnitState, intra_session_count: int, *, config: SM2Config | None = None
+) -> bool:
     """
-    Returns True if a failed item in step 0 should be reinserted in the current session.
-    Called by the session controller after each incorrect answer.
+    Returns True if a failed unit in step 0 should be reinserted in the current session.
     """
     config = config or SM2Config()
     return (
@@ -115,21 +126,17 @@ def should_reinsert(state: SM2ItemState, intra_session_count: int, *, config: SM
     )
 
 
-def default_catalog(belt: BeltCatalog) -> list[ItemKey]:
-    """Returns all ItemKeys for the given belt catalog."""
+def default_catalog(belt: BeltCatalog) -> list[TopicKey]:
+    """Returns all TopicKeys for the given belt catalog."""
     return belt.all_keys()
 
 
-def belt_item_priority(catalog: BeltCatalog) -> dict[ItemKey, int]:
+def belt_topic_priority(catalog: BeltCatalog) -> dict[TopicKey, int]:
     """
-    Returns a priority map for a belt catalog following the topic_specs order.
-    Items are introduced topic by topic, skill by skill within each topic.
-    This controls the order in which new items are introduced in a session.
+    Returns a priority map for a belt catalog following the topic order.
+    Topics are introduced in the order they appear in the catalog.
     """
-    priority: dict[ItemKey, int] = {}
-    idx = 0
-    for ts in catalog.topic_specs:
-        for skill in ts.skills:
-            priority[ItemKey(belt=catalog.belt, topic=ts.key, skill=skill)] = idx
-            idx += 1
-    return priority
+    return {
+        TopicKey(belt=catalog.belt, topic=t.key): idx
+        for idx, t in enumerate(catalog.topics)
+    }

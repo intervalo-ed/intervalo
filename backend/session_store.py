@@ -1,5 +1,9 @@
 """
-session_store.py — Gestión de sesiones en memoria para Intervalo.
+session_store.py — Session lifecycle: build, answer, summarize.
+
+Unit-level spaced repetition: each (belt, topic, exercise_type) triple is one
+tracked unit. A topic is considered "mastered" only once *every* one of its
+exercise_types has graduated into the reviewing phase.
 """
 
 from __future__ import annotations
@@ -8,43 +12,40 @@ import random
 import sys
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, date, time
 from pathlib import Path
 from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from algorithm import (
-    SM2ItemState,
-    ItemKey,
-    FunctionFamily,
-    SkillCode,
     Belt,
     BeltCatalog,
-    load_belt_catalogs,
-    build_session,
-    quality_from_attempt,
-    update_item_state,
-    should_reinsert,
-    default_catalog,
     SM2Config,
+    SM2UnitState,
+    TopicKey,
+    UnitKey,
+    XP_BELT_PROMOTED,
+    XP_CORRECT,
+    XP_STREAK_BONUS,
+    XP_STREAK_INTERVAL,
+    XP_TOPIC_MASTERED,
+    XP_WRONG,
     belt_progress,
-    xp_for_quality,
+    build_session,
+    default_catalog,
+    is_topic_mastered,
     level_progress,
-    XP_BONUS_STREAK5,
-    XP_BONUS_STREAK10,
-    XP_BONUS_RAYA,
-    XP_BONUS_BELT,
+    load_belt_catalogs,
+    quality_from_attempts,
+    update_unit_state,
 )
-from exercise_bank import get_exercise_db
-from datetime import datetime, date
+from exercise_bank import get_exercise_db, topic_exercise_types
 from sqlalchemy.orm import Session as DBSession
-from sqlalchemy import func
-from models import Session as SessionModel, ItemState, Course
+from models import Answer, Course, Session as SessionModel, UnitState, User
 
 
 # ── Course slug resolution ────────────────────────────────────────────────────
-# Resolve course_id → slug once per process. Slugs are stable within a deploy,
-# so this cache never needs invalidation in normal use.
 
 _COURSE_SLUG_CACHE: dict[int, str] = {}
 
@@ -60,10 +61,35 @@ def _get_course_slug(course_id: int, db: DBSession) -> str:
     return course.slug
 
 
-def _get_white_catalog(course_id: int, db: DBSession) -> BeltCatalog:
-    """Current single-belt selection: siempre empieza por el cinturón blanco."""
+_BELT_ORDER = [Belt.WHITE, Belt.BLUE, Belt.VIOLET, Belt.BROWN, Belt.BLACK]
+
+
+def _all_topic_keys(course_id: int, db: DBSession) -> list[TopicKey]:
+    """Full ordered list of topic keys across all belts in canonical order."""
     slug = _get_course_slug(course_id, db)
-    return load_belt_catalogs(slug)[Belt.WHITE]
+    catalogs = load_belt_catalogs(slug)
+    keys: list[TopicKey] = []
+    for belt in _BELT_ORDER:
+        if belt in catalogs:
+            keys.extend(catalogs[belt].all_keys())
+    return keys
+
+
+def _get_catalog(course_id: int, belt: Belt, db: DBSession) -> BeltCatalog:
+    slug = _get_course_slug(course_id, db)
+    return load_belt_catalogs(slug)[belt]
+
+
+def _belt_topic_types(
+    course_id: int,
+    catalog: BeltCatalog,
+    db: DBSession,
+) -> dict[TopicKey, list[str]]:
+    """Discover the exercise_types declared per topic for one belt."""
+    return {
+        tk: topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        for tk in catalog.all_keys()
+    }
 
 
 # ── Data classes ──────────────────────────────────────────────────────────────
@@ -71,7 +97,7 @@ def _get_white_catalog(course_id: int, db: DBSession) -> BeltCatalog:
 @dataclass
 class ExerciseInSession:
     exercise_id: str
-    item_key: ItemKey
+    unit_key: UnitKey
     question: str
     options: list[str]
     correct_index: int
@@ -79,261 +105,358 @@ class ExerciseInSession:
     feedback_incorrect: str
     has_math: bool = False
     graph_fn: str = ""
-    graph_view: list = None
-    explanation: str = None
+    graph_view: list | None = None
+    explanation: str | None = None
+
+    @property
+    def topic_key(self) -> TopicKey:
+        return self.unit_key.topic_key
+
+    @property
+    def exercise_type(self) -> str:
+        return self.unit_key.exercise_type
 
 
 @dataclass
 class SessionState:
     session_id: str
     user_name: str
-    item_states: dict[ItemKey, SM2ItemState]
+    unit_states: dict[UnitKey, SM2UnitState]
     exercises: list[ExerciseInSession]
     results: list[dict] = field(default_factory=list)
     xp_session: int = 0
     streak: int = 0
 
 
-# ── In-memory store ───────────────────────────────────────────────────────────
-
 _sessions: dict[str, SessionState] = {}
+_default_config = SM2Config()
+
+
+class DailySessionLimitError(Exception):
+    """Raised when the user already started/finished their main session today."""
+
+
+def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool:
+    today_start = datetime.combine(date.today(), time.min)
+    return db.query(SessionModel).filter(
+        SessionModel.user_id == user_id,
+        SessionModel.course_id == course_id,
+        SessionModel.mode == "main",
+        SessionModel.started_at >= today_start,
+    ).first() is not None
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _get_session(session_id: str) -> Optional[SessionState]:
+    return _sessions.get(session_id)
+
+
+def _topic_has_any_units(
+    user_id: int, course_id: int, topic_key: TopicKey, db: DBSession,
+) -> bool:
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == topic_key.belt.value,
+        UnitState.topic == topic_key.topic,
+    ).first() is not None
+
+
+def _create_topic_units(
+    user_id: int,
+    course_id: int,
+    topic_key: TopicKey,
+    db: DBSession,
+) -> list[str]:
+    """Create UnitState rows for every exercise_type of the given topic."""
+    types = topic_exercise_types(course_id, topic_key.belt.value, topic_key.topic, db)
+    today = date.today()
+    for et in types:
+        db.add(UnitState(
+            user_id=user_id,
+            course_id=course_id,
+            belt=topic_key.belt.value,
+            topic=topic_key.topic,
+            exercise_type=et,
+            phase="learning",
+            step_index=0,
+            ease_factor=2.5,
+            interval_days=1,
+            repetitions=0,
+            next_due=today,
+            attempted=False,
+        ))
+    return types
+
+
+def _unlock_next_topic(
+    user_id: int,
+    course_id: int,
+    mastered_key: TopicKey,
+    db: DBSession,
+) -> None:
+    """When a topic graduates, unlock the next undiscovered topic in catalog order."""
+    catalog_keys = _all_topic_keys(course_id, db)
+
+    mastered_idx = None
+    for idx, key in enumerate(catalog_keys):
+        if key.belt == mastered_key.belt and key.topic == mastered_key.topic:
+            mastered_idx = idx
+            break
+    if mastered_idx is None:
+        return
+
+    for idx in range(mastered_idx + 1, len(catalog_keys)):
+        next_key = catalog_keys[idx]
+        if not _topic_has_any_units(user_id, course_id, next_key, db):
+            _create_topic_units(user_id, course_id, next_key, db)
+            return
+
+
+def _aggregate_topic_progress(
+    rows: list[UnitState],
+    expected_types: list[str],
+) -> dict:
+    """Roll per-unit state up into the topic-shaped progress dict the UI expects."""
+    total_types = len(expected_types)
+    mastered = sum(1 for r in rows if r.phase == "review")
+    attempted = any(r.attempted for r in rows)
+    today = date.today()
+    pending = any(r.next_due and r.next_due <= today for r in rows)
+
+    if total_types == 0:
+        status = "nuevo"
+    elif mastered == total_types and total_types > 0:
+        status = "dominado"
+    elif not attempted:
+        status = "nuevo"
+    else:
+        status = "aprendiendo"
+
+    next_dues = [r.next_due for r in rows if r.next_due is not None]
+    next_review = min(next_dues).isoformat() if next_dues else None
+    aggregate_phase = "review" if (
+        total_types > 0 and mastered == total_types
+    ) else "learning"
+
+    rows_by_type = {r.exercise_type: r for r in rows}
+    units = [
+        {"exercise_type": et, "state": _unit_state(rows_by_type.get(et))}
+        for et in expected_types
+    ]
+
+    return {
+        "phase": aggregate_phase,
+        "step_index": mastered,
+        "status": status,
+        "progress": f"{mastered}/{total_types}",
+        "is_pending": pending,
+        "attempted": attempted,
+        "next_review": next_review,
+        "failed": False,
+        "units": units,
+    }
+
+
+def _unit_state(row: UnitState | None) -> str:
+    """Per-exercise-type learning state for the UI pills."""
+    if row is None or not row.attempted:
+        return "sin_empezar"
+    if row.phase == "review":
+        return "dominado"
+    return "aprendiendo"
+
+
+def _exercise_to_dict(ex: ExerciseInSession) -> dict:
+    return {
+        "id": ex.exercise_id,
+        "question": ex.question,
+        "options": ex.options,
+        "correct_index": ex.correct_index,
+        "has_math": ex.has_math,
+        "topic": ex.topic_key.topic,
+        "belt": ex.topic_key.belt.value,
+        "graph_fn": ex.graph_fn,
+        "graph_view": ex.graph_view,
+        "feedback_correct": ex.feedback_correct,
+        "feedback_incorrect": ex.feedback_incorrect,
+        "explanation": ex.explanation,
+    }
+
+
+def _build_exercise(
+    idx: int,
+    unit_key: UnitKey,
+    course_id: int,
+    db: DBSession,
+) -> ExerciseInSession:
+    ex = get_exercise_db(
+        course_id,
+        unit_key.belt.value,
+        unit_key.topic,
+        unit_key.exercise_type,
+        db,
+    )
+    correct_answer = ex["options"][ex["correct_index"]]
+    shuffled = ex["options"][:]
+    random.shuffle(shuffled)
+    new_correct_index = shuffled.index(correct_answer)
+    return ExerciseInSession(
+        exercise_id=f"ex_{idx:03d}",
+        unit_key=unit_key,
+        question=ex["question"],
+        options=shuffled,
+        correct_index=new_correct_index,
+        feedback_correct=ex["feedback_correct"],
+        feedback_incorrect=ex["feedback_incorrect"],
+        has_math=ex.get("has_math", False),
+        graph_fn=ex.get("graph_fn", ""),
+        graph_view=ex.get("graph_view"),
+        explanation=ex.get("explanation"),
+    )
+
+
+def _rows_to_unit_states(
+    rows: list[UnitState],
+) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
+    states: dict[UnitKey, SM2UnitState] = {}
+    attempted: dict[UnitKey, bool] = {}
+    for row in rows:
+        uk = UnitKey(
+            belt=Belt(row.belt),
+            topic=row.topic,
+            exercise_type=row.exercise_type,
+        )
+        states[uk] = SM2UnitState(
+            phase=row.phase,
+            step_index=row.step_index,
+            ease_factor=row.ease_factor,
+            interval=row.interval_days,
+            repetitions=row.repetitions,
+            next_review=row.next_due or date.today(),
+        )
+        attempted[uk] = row.attempted
+    return states, attempted
+
+
+def _bootstrap_first_topic_if_empty(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+) -> None:
+    """Seed the very first topic when a user has no units yet."""
+    has_any = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).first() is not None
+    if has_any:
+        return
+    for tk in _all_topic_keys(course_id, db):
+        _create_topic_units(user_id, course_id, tk, db)
+        break
+    db.commit()
+
+
+def _load_unit_states(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    return _rows_to_unit_states(rows)
+
+
+def _make_topic_introducer(
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+    unit_states: dict[UnitKey, SM2UnitState],
+    unit_attempted: dict[UnitKey, bool],
+):
+    """
+    Return a callback that unlocks the next undiscovered topic on demand,
+    creating UnitState rows and mirroring them into the in-memory maps so
+    build_session sees them. Returns [] when the catalog is exhausted.
+    """
+    catalog_keys = _all_topic_keys(course_id, db)
+    cursor = {"idx": 0}
+
+    def _introduce() -> list[UnitKey]:
+        while cursor["idx"] < len(catalog_keys):
+            tk = catalog_keys[cursor["idx"]]
+            cursor["idx"] += 1
+            if _topic_has_any_units(user_id, course_id, tk, db):
+                continue
+            types = _create_topic_units(user_id, course_id, tk, db)
+            db.commit()
+            new_keys: list[UnitKey] = []
+            for et in types:
+                uk = UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+                unit_states[uk] = SM2UnitState()
+                unit_attempted[uk] = False
+                new_keys.append(uk)
+            return new_keys
+        return []
+
+    return _introduce
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
-_default_config = SM2Config()
-
-
-def create_session(user_name: str) -> SessionState:
-    """Crea una nueva sesión en memoria (legacy, sin BD)."""
-    raise NotImplementedError("Use create_session_db() instead.")
-
-
-def get_session(session_id: str) -> Optional[SessionState]:
-    """Devuelve el estado de sesión o None si no existe."""
-    return _sessions.get(session_id)
-
-
-def _unlock_next_item(user_id: int, course_id: int, graduated_item_key: ItemKey, db: DBSession) -> None:
-    """Unlock the next item in sequence when one graduates."""
-    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
-
-    # Find the index of the graduated item
-    graduated_idx = None
-    for idx, key in enumerate(catalog_keys):
-        if (key.belt == graduated_item_key.belt and
-            key.topic == graduated_item_key.topic and
-            key.skill == graduated_item_key.skill):
-            graduated_idx = idx
-            break
-
-    if graduated_idx is None:
-        return
-
-    # Find the next item that doesn't exist yet
-    for idx in range(graduated_idx + 1, len(catalog_keys)):
-        next_key = catalog_keys[idx]
-        existing = db.query(ItemState).filter(
-            ItemState.user_id == user_id,
-            ItemState.course_id == course_id,
-            ItemState.belt == next_key.belt.value,
-            ItemState.topic == next_key.topic,
-            ItemState.skill == next_key.skill.value,
-        ).first()
-
-        if not existing:
-            # Create the next item
-            db_item_state = ItemState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=next_key.belt.value,
-                topic=next_key.topic,
-                skill=next_key.skill.value,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            )
-            db.add(db_item_state)
-            break  # Only unlock one at a time
-
-
-def _get_unlocked_items_count(user_id: int, course_id: int, db: DBSession) -> int:
-    """Count items in Nuevo + Aprendiendo states."""
-    nuevo_count = db.query(ItemState).filter(
-        ItemState.user_id == user_id,
-        ItemState.course_id == course_id,
-        ItemState.phase == "learning",
-        ItemState.attempted == False,
-    ).count()
-
-    aprendiendo_count = db.query(ItemState).filter(
-        ItemState.user_id == user_id,
-        ItemState.course_id == course_id,
-        ItemState.phase == "learning",
-        ItemState.attempted == True,
-    ).count()
-
-    return nuevo_count + aprendiendo_count
-
-
-def _should_unlock_item(index: int, current_total: int) -> bool:
-    """Determine if item at index should be unlocked. Max 15 in nuevo+aprendiendo."""
-    return current_total < 15
-
-
 def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
-    """
-    Crea una nueva sesión en la BD y devuelve los datos iniciales con session_id de BD.
+    """Create a new session, picking the next batch of exercises with the SR algorithm."""
+    if _has_main_session_today(user_id, course_id, db):
+        raise DailySessionLimitError(
+            "Ya empezaste tu sesión de hoy. Volvé mañana."
+        )
 
-    Implements progressive unlock: max 15 items in Nuevo + Aprendiendo states.
-    Rest remain locked and are created as previous items graduate.
-    """
-    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
-    item_states: dict[ItemKey, SM2ItemState] = {}
-    item_attempted: dict[ItemKey, bool] = {}
+    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
 
-    # Count current unlocked items
-    unlocked_count = _get_unlocked_items_count(user_id, course_id, db)
-
-    # Load existing item states from BD
-    for idx, item_key in enumerate(catalog_keys):
-        db_item_state = db.query(ItemState).filter(
-            ItemState.user_id == user_id,
-            ItemState.course_id == course_id,
-            ItemState.belt == item_key.belt.value,
-            ItemState.topic == item_key.topic,
-            ItemState.skill == item_key.skill.value,
-        ).first()
-
-        if db_item_state:
-            # Item exists in BD
-            item_states[item_key] = SM2ItemState(
-                phase=db_item_state.phase,
-                step_index=db_item_state.step_index,
-                ease_factor=db_item_state.ease_factor,
-                interval=db_item_state.interval_days,
-                repetitions=db_item_state.repetitions,
-                next_review=db_item_state.next_due or datetime.now().date(),
-            )
-            item_attempted[item_key] = db_item_state.attempted
-        elif _should_unlock_item(idx, unlocked_count):
-            # Create new unlocked item
-            item_states[item_key] = SM2ItemState()
-            item_attempted[item_key] = False
-            unlocked_count += 1  # Track newly unlocked items towards the 15 limit
-
-            db_item_state = ItemState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=item_key.belt.value,
-                topic=item_key.topic,
-                skill=item_key.skill.value,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            )
-            db.add(db_item_state)
-        else:
-            # Item locked - don't create it yet
-            pass
-
-    db.commit()
-
-    # Construye la secuencia de la sesión usando el algoritmo SM-2
-    # Only select items that are "Nuevo" (not attempted) or "Pendiente" (next_review <= today)
-    session_items = build_session(
-        item_states,
-        item_attempted=item_attempted,
-        introduce_new_item=None  # All unlocked items already exist in catalog
+    introduce_new_topic = _make_topic_introducer(
+        user_id, course_id, db, unit_states, unit_attempted,
     )
 
-    # Crea los ejercicios mapeando cada SessionItem a un ejercicio concreto
-    exercises: list[ExerciseInSession] = []
-    for idx, si in enumerate(session_items):
-        ex = get_exercise_db(
-            course_id, si.key.belt.value, si.key.topic,
-            si.key.skill.value, _default_config.graph_exercise_probability, db,
-        )
-        exercise_id = f"ex_{idx:03d}"
-        # Shuffle options, tracking the new position of the correct answer
-        correct_answer = ex["options"][ex["correct_index"]]
-        shuffled = ex["options"][:]
-        random.shuffle(shuffled)
-        new_correct_index = shuffled.index(correct_answer)
-        exercises.append(
-            ExerciseInSession(
-                exercise_id=exercise_id,
-                item_key=si.key,
-                question=ex["question"],
-                options=shuffled,
-                correct_index=new_correct_index,
-                feedback_correct=ex["feedback_correct"],
-                feedback_incorrect=ex["feedback_incorrect"],
-                has_math=ex.get("has_math", False),
-                graph_fn=ex.get("graph_fn", ""),
-                graph_view=ex.get("graph_view", None),
-                explanation=ex.get("explanation"),
-            )
-        )
+    session_units = build_session(
+        unit_states,
+        unit_attempted=unit_attempted,
+        introduce_new_topic=introduce_new_topic,
+    )
 
-    # Crear registro Session en BD
+    exercises = [
+        _build_exercise(idx, su.key, course_id, db)
+        for idx, su in enumerate(session_units)
+    ]
+
     db_session = SessionModel(
         user_id=user_id,
         course_id=course_id,
         started_at=datetime.utcnow(),
         exercises_total=len(exercises),
+        mode="main",
     )
     db.add(db_session)
-    db.flush()  # Asegura que se genera el ID sin commitear todo
+    db.flush()
     session_id_db = db_session.id
-
-    # Items already created in the loop above (lines 234-276) respecting the 15-item limit.
-    # No need to create more here.
     db.commit()
 
-    # Almacenar en memoria para acceso rápido durante la sesión activa
     session_id_str = str(session_id_db)
-    session_state = SessionState(
+    _sessions[session_id_str] = SessionState(
         session_id=session_id_str,
         user_name="",
-        item_states=item_states,  # Use loaded item_states, not fresh ones
+        unit_states=unit_states,
         exercises=exercises,
-        results=[],
-        xp_session=0,
-        streak=0,
     )
-    _sessions[session_id_str] = session_state
 
-    # Retornar datos con session_id de BD (convertido a string)
     return {
         "session_id": session_id_str,
-        "user_name": "",  # No tenemos user_name en BD, se envía desde frontend
+        "user_name": "",
         "total": len(exercises),
-        "exercises": [
-            {
-                "id": ex.exercise_id,
-                "question": ex.question,
-                "options": ex.options,
-                "correct_index": ex.correct_index,
-                "has_math": ex.has_math,
-                "skill": ex.item_key.skill.value,
-                "topic": ex.item_key.topic,
-                "graph_fn": ex.graph_fn,
-                "graph_view": ex.graph_view,
-                "feedback_correct": ex.feedback_correct,
-                "feedback_incorrect": ex.feedback_incorrect,
-                "explanation": ex.explanation,
-            }
-            for ex in exercises
-        ],
+        "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
 
@@ -344,51 +467,38 @@ def create_zen_session_db(
     count: int,
     db: DBSession,
 ) -> dict:
+    """Zen mode: random exercises from selected belts, no SR tracking."""
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
-    candidate_keys: list[ItemKey] = []
+    candidate_units: list[UnitKey] = []
     for belt_str in belts:
         try:
             belt_enum = Belt(belt_str)
         except ValueError:
             continue
         catalog = all_catalogs.get(belt_enum)
-        if catalog:
-            candidate_keys.extend(catalog.all_keys())
+        if not catalog:
+            continue
+        for tk in catalog.all_keys():
+            for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db):
+                candidate_units.append(
+                    UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+                )
 
-    if not candidate_keys:
-        raise ValueError(f"No hay ítems disponibles para los cinturones: {belts}")
+    if not candidate_units:
+        raise ValueError(f"No hay topics disponibles para los cinturones: {belts}")
 
-    sampled_keys: list[ItemKey] = random.choices(candidate_keys, k=count)
-
-    exercises: list[ExerciseInSession] = []
-    for idx, item_key in enumerate(sampled_keys):
-        ex = get_exercise_db(
-            course_id, item_key.belt.value, item_key.topic,
-            item_key.skill.value, _default_config.graph_exercise_probability, db,
-        )
-        correct_answer = ex["options"][ex["correct_index"]]
-        shuffled = ex["options"][:]
-        random.shuffle(shuffled)
-        new_correct_index = shuffled.index(correct_answer)
-        exercises.append(ExerciseInSession(
-            exercise_id=f"ex_{idx:03d}",
-            item_key=item_key,
-            question=ex["question"],
-            options=shuffled,
-            correct_index=new_correct_index,
-            feedback_correct=ex["feedback_correct"],
-            feedback_incorrect=ex["feedback_incorrect"],
-            has_math=ex.get("has_math", False),
-            graph_fn=ex.get("graph_fn", ""),
-            graph_view=ex.get("graph_view", None),
-            explanation=ex.get("explanation"),
-        ))
+    sampled = random.choices(candidate_units, k=count)
+    exercises = [
+        _build_exercise(idx, uk, course_id, db)
+        for idx, uk in enumerate(sampled)
+    ]
 
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
+        mode="zen",
     )
     db.add(db_session)
     db.flush()
@@ -398,90 +508,57 @@ def create_zen_session_db(
     _sessions[session_id_str] = SessionState(
         session_id=session_id_str,
         user_name="",
-        item_states={key: SM2ItemState() for key in set(sampled_keys)},
+        unit_states={uk: SM2UnitState() for uk in set(sampled)},
         exercises=exercises,
-        results=[],
-        xp_session=0,
-        streak=0,
     )
 
     return {
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
-        "exercises": [
-            {
-                "id": ex.exercise_id, "question": ex.question, "options": ex.options,
-                "correct_index": ex.correct_index, "has_math": ex.has_math,
-                "skill": ex.item_key.skill.value, "topic": ex.item_key.topic,
-                "graph_fn": ex.graph_fn, "graph_view": ex.graph_view,
-                "feedback_correct": ex.feedback_correct,
-                "feedback_incorrect": ex.feedback_incorrect,
-                "explanation": ex.explanation,
-            }
-            for ex in exercises
-        ],
+        "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
 
-def record_answer(
-    session_id: str,
-    exercise_id: str,
-    answer_index: int,
-    response_time_s: float,
-) -> dict:
-    """Registra la respuesta del usuario y actualiza el estado SM-2 del ítem."""
-    state = _sessions.get(session_id)
-    if state is None:
-        raise KeyError(f"Sesión '{session_id}' no encontrada.")
+def _reconstruct_session_state(
+    session_id_db: int,
+    user_id: int,
+    course_id: int,
+    db: DBSession,
+) -> SessionState:
+    """Rebuild SessionState from DB when the in-memory cache is cold."""
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    unit_states, unit_attempted = _rows_to_unit_states(rows)
 
-    # Busca el ejercicio correspondiente
-    exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
-    if exercise is None:
-        raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
+    session_units = build_session(unit_states, unit_attempted=unit_attempted)
+    exercises = [
+        _build_exercise(idx, su.key, course_id, db)
+        for idx, su in enumerate(session_units)
+    ]
 
-    is_correct = answer_index == exercise.correct_index
-    quality = quality_from_attempt(is_correct, response_time_s)
+    streak = 0
+    recent = (
+        db.query(Answer.is_correct)
+        .filter(Answer.session_id == session_id_db)
+        .order_by(Answer.answered_at.desc())
+        .all()
+    )
+    for row in recent:
+        if row.is_correct:
+            streak += 1
+        else:
+            break
 
-    # Actualiza el estado del ítem en el mapa de estados
-    current_state = state.item_states.get(exercise.item_key, SM2ItemState())
-    new_state = update_item_state(current_state, quality)
-    state.item_states[exercise.item_key] = new_state
-
-    # ── XP ───────────────────────────────────────────────────────────────────
-    xp_earned = xp_for_quality(quality)
-
-    if is_correct:
-        state.streak += 1
-        # Bonificaciones por racha (solo en el momento exacto)
-        if state.streak == 5:
-            xp_earned += XP_BONUS_STREAK5
-        elif state.streak == 10:
-            xp_earned += XP_BONUS_STREAK10
-    else:
-        state.streak = 0
-
-    state.xp_session += xp_earned
-
-    feedback = exercise.feedback_correct if is_correct else exercise.feedback_incorrect
-
-    result_record = {
-        "exercise_id": exercise_id,
-        "item_key": exercise.item_key,
-        "is_correct": is_correct,
-        "quality": quality,
-        "response_time_s": response_time_s,
-        "new_phase": new_state.phase,
-        "xp_earned": xp_earned,
-    }
-    state.results.append(result_record)
-
-    return {
-        "correct": is_correct,
-        "quality": quality,
-        "feedback": feedback,
-        "xp_earned": xp_earned,
-    }
+    return SessionState(
+        session_id=str(session_id_db),
+        user_name="",
+        unit_states=unit_states,
+        exercises=exercises,
+        streak=streak,
+    )
 
 
 def record_answer_db(
@@ -490,182 +567,114 @@ def record_answer_db(
     course_id: int,
     exercise_id: str,
     answer_index: int,
+    attempts: int,
     response_time_s: float,
     db: DBSession,
 ) -> dict:
-    """
-    Registra respuesta en BD, actualiza SM-2, y retorna feedback.
-
-    Usa la sesión en-memory si existe, o reconstruye desde BD y catálogo.
-    Persiste en BD: Answer, ItemState updates, Session counters.
-    """
-    print(f"DEBUG: record_answer_db called for session {session_id_db}, exercise {exercise_id}")
-    from models import Answer
-
-    # Obtener sesión desde BD para validación
+    """Record an answer, update SM-2 state for the unit, return feedback."""
     db_session = db.query(SessionModel).filter(
         SessionModel.id == session_id_db,
         SessionModel.user_id == user_id,
     ).first()
-
     if not db_session:
         raise KeyError(f"Sesión {session_id_db} no encontrada o no pertenece al usuario.")
 
-    # Intentar obtener desde en-memory para acceso rápido
-    session_id_in_memory = str(session_id_db)
-    state = _sessions.get(session_id_in_memory)
-
-    # Si no está en memoria, reconstruir desde BD y catálogo
+    session_id_str = str(session_id_db)
+    state = _sessions.get(session_id_str)
     if state is None:
-        print(f"DEBUG: Session {session_id_in_memory} not in memory, reconstructing from DB...")
-        # Reconstruir el estado desde BD
-        catalog_keys = default_catalog(_get_white_catalog(course_id, db))
-        item_states: dict[ItemKey, SM2ItemState] = {}
-        item_attempted: dict[ItemKey, bool] = {}
+        state = _reconstruct_session_state(session_id_db, user_id, course_id, db)
+        _sessions[session_id_str] = state
 
-        for item_key in catalog_keys:
-            db_item_state = db.query(ItemState).filter(
-                ItemState.user_id == user_id,
-                ItemState.course_id == course_id,
-                ItemState.belt == item_key.belt.value,
-                ItemState.topic == item_key.topic,
-                ItemState.skill == item_key.skill.value,
-            ).first()
-
-            if db_item_state:
-                item_states[item_key] = SM2ItemState(
-                    phase=db_item_state.phase,
-                    step_index=db_item_state.step_index,
-                    ease_factor=db_item_state.ease_factor,
-                    interval=db_item_state.interval_days,
-                    repetitions=db_item_state.repetitions,
-                    next_review=db_item_state.next_due or datetime.now().date(),
-                )
-                item_attempted[item_key] = db_item_state.attempted
-            else:
-                item_states[item_key] = SM2ItemState()
-                item_attempted[item_key] = False
-
-        # Reconstruir ejercicios usando build_session
-        session_items = build_session(item_states, item_attempted=item_attempted)
-        exercises: list[ExerciseInSession] = []
-        for idx, si in enumerate(session_items):
-            ex = get_exercise_db(
-                course_id, si.key.belt.value, si.key.topic,
-                si.key.skill.value, _default_config.graph_exercise_probability, db,
-            )
-            exercise_id_gen = f"ex_{idx:03d}"
-            correct_answer = ex["options"][ex["correct_index"]]
-            shuffled = ex["options"][:]
-            random.shuffle(shuffled)
-            new_correct_index = shuffled.index(correct_answer)
-            exercises.append(
-                ExerciseInSession(
-                    exercise_id=exercise_id_gen,
-                    item_key=si.key,
-                    question=ex["question"],
-                    options=shuffled,
-                    correct_index=new_correct_index,
-                    feedback_correct=ex["feedback_correct"],
-                    feedback_incorrect=ex["feedback_incorrect"],
-                    has_math=ex.get("has_math", False),
-                    graph_fn=ex.get("graph_fn", ""),
-                    graph_view=ex.get("graph_view", None),
-                    explanation=ex.get("explanation"),
-                )
-            )
-
-        # Crear SessionState y almacenar en memoria para futuros usos
-        state = SessionState(
-            session_id=session_id_in_memory,
-            user_name="",
-            item_states=item_states,
-            exercises=exercises,
-            results=[],
-            xp_session=0,
-            streak=0,
-        )
-        _sessions[session_id_in_memory] = state
-
-    # Busca el ejercicio correspondiente
     exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
 
-    is_correct = answer_index == exercise.correct_index
-    quality = quality_from_attempt(is_correct, response_time_s)
+    unit_key = exercise.unit_key
+    is_correct = attempts <= 3
+    quality = quality_from_attempts(attempts)
 
-    # Actualiza el estado del ítem en el mapa de estados
-    current_state = state.item_states.get(exercise.item_key, SM2ItemState())
-    new_state = update_item_state(current_state, quality)
-    state.item_states[exercise.item_key] = new_state
-
-    # ── XP ───────────────────────────────────────────────────────────────────
-    xp_earned = xp_for_quality(quality)
+    current_state = state.unit_states.get(unit_key, SM2UnitState())
+    new_state = update_unit_state(current_state, quality)
+    state.unit_states[unit_key] = new_state
 
     if is_correct:
         state.streak += 1
-        if state.streak == 5:
-            xp_earned += XP_BONUS_STREAK5
-        elif state.streak == 10:
-            xp_earned += XP_BONUS_STREAK10
+        xp_earned = XP_CORRECT
+        if state.streak % XP_STREAK_INTERVAL == 0:
+            xp_earned += XP_STREAK_BONUS
     else:
         state.streak = 0
+        xp_earned = XP_WRONG
+
+    db_us = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == unit_key.belt.value,
+        UnitState.topic == unit_key.topic,
+        UnitState.exercise_type == unit_key.exercise_type,
+    ).first()
+
+    if db_us:
+        old_phase = db_us.phase
+        db_us.phase = new_state.phase
+        db_us.step_index = new_state.step_index
+        db_us.ease_factor = new_state.ease_factor
+        db_us.interval_days = new_state.interval
+        db_us.repetitions = new_state.repetitions
+        db_us.next_due = new_state.next_review
+        db_us.attempted = True
+        db_us.updated_at = datetime.utcnow()
+        db_us.last_reviewed_at = datetime.utcnow()
+
+        if old_phase == "learning" and new_state.phase == "review":
+            topic_key = unit_key.topic_key
+            expected_types = topic_exercise_types(
+                course_id, topic_key.belt.value, topic_key.topic, db,
+            )
+            if is_topic_mastered(state.unit_states, topic_key, expected_types):
+                xp_earned += XP_TOPIC_MASTERED
+                _unlock_next_topic(user_id, course_id, topic_key, db)
+
+                belt_catalog = _get_catalog(course_id, topic_key.belt, db)
+                belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+                if belt_progress(
+                    state.unit_states, belt_catalog, topic_types=belt_types_map,
+                ).promoted:
+                    xp_earned += XP_BELT_PROMOTED
 
     state.xp_session += xp_earned
 
-    # ── Guardar en BD ─────────────────────────────────────────────────────────
-    # Guardar respuesta
-    db_answer = Answer(
+    db.add(Answer(
         session_id=session_id_db,
         user_id=user_id,
         course_id=course_id,
         exercise_id=exercise_id,
-        belt=exercise.item_key.belt.value,
-        topic=exercise.item_key.topic,
-        skill=exercise.item_key.skill.value,
+        belt=unit_key.belt.value,
+        topic=unit_key.topic,
+        exercise_type=unit_key.exercise_type,
         is_correct=is_correct,
         response_time_ms=int(response_time_s * 1000),
         quality_score=quality,
         xp_earned=xp_earned,
         answered_at=datetime.utcnow(),
-    )
-    db.add(db_answer)
+    ))
 
-    # Actualizar ItemState en BD
-    db_item_state = db.query(ItemState).filter(
-        ItemState.user_id == user_id,
-        ItemState.course_id == course_id,
-        ItemState.belt == exercise.item_key.belt.value,
-        ItemState.topic == exercise.item_key.topic,
-        ItemState.skill == exercise.item_key.skill.value,
-    ).first()
+    user = db.query(User).filter(User.id == user_id).first()
+    if user:
+        user.total_xp = (user.total_xp or 0) + xp_earned
 
-    if db_item_state:
-        old_phase = db_item_state.phase
-        db_item_state.phase = new_state.phase
-        db_item_state.step_index = new_state.step_index
-        db_item_state.ease_factor = new_state.ease_factor
-        db_item_state.interval_days = new_state.interval
-        db_item_state.repetitions = new_state.repetitions
-        db_item_state.next_due = new_state.next_review
-        db_item_state.attempted = True  # Mark as attempted after first response
-        db_item_state.updated_at = datetime.utcnow()
-        db_item_state.last_reviewed_at = datetime.utcnow()
-
-        # If item just graduated from learning → review, unlock next item
-        if old_phase == "learning" and new_state.phase == "review":
-            _unlock_next_item(user_id, course_id, exercise.item_key, db)
-
-    # Actualizar contador de correctas en sesión
     if is_correct:
         db_session.exercises_correct = (db_session.exercises_correct or 0) + 1
-    db_session.updated_at = datetime.utcnow()
-
     db.commit()
 
-    feedback = exercise.feedback_correct if is_correct else exercise.feedback_incorrect
+    state.results.append({
+        "exercise_id": exercise_id,
+        "unit_key": unit_key,
+        "is_correct": is_correct,
+        "quality": quality,
+    })
 
+    feedback = exercise.feedback_correct if is_correct else exercise.feedback_incorrect
     return {
         "correct": is_correct,
         "quality": quality,
@@ -674,186 +683,47 @@ def record_answer_db(
     }
 
 
+def _topic_rows_index(
+    rows: list[UnitState],
+) -> dict[tuple[str, str], list[UnitState]]:
+    out: dict[tuple[str, str], list[UnitState]] = {}
+    for r in rows:
+        out.setdefault((r.belt, r.topic), []).append(r)
+    return out
+
+
 def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
-    """
-    Get user's current progress (skill states and level info).
+    """Return topic-level progress (rolled up from per-unit state) and level info."""
+    catalog_keys = _all_topic_keys(course_id, db)
 
-    Only includes unlocked items (those that exist in BD).
-    Locked items are not created yet and don't appear here.
+    _bootstrap_first_topic_if_empty(user_id, course_id, db)
 
-    On first call (no items exist), creates the first 15 items.
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id, UnitState.course_id == course_id,
+    ).all()
+    rows_by_topic = _topic_rows_index(rows)
 
-    Returns:
-    {
-        "skill_states": {...},
-        "level_info": {...}
-    }
-    """
-    from models import Answer
-
-    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
-
-    # Check if user has any items yet
-    item_count = db.query(ItemState).filter(
-        ItemState.user_id == user_id,
-        ItemState.course_id == course_id,
-    ).count()
-
-    # If no items exist, create the first 15
-    if item_count == 0:
-        for idx, item_key in enumerate(catalog_keys):
-            if idx >= 15:  # Max 15 initial items
-                break
-            db_item_state = ItemState(
-                user_id=user_id,
-                course_id=course_id,
-                belt=item_key.belt.value,
-                topic=item_key.topic,
-                skill=item_key.skill.value,
-                phase="learning",
-                step_index=0,
-                ease_factor=2.5,
-                interval_days=1,
-                repetitions=0,
-                next_due=date.today(),
-                attempted=False,
-            )
-            db.add(db_item_state)
-        db.commit()
-
-    # Get all item states for user/course
-    # Items exist in DB only if they've been unlocked (limit enforced at creation time)
-    skill_states: dict[str, dict] = {}
-
-    for item_key in catalog_keys:
-        db_item_state = db.query(ItemState).filter(
-            ItemState.user_id == user_id,
-            ItemState.course_id == course_id,
-            ItemState.belt == item_key.belt.value,
-            ItemState.topic == item_key.topic,
-            ItemState.skill == item_key.skill.value,
-        ).first()
-
-        if db_item_state:
-            key_str = f"{item_key.topic}:{item_key.skill.value}"
-
-            # Determine status based ONLY on actual item state, not on due date
-            if db_item_state.phase == "learning":
-                if not db_item_state.attempted:
-                    status = "nuevo"  # 0/3 - never attempted
-                    progress = "0/3"
-                    print(f"DEBUG: {key_str} is nuevo (attempted={db_item_state.attempted}, phase={db_item_state.phase})")
-                else:
-                    status = "aprendiendo"  # Naranja - in learning phase, was attempted
-                    # Progress based on step_index: 0→0/3, 1→1/3, 2→2/3
-                    progress = f"{db_item_state.step_index}/3"
-            else:  # phase == "review"
-                status = "graduado"  # 3/3 - graduated
-                progress = "3/3"
-
-            # Check if item is pending (due for review)
-            from datetime import date as date_module
-            today = date_module.today()
-            is_pending = db_item_state.next_due and db_item_state.next_due <= today
-
-            skill_states[key_str] = {
-                "phase": db_item_state.phase,
-                "step_index": db_item_state.step_index,
-                "status": status,  # nuevo, aprendiendo, graduado
-                "progress": progress,  # Visual representation (0/3, aprendiendo, 3/3)
-                "is_pending": is_pending,  # True if next_review <= today
-                "attempted": db_item_state.attempted,
-                "next_review": db_item_state.next_due.isoformat() if db_item_state.next_due else None,
-                "failed": False
-            }
-
-    # Calculate total XP from all answers
-    total_xp = db.query(func.sum(Answer.xp_earned)).filter(
-        Answer.user_id == user_id,
-        Answer.course_id == course_id,
-    ).scalar() or 0
-
-    # Calculate level info
-    lp = level_progress(total_xp)
-    level_info = {
-        "level": lp.level,
-        "xp_in_level": lp.xp_in_level,
-        "xp_required": lp.xp_required,
-        "progress_pct": lp.progress_pct,
-    }
-
-    return {
-        "skill_states": skill_states,
-        "level_info": level_info,
-    }
-
-
-def get_summary(session_id: str) -> dict:
-    """Devuelve el resumen de la sesión."""
-    state = _sessions.get(session_id)
-    if state is None:
-        raise KeyError(f"Sesión '{session_id}' no encontrada.")
-
-    total = len(state.results)
-    correct_count = sum(1 for r in state.results if r["is_correct"])
-    incorrect_count = total - correct_count
-
-    items = []
-    for result in state.results:
-        key: ItemKey = result["item_key"]
-        items.append({
-            "topic": key.topic,
-            "skill": key.skill.value,
-            "correct": result["is_correct"],
-            "phase": result["new_phase"],
-        })
-
-    # Estado final de cada ítem (topic:skill → SM2 state actual)
-    # Solo incluir ítems que fueron practicados en esta sesión
-    practiced_keys = {r["item_key"] for r in state.results}
-    # Ítems que tuvieron al menos un fallo en esta sesión
-    failed_keys = {r["item_key"] for r in state.results if not r["is_correct"]}
-    skill_states = {}
-    for key, item_state in state.item_states.items():
-        if key not in practiced_keys:
+    topic_states: dict[str, dict] = {}
+    for key in catalog_keys:
+        topic_rows = rows_by_topic.get((key.belt.value, key.topic))
+        if not topic_rows:
             continue
-        k = f"{key.topic}:{key.skill.value}"
-        skill_states[k] = {
-            "phase": item_state.phase,
-            "step_index": item_state.step_index,
-            "next_review": item_state.next_review.isoformat() if item_state.next_review else None,
-            "failed": key in failed_keys,
-        }
+        expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
+        topic_states[key.topic] = _aggregate_topic_progress(topic_rows, expected)
 
-    # Progreso del cinturón
-    # Legacy in-memory path: no tenemos course_id en scope, usamos analisis-1.
-    bp = belt_progress(state.item_states, load_belt_catalogs("analisis-1")[Belt.WHITE])
-
-    # Progreso de nivel XP (basado en XP de la sesión como MVP)
-    lp = level_progress(state.xp_session)
+    user = db.query(User).filter(User.id == user_id).first()
+    total_xp = user.total_xp if user else 0
+    lp = level_progress(total_xp)
 
     return {
-        "session_id": session_id,
-        "user_name": state.user_name,
-        "total": total,
-        "correct": correct_count,
-        "incorrect": incorrect_count,
-        "items": items,
-        "skill_states": skill_states,
-        "belt_progress": {
-            "graduated": bp.graduated,
-            "total": bp.total,
-            "stripes": bp.stripes,
-            "promoted": bp.promoted,
-        },
-        "xp_earned": state.xp_session,
+        "topic_states": topic_states,
         "level_info": {
             "level": lp.level,
             "xp_in_level": lp.xp_in_level,
             "xp_required": lp.xp_required,
-            "xp_missing": lp.xp_missing,
             "progress_pct": lp.progress_pct,
         },
+        "main_session_done_today": _has_main_session_today(user_id, course_id, db),
     }
 
 
@@ -862,113 +732,78 @@ def get_summary_db(
     user_id: int,
     db: DBSession,
 ) -> dict:
-    """
-    Devuelve resumen desde BD y marca sesión como terminada.
-
-    Lee de Answer y ItemState en BD para construir el resumen.
-    """
-    from models import Answer
-
-    # Obtener sesión desde BD
+    """Finalize the session and return a summary."""
     db_session = db.query(SessionModel).filter(
         SessionModel.id == session_id_db,
         SessionModel.user_id == user_id,
     ).first()
-
     if not db_session:
         raise KeyError(f"Sesión {session_id_db} no encontrada.")
 
-    # Obtener todas las respuestas para esta sesión
     answers = db.query(Answer).filter(Answer.session_id == session_id_db).all()
-
     total = len(answers)
     correct_count = sum(1 for a in answers if a.is_correct)
     incorrect_count = total - correct_count
 
-    items = []
-    for answer in answers:
-        items.append({
-            "topic": answer.topic,
-            "skill": answer.skill,
-            "correct": answer.is_correct,
-            "phase": "review" if answer.is_correct else "learning",  # Simplified
-        })
+    items = [
+        {
+            "topic": a.topic,
+            "belt": a.belt,
+            "correct": a.is_correct,
+        }
+        for a in answers
+    ]
 
-    # Estado final de TODOS los ítems (practicados y no practicados)
-    skill_states = {}
-    course_id = 1  # Default course
-    catalog_keys = default_catalog(_get_white_catalog(course_id, db))
+    course_id = db_session.course_id
+    catalog_keys = _all_topic_keys(course_id, db)
 
-    # Obtener todos los ItemStates del usuario para este curso
-    all_item_states = db.query(ItemState).filter(
-        ItemState.user_id == user_id,
-        ItemState.course_id == course_id,
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id, UnitState.course_id == course_id,
     ).all()
+    rows_by_topic = _topic_rows_index(rows)
 
-    # Crear un diccionario de búsqueda rápida
-    item_state_map = {
-        (item.topic, item.skill): item
-        for item in all_item_states
-    }
+    failed_in_session: set[tuple[str, str]] = set()
+    for a in answers:
+        if not a.is_correct:
+            failed_in_session.add((a.belt, a.topic))
 
-    # Iterar sobre todos los items del catálogo
-    for item_key in catalog_keys:
-        k = f"{item_key.topic}:{item_key.skill.value}"
+    topic_states: dict[str, dict] = {}
+    unit_states_map, _ = _rows_to_unit_states(rows)
 
-        # Obtener el ItemState de BD
-        item_state = item_state_map.get((item_key.topic, item_key.skill.value))
+    for key in catalog_keys:
+        topic_rows = rows_by_topic.get((key.belt.value, key.topic))
+        if not topic_rows:
+            continue
+        expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
+        ts_dict = _aggregate_topic_progress(topic_rows, expected)
+        if (key.belt.value, key.topic) in failed_in_session:
+            ts_dict["failed"] = True
+        topic_states[key.topic] = ts_dict
 
-        if item_state:
-            # Determinar status y progress igual que en get_user_progress_db
-            if item_state.phase == "learning":
-                if not item_state.attempted:
-                    status = "nuevo"
-                    progress = "0/3"
-                else:
-                    status = "aprendiendo"
-                    # Progress based on step_index: 0→0/3, 1→1/3, 2→2/3
-                    progress = f"{item_state.step_index}/3"
-            else:  # phase == "review"
-                status = "graduado"
-                progress = "3/3"
+    # Belt progress for the highest belt touched in this session
+    if answers:
+        belts_in_session = {a.belt for a in answers}
+        focus_belt_str = max(
+            belts_in_session,
+            key=lambda b: _BELT_ORDER.index(Belt(b)),
+        )
+        focus_belt = Belt(focus_belt_str)
+    else:
+        focus_belt = Belt.WHITE
 
-            # Revisar si fue practicado en esta sesión
-            was_practiced = any(a.topic == item_state.topic and a.skill == item_state.skill for a in answers)
-            failed_in_session = was_practiced and not any(a.topic == item_state.topic and a.skill == item_state.skill and a.is_correct for a in answers)
+    belt_catalog = _get_catalog(course_id, focus_belt, db)
+    belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+    bp = belt_progress(unit_states_map, belt_catalog, topic_types=belt_types_map)
 
-            # Revisar si es pendiente (next_due <= hoy)
-            from datetime import date as date_module
-            today = date_module.today()
-            is_pending = item_state.next_due and item_state.next_due <= today
-
-            skill_states[k] = {
-                "phase": item_state.phase,
-                "step_index": item_state.step_index,
-                "status": status,
-                "progress": progress,
-                "is_pending": is_pending,
-                "attempted": item_state.attempted,
-                "next_review": item_state.next_due.isoformat() if item_state.next_due else None,
-                "failed": failed_in_session,
-            }
-
-    # Calcular XP total de la sesión
     xp_earned = sum(a.xp_earned or 0 for a in answers)
-
-    # Marcar sesión como terminada
     db_session.finished_at = datetime.utcnow()
     db_session.xp_earned = xp_earned
     db.commit()
 
-    # Calcular XP total acumulado del usuario (no solo la sesión)
-    total_xp = db.query(func.sum(Answer.xp_earned)).filter(
-        Answer.user_id == user_id,
-        Answer.course_id == 1,
-    ).scalar() or 0
-
+    user = db.query(User).filter(User.id == user_id).first()
+    total_xp = user.total_xp if user else 0
     lp = level_progress(total_xp)
 
-    # Retornar datos del resumen
     return {
         "session_id": str(session_id_db),
         "user_name": "",
@@ -976,12 +811,11 @@ def get_summary_db(
         "correct": correct_count,
         "incorrect": incorrect_count,
         "items": items,
-        "skill_states": skill_states,
+        "topic_states": topic_states,
         "belt_progress": {
-            "graduated": 0,  # Simplified for now
-            "total": 0,
-            "stripes": 0,
-            "promoted": False,
+            "mastered": bp.mastered,
+            "total": bp.total,
+            "promoted": bp.promoted,
         },
         "xp_earned": xp_earned,
         "level_info": {

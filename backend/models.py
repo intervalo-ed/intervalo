@@ -17,27 +17,26 @@ from database import Base
 
 
 class User(Base):
-    """User model with Google OAuth support."""
+    """User model — identity is owned by Clerk; `clerk_user_id` is the link."""
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    google_id = Column(String(200), unique=True, index=True, nullable=True)
+    clerk_user_id = Column(String(200), unique=True, index=True, nullable=True)
     email = Column(String(200), unique=True, index=True, nullable=False)
     name = Column(String(200), nullable=False)
     display_name = Column(String(200), nullable=True)
+    total_xp = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relationships
     enrollments = relationship("Enrollment", back_populates="user")
-    item_states = relationship("ItemState", back_populates="user")
+    unit_states = relationship("UnitState", back_populates="user")
     sessions = relationship("Session", back_populates="user")
     answers = relationship("Answer", back_populates="user")
     push_subscriptions = relationship("PushSubscription", back_populates="user")
 
 
 class Course(Base):
-    """Course model - catalog of available courses."""
     __tablename__ = "courses"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -47,9 +46,8 @@ class Course(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relationships
     enrollments = relationship("Enrollment", back_populates="course")
-    item_states = relationship("ItemState", back_populates="course")
+    unit_states = relationship("UnitState", back_populates="course")
     sessions = relationship("Session", back_populates="course")
     answers = relationship("Answer", back_populates="course")
     push_subscriptions = relationship("PushSubscription", back_populates="course")
@@ -58,7 +56,6 @@ class Course(Base):
 
 
 class Enrollment(Base):
-    """Enrollment model - user → course + onboarding data."""
     __tablename__ = "enrollments"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -68,79 +65,68 @@ class Enrollment(Base):
     career = Column(String(200), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
-    # Unique constraint: one enrollment per user per course
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)
 
-    # Relationships
     user = relationship("User", back_populates="enrollments")
     course = relationship("Course", back_populates="enrollments")
 
 
-class ItemState(Base):
-    """ItemState model - SM-2 state for each item per user per course."""
-    __tablename__ = "item_states"
+class UnitState(Base):
+    """SM-2 state for each (belt, topic, exercise_type) unit per user per course."""
+    __tablename__ = "unit_states"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
-    # Item identity (composite key pattern)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
-    skill = Column(String(10), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
 
-    # SM-2 state
     phase = Column(String(20), nullable=False, default="learning")
     step_index = Column(Integer, default=0)
     ease_factor = Column(Float, default=2.5)
     interval_days = Column(Integer, default=1)
     repetitions = Column(Integer, default=0)
     next_due = Column(Date, nullable=True)
-    attempted = Column(Boolean, default=False)  # True if user has attempted this item
+    attempted = Column(Boolean, default=False)
 
-    # Tracking
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     last_reviewed_at = Column(DateTime, nullable=True)
 
-    # Unique constraint on composite key
     __table_args__ = (
         UniqueConstraint(
-            "user_id", "course_id", "belt", "topic", "skill",
-            name="unique_user_course_item"
+            "user_id", "course_id", "belt", "topic", "exercise_type",
+            name="unique_user_course_unit",
         ),
-        Index("idx_item_states_next_due", "next_due"),
-        Index("idx_item_states_user_course", "user_id", "course_id"),
+        Index("idx_unit_states_next_due", "next_due"),
+        Index("idx_unit_states_user_course", "user_id", "course_id"),
     )
 
-    # Relationships
-    user = relationship("User", back_populates="item_states")
-    course = relationship("Course", back_populates="item_states")
+    user = relationship("User", back_populates="unit_states")
+    course = relationship("Course", back_populates="unit_states")
 
 
 class Session(Base):
-    """Session model - represents a review/practice session."""
     __tablename__ = "sessions"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
-    # Timeline
     started_at = Column(DateTime, default=datetime.utcnow)
     finished_at = Column(DateTime, nullable=True)
     duration_seconds = Column(Integer, nullable=True)
     abandoned = Column(Boolean, default=False)
 
-    # Results
     exercises_total = Column(Integer, nullable=False)
     exercises_correct = Column(Integer, default=0)
     xp_earned = Column(Integer, default=0)
 
-    # Belt progress
-    belt_on_start = Column(String(20), nullable=True)
-    belt_on_finish = Column(String(20), nullable=True)
-    belt_promoted = Column(Boolean, default=False)
+    # "main" for the daily spaced-repetition session, "zen" for free practice.
+    # Only "main" sessions count toward the 1-per-day gate.
+    mode = Column(String(16), nullable=False, default="main", server_default="main")
 
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -150,14 +136,12 @@ class Session(Base):
         Index("idx_sessions_finished_at", "finished_at"),
     )
 
-    # Relationships
     user = relationship("User", back_populates="sessions")
     course = relationship("Course", back_populates="sessions")
     answers = relationship("Answer", back_populates="session")
 
 
 class Answer(Base):
-    """Answer model - individual exercise answer in a session."""
     __tablename__ = "answers"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -165,19 +149,16 @@ class Answer(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
-    # Exercise identification
     exercise_id = Column(String(20), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
-    skill = Column(String(10), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
 
-    # Response data
     is_correct = Column(Boolean, nullable=False)
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
 
-    # Timing
     answered_at = Column(DateTime, default=datetime.utcnow)
     intra_session_position = Column(Integer, nullable=True)
 
@@ -187,26 +168,24 @@ class Answer(Base):
         Index("idx_answers_session_id", "session_id"),
         Index("idx_answers_user_course", "user_id", "course_id"),
         Index("idx_answers_answered_at", "answered_at"),
-        Index("idx_answers_belt_topic_skill", "belt", "topic", "skill"),
+        Index("idx_answers_belt_topic", "belt", "topic"),
     )
 
-    # Relationships
     session = relationship("Session", back_populates="answers")
     user = relationship("User", back_populates="answers")
     course = relationship("Course", back_populates="answers")
 
 
 class Exercise(Base):
-    """Exercise model - question bank scoped by course, belt, topic, skill."""
+    """Question bank scoped by course, belt, topic."""
     __tablename__ = "exercises"
 
     id = Column(Integer, primary_key=True, index=True)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
-    external_id = Column(String(100), nullable=True)  # stable id from JSON source
+    external_id = Column(String(100), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
-    skill = Column(String(10), nullable=False)
-    subtype = Column(String(10), nullable=False)  # "text" or "graph"
+    exercise_type = Column(String(20), nullable=False)
     question = Column(Text, nullable=False)
     option_a = Column(Text, nullable=False)
     option_b = Column(Text, nullable=False)
@@ -217,28 +196,26 @@ class Exercise(Base):
     feedback_correct = Column(Text, nullable=False)
     feedback_incorrect = Column(Text, nullable=False)
     graph_fn = Column(String(500), nullable=True)
-    graph_view = Column(String(100), nullable=True)  # JSON string: "[-4,4,-8,10]"
-    explanation = Column(Text, nullable=True)  # extended theoretical explanation (supports LaTeX)
+    graph_view = Column(String(100), nullable=True)
+    explanation = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     __table_args__ = (
-        Index("idx_exercises_lookup", "course_id", "belt", "topic", "skill"),
+        Index("idx_exercises_lookup", "course_id", "belt", "topic"),
         UniqueConstraint("course_id", "external_id", name="uq_exercises_course_external_id"),
         Index("idx_exercises_external_id", "course_id", "external_id"),
     )
 
-    # Relationships
     course = relationship("Course", back_populates="exercises")
 
 
 class BeltInfo(Base):
-    """Descriptive info for each belt within a course (headline + description)."""
     __tablename__ = "belt_info"
 
     id          = Column(Integer, primary_key=True, index=True)
     course_id   = Column(Integer, ForeignKey("courses.id"), nullable=False)
-    belt        = Column(String(20), nullable=False)   # "white", "blue", "violet", "brown", "black"
+    belt        = Column(String(20), nullable=False)
     headline    = Column(String(200), nullable=False)
     description = Column(Text, nullable=False)
 
@@ -246,24 +223,20 @@ class BeltInfo(Base):
         UniqueConstraint("course_id", "belt", name="uq_belt_info_course_belt"),
     )
 
-    # Relationships
     course = relationship("Course", back_populates="belt_infos")
 
 
 class PushSubscription(Base):
-    """PushSubscription model - Web Push notification subscriptions."""
     __tablename__ = "push_subscriptions"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
-    # Push subscription data (Web Push API)
     endpoint = Column(String(1000), nullable=False)
     p256dh = Column(String(1000), nullable=False)
     auth = Column(String(1000), nullable=False)
 
-    # Tracking
     created_at = Column(DateTime, default=datetime.utcnow)
     last_used_at = Column(DateTime, nullable=True)
 
@@ -271,6 +244,5 @@ class PushSubscription(Base):
         UniqueConstraint("user_id", "endpoint", name="unique_user_endpoint"),
     )
 
-    # Relationships
     user = relationship("User", back_populates="push_subscriptions")
     course = relationship("Course", back_populates="push_subscriptions")

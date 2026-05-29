@@ -1,44 +1,58 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Iterable
 
-from .domain import BeltCatalog, ItemKey
-from .sm2 import SM2ItemState
+from .domain import BeltCatalog, TopicKey, UnitKey
+from .sm2 import SM2UnitState
 
 
-def is_graduated(state: SM2ItemState) -> bool:
-    """True when a single item has completed the learning loop."""
+def is_mastered(state: SM2UnitState) -> bool:
+    """True when a single unit has completed learning and entered review."""
     return state.phase == "review"
+
+
+def is_topic_mastered(
+    units: dict[UnitKey, SM2UnitState],
+    topic_key: TopicKey,
+    expected_types: Iterable[str],
+) -> bool:
+    """A topic is mastered when every one of its exercise_types is in review."""
+    expected = list(expected_types)
+    if not expected:
+        return False
+    for et in expected:
+        uk = UnitKey(belt=topic_key.belt, topic=topic_key.topic, exercise_type=et)
+        state = units.get(uk)
+        if state is None or state.phase != "review":
+            return False
+    return True
 
 
 @dataclass
 class BeltProgress:
-    graduated: int   # items currently in 'review' phase for this belt
-    total: int       # total items in the belt catalog
-    stripes: int     # stripes earned (0, 1 or 2)
-    promoted: bool   # True when graduated >= catalog.promotion_threshold
+    mastered: int    # topics whose units are all in 'review' phase
+    total: int       # total topics in the belt
+    promoted: bool   # True when every topic in the belt is mastered
 
 
 def belt_progress(
-    items: dict[ItemKey, SM2ItemState],
+    units: dict[UnitKey, SM2UnitState],
     catalog: BeltCatalog,
+    *,
+    topic_types: dict[TopicKey, list[str]],
 ) -> BeltProgress:
     """
-    Computes graduation progress for a belt.
+    Count topics in `catalog` whose exercise_types are all in review.
 
-    Counts items in 'review' phase across the full belt catalog,
-    regardless of which items were exercised in the current session.
-    Items not yet started are treated as learning/step 0.
+    `topic_types` declares the expected exercise_types per topic — discovered
+    from the exercise bank by the caller (algorithm package stays DB-agnostic).
     """
     belt_keys = catalog.all_keys()
-    graduated = sum(
-        1 for k in belt_keys
-        if items.get(k, SM2ItemState()).phase == "review"
+    mastered = sum(
+        1
+        for tk in belt_keys
+        if is_topic_mastered(units, tk, topic_types.get(tk, []))
     )
-    stripes = sum(1 for t in catalog.stripe_thresholds if graduated >= t)
-    return BeltProgress(
-        graduated=graduated,
-        total=catalog.total_items,
-        stripes=stripes,
-        promoted=graduated >= catalog.promotion_threshold,
-    )
+    total = catalog.total_topics
+    return BeltProgress(mastered=mastered, total=total, promoted=mastered >= total)

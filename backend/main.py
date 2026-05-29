@@ -11,21 +11,28 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from session_store import create_session, record_answer, get_summary, get_session, get_user_progress_db
+from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
-    get_google_oauth_url,
-    authenticate_with_google,
-    create_guest_user,
-    verify_token,
-    TokenPayload,
     UserResponse,
+    get_or_create_user_from_clerk,
+    verify_clerk_token,
 )
 from models import User, BeltInfo
+from schemas import (
+    AnswerResponse,
+    BeltEntry,
+    EnrollmentResponse,
+    HealthResponse,
+    LeaderboardEntry,
+    LeaderboardResponse,
+    SessionStartResponse,
+    SessionSummaryResponse,
+    UserProgressResponse,
+)
 
 app = FastAPI(title="Intervalo Backend")
 
@@ -71,7 +78,12 @@ def get_current_user(
     authorization: str = Header(None),
     db: Session = Depends(get_db)
 ) -> User:
-    """Get current authenticated user from JWT token."""
+    """
+    Resolve the authenticated user from a Clerk session JWT.
+
+    Clerk issues the token on the frontend; we verify the signature against
+    Clerk's JWKS and JIT-provision a local `User` row on first sight.
+    """
     if not authorization:
         raise HTTPException(status_code=401, detail="Authorization header missing")
 
@@ -83,17 +95,20 @@ def get_current_user(
     except ValueError:
         raise HTTPException(status_code=401, detail="Invalid authorization header")
 
-    # Verify token
-    payload = verify_token(token)
-    if not payload:
+    try:
+        claims = verify_clerk_token(token)
+    except RuntimeError as exc:
+        # Missing CLERK_* env vars — server misconfiguration, not a client error.
+        raise HTTPException(status_code=503, detail=str(exc))
+
+    if not claims:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
-    # Get user from database
-    user = db.query(User).filter(User.id == payload.user_id).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="User not found")
-
-    return user
+    try:
+        return get_or_create_user_from_clerk(db, claims)
+    except ValueError as exc:
+        # e.g. Clerk token has no email and no secret key is configured
+        raise HTTPException(status_code=401, detail=str(exc))
 
 
 # ── Pydantic models ───────────────────────────────────────────────────────────
@@ -112,6 +127,7 @@ class AnswerRequest(BaseModel):
     session_id: str
     exercise_id: str
     answer_index: int
+    attempts: int
     response_time_s: float
 
 
@@ -119,14 +135,14 @@ class AnswerRequest(BaseModel):
 
 # ── Health check ──────────────────────────────────────────────────────────────
 
-@app.get("/health")
+@app.get("/health", response_model=HealthResponse)
 def health_check():
     return {"status": "ok"}
 
 
 # ── Course info ───────────────────────────────────────────────────────────────
 
-@app.get("/course/{course_id}/belts")
+@app.get("/course/{course_id}/belts", response_model=dict[str, BeltEntry])
 def get_belt_info(course_id: int, db: Session = Depends(get_db)):
     """Returns descriptive info (headline + description) for each belt in a course."""
     rows = db.query(BeltInfo).filter(BeltInfo.course_id == course_id).all()
@@ -137,50 +153,11 @@ def get_belt_info(course_id: int, db: Session = Depends(get_db)):
 
 
 # ── Authentication ────────────────────────────────────────────────────────────
-
-class GuestRequest(BaseModel):
-    name: str
-
-
-@app.post("/auth/guest")
-def auth_guest(body: GuestRequest, db: Session = Depends(get_db)):
-    """Create anonymous guest user and return JWT."""
-    result = create_guest_user(db, body.name)
-    return {"access_token": result.access_token, "name": result.name, "user_id": result.user_id}
-
-
-@app.get("/auth/google")
-def auth_google(link: int = None):
-    """Redirect to Google OAuth consent screen. Pass link=<user_id> to merge with anonymous user."""
-    from urllib.parse import urlencode
-    url = get_google_oauth_url()
-    if link:
-        url += f"&state={link}"
-    return RedirectResponse(url=url)
-
-
-@app.get("/auth/google/callback")
-async def auth_google_callback(
-    code: str,
-    state: str = None,
-    db: Session = Depends(get_db)
-):
-    """Handle Google OAuth callback and redirect to frontend with token."""
-    try:
-        link_user_id = int(state) if state else None
-        result = await authenticate_with_google(code, db, link_user_id=link_user_id)
-        # Redirect to frontend with token in URL
-        frontend_url = ALLOWED_ORIGINS[0] if ALLOWED_ORIGINS else "http://localhost:5173"
-        linked_flag = "&linked=1" if link_user_id else ""
-        return RedirectResponse(
-            url=f"{frontend_url}?token={result.access_token}&name={result.name}{linked_flag}",
-            status_code=302
-        )
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Authentication failed: {str(e)}")
-
+#
+# Sign-in / sign-up is handled by Clerk on the frontend. The backend only
+# verifies the resulting session JWT (see `get_current_user` above) and
+# surfaces the current user via `/auth/me`. No OAuth redirects live here
+# anymore.
 
 @app.get("/auth/me", response_model=UserResponse)
 def get_current_user_info(
@@ -191,7 +168,7 @@ def get_current_user_info(
         id=current_user.id,
         email=current_user.email,
         name=current_user.display_name or current_user.name,
-        google_id=current_user.google_id,
+        clerk_user_id=current_user.clerk_user_id,
     )
 
 
@@ -203,7 +180,7 @@ class EnrollmentRequest(BaseModel):
     name: str | None = None
 
 
-@app.post("/user/enroll")
+@app.post("/user/enroll", response_model=EnrollmentResponse)
 def enroll_user(
     body: EnrollmentRequest,
     current_user: User = Depends(get_current_user),
@@ -252,41 +229,63 @@ def enroll_user(
     }
 
 
-@app.get("/user/progress")
+@app.get("/user/progress", response_model=UserProgressResponse)
 def get_user_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get user's current progress (skill states and level info)."""
+    """Get user's current progress (topic states and level info)."""
     try:
         course_id = 1  # Default course
-        result = get_user_progress_db(current_user.id, course_id, db)
-        # Debug: check first item
-        skill_states = result.get('skill_states', {})
-        if skill_states:
-            first_item = list(skill_states.values())[0]
-            print(f"DEBUG ENDPOINT: progress={first_item.get('progress')}, status={first_item.get('status')}")
-        return result
+        return get_user_progress_db(current_user.id, course_id, db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ── Leaderboard ───────────────────────────────────────────────────────────────
+
+@app.get("/leaderboard", response_model=LeaderboardResponse)
+def get_leaderboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Global leaderboard, ranked by total XP descending."""
+    users = (
+        db.query(User)
+        .order_by(User.total_xp.desc(), User.id.asc())
+        .all()
+    )
+    entries = [
+        LeaderboardEntry(
+            rank=index + 1,
+            user_id=user.id,
+            name=user.display_name or user.name,
+            total_xp=user.total_xp,
+            is_current_user=user.id == current_user.id,
+        )
+        for index, user in enumerate(users)
+    ]
+    return LeaderboardResponse(entries=entries)
+
+
 # ── Session endpoints ─────────────────────────────────────────────────────────
 
-@app.post("/session/start")
+@app.post("/session/start", response_model=SessionStartResponse)
 def start_session(
     body: StartSessionRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Start a new session linked to authenticated user in database."""
-    from session_store import create_session_db
+    from session_store import create_session_db, DailySessionLimitError
 
     # Default course_id to 1 for now (analyze-1)
     course_id = 1
 
-    # Create session in database
-    result = create_session_db(current_user.id, course_id, db)
+    try:
+        result = create_session_db(current_user.id, course_id, db)
+    except DailySessionLimitError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
 
     return result
 
@@ -333,6 +332,7 @@ def submit_answer(
             course_id,
             body.exercise_id,
             body.answer_index,
+            body.attempts,
             body.response_time_s,
             db,
         )
@@ -344,7 +344,7 @@ def submit_answer(
     return result
 
 
-@app.get("/session/{session_id}/summary")
+@app.get("/session/{session_id}/summary", response_model=SessionSummaryResponse)
 def session_summary(
     session_id: str,
     current_user: User = Depends(get_current_user),

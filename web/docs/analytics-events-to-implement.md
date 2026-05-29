@@ -1,0 +1,2 @@
+- Notification sent by app
+- Notification opened by user

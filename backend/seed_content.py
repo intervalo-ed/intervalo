@@ -47,7 +47,7 @@ def _load_json(path: Path) -> Any:
 
 def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
     required = [
-        "external_id", "belt", "topic", "skill", "subtype",
+        "external_id", "belt", "topic", "exercise_type",
         "question", "options", "correct_index",
         "feedback_correct", "feedback_incorrect",
     ]
@@ -66,10 +66,10 @@ def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
             f"{source.name}[{idx}] ({entry['external_id']}): "
             f"'correct_index' debe estar en 0..3"
         )
-    if entry["subtype"] not in ("text", "graph"):
+    if not isinstance(entry["exercise_type"], str) or not entry["exercise_type"]:
         raise ValueError(
             f"{source.name}[{idx}] ({entry['external_id']}): "
-            f"'subtype' debe ser 'text' o 'graph'"
+            f"'exercise_type' debe ser un string no vacío"
         )
 
 
@@ -159,13 +159,6 @@ def seed_exercises(
         print("  [exercises] (no exercises dir)")
         return 0
 
-    # Backfill: si hay filas legacy sin external_id (venidas del seed de la
-    # migración a1b2c3d4e5f6), las matcheamos con los JSON y les asignamos el
-    # external_id correspondiente ANTES del loop de upsert. Hacerlo después
-    # crearía duplicados (la misma key en dos filas pendientes de commit).
-    _backfill_legacy_external_ids(db, course, exercises_dir)
-    db.flush()
-
     seen_external_ids: set[str] = set()
     inserted = updated = 0
     total = 0
@@ -201,8 +194,7 @@ def seed_exercises(
                     external_id=ext_id,
                     belt=entry["belt"],
                     topic=entry["topic"],
-                    skill=entry["skill"],
-                    subtype=entry["subtype"],
+                    exercise_type=entry["exercise_type"],
                     question=entry["question"],
                     option_a=options[0],
                     option_b=options[1],
@@ -221,8 +213,7 @@ def seed_exercises(
                 fields = {
                     "belt":               entry["belt"],
                     "topic":              entry["topic"],
-                    "skill":              entry["skill"],
-                    "subtype":            entry["subtype"],
+                    "exercise_type":      entry["exercise_type"],
                     "question":           entry["question"],
                     "option_a":           options[0],
                     "option_b":           options[1],
@@ -263,62 +254,6 @@ def seed_exercises(
         f"  [exercises] {total} entries ({inserted} inserted, {updated} updated)"
     )
     return total
-
-
-def _backfill_legacy_external_ids(
-    db: DBSession, course: Course, exercises_dir: Path
-) -> None:
-    """
-    Si la BBDD tenía ejercicios seeded sin external_id (del legacy seed en la
-    migración Alembic), los matcheamos con los JSON por (belt, topic, skill,
-    subtype, question) y les asignamos el external_id correspondiente.
-
-    Si alguna fila legacy no puede matchearse (ej. texto con escapes Unicode
-    distintos), se elimina — el loop de upsert insertará la versión limpia del JSON.
-
-    Solo hace algo en la primera corrida post-migración c3d4e5f6a7b8.
-    """
-    legacy_rows = (
-        db.query(Exercise)
-        .filter(Exercise.course_id == course.id, Exercise.external_id.is_(None))
-        .all()
-    )
-    if not legacy_rows:
-        return
-
-    # Indexar JSON por (belt, topic, skill, subtype, question) → external_id.
-    # También guardamos una versión con los escapes Unicode decodificados para
-    # el caso en que la migración almacenó el texto como raw unicode escapes.
-    index: dict[tuple, str] = {}
-    for json_file in sorted(exercises_dir.glob("*.json")):
-        entries = _load_json(json_file)
-        for entry in entries:
-            q = entry["question"]
-            base_key = (entry["belt"], entry["topic"], entry["skill"], entry["subtype"], q)
-            index[base_key] = entry["external_id"]
-            # fallback: raw unicode-escaped version (e.g. stored by old migration)
-            escaped_key = (
-                entry["belt"], entry["topic"], entry["skill"], entry["subtype"],
-                q.encode("unicode_escape").decode("ascii"),
-            )
-            if escaped_key != base_key:
-                index[escaped_key] = entry["external_id"]
-
-    matched = deleted = 0
-    for row in legacy_rows:
-        key = (row.belt, row.topic, row.skill, row.subtype, row.question)
-        ext_id = index.get(key)
-        if ext_id:
-            row.external_id = ext_id
-            matched += 1
-        else:
-            db.delete(row)
-            deleted += 1
-
-    if matched:
-        print(f"  [exercises] backfilled external_id on {matched} legacy rows")
-    if deleted:
-        print(f"  [exercises] removed {deleted} unmatchable legacy rows (will be reinserted)")
 
 
 # ── Entrypoints ────────────────────────────────────────────────────────────────

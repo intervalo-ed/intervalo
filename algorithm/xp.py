@@ -29,24 +29,15 @@ XP_TABLE: list[int] = _build_xp_table()
 
 # ── Constantes de otorgamiento ─────────────────────────────────────────────────
 
-XP_BASE          = 1    # base por ejercicio intentado (siempre)
-XP_BONUS_Q5      = 4    # acierto < threshold_fast
-XP_BONUS_Q4      = 2    # acierto entre thresholds
-XP_BONUS_Q3      = 1    # acierto > threshold_slow
-XP_BONUS_STREAK5 = 5    # 5 respuestas correctas consecutivas
-XP_BONUS_STREAK10 = 15  # 10 respuestas correctas consecutivas
-XP_BONUS_RAYA    = 50   # obtener una raya en un cinturón
-XP_BONUS_BELT    = 200  # promoción al siguiente cinturón
-
-_QUALITY_BONUS = {5: XP_BONUS_Q5, 4: XP_BONUS_Q4, 3: XP_BONUS_Q3}
+XP_CORRECT          = 5    # respuesta correcta
+XP_WRONG            = 1    # respuesta incorrecta (intento)
+XP_STREAK_INTERVAL  = 5    # cada cuántas correctas seguidas se otorga bonus
+XP_STREAK_BONUS     = 5    # bonus por cada múltiplo del intervalo
+XP_TOPIC_MASTERED   = 50   # graduar un topic (learning → review)
+XP_BELT_PROMOTED    = 200  # promocionar a un cinturón (todos los topics dominados)
 
 
 # ── Funciones de cálculo ───────────────────────────────────────────────────────
-
-def xp_for_quality(quality: int) -> int:
-    """XP ganada por una respuesta según su calificación SM-2 (1–5)."""
-    return XP_BASE + _QUALITY_BONUS.get(quality, 0)
-
 
 def level_from_xp(xp_total: int) -> int:
     """Nivel actual dado el XP total acumulado."""

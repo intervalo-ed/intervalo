@@ -1,0 +1,172 @@
+"use client"
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { motion } from "motion/react"
+import { useQueryClient } from "@tanstack/react-query"
+import { Alert, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Item, ItemActions, ItemContent, ItemGroup, ItemTitle } from "@/components/ui/item"
+import { Progress } from "@/components/ui/progress"
+import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
+import { Spinner } from "@/components/ui/spinner"
+import { queryKeys } from "@/lib/query/keys"
+import { useSfx } from "@/lib/audio/useSfx"
+import { topicLabel } from "@/lib/catalog"
+import { clearSession } from "@/lib/session/storage"
+import { useSummary } from "./UseSummary"
+
+export default function SessionSummary({ sessionId }: { sessionId: string }) {
+  const { data, isLoading, isError, error } = useSummary({ sessionId })
+  const qc = useQueryClient()
+  const router = useRouter()
+  const sfx = useSfx()
+
+  function goHome() {
+    router.push("/")
+    // Bust the App Router segment cache so the / RSC re-runs on arrival.
+    router.refresh()
+  }
+
+  // Once the summary lands the session is finished server-side; clear stash
+  // and refresh dashboard data on the way back. `refetchType: "all"` forces
+  // refetch even though no observer is mounted yet — without it the dashboard
+  // hits its cache on return and shows stale state.
+  useEffect(() => {
+    if (!data) return
+    sfx.xpCount()
+    clearSession({ id: sessionId })
+    qc.invalidateQueries({
+      queryKey: queryKeys.userProgress(),
+      refetchType: "all",
+    })
+  }, [data, sessionId, qc, sfx])
+
+  if (isLoading) {
+    return (
+      <Screen>
+        <ScreenBody className="items-center justify-center text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Spinner />
+            <span>Cargando resumen…</span>
+          </div>
+        </ScreenBody>
+      </Screen>
+    )
+  }
+
+  if (isError || !data) {
+    return (
+      <Screen>
+        <ScreenBody className="items-center justify-center text-center">
+          <div className="flex flex-col items-center gap-4">
+            <Alert variant="destructive">
+              <AlertTitle>
+                {error?.message ?? "No pudimos cargar el resumen"}
+              </AlertTitle>
+            </Alert>
+            <Button variant="outline" onClick={goHome}>
+              Volver al inicio
+            </Button>
+          </div>
+        </ScreenBody>
+      </Screen>
+    )
+  }
+
+  const accuracy = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0
+
+  return (
+    <Screen>
+      <ScreenHeader>
+        <div className="flex flex-1 flex-col">
+          <h1 className="text-lg font-semibold">Resumen</h1>
+          <p className="text-xs text-muted-foreground">
+            {data.user_name && `${data.user_name} · `}
+            {accuracy}% de aciertos
+          </p>
+        </div>
+      </ScreenHeader>
+
+      <ScreenBody className="gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="grid grid-cols-3 gap-3"
+        >
+          <Stat label="Total" value={data.total} />
+          <Stat label="Correctas" value={data.correct} tone="green" />
+          <Stat label="Falladas" value={data.incorrect} tone="red" />
+        </motion.div>
+
+        <Card className="shrink-0">
+          <CardContent className="flex flex-col gap-3">
+            <div className="text-sm font-medium">XP ganada</div>
+            <div className="text-2xl font-semibold">+{data.xp_earned}</div>
+            <div className="text-sm text-muted-foreground">
+              Nivel {data.level_info.level} · {data.level_info.xp_in_level}/
+              {data.level_info.xp_required} XP
+            </div>
+            <Progress value={data.level_info.progress_pct} />
+          </CardContent>
+        </Card>
+
+        {data.belt_progress.promoted && (
+          <Alert className="border-yellow-500/40 bg-yellow-500/10">
+            <AlertTitle>¡Cinturón promocionado!</AlertTitle>
+          </Alert>
+        )}
+
+        <section>
+          <h2 className="mb-2 text-sm font-medium text-muted-foreground">Temas</h2>
+          <ItemGroup>
+            {data.items.map((item, i) => (
+              <Item key={i} variant="outline" size="sm">
+                <ItemContent>
+                  <ItemTitle>{topicLabel({ topic: item.topic })}</ItemTitle>
+                </ItemContent>
+                <ItemActions>
+                  <span className={item.correct ? "text-green-600" : "text-red-500"}>
+                    {item.correct ? "✓" : "✗"}
+                  </span>
+                </ItemActions>
+              </Item>
+            ))}
+          </ItemGroup>
+        </section>
+      </ScreenBody>
+
+      <ScreenFooter>
+        <Button size="lg" className="h-12 w-full" onClick={goHome}>
+          Volver al inicio
+        </Button>
+      </ScreenFooter>
+    </Screen>
+  )
+}
+
+function Stat({
+  label,
+  value,
+  tone,
+}: {
+  label: string
+  value: number
+  tone?: "green" | "red"
+}) {
+  const cls =
+    tone === "green"
+      ? "text-green-600"
+      : tone === "red"
+        ? "text-red-500"
+        : "text-foreground"
+  return (
+    <Card size="sm">
+      <CardContent className="text-center">
+        <div className="text-sm text-muted-foreground">{label}</div>
+        <div className={`mt-1 text-2xl font-semibold ${cls}`}>{value}</div>
+      </CardContent>
+    </Card>
+  )
+}

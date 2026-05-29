@@ -1,11 +1,10 @@
 """
 exercise_bank.py — Acceso a ejercicios desde la base de datos.
 
-Cada ejercicio tiene un campo 'subtype':
-  "graph" — muestra un gráfico como estímulo principal
-  "text"  — muestra una expresión escrita o pregunta textual
-
-La probabilidad de recibir uno u otro se controla desde SM2Config.graph_exercise_probability.
+Cada ejercicio tiene un 'exercise_type' (código de skill: LEXI, CLSF, FORM,
+GRAF, …). El cliente del bank pide ejercicios para una unidad concreta
+(belt, topic, exercise_type) — esa es ahora la granularidad del algoritmo
+de SR.
 """
 
 import json
@@ -17,7 +16,6 @@ from models import Exercise
 
 
 def _row_to_dict(row: Exercise) -> dict:
-    """Convert an Exercise DB row to the dict format expected by session_store."""
     gv = None
     if row.graph_view:
         try:
@@ -25,7 +23,7 @@ def _row_to_dict(row: Exercise) -> dict:
         except (json.JSONDecodeError, TypeError):
             pass
     return {
-        "subtype": row.subtype,
+        "exercise_type": row.exercise_type,
         "question": row.question,
         "options": [row.option_a, row.option_b, row.option_c, row.option_d],
         "correct_index": row.correct_index,
@@ -42,52 +40,50 @@ def get_exercise_db(
     course_id: int,
     belt: str,
     topic: str,
-    skill: str,
-    graph_probability: float,
+    exercise_type: str,
     db: DBSession,
 ) -> dict:
-    """Devuelve un ejercicio aleatorio para la combinación (course, belt, topic, skill).
-
-    Elige el subtipo (graph/text) según graph_probability.
-    Si el subtipo preferido no tiene ejercicios, usa cualquier disponible.
-    Si no hay ejercicios para la combinación solicitada, lanza LookupError —
-    el seeder garantiza que el banco esté completo.
-    """
-    preferred = "graph" if random.random() < graph_probability else "text"
-
-    # Try preferred subtype first
+    """Returns a random exercise for the (course, belt, topic, exercise_type) unit."""
     row = (
         db.query(Exercise)
         .filter(
             Exercise.course_id == course_id,
             Exercise.belt == belt,
             Exercise.topic == topic,
-            Exercise.skill == skill,
-            Exercise.subtype == preferred,
+            Exercise.exercise_type == exercise_type,
         )
         .order_by(func.random())
         .first()
     )
 
-    # Fallback to any subtype
-    if row is None:
-        row = (
-            db.query(Exercise)
-            .filter(
-                Exercise.course_id == course_id,
-                Exercise.belt == belt,
-                Exercise.topic == topic,
-                Exercise.skill == skill,
-            )
-            .order_by(func.random())
-            .first()
-        )
-
     if row is None:
         raise LookupError(
             f"No hay ejercicios en BD para course_id={course_id} "
-            f"belt={belt!r} topic={topic!r} skill={skill!r}. "
+            f"belt={belt!r} topic={topic!r} exercise_type={exercise_type!r}. "
             f"Revisá el seeder (backend/seed_content.py)."
         )
 
     return _row_to_dict(row)
+
+
+def topic_exercise_types(
+    course_id: int,
+    belt: str,
+    topic: str,
+    db: DBSession,
+) -> list[str]:
+    """Return the distinct exercise_types available for a (course, belt, topic).
+
+    This is what defines a topic's "unit set" for the SR algorithm.
+    """
+    rows = (
+        db.query(Exercise.exercise_type)
+        .filter(
+            Exercise.course_id == course_id,
+            Exercise.belt == belt,
+            Exercise.topic == topic,
+        )
+        .distinct()
+        .all()
+    )
+    return [r[0] for r in rows]
