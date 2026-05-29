@@ -71,7 +71,7 @@ export default function DashboardEntry() {
     <Screen>
       <ScreenHeader innerClassName="justify-center">
         <Link href="/" aria-label="Intervalo">
-          <Logo className="h-6 w-auto" />
+          <Logo className="h-6 w-auto text-[#FAFAFA] dark:text-[#FAFAFA]" />
         </Link>
       </ScreenHeader>
 
