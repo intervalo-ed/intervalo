@@ -81,6 +81,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get User Status
+         * @description Authoritative new-vs-returning check, read from the DB.
+         *
+         *     A returning user has an enrollment and/or learning state, regardless of
+         *     what their Clerk `onboarded` metadata says. The frontend uses this to
+         *     decide whether to run onboarding or send the user straight to the dashboard.
+         */
+        get: operations["get_user_status_user_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/user/progress": {
         parameters: {
             query?: never;
@@ -438,6 +462,13 @@ export interface components {
             /** Clerk User Id */
             clerk_user_id?: string | null;
         };
+        /** UserStatusResponse */
+        UserStatusResponse: {
+            /** Enrolled */
+            enrolled: boolean;
+            /** Has Progress */
+            has_progress: boolean;
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -566,6 +597,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["EnrollmentResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_user_status_user_status_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserStatusResponse"];
                 };
             };
             /** @description Validation Error */

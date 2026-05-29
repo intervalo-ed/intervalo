@@ -157,6 +157,46 @@
         }
       }
     },
+    "/user/status": {
+      "get": {
+        "summary": "Get User Status",
+        "description": "Authoritative new-vs-returning check, read from the DB.\n\nA returning user has an enrollment and/or learning state, regardless of\nwhat their Clerk `onboarded` metadata says. The frontend uses this to\ndecide whether to run onboarding or send the user straight to the dashboard.",
+        "operationId": "get_user_status_user_status_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserStatusResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
@@ -1069,6 +1109,24 @@
           "name"
         ],
         "title": "UserResponse"
+      },
+      "UserStatusResponse": {
+        "properties": {
+          "enrolled": {
+            "type": "boolean",
+            "title": "Enrolled"
+          },
+          "has_progress": {
+            "type": "boolean",
+            "title": "Has Progress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "enrolled",
+          "has_progress"
+        ],
+        "title": "UserStatusResponse"
       },
       "ValidationError": {
         "properties": {

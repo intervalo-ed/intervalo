@@ -33,6 +33,16 @@ class EnrollmentResponse(BaseModel):
     message: str
 
 
+# ── Status ────────────────────────────────────────────────────────────────────
+
+class UserStatusResponse(BaseModel):
+    # Authoritative "new vs returning" signal, read from the DB rather than from
+    # client-writable Clerk metadata (which drifts). `enrolled` means the user
+    # finished onboarding; `has_progress` means they have any learning state.
+    enrolled: bool
+    has_progress: bool
+
+
 # ── Progress ──────────────────────────────────────────────────────────────────
 
 class UnitProgress(BaseModel):
