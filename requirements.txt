@@ -1,1 +1,8 @@
--r backend/requirements.txt
+fastapi
+uvicorn
+python-dotenv
+psycopg2-binary
+sqlalchemy
+alembic
+pyjwt[crypto]
+httpx
