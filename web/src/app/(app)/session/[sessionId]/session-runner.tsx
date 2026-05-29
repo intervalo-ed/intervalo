@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
 import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
@@ -209,18 +216,23 @@ function QuestionScreen({
             </motion.div>
           )}
         </AnimatePresence>
-        <Button
-          size="lg"
-          className="mt-3 h-12 w-full"
-          onClick={() => {
-            if (isLast) sfx.end()
-            else sfx.pop()
-            onAdvance()
-          }}
-          disabled={!done}
-        >
-          {isLast ? "Finalizar" : "Siguiente"}
-        </Button>
+        <div className="mt-3 flex gap-2">
+          {done && exercise.explanation && (
+            <WhyDialog explanation={exercise.explanation} />
+          )}
+          <Button
+            size="lg"
+            className="h-12 flex-1"
+            onClick={() => {
+              if (isLast) sfx.end()
+              else sfx.pop()
+              onAdvance()
+            }}
+            disabled={!done}
+          >
+            {isLast ? "Finalizar" : "Siguiente"}
+          </Button>
+        </div>
       </ScreenFooter>
     </Screen>
   )
@@ -288,6 +300,28 @@ function OptionButton({
     >
       <MathText text={option} />
     </Button>
+  )
+}
+
+function WhyDialog({ explanation }: { explanation: string }) {
+  return (
+    <Dialog>
+      <DialogTrigger
+        render={
+          <Button variant="outline" size="lg" className="h-12">
+            ¿Por qué?
+          </Button>
+        }
+      />
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Explicación</DialogTitle>
+        </DialogHeader>
+        <div className="max-h-[60vh] overflow-y-auto text-sm/relaxed">
+          <MathText text={explanation} />
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
