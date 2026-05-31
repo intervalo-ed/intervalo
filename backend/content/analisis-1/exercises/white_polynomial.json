@@ -17,7 +17,8 @@
     "feedback_incorrect": "Un polinomio de grado 3 tiene $x^3$ como potencia máxima. La correcta es $f(x) = x^3 - 2x + 5$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio es la mayor potencia de $x$ con coeficiente no nulo. La forma general es:\n$$p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_0$$\nPara que el grado sea $3$, el término de mayor potencia debe ser $x^3$.\n\nEn $f(x) = x^3 - 2x + 5$: el término $x^3$ determina el grado. Las otras opciones tienen grado $2$, $1$ y $4$ respectivamente.\n\nConclusión: el único polinomio de grado $3$ es $f(x) = x^3 - 2x + 5$."
+    "explanation": "El **grado** de un polinomio es la mayor potencia de $x$ con coeficiente no nulo. La forma general es:\n$$p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_0$$\nPara que el grado sea $3$, el término de mayor potencia debe ser $x^3$.\n\nEn $f(x) = x^3 - 2x + 5$: el término $x^3$ determina el grado. Las otras opciones tienen grado $2$, $1$ y $4$ respectivamente.\n\nConclusión: el único polinomio de grado $3$ es $f(x) = x^3 - 2x + 5$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_02",
@@ -42,7 +43,8 @@
       -5,
       5
     ],
-    "explanation": "Una **raíz real** de $p(x)$ es un valor $r \\in \\mathbb{R}$ tal que $p(r) = 0$, es decir, un punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de grado $n$ tiene exactamente $n$ raíces en $\\mathbb{C}$ (contando multiplicidades). Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara $f(x) = x^3 - 3x$ (grado $3$): el máximo es $3$ raíces reales. En este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$."
+    "explanation": "Una **raíz real** de $p(x)$ es un valor $r \\in \\mathbb{R}$ tal que $p(r) = 0$, es decir, un punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de grado $n$ tiene exactamente $n$ raíces en $\\mathbb{C}$ (contando multiplicidades). Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara $f(x) = x^3 - 3x$ (grado $3$): el máximo es $3$ raíces reales. En este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_03",
@@ -62,7 +64,8 @@
     "feedback_incorrect": "El grado es la mayor potencia de $x$ que aparece. Aquí es $7$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$, $4$ y $0$ (el término constante $2 = 2x^0$).\n\nEl mayor es $7$, por lo tanto:\n$$\\deg(p) = 7$$\n\nNo importa el orden en que estén escritos los términos ni los valores de los coeficientes: solo importa la mayor potencia con coeficiente distinto de cero."
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$, $4$ y $0$ (el término constante $2 = 2x^0$).\n\nEl mayor es $7$, por lo tanto:\n$$\\deg(p) = 7$$\n\nNo importa el orden en que estén escritos los términos ni los valores de los coeficientes: solo importa la mayor potencia con coeficiente distinto de cero.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_04",
@@ -82,7 +85,8 @@
     "feedback_incorrect": "El coeficiente del término con la mayor potencia de $x$ se llama coeficiente principal.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un polinomio $p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_0$, el **coeficiente principal** (también llamado coeficiente líder) es $a_n$: el coeficiente del término de mayor grado.\n\nEjemplo: en $p(x) = -4x^5 + 3x^2 - 1$, el coeficiente principal es $-4$.\n\nEste valor es clave porque determina el **comportamiento en los extremos** del polinomio: hacia dónde va la curva cuando $x \\to +\\infty$ y cuando $x \\to -\\infty$."
+    "explanation": "En un polinomio $p(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_0$, el **coeficiente principal** (también llamado coeficiente líder) es $a_n$: el coeficiente del término de mayor grado.\n\nEjemplo: en $p(x) = -4x^5 + 3x^2 - 1$, el coeficiente principal es $-4$.\n\nEste valor es clave porque determina el **comportamiento en los extremos** del polinomio: hacia dónde va la curva cuando $x \\to +\\infty$ y cuando $x \\to -\\infty$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_05",
@@ -102,7 +106,8 @@
     "feedback_incorrect": "$f(x) = \\sqrt{x}$ equivale a $x^{1/2}$, que no tiene exponente entero no negativo: no es polinomio.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$, donde los exponentes $k$ deben ser **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\nAhora bien, $\\sqrt{x} = x^{1/2}$: el exponente $\\frac{1}{2}$ es fraccionario, lo que viola la condición.\n\nLas otras opciones sí son polinomios: $f(x) = 5$ es un polinomio de grado $0$ (constante), y $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen exponentes enteros no negativos.\n\nConclusión: $f(x) = \\sqrt{x}$ **no es un polinomio**."
+    "explanation": "Un **polinomio** es una suma de términos de la forma $a_k x^k$, donde los exponentes $k$ deben ser **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\nAhora bien, $\\sqrt{x} = x^{1/2}$: el exponente $\\frac{1}{2}$ es fraccionario, lo que viola la condición.\n\nLas otras opciones sí son polinomios: $f(x) = 5$ es un polinomio de grado $0$ (constante), y $x^4 - 3x + 1$ y $x^2 - x + 2$ tienen exponentes enteros no negativos.\n\nConclusión: $f(x) = \\sqrt{x}$ **no es un polinomio**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_06",
@@ -127,7 +132,8 @@
       -2,
       8
     ],
-    "explanation": "Los **cambios de dirección** (extremos locales) de un polinomio ocurren donde la derivada se anula. La derivada de un polinomio de grado $n$ es de grado $n-1$, y puede tener como máximo $n-1$ raíces reales.\n\nPor lo tanto, un polinomio de grado $n$ tiene **a lo sumo $n - 1$ extremos locales**.\n\nPara $f(x) = x^4 - 5x^2 + 4$ (grado $4$):\n$$\\text{máximo de cambios de dirección} = 4 - 1 = 3$$\nEn este caso el máximo se alcanza efectivamente: hay dos mínimos locales y un máximo local."
+    "explanation": "Los **cambios de dirección** (extremos locales) de un polinomio ocurren donde la derivada se anula. La derivada de un polinomio de grado $n$ es de grado $n-1$, y puede tener como máximo $n-1$ raíces reales.\n\nPor lo tanto, un polinomio de grado $n$ tiene **a lo sumo $n - 1$ extremos locales**.\n\nPara $f(x) = x^4 - 5x^2 + 4$ (grado $4$):\n$$\\text{máximo de cambios de dirección} = 4 - 1 = 3$$\nEn este caso el máximo se alcanza efectivamente: hay dos mínimos locales y un máximo local.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_07",
@@ -147,7 +153,8 @@
     "feedback_incorrect": "El término independiente es el valor de $p(0)$: aquí $p(0) = 7$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo: evaluar el polinomio en $x = 0$, ya que todas las potencias $x^k$ con $k \\geq 1$ se anulan:\n$$p(0) = 0^4 - 3(0) + 7 = 7$$\n\nEn $p(x) = x^4 - 3x + 7$, el término independiente es $7$. Representa el punto donde la curva **corta al eje $Y$**."
+    "explanation": "El **término independiente** de un polinomio es el término $a_0$: la constante que no acompaña ninguna potencia de $x$.\n\nUna forma práctica de encontrarlo: evaluar el polinomio en $x = 0$, ya que todas las potencias $x^k$ con $k \\geq 1$ se anulan:\n$$p(0) = 0^4 - 3(0) + 7 = 7$$\n\nEn $p(x) = x^4 - 3x + 7$, el término independiente es $7$. Representa el punto donde la curva **corta al eje $Y$**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_08",
@@ -172,7 +179,8 @@
       -2,
       8
     ],
-    "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$, es decir, donde $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n$$f(x) = (x^2 - 1)(x^2 - 4) = (x-1)(x+1)(x-2)(x+2)$$\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas. La gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos."
+    "explanation": "Las **raíces reales** de un polinomio son los valores de $x$ donde la gráfica cruza el eje $X$, es decir, donde $p(x) = 0$.\n\nPara $f(x) = x^4 - 5x^2 + 4$, se puede factorizar como:\n$$f(x) = (x^2 - 1)(x^2 - 4) = (x-1)(x+1)(x-2)(x+2)$$\n\nLas cuatro raíces son $x = \\pm 1$ y $x = \\pm 2$, todas reales y distintas. La gráfica confirma esto: la curva cruza el eje $X$ en exactamente cuatro puntos.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_09",
@@ -192,7 +200,8 @@
     "feedback_incorrect": "$f(x) = 3x^4 - x^2 + 5$ cumple la definición de polinomio: exponentes enteros no negativos.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un polinomio requiere que todos los exponentes de $x$ sean **enteros no negativos** y que la variable no aparezca en el exponente ni dentro de funciones especiales.\n\n- $\\frac{1}{x} + 3 = x^{-1} + 3$: exponente $-1$ negativo → no es polinomio.\n- $2^x - 1$: la variable está en el **exponente** → función exponencial, no polinomio.\n- $\\ln(x+1)$: función logarítmica → no es polinomio.\n- $3x^4 - x^2 + 5$: exponentes $4$, $2$ y $0$, todos enteros no negativos → **sí es polinomio** (grado $4$)."
+    "explanation": "Un polinomio requiere que todos los exponentes de $x$ sean **enteros no negativos** y que la variable no aparezca en el exponente ni dentro de funciones especiales.\n\n- $\\frac{1}{x} + 3 = x^{-1} + 3$: exponente $-1$ negativo → no es polinomio.\n- $2^x - 1$: la variable está en el **exponente** → función exponencial, no polinomio.\n- $\\ln(x+1)$: función logarítmica → no es polinomio.\n- $3x^4 - x^2 + 5$: exponentes $4$, $2$ y $0$, todos enteros no negativos → **sí es polinomio** (grado $4$).",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_10",
@@ -212,7 +221,8 @@
     "feedback_incorrect": "Contando los monomios: $4x^5$, $-x^3$, $2x$ y $-9$ son 4 términos.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$. Se cuentan separando por los signos $+$ y $-$ que los unen.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$:\n- $4x^5$ → término de grado $5$\n- $-x^3$ → término de grado $3$\n- $2x$ → término de grado $1$\n- $-9$ → término independiente (grado $0$)\n\nTotal: **4 términos**. Un polinomio con exactamente 2 términos se llama **binomio**, con 3 se llama **trinomio**."
+    "explanation": "Cada **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$. Se cuentan separando por los signos $+$ y $-$ que los unen.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$:\n- $4x^5$ → término de grado $5$\n- $-x^3$ → término de grado $3$\n- $2x$ → término de grado $1$\n- $-9$ → término independiente (grado $0$)\n\nTotal: **4 términos**. Un polinomio con exactamente 2 términos se llama **binomio**, con 3 se llama **trinomio**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_01",
@@ -237,7 +247,8 @@
       -5,
       4
     ],
-    "explanation": "Para clasificar una función a partir de su gráfica, se observan sus características globales:\n\n- **Recta**: función lineal o constante.\n- **Parábola** (1 cambio de dirección): cuadrática (grado 2).\n- **Curva en S** (hasta 2 cambios de dirección, extremos opuestos): polinómica de grado 3.\n- **Curva en W o M** (hasta 3 cambios de dirección): polinómica de grado 4.\n\nEsta gráfica presenta dos cambios de dirección y sus extremos van hacia $+\\infty$ (derecha) y $-\\infty$ (izquierda): comportamiento típico de un **polinomio de grado 3** con coeficiente principal positivo."
+    "explanation": "Para clasificar una función a partir de su gráfica, se observan sus características globales:\n\n- **Recta**: función lineal o constante.\n- **Parábola** (1 cambio de dirección): cuadrática (grado 2).\n- **Curva en S** (hasta 2 cambios de dirección, extremos opuestos): polinómica de grado 3.\n- **Curva en W o M** (hasta 3 cambios de dirección): polinómica de grado 4.\n\nEsta gráfica presenta dos cambios de dirección y sus extremos van hacia $+\\infty$ (derecha) y $-\\infty$ (izquierda): comportamiento típico de un **polinomio de grado 3** con coeficiente principal positivo.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_02",
@@ -257,7 +268,8 @@
     "feedback_incorrect": "$f(x) = x^3 - 2x^2 + x - 1$ tiene $x^3$ como término de mayor grado: es un polinomio de grado 3.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función pertenece a la familia **polinómica** si y solo si puede escribirse como:\n$$f(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_1 x + a_0$$\ndonde $n \\in \\mathbb{N}_0$ y todos los $a_k \\in \\mathbb{R}$.\n\nEn $f(x) = x^3 - 2x^2 + x - 1$: la variable $x$ aparece únicamente con exponentes enteros no negativos ($3$, $2$, $1$, $0$). El término de mayor grado es $x^3$, por lo que es un **polinomio de grado 3**.\n\nNo es cuadrática (grado 2), lineal (grado 1) ni exponencial (la variable no está en el exponente)."
+    "explanation": "Una función pertenece a la familia **polinómica** si y solo si puede escribirse como:\n$$f(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_1 x + a_0$$\ndonde $n \\in \\mathbb{N}_0$ y todos los $a_k \\in \\mathbb{R}$.\n\nEn $f(x) = x^3 - 2x^2 + x - 1$: la variable $x$ aparece únicamente con exponentes enteros no negativos ($3$, $2$, $1$, $0$). El término de mayor grado es $x^3$, por lo que es un **polinomio de grado 3**.\n\nNo es cuadrática (grado 2), lineal (grado 1) ni exponencial (la variable no está en el exponente).",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_03",
@@ -277,7 +289,8 @@
     "feedback_incorrect": "$f(x) = x^4 - 2x^2 + 1$ es un polinomio de grado 4.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = x^4 - 2x^2 + 1$, los exponentes presentes son $4$, $2$ y $0$: todos enteros no negativos. Se descarta cada opción incorrecta:\n\n- **Cuadrática**: requiere grado exactamente $2$; aquí el grado es $4$.\n- **Logarítmica**: involucra $\\log$ o $\\ln$; aquí no aparece.\n- **Racional**: cociente de polinomios con denominador no constante; aquí no hay denominador.\n\nConclusión: $f(x) = x^4 - 2x^2 + 1$ es un **polinomio de grado 4**. Se puede factorizar como $(x^2-1)^2 = (x-1)^2(x+1)^2$."
+    "explanation": "En $f(x) = x^4 - 2x^2 + 1$, los exponentes presentes son $4$, $2$ y $0$: todos enteros no negativos. Se descarta cada opción incorrecta:\n\n- **Cuadrática**: requiere grado exactamente $2$; aquí el grado es $4$.\n- **Logarítmica**: involucra $\\log$ o $\\ln$; aquí no aparece.\n- **Racional**: cociente de polinomios con denominador no constante; aquí no hay denominador.\n\nConclusión: $f(x) = x^4 - 2x^2 + 1$ es un **polinomio de grado 4**. Se puede factorizar como $(x^2-1)^2 = (x-1)^2(x+1)^2$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_04",
@@ -297,7 +310,8 @@
     "feedback_incorrect": "$f(x) = -2x^3 + x - 7$ tiene la estructura de un polinomio: sumas de potencias enteras de $x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se analiza cada opción:\n\n- $\\frac{x+1}{x-2}$: cociente con variable en el denominador → **función racional**, no polinomio.\n- $e^x$: la variable está en el exponente → **función exponencial**, no polinomio.\n- $\\sqrt{x-1} = (x-1)^{1/2}$: exponente fraccionario → **no es polinomio**.\n- $-2x^3 + x - 7$: exponentes $3$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 3** con coeficiente principal $-2$.\n\nLa única expresión polinómica es $f(x) = -2x^3 + x - 7$."
+    "explanation": "Se analiza cada opción:\n\n- $\\frac{x+1}{x-2}$: cociente con variable en el denominador → **función racional**, no polinomio.\n- $e^x$: la variable está en el exponente → **función exponencial**, no polinomio.\n- $\\sqrt{x-1} = (x-1)^{1/2}$: exponente fraccionario → **no es polinomio**.\n- $-2x^3 + x - 7$: exponentes $3$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 3** con coeficiente principal $-2$.\n\nLa única expresión polinómica es $f(x) = -2x^3 + x - 7$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_05",
@@ -322,7 +336,8 @@
       -2,
       8
     ],
-    "explanation": "Las pistas visuales para identificar un **polinomio de grado 4** en una gráfica son:\n\n- Hasta **3 cambios de dirección** (extremos locales).\n- **Ambos extremos** de la curva van en la misma dirección ($+\\infty$ o $-\\infty$), a diferencia del grado 3 donde van en sentidos opuestos.\n- La curva es continua y suave, sin asíntotas ni saltos.\n\nEsta gráfica muestra dos mínimos locales y un máximo local (3 cambios de dirección) con ambos extremos apuntando hacia arriba: patrón típico de un **polinomio de grado 4 con coeficiente principal positivo**."
+    "explanation": "Las pistas visuales para identificar un **polinomio de grado 4** en una gráfica son:\n\n- Hasta **3 cambios de dirección** (extremos locales).\n- **Ambos extremos** de la curva van en la misma dirección ($+\\infty$ o $-\\infty$), a diferencia del grado 3 donde van en sentidos opuestos.\n- La curva es continua y suave, sin asíntotas ni saltos.\n\nEsta gráfica muestra dos mínimos locales y un máximo local (3 cambios de dirección) con ambos extremos apuntando hacia arriba: patrón típico de un **polinomio de grado 4 con coeficiente principal positivo**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_06",
@@ -342,7 +357,8 @@
     "feedback_incorrect": "$f(x) = -2x^3 + x$ es un polinomio de grado 3.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = -2x^3 + x$, la variable $x$ aparece elevada a potencias $3$ y $1$: ambas enteras y no negativas.\n\n- **Cuadrática**: necesitaría $x^2$ como término de mayor grado; aquí el mayor es $x^3$.\n- **Exponencial**: requeriría que $x$ esté en el exponente, como $a^x$.\n- **Trigonométrica**: involucraría $\\sin$, $\\cos$, $\\tan$, etc.\n\nConclusión: $f(x) = -2x^3 + x$ es un **polinomio de grado 3** con coeficiente principal $-2$ (negativo), por lo que la curva baja hacia $+\\infty$ a la derecha."
+    "explanation": "En $f(x) = -2x^3 + x$, la variable $x$ aparece elevada a potencias $3$ y $1$: ambas enteras y no negativas.\n\n- **Cuadrática**: necesitaría $x^2$ como término de mayor grado; aquí el mayor es $x^3$.\n- **Exponencial**: requeriría que $x$ esté en el exponente, como $a^x$.\n- **Trigonométrica**: involucraría $\\sin$, $\\cos$, $\\tan$, etc.\n\nConclusión: $f(x) = -2x^3 + x$ es un **polinomio de grado 3** con coeficiente principal $-2$ (negativo), por lo que la curva baja hacia $+\\infty$ a la derecha.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_07",
@@ -362,7 +378,8 @@
     "feedback_incorrect": "$f(x) = \\frac{1}{x^2}$ equivale a $x^{-2}$, que tiene exponente negativo: no es polinomio.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los polinomios requieren exponentes **enteros no negativos**. Reescribiendo cada opción:\n\n- $\\frac{1}{x^2} = x^{-2}$: exponente $-2$ → **NO es polinomio** (función de potencia racional).\n- $x^5 - 3x$: exponentes $5$ y $1$ → polinomio de grado 5.\n- $x^2 - x + 1$: exponentes $2$, $1$ y $0$ → polinomio de grado 2.\n- $7 = 7x^0$: exponente $0$ → polinomio de grado 0 (constante).\n\nLa intrusa es $f(x) = \\frac{1}{x^2}$, que es una **función racional** y tiene una asíntota vertical en $x = 0$."
+    "explanation": "Los polinomios requieren exponentes **enteros no negativos**. Reescribiendo cada opción:\n\n- $\\frac{1}{x^2} = x^{-2}$: exponente $-2$ → **NO es polinomio** (función de potencia racional).\n- $x^5 - 3x$: exponentes $5$ y $1$ → polinomio de grado 5.\n- $x^2 - x + 1$: exponentes $2$, $1$ y $0$ → polinomio de grado 2.\n- $7 = 7x^0$: exponente $0$ → polinomio de grado 0 (constante).\n\nLa intrusa es $f(x) = \\frac{1}{x^2}$, que es una **función racional** y tiene una asíntota vertical en $x = 0$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_08",
@@ -387,7 +404,8 @@
       -3,
       3
     ],
-    "explanation": "Esta gráfica corresponde a $f(x) = -x^3 + x$. Las características que la identifican como un **polinomio de grado 3**:\n\n- La curva tiene **simetría antisimétrica** respecto al origen (función impar: $f(-x) = -f(x)$).\n- Presenta exactamente un **cambio de dirección** visible, con un máximo local y un mínimo local.\n- Los extremos van en **sentidos opuestos**: hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha (coeficiente principal negativo).\n\nEste comportamiento de extremos opuestos es exclusivo de los polinomios de **grado impar**."
+    "explanation": "Esta gráfica corresponde a $f(x) = -x^3 + x$. Las características que la identifican como un **polinomio de grado 3**:\n\n- La curva tiene **simetría antisimétrica** respecto al origen (función impar: $f(-x) = -f(x)$).\n- Presenta exactamente un **cambio de dirección** visible, con un máximo local y un mínimo local.\n- Los extremos van en **sentidos opuestos**: hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha (coeficiente principal negativo).\n\nEste comportamiento de extremos opuestos es exclusivo de los polinomios de **grado impar**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_09",
@@ -407,7 +425,8 @@
     "feedback_incorrect": "$f(x) = x^5$ es el caso más simple de un polinomio de grado 5.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **monomio** es un polinomio con un solo término. $f(x) = x^5 = 1 \\cdot x^5$ tiene un único término con exponente $5$, entero y no negativo.\n\nNo confundir con la función **exponencial**: en $x^5$ la base es $x$ (la variable) y el exponente es constante, mientras que en $5^x$ la base es constante y el exponente es $x$.\n\nConclusión: $f(x) = x^5$ es un **polinomio de grado 5** (monomio). Su gráfica pasa por el origen, tiene un punto de inflexión en $x=0$ y sus extremos van en sentidos opuestos (grado impar, coef. principal positivo)."
+    "explanation": "Un **monomio** es un polinomio con un solo término. $f(x) = x^5 = 1 \\cdot x^5$ tiene un único término con exponente $5$, entero y no negativo.\n\nNo confundir con la función **exponencial**: en $x^5$ la base es $x$ (la variable) y el exponente es constante, mientras que en $5^x$ la base es constante y el exponente es $x$.\n\nConclusión: $f(x) = x^5$ es un **polinomio de grado 5** (monomio). Su gráfica pasa por el origen, tiene un punto de inflexión en $x=0$ y sus extremos van en sentidos opuestos (grado impar, coef. principal positivo).",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_10",
@@ -427,7 +446,8 @@
     "feedback_incorrect": "$f(x) = 3x^4 - x + 2$ tiene la estructura de un polinomio de grado 4.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se descarta cada opción no polinómica:\n\n- $3^x + 2$: la variable $x$ está en el **exponente** → función exponencial.\n- $\\log_3(x)$: función **logarítmica** → no es polinomio.\n- $\\frac{x^2}{x+1}$: cociente con variable en el denominador → función **racional** (no simplificable a polinomio).\n- $3x^4 - x + 2$: exponentes $4$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 4**.\n\nUna regla rápida: si la variable $x$ aparece solo como base con exponentes enteros no negativos, es un polinomio."
+    "explanation": "Se descarta cada opción no polinómica:\n\n- $3^x + 2$: la variable $x$ está en el **exponente** → función exponencial.\n- $\\log_3(x)$: función **logarítmica** → no es polinomio.\n- $\\frac{x^2}{x+1}$: cociente con variable en el denominador → función **racional** (no simplificable a polinomio).\n- $3x^4 - x + 2$: exponentes $4$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 4**.\n\nUna regla rápida: si la variable $x$ aparece solo como base con exponentes enteros no negativos, es un polinomio.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_01",
@@ -447,7 +467,8 @@
     "feedback_incorrect": "El grado es la potencia más alta de $x$. En $4x^5 - 3x^3 + x - 7$, el grado es $5$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y eligiendo el mayor.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los términos y sus exponentes son:\n$$4x^5 \\;(\\text{exp. }5),\\quad -3x^3 \\;(\\text{exp. }3),\\quad x \\;(\\text{exp. }1),\\quad -7 \\;(\\text{exp. }0)$$\n\nEl mayor es $5$, por lo tanto $\\deg(p) = 5$. El coeficiente principal es $4$ (coeficiente de $x^5$)."
+    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y eligiendo el mayor.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los términos y sus exponentes son:\n$$4x^5 \\;(\\text{exp. }5),\\quad -3x^3 \\;(\\text{exp. }3),\\quad x \\;(\\text{exp. }1),\\quad -7 \\;(\\text{exp. }0)$$\n\nEl mayor es $5$, por lo tanto $\\deg(p) = 5$. El coeficiente principal es $4$ (coeficiente de $x^5$).",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_02",
@@ -472,7 +493,8 @@
       -5,
       5
     ],
-    "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1. Raíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$, raíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$. La gráfica confirma tres cruces con el eje $X$.\n\n**2. Comportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos. La opción $x^3 + 3x$ no tiene raíces reales distintas de $0$."
+    "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1. Raíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$, raíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$. La gráfica confirma tres cruces con el eje $X$.\n\n**2. Comportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos. La opción $x^3 + 3x$ no tiene raíces reales distintas de $0$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_03",
@@ -492,7 +514,8 @@
     "feedback_incorrect": "Aunque no es el primer término, $-x^5$ tiene el mayor exponente: el grado es $5$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El grado de un polinomio **no depende del orden** en que estén escritos los términos, sino del mayor exponente presente.\n\nEn $p(x) = 2x^3 - x^5 + 4$, el término $-x^5$ tiene exponente $5$, que es mayor que $3$ y que $0$.\n\nAunque $-x^5$ está en el segundo lugar de la escritura, sigue siendo el **término de mayor grado**:\n$$\\deg(p) = 5, \\quad \\text{coeficiente principal} = -1$$\n\nNota: el coeficiente principal es $-1$ (negativo), lo que afecta el comportamiento en los extremos."
+    "explanation": "El grado de un polinomio **no depende del orden** en que estén escritos los términos, sino del mayor exponente presente.\n\nEn $p(x) = 2x^3 - x^5 + 4$, el término $-x^5$ tiene exponente $5$, que es mayor que $3$ y que $0$.\n\nAunque $-x^5$ está en el segundo lugar de la escritura, sigue siendo el **término de mayor grado**:\n$$\\deg(p) = 5, \\quad \\text{coeficiente principal} = -1$$\n\nNota: el coeficiente principal es $-1$ (negativo), lo que afecta el comportamiento en los extremos.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_04",
@@ -512,7 +535,8 @@
     "feedback_incorrect": "El coeficiente principal es el del término de mayor grado ($x^3$): es $-2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado.\n\nEn $p(x) = -2x^3 + 5x - 1$:\n- Término de grado $3$: $-2x^3$ → coeficiente $= -2$ ✓\n- Término de grado $1$: $5x$ → coeficiente $= 5$\n- Término de grado $0$: $-1$ → término independiente\n\nEl coeficiente principal es $\\mathbf{-2}$. Como es **negativo** y el grado es impar ($3$), la curva **sube a la izquierda y baja a la derecha**."
+    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado.\n\nEn $p(x) = -2x^3 + 5x - 1$:\n- Término de grado $3$: $-2x^3$ → coeficiente $= -2$ ✓\n- Término de grado $1$: $5x$ → coeficiente $= 5$\n- Término de grado $0$: $-1$ → término independiente\n\nEl coeficiente principal es $\\mathbf{-2}$. Como es **negativo** y el grado es impar ($3$), la curva **sube a la izquierda y baja a la derecha**.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_05",
@@ -537,7 +561,8 @@
       -2,
       8
     ],
-    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1. Extremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo. Descarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2. Raíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$. La opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$."
+    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1. Extremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo. Descarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2. Raíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$. La opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_06",
@@ -557,7 +582,8 @@
     "feedback_incorrect": "Evaluando en $x = 0$: $p(0) = 0 - 0 + 3 = 3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para **evaluar** un polinomio en un punto, se sustituye $ por ese valor. En este caso sustituir $x$ por ese valor y calcular.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n$$p(0) = (0)^3 - 4(0) + 3 = 0 - 0 + 3 = 3$$\n\nObservación importante: $p(0)$ siempre es igual al **término independiente** $a_0$, ya que todos los términos con $x$ se anulan. Esto significa que $p(0)$ da la ordenada al origen: el punto donde la curva **cruza el eje $Y$** es $(0, 3)$."
+    "explanation": "Para **evaluar** un polinomio en un punto, se sustituye $ por ese valor. En este caso sustituir $x$ por ese valor y calcular.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n$$p(0) = (0)^3 - 4(0) + 3 = 0 - 0 + 3 = 3$$\n\nObservación importante: $p(0)$ siempre es igual al **término independiente** $a_0$, ya que todos los términos con $x$ se anulan. Esto significa que $p(0)$ da la ordenada al origen: el punto donde la curva **cruza el eje $Y$** es $(0, 3)$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_07",
@@ -577,7 +603,8 @@
     "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es de grado 2.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$. También se llama **polinomio cuadrático**.\n\nAnalizando las opciones:\n- $x^3 + 2$: mayor potencia $3$ → grado 3.\n- $4x - 1$: mayor potencia $1$ → grado 1 (lineal).\n- $x^4$: mayor potencia $4$ → grado 4.\n- $3x^2 - 7$: mayor potencia $2$ → **grado 2** ✓ (con $b = 0$, es un caso particular sin término lineal).\n\nSu gráfica es una **parábola** con vértice en $(0, -7)$, abierta hacia arriba."
+    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$. También se llama **polinomio cuadrático**.\n\nAnalizando las opciones:\n- $x^3 + 2$: mayor potencia $3$ → grado 3.\n- $4x - 1$: mayor potencia $1$ → grado 1 (lineal).\n- $x^4$: mayor potencia $4$ → grado 4.\n- $3x^2 - 7$: mayor potencia $2$ → **grado 2** ✓ (con $b = 0$, es un caso particular sin término lineal).\n\nSu gráfica es una **parábola** con vértice en $(0, -7)$, abierta hacia arriba.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_08",
@@ -602,7 +629,8 @@
       -3,
       3
     ],
-    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$. En cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$."
+    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$. En cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_09",
@@ -622,7 +650,8 @@
     "feedback_incorrect": "Contando: $x^5$, $-x^3$, $x$ y $-1$ son 4 monomios distintos.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios que lo componen (sin contar los que tengan coeficiente $0$).\n\nEn $p(x) = x^5 - x^3 + x - 1$:\n$$\\underbrace{x^5}_{\\text{grado }5} \\;-\\; \\underbrace{x^3}_{\\text{grado }3} \\;+\\; \\underbrace{x}_{\\text{grado }1} \\;-\\; \\underbrace{1}_{\\text{grado }0}$$\n\nSon **4 términos** distintos (ninguno se combina con otro porque todos tienen grados diferentes). Observar que los grados $4$ y $2$ están ausentes: no hay término $x^4$ ni $x^2$."
+    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios que lo componen (sin contar los que tengan coeficiente $0$).\n\nEn $p(x) = x^5 - x^3 + x - 1$:\n$$\\underbrace{x^5}_{\\text{grado }5} \\;-\\; \\underbrace{x^3}_{\\text{grado }3} \\;+\\; \\underbrace{x}_{\\text{grado }1} \\;-\\; \\underbrace{1}_{\\text{grado }0}$$\n\nSon **4 términos** distintos (ninguno se combina con otro porque todos tienen grados diferentes). Observar que los grados $4$ y $2$ están ausentes: no hay término $x^4$ ni $x^2$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_form_10",
@@ -642,7 +671,8 @@
     "feedback_incorrect": "Evaluando: $p(1) = 1 - 2 + 1 = 0$. El valor $x = 1$ es una raíz del polinomio.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se evalúa sustituyendo $x = 1$ en cada término:\n$$p(1) = (1)^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$$\n\nEl resultado $p(1) = 0$ significa que $x = 1$ es una **raíz** del polinomio. De hecho:\n$$p(x) = x^4 - 2x^2 + 1 = (x^2 - 1)^2 = (x-1)^2(x+1)^2$$\n\nPor lo tanto, tanto $x = 1$ como $x = -1$ son raíces **dobles**: la curva toca el eje $X$ sin cruzarlo en esos puntos."
+    "explanation": "Se evalúa sustituyendo $x = 1$ en cada término:\n$$p(1) = (1)^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$$\n\nEl resultado $p(1) = 0$ significa que $x = 1$ es una **raíz** del polinomio. De hecho:\n$$p(x) = x^4 - 2x^2 + 1 = (x^2 - 1)^2 = (x-1)^2(x+1)^2$$\n\nPor lo tanto, tanto $x = 1$ como $x = -1$ son raíces **dobles**: la curva toca el eje $X$ sin cruzarlo en esos puntos.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_lexi_11",
@@ -662,7 +692,8 @@
     "feedback_incorrect": "Los polinomios solo usan suma, producto y potencias con exponentes enteros no negativos: operaciones definidas para todo real. El dominio de cualquier polinomio es siempre $\\mathbb{R}$, sin importar su grado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio** combina únicamente sumas, restas, multiplicaciones y potencias con exponentes enteros no negativos. Ninguna de esas operaciones genera una indeterminación o restricción.\n\nNo importa el valor de $x$ que uses: siempre podés calcular $p(x)$. Por eso el dominio de todo polinomio es $\\mathbb{R}$.\n\nEsto contrasta con funciones que sí tienen restricciones:\n- Racionales: el denominador no puede ser $0$.\n- Logarítmicas: el argumento debe ser positivo.\n- Raíces de índice par: el radicando debe ser no negativo.\n\nEjemplo: $p(x) = x^{100} - 7x^{50} + 3$ tiene dominio $\\mathbb{R}$."
+    "explanation": "Un **polinomio** combina únicamente sumas, restas, multiplicaciones y potencias con exponentes enteros no negativos. Ninguna de esas operaciones genera una indeterminación o restricción.\n\nNo importa el valor de $x$ que uses: siempre podés calcular $p(x)$. Por eso el dominio de todo polinomio es $\\mathbb{R}$.\n\nEsto contrasta con funciones que sí tienen restricciones:\n- Racionales: el denominador no puede ser $0$.\n- Logarítmicas: el argumento debe ser positivo.\n- Raíces de índice par: el radicando debe ser no negativo.\n\nEjemplo: $p(x) = x^{100} - 7x^{50} + 3$ tiene dominio $\\mathbb{R}$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_11",
@@ -682,7 +713,8 @@
     "feedback_incorrect": "$p(x) = x^5 - 3x^2 + 7$ es un polinomio. No hay denominadores, raíces ni logaritmos. El dominio es $\\mathbb{R}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar el dominio de $p(x) = x^5 - 3x^2 + 7$, buscamos restricciones: divisiones por cero, raíces de negativos, logaritmos de no positivos.\n\nNo hay ninguna de esas operaciones. Solo hay potencias enteras y sumas, definidas para todo $x \\in \\mathbb{R}$.\n\nEl dominio es $\\mathbb{R}$.\n\nNota: el intervalo $[-7^{1/5}, 7^{1/5}]$ no tiene ningún significado especial aquí. El dominio de un polinomio no depende de sus raíces ni de los valores que toma, sino solo de las operaciones involucradas."
+    "explanation": "Para determinar el dominio de $p(x) = x^5 - 3x^2 + 7$, buscamos restricciones: divisiones por cero, raíces de negativos, logaritmos de no positivos.\n\nNo hay ninguna de esas operaciones. Solo hay potencias enteras y sumas, definidas para todo $x \\in \\mathbb{R}$.\n\nEl dominio es $\\mathbb{R}$.\n\nNota: el intervalo $[-7^{1/5}, 7^{1/5}]$ no tiene ningún significado especial aquí. El dominio de un polinomio no depende de sus raíces ni de los valores que toma, sino solo de las operaciones involucradas.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_12",
@@ -702,7 +734,8 @@
     "feedback_incorrect": "Aunque $f'(0) = 0$, la función $f(x) = x^3$ nunca decrece. Si $x_1 < x_2$, siempre se tiene $x_1^3 < x_2^3$. Es estrictamente creciente en $\\mathbb{R}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x) = x^3$ es **estrictamente creciente** en todo $\\mathbb{R}$.\n\nPodés verificarlo directamente: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$ (elevar al cubo preserva el orden).\n\nAlgunos se confunden porque la curva es 'casi plana' cerca de $x = 0$ (el punto de inflexión), pero eso no implica decrecimiento: la función nunca retrocede.\n\nEsto contrasta con $f(x) = x^2$, que sí decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$."
+    "explanation": "La función $f(x) = x^3$ es **estrictamente creciente** en todo $\\mathbb{R}$.\n\nPodés verificarlo directamente: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$ (elevar al cubo preserva el orden).\n\nAlgunos se confunden porque la curva es 'casi plana' cerca de $x = 0$ (el punto de inflexión), pero eso no implica decrecimiento: la función nunca retrocede.\n\nEsto contrasta con $f(x) = x^2$, que sí decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_13",
@@ -722,7 +755,8 @@
     "feedback_incorrect": "Como $f(x) = -x^3$, el signo negativo invierte el comportamiento de $x^3$ (que era creciente). El resultado es decreciente en todo $\\mathbb{R}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dado que $f(x) = x^3$ es estrictamente creciente en $\\mathbb{R}$, la función $f(x) = -x^3$ (multiplicada por $-1$) es **estrictamente decreciente** en $\\mathbb{R}$.\n\nLa lógica: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$, y multiplicando por $-1$ se invierte la desigualdad: $-x_1^3 > -x_2^3$.\n\nEso significa que $f(x_1) > f(x_2)$, es decir, la función asigna valores menores a los $x$ más grandes: **decreciente**.\n\nEl punto $x = 0$ es un punto de inflexión, no un extremo."
+    "explanation": "Dado que $f(x) = x^3$ es estrictamente creciente en $\\mathbb{R}$, la función $f(x) = -x^3$ (multiplicada por $-1$) es **estrictamente decreciente** en $\\mathbb{R}$.\n\nLa lógica: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$, y multiplicando por $-1$ se invierte la desigualdad: $-x_1^3 > -x_2^3$.\n\nEso significa que $f(x_1) > f(x_2)$, es decir, la función asigna valores menores a los $x$ más grandes: **decreciente**.\n\nEl punto $x = 0$ es un punto de inflexión, no un extremo.",
+    "reviewed": false
   },
   {
     "external_id": "white_polynomial_clsf_14",
@@ -742,6 +776,7 @@
     "feedback_incorrect": "Un polinomio de grado par (como $x^2$, $x^4$, etc.) siempre tiene un extremo local: decrece en una parte de $\\mathbb{R}$ y crece en otra. No puede ser siempre creciente.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los polinomios de **grado par** tienen ambos extremos en la misma dirección: ambos van a $+\\infty$ o ambos a $-\\infty$ según el signo del coeficiente principal.\n\nEsto implica que la función debe 'cambiar de dirección' al menos una vez: tiene al menos un **extremo local** (mínimo o máximo).\n\nPor ejemplo, $f(x) = x^2$ decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$. Ningún polinomio de grado par puede ser monótono en todo $\\mathbb{R}$.\n\nEn contraste, polinomios de grado impar como $x^3$ o $x^5$ sí pueden ser siempre crecientes o siempre decrecientes."
+    "explanation": "Los polinomios de **grado par** tienen ambos extremos en la misma dirección: ambos van a $+\\infty$ o ambos a $-\\infty$ según el signo del coeficiente principal.\n\nEsto implica que la función debe 'cambiar de dirección' al menos una vez: tiene al menos un **extremo local** (mínimo o máximo).\n\nPor ejemplo, $f(x) = x^2$ decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$. Ningún polinomio de grado par puede ser monótono en todo $\\mathbb{R}$.\n\nEn contraste, polinomios de grado impar como $x^3$ o $x^5$ sí pueden ser siempre crecientes o siempre decrecientes.",
+    "reviewed": false
   }
 ]

@@ -17,7 +17,8 @@
     "feedback_incorrect": "Para que la función integral sea derivable, la función original $f$ solo necesita ser continua en el intervalo cerrado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **Teorema Fundamental del Cálculo** (parte 1) establece que si $f$ es **continua** en $[a, b]$, entonces la función definida por la integral:\n\n$$F(x) = \\int_a^x f(t) \\, dt$$\n\nes continua en $[a, b]$, derivable en $(a, b)$, y su derivada es exactamente $f(x)$. Esta conexión es vital porque asegura que toda función continua tiene una primitiva, aunque no siempre podamos expresarla mediante funciones elementales.\n\nSin la hipótesis de continuidad, no podemos asegurar la derivabilidad de $F(x)$ en todos los puntos del intervalo."
+    "explanation": "El **Teorema Fundamental del Cálculo** (parte 1) establece que si $f$ es **continua** en $[a, b]$, entonces la función definida por la integral:\n\n$$F(x) = \\int_a^x f(t) \\, dt$$\n\nes continua en $[a, b]$, derivable en $(a, b)$, y su derivada es exactamente $f(x)$. Esta conexión es vital porque asegura que toda función continua tiene una primitiva, aunque no siempre podamos expresarla mediante funciones elementales.\n\nSin la hipótesis de continuidad, no podemos asegurar la derivabilidad de $F(x)$ en todos los puntos del intervalo.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "La constante $C$ sí existe en cada primitiva, pero se cancela al realizar la resta del límite superior menos el inferior.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **Regla de Barrow** nos dice que si $F$ es cualquier antiderivada de $f$, entonces la integral definida se calcula como:\n\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nSi elegimos una primitiva con una constante genérica $G(x) = F(x) + C$, al evaluar tendríamos:\n\n$$G(b) - G(a) = (F(b) + C) - (F(a) + C) = F(b) - F(a)$$\n\nPor esta razón, por convención y simplicidad, siempre usamos la primitiva más sencilla (donde $C=0$) para realizar el cálculo de integrales definidas."
+    "explanation": "La **Regla de Barrow** nos dice que si $F$ es cualquier antiderivada de $f$, entonces la integral definida se calcula como:\n\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nSi elegimos una primitiva con una constante genérica $G(x) = F(x) + C$, al evaluar tendríamos:\n\n$$G(b) - G(a) = (F(b) + C) - (F(a) + C) = F(b) - F(a)$$\n\nPor esta razón, por convención y simplicidad, siempre usamos la primitiva más sencilla (donde $C=0$) para realizar el cálculo de integrales definidas.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "Cuando el límite de integración es una función compleja de $x$, el TFC se combina con la Regla de la Cadena para derivar correctamente.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando definimos una función mediante una integral donde el límite superior es otra función $g(x)$, estamos ante una **composición de funciones**.\n\nPara derivar $G(x) = \\int_a^{g(x)} f(t) \\, dt$, usamos el TFC junto a la **Regla de la Cadena**:\n\n$$G'(x) = f(g(x)) \\cdot g'(x)$$\n\nEn este caso, evaluarías el integrando en $x^3$ y luego multiplicarías por la derivada de $x^3$ (que es $3x^2$). Es un error común de examen olvidarse de este último paso multiplicativo."
+    "explanation": "Cuando definimos una función mediante una integral donde el límite superior es otra función $g(x)$, estamos ante una **composición de funciones**.\n\nPara derivar $G(x) = \\int_a^{g(x)} f(t) \\, dt$, usamos el TFC junto a la **Regla de la Cadena**:\n\n$$G'(x) = f(g(x)) \\cdot g'(x)$$\n\nEn este caso, evaluarías el integrando en $x^3$ y luego multiplicarías por la derivada de $x^3$ (que es $3x^2$). Es un error común de examen olvidarse de este último paso multiplicativo.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "La diferencia de valores de la primitiva en los extremos representa el área neta bajo la función original $f$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **cálculo integral** nació para resolver el problema del área. El TFC conecta este concepto geométrico con el cálculo diferencial.\n\nLa integral definida $\\int_a^b f(x) \\, dx$ nos da el **área neta**: el área por encima del eje X menos el área por debajo del eje X. El teorema nos dice que este valor coincide exactamente con la variación total de cualquier primitiva $F$ en ese intervalo.\n\n$$Area = \\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsto transformó el cálculo de áreas de un problema de límites de sumas infinitas (Sumas de Riemann) a un simple problema de encontrar una derivada inversa."
+    "explanation": "El **cálculo integral** nació para resolver el problema del área. El TFC conecta este concepto geométrico con el cálculo diferencial.\n\nLa integral definida $\\int_a^b f(x) \\, dx$ nos da el **área neta**: el área por encima del eje X menos el área por debajo del eje X. El teorema nos dice que este valor coincide exactamente con la variación total de cualquier primitiva $F$ en ese intervalo.\n\n$$Area = \\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsto transformó el cálculo de áreas de un problema de límites de sumas infinitas (Sumas de Riemann) a un simple problema de encontrar una derivada inversa.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "Para aplicar el TFC estándar, la variable debe estar arriba. Invertís los límites y ponés un signo menos adelante.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La forma estándar del TFC requiere que la variable esté en el **límite superior**. Si tenés la variable en el límite inferior:\n\n$$F(x) = \\int_{x}^{a} f(t) \\, dt$$\n\nPodés usar la propiedad de linealidad de las integrales para reescribirla como:\n\n$$F(x) = - \\int_{a}^{x} f(t) \\, dt$$\n\nAhora, derivando respecto a $x$, obtenemos:\n\n$$F'(x) = -f(x)$$\n\nEs fundamental recordar ese signo menos, ya que indica que al aumentar el límite inferior, el área acumulada hacia la derecha disminuye."
+    "explanation": "La forma estándar del TFC requiere que la variable esté en el **límite superior**. Si tenés la variable en el límite inferior:\n\n$$F(x) = \\int_{x}^{a} f(t) \\, dt$$\n\nPodés usar la propiedad de linealidad de las integrales para reescribirla como:\n\n$$F(x) = - \\int_{a}^{x} f(t) \\, dt$$\n\nAhora, derivando respecto a $x$, obtenemos:\n\n$$F'(x) = -f(x)$$\n\nEs fundamental recordar ese signo menos, ya que indica que al aumentar el límite inferior, el área acumulada hacia la derecha disminuye.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "Se llama variable muda. Podrías usar cualquier letra (u, s, t) y el resultado final, que depende de $x$, sería el mismo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la notación de funciones integrales, es crucial distinguir entre el **límite de integración** ($x$) y la **variable de integración** ($t$).\n\nLa variable $t$ es una **variable muda**. Solo existe dentro de la integral para indicar qué función estamos sumando. Al evaluar la integral en los límites $a$ y $x$, la $t$ desaparece y el resultado es una función de $x$.\n\nSi escribieras $\\int_a^x f(x) \\, dx$, estarías cometiendo un error de notación grave, ya que $x$ no puede ser simultáneamente el punto de llegada y la variable que recorre el camino."
+    "explanation": "En la notación de funciones integrales, es crucial distinguir entre el **límite de integración** ($x$) y la **variable de integración** ($t$).\n\nLa variable $t$ es una **variable muda**. Solo existe dentro de la integral para indicar qué función estamos sumando. Al evaluar la integral en los límites $a$ y $x$, la $t$ desaparece y el resultado es una función de $x$.\n\nSi escribieras $\\int_a^x f(x) \\, dx$, estarías cometiendo un error de notación grave, ya que $x$ no puede ser simultáneamente el punto de llegada y la variable que recorre el camino.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "El TFC demuestra que son procesos inversos: integrar una derivada recupera la función, y derivar una integral recupera el integrando.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes del descubrimiento del **Teorema Fundamental del Cálculo**, el cálculo de pendientes (derivadas) y el cálculo de áreas (integrales) se estudiaban como problemas totalmente distintos.\n\nEl TFC unificó la matemática al demostrar que son procesos inversos:\n1. Si derivás una acumulación de área, obtenés la tasa de cambio actual ($f(x)$).\n2. Si integrás una tasa de cambio, obtenés la acumulación total ($F(b) - F(a)$).\n\nEsta simetría permite que usemos todas las reglas de derivación que conocemos para resolver problemas de integración complejos de forma eficiente."
+    "explanation": "Antes del descubrimiento del **Teorema Fundamental del Cálculo**, el cálculo de pendientes (derivadas) y el cálculo de áreas (integrales) se estudiaban como problemas totalmente distintos.\n\nEl TFC unificó la matemática al demostrar que son procesos inversos:\n1. Si derivás una acumulación de área, obtenés la tasa de cambio actual ($f(x)$).\n2. Si integrás una tasa de cambio, obtenés la acumulación total ($F(b) - F(a)$).\n\nEsta simetría permite que usemos todas las reglas de derivación que conocemos para resolver problemas de integración complejos de forma eficiente.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "Primero buscás la primitiva $F(x)$, luego calculás $F(3)$ y le restás $F(1)$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para aplicar la **Regla de Barrow** (TFC parte 2) seguimos un algoritmo estricto:\n\n1. **Integración:** Encontramos una primitiva $F(x)$ tal que $F'(x) = f(x)$.\n2. **Evaluación:** Sustituimos los límites en la primitiva. Se suele anotar como $[F(x)]_a^b$.\n3. **Cálculo:** Restamos el valor en el límite superior menos el valor en el límite inferior.\n\n$$\\int_1^3 (x^2 + 2) \\, dx = \\left[ \\frac{x^3}{3} + 2x \\right]_1^3 = F(3) - F(1)$$\n\nCualquier error en el orden de la resta ($a-b$ en lugar de $b-a$) cambiará el signo del resultado final."
+    "explanation": "Para aplicar la **Regla de Barrow** (TFC parte 2) seguimos un algoritmo estricto:\n\n1. **Integración:** Encontramos una primitiva $F(x)$ tal que $F'(x) = f(x)$.\n2. **Evaluación:** Sustituimos los límites en la primitiva. Se suele anotar como $[F(x)]_a^b$.\n3. **Cálculo:** Restamos el valor en el límite superior menos el valor en el límite inferior.\n\n$$\\int_1^3 (x^2 + 2) \\, dx = \\left[ \\frac{x^3}{3} + 2x \\right]_1^3 = F(3) - F(1)$$\n\nCualquier error en el orden de la resta ($a-b$ en lugar de $b-a$) cambiará el signo del resultado final.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "Si la función no es continua en todo el intervalo cerrado, el TFC estándar falla. Entramos en el terreno de las integrales impropias.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un error común es intentar aplicar la **Regla de Barrow** mecánicamente a funciones como $f(x) = 1/x^2$ en el intervalo $[-1, 1]$.\n\nSi ignorás que la función explota en $x=0$, podrías obtener un valor numérico erróneo usando la primitiva $-1/x$. Sin embargo, el TFC **requiere continuidad** en todo el intervalo $[a, b]$.\n\nSi hay una discontinuidad infinita, la integral debe tratarse como una **integral impropia**, dividiendo el intervalo y tomando límites, ya que el área bajo la curva podría ser infinita."
+    "explanation": "Un error común es intentar aplicar la **Regla de Barrow** mecánicamente a funciones como $f(x) = 1/x^2$ en el intervalo $[-1, 1]$.\n\nSi ignorás que la función explota en $x=0$, podrías obtener un valor numérico erróneo usando la primitiva $-1/x$. Sin embargo, el TFC **requiere continuidad** en todo el intervalo $[a, b]$.\n\nSi hay una discontinuidad infinita, la integral debe tratarse como una **integral impropia**, dividiendo el intervalo y tomando límites, ya que el área bajo la curva podría ser infinita.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_estr_10",
@@ -197,7 +206,8 @@
     "feedback_incorrect": "La $a$ puede ser cualquier número constante. Al derivar, el término $F(a)$ es una constante y su derivada es cero.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor del límite inferior $a$ en el TFC define qué primitiva específica estamos obteniendo, pero no afecta a la **derivada** de la función integral.\n\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces por la definición de primitiva:\n\n$$F(x) = G(x) - G(a)$$\n\nDonde $G$ es una primitiva general. Al derivar respecto a $x$:\n\n$$F'(x) = G'(x) - 0 = f(x)$$\n\nComo $G(a)$ es un número fijo (constante), su derivada desaparece. Por eso, no importa si empezás a integrar desde $0$, $1$ o $-100$, la tasa de cambio de la acumulación de área siempre será el valor de la función en el punto actual $x$."
+    "explanation": "El valor del límite inferior $a$ en el TFC define qué primitiva específica estamos obteniendo, pero no afecta a la **derivada** de la función integral.\n\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces por la definición de primitiva:\n\n$$F(x) = G(x) - G(a)$$\n\nDonde $G$ es una primitiva general. Al derivar respecto a $x$:\n\n$$F'(x) = G'(x) - 0 = f(x)$$\n\nComo $G(a)$ es un número fijo (constante), su derivada desaparece. Por eso, no importa si empezás a integrar desde $0$, $1$ o $-100$, la tasa de cambio de la acumulación de área siempre será el valor de la función en el punto actual $x$.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_01",
@@ -217,7 +227,8 @@
     "feedback_incorrect": "La primitiva de $3x^2$ es $x^3$. Evaluá en $2$ ($8$) y restale el valor en $1$ ($1$).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver esta integral definida aplicamos el **Teorema Fundamental del Cálculo** (Regla de Barrow):\n\n1. Hallamos la primitiva de $f(x) = 3x^2$, que es $F(x) = x^3$ (ya que $(x^3)' = 3x^2$).\n2. Evaluamos en los límites de integración:\n\n$$\\int_1^2 3x^2 \\, dx = [x^3]_1^2 = (2)^3 - (1)^3$$\n\n3. Realizamos el cálculo final: $8 - 1 = 7$.\n\nEste valor representa el área exacta bajo la parábola $3x^2$ entre las rectas verticales $x=1$ y $x=2$."
+    "explanation": "Para resolver esta integral definida aplicamos el **Teorema Fundamental del Cálculo** (Regla de Barrow):\n\n1. Hallamos la primitiva de $f(x) = 3x^2$, que es $F(x) = x^3$ (ya que $(x^3)' = 3x^2$).\n2. Evaluamos en los límites de integración:\n\n$$\\int_1^2 3x^2 \\, dx = [x^3]_1^2 = (2)^3 - (1)^3$$\n\n3. Realizamos el cálculo final: $8 - 1 = 7$.\n\nEste valor representa el área exacta bajo la parábola $3x^2$ entre las rectas verticales $x=1$ y $x=2$.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_02",
@@ -237,7 +248,8 @@
     "feedback_incorrect": "Ojo con los signos: la primitiva es $-\\cos(x)$. Evaluá: $-\\cos(\\pi) - (-\\cos(0)) = -(-1) + 1 = 2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la Regla de Barrow con cuidado en los signos trigonométricos:\n\nLa primitiva de $\\sin(x)$ es $-\\cos(x)$. Entonces:\n\n$$\\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi}$$\n\nEvaluando en el límite superior ($\\pi$) y restando el límite inferior ($0$):\n\n$$(-\\cos(\\pi)) - (-\\cos(0)) = (-(-1)) - (-1) = 1 + 1 = 2$$\n\nGeométricamente, esto nos dice que el área de una 'joroba' completa de la función seno es exactamente $2$ unidades cuadradas."
+    "explanation": "Aplicamos la Regla de Barrow con cuidado en los signos trigonométricos:\n\nLa primitiva de $\\sin(x)$ es $-\\cos(x)$. Entonces:\n\n$$\\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi}$$\n\nEvaluando en el límite superior ($\\pi$) y restando el límite inferior ($0$):\n\n$$(-\\cos(\\pi)) - (-\\cos(0)) = (-(-1)) - (-1) = 1 + 1 = 2$$\n\nGeométricamente, esto nos dice que el área de una 'joroba' completa de la función seno es exactamente $2$ unidades cuadradas.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_03",
@@ -257,7 +269,8 @@
     "feedback_incorrect": "La primitiva es $e^x + x$. Evaluá en $1$ ($e+1$) y restale el valor en $0$ ($e^0=1$). El resultado es $e$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usamos la linealidad de la integral y el TFC. La primitiva de $e^x + 1$ es $e^x + x$.\n\nProcedemos con la evaluación:\n\n$$\\int_0^1 (e^x + 1) \\, dx = [e^x + x]_0^1$$\n\nEvaluando en $1$: $e^1 + 1 = e + 1$.\nEvaluando en $0$: $e^0 + 0 = 1$.\n\nRestamos los valores: $(e + 1) - 1 = e$.\n\nRecordá siempre que $e^0 = 1$, un error muy frecuente es pensar que evaluar en cero anula toda la expresión."
+    "explanation": "Usamos la linealidad de la integral y el TFC. La primitiva de $e^x + 1$ es $e^x + x$.\n\nProcedemos con la evaluación:\n\n$$\\int_0^1 (e^x + 1) \\, dx = [e^x + x]_0^1$$\n\nEvaluando en $1$: $e^1 + 1 = e + 1$.\nEvaluando en $0$: $e^0 + 0 = 1$.\n\nRestamos los valores: $(e + 1) - 1 = e$.\n\nRecordá siempre que $e^0 = 1$, un error muy frecuente es pensar que evaluar en cero anula toda la expresión.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_04",
@@ -277,7 +290,8 @@
     "feedback_incorrect": "La primitiva de $1/x$ es $\\ln(x)$. Como $\\ln(e)=1$ y $\\ln(1)=0$, la diferencia es $1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta es una de las integrales más importantes del análisis. La primitiva de $1/x$ es $\\ln|x|$.\n\n$$\\int_1^e \\frac{1}{x} \\, dx = [\\ln(x)]_1^e$$\n\nComo estamos en un intervalo positivo, podemos omitir las barras de valor absoluto:\n\n$$\\ln(e) - \\ln(1) = 1 - 0 = 1$$\n\nEste resultado es de hecho una de las definiciones del número $e$: es el valor tal que el área bajo la hipérbola $1/x$ desde $1$ hasta ese número es exactamente igual a $1$."
+    "explanation": "Esta es una de las integrales más importantes del análisis. La primitiva de $1/x$ es $\\ln|x|$.\n\n$$\\int_1^e \\frac{1}{x} \\, dx = [\\ln(x)]_1^e$$\n\nComo estamos en un intervalo positivo, podemos omitir las barras de valor absoluto:\n\n$$\\ln(e) - \\ln(1) = 1 - 0 = 1$$\n\nEste resultado es de hecho una de las definiciones del número $e$: es el valor tal que el área bajo la hipérbola $1/x$ desde $1$ hasta ese número es exactamente igual a $1$.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_05",
@@ -297,7 +311,8 @@
     "feedback_incorrect": "La primitiva es $x^4/4$. Al ser una potencia par, $(-1)^4 = 1^4$, por lo que al restar da cero.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo por Barrow:\n\n$$\\int_{-1}^1 x^3 \\, dx = \\left[ \\frac{x^4}{4} \\right]_{-1}^1 = \\frac{(1)^4}{4} - \\frac{(-1)^4}{4} = \\frac{1}{4} - \\frac{1}{4} = 0$$\n\nEste resultado tiene una explicación geométrica clara: $f(x) = x^3$ es una **función impar**. En un intervalo simétrico respecto al origen $[-a, a]$, el área positiva a la derecha se cancela exactamente con el área negativa a la izquierda, resultando en un área neta de cero."
+    "explanation": "Resolviendo por Barrow:\n\n$$\\int_{-1}^1 x^3 \\, dx = \\left[ \\frac{x^4}{4} \\right]_{-1}^1 = \\frac{(1)^4}{4} - \\frac{(-1)^4}{4} = \\frac{1}{4} - \\frac{1}{4} = 0$$\n\nEste resultado tiene una explicación geométrica clara: $f(x) = x^3$ es una **función impar**. En un intervalo simétrico respecto al origen $[-a, a]$, el área positiva a la derecha se cancela exactamente con el área negativa a la izquierda, resultando en un área neta de cero.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_06",
@@ -317,7 +332,8 @@
     "feedback_incorrect": "Escribí $\\sqrt{x}$ como $x^{1/2}$ y usá la regla de la potencia. La primitiva es $\\frac{2}{3}x^{3/2}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para integrar raíces, las expresamos como potencias fraccionarias: $\\sqrt{x} = x^{1/2}$.\n\nLa primitiva es:\n\n$$F(x) = \\frac{x^{1/2 + 1}}{1/2 + 1} = \\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}$$\n\nEvaluamos de $0$ a $4$:\n\n$$\\frac{2}{3}(4)^{3/2} - \\frac{2}{3}(0)^{3/2} = \\frac{2}{3}(\\sqrt{4})^3 = \\frac{2}{3} \\cdot 8 = \\frac{16}{3}$$\n\nEl resultado $16/3$ (aprox. 5.33) es el área bajo la curva radical en ese tramo inicial."
+    "explanation": "Para integrar raíces, las expresamos como potencias fraccionarias: $\\sqrt{x} = x^{1/2}$.\n\nLa primitiva es:\n\n$$F(x) = \\frac{x^{1/2 + 1}}{1/2 + 1} = \\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}$$\n\nEvaluamos de $0$ a $4$:\n\n$$\\frac{2}{3}(4)^{3/2} - \\frac{2}{3}(0)^{3/2} = \\frac{2}{3}(\\sqrt{4})^3 = \\frac{2}{3} \\cdot 8 = \\frac{16}{3}$$\n\nEl resultado $16/3$ (aprox. 5.33) es el área bajo la curva radical en ese tramo inicial.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_07",
@@ -337,7 +353,8 @@
     "feedback_incorrect": "Primitiva: $x^2/2 - 1/x$. Evaluá con cuidado las fracciones en los límites $2$ y $1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos la integral en dos términos elementales. La primitiva de $x$ es $x^2/2$ y la de $1/x^2$ (que es $x^{-2}$) es $x^{-1}/(-1) = -1/x$.\n\n$$F(x) = \\frac{x^2}{2} - \\frac{1}{x}$$\n\nEvaluamos:\n$F(2) = \\frac{4}{2} - \\frac{1}{2} = 2 - 0.5 = 1.5$\n$F(1) = \\frac{1}{2} - \\frac{1}{1} = 0.5 - 1 = -0.5$\n\nRestamos: $1.5 - (-0.5) = 1.5 + 0.5 = 2$.\n\nFijate cómo el signo menos de la primitiva y el signo menos de la resta de Barrow se combinaron para sumar el valor."
+    "explanation": "Separamos la integral en dos términos elementales. La primitiva de $x$ es $x^2/2$ y la de $1/x^2$ (que es $x^{-2}$) es $x^{-1}/(-1) = -1/x$.\n\n$$F(x) = \\frac{x^2}{2} - \\frac{1}{x}$$\n\nEvaluamos:\n$F(2) = \\frac{4}{2} - \\frac{1}{2} = 2 - 0.5 = 1.5$\n$F(1) = \\frac{1}{2} - \\frac{1}{1} = 0.5 - 1 = -0.5$\n\nRestamos: $1.5 - (-0.5) = 1.5 + 0.5 = 2$.\n\nFijate cómo el signo menos de la primitiva y el signo menos de la resta de Barrow se combinaron para sumar el valor.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_08",
@@ -357,7 +374,8 @@
     "feedback_incorrect": "La primitiva es simplemente $x^{10}$. Evaluada entre $0$ y $1$ da $1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la regla de la potencia para integrales:\n\n$$\\int 10x^9 \\, dx = 10 \\cdot \\frac{x^{9+1}}{9+1} = 10 \\cdot \\frac{x^{10}}{10} = x^{10}$$\n\nEvaluando en los límites:\n\n$$\\int_0^1 10x^9 \\, dx = [x^{10}]_0^1 = 1^{10} - 0^{10} = 1$$\n\nAunque la función $10x^9$ crece muy rápido hasta valer $10$ en $x=1$, el área acumulada en ese primer intervalo es sorprendentemente pequeña: solo $1$ unidad cuadrada."
+    "explanation": "Aplicando la regla de la potencia para integrales:\n\n$$\\int 10x^9 \\, dx = 10 \\cdot \\frac{x^{9+1}}{9+1} = 10 \\cdot \\frac{x^{10}}{10} = x^{10}$$\n\nEvaluando en los límites:\n\n$$\\int_0^1 10x^9 \\, dx = [x^{10}]_0^1 = 1^{10} - 0^{10} = 1$$\n\nAunque la función $10x^9$ crece muy rápido hasta valer $10$ en $x=1$, el área acumulada en ese primer intervalo es sorprendentemente pequeña: solo $1$ unidad cuadrada.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_09",
@@ -377,7 +395,8 @@
     "feedback_incorrect": "La primitiva de una constante $k$ es $kx$. Evaluá $5x$ de $-2$ a $2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La integral de una constante es el caso más sencillo del TFC. La primitiva de $5$ es $5x$.\n\n$$\\int_{-2}^2 5 \\, dx = [5x]_{-2}^2 = 5(2) - 5(-2) = 10 - (-10) = 20$$\n\nGeométricamente, esto representa el área de un **rectángulo** de base $4$ (de $-2$ a $2$) y altura $5$. El área es base por altura: $4 \\cdot 5 = 20$. Siempre que integres una constante, podés verificar tu resultado con esta fórmula geométrica simple."
+    "explanation": "La integral de una constante es el caso más sencillo del TFC. La primitiva de $5$ es $5x$.\n\n$$\\int_{-2}^2 5 \\, dx = [5x]_{-2}^2 = 5(2) - 5(-2) = 10 - (-10) = 20$$\n\nGeométricamente, esto representa el área de un **rectángulo** de base $4$ (de $-2$ a $2$) y altura $5$. El área es base por altura: $4 \\cdot 5 = 20$. Siempre que integres una constante, podés verificar tu resultado con esta fórmula geométrica simple.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_intg_10",
@@ -397,7 +416,8 @@
     "feedback_incorrect": "Recordá que $(\\tan x)' = \\sec^2 x$. Evaluá la tangente en $\\pi/4$ (que es 1) y en 0 (que es 0).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver integrales trigonométricas es vital reconocer derivadas inmediatas. Sabemos que la derivada de la función tangente es la secante al cuadrado.\n\nPor el TFC:\n\n$$\\int_0^{\\pi/4} \\sec^2(x) \\, dx = [\\tan(x)]_0^{\\pi/4}$$\n\nEvaluamos:\n$\\tan(\\pi/4) = 1$ (ya que $\\sin = \\cos$ en $45^\\circ$)\n$\\tan(0) = 0$\n\nRestamos: $1 - 0 = 1$. Este es un ejemplo clásico donde una función que tiende a infinito (la secante) encierra un área finita muy simple en un intervalo acotado."
+    "explanation": "Para resolver integrales trigonométricas es vital reconocer derivadas inmediatas. Sabemos que la derivada de la función tangente es la secante al cuadrado.\n\nPor el TFC:\n\n$$\\int_0^{\\pi/4} \\sec^2(x) \\, dx = [\\tan(x)]_0^{\\pi/4}$$\n\nEvaluamos:\n$\\tan(\\pi/4) = 1$ (ya que $\\sin = \\cos$ en $45^\\circ$)\n$\\tan(0) = 0$\n\nRestamos: $1 - 0 = 1$. Este es un ejemplo clásico donde una función que tiende a infinito (la secante) encierra un área finita muy simple en un intervalo acotado.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_01",
@@ -417,7 +437,8 @@
     "feedback_incorrect": "El TFC dice que la derivada de una integral (con variable arriba) es la función de adentro evaluada en esa variable.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es el uso más directo del **Teorema Fundamental del Cálculo (Parte 1)**.\n\nSi tenemos una función definida como una integral de $a$ a $x$, su derivada es simplemente la función que estamos integrando, pero evaluada en el límite superior $x$:\n\n$$F'(x) = \\frac{d}{dx} \\left[ \\int_a^x f(t) \\, dt \\right] = f(x)$$\n\nPara $f(t) = \\ln(t^2 + 1)$, la respuesta es inmediata: $\\ln(x^2 + 1)$. No necesitás intentar resolver la integral (que sería muy difícil) para conocer su tasa de cambio. El teorema te permite 'saltar' el paso de integración."
+    "explanation": "Este es el uso más directo del **Teorema Fundamental del Cálculo (Parte 1)**.\n\nSi tenemos una función definida como una integral de $a$ a $x$, su derivada es simplemente la función que estamos integrando, pero evaluada en el límite superior $x$:\n\n$$F'(x) = \\frac{d}{dx} \\left[ \\int_a^x f(t) \\, dt \\right] = f(x)$$\n\nPara $f(t) = \\ln(t^2 + 1)$, la respuesta es inmediata: $\\ln(x^2 + 1)$. No necesitás intentar resolver la integral (que sería muy difícil) para conocer su tasa de cambio. El teorema te permite 'saltar' el paso de integración.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_02",
@@ -437,7 +458,8 @@
     "feedback_incorrect": "Como el límite es $x^2$, tenés que evaluar el coseno en $x^2$ y multiplicar por la derivada de $x^2$, que es $2x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite superior no es simplemente $x$, sino una función $u(x)$, debemos aplicar la **Regla de la Cadena** junto con el TFC:\n\n$$\\frac{d}{dx} \\int_a^{u(x)} f(t) \\, dt = f(u(x)) \\cdot u'(x)$$\n\nEn este ejercicio:\n1. El integrando evaluado en el límite es $\\cos(x^2)$.\n2. La derivada del límite $x^2$ es $2x$.\n\nMultiplicando ambos términos obtenemos $2x \\cos(x^2)$. Este resultado nos dice cómo cambia el área acumulada bajo el coseno a medida que el borde derecho de la región se desplaza de forma cuadrática."
+    "explanation": "Cuando el límite superior no es simplemente $x$, sino una función $u(x)$, debemos aplicar la **Regla de la Cadena** junto con el TFC:\n\n$$\\frac{d}{dx} \\int_a^{u(x)} f(t) \\, dt = f(u(x)) \\cdot u'(x)$$\n\nEn este ejercicio:\n1. El integrando evaluado en el límite es $\\cos(x^2)$.\n2. La derivada del límite $x^2$ es $2x$.\n\nMultiplicando ambos términos obtenemos $2x \\cos(x^2)$. Este resultado nos dice cómo cambia el área acumulada bajo el coseno a medida que el borde derecho de la región se desplaza de forma cuadrática.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_03",
@@ -457,7 +479,8 @@
     "feedback_incorrect": "Invertí los límites para que $x$ esté arriba: $\\int_x^{10} = -\\int_{10}^x$. La derivada de $-\\int_{10}^x e^t$ es $-e^x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por las propiedades de la integral definida:\n\n$$H(x) = \\int_x^{10} e^t \\, dt = - \\int_{10}^x e^t \\, dt$$\n\nAhora aplicamos el Teorema Fundamental del Cálculo a la segunda expresión. La derivada de la integral de $10$ a $x$ es simplemente el integrando evaluado en $x$:\n\n$$H'(x) = - \\frac{d}{dx} \\int_{10}^x e^t \\, dt = - e^x$$\n\nIntuitivamente, esto tiene sentido: si aumentás el límite inferior $x$, estás 'recortando' área por la izquierda, por lo que la función integral disminuye (su derivada es negativa)."
+    "explanation": "Por las propiedades de la integral definida:\n\n$$H(x) = \\int_x^{10} e^t \\, dt = - \\int_{10}^x e^t \\, dt$$\n\nAhora aplicamos el Teorema Fundamental del Cálculo a la segunda expresión. La derivada de la integral de $10$ a $x$ es simplemente el integrando evaluado en $x$:\n\n$$H'(x) = - \\frac{d}{dx} \\int_{10}^x e^t \\, dt = - e^x$$\n\nIntuitivamente, esto tiene sentido: si aumentás el límite inferior $x$, estás 'recortando' área por la izquierda, por lo que la función integral disminuye (su derivada es negativa).",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_04",
@@ -477,7 +500,8 @@
     "feedback_incorrect": "Los puntos críticos de $F$ ocurren donde $F'(x) = 0$. Según el TFC, $F'(x) = x^2 - 4$. Resolvé $x^2-4=0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para encontrar los **puntos críticos** de una función, buscamos donde su derivada es cero.\n\nPor el TFC, la derivada de nuestra función integral es:\n$$F'(x) = x^2 - 4$$\n\nIgualamos a cero para hallar los puntos críticos:\n$$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = \\pm 2$$\n\nComo el enunciado pide el valor para $x > 0$, la respuesta es $x = 2$. En este punto, la función que estamos integrando cruza el eje X, lo que significa que el área acumulada deja de disminuir y empieza a aumentar, generando un mínimo local en la función $F$."
+    "explanation": "Para encontrar los **puntos críticos** de una función, buscamos donde su derivada es cero.\n\nPor el TFC, la derivada de nuestra función integral es:\n$$F'(x) = x^2 - 4$$\n\nIgualamos a cero para hallar los puntos críticos:\n$$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = \\pm 2$$\n\nComo el enunciado pide el valor para $x > 0$, la respuesta es $x = 2$. En este punto, la función que estamos integrando cruza el eje X, lo que significa que el área acumulada deja de disminuir y empieza a aumentar, generando un mínimo local en la función $F$.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_05",
@@ -497,7 +521,8 @@
     "feedback_incorrect": "Derivá ambos miembros de la ecuación. A la izquierda obtenés $f(x)$ por el TFC. A la derecha obtenés $2x$. Luego evaluá en 3.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este problema requiere aplicar el TFC para 'despejar' la función que está dentro de la integral.\n\nSi igualamos las derivadas de ambos miembros de la ecuación:\n$$\\frac{d}{dx} \\left[ \\int_1^x f(t) \\, dt \\right] = \\frac{d}{dx} [x^2 - 1]$$\n\nPor el TFC, el lado izquierdo es simplemente $f(x)$. Por las reglas de derivación básicas, el lado derecho es $2x$. Por lo tanto:\n$$f(x) = 2x$$\n\nFinalmente, evaluamos en el punto solicitado:\n$$f(3) = 2(3) = 6$$\n\nEs un excelente ejemplo de cómo el TFC nos permite transitar entre el mundo de las integrales y el de las derivadas con facilidad."
+    "explanation": "Este problema requiere aplicar el TFC para 'despejar' la función que está dentro de la integral.\n\nSi igualamos las derivadas de ambos miembros de la ecuación:\n$$\\frac{d}{dx} \\left[ \\int_1^x f(t) \\, dt \\right] = \\frac{d}{dx} [x^2 - 1]$$\n\nPor el TFC, el lado izquierdo es simplemente $f(x)$. Por las reglas de derivación básicas, el lado derecho es $2x$. Por lo tanto:\n$$f(x) = 2x$$\n\nFinalmente, evaluamos en el punto solicitado:\n$$f(3) = 2(3) = 6$$\n\nEs un excelente ejemplo de cómo el TFC nos permite transitar entre el mundo de las integrales y el de las derivadas con facilidad.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_06",
@@ -517,7 +542,8 @@
     "feedback_incorrect": "La pendiente de la tangente es la derivada. El TFC te da la derivada directamente: evaluá el integrando en $x=2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Recordemos que la **pendiente de la recta tangente** a una función en un punto es simplemente el valor de su derivada en ese punto.\n\nDefinimos $f(x) = \\int_0^x \\sqrt{t^3 + 1} \\, dt$. Por el TFC, su derivada es:\n$$f'(x) = \\sqrt{x^3 + 1}$$\n\nPara hallar la pendiente en $x = 2$, evaluamos:\n$$f'(2) = \\sqrt{2^3 + 1} = \\sqrt{8 + 1} = \\sqrt{9} = 3$$\n\nObservá que no necesitamos resolver la integral de $\\sqrt{t^3+1}$ (que es una integral no elemental) para conocer la pendiente de la función resultante."
+    "explanation": "Recordemos que la **pendiente de la recta tangente** a una función en un punto es simplemente el valor de su derivada en ese punto.\n\nDefinimos $f(x) = \\int_0^x \\sqrt{t^3 + 1} \\, dt$. Por el TFC, su derivada es:\n$$f'(x) = \\sqrt{x^3 + 1}$$\n\nPara hallar la pendiente en $x = 2$, evaluamos:\n$$f'(2) = \\sqrt{2^3 + 1} = \\sqrt{8 + 1} = \\sqrt{9} = 3$$\n\nObservá que no necesitamos resolver la integral de $\\sqrt{t^3+1}$ (que es una integral no elemental) para conocer la pendiente de la función resultante.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_07",
@@ -537,7 +563,8 @@
     "feedback_incorrect": "Usá la fórmula para ambos límites variables: $f(u)u' - f(v)v'$. Aquí queda $(1/x^2) \\cdot 2x - 1/x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ambos límites de integración dependen de $x$, la regla general de derivación es:\n\n$$\\frac{d}{dx} \\int_{v(x)}^{u(x)} f(t) \\, dt = f(u(x)) \\cdot u'(x) - f(v(x)) \\cdot v'(x)$$\n\nPara nuestra función $A(x) = \\int_x^{x^2} \\frac{1}{t} \\, dt$:\n1. Límite superior: $f(x^2) \\cdot (x^2)' = \\frac{1}{x^2} \\cdot 2x = \\frac{2}{x}$\n2. Límite inferior: $f(x) \\cdot (x)' = \\frac{1}{x} \\cdot 1 = \\frac{1}{x}$\n\nRestando ambos términos: $\\frac{2}{x} - \\frac{1}{x} = \\frac{1}{x}$.\nCuriosamente, si resolvieras la integral primero ($[\\ln t]_x^{x^2} = \\ln x^2 - \\ln x = \\ln x$), al derivar obtendrías el mismo resultado."
+    "explanation": "Cuando ambos límites de integración dependen de $x$, la regla general de derivación es:\n\n$$\\frac{d}{dx} \\int_{v(x)}^{u(x)} f(t) \\, dt = f(u(x)) \\cdot u'(x) - f(v(x)) \\cdot v'(x)$$\n\nPara nuestra función $A(x) = \\int_x^{x^2} \\frac{1}{t} \\, dt$:\n1. Límite superior: $f(x^2) \\cdot (x^2)' = \\frac{1}{x^2} \\cdot 2x = \\frac{2}{x}$\n2. Límite inferior: $f(x) \\cdot (x)' = \\frac{1}{x} \\cdot 1 = \\frac{1}{x}$\n\nRestando ambos términos: $\\frac{2}{x} - \\frac{1}{x} = \\frac{1}{x}$.\nCuriosamente, si resolvieras la integral primero ($[\\ln t]_x^{x^2} = \\ln x^2 - \\ln x = \\ln x$), al derivar obtendrías el mismo resultado.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_08",
@@ -557,7 +584,8 @@
     "feedback_incorrect": "Una función crece donde su derivada es positiva. Por TFC, $S'(x) = e^{-x^2}$. Como la exponencial nunca es negativa ni cero, $S$ siempre crece.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para analizar el crecimiento de $S(x)$, debemos observar el signo de su derivada.\n\nPor el TFC:\n$$S'(x) = e^{-x^2}$$\n\nLa función exponencial $e^u$ tiene la propiedad de ser **estrictamente positiva** para cualquier valor real de $u$. Por lo tanto, $S'(x) > 0$ para todo $x \\in \\mathbb{R}$.\n\nSi la derivada es siempre positiva, la función original $S(x)$ es **estrictamente creciente** en toda la recta real. Esto significa que a medida que movemos el límite superior $x$ hacia la derecha, siempre estamos agregando área positiva (aunque sea cada vez más pequeña)."
+    "explanation": "Para analizar el crecimiento de $S(x)$, debemos observar el signo de su derivada.\n\nPor el TFC:\n$$S'(x) = e^{-x^2}$$\n\nLa función exponencial $e^u$ tiene la propiedad de ser **estrictamente positiva** para cualquier valor real de $u$. Por lo tanto, $S'(x) > 0$ para todo $x \\in \\mathbb{R}$.\n\nSi la derivada es siempre positiva, la función original $S(x)$ es **estrictamente creciente** en toda la recta real. Esto significa que a medida que movemos el límite superior $x$ hacia la derecha, siempre estamos agregando área positiva (aunque sea cada vez más pequeña).",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_09",
@@ -577,7 +605,8 @@
     "feedback_incorrect": "¡Cuidado! Los límites son constantes (2 y 5). No hay ninguna variable $x$ en la integral, por lo que el resultado es un número fijo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es un ejercicio de 'atención' conceptual sobre el TFC. El teorema nos dice cómo derivar una función integral cuando uno de los límites es una **variable**.\n\nEn la expresión:\n$$\\int_2^5 \\sin(t^3) \\, dt$$\n\ntanto el límite inferior como el superior son números constantes. Por lo tanto, el valor de esa integral definida es un **número real fijo** (una constante).\n\nAl aplicar el operador derivada $\\frac{d}{dx}$ sobre una constante, el resultado es siempre $0$. El TFC solo 'activa' la función interna cuando el límite de integración se está moviendo con $x$."
+    "explanation": "Este es un ejercicio de 'atención' conceptual sobre el TFC. El teorema nos dice cómo derivar una función integral cuando uno de los límites es una **variable**.\n\nEn la expresión:\n$$\\int_2^5 \\sin(t^3) \\, dt$$\n\ntanto el límite inferior como el superior son números constantes. Por lo tanto, el valor de esa integral definida es un **número real fijo** (una constante).\n\nAl aplicar el operador derivada $\\frac{d}{dx}$ sobre una constante, el resultado es siempre $0$. El TFC solo 'activa' la función interna cuando el límite de integración se está moviendo con $x$.",
+    "reviewed": false
   },
   {
     "external_id": "black_ftc_apli_10",
@@ -597,6 +626,7 @@
     "feedback_incorrect": "Derivá una vez por TFC para obtener $F'(x) = x^3+x$. Luego derivá ese resultado normalmente.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la **segunda derivada** ($F''$), primero debemos encontrar la primera derivada ($F'$).\n\n1. Por el Teorema Fundamental del Cálculo:\n$$F'(x) = \\frac{d}{dx} \\int_0^x (t^3 + t) \\, dt = x^3 + x$$\n\n2. Ahora derivamos este resultado respecto a $x$ de la forma usual:\n$$F''(x) = \\frac{d}{dx} (x^3 + x) = 3x^2 + 1$$\n\nEste proceso muestra que si $F$ es la integral de $f$, entonces $F''$ es simplemente $f'$, la derivada de la función que estaba dentro de la integral original."
+    "explanation": "Para hallar la **segunda derivada** ($F''$), primero debemos encontrar la primera derivada ($F'$).\n\n1. Por el Teorema Fundamental del Cálculo:\n$$F'(x) = \\frac{d}{dx} \\int_0^x (t^3 + t) \\, dt = x^3 + x$$\n\n2. Ahora derivamos este resultado respecto a $x$ de la forma usual:\n$$F''(x) = \\frac{d}{dx} (x^3 + x) = 3x^2 + 1$$\n\nEste proceso muestra que si $F$ es la integral de $f$, entonces $F''$ es simplemente $f'$, la derivada de la función que estaba dentro de la integral original.",
+    "reviewed": false
   }
 ]

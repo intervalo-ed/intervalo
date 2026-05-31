@@ -17,7 +17,8 @@
     "feedback_incorrect": "La regla de la potencia dice: $\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$. El exponente baja como coeficiente y el nuevo exponente es $n-1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** es la más usada en derivación:\n\n$$\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$$\n\nEl exponente $n$ **baja** como coeficiente multiplicador, y el nuevo exponente es $n-1$.\n\nEjemplos: $(x^3)' = 3x^2$, $(x^5)' = 5x^4$, $(x^{-2})' = -2x^{-3}$. Funciona para cualquier exponente real: entero, fraccionario o negativo."
+    "explanation": "La **regla de la potencia** es la más usada en derivación:\n\n$$\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$$\n\nEl exponente $n$ **baja** como coeficiente multiplicador, y el nuevo exponente es $n-1$.\n\nEjemplos: $(x^3)' = 3x^2$, $(x^5)' = 5x^4$, $(x^{-2})' = -2x^{-3}$. Funciona para cualquier exponente real: entero, fraccionario o negativo.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "La derivada de cualquier constante es $0$: $\\frac{d}{dx}[c] = 0$. Una función constante no crece ni decrece.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si $f(x) = c$ (constante), su gráfica es una recta horizontal con **pendiente cero**.\n\nComo la derivada mide la pendiente de la tangente:\n\n$$\\frac{d}{dx}[c] = 0$$\n\nTambién se puede ver desde la definición: $\\frac{f(x+h)-f(x)}{h} = \\frac{c-c}{h} = 0$ para todo $h \\neq 0$."
+    "explanation": "Si $f(x) = c$ (constante), su gráfica es una recta horizontal con **pendiente cero**.\n\nComo la derivada mide la pendiente de la tangente:\n\n$$\\frac{d}{dx}[c] = 0$$\n\nTambién se puede ver desde la definición: $\\frac{f(x+h)-f(x)}{h} = \\frac{c-c}{h} = 0$ para todo $h \\neq 0$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "La **regla del múltiplo constante**: $(k \\cdot f)' = k \\cdot f'$. La constante se mantiene como factor.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del múltiplo constante** dice que podés sacar la constante afuera:\n\n$$(k \\cdot f)' = k \\cdot f'$$\n\nEjemplo: $(5x^3)' = 5 \\cdot (x^3)' = 5 \\cdot 3x^2 = 15x^2$.\n\nEsto funciona porque la derivada es una operación **lineal**: escalar la función escala su derivada en la misma proporción."
+    "explanation": "La **regla del múltiplo constante** dice que podés sacar la constante afuera:\n\n$$(k \\cdot f)' = k \\cdot f'$$\n\nEjemplo: $(5x^3)' = 5 \\cdot (x^3)' = 5 \\cdot 3x^2 = 15x^2$.\n\nEsto funciona porque la derivada es una operación **lineal**: escalar la función escala su derivada en la misma proporción.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "La **regla de la suma**: $(f+g)' = f' + g'$. No se multiplican las derivadas.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la suma** (y diferencia) establece:\n\n$$(f + g)' = f' + g'$$\n$$(f - g)' = f' - g'$$\n\nPodés derivar **término a término**. Ejemplo: si $f(x) = x^3 + x^2$, entonces $f'(x) = 3x^2 + 2x$.\n\nEsto, junto con la regla del múltiplo constante, permite derivar cualquier polinomio fácilmente."
+    "explanation": "La **regla de la suma** (y diferencia) establece:\n\n$$(f + g)' = f' + g'$$\n$$(f - g)' = f' - g'$$\n\nPodés derivar **término a término**. Ejemplo: si $f(x) = x^3 + x^2$, entonces $f'(x) = 3x^2 + 2x$.\n\nEsto, junto con la regla del múltiplo constante, permite derivar cualquier polinomio fácilmente.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "$(e^x)' = e^x$. Esta es una propiedad única de la función exponencial natural: es su propia derivada.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada de $e^x$ es **ella misma**:\n\n$$\\frac{d}{dx}[e^x] = e^x$$\n\nEsta propiedad hace a $e^x$ la función más especial del cálculo. La constante $e \\approx 2{,}718$ se define precisamente para que esto ocurra.\n\nNota: NO se aplica la regla de la potencia aquí ($x$ está en el exponente, no en la base)."
+    "explanation": "La derivada de $e^x$ es **ella misma**:\n\n$$\\frac{d}{dx}[e^x] = e^x$$\n\nEsta propiedad hace a $e^x$ la función más especial del cálculo. La constante $e \\approx 2{,}718$ se define precisamente para que esto ocurra.\n\nNota: NO se aplica la regla de la potencia aquí ($x$ está en el exponente, no en la base).",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "$\\frac{d}{dx}[\\ln x] = \\frac{1}{x}$ (definida para $x > 0$).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada del logaritmo natural es:\n\n$$\\frac{d}{dx}[\\ln x] = \\frac{1}{x} \\quad (x > 0)$$\n\nEsto significa que la pendiente de $\\ln x$ en $x=1$ es $1$, en $x=2$ es $0{,}5$, en $x=10$ es $0{,}1$: la función $\\ln x$ crece cada vez más despacio a medida que $x$ aumenta."
+    "explanation": "La derivada del logaritmo natural es:\n\n$$\\frac{d}{dx}[\\ln x] = \\frac{1}{x} \\quad (x > 0)$$\n\nEsto significa que la pendiente de $\\ln x$ en $x=1$ es $1$, en $x=2$ es $0{,}5$, en $x=10$ es $0{,}1$: la función $\\ln x$ crece cada vez más despacio a medida que $x$ aumenta.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "$(\\sin x)' = \\cos x$. La derivada del coseno es $-\\sin x$ (con signo negativo).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las derivadas de las funciones trigonométricas básicas son:\n\n$$\\frac{d}{dx}[\\sin x] = \\cos x$$\n$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nNota el **ciclo**: $\\sin \\to \\cos \\to -\\sin \\to -\\cos \\to \\sin \\to \\cdots$ Cada derivada rota al siguiente elemento del ciclo. Son fundamentales en el estudio de oscilaciones y ondas."
+    "explanation": "Las derivadas de las funciones trigonométricas básicas son:\n\n$$\\frac{d}{dx}[\\sin x] = \\cos x$$\n$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nNota el **ciclo**: $\\sin \\to \\cos \\to -\\sin \\to -\\cos \\to \\sin \\to \\cdots$ Cada derivada rota al siguiente elemento del ciclo. Son fundamentales en el estudio de oscilaciones y ondas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "$(\\cos x)' = -\\sin x$. El signo negativo es importante: no confundir con la derivada del seno.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nEl signo negativo es clave. En $x=0$: $\\cos(0)=1$ (máximo), y $-\\sin(0)=0$ (pendiente cero) ✓.\n\nEn $x=\\pi/2$: $\\cos(\\pi/2)=0$ (cruza el eje), y $-\\sin(\\pi/2)=-1$ (pendiente negativa, la función baja) ✓."
+    "explanation": "$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nEl signo negativo es clave. En $x=0$: $\\cos(0)=1$ (máximo), y $-\\sin(0)=0$ (pendiente cero) ✓.\n\nEn $x=\\pi/2$: $\\cos(\\pi/2)=0$ (cruza el eje), y $-\\sin(\\pi/2)=-1$ (pendiente negativa, la función baja) ✓.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "$(a^x)' = a^x \\ln a$. El caso especial $a=e$ da $(e^x)' = e^x \\cdot \\ln e = e^x$ ✓.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para la exponencial de base arbitraria:\n\n$$\\frac{d}{dx}[a^x] = a^x \\ln a$$\n\nEl factor $\\ln a$ aparece por la relación $a^x = e^{x \\ln a}$. Derivando con regla de la cadena: $(e^{x\\ln a})' = e^{x\\ln a} \\cdot \\ln a = a^x \\ln a$.\n\nCaso especial: $a = e \\Rightarrow \\ln e = 1 \\Rightarrow (e^x)' = e^x$ ✓."
+    "explanation": "Para la exponencial de base arbitraria:\n\n$$\\frac{d}{dx}[a^x] = a^x \\ln a$$\n\nEl factor $\\ln a$ aparece por la relación $a^x = e^{x \\ln a}$. Derivando con regla de la cadena: $(e^{x\\ln a})' = e^{x\\ln a} \\cdot \\ln a = a^x \\ln a$.\n\nCaso especial: $a = e \\Rightarrow \\ln e = 1 \\Rightarrow (e^x)' = e^x$ ✓.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_lexi_10",
@@ -197,7 +206,8 @@
     "feedback_incorrect": "Reescribí $\\sqrt{x} = x^{1/2}$ y aplicá la regla de la potencia: $\\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reescribiendo la raíz cuadrada como potencia fraccionaria:\n\n$$\\sqrt{x} = x^{1/2}$$\n\nAplicando la regla de la potencia:\n\n$$\\frac{d}{dx}\\left[x^{1/2}\\right] = \\frac{1}{2} x^{1/2 - 1} = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$\n\nLa regla de la potencia vale para **cualquier exponente real**, no solo enteros."
+    "explanation": "Reescribiendo la raíz cuadrada como potencia fraccionaria:\n\n$$\\sqrt{x} = x^{1/2}$$\n\nAplicando la regla de la potencia:\n\n$$\\frac{d}{dx}\\left[x^{1/2}\\right] = \\frac{1}{2} x^{1/2 - 1} = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$\n\nLa regla de la potencia vale para **cualquier exponente real**, no solo enteros.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_01",
@@ -217,7 +227,8 @@
     "feedback_incorrect": "Aplicá la regla de la potencia: $(x^7)' = 7 \\cdot x^{7-1} = 7x^6$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$(x^7)' = 7 \\cdot x^{7-1} = 7x^6$.\n\nEl exponente $7$ baja como coeficiente y el nuevo exponente es $7-1=6$. Siempre seguís el mismo patrón con la regla de la potencia."
+    "explanation": "$(x^7)' = 7 \\cdot x^{7-1} = 7x^6$.\n\nEl exponente $7$ baja como coeficiente y el nuevo exponente es $7-1=6$. Siempre seguís el mismo patrón con la regla de la potencia.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_02",
@@ -237,7 +248,8 @@
     "feedback_incorrect": "Combinar: constante $3$ afuera, luego potencia: $3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Combinando la regla del múltiplo constante y la de la potencia:\n\n$$(3x^4)' = 3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$$\n\nLa constante $3$ sale afuera, y la potencia se deriva normalmente."
+    "explanation": "Combinando la regla del múltiplo constante y la de la potencia:\n\n$$(3x^4)' = 3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$$\n\nLa constante $3$ sale afuera, y la potencia se deriva normalmente.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_03",
@@ -257,7 +269,8 @@
     "feedback_incorrect": "Derivá término a término: $(x^3)' = 3x^2$, $(2x)' = 2$, $(1)' = 0$. Total: $3x^2 - 2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la regla de la suma y diferencia término a término:\n\n$$f'(x) = (x^3)' - (2x)' + (1)' = 3x^2 - 2 + 0 = 3x^2 - 2$$\n\nLa constante $1$ tiene derivada $0$, el término $2x$ deriva a $2$, y $x^3$ deriva a $3x^2$."
+    "explanation": "Aplicando la regla de la suma y diferencia término a término:\n\n$$f'(x) = (x^3)' - (2x)' + (1)' = 3x^2 - 2 + 0 = 3x^2 - 2$$\n\nLa constante $1$ tiene derivada $0$, el término $2x$ deriva a $2$, y $x^3$ deriva a $3x^2$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_04",
@@ -277,7 +290,8 @@
     "feedback_incorrect": "Derivá cada término: $(5x^2)' = 10x$, $(3x)' = 3$, $(-7)' = 0$. Total: $10x + 3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$f'(x) = (5x^2)' + (3x)' + (-7)'$$\n$$= 5 \\cdot 2x + 3 \\cdot 1 + 0 = 10x + 3$$\n\nPolinomio de grado $2$ → derivada de grado $1$. En general, la derivada de un polinomio de grado $n$ tiene grado $n-1$."
+    "explanation": "$$f'(x) = (5x^2)' + (3x)' + (-7)'$$\n$$= 5 \\cdot 2x + 3 \\cdot 1 + 0 = 10x + 3$$\n\nPolinomio de grado $2$ → derivada de grado $1$. En general, la derivada de un polinomio de grado $n$ tiene grado $n-1$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_05",
@@ -297,7 +311,8 @@
     "feedback_incorrect": "La regla de la potencia funciona igual con negativos: $(x^{-2})' = -2 \\cdot x^{-3}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de la potencia funciona con cualquier exponente, incluyendo negativos:\n\n$$(x^{-2})' = -2 \\cdot x^{-2-1} = -2x^{-3} = -\\frac{2}{x^3}$$\n\nEsto es equivalente a derivar $f(x) = \\frac{1}{x^2}$. La regla de la potencia es más práctica que aplicar la regla del cociente directamente."
+    "explanation": "La regla de la potencia funciona con cualquier exponente, incluyendo negativos:\n\n$$(x^{-2})' = -2 \\cdot x^{-2-1} = -2x^{-3} = -\\frac{2}{x^3}$$\n\nEsto es equivalente a derivar $f(x) = \\frac{1}{x^2}$. La regla de la potencia es más práctica que aplicar la regla del cociente directamente.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_06",
@@ -317,7 +332,8 @@
     "feedback_incorrect": "$(4e^x)' = 4 \\cdot e^x$ (constante afuera) y $(-3)' = 0$. Total: $4e^x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$f'(x) = (4e^x)' + (-3)' = 4 \\cdot (e^x)' + 0 = 4e^x$$\n\nLa constante $-3$ desaparece al derivar. La exponencial $e^x$ se mantiene con su factor $4$. La derivada es proporcional a la función misma."
+    "explanation": "$$f'(x) = (4e^x)' + (-3)' = 4 \\cdot (e^x)' + 0 = 4e^x$$\n\nLa constante $-3$ desaparece al derivar. La exponencial $e^x$ se mantiene con su factor $4$. La derivada es proporcional a la función misma.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_07",
@@ -337,7 +353,8 @@
     "feedback_incorrect": "$(2\\sin x)' = 2\\cos x$ y $(\\cos x)' = -\\sin x$. No olvides el signo negativo del coseno.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivando término a término:\n\n$$f'(x) = (2\\sin x)' + (\\cos x)' = 2\\cos x + (-\\sin x) = 2\\cos x - \\sin x$$\n\nAplicamos la regla del múltiplo constante al primer término, y la derivada conocida de $\\cos x$ al segundo. El signo negativo en $-\\sin x$ es fundamental."
+    "explanation": "Derivando término a término:\n\n$$f'(x) = (2\\sin x)' + (\\cos x)' = 2\\cos x + (-\\sin x) = 2\\cos x - \\sin x$$\n\nAplicamos la regla del múltiplo constante al primer término, y la derivada conocida de $\\cos x$ al segundo. El signo negativo en $-\\sin x$ es fundamental.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_08",
@@ -357,7 +374,8 @@
     "feedback_incorrect": "$(\\ln x)' = \\frac{1}{x}$ y $(x^2)' = 2x$. La suma de derivadas da $\\frac{1}{x} + 2x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la regla de la suma:\n\n$$f'(x) = (\\ln x)' + (x^2)' = \\frac{1}{x} + 2x$$\n\nDos funciones de familias distintas (logarítmica y potencia), derivadas por separado y sumadas. El resultado mezcla $1/x$ (derivada decreciente) con $2x$ (derivada creciente)."
+    "explanation": "Aplicando la regla de la suma:\n\n$$f'(x) = (\\ln x)' + (x^2)' = \\frac{1}{x} + 2x$$\n\nDos funciones de familias distintas (logarítmica y potencia), derivadas por separado y sumadas. El resultado mezcla $1/x$ (derivada decreciente) con $2x$ (derivada creciente).",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_09",
@@ -377,7 +395,8 @@
     "feedback_incorrect": "Reescribí como $x^{-1}$ y aplicá potencia: $(-1)x^{-2} = -\\frac{1}{x^2}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reescribiendo:\n\n$$f(x) = \\frac{1}{x} = x^{-1}$$\n\n$$f'(x) = -1 \\cdot x^{-1-1} = -x^{-2} = -\\frac{1}{x^2}$$\n\nLa derivada de $1/x$ es negativa para todo $x \\neq 0$: la función hipérbola siempre decrece en cada rama."
+    "explanation": "Reescribiendo:\n\n$$f(x) = \\frac{1}{x} = x^{-1}$$\n\n$$f'(x) = -1 \\cdot x^{-1-1} = -x^{-2} = -\\frac{1}{x^2}$$\n\nLa derivada de $1/x$ es negativa para todo $x \\neq 0$: la función hipérbola siempre decrece en cada rama.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_deri_10",
@@ -397,7 +416,8 @@
     "feedback_incorrect": "Regla de la potencia con exponente fraccionario: $6 \\cdot \\frac{1}{3} x^{-2/3} = 2x^{-2/3}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$f'(x) = 6 \\cdot \\frac{1}{3} x^{1/3 - 1} = 2 x^{-2/3} = \\frac{2}{x^{2/3}} = \\frac{2}{\\sqrt[3]{x^2}}$$\n\nEl exponente $1/3$ baja como coeficiente (multiplicado por $6$ da $2$) y el nuevo exponente es $1/3 - 1 = -2/3$. La regla de la potencia vale para exponentes fraccionarios."
+    "explanation": "$$f'(x) = 6 \\cdot \\frac{1}{3} x^{1/3 - 1} = 2 x^{-2/3} = \\frac{2}{x^{2/3}} = \\frac{2}{\\sqrt[3]{x^2}}$$\n\nEl exponente $1/3$ baja como coeficiente (multiplicado por $6$ da $2$) y el nuevo exponente es $1/3 - 1 = -2/3$. La regla de la potencia vale para exponentes fraccionarios.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_01",
@@ -417,7 +437,8 @@
     "feedback_incorrect": "El flujo correcto: regla del múltiplo constante → regla de la potencia. Resultado: $3 \\cdot 4x^3 = 12x^3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El proceso estructurado para derivar $3x^4$:\n\n1. **Múltiplo constante:** $(3 \\cdot x^4)' = 3 \\cdot (x^4)'$\n2. **Potencia:** $(x^4)' = 4x^3$\n3. **Resultado:** $3 \\cdot 4x^3 = 12x^3$\n\nPodés pensarlo como un único paso: el $3$ se queda, el $4$ baja, el exponente se reduce en $1$."
+    "explanation": "El proceso estructurado para derivar $3x^4$:\n\n1. **Múltiplo constante:** $(3 \\cdot x^4)' = 3 \\cdot (x^4)'$\n2. **Potencia:** $(x^4)' = 4x^3$\n3. **Resultado:** $3 \\cdot 4x^3 = 12x^3$\n\nPodés pensarlo como un único paso: el $3$ se queda, el $4$ baja, el exponente se reduce en $1$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_02",
@@ -437,7 +458,8 @@
     "feedback_incorrect": "La raíz cuadrada es la potencia $1/2$: $\\sqrt{x} = x^{1/2}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Convertir raíces a potencias fraccionarias es el primer paso para derivarlas:\n\n$$\\sqrt{x} = x^{1/2}, \\quad \\sqrt[3]{x} = x^{1/3}, \\quad \\sqrt[n]{x} = x^{1/n}$$\n\nLuego se aplica la regla de la potencia normalmente:\n$$\\frac{d}{dx}[x^{1/2}] = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$"
+    "explanation": "Convertir raíces a potencias fraccionarias es el primer paso para derivarlas:\n\n$$\\sqrt{x} = x^{1/2}, \\quad \\sqrt[3]{x} = x^{1/3}, \\quad \\sqrt[n]{x} = x^{1/n}$$\n\nLuego se aplica la regla de la potencia normalmente:\n$$\\frac{d}{dx}[x^{1/2}] = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_03",
@@ -457,7 +479,8 @@
     "feedback_incorrect": "La **regla de la suma/diferencia** dice que $(f \\pm g)' = f' \\pm g'$: se derivan los términos por separado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la suma y diferencia** es la que habilita la derivación término a término:\n\n$$(x^3 - 5x^2 + 2)' = (x^3)' - (5x^2)' + (2)' = 3x^2 - 10x + 0 = 3x^2 - 10x$$\n\nSin esta regla, no podrías separar los términos de un polinomio. Con ella, cualquier polinomio se deriva fácilmente."
+    "explanation": "La **regla de la suma y diferencia** es la que habilita la derivación término a término:\n\n$$(x^3 - 5x^2 + 2)' = (x^3)' - (5x^2)' + (2)' = 3x^2 - 10x + 0 = 3x^2 - 10x$$\n\nSin esta regla, no podrías separar los términos de un polinomio. Con ella, cualquier polinomio se deriva fácilmente.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_04",
@@ -477,7 +500,8 @@
     "feedback_incorrect": "La derivada es la tasa de cambio instantánea. Si $f(x)=7$ siempre, $f$ no cambia → $f'=0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada mide cómo cambia una función. Si $f(x) = 7$ para todo $x$, entonces:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} = \\lim_{h \\to 0} \\frac{7 - 7}{h} = \\lim_{h \\to 0} 0 = 0$$\n\nGeométricamente: la gráfica es una recta horizontal, con pendiente $0$."
+    "explanation": "La derivada mide cómo cambia una función. Si $f(x) = 7$ para todo $x$, entonces:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} = \\lim_{h \\to 0} \\frac{7 - 7}{h} = \\lim_{h \\to 0} 0 = 0$$\n\nGeométricamente: la gráfica es una recta horizontal, con pendiente $0$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_05",
@@ -497,7 +521,8 @@
     "feedback_incorrect": "$(x^1)' = 1 \\cdot x^{1-1} = x^0 = 1$. La derivada de $f(x)=x$ es la constante $1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la regla de la potencia con $n=1$:\n\n$$\\frac{d}{dx}[x^1] = 1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$$\n\nTiene sentido: $f(x) = x$ es una recta con pendiente $1$, y la derivada da exactamente eso. La regla de la potencia es consistente con casos simples."
+    "explanation": "Aplicando la regla de la potencia con $n=1$:\n\n$$\\frac{d}{dx}[x^1] = 1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$$\n\nTiene sentido: $f(x) = x$ es una recta con pendiente $1$, y la derivada da exactamente eso. La regla de la potencia es consistente con casos simples.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_06",
@@ -517,7 +542,8 @@
     "feedback_incorrect": "El paso más eficiente: $\\frac{4}{x^3} = 4x^{-3}$, luego aplicar la regla de la potencia.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La estrategia es convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso."
+    "explanation": "La estrategia es convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_07",
@@ -537,7 +563,8 @@
     "feedback_incorrect": "La regla de la potencia es para $x^n$ (base $x$, exponente constante $n$). En $e^x$, $x$ está en el exponente: se usa $(e^x)' = e^x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Error conceptual común: confundir $x^n$ con $a^x$.\n\n- **Regla de la potencia:** $\\frac{d}{dx}[x^n] = nx^{n-1}$ → base variable, exponente **constante**.\n- **Regla exponencial:** $\\frac{d}{dx}[e^x] = e^x$ → base **constante**, exponente variable.\n\nSi aplicás la regla de la potencia a $e^x$, obtenés el resultado incorrecto $x \\cdot e^{x-1}$."
+    "explanation": "Error conceptual común: confundir $x^n$ con $a^x$.\n\n- **Regla de la potencia:** $\\frac{d}{dx}[x^n] = nx^{n-1}$ → base variable, exponente **constante**.\n- **Regla exponencial:** $\\frac{d}{dx}[e^x] = e^x$ → base **constante**, exponente variable.\n\nSi aplicás la regla de la potencia a $e^x$, obtenés el resultado incorrecto $x \\cdot e^{x-1}$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_08",
@@ -557,7 +584,8 @@
     "feedback_incorrect": "$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4}$. Exponente $-3$ baja, nuevo exponente $-4$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Regla de la potencia con $n = -3$:\n\n$$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}$$\n\nEl proceso es idéntico al caso con exponentes positivos: el exponente baja como coeficiente y se reduce en $1$. El resultado negativo tiene sentido: $f(x) = 1/x^3$ decrece para $x > 0$."
+    "explanation": "Regla de la potencia con $n = -3$:\n\n$$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}$$\n\nEl proceso es idéntico al caso con exponentes positivos: el exponente baja como coeficiente y se reduce en $1$. El resultado negativo tiene sentido: $f(x) = 1/x^3$ decrece para $x > 0$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_09",
@@ -577,7 +605,8 @@
     "feedback_incorrect": "$(x^2 + e^x)' = (x^2)' + (e^x)'$: primero suma para separar, luego potencia en $x^2$ y la fórmula de $e^x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Combinando reglas:\n\n$$f'(x) = (x^2 + e^x)' = (x^2)' + (e^x)' = 2x + e^x$$\n\n1. **Regla de la suma:** separá los términos.\n2. **Regla de la potencia:** $(x^2)' = 2x$.\n3. **Derivada especial:** $(e^x)' = e^x$.\n\nLas reglas básicas se combinan libremente para funciones más complejas."
+    "explanation": "Combinando reglas:\n\n$$f'(x) = (x^2 + e^x)' = (x^2)' + (e^x)' = 2x + e^x$$\n\n1. **Regla de la suma:** separá los términos.\n2. **Regla de la potencia:** $(x^2)' = 2x$.\n3. **Derivada especial:** $(e^x)' = e^x$.\n\nLas reglas básicas se combinan libremente para funciones más complejas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_basic_rules_estr_10",
@@ -597,6 +626,7 @@
     "feedback_incorrect": "Si $f'=g'$, entonces $(f-g)'=0$, lo que implica $f-g=C$ (constante). Así $f(x)=g(x)+C$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si $f'(x) = g'(x)$ para todo $x$, entonces $(f - g)'(x) = 0$ para todo $x$.\n\nUna función con derivada cero en todo punto es **constante** (lo garantiza el Teorema del Valor Medio):\n\n$$f(x) - g(x) = C \\Rightarrow f(x) = g(x) + C$$\n\nEsto es fundamental para el cálculo integral: la integral indefinida tiene una **constante de integración $C$** por exactamente esta razón."
+    "explanation": "Si $f'(x) = g'(x)$ para todo $x$, entonces $(f - g)'(x) = 0$ para todo $x$.\n\nUna función con derivada cero en todo punto es **constante** (lo garantiza el Teorema del Valor Medio):\n\n$$f(x) - g(x) = C \\Rightarrow f(x) = g(x) + C$$\n\nEsto es fundamental para el cálculo integral: la integral indefinida tiene una **constante de integración $C$** por exactamente esta razón.",
+    "reviewed": false
   }
 ]

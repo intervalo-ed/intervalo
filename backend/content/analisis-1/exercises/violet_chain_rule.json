@@ -17,7 +17,8 @@
     "feedback_incorrect": "Te olvidaste de multiplicar por la derivada de lo de adentro. Recordá que $(u^5)' = 5u^4 \\cdot u'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para derivar $f(x) = (x^2 + 3)^5$, tenés que aplicar la **regla de la cadena**. Primero derivás la potencia externa (el exponente 5) y después multiplicás por la derivada de la función interna.\n\nLa función externa es $u^5$, cuya derivada es $5u^4$. La función interna es $u = x^2 + 3$, cuya derivada es $2x$.\n\n$$f'(x) = 5(x^2 + 3)^4 \\cdot (2x) = 10x(x^2 + 3)^4$$\n\nEs un error muy común olvidarse de ese $2x$ al final. Siempre que tengas una función dentro de otra, ese \"eslabón\" de la cadena tiene que aparecer."
+    "explanation": "Para derivar $f(x) = (x^2 + 3)^5$, tenés que aplicar la **regla de la cadena**. Primero derivás la potencia externa (el exponente 5) y después multiplicás por la derivada de la función interna.\n\nLa función externa es $u^5$, cuya derivada es $5u^4$. La función interna es $u = x^2 + 3$, cuya derivada es $2x$.\n\n$$f'(x) = 5(x^2 + 3)^4 \\cdot (2x) = 10x(x^2 + 3)^4$$\n\nEs un error muy común olvidarse de ese $2x$ al final. Siempre que tengas una función dentro de otra, ese \"eslabón\" de la cadena tiene que aparecer.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "Casi lo tenés, pero te falta la derivada del argumento. Si el argumento es $4x$, su derivada es 4.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En este caso, la función externa es el **seno** y la interna es la función lineal $4x$. La regla de la cadena nos dice que debemos derivar de afuera hacia adentro.\n\nLa derivada de $\\sin(u)$ es $\\cos(u)$. Luego, multiplicamos por la derivada de $4x$, que es simplemente 4.\n\n$$g'(x) = \\cos(4x) \\cdot 4 = 4\\cos(4x)$$\n\nFijate que el argumento del coseno sigue siendo $4x$; lo único que cambia es que el factor 4 aparece multiplicando a toda la expresión."
+    "explanation": "En este caso, la función externa es el **seno** y la interna es la función lineal $4x$. La regla de la cadena nos dice que debemos derivar de afuera hacia adentro.\n\nLa derivada de $\\sin(u)$ es $\\cos(u)$. Luego, multiplicamos por la derivada de $4x$, que es simplemente 4.\n\n$$g'(x) = \\cos(4x) \\cdot 4 = 4\\cos(4x)$$\n\nFijate que el argumento del coseno sigue siendo $4x$; lo único que cambia es que el factor 4 aparece multiplicando a toda la expresión.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "La derivada de $e^u$ es $e^u \\cdot u'$. No bajes el exponente como si fuera una potencia de $x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función exponencial $e^u$ es una de las más usadas con la regla de la cadena. La regla general nos dice que la derivada de $e^{g(x)}$ es la misma exponencial multiplicada por la derivada del exponente.\n\nSi $g(x) = x^2$, entonces su derivada es $g'(x) = 2x$.\n\n$$h'(x) = e^{x^2} \\cdot (2x) = 2x e^{x^2}$$\n\nEsta función crece muchísimo más rápido que $e^x$ justamente por ese factor $2x$ que aparece al derivar."
+    "explanation": "La función exponencial $e^u$ es una de las más usadas con la regla de la cadena. La regla general nos dice que la derivada de $e^{g(x)}$ es la misma exponencial multiplicada por la derivada del exponente.\n\nSi $g(x) = x^2$, entonces su derivada es $g'(x) = 2x$.\n\n$$h'(x) = e^{x^2} \\cdot (2x) = 2x e^{x^2}$$\n\nEsta función crece muchísimo más rápido que $e^x$ justamente por ese factor $2x$ que aparece al derivar.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "Recordá la regla: $(\\ln u)' = \\frac{1}{u} \\cdot u'$. Te faltó el 5 en el numerador.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para el logaritmo natural, la regla de la cadena se traduce en poner la función original en el denominador y su derivada en el numerador.\n\nIdentificamos $u = 5x - 2$. Su derivada es $u' = 5$.\n\n$$f'(x) = \\frac{1}{5x - 2} \\cdot 5 = \\frac{5}{5x - 2}$$\n\nNo intentes simplificar los cincos, ya que el denominador es una resta. Esta estructura es fundamental para después entender las integrales que dan logaritmos."
+    "explanation": "Para el logaritmo natural, la regla de la cadena se traduce en poner la función original en el denominador y su derivada en el numerador.\n\nIdentificamos $u = 5x - 2$. Su derivada es $u' = 5$.\n\n$$f'(x) = \\frac{1}{5x - 2} \\cdot 5 = \\frac{5}{5x - 2}$$\n\nNo intentes simplificar los cincos, ya que el denominador es una resta. Esta estructura es fundamental para después entender las integrales que dan logaritmos.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "Te faltó el factor $3x^2$ en el numerador o el factor $1/2$ de la derivada de la raíz.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Podés pensar la raíz cuadrada como una potencia de exponente $\\frac{1}{2}$. Entonces aplicamos la regla de la cadena para potencias.\n\n$$f(x) = (x^3 + 1)^{1/2}$$\n\nDerivamos: bajamos el $\\frac{1}{2}$, restamos 1 al exponente (queda $-\\frac{1}{2}$) y multiplicamos por la derivada de $x^3+1$ que es $3x^2$.\n\n$$f'(x) = \\frac{1}{2}(x^3 + 1)^{-1/2} \\cdot 3x^2 = \\frac{3x^2}{2\\sqrt{x^3 + 1}}$$\n\nEsta forma de derivar raíces es mucho más segura que tratar de memorizar una fórmula para cada tipo de raíz."
+    "explanation": "Podés pensar la raíz cuadrada como una potencia de exponente $\\frac{1}{2}$. Entonces aplicamos la regla de la cadena para potencias.\n\n$$f(x) = (x^3 + 1)^{1/2}$$\n\nDerivamos: bajamos el $\\frac{1}{2}$, restamos 1 al exponente (queda $-\\frac{1}{2}$) y multiplicamos por la derivada de $x^3+1$ que es $3x^2$.\n\n$$f'(x) = \\frac{1}{2}(x^3 + 1)^{-1/2} \\cdot 3x^2 = \\frac{3x^2}{2\\sqrt{x^3 + 1}}$$\n\nEsta forma de derivar raíces es mucho más segura que tratar de memorizar una fórmula para cada tipo de raíz.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "Ojo con la notación: $\\cos^4(x)$ significa $(\\cos x)^4$. Tenés que derivar primero la potencia.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $\\cos^4(x)$ suele confundir, pero es lo mismo que escribir $(\\cos(x))^4$. Acá la función externa es la **potencia cuarta** y la interna es el **coseno**.\n\n1. Derivamos la potencia: $4(\\cos x)^3$.\n2. Multiplicamos por la derivada del coseno: $-\\sin(x)$.\n\n$$f'(x) = 4\\cos^3(x) \\cdot (-\\sin(x)) = -4\\cos^3(x)\\sin(x)$$\n\nFijate que siempre que la función interna sea una trigonométrica que empieza con 'c' (coseno, cotangente, cosecante), su derivada va a aportar un signo menos a la cadena."
+    "explanation": "La notación $\\cos^4(x)$ suele confundir, pero es lo mismo que escribir $(\\cos(x))^4$. Acá la función externa es la **potencia cuarta** y la interna es el **coseno**.\n\n1. Derivamos la potencia: $4(\\cos x)^3$.\n2. Multiplicamos por la derivada del coseno: $-\\sin(x)$.\n\n$$f'(x) = 4\\cos^3(x) \\cdot (-\\sin(x)) = -4\\cos^3(x)\\sin(x)$$\n\nFijate que siempre que la función interna sea una trigonométrica que empieza con 'c' (coseno, cotangente, cosecante), su derivada va a aportar un signo menos a la cadena.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "Casi. Derivaste bien la tangente, pero te olvidaste de multiplicar por la derivada de lo que está adentro ($e^x$).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá tenemos la tangente evaluada en una exponencial. La regla de la cadena nos dice que derivemos la tangente y mantengamos el argumento, para luego multiplicar por la derivada del argumento.\n\nLa derivada de $\\tan(u)$ es $\\sec^2(u)$. Nuestra $u$ es $e^x$, y su derivada es también $e^x$.\n\n$$f'(x) = \\sec^2(e^x) \\cdot e^x = e^x \\sec^2(e^x)$$\n\nEs importante no confundir $\\sec^2(e^x)$ con $\\sec^2(x)$. El argumento de la función externa nunca cambia durante el primer paso de la derivación."
+    "explanation": "Acá tenemos la tangente evaluada en una exponencial. La regla de la cadena nos dice que derivemos la tangente y mantengamos el argumento, para luego multiplicar por la derivada del argumento.\n\nLa derivada de $\\tan(u)$ es $\\sec^2(u)$. Nuestra $u$ es $e^x$, y su derivada es también $e^x$.\n\n$$f'(x) = \\sec^2(e^x) \\cdot e^x = e^x \\sec^2(e^x)$$\n\nEs importante no confundir $\\sec^2(e^x)$ con $\\sec^2(x)$. El argumento de la función externa nunca cambia durante el primer paso de la derivación.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "Recordá que al restar 1 a $-2$, el nuevo exponente es $-3$, no $-1$. Además, falta la derivada interna.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés exponentes negativos, la regla de la cadena funciona exactamente igual. Bajás el exponente actual y le restás uno para obtener el nuevo exponente.\n\nPara $u = x^3 - x$, la derivada es $u' = 3x^2 - 1$. Aplicando la regla:\n\n$$f'(x) = -2(x^3 - x)^{-3} \\cdot (3x^2 - 1)$$\n\nPodés escribirlo de forma más compacta como:\n\n$$f'(x) = \\frac{-2(3x^2 - 1)}{(x^3 - x)^3}$$\n\nTené mucho cuidado con los signos y los paréntesis al multiplicar por la derivada interna."
+    "explanation": "Cuando tenés exponentes negativos, la regla de la cadena funciona exactamente igual. Bajás el exponente actual y le restás uno para obtener el nuevo exponente.\n\nPara $u = x^3 - x$, la derivada es $u' = 3x^2 - 1$. Aplicando la regla:\n\n$$f'(x) = -2(x^3 - x)^{-3} \\cdot (3x^2 - 1)$$\n\nPodés escribirlo de forma más compacta como:\n\n$$f'(x) = \\frac{-2(3x^2 - 1)}{(x^3 - x)^3}$$\n\nTené mucho cuidado con los signos y los paréntesis al multiplicar por la derivada interna.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "No te marees con las funciones. Derivá la de afuera (coseno) manteniendo lo de adentro igual, y después multiplicá por $(\\sin x)'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es un caso clásico de funciones trigonométricas anidadas. No te dejes confundir por los nombres iguales.\n\nFunción externa: $\\cos(u)$, derivada: $-\\sin(u)$.\nFunción interna: $u = \\sin(x)$, derivada: $u' = \\cos(x)$.\n\nJuntando todo por regla de la cadena:\n\n$$f'(x) = -\\sin(\\sin x) \\cdot \\cos x$$\n\nNotá que el primer seno tiene como argumento a $\\sin x$, mientras que el coseno final tiene como argumento a $x$. Son entidades distintas."
+    "explanation": "Este es un caso clásico de funciones trigonométricas anidadas. No te dejes confundir por los nombres iguales.\n\nFunción externa: $\\cos(u)$, derivada: $-\\sin(u)$.\nFunción interna: $u = \\sin(x)$, derivada: $u' = \\cos(x)$.\n\nJuntando todo por regla de la cadena:\n\n$$f'(x) = -\\sin(\\sin x) \\cdot \\cos x$$\n\nNotá que el primer seno tiene como argumento a $\\sin x$, mientras que el coseno final tiene como argumento a $x$. Son entidades distintas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_deri_10",
@@ -197,7 +206,8 @@
     "feedback_incorrect": "Ojo, la base es 10, no $e$. La derivada de $a^u$ es $a^u \\cdot \\ln(a) \\cdot u'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la base de la exponencial no es $e$, aparece un factor extra: el logaritmo natural de la base. La regla general es $(a^u)' = a^u \\ln(a) u'$.\n\nEn este caso $a = 10$ y $u = x^2$ (cuya derivada es $2x$).\n\n$$f'(x) = 10^{x^2} \\cdot \\ln(10) \\cdot (2x)$$\n\nReordenando, queda $2x \\cdot 10^{x^2} \\ln(10)$. Este tipo de funciones aparecen mucho en modelos de crecimiento poblacional o economía donde la base no siempre es el número de Euler."
+    "explanation": "Cuando la base de la exponencial no es $e$, aparece un factor extra: el logaritmo natural de la base. La regla general es $(a^u)' = a^u \\ln(a) u'$.\n\nEn este caso $a = 10$ y $u = x^2$ (cuya derivada es $2x$).\n\n$$f'(x) = 10^{x^2} \\cdot \\ln(10) \\cdot (2x)$$\n\nReordenando, queda $2x \\cdot 10^{x^2} \\ln(10)$. Este tipo de funciones aparecen mucho en modelos de crecimiento poblacional o economía donde la base no siempre es el número de Euler.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_01",
@@ -217,7 +227,8 @@
     "feedback_incorrect": "La regla de la cadena es un producto, no una suma. Y la función externa se evalúa en $g(x)$, no en $x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la cadena** es la herramienta fundamental para derivar funciones compuestas. Se puede pensar como el producto de las razones de cambio de cada capa de la función.\n\nMatemáticamente se escribe:\n\n$$(f \\circ g)'(x) = f'(g(x)) \\cdot g'(x)$$\n\nLo más importante es entender que la función \"de afuera\" ($f$) se deriva pero su argumento ($g(x)$) se mantiene intacto en ese primer paso. Recién después aparece la derivada de lo de adentro multiplicando a todo el bloque."
+    "explanation": "La **regla de la cadena** es la herramienta fundamental para derivar funciones compuestas. Se puede pensar como el producto de las razones de cambio de cada capa de la función.\n\nMatemáticamente se escribe:\n\n$$(f \\circ g)'(x) = f'(g(x)) \\cdot g'(x)$$\n\nLo más importante es entender que la función \"de afuera\" ($f$) se deriva pero su argumento ($g(x)$) se mantiene intacto en ese primer paso. Recién después aparece la derivada de lo de adentro multiplicando a todo el bloque.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_02",
@@ -237,7 +248,8 @@
     "feedback_incorrect": "Aunque vas a necesitar el $2x$, el primer paso conceptual es identificar la estructura externa de la función.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivar por regla de la cadena es como pelar una cebolla: vas de las capas exteriores a las interiores. En $y = \\ln(x^2 + 1)$, lo primero que \"afecta\" a la variable es el logaritmo.\n\nPor eso, el primer paso es reconocer que tenés un **logaritmo de algo**. La regla del logaritmo dice que su derivada es 1 sobre ese \"algo\".\n\nRecién después de escribir ese $1/(x^2+1)$ te encargás de derivar lo que está dentro del paréntesis. Mantener este orden evita que te olvides términos en funciones más complejas."
+    "explanation": "Derivar por regla de la cadena es como pelar una cebolla: vas de las capas exteriores a las interiores. En $y = \\ln(x^2 + 1)$, lo primero que \"afecta\" a la variable es el logaritmo.\n\nPor eso, el primer paso es reconocer que tenés un **logaritmo de algo**. La regla del logaritmo dice que su derivada es 1 sobre ese \"algo\".\n\nRecién después de escribir ese $1/(x^2+1)$ te encargás de derivar lo que está dentro del paréntesis. Mantener este orden evita que te olvides términos en funciones más complejas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_03",
@@ -257,7 +269,8 @@
     "feedback_incorrect": "Cuidado: $\\sin^2(x)$ no es lo mismo que $\\sin(x^2)$. En $\\sin^2(x)$, lo último que se aplica es el cuadrado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Es vital distinguir entre $\\sin(x^2)$ y $\\sin^2(x)$.\n\nEn $\\sin(x^2)$, la función externa es el seno: $f(u) = \\sin(u)$ y la interna es el cuadrado.\n\nEn $\\sin^2(x)$, que se escribe $(\\sin x)^2$, la función externa es la **potencia**: $f(u) = u^2$ y la interna es el seno. Por eso al derivar $\\sin^2(x)$, lo primero que hacés es bajar el exponente: $2\\sin(x)$ y después multiplicás por el coseno."
+    "explanation": "Es vital distinguir entre $\\sin(x^2)$ y $\\sin^2(x)$.\n\nEn $\\sin(x^2)$, la función externa es el seno: $f(u) = \\sin(u)$ y la interna es el cuadrado.\n\nEn $\\sin^2(x)$, que se escribe $(\\sin x)^2$, la función externa es la **potencia**: $f(u) = u^2$ y la interna es el seno. Por eso al derivar $\\sin^2(x)$, lo primero que hacés es bajar el exponente: $2\\sin(x)$ y después multiplicás por el coseno.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_04",
@@ -277,7 +290,8 @@
     "feedback_incorrect": "No pierdas los argumentos. Cada derivada debe mantener dentro todo lo que la función original tenía.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de la cadena se puede extender a cualquier número de funciones anidadas. Simplemente vas derivando de afuera hacia adentro y multiplicando los resultados.\n\nPara $f(g(h(x)))$:\n1. Derivás $f$ y dejás $g(h(x))$ adentro.\n2. Multiplicás por la derivada de $g$, dejando $h(x)$ adentro.\n3. Multiplicás por la derivada de $h$.\n\nEsto se llama **regla de la cadena generalizada**. Es muy útil cuando tenés expresiones como $\\sqrt{\\ln(\\sin x)}$, donde tenés que aplicar la regla varias veces seguidas."
+    "explanation": "La regla de la cadena se puede extender a cualquier número de funciones anidadas. Simplemente vas derivando de afuera hacia adentro y multiplicando los resultados.\n\nPara $f(g(h(x)))$:\n1. Derivás $f$ y dejás $g(h(x))$ adentro.\n2. Multiplicás por la derivada de $g$, dejando $h(x)$ adentro.\n3. Multiplicás por la derivada de $h$.\n\nEsto se llama **regla de la cadena generalizada**. Es muy útil cuando tenés expresiones como $\\sqrt{\\ln(\\sin x)}$, donde tenés que aplicar la regla varias veces seguidas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_05",
@@ -297,7 +311,8 @@
     "feedback_incorrect": "Es una metáfora visual. Pensá en cómo cada derivada depende de la anterior en un producto continuo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El nombre proviene de la forma en que se escriben las derivadas en la notación de Leibniz:\n\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\nFijate que el término $du$ parece \"cancelarse\" (aunque no es una fracción literal), conectando la variable final $y$ con la inicial $x$ a través de una variable intermedia $u$. Cada una de estas derivadas es un **eslabón** del producto total. Si tenés más funciones intermedias, la cadena simplemente se hace más larga."
+    "explanation": "El nombre proviene de la forma en que se escriben las derivadas en la notación de Leibniz:\n\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\nFijate que el término $du$ parece \"cancelarse\" (aunque no es una fracción literal), conectando la variable final $y$ con la inicial $x$ a través de una variable intermedia $u$. Cada una de estas derivadas es un **eslabón** del producto total. Si tenés más funciones intermedias, la cadena simplemente se hace más larga.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_06",
@@ -317,7 +332,8 @@
     "feedback_incorrect": "La regla de la cadena es una herramienta, no una obligación si tenés alternativas algebraicas como desarrollar el polinomio.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Muchas veces tenés varios caminos en matemática. Si desarrollás el binomio $(3x+1)^2 = 9x^2 + 6x + 1$, su derivada es $18x + 6$.\n\nSi usás la regla de la cadena:\n\n$$f'(x) = 2(3x + 1) \\cdot 3 = 6(3x + 1) = 18x + 6$$\n\nComo ves, el resultado es el mismo. Sin embargo, para exponentes grandes como $(3x+1)^{50}$, desarrollar el polinomio es imposible y la regla de la cadena es la única opción razonable."
+    "explanation": "Muchas veces tenés varios caminos en matemática. Si desarrollás el binomio $(3x+1)^2 = 9x^2 + 6x + 1$, su derivada es $18x + 6$.\n\nSi usás la regla de la cadena:\n\n$$f'(x) = 2(3x + 1) \\cdot 3 = 6(3x + 1) = 18x + 6$$\n\nComo ves, el resultado es el mismo. Sin embargo, para exponentes grandes como $(3x+1)^{50}$, desarrollar el polinomio es imposible y la regla de la cadena es la única opción razonable.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_07",
@@ -337,7 +353,8 @@
     "feedback_incorrect": "Aunque bajar el exponente es un error, el más frecuente por lejos es simplemente olvidarse del factor $u'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El error típico es tratar a la función compuesta como si fuera la función simple. Muchos estudiantes ven $e^{5x}$ y piensan \"la derivada de la exponencial es la misma exponencial\", y ponen $f'(x) = e^{5x}$.\n\nPero la regla de la cadena exige multiplicar por la derivada del exponente. Si no ponés ese 5, estás diciendo que $e^{5x}$ crece a la misma velocidad que $e^x$, lo cual es falso.\n\nAcordate: **Función compuesta necesita derivada interna**. Siempre."
+    "explanation": "El error típico es tratar a la función compuesta como si fuera la función simple. Muchos estudiantes ven $e^{5x}$ y piensan \"la derivada de la exponencial es la misma exponencial\", y ponen $f'(x) = e^{5x}$.\n\nPero la regla de la cadena exige multiplicar por la derivada del exponente. Si no ponés ese 5, estás diciendo que $e^{5x}$ crece a la misma velocidad que $e^x$, lo cual es falso.\n\nAcordate: **Función compuesta necesita derivada interna**. Siempre.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_08",
@@ -357,7 +374,8 @@
     "feedback_incorrect": "La regla de la cadena es un producto de tasas de cambio. Mirá bien cómo se encadenan las variables.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación de Leibniz (con diferenciales) es muy intuitiva para la regla de la cadena. Si pensás en las derivadas como \"tasas de cambio\", la fórmula dice:\n\n\"El cambio de $y$ respecto a $x$ es igual al cambio de $y$ respecto a $u$, multiplicado por el cambio de $u$ respecto a $x$.\"\n\nEs como una conversión de unidades. Si $y$ cambia el doble que $u$, y $u$ cambia el triple que $x$, entonces $y$ va a cambiar $2 \\cdot 3 = 6$ veces más rápido que $x$."
+    "explanation": "La notación de Leibniz (con diferenciales) es muy intuitiva para la regla de la cadena. Si pensás en las derivadas como \"tasas de cambio\", la fórmula dice:\n\n\"El cambio de $y$ respecto a $x$ es igual al cambio de $y$ respecto a $u$, multiplicado por el cambio de $u$ respecto a $x$.\"\n\nEs como una conversión de unidades. Si $y$ cambia el doble que $u$, y $u$ cambia el triple que $x$, entonces $y$ va a cambiar $2 \\cdot 3 = 6$ veces más rápido que $x$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_09",
@@ -377,7 +395,8 @@
     "feedback_incorrect": "Ojo, las otras tres son funciones compuestas (tienen algo adentro). La primera es una multiplicación de dos bloques.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de la cadena se usa para funciones **anidadas** (una dentro de otra). El primer ejemplo, $(x+2)(x-3)$, es una **multiplicación** de dos funciones.\n\nPara ese caso, tenés que usar la regla del producto: $(u \\cdot v)' = u'v + uv'$.\n\nEn cambio, en $\\sin(x+2)$, el $(x+2)$ está **adentro** del seno. No se están multiplicando, sino que uno es el argumento del otro. Esa es la señal clara de que necesitás la regla de la cadena."
+    "explanation": "La regla de la cadena se usa para funciones **anidadas** (una dentro de otra). El primer ejemplo, $(x+2)(x-3)$, es una **multiplicación** de dos funciones.\n\nPara ese caso, tenés que usar la regla del producto: $(u \\cdot v)' = u'v + uv'$.\n\nEn cambio, en $\\sin(x+2)$, el $(x+2)$ está **adentro** del seno. No se están multiplicando, sino que uno es el argumento del otro. Esa es la señal clara de que necesitás la regla de la cadena.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_estr_10",
@@ -397,7 +416,8 @@
     "feedback_incorrect": "Casi. Derivaste la de adentro, pero te olvidaste de derivar la de afuera evaluada en la de adentro.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es un caso muy común. Cuando la función interna es lineal ($ax + b$), su derivada es simplemente la pendiente $a$.\n\nPor la regla de la cadena:\n\n$$[f(ax + b)]' = f'(ax + b) \\cdot a$$\n\nEjemplos rápidos:\n- $(\\sin(3x))' = 3\\cos(3x)$\n- $(e^{2x})' = 2e^{2x}$\n- $(\\ln(5x))' = \\frac{1}{5x} \\cdot 5 = \\frac{1}{x}$\n\nFijate que en el logaritmo, la constante terminó simplificándose, algo que pasa siempre con la función logaritmo y argumentos lineales."
+    "explanation": "Este es un caso muy común. Cuando la función interna es lineal ($ax + b$), su derivada es simplemente la pendiente $a$.\n\nPor la regla de la cadena:\n\n$$[f(ax + b)]' = f'(ax + b) \\cdot a$$\n\nEjemplos rápidos:\n- $(\\sin(3x))' = 3\\cos(3x)$\n- $(e^{2x})' = 2e^{2x}$\n- $(\\ln(5x))' = \\frac{1}{5x} \\cdot 5 = \\frac{1}{x}$\n\nFijate que en el logaritmo, la constante terminó simplificándose, algo que pasa siempre con la función logaritmo y argumentos lineales.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_01",
@@ -417,7 +437,8 @@
     "feedback_incorrect": "Recordá que la pendiente es la derivada evaluada en el punto. Usá regla de la cadena para derivar.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la recta tangente es el valor de la derivada en ese punto. Derivamos (x) = (x^2 - 3)^4$ usando la regla de la cadena.\n\n193f'(x) = 4(x^2 - 3)^3 \\cdot 2x = 8x(x^2 - 3)^3193\n\nEvaluamos en  = 2$:\n- Interno: ^2 - 3 = 1$. Potencia: ^3 = 1$. Factor:  \\cdot 2 = 16$.\n\n193f'(2) = 8(2)(1)^3 = 16193\n\nLa tangente tiene pendiente 16 en ese punto. Gráficamente, la curva sube de manera muy pronunciada allí."
+    "explanation": "La pendiente de la recta tangente es el valor de la derivada en ese punto. Derivamos (x) = (x^2 - 3)^4$ usando la regla de la cadena.\n\n193f'(x) = 4(x^2 - 3)^3 \\cdot 2x = 8x(x^2 - 3)^3193\n\nEvaluamos en  = 2$:\n- Interno: ^2 - 3 = 1$. Potencia: ^3 = 1$. Factor:  \\cdot 2 = 16$.\n\n193f'(2) = 8(2)(1)^3 = 16193\n\nLa tangente tiene pendiente 16 en ese punto. Gráficamente, la curva sube de manera muy pronunciada allí.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_02",
@@ -437,7 +458,8 @@
     "feedback_incorrect": "La velocidad es la derivada de la posición. No te olvides de la regla de la cadena para el argumento $2t$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En física, la velocidad instantánea es la derivada de la función de posición respecto al tiempo: $v(t) = s'(t)$.\n\nDerivamos $s(t) = \\sin(2t)$ usando la regla de la cadena:\n\n$$v(t) = \\cos(2t) \\cdot 2 = 2\\cos(2t)$$\n\nAhora evaluamos en $t = \\frac{\\pi}{4}$:\n\n$$v(\\pi/4) = 2\\cos(2 \\cdot \\pi/4) = 2\\cos(\\pi/2)$$\n\nComo $\\cos(\\pi/2) = 0$, la velocidad en ese instante es cero. Esto significa que la partícula está alcanzando un punto de retorno en su oscilación."
+    "explanation": "En física, la velocidad instantánea es la derivada de la función de posición respecto al tiempo: $v(t) = s'(t)$.\n\nDerivamos $s(t) = \\sin(2t)$ usando la regla de la cadena:\n\n$$v(t) = \\cos(2t) \\cdot 2 = 2\\cos(2t)$$\n\nAhora evaluamos en $t = \\frac{\\pi}{4}$:\n\n$$v(\\pi/4) = 2\\cos(2 \\cdot \\pi/4) = 2\\cos(\\pi/2)$$\n\nComo $\\cos(\\pi/2) = 0$, la velocidad en ese instante es cero. Esto significa que la partícula está alcanzando un punto de retorno en su oscilación.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_03",
@@ -457,7 +479,8 @@
     "feedback_incorrect": "Derivá la función, igualala a 2 y resolvé la ecuación para $x$. No te olvides el 2 de la cadena.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Nos piden hallar $x$ tal que $f'(x) = 2$. Primero derivamos la función exponencial usando la regla de la cadena.\n\n$$f'(x) = e^{2x} \\cdot 2 = 2e^{2x}$$\n\nAhora planteamos la ecuación:\n\n$$2e^{2x} = 2 \\Rightarrow e^{2x} = 1$$\n\nPara que una exponencial de base $e$ valga 1, su exponente tiene que ser 0. Entonces:\n\n$$2x = 0 \\Rightarrow x = 0$$\n\nEn el punto $(0, 1)$ de esta curva, la inclinación es exactamente de 2 unidades de subida por cada una de avance."
+    "explanation": "Nos piden hallar $x$ tal que $f'(x) = 2$. Primero derivamos la función exponencial usando la regla de la cadena.\n\n$$f'(x) = e^{2x} \\cdot 2 = 2e^{2x}$$\n\nAhora planteamos la ecuación:\n\n$$2e^{2x} = 2 \\Rightarrow e^{2x} = 1$$\n\nPara que una exponencial de base $e$ valga 1, su exponente tiene que ser 0. Entonces:\n\n$$2x = 0 \\Rightarrow x = 0$$\n\nEn el punto $(0, 1)$ de esta curva, la inclinación es exactamente de 2 unidades de subida por cada una de avance.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_04",
@@ -477,7 +500,8 @@
     "feedback_incorrect": "Primero calculá la pendiente de la tangente (la derivada). Después recordá que $m_{normal} = -1/m_{tangente}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la recta **normal** es la opuesta y recíproca de la pendiente de la tangente. Empezamos buscando la derivada de $y = \\ln(3x - 2)$.\n\n$$y' = \\frac{1}{3x - 2} \\cdot 3 = \\frac{3}{3x - 2}$$\n\nEvaluamos en $x = 1$:\n\n$$m_t = y'(1) = \\frac{3}{3(1) - 2} = \\frac{3}{1} = 3$$\n\nComo la pendiente de la tangente es 3, la de la normal será:\n\n$$m_n = -\\frac{1}{m_t} = -\\frac{1}{3}$$\n\nRecordá que la recta normal es la que cae perpendicular a la curva en ese punto."
+    "explanation": "La pendiente de la recta **normal** es la opuesta y recíproca de la pendiente de la tangente. Empezamos buscando la derivada de $y = \\ln(3x - 2)$.\n\n$$y' = \\frac{1}{3x - 2} \\cdot 3 = \\frac{3}{3x - 2}$$\n\nEvaluamos en $x = 1$:\n\n$$m_t = y'(1) = \\frac{3}{3(1) - 2} = \\frac{3}{1} = 3$$\n\nComo la pendiente de la tangente es 3, la de la normal será:\n\n$$m_n = -\\frac{1}{m_t} = -\\frac{1}{3}$$\n\nRecordá que la recta normal es la que cae perpendicular a la curva en ese punto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_05",
@@ -497,7 +521,8 @@
     "feedback_incorrect": "Derivá la raíz con regla de la cadena y después reemplazá la $x$ por 2. El resultado debe ser una fracción.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivamos la función raíz usando la regla de la cadena:\n\n$$f'(x) = \\frac{1}{2\\sqrt{4x + 1}} \\cdot 4 = \\frac{2}{\\sqrt{4x + 1}}$$\n\nAhora evaluamos en $x = 2$:\n\n$$f'(2) = \\frac{2}{\\sqrt{4(2) + 1}} = \\frac{2}{\\sqrt{9}} = \\frac{2}{3}$$\n\nEste valor representa la tasa de cambio instantánea de la función cuando $x=2$. Gráficamente, es la inclinación de la curva en ese punto preciso."
+    "explanation": "Derivamos la función raíz usando la regla de la cadena:\n\n$$f'(x) = \\frac{1}{2\\sqrt{4x + 1}} \\cdot 4 = \\frac{2}{\\sqrt{4x + 1}}$$\n\nAhora evaluamos en $x = 2$:\n\n$$f'(2) = \\frac{2}{\\sqrt{4(2) + 1}} = \\frac{2}{\\sqrt{9}} = \\frac{2}{3}$$\n\nEste valor representa la tasa de cambio instantánea de la función cuando $x=2$. Gráficamente, es la inclinación de la curva en ese punto preciso.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_06",
@@ -517,7 +542,8 @@
     "feedback_incorrect": "La tangente es horizontal donde la derivada vale cero. Derivá usando cadena e igualá a cero.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una tangente es horizontal cuando $f'(x) = 0$. Derivamos usando la regla de la cadena:\n\n$$f'(x) = 2(x^2 - 4) \\cdot (2x) = 4x(x^2 - 4)$$\n\nPara que este producto sea cero, alguno de sus factores debe serlo:\n1. $4x = 0 \\Rightarrow x = 0$\n2. $x^2 - 4 = 0 \\Rightarrow x^2 = 4 \\Rightarrow x = 2 \\text{ o } x = -2$\n\nEntonces hay tres puntos con tangente horizontal. Estos puntos suelen corresponder a máximos o mínimos locales de la función (en este caso, una forma de 'W')."
+    "explanation": "Una tangente es horizontal cuando $f'(x) = 0$. Derivamos usando la regla de la cadena:\n\n$$f'(x) = 2(x^2 - 4) \\cdot (2x) = 4x(x^2 - 4)$$\n\nPara que este producto sea cero, alguno de sus factores debe serlo:\n1. $4x = 0 \\Rightarrow x = 0$\n2. $x^2 - 4 = 0 \\Rightarrow x^2 = 4 \\Rightarrow x = 2 \\text{ o } x = -2$\n\nEntonces hay tres puntos con tangente horizontal. Estos puntos suelen corresponder a máximos o mínimos locales de la función (en este caso, una forma de 'W').",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_07",
@@ -537,7 +563,8 @@
     "feedback_incorrect": "El ritmo de cambio es la derivada. Recordá derivar el exponente $-0.1t$ y multiplicarlo por el 100 inicial.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El \"ritmo de cambio\" es otra forma de llamar a la derivada. Derivamos $T(t)$ respecto al tiempo $t$ usando la regla de la cadena para la exponencial.\n\n$$T'(t) = 100 \\cdot e^{-0.1t} \\cdot (-0.1) = -10e^{-0.1t}$$\n\nEvaluando en el instante inicial $t = 0$:\n\n$$T'(0) = -10e^{0} = -10 \\cdot 1 = -10$$\n\nEl signo negativo indica que la temperatura está bajando. En ese instante, el objeto se está enfriando a una velocidad de 10 grados por unidad de tiempo."
+    "explanation": "El \"ritmo de cambio\" es otra forma de llamar a la derivada. Derivamos $T(t)$ respecto al tiempo $t$ usando la regla de la cadena para la exponencial.\n\n$$T'(t) = 100 \\cdot e^{-0.1t} \\cdot (-0.1) = -10e^{-0.1t}$$\n\nEvaluando en el instante inicial $t = 0$:\n\n$$T'(0) = -10e^{0} = -10 \\cdot 1 = -10$$\n\nEl signo negativo indica que la temperatura está bajando. En ese instante, el objeto se está enfriando a una velocidad de 10 grados por unidad de tiempo.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_08",
@@ -557,7 +584,8 @@
     "feedback_incorrect": "No olvides la constante $\\pi$ que sale por regla de la cadena. $\\sin(\\pi/2)$ vale 1.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivamos la función coseno compuesta con la función lineal $\\pi x$. La regla de la cadena nos dice:\n\n$$f'(x) = -\\sin(\\pi x) \\cdot \\pi = -\\pi \\sin(\\pi x)$$\n\nAhora evaluamos en $x = 1/2$:\n\n$$f'(1/2) = -\\pi \\sin(\\pi \\cdot 1/2) = -\\pi \\sin(\\pi/2)$$\n\nComo $\\sin(\\pi/2) = 1$, el resultado final es $-\\pi$. En este punto, la función coseno está cruzando el eje $X$ con su máxima pendiente negativa."
+    "explanation": "Derivamos la función coseno compuesta con la función lineal $\\pi x$. La regla de la cadena nos dice:\n\n$$f'(x) = -\\sin(\\pi x) \\cdot \\pi = -\\pi \\sin(\\pi x)$$\n\nAhora evaluamos en $x = 1/2$:\n\n$$f'(1/2) = -\\pi \\sin(\\pi \\cdot 1/2) = -\\pi \\sin(\\pi/2)$$\n\nComo $\\sin(\\pi/2) = 1$, el resultado final es $-\\pi$. En este punto, la función coseno está cruzando el eje $X$ con su máxima pendiente negativa.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_09",
@@ -577,7 +605,8 @@
     "feedback_incorrect": "Derivá con cadena y evaluá con cuidado. Hay varios factores multiplicando: el 3, el paréntesis al cuadrado y la derivada interna.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero obtenemos la función derivada general usando la regla de la cadena:\n\n$$f'(x) = 3(x^2 + x)^2 \\cdot (2x + 1)$$\n\nAhora sustituimos $x = 1$:\n- Término $(x^2+x)^2$: $(1^2+1)^2 = 2^2 = 4$.\n- Término $(2x+1)$: $2(1)+1 = 3$.\n\nMultiplicamos todo:\n\n$$f'(1) = 3 \\cdot 4 \\cdot 3 = 36$$\n\nEste número nos dice que en $x=1$ la función está creciendo de forma muy empinada."
+    "explanation": "Primero obtenemos la función derivada general usando la regla de la cadena:\n\n$$f'(x) = 3(x^2 + x)^2 \\cdot (2x + 1)$$\n\nAhora sustituimos $x = 1$:\n- Término $(x^2+x)^2$: $(1^2+1)^2 = 2^2 = 4$.\n- Término $(2x+1)$: $2(1)+1 = 3$.\n\nMultiplicamos todo:\n\n$$f'(1) = 3 \\cdot 4 \\cdot 3 = 36$$\n\nEste número nos dice que en $x=1$ la función está creciendo de forma muy empinada.",
+    "reviewed": false
   },
   {
     "external_id": "violet_chain_rule_apli_10",
@@ -597,6 +626,7 @@
     "feedback_incorrect": "Usá exponente $1/3$ para derivar la raíz cúbica. Acordate de la derivada interna $2x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Escribimos la función como potencia: $y = (x^2 + 7)^{1/3}$. Derivamos usando la regla de la cadena:\n\n$$y' = \\frac{1}{3}(x^2 + 7)^{-2/3} \\cdot (2x) = \\frac{2x}{3\\sqrt[3]{(x^2+7)^2}}$$\n\nEvaluamos en $x = 1$:\n- Numerador: $2(1) = 2$.\n- Denominador: $3\\sqrt[3]{(1^2+7)^2} = 3\\sqrt[3]{8^2} = 3\\sqrt[3]{64} = 3 \\cdot 4 = 12$.\n\n$$y'(1) = \\frac{2}{12} = \\frac{1}{6}$$\n\nAunque la función tiene una raíz cúbica, su pendiente en ese punto es un valor racional positivo bastante pequeño."
+    "explanation": "Escribimos la función como potencia: $y = (x^2 + 7)^{1/3}$. Derivamos usando la regla de la cadena:\n\n$$y' = \\frac{1}{3}(x^2 + 7)^{-2/3} \\cdot (2x) = \\frac{2x}{3\\sqrt[3]{(x^2+7)^2}}$$\n\nEvaluamos en $x = 1$:\n- Numerador: $2(1) = 2$.\n- Denominador: $3\\sqrt[3]{(1^2+7)^2} = 3\\sqrt[3]{8^2} = 3\\sqrt[3]{64} = 3 \\cdot 4 = 12$.\n\n$$y'(1) = \\frac{2}{12} = \\frac{1}{6}$$\n\nAunque la función tiene una raíz cúbica, su pendiente en ese punto es un valor racional positivo bastante pequeño.",
+    "reviewed": false
   }
 ]

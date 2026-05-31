@@ -17,7 +17,8 @@
     "feedback_incorrect": "Recordá la prioridad LIATE: Logarítmicas van antes que Algebraicas ($x^2$).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La estrategia **LIATE** nos ayuda a elegir $u$ siguiendo un orden de prioridad: Logarítmicas, Inversas trigonométricas, Algebraicas, Trigonométricas y Exponenciales.\n\nEn la integral $\\int x^2 \\ln(x) \\, dx$, tenés una función algebraica ($x^2$) y una logarítmica ($\\ln(x)$). Como la **L** está antes que la **A** en la sigla, elegimos:\n\n$$u = \\ln(x) \\implies du = \\frac{1}{x} dx$$\n\nEsto facilita el cálculo porque la derivada del logaritmo simplifica el grado de la expresión algebraica en el siguiente paso de la integral."
+    "explanation": "La estrategia **LIATE** nos ayuda a elegir $u$ siguiendo un orden de prioridad: Logarítmicas, Inversas trigonométricas, Algebraicas, Trigonométricas y Exponenciales.\n\nEn la integral $\\int x^2 \\ln(x) \\, dx$, tenés una función algebraica ($x^2$) y una logarítmica ($\\ln(x)$). Como la **L** está antes que la **A** en la sigla, elegimos:\n\n$$u = \\ln(x) \\implies du = \\frac{1}{x} dx$$\n\nEsto facilita el cálculo porque la derivada del logaritmo simplifica el grado de la expresión algebraica en el siguiente paso de la integral.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_intg_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "Revisá los signos: la integral de $\\sin(x)$ es $-\\cos(x)$ y la de $-\\cos(x)$ es $-\\sin(x)$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver $\\int x \\sin(x) \\, dx$ usamos integración por partes. Elegimos $u = x$ (algebraica) y $dv = \\sin(x) \\, dx$ (trigonométrica).\n\nCalculamos sus partes:\n$$du = dx \\quad y \\quad v = -\\cos(x)$$\n\nAplicando la fórmula $\\int u \\, dv = uv - \\int v \\, du$:\n\n$$x(-\\cos(x)) - \\int (-\\cos(x)) \\, dx = -x \\cos(x) + \\int \\cos(x) \\, dx$$\n\nFinalmente, sumamos la constante de integración: $-x \\cos(x) + \\sin(x) + C$."
+    "explanation": "Para resolver $\\int x \\sin(x) \\, dx$ usamos integración por partes. Elegimos $u = x$ (algebraica) y $dv = \\sin(x) \\, dx$ (trigonométrica).\n\nCalculamos sus partes:\n$$du = dx \\quad y \\quad v = -\\cos(x)$$\n\nAplicando la fórmula $\\int u \\, dv = uv - \\int v \\, du$:\n\n$$x(-\\cos(x)) - \\int (-\\cos(x)) \\, dx = -x \\cos(x) + \\int \\cos(x) \\, dx$$\n\nFinalmente, sumamos la constante de integración: $-x \\cos(x) + \\sin(x) + C$.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_estr_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "Si la integral se vuelve más difícil, lo más probable es que hayas elegido mal $u$ y $dv$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El objetivo de la **integración por partes** es transformar una integral difícil en una más sencilla. La clave está en la elección de $u$ y $dv$.\n\nSi elegís, por ejemplo, $u = \\sin(x)$ y $dv = x \\, dx$ para integrar $x \\sin(x)$, vas a obtener una integral con $x^2 \\cos(x)$, lo cual es claramente más complejo. En esos casos, debés **remediar la elección**:\n\nAsigná a $u$ la función que se simplifica al derivar (generalmente la potencia de $x$) y a $dv$ la que no se complica al integrar (como $e^x$ o $\\sin(x)$)."
+    "explanation": "El objetivo de la **integración por partes** es transformar una integral difícil en una más sencilla. La clave está en la elección de $u$ y $dv$.\n\nSi elegís, por ejemplo, $u = \\sin(x)$ y $dv = x \\, dx$ para integrar $x \\sin(x)$, vas a obtener una integral con $x^2 \\cos(x)$, lo cual es claramente más complejo. En esos casos, debés **remediar la elección**:\n\nAsigná a $u$ la función que se simplifica al derivar (generalmente la potencia de $x$) y a $dv$ la que no se complica al integrar (como $e^x$ o $\\sin(x)$).",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_intg_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "No olvides el término $uv$. Se resuelve por partes tomando $dv = dx$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para integrar el logaritmo natural, usamos un truco clásico: considerar que está multiplicado por $1$.\n\nElegimos $u = \\ln(x)$ y $dv = 1 \\cdot dx$. Entonces:\n$$du = \\frac{1}{x} dx \\quad y \\quad v = x$$\n\nAplicamos la fórmula:\n\n$$\\int \\ln(x) \\, dx = (\\ln(x))(x) - \\int x \\cdot \\frac{1}{x} \\, dx = x \\ln(x) - \\int 1 \\, dx$$\n\nEsto resulta en $x \\ln(x) - x + C$. Es una de las integrales por partes más importantes de recordar."
+    "explanation": "Para integrar el logaritmo natural, usamos un truco clásico: considerar que está multiplicado por $1$.\n\nElegimos $u = \\ln(x)$ y $dv = 1 \\cdot dx$. Entonces:\n$$du = \\frac{1}{x} dx \\quad y \\quad v = x$$\n\nAplicamos la fórmula:\n\n$$\\int \\ln(x) \\, dx = (\\ln(x))(x) - \\int x \\cdot \\frac{1}{x} \\, dx = x \\ln(x) - \\int 1 \\, dx$$\n\nEsto resulta en $x \\ln(x) - x + C$. Es una de las integrales por partes más importantes de recordar.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_apli_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "Calculá primero la indefinida $(x e^x - e^x)$ y luego aplicá la Regla de Barrow.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el área, calculamos la integral definida $\\int_{0}^{1} x e^x \\, dx$. Primero, por partes, sabemos que:\n\n$$\\int x e^x \\, dx = x e^x - e^x$$\n\nAhora aplicamos la **Regla de Barrow** evaluando en los límites $0$ y $1$:\n\n$$(1 e^1 - e^1) - (0 e^0 - e^0) = (e - e) - (0 - 1) = 0 - (-1) = 1$$\n\nEl área sombreada bajo esta función en ese intervalo es exactamente una unidad cuadrada, un resultado sorprendentemente simple para una función exponencial."
+    "explanation": "Para hallar el área, calculamos la integral definida $\\int_{0}^{1} x e^x \\, dx$. Primero, por partes, sabemos que:\n\n$$\\int x e^x \\, dx = x e^x - e^x$$\n\nAhora aplicamos la **Regla de Barrow** evaluando en los límites $0$ y $1$:\n\n$$(1 e^1 - e^1) - (0 e^0 - e^0) = (e - e) - (0 - 1) = 0 - (-1) = 1$$\n\nEl área sombreada bajo esta función en ese intervalo es exactamente una unidad cuadrada, un resultado sorprendentemente simple para una función exponencial.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_estr_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "Como tenés un $x^2$, la primera aplicación te dejará una integral con $x$. Necesitás otra más.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés una potencia natural de $x$ multiplicada por una exponencial o trigonométrica, cada aplicación de integración por partes **reduce el exponente** de $x$ en uno.\n\n1. En la primera vuelta de $\\int x^2 e^x \\, dx$, con $u=x^2$, obtenés un término con $\\int 2x e^x \\, dx$.\n2. En la segunda vuelta, con $u=2x$, obtenés finalmente $\\int 2 e^x \\, dx$, que es directa.\n\nEn general, para $\\int x^n e^x \\, dx$, vas a necesitar aplicar el método $n$ veces."
+    "explanation": "Cuando tenés una potencia natural de $x$ multiplicada por una exponencial o trigonométrica, cada aplicación de integración por partes **reduce el exponente** de $x$ en uno.\n\n1. En la primera vuelta de $\\int x^2 e^x \\, dx$, con $u=x^2$, obtenés un término con $\\int 2x e^x \\, dx$.\n2. En la segunda vuelta, con $u=2x$, obtenés finalmente $\\int 2 e^x \\, dx$, que es directa.\n\nEn general, para $\\int x^n e^x \\, dx$, vas a necesitar aplicar el método $n$ veces.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_intg_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "Cuidado al integrar $\\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\, dx$: eso da $x^2/4$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con $u = \\ln(x)$ y $dv = x \\, dx$. Las derivadas e integrales son:\n$$du = \\frac{1}{x} dx \\quad y \\quad v = \\frac{x^2}{2}$$\n\nSustituyendo en la fórmula:\n\n$$\\int x \\ln(x) \\, dx = \\frac{x^2}{2} \\ln(x) - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\, dx$$\n\nLa integral restante es $\\int \\frac{x}{2} \\, dx = \\frac{x^2}{4}$. Por lo tanto, el resultado final es $\\frac{x^2}{2} \\ln(x) - \\frac{x^2}{4} + C$."
+    "explanation": "Aplicamos partes con $u = \\ln(x)$ y $dv = x \\, dx$. Las derivadas e integrales son:\n$$du = \\frac{1}{x} dx \\quad y \\quad v = \\frac{x^2}{2}$$\n\nSustituyendo en la fórmula:\n\n$$\\int x \\ln(x) \\, dx = \\frac{x^2}{2} \\ln(x) - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\, dx$$\n\nLa integral restante es $\\int \\frac{x}{2} \\, dx = \\frac{x^2}{4}$. Por lo tanto, el resultado final es $\\frac{x^2}{2} \\ln(x) - \\frac{x^2}{4} + C$.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_apli_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "El logaritmo sugiere partes, pero el $(x+1)$ es más cómodo si primero hacés un cambio de variable.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés una función compuesta dentro de una integral que pide partes, a veces conviene **limpiar** el argumento primero.\n\nSi hacés $t = x+1$, entonces $x = t-1$ y $dx = dt$. La integral se transforma en $\\int (t-1) \\ln(t) \\, dt$, que se puede separar en dos integrales por partes más sencillas.\n\nEste tipo de combinaciones entre **sustitución e integración por partes** es muy común en problemas de aplicación donde las funciones no son básicas."
+    "explanation": "Cuando tenés una función compuesta dentro de una integral que pide partes, a veces conviene **limpiar** el argumento primero.\n\nSi hacés $t = x+1$, entonces $x = t-1$ y $dx = dt$. La integral se transforma en $\\int (t-1) \\ln(t) \\, dt$, que se puede separar en dos integrales por partes más sencillas.\n\nEste tipo de combinaciones entre **sustitución e integración por partes** es muy común en problemas de aplicación donde las funciones no son básicas.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_intg_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "Reaparece la misma integral. Tenés que llamarla $I$ y despejarla algebraicamente.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las integrales que combinan exponenciales y trigonométricas (seno o coseno) son **cíclicas**. Tras aplicar partes dos veces, volvés a obtener la integral original multiplicada por una constante.\n\nSi llamamos $I = \\int e^x \\sin(x) \\, dx$, después de dos pasos llegarás a algo como:\n\n$$I = e^x \\sin(x) - e^x \\cos(x) - I$$\n\nSumando $I$ a ambos lados tenés $2I = e^x(\\sin(x) - \\cos(x))$, y despejando obtenés el resultado. Es un recurso algebraico fundamental en este tema."
+    "explanation": "Las integrales que combinan exponenciales y trigonométricas (seno o coseno) son **cíclicas**. Tras aplicar partes dos veces, volvés a obtener la integral original multiplicada por una constante.\n\nSi llamamos $I = \\int e^x \\sin(x) \\, dx$, después de dos pasos llegarás a algo como:\n\n$$I = e^x \\sin(x) - e^x \\cos(x) - I$$\n\nSumando $I$ a ambos lados tenés $2I = e^x(\\sin(x) - \\cos(x))$, y despejando obtenés el resultado. Es un recurso algebraico fundamental en este tema.",
+    "reviewed": false
   },
   {
     "external_id": "brown_integration_by_parts_estr_10",
@@ -197,6 +206,7 @@
     "feedback_incorrect": "La fórmula estándar es $uv - \\int v \\, du$. No confundas el signo menos.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de **integración por partes** proviene de integrar ambos lados de la regla del producto para derivadas:\n\n$$\\frac{d}{dx}(uv) = u \\frac{dv}{dx} + v \\frac{du}{dx}$$\n\nAl integrar respecto a $x$ y reordenar los términos, obtenemos la herramienta que nos permite atacar productos de funciones de distinta naturaleza:\n\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nUna regla mnemotécnica muy usada en Argentina es: \"**U**n **V**iaje **S**in **R**obo **D**e **V**isado\" o similares para recordar el orden de los elementos."
+    "explanation": "La fórmula de **integración por partes** proviene de integrar ambos lados de la regla del producto para derivadas:\n\n$$\\frac{d}{dx}(uv) = u \\frac{dv}{dx} + v \\frac{du}{dx}$$\n\nAl integrar respecto a $x$ y reordenar los términos, obtenemos la herramienta que nos permite atacar productos de funciones de distinta naturaleza:\n\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nUna regla mnemotécnica muy usada en Argentina es: \"**U**n **V**iaje **S**in **R**obo **D**e **V**isado\" o similares para recordar el orden de los elementos.",
+    "reviewed": false
   }
 ]
