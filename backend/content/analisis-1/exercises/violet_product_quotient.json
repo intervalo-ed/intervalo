@@ -17,7 +17,8 @@
     "feedback_incorrect": "Cuidado, no podés derivar cada parte por separado. Tenés que usar la regla del producto: $(f \\cdot g)' = f'g + fg'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para derivar un producto de funciones como $f(x) = x^2 \\cdot \\sin(x)$, tenés que usar la **regla del producto**.\n\nLlamemos $u = x^2$ y $v = \\sin(x)$. Sus derivadas son $u' = 2x$ y $v' = \\cos(x)$. La fórmula dice:\n\n$$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$$\n\nReemplazando los términos, obtenés:\n\n$$f'(x) = 2x \\cdot \\sin(x) + x^2 \\cdot \\cos(x)$$\n\nEs un error muy común olvidarse de uno de los dos términos o derivar como si fuera una suma."
+    "explanation": "Para derivar un producto de funciones como $f(x) = x^2 \\cdot \\sin(x)$, tenés que usar la **regla del producto**.\n\nLlamemos $u = x^2$ y $v = \\sin(x)$. Sus derivadas son $u' = 2x$ y $v' = \\cos(x)$. La fórmula dice:\n\n$$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$$\n\nReemplazando los términos, obtenés:\n\n$$f'(x) = 2x \\cdot \\sin(x) + x^2 \\cdot \\cos(x)$$\n\nEs un error muy común olvidarse de uno de los dos términos o derivar como si fuera una suma.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "Acordate que en la regla del cociente el denominador va al cuadrado y el signo del numerador es una resta.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés un cociente de funciones, aplicás la **regla del cociente**:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nPara $f(x) = \\frac{e^x}{x}$, tenemos $u = e^x$ (entonces $u' = e^x$) y $v = x$ (entonces $v' = 1$):\n\n$$f'(x) = \\frac{e^x \\cdot x - e^x \\cdot 1}{x^2}$$\n\nSi sacás **factor común** $e^x$ en el numerador, la expresión queda más limpia:\n\n$$f'(x) = \\frac{e^x(x - 1)}{x^2}$$"
+    "explanation": "Cuando tenés un cociente de funciones, aplicás la **regla del cociente**:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nPara $f(x) = \\frac{e^x}{x}$, tenemos $u = e^x$ (entonces $u' = e^x$) y $v = x$ (entonces $v' = 1$):\n\n$$f'(x) = \\frac{e^x \\cdot x - e^x \\cdot 1}{x^2}$$\n\nSi sacás **factor común** $e^x$ en el numerador, la expresión queda más limpia:\n\n$$f'(x) = \\frac{e^x(x - 1)}{x^2}$$",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "Te faltó simplificar el segundo término. Recordá que $x^3 \\cdot \\frac{1}{x}$ es igual a $x^2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto** a $f(x) = x^3 \\ln(x)$:\n\n$$f'(x) = (x^3)' \\cdot \\ln(x) + x^3 \\cdot (\\ln x)'$$\n\nSabemos que $(x^3)' = 3x^2$ y $(\\ln x)' = \\frac{1}{x}$. Entonces:\n\n$$f'(x) = 3x^2 \\ln(x) + x^3 \\cdot \\frac{1}{x}$$\n\nAl simplificar el segundo término, $x^3/x$ se convierte en $x^2$. El resultado final es:\n\n$$f'(x) = 3x^2 \\ln(x) + x^2$$\n\nPodés expresar esto también como $x^2(3\\ln(x) + 1)$ si querés factorizar."
+    "explanation": "Aplicamos la **regla del producto** a $f(x) = x^3 \\ln(x)$:\n\n$$f'(x) = (x^3)' \\cdot \\ln(x) + x^3 \\cdot (\\ln x)'$$\n\nSabemos que $(x^3)' = 3x^2$ y $(\\ln x)' = \\frac{1}{x}$. Entonces:\n\n$$f'(x) = 3x^2 \\ln(x) + x^3 \\cdot \\frac{1}{x}$$\n\nAl simplificar el segundo término, $x^3/x$ se convierte en $x^2$. El resultado final es:\n\n$$f'(x) = 3x^2 \\ln(x) + x^2$$\n\nPodés expresar esto también como $x^2(3\\ln(x) + 1)$ si querés factorizar.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "Al aplicar la regla del cociente te queda $\\cos^2(x) + \\sin^2(x)$ arriba. ¿Te suena esa identidad?",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $\\frac{\\sin(x)}{\\cos(x)}$ es la tangente. Usando la **regla del cociente**:\n\n$$g'(x) = \\frac{(\\cos x)(\\cos x) - (\\sin x)(-\\sin x)}{\\cos^2(x)}$$\n\nEsto se simplifica a:\n\n$$g'(x) = \\frac{\\cos^2(x) + \\sin^2(x)}{\\cos^2(x)}$$\n\nPor la **identidad fundamental** de la trigonometría, el numerador es igual a $1$. Por lo tanto:\n\n$$g'(x) = \\frac{1}{\\cos^2(x)}$$\n\nEste resultado también se conoce como $\\sec^2(x)$."
+    "explanation": "La función $\\frac{\\sin(x)}{\\cos(x)}$ es la tangente. Usando la **regla del cociente**:\n\n$$g'(x) = \\frac{(\\cos x)(\\cos x) - (\\sin x)(-\\sin x)}{\\cos^2(x)}$$\n\nEsto se simplifica a:\n\n$$g'(x) = \\frac{\\cos^2(x) + \\sin^2(x)}{\\cos^2(x)}$$\n\nPor la **identidad fundamental** de la trigonometría, el numerador es igual a $1$. Por lo tanto:\n\n$$g'(x) = \\frac{1}{\\cos^2(x)}$$\n\nEste resultado también se conoce como $\\sec^2(x)$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "Ojo con la raíz: su derivada es $\\frac{1}{2\\sqrt{x}}$. Después aplicá la regla del producto completa.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para derivar $h(x) = \\sqrt{x} \\cdot e^x$, identificamos los factores $u = \\sqrt{x}$ y $v = e^x$.\n\nLas derivadas son $u' = \\frac{1}{2\\sqrt{x}}$ y $v' = e^x$. Aplicando la **regla del producto**:\n\n$$h'(x) = \\frac{1}{2\\sqrt{x}} \\cdot e^x + \\sqrt{x} \\cdot e^x$$\n\nPodés reescribir esto sacando $e^x$ como factor común para facilitar cálculos posteriores en problemas de optimización o extremos.\n\n$$h'(x) = e^x \\left( \\frac{1}{2\\sqrt{x}} + \\sqrt{x} \\right)$$"
+    "explanation": "Para derivar $h(x) = \\sqrt{x} \\cdot e^x$, identificamos los factores $u = \\sqrt{x}$ y $v = e^x$.\n\nLas derivadas son $u' = \\frac{1}{2\\sqrt{x}}$ y $v' = e^x$. Aplicando la **regla del producto**:\n\n$$h'(x) = \\frac{1}{2\\sqrt{x}} \\cdot e^x + \\sqrt{x} \\cdot e^x$$\n\nPodés reescribir esto sacando $e^x$ como factor común para facilitar cálculos posteriores en problemas de optimización o extremos.\n\n$$h'(x) = e^x \\left( \\frac{1}{2\\sqrt{x}} + \\sqrt{x} \\right)$$",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "Revisá la resta en el numerador: $(1)(x-1) - (x+1)(1) = x - 1 - x - 1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del cociente** con $u = x+1$ y $v = x-1$. Ambas funciones tienen derivada igual a $1$.\n\n$$f'(x) = \\frac{1 \\cdot (x-1) - (x+1) \\cdot 1}{(x-1)^2}$$\n\nDistribuyendo el signo negativo en el numerador:\n\n$$f'(x) = \\frac{x - 1 - x - 1}{(x-1)^2}$$\n\nLas $x$ se cancelan, y nos queda:\n\n$$f'(x) = \\frac{-2}{(x-1)^2}$$\n\nNotá que la derivada siempre es negativa, lo que indica que la función es decreciente en todo su dominio."
+    "explanation": "Aplicamos la **regla del cociente** con $u = x+1$ y $v = x-1$. Ambas funciones tienen derivada igual a $1$.\n\n$$f'(x) = \\frac{1 \\cdot (x-1) - (x+1) \\cdot 1}{(x-1)^2}$$\n\nDistribuyendo el signo negativo en el numerador:\n\n$$f'(x) = \\frac{x - 1 - x - 1}{(x-1)^2}$$\n\nLas $x$ se cancelan, y nos queda:\n\n$$f'(x) = \\frac{-2}{(x-1)^2}$$\n\nNotá que la derivada siempre es negativa, lo que indica que la función es decreciente en todo su dominio.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "No te olvides de sumar los dos términos de la regla del producto: $u'v + uv'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usamos la **regla del producto** para $y = (x^2 + 5) e^x$:\n\n$$y' = (x^2 + 5)' e^x + (x^2 + 5) (e^x)'$$\n\nCalculamos las derivadas simples: $(x^2+5)' = 2x$ y $(e^x)' = e^x$:\n\n$$y' = 2x e^x + (x^2 + 5) e^x$$\n\nSacando $e^x$ como **factor común**:\n\n$$y' = e^x (2x + x^2 + 5) = e^x (x^2 + 2x + 5)$$\n\nAgrupar de esta forma es fundamental cuando necesitás hallar los puntos donde la derivada se anula."
+    "explanation": "Usamos la **regla del producto** para $y = (x^2 + 5) e^x$:\n\n$$y' = (x^2 + 5)' e^x + (x^2 + 5) (e^x)'$$\n\nCalculamos las derivadas simples: $(x^2+5)' = 2x$ y $(e^x)' = e^x$:\n\n$$y' = 2x e^x + (x^2 + 5) e^x$$\n\nSacando $e^x$ como **factor común**:\n\n$$y' = e^x (2x + x^2 + 5) = e^x (x^2 + 2x + 5)$$\n\nAgrupar de esta forma es fundamental cuando necesitás hallar los puntos donde la derivada se anula.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "Recordá simplificar: arriba tenés $x - 2x\\ln(x)$, podés sacar una $x$ de factor común y cancelarla con el denominador.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del cociente** con $u = \\ln(x)$ y $v = x^2$:\n\n$$f'(x) = \\frac{(\\frac{1}{x}) \\cdot x^2 - \\ln(x) \\cdot 2x}{(x^2)^2}$$\n\nSimplificamos el primer término del numerador: $(\\frac{1}{x}) \\cdot x^2 = x$:\n\n$$f'(x) = \\frac{x - 2x \\ln(x)}{x^4}$$\n\nSacamos $x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{x(1 - 2 \\ln(x))}{x^4} = \\frac{1 - 2 \\ln(x)}{x^3}$$\n\nSiempre intentá simplificar potencias de $x$ cuando aparezcan en ambos lados de la fracción."
+    "explanation": "Aplicamos la **regla del cociente** con $u = \\ln(x)$ y $v = x^2$:\n\n$$f'(x) = \\frac{(\\frac{1}{x}) \\cdot x^2 - \\ln(x) \\cdot 2x}{(x^2)^2}$$\n\nSimplificamos el primer término del numerador: $(\\frac{1}{x}) \\cdot x^2 = x$:\n\n$$f'(x) = \\frac{x - 2x \\ln(x)}{x^4}$$\n\nSacamos $x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{x(1 - 2 \\ln(x))}{x^4} = \\frac{1 - 2 \\ln(x)}{x^3}$$\n\nSiempre intentá simplificar potencias de $x$ cuando aparezcan en ambos lados de la fracción.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "Si usás la regla del producto: $(1)(x+3) + (x-2)(1) = 2x + 1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función se puede derivar de dos maneras. Usando la **regla del producto**:\n\n$$f'(x) = (1)(x+3) + (x-2)(1) = x + 3 + x - 2 = 2x + 1$$\n\nLa otra opción es **distribuir** primero el producto: $f(x) = x^2 + x - 6$. Derivando este polinomio término a término, obtenés el mismo resultado:\n\n$$f'(x) = 2x + 1$$\n\nEn casos simples como este, distribuir suele ser más rápido y menos propenso a errores que la regla del producto."
+    "explanation": "Esta función se puede derivar de dos maneras. Usando la **regla del producto**:\n\n$$f'(x) = (1)(x+3) + (x-2)(1) = x + 3 + x - 2 = 2x + 1$$\n\nLa otra opción es **distribuir** primero el producto: $f(x) = x^2 + x - 6$. Derivando este polinomio término a término, obtenés el mismo resultado:\n\n$$f'(x) = 2x + 1$$\n\nEn casos simples como este, distribuir suele ser más rápido y menos propenso a errores que la regla del producto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_deri_10",
@@ -197,7 +206,8 @@
     "feedback_incorrect": "Cuidado con el orden de la resta en el cociente y no te olvides de simplificar el $e^x$ que aparece en todos lados.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del cociente**:\n\n$$f'(x) = \\frac{2x e^x - x^2 e^x}{(e^x)^2}$$\n\nPodemos sacar $e^x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{e^x (2x - x^2)}{e^x \\cdot e^x}$$\n\nCancelando un factor $e^x$ arriba y abajo, llegamos a:\n\n$$f'(x) = \\frac{2x - x^2}{e^x}$$\n\nAlternativamente, podrías haber escrito la función como $x^2 \\cdot e^{-x}$ y usar la regla del producto con regla de la cadena."
+    "explanation": "Aplicamos la **regla del cociente**:\n\n$$f'(x) = \\frac{2x e^x - x^2 e^x}{(e^x)^2}$$\n\nPodemos sacar $e^x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{e^x (2x - x^2)}{e^x \\cdot e^x}$$\n\nCancelando un factor $e^x$ arriba y abajo, llegamos a:\n\n$$f'(x) = \\frac{2x - x^2}{e^x}$$\n\nAlternativamente, podrías haber escrito la función como $x^2 \\cdot e^{-x}$ y usar la regla del producto con regla de la cadena.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_01",
@@ -217,7 +227,8 @@
     "feedback_incorrect": "¡Error clásico! La derivada de un producto NUNCA es simplemente $f' \\cdot g'$. Tenés que usar la suma cruzada.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del producto** es fundamental porque la derivada no se comporta de forma intuitiva con la multiplicación.\n\nSi tenés dos funciones multiplicándose, su ritmo de cambio depende de cómo cambia cada una mientras la otra se mantiene 'fija' en ese instante. Por eso la fórmula es:\n\n$$(f \\cdot g)' = f'g + fg'$$\n\nDonde $f'$ es la derivada de la primera función y $g'$ es la de la segunda. El orden de los sumandos no importa porque la suma es conmutativa."
+    "explanation": "La **regla del producto** es fundamental porque la derivada no se comporta de forma intuitiva con la multiplicación.\n\nSi tenés dos funciones multiplicándose, su ritmo de cambio depende de cómo cambia cada una mientras la otra se mantiene 'fija' en ese instante. Por eso la fórmula es:\n\n$$(f \\cdot g)' = f'g + fg'$$\n\nDonde $f'$ es la derivada de la primera función y $g'$ es la de la segunda. El orden de los sumandos no importa porque la suma es conmutativa.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_02",
@@ -237,7 +248,8 @@
     "feedback_incorrect": "Cuidado con el orden. La fórmula es $u'v - uv'$. El que resta es el que tiene la derivada del denominador.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del cociente** tiene un orden estricto porque hay una resta en el numerador:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nEl término positivo es el que tiene la derivada de 'el de arriba' ($u'v$). El término negativo es el que tiene la derivada de 'el de abajo' ($uv'$).\n\nSi invertís este orden, el signo de tu derivada va a estar mal y vas a concluir erróneamente si la función crece o decrece."
+    "explanation": "La **regla del cociente** tiene un orden estricto porque hay una resta en el numerador:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nEl término positivo es el que tiene la derivada de 'el de arriba' ($u'v$). El término negativo es el que tiene la derivada de 'el de abajo' ($uv'$).\n\nSi invertís este orden, el signo de tu derivada va a estar mal y vas a concluir erróneamente si la función crece o decrece.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_03",
@@ -257,7 +269,8 @@
     "feedback_incorrect": "Poder podés usar cociente, pero derivar una constante te va a dar cero y te vas a complicar la vida al simplificar.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No siempre que veas una fracción tenés que usar la **regla del cociente**. Si el numerador es una constante, es mucho más eficiente reescribir la función como una potencia negativa:\n\n$$f(x) = \\frac{5}{x^3} = 5x^{-3}$$\n\nAhora derivás usando la regla de la potencia:\n\n$$f'(x) = 5 \\cdot (-3)x^{-4} = -15x^{-4} = -\\frac{15}{x^4}$$\n\nSi usaras la regla del cociente, llegarías a lo mismo pero con pasos extra donde podrías equivocarte de signo."
+    "explanation": "No siempre que veas una fracción tenés que usar la **regla del cociente**. Si el numerador es una constante, es mucho más eficiente reescribir la función como una potencia negativa:\n\n$$f(x) = \\frac{5}{x^3} = 5x^{-3}$$\n\nAhora derivás usando la regla de la potencia:\n\n$$f'(x) = 5 \\cdot (-3)x^{-4} = -15x^{-4} = -\\frac{15}{x^4}$$\n\nSi usaras la regla del cociente, llegarías a lo mismo pero con pasos extra donde podrías equivocarte de signo.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_04",
@@ -277,7 +290,8 @@
     "feedback_incorrect": "En realidad, todos esos son errores que los estudiantes suelen cometer. El denominador debe ser $[v(x)]^2$ sin derivar.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **denominador** en la regla del cociente es simplemente el denominador original elevado al cuadrado:\n\n$$\\text{Denominador} = [v(x)]^2$$\n\nUn error frecuente es intentar derivar este denominador mientras se aplica la fórmula, o simplemente olvidarse de escribirlo. Recordá que este término es el que determina que la derivada de una función racional suele tener un exponente mayor en el denominador que la función original."
+    "explanation": "El **denominador** en la regla del cociente es simplemente el denominador original elevado al cuadrado:\n\n$$\\text{Denominador} = [v(x)]^2$$\n\nUn error frecuente es intentar derivar este denominador mientras se aplica la fórmula, o simplemente olvidarse de escribirlo. Recordá que este término es el que determina que la derivada de una función racional suele tener un exponente mayor en el denominador que la función original.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_05",
@@ -297,7 +311,8 @@
     "feedback_incorrect": "Identificá las dos funciones distintas que se multiplican: una es la potencia y la otra es la exponencial.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para aplicar la **regla del producto**, el primer paso es identificar claramente qué funciones están operando. En $f(x) = x^2 e^x$, tenemos:\n\n1. Una función potencial: $u(x) = x^2$\n2. Una función exponencial: $v(x) = e^x$\n\nUna vez identificadas, calculás sus derivadas por separado ($u'=2x$, $v'=e^x$) y luego las ensamblás en la fórmula $u'v + uv'$. Esta **metodología** de 'separar y derivar' te ayuda a no perderte en funciones más largas."
+    "explanation": "Para aplicar la **regla del producto**, el primer paso es identificar claramente qué funciones están operando. En $f(x) = x^2 e^x$, tenemos:\n\n1. Una función potencial: $u(x) = x^2$\n2. Una función exponencial: $v(x) = e^x$\n\nUna vez identificadas, calculás sus derivadas por separado ($u'=2x$, $v'=e^x$) y luego las ensamblás en la fórmula $u'v + uv'$. Esta **metodología** de 'separar y derivar' te ayuda a no perderte en funciones más largas.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_06",
@@ -317,7 +332,8 @@
     "feedback_incorrect": "Pensalo geométricamente: si tenés un rectángulo, el área cambia si estirás la base o si estirás la altura.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **intuición geométrica** de la regla del producto es muy útil. Imaginá un rectángulo de lados $f$ y $g$. El área es $A = f \\cdot g$.\n\nSi $f$ crece un poquito ($df$), el área aumenta en $df \\cdot g$. Si $g$ crece un poquito ($dg$), el área aumenta en $f \\cdot dg$. El crecimiento total es la **suma** de esos dos pedacitos de área nueva.\n\nPor eso la derivada es $f'g + g'f$. No es una simple regla mágica, tiene una lógica de acumulación de cambios."
+    "explanation": "La **intuición geométrica** de la regla del producto es muy útil. Imaginá un rectángulo de lados $f$ y $g$. El área es $A = f \\cdot g$.\n\nSi $f$ crece un poquito ($df$), el área aumenta en $df \\cdot g$. Si $g$ crece un poquito ($dg$), el área aumenta en $f \\cdot dg$. El crecimiento total es la **suma** de esos dos pedacitos de área nueva.\n\nPor eso la derivada es $f'g + g'f$. No es una simple regla mágica, tiene una lógica de acumulación de cambios.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_07",
@@ -337,7 +353,8 @@
     "feedback_incorrect": "Tenés tres funciones. La regla del producto se aplica a pares, así que tenés que agrupar.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés un **producto de tres funciones**, podés extender la regla. La forma más segura es agrupar:\n\nSea $u = (x \\sin x)$ y $v = e^x$. Entonces $(uv)' = u'v + uv'$. Pero para hallar $u'$, ¡vas a tener que aplicar la regla del producto de nuevo!\n\nLa regla general para tres funciones es:\n\n$$(f \\cdot g \\cdot h)' = f'gh + fg'h + fgh'$$\n\nEs decir, derivás una por vez y mantenés las otras dos igual, sumando todos los resultados posibles."
+    "explanation": "Cuando tenés un **producto de tres funciones**, podés extender la regla. La forma más segura es agrupar:\n\nSea $u = (x \\sin x)$ y $v = e^x$. Entonces $(uv)' = u'v + uv'$. Pero para hallar $u'$, ¡vas a tener que aplicar la regla del producto de nuevo!\n\nLa regla general para tres funciones es:\n\n$$(f \\cdot g \\cdot h)' = f'gh + fg'h + fgh'$$\n\nEs decir, derivás una por vez y mantenés las otras dos igual, sumando todos los resultados posibles.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_08",
@@ -357,7 +374,8 @@
     "feedback_incorrect": "Si bien podés usarla (y te va a dar bien), es mucho más simple recordar que $(c \\cdot f)' = c \\cdot f'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** dice que si multiplicás una función por un número, la derivada es simplemente ese número por la derivada de la función:\n\n$$(c \\cdot f)' = c \\cdot f'$$\n\nSi usaras la regla del producto en $5 \\cdot x^3$, tendrías $(5)'x^3 + 5(x^3)'$. Como la derivada de una constante es **cero**, el primer término desaparece y te queda solo $5(3x^2)$.\n\nUsar la regla completa en estos casos es innecesario y suele llevar a confusiones."
+    "explanation": "La **regla de la constante** dice que si multiplicás una función por un número, la derivada es simplemente ese número por la derivada de la función:\n\n$$(c \\cdot f)' = c \\cdot f'$$\n\nSi usaras la regla del producto en $5 \\cdot x^3$, tendrías $(5)'x^3 + 5(x^3)'$. Como la derivada de una constante es **cero**, el primer término desaparece y te queda solo $5(3x^2)$.\n\nUsar la regla completa en estos casos es innecesario y suele llevar a confusiones.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_09",
@@ -377,7 +395,8 @@
     "feedback_incorrect": "El término de abajo en la regla del cociente es simplemente el denominador que ya tenías, pero al cuadrado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $v^2$ en el denominador de la **regla del cociente** asegura que la unidad de medida y la escala de la pendiente sean correctas.\n\nUna consecuencia importante es que, como cualquier número real al cuadrado es no negativo, el signo de la derivada (que nos dice si la función sube o baja) depende exclusivamente del **numerador**. Por eso, al buscar extremos, solemos ignorar el denominador e igualar el numerador a cero."
+    "explanation": "El término $v^2$ en el denominador de la **regla del cociente** asegura que la unidad de medida y la escala de la pendiente sean correctas.\n\nUna consecuencia importante es que, como cualquier número real al cuadrado es no negativo, el signo de la derivada (que nos dice si la función sube o baja) depende exclusivamente del **numerador**. Por eso, al buscar extremos, solemos ignorar el denominador e igualar el numerador a cero.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_estr_10",
@@ -397,7 +416,8 @@
     "feedback_incorrect": "Acordate que el producto tiene una suma. Las otras opciones son la regla de la suma o errores de signo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **conmutatividad** de la suma y la multiplicación nos permite escribir la regla del producto de varias formas:\n\n1. $f'g + fg'$\n2. $g f' + f g'$\n3. $fg' + gf'$\n\nTodas son correctas. Esto es muy diferente a la **regla del cociente**, donde el orden de la resta en el numerador es vital y no se puede alterar sin cambiar el signo del resultado final."
+    "explanation": "La **conmutatividad** de la suma y la multiplicación nos permite escribir la regla del producto de varias formas:\n\n1. $f'g + fg'$\n2. $g f' + f g'$\n3. $fg' + gf'$\n\nTodas son correctas. Esto es muy diferente a la **regla del cociente**, donde el orden de la resta en el numerador es vital y no se puede alterar sin cambiar el signo del resultado final.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_01",
@@ -417,7 +437,8 @@
     "feedback_incorrect": "Primero derivá usando la regla del producto: $f'(x) = e^x + x e^x$. Después reemplazá la $x$ por $0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **pendiente de la recta tangente** en un punto es el valor de la derivada en ese punto.\n\nPrimero, derivamos $f(x) = x e^x$ usando la regla del producto:\n\n$$f'(x) = (1) \\cdot e^x + x \\cdot e^x = e^x (1 + x)$$\n\nAhora, evaluamos la derivada en $x = 0$:\n\n$$f'(0) = e^0 (1 + 0) = 1 \\cdot 1 = 1$$\n\nEn la gráfica, esto significa que cuando la función cruza el origen, lo hace con una inclinación de $45^\\circ$ (pendiente $1$)."
+    "explanation": "La **pendiente de la recta tangente** en un punto es el valor de la derivada en ese punto.\n\nPrimero, derivamos $f(x) = x e^x$ usando la regla del producto:\n\n$$f'(x) = (1) \\cdot e^x + x \\cdot e^x = e^x (1 + x)$$\n\nAhora, evaluamos la derivada en $x = 0$:\n\n$$f'(0) = e^0 (1 + 0) = 1 \\cdot 1 = 1$$\n\nEn la gráfica, esto significa que cuando la función cruza el origen, lo hace con una inclinación de $45^\\circ$ (pendiente $1$).",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_02",
@@ -437,7 +458,8 @@
     "feedback_incorrect": "Una tangente es horizontal cuando $f'(x)=0$. Derivá usando cociente e igualá el numerador a cero.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **tangente horizontal** ocurre donde la derivada vale cero.\n\nDerivamos $f(x) = \\frac{x}{e^x}$ usando la regla del cociente:\n\n$$f'(x) = \\frac{1 \\cdot e^x - x \\cdot e^x}{(e^x)^2} = \\frac{e^x(1-x)}{e^{2x}} = \\frac{1-x}{e^x}$$\n\nPara que $f'(x) = 0$, el numerador debe ser cero: $1 - x = 0 \\Rightarrow x = 1$.\n\nEn este punto, la función alcanza su **máximo relativo**. Notá que el denominador $e^x$ nunca es cero, por lo que la derivada está definida para todo $x$."
+    "explanation": "Una **tangente horizontal** ocurre donde la derivada vale cero.\n\nDerivamos $f(x) = \\frac{x}{e^x}$ usando la regla del cociente:\n\n$$f'(x) = \\frac{1 \\cdot e^x - x \\cdot e^x}{(e^x)^2} = \\frac{e^x(1-x)}{e^{2x}} = \\frac{1-x}{e^x}$$\n\nPara que $f'(x) = 0$, el numerador debe ser cero: $1 - x = 0 \\Rightarrow x = 1$.\n\nEn este punto, la función alcanza su **máximo relativo**. Notá que el denominador $e^x$ nunca es cero, por lo que la derivada está definida para todo $x$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_03",
@@ -457,7 +479,8 @@
     "feedback_incorrect": "La velocidad es la derivada. Usá cociente: $s'(t) = \\frac{1(t^2+1) - t(2t)}{(t^2+1)^2}$ y evaluá en $t=1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **velocidad** es la derivada de la posición respecto al tiempo: $v(t) = s'(t)$.\n\nUsamos la regla del cociente:\n\n$$v(t) = \\frac{1 \\cdot (t^2+1) - t \\cdot (2t)}{(t^2+1)^2} = \\frac{1 - t^2}{(t^2+1)^2}$$\n\nEvaluando en $t = 1$:\n\n$$v(1) = \\frac{1 - 1^2}{(1^2+1)^2} = \\frac{0}{4} = 0$$\n\nEsto indica que en el segundo $1$, la partícula cambia de dirección o llega a un punto de retorno, ya que su velocidad es momentáneamente **nula**."
+    "explanation": "La **velocidad** es la derivada de la posición respecto al tiempo: $v(t) = s'(t)$.\n\nUsamos la regla del cociente:\n\n$$v(t) = \\frac{1 \\cdot (t^2+1) - t \\cdot (2t)}{(t^2+1)^2} = \\frac{1 - t^2}{(t^2+1)^2}$$\n\nEvaluando en $t = 1$:\n\n$$v(1) = \\frac{1 - 1^2}{(1^2+1)^2} = \\frac{0}{4} = 0$$\n\nEsto indica que en el segundo $1$, la partícula cambia de dirección o llega a un punto de retorno, ya que su velocidad es momentáneamente **nula**.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_04",
@@ -477,7 +500,8 @@
     "feedback_incorrect": "Derivá con la regla del producto: $f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\frac{1}{x}$. Luego poné $x=1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto** a $f(x) = \\sqrt{x} \\ln(x)$:\n\n$$f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\cdot \\frac{1}{x}$$\n\nPara hallar la pendiente en $x = 1$, evaluamos:\n\n$$f'(1) = \\frac{1}{2\\sqrt{1}} \\ln(1) + \\sqrt{1} \\cdot \\frac{1}{1}$$\n\nComo $\\ln(1) = 0$, el primer sumando desaparece:\n\n$$f'(1) = 0 + 1 = 1$$\n\nLa curva pasa por el punto $(1, 0)$ con una pendiente positiva de $1$."
+    "explanation": "Aplicamos la **regla del producto** a $f(x) = \\sqrt{x} \\ln(x)$:\n\n$$f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\cdot \\frac{1}{x}$$\n\nPara hallar la pendiente en $x = 1$, evaluamos:\n\n$$f'(1) = \\frac{1}{2\\sqrt{1}} \\ln(1) + \\sqrt{1} \\cdot \\frac{1}{1}$$\n\nComo $\\ln(1) = 0$, el primer sumando desaparece:\n\n$$f'(1) = 0 + 1 = 1$$\n\nLa curva pasa por el punto $(1, 0)$ con una pendiente positiva de $1$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_05",
@@ -497,7 +521,8 @@
     "feedback_incorrect": "Primero hallá el punto: $f(1)=2$. Luego la pendiente: $f'(x)=-1/x^2 \\Rightarrow f'(1)=-1$. Ahora armá la recta.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para la **recta tangente**, necesitamos un punto y una pendiente.\n\n1. Punto: $f(1) = \\frac{1+1}{1} = 2$. El punto es $(1, 2)$.\n2. Pendiente: $f(x) = 1 + \\frac{1}{x} \\Rightarrow f'(x) = -\\frac{1}{x^2}$. Evaluando: $f'(1) = -1$.\n\nUsamos la fórmula de la recta punto-pendiente:\n\n$$y - y_0 = m(x - x_0) \\Rightarrow y - 2 = -1(x - 1)$$\n\nSimplificando:\n\n$$y = -x + 1 + 2 \\Rightarrow y = -x + 3$$\n\nEsta recta aproxima linealmente a la función cerca de $x=1$."
+    "explanation": "Para la **recta tangente**, necesitamos un punto y una pendiente.\n\n1. Punto: $f(1) = \\frac{1+1}{1} = 2$. El punto es $(1, 2)$.\n2. Pendiente: $f(x) = 1 + \\frac{1}{x} \\Rightarrow f'(x) = -\\frac{1}{x^2}$. Evaluando: $f'(1) = -1$.\n\nUsamos la fórmula de la recta punto-pendiente:\n\n$$y - y_0 = m(x - x_0) \\Rightarrow y - 2 = -1(x - 1)$$\n\nSimplificando:\n\n$$y = -x + 1 + 2 \\Rightarrow y = -x + 3$$\n\nEsta recta aproxima linealmente a la función cerca de $x=1$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_06",
@@ -517,7 +542,8 @@
     "feedback_incorrect": "Usá la fórmula: $f'g + fg'$. Tenés todos los valores, solo hay que multiplicar y sumar con cuidado.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es un ejercicio de **aplicación directa** de la regla del producto usando valores puntuales:\n\n$$(f \\cdot g)'(2) = f'(2) \\cdot g(2) + f(2) \\cdot g'(2)$$\n\nReemplazamos con los datos del enunciado:\n\n$$(f \\cdot g)'(2) = (5) \\cdot (1) + (3) \\cdot (-2) = 5 - 6 = -1$$\n\nEste tipo de problemas es común para verificar si entendés la **estructura** de la regla más allá de saber derivar fórmulas específicas de $x$."
+    "explanation": "Este es un ejercicio de **aplicación directa** de la regla del producto usando valores puntuales:\n\n$$(f \\cdot g)'(2) = f'(2) \\cdot g(2) + f(2) \\cdot g'(2)$$\n\nReemplazamos con los datos del enunciado:\n\n$$(f \\cdot g)'(2) = (5) \\cdot (1) + (3) \\cdot (-2) = 5 - 6 = -1$$\n\nEste tipo de problemas es común para verificar si entendés la **estructura** de la regla más allá de saber derivar fórmulas específicas de $x$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_07",
@@ -537,7 +563,8 @@
     "feedback_incorrect": "Simplemente aplicá la regla del cociente tratando a $R(x)$ como la función del numerador.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En **economía**, el ingreso promedio es el ingreso total dividido las unidades vendidas. Para ver cómo cambia ese promedio, derivamos:\n\n$$I_p'(x) = \\frac{R'(x) \\cdot x - R(x) \\cdot 1}{x^2}$$\n\nReordenando el numerador:\n\n$$I_p'(x) = \\frac{x R'(x) - R(x)}{x^2}$$\n\nSi esta derivada es cero, significa que el ingreso marginal ($R'$) es igual al ingreso promedio, que es donde se suelen alcanzar niveles óptimos de eficiencia."
+    "explanation": "En **economía**, el ingreso promedio es el ingreso total dividido las unidades vendidas. Para ver cómo cambia ese promedio, derivamos:\n\n$$I_p'(x) = \\frac{R'(x) \\cdot x - R(x) \\cdot 1}{x^2}$$\n\nReordenando el numerador:\n\n$$I_p'(x) = \\frac{x R'(x) - R(x)}{x^2}$$\n\nSi esta derivada es cero, significa que el ingreso marginal ($R'$) es igual al ingreso promedio, que es donde se suelen alcanzar niveles óptimos de eficiencia.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_08",
@@ -557,7 +584,8 @@
     "feedback_incorrect": "Ojo con los signos: $\\cos(\\pi)=-1$ y $\\sin(\\pi)=0$. La regla del cociente tiene una resta que se vuelve suma.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivamos usando la **regla del cociente**:\n\n$$y' = \\frac{-\\sin(x) \\cdot x - \\cos(x) \\cdot 1}{x^2}$$\n\nEvaluamos en $x = \\pi$:\n\n$$y'(\\pi) = \\frac{-\\sin(\\pi) \\cdot \\pi - \\cos(\\pi)}{\\pi^2}$$\n\nRecordamos que $\\sin(\\pi) = 0$ y $\\cos(\\pi) = -1$:\n\n$$y'(\\pi) = \\frac{-0 \\cdot \\pi - (-1)}{\\pi^2} = \\frac{1}{\\pi^2}$$\n\nLa pendiente es positiva y muy pequeña, lo que indica que la función está subiendo levemente en ese punto."
+    "explanation": "Derivamos usando la **regla del cociente**:\n\n$$y' = \\frac{-\\sin(x) \\cdot x - \\cos(x) \\cdot 1}{x^2}$$\n\nEvaluamos en $x = \\pi$:\n\n$$y'(\\pi) = \\frac{-\\sin(\\pi) \\cdot \\pi - \\cos(\\pi)}{\\pi^2}$$\n\nRecordamos que $\\sin(\\pi) = 0$ y $\\cos(\\pi) = -1$:\n\n$$y'(\\pi) = \\frac{-0 \\cdot \\pi - (-1)}{\\pi^2} = \\frac{1}{\\pi^2}$$\n\nLa pendiente es positiva y muy pequeña, lo que indica que la función está subiendo levemente en ese punto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_09",
@@ -577,7 +605,8 @@
     "feedback_incorrect": "Aplicá la regla del producto: $f'(x) = 2x g(x) + (x^2-4)g'(x)$. Fijate qué pasa cuando ponés $x=2$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto**:\n\n$$f'(x) = (x^2-4)' g(x) + (x^2-4) g'(x) = 2x g(x) + (x^2-4) g'(x)$$\n\nEvaluamos en $x = 2$:\n\n$$f'(2) = 2(2) g(2) + (2^2-4) g'(2)$$\n\nComo $2^2 - 4 = 0$, el segundo término se anula por completo, sin importar cuánto valga $g'(2)$:\n\n$$f'(2) = 4 \\cdot 10 + 0 = 40$$\n\nEste es un truco útil cuando una de las funciones en el producto tiene una **raíz** en el punto de interés."
+    "explanation": "Aplicamos la **regla del producto**:\n\n$$f'(x) = (x^2-4)' g(x) + (x^2-4) g'(x) = 2x g(x) + (x^2-4) g'(x)$$\n\nEvaluamos en $x = 2$:\n\n$$f'(2) = 2(2) g(2) + (2^2-4) g'(2)$$\n\nComo $2^2 - 4 = 0$, el segundo término se anula por completo, sin importar cuánto valga $g'(2)$:\n\n$$f'(2) = 4 \\cdot 10 + 0 = 40$$\n\nEste es un truco útil cuando una de las funciones en el producto tiene una **raíz** en el punto de interés.",
+    "reviewed": false
   },
   {
     "external_id": "violet_product_quotient_apli_10",
@@ -597,6 +626,7 @@
     "feedback_incorrect": "Fijate dónde se anula el denominador $x^2-1$. En esos puntos la función ni siquiera es continua.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **derivabilidad** requiere primero que la función sea continua. En una función racional, hay discontinuidades donde el denominador es cero.\n\n$$x^2 - 1 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = 1 \\text{ o } x = -1$$\n\nEn estos puntos hay **asíntotas verticales**. Como la función no está definida allí, tampoco existe su derivada. Al aplicar la regla del cociente, verás que el denominador resultante $(x^2-1)^2$ también se anula en los mismos valores, confirmando que la pendiente 'estalla' hacia el infinito."
+    "explanation": "La **derivabilidad** requiere primero que la función sea continua. En una función racional, hay discontinuidades donde el denominador es cero.\n\n$$x^2 - 1 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = 1 \\text{ o } x = -1$$\n\nEn estos puntos hay **asíntotas verticales**. Como la función no está definida allí, tampoco existe su derivada. Al aplicar la regla del cociente, verás que el denominador resultante $(x^2-1)^2$ también se anula en los mismos valores, confirmando que la pendiente 'estalla' hacia el infinito.",
+    "reviewed": false
   }
 ]

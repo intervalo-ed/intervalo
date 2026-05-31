@@ -17,7 +17,8 @@
     "feedback_incorrect": "La expresión $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ define $f'(a)$, que es la pendiente de la recta tangente a $f$ en $x=a$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **derivada** $f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$ captura la pendiente de la recta tangente a la curva en $x=a$. El cociente $\\frac{f(a+h)-f(a)}{h}$ es la pendiente de la secante que pasa por $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\nAl hacer $h \\to 0$, la secante se convierte en la tangente: el límite da la pendiente exacta en ese punto."
+    "explanation": "La **derivada** $f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$ captura la pendiente de la recta tangente a la curva en $x=a$. El cociente $\\frac{f(a+h)-f(a)}{h}$ es la pendiente de la secante que pasa por $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\nAl hacer $h \\to 0$, la secante se convierte en la tangente: el límite da la pendiente exacta en ese punto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_02",
@@ -37,7 +38,8 @@
     "feedback_incorrect": "La expresión $\\frac{f(a+h)-f(a)}{h}$ se llama **cociente incremental**: es la pendiente de la secante antes de tomar el límite.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **cociente incremental** $\\frac{f(a+h)-f(a)}{h}$ representa la tasa de cambio *promedio* de $f$ en el intervalo $[a,\\,a+h]$. Es la pendiente de la recta secante que une los puntos $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$\\text{Cociente incremental} = \\frac{f(a+h)-f(a)}{h}$$\n\nAl tomar el límite cuando $h \\to 0$, el cociente incremental converge a la derivada $f'(a)$: la tasa de cambio *instantánea*."
+    "explanation": "El **cociente incremental** $\\frac{f(a+h)-f(a)}{h}$ representa la tasa de cambio *promedio* de $f$ en el intervalo $[a,\\,a+h]$. Es la pendiente de la recta secante que une los puntos $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$\\text{Cociente incremental} = \\frac{f(a+h)-f(a)}{h}$$\n\nAl tomar el límite cuando $h \\to 0$, el cociente incremental converge a la derivada $f'(a)$: la tasa de cambio *instantánea*.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_03",
@@ -57,7 +59,8 @@
     "feedback_incorrect": "En la definición, $h$ es el incremento que tiende a $0$. El punto $a$ es fijo; $x$ no aparece en esta forma de la definición.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la definición de la derivada, $h$ representa el **incremento** en $x$: la distancia desde $a$ hasta $a+h$. Es $h$ quien tiende a $0$, no $x$ ni $a$.\n\n$$f'(a) = \\lim_{\\mathbf{h} \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es un punto fijo; $h$ es la variable que achicamos. Cuando $h=0$ el cociente sería $\\frac{0}{0}$, por eso necesitamos el límite en vez de la evaluación directa."
+    "explanation": "En la definición de la derivada, $h$ representa el **incremento** en $x$: la distancia desde $a$ hasta $a+h$. Es $h$ quien tiende a $0$, no $x$ ni $a$.\n\n$$f'(a) = \\lim_{\\mathbf{h} \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es un punto fijo; $h$ es la variable que achicamos. Cuando $h=0$ el cociente sería $\\frac{0}{0}$, por eso necesitamos el límite en vez de la evaluación directa.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_04",
@@ -77,7 +80,8 @@
     "feedback_incorrect": "La notación de Leibniz para la derivada es $\\dfrac{df}{dx}$. Las otras opciones son notaciones válidas de derivada (Lagrange, Euler) o el cociente incremental finito.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Existen varias notaciones equivalentes para la derivada. La **notación de Leibniz** es $\\dfrac{df}{dx}$ (o $\\dfrac{dy}{dx}$ si $y=f(x)$), y enfatiza que la derivada es una razón de cambios infinitesimales.\n\n$$f'(x) = \\frac{df}{dx} = \\frac{d}{dx}[f(x)]$$\n\n$f'(x)$ es la notación de Lagrange, $Df$ la de Euler, y $\\Delta f/\\Delta x$ es el cociente incremental finito (no la derivada). Todas son útiles; en cálculo diferencial se mezclan según el contexto."
+    "explanation": "Existen varias notaciones equivalentes para la derivada. La **notación de Leibniz** es $\\dfrac{df}{dx}$ (o $\\dfrac{dy}{dx}$ si $y=f(x)$), y enfatiza que la derivada es una razón de cambios infinitesimales.\n\n$$f'(x) = \\frac{df}{dx} = \\frac{d}{dx}[f(x)]$$\n\n$f'(x)$ es la notación de Lagrange, $Df$ la de Euler, y $\\Delta f/\\Delta x$ es el cociente incremental finito (no la derivada). Todas son útiles; en cálculo diferencial se mezclan según el contexto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_05",
@@ -97,7 +101,8 @@
     "feedback_incorrect": "Si $f'(a)$ existe y es finito, $f$ es **diferenciable** en $x=a$. Continuidad es necesaria pero no suficiente para diferenciabilidad.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite $\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}$ existe y vale un número real finito, decimos que $f$ es **diferenciable** en $x=a$.\n\n$$f \\text{ diferenciable en } a \\iff f'(a) \\in \\mathbb{R}$$\n\nDiferenciable es más restrictivo que continua: toda función diferenciable es continua, pero no toda función continua es diferenciable (ejemplo clásico: $f(x)=|x|$ en $x=0$)."
+    "explanation": "Cuando el límite $\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}$ existe y vale un número real finito, decimos que $f$ es **diferenciable** en $x=a$.\n\n$$f \\text{ diferenciable en } a \\iff f'(a) \\in \\mathbb{R}$$\n\nDiferenciable es más restrictivo que continua: toda función diferenciable es continua, pero no toda función continua es diferenciable (ejemplo clásico: $f(x)=|x|$ en $x=0$).",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_06",
@@ -117,7 +122,8 @@
     "feedback_incorrect": "$f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto. Son conceptos completamente distintos.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(a)$ y $f'(a)$ son objetos completamente distintos. $f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto.\n\n$$f(a) = \\text{valor}, \\qquad f'(a) = \\text{tasa de cambio instantánea}$$\n\nEjemplo: para $f(x)=x^2$, $f(3)=9$ (el punto está en $y=9$) pero $f'(3)=6$ (la curva sube con pendiente $6$ en ese punto)."
+    "explanation": "$f(a)$ y $f'(a)$ son objetos completamente distintos. $f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto.\n\n$$f(a) = \\text{valor}, \\qquad f'(a) = \\text{tasa de cambio instantánea}$$\n\nEjemplo: para $f(x)=x^2$, $f(3)=9$ (el punto está en $y=9$) pero $f'(3)=6$ (la curva sube con pendiente $6$ en ese punto).",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_07",
@@ -137,7 +143,8 @@
     "feedback_incorrect": "La definición correcta divide la variación de $f$ por $h$ (no por $x$) y toma el límite cuando $h \\to 0$ (no $x \\to 0$). Sin el límite, es solo el cociente incremental.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La definición correcta de la derivada divide la variación de $f$ por el **incremento** $h$ y luego toma el límite cuando ese incremento tiende a cero.\n\n$$f'(x) = \\lim_{h \\to 0}\\frac{f(x+h)-f(x)}{h}$$\n\nLos errores frecuentes: dividir por $x$ en vez de $h$ (opción B), hacer tender $x$ en vez de $h$ (opción C), u olvidar el límite (opción D). Sin el límite, la expresión es el cociente incremental, no la derivada."
+    "explanation": "La definición correcta de la derivada divide la variación de $f$ por el **incremento** $h$ y luego toma el límite cuando ese incremento tiende a cero.\n\n$$f'(x) = \\lim_{h \\to 0}\\frac{f(x+h)-f(x)}{h}$$\n\nLos errores frecuentes: dividir por $x$ en vez de $h$ (opción B), hacer tender $x$ en vez de $h$ (opción C), u olvidar el límite (opción D). Sin el límite, la expresión es el cociente incremental, no la derivada.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_08",
@@ -157,7 +164,8 @@
     "feedback_incorrect": "La derivada $f'(a)$ mide la **tasa de cambio instantánea** en $x=a$: cómo cambia $f$ en ese punto exacto, no en un intervalo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tasa de cambio instantánea** en $x=a$ responde a la pregunta: ¿a qué velocidad está cambiando $f$ exactamente en ese punto? No en un intervalo, sino en un instante.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h} = \\text{tasa instantánea en } x=a$$\n\nContraste con la tasa promedio en $[a, b]$: $\\dfrac{f(b)-f(a)}{b-a}$. Cuando el intervalo se achica hasta un punto, la tasa promedio converge a la instantánea."
+    "explanation": "La **tasa de cambio instantánea** en $x=a$ responde a la pregunta: ¿a qué velocidad está cambiando $f$ exactamente en ese punto? No en un intervalo, sino en un instante.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h} = \\text{tasa instantánea en } x=a$$\n\nContraste con la tasa promedio en $[a, b]$: $\\dfrac{f(b)-f(a)}{b-a}$. Cuando el intervalo se achica hasta un punto, la tasa promedio converge a la instantánea.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_09",
@@ -177,7 +185,8 @@
     "feedback_incorrect": "$\\Delta f / f$ no es una notación de derivada. El cociente incremental es $\\Delta f / \\Delta x$, no $\\Delta f / f$. Las opciones B, C y D sí representan la derivada.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\Delta f / f$ no es una notación estándar para la derivada. $\\Delta f$ representa una variación finita de $f$ y dividirla por $f$ no tiene un significado diferencial definido.\n\n$$\\text{Notaciones válidas: } f'(x),\\; \\frac{dy}{dx},\\; \\frac{d}{dx}[f(x)],\\; Df,\\; \\dot{f}$$\n\nEl cociente $\\Delta f / \\Delta x$ (con $\\Delta x$, no $f$) sí es el cociente incremental finito, que al tomar el límite da la derivada. La opción A confunde $\\Delta x$ con $f$."
+    "explanation": "$\\Delta f / f$ no es una notación estándar para la derivada. $\\Delta f$ representa una variación finita de $f$ y dividirla por $f$ no tiene un significado diferencial definido.\n\n$$\\text{Notaciones válidas: } f'(x),\\; \\frac{dy}{dx},\\; \\frac{d}{dx}[f(x)],\\; Df,\\; \\dot{f}$$\n\nEl cociente $\\Delta f / \\Delta x$ (con $\\Delta x$, no $f$) sí es el cociente incremental finito, que al tomar el límite da la derivada. La opción A confunde $\\Delta x$ con $f$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_lexi_10",
@@ -197,7 +206,8 @@
     "feedback_incorrect": "En la definición $f'(a) = \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$, es $h$ quien tiende a $0$. El punto $a$ es fijo.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La definición de derivada siempre termina con el límite cuando el **incremento** $h$ tiende a cero. Es $h$, la variación en $x$, quien se achica.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es el punto fijo donde evaluamos; $x$ no aparece en esta forma de la definición. Que $h \\to 0$ significa que observamos el comportamiento de la función en una vecindad cada vez más pequeña alrededor de $a$."
+    "explanation": "La definición de derivada siempre termina con el límite cuando el **incremento** $h$ tiende a cero. Es $h$, la variación en $x$, quien se achica.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es el punto fijo donde evaluamos; $x$ no aparece en esta forma de la definición. Que $h \\to 0$ significa que observamos el comportamiento de la función en una vecindad cada vez más pequeña alrededor de $a$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_01",
@@ -217,7 +227,8 @@
     "feedback_incorrect": "Para $f(x)=3x+2$: $\\frac{[3(x+h)+2]-(3x+2)}{h} = \\frac{3h}{h} = 3$. El límite cuando $h\\to0$ es $3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=3x+2$, el cociente incremental simplifica directamente a la pendiente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{[3(x+h)+2]-(3x+2)}{h} = \\frac{3h}{h} = 3$$\n\nComo el resultado no depende de $h$, el límite es inmediato: $f'(x) = \\lim_{h\\to 0} 3 = 3$. Para cualquier función lineal $f(x)=mx+b$, la derivada es la pendiente $m$."
+    "explanation": "Para $f(x)=3x+2$, el cociente incremental simplifica directamente a la pendiente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{[3(x+h)+2]-(3x+2)}{h} = \\frac{3h}{h} = 3$$\n\nComo el resultado no depende de $h$, el límite es inmediato: $f'(x) = \\lim_{h\\to 0} 3 = 3$. Para cualquier función lineal $f(x)=mx+b$, la derivada es la pendiente $m$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_02",
@@ -237,7 +248,8 @@
     "feedback_incorrect": "Expandiendo: $\\frac{(x+h)^2-x^2}{h} = \\frac{2xh+h^2}{h} = 2x+h \\xrightarrow{h\\to0} 2x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Expandimos $(x+h)^2 = x^2 + 2xh + h^2$ y formamos el cociente:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{2xh + h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nAl tomar $\\lim_{h\\to0}(2x+h) = 2x$, obtenemos $f'(x) = 2x$. Este es el caso fundamental que muestra cómo $h$ se cancela antes de tomar el límite."
+    "explanation": "Expandimos $(x+h)^2 = x^2 + 2xh + h^2$ y formamos el cociente:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{2xh + h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nAl tomar $\\lim_{h\\to0}(2x+h) = 2x$, obtenemos $f'(x) = 2x$. Este es el caso fundamental que muestra cómo $h$ se cancela antes de tomar el límite.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_03",
@@ -257,7 +269,8 @@
     "feedback_incorrect": "Reemplazamos $x$ por $(x+h)$: $f(x+h) = (x+h)^2+1 = x^2+2xh+h^2+1$. No olvidar el término cruzado $2xh$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para calcular $f(x+h)$, reemplazamos **cada aparición de $x$** por $(x+h)$ en la fórmula de $f$:\n\n$$f(x+h) = (x+h)^2 + 1 = x^2 + 2xh + h^2 + 1$$\n\nEl error más frecuente es escribir $x^2 + h^2 + 1$ (olvidar el término cruzado $2xh$) o $x^2 + h + 1$ (no elevar al cuadrado). La expansión correcta de $(x+h)^2$ siempre tiene tres términos."
+    "explanation": "Para calcular $f(x+h)$, reemplazamos **cada aparición de $x$** por $(x+h)$ en la fórmula de $f$:\n\n$$f(x+h) = (x+h)^2 + 1 = x^2 + 2xh + h^2 + 1$$\n\nEl error más frecuente es escribir $x^2 + h^2 + 1$ (olvidar el término cruzado $2xh$) o $x^2 + h + 1$ (no elevar al cuadrado). La expansión correcta de $(x+h)^2$ siempre tiene tres términos.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_04",
@@ -277,7 +290,8 @@
     "feedback_incorrect": "Expandiendo: $\\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Expandimos el numerador y cancelamos $h$:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nLa clave es **factorizar $h$** en el numerador antes de cancelar con el denominador. Nunca se puede cancelar $h$ si no está factorizado."
+    "explanation": "Expandimos el numerador y cancelamos $h$:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nLa clave es **factorizar $h$** en el numerador antes de cancelar con el denominador. Nunca se puede cancelar $h$ si no está factorizado.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_05",
@@ -297,7 +311,8 @@
     "feedback_incorrect": "Una vez simplificado, sustituimos $h=0$: $\\lim_{h\\to0}(2x+h) = 2x+0 = 2x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una vez simplificado el cociente incremental, se aplica el límite cuando $h \\to 0$. El término $h$ desaparece y queda solo el término con $x$:\n\n$$f'(x) = \\lim_{h \\to 0}(2x+h) = 2x + 0 = 2x$$\n\nEste es el paso final del proceso: simplificar primero (para que no haya $\\frac{0}{0}$), y luego sustituir $h=0$ libremente."
+    "explanation": "Una vez simplificado el cociente incremental, se aplica el límite cuando $h \\to 0$. El término $h$ desaparece y queda solo el término con $x$:\n\n$$f'(x) = \\lim_{h \\to 0}(2x+h) = 2x + 0 = 2x$$\n\nEste es el paso final del proceso: simplificar primero (para que no haya $\\frac{0}{0}$), y luego sustituir $h=0$ libremente.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_06",
@@ -317,7 +332,8 @@
     "feedback_incorrect": "Usando $f'(x)=2x$ (o la definición directa con $a=2$): $f'(2)=2\\cdot2=4$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Podemos usar el resultado general $f'(x)=2x$ y evaluar en $x=2$, o aplicar la definición directamente con $a=2$:\n\n$$f'(2) = \\lim_{h \\to 0}\\frac{(2+h)^2 - 4}{h} = \\lim_{h \\to 0}\\frac{4+4h+h^2-4}{h} = \\lim_{h\\to0}(4+h) = 4$$\n\nAmbos caminos dan $f'(2)=4$: la tangente a la parábola en $x=2$ tiene pendiente $4$."
+    "explanation": "Podemos usar el resultado general $f'(x)=2x$ y evaluar en $x=2$, o aplicar la definición directamente con $a=2$:\n\n$$f'(2) = \\lim_{h \\to 0}\\frac{(2+h)^2 - 4}{h} = \\lim_{h \\to 0}\\frac{4+4h+h^2-4}{h} = \\lim_{h\\to0}(4+h) = 4$$\n\nAmbos caminos dan $f'(2)=4$: la tangente a la parábola en $x=2$ tiene pendiente $4$.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_07",
@@ -337,7 +353,8 @@
     "feedback_incorrect": "Para $f(x)=5$: $\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = 0$. El límite cuando $h\\to0$ es $0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función constante, $f(x+h) = 5$ y $f(x) = 5$, así que el numerador es siempre $0$:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = \\frac{0}{h} = 0$$\n\nEl límite cuando $h\\to0$ es $0$, por lo que $f'(x)=0$. Intuitivamente: una función constante no cambia, su tasa de cambio es nula."
+    "explanation": "Para una función constante, $f(x+h) = 5$ y $f(x) = 5$, así que el numerador es siempre $0$:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = \\frac{0}{h} = 0$$\n\nEl límite cuando $h\\to0$ es $0$, por lo que $f'(x)=0$. Intuitivamente: una función constante no cambia, su tasa de cambio es nula.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_08",
@@ -357,7 +374,8 @@
     "feedback_incorrect": "La cancelación de $h$ ocurre durante la simplificación algebraica: factorizar $h$ en el numerador y luego cancelar, antes de aplicar $h\\to0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La cancelación de $h$ ocurre **durante la simplificación algebraica**, no después de tomar el límite. El orden correcto es:\n\n$$\\frac{f(x+h)-f(x)}{h} \\xrightarrow{\\text{expandir}} \\frac{\\ldots + h(\\ldots)}{h} \\xrightarrow{\\text{cancelar } h} \\text{expresión sin } h \\text{ en denom.} \\xrightarrow{h\\to0} f'(x)$$\n\nNunca se aplica $h=0$ mientras $h$ esté en el denominador: eso daría $\\frac{0}{0}$. La cancelación previa es lo que habilita la sustitución final."
+    "explanation": "La cancelación de $h$ ocurre **durante la simplificación algebraica**, no después de tomar el límite. El orden correcto es:\n\n$$\\frac{f(x+h)-f(x)}{h} \\xrightarrow{\\text{expandir}} \\frac{\\ldots + h(\\ldots)}{h} \\xrightarrow{\\text{cancelar } h} \\text{expresión sin } h \\text{ en denom.} \\xrightarrow{h\\to0} f'(x)$$\n\nNunca se aplica $h=0$ mientras $h$ esté en el denominador: eso daría $\\frac{0}{0}$. La cancelación previa es lo que habilita la sustitución final.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_09",
@@ -377,7 +395,8 @@
     "feedback_incorrect": "Expandiendo: $f(x+h)=2(x+h)^2-(x+h)=2x^2+4xh+2h^2-x-h$. El cociente simplifica a $4x+2h-1 \\to 4x-1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Expandimos $f(x+h)=2(x+h)^2-(x+h) = 2x^2+4xh+2h^2-x-h$ y formamos el cociente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{4xh+2h^2-h}{h} = \\frac{h(4x+2h-1)}{h} = 4x+2h-1$$\n\nTomando $\\lim_{h\\to0}(4x+2h-1)=4x-1$. Hay que ser cuidadoso con el término lineal $-h$ que contribuye con $-1$ al resultado final."
+    "explanation": "Expandimos $f(x+h)=2(x+h)^2-(x+h) = 2x^2+4xh+2h^2-x-h$ y formamos el cociente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{4xh+2h^2-h}{h} = \\frac{h(4x+2h-1)}{h} = 4x+2h-1$$\n\nTomando $\\lim_{h\\to0}(4x+2h-1)=4x-1$. Hay que ser cuidadoso con el término lineal $-h$ que contribuye con $-1$ al resultado final.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_estr_10",
@@ -397,7 +416,8 @@
     "feedback_incorrect": "La definición con $a=0$: $\\frac{h^2-3h}{h} = h-3 \\xrightarrow{h\\to0} -3$. O bien: $f'(x)=2x-3$, evaluado en $x=0$ da $-3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Derivamos $f(x)=x^2-3x$ por definición y obtenemos $f'(x)=2x-3$ (o evaluamos directamente en $a=0$):\n\n$$f'(0) = \\lim_{h\\to0}\\frac{h^2-3h}{h} = \\lim_{h\\to0}(h-3) = -3$$\n\nEl resultado $-3$ significa que en $x=0$ la curva cae con pendiente $3$: por cada unidad que avanza $x$, $f$ baja $3$ unidades."
+    "explanation": "Derivamos $f(x)=x^2-3x$ por definición y obtenemos $f'(x)=2x-3$ (o evaluamos directamente en $a=0$):\n\n$$f'(0) = \\lim_{h\\to0}\\frac{h^2-3h}{h} = \\lim_{h\\to0}(h-3) = -3$$\n\nEl resultado $-3$ significa que en $x=0$ la curva cae con pendiente $3$: por cada unidad que avanza $x$, $f$ baja $3$ unidades.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_01",
@@ -417,7 +437,8 @@
     "feedback_incorrect": "El cociente incremental en $x=0$ es $\\frac{|h|}{h}$: vale $+1$ para $h>0$ y $-1$ para $h<0$. Al diferir, el límite no existe y $f$ no es diferenciable en $x=0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=|x|$, el cociente incremental en $a=0$ es $\\frac{|h|}{h}$, que depende del signo de $h$:\n\n$$\\lim_{h\\to0^+}\\frac{|h|}{h}=+1 \\neq -1 = \\lim_{h\\to0^-}\\frac{|h|}{h}$$\n\nComo los límites laterales difieren, $f'(0)$ no existe: $|x|$ **no es diferenciable** en $x=0$. Es el ejemplo canónico de función continua (pasa por el origen) pero no suave (tiene una esquina)."
+    "explanation": "Para $f(x)=|x|$, el cociente incremental en $a=0$ es $\\frac{|h|}{h}$, que depende del signo de $h$:\n\n$$\\lim_{h\\to0^+}\\frac{|h|}{h}=+1 \\neq -1 = \\lim_{h\\to0^-}\\frac{|h|}{h}$$\n\nComo los límites laterales difieren, $f'(0)$ no existe: $|x|$ **no es diferenciable** en $x=0$. Es el ejemplo canónico de función continua (pasa por el origen) pero no suave (tiene una esquina).",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_02",
@@ -437,7 +458,8 @@
     "feedback_incorrect": "Si $f'(a)$ existe, entonces $f$ es **continua** en $x=a$. La diferenciabilidad implica continuidad (pero no al revés).",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferenciabilidad implica continuidad**: si $f'(a)$ existe, entonces $f$ es necesariamente continua en $x=a$. La demostración usa que $\\lim_{h\\to0}f(a+h) = f(a)$ se deduce de la existencia del límite del cociente incremental.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nLa recíproca es **falsa**: continuidad no implica diferenciabilidad. El ejemplo es $f(x)=|x|$ en $x=0$: continua pero no diferenciable."
+    "explanation": "La **diferenciabilidad implica continuidad**: si $f'(a)$ existe, entonces $f$ es necesariamente continua en $x=a$. La demostración usa que $\\lim_{h\\to0}f(a+h) = f(a)$ se deduce de la existencia del límite del cociente incremental.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nLa recíproca es **falsa**: continuidad no implica diferenciabilidad. El ejemplo es $f(x)=|x|$ en $x=0$: continua pero no diferenciable.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_03",
@@ -457,7 +479,8 @@
     "feedback_incorrect": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en $x=0$ pero no diferenciable: tiene una esquina.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en todo $\\mathbb{R}$, incluso en $x=0$: el límite existe e iguala $f(0)=0$.\n\n$$\\lim_{x\\to0}|x|=0=f(0) \\quad \\checkmark \\text{ (continua)}$$\n$$\\text{pero } \\lim_{h\\to0}\\frac{|h|}{h} \\text{ no existe} \\quad \\Rightarrow \\text{no diferenciable}$$\n\nLa esquina en $x=0$ es la evidencia gráfica: las tangentes desde la izquierda y la derecha no coinciden."
+    "explanation": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en todo $\\mathbb{R}$, incluso en $x=0$: el límite existe e iguala $f(0)=0$.\n\n$$\\lim_{x\\to0}|x|=0=f(0) \\quad \\checkmark \\text{ (continua)}$$\n$$\\text{pero } \\lim_{h\\to0}\\frac{|h|}{h} \\text{ no existe} \\quad \\Rightarrow \\text{no diferenciable}$$\n\nLa esquina en $x=0$ es la evidencia gráfica: las tangentes desde la izquierda y la derecha no coinciden.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_04",
@@ -477,7 +500,8 @@
     "feedback_incorrect": "Una esquina en $x=a$ implica que las derivadas laterales difieren, por lo que $f'(a)$ no existe: la función **no es diferenciable** allí. Puede ser continua igual.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **esquina** en $x=a$ significa que la curva cambia de dirección abruptamente: la tangente desde la izquierda tiene una pendiente y desde la derecha otra.\n\n$$\\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} \\neq \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nComo los límites laterales del cociente incremental difieren, $f'(a)$ no existe. La función puede ser continua en $x=a$ (la curva pasa por el punto) pero no diferenciable (tiene quiebre)."
+    "explanation": "Una **esquina** en $x=a$ significa que la curva cambia de dirección abruptamente: la tangente desde la izquierda tiene una pendiente y desde la derecha otra.\n\n$$\\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} \\neq \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nComo los límites laterales del cociente incremental difieren, $f'(a)$ no existe. La función puede ser continua en $x=a$ (la curva pasa por el punto) pero no diferenciable (tiene quiebre).",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_05",
@@ -497,7 +521,8 @@
     "feedback_incorrect": "Si las derivadas laterales son distintas, el límite bilateral del cociente no existe: $f'(a)$ no existe y $f$ **no es diferenciable** en $a$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f'(a)$ exista, el límite del cociente incremental debe existir como límite bilateral. Eso requiere que los límites laterales **coincidan**:\n\n$$f'(a) \\text{ existe} \\iff \\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} = \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nSi difieren, $f'(a)$ no existe y $f$ es **no diferenciable** en $x=a$. Esto ocurre en esquinas, cúspides y puntos donde la tangente sería vertical."
+    "explanation": "Para que $f'(a)$ exista, el límite del cociente incremental debe existir como límite bilateral. Eso requiere que los límites laterales **coincidan**:\n\n$$f'(a) \\text{ existe} \\iff \\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} = \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nSi difieren, $f'(a)$ no existe y $f$ es **no diferenciable** en $x=a$. Esto ocurre en esquinas, cúspides y puntos donde la tangente sería vertical.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_06",
@@ -517,7 +542,8 @@
     "feedback_incorrect": "$f(x)=x^3$ es diferenciable en todo $\\mathbb{R}$. En $x=0$: $\\frac{(0+h)^3-0}{h}=h^2\\to0$, luego $f'(0)=0$. No hay esquina: la curva pasa suavemente por el origen.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x)=x^3$ es diferenciable en **todo** $\\mathbb{R}$, incluso en $x=0$. El cociente incremental:\n\n$$\\frac{(0+h)^3 - 0}{h} = \\frac{h^3}{h} = h^2 \\xrightarrow{h\\to0} 0$$\n\nAsí que $f'(0) = 0$: la tangente en el origen es horizontal. A diferencia de $|x|$, la curva $x^3$ pasa suavemente por el origen sin esquinas, aunque visualmente tenga un punto de inflexión."
+    "explanation": "$f(x)=x^3$ es diferenciable en **todo** $\\mathbb{R}$, incluso en $x=0$. El cociente incremental:\n\n$$\\frac{(0+h)^3 - 0}{h} = \\frac{h^3}{h} = h^2 \\xrightarrow{h\\to0} 0$$\n\nAsí que $f'(0) = 0$: la tangente en el origen es horizontal. A diferencia de $|x|$, la curva $x^3$ pasa suavemente por el origen sin esquinas, aunque visualmente tenga un punto de inflexión.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_07",
@@ -537,7 +563,8 @@
     "feedback_incorrect": "La diferenciabilidad requiere continuidad como condición previa. Un salto es una discontinuidad, y donde $f$ no es continua tampoco puede ser diferenciable.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferenciabilidad requiere continuidad como condición previa. Si $f$ tiene una **discontinuidad de salto** en $x=1$, no es continua allí, y por lo tanto tampoco puede ser diferenciable.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nContrarecíproco: si $f$ **no** es continua en $a$, entonces **no** es diferenciable en $a$. La cadena de implicación no puede sostenerse si hay un salto."
+    "explanation": "La diferenciabilidad requiere continuidad como condición previa. Si $f$ tiene una **discontinuidad de salto** en $x=1$, no es continua allí, y por lo tanto tampoco puede ser diferenciable.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nContrarecíproco: si $f$ **no** es continua en $a$, entonces **no** es diferenciable en $a$. La cadena de implicación no puede sostenerse si hay un salto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_08",
@@ -557,7 +584,8 @@
     "feedback_incorrect": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**. No implica que $f(a)=0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**.\n\n$$f'(a) = 0 \\implies \\text{tangente horizontal en } x=a$$\n\nEsto ocurre en **máximos** y **mínimos locales** (y también en puntos de inflexión horizontales como $x=0$ para $f(x)=x^3$). No implica que $f(a)=0$: el punto puede estar a cualquier altura."
+    "explanation": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**.\n\n$$f'(a) = 0 \\implies \\text{tangente horizontal en } x=a$$\n\nEsto ocurre en **máximos** y **mínimos locales** (y también en puntos de inflexión horizontales como $x=0$ para $f(x)=x^3$). No implica que $f(a)=0$: el punto puede estar a cualquier altura.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_09",
@@ -577,7 +605,8 @@
     "feedback_incorrect": "Si $f'(a)>0$, la función es **localmente creciente** en $x=a$: la tangente tiene pendiente positiva, la curva sube al avanzar en $x$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada positiva indica que la función **crece**: por cada pequeño avance en $x$, $f(x)$ aumenta.\n\n$$f'(a) > 0 \\implies f \\text{ es creciente en una vecindad de } a$$\n\nGeométricamente: la tangente sube de izquierda a derecha (pendiente positiva). Contraste: $f'(a)<0$ implica función decreciente; $f'(a)=0$ podría ser extremo o inflexión."
+    "explanation": "La derivada positiva indica que la función **crece**: por cada pequeño avance en $x$, $f(x)$ aumenta.\n\n$$f'(a) > 0 \\implies f \\text{ es creciente en una vecindad de } a$$\n\nGeométricamente: la tangente sube de izquierda a derecha (pendiente positiva). Contraste: $f'(a)<0$ implica función decreciente; $f'(a)=0$ podría ser extremo o inflexión.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_clsf_10",
@@ -597,7 +626,8 @@
     "feedback_incorrect": "La definición de diferenciabilidad es que $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ exista como número real finito. Continuidad (opción B) es necesaria pero no suficiente.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **definición formal** de diferenciabilidad es que el límite del cociente incremental exista y sea un número real:\n\n$$f \\text{ diferenciable en } a \\iff \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h} = L \\in \\mathbb{R}$$\n\nContinuidad (opción B) es necesaria pero no suficiente. Que $f'(a)>0$ (opción C) ya asumiría que existe. Y la gráfica podría ser localmente recta sin ser diferenciable en sentido estricto."
+    "explanation": "La **definición formal** de diferenciabilidad es que el límite del cociente incremental exista y sea un número real:\n\n$$f \\text{ diferenciable en } a \\iff \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h} = L \\in \\mathbb{R}$$\n\nContinuidad (opción B) es necesaria pero no suficiente. Que $f'(a)>0$ (opción C) ya asumiría que existe. Y la gráfica podría ser localmente recta sin ser diferenciable en sentido estricto.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_01",
@@ -622,7 +652,8 @@
       "yMin": -5,
       "yMax": 5
     },
-    "explanation": "La **tangente horizontal** ocurre donde $f'(x)=0$. Para $f(x)=x^2-4$, derivamos: $f'(x)=2x$, que se anula en $x=0$.\n\n$$f'(x) = 2x = 0 \\implies x = 0$$\n\nGeométricamente, $x=0$ es el vértice de la parábola: el punto más bajo. En ese punto la curva «cambia de bajada a subida» y la tangente es exactamente horizontal."
+    "explanation": "La **tangente horizontal** ocurre donde $f'(x)=0$. Para $f(x)=x^2-4$, derivamos: $f'(x)=2x$, que se anula en $x=0$.\n\n$$f'(x) = 2x = 0 \\implies x = 0$$\n\nGeométricamente, $x=0$ es el vértice de la parábola: el punto más bajo. En ese punto la curva «cambia de bajada a subida» y la tangente es exactamente horizontal.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_02",
@@ -647,7 +678,8 @@
       "yMin": -2,
       "yMax": 4
     },
-    "explanation": "La derivada $f'(x)=2x-2$ es positiva cuando $2x-2>0$, es decir, cuando $x>1$.\n\n$$f'(x) = 2x-2 > 0 \\iff x > 1$$\n\nGeométricamente: la curva **sube** (de izquierda a derecha) en $x>1$. El vértice de la parábola está en $x=1$ (donde $f'(1)=0$); a la derecha la función crece, a la izquierda decrece."
+    "explanation": "La derivada $f'(x)=2x-2$ es positiva cuando $2x-2>0$, es decir, cuando $x>1$.\n\n$$f'(x) = 2x-2 > 0 \\iff x > 1$$\n\nGeométricamente: la curva **sube** (de izquierda a derecha) en $x>1$. El vértice de la parábola está en $x=1$ (donde $f'(1)=0$); a la derecha la función crece, a la izquierda decrece.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_03",
@@ -672,7 +704,8 @@
       "yMin": -1,
       "yMax": 4
     },
-    "explanation": "La gráfica muestra una **esquina** en $x=2$. Las derivadas laterales son:\n\n$$\\lim_{h\\to0^-}\\frac{f(2+h)-0}{h} = -1 \\quad \\neq \\quad \\lim_{h\\to0^+}\\frac{f(2+h)-0}{h} = +1$$\n\nComo difieren, $f'(2)$ no existe: la función **no es diferenciable** en $x=2$. Sin embargo sí es continua: la curva pasa por $(2,0)$ sin saltos."
+    "explanation": "La gráfica muestra una **esquina** en $x=2$. Las derivadas laterales son:\n\n$$\\lim_{h\\to0^-}\\frac{f(2+h)-0}{h} = -1 \\quad \\neq \\quad \\lim_{h\\to0^+}\\frac{f(2+h)-0}{h} = +1$$\n\nComo difieren, $f'(2)$ no existe: la función **no es diferenciable** en $x=2$. Sin embargo sí es continua: la curva pasa por $(2,0)$ sin saltos.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_04",
@@ -697,7 +730,8 @@
       "yMin": -1,
       "yMax": 9
     },
-    "explanation": "La **pendiente de la secante** entre dos puntos de la curva es el cociente incremental finito:\n\n$$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = \\frac{8}{2} = 4$$\n\nEste valor es la tasa de cambio *promedio* de $f$ en $[1,3]$. Si achicáramos el intervalo hasta $h\\to0$, convergeríamos a la tasa instantánea $f'(1)=2$ o $f'(3)=6$, según el extremo elegido."
+    "explanation": "La **pendiente de la secante** entre dos puntos de la curva es el cociente incremental finito:\n\n$$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = \\frac{8}{2} = 4$$\n\nEste valor es la tasa de cambio *promedio* de $f$ en $[1,3]$. Si achicáramos el intervalo hasta $h\\to0$, convergeríamos a la tasa instantánea $f'(1)=2$ o $f'(3)=6$, según el extremo elegido.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_05",
@@ -722,7 +756,8 @@
       "yMin": -2,
       "yMax": 4
     },
-    "explanation": "Los ceros de $f'$ (donde la gráfica de $f'$ cruza el eje $x$) son los puntos donde la tangente a $f$ es horizontal: **candidatos a extremos locales**.\n\n$$f'(x) = x^2-1 = 0 \\implies x = \\pm 1$$\n\nEn $x=-1$ y $x=1$, la función $f$ tiene tangente horizontal. Para determinar si son máximos, mínimos o inflexiones, habría que analizar el signo de $f'$ a cada lado."
+    "explanation": "Los ceros de $f'$ (donde la gráfica de $f'$ cruza el eje $x$) son los puntos donde la tangente a $f$ es horizontal: **candidatos a extremos locales**.\n\n$$f'(x) = x^2-1 = 0 \\implies x = \\pm 1$$\n\nEn $x=-1$ y $x=1$, la función $f$ tiene tangente horizontal. Para determinar si son máximos, mínimos o inflexiones, habría que analizar el signo de $f'$ a cada lado.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_06",
@@ -747,7 +782,8 @@
       "yMin": -5,
       "yMax": 6
     },
-    "explanation": "La derivada $f'(x)=-2x$ en $x=3$ vale $f'(3)=-6<0$.\n\n$$f'(3) = -2 \\cdot 3 = -6 < 0$$\n\nGeométricamente: en $x=3$ la curva **desciende** (la tangente tiene pendiente negativa). La función $5-x^2$ es una parábola invertida con vértice en $x=0$; para $x>0$ siempre decrece."
+    "explanation": "La derivada $f'(x)=-2x$ en $x=3$ vale $f'(3)=-6<0$.\n\n$$f'(3) = -2 \\cdot 3 = -6 < 0$$\n\nGeométricamente: en $x=3$ la curva **desciende** (la tangente tiene pendiente negativa). La función $5-x^2$ es una parábola invertida con vértice en $x=0$; para $x>0$ siempre decrece.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_07",
@@ -772,7 +808,8 @@
       "yMin": -4,
       "yMax": 4
     },
-    "explanation": "Buscamos donde $f'(x)=0$: $f'(x)=3x^2-3=3(x-1)(x+1)$.\n\n$$3x^2-3=0 \\implies x^2=1 \\implies x=\\pm 1$$\n\nEn $x=-1$ la función tiene un **máximo local** ($f(-1)=2$) y en $x=1$ un **mínimo local** ($f(1)=-2$). En ambos puntos la tangente es horizontal: la curva «da vuelta»."
+    "explanation": "Buscamos donde $f'(x)=0$: $f'(x)=3x^2-3=3(x-1)(x+1)$.\n\n$$3x^2-3=0 \\implies x^2=1 \\implies x=\\pm 1$$\n\nEn $x=-1$ la función tiene un **máximo local** ($f(-1)=2$) y en $x=1$ un **mínimo local** ($f(1)=-2$). En ambos puntos la tangente es horizontal: la curva «da vuelta».",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_08",
@@ -797,7 +834,8 @@
       "yMin": -2,
       "yMax": 5
     },
-    "explanation": "Para $x>2$, la parábola $-(x-2)^2+4$ desciende desde el vértice $(2,4)$ hacia abajo. Eso se refleja en la derivada:\n\n$$f'(x) = -2(x-2) < 0 \\quad \\text{para } x > 2$$\n\nGeométricamente: **función decreciente ↔ derivada negativa**. El vértice en $x=2$ es donde $f'(2)=0$ y la curva cambia de sentido."
+    "explanation": "Para $x>2$, la parábola $-(x-2)^2+4$ desciende desde el vértice $(2,4)$ hacia abajo. Eso se refleja en la derivada:\n\n$$f'(x) = -2(x-2) < 0 \\quad \\text{para } x > 2$$\n\nGeométricamente: **función decreciente ↔ derivada negativa**. El vértice en $x=2$ es donde $f'(2)=0$ y la curva cambia de sentido.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_09",
@@ -822,7 +860,8 @@
       "yMin": -1,
       "yMax": 6
     },
-    "explanation": "Derivamos $f(x)=x^2$ por definición y obtenemos $f'(x)=2x$.\n\n$$f'(x) = 2x \\quad \\text{— una función lineal (recta)}$$\n\nLa gráfica de $f'$ es la recta $y=2x$: pasa por el origen con pendiente $2$. Esto confirma lo que se ve en la parábola: en $x=0$ la tangente es horizontal ($f'(0)=0$), y la pendiente crece simétricamente a los costados."
+    "explanation": "Derivamos $f(x)=x^2$ por definición y obtenemos $f'(x)=2x$.\n\n$$f'(x) = 2x \\quad \\text{— una función lineal (recta)}$$\n\nLa gráfica de $f'$ es la recta $y=2x$: pasa por el origen con pendiente $2$. Esto confirma lo que se ve en la parábola: en $x=0$ la tangente es horizontal ($f'(0)=0$), y la pendiente crece simétricamente a los costados.",
+    "reviewed": false
   },
   {
     "external_id": "violet_limit_definition_graf_10",
@@ -847,6 +886,7 @@
       "yMin": -1,
       "yMax": 6
     },
-    "explanation": "La ecuación de la recta tangente usa la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x-a) \\implies y - 1 = 2(x-1) \\implies y = 2x-1$$\n\nLa recta pasa por $(1,1)$ con pendiente $f'(1)=2$. Es la mejor aproximación lineal a la parábola cerca de $x=1$: si nos alejamos poco de $x=1$, la recta tangente es casi indistinguible de la curva."
+    "explanation": "La ecuación de la recta tangente usa la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x-a) \\implies y - 1 = 2(x-1) \\implies y = 2x-1$$\n\nLa recta pasa por $(1,1)$ con pendiente $f'(1)=2$. Es la mejor aproximación lineal a la parábola cerca de $x=1$: si nos alejamos poco de $x=1$, la recta tangente es casi indistinguible de la curva.",
+    "reviewed": false
   }
 ]
