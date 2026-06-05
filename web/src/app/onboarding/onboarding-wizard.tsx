@@ -1,293 +1,1271 @@
 "use client"
 
+import { AnimatePresence, motion } from "motion/react"
 import { Button } from "@/components/ui/button"
-import { Wordmark } from "@/components/wordmark"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
+import MathText from "@/components/math-text"
+import { catalog, type Topic } from "@/lib/catalog/analisis-1.generated"
+import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
+import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
-  { value: "S", label: "Ciencias" },
-  { value: "T", label: "Tecnología" },
-  { value: "E", label: "Ingeniería" },
-  { value: "M", label: "Matemática" },
-  { value: "Otra", label: "Otra" },
+  { value: "E", label: "Ingeniería", emoji: "⚙️" },
+  { value: "S", label: "Ciencias", emoji: "🔬" },
+  { value: "T", label: "Tecnología", emoji: "🤖" },
+  { value: "M", label: "Matemática", emoji: "π" },
 ]
 
 const UNIVERSITIES = ["UBA", "UTN", "UNSAM"]
 
-const BELTS = [
-  { name: "Blanco", img: "/belt_white.png" },
-  { name: "Azul", img: "/belt_blue.png" },
-  { name: "Violeta", img: "/belt_purple.png" },
-  { name: "Marrón", img: "/belt_brown.png" },
-  { name: "Negro", img: "/belt_black.png" },
-]
-
-const GRID_BG_STYLE = {
-  backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px",
+// Tipografía que evoca el logo de cada universidad.
+const UNI_FONT: Record<string, React.CSSProperties> = {
+  UBA: { fontFamily: "var(--font-uba)", fontWeight: 500, letterSpacing: "0.06em" },
+  UTN: { fontFamily: "var(--font-utn)", fontWeight: 600, letterSpacing: "0.1em" },
+  UNSAM: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
 }
 
-const TOTAL_STEPS = 5
+const BELTS = [
+  { topic: "Funciones", img: "/bjj_white_belt.png" },
+  { topic: "Límites", img: "/bjj_blue_belt.png" },
+  { topic: "Derivadas", img: "/bjj_purple_belt.png" },
+  { topic: "Integrales", img: "/bjj_brown_belt.png" },
+  { topic: "Aplicaciones", img: "/bjj_black_belt.png" },
+]
+
+const EXERCISE_QUESTION = "¿Cuál de estas expresiones representa una función lineal?"
+const EXERCISE_OPTIONS = [
+  "$f(x) = 5x - 2$",
+  "$f(x) = x^2$",
+  "$f(x) = 3^x$",
+  "$f(x) = \\log(x)$",
+]
+const EXERCISE_CORRECT_INDEX = 0
+const EXERCISE_FEEDBACK =
+  "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes."
+
+const EXERCISE_EXPLANATION =
+  "Una función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes de la forma estándar:**\n• $m$ es la **pendiente** — mide la inclinación de la recta y cuánto varía $f(x)$ por cada unidad de $x$.\n• $b$ es la **ordenada al origen** — el valor de $f(x)$ cuando $x = 0$."
+
+const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
+
+const WHITE_BELT_FUNCTIONS = [
+  { name: "Lineales", items: ["CLSF", "FORM", "GRAF"] },
+  { name: "Cuadráticas", items: ["CLSF", "FORM", "GRAF"] },
+  { name: "Polinomiales", items: ["CLSF", "FORM", "GRAF"] },
+  { name: "Exponenciales", items: ["CLSF", "FORM", "GRAF"] },
+  { name: "Logarítmicas", items: ["CLSF", "FORM", "GRAF"] },
+  { name: "Racionales", items: ["CLSF", "FORM", "GRAF", "RESL"] },
+  { name: "Trigonométricas", items: ["CLSF", "FORM", "GRAF", "RESL"] },
+]
+
+const ITEM_COLORS = {
+  nuevo: "#3B82F6",
+  pendiente: "#E3690B",
+  aprendiendo: "#A0CC18",
+  graduado: "#1A9447",
+} as const
+
+// Color del contador de días: naranja (día 0) → verde maduro (día 30+).
+function dayColor(day: number): string {
+  const t = Math.min(day, 30) / 30
+  const from = [227, 105, 11] // #E3690B
+  const to = [26, 148, 71] // #1A9447
+  const ch = (i: number) => Math.round(from[i] + (to[i] - from[i]) * t)
+  return `rgb(${ch(0)}, ${ch(1)}, ${ch(2)})`
+}
+
+// Estado de un ítem en la grilla. `days` = días restantes hasta el próximo repaso.
+// Lo usaremos más adelante para animar la cuenta regresiva de los repasos.
+type Cell =
+  | { kind: "empty" }
+  | { kind: "nuevo" }
+  | { kind: "pendiente" } // repaso para hoy → 0 días
+  | { kind: "aprendiendo"; days: number } // days > 0
+  | { kind: "graduado"; days: number } // days > 0
+
+function cellColor(cell: Cell): string | null {
+  switch (cell.kind) {
+    case "nuevo": return ITEM_COLORS.nuevo
+    case "pendiente": return ITEM_COLORS.pendiente
+    case "aprendiendo": return ITEM_COLORS.aprendiendo
+    case "graduado": return ITEM_COLORS.graduado
+    case "empty": return null
+  }
+}
+
+function cellLabel(cell: Cell): string {
+  switch (cell.kind) {
+    case "pendiente": return "0d"
+    case "aprendiendo":
+    case "graduado": return `${cell.days}d`
+    case "nuevo":
+    case "empty": return "-"
+  }
+}
+
+const STATE_INFO: Record<Cell["kind"], { label: string; description: string; color: string }> = {
+  empty: {
+    label: "Bloqueado",
+    description: "Se desbloquea a medida que avanzás en la unidad.",
+    color: "#9CA3AF",
+  },
+  nuevo: {
+    label: "Nuevo",
+    description: "Todavía no resolviste ejercicios de este tipo.",
+    color: ITEM_COLORS.nuevo,
+  },
+  pendiente: {
+    label: "Pendiente",
+    description: "Tenés un repaso para hacer hoy.",
+    color: ITEM_COLORS.pendiente,
+  },
+  // Visibles por días restantes; ocultan el estado interno (aprendiendo/graduado).
+  // La descripción se calcula con stateDescription() según los días.
+  aprendiendo: {
+    label: "Próximo",
+    description: "",
+    color: ITEM_COLORS.aprendiendo,
+  },
+  graduado: {
+    label: "Consolidado",
+    description: "",
+    color: ITEM_COLORS.graduado,
+  },
+}
+
+function stateDescription(cell: Cell): string {
+  if (cell.kind === "aprendiendo" || cell.kind === "graduado") {
+    return cell.days === 1
+      ? "Mañana vas a volver a repasar este ítem."
+      : `Dentro de ${cell.days} días vas a volver a repasar este ítem.`
+  }
+  return STATE_INFO[cell.kind].description
+}
+
+// ── Simulación de evolución de la grilla ──
+// Cada iteración = 1 día. Se intentan los ítems "nuevo" y "pendiente" (vencen hoy).
+// Acierto inicial aleatorio 75–85%, +10% por cada fallo. Graduar = 3 aciertos seguidos
+// con lapsos mínimos de 1 día. Tope de 15 ítems activos (nuevo+pendiente+aprendiendo);
+// al graduar uno se desbloquea el siguiente.
+type SimItem = {
+  status: Cell["kind"]
+  prob: number
+  streak: number // aciertos seguidos en fase de aprendizaje (hacia graduar)
+  due: number
+  mature: boolean // ya graduó → usa el ladder SM-2
+  ladderIdx: number // posición en SM2_LADDER (solo maduros)
+}
+
+const ACTIVE_CAP = 15
+const SM2_LADDER = [3, 7, 14, 21, 30] // intervalos (días) tras graduar, suben con la racha
+
+// Intervalo del escalón `idx` del ladder. Pasado el máximo, suma 15 días por escalón.
+function ladderInterval(idx: number): number {
+  const last = SM2_LADDER.length - 1
+  if (idx <= last) return SM2_LADDER[idx]
+  return SM2_LADDER[last] + 15 * (idx - last)
+}
+
+function initSim(correct: boolean): SimItem[] {
+  const count = WHITE_BELT_FUNCTIONS.reduce((acc, fn) => acc + fn.items.length, 0)
+  return Array.from({ length: count }, (_, i): SimItem => {
+    const prob = 0.75 + Math.random() * 0.1 // 75–85%
+    if (i === 0)
+      return correct
+        ? { status: "aprendiendo", prob, streak: 1, due: 1, mature: false, ladderIdx: 0 }
+        : { status: "pendiente", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
+    if (i <= 14) return { status: "nuevo", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
+    return { status: "bloqueado", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
+  })
+}
+
+function iterateSim(items: SimItem[]): SimItem[] {
+  const next = items.map((it) => ({ ...it }))
+  const attempted = new Set<number>()
+
+  // 1. Intentar los ítems que vencen hoy (nuevo o pendiente).
+  next.forEach((item, i) => {
+    if (item.status !== "nuevo" && item.status !== "pendiente") return
+    attempted.add(i)
+    const success = Math.random() < item.prob
+    if (success) {
+      if (item.mature) {
+        // SM-2: sube un escalón del ladder (sin tope: +15d por escalón tras el máximo).
+        item.ladderIdx += 1
+        item.status = "graduado"
+        item.due = ladderInterval(item.ladderIdx)
+      } else {
+        item.streak += 1
+        if (item.streak >= 3) {
+          // Gradúa → entra al ladder SM-2 en 3d.
+          item.mature = true
+          item.ladderIdx = 0
+          item.status = "graduado"
+          item.due = SM2_LADDER[0]
+        } else {
+          item.status = "aprendiendo"
+          item.due = item.streak // 1d, luego 2d
+        }
+      }
+    } else {
+      item.prob = Math.min(1, item.prob + 0.1)
+      if (item.mature) {
+        // Error en un repaso maduro → vuelve a 3d (sigue graduado).
+        item.ladderIdx = 0
+        item.status = "graduado"
+        item.due = SM2_LADDER[0]
+      } else {
+        // Error aprendiendo → queda pendiente hasta el otro día.
+        item.streak = 0
+        item.status = "pendiente"
+        item.due = 0
+      }
+    }
+  })
+
+  // 2. Avanzar el día para los que no se intentaron; al llegar a 0d → pendiente.
+  next.forEach((item, i) => {
+    if (attempted.has(i)) return
+    if (item.status === "aprendiendo" || item.status === "graduado") {
+      item.due -= 1
+      if (item.due <= 0) {
+        item.status = "pendiente"
+        item.due = 0
+      }
+    }
+  })
+
+  // 3. Tope de activos (no maduros: nuevo+pendiente+aprendiendo). Al graduar se libera
+  //    cupo y se desbloquea el siguiente ítem.
+  const active = next.filter(
+    (it) => !it.mature && (it.status === "nuevo" || it.status === "pendiente" || it.status === "aprendiendo"),
+  ).length
+  let slots = ACTIVE_CAP - active
+  for (const item of next) {
+    if (slots <= 0) break
+    if (item.status === "bloqueado") {
+      item.status = "nuevo"
+      slots -= 1
+    }
+  }
+
+  return next
+}
+
+function simToCell(item: SimItem): Cell {
+  switch (item.status) {
+    case "bloqueado": return { kind: "empty" }
+    case "nuevo": return { kind: "nuevo" }
+    case "pendiente": return { kind: "pendiente" }
+    // Color/estado visible por días: ≤2d → lima (Entrante), >2d → verde (Afianzado).
+    case "aprendiendo":
+    case "graduado":
+      return item.due <= 2
+        ? { kind: "aprendiendo", days: item.due }
+        : { kind: "graduado", days: item.due }
+  }
+}
+
+const TOTAL_STEPS = 12
+
+
+function randomDelay(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+type SlideCustom = { dir: number; from: number }
+
+const slideVariants = {
+  enter: (c: SlideCustom) => ({ x: c.dir > 0 ? "100%" : "-100%", opacity: 1 }),
+  center: { x: "0%", opacity: 1 },
+  exit: (c: SlideCustom) => ({ x: c.dir > 0 ? "-100%" : "100%", opacity: 1 }),
+}
+
+const INTRO_BELT_COLORS = ["#E0DDD0", "#1C3A8B", "#6B2D8B", "#6B3A1F", "#111111"]
+
+// Intro: escribe "intervalo" con typewriter y revela los 5 colores del cinturón uno a uno.
+function IntroLogo({ onDone }: { onDone: () => void }) {
+  const WORD = "intervalo"
+  const [typed, setTyped] = useState("")
+  const [bars, setBars] = useState(0)
+  const doneRef = useRef(false)
+
+  useEffect(() => {
+    if (typed.length >= WORD.length) return
+    const id = setTimeout(() => setTyped(WORD.slice(0, typed.length + 1)), randomDelay(75, 135))
+    return () => clearTimeout(id)
+  }, [typed])
+
+  useEffect(() => {
+    if (typed.length < WORD.length) return
+    if (bars < INTRO_BELT_COLORS.length) {
+      const id = setTimeout(() => setBars((b) => b + 1), bars === 0 ? 320 : 165)
+      return () => clearTimeout(id)
+    }
+    const id = setTimeout(() => {
+      if (!doneRef.current) {
+        doneRef.current = true
+        onDone()
+      }
+    }, 680)
+    return () => clearTimeout(id)
+  }, [typed, bars, onDone])
+
+  const typingDone = typed.length >= WORD.length
+
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="inline-flex flex-col items-center gap-[7px] leading-none">
+        <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
+          {typed || " "}
+          <motion.span
+            className="ml-1 inline-block h-[0.95em] w-[3px] rounded-sm bg-[#F6F8FC] align-middle"
+            animate={typingDone ? { opacity: 0 } : { opacity: [1, 1, 0, 0] }}
+            transition={
+              typingDone
+                ? { duration: 0.15 }
+                : { duration: 1, repeat: Infinity, times: [0, 0.45, 0.5, 0.95] }
+            }
+          />
+        </span>
+        <div className="flex h-[4px] w-full overflow-hidden rounded-[2px]">
+          {INTRO_BELT_COLORS.map((c, i) => (
+            <motion.span
+              key={i}
+              className="flex-1 origin-left"
+              style={{ background: c }}
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={i < bars ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Cinturón único que cicla por las 5 unidades, una por segundo, con su título.
+function BeltLoop() {
+  const [idx, setIdx] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setIdx((i) => (i + 1) % BELTS.length), 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  const belt = BELTS[idx]
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <Image src={belt.img} alt={belt.topic} width={120} height={60} className="h-auto w-28" />
+      <span className="text-sm font-semibold text-foreground/70">{belt.topic}</span>
+    </div>
+  )
+}
 
 export default function OnboardingWizard() {
   const router = useRouter()
   const sfx = useSfx()
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(-1) // -1 = intro animada del logo
+  const [prevStep, setPrevStep] = useState(-1)
+  const [direction, setDirection] = useState<1 | -1>(1)
+  const [name, setName] = useState("")
+  const [exerciseSelection, setExerciseSelection] = useState<number | null>(null)
+  const [exerciseCorrect, setExerciseCorrect] = useState<boolean | null>(null)
+  const [wrongOptions, setWrongOptions] = useState<number[]>([])
+  const [shakeIdx, setShakeIdx] = useState<number | null>(null)
+  const [itemTapped, setItemTapped] = useState(false)
+  const [itemTapped6, setItemTapped6] = useState(false)
+  const [simItems, setSimItems] = useState<SimItem[] | null>(null)
+  const [simDay, setSimDay] = useState(0)
+  const [simPlaying, setSimPlaying] = useState(false)
+  const [showWhy, setShowWhy] = useState(false)
+  const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
   const [universityOther, setUniversityOther] = useState("")
   const [showOther, setShowOther] = useState(false)
 
-  function pickCareer(value: string) {
-    sfx.pop()
-    setCareer(value)
-    setStep(3)
+  // Reproducción automática de la simulación: 3 iteraciones por segundo, sin sonido.
+  useEffect(() => {
+    if (!simPlaying) return
+    const id = setInterval(() => {
+      setSimItems((prev) => iterateSim(prev ?? initSim(exerciseCorrect === true)))
+      setSimDay((d) => d + 1)
+    }, 333)
+    return () => clearInterval(id)
+  }, [simPlaying, exerciseCorrect])
+
+  function goNext(target?: number) {
+    setPrevStep(step)
+    setDirection(1)
+    if (target !== undefined) {
+      setStep(target)
+    } else {
+      setStep((s) => s + 1)
+    }
   }
 
-  function pickUniversity(value: string) {
-    sfx.pop()
+  function openWhy() {
+    sfx.continue()
+    setPrevStep(step)
+    setDirection(1)
+    setShowWhy(true)
+  }
+
+  function continueFromWhy() {
+    sfx.continue()
+    setShowWhy(false)
+    goNext()
+  }
+
+  function goBack() {
+    if (showWhy) {
+      setDirection(-1)
+      setShowWhy(false)
+      return
+    }
+    if (step === 10 && showOther) {
+      setShowOther(false)
+      return
+    }
+    if (step === 5) {
+      setExerciseSelection(null)
+      setExerciseCorrect(null)
+      setWrongOptions([])
+    }
+    setPrevStep(step)
+    setDirection(-1)
+    setStep((s) => Math.max(0, s - 1))
+  }
+
+  function handleCareer(value: string) {
+    sfx.select()
+    setCareer(value)
+  }
+
+  function handleUniversity(value: string) {
+    sfx.select()
     setUniversity(value)
     setShowOther(false)
-    setStep(4)
+  }
+
+  function selectOther() {
+    sfx.select()
+    setUniversity("")
+    setShowOther(true)
   }
 
   function confirmOther() {
     const value = universityOther.trim()
     if (!value) return
-    sfx.pop()
+    sfx.continue()
     setUniversity(value)
-    setStep(4)
+    goNext()
+  }
+
+  function handleExercise(idx: number) {
+    if (exerciseCorrect === true || wrongOptions.includes(idx)) return
+    if (wrongResetRef.current) {
+      clearTimeout(wrongResetRef.current)
+      wrongResetRef.current = null
+    }
+    sfx.select()
+    setExerciseSelection(idx)
+    setExerciseCorrect(null)
+  }
+
+  function onRevisar() {
+    if (exerciseSelection === null || exerciseCorrect === true) return
+    const isCorrect = exerciseSelection === EXERCISE_CORRECT_INDEX
+    if (isCorrect) {
+      setExerciseCorrect(true)
+      sfx.correct?.()
+      return
+    }
+    sfx.wrong?.()
+    const wrongIdx = exerciseSelection
+    setExerciseCorrect(false)
+    setWrongOptions((prev) => [...prev, wrongIdx])
+    setExerciseSelection(null)
+    setShakeIdx(wrongIdx)
+    setTimeout(() => setShakeIdx(null), 450)
+    wrongResetRef.current = setTimeout(() => {
+      setExerciseCorrect(null)
+      wrongResetRef.current = null
+    }, 2000)
   }
 
   function onFinish() {
-    const finalUniversity = university.trim()
-    if (!career || !finalUniversity) return
-    sfx.pop()
-    saveOnboarding({ career, university: finalUniversity })
-    router.push("/sign-in")
+    saveOnboarding({ name: name.trim(), career, university })
+    router.push("/sign-in") // TODO: replace with Google OAuth — merge with /sign-in
   }
 
   return (
-    <Shell>
-      <Dots step={step} />
-
-      <div className="rounded-2xl border border-[#38385A] bg-card p-7 shadow-[0_2px_8px_rgba(0,0,0,0.2),0_8px_32px_rgba(0,0,0,0.15)]">
-        {step === 0 && (
-          <div className="flex flex-col items-center gap-5 text-center">
-            <div className="mt-3">
-              <Wordmark textClass="text-[2rem]" barClass="h-[3px]" />
-            </div>
-            <p className="leading-relaxed text-foreground/70 mt-3">
-              Intervalo es un sistema de{" "}
-              <strong className="text-foreground">repaso adaptativo</strong> que
-              aprende de tus respuestas y prioriza lo que más necesitás
-              reforzar.
-            </p>
-            <div className="flex w-full flex-col gap-2">
-              <Button
-                size="lg"
-                className="mt-2 h-12 w-full"
-                onClick={() => {
-                  sfx.pop()
-                  setStep(1)
-                }}
-              >
-                Empezar
-              </Button>
-              <Button
-                size="lg"
-                className="mt-2 h-12 w-full"
-                onClick={() => router.push("/sign-in")}
-                variant="link"
-              >
-                Ya tengo una cuenta
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {step === 1 && (
-          <div className="flex flex-col items-center gap-5 text-center">
-            <h2 className="text-2xl font-bold">¿Cómo funciona?</h2>
-            <p className="leading-relaxed text-foreground/70">
-              Vas a resolver ejercicios cortos sin material de consulta. El
-              algoritmo ajusta{" "}
-              <strong className="text-foreground">qué repasar</strong> y{" "}
-              <strong className="text-foreground">cada cuánto</strong>: lo
-              difícil aparece más seguido, lo que ya dominás cada vez menos. A
-              medida que progresás, avanzás de{" "}
-              <strong className="text-foreground">cinturón</strong>.
-            </p>
-            <div className="flex w-full flex-wrap items-center justify-center gap-3 py-1">
-              {BELTS.map((belt) => (
-                <div
-                  key={belt.name}
-                  className="flex flex-col items-center gap-1.5"
-                >
-                  <Image
-                    src={belt.img}
-                    alt={`Cinturón ${belt.name}`}
-                    width={56}
-                    height={28}
-                    className="h-auto w-14"
-                  />
-                  <span className="text-[0.68rem] font-semibold text-foreground/70">
-                    {belt.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <Button
-              size="lg"
-              className="mt-2 h-12 w-full"
-              onClick={() => {
-                sfx.pop()
-                setStep(2)
-              }}
+    <main className="flex min-h-dvh flex-col bg-background [&_h2]:font-sans overflow-x-hidden">
+      <AnimatePresence>
+        {step > 0 && <ProgressBar key="progress" step={step} onBack={goBack} />}
+      </AnimatePresence>
+      <div className="flex flex-1 flex-col items-center justify-start px-4 pb-8 pt-16">
+        <div className="grid flex-1 w-full max-w-md overflow-hidden">
+          <AnimatePresence mode="sync" initial={false} custom={{ dir: direction, from: prevStep }}>
+            <motion.div
+              key={showWhy ? "why" : step}
+              custom={{ dir: direction, from: prevStep }}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.28, ease: "easeInOut" }}
+              className="col-start-1 row-start-1 flex flex-col justify-center gap-6 pb-28"
             >
-              Continuar
-            </Button>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="flex flex-col gap-5 text-center">
-            <div className="flex flex-col gap-2">
-              <h2 className="text-2xl font-bold">
-                ¿Qué tipo de carrera estudiás?
-              </h2>
-            </div>
-            <div className="flex flex-col gap-2.5">
-              {CAREERS.map((c) => (
-                <OptionButton
-                  key={c.value}
-                  selected={career === c.value}
-                  onClick={() => pickCareer(c.value)}
-                >
-                  {c.label}
-                </OptionButton>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div className="flex flex-col gap-5 text-center">
-            <div className="flex flex-col gap-2">
-              <h2 className="text-2xl font-bold">¿En qué universidad?</h2>
-            </div>
-            <div className="flex flex-col gap-2.5">
-              <div className="flex gap-2.5">
-                {UNIVERSITIES.map((u) => (
-                  <OptionButton
-                    key={u}
-                    className="flex-1"
-                    selected={university === u && !showOther}
-                    onClick={() => pickUniversity(u)}
-                  >
-                    {u}
-                  </OptionButton>
-                ))}
-              </div>
-              <OptionButton
-                selected={showOther}
-                onClick={() => setShowOther(true)}
-              >
-                Otra
-              </OptionButton>
-              {showOther && (
-                <div className="flex flex-col gap-3 pt-1">
-                  <input
-                    type="text"
-                    value={universityOther}
-                    onChange={(e) => setUniversityOther(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && confirmOther()}
-                    placeholder="Ej: UNLP, UNQ, UNLa…"
-                    autoFocus
-                    className="h-11 rounded-xl border border-[#38385A] bg-[#2A2A4A] px-4 text-foreground outline-none focus:border-primary"
-                  />
-                  <Button
-                    size="lg"
-                    className="h-12 w-full"
-                    onClick={confirmOther}
-                    disabled={!universityOther.trim()}
-                  >
-                    Continuar
-                  </Button>
+              {/* ── SLIDE intermedia: ¿Por qué? ── */}
+              {showWhy && (
+                <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">
+                  <MathText text={EXERCISE_EXPLANATION} />
                 </div>
               )}
-            </div>
-          </div>
-        )}
 
-        {step === 4 && (
-          <div className="flex flex-col items-center gap-5 text-center">
-            <h2 className="text-2xl font-bold">¡Listo!</h2>
-            <p className="leading-relaxed text-foreground/70 text-balance">
-              Creá tu cuenta y empezá tu primer repaso. No te va a llevar más de
-              5 minutos.
-            </p>
-            <Button size="lg" className="mt-2 h-12 w-full" onClick={onFinish}>
-              Siguiente
-            </Button>
-          </div>
-        )}
+              {!showWhy && (
+              <>
+
+              {/* ── INTRO: animación del logo ── */}
+              {step === -1 && <IntroLogo onDone={() => goNext(0)} />}
+
+              {/* ── SLIDE 0: Nombre ── */}
+              {step === 0 && (
+                <Slide0
+                  name={name}
+                  setName={setName}
+                  sfx={sfx}
+                  onNext={() => goNext()}
+                  onSignIn={() => router.push("/sign-in")}
+                />
+              )}
+
+              {/* ── SLIDE 1: Bienvenida ── */}
+              {step === 1 && (
+                <div className="flex flex-col gap-5">
+                  <h2 className="text-2xl font-bold">Hola, {name}.</h2>
+                  <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
+                    <p>
+                      <strong className="text-foreground">Intervalo</strong> es un sistema de{" "}
+                      <strong className="text-foreground">repaso adaptativo</strong> pensado
+                      para acompañarte durante tu cursada.
+                    </p>
+                    <p>
+                      Un algoritmo <strong className="text-foreground">aprende de tus respuestas</strong> y{" "}
+                      <strong className="text-foreground">prioriza</strong> lo que necesitás repasar.
+                    </p>
+                    <p>Este tutorial dura menos de 5 minutos.</p>
+                  </div>
+                </div>
+              )}
+
+              {/* ── SLIDE 2: Cinturones ── */}
+              {step === 2 && (
+                <div className="flex flex-col gap-8 pt-10">
+                  <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
+                    <p>
+                      Los contenidos están organizados en{" "}
+                      <strong className="text-foreground">cinco unidades</strong>, representadas como{" "}
+                      <em>cinturones</em>.
+                    </p>
+                    <p>
+                      El avance es <strong className="text-foreground">correlativo</strong>, las unidades
+                      se habilitan únicamente cuando tenés un desempeño sostenido sobre sus antecesoras.
+                    </p>
+                    <p>
+                      La idea es que incorpores los contenidos de manera{" "}
+                      <strong className="text-foreground">gradual</strong>, a tus tiempos.
+                    </p>
+                  </div>
+                  <BeltLoop />
+                </div>
+              )}
+
+              {/* ── SLIDE 3: Intro ejercicios ── */}
+              {step === 3 && (
+                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
+                  <p>
+                    Son ejercicios <strong className="text-foreground">simples y puntuales</strong>,
+                    pensados para trabajar las mecánicas principales de cada tema.
+                  </p>
+                  <p>
+                    En esta primera etapa vas a trabajar tu capacidad para{" "}
+                    <strong className="text-foreground">reconocer, describir y manipular</strong>{" "}
+                    distintas familias de funciones.
+                  </p>
+                  <div className="flex justify-center py-1">
+                    <Image src="/bjj_white_belt.png" alt="Cinturón blanco" width={120} height={60} className="h-auto w-28" />
+                  </div>
+                  <p className="text-foreground/90 font-medium">
+                    ¿Hacemos un ejercicio de prueba?
+                  </p>
+                </div>
+              )}
+
+              {/* ── SLIDE 4: Ejercicio dummy ── */}
+              {step === 4 && (
+                <div className="flex flex-col gap-5">
+<p className="text-lg leading-snug">
+                    <MathText text={EXERCISE_QUESTION} />
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {EXERCISE_OPTIONS.map((opt, i) => {
+                      const isSelected = exerciseSelection === i
+                      const solved = exerciseCorrect === true
+                      const isCorrectOpt = i === EXERCISE_CORRECT_INDEX
+                      const isWrong = wrongOptions.includes(i)
+                      const isShaking = shakeIdx === i
+                      let borderCls = "border-white/10"
+                      let textCls = "text-foreground/80"
+                      let extraCls = ""
+                      if (isShaking) {
+                        borderCls = "border-[#E3690B]"
+                        textCls = "text-[#E3690B] font-medium"
+                      } else if (isWrong) {
+                        extraCls = "opacity-40"
+                      } else if (solved && isSelected && isCorrectOpt) {
+                        borderCls = "border-green-500"
+                        textCls = "text-green-300 font-medium"
+                      } else if (solved) {
+                        extraCls = "opacity-40"
+                      } else if (isSelected) {
+                        borderCls = "border-[#7e80f7]"
+                        textCls = "text-[#c4c6ff] font-medium"
+                      }
+                      return (
+                        <button
+                          key={i}
+                          disabled={solved || isWrong}
+                          onClick={() => handleExercise(i)}
+                          className={cn(
+                            "w-full rounded-md border bg-white/5 px-4 py-3.5 text-left text-sm transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
+                            borderCls,
+                            textCls,
+                            extraCls,
+                          )}
+                        >
+                          <motion.span
+                            className="block"
+                            animate={isShaking ? { x: [0, -8, 8, -6, 6, -3, 0] } : { x: 0 }}
+                            transition={isShaking ? { duration: 0.4, ease: "easeInOut" } : { duration: 0 }}
+                          >
+                            <MathText text={opt} />
+                          </motion.span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ── SLIDE 5: Qué es un ítem ── */}
+              {step === 5 && (
+                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
+                  <p>
+                    El ejercicio que acabás de resolver es parte de un{" "}
+                    <strong className="text-foreground">ítem</strong>, que evalúa una
+                    habilidad específica sobre un tema.
+                  </p>
+                  <p>
+                    Para cada tema de cada unidad, hay múltiples ítems.{" "}
+                    <strong className="text-foreground">Tocá</strong> cualquiera para ver más.
+                  </p>
+                  <BeltGrid cellFor={() => ({ kind: "empty" })} onItemTap={() => setItemTapped(true)} />
+                </div>
+              )}
+
+              {/* ── SLIDE 6: Estados de los ítems ── */}
+              {step === 6 && (
+                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
+                  <p>
+                    Cada ítem define con qué <strong className="text-foreground">frecuencia</strong>{" "}
+                    aparecen los problemas de su tipo en tus sesiones de repaso.
+                  </p>
+                  <p>
+                    Estos son <strong className="text-foreground">tus ítems</strong> de la
+                    primera unidad. <strong className="text-foreground">Tocá</strong> cualquiera
+                    para ver más.
+                  </p>
+                  <BeltGrid
+                    cellFor={(i) => {
+                      if (i === 0) return exerciseCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
+                      if (i <= 14) return { kind: "nuevo" }
+                      return { kind: "empty" }
+                    }}
+                    onItemTap={() => setItemTapped6(true)}
+                    showState
+                  />
+                </div>
+              )}
+
+              {/* ── SLIDE 7: Repaso adaptativo (animación grilla) ── */}
+              {step === 7 && (
+                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85 pt-[10px]">
+                  <p>
+                    Los que todavía no dominás vuelven más seguido; los que ya manejás se
+                    espacian en el tiempo. Así el repaso se adapta a vos.
+                  </p>
+                  <p>
+                    Tocá el botón para ver cómo evolucionan tus ítems con el paso de los días.
+                  </p>
+                  <div className="mt-[3px]">
+                    <BeltGrid
+                      cellFor={(i) =>
+                        simItems
+                          ? simToCell(simItems[i])
+                          : i === 0
+                          ? exerciseCorrect
+                            ? { kind: "aprendiendo", days: 1 }
+                            : { kind: "pendiente" }
+                          : i <= 14
+                          ? { kind: "nuevo" }
+                          : { kind: "empty" }
+                      }
+                      showState
+                    />
+                  </div>
+                  <div className="mt-[19px] flex items-center justify-center gap-2">
+                    <div
+                      className="flex h-10 items-center rounded-md border border-white/15 bg-white/5 px-3 text-xs font-semibold tabular-nums"
+                      style={{ color: dayColor(simDay) }}
+                    >
+                      {simDay}d
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      aria-label={simPlaying ? "Pausar" : "Reproducir"}
+                      className="size-10 rounded-md p-0"
+                      onClick={() => { sfx.iterate(); setSimPlaying((p) => !p) }}
+                    >
+                      {simPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      aria-label="Reiniciar"
+                      className="size-10 rounded-md p-0"
+                      disabled={!simItems}
+                      onClick={() => { sfx.iterate(); setSimPlaying(false); setSimItems(null); setSimDay(0) }}
+                    >
+                      <RotateCcw className="size-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {/* ── SLIDE 8: Resumen (cierre de los ítems) ── */}
+              {step === 8 && (
+                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
+                  <h2 className="text-3xl font-bold leading-tight text-foreground">
+                    Resumiendo,
+                  </h2>
+                  <p>
+                    practicá todos los días y dejá que Intervalo haga el trabajo pesado: pone
+                    el foco en los temas que más te cuestan y espacia los que ya dominás.
+                  </p>
+                  <p>
+                    Repasos cortos, todos los días, siempre sobre lo que más lo necesitás. Así
+                    no se te acumula nada para los parciales y avanzás sin darte cuenta.
+                  </p>
+                </div>
+              )}
+
+              {/* ── SLIDE 9: Carrera ── */}
+              {step === 9 && (
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2 text-center">
+                    <h2 className="text-2xl font-bold">¿Qué estudiás?</h2>
+                    <p className="text-foreground/85">
+                      Marcá la que más se aproxime a tu carrera.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {CAREERS.map((c) => (
+                      <CareerCard
+                        key={c.value}
+                        emoji={c.emoji}
+                        label={c.label}
+                        selected={career === c.value}
+                        onClick={() => handleCareer(c.value)}
+                      />
+                    ))}
+                    <CareerCard
+                      className="col-span-2"
+                      emoji="✦"
+                      label="Otra"
+                      selected={career === "Otra"}
+                      onClick={() => handleCareer("Otra")}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* ── SLIDE 10: Universidad ── */}
+              {step === 10 && (
+                <div className="flex flex-col gap-5 text-center">
+                  <h2 className="text-2xl font-bold">¿Dónde?</h2>
+                  <div className="flex flex-col gap-2.5">
+                    <div className="flex gap-2.5">
+                      {UNIVERSITIES.map((u) => (
+                        <OptionButton
+                          key={u}
+                          className="flex-1 text-base"
+                          style={UNI_FONT[u]}
+                          selected={university === u && !showOther}
+                          onClick={() => handleUniversity(u)}
+                        >
+                          {u}
+                        </OptionButton>
+                      ))}
+                    </div>
+                    <OptionButton selected={showOther} onClick={selectOther}>
+                      Otra
+                    </OptionButton>
+                    {showOther && (
+                      <div className="flex flex-col gap-3 pt-1">
+                        <input
+                          type="text"
+                          value={universityOther}
+                          onChange={(e) => setUniversityOther(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && confirmOther()}
+                          placeholder="Ej: UNLP, UNQ, UNLa…"
+                          autoFocus
+                          className="h-11 rounded-md border border-white/10 bg-white/5 px-4 text-foreground outline-none focus:border-[#7e80f7] transition-colors"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* ── SLIDE 11: Registro ── */}
+              {step === 11 && (
+                <div className="flex flex-col items-center gap-6 text-center">
+                  <div className="flex flex-col gap-2">
+                    <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
+                    <p className="text-foreground/85">
+                      Guardá tu progreso para no perder nada.
+                    </p>
+                  </div>
+                  <p className="text-xs text-foreground/40">
+                    Integración Google en progreso — por ahora redirige al registro.
+                  </p>
+                </div>
+              )}
+              </>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-
-      {step > 0 && (
-        <button
-          onClick={() => {
-            sfx.pop()
-            if (step === 3 && showOther) {
-              setShowOther(false)
-              return
-            }
-            if (step === 4) {
-              setStep(3)
-              return
-            }
-            setStep((s) => Math.max(0, s - 1))
-          }}
-          className="mt-2 w-full py-2 text-center text-sm text-muted-foreground"
-        >
-          Volver
-        </button>
-      )}
-    </Shell>
-  )
-}
-
-function Shell({ children }: { children: React.ReactNode }) {
-  return (
-    <main
-      className="flex min-h-dvh flex-col items-center justify-center bg-background px-4 py-10"
-      style={GRID_BG_STYLE}
-    >
-      <div className="w-full max-w-md">{children}</div>
+      <PinnedCTA
+        step={step}
+        showOther={showOther}
+        universityOther={universityOther}
+        career={career}
+        university={university}
+        showWhy={showWhy}
+        openWhy={openWhy}
+        continueFromWhy={continueFromWhy}
+        itemTapped={itemTapped}
+        itemTapped6={itemTapped6}
+        exerciseSelection={exerciseSelection}
+        exerciseCorrect={exerciseCorrect}
+        sfx={sfx}
+        goNext={goNext}
+        confirmOther={confirmOther}
+        onRevisar={onRevisar}
+        onFinish={onFinish}
+      />
     </main>
   )
 }
 
-function Dots({ step }: { step: number }) {
+function PinnedCTA({
+  step,
+  showOther,
+  universityOther,
+  career,
+  university,
+  showWhy,
+  openWhy,
+  continueFromWhy,
+  itemTapped,
+  itemTapped6,
+  exerciseSelection,
+  exerciseCorrect,
+  sfx,
+  goNext,
+  confirmOther,
+  onRevisar,
+  onFinish,
+}: {
+  step: number
+  showOther: boolean
+  universityOther: string
+  career: string
+  university: string
+  showWhy: boolean
+  openWhy: () => void
+  continueFromWhy: () => void
+  itemTapped: boolean
+  itemTapped6: boolean
+  exerciseSelection: number | null
+  exerciseCorrect: boolean | null
+  sfx: ReturnType<typeof useSfx>
+  goNext: () => void
+  confirmOther: () => void
+  onRevisar: () => void
+  onFinish: () => void
+}) {
+  const ctaCls = "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+
+  if (showWhy) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pb-10 pt-6 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+        <div className="w-full max-w-md pointer-events-auto">
+          <Button size="lg" className={ctaCls} onClick={continueFromWhy}>
+            Continuar
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  let content: React.ReactNode = null
+
+  switch (step) {
+    case 1:
+    case 2:
+    case 3:
+    case 7:
+    case 8:
+      content = (
+        <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
+          Continuar
+        </Button>
+      )
+      break
+    case 4:
+      // handled separately below
+      break
+    case 5:
+      content = (
+        <Button size="lg" className={ctaCls} disabled={!itemTapped} onClick={() => { sfx.continue(); goNext() }}>
+          Continuar
+        </Button>
+      )
+      break
+    case 6:
+      content = (
+        <Button size="lg" className={ctaCls} disabled={!itemTapped6} onClick={() => { sfx.continue(); goNext() }}>
+          Continuar
+        </Button>
+      )
+      break
+    case 9:
+      content = (
+        <Button size="lg" className={ctaCls} disabled={!career} onClick={() => { sfx.continue(); goNext() }}>
+          Continuar
+        </Button>
+      )
+      break
+    case 10:
+      if (showOther) {
+        content = (
+          <Button size="lg" className={ctaCls} disabled={!universityOther.trim()} onClick={confirmOther}>
+            Continuar
+          </Button>
+        )
+      } else {
+        content = (
+          <Button size="lg" className={ctaCls} disabled={!university} onClick={() => { sfx.continue(); goNext() }}>
+            Continuar
+          </Button>
+        )
+      }
+      break
+    case 11:
+      content = (
+        <Button size="lg" className={ctaCls} onClick={onFinish}>
+          Continuar con Google
+        </Button>
+      )
+      break
+    default:
+      return null
+  }
+
+  // Step 4: footer verde animado al acertar
+  if (step === 4) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
+        <div className={cn(
+          "w-full max-w-md pointer-events-auto px-4 pb-10 transition-colors duration-300",
+          exerciseCorrect === true
+            ? "border-t border-green-500/40 bg-green-500/10 pt-0"
+            : exerciseCorrect === false
+            ? "border-t border-orange-500/40 bg-orange-500/10 pt-0"
+            : "bg-gradient-to-t from-background via-background/90 to-transparent pt-6",
+        )}>
+          <AnimatePresence>
+            {exerciseCorrect === true && (
+              <motion.div
+                key="correct"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="overflow-hidden"
+              >
+                <div className="pt-4 pb-3 text-sm">
+                  <span className="font-semibold text-green-400">¡Correcto!</span>
+                  <div className="mt-0.5 text-foreground/85">
+                    <MathText text={EXERCISE_FEEDBACK} />
+                  </div>
+                </div>
+              </motion.div>
+            )}
+            {exerciseCorrect === false && (
+              <motion.div
+                key="wrong"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="overflow-hidden"
+              >
+                <div className="pt-4 pb-3 text-sm">
+                  <span className="font-semibold text-orange-400">¿Seguro?</span>
+                  <div className="mt-0.5 text-foreground/85">Revisá tu respuesta e intentalo una vez más.</div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div className="flex gap-2">
+            {exerciseCorrect === true && (
+              <Button variant="outline" size="lg" className="h-12 flex-1 rounded-md" onClick={openWhy}>
+                ¿Por qué?
+              </Button>
+            )}
+            <Button
+              size="lg"
+              className="h-12 flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+              disabled={exerciseSelection === null || exerciseCorrect === false}
+              onClick={exerciseCorrect === true ? () => { sfx.continue(); goNext() } : onRevisar}
+            >
+              {exerciseCorrect === true ? "Continuar" : "Revisar"}
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="mb-6 flex justify-center gap-1.5">
-      {Array.from({ length: TOTAL_STEPS }, (_, i) => (
-        <div
-          key={i}
-          className={cn(
-            "h-2 rounded-full transition-all duration-300",
-            i === step ? "w-6" : "w-2",
-            i <= step ? "bg-primary" : "bg-[#38385A]",
-          )}
-        />
-      ))}
+    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pb-10 pt-6 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+      <div className="w-full max-w-md pointer-events-auto">
+        {content}
+      </div>
     </div>
+  )
+}
+
+function Slide0({
+  name,
+  setName,
+  sfx,
+  onNext,
+  onSignIn,
+}: {
+  name: string
+  setName: (v: string) => void
+  sfx: ReturnType<typeof useSfx>
+  onNext: () => void
+  onSignIn: () => void
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  function handleContinue() {
+    if (!name.trim()) return
+    sfx.continue()
+    onNext()
+  }
+
+  useEffect(() => {
+    const id = setTimeout(() => inputRef.current?.focus(), 350)
+    return () => clearTimeout(id)
+  }, [])
+
+  return (
+    <div className="flex-1 w-full flex flex-col">
+      {/* Título + contenido agrupados y centrados verticalmente */}
+      <motion.div
+        className="flex flex-1 flex-col justify-center gap-7 pt-[16vh]"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <div className="flex flex-col gap-2 text-center">
+          <h2 className="text-3xl font-bold">¡Hola!</h2>
+          <p className="text-lg text-foreground/70">¿Cómo te llamás?</p>
+        </div>
+
+        <input
+          ref={inputRef}
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") handleContinue() }}
+          placeholder="Tu nombre o apodo"
+          className="h-12 w-full rounded-xl border border-border bg-accent px-4 text-foreground outline-none focus:border-primary transition-colors"
+        />
+
+        <div className="flex flex-col gap-2">
+          <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
+            Continuar
+          </Button>
+          <Button variant="outline" size="lg" className="h-12 w-full rounded-md" onClick={onSignIn}>
+            Ya tengo una cuenta
+          </Button>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function ProgressBar({ step, onBack }: { step: number; onBack: () => void }) {
+  const pct = (step / (TOTAL_STEPS - 1)) * 100
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 z-50 bg-background flex items-center gap-3 px-4 pt-5 pb-3"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <button
+        onClick={onBack}
+        className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+        aria-label="Volver"
+      >
+        <ChevronLeft className="size-6" />
+      </button>
+      <div className="flex-1 h-3 rounded-full bg-border overflow-hidden">
+        <motion.div
+          className="h-full rounded-full bg-primary"
+          initial={{ width: "0%" }}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+        />
+      </div>
+    </motion.div>
+  )
+}
+
+function BeltGrid({
+  cellFor,
+  onItemTap,
+  showState,
+}: {
+  cellFor: (index: number) => Cell
+  onItemTap?: () => void
+  showState?: boolean
+}) {
+  let globalIdx = 0
+  return (
+    <div className="flex flex-col gap-1">
+      {WHITE_BELT_FUNCTIONS.map((fn, row) => {
+        const topic = WHITE_TOPICS[row]
+        return (
+          <div key={fn.name} className="flex items-center justify-between gap-3">
+            <span className="text-base leading-none text-foreground">{fn.name}</span>
+            <div className="flex gap-1">
+              {fn.items.map((typeId) => {
+                const cell = cellFor(globalIdx)
+                globalIdx += 1
+                return <ItemPill key={typeId} topic={topic} typeId={typeId} cell={cell} onTap={onItemTap} showState={showState} />
+              })}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function ItemPill({
+  topic,
+  typeId,
+  cell,
+  onTap,
+  showState,
+}: {
+  topic: Topic
+  typeId: string
+  cell: Cell
+  onTap?: () => void
+  showState?: boolean
+}) {
+  const color = cellColor(cell)
+  const label = cellLabel(cell)
+  const painted = color !== null
+  const skill = exerciseTypeInfo({ type: typeId })
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          onClick={onTap}
+          aria-label={`${topic.name} — ${skill.label}`}
+          style={painted ? { color, borderColor: `${color}99`, backgroundColor: `${color}33` } : undefined}
+          className={cn(
+            "flex h-6 w-9 items-center justify-center rounded-md border text-[0.6rem] font-semibold tabular-nums transition-opacity hover:opacity-80",
+            !painted && "border-white/15 bg-white/5 text-foreground/40",
+          )}
+        >
+          {label}
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[80vh] overflow-y-auto">
+        <DialogHeader className="gap-0.5">
+          <DialogTitle className="font-sans text-sm font-semibold text-foreground">{topic.name}</DialogTitle>
+          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+            <MathText text={topic.short_description ?? topic.tooltip} />
+          </DialogDescription>
+        </DialogHeader>
+        <div className="mt-1 flex flex-col gap-0.5 border-t border-border pt-3">
+          <span className="text-sm font-semibold text-foreground">{skill.label}</span>
+          <span className="text-sm text-foreground/70">{skill.description}</span>
+        </div>
+        {showState && (
+          <div className="flex flex-col gap-0.5 border-t border-border pt-3">
+            <span className="text-sm font-semibold" style={{ color: STATE_INFO[cell.kind].color }}>
+              {STATE_INFO[cell.kind].label}
+            </span>
+            <span className="text-sm text-foreground/70">{stateDescription(cell)}</span>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -296,8 +1274,40 @@ function OptionButton({
   selected,
   onClick,
   className,
+  style,
 }: {
   children: React.ReactNode
+  selected?: boolean
+  onClick: () => void
+  className?: string
+  style?: React.CSSProperties
+}) {
+  return (
+    <button
+      onClick={onClick}
+      style={style}
+      className={cn(
+        "rounded-md border bg-white/5 px-4 py-3.5 font-medium transition-colors",
+        selected
+          ? "border-[#7e80f7] text-[#c4c6ff]"
+          : "border-white/10 text-foreground/80 hover:border-white/20",
+        className,
+      )}
+    >
+      {children}
+    </button>
+  )
+}
+
+function CareerCard({
+  emoji,
+  label,
+  selected,
+  onClick,
+  className,
+}: {
+  emoji: string
+  label: string
   selected?: boolean
   onClick: () => void
   className?: string
@@ -306,12 +1316,15 @@ function OptionButton({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-xl border bg-[#2A2A4A] px-4 py-3.5 font-semibold text-foreground transition-colors",
-        selected ? "border-primary" : "border-[#38385A] hover:border-[#5457E5]",
+        "flex flex-col items-center justify-center gap-2 rounded-md border bg-white/5 py-6 font-medium transition-colors",
+        selected
+          ? "border-[#7e80f7] text-[#c4c6ff]"
+          : "border-white/10 text-foreground/80 hover:border-white/20",
         className,
       )}
     >
-      {children}
+      <span className="text-2xl leading-none">{emoji}</span>
+      <span className="text-sm">{label}</span>
     </button>
   )
 }

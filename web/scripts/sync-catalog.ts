@@ -21,6 +21,7 @@ type RawTopic = {
   key: string
   name: string
   tooltip: string
+  short_description?: string
 }
 
 type RawBelt = {
@@ -53,6 +54,7 @@ export interface Topic {
   key: string
   name: string
   tooltip: string
+  short_description?: string
 }
 
 export interface Belt {

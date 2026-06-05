@@ -1,6 +1,7 @@
 const KEY = "intervalo:onboarding"
 
 export type OnboardingData = {
+  name: string
   career: string
   university: string
 }
@@ -17,7 +18,7 @@ export function readOnboarding(): OnboardingData | null {
   try {
     const parsed = JSON.parse(raw) as Partial<OnboardingData>
     if (parsed.career && parsed.university) {
-      return { career: parsed.career, university: parsed.university }
+      return { name: parsed.name ?? "", career: parsed.career, university: parsed.university }
     }
     return null
   } catch {

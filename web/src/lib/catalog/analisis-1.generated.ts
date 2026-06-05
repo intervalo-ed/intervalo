@@ -8,6 +8,7 @@ export interface Topic {
   key: string
   name: string
   tooltip: string
+  short_description?: string
 }
 
 export interface Belt {
@@ -34,37 +35,44 @@ export const catalog: Catalog = {
         {
           "key": "linear",
           "name": "Funciones lineales",
-          "tooltip": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes clave:**\n• $m$ es la **pendiente** — mide la inclinación de la recta\n• $b$ es la **ordenada al origen** — donde la recta corta el eje $Y$\n\nLa variable $x$ aparece únicamente con exponente 1. Si aparece al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.\n\nEjemplo: $f(x) = 3x - 2$ tiene pendiente 3 e intercepto en $Y$ en el punto $(0, -2)$."
+          "tooltip": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes clave:**\n• $m$ es la **pendiente** — mide la inclinación de la recta\n• $b$ es la **ordenada al origen** — donde la recta corta el eje $Y$\n\nLa variable $x$ aparece únicamente con exponente 1. Si aparece al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.\n\nEjemplo: $f(x) = 3x - 2$ tiene pendiente 3 e intercepto en $Y$ en el punto $(0, -2)$.",
+          "short_description": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**."
         },
         {
           "key": "quadratic",
           "name": "Funciones cuadráticas",
-          "tooltip": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**.\n\n**Características principales:**\n• El **vértice** es el punto mínimo (si $a > 0$) o máximo (si $a < 0$) de la parábola\n• El **eje de simetría** es la recta vertical $x = -\\frac{b}{2a}$\n• Las **raíces** se encuentran resolviendo $f(x) = 0$\n\nEl **discriminante** $\\Delta = b^2 - 4ac$ determina si hay raíces reales: si $\\Delta > 0$ hay dos raíces, si $\\Delta = 0$ hay una raíz doble, si $\\Delta < 0$ no hay raíces reales.\n\nEjemplo: $f(x) = x^2 - 4x + 3$ tiene vértice en $(2, -1)$ y raíces en $x = 1$ y $x = 3$."
+          "tooltip": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**.\n\n**Características principales:**\n• El **vértice** es el punto mínimo (si $a > 0$) o máximo (si $a < 0$) de la parábola\n• El **eje de simetría** es la recta vertical $x = -\\frac{b}{2a}$\n• Las **raíces** se encuentran resolviendo $f(x) = 0$\n\nEl **discriminante** $\\Delta = b^2 - 4ac$ determina si hay raíces reales: si $\\Delta > 0$ hay dos raíces, si $\\Delta = 0$ hay una raíz doble, si $\\Delta < 0$ no hay raíces reales.\n\nEjemplo: $f(x) = x^2 - 4x + 3$ tiene vértice en $(2, -1)$ y raíces en $x = 1$ y $x = 3$.",
+          "short_description": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**."
         },
         {
           "key": "polynomial",
           "name": "Funciones polinómicas",
-          "tooltip": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$.\n\n**Propiedades clave:**\n• El **grado** del polinomio es el mayor exponente con coeficiente no nulo\n• Las funciones lineales y cuadráticas son casos especiales (grado 1 y 2)\n• El comportamiento en los extremos depende del grado y del signo del coeficiente principal\n\nUn polinomio de grado $n$ puede tener hasta $n$ raíces reales. Su gráfica es una curva suave sin saltos.\n\nEjemplo: $f(x) = 2x^3 - 5x^2 + x + 1$ es un polinomio de grado 3."
+          "tooltip": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$.\n\n**Propiedades clave:**\n• El **grado** del polinomio es el mayor exponente con coeficiente no nulo\n• Las funciones lineales y cuadráticas son casos especiales (grado 1 y 2)\n• El comportamiento en los extremos depende del grado y del signo del coeficiente principal\n\nUn polinomio de grado $n$ puede tener hasta $n$ raíces reales. Su gráfica es una curva suave sin saltos.\n\nEjemplo: $f(x) = 2x^3 - 5x^2 + x + 1$ es un polinomio de grado 3.",
+          "short_description": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$."
         },
         {
           "key": "exponential",
           "name": "Funciones exponenciales",
-          "tooltip": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente.\n\n**Características esenciales:**\n• El **dominio** es todos los números reales: $\\mathbb{R}$\n• El **rango** es todos los números positivos: $(0, +\\infty)$\n• Si $a > 1$, la función crece (exponencial creciente)\n• Si $0 < a < 1$, la función decrece (exponencial decreciente)\n\nLa función nunca cruza el eje $X$ (siempre $f(x) > 0$) y siempre cruza el eje $Y$ en $(0, 1)$.\n\nEjemplo: $f(x) = 2^x$ crece rápidamente; $f(x) = (\\frac{1}{2})^x$ decrece rápidamente."
+          "tooltip": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente.\n\n**Características esenciales:**\n• El **dominio** es todos los números reales: $\\mathbb{R}$\n• El **rango** es todos los números positivos: $(0, +\\infty)$\n• Si $a > 1$, la función crece (exponencial creciente)\n• Si $0 < a < 1$, la función decrece (exponencial decreciente)\n\nLa función nunca cruza el eje $X$ (siempre $f(x) > 0$) y siempre cruza el eje $Y$ en $(0, 1)$.\n\nEjemplo: $f(x) = 2^x$ crece rápidamente; $f(x) = (\\frac{1}{2})^x$ decrece rápidamente.",
+          "short_description": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente."
         },
         {
           "key": "logarithmic",
           "name": "Funciones logarítmicas",
-          "tooltip": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$.\n\n**Propiedades fundamentales:**\n• El **dominio** es solo números positivos: $(0, +\\infty)$\n• El **rango** es todos los reales: $\\mathbb{R}$\n• Si $a > 1$, la función crece\n• Si $0 < a < 1$, la función decrece\n• Siempre pasa por $(1, 0)$ porque $\\log_a(1) = 0$\n\nLa relación inversa: si $y = a^x$, entonces $x = \\log_a(y)$.\n\nEjemplo: $f(x) = \\log_2(x)$ es la inversa de $f(x) = 2^x$; $\\log_2(8) = 3$ porque $2^3 = 8$."
+          "tooltip": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$.\n\n**Propiedades fundamentales:**\n• El **dominio** es solo números positivos: $(0, +\\infty)$\n• El **rango** es todos los reales: $\\mathbb{R}$\n• Si $a > 1$, la función crece\n• Si $0 < a < 1$, la función decrece\n• Siempre pasa por $(1, 0)$ porque $\\log_a(1) = 0$\n\nLa relación inversa: si $y = a^x$, entonces $x = \\log_a(y)$.\n\nEjemplo: $f(x) = \\log_2(x)$ es la inversa de $f(x) = 2^x$; $\\log_2(8) = 3$ porque $2^3 = 8$.",
+          "short_description": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$."
         },
         {
           "key": "rational",
           "name": "Funciones racionales",
-          "tooltip": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$.\n\n**Características importantes:**\n• El **dominio** excluye todos los valores donde el denominador es cero\n• Las **asíntotas verticales** ocurren donde $q(x) = 0$ (denominador nulo)\n• Las **asíntotas horizontales** dependen de los grados de los polinomios\n• Los **ceros** son los valores donde $p(x) = 0$\n\nLa gráfica típicamente tiene discontinuidades (saltos) en las asíntotas verticales.\n\nEjemplo: $f(x) = \\frac{x+1}{x-2}$ tiene asíntota vertical en $x = 2$ y asíntota horizontal en $y = 1$."
+          "tooltip": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$.\n\n**Características importantes:**\n• El **dominio** excluye todos los valores donde el denominador es cero\n• Las **asíntotas verticales** ocurren donde $q(x) = 0$ (denominador nulo)\n• Las **asíntotas horizontales** dependen de los grados de los polinomios\n• Los **ceros** son los valores donde $p(x) = 0$\n\nLa gráfica típicamente tiene discontinuidades (saltos) en las asíntotas verticales.\n\nEjemplo: $f(x) = \\frac{x+1}{x-2}$ tiene asíntota vertical en $x = 2$ y asíntota horizontal en $y = 1$.",
+          "short_description": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$."
         },
         {
           "key": "trigonometric",
           "name": "Funciones trigonométricas",
-          "tooltip": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$.\n\n**Propiedades clave:**\n• **Periodicidad:** $\\sin(x+2\\pi) = \\sin(x)$ (período $2\\pi$), igual para coseno\n• **Rango:** seno y coseno están entre $[-1, 1]$\n• **Dominio:** $\\sin(x)$ y $\\cos(x)$ aceptan cualquier real; $\\tan(x)$ excluye múltiplos de $\\pi/2$\n• **Relación fundamental:** $\\sin^2(x) + \\cos^2(x) = 1$\n\nEstas funciones son **periódicas** y oscilatoriamente, con amplitud y período que definen su comportamiento.\n\nEjemplo: $f(x) = \\sin(x)$ oscila entre $-1$ y $1$ con período $2\\pi$."
+          "tooltip": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$.\n\n**Propiedades clave:**\n• **Periodicidad:** $\\sin(x+2\\pi) = \\sin(x)$ (período $2\\pi$), igual para coseno\n• **Rango:** seno y coseno están entre $[-1, 1]$\n• **Dominio:** $\\sin(x)$ y $\\cos(x)$ aceptan cualquier real; $\\tan(x)$ excluye múltiplos de $\\pi/2$\n• **Relación fundamental:** $\\sin^2(x) + \\cos^2(x) = 1$\n\nEstas funciones son **periódicas** y oscilatoriamente, con amplitud y período que definen su comportamiento.\n\nEjemplo: $f(x) = \\sin(x)$ oscila entre $-1$ y $1$ con período $2\\pi$.",
+          "short_description": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$."
         }
       ]
     },
@@ -202,7 +210,7 @@ export const catalog: Catalog = {
     },
     {
       "id": "FORM",
-      "label": "Fórmula",
+      "label": "Formulación",
       "description": "Identificar y aplicar los componentes de una fórmula."
     },
     {

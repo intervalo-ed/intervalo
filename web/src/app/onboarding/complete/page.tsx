@@ -38,7 +38,7 @@ export default function OnboardingCompletePage() {
     await enroll.mutateAsync({
       university: data.university,
       career: data.career,
-      name: user?.fullName ?? user?.firstName ?? null,
+      name: data.name || user?.fullName ?? user?.firstName ?? null,
     })
     await user?.update({ unsafeMetadata: { onboarded: true } })
     const session = await startSession.mutateAsync({
