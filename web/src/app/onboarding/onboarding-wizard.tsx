@@ -161,7 +161,7 @@ function stateDescription(cell: Cell): string {
 // con lapsos mínimos de 1 día. Tope de 15 ítems activos (nuevo+pendiente+aprendiendo);
 // al graduar uno se desbloquea el siguiente.
 type SimItem = {
-  status: Cell["kind"]
+  status: Exclude<Cell["kind"], "empty"> | "bloqueado"
   prob: number
   streak: number // aciertos seguidos en fase de aprendizaje (hacia graduar)
   due: number
@@ -1232,18 +1232,16 @@ function ItemPill({
   const skill = exerciseTypeInfo({ type: typeId })
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button
-          onClick={onTap}
-          aria-label={`${topic.name} — ${skill.label}`}
-          style={painted ? { color, borderColor: `${color}99`, backgroundColor: `${color}33` } : undefined}
-          className={cn(
-            "flex h-6 w-9 items-center justify-center rounded-md border text-[0.6rem] font-semibold tabular-nums transition-opacity hover:opacity-80",
-            !painted && "border-white/15 bg-white/5 text-foreground/40",
-          )}
-        >
-          {label}
-        </button>
+      <DialogTrigger
+        onClick={onTap}
+        aria-label={`${topic.name} — ${skill.label}`}
+        style={painted ? { color, borderColor: `${color}99`, backgroundColor: `${color}33` } : undefined}
+        className={cn(
+          "flex h-6 w-9 items-center justify-center rounded-md border text-[0.6rem] font-semibold tabular-nums transition-opacity hover:opacity-80",
+          !painted && "border-white/15 bg-white/5 text-foreground/40",
+        )}
+      >
+        {label}
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader className="gap-0.5">
