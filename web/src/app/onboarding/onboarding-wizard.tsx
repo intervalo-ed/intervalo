@@ -19,6 +19,7 @@ import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useSignIn } from "@clerk/nextjs"
 import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
@@ -379,6 +380,7 @@ function BeltLoop() {
 
 export default function OnboardingWizard() {
   const router = useRouter()
+  const { signIn } = useSignIn()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
   const [prevStep, setPrevStep] = useState(-1)
@@ -393,6 +395,7 @@ export default function OnboardingWizard() {
   const [simItems, setSimItems] = useState<SimItem[] | null>(null)
   const [simDay, setSimDay] = useState(0)
   const [simPlaying, setSimPlaying] = useState(false)
+  const [simStarted, setSimStarted] = useState(false)
   const [showWhy, setShowWhy] = useState(false)
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [career, setCareer] = useState("")
@@ -511,8 +514,13 @@ export default function OnboardingWizard() {
   }
 
   function onFinish() {
+    if (!signIn) return
     saveOnboarding({ name: name.trim(), career, university })
-    router.push("/sign-in") // TODO: replace with Google OAuth — merge with /sign-in
+    signIn.sso({
+      strategy: "oauth_google",
+      redirectUrl: "/onboarding/complete",
+      redirectCallbackUrl: "/sso-callback",
+    })
   }
 
   return (
@@ -563,13 +571,13 @@ export default function OnboardingWizard() {
                   <h2 className="text-2xl font-bold">Hola, {name}.</h2>
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
-                      <strong className="text-foreground">Intervalo</strong> es un sistema de{" "}
-                      <strong className="text-foreground">repaso adaptativo</strong> pensado
-                      para acompañarte durante tu cursada.
+                      <strong className="text-foreground">Intervalo</strong> está pensado para
+                      acompañarte a repasar los contenidos{" "}
+                      <strong className="text-foreground">durante y después</strong> de tu cursada.
                     </p>
                     <p>
-                      Un algoritmo <strong className="text-foreground">aprende de tus respuestas</strong> y{" "}
-                      <strong className="text-foreground">prioriza</strong> lo que necesitás repasar.
+                      <strong className="text-foreground">Prioriza</strong> lo que necesitás repasar
+                      y omite lo que ya incorporaste.
                     </p>
                     <p>Este tutorial dura menos de 5 minutos.</p>
                   </div>
@@ -586,8 +594,8 @@ export default function OnboardingWizard() {
                       <em>cinturones</em>.
                     </p>
                     <p>
-                      El avance es <strong className="text-foreground">correlativo</strong>, las unidades
-                      se habilitan únicamente cuando tenés un desempeño sostenido sobre sus antecesoras.
+                      Cada unidad es <strong className="text-foreground">correlativa</strong> a la
+                      anterior, y estas se habilitan a medida que consolidás los temas previos.
                     </p>
                     <p>
                       La idea es que incorpores los contenidos de manera{" "}
@@ -600,19 +608,16 @@ export default function OnboardingWizard() {
 
               {/* ── SLIDE 3: Intro ejercicios ── */}
               {step === 3 && (
-                <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
+                <div className="flex flex-1 flex-col justify-center gap-4 leading-relaxed text-foreground/85">
                   <p>
-                    Son ejercicios <strong className="text-foreground">simples y puntuales</strong>,
-                    pensados para trabajar las mecánicas principales de cada tema.
+                    Los ejercicios de cada unidad están pensados para trabajar las{" "}
+                    <strong className="text-foreground">mecánicas principales</strong> de cada tema.
                   </p>
                   <p>
-                    En esta primera etapa vas a trabajar tu capacidad para{" "}
+                    En esta primera etapa, vas a trabajar tu capacidad para{" "}
                     <strong className="text-foreground">reconocer, describir y manipular</strong>{" "}
                     distintas familias de funciones.
                   </p>
-                  <div className="flex justify-center py-1">
-                    <Image src="/bjj_white_belt.png" alt="Cinturón blanco" width={120} height={60} className="h-auto w-28" />
-                  </div>
                   <p className="text-foreground/90 font-medium">
                     ¿Hacemos un ejercicio de prueba?
                   </p>
@@ -684,7 +689,6 @@ export default function OnboardingWizard() {
                     habilidad específica sobre un tema.
                   </p>
                   <p>
-                    Para cada tema de cada unidad, hay múltiples ítems.{" "}
                     <strong className="text-foreground">Tocá</strong> cualquiera para ver más.
                   </p>
                   <BeltGrid cellFor={() => ({ kind: "empty" })} onItemTap={() => setItemTapped(true)} />
@@ -700,8 +704,8 @@ export default function OnboardingWizard() {
                   </p>
                   <p>
                     Estos son <strong className="text-foreground">tus ítems</strong> de la
-                    primera unidad. <strong className="text-foreground">Tocá</strong> cualquiera
-                    para ver más.
+                    primera unidad.<br />
+                    <strong className="text-foreground">Tocá</strong> cualquiera para ver más.
                   </p>
                   <BeltGrid
                     cellFor={(i) => {
@@ -719,13 +723,14 @@ export default function OnboardingWizard() {
               {step === 7 && (
                 <div className="flex flex-col gap-4 leading-relaxed text-foreground/85 pt-[10px]">
                   <p>
-                    Los que todavía no dominás vuelven más seguido; los que ya manejás se
-                    espacian en el tiempo. Así el repaso se adapta a vos.
+                    Los que te cuesten los vas a repasar más seguido, los que no, cada vez menos.
                   </p>
+                  <p>De esta forma, el repaso se adapta a vos.</p>
                   <p>
-                    Tocá el botón para ver cómo evolucionan tus ítems con el paso de los días.
+                    <strong className="text-foreground">Tocá</strong> el botón para ver cómo
+                    evolucionan tus ítems con el paso de los días.
                   </p>
-                  <div className="mt-[3px]">
+                  <div className="mt-[8px]">
                     <BeltGrid
                       cellFor={(i) =>
                         simItems
@@ -753,7 +758,7 @@ export default function OnboardingWizard() {
                       size="lg"
                       aria-label={simPlaying ? "Pausar" : "Reproducir"}
                       className="size-10 rounded-md p-0"
-                      onClick={() => { sfx.iterate(); setSimPlaying((p) => !p) }}
+                      onClick={() => { sfx.iterate(); setSimStarted(true); setSimPlaying((p) => !p) }}
                     >
                       {simPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
                     </Button>
@@ -774,16 +779,18 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 8: Resumen (cierre de los ítems) ── */}
               {step === 8 && (
                 <div className="flex flex-col gap-4 leading-relaxed text-foreground/85">
-                  <h2 className="text-3xl font-bold leading-tight text-foreground">
-                    Resumiendo,
-                  </h2>
                   <p>
-                    practicá todos los días y dejá que Intervalo haga el trabajo pesado: pone
-                    el foco en los temas que más te cuestan y espacia los que ya dominás.
+                    Repasar un poco todos los días nos permite{" "}
+                    <strong className="text-foreground">internalizar</strong> lo que ya nos costó
+                    tiempo y esfuerzo entender.
                   </p>
                   <p>
-                    Repasos cortos, todos los días, siempre sobre lo que más lo necesitás. Así
-                    no se te acumula nada para los parciales y avanzás sin darte cuenta.
+                    Ya sea para entender nuevos conceptos, para rendir un examen, o para plantear
+                    y resolver problemas de la vida real, siempre es mejor partir desde bases
+                    sólidas.
+                  </p>
+                  <p className="font-medium text-foreground/90">
+                    ¿Listo para tu primera sesión de repaso?
                   </p>
                 </div>
               )}
@@ -858,16 +865,13 @@ export default function OnboardingWizard() {
 
               {/* ── SLIDE 11: Registro ── */}
               {step === 11 && (
-                <div className="flex flex-col items-center gap-6 text-center">
+                <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
-                    <p className="text-foreground/85">
-                      Guardá tu progreso para no perder nada.
+                    <p className="leading-relaxed text-foreground/85">
+                      Registrate para poder repasar los ítems que desbloqueaste hoy.
                     </p>
                   </div>
-                  <p className="text-xs text-foreground/40">
-                    Integración Google en progreso — por ahora redirige al registro.
-                  </p>
                 </div>
               )}
               </>
@@ -887,6 +891,7 @@ export default function OnboardingWizard() {
         continueFromWhy={continueFromWhy}
         itemTapped={itemTapped}
         itemTapped6={itemTapped6}
+        simStarted={simStarted}
         exerciseSelection={exerciseSelection}
         exerciseCorrect={exerciseCorrect}
         sfx={sfx}
@@ -910,6 +915,7 @@ function PinnedCTA({
   continueFromWhy,
   itemTapped,
   itemTapped6,
+  simStarted,
   exerciseSelection,
   exerciseCorrect,
   sfx,
@@ -928,6 +934,7 @@ function PinnedCTA({
   continueFromWhy: () => void
   itemTapped: boolean
   itemTapped6: boolean
+  simStarted: boolean
   exerciseSelection: number | null
   exerciseCorrect: boolean | null
   sfx: ReturnType<typeof useSfx>
@@ -955,12 +962,24 @@ function PinnedCTA({
   switch (step) {
     case 1:
     case 2:
-    case 3:
-    case 7:
     case 8:
       content = (
         <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
           Continuar
+        </Button>
+      )
+      break
+    case 7:
+      content = (
+        <Button size="lg" className={ctaCls} disabled={!simStarted} onClick={() => { sfx.continue(); goNext() }}>
+          Continuar
+        </Button>
+      )
+      break
+    case 3:
+      content = (
+        <Button size="lg" className={ctaCls} onClick={() => { sfx.continue(); goNext() }}>
+          ¡Vamos!
         </Button>
       )
       break
@@ -1006,6 +1025,7 @@ function PinnedCTA({
     case 11:
       content = (
         <Button size="lg" className={ctaCls} onClick={onFinish}>
+          <GoogleIcon className="size-5" />
           Continuar con Google
         </Button>
       )
@@ -1149,6 +1169,17 @@ function Slide0({
         </div>
       </motion.div>
     </div>
+  )
+}
+
+function GoogleIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+      <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18A10.97 10.97 0 0 0 1 12c0 1.77.43 3.45 1.18 4.93l3.66-2.83z" />
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z" />
+    </svg>
   )
 }
 
