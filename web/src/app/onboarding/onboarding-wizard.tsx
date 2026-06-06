@@ -866,7 +866,7 @@ export default function OnboardingWizard() {
 
               {/* ── SLIDE 11: Registro ── */}
               {step === 11 && (
-                <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
+                <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center translate-y-[20px]">
                   <div className="flex flex-col gap-2">
                     <h2 className="text-2xl font-bold">¡Ya casi estamos!</h2>
                     <p className="leading-relaxed text-foreground/85">
