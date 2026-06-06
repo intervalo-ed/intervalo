@@ -516,10 +516,11 @@ export default function OnboardingWizard() {
   function onFinish() {
     if (!signIn) return
     saveOnboarding({ name: name.trim(), career, university })
+    const origin = window.location.origin
     signIn.sso({
       strategy: "oauth_google",
-      redirectUrl: "/onboarding/complete",
-      redirectCallbackUrl: "/sso-callback",
+      redirectUrl: `${origin}/onboarding/complete`,
+      redirectCallbackUrl: `${origin}/sso-callback`,
     })
   }
 
@@ -872,6 +873,14 @@ export default function OnboardingWizard() {
                       Registrate para poder repasar los ítems que desbloqueaste hoy.
                     </p>
                   </div>
+                  <Button
+                    size="lg"
+                    className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                    onClick={onFinish}
+                  >
+                    <GoogleIcon className="size-5" />
+                    Continuar con Google
+                  </Button>
                 </div>
               )}
               </>
@@ -1021,14 +1030,6 @@ function PinnedCTA({
           </Button>
         )
       }
-      break
-    case 11:
-      content = (
-        <Button size="lg" className={ctaCls} onClick={onFinish}>
-          <GoogleIcon className="size-5" />
-          Continuar con Google
-        </Button>
-      )
       break
     default:
       return null
