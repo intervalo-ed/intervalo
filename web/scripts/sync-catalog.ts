@@ -9,12 +9,14 @@
  * Run manually: `bun run scripts/sync-catalog.ts`
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
-import { dirname, resolve } from "node:path"
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs"
+import { dirname, resolve, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const here = dirname(fileURLToPath(import.meta.url))
-const SOURCE = resolve(here, "../../backend/content/analisis-1/catalog.json")
+const CONTENT = resolve(here, "../../backend/content/analisis-1")
+const SOURCE = join(CONTENT, "catalog.json")
+const EXERCISES_DIR = join(CONTENT, "exercises")
 const OUT = resolve(here, "../src/lib/catalog/analisis-1.generated.ts")
 
 type RawTopic = {
@@ -22,6 +24,9 @@ type RawTopic = {
   name: string
   tooltip: string
   short_description?: string
+  // Derived from the exercise bank (not present in catalog.json). The set of
+  // exercise_types declared for this topic = its "unit set" for the SR algorithm.
+  exercise_types?: string[]
 }
 
 type RawBelt = {
@@ -37,8 +42,40 @@ type RawExerciseType = {
 
 type RawCatalog = { belts: RawBelt[]; exercise_types: RawExerciseType[] }
 
+type RawExercise = { belt: string; topic: string; exercise_type: string }
+
+// Scan the exercise bank and collect the distinct exercise_types declared for
+// each (belt, topic). Keyed by `${belt}/${topic}`.
+function collectTopicExerciseTypes(): Map<string, Set<string>> {
+  const out = new Map<string, Set<string>>()
+  for (const file of readdirSync(EXERCISES_DIR)) {
+    if (!file.endsWith(".json")) continue
+    const exercises: RawExercise[] = JSON.parse(
+      readFileSync(join(EXERCISES_DIR, file), "utf8"),
+    )
+    for (const ex of exercises) {
+      const key = `${ex.belt}/${ex.topic}`
+      const set = out.get(key) ?? new Set<string>()
+      set.add(ex.exercise_type)
+      out.set(key, set)
+    }
+  }
+  return out
+}
+
 function generate() {
   const raw: RawCatalog = JSON.parse(readFileSync(SOURCE, "utf8"))
+
+  // Attach the unit set (exercise_types) to each topic, ordered by the catalog's
+  // canonical exercise_types order so the dashboard grid renders consistently.
+  const typeOrder = raw.exercise_types.map((t) => t.id)
+  const byTopic = collectTopicExerciseTypes()
+  for (const belt of raw.belts) {
+    for (const topic of belt.topics) {
+      const types = byTopic.get(`${belt.key}/${topic.key}`) ?? new Set<string>()
+      topic.exercise_types = typeOrder.filter((id) => types.has(id))
+    }
+  }
 
   const beltKeys = raw.belts.map((b) => b.key)
 
@@ -55,6 +92,7 @@ export interface Topic {
   name: string
   tooltip: string
   short_description?: string
+  exercise_types: string[]
 }
 
 export interface Belt {

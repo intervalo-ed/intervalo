@@ -17,7 +17,7 @@ class SM2Config:
 
     # Session
     min_session_exercises: int = 7
-    max_session_exercises: int = 14
+    max_session_exercises: int = 10
     min_distance_same_topic: int = 2
 
     # Exercise subtype selection

@@ -21,7 +21,8 @@ from auth import (
     get_or_create_user_from_clerk,
     verify_clerk_token,
 )
-from models import User, BeltInfo
+from models import User, BeltInfo, Enrollment, Answer
+from sqlalchemy import func
 from schemas import (
     AnswerResponse,
     BeltEntry,
@@ -284,6 +285,16 @@ def get_leaderboard(
         .order_by(User.total_xp.desc(), User.id.asc())
         .all()
     )
+
+    # Career + university come from the user's enrollment (course 1 for now).
+    enrollments = {
+        e.user_id: e
+        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    }
+
+    total_xp_all = int(db.query(func.coalesce(func.sum(User.total_xp), 0)).scalar())
+    total_exercises_all = int(db.query(func.count(Answer.id)).scalar())
+
     entries = [
         LeaderboardEntry(
             rank=index + 1,
@@ -291,10 +302,18 @@ def get_leaderboard(
             name=user.display_name or user.name,
             total_xp=user.total_xp,
             is_current_user=user.id == current_user.id,
+            career=enrollments[user.id].career if user.id in enrollments else None,
+            university=(
+                enrollments[user.id].university if user.id in enrollments else None
+            ),
         )
         for index, user in enumerate(users)
     ]
-    return LeaderboardResponse(entries=entries)
+    return LeaderboardResponse(
+        entries=entries,
+        total_xp=total_xp_all,
+        total_exercises=total_exercises_all,
+    )
 
 
 # ── Session endpoints ─────────────────────────────────────────────────────────

@@ -9,6 +9,7 @@ export interface Topic {
   name: string
   tooltip: string
   short_description?: string
+  exercise_types: string[]
 }
 
 export interface Belt {
@@ -36,43 +37,80 @@ export const catalog: Catalog = {
           "key": "linear",
           "name": "Funciones lineales",
           "tooltip": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes clave:**\n• $m$ es la **pendiente** — mide la inclinación de la recta\n• $b$ es la **ordenada al origen** — donde la recta corta el eje $Y$\n\nLa variable $x$ aparece únicamente con exponente 1. Si aparece al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.\n\nEjemplo: $f(x) = 3x - 2$ tiene pendiente 3 e intercepto en $Y$ en el punto $(0, -2)$.",
-          "short_description": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**."
+          "short_description": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM"
+          ]
         },
         {
           "key": "quadratic",
           "name": "Funciones cuadráticas",
           "tooltip": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**.\n\n**Características principales:**\n• El **vértice** es el punto mínimo (si $a > 0$) o máximo (si $a < 0$) de la parábola\n• El **eje de simetría** es la recta vertical $x = -\\frac{b}{2a}$\n• Las **raíces** se encuentran resolviendo $f(x) = 0$\n\nEl **discriminante** $\\Delta = b^2 - 4ac$ determina si hay raíces reales: si $\\Delta > 0$ hay dos raíces, si $\\Delta = 0$ hay una raíz doble, si $\\Delta < 0$ no hay raíces reales.\n\nEjemplo: $f(x) = x^2 - 4x + 3$ tiene vértice en $(2, -1)$ y raíces en $x = 1$ y $x = 3$.",
-          "short_description": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**."
+          "short_description": "Una función cuadrática es aquella de la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. Su gráfica es una **parábola**.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM"
+          ]
         },
         {
           "key": "polynomial",
           "name": "Funciones polinómicas",
           "tooltip": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$.\n\n**Propiedades clave:**\n• El **grado** del polinomio es el mayor exponente con coeficiente no nulo\n• Las funciones lineales y cuadráticas son casos especiales (grado 1 y 2)\n• El comportamiento en los extremos depende del grado y del signo del coeficiente principal\n\nUn polinomio de grado $n$ puede tener hasta $n$ raíces reales. Su gráfica es una curva suave sin saltos.\n\nEjemplo: $f(x) = 2x^3 - 5x^2 + x + 1$ es un polinomio de grado 3.",
-          "short_description": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$."
+          "short_description": "Una función polinómica es una suma de términos de la forma $ax^n$ donde $n$ es un entero no negativo. Se escribe como $f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM"
+          ]
         },
         {
           "key": "exponential",
           "name": "Funciones exponenciales",
           "tooltip": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente.\n\n**Características esenciales:**\n• El **dominio** es todos los números reales: $\\mathbb{R}$\n• El **rango** es todos los números positivos: $(0, +\\infty)$\n• Si $a > 1$, la función crece (exponencial creciente)\n• Si $0 < a < 1$, la función decrece (exponencial decreciente)\n\nLa función nunca cruza el eje $X$ (siempre $f(x) > 0$) y siempre cruza el eje $Y$ en $(0, 1)$.\n\nEjemplo: $f(x) = 2^x$ crece rápidamente; $f(x) = (\\frac{1}{2})^x$ decrece rápidamente.",
-          "short_description": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente."
+          "short_description": "Una función exponencial tiene la forma $f(x) = a^x$ donde $a > 0$ y $a \\neq 1$. La variable $x$ está en el exponente.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM"
+          ]
         },
         {
           "key": "logarithmic",
           "name": "Funciones logarítmicas",
           "tooltip": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$.\n\n**Propiedades fundamentales:**\n• El **dominio** es solo números positivos: $(0, +\\infty)$\n• El **rango** es todos los reales: $\\mathbb{R}$\n• Si $a > 1$, la función crece\n• Si $0 < a < 1$, la función decrece\n• Siempre pasa por $(1, 0)$ porque $\\log_a(1) = 0$\n\nLa relación inversa: si $y = a^x$, entonces $x = \\log_a(y)$.\n\nEjemplo: $f(x) = \\log_2(x)$ es la inversa de $f(x) = 2^x$; $\\log_2(8) = 3$ porque $2^3 = 8$.",
-          "short_description": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$."
+          "short_description": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$ donde $a > 0$ y $a \\neq 1$. Es la función **inversa** de la exponencial $a^x$.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM"
+          ]
         },
         {
           "key": "rational",
           "name": "Funciones racionales",
           "tooltip": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$.\n\n**Características importantes:**\n• El **dominio** excluye todos los valores donde el denominador es cero\n• Las **asíntotas verticales** ocurren donde $q(x) = 0$ (denominador nulo)\n• Las **asíntotas horizontales** dependen de los grados de los polinomios\n• Los **ceros** son los valores donde $p(x) = 0$\n\nLa gráfica típicamente tiene discontinuidades (saltos) en las asíntotas verticales.\n\nEjemplo: $f(x) = \\frac{x+1}{x-2}$ tiene asíntota vertical en $x = 2$ y asíntota horizontal en $y = 1$.",
-          "short_description": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$."
+          "short_description": "Una función racional es un cociente de dos polinomios: $f(x) = \\frac{p(x)}{q(x)}$ donde $q(x) \\neq 0$.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM",
+            "GRAF"
+          ]
         },
         {
           "key": "trigonometric",
           "name": "Funciones trigonométricas",
           "tooltip": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$.\n\n**Propiedades clave:**\n• **Periodicidad:** $\\sin(x+2\\pi) = \\sin(x)$ (período $2\\pi$), igual para coseno\n• **Rango:** seno y coseno están entre $[-1, 1]$\n• **Dominio:** $\\sin(x)$ y $\\cos(x)$ aceptan cualquier real; $\\tan(x)$ excluye múltiplos de $\\pi/2$\n• **Relación fundamental:** $\\sin^2(x) + \\cos^2(x) = 1$\n\nEstas funciones son **periódicas** y oscilatoriamente, con amplitud y período que definen su comportamiento.\n\nEjemplo: $f(x) = \\sin(x)$ oscila entre $-1$ y $1$ con período $2\\pi$.",
-          "short_description": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$."
+          "short_description": "Las funciones trigonométricas relacionan ángulos con razones en triángulos rectángulos. Las principales son **seno, coseno y tangente**: $\\sin(x)$, $\\cos(x)$, $\\tan(x)$.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "FORM",
+            "GRAF"
+          ]
         }
       ]
     },
@@ -82,32 +120,61 @@ export const catalog: Catalog = {
         {
           "key": "algebraic_limits",
           "name": "Límites algebraicos",
-          "tooltip": "Un **límite** describe el valor al que se aproxima una función $f(x)$ cuando $x$ se acerca a un número $a$. Se escribe: $\\lim_{x \\to a} f(x) = L$.\n\n**Límites algebraicos:**\nMuchos límites se calculan manipulando la expresión algebraicamente, sin evaluar directamente en $x = a$.\n\n**Técnicas comunes:**\n• **Sustitución directa:** Si $f$ es continua en $a$, entonces $\\lim_{x \\to a} f(x) = f(a)$\n• **Factorización:** Cancelar términos que causan indeterminación $\\frac{0}{0}$\n• **Racionalización:** Multiplicar por el conjugado para eliminar raíces\n\nEjemplo: $\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2} = \\lim_{x \\to 2} \\frac{(x-2)(x+2)}{x-2} = \\lim_{x \\to 2} (x+2) = 4$"
+          "tooltip": "Un **límite** describe el valor al que se aproxima una función $f(x)$ cuando $x$ se acerca a un número $a$. Se escribe: $\\lim_{x \\to a} f(x) = L$.\n\n**Límites algebraicos:**\nMuchos límites se calculan manipulando la expresión algebraicamente, sin evaluar directamente en $x = a$.\n\n**Técnicas comunes:**\n• **Sustitución directa:** Si $f$ es continua en $a$, entonces $\\lim_{x \\to a} f(x) = f(a)$\n• **Factorización:** Cancelar términos que causan indeterminación $\\frac{0}{0}$\n• **Racionalización:** Multiplicar por el conjugado para eliminar raíces\n\nEjemplo: $\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2} = \\lim_{x \\to 2} \\frac{(x-2)(x+2)}{x-2} = \\lim_{x \\to 2} (x+2) = 4$",
+          "exercise_types": [
+            "LEXI",
+            "ESTR",
+            "RESL"
+          ]
         },
         {
           "key": "lateral_limits",
           "name": "Límites laterales",
-          "tooltip": "Los **límites laterales** consideran el acercamiento desde un solo lado:\n• **Límite por la izquierda:** $\\lim_{x \\to a^-} f(x)$ — $x$ se aproxima a $a$ desde valores menores\n• **Límite por la derecha:** $\\lim_{x \\to a^+} f(x)$ — $x$ se aproxima a $a$ desde valores mayores\n\n**Relación con el límite:**\nEl límite $\\lim_{x \\to a} f(x)$ existe **solo si** ambos límites laterales existen e son iguales:\n$$\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L$$\n\nEjemplo: Para $f(x) = |x|$, $\\lim_{x \\to 0^-} f(x) = 0$ y $\\lim_{x \\to 0^+} f(x) = 0$, así que $\\lim_{x \\to 0} f(x) = 0$."
+          "tooltip": "Los **límites laterales** consideran el acercamiento desde un solo lado:\n• **Límite por la izquierda:** $\\lim_{x \\to a^-} f(x)$ — $x$ se aproxima a $a$ desde valores menores\n• **Límite por la derecha:** $\\lim_{x \\to a^+} f(x)$ — $x$ se aproxima a $a$ desde valores mayores\n\n**Relación con el límite:**\nEl límite $\\lim_{x \\to a} f(x)$ existe **solo si** ambos límites laterales existen e son iguales:\n$$\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L$$\n\nEjemplo: Para $f(x) = |x|$, $\\lim_{x \\to 0^-} f(x) = 0$ y $\\lim_{x \\to 0^+} f(x) = 0$, así que $\\lim_{x \\to 0} f(x) = 0$.",
+          "exercise_types": [
+            "LEXI",
+            "GRAF",
+            "RESL"
+          ]
         },
         {
           "key": "infinite_limits",
           "name": "Límites al infinito",
-          "tooltip": "Los **límites al infinito** describen el comportamiento de una función cuando $x$ tiende a $+\\infty$ o $-\\infty$:\n$$\\lim_{x \\to +\\infty} f(x) = L \\text{ o } \\lim_{x \\to -\\infty} f(x) = L$$\n\n**Tipos de comportamiento:**\n• **Límite finito:** La función se aproxima a una constante (asíntota horizontal)\n• **Límite infinito:** La función crece sin cota: $\\lim_{x \\to a} f(x) = +\\infty$ o $-\\infty$\n\n**Regla para polinomios:**\nPara $f(x) = a_nx^n + \\cdots$, cuando $x \\to \\pm\\infty$, el comportamiento depende del término de mayor grado.\n\nEjemplo: $\\lim_{x \\to +\\infty} \\frac{2x^2 + 3}{x^2 + 1} = 2$ (los términos de mayor grado dominan)."
+          "tooltip": "Los **límites al infinito** describen el comportamiento de una función cuando $x$ tiende a $+\\infty$ o $-\\infty$:\n$$\\lim_{x \\to +\\infty} f(x) = L \\text{ o } \\lim_{x \\to -\\infty} f(x) = L$$\n\n**Tipos de comportamiento:**\n• **Límite finito:** La función se aproxima a una constante (asíntota horizontal)\n• **Límite infinito:** La función crece sin cota: $\\lim_{x \\to a} f(x) = +\\infty$ o $-\\infty$\n\n**Regla para polinomios:**\nPara $f(x) = a_nx^n + \\cdots$, cuando $x \\to \\pm\\infty$, el comportamiento depende del término de mayor grado.\n\nEjemplo: $\\lim_{x \\to +\\infty} \\frac{2x^2 + 3}{x^2 + 1} = 2$ (los términos de mayor grado dominan).",
+          "exercise_types": [
+            "LEXI",
+            "GRAF",
+            "RESL"
+          ]
         },
         {
           "key": "continuity",
           "name": "Continuidad",
-          "tooltip": "Una función es **continua** en un punto $a$ si no hay \"saltos\" o \"huecos\" en la gráfica. Formalmente, $f$ es continua en $a$ si:\n$$\\lim_{x \\to a} f(x) = f(a)$$\n\n**Tres condiciones necesarias:**\n1. $f(a)$ debe estar definida\n2. El límite $\\lim_{x \\to a} f(x)$ debe existir\n3. El límite debe ser igual al valor de la función: $\\lim_{x \\to a} f(x) = f(a)$\n\n**Tipos de discontinuidad:**\n• **Removible:** El límite existe pero $f(a)$ no está definido (hueco)\n• **Salto:** Los límites laterales existen pero son distintos\n• **Infinita:** El límite tiende a $\\pm\\infty$ (asíntota vertical)\n\nEjemplo: $f(x) = x^2$ es continua en todo punto. $f(x) = \\frac{1}{x}$ es discontinua en $x = 0$."
+          "tooltip": "Una función es **continua** en un punto $a$ si no hay \"saltos\" o \"huecos\" en la gráfica. Formalmente, $f$ es continua en $a$ si:\n$$\\lim_{x \\to a} f(x) = f(a)$$\n\n**Tres condiciones necesarias:**\n1. $f(a)$ debe estar definida\n2. El límite $\\lim_{x \\to a} f(x)$ debe existir\n3. El límite debe ser igual al valor de la función: $\\lim_{x \\to a} f(x) = f(a)$\n\n**Tipos de discontinuidad:**\n• **Removible:** El límite existe pero $f(a)$ no está definido (hueco)\n• **Salto:** Los límites laterales existen pero son distintos\n• **Infinita:** El límite tiende a $\\pm\\infty$ (asíntota vertical)\n\nEjemplo: $f(x) = x^2$ es continua en todo punto. $f(x) = \\frac{1}{x}$ es discontinua en $x = 0$.",
+          "exercise_types": [
+            "CLSF",
+            "GRAF",
+            "RESL"
+          ]
         },
         {
           "key": "factorizacion",
           "name": "Factorización",
-          "tooltip": "La **factorización** es el proceso de escribir una expresión como un producto de sus factores. Por ejemplo: $x^2 - 4 = (x-2)(x+2)$.\n\n**Casos comunes:**\n• **Factor común:** $2x^2 + 4x = 2x(x + 2)$\n• **Diferencia de cuadrados:** $a^2 - b^2 = (a-b)(a+b)$\n• **Trinomio cuadrado:** $a^2 + 2ab + b^2 = (a+b)^2$\n• **Trinomio general:** $ax^2 + bx + c = a(x - r_1)(x - r_2)$ donde $r_1, r_2$ son raíces\n\n**Utilidad:**\nFactorizar es esencial para simplificar expresiones, resolver ecuaciones, y calcular límites.\n\nEjemplo: $x^2 - 5x + 6 = (x-2)(x-3)$; las raíces son $x = 2$ y $x = 3$."
+          "tooltip": "La **factorización** es el proceso de escribir una expresión como un producto de sus factores. Por ejemplo: $x^2 - 4 = (x-2)(x+2)$.\n\n**Casos comunes:**\n• **Factor común:** $2x^2 + 4x = 2x(x + 2)$\n• **Diferencia de cuadrados:** $a^2 - b^2 = (a-b)(a+b)$\n• **Trinomio cuadrado:** $a^2 + 2ab + b^2 = (a+b)^2$\n• **Trinomio general:** $ax^2 + bx + c = a(x - r_1)(x - r_2)$ donde $r_1, r_2$ son raíces\n\n**Utilidad:**\nFactorizar es esencial para simplificar expresiones, resolver ecuaciones, y calcular límites.\n\nEjemplo: $x^2 - 5x + 6 = (x-2)(x-3)$; las raíces son $x = 2$ y $x = 3$.",
+          "exercise_types": [
+            "LEXI",
+            "ESTR",
+            "RESL"
+          ]
         },
         {
           "key": "racionalizacion",
           "name": "Racionalización",
-          "tooltip": "La **racionalización** es una técnica que elimina raíces de numeradores o denominadores multiplicando por una expresión conveniente.\n\n**Caso común: raíces cuadradas en el denominador**\nMultiplicar numerador y denominador por el conjugado:\n$$\\frac{1}{\\sqrt{a}} = \\frac{1}{\\sqrt{a}} \\cdot \\frac{\\sqrt{a}}{\\sqrt{a}} = \\frac{\\sqrt{a}}{a}$$\n\n$$\\frac{1}{a + \\sqrt{b}} = \\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$\n\n**Utilidad:**\nEs especialmente útil en límites para evitar indeterminaciones como $\\frac{0}{0}$.\n\nEjemplo: $\\frac{\\sqrt{x} - 2}{x - 4} = \\frac{(\\sqrt{x} - 2)(\\sqrt{x} + 2)}{(x-4)(\\sqrt{x}+2)} = \\frac{x - 4}{(x-4)(\\sqrt{x}+2)} = \\frac{1}{\\sqrt{x}+2}$"
+          "tooltip": "La **racionalización** es una técnica que elimina raíces de numeradores o denominadores multiplicando por una expresión conveniente.\n\n**Caso común: raíces cuadradas en el denominador**\nMultiplicar numerador y denominador por el conjugado:\n$$\\frac{1}{\\sqrt{a}} = \\frac{1}{\\sqrt{a}} \\cdot \\frac{\\sqrt{a}}{\\sqrt{a}} = \\frac{\\sqrt{a}}{a}$$\n\n$$\\frac{1}{a + \\sqrt{b}} = \\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$\n\n**Utilidad:**\nEs especialmente útil en límites para evitar indeterminaciones como $\\frac{0}{0}$.\n\nEjemplo: $\\frac{\\sqrt{x} - 2}{x - 4} = \\frac{(\\sqrt{x} - 2)(\\sqrt{x} + 2)}{(x-4)(\\sqrt{x}+2)} = \\frac{x - 4}{(x-4)(\\sqrt{x}+2)} = \\frac{1}{\\sqrt{x}+2}$",
+          "exercise_types": [
+            "ESTR",
+            "RESL"
+          ]
         }
       ]
     },
@@ -117,32 +184,64 @@ export const catalog: Catalog = {
         {
           "key": "limit_definition",
           "name": "Definición de derivada",
-          "tooltip": "La **derivada** de una función $f$ en un punto $a$ se define formalmente como el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n\n**Interpretaciones:**\n• **Pendiente:** La derivada es la pendiente de la recta tangente a la gráfica en $(a, f(a))$\n• **Tasa de cambio:** Mide cómo cambia $f$ rápidamente cerca de $a$\n• **Velocidad:** Si $f$ es posición, $f'$ es velocidad\n\n**Notación:**\nLa derivada se denota como $f'(x)$, $\\frac{df}{dx}$, o $\\frac{d}{dx}f(x)$.\n\nEjemplo: Para $f(x) = x^2$, $f'(2) = \\lim_{h \\to 0} \\frac{(2+h)^2 - 4}{h} = \\lim_{h \\to 0} \\frac{4h + h^2}{h} = 4$"
+          "tooltip": "La **derivada** de una función $f$ en un punto $a$ se define formalmente como el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n\n**Interpretaciones:**\n• **Pendiente:** La derivada es la pendiente de la recta tangente a la gráfica en $(a, f(a))$\n• **Tasa de cambio:** Mide cómo cambia $f$ rápidamente cerca de $a$\n• **Velocidad:** Si $f$ es posición, $f'$ es velocidad\n\n**Notación:**\nLa derivada se denota como $f'(x)$, $\\frac{df}{dx}$, o $\\frac{d}{dx}f(x)$.\n\nEjemplo: Para $f(x) = x^2$, $f'(2) = \\lim_{h \\to 0} \\frac{(2+h)^2 - 4}{h} = \\lim_{h \\to 0} \\frac{4h + h^2}{h} = 4$",
+          "exercise_types": [
+            "LEXI",
+            "CLSF",
+            "GRAF",
+            "ESTR"
+          ]
         },
         {
           "key": "geometric_interpretation",
           "name": "Interpretación geométrica",
-          "tooltip": "Geométricamente, la derivada $f'(a)$ representa la **pendiente de la recta tangente** a la gráfica de $f$ en el punto $(a, f(a))$.\n\n**Relación con secantes:**\nLa recta **secante** entre $(a, f(a))$ y $(a+h, f(a+h))$ tiene pendiente:\n$$m_{\\text{secante}} = \\frac{f(a+h) - f(a)}{h}$$\n\nCuando $h \\to 0$, la secante se convierte en la recta **tangente**, cuya pendiente es la derivada.\n\n**La recta tangente:**\nTiene ecuación: $y - f(a) = f'(a)(x - a)$ o $y = f'(a)(x - a) + f(a)$\n\nEjemplo: Para $f(x) = x^2$ en $x = 1$, $f'(1) = 2$, así que la tangente es $y = 2(x-1) + 1 = 2x - 1$"
+          "tooltip": "Geométricamente, la derivada $f'(a)$ representa la **pendiente de la recta tangente** a la gráfica de $f$ en el punto $(a, f(a))$.\n\n**Relación con secantes:**\nLa recta **secante** entre $(a, f(a))$ y $(a+h, f(a+h))$ tiene pendiente:\n$$m_{\\text{secante}} = \\frac{f(a+h) - f(a)}{h}$$\n\nCuando $h \\to 0$, la secante se convierte en la recta **tangente**, cuya pendiente es la derivada.\n\n**La recta tangente:**\nTiene ecuación: $y - f(a) = f'(a)(x - a)$ o $y = f'(a)(x - a) + f(a)$\n\nEjemplo: Para $f(x) = x^2$ en $x = 1$, $f'(1) = 2$, así que la tangente es $y = 2(x-1) + 1 = 2x - 1$",
+          "exercise_types": [
+            "LEXI",
+            "GRAF",
+            "ESTR",
+            "APLI"
+          ]
         },
         {
           "key": "basic_rules",
           "name": "Reglas básicas",
-          "tooltip": "Existen fórmulas simples para derivar funciones comunes sin usar el límite.\n\n**Reglas básicas:**\n• **Constante:** Si $f(x) = c$, entonces $f'(x) = 0$\n• **Potencia:** Si $f(x) = x^n$, entonces $f'(x) = nx^{n-1}$\n• **Linealidad:** $(f + g)' = f' + g'$ y $(cf)' = c \\cdot f'$\n• **Exponencial:** Si $f(x) = a^x$, entonces $f'(x) = a^x \\ln(a)$\n• **Logarítmica:** Si $f(x) = \\ln(x)$, entonces $f'(x) = \\frac{1}{x}$\n\n**Trigonométricas:**\n• $(\\sin x)' = \\cos x$\n• $(\\cos x)' = -\\sin x$\n\nEjemplo: Si $f(x) = 5x^3 - 2x + 7$, entonces $f'(x) = 15x^2 - 2$"
+          "tooltip": "Existen fórmulas simples para derivar funciones comunes sin usar el límite.\n\n**Reglas básicas:**\n• **Constante:** Si $f(x) = c$, entonces $f'(x) = 0$\n• **Potencia:** Si $f(x) = x^n$, entonces $f'(x) = nx^{n-1}$\n• **Linealidad:** $(f + g)' = f' + g'$ y $(cf)' = c \\cdot f'$\n• **Exponencial:** Si $f(x) = a^x$, entonces $f'(x) = a^x \\ln(a)$\n• **Logarítmica:** Si $f(x) = \\ln(x)$, entonces $f'(x) = \\frac{1}{x}$\n\n**Trigonométricas:**\n• $(\\sin x)' = \\cos x$\n• $(\\cos x)' = -\\sin x$\n\nEjemplo: Si $f(x) = 5x^3 - 2x + 7$, entonces $f'(x) = 15x^2 - 2$",
+          "exercise_types": [
+            "LEXI",
+            "ESTR",
+            "DERI"
+          ]
         },
         {
           "key": "product_quotient",
           "name": "Producto y cociente",
-          "tooltip": "Cuando una función es el producto o cociente de otras, existen reglas especiales.\n\n**Regla del producto:**\nSi $f(x) = u(x) \\cdot v(x)$, entonces:\n$$f'(x) = u'(x) \\cdot v(x) + u(x) \\cdot v'(x)$$\n\n**Regla del cociente:**\nSi $f(x) = \\frac{u(x)}{v(x)}$, entonces:\n$$f'(x) = \\frac{u'(x) \\cdot v(x) - u(x) \\cdot v'(x)}{[v(x)]^2}$$\n\nMnemotécnico: \"Derivada del numerador por el denominador, menos numerador por derivada del denominador, todo dividido por el denominador al cuadrado.\"\n\nEjemplo: Si $f(x) = \\frac{x^2}{x+1}$, con $u = x^2$ y $v = x+1$:\n$$f'(x) = \\frac{2x(x+1) - x^2 \\cdot 1}{(x+1)^2} = \\frac{2x^2 + 2x - x^2}{(x+1)^2} = \\frac{x^2 + 2x}{(x+1)^2}$$"
+          "tooltip": "Cuando una función es el producto o cociente de otras, existen reglas especiales.\n\n**Regla del producto:**\nSi $f(x) = u(x) \\cdot v(x)$, entonces:\n$$f'(x) = u'(x) \\cdot v(x) + u(x) \\cdot v'(x)$$\n\n**Regla del cociente:**\nSi $f(x) = \\frac{u(x)}{v(x)}$, entonces:\n$$f'(x) = \\frac{u'(x) \\cdot v(x) - u(x) \\cdot v'(x)}{[v(x)]^2}$$\n\nMnemotécnico: \"Derivada del numerador por el denominador, menos numerador por derivada del denominador, todo dividido por el denominador al cuadrado.\"\n\nEjemplo: Si $f(x) = \\frac{x^2}{x+1}$, con $u = x^2$ y $v = x+1$:\n$$f'(x) = \\frac{2x(x+1) - x^2 \\cdot 1}{(x+1)^2} = \\frac{2x^2 + 2x - x^2}{(x+1)^2} = \\frac{x^2 + 2x}{(x+1)^2}$$",
+          "exercise_types": [
+            "ESTR",
+            "DERI",
+            "APLI"
+          ]
         },
         {
           "key": "chain_rule",
           "name": "Regla de la cadena",
-          "tooltip": "La **regla de la cadena** permite derivar funciones compuestas.\n\n**Funciones compuestas:**\nSi $f(x) = g(h(x))$ (composición), entonces:\n$$f'(x) = g'(h(x)) \\cdot h'(x)$$\n\nEn otras notaciones: Si $y = g(u)$ y $u = h(x)$, entonces:\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\n**Pasos:**\n1. Identificar la función **exterior** $g$ y la **interior** $h$\n2. Derivar la exterior, evaluada en la interior: $g'(h(x))$\n3. Multiplicar por la derivada de la interior: $h'(x)$\n\nEjemplo: Si $f(x) = (3x^2 + 1)^5$, sea $u = 3x^2 + 1$:\n$$f'(x) = 5(3x^2+1)^4 \\cdot 6x = 30x(3x^2+1)^4$$"
+          "tooltip": "La **regla de la cadena** permite derivar funciones compuestas.\n\n**Funciones compuestas:**\nSi $f(x) = g(h(x))$ (composición), entonces:\n$$f'(x) = g'(h(x)) \\cdot h'(x)$$\n\nEn otras notaciones: Si $y = g(u)$ y $u = h(x)$, entonces:\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\n**Pasos:**\n1. Identificar la función **exterior** $g$ y la **interior** $h$\n2. Derivar la exterior, evaluada en la interior: $g'(h(x))$\n3. Multiplicar por la derivada de la interior: $h'(x)$\n\nEjemplo: Si $f(x) = (3x^2 + 1)^5$, sea $u = 3x^2 + 1$:\n$$f'(x) = 5(3x^2+1)^4 \\cdot 6x = 30x(3x^2+1)^4$$",
+          "exercise_types": [
+            "ESTR",
+            "DERI",
+            "APLI"
+          ]
         },
         {
           "key": "lhopital",
           "name": "L'Hôpital",
-          "tooltip": "La **regla de L'Hôpital** es un método para resolver ciertos límites indeterminados usando derivadas.\n\n**Indeterminaciones:**\nCuando tenemos límites de la forma $\\frac{0}{0}$ o $\\frac{\\infty}{\\infty}$, podemos aplicar L'Hôpital:\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$\n\n(siempre que el límite de la derecha exista)\n\n**Proceso:**\n1. Verificar que obtenemos $\\frac{0}{0}$ o $\\frac{\\infty}{\\infty}$ al sustituir\n2. Derivar el numerador y el denominador por separado\n3. Calcular el nuevo límite\n4. Si sigue siendo indeterminado, repetir\n\nEjemplo: $\\lim_{x \\to 0} \\frac{\\sin x}{x} = \\lim_{x \\to 0} \\frac{\\cos x}{1} = 1$"
+          "tooltip": "La **regla de L'Hôpital** es un método para resolver ciertos límites indeterminados usando derivadas.\n\n**Indeterminaciones:**\nCuando tenemos límites de la forma $\\frac{0}{0}$ o $\\frac{\\infty}{\\infty}$, podemos aplicar L'Hôpital:\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$\n\n(siempre que el límite de la derecha exista)\n\n**Proceso:**\n1. Verificar que obtenemos $\\frac{0}{0}$ o $\\frac{\\infty}{\\infty}$ al sustituir\n2. Derivar el numerador y el denominador por separado\n3. Calcular el nuevo límite\n4. Si sigue siendo indeterminado, repetir\n\nEjemplo: $\\lim_{x \\to 0} \\frac{\\sin x}{x} = \\lim_{x \\to 0} \\frac{\\cos x}{1} = 1$",
+          "exercise_types": [
+            "ESTR",
+            "RESL",
+            "APLI"
+          ]
         }
       ]
     },
@@ -152,22 +251,42 @@ export const catalog: Catalog = {
         {
           "key": "indefinite_integral",
           "name": "Integral indefinida",
-          "tooltip": "La **integral indefinida** es la operación inversa a la derivación. La antiderivada de $f(x)$ es una función $F(x)$ tal que $F'(x) = f(x)$.\n\nSe denota: $\\int f(x) \\, dx = F(x) + C$\n\nDonde $C$ es una **constante arbitraria** (constante de integración).\n\n**Fórmulas básicas:**\n• $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$ (si $n \\neq -1$)\n• $\\int \\frac{1}{x} \\, dx = \\ln|x| + C$\n• $\\int e^x \\, dx = e^x + C$\n• $\\int \\sin x \\, dx = -\\cos x + C$\n• $\\int \\cos x \\, dx = \\sin x + C$\n\n**Linealidad:**\n$\\int [af(x) + bg(x)] \\, dx = a\\int f(x) \\, dx + b\\int g(x) \\, dx$\n\nEjemplo: $\\int (3x^2 + 2x) \\, dx = x^3 + x^2 + C$"
+          "tooltip": "La **integral indefinida** es la operación inversa a la derivación. La antiderivada de $f(x)$ es una función $F(x)$ tal que $F'(x) = f(x)$.\n\nSe denota: $\\int f(x) \\, dx = F(x) + C$\n\nDonde $C$ es una **constante arbitraria** (constante de integración).\n\n**Fórmulas básicas:**\n• $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$ (si $n \\neq -1$)\n• $\\int \\frac{1}{x} \\, dx = \\ln|x| + C$\n• $\\int e^x \\, dx = e^x + C$\n• $\\int \\sin x \\, dx = -\\cos x + C$\n• $\\int \\cos x \\, dx = \\sin x + C$\n\n**Linealidad:**\n$\\int [af(x) + bg(x)] \\, dx = a\\int f(x) \\, dx + b\\int g(x) \\, dx$\n\nEjemplo: $\\int (3x^2 + 2x) \\, dx = x^3 + x^2 + C$",
+          "exercise_types": [
+            "LEXI",
+            "ESTR",
+            "INTG"
+          ]
         },
         {
           "key": "substitution",
           "name": "Sustitución",
-          "tooltip": "La **integración por sustitución** (cambio de variable) simplifica integrales complicadas.\n\n**Método:**\nSi tenemos $\\int f(g(x)) \\cdot g'(x) \\, dx$, hacemos:\n1. Sea $u = g(x)$, entonces $du = g'(x) \\, dx$\n2. Sustituir: $\\int f(u) \\, du$\n3. Integrar en términos de $u$\n4. Sustituir $u = g(x)$ nuevamente\n\n**Fórmula:**\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du = F(u) + C = F(g(x)) + C$$\n\n**Estrategia:**\nBusca una función $u$ cuya derivada (o un múltiplo) esté presente en la integral.\n\nEjemplo: $\\int 2x(x^2 + 1)^5 \\, dx$. Sea $u = x^2 + 1$, $du = 2x \\, dx$:\n$$\\int u^5 \\, du = \\frac{u^6}{6} + C = \\frac{(x^2+1)^6}{6} + C$$"
+          "tooltip": "La **integración por sustitución** (cambio de variable) simplifica integrales complicadas.\n\n**Método:**\nSi tenemos $\\int f(g(x)) \\cdot g'(x) \\, dx$, hacemos:\n1. Sea $u = g(x)$, entonces $du = g'(x) \\, dx$\n2. Sustituir: $\\int f(u) \\, du$\n3. Integrar en términos de $u$\n4. Sustituir $u = g(x)$ nuevamente\n\n**Fórmula:**\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du = F(u) + C = F(g(x)) + C$$\n\n**Estrategia:**\nBusca una función $u$ cuya derivada (o un múltiplo) esté presente en la integral.\n\nEjemplo: $\\int 2x(x^2 + 1)^5 \\, dx$. Sea $u = x^2 + 1$, $du = 2x \\, dx$:\n$$\\int u^5 \\, du = \\frac{u^6}{6} + C = \\frac{(x^2+1)^6}{6} + C$$",
+          "exercise_types": [
+            "ESTR",
+            "INTG",
+            "APLI"
+          ]
         },
         {
           "key": "integration_by_parts",
           "name": "Integración por partes",
-          "tooltip": "La **integración por partes** es la versión integral de la regla del producto para derivadas.\n\n**Fórmula:**\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nDonde elegimos $u$ y $dv$ de manera que la integral resultante $\\int v \\, du$ sea más simple.\n\n**Estrategia LIATE:**\nElegir $u$ según esta prioridad:\n1. **L**ogarítmica: $\\ln(x)$, $\\log(x)$\n2. **I**nversa trigonométrica: $\\arcsin(x)$, $\\arccos(x)$\n3. **A**lgebraica: $x$, $x^2$\n4. **T**rigonométrica: $\\sin(x)$, $\\cos(x)$\n5. **E**xponencial: $e^x$, $a^x$\n\nEjemplo: $\\int x e^x \\, dx$. Sea $u = x$, $dv = e^x dx$:\n- $du = dx$, $v = e^x$\n- $\\int x e^x \\, dx = xe^x - \\int e^x \\, dx = xe^x - e^x + C = e^x(x-1) + C$"
+          "tooltip": "La **integración por partes** es la versión integral de la regla del producto para derivadas.\n\n**Fórmula:**\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nDonde elegimos $u$ y $dv$ de manera que la integral resultante $\\int v \\, du$ sea más simple.\n\n**Estrategia LIATE:**\nElegir $u$ según esta prioridad:\n1. **L**ogarítmica: $\\ln(x)$, $\\log(x)$\n2. **I**nversa trigonométrica: $\\arcsin(x)$, $\\arccos(x)$\n3. **A**lgebraica: $x$, $x^2$\n4. **T**rigonométrica: $\\sin(x)$, $\\cos(x)$\n5. **E**xponencial: $e^x$, $a^x$\n\nEjemplo: $\\int x e^x \\, dx$. Sea $u = x$, $dv = e^x dx$:\n- $du = dx$, $v = e^x$\n- $\\int x e^x \\, dx = xe^x - \\int e^x \\, dx = xe^x - e^x + C = e^x(x-1) + C$",
+          "exercise_types": [
+            "ESTR",
+            "INTG",
+            "APLI"
+          ]
         },
         {
           "key": "definite_integral",
           "name": "Integral definida",
-          "tooltip": "La **integral definida** calcula el área (neta) bajo una curva entre dos límites.\n\n**Notación y definición:**\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nDonde $F$ es cualquier antiderivada de $f$. Esto se llama el **Teorema Fundamental del Cálculo**.\n\n**Propiedades:**\n• $\\int_a^b f(x) \\, dx = -\\int_b^a f(x) \\, dx$\n• $\\int_a^a f(x) \\, dx = 0$\n• $\\int_a^b [f(x) + g(x)] \\, dx = \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$\n• $\\int_a^c f(x) \\, dx = \\int_a^b f(x) \\, dx + \\int_b^c f(x) \\, dx$ (aditividad)\n\n**Interpretación geométrica:**\nSi $f(x) \\geq 0$ en $[a,b]$, $\\int_a^b f(x) \\, dx$ es el área entre la curva y el eje $X$.\n\nEjemplo: $\\int_0^2 x^2 \\, dx = \\left[\\frac{x^3}{3}\\right]_0^2 = \\frac{8}{3} - 0 = \\frac{8}{3}$"
+          "tooltip": "La **integral definida** calcula el área (neta) bajo una curva entre dos límites.\n\n**Notación y definición:**\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nDonde $F$ es cualquier antiderivada de $f$. Esto se llama el **Teorema Fundamental del Cálculo**.\n\n**Propiedades:**\n• $\\int_a^b f(x) \\, dx = -\\int_b^a f(x) \\, dx$\n• $\\int_a^a f(x) \\, dx = 0$\n• $\\int_a^b [f(x) + g(x)] \\, dx = \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$\n• $\\int_a^c f(x) \\, dx = \\int_a^b f(x) \\, dx + \\int_b^c f(x) \\, dx$ (aditividad)\n\n**Interpretación geométrica:**\nSi $f(x) \\geq 0$ en $[a,b]$, $\\int_a^b f(x) \\, dx$ es el área entre la curva y el eje $X$.\n\nEjemplo: $\\int_0^2 x^2 \\, dx = \\left[\\frac{x^3}{3}\\right]_0^2 = \\frac{8}{3} - 0 = \\frac{8}{3}$",
+          "exercise_types": [
+            "GRAF",
+            "INTG",
+            "APLI"
+          ]
         }
       ]
     },
@@ -177,22 +296,43 @@ export const catalog: Catalog = {
         {
           "key": "function_analysis",
           "name": "Análisis de funciones",
-          "tooltip": "El **análisis de funciones** es un estudio completo de una función para entender su comportamiento global.\n\n**Pasos principales:**\n1. **Dominio:** ¿Qué valores de $x$ están permitidos?\n2. **Intersecciones:** ¿Dónde cruza los ejes? (ceros y ordenada al origen)\n3. **Simetría:** ¿Es par $f(-x) = f(x)$ o impar $f(-x) = -f(x)$?\n4. **Asíntotas:** Líneas que la gráfica aproxima pero no toca\n5. **Monotonía:** ¿Dónde crece ($f' > 0$) o decrece ($f' < 0$)?\n6. **Extremos:** Máximos y mínimos locales (donde $f' = 0$ o no existe)\n7. **Concavidad:** ¿Dónde es convexa ($f'' > 0$) o cóncava ($f'' < 0$)?\n8. **Puntos de inflexión:** Donde cambia la concavidad ($f'' = 0$)\n\nEste análisis produce un **bosquejo preciso** de la gráfica."
+          "tooltip": "El **análisis de funciones** es un estudio completo de una función para entender su comportamiento global.\n\n**Pasos principales:**\n1. **Dominio:** ¿Qué valores de $x$ están permitidos?\n2. **Intersecciones:** ¿Dónde cruza los ejes? (ceros y ordenada al origen)\n3. **Simetría:** ¿Es par $f(-x) = f(x)$ o impar $f(-x) = -f(x)$?\n4. **Asíntotas:** Líneas que la gráfica aproxima pero no toca\n5. **Monotonía:** ¿Dónde crece ($f' > 0$) o decrece ($f' < 0$)?\n6. **Extremos:** Máximos y mínimos locales (donde $f' = 0$ o no existe)\n7. **Concavidad:** ¿Dónde es convexa ($f'' > 0$) o cóncava ($f'' < 0$)?\n8. **Puntos de inflexión:** Donde cambia la concavidad ($f'' = 0$)\n\nEste análisis produce un **bosquejo preciso** de la gráfica.",
+          "exercise_types": [
+            "CLSF",
+            "GRAF",
+            "DERI",
+            "APLI"
+          ]
         },
         {
           "key": "optimization",
           "name": "Optimización",
-          "tooltip": "La **optimización** busca los valores máximo y mínimo de una función, aplicado a problemas reales.\n\n**Método del cálculo:**\n1. Identificar la función a optimizar: $f(x)$ (ganancia, costo, área, etc.)\n2. Encontrar puntos críticos: resolver $f'(x) = 0$ y puntos donde $f'$ no existe\n3. Usar el **criterio de la segunda derivada:**\n   - Si $f''(x) > 0$: mínimo local\n   - Si $f''(x) < 0$: máximo local\n4. Comparar con valores en los extremos del dominio\n\n**Tipos de problemas:**\n• Maximizar ganancia, minimizar costos\n• Minimizar distancia, maximizar área\n• Optimizar velocidad, eficiencia\n\nEjemplo: Una caja abierta se hace de una lámina cuadrada quitando esquinas. La ecuación del volumen es $V(x) = x(20-2x)^2$. Optimizar encontrando dónde $V'(x) = 0$."
+          "tooltip": "La **optimización** busca los valores máximo y mínimo de una función, aplicado a problemas reales.\n\n**Método del cálculo:**\n1. Identificar la función a optimizar: $f(x)$ (ganancia, costo, área, etc.)\n2. Encontrar puntos críticos: resolver $f'(x) = 0$ y puntos donde $f'$ no existe\n3. Usar el **criterio de la segunda derivada:**\n   - Si $f''(x) > 0$: mínimo local\n   - Si $f''(x) < 0$: máximo local\n4. Comparar con valores en los extremos del dominio\n\n**Tipos de problemas:**\n• Maximizar ganancia, minimizar costos\n• Minimizar distancia, maximizar área\n• Optimizar velocidad, eficiencia\n\nEjemplo: Una caja abierta se hace de una lámina cuadrada quitando esquinas. La ecuación del volumen es $V(x) = x(20-2x)^2$. Optimizar encontrando dónde $V'(x) = 0$.",
+          "exercise_types": [
+            "ESTR",
+            "DERI",
+            "APLI"
+          ]
         },
         {
           "key": "area_calculation",
           "name": "Cálculo de áreas",
-          "tooltip": "El cálculo de **áreas** entre curvas usa integrales definidas.\n\n**Área entre dos curvas:**\nSi $f(x) \\geq g(x)$ en $[a, b]$, el área entre ellas es:\n$$A = \\int_a^b [f(x) - g(x)] \\, dx$$\n\n**Casos:**\n• **Área entre curva y eje $X$:** Si $f(x) \\geq 0$ en $[a,b]$, $A = \\int_a^b f(x) \\, dx$\n• **Área en regiones donde $f < 0$:** Usar $A = \\int_a^b |f(x)| \\, dx$\n• **Área entre múltiples curvas:** Dividir en regiones donde el orden de las curvas es consistente\n\n**Estrategia:**\n1. Graficar para visualizar la región\n2. Encontrar puntos de intersección (donde $f(x) = g(x)$)\n3. Establecer la integral con la función superior menos la inferior\n4. Integrar\n\nEjemplo: Área entre $f(x) = x^2$ y $g(x) = 2x$ de $x=0$ a $x=2$:\n$$A = \\int_0^2 (2x - x^2) \\, dx = \\left[x^2 - \\frac{x^3}{3}\\right]_0^2 = 4 - \\frac{8}{3} = \\frac{4}{3}$$"
+          "tooltip": "El cálculo de **áreas** entre curvas usa integrales definidas.\n\n**Área entre dos curvas:**\nSi $f(x) \\geq g(x)$ en $[a, b]$, el área entre ellas es:\n$$A = \\int_a^b [f(x) - g(x)] \\, dx$$\n\n**Casos:**\n• **Área entre curva y eje $X$:** Si $f(x) \\geq 0$ en $[a,b]$, $A = \\int_a^b f(x) \\, dx$\n• **Área en regiones donde $f < 0$:** Usar $A = \\int_a^b |f(x)| \\, dx$\n• **Área entre múltiples curvas:** Dividir en regiones donde el orden de las curvas es consistente\n\n**Estrategia:**\n1. Graficar para visualizar la región\n2. Encontrar puntos de intersección (donde $f(x) = g(x)$)\n3. Establecer la integral con la función superior menos la inferior\n4. Integrar\n\nEjemplo: Área entre $f(x) = x^2$ y $g(x) = 2x$ de $x=0$ a $x=2$:\n$$A = \\int_0^2 (2x - x^2) \\, dx = \\left[x^2 - \\frac{x^3}{3}\\right]_0^2 = 4 - \\frac{8}{3} = \\frac{4}{3}$$",
+          "exercise_types": [
+            "GRAF",
+            "INTG",
+            "APLI"
+          ]
         },
         {
           "key": "ftc",
           "name": "Teorema fundamental",
-          "tooltip": "El **Teorema Fundamental del Cálculo** conecta derivadas e integrales, mostrando que son operaciones inversas.\n\n**Primera parte (diferenciación de integrales):**\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces:\n$$F'(x) = f(x)$$\n\nLa derivada de una integral recupera la función original.\n\n**Segunda parte (cálculo de integrales definidas):**\nSi $F$ es una antiderivada de $f$, entonces:\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsta parte es lo que usamos para evaluar integrales definidas.\n\n**Impacto histórico:**\nEste teorema unificó el cálculo diferencial (derivadas) e integral (integrales), mostrando que son fundamentalmente relacionados.\n\nEjemplo: Para $\\int_1^3 2x \\, dx$, una antiderivada es $F(x) = x^2$, así que:\n$$\\int_1^3 2x \\, dx = F(3) - F(1) = 9 - 1 = 8$$"
+          "tooltip": "El **Teorema Fundamental del Cálculo** conecta derivadas e integrales, mostrando que son operaciones inversas.\n\n**Primera parte (diferenciación de integrales):**\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces:\n$$F'(x) = f(x)$$\n\nLa derivada de una integral recupera la función original.\n\n**Segunda parte (cálculo de integrales definidas):**\nSi $F$ es una antiderivada de $f$, entonces:\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsta parte es lo que usamos para evaluar integrales definidas.\n\n**Impacto histórico:**\nEste teorema unificó el cálculo diferencial (derivadas) e integral (integrales), mostrando que son fundamentalmente relacionados.\n\nEjemplo: Para $\\int_1^3 2x \\, dx$, una antiderivada es $F(x) = x^2$, así que:\n$$\\int_1^3 2x \\, dx = F(3) - F(1) = 9 - 1 = 8$$",
+          "exercise_types": [
+            "ESTR",
+            "INTG",
+            "APLI"
+          ]
         }
       ]
     }

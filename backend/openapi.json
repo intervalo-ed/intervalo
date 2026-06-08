@@ -643,6 +643,28 @@
           "is_current_user": {
             "type": "boolean",
             "title": "Is Current User"
+          },
+          "career": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
           }
         },
         "type": "object",
@@ -663,11 +685,21 @@
             },
             "type": "array",
             "title": "Entries"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp"
+          },
+          "total_exercises": {
+            "type": "integer",
+            "title": "Total Exercises"
           }
         },
         "type": "object",
         "required": [
-          "entries"
+          "entries",
+          "total_xp",
+          "total_exercises"
         ],
         "title": "LeaderboardResponse"
       },
@@ -1042,6 +1074,17 @@
           "state": {
             "type": "string",
             "title": "State"
+          },
+          "next_review": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review"
           }
         },
         "type": "object",

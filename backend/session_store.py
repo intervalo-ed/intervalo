@@ -146,6 +146,17 @@ def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool
     ).first() is not None
 
 
+def _has_pending_items(user_id: int, course_id: int, db: DBSession) -> bool:
+    """Whether the user has any review item due today or earlier."""
+    today = date.today()
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.next_due.isnot(None),
+        UnitState.next_due <= today,
+    ).first() is not None
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _get_session(session_id: str) -> Optional[SessionState]:
@@ -241,10 +252,18 @@ def _aggregate_topic_progress(
     ) else "learning"
 
     rows_by_type = {r.exercise_type: r for r in rows}
-    units = [
-        {"exercise_type": et, "state": _unit_state(rows_by_type.get(et))}
-        for et in expected_types
-    ]
+    units = []
+    for et in expected_types:
+        row = rows_by_type.get(et)
+        units.append(
+            {
+                "exercise_type": et,
+                "state": _unit_state(row),
+                "next_review": (
+                    row.next_due.isoformat() if row and row.next_due else None
+                ),
+            }
+        )
 
     return {
         "phase": aggregate_phase,
@@ -340,21 +359,36 @@ def _rows_to_unit_states(
     return states, attempted
 
 
-def _bootstrap_first_topic_if_empty(
+ACTIVE_CAP = 15
+
+
+def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
+    """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas."""
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.phase != "review",
+    ).count()
+
+
+def _ensure_active_units(
     user_id: int,
     course_id: int,
     db: DBSession,
 ) -> None:
-    """Seed the very first topic when a user has no units yet."""
-    has_any = db.query(UnitState).filter(
-        UnitState.user_id == user_id,
-        UnitState.course_id == course_id,
-    ).first() is not None
-    if has_any:
+    """Desbloquea temas en orden de catálogo hasta tener ACTIVE_CAP (15) units
+    activas. A medida que las units graduan (pasan a 'review'), se liberan cupos
+    y se desbloquean nuevos temas hasta volver a 15."""
+    active = _active_unit_count(user_id, course_id, db)
+    if active >= ACTIVE_CAP:
         return
     for tk in _all_topic_keys(course_id, db):
-        _create_topic_units(user_id, course_id, tk, db)
-        break
+        if active >= ACTIVE_CAP:
+            break
+        if _topic_has_any_units(user_id, course_id, tk, db):
+            continue
+        types = _create_topic_units(user_id, course_id, tk, db)
+        active += len(types)
     db.commit()
 
 
@@ -409,22 +443,24 @@ def _make_topic_introducer(
 
 def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Create a new session, picking the next batch of exercises with the SR algorithm."""
-    if _has_main_session_today(user_id, course_id, db):
+    # One main session per day, EXCEPT the user can keep reviewing while there
+    # are still pending (due) items. Once nothing's due, the daily gate applies.
+    if _has_main_session_today(user_id, course_id, db) and not _has_pending_items(
+        user_id, course_id, db
+    ):
         raise DailySessionLimitError(
-            "Ya empezaste tu sesión de hoy. Volvé mañana."
+            "Ya completaste tus repasos de hoy. Volvé mañana."
         )
 
-    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    _ensure_active_units(user_id, course_id, db)
     unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
 
-    introduce_new_topic = _make_topic_introducer(
-        user_id, course_id, db, unit_states, unit_attempted,
-    )
-
+    # El desbloqueo lo maneja _ensure_active_units (cap de 15); la sesión solo
+    # arma con lo que está activo/vencido, sin introducir temas extra.
     session_units = build_session(
         unit_states,
         unit_attempted=unit_attempted,
-        introduce_new_topic=introduce_new_topic,
+        introduce_new_topic=None,
     )
 
     exercises = [
@@ -635,7 +671,7 @@ def record_answer_db(
             )
             if is_topic_mastered(state.unit_states, topic_key, expected_types):
                 xp_earned += XP_TOPIC_MASTERED
-                _unlock_next_topic(user_id, course_id, topic_key, db)
+                _ensure_active_units(user_id, course_id, db)
 
                 belt_catalog = _get_catalog(course_id, topic_key.belt, db)
                 belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
@@ -698,7 +734,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Return topic-level progress (rolled up from per-unit state) and level info."""
     catalog_keys = _all_topic_keys(course_id, db)
 
-    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    _ensure_active_units(user_id, course_id, db)
 
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,

@@ -11,24 +11,51 @@ import {
 } from "@/components/ui/dialog"
 import { SignOutButton } from "@clerk/nextjs"
 import {
+  AtSignIcon,
+  BellIcon,
   LogOutIcon,
+  MessageSquareIcon,
   MoreVerticalIcon,
   ShareIcon,
   SmartphoneIcon,
+  UserIcon,
 } from "lucide-react"
+
+const btnCls = "h-12 w-full justify-start rounded-md"
 
 export function SettingsContent() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="mt-auto flex flex-col gap-3">
+      <SignOutButton>
+        <Button variant="outline" size="lg" className={btnCls}>
+          <LogOutIcon className="size-5" />
+          Cerrar sesión
+        </Button>
+      </SignOutButton>
+
+      <Button variant="outline" size="lg" className={btnCls}>
+        <UserIcon className="size-5" />
+        Cambiar apodo
+      </Button>
+
+      <Button variant="outline" size="lg" className={btnCls}>
+        <AtSignIcon className="size-5" />
+        Cambiar usuario
+      </Button>
+
+      <Button variant="outline" size="lg" className={btnCls}>
+        <BellIcon className="size-5" />
+        Configurar notificaciones
+      </Button>
+
+      <Button variant="outline" size="lg" className={btnCls}>
+        <MessageSquareIcon className="size-5" />
+        Dar feedback
+      </Button>
+
       <Dialog>
         <DialogTrigger
-          render={
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 justify-start"
-            />
-          }
+          render={<Button variant="outline" size="lg" className={btnCls} />}
         >
           <SmartphoneIcon className="size-5" />
           Instalar como app
@@ -37,8 +64,7 @@ export function SettingsContent() {
           <DialogHeader>
             <DialogTitle>Instalar Intervalo</DialogTitle>
             <DialogDescription>
-              Agregá Intervalo a tu pantalla de inicio para abrirlo como una
-              app.
+              Agregá Intervalo a tu pantalla de inicio para abrirlo como una app.
             </DialogDescription>
           </DialogHeader>
 
@@ -81,13 +107,6 @@ export function SettingsContent() {
           </div>
         </DialogContent>
       </Dialog>
-
-      <SignOutButton>
-        <Button variant="outline" size="lg" className="h-12 justify-start">
-          <LogOutIcon className="size-5" />
-          Cerrar sesión
-        </Button>
-      </SignOutButton>
     </div>
   )
 }

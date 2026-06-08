@@ -296,11 +296,19 @@ export interface components {
             total_xp: number;
             /** Is Current User */
             is_current_user: boolean;
+            /** Career */
+            career?: string | null;
+            /** University */
+            university?: string | null;
         };
         /** LeaderboardResponse */
         LeaderboardResponse: {
             /** Entries */
             entries: components["schemas"]["LeaderboardEntry"][];
+            /** Total Xp */
+            total_xp: number;
+            /** Total Exercises */
+            total_exercises: number;
         };
         /** LevelInfo */
         LevelInfo: {
@@ -440,6 +448,8 @@ export interface components {
             exercise_type: string;
             /** State */
             state: string;
+            /** Next Review */
+            next_review?: string | null;
         };
         /** UserProgressResponse */
         UserProgressResponse: {

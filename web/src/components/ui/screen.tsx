@@ -42,12 +42,15 @@ export function ScreenHeader({
 export function ScreenBody({
   children,
   className,
+  ref,
 }: {
   children?: React.ReactNode
   className?: string
+  ref?: React.Ref<HTMLDivElement>
 }) {
   return (
     <div
+      ref={ref}
       className={cn(
         "mx-auto flex w-full max-w-2xl flex-1 flex-col overflow-y-auto overflow-x-hidden p-5",
         className,

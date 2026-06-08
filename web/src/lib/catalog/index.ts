@@ -23,27 +23,27 @@ const BELT_INFO: Record<BeltKey, { headline: string; description: string }> = {
   white: {
     headline: "Funciones",
     description:
-      "Trabajás tu capacidad para reconocer, describir y manipular las distintas familias de funciones que se suelen ver en Análisis Matemático I.",
+      "En esta unidad, trabajás tu capacidad para reconocer, describir y manipular las distintas familias de funciones.",
   },
   blue: {
     headline: "Límites",
     description:
-      "Explorás el comportamiento de funciones al acercarse a un punto. Aprendés a calcular límites con técnicas algebraicas e identificar continuidad e indeterminaciones.",
+      "En esta unidad, explorás el comportamiento de funciones al acercarse a un punto y aprendés a calcular límites con técnicas algebraicas, además de identificar continuidad e indeterminaciones.",
   },
   violet: {
     headline: "Derivadas",
     description:
-      "Dominás las reglas de derivación y su interpretación geométrica. Usás derivadas para analizar funciones y resolver problemas de optimización.",
+      "En esta unidad, trabajás las reglas de derivación y su interpretación geométrica, y usás derivadas para analizar funciones y resolver problemas de optimización.",
   },
   brown: {
     headline: "Integrales",
     description:
-      "Aprendés a calcular integrales indefinidas y definidas usando sustitución e integración por partes, conectando con el Teorema Fundamental del Cálculo.",
+      "En esta unidad, aprendés a calcular integrales indefinidas y definidas usando sustitución e integración por partes, conectando con el Teorema Fundamental del Cálculo.",
   },
   black: {
     headline: "Aplicaciones",
     description:
-      "Integrás todo lo aprendido para analizar funciones en profundidad, resolver problemas de optimización y área, y aplicar el Teorema Fundamental del Cálculo.",
+      "En esta unidad, integrás todo lo aprendido para analizar funciones en profundidad, resolver problemas de optimización y área, y aplicar el Teorema Fundamental del Cálculo.",
   },
 }
 

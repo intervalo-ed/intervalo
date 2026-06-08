@@ -1,12 +1,16 @@
 import { BottomNav } from "@/components/bottom-nav"
+import { Wordmark } from "@/components/wordmark"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
+import Link from "next/link"
 import { LeaderboardContent } from "./leaderboard-content"
 
 export default function LeaderboardPage() {
   return (
     <Screen>
-      <ScreenHeader>
-        <h1 className="text-lg font-semibold">Ranking</h1>
+      <ScreenHeader innerClassName="justify-center">
+        <Link href="/" aria-label="Intervalo">
+          <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
+        </Link>
       </ScreenHeader>
       <ScreenBody>
         <LeaderboardContent />

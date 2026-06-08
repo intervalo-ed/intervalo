@@ -1,9 +1,9 @@
 "use client"
 
-import { Coordinates, Mafs, Plot } from "mafs"
+import { Coordinates, Line, Mafs, Plot, Text } from "mafs"
 import "mafs/core.css"
 import { compile, type EvalFunction } from "mathjs"
-import { useMemo } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
@@ -129,7 +129,37 @@ export default function MathGraph({
   graphView?: unknown[] | null
 }) {
   const fn = useMemo(() => buildFn(graphFn), [graphFn])
-  const [xmin, xmax, ymin, ymax] = toView(graphView)
+  // Igual que el prototipo viejo (prototype-v1): se usa el graph_view tal cual,
+  // sin zoom out ni recorte del eje x. La "deformación" horizontal surge sola del
+  // aspecto fijo de la caja (480×280) que estira la vista para llenarla.
+  const raw = toView(graphView)
+  const xmin = Math.round(raw[0])
+  const xmax = Math.round(raw[1])
+  const ymin = Math.round(raw[2])
+  const ymax = Math.round(raw[3])
+
+  // Caja con el mismo aspecto que el viejo SVG (480×280): medimos el ancho y
+  // derivamos la altura, así el estiramiento del eje x es idéntico en cualquier
+  // pantalla.
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(210)
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const update = () => setHeight(Math.round((el.clientWidth * 280) / 480))
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  // Ticks (guiones) en cada entero de cada eje, y labels Y propios al borde izq.
+  const xTicks: number[] = []
+  for (let i = Math.ceil(xmin); i <= xmax; i++) if (i !== 0) xTicks.push(i)
+  const yTicks: number[] = []
+  for (let j = Math.ceil(ymin); j <= ymax; j++) if (j !== 0) yTicks.push(j)
+  const xTickHalf = (ymax - ymin) * 0.009 // alto de los guiones del eje x (en y)
+  const yTickHalf = (xmax - xmin) * 0.005 // ancho de los guiones del eje y (en x)
 
   if (!fn) {
     return (
@@ -141,28 +171,55 @@ export default function MathGraph({
 
   return (
     <div
-      className="overflow-hidden border bg-muted text-card-foreground"
-      style={
-        {
-          "--mafs-bg": "var(--color-muted)",
-          "--mafs-fg": "var(--color-foreground)",
-          "--mafs-origin-color":
-            "color-mix(in oklch, var(--color-muted-foreground) 35%, transparent)",
-          "--mafs-line-color":
-            "color-mix(in oklch, var(--color-border) 15%, transparent)",
-          "--grid-line-subdivision-color":
-            "color-mix(in oklch, var(--color-border) 5%, transparent)",
-        } as React.CSSProperties
-      }
+      ref={wrapRef}
+      className="math-graph overflow-hidden rounded-md border bg-white"
     >
       <Mafs
-        height={260}
+        height={height}
         viewBox={{ x: [xmin, xmax], y: [ymin, ymax] }}
+        preserveAspectRatio={false}
         pan={false}
         zoom={false}
       >
-        <Coordinates.Cartesian />
-        <Plot.OfX y={fn} color="var(--color-primary)" weight={4} />
+        <Coordinates.Cartesian yAxis={{ labels: false }} />
+        {xTicks.map((i) => (
+          <Line.Segment
+            key={`xt-${i}`}
+            point1={[i, -xTickHalf]}
+            point2={[i, xTickHalf]}
+            color="#9ca3af"
+            weight={1}
+          />
+        ))}
+        {yTicks.map((j) => (
+          <Line.Segment
+            key={`yt-${j}`}
+            point1={[-yTickHalf, j]}
+            point2={[yTickHalf, j]}
+            color="#9ca3af"
+            weight={1}
+          />
+        ))}
+        {yTicks.map((j) => (
+          <Text
+            key={`yl-${j}`}
+            x={0}
+            y={j}
+            attach="w"
+            attachDistance={6}
+            size={8}
+            color="#6b7280"
+          >
+            {j}
+          </Text>
+        ))}
+        <Plot.OfX
+          y={fn}
+          color="#4453E6"
+          weight={2}
+          minSamplingDepth={12}
+          maxSamplingDepth={20}
+        />
       </Mafs>
     </div>
   )

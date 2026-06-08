@@ -48,6 +48,7 @@ class UserStatusResponse(BaseModel):
 class UnitProgress(BaseModel):
     exercise_type: str
     state: str          # "sin_empezar" | "aprendiendo" | "dominado"
+    next_review: str | None = None  # ISO date del próximo repaso de esta unit
 
 
 class TopicProgress(BaseModel):
@@ -91,10 +92,14 @@ class LeaderboardEntry(BaseModel):
     name: str
     total_xp: int
     is_current_user: bool
+    career: str | None = None
+    university: str | None = None
 
 
 class LeaderboardResponse(BaseModel):
     entries: list[LeaderboardEntry]
+    total_xp: int
+    total_exercises: int
 
 
 # ── Session ───────────────────────────────────────────────────────────────────

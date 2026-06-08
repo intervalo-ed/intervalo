@@ -1,27 +1,28 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
+import { CountUp } from "@/components/count-up"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Item, ItemActions, ItemContent, ItemGroup, ItemTitle } from "@/components/ui/item"
-import { Progress } from "@/components/ui/progress"
-import { Screen, ScreenBody, ScreenFooter, ScreenHeader } from "@/components/ui/screen"
-import { Spinner } from "@/components/ui/spinner"
+import { Screen, ScreenBody } from "@/components/ui/screen"
+import { cn } from "@/lib/utils"
 import { queryKeys } from "@/lib/query/keys"
-import { useSfx } from "@/lib/audio/useSfx"
-import { topicLabel } from "@/lib/catalog"
 import { clearSession } from "@/lib/session/storage"
 import { useSummary } from "./UseSummary"
 
+const ctaCls =
+  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+
 export default function SessionSummary({ sessionId }: { sessionId: string }) {
-  const { data, isLoading, isError, error } = useSummary({ sessionId })
+  const { data, isError, error } = useSummary({ sessionId })
   const qc = useQueryClient()
   const router = useRouter()
-  const sfx = useSfx()
+  const [showCards, setShowCards] = useState(false)
+  const [showRight, setShowRight] = useState(false)
+  const [showButton, setShowButton] = useState(false)
 
   function goHome() {
     router.push("/")
@@ -35,28 +36,14 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   // hits its cache on return and shows stale state.
   useEffect(() => {
     if (!data) return
-    sfx.xpCount()
     clearSession({ id: sessionId })
     qc.invalidateQueries({
       queryKey: queryKeys.userProgress(),
       refetchType: "all",
     })
-  }, [data, sessionId, qc, sfx])
+  }, [data, sessionId, qc])
 
-  if (isLoading) {
-    return (
-      <Screen>
-        <ScreenBody className="items-center justify-center text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Spinner />
-            <span>Cargando resumen…</span>
-          </div>
-        </ScreenBody>
-      </Screen>
-    )
-  }
-
-  if (isError || !data) {
+  if (isError) {
     return (
       <Screen>
         <ScreenBody className="items-center justify-center text-center">
@@ -75,98 +62,162 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
     )
   }
 
-  const accuracy = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0
-
   return (
     <Screen>
-      <ScreenHeader>
-        <div className="flex flex-1 flex-col">
-          <h1 className="text-lg font-semibold">Resumen</h1>
-          <p className="text-xs text-muted-foreground">
-            {data.user_name && `${data.user_name} · `}
-            {accuracy}% de aciertos
-          </p>
-        </div>
-      </ScreenHeader>
+      <ScreenBody className="items-center justify-center">
+        {/* El título queda centrado en pantalla y fijo; las cards aparecen
+            posicionadas en absoluto debajo, sin re-centrar el título. */}
+        <div className="relative w-full -translate-y-[15px]">
+          <Typewriter
+            text="¡Listo!"
+            start={!!data}
+            className="block text-center text-3xl font-bold tracking-tight"
+            onDone={() => setShowCards(true)}
+          />
 
-      <ScreenBody className="gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-3 gap-3"
-        >
-          <Stat label="Total" value={data.total} />
-          <Stat label="Correctas" value={data.correct} tone="green" />
-          <Stat label="Falladas" value={data.incorrect} tone="red" />
-        </motion.div>
+          {data && showCards && (
+            <div className="absolute inset-x-0 top-full mt-8 grid grid-cols-2 gap-2">
+              {/* Carga primero la card izquierda (aparece + cuenta) y, al
+                  terminar su conteo, recién aparece la derecha. */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                <Metric
+                  label="Experiencia obtenida"
+                  value={
+                    <CountUp
+                      variant="ease"
+                      value={data.xp_earned}
+                      duration={1400}
+                      onDone={() => setShowRight(true)}
+                    />
+                  }
+                />
+              </motion.div>
 
-        <Card className="shrink-0">
-          <CardContent className="flex flex-col gap-3">
-            <div className="text-sm font-medium">XP ganada</div>
-            <div className="text-2xl font-semibold">+{data.xp_earned}</div>
-            <div className="text-sm text-muted-foreground">
-              Nivel {data.level_info.level} · {data.level_info.xp_in_level}/
-              {data.level_info.xp_required} XP
+              {showRight && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                >
+                  <Metric
+                    label={
+                      <>
+                        Ejercicios
+                        <br />
+                        resueltos
+                      </>
+                    }
+                    value={
+                      <>
+                        <CountUp
+                          variant="ease"
+                          value={data.correct}
+                          duration={1400}
+                          onDone={() => setShowButton(true)}
+                        />
+                        <span className="text-[0.75em] text-foreground/60">
+                          {" "}
+                          / {data.total}
+                        </span>
+                      </>
+                    }
+                  />
+                </motion.div>
+              )}
             </div>
-            <Progress value={data.level_info.progress_pct} />
-          </CardContent>
-        </Card>
-
-        {data.belt_progress.promoted && (
-          <Alert className="border-yellow-500/40 bg-yellow-500/10">
-            <AlertTitle>¡Cinturón promocionado!</AlertTitle>
-          </Alert>
-        )}
-
-        <section>
-          <h2 className="mb-2 text-sm font-medium text-muted-foreground">Temas</h2>
-          <ItemGroup>
-            {data.items.map((item, i) => (
-              <Item key={i} variant="outline" size="sm">
-                <ItemContent>
-                  <ItemTitle>{topicLabel({ topic: item.topic })}</ItemTitle>
-                </ItemContent>
-                <ItemActions>
-                  <span className={item.correct ? "text-green-600" : "text-red-500"}>
-                    {item.correct ? "✓" : "✗"}
-                  </span>
-                </ItemActions>
-              </Item>
-            ))}
-          </ItemGroup>
-        </section>
+          )}
+        </div>
       </ScreenBody>
 
-      <ScreenFooter>
-        <Button size="lg" className="h-12 w-full" onClick={goHome}>
-          Volver al inicio
-        </Button>
-      </ScreenFooter>
+      <div className="shrink-0 p-5">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showButton ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mx-auto w-full max-w-2xl"
+        >
+          <Button
+            size="lg"
+            className={ctaCls}
+            onClick={goHome}
+            disabled={!showButton}
+          >
+            Continuar
+          </Button>
+        </motion.div>
+      </div>
     </Screen>
   )
 }
 
-function Stat({
+function Typewriter({
+  text,
+  speed = 110,
+  start = true,
+  className,
+  onDone,
+}: {
+  text: string
+  speed?: number
+  start?: boolean
+  className?: string
+  onDone?: () => void
+}) {
+  const [count, setCount] = useState(0)
+  const doneRef = useRef(false)
+  useEffect(() => {
+    if (!start) return
+    if (count >= text.length) {
+      if (!doneRef.current) {
+        doneRef.current = true
+        onDone?.()
+      }
+      return
+    }
+    const id = setTimeout(() => setCount((c) => c + 1), speed)
+    return () => clearTimeout(id)
+  }, [start, count, text.length, speed, onDone])
+
+  const done = start && count >= text.length
+  return (
+    <span className={className}>
+      {text.slice(0, count)}
+      {!done && (
+        <motion.span
+          aria-hidden
+          className="ml-1 inline-block h-[0.85em] w-[3px] translate-y-[1px] bg-current align-middle"
+          animate={{ opacity: [1, 1, 0, 0] }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: "linear",
+            times: [0, 0.5, 0.5, 1],
+          }}
+        />
+      )}
+    </span>
+  )
+}
+
+function Metric({
   label,
   value,
-  tone,
 }: {
-  label: string
-  value: number
-  tone?: "green" | "red"
+  label: React.ReactNode
+  value: React.ReactNode
 }) {
-  const cls =
-    tone === "green"
-      ? "text-green-600"
-      : tone === "red"
-        ? "text-red-500"
-        : "text-foreground"
   return (
-    <Card size="sm">
-      <CardContent className="text-center">
-        <div className="text-sm text-muted-foreground">{label}</div>
-        <div className={`mt-1 text-2xl font-semibold ${cls}`}>{value}</div>
-      </CardContent>
-    </Card>
+    <div className="flex min-h-[168px] flex-col items-center justify-center gap-4 rounded-md border border-white/10 bg-white/5 p-4 text-center">
+      <span className="text-3xl font-semibold tabular-nums leading-none">
+        {value}
+      </span>
+      <span className={cn("text-sm leading-tight text-foreground/60")}>
+        {label}
+      </span>
+    </div>
   )
 }

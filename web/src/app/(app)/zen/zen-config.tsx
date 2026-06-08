@@ -1,8 +1,8 @@
 "use client"
 
+import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
 import {
   Screen,
   ScreenBody,
@@ -12,9 +12,9 @@ import {
 import { Spinner } from "@/components/ui/spinner"
 import { Toggle } from "@/components/ui/toggle"
 import { useSfx } from "@/lib/audio/useSfx"
-import { BELT_ORDER, beltLabel, type BeltKey } from "@/lib/catalog"
+import { BELT_ORDER, beltInfo, type BeltKey } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
-import { ArrowLeft } from "lucide-react"
+import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
@@ -24,6 +24,9 @@ import {
   useQueryState,
 } from "nuqs"
 import { useStartZen } from "./UseStartZen"
+
+const ctaCls =
+  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 export default function ZenConfig() {
   const { user } = useUser()
@@ -41,12 +44,14 @@ export default function ZenConfig() {
   )
 
   function toggleBelt(belt: BeltKey) {
+    sfx.iterate()
     setBelts(
       belts.includes(belt) ? belts.filter((b) => b !== belt) : [...belts, belt],
     )
   }
 
   function adjustCount(delta: number) {
+    sfx.iterate()
     setCount(Math.max(1, Math.min(50, (count ?? 10) + delta)))
   }
 
@@ -69,27 +74,39 @@ export default function ZenConfig() {
 
   return (
     <Screen>
-      <ScreenHeader>
+      <ScreenHeader innerClassName="relative justify-center">
         <Button
           variant="ghost"
-          size="icon"
+          size="icon-sm"
           aria-label="Volver"
           nativeButton={false}
           render={<Link href="/" />}
+          className="absolute left-0 top-1/2 -translate-y-1/2"
         >
-          <ArrowLeft />
+          <ChevronLeft />
         </Button>
-        <div className="flex flex-1 flex-col">
-          <h1 className="text-lg font-semibold">Modo Zen</h1>
-          <p className="text-xs text-muted-foreground">
-            Práctica libre. No actualiza tu progreso. Suma XP.
-          </p>
-        </div>
+        <Link href="/" aria-label="Intervalo">
+          <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
+        </Link>
       </ScreenHeader>
 
-      <ScreenBody className="max-w-md gap-6">
-        <section className="flex flex-col gap-2">
-          <h2 className="text-base font-medium">Cinturones</h2>
+      <ScreenBody className="gap-4 py-4">
+        <section className="flex flex-col gap-0.5 rounded-md border border-white/10 p-4">
+          <h2 className="font-sans text-lg font-semibold leading-tight">Zen</h2>
+          <p className="text-sm text-foreground/60">
+            Práctica libre. No actualiza tu progreso, pero suma XP.
+          </p>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="font-sans text-lg font-semibold leading-tight">
+              Unidades
+            </h2>
+            <p className="text-sm text-foreground/60">
+              Elegí de qué unidades querés practicar.
+            </p>
+          </div>
           <div className="grid grid-cols-2 gap-2">
             {BELT_ORDER.map((belt) => (
               <Toggle
@@ -98,21 +115,29 @@ export default function ZenConfig() {
                 size="lg"
                 pressed={belts.includes(belt)}
                 onPressedChange={() => toggleBelt(belt)}
-                className="aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90 aria-pressed:hover:text-primary-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+                className="rounded-md aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90 aria-pressed:hover:text-primary-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                {beltLabel({ belt })}
+                {beltInfo({ belt }).headline}
               </Toggle>
             ))}
           </div>
         </section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="text-base font-medium">Cantidad</h2>
+        <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="font-sans text-lg font-semibold leading-tight">
+              Cantidad
+            </h2>
+            <p className="text-sm text-foreground/60">
+              Cuántos ejercicios vas a resolver.
+            </p>
+          </div>
           <div className="flex items-center gap-2">
-            <ButtonGroup>
+            <div className="flex gap-1">
               <Button
                 variant="outline"
                 size="lg"
+                className="rounded-md"
                 onClick={() => adjustCount(-10)}
               >
                 −10
@@ -120,18 +145,20 @@ export default function ZenConfig() {
               <Button
                 variant="outline"
                 size="lg"
+                className="rounded-md"
                 onClick={() => adjustCount(-1)}
               >
                 −1
               </Button>
-            </ButtonGroup>
+            </div>
             <div className="flex-1 text-center text-2xl font-semibold tabular-nums">
               {count ?? 10}
             </div>
-            <ButtonGroup>
+            <div className="flex gap-1">
               <Button
                 variant="outline"
                 size="lg"
+                className="rounded-md"
                 onClick={() => adjustCount(1)}
               >
                 +1
@@ -139,11 +166,12 @@ export default function ZenConfig() {
               <Button
                 variant="outline"
                 size="lg"
+                className="rounded-md"
                 onClick={() => adjustCount(10)}
               >
                 +10
               </Button>
-            </ButtonGroup>
+            </div>
           </div>
         </section>
 
@@ -157,12 +185,12 @@ export default function ZenConfig() {
       <ScreenFooter>
         <Button
           size="lg"
-          className="h-12 w-full"
+          className={ctaCls}
           onClick={onStart}
           disabled={!canStart || startZen.isPending}
         >
           {startZen.isPending ? <Spinner /> : null}
-          {startZen.isPending ? "Cargando…" : "Empezar"}
+          {startZen.isPending ? "Cargando…" : "Comenzar"}
         </Button>
       </ScreenFooter>
     </Screen>
