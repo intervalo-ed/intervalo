@@ -382,6 +382,8 @@ export interface components {
             total: number;
             /** Correct */
             correct: number;
+            /** First Try Correct */
+            first_try_correct: number;
             /** Incorrect */
             incorrect: number;
             /** Items */

@@ -17,8 +17,6 @@ import MathText from "@/components/math-text"
 import { catalog, type Topic } from "@/lib/catalog/analisis-1.generated"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { useSignIn } from "@clerk/nextjs"
 import { useEffect, useRef, useState } from "react"
 
@@ -37,14 +35,6 @@ const UNI_FONT: Record<string, React.CSSProperties> = {
   UTN: { fontFamily: "var(--font-utn)", fontWeight: 600, letterSpacing: "0.1em" },
   UNSAM: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
 }
-
-const BELTS = [
-  { topic: "Funciones", img: "/bjj_white_belt.png" },
-  { topic: "Límites", img: "/bjj_blue_belt.png" },
-  { topic: "Derivadas", img: "/bjj_purple_belt.png" },
-  { topic: "Integrales", img: "/bjj_brown_belt.png" },
-  { topic: "Aplicaciones", img: "/bjj_black_belt.png" },
-]
 
 const EXERCISE_QUESTION = "¿Cuál de estas expresiones representa una función lineal?"
 const EXERCISE_OPTIONS = [
@@ -359,27 +349,7 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
   )
 }
 
-// Cinturón único que cicla por las 5 unidades, una por segundo, con su título.
-function BeltLoop() {
-  const [idx, setIdx] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => setIdx((i) => (i + 1) % BELTS.length), 1000)
-    return () => clearInterval(id)
-  }, [])
-
-  const belt = BELTS[idx]
-
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <Image src={belt.img} alt={belt.topic} width={120} height={60} className="h-auto w-28" />
-      <span className="text-sm font-semibold text-foreground/70">{belt.topic}</span>
-    </div>
-  )
-}
-
 export default function OnboardingWizard() {
-  const router = useRouter()
   const { signIn } = useSignIn()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
@@ -524,6 +494,18 @@ export default function OnboardingWizard() {
     })
   }
 
+  // Cuenta existente: login directo con Google, sin guardar onboarding ni pasar
+  // por /onboarding/complete; vuelve al home.
+  function onSignInGoogle() {
+    if (!signIn) return
+    const origin = window.location.origin
+    signIn.sso({
+      strategy: "oauth_google",
+      redirectUrl: `${origin}/`,
+      redirectCallbackUrl: `${origin}/sso-callback`,
+    })
+  }
+
   return (
     <main className="flex min-h-dvh flex-col bg-background [&_h2]:font-sans overflow-x-hidden">
       <AnimatePresence>
@@ -562,7 +544,7 @@ export default function OnboardingWizard() {
                   setName={setName}
                   sfx={sfx}
                   onNext={() => goNext()}
-                  onSignIn={() => router.push("/sign-in")}
+                  onSignIn={onSignInGoogle}
                 />
               )}
 
@@ -591,8 +573,7 @@ export default function OnboardingWizard() {
                   <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
                     <p>
                       Los contenidos están organizados en{" "}
-                      <strong className="text-foreground">cinco unidades</strong>, representadas como{" "}
-                      <em>cinturones</em>.
+                      <strong className="text-foreground">cinco unidades</strong>.
                     </p>
                     <p>
                       Cada unidad es <strong className="text-foreground">correlativa</strong> a la
@@ -603,7 +584,6 @@ export default function OnboardingWizard() {
                       <strong className="text-foreground">gradual</strong>, a tus tiempos.
                     </p>
                   </div>
-                  <BeltLoop />
                 </div>
               )}
 
@@ -1164,7 +1144,8 @@ function Slide0({
           <Button size="lg" className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black" disabled={!name.trim()} onClick={handleContinue}>
             Continuar
           </Button>
-          <Button variant="outline" size="lg" className="h-12 w-full rounded-md" onClick={onSignIn}>
+          <Button variant="outline" size="lg" className="h-12 w-full rounded-md gap-2" onClick={onSignIn}>
+            <GoogleIcon className="size-5" />
             Ya tengo una cuenta
           </Button>
         </div>

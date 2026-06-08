@@ -94,11 +94,18 @@ export default function OnboardingCompletePage() {
   }, [isLoaded, isSignedIn])
 
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-background px-4 text-center">
+    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-background px-4 text-center">
       {errorMessage ? (
         <>
-          <p className="text-sm text-red-400">{errorMessage}</p>
+          <div className="flex flex-col items-center gap-2">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Algo salió mal
+            </h2>
+            <p className="text-sm text-muted-foreground">{errorMessage}</p>
+          </div>
           <Button
+            size="lg"
+            className="h-12 w-full max-w-xs rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => {
               setStatusError(null)
               void run()

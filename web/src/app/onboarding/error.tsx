@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 export default function OnboardingError({
   error,
   reset,
@@ -8,15 +10,18 @@ export default function OnboardingError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto max-w-md px-5 py-16 text-center">
-      <h2 className="text-lg font-semibold">Algo salió mal</h2>
-      <p className="mt-2 text-sm text-foreground/70">{error.message}</p>
-      <button
+    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-background px-4 text-center">
+      <div className="flex flex-col items-center gap-2">
+        <h2 className="text-2xl font-bold tracking-tight">Algo salió mal</h2>
+        <p className="text-sm text-muted-foreground">{error.message}</p>
+      </div>
+      <Button
+        size="lg"
+        className="h-12 w-full max-w-xs rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
         onClick={reset}
-        className="mt-4 inline-flex h-9 items-center rounded-md border px-4 text-sm"
       >
         Reintentar
-      </button>
-    </div>
+      </Button>
+    </main>
   )
 }

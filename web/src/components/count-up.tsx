@@ -18,8 +18,9 @@ export function CountUp({
   variant = "slot",
   ...props
 }: CommonProps & {
-  variant?: "slot" | "ease" | "odometer"
+  variant?: "slot" | "ease" | "odometer" | "steps"
   flickerMs?: number
+  steps?: number
 }) {
   if (variant === "ease") {
     return <CountUpEase {...props} />
@@ -27,7 +28,47 @@ export function CountUp({
   if (variant === "odometer") {
     return <CountUpOdometer {...props} />
   }
+  if (variant === "steps") {
+    return <CountUpSteps {...props} />
+  }
   return <CountUpSlot {...props} />
+}
+
+// Conteo en pocos saltos (máx. `steps`) repartidos en `duration`, frenando en
+// seco en el valor final (sin desaceleración).
+function CountUpSteps({
+  value,
+  duration = 1000,
+  format,
+  onDone,
+  steps: maxSteps = 4,
+}: CommonProps & { steps?: number }) {
+  const [n, setN] = useState(0)
+  const doneRef = useRef(false)
+  const onDoneRef = useRef(onDone)
+  onDoneRef.current = onDone
+  useEffect(() => {
+    doneRef.current = false
+    setN(0)
+    const steps = Math.min(maxSteps, Math.max(1, Math.abs(Math.round(value))))
+    const stepMs = duration / steps
+    let k = 0
+    const id = setInterval(() => {
+      k++
+      if (k >= steps) {
+        setN(value)
+        clearInterval(id)
+        if (!doneRef.current) {
+          doneRef.current = true
+          onDoneRef.current?.()
+        }
+      } else {
+        setN(Math.round((value * k) / steps))
+      }
+    }, stepMs)
+    return () => clearInterval(id)
+  }, [value, duration, maxSteps])
+  return <>{format ? format(n) : n}</>
 }
 
 function CountUpOdometer({ value, duration = 1000, format }: CommonProps) {

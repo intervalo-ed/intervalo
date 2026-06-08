@@ -897,6 +897,10 @@
             "type": "integer",
             "title": "Correct"
           },
+          "first_try_correct": {
+            "type": "integer",
+            "title": "First Try Correct"
+          },
           "incorrect": {
             "type": "integer",
             "title": "Incorrect"
@@ -932,6 +936,7 @@
           "user_name",
           "total",
           "correct",
+          "first_try_correct",
           "incorrect",
           "items",
           "topic_states",

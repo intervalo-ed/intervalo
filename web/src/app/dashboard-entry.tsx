@@ -2,6 +2,7 @@
 
 import { BottomNav } from "@/components/bottom-nav"
 import { CountUp } from "@/components/count-up"
+import { XpDots } from "@/components/xp-dots"
 import {
   BeltGrid,
   ITEM_COLORS,
@@ -132,11 +133,10 @@ export default function DashboardEntry() {
                 label="Experiencia total"
                 value={
                   totalXp !== undefined ? (
-                    <CountUp
-                      variant="odometer"
-                      value={totalXp}
-                      format={(n) => n.toLocaleString("es")}
-                    />
+                    <span className="inline-flex items-center gap-1.5">
+                      {totalXp.toLocaleString("es")}
+                      <XpDots className="size-[0.85em] text-primary" />
+                    </span>
                   ) : (
                     "…"
                   )
@@ -146,7 +146,7 @@ export default function DashboardEntry() {
                 label="Ítems desbloqueados"
                 value={
                   <>
-                    <CountUp variant="odometer" value={unitTotals.unlocked} />
+                    {unitTotals.unlocked}
                     <span className="text-[0.75em] text-foreground/60">
                       {" "}
                       / {unitTotals.total}
@@ -156,7 +156,9 @@ export default function DashboardEntry() {
               />
               <Metric
                 label="Ítems pendientes"
-                value={<CountUp variant="odometer" value={pendingNew} />}
+                value={
+                  <CountUp variant="ease" value={pendingNew} duration={1000} />
+                }
                 accent={
                   pendingItems > 0
                     ? ITEM_COLORS.pendiente

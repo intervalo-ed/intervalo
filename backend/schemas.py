@@ -150,6 +150,7 @@ class SessionSummaryResponse(BaseModel):
     user_name: str
     total: int
     correct: int
+    first_try_correct: int
     incorrect: int
     items: list[SummaryItem]
     topic_states: dict[str, TopicProgress]

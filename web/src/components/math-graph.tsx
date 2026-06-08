@@ -10,6 +10,12 @@ type BoolFn = (x: number) => boolean
 
 const DEFAULT_VIEW: [number, number, number, number] = [-3, 3, -3, 3]
 
+// Aspecto de la caja (ancho:alto). Más alto = menos estiramiento horizontal.
+const BOX_W = 480
+const BOX_H = 380
+// Zoom in: contrae la vista hacia su centro (>1 acerca, <1 aleja).
+const ZOOM = 1.15
+
 function normalize(expr: string): string {
   // Python "**" → mathjs "^". Whitespace allowed between operands.
   return expr.replace(/\*\*/g, "^")
@@ -133,10 +139,51 @@ export default function MathGraph({
   // sin zoom out ni recorte del eje x. La "deformación" horizontal surge sola del
   // aspecto fijo de la caja (480×280) que estira la vista para llenarla.
   const raw = toView(graphView)
-  const xmin = Math.round(raw[0])
-  const xmax = Math.round(raw[1])
-  const ymin = Math.round(raw[2])
-  const ymax = Math.round(raw[3])
+  // Aplicamos un zoom in contrayendo la vista hacia su centro antes de redondear.
+  const cx = (raw[0] + raw[1]) / 2
+  const cy = (raw[2] + raw[3]) / 2
+  const hx = (raw[1] - raw[0]) / 2 / ZOOM
+  const hy = (raw[3] - raw[2]) / 2 / ZOOM
+  const xmin = Math.round(cx - hx)
+  const xmax = Math.round(cx + hx)
+  const ymin = Math.round(cy - hy)
+  const ymax = Math.round(cy + hy)
+
+  // mafs 0.21 (Plot.OfX) NO corta la línea ante valores no finitos: omite el punto
+  // y sigue uniendo con el siguiente, lo que dibuja la recta de la asíntota o un
+  // puente plano cuando la curva sale y vuelve a entrar por abajo. Para evitarlo
+  // partimos el dominio en tramos contiguos "en pantalla" y renderizamos un
+  // Plot.OfX por tramo (cada uno es un <path> aparte → no se puentean entre sí).
+  const margin = (ymax - ymin) * 0.04
+  const lo = ymin - margin
+  const hi = ymax + margin
+  const branches = useMemo<[number, number][]>(() => {
+    if (!fn) return []
+    const N = 600
+    const step = (xmax - xmin) / N
+    const xs: number[] = []
+    const visible: boolean[] = []
+    for (let i = 0; i <= N; i++) {
+      const x = xmin + i * step
+      const y = fn(x)
+      xs.push(x)
+      visible.push(Number.isFinite(y) && y >= lo && y <= hi)
+    }
+    const runs: [number, number][] = []
+    let start = -1
+    for (let i = 0; i <= N; i++) {
+      if (visible[i]) {
+        if (start === -1) start = i
+      } else if (start !== -1) {
+        // Extendemos un sample a cada lado para que el tramo llegue al borde
+        // (mafs recorta al viewport), sin cruzar el salto.
+        runs.push([xs[Math.max(0, start - 1)], xs[i]])
+        start = -1
+      }
+    }
+    if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[N]])
+    return runs
+  }, [fn, xmin, xmax, lo, hi])
 
   // Caja con el mismo aspecto que el viejo SVG (480×280): medimos el ancho y
   // derivamos la altura, así el estiramiento del eje x es idéntico en cualquier
@@ -146,7 +193,7 @@ export default function MathGraph({
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
-    const update = () => setHeight(Math.round((el.clientWidth * 280) / 480))
+    const update = () => setHeight(Math.round((el.clientWidth * BOX_H) / BOX_W))
     update()
     const ro = new ResizeObserver(update)
     ro.observe(el)
@@ -213,13 +260,17 @@ export default function MathGraph({
             {j}
           </Text>
         ))}
-        <Plot.OfX
-          y={fn}
-          color="#4453E6"
-          weight={2}
-          minSamplingDepth={12}
-          maxSamplingDepth={20}
-        />
+        {branches.map(([d0, d1], k) => (
+          <Plot.OfX
+            key={k}
+            y={fn}
+            domain={[d0, d1]}
+            color="#4453E6"
+            weight={2}
+            minSamplingDepth={12}
+            maxSamplingDepth={20}
+          />
+        ))}
       </Mafs>
     </div>
   )

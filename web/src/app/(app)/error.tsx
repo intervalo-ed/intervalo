@@ -1,7 +1,10 @@
 "use client"
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import { Screen, ScreenBody } from "@/components/ui/screen"
+
+const ctaCls =
+  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 export default function AppError({
   error,
@@ -11,14 +14,20 @@ export default function AppError({
   reset: () => void
 }) {
   return (
-    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-5 py-16 text-center">
-      <Alert variant="destructive">
-        <AlertTitle>Algo salió mal</AlertTitle>
-        <AlertDescription>{error.message}</AlertDescription>
-      </Alert>
-      <Button variant="outline" onClick={reset}>
-        Reintentar
-      </Button>
-    </div>
+    <Screen>
+      <ScreenBody className="items-center justify-center text-center">
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-2xl font-bold tracking-tight">Algo salió mal</h1>
+          <p className="text-sm text-muted-foreground">{error.message}</p>
+        </div>
+      </ScreenBody>
+      <div className="shrink-0 p-5">
+        <div className="mx-auto w-full max-w-2xl">
+          <Button size="lg" className={ctaCls} onClick={reset}>
+            Reintentar
+          </Button>
+        </div>
+      </div>
+    </Screen>
   )
 }

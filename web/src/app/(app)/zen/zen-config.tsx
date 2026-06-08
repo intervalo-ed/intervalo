@@ -81,7 +81,7 @@ export default function ZenConfig() {
           aria-label="Volver"
           nativeButton={false}
           render={<Link href="/" />}
-          className="absolute left-0 top-1/2 -translate-y-1/2"
+          className="absolute left-0 inset-y-0 my-auto transition-none active:translate-y-0"
         >
           <ChevronLeft />
         </Button>

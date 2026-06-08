@@ -627,13 +627,17 @@ def record_answer_db(
 
     unit_key = exercise.unit_key
     is_correct = attempts <= 3
+    # Solo el acierto limpio (al primer intento) otorga XP de correcta y suma
+    # racha. Si hubo al menos un error previo, aunque después se acierte, se
+    # otorga el XP de intento (1) y se corta la racha.
+    first_try = attempts == 1
     quality = quality_from_attempts(attempts)
 
     current_state = state.unit_states.get(unit_key, SM2UnitState())
     new_state = update_unit_state(current_state, quality)
     state.unit_states[unit_key] = new_state
 
-    if is_correct:
+    if first_try:
         state.streak += 1
         xp_earned = XP_CORRECT
         if state.streak % XP_STREAK_INTERVAL == 0:
@@ -781,6 +785,9 @@ def get_summary_db(
     answers = db.query(Answer).filter(Answer.session_id == session_id_db).all()
     total = len(answers)
     correct_count = sum(1 for a in answers if a.is_correct)
+    # "Correctos" = acertados al primer intento. quality_score == 5 ⟺ attempts == 1
+    # (ver quality_from_attempts). El resto, aunque se acierte luego, no cuenta.
+    first_try_correct = sum(1 for a in answers if a.quality_score == 5)
     incorrect_count = total - correct_count
 
     items = [
@@ -847,6 +854,7 @@ def get_summary_db(
         "user_name": "",
         "total": total,
         "correct": correct_count,
+        "first_try_correct": first_try_correct,
         "incorrect": incorrect_count,
         "items": items,
         "topic_states": topic_states,

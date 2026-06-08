@@ -1,6 +1,7 @@
 "use client"
 
 import { CountUp } from "@/components/count-up"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { cn } from "@/lib/utils"
 import { useLeaderboard } from "./UseLeaderboard"
@@ -64,10 +65,13 @@ export function LeaderboardContent() {
         <Metric
           label="XP total acumulado"
           value={
-            <CountUp
-              value={data.total_xp}
-              format={(n) => n.toLocaleString("es")}
-            />
+            <span className="inline-flex items-center gap-1.5">
+              <CountUp
+                value={data.total_xp}
+                format={(n) => n.toLocaleString("es")}
+              />
+              <XpDots className="size-[0.85em] text-primary" />
+            </span>
           }
         />
         <Metric
@@ -102,12 +106,12 @@ export function LeaderboardContent() {
               )}
             </span>
             {entry.university && <UniTag university={entry.university} />}
-            <span className="shrink-0 text-sm font-semibold tabular-nums">
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
               <CountUp
                 value={entry.total_xp}
                 format={(n) => n.toLocaleString("es")}
-              />{" "}
-              XP
+              />
+              <XpDots className="size-[0.85em] text-white" />
             </span>
           </li>
         ))}
@@ -174,7 +178,7 @@ function LeaderboardSkeleton() {
               />
             </span>
             {/* tag de universidad: réplica exacta de UniTag (fija el alto) */}
-            <span className="shrink-0 rounded-md border border-transparent bg-white/10 px-1.5 py-0.5 text-[0.65rem]">
+            <span className="inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none">
               <span className="invisible">UNSAM</span>
             </span>
             {/* xp */}
@@ -192,14 +196,14 @@ function UniTag({ university }: { university: string }) {
   const cfg = UNI_TAG[university]
   if (!cfg) {
     return (
-      <span className="shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-[0.65rem] text-foreground/70">
+      <span className="inline-flex shrink-0 items-center justify-center rounded bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none text-foreground/70">
         {university}
       </span>
     )
   }
   return (
     <span
-      className="shrink-0 rounded-md border px-1.5 py-0.5 text-[0.65rem]"
+      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center text-[0.55rem] leading-none"
       style={{
         color: cfg.color,
         borderColor: `${cfg.color}99`,

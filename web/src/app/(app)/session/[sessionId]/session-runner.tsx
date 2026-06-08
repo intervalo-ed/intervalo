@@ -2,6 +2,7 @@
 
 import MathGraph from "@/components/math-graph"
 import MathText from "@/components/math-text"
+import { XpDots } from "@/components/xp-dots"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -376,7 +377,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="pointer-events-none fixed inset-x-0 bottom-0 z-30 bg-background"
           >
             <div
@@ -397,11 +398,12 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                 {cur.xp ? (
                   <span
                     className={cn(
-                      "ml-1.5 font-semibold",
+                      "ml-1.5 inline-flex items-center gap-0.5 font-semibold",
                       solvedAfterError ? "text-[#D9F99D]" : "text-green-400",
                     )}
                   >
-                    +{cur.xp} XP
+                    +{cur.xp}
+                    <XpDots className="-ml-px size-[0.95em]" />
                   </span>
                 ) : null}
                 <div className="mt-3 text-foreground/85">
@@ -417,7 +419,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="pointer-events-none fixed inset-x-0 bottom-0 z-30 bg-background"
           >
             <div className="border-t border-orange-500/50 bg-orange-500/10 px-5 pt-6 pb-[108px]">

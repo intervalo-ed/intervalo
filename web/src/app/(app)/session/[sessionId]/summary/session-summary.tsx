@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { CountUp } from "@/components/count-up"
+import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody } from "@/components/ui/screen"
@@ -76,7 +77,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
           />
 
           {data && showCards && (
-            <div className="absolute inset-x-0 top-full mt-8 grid grid-cols-2 gap-2">
+            <div className="absolute inset-x-0 top-full mt-8 grid translate-y-[35px] grid-cols-2 gap-2">
               {/* Carga primero la card izquierda (aparece + cuenta) y, al
                   terminar su conteo, recién aparece la derecha. */}
               <motion.div
@@ -87,12 +88,16 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                 <Metric
                   label="Experiencia obtenida"
                   value={
-                    <CountUp
-                      variant="ease"
-                      value={data.xp_earned}
-                      duration={1400}
-                      onDone={() => setShowRight(true)}
-                    />
+                    <span className="inline-flex items-center gap-1.5">
+                      <CountUp
+                        variant="steps"
+                        value={data.xp_earned}
+                        duration={700}
+                        steps={7}
+                        onDone={() => setShowRight(true)}
+                      />
+                      <XpDots className="size-[0.85em] text-primary" />
+                    </span>
                   }
                 />
               </motion.div>
@@ -108,15 +113,16 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                       <>
                         Ejercicios
                         <br />
-                        resueltos
+                        correctos
                       </>
                     }
                     value={
                       <>
                         <CountUp
-                          variant="ease"
-                          value={data.correct}
-                          duration={1400}
+                          variant="steps"
+                          value={data.first_try_correct}
+                          duration={700}
+                          steps={7}
                           onDone={() => setShowButton(true)}
                         />
                         <span className="text-[0.75em] text-foreground/60">
