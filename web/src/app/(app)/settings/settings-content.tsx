@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { SignOutButton } from "@clerk/nextjs"
 import {
   AtSignIcon,
@@ -19,11 +20,15 @@ import {
   ShareIcon,
   SmartphoneIcon,
   UserIcon,
+  Volume2Icon,
+  VolumeXIcon,
 } from "lucide-react"
 
 const btnCls = "h-12 w-full justify-start rounded-md"
 
 export function SettingsContent() {
+  const muted = useSoundMuted()
+
   return (
     <div className="mt-auto flex flex-col gap-3">
       <SignOutButton>
@@ -51,6 +56,21 @@ export function SettingsContent() {
       <Button variant="outline" size="lg" className={btnCls}>
         <MessageSquareIcon className="size-5" />
         Dar feedback
+      </Button>
+
+      <Button
+        variant="outline"
+        size="lg"
+        className={btnCls}
+        aria-pressed={muted}
+        onClick={() => setSoundMuted(!muted)}
+      >
+        {muted ? (
+          <Volume2Icon className="size-5" />
+        ) : (
+          <VolumeXIcon className="size-5" />
+        )}
+        {muted ? "Activar sonidos" : "Desactivar sonidos"}
       </Button>
 
       <Dialog>

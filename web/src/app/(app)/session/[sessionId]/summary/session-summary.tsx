@@ -24,6 +24,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const [showCards, setShowCards] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showButton, setShowButton] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   function goHome() {
     router.push("/")
@@ -68,13 +69,20 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
       <ScreenBody className="items-center justify-center">
         {/* El título queda centrado en pantalla y fijo; las cards aparecen
             posicionadas en absoluto debajo, sin re-centrar el título. */}
+        {showConfetti && <Confetti />}
         <div className="relative w-full -translate-y-[15px]">
-          <Typewriter
-            text="¡Listo!"
-            start={!!data}
-            className="block text-center text-3xl font-bold tracking-tight"
-            onDone={() => setShowCards(true)}
-          />
+          {data && (
+            <motion.span
+              className="block text-center text-3xl font-bold tracking-tight"
+              initial={{ opacity: 0, scale: 0.4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 600, damping: 18 }}
+              onAnimationStart={() => setShowConfetti(true)}
+              onAnimationComplete={() => setShowCards(true)}
+            >
+              ¡Listo!
+            </motion.span>
+          )}
 
           {data && showCards && (
             <div className="absolute inset-x-0 top-full mt-8 grid translate-y-[35px] grid-cols-2 gap-2">
@@ -160,52 +168,107 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   )
 }
 
-function Typewriter({
-  text,
-  speed = 110,
-  start = true,
-  className,
-  onDone,
-}: {
-  text: string
-  speed?: number
-  start?: boolean
-  className?: string
-  onDone?: () => void
-}) {
-  const [count, setCount] = useState(0)
-  const doneRef = useRef(false)
-  useEffect(() => {
-    if (!start) return
-    if (count >= text.length) {
-      if (!doneRef.current) {
-        doneRef.current = true
-        onDone?.()
-      }
-      return
-    }
-    const id = setTimeout(() => setCount((c) => c + 1), speed)
-    return () => clearTimeout(id)
-  }, [start, count, text.length, speed, onDone])
+// Colores de los cinturones (blanco, azul, violeta, marrón, negro), avivados
+// un poco para que resalten sobre el fondo oscuro.
+const BELT_COLORS = [
+  "#EDE9DC", // blanco
+  "#3B6FE0", // azul
+  "#9B4DD6", // violeta
+  "#B5733F", // marrón
+  "#C9CDD6", // negro (gris claro para que se vea)
+]
 
-  const done = start && count >= text.length
+type Particle = {
+  id: number
+  x: number
+  y: number
+  vx: number
+  vy: number
+  color: string
+  size: number
+  rot: number
+  vrot: number
+  alive: boolean
+}
+
+// Explosión radial: todas las partículas nacen en el centro de la pantalla y
+// salen disparadas en todas direcciones a gran velocidad, con algo de gravedad
+// y rotación. Animado con requestAnimationFrame, sin dependencias externas.
+function Confetti() {
+  const stateRef = useRef<Particle[]>(
+    Array.from({ length: 110 }, (_, i) => {
+      const angle = Math.random() * Math.PI * 2
+      const speed = 90 + Math.random() * 150 // % de viewport por segundo
+      return {
+        id: i,
+        x: 50,
+        y: 50,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        color: BELT_COLORS[i % BELT_COLORS.length],
+        size: 6 + Math.random() * 9,
+        rot: Math.random() * 360,
+        vrot: (Math.random() - 0.5) * 900,
+        alive: true,
+      }
+    }),
+  )
+  const [, setTick] = useState(0)
+  const rafRef = useRef<number | null>(null)
+  const lastRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    const animate = (ts: number) => {
+      if (lastRef.current === null) lastRef.current = ts
+      const dt = Math.min((ts - lastRef.current) / 1000, 0.05)
+      lastRef.current = ts
+      let anyAlive = false
+      stateRef.current = stateRef.current.map((p) => {
+        if (!p.alive) return p
+        const nx = p.x + p.vx * dt
+        const ny = p.y + p.vy * dt
+        // Frenado del aire para que la explosión sea veloz al inicio y se calme.
+        const drag = Math.pow(0.12, dt)
+        const alive = nx > -15 && nx < 115 && ny < 120
+        if (alive) anyAlive = true
+        return {
+          ...p,
+          x: nx,
+          y: ny,
+          vx: p.vx * drag,
+          vy: p.vy * drag + 90 * dt,
+          rot: p.rot + p.vrot * dt,
+          alive,
+        }
+      })
+      setTick((t) => t + 1)
+      if (anyAlive) rafRef.current = requestAnimationFrame(animate)
+    }
+    rafRef.current = requestAnimationFrame(animate)
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
+
   return (
-    <span className={className}>
-      {text.slice(0, count)}
-      {!done && (
-        <motion.span
-          aria-hidden
-          className="ml-1 inline-block h-[0.85em] w-[3px] translate-y-[1px] bg-current align-middle"
-          animate={{ opacity: [1, 1, 0, 0] }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            ease: "linear",
-            times: [0, 0.5, 0.5, 1],
-          }}
-        />
-      )}
-    </span>
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+      {stateRef.current
+        .filter((p) => p.alive)
+        .map((p) => (
+          <div
+            key={p.id}
+            className="absolute rounded-[2px]"
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: p.size,
+              height: p.size,
+              background: p.color,
+              transform: `rotate(${p.rot}deg)`,
+            }}
+          />
+        ))}
+    </div>
   )
 }
 

@@ -1,6 +1,8 @@
 "use client"
 
 import { useSound } from "@web-kits/audio/react"
+import { useMemo } from "react"
+import { isSoundMuted } from "./sound-settings"
 
 const SOUND_PATHS = {
   pop: "/pop.mp3",
@@ -22,7 +24,7 @@ const VOLUME = 0.2
 const FLAT_ENVELOPE = { decay: 3, sustain: 1 }
 
 export function useSfx(): Record<SfxName, () => void> {
-  return {
+  const raw: Record<SfxName, () => void> = {
     pop: useSound({ source: { type: "sample", url: SOUND_PATHS.pop }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
     select: useSound({ source: { type: "sample", url: SOUND_PATHS.select }, envelope: FLAT_ENVELOPE }, { volume: VOLUME * 0.5 }),
     continue: useSound({ source: { type: "sample", url: SOUND_PATHS.continue }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
@@ -33,4 +35,18 @@ export function useSfx(): Record<SfxName, () => void> {
     end: useSound({ source: { type: "sample", url: SOUND_PATHS.end }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
     xpCount: useSound({ source: { type: "sample", url: SOUND_PATHS.xpCount }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
   }
+
+  // Cada disparo consulta la preferencia en el momento, así un cambio en Ajustes
+  // surte efecto sin re-montar los componentes que ya tienen el hook.
+  return useMemo(() => {
+    const wrapped = {} as Record<SfxName, () => void>
+    for (const name of Object.keys(raw) as SfxName[]) {
+      wrapped[name] = () => {
+        if (isSoundMuted()) return
+        raw[name]()
+      }
+    }
+    return wrapped
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, Object.values(raw))
 }
