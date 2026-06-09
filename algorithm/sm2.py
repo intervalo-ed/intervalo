@@ -40,6 +40,8 @@ def _update_learning(
 ) -> SM2UnitState:
     steps = config.learning_steps
 
+    # En aprendizaje solo se avanza con acierto al primer intento (quality 5);
+    # cualquier otra cosa (quality < pase) reinicia la racha al paso 1.
     if quality >= config.quality_threshold_pass:
         next_step = state.step_index + 1
         if next_step >= len(steps):
@@ -62,12 +64,12 @@ def _update_learning(
             next_review=today + timedelta(days=interval),
         )
     else:
-        # Failure: drop back one step (min step 0)
-        prev_step = max(0, state.step_index - 1)
-        interval = steps[prev_step]
+        # Fallo: reinicia al paso 1 (mismo día) — hay que volver a encadenar
+        # los 3 aciertos limpios seguidos.
+        interval = steps[0]
         return SM2UnitState(
             phase="learning",
-            step_index=prev_step,
+            step_index=0,
             ease_factor=state.ease_factor,
             interval=interval,
             repetitions=0,
@@ -82,28 +84,29 @@ def _update_review(
     config: SM2Config,
     today: date,
 ) -> SM2UnitState:
-    ef = state.ease_factor
-    interval = state.interval
     repetitions = state.repetitions
 
-    if quality < config.quality_threshold_pass:
-        interval = 1
-        repetitions = 0
-        ef = max(config.ef_min_absolute, ef - 0.8)
-    else:
-        if repetitions == 0:
-            interval = 1
-        elif repetitions == 1:
-            interval = 6
-        else:
-            interval = int(round(interval * ef))
+    # Ease factor SM-2: el tiempo de respuesta define la calidad (5/4/3) y, con
+    # ella, cómo se mueve el EF. Pifiar (quality 0) lo penaliza fuerte (-0.8).
+    ef = max(
+        config.ef_min_absolute,
+        state.ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)),
+    )
 
-        interval = min(interval, config.post_graduation_max_interval_days)
-        repetitions += 1
-        ef = max(
-            config.ef_min_absolute,
-            ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)),
+    if quality < config.quality_threshold_pass:
+        # Pifió: vuelve a 0 y se repasa el mismo día (intervalo 0). No vuelve a
+        # la fase de aprendizaje: sigue en review, pero su intervalo se recalcula.
+        interval = 0
+        repetitions = 0
+    else:
+        # Acierto limpio: el intervalo crece multiplicando por el ease factor.
+        # Tras una recaída (intervalo 0) rearranca suave (~1-2 días).
+        base = state.interval if state.interval > 0 else 1
+        interval = min(
+            round(base * ef),
+            config.post_graduation_max_interval_days,
         )
+        repetitions += 1
 
     return SM2UnitState(
         phase="review",

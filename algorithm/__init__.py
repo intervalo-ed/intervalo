@@ -9,7 +9,7 @@ from .domain import (
     load_belt_catalogs,
 )
 from .graduation import BeltProgress, belt_progress, is_mastered, is_topic_mastered
-from .scoring import quality_from_attempts
+from .scoring import quality_from_attempts, quality_from_time
 from .session import (
     SessionUnit,
     belt_topic_priority,
@@ -60,6 +60,7 @@ __all__ = [
     "level_progress",
     "load_belt_catalogs",
     "quality_from_attempts",
+    "quality_from_time",
     "should_reinsert",
     "update_unit_state",
 ]

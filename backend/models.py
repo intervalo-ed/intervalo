@@ -25,6 +25,7 @@ class User(Base):
     email = Column(String(200), unique=True, index=True, nullable=False)
     name = Column(String(200), nullable=False)
     display_name = Column(String(200), nullable=True)
+    username = Column(String(30), unique=True, index=True, nullable=True)
     total_xp = Column(Integer, nullable=False, default=0)
 
     # Daily push-notification preferences. `notify_time` is "HH:MM" (15-min

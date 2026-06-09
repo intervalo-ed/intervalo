@@ -1,95 +1,93 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
+import { useMe } from "@/app/UseMe"
+import { EditUsernameDialog } from "./edit-username-dialog"
+import { EditApodoDialog } from "./edit-apodo-dialog"
+import { NotificationSettings } from "./notification-settings"
 import { SignOutButton } from "@clerk/nextjs"
 import {
+  AtSignIcon,
   LogOutIcon,
-  MoreVerticalIcon,
-  ShareIcon,
-  SmartphoneIcon,
+  MessageSquareIcon,
+  UserIcon,
+  Volume2Icon,
+  VolumeXIcon,
 } from "lucide-react"
-import { NotificationSettings } from "./notification-settings"
+
+const btnCls = "h-12 w-full justify-start rounded-md"
+const signOutCls =
+  "h-12 w-full justify-start rounded-md border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-400"
 
 export function SettingsContent() {
+  const muted = useSoundMuted()
+  const { data: me } = useMe()
+  const [usernameOpen, setUsernameOpen] = useState(false)
+  const [apodoOpen, setApodoOpen] = useState(false)
+
   return (
     <div className="flex flex-col gap-3">
       <NotificationSettings />
-      <Dialog>
-        <DialogTrigger
-          render={
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 justify-start"
-            />
-          }
-        >
-          <SmartphoneIcon className="size-5" />
-          Instalar como app
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Instalar Intervalo</DialogTitle>
-            <DialogDescription>
-              Agregá Intervalo a tu pantalla de inicio para abrirlo como una
-              app.
-            </DialogDescription>
-          </DialogHeader>
 
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <p className="text-sm font-medium text-foreground">
-                iPhone / iPad (Safari)
-              </p>
-              <ol className="flex flex-col gap-1 text-sm/relaxed text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  1. Tocá el botón Compartir
-                  <ShareIcon className="size-4" />
-                </li>
-                <li>2. Elegí «Agregar a inicio».</li>
-                <li>3. Confirmá tocando «Agregar».</li>
-              </ol>
-            </div>
+      <Button
+        variant="outline"
+        size="lg"
+        className={btnCls}
+        aria-pressed={muted}
+        onClick={() => setSoundMuted(!muted)}
+      >
+        {muted ? (
+          <Volume2Icon className="size-5" />
+        ) : (
+          <VolumeXIcon className="size-5" />
+        )}
+        {muted ? "Activar sonidos" : "Desactivar sonidos"}
+      </Button>
 
-            <div className="flex flex-col gap-1.5">
-              <p className="text-sm font-medium text-foreground">
-                Android (Chrome)
-              </p>
-              <ol className="flex flex-col gap-1 text-sm/relaxed text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  1. Abrí el menú
-                  <MoreVerticalIcon className="size-4" />
-                </li>
-                <li>2. Elegí «Agregar a la pantalla principal».</li>
-                <li>3. Confirmá tocando «Agregar».</li>
-              </ol>
-            </div>
+      <Button variant="outline" size="lg" className={btnCls}>
+        <MessageSquareIcon className="size-5" />
+        Dar feedback
+      </Button>
 
-            <div className="flex flex-col gap-1.5">
-              <p className="text-sm font-medium text-foreground">Computadora</p>
-              <p className="text-sm/relaxed text-muted-foreground">
-                En Chrome o Edge, tocá el ícono de instalar en la barra de
-                direcciones y confirmá.
-              </p>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <Button
+        variant="outline"
+        size="lg"
+        className={btnCls}
+        onClick={() => setUsernameOpen(true)}
+      >
+        <AtSignIcon className="size-5" />
+        Cambiar usuario
+      </Button>
+
+      <Button
+        variant="outline"
+        size="lg"
+        className={btnCls}
+        onClick={() => setApodoOpen(true)}
+      >
+        <UserIcon className="size-5" />
+        Cambiar apodo
+      </Button>
 
       <SignOutButton>
-        <Button variant="outline" size="lg" className="h-12 justify-start">
+        <Button variant="outline" size="lg" className={signOutCls}>
           <LogOutIcon className="size-5" />
           Cerrar sesión
         </Button>
       </SignOutButton>
+
+      <EditUsernameDialog
+        open={usernameOpen}
+        onOpenChange={setUsernameOpen}
+        current={me?.username ?? ""}
+      />
+      <EditApodoDialog
+        open={apodoOpen}
+        onOpenChange={setApodoOpen}
+        current={me?.display_name ?? ""}
+      />
     </div>
   )
 }

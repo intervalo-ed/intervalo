@@ -30,6 +30,13 @@ function render({ value, displayMode }: { value: string; displayMode: boolean })
   return katex.renderToString(value, { throwOnError: false, displayMode })
 }
 
+// LaTeX "alto" (fracciones, raíces, sumatorias, etc.): necesita unos px extra de
+// alto de línea para no pegarse a la línea de arriba.
+const TALL_LATEX = /\\(d|t)?frac|\\binom|\\sqrt|\\sum|\\int|\\lim|\\over/
+function isTall(value: string): boolean {
+  return TALL_LATEX.test(value)
+}
+
 export default function MathText({ text }: { text: string }) {
   const segments = parse(text)
   return (
@@ -45,6 +52,11 @@ export default function MathText({ text }: { text: string }) {
         return (
           <span
             key={i}
+            className={
+              s.type === "inline" && isTall(s.value)
+                ? "inline-block whitespace-nowrap py-[5px] align-middle"
+                : "whitespace-nowrap"
+            }
             dangerouslySetInnerHTML={{
               __html: render({ value: s.value, displayMode: s.type === "display" }),
             }}

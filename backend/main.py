@@ -24,7 +24,8 @@ from auth import (
     get_or_create_user_from_clerk,
     verify_clerk_token,
 )
-from models import User, BeltInfo
+from models import User, BeltInfo, Enrollment, Answer
+from sqlalchemy import func
 from schemas import (
     AnswerResponse,
     BeltEntry,
@@ -208,6 +209,52 @@ def get_current_user_info(
         id=current_user.id,
         email=current_user.email,
         name=current_user.display_name or current_user.name,
+        username=current_user.username,
+        display_name=current_user.display_name,
+        clerk_user_id=current_user.clerk_user_id,
+    )
+
+
+class UpdateProfileRequest(BaseModel):
+    username: str | None = None
+    display_name: str | None = None
+
+
+@app.patch("/user/profile", response_model=UserResponse)
+def update_profile(
+    body: UpdateProfileRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Update the user's handle (username) and/or display name (apodo)."""
+    from usernames import normalize_username, validate_username
+
+    if body.username is not None:
+        candidate = normalize_username(body.username)
+        ok, reason = validate_username(candidate)
+        if not ok:
+            raise HTTPException(status_code=422, detail=reason)
+        taken = (
+            db.query(User.id)
+            .filter(User.username == candidate, User.id != current_user.id)
+            .first()
+        )
+        if taken:
+            raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
+        current_user.username = candidate
+
+    if body.display_name is not None:
+        current_user.display_name = body.display_name.strip() or None
+
+    db.commit()
+    db.refresh(current_user)
+
+    return UserResponse(
+        id=current_user.id,
+        email=current_user.email,
+        name=current_user.display_name or current_user.name,
+        username=current_user.username,
+        display_name=current_user.display_name,
         clerk_user_id=current_user.clerk_user_id,
     )
 
@@ -419,17 +466,36 @@ def get_leaderboard(
         .order_by(User.total_xp.desc(), User.id.asc())
         .all()
     )
+
+    # Career + university come from the user's enrollment (course 1 for now).
+    enrollments = {
+        e.user_id: e
+        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    }
+
+    total_xp_all = int(db.query(func.coalesce(func.sum(User.total_xp), 0)).scalar())
+    total_exercises_all = int(db.query(func.count(Answer.id)).scalar())
+
     entries = [
         LeaderboardEntry(
             rank=index + 1,
             user_id=user.id,
-            name=user.display_name or user.name,
+            name=user.username or user.display_name or user.name,
+            username=user.username,
             total_xp=user.total_xp,
             is_current_user=user.id == current_user.id,
+            career=enrollments[user.id].career if user.id in enrollments else None,
+            university=(
+                enrollments[user.id].university if user.id in enrollments else None
+            ),
         )
         for index, user in enumerate(users)
     ]
-    return LeaderboardResponse(entries=entries)
+    return LeaderboardResponse(
+        entries=entries,
+        total_xp=total_xp_all,
+        total_exercises=total_exercises_all,
+    )
 
 
 # ── Session endpoints ─────────────────────────────────────────────────────────

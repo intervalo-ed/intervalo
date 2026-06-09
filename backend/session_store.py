@@ -38,6 +38,7 @@ from algorithm import (
     level_progress,
     load_belt_catalogs,
     quality_from_attempts,
+    quality_from_time,
     update_unit_state,
 )
 from exercise_bank import get_exercise_db, topic_exercise_types
@@ -146,6 +147,17 @@ def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool
     ).first() is not None
 
 
+def _has_pending_items(user_id: int, course_id: int, db: DBSession) -> bool:
+    """Whether the user has any review item due today or earlier."""
+    today = date.today()
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.next_due.isnot(None),
+        UnitState.next_due <= today,
+    ).first() is not None
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _get_session(session_id: str) -> Optional[SessionState]:
@@ -241,10 +253,18 @@ def _aggregate_topic_progress(
     ) else "learning"
 
     rows_by_type = {r.exercise_type: r for r in rows}
-    units = [
-        {"exercise_type": et, "state": _unit_state(rows_by_type.get(et))}
-        for et in expected_types
-    ]
+    units = []
+    for et in expected_types:
+        row = rows_by_type.get(et)
+        units.append(
+            {
+                "exercise_type": et,
+                "state": _unit_state(row),
+                "next_review": (
+                    row.next_due.isoformat() if row and row.next_due else None
+                ),
+            }
+        )
 
     return {
         "phase": aggregate_phase,
@@ -340,22 +360,48 @@ def _rows_to_unit_states(
     return states, attempted
 
 
-def _bootstrap_first_topic_if_empty(
+ACTIVE_CAP = 15
+
+
+def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
+    """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas."""
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.phase != "review",
+    ).count()
+
+
+def _ensure_active_units(
     user_id: int,
     course_id: int,
     db: DBSession,
 ) -> None:
-    """Seed the very first topic when a user has no units yet."""
-    has_any = db.query(UnitState).filter(
-        UnitState.user_id == user_id,
-        UnitState.course_id == course_id,
-    ).first() is not None
-    if has_any:
+    """Desbloquea temas en orden de catálogo respetando un máximo ESTRICTO de
+    ACTIVE_CAP (15) units en fase de aprendizaje. Como un tema se desbloquea
+    entero (todos sus exercise_types de golpe), solo se introduce el siguiente
+    tema si entra completo sin pasarse de 15; si no entra, se espera a que
+    gradúen units y se liberen cupos. A medida que las units graduan (pasan a
+    'review') se vuelven a desbloquear temas hasta volver a llenar los 15."""
+    active = _active_unit_count(user_id, course_id, db)
+    if active >= ACTIVE_CAP:
         return
+    changed = False
     for tk in _all_topic_keys(course_id, db):
+        if active >= ACTIVE_CAP:
+            break
+        if _topic_has_any_units(user_id, course_id, tk, db):
+            continue
+        types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        # Mantener el orden del catálogo: si el próximo tema no entra completo,
+        # frenar (no saltearlo) para no desbloquear temas fuera de orden.
+        if active + len(types) > ACTIVE_CAP:
+            break
         _create_topic_units(user_id, course_id, tk, db)
-        break
-    db.commit()
+        active += len(types)
+        changed = True
+    if changed:
+        db.commit()
 
 
 def _load_unit_states(
@@ -409,22 +455,24 @@ def _make_topic_introducer(
 
 def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Create a new session, picking the next batch of exercises with the SR algorithm."""
-    if _has_main_session_today(user_id, course_id, db):
+    # One main session per day, EXCEPT the user can keep reviewing while there
+    # are still pending (due) items. Once nothing's due, the daily gate applies.
+    if _has_main_session_today(user_id, course_id, db) and not _has_pending_items(
+        user_id, course_id, db
+    ):
         raise DailySessionLimitError(
-            "Ya empezaste tu sesión de hoy. Volvé mañana."
+            "Ya completaste tus repasos de hoy. Volvé mañana."
         )
 
-    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    _ensure_active_units(user_id, course_id, db)
     unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
 
-    introduce_new_topic = _make_topic_introducer(
-        user_id, course_id, db, unit_states, unit_attempted,
-    )
-
+    # El desbloqueo lo maneja _ensure_active_units (cap de 15); la sesión solo
+    # arma con lo que está activo/vencido, sin introducir temas extra.
     session_units = build_session(
         unit_states,
         unit_attempted=unit_attempted,
-        introduce_new_topic=introduce_new_topic,
+        introduce_new_topic=None,
     )
 
     exercises = [
@@ -591,13 +639,30 @@ def record_answer_db(
 
     unit_key = exercise.unit_key
     is_correct = attempts <= 3
+    # Solo el acierto limpio (al primer intento) otorga XP de correcta y suma
+    # racha. Si hubo al menos un error previo, aunque después se acierte, se
+    # otorga el XP de intento (1) y se corta la racha.
+    first_try = attempts == 1
+    # quality_score guardado (semántica de resumen: 5 ⟺ primer intento).
     quality = quality_from_attempts(attempts)
 
     current_state = state.unit_states.get(unit_key, SM2UnitState())
-    new_state = update_unit_state(current_state, quality)
+
+    # Calidad que alimenta SM-2 (distinta del quality_score guardado):
+    #  - Aprendizaje: solo avanza con acierto al primer intento (5); si no, 0
+    #    (reinicia al paso 1 ese mismo día).
+    #  - Retención: si acertó al primer intento, la calidad la define el tiempo
+    #    (<10s→5, <30s→4, resto→3) y modula el ease factor; si pifió, 0 (repasa
+    #    el mismo día sin salir de la fase de retención).
+    if current_state.phase == "review":
+        sm2_quality = quality_from_time(response_time_s) if first_try else 0
+    else:
+        sm2_quality = 5 if first_try else 0
+
+    new_state = update_unit_state(current_state, sm2_quality)
     state.unit_states[unit_key] = new_state
 
-    if is_correct:
+    if first_try:
         state.streak += 1
         xp_earned = XP_CORRECT
         if state.streak % XP_STREAK_INTERVAL == 0:
@@ -635,7 +700,7 @@ def record_answer_db(
             )
             if is_topic_mastered(state.unit_states, topic_key, expected_types):
                 xp_earned += XP_TOPIC_MASTERED
-                _unlock_next_topic(user_id, course_id, topic_key, db)
+                _ensure_active_units(user_id, course_id, db)
 
                 belt_catalog = _get_catalog(course_id, topic_key.belt, db)
                 belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
@@ -698,7 +763,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     """Return topic-level progress (rolled up from per-unit state) and level info."""
     catalog_keys = _all_topic_keys(course_id, db)
 
-    _bootstrap_first_topic_if_empty(user_id, course_id, db)
+    _ensure_active_units(user_id, course_id, db)
 
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
@@ -745,6 +810,9 @@ def get_summary_db(
     answers = db.query(Answer).filter(Answer.session_id == session_id_db).all()
     total = len(answers)
     correct_count = sum(1 for a in answers if a.is_correct)
+    # "Correctos" = acertados al primer intento. quality_score == 5 ⟺ attempts == 1
+    # (ver quality_from_attempts). El resto, aunque se acierte luego, no cuenta.
+    first_try_correct = sum(1 for a in answers if a.quality_score == 5)
     incorrect_count = total - correct_count
 
     items = [
@@ -811,6 +879,7 @@ def get_summary_db(
         "user_name": "",
         "total": total,
         "correct": correct_count,
+        "first_try_correct": first_try_correct,
         "incorrect": incorrect_count,
         "items": items,
         "topic_states": topic_states,

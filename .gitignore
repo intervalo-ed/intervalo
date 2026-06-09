@@ -31,5 +31,6 @@ backend/migrations/versions/__pycache__/
 backend/intervalo.db
 
 .DS_Store
+.devlogs/
 .vercel
 .env*

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { useApi } from "@/lib/api/useApi"
 import { clearOnboarding, readOnboarding } from "@/lib/onboarding/storage"
+import { OnboardingInstallPrompt } from "./install-prompt"
 
 export default function OnboardingCompletePage() {
   const router = useRouter()
@@ -18,6 +19,7 @@ export default function OnboardingCompletePage() {
   const startSession = useStartSession()
   const startedRef = useRef(false)
   const [statusError, setStatusError] = useState<string | null>(null)
+  const [pendingSessionId, setPendingSessionId] = useState<string | null>(null)
 
   const failure = enroll.error ?? startSession.error
   const errorMessage =
@@ -38,14 +40,16 @@ export default function OnboardingCompletePage() {
     await enroll.mutateAsync({
       university: data.university,
       career: data.career,
-      name: user?.fullName ?? user?.firstName ?? null,
+      name: data.name || user?.fullName || user?.firstName || null,
     })
     await user?.update({ unsafeMetadata: { onboarded: true } })
     const session = await startSession.mutateAsync({
       userName: user?.fullName ?? user?.firstName ?? "",
     })
     clearOnboarding()
-    router.push(`/session/${session.session_id}`)
+    // Mostramos la pantalla "¡Una cosa más!" (instalar la app) antes de entrar a
+    // la primera sesión; al tocar Continuar se navega a la sesión.
+    setPendingSessionId(session.session_id)
   }
 
   // The DB is authoritative for new-vs-returning. Returning users go straight
@@ -93,12 +97,27 @@ export default function OnboardingCompletePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded, isSignedIn])
 
+  if (pendingSessionId) {
+    return (
+      <OnboardingInstallPrompt
+        onContinue={() => router.push(`/session/${pendingSessionId}`)}
+      />
+    )
+  }
+
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-background px-4 text-center">
+    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-background px-4 text-center">
       {errorMessage ? (
         <>
-          <p className="text-sm text-red-400">{errorMessage}</p>
+          <div className="flex flex-col items-center gap-2">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Algo salió mal
+            </h2>
+            <p className="text-sm text-muted-foreground">{errorMessage}</p>
+          </div>
           <Button
+            size="lg"
+            className="h-12 w-full max-w-xs rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => {
               setStatusError(null)
               void run()

@@ -79,6 +79,127 @@ export function beltTopicStats({
   })
 }
 
+export interface UnitTotals {
+  total: number // todas las units del catálogo (suma de exercise_types por tema)
+  unlocked: number // units ya desbloqueadas (presentes en topic_states)
+  dominados: number // units en estado "dominado"
+}
+
+function emptyUnitTotals(): UnitTotals {
+  return { total: 0, unlocked: 0, dominados: 0 }
+}
+
+function accumulateUnits({
+  totals,
+  topic,
+  state,
+}: {
+  totals: UnitTotals
+  topic: { exercise_types: string[] }
+  state: TopicProgress | undefined
+}): void {
+  totals.total += topic.exercise_types.length
+  if (!state) return
+  totals.unlocked += state.units.length
+  totals.dominados += state.units.filter((u) => u.state === "dominado").length
+}
+
+// Conteo a nivel ítem (unit) para todo el curso.
+export function courseUnitTotals({
+  topicStates,
+}: {
+  topicStates: TopicStates
+}): UnitTotals {
+  const out = emptyUnitTotals()
+  for (const belt of BELT_ORDER) {
+    const cat = getBelt({ key: belt })
+    if (!cat) continue
+    for (const topic of cat.topics) {
+      accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
+    }
+  }
+  return out
+}
+
+// Conteo a nivel ítem (unit) para un cinturón.
+export function beltUnitTotals({
+  belt,
+  topicStates,
+}: {
+  belt: BeltKey
+  topicStates: TopicStates
+}): UnitTotals {
+  const out = emptyUnitTotals()
+  const cat = getBelt({ key: belt })
+  if (!cat) return out
+  for (const topic of cat.topics) {
+    accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
+  }
+  return out
+}
+
+// Parsea "YYYY-MM-DD" como fecha LOCAL a medianoche. `new Date("YYYY-MM-DD")` la
+// interpreta como UTC, lo que en husos negativos (ej. Argentina) corre el día uno
+// para atrás y haría que "mañana" cuente como vencido hoy.
+function parseLocalDate(s: string): Date {
+  const [y, m, d] = s.slice(0, 10).split("-").map(Number)
+  return new Date(y, m - 1, d)
+}
+
+// ¿La unit tiene su próximo repaso vencido (hoy o antes)?
+function unitDue(nextReview: string | null | undefined): boolean {
+  if (!nextReview) return false
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const target = parseLocalDate(nextReview)
+  return target.getTime() <= today.getTime()
+}
+
+// Conteo de ítems (units) desbloqueados accionables hoy: nuevos (sin empezar) +
+// pendientes (con repaso vencido por unit). Espeja los pills azules + naranjas.
+export function actionableUnitCount({
+  topicStates,
+}: {
+  topicStates: TopicStates
+}): number {
+  let count = 0
+  for (const belt of BELT_ORDER) {
+    const cat = getBelt({ key: belt })
+    if (!cat) continue
+    for (const topic of cat.topics) {
+      const state = topicStates[topic.key]
+      if (!state) continue
+      for (const unit of state.units) {
+        if (unit.state === "sin_empezar") count++
+        else if (unitDue(unit.next_review)) count++
+      }
+    }
+  }
+  return count
+}
+
+// Conteo de ítems (units) pendientes: unit ya empezada con repaso vencido
+// (los pills naranjas de la grilla).
+export function pendingUnitCount({
+  topicStates,
+}: {
+  topicStates: TopicStates
+}): number {
+  let count = 0
+  for (const belt of BELT_ORDER) {
+    const cat = getBelt({ key: belt })
+    if (!cat) continue
+    for (const topic of cat.topics) {
+      const state = topicStates[topic.key]
+      if (!state) continue
+      count += state.units.filter(
+        (u) => u.state !== "sin_empezar" && unitDue(u.next_review),
+      ).length
+    }
+  }
+  return count
+}
+
 // Heuristic for which belt the user is "currently working on": first belt in
 // the canonical order that's been started but not fully mastered. Falls back
 // to the highest unlocked belt (e.g. if everything is mastered already).

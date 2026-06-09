@@ -122,3 +122,16 @@
     background-clip: padding-box;
   }
 }
+
+/* Gráficos (mafs): fondo blanco + grilla gris. Las variables de mafs se definen
+   sobre .MafsView, así que hay que overridearlas al mismo nivel. */
+.math-graph .MafsView {
+  --mafs-bg: #ffffff;
+  --mafs-fg: #6b7280;
+  --mafs-origin-color: #9ca3af;
+  --mafs-line-color: rgba(100, 116, 139, 0.22);
+  --grid-line-subdivision-color: rgba(100, 116, 139, 0.1);
+}
+.math-graph .MafsView text {
+  font-size: 8px;
+}
