@@ -90,6 +90,7 @@ class LeaderboardEntry(BaseModel):
     rank: int
     user_id: int
     name: str
+    username: str | None = None
     total_xp: int
     is_current_user: bool
     career: str | None = None

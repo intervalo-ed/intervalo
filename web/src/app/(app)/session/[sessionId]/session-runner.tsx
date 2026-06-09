@@ -489,22 +489,22 @@ function ExitButton() {
       />
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Salir de la sesión?</AlertDialogTitle>
+          <AlertDialogTitle className="font-sans">
+            ¿Salir de la sesión?
+          </AlertDialogTitle>
           <AlertDialogDescription>
             Vas a perder el progreso de los ejercicios todavía no respondidos.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction
-            size="lg"
-            className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+            className="h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => router.push("/")}
           >
             Salir
           </AlertDialogAction>
           <AlertDialogCancel
-            size="lg"
-            className="h-12 w-full rounded-md bg-background dark:bg-background"
+            className="h-10 w-full rounded-md bg-background dark:bg-background"
           >
             Seguir
           </AlertDialogCancel>

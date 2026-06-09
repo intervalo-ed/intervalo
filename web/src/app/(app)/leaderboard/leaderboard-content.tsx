@@ -98,7 +98,9 @@ export function LeaderboardContent() {
               {entry.rank}
             </span>
             <span className="flex min-w-0 flex-1 items-center gap-1.5">
-              <span className="truncate text-sm font-medium">{entry.name}</span>
+              <span className="truncate text-sm font-medium">
+                {entry.username ?? entry.name}
+              </span>
               {entry.career && CAREER_EMOJI[entry.career] && (
                 <span className="shrink-0 text-sm leading-none">
                   {CAREER_EMOJI[entry.career]}

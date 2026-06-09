@@ -61,6 +61,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Profile
+         * @description Update the user's handle (username) and/or display name (apodo).
+         */
+        patch: operations["update_profile_user_profile_patch"];
+        trace?: never;
+    };
     "/user/enroll": {
         parameters: {
             query?: never;
@@ -292,6 +312,8 @@ export interface components {
             user_id: number;
             /** Name */
             name: string;
+            /** Username */
+            username?: string | null;
             /** Total Xp */
             total_xp: number;
             /** Is Current User */
@@ -453,6 +475,13 @@ export interface components {
             /** Next Review */
             next_review?: string | null;
         };
+        /** UpdateProfileRequest */
+        UpdateProfileRequest: {
+            /** Username */
+            username?: string | null;
+            /** Display Name */
+            display_name?: string | null;
+        };
         /** UserProgressResponse */
         UserProgressResponse: {
             /** Topic States */
@@ -471,6 +500,10 @@ export interface components {
             email: string;
             /** Name */
             name: string;
+            /** Username */
+            username?: string | null;
+            /** Display Name */
+            display_name?: string | null;
             /** Clerk User Id */
             clerk_user_id?: string | null;
         };
@@ -566,6 +599,41 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_profile_user_profile_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateProfileRequest"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

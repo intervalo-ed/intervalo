@@ -25,6 +25,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from models import User
+from usernames import assign_unique_username
 
 # Load environment variables from .env file
 env_path = Path(__file__).parent / ".env"
@@ -62,6 +63,8 @@ class UserResponse(BaseModel):
     id: int
     email: str
     name: str
+    username: Optional[str] = None
+    display_name: Optional[str] = None
     clerk_user_id: Optional[str] = None
 
 
@@ -224,6 +227,8 @@ def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
         user.clerk_user_id = claims.sub
         if not user.name:
             user.name = name
+        if not user.username:
+            user.username = assign_unique_username(db, user.name)
         db.commit()
         db.refresh(user)
         return user
@@ -233,6 +238,7 @@ def get_or_create_user_from_clerk(db: Session, claims: ClerkClaims) -> User:
         clerk_user_id=claims.sub,
         email=email,
         name=name,
+        username=assign_unique_username(db, name),
     )
     db.add(user)
     db.commit()
