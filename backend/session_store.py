@@ -38,6 +38,7 @@ from algorithm import (
     level_progress,
     load_belt_catalogs,
     quality_from_attempts,
+    quality_from_time,
     update_unit_state,
 )
 from exercise_bank import get_exercise_db, topic_exercise_types
@@ -376,20 +377,31 @@ def _ensure_active_units(
     course_id: int,
     db: DBSession,
 ) -> None:
-    """Desbloquea temas en orden de catálogo hasta tener ACTIVE_CAP (15) units
-    activas. A medida que las units graduan (pasan a 'review'), se liberan cupos
-    y se desbloquean nuevos temas hasta volver a 15."""
+    """Desbloquea temas en orden de catálogo respetando un máximo ESTRICTO de
+    ACTIVE_CAP (15) units en fase de aprendizaje. Como un tema se desbloquea
+    entero (todos sus exercise_types de golpe), solo se introduce el siguiente
+    tema si entra completo sin pasarse de 15; si no entra, se espera a que
+    gradúen units y se liberen cupos. A medida que las units graduan (pasan a
+    'review') se vuelven a desbloquear temas hasta volver a llenar los 15."""
     active = _active_unit_count(user_id, course_id, db)
     if active >= ACTIVE_CAP:
         return
+    changed = False
     for tk in _all_topic_keys(course_id, db):
         if active >= ACTIVE_CAP:
             break
         if _topic_has_any_units(user_id, course_id, tk, db):
             continue
-        types = _create_topic_units(user_id, course_id, tk, db)
+        types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        # Mantener el orden del catálogo: si el próximo tema no entra completo,
+        # frenar (no saltearlo) para no desbloquear temas fuera de orden.
+        if active + len(types) > ACTIVE_CAP:
+            break
+        _create_topic_units(user_id, course_id, tk, db)
         active += len(types)
-    db.commit()
+        changed = True
+    if changed:
+        db.commit()
 
 
 def _load_unit_states(
@@ -631,10 +643,23 @@ def record_answer_db(
     # racha. Si hubo al menos un error previo, aunque después se acierte, se
     # otorga el XP de intento (1) y se corta la racha.
     first_try = attempts == 1
+    # quality_score guardado (semántica de resumen: 5 ⟺ primer intento).
     quality = quality_from_attempts(attempts)
 
     current_state = state.unit_states.get(unit_key, SM2UnitState())
-    new_state = update_unit_state(current_state, quality)
+
+    # Calidad que alimenta SM-2 (distinta del quality_score guardado):
+    #  - Aprendizaje: solo avanza con acierto al primer intento (5); si no, 0
+    #    (reinicia al paso 1 ese mismo día).
+    #  - Retención: si acertó al primer intento, la calidad la define el tiempo
+    #    (<10s→5, <30s→4, resto→3) y modula el ease factor; si pifió, 0 (repasa
+    #    el mismo día sin salir de la fase de retención).
+    if current_state.phase == "review":
+        sm2_quality = quality_from_time(response_time_s) if first_try else 0
+    else:
+        sm2_quality = 5 if first_try else 0
+
+    new_state = update_unit_state(current_state, sm2_quality)
     state.unit_states[unit_key] = new_state
 
     if first_try:
