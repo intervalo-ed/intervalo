@@ -7,6 +7,9 @@ export const queryKeys = {
 
   userProgress: () => [...queryKeys.all, "user", "progress"] as const,
 
+  notificationSettings: () =>
+    [...queryKeys.all, "user", "notification-settings"] as const,
+
   leaderboard: () => [...queryKeys.all, "leaderboard"] as const,
 
   beltInfo: ({ courseId }: { courseId: number }) =>
