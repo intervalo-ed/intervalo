@@ -1,6 +1,9 @@
 import os
+import re
 import sys
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -26,12 +29,15 @@ from sqlalchemy import func
 from schemas import (
     AnswerResponse,
     BeltEntry,
+    DueNotification,
     EnrollmentResponse,
     HealthResponse,
     LeaderboardEntry,
     LeaderboardResponse,
+    NotificationSettings,
     SessionStartResponse,
     SessionSummaryResponse,
+    SimpleResponse,
     UserProgressResponse,
     UserStatusResponse,
 )
@@ -113,6 +119,15 @@ def get_current_user(
         raise HTTPException(status_code=401, detail=str(exc))
 
 
+def require_internal_secret(x_internal_secret: str = Header(None)):
+    """Guard for worker-facing endpoints — a shared secret, not Clerk."""
+    expected = os.environ.get("INTERNAL_API_SECRET")
+    if not expected:
+        raise HTTPException(status_code=503, detail="INTERNAL_API_SECRET not configured")
+    if x_internal_secret != expected:
+        raise HTTPException(status_code=401, detail="Invalid internal secret")
+
+
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
 class StartSessionRequest(BaseModel):
@@ -131,6 +146,30 @@ class AnswerRequest(BaseModel):
     answer_index: int
     attempts: int
     response_time_s: float
+
+
+class PushKeys(BaseModel):
+    p256dh: str
+    auth: str
+
+
+class PushSubscribeRequest(BaseModel):
+    endpoint: str
+    keys: PushKeys
+
+
+class PushUnsubscribeRequest(BaseModel):
+    endpoint: str
+
+
+class NotificationSettingsRequest(BaseModel):
+    enabled: bool
+    time: str | None = None
+    timezone: str | None = None
+
+
+class PrunePushRequest(BaseModel):
+    subscription_ids: list[int]
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
@@ -316,6 +355,102 @@ def get_user_progress(
         return get_user_progress_db(current_user.id, course_id, db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ── Push notifications ──────────────────────────────────────────────────────────
+
+@app.post("/push/subscribe", response_model=SimpleResponse)
+def push_subscribe(
+    body: PushSubscribeRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Store a browser PushSubscription for the current user."""
+    import push_store
+
+    push_store.upsert_subscription(
+        db, current_user.id, body.endpoint, body.keys.p256dh, body.keys.auth
+    )
+    return {"success": True}
+
+
+@app.delete("/push/subscribe", response_model=SimpleResponse)
+def push_unsubscribe(
+    body: PushUnsubscribeRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Remove a browser PushSubscription (called when the user unsubscribes)."""
+    import push_store
+
+    push_store.delete_subscription(db, current_user.id, body.endpoint)
+    return {"success": True}
+
+
+@app.get("/user/notification-settings", response_model=NotificationSettings)
+def get_notification_settings(
+    current_user: User = Depends(get_current_user),
+):
+    import push_store
+
+    return push_store.get_settings(current_user)
+
+
+_TIME_RE = re.compile(r"^([01]\d|2[0-3]):(00|15|30|45)$")
+
+
+@app.put("/user/notification-settings", response_model=NotificationSettings)
+def put_notification_settings(
+    body: NotificationSettingsRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    import push_store
+
+    if body.enabled:
+        if not body.time or not _TIME_RE.match(body.time):
+            raise HTTPException(status_code=400, detail="time must be HH:MM in 15-min steps")
+        if not body.timezone:
+            raise HTTPException(status_code=400, detail="timezone is required")
+        try:
+            ZoneInfo(body.timezone)
+        except ZoneInfoNotFoundError:
+            raise HTTPException(status_code=400, detail="invalid timezone")
+
+    return push_store.save_settings(
+        db, current_user, body.enabled, body.time, body.timezone
+    )
+
+
+@app.get(
+    "/internal/notifications/due",
+    response_model=list[DueNotification],
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_due_notifications(
+    force: bool = False,
+    db: Session = Depends(get_db),
+):
+    """Worker-facing: users to notify right now (claims them in-transaction)."""
+    import push_store
+
+    return push_store.due_notifications(db, force=force)
+
+
+@app.post(
+    "/internal/push/prune",
+    response_model=SimpleResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_prune_push(
+    body: PrunePushRequest,
+    db: Session = Depends(get_db),
+):
+    """Worker-facing: drop subscriptions that returned 404/410."""
+    import push_store
+
+    push_store.delete_subscriptions_by_id(db, body.subscription_ids)
+    return {"success": True}
 
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────

@@ -6,10 +6,10 @@ import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useMe } from "@/app/UseMe"
 import { EditUsernameDialog } from "./edit-username-dialog"
 import { EditApodoDialog } from "./edit-apodo-dialog"
+import { NotificationSettings } from "./notification-settings"
 import { SignOutButton } from "@clerk/nextjs"
 import {
   AtSignIcon,
-  BellIcon,
   LogOutIcon,
   MessageSquareIcon,
   UserIcon,
@@ -29,6 +29,8 @@ export function SettingsContent() {
 
   return (
     <div className="flex flex-col gap-3">
+      <NotificationSettings />
+
       <Button
         variant="outline"
         size="lg"
@@ -47,11 +49,6 @@ export function SettingsContent() {
       <Button variant="outline" size="lg" className={btnCls}>
         <MessageSquareIcon className="size-5" />
         Dar feedback
-      </Button>
-
-      <Button variant="outline" size="lg" className={btnCls}>
-        <BellIcon className="size-5" />
-        Configurar notificaciones
       </Button>
 
       <Button

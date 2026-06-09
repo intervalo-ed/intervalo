@@ -32,3 +32,5 @@ backend/intervalo.db
 
 .DS_Store
 .devlogs/
+.vercel
+.env*

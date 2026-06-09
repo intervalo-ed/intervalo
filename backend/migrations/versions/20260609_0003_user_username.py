@@ -1,7 +1,7 @@
 """Add username column to users (Instagram-style handle)
 
 Revision ID: 20260609_0003
-Revises: 20260528_0002
+Revises: 20260608_0003
 Create Date: 2026-06-09
 """
 from typing import Sequence, Union
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from alembic import op
 
 revision: str = "20260609_0003"
-down_revision: Union[str, Sequence[str], None] = "20260528_0002"
+down_revision: Union[str, Sequence[str], None] = "20260608_0003"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

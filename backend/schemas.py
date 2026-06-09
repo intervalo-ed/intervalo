@@ -84,6 +84,31 @@ class UserProgressResponse(BaseModel):
     main_session_done_today: bool
 
 
+# ── Push notifications ──────────────────────────────────────────────────────────
+
+class NotificationSettings(BaseModel):
+    enabled: bool
+    time: str | None = None       # "HH:MM", 15-min steps
+    timezone: str | None = None   # IANA name
+
+
+class SimpleResponse(BaseModel):
+    success: bool
+
+
+class PushSubscriptionOut(BaseModel):
+    id: int
+    endpoint: str
+    p256dh: str
+    auth: str
+
+
+class DueNotification(BaseModel):
+    user_id: int
+    pending_count: int
+    subscriptions: list[PushSubscriptionOut]
+
+
 # ── Leaderboard ───────────────────────────────────────────────────────────────
 
 class LeaderboardEntry(BaseModel):

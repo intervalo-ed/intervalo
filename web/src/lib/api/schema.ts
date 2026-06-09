@@ -145,6 +145,88 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/push/subscribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Push Subscribe
+         * @description Store a browser PushSubscription for the current user.
+         */
+        post: operations["push_subscribe_push_subscribe_post"];
+        /**
+         * Push Unsubscribe
+         * @description Remove a browser PushSubscription (called when the user unsubscribes).
+         */
+        delete: operations["push_unsubscribe_push_subscribe_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/notification-settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Notification Settings */
+        get: operations["get_notification_settings_user_notification_settings_get"];
+        /** Put Notification Settings */
+        put: operations["put_notification_settings_user_notification_settings_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/notifications/due": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Internal Due Notifications
+         * @description Worker-facing: users to notify right now (claims them in-transaction).
+         */
+        get: operations["internal_due_notifications_internal_notifications_due_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/push/prune": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Internal Prune Push
+         * @description Worker-facing: drop subscriptions that returned 404/410.
+         */
+        post: operations["internal_prune_push_internal_push_prune_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/leaderboard": {
         parameters: {
             query?: never;
@@ -278,6 +360,15 @@ export interface components {
             /** Promoted */
             promoted: boolean;
         };
+        /** DueNotification */
+        DueNotification: {
+            /** User Id */
+            user_id: number;
+            /** Pending Count */
+            pending_count: number;
+            /** Subscriptions */
+            subscriptions: components["schemas"]["PushSubscriptionOut"][];
+        };
         /** EnrollmentRequest */
         EnrollmentRequest: {
             /** University */
@@ -356,6 +447,58 @@ export interface components {
             /** Progress Pct */
             progress_pct: number;
         };
+        /** NotificationSettings */
+        NotificationSettings: {
+            /** Enabled */
+            enabled: boolean;
+            /** Time */
+            time?: string | null;
+            /** Timezone */
+            timezone?: string | null;
+        };
+        /** NotificationSettingsRequest */
+        NotificationSettingsRequest: {
+            /** Enabled */
+            enabled: boolean;
+            /** Time */
+            time?: string | null;
+            /** Timezone */
+            timezone?: string | null;
+        };
+        /** PrunePushRequest */
+        PrunePushRequest: {
+            /** Subscription Ids */
+            subscription_ids: number[];
+        };
+        /** PushKeys */
+        PushKeys: {
+            /** P256Dh */
+            p256dh: string;
+            /** Auth */
+            auth: string;
+        };
+        /** PushSubscribeRequest */
+        PushSubscribeRequest: {
+            /** Endpoint */
+            endpoint: string;
+            keys: components["schemas"]["PushKeys"];
+        };
+        /** PushSubscriptionOut */
+        PushSubscriptionOut: {
+            /** Id */
+            id: number;
+            /** Endpoint */
+            endpoint: string;
+            /** P256Dh */
+            p256dh: string;
+            /** Auth */
+            auth: string;
+        };
+        /** PushUnsubscribeRequest */
+        PushUnsubscribeRequest: {
+            /** Endpoint */
+            endpoint: string;
+        };
         /** SessionExercise */
         SessionExercise: {
             /** Id */
@@ -418,6 +561,11 @@ export interface components {
             /** Xp Earned */
             xp_earned: number;
             level_info: components["schemas"]["LevelInfoWithMissing"];
+        };
+        /** SimpleResponse */
+        SimpleResponse: {
+            /** Success */
+            success: boolean;
         };
         /** StartSessionRequest */
         StartSessionRequest: {
@@ -739,6 +887,210 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    push_subscribe_push_subscribe_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PushSubscribeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    push_unsubscribe_push_subscribe_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PushUnsubscribeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_notification_settings_user_notification_settings_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationSettings"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    put_notification_settings_user_notification_settings_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NotificationSettingsRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationSettings"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    internal_due_notifications_internal_notifications_due_get: {
+        parameters: {
+            query?: {
+                force?: boolean;
+            };
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DueNotification"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    internal_prune_push_internal_push_prune_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PrunePushRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimpleResponse"];
                 };
             };
             /** @description Validation Error */
