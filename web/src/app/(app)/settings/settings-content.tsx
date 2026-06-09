@@ -16,10 +16,12 @@ import {
   ShareIcon,
   SmartphoneIcon,
 } from "lucide-react"
+import { NotificationSettings } from "./notification-settings"
 
 export function SettingsContent() {
   return (
     <div className="flex flex-col gap-3">
+      <NotificationSettings />
       <Dialog>
         <DialogTrigger
           render={

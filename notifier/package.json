@@ -1,0 +1,28 @@
+{
+  "name": "intervalo-notifier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Daily push-notification worker for Intervalo (Effect).",
+  "engines": {
+    "node": "24"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "send-now": "tsx src/send-now.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform-node": "^4.0.0-beta.78",
+    "dotenv": "^17.4.2",
+    "effect": "^4.0.0-beta.78",
+    "tsx": "^4.22.4",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/web-push": "^3.6.4",
+    "typescript": "^6.0.3"
+  }
+}

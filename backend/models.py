@@ -26,6 +26,15 @@ class User(Base):
     name = Column(String(200), nullable=False)
     display_name = Column(String(200), nullable=True)
     total_xp = Column(Integer, nullable=False, default=0)
+
+    # Daily push-notification preferences. `notify_time` is "HH:MM" (15-min
+    # steps) interpreted in `notify_timezone` (IANA). `notify_last_sent_on` is
+    # the per-user idempotency guard (one send per local day).
+    notify_enabled = Column(Boolean, nullable=False, default=False, server_default="false")
+    notify_time = Column(String(5), nullable=True)
+    notify_timezone = Column(String(64), nullable=True)
+    notify_last_sent_on = Column(Date, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
