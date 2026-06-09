@@ -8,7 +8,7 @@ export function Screen({
   className?: string
 }) {
   return (
-    <div className={cn("flex h-dvh flex-col overflow-hidden", className)}>
+    <div className={cn("flex h-full flex-col overflow-hidden", className)}>
       {children}
     </div>
   )

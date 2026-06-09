@@ -1,4 +1,5 @@
 import Providers from "@/app/providers"
+import AppChrome from "@/app/app-chrome"
 import type { Metadata, Viewport } from "next"
 import { Noto_Sans, Noto_Sans_Mono, Noto_Serif, Archivo, Cabin, Saira } from "next/font/google"
 import "./globals.css"
@@ -37,7 +38,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+        <Providers>
+          <AppChrome>{children}</AppChrome>
+        </Providers>
       </body>
     </html>
   )

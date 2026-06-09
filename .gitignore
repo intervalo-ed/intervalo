@@ -30,4 +30,5 @@ backend/migrations/__pycache__/
 backend/migrations/versions/__pycache__/
 backend/intervalo.db
 
-.DS_Store.devlogs/
+.DS_Store
+.devlogs/
