@@ -20,6 +20,11 @@ export type SfxName = keyof typeof SOUND_PATHS
 
 const VOLUME = 0.2
 
+// Sonidos muteados temporalmente (hasta nuevo aviso): feedback negativo (`wrong`,
+// en onboarding y sesiones) y `iterate` (botones play/pausa del onboarding y
+// seleccionadores del modo zen). Para reactivarlos, vaciar este set.
+const MUTED_SFX = new Set<SfxName>(["wrong", "iterate"])
+
 // sustain: 1 prevents the library's default 0.5s fade-out on sample playback
 const FLAT_ENVELOPE = { decay: 3, sustain: 1 }
 
@@ -42,6 +47,7 @@ export function useSfx(): Record<SfxName, () => void> {
     const wrapped = {} as Record<SfxName, () => void>
     for (const name of Object.keys(raw) as SfxName[]) {
       wrapped[name] = () => {
+        if (MUTED_SFX.has(name)) return
         if (isSoundMuted()) return
         raw[name]()
       }
