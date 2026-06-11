@@ -23,6 +23,18 @@ function parse(text: string): Segment[] {
     cursor = m.index + m[0].length
   }
   if (cursor < text.length) out.push({ type: "text", value: text.slice(cursor) })
+
+  // Strip the single \n immediately before/after display blocks so the my-3
+  // margin alone controls vertical spacing (avoids asymmetry from line-height).
+  for (let i = 0; i < out.length; i++) {
+    if (out[i].type === "display") {
+      if (i > 0 && out[i - 1].type === "text")
+        out[i - 1] = { type: "text", value: (out[i - 1] as { type: "text"; value: string }).value.replace(/\n$/, "") }
+      if (i < out.length - 1 && out[i + 1].type === "text")
+        out[i + 1] = { type: "text", value: (out[i + 1] as { type: "text"; value: string }).value.replace(/^\n/, "") }
+    }
+  }
+
   return out
 }
 
@@ -49,6 +61,17 @@ export default function MathText({ text }: { text: string }) {
               <MathText text={s.value} />
             </strong>
           )
+        if (s.type === "display") {
+          return (
+            <span
+              key={i}
+              className="my-3 block [&_.katex-display]:my-0"
+              dangerouslySetInnerHTML={{
+                __html: render({ value: s.value, displayMode: true }),
+              }}
+            />
+          )
+        }
         return (
           <span
             key={i}
@@ -58,7 +81,7 @@ export default function MathText({ text }: { text: string }) {
                 : "whitespace-nowrap"
             }
             dangerouslySetInnerHTML={{
-              __html: render({ value: s.value, displayMode: s.type === "display" }),
+              __html: render({ value: s.value, displayMode: false }),
             }}
           />
         )

@@ -511,31 +511,35 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
 def create_zen_session_db(
     user_id: int,
     course_id: int,
-    belts: list[str],
+    belt: str,
+    topics: list[str],
     count: int,
     db: DBSession,
 ) -> dict:
-    """Zen mode: random exercises from selected belts, no SR tracking."""
+    """Zen mode: random exercises from selected topics of a single unit, no SR tracking."""
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
+    try:
+        belt_enum = Belt(belt)
+    except ValueError:
+        raise ValueError(f"Unidad desconocida: {belt}")
+    catalog = all_catalogs.get(belt_enum)
+    if not catalog:
+        raise ValueError(f"Unidad desconocida: {belt}")
+
+    wanted = set(topics)
     candidate_units: list[UnitKey] = []
-    for belt_str in belts:
-        try:
-            belt_enum = Belt(belt_str)
-        except ValueError:
+    for tk in catalog.all_keys():
+        if tk.topic not in wanted:
             continue
-        catalog = all_catalogs.get(belt_enum)
-        if not catalog:
-            continue
-        for tk in catalog.all_keys():
-            for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db):
-                candidate_units.append(
-                    UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
-                )
+        for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db):
+            candidate_units.append(
+                UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+            )
 
     if not candidate_units:
-        raise ValueError(f"No hay topics disponibles para los cinturones: {belts}")
+        raise ValueError(f"No hay ejercicios disponibles para los temas seleccionados: {topics}")
 
     sampled = random.choices(candidate_units, k=count)
     exercises = [

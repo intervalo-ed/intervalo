@@ -34,6 +34,16 @@ export const catalog: Catalog = {
       "key": "white",
       "topics": [
         {
+          "key": "definition",
+          "name": "Definición",
+          "tooltip": "Una **función** es una regla que asigna a cada elemento $x$ de un conjunto $X$ (el **dominio**) un **único** elemento $y$ de un conjunto $Y$ (el **codominio**). Se escribe $f: X \\to Y$, $x \\mapsto f(x) = y$.\n\n**Idea central:** una función *transforma* cada entrada del dominio en una salida. Pensala como una máquina: entra un $x$ y sale un único $f(x)$.\n\n**Conceptos clave:**\n• **Dominio:** los valores de entrada permitidos\n• **Codominio:** el conjunto donde caen las salidas\n• **Imagen** de $x$: el valor $f(x)$; **preimagen** de $y$: todo $x$ tal que $f(x) = y$\n• **Conjunto imagen** $Im(f)$: todas las salidas que realmente se alcanzan\n\nLa condición esencial es la **unicidad**: cada $x$ tiene una sola imagen.\n\nEjemplo: $f(x) = x^2$ asigna a cada real su cuadrado; $Dom(f) = \\mathbb{R}$ e $Im(f) = [0, +\\infty)$.",
+          "short_description": "Una **función** es una regla que asigna a cada elemento del **dominio** un **único** elemento del codominio: $f: X \\to Y$, $x \\mapsto f(x)$.",
+          "exercise_types": [
+            "LEXI",
+            "CLSF"
+          ]
+        },
+        {
           "key": "linear",
           "name": "Funciones lineales",
           "tooltip": "Una función lineal es aquella que puede escribirse en la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes clave:**\n• $m$ es la **pendiente** — mide la inclinación de la recta\n• $b$ es la **ordenada al origen** — donde la recta corta el eje $Y$\n\nLa variable $x$ aparece únicamente con exponente 1. Si aparece al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.\n\nEjemplo: $f(x) = 3x - 2$ tiene pendiente 3 e intercepto en $Y$ en el punto $(0, -2)$.",
@@ -99,6 +109,13 @@ export const catalog: Catalog = {
             "FORM",
             "GRAF"
           ]
+        },
+        {
+          "key": "modulo",
+          "name": "Función módulo",
+          "tooltip": "La **función módulo** (o valor absoluto) es $f(x) = |x|$: devuelve la **distancia** de $x$ al cero, por lo que siempre es $\\geq 0$.\n\n**Definición a trozos:**\n$$|x| = \\begin{cases} x & \\text{si } x \\geq 0 \\\\ -x & \\text{si } x < 0 \\end{cases}$$\n\n**Características:**\n• Su gráfica tiene forma de **V**, con vértice en el origen\n• **Dominio:** $\\mathbb{R}$; **Imagen:** $[0, +\\infty)$\n• Es **par**: $|-x| = |x|$ (simétrica respecto al eje $Y$)\n• No es derivable en el vértice (forma un pico)\n\nTransformaciones como $|x - h| + k$ trasladan el vértice al punto $(h, k)$.\n\nEjemplo: $f(x) = |x - 2|$ tiene vértice en $(2, 0)$ y vale $3$ tanto en $x = 5$ como en $x = -1$.",
+          "short_description": "La **función módulo** $f(x) = |x|$ devuelve la distancia de $x$ al cero; su gráfica tiene forma de **V** con vértice en el origen.",
+          "exercise_types": []
         },
         {
           "key": "trigonometric",
