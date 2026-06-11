@@ -11,30 +11,15 @@ import {
 } from "@/components/ui/dialog"
 import type { components } from "@/lib/api/schema"
 import type { Topic } from "@/lib/catalog/analisis-1.generated"
+import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { cn } from "@/lib/utils"
+import { Info } from "lucide-react"
 
 type TopicProgress = components["schemas"]["TopicProgress"]
 
-// Nombres cortos para mostrar en la grilla (el catálogo usa "Funciones lineales",
-// etc.). Si un tema no está acá, cae al name del catálogo.
-const TOPIC_SHORT_LABEL: Record<string, string> = {
-  linear: "Rectas",
-  quadratic: "Parábolas",
-  polynomial: "Polinomios",
-  exponential: "Exponentes",
-  logarithmic: "Logaritmos",
-  rational: "Cocientes",
-  trigonometric: "Trigonometría",
-  limit_definition: "Definición",
-  geometric_interpretation: "Interpretación",
-  function_analysis: "Análisis",
-  area_calculation: "Áreas",
-  ftc: "Teorema",
-}
-
 function topicLabel(topic: Topic): string {
-  return TOPIC_SHORT_LABEL[topic.key] ?? topic.name
+  return topicShortLabel({ topic: topic.key })
 }
 
 // Paleta de estados de ítem. Fuente de verdad de colores, espejada del onboarding.
@@ -196,9 +181,27 @@ export function BeltGrid({
           key={row.topic.key}
           className="flex items-center justify-between gap-3"
         >
-          <span className="text-sm font-normal leading-none text-foreground/80">
-            {topicLabel(row.topic)}
-          </span>
+          <Dialog>
+            <DialogTrigger
+              aria-label={`Más sobre ${topicLabel(row.topic)}`}
+              className="flex items-center gap-1.5 text-left outline-none"
+            >
+              <span className="text-sm font-normal leading-none text-foreground/80">
+                {topicLabel(row.topic)}
+              </span>
+              <Info className="size-3.5 shrink-0 text-foreground/40" />
+            </DialogTrigger>
+            <DialogContent className="max-h-[80vh] overflow-y-auto">
+              <DialogHeader className="gap-0.5">
+                <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                  {topicLabel(row.topic)}
+                </DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                  <MathText text={row.topic.tooltip} />
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
           <div className="flex gap-1">
             {row.cells.map(({ typeId, cell }) => (
               <ItemPill

@@ -76,3 +76,25 @@ export function topicLabel({ topic }: { topic: string }): string {
   }
   return topic
 }
+
+// Nombres cortos para mostrar en la grilla y el modo zen (el catálogo usa
+// "Funciones lineales", etc.). Si un tema no está acá, cae al name del catálogo.
+const TOPIC_SHORT_LABEL: Record<string, string> = {
+  linear: "Lineales",
+  quadratic: "Cuadráticas",
+  polynomial: "Polinómicas",
+  exponential: "Exponenciales",
+  logarithmic: "Logarítmicas",
+  rational: "Racionales",
+  modulo: "Módulo",
+  trigonometric: "Trigonométricas",
+  limit_definition: "Definición",
+  geometric_interpretation: "Interpretación",
+  function_analysis: "Análisis",
+  area_calculation: "Áreas",
+  ftc: "Teorema",
+}
+
+export function topicShortLabel({ topic }: { topic: string }): string {
+  return TOPIC_SHORT_LABEL[topic] ?? topicLabel({ topic })
+}

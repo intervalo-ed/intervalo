@@ -1,8 +1,17 @@
 "use client"
 
+import MathText from "@/components/math-text"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   Screen,
   ScreenBody,
@@ -10,23 +19,33 @@ import {
   ScreenHeader,
 } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
-import { Toggle } from "@/components/ui/toggle"
+import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
-import { BELT_ORDER, beltInfo, type BeltKey } from "@/lib/catalog"
+import {
+  BELT_ORDER,
+  beltInfo,
+  getBelt,
+  topicShortLabel,
+  type BeltKey,
+} from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, ChevronRight, Info } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import {
-  parseAsArrayOf,
-  parseAsInteger,
-  parseAsString,
-  useQueryState,
-} from "nuqs"
+import { parseAsInteger, useQueryState } from "nuqs"
+import { useMemo, useState } from "react"
 import { useStartZen } from "./UseStartZen"
 
 const ctaCls =
   "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+
+// Topics with at least one exercise type are the only ones that yield exercises.
+function playableTopics({ belt }: { belt: BeltKey }) {
+  return (getBelt({ key: belt })?.topics ?? []).filter(
+    (t) => t.exercise_types.length > 0,
+  )
+}
 
 export default function ZenConfig() {
   const { user } = useUser()
@@ -34,20 +53,43 @@ export default function ZenConfig() {
   const startZen = useStartZen()
   const sfx = useSfx()
 
-  const [belts, setBelts] = useQueryState(
-    "belts",
-    parseAsArrayOf(parseAsString).withDefault([]),
-  )
   const [count, setCount] = useQueryState(
     "count",
     parseAsInteger.withDefault(10),
   )
 
-  function toggleBelt(belt: BeltKey) {
+  const [beltIdx, setBeltIdx] = useState(0)
+  const belt = BELT_ORDER[beltIdx]
+  const topics = useMemo(() => playableTopics({ belt }), [belt])
+
+  // Topics enabled for the current unit. Default: all of them on.
+  const [enabled, setEnabled] = useState<Set<string>>(
+    () => new Set(playableTopics({ belt: BELT_ORDER[0] }).map((t) => t.key)),
+  )
+
+  function selectBelt(nextIdx: number) {
     sfx.iterate()
-    setBelts(
-      belts.includes(belt) ? belts.filter((b) => b !== belt) : [...belts, belt],
-    )
+    const next = BELT_ORDER[nextIdx]
+    setBeltIdx(nextIdx)
+    setEnabled(new Set(playableTopics({ belt: next }).map((t) => t.key)))
+  }
+
+  function prevBelt() {
+    selectBelt((beltIdx - 1 + BELT_ORDER.length) % BELT_ORDER.length)
+  }
+
+  function nextBelt() {
+    selectBelt((beltIdx + 1) % BELT_ORDER.length)
+  }
+
+  function toggleTopic(key: string) {
+    sfx.iterate()
+    setEnabled((prev) => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
   }
 
   function adjustCount(delta: number) {
@@ -55,13 +97,19 @@ export default function ZenConfig() {
     setCount(Math.max(1, Math.min(50, (count ?? 10) + delta)))
   }
 
+  const selectedTopics = topics
+    .filter((t) => enabled.has(t.key))
+    .map((t) => t.key)
+  const canStart = selectedTopics.length > 0 && (count ?? 0) >= 1
+
   function onStart() {
-    if (belts.length === 0 || (count ?? 0) < 1) return
+    if (!canStart) return
     sfx.start()
     startZen.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",
-        belts,
+        belt,
+        topics: selectedTopics,
         count: count ?? 10,
       },
       {
@@ -69,8 +117,6 @@ export default function ZenConfig() {
       },
     )
   }
-
-  const canStart = belts.length > 0 && (count ?? 0) >= 1
 
   return (
     <Screen>
@@ -98,30 +144,94 @@ export default function ZenConfig() {
           </p>
         </section>
 
-        <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
+        <motion.section
+          layout
+          className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
+        >
           <div className="flex flex-col gap-0.5">
             <h2 className="font-sans text-lg font-semibold leading-tight">
-              Unidades
+              Temas
             </h2>
             <p className="text-sm text-foreground/60">
-              Elegí de qué unidades querés practicar.
+              Elegí los temas de una unidad. Solo podés combinar temas de la
+              misma unidad.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            {BELT_ORDER.map((belt) => (
-              <Toggle
-                key={belt}
-                variant="outline"
-                size="lg"
-                pressed={belts.includes(belt)}
-                onPressedChange={() => toggleBelt(belt)}
-                className="rounded-md aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90 aria-pressed:hover:text-primary-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-              >
-                {beltInfo({ belt }).headline}
-              </Toggle>
-            ))}
+
+          <div className="flex items-center justify-between gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Unidad anterior"
+              className="rounded-md"
+              onClick={prevBelt}
+            >
+              <ChevronLeft />
+            </Button>
+            <div className="flex-1 text-center text-base font-semibold">
+              {beltInfo({ belt }).headline}
+            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Unidad siguiente"
+              className="rounded-md"
+              onClick={nextBelt}
+            >
+              <ChevronRight />
+            </Button>
           </div>
-        </section>
+
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={belt}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col gap-1"
+            >
+              {topics.length === 0 ? (
+                <p className="py-2 text-sm text-foreground/50">
+                  Esta unidad todavía no tiene ejercicios.
+                </p>
+              ) : (
+                topics.map((t) => (
+                  <div
+                    key={t.key}
+                    className="flex items-center justify-between gap-3 rounded-md px-1 py-2"
+                  >
+                    <Dialog>
+                      <DialogTrigger
+                        aria-label={`Más sobre ${topicShortLabel({ topic: t.key })}`}
+                        className="flex flex-1 items-center gap-1.5 text-left outline-none"
+                      >
+                        <span className="text-sm">
+                          {topicShortLabel({ topic: t.key })}
+                        </span>
+                        <Info className="size-3.5 shrink-0 text-foreground/40" />
+                      </DialogTrigger>
+                      <DialogContent className="max-h-[80vh] overflow-y-auto">
+                        <DialogHeader className="gap-0.5">
+                          <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                            {topicShortLabel({ topic: t.key })}
+                          </DialogTitle>
+                          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                            <MathText text={t.tooltip} />
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+                    <Switch
+                      checked={enabled.has(t.key)}
+                      onCheckedChange={() => toggleTopic(t.key)}
+                    />
+                  </div>
+                ))
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </motion.section>
 
         <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
           <div className="flex flex-col gap-0.5">

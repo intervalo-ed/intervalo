@@ -278,7 +278,7 @@ export interface paths {
         put?: never;
         /**
          * Start Zen Session
-         * @description Start a Zen session: random exercises from selected belts, no SM-2 logic.
+         * @description Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic.
          */
         post: operations["start_zen_session_session_start_zen_post"];
         delete?: never;
@@ -576,8 +576,10 @@ export interface components {
         StartZenSessionRequest: {
             /** User Name */
             user_name: string;
-            /** Belts */
-            belts: string[];
+            /** Belt */
+            belt: string;
+            /** Topics */
+            topics: string[];
             /** Count */
             count: number;
         };

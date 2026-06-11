@@ -136,7 +136,8 @@ class StartSessionRequest(BaseModel):
 
 class StartZenSessionRequest(BaseModel):
     user_name: str
-    belts: list[str]
+    belt: str
+    topics: list[str]
     count: int
 
 
@@ -526,17 +527,17 @@ def start_zen_session(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Start a Zen session: random exercises from selected belts, no SM-2 logic."""
+    """Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic."""
     from session_store import create_zen_session_db
 
-    if not body.belts:
-        raise HTTPException(status_code=400, detail="Seleccioná al menos un cinturón.")
+    if not body.topics:
+        raise HTTPException(status_code=400, detail="Seleccioná al menos un tema.")
     if body.count < 1:
         raise HTTPException(status_code=400, detail="El número de ejercicios debe ser al menos 1.")
     try:
         return create_zen_session_db(
             user_id=current_user.id, course_id=1,
-            belts=body.belts, count=body.count, db=db,
+            belt=body.belt, topics=body.topics, count=body.count, db=db,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

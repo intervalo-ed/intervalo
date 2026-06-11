@@ -10,15 +10,17 @@ export function useStartZen() {
   return useMutation({
     mutationFn: async ({
       userName,
-      belts,
+      belt,
+      topics,
       count,
     }: {
       userName: string
-      belts: string[]
+      belt: string
+      topics: string[]
       count: number
     }) => {
       const { data, error } = await api.POST("/session/start-zen", {
-        body: { user_name: userName, belts, count },
+        body: { user_name: userName, belt, topics, count },
       })
       if (error) throw error
       // OpenAPI spec types this response as `unknown`; the actual shape matches
