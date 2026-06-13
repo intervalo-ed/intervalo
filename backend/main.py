@@ -276,6 +276,9 @@ class EnrollmentRequest(BaseModel):
     university: str
     career: str
     name: str | None = None
+    # Resultado del ejercicio de prueba del onboarding (white/definition/LEXI).
+    # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
+    intro_item_correct: bool | None = None
 
 
 @app.post("/user/enroll", response_model=EnrollmentResponse)
@@ -320,6 +323,13 @@ def enroll_user(
         current_user.display_name = body.name
 
     db.commit()
+
+    # Solo en una alta nueva: persistir el resultado del ejercicio de prueba del
+    # onboarding sobre el ítem white/definition/LEXI (acierto → mañana, fuera de
+    # la 1ª sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
+    if not existing and body.intro_item_correct is not None:
+        from session_store import seed_intro_item
+        seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
 
     return {
         "success": True,

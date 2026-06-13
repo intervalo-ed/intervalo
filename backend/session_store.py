@@ -202,6 +202,45 @@ def _create_topic_units(
     return types
 
 
+# Ítem del ejercicio de prueba del onboarding: belt white, tema definición, léxico.
+_INTRO_ITEM = TopicKey(belt=Belt.WHITE, topic="definition")
+_INTRO_ITEM_EXERCISE_TYPE = "LEXI"
+
+
+def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) -> None:
+    """Persiste el resultado del ejercicio de prueba del onboarding sobre el ítem
+    white/definition/LEXI, aplicándole el mismo update SM-2 que una respuesta real.
+
+    Acierto al primer intento (calidad 5) lo agenda para mañana, así queda fuera de
+    la primera sesión. Fallo (calidad 0) lo deja pendiente para hoy, así aparece en
+    la primera sesión. Crea las units del tema definición si todavía no existen; el
+    resto de los temas los desbloquea la primera sesión (_ensure_active_units)."""
+    if not _topic_has_any_units(user_id, course_id, _INTRO_ITEM, db):
+        _create_topic_units(user_id, course_id, _INTRO_ITEM, db)
+        db.flush()
+
+    row = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == _INTRO_ITEM.belt.value,
+        UnitState.topic == _INTRO_ITEM.topic,
+        UnitState.exercise_type == _INTRO_ITEM_EXERCISE_TYPE,
+    ).first()
+    if row is None:
+        return
+
+    new_state = update_unit_state(SM2UnitState(), 5 if correct else 0)
+    row.phase = new_state.phase
+    row.step_index = new_state.step_index
+    row.ease_factor = new_state.ease_factor
+    row.interval_days = new_state.interval
+    row.repetitions = new_state.repetitions
+    row.next_due = new_state.next_review
+    row.attempted = True
+    row.last_reviewed_at = datetime.utcnow()
+    db.commit()
+
+
 def _unlock_next_topic(
     user_id: int,
     course_id: int,
@@ -618,6 +657,9 @@ def create_test_session_db(
 
     if not exercises:
         raise ValueError("No hay ejercicios para los items seleccionados.")
+
+    # Orden aleatorio respecto al orden de contenido de los JSONs.
+    random.shuffle(exercises)
 
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,

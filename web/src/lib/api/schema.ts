@@ -397,6 +397,8 @@ export interface components {
             career: string;
             /** Name */
             name?: string | null;
+            /** Intro Item Correct */
+            intro_item_correct?: boolean | null;
         };
         /** EnrollmentResponse */
         EnrollmentResponse: {

@@ -4,6 +4,9 @@ export type OnboardingData = {
   name: string
   career: string
   university: string
+  // Resultado del ejercicio de prueba: true si acertó al primer intento.
+  // Ausente en datos viejos → el backend lo trata como "sin dato".
+  introItemCorrect?: boolean
 }
 
 export function saveOnboarding(data: OnboardingData) {
@@ -18,7 +21,12 @@ export function readOnboarding(): OnboardingData | null {
   try {
     const parsed = JSON.parse(raw) as Partial<OnboardingData>
     if (parsed.career && parsed.university) {
-      return { name: parsed.name ?? "", career: parsed.career, university: parsed.university }
+      return {
+        name: parsed.name ?? "",
+        career: parsed.career,
+        university: parsed.university,
+        introItemCorrect: parsed.introItemCorrect,
+      }
     }
     return null
   } catch {

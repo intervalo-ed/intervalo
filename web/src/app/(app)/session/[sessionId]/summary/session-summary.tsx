@@ -12,6 +12,7 @@ import { Screen, ScreenBody } from "@/components/ui/screen"
 import { cn } from "@/lib/utils"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
+import { useSfx } from "@/lib/audio/useSfx"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
@@ -21,12 +22,14 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const { data, isError, error } = useSummary({ sessionId })
   const qc = useQueryClient()
   const router = useRouter()
+  const sfx = useSfx()
   const [showCards, setShowCards] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
 
   function goHome() {
+    sfx.continue()
     router.push("/")
     // Bust the App Router segment cache so the / RSC re-runs on arrival.
     router.refresh()

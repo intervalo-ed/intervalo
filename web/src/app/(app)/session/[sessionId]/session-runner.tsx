@@ -164,7 +164,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   function onContinue() {
     if (isLast) {
-      sfx.end()
+      sfx.continue()
       router.push(`/session/${sessionId}/summary`)
       return
     }

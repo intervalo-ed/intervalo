@@ -36,19 +36,16 @@ const UNI_FONT: Record<string, React.CSSProperties> = {
   UNSAM: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
 }
 
-const EXERCISE_QUESTION = "¿Cuál de estas expresiones representa una función lineal?"
-const EXERCISE_OPTIONS = [
-  "$f(x) = 5x - 2$",
-  "$f(x) = x^2$",
-  "$f(x) = 3^x$",
-  "$f(x) = \\log(x)$",
-]
+// Ejercicio de prueba del onboarding: inspirado en el banco real (Definición ·
+// Léxico, imagen/preimagen) y simplificado a f(x) = x + 2 para la demo.
+const EXERCISE_QUESTION =
+  "Una regla transforma cada número en ese número más 2.\n$$f(x) = x + 2$$\n¿Cuál es el valor de $f(2)$?"
+const EXERCISE_OPTIONS = ["$4$", "$0$", "$2$", "$6$"]
 const EXERCISE_CORRECT_INDEX = 0
-const EXERCISE_FEEDBACK =
-  "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes."
+const EXERCISE_FEEDBACK = "La imagen del 2 es $f(2) = 2 + 2 = 4$."
 
 const EXERCISE_EXPLANATION =
-  "Una función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes de la forma estándar:**\n• $m$ es la **pendiente** — mide la inclinación de la recta y cuánto varía $f(x)$ por cada unidad de $x$.\n• $b$ es la **ordenada al origen** — el valor de $f(x)$ cuando $x = 0$."
+  "La **imagen** de un valor $x$ es lo que devuelve la regla al aplicarla, es decir $f(x)$.\n\nAcá la regla suma 2, así que\n$$f(2) = 2 + 2 = 4$$\nLa imagen del 2 es 4. Esperemos que no te hayas equivocado en esta."
 
 const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
 
@@ -297,7 +294,7 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     if (typed.length >= WORD.length) return
-    const id = setTimeout(() => setTyped(WORD.slice(0, typed.length + 1)), randomDelay(75, 135))
+    const id = setTimeout(() => setTyped(WORD.slice(0, typed.length + 1)), randomDelay(32, 52))
     return () => clearTimeout(id)
   }, [typed])
 
@@ -316,22 +313,23 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(id)
   }, [typed, bars, onDone])
 
-  const typingDone = typed.length >= WORD.length
-
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="inline-flex flex-col items-center gap-[7px] leading-none">
         <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
-          {typed || " "}
-          <motion.span
-            className="ml-1 inline-block h-[0.95em] w-[3px] rounded-sm bg-[#F6F8FC] align-middle"
-            animate={typingDone ? { opacity: 0 } : { opacity: [1, 1, 0, 0] }}
-            transition={
-              typingDone
-                ? { duration: 0.15 }
-                : { duration: 1, repeat: Infinity, times: [0, 0.45, 0.5, 0.95] }
-            }
-          />
+          {typed.length === 0
+            ? " "
+            : typed.split("").map((ch, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block"
+                  initial={{ opacity: 0, y: "0.3em", scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.16, ease: "easeOut" }}
+                >
+                  {ch}
+                </motion.span>
+              ))}
         </span>
         <div className="flex h-[4px] w-full overflow-hidden rounded-[2px]">
           {INTRO_BELT_COLORS.map((c, i) => (
@@ -374,15 +372,19 @@ export default function OnboardingWizard() {
   const [universityOther, setUniversityOther] = useState("")
   const [showOther, setShowOther] = useState(false)
 
+  // Acierto limpio = correcto sin ningún error previo. Decide el estado inicial
+  // del ítem (mañana vs hoy) y se persiste al registrarse.
+  const firstTryCorrect = exerciseCorrect === true && wrongOptions.length === 0
+
   // Reproducción automática de la simulación: 3 iteraciones por segundo, sin sonido.
   useEffect(() => {
     if (!simPlaying) return
     const id = setInterval(() => {
-      setSimItems((prev) => iterateSim(prev ?? initSim(exerciseCorrect === true)))
+      setSimItems((prev) => iterateSim(prev ?? initSim(firstTryCorrect)))
       setSimDay((d) => d + 1)
     }, 333)
     return () => clearInterval(id)
-  }, [simPlaying, exerciseCorrect])
+  }, [simPlaying, firstTryCorrect])
 
   function goNext(target?: number) {
     setPrevStep(step)
@@ -486,7 +488,7 @@ export default function OnboardingWizard() {
 
   function onFinish() {
     if (!signIn) return
-    saveOnboarding({ name: name.trim(), career, university })
+    saveOnboarding({ name: name.trim(), career, university, introItemCorrect: firstTryCorrect })
     const origin = window.location.origin
     signIn.sso({
       strategy: "oauth_google",
@@ -513,8 +515,8 @@ export default function OnboardingWizard() {
         {step > 0 && <ProgressBar key="progress" step={step} onBack={goBack} />}
       </AnimatePresence>
       <div className="flex flex-1 flex-col items-center justify-start px-4 pb-8 pt-16">
-        <div className="grid flex-1 w-full max-w-md overflow-hidden">
-          <AnimatePresence mode="sync" initial={false} custom={{ dir: direction, from: prevStep }}>
+        <div className="relative grid flex-1 w-full max-w-md overflow-hidden">
+          <AnimatePresence mode="popLayout" initial={false} custom={{ dir: direction, from: prevStep }}>
             <motion.div
               key={showWhy ? "why" : step}
               custom={{ dir: direction, from: prevStep }}
@@ -563,7 +565,9 @@ export default function OnboardingWizard() {
                       <strong className="text-foreground">Prioriza</strong> lo que necesitás repasar
                       y omite lo que ya incorporaste.
                     </p>
-                    <p>Este tutorial dura menos de 5 minutos.</p>
+                    <p>
+                      Este tutorial dura <strong>menos de 5 minutos</strong>.
+                    </p>
                   </div>
                 </div>
               )}
@@ -609,9 +613,9 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 4: Ejercicio dummy ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-5">
-<p className="text-lg leading-snug">
+<div className="text-lg leading-snug">
                     <MathText text={EXERCISE_QUESTION} />
-                  </p>
+                  </div>
                   <div className="flex flex-col gap-2">
                     {EXERCISE_OPTIONS.map((opt, i) => {
                       const isSelected = exerciseSelection === i
@@ -691,7 +695,7 @@ export default function OnboardingWizard() {
                   </p>
                   <BeltGrid
                     cellFor={(i) => {
-                      if (i === 0) return exerciseCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
+                      if (i === 0) return firstTryCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
                       if (i <= 14) return { kind: "nuevo" }
                       return { kind: "empty" }
                     }}
@@ -718,7 +722,7 @@ export default function OnboardingWizard() {
                         simItems
                           ? simToCell(simItems[i])
                           : i === 0
-                          ? exerciseCorrect
+                          ? firstTryCorrect
                             ? { kind: "aprendiendo", days: 1 }
                             : { kind: "pendiente" }
                           : i <= 14

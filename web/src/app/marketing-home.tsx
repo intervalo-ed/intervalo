@@ -1,5 +1,6 @@
 "use client"
 
+import { useSplash } from "@/app/splash-context"
 import { Wordmark } from "@/components/wordmark"
 import katex from "katex"
 import "katex/dist/katex.min.css"
@@ -214,8 +215,9 @@ function QuestionLoop() {
   const item = Q_ITEMS[idx]
 
   return (
-    <div className="mx-auto flex max-w-[600px] flex-col items-center gap-4 text-center">
-      <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className="mx-auto grid h-[360px] max-w-[600px] grid-rows-[40px_40px_40px_40px_1fr] text-center">
+      {/* Tags: 2º renglón de la grilla */}
+      <div className="row-start-1 flex flex-wrap items-center justify-center gap-2">
         <span
           className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
           style={{ background: item.color }}
@@ -236,15 +238,15 @@ function QuestionLoop() {
           {item.t3.toUpperCase()}
         </span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
-        <div className="text-[clamp(0.85rem,2.6vw,1rem)] text-[#F6F8FC]">
-          {item.qt}
-        </div>
-        <div
-          className="flex min-h-[72px] max-w-[520px] items-center justify-center font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
-          dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
-        />
+      {/* Pregunta: 4º renglón */}
+      <div className="row-start-3 flex items-center justify-center text-[clamp(1rem,3.2vw,1.3rem)] leading-[1.4] text-[#F6F8FC]">
+        {item.qt}
       </div>
+      {/* Fórmula: centrada en el espacio restante */}
+      <div
+        className="row-start-5 mx-auto flex max-w-[520px] items-center justify-center font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
+        dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
+      />
     </div>
   )
 }
@@ -391,6 +393,9 @@ function ProgressGrid() {
 }
 
 export default function MarketingHome() {
+  const { markReady } = useSplash()
+  useEffect(() => markReady(), [markReady])
+
   return (
     <main className="bg-[#131324] font-sans text-[#F6F8FC]">
       <section
@@ -406,7 +411,7 @@ export default function MarketingHome() {
         </div>
 
         <div className="flex w-full max-w-[36rem] flex-1 flex-col items-center justify-center gap-5 px-6">
-          <h1 className="text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+          <h1 className="font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
             Repasá un poco todos los días.
           </h1>
           <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
@@ -421,7 +426,7 @@ export default function MarketingHome() {
             href="/onboarding"
             className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#5457E5] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#7E80F7] hover:shadow-[0_10px_36px_rgba(84,87,229,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
           >
-            Empezar ahora
+            Probar ahora
           </Link>
           <div className="flex items-center text-[#768899] opacity-60">
             <ChevronDown className="size-[34px] animate-[bounce-down_1.8s_ease-in-out_infinite]" />
@@ -442,7 +447,7 @@ export default function MarketingHome() {
 
       <section className="border-b border-[#38385A] bg-[#1A1A2A] px-6 py-16">
         <div className="mx-auto flex max-w-[960px] flex-col gap-4">
-          <h2 className="max-w-[28rem] text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+          <h2 className="max-w-[28rem] font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
             Mantenete en contacto constante con los contenidos
           </h2>
           <p className="max-w-[26rem] text-[clamp(0.95rem,3vw,1.1rem)] leading-[1.7] text-[#A4B3C6]">
@@ -458,7 +463,7 @@ export default function MarketingHome() {
 
       <section className="border-y border-[#38385A] bg-[#1A1A2A] px-6 py-12">
         <div className="mx-auto max-w-[960px]">
-          <h2 className="mb-2.5 text-[clamp(1.45rem,5vw,2rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+          <h2 className="mb-2.5 font-sans text-[clamp(1.45rem,5vw,2rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
             Progreso acorde al plan de estudios
           </h2>
           <p className="max-w-[520px] text-[clamp(0.875rem,2.5vw,1rem)] leading-[1.75] text-[#A4B3C6]">
@@ -473,8 +478,8 @@ export default function MarketingHome() {
 
       <footer>
         <div className="flex flex-col items-center gap-5 bg-[#7E80F7] px-6 py-16 text-center">
-          <h2 className="max-w-[28rem] text-[clamp(1.5rem,4vw,2rem)] font-semibold leading-[1.25] text-[#131324]">
-            Retené lo que ya entendiste.
+          <h2 className="max-w-[28rem] font-sans text-[clamp(1.5rem,4vw,2rem)] font-semibold leading-[1.25] text-[#131324]">
+            No pierdas lo que ya aprendiste.
           </h2>
           <p className="text-[0.875rem] text-[rgba(19,19,36,0.65)]">
             Repasá de forma inteligente haciendo un poco todos los días.
@@ -484,15 +489,14 @@ export default function MarketingHome() {
               href="/onboarding"
               className="inline-flex items-center rounded-[4px] bg-[#131324] px-8 py-[0.9rem] font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#7E80F7] transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(0,0,0,0.4)]"
             >
-              Empezar ahora
+              Probar ahora
             </Link>
           </div>
         </div>
 
         <div className="bg-[#1A1A2A] px-5 py-10">
-          <div className="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-6 max-md:flex-col max-md:items-start">
-            <Wordmark textClass="text-[1.1rem]" barClass="h-[2px]" />
-            <div className="flex items-center gap-6 max-md:items-start">
+          <div className="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
               <a
                 href="https://github.com/nvranco"
                 target="_blank"
@@ -517,11 +521,13 @@ export default function MarketingHome() {
                 </div>
               </a>
             </div>
+            <div className="pr-12 max-md:pr-6">
+              <Wordmark textClass="text-[1.1rem]" barClass="h-[2px]" />
+            </div>
           </div>
           <div className="mx-auto max-w-[960px] pt-6 text-center text-[0.68rem] text-[#768899]">
             <p>
-              2026 Intervalo. Desarrollado por y para estudiantes de carreras
-              STEM.
+              Intervalo 2026. Desarrollado por y para estudiantes.
             </p>
           </div>
         </div>

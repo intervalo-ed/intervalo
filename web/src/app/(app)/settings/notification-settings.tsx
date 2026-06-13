@@ -23,11 +23,11 @@ import { toast } from "sonner"
 
 const DEFAULT_TIME = "19:00"
 
-const TIME_OPTIONS: string[] = Array.from({ length: 96 }, (_, i) => {
-  const h = Math.floor(i / 4)
-  const m = (i % 4) * 15
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`
-})
+// Horarios de recordatorio: en punto, de 08:00 a 22:00 (paso de 1 hora).
+const TIME_OPTIONS: string[] = Array.from(
+  { length: 22 - 8 + 1 },
+  (_, i) => `${String(8 + i).padStart(2, "0")}:00`,
+)
 
 export function NotificationSettings() {
   const api = useApi()
