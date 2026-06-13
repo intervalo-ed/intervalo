@@ -1,23 +1,23 @@
 "use client"
 
-import { Coordinates, Line, Mafs, Plot, Text } from "mafs"
+import { Coordinates, Line, Mafs, Plot, Point, Text, usePaneContext, useTransformContext } from "mafs"
 import "mafs/core.css"
 import { compile, type EvalFunction } from "mathjs"
+import { Home, Move } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
 
-const DEFAULT_VIEW: [number, number, number, number] = [-3, 3, -3, 3]
-
-// Aspecto de la caja (ancho:alto). Más alto = menos estiramiento horizontal.
+const DEFAULT_VIEW: [number, number, number, number] = [-4, 4, -4, 4]
+const LINE_COLOR = "#4453E6"
+const AXIS_COLOR = "#6b7280"
+const TICK_PX = 1.5 // half-length of the small axis tick marks, in pixels
+const LABEL_GAP = 7 // distance from axis to numeric label, same on both axes
 const BOX_W = 480
-const BOX_H = 380
-// Zoom in: contrae la vista hacia su centro (>1 acerca, <1 aleja).
-const ZOOM = 1.15
+const BOX_H = 420
 
 function normalize(expr: string): string {
-  // Python "**" → mathjs "^". Whitespace allowed between operands.
   return expr.replace(/\*\*/g, "^")
 }
 
@@ -127,44 +127,96 @@ function toView(
   return DEFAULT_VIEW
 }
 
-export default function MathGraph({
-  graphFn,
-  graphView,
-}: {
-  graphFn: string
-  graphView?: unknown[] | null
-}) {
-  const fn = useMemo(() => buildFn(graphFn), [graphFn])
-  // Igual que el prototipo viejo (prototype-v1): se usa el graph_view tal cual,
-  // sin zoom out ni recorte del eje x. La "deformación" horizontal surge sola del
-  // aspecto fijo de la caja (480×280) que estira la vista para llenarla.
-  const raw = toView(graphView)
-  // Aplicamos un zoom in contrayendo la vista hacia su centro antes de redondear.
-  const cx = (raw[0] + raw[1]) / 2
-  const cy = (raw[2] + raw[3]) / 2
-  const hx = (raw[1] - raw[0]) / 2 / ZOOM
-  const hy = (raw[3] - raw[2]) / 2 / ZOOM
-  const xmin = Math.round(cx - hx)
-  const xmax = Math.round(cx + hx)
-  const ymin = Math.round(cy - hy)
-  const ymax = Math.round(cy + hy)
+// Divisor controls grid density: higher = finer steps for the same range.
+// 6 ≈ ~6 major intervals; 8 ≈ ~8, making the grid visibly denser by default.
+const GRID_DENSITY = 15
 
-  // mafs 0.21 (Plot.OfX) NO corta la línea ante valores no finitos: omite el punto
-  // y sigue uniendo con el siguiente, lo que dibuja la recta de la asíntota o un
-  // puente plano cuando la curva sale y vuelve a entrar por abajo. Para evitarlo
-  // partimos el dominio en tramos contiguos "en pantalla" y renderizamos un
-  // Plot.OfX por tramo (cada uno es un <path> aparte → no se puentean entre sí).
-  const margin = (ymax - ymin) * 0.04
-  const lo = ymin - margin
-  const hi = ymax + margin
+function niceStep(range: number): number {
+  if (range <= 0) return 1
+  const rough = range / GRID_DENSITY
+  const magnitude = Math.pow(10, Math.floor(Math.log10(rough)))
+  const normalized = rough / magnitude
+  if (normalized <= 1) return magnitude
+  if (normalized <= 2) return 2 * magnitude
+  if (normalized <= 5) return 5 * magnitude
+  return 10 * magnitude
+}
+
+// Returns how many sub-divisions to draw inside each major grid interval.
+// Chosen so the minor step is always the previous entry in the 1-2-5 sequence:
+//   step=1→5divs(0.2), step=2→4(0.5), step=5→5(1), step=10→5(2), step=20→4(5)…
+function niceSubdivisions(step: number): number {
+  const magnitude = Math.pow(10, Math.floor(Math.log10(step)))
+  const norm = Math.round(step / magnitude) // 1, 2, or 5
+  if (norm === 2) return 4
+  return 5
+}
+
+// Formats a tick value with just enough decimals for the current step, then
+// trims FP noise (0.30000000004 → "0.3"). Used for both the label and the key.
+function formatTick(value: number, step: number): string {
+  const decimals = step < 1 ? Math.ceil(-Math.log10(step)) : 0
+  return Number(value.toFixed(decimals)).toString()
+}
+
+// Returns tick positions snapped to the step grid (keeping fractional values when
+// zoomed in — Math.round would collapse e.g. 0.2 and 0.4 onto the same integer,
+// producing duplicate React keys and wrong labels). Index n avoids FP drift.
+function axisTicks(min: number, max: number, step: number): number[] {
+  const ticks: number[] = []
+  const startN = Math.floor(min / step)
+  const endN = Math.ceil(max / step)
+  for (let n = startN; n <= endN; n++) {
+    if (n !== 0) ticks.push(n * step)
+  }
+  return ticks
+}
+
+// Runs inside <Mafs> — has access to the live viewport via usePaneContext.
+// Grid, ticks, and the function plot all update dynamically as the user pans/zooms.
+function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
+  const { xPaneRange, yPaneRange } = usePaneContext()
+  const [xMin, xMax] = xPaneRange
+  const [yMin, yMax] = yPaneRange
+
+  // xPaneRange comes from quantized panes (it grows in discrete chunks while
+  // panning), so it can't drive step selection — that's what made the grid jump
+  // at specific pan positions. viewTransform[0] is px-per-math-unit on x, which
+  // pan only translates (never rescales): it changes on zoom and on nothing else.
+  const { viewTransform } = useTransformContext()
+  const pxPerUnit = viewTransform[0]
+  const pxPerUnitY = Math.abs(viewTransform[4])
+  const xRange = widthPx / pxPerUnit
+  const naturalStep = niceStep(xRange)
+
+  // Hysteresis: only commit a new step when xRange is clearly past the transition
+  // boundary (±5%), preventing oscillation from FP noise at exact boundary values.
+  const stepRef = useRef(naturalStep)
+  if (naturalStep !== stepRef.current) {
+    const goingUp = naturalStep > stepRef.current
+    const threshold = goingUp
+      ? GRID_DENSITY * stepRef.current * 1.05
+      : GRID_DENSITY * naturalStep * 0.95
+    if (goingUp ? xRange > threshold : xRange < threshold) {
+      stepRef.current = naturalStep
+    }
+  }
+  const step = stepRef.current
+  const subdivisions = niceSubdivisions(step)
+
+  const margin = (yMax - yMin) * 0.1
+  const lo = yMin - margin
+  const hi = yMax + margin
+
+  // Split the visible x-range into continuous branches to avoid bridging across
+  // discontinuities (asymptotes, domain gaps). Recomputed on every viewport change.
   const branches = useMemo<[number, number][]>(() => {
-    if (!fn) return []
-    const N = 600
-    const step = (xmax - xmin) / N
+    const N = 300
+    const step = (xMax - xMin) / N
     const xs: number[] = []
     const visible: boolean[] = []
     for (let i = 0; i <= N; i++) {
-      const x = xmin + i * step
+      const x = xMin + i * step
       const y = fn(x)
       xs.push(x)
       visible.push(Number.isFinite(y) && y >= lo && y <= hi)
@@ -175,38 +227,116 @@ export default function MathGraph({
       if (visible[i]) {
         if (start === -1) start = i
       } else if (start !== -1) {
-        // Extendemos un sample a cada lado para que el tramo llegue al borde
-        // (mafs recorta al viewport), sin cruzar el salto.
         runs.push([xs[Math.max(0, start - 1)], xs[i]])
         start = -1
       }
     }
     if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[N]])
     return runs
-  }, [fn, xmin, xmax, lo, hi])
+  }, [fn, xMin, xMax, lo, hi])
 
-  // Caja con el mismo aspecto que el viejo SVG (480×280): medimos el ancho y
-  // derivamos la altura, así el estiramiento del eje x es idéntico en cualquier
-  // pantalla.
+  const xTicks = axisTicks(xMin, xMax, step)
+  const yTicks = axisTicks(yMin, yMax, step)
+
+  // Lattice points: integer x where f(x) is also an integer, marked as a dot in
+  // the line color so the student can read exact points the line passes through.
+  // Only while the integer grid is the actual grid (step <= 1); zoomed out they'd
+  // crowd together and add no value.
+  const lattice = useMemo<[number, number][]>(() => {
+    if (step > 1) return []
+    const pts: [number, number][] = []
+    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+      const y = fn(x)
+      if (!Number.isFinite(y)) continue
+      const yr = Math.round(y)
+      if (Math.abs(y - yr) < 1e-6 && yr >= yMin && yr <= yMax) {
+        pts.push([x, yr])
+      }
+    }
+    return pts
+  }, [fn, xMin, xMax, yMin, yMax, step])
+
+  return (
+    <>
+      <Coordinates.Cartesian
+        xAxis={{ lines: step, labels: false, subdivisions }}
+        yAxis={{ lines: step, labels: false, subdivisions }}
+      />
+      {xTicks.map((v) => {
+        const label = formatTick(v, step)
+        const t = TICK_PX / pxPerUnitY
+        return (
+          <g key={`x-${label}`}>
+            <Line.Segment point1={[v, -t]} point2={[v, t]} color={AXIS_COLOR} weight={1} />
+            <Text
+              x={v}
+              y={0}
+              size={8}
+              color={AXIS_COLOR}
+              svgTextProps={{ dominantBaseline: "hanging", dy: LABEL_GAP }}
+            >
+              {label}
+            </Text>
+          </g>
+        )
+      })}
+      {yTicks.map((v) => {
+        const label = formatTick(v, step)
+        const t = TICK_PX / pxPerUnit
+        return (
+          <g key={`y-${label}`}>
+            <Line.Segment point1={[-t, v]} point2={[t, v]} color={AXIS_COLOR} weight={1} />
+            <Text x={0} y={v} attach="w" attachDistance={LABEL_GAP} size={8} color={AXIS_COLOR}>
+              {label}
+            </Text>
+          </g>
+        )
+      })}
+      {branches.map(([d0, d1], k) => (
+        <Plot.OfX
+          key={k}
+          y={fn}
+          domain={[d0, d1]}
+          color={LINE_COLOR}
+          weight={2}
+          minSamplingDepth={12}
+          maxSamplingDepth={20}
+        />
+      ))}
+      {lattice.map(([x, y]) => (
+        <Point key={`pt-${x}-${y}`} x={x} y={y} color={LINE_COLOR} svgCircleProps={{ r: 2 }} />
+      ))}
+    </>
+  )
+}
+
+export default function MathGraph({
+  graphFn,
+  graphView,
+}: {
+  graphFn: string
+  graphView?: unknown[] | null
+}) {
+  const fn = useMemo(() => buildFn(graphFn), [graphFn])
+  const [resetKey, setResetKey] = useState(0)
+
+  const [xmin, xmax, ymin, ymax] = toView(graphView)
+
   const wrapRef = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(BOX_W)
   const [height, setHeight] = useState(210)
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
-    const update = () => setHeight(Math.round((el.clientWidth * BOX_H) / BOX_W))
+    const update = () => {
+      setWidth(el.clientWidth)
+      setHeight(Math.round((el.clientWidth * BOX_H) / BOX_W))
+    }
     update()
     const ro = new ResizeObserver(update)
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
-
-  // Ticks (guiones) en cada entero de cada eje, y labels Y propios al borde izq.
-  const xTicks: number[] = []
-  for (let i = Math.ceil(xmin); i <= xmax; i++) if (i !== 0) xTicks.push(i)
-  const yTicks: number[] = []
-  for (let j = Math.ceil(ymin); j <= ymax; j++) if (j !== 0) yTicks.push(j)
-  const xTickHalf = (ymax - ymin) * 0.009 // alto de los guiones del eje x (en y)
-  const yTickHalf = (xmax - xmin) * 0.005 // ancho de los guiones del eje y (en x)
 
   if (!fn) {
     return (
@@ -219,59 +349,41 @@ export default function MathGraph({
   return (
     <div
       ref={wrapRef}
-      className="math-graph overflow-hidden rounded-md border bg-white"
+      className="math-graph relative overflow-hidden rounded-md border bg-white"
     >
       <Mafs
+        key={resetKey}
         height={height}
         viewBox={{ x: [xmin, xmax], y: [ymin, ymax] }}
-        preserveAspectRatio={false}
-        pan={false}
-        zoom={false}
+        pan
+        zoom={{ min: 0.3, max: 6 }}
       >
-        <Coordinates.Cartesian yAxis={{ labels: false }} />
-        {xTicks.map((i) => (
-          <Line.Segment
-            key={`xt-${i}`}
-            point1={[i, -xTickHalf]}
-            point2={[i, xTickHalf]}
-            color="#9ca3af"
-            weight={1}
-          />
-        ))}
-        {yTicks.map((j) => (
-          <Line.Segment
-            key={`yt-${j}`}
-            point1={[-yTickHalf, j]}
-            point2={[yTickHalf, j]}
-            color="#9ca3af"
-            weight={1}
-          />
-        ))}
-        {yTicks.map((j) => (
-          <Text
-            key={`yl-${j}`}
-            x={0}
-            y={j}
-            attach="w"
-            attachDistance={6}
-            size={8}
-            color="#6b7280"
-          >
-            {j}
-          </Text>
-        ))}
-        {branches.map(([d0, d1], k) => (
-          <Plot.OfX
-            key={k}
-            y={fn}
-            domain={[d0, d1]}
-            color="#4453E6"
-            weight={2}
-            minSamplingDepth={12}
-            maxSamplingDepth={20}
-          />
-        ))}
+        <GraphContent fn={fn} widthPx={width} />
       </Mafs>
+
+      <div className="pointer-events-none absolute bottom-2 right-2 flex items-center gap-1.5">
+        <Move size={13} className="text-gray-400" fill="white" />
+        <svg
+          width={13}
+          height={13}
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-gray-400"
+        >
+          <circle cx="10" cy="10" r="6" fill="white" />
+          <path d="m14.5 14.5 7 7" />
+        </svg>
+        <button
+          onClick={() => setResetKey((k) => k + 1)}
+          className="pointer-events-auto p-1 text-gray-400 transition-colors hover:text-gray-600"
+          title="Volver al inicio"
+        >
+          <Home size={13} fill="white" />
+        </button>
+      </div>
     </div>
   )
 }

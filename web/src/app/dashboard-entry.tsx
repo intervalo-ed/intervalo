@@ -51,6 +51,10 @@ type TopicStates = Record<string, components["schemas"]["TopicProgress"]>
 const ctaCls =
   "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
+// Variante del CTA blanco con un leve tinte violeta (modo Zen / práctica libre).
+const zenCls =
+  "h-12 w-full rounded-md bg-[#E9E3FB] text-[#3B1E73] hover:bg-[#E1D8FA] hover:text-[#3B1E73]"
+
 // Color del título de cada unidad, tomado del cinturón correspondiente.
 const BELT_COLOR: Record<BeltKey, string> = {
   white: "#E5E7EB",
@@ -187,14 +191,13 @@ export default function DashboardEntry() {
               </Button>
             ) : (
               <Button
-                variant="outline"
                 size="lg"
-                className="h-12 w-full rounded-md"
+                className={zenCls}
                 nativeButton={false}
                 onClick={() => sfx.continue()}
                 render={<Link href="/zen" />}
               >
-                Zen
+                Practicar
               </Button>
             )}
 
@@ -328,13 +331,17 @@ function BeltSection({
   const info = beltInfo({ belt })
   const isActive = stats.unlocked > 0
 
-  const rows: BeltGridRow[] = (cat?.topics ?? []).map((topic) => ({
-    topic,
-    cells: topicToCells({
-      topic: topicStates[topic.key],
-      types: topic.exercise_types,
-    }),
-  }))
+  // Ocultamos temas sin ejercicios todavía (p.ej. Módulo): se mostrarán recién
+  // cuando su banco esté cargado.
+  const rows: BeltGridRow[] = (cat?.topics ?? [])
+    .filter((topic) => topic.exercise_types.length > 0)
+    .map((topic) => ({
+      topic,
+      cells: topicToCells({
+        topic: topicStates[topic.key],
+        types: topic.exercise_types,
+      }),
+    }))
 
   return (
     <section

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Logo } from "@/components/logo"
+import { AppIcon } from "@/components/app-icon"
 import { Button } from "@/components/ui/button"
 import { InstallInstructions } from "@/components/install-dialog"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -33,7 +33,7 @@ export function OnboardingInstallPrompt({
         </div>
 
         <div className="flex justify-center py-2">
-          <Logo className="h-12 w-auto" underline={false} />
+          <AppIcon className="size-20 rounded-2xl" />
         </div>
 
         <div className="grid grid-cols-2 gap-2">

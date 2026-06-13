@@ -41,7 +41,7 @@ from algorithm import (
     quality_from_time,
     update_unit_state,
 )
-from exercise_bank import get_exercise_db, topic_exercise_types
+from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
 from sqlalchemy.orm import Session as DBSession
 from models import Answer, Course, Session as SessionModel, UnitState, User
 
@@ -561,6 +561,78 @@ def create_zen_session_db(
         session_id=session_id_str,
         user_name="",
         unit_states={uk: SM2UnitState() for uk in set(sampled)},
+        exercises=exercises,
+    )
+
+    return {
+        "session_id": session_id_str,
+        "user_name": "",
+        "total": len(exercises),
+        "exercises": [_exercise_to_dict(ex) for ex in exercises],
+    }
+
+
+def create_test_session_db(
+    user_id: int,
+    course_id: int,
+    items: list[dict],
+    db: DBSession,
+) -> dict:
+    """QA/test mode: play through EVERY exercise in each selected item
+    (belt, topic, exercise_type), in order. No SR tracking, like zen.
+
+    `items` is a list of {belt, topic, exercise_type} dicts.
+    """
+    exercises: list[ExerciseInSession] = []
+    idx = 0
+    for item in items:
+        belt = item.get("belt")
+        topic = item.get("topic")
+        et = item.get("exercise_type")
+        try:
+            belt_enum = Belt(belt)
+        except ValueError:
+            raise ValueError(f"Unidad desconocida: {belt}")
+        unit_key = UnitKey(belt=belt_enum, topic=topic, exercise_type=et)
+        rows = list_exercises_db(course_id, belt, topic, et, db)
+        for ex in rows:
+            correct_answer = ex["options"][ex["correct_index"]]
+            shuffled = ex["options"][:]
+            random.shuffle(shuffled)
+            exercises.append(
+                ExerciseInSession(
+                    exercise_id=f"ex_{idx:03d}",
+                    unit_key=unit_key,
+                    question=ex["question"],
+                    options=shuffled,
+                    correct_index=shuffled.index(correct_answer),
+                    feedback_correct=ex["feedback_correct"],
+                    feedback_incorrect=ex["feedback_incorrect"],
+                    has_math=ex.get("has_math", False),
+                    graph_fn=ex.get("graph_fn", ""),
+                    graph_view=ex.get("graph_view"),
+                    explanation=ex.get("explanation"),
+                )
+            )
+            idx += 1
+
+    if not exercises:
+        raise ValueError("No hay ejercicios para los items seleccionados.")
+
+    db_session = SessionModel(
+        user_id=user_id, course_id=course_id,
+        started_at=datetime.utcnow(), exercises_total=len(exercises),
+        mode="zen",  # reuse zen guard: no SR tracking, XP only
+    )
+    db.add(db_session)
+    db.flush()
+    db.commit()
+
+    session_id_str = str(db_session.id)
+    _sessions[session_id_str] = SessionState(
+        session_id=session_id_str,
+        user_name="",
+        unit_states={ex.unit_key: SM2UnitState() for ex in exercises},
         exercises=exercises,
     )
 

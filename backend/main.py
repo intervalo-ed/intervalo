@@ -141,6 +141,16 @@ class StartZenSessionRequest(BaseModel):
     count: int
 
 
+class TestSessionItem(BaseModel):
+    belt: str
+    topic: str
+    exercise_type: str
+
+
+class StartTestSessionRequest(BaseModel):
+    items: list[TestSessionItem]
+
+
 class AnswerRequest(BaseModel):
     session_id: str
     exercise_id: str
@@ -477,6 +487,11 @@ def get_leaderboard(
     total_xp_all = int(db.query(func.coalesce(func.sum(User.total_xp), 0)).scalar())
     total_exercises_all = int(db.query(func.count(Answer.id)).scalar())
 
+    # Ejercicios hechos por usuario, para poder filtrar el total por universidad.
+    exercises_by_user = dict(
+        db.query(Answer.user_id, func.count(Answer.id)).group_by(Answer.user_id).all()
+    )
+
     entries = [
         LeaderboardEntry(
             rank=index + 1,
@@ -484,6 +499,7 @@ def get_leaderboard(
             name=user.username or user.display_name or user.name,
             username=user.username,
             total_xp=user.total_xp,
+            exercises=int(exercises_by_user.get(user.id, 0)),
             is_current_user=user.id == current_user.id,
             career=enrollments[user.id].career if user.id in enrollments else None,
             university=(
@@ -538,6 +554,26 @@ def start_zen_session(
         return create_zen_session_db(
             user_id=current_user.id, course_id=1,
             belt=body.belt, topics=body.topics, count=body.count, db=db,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/session/start-test")
+def start_test_session(
+    body: StartTestSessionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Start a QA/test session: ALL exercises in each selected item, no SR logic."""
+    from session_store import create_test_session_db
+
+    if not body.items:
+        raise HTTPException(status_code=400, detail="Seleccioná al menos un item.")
+    try:
+        return create_test_session_db(
+            user_id=current_user.id, course_id=1,
+            items=[i.model_dump() for i in body.items], db=db,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
