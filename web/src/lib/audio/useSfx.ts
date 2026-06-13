@@ -6,7 +6,7 @@ import { isSoundMuted } from "./sound-settings"
 
 const SOUND_PATHS = {
   pop: "/pop.mp3",
-  select: "/select_sound.mp3",
+  select: "/select_sound_knife.mp3",
   continue: "/continue_sound.mp3",
   correct: "/correct_sound.mp3",
   wrong: "/wrong_sound.mp3",

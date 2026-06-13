@@ -981,6 +981,17 @@
               }
             ],
             "title": "Name"
+          },
+          "intro_item_correct": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intro Item Correct"
           }
         },
         "type": "object",

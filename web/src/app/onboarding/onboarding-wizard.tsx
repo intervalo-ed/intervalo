@@ -36,19 +36,16 @@ const UNI_FONT: Record<string, React.CSSProperties> = {
   UNSAM: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
 }
 
-const EXERCISE_QUESTION = "¿Cuál de estas expresiones representa una función lineal?"
-const EXERCISE_OPTIONS = [
-  "$f(x) = 5x - 2$",
-  "$f(x) = x^2$",
-  "$f(x) = 3^x$",
-  "$f(x) = \\log(x)$",
-]
+// Ejercicio de prueba del onboarding: inspirado en el banco real (Definición ·
+// Léxico, imagen/preimagen) y simplificado a f(x) = x + 2 para la demo.
+const EXERCISE_QUESTION =
+  "Una regla transforma cada número en ese número más 2.\n$$f(x) = x + 2$$\n¿Cuál es el valor de $f(2)$?"
+const EXERCISE_OPTIONS = ["$4$", "$0$", "$2$", "$6$"]
 const EXERCISE_CORRECT_INDEX = 0
-const EXERCISE_FEEDBACK =
-  "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes."
+const EXERCISE_FEEDBACK = "La imagen del 2 es $f(2) = 2 + 2 = 4$."
 
 const EXERCISE_EXPLANATION =
-  "Una función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes de la forma estándar:**\n• $m$ es la **pendiente** — mide la inclinación de la recta y cuánto varía $f(x)$ por cada unidad de $x$.\n• $b$ es la **ordenada al origen** — el valor de $f(x)$ cuando $x = 0$."
+  "La **imagen** de un valor $x$ es lo que devuelve la regla al aplicarla, es decir $f(x)$.\n\nAcá la regla suma 2, así que\n$$f(2) = 2 + 2 = 4$$\nLa imagen del 2 es 4. Esperemos que no te hayas equivocado en esta."
 
 const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
 
@@ -374,15 +371,19 @@ export default function OnboardingWizard() {
   const [universityOther, setUniversityOther] = useState("")
   const [showOther, setShowOther] = useState(false)
 
+  // Acierto limpio = correcto sin ningún error previo. Decide el estado inicial
+  // del ítem (mañana vs hoy) y se persiste al registrarse.
+  const firstTryCorrect = exerciseCorrect === true && wrongOptions.length === 0
+
   // Reproducción automática de la simulación: 3 iteraciones por segundo, sin sonido.
   useEffect(() => {
     if (!simPlaying) return
     const id = setInterval(() => {
-      setSimItems((prev) => iterateSim(prev ?? initSim(exerciseCorrect === true)))
+      setSimItems((prev) => iterateSim(prev ?? initSim(firstTryCorrect)))
       setSimDay((d) => d + 1)
     }, 333)
     return () => clearInterval(id)
-  }, [simPlaying, exerciseCorrect])
+  }, [simPlaying, firstTryCorrect])
 
   function goNext(target?: number) {
     setPrevStep(step)
@@ -486,7 +487,7 @@ export default function OnboardingWizard() {
 
   function onFinish() {
     if (!signIn) return
-    saveOnboarding({ name: name.trim(), career, university })
+    saveOnboarding({ name: name.trim(), career, university, introItemCorrect: firstTryCorrect })
     const origin = window.location.origin
     signIn.sso({
       strategy: "oauth_google",
@@ -609,9 +610,9 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 4: Ejercicio dummy ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-5">
-<p className="text-lg leading-snug">
+<div className="text-lg leading-snug">
                     <MathText text={EXERCISE_QUESTION} />
-                  </p>
+                  </div>
                   <div className="flex flex-col gap-2">
                     {EXERCISE_OPTIONS.map((opt, i) => {
                       const isSelected = exerciseSelection === i
@@ -691,7 +692,7 @@ export default function OnboardingWizard() {
                   </p>
                   <BeltGrid
                     cellFor={(i) => {
-                      if (i === 0) return exerciseCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
+                      if (i === 0) return firstTryCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
                       if (i <= 14) return { kind: "nuevo" }
                       return { kind: "empty" }
                     }}
@@ -718,7 +719,7 @@ export default function OnboardingWizard() {
                         simItems
                           ? simToCell(simItems[i])
                           : i === 0
-                          ? exerciseCorrect
+                          ? firstTryCorrect
                             ? { kind: "aprendiendo", days: 1 }
                             : { kind: "pendiente" }
                           : i <= 14
