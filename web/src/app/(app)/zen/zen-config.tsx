@@ -138,9 +138,11 @@ export default function ZenConfig() {
 
       <ScreenBody className="gap-4 py-4">
         <section className="flex flex-col gap-0.5 rounded-md border border-white/10 p-4">
-          <h2 className="font-sans text-lg font-semibold leading-tight">Zen</h2>
+          <h2 className="font-sans text-lg font-semibold leading-tight">
+            Práctica
+          </h2>
           <p className="text-sm text-foreground/60">
-            Práctica libre. No actualiza tu progreso, pero suma XP.
+            No actualiza tu progreso, pero suma XP.
           </p>
         </section>
 

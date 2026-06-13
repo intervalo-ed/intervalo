@@ -53,13 +53,14 @@ const EXERCISE_EXPLANATION =
 const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
 
 const WHITE_BELT_FUNCTIONS = [
-  { name: "Lineales", items: ["CLSF", "FORM", "GRAF"] },
-  { name: "Cuadráticas", items: ["CLSF", "FORM", "GRAF"] },
-  { name: "Polinomiales", items: ["CLSF", "FORM", "GRAF"] },
-  { name: "Exponenciales", items: ["CLSF", "FORM", "GRAF"] },
-  { name: "Logarítmicas", items: ["CLSF", "FORM", "GRAF"] },
-  { name: "Racionales", items: ["CLSF", "FORM", "GRAF", "RESL"] },
-  { name: "Trigonométricas", items: ["CLSF", "FORM", "GRAF", "RESL"] },
+  { key: "definition", name: "Definición", items: ["LEXI", "CLSF"] },
+  { key: "linear", name: "Lineales", items: ["CLSF", "FORM", "GRAF"] },
+  { key: "quadratic", name: "Cuadráticas", items: ["CLSF", "FORM", "GRAF"] },
+  { key: "polynomial", name: "Polinomiales", items: ["CLSF", "FORM", "GRAF"] },
+  { key: "exponential", name: "Exponenciales", items: ["CLSF", "FORM", "GRAF"] },
+  { key: "logarithmic", name: "Logarítmicas", items: ["CLSF", "FORM", "GRAF"] },
+  { key: "rational", name: "Racionales", items: ["CLSF", "FORM", "GRAF", "RESL"] },
+  { key: "trigonometric", name: "Trigonométricas", items: ["CLSF", "FORM", "GRAF", "RESL"] },
 ]
 
 const ITEM_COLORS = {
@@ -1207,8 +1208,8 @@ function BeltGrid({
   let globalIdx = 0
   return (
     <div className="flex flex-col gap-1">
-      {WHITE_BELT_FUNCTIONS.map((fn, row) => {
-        const topic = WHITE_TOPICS[row]
+      {WHITE_BELT_FUNCTIONS.map((fn) => {
+        const topic = WHITE_TOPICS.find((t) => t.key === fn.key)!
         return (
           <div key={fn.name} className="flex items-center justify-between gap-3">
             <span className="text-base leading-none text-foreground">{fn.name}</span>

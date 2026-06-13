@@ -713,6 +713,54 @@
         }
       }
     },
+    "/session/start-test": {
+      "post": {
+        "summary": "Start Test Session",
+        "description": "Start a QA/test session: ALL exercises in each selected item, no SR logic.",
+        "operationId": "start_test_session_session_start_test_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartTestSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/session/answer": {
       "post": {
         "summary": "Submit Answer",
@@ -1015,6 +1063,10 @@
             "type": "integer",
             "title": "Total Xp"
           },
+          "exercises": {
+            "type": "integer",
+            "title": "Exercises"
+          },
           "is_current_user": {
             "type": "boolean",
             "title": "Is Current User"
@@ -1048,6 +1100,7 @@
           "user_id",
           "name",
           "total_xp",
+          "exercises",
           "is_current_user"
         ],
         "title": "LeaderboardEntry"
@@ -1509,6 +1562,22 @@
         ],
         "title": "StartSessionRequest"
       },
+      "StartTestSessionRequest": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TestSessionItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "StartTestSessionRequest"
+      },
       "StartZenSessionRequest": {
         "properties": {
           "user_name": {
@@ -1562,6 +1631,29 @@
           "correct"
         ],
         "title": "SummaryItem"
+      },
+      "TestSessionItem": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "exercise_type": {
+            "type": "string",
+            "title": "Exercise Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic",
+          "exercise_type"
+        ],
+        "title": "TestSessionItem"
       },
       "TopicProgress": {
         "properties": {

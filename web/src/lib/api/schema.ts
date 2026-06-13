@@ -287,6 +287,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/session/start-test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Start Test Session
+         * @description Start a QA/test session: ALL exercises in each selected item, no SR logic.
+         */
+        post: operations["start_test_session_session_start_test_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/answer": {
         parameters: {
             query?: never;
@@ -407,6 +427,8 @@ export interface components {
             username?: string | null;
             /** Total Xp */
             total_xp: number;
+            /** Exercises */
+            exercises: number;
             /** Is Current User */
             is_current_user: boolean;
             /** Career */
@@ -572,6 +594,11 @@ export interface components {
             /** User Name */
             user_name: string;
         };
+        /** StartTestSessionRequest */
+        StartTestSessionRequest: {
+            /** Items */
+            items: components["schemas"]["TestSessionItem"][];
+        };
         /** StartZenSessionRequest */
         StartZenSessionRequest: {
             /** User Name */
@@ -591,6 +618,15 @@ export interface components {
             belt: string;
             /** Correct */
             correct: boolean;
+        };
+        /** TestSessionItem */
+        TestSessionItem: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
+            /** Exercise Type */
+            exercise_type: string;
         };
         /** TopicProgress */
         TopicProgress: {
@@ -1184,6 +1220,41 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["StartZenSessionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    start_test_session_session_start_test_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StartTestSessionRequest"];
             };
         };
         responses: {

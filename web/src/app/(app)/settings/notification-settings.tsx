@@ -130,7 +130,7 @@ export function NotificationSettings() {
         <Button
           variant="outline"
           size="lg"
-          className="h-12 justify-start"
+          className="h-12 w-full justify-start rounded-md"
           disabled={busy || settings.isLoading}
           onClick={() => enable.mutate(time)}
         >
@@ -139,7 +139,7 @@ export function NotificationSettings() {
         </Button>
       ) : (
         <>
-          <div className="flex h-12 items-center justify-between gap-3 border border-input px-3">
+          <div className="flex h-12 w-full items-center justify-between gap-3 rounded-md border border-input px-3">
             <span className="flex items-center gap-2 text-sm">
               <BellIcon className="size-5" />
               Recordarme a las
@@ -167,7 +167,7 @@ export function NotificationSettings() {
           <Button
             variant="ghost"
             size="lg"
-            className="h-12 justify-start text-muted-foreground"
+            className="h-12 w-full justify-start rounded-md text-muted-foreground"
             disabled={busy}
             onClick={() => disable.mutate()}
           >

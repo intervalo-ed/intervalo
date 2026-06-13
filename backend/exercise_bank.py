@@ -66,6 +66,30 @@ def get_exercise_db(
     return _row_to_dict(row)
 
 
+def list_exercises_db(
+    course_id: int,
+    belt: str,
+    topic: str,
+    exercise_type: str,
+    db: DBSession,
+) -> list[dict]:
+    """Returns ALL exercises for the (course, belt, topic, exercise_type) unit,
+    in stable id order. Used by the test/QA session to play through every
+    exercise in an item rather than sampling one."""
+    rows = (
+        db.query(Exercise)
+        .filter(
+            Exercise.course_id == course_id,
+            Exercise.belt == belt,
+            Exercise.topic == topic,
+            Exercise.exercise_type == exercise_type,
+        )
+        .order_by(Exercise.id)
+        .all()
+    )
+    return [_row_to_dict(r) for r in rows]
+
+
 def topic_exercise_types(
     course_id: int,
     belt: str,

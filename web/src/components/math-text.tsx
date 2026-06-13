@@ -9,20 +9,31 @@ type Segment =
   | { type: "display"; value: string }
   | { type: "bold"; value: string }
 
-// Splits on $$...$$ (display), then $...$ (inline), then **...** (bold), leaving the rest as text.
+// Turns an escaped dollar (\$, used for literal peso amounts in prose) into a
+// plain $ for display. Math segments aren't run through this — KaTeX gets \$.
+function unescapeDollar(s: string): string {
+  return s.replace(/\\\$/g, "$")
+}
+
+// Splits on $$...$$ (display), then $...$ (inline), then **...** (bold), leaving
+// the rest as text. An escaped \$ never opens/closes a math span (lookbehind),
+// so currency like "\$400 ... \$200" in prose stays literal instead of being
+// parsed as an inline formula.
 function parse(text: string): Segment[] {
   const out: Segment[] = []
-  const re = /\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$|\*\*([\s\S]+?)\*\*/g
+  const re = /\$\$([\s\S]+?)\$\$|(?<!\\)\$([^$\n]+?)(?<!\\)\$|\*\*([\s\S]+?)\*\*/g
   let cursor = 0
   let m: RegExpExecArray | null
   while ((m = re.exec(text)) !== null) {
-    if (m.index > cursor) out.push({ type: "text", value: text.slice(cursor, m.index) })
+    if (m.index > cursor)
+      out.push({ type: "text", value: unescapeDollar(text.slice(cursor, m.index)) })
     if (m[1] !== undefined) out.push({ type: "display", value: m[1] })
     else if (m[2] !== undefined) out.push({ type: "inline", value: m[2] })
     else if (m[3] !== undefined) out.push({ type: "bold", value: m[3] })
     cursor = m.index + m[0].length
   }
-  if (cursor < text.length) out.push({ type: "text", value: text.slice(cursor) })
+  if (cursor < text.length)
+    out.push({ type: "text", value: unescapeDollar(text.slice(cursor)) })
 
   // Strip the single \n immediately before/after display blocks so the my-3
   // margin alone controls vertical spacing (avoids asymmetry from line-height).

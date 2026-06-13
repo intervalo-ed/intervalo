@@ -1,9 +1,18 @@
 "use client"
 
+import { useState } from "react"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { TrendingUpIcon } from "lucide-react"
 import { useLeaderboard } from "./UseLeaderboard"
 
 // Emojis por tipo de carrera (los mismos del onboarding).
@@ -36,8 +45,11 @@ const UNI_TAG: Record<string, UniTagStyle> = {
   },
 }
 
+const ALL = "all"
+
 export function LeaderboardContent() {
   const { data, isLoading, isError, error } = useLeaderboard()
+  const [uni, setUni] = useState<string>(ALL)
 
   if (isLoading) {
     return <LeaderboardSkeleton />
@@ -59,34 +71,102 @@ export function LeaderboardContent() {
     )
   }
 
+  // Universidades presentes en el ranking, en el orden preferido de UNI_TAG.
+  const universities = Object.keys(UNI_TAG).filter((u) =>
+    data.entries.some((e) => e.university === u),
+  )
+
+  // Filtrado + re-ranking dentro de la universidad elegida (orden ya viene por XP).
+  const ranked = (
+    uni === ALL
+      ? data.entries
+      : data.entries.filter((e) => e.university === uni)
+  ).map((e, i) => ({ ...e, displayRank: i + 1 }))
+
+  const meIdx = ranked.findIndex((e) => e.is_current_user)
+  const myRank = meIdx >= 0 ? meIdx + 1 : undefined
+  const xpToNext =
+    meIdx > 0 ? ranked[meIdx - 1].total_xp - ranked[meIdx].total_xp : undefined
+
+  // Totales: globales si no hay filtro; sumados sobre la universidad elegida.
+  const totalXp =
+    uni === ALL ? data.total_xp : ranked.reduce((s, e) => s + e.total_xp, 0)
+  const totalExercises =
+    uni === ALL
+      ? data.total_exercises
+      : ranked.reduce((s, e) => s + e.exercises, 0)
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2.5">
       <div className="grid grid-cols-2 gap-2">
         <Metric
-          label="XP total acumulado"
+          label="Ejercicios hechos"
+          value={
+            <CountUp
+              value={totalExercises}
+              format={(n) => n.toLocaleString("es")}
+            />
+          }
+        />
+        <Metric
+          label="XP acumulado"
           value={
             <span className="inline-flex items-center gap-1.5">
               <CountUp
-                value={data.total_xp}
+                value={totalXp}
                 format={(n) => n.toLocaleString("es")}
               />
               <XpDots className="size-[0.85em] text-primary" />
             </span>
           }
         />
+      </div>
+
+      <div className="grid grid-cols-3 gap-2">
         <Metric
-          label="Ejercicios hechos"
+          label={"Posición\nactual"}
+          value={myRank ? `#${myRank}` : "-"}
+        />
+        <Metric
+          label={"XP para\nsubir"}
           value={
-            <CountUp
-              value={data.total_exercises}
-              format={(n) => n.toLocaleString("es")}
-            />
+            xpToNext == null ? (
+              "-"
+            ) : (
+              <span className="inline-flex items-center gap-1.5">
+                <CountUp value={xpToNext} format={(n) => n.toLocaleString("es")} />
+                <TrendingUpIcon className="size-[0.85em] text-primary" />
+              </span>
+            )
           }
         />
+        <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3">
+          <Select value={uni} onValueChange={(v) => v && setUni(v)}>
+            <SelectTrigger
+              aria-label="Filtrar por universidad"
+              className="h-auto! w-full justify-start gap-1.5 border-0 bg-transparent p-0 text-lg font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
+            >
+              <SelectValue className="flex-none!">
+                {(value: string) => (value === ALL ? "-" : value)}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL}>-</SelectItem>
+              {universities.map((u) => (
+                <SelectItem key={u} value={u}>
+                  {u}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <span className="whitespace-pre-line text-[0.7rem] leading-tight text-foreground/60">
+            Universidad
+          </span>
+        </div>
       </div>
 
       <ol className="flex flex-col gap-2">
-        {data.entries.map((entry) => (
+        {ranked.map((entry) => (
           <li
             key={entry.user_id}
             className={cn(
@@ -95,7 +175,7 @@ export function LeaderboardContent() {
             )}
           >
             <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-              {entry.rank}
+              {entry.displayRank}
             </span>
             <span className="flex min-w-0 flex-1 items-center gap-1.5">
               <span className="truncate text-sm font-medium">
@@ -126,7 +206,7 @@ function Metric({
   label,
   value,
 }: {
-  label: string
+  label: React.ReactNode
   value: React.ReactNode
 }) {
   return (
@@ -134,7 +214,7 @@ function Metric({
       <span className="text-lg font-semibold leading-none tabular-nums">
         {value}
       </span>
-      <span className="text-[0.7rem] leading-tight text-foreground/60">
+      <span className="whitespace-pre-line text-[0.7rem] leading-tight text-foreground/60">
         {label}
       </span>
     </div>
@@ -144,8 +224,8 @@ function Metric({
 function LeaderboardSkeleton() {
   const nameW = ["w-24", "w-32", "w-28", "w-36", "w-24", "w-32"]
   return (
-    <div className="flex animate-pulse flex-col gap-4">
-      {/* 2 indicadores (mismo Metric: p-3, valor text-lg + label 2 líneas) */}
+    <div className="flex animate-pulse flex-col gap-2.5">
+      {/* 2 indicadores arriba */}
       <div className="grid grid-cols-2 gap-2">
         {[0, 1].map((i) => (
           <div
@@ -153,6 +233,19 @@ function LeaderboardSkeleton() {
             className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
           >
             <div className="h-[18px] w-16 rounded bg-white/10" />
+            <div className="h-3.5 w-3/4 rounded bg-white/10" />
+          </div>
+        ))}
+      </div>
+
+      {/* 3 indicadores abajo (posición, XP para subir, filtro) */}
+      <div className="grid grid-cols-3 gap-2">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
+          >
+            <div className="h-[18px] w-12 rounded bg-white/10" />
             <div className="h-3.5 w-3/4 rounded bg-white/10" />
           </div>
         ))}
