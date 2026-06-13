@@ -7,6 +7,7 @@ import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ThemeProvider } from "@/components/theme-provider"
 import { PostHogUser } from "@/app/posthog-user"
+import { SplashProvider } from "@/app/splash-context"
 
 function makeQueryClient() {
   return new QueryClient({
@@ -44,7 +45,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       >
         <QueryClientProvider client={queryClient}>
           <NuqsAdapter>
-            <SoundProvider>{children}</SoundProvider>
+            <SoundProvider>
+              <SplashProvider>{children}</SplashProvider>
+            </SoundProvider>
           </NuqsAdapter>
         </QueryClientProvider>
       </ThemeProvider>

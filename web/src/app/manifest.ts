@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Sistema de repaso adaptativo con repetición espaciada",
     start_url: "/",
     display: "standalone",
-    background_color: "#1E1E34",
-    theme_color: "#1E1E34",
+    background_color: "#131324",
+    theme_color: "#131324",
     categories: ["education", "productivity"],
     icons: [
       {

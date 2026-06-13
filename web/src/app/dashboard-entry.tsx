@@ -38,10 +38,13 @@ import {
   courseUnitTotals,
   pendingUnitCount,
 } from "@/lib/catalog/stats"
+import { useSplash } from "@/app/splash-context"
 import { useUser } from "@clerk/nextjs"
 import { InfoIcon } from "lucide-react"
+import { motion, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
@@ -71,6 +74,8 @@ export default function DashboardEntry() {
   const router = useRouter()
   const startSession = useStartSession()
   const sfx = useSfx()
+  const { markReady } = useSplash()
+  const reduceMotion = useReducedMotion()
 
   const totals = data
     ? BELT_ORDER.reduce(
@@ -102,6 +107,13 @@ export default function DashboardEntry() {
     ? pendingUnitCount({ topicStates: data.topic_states })
     : 0
 
+  // Cuando el home ya tiene todo para pintarse, avisamos al splash para que haga
+  // su fade-out y deje ver el contenido (sin pasar por los skeletons).
+  const contentReady = !!(data && totals && unitTotals)
+  useEffect(() => {
+    if (contentReady) markReady()
+  }, [contentReady, markReady])
+
   function onRepasar() {
     sfx.continue()
     startSession.mutate(
@@ -131,7 +143,12 @@ export default function DashboardEntry() {
         )}
 
         {data && totals && unitTotals && (
-          <>
+          <motion.div
+            className="flex flex-col gap-4"
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          >
             <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Experiencia total"
@@ -218,11 +235,20 @@ export default function DashboardEntry() {
                 />
               ))}
             </div>
-          </>
+          </motion.div>
         )}
       </ScreenBody>
 
-      <BottomNav />
+      {contentReady && (
+        <motion.div
+          className="shrink-0"
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.18 }}
+        >
+          <BottomNav />
+        </motion.div>
+      )}
     </Screen>
   )
 }

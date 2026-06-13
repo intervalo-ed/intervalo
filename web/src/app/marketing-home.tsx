@@ -1,5 +1,6 @@
 "use client"
 
+import { useSplash } from "@/app/splash-context"
 import { Wordmark } from "@/components/wordmark"
 import katex from "katex"
 import "katex/dist/katex.min.css"
@@ -391,6 +392,9 @@ function ProgressGrid() {
 }
 
 export default function MarketingHome() {
+  const { markReady } = useSplash()
+  useEffect(() => markReady(), [markReady])
+
   return (
     <main className="bg-[#131324] font-sans text-[#F6F8FC]">
       <section

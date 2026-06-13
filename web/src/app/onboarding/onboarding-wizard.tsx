@@ -313,22 +313,11 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(id)
   }, [typed, bars, onDone])
 
-  const typingDone = typed.length >= WORD.length
-
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="inline-flex flex-col items-center gap-[7px] leading-none">
         <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
           {typed || " "}
-          <motion.span
-            className="ml-1 inline-block h-[0.95em] w-[3px] rounded-sm bg-[#F6F8FC] align-middle"
-            animate={typingDone ? { opacity: 0 } : { opacity: [1, 1, 0, 0] }}
-            transition={
-              typingDone
-                ? { duration: 0.15 }
-                : { duration: 1, repeat: Infinity, times: [0, 0.45, 0.5, 0.95] }
-            }
-          />
         </span>
         <div className="flex h-[4px] w-full overflow-hidden rounded-[2px]">
           {INTRO_BELT_COLORS.map((c, i) => (
