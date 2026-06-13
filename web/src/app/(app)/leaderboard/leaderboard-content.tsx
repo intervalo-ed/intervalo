@@ -128,7 +128,13 @@ export function LeaderboardContent() {
       <div className="grid grid-cols-3 gap-2">
         <Metric
           label={"Posición\nactual"}
-          value={myRank ? `#${myRank}` : "-"}
+          value={
+            myRank ? (
+              <CountUp value={myRank} format={(n) => `#${n.toLocaleString("es")}`} />
+            ) : (
+              "-"
+            )
+          }
         />
         <Metric
           label={"XP para\nsubir"}

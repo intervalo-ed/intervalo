@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 // El splash no se va hasta que la animación de entrada termina (señal
 // `introDone`), aunque los datos carguen antes. MAX_SPLASH es el fallback de
 // seguridad por si los datos nunca llegan.
-const MAX_SPLASH = 8000
+const MAX_SPLASH = 4000
 
 // Misma animación que la intro del onboarding (ver IntroLogo en onboarding-wizard).
 const WORD = "intervalo"
@@ -81,7 +81,7 @@ function SplashLogo({
     if (typed.length >= WORD.length) return
     const id = setTimeout(
       () => setTyped(WORD.slice(0, typed.length + 1)),
-      randomDelay(75, 135),
+      randomDelay(32, 52),
     )
     return () => clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,7 +103,23 @@ function SplashLogo({
   return (
     <div className="inline-flex flex-col items-center gap-[7px] leading-none">
       <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
-        {reduceMotion ? WORD : typed || " "}
+        {reduceMotion ? (
+          WORD
+        ) : typed.length === 0 ? (
+          " "
+        ) : (
+          typed.split("").map((ch, i) => (
+            <motion.span
+              key={i}
+              className="inline-block"
+              initial={{ opacity: 0, y: "0.3em", scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+            >
+              {ch}
+            </motion.span>
+          ))
+        )}
       </span>
       <div className="flex h-[4px] w-full overflow-hidden rounded-[2px]">
         {BELT_COLORS.map((c, i) => (

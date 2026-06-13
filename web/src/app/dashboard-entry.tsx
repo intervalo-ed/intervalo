@@ -54,9 +54,9 @@ type TopicStates = Record<string, components["schemas"]["TopicProgress"]>
 const ctaCls =
   "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
-// Variante del CTA blanco con un leve tinte violeta (modo Zen / práctica libre).
+// Variante del CTA: fondo blanco con texto violeta (modo Zen / práctica libre).
 const zenCls =
-  "h-12 w-full rounded-md bg-[#E9E3FB] text-[#3B1E73] hover:bg-[#E1D8FA] hover:text-[#3B1E73]"
+  "h-12 w-full rounded-md bg-white text-[#3B1E73] hover:bg-white/90 hover:text-[#3B1E73]"
 
 // Color del título de cada unidad, tomado del cinturón correspondiente.
 const BELT_COLOR: Record<BeltKey, string> = {

@@ -14,7 +14,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Una función cuadrática tiene la forma $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
-    "feedback_incorrect": "Una función cuadrática incluye un término de segundo grado ($x^2$). La correcta es $f(x) = 2x^2 - x + 1$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n$$f(x) = ax^2 + bx + c, \\quad a \\neq 0$$\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). $f(x) = \\sqrt{x}$ es una función raíz (potencia $1/2$).\n\nSolo $f(x) = 2x^2 - x + 1$ tiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
@@ -25,7 +25,7 @@
     "belt": "white",
     "topic": "quadratic",
     "exercise_type": "LEXI",
-    "question": "¿Cómo se llama el punto más bajo (o más alto) de esta parábola?",
+    "question": "¿Cómo se llama el punto más bajo o más alto de esta parábola?",
     "options": [
       "Raíz",
       "Vértice",
@@ -35,7 +35,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "El punto extremo de una parábola se llama vértice.",
-    "feedback_incorrect": "El punto más bajo (mínimo) o más alto (máximo) de una parábola se llama vértice.",
+    "feedback_incorrect": "",
     "graph_fn": "x*x - 4*x + 3",
     "graph_view": [
       -1,
@@ -61,7 +61,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "La gráfica de toda función cuadrática es una parábola.",
-    "feedback_incorrect": "La gráfica de una función cuadrática se llama parábola.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada eje de simetría, y posee exactamente un punto extremo llamado vértice.\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales. La parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas).",
@@ -75,14 +75,14 @@
     "question": "Una parábola con coeficiente $a > 0$ se abre...",
     "options": [
       "Hacia la izquierda",
-      "Hacia abajo (tiene máximo)",
+      "Hacia abajo",
       "Hacia la derecha",
-      "Hacia arriba (tiene mínimo)"
+      "Hacia arriba"
     ],
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Cuando $a > 0$ en $f(x) = ax^2 + bx + c$, la parábola se abre hacia arriba y tiene un mínimo.",
-    "feedback_incorrect": "Si $a > 0$, la parábola se abre hacia arriba y su vértice es el punto mínimo.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El signo del coeficiente $a$ determina la **concavidad** de la parábola:\n$$a > 0 \\implies \\text{abre hacia arriba} \\implies \\text{vértice es mínimo}$$\n$$a < 0 \\implies \\text{abre hacia abajo} \\implies \\text{vértice es máximo}$$\nIntuitivamente: cuando $|x|$ crece, el término $ax^2$ domina. Si $a > 0$, los valores de $f$ crecen sin límite en ambas direcciones, por lo que el vértice es el punto más bajo.\n\nEsta propiedad es fundamental: determina si el problema tiene solución mínima o máxima (optimización).",
@@ -103,7 +103,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = 2^x$ es exponencial: la variable está en el exponente, no al cuadrado.",
-    "feedback_incorrect": "$f(x) = 2^x$ es una función exponencial, no cuadrática. Las cuadráticas tienen $x^2$ como término principal.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: $f(x) = x^2$.\nEn una función **exponencial**, la base es la constante y $x$ es el exponente: $f(x) = 2^x$.\n\nLas demás opciones son cuadráticas: $x^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), y $(x-1)^2 = x^2 - 2x + 1$ (forma de vértice). Solo $2^x$ pertenece a otra familia.",
@@ -124,7 +124,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La parábola corta el eje $X$ en dos puntos: tiene dos raíces reales.",
-    "feedback_incorrect": "Cuando la parábola cruza el eje $X$ en dos puntos distintos, la función tiene dos raíces reales.",
+    "feedback_incorrect": "",
     "graph_fn": "x*x - 4",
     "graph_view": [
       -4,
@@ -150,7 +150,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Una función cuadrática puede tener 0, 1 o 2 raíces reales, como máximo 2.",
-    "feedback_incorrect": "Una función cuadrática tiene como máximo 2 raíces reales.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Un polinomio de grado $n$ tiene a lo sumo $n$ raíces reales. Como una función cuadrática tiene **grado 2**, puede tener como máximo **2 raíces reales**.\n\nLos tres casos posibles son:\n- **2 raíces**: la parábola corta el eje $X$ en dos puntos distintos ($\\Delta > 0$)\n- **1 raíz**: la parábola es tangente al eje $X$ en el vértice ($\\Delta = 0$)\n- **0 raíces**: la parábola no toca el eje $X$ ($\\Delta < 0$)\n\nNingún polinomio de grado 2 puede tener 3 o más raíces reales distintas.",
@@ -171,7 +171,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "El eje de simetría de una parábola pasa por el vértice y la divide en dos mitades iguales.",
-    "feedback_incorrect": "La recta vertical que divide la parábola simétricamente se llama eje de simetría.",
+    "feedback_incorrect": "",
     "graph_fn": "pow(x-2, 2) - 3",
     "graph_view": [
       -1,
@@ -189,15 +189,15 @@
     "exercise_type": "LEXI",
     "question": "En $f(x) = ax^2 + bx + c$, ¿qué ocurre cuando $a < 0$?",
     "options": [
-      "La parábola tiene un máximo (se abre hacia abajo)",
-      "La parábola tiene un mínimo (se abre hacia arriba)",
+      "La parábola tiene un máximo y se abre hacia abajo",
+      "La parábola tiene un mínimo y se abre hacia arriba",
       "La función es decreciente en todo su dominio",
       "La función no tiene raíces reales"
     ],
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Cuando $a < 0$, la parábola se abre hacia abajo y el vértice es el punto máximo.",
-    "feedback_incorrect": "Con $a < 0$, la parábola se abre hacia abajo: su vértice es un máximo.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático es negativo para todo $x \\neq 0$. Esto hace que la parábola se **abra hacia abajo** y su vértice sea un **máximo**.\n\nComparación directa:\n- $a > 0$: parábola en forma de U, vértice es **mínimo global**\n- $a < 0$: parábola en forma de $\\cap$, vértice es **máximo global**\n\nNota: una parábola con $a < 0$ no es decreciente en todo su dominio — decrece solo a la derecha del vértice y crece a la izquierda. La existencia de raíces reales depende del discriminante, no del signo de $a$.",
@@ -218,7 +218,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La forma estándar de una cuadrática es $f(x) = ax^2 + bx + c$ con $a \\neq 0$.",
-    "feedback_incorrect": "La forma estándar de una función cuadrática es $f(x) = ax^2 + bx + c$, con $a \\neq 0$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes:\n\n**Forma estándar:** $f(x) = ax^2 + bx + c$ — muestra directamente los coeficientes $a$, $b$, $c$.\n**Forma de vértice:** $f(x) = a(x-h)^2 + k$ — el vértice es $(h, k)$, útil para graficar.\n**Forma factorizada:** $f(x) = a(x - r_1)(x - r_2)$ — las raíces son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica. La condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
@@ -301,7 +301,7 @@
     "options": [
       "Racional",
       "Lineal",
-      "Polinómica de grado 3",
+      "Exponencial",
       "Cuadrática"
     ],
     "correct_index": 3,
@@ -367,7 +367,7 @@
     "exercise_type": "CLSF",
     "question": "¿A qué familia pertenece $f(x) = x^2$?",
     "options": [
-      "Polinómica de grado 3",
+      "Logarítmica",
       "Lineal",
       "Cuadrática",
       "Exponencial"
@@ -689,10 +689,844 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Para todo $x \\in \\mathbb{R}$, se cumple $x^2 \\geq 0$. Por eso la imagen de $f(x) = x^2$ es $[0, +\\infty)$.",
-    "feedback_incorrect": "El dominio de $f(x) = x^2$ sí es $\\mathbb{R}$ (acepta cualquier $x$). Lo que se restringe es la imagen: como $x^2 \\geq 0$ para todo real, la imagen es $[0, +\\infty)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\n$$(-3)^2 = 9 \\geq 0, \\quad 0^2 = 0, \\quad 5^2 = 25 \\geq 0$$\n\nEl dominio de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_12",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el coeficiente $a$?",
+    "options": [
+      "Término independiente",
+      "Coeficiente principal",
+      "Ordenada al origen",
+      "Pendiente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El coeficiente $a$, que acompaña a $x^2$, es el coeficiente principal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente tiene nombre y trabajo:\n\n• $a$ es el **coeficiente principal** — acompaña a $x^2$ y manda sobre la concavidad y la apertura.\n• $b$ es el coeficiente lineal — acompaña a $x$.\n• $c$ es el término independiente — el que va solo.\n\nEl coeficiente principal es el jefe de la familia, porque si $a = 0$ la función deja de ser cuadrática y se vuelve lineal. Sin $a$ no hay parábola.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_13",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el número $c$?",
+    "options": [
+      "Coeficiente principal",
+      "Término independiente",
+      "Raíz",
+      "Vértice"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El número $c$ es el término independiente: es el valor de $f(0)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **término independiente** $c$ es el único término que no está multiplicado por la variable $x$.\n\nSu rasgo más útil es que coincide con la **ordenada al origen**, el valor de la función en $x = 0$:\n$$f(0) = a \\cdot 0^2 + b \\cdot 0 + c = c$$\n\nPor eso, mirando la fórmula ya sabés en qué altura la parábola corta el eje $Y$, sin hacer ninguna cuenta.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_14",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el término cuadrático?",
+    "options": [
+      "$-6x$",
+      "$3x^2$",
+      "$2$",
+      "$x^2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El término cuadrático es $3x^2$: el coeficiente $3$ junto con la potencia $x^2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **término cuadrático** es el término completo de mayor grado, coeficiente incluido. En $f(x) = 3x^2 - 6x + 2$ es $3x^2$.\n\nNo confundir el **término** con el **coeficiente**: el término es $3x^2$, mientras que el coeficiente principal es solo el número $3$.\n\nLos otros términos son el lineal $-6x$ y el independiente $2$. El cuadrático es el que le da el apellido a toda la familia.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_15",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cómo se llama la forma $f(x) = a(x - h)^2 + k$ de una función cuadrática?",
+    "options": [
+      "Forma estándar",
+      "Forma factorizada",
+      "Forma de vértice",
+      "Forma lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = a(x-h)^2 + k$ es la forma de vértice: el vértice es $(h, k)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma $f(x) = a(x - h)^2 + k$ se llama **forma de vértice** porque deja el vértice a la vista, sin cuentas: es el punto $(h, k)$.\n\nLas tres formas equivalentes son:\n• **Estándar:** $ax^2 + bx + c$ — muestra los coeficientes.\n• **Vértice:** $a(x-h)^2 + k$ — muestra el vértice.\n• **Factorizada:** $a(x - r_1)(x - r_2)$ — muestra las raíces.\n\nCada forma es la misma parábola peinada distinto para que se vea lo que necesitás.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_16",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cómo se llama la forma $f(x) = a(x - r_1)(x - r_2)$ de una función cuadrática?",
+    "options": [
+      "Forma de vértice",
+      "Forma factorizada",
+      "Forma estándar",
+      "Forma exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = a(x - r_1)(x - r_2)$ es la forma factorizada: $r_1$ y $r_2$ son las raíces.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma $f(x) = a(x - r_1)(x - r_2)$ se llama **factorizada** porque la parábola aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo: la función vale $0$ cuando alguno de los factores vale $0$, o sea en $x = r_1$ y en $x = r_2$.\n\nSi querés resolver $f(x) = 0$, esta es la forma que te ahorra trabajo. Si la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_17",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Las raíces de una función cuadrática también se conocen como...",
+    "options": [
+      "Vértices",
+      "Ceros o cortes con el eje $X$",
+      "Ordenadas al origen",
+      "Asíntotas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Raíces, ceros y cortes con el eje $X$ son tres nombres para lo mismo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **raíces** de una función son los valores de $x$ donde $f(x) = 0$. Reciben varios nombres que conviene reconocer:\n\n• **Ceros** — porque ahí la función vale cero.\n• **Cortes con el eje $X$** — porque ahí la parábola cruza el eje horizontal.\n\nTodos apuntan al mismo lugar. Una cuadrática puede tener dos, una o ninguna raíz real, según si la parábola corta, toca o esquiva al eje $X$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_18",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es el dominio de cualquier función cuadrática $f(x) = ax^2 + bx + c$?",
+    "options": [
+      "$[0, +\\infty)$",
+      "Todos los reales $\\mathbb{R}$",
+      "Solo los $x$ positivos",
+      "Depende del signo de $a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio de toda cuadrática es $\\mathbb{R}$: se puede elevar al cuadrado cualquier número.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas válidas. En una cuadrática $f(x) = ax^2 + bx + c$ podés meter cualquier número real: elevar al cuadrado, multiplicar y sumar nunca se rompe.\n\nPor eso el dominio es siempre:\n$$\\text{Dom}(f) = \\mathbb{R}$$\n\nLo que sí queda acotado es la **imagen**, porque el vértice pone un techo o un piso. Pero entrar, entran todos los reales.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_19",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Si una parábola abre hacia arriba y su vértice es $(h, k)$, ¿cuál es su imagen?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$[k, +\\infty)$",
+      "$(-\\infty, k]$",
+      "$[h, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $a > 0$ el vértice es el mínimo, así que la imagen es $[k, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce. En una cuadrática, el vértice marca el extremo.\n\nSi la parábola **abre hacia arriba** ($a > 0$), el vértice $(h, k)$ es el punto más bajo: la función nunca baja de $k$, pero sube sin límite. Entonces:\n$$\\text{Im}(f) = [k, +\\infty)$$\n\nOjo con el detalle: el valor extremo es $k$, la coordenada $y$ del vértice, no $h$. La $h$ vive en el eje horizontal.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_20",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Considerá las dos parábolas\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\nEntre las dos, ¿qué le pasa a la que tiene $|a|$ más grande?",
+    "options": [
+      "Es más abierta",
+      "Es más angosta o cerrada",
+      "Se desplaza a la derecha",
+      "No cambia su forma"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuanto mayor es $|a|$, más angosta y cerrada es la parábola.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor absoluto del coeficiente principal, $|a|$, controla qué tan **abierta** o **cerrada** es la parábola.\n\n• $|a|$ **grande** → la parábola crece rápido → se ve **angosta**, cerrada.\n• $|a|$ **chico** → la parábola crece despacio → se ve **abierta**, ancha.\n\nEl signo de $a$ decide hacia dónde abre; su tamaño decide qué tan apretada queda. Una $a = 5$ dibuja una parábola flaca y empinada; una $a = 0{,}2$, una panzona y tranquila.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_21",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Considerá las dos parábolas\n$$p(x) = 0{,}2x^2 - 3$$\n$$q(x) = 4x^2 - 3$$\n¿Cuál de las dos se ve más abierta o ancha?",
+    "options": [
+      "$q(x) = 4x^2 - 3$",
+      "$p(x) = 0{,}2x^2 - 3$",
+      "Las dos se ven igual",
+      "No se puede saber sin graficarlas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuanto más chico es $|a|$, más abierta y ancha se ve la parábola.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El tamaño de $|a|$ regula la apertura de la parábola, al revés de lo que la intuición a veces sugiere:\n\n• $|a|$ **chico** (cerca de $0$) → crece lento → parábola **abierta**, panzona.\n• $|a|$ **grande** → crece rápido → parábola **angosta**, flaca.\n\nPor ejemplo, $f(x) = 0{,}2x^2$ es mucho más ancha que $f(x) = 3x^2$. La de coeficiente chico se toma la vida con calma.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_22",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Sobre qué recta se encuentra siempre el vértice de una parábola?",
+    "options": [
+      "Sobre el eje $Y$",
+      "Sobre el eje de simetría",
+      "Sobre una raíz",
+      "Sobre la ordenada al origen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El vértice siempre está sobre el eje de simetría de la parábola.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **eje de simetría** es la recta vertical que parte la parábola en dos mitades iguales, y el **vértice** es justo el punto por donde pasa.\n\nDicho de otro modo, el vértice es la bisagra de la simetría: todo lo que está a un lado se refleja del otro a la misma altura.\n\nPor eso, conocer la posición del vértice equivale a conocer el eje de simetría, y viceversa. Van siempre juntos, como uña y mugre.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_23",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Qué ocurre con una función cuadrática justo en su vértice?",
+    "options": [
+      "Pasa de crecer a decrecer, o al revés",
+      "Corta el eje $X$",
+      "Se vuelve constante para siempre",
+      "Cambia de familia"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En el vértice la función pasa de crecer a decrecer, o de decrecer a crecer.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **vértice** es el punto de quiebre de la monotonía: ahí la función deja de subir y empieza a bajar, o deja de bajar y empieza a subir.\n\n• Si la parábola abre hacia abajo ($a < 0$): crece, llega al **máximo** en el vértice y después decrece.\n• Si abre hacia arriba ($a > 0$): decrece, toca el **mínimo** en el vértice y después crece.\n\nEsto es lo que hace que una cuadrática **no** sea monótona: tiene un antes y un después separados por el vértice.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_24",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Si una parábola no llega a tocar el eje $X$ en ningún punto, ¿cuántas raíces reales tiene?",
+    "options": [
+      "Una raíz real",
+      "Dos raíces reales",
+      "Ninguna raíz real",
+      "Infinitas raíces"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Si la parábola no toca el eje $X$, la función no tiene raíces reales.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **raíces reales** son los puntos donde la parábola cruza o toca el eje $X$, es decir donde $f(x) = 0$.\n\nSi la parábola flota entera por encima del eje (o entera por debajo), nunca vale cero, así que **no tiene raíces reales**. Esto pasa cuando el discriminante es negativo:\n$$\\Delta = b^2 - 4ac < 0$$\n\nEjemplo: $f(x) = x^2 + 1$ está siempre por encima del eje, su mínimo es $1$. No hay ningún real que la haga valer cero.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_25",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Si una parábola apenas roza el eje $X$ en un solo punto, ¿cuántas raíces reales tiene?",
+    "options": [
+      "Ninguna",
+      "Una raíz real doble",
+      "Dos raíces distintas",
+      "Tres raíces"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si la parábola es tangente al eje $X$, tiene una sola raíz real, llamada raíz doble.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando la parábola es **tangente** al eje $X$ —lo toca en su vértice sin cruzarlo— hay exactamente **una raíz real**, que se llama **raíz doble**.\n\nEsto ocurre cuando el discriminante es cero:\n$$\\Delta = b^2 - 4ac = 0$$\n\nEn ese caso el vértice está apoyado justo sobre el eje $X$. Ejemplo: $f(x) = (x - 3)^2$ toca el eje solo en $x = 3$. Es el caso justo entre tener dos raíces y no tener ninguna.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_26",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿A qué se refiere la concavidad de una parábola?",
+    "options": [
+      "A dónde corta el eje $Y$",
+      "A hacia qué lado se abre, arriba o abajo",
+      "A cuántas raíces tiene",
+      "A su ordenada al origen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La concavidad indica hacia dónde abre la parábola, arriba o abajo, según el signo de $a$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **concavidad** describe hacia qué lado abre la parábola, y la decide el signo del coeficiente principal:\n\n• $a > 0$ → **cóncava hacia arriba**, forma de U, vértice es mínimo.\n• $a < 0$ → **cóncava hacia abajo**, forma de U invertida, vértice es máximo.\n\nNo tiene nada que ver con dónde corta los ejes ni con cuántas raíces hay: la concavidad es pura cuestión de hacia dónde mira la boca de la parábola.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_27",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "El valor máximo o mínimo de una función cuadrática es...",
+    "options": [
+      "La coordenada $x$ del vértice",
+      "La coordenada $y$ del vértice",
+      "El coeficiente $a$",
+      "El término independiente $c$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El valor extremo es la coordenada $y$ del vértice.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **valor extremo** de una cuadrática —su máximo o su mínimo— es la coordenada $y$ del vértice, no la $x$.\n\nSi el vértice es $(h, k)$:\n• La coordenada $x = h$ dice **dónde** o **cuándo** ocurre el extremo.\n• La coordenada $y = k$ dice **cuánto** vale ese extremo.\n\nEn problemas de optimización esta diferencia es todo: $h$ es el precio que conviene, $k$ es la ganancia que conseguís. Confundirlas es cobrar el número equivocado.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_28",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cómo se llaman las dos mitades de la parábola que salen del vértice?",
+    "options": [
+      "Ejes",
+      "Ramas",
+      "Raíces",
+      "Tangentes"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Las dos mitades simétricas que parten del vértice se llaman ramas.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las dos partes de la parábola que se abren a cada lado del vértice se llaman **ramas**.\n\nGracias al eje de simetría, las dos ramas son reflejo una de la otra: a igual distancia del eje, igual altura. Por eso si conocés un punto de una rama, ya conocés su gemelo en la otra.\n\nLas ramas suben juntas (si $a > 0$) o bajan juntas (si $a < 0$), siempre hacia el mismo lado, porque comparten la misma concavidad.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_29",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "El eje de simetría de una parábola $f(x) = ax^2 + bx + c$ es una recta...",
+    "options": [
+      "Horizontal",
+      "Vertical",
+      "Diagonal",
+      "Que pasa por el origen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El eje de simetría de una parábola es siempre una recta vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **eje de simetría** de la gráfica de una función cuadrática es siempre una recta **vertical**, de la forma $x = h$.\n\nTiene que ser vertical porque la parábola se refleja de izquierda a derecha alrededor del vértice. Una recta horizontal no podría partirla en dos mitades iguales: cortaría las dos ramas a la vez.\n\nSu ecuación es $x = -\\dfrac{b}{2a}$, justo la coordenada $x$ del vértice.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_30",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En la forma de vértice $f(x) = a(x - h)^2 + k$, ¿qué par de valores son las coordenadas del vértice?",
+    "options": [
+      "$(a, k)$",
+      "$(h, k)$",
+      "$(h, a)$",
+      "$(k, h)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = a(x-h)^2 + k$ el vértice es $(h, k)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La gracia de la **forma de vértice** $f(x) = a(x - h)^2 + k$ es que las coordenadas del vértice están escritas adentro: el vértice es $(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés. Si ves $(x - 3)$, entonces $h = 3$; si ves $(x + 3) = (x - (-3))$, entonces $h = -3$.\n\nEn cambio $k$ aparece tal cual, sumando afuera. Leer mal el signo de $h$ es el tropiezo clásico.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_31",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = a(x - h)^2 + k$, ¿qué representa $k$?",
+    "options": [
+      "La coordenada $x$ del vértice",
+      "El valor extremo, coordenada $y$ del vértice",
+      "El eje de simetría",
+      "Una de las raíces"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$k$ es la coordenada $y$ del vértice: el valor máximo o mínimo de la función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma de vértice $f(x) = a(x - h)^2 + k$, el número $k$ es la coordenada $y$ del vértice, o sea el **valor extremo** de la función.\n\nEl término $a(x - h)^2$ nunca cambia de signo: si $a > 0$ siempre suma algo $\\geq 0$ a $k$, así que $k$ es lo mínimo que puede valer $f$. Si $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la imagen. La parte $(x-h)^2$ solo lo empuja hacia un lado.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_32",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = a(x - h)^2 + k$, ¿qué representa $h$?",
+    "options": [
+      "El valor máximo o mínimo",
+      "La posición del eje de simetría y del vértice en $x$",
+      "La ordenada al origen",
+      "El coeficiente principal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$h$ marca la coordenada $x$ del vértice y, por lo tanto, el eje de simetría $x = h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma de vértice, $h$ dice **dónde** está el vértice sobre el eje horizontal: su coordenada $x$. Y como el vértice vive sobre el eje de simetría, también define esa recta: $x = h$.\n\nMientras $k$ responde *cuánto* vale el extremo, $h$ responde *dónde* (o *cuándo*) ocurre.\n\nRecordá el signo invertido: en $(x - h)$, un $(x - 4)$ significa $h = 4$. El vértice se corre hacia el valor que iguala el paréntesis a cero.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_33",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En $f(x) = ax^2 + bx + c$, ¿cómo se llama el coeficiente $b$?",
+    "options": [
+      "Coeficiente principal",
+      "Coeficiente lineal",
+      "Término independiente",
+      "Ordenada al origen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El coeficiente $b$, que acompaña a $x$, es el coeficiente lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado, por eso se llama **coeficiente lineal**.\n\nNombres de la forma estándar $f(x) = ax^2 + bx + c$:\n• $a$ → coeficiente principal (de $x^2$).\n• $b$ → coeficiente lineal (de $x$).\n• $c$ → término independiente.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el vértice, ya que $x_v = -\\dfrac{b}{2a}$. No trabaja solo: siempre lo hace en equipo con $a$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_34",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es el grado de una función cuadrática?",
+    "options": [
+      "Grado 1",
+      "Grado 2",
+      "Grado 3",
+      "No tiene grado definido"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función cuadrática es un polinomio de grado 2.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **grado** de un polinomio es el exponente más alto de la variable. En una cuadrática, el término de mayor grado es $ax^2$, así que su grado es **2**.\n\nEse grado 2 explica casi todo lo que la caracteriza:\n• Tiene a lo sumo $2$ raíces.\n• Su gráfica es una parábola con un único vértice.\n• Su derivada es lineal, es decir, su pendiente cambia a ritmo constante.\n\nEl grado es como el ADN de la familia: define de qué es capaz la función.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_35",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Una pelota se patea hacia arriba y su altura en el tiempo dibuja una curva que sube y luego baja.\n\n¿Qué nombre recibe esa curva?",
+    "options": [
+      "Recta",
+      "Parábola",
+      "Hipérbola",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La trayectoria de altura de un tiro es una parábola.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando algo se lanza hacia arriba, su **altura en función del tiempo** sube, llega a un punto máximo y baja, dibujando una **parábola**.\n\nEsto pasa porque la gravedad frena y luego acelera el objeto a ritmo constante, y ese patrón es justo lo que produce una función cuadrática.\n\nEl punto más alto de la trayectoria es el **vértice**, y los momentos en que la pelota está a la altura del suelo son las **raíces**. Hasta una pelota pateada habla en cuadráticas.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_36",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En el tiro de una pelota, el punto más alto que alcanza corresponde a...",
+    "options": [
+      "Una raíz de la parábola",
+      "El vértice de la parábola",
+      "La ordenada al origen",
+      "El eje de simetría"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura máxima del tiro es el vértice de la parábola.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la parábola que describe la altura de un tiro, el punto más alto es el **vértice**.\n\nComo la trayectoria abre hacia abajo ($a < 0$), el vértice es un **máximo**: el instante en que la pelota deja de subir y empieza a caer. Ahí su velocidad vertical es cero por un instante.\n\nLa coordenada $x$ del vértice dice *cuándo* llega a lo más alto; la coordenada $y$, *qué altura* alcanza. El resto del tiro es simétrico respecto de ese momento.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_37",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En el tiro de una pelota, el momento en que vuelve a tocar el suelo corresponde a...",
+    "options": [
+      "El vértice",
+      "Una raíz de la parábola",
+      "El coeficiente principal",
+      "El eje de simetría"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuando la pelota toca el suelo, la altura vale cero: es una raíz.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Tocar el suelo significa altura cero, y los valores donde la función vale cero son las **raíces** de la parábola.\n\nUn tiro que parte del piso tiene dos raíces: el instante de salida y el instante de aterrizaje. Entre ambas, la pelota estuvo en el aire; afuera, la fórmula daría alturas negativas que ya no tienen sentido físico.\n\nLa distancia entre las dos raíces es, ni más ni menos, el tiempo total de vuelo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_38",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Para hallar la ordenada al origen de $f(x) = ax^2 + bx + c$, ¿qué valor de $x$ conviene usar?",
+    "options": [
+      "$x = 1$",
+      "$x = 0$",
+      "$x = -b/2a$",
+      "$x = a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es $f(0) = c$: el corte con el eje $Y$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** es el punto donde la parábola cruza el eje $Y$, y eso ocurre exactamente en $x = 0$.\n\nAl evaluar ahí, los términos con $x$ se borran:\n$$f(0) = a \\cdot 0^2 + b \\cdot 0 + c = c$$\n\nPor eso la ordenada al origen siempre es el término independiente $c$, leíble de un vistazo en la forma estándar. Es el dato más barato de toda la cuadrática.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_39",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es la diferencia entre una raíz y el vértice de una parábola?",
+    "options": [
+      "Son lo mismo con distinto nombre",
+      "La raíz es donde $f(x) = 0$; el vértice es el punto extremo",
+      "La raíz es siempre mayor que el vértice",
+      "El vértice está sobre el eje $Y$ y la raíz sobre el eje $X$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde la función vale cero; el vértice es el punto máximo o mínimo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Son dos puntos notables distintos y conviene no mezclarlos:\n\n• **Raíz**: valor de $x$ donde $f(x) = 0$, es decir donde la parábola corta el eje $X$. Puede haber dos, una o ninguna.\n• **Vértice**: el punto extremo de la parábola, donde alcanza su máximo o su mínimo. Siempre hay exactamente uno.\n\nUna parábola puede no tener raíces, pero **siempre** tiene vértice. Confundirlos lleva a responder *dónde toca el suelo* cuando preguntaban *cuál es la altura máxima*.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_40",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "En una función cuadrática, ¿qué distingue al dominio de la imagen?",
+    "options": [
+      "El dominio son las salidas y la imagen las entradas",
+      "El dominio son las entradas válidas; la imagen, los valores que produce",
+      "Son siempre iguales",
+      "El dominio depende de $a$ y la imagen no"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio son los $x$ que entran; la imagen, los $y$ que salen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve clarísima:\n\n• **Dominio**: los valores de $x$ que la función acepta. En una cuadrática es todo $\\mathbb{R}$.\n• **Imagen**: los valores de $y$ que la función efectivamente produce. En una cuadrática queda acotada por el vértice, $[k, +\\infty)$ o $(-\\infty, k]$.\n\nEntrar entran todos, pero salir no salen todos: el vértice pone un techo o un piso. Esa asimetría es la firma de la parábola.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_41",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Por qué una función cuadrática no es monótona en todo su dominio?",
+    "options": [
+      "Porque su gráfica es una recta",
+      "Porque crece de un lado del vértice y decrece del otro",
+      "Porque no tiene dominio definido",
+      "Porque siempre es creciente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola cambia de comportamiento en el vértice, así que no crece (ni decrece) en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función es **monótona** si crece siempre o decrece siempre. La cuadrática no cumple eso: el vértice la parte en dos tramos opuestos.\n\nPor ejemplo, con $a > 0$ la parábola **decrece** a la izquierda del vértice y **crece** a la derecha. Hay un cambio de sentido justo en el medio.\n\nPor eso, al hablar de crecimiento en una cuadrática, siempre hace falta aclarar *en qué intervalo*. A diferencia de una recta, acá no hay una única respuesta para todo el dominio.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_42",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Si querés ubicar rápido el vértice de una parábola, ¿qué forma de la fórmula conviene tener?",
+    "options": [
+      "Forma estándar",
+      "Forma de vértice",
+      "Forma factorizada",
+      "Cualquiera da igual de fácil"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La forma de vértice $a(x-h)^2 + k$ muestra el vértice $(h,k)$ sin cuentas.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada forma de una cuadrática está pensada para leer un dato distinto de un vistazo. Para el **vértice**, la más cómoda es la **forma de vértice**:\n$$f(x) = a(x - h)^2 + k \\;\\Rightarrow\\; V = (h, k)$$\n\nEn cambio, desde la forma estándar habría que calcular $x_v = -\\dfrac{b}{2a}$ y después evaluar. Es la diferencia entre leer el dato y trabajar para conseguirlo.\n\nElegir la forma adecuada antes de empezar es la mitad del problema resuelto.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_43",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Si querés encontrar rápido las raíces de una parábola, ¿qué forma de la fórmula conviene tener?",
+    "options": [
+      "Forma de vértice",
+      "Forma factorizada",
+      "Forma estándar",
+      "Forma exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La forma factorizada $a(x-r_1)(x-r_2)$ muestra las raíces $r_1$ y $r_2$ directamente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para leer las **raíces** sin esfuerzo, la mejor forma es la **factorizada**:\n$$f(x) = a(x - r_1)(x - r_2)$$\n\nUn producto vale cero cuando uno de sus factores vale cero, así que las raíces son $x = r_1$ y $x = r_2$, escritas a la vista.\n\nDesde la forma estándar harías falta la fórmula resolvente; desde la factorizada las raíces ya están servidas. Cada forma es una herramienta para un trabajo distinto.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_44",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Hacia dónde abre la parábola del gráfico?",
+    "options": [
+      "Hacia arriba",
+      "Hacia abajo",
+      "Hacia la derecha",
+      "Hacia la izquierda"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo: su coeficiente principal es negativo.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** se lee de un vistazo en el gráfico: esta parábola tiene forma de U invertida, así que **abre hacia abajo**.\n\nUna parábola que abre hacia abajo corresponde a un coeficiente principal $a < 0$, y su vértice es el punto más alto, un **máximo**.\n\nSi en cambio tuviera forma de U común, abriría hacia arriba con $a > 0$ y vértice mínimo. Las parábolas solo abren hacia arriba o hacia abajo: nunca de costado, eso sería otra cónica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_45",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuántas veces corta al eje $X$ la parábola del gráfico?",
+    "options": [
+      "Dos veces",
+      "Una vez",
+      "Ninguna vez",
+      "Infinitas veces"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La parábola flota por encima del eje $X$: no lo corta, no tiene raíces reales.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Las **raíces reales** son los cortes con el eje $X$. En este gráfico la parábola se queda entera por encima del eje, sin tocarlo nunca, así que **no tiene raíces reales**.\n\nEsto pasa porque abre hacia arriba ($a > 0$) y su vértice ya está por encima del eje: desde ahí solo sube. Su discriminante es negativo.\n\nMoraleja visual: para tener raíces, la parábola tiene que cruzar o al menos rozar el eje $X$. Si flota, no hay ceros reales.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_46",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Cómo se llama el punto más bajo de la parábola del gráfico?",
+    "options": [
+      "Raíz",
+      "Vértice",
+      "Ordenada al origen",
+      "Asíntota"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo de una parábola que abre hacia arriba es el vértice.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-5,2)+1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Esta parábola abre hacia arriba, y su punto más bajo —donde la curva deja de bajar y empieza a subir— es el **vértice**.\n\nComo $a > 0$, ese vértice es un **mínimo**: ningún otro punto de la parábola está más abajo. Sobre él pasa el eje de simetría.\n\nNo confundir con la raíz (corte con el eje $X$) ni con la ordenada al origen (corte con el eje $Y$): el vértice es el extremo de la curva, esté donde esté parado.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_47",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "El área de un cuadrado en función de la longitud de su lado, $A(L) = L^2$, ¿a qué familia de funciones pertenece?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$A(L) = L^2$ tiene a la variable elevada al cuadrado: es cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El área de un cuadrado es el lado por sí mismo, $A(L) = L \\cdot L = L^2$. La variable aparece elevada al cuadrado, así que la función es **cuadrática**.\n\nEsta es una de las razones por las que las cuadráticas son tan naturales: cada vez que una cantidad es el **producto de dos longitudes**, aparece un $x^2$.\n\nSi duplicás el lado, el área no se duplica: se cuadruplica. Ese crecimiento acelerado es la marca registrada de lo cuadrático.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_48",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿El signo del coeficiente $a$ cambia el dominio de una función cuadrática?",
+    "options": [
+      "Sí, si $a < 0$ el dominio se achica",
+      "No, el dominio es $\\mathbb{R}$ sin importar el signo de $a$",
+      "Sí, depende también de $c$",
+      "Solo si $a = 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio de una cuadrática es $\\mathbb{R}$ siempre; el signo de $a$ no lo afecta.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de $a$ decide la **concavidad** (hacia dónde abre) y, con ella, si el vértice es máximo o mínimo. Pero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real: elevar al cuadrado y multiplicar nunca falla. Por eso:\n$$\\text{Dom}(f) = \\mathbb{R} \\quad \\text{en todos los casos.}$$\n\nLo que sí cambia con el signo de $a$ es la **imagen**: hacia arriba queda $[k, +\\infty)$, hacia abajo $(-\\infty, k]$. El dominio, imperturbable.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_49",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "Por la simetría de la parábola, dos puntos que están a la misma altura cumplen que...",
+    "options": [
+      "Tienen la misma coordenada $x$",
+      "Están a igual distancia del eje de simetría",
+      "Son ambos el vértice",
+      "Son ambos raíces dobles"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Dos puntos de igual altura están a igual distancia del eje de simetría, uno a cada lado.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La parábola es **simétrica** respecto de su eje vertical. Eso significa que para cada punto de una rama hay un gemelo en la otra, a la misma altura.\n\nEsos dos puntos están a **igual distancia del eje de simetría**, uno a cada lado. Por eso el eje pasa justo por el medio de cualquier par de puntos de igual altura.\n\nUna consecuencia útil: el vértice está en el punto medio entre las dos raíces, $x_v = \\dfrac{r_1 + r_2}{2}$. La simetría hace gran parte del trabajo gratis.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_lexi_50",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "LEXI",
+    "question": "¿Qué caracteriza a una función cuadrática frente a las demás familias?",
+    "options": [
+      "Su gráfica es una recta",
+      "Su término de mayor grado es de grado 2",
+      "Tiene una asíntota horizontal",
+      "Su tasa de cambio es constante"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Lo que define a una cuadrática es tener a $x^2$ como término de mayor grado.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Lo que vuelve cuadrática a una función es que su **término de mayor grado sea de grado 2**: un $ax^2$ con $a \\neq 0$, y nada de grado superior.\n\nDe esa sola condición se desprende todo lo demás:\n• gráfica en forma de parábola con un vértice,\n• a lo sumo dos raíces,\n• simetría respecto de un eje vertical,\n• tasa de cambio que **no** es constante (eso es lo lineal).\n\nLas otras familias tienen otras firmas: la recta crece a ritmo fijo, la exponencial multiplica, la logarítmica desacelera. La cuadrática es la del $x^2$ al mando.",
     "reviewed": false
   },
   {
@@ -1058,6 +1892,2646 @@
       11
     ],
     "explanation": "Cuando una parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl nivel de producción con menor costo es la coordenada horizontal del vértice, acá\n$$x = 5$$\nProducir muy poco o demasiado sale caro, el costo más bajo está en el medio.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_11",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Se tira un globo de agua hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "6 segundos",
+      "8 segundos",
+      "4 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El globo vuelve al suelo cuando la altura es cero, donde la parábola corta el eje. Sale en $x = 0$ y cae en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El tiempo en el aire va desde que sale del piso hasta que vuelve a tocarlo, es decir entre las dos **raíces**.\n\nLa parábola corta el eje en\n$$x = 0 \\quad \\text{y} \\quad x = 8$$\nOcho segundos de vuelo. Después, chof.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_12",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un clavadista salta desde un trampolín, sube un poco y cae al agua. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura saltó?",
+    "options": [
+      "6 metros",
+      "4 metros",
+      "2 metros",
+      "0 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura de partida es $f(0)$, donde la parábola corta el eje vertical. Acá vale 4 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La altura desde la que saltó es el valor de la función en el instante cero, $f(0)$, el corte con el eje vertical.\n$$f(0) = 4$$\nCuatro metros. El trampolín, no el vértice, marca el punto de partida.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_13",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una pelota de tenis sale hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿En qué tramo la pelota está subiendo?",
+    "options": [
+      "Antes de los 4 segundos",
+      "Después de los 4 segundos",
+      "Durante todo el recorrido",
+      "En ningún momento"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La pelota sube hasta el vértice, en $x = 4$, y después baja. Crece antes de los 4 segundos.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola que abre hacia abajo **crece hasta el vértice** y **decrece después**.\n\nEl vértice está en $x = 4$, así que la pelota sube antes de los 4 segundos y baja después.\n\nArriba todo sube, hasta que deja de subir.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_14",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un fuego artificial sube y explota justo en su punto más alto. La gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos explota?",
+    "options": [
+      "4 segundos",
+      "6 segundos",
+      "8 segundos",
+      "9 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Explota en el punto más alto, el vértice, que está en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "El punto más alto de la trayectoria es el **vértice** de la parábola.\n\nEl instante en que ocurre es su coordenada horizontal,\n$$x = 6$$\nSeis segundos de mecha y a disfrutar.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_15",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un atleta hace salto en alto y la gráfica muestra la altura de su cuerpo, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura máxima es la coordenada vertical del vértice, en $(2, 2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del salto es el **vértice** de la parábola.\n\nLa altura máxima es su coordenada vertical,\n$$(2,\\ 2)$$\nDos metros. Suficiente para pasar la varilla.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_16",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Se lanza un dardo hacia arriba en una feria y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos llega a su punto más alto?",
+    "options": [
+      "4 segundos",
+      "5 segundos",
+      "6 segundos",
+      "8 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto es el vértice, que está en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El instante del punto más alto es la coordenada horizontal del **vértice**.\n$$x = 6$$\nSeis segundos para tocar el techo de su recorrido.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_17",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una pelota de golf sale despedida hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos toca el suelo?",
+    "options": [
+      "4 segundos",
+      "6 segundos",
+      "8 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el suelo cuando la altura es cero, donde la parábola corta el eje horizontal, en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-4,2)+4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pelota toca el suelo cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 8$$\nOcho segundos. Esperemos que no haya caído en el agua.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_18",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una pelota de ping-pong rebota hacia arriba y la gráfica muestra su altura, en centímetros, según los segundos.\n\nA los 2 segundos está a 6 cm subiendo. ¿En qué otro momento vuelve a estar a 6 cm?",
+    "options": [
+      "5 segundos",
+      "6 segundos",
+      "7 segundos",
+      "8 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical que pasa por su vértice.\n\nEl vértice está en $x = 4$, así que cada altura se alcanza dos veces, a igual distancia del 4. Si pasa a los 2 segundos, vuelve a los\n$$4 + 2 = 6$$\nSube y baja igualito, como un espejo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_19",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un salmón salta para remontar una cascada y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 4 segundos?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí la altura es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nOcho metros, todavía en subida hacia el vértice.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_20",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un drone de juguete sube y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La altura máxima es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del vuelo es el **vértice** de la parábola.\n\nLa altura máxima es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho metros y a recargar batería.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_21",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un malabarista lanza una pelota al aire y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 6 segundos?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 6$. Ahí la altura es 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(6) = -0{,}5\\,(6-4)^2 + 8 = 6$$\nSeis metros, ya de bajada hacia la mano.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_22",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un saltamontes pega un salto y la gráfica muestra su altura, en centímetros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "2 segundos",
+      "3 segundos",
+      "4 segundos",
+      "5 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sale del piso en $x = 0$ y vuelve a caer en $x = 4$. Estuvo 4 segundos en el aire.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El tiempo en el aire va entre las dos **raíces**, donde la altura es cero.\n$$x = 0 \\quad \\text{y} \\quad x = 4$$\nCuatro segundos de vuelo. Nada mal para un bicho.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_23",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un cohete de juguete despega desde una plataforma, sube y cae. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura despegó?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "4 metros",
+      "6 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura de partida es $f(0)$, el corte con el eje vertical. Acá vale 2 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-4,2)+6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La altura desde la que despegó es $f(0)$, el corte de la parábola con el eje vertical.\n$$f(0) = 2$$\nDos metros. La plataforma da una ayudita inicial, el vértice viene después.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_24",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un jugador hace un tiro libre y la gráfica muestra la altura de la pelota, en metros, según los segundos.\n\n¿A qué altura está la pelota a los 3 segundos?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 3$. Ahí la altura es 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(3) = -0{,}5\\,(3-5)^2 + 8 = 6$$\nSeis metros, todavía subiendo hacia el aro.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_25",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una pelota de vóley sube por encima de la red y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\nA los 4 segundos está a 6 metros subiendo. ¿En qué otro momento vuelve a estar a 6 metros?",
+    "options": [
+      "7 segundos",
+      "8 segundos",
+      "9 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 6$. El simétrico de $x = 4$ es $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical de su vértice, acá en $x = 6$.\n\nCada altura se alcanza dos veces, a igual distancia del 6. Si pasa a los 4 segundos, vuelve a los\n$$6 + 2 = 8$$\nMisma altura, una vez de ida y otra de vuelta.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_26",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un cohete de agua sube bien alto y vuelve a caer. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "8 segundos",
+      "10 segundos",
+      "12 segundos",
+      "14 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sale en $x = 0$ y cae en $x = 12$, donde la parábola corta el eje. Estuvo 12 segundos en el aire.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "El tiempo en el aire va entre las dos **raíces**, donde la altura es cero.\n$$x = 0 \\quad \\text{y} \\quad x = 12$$\nDoce segundos. Buen empujón de agua.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_27",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una rana salta de una orilla a la otra y la gráfica muestra su altura sobre el agua, en centímetros, según los segundos.\n\n¿A los cuántos segundos vuelve a tocar el suelo?",
+    "options": [
+      "6 segundos",
+      "7 segundos",
+      "8 segundos",
+      "9 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el suelo cuando la altura es cero, donde la parábola corta el eje horizontal, en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La rana toca el suelo cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 8$$\nOcho segundos de salto. Aterrizaje seco, con suerte.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_28",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "En un tiro libre, la pelota dibuja un arco. La gráfica muestra su altura, en metros, según la distancia horizontal recorrida, también en metros.\n\n¿Cuál es la altura máxima que alcanza la pelota?",
+    "options": [
+      "6 metros",
+      "8 metros",
+      "4 metros",
+      "10 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(4, 8)$. La altura máxima es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pelota dibuja una parábola en el aire. Su punto más alto es el **vértice**.\n\nLa altura máxima es la coordenada vertical del vértice,\n$$(4,\\ 8)$$\nOcho metros de pura curva.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_29",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una moto despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la rampa vuelve a tocar el piso?",
+    "options": [
+      "8 metros",
+      "10 metros",
+      "12 metros",
+      "14 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura es cero, donde la parábola corta el eje horizontal, a los 12 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La moto toca el piso cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 12$$\nDoce metros de salto. Que la caída sea suave.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_30",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un bombero apunta la manguera y el agua forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(5, 8)$. La altura máxima es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El chorro dibuja una parábola. Su punto más alto es el **vértice**.\n\nLa altura máxima es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho metros. Alcanza para el primer piso.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_31",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un jugador tira al aro desde lejos y la pelota traza un arco. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué altura está la pelota a los 4 metros de distancia?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí la altura es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Para leer la altura a una distancia dada, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nOcho metros, todavía subiendo hacia el punto más alto.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_32",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una moto hace un salto largo y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia del despegue vuelve a tocar el piso?",
+    "options": [
+      "8 metros",
+      "9 metros",
+      "10 metros",
+      "11 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura vuelve a cero, en $x = 10$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La moto vuelve al piso cuando su altura es cero, en la segunda **raíz** de la parábola.\n\nDespega en $x = 2$ y aterriza en\n$$x = 10$$\nDiez metros de vuelo limpio.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_33",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "El agua de una manguera de jardín forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la manguera el chorro está más alto?",
+    "options": [
+      "3 metros",
+      "4 metros",
+      "5 metros",
+      "6 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del arco es el **vértice** de la parábola.\n\nLa distancia a la que ocurre es su coordenada horizontal,\n$$x = 5$$\nA cinco metros, el agua llega a su cima y empieza a caer.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_34",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un delfín salta y dibuja un arco sobre el agua. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima del salto?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(2, 2)$. La altura máxima es 2 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El salto dibuja una parábola. Su punto más alto es el **vértice**.\n\nLa altura máxima es su coordenada vertical,\n$$(2,\\ 2)$$\nDos metros sobre el agua. Aplausos del público.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_35",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un auto rinde mejor a velocidades intermedias. A velocidades bajas o muy altas, el consumo sube. La gráfica muestra el rendimiento, en kilómetros por litro, según la velocidad en decenas de km/h.\n\n¿A qué velocidad rinde más?",
+    "options": [
+      "40 km/h",
+      "50 km/h",
+      "60 km/h",
+      "70 km/h"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El mayor rendimiento es el vértice, cuya coordenada horizontal es $x = 6$, es decir 60 km/h.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,\n$$x = 6 \\ \\text{(decenas)} = 60 \\ \\text{km/h}$$\nNi a paso de tortuga ni a los pingos, el punto justo está en el medio.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_36",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un teatro prueba distintos precios de entrada. La gráfica muestra la recaudación de la noche, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Cuál es la recaudación máxima posible?",
+    "options": [
+      "6 mil",
+      "8 mil",
+      "10 mil",
+      "12 mil"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recaudación máxima es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La recaudación según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl tope de recaudación es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho mil. Más caro o más barato, siempre se recauda menos.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_37",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un bar quiere saber cuántas mesas conviene poner. Con pocas desaprovecha el espacio y con demasiadas los clientes se van. La gráfica muestra la ganancia de la noche, en miles de pesos, según la cantidad de mesas.\n\n¿Cuántas mesas dan la mayor ganancia?",
+    "options": [
+      "4 mesas",
+      "6 mesas",
+      "8 mesas",
+      "9 mesas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La mayor ganancia es el vértice, cuya coordenada horizontal es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La ganancia según las mesas dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa cantidad ideal es su coordenada horizontal,\n$$x = 6$$\nSeis mesas. Ni vacío ni un hormiguero.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_38",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un recital prueba distintos precios de entrada. La gráfica muestra la ganancia, en millones de pesos, según el precio.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más alto, porque la parábola abre hacia abajo",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "No tiene ni máximo ni mínimo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo, así que su vértice es el punto más alto, la ganancia máxima.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** dice para dónde abre la parábola.\n\n• Abre hacia abajo, vértice arriba, hay un **máximo**.\n• Abre hacia arriba, vértice abajo, hay un **mínimo**.\n\nAcá abre hacia abajo, así que el vértice es la mayor ganancia. Existe un precio óptimo, ni regalado ni abusivo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_39",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una promo vende paquetes de figuritas. La gráfica muestra el ingreso, en miles de pesos, según cuántos paquetes entran en la promo.\n\n¿Cuál es el ingreso si la promo trae 4 paquetes?",
+    "options": [
+      "4 mil",
+      "5 mil",
+      "6 mil",
+      "7 mil"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí el ingreso es 6 mil.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer el ingreso con una cantidad dada, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}5\\,(4-6)^2 + 8 = 6$$\nSeis mil pesos. Todavía no es lo máximo, eso llega en el vértice.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_40",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una impresora produce más o menos páginas buenas según su velocidad de impresión. Muy lenta produce poco y muy rápida traba el papel. La gráfica muestra las páginas buenas por minuto según la velocidad en decenas.\n\n¿Cuál es el máximo de páginas buenas por minuto?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El máximo es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Las páginas buenas según la velocidad dibujan una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl tope es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho páginas por minuto. Apurarla de más es contraproducente.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_41",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una cafetería prueba distintos precios para el café. La gráfica muestra la ganancia diaria, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Qué precio deja la mayor ganancia?",
+    "options": [
+      "\\$400",
+      "\\$600",
+      "\\$800",
+      "\\$1.000"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La mayor ganancia es el vértice, cuya coordenada horizontal es $x = 6$, es decir \\$600.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,\n$$x = 6 \\ \\text{(cientos)} = \\$600$$\nMuy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_42",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un cable cuelga entre dos postes y se hunde en el medio. La gráfica muestra la altura del cable, en metros, según la distancia horizontal, también en metros.\n\n¿En qué punto el cable cuelga más bajo?",
+    "options": [
+      "A los 4 metros",
+      "A los 5 metros",
+      "A los 6 metros",
+      "A los 3 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl lugar donde el cable cuelga más bajo es su coordenada horizontal,\n$$x = 5$$\nJusto en el medio, como manda la física de las sogas.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_43",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "En una madrugada la temperatura baja y después vuelve a subir. La gráfica muestra la temperatura, en grados, según la hora.\n\n¿Cuál es la temperatura más baja de la noche?",
+    "options": [
+      "0 grados",
+      "1 grado",
+      "2 grados",
+      "3 grados"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La temperatura más baja es la coordenada vertical del vértice, en $(6, 1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-6,2)+1",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa temperatura mínima es su coordenada vertical,\n$$(6,\\ 1)$$\nUn grado. Justo antes de que salga el sol.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_44",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "En una rampa con forma de U, un skater baja y vuelve a subir del otro lado. La gráfica muestra su altura, en metros, según los segundos.\n\n¿El recorrido tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más bajo, porque la parábola abre hacia arriba",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "No tiene ningún punto extremo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia arriba, así que su vértice es el punto más bajo del recorrido.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-4,2)+3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** dice para dónde abre la parábola.\n\n• Abre hacia arriba, vértice abajo, hay un **mínimo**.\n• Abre hacia abajo, vértice arriba, hay un **máximo**.\n\nAcá abre hacia arriba, así que el vértice es el punto más bajo, el fondo de la rampa. Lo que baja, sube.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_45",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Durante una sequía el nivel de un río baja y después se recupera. La gráfica muestra el nivel, en metros, según los meses.\n\n¿En qué mes el río está más bajo?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-6,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl mes de menor nivel es su coordenada horizontal,\n$$x = 6$$\nEn el sexto mes toca fondo y después empieza a recuperarse.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_46",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Una guirnalda de luces cuelga entre dos columnas y se hunde en el medio. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura mínima de la guirnalda?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura mínima es la coordenada vertical del vértice, en $(4, 2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-4,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa altura mínima es su coordenada vertical,\n$$(4,\\ 2)$$\nDos metros. Justo para que no te lleves la guirnalda puesta.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_47",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "Un auto baja la velocidad para tomar una curva y después acelera de nuevo. La gráfica muestra su velocidad, en decenas de km/h, según los segundos.\n\n¿Cuál es la velocidad mínima en la curva?",
+    "options": [
+      "10 km/h",
+      "20 km/h",
+      "30 km/h",
+      "40 km/h"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La velocidad mínima es la coordenada vertical del vértice, en $(5, 2)$, es decir 20 km/h.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa velocidad mínima es su coordenada vertical,\n$$(5,\\ 2)\\ \\text{(decenas)} = 20 \\ \\text{km/h}$$\nEn lo más cerrado de la curva, el auto baja a 20 y después pisa de nuevo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_48",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "El costo de fabricar cada unidad cambia según cuánto se produce. La gráfica muestra el costo por unidad, en cientos de pesos, según la cantidad, en decenas.\n\n¿Cuál es el costo por unidad si se producen 8 decenas?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 8$. Ahí el costo es 6.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-4,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer el costo en un nivel dado, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(8) = 0{,}25\\,(8-4)^2 + 2 = 6$$\nSeis. Lejos del mínimo, producir tanto encarece cada unidad.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_49",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "El cable de un puente colgante se hunde en el medio. La gráfica muestra su altura sobre el agua, en metros, según la distancia horizontal, también en metros.\n\nA los 2 metros el cable está a 5 metros de altura. ¿A qué distancia vuelve a estar a 5 metros?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-4,2)+3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical de su vértice, acá en $x = 4$.\n\nCada altura se alcanza dos veces, a igual distancia del 4. Si pasa a los 2 metros, vuelve a los\n$$4 + 2 = 6$$\nEl cable es igual de los dos lados, como buen puente.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_graf_50",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "GRAF",
+    "question": "El saldo de una cuenta baja unos meses y después se recupera. La gráfica muestra el saldo, en miles de pesos, según el mes.\n\n¿En qué mes el saldo toca su punto más bajo?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl mes de menor saldo es su coordenada horizontal,\n$$x = 5$$\nEn el quinto mes toca fondo y después, a recuperarse.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_15",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un albañil quiere saber cuánto cerámico necesita para cubrir el piso de un cuarto cuadrado de lado $x$ metros.\n\n¿Qué familia de función describe el área del piso en función del lado?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área de un cuadrado es $A = x^2$: la variable aparece elevada al cuadrado. Cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "El área de cualquier figura donde la longitud se multiplica por sí misma da una función cuadrática.\n\nPara un cuarto cuadrado de lado $x$: $A(x) = x \\cdot x = x^2$.\n\nLa clave que delata la cuadrática es el exponente 2, no una tasa constante ni un porcentaje. El albañil lo sabe; a veces los estudiantes, no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_16",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un agricultor tiene 20 metros de alambre para cercar un corral rectangular. Si un lado mide $x$ metros, el lado opuesto mide $10 - x$ metros y el área es $A(x) = x(10 - x)$.\n\n¿A qué familia pertenece la función que describe el área del corral?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Raíz cuadrada"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$x(10 - x) = 10x - x^2$: aparece $x^2$, así que es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el área resulta del producto de dos expresiones lineales en $x$, el resultado es siempre una función cuadrática.\n\n$A(x) = x(10 - x) = 10x - x^2$\n\nEl término $-x^2$ define la familia. Además, esta parábola tiene un máximo: hay un ancho $x$ que maximiza el área del corral. El agricultor lo encontraría en $x = 5$ m.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_17",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un jugador patea una pelota. La altura en metros al cabo de $t$ segundos sigue la fórmula\n$$h(t) = -5t^2 + 10t$$\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$-5t^2 + 10t$ tiene $t^2$ como término principal: es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "La presencia de $t^2$ en la fórmula hace que $h(t)$ sea una función cuadrática.\n\nEl coeficiente $-5 < 0$ indica que la parábola abre hacia abajo: la pelota sube, llega a un máximo (el vértice) y luego cae. El signo negativo no cambia la familia, solo la orientación.\n\nEsta es la estructura clásica de cualquier objeto en vuelo bajo la gravedad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_18",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un objeto se suelta desde lo alto de un edificio. La distancia recorrida, en metros, al cabo de $t$ segundos es\n$$d(t) = 5t^2$$\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Constante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$5t^2$ tiene $t^2$ como único término: es cuadrática con $a = 5$, $b = 0$, $c = 0$.",
+    "feedback_incorrect": "",
+    "explanation": "La caída libre bajo la gravedad produce siempre una función cuadrática: la distancia es proporcional al cuadrado del tiempo.\n\n$d(t) = 5t^2$ es la forma $at^2 + bt + c$ con $a = 5$, $b = 0$, $c = 0$.\n\nNo es lineal porque la velocidad de caída aumenta con el tiempo, no es constante. Eso es lo que hace que cuadrática y caída libre sean inseparables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_19",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un puesto de limonada sube el precio y vende menos vasos. La ganancia diaria en pesos según el precio $p$ es\n$$G(p) = -p^2 + 12p$$\n¿A qué familia pertenece la función ganancia?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$-p^2 + 12p$ tiene $p^2$: cuadrática. El signo negativo indica que hay un precio óptimo.",
+    "feedback_incorrect": "",
+    "explanation": "La ganancia es el producto del precio por la cantidad vendida. Si la cantidad vendida depende linealmente del precio ($q = 12 - p$, por ejemplo), entonces:\n\n$G = p \\cdot q = p(12 - p) = 12p - p^2$\n\nEl producto de dos factores lineales da siempre una cuadrática. El vértice en $p = 6$ indica el precio que maximiza la ganancia. Nicolás debería haberlo calculado antes de fijar el precio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_20",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un cine tiene 300 butacas. Si cobra $p$ pesos por entrada, estima que vende $300 - 3p$ entradas. La recaudación total es $R(p) = p(300 - 3p)$.\n\n¿A qué familia pertenece la función recaudación?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Raíz cuadrada"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$p(300 - 3p) = 300p - 3p^2$: aparece $p^2$, es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando la recaudación es precio por cantidad, y la cantidad depende linealmente del precio, el resultado es siempre una cuadrática.\n\n$R(p) = p(300 - 3p) = 300p - 3p^2$\n\nEl vértice indica el precio que maximiza la recaudación. Subir demasiado el precio vacía la sala; bajarlo demasiado recauda poco. La cuadrática captura ese equilibrio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_21",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La trayectoria de un tiro libre de básquet sigue la fórmula\n$$h(d) = -0{,}1d^2 + d + 2$$\ndonde $d$ es la distancia horizontal en metros y $h$ la altura en metros.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Trigonométrica",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El término $-0{,}1d^2$ hace que la función sea cuadrática. La trayectoria de cualquier proyectil es una parábola.",
+    "feedback_incorrect": "",
+    "explanation": "La trayectoria de un proyectil (sin rozamiento del aire) siempre es una parábola, es decir, una función cuadrática.\n\nEl coeficiente $a = -0{,}1 < 0$ indica que la parábola abre hacia abajo: la pelota sube, llega a un pico y luego cae hacia el aro. El término independiente $c = 2$ indica que el jugador lanza desde 2 metros de altura.\n\nFísica y álgebra, juntas en cada triple.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_22",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un comercio nota que al subir el precio de un artículo, la demanda baja. El ingreso total según el precio $p$ resulta\n$$I(p) = 120p - 4p^2$$\n¿A qué familia pertenece la función ingreso?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$p(120 - 4p) = 120p - 4p^2$: el término $p^2$ define la familia cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el ingreso resulta del producto de dos expresiones lineales en el precio, el resultado es una cuadrática.\n\n$I(p) = 120p - 4p^2$\n\nEsta es la estructura típica de los problemas de optimización de ingresos en economía: hay un precio óptimo que maximiza el ingreso, y ese precio es el vértice de la parábola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_23",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "El cable principal de un puente colgante tiene su punto más bajo a 5 metros sobre el río. La altura del cable se modela como\n$$h(x) = 0{,}01x^2 - 0{,}8x + 21$$\ndonde $x$ es la distancia horizontal en metros.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}01x^2 - 0{,}8x + 21$ tiene $x^2$: cuadrática. Abre hacia arriba porque $a > 0$.",
+    "feedback_incorrect": "",
+    "explanation": "La forma de un cable colgante es una parábola (o catenaria, pero en los modelos simplificados se usa cuadrática).\n\nEl coeficiente $a = 0{,}01 > 0$ indica que la parábola abre hacia arriba: el cable tiene un mínimo, que es su punto más bajo sobre el río.\n\nEsta es la cuadrática del tipo mínimo, a diferencia del tiro de pelota que tiene máximo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_24",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "El área de un triángulo rectángulo con ambos catetos iguales a $x$ cm es\n$$A(x) = \\dfrac{x^2}{2}$$\n¿A qué familia pertenece la función área?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Raíz cuadrada",
+      "Constante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\frac{x^2}{2}$ es de la forma $ax^2$ con $a = \\frac{1}{2}$: cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "El área de cualquier figura que depende del cuadrado de una medida es una función cuadrática.\n\n$A(x) = \\dfrac{x^2}{2} = \\dfrac{1}{2}x^2$\n\nEsto tiene la forma $ax^2 + bx + c$ con $a = \\frac{1}{2}$, $b = 0$, $c = 0$. El coeficiente no necesita ser entero para que la función sea cuadrática.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_25",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un nene lanza un cohete de papel desde 1 metro de altura. La altura en metros es\n$$h(t) = -3t^2 + 6t + 1$$\n¿En qué tramo de tiempo la altura está creciendo?",
+    "options": [
+      "Para todo $t > 0$",
+      "En $[0, 1]$",
+      "En $[0, 3]$",
+      "En $[0, 2]$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El vértice está en $t = -b/(2a) = -6/(2 \\cdot (-3)) = 1$ s. La altura crece antes del vértice: en $[0, 1]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a < 0$ (abre hacia abajo), la función **crece** hasta el vértice y **decrece** después.\n\nEl vértice está en:\n$$t_v = -\\frac{b}{2a} = -\\frac{6}{2(-3)} = 1 \\text{ s}$$\n\nAsí que la altura crece en $[0, 1]$ y decrece en $[1, +\\infty)$. El cohete de papel no llega muy lejos, pero al menos el cálculo es prolijo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_26",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un remis cobra \\$800 al subir al auto y \\$300 por cada kilómetro recorrido.\n\n¿Qué familia de función describe el costo total del viaje según los kilómetros?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Costo fijo más monto por km = tasa constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Una función lineal describe situaciones con una **tasa constante de cambio**: por cada kilómetro extra, el costo sube siempre en \\$300.\n\n$C(k) = 800 + 300k$\n\nEsto es $mx + b$ con $m = 300$ y $b = 800$. No hay $k^2$ porque el costo por km no varía según cuántos km lleves recorridos. Un buen discriminador: si la tarifa por unidad es siempre la misma, la función es lineal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_27",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una colonia de bacterias parte de 200 células y se duplica cada hora.\n\n¿Qué familia de función describe la cantidad de bacterias en función del tiempo?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Duplicarse cada hora = multiplicar por 2 periódicamente = función exponencial.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando una cantidad **se multiplica por un factor fijo** en cada período, la función es exponencial.\n\n$N(t) = 200 \\cdot 2^t$\n\nNo es cuadrática porque la tasa de crecimiento no es constante ni produce un punto óptimo: las bacterias solo suben, sin vértice ni parabólea. No es lineal porque el incremento no es el mismo cada hora. Con las bacterias, ningún modelo optimista alcanza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_28",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un ahorro de \\$10000 crece a una tasa del 6% anual, es decir, se multiplica por 1,06 cada año.\n\n¿Qué familia de función describe el saldo según los años?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Multiplicar por 1,06 cada año = crecimiento proporcional = función exponencial.",
+    "feedback_incorrect": "",
+    "explanation": "El interés compuesto multiplica el saldo por un factor fijo cada período:\n\n$S(n) = 10000 \\cdot 1{,}06^n$\n\nLa diferencia clave con la cuadrática: una cuadrática tiene un vértice (máximo o mínimo) mientras que una exponencial solo sube (o solo baja) sin parar. El saldo con interés compuesto nunca tiene un máximo: ojalá.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_29",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una enredadera crece 4 cm por semana de forma constante, sin importar cuánto ya mida.\n\n¿Qué familia de función describe la altura de la planta en función de las semanas?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Crecer la misma cantidad por período = tasa constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Una función es lineal cuando la **variación por unidad de tiempo es constante**: 4 cm por semana, siempre.\n\n$h(t) = h_0 + 4t$\n\nNo es cuadrática porque no hay un punto máximo ni mínimo: la planta no sube y después baja. Tampoco es exponencial porque no se multiplica por nada: solo suma. La enredadera es linealmente confiable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_30",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un celular pierde el 20% de su valor cada año, es decir, se multiplica por 0,8 año a año.\n\n¿Qué familia de función describe el valor del celular en función de los años?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Perder el mismo porcentaje cada año = multiplicar por 0,8 = función exponencial decreciente.",
+    "feedback_incorrect": "",
+    "explanation": "La depreciación porcentual constante produce una función exponencial decreciente:\n\n$V(t) = V_0 \\cdot 0{,}8^t$\n\nDiferencia con la lineal: en la lineal se pierde siempre la misma *cantidad* de pesos; en la exponencial se pierde siempre el mismo *porcentaje*. Al principio la diferencia es grande, con el tiempo el celular vale centavos pero técnicamente nunca llega a cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_31",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La escala de Richter mide la magnitud de un sismo como $M = \\log_{10}(I / I_0)$, donde $I$ es la intensidad medida e $I_0$ es la intensidad de referencia.\n\n¿A qué familia pertenece $M$ como función de $I$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$M = \\log_{10}(I/I_0)$ es una función logarítmica de $I$.",
+    "feedback_incorrect": "",
+    "explanation": "Cualquier función de la forma $f(x) = \\log_b(x)$ pertenece a la familia **logarítmica**.\n\n$M(I) = \\log_{10}(I / I_0)$\n\nEl logaritmo crece muy despacio: pasar de magnitud 5 a 6 no es sumar uno sino multiplicar la intensidad real por 10. No es cuadrática: no hay vértice ni fenómeno con punto óptimo. Un sismo no tiene un \"máximo conveniente\".",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_32",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una empresa registra que su maquinaria pierde \\$5000 de valor por año, independientemente de su estado.\n\n¿Qué familia de función describe el valor de la maquinaria en el tiempo?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Pérdida fija de \\$5000 por año = tasa de cambio constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando la pérdida (o ganancia) es siempre la misma cantidad por período, la función es lineal.\n\n$V(t) = V_0 - 5000t$\n\nSi en cambio la pérdida fuera un porcentaje del valor actual, sería exponencial. La diferencia: en la lineal todos los años se deprecia lo mismo; en la exponencial, los primeros años se pierde más y con el tiempo se pierde menos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_33",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "El pH de una solución es $\\text{pH} = -\\log_{10}[H^+]$, donde $[H^+]$ es la concentración de iones hidrógeno.\n\n¿A qué familia pertenece el pH como función de $[H^+]$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$-\\log_{10}[H^+]$ es una función logarítmica de $[H^+]$.",
+    "feedback_incorrect": "",
+    "explanation": "El pH usa el logaritmo para comprimir una escala de concentraciones enormemente amplia en valores manejables del 0 al 14.\n\n$\\text{pH}([H^+]) = -\\log_{10}[H^+]$\n\nNo es cuadrática: no hay ningún punto óptimo de acidez. Tampoco es lineal porque el cambio en pH no es proporcional al cambio en concentración. La familia logarítmica describe exactamente esas escalas que crecen despacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_34",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La ganancia diaria de una heladería sube al vender más porciones, hasta un máximo de 80 porciones. A partir de ahí, más porciones implica más insumos y la ganancia cae.\n\n¿En qué intervalo de porciones vendidas la función ganancia es creciente?",
+    "options": [
+      "En $(80, +\\infty)$",
+      "En $(-\\infty, 80]$",
+      "En $[0, 80]$",
+      "Siempre es creciente"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La ganancia crece desde 0 hasta el máximo en 80 porciones: el intervalo creciente es $[0, 80]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática con máximo (parábola hacia abajo) **crece** hasta el vértice y **decrece** después.\n\nAquí el vértice está en $x = 80$ porciones: ese es el punto donde la ganancia es máxima.\n\nIntervalo creciente: $[0, 80]$. Intervalo decreciente: $[80, +\\infty)$. A la heladería le conviene no pasarse de 80 porciones diarias, aunque en verano es difícil contenerse.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_35",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Para $f(x) = 2x^2 - 12x + 10$, ¿en qué intervalo es decreciente la función?",
+    "options": [
+      "$[3, +\\infty)$",
+      "$(-\\infty, 3]$",
+      "$(-\\infty, 6]$",
+      "$[0, 6]$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice está en $x = 12/(2 \\cdot 2) = 3$. Como $a = 2 > 0$, la función decrece antes del vértice: en $(-\\infty, 3]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a > 0$ (abre hacia arriba), la función **decrece** hasta el vértice y **crece** después.\n\nEl vértice es:\n$$x_v = -\\frac{b}{2a} = -\\frac{-12}{2 \\cdot 2} = \\frac{12}{4} = 3$$\n\nIntervalo decreciente: $(-\\infty, 3]$. Intervalo creciente: $[3, +\\infty)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_36",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una pelota alcanza su altura máxima a los 3 segundos de ser lanzada. La función de altura es cuadrática con $a < 0$.\n\n¿En qué tramo de tiempo la altura de la pelota está creciendo?",
+    "options": [
+      "En $[3, +\\infty)$",
+      "En $(-\\infty, 3]$",
+      "En $[0, 3]$",
+      "Siempre decrece"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El máximo es a los 3 s. Con $a < 0$ la función crece antes del máximo: en $[0, 3]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una parábola con $a < 0$ (abre hacia abajo) **crece** hasta el vértice y **decrece** después.\n\nEl vértice (altura máxima) está en $t = 3$ s. Antes de ese momento la pelota sube, después cae.\n\nIntervalo creciente: $[0, 3]$. Intervalo decreciente: $[3, +\\infty)$. La pelota no consulta el álgebra antes de subir, pero el álgebra siempre tiene razón.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_37",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Para $f(x) = -(x - 5)^2 + 8$, ¿en qué intervalo es creciente la función?",
+    "options": [
+      "$[5, +\\infty)$",
+      "$(-\\infty, 5]$",
+      "$(-\\infty, 8]$",
+      "$[8, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice está en $x = 5$. Como $a = -1 < 0$, la función crece antes del vértice: en $(-\\infty, 5]$.",
+    "feedback_incorrect": "",
+    "explanation": "En forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es $(h, k)$.\n\nAquí $h = 5$, $k = 8$, $a = -1 < 0$: parábola hacia abajo con vértice en $(5, 8)$.\n\nIntervalo creciente: $(-\\infty, 5]$. Intervalo decreciente: $[5, +\\infty)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_38",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "El consumo de combustible de un auto, medido en litros cada 100 km, tiene su valor mínimo a 80 km/h. Cuando va más lento o más rápido, consume más.\n\n¿En qué intervalo de velocidades el consumo está decreciendo, es decir, mejorando?",
+    "options": [
+      "En $[80, +\\infty)$",
+      "En $[0, 80]$",
+      "En $(-\\infty, 80]$",
+      "Siempre está creciendo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El mínimo es a 80 km/h. El consumo decrece (mejora) antes del mínimo, es decir, en $[0, 80]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática con mínimo (parábola hacia arriba, $a > 0$) **decrece** hasta el vértice y **crece** después.\n\nAquí el vértice es el mínimo de consumo, en $v = 80$ km/h.\n\nAntes de 80 km/h, el consumo baja al acercarse a la velocidad óptima. Después de 80 km/h, el consumo sube. Intervalo decreciente (consumo mejora): $[0, 80]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_39",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La función $f(x) = x^2 - 8x + 12$ tiene su vértice en $x = 4$.\n\n¿En qué intervalo es creciente?",
+    "options": [
+      "$(-\\infty, 4]$",
+      "$[4, +\\infty)$",
+      "$(-\\infty, 12]$",
+      "$[0, 4]$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con $a = 1 > 0$ y vértice en $x = 4$, la función crece en $[4, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a > 0$ (abre hacia arriba), el vértice es un mínimo.\n\nLa función **decrece** a la izquierda del vértice y **crece** a la derecha.\n\nVértice en $x = 4$: intervalo creciente $[4, +\\infty)$, intervalo decreciente $(-\\infty, 4]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_40",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La altura de una pelota lanzada hacia arriba alcanza un punto máximo y luego cae.\n\n¿Qué signo tiene el coeficiente $a$ de la función cuadrática que modela la altura?",
+    "options": [
+      "$a > 0$ (parábola hacia arriba)",
+      "$a < 0$ (parábola hacia abajo)",
+      "$a = 0$ (es lineal)",
+      "$a$ puede ser cualquier valor"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice máximo implica parábola hacia abajo: $a < 0$.",
+    "feedback_incorrect": "",
+    "explanation": "El signo de $a$ determina si la parábola tiene un **máximo** o un **mínimo**.\n\n- $a < 0$: parábola hacia abajo $\\cap$, el vértice es un **máximo**.\n- $a > 0$: parábola hacia arriba $\\cup$, el vértice es un **mínimo**.\n\nLa pelota que sube y baja tiene un máximo de altura: su $a$ es negativo. Ninguna pelota defrauda la física.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_41",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Un cable colgante entre dos postes forma una curva con el punto más bajo en el centro.\n\n¿Cómo se abre la parábola que modela la altura del cable?",
+    "options": [
+      "Hacia abajo, porque hay un máximo",
+      "Hacia arriba, porque hay un mínimo",
+      "Es una recta horizontal",
+      "No es una parábola"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El punto más bajo es un mínimo: la parábola abre hacia arriba ($a > 0$).",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el fenómeno tiene un **mínimo** (punto más bajo), la parábola abre hacia arriba y su coeficiente $a > 0$.\n\nEl cable colgante tiene su punto más bajo en el centro: eso es el vértice de una parábola $\\cup$. Distinto al tiro de pelota que tiene su punto más alto (vértice de una parábola $\\cap$).\n\nLa gravedad hace que los cables cuelguen hacia abajo y los proyectiles también caigan: pero los gráficos son opuestos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_42",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una empresa modela su ganancia semanal con una función cuadrática que tiene un valor máximo.\n\n¿Qué se puede afirmar sobre el coeficiente $a$ de esa función?",
+    "options": [
+      "$a > 0$",
+      "$a < 0$",
+      "$a = 0$",
+      "No se puede saber"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Si la ganancia tiene un máximo, la parábola abre hacia abajo: $a < 0$.",
+    "feedback_incorrect": "",
+    "explanation": "Si una cuadrática tiene un **máximo**, el vértice es el punto más alto de la parábola: la curva abre hacia abajo.\n\nParábola hacia abajo $\\Leftrightarrow$ $a < 0$.\n\nLa empresa sabe que hay un nivel de producción o precio que maximiza la ganancia; más allá de ese punto la ganancia cae. Es el signo más rentable que puede tener una empresa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_43",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La temperatura de la madrugada tiene un mínimo a las 4 am y luego empieza a subir.\n\n¿Qué dice eso sobre la parábola que modela la temperatura?",
+    "options": [
+      "Abre hacia abajo: tiene un máximo a las 4 am",
+      "Abre hacia arriba: tiene un mínimo a las 4 am",
+      "Es una recta decreciente",
+      "Es una función exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Mínimo a las 4 am implica parábola hacia arriba ($a > 0$) con vértice en $h = 4$.",
+    "feedback_incorrect": "",
+    "explanation": "Un mínimo en la función corresponde a una parábola que abre hacia **arriba** ($a > 0$).\n\nLa temperatura más fría ocurre en el vértice de una parábola $\\cup$. Antes de las 4 am baja, después sube.\n\nContraste con el tiro de pelota: la pelota tiene un máximo (parábola $\\cap$, $a < 0$). La temperatura de madrugada tiene un mínimo (parábola $\\cup$, $a > 0$). Dos cuadráticas, dos orientaciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_44",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Una pelota se lanza y su altura máxima es 20 metros. La función de altura es cuadrática con vértice en $(3, 20)$ y $a < 0$.\n\n¿Cuál es el rango de valores que puede tomar la altura?",
+    "options": [
+      "$[20, +\\infty)$",
+      "$(-\\infty, 20]$",
+      "$[0, 20]$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Parábola hacia abajo con vértice $(3, 20)$: la imagen es $(-\\infty, 20]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a < 0$ (parábola hacia abajo), el vértice es el **valor máximo**.\n\nLa imagen de la función es $(-\\infty, k]$ donde $k$ es la coordenada $y$ del vértice.\n\nAquí $k = 20$: la altura nunca supera los 20 m. En el contexto físico, la altura tampoco puede ser negativa (el suelo está en $h = 0$), pero matemáticamente la cuadrática sí toma valores negativos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_45",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es la imagen de $f(x) = 2(x - 3)^2 + 1$?",
+    "options": [
+      "$(-\\infty, 1]$",
+      "$[1, +\\infty)$",
+      "$[3, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice es $(3, 1)$ y $a = 2 > 0$: parábola hacia arriba, imagen $[1, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática en forma de vértice $a(x-h)^2 + k$:\n\n- Si $a > 0$ (abre hacia arriba), el vértice es el **mínimo** y la imagen es $[k, +\\infty)$.\n- Si $a < 0$ (abre hacia abajo), el vértice es el **máximo** y la imagen es $(-\\infty, k]$.\n\nAquí $a = 2 > 0$ y $k = 1$: imagen $[1, +\\infty)$. La función nunca vale menos que 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_46",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es la imagen de $f(x) = -3(x + 1)^2$?",
+    "options": [
+      "$[0, +\\infty)$",
+      "$(-\\infty, 0]$",
+      "$\\{0\\}$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice es $(-1, 0)$ y $a = -3 < 0$: parábola hacia abajo, imagen $(-\\infty, 0]$.",
+    "feedback_incorrect": "",
+    "explanation": "En $f(x) = -3(x + 1)^2$, el vértice está en $(-1, 0)$ con $k = 0$ y $a = -3 < 0$.\n\nParábola hacia abajo: el vértice es el valor máximo. La función vale como máximo 0 (en $x = -1$) y decrece sin límite para $x$ alejados del vértice.\n\nImagen: $(-\\infty, 0]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_47",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "Para una función cuadrática con vértice $(4, -3)$ que abre hacia arriba, ¿cuál es su imagen?",
+    "options": [
+      "$(-\\infty, -3]$",
+      "$[-3, +\\infty)$",
+      "$[4, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice $(4, -3)$ con $a > 0$: el mínimo es $-3$ y la imagen es $[-3, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática que abre hacia arriba ($a > 0$), el vértice $(h, k)$ marca el **mínimo** de la función.\n\nLa imagen es $[k, +\\infty)$: todos los valores mayores o iguales al mínimo.\n\nAquí $k = -3$: imagen $[-3, +\\infty)$. Nota: el vértice en $x = 4$ indica *dónde* ocurre el mínimo, pero la imagen usa la coordenada $y$ del vértice, no la $x$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_48",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas expresiones NO es una función cuadrática?",
+    "options": [
+      "$f(x) = (x + 2)(x - 3)$",
+      "$g(x) = 0{,}5x^2 - 1$",
+      "$h(x) = x^3 - x^2$",
+      "$p(x) = -(x - 1)^2 + 4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$h(x) = x^3 - x^2$ tiene grado 3: no es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática tiene **grado exactamente 2**: el término de mayor potencia en $x$ es $x^2$.\n\n- $f(x) = (x+2)(x-3) = x^2 - x - 6$: grado 2 ✓\n- $g(x) = 0{,}5x^2 - 1$: grado 2 ✓\n- $h(x) = x^3 - x^2$: grado **3** ✗ (el término dominante es $x^3$)\n- $p(x) = -(x-1)^2 + 4 = -x^2 + 2x + 3$: grado 2 ✓\n\nLa presencia de $-x^2$ en $h$ no alcanza: el $x^3$ lo desclasifica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_49",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas situaciones se modela con una función cuadrática?",
+    "options": [
+      "El saldo bancario crece un 3% mensual.",
+      "Una vela se consume a razón de 2 cm por hora.",
+      "El área de un cuadrado en función de su lado.",
+      "La presión del agua baja 0,1 bar por metro de altura."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área de un cuadrado es $A = L^2$: cuadrática. Las demás son exponencial y dos lineales.",
+    "feedback_incorrect": "",
+    "explanation": "Para identificar la familia correcta, la clave está en la **estructura de la relación**.\n\n- Saldo con 3% mensual → se multiplica por 1,03 cada mes → **exponencial**.\n- Vela a 2 cm/hora → tasa constante → **lineal**.\n- Área del cuadrado → $A = L \\cdot L = L^2$ → **cuadrática** ✓\n- Presión baja 0,1 bar/metro → tasa constante → **lineal**.\n\nEl área es la gran fuente de cuadráticas en la vida cotidiana.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_clsf_50",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "CLSF",
+    "question": "La función $f(x) = \\dfrac{1}{4}(x - 2)^2 - 5$ es cuadrática.\n\n¿Cuál es su imagen?",
+    "options": [
+      "$[-5, +\\infty)$",
+      "$(-\\infty, -5]$",
+      "$[2, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Vértice $(2, -5)$ con $a = \\frac{1}{4} > 0$: parábola hacia arriba, imagen $[-5, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "La función $f(x) = \\frac{1}{4}(x-2)^2 - 5$ está en forma de vértice con $a = \\frac{1}{4}$, $h = 2$, $k = -5$.\n\nComo $a > 0$, la parábola abre hacia arriba y el vértice $(2, -5)$ es el **mínimo**.\n\nImagen: $[-5, +\\infty)$. El coeficiente $\\frac{1}{4}$ hace la parábola más abierta que la básica $x^2$, pero no cambia que el mínimo sea $-5$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_12",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "En $f(x) = -2x^2 + 3x - 5$, ¿cuál es el coeficiente principal $a$?",
+    "options": [
+      "$3$",
+      "$-5$",
+      "$2$",
+      "$-2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El coeficiente de $x^2$ es $-2$. El signo negativo forma parte de $a$.",
+    "feedback_incorrect": "",
+    "explanation": "En la forma estándar $ax^2 + bx + c$, $a$ es el coeficiente que multiplica a $x^2$.\n\n$f(x) = -2x^2 + 3x - 5 \\Rightarrow a = -2$\n\nEl $2$ sin signo sería incorrecto: el signo negativo pertenece a $a$ y determina que la parábola abre hacia abajo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_13",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "En $f(x) = x^2 - 6x + 9$, ¿cuál es el término independiente $c$?",
+    "options": [
+      "$-6$",
+      "$1$",
+      "$9$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El término sin $x$ es $9$: ese es $c$.",
+    "feedback_incorrect": "",
+    "explanation": "En $f(x) = ax^2 + bx + c$, el término independiente $c$ es el que no tiene $x$.\n\n$f(x) = x^2 - 6x + 9 \\Rightarrow c = 9$\n\nAdemás, $c = f(0)$: el valor de la función en $x = 0$ siempre coincide con la ordenada al origen. Acá $f(0) = 0 - 0 + 9 = 9$ ✓",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_14",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "En $f(x) = 4x^2 - 8x + 1$, ¿cuál es el eje de simetría?",
+    "options": [
+      "$x = -1$",
+      "$x = 2$",
+      "$x = 1$",
+      "$x = 4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$x_v = -b/(2a) = -(-8)/(2 \\cdot 4) = 8/8 = 1$.",
+    "feedback_incorrect": "",
+    "explanation": "El eje de simetría pasa por el vértice, y su abscisa se calcula como:\n$$x_v = -\\frac{b}{2a}$$\n\nCon $a = 4$ y $b = -8$:\n$$x_v = -\\frac{-8}{2 \\cdot 4} = \\frac{8}{8} = 1$$\n\n$x = 2$ surge de $b / a = -8/4 = -2$, sin el signo ni el factor 2. Error común.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_15",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = x^2 - 2x - 3$.\n\n¿Cuánto vale $f(0)$?",
+    "options": [
+      "$2$",
+      "$-2$",
+      "$-3$",
+      "$3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(0) = 0 - 0 - 3 = -3$.",
+    "feedback_incorrect": "",
+    "explanation": "Evaluar en $x = 0$ equivale a leer el término independiente:\n\n$$f(0) = 0^2 - 2(0) - 3 = -3$$\n\nEsto también es la **ordenada al origen**: el punto donde la parábola cruza el eje $y$ es $(0, -3)$. El término $c$ siempre lo dice directamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_16",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el coeficiente lineal $b$?",
+    "options": [
+      "$3$",
+      "$-6$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El coeficiente de $x$ es $-6$. El signo negativo forma parte de $b$.",
+    "feedback_incorrect": "",
+    "explanation": "En $f(x) = ax^2 + bx + c$, $b$ es el coeficiente que multiplica a $x$ (no a $x^2$).\n\n$f(x) = 3x^2 - 6x + 2 \\Rightarrow b = -6$\n\nEl $6$ sin signo es el error más frecuente: omitir el signo cambia la posición del vértice.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_17",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = -x^2 + 4x - 4$.\n\n¿Cuántas raíces reales distintas tiene?",
+    "options": [
+      "Ninguna",
+      "Una",
+      "Dos",
+      "Infinitas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El discriminante es $\\Delta = 16 - 16 = 0$: la parábola toca el eje $x$ en exactamente un punto.",
+    "feedback_incorrect": "",
+    "explanation": "El discriminante $\\Delta = b^2 - 4ac$ determina la cantidad de raíces reales.\n\n$a = -1$, $b = 4$, $c = -4$:\n$$\\Delta = 4^2 - 4(-1)(-4) = 16 - 16 = 0$$\n\nCon $\\Delta = 0$, la parábola tiene exactamente una raíz (el vértice toca el eje $x$). La raíz es $x = -b/(2a) = -4/(-2) = 2$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_18",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene vértice en $(-2, 5)$ y coeficiente $a = 1$.\n\n¿Cuál es su ecuación en forma de vértice?",
+    "options": [
+      "$f(x) = (x - 2)^2 + 5$",
+      "$f(x) = (x + 2)^2 - 5$",
+      "$f(x) = (x + 2)^2 + 5$",
+      "$f(x) = (x - 2)^2 - 5$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Vértice $(-2, 5)$ con $a = 1$: $f(x) = (x - (-2))^2 + 5 = (x + 2)^2 + 5$.",
+    "feedback_incorrect": "",
+    "explanation": "La forma de vértice es $f(x) = a(x - h)^2 + k$ donde $(h, k)$ es el vértice.\n\nCon $(h, k) = (-2, 5)$ y $a = 1$:\n$$f(x) = (x - (-2))^2 + 5 = (x + 2)^2 + 5$$\n\nAtención al signo: $h = -2$ produce $(x + 2)$, no $(x - 2)$. El signo de $h$ siempre se invierte al escribir la forma de vértice.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_19",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene vértice en $(3, -4)$ y coeficiente $a = -2$.\n\n¿Cuál es su ecuación en forma de vértice?",
+    "options": [
+      "$f(x) = -2(x + 3)^2 - 4$",
+      "$f(x) = -2(x - 3)^2 + 4$",
+      "$f(x) = 2(x - 3)^2 - 4$",
+      "$f(x) = -2(x - 3)^2 - 4$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Vértice $(3, -4)$, $a = -2$: $f(x) = -2(x - 3)^2 - 4$.",
+    "feedback_incorrect": "",
+    "explanation": "Con $(h, k) = (3, -4)$ y $a = -2$:\n$$f(x) = -2(x - 3)^2 + (-4) = -2(x - 3)^2 - 4$$\n\nEl signo de $k = -4$ se escribe tal cual: $+(-4) = -4$.\n\n$f(x) = -2(x-3)^2 + 4$ tiene el signo de $k$ cambiado — el vértice estaría en $(3, 4)$, no $(3, -4)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_20",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = (x - 4)^2 - 9$.\n\n¿Cuáles son las raíces?",
+    "options": [
+      "$x = 1$ y $x = 7$",
+      "$x = 4$ y $x = 9$",
+      "$x = -4$ y $x = -9$",
+      "$x = 5$ y $x = 13$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$(x-4)^2 = 9 \\Rightarrow x - 4 = \\pm 3 \\Rightarrow x = 7$ o $x = 1$.",
+    "feedback_incorrect": "",
+    "explanation": "Para encontrar las raíces se iguala a cero y se despeja:\n$$( x - 4)^2 - 9 = 0$$\n$$(x - 4)^2 = 9$$\n$$x - 4 = \\pm 3$$\n$$x = 4 + 3 = 7 \\quad \\text{o} \\quad x = 4 - 3 = 1$$\n\nLas raíces son simétricas respecto al vértice $x = 4$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_21",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = 2(x + 1)^2 - 8$.\n\n¿Cuáles son las raíces?",
+    "options": [
+      "$x = 3$ y $x = -1$",
+      "$x = 1$ y $x = -3$",
+      "$x = 2$ y $x = -4$",
+      "$x = -1$ y $x = 4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$2(x+1)^2 = 8 \\Rightarrow (x+1)^2 = 4 \\Rightarrow x + 1 = \\pm 2 \\Rightarrow x = 1$ o $x = -3$.",
+    "feedback_incorrect": "",
+    "explanation": "Despejando:\n$$2(x + 1)^2 - 8 = 0$$\n$$(x + 1)^2 = 4$$\n$$x + 1 = \\pm 2$$\n$$x = 1 \\quad \\text{o} \\quad x = -3$$\n\nEl vértice es $(-1, -8)$: las raíces son simétricas respecto a $x = -1$, a distancia 2 en cada lado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_22",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = -3(x - 1)^2 + 12$.\n\n¿Cuánto vale $f(3)$?",
+    "options": [
+      "$12$",
+      "$-12$",
+      "$0$",
+      "$-24$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(3) = -3(3 - 1)^2 + 12 = -3(4) + 12 = 0$.",
+    "feedback_incorrect": "",
+    "explanation": "Reemplazando $x = 3$:\n$$f(3) = -3(3 - 1)^2 + 12 = -3 \\cdot 4 + 12 = -12 + 12 = 0$$\n\nResultado 0 significa que $x = 3$ es una raíz de la función. La otra raíz, por simetría respecto al vértice $x = 1$, está en $x = -1$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_23",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene vértice en $(2, 3)$ y coeficiente $a = 1$.\n\n¿Cuánto vale $f(0)$?",
+    "options": [
+      "$3$",
+      "$5$",
+      "$7$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(x) = (x-2)^2 + 3 \\Rightarrow f(0) = 4 + 3 = 7$.",
+    "feedback_incorrect": "",
+    "explanation": "La ecuación es $f(x) = (x - 2)^2 + 3$.\n\nEvaluar en $x = 0$:\n$$f(0) = (0 - 2)^2 + 3 = 4 + 3 = 7$$\n\n$f(0) = 3$ sería el valor del vértice, no el corte con el eje $y$. Confundir $k$ con $f(0)$ es un error clásico cuando $h \\neq 0$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_24",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene vértice en $(5, 8)$ y coeficiente $a = -0{,}5$.\n\n¿Cuál es su ecuación en forma de vértice?",
+    "options": [
+      "$f(x) = 0{,}5(x - 5)^2 + 8$",
+      "$f(x) = -0{,}5(x + 5)^2 + 8$",
+      "$f(x) = -0{,}5(x - 5)^2 - 8$",
+      "$f(x) = -0{,}5(x - 5)^2 + 8$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Vértice $(5, 8)$, $a = -0{,}5$: $f(x) = -0{,}5(x - 5)^2 + 8$.",
+    "feedback_incorrect": "",
+    "explanation": "Con $(h, k) = (5, 8)$ y $a = -0{,}5$:\n$$f(x) = -0{,}5(x - 5)^2 + 8$$\n\nLa parábola abre hacia abajo ($a < 0$) y tiene su máximo de 8 en $x = 5$. Esta fórmula aparece en los ejercicios GRAF del tema cuadrático.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_25",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = -(x - 2)^2 + 16$.\n\n¿Cuáles son las raíces?",
+    "options": [
+      "$x = 2$ y $x = 16$",
+      "$x = -2$ y $x = 6$",
+      "$x = 6$ y $x = -2$",
+      "$x = 4$ y $x = -4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$(x-2)^2 = 16 \\Rightarrow x - 2 = \\pm 4 \\Rightarrow x = 6$ o $x = -2$.",
+    "feedback_incorrect": "",
+    "explanation": "Despejando:\n$$-(x - 2)^2 + 16 = 0$$\n$$(x - 2)^2 = 16$$\n$$x - 2 = \\pm 4$$\n$$x = 6 \\quad \\text{o} \\quad x = -2$$\n\nLas raíces son simétricas respecto al vértice $x = 2$: una a $+4$ y otra a $-4$ de distancia.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_26",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene raíces en $x = 3$ y $x = -1$, con $a = 1$.\n\n¿Cuál es su ecuación en forma factorizada?",
+    "options": [
+      "$f(x) = (x + 3)(x - 1)$",
+      "$f(x) = (x - 3)(x + 1)$",
+      "$f(x) = (x - 3)(x - 1)$",
+      "$f(x) = (x + 3)(x + 1)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Raíces $3$ y $-1$: $f(x) = (x - 3)(x - (-1)) = (x - 3)(x + 1)$.",
+    "feedback_incorrect": "",
+    "explanation": "La forma factorizada es $f(x) = a(x - r_1)(x - r_2)$ donde $r_1, r_2$ son las raíces.\n\nCon $r_1 = 3$, $r_2 = -1$ y $a = 1$:\n$$f(x) = (x - 3)(x - (-1)) = (x - 3)(x + 1)$$\n\nEl signo en cada factor es siempre *opuesto* a la raíz: raíz $+3 \\to$ factor $(x - 3)$; raíz $-1 \\to$ factor $(x + 1)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_27",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = -2(x - 4)(x + 2)$.\n\n¿Cuáles son las raíces?",
+    "options": [
+      "$x = -4$ y $x = 2$",
+      "$x = 4$ y $x = -2$",
+      "$x = 4$ y $x = 2$",
+      "$x = -4$ y $x = -2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$f(x) = 0$ cuando $(x - 4) = 0$ o $(x + 2) = 0$: $x = 4$ o $x = -2$.",
+    "feedback_incorrect": "",
+    "explanation": "En la forma factorizada $a(x - r_1)(x - r_2)$, las raíces son los valores que anulan cada factor.\n\n- $x - 4 = 0 \\Rightarrow x = 4$\n- $x + 2 = 0 \\Rightarrow x = -2$\n\nEl coeficiente $-2$ no afecta las raíces, solo la apertura y escala de la parábola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_28",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una parábola tiene raíces en $x = 0$ y $x = 6$, con $a = 1$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = x^2 + 6x$",
+      "$f(x) = x(x + 6)$",
+      "$f(x) = x(x - 6)$",
+      "$f(x) = x^2 - 36$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Raíces $0$ y $6$: $f(x) = (x - 0)(x - 6) = x(x - 6)$.",
+    "feedback_incorrect": "",
+    "explanation": "Con raíces $r_1 = 0$ y $r_2 = 6$:\n$$f(x) = (x - 0)(x - 6) = x(x - 6) = x^2 - 6x$$\n\n$x(x + 6)$ daría raíces $0$ y $-6$: confunde el signo de la segunda raíz.\n\nVerificación: $f(0) = 0$ ✓ y $f(6) = 6 \\cdot 0 = 0$ ✓.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_29",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = (x - 5)^2$.\n\n¿Cuántas raíces reales distintas tiene?",
+    "options": [
+      "Ninguna",
+      "Una",
+      "Dos",
+      "Infinitas"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$(x - 5)^2 = 0 \\Rightarrow x = 5$: una sola raíz.",
+    "feedback_incorrect": "",
+    "explanation": "$f(x) = (x - 5)^2 = (x - 5)(x - 5)$: ambos factores dan la misma raíz $x = 5$.\n\nSe dice que $x = 5$ es una **raíz doble**: la parábola toca el eje $x$ en ese punto pero no lo cruza.\n\nVisualizando: el vértice $(5, 0)$ está exactamente sobre el eje horizontal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_30",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = -(x + 3)(x - 7)$.\n\n¿Cuál es la suma de las raíces?",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$10$",
+      "$-21$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las raíces son $-3$ y $7$. Su suma es $-3 + 7 = 4$.",
+    "feedback_incorrect": "",
+    "explanation": "Las raíces se leen directamente de la forma factorizada:\n- $x + 3 = 0 \\Rightarrow x = -3$\n- $x - 7 = 0 \\Rightarrow x = 7$\n\nSuma: $-3 + 7 = 4$.\n\nCuriosidad: la suma de las raíces siempre coincide con el doble de la abscisa del vértice. El vértice está en $x = (-3 + 7)/2 = 2$, y $2 \\cdot 2 = 4$ ✓.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_31",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = 3(x - 2)^2$.\n\n¿Cuáles son las coordenadas del vértice?",
+    "options": [
+      "$(2, 3)$",
+      "$(-2, 0)$",
+      "$(2, 0)$",
+      "$(0, 2)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El vértice es $(h, k) = (2, 0)$: la parábola toca el eje $x$ en $x = 2$.",
+    "feedback_incorrect": "",
+    "explanation": "$f(x) = 3(x - 2)^2$ está en forma de vértice con $h = 2$ y $k = 0$.\n\nVértice: $(2, 0)$.\n\nComo $k = 0$, el vértice cae sobre el eje $x$ y $x = 2$ también es la única raíz de la función (raíz doble). El $3$ solo afecta cuán angosta es la parábola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_32",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "El área de un cuadrado con lado $x$ metros es $A = x \\cdot x$.\n\n¿Cuál es la ecuación de la función área?",
+    "options": [
+      "$A(x) = 2x$",
+      "$A(x) = 4x$",
+      "$A(x) = x^2$",
+      "$A(x) = x + x$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$A(x) = x \\cdot x = x^2$.",
+    "feedback_incorrect": "",
+    "explanation": "El área de un cuadrado es lado por lado:\n$$A(x) = x \\cdot x = x^2$$\n\n$A(x) = 4x$ sería el **perímetro**, no el área. $A(x) = 2x$ no tiene sentido geométrico. La diferencia entre área y perímetro define la diferencia entre cuadrática y lineal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_33",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Un agricultor usa 20 metros de alambre para cercar un corral rectangular. Si un lado mide $x$ metros, el lado opuesto mide $10 - x$ metros.\n\n¿Cuál es la ecuación del área $A$ del corral?",
+    "options": [
+      "$A(x) = 10x$",
+      "$A(x) = 20x - x^2$",
+      "$A(x) = x^2 - 10x$",
+      "$A(x) = x(10 - x)$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$A(x) = x \\cdot (10 - x)$. Expandido: $10x - x^2$.",
+    "feedback_incorrect": "",
+    "explanation": "El área de un rectángulo es base por altura:\n$$A(x) = x \\cdot (10 - x) = 10x - x^2$$\n\nLas opciones $x(10-x)$ y $20x - x^2$ son equivalentes, pero solo la primera escribe directamente lo que dice el enunciado. La función tiene un máximo en $x = 5$ (el cuadrado): ahí el área es máxima con 25 m².",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_34",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una pelota se lanza hacia arriba desde el suelo con velocidad inicial de 20 m/s. Con $g = 10$ m/s², la altura en metros al tiempo $t$ es\n$$h(t) = v_0 t - \\dfrac{1}{2}g t^2$$\n¿Cuál es la ecuación concreta de $h(t)$?",
+    "options": [
+      "$h(t) = 20 - 10t^2$",
+      "$h(t) = 20t + 5t^2$",
+      "$h(t) = 20t - 5t^2$",
+      "$h(t) = 10t - 20t^2$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$v_0 = 20$, $\\frac{1}{2}g = 5$: $h(t) = 20t - 5t^2$.",
+    "feedback_incorrect": "",
+    "explanation": "Reemplazando $v_0 = 20$ y $g = 10$ en la fórmula:\n$$h(t) = 20t - \\frac{1}{2}(10)t^2 = 20t - 5t^2$$\n\nEl término lineal $20t$ representa la velocidad inicial; el término $-5t^2$ representa la desaceleración por la gravedad.\n\nEl vértice $t_v = -b/(2a) = -20/(2 \\cdot (-5)) = 2$ s indica el momento de altura máxima.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_35",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Se lanza una pelota desde un balcón a 5 metros de altura, con velocidad inicial de 10 m/s hacia arriba y $g = 10$ m/s².\n\n¿Cuál es la ecuación de la altura $h(t)$?",
+    "options": [
+      "$h(t) = 5 + 10t + 5t^2$",
+      "$h(t) = 10t - 5t^2$",
+      "$h(t) = 5 - 10t - 5t^2$",
+      "$h(t) = 5 + 10t - 5t^2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Altura inicial 5 m, vel ini 10 m/s, $\\frac{1}{2}g = 5$: $h(t) = 5 + 10t - 5t^2$.",
+    "feedback_incorrect": "",
+    "explanation": "La fórmula general con altura inicial es $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$.\n\nCon $h_0 = 5$, $v_0 = 10$, $g = 10$:\n$$h(t) = 5 + 10t - 5t^2$$\n\nEl signo de $5t^2$ es negativo porque la gravedad actúa en contra del movimiento. $h(t) = 5 + 10t + 5t^2$ implicaría que la gravedad empuja hacia arriba — solo si el lanzamiento ocurre en el espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_36",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Un puesto vende entradas. Si cobra $p$ pesos, vende $100 - 2p$ entradas. La recaudación total es el producto del precio por la cantidad vendida.\n\n¿Cuál es la ecuación de la recaudación $R$ en función del precio $p$?",
+    "options": [
+      "$R(p) = 100p - 2$",
+      "$R(p) = 100 - 2p^2$",
+      "$R(p) = p(100 - 2p)$",
+      "$R(p) = 2p - 100$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$R(p) = p \\cdot (100 - 2p) = 100p - 2p^2$: cuadrática en $p$.",
+    "feedback_incorrect": "",
+    "explanation": "La recaudación es precio por cantidad:\n$$R(p) = p \\cdot (100 - 2p) = 100p - 2p^2$$\n\nEl producto de dos factores lineales en $p$ da siempre una cuadrática. El vértice indica el precio que maximiza la recaudación:\n$$p_v = -\\frac{b}{2a} = -\\frac{100}{2(-2)} = 25$$\n\nEl precio óptimo es \\$25.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_37",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Se tiene una cuerda de 16 metros para cercar un cantero rectangular. Si el ancho es $x$ metros, el largo es $8 - x$ metros.\n\n¿Cuál es la ecuación del área $A$ en función del ancho?",
+    "options": [
+      "$A(x) = 8x - x^2$",
+      "$A(x) = 16x - x^2$",
+      "$A(x) = x^2 - 8x$",
+      "$A(x) = 8x$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$A(x) = x(8 - x) = 8x - x^2$.",
+    "feedback_incorrect": "",
+    "explanation": "Si el ancho es $x$ y el largo es $8 - x$ (el semiperímetro es 8):\n$$A(x) = x(8 - x) = 8x - x^2$$\n\nEl área máxima se alcanza en $x = 4$ m (cuadrado de 4×4 = 16 m²). La cuadrática siempre da un máximo cuando los lados del rectángulo son iguales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_38",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Un objeto cae desde una azotea a 45 metros de altura. La altura restante al tiempo $t$ (con $g = 10$ m/s²) es $h(t) = h_0 - \\frac{1}{2}g t^2$.\n\n¿Cuál es la ecuación concreta de $h(t)$?",
+    "options": [
+      "$h(t) = 45t - 5t^2$",
+      "$h(t) = 45 - 5t^2$",
+      "$h(t) = 45 + 5t^2$",
+      "$h(t) = 5t^2 - 45$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$h_0 = 45$ y $\\frac{1}{2}g = 5$: $h(t) = 45 - 5t^2$.",
+    "feedback_incorrect": "",
+    "explanation": "En caída libre desde altura $h_0 = 45$ m sin velocidad inicial ($v_0 = 0$):\n$$h(t) = 45 - \\frac{1}{2}(10)t^2 = 45 - 5t^2$$\n\n$h(t) = 45t - 5t^2$ incluye un término $45t$ que correspondería a una velocidad inicial de 45 m/s hacia arriba — bastante para ser simplemente soltado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_39",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La ganancia de una librería según el precio $p$ de un libro es $G(p) = -0{,}5p^2 + 10p$.\n\n¿A qué precio es máxima la ganancia?",
+    "options": [
+      "$p = 5$",
+      "$p = 10$",
+      "$p = 20$",
+      "$p = 0{,}5$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$p_v = -b/(2a) = -10/(2 \\cdot (-0{,}5)) = 10$.",
+    "feedback_incorrect": "",
+    "explanation": "El precio que maximiza la ganancia es la abscisa del vértice:\n$$p_v = -\\frac{b}{2a} = -\\frac{10}{2 \\cdot (-0{,}5)} = -\\frac{10}{-1} = 10$$\n\nCon $p = 10$: $G(10) = -0{,}5(100) + 10(10) = -50 + 100 = 50$.\n\nNi muy barato (se vende barato y no rinde) ni muy caro (nadie compra). La cuadrática da el punto de equilibrio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_40",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "Una pelota se lanza desde el suelo con velocidad inicial de 15 m/s y $g = 10$ m/s². La altura es $h(t) = 15t - 5t^2$.\n\n¿A cuántos segundos toca el suelo de nuevo?",
+    "options": [
+      "$t = 1{,}5$ s",
+      "$t = 3$ s",
+      "$t = 5$ s",
+      "$t = 15$ s"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$15t - 5t^2 = 0 \\Rightarrow t(15 - 5t) = 0 \\Rightarrow t = 0$ o $t = 3$ s.",
+    "feedback_incorrect": "",
+    "explanation": "La pelota toca el suelo cuando $h(t) = 0$:\n$$15t - 5t^2 = 0$$\n$$t(15 - 5t) = 0$$\n$$t = 0 \\quad \\text{(lanzamiento)} \\quad \\text{o} \\quad t = 3 \\text{ s (caída)}$$\n\nLa raíz $t = 0$ es el momento inicial. La raíz $t = 3$ s es cuando la pelota regresa al suelo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_41",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La altura de un chorro de agua sobre el suelo, en metros, a distancia horizontal $d$ metros del caño es\n$$h(d) = -0{,}25d^2 + 2d$$\n¿A qué distancia horizontal el chorro está más alto?",
+    "options": [
+      "$d = 2$ m",
+      "$d = 4$ m",
+      "$d = 8$ m",
+      "$d = 0{,}25$ m"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$d_v = -b/(2a) = -2/(2 \\cdot (-0{,}25)) = -2/(-0{,}5) = 4$ m.",
+    "feedback_incorrect": "",
+    "explanation": "La altura máxima ocurre en el vértice de la parábola:\n$$d_v = -\\frac{b}{2a} = -\\frac{2}{2 \\cdot (-0{,}25)} = -\\frac{2}{-0{,}5} = 4 \\text{ m}$$\n\nA 4 metros del caño, el chorro está en su punto más alto. La altura máxima es $h(4) = -0{,}25(16) + 2(4) = -4 + 8 = 4$ m.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_42",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La gráfica muestra una parábola con vértice en $(2, 4)$ que abre hacia abajo y toca el eje $x$ en $x = 0$ y $x = 4$.\n\n¿Cuál de estas expresiones corresponde a la parábola?",
+    "options": [
+      "$f(x) = x^2 - 4x$",
+      "$f(x) = -(x-2)^2 + 4$",
+      "$f(x) = (x-2)^2 + 4$",
+      "$f(x) = -(x-2)^2 - 4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice $(2, 4)$, abre abajo: $f(x) = -(x-2)^2 + 4$.",
+    "feedback_incorrect": "",
+    "explanation": "De la gráfica se leen dos datos clave:\n\n1. **Vértice** $(2, 4)$: indica $h = 2$, $k = 4$.\n2. **Abre hacia abajo**: indica $a < 0$.\n\nCon $a = -1$: $f(x) = -(x-2)^2 + 4$.\n\nVerificación con las raíces: $-(x-2)^2 + 4 = 0 \\Rightarrow (x-2)^2 = 4 \\Rightarrow x = 0$ o $x = 4$ ✓",
+    "has_math": true,
+    "graph_fn": "-pow(x-2,2)+4",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_43",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La gráfica muestra una parábola que abre hacia arriba con vértice en $(3, -1)$.\n\n¿Cuál de estas expresiones corresponde a la parábola?",
+    "options": [
+      "$f(x) = (x + 3)^2 - 1$",
+      "$f(x) = -(x - 3)^2 - 1$",
+      "$f(x) = (x - 3)^2 - 1$",
+      "$f(x) = (x - 3)^2 + 1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Vértice $(3, -1)$, abre arriba ($a > 0$): $f(x) = (x - 3)^2 - 1$.",
+    "feedback_incorrect": "",
+    "explanation": "Vértice $(3, -1)$ con parábola hacia arriba ($a = 1 > 0$):\n$$f(x) = (x - 3)^2 - 1$$\n\n$(x + 3)^2 - 1$ pondría el vértice en $(-3, -1)$: el signo de $h$ siempre se invierte.\n\n$(x-3)^2 + 1$ pondría el vértice en $(3, 1)$ — cambia $k$.",
+    "has_math": true,
+    "graph_fn": "pow(x-3,2)-1",
+    "graph_view": [
+      -1,
+      7,
+      -3,
+      5
+    ],
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_44",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La gráfica muestra una parábola que abre hacia abajo, más ancha que $-x^2$, con vértice en el origen y corta el eje $x$ en $x = -4$ y $x = 4$.\n\n¿Cuál de estas expresiones corresponde a la parábola?",
+    "options": [
+      "$f(x) = -x^2 + 8$",
+      "$f(x) = -0{,}5x^2 + 8$",
+      "$f(x) = 0{,}5x^2 - 8$",
+      "$f(x) = -0{,}5x^2$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice $(0, 8)$, raíces $\\pm 4$, $|a| < 1$ (más ancha): $f(x) = -0{,}5x^2 + 8$.",
+    "feedback_incorrect": "",
+    "explanation": "De la gráfica:\n\n- Abre hacia abajo: $a < 0$.\n- Más ancha que $-x^2$: $|a| < 1$, probablemente $a = -0{,}5$.\n- Vértice en $(0, k)$ con $k > 0$ (eje de simetría es el eje $y$): $h = 0$.\n\nCon raíces $\\pm 4$: $-0{,}5(\\pm 4)^2 + k = 0 \\Rightarrow k = 8$.\n\n$$f(x) = -0{,}5x^2 + 8$$",
+    "has_math": true,
+    "graph_fn": "-0.5*pow(x,2)+8",
+    "graph_view": [
+      -5,
+      5,
+      -1,
+      10
+    ],
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_45",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La gráfica muestra una parábola que abre hacia arriba con raíces en $x = -2$ y $x = 4$, y $a = 1$.\n\n¿Cuál de estas expresiones corresponde a la parábola?",
+    "options": [
+      "$f(x) = (x - 2)(x + 4)$",
+      "$f(x) = (x - 4)(x - 2)$",
+      "$f(x) = (x + 2)(x - 4)$",
+      "$f(x) = (x + 2)(x + 4)$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Raíces $-2$ y $4$: $f(x) = (x - (-2))(x - 4) = (x + 2)(x - 4)$.",
+    "feedback_incorrect": "",
+    "explanation": "Con raíces $r_1 = -2$ y $r_2 = 4$:\n$$f(x) = (x - (-2))(x - 4) = (x + 2)(x - 4)$$\n\n$(x - 2)(x + 4)$ tendría raíces $2$ y $-4$ — los signos invertidos.\n\nVerificación: $f(-2) = 0$ ✓, $f(4) = 0$ ✓.",
+    "has_math": true,
+    "graph_fn": "pow(x,2)-2*x-8",
+    "graph_view": [
+      -4,
+      6,
+      -10,
+      5
+    ],
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_46",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La gráfica muestra una parábola angosta que abre hacia arriba, con vértice en $(2, -2)$ y raíces en $x = 1$ y $x = 3$.\n\n¿Cuál de estas expresiones corresponde a la parábola?",
+    "options": [
+      "$f(x) = (x - 2)^2 - 2$",
+      "$f(x) = -2(x - 2)^2 - 2$",
+      "$f(x) = 2(x - 2)^2 + 2$",
+      "$f(x) = 2(x - 2)^2 - 2$"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Vértice $(2, -2)$, angosta ($a = 2 > 1$), abre arriba: $f(x) = 2(x-2)^2 - 2$.",
+    "feedback_incorrect": "",
+    "explanation": "De la gráfica:\n\n- Vértice $(2, -2)$: $h = 2$, $k = -2$.\n- Más angosta que $x^2$: $a > 1$, probablemente $a = 2$.\n- Abre hacia arriba: $a > 0$.\n\n$f(x) = 2(x - 2)^2 - 2$\n\nVerificación con raíz $x = 1$: $2(1-2)^2 - 2 = 2(1) - 2 = 0$ ✓",
+    "has_math": true,
+    "graph_fn": "2*pow(x-2,2)-2",
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      8
+    ],
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_47",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = x^2 - 3x + 2$.\n\n¿Cuánto vale $f(4)$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$6$",
+      "$10$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$f(4) = 16 - 12 + 2 = 6$.",
+    "feedback_incorrect": "",
+    "explanation": "Reemplazando $x = 4$:\n$$f(4) = 4^2 - 3(4) + 2 = 16 - 12 + 2 = 6$$\n\nPaso a paso para evitar errores: primero $4^2 = 16$, luego $3 \\times 4 = 12$, luego $16 - 12 + 2 = 6$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_48",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La altura de una pelota es $h(t) = -5t^2 + 20t$.\n\n¿En qué instantes toca el suelo?",
+    "options": [
+      "$t = 0$ s únicamente",
+      "$t = 4$ s únicamente",
+      "$t = 0$ s y $t = 4$ s",
+      "$t = 2$ s y $t = 4$ s"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$-5t^2 + 20t = 0 \\Rightarrow t(-5t + 20) = 0 \\Rightarrow t = 0$ o $t = 4$ s.",
+    "feedback_incorrect": "",
+    "explanation": "La pelota toca el suelo cuando $h(t) = 0$:\n$$-5t^2 + 20t = 0$$\n$$t(-5t + 20) = 0$$\n$$t = 0 \\quad \\text{o} \\quad -5t + 20 = 0 \\Rightarrow t = 4 \\text{ s}$$\n\n$t = 0$ es el instante de lanzamiento (desde el suelo). $t = 4$ s es el aterrizaje. El máximo de altura está en $t = 2$ s, justo en el medio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_49",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "La función es $f(x) = 2x^2 - 8x + 6$.\n\n¿Cuáles son las raíces?",
+    "options": [
+      "$x = 1$ y $x = 3$",
+      "$x = -1$ y $x = -3$",
+      "$x = 2$ y $x = 6$",
+      "$x = 1$ y $x = -3$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$2x^2 - 8x + 6 = 2(x-1)(x-3) \\Rightarrow x = 1$ o $x = 3$.",
+    "feedback_incorrect": "",
+    "explanation": "Se puede factorizar sacando el factor común $2$:\n$$2x^2 - 8x + 6 = 2(x^2 - 4x + 3) = 2(x - 1)(x - 3)$$\n\nLas raíces son $x = 1$ y $x = 3$.\n\nVerificación: $f(1) = 2 - 8 + 6 = 0$ ✓, $f(3) = 18 - 24 + 6 = 0$ ✓.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "external_id": "white_quadratic_form_50",
+    "belt": "white",
+    "topic": "quadratic",
+    "exercise_type": "FORM",
+    "question": "El área de un corral rectangular es $A(x) = x(10 - x)$, donde $x$ es el ancho en metros.\n\n¿Para qué valores de $x$ el área es exactamente 21 m²?",
+    "options": [
+      "$x = 3$ m únicamente",
+      "$x = 7$ m únicamente",
+      "$x = 3$ m y $x = 7$ m",
+      "$x = 5$ m únicamente"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$x(10-x) = 21 \\Rightarrow x^2 - 10x + 21 = 0 \\Rightarrow (x-3)(x-7) = 0 \\Rightarrow x = 3$ o $x = 7$.",
+    "feedback_incorrect": "",
+    "explanation": "Resolviendo $A(x) = 21$:\n$$x(10 - x) = 21$$\n$$10x - x^2 = 21$$\n$$x^2 - 10x + 21 = 0$$\n$$(x - 3)(x - 7) = 0$$\n$$x = 3 \\quad \\text{o} \\quad x = 7$$\n\nDos soluciones tiene sentido: un corral de 3×7 y uno de 7×3 tienen el mismo área de 21 m² — son el mismo rectángulo girado. Simétrico respecto al óptimo $x = 5$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
     "reviewed": false
   }
 ]

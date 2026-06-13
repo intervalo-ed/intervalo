@@ -658,6 +658,9 @@ def create_test_session_db(
     if not exercises:
         raise ValueError("No hay ejercicios para los items seleccionados.")
 
+    # Orden aleatorio respecto al orden de contenido de los JSONs.
+    random.shuffle(exercises)
+
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),

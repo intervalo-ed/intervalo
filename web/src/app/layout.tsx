@@ -1,5 +1,6 @@
 import Providers from "@/app/providers"
 import AppChrome from "@/app/app-chrome"
+import { auth } from "@clerk/nextjs/server"
 import type { Metadata, Viewport } from "next"
 import { DM_Sans, Noto_Sans_Mono, Noto_Serif, Archivo, Cabin, Saira } from "next/font/google"
 import "./globals.css"
@@ -17,7 +18,7 @@ const utnFont = Cabin({ subsets: ["latin"], variable: "--font-utn" });
 const unsamFont = Saira({ subsets: ["latin"], variable: "--font-unsam" });
 
 export const metadata: Metadata = {
-  title: "Intervalo - Repaso Espaciado",
+  title: "Intervalo",
   description: "Sistema de repaso adaptativo con repetición espaciada",
 }
 
@@ -26,11 +27,15 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // El splash es el loader del shell de la app: solo lo mostramos a usuarios
+  // logueados. La landing y el onboarding (públicos) no lo muestran.
+  const { userId } = await auth()
+
   return (
     <html
       lang="es"
@@ -39,7 +44,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <AppChrome>{children}</AppChrome>
+          <AppChrome splash={!!userId}>{children}</AppChrome>
         </Providers>
       </body>
     </html>

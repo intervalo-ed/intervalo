@@ -294,7 +294,7 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
 
   useEffect(() => {
     if (typed.length >= WORD.length) return
-    const id = setTimeout(() => setTyped(WORD.slice(0, typed.length + 1)), randomDelay(75, 135))
+    const id = setTimeout(() => setTyped(WORD.slice(0, typed.length + 1)), randomDelay(32, 52))
     return () => clearTimeout(id)
   }, [typed])
 
@@ -317,7 +317,19 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="inline-flex flex-col items-center gap-[7px] leading-none">
         <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
-          {typed || " "}
+          {typed.length === 0
+            ? " "
+            : typed.split("").map((ch, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block"
+                  initial={{ opacity: 0, y: "0.3em", scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.16, ease: "easeOut" }}
+                >
+                  {ch}
+                </motion.span>
+              ))}
         </span>
         <div className="flex h-[4px] w-full overflow-hidden rounded-[2px]">
           {INTRO_BELT_COLORS.map((c, i) => (
@@ -503,8 +515,8 @@ export default function OnboardingWizard() {
         {step > 0 && <ProgressBar key="progress" step={step} onBack={goBack} />}
       </AnimatePresence>
       <div className="flex flex-1 flex-col items-center justify-start px-4 pb-8 pt-16">
-        <div className="grid flex-1 w-full max-w-md overflow-hidden">
-          <AnimatePresence mode="sync" initial={false} custom={{ dir: direction, from: prevStep }}>
+        <div className="relative grid flex-1 w-full max-w-md overflow-hidden">
+          <AnimatePresence mode="popLayout" initial={false} custom={{ dir: direction, from: prevStep }}>
             <motion.div
               key={showWhy ? "why" : step}
               custom={{ dir: direction, from: prevStep }}
@@ -553,7 +565,9 @@ export default function OnboardingWizard() {
                       <strong className="text-foreground">Prioriza</strong> lo que necesitás repasar
                       y omite lo que ya incorporaste.
                     </p>
-                    <p>Este tutorial dura menos de 5 minutos.</p>
+                    <p>
+                      Este tutorial dura <strong>menos de 5 minutos</strong>.
+                    </p>
                   </div>
                 </div>
               )}
