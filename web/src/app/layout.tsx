@@ -1,13 +1,13 @@
 import Providers from "@/app/providers"
 import AppChrome from "@/app/app-chrome"
 import type { Metadata, Viewport } from "next"
-import { Noto_Sans, Noto_Sans_Mono, Noto_Serif, Archivo, Cabin, Saira } from "next/font/google"
+import { DM_Sans, Noto_Sans_Mono, Noto_Serif, Archivo, Cabin, Saira } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils";
 
 const notoSerifHeading = Noto_Serif({ subsets: ["latin"], variable: "--font-heading" });
 
-const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 const notoSansMono = Noto_Sans_Mono({ subsets: ["latin"], variable: "--font-noto-mono" });
 
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={cn("h-full", "antialiased", "font-sans", notoSans.variable, notoSansMono.variable, notoSerifHeading.variable, ubaFont.variable, utnFont.variable, unsamFont.variable)}
+      className={cn("h-full", "antialiased", "font-sans", dmSans.variable, notoSansMono.variable, notoSerifHeading.variable, ubaFont.variable, utnFont.variable, unsamFont.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
