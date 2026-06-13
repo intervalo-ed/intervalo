@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-import { TrendingUpIcon } from "lucide-react"
+import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { useLeaderboard } from "./UseLeaderboard"
 
 // Emojis por tipo de carrera (los mismos del onboarding).
@@ -102,10 +102,13 @@ export function LeaderboardContent() {
         <Metric
           label="Ejercicios hechos"
           value={
-            <CountUp
-              value={totalExercises}
-              format={(n) => n.toLocaleString("es")}
-            />
+            <span className="inline-flex items-center gap-1.5">
+              <CountUp
+                value={totalExercises}
+                format={(n) => n.toLocaleString("es")}
+              />
+              <TrendingUpIcon className="size-[0.85em] text-primary" />
+            </span>
           }
         />
         <Metric
@@ -135,7 +138,7 @@ export function LeaderboardContent() {
             ) : (
               <span className="inline-flex items-center gap-1.5">
                 <CountUp value={xpToNext} format={(n) => n.toLocaleString("es")} />
-                <TrendingUpIcon className="size-[0.85em] text-primary" />
+                <FlagTriangleRightIcon className="size-[0.72em] text-[#EC4869]" />
               </span>
             )
           }
