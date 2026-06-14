@@ -14,6 +14,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { saveOnboarding } from "@/lib/onboarding/storage"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
+import { BELT_BAR_COLORS } from "@/lib/catalog"
 import { catalog, type Topic } from "@/lib/catalog/analisis-1.generated"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
@@ -283,7 +284,7 @@ const slideVariants = {
   exit: (c: SlideCustom) => ({ x: c.dir > 0 ? "-100%" : "100%", opacity: 1 }),
 }
 
-const INTRO_BELT_COLORS = ["#E0DDD0", "#1C3A8B", "#6B2D8B", "#6B3A1F", "#111111"]
+const INTRO_BELT_COLORS = BELT_BAR_COLORS
 
 // Intro: escribe "intervalo" con typewriter y revela los 5 colores del cinturón uno a uno.
 function IntroLogo({ onDone }: { onDone: () => void }) {
@@ -316,7 +317,7 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="inline-flex flex-col items-center gap-[7px] leading-none">
-        <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
+        <span className="font-heading text-[2.75rem] font-semibold text-[#F6F8FC]">
           {typed.length === 0
             ? " "
             : typed.split("").map((ch, i) => (
@@ -613,7 +614,7 @@ export default function OnboardingWizard() {
               {/* ── SLIDE 4: Ejercicio dummy ── */}
               {step === 4 && (
                 <div className="flex flex-col gap-5">
-<div className="text-lg leading-snug">
+<div className="text-base leading-snug">
                     <MathText text={EXERCISE_QUESTION} />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -646,7 +647,7 @@ export default function OnboardingWizard() {
                           disabled={solved || isWrong}
                           onClick={() => handleExercise(i)}
                           className={cn(
-                            "w-full rounded-md border bg-white/5 px-4 py-3.5 text-left text-sm transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
+                            "w-full rounded-md border bg-white/5 px-4 py-3.5 text-left text-base transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
                             borderCls,
                             textCls,
                             extraCls,
@@ -716,23 +717,7 @@ export default function OnboardingWizard() {
                     <strong className="text-foreground">Tocá</strong> el botón para ver cómo
                     evolucionan tus ítems con el paso de los días.
                   </p>
-                  <div className="mt-[8px]">
-                    <BeltGrid
-                      cellFor={(i) =>
-                        simItems
-                          ? simToCell(simItems[i])
-                          : i === 0
-                          ? firstTryCorrect
-                            ? { kind: "aprendiendo", days: 1 }
-                            : { kind: "pendiente" }
-                          : i <= 14
-                          ? { kind: "nuevo" }
-                          : { kind: "empty" }
-                      }
-                      showState
-                    />
-                  </div>
-                  <div className="mt-[19px] flex items-center justify-center gap-2">
+                  <div className="mt-[8px] flex items-center justify-center gap-2">
                     <div
                       className="flex h-10 items-center rounded-md border border-white/15 bg-white/5 px-3 text-xs font-semibold tabular-nums"
                       style={{ color: dayColor(simDay) }}
@@ -758,6 +743,22 @@ export default function OnboardingWizard() {
                     >
                       <RotateCcw className="size-4" />
                     </Button>
+                  </div>
+                  <div className="mt-[8px]">
+                    <BeltGrid
+                      cellFor={(i) =>
+                        simItems
+                          ? simToCell(simItems[i])
+                          : i === 0
+                          ? firstTryCorrect
+                            ? { kind: "aprendiendo", days: 1 }
+                            : { kind: "pendiente" }
+                          : i <= 14
+                          ? { kind: "nuevo" }
+                          : { kind: "empty" }
+                      }
+                      showState
+                    />
                   </div>
                 </div>
               )}
@@ -941,7 +942,7 @@ function PinnedCTA({
 
   if (showWhy) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pb-10 pt-6 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-6 pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
         <div className="w-full max-w-md pointer-events-auto">
           <Button size="lg" className={ctaCls} onClick={continueFromWhy}>
             Continuar
@@ -1025,7 +1026,7 @@ function PinnedCTA({
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
         <div className={cn(
-          "w-full max-w-md pointer-events-auto px-4 pb-10 transition-colors duration-300",
+          "w-full max-w-md pointer-events-auto px-4 pb-[var(--cta-pb)] transition-colors duration-300",
           exerciseCorrect === true
             ? "border-t border-green-500/40 bg-green-500/10 pt-0"
             : exerciseCorrect === false
@@ -1087,7 +1088,7 @@ function PinnedCTA({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pb-10 pt-6 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-6 pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
       <div className="w-full max-w-md pointer-events-auto">
         {content}
       </div>

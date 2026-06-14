@@ -28,10 +28,10 @@ export function Logo({
       {underline && (
         <>
           <path d="M0 182.16H159.072V230.16H0V182.16Z" fill="#FAFAFA" />
-          <rect x="159.072" y="182.16" width="159.072" height="48" fill="#00297A" />
-          <rect x="318.145" y="182.16" width="159.072" height="48" fill="#62007A" />
-          <rect x="477.217" y="182.16" width="159.072" height="48" fill="#7A4300" />
-          <path d="M636.289 182.16H795.361V230.16H636.289V182.16Z" fill="black" />
+          <rect x="159.072" y="182.16" width="159.072" height="48" fill="#0A3180" />
+          <rect x="318.145" y="182.16" width="159.072" height="48" fill="#730F8C" />
+          <rect x="477.217" y="182.16" width="159.072" height="48" fill="#674011" />
+          <path d="M636.289 182.16H795.361V230.16H636.289V182.16Z" fill="#272727" />
         </>
       )}
     </svg>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useSplash } from "@/app/splash-context"
+import { BELT_BAR_COLORS } from "@/lib/catalog"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 
@@ -11,7 +12,7 @@ const MAX_SPLASH = 4000
 
 // Misma animación que la intro del onboarding (ver IntroLogo en onboarding-wizard).
 const WORD = "intervalo"
-const BELT_COLORS = ["#E0DDD0", "#1C3A8B", "#6B2D8B", "#6B3A1F", "#111111"]
+const BELT_COLORS = BELT_BAR_COLORS
 
 function randomDelay(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -102,7 +103,7 @@ function SplashLogo({
 
   return (
     <div className="inline-flex flex-col items-center gap-[7px] leading-none">
-      <span className="font-heading text-[2.75rem] font-bold text-[#F6F8FC]">
+      <span className="font-heading text-[2.75rem] font-semibold text-[#F6F8FC]">
         {reduceMotion ? (
           WORD
         ) : typed.length === 0 ? (

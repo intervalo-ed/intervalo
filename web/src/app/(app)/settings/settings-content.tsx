@@ -8,6 +8,7 @@ import { EditUsernameDialog } from "./edit-username-dialog"
 import { EditApodoDialog } from "./edit-apodo-dialog"
 import { NotificationSettings } from "./notification-settings"
 import { SignOutButton } from "@clerk/nextjs"
+import Link from "next/link"
 import {
   AtSignIcon,
   LogOutIcon,
@@ -46,7 +47,13 @@ export function SettingsContent() {
         {muted ? "Activar sonidos" : "Desactivar sonidos"}
       </Button>
 
-      <Button variant="outline" size="lg" className={btnCls}>
+      <Button
+        variant="outline"
+        size="lg"
+        className={btnCls}
+        nativeButton={false}
+        render={<Link href="/settings/feedback" />}
+      >
         <MessageSquareIcon className="size-5" />
         Dar feedback
       </Button>

@@ -15,7 +15,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="shrink-0 border-t bg-background">
+    <nav className="shrink-0 border-t bg-background pb-[env(safe-area-inset-bottom)]">
       <ul className="mx-auto flex w-full max-w-2xl items-stretch">
         {TABS.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href
@@ -25,7 +25,7 @@ export function BottomNav() {
                 href={href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 py-5 text-xs transition-colors",
+                  "flex flex-col items-center gap-1 py-6 text-xs transition-colors",
                   isActive
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground",

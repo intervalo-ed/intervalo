@@ -49,6 +49,24 @@ const BELT_INFO: Record<BeltKey, { headline: string; description: string }> = {
 
 export const BELT_ORDER: BeltKey[] = ["white", "blue", "violet", "brown", "black"]
 
+// Fuente de verdad de los colores de cinturón, espejada del ícono de la app
+// (web/src/components/app-icon.tsx). `solid` = el color exacto de la marca, para
+// bloques de color (ícono, cubos de la landing, barras del logo). `onDark` = el
+// mismo tono aclarado para que se lea bien como texto/partícula sobre el fondo
+// oscuro (#131324), donde el negro y el azul puros quedan ilegibles.
+export const BELT_HEX: Record<BeltKey, { solid: string; onDark: string }> = {
+  white: { solid: "#FAFAFA", onDark: "#FAFAFA" },
+  blue: { solid: "#0A3180", onDark: "#5C86E8" },
+  violet: { solid: "#730F8C", onDark: "#C07BD4" },
+  brown: { solid: "#674011", onDark: "#C58A4A" },
+  black: { solid: "#272727", onDark: "#C9CDD6" },
+}
+
+// Arreglos ordenados (blanco→negro) para los lugares que pintan los 5 cinturones
+// como una secuencia. `BAR` = colores exactos; `VIVID` = versión legible/avivada.
+export const BELT_BAR_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].solid)
+export const BELT_VIVID_COLORS = BELT_ORDER.map((b) => BELT_HEX[b].onDark)
+
 export function beltAssetPath({ belt }: { belt: BeltKey }): string {
   return BELT_ASSET[belt]
 }

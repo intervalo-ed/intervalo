@@ -857,6 +857,56 @@
           }
         }
       }
+    },
+    "/feedback": {
+      "post": {
+        "summary": "Submit Feedback",
+        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort \u2014 if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
+        "operationId": "submit_feedback_feedback_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1018,6 +1068,29 @@
           "message"
         ],
         "title": "EnrollmentResponse"
+      },
+      "FeedbackRequest": {
+        "properties": {
+          "categoria": {
+            "type": "string",
+            "enum": [
+              "error",
+              "idea",
+              "comentario"
+            ],
+            "title": "Categoria"
+          },
+          "mensaje": {
+            "type": "string",
+            "title": "Mensaje"
+          }
+        },
+        "type": "object",
+        "required": [
+          "categoria",
+          "mensaje"
+        ],
+        "title": "FeedbackRequest"
       },
       "HTTPValidationError": {
         "properties": {

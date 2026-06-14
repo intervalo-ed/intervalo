@@ -1,0 +1,42 @@
+diff --git a/dist/index.js b/dist/index.js
+index 0a01b6fdf449f4b5330678564fd9fe2c84506c10..ccf28ce971ac0bc65576dc859ef0caa3768b46ff 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -877,6 +877,7 @@ function buildFilters(ctx, filters, t) {
+ }
+ function buildEnvelope(ctx, envelope, gain, t) {
+     const node = ctx.createGain();
++    node.gain.value = SILENCE;
+     if (!envelope) {
+         node.gain.setValueAtTime(gain, t);
+         node.gain.setTargetAtTime(SILENCE, t, 0.15);
+@@ -1012,7 +1013,7 @@ function buildEffectsChain(ctx, effects, destination) {
+     const { layers, effects } = normalize(definition);
+     const dest = destination ?? ctx.destination;
+     const chain = buildEffectsChain(ctx, effects ?? [], dest);
+-    const t0 = baseTime ?? ctx.currentTime;
++    const t0 = baseTime ?? (ctx.currentTime + 0.02);
+     const velocity = opts?.velocity ?? 1;
+     const allDisposers = [
+         chain.dispose
+diff --git a/dist/react.js b/dist/react.js
+index 9b5be74aaa782026ba4458dcdd9b3b222e8501f0..a65742665d201e327d2aa2c89bbef1e5b953885a 100644
+--- a/dist/react.js
++++ b/dist/react.js
+@@ -824,6 +824,7 @@ function buildFilters(ctx, filters, t) {
+ }
+ function buildEnvelope(ctx, envelope, gain, t) {
+     const node = ctx.createGain();
++    node.gain.value = SILENCE;
+     if (!envelope) {
+         node.gain.setValueAtTime(gain, t);
+         node.gain.setTargetAtTime(SILENCE, t, 0.15);
+@@ -959,7 +960,7 @@ function buildEffectsChain(ctx, effects, destination) {
+     const { layers, effects } = normalize(definition);
+     const dest = destination ?? ctx.destination;
+     const chain = buildEffectsChain(ctx, effects ?? [], dest);
+-    const t0 = baseTime ?? ctx.currentTime;
++    const t0 = baseTime ?? (ctx.currentTime + 0.02);
+     const velocity = opts?.velocity ?? 1;
+     const allDisposers = [
+         chain.dispose

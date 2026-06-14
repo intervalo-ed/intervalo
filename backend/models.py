@@ -236,6 +236,17 @@ class BeltInfo(Base):
     course = relationship("Course", back_populates="belt_infos")
 
 
+class Feedback(Base):
+    """User-submitted feedback (error report, idea, or comment) from settings."""
+    __tablename__ = "feedback"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    categoria = Column(String(20), nullable=False)  # error | idea | comentario
+    mensaje = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class PushSubscription(Base):
     __tablename__ = "push_subscriptions"
 
