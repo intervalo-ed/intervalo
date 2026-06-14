@@ -19,6 +19,10 @@ env/
 *.db
 *.sqlite
 *.sqlite3
+*.db.bak-*
+
+# Logs de desarrollo
+*.log
 
 # Variables de entorno (secretos)
 .env

@@ -28,6 +28,7 @@ import type { components } from "@/lib/api/schema"
 import {
   beltInfo,
   beltLabel,
+  BELT_HEX,
   BELT_ORDER,
   getBelt,
   type BeltKey,
@@ -58,13 +59,14 @@ const ctaCls =
 const zenCls =
   "h-12 w-full rounded-md bg-white text-[#3B1E73] hover:bg-white/90 hover:text-[#3B1E73]"
 
-// Color del título de cada unidad, tomado del cinturón correspondiente.
+// Color del título de cada unidad, tomado del cinturón correspondiente
+// (variante `onDark`, legible sobre el fondo oscuro).
 const BELT_COLOR: Record<BeltKey, string> = {
-  white: "#E5E7EB",
-  blue: "#2563EB",
-  violet: "#A78BFA",
-  brown: "#693F1C",
-  black: "#9CA3AF",
+  white: BELT_HEX.white.onDark,
+  blue: BELT_HEX.blue.onDark,
+  violet: BELT_HEX.violet.onDark,
+  brown: BELT_HEX.brown.onDark,
+  black: BELT_HEX.black.onDark,
 }
 
 export default function DashboardEntry() {

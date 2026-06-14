@@ -12,6 +12,7 @@ import {
 import { Spinner } from "@/components/ui/spinner"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import {
+  BELT_HEX,
   BELT_ORDER,
   beltInfo,
   getBelt,
@@ -124,7 +125,10 @@ export default function ZentestConfig() {
               key={belt}
               className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
             >
-              <h3 className="font-sans text-base font-semibold leading-tight">
+              <h3
+                className="font-sans text-base font-semibold leading-tight"
+                style={{ color: BELT_HEX[belt].onDark }}
+              >
                 {beltInfo({ belt }).headline}
               </h3>
               <div className="flex flex-col gap-3">

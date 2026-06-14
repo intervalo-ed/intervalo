@@ -31,6 +31,7 @@ from schemas import (
     BeltEntry,
     DueNotification,
     EnrollmentResponse,
+    FeedbackRequest,
     HealthResponse,
     LeaderboardEntry,
     LeaderboardResponse,
@@ -637,3 +638,62 @@ def session_summary(
         raise HTTPException(status_code=404, detail=str(exc))
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid session_id format")
+
+
+# ── Feedback ──────────────────────────────────────────────────────────────────
+
+def _send_feedback_email(categoria: str, user_id: int, mensaje: str) -> None:
+    """Notify via Resend. Best-effort: logs and swallows any failure so the
+    user's request never blocks on the email provider."""
+    import logging
+
+    api_key = os.environ.get("RESEND_API_KEY")
+    if not api_key:
+        logging.warning("RESEND_API_KEY not set — skipping feedback email")
+        return
+
+    to_email = os.environ.get("FEEDBACK_TO_EMAIL", "nvrancovich@gmail.com")
+    from_email = os.environ.get("FEEDBACK_FROM_EMAIL", "onboarding@resend.dev")
+
+    try:
+        import resend
+
+        resend.api_key = api_key
+        resend.Emails.send({
+            "from": from_email,
+            "to": to_email,
+            "subject": f"[{categoria}] Feedback de usuario {user_id}",
+            "text": f"Categoría: {categoria}\nUsuario: {user_id}\n\n{mensaje}",
+        })
+    except Exception:
+        logging.exception("Failed to send feedback email via Resend")
+
+
+@app.post("/feedback", response_model=SimpleResponse)
+def submit_feedback(
+    body: FeedbackRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Save user feedback and notify via email. user_id comes from the token.
+
+    The email is best-effort — if Resend fails we still return success so the
+    user isn't blocked by a provider outage.
+    """
+    from models import Feedback
+
+    mensaje = body.mensaje.strip()
+    if not mensaje:
+        raise HTTPException(status_code=422, detail="El mensaje no puede estar vacío.")
+
+    entry = Feedback(
+        user_id=current_user.id,
+        categoria=body.categoria,
+        mensaje=mensaje,
+    )
+    db.add(entry)
+    db.commit()
+
+    _send_feedback_email(body.categoria, current_user.id, mensaje)
+
+    return {"success": True}

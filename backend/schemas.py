@@ -8,7 +8,7 @@ POSTs still live next to the endpoints that consume them in `main.py`.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel
 
@@ -94,6 +94,13 @@ class NotificationSettings(BaseModel):
 
 class SimpleResponse(BaseModel):
     success: bool
+
+
+# ── Feedback ──────────────────────────────────────────────────────────────────
+
+class FeedbackRequest(BaseModel):
+    categoria: Literal["error", "idea", "comentario"]
+    mensaje: str
 
 
 class PushSubscriptionOut(BaseModel):

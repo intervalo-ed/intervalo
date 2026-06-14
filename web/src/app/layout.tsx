@@ -19,7 +19,16 @@ const unsamFont = Saira({ subsets: ["latin"], variable: "--font-unsam" });
 
 export const metadata: Metadata = {
   title: "Intervalo",
-  description: "Sistema de repaso adaptativo con repetición espaciada",
+  description: "Repasá análisis matemático todos los días",
+  openGraph: {
+    title: "Intervalo",
+    description: "Repasá análisis matemático todos los días",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Intervalo",
+    description: "Repasá análisis matemático todos los días",
+  },
 }
 
 export const viewport: Viewport = {

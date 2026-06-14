@@ -84,6 +84,16 @@
   --sidebar-ring: #7e80f7;
 }
 
+/* Espacio inferior de los CTA fijos (Continuar / Revisar / etc.).
+   En PWA instalada el botón se eleva del borde y suma la safe-area del
+   dispositivo. La clase .pwa la agrega app-chrome al detectar standalone. */
+:root {
+  --cta-pb: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+}
+html.pwa {
+  --cta-pb: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -2,6 +2,7 @@
 
 import { useSplash } from "@/app/splash-context"
 import { Wordmark } from "@/components/wordmark"
+import { BELT_BAR_COLORS } from "@/lib/catalog"
 import katex from "katex"
 import "katex/dist/katex.min.css"
 import { ChevronDown } from "lucide-react"
@@ -12,7 +13,7 @@ import { useEffect, useRef, useState } from "react"
 const STAGES: { name: string; color: string; exprs: string[] }[] = [
   {
     name: "Funciones",
-    color: "#E0DDD0",
+    color: BELT_BAR_COLORS[0],
     exprs: [
       "f(x) = x^2 - 3x + 2",
       "y = \\sqrt{x^2 + 1}",
@@ -23,7 +24,7 @@ const STAGES: { name: string; color: string; exprs: string[] }[] = [
   },
   {
     name: "Límites",
-    color: "#1C3A8B",
+    color: BELT_BAR_COLORS[1],
     exprs: [
       "\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = 1",
       "\\lim_{x \\to \\infty} \\left(1 + \\dfrac{1}{x}\\right)^x = e",
@@ -33,7 +34,7 @@ const STAGES: { name: string; color: string; exprs: string[] }[] = [
   },
   {
     name: "Derivadas",
-    color: "#6B2D8B",
+    color: BELT_BAR_COLORS[2],
     exprs: [
       "f'(x) = 2x - 3",
       "\\dfrac{d}{dx}\\left[x^n\\right] = nx^{n-1}",
@@ -44,7 +45,7 @@ const STAGES: { name: string; color: string; exprs: string[] }[] = [
   },
   {
     name: "Integrales",
-    color: "#6B3A1F",
+    color: BELT_BAR_COLORS[3],
     exprs: [
       "\\int x^2 \\, dx = \\dfrac{x^3}{3} + C",
       "\\displaystyle\\int_0^1 x^2 \\, dx = \\dfrac{1}{3}",
@@ -63,7 +64,7 @@ const Q_ITEMS: {
   q: string
 }[] = [
   {
-    color: "#E0DDD0",
+    color: BELT_BAR_COLORS[0],
     t1: "Funciones",
     t2: "Polinomios",
     t3: "Léxico",
@@ -71,7 +72,7 @@ const Q_ITEMS: {
     q: "3x^4 - 2x + 1",
   },
   {
-    color: "#E0DDD0",
+    color: BELT_BAR_COLORS[0],
     t1: "Funciones",
     t2: "Lineales",
     t3: "Formulación",
@@ -79,7 +80,7 @@ const Q_ITEMS: {
     q: "y = 3x - 5",
   },
   {
-    color: "#E0DDD0",
+    color: BELT_BAR_COLORS[0],
     t1: "Funciones",
     t2: "Cuadráticas",
     t3: "Clasificación",
@@ -87,7 +88,7 @@ const Q_ITEMS: {
     q: "x^2 - 4 = 0",
   },
   {
-    color: "#1C3A8B",
+    color: BELT_BAR_COLORS[1],
     t1: "Límites",
     t2: "Directa",
     t3: "Resolución",
@@ -95,7 +96,7 @@ const Q_ITEMS: {
     q: "\\lim_{x \\to 3}(x^2 + 1)",
   },
   {
-    color: "#1C3A8B",
+    color: BELT_BAR_COLORS[1],
     t1: "Límites",
     t2: "Notable",
     t3: "Formulación",
@@ -103,15 +104,15 @@ const Q_ITEMS: {
     q: "\\lim_{x \\to 0}\\dfrac{\\sin x}{x}",
   },
   {
-    color: "#1C3A8B",
+    color: BELT_BAR_COLORS[1],
     t1: "Límites",
-    t2: "Indeterminación",
+    t2: "Indeterm.",
     t3: "Resolución",
     qt: "¿Cuánto vale el siguiente límite?",
     q: "\\lim_{x \\to 2}\\dfrac{x^2 - 4}{x - 2}",
   },
   {
-    color: "#6B2D8B",
+    color: BELT_BAR_COLORS[2],
     t1: "Derivadas",
     t2: "Potencia",
     t3: "Derivación",
@@ -119,15 +120,15 @@ const Q_ITEMS: {
     q: "f(x) = x^5",
   },
   {
-    color: "#6B2D8B",
+    color: BELT_BAR_COLORS[2],
     t1: "Derivadas",
-    t2: "Regla de la cadena",
+    t2: "Cadena",
     t3: "Derivación",
     qt: "¿Cuál es la derivada de la siguiente función compuesta?",
     q: "h(x) = (3x^2 + 1)^4",
   },
   {
-    color: "#6B2D8B",
+    color: BELT_BAR_COLORS[2],
     t1: "Derivadas",
     t2: "Exponencial",
     t3: "Formulación",
@@ -135,7 +136,7 @@ const Q_ITEMS: {
     q: "f(x) = e^{2x}",
   },
   {
-    color: "#6B3A1F",
+    color: BELT_BAR_COLORS[3],
     t1: "Integrales",
     t2: "Potencia",
     t3: "Integración",
@@ -143,7 +144,7 @@ const Q_ITEMS: {
     q: "\\int x^4 \\, dx",
   },
   {
-    color: "#6B3A1F",
+    color: BELT_BAR_COLORS[3],
     t1: "Integrales",
     t2: "Definida",
     t3: "Resolución",
@@ -151,9 +152,9 @@ const Q_ITEMS: {
     q: "\\int_0^1 x^2 \\, dx",
   },
   {
-    color: "#6B3A1F",
+    color: BELT_BAR_COLORS[3],
     t1: "Integrales",
-    t2: "Trigonométricas",
+    t2: "Trigo",
     t3: "Formulación",
     qt: "¿Cuál es la integral de la siguiente función?",
     q: "\\int \\cos(x)\\,dx",
@@ -215,8 +216,8 @@ function QuestionLoop() {
   const item = Q_ITEMS[idx]
 
   return (
-    <div className="mx-auto grid h-[360px] max-w-[600px] grid-rows-[40px_40px_40px_40px_1fr] text-center">
-      {/* Tags: 2º renglón de la grilla */}
+    <div className="mx-auto grid h-[160px] max-w-[600px] grid-rows-[40px_40px_40px_1fr] text-center">
+      {/* Tags: 1º renglón de la grilla */}
       <div className="row-start-1 flex flex-wrap items-center justify-center gap-2">
         <span
           className="h-2.5 w-2.5 shrink-0 rounded-[2px] transition-colors duration-300"
@@ -238,13 +239,13 @@ function QuestionLoop() {
           {item.t3.toUpperCase()}
         </span>
       </div>
-      {/* Pregunta: 4º renglón */}
-      <div className="row-start-3 flex items-center justify-center text-[clamp(1rem,3.2vw,1.3rem)] leading-[1.4] text-[#F6F8FC]">
+      {/* Pregunta: 3º renglón, pegada a la fórmula */}
+      <div className="row-start-3 flex items-center justify-center text-[clamp(1.1rem,3.6vw,1.45rem)] leading-[1.4] text-[#F6F8FC]">
         {item.qt}
       </div>
-      {/* Fórmula: centrada en el espacio restante */}
+      {/* Fórmula: arriba del espacio restante, cerca de la pregunta */}
       <div
-        className="row-start-5 mx-auto flex max-w-[520px] items-center justify-center font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
+        className="row-start-4 mx-auto flex max-w-[520px] items-start justify-center pt-2 font-medium leading-[1.5] text-[#F6F8FC] [&_.katex-display]:m-0 [&_.katex]:text-[clamp(1.25rem,4vw,1.5rem)]"
         dangerouslySetInnerHTML={{ __html: renderMath(item.q) }}
       />
     </div>
@@ -259,7 +260,7 @@ function ProgressGrid() {
     const COLS = 26
     const ROWS = 40
     const TOTAL = COLS * ROWS
-    const COLORS = ["#E0DDD0", "#1C3A8B", "#6B2D8B", "#6B3A1F", "#3a3a3a"]
+    const COLORS = BELT_BAR_COLORS
     const WP: number[][] = [
       [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
       [0.15, 0.8, 0.2, 0.0, 0.0, 0.0],
@@ -349,11 +350,11 @@ function ProgressGrid() {
   }, [])
 
   const legend = [
-    { color: "#E0DDD0", label: "Funciones" },
-    { color: "#1C3A8B", label: "Límites" },
-    { color: "#6B2D8B", label: "Derivadas" },
-    { color: "#6B3A1F", label: "Integrales" },
-    { color: "#3a3a3a", label: "Aplicaciones", border: true },
+    { color: BELT_BAR_COLORS[0], label: "Funciones" },
+    { color: BELT_BAR_COLORS[1], label: "Límites" },
+    { color: BELT_BAR_COLORS[2], label: "Derivadas" },
+    { color: BELT_BAR_COLORS[3], label: "Integrales" },
+    { color: BELT_BAR_COLORS[4], label: "Aplicaciones", border: true },
   ]
 
   return (
@@ -400,37 +401,31 @@ export default function MarketingHome() {
     <main className="bg-[#131324] font-sans text-[#F6F8FC]">
       <section
         id="hero"
-        className="relative flex h-[100svh] min-h-[100vh] flex-col items-center overflow-hidden border-b border-[#38385A] px-5 pt-8 text-center max-md:px-5 max-md:pb-[4.5rem]"
+        className="relative flex min-h-[100svh] flex-col items-center justify-center gap-6 overflow-hidden border-b border-[#38385A] px-5 py-10 text-center"
         style={GRID_BG_STYLE}
       >
-        <div className="shrink-0 pb-2 pt-8">
-          <Wordmark
-            textClass="text-[clamp(1.7rem,6vw,2.2rem)]"
-            barClass="h-[3px]"
-          />
-        </div>
+        <Wordmark
+          textClass="text-[clamp(1.7rem,6vw,2.2rem)]"
+          barClass="h-[3px]"
+        />
 
-        <div className="flex w-full max-w-[36rem] flex-1 flex-col items-center justify-center gap-5 px-6">
-          <h1 className="font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
-            Repasá un poco todos los días.
-          </h1>
-          <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
-            Ejercitá las definiciones y propiedades que tanto cuestan entender
-            de forma efectiva.
-          </p>
-          <NotationCycler />
-        </div>
+        <h1 className="font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+          Repasá un poco todos los días.
+        </h1>
+        <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
+          Ejercitá las definiciones y propiedades que tanto cuestan entender de
+          forma efectiva.
+        </p>
+        <NotationCycler />
 
-        <div className="flex w-full shrink-0 flex-col items-center gap-3">
-          <Link
-            href="/onboarding"
-            className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#5457E5] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#7E80F7] hover:shadow-[0_10px_36px_rgba(84,87,229,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
-          >
-            Probar ahora
-          </Link>
-          <div className="flex items-center text-[#768899] opacity-60">
-            <ChevronDown className="size-[34px] animate-[bounce-down_1.8s_ease-in-out_infinite]" />
-          </div>
+        <Link
+          href="/onboarding"
+          className="inline-flex animate-[cta-breathe_3s_ease-in-out_infinite] items-center gap-2 rounded-[4px] bg-[#5457E5] px-8 py-[0.9rem] font-mono text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[#F6F8FC] transition-[transform,background] duration-150 hover:-translate-y-0.5 hover:animate-none hover:bg-[#7E80F7] hover:shadow-[0_10px_36px_rgba(84,87,229,0.4)] active:translate-y-0 max-md:w-full max-md:max-w-[340px] max-md:justify-center max-md:px-8 max-md:py-4 max-md:text-base"
+        >
+          Probar ahora
+        </Link>
+        <div className="flex items-center text-[#768899] opacity-60">
+          <ChevronDown className="size-[34px] animate-[bounce-down_1.8s_ease-in-out_infinite]" />
         </div>
 
         <style>{`
@@ -457,7 +452,7 @@ export default function MarketingHome() {
         </div>
       </section>
 
-      <section className="px-6 pb-20 pt-20" style={GRID_BG_STYLE}>
+      <section className="px-6 pb-20 pt-10" style={GRID_BG_STYLE}>
         <QuestionLoop />
       </section>
 

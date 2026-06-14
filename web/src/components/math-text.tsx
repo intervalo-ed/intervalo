@@ -63,7 +63,7 @@ function isTall(value: string): boolean {
 export default function MathText({ text }: { text: string }) {
   const segments = parse(text)
   return (
-    <span className="whitespace-pre-line">
+    <span className="whitespace-pre-line [&_.katex]:text-[1.05em]">
       {segments.map((s, i) => {
         if (s.type === "text") return <span key={i}>{s.value}</span>
         if (s.type === "bold")

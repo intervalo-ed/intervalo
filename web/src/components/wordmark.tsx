@@ -1,6 +1,7 @@
+import { BELT_BAR_COLORS } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 
-const BELT_COLORS = ["#E0DDD0", "#1C3A8B", "#6B2D8B", "#6B3A1F", "#111111"]
+const BELT_COLORS = BELT_BAR_COLORS
 
 export function Wordmark({
   textClass,
@@ -11,7 +12,7 @@ export function Wordmark({
 }) {
   return (
     <div className="inline-flex flex-col items-center gap-[5px] leading-none">
-      <span className={cn("font-heading font-bold text-[#F6F8FC]", textClass)}>
+      <span className={cn("font-heading font-semibold text-[#F6F8FC]", textClass)}>
         intervalo
       </span>
       <div className={cn("flex w-full overflow-hidden rounded-[2px]", barClass)}>

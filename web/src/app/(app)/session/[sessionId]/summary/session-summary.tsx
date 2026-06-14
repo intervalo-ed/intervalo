@@ -10,6 +10,7 @@ import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody } from "@/components/ui/screen"
 import { cn } from "@/lib/utils"
+import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -150,7 +151,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
         </div>
       </ScreenBody>
 
-      <div className="shrink-0 p-5">
+      <div className="shrink-0 px-5 pt-5 pb-[var(--cta-pb)]">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: showButton ? 1 : 0 }}
@@ -171,15 +172,8 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   )
 }
 
-// Colores de los cinturones (blanco, azul, violeta, marrón, negro), avivados
-// un poco para que resalten sobre el fondo oscuro.
-const BELT_COLORS = [
-  "#EDE9DC", // blanco
-  "#3B6FE0", // azul
-  "#9B4DD6", // violeta
-  "#B5733F", // marrón
-  "#C9CDD6", // negro (gris claro para que se vea)
-]
+// Colores de los cinturones, avivados para que resalten sobre el fondo oscuro.
+const BELT_COLORS = BELT_VIVID_COLORS
 
 type Particle = {
   id: number

@@ -22,6 +22,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
+  BELT_HEX,
   BELT_ORDER,
   beltInfo,
   getBelt,
@@ -170,7 +171,10 @@ export default function ZenConfig() {
             >
               <ChevronLeft />
             </Button>
-            <div className="flex-1 text-center text-base font-semibold">
+            <div
+              className="flex-1 text-center text-base font-semibold"
+              style={{ color: BELT_HEX[belt].onDark }}
+            >
               {beltInfo({ belt }).headline}
             </div>
             <Button
