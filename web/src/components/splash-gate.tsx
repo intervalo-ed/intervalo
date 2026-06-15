@@ -8,11 +8,23 @@ import { useEffect, useRef, useState } from "react"
 // El splash no se va hasta que la animación de entrada termina (señal
 // `introDone`), aunque los datos carguen antes. MAX_SPLASH es el fallback de
 // seguridad por si los datos nunca llegan.
-const MAX_SPLASH = 4000
+const MAX_SPLASH = 5000
 
 // Misma animación que la intro del onboarding (ver IntroLogo en onboarding-wizard).
 const WORD = "intervalo"
 const BELT_COLORS = BELT_BAR_COLORS
+
+// Ritmo de la intro. Antes la animación arrancaba apenas montaba (durante la
+// hidratación, con la fuente todavía cargando) y se sentía apurada. Ahora:
+// 1) esperamos a que las fuentes estén listas + un hold mínimo en navy,
+// 2) tipeamos más lento, y 3) garantizamos una duración mínima total.
+const START_HOLD = 400 // ms de fondo navy antes de empezar a tipear
+const CHAR_MIN = 55
+const CHAR_MAX = 85
+const BAR_FIRST = 340 // pausa antes de revelar la primera barra
+const BAR_STEP = 170 // entre barras siguientes
+const TAIL_HOLD = 600 // logo completo en pantalla antes de salir
+const MIN_INTRO = 2400 // piso de duración total de la intro (desde que arranca)
 
 function randomDelay(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -63,41 +75,70 @@ function SplashLogo({
   reduceMotion: boolean
   onDone: () => void
 }) {
+  const [started, setStarted] = useState(false)
   const [typed, setTyped] = useState("")
   const [bars, setBars] = useState(0)
   const doneRef = useRef(false)
+  const startRef = useRef(0)
 
+  // Cierra la intro respetando el piso de duración (MIN_INTRO desde que arrancó).
   const fireDone = () => {
-    if (!doneRef.current) {
-      doneRef.current = true
-      onDone()
-    }
+    if (doneRef.current) return
+    doneRef.current = true
+    const elapsed = performance.now() - startRef.current
+    setTimeout(onDone, Math.max(0, MIN_INTRO - elapsed))
   }
 
+  // Hold inicial: esperamos a que las fuentes estén listas y un mínimo en navy
+  // antes de animar, para que la palabra no "entre por la mitad" ni haya swap
+  // de fuente a mitad de animación.
   useEffect(() => {
-    if (reduceMotion) {
-      const id = setTimeout(fireDone, 600)
-      return () => clearTimeout(id)
+    let cancelled = false
+    let timer: ReturnType<typeof setTimeout>
+    const fontsReady = document.fonts?.ready ?? Promise.resolve()
+    fontsReady.then(() => {
+      if (cancelled) return
+      timer = setTimeout(() => {
+        startRef.current = performance.now()
+        setStarted(true)
+      }, START_HOLD)
+    })
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
     }
-    if (typed.length >= WORD.length) return
-    const id = setTimeout(
-      () => setTyped(WORD.slice(0, typed.length + 1)),
-      randomDelay(32, 52),
-    )
+  }, [])
+
+  // Reduce motion: sin typewriter; mostramos el logo completo y cerramos.
+  useEffect(() => {
+    if (!started || !reduceMotion) return
+    const id = setTimeout(fireDone, TAIL_HOLD)
     return () => clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typed, reduceMotion])
+  }, [started, reduceMotion])
 
   useEffect(() => {
-    if (reduceMotion || typed.length < WORD.length) return
+    if (!started || reduceMotion || typed.length >= WORD.length) return
+    const id = setTimeout(
+      () => setTyped(WORD.slice(0, typed.length + 1)),
+      randomDelay(CHAR_MIN, CHAR_MAX),
+    )
+    return () => clearTimeout(id)
+  }, [started, typed, reduceMotion])
+
+  useEffect(() => {
+    if (!started || reduceMotion || typed.length < WORD.length) return
     if (bars < BELT_COLORS.length) {
-      const id = setTimeout(() => setBars((b) => b + 1), bars === 0 ? 320 : 165)
+      const id = setTimeout(
+        () => setBars((b) => b + 1),
+        bars === 0 ? BAR_FIRST : BAR_STEP,
+      )
       return () => clearTimeout(id)
     }
-    const id = setTimeout(fireDone, 680)
+    const id = setTimeout(fireDone, TAIL_HOLD)
     return () => clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typed, bars, reduceMotion])
+  }, [started, typed, bars, reduceMotion])
 
   const shownBars = reduceMotion ? BELT_COLORS.length : bars
 

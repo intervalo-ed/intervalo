@@ -84,14 +84,27 @@
   --sidebar-ring: #7e80f7;
 }
 
-/* Espacio inferior de los CTA fijos (Continuar / Revisar / etc.).
-   En PWA instalada el botón se eleva del borde y suma la safe-area del
-   dispositivo. La clase .pwa la agrega app-chrome al detectar standalone. */
+/* Espaciado de los CTA fijos (Continuar / Revisar / etc.) y de la tab bar.
+   - --cta-pb: relleno inferior del CTA (suma la safe-area en PWA).
+   - --cta-pt: relleno superior del contenedor del CTA en sesiones.
+   - --nav-py: relleno vertical de los ítems de la tab bar.
+   En PWA instalada (clase .pwa, la agrega app-chrome al detectar standalone)
+   reducimos estos valores a ~3/4 para que el CTA y la tab bar no queden tan
+   elevados; en navegador se mantiene el espaciado original. */
 :root {
   --cta-pb: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  --cta-pt: 1.75rem;
+  --nav-py: 1.5rem;
 }
 html.pwa {
-  --cta-pb: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  --cta-pb: calc(2.625rem + env(safe-area-inset-bottom, 0px));
+  --cta-pt: 1.3125rem;
+  --nav-py: 1.125rem;
+}
+/* En PWA, el footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
+   referencia que el CTA de sesión; en navegador conserva su p-5. */
+html.pwa .screen-footer {
+  padding-bottom: var(--cta-pb);
 }
 
 @layer base {

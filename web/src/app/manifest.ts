@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Intervalo - Repaso Espaciado",
+    name: "Intervalo",
     short_name: "Intervalo",
     description: "Sistema de repaso adaptativo con repetición espaciada",
     start_url: "/",
