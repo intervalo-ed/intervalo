@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next"
 import { DM_Sans, Noto_Sans_Mono, Noto_Serif, Archivo, Cabin, Saira } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils";
+import { appleStartupImages } from "@/lib/ios-splash";
 
 const notoSerifHeading = Noto_Serif({ subsets: ["latin"], variable: "--font-heading" });
 
@@ -29,6 +30,12 @@ export const metadata: Metadata = {
     title: "Intervalo",
     description: "Repasá análisis matemático todos los días",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Intervalo",
+    startupImage: appleStartupImages,
+  },
 }
 
 export const viewport: Viewport = {
@@ -49,6 +56,7 @@ export default async function RootLayout({
     <html
       lang="es"
       className={cn("h-full", "antialiased", "font-sans", dmSans.variable, notoSansMono.variable, notoSerifHeading.variable, ubaFont.variable, utnFont.variable, unsamFont.variable)}
+      style={{ backgroundColor: "#131324" }}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

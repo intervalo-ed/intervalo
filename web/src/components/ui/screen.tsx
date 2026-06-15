@@ -71,7 +71,9 @@ export function ScreenFooter({
   innerClassName?: string
 }) {
   return (
-    <footer className={cn("shrink-0 border-t bg-background p-5", className)}>
+    <footer
+      className={cn("screen-footer shrink-0 border-t bg-background p-5", className)}
+    >
       <div className={cn("mx-auto w-full max-w-2xl", innerClassName)}>
         {children}
       </div>

@@ -356,14 +356,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               {/* Spacer inferior: flexiona para centrar cuando es corto, y
                   garantiza ~160px para scrollear bajo el último ítem (y que el
                   overlay del footer no lo tape) cuando el ejercicio es largo. */}
-              <div className="min-h-[calc(3.5rem_+_1.75rem_+_3rem_+_var(--cta-pb))] flex-[3]" />
+              <div className="min-h-[calc(3.5rem_+_var(--cta-pt)_+_3rem_+_var(--cta-pb))] flex-[3]" />
             </motion.div>
           </AnimatePresence>
         </div>
       </ScreenBody>
 
       {/* Capa 1 — fondo sólido del contenedor de botones (atrás de todo). */}
-      <div className="fixed inset-x-0 bottom-0 z-20 h-[calc(1.75rem_+_3rem_+_var(--cta-pb))] border-t bg-background" />
+      <div className="fixed inset-x-0 bottom-0 z-20 h-[calc(var(--cta-pt)_+_3rem_+_var(--cta-pb))] border-t bg-background" />
 
       {/* Capa 2 — feedback: sale desde abajo, por delante del fondo del
           contenedor pero por detrás de los botones (asoma por encima de ellos). */}
@@ -379,7 +379,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           >
             <div
               className={cn(
-                "border-t bg-green-500/10 px-5 pt-6 pb-[calc(1.75rem_+_3rem_+_var(--cta-pb))]",
+                "border-t bg-green-500/10 px-5 pt-6 pb-[calc(var(--cta-pt)_+_3rem_+_var(--cta-pb))]",
                 solvedAfterError ? "border-[#D9F99D]/50" : "border-green-500/50",
               )}
             >
@@ -419,7 +419,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="pointer-events-none fixed inset-x-0 bottom-0 z-30 bg-background"
           >
-            <div className="border-t border-orange-500/50 bg-orange-500/10 px-5 pt-6 pb-[calc(1.75rem_+_3rem_+_var(--cta-pb))]">
+            <div className="border-t border-orange-500/50 bg-orange-500/10 px-5 pt-6 pb-[calc(var(--cta-pt)_+_3rem_+_var(--cta-pb))]">
               <div className="mx-auto w-full max-w-2xl text-[15px]">
                 <span className="font-semibold text-orange-400">¿Seguro?</span>
                 <div className="mt-3 text-foreground/85">
@@ -433,7 +433,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
       {/* Capa 3 — botones (adelante). Contenedor amplio y equilibrado; sin fondo
           propio (lo aporta la capa 1) para que el feedback asome entre medio. */}
-      <div className="fixed inset-x-0 bottom-0 z-40 px-5 pt-7 pb-[var(--cta-pb)]">
+      <div className="fixed inset-x-0 bottom-0 z-40 px-5 pt-[var(--cta-pt)] pb-[var(--cta-pb)]">
         <div className="mx-auto w-full max-w-2xl">
           <div className="flex gap-2">
             {cur.showWhy ? (

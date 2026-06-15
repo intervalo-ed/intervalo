@@ -1,8 +1,43 @@
+diff --git a/node_modules/@web-kits/audio/.bun-tag-1b8923dab6306ffa b/.bun-tag-1b8923dab6306ffa
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@web-kits/audio/.bun-tag-335ef159e35d0f40 b/.bun-tag-335ef159e35d0f40
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index 0a01b6fdf449f4b5330678564fd9fe2c84506c10..ccf28ce971ac0bc65576dc859ef0caa3768b46ff 100644
+index 0a01b6fdf449f4b5330678564fd9fe2c84506c10..8e77191cb0637e672c2ec27dd543700580b69f61 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -877,6 +877,7 @@ function buildFilters(ctx, filters, t) {
+@@ -62,7 +62,14 @@ let storedOptions = {};
+     const c = getContext();
+     if (!masterGain || masterGain.context !== c) {
+         masterGain = c.createGain();
+-        masterGain.connect(c.destination);
++        const limiter = c.createDynamicsCompressor();
++        limiter.threshold.value = -6;
++        limiter.knee.value = 0;
++        limiter.ratio.value = 20;
++        limiter.attack.value = 0.003;
++        limiter.release.value = 0.25;
++        masterGain.connect(limiter);
++        limiter.connect(c.destination);
+     }
+     return masterGain;
+ }
+@@ -72,11 +79,7 @@ let storedOptions = {};
+  * If a master bus has been created, routes through it; otherwise falls
+  * back to `ctx.destination`.
+  */ function getDestination() {
+-    const c = getContext();
+-    if (masterGain && masterGain.context === c) {
+-        return masterGain;
+-    }
+-    return c.destination;
++    return getMasterBus();
+ }
+ /**
+  * Sets the master volume for all audio output.
+@@ -877,6 +880,7 @@ function buildFilters(ctx, filters, t) {
  }
  function buildEnvelope(ctx, envelope, gain, t) {
      const node = ctx.createGain();
@@ -10,7 +45,7 @@ index 0a01b6fdf449f4b5330678564fd9fe2c84506c10..ccf28ce971ac0bc65576dc859ef0caa3
      if (!envelope) {
          node.gain.setValueAtTime(gain, t);
          node.gain.setTargetAtTime(SILENCE, t, 0.15);
-@@ -1012,7 +1013,7 @@ function buildEffectsChain(ctx, effects, destination) {
+@@ -1012,7 +1016,7 @@ function buildEffectsChain(ctx, effects, destination) {
      const { layers, effects } = normalize(definition);
      const dest = destination ?? ctx.destination;
      const chain = buildEffectsChain(ctx, effects ?? [], dest);
@@ -20,10 +55,39 @@ index 0a01b6fdf449f4b5330678564fd9fe2c84506c10..ccf28ce971ac0bc65576dc859ef0caa3
      const allDisposers = [
          chain.dispose
 diff --git a/dist/react.js b/dist/react.js
-index 9b5be74aaa782026ba4458dcdd9b3b222e8501f0..a65742665d201e327d2aa2c89bbef1e5b953885a 100644
+index 9b5be74aaa782026ba4458dcdd9b3b222e8501f0..722e47ee46827bd59c90234a176c397b96b98f7c 100644
 --- a/dist/react.js
 +++ b/dist/react.js
-@@ -824,6 +824,7 @@ function buildFilters(ctx, filters, t) {
+@@ -36,7 +36,14 @@ let storedOptions = {};
+     const c = getContext();
+     if (!masterGain || masterGain.context !== c) {
+         masterGain = c.createGain();
+-        masterGain.connect(c.destination);
++        const limiter = c.createDynamicsCompressor();
++        limiter.threshold.value = -6;
++        limiter.knee.value = 0;
++        limiter.ratio.value = 20;
++        limiter.attack.value = 0.003;
++        limiter.release.value = 0.25;
++        masterGain.connect(limiter);
++        limiter.connect(c.destination);
+     }
+     return masterGain;
+ }
+@@ -46,11 +53,7 @@ let storedOptions = {};
+  * If a master bus has been created, routes through it; otherwise falls
+  * back to `ctx.destination`.
+  */ function getDestination() {
+-    const c = getContext();
+-    if (masterGain && masterGain.context === c) {
+-        return masterGain;
+-    }
+-    return c.destination;
++    return getMasterBus();
+ }
+ /**
+  * Configures the 3D audio listener position and orientation.
+@@ -824,6 +827,7 @@ function buildFilters(ctx, filters, t) {
  }
  function buildEnvelope(ctx, envelope, gain, t) {
      const node = ctx.createGain();
@@ -31,7 +95,7 @@ index 9b5be74aaa782026ba4458dcdd9b3b222e8501f0..a65742665d201e327d2aa2c89bbef1e5
      if (!envelope) {
          node.gain.setValueAtTime(gain, t);
          node.gain.setTargetAtTime(SILENCE, t, 0.15);
-@@ -959,7 +960,7 @@ function buildEffectsChain(ctx, effects, destination) {
+@@ -959,7 +963,7 @@ function buildEffectsChain(ctx, effects, destination) {
      const { layers, effects } = normalize(definition);
      const dest = destination ?? ctx.destination;
      const chain = buildEffectsChain(ctx, effects ?? [], dest);

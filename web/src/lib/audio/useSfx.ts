@@ -1,7 +1,7 @@
 "use client"
 
 import { useSound } from "@web-kits/audio/react"
-import { useMemo } from "react"
+import { useMemo, useRef } from "react"
 import { isSoundMuted } from "./sound-settings"
 
 const SOUND_PATHS = {
@@ -28,8 +28,15 @@ const MUTED_SFX = new Set<SfxName>(["wrong", "iterate"])
 // sustain: 1 prevents the library's default 0.5s fade-out on sample playback
 const FLAT_ENVELOPE = { decay: 3, sustain: 1 }
 
+// Ventana mínima entre dos disparos del MISMO sonido. Corta el "machine-gun" al
+// tocar muchos botones seguidos, principal causa del salto de volumen por
+// solapamiento de muestras idénticas en fase.
+const RETRIGGER_MS = 55
+
+type Voice = ReturnType<ReturnType<typeof useSound>>
+
 export function useSfx(): Record<SfxName, () => void> {
-  const raw: Record<SfxName, () => void> = {
+  const raw: Record<SfxName, () => Voice> = {
     pop: useSound({ source: { type: "sample", url: SOUND_PATHS.pop }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
     select: useSound({ source: { type: "sample", url: SOUND_PATHS.select }, envelope: FLAT_ENVELOPE }, { volume: VOLUME * 0.5 }),
     continue: useSound({ source: { type: "sample", url: SOUND_PATHS.continue }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
@@ -41,6 +48,10 @@ export function useSfx(): Record<SfxName, () => void> {
     xpCount: useSound({ source: { type: "sample", url: SOUND_PATHS.xpCount }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
   }
 
+  // Instancia activa y último disparo por sonido, para hacerlos monofónicos.
+  const activeRef = useRef<Partial<Record<SfxName, Voice>>>({})
+  const lastFiredRef = useRef<Partial<Record<SfxName, number>>>({})
+
   // Cada disparo consulta la preferencia en el momento, así un cambio en Ajustes
   // surte efecto sin re-montar los componentes que ya tienen el hook.
   return useMemo(() => {
@@ -49,7 +60,23 @@ export function useSfx(): Record<SfxName, () => void> {
       wrapped[name] = () => {
         if (MUTED_SFX.has(name)) return
         if (isSoundMuted()) return
-        raw[name]()
+
+        const now =
+          typeof performance !== "undefined" ? performance.now() : Date.now()
+        if (now - (lastFiredRef.current[name] ?? 0) < RETRIGGER_MS) return
+        lastFiredRef.current[name] = now
+
+        // Monofónico: cortamos la instancia previa del mismo sonido para que
+        // dos copias idénticas no se sumen en fase (volumen alto / clipping).
+        const prev = activeRef.current[name]
+        if (prev) {
+          try {
+            prev.stop()
+          } catch {
+            // la voz ya terminó; ignorar
+          }
+        }
+        activeRef.current[name] = raw[name]()
       }
     }
     return wrapped
