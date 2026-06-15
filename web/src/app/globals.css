@@ -97,6 +97,7 @@
   --cta-pt: 1.75rem;
   --nav-pt: 1.5rem;
   --nav-pb: 1.5rem;
+  --nav-safe-pb: env(safe-area-inset-bottom, 0px);
   --hdr-pt: 0.75rem;
   --hdr-pb: 0.75rem;
 }
@@ -107,14 +108,15 @@
    `pointer: coarse` excluye la PWA de escritorio y deja el navegador intacto. */
 @media (display-mode: standalone) and (pointer: coarse) {
   :root {
-    /* Padding al mínimo práctico: el botón (48px), los íconos/etiquetas y la
-       separación del home-indicator (env(safe-area-inset-bottom)) se mantienen;
-       solo sacamos el relleno sobrante para que la tab bar y el contenedor del
-       CTA queden lo más bajos posible. */
-    --cta-pb: calc(0.4rem + env(safe-area-inset-bottom, 0px));
+    /* Tab bar y CTA balanceados: más relleno ARRIBA para que los íconos/botón se
+       despeguen del borde superior y queden más abajo, y MENOS abajo recortando
+       la safe-area sobrante (el home-indicator se sigue despejando con ~0.55× del
+       inset, pero sin el void grande que dejaba el inset completo). */
+    --cta-pb: calc(0.1rem + env(safe-area-inset-bottom, 0px) * 0.55);
     --cta-pt: 0.5rem;
-    --nav-pt: 0.4rem;
-    --nav-pb: 0.2rem;
+    --nav-pt: 1.25rem;
+    --nav-pb: 0.25rem;
+    --nav-safe-pb: calc(env(safe-area-inset-bottom, 0px) * 0.55);
     /* Banner superior: -40% del relleno vertical respecto del navegador. */
     --hdr-pt: 0.45rem;
     --hdr-pb: 0.45rem;
