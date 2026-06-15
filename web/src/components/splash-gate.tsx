@@ -18,13 +18,13 @@ const BELT_COLORS = BELT_BAR_COLORS
 // hidratación, con la fuente todavía cargando) y se sentía apurada. Ahora:
 // 1) esperamos a que las fuentes estén listas + un hold mínimo en navy,
 // 2) tipeamos más lento, y 3) garantizamos una duración mínima total.
-const START_HOLD = 400 // ms de fondo navy antes de empezar a tipear
-const CHAR_MIN = 55
-const CHAR_MAX = 85
-const BAR_FIRST = 340 // pausa antes de revelar la primera barra
-const BAR_STEP = 170 // entre barras siguientes
+const START_HOLD = 700 // ms de fondo navy antes de empezar a tipear
+const CHAR_MIN = 96 // ~111ms promedio × 9 letras ≈ 1000ms de typewriter
+const CHAR_MAX = 126
+const BAR_FIRST = 360 // pausa antes de revelar la primera barra
+const BAR_STEP = 160 // entre barras siguientes (360 + 4×160 = 1000ms de subrayado)
 const TAIL_HOLD = 600 // logo completo en pantalla antes de salir
-const MIN_INTRO = 2400 // piso de duración total de la intro (desde que arranca)
+const MIN_INTRO = 2600 // piso desde que arranca: typewriter 1000 + subrayado 1000 + tail 600
 
 function randomDelay(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
