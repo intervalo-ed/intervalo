@@ -60,16 +60,6 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        {/* Activa la clase .pwa ANTES del primer paint para que los tamaños
-            reducidos en standalone (--nav-py / --cta-*) apliquen de entrada.
-            Si se hace recién en un useEffect, Mobile Safari no recalcula los
-            var() hasta un scroll y la tab bar / CTA quedan altos hasta entonces. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var s=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;if(s)document.documentElement.classList.add('pwa')}catch(e){}",
-          }}
-        />
         <Providers>
           <AppChrome splash={!!userId}>{children}</AppChrome>
         </Providers>

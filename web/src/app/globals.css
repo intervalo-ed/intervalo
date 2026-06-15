@@ -88,23 +88,28 @@
    - --cta-pb: relleno inferior del CTA (suma la safe-area en PWA).
    - --cta-pt: relleno superior del contenedor del CTA en sesiones.
    - --nav-py: relleno vertical de los ítems de la tab bar.
-   En PWA instalada (clase .pwa, la agrega app-chrome al detectar standalone)
-   reducimos estos valores a ~3/4 para que el CTA y la tab bar no queden tan
-   elevados; en navegador se mantiene el espaciado original. */
+   Valores por defecto = vista de navegador (sin tocar). */
 :root {
   --cta-pb: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   --cta-pt: 1.75rem;
   --nav-py: 1.5rem;
 }
-html.pwa {
-  --cta-pb: calc(2.1rem + env(safe-area-inset-bottom, 0px));
-  --cta-pt: 1.05rem;
-  --nav-py: 0.9rem;
-}
-/* En PWA, el footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
-   referencia que el CTA de sesión; en navegador conserva su p-5. */
-html.pwa .screen-footer {
-  padding-bottom: var(--cta-pb);
+
+/* Solo PWA instalada en móvil: reducimos el espaciado para que el CTA y la tab
+   bar no queden tan elevados. Usamos media query nativa (no una clase JS) para
+   que aplique en el primer paint sin que iOS necesite un repaint/scroll, y
+   `pointer: coarse` excluye la PWA de escritorio y deja el navegador intacto. */
+@media (display-mode: standalone) and (pointer: coarse) {
+  :root {
+    --cta-pb: calc(1.68rem + env(safe-area-inset-bottom, 0px));
+    --cta-pt: 0.84rem;
+    --nav-py: 0.72rem;
+  }
+  /* El footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
+     referencia que el CTA de sesión; en navegador conserva su p-5. */
+  .screen-footer {
+    padding-bottom: var(--cta-pb);
+  }
 }
 
 @layer base {
