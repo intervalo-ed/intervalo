@@ -97,9 +97,9 @@
   --nav-py: 1.5rem;
 }
 html.pwa {
-  --cta-pb: calc(2.625rem + env(safe-area-inset-bottom, 0px));
-  --cta-pt: 1.3125rem;
-  --nav-py: 1.125rem;
+  --cta-pb: calc(2.1rem + env(safe-area-inset-bottom, 0px));
+  --cta-pt: 1.05rem;
+  --nav-py: 0.9rem;
 }
 /* En PWA, el footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
    referencia que el CTA de sesión; en navegador conserva su p-5. */
