@@ -108,23 +108,13 @@
    `pointer: coarse` excluye la PWA de escritorio y deja el navegador intacto. */
 @media (display-mode: standalone) and (pointer: coarse) {
   :root {
-    /* Tab bar y CTA balanceados: más relleno ARRIBA para que los íconos/botón se
-       despeguen del borde superior y queden más abajo, y MENOS abajo recortando
-       la safe-area sobrante (el home-indicator se sigue despejando con ~0.55× del
-       inset, pero sin el void grande que dejaba el inset completo). */
-    --cta-pb: calc(0.1rem + env(safe-area-inset-bottom, 0px) * 0.55);
-    --cta-pt: 0.5rem;
-    --nav-pt: 1.25rem;
-    --nav-pb: 0.25rem;
-    --nav-safe-pb: calc(env(safe-area-inset-bottom, 0px) * 0.55);
-    /* Banner superior: -40% del relleno vertical respecto del navegador. */
-    --hdr-pt: 0.45rem;
-    --hdr-pb: 0.45rem;
-  }
-  /* El footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
-     referencia que el CTA de sesión; en navegador conserva su p-5. */
-  .screen-footer {
-    padding-bottom: var(--cta-pb);
+    /* Banner inferior y superior como en el PR #15: la tab bar (--nav-pt/--nav-pb,
+       --nav-safe-pb), el relleno del CTA (--cta-pt) y el del banner superior
+       (--hdr-pt/--hdr-pb) heredan los valores de :root (sin reducción PWA). Solo
+       el CTA suma más separación del borde inferior en PWA (3.5rem + safe-area,
+       como el viejo html.pwa). Se mantienen el safe-area-inset-top del header y el
+       fix de over-scroll. */
+    --cta-pb: calc(3.5rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
