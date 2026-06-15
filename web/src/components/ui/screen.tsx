@@ -25,7 +25,10 @@ export function ScreenHeader({
 }) {
   return (
     <header
-      className={cn("shrink-0 border-b bg-background px-5 py-3", className)}
+      className={cn(
+        "shrink-0 border-b bg-background px-5 pb-3 pt-[calc(0.75rem_+_env(safe-area-inset-top))]",
+        className,
+      )}
     >
       <div
         className={cn(
