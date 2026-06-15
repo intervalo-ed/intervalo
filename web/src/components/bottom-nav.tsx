@@ -15,7 +15,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="shrink-0 border-t bg-background pb-[env(safe-area-inset-bottom)]">
+    <nav className="shrink-0 border-t bg-background pb-[var(--nav-safe-pb)]">
       <ul className="mx-auto flex w-full max-w-2xl items-stretch">
         {TABS.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href
