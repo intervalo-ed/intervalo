@@ -84,15 +84,21 @@
   --sidebar-ring: #7e80f7;
 }
 
-/* Espaciado de los CTA fijos (Continuar / Revisar / etc.) y de la tab bar.
+/* Espaciado de los CTA fijos (Continuar / Revisar / etc.), la tab bar y el
+   banner superior.
    - --cta-pb: relleno inferior del CTA (suma la safe-area en PWA).
    - --cta-pt: relleno superior del contenedor del CTA en sesiones.
-   - --nav-py: relleno vertical de los ítems de la tab bar.
+   - --nav-pt/--nav-pb: relleno vertical de los ítems de la tab bar.
+   - --hdr-pt/--hdr-pb: relleno vertical del banner superior (sin la safe-area,
+     que se suma aparte en el padding-top).
    Valores por defecto = vista de navegador (sin tocar). */
 :root {
   --cta-pb: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   --cta-pt: 1.75rem;
-  --nav-py: 1.5rem;
+  --nav-pt: 1.5rem;
+  --nav-pb: 1.5rem;
+  --hdr-pt: 0.75rem;
+  --hdr-pb: 0.75rem;
 }
 
 /* Solo PWA instalada en móvil: reducimos el espaciado para que el CTA y la tab
@@ -103,12 +109,34 @@
   :root {
     --cta-pb: calc(1.68rem + env(safe-area-inset-bottom, 0px));
     --cta-pt: 0.84rem;
-    --nav-py: 0.72rem;
+    /* Tab bar: misma altura total (1.008 + 0.432 = 1.44rem ≈ los 0.72 simétricos
+       anteriores), pero con los ítems corridos ~20% hacia abajo (más relleno
+       arriba, menos abajo). */
+    --nav-pt: 1.008rem;
+    --nav-pb: 0.432rem;
+    /* Banner superior: -40% del relleno vertical respecto del navegador. */
+    --hdr-pt: 0.45rem;
+    --hdr-pb: 0.45rem;
   }
   /* El footer de pantallas (Enviar, Volver, etc.) usa la misma altura de
      referencia que el CTA de sesión; en navegador conserva su p-5. */
   .screen-footer {
     padding-bottom: var(--cta-pb);
+  }
+}
+
+/* Fix del bug de la tab bar elevada en la PWA de iOS: en standalone, `dvh` se
+   calcula corto en el primer paint y solo se corrige tras un repaint
+   (over-scroll), dejando el shell más bajo que la pantalla y la tab bar flotando
+   arriba. En standalone no hay barra de navegador dinámica, así que `height:100%`
+   encadenado desde <html> es estable y exacto desde el primer paint. */
+@media (display-mode: standalone) {
+  html,
+  body {
+    height: 100%;
+  }
+  .app-shell {
+    height: 100%;
   }
 }
 

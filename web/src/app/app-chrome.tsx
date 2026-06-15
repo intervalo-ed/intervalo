@@ -11,7 +11,7 @@ export default function AppChrome({
   splash: boolean
 }) {
   return (
-    <div className="flex h-dvh flex-col">
+    <div className="app-shell flex h-dvh flex-col">
       <SmartBarGate />
       <div className="min-h-0 flex-1">{children}</div>
       {splash && <SplashGate />}
