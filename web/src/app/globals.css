@@ -107,13 +107,14 @@
    `pointer: coarse` excluye la PWA de escritorio y deja el navegador intacto. */
 @media (display-mode: standalone) and (pointer: coarse) {
   :root {
-    --cta-pb: calc(1.68rem + env(safe-area-inset-bottom, 0px));
-    --cta-pt: 0.84rem;
-    /* Tab bar: misma altura total (1.008 + 0.432 = 1.44rem ≈ los 0.72 simétricos
-       anteriores), pero con los ítems corridos ~20% hacia abajo (más relleno
-       arriba, menos abajo). */
-    --nav-pt: 1.008rem;
-    --nav-pb: 0.432rem;
+    /* Padding al mínimo práctico: el botón (48px), los íconos/etiquetas y la
+       separación del home-indicator (env(safe-area-inset-bottom)) se mantienen;
+       solo sacamos el relleno sobrante para que la tab bar y el contenedor del
+       CTA queden lo más bajos posible. */
+    --cta-pb: calc(0.4rem + env(safe-area-inset-bottom, 0px));
+    --cta-pt: 0.5rem;
+    --nav-pt: 0.4rem;
+    --nav-pb: 0.2rem;
     /* Banner superior: -40% del relleno vertical respecto del navegador. */
     --hdr-pt: 0.45rem;
     --hdr-pb: 0.45rem;
