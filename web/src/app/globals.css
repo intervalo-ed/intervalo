@@ -121,18 +121,19 @@
   }
 }
 
-/* Fix del bug de la tab bar elevada en la PWA de iOS: en standalone, `dvh` se
-   calcula corto en el primer paint y solo se corrige tras un repaint
-   (over-scroll), dejando el shell más bajo que la pantalla y la tab bar flotando
-   arriba. En standalone no hay barra de navegador dinámica, así que `height:100%`
-   encadenado desde <html> es estable y exacto desde el primer paint. */
+/* Fix del shell en la PWA de iOS: `height:100%` (y `dvh`) en algunos iPhone
+   resuelven a la viewport CHICA (sin la zona del home-indicator) → el shell queda
+   corto, deja una franja vacía abajo y `env(safe-area-inset-bottom)` reporta 0.
+   `100lvh` (large viewport height) es siempre la pantalla COMPLETA, estable y
+   desde el primer paint, e incluye la safe-area → el shell llega al fondo y el
+   `env` vuelve a reportar bien. */
 @media (display-mode: standalone) {
   html,
   body {
-    height: 100%;
+    height: 100lvh;
   }
   .app-shell {
-    height: 100%;
+    height: 100lvh;
   }
 }
 
