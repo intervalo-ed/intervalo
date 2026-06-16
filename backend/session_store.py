@@ -81,14 +81,48 @@ def _get_catalog(course_id: int, belt: Belt, db: DBSession) -> BeltCatalog:
     return load_belt_catalogs(slug)[belt]
 
 
-def _belt_topic_types(
+def _user_catchup_types(
+    user_id: int, course_id: int, db: DBSession,
+) -> set[tuple[str, str, str]]:
+    """(belt, topic, exercise_type) de las units marcadas catch-up del usuario."""
+    rows = db.query(
+        UnitState.belt, UnitState.topic, UnitState.exercise_type,
+    ).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.is_catchup.is_(True),
+    ).all()
+    return {(r.belt, r.topic, r.exercise_type) for r in rows}
+
+
+def _mastery_types(
+    user_id: int, course_id: int, topic_key: TopicKey, db: DBSession,
+) -> list[str]:
+    """exercise_types de un tema que cuentan para maestría: los del banco menos
+    los que en este usuario existen como catch-up (repaso extra, no despromociona)."""
+    catchup = _user_catchup_types(user_id, course_id, db)
+    types = topic_exercise_types(course_id, topic_key.belt.value, topic_key.topic, db)
+    return [
+        et for et in types
+        if (topic_key.belt.value, topic_key.topic, et) not in catchup
+    ]
+
+
+def _belt_mastery_types(
+    user_id: int,
     course_id: int,
     catalog: BeltCatalog,
     db: DBSession,
 ) -> dict[TopicKey, list[str]]:
-    """Discover the exercise_types declared per topic for one belt."""
+    """exercise_types por tema de un cinturón, excluyendo los catch-up del
+    usuario, para que belt_progress no despromocione por un repaso extra."""
+    catchup = _user_catchup_types(user_id, course_id, db)
     return {
-        tk: topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        tk: [
+            et
+            for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+            if (tk.belt.value, tk.topic, et) not in catchup
+        ]
         for tk in catalog.all_keys()
     }
 
@@ -180,6 +214,8 @@ def _create_topic_units(
     course_id: int,
     topic_key: TopicKey,
     db: DBSession,
+    *,
+    is_catchup: bool = False,
 ) -> list[str]:
     """Create UnitState rows for every exercise_type of the given topic."""
     types = topic_exercise_types(course_id, topic_key.belt.value, topic_key.topic, db)
@@ -198,6 +234,7 @@ def _create_topic_units(
             repetitions=0,
             next_due=today,
             attempted=False,
+            is_catchup=is_catchup,
         ))
     return types
 
@@ -270,10 +307,17 @@ def _aggregate_topic_progress(
     expected_types: list[str],
 ) -> dict:
     """Roll per-unit state up into the topic-shaped progress dict the UI expects."""
-    total_types = len(expected_types)
-    mastered = sum(1 for r in rows if r.phase == "review")
-    attempted = any(r.attempted for r in rows)
+    # Maestría/status/progress se calculan SOLO sobre units no-catchup: un ítem
+    # agregado después (catch-up) se aprende como repaso extra y no debe bajar de
+    # "dominado" un tema ya dominado ni inflar 'mastered' al graduarse.
+    mastery_rows = [r for r in rows if not r.is_catchup]
+    catchup_types = {r.exercise_type for r in rows if r.is_catchup}
+    mastery_types = [et for et in expected_types if et not in catchup_types]
+    total_types = len(mastery_types)
+    mastered = sum(1 for r in mastery_rows if r.phase == "review")
+    attempted = any(r.attempted for r in mastery_rows)
     today = date.today()
+    # 'pending' incluye TODAS las filas (la catch-up vencida hoy es accionable).
     pending = any(r.next_due and r.next_due <= today for r in rows)
 
     if total_types == 0:
@@ -411,6 +455,62 @@ def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
     ).count()
 
 
+def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
+    """Crea units 'atrasadas' (catch-up): exercise_types o temas que quedaron
+    DETRÁS del frontier ya desbloqueado del usuario (p.ej. al agregar un ítem
+    nuevo al catálogo en una posición previa). Exento del tope ACTIVE_CAP: se
+    desbloquean de inmediato y vencen hoy para que sean repasables ya.
+
+    El frontier es el mayor índice de tema (en orden de catálogo) que tenga
+    alguna unit. Se rellena cada exercise_type faltante de cada tema en/antes del
+    frontier. El desbloqueo hacia adelante (temas después del frontier) lo sigue
+    manejando _ensure_active_units, con el tope."""
+    topic_keys = _all_topic_keys(course_id, db)
+
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    existing = {(r.belt, r.topic, r.exercise_type) for r in rows}
+    topics_with_units = {(r.belt, r.topic) for r in rows}
+
+    # Pase 1: frontier = mayor índice de tema con alguna unit.
+    frontier_idx = -1
+    for idx, tk in enumerate(topic_keys):
+        if (tk.belt.value, tk.topic) in topics_with_units:
+            frontier_idx = idx
+    if frontier_idx < 0:
+        return
+
+    # Pase 2: rellenar los exercise_types faltantes de cada tema en/antes del
+    # frontier. La unique constraint es el backstop anti-duplicado.
+    today = date.today()
+    changed = False
+    for tk in topic_keys[: frontier_idx + 1]:
+        types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
+        for et in sorted(types):
+            if (tk.belt.value, tk.topic, et) in existing:
+                continue
+            db.add(UnitState(
+                user_id=user_id,
+                course_id=course_id,
+                belt=tk.belt.value,
+                topic=tk.topic,
+                exercise_type=et,
+                phase="learning",
+                step_index=0,
+                ease_factor=2.5,
+                interval_days=1,
+                repetitions=0,
+                next_due=today,
+                attempted=False,
+                is_catchup=True,
+            ))
+            changed = True
+    if changed:
+        db.commit()
+
+
 def _ensure_active_units(
     user_id: int,
     course_id: int,
@@ -422,6 +522,10 @@ def _ensure_active_units(
     tema si entra completo sin pasarse de 15; si no entra, se espera a que
     gradúen units y se liberen cupos. A medida que las units graduan (pasan a
     'review') se vuelven a desbloquear temas hasta volver a llenar los 15."""
+    # Catch-up primero (exento del tope): ítems que quedaron detrás del frontier
+    # ya desbloqueado deben aparecer aunque haya >=15 units activas.
+    _fill_catchup_units(user_id, course_id, db)
+
     active = _active_unit_count(user_id, course_id, db)
     if active >= ACTIVE_CAP:
         return
@@ -813,15 +917,17 @@ def record_answer_db(
 
         if old_phase == "learning" and new_state.phase == "review":
             topic_key = unit_key.topic_key
-            expected_types = topic_exercise_types(
-                course_id, topic_key.belt.value, topic_key.topic, db,
-            )
+            # Maestría/promoción ignoran las units catch-up (repaso extra): un ítem
+            # agregado después no debe condicionar ni despromocionar lo ya logrado.
+            expected_types = _mastery_types(user_id, course_id, topic_key, db)
             if is_topic_mastered(state.unit_states, topic_key, expected_types):
                 xp_earned += XP_TOPIC_MASTERED
                 _ensure_active_units(user_id, course_id, db)
 
                 belt_catalog = _get_catalog(course_id, topic_key.belt, db)
-                belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+                belt_types_map = _belt_mastery_types(
+                    user_id, course_id, belt_catalog, db,
+                )
                 if belt_progress(
                     state.unit_states, belt_catalog, topic_types=belt_types_map,
                 ).promoted:
@@ -980,7 +1086,7 @@ def get_summary_db(
         focus_belt = Belt.WHITE
 
     belt_catalog = _get_catalog(course_id, focus_belt, db)
-    belt_types_map = _belt_topic_types(course_id, belt_catalog, db)
+    belt_types_map = _belt_mastery_types(user_id, course_id, belt_catalog, db)
     bp = belt_progress(unit_states_map, belt_catalog, topic_types=belt_types_map)
 
     xp_earned = sum(a.xp_earned or 0 for a in answers)
