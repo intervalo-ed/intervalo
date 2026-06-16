@@ -206,7 +206,7 @@ export function FeedbackFlow() {
                   setMensaje(e.target.value)
                   setError(null)
                 }}
-                className="min-h-[8rem] rounded-md"
+                className="min-h-[8rem] rounded-md text-base md:text-sm"
               />
             </label>
 
