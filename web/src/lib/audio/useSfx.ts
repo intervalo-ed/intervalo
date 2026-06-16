@@ -1,7 +1,7 @@
 "use client"
 
 import { useSound } from "@web-kits/audio/react"
-import { useMemo, useRef } from "react"
+import { useMemo } from "react"
 import { isSoundMuted } from "./sound-settings"
 
 const SOUND_PATHS = {
@@ -33,7 +33,18 @@ const FLAT_ENVELOPE = { decay: 3, sustain: 1 }
 // solapamiento de muestras idénticas en fase.
 const RETRIGGER_MS = 55
 
+// Release corto (anti-click) al cortar la voz previa: la deja en silencio en
+// ~5 ms, antes de que la nueva entre, así dos copias nunca se solapan en fase.
+const STOP_RELEASE_S = 0.005
+
 type Voice = ReturnType<ReturnType<typeof useSound>>
+
+// Estado GLOBAL (a nivel de módulo, no por componente). Antes eran `useRef`, así
+// que cada componente tenía su propio registro: dos componentes —o un doble
+// evento pointer+click— disparaban la MISMA muestra a la vez y se sumaban en
+// fase. Compartiéndolo, la monofonía y el throttle valen entre todos.
+const activeVoices: Partial<Record<SfxName, Voice>> = {}
+const lastFiredAt: Partial<Record<SfxName, number>> = {}
 
 export function useSfx(): Record<SfxName, () => void> {
   const raw: Record<SfxName, () => Voice> = {
@@ -48,10 +59,6 @@ export function useSfx(): Record<SfxName, () => void> {
     xpCount: useSound({ source: { type: "sample", url: SOUND_PATHS.xpCount }, envelope: FLAT_ENVELOPE }, { volume: VOLUME }),
   }
 
-  // Instancia activa y último disparo por sonido, para hacerlos monofónicos.
-  const activeRef = useRef<Partial<Record<SfxName, Voice>>>({})
-  const lastFiredRef = useRef<Partial<Record<SfxName, number>>>({})
-
   // Cada disparo consulta la preferencia en el momento, así un cambio en Ajustes
   // surte efecto sin re-montar los componentes que ya tienen el hook.
   return useMemo(() => {
@@ -63,23 +70,24 @@ export function useSfx(): Record<SfxName, () => void> {
 
         const now =
           typeof performance !== "undefined" ? performance.now() : Date.now()
-        if (now - (lastFiredRef.current[name] ?? 0) < RETRIGGER_MS) return
-        lastFiredRef.current[name] = now
+        if (now - (lastFiredAt[name] ?? 0) < RETRIGGER_MS) return
+        lastFiredAt[name] = now
 
-        // Monofónico: cortamos la instancia previa del mismo sonido para que
-        // dos copias idénticas no se sumen en fase (volumen alto / clipping).
-        const prev = activeRef.current[name]
+        // Monofónico: cortamos en seco la instancia previa del mismo sonido para
+        // que dos copias idénticas no se sumen en fase (volumen alto / clipping).
+        const prev = activeVoices[name]
         if (prev) {
           try {
-            prev.stop()
+            prev.stop(STOP_RELEASE_S)
           } catch {
             // la voz ya terminó; ignorar
           }
         }
-        activeRef.current[name] = raw[name]()
+        activeVoices[name] = raw[name]()
       }
     }
     return wrapped
+    // raw[name] son callbacks estables de useSound (useCallback con deps []).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, Object.values(raw))
+  }, [])
 }
