@@ -100,6 +100,11 @@ class UnitState(Base):
     repetitions = Column(Integer, default=0)
     next_due = Column(Date, nullable=True)
     attempted = Column(Boolean, default=False)
+    # Unit creada como "catch-up": un exercise_type/tema que quedó detrás del
+    # frontier ya desbloqueado (p.ej. al agregar un ítem nuevo al catálogo). Se
+    # excluye del cálculo de maestría/cinturón para no despromocionar un tema ya
+    # dominado; se aprende como repaso extra.
+    is_catchup = Column(Boolean, nullable=False, default=False, server_default="false")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
