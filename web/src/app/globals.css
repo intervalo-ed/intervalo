@@ -108,13 +108,16 @@
    `pointer: coarse` excluye la PWA de escritorio y deja el navegador intacto. */
 @media (display-mode: standalone) and (pointer: coarse) {
   :root {
-    /* Banner inferior y superior como en el PR #15: la tab bar (--nav-pt/--nav-pb,
-       --nav-safe-pb), el relleno del CTA (--cta-pt) y el del banner superior
-       (--hdr-pt/--hdr-pb) heredan los valores de :root (sin reducción PWA). Solo
-       el CTA suma más separación del borde inferior en PWA (3.5rem + safe-area,
-       como el viejo html.pwa). Se mantienen el safe-area-inset-top del header y el
-       fix de over-scroll. */
-    --cta-pb: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+    /* Tab bar y CTA ajustados (valores elegidos en el mockup): poco aire arriba
+       (--nav-pt/--cta-pt) y abajo SOLO el despeje del home-indicator (~0.29× del
+       safe-area-inset-bottom), sin el padding duplicado que dejaba el void. El
+       banner superior (--hdr-*) hereda :root; se mantienen el safe-area-inset-top
+       del header y el fix de over-scroll. */
+    --cta-pb: calc(0.25rem + env(safe-area-inset-bottom, 0px) * 0.29);
+    --cta-pt: 0.75rem;
+    --nav-pt: 0.88rem;
+    --nav-pb: 0.25rem;
+    --nav-safe-pb: calc(env(safe-area-inset-bottom, 0px) * 0.29);
   }
 }
 
