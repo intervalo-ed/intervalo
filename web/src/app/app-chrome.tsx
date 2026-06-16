@@ -1,5 +1,6 @@
 "use client"
 
+import { PwaDebug } from "@/components/pwa-debug"
 import { SmartBarGate } from "@/components/smart-bar"
 import { SplashGate } from "@/components/splash-gate"
 
@@ -12,6 +13,7 @@ export default function AppChrome({
 }) {
   return (
     <div className="app-shell flex h-dvh flex-col">
+      <PwaDebug />
       <SmartBarGate />
       <div className="min-h-0 flex-1">{children}</div>
       {splash && <SplashGate />}
