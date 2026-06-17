@@ -938,11 +938,11 @@ function PinnedCTA({
   onRevisar: () => void
   onFinish: () => void
 }) {
-  const ctaCls = "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  const ctaCls = "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
   if (showWhy) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-6 pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
         <div className="w-full max-w-md pointer-events-auto">
           <Button size="lg" className={ctaCls} onClick={continueFromWhy}>
             Continuar
@@ -1031,7 +1031,7 @@ function PinnedCTA({
             ? "border-t border-green-500/40 bg-green-500/10 pt-0"
             : exerciseCorrect === false
             ? "border-t border-orange-500/40 bg-orange-500/10 pt-0"
-            : "bg-gradient-to-t from-background via-background/90 to-transparent pt-6",
+            : "bg-gradient-to-t from-background via-background/90 to-transparent pt-[var(--cta-pt)]",
         )}>
           <AnimatePresence>
             {exerciseCorrect === true && (
@@ -1069,13 +1069,13 @@ function PinnedCTA({
           </AnimatePresence>
           <div className="flex gap-2">
             {exerciseCorrect === true && (
-              <Button variant="outline" size="lg" className="h-12 flex-1 rounded-md" onClick={openWhy}>
+              <Button variant="outline" size="lg" className="h-[var(--cta-h)] flex-1 rounded-md" onClick={openWhy}>
                 ¿Por qué?
               </Button>
             )}
             <Button
               size="lg"
-              className="h-12 flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+              className="h-[var(--cta-h)] flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
               disabled={exerciseSelection === null || exerciseCorrect === false}
               onClick={exerciseCorrect === true ? () => { sfx.continue(); goNext() } : onRevisar}
             >
@@ -1088,7 +1088,7 @@ function PinnedCTA({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-6 pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
+    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-4 pt-[var(--cta-pt)] pb-[var(--cta-pb)] bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none">
       <div className="w-full max-w-md pointer-events-auto">
         {content}
       </div>

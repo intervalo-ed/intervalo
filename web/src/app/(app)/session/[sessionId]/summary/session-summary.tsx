@@ -17,7 +17,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
-  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const { data, isError, error } = useSummary({ sessionId })
@@ -151,7 +151,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
         </div>
       </ScreenBody>
 
-      <div className="shrink-0 px-5 pt-5 pb-[var(--cta-pb)]">
+      <div className="shrink-0 px-5 pt-[var(--cta-pt)] pb-[var(--cta-pb)]">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: showButton ? 1 : 0 }}

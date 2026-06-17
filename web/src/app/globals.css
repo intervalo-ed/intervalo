@@ -87,7 +87,9 @@
 /* Espaciado de los CTA fijos (Continuar / Revisar / etc.), la tab bar y el
    banner superior.
    - --cta-pb: relleno inferior del CTA (suma la safe-area en PWA).
-   - --cta-pt: relleno superior del contenedor del CTA en sesiones.
+   - --cta-pt: relleno superior, igual en TODOS los banners de CTA (sesión,
+     config, resumen, onboarding) para que tengan la misma altura.
+   - --cta-h: alto del botón de CTA (Continuar/Comenzar/Enviar/Revisar).
    - --nav-pt/--nav-pb: relleno vertical de los ítems de la tab bar.
    - --hdr-pt/--hdr-pb: relleno vertical del banner superior (sin la safe-area,
      que se suma aparte en el padding-top).
@@ -95,6 +97,7 @@
 :root {
   --cta-pb: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   --cta-pt: 1.75rem;
+  --cta-h: 3.3rem;
   --nav-pt: 1.5rem;
   --nav-pb: 1.5rem;
   --nav-safe-pb: env(safe-area-inset-bottom, 0px);
@@ -114,7 +117,7 @@
        borde. El banner superior (--hdr-*) hereda :root; se mantienen el
        safe-area-inset-top del header y el fix de over-scroll. */
     --cta-pb: calc(1.5rem + env(safe-area-inset-bottom, 0px) * 0.65);
-    --cta-pt: 0.75rem;
+    --cta-pt: 1.25rem;
     --nav-pt: 0.88rem;
     --nav-pb: 0.25rem;
     --nav-safe-pb: calc(env(safe-area-inset-bottom, 0px) * 0.65);

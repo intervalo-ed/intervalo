@@ -26,7 +26,7 @@ import { useMemo, useState } from "react"
 import { useStartTest, type TestItem } from "./UseStartTest"
 
 const ctaCls =
-  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 function itemId({ belt, topic, exercise_type }: TestItem) {
   return `${belt}/${topic}/${exercise_type}`
