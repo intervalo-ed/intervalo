@@ -13,13 +13,11 @@
 
 let ctx: AudioContext | null = null
 let master: GainNode | null = null
-let analyserNode: AnalyserNode | null = null
 
 function getContext(): AudioContext {
   if (!ctx || ctx.state === "closed") {
     ctx = new AudioContext()
     master = null
-    analyserNode = null
   }
   if (ctx.state === "suspended") void ctx.resume()
   if (!master) {
@@ -33,10 +31,6 @@ function getContext(): AudioContext {
     limiter.release.value = 0.15
     master.connect(limiter)
     limiter.connect(ctx.destination)
-    // Tap de diagnóstico: mide el master ANTES del limiter.
-    analyserNode = ctx.createAnalyser()
-    analyserNode.fftSize = 2048
-    master.connect(analyserNode)
   }
   return ctx
 }
@@ -117,10 +111,4 @@ export function playSfx(name: string, url: string, volume: number): void {
     activeVoices.set(name, voice)
     source.start()
   })
-}
-
-// Para el panel de diagnóstico: analyser conectado al master (antes del limiter).
-export function getSfxAnalyser(): AnalyserNode {
-  getContext()
-  return analyserNode!
 }
