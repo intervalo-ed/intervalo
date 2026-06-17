@@ -443,7 +443,7 @@ def _rows_to_unit_states(
     return states, attempted
 
 
-ACTIVE_CAP = 15
+ACTIVE_CAP = 18
 
 
 def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
@@ -517,13 +517,13 @@ def _ensure_active_units(
     db: DBSession,
 ) -> None:
     """Desbloquea temas en orden de catálogo respetando un máximo ESTRICTO de
-    ACTIVE_CAP (15) units en fase de aprendizaje. Como un tema se desbloquea
+    ACTIVE_CAP (18) units en fase de aprendizaje. Como un tema se desbloquea
     entero (todos sus exercise_types de golpe), solo se introduce el siguiente
-    tema si entra completo sin pasarse de 15; si no entra, se espera a que
+    tema si entra completo sin pasarse de 18; si no entra, se espera a que
     gradúen units y se liberen cupos. A medida que las units graduan (pasan a
-    'review') se vuelven a desbloquear temas hasta volver a llenar los 15."""
+    'review') se vuelven a desbloquear temas hasta volver a llenar los 18."""
     # Catch-up primero (exento del tope): ítems que quedaron detrás del frontier
-    # ya desbloqueado deben aparecer aunque haya >=15 units activas.
+    # ya desbloqueado deben aparecer aunque haya >=18 units activas.
     _fill_catchup_units(user_id, course_id, db)
 
     active = _active_unit_count(user_id, course_id, db)

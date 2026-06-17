@@ -52,13 +52,13 @@ const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
 
 const WHITE_BELT_FUNCTIONS = [
   { key: "definition", name: "Definición", items: ["LEXI", "CLSF"] },
-  { key: "linear", name: "Lineales", items: ["CLSF", "FORM", "GRAF"] },
-  { key: "quadratic", name: "Cuadráticas", items: ["CLSF", "FORM", "GRAF"] },
-  { key: "polynomial", name: "Polinomiales", items: ["CLSF", "FORM", "GRAF"] },
-  { key: "exponential", name: "Exponenciales", items: ["CLSF", "FORM", "GRAF"] },
-  { key: "logarithmic", name: "Logarítmicas", items: ["CLSF", "FORM", "GRAF"] },
-  { key: "rational", name: "Racionales", items: ["CLSF", "FORM", "GRAF", "RESL"] },
-  { key: "trigonometric", name: "Trigonométricas", items: ["CLSF", "FORM", "GRAF", "RESL"] },
+  { key: "linear", name: "Lineales", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "quadratic", name: "Cuadráticas", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "polynomial", name: "Polinomiales", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "exponential", name: "Exponenciales", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "logarithmic", name: "Logarítmicas", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "rational", name: "Racionales", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
+  { key: "trigonometric", name: "Trigonométricas", items: ["LEXI", "CLSF", "FORM", "GRAF"] },
 ]
 
 const ITEM_COLORS = {
@@ -148,7 +148,7 @@ function stateDescription(cell: Cell): string {
 // ── Simulación de evolución de la grilla ──
 // Cada iteración = 1 día. Se intentan los ítems "nuevo" y "pendiente" (vencen hoy).
 // Acierto inicial aleatorio 75–85%, +10% por cada fallo. Graduar = 3 aciertos seguidos
-// con lapsos mínimos de 1 día. Tope de 15 ítems activos (nuevo+pendiente+aprendiendo);
+// con lapsos mínimos de 1 día. Tope de 18 ítems activos (nuevo+pendiente+aprendiendo);
 // al graduar uno se desbloquea el siguiente.
 type SimItem = {
   status: Exclude<Cell["kind"], "empty"> | "bloqueado"
@@ -159,7 +159,7 @@ type SimItem = {
   ladderIdx: number // posición en SM2_LADDER (solo maduros)
 }
 
-const ACTIVE_CAP = 15
+const ACTIVE_CAP = 18
 const SM2_LADDER = [3, 7, 14, 21, 30] // intervalos (días) tras graduar, suben con la racha
 
 // Intervalo del escalón `idx` del ladder. Pasado el máximo, suma 15 días por escalón.
@@ -177,7 +177,7 @@ function initSim(correct: boolean): SimItem[] {
       return correct
         ? { status: "aprendiendo", prob, streak: 1, due: 1, mature: false, ladderIdx: 0 }
         : { status: "pendiente", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
-    if (i <= 14) return { status: "nuevo", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
+    if (i < ACTIVE_CAP) return { status: "nuevo", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
     return { status: "bloqueado", prob, streak: 0, due: 0, mature: false, ladderIdx: 0 }
   })
 }
@@ -697,7 +697,7 @@ export default function OnboardingWizard() {
                   <BeltGrid
                     cellFor={(i) => {
                       if (i === 0) return firstTryCorrect ? { kind: "aprendiendo", days: 1 } : { kind: "pendiente" }
-                      if (i <= 14) return { kind: "nuevo" }
+                      if (i < ACTIVE_CAP) return { kind: "nuevo" }
                       return { kind: "empty" }
                     }}
                     onItemTap={() => setItemTapped6(true)}
@@ -753,7 +753,7 @@ export default function OnboardingWizard() {
                           ? firstTryCorrect
                             ? { kind: "aprendiendo", days: 1 }
                             : { kind: "pendiente" }
-                          : i <= 14
+                          : i < ACTIVE_CAP
                           ? { kind: "nuevo" }
                           : { kind: "empty" }
                       }
