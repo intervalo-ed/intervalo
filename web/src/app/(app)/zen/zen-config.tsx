@@ -63,16 +63,14 @@ export default function ZenConfig() {
   const belt = BELT_ORDER[beltIdx]
   const topics = useMemo(() => playableTopics({ belt }), [belt])
 
-  // Topics enabled for the current unit. Default: all of them on.
-  const [enabled, setEnabled] = useState<Set<string>>(
-    () => new Set(playableTopics({ belt: BELT_ORDER[0] }).map((t) => t.key)),
-  )
+  // Topics enabled for the current unit. Default: all off.
+  const [enabled, setEnabled] = useState<Set<string>>(() => new Set())
 
   function selectBelt(nextIdx: number) {
     sfx.iterate()
     const next = BELT_ORDER[nextIdx]
     setBeltIdx(nextIdx)
-    setEnabled(new Set(playableTopics({ belt: next }).map((t) => t.key)))
+    setEnabled(new Set())
   }
 
   function prevBelt() {
@@ -105,7 +103,7 @@ export default function ZenConfig() {
 
   function onStart() {
     if (!canStart) return
-    sfx.start()
+    sfx.continue()
     startZen.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",

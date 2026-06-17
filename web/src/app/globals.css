@@ -109,11 +109,11 @@
 @media (display-mode: standalone) and (pointer: coarse) {
   :root {
     /* Tab bar y CTA ajustados (valores elegidos en el mockup): aire arriba
-       (--nav-pt/--cta-pt) y abajo SOLO el despeje del home-indicator (~0.21× del
-       safe-area-inset-bottom ≈ 11px en iPhone 13), sin el padding duplicado que
-       dejaba el void. El banner superior (--hdr-*) hereda :root; se mantienen el
+       (--nav-pt/--cta-pt) y abajo el despeje del home-indicator (0.65× del
+       safe-area-inset-bottom) más 1.5rem de aire fijo para separar el CTA del
+       borde. El banner superior (--hdr-*) hereda :root; se mantienen el
        safe-area-inset-top del header y el fix de over-scroll. */
-    --cta-pb: calc(0.25rem + env(safe-area-inset-bottom, 0px) * 0.65);
+    --cta-pb: calc(1.5rem + env(safe-area-inset-bottom, 0px) * 0.65);
     --cta-pt: 0.75rem;
     --nav-pt: 0.88rem;
     --nav-pb: 0.25rem;
