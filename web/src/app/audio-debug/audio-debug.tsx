@@ -1,16 +1,16 @@
 "use client"
 
-import { useAnalyser } from "@web-kits/audio/react"
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react"
 import { useSfx, type SfxName } from "@/lib/audio/useSfx"
+import { getSfxAnalyser } from "@/lib/audio/sfx-engine"
 
 const SFX_NAMES: SfxName[] = [
   "pop", "select", "continue", "correct", "wrong", "iterate", "start", "end", "xpCount",
 ]
 const MUTED = new Set<SfxName>(["wrong", "iterate"])
 
-// Un sonido normal pica ≈ 0.1 en el master (volumen 0.2 × gain de capa 0.5).
-// Marcamos SPIKE cuando el nivel real supera holgadamente eso (el bug salta a ~1.0).
+// Un sonido normal pica ≈ 0.1 en el master. Marcamos SPIKE cuando el nivel real
+// supera holgadamente eso (el bug de WebKit salta a ~1.0).
 const SPIKE_THRESHOLD = 0.3
 const HOLD_MS = 4000
 
@@ -23,7 +23,7 @@ type Line = { id: number; t: string; text: string; spike: boolean }
 const subscribeNoop = () => () => {}
 
 export default function AudioDebug() {
-  // useAnalyser crea el AudioContext al renderizar, así que el panel debe
+  // El motor crea el AudioContext al pedir el analyser, así que el panel debe
   // montarse solo en cliente (en SSR no existe AudioContext).
   const isClient = useSyncExternalStore(subscribeNoop, () => true, () => false)
   if (!isClient) return null
@@ -32,8 +32,9 @@ export default function AudioDebug() {
 
 function AudioDebugPanel() {
   const sfx = useSfx()
-  const analyser = useAnalyser({ fftSize: 2048 })
-  const ctx = analyser.node.context as AudioContext
+  const [analyser] = useState(() => getSfxAnalyser())
+  const ctx = analyser.context as AudioContext
+  const dataRef = useRef(new Float32Array(analyser.fftSize))
 
   const [info] = useState<string[]>(() => {
     const standalone =
@@ -70,10 +71,10 @@ function AudioDebugPanel() {
   }, [])
 
   useEffect(() => {
-    const audioCtx = analyser.node.context as AudioContext
     let raf = 0
     const loop = () => {
-      const data = analyser.getFloatTimeDomainData()
+      analyser.getFloatTimeDomainData(dataRef.current)
+      const data = dataRef.current
       let p = 0
       for (let i = 0; i < data.length; i++) {
         const a = data[i] < 0 ? -data[i] : data[i]
@@ -85,7 +86,7 @@ function AudioDebugPanel() {
         inSpike.current = true
         setSpikes((n) => n + 1)
         log(
-          `⚠ SPIKE ${p.toFixed(3)} (${db(p)} dB) · último: ${lastSound.current} · ctx ${audioCtx.state} @ ${audioCtx.currentTime.toFixed(3)}s`,
+          `⚠ SPIKE ${p.toFixed(3)} (${db(p)} dB) · último: ${lastSound.current} · ctx ${ctx.state} @ ${ctx.currentTime.toFixed(3)}s`,
           true,
         )
       } else if (p < SPIKE_THRESHOLD * 0.8) {
@@ -106,7 +107,7 @@ function AudioDebugPanel() {
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
-  }, [analyser, log])
+  }, [analyser, ctx, log])
 
   function play(name: SfxName) {
     lastSound.current = name
