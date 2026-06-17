@@ -2,7 +2,6 @@
 
 import { ClerkProvider } from "@clerk/nextjs"
 import { esUY } from "@clerk/localizations"
-import { SoundProvider } from "@web-kits/audio/react"
 import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -45,9 +44,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       >
         <QueryClientProvider client={queryClient}>
           <NuqsAdapter>
-            <SoundProvider>
-              <SplashProvider>{children}</SplashProvider>
-            </SoundProvider>
+            <SplashProvider>{children}</SplashProvider>
           </NuqsAdapter>
         </QueryClientProvider>
       </ThemeProvider>
