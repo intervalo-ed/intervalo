@@ -75,7 +75,8 @@ export const catalog: Catalog = {
           "exercise_types": [
             "LEXI",
             "CLSF",
-            "FORM"
+            "FORM",
+            "GRAF"
           ]
         },
         {
