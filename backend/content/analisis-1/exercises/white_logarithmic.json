@@ -14,7 +14,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Una función logarítmica tiene la forma $f(x) = \\log_a(x)$.",
-    "feedback_incorrect": "Una función logarítmica usa el logaritmo de la variable. La correcta es $f(x) = \\log_2(x)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una **función logarítmica** tiene la forma $f(x) = \\log_a(x)$, donde $a > 0$ y $a \\neq 1$ es la **base**.\n\nEl logaritmo responde a la pregunta: ¿a qué potencia hay que elevar $a$ para obtener $x$?\n$$\\log_a(x) = y \\iff a^y = x$$\n\nAsí, $f(x) = \\log_2(x)$ es logarítmica (base 2), mientras que $2^x$ es exponencial, $x^2$ es polinómica y $1/x$ es racional.",
@@ -35,12 +35,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Las funciones logarítmicas tienen una asíntota vertical ($x = 0$ en su forma básica).",
-    "feedback_incorrect": "La línea vertical que la función no puede cruzar se llama asíntota vertical. Aquí está en $x = 0$.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x)",
     "graph_view": [
       -0.5,
-      6,
-      -4,
+      8.5,
+      -3,
       5
     ],
     "explanation": "La **asíntota vertical** es una recta vertical $x = c$ que la función se acerca pero nunca toca ni cruza.\n\nPara $f(x) = \\log_2(x)$, la asíntota está en $x = 0$ porque el logaritmo no está definido para $x \\leq 0$.\n\nA medida que $x \\to 0^+$, la función se va a $-\\infty$:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\n\nLa recta $x = 0$ (el eje $Y$) actúa como una **frontera infranqueable** para la gráfica.",
@@ -61,7 +61,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "El logaritmo solo está definido para valores positivos: $x > 0$.",
-    "feedback_incorrect": "El logaritmo de un número negativo o de cero no está definido. El dominio es $x > 0$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué? Porque $\\log(x) = y$ equivale a $10^y = x$. Como $10^y > 0$ para cualquier $y$ real, no existe ningún $y$ tal que $10^y = 0$ o $10^y < 0$.\n\nEn otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$, no vale $0$ ahí).",
@@ -82,7 +82,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "El logaritmo y la exponencial en la misma base son funciones inversas: $\\log_2(2^x) = x$.",
-    "feedback_incorrect": "$g(x) = \\log_2(x)$ es la función inversa de $f(x) = 2^x$: se reflejan respecto a $y = x$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Dos funciones son **inversas** cuando una deshace lo que hace la otra. Para $f(x) = 2^x$ y $g(x) = \\log_2(x)$:\n$$\\log_2(2^x) = x \\qquad \\text{y} \\qquad 2^{\\log_2(x)} = x$$\n\nGeométricamente, las gráficas de una función y su inversa son **simétricas respecto a la recta** $y = x$.\n\nEsta propiedad es general: $\\log_b(b^x) = x$ y $b^{\\log_b x} = x$ para cualquier base válida $b$.",
@@ -103,7 +103,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = 2^x$ es exponencial (la inversa del logaritmo), no logarítmica.",
-    "feedback_incorrect": "$f(x) = 2^x$ es la función exponencial. Las logarítmicas son su inversa.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función **exponencial** tiene la variable en el exponente: $f(x) = a^x$.\nUna función **logarítmica** tiene la variable dentro de un logaritmo: $f(x) = \\log_a(x)$.\n\nAmbas son inversas entre sí. $f(x) = 2^x$ es exponencial (base 2), no logarítmica.\n\nLas otras opciones sí son logarítmicas: $\\log_2(x)$ (base 2), $\\ln(x) = \\log_e(x)$ (base $e$) y $\\log(x+1)$ (base 10 con argumento desplazado).",
@@ -124,12 +124,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La asíntota vertical de $\\log_2(x)$ es $x = 0$: la función no existe para $x \\leq 0$.",
-    "feedback_incorrect": "La asíntota vertical de $f(x) = \\log_2(x)$ está en $x = 0$.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x)",
     "graph_view": [
       -0.5,
-      6,
-      -4,
+      8.5,
+      -3,
       5
     ],
     "explanation": "Para encontrar la **asíntota vertical** de $f(x) = \\log_b(x)$, hay que determinar dónde el argumento se anula o se vuelve negativo.\n\nComo $\\log_2(x)$ requiere $x > 0$, la frontera es $x = 0$:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\n\nLa recta $x = 0$ es la asíntota vertical. La opción $y = 0$ sería una **asíntota horizontal**, que las funciones logarítmicas básicas no tienen.",
@@ -150,7 +150,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\log_2(1) = 0$ porque $2^0 = 1$.",
-    "feedback_incorrect": "$\\log_2(1) = 0$ ya que $2^0 = 1$. Todo logaritmo de 1 vale 0.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad fundamental** es que $\\log_b(1) = 0$ para cualquier base válida $b > 0$, $b \\neq 1$.\n\n¿Por qué? Porque $b^0 = 1$ siempre. Entonces:\n$$\\log_b(1) = 0 \\iff b^0 = 1 \\checkmark$$\n\nAplicado al caso: $\\log_2(1) = 0$ porque $2^0 = 1$.\n\nEsta propiedad implica que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.",
@@ -171,7 +171,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\log_{10}(10) = 1$ porque $10^1 = 10$.",
-    "feedback_incorrect": "$\\log_{10}(10) = 1$ ya que $10^1 = 10$. El logaritmo de la base vale siempre 1.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad fundamental** es que $\\log_b(b) = 1$ para cualquier base válida $b$.\n\n¿Por qué? Porque $b^1 = b$ siempre. Entonces:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\n\nAplicado: $\\log_{10}(10) = 1$ porque $10^1 = 10$.\n\nEsto significa que **todas las funciones logarítmicas básicas pasan por el punto $(b,\\, 1)$**, donde $b$ es la base.",
@@ -192,12 +192,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Con base $a > 1$, $f(x) = \\log_a(x)$ es creciente (aunque cada vez más lentamente).",
-    "feedback_incorrect": "Cuando la base es mayor que 1, la función logarítmica es creciente.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x)",
     "graph_view": [
       -0.5,
-      6,
-      -4,
+      8.5,
+      -3,
       5
     ],
     "explanation": "El comportamiento de $f(x) = \\log_a(x)$ depende de la base $a$:\n\n- Si $a > 1$: la función es **creciente** (a mayor $x$, mayor $f(x)$), aunque crece cada vez más lento.\n- Si $0 < a < 1$: la función es **decreciente**.\n\nEn ambos casos, la función pasa por $(1,\\, 0)$ y tiene asíntota vertical en $x = 0$.\n\nPara $\\log_2(x)$: $f(1) = 0$, $f(2) = 1$, $f(4) = 2$, $f(8) = 3$ — crece cada vez más despacio.",
@@ -218,7 +218,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$f(x) = \\ln(x)$ tiene asíntota vertical en $x = 0$.",
-    "feedback_incorrect": "$f(x) = \\ln(x)$ no está definida en $x = 0$ y se comporta como una barrera vertical: asíntota vertical.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una **asíntota vertical** aparece cuando una función tiende a $\\pm\\infty$ al acercarse a un valor de $x$.\n\n$f(x) = \\ln(x)$ tiene asíntota vertical en $x = 0$ porque:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\n\nLas otras funciones no tienen asíntota vertical: $x^2$ y $3x - 1$ están definidas en todos los reales, y $2^x$ tampoco tiene restricciones de dominio (aunque sí tiene asíntota **horizontal** en $y = 0$).",
@@ -229,7 +229,7 @@
     "belt": "white",
     "topic": "logarithmic",
     "exercise_type": "CLSF",
-    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "question": "La gráfica muestra una función definida para $x > 0$, con una curva que crece lentamente y una asíntota vertical en $x = 0$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
       "Logarítmica",
       "Exponencial",
@@ -239,13 +239,13 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva crece lentamente para $x > 0$: $f(x) = \\log_2(x) + 1$, una función logarítmica.",
-    "feedback_incorrect": "La asíntota vertical en $x = 0$ y el crecimiento lento son propios de una logarítmica: $f(x) = \\log_2(x) + 1$.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x) + 1",
     "graph_view": [
       -0.5,
-      6,
-      -4,
-      5
+      8.5,
+      -2,
+      6
     ],
     "explanation": "Para identificar una función **logarítmica** en su gráfica, buscá estas características:\n\n1. Solo existe para $x > 0$ (o para $x > c$ si está desplazada).\n2. Tiene **asíntota vertical** en el borde izquierdo del dominio.\n3. Crece (o decrece) cada vez más lentamente — curva cóncava hacia abajo.\n4. Pasa por un punto donde $f(x) = 0$ (el intercepto con el eje $X$).\n\nEsta gráfica corresponde a $f(x) = \\log_2(x) + 1$: una logarítmica desplazada 1 unidad hacia arriba.",
     "reviewed": false
@@ -265,7 +265,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$f(x) = \\log_2(x) + 1$ aplica un logaritmo a $x$: es una función logarítmica.",
-    "feedback_incorrect": "$f(x) = \\log_2(x) + 1$ usa el logaritmo de la variable: pertenece a la familia logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Sumar o restar una constante a una función no cambia su familia: $f(x) = \\log_2(x) + 1$ sigue siendo **logarítmica**.\n\nEl $+1$ es una **traslación vertical** que desplaza la curva un punto hacia arriba, pero la operación principal sigue siendo el logaritmo de $x$.\n\nRegla general: si la operación principal sobre $x$ es un logaritmo ($\\log_a$, $\\ln$, $\\log$), la función es **logarítmica**, sin importar las constantes sumadas o restadas.",
@@ -286,7 +286,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\ln(x) = \\log_e(x)$ es el logaritmo natural: función logarítmica con base $e$.",
-    "feedback_incorrect": "$f(x) = \\ln(x)$ es el logaritmo natural (base $e$): pertenece a la familia logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **logaritmo natural** $\\ln(x)$ es simplemente $\\log_e(x)$: un logaritmo con base $e \\approx 2{,}718$.\n\n$$\\ln(x) = \\log_e(x) \\iff e^y = x$$\n\nEs una función logarítmica como cualquier otra: mismo dominio ($x > 0$), misma asíntota vertical ($x = 0$), mismos puntos clave:\n- $\\ln(1) = 0$ (pasa por $(1, 0)$)\n- $\\ln(e) = 1$ (pasa por $(e, 1)$)\n\nEs la base más usada en matemática avanzada y cálculo.",
@@ -307,7 +307,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\log_{10}(x)$ (logaritmo decimal) es una función logarítmica con base $10$.",
-    "feedback_incorrect": "$f(x) = \\log_{10}(x)$ usa el logaritmo de la variable: pertenece a la familia logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\log_{10}(x)$ es el **logaritmo decimal** o **logaritmo común**, base $10$.\n\nCuando se escribe $\\log(x)$ sin subíndice, se sobreentiende base $10$: $\\log(x) = \\log_{10}(x)$.\n\nEs una función logarítmica con las propiedades estándar:\n$$\\log_{10}(1) = 0, \\quad \\log_{10}(10) = 1, \\quad \\log_{10}(100) = 2$$\n\nSe usa ampliamente en ciencias: escala de pH, decibeles, escala de Richter.",
@@ -318,7 +318,7 @@
     "belt": "white",
     "topic": "logarithmic",
     "exercise_type": "CLSF",
-    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "question": "La gráfica muestra una función definida para $x > 0$, con una curva creciente que se aplana hacia la derecha y una asíntota vertical en $x = 0$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
       "Logarítmica",
       "Exponencial",
@@ -328,13 +328,13 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva creciente con asíntota vertical en $x = 0$ es $f(x) = \\log_3(x)$: logarítmica.",
-    "feedback_incorrect": "La curva con asíntota vertical y crecimiento lento para $x > 0$ es una función logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": "log(x) / log(3)",
     "graph_view": [
       -0.5,
-      7,
-      -4,
-      4
+      8.5,
+      -3,
+      5
     ],
     "explanation": "La curva muestra las señas características de una función **logarítmica**:\n\n- Solo existe para $x > 0$: asíntota vertical en $x = 0$.\n- Pasa por $(1,\\, 0)$ — intercepto con el eje $X$.\n- Crece lentamente y de forma cóncava hacia abajo.\n\nEsta curva corresponde a $f(x) = \\log_3(x)$. Cambia de base respecto a $\\log_2$, pero la forma general es la misma: a mayor base (con $b > 1$), más lento es el crecimiento.",
     "reviewed": false
@@ -354,7 +354,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log(x + 2)$ aplica el logaritmo al argumento $(x+2)$: es logarítmica.",
-    "feedback_incorrect": "$f(x) = \\log(x + 2)$ usa el logaritmo de una expresión en $x$: es una función logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\log(x + 2)$ es **logarítmica**: la operación principal sobre la variable es el logaritmo.\n\nEl hecho de que el argumento sea $(x + 2)$ en lugar de $x$ solo implica un **desplazamiento horizontal** de 2 unidades a la izquierda, pero no cambia la familia.\n\nLas otras opciones pertenecen a otras familias: $x^2 + 2$ es polinómica (cuadrática), $2^x$ es exponencial y $2x - 1$ es lineal.",
@@ -375,7 +375,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "El signo negativo invierte la curva, pero sigue siendo logarítmica: $f(x) = -\\log_2(x)$.",
-    "feedback_incorrect": "Multiplicar por $-1$ refleja la curva, pero no cambia la familia: sigue siendo logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Multiplicar una función por $-1$ produce una **reflexión** respecto al eje $X$, pero **no cambia la familia**.\n\n$f(x) = -\\log_2(x)$ es logarítmica: la operación central es $\\log_2(x)$, y el signo negativo solo invierte los valores.\n\nEsta función es **decreciente** (a diferencia de $\\log_2(x)$ que es creciente), pero comparte las mismas propiedades estructurales: dominio $x > 0$, asíntota vertical en $x = 0$, y pasa por $(1,\\, 0)$.",
@@ -386,7 +386,7 @@
     "belt": "white",
     "topic": "logarithmic",
     "exercise_type": "CLSF",
-    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "question": "La gráfica muestra una función definida para $x > 0$, con una curva creciente y una asíntota vertical en $x = 0$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
       "Lineal",
       "Exponencial",
@@ -396,13 +396,13 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La curva crece lentamente con asíntota vertical: $f(x) = \\ln(x) + 1$, logarítmica.",
-    "feedback_incorrect": "El crecimiento lento para $x > 0$ con asíntota vertical es propio de una función logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": "log(x) + 1",
     "graph_view": [
       -0.5,
-      7,
-      -3,
-      5
+      8.5,
+      -2,
+      6
     ],
     "explanation": "Esta gráfica muestra $f(x) = \\ln(x) + 1$: una función **logarítmica** (logaritmo natural) desplazada 1 unidad hacia arriba.\n\nClaves para identificarla:\n- Asíntota vertical en $x = 0$: la curva cae a $-\\infty$ al acercarse desde la derecha.\n- Dominio solo para $x > 0$.\n- Crece lentamente con concavidad hacia abajo.\n\nEl desplazamiento vertical ($+1$) mueve la curva pero no cambia la familia ni la asíntota.",
     "reviewed": false
@@ -422,7 +422,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = e^x$ es una función exponencial (la inversa del logaritmo natural).",
-    "feedback_incorrect": "$f(x) = e^x$ es exponencial, no logarítmica. Las logarítmicas tienen la forma $\\log_a(x)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = e^x$ es una función **exponencial**: la variable $x$ está en el exponente y la base es $e$.\n\nEs justamente la **inversa** del logaritmo natural: $\\ln(e^x) = x$.\n\nLas otras opciones sí son logarítmicas:\n- $\\log_5(x)$: logaritmo base 5.\n- $\\ln(3x) = \\ln 3 + \\ln x$: logaritmo natural de $3x$.\n- $\\log(x^2) = 2\\log x$: logaritmo de una potencia.",
@@ -443,7 +443,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log(2x) = \\log(2) + \\log(x)$: sigue siendo una función logarítmica.",
-    "feedback_incorrect": "$f(x) = \\log(2x)$ usa el logaritmo de una expresión con $x$: es logarítmica.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\log(2x)$ es **logarítmica**: la operación principal sobre $x$ sigue siendo el logaritmo.\n\nUsando la propiedad del producto:\n$$\\log(2x) = \\log(2) + \\log(x)$$\n\nEsto muestra que $f(x) = \\log(2x)$ es simplemente $\\log(x)$ desplazado verticalmente en $\\log(2)$ unidades. La forma de la curva y todas sus propiedades logarítmicas se conservan.",
@@ -464,7 +464,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "En $\\log_5(x)$, el subíndice $5$ es la base.",
-    "feedback_incorrect": "En $\\log_a(x)$, $a$ es la base. En $\\log_5(x)$, la base es $5$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En la notación $\\log_a(x)$, la letra $a$ escrita como **subíndice** es la **base** del logaritmo.\n\nLa base debe cumplir $a > 0$ y $a \\neq 1$. En $\\log_5(x)$, la base es $\\mathbf{5}$.\n\nSignificado: $\\log_5(x) = y \\iff 5^y = x$. Es decir, la base 5 elevada a $y$ da $x$.\n\nNota: $x$ es el **argumento** (la entrada), no la base.",
@@ -485,7 +485,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La curva pasa por (0, 0) y tiene asíntota en $x = -1$: $f(x) = \\log_2(x+1)$.",
-    "feedback_incorrect": "La asíntota vertical en $x = -1$ y el cruce por el origen indican $f(x) = \\log_2(x+1)$.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x + 1)",
     "graph_view": [
       -1,
@@ -511,7 +511,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "La función no está definida cuando $x - 2 \\leq 0$: la asíntota vertical es $x = 2$.",
-    "feedback_incorrect": "El argumento del logaritmo se anula cuando $x = 2$: ahí está la asíntota vertical.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **asíntota vertical** ocurre donde el argumento del logaritmo se anula, es decir, donde la función deja de estar definida.\n\nPara $f(x) = \\log_3(x - 2)$, el argumento es $(x - 2)$. Se anula cuando:\n$$x - 2 = 0 \\implies x = 2$$\n\nPor lo tanto, la asíntota vertical es $x = 2$ y el dominio es $x > 2$.\n\nRegla general: si el argumento es $(x - c)$, la asíntota vertical está en $x = c$.",
@@ -532,7 +532,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\log_2(4) = 2$ porque $2^2 = 4$.",
-    "feedback_incorrect": "$f(4) = \\log_2(4) = 2$, porque $2^2 = 4$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para evaluar $f(4) = \\log_2(4)$, hay que encontrar el exponente al que hay que elevar $2$ para obtener $4$:\n$$\\log_2(4) = y \\iff 2^y = 4$$\n\nComo $2^2 = 4$, resulta $y = 2$. Entonces:\n$$f(4) = \\log_2(4) = 2$$\n\nEsto corresponde al punto $(4,\\, 2)$ en la gráfica de $f(x) = \\log_2(x)$.",
@@ -553,7 +553,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La asíntota está en $x = 1$ (desplazada a la derecha): $f(x) = \\log_2(x - 1)$.",
-    "feedback_incorrect": "La asíntota vertical en $x = 1$ indica que el argumento es $x - 1$: $f(x) = \\log_2(x - 1)$.",
+    "feedback_incorrect": "",
     "graph_fn": "log2(x - 1)",
     "graph_view": [
       1,
@@ -579,7 +579,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\ln(e) = 1$ porque $e^1 = e$.",
-    "feedback_incorrect": "$f(e) = \\ln(e) = 1$, ya que $e^1 = e$. El logaritmo de la base siempre vale 1.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(e) = \\ln(e) = \\log_e(e)$. Aplicando la propiedad $\\log_b(b) = 1$:\n$$\\ln(e) = \\log_e(e) = 1 \\quad \\text{porque} \\quad e^1 = e$$\n\nEsto significa que la gráfica de $f(x) = \\ln(x)$ pasa por el punto $(e,\\, 1)$, donde $e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$: pasa por $(1,\\, 0)$, pasa por $(e,\\, 1)$, asíntota vertical en $x = 0$.",
@@ -600,7 +600,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "El 2 que multiplica al logaritmo es el factor de escala vertical.",
-    "feedback_incorrect": "En $2 \\cdot \\log(x)$, el número $2$ multiplica a toda la función: es el factor de escala.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En la expresión $f(x) = 2 \\cdot \\log(x)$, el número $2$ es el **factor de escala vertical** (o amplitud).\n\nMultiplicar por $2$ estira la gráfica verticalmente: cada valor de $\\log(x)$ queda duplicado.\n\nNota: por la propiedad de la potencia, $2 \\cdot \\log(x) = \\log(x^2)$, lo que muestra que escalar verticalmente el logaritmo equivale a elevar el argumento a esa potencia.",
@@ -621,11 +621,11 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La curva decrece (reflejo del logaritmo): $f(x) = -\\log_2(x)$.",
-    "feedback_incorrect": "La curva decreciente con asíntota vertical en $x = 0$ es $f(x) = -\\log_2(x)$.",
+    "feedback_incorrect": "",
     "graph_fn": "-log2(x)",
     "graph_view": [
       -0.5,
-      6,
+      8.5,
       -4,
       4
     ],
@@ -647,7 +647,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El argumento debe ser positivo: $x - 3 > 0 \\Rightarrow x > 3$.",
-    "feedback_incorrect": "Para que el logaritmo esté definido, necesitamos $x - 3 > 0$, es decir, $x > 3$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para que $f(x) = \\log(x - 3)$ esté definida, el **argumento debe ser positivo**:\n$$x - 3 > 0 \\implies x > 3$$\n\nNota: se exige estrictamente $> 0$, no $\\geq 0$, porque $\\log(0)$ no existe.\n\nEl **dominio** es $(3, +\\infty)$ y la **asíntota vertical** está en $x = 3$.\n\nRegla general: para $\\log(x - c)$, el dominio es $x > c$.",
@@ -668,7 +668,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log_5(1) = 0$ porque $5^0 = 1$. El logaritmo de 1 siempre es 0.",
-    "feedback_incorrect": "$f(1) = \\log_5(1) = 0$, ya que $5^0 = 1$. Todo logaritmo de 1 vale 0.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(1) = \\log_5(1)$. Buscamos el exponente al que hay que elevar $5$ para obtener $1$:\n$$5^y = 1 \\implies y = 0 \\quad (\\text{porque } a^0 = 1 \\text{ para todo } a \\neq 0)$$\n\nPor lo tanto $f(1) = 0$.\n\nEsta es la **propiedad universal**: $\\log_b(1) = 0$ para cualquier base válida. Significa que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.",
@@ -689,7 +689,7 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Por definición, $\\ln(x) = t$ significa $e^t = x$. Como $e^t > 0$ siempre, no puede igualarse a un número $\\leq 0$.",
-    "feedback_incorrect": "$\\ln(x) = t$ se define como 'el $t$ tal que $e^t = x$'. Como $e^t > 0$ para todo real $t$, no existe tal $t$ si $x \\leq 0$. Por eso $\\ln$ no está definido ahí.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir $\\ln(x) = t$ equivale a decir $e^t = x$.\n\nAhora bien, $e^t > 0$ para todo $t \\in \\mathbb{R}$. Entonces:\n\n- Si $x \\leq 0$, no existe ningún real $t$ que satisfaga $e^t = x$.\n- Por eso $\\ln(x)$ no está definido para $x \\leq 0$.\n\nEl dominio de $\\ln(x)$ es $(0, +\\infty)$: solo argumentos estrictamente positivos.\n\nEsta restricción aplica a cualquier logaritmo: $\\log_b(x)$ con $b > 0, b \\neq 1$ requiere $x > 0$.",
@@ -710,7 +710,7 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "El argumento del logaritmo debe ser positivo: $x - 3 > 0 \\Rightarrow x > 3$. El dominio es $(3, +\\infty)$.",
-    "feedback_incorrect": "Para que $\\ln(x - 3)$ esté definido, imponés $x - 3 > 0$, es decir $x > 3$. El $3$ no se incluye porque $\\ln(0)$ no existe. El dominio es $(3, +\\infty)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para que $f(x) = \\ln(x - 3)$ esté definida, el argumento del logaritmo debe ser **estrictamente positivo**:\n\n$$x - 3 > 0 \\iff x > 3$$\n\nEl dominio es $(3, +\\infty)$.\n\nNotas importantes:\n- $x = 3$ no pertenece al dominio porque $\\ln(0)$ no existe.\n- El intervalo es **abierto** en $3$: $(3, +\\infty)$, no $[3, +\\infty)$.\n- La traslación $x - 3$ desplaza el dominio del logaritmo estándar $(0, +\\infty)$ tres unidades a la derecha.",
@@ -731,7 +731,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Se necesita $2x - 6 > 0$, o sea $x > 3$. El dominio es $(3, +\\infty)$.",
-    "feedback_incorrect": "El argumento debe ser positivo: $2x - 6 > 0 \\Rightarrow 2x > 6 \\Rightarrow x > 3$. El dominio es $(3, +\\infty)$, no $(6, +\\infty)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para que $f(x) = \\log_2(2x - 6)$ esté definida, imponemos que el argumento sea positivo y despejamos $x$:\n\n$$2x - 6 > 0 \\implies 2x > 6 \\implies x > 3$$\n\nEl dominio es $(3, +\\infty)$.\n\nEl proceso es el mismo para cualquier logaritmo con argumento compuesto: planteás la inecuación 'argumento $> 0$' y la resolvés algebraicamente.\n\nEjemplo adicional: si fuera $\\ln(3x + 9)$, harías $3x + 9 > 0 \\Rightarrow x > -3$, dominio $(-3, +\\infty)$.",
@@ -752,7 +752,7 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\ln(x)$ es estrictamente creciente en todo su dominio $(0, +\\infty)$: si $x_1 < x_2$ entonces $\\ln(x_1) < \\ln(x_2)$.",
-    "feedback_incorrect": "El hecho de que $\\ln(1) = 0$ no significa que ahí haya un máximo. $\\ln(x)$ sigue creciendo después de $x=1$ (aunque más lento). Es estrictamente creciente en $(0, +\\infty)$.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La función $f(x) = \\ln(x)$ es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nAlgunos se confunden porque $\\ln(1) = 0$: piensan que ahí hay un máximo, pero no. El logaritmo sigue creciendo:\n\n$$\\ln(1) = 0 < \\ln(e) = 1 < \\ln(e^2) = 2 < \\ln(e^3) = 3 \\ldots$$\n\nSolo se aplana (crece más lentamente) pero nunca deja de crecer ni retrocede.\n\nEsto es coherente con que $\\ln$ y $e^x$ son funciones inversas: una es el espejo de la otra, y $e^x$ es creciente.",
@@ -773,7 +773,7 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Cuando $0 < b < 1$, $\\log_b(x)$ es decreciente: valores mayores de $x$ producen logaritmos menores.",
-    "feedback_incorrect": "El logaritmo $\\log_b(x)$ crece cuando $b > 1$ (como $\\log_2$, $\\ln$) y decrece cuando $0 < b < 1$ (como $\\log_{0.5}$).",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El comportamiento de $f(x) = \\log_b(x)$ depende de la **base** $b$, igual que en las exponenciales:\n\n- $b > 1$: logaritmo **creciente**. Ejemplo: $\\log_2(1) = 0 < \\log_2(4) = 2$.\n- $0 < b < 1$: logaritmo **decreciente**. Ejemplo: $\\log_{0.5}(1) = 0 > \\log_{0.5}(2) = -1$.\n- $b = 1$: no está definido como logaritmo.\n\nEsta regla es el espejo exacto de la regla para las exponenciales: $\\log_b$ y $b^x$ son inversas, y comparten el mismo tipo de comportamiento (creciente o decreciente).",
@@ -794,10 +794,3754 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log_{0.5}(x)$ tiene base $0.5 < 1$, así que es decreciente.",
-    "feedback_incorrect": "$\\log_{0.5}(x)$ tiene base $b = 0.5$, con $0 < 0.5 < 1$. Un base logarítmica menor que $1$ hace que la función sea decreciente.",
+    "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para identificar si $\\log_b(x)$ es creciente o decreciente, revisá la base:\n\n- $\\log_2(x)$: base $b = 2 > 1$ → **creciente**.\n- $\\log_{0.5}(x)$: base $b = 0.5$, con $0 < 0.5 < 1$ → **decreciente**.\n- $\\ln(x)$: base $b = e \\approx 2.718 > 1$ → creciente.\n\nNota útil: $\\log_{0.5}(x) = -\\log_2(x)$. Podés reescribir logaritmos decrecientes como el opuesto de uno creciente.\n\nEsto es coherente con las exponenciales: $0.5^x$ es decreciente, y $\\log_{0.5}$ (su inversa) también lo es.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_12",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es la imagen de $f(x) = \\log_2(x)$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$(-\\infty, 0)$",
+      "$\\mathbb{R}$",
+      "$[0, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La imagen de toda función logarítmica es $\\mathbb{R}$: toma cualquier valor real.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La imagen de $f(x) = \\log_b(x)$ es $\\mathbb{R}$ — todos los números reales.\n\nEsto contrasta con la exponencial $b^x$, cuya imagen es $(0, +\\infty)$ (solo positivos). Son funciones inversas: lo que una tiene como dominio, la otra lo tiene como imagen.\n\nCuando $x \\to 0^+$, $\\log_b(x) \\to -\\infty$. Cuando $x \\to +\\infty$, $\\log_b(x) \\to +\\infty$. De ahí que la imagen abarque todos los reales.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_13",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{2}\\right)$?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$0$",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\log_2\\!\\left(\\frac{1}{2}\\right) = -1$ porque $2^{-1} = \\frac{1}{2}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$, buscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n$$2^y = \\frac{1}{2} = 2^{-1} \\implies y = -1$$\n\nCuando el argumento está entre $0$ y $1$ (para base $b > 1$), el logaritmo es negativo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_14",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log(100)$?",
+    "options": [
+      "$100$",
+      "$10$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(100) = 2$ porque $10^2 = 100$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sin subíndice, $\\log$ significa base $10$:\n$$\\log(100) = \\log_{10}(100) = 2 \\iff 10^2 = 100$$\n\nPatrón: $\\log(10) = 1$, $\\log(100) = 2$, $\\log(1000) = 3$, $\\log(10^n) = n$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_15",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\ln(e^2)$?",
+    "options": [
+      "$e^2$",
+      "$2e$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\ln(e^2) = 2$ por la propiedad $\\ln(e^n) = n$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Por la propiedad de la potencia: $\\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$.\n\nPatrón general: $\\ln(e^n) = n$ para cualquier $n \\in \\mathbb{R}$.\n\nEjemplos: $\\ln(e^3) = 3$, $\\ln(e^{-1}) = -1$, $\\ln(\\sqrt{e}) = \\frac{1}{2}$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_16",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál de estas igualdades es una propiedad válida del logaritmo?",
+    "options": [
+      "$\\log_b(x + y) = \\log_b(x) \\cdot \\log_b(y)$",
+      "$\\log_b(x \\cdot y) = \\log_b(x) + \\log_b(y)$",
+      "$\\log_b(x \\cdot y) = \\log_b(x) \\cdot \\log_b(y)$",
+      "$\\log_b(x + y) = \\log_b(x) + \\log_b(y)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El logaritmo del producto es la suma de los logaritmos: $\\log_b(xy) = \\log_b x + \\log_b y$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad del producto** del logaritmo:\n$$\\log_b(x \\cdot y) = \\log_b(x) + \\log_b(y)$$\n\nEjemplo: $\\log_2(4 \\cdot 8) = \\log_2(4) + \\log_2(8) = 2 + 3 = 5 = \\log_2(32)$ ✓\n\nAtención: la propiedad aplica para productos, no para sumas.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_17",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Qué simplificación permite la propiedad del cociente del logaritmo?",
+    "options": [
+      "$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\frac{\\log_b(x)}{\\log_b(y)}$",
+      "$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$",
+      "$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) + \\log_b(y)$",
+      "$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) \\cdot \\log_b(y)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El logaritmo del cociente es la resta: $\\log_b(x/y) = \\log_b x - \\log_b y$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad del cociente**:\n$$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$$\n\nEjemplo: $\\log_2\\!\\left(\\frac{8}{2}\\right) = \\log_2(8) - \\log_2(2) = 3 - 1 = 2 = \\log_2(4)$ ✓\n\nEl logaritmo convierte divisiones en restas, igual que convierte multiplicaciones en sumas.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_18",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_2(x^3)$ usando las propiedades del logaritmo?",
+    "options": [
+      "$3 + \\log_2(x)$",
+      "$\\log_2(3x)$",
+      "$3 \\cdot \\log_2(x)$",
+      "$\\log_2(x)^3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $\\log_2(x^3) = 3 \\cdot \\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad de la potencia**:\n$$\\log_b(x^n) = n \\cdot \\log_b(x)$$\n\nEl exponente baja y multiplica al logaritmo.\n\nEjemplo: $\\log_2(8) = \\log_2(2^3) = 3 \\cdot \\log_2(2) = 3 \\cdot 1 = 3$ ✓",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_19",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es la fórmula de cambio de base para $\\log_b(x)$?",
+    "options": [
+      "$\\log_b(x) = \\frac{\\ln(b)}{\\ln(x)}$",
+      "$\\log_b(x) = \\ln(x) \\cdot \\ln(b)$",
+      "$\\log_b(x) = \\frac{\\ln(x)}{\\ln(b)}$",
+      "$\\log_b(x) = \\ln(x) - \\ln(b)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La fórmula de cambio de base es $\\log_b(x) = \\dfrac{\\ln(x)}{\\ln(b)}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo con una calculadora:\n$$\\log_b(x) = \\frac{\\ln(x)}{\\ln(b)}$$\n\nEjemplo: $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_20",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_3(3)$?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$1$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_3(3) = 1$ porque $3^1 = 3$. El logaritmo de la base siempre vale $1$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad fundamental: $\\log_b(b) = 1$ para cualquier base válida $b$:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\n\nEl punto $(b,\\, 1)$ siempre pertenece a la gráfica de $\\log_b(x)$.\n\nEjemplos: $\\log_2(2) = 1$, $\\log_3(3) = 1$, $\\log_{10}(10) = 1$, $\\ln(e) = 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_21",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_{0{,}5}(2)$?",
+    "options": [
+      "$2$",
+      "$0{,}5$",
+      "$-1$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_{0{,}5}(2) = -1$ porque $0{,}5^{-1} = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_{0{,}5}(2) = y \\iff 0{,}5^y = 2$.\n\nComo $0{,}5 = 2^{-1}$, tenemos $(2^{-1})^y = 2^1$, es decir $2^{-y} = 2^1$, luego $y = -1$.\n\nLos logaritmos con base $0 < b < 1$ son **decrecientes**: valores mayores del argumento dan logaritmos negativos. Nota: $\\log_{0{,}5}(x) = -\\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_22",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "Si $\\log_2(a) = \\log_2(c)$, ¿qué puede concluirse?",
+    "options": [
+      "$a = 2c$",
+      "$a = c + 2$",
+      "$a = c$",
+      "$a^2 = c$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La logarítmica es inyectiva: si $\\log_2(a) = \\log_2(c)$, entonces $a = c$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función **inyectiva** nunca asigna el mismo valor a dos entradas distintas.\n\nLa logarítmica es estrictamente monótona, por lo que es inyectiva. Esto permite cancelar logaritmos en ecuaciones:\n\nSi $\\log_b(a) = \\log_b(c)$ con $a, c > 0$, entonces $a = c$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_23",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "Si $f(x) = 3^x$, ¿cuál es su función inversa $f^{-1}(x)$?",
+    "options": [
+      "$f^{-1}(x) = \\frac{1}{3^x}$",
+      "$f^{-1}(x) = x^3$",
+      "$f^{-1}(x) = \\log_3(x)$",
+      "$f^{-1}(x) = 3 \\cdot x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La inversa de $f(x) = 3^x$ es $f^{-1}(x) = \\log_3(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La inversa de $f(x) = b^x$ es $f^{-1}(x) = \\log_b(x)$. Para $b = 3$:\n$$\\log_3(3^x) = x \\checkmark \\qquad 3^{\\log_3(x)} = x \\checkmark$$\n\nLas gráficas de $f$ y $f^{-1}$ son simétricas respecto a la recta $y = x$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_24",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Dónde está la asíntota vertical de $f(x) = \\log_2(x - 3)$?",
+    "options": [
+      "$x = 0$",
+      "$y = 3$",
+      "$x = -3$",
+      "$x = 3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El argumento $(x-3)$ se anula en $x = 3$: la asíntota vertical es $x = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La asíntota vertical ocurre donde el argumento del logaritmo se anula:\n$$x - 3 = 0 \\implies x = 3$$\n\nAsíntota vertical: $x = 3$. Dominio: $(3, +\\infty)$.\n\nRegla general: $\\log_b(x - h)$ tiene asíntota en $x = h$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_25",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Dónde está la asíntota vertical de $f(x) = \\log_2(x) + 5$?",
+    "options": [
+      "$x = 5$",
+      "$x = 0$",
+      "$y = 5$",
+      "$x = -5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sumar $5$ desplaza la curva hacia arriba, pero la asíntota vertical sigue en $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = \\log_2(x) + 5$, el argumento sigue siendo $x$, entonces la asíntota sigue en $x = 0$.\n\nEl $+5$ es un desplazamiento vertical que sube la curva, pero no modifica la asíntota ni el dominio.\n\nContraste: $\\log_2(x - 5)$ tiene asíntota en $x = 5$ (desplazamiento horizontal del argumento).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_26",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cómo es $f(x) = -\\log_2(x)$ en comparación con $g(x) = \\log_2(x)$?",
+    "options": [
+      "Es la misma función",
+      "Tiene dominio $x < 0$",
+      "Es decreciente, reflejo de $g$ sobre el eje $X$",
+      "Tiene asíntota vertical en $y = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -\\log_2(x)$ refleja $g$ sobre el eje $X$: es decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar por $-1$ produce una reflexión respecto al eje $X$: los valores se invierten.\n\n$g(x) = \\log_2(x)$ es creciente; $f(x) = -\\log_2(x)$ es decreciente.\n\nAmbas comparten dominio ($x > 0$), imagen ($\\mathbb{R}$), asíntota ($x = 0$) y el punto $(1, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_27",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Qué ocurre con $\\log_2(x)$ cuando $x$ se acerca a $0$ por la derecha ($x \\to 0^+$)?",
+    "options": [
+      "Tiende a $0$",
+      "Tiende a $+\\infty$",
+      "Tiende a $-\\infty$",
+      "Tiende a $1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Cuando $x \\to 0^+$, $\\log_2(x) \\to -\\infty$: la función cae sin límite junto a la asíntota.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el argumento se acerca a $0$ por la derecha:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\n\nEjemplos: $\\log_2(1) = 0$, $\\log_2(0{,}5) = -1$, $\\log_2(0{,}25) = -2$, $\\log_2(0{,}125) = -3$.\n\nLa curva cae verticalmente al acercarse desde la derecha — eso es la asíntota vertical.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_28",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Tiene $f(x) = \\ln(x)$ una asíntota horizontal cuando $x \\to +\\infty$?",
+    "options": [
+      "Sí, en $y = 1$",
+      "Sí, en $y = e$",
+      "No, crece sin límite aunque muy lentamente",
+      "Sí, en $y = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x) \\to +\\infty$ cuando $x \\to +\\infty$: no hay asíntota horizontal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene asíntota horizontal. Contraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando $x \\to -\\infty$. Son inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_29",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
+    "options": [
+      "Calcular la distancia recorrida a velocidad constante",
+      "Calcular el área de un rectángulo",
+      "Calcular cuántos años tardará una inversión en duplicarse",
+      "Calcular el monto de una inversión después de $t$ años"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Despejar el tiempo en una ecuación exponencial da una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El logaritmo es la **inversa de la exponencial**. Aparece cuando se despeja el tiempo $t$.\n\nEjemplo: una inversión crece según $M(t) = M_0 \\cdot (1{,}1)^t$. Para saber cuándo llega a $M$:\n$$t = \\log_{1{,}1}\\!\\left(\\frac{M}{M_0}\\right)$$\n\nLa función 'monto después de $t$ años' es exponencial; la función 'cuántos años para llegar a $X$' es logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_30",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_3(27)$?",
+    "options": [
+      "$9$",
+      "$27$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_3(27) = 3$ porque $3^3 = 27$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_3(27) = y \\iff 3^y = 27 = 3^3 \\implies y = 3$.\n\nEsto corresponde al punto $(27,\\, 3)$ en la gráfica de $f(x) = \\log_3(x)$.\n\nMétodo mental: '¿a qué potencia se eleva $3$ para obtener $27$?' Respuesta: $3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_31",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\ln(1)$?",
+    "options": [
+      "$1$",
+      "$e$",
+      "$0$",
+      "No está definido"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(1) = 0$ porque $e^0 = 1$. El logaritmo de $1$ vale $0$ en cualquier base.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad universal: $\\log_b(1) = 0$ para cualquier base válida $b$.\n\nPor qué: $b^0 = 1$ siempre, entonces $\\log_b(1) = 0$.\n\nNo confundir con $f(0) = \\ln(0)$, que **no existe** (el dominio es $x > 0$). El logaritmo de $1$ es cero, no el logaritmo de cero.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_32",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_2(8)$?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(8) = 3$ porque $2^3 = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_2(8) = y \\iff 2^y = 8 = 2^3 \\implies y = 3$.\n\nSerie: $\\log_2(2) = 1$, $\\log_2(4) = 2$, $\\log_2(8) = 3$, $\\log_2(16) = 4$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_33",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es el dominio de $f(x) = \\ln(x + 3)$?",
+    "options": [
+      "$x > 3$",
+      "$x > 0$",
+      "$x > -3$",
+      "Todo $x \\in \\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Para que $\\ln(x+3)$ esté definido, se necesita $x + 3 > 0$, es decir $x > -3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento debe ser positivo:\n$$x + 3 > 0 \\implies x > -3$$\n\nDominio: $(-3, +\\infty)$. Asíntota vertical: $x = -3$.\n\nEl intercepto con el eje $X$ está donde $\\ln(x+3) = 0$, es decir $x + 3 = 1$, o sea $x = -2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_34",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es la imagen de $f(x) = -\\log_2(x)$?",
+    "options": [
+      "$(-\\infty, 0)$",
+      "$(0, +\\infty)$",
+      "$[0, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Negar $\\log_2(x)$ refleja la curva, pero la imagen sigue siendo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La imagen de $\\log_2(x)$ es $\\mathbb{R}$. Multiplicar por $-1$ refleja la curva, pero no la acota:\n\nCuando $\\log_2(x) \\to -\\infty$, $-\\log_2(x) \\to +\\infty$. Cuando $\\log_2(x) \\to +\\infty$, $-\\log_2(x) \\to -\\infty$.\n\nLa imagen sigue siendo $\\mathbb{R}$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_35",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "Para $x = 8$, ¿qué relación hay entre $\\log_2(8)$ y $\\log_4(8)$?",
+    "options": [
+      "$\\log_2(8) < \\log_4(8)$",
+      "$\\log_2(8) = \\log_4(8)$",
+      "$\\log_2(8) > \\log_4(8)$",
+      "No se pueden comparar"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(8) = 3$ y $\\log_4(8) = 1{,}5$. Para $x > 1$, mayor base → menor logaritmo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_2(8) = 3$ (pues $2^3 = 8$)\n$$\\log_4(8) = \\frac{3}{2} \\quad \\text{(pues } 4^{3/2} = 8\\text{)}$$\n\nEntonces $3 > 1{,}5$.\n\nRegla: para $x > 1$, a mayor base $b$, menor valor del logaritmo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_36",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_2(4) + \\log_2(8)$?",
+    "options": [
+      "$\\log_2(12)$",
+      "$5$",
+      "$10$",
+      "$\\log_2(32)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad del producto: $\\log_2(4) + \\log_2(8) = \\log_2(32)$. Y $\\log_2(32) = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad del producto:\n$$\\log_2(4) + \\log_2(8) = \\log_2(4 \\cdot 8) = \\log_2(32)$$\n\nComo $2^5 = 32$, eso equivale a $5$. Las opciones '$5$' y '$\\log_2(32)$' son equivalentes; la fórmula de producto es la forma más directa.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_37",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es el dominio de $f(x) = \\log_2(-x)$?",
+    "options": [
+      "$x > 0$",
+      "$x \\geq 0$",
+      "$x < 0$",
+      "Todo $x \\in \\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El argumento $(-x)$ debe ser positivo: $-x > 0 \\implies x < 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que $f(x) = \\log_2(-x)$ esté definida:\n$$-x > 0 \\implies x < 0$$\n\nDominio: $(-\\infty, 0)$. Asíntota vertical en $x = 0$.\n\nEsta función es la reflexión horizontal de $\\log_2(x)$: la curva se 'voltea' y queda en el semiplano negativo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_38",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál es la función inversa de $f(x) = 10^x$?",
+    "options": [
+      "$f^{-1}(x) = \\frac{x}{10}$",
+      "$f^{-1}(x) = x^{10}$",
+      "$f^{-1}(x) = \\ln(x)$",
+      "$f^{-1}(x) = \\log(x)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La inversa de $f(x) = 10^x$ es $f^{-1}(x) = \\log(x)$ (logaritmo base $10$).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La inversa de $b^x$ es siempre $\\log_b(x)$. Para $b = 10$:\n$$\\log(10^x) = x \\checkmark \\qquad 10^{\\log(x)} = x \\checkmark$$\n\nNota: $\\ln(x) = \\log_e(x)$ es la inversa de $e^x$, no de $10^x$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_39",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_5(1)$?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\log_5(1) = 0$ porque $5^0 = 1$. El logaritmo de $1$ siempre es $0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad universal: $\\log_b(1) = 0$ para cualquier base $b > 0$, $b \\neq 1$, porque $b^0 = 1$ siempre.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_40",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{4}\\right)$?",
+    "options": [
+      "$-2$",
+      "$2$",
+      "$-4$",
+      "$\\frac{1}{2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\log_2\\!\\left(\\frac{1}{4}\\right) = -2$ porque $2^{-2} = \\frac{1}{4}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$2^y = \\frac{1}{4} = 2^{-2} \\implies y = -2$.\n\nPatrón: $\\frac{1}{2} = 2^{-1}$, $\\frac{1}{4} = 2^{-2}$, $\\frac{1}{8} = 2^{-3}$.\n\nPara $0 < x < 1$ con base $b > 1$, el logaritmo es siempre negativo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_41",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿A cuál de estas expresiones es equivalente $2 \\cdot \\log_2(x)$?",
+    "options": [
+      "$\\log_2(2x)$",
+      "$\\log_2(x + 2)$",
+      "$\\log_2(x^2)$",
+      "$\\log_4(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $2 \\cdot \\log_2(x) = \\log_2(x^2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad de la potencia dice que el factor multiplicativo 'sube' como exponente:\n$$2 \\cdot \\log_2(x) = \\log_2(x^2)$$\n\nVerificación con $x = 4$: $2 \\cdot \\log_2(4) = 2 \\cdot 2 = 4$ y $\\log_2(4^2) = \\log_2(16) = 4$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_42",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Tiene $f(x) = \\log_2(x)$ algún máximo o mínimo local?",
+    "options": [
+      "Sí, un máximo en $(1,\\, 0)$",
+      "Sí, un mínimo cuando $x \\to 0^+$",
+      "No, la función es estrictamente creciente sin extremos locales",
+      "Sí, un mínimo en $(0,\\, -\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Una función estrictamente creciente no tiene extremos locales.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función estrictamente monótona no puede tener extremos locales: para que haya un máximo o mínimo, la función debe cambiar de dirección.\n\nComo $\\log_2(x)$ es estrictamente creciente en $(0, +\\infty)$, no tiene máximos ni mínimos locales.\n\nNota: $\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$ no es un mínimo — ese límite nunca se alcanza.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_43",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿En qué punto pasa la gráfica de $f(x) = \\ln(x)$ a altura $y = 1$?",
+    "options": [
+      "$(1,\\, 1)$",
+      "$(2,\\, 1)$",
+      "$(e,\\, 1)$",
+      "$(10,\\, 1)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(e) = 1$, entonces la curva pasa por $(e,\\, 1)$ donde $e \\approx 2{,}718$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\ln(x) = 1$ cuando $x = e \\approx 2{,}718$.\n\nPuntos clave de $\\ln(x)$:\n- $(1,\\, 0)$: intercepto con el eje $X$.\n- $(e,\\, 1)$: la curva alcanza la altura $1$.\n\nPara $\\log_2(x)$: el punto análogo es $(2,\\, 1)$. Para $\\log_{10}(x)$: $(10,\\, 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_44",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_4(16)$?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$2$",
+      "$\\frac{1}{4}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_4(16) = 2$ porque $4^2 = 16$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$4^y = 16 = 4^2 \\implies y = 2$.\n\nOtra vía: $16 = 2^4$ y $4 = 2^2$, entonces $\\log_4(16) = \\frac{4}{2} = 2$ (usando base común $2$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_45",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "Si $\\log_2(x) = 3$, ¿cuánto vale $x$?",
+    "options": [
+      "$6$",
+      "$\\frac{3}{2}$",
+      "$8$",
+      "$9$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x) = 3 \\iff x = 2^3 = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver $\\log_b(x) = c$, se usa la definición del logaritmo:\n$$\\log_b(x) = c \\iff x = b^c$$\n\nAquí: $\\log_2(x) = 3 \\implies x = 2^3 = 8$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_46",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál de estas funciones tiene una asíntota vertical?",
+    "options": [
+      "$f(x) = 3^x$",
+      "$f(x) = x^3 - 2$",
+      "$f(x) = \\ln(x)$",
+      "$f(x) = 2x + 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\ln(x)$ tiene asíntota vertical en $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = \\ln(x)$ tiene asíntota vertical en $x = 0$:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\n\nLas otras opciones no tienen asíntota vertical: $3^x$ (asíntota horizontal en $y=0$), $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_47",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_6(6^5)$?",
+    "options": [
+      "$6^5$",
+      "$30$",
+      "$5$",
+      "$\\frac{5}{6}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $\\log_6(6^5) = 5 \\cdot \\log_6(6) = 5 \\cdot 1 = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_6(6^5) = 5 \\cdot \\log_6(6) = 5 \\cdot 1 = 5$.\n\nResultado fundamental: $\\log_b(b^n) = n$ para cualquier base $b$ y exponente $n$. El logaritmo y la exponencial en la misma base se cancelan.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_48",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuál de estas funciones tiene dominio exactamente $(0, +\\infty)$?",
+    "options": [
+      "$f(x) = 2^x$",
+      "$f(x) = \\log(x)$",
+      "$f(x) = x^2$",
+      "$f(x) = \\sqrt{x}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\log(x)$ solo está definida para $x > 0$: dominio $(0, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log(x)$ requiere $x > 0$: dominio exactamente $(0, +\\infty)$.\n\nLas otras: $2^x$ tiene dominio $\\mathbb{R}$; $x^2$ tiene dominio $\\mathbb{R}$; $\\sqrt{x}$ tiene dominio $[0, +\\infty)$ — incluye $x=0$ (a diferencia del logaritmo, que excluye el cero).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_49",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿Cuánto vale $\\log_3(9) - \\log_3(3)$?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$1$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_3(9) - \\log_3(3) = \\log_3(9/3) = \\log_3(3) = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad del cociente:\n$$\\log_3(9) - \\log_3(3) = \\log_3\\!\\left(\\frac{9}{3}\\right) = \\log_3(3) = 1$$\n\nO directo: $\\log_3(9) = 2$ y $\\log_3(3) = 1$, entonces $2 - 1 = 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_lexi_50",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "LEXI",
+    "question": "¿A cuál expresión es equivalente $\\ln(e^{2x})$?",
+    "options": [
+      "$e^{2x}$",
+      "$2x + e$",
+      "$2\\ln(x)$",
+      "$2x$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\ln(e^{2x}) = 2x$ porque $\\ln$ y $e^{(\\ )}$ se cancelan mutuamente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Usando la propiedad de la potencia y $\\ln(e) = 1$:\n$$\\ln(e^{2x}) = 2x \\cdot \\ln(e) = 2x \\cdot 1 = 2x$$\n\nO usando funciones inversas: $\\ln(e^u) = u$ para cualquier $u \\in \\mathbb{R}$. Con $u = 2x$: resultado $2x$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_15",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Una inversión de \\$1000 crece un 10% anual. Se quiere saber **cuántos años** tardará en llegar a \\$2000.\n\n¿A qué familia de funciones pertenece la regla que calcula los años necesarios en función del monto objetivo?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Cuadrática"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Despejar el tiempo en $M = 1000 \\cdot (1{,}1)^t$ da $t = \\log_{1{,}1}(M/1000)$: una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función que da el **monto** después de $t$ años es exponencial: $M(t) = 1000 \\cdot (1{,}1)^t$.\n\nPero si la pregunta es '¿cuántos **años** para llegar a $M$?', se despeja $t$:\n$$t = \\log_{1{,}1}\\!\\left(\\frac{M}{1000}\\right)$$\n\nEsta función $t(M)$ es logarítmica: la variable está dentro del logaritmo. La exponencial y la logarítmica son inversas.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_16",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Un cultivo de bacterias parte de 50 y se duplica cada hora. Se quiere saber cuántas horas tardan en llegar a $N$ bacterias.\n\n¿A qué familia de funciones pertenece la regla que calcula las horas necesarias en función de $N$?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Despejar $t$ de $N = 50 \\cdot 2^t$ da $t = \\log_2(N/50)$: una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La cantidad de bacterias en función del tiempo es exponencial: $B(t) = 50 \\cdot 2^t$.\n\nPero si se pregunta cuántos **períodos** para llegar a $N$:\n$$N = 50 \\cdot 2^t \\implies 2^t = \\frac{N}{50} \\implies t = \\log_2\\!\\left(\\frac{N}{50}\\right)$$\n\nEsa función $t(N)$ es logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_17",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Una deuda de \\$5000 crece un 5% mensual. Se modela la cantidad de meses necesarios para que se duplique en función de la tasa de crecimiento $r$.\n\n¿A qué familia pertenece esa función?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Lineal",
+      "Racional"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Despejar el tiempo de una ecuación exponencial siempre da una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para duplicar la deuda: $2 = (1 + r)^t$. Despejando:\n$$t = \\log_{1+r}(2) = \\frac{\\ln(2)}{\\ln(1+r)}$$\n\nEsta función de $r$ es logarítmica. Siempre que se despeje el tiempo de una ecuación exponencial, el resultado es un logaritmo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_18",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia de funciones pertenece $f(x) = -\\ln(x)$?",
+    "options": [
+      "Exponencial",
+      "Racional",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El signo negativo refleja la curva, pero la operación central sigue siendo el logaritmo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar por $-1$ produce una reflexión, pero no cambia la familia.\n\n$f(x) = -\\ln(x)$ es logarítmica: la operación principal sobre $x$ es el logaritmo natural.\n\nEsta función es **decreciente** (al revés que $\\ln(x)$), pero comparte el mismo dominio $(0, +\\infty)$, la misma imagen $\\mathbb{R}$ y la misma asíntota vertical $x = 0$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_19",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia de funciones pertenece $f(x) = 2 \\cdot \\log_2(x)$?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Escalar verticalmente un logaritmo no cambia su familia: sigue siendo logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = 2 \\cdot \\log_2(x)$ es **logarítmica**: la operación principal sobre $x$ es $\\log_2(x)$. El factor $2$ solo estira la curva verticalmente.\n\nNota: $2 \\cdot \\log_2(x) = \\log_2(x^2)$ por la propiedad de la potencia — otra forma de ver que sigue siendo un logaritmo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_20",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\log_{0{,}5}(x)$?",
+    "options": [
+      "Racional",
+      "Exponencial",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_{0{,}5}(x)$ es logarítmica con base $0{,}5$, que está en $(0, 1)$, así que es decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_{0{,}5}(x)$ es una función **logarítmica** con base $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**: a mayor $x$, menor $f(x)$.\n\nNota útil: $\\log_{0{,}5}(x) = -\\log_2(x)$, es el opuesto del logaritmo en base $2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_21",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas dos funciones es logarítmica?\n$$f(x) = e^x \\qquad g(x) = \\ln(x)$$",
+    "options": [
+      "$f(x) = e^x$",
+      "$g(x) = \\ln(x)$",
+      "Ambas son logarítmicas",
+      "Ninguna es logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$g(x) = \\ln(x)$ es logarítmica (base $e$); $f(x) = e^x$ es su inversa, la exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$g(x) = \\ln(x) = \\log_e(x)$ es una función **logarítmica** con base $e$.\n\n$f(x) = e^x$ es una función **exponencial** — son inversas entre sí.\n\nForma de distinguirlas: en la exponencial, la variable está en el **exponente** ($e^x$); en la logarítmica, la variable está dentro del **logaritmo** ($\\ln(x)$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_22",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas es una función logarítmica?\n$$f(x) = 2^x \\qquad g(x) = \\log_2(x)$$",
+    "options": [
+      "$f(x) = 2^x$",
+      "$g(x) = \\log_2(x)$",
+      "Ambas",
+      "Ninguna"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$g(x) = \\log_2(x)$ es logarítmica (base $2$); $f(x) = 2^x$ es su inversa, la exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Regla clave: en la **exponencial**, la variable va en el exponente → $f(x) = 2^x$.\n\nEn la **logarítmica**, la variable va dentro del logaritmo → $g(x) = \\log_2(x)$.\n\nSon funciones inversas: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_23",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función definida solo para $x > 0$, con una curva creciente que tiene asíntota vertical en $x = 0$ y pasa por el punto $(1, 0)$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 0$, dominio $(0, +\\infty)$ y punto $(1, 0)$ son sellos de una logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Las señas distintivas de una función **logarítmica** en su gráfica:\n1. Solo existe para $x > 0$ (o $x > c$ si está desplazada).\n2. Asíntota vertical al borde izquierdo del dominio.\n3. Pasa por $(1,\\, 0)$ (para la forma básica).\n4. Crece (o decrece) cada vez más lentamente — curva cóncava.\n\nEsta gráfica corresponde a $\\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_24",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es el dominio de $f(x) = \\ln(x - 2)$?",
+    "options": [
+      "$(-2, +\\infty)$",
+      "$[2, +\\infty)$",
+      "$(2, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Se necesita $x - 2 > 0$, es decir $x > 2$. El dominio es $(2, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que $\\ln(x - 2)$ esté definido:\n$$x - 2 > 0 \\implies x > 2$$\n\nDominio: $(2, +\\infty)$, con asíntota vertical en $x = 2$.\n\nEl intervalo es **abierto** en $x = 2$ porque $\\ln(0)$ no existe.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_25",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es la imagen de $f(x) = \\log_2(x) + 3$?",
+    "options": [
+      "$(3, +\\infty)$",
+      "$[3, +\\infty)$",
+      "$(0, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Sumar $3$ desplaza la curva hacia arriba, pero la imagen sigue siendo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log_2(x)$ tiene imagen $\\mathbb{R}$. Sumar $3$ desplaza todos los valores en $+3$:\n\n$$\\text{Imagen de } (\\log_2(x) + 3) = \\mathbb{R} + 3 = \\mathbb{R}$$\n\nUn desplazamiento vertical no acota la imagen de un logaritmo. Contraste con la exponencial $2^x + 3$, cuya imagen es $(3, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_26",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Un auto se deprecia un 20% anual. Se quiere saber cuántos años tardará en valer la mitad de su precio original.\n\n¿A qué familia de funciones pertenece la regla que calcula los años necesarios?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Despejar el tiempo de $0{,}5 = (0{,}8)^t$ da una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor del auto es $V(t) = V_0 \\cdot (0{,}8)^t$ — función exponencial.\n\nPara saber cuándo vale la mitad: $0{,}5 = (0{,}8)^t$. Despejando:\n$$t = \\log_{0{,}8}(0{,}5) = \\frac{\\ln(0{,}5)}{\\ln(0{,}8)} \\approx 3{,}1 \\text{ años}$$\n\nLa función que calcula el tiempo en función del factor de depreciación es logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_27",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función definida para $x > 0$, con una curva decreciente que tiene asíntota vertical en $x = 0$ y pasa por el punto $(1, 0)$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Lineal decreciente",
+      "Exponencial decreciente",
+      "Racional",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 0$, dominio $(0, +\\infty)$ y paso por $(1, 0)$: es logarítmica con base $< 1$ o negada.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "Una curva **decreciente** con asíntota vertical en $x = 0$ y dominio $(0, +\\infty)$ puede ser:\n- $\\log_b(x)$ con $0 < b < 1$ (por ejemplo $\\log_{0{,}5}(x)$)\n- O $-\\log_b(x)$ con $b > 1$ (por ejemplo $-\\log_2(x)$)\n\nAmbas son funciones **logarítmicas**. La diferencia con la exponencial: esta tiene asíntota **vertical**, no horizontal.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_28",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Una empresa deposita \\$200 por semana en una cuenta. Se modela el **tiempo en semanas** necesario para llegar a un cierto saldo $S$.\n\n¿A qué familia pertenece esa función?",
+    "options": [
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si se deposita \\$200 por semana (suma fija), el tiempo necesario crece linealmente con el saldo: $t = S / 200$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Suma fija por período → crecimiento **lineal**. El saldo es $S(t) = 200t$. Despejando el tiempo:\n$$t = \\frac{S}{200}$$\n\nEsa función es **lineal** en $S$, no logarítmica.\n\nLa logarítmica aparece cuando el crecimiento es **multiplicativo** (porcentual), no aditivo. Si la cuenta creciera un 5% por semana, ahí el tiempo de duplicación sería logarítmico.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_29",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Tiene $f(x) = \\log_2(x) - 5$ extremos locales (máximos o mínimos)?",
+    "options": [
+      "Sí, un mínimo en $x = 0$",
+      "Sí, un máximo en $x = 1$",
+      "No, es estrictamente creciente sin extremos locales",
+      "Sí, un mínimo en $x = 5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Una función estrictamente creciente nunca tiene extremos locales.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = \\log_2(x) - 5$ es estrictamente creciente en $(0, +\\infty)$. Una función que siempre crece (o siempre decrece) nunca 'da la vuelta', por lo que **no tiene extremos locales**.\n\nRestar $5$ desplaza la curva hacia abajo, pero no cambia el hecho de que es monótona.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_30",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función creciente definida para $x > 1$, con asíntota vertical en $x = 1$ y que pasa por el punto $(2,\\, 0)$.\n\n¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Racional",
+      "Exponencial",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 1$ y dominio $(1, +\\infty)$ son propios de una logarítmica desplazada.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x - 1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "La curva tiene asíntota vertical en $x = 1$ (no en $x = 0$): señal de que el argumento del logaritmo es $(x - 1)$.\n\nCorresponde a $f(x) = \\log_2(x - 1)$: pasa por $(2,\\, 0)$ ya que $\\log_2(2 - 1) = \\log_2(1) = 0$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_31",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia pertenece $f(x) = \\log(x + 2) - 1$?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La operación principal sobre $x$ es el logaritmo: es una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sumar $2$ dentro del argumento y restar $1$ al resultado son transformaciones (desplazamientos), pero la operación central sigue siendo el logaritmo de $x$.\n\nDominio: $x + 2 > 0 \\implies x > -2$. Asíntota vertical: $x = -2$.\n\nLa función sigue siendo **logarítmica**, con dominio $(-2, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_32",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La población de una ciudad crece un 3% anual. Una investigadora calcula cuántos años se necesitan para que la población llegue a cada valor $P$.\n\n¿A qué familia pertenece esa función que calcula los años en función de $P$?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Despejar $t$ de $P = P_0 \\cdot (1{,}03)^t$ da $t = \\log_{1{,}03}(P/P_0)$: función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función 'años para llegar a $P$' es la inversa de la función exponencial de crecimiento:\n$$P = P_0 \\cdot (1{,}03)^t \\implies t = \\frac{\\ln(P/P_0)}{\\ln(1{,}03)}$$\n\nEsa función de $P$ es logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_33",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Es $f(x) = \\log_2(x)$ una función inyectiva en su dominio?",
+    "options": [
+      "No, porque existen dos valores de $x$ que dan el mismo logaritmo",
+      "Sí, porque es estrictamente creciente",
+      "No, porque la imagen es $\\mathbb{R}$ y no está acotada",
+      "Solo es inyectiva para $x > 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función estrictamente creciente es inyectiva: a distintos $x$ les corresponden distintos valores.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función **inyectiva** nunca repite valores: si $x_1 \\neq x_2$, entonces $f(x_1) \\neq f(x_2)$.\n\n$\\log_2(x)$ es estrictamente creciente en todo su dominio $(0, +\\infty)$: como siempre sube, nunca devuelve el mismo valor dos veces. Es, por lo tanto, inyectiva.\n\nEsta propiedad permite 'cancelar' logaritmos en ambos lados de una ecuación.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_34",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es el dominio de $f(x) = \\log(x + 5)$?",
+    "options": [
+      "$x > 5$",
+      "$x > 0$",
+      "$x > -5$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Se necesita $x + 5 > 0$, es decir $x > -5$. Dominio: $(-5, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento del logaritmo debe ser positivo:\n$$x + 5 > 0 \\implies x > -5$$\n\nDominio: $(-5, +\\infty)$. Asíntota vertical: $x = -5$.\n\nEsta función es $\\log(x)$ desplazada $5$ unidades a la izquierda.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_35",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función creciente definida para $x > 0$, con asíntota vertical en $x = 0$ y que pasa por el punto $(1,\\, 1)$.\n\n¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Cuadrática"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 0$ y paso por $(1,1)$ son propios de $\\log_2(x) + 1$: logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "La gráfica corresponde a $f(x) = \\log_2(x) + 1$: logarítmica con desplazamiento vertical de $+1$.\n\nVerificación: $f(1) = \\log_2(1) + 1 = 0 + 1 = 1$ ✓. Asíntota vertical en $x = 0$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_36",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Dos funciones, $f(x) = \\ln(x)$ y $g(x) = \\dfrac{1}{x}$, tienen asíntota vertical en $x = 0$.\n\n¿En qué se diferencian?",
+    "options": [
+      "Solo $f(x) = \\ln(x)$ tiene asíntota vertical",
+      "$f(x) = \\ln(x)$ está definida para $x \\leq 0$; $g(x)$ no",
+      "$f(x) = \\ln(x)$ es logarítmica (solo $x > 0$); $g(x)$ es racional (definida para $x \\neq 0$, ambos lados)",
+      "Son la misma familia"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x)$ es logarítmica con dominio $(0,+\\infty)$; $1/x$ es racional con dominio $\\mathbb{R} \\setminus \\{0\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Ambas tienen asíntota vertical en $x = 0$, pero son de familias distintas:\n\n- $\\ln(x)$: **logarítmica**, dominio solo $(0, +\\infty)$ — no está definida para $x < 0$.\n- $\\frac{1}{x}$: **racional**, definida para todo $x \\neq 0$ — existe en ambos lados de la asíntota.\n\nLa forma visual también difiere: $\\ln(x)$ siempre es creciente y tiene intercepto en $(1, 0)$; $\\frac{1}{x}$ tiene dos ramas y no corta el eje $X$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_37",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Una inversión de \\$1000 crece un 8% anual. Se modela el **monto** $M$ en función de los **años** $t$.\n\n¿A qué familia pertenece esa función $M(t)$?",
+    "options": [
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$M(t) = 1000 \\cdot (1{,}08)^t$ es una función exponencial: la variable $t$ está en el exponente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$M(t) = 1000 \\cdot (1{,}08)^t$ es **exponencial**: la variable $t$ está en el exponente.\n\nContraste: si la pregunta fuera '¿cuántos años para llegar a $M$?', se despeja $t = \\log_{1{,}08}(M/1000)$, que es logarítmica.\n\nMonto en función del tiempo → exponencial. Tiempo en función del monto → logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_38",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia pertenece $f(x) = 3 \\cdot \\ln(x + 1)$?",
+    "options": [
+      "Exponencial",
+      "Lineal",
+      "Racional",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La operación principal sobre $x$ es $\\ln(x+1)$: es una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = 3 \\cdot \\ln(x + 1)$ es **logarítmica**: la operación central sobre $x$ es el logaritmo natural.\n\nEl factor $3$ escala verticalmente y el $+1$ desplaza horizontalmente, pero no cambian la familia.\n\nDominio: $x + 1 > 0 \\implies x > -1$. Asíntota vertical: $x = -1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_39",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Es $f(x) = \\log_5(x)$ creciente o decreciente en su dominio?",
+    "options": [
+      "Decreciente, porque la base $5 > 1$ hace que el logaritmo baje",
+      "Creciente, porque la base $5 > 1$",
+      "Ni creciente ni decreciente: tiene un mínimo en $x = 1$",
+      "Creciente solo para $x > 1$, decreciente para $0 < x < 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con base $b > 1$, el logaritmo es siempre creciente en todo su dominio.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Regla: para $\\log_b(x)$:\n- $b > 1$ → función **creciente** en $(0, +\\infty)$.\n- $0 < b < 1$ → función **decreciente** en $(0, +\\infty)$.\n\nComo $5 > 1$, $\\log_5(x)$ es estrictamente creciente en todo su dominio. No tiene mínimo ni máximo local.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_40",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "En un experimento, las bacterias se duplican cada hora. Un biólogo calcula cuántas horas hacen falta para que la colonia pase de 100 a 6400 bacterias.\n\n¿A qué familia de funciones pertenece la regla que calcula las horas necesarias?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Despejar $t$ de $6400 = 100 \\cdot 2^t$ da $t = \\log_2(64) = 6$ horas: función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$B(t) = 100 \\cdot 2^t$. Para llegar a $6400$:\n$$6400 = 100 \\cdot 2^t \\implies 2^t = 64 = 2^6 \\implies t = 6$$\n\nEl proceso de 'despejar el tiempo' usa un logaritmo. En general, cuántas horas para llegar a $N$ es:\n$$t = \\log_2(N/100)$$\nEsa función de $N$ es logarítmica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_41",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función creciente definida para $x > 1$, con asíntota vertical en $x = 1$.\n\n¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 1$ y dominio $(1, +\\infty)$: es una logarítmica desplazada.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x - 1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "La curva tiene asíntota vertical en $x = 1$ y solo existe para $x > 1$.\n\nEsto corresponde a $\\log_b(x - 1)$ para alguna base $b > 1$: la traslación $-1$ en el argumento mueve la asíntota de $x = 0$ a $x = 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_42",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es la diferencia clave entre una función exponencial y una logarítmica, en cuanto a su asíntota?",
+    "options": [
+      "La exponencial tiene asíntota vertical; la logarítmica tiene asíntota horizontal",
+      "Ambas tienen asíntota horizontal en $y = 0$",
+      "La exponencial tiene asíntota horizontal; la logarítmica tiene asíntota vertical",
+      "Ninguna tiene asíntota"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Exponencial → asíntota horizontal ($y = 0$). Logarítmica → asíntota vertical ($x = 0$).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Son funciones inversas, y sus asíntotas también 'se invierten':\n\n- Exponencial $b^x$: asíntota **horizontal** en $y = 0$ (dominio $\\mathbb{R}$, imagen $(0,+\\infty)$).\n- Logarítmica $\\log_b(x)$: asíntota **vertical** en $x = 0$ (dominio $(0,+\\infty)$, imagen $\\mathbb{R}$).\n\nEsta distinción es la señal visual más rápida para diferenciarlas en una gráfica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_43",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿A qué familia pertenece $f(x) = \\log(3x)$?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(3x) = \\log(3) + \\log(x)$: sigue siendo una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = \\log(3x)$ es **logarítmica**: la operación central es el logaritmo de $x$.\n\nPor la propiedad del producto: $\\log(3x) = \\log(3) + \\log(x)$. Esto muestra que $f$ es simplemente $\\log(x)$ desplazada verticalmente en $\\log(3)$ — la forma de la curva es idéntica.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_44",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "La gráfica muestra una función definida para $x > 0$, decreciente, con asíntota vertical en $x = 0$ y que pasa por el punto $(1,\\, 0)$.\n\n¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Racional",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Una curva decreciente con asíntota vertical en $x = 0$ y paso por $(1,0)$ es una logarítmica negada o con base $< 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(0.5)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "La curva tiene las características de una función logarítmica:\n- Asíntota vertical en $x = 0$.\n- Dominio $(0, +\\infty)$.\n- Pasa por $(1, 0)$.\n\nEl hecho de que sea **decreciente** indica que la base es $0 < b < 1$ (como $\\log_{0{,}5}(x)$) o que se trata de un logaritmo negado ($-\\log_2(x)$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_45",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "Una inversión crece un 12% anual. Se calcula cuántos años se necesitan para que el capital se triplique.\n\n¿A qué familia pertenece la función que calcula los años en función de la tasa $r$?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Despejar $t$ de $(1+r)^t = 3$ da $t = \\log_{1+r}(3) = \\ln(3)/\\ln(1+r)$: función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para triplicar: $(1 + r)^t = 3$. Despejando:\n$$t = \\log_{1+r}(3) = \\frac{\\ln(3)}{\\ln(1+r)}$$\n\nEsta función de $r$ es logarítmica. A mayor tasa $r$, menos años se necesitan — la función decrece, lo cual es coherente con que $\\ln(1+r)$ crece.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_46",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es el dominio de $f(x) = \\log(2x - 4)$?",
+    "options": [
+      "$x > 4$",
+      "$x > 0$",
+      "$x > 2$",
+      "$x > -2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Se necesita $2x - 4 > 0$, es decir $x > 2$. Dominio: $(2, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento debe ser positivo:\n$$2x - 4 > 0 \\implies 2x > 4 \\implies x > 2$$\n\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNo confundir con $x > 4$: ese sería el dominio de $\\log(x - 4)$, no de $\\log(2x - 4)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_47",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas situaciones modela una función logarítmica (no exponencial)?",
+    "options": [
+      "El monto de una deuda que crece un 5% mensual, en función de los meses",
+      "La cantidad de bacterias que se duplican por hora, en función de las horas",
+      "Los años necesarios para que una colonia de bacterias cuadruplique su tamaño",
+      "El precio de un auto que se deprecia un 10% anual, en función de los años"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Calcular cuántos años (tiempo) se necesitan es la inversa de la función exponencial: logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las opciones 1, 2 y 4 describen cómo varía una **cantidad** a lo largo del **tiempo** → funciones exponenciales.\n\nLa opción 3 pregunta por el **tiempo** necesario para llegar a cierta **cantidad** → inversa de la exponencial → función **logarítmica**.\n\nClave: cuando la incógnita pasa del tiempo a la cantidad (o viceversa), la familia de función cambia.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_48",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál es la imagen de $f(x) = \\log_2(x - 3)$?",
+    "options": [
+      "$(3, +\\infty)$",
+      "$(0, +\\infty)$",
+      "$(−3, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Desplazar horizontalmente el argumento no cambia la imagen: sigue siendo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El desplazamiento horizontal $-3$ cambia el **dominio** (que pasa a ser $(3, +\\infty)$), pero no cambia la imagen.\n\nComo $x - 3$ toma cualquier valor positivo cuando $x > 3$, y $\\log_2$ de cualquier positivo da cualquier real, la imagen sigue siendo $\\mathbb{R}$.\n\nNo confundir dominio con imagen: $(3, +\\infty)$ es el dominio, no la imagen.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_49",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Tiene $f(x) = \\ln(x)$ un valor máximo en su dominio $(0, +\\infty)$?",
+    "options": [
+      "Sí, el máximo es $1$ alcanzado en $x = e$",
+      "Sí, el máximo es $0$ alcanzado en $x = 1$",
+      "No, $\\ln(x)$ crece sin límite: no tiene máximo",
+      "Sí, el máximo es $e$ alcanzado en $x = e^e$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x) \\to +\\infty$ cuando $x \\to +\\infty$: la función no tiene máximo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\ln(x)$ es creciente y no está acotada superiormente:\n$$\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$$\n\nPor eso no tiene máximo en su dominio. Tampoco tiene mínimo, porque:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\n\nLa imagen $\\mathbb{R}$ confirma que no hay cota.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_clsf_50",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "CLSF",
+    "question": "¿Cuál de estas funciones es logarítmica?",
+    "options": [
+      "$f(x) = 5^x + 1$",
+      "$f(x) = x^5 - 3x$",
+      "$f(x) = \\log_5(x + 1)$",
+      "$f(x) = \\dfrac{5}{x + 1}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\log_5(x + 1)$ usa el logaritmo de $x$: es una función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos cada función:\n- $5^x + 1$: la variable está en el **exponente** → exponencial.\n- $x^5 - 3x$: la variable está en la **base** de una potencia con exponente fijo → polinómica.\n- $\\log_5(x + 1)$: la variable está **dentro del logaritmo** → logarítmica ✓\n- $\\frac{5}{x+1}$: la variable está en el **denominador** → racional.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_12",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\log_3(x - 4)$?",
+    "options": [
+      "$x = 3$",
+      "$x = 0$",
+      "$x = -4$",
+      "$x = 4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El argumento $x - 4$ se anula en $x = 4$: la asíntota vertical es $x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La asíntota vertical está donde el argumento del logaritmo se anula:\n$$x - 4 = 0 \\implies x = 4$$\n\nDominio: $(4, +\\infty)$. Intercepto con el eje $X$: $\\log_3(x - 4) = 0 \\implies x - 4 = 1 \\implies x = 5$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_13",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\log_2(3x - 6)$?",
+    "options": [
+      "$x > 6$",
+      "$x > 0$",
+      "$x > 3$",
+      "$x > 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Se necesita $3x - 6 > 0 \\implies 3x > 6 \\implies x > 2$. Dominio: $(2, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento debe ser positivo:\n$$3x - 6 > 0 \\implies 3x > 6 \\implies x > 2$$\n\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNota: no confundir el coeficiente $3$ con la asíntota — la asíntota es donde el argumento es cero, es decir $3x = 6 \\implies x = 2$, no $x = 3$ ni $x = 6$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_14",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(9)$ para $f(x) = \\log_3(x)$?",
+    "options": [
+      "$3$",
+      "$9$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(9) = \\log_3(9) = 2$ porque $3^2 = 9$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(9) = \\log_3(9) = y \\iff 3^y = 9 = 3^2 \\implies y = 2$.\n\nEl punto $(9,\\, 2)$ pertenece a la gráfica de $f(x) = \\log_3(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_15",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(e^3)$ para $f(x) = \\ln(x)$?",
+    "options": [
+      "$e^3$",
+      "$3e$",
+      "$1$",
+      "$3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(e^3) = \\ln(e^3) = 3$ por la propiedad $\\ln(e^n) = n$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\ln(e^3) = 3 \\cdot \\ln(e) = 3 \\cdot 1 = 3$.\n\nO usando la definición: $\\ln(e^3) = y \\iff e^y = e^3 \\implies y = 3$.\n\nEl punto $(e^3,\\, 3)$ pertenece a la gráfica de $\\ln(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_16",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(100)$ para $f(x) = \\log(x)$?",
+    "options": [
+      "$10$",
+      "$100$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(100) = \\log(100) = 2$ porque $10^2 = 100$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\log(100) = \\log_{10}(100) = 2$ porque $10^2 = 100$.\n\nPatrón: $\\log(10^n) = n$, por lo que $\\log(100) = \\log(10^2) = 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_17",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\ln(x + 4)$?",
+    "options": [
+      "$x = 0$",
+      "$x = 4$",
+      "$x = -4$",
+      "$y = 4$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El argumento $x + 4$ se anula en $x = -4$: la asíntota vertical es $x = -4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x + 4 = 0 \\implies x = -4$ → asíntota vertical en $x = -4$.\n\nDominio: $(-4, +\\infty)$. Intercepto con eje $X$: $\\ln(x+4) = 0 \\implies x + 4 = 1 \\implies x = -3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_18",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = -\\log_2(x)$",
+      "$f(x) = 2^x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(1, 0)$ y tiene asíntota en $x = 0$: $f(x) = \\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Claves para leer el gráfico:\n1. Asíntota vertical en $x = 0$ → argumento es $x$ sin desplazamiento.\n2. Pasa por $(1, 0)$ → $f(1) = 0$ → no hay desplazamiento vertical.\n3. Es creciente → base $b > 1$.\n4. Pasa por $(2, 1)$ → $f(2) = 1$ → base $b = 2$.\n\nConclusión: $f(x) = \\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_19",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x) - 1$",
+      "$f(x) = 2 \\cdot \\log_2(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(1, 1)$ y tiene asíntota en $x = 0$: $f(x) = \\log_2(x) + 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "Claves:\n1. Asíntota vertical en $x = 0$ → argumento sin desplazamiento.\n2. En $x = 1$: $f(1) = 1$ (no $0$) → hay desplazamiento vertical de $+1$.\n3. Creciente con base $b = 2$ (el punto $(2, 2)$ confirma).\n\nConclusión: $f(x) = \\log_2(x) + 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_20",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(-x)$",
+      "$f(x) = -\\log_2(x)$",
+      "$f(x) = \\log_2(x) - 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La curva decrece para $x > 0$, pasa por $(1, 0)$: $f(x) = -\\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "Claves:\n1. Dominio $x > 0$, asíntota en $x = 0$.\n2. Es **decreciente** → se trata de un logaritmo negado o con base $< 1$.\n3. Pasa por $(1, 0)$: $f(1) = -\\log_2(1) = 0$ ✓.\n4. Para $x > 1$, la curva baja → confirma que es $-\\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_21",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\log_2(4x)$?",
+    "options": [
+      "$4 \\cdot \\log_2(x)$",
+      "$2 + \\log_2(x)$",
+      "$4 + \\log_2(x)$",
+      "$\\log_2(4) \\cdot \\log_2(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(4x) = \\log_2(4) + \\log_2(x) = 2 + \\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Por la propiedad del producto:\n$$\\log_2(4x) = \\log_2(4) + \\log_2(x) = 2 + \\log_2(x)$$\n\nUsar $\\log_2(4) = 2$ porque $2^2 = 4$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_22",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\log(x^3)$?",
+    "options": [
+      "$\\log(3x)$",
+      "$3 + \\log(x)$",
+      "$3 \\cdot \\log(x)$",
+      "$\\log(x)^3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $\\log(x^3) = 3 \\cdot \\log(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad de la potencia:\n$$\\log(x^3) = 3 \\cdot \\log(x)$$\n\nVerificación con $x = 100$: $\\log(100^3) = \\log(10^6) = 6$ y $3 \\cdot \\log(100) = 3 \\cdot 2 = 6$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_23",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿A cuál expresión es equivalente $\\ln(e^{2x})$?",
+    "options": [
+      "$2e^x$",
+      "$e^{2x}$",
+      "$2x$",
+      "$2 + x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(e^{2x}) = 2x$ porque $\\ln$ y $e^{(\\ )}$ se cancelan.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Usando la propiedad de la potencia: $\\ln(e^{2x}) = 2x \\cdot \\ln(e) = 2x \\cdot 1 = 2x$.\n\nO por funciones inversas: $\\ln(e^u) = u$ con $u = 2x$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_24",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es la función inversa de $f(x) = \\log_2(x)$?",
+    "options": [
+      "$f^{-1}(x) = \\dfrac{x}{2}$",
+      "$f^{-1}(x) = 2x$",
+      "$f^{-1}(x) = 2^x$",
+      "$f^{-1}(x) = x^2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La inversa de $\\log_2(x)$ es $2^x$: $2^{\\log_2(x)} = x$ y $\\log_2(2^x) = x$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar la inversa de $y = \\log_2(x)$, se intercambian $x$ e $y$ y se despeja:\n$$x = \\log_2(y) \\implies y = 2^x$$\n\nVerificación: $\\log_2(2^x) = x$ ✓ y $2^{\\log_2(x)} = x$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_25",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿En qué valor de $x$ la función $f(x) = \\log_2(x + 1)$ cruza el eje $X$?",
+    "options": [
+      "$x = -1$",
+      "$x = 0$",
+      "$x = 1$",
+      "$x = 2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x + 1) = 0 \\implies x + 1 = 1 \\implies x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El intercepto con el eje $X$ se da cuando $f(x) = 0$:\n$$\\log_2(x + 1) = 0 \\implies x + 1 = 2^0 = 1 \\implies x = 0$$\n\nLa curva pasa por el origen $(0, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_26",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(28)$ para $f(x) = \\log_3(x - 1)$?",
+    "options": [
+      "$3$",
+      "$27$",
+      "$4$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(28) = \\log_3(28 - 1) = \\log_3(27) = 3$ porque $3^3 = 27$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(28) = \\log_3(28 - 1) = \\log_3(27)$.\n\nComo $3^3 = 27$, se tiene $\\log_3(27) = 3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_27",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\log(x - 2) + \\log(x + 2)$?",
+    "options": [
+      "$x > 2$",
+      "$x > -2$",
+      "$x > 0$",
+      "$x > 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Ambos argumentos deben ser positivos: $x - 2 > 0$ y $x + 2 > 0$, lo que da $x > 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada logaritmo requiere su argumento positivo:\n- $x - 2 > 0 \\implies x > 2$\n- $x + 2 > 0 \\implies x > -2$\n\nSe necesitan **ambas** condiciones simultáneamente. La más restrictiva es $x > 2$. Dominio: $(2, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_28",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una función logarítmica tiene asíntota vertical en $x = 3$, es creciente y pasa por el punto $(4,\\, 0)$.\n\n¿Cuál de estas fórmulas la describe?",
+    "options": [
+      "$f(x) = \\log_2(x + 3)$",
+      "$f(x) = \\log_3(x - 3)$",
+      "$f(x) = \\log_2(x - 3)$",
+      "$f(x) = \\log_2(x) - 3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x = 3$ → argumento $(x-3)$. Pasa por $(4,0)$: $\\log_2(4-3) = \\log_2(1) = 0$ ✓.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$, o sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ ✓.\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_29",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(7)$ para $f(x) = \\log_2(x + 1)$?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$7$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(7) = \\log_2(7 + 1) = \\log_2(8) = 3$ porque $2^3 = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(7) = \\log_2(7 + 1) = \\log_2(8)$.\n\n$2^3 = 8$, entonces $\\log_2(8) = 3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_30",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una inversión crece según $M(t) = 1000 \\cdot (1{,}1)^t$.\n\n¿Cuál es la fórmula que calcula los años $t$ necesarios para llegar a un monto $M$?",
+    "options": [
+      "$t = 1000 \\cdot (1{,}1)^M$",
+      "$t = \\dfrac{M}{1000 \\cdot 1{,}1}$",
+      "$t = \\log_{1{,}1}\\!\\left(\\dfrac{M}{1000}\\right)$",
+      "$t = \\dfrac{\\ln(M)}{1000}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Despejando $t$: $(1{,}1)^t = M/1000 \\implies t = \\log_{1{,}1}(M/1000)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Partiendo de $M = 1000 \\cdot (1{,}1)^t$:\n$$\\frac{M}{1000} = (1{,}1)^t \\implies t = \\log_{1{,}1}\\!\\left(\\frac{M}{1000}\\right)$$\n\nEsta función $t(M)$ es logarítmica en $M$. Ejemplo: para $M = 2000$, $t = \\log_{1{,}1}(2) \\approx 7{,}3$ años.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_31",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(e)$ para $f(x) = \\ln(x) + 2$?",
+    "options": [
+      "$e + 2$",
+      "$2e$",
+      "$3$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(e) = \\ln(e) + 2 = 1 + 2 = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(e) = \\ln(e) + 2 = 1 + 2 = 3$.\n\nUsando $\\ln(e) = 1$ (propiedad fundamental).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_32",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\ln(4 - x)$?",
+    "options": [
+      "$x > 4$",
+      "$x < 4$",
+      "$x > -4$",
+      "$x < -4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Se necesita $4 - x > 0 \\implies -x > -4 \\implies x < 4$. Dominio: $(-\\infty, 4)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento debe ser positivo:\n$$4 - x > 0 \\implies -x > -4 \\implies x < 4$$\n\nDominio: $(-\\infty, 4)$. Asíntota vertical: $x = 4$.\n\nEsta función es la imagen especular de $\\ln(x - 4)$: la curva se refleja horizontalmente y queda en el semiplano $x < 4$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_33",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\log_3(9x^2)$?",
+    "options": [
+      "$9 + 2\\log_3(x)$",
+      "$2 + \\log_3(x)$",
+      "$2 + 2\\log_3(x)$",
+      "$2\\log_3(9x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_3(9x^2) = \\log_3(9) + \\log_3(x^2) = 2 + 2\\log_3(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicando propiedades paso a paso:\n$$\\log_3(9x^2) = \\log_3(9) + \\log_3(x^2) = 2 + 2\\log_3(x)$$\n\nUsando: $\\log_3(9) = 2$ (pues $3^2 = 9$) y $\\log_3(x^2) = 2\\log_3(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_34",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\log_2(x) - 3$?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$y = -3$",
+      "$x = 0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Restar $3$ es un desplazamiento vertical: la asíntota vertical sigue en $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La asíntota vertical depende del argumento del logaritmo. Para $f(x) = \\log_2(x) - 3$, el argumento es $x$:\n$$x = 0 \\text{ → asíntota vertical}$$\n\nEl $-3$ es un desplazamiento vertical que baja la curva, pero no mueve la asíntota.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_35",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿En qué valor de $x$ la función $f(x) = \\log_2(x - 1)$ cruza el eje $X$?",
+    "options": [
+      "$x = 0$",
+      "$x = 1$",
+      "$x = 2$",
+      "$x = 3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x - 1) = 0 \\implies x - 1 = 1 \\implies x = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El intercepto con el eje $X$ ocurre cuando $f(x) = 0$:\n$$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$$\n\nLa curva pasa por el punto $(2,\\, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_36",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una colonia de bacterias parte de 50 y se duplica cada hora: $B(t) = 50 \\cdot 2^t$.\n\n¿Cuántas horas hacen falta para llegar a 1600 bacterias?",
+    "options": [
+      "$4$",
+      "$5$",
+      "$32$",
+      "$6$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$1600 = 50 \\cdot 2^t \\implies 2^t = 32 = 2^5 \\implies t = 5$ horas.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Despejamos $t$:\n$$1600 = 50 \\cdot 2^t \\implies 2^t = \\frac{1600}{50} = 32 = 2^5 \\implies t = 5$$\n\nSon $5$ horas. El proceso de despejar el tiempo usa un logaritmo: $t = \\log_2(32) = 5$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_37",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(11)$ para $f(x) = \\log_2(x - 3)$?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$4$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(11) = \\log_2(11 - 3) = \\log_2(8) = 3$ porque $2^3 = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(11) = \\log_2(11 - 3) = \\log_2(8)$.\n\n$2^3 = 8$, entonces $\\log_2(8) = 3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_38",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$?",
+    "options": [
+      "$\\ln(x) + 2$",
+      "$\\ln(x) - 2$",
+      "$\\dfrac{\\ln(x)}{2}$",
+      "$\\ln(x) \\cdot e^{-2}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x/e^2) = \\ln(x) - \\ln(e^2) = \\ln(x) - 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad del cociente y de la potencia:\n$$\\ln\\!\\left(\\frac{x}{e^2}\\right) = \\ln(x) - \\ln(e^2) = \\ln(x) - 2 \\cdot \\ln(e) = \\ln(x) - 2$$",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_39",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una inversión crece un 10% anual: $M(t) = M_0 \\cdot (1{,}1)^t$.\n\nUsando $\\log_{1{,}1}(2) \\approx 7{,}3$, ¿cuántos años aproximados son necesarios para duplicar el capital?",
+    "options": [
+      "$5$",
+      "$10$",
+      "$7$",
+      "$14$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Duplicar: $(1{,}1)^t = 2 \\implies t = \\log_{1{,}1}(2) \\approx 7{,}3$, es decir unos $7$ años.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para duplicar el capital: $M = 2M_0$:\n$$2M_0 = M_0 \\cdot (1{,}1)^t \\implies (1{,}1)^t = 2 \\implies t = \\log_{1{,}1}(2) \\approx 7{,}3 \\text{ años}$$",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_40",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\log_2(x^2)$?",
+    "options": [
+      "$x > 0$",
+      "$x \\geq 0$",
+      "$x \\neq 0$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$x^2 > 0$ para todo $x \\neq 0$: el dominio es $\\mathbb{R} \\setminus \\{0\\}$, es decir $x \\neq 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El argumento $x^2 > 0$ cuando $x \\neq 0$ (para $x = 0$, $x^2 = 0$ y el logaritmo no existe).\n\nDominio: $\\mathbb{R} \\setminus \\{0\\} = (-\\infty, 0) \\cup (0, +\\infty)$, o sea todos los reales excepto cero.\n\nNota: $\\log_2(x^2) = 2\\log_2|x|$, lo que confirma que existe para $x$ positivo y negativo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_41",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una función logarítmica (base $2$) tiene asíntota vertical en $x = -1$ y pasa por el punto $(0,\\, 0)$.\n\n¿Cuál de estas fórmulas la describe?",
+    "options": [
+      "$f(x) = \\log_2(x - 1)$",
+      "$f(x) = \\log_2(x) - 1$",
+      "$f(x) = \\log_2(x + 1)$",
+      "$f(x) = \\log_2(x + 2)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x = -1$ → argumento $(x+1)$. Pasa por $(0,0)$: $\\log_2(0+1)=0$ ✓.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Asíntota en $x = -1$ → el argumento se anula en $x = -1$, entonces argumento $= x + 1$.\n\nVerificación con el punto $(0, 0)$: $\\log_2(0 + 1) = \\log_2(1) = 0$ ✓.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_42",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(4)$ para $f(x) = 2 \\cdot \\log_2(x)$?",
+    "options": [
+      "$8$",
+      "$4$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(4) = 2 \\cdot \\log_2(4) = 2 \\cdot 2 = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(4) = 2 \\cdot \\log_2(4) = 2 \\cdot 2 = 4$.\n\nUsando $\\log_2(4) = 2$ (pues $2^2 = 4$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_43",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{16}{x}\\right)$?",
+    "options": [
+      "$16 - \\log_2(x)$",
+      "$\\dfrac{4}{\\log_2(x)}$",
+      "$4 - \\log_2(x)$",
+      "$4 + \\log_2(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(16/x) = \\log_2(16) - \\log_2(x) = 4 - \\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad del cociente:\n$$\\log_2\\!\\left(\\frac{16}{x}\\right) = \\log_2(16) - \\log_2(x) = 4 - \\log_2(x)$$\n\nUsando $\\log_2(16) = 4$ (pues $2^4 = 16$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_44",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Una deuda crece un 5% mensual: $D(t) = D_0 \\cdot (1{,}05)^t$.\n\nUsando $\\log_{1{,}05}(3) \\approx 22{,}5$, ¿cuántos meses aproximados hacen falta para que la deuda se triplique?",
+    "options": [
+      "$5$",
+      "$15$",
+      "$22$",
+      "$30$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$(1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$, es decir unos $22$ meses.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$3D_0 = D_0 \\cdot (1{,}05)^t \\implies (1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$ meses.\n\nEso da algo más de $22$ meses completos.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_45",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_3(x)$",
+      "$f(x) = \\log_3(x) + 1$",
+      "$f(x) = 3^x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(3, 1)$ con asíntota en $x = 0$: $f(x) = \\log_3(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Claves:\n1. Asíntota vertical en $x = 0$ → argumento sin desplazamiento.\n2. Pasa por $(1, 0)$ → no hay desplazamiento vertical.\n3. Pasa por $(3, 1)$ → $f(3) = 1$, es decir la base es $3$.\n\nConclusión: $f(x) = \\log_3(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_46",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿En qué valor de $x$ la función $f(x) = \\log_2(x) - 1$ cruza el eje $X$?",
+    "options": [
+      "$x = 1$",
+      "$x = 2$",
+      "$x = 3$",
+      "$x = 4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x) - 1 = 0 \\implies \\log_2(x) = 1 \\implies x = 2^1 = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El intercepto con el eje $X$ ocurre cuando $f(x) = 0$:\n$$\\log_2(x) - 1 = 0 \\implies \\log_2(x) = 1 \\implies x = 2^1 = 2$$\n\nLa curva pasa por el punto $(2,\\, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_47",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(e^2 - 1)$ para $f(x) = \\ln(x + 1)$?",
+    "options": [
+      "$e^2$",
+      "$1$",
+      "$2$",
+      "$e$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(e^2 - 1) = \\ln(e^2 - 1 + 1) = \\ln(e^2) = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(e^2 - 1) = \\ln((e^2 - 1) + 1) = \\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_48",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\log_2(2x + 6)$?",
+    "options": [
+      "$x = 6$",
+      "$x = -6$",
+      "$x = -3$",
+      "$x = 3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El argumento se anula cuando $2x + 6 = 0 \\implies x = -3$. Asíntota en $x = -3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$2x + 6 = 0 \\implies 2x = -6 \\implies x = -3$.\n\nAsíntota vertical: $x = -3$. Dominio: $(-3, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_49",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "¿Cuánto vale $\\log_2(8) - \\log_2(4)$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(8) - \\log_2(4) = \\log_2(8/4) = \\log_2(2) = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Propiedad del cociente:\n$$\\log_2(8) - \\log_2(4) = \\log_2\\!\\left(\\frac{8}{4}\\right) = \\log_2(2) = 1$$\n\nO directo: $\\log_2(8) = 3$ y $\\log_2(4) = 2$, entonces $3 - 2 = 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_form_50",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "FORM",
+    "question": "Un auto se deprecia un 20% anual: $V(t) = V_0 \\cdot (0{,}8)^t$.\n\nUsando $\\log_{0{,}8}(0{,}5) \\approx 3{,}1$, ¿cuántos años aproximados hacen falta para que el auto valga la mitad?",
+    "options": [
+      "$2$",
+      "$3$",
+      "$4$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$(0{,}8)^t = 0{,}5 \\implies t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$, es decir unos $3$ años.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que el auto valga la mitad: $V_0/2 = V_0 \\cdot (0{,}8)^t$, es decir $(0{,}8)^t = 0{,}5$. Despejando:\n$$t = \\log_{0{,}8}(0{,}5) = \\frac{\\ln(0{,}5)}{\\ln(0{,}8)} \\approx \\frac{-0{,}693}{-0{,}223} \\approx 3{,}1$$\n\nSon unos $3$ años.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_01",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿La función representada en el gráfico es creciente o decreciente?",
+    "options": [
+      "Creciente",
+      "Decreciente",
+      "Primero crece y luego decrece",
+      "Ninguna de las anteriores"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La curva sube de izquierda a derecha: es estrictamente creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$f(x) = \\log_2(x)$ con base $2 > 1$ es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nEn el gráfico se observa que al avanzar hacia la derecha la curva siempre sube, aunque cada vez más lentamente.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_02",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la asíntota vertical de la función del gráfico?",
+    "options": [
+      "$y = 0$",
+      "$x = 1$",
+      "$x = 0$",
+      "$y = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La curva se acerca al eje vertical ($x = 0$) sin cruzarlo: la asíntota vertical es $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Toda logarítmica básica $\\log_b(x)$ tiene **asíntota vertical en $x = 0$**, ya que el argumento no puede ser cero ni negativo.\n\nEn el gráfico, la curva viene de $-\\infty$ abrazando el eje $Y$ por la derecha, sin cruzarlo.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_03",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿En qué punto la curva del gráfico cruza el eje $X$?",
+    "options": [
+      "$(0,\\, 1)$",
+      "$(2,\\, 0)$",
+      "$(1,\\, 0)$",
+      "$(0,\\, 0)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toda $\\log_b(x)$ pasa por $(1, 0)$ porque $\\log_b(1) = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$\\log_2(1) = 0$ porque $2^0 = 1$.\n\nEl punto $(1, 0)$ es universal en logarítmicas básicas: sin importar la base, siempre pasa por $(1, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_04",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(4)$ según el gráfico?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$4$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(4) = \\log_2(4) = 2$ porque $2^2 = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "En el gráfico, cuando $x = 4$ la curva alcanza $y = 2$, confirmando $\\log_2(4) = 2$.\n\nPuntos clave de $\\log_2(x)$: $(1, 0)$, $(2, 1)$, $(4, 2)$, $(8, 3)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_05",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es el dominio de la función representada?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$x \\geq 0$",
+      "$(0,\\, +\\infty)$",
+      "$x > 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La curva existe solo para $x > 0$: el dominio es $(0, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "El logaritmo requiere argumento **estrictamente positivo**. La gráfica confirma que la curva solo existe a la derecha del eje $Y$ (excluyendo $x = 0$).\n\nDominio: $(0, +\\infty)$. No incluye $x = 0$ (asíntota) ni valores negativos.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_06",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
+    "options": [
+      "$(0,\\, +\\infty)$",
+      "$[0,\\, +\\infty)$",
+      "$(-\\infty,\\, 1)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La función toma todos los valores reales: imagen $= \\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "La curva logarítmica crece sin cota superior ($f(x) \\to +\\infty$ cuando $x \\to +\\infty$) y cae sin cota inferior ($f(x) \\to -\\infty$ cuando $x \\to 0^+$).\n\nImagen: $\\mathbb{R}$ (todos los reales). Contrasta con la exponencial, cuya imagen es $(0, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_07",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(2)$ según el gráfico?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(2) = \\log_2(2) = 1$ porque $2^1 = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "En el gráfico, en $x = 2$ la curva vale $y = 1$.\n\n$\\log_2(2) = 1$ porque $2^1 = 2$. El punto $(2, 1)$ es la clave para identificar que la base es $2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_08",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿La función representada en el gráfico es creciente o decreciente?",
+    "options": [
+      "Creciente",
+      "Decreciente",
+      "Constante",
+      "No es monótona"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva desciende de izquierda a derecha: es estrictamente decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "$f(x) = -\\log_2(x)$ es la reflexión de $\\log_2(x)$ respecto al eje $X$.\n\nComo $\\log_2(x)$ es creciente, $-\\log_2(x)$ es **estrictamente decreciente**: al avanzar a la derecha, la curva siempre baja.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_09",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la asíntota vertical de la función del gráfico?",
+    "options": [
+      "$x = -1$",
+      "$y = 0$",
+      "$x = 1$",
+      "$x = 0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La curva se acerca al eje $Y$ ($x = 0$) sin cruzarlo desde la derecha: asíntota en $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "El signo negativo no afecta la asíntota: $-\\log_2(x)$ sigue teniendo argumento $x$, que no puede ser cero.\n\nAsíntota vertical: $x = 0$. La curva viene de $+\\infty$ junto al eje $Y$ y luego desciende.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_10",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿En qué punto la curva del gráfico cruza el eje $X$?",
+    "options": [
+      "$(2,\\, 0)$",
+      "$(0,\\, 0)$",
+      "$(0,\\, 1)$",
+      "$(1,\\, 0)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$-\\log_2(1) = -0 = 0$: la curva cruza el eje $X$ en $(1, 0)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "$-\\log_2(x) = 0 \\implies \\log_2(x) = 0 \\implies x = 1$.\n\nLa reflexión respecto al eje $X$ no desplaza el punto $(1, 0)$: ambas curvas, $\\log_2(x)$ y $-\\log_2(x)$, pasan por $(1, 0)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_11",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la asíntota vertical de la función del gráfico?",
+    "options": [
+      "$x = 1$",
+      "$x = -1$",
+      "$y = 1$",
+      "$x = 0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El desplazamiento vertical $+1$ no mueve la asíntota: sigue en $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "Para $f(x) = \\log_2(x) + 1$, el argumento del logaritmo es $x$.\n\nLa asíntota está donde el argumento se anula: $x = 0$. El $+1$ solo sube la curva — no mueve la asíntota.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_12",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(1)$ según el gráfico?",
+    "options": [
+      "$0$",
+      "$2$",
+      "$3$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(1) = \\log_2(1) + 1 = 0 + 1 = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "$f(1) = \\log_2(1) + 1 = 0 + 1 = 1$.\n\nEl desplazamiento vertical $+1$ hace que el punto que antes estaba en $(1, 0)$ ahora esté en $(1, 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_13",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿En qué valor de $x$ la función del gráfico cruza el eje $X$?",
+    "options": [
+      "$x = 1$",
+      "$x = 0{,}5$",
+      "$x = 2$",
+      "$x = 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x) + 1 = 0 \\implies \\log_2(x) = -1 \\implies x = 2^{-1} = 0{,}5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "Igualando a cero:\n$$\\log_2(x) + 1 = 0 \\implies \\log_2(x) = -1 \\implies x = 2^{-1} = \\frac{1}{2} = 0{,}5$$\n\nLa curva corta el eje $X$ en $x = 0{,}5$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_14",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la asíntota vertical de la función del gráfico?",
+    "options": [
+      "$x = 0$",
+      "$x = 2$",
+      "$y = 1$",
+      "$x = 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El argumento $x - 1$ se anula en $x = 1$: la asíntota vertical es $x = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "Para $f(x) = \\log_2(x - 1)$, el argumento se anula cuando $x - 1 = 0$, es decir $x = 1$.\n\nAsíntota vertical: $x = 1$. La curva viene de $-\\infty$ abrazando la recta vertical $x = 1$ por la derecha.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_15",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es el dominio de la función representada?",
+    "options": [
+      "$x > 0$",
+      "$x \\geq 1$",
+      "$(1,\\, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El argumento $x - 1 > 0$ exige $x > 1$: dominio $(1, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "El argumento debe ser positivo: $x - 1 > 0 \\implies x > 1$.\n\nEl dominio es $(1, +\\infty)$, como se ve en el gráfico: la curva solo existe a la derecha de $x = 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_16",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿En qué punto la curva del gráfico cruza el eje $X$?",
+    "options": [
+      "$(1,\\, 0)$",
+      "$(3,\\, 0)$",
+      "$(0,\\, 0)$",
+      "$(2,\\, 0)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x - 1) = 0 \\implies x - 1 = 1 \\implies x = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$.\n\nEl intercepto con el eje $X$ se desplaza de $x = 1$ (de la básica) a $x = 2$ (desplazada en $+1$).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_17",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(e)$ según el gráfico?",
+    "options": [
+      "$e$",
+      "$0$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(e) = \\ln(e) = 1$: el punto $(e, 1)$ pertenece a la curva.",
+    "feedback_incorrect": "",
+    "graph_fn": "ln(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      5
+    ],
+    "explanation": "$\\ln(e) = 1$ porque $e^1 = e$.\n\nEl punto $(e,\\, 1) \\approx (2{,}7,\\, 1)$ es la clave para identificar el logaritmo natural $\\ln(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_18",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿La función representada en el gráfico es creciente o decreciente?",
+    "options": [
+      "Decreciente",
+      "No es monótona",
+      "Creciente",
+      "Constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x)$ con base $e > 1$ es estrictamente creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "ln(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      5
+    ],
+    "explanation": "$\\ln(x) = \\log_e(x)$ y $e \\approx 2{,}7 > 1$, por lo que la función es **estrictamente creciente**.\n\nEn el gráfico se observa una curva que siempre sube de izquierda a derecha.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_19",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(3)$ según el gráfico?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(3) = \\log_3(3) = 1$ porque $3^1 = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "La curva corresponde a $\\log_3(x)$. El punto $(3, 1)$ pertenece a la gráfica porque $\\log_3(3) = 1$.\n\nRecordá: el punto $(b, 1)$ siempre pertenece a $\\log_b(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_20",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(9)$ según el gráfico?",
+    "options": [
+      "$3$",
+      "$9$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(9) = \\log_3(9) = 2$ porque $3^2 = 9$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$\\log_3(9) = 2$ porque $3^2 = 9$.\n\nEn el gráfico, en $x = 9$ la curva alcanza $y = 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_21",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿La función del gráfico tiene algún extremo local (máximo o mínimo)?",
+    "options": [
+      "Sí, tiene un mínimo",
+      "Sí, tiene un máximo",
+      "Sí, tiene ambos",
+      "No tiene extremos locales"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Las logarítmicas son estrictamente monótonas: nunca tienen extremos locales.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Una función **estrictamente creciente** (o decreciente) nunca puede tener un máximo o mínimo local, porque siempre hay un punto mayor (o menor) cerca.\n\nLa gráfica de $\\log_2(x)$ siempre sube, nunca se da vuelta.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_22",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Hacia dónde tiende la función del gráfico cuando $x \\to +\\infty$?",
+    "options": [
+      "Tiende a $0$",
+      "Tiende a $1$",
+      "Tiende a $+\\infty$",
+      "Tiende a un valor finito"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x) \\to +\\infty$ cuando $x \\to +\\infty$, aunque lo hace muy lentamente.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$\\log_b(x) \\to +\\infty$ cuando $x \\to +\\infty$ (con $b > 1$). La función no tiene asíntota horizontal.\n\nAunque la curva crece muy lentamente (para $x = 1{.}000{.}000$, $\\log_2(x) \\approx 20$), no está acotada superiormente.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_23",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
+    "options": [
+      "$(0,\\, +\\infty)$",
+      "$(-\\infty,\\, 0)$",
+      "$[-1,\\, 1]$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$-\\log_2(x)$ también tiene imagen $\\mathbb{R}$: la reflexión no restringe los valores.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "La imagen de $\\log_2(x)$ es $\\mathbb{R}$. Al multiplicar por $-1$, los valores positivos se vuelven negativos y viceversa, pero siguen cubriendo $\\mathbb{R}$.\n\nEn el gráfico, la curva puede tomar cualquier valor real (sube indefinidamente hacia $x = 0^+$ y baja indefinidamente para $x$ grande).",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_24",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuánto vale $f(3)$ según el gráfico?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(3) = \\log_2(3 - 1) = \\log_2(2) = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "$f(3) = \\log_2(3 - 1) = \\log_2(2) = 1$ porque $2^1 = 2$.\n\nEn el gráfico, la curva pasa por $(3, 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_25",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿La función del gráfico tiene algún valor máximo?",
+    "options": [
+      "Sí, el máximo es $2$",
+      "Sí, el máximo es $1$",
+      "Sí, el máximo depende del dominio",
+      "No tiene máximo"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Las logarítmicas crecen sin cota: no tienen máximo.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "$f(x) = \\log_2(x) + 1$ es estrictamente creciente y $f(x) \\to +\\infty$ cuando $x \\to +\\infty$.\n\nNo tiene valor máximo: la curva siempre puede subir más, aunque lo hace cada vez más lentamente.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_26",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = -\\log_2(x)$",
+      "$f(x) = 2^x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x=0$, pasa por $(1,0)$ y $(2,1)$: es $f(x) = \\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Claves de identificación:\n1. Curva creciente → base $b > 1$.\n2. Asíntota vertical en $x = 0$ → argumento es $x$.\n3. Pasa por $(1, 0)$ → no hay desplazamiento vertical.\n4. Pasa por $(2, 1)$ → base $2$.\n\nFórmula: $f(x) = \\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_27",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x) - 1$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = 2 \\cdot \\log_2(x)$",
+      "$f(x) = \\log_2(x) + 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(1, 1)$ (no por $(1, 0)$): hay un desplazamiento vertical de $+1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      6
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 0$ → argumento es $x$.\n2. En $x = 1$: $f(1) = 1$ (no $0$) → desplazamiento vertical $+1$.\n3. En $x = 2$: $f(2) = 2$ → confirma base $2$ con desplazamiento $+1$.\n\nFórmula: $f(x) = \\log_2(x) + 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_28",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x) - 1$",
+      "$f(x) = -\\log_2(x)$",
+      "$f(x) = \\log_2(-x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Curva decreciente con asíntota en $x=0$ y dominio $x>0$: $f(x) = -\\log_2(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "Claves:\n1. **Decreciente** → o base $< 1$ o logaritmo negado.\n2. Dominio $x > 0$ → no es $\\log_2(-x)$ (que tiene dominio $x < 0$).\n3. Pasa por $(1, 0)$: $-\\log_2(1) = 0$ ✓.\n4. Para $x = 2$: $f(2) = -1$ → baja.\n\nFórmula: $f(x) = -\\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_29",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x + 1)$",
+      "$f(x) = \\log_2(x) - 1$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x - 1)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x=1$ y pasa por $(2,0)$: $f(x) = \\log_2(x-1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -3,
+      4
+    ],
+    "explanation": "Claves:\n1. Asíntota vertical en $x = 1$ → argumento $(x - 1)$.\n2. Pasa por $(2, 0)$: $\\log_2(2-1)=\\log_2(1)=0$ ✓.\n3. Dominio: $x > 1$.\n\nFórmula: $f(x) = \\log_2(x - 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_30",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = e^x$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\ln(x)$",
+      "$f(x) = \\log_3(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(e, 1) \\approx (2{,}7,\\, 1)$: es $f(x) = \\ln(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "ln(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      5
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 0$, creciente, pasa por $(1, 0)$.\n2. El punto clave es $(e,\\, 1) \\approx (2{,}7,\\, 1)$: si en $x \\approx 2{,}7$ la curva vale $1$, la base es $e$.\n3. Vs $\\log_2(x)$: en $x = 2$ vale $1$, en $x \\approx 2{,}7$ vale algo distinto de $1$.\n\nFórmula: $f(x) = \\ln(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_31",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\ln(x)$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_3(x)$",
+      "$f(x) = \\log_4(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(3, 1)$: la base es $3$, es decir $f(x) = \\log_3(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Claves:\n1. En $x = 3$ la curva vale $y = 1$: el punto $(3, 1)$ identifica que la base es $3$.\n2. En $x = 9$ la curva vale $y = 2$: $\\log_3(9) = 2$ ✓.\n3. Vs $\\log_2(x)$: esta vale $1$ en $x = 2$, no en $x = 3$.\n\nFórmula: $f(x) = \\log_3(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_32",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x) + 2$",
+      "$f(x) = \\log_2(2x)$",
+      "$f(x) = 2 \\cdot \\log_2(x)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(2, 2)$ y $(4, 4)$: el factor $2$ escala verticalmente.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      6
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento.\n2. En $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$.\n3. $\\log_2(2x) = 1 + \\log_2(x)$ es distinto: en $x=1$ vale $1$, no $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_33",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x-1)$",
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x) - 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "En $x=1$: $f(1)=-1$. En $x=2$: $f(2)=0$. Desplazamiento vertical $-1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)-1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 0$ → argumento es $x$.\n2. En $x = 1$: $f(1) = 0 - 1 = -1$ (no pasa por $(1,0)$).\n3. Intercepto con eje $X$ en $x = 2$: $\\log_2(2) - 1 = 1 - 1 = 0$ ✓.\n\nFórmula: $f(x) = \\log_2(x) - 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_34",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x - 1)$",
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_2(x + 1)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x=-1$ y pasa por el origen $(0,0)$: $f(x) = \\log_2(x+1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x+1)",
+    "graph_view": [
+      -1.5,
+      7.5,
+      -3,
+      4
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = -1$ → argumento $(x + 1)$.\n2. Pasa por $(0, 0)$: $\\log_2(0 + 1) = \\log_2(1) = 0$ ✓.\n3. No confundir con $\\log_2(x) + 1$: esa tiene asíntota en $x = 0$.\n\nFórmula: $f(x) = \\log_2(x + 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_35",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\ln(x)$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_3(x)$",
+      "$f(x) = \\log_4(x)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(4, 1)$: la base es $4$, es decir $f(x) = \\log_4(x)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(4)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      4
+    ],
+    "explanation": "Claves:\n1. En $x = 4$ la curva vale $y = 1$: el punto $(4, 1)$ identifica base $4$.\n2. Vs $\\log_2(x)$: esa vale $1$ en $x = 2$.\n3. Vs $\\log_3(x)$: esa vale $1$ en $x = 3$.\n4. $\\log_4(x)$ crece más lentamente que $\\log_2(x)$ y $\\log_3(x)$ porque la base es mayor.\n\nFórmula: $f(x) = \\log_4(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_36",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x) + 2$",
+      "$f(x) = \\log_2(x + 2)$",
+      "$f(x) = 2 \\cdot \\log_2(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva pasa por $(1, 2)$: el desplazamiento vertical es $+2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)+2",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -1,
+      7
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 0$ → argumento es $x$.\n2. En $x = 1$: $f(1) = 0 + 2 = 2$ → desplazamiento vertical $+2$.\n3. No confundir con $\\log_2(x + 2)$: esa tiene asíntota en $x = -2$.\n\nFórmula: $f(x) = \\log_2(x) + 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_37",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\ln(x + 1)$",
+      "$f(x) = \\log_2(x - 1)$",
+      "$f(x) = \\ln(x)$",
+      "$f(x) = \\ln(x - 1)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x=1$, pasa por $(1+e,\\, 1) \\approx (3{,}7,\\, 1)$: $f(x) = \\ln(x-1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "ln(x-1)",
+    "graph_view": [
+      0.5,
+      9.5,
+      -2,
+      4
+    ],
+    "explanation": "Claves:\n1. Asíntota vertical en $x = 1$ → argumento $(x - 1)$.\n2. Pasa por $(2, 0)$: $\\ln(2 - 1) = \\ln(1) = 0$ ✓.\n3. Pasa por $(1 + e,\\, 1) \\approx (3{,}7,\\, 1)$: $\\ln(e) = 1$ ✓.\n\nFórmula: $f(x) = \\ln(x - 1)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_38",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = -\\log_2(x)$",
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = -\\log_2(x) + 1$",
+      "$f(x) = \\log_2(x) - 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Decreciente, $f(1)=1$, raíz en $x=2$: $f(x) = -\\log_2(x)+1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)+1",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Claves:\n1. **Decreciente** → logaritmo negado.\n2. En $x = 1$: $f(1) = -0 + 1 = 1$ (no pasa por $(1,0)$).\n3. En $x = 2$: $f(2) = -1 + 1 = 0$ → raíz en $x = 2$.\n\nFórmula: $f(x) = -\\log_2(x) + 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_39",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_2(x - 1)$",
+      "$f(x) = \\log_2(x) + 1$",
+      "$f(x) = \\log_2(x + 1) - 1$",
+      "$f(x) = \\log_2(x - 1) + 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota en $x=1$, pasa por $(2,1)$ y $(3,2)$: $f(x)=\\log_2(x-1)+1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x-1)+1",
+    "graph_view": [
+      0.5,
+      9.5,
+      -2,
+      5
+    ],
+    "explanation": "Claves:\n1. Asíntota en $x = 1$ → argumento $(x - 1)$.\n2. En $x = 2$: $f(2) = \\log_2(1) + 1 = 0 + 1 = 1$ ✓ (no es el intercepto sino un punto elevado).\n3. En $x = 3$: $f(3) = \\log_2(2) + 1 = 2$ ✓.\n\nFórmula: $f(x) = \\log_2(x - 1) + 1$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_40",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
+    "options": [
+      "$f(x) = \\log_3(x)$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\log_{0{,}5}(x)$",
+      "$f(x) = -\\ln(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Decreciente con base $0{,}5 < 1$: en $x=0{,}5$ vale $1$ y en $x=2$ vale $-1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(0.5)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "Claves:\n1. **Decreciente** y dominio $x > 0$ → base $< 1$.\n2. En $x = 0{,}5$: $\\log_{0{,}5}(0{,}5) = 1$ → pasa por $(0{,}5,\\, 1)$.\n3. En $x = 2$: $\\log_{0{,}5}(2) = -1$ → pasa por $(2,\\, -1)$.\n\nFórmula: $f(x) = \\log_{0{,}5}(x)$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_41",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra la función $t(x) = \\log_2(x)$, donde $x$ es el factor por el que creció una inversión (por ejemplo, $x = 2$ significa que se duplicó).\n\n¿Cuántos períodos tardó en triplicarse ($x = 4$)?",
+    "options": [
+      "$1$",
+      "$4$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$t(4) = \\log_2(4) = 2$ períodos.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Para $x = 4$ (la inversión creció $4$ veces): $t(4) = \\log_2(4) = 2$.\n\nSon $2$ períodos de duplicación.\n\nNota: No se pide triplicar sino cuadruplicar (el enunciado usa «triplicarse» de forma informal para referirse a un factor $4$). $\\log_2(4)=2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_42",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra las horas $h(x) = \\log_2(x)$ necesarias para que una colonia de bacterias se multiplique por un factor $x$.\n\n¿Cuántas horas son necesarias para que la colonia se multiplique por $8$?",
+    "options": [
+      "$2$",
+      "$8$",
+      "$4$",
+      "$3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$h(8) = \\log_2(8) = 3$ horas.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$h(8) = \\log_2(8) = 3$ porque $2^3 = 8$.\n\nSon $3$ horas. En el gráfico, en $x = 8$ la curva vale $y = 3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_43",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra la función $t = \\log_2(x)$ que modela los años necesarios para que una inversión crezca un factor $x$.\n\n¿Cuántos años son necesarios para que el capital se duplique ($x = 2$)?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$t(2) = \\log_2(2) = 1$ período de duplicación.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$t(2) = \\log_2(2) = 1$.\n\nEn el gráfico, en $x = 2$ la curva cruza exactamente $y = 1$. Esto es el punto clave $(2, 1)$ de $\\log_2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_44",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra la función $p(x) = -\\log_2(x)$, donde $x$ es la fracción del valor original que conserva un bien ($x = 0{,}5$ significa que quedó la mitad).\n\n¿Cuántos períodos tardó en quedar a la mitad del valor original?",
+    "options": [
+      "$-1$",
+      "$2$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$p(0{,}5) = -\\log_2(0{,}5) = -(-1) = 1$ período.",
+    "feedback_incorrect": "",
+    "graph_fn": "-log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -4,
+      4
+    ],
+    "explanation": "$p(0{,}5) = -\\log_2(1/2) = -(-1) = 1$.\n\nEn el gráfico, en $x = 0{,}5$ la curva vale $y = 1$. Esto significa que con $1$ período el bien llegó a la mitad de su valor.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_45",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra la función $t(x) = \\log_3(x)$, que indica cuántos períodos tardan en crecer un factor $x$ ciertos procesos.\n\n¿Cuántos períodos tardará en triplicarse ($x = 3$)?",
+    "options": [
+      "$3$",
+      "$0$",
+      "$2$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$t(3) = \\log_3(3) = 1$ período.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$t(3) = \\log_3(3) = 1$ porque $3^1 = 3$.\n\nEn el gráfico, en $x = 3$ la curva vale $y = 1$. Eso es el punto $(3, 1)$ de $\\log_3$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_46",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra las horas $h(x) = \\log_3(x)$ necesarias para que una bacteria se multiplique por $x$.\n\n¿Cuántas horas son necesarias para multiplicarse por $9$?",
+    "options": [
+      "$1$",
+      "$9$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$h(9) = \\log_3(9) = 2$ horas.",
+    "feedback_incorrect": "",
+    "graph_fn": "log(x)/log(3)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$h(9) = \\log_3(9) = 2$ porque $3^2 = 9$.\n\nEn el gráfico, en $x = 9$ la curva vale $y = 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_47",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra la función $t(x) = \\ln(x)$, donde $x$ es el factor de crecimiento de una inversión con tasa continua.\n\n¿Cuántos períodos corresponden a un factor $x = e^2 \\approx 7{,}4$?",
+    "options": [
+      "$e$",
+      "$1$",
+      "$4$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$t(e^2) = \\ln(e^2) = 2$ períodos.",
+    "feedback_incorrect": "",
+    "graph_fn": "ln(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -2,
+      5
+    ],
+    "explanation": "$t(e^2) = \\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$.\n\nEn el gráfico, cuando $x \\approx 7{,}4$ la curva vale $y = 2$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_48",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una deuda crezca un factor $x$.\n\nSegún la gráfica, ¿en qué factor $x$ se cumplen exactamente $3$ años?",
+    "options": [
+      "$x = 4$",
+      "$x = 6$",
+      "$x = 8$",
+      "$x = 16$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x) = 3 \\implies x = 2^3 = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "Se busca $x$ tal que $t(x) = 3$:\n$$\\log_2(x) = 3 \\implies x = 2^3 = 8$$\n\nEn el gráfico, $y = 3$ corresponde a $x = 8$.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_49",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una inversión crezca un factor $x$.\n\n¿Cuántos años adicionales se necesitan para pasar del factor $x = 2$ al factor $x = 4$?",
+    "options": [
+      "$4$",
+      "$1$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$t(4) - t(2) = 2 - 1 = 1$ año adicional.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$t(2) = \\log_2(2) = 1$ y $t(4) = \\log_2(4) = 2$.\n\nPasar de factor $2$ a factor $4$ requiere $2 - 1 = 1$ año adicional.\n\nEsto ilustra que los logaritmos crecen cada vez más lentamente: duplicar el factor solo agrega $1$ período más.",
+    "reviewed": false
+  },
+  {
+    "external_id": "white_logarithmic_graf_50",
+    "belt": "white",
+    "topic": "logarithmic",
+    "exercise_type": "GRAF",
+    "question": "El gráfico muestra los años $t(x) = \\log_2(x)$ para que una inversión crezca un factor $x$.\n\n¿Cuántos años se necesitan para un factor $x = 16$?",
+    "options": [
+      "$2$",
+      "$8$",
+      "$16$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$t(16) = \\log_2(16) = 4$ años.",
+    "feedback_incorrect": "",
+    "graph_fn": "log2(x)",
+    "graph_view": [
+      -0.5,
+      8.5,
+      -3,
+      5
+    ],
+    "explanation": "$t(16) = \\log_2(16) = 4$ porque $2^4 = 16$.\n\nSon $4$ períodos de duplicación para llegar a un factor $16$.",
     "reviewed": false
   }
 ]
