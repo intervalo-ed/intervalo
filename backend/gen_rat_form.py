@@ -1,0 +1,654 @@
+# gen_rat_form.py — agrega form_12..50 a white_rational.json
+import json, pathlib
+
+FILE = pathlib.Path("content/analisis-1/exercises/white_rational.json")
+data = json.loads(FILE.read_text(encoding="utf-8"))
+
+new_exercises = [
+  # ── Evaluar f(valor) ──────────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_12",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(3)$ si $f(x) = \\dfrac{2x - 1}{x + 2}$?",
+    "options": ["$1$", "$\\dfrac{5}{3}$", "$3$", "$\\dfrac{1}{2}$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(3) = \\frac{2(3)-1}{3+2} = \\frac{5}{5} = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Sustituimos $x=3$: $f(3)=\\frac{2(3)-1}{3+2}=\\frac{6-1}{5}=\\frac{5}{5}=1$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_13",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $g(-2)$ si $g(x) = \\dfrac{x^2 + 1}{x + 3}$?",
+    "options": ["$5$", "$\\dfrac{5}{2}$", "$-5$", "$1$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$g(-2) = \\frac{(-2)^2+1}{-2+3} = \\frac{5}{1} = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$g(-2)=\\frac{(-2)^2+1}{-2+3}=\\frac{4+1}{1}=\\frac{5}{1}=5$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_14",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(0)$ si $f(x) = \\dfrac{3x + 6}{x - 4}$?",
+    "options": ["$-\\dfrac{3}{2}$", "$\\dfrac{3}{2}$", "$6$", "$-6$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(0) = \\frac{3(0)+6}{0-4} = \\frac{6}{-4} = -\\frac{3}{2}$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$f(0)=\\frac{0+6}{0-4}=\\frac{6}{-4}=-\\frac{3}{2}$. Este es el intercepto con el eje $Y$.",
+    "reviewed": False
+  },
+  # ── Asíntota vertical (de distintas formas) ─────────────────────────────
+  {
+    "external_id": "white_rational_form_15",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{4}{3x - 6}$?",
+    "options": ["$x = 2$", "$x = 6$", "$x = 3$", "$x = -2$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$3x - 6 = 0 \\Rightarrow x = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Igualamos el denominador a cero: $3x-6=0 \\Rightarrow 3x=6 \\Rightarrow x=2$. La AV está en $x=2$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_16",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{x + 3}{2x + 4}$?",
+    "options": ["$x = -2$", "$x = 2$", "$x = -3$", "$x = 4$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$2x + 4 = 0 \\Rightarrow x = -2$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Igualamos el denominador: $2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$. La AV es $x=-2$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_17",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$?",
+    "options": ["2 (en $x = 1$ y $x = 3$)", "1 (en $x = 1$)", "1 (en $x = 3$)", "Ninguna"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2-4x+3=(x-1)(x-3)=0$ en $x=1$ y $x=3$: dos AV.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Factorizamos: $x^2-4x+3=(x-1)(x-3)$. Raíces: $x=1$ y $x=3$. El numerador $x+1$ no se anula en esos puntos ($1+1=2\\neq0$; $3+1=4\\neq0$). Hay **dos AV**.",
+    "reviewed": False
+  },
+  # ── Asíntota horizontal ──────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_18",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{4x - 1}{2x + 3}$?",
+    "options": ["$y = 2$", "$y = 4$", "$y = \\dfrac{1}{2}$", "$y = 0$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Coeficientes principales: $4$ (num) y $2$ (denom). AH en $y = 4/2 = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Mismo grado → AH = cociente de coeficientes principales: $\\frac{4}{2}=2$. Verificamos: $\\frac{4x-1}{2x+3}\\approx\\frac{4x}{2x}=2$ para $x$ grande.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_19",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{3}{x^2 - 1}$?",
+    "options": ["$y = 0$", "$y = 3$", "$y = 1$", "No tiene AH"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Grado num (0) < grado denom (2): AH en $y = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "El numerador tiene grado 0 (constante) y el denominador grado 2. Como grado num < grado denom, la AH es $y=0$: la función se aplana hacia el eje $X$ a medida que $|x|$ crece.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_20",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{-5x + 2}{x - 1}$?",
+    "options": ["$y = -5$", "$y = 5$", "$y = 2$", "$y = 0$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Coeficientes principales: $-5$ (num) y $1$ (denom). AH en $y = -5$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Mismo grado → AH = $\\frac{-5}{1}=-5$. Para $x$ muy grande: $\\frac{-5x+2}{x-1}\\approx\\frac{-5x}{x}=-5$.",
+    "reviewed": False
+  },
+  # ── Dominio (notación de intervalos) ─────────────────────────────────────
+  {
+    "external_id": "white_rational_form_21",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x - 1}{x + 4}$ en notación de intervalos?",
+    "options": [
+      "$(-\\infty, -4) \\cup (-4, +\\infty)$",
+      "$(-\\infty, 4) \\cup (4, +\\infty)$",
+      "$(-4, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "El denominador se anula en $x = -4$: el dominio excluye ese punto.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$x+4=0 \\Rightarrow x=-4$: ese valor queda excluido. El dominio es $\\mathbb{R}\\setminus\\{-4\\}=(-\\infty,-4)\\cup(-4,+\\infty)$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_22",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{2}{x^2 - 9}$?",
+    "options": [
+      "$(-\\infty, -3) \\cup (-3, 3) \\cup (3, +\\infty)$",
+      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$\\mathbb{R} \\setminus \\{9\\}$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2-9=(x-3)(x+3)=0$ en $x=\\pm3$: dos valores excluidos.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$x^2-9=(x-3)(x+3)$: raíces $x=3$ y $x=-3$. El dominio excluye ambos: $(-\\infty,-3)\\cup(-3,3)\\cup(3,+\\infty)$.",
+    "reviewed": False
+  },
+  # ── Intercepto con eje X ─────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_23",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el intercepto con el eje $X$ de $f(x) = \\dfrac{2x - 6}{x + 1}$?",
+    "options": ["$x = 3$", "$x = -1$", "$x = 6$", "No tiene intercepto"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$2x - 6 = 0 \\Rightarrow x = 3$ (y el denominador $3 + 1 = 4 \\neq 0$).",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Los ceros de $f$ se hallan resolviendo $2x-6=0 \\Rightarrow x=3$. Verificamos: $3+1=4\\neq0$. El intercepto con el eje $X$ es en $x=3$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_24",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Tiene intercepto con el eje $X$ la función $f(x) = \\dfrac{5}{x - 2}$?",
+    "options": [
+      "No, porque el numerador es constante y nunca es cero",
+      "Sí, en $x = 5$",
+      "Sí, en $x = 2$",
+      "Sí, en $x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "El numerador $5$ es una constante distinta de cero: la función nunca vale $0$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Para que $f(x)=0$, necesitamos que el numerador sea cero. Pero el numerador es $5$, una constante positiva: nunca es cero. Por lo tanto, $f(x)=\\frac{5}{x-2}$ **no tiene intercepto con el eje $X$**.",
+    "reviewed": False
+  },
+  # ── Intercepto con eje Y ─────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_25",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el intercepto con el eje $Y$ de $f(x) = \\dfrac{x^2 - 4}{x + 1}$?",
+    "options": ["$-4$", "$4$", "$2$", "No existe"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(0) = \\frac{0-4}{0+1} = \\frac{-4}{1} = -4$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Evaluamos $f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$. El denominador $0+1=1\\neq0$, así que $x=0$ está en el dominio y el intercepto existe en $y=-4$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_26",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Existe el intercepto con el eje $Y$ de $f(x) = \\dfrac{x + 3}{x}$?",
+    "options": [
+      "No, porque $x = 0$ está excluido del dominio",
+      "Sí, en $y = 3$",
+      "Sí, en $y = 0$",
+      "Sí, en $y = 1$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "El denominador es $x$: se anula en $x = 0$. La función no está definida allí.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Para encontrar el intercepto con el eje $Y$, evaluamos $f(0)$. Pero el denominador es $x$, que vale cero en $x=0$: $f(0)$ **no existe**. La función tiene una asíntota vertical en $x=0$ (el propio eje $Y$).",
+    "reviewed": False
+  },
+  # ── Desde gráfico (5 ejercicios con graph_fn) ─────────────────────────────
+  {
+    "external_id": "white_rational_form_27",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Observá la gráfica. ¿Cuál es la asíntota vertical de la función?",
+    "options": ["$x = 1$", "$x = -1$", "$x = 0$", "$x = 2$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "La función 'explota' en $x = 1$: ahí está la asíntota vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [-4, 6, -5, 5],
+    "explanation": "La AV es la línea vertical que la curva se acerca pero no alcanza. En la gráfica, la función tiende a $\\pm\\infty$ en $x=1$: la AV es $x=1$, que corresponde a que el denominador $x-1=0$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_28",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Observá la gráfica. ¿Cuál es la asíntota horizontal de la función?",
+    "options": ["$y = 0$", "$y = 1$", "$y = -1$", "$y = 2$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Las ramas se aplanan hacia $y = 0$: la asíntota horizontal es $y = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2 / (x + 1)",
+    "graph_view": [-5, 5, -6, 6],
+    "explanation": "La AH es la línea horizontal a la que la curva se aproxima cuando $|x|$ crece. En la gráfica, ambas ramas se acercan al eje $X$ (es decir, $y=0$): la AH es $y=0$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_29",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Observá la gráfica. ¿Cuánto vale $f(3)$ aproximadamente?",
+    "options": ["$0{,}5$", "$1$", "$-0{,}5$", "$3$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(3) = 1/(3-1) = 1/2 = 0{,}5$: el punto $(3; 0{,}5)$ está en la curva.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [-4, 6, -5, 5],
+    "explanation": "En la gráfica, buscamos el punto con $x=3$. La función es $f(x)=\\frac{1}{x-1}$, así que $f(3)=\\frac{1}{3-1}=\\frac{1}{2}=0{,}5$. El punto $(3;\\,0{,}5)$ está en la rama derecha, cerca del eje $X$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_30",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Observá la gráfica. ¿Dónde está la asíntota vertical?",
+    "options": ["$x = -2$", "$x = 2$", "$x = 0$", "$x = 1$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "La función explota en $x = -2$: la AV está en $x = -2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x + 2)",
+    "graph_view": [-7, 3, -5, 5],
+    "explanation": "Visualmente, la curva tiende a $\\pm\\infty$ cuando $x$ se acerca a $-2$. Eso corresponde al denominador $x+2=0 \\Rightarrow x=-2$: la **AV está en $x=-2$**.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_31",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Observá la gráfica. La asíntota horizontal está en $y = 1$ (no en $y = 0$). "
+                "¿Cuál de estas fórmulas corresponde a la curva?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-3} + 1$",
+      "$f(x) = \\dfrac{1}{x-3}$",
+      "$f(x) = \\dfrac{x}{x-3}$",
+      "$f(x) = \\dfrac{x+3}{x}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "AV en $x=3$ y AH en $y=1$ corresponden a $f(x) = 1/(x-3) + 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 3) + 1",
+    "graph_view": [-2, 8, -4, 6],
+    "explanation": "La AV en $x=3$ indica denominador $x-3$. La AH en $y=1$ (no $y=0$) indica un desplazamiento vertical de $+1$: la fórmula es $\\frac{1}{x-3}+1$.",
+    "reviewed": False
+  },
+  # ── Escribir la fórmula dada la AV y un punto ─────────────────────────────
+  {
+    "external_id": "white_rational_form_32",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Una función racional tiene AV en $x = 2$ y AH en $y = 0$. "
+                "Además pasa por el punto $(0, -3)$. ¿Cuál es su fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{6}{x-2}$",
+      "$f(x) = \\dfrac{1}{x-2}$",
+      "$f(x) = \\dfrac{3}{x+2}$",
+      "$f(x) = \\dfrac{-6}{x-2}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "La forma es $k/(x-2)$. Evaluando: $k/(0-2) = -3 \\Rightarrow k = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "AV en $x=2$ y AH en $y=0$ dan la forma $f(x)=\\frac{k}{x-2}$. Usando el punto $(0,-3)$: $\\frac{k}{0-2}=-3 \\Rightarrow \\frac{k}{-2}=-3 \\Rightarrow k=6$. La fórmula es $f(x)=\\frac{6}{x-2}$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_33",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Una función racional tiene AV en $x = -1$ y pasa por $(1, 1)$. Su AH es $y = 0$. "
+                "¿Cuál es su fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{2}{x+1}$",
+      "$f(x) = \\dfrac{1}{x+1}$",
+      "$f(x) = \\dfrac{2}{x-1}$",
+      "$f(x) = \\dfrac{-2}{x+1}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "La forma es $k/(x+1)$. Evaluando: $k/(1+1) = 1 \\Rightarrow k = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "AV en $x=-1$ y AH en $y=0$ dan la forma $\\frac{k}{x+1}$. Usamos el punto $(1,1)$: $\\frac{k}{1+1}=1 \\Rightarrow \\frac{k}{2}=1 \\Rightarrow k=2$. La fórmula es $f(x)=\\frac{2}{x+1}$.",
+    "reviewed": False
+  },
+  # ── Transformaciones ──────────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_34",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Si $g(x) = \\dfrac{1}{x}$, ¿cómo se obtiene $f(x) = \\dfrac{1}{x} - 3$?",
+    "options": [
+      "Desplazando $g$ 3 unidades hacia abajo",
+      "Desplazando $g$ 3 unidades hacia la derecha",
+      "Multiplicando $g$ por $-3$",
+      "Desplazando $g$ 3 unidades hacia arriba"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Restar 3 al valor de la función desplaza la curva 3 unidades hacia abajo.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Sumar o restar una constante al valor de $f$ desplaza la curva verticalmente. Restar $3$: la AH pasa de $y=0$ a $y=-3$ y toda la curva baja 3 unidades.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_35",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la AV de $f(x) = \\dfrac{1}{x + 5} - 2$?",
+    "options": ["$x = -5$", "$x = 5$", "$x = -2$", "$x = 2$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "El denominador $x + 5 = 0$ en $x = -5$: la AV es $x = -5$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "El desplazamiento vertical ($-2$) no afecta la AV. Solo el denominador importa: $x+5=0 \\Rightarrow x=-5$. La AH, en cambio, sí cambia: pasa de $y=0$ a $y=-2$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_36",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuáles son la AV y la AH de $f(x) = \\dfrac{3}{x - 4} + 2$?",
+    "options": [
+      "AV: $x = 4$, AH: $y = 2$",
+      "AV: $x = -4$, AH: $y = 2$",
+      "AV: $x = 4$, AH: $y = 3$",
+      "AV: $x = 4$, AH: $y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Denominador $x-4=0$ en $x=4$ (AV) y la función tiende a $2$ en el infinito (AH).",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "En $f(x)=\\frac{3}{x-4}+2$: el denominador $x-4=0$ en $x=4$ → **AV en $x=4$**. Cuando $x\\to\\pm\\infty$, $\\frac{3}{x-4}\\to0$ y $f\\to2$ → **AH en $y=2$**.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_37",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(6)$ si $f(x) = \\dfrac{3}{x-4} + 2$?",
+    "options": ["$\\dfrac{7}{2}$", "$3$", "$2$", "$5$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(6) = \\frac{3}{6-4} + 2 = \\frac{3}{2} + 2 = \\frac{7}{2}$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$f(6)=\\frac{3}{6-4}+2=\\frac{3}{2}+2=1{,}5+2=3{,}5=\\frac{7}{2}$.",
+    "reviewed": False
+  },
+  # ── Agujeros (holes) ──────────────────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_38",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "En $f(x) = \\dfrac{x^2 - 1}{x - 1}$, ¿qué pasa en $x = 1$?",
+    "options": [
+      "Hay un agujero: el límite existe pero $f(1)$ no está definida",
+      "Hay una asíntota vertical",
+      "La función vale $0$ en ese punto",
+      "La función vale $1$ en ese punto"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2-1=(x-1)(x+1)$: el factor $(x-1)$ se cancela, dejando un agujero en $x=1$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para $x\\neq1$. El factor $(x-1)$ se cancela → **agujero en $x=1$**. En ese punto el límite es $1+1=2$, pero $f(1)$ no está definida.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_39",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(5)$ si $f(x) = \\dfrac{x^2 - 25}{x - 5}$?",
+    "options": [
+      "No está definida (agujero en $x = 5$)",
+      "$10$",
+      "$0$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "El factor $(x-5)$ se cancela, pero en $x=5$ la función no está definida: hay un agujero.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$\\frac{x^2-25}{x-5}=\\frac{(x-5)(x+5)}{x-5}=x+5$ para $x\\neq5$. En $x=5$ hay un agujero: $f(5)$ **no está definida** aunque el límite (cuando $x\\to5$) sea $5+5=10$.",
+    "reviewed": False
+  },
+  # ── Síntesis AV + AH + f(valor) ──────────────────────────────────────────
+  {
+    "external_id": "white_rational_form_40",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Para $f(x) = \\dfrac{x + 2}{x - 3}$: ¿cuál es la AV, la AH y el valor $f(0)$?",
+    "options": [
+      "AV: $x=3$, AH: $y=1$, $f(0) = -\\dfrac{2}{3}$",
+      "AV: $x=-2$, AH: $y=1$, $f(0) = 2$",
+      "AV: $x=3$, AH: $y=0$, $f(0) = -\\dfrac{2}{3}$",
+      "AV: $x=3$, AH: $y=2$, $f(0) = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "AV: $x-3=0\\Rightarrow x=3$; AH: cocientes iguales $1/1=1$; $f(0)=\\frac{2}{-3}=-\\frac{2}{3}$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "• AV: $x-3=0 \\Rightarrow x=3$\n\n• AH: mismo grado (grado 1), cociente principal $\\frac{1}{1}=1 \\Rightarrow y=1$\n\n• $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_41",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Para $f(x) = \\dfrac{4}{x + 2}$: ¿cuál es la AV, la AH y el intercepto con el eje $Y$?",
+    "options": [
+      "AV: $x=-2$, AH: $y=0$, intercepto $Y$: $2$",
+      "AV: $x=2$, AH: $y=0$, intercepto $Y$: $2$",
+      "AV: $x=-2$, AH: $y=4$, intercepto $Y$: $4$",
+      "AV: $x=-2$, AH: $y=0$, intercepto $Y$: $4$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "AV: $x+2=0$; AH: constante sobre lineal→$y=0$; $f(0)=4/(0+2)=2$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "• AV: $x+2=0 \\Rightarrow x=-2$\n\n• AH: grado num (0) < grado denom (1) → $y=0$\n\n• Intercepto $Y$: $f(0)=\\frac{4}{0+2}=\\frac{4}{2}=2$",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_42",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota vertical de $f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$?",
+    "options": [
+      "Dos AV: $x = 1$ y $x = -1$",
+      "Una sola AV en $x = 0$",
+      "Una sola AV en $x = 1$",
+      "No tiene AV"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2-1=(x-1)(x+1)$: dos raíces, dos AV.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Denominador: $x^2-1=(x-1)(x+1)=0$ en $x=1$ y $x=-1$. El numerador $x^2+3x=x(x+3)$ no se anula en ninguno de esos puntos ($1+3=4\\neq0$; $(-1)^2+3(-1)=-2\\neq0$). Hay **dos AV**.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_43",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Para $f(x) = \\dfrac{2x + 1}{x - 5}$, ¿cuáles son el intercepto con el eje $X$ y el eje $Y$?",
+    "options": [
+      "Eje $X$: $x=-\\dfrac{1}{2}$; eje $Y$: $y=-\\dfrac{1}{5}$",
+      "Eje $X$: $x=5$; eje $Y$: $y=1$",
+      "Eje $X$: $x=1$; eje $Y$: $y=5$",
+      "Eje $X$: $x=-\\dfrac{1}{2}$; eje $Y$: $y=\\dfrac{1}{5}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Numerador=0: $2x+1=0\\Rightarrow x=-1/2$; $f(0)=(1)/(0-5)=-1/5$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "• Intercepto $X$: $2x+1=0 \\Rightarrow x=-\\frac{1}{2}$ (y $-\\frac{1}{2}-5=-\\frac{11}{2}\\neq0$)\n\n• Intercepto $Y$: $f(0)=\\frac{2(0)+1}{0-5}=\\frac{1}{-5}=-\\frac{1}{5}$",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_44",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuánto vale $f(10)$ si $f(x) = \\dfrac{x-1}{x+1}$? ¿A qué valor se acerca cuando $x$ crece mucho?",
+    "options": [
+      "$f(10) = \\dfrac{9}{11} \\approx 0{,}82$; cuando $x \\to \\infty$, $f \\to 1$",
+      "$f(10) = 9$; cuando $x \\to \\infty$, $f \\to 0$",
+      "$f(10) = 11$; cuando $x \\to \\infty$, $f \\to 1$",
+      "$f(10) = \\dfrac{9}{11}$; cuando $x \\to \\infty$, $f \\to 0$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(10)=9/11\\approx0.82$. La AH es $y=1$ (grados iguales, coef 1/1): $f\\to1$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "$f(10)=\\frac{10-1}{10+1}=\\frac{9}{11}\\approx0{,}82$.\n\nLa AH es $y=\\frac{1}{1}=1$ (mismo grado, coeficientes principales iguales). Cuando $x\\to\\infty$, $\\frac{x-1}{x+1}\\to\\frac{x}{x}=1$. El valor $9/11$ ya está cerca de $1$, y a medida que $x$ crece, se acerca más.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_45",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Si $f(x) = \\dfrac{k}{x + 3}$ pasa por el punto $(1, 2)$, ¿cuánto vale $k$?",
+    "options": ["$8$", "$2$", "$4$", "$6$"],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$f(1) = 2 \\Rightarrow \\frac{k}{1+3} = 2 \\Rightarrow \\frac{k}{4} = 2 \\Rightarrow k = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Sustituimos el punto $(1,2)$: $f(1)=\\frac{k}{1+3}=\\frac{k}{4}=2 \\Rightarrow k=8$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_46",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es la asíntota horizontal de $f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$?",
+    "options": [
+      "No tiene AH (hay asíntota oblicua)",
+      "$y = 1$",
+      "$y = 0$",
+      "$y = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Grado num (3) > grado denom (2): no hay AH sino asíntota oblicua.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Cuando $\\deg(P)>\\deg(Q)$, la función crece (o decrece) sin cota y **no hay AH**. Aquí grado 3 > grado 2. El comportamiento asintótico es lineal (asíntota oblicua), no horizontal.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_47",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$?",
+    "options": [
+      "$\\mathbb{R} \\setminus \\{-1\\}$",
+      "$\\mathbb{R} \\setminus \\{2\\}$",
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{-1,\\, 1\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2+2x+1=(x+1)^2=0$ solo en $x=-1$: se excluye ese único punto.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Factorizamos el denominador: $x^2+2x+1=(x+1)^2$. Se anula en $x=-1$ (raíz doble). El numerador $x-2$ no se anula en $x=-1$ ($-1-2=-3\\neq0$): hay AV en $x=-1$. El dominio es $\\mathbb{R}\\setminus\\{-1\\}$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_48",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuál es el intercepto con el eje $X$ de $f(x) = \\dfrac{x^2 - 9}{x + 5}$?",
+    "options": [
+      "$x = 3$ y $x = -3$",
+      "$x = 9$",
+      "$x = -5$",
+      "No tiene intercepto con el eje $X$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$x^2-9=0 \\Rightarrow x=\\pm3$. Ninguno anula el denominador ($3+5=8$; $-3+5=2$).",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "Los ceros son las raíces del numerador: $x^2-9=(x-3)(x+3)=0 \\Rightarrow x=3$ o $x=-3$. Verificamos que ninguno anula el denominador: $3+5=8\\neq0$; $-3+5=2\\neq0$. Hay **dos interceptos con el eje $X$**.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_49",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "¿Cuáles son la AV y la AH de $f(x) = \\dfrac{5x - 10}{2x + 6}$?",
+    "options": [
+      "AV: $x = -3$, AH: $y = \\dfrac{5}{2}$",
+      "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
+      "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",
+      "AV: $x = 2$, AH: $y = 5$"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "$2x+6=0 \\Rightarrow x=-3$ (AV). Cociente principal: $5/2$ (AH).",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "• AV: $2x+6=0 \\Rightarrow x=-3$\n\n• AH: mismo grado (grado 1), cociente de coeficientes principales $\\frac{5}{2}$ → AH en $y=\\frac{5}{2}$.",
+    "reviewed": False
+  },
+  {
+    "external_id": "white_rational_form_50",
+    "belt": "white", "topic": "rational", "exercise_type": "FORM",
+    "question": "Para $f(x) = \\dfrac{3x}{x^2 - 4}$, ¿cuáles son todas las asíntotas?",
+    "options": [
+      "AV: $x=2$ y $x=-2$; AH: $y=0$",
+      "AV: $x=2$; AH: $y=3$",
+      "AV: $x=4$; AH: $y=0$",
+      "Solo AH: $y=0$, sin AV"
+    ],
+    "correct_index": 0,
+    "has_math": True,
+    "feedback_correct": "Denominador: $(x-2)(x+2)=0$ en $x=\\pm2$. Grado num (1) < denom (2): AH $y=0$.",
+    "feedback_incorrect": "",
+    "graph_fn": None, "graph_view": None,
+    "explanation": "• Denominador: $x^2-4=(x-2)(x+2)=0$ en $x=2$ y $x=-2$ → dos AV.\n\n• Grado numerador (1) < grado denominador (2) → AH en $y=0$.\n\n• El numerador $3x=0$ en $x=0$, que no anula el denominador: la función cruza el eje $X$ en $x=0$.",
+    "reviewed": False
+  },
+]
+
+existing_ids = {e["external_id"] for e in data}
+for e in new_exercises:
+    assert e["external_id"] not in existing_ids, f"Duplicado: {e['external_id']}"
+    existing_ids.add(e["external_id"])
+
+data.extend(new_exercises)
+
+from collections import Counter
+skills = Counter(e["exercise_type"] for e in data)
+print(f"Total: {len(data)} | Por skill: {dict(skills)}")
+assert all(e["feedback_incorrect"] == "" for e in data)
+
+FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+print("FORM generados OK.")
