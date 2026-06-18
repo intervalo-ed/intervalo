@@ -20,15 +20,15 @@ const unsamFont = Saira({ subsets: ["latin"], variable: "--font-unsam" });
 
 export const metadata: Metadata = {
   title: "Intervalo",
-  description: "Repasá análisis matemático todos los días",
+  description: "Repasá análisis matemático todos los días.",
   openGraph: {
     title: "Intervalo",
-    description: "Repasá análisis matemático todos los días",
+    description: "Repasá análisis matemático todos los días.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Intervalo",
-    description: "Repasá análisis matemático todos los días",
+    description: "Repasá análisis matemático todos los días.",
   },
   appleWebApp: {
     capable: true,
