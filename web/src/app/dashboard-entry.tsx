@@ -97,8 +97,7 @@ export default function DashboardEntry() {
   const canRepasar =
     totals !== null && (!mainSessionDoneToday || totals.pendientes > 0)
 
-  const totalXp = leaderboard.data?.entries.find((e) => e.is_current_user)
-    ?.total_xp
+  const totalXp = leaderboard.data?.pages[0]?.me.total_xp
   const unitTotals = data
     ? courseUnitTotals({ topicStates: data.topic_states })
     : null

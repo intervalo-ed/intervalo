@@ -578,9 +578,48 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Global leaderboard, ranked by total XP descending.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
+          {
+            "name": "university",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "University"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -1189,6 +1228,39 @@
         ],
         "title": "LeaderboardEntry"
       },
+      "LeaderboardMe": {
+        "properties": {
+          "rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rank"
+          },
+          "xp_to_next": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Xp To Next"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "LeaderboardMe"
+      },
       "LeaderboardResponse": {
         "properties": {
           "entries": {
@@ -1205,13 +1277,35 @@
           "total_exercises": {
             "type": "integer",
             "title": "Total Exercises"
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count"
+          },
+          "has_more": {
+            "type": "boolean",
+            "title": "Has More"
+          },
+          "me": {
+            "$ref": "#/components/schemas/LeaderboardMe"
+          },
+          "universities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Universities"
           }
         },
         "type": "object",
         "required": [
           "entries",
           "total_xp",
-          "total_exercises"
+          "total_exercises",
+          "total_count",
+          "has_more",
+          "me",
+          "universities"
         ],
         "title": "LeaderboardResponse"
       },

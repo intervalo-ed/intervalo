@@ -23,7 +23,8 @@ export function useUpdateProfile() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.authMe() })
-      qc.invalidateQueries({ queryKey: queryKeys.leaderboard() })
+      // Prefijo (sin scope) para invalidar el ranking global y los filtrados.
+      qc.invalidateQueries({ queryKey: queryKeys.leaderboard().slice(0, -1) })
     },
   })
 }

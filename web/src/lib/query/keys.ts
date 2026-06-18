@@ -10,7 +10,8 @@ export const queryKeys = {
   notificationSettings: () =>
     [...queryKeys.all, "user", "notification-settings"] as const,
 
-  leaderboard: () => [...queryKeys.all, "leaderboard"] as const,
+  leaderboard: ({ university }: { university?: string } = {}) =>
+    [...queryKeys.all, "leaderboard", university ?? "all"] as const,
 
   beltInfo: ({ courseId }: { courseId: number }) =>
     [...queryKeys.all, "course", courseId, "belts"] as const,
