@@ -163,8 +163,8 @@ const Q_ITEMS: {
 
 const GRID_BG_STYLE = {
   backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px",
+    "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+  backgroundSize: "50px 50px",
 }
 
 function renderMath(expr: string) {
@@ -409,10 +409,10 @@ export default function MarketingHome() {
           barClass="h-[3px]"
         />
 
-        <h1 className="font-sans text-[clamp(1.6rem,6vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.01em] text-[#F6F8FC]">
+        <h1 className="font-sans text-[clamp(1.8rem,7vw,2.5rem)] font-bold leading-[1.15] tracking-[-0.01em] text-[#F6F8FC]">
           Repasá un poco todos los días.
         </h1>
-        <p className="max-w-[28rem] text-[clamp(1.1rem,3.5vw,1.35rem)] leading-[1.75] text-[#A4B3C6] max-md:text-[0.93rem]">
+        <p className="max-w-[32rem] text-[clamp(1.15rem,4vw,1.45rem)] leading-[1.8] text-[#C8D4E8] max-md:text-[0.95rem]">
           Ejercitá las definiciones y propiedades que tanto cuestan entender de
           forma efectiva.
         </p>
