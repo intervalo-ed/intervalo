@@ -518,6 +518,101 @@ log2(x-1)+1          [0.5, 9.5, -2, 5]
 
 ---
 
+## Patrón de modernización: tema `rational`
+
+Llevado de 47 → 200 ejercicios (50 × LEXI / CLSF / FORM / GRAF).
+
+**Auditoría previa aplicada:**
+- `feedback_incorrect` vaciado en los 47 originales.
+- `graf_11.graph_view` corregido de dict `{xMin,xMax,...}` a lista `[-4, 4, -4, 4]`.
+- 6 `graph_view` ajustados para que xRange ≈ yRange (ver scripts de auditoría).
+- 3 CLSF con gráfico recibieron párrafo de contexto antes de la pregunta.
+- 4 GRAF originales sin `graph_fn` lo recibieron (`1/x`, `1/(x-2)`, etc.).
+
+**Biblioteca de `graph_fn` para racionales:**
+```
+1/x               [-6, 6, -6, 6]      # hipérbola básica, AV x=0, AH y=0
+1/(x-2)           [-4, 8, -6, 6]      # AV x=2, AH y=0
+1/(x+1)           [-6, 4, -6, 6]      # AV x=-1
+1/(x-3)+1         [-3, 9, -5, 7]      # AV x=3, AH y=1
+2/(x+1)           [-6, 4, -6, 6]      # AV x=-1, escalada
+(x+1)/(x-2)       [-4, 8, -5, 7]      # AH y=1 (grado igual)
+-1/x              [-6, 6, -6, 6]      # hipérbola reflejada
+1/(x^2)           [-5, 5, -1, 8]      # ambas ramas positivas
+```
+
+**Proporcionalidad de graph_view:** mantener xRange ≈ yRange para que la
+gráfica se vea cuadrada. Para hipérbolas alejadas del origen, extender ambos
+rangos simétricamente.
+
+**GRAF tipos:**
+- A: leer propiedad (AV, AH, dominio, imagen, valor f(c)).
+- B: identificar fórmula entre 4 opciones (distractores: reflejo, desplazamiento).
+- C: contexto cotidiano con función `k/x` (trabajo compartido, velocidad, presupuesto, concentración).
+
+**sync-catalog NO necesario**: GRAF ya existía para `rational` en el catálogo.
+
+---
+
+## Patrón de modernización: tema `trigonometric`
+
+Llevado de 47 → 200 ejercicios (50 × LEXI / CLSF / FORM / GRAF).
+
+**Convenciones de notación:**
+- Texto de ejercicio: `\operatorname{sen}(x)` (notación española).
+- `graph_fn` y cálculos internos: `sin(x)`, `cos(x)` (mathjs).
+- Nunca `sen` en `graph_fn`.
+
+**Auditoría previa aplicada:**
+- `feedback_incorrect` vaciado en los 47 originales.
+- `graf_11.graph_view` corregido de dict a lista `[-6.5, 6.5, -2, 2]`.
+- `lexi_06`, `graf_01`: `[-0.5,7,-2,2]` → `[-7,7,-2,2]`.
+- `graf_10`: `[-0.5,7,-2,2]` → `[-5,5,-2,2]`.
+- `form_02`: `[-7,7,-3,3]` → `[-7,7,-2,2]`.
+- `graf_02/05/07/09`: `graph_fn` agregado.
+- `clsf_01/05/08`: párrafo de contexto agregado.
+
+**Biblioteca de `graph_fn`:**
+```
+sin(x)              [-7, 7, -2, 2]
+cos(x)              [-7, 7, -2, 2]
+2*sin(x)            [-7, 7, -3, 3]
+-sin(x)             [-7, 7, -2, 2]
+-cos(x)             [-7, 7, -2, 2]
+3*sin(x)            [-7, 7, -4, 4]
+3*cos(x)            [-7, 7, -4, 4]
+sin(x)+1            [-7, 7, -1, 3]
+sin(x)-1            [-7, 7, -3, 1]
+cos(x)-2            [-7, 7, -4, 0]
+-cos(x)+1           [-7, 7, -1, 3]
+2*cos(x)            [-7, 7, -3, 3]
+2*sin(x)+1          [-7, 7, -2, 4]
+2*sin(2*x)          [-5, 5, -3, 3]
+sin(2*x)            [-5, 5, -2, 2]
+cos(2*x)            [-5, 5, -2, 2]
+sin(2*x)+1          [-5, 5, -1, 3]
+sin(x/2)            [-10, 10, -2, 2]
+```
+
+**Parámetros clave:**
+- Amplitud = `|A|`; período = `2π/|B|`; máx = `D + |A|`; mín = `D - |A|`.
+- Imagen = `[D − |A|, D + |A|]`.
+
+**Contextos cotidianos** (no pH, Richter, decibeles):
+- Temperatura diaria/estacional: amplitud = (máx−mín)/2, eje = (máx+mín)/2.
+- Mareas: período ≈ 12 h, amplitud = diferencia de nivel.
+- Corriente alterna: `311·sin(100πt)` para 220 V / 50 Hz.
+- Horas de luz solar: ciclo anual de 365 días.
+
+**GRAF tipos:**
+- A: leer propiedad (período, amplitud, imagen, máximos, raíces, eje de oscilación).
+- B: identificar fórmula (distractores: seno vs coseno, amplitud vs período, signo).
+- C: contexto cotidiano con gráfico real (temperatura, mareas, corriente).
+
+**sync-catalog NO necesario**: GRAF ya existía para `trigonometric`.
+
+---
+
 ## Pendientes / bugs conocidos
 
 - **[CORREGIDO] Render de `$` de pesos**: montos con `$` sin escapar rompían
