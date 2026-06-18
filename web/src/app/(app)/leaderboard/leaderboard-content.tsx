@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
-import { useLeaderboard } from "./UseLeaderboard"
+import { ALL, useLeaderboard } from "./UseLeaderboard"
 
 // Emojis por tipo de carrera (los mismos del onboarding).
 const CAREER_EMOJI: Record<string, string> = {
@@ -45,11 +45,36 @@ const UNI_TAG: Record<string, UniTagStyle> = {
   },
 }
 
-const ALL = "all"
-
 export function LeaderboardContent() {
-  const { data, isLoading, isError, error } = useLeaderboard()
   const [uni, setUni] = useState<string>(ALL)
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useLeaderboard({ university: uni })
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  // Scroll infinito: cuando el centinela del fondo entra en viewport, pedimos la
+  // próxima página al backend (otros 50).
+  useEffect(() => {
+    if (!hasNextPage) return
+    const el = sentinelRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isFetchingNextPage) {
+          void fetchNextPage()
+        }
+      },
+      { rootMargin: "200px" },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
   if (isLoading) {
     return <LeaderboardSkeleton />
@@ -65,36 +90,27 @@ export function LeaderboardContent() {
     )
   }
 
-  if (!data || data.entries.length === 0) {
+  const first = data?.pages[0]
+  if (!first || first.total_count === 0) {
     return (
       <p className="text-sm text-muted-foreground">Todavía no hay ranking.</p>
     )
   }
 
-  // Universidades presentes en el ranking, en el orden preferido de UNI_TAG.
+  // Filas cargadas hasta ahora (todas las páginas pedidas). El rank ya viene del
+  // backend, calculado sobre el set completo del scope.
+  const rows = data.pages.flatMap((p) => p.entries)
+
+  // Universidades presentes (las da el backend), en el orden preferido de UNI_TAG.
   const universities = Object.keys(UNI_TAG).filter((u) =>
-    data.entries.some((e) => e.university === u),
+    first.universities.includes(u),
   )
 
-  // Filtrado + re-ranking dentro de la universidad elegida (orden ya viene por XP).
-  const ranked = (
-    uni === ALL
-      ? data.entries
-      : data.entries.filter((e) => e.university === uni)
-  ).map((e, i) => ({ ...e, displayRank: i + 1 }))
-
-  const meIdx = ranked.findIndex((e) => e.is_current_user)
-  const myRank = meIdx >= 0 ? meIdx + 1 : undefined
-  const xpToNext =
-    meIdx > 0 ? ranked[meIdx - 1].total_xp - ranked[meIdx].total_xp : undefined
-
-  // Totales: globales si no hay filtro; sumados sobre la universidad elegida.
-  const totalXp =
-    uni === ALL ? data.total_xp : ranked.reduce((s, e) => s + e.total_xp, 0)
-  const totalExercises =
-    uni === ALL
-      ? data.total_exercises
-      : ranked.reduce((s, e) => s + e.exercises, 0)
+  // "Posición actual", "XP para subir" y totales: del scope completo (backend).
+  const myRank = first.me.rank ?? undefined
+  const xpToNext = first.me.xp_to_next ?? undefined
+  const totalXp = first.total_xp
+  const totalExercises = first.total_exercises
 
   return (
     <div className="flex flex-col gap-2.5">
@@ -175,7 +191,7 @@ export function LeaderboardContent() {
       </div>
 
       <ol className="flex flex-col gap-2">
-        {ranked.map((entry) => (
+        {rows.map((entry) => (
           <li
             key={entry.user_id}
             className={cn(
@@ -184,7 +200,7 @@ export function LeaderboardContent() {
             )}
           >
             <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-              {entry.displayRank}
+              {entry.rank}
             </span>
             <span className="flex min-w-0 flex-1 items-center gap-1.5">
               <span className="truncate text-sm font-medium">
@@ -207,6 +223,8 @@ export function LeaderboardContent() {
           </li>
         ))}
       </ol>
+
+      {hasNextPage && <div ref={sentinelRef} aria-hidden className="h-px" />}
     </div>
   )
 }

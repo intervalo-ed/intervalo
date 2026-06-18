@@ -12,7 +12,7 @@ load_dotenv(env_path)
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -34,6 +34,7 @@ from schemas import (
     FeedbackRequest,
     HealthResponse,
     LeaderboardEntry,
+    LeaderboardMe,
     LeaderboardResponse,
     NotificationSettings,
     SessionStartResponse,
@@ -479,10 +480,18 @@ def internal_prune_push(
 
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
+    university: str | None = Query(default=None),
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Global leaderboard, ranked by total XP descending."""
+    """Leaderboard ranked by total XP descending, paginado (offset/limit).
+
+    El ranking, los totales y los datos del usuario actual se calculan sobre el
+    set completo del scope (global o filtrado por universidad); solo `entries`
+    devuelve la página pedida para el scroll infinito.
+    """
     users = (
         db.query(User)
         .order_by(User.total_xp.desc(), User.id.asc())
@@ -495,17 +504,42 @@ def get_leaderboard(
         for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
     }
 
-    total_xp_all = int(db.query(func.coalesce(func.sum(User.total_xp), 0)).scalar())
-    total_exercises_all = int(db.query(func.count(Answer.id)).scalar())
-
     # Ejercicios hechos por usuario, para poder filtrar el total por universidad.
     exercises_by_user = dict(
         db.query(Answer.user_id, func.count(Answer.id)).group_by(Answer.user_id).all()
     )
 
+    def uni_of(user: User) -> str | None:
+        e = enrollments.get(user.id)
+        return e.university if e else None
+
+    # Universidades presentes (set completo), para poblar el filtro.
+    universities = sorted({u for user in users if (u := uni_of(user)) is not None})
+
+    # Scope: todos o solo los de la universidad elegida. El orden ya viene por XP.
+    scoped = (
+        users if university is None
+        else [user for user in users if uni_of(user) == university]
+    )
+
+    total_count = len(scoped)
+    total_xp = sum(user.total_xp for user in scoped)
+    total_exercises = sum(int(exercises_by_user.get(user.id, 0)) for user in scoped)
+
+    # Usuario actual dentro del scope: rank (1-based) y XP para alcanzar al de
+    # arriba.
+    me = LeaderboardMe(total_xp=current_user.total_xp)
+    for index, user in enumerate(scoped):
+        if user.id == current_user.id:
+            me.rank = index + 1
+            if index > 0:
+                me.xp_to_next = scoped[index - 1].total_xp - user.total_xp
+            break
+
+    page = scoped[offset:offset + limit]
     entries = [
         LeaderboardEntry(
-            rank=index + 1,
+            rank=offset + index + 1,
             user_id=user.id,
             name=user.username or user.display_name or user.name,
             username=user.username,
@@ -513,16 +547,18 @@ def get_leaderboard(
             exercises=int(exercises_by_user.get(user.id, 0)),
             is_current_user=user.id == current_user.id,
             career=enrollments[user.id].career if user.id in enrollments else None,
-            university=(
-                enrollments[user.id].university if user.id in enrollments else None
-            ),
+            university=uni_of(user),
         )
-        for index, user in enumerate(users)
+        for index, user in enumerate(page)
     ]
     return LeaderboardResponse(
         entries=entries,
-        total_xp=total_xp_all,
-        total_exercises=total_exercises_all,
+        total_xp=total_xp,
+        total_exercises=total_exercises,
+        total_count=total_count,
+        has_more=offset + limit < total_count,
+        me=me,
+        universities=universities,
     )
 
 

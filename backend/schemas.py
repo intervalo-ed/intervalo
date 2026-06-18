@@ -130,10 +130,23 @@ class LeaderboardEntry(BaseModel):
     university: str | None = None
 
 
+class LeaderboardMe(BaseModel):
+    # Datos del usuario actual dentro del scope (filtro) pedido. Se calculan
+    # sobre el set completo, no sobre la página, así "posición actual" y "XP para
+    # subir" no dependen de cuántas filas se hayan cargado.
+    rank: int | None = None       # posición en el scope, None si no aparece
+    xp_to_next: int | None = None  # XP para alcanzar al de arriba
+    total_xp: int = 0
+
+
 class LeaderboardResponse(BaseModel):
-    entries: list[LeaderboardEntry]
-    total_xp: int
-    total_exercises: int
+    entries: list[LeaderboardEntry]  # solo la página pedida (offset..offset+limit)
+    total_xp: int                    # total del scope (global o por universidad)
+    total_exercises: int             # total del scope
+    total_count: int                 # cantidad de usuarios en el scope
+    has_more: bool                   # quedan más páginas después de esta
+    me: LeaderboardMe
+    universities: list[str]          # universidades presentes (para el filtro)
 
 
 # ── Session ───────────────────────────────────────────────────────────────────

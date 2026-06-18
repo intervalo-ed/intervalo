@@ -236,7 +236,11 @@ export interface paths {
         };
         /**
          * Get Leaderboard
-         * @description Global leaderboard, ranked by total XP descending.
+         * @description Leaderboard ranked by total XP descending, paginado (offset/limit).
+         *
+         *     El ranking, los totales y los datos del usuario actual se calculan sobre el
+         *     set completo del scope (global o filtrado por universidad); solo `entries`
+         *     devuelve la página pedida para el scroll infinito.
          */
         get: operations["get_leaderboard_leaderboard_get"];
         put?: never;
@@ -471,6 +475,18 @@ export interface components {
             /** University */
             university?: string | null;
         };
+        /** LeaderboardMe */
+        LeaderboardMe: {
+            /** Rank */
+            rank?: number | null;
+            /** Xp To Next */
+            xp_to_next?: number | null;
+            /**
+             * Total Xp
+             * @default 0
+             */
+            total_xp: number;
+        };
         /** LeaderboardResponse */
         LeaderboardResponse: {
             /** Entries */
@@ -479,6 +495,13 @@ export interface components {
             total_xp: number;
             /** Total Exercises */
             total_exercises: number;
+            /** Total Count */
+            total_count: number;
+            /** Has More */
+            has_more: boolean;
+            me: components["schemas"]["LeaderboardMe"];
+            /** Universities */
+            universities: string[];
         };
         /** LevelInfo */
         LevelInfo: {
@@ -1179,7 +1202,11 @@ export interface operations {
     };
     get_leaderboard_leaderboard_get: {
         parameters: {
-            query?: never;
+            query?: {
+                university?: string | null;
+                limit?: number;
+                offset?: number;
+            };
             header?: {
                 authorization?: string;
             };
