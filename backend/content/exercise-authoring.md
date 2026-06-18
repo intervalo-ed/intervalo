@@ -598,6 +598,17 @@ sin(x/2)            [-10, 10, -2, 2]
 - Amplitud = `|A|`; período = `2π/|B|`; máx = `D + |A|`; mín = `D - |A|`.
 - Imagen = `[D − |A|, D + |A|]`.
 
+**Grilla del eje x (π vs decimal) — automática según `graph_fn`:**
+El gráfico (`math-graph.tsx`) pone el eje x en múltiplos de π (etiquetas π/2, π,
+3π/2, 2π…) cuando detecta **función trig (`sin`/`cos`/`tan`) y NINGÚN `pi` en la
+fórmula**, porque ahí x es un ángulo en radianes (`sin(x)`, `cos(2*x)`,
+`sin(x/2)`). Los **aplicados**, donde x es tiempo/unidad real, **siempre llevan
+`pi`** en `graph_fn` (`311*sin(100*pi*x)`, `10*sin(pi/12*(x-6))+20`,
+`8*cos(pi/6*(x-1))+15`) → ahí el eje x queda **decimal**. El eje y es siempre
+decimal (amplitud). Consecuencia para autoría: una sinusoide de ángulo puro NO
+debe incluir `pi` (ni en un corrimiento como `sin(x - pi/3)`), o se la tratará
+como aplicada (grilla decimal).
+
 **Contextos cotidianos** (no pH, Richter, decibeles):
 - Temperatura diaria/estacional: amplitud = (máx−mín)/2, eje = (máx+mín)/2.
 - Mareas: período ≈ 12 h, amplitud = diferencia de nivel.
@@ -610,6 +621,30 @@ sin(x/2)            [-10, 10, -2, 2]
 - C: contexto cotidiano con gráfico real (temperatura, mareas, corriente).
 
 **sync-catalog NO necesario**: GRAF ya existía para `trigonometric`.
+
+---
+
+## Estructura de la explicación (`explanation`)
+
+Cada campo `explanation` debe seguir una estructura de **tres partes**:
+
+1. **Concepto abstracto**: la fórmula, regla o propiedad general que aplica. Ej.: "El período de $A\operatorname{sen}(Bx)$ es $T = 2\pi/|B|$."
+2. **Aplicación al ejemplo**: desglose paso a paso del caso concreto del ejercicio. Cuando hay dos o más pasos de álgebra o sustitución, usar el bloque alineado:
+   ```
+   $\begin{aligned}
+   \text{LHS} \\
+   &= \text{paso 1} \\
+   &= \text{resultado}
+   \end{aligned}$
+   ```
+3. **Cierre con humor** (cuando sea posible): una oración breve y liviana que cierre la explicación con algo ingenioso relacionado con el tema.
+
+**Extensión mínima:** las tres partes juntas deben superar los 250 caracteres. Una sola oración de resultado (`"$B = 6$"`) no es una explicación.
+
+**Errores frecuentes:**
+- Poner solo el resultado de la cuenta sin explicar el concepto general.
+- Omitir el cierre: la parte 3 es lo que hace memorable al ejercicio.
+- Usar la cadena horizontal `A = B = C = D` para derivaciones largas — usar `\begin{aligned}` vertical en su lugar.
 
 ---
 

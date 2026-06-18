@@ -46,9 +46,10 @@ const tx = (1200 - LOGO_W) / 2
 const ty = (630 - TOTAL_H) / 2
 const BAR_Y  = ty + GLYPH_PX_H + GAP
 
-// Grilla de fondo (idéntica a GRID_BG_STYLE de la landing: líneas 1px al 3%)
-const GRID_SIZE = 40
-const GRID_COLOR = "rgba(255,255,255,0.03)"
+// Grilla de fondo: cuadrados más grandes y un poco más visibles que la landing,
+// para que se lean mejor en la preview del link al compartir (líneas 1px al 7%).
+const GRID_SIZE = 60
+const GRID_COLOR = "rgba(255,255,255,0.07)"
 const grid = `
   <defs>
     <pattern id="g" width="${GRID_SIZE}" height="${GRID_SIZE}" patternUnits="userSpaceOnUse">
