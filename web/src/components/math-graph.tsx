@@ -93,6 +93,13 @@ function parsePiecewise(
   return pairs.length > 0 ? pairs : null
 }
 
+// Pure-angle trig (x es un ángulo en radianes) → eje x en múltiplos de π. Los
+// trig "aplicados" (x = tiempo/meses: 311*sin(100*pi*x), 10*sin(pi/12*(x-6))+20)
+// siempre llevan `pi` en la fórmula y deben quedar con grilla decimal.
+function isAngleTrig(graphFn: string): boolean {
+  return /\b(sin|cos|tan)\b/.test(graphFn) && !/\bpi\b/i.test(graphFn)
+}
+
 function buildFn(graphFn: string): RealFn | null {
   const pieces = parsePiecewise(graphFn)
   if (pieces) {
@@ -159,6 +166,46 @@ function formatTick(value: number, step: number): string {
   return Number(value.toFixed(decimals)).toString()
 }
 
+// Eje x en π: densidad un poco menor que la decimal para que el paso ETIQUETADO
+// caiga en π/2 en las vistas típicas (±5, ±6.5, ±7) y en π en las más anchas (±10).
+const PI_GRID_DENSITY = 8
+
+// Paso mayor del eje x en una escalera de π: …, π/4, π/2, π, 2π, 4π, … (potencias
+// de 2 por π). Se elige el peldaño que da ~PI_GRID_DENSITY intervalos en el rango.
+function piStep(range: number): number {
+  if (range <= 0) return Math.PI
+  const inPi = range / PI_GRID_DENSITY / Math.PI // paso objetivo en unidades de π
+  const exp = Math.max(-2, Math.round(Math.log2(inPi))) // piso en π/4
+  return Math.pow(2, exp) * Math.PI
+}
+
+// Líneas menores en π: una subdivisión (la mitad). π/2 → menores en π/4.
+function piSubdivisions(_step: number): number {
+  return 2
+}
+
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b)
+}
+
+// Etiqueta un tick como múltiplo exacto de π. `step` es 2^e·π, así que value/π es
+// una fracción racional: se reduce y se formatea (π/2, 3π/2, -π, 2π…).
+function formatPiTick(value: number, step: number): string {
+  const stepInPi = step / Math.PI // 0.25, 0.5, 1, 2, 4…
+  const stepNum = stepInPi < 1 ? 1 : Math.round(stepInPi)
+  const stepDen = stepInPi < 1 ? Math.round(1 / stepInPi) : 1
+  const n = Math.round(value / step) // índice del tick (puede ser negativo)
+  let num = n * stepNum
+  let den = stepDen
+  const g = gcd(Math.abs(num), den) || 1
+  num /= g
+  den /= g
+  const sign = num < 0 ? "-" : ""
+  const a = Math.abs(num)
+  const coef = a === 1 ? "" : String(a)
+  return den === 1 ? `${sign}${coef}π` : `${sign}${coef}π/${den}`
+}
+
 // Returns tick positions snapped to the step grid (keeping fractional values when
 // zoomed in — Math.round would collapse e.g. 0.2 and 0.4 onto the same integer,
 // producing duplicate React keys and wrong labels). Index n avoids FP drift.
@@ -174,7 +221,15 @@ function axisTicks(min: number, max: number, step: number): number[] {
 
 // Runs inside <Mafs> — has access to the live viewport via usePaneContext.
 // Grid, ticks, and the function plot all update dynamically as the user pans/zooms.
-function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
+function GraphContent({
+  fn,
+  widthPx,
+  piX,
+}: {
+  fn: RealFn
+  widthPx: number
+  piX: boolean
+}) {
   const { xPaneRange, yPaneRange } = usePaneContext()
   const [xMin, xMax] = xPaneRange
   const [yMin, yMax] = yPaneRange
@@ -187,7 +242,8 @@ function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
   const pxPerUnit = viewTransform[0]
   const pxPerUnitY = Math.abs(viewTransform[4])
   const xRange = widthPx / pxPerUnit
-  const naturalStep = niceStep(xRange)
+  const density = piX ? PI_GRID_DENSITY : GRID_DENSITY
+  const naturalStep = piX ? piStep(xRange) : niceStep(xRange)
 
   // Hysteresis: only commit a new step when xRange is clearly past the transition
   // boundary (±5%), preventing oscillation from FP noise at exact boundary values.
@@ -195,14 +251,20 @@ function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
   if (naturalStep !== stepRef.current) {
     const goingUp = naturalStep > stepRef.current
     const threshold = goingUp
-      ? GRID_DENSITY * stepRef.current * 1.05
-      : GRID_DENSITY * naturalStep * 0.95
+      ? density * stepRef.current * 1.05
+      : density * naturalStep * 0.95
     if (goingUp ? xRange > threshold : xRange < threshold) {
       stepRef.current = naturalStep
     }
   }
-  const step = stepRef.current
-  const subdivisions = niceSubdivisions(step)
+  const xStep = stepRef.current
+  const xSubdivisions = piX ? piSubdivisions(xStep) : niceSubdivisions(xStep)
+
+  // El eje y siempre es decimal (amplitud), con su propio paso según su rango.
+  // En vistas cuadradas 1:1 coincide con el de x; en sinusoides (anchas) queda
+  // con marcas decimales mientras x va en π.
+  const yStep = niceStep(yMax - yMin)
+  const ySubdivisions = niceSubdivisions(yStep)
 
   const margin = (yMax - yMin) * 0.1
   const lo = yMin - margin
@@ -235,15 +297,15 @@ function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
     return runs
   }, [fn, xMin, xMax, lo, hi])
 
-  const xTicks = axisTicks(xMin, xMax, step)
-  const yTicks = axisTicks(yMin, yMax, step)
+  const xTicks = axisTicks(xMin, xMax, xStep)
+  const yTicks = axisTicks(yMin, yMax, yStep)
 
   // Lattice points: integer x where f(x) is also an integer, marked as a dot in
   // the line color so the student can read exact points the line passes through.
   // Only while the integer grid is the actual grid (step <= 1); zoomed out they'd
   // crowd together and add no value.
   const lattice = useMemo<[number, number][]>(() => {
-    if (step > 1) return []
+    if (piX || xStep > 1) return []
     const pts: [number, number][] = []
     for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
       const y = fn(x)
@@ -254,16 +316,16 @@ function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
       }
     }
     return pts
-  }, [fn, xMin, xMax, yMin, yMax, step])
+  }, [fn, xMin, xMax, yMin, yMax, piX, xStep])
 
   return (
     <>
       <Coordinates.Cartesian
-        xAxis={{ lines: step, labels: false, subdivisions }}
-        yAxis={{ lines: step, labels: false, subdivisions }}
+        xAxis={{ lines: xStep, labels: false, subdivisions: xSubdivisions }}
+        yAxis={{ lines: yStep, labels: false, subdivisions: ySubdivisions }}
       />
       {xTicks.map((v) => {
-        const label = formatTick(v, step)
+        const label = piX ? formatPiTick(v, xStep) : formatTick(v, xStep)
         const t = TICK_PX / pxPerUnitY
         return (
           <g key={`x-${label}`}>
@@ -281,7 +343,7 @@ function GraphContent({ fn, widthPx }: { fn: RealFn; widthPx: number }) {
         )
       })}
       {yTicks.map((v) => {
-        const label = formatTick(v, step)
+        const label = formatTick(v, yStep)
         const t = TICK_PX / pxPerUnit
         return (
           <g key={`y-${label}`}>
@@ -318,6 +380,7 @@ export default function MathGraph({
   graphView?: unknown[] | null
 }) {
   const fn = useMemo(() => buildFn(graphFn), [graphFn])
+  const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
   const [resetKey, setResetKey] = useState(0)
 
   const [xmin, xmax, ymin, ymax] = toView(graphView)
@@ -358,7 +421,7 @@ export default function MathGraph({
         pan
         zoom={{ min: 0.3, max: 6 }}
       >
-        <GraphContent fn={fn} widthPx={width} />
+        <GraphContent fn={fn} widthPx={width} piX={piX} />
       </Mafs>
 
       <div className="pointer-events-none absolute bottom-2 right-2 flex items-center gap-1.5">
