@@ -39,7 +39,7 @@ import { useMemo, useState } from "react"
 import { useStartZen } from "./UseStartZen"
 
 const ctaCls =
-  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 // Topics with at least one exercise type are the only ones that yield exercises.
 function playableTopics({ belt }: { belt: BeltKey }) {

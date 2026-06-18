@@ -124,7 +124,7 @@ export function FeedbackFlow() {
         <ScreenFooter>
           <Button
             size="lg"
-            className="h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+            className="h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => router.push("/")}
           >
             Volver al inicio
@@ -219,7 +219,7 @@ export function FeedbackFlow() {
             <Button
               size="lg"
               className={cn(
-                "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black",
+                "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black",
               )}
               disabled={!mensaje.trim() || feedback.isPending}
               onClick={submit}

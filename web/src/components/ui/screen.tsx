@@ -76,7 +76,7 @@ export function ScreenFooter({
   return (
     <footer
       className={cn(
-        "screen-footer shrink-0 border-t bg-background px-5 pt-7 pb-[var(--cta-pb)]",
+        "screen-footer shrink-0 border-t bg-background px-5 pt-[var(--cta-pt)] pb-[var(--cta-pb)]",
         className,
       )}
     >
