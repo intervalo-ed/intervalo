@@ -3,13 +3,18 @@
 import { useQuery } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
+import { getTimezone } from "@/lib/push/register"
 
 export function useUserProgress() {
   const api = useApi()
   return useQuery({
     queryKey: queryKeys.userProgress(),
     queryFn: async () => {
-      const { data, error } = await api.GET("/user/progress")
+      // Mandamos la zona horaria del navegador para que el backend persista el
+      // "día" del usuario y el gate de repasos no se adelante (ver user_today).
+      const { data, error } = await api.GET("/user/progress", {
+        params: { query: { tz: getTimezone() } },
+      })
       if (error) throw error
       return data
     },

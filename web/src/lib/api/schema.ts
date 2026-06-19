@@ -135,6 +135,10 @@ export interface paths {
         /**
          * Get User Progress
          * @description Get user's current progress (topic states and level info).
+         *
+         *     `tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el
+         *     usuario para que el "día" de la repetición espaciada use su zona, no la del
+         *     servidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.
          */
         get: operations["get_user_progress_user_progress_get"];
         put?: never;
@@ -967,7 +971,9 @@ export interface operations {
     };
     get_user_progress_user_progress_get: {
         parameters: {
-            query?: never;
+            query?: {
+                tz?: string | null;
+            };
             header?: {
                 authorization?: string;
             };

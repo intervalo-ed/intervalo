@@ -1104,7 +1104,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno y el coseno tienen imagen $[-1, 1]$: todos sus valores están en ese intervalo cerrado.",
+    "explanation": "La **imagen** (recorrido) de $f(x)=\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles de $f$. Como el seno proviene de la coordenada $y$ en el círculo unitario, esa coordenada oscila entre $-1$ y $1$: la imagen es $[-1,1]$.\n\nLas opciones $(0,+\\infty)$ y $[0,1]$ solo cubren la mitad superior. $\\mathbb{R}$ sería el **dominio**, no la imagen. Ningún valor de $\\operatorname{sen}(x)$ puede superar $1$ ni caer debajo de $-1$.\n\nEl seno: el único termómetro del universo que nunca llega a $2$.",
     "reviewed": false
   },
   {
@@ -1125,7 +1125,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El período es la longitud mínima de un ciclo completo. Para $\\operatorname{sen}(x)$ ese valor es $2\\pi \\approx 6{,}28$.",
+    "explanation": "El **período** es la longitud del intervalo mínimo en que la función completa un ciclo exacto: $f(x+T)=f(x)$ para todo $x$. Para $\\operatorname{sen}(x)$, la onda completa un ciclo cada $2\\pi$ radianes.\n\n$\\pi$ sería el período de $\\operatorname{sen}(2x)$ (ciclo comprimido). $4\\pi$ sería el de $\\operatorname{sen}(x/2)$ (ciclo estirado). $\\pi/2$ correspondería a $B=4$. Solo con $B=1$ el período es el estándar $2\\pi$.\n\n$2\\pi\\approx6{,}28$: no es redondo, pero el seno no eligió el sistema métrico.",
     "reviewed": false
   },
   {
@@ -1146,7 +1146,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La amplitud es la mitad del rango total de la función. Si $A = 3$, la función oscila entre $-3$ y $3$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, el parámetro $|A|$ es la **amplitud**: la distancia desde el eje de simetría $y=0$ hasta el máximo o el mínimo. La función oscila entre $-|A|$ y $|A|$.\n\nSi $A=3$: máximo $=3$, mínimo $=-3$, amplitud $=3$. El coeficiente $A$ estira la onda **verticalmente** sin modificar el período ni la posición horizontal. El período depende de $B$ (en el argumento), no de $A$.\n\nMayor $|A|$ = onda más dramática. Pequeño $|A|$ = onda que ni se nota en el gráfico.",
     "reviewed": false
   },
   {
@@ -1167,7 +1167,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el círculo unitario, el ángulo $0$ corresponde al punto $(1, 0)$; la coordenada $y$ es $0$.",
+    "explanation": "El **círculo unitario** asocia cada ángulo $\\theta$ con el punto $P=(\\cos\\theta,\\,\\operatorname{sen}\\theta)$ sobre la circunferencia de radio $1$. El ángulo $\\theta=0$ corresponde al punto $(1,0)$, cuya coordenada $y$ es $0$.\n\nPor lo tanto $\\operatorname{sen}(0)=0$. Nótese que $\\cos(0)=1$ (coordenada $x$). Los valores $1$ y $-1$ son los extremos del seno, que ocurren en $\\pi/2$ y $3\\pi/2$ respectivamente.\n\n$\\operatorname{sen}(0)=0$: el seno arranca con humildad antes de dispararse al techo.",
     "reviewed": false
   },
   {
@@ -1188,7 +1188,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el círculo unitario, el ángulo $0$ corresponde al punto $(1, 0)$; la coordenada $x$ es $1$.",
+    "explanation": "En el **círculo unitario**, el ángulo $\\theta=0$ corresponde al punto $P=(1,0)$. El coseno es la coordenada $x$ de ese punto: $\\cos(0)=1$.\n\nEl coseno arranca en su **máximo** ($1$) cuando $\\theta=0$, a diferencia del seno que arranca en $0$. Por eso la gráfica del coseno tiene un pico en el origen, mientras que la del seno tiene un cruce por cero.\n\n$\\cos(0)=1$: el coseno llega al primer día con toda la energía. El seno prefiere arrancar despacio.",
     "reviewed": false
   },
   {
@@ -1209,7 +1209,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/2$ es el ángulo de $90°$, que lleva al punto $(0, 1)$ en el círculo unitario; coordenada $y = 1$.",
+    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el extremo superior de la circunferencia. El seno es la coordenada $y$, por lo que $\\operatorname{sen}(\\pi/2)=1$.\n\n$\\pi/2$ radianes $=90°$. El triángulo rectángulo estándar de $30°$-$60°$-$90°$ da $\\operatorname{sen}(90°)=\\text{cateto opuesto}/\\text{hipotenusa}=1/1=1$. Este es el **máximo global** del seno.\n\n$\\operatorname{sen}(\\pi/2)=1$: el seno en su cima, feliz de haber llegado hasta arriba.",
     "reviewed": false
   },
   {
@@ -1230,7 +1230,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/2$ lleva al punto $(0,1)$ en el círculo unitario; coordenada $x = 0$.",
+    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$: el tope de la circunferencia. El coseno es la coordenada $x$, y en ese punto $x=0$: luego $\\cos(\\pi/2)=0$.\n\nEste resultado puede sorprender: cuando el seno está en su máximo ($1$), el coseno vale $0$. Es la esencia de la identidad pitagórica: $\\operatorname{sen}^2+\\cos^2=1$ implica que si uno vale $1$, el otro vale $0$.\n\nSeno y coseno en $\\pi/2$: uno arriba, el otro a nivel del suelo. Turnan los protagonismos.",
     "reviewed": false
   },
   {
@@ -1251,7 +1251,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi = 180°$ lleva al punto $(-1, 0)$; coordenada $y = 0$.",
+    "explanation": "En el círculo unitario, $\\theta=\\pi$ ($=180°$) corresponde al punto $P=(-1,0)$: el extremo izquierdo de la circunferencia. El seno es la coordenada $y=0$, por lo que $\\operatorname{sen}(\\pi)=0$.\n\nLos cruces por cero del seno ocurren en $x=k\\pi$ con $k\\in\\mathbb{Z}$ (los múltiplos de $\\pi$). En $\\pi$ la curva ya bajó de su máximo ($\\pi/2$) y regresa al eje $X$ antes de seguir hacia el mínimo.\n\n$\\operatorname{sen}(\\pi)=0$: el seno hizo el ciclo completo de subir y volvió a cero. ¡Qué disciplina!",
     "reviewed": false
   },
   {
@@ -1272,7 +1272,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Impar: $\\operatorname{sen}(-x) = -\\operatorname{sen}(x)$. Par: $\\cos(-x) = \\cos(x)$.",
+    "explanation": "Una función es **par** si $f(-x)=f(x)$ (simétrica respecto al eje $Y$) e **impar** si $f(-x)=-f(x)$ (simétrica respecto al origen). Ambas propiedades se verifican desde la definición del círculo unitario.\n\nEl seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$. El coseno es par: $\\cos(-x)=\\cos(x)$. Visualmente, la gráfica del coseno es un espejo respecto al eje vertical, mientras que la del seno rota $180°$ respecto al origen.\n\nImpar, par… el seno y coseno eligieron sus géneros matemáticos desde el principio y nunca los cambiaron.",
     "reviewed": false
   },
   {
@@ -1293,7 +1293,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno está definido para cualquier ángulo real, positivo, negativo o cero.",
+    "explanation": "El **dominio** es el conjunto de valores de $x$ para los cuales la función está definida. La función $f(x)=\\operatorname{sen}(x)$ está definida para **cualquier** ángulo real: positivo, negativo, cero, o irracional.\n\nNo hay restricción porque el círculo unitario acepta cualquier ángulo. Contraste: $\\ln(x)$ exige $x>0$; $1/x$ excluye $x=0$. El seno no pone condiciones: dominio $=\\mathbb{R}$.\n\nEl seno: la función más inclusiva del análisis. Todos los ángulos son bienvenidos, sin excepciones.",
     "reviewed": false
   },
   {
@@ -1314,7 +1314,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al multiplicar el argumento por $B$, el ciclo se comprime: en vez de recorrer $2\\pi$, basta con $2\\pi/B$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Al multiplicar el argumento por $B$, la onda se comprime (si $|B|>1$) o se estira (si $|B|<1$) horizontalmente.\n\nRazonamiento: el ciclo completo del seno ocurre cuando el argumento recorre $[0,2\\pi]$. Si el argumento es $Bx$, eso pasa cuando $x$ recorre $[0,2\\pi/B]$. Luego $T=2\\pi/B$.\n\nMayor $B$ = ciclos más cortos y frecuentes. El seno acelera sin perder el ritmo.",
     "reviewed": false
   },
   {
@@ -1335,7 +1335,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$B = 2 \\Rightarrow$ período $= \\pi$. En $2\\pi$ caben $2\\pi/\\pi = 2$ ciclos.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia: el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2} \\\\\\\\\n&= \\pi\n\\end{aligned}$\n\nCiclos en $[0,2\\pi]$: $2\\pi/\\pi=2$. La función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una. Velocidad doble, energía doble.",
     "reviewed": false
   },
   {
@@ -1356,7 +1356,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función sigue oscilando con la misma amplitud y período, pero el eje de oscilación pasa a ser $y = D$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$, el parámetro $D$ es el **desplazamiento vertical**: traslada todo el gráfico hacia arriba (si $D>0$) o hacia abajo (si $D<0$). El eje de oscilación pasa a ser la recta $y=D$.\n\nLa amplitud sigue siendo $1$, el período sigue siendo $2\\pi$, y la forma de la onda no cambia. Solo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\n$D$ es el ascensor de la onda: no cambia su forma, solo el piso en que vive.",
     "reviewed": false
   },
   {
@@ -1377,7 +1377,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Restar $C$ al argumento retrasa la curva: el cero que antes estaba en $x = 0$ ahora está en $x = C$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(x-C)$ con $C>0$, el gráfico se **desplaza hacia la derecha** $C$ unidades. El cruce por cero que en $\\operatorname{sen}(x)$ ocurre en $x=0$ ahora ocurre en $x=C$.\n\nRegla: restar $C$ al argumento $\\Rightarrow$ desplazamiento **hacia la derecha**. Sumar $C$ $\\Rightarrow$ desplazamiento **hacia la izquierda**. Es contraintuitivo pero se comprueba: $\\operatorname{sen}(0-C)<0$ para $C>0$ si en $0$ la función todavía no llegó a su cero.\n\nEl seno llega tarde a la fiesta en $x=C$, no en $x=0$. La invitación decía desplazamiento derecho.",
     "reviewed": false
   },
   {
@@ -1398,7 +1398,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Máximo = $D + |A| = 1 + 3 = 4$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.\n\n$\\begin{aligned}\n\\text{máx} &= D + |A| \\\\\\\\\n&= 1 + 3 \\\\\\\\\n&= 4\n\\end{aligned}$\n\nLa opción $3$ es la amplitud ($|A|$), no el máximo. La opción $1$ es el desplazamiento ($D$). El máximo siempre suma ambos. Para la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
     "reviewed": false
   },
   {
@@ -1419,7 +1419,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Mínimo = $D - |A| = -1 - 2 = -3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n\n$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\\\\\n&= -1 - 2 \\\\\\\\\n&= -3\n\\end{aligned}$\n\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del desplazamiento $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
     "reviewed": false
   },
   {
@@ -1440,7 +1440,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta identidad proviene del teorema de Pitágoras aplicado al círculo unitario.",
+    "explanation": "La **identidad pitagórica fundamental** es $\\operatorname{sen}^2(x)+\\cos^2(x)=1$. Proviene del teorema de Pitágoras aplicado al punto $(\\cos x,\\operatorname{sen}x)$ sobre el círculo unitario: ese punto siempre está a distancia $1$ del origen.\n\nTodas las demás identidades trigonométricas se derivan de esta. Por ejemplo, dividiendo por $\\cos^2(x)$: $\\tan^2(x)+1=\\sec^2(x)$. La opción $\\operatorname{sen}^2-\\cos^2=1$ es incorrecta; la diferencia no es constante.\n\nPitágoras inventó una sola identidad, y los trigonómetros llevan milenios exprimiéndola.",
     "reviewed": false
   },
   {
@@ -1461,7 +1461,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno sube del punto $(0,0)$ al pico $(\\pi/2, 1)$.",
+    "explanation": "En el intervalo $[0,\\pi/2]$ el ángulo avanza desde el eje positivo $x$ hasta el eje positivo $y$ en el círculo unitario. La coordenada $y$ (el seno) **sube** de $0$ a $1$ sin interrupciones: la función es **creciente**.\n\nPuntos clave: $\\operatorname{sen}(0)=0$, $\\operatorname{sen}(\\pi/6)=1/2$, $\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$, $\\operatorname{sen}(\\pi/2)=1$. Cada uno mayor que el anterior: creciente estricto.\n\nEl seno en $[0,\\pi/2]$: subida constante hacia la cima, sin pausas ni retrocesos.",
     "reviewed": false
   },
   {
@@ -1482,7 +1482,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada valor $y$ de $f$ se convierte en $-y$ en $g$, invirtiendo la curva verticalmente.",
+    "explanation": "Si $f(x)=\\operatorname{sen}(x)$, entonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$: donde $f$ valía $y$, $g$ vale $-y$. Los máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo período ($2\\pi$), misma amplitud ($1$), mismo dominio ($\\mathbb{R}$), misma imagen ($[-1,1]$). Propiedad cambiada: la monotonía se invierte — donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
     "reviewed": false
   },
   {
@@ -1503,7 +1503,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/6 = 30°$. El triángulo $30$-$60$-$90$ da seno = $1/2$.",
+    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo rectángulo estándar $30°$-$60°$-$90°$, cuyas proporciones son $1:\\sqrt{3}:2$. El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nLos tres valores clásicos a memorizar son:\n$\\operatorname{sen}(\\pi/6)=1/2$, $\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$, $\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$.\n\nEl $30°$ es el ángulo más modesto del triángulo especial. Su seno, $1/2$, también es el más fácil de recordar.",
     "reviewed": false
   },
   {
@@ -1524,7 +1524,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/3 = 60°$. El triángulo $30$-$60$-$90$ da coseno = $1/2$.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones $1:\\sqrt{3}:2$. El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nObservá la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$. Esto se debe a que $\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$: son ángulos complementarios.\n\nEl coseno de $60°$ y el seno de $30°$ son gemelos idénticos: ambos valen $1/2$. La trigonometría tiene favoritos.",
     "reviewed": false
   },
   {
@@ -1545,7 +1545,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por definición: $f(x + T) = f(x)$ para todo $x$ en el dominio.",
+    "explanation": "Una función $f$ es **periódica** si existe un número $T>0$ tal que $f(x+T)=f(x)$ para todo $x$ en el dominio. Al período mínimo que cumple esto se lo llama el período fundamental.\n\nLas opciones incorrectas confunden la condición: $f(x \\cdot T)=f(x)$ es escala, no traslación; $f(x+T)=f(x)-T$ no es periódica; $f(x)=T$ es constante. Solo $f(x+T)=f(x)$ captura la repetición exacta por traslación horizontal.\n\nPeriódica = misma película, pero el proyector avanza $T$ unidades cada vez.",
     "reviewed": false
   },
   {
@@ -1566,7 +1566,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La tangente no está definida cuando $\\cos(x) = 0$, es decir en $x = \\pi/2 + k\\pi$.",
+    "explanation": "La **tangente** se define como el cociente $\\tan(x)=\\dfrac{\\operatorname{sen}(x)}{\\cos(x)}$. No está definida cuando el denominador es cero: $\\cos(x)=0$ en $x=\\pi/2+k\\pi$, lo que genera asíntotas verticales.\n\nLa opción $\\tan=\\operatorname{sen}\\cdot\\cos$ es incorrecta (es un producto, no un cociente). La opción $\\cos/\\operatorname{sen}$ da la **cotangente**, no la tangente.\n\n$\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$: la tangente es el seno dividido por el coseno, no al revés. Fácil de confundir en el examen.",
     "reviewed": false
   },
   {
@@ -1587,7 +1587,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Ambas funciones completan un ciclo cada $2\\pi$ unidades en el eje $x$.",
+    "explanation": "El **período** de $f(x)=\\cos(x)$ es $2\\pi$, igual que el del seno. Ambas funciones completan un ciclo exacto cada $2\\pi$ radianes.\n\nEl coseno y el seno comparten período porque son la misma onda desplazada: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$. Por eso sus propiedades globales (período, amplitud, imagen) son idénticas; solo difieren en la fase.\n\nSeno y coseno: hermanos gemelos con el mismo período. Uno arranca arriba, el otro desde cero. Rivales de gráfico, idénticos de período.",
     "reviewed": false
   },
   {
@@ -1608,7 +1608,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al multiplicar por $2$, el máximo pasa de $1$ a $2$ y el mínimo de $-1$ a $-2$.",
+    "explanation": "La **imagen** de $f(x)=2\\,\\operatorname{sen}(x)$ se obtiene escalando la imagen de $\\operatorname{sen}(x)$. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $2$ da $2\\,\\operatorname{sen}(x)\\in[-2,2]$.\n\nLa imagen $[-1,1]$ corresponde al seno sin escala ($A=1$). $[0,2]$ sería el rango si la función nunca fuera negativa, lo que no es el caso. La amplitud $2$ significa que el rango se extiende $2$ unidades hacia arriba y $2$ hacia abajo desde el eje.\n\nDoblar la amplitud: la onda tiene más drama, pero sigue siendo simétrica.",
     "reviewed": false
   },
   {
@@ -1629,7 +1629,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es par si $f(-x) = f(x)$. El coseno cumple esto porque es simétrico respecto al eje vertical.",
+    "explanation": "Una función es **par** si $f(-x)=f(x)$ para todo $x$: su gráfica es simétrica respecto al eje $Y$. El coseno cumple esto porque $\\cos(-x)=\\cos(x)$, lo que se verifica directamente del círculo unitario.\n\nEn el círculo unitario, los ángulos $\\theta$ y $-\\theta$ comparten la misma coordenada $x$ (coseno) pero tienen coordenadas $y$ opuestas (senos). Por eso el coseno es par y el seno es impar.\n\n$\\cos(-x)=\\cos(x)$: el coseno no distingue el pasado del futuro. Simétrico en el tiempo, disciplinado en la gráfica.",
     "reviewed": false
   },
   {
@@ -1650,7 +1650,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(k\\pi) = 0$ para $k = 0, \\pm 1, \\pm 2, \\ldots$",
+    "explanation": "$\\operatorname{sen}(x)=0$ cuando el punto en el círculo unitario tiene coordenada $y=0$: eso ocurre en $\\theta=0$ y $\\theta=\\pi$ (y sus repeticiones periódicas). La solución general es $x=k\\pi$ con $k\\in\\mathbb{Z}$.\n\nLa opción $x=\\pi/2+k\\pi$ da los **extremos** (máximo y mínimo), no los ceros. $x=2k\\pi$ solo captura los ceros pares, omite los impares ($\\pi,3\\pi,\\ldots$). $x=\\pi/4+k\\pi$ no es correcto: $\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2\\neq0$.\n\nEl seno cruza el eje $X$ en todos los múltiplos de $\\pi$. Hace escala en cada entero de $\\pi$.",
     "reviewed": false
   },
   {
@@ -1671,7 +1671,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\cos(2k\\pi) = 1$ porque esos ángulos corresponden al punto $(1, 0)$ en el círculo unitario.",
+    "explanation": "$\\cos(x)=1$ cuando el punto en el círculo unitario es $(1,0)$: eso ocurre en $\\theta=0$ y se repite cada $2\\pi$. La solución general es $x=2k\\pi$ con $k\\in\\mathbb{Z}$.\n\nLa opción $x=\\pi/2+2k\\pi$ da los ceros del coseno (máximos del seno). $x=k\\pi$ da tanto los máximos ($+1$ en $x=2k\\pi$) como los mínimos ($-1$ en $x=(2k+1)\\pi$): demasiado amplio. Solo $x=2k\\pi$ garantiza $\\cos(x)=+1$.\n\nEl coseno alcanza el techo ($1$) en $x=0, 2\\pi, 4\\pi, \\ldots$: vuelta completa al punto de partida.",
     "reviewed": false
   },
   {
@@ -1692,7 +1692,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $B = 2$ comprime el período a la mitad.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el período a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2} \\\\\\\\\n&= \\pi\n\\end{aligned}$\n\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. $\\pi/2$ correspondería a $B=4$. Con $B=2$, la respuesta correcta es $\\pi$.",
     "reviewed": false
   },
   {
@@ -1713,7 +1713,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un $B < 1$ estira el período: el ciclo se alarga.",
+    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el período al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{1/2} \\\\\\\\\n&= 4\\pi\n\\end{aligned}$\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
     "reviewed": false
   },
   {
@@ -1734,7 +1734,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El patrón sube y baja regularmente, igual que $\\operatorname{sen}$ o $\\cos$: amplitud $= 10$, desplazamiento vertical $= 20$.",
+    "explanation": "Una oscilación regular que sube y baja periódicamente se modela con funciones trigonométricas. Si la temperatura oscila entre $10°C$ y $30°C$ cada $24$ horas, la función es $T(t)=10\\,\\operatorname{sen}(Bt)+20$.\n\nAquí $|A|=10$ (amplitud = mitad del rango $=20/2$), $D=20$ (valor medio), y $B=2\\pi/24=\\pi/12$ (período de $24$ horas). Ninguna función lineal, exponencial o logarítmica produce un comportamiento que sube y baja de modo cíclico.\n\nSi la temperatura hace olas, el seno es el modelo. Las funciones lineales no saben de mareas.",
     "reviewed": false
   },
   {
@@ -1755,7 +1755,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función trigonométrica con período $T = 12$ captura el sube y baja regular del nivel del mar.",
+    "explanation": "Las **mareas** siguen un ciclo de subida y bajada aproximadamente cada $12{,}4$ horas. Ese comportamiento oscilatorio periódico es exactamente lo que captura la función $h(t)=A\\,\\operatorname{sen}(Bt+C)+D$.\n\nEl parámetro $B=2\\pi/12{,}4$ fija el período; $A$ es la amplitud de la marea; $D$ es el nivel medio; $C$ ajusta la fase inicial. Las funciones $e^{kt}$ solo crecen o decaen; $\\log(t)$ solo crece; una lineal no oscila.\n\nLas mareas eligieron el seno como modelo hace millones de años antes de que existieran los matemáticos.",
     "reviewed": false
   },
   {
@@ -1776,7 +1776,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como el seno es impar, $\\operatorname{sen}(-x) = -\\operatorname{sen}(x)$, que equivale a una reflexión respecto al eje $X$.",
+    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la paridad impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$. Eso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica: $g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$. Es como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$). La reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
     "reviewed": false
   },
   {
@@ -1797,7 +1797,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+3$ traslada todo el rango: $[-1+3, 1+3] = [2, 4]$.",
+    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.\n\n$\\begin{aligned}\n\\text{imagen} &= [-1+3,\\; 1+3] \\\\\\\\\n&= [2,\\; 4]\n\\end{aligned}$\n\nLa opción $[-1,1]$ es el rango sin el desplazamiento. $[3,4]$ sería si la amplitud fuera $0{,}5$. $\\mathbb{R}$ es el dominio. La clave es sumar $D$ a ambos extremos del rango base.",
     "reviewed": false
   },
   {
@@ -1818,7 +1818,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Ambas oscilan entre $-1$ y $1$ con período $2\\pi$; el coseno equivale al seno adelantado $\\pi/2$.",
+    "explanation": "Las funciones $\\operatorname{sen}(x)$ y $\\cos(x)$ tienen exactamente las mismas propiedades globales: período $2\\pi$, amplitud $1$, dominio $\\mathbb{R}$, imagen $[-1,1]$. Se diferencian solo en la **fase inicial**: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$.\n\nLas afirmaciones incorrectas son: que tienen diferente amplitud (ambas tienen $1$), que tienen diferente período (ambas tienen $2\\pi$), y que son la misma función (están desfasadas $\\pi/2$). Son gemelas con distinta hora de partida.\n\nSeno y coseno: mismo cuerpo, mismo período, misma amplitud. El coseno solo llegó antes a la fiesta por $\\pi/2$.",
     "reviewed": false
   },
   {
@@ -1839,7 +1839,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno empieza en su máximo $\\cos(0) = 1$ y decrece continuamente hasta $\\cos(\\pi) = -1$.",
+    "explanation": "En el intervalo $[0,\\pi]$, el ángulo parte del extremo derecho del círculo unitario $(\\cos(0)=1)$ y avanza hasta el extremo izquierdo $(\\cos(\\pi)=-1)$. La coordenada $x$ (coseno) disminuye continuamente: la función es **decreciente**.\n\nValores intermedios: $\\cos(\\pi/2)=0$, $\\cos(2\\pi/3)=-1/2$. Todos decrecientes. La función de coseno luego crece en $[\\pi, 2\\pi]$ (de $-1$ a $1$).\n\nEl coseno en $[0,\\pi]$: una bajada digna desde el techo hasta el sótano, sin pausas.",
     "reviewed": false
   },
   {
@@ -1860,7 +1860,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno es el seno adelantado $\\pi/2$ unidades: su máximo ocurre en $x = 0$, mientras que el del seno ocurre en $x = \\pi/2$.",
+    "explanation": "La relación entre coseno y seno como desfase se establece con la identidad $\\cos(x)=\\operatorname{sen}\\!\\left(x+\\dfrac{\\pi}{2}\\right)$. Esto significa que el coseno está **adelantado** $\\pi/2$ respecto al seno.\n\nVerificación: $\\cos(0)=1$ y $\\operatorname{sen}(0+\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ ✓. La opción $\\cos(x)=\\operatorname{sen}(x-\\pi/2)$ tiene el signo del desfase invertido: eso da $\\cos(0)=\\operatorname{sen}(-\\pi/2)=-1$ ✗.\n\nEl coseno llegó $\\pi/2$ antes al máximo. El seno siempre llega tarde, pero llega.",
     "reviewed": false
   },
   {
@@ -1881,7 +1881,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(x) + 2 \\geq 1 > 0$ para todo $x$: la curva nunca toca el eje $X$.",
+    "explanation": "Para que $f(x)=\\operatorname{sen}(x)+2$ tenga raíces, necesitaría que $\\operatorname{sen}(x)+2=0$, es decir $\\operatorname{sen}(x)=-2$. Pero la imagen del seno es $[-1,1]$: el valor $-2$ es imposible.\n\nLa imagen de $f$ es $[-1+2,1+2]=[1,3]$: todos los valores son positivos (mínimo $=1>0$). La curva nunca toca ni cruza el eje $X$. No hay raíces reales.\n\n$\\operatorname{sen}(x)+2\\geq1>0$ para todo $x$: la curva vive en el primer y segundo cuadrante, sin drama con el eje $X$.",
     "reviewed": false
   },
   {
@@ -1902,7 +1902,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La amplitud siempre es el valor absoluto del coeficiente: $|A| = 3$. El signo negativo solo refleja la curva.",
+    "explanation": "La **amplitud** de $f(x)=A\\cos(x)$ es siempre $|A|$: el valor absoluto del coeficiente. El signo de $A$ solo determina si la función está reflejada respecto al eje $X$ o no; no afecta la amplitud.\n\nPara $f(x)=-3\\cos(x)$: amplitud $=|-3|=3$. La curva oscila entre $-3$ y $3$, igual que $3\\cos(x)$, pero invertida (el máximo de $3\\cos$ es mínimo de $-3\\cos$). La amplitud siempre es no negativa.\n\nEl signo negativo le da vuelta a la onda, pero no la aplasta ni la estira. Amplitud: siempre positiva, sin excepciones.",
     "reviewed": false
   },
   {
@@ -1923,7 +1923,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cualquier múltiplo de $\\operatorname{sen}$ o $\\cos$ sigue siendo una función trigonométrica periódica.",
+    "explanation": "Una función es **trigonométrica** si su expresión fundamental es $\\operatorname{sen}$, $\\cos$ o $\\tan$ (con sus transformaciones). Multiplicar por una constante no cambia la familia: sigue siendo periódica con la misma estructura.\n\n$f(x)=2\\,\\operatorname{sen}(x)$ es trigonométrica con amplitud $2$ y período $2\\pi$. El factor $2$ es solo la amplitud; no convierte la función en polinómica ni en exponencial.\n\nEscalar el seno es como subir el volumen: la canción sigue siendo la misma, solo suena más fuerte.",
     "reviewed": false
   },
   {
@@ -1944,7 +1944,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desfase no cambia la familia: sigue siendo periódica y trigonométrica.",
+    "explanation": "Un **desfase** en el argumento no cambia la familia de la función. $g(x)=\\cos(x-\\pi/2)$ sigue siendo trigonométrica: periódica, acotada, con la misma amplitud y período.\n\nDe hecho, $\\cos(x-\\pi/2)=\\operatorname{sen}(x)$: el desfase convierte el coseno en seno, pero la familia es la misma. El desfase $C$ en $\\cos(x-C)$ solo corre horizontalmente la curva; no la transforma en una parábola ni en una exponencial.\n\nRestar $\\pi/2$ al argumento del coseno es como adelantar el reloj: misma canción, distinto horario.",
     "reviewed": false
   },
   {
@@ -1965,7 +1965,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las mareas tienen período $\\approx 12{,}4$ horas: amplitud, período y desplazamiento quedan determinados por $A$, $B$ y $D$.",
+    "explanation": "Las **mareas** suben y bajan de forma periódica aproximadamente cada $12{,}4$ horas (período lunar). Ese comportamiento oscilatorio regular corresponde exactamente a una función trigonométrica: $h(t)=A\\,\\operatorname{sen}(Bt)+D$.\n\nCon período $T=12{,}4$: $B=2\\pi/12{,}4\\approx0{,}507$. Una función lineal solo sube o baja; una exponencial no regresa; una logarítmica tampoco oscila. Solo la trigonométrica modela el vaivén.\n\nLas mareas: el fenómeno natural que más claramente es trigonométrico. El océano aprendió el seno antes que nosotros.",
     "reviewed": false
   },
   {
@@ -1986,7 +1986,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El patrón sube y baja regularmente: amplitud $= 10$, eje $y = 20$, período $= 24\\,\\text{h}$.",
+    "explanation": "Una temperatura que oscila entre $10°C$ y $30°C$ de manera **cíclica** a lo largo del día es el patrón clásico de una función trigonométrica. La amplitud es la mitad del rango: $A=(30-10)/2=10$. El eje es el valor medio: $D=(30+10)/2=20$.\n\nLa función modelo es $T(t)=10\\,\\operatorname{sen}(Bt)+20$ con período $24$ horas ($B=2\\pi/24=\\pi/12$). Ninguna función lineal, exponencial ni logarítmica produce el patrón de subida y bajada diaria.\n\nEl día tiene seno: la temperatura sube, baja, y se repite. El termómetro confirma la trigonometría.",
     "reviewed": false
   },
   {
@@ -2007,7 +2007,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar el argumento por $2$ comprime el período, pero la función sigue siendo trigonométrica.",
+    "explanation": "La función $h(x)=\\operatorname{sen}(2x)$ es **trigonométrica**: es el seno estándar con el período comprimido a la mitad ($T=\\pi$), pero la familia no cambia.\n\nMultiplicar el argumento por $2$ cambia el período ($T=2\\pi/2=\\pi$), no la familia. La función sigue siendo periódica, con imagen $[-1,1]$ y dominio $\\mathbb{R}$. Las otras familias (exponencial, logarítmica, lineal) no producen oscilaciones acotadas.\n\nDoblar $B$ duplica la velocidad de la onda, pero la onda sigue siendo trigonométrica. Como una canción en velocidad $2\\times$.",
     "reviewed": false
   },
   {
@@ -2033,7 +2033,7 @@
       -1,
       3
     ],
-    "explanation": "La curva sube y baja con amplitud $1$ alrededor de $y = 1$: esto es $\\operatorname{sen}(x) + 1$.",
+    "explanation": "Una curva que **sube y baja periódicamente** alrededor de un eje central es la firma visual de una función trigonométrica. En este gráfico la onda oscila entre $0$ y $2$ centrada en $y=1$: eso corresponde a $\\operatorname{sen}(x)+1$.\n\nAmplitud $=1$ (la mitad del rango $[0,2]$), desplazamiento vertical $D=1$. El período es $2\\pi$. Una función cuadrática formaría una parábola; una exponencial no regresa; ninguna otra familia produce este patrón cíclico acotado.\n\nOnda centrada en $y=1$: el seno tomó clases de natación y ahora nada entre $0$ y $2$.",
     "reviewed": false
   },
   {
@@ -2059,7 +2059,7 @@
       -3,
       3
     ],
-    "explanation": "La amplitud $2$ sugiere $f(x) = 2\\,\\operatorname{sen}(x)$.",
+    "explanation": "Una onda simétrica respecto al eje $X$ con máximo $2$ y mínimo $-2$ y con comportamiento periódico es una **función trigonométrica** de amplitud $2$. El gráfico corresponde a $f(x)=2\\,\\operatorname{sen}(x)$.\n\nLas señales distintivas son: periodicidad, imagen acotada $[-2,2]$, dominio $\\mathbb{R}$, y la curva en forma de ola. Una parábola no es acotada ni periódica. Una exponencial crece sin límite. Solo el seno/coseno oscila de este modo.\n\nAmplitud $2$, simetría perfecta: el seno musculoso que llega a $\\pm2$ sin esfuerzo.",
     "reviewed": false
   },
   {
@@ -2080,7 +2080,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$-\\cos(x)$ tiene la misma amplitud y período que $\\cos(x)$, pero invertida verticalmente.",
+    "explanation": "La función $p(x)=-\\cos(x)$ es **trigonométrica**: es el coseno reflejado verticalmente. La reflexión no cambia la familia; solo invierte máximos y mínimos.\n\nPropiedades: período $=2\\pi$, amplitud $=1$, imagen $=[-1,1]$, dominio $=\\mathbb{R}$. Todo idéntico al coseno, salvo que el máximo de $\\cos$ ($x=0$) se convierte en el mínimo de $-\\cos$. Ningún signo negativo fuera del seno/coseno puede cambiar la familia.\n\nPoner un $-$ adelante del coseno es como ver el gráfico en un espejo horizontal: misma familia, distinta orientación.",
     "reviewed": false
   },
   {
@@ -2101,7 +2101,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dividir el argumento alarga el período; la función sigue oscilando periódicamente.",
+    "explanation": "La función $q(x)=\\operatorname{sen}(x/2)$ es **trigonométrica**: el argumento $x/2$ estira el período al doble ($T=4\\pi$), pero la función sigue siendo periódica y acotada.\n\nCon $B=1/2$: período $=2\\pi/(1/2)=4\\pi$. La imagen sigue siendo $[-1,1]$. El dominio sigue siendo $\\mathbb{R}$. Cualquier transformación del argumento de $\\operatorname{sen}$ que sea de la forma $Bx$ conserva la periodicidad.\n\nDividir el argumento por $2$ es como poner la canción en cámara lenta: el ritmo baja, pero sigue siendo la misma melodía.",
     "reviewed": false
   },
   {
@@ -2122,7 +2122,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El patrón estacional que sube y baja cada $12$ meses puede modelarse con $A\\,\\operatorname{sen}(Bt) + D$.",
+    "explanation": "El turismo estacional que **sube en verano y baja en invierno** y se repite cada $12$ meses sigue un patrón **periódico**: la función correcta es trigonométrica.\n\nModelo: $C(m)=A\\,\\operatorname{sen}(Bt+D_0)+D$ con período $T=12$ meses, amplitud $A$ proporcional a la variación, y $D$ = promedio anual. Una función lineal no regresa; una exponencial no oscila; una logarítmica crece sin cota. Solo la trigonométrica modela el sube-y-baja que se repite año tras año.\n\nEl turismo tiene seno: verano arriba, invierno abajo, y vuelta a empezar. La hoja de cálculo del tour-operador es una sinusoide.",
     "reviewed": false
   },
   {
@@ -2148,7 +2148,7 @@
       -2,
       2
     ],
-    "explanation": "Un período de $\\pi$ corresponde a $\\cos(2x)$ o $\\operatorname{sen}(2x)$.",
+    "explanation": "Una onda que completa **dos ciclos** en el intervalo $[0,2\\pi]$ tiene período $\\pi$, lo que corresponde a $B=2$ en $T=2\\pi/B$. El gráfico muestra $\\cos(2x)$: función trigonométrica.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n\\pi &= \\frac{2\\pi}{2}\n\\end{aligned}$\n\nLa familia es trigonométrica porque la curva es periódica, acotada, y oscila simétricamente. Una función lineal, exponencial o cuadrática no produce este comportamiento.",
     "reviewed": false
   },
   {
@@ -2169,7 +2169,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las otras son exponencial, logarítmica y cuadrática. La clave es la periodicidad.",
+    "explanation": "Las familias de las opciones: $2^x$ es **exponencial**, $\\log(x)$ es **logarítmica**, $x^2+1$ es **polinómica** (cuadrática). Solo $\\operatorname{sen}(x)+1$ es **trigonométrica**: periódica, acotada, con imagen $[0,2]$.\n\nLa clave para identificar una trigonométrica es la **periodicidad** y la **imagen acotada**. Ninguna de las otras tres familias produce un comportamiento que oscile entre dos valores fijos de modo indefinido.\n\nCuatro familias, una sola trigonométrica. Las otras hacen cosas distintas: crecer, decrecer, o tener vértice. Solo el seno oscila.",
     "reviewed": false
   },
   {
@@ -2190,7 +2190,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$3\\cos(x)$ es una función coseno con amplitud $3$.",
+    "explanation": "La función $r(x)=3\\cos(x)$ es **trigonométrica**: es el coseno con amplitud $3$. Multiplicar por $3$ estira la onda verticalmente pero no cambia la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=3$, imagen $=[-3,3]$, dominio $=\\mathbb{R}$, periódica. Una función cuadrática ($ax^2+bx+c$) tiene un vértice único y no es periódica. Una exponencial crece sin cota. Una trigonométrica es la única que oscila periódicamente.\n\n$3\\cos(x)$: el coseno con esteroides. Mismo ritmo, mayor amplitud, misma familia.",
     "reviewed": false
   },
   {
@@ -2211,7 +2211,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las trigonométricas están definidas en $\\mathbb{R}$ y no tienen asíntota vertical.",
+    "explanation": "Una función con **asíntota vertical en $x=0$** y **dominio $(0,+\\infty)$** no puede ser trigonométrica: el seno y coseno están definidos para todo $\\mathbb{R}$ y no tienen asíntotas verticales.\n\nEl perfil descrito (asíntota vertical, dominio semirecto) es característico de la familia **logarítmica**: $\\ln(x)$, $\\log_2(x)$, etc. La tangente $\\tan(x)$ tiene asíntotas, pero en infinitos valores de $x$, no en uno solo.\n\nAsíntota vertical única + dominio semipositivo = logarítmica. El seno ni siquiera sabe lo que es una asíntota.",
     "reviewed": false
   },
   {
@@ -2237,7 +2237,7 @@
       -2,
       2
     ],
-    "explanation": "La onda comienza en cero y va hacia abajo primero: corresponde a $-\\operatorname{sen}(x)$.",
+    "explanation": "Una onda que en $x=0$ vale $0$ y **desciende primero** hacia su mínimo es la función $-\\operatorname{sen}(x)$: la reflexión vertical del seno. El seno estándar sube de $0$; el $-\\operatorname{sen}(x)$ baja de $0$.\n\nLa familia es **trigonométrica**: la curva es periódica, acotada en $[-1,1]$, con período $2\\pi$. El signo negativo invierte la dirección inicial pero no cambia la familia. Una curva cuadrática no regresa; una logarítmica no oscila.\n\n$-\\operatorname{sen}(x)$: el seno pesimista que en vez de subir, decide bajar primero.",
     "reviewed": false
   },
   {
@@ -2258,7 +2258,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los parámetros $A$ y $D$ no cambian la familia: sigue siendo periódica trigonométrica.",
+    "explanation": "La función $f(x)=2\\,\\operatorname{sen}(x)+1$ es **trigonométrica**: el seno con amplitud $2$ y desplazamiento vertical $D=1$. Los parámetros $A$ y $D$ modifican la escala y posición, pero no cambian la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=2$, imagen $=[-1,3]$, dominio $=\\mathbb{R}$, periódica. Ninguna transformación vertical (multiplicar por $A$, sumar $D$) convierte al seno en una parábola o en una exponencial.\n\nEstirá y desplazá el seno cuanto quieras: seguirá siendo trigonométrico. Es terco así.",
     "reviewed": false
   },
   {
@@ -2279,7 +2279,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Amplitud $= 3$, eje $= 12$, período $= 365$: todo encaja con $f(t) = 3\\,\\operatorname{sen}(Bt) + 12$.",
+    "explanation": "Las horas de luz solar varían **periódicamente** a lo largo del año: máximo en el solsticio de verano, mínimo en el de invierno, y vuelta a empezar. Con un rango de $9$ a $15$ horas y período $T=365$ días, la función modelo es $f(t)=3\\,\\operatorname{sen}(Bt)+12$.\n\nAmplitud $=(15-9)/2=3$, eje $=(15+9)/2=12$, $B=2\\pi/365$. Una función lineal no regresa cada año; una exponencial no oscila. Solo la trigonométrica captura el ciclo solar.\n\nLa Tierra gira y el seno lo sigue: cada año, el mismo ciclo de luz calculado con $3\\,\\operatorname{sen}(2\\pi t/365)+12$.",
     "reviewed": false
   },
   {
@@ -2300,7 +2300,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las trigonométricas tienen infinitos mínimos locales (el patrón se repite) y la imagen es acotada.",
+    "explanation": "Una función con **único mínimo global** en $x=0$ que **crece indefinidamente** hacia ambos lados es una **parábola**: $f(x)=ax^2+c$ con $a>0$. Esto es una función **cuadrática**, no trigonométrica.\n\nLas trigonométricas tienen **infinitos** mínimos locales (el patrón oscilatorio se repite), imagen acotada, y no crecen indefinidamente. La cuadrática tiene exactamente un vértice y su imagen es $[\\text{mín},+\\infty)$.\n\nUn único mínimo y crecimiento infinito: las parabólicas son las campeones de 'toco fondo y vuelo'. Las trig nunca vuelan tan alto.",
     "reviewed": false
   },
   {
@@ -2326,7 +2326,7 @@
       -4,
       4
     ],
-    "explanation": "Ambas son funciones trigonométricas con amplitud $3$.",
+    "explanation": "Una onda periódica con máximo $3$, mínimo $-3$ y período $2\\pi$ es la firma de una función **trigonométrica** de amplitud $3$. El gráfico corresponde a $f(x)=3\\,\\operatorname{sen}(x)$ o $3\\cos(x)$.\n\nLas señales: imagen acotada $[-3,3]$, periodicidad con $T=2\\pi$, curva en forma de ola. Ninguna función racional, cuadrática ni logarítmica produce este perfil. La amplitud $3$ la da el coeficiente $A=3$ frente al seno o coseno.\n\nOnda con amplitud $3$ y período $2\\pi$: el seno no necesita más descripción. Ya sabe quién es.",
     "reviewed": false
   },
   {
@@ -2347,7 +2347,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La imagen pasa a $[-2, 0]$, pero la función sigue siendo periódica y trigonométrica.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x)-1$ es **trigonométrica**: el seno desplazado $1$ unidad hacia abajo. El desplazamiento vertical cambia la imagen ($[-2,0]$) pero no la familia.\n\nSigue siendo periódica (período $2\\pi$), acotada (imagen $[-2,0]$), definida en todo $\\mathbb{R}$, y oscilante. Ninguna de esas propiedades cambia por restar una constante. La opción cuadrática no es periódica; la logarítmica no es acotada ni periódica.\n\nBajar la onda un escalón: el seno ahora duerme entre $-2$ y $0$, pero sigue soñando en trigonométrico.",
     "reviewed": false
   },
   {
@@ -2368,7 +2368,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cualquier transformación del argumento conserva la periodicidad y la familia.",
+    "explanation": "La función $g(x)=\\cos(x/2)$ es **trigonométrica**: el coseno con argumento escalado por $1/2$, que estira el período a $4\\pi$. Cualquier transformación del argumento de $\\cos$ de la forma $Bx$ conserva la periodicidad.\n\nCon $B=1/2$: período $=2\\pi/(1/2)=4\\pi$. Imagen $=[-1,1]$. Dominio $=\\mathbb{R}$. El coseno sigue siendo periódico; simplemente tarda más en completar un ciclo.\n\nDividir el argumento por $2$: el coseno en modo relajado, mismo recorrido pero con el doble de tiempo.",
     "reviewed": false
   },
   {
@@ -2389,7 +2389,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un ciclo de $12$ meses con dos picos se modela con $\\cos$ o $\\operatorname{sen}$, con período $= 6$ meses ajustado.",
+    "explanation": "El consumo eléctrico con **dos picos al año** (verano e invierno) y un ciclo de $12$ meses sigue un patrón periódico de período $6$ meses (dos picos por año). Eso corresponde a una función **trigonométrica**: $C(t)=A\\cos(Bt)+D$ con $T=6$ meses.\n\n$B=2\\pi/6=\\pi/3$. La función $A\\cos(\\pi t/3)+D$ tiene picos cada $6$ meses. Una lineal no oscila; una exponencial no regresa; una logarítmica no sube y baja. Solo la trigonométrica modela dos picos anuales.\n\nVerano: aire acondicionado. Invierno: calefacción. El seno lo canta todo con la misma función.",
     "reviewed": false
   },
   {
@@ -2415,7 +2415,7 @@
       -2,
       2
     ],
-    "explanation": "Período $= 4\\pi$ implica $B = 1/2$ en la fórmula $2\\pi/B$.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en el intervalo $[0,4\\pi]$ tiene período $T=4\\pi$. Usando $T=2\\pi/B$: $B=2\\pi/(4\\pi)=1/2$. La función es $\\operatorname{sen}(x/2)$: trigonométrica.\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\\\\\n&= \\frac{1}{2}\n\\end{aligned}$\n\nLa familia es trigonométrica porque la curva oscila periódicamente. Un período largo ($4\\pi$) solo significa que la onda es más lenta, no que sea de otra familia.",
     "reviewed": false
   },
   {
@@ -2436,7 +2436,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\tan(x)$ tiene asíntotas en $x = \\pi/2 + k\\pi$, a diferencia de las racionales que tienen pocas.",
+    "explanation": "Asíntotas verticales en $x=\\pi/2+k\\pi$ para todo $k\\in\\mathbb{Z}$ son la firma de la función **tangente**: $\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$, indefinida cuando $\\cos(x)=0$.\n\nLa tangente es **trigonométrica**, no racional. Una función racional tiene finitos polos; la tangente tiene infinitos. Una cuadrática no tiene asíntotas. Una logarítmica tiene asíntota en un solo punto.\n\nInfinitas asíntotas equiespaciadas en $\\pi/2+k\\pi$: solo la tangente se comporta así. Las racionales no llegan a tanto.",
     "reviewed": false
   },
   {
@@ -2457,7 +2457,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical no cambia la periodicidad ni la familia.",
+    "explanation": "La función $h(x)=2\\cos(x)+1$ es **trigonométrica**: el coseno con amplitud $2$ y desplazamiento vertical $D=1$. Los parámetros $A$ y $D$ no cambian la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=2$, imagen $=[-1,3]$, dominio $=\\mathbb{R}$, periódica. Una función lineal tiene la forma $ax+b$ y no oscila. La clave es el coseno en la expresión, que garantiza la periodicidad.\n\nCoseno con +1 arriba: la familia no cambia. Amplitud y desplazamiento son accesorios; el coseno es el apellido.",
     "reviewed": false
   },
   {
@@ -2478,7 +2478,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Ninguna función lineal, exponencial o logarítmica tiene imagen acotada y es periódica.",
+    "explanation": "Las propiedades listadas —dominio $\\mathbb{R}$, imagen acotada $[-1,1]$, **periódica**— son exactamente las de la familia **trigonométrica**. Ninguna otra familia cumple los tres requisitos simultáneamente.\n\nExponencial: imagen $(0,+\\infty)$, no acotada superiormente, no periódica. Lineal: no acotada, no periódica. Logarítmica: dominio $(0,+\\infty)$, no acotada, no periódica. Solo $\\operatorname{sen}$ y $\\cos$ son periódicos y acotados en toda la recta real.\n\nPeriódica + acotada + definida en $\\mathbb{R}$: ese trío solo existe en la familia trigonométrica.",
     "reviewed": false
   },
   {
@@ -2499,7 +2499,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La reflexión y el cambio de amplitud conservan la periodicidad.",
+    "explanation": "La función $f(x)=-2\\,\\operatorname{sen}(x)$ es **trigonométrica**: el seno con amplitud $2$ y reflejado verticalmente. Ni la reflexión ($A<0$) ni el cambio de amplitud ($|A|=2$) modifican la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=2$, imagen $=[-2,2]$, dominio $=\\mathbb{R}$, periódica. La curva oscila igual que $2\\,\\operatorname{sen}(x)$ pero invertida: lo que era máximo es ahora mínimo.\n\n$-2\\,\\operatorname{sen}(x)$: la versión pesimista del seno escalado. Baja primero, sube después, siempre trigonométrica.",
     "reviewed": false
   },
   {
@@ -2520,7 +2520,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frecuencia alta = período pequeño, pero el tipo de función es el mismo: $A\\,\\operatorname{sen}(2\\pi f \\cdot t)$.",
+    "explanation": "Las vibraciones mecánicas de una membrana producen un desplazamiento que **sube y baja periódicamente** a una frecuencia fija. Ese patrón es la definición de una función **trigonométrica**: $d(t)=A\\,\\operatorname{sen}(2\\pi f\\cdot t)$.\n\nPara un sonido de frecuencia $f$ Hz: período $T=1/f$ segundos, amplitud $A$ proporcional al volumen. Una función cuadrática no oscila indefinidamente; una exponencial no vuelve al equilibrio; solo la trigonométrica modela la vibración periódica.\n\nEl sonido es seno: cada nota musical es una frecuencia, y el desplazamiento de la membrana es su gráfica trigonométrica.",
     "reviewed": false
   },
   {
@@ -2546,7 +2546,7 @@
       -3,
       3
     ],
-    "explanation": "El máximo en $x = 0$ es la firma del coseno; la amplitud $2$ indica $2\\cos(x)$.",
+    "explanation": "Una onda que **en $x=0$ alcanza su máximo** es un coseno (o $-\\operatorname{sen}$). En este gráfico el máximo es $2$ y el período es $2\\pi$: la función es $f(x)=2\\cos(x)$. La familia es **trigonométrica**.\n\nLa firma del coseno es arrancar en el máximo: $\\cos(0)=1$, $2\\cos(0)=2$ ✓. El seno estándar arranca en $0$. La familia trigonométrica incluye tanto seno como coseno.\n\nMáximo en el origen: el coseno siempre empieza con lo mejor. El seno prefiere arrancar desde cero y ganarlo.",
     "reviewed": false
   },
   {
@@ -2567,7 +2567,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque usa $\\operatorname{sen}$, la función exponencial envuelve el resultado y altera la clasificación. $p(x) = 1$ es constante.",
+    "explanation": "Las funciones $\\operatorname{sen}(x)+\\cos(x)$, $2\\,\\operatorname{sen}(3x)$ y $\\operatorname{sen}^2(x)+\\cos^2(x)=1$ son trigonométricas (la última es constante). La función $h(x)=e^{\\operatorname{sen}(x)}$ **no es trigonométrica**: es una exponencial cuya base es $e$ y cuyo exponente es $\\operatorname{sen}(x)$.\n\nLa familia de $h$ es **exponencial** (o mixta). La imagen de $h$ es $(e^{-1}, e^1)=(1/e, e)\\approx(0{,}37, 2{,}72)$: acotada, pero la función no es periódica de la misma forma que un seno puro.\n\n$e^{\\operatorname{sen}(x)}$: el seno como invitado en casa de la exponencial. La anfitriona determina la familia.",
     "reviewed": false
   },
   {
@@ -2588,7 +2588,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La imagen es $[-5, 1]$, pero la función sigue siendo periódica y trigonométrica.",
+    "explanation": "La función $f(x)=3\\cos(x)-2$ es **trigonométrica**: el coseno con amplitud $3$ y desplazamiento vertical $D=-2$. Los parámetros no cambian la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=3$, imagen $=[-5,1]$, dominio $=\\mathbb{R}$, periódica. La imagen $[-5,1]$ se obtiene como $[-3-2, 3-2]=[-5,1]$. Aunque la imagen no es centrada en $0$, la función sigue siendo periódica y trigonométrica.\n\nCoseno trasladado $2$ hacia abajo: la onda se mudó a una planta inferior, pero sigue siendo del mismo edificio.",
     "reviewed": false
   },
   {
@@ -2609,7 +2609,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El período $\\pi$ se obtiene con $B = 2$: $2\\pi/2 = \\pi$.",
+    "explanation": "Una función **periódica** con período $\\pi$ e imagen $[-1,1]$ es trigonométrica. El período $\\pi$ requiere $B=2$ en la fórmula $T=2\\pi/B$: la función es $\\operatorname{sen}(2x)$ o $\\cos(2x)$.\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nLa imagen $[-1,1]$ confirma amplitud $1$. No hay desplazamiento vertical. La función es trigonométrica con $A=1$, $B=2$, $D=0$.",
     "reviewed": false
   },
   {
@@ -2635,7 +2635,7 @@
       -1,
       3
     ],
-    "explanation": "Esto corresponde a $\\operatorname{sen}(2x) + 1$.",
+    "explanation": "Una onda centrada en $y=1$ con máximo $2$, mínimo $0$ y período $\\pi$ es **trigonométrica**. El gráfico corresponde a $\\operatorname{sen}(2x)+1$: amplitud $1$, $B=2$, desplazamiento $D=1$.\n\nPeríodo $\\pi$ $\\Rightarrow$ $B=2\\pi/\\pi=2$. Imagen $[0,2]$ $\\Rightarrow$ $A=1$, $D=1$. La familia es trigonométrica porque la curva oscila periódicamente entre dos cotas fijas.\n\nOnda entre $0$ y $2$ con período $\\pi$: el seno acelerado que además tomó vitaminas (desplazamiento $+1$).",
     "reviewed": false
   },
   {
@@ -2656,7 +2656,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las trigonométricas siempre tienen imagen acotada. La exponencial $b^x$ con $b>1$ tiene imagen $(0, +\\infty)$.",
+    "explanation": "Una función que **crece sin límite** cuando $x\\to+\\infty$ con imagen $(0,+\\infty)$ es **exponencial**: $f(x)=b^x$ con $b>1$.\n\nLas trigonométricas siempre tienen imagen acotada ($[-A,A]$ o similar): nunca crecen indefinidamente. Una cuadrática crece sin cota pero tiene imagen $[\\text{mín},+\\infty)$, no $(0,+\\infty)$. Una logarítmica tiene imagen $\\mathbb{R}$ (todos los reales), no solo positivos.\n\nImagen $(0,+\\infty)$ + crecimiento ilimitado = exponencial. El seno nunca llega a $+\\infty$; se queda en su $[-1,1]$ sin quejarse.",
     "reviewed": false
   },
   {
@@ -2677,7 +2677,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La reflexión y el desplazamiento son transformaciones que conservan la familia.",
+    "explanation": "La función $f(x)=-\\cos(x)+2$ es **trigonométrica**: el coseno reflejado y desplazado hacia arriba $2$ unidades. La reflexión ($-\\cos$) y el desplazamiento ($+2$) son transformaciones que conservan la familia.\n\nPropiedades: período $=2\\pi$, amplitud $=1$, imagen $=[1,3]$, dominio $=\\mathbb{R}$, periódica. El mínimo de $\\cos$ ($=-1$) se convierte en el mínimo de $-\\cos$ ($=1$) y luego se desplaza a $1+2=3$... espera: mínimo de $-\\cos(x)+2 = -1+2 = 1$; máximo $= 1+2 = 3$. Imagen $[1,3]$.\n\nEl coseno al revés y empujado hacia arriba: sigue siendo trigonométrico, solo que mira hacia el otro lado.",
     "reviewed": false
   },
   {
@@ -2698,7 +2698,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frecuencia $50\\,Hz$ implica período $T = 1/50 = 0{,}02\\,s$ y $B = 2\\pi/T = 100\\pi$.",
+    "explanation": "La corriente alterna doméstica oscila sinusoidalmente entre $-311\\,V$ y $+311\\,V$ con frecuencia $50\\,Hz$. Ese comportamiento periódico acotado es la definición de función **trigonométrica**: $I(t)=311\\,\\operatorname{sen}(100\\pi t)$.\n\nFrecuencia $50\\,Hz$ $\\Rightarrow$ período $T=1/50=0{,}02\\,s$ $\\Rightarrow$ $B=2\\pi/T=100\\pi$. Amplitud $=311\\,V$ (el pico de la corriente). La función lineal, exponencial y logarítmica no producen oscilaciones periódicas.\n\nEl tomacorriente: la prueba más cotidiana de que el seno existe y está vivo en $100\\pi$ radianes por segundo.",
     "reviewed": false
   },
   {
@@ -2719,7 +2719,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = A\\,\\operatorname{sen}(x)$, la amplitud es $|A|$. Aquí $A = 3$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo. El coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$. La función oscila entre $-3$ y $3$. La opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si $A=6$. $\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno. No hay trampa.",
     "reviewed": false
   },
   {
@@ -2740,7 +2740,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula del período es $T = 2\\pi/B$. Con $B = 4$: $T = \\pi/2$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Con $B=4$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{4} \\\\\\\\\n&= \\frac{\\pi}{2}\n\\end{aligned}$\n\nLos distractores $8\\pi$ y $4\\pi$ son múltiplos de $\\pi$, no el cociente. $\\pi$ correspondería a $B=2$. Con $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
     "reviewed": false
   },
   {
@@ -2761,7 +2761,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El máximo del seno es $1$, multiplicado por $A = 2$ da $2$; sumando $D = 3$ resulta $5$.",
+    "explanation": "En $g(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** ocurre cuando $\\operatorname{sen}(x)=1$: $g_{\\max}=A\\cdot1+D=A+D$.\n\n$\\begin{aligned}\ng_{\\max} &= A + D \\\\\\\\\n&= 2 + 3 \\\\\\\\\n&= 5\n\\end{aligned}$\n\nLa opción $3$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $1$ confunde el mínimo del seno ($-1$) con el resultado. El máximo suma $A$ y $D$.",
     "reviewed": false
   },
   {
@@ -2782,7 +2782,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El mínimo del coseno es $-1$; restándole $2$: $-1 - 2 = -3$.",
+    "explanation": "En $h(x)=\\cos(x)+D$, el **mínimo** ocurre cuando $\\cos(x)=-1$: $h_{\\min}=-1+D$.\n\n$\\begin{aligned}\nh_{\\min} &= -1 + D \\\\\\\\\n&= -1 + (-2) \\\\\\\\\n&= -3\n\\end{aligned}$\n\nLa opción $-1$ es el mínimo del coseno sin desplazamiento. La opción $-2$ es solo $D$. El mínimo real agrega el desplazamiento vertical al mínimo base.",
     "reviewed": false
   },
   {
@@ -2803,7 +2803,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/6 = 30°$. Por el triángulo $30$-$60$-$90$: seno de $30° = 1/2$.",
+    "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones $1:\\sqrt{3}:2$. El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$, $\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$, $\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$, $\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica. Empezá memorizando este.",
     "reviewed": false
   },
   {
@@ -2824,7 +2824,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/3 = 60°$. Por el triángulo $30$-$60$-$90$: coseno de $60° = 1/2$.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones $1:\\sqrt{3}:2$. El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$, porque $60°$ y $30°$ son complementarios. El distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$. La tabla trigonométrica tiene más simetrías que un copo de nieve.",
     "reviewed": false
   },
   {
@@ -2845,7 +2845,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $B < 1$ el período se alarga: con $B = 1/3$, el ciclo mide $6\\pi$.",
+    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ en $T=2\\pi/|B|$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{1/3} \\\\\\\\\n&= 6\\pi\n\\end{aligned}$\n\nLa opción $2\\pi/3$ sería con $B=3$ (no $1/3$). La opción $2\\pi$ es el período del coseno sin modificar. La opción $3\\pi$ sería con $B=2/3$. Con $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
     "reviewed": false
   },
   {
@@ -2866,7 +2866,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo refleja la curva pero no cambia la amplitud; siempre se toma el valor absoluto.",
+    "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es siempre $|A|$: el valor absoluto del coeficiente. El signo de $A$ indica si la onda está reflejada verticalmente, pero no afecta la amplitud.\n\nPara $f(x)=-4\\,\\operatorname{sen}(x)$: $|A|=|-4|=4$. La onda oscila entre $-4$ y $4$, igual que $4\\,\\operatorname{sen}(x)$, pero invertida. La opción $-4$ es el coeficiente con signo, no la amplitud. $8$ sería el rango total, no la amplitud.\n\nAmplitud $= |-4| = 4$: el signo negativo voltea la onda pero no la aplana ni la estira.",
     "reviewed": false
   },
   {
@@ -2887,7 +2887,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El rango del seno $[-1, 1]$ se desplaza $-1$ unidad: $[-2, 0]$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ exactamente $1$ unidad hacia abajo:\n\n$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\\\\\n&= [-2,\\; 0]\n\\end{aligned}$\n\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. $[0,2]$ sería el resultado de $+1$, no $-1$. Restar $1$ baja todo el rango $1$ unidad.",
     "reviewed": false
   },
   {
@@ -2913,7 +2913,7 @@
       -3,
       3
     ],
-    "explanation": "El máximo de $2\\,\\operatorname{sen}(x)$ ocurre en $x = \\pi/2$ y vale $2$.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$. El seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$. Multiplicado por $2$:\n\n$\\begin{aligned}\nf\\!\\left(\\frac{\\pi}{2}\\right) &= 2\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\\\\\n&= 2 \\cdot 1 \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEste es el valor máximo de $f$. La opción $0$ sería $f(0)$ o $f(\\pi)$. La opción $1$ es el máximo del seno sin escalar.",
     "reviewed": false
   },
   {
@@ -2934,7 +2934,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desfase $-\\pi$ desplaza la raíz de $x = 0$ a $x = \\pi$.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi)$ tiene su primer cero positivo cuando el argumento vale $0$: $x-\\pi=0\\Rightarrow x=\\pi$.\n\nEl desfase $-\\pi$ desplaza toda la curva $\\pi$ unidades a la derecha. El cero que $\\operatorname{sen}(x)$ tiene en $x=0$ se mueve a $x=\\pi$. Verificación: $\\operatorname{sen}(\\pi-\\pi)=\\operatorname{sen}(0)=0$ ✓.\n\nLa onda se corrió $\\pi$ a la derecha: llegó tarde al origen, pero llegó justo a tiempo en $x=\\pi$.",
     "reviewed": false
   },
   {
@@ -2955,7 +2955,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Despejando: $B = 2\\pi / T = 2\\pi \\cdot 3/\\pi = 6$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$. Despejando $B$ a partir de $T=\\pi/3$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi/3} \\\\\\\\\n&= 2\\pi \\cdot \\frac{3}{\\pi} \\\\\\\\\n&= 6\n\\end{aligned}$\n\nLa opción $3$ es el inverso del período (no es $B$). Las opciones $1/6$ y $1/3$ son demasiado pequeñas. Un período corto $\\pi/3$ exige un $B$ grande ($6$): la onda completa 6 ciclos en $2\\pi$.",
     "reviewed": false
   },
   {
@@ -2976,7 +2976,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno vale como máximo $1$; multiplicado por $3$ da $3$; restando $1$: $3 - 1 = 2$.",
+    "explanation": "En $h(x)=3\\cos(x)-1$, el **máximo** ocurre cuando $\\cos(x)=1$:\n\n$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\\\\\n&= 3 - 1 \\\\\\\\\n&= 2\n\\end{aligned}$\n\nLa opción $3$ es el valor de $3\\cos(x)$ cuando $\\cos=1$, olvidando el $-1$. La opción $4$ usaría $+1$ en vez de $-1$. La opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$). El máximo correcto es $2$.",
     "reviewed": false
   },
   {
@@ -2997,7 +2997,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Rango base $[-1, 1]$, amplificado a $[-2, 2]$ y desplazado $+1$: $[-1, 3]$.",
+    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n\n$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\\\\\n2\\cos(x) &\\in [-2,2] \\\\\\\\\n2\\cos(x)+1 &\\in [-1,3]\n\\end{aligned}$\n\nLa opción $[0,4]$ se obtiene si se suma $2$ en vez de $1$. La opción $[-2,2]$ olvida el desplazamiento vertical. La opción $[1,3]$ toma $[0,2]+1$ en vez de $[-2,2]+1$. El rango final es $[-1,3]$.",
     "reviewed": false
   },
   {
@@ -3023,7 +3023,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0) = 1$. La gráfica del coseno parte de su máximo en el origen.",
+    "explanation": "La función es $f(x)=\\cos(x)$. Evaluar en $x=0$:\n\n$\\begin{aligned}\nf(0) &= \\cos(0) \\\\\\\\\n&= 1\n\\end{aligned}$\n\nEl coseno arranca en su **máximo** ($1$) cuando $x=0$: esa es la diferencia visual clave entre coseno y seno. El seno vale $0$ en $x=0$; el coseno vale $1$. La gráfica confirma el pico inicial.",
     "reviewed": false
   },
   {
@@ -3044,7 +3044,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El período depende solo de $B$, no de $A$: $T = 2\\pi/3$.",
+    "explanation": "El **período** de $f(x)=2\\,\\operatorname{sen}(3x)$ depende solo del coeficiente $B=3$ del argumento, no de la amplitud $A=2$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{3}\n\\end{aligned}$\n\nLa opción $6\\pi$ invierte el cociente. La opción $2\\pi$ ignora $B=3$. La opción $3\\pi$ usa $B=2/3$ en vez de $3$. La amplitud $A=2$ no afecta al período.",
     "reviewed": false
   },
   {
@@ -3065,7 +3065,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de la tangente, $\\operatorname{sen}(x)$ no tiene discontinuidades.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x)$ está definida para **todo** $x\\in\\mathbb{R}$: no hay valores de $x$ que la hagan indefinida ni que creen asíntotas verticales.\n\nContraste con $\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$: la tangente tiene asíntotas en $x=\\pi/2+k\\pi$ porque el denominador $\\cos(x)$ se anula. El seno y el coseno **no** tienen denominador; son continuas y definidas en todo $\\mathbb{R}$ sin interrupciones.\n\nEl seno no tiene asíntotas. Es la función más honesta: nunca se va al infinito ni desaparece.",
     "reviewed": false
   },
   {
@@ -3091,7 +3091,7 @@
       -4,
       4
     ],
-    "explanation": "La amplitud es la mitad del rango total de la función.",
+    "explanation": "Una onda con máximo $M$ y mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n\n$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\\\\\n&= \\frac{3 - (-3)}{2} \\\\\\\\\n&= \\frac{6}{2} \\\\\\\\\n&= 3\n\\end{aligned}$\n\nLa opción $6$ es el rango total (de mínimo a máximo), no la amplitud. La amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false
   },
   {
@@ -3112,7 +3112,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El mínimo siempre es $D - |A|$, independientemente del signo de $A$.",
+    "explanation": "En $f(x)=-2\\,\\operatorname{sen}(x)+1$, el **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo, lo que ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$\\begin{aligned}\nf_{\\min} &= D - |A| \\\\\\\\\n&= 1 - 2 \\\\\\\\\n&= -1\n\\end{aligned}$\n\nLa fórmula $D-|A|$ funciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento. La opción $-2$ ignora el desplazamiento $D=1$. La opción $3$ es el máximo, no el mínimo.",
     "reviewed": false
   },
   {
@@ -3133,7 +3133,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\cos(\\pi) = -1$, luego multiplicado por $3$ da $-3$.",
+    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$, se usa el valor estándar $\\cos(\\pi)=-1$:\n\n$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\\\\\n&= 3 \\cdot (-1) \\\\\\\\\n&= -3\n\\end{aligned}$\n\n$\\pi$ radianes ($=180°$) lleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$, luego $\\cos(\\pi)=-1$. El factor $3$ da el resultado final $-3$.",
     "reviewed": false
   },
   {
@@ -3154,7 +3154,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = 4\\,\\operatorname{sen}(2x)$.",
+    "explanation": "Para $f(x)=A\\,\\operatorname{sen}(Bx)$ con amplitud $4$ y período $\\pi$, se determinan $A$ y $B$:\n\n$\\begin{aligned}\nA &= 4 \\\\\\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$\n\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$. La opción $\\pi\\,\\operatorname{sen}(4x)$ tiene $A=\\pi$ y $B=4$: ni la amplitud ni el período coinciden. La opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$, no $\\pi$.",
     "reviewed": false
   },
   {
@@ -3175,7 +3175,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente del argumento solo afecta el período, no la amplitud ni el rango.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ y la imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen. En $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
     "reviewed": false
   },
   {
@@ -3196,7 +3196,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\pi/4 = 45°$. En el triángulo isósceles rectángulo, cateto/hipotenusa $= 1/\\sqrt{2} = \\sqrt{2}/2$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa $\\sqrt{2}$. El coseno es cateto adyacente sobre hipotenusa:\n\n$\\begin{aligned}\n\\cos\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$\n\nLa opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$. La opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$. A $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
     "reviewed": false
   },
   {
@@ -3222,7 +3222,7 @@
       -1,
       3
     ],
-    "explanation": "La curva oscila simétricamente alrededor de $y = 1$; ese es el desplazamiento vertical $D$.",
+    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente. En $f(x)=\\operatorname{sen}(x)+1$, la curva oscila entre $0$ y $2$ centrada en $y=1$.\n\n$D=1$ porque la función suma $1$ al seno estándar: el mínimo pasa de $-1$ a $0$ y el máximo de $1$ a $2$. El promedio entre $0$ y $2$ es $1 = D$. La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$. Simple.",
     "reviewed": false
   },
   {
@@ -3243,7 +3243,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el coeficiente de $x$ es $\\pi$, el período resulta $2$ (en unidades de $x$).",
+    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEl resultado $T=2$ (dos unidades en el eje $x$, no $2\\pi$). La opción $\\pi$ confunde el numerador con el resultado. La opción $2\\pi$ ignora el $B=\\pi$. La opción $1/\\pi$ invierte el cociente. Con $B=\\pi$, el período es simplemente $2$.",
     "reviewed": false
   },
   {
@@ -3264,7 +3264,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La amplitud es la mitad de la distancia total entre el máximo y el mínimo.",
+    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$, la **amplitud** es:\n\n$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\\\\\n&= \\frac{5 - (-5)}{2} \\\\\\\\\n&= \\frac{10}{2} \\\\\\\\\n&= 5\n\\end{aligned}$\n\nLa opción $10$ es el rango total (de $-5$ a $5$). La opción $2{,}5$ dividiría por $4$ en vez de $2$. La amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false
   },
   {
@@ -3285,7 +3285,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$3\\pi/2 = 270°$ corresponde al punto $(0, -1)$ en el círculo unitario: coordenada $y = -1$.",
+    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior. El seno es la coordenada $y$:\n\n$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1\n\\end{aligned}$\n\nEste es el **mínimo global** del seno. La opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$. La opción $1$ sería $\\operatorname{sen}(\\pi/2)$. A $270°$ la curva está en el fondo.",
     "reviewed": false
   },
   {
@@ -3306,7 +3306,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$A = 2$, $D = 4$, período $= 2\\pi$ $\\Rightarrow$ $B = 1$: $f(x) = 2\\,\\operatorname{sen}(x) + 4$.",
+    "explanation": "Dada onda con máximo $6$, mínimo $2$ y período $2\\pi$, se calculan $A$, $D$ y $B$:\n\n$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\\\\\nD &= \\frac{6+2}{2} = 4 \\\\\\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$\n\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$. La opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$ y mínimo $-4$, no $2$. La opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$, no $2$.",
     "reviewed": false
   },
   {
@@ -3327,7 +3327,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Imagen $= [D - |A|,\\, D + |A|] = [-1-3, -1+3] = [-4, 2]$.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n\n$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]\n\\end{aligned}$\n\nLa opción $[-1,3]$ usa $A=1$ en vez de $A=3$. La opción $[-3,3]$ olvida el desplazamiento $-1$. La imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
     "reviewed": false
   },
   {
@@ -3348,7 +3348,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frecuencia $= 100\\,Hz$: cien ciclos por segundo, período $= 0{,}01$ s.",
+    "explanation": "Para $I(t)=\\operatorname{sen}(200\\pi t)$, el coeficiente del argumento es $B=200\\pi$. El **período** es:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{200\\pi} \\\\\\\\\n&= \\frac{1}{100}\\,\\text{s}\n\\end{aligned}$\n\nPeríodo $T=1/100$ s corresponde a frecuencia $f=100\\,Hz$: cien ciclos por segundo. La opción $200\\pi$ s es el valor de $B$, no el período. La opción $100\\pi$ invierte el cociente. $1/100$ s es la respuesta.",
     "reviewed": false
   },
   {
@@ -3374,7 +3374,7 @@
       -2,
       4
     ],
-    "explanation": "El máximo del seno es $1$; multiplicado por $2$ da $2$; más el desplazamiento $+1$ da $3$.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)+1$. El **máximo** ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$\\begin{aligned}\nf_{\\max} &= 2\\cdot1 + 1 \\\\\\\\\n&= 2 + 1 \\\\\\\\\n&= 3\n\\end{aligned}$\n\nLa opción $1$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $4$ usaría $2+2$ en vez de $2+1$. El máximo es siempre $A+D=2+1=3$.",
     "reviewed": false
   },
   {
@@ -3395,7 +3395,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\cos(x/2)$ tiene período $4\\pi$ y amplitud $1$.",
+    "explanation": "Para $f(x)=\\cos(Bx)$ con amplitud $1$, eje $y=0$ y período $4\\pi$, se determina $B$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\\\\\n&= \\frac{1}{2}\n\\end{aligned}$\n\nLuego $f(x)=\\cos(x/2)$. La opción $\\cos(4\\pi x)$ tendría período $2\\pi/(4\\pi)=1/2$: demasiado corto. La opción $\\cos(2x)$ tendría período $\\pi$. Solo $\\cos(x/2)$ tiene período $4\\pi$.",
     "reviewed": false
   },
   {
@@ -3416,7 +3416,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\cos(x) \\in [-1,1]$; $-\\cos(x) \\in [-1,1]$ también (los extremos se intercambian, no el rango).",
+    "explanation": "La **imagen** de $f(x)=-\\cos(x)$ se obtiene negando el coseno. Como $\\cos(x)\\in[-1,1]$, su negación $-\\cos(x)$ también está en $[-1,1]$ (los extremos se intercambian pero el conjunto es el mismo).\n\n$-\\cos(x)\\in[-1,1]$: cuando $\\cos=1$, $-\\cos=-1$ (mínimo); cuando $\\cos=-1$, $-\\cos=1$ (máximo). La imagen de $-\\cos(x)$ es exactamente $[-1,1]$, igual que la de $\\cos(x)$.\n\nNegar el coseno invierte sus extremos pero no cambia el rango: $[-1,1]$ sigue siendo $[-1,1]$, al revés.",
     "reviewed": false
   },
   {
@@ -3437,7 +3437,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$45°$: cateto/hipotenusa $= 1/\\sqrt{2}$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo ($1, 1, \\sqrt{2}$). El seno es cateto opuesto sobre hipotenusa:\n\n$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$\n\nA $45°$, seno y coseno son iguales: $\\sqrt{2}/2\\approx0{,}707$. La opción $1/2$ es $\\operatorname{sen}(30°)$; la opción $\\sqrt{3}/2$ es $\\operatorname{sen}(60°)$.",
     "reviewed": false
   },
   {
@@ -3458,7 +3458,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$T = 2\\pi \\cdot 3/2 = 3\\pi$.",
+    "explanation": "El **período** de $f(x)=\\cos(2x/3)$ tiene $B=2/3$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2/3} \\\\\\\\\n&= 2\\pi \\cdot \\frac{3}{2} \\\\\\\\\n&= 3\\pi\n\\end{aligned}$\n\nLa opción $4\\pi/3$ invertiría el cociente. La opción $2\\pi/3$ confundiría $B=3/2$ con $B=2/3$. La opción $6\\pi$ usaría $B=1/3$. Con $B=2/3$ el período es $3\\pi$.",
     "reviewed": false
   },
   {
@@ -3479,7 +3479,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igualando el argumento a $\\pi/2$: $x - \\pi/2 = \\pi/2 \\Rightarrow x = \\pi$.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:\n\n$\\begin{aligned}\nx - \\frac{\\pi}{2} &= \\frac{\\pi}{2} \\\\\\\\\nx &= \\frac{\\pi}{2} + \\frac{\\pi}{2} \\\\\\\\\nx &= \\pi\n\\end{aligned}$\n\nVerificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ ✓. El máximo del seno se desplazó de $x=\\pi/2$ a $x=\\pi$ por el desfase $-\\pi/2$.",
     "reviewed": false
   },
   {
@@ -3500,7 +3500,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $1/2$ reduce la oscilación: el máximo es $1/2$ y el mínimo es $-1/2$.",
+    "explanation": "La **amplitud** de $f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$ es $|A|=|1/2|=1/2$. El coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$, mínimo $=-1/2$, imagen $=[-1/2,1/2]$. La opción $1/4$ dividiría por $4$; la opción $2$ invertiría el coeficiente; la opción $1$ ignoraría el factor $1/2$. La amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía. Misma melodía, volumen reducido a la mitad.",
     "reviewed": false
   },
   {
@@ -3521,7 +3521,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $1/2$ en el argumento cambia el período, no la amplitud.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x/2)$ no depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$. El período cambia a $4\\pi$, pero el rango vertical permanece inalterado. La opción $[-2,2]$ sería si $A=2$; la opción $\\mathbb{R}$ sería el dominio.\n\n$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio. La imagen $[-1,1]$ no se negocia.",
     "reviewed": false
   },
   {
@@ -3542,7 +3542,7 @@
     "feedback_incorrect": "",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno vale máximo $1$; multiplicado por $10$ y sumado $20$: $30\\,°C$.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\nT_{\\max} &= 10 \\cdot 1 + 20 \\\\\\\\\n&= 10 + 20 \\\\\\\\\n&= 30\\,°C\n\\end{aligned}$\n\nEl desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$), pero no cambia el valor máximo. La opción $10°C$ es solo la amplitud. La opción $20°C$ es el eje de oscilación.",
     "reviewed": false
   },
   {
@@ -3568,7 +3568,7 @@
       -3,
       3
     ],
-    "explanation": "El coeficiente $A = 2$ duplica el rango: el máximo pasa de $1$ a $2$.",
+    "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es $|A|$: determina el valor máximo y mínimo de la función. Para $A=2$, la curva alcanza el techo en $y=2$ y el piso en $y=-2$.\n\nEn el gráfico se puede leer directamente: el pico de la onda está en $y=2$. La opción $1$ sería el máximo del seno sin amplificar. La opción $4$ correspondería a $A=4$. Con $A=2$, el máximo es $2$ y el mínimo es $-2$.\n\nEl coeficiente $2$ delante del seno: dobla la altura de la ola sin cambiar la velocidad.",
     "reviewed": false
   },
   {
@@ -3594,7 +3594,7 @@
       -2,
       2
     ],
-    "explanation": "La curva se extiende sin interrupciones hacia ambos lados: dominio $\\mathbb{R}$.",
+    "explanation": "El **dominio** de $f(x)=\\cos(x)$ es el conjunto de todos los $x$ para los que la función está definida. El coseno (y el seno) están definidos para **cualquier** número real.\n\nEn el gráfico se confirma: la curva se extiende sin interrupciones hacia la izquierda y la derecha, sin huecos, sin saltos, sin asíntotas. La opción $(0,+\\infty)$ sería el dominio de una logarítmica. La opción $[-\\pi,\\pi]$ sería una restricción arbitraria. La opción $[-1,1]$ es la **imagen**, no el dominio.\n\nDominio $\\mathbb{R}$: el coseno no excluye a nadie. Todo ángulo es bienvenido.",
     "reviewed": false
   },
   {
@@ -3620,7 +3620,7 @@
       -1,
       3
     ],
-    "explanation": "El desplazamiento vertical $+1$ traslada el rango $[-1,1]$ a $[0,2]$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n\n$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\\\\\n&= [0,\\; 2]\n\\end{aligned}$\n\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$. La opción $[-1,1]$ es el rango sin desplazamiento. La opción $[1,2]$ tendría amplitud $0{,}5$. La imagen correcta es $[0,2]$.",
     "reviewed": false
   },
   {
@@ -3646,7 +3646,7 @@
       -2,
       2
     ],
-    "explanation": "En la gráfica se ven dos ciclos completos en el intervalo $[0, 2\\pi]$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad. En el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas, lo que confirma período $=2\\pi/2=\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi\n\\end{aligned}$\n\nLa opción $4\\pi$ sería con $B=1/2$. La opción $2\\pi$ ignoraría el $B=2$. La opción $\\pi/2$ necesitaría $B=4$. El período correcto es $\\pi$.",
     "reviewed": false
   },
   {
@@ -3672,7 +3672,7 @@
       -2,
       2
     ],
-    "explanation": "El signo negativo invierte la monotonía: crece en $[\\pi/2, 3\\pi/2]$ y decrece en $[0, \\pi/2]$.",
+    "explanation": "La función $f(x)=-\\operatorname{sen}(x)$ **invierte la monotonía** respecto a $\\operatorname{sen}(x)$: donde el seno crece, $-\\operatorname{sen}$ decrece, y viceversa.\n\nEl seno estándar **decrece** en $[\\pi/2, 3\\pi/2]$. Por lo tanto $-\\operatorname{sen}(x)$ **crece** en $[\\pi/2, 3\\pi/2]$. Verificación: $-\\operatorname{sen}(\\pi/2)=-1$ (mínimo) y $-\\operatorname{sen}(3\\pi/2)=1$ (máximo): efectivamente crece.\n\nNegarle el seno: lo que subía ahora baja, y lo que bajaba ahora sube. La monotonía se voltea.",
     "reviewed": false
   },
   {
@@ -3698,7 +3698,7 @@
       -4,
       4
     ],
-    "explanation": "El seno vale $0$ en $x = 0$ y alcanza $3$ en $x = \\pi/2$.",
+    "explanation": "La onda tiene máximo $3$, mínimo $-3$, período $2\\pi$, y en $x=0$ vale $0$. Las señales apuntan a $f(x)=3\\,\\operatorname{sen}(x)$:\n\n— Amplitud $3$ $\\Rightarrow$ coeficiente $A=3$.\n— Período $2\\pi$ $\\Rightarrow$ $B=1$.\n— $f(0)=3\\,\\operatorname{sen}(0)=0$ ✓ (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada. La opción $\\operatorname{sen}(3x)$ tiene amplitud $1$, no $3$. La que arranca en $0$ con amplitud $3$ es $3\\,\\operatorname{sen}(x)$.",
     "reviewed": false
   },
   {
@@ -3724,7 +3724,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0) = 1$ (máximo). $\\operatorname{sen}(0) = 0$: no coincide.",
+    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$). Solo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ✓; $\\operatorname{sen}(0)=0$ ✗; $-\\operatorname{sen}(0)=0$ ✗; $-\\cos(0)=-1$ ✗. Solo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno. El seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
     "reviewed": false
   },
   {
@@ -3750,7 +3750,7 @@
       -3,
       3
     ],
-    "explanation": "El factor $2$ no cambia las raíces; el seno es cero en todos los múltiplos enteros de $\\pi$.",
+    "explanation": "Las **raíces** de $f(x)=2\\,\\operatorname{sen}(x)$ son los valores $x$ donde $f(x)=0$, es decir donde $\\operatorname{sen}(x)=0$. El factor $2$ no afecta las raíces.\n\n$\\operatorname{sen}(x)=0$ en $x=k\\pi$. En $[0,2\\pi]$: $x=0$, $x=\\pi$, $x=2\\pi$. Son tres raíces. La opción $x=\\pi/2$ y $x=3\\pi/2$ da los **extremos**, no las raíces.\n\nEl $2$ delante del seno no mueve las raíces: solo amplifica. El seno sigue cruzando el eje en los mismos múltiplos de $\\pi$.",
     "reviewed": false
   },
   {
@@ -3776,7 +3776,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(\\pi) = -1$; multiplicado por $-1$ da $1$.",
+    "explanation": "Para evaluar $f(\\pi)=-\\cos(\\pi)$, se usa $\\cos(\\pi)=-1$:\n\n$\\begin{aligned}\nf(\\pi) &= -\\cos(\\pi) \\\\\\\\\n&= -(-1) \\\\\\\\\n&= 1\n\\end{aligned}$\n\nEl gráfico confirma: en $x=\\pi$, la curva de $-\\cos(x)$ alcanza su máximo $1$ (pues es la reflexión del coseno, cuyo mínimo en $\\pi$ se convierte en máximo). La opción $-1$ sería $\\cos(\\pi)$, sin el signo negativo.",
     "reviewed": false
   },
   {
@@ -3802,7 +3802,7 @@
       -1,
       3
     ],
-    "explanation": "Imagen $[0, 2]$ = amplitud $1$ + desplazamiento $+1$.",
+    "explanation": "Una onda con máximo $2$, mínimo $0$ y período $2\\pi$ tiene amplitud $A=(2-0)/2=1$ y desplazamiento $D=(2+0)/2=1$. Con $B=1$ la fórmula es $\\operatorname{sen}(x)+1$.\n\nVerificaciones: $\\operatorname{sen}(0)+1=1$ (valor inicial), máximo $=1+1=2$, mínimo $=-1+1=0$ ✓. La opción $2\\,\\operatorname{sen}(x)$ tiene mínimo $-2$. La opción $\\cos(x)+2$ tiene mínimo $1$.\n\nOnda entre $0$ y $2$: amplitud $1$, desplazamiento $+1$. El seno estándar subió de piso.",
     "reviewed": false
   },
   {
@@ -3828,7 +3828,7 @@
       -2,
       2
     ],
-    "explanation": "Cada ciclo mide $\\pi$ unidades; en $2\\pi$ caben exactamente $2$.",
+    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben:\n\n$\\begin{aligned}\n\\text{ciclos} &= \\frac{\\text{largo del intervalo}}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$. La opción $1$ sería el resultado con $B=1$. La opción $4$ necesitaría $B=4$.",
     "reviewed": false
   },
   {
@@ -3854,7 +3854,7 @@
       -3,
       3
     ],
-    "explanation": "El máximo en $x = 0$ descarta el seno; la amplitud $2$ descarta $\\cos(2x)$.",
+    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $2\\pi$. Se reduce a dos candidatos: $2\\,\\operatorname{sen}(x)$ o $2\\cos(x)$. La señal decisiva es el **valor en $x=0$**.\n\nEl gráfico muestra el pico en $x=0$: $f(0)=2$. Verificación: $2\\cos(0)=2$ ✓; $2\\,\\operatorname{sen}(0)=0$ ✗. La función es $f(x)=2\\cos(x)$.\n\nMáximo en el origen + amplitud $2$: el coseno duplicado. El seno hubiera arrancado en cero, no en el techo.",
     "reviewed": false
   },
   {
@@ -3880,7 +3880,7 @@
       -3,
       1
     ],
-    "explanation": "Mínimo $= D - A = -1 - 1 = -2$.",
+    "explanation": "El **mínimo** de $f(x)=\\operatorname{sen}(x)-1$ se alcanza cuando $\\operatorname{sen}(x)=-1$:\n\n$\\begin{aligned}\nf_{\\min} &= -1 + D \\\\\\\\\n&= -1 + (-1) \\\\\\\\\n&= -2\n\\end{aligned}$\n\nLa opción $-1$ es el mínimo del seno sin desplazamiento, o el valor de $D$. La opción $0$ es el mínimo si $D=1$. El gráfico muestra la curva tocando $y=-2$ en su punto más bajo: ese es el mínimo.",
     "reviewed": false
   },
   {
@@ -3906,7 +3906,7 @@
       -2,
       2
     ],
-    "explanation": "Las raíces de $\\operatorname{sen}(2x)$ son $x = k\\pi/2$; la primera positiva no nula es $\\pi/2$.",
+    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n\n$\\begin{aligned}\nx &= \\frac{\\pi}{2}\n\\end{aligned}$\n\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false
   },
   {
@@ -3932,7 +3932,7 @@
       -2,
       2
     ],
-    "explanation": "$\\operatorname{sen}(x)$ baja, pero $-\\operatorname{sen}(x)$ baja aún más rápido y alcanza el mínimo en $x = \\pi/2$.",
+    "explanation": "La curva en $x=0$ vale $0$ y **desciende primero** (hacia el mínimo $-1$ en $x=\\pi/2$). Esa es la firma de $-\\operatorname{sen}(x)$: el seno negado baja antes de subir.\n\nVerificaciones: $-\\operatorname{sen}(0)=0$ ✓; mínimo en $x=\\pi/2$: $-\\operatorname{sen}(\\pi/2)=-1$ ✓. El seno estándar sube en $[0,\\pi/2]$; $-\\cos(x)$ empieza en $-1$ (no en $0$).\n\n$-\\operatorname{sen}(x)$: el pesimista que en el primer paso baja. Después sube, pero ya estableció el tono.",
     "reviewed": false
   },
   {
@@ -3958,7 +3958,7 @@
       -4,
       4
     ],
-    "explanation": "$f$ oscila simétricamente entre $-3$ y $3$.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $3$ da:\n\n$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]\n\\end{aligned}$\n\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo), y no supera esos valores. La opción $[-1,1]$ es la imagen sin amplificar. La opción $[0,3]$ solo cubriría la mitad positiva.",
     "reviewed": false
   },
   {
@@ -3984,7 +3984,7 @@
       5,
       35
     ],
-    "explanation": "A $h = 6$, el argumento vale $0$ y $\\operatorname{sen}(0) = 0$: la temperatura es exactamente la media.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n\n$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\\\\\n&= 10\\cdot0+20 \\\\\\\\\n&= 20\\,°C\n\\end{aligned}$\n\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$). El modelo indica que a las $6$ el día apenas empieza a calentarse.",
     "reviewed": false
   },
   {
@@ -4010,7 +4010,7 @@
       5,
       35
     ],
-    "explanation": "La temperatura máxima ($30\\,°C$) ocurre a las $12{:}00$.",
+    "explanation": "El **máximo** de $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$ ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\n\\frac{\\pi}{12}(h-6) &= \\frac{\\pi}{2} \\\\\\\\\nh - 6 &= 6 \\\\\\\\\nh &= 12\n\\end{aligned}$\n\nLa temperatura máxima ($30°C$) ocurre a las $12{:}00$ del mediodía. El gráfico muestra el pico en $h=12$. La opción $h=18$ daría el valor de vuelta al equilibrio (tarde).",
     "reviewed": false
   },
   {
@@ -4036,7 +4036,7 @@
       -2,
       2
     ],
-    "explanation": "En esos puntos $\\operatorname{sen}(x) = 1$, el valor máximo de la función.",
+    "explanation": "Los **máximos locales** de $f(x)=\\operatorname{sen}(x)$ ocurren donde la función alcanza el valor $1$: eso sucede en $x=\\pi/2$ y luego cada $2\\pi$.\n\nSolución general: $x=\\pi/2+2k\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ da los **ceros** del seno (raíces), no los máximos. La opción $x=\\pi/4+k\\pi$ no corresponde a ningún valor especial del seno.\n\nMáximos del seno en $\\pi/2, 5\\pi/2, 9\\pi/2, \\ldots$: cada $2\\pi$, el seno vuelve a tocar el techo.",
     "reviewed": false
   },
   {
@@ -4062,7 +4062,7 @@
       -2,
       2
     ],
-    "explanation": "Período $= 2\\pi / B = 2\\pi / (1/2) = 4\\pi$.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$. Con $T=2\\pi/B$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}\n\\end{aligned}$\n\nLa función es $\\operatorname{sen}(x/2)$. La opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$). La opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos). Solo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
     "reviewed": false
   },
   {
@@ -4088,7 +4088,7 @@
       -2,
       4
     ],
-    "explanation": "La amplitud se lee como la distancia del eje de oscilación ($y=1$) al máximo ($y=3$): $3-1=2$.",
+    "explanation": "La **amplitud** de $f(x)=2\\,\\operatorname{sen}(x)+1$ es la distancia del eje de oscilación ($y=D=1$) al máximo o mínimo. Como $A=2$, la amplitud es $|A|=2$.\n\nVerificación desde el gráfico: máximo $=3$, mínimo $=-1$, eje $=1$. Amplitud $= 3-1 = 2$ ✓ (o $1-(-1)=2$). La opción $3$ es el valor del máximo, no la amplitud. La opción $1$ es el desplazamiento $D$.\n\nAmplitud $=$ distancia del eje al pico. Aquí $D=1$, máx $=3$: distancia $=2$. Simple.",
     "reviewed": false
   },
   {
@@ -4114,7 +4114,7 @@
       -4,
       0
     ],
-    "explanation": "La curva oscila simétricamente alrededor de $y = -2$.",
+    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente. En $f(x)=\\cos(x)-2$, el desplazamiento es $D=-2$.\n\nVerificación: máximo $=1-2=-1$, mínimo $=-1-2=-3$. El eje central es $(-1+(-3))/2=-2=D$ ✓. En el gráfico la curva oscila simétricamente alrededor de $y=-2$.\n\nEje de oscilación $=D=-2$: el coseno se mudó al subsuelo, pero sigue oscilando con la misma elegancia.",
     "reviewed": false
   },
   {
@@ -4140,7 +4140,7 @@
       -3,
       3
     ],
-    "explanation": "Amplitud $2 \\Rightarrow A = 2$; período $\\pi \\Rightarrow B = 2$. Parte en $0$: seno.",
+    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $\\pi$. Se determinan $A$ y $B$:\n\n$\\begin{aligned}\nA &= \\frac{2-(-2)}{2} = 2 \\\\\\\\\nB &= \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$\n\nLa función arranca en $0$ en $x=0$ (seno, no coseno). Luego: $f(x)=2\\,\\operatorname{sen}(2x)$. La opción $2\\cos(x)$ tiene período $2\\pi$, no $\\pi$. La opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, no $2$.",
     "reviewed": false
   },
   {
@@ -4166,7 +4166,7 @@
       -2,
       2
     ],
-    "explanation": "El mínimo ocurre cada período completo a partir de $x = \\pi$.",
+    "explanation": "El **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) ocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ y se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$). La opción $x=2k\\pi$ da los **máximos**. La opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
     "reviewed": false
   },
   {
@@ -4192,7 +4192,7 @@
       -1,
       10
     ],
-    "explanation": "El seno vale mínimo $-1$; multiplicado por $3$ da $-3$; sumando $5$: $2$ m.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n\n$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\\\\\n&= -3+5 \\\\\\\\\n&= 2\\,\\text{m}\n\\end{aligned}$\n\nLa opción $3$ m es solo la amplitud. La opción $5$ m es el eje de oscilación. La opción $8$ m es el máximo. El nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
     "reviewed": false
   },
   {
@@ -4218,7 +4218,7 @@
       -1,
       10
     ],
-    "explanation": "El máximo ocurre cuando $\\operatorname{sen} = 1$: $3 \\cdot 1 + 5 = 8$ m.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\nh_{\\max} &= 3\\cdot1+5 \\\\\\\\\n&= 3+5 \\\\\\\\\n&= 8\\,\\text{m}\n\\end{aligned}$\n\nLa opción $5$ m es el nivel medio (eje de oscilación). La opción $3$ m es la amplitud. La opción $6$ m no corresponde a ningún valor del modelo. El máximo de la marea es $8$ m.",
     "reviewed": false
   },
   {
@@ -4244,7 +4244,7 @@
       -2,
       2
     ],
-    "explanation": "$-\\cos(0) = -1$ y $-\\cos(\\pi) = 1$.",
+    "explanation": "La onda tiene mínimo $-1$ en $x=0$ y máximo $1$ en $x=\\pi$. Verificando cada opción:\n\n$-\\cos(0)=-1$ ✓ y $-\\cos(\\pi)=-(-1)=1$ ✓.\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ✗; $-\\operatorname{sen}(0)=0$ ✗; $\\cos(0)=1$ ✗ (el máximo debería estar en $x=0$, no el mínimo). Solo $f(x)=-\\cos(x)$ arranca en $-1$ y llega al máximo en $\\pi$.\n\n$-\\cos(x)$: el coseno dado vuelta. El mínimo en el origen y el máximo a $\\pi$ de distancia.",
     "reviewed": false
   },
   {
@@ -4270,7 +4270,7 @@
       -2,
       2
     ],
-    "explanation": "Wait — en $[\\pi, 3\\pi/2]$ el seno baja de $0$ a $-1$, así que es decreciente, no creciente de $-1$ a $0$.\n\nEn realidad en el intervalo $[3\\pi/2, 2\\pi]$ sube de $-1$ a $0$.",
+    "explanation": "En el intervalo $[3\\pi/2, 2\\pi]$, el ángulo va del extremo inferior del círculo unitario $(0,-1)$ al punto inicial $(1,0)$. La coordenada $y$ (el seno) **sube** de $-1$ a $0$: la función es **creciente de $-1$ a $0$**.\n\nComparación: en $[\\pi/2, 3\\pi/2]$ el seno baja de $1$ a $-1$ (decreciente). En $[3\\pi/2, 2\\pi]$ sube de $-1$ a $0$: creciente. La opción correcta describe este tramo final del ciclo.\n\n$[3\\pi/2, 2\\pi]$: el seno saliendo del sótano hacia la planta baja. Un tramo corto, pero muy creciente.",
     "reviewed": false
   },
   {
@@ -4296,7 +4296,7 @@
       -2,
       2
     ],
-    "explanation": "La gráfica del coseno es simétrica respecto al eje vertical.",
+    "explanation": "El coseno es una función **par**: $\\cos(-x)=\\cos(x)$ para todo $x$. Esto significa que su gráfica es simétrica respecto al **eje $Y$**.\n\nEn el gráfico: los valores a izquierda y derecha del eje $Y$ son espejo uno del otro. La opción 'simétrico respecto al eje $X$' no es correcta: $\\cos(-x)=\\cos(x)$ implica simetría vertical (eje $Y$), no horizontal. La simetría respecto al eje $X$ implicaría $f(x)=-f(x)$, lo que solo es posible si $f=0$.\n\nEje $Y$ como espejo del coseno: si doblás el gráfico por el eje vertical, las dos mitades coinciden.",
     "reviewed": false
   },
   {
@@ -4322,7 +4322,7 @@
       -4,
       4
     ],
-    "explanation": "$3\\cos(0) = 3$ (máximo). $3\\,\\operatorname{sen}(0) = 0$: no es seno.",
+    "explanation": "La onda tiene amplitud $3$, período $2\\pi$ y **en $x=0$ vale $3$** (el máximo). El candidato con máximo en el origen es el **coseno**: $f(x)=3\\cos(x)$.\n\nVerificaciones: $3\\cos(0)=3$ ✓ (máximo). $3\\,\\operatorname{sen}(0)=0$ ✗. La opción $\\operatorname{sen}(3x)$ tiene amplitud $1$ y período $2\\pi/3$: nada coincide.\n\nAmplitud $3$ + máximo en el origen: combinación exclusiva del coseno escalado. El seno nunca arranca en el pico.",
     "reviewed": false
   },
   {
@@ -4348,7 +4348,7 @@
       -2,
       2
     ],
-    "explanation": "El argumento $\\pi/2$ corresponde al máximo del seno: $1$.",
+    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$. En $x=\\pi$:\n\n$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\\\\\n&= 1\n\\end{aligned}$\n\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo). En el gráfico, $x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
     "reviewed": false
   },
   {
@@ -4374,7 +4374,7 @@
       -350,
       350
     ],
-    "explanation": "El seno vale $0$ en $t = 0$: la corriente empieza en cero.",
+    "explanation": "Para $I(t)=311\\,\\operatorname{sen}(100\\pi t)$, en $t=0$:\n\n$\\begin{aligned}\nI(0) &= 311\\,\\operatorname{sen}(100\\pi\\cdot0) \\\\\\\\\n&= 311\\,\\operatorname{sen}(0) \\\\\\\\\n&= 311\\cdot0 \\\\\\\\\n&= 0\\,\\text{A}\n\\end{aligned}$\n\nLa corriente alterna empieza en $0$ porque el modelo usa el seno (que vale $0$ en $t=0$). El valor $311$ A es la amplitud, no el valor inicial. El gráfico parte del origen.",
     "reviewed": false
   },
   {
@@ -4400,7 +4400,7 @@
       -1,
       3
     ],
-    "explanation": "El período cambia a $\\pi$, pero la imagen depende solo de la amplitud y el desplazamiento.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$), no del período:\n\n$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]\n\\end{aligned}$\n\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical. La imagen es $[0,2]$. La opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$. La opción $[1,3]$ ignoraría la parte negativa del seno.",
     "reviewed": false
   },
   {
@@ -4426,7 +4426,7 @@
       -3,
       1
     ],
-    "explanation": "Máximo $= 0 = 1 - 1$, mínimo $= -2 = -1 - 1$: $D = -1$.",
+    "explanation": "La onda tiene máximo $0$ y mínimo $-2$. Con estos datos:\n\n$\\begin{aligned}\nD &= \\frac{0+(-2)}{2} = -1 \\\\\\\\\nA &= \\frac{0-(-2)}{2} = 1\n\\end{aligned}$\n\nLa fórmula es $\\operatorname{sen}(x)-1$. Verificación: máx $= 1-1=0$ ✓, mín $= -1-1=-2$ ✓. La opción $-\\operatorname{sen}(x)-1$ tendría el mismo rango pero la curva invertida (partiría del mínimo en $x=0$).",
     "reviewed": false
   },
   {
@@ -4452,7 +4452,7 @@
       -2,
       2
     ],
-    "explanation": "Un máximo por ciclo, $4$ ciclos en $4\\pi$: $4$ máximos.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el período es $\\pi$ y hay un máximo por ciclo. En el intervalo $[0,4\\pi]$:\n\n$\\begin{aligned}\n\\text{ciclos} &= \\frac{4\\pi}{\\pi} = 4 \\\\\\\\\n\\text{máximos} &= 4 \\times 1 = 4\n\\end{aligned}$\n\nLos máximos ocurren en $x=\\pi/4, 5\\pi/4, 9\\pi/4, 13\\pi/4$: exactamente $4$ máximos en $[0,4\\pi]$. La opción $2$ contaría solo un período. La opción $1$ contaría medio período.",
     "reviewed": false
   },
   {
@@ -4478,7 +4478,7 @@
       0,
       30
     ],
-    "explanation": "En enero, el argumento vale $0$ y $\\cos(0) = 1$: temperatura máxima $23\\,°C$.",
+    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n\n$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\\\\\n&= 8\\cos(0)+15 \\\\\\\\\n&= 8\\cdot1+15 \\\\\\\\\n&= 23\\,°C\n\\end{aligned}$\n\nEn enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$. La opción $15°C$ sería la temperatura media (eje de oscilación). La opción $7°C$ sería el mínimo.",
     "reviewed": false
   },
   {
@@ -4504,7 +4504,7 @@
       -1,
       3
     ],
-    "explanation": "La reflexión conserva la amplitud; el desplazamiento $+1$ traslada $[-1,1]$ a $[0,2]$.",
+    "explanation": "La **imagen** de $f(x)=-\\cos(x)+1$ se construye en pasos:\n\n$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\\\\\n-\\cos(x) &\\in [-1,1] \\\\\\\\\n-\\cos(x)+1 &\\in [0,2]\n\\end{aligned}$\n\nLa reflexión conserva el rango $[-1,1]$; el desplazamiento $+1$ lo eleva a $[0,2]$. En el gráfico la curva toca $y=0$ (mínimo, cuando $\\cos=1$) y $y=2$ (máximo, cuando $\\cos=-1$).",
     "reviewed": false
   },
   {
@@ -4530,7 +4530,7 @@
       -2,
       4
     ],
-    "explanation": "$A = 2$, $D = 1$, período $2\\pi$, parte en $0$ (seno): $2\\,\\operatorname{sen}(x) + 1$.",
+    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n\n$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$\n\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
     "reviewed": false
   },
   {
@@ -4556,7 +4556,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno decrece en $[0, \\pi]$ y crece en $[\\pi, 2\\pi]$.",
+    "explanation": "En el intervalo $[\\pi, 2\\pi]$, el ángulo va del extremo izquierdo del círculo unitario $(-1,0)$ hasta el extremo derecho $(1,0)$. La coordenada $x$ (el coseno) **sube** de $-1$ a $1$: la función es **creciente de $-1$ a $1$**.\n\nValores clave: $\\cos(\\pi)=-1$ (mínimo), $\\cos(3\\pi/2)=0$, $\\cos(2\\pi)=1$ (máximo). Todos crecientes en ese orden. El coseno decrece en $[0,\\pi]$ y crece en $[\\pi,2\\pi]$.\n\n$[\\pi, 2\\pi]$: el coseno en modo recuperación. Viene del sótano y llega de vuelta al techo justo a tiempo para el próximo ciclo.",
     "reviewed": false
   }
 ]
