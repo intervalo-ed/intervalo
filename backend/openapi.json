@@ -250,9 +250,25 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (topic states and level info).",
+        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
+          {
+            "name": "tz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tz"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",

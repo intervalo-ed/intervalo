@@ -369,10 +369,24 @@ def get_user_status(
 
 @app.get("/user/progress", response_model=UserProgressResponse)
 def get_user_progress(
+    tz: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get user's current progress (topic states and level info)."""
+    """Get user's current progress (topic states and level info).
+
+    `tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el
+    usuario para que el "día" de la repetición espaciada use su zona, no la del
+    servidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.
+    """
+    if tz and tz != current_user.timezone:
+        try:
+            ZoneInfo(tz)
+        except ZoneInfoNotFoundError:
+            pass
+        else:
+            current_user.timezone = tz
+            db.commit()
     try:
         course_id = 1  # Default course
         return get_user_progress_db(current_user.id, course_id, db)

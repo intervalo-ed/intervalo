@@ -44,6 +44,37 @@ from algorithm import (
 from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
 from sqlalchemy.orm import Session as DBSession
 from models import Answer, Course, Session as SessionModel, UnitState, User
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+
+# ── User timezone / "today" ───────────────────────────────────────────────────
+# El "día de estudio" de la repetición espaciada se define en la zona horaria del
+# usuario, NO en la del servidor (UTC en Railway). Sin esto, entre las ~21:00 y la
+# medianoche de Argentina (UTC−3) date.today() ya es "mañana" y habilita repasos
+# antes de tiempo. Fallback a Argentina mientras el usuario no tenga tz persistida.
+DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+def _user_zone(db: DBSession, user_id: int) -> ZoneInfo:
+    user = db.get(User, user_id)
+    tz_name = (user.timezone if user else None) or DEFAULT_TZ
+    try:
+        return ZoneInfo(tz_name)
+    except ZoneInfoNotFoundError:
+        return ZoneInfo(DEFAULT_TZ)
+
+
+def user_today(db: DBSession, user_id: int) -> date:
+    """Fecha 'hoy' en la zona horaria del usuario (fallback Argentina)."""
+    return datetime.now(_user_zone(db, user_id)).date()
+
+
+def _user_day_start_utc(db: DBSession, user_id: int) -> datetime:
+    """Medianoche del día actual del usuario, expresada en UTC naive (para comparar
+    contra columnas DateTime que guardan datetime.utcnow())."""
+    tz = _user_zone(db, user_id)
+    start_local = datetime.combine(datetime.now(tz).date(), time.min, tzinfo=tz)
+    return start_local.astimezone(ZoneInfo("UTC")).replace(tzinfo=None)
 
 
 # ── Course slug resolution ────────────────────────────────────────────────────
@@ -172,7 +203,7 @@ class DailySessionLimitError(Exception):
 
 
 def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool:
-    today_start = datetime.combine(date.today(), time.min)
+    today_start = _user_day_start_utc(db, user_id)
     return db.query(SessionModel).filter(
         SessionModel.user_id == user_id,
         SessionModel.course_id == course_id,
@@ -183,7 +214,7 @@ def _has_main_session_today(user_id: int, course_id: int, db: DBSession) -> bool
 
 def _has_pending_items(user_id: int, course_id: int, db: DBSession) -> bool:
     """Whether the user has any review item due today or earlier."""
-    today = date.today()
+    today = user_today(db, user_id)
     return db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
@@ -219,7 +250,7 @@ def _create_topic_units(
 ) -> list[str]:
     """Create UnitState rows for every exercise_type of the given topic."""
     types = topic_exercise_types(course_id, topic_key.belt.value, topic_key.topic, db)
-    today = date.today()
+    today = user_today(db, user_id)
     for et in types:
         db.add(UnitState(
             user_id=user_id,
@@ -266,7 +297,9 @@ def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) 
     if row is None:
         return
 
-    new_state = update_unit_state(SM2UnitState(), 5 if correct else 0)
+    new_state = update_unit_state(
+        SM2UnitState(), 5 if correct else 0, today=user_today(db, user_id)
+    )
     row.phase = new_state.phase
     row.step_index = new_state.step_index
     row.ease_factor = new_state.ease_factor
@@ -305,6 +338,7 @@ def _unlock_next_topic(
 def _aggregate_topic_progress(
     rows: list[UnitState],
     expected_types: list[str],
+    today: date,
 ) -> dict:
     """Roll per-unit state up into the topic-shaped progress dict the UI expects."""
     # Maestría/status/progress se calculan SOLO sobre units no-catchup: un ítem
@@ -316,7 +350,6 @@ def _aggregate_topic_progress(
     total_types = len(mastery_types)
     mastered = sum(1 for r in mastery_rows if r.phase == "review")
     attempted = any(r.attempted for r in mastery_rows)
-    today = date.today()
     # 'pending' incluye TODAS las filas (la catch-up vencida hoy es accionable).
     pending = any(r.next_due and r.next_due <= today for r in rows)
 
@@ -422,6 +455,7 @@ def _build_exercise(
 
 def _rows_to_unit_states(
     rows: list[UnitState],
+    today: date,
 ) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
     states: dict[UnitKey, SM2UnitState] = {}
     attempted: dict[UnitKey, bool] = {}
@@ -437,7 +471,7 @@ def _rows_to_unit_states(
             ease_factor=row.ease_factor,
             interval=row.interval_days,
             repetitions=row.repetitions,
-            next_review=row.next_due or date.today(),
+            next_review=row.next_due or today,
         )
         attempted[uk] = row.attempted
     return states, attempted
@@ -484,7 +518,7 @@ def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
 
     # Pase 2: rellenar los exercise_types faltantes de cada tema en/antes del
     # frontier. La unique constraint es el backstop anti-duplicado.
-    today = date.today()
+    today = user_today(db, user_id)
     changed = False
     for tk in topic_keys[: frontier_idx + 1]:
         types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
@@ -556,7 +590,7 @@ def _load_unit_states(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
     ).all()
-    return _rows_to_unit_states(rows)
+    return _rows_to_unit_states(rows, user_today(db, user_id))
 
 
 def _make_topic_introducer(
@@ -801,7 +835,7 @@ def _reconstruct_session_state(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
     ).all()
-    unit_states, unit_attempted = _rows_to_unit_states(rows)
+    unit_states, unit_attempted = _rows_to_unit_states(rows, user_today(db, user_id))
 
     session_units = build_session(unit_states, unit_attempted=unit_attempted)
     exercises = [
@@ -881,7 +915,9 @@ def record_answer_db(
     else:
         sm2_quality = 5 if first_try else 0
 
-    new_state = update_unit_state(current_state, sm2_quality)
+    new_state = update_unit_state(
+        current_state, sm2_quality, today=user_today(db, user_id)
+    )
     state.unit_states[unit_key] = new_state
 
     if first_try:
@@ -994,13 +1030,14 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     ).all()
     rows_by_topic = _topic_rows_index(rows)
 
+    today = user_today(db, user_id)
     topic_states: dict[str, dict] = {}
     for key in catalog_keys:
         topic_rows = rows_by_topic.get((key.belt.value, key.topic))
         if not topic_rows:
             continue
         expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
-        topic_states[key.topic] = _aggregate_topic_progress(topic_rows, expected)
+        topic_states[key.topic] = _aggregate_topic_progress(topic_rows, expected, today)
 
     user = db.query(User).filter(User.id == user_id).first()
     total_xp = user.total_xp if user else 0
@@ -1061,15 +1098,16 @@ def get_summary_db(
         if not a.is_correct:
             failed_in_session.add((a.belt, a.topic))
 
+    today = user_today(db, user_id)
     topic_states: dict[str, dict] = {}
-    unit_states_map, _ = _rows_to_unit_states(rows)
+    unit_states_map, _ = _rows_to_unit_states(rows, today)
 
     for key in catalog_keys:
         topic_rows = rows_by_topic.get((key.belt.value, key.topic))
         if not topic_rows:
             continue
         expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
-        ts_dict = _aggregate_topic_progress(topic_rows, expected)
+        ts_dict = _aggregate_topic_progress(topic_rows, expected, today)
         if (key.belt.value, key.topic) in failed_in_session:
             ts_dict["failed"] = True
         topic_states[key.topic] = ts_dict

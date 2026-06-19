@@ -36,6 +36,11 @@ class User(Base):
     notify_timezone = Column(String(64), nullable=True)
     notify_last_sent_on = Column(Date, nullable=True)
 
+    # IANA timezone del usuario (p.ej. "America/Argentina/Buenos_Aires"); define el
+    # "día" de la repetición espaciada. Se autocompleta desde el navegador en cada
+    # carga del home. NULL → fallback a Argentina (ver session_store.user_today).
+    timezone = Column(String(64), nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
