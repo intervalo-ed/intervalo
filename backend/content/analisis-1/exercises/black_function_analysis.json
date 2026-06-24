@@ -646,12 +646,12 @@
     "feedback_correct": "Entre los picos de la montaña y el valle, la función baja.",
     "feedback_incorrect": "Buscá el tramo de la curva donde, al avanzar hacia la derecha, el valor de $y$ disminuye.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -4,
-      "yMax": 4
-    },
+    "graph_view": [
+      -3,
+      3,
+      -4,
+      4
+    ],
     "explanation": "Una función es **decreciente** donde su pendiente es negativa ($f' < 0$). \n\nEn la gráfica de $f(x) = x^3 - 3x$, los puntos críticos están en $x = -1$ (máximo local) y $x = 1$ (mínimo local). \n\nEntre esos dos valores, podés ver que la curva va hacia abajo. Por lo tanto, el **intervalo de decrecimiento** es $(-1, 1)$. En el resto del dominio, la función sube.",
     "reviewed": false
   },
@@ -672,12 +672,12 @@
     "feedback_correct": "Se ven claramente dos 'valles' profundos al mismo nivel.",
     "feedback_incorrect": "Contá cuántos puntos bajos locales (valles) tiene la forma de 'W' que ves en pantalla.",
     "graph_fn": "x**4 - 4*x**2",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -5,
-      "yMax": 2
-    },
+    "graph_view": [
+      -3,
+      3,
+      -5,
+      2
+    ],
     "explanation": "Esta función tiene una forma similar a una 'W'. \n\nAl realizar el **análisis de extremos**, derivamos $f'(x) = 4x^3 - 8x = 4x(x^2 - 2)$. \n\nLos puntos críticos son $x=0$ (máximo relativo) y $x = \\pm \\sqrt{2}$. En la gráfica, se observa que en $x = -\\sqrt{2}$ y $x = \\sqrt{2}$ la función alcanza sus **mínimos relativos**, que en este caso también son absolutos.",
     "reviewed": false
   },
@@ -698,12 +698,12 @@
     "feedback_correct": "La función alcanza su pico más alto cuando el denominador es mínimo.",
     "feedback_incorrect": "La función es una 'campana'. Buscá el punto más alto en el centro.",
     "graph_fn": "1/(x**2 + 1)",
-    "graph_view": {
-      "xMin": -4,
-      "xMax": 4,
-      "yMin": -0.5,
-      "yMax": 1.5
-    },
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      1.5
+    ],
     "explanation": "La función $f(x) = 1/(x^2 + 1)$ es siempre positiva y tiende a cero cuando $x$ se aleja hacia los infinitos. \n\nComo el denominador $x^2+1$ tiene su valor mínimo en $x=0$, la fracción completa alcanza su **valor máximo** en ese punto. \n\nGeométricamente, la gráfica es simétrica (función par) y tiene una forma de campana con su **máximo absoluto** en $(0, 1)$.",
     "reviewed": false
   },
@@ -724,12 +724,12 @@
     "feedback_correct": "La exponencial decreciente domina sobre el crecimiento de $x$.",
     "feedback_incorrect": "Mirá el extremo derecho de la gráfica. ¿Hacia qué valor de $y$ se estabiliza la curva?",
     "graph_fn": "x * exp(-x)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 10,
-      "yMin": -1,
-      "yMax": 1
-    },
+    "graph_view": [
+      -1,
+      10,
+      -1,
+      1
+    ],
     "explanation": "Este es un caso típico de **asíntota horizontal**. \n\nAunque $x$ crece, el término $e^{-x} = 1/e^x$ crece mucho más rápido en el denominador. Por regla de L'Hôpital o jerarquía de infinitos, el límite es $0$. \n\nEn la gráfica, ves que la función sube hasta un máximo en $x=1$ y luego empieza a bajar 'muriendo' lentamente contra el eje $X$. Decimos que $y=0$ es la asíntota para $x \\to \\infty$.",
     "reviewed": false
   },
@@ -750,12 +750,12 @@
     "feedback_correct": "La gráfica solo existe para valores positivos de $x$.",
     "feedback_incorrect": "Observá el eje $X$. ¿A partir de qué valor empieza a aparecer la curva azul?",
     "graph_fn": "log(x)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -3,
-      "yMax": 2
-    },
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      2
+    ],
     "explanation": "El **dominio** de una función se identifica en la gráfica observando qué valores de $x$ tienen una imagen. \n\nPara el logaritmo natural, la curva se dispara hacia abajo (asíntota vertical) cuando nos acercamos a cero desde la derecha, pero nunca cruza hacia el lado negativo. \n\nPor lo tanto, el dominio son los **reales positivos** $(0, \\infty)$. Notá que $x=0$ no está incluido porque el límite allí es $-\\infty$.",
     "reviewed": false
   },
@@ -776,12 +776,12 @@
     "feedback_correct": "Es donde la curva cambia de 'panza arriba' a 'panza abajo'.",
     "feedback_incorrect": "Buscá los puntos de la curva donde la concavidad cambia. Parecen estar cerca de $\\pm 0.4$.",
     "graph_fn": "x**2 - x**4",
-    "graph_view": {
-      "xMin": -2,
-      "xMax": 2,
-      "yMin": -1,
-      "yMax": 0.5
-    },
+    "graph_view": [
+      -2,
+      2,
+      -1,
+      0.5
+    ],
     "explanation": "Los **puntos de inflexión** ocurren donde $f''(x)$ cambia de signo. \n\nCalculamos: $f'(x) = 2x - 4x^3$ y $f''(x) = 2 - 12x^2$. \n\nIgualando a cero: $12x^2 = 2 \\Rightarrow x^2 = 1/6 \\Rightarrow x = \\pm \\sqrt{1/6} \\approx \\pm 0.408$. \n\nEn la gráfica, podés ver que cerca del origen la función es convexa (cóncava hacia arriba), pero al alejarse un poco empieza a curvarse hacia abajo para caer hacia $-\\infty$.",
     "reviewed": false
   },
@@ -802,12 +802,12 @@
     "feedback_correct": "El máximo en $\\pi/2$ y el mínimo en $3\\pi/2$.",
     "feedback_incorrect": "Contá cuántas 'crestas' y cuántos 'valles' hay en un ciclo completo de la onda.",
     "graph_fn": "sin(x)",
-    "graph_view": {
-      "xMin": -0.5,
-      "xMax": 7,
-      "yMin": -1.5,
-      "yMax": 1.5
-    },
+    "graph_view": [
+      -0.5,
+      7,
+      -1.5,
+      1.5
+    ],
     "explanation": "En un período completo de la función seno (de $0$ a $2\\pi$), la curva sube hasta su valor máximo y baja hasta su valor mínimo. \n\n1. En $x = \\pi/2 \\approx 1.57$, hay un **máximo relativo** (y absoluto) con valor $y=1$. \n2. En $x = 3\\pi/2 \\approx 4.71$, hay un **mínimo relativo** (y absoluto) con valor $y=-1$. \n\nAmbos son puntos críticos donde la tangente es horizontal ($f' = \\cos(x) = 0$).",
     "reviewed": false
   },
@@ -828,12 +828,12 @@
     "feedback_correct": "Las funciones con picos no tienen una tangente única definida ahí.",
     "feedback_incorrect": "Fijate en la forma de la curva en $x=2$. ¿Es una curva suave o un cambio brusco de dirección?",
     "graph_fn": "Abs(x - 2)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -1,
-      "yMax": 4
-    },
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      4
+    ],
     "explanation": "Para que una función sea **derivable**, su gráfica debe ser 'suave'. \n\nEn $x = 2$, la función $|x-2|$ forma una 'V'. Si venís por la izquierda, la pendiente es $-1$; por la derecha, es $1$. Como los límites laterales de la derivada no coinciden, la derivada no existe. \n\nA pesar de no ser derivable, $x=2$ es un **mínimo absoluto**, demostrando que los extremos pueden ocurrir en puntos de no derivabilidad.",
     "reviewed": false
   },
@@ -854,12 +854,12 @@
     "feedback_correct": "La exponencial nunca llega a tocar el eje $X$ ni pasa para abajo.",
     "feedback_incorrect": "Mirá el eje $Y$. ¿Existen valores de $y$ negativos o iguales a cero para esta curva?",
     "graph_fn": "exp(x)",
-    "graph_view": {
-      "xMin": -4,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 10
-    },
+    "graph_view": [
+      -4,
+      3,
+      -1,
+      10
+    ],
     "explanation": "El **rango o imagen** es el conjunto de todos los valores de $y$ que la función puede tomar. \n\nEn la gráfica de la exponencial, vemos que a medida que $x$ se hace muy negativo, la curva se acerca infinitamente al eje $X$ pero nunca lo toca ($y=0$ es asíntota horizontal). Hacia la derecha, crece sin cota. \n\nPor eso, la imagen son todos los reales estrictamente mayores a cero: $(0, \\infty)$.",
     "reviewed": false
   },
@@ -880,12 +880,12 @@
     "feedback_correct": "En $x=2$ el denominador se anula y el límite es infinito.",
     "feedback_incorrect": "Buscá el valor de $x$ donde la curva se quiebra y se escapa hacia arriba y hacia abajo.",
     "graph_fn": "(x - 1)/(x - 2)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -5,
-      "yMax": 5
-    },
+    "graph_view": [
+      -1,
+      5,
+      -5,
+      5
+    ],
     "explanation": "Las **asíntotas verticales** ocurren en los ceros del denominador que no son raíces del numerador. \n\nPara $f(x) = (x-1)/(x-2)$, el denominador se hace cero en $x=2$. Al acercarnos a ese valor, el numerador tiende a $1$, por lo que la fracción tiende a $\\infty$ o $-\\infty$. \n\nEn la gráfica, esto se visualiza como una barrera vertical que separa dos ramas de la función que se alejan en sentidos opuestos.",
     "reviewed": false
   }

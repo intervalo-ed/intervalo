@@ -74,11 +74,21 @@ def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
 
 
 def _serialize_graph_view(gv: Any) -> str | None:
-    """content JSON usa lista [xmin,xmax,ymin,ymax]; la columna guarda un string."""
+    """content JSON usa lista [xmin,xmax,ymin,ymax]; la columna guarda un string.
+
+    Algunos ejercicios viejos traían un objeto {xMin,xMax,yMin,yMax}; lo
+    convertimos a la lista canónica para no guardar datos que el response model
+    rechaza (list[Any]).
+    """
     if gv is None:
         return None
     if isinstance(gv, str):
         return gv
+    if isinstance(gv, dict):
+        try:
+            gv = [gv["xMin"], gv["xMax"], gv["yMin"], gv["yMax"]]
+        except KeyError:
+            return None
     return json.dumps(gv)
 
 
