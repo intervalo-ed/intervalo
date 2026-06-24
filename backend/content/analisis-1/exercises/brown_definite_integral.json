@@ -226,12 +226,12 @@
     "feedback_correct": "La función $y=x$ forma un triángulo con los ejes, de base 2 y altura $f(2)=2$.",
     "feedback_incorrect": "Graficá la recta $y=x$. Entre $x=0$ y $x=2$, la región encerrada con el eje $X$ es un triángulo.",
     "graph_fn": "x",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 3
-    },
+    "graph_view": [
+      -1,
+      3,
+      -1,
+      3
+    ],
     "explanation": "La **interpretación geométrica** de $\\int_0^2 x \\, dx$ es el área de la región bajo la recta $y=x$ sobre el intervalo $[0, 2]$.\n\nSi dibujás esta región, verás que es un **triángulo rectángulo** con:\n- Base: $2 - 0 = 2$\n- Altura: $f(2) = 2$\n\nEl área de un triángulo es $(\\text{base} \\cdot \\text{altura})/2$, es decir $(2 \\cdot 2)/2 = 2$. Si calculás la integral por Barrow: $[x^2/2]_0^2 = 4/2 - 0 = 2$. ¡Los resultados coinciden!",
     "reviewed": false
   },
@@ -252,12 +252,12 @@
     "feedback_correct": "Es un rectángulo 'debajo' del eje, de base 3 y altura 2, por lo que la integral es negativa: $-6$.",
     "feedback_incorrect": "La función es constante. El área es base $\\times$ altura, pero al estar bajo el eje $X$, el signo de la integral debe ser negativo.",
     "graph_fn": "-2 + 0*x",
-    "graph_view": {
-      "xMin": 0,
-      "xMax": 5,
-      "yMin": -4,
-      "yMax": 2
-    },
+    "graph_view": [
+      0,
+      5,
+      -4,
+      2
+    ],
     "explanation": "Cuando una función es **negativa** en todo el intervalo, la integral definida resulta en un valor negativo.\n\nGeométricamente, estamos calculando el área de un rectángulo:\n- Base: $4 - 1 = 3$\n- 'Altura' (valor de la función): $-2$\n\n$$\\int_1^4 -2 \\, dx = -2 \\cdot (4 - 1) = -6$$\n\nEs fundamental recordar que la integral definida mide el **área neta**. Si la curva está por debajo del eje $X$, ese tramo suma de forma negativa al valor total de la integral.",
     "reviewed": false
   },
@@ -278,12 +278,12 @@
     "feedback_correct": "En el intervalo $[0, 1]$, la parábola $x^2-1$ está siempre por debajo del eje $X$.",
     "feedback_incorrect": "Observá la posición de la curva respecto al eje $X$. Si está por debajo en todo el intervalo, la integral es negativa.",
     "graph_fn": "x**2 - 1",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 2,
-      "yMin": -2,
-      "yMax": 2
-    },
+    "graph_view": [
+      -1,
+      2,
+      -2,
+      2
+    ],
     "explanation": "Para determinar el **signo de una integral** a partir de su gráfica, debemos observar si la función está por encima o por debajo del eje horizontal.\n\nPara $f(x) = x^2 - 1$:\n- En $x=0$, $f(0)=-1$.\n- En $x=1$, $f(1)=0$.\n\nEn todo el intervalo $(0, 1)$, la función toma valores menores a cero. Por lo tanto, la región encerrada está íntegramente 'colgada' debajo del eje $X$, lo que garantiza que el valor de la integral definida será **negativo**.",
     "reviewed": false
   },
@@ -304,12 +304,12 @@
     "feedback_correct": "El área de la montaña positiva cancela exactamente el área de la montaña negativa.",
     "feedback_incorrect": "La función seno tiene una parte positiva de $0$ a $\\pi$ y una igual pero negativa de $\\pi$ a $2\\pi$. Sumalas.",
     "graph_fn": "sin(x)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 7,
-      "yMin": -1.5,
-      "yMax": 1.5
-    },
+    "graph_view": [
+      -1,
+      7,
+      -1.5,
+      1.5
+    ],
     "explanation": "La integral definida calcula el **área neta** (o balance de áreas). En la gráfica del seno entre $0$ y $2\\pi$:\n\n1. En $[0, \\pi]$, la función es positiva y encierra un área de $2$.\n2. En $[\\pi, 2\\pi]$, la función es negativa y su integral vale $-2$.\n\nAl sumar ambos tramos para obtener la integral total en $[0, 2\\pi]$:\n\n$$\\int_0^{2\\pi} \\sin(x) \\, dx = 2 + (-2) = 0$$\n\nEste es un claro ejemplo de cómo una función puede tener mucha 'superficie' visual pero una integral nula si las partes positivas y negativas se compensan.",
     "reviewed": false
   },
@@ -330,12 +330,12 @@
     "feedback_correct": "Son dos triángulos de área $1/2$ cada uno. $1/2 + 1/2 = 1$.",
     "feedback_incorrect": "La función valor absoluto siempre es positiva. Son dos triángulos de base 1 y altura 1. Calculá sus áreas.",
     "graph_fn": "abs(x)",
-    "graph_view": {
-      "xMin": -2,
-      "xMax": 2,
-      "yMin": -1,
-      "yMax": 2
-    },
+    "graph_view": [
+      -2,
+      2,
+      -1,
+      2
+    ],
     "explanation": "La función **valor absoluto** $f(x) = |x|$ forma una 'V'. Para calcular $\\int_{-1}^1 |x| \\, dx$, podemos dividir la región en dos figuras geométricas simples:\n\n- Un triángulo a la izquierda (de $-1$ a $0$) con base $1$ y altura $f(-1)=1$.\n- Un triángulo a la derecha (de $0$ a $1$) con base $1$ y altura $f(1)=1$.\n\nEl área de cada triángulo es $(1 \\cdot 1)/2 = 0.5$. Como la función es siempre positiva, la integral es la suma de las áreas:\n\n$$0.5 + 0.5 = 1$$\n\nAl ser una función par, también podrías haber calculado $2 \\int_0^1 x \\, dx$.",
     "reviewed": false
   },
@@ -356,12 +356,12 @@
     "feedback_correct": "Los límites de integración coinciden con los valores de $x$ que delimitan la región en el eje horizontal.",
     "feedback_incorrect": "Identificá la función que está arriba (techo) y los valores de $x$ donde empieza y termina la zona sombreada.",
     "graph_fn": "sqrt(x)",
-    "graph_view": {
-      "xMin": -0.5,
-      "xMax": 5,
-      "yMin": -0.5,
-      "yMax": 2.5
-    },
+    "graph_view": [
+      -0.5,
+      5,
+      -0.5,
+      2.5
+    ],
     "explanation": "La **notación de la integral definida** conecta directamente con la gráfica. En la expresión:\n\n$$\\int_a^b f(x) \\, dx$$\n\n- $f(x)$ es la función que delimita la región por arriba (en este caso $\\sqrt{x}$).\n- $a$ es el límite izquierdo del área sombreada en el eje $X$ ($a=1$).\n- $b$ es el límite derecho ($b=4$).\n\nPor lo tanto, la integral que representa esa área exacta es $\\int_1^4 \\sqrt{x} \\, dx$. Resolverla te daría el valor numérico de esa superficie en unidades cuadradas.",
     "reviewed": false
   },
@@ -382,12 +382,12 @@
     "feedback_correct": "El área es un rectángulo de base $3$ (de $-1$ a $2$) y altura $3$. $3 \\times 3 = 9$.",
     "feedback_incorrect": "Calculá el ancho del intervalo $[-1, 2]$ y multiplicalo por la altura constante de la función.",
     "graph_fn": "3 + 0*x",
-    "graph_view": {
-      "xMin": -2,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 5
-    },
+    "graph_view": [
+      -2,
+      3,
+      -1,
+      5
+    ],
     "explanation": "Integrar una **función constante** $f(x) = c$ es el caso más sencillo de área bajo la curva, ya que la región es un **rectángulo**.\n\n- El ancho (base) es $b - a = 2 - (-1) = 3$.\n- La altura es el valor constante $c = 3$.\n\nÁrea = Base $\\cdot$ Altura = $3 \\cdot 3 = 9$.\n\nSi usamos la Regla de Barrow: $\\int_{-1}^2 3 \\, dx = [3x]_{-1}^2 = 3(2) - 3(-1) = 6 - (-3) = 9$. Como ves, la geometría y el cálculo integral siempre llegan a la misma conclusión.",
     "reviewed": false
   },
@@ -408,12 +408,12 @@
     "feedback_correct": "Como $x^2$ es creciente para $x>0$, el área bajo la curva es mayor a medida que nos movemos a la derecha.",
     "feedback_incorrect": "Mirá la gráfica de $x^2$. En el intervalo $[1, 2]$ la función está mucho más 'alta' que en $[0, 1]$, por lo que encierra más área.",
     "graph_fn": "x**2",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 5
-    },
+    "graph_view": [
+      -1,
+      3,
+      -1,
+      5
+    ],
     "explanation": "Al observar la gráfica de una **función creciente** como $f(x) = x^2$ para $x \\geq 0$, podemos comparar áreas visualmente basándonos en la altura de la curva.\n\n- En el intervalo $[0, 1]$, la función va de $0$ a $1$.\n- En el intervalo $[1, 2]$, la función va de $1$ a $4$.\n\nComo ambos intervalos tienen el mismo ancho ($\\Delta x = 1$), el que tenga valores de función más grandes (más altura) tendrá una integral definida mayor. Por lo tanto, el área $B$ es claramente superior al área $A$.",
     "reviewed": false
   },
@@ -434,12 +434,12 @@
     "feedback_correct": "De $0$ a $\\pi/2$ es positiva y de $\\pi/2$ a $\\pi$ es negativa; por simetría se cancelan.",
     "feedback_incorrect": "Graficá el coseno entre $0$ y $\\pi$. Verás que tiene una parte sobre el eje y otra igual bajo el eje.",
     "graph_fn": "cos(x)",
-    "graph_view": {
-      "xMin": -0.5,
-      "xMax": 4,
-      "yMin": -1.5,
-      "yMax": 1.5
-    },
+    "graph_view": [
+      -0.5,
+      4,
+      -1.5,
+      1.5
+    ],
     "explanation": "La función **coseno** en el intervalo $[0, \\pi]$ presenta una simetría respecto al punto $(\\pi/2, 0)$:\n\n1. En $[0, \\pi/2]$, la curva está sobre el eje $X$ (área positiva).\n2. En $[\\pi/2, \\pi]$, la curva está bajo el eje $X$ con la misma forma (área negativa).\n\nDebido a esta simetría, los valores se cancelan exactamente:\n\n$$\\int_0^{\\pi} \\cos(x) \\, dx = \\sin(\\pi) - \\sin(0) = 0 - 0 = 0$$\n\nVisualmente, el 'lóbulo' positivo arriba del eje tiene exactamente la misma superficie que el lóbulo negativo debajo.",
     "reviewed": false
   },
@@ -460,12 +460,12 @@
     "feedback_correct": "Estamos acumulando área bajo una curva positiva, pero cada vez sumamos menos área ya que la función tiende a cero.",
     "feedback_incorrect": "A medida que $b$ crece, estamos agregando más región a la derecha. Como la función es positiva, la integral debe aumentar.",
     "graph_fn": "exp(-x)",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -0.5,
-      "yMax": 1.5
-    },
+    "graph_view": [
+      -1,
+      5,
+      -0.5,
+      1.5
+    ],
     "explanation": "Este ejercicio explora la idea de **área acumulada**. Al integrar una función que es siempre positiva, como $f(x) = e^{-x}$, el valor de la integral definida aumenta a medida que extendemos el límite superior $b$.\n\nSin embargo, como la función decae rápidamente hacia cero, cada vez estamos agregando trozos de área más pequeños. \n\n$$\\int_0^b e^{-x} \\, dx = [-e^{-x}]_0^b = -e^{-b} - (-e^0) = 1 - e^{-b}$$\n\nCuando $b \\to \\infty$, el término $e^{-b}$ tiende a $0$, por lo que el área total bajo la curva en todo el semieje positivo tiende a $1$.",
     "reviewed": false
   },

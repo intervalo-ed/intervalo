@@ -646,12 +646,12 @@
     "feedback_correct": "En el vértice $x=0$ la tangente es horizontal: $f'(0)=2\\cdot0=0$.",
     "feedback_incorrect": "La tangente es horizontal donde $f'(x)=0$. Para $f(x)=x^2-4$, $f'(x)=2x=0$ en $x=0$ (el vértice de la parábola).",
     "graph_fn": "x**2 - 4",
-    "graph_view": {
-      "xMin": -4,
-      "xMax": 4,
-      "yMin": -5,
-      "yMax": 5
-    },
+    "graph_view": [
+      -4,
+      4,
+      -5,
+      5
+    ],
     "explanation": "La **tangente horizontal** ocurre donde $f'(x)=0$. Para $f(x)=x^2-4$, derivamos: $f'(x)=2x$, que se anula en $x=0$.\n\n$$f'(x) = 2x = 0 \\implies x = 0$$\n\nGeométricamente, $x=0$ es el vértice de la parábola: el punto más bajo. En ese punto la curva «cambia de bajada a subida» y la tangente es exactamente horizontal.",
     "reviewed": false
   },
@@ -672,12 +672,12 @@
     "feedback_correct": "$f'(x)=2x-2>0$ cuando $x>1$: la curva sube a la derecha del vértice.",
     "feedback_incorrect": "$f'(x)=2x-2$. Para que sea positivo: $2x-2>0 \\Rightarrow x>1$. El vértice está en $x=1$; a la derecha la función crece.",
     "graph_fn": "x**2 - 2*x",
-    "graph_view": {
-      "xMin": -2,
-      "xMax": 4,
-      "yMin": -2,
-      "yMax": 4
-    },
+    "graph_view": [
+      -2,
+      4,
+      -2,
+      4
+    ],
     "explanation": "La derivada $f'(x)=2x-2$ es positiva cuando $2x-2>0$, es decir, cuando $x>1$.\n\n$$f'(x) = 2x-2 > 0 \\iff x > 1$$\n\nGeométricamente: la curva **sube** (de izquierda a derecha) en $x>1$. El vértice de la parábola está en $x=1$ (donde $f'(1)=0$); a la derecha la función crece, a la izquierda decrece.",
     "reviewed": false
   },
@@ -698,12 +698,12 @@
     "feedback_correct": "La esquina en $x=2$ impide la diferenciabilidad: los cocientes laterales dan $-1$ y $+1$.",
     "feedback_incorrect": "La gráfica muestra una esquina en $x=2$: la tangente desde la izquierda tiene pendiente $-1$ y desde la derecha $+1$. Como difieren, $f'(2)$ no existe.",
     "graph_fn": "Piecewise((-(x-2), x < 2), (x-2, x >= 2))",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -1,
-      "yMax": 4
-    },
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      4
+    ],
     "explanation": "La gráfica muestra una **esquina** en $x=2$. Las derivadas laterales son:\n\n$$\\lim_{h\\to0^-}\\frac{f(2+h)-0}{h} = -1 \\quad \\neq \\quad \\lim_{h\\to0^+}\\frac{f(2+h)-0}{h} = +1$$\n\nComo difieren, $f'(2)$ no existe: la función **no es diferenciable** en $x=2$. Sin embargo sí es continua: la curva pasa por $(2,0)$ sin saltos.",
     "reviewed": false
   },
@@ -724,12 +724,12 @@
     "feedback_correct": "$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$.",
     "feedback_incorrect": "$f(1)=1$ y $f(3)=9$. La pendiente de la secante es $\\frac{9-1}{3-1} = \\frac{8}{2} = 4$.",
     "graph_fn": "x**2",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 4,
-      "yMin": -1,
-      "yMax": 9
-    },
+    "graph_view": [
+      -3,
+      4,
+      -1,
+      9
+    ],
     "explanation": "La **pendiente de la secante** entre dos puntos de la curva es el cociente incremental finito:\n\n$$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = \\frac{8}{2} = 4$$\n\nEste valor es la tasa de cambio *promedio* de $f$ en $[1,3]$. Si achicáramos el intervalo hasta $h\\to0$, convergeríamos a la tasa instantánea $f'(1)=2$ o $f'(3)=6$, según el extremo elegido.",
     "reviewed": false
   },
@@ -750,12 +750,12 @@
     "feedback_correct": "$x^2-1=0 \\Rightarrow x=\\pm1$: en esos puntos $f$ puede tener un extremo local.",
     "feedback_incorrect": "Los ceros de $f'$ son donde la gráfica cruza el eje $x$: $x^2-1=0 \\Rightarrow x=\\pm1$. En $x=-1$ y $x=1$, la tangente a $f$ es horizontal.",
     "graph_fn": "x**2 - 1",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -2,
-      "yMax": 4
-    },
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      4
+    ],
     "explanation": "Los ceros de $f'$ (donde la gráfica de $f'$ cruza el eje $x$) son los puntos donde la tangente a $f$ es horizontal: **candidatos a extremos locales**.\n\n$$f'(x) = x^2-1 = 0 \\implies x = \\pm 1$$\n\nEn $x=-1$ y $x=1$, la función $f$ tiene tangente horizontal. Para determinar si son máximos, mínimos o inflexiones, habría que analizar el signo de $f'$ a cada lado.",
     "reviewed": false
   },
@@ -776,12 +776,12 @@
     "feedback_correct": "$f'(x)=-2x$, entonces $f'(3)=-6<0$: la curva baja en $x=3$.",
     "feedback_incorrect": "En $x=3$ la curva está bajando (mirá la gráfica). Algebraicamente: $f'(x)=-2x$, $f'(3)=-6<0$. Derivada negativa = función decreciente.",
     "graph_fn": "5 - x**2",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 4,
-      "yMin": -5,
-      "yMax": 6
-    },
+    "graph_view": [
+      -1,
+      4,
+      -5,
+      6
+    ],
     "explanation": "La derivada $f'(x)=-2x$ en $x=3$ vale $f'(3)=-6<0$.\n\n$$f'(3) = -2 \\cdot 3 = -6 < 0$$\n\nGeométricamente: en $x=3$ la curva **desciende** (la tangente tiene pendiente negativa). La función $5-x^2$ es una parábola invertida con vértice en $x=0$; para $x>0$ siempre decrece.",
     "reviewed": false
   },
@@ -802,12 +802,12 @@
     "feedback_correct": "$f'(x)=3x^2-3=0 \\Rightarrow x=\\pm1$: dos puntos con tangente horizontal.",
     "feedback_incorrect": "$f'(x)=3x^2-3=3(x-1)(x+1)=0$ en $x=1$ y $x=-1$. Son dos puntos con tangente horizontal: el máximo local en $x=-1$ y el mínimo local en $x=1$.",
     "graph_fn": "x**3 - 3*x",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -4,
-      "yMax": 4
-    },
+    "graph_view": [
+      -3,
+      3,
+      -4,
+      4
+    ],
     "explanation": "Buscamos donde $f'(x)=0$: $f'(x)=3x^2-3=3(x-1)(x+1)$.\n\n$$3x^2-3=0 \\implies x^2=1 \\implies x=\\pm 1$$\n\nEn $x=-1$ la función tiene un **máximo local** ($f(-1)=2$) y en $x=1$ un **mínimo local** ($f(1)=-2$). En ambos puntos la tangente es horizontal: la curva «da vuelta».",
     "reviewed": false
   },
@@ -828,12 +828,12 @@
     "feedback_correct": "Para $x>2$, la parábola desciende desde el vértice: $f'(x)=-2(x-2)<0$.",
     "feedback_incorrect": "En el intervalo $(2,4)$, la curva baja desde el vértice $(2,4)$. Algebraicamente: $f'(x)=-2(x-2)<0$ para $x>2$.",
     "graph_fn": "-(x-2)**2 + 4",
-    "graph_view": {
-      "xMin": -1,
-      "xMax": 5,
-      "yMin": -2,
-      "yMax": 5
-    },
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      5
+    ],
     "explanation": "Para $x>2$, la parábola $-(x-2)^2+4$ desciende desde el vértice $(2,4)$ hacia abajo. Eso se refleja en la derivada:\n\n$$f'(x) = -2(x-2) < 0 \\quad \\text{para } x > 2$$\n\nGeométricamente: **función decreciente ↔ derivada negativa**. El vértice en $x=2$ es donde $f'(2)=0$ y la curva cambia de sentido.",
     "reviewed": false
   },
@@ -854,12 +854,12 @@
     "feedback_correct": "$f'(x)=2x$ es una función lineal: recta con pendiente $2$ que pasa por el origen.",
     "feedback_incorrect": "La derivada de $f(x)=x^2$ es $f'(x)=2x$: una función **lineal** (recta), no otra parábola. Pasa por el origen con pendiente $2$.",
     "graph_fn": "x**2",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 6
-    },
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      6
+    ],
     "explanation": "Derivamos $f(x)=x^2$ por definición y obtenemos $f'(x)=2x$.\n\n$$f'(x) = 2x \\quad \\text{— una función lineal (recta)}$$\n\nLa gráfica de $f'$ es la recta $y=2x$: pasa por el origen con pendiente $2$. Esto confirma lo que se ve en la parábola: en $x=0$ la tangente es horizontal ($f'(0)=0$), y la pendiente crece simétricamente a los costados.",
     "reviewed": false
   },
@@ -880,12 +880,12 @@
     "feedback_correct": "$y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
     "feedback_incorrect": "Usando la fórmula punto-pendiente: $y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
     "graph_fn": "x**2",
-    "graph_view": {
-      "xMin": -3,
-      "xMax": 3,
-      "yMin": -1,
-      "yMax": 6
-    },
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      6
+    ],
     "explanation": "La ecuación de la recta tangente usa la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x-a) \\implies y - 1 = 2(x-1) \\implies y = 2x-1$$\n\nLa recta pasa por $(1,1)$ con pendiente $f'(1)=2$. Es la mejor aproximación lineal a la parábola cerca de $x=1$: si nos alejamos poco de $x=1$, la recta tangente es casi indistinguible de la curva.",
     "reviewed": false
   }

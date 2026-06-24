@@ -15,11 +15,28 @@ from sqlalchemy import func
 from models import Exercise
 
 
+def _normalize_graph_view(gv):
+    """graph_view canónico es una lista [xmin, xmax, ymin, ymax].
+
+    Algunos ejercicios viejos lo guardaron como objeto {xMin, xMax, yMin, yMax};
+    lo convertimos a lista para que valide contra el response model (list[Any]).
+    Cualquier forma inesperada cae a None (el front usa su vista por defecto).
+    """
+    if isinstance(gv, list):
+        return gv
+    if isinstance(gv, dict):
+        try:
+            return [gv["xMin"], gv["xMax"], gv["yMin"], gv["yMax"]]
+        except KeyError:
+            return None
+    return None
+
+
 def _row_to_dict(row: Exercise) -> dict:
     gv = None
     if row.graph_view:
         try:
-            gv = json.loads(row.graph_view)
+            gv = _normalize_graph_view(json.loads(row.graph_view))
         except (json.JSONDecodeError, TypeError):
             pass
     return {
