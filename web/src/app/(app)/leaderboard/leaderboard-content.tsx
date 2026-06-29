@@ -81,6 +81,9 @@ export function LeaderboardContent() {
     if (!didCenterRef.current) {
       const meEl = el.querySelector<HTMLElement>("[data-current='true']")
       if (meEl) {
+        // Para los primeros del ranking el resultado da negativo y para los
+        // últimos se pasa del máximo: el navegador acota scrollTop a su rango,
+        // así arrancan pegados arriba/abajo (la vista de antes del cambio).
         el.scrollTop =
           meEl.offsetTop - el.clientHeight / 2 + meEl.offsetHeight / 2
       }
