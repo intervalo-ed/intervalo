@@ -250,7 +250,7 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.",
+        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el\nusuario para que el \"día\" de la repetición espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
           {
@@ -594,7 +594,7 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la página pedida para el scroll infinito.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
           {
@@ -653,6 +653,146 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji-tree": {
+      "get": {
+        "summary": "Get Emoji State",
+        "description": "Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
+        "operationId": "get_emoji_state_user_emoji_tree_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji/unlock": {
+      "post": {
+        "summary": "Unlock Emoji",
+        "description": "Desbloquea el siguiente nodo del camino (irreversible, sin reset).",
+        "operationId": "unlock_emoji_user_emoji_unlock_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmojiUnlockRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji/worn": {
+      "put": {
+        "summary": "Set Worn Emoji",
+        "description": "Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default).",
+        "operationId": "set_worn_emoji_user_emoji_worn_put",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmojiWornRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
                 }
               }
             }
@@ -916,7 +1056,7 @@
     "/feedback": {
       "post": {
         "summary": "Submit Feedback",
-        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort \u2014 if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
+        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort — if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
         "operationId": "submit_feedback_feedback_post",
         "parameters": [
           {
@@ -1065,6 +1205,77 @@
           "subscriptions"
         ],
         "title": "DueNotification"
+      },
+      "EmojiStateResponse": {
+        "properties": {
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp",
+            "default": 0
+          },
+          "path": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Path",
+            "default": []
+          },
+          "worn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Worn"
+          }
+        },
+        "type": "object",
+        "title": "EmojiStateResponse"
+      },
+      "EmojiUnlockRequest": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "node_id"
+        ],
+        "title": "EmojiUnlockRequest"
+      },
+      "EmojiWornRequest": {
+        "properties": {
+          "node_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Node Id"
+          }
+        },
+        "type": "object",
+        "title": "EmojiWornRequest"
       },
       "EnrollmentRequest": {
         "properties": {
@@ -1231,6 +1442,17 @@
               }
             ],
             "title": "University"
+          },
+          "emoji": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emoji"
           }
         },
         "type": "object",

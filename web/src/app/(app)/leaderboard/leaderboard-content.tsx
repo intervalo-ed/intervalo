@@ -12,17 +12,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { CAREER_EMOJI } from "@/lib/career-emoji"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
-
-// Emojis por tipo de carrera (los mismos del onboarding).
-const CAREER_EMOJI: Record<string, string> = {
-  E: "⚙️",
-  S: "🔬",
-  T: "🤖",
-  M: "π",
-  Otra: "✦",
-}
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
@@ -206,11 +198,17 @@ export function LeaderboardContent() {
               <span className="truncate text-sm font-medium">
                 {entry.username ?? entry.name}
               </span>
-              {entry.career && CAREER_EMOJI[entry.career] && (
-                <span className="shrink-0 text-sm leading-none">
-                  {CAREER_EMOJI[entry.career]}
-                </span>
-              )}
+              {(() => {
+                // El emoji vestido (entry.emoji) reemplaza al de bucket; si no
+                // eligió ninguno, cae al emoji del bucket de carrera.
+                const emoji =
+                  entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
+                return (
+                  emoji && (
+                    <span className="shrink-0 text-sm leading-none">{emoji}</span>
+                  )
+                )
+              })()}
             </span>
             {entry.university && <UniTag university={entry.university} />}
             <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">

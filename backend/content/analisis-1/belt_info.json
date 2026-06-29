@@ -2,26 +2,21 @@
   {
     "belt": "white",
     "headline": "Funciones",
-    "description": "Trabajás tu capacidad para reconocer, describir y manipular las distintas familias de funciones que se suelen ver en Análisis Matemático I."
+    "description": "El estudio de la relación matemática que asocia a cada elemento de un dominio con una única imagen en un codominio. Representan la estructura lógica básica para modelar cualquier tipo de dependencia entre variables en el cálculo.\n\nPermite transformar entradas en salidas siguiendo leyes definidas, modelar dinámicas de crecimiento, decaimiento o ciclos, y establecer la base para cualquier análisis de cambio posterior.\n\nSe aplica en el modelado de trayectorias físicas, en la predicción de tendencias económicas, en la representación de fenómenos naturales mediante modelos funcionales, etc."
   },
   {
     "belt": "blue",
     "headline": "Límites",
-    "description": "Explorás el comportamiento de funciones al acercarse a un punto. Aprendés a calcular límites con técnicas algebraicas e identificar continuidad e indeterminaciones."
+    "description": "El análisis del comportamiento de una función a medida que su variable independiente se aproxima a un valor específico o al infinito. Constituyen el concepto crítico que permite definir la continuidad y la derivada de manera rigurosa.\n\nFacilita el estudio de discontinuidades, el cálculo de asíntotas y la evaluación de tasas de variación instantánea, permitiendo resolver indeterminaciones algebraicas fundamentales para el cálculo.\n\nSe aplica en la definición rigurosa de la velocidad instantánea, en el análisis de estabilidad de sistemas, en la aproximación numérica de valores funcionales, etc."
   },
   {
     "belt": "violet",
     "headline": "Derivadas",
-    "description": "Dominás las reglas de derivación y su interpretación geométrica. Usás derivadas para analizar funciones y resolver problemas de optimización."
+    "description": "La medida de la tasa de cambio instantánea de una función con respecto a su variable independiente. Actúan como la herramienta principal para entender la sensibilidad, la pendiente y el movimiento de un sistema en un punto dado.\n\nPermite identificar pendientes, calcular razones de cambio, determinar la dirección de crecimiento o decrecimiento y analizar la curvatura de las funciones para entender su comportamiento local.\n\nSe aplica en la física para el cálculo de velocidades y aceleraciones, en la optimización de procesos industriales, en la interpretación geométrica de tangentes, etc."
   },
   {
     "belt": "brown",
     "headline": "Integrales",
-    "description": "Aprendés a calcular integrales indefinidas y definidas usando sustitución e integración por partes, conectando con el Teorema Fundamental del Cálculo."
-  },
-  {
-    "belt": "black",
-    "headline": "Aplicaciones",
-    "description": "Integrás todo lo aprendido para analizar funciones en profundidad, resolver problemas de optimización y área, y aplicar el Teorema Fundamental del Cálculo."
+    "description": "La operación analítica que permite acumular cambios infinitesimales o calcular el área neta bajo curvas en un intervalo definido. Representan el núcleo del cálculo integral y la conexión fundamental mediante el Teorema Fundamental del Cálculo.\n\nPermite reconstruir funciones a partir de sus tasas de cambio, calcular el área neta bajo curvas y determinar volúmenes o acumulaciones de cantidades físicas en intervalos.\n\nSe aplica en el cálculo de áreas de figuras irregulares, en la determinación de centros de masa, en el análisis de trabajo y energía en física, en la reconstrucción de funciones de posición a partir de la velocidad, etc."
   }
 ]

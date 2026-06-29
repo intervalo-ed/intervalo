@@ -255,6 +255,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/emoji-tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Emoji State
+         * @description Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido).
+         */
+        get: operations["get_emoji_state_user_emoji_tree_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/emoji/unlock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Unlock Emoji
+         * @description Desbloquea el siguiente nodo del camino (irreversible, sin reset).
+         */
+        post: operations["unlock_emoji_user_emoji_unlock_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/emoji/worn": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Set Worn Emoji
+         * @description Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default).
+         */
+        put: operations["set_worn_emoji_user_emoji_worn_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/session/start": {
         parameters: {
             query?: never;
@@ -420,6 +480,33 @@ export interface components {
             /** Subscriptions */
             subscriptions: components["schemas"]["PushSubscriptionOut"][];
         };
+        /** EmojiStateResponse */
+        EmojiStateResponse: {
+            /** Bucket */
+            bucket?: string | null;
+            /**
+             * Total Xp
+             * @default 0
+             */
+            total_xp: number;
+            /**
+             * Path
+             * @default []
+             */
+            path: string[];
+            /** Worn */
+            worn?: string | null;
+        };
+        /** EmojiUnlockRequest */
+        EmojiUnlockRequest: {
+            /** Node Id */
+            node_id: string;
+        };
+        /** EmojiWornRequest */
+        EmojiWornRequest: {
+            /** Node Id */
+            node_id?: string | null;
+        };
         /** EnrollmentRequest */
         EnrollmentRequest: {
             /** University */
@@ -478,6 +565,8 @@ export interface components {
             career?: string | null;
             /** University */
             university?: string | null;
+            /** Emoji */
+            emoji?: string | null;
         };
         /** LeaderboardMe */
         LeaderboardMe: {
@@ -1228,6 +1317,107 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_emoji_state_user_emoji_tree_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmojiStateResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    unlock_emoji_user_emoji_unlock_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmojiUnlockRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmojiStateResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_worn_emoji_user_emoji_worn_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmojiWornRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmojiStateResponse"];
                 };
             };
             /** @description Validation Error */

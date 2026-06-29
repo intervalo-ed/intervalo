@@ -96,6 +96,17 @@ class SimpleResponse(BaseModel):
     success: bool
 
 
+# ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
+
+class EmojiStateResponse(BaseModel):
+    # Estado dinámico del árbol de desbloqueo del usuario. La estructura estática
+    # del árbol vive en el front (emoji-tree.generated.ts); acá solo va el estado.
+    bucket: str | None = None      # E/S/T/M/Otra (de la enrollment); None si no hay
+    total_xp: int = 0
+    path: list[str] = []           # ids desbloqueados, en orden (append-only)
+    worn: str | None = None        # id vestido; None → raíz del bucket (default)
+
+
 # ── Feedback ──────────────────────────────────────────────────────────────────
 
 class FeedbackRequest(BaseModel):
@@ -128,6 +139,7 @@ class LeaderboardEntry(BaseModel):
     is_current_user: bool
     career: str | None = None
     university: str | None = None
+    emoji: str | None = None  # emoji vestido; None → el front cae al de bucket
 
 
 class LeaderboardMe(BaseModel):

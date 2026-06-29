@@ -12,7 +12,7 @@ export default function OnboardingError({
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-background px-4 text-center">
       <div className="flex flex-col items-center gap-2">
-        <h2 className="text-2xl font-bold tracking-tight">Algo salió mal</h2>
+        <h2 className="font-sans text-2xl font-bold tracking-tight">Algo salió mal</h2>
         <p className="text-sm text-muted-foreground">{error.message}</p>
       </div>
       <Button

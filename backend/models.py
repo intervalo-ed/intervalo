@@ -41,6 +41,14 @@ class User(Base):
     # carga del home. NULL → fallback a Argentina (ver session_store.user_today).
     timezone = Column(String(64), nullable=True)
 
+    # Desbloqueo de emojis (badges) por carrera. `emoji_path` es la cadena
+    # append-only de ids de nodos ya desbloqueados (JSON-en-texto, desde
+    # profundidad 1; un solo track irreversible). `emoji_worn` es el id del nodo
+    # que el usuario muestra en el ranking; NULL = raíz del bucket (default).
+    # Ver emoji_tree.py.
+    emoji_path = Column(Text, nullable=True)
+    emoji_worn = Column(String(64), nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
