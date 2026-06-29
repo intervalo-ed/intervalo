@@ -77,6 +77,35 @@ function prefersReducedMotion(): boolean {
   )
 }
 
+// Reproduce un tick suelto a un pitch dado (playbackRate). A diferencia de
+// playSfx es POLIFÓNICO y sin throttle: está pensado para disparar una secuencia
+// corta y deliberada de ticks (p. ej. el conteo de XP del resumen), donde cada
+// tick puede solaparse apenas con la cola del anterior sin cortarse.
+export function playTick(
+  url: string,
+  { rate = 1, volume }: { rate?: number; volume: number },
+): void {
+  if (typeof window === "undefined" || prefersReducedMotion()) return
+  void loadBuffer(url).then((buffer) => {
+    const audioCtx = getContext()
+    const source = audioCtx.createBufferSource()
+    source.buffer = buffer
+    source.playbackRate.value = rate
+    const gain = audioCtx.createGain()
+    gain.gain.value = volume
+    source.connect(gain)
+    gain.connect(master!)
+    source.onended = () => {
+      try {
+        gain.disconnect()
+      } catch {
+        // ya desconectado
+      }
+    }
+    source.start()
+  })
+}
+
 export function playSfx(name: string, url: string, volume: number): void {
   if (typeof window === "undefined" || prefersReducedMotion()) return
 

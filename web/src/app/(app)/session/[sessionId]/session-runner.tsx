@@ -164,7 +164,9 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   function onContinue() {
     if (isLast) {
-      sfx.continue()
+      // Sonido de "carga" ascendente: arranca al tocar y sigue sonando (sin
+      // cortarse) durante la transición al resumen, donde se carga la bolita.
+      sfx.charge()
       router.push(`/session/${sessionId}/summary`)
       return
     }
