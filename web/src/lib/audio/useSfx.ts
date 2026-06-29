@@ -11,7 +11,7 @@ const SOUND_PATHS = {
   correct: "/correct_sound.mp3",
   wrong: "/wrong_sound.mp3",
   iterate: "/iterate_sound.mp3",
-  start: "/pop_start.mp3",
+  start: "/session_start.mp3",
   charge: "/session_charge.mp3",
   end: "/session_complete.mp3",
   xpCount: "/pop_conteo_experiencia.mp3",
