@@ -94,7 +94,7 @@ export function FeedbackFlow() {
       setStep("select")
       return
     }
-    router.push("/settings")
+    router.push("/profile")
   }
 
   async function submit() {
@@ -161,29 +161,33 @@ export function FeedbackFlow() {
 
           <div className="flex flex-col gap-3">
             {CATEGORIES.map(({ key, Icon, title }) => (
-              <button
+              <Button
                 key={key}
+                variant="outline"
+                size="lg"
+                className="h-12 w-full justify-start rounded-md"
                 onClick={() => pick(key)}
-                className="flex items-center gap-3 rounded-md border bg-white/5 px-4 py-4 text-left transition-colors hover:bg-white/10"
               >
-                <Icon className="size-5 shrink-0 text-foreground/70" />
-                <span className="text-base">{title}</span>
-              </button>
+                <Icon className="size-5" />
+                {title}
+              </Button>
             ))}
           </div>
 
-          <div className="flex flex-1 flex-col items-center justify-center text-center text-sm text-muted-foreground">
-            <p>¿Preferís hablar con la comunidad?</p>
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1.5 inline-flex items-center gap-2 font-medium text-foreground underline underline-offset-2"
-            >
+          <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex flex-col items-center justify-center gap-1.5 rounded-md border border-border bg-background px-4 py-7 text-center transition-colors hover:bg-muted dark:border-input dark:bg-input/30"
+          >
+            <span className="text-sm text-muted-foreground">
+              ¿Preferís hablar con la comunidad?
+            </span>
+            <span className="inline-flex items-center gap-2 text-base font-medium text-foreground">
               Uníte al Discord
-              <DiscordIcon className="size-4 shrink-0 no-underline" />
-            </a>
-          </div>
+              <DiscordIcon className="size-5 shrink-0" />
+            </span>
+          </a>
         </ScreenBody>
       ) : (
         // ── Estado 2 — formulario ─────────────────────────────────────────────

@@ -1,0 +1,91 @@
+{
+  "belts": [
+    {
+      "key": "white",
+      "topics": [
+        {
+          "key": "conteo",
+          "name": "Conteo y combinatoria",
+          "tooltip": "El **conteo** desarrolla técnicas para cuantificar la cardinalidad de espacios muestrales complejos mediante principios combinatorios.\n\n**Principios fundamentales:**\n• **Regla del producto:** si hay $m$ formas de hacer A y $n$ formas de hacer B, hay $m \\cdot n$ formas de hacer ambas\n• **Regla de la suma:** si A y B son mutuamente excluyentes, hay $m + n$ formas de hacer A o B\n\n**Herramientas principales:**\n• **Permutaciones** (orden importa): $P(n, k) = \\dfrac{n!}{(n-k)!}$\n• **Combinaciones** (orden no importa): $\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$\n\n**Propiedades del coeficiente binomial:**\n$\\binom{n}{0} = \\binom{n}{n} = 1$, $\\binom{n}{k} = \\binom{n}{n-k}$\n\nEjemplo: ¿De cuántas formas se pueden elegir 3 personas de un grupo de 10? $\\binom{10}{3} = 120$.",
+          "short_description": "El **conteo combinatorio** cuantifica el número de configuraciones posibles mediante permutaciones $P(n,k)$ y combinaciones $\\binom{n}{k}$.",
+          "exercise_types": ["LEXI", "CLSF", "FORM", "RESL"]
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "topics": [
+        {
+          "key": "probabilidad",
+          "name": "Probabilidad",
+          "tooltip": "La **probabilidad** es una medida de la incertidumbre asignada a eventos en un espacio muestral $\\Omega$.\n\n**Axiomas de Kolmogorov:**\n1. $P(A) \\geq 0$ para todo evento $A$\n2. $P(\\Omega) = 1$\n3. Si $A$ y $B$ son mutuamente excluyentes: $P(A \\cup B) = P(A) + P(B)$\n\n**Propiedades:**\n• $P(A^c) = 1 - P(A)$\n• $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$\n\n**Probabilidad condicional:**\n$$P(A | B) = \\frac{P(A \\cap B)}{P(B)} \\quad (P(B) > 0)$$\n\n**Independencia:** $A$ y $B$ son independientes si $P(A \\cap B) = P(A) \\cdot P(B)$\n\n**Teorema de Bayes:**\n$$P(A | B) = \\frac{P(B | A) \\cdot P(A)}{P(B)}$$\n\nEjemplo: Al lanzar un dado, $P(\\text{par}) = 3/6 = 1/2$.",
+          "short_description": "La **probabilidad** asigna una medida $P(A) \\in [0,1]$ a eventos en un espacio muestral, siguiendo los axiomas de Kolmogorov.",
+          "exercise_types": ["LEXI", "CLSF", "FORM", "RESL"]
+        }
+      ]
+    },
+    {
+      "key": "violet",
+      "topics": [
+        {
+          "key": "variables",
+          "name": "Variables aleatorias",
+          "tooltip": "Una **variable aleatoria** $X$ es una función $X: \\Omega \\to \\mathbb{R}$ que asigna un número real a cada resultado del espacio muestral.\n\n**Medidas de resumen:**\n• **Esperanza:** $E[X]$ — valor promedio a largo plazo\n• **Varianza:** $\\text{Var}(X) = E[(X - E[X])^2]$ — dispersión\n• **Desvío estándar:** $\\sigma = \\sqrt{\\text{Var}(X)}$\n\n**Propiedades de la esperanza:**\n• Linealidad: $E[aX + b] = aE[X] + b$\n• $E[X + Y] = E[X] + E[Y]$ (siempre)\n• $E[XY] = E[X]E[Y]$ (solo si $X$, $Y$ independientes)\n\n**Función de distribución acumulada:**\n$$F(x) = P(X \\leq x)$$\n\nEjemplo: Si $X$ toma valores $\\{1, 2, 3\\}$ con probabilidades iguales $1/3$, entonces $E[X] = (1+2+3)/3 = 2$.",
+          "short_description": "Una **variable aleatoria** $X: \\Omega \\to \\mathbb{R}$ transforma resultados de un experimento en números reales, caracterizada por su esperanza $E[X]$ y varianza.",
+          "exercise_types": ["LEXI", "CLSF", "FORM", "RESL"]
+        }
+      ]
+    },
+    {
+      "key": "brown",
+      "topics": [
+        {
+          "key": "discretas",
+          "name": "Distribuciones discretas",
+          "tooltip": "Las **distribuciones discretas** modelan variables aleatorias que toman valores en un conjunto contable.\n\n**Distribuciones principales:**\n\n**Bernoulli** ($p$): experimento con éxito ($p$) o fracaso ($1-p$)\n• $E[X] = p$, $\\text{Var}(X) = p(1-p)$\n\n**Binomial** ($n, p$): número de éxitos en $n$ pruebas independientes\n• $P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}$\n• $E[X] = np$, $\\text{Var}(X) = np(1-p)$\n\n**Poisson** ($\\lambda$): número de eventos en un intervalo de tiempo\n• $P(X = k) = \\dfrac{e^{-\\lambda} \\lambda^k}{k!}$\n• $E[X] = \\lambda$, $\\text{Var}(X) = \\lambda$\n\n**Geométrica** ($p$): número de pruebas hasta el primer éxito\n• $P(X = k) = (1-p)^{k-1} p$\n• $E[X] = 1/p$\n\nEjemplo: Si lanzo una moneda 10 veces, el número de caras sigue $\\text{Bin}(10, 0.5)$ con $E[X] = 5$.",
+          "short_description": "Las **distribuciones discretas** modelan conteos y eventos: Bernoulli, Binomial $\\text{Bin}(n,p)$, Poisson $\\text{Pois}(\\lambda)$ y Geométrica.",
+          "exercise_types": ["LEXI", "CLSF", "FORM", "RESL"]
+        }
+      ]
+    },
+    {
+      "key": "black",
+      "topics": [
+        {
+          "key": "continuas",
+          "name": "Distribuciones continuas",
+          "tooltip": "Las **distribuciones continuas** modelan variables aleatorias que toman valores en intervalos reales, descritas por una **función de densidad** $f(x)$.\n\n**Propiedades de la densidad:**\n• $f(x) \\geq 0$ para todo $x$\n• $\\int_{-\\infty}^{+\\infty} f(x)\\, dx = 1$\n• $P(a \\leq X \\leq b) = \\int_a^b f(x)\\, dx$\n\n**Distribuciones principales:**\n\n**Uniforme** $U(a, b)$: densidad constante en $[a, b]$\n• $f(x) = \\dfrac{1}{b-a}$, $E[X] = \\dfrac{a+b}{2}$\n\n**Exponencial** $\\text{Exp}(\\lambda)$: tiempos de espera\n• $f(x) = \\lambda e^{-\\lambda x}$ ($x \\geq 0$), $E[X] = 1/\\lambda$\n\n**Normal** $\\mathcal{N}(\\mu, \\sigma^2)$: la más importante\n• $f(x) = \\dfrac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}$\n• $E[X] = \\mu$, $\\text{Var}(X) = \\sigma^2$\n• **Regla 68-95-99.7:** el 68% de los datos cae en $[\\mu - \\sigma, \\mu + \\sigma]$\n\nEjemplo: La estatura humana sigue aproximadamente $\\mathcal{N}(170, 100)$ cm.",
+          "short_description": "Las **distribuciones continuas** usan densidad $f(x)$ para calcular probabilidades por integración. Las principales: Uniforme, Exponencial y Normal $\\mathcal{N}(\\mu, \\sigma^2)$.",
+          "exercise_types": ["LEXI", "CLSF", "FORM", "RESL"]
+        }
+      ]
+    }
+  ],
+  "exercise_types": [
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar distribuciones o casos."
+    },
+    {
+      "id": "FORM",
+      "label": "Formulación",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular probabilidades y parámetros paso a paso."
+    },
+    {
+      "id": "APLI",
+      "label": "Aplicación",
+      "description": "Resolver problemas y situaciones reales."
+    }
+  ]
+}

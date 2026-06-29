@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Spinner } from "@/components/ui/spinner"
 import {
   Select,
   SelectContent,
@@ -12,17 +13,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { CAREER_EMOJI } from "@/lib/career-emoji"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
-
-// Emojis por tipo de carrera (los mismos del onboarding).
-const CAREER_EMOJI: Record<string, string> = {
-  E: "⚙️",
-  S: "🔬",
-  T: "🤖",
-  M: "π",
-  Otra: "✦",
-}
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
@@ -55,26 +48,94 @@ export function LeaderboardContent() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    fetchPreviousPage,
+    hasPreviousPage,
+    isFetchingPreviousPage,
   } = useLeaderboard({ university: uni })
-  const sentinelRef = useRef<HTMLDivElement | null>(null)
 
-  // Scroll infinito: cuando el centinela del fondo entra en viewport, pedimos la
-  // próxima página al backend (otros 50).
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const topSentinelRef = useRef<HTMLDivElement | null>(null)
+  const bottomSentinelRef = useRef<HTMLDivElement | null>(null)
+  // Centrado inicial (una vez por scope) + anclaje del scroll al anteponer filas.
+  const didCenterRef = useRef(false)
+  const prevTopRankRef = useRef<number | null>(null)
+  const prevHeightRef = useRef(0)
+
+  // Filas cargadas (todas las páginas, en orden). El rank ya viene del backend,
+  // calculado sobre el set completo del scope.
+  const rows = data?.pages.flatMap((p) => p.entries) ?? []
+
+  // Al cambiar de universidad se reinicia la query: hay que volver a centrar.
   useEffect(() => {
-    if (!hasNextPage) return
-    const el = sentinelRef.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isFetchingNextPage) {
-          void fetchNextPage()
-        }
-      },
-      { rootMargin: "200px" },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+    didCenterRef.current = false
+    prevTopRankRef.current = null
+    prevHeightRef.current = 0
+  }, [uni])
+
+  // Centrado inicial en el usuario y, al cargar filas hacia arriba, anclaje del
+  // viewport (scroll anchoring) para que la lista no salte.
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el || rows.length === 0) return
+    const firstRank = rows[0]?.rank ?? null
+    if (!didCenterRef.current) {
+      const meEl = el.querySelector<HTMLElement>("[data-current='true']")
+      if (meEl) {
+        // Para los primeros del ranking el resultado da negativo y para los
+        // últimos se pasa del máximo: el navegador acota scrollTop a su rango,
+        // así arrancan pegados arriba/abajo (la vista de antes del cambio).
+        el.scrollTop =
+          meEl.offsetTop - el.clientHeight / 2 + meEl.offsetHeight / 2
+      }
+      didCenterRef.current = true
+    } else if (
+      prevTopRankRef.current !== null &&
+      firstRank !== null &&
+      firstRank < prevTopRankRef.current
+    ) {
+      el.scrollTop += el.scrollHeight - prevHeightRef.current
+    }
+    prevTopRankRef.current = firstRank
+    prevHeightRef.current = el.scrollHeight
+  })
+
+  // Scroll infinito bidireccional: centinelas arriba/abajo dentro del contenedor
+  // de la lista. Al entrar en viewport piden la página previa/siguiente.
+  useEffect(() => {
+    const root = scrollRef.current
+    if (!root) return
+    const observers: IntersectionObserver[] = []
+    if (topSentinelRef.current && hasPreviousPage) {
+      const io = new IntersectionObserver(
+        (e) => {
+          if (e[0].isIntersecting && !isFetchingPreviousPage)
+            void fetchPreviousPage()
+        },
+        { root, rootMargin: "300px" },
+      )
+      io.observe(topSentinelRef.current)
+      observers.push(io)
+    }
+    if (bottomSentinelRef.current && hasNextPage) {
+      const io = new IntersectionObserver(
+        (e) => {
+          if (e[0].isIntersecting && !isFetchingNextPage) void fetchNextPage()
+        },
+        { root, rootMargin: "300px" },
+      )
+      io.observe(bottomSentinelRef.current)
+      observers.push(io)
+    }
+    return () => observers.forEach((o) => o.disconnect())
+  }, [
+    hasPreviousPage,
+    hasNextPage,
+    isFetchingPreviousPage,
+    isFetchingNextPage,
+    fetchPreviousPage,
+    fetchNextPage,
+    rows.length,
+  ])
 
   if (isLoading) {
     return <LeaderboardSkeleton />
@@ -97,10 +158,6 @@ export function LeaderboardContent() {
     )
   }
 
-  // Filas cargadas hasta ahora (todas las páginas pedidas). El rank ya viene del
-  // backend, calculado sobre el set completo del scope.
-  const rows = data.pages.flatMap((p) => p.entries)
-
   // Universidades presentes (las da el backend), en el orden preferido de UNI_TAG.
   const universities = Object.keys(UNI_TAG).filter((u) =>
     first.universities.includes(u),
@@ -113,8 +170,8 @@ export function LeaderboardContent() {
   const totalExercises = first.total_exercises
 
   return (
-    <div className="flex flex-col gap-2.5">
-      <div className="grid grid-cols-2 gap-2">
+    <div className="flex h-full min-h-0 flex-col gap-2.5">
+      <div className="grid shrink-0 grid-cols-2 gap-2">
         <Metric
           label="Ejercicios hechos"
           value={
@@ -141,7 +198,7 @@ export function LeaderboardContent() {
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid shrink-0 grid-cols-3 gap-2">
         <Metric
           label={"Posición\nactual"}
           value={
@@ -190,41 +247,71 @@ export function LeaderboardContent() {
         </div>
       </div>
 
-      <ol className="flex flex-col gap-2">
-        {rows.map((entry) => (
-          <li
-            key={entry.user_id}
-            className={cn(
-              "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
-              entry.is_current_user && "bg-primary/10 ring-primary/30",
-            )}
-          >
-            <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-              {entry.rank}
-            </span>
-            <span className="flex min-w-0 flex-1 items-center gap-1.5">
-              <span className="truncate text-sm font-medium">
-                {entry.username ?? entry.name}
-              </span>
-              {entry.career && CAREER_EMOJI[entry.career] && (
-                <span className="shrink-0 text-sm leading-none">
-                  {CAREER_EMOJI[entry.career]}
-                </span>
-              )}
-            </span>
-            {entry.university && <UniTag university={entry.university} />}
-            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
-              <CountUp
-                value={entry.total_xp}
-                format={(n) => n.toLocaleString("es")}
-              />
-              <XpDots className="size-[0.85em] text-white" />
-            </span>
-          </li>
-        ))}
-      </ol>
+      {/* La lista es su propio contenedor scrolleable: carga con el usuario
+          centrado y agrega filas al llegar arriba o abajo (scroll infinito). */}
+      <div
+        ref={scrollRef}
+        className="relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+      >
+        {hasPreviousPage && (
+          <div ref={topSentinelRef} aria-hidden className="h-px" />
+        )}
+        {isFetchingPreviousPage && (
+          <div className="flex justify-center py-2">
+            <Spinner />
+          </div>
+        )}
 
-      {hasNextPage && <div ref={sentinelRef} aria-hidden className="h-px" />}
+        <ol className="flex flex-col gap-2 py-1">
+          {rows.map((entry) => (
+            <li
+              key={entry.user_id}
+              data-current={entry.is_current_user ? "true" : undefined}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
+                entry.is_current_user && "bg-primary/10 ring-primary/30",
+              )}
+            >
+              <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+                {entry.rank}
+              </span>
+              <span className="flex min-w-0 flex-1 items-center gap-1.5">
+                <span className="truncate text-sm font-medium">
+                  {entry.username ?? entry.name}
+                </span>
+                {(() => {
+                  // El emoji vestido (entry.emoji) reemplaza al de bucket; si no
+                  // eligió ninguno, cae al emoji del bucket de carrera.
+                  const emoji =
+                    entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
+                  return (
+                    emoji && (
+                      <span className="shrink-0 text-sm leading-none">{emoji}</span>
+                    )
+                  )
+                })()}
+              </span>
+              {entry.university && <UniTag university={entry.university} />}
+              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+                <CountUp
+                  value={entry.total_xp}
+                  format={(n) => n.toLocaleString("es")}
+                />
+                <XpDots className="size-[0.85em] text-white" />
+              </span>
+            </li>
+          ))}
+        </ol>
+
+        {isFetchingNextPage && (
+          <div className="flex justify-center py-2">
+            <Spinner />
+          </div>
+        )}
+        {hasNextPage && (
+          <div ref={bottomSentinelRef} aria-hidden className="h-px" />
+        )}
+      </div>
     </div>
   )
 }

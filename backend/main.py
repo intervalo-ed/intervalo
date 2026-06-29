@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import sys
@@ -17,6 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
+import emoji_tree
 from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
@@ -30,6 +32,7 @@ from schemas import (
     AnswerResponse,
     BeltEntry,
     DueNotification,
+    EmojiStateResponse,
     EnrollmentResponse,
     FeedbackRequest,
     HealthResponse,
@@ -492,11 +495,16 @@ def internal_prune_push(
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────
 
+# Filas a cada lado del usuario en la ventana centrada (`around_me`).
+AROUND_WINDOW = 30
+
+
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
+    around_me: bool = Query(default=False),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -505,6 +513,12 @@ def get_leaderboard(
     El ranking, los totales y los datos del usuario actual se calculan sobre el
     set completo del scope (global o filtrado por universidad); solo `entries`
     devuelve la página pedida para el scroll infinito.
+
+    Con `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana
+    centrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que
+    el front cargue el ranking con el usuario en el medio y scrollee hacia ambos
+    lados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de
+    la ventana y pide más arriba/abajo por offset.
     """
     users = (
         db.query(User)
@@ -550,10 +564,26 @@ def get_leaderboard(
                 me.xp_to_next = scoped[index - 1].total_xp - user.total_xp
             break
 
-    page = scoped[offset:offset + limit]
+    # Ventana de la página. En modo `around_me` se centra en el usuario actual.
+    if around_me:
+        my_index = next(
+            (i for i, user in enumerate(scoped) if user.id == current_user.id),
+            None,
+        )
+        if my_index is None:
+            page_offset = 0
+            page_end = limit
+        else:
+            page_offset = max(0, my_index - AROUND_WINDOW)
+            page_end = my_index + AROUND_WINDOW + 1
+    else:
+        page_offset = offset
+        page_end = offset + limit
+
+    page = scoped[page_offset:page_end]
     entries = [
         LeaderboardEntry(
-            rank=offset + index + 1,
+            rank=page_offset + index + 1,
             user_id=user.id,
             name=user.username or user.display_name or user.name,
             username=user.username,
@@ -562,6 +592,7 @@ def get_leaderboard(
             is_current_user=user.id == current_user.id,
             career=enrollments[user.id].career if user.id in enrollments else None,
             university=uni_of(user),
+            emoji=emoji_tree.emoji_for(user.emoji_worn),
         )
         for index, user in enumerate(page)
     ]
@@ -570,10 +601,98 @@ def get_leaderboard(
         total_xp=total_xp,
         total_exercises=total_exercises,
         total_count=total_count,
-        has_more=offset + limit < total_count,
+        has_more=page_offset + len(page) < total_count,
         me=me,
         universities=universities,
     )
+
+
+# ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
+
+def _emoji_bucket(db: Session, user: User) -> str | None:
+    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment (curso 1)."""
+    e = (
+        db.query(Enrollment)
+        .filter(Enrollment.user_id == user.id, Enrollment.course_id == 1)
+        .first()
+    )
+    return e.career if e else None
+
+
+def _emoji_path(user: User) -> list[str]:
+    """Camino desbloqueado del usuario (lista de ids), parseado del JSON-en-texto."""
+    if not user.emoji_path:
+        return []
+    try:
+        value = json.loads(user.emoji_path)
+    except (json.JSONDecodeError, TypeError):
+        return []
+    return value if isinstance(value, list) else []
+
+
+def _emoji_state(db: Session, user: User) -> EmojiStateResponse:
+    return EmojiStateResponse(
+        bucket=_emoji_bucket(db, user),
+        total_xp=user.total_xp,
+        path=_emoji_path(user),
+        worn=user.emoji_worn,
+    )
+
+
+@app.get("/user/emoji-tree", response_model=EmojiStateResponse)
+def get_emoji_state(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido)."""
+    return _emoji_state(db, current_user)
+
+
+class EmojiUnlockRequest(BaseModel):
+    node_id: str
+
+
+@app.post("/user/emoji/unlock", response_model=EmojiStateResponse)
+def unlock_emoji(
+    body: EmojiUnlockRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Desbloquea el siguiente nodo del camino (irreversible, sin reset)."""
+    bucket = _emoji_bucket(db, current_user)
+    path = _emoji_path(current_user)
+    ok, reason = emoji_tree.can_unlock(path, body.node_id, current_user.total_xp, bucket)
+    if not ok:
+        raise HTTPException(status_code=422, detail=reason)
+
+    path.append(body.node_id)
+    current_user.emoji_path = json.dumps(path)
+    db.commit()
+    db.refresh(current_user)
+    return _emoji_state(db, current_user)
+
+
+class EmojiWornRequest(BaseModel):
+    node_id: str | None = None
+
+
+@app.put("/user/emoji/worn", response_model=EmojiStateResponse)
+def set_worn_emoji(
+    body: EmojiWornRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default)."""
+    bucket = _emoji_bucket(db, current_user)
+    path = _emoji_path(current_user)
+    ok, reason = emoji_tree.can_wear(path, body.node_id, bucket)
+    if not ok:
+        raise HTTPException(status_code=422, detail=reason)
+
+    current_user.emoji_worn = emoji_tree.normalize_worn(body.node_id, bucket)
+    db.commit()
+    db.refresh(current_user)
+    return _emoji_state(db, current_user)
 
 
 # ── Session endpoints ─────────────────────────────────────────────────────────

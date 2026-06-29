@@ -66,7 +66,6 @@ const BELT_COLOR: Record<BeltKey, string> = {
   blue: BELT_HEX.blue.onDark,
   violet: BELT_HEX.violet.onDark,
   brown: BELT_HEX.brown.onDark,
-  black: BELT_HEX.black.onDark,
 }
 
 export default function DashboardEntry() {
@@ -420,7 +419,7 @@ function BeltInfoDialog({
           <DialogTitle className="font-sans text-sm font-semibold text-foreground">
             {headline}
           </DialogTitle>
-          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+          <DialogDescription className="whitespace-pre-line text-sm leading-relaxed text-foreground/80">
             {description}
           </DialogDescription>
         </DialogHeader>

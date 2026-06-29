@@ -7,8 +7,9 @@
     "build": "bun run sync:all && next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:all": "bun run sync:catalog && bun run types:api:file",
+    "sync:all": "bun run sync:catalog && bun run sync:emoji-tree && bun run types:api:file",
     "sync:catalog": "bun run scripts/sync-catalog.ts",
+    "sync:emoji-tree": "bun run scripts/sync-emoji-tree.ts",
     "types:api": "openapi-typescript http://127.0.0.1:8000/openapi.json -o src/lib/api/schema.ts",
     "types:api:file": "openapi-typescript ../backend/openapi.json -o src/lib/api/schema.ts"
   },

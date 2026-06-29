@@ -17,7 +17,7 @@ export default function AppError({
     <Screen>
       <ScreenBody className="items-center justify-center text-center">
         <div className="flex flex-col items-center gap-2">
-          <h1 className="text-2xl font-bold tracking-tight">Algo salió mal</h1>
+          <h1 className="font-sans text-2xl font-bold tracking-tight">Algo salió mal</h1>
           <p className="text-sm text-muted-foreground">{error.message}</p>
         </div>
       </ScreenBody>

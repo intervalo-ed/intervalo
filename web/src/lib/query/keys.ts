@@ -10,6 +10,8 @@ export const queryKeys = {
   notificationSettings: () =>
     [...queryKeys.all, "user", "notification-settings"] as const,
 
+  emojiState: () => [...queryKeys.all, "user", "emoji-tree"] as const,
+
   leaderboard: ({ university }: { university?: string } = {}) =>
     [...queryKeys.all, "leaderboard", university ?? "all"] as const,
 

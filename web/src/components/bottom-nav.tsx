@@ -1,14 +1,14 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { HomeIcon, SettingsIcon, TrophyIcon } from "lucide-react"
+import { HomeIcon, TrophyIcon, UserIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const TABS = [
   { href: "/", label: "Inicio", icon: HomeIcon },
   { href: "/leaderboard", label: "Ranking", icon: TrophyIcon },
-  { href: "/settings", label: "Ajustes", icon: SettingsIcon },
+  { href: "/profile", label: "Perfil", icon: UserIcon },
 ] as const
 
 export function BottomNav() {
