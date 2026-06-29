@@ -495,11 +495,16 @@ def internal_prune_push(
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────
 
+# Filas a cada lado del usuario en la ventana centrada (`around_me`).
+AROUND_WINDOW = 30
+
+
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
+    around_me: bool = Query(default=False),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -508,6 +513,12 @@ def get_leaderboard(
     El ranking, los totales y los datos del usuario actual se calculan sobre el
     set completo del scope (global o filtrado por universidad); solo `entries`
     devuelve la página pedida para el scroll infinito.
+
+    Con `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana
+    centrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que
+    el front cargue el ranking con el usuario en el medio y scrollee hacia ambos
+    lados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de
+    la ventana y pide más arriba/abajo por offset.
     """
     users = (
         db.query(User)
@@ -553,10 +564,26 @@ def get_leaderboard(
                 me.xp_to_next = scoped[index - 1].total_xp - user.total_xp
             break
 
-    page = scoped[offset:offset + limit]
+    # Ventana de la página. En modo `around_me` se centra en el usuario actual.
+    if around_me:
+        my_index = next(
+            (i for i, user in enumerate(scoped) if user.id == current_user.id),
+            None,
+        )
+        if my_index is None:
+            page_offset = 0
+            page_end = limit
+        else:
+            page_offset = max(0, my_index - AROUND_WINDOW)
+            page_end = my_index + AROUND_WINDOW + 1
+    else:
+        page_offset = offset
+        page_end = offset + limit
+
+    page = scoped[page_offset:page_end]
     entries = [
         LeaderboardEntry(
-            rank=offset + index + 1,
+            rank=page_offset + index + 1,
             user_id=user.id,
             name=user.username or user.display_name or user.name,
             username=user.username,
@@ -574,7 +601,7 @@ def get_leaderboard(
         total_xp=total_xp,
         total_exercises=total_exercises,
         total_count=total_count,
-        has_more=offset + limit < total_count,
+        has_more=page_offset + len(page) < total_count,
         me=me,
         universities=universities,
     )

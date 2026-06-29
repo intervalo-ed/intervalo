@@ -245,6 +245,12 @@ export interface paths {
          *     El ranking, los totales y los datos del usuario actual se calculan sobre el
          *     set completo del scope (global o filtrado por universidad); solo `entries`
          *     devuelve la página pedida para el scroll infinito.
+         *
+         *     Con `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana
+         *     centrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que
+         *     el front cargue el ranking con el usuario en el medio y scrollee hacia ambos
+         *     lados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de
+         *     la ventana y pide más arriba/abajo por offset.
          */
         get: operations["get_leaderboard_leaderboard_get"];
         put?: never;
@@ -1301,6 +1307,7 @@ export interface operations {
                 university?: string | null;
                 limit?: number;
                 offset?: number;
+                around_me?: boolean;
             };
             header?: {
                 authorization?: string;

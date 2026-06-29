@@ -250,7 +250,7 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el\nusuario para que el \"día\" de la repetición espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.",
+        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
           {
@@ -594,7 +594,7 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la página pedida para el scroll infinito.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, as\u00ed el front conoce los bordes de\nla ventana y pide m\u00e1s arriba/abajo por offset.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
           {
@@ -637,6 +637,16 @@
             }
           },
           {
+            "name": "around_me",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Around Me"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -673,7 +683,7 @@
     "/user/emoji-tree": {
       "get": {
         "summary": "Get Emoji State",
-        "description": "Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
+        "description": "Estado del \u00e1rbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
         "operationId": "get_emoji_state_user_emoji_tree_get",
         "parameters": [
           {
@@ -763,7 +773,7 @@
     "/user/emoji/worn": {
       "put": {
         "summary": "Set Worn Emoji",
-        "description": "Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default).",
+        "description": "Viste un emoji ya desbloqueado del camino. None = ra\u00edz del bucket (default).",
         "operationId": "set_worn_emoji_user_emoji_worn_put",
         "parameters": [
           {
@@ -1056,7 +1066,7 @@
     "/feedback": {
       "post": {
         "summary": "Submit Feedback",
-        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort — if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
+        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort \u2014 if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
         "operationId": "submit_feedback_feedback_post",
         "parameters": [
           {
