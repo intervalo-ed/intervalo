@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
-import { useSfx } from "@/lib/audio/useSfx"
+import { useSfx, useTick } from "@/lib/audio/useSfx"
 import { useSummary } from "./UseSummary"
 
 const ctaCls =
@@ -24,10 +24,31 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const qc = useQueryClient()
   const router = useRouter()
   const sfx = useSfx()
+  const tick = useTick() // reloj — conteo de XP
+  const tickEx = useTick("/tick_clink.mp3") // click mecánico — conteo de ejercicios
   const [showCards, setShowCards] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
+  // Secuencia, medida desde que se monta el resumen (≈ desde el tap, que dispara
+  // el sonido de "carga" ascendente):
+  //   t=1000ms → aparece la bolita blanca cargando energía + arranca el sonido `end`
+  //   t=1800ms → la bolita explota en el confeti + "¡Listo!" + las cards
+  const [showBall, setShowBall] = useState(false)
+  const [exploded, setExploded] = useState(false)
+  const sfxRef = useRef(sfx)
+  sfxRef.current = sfx
+  useEffect(() => {
+    const t1 = setTimeout(() => {
+      setShowBall(true)
+      sfxRef.current.end()
+    }, 1000)
+    const t2 = setTimeout(() => setExploded(true), 1800)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
+  }, [])
 
   function goHome() {
     sfx.continue()
@@ -73,9 +94,15 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
       <ScreenBody className="items-center justify-center">
         {/* El título queda centrado en pantalla y fijo; las cards aparecen
             posicionadas en absoluto debajo, sin re-centrar el título. */}
-        {showConfetti && <Confetti />}
+        {showBall && !exploded && <ChargeBall />}
+        {/* El doble de la XP obtenida, acotado para cuidar el rendimiento. */}
+        {showConfetti && (
+          <Confetti
+            count={Math.min(140, Math.max(10, (data?.xp_earned ?? 0) * 2))}
+          />
+        )}
         <div className="relative w-full -translate-y-[15px]">
-          {data && (
+          {data && exploded && (
             <motion.span
               className="block text-center text-3xl font-bold tracking-tight"
               initial={{ opacity: 0, scale: 0.4 }}
@@ -104,8 +131,15 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                       <CountUp
                         variant="steps"
                         value={data.xp_earned}
-                        duration={700}
+                        duration={1000}
                         steps={7}
+                        // Saltos que arrancan lentos y terminan rápidos: cada
+                        // salto dispara un tick del reloj con pitch ascendente,
+                        // sincronizado con el número que sube.
+                        stepEase={(x) => 1 - Math.pow(1 - x, 1.7)}
+                        onStep={(step, total) =>
+                          tick(0.9 + ((step - 1) / Math.max(1, total - 1)) * 0.6)
+                        }
                         onDone={() => setShowRight(true)}
                       />
                       <XpDots className="size-[0.85em] text-primary" />
@@ -135,6 +169,13 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                           value={data.first_try_correct}
                           duration={700}
                           steps={7}
+                          // Cada ejercicio contado dispara el click mecánico con
+                          // pitch ascendente, sincronizado con el número.
+                          onStep={(step, total) =>
+                            tickEx(
+                              0.9 + ((step - 1) / Math.max(1, total - 1)) * 0.6,
+                            )
+                          }
                           onDone={() => setShowButton(true)}
                         />
                         <span className="text-[0.75em] text-foreground/60">
@@ -172,6 +213,43 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   )
 }
 
+// Cuadradito que "carga energía": crece su área en 7 ticks discretos (no inflándose
+// suave) desde apenas visible hasta su máximo, repartidos en ~0.8 s, justo antes
+// de explotar en el confeti. En cada tick salta de tamaño, rota un poco más y
+// cambia de color secuencialmente con los mismos colores del confeti (BELT_COLORS).
+// Nace centrado, igual que el confeti.
+const CHARGE_SCALES = [
+  0.08, 0.13, 0.18, 0.24, 0.3, 0.36, 0.42, 0.48, 0.54, 0.6, 0.66,
+]
+
+function ChargeBall() {
+  const [step, setStep] = useState(0)
+  useEffect(() => {
+    const last = CHARGE_SCALES.length - 1
+    const stepMs = 800 / last
+    let k = 0
+    const id = setInterval(() => {
+      k++
+      setStep(k)
+      if (k >= last) clearInterval(id)
+    }, stepMs)
+    return () => clearInterval(id)
+  }, [])
+  const i = Math.min(step, CHARGE_SCALES.length - 1)
+  return (
+    <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
+      <div
+        style={{
+          width: 28,
+          height: 28,
+          background: BELT_COLORS[i % BELT_COLORS.length],
+          transform: `scale(${CHARGE_SCALES[i]}) rotate(${i * 35}deg)`,
+        }}
+      />
+    </div>
+  )
+}
+
 // Colores de los cinturones, avivados para que resalten sobre el fondo oscuro.
 const BELT_COLORS = BELT_VIVID_COLORS
 
@@ -185,15 +263,16 @@ type Particle = {
   size: number
   rot: number
   vrot: number
+  grav: number
   alive: boolean
 }
 
-// Explosión radial: todas las partículas nacen en el centro de la pantalla y
-// salen disparadas en todas direcciones a gran velocidad, con algo de gravedad
-// y rotación. Animado con requestAnimationFrame, sin dependencias externas.
-function Confetti() {
+// Explosión radial: todas las partículas (cuadraditos) nacen en el centro de la
+// pantalla y salen disparadas en todas direcciones a gran velocidad, con algo de
+// gravedad y rotación. RAF puro, sin dependencias.
+function Confetti({ count }: { count: number }) {
   const stateRef = useRef<Particle[]>(
-    Array.from({ length: 110 }, (_, i) => {
+    Array.from({ length: count }, (_, i) => {
       const angle = Math.random() * Math.PI * 2
       const speed = 90 + Math.random() * 150 // % de viewport por segundo
       return {
@@ -206,6 +285,8 @@ function Confetti() {
         size: 6 + Math.random() * 9,
         rot: Math.random() * 360,
         vrot: (Math.random() - 0.5) * 900,
+        // Gravedad propia de cada partícula: unas caen pesado, otras flotan.
+        grav: 45 + Math.random() * 130,
         alive: true,
       }
     }),
@@ -233,7 +314,7 @@ function Confetti() {
           x: nx,
           y: ny,
           vx: p.vx * drag,
-          vy: p.vy * drag + 90 * dt,
+          vy: p.vy * drag + p.grav * dt,
           rot: p.rot + p.vrot * dt,
           alive,
         }
@@ -261,6 +342,7 @@ function Confetti() {
               width: p.size,
               height: p.size,
               background: p.color,
+              mixBlendMode: "screen",
               transform: `rotate(${p.rot}deg)`,
             }}
           />
