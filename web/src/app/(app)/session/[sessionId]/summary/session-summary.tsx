@@ -24,8 +24,12 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const qc = useQueryClient()
   const router = useRouter()
   const sfx = useSfx()
-  const tick = useTick() // reloj — conteo de XP
-  const tickEx = useTick("/tick_clink.mp3") // click mecánico — conteo de ejercicios
+  const tick = useTick() // reloj — conteo de XP y de ejercicios (mismo sonido)
+  // Si no se respondió ningún ejercicio bien, el resumen no suena (ni `end` ni
+  // los ticks de los conteos).
+  const noCorrect = data ? data.first_try_correct === 0 : false
+  const noCorrectRef = useRef(noCorrect)
+  noCorrectRef.current = noCorrect
   const [showCards, setShowCards] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showButton, setShowButton] = useState(false)
@@ -41,7 +45,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   useEffect(() => {
     const t1 = setTimeout(() => {
       setShowBall(true)
-      sfxRef.current.end()
+      if (!noCorrectRef.current) sfxRef.current.end()
     }, 1000)
     const t2 = setTimeout(() => setExploded(true), 1800)
     return () => {
@@ -131,15 +135,16 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                       <CountUp
                         variant="steps"
                         value={data.xp_earned}
-                        duration={1000}
+                        duration={1300}
                         steps={7}
-                        // Saltos que arrancan lentos y terminan rápidos: cada
-                        // salto dispara un tick del reloj con pitch ascendente,
-                        // sincronizado con el número que sube.
+                        // Saltos que arrancan lentos y se aceleran (estirados):
+                        // cada salto dispara un tick del reloj con pitch
+                        // ascendente, sincronizado con el número que sube.
                         stepEase={(x) => 1 - Math.pow(1 - x, 1.7)}
-                        onStep={(step, total) =>
+                        onStep={(step, total) => {
+                          if (noCorrect) return
                           tick(0.9 + ((step - 1) / Math.max(1, total - 1)) * 0.6)
-                        }
+                        }}
                         onDone={() => setShowRight(true)}
                       />
                       <XpDots className="size-[0.85em] text-primary" />
@@ -167,15 +172,18 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                         <CountUp
                           variant="steps"
                           value={data.first_try_correct}
-                          duration={700}
+                          duration={1300}
                           steps={7}
-                          // Cada ejercicio contado dispara el click mecánico con
-                          // pitch ascendente, sincronizado con el número.
-                          onStep={(step, total) =>
-                            tickEx(
+                          // Mismo sonido y ritmo que el conteo de XP: tick de
+                          // reloj con pitch ascendente, arrancando lento y
+                          // acelerando (estirado), sincronizado con el número.
+                          stepEase={(x) => 1 - Math.pow(1 - x, 1.7)}
+                          onStep={(step, total) => {
+                            if (noCorrect) return
+                            tick(
                               0.9 + ((step - 1) / Math.max(1, total - 1)) * 0.6,
                             )
-                          }
+                          }}
                           onDone={() => setShowButton(true)}
                         />
                         <span className="text-[0.75em] text-foreground/60">

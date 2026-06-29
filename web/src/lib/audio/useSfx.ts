@@ -30,7 +30,7 @@ const SOUND_VOLUME: Record<SfxName, number> = {
   correct: VOLUME,
   wrong: VOLUME,
   iterate: VOLUME * 0.5,
-  start: VOLUME,
+  start: VOLUME * 0.7,
   charge: VOLUME * 1.2,
   end: VOLUME * 2.1,
   xpCount: VOLUME,

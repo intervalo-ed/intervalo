@@ -477,19 +477,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
         </div>
       </div>
 
-      {/* Fade-out de salida: tapa todo (por delante de los botones, z-40) apenas
-          se toca "Finalizar", mientras carga el resumen. */}
-      <AnimatePresence>
-        {finishing && (
-          <motion.div
-            key="finishing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-50 bg-background"
-          />
-        )}
-      </AnimatePresence>
+      {/* Al tocar "Finalizar" el fondo se superpone al instante (sin animación),
+          tapando todo (por delante de los botones, z-40) mientras carga el
+          resumen. */}
+      {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
   )
 }
