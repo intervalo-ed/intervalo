@@ -28,7 +28,7 @@ const SOUND_VOLUME: Record<SfxName, number> = {
   select: VOLUME * 0.5,
   continue: VOLUME,
   correct: VOLUME,
-  wrong: VOLUME,
+  wrong: VOLUME * 0.8,
   iterate: VOLUME * 0.5,
   start: VOLUME * 0.7,
   charge: VOLUME * 1.2,

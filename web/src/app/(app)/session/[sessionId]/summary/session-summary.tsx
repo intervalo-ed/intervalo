@@ -129,7 +129,13 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                 transition={{ duration: 0.7, ease: "easeOut" }}
               >
                 <Metric
-                  label="Experiencia obtenida"
+                  label={
+                    <>
+                      Experiencia
+                      <br />
+                      obtenida
+                    </>
+                  }
                   value={
                     <span className="inline-flex items-center gap-1.5">
                       <CountUp
