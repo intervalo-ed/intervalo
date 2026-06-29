@@ -9,7 +9,7 @@ const SOUND_PATHS = {
   select: "/select_sound_knife.mp3",
   continue: "/continue_sound.mp3",
   correct: "/correct_sound.mp3",
-  wrong: "/wrong_sound.mp3",
+  wrong: "/session_wrong.mp3",
   iterate: "/iterate_sound.mp3",
   start: "/session_start.mp3",
   charge: "/session_charge.mp3",
@@ -36,10 +36,10 @@ const SOUND_VOLUME: Record<SfxName, number> = {
   xpCount: VOLUME,
 }
 
-// Sonidos muteados temporalmente (hasta nuevo aviso): feedback negativo (`wrong`,
-// en onboarding y sesiones) y `iterate` (botones play/pausa del onboarding y
-// seleccionadores del modo zen). Para reactivarlos, vaciar este set.
-const MUTED_SFX = new Set<SfxName>(["wrong", "iterate"])
+// Sonidos muteados temporalmente (hasta nuevo aviso): `iterate` (botones
+// play/pausa del onboarding y seleccionadores del modo zen). Para reactivarlos,
+// vaciar este set.
+const MUTED_SFX = new Set<SfxName>(["iterate"])
 
 // Tick suelto a un pitch dado (1 = original). Pensado para las secuencias de
 // conteo del resumen (XP y ejercicios); cada paso del conteo dispara un tick.
