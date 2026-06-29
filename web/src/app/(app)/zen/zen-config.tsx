@@ -103,7 +103,7 @@ export default function ZenConfig() {
 
   function onStart() {
     if (!canStart) return
-    sfx.continue()
+    sfx.start()
     startZen.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",

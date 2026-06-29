@@ -116,7 +116,7 @@ export default function DashboardEntry() {
   }, [contentReady, markReady])
 
   function onRepasar() {
-    sfx.continue()
+    sfx.start()
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "" },
       {
