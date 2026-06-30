@@ -50,7 +50,7 @@ export function BottomNav() {
                   {dot && (
                     <span
                       aria-hidden
-                      className="absolute -left-1.5 -top-1 size-2 rounded-full ring-2 ring-background"
+                      className="absolute -right-1.5 -top-1 size-[7.2px] rounded-full ring-1 ring-background"
                       style={{ backgroundColor: dot }}
                     />
                   )}
