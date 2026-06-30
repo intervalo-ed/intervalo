@@ -27,61 +27,52 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Construcción",
         "children": [
           {
-            "id": "e-infraestructura",
-            "emoji": "🌉",
-            "label": "Infraestructura",
+            "id": "e-estructuras",
+            "emoji": "🧱",
+            "label": "Estructuras",
             "children": [
               {
-                "id": "e-estructuras",
-                "emoji": "🧱",
-                "label": "Estructuras",
+                "id": "e-edificios",
+                "emoji": "🏢",
+                "label": "Edificios",
                 "children": [
                   {
-                    "id": "e-hormigon",
-                    "emoji": "🏢",
-                    "label": "Hormigón",
-                    "children": [
-                      {
-                        "id": "e-civil",
-                        "emoji": "👷",
-                        "label": "Civil",
-                        "unis": [
-                          "UBA",
-                          "UTN"
-                        ]
-                      }
+                    "id": "e-civil",
+                    "emoji": "👷",
+                    "label": "Civil",
+                    "unis": [
+                      "UBA",
+                      "UTN"
                     ]
                   }
                 ]
               },
               {
-                "id": "e-nautica",
-                "emoji": "⚓",
-                "label": "Náutica",
-                "children": [
-                  {
-                    "id": "e-cascos",
-                    "emoji": "🛳️",
-                    "label": "Cascos",
-                    "children": [
-                      {
-                        "id": "e-naval",
-                        "emoji": "🚢",
-                        "label": "Naval",
-                        "unis": [
-                          "UBA",
-                          "UTN"
-                        ]
-                      }
-                    ]
-                  }
+                "id": "e-puentes",
+                "emoji": "🌉",
+                "label": "Puentes"
+              }
+            ]
+          },
+          {
+            "id": "e-nautica",
+            "emoji": "⚓",
+            "label": "Náutica",
+            "children": [
+              {
+                "id": "e-naval",
+                "emoji": "🚢",
+                "label": "Naval",
+                "unis": [
+                  "UBA",
+                  "UTN"
                 ]
               }
             ]
           },
           {
             "id": "e-territorio",
-            "emoji": "🧭",
+            "emoji": "🗺️",
             "label": "Territorio",
             "children": [
               {
@@ -90,18 +81,11 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Geomática",
                 "children": [
                   {
-                    "id": "e-mensura",
-                    "emoji": "🛰️",
-                    "label": "Mensura",
-                    "children": [
-                      {
-                        "id": "e-agrimensura",
-                        "emoji": "📍",
-                        "label": "Agrimensura",
-                        "unis": [
-                          "UBA"
-                        ]
-                      }
+                    "id": "e-agrimensura",
+                    "emoji": "📍",
+                    "label": "Agrimensura",
+                    "unis": [
+                      "UBA"
                     ]
                   }
                 ]
@@ -112,18 +96,11 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Movilidad",
                 "children": [
                   {
-                    "id": "e-logistica",
-                    "emoji": "🚉",
-                    "label": "Logística",
-                    "children": [
-                      {
-                        "id": "e-transporte",
-                        "emoji": "🚆",
-                        "label": "Transporte",
-                        "unis": [
-                          "UNSAM"
-                        ]
-                      }
+                    "id": "e-transporte",
+                    "emoji": "🚆",
+                    "label": "Transporte",
+                    "unis": [
+                      "UNSAM"
                     ]
                   }
                 ]
@@ -144,48 +121,46 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
             "children": [
               {
                 "id": "e-potencia",
-                "emoji": "🏭",
+                "emoji": "🔋",
                 "label": "Potencia",
                 "children": [
                   {
-                    "id": "e-redes",
-                    "emoji": "🔌",
-                    "label": "Redes",
-                    "children": [
-                      {
-                        "id": "e-electrica",
-                        "emoji": "⚡",
-                        "label": "Eléctrica",
-                        "unis": [
-                          "UBA",
-                          "UTN"
-                        ]
-                      }
+                    "id": "e-electrica",
+                    "emoji": "💡",
+                    "label": "Eléctrica",
+                    "unis": [
+                      "UBA",
+                      "UTN"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "e-renovables",
+            "emoji": "♻️",
+            "label": "Renovables",
+            "children": [
+              {
+                "id": "e-eolica",
+                "emoji": "🌬️",
+                "label": "Eólica",
+                "children": [
+                  {
+                    "id": "e-energia-carrera",
+                    "emoji": "💨",
+                    "label": "Energía",
+                    "unis": [
+                      "UNSAM"
                     ]
                   }
                 ]
               },
               {
-                "id": "e-renovables",
-                "emoji": "🔋",
-                "label": "Renovables",
-                "children": [
-                  {
-                    "id": "e-limpia",
-                    "emoji": "☀️",
-                    "label": "Limpia",
-                    "children": [
-                      {
-                        "id": "e-energia-carrera",
-                        "emoji": "🌬️",
-                        "label": "Energía",
-                        "unis": [
-                          "UNSAM"
-                        ]
-                      }
-                    ]
-                  }
-                ]
+                "id": "e-solar",
+                "emoji": "☀️",
+                "label": "Solar"
               }
             ]
           },
@@ -200,20 +175,13 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Circuitos",
                 "children": [
                   {
-                    "id": "e-embebidos",
-                    "emoji": "🔧",
-                    "label": "Embebidos",
-                    "children": [
-                      {
-                        "id": "e-electronica",
-                        "emoji": "🔌",
-                        "label": "Electrónica",
-                        "unis": [
-                          "UBA",
-                          "UTN",
-                          "UNSAM"
-                        ]
-                      }
+                    "id": "e-electronica",
+                    "emoji": "🖥️",
+                    "label": "Electrónica",
+                    "unis": [
+                      "UBA",
+                      "UTN",
+                      "UNSAM"
                     ]
                   }
                 ]
@@ -224,18 +192,11 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Señales",
                 "children": [
                   {
-                    "id": "e-antenas",
-                    "emoji": "🗼",
-                    "label": "Antenas",
-                    "children": [
-                      {
-                        "id": "e-telecomunicaciones",
-                        "emoji": "📡",
-                        "label": "Telecomunicaciones",
-                        "unis": [
-                          "UNSAM"
-                        ]
-                      }
+                    "id": "e-telecomunicaciones",
+                    "emoji": "🛰️",
+                    "label": "Telecomunicaciones",
+                    "unis": [
+                      "UNSAM"
                     ]
                   }
                 ]
@@ -251,30 +212,23 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "children": [
           {
             "id": "e-motriz",
-            "emoji": "⚙️",
+            "emoji": "🏁",
             "label": "Motriz",
             "children": [
               {
-                "id": "e-diseno",
+                "id": "e-mecanica",
                 "emoji": "🛠️",
-                "label": "Diseño",
+                "label": "Mecánica",
                 "children": [
                   {
-                    "id": "e-motores",
+                    "id": "e-automotriz",
                     "emoji": "🏎️",
-                    "label": "Motores",
-                    "children": [
-                      {
-                        "id": "e-mecanica",
-                        "emoji": "⚙️",
-                        "label": "Mecánica",
-                        "unis": [
-                          "UBA",
-                          "UTN"
-                        ]
-                      }
-                    ]
+                    "label": "Automotriz"
                   }
+                ],
+                "unis": [
+                  "UBA",
+                  "UTN"
                 ]
               }
             ]
@@ -285,25 +239,18 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
             "label": "Producción",
             "children": [
               {
-                "id": "e-gestion-prod",
-                "emoji": "📊",
-                "label": "Gestión",
+                "id": "e-calidad",
+                "emoji": "📈",
+                "label": "Calidad",
                 "children": [
                   {
-                    "id": "e-calidad",
-                    "emoji": "📈",
-                    "label": "Calidad",
-                    "children": [
-                      {
-                        "id": "e-industrial",
-                        "emoji": "🏭",
-                        "label": "Industrial",
-                        "unis": [
-                          "UBA",
-                          "UTN",
-                          "UNSAM"
-                        ]
-                      }
+                    "id": "e-industrial",
+                    "emoji": "📦",
+                    "label": "Industrial",
+                    "unis": [
+                      "UBA",
+                      "UTN",
+                      "UNSAM"
                     ]
                   }
                 ]
@@ -314,23 +261,21 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Manufactura",
                 "children": [
                   {
-                    "id": "e-hilados",
-                    "emoji": "🪡",
-                    "label": "Hilados",
-                    "children": [
-                      {
-                        "id": "e-textil",
-                        "emoji": "🧶",
-                        "label": "Textil",
-                        "unis": [
-                          "UTN"
-                        ]
-                      }
+                    "id": "e-textil",
+                    "emoji": "🧶",
+                    "label": "Textil",
+                    "unis": [
+                      "UTN"
                     ]
                   }
                 ]
               }
             ]
+          },
+          {
+            "id": "e-aeronautica",
+            "emoji": "✈️",
+            "label": "Aeronáutica"
           }
         ]
       },
@@ -340,51 +285,30 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Materia",
         "children": [
           {
+            "id": "e-petroleo",
+            "emoji": "🛢️",
+            "label": "Petróleo",
+            "unis": [
+              "UBA"
+            ]
+          },
+          {
             "id": "e-reacciones",
             "emoji": "🧪",
             "label": "Reacciones",
             "children": [
               {
                 "id": "e-sintesis",
-                "emoji": "⚗️",
+                "emoji": "🧫",
                 "label": "Síntesis",
                 "children": [
                   {
-                    "id": "e-catalisis",
-                    "emoji": "🧫",
-                    "label": "Catálisis",
-                    "children": [
-                      {
-                        "id": "e-quimica",
-                        "emoji": "🥽",
-                        "label": "Química",
-                        "unis": [
-                          "UBA",
-                          "UTN"
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "id": "e-hidrocarburos",
-                "emoji": "🛢️",
-                "label": "Hidrocarburos",
-                "children": [
-                  {
-                    "id": "e-yacimientos",
-                    "emoji": "⛽",
-                    "label": "Yacimientos",
-                    "children": [
-                      {
-                        "id": "e-petroleo",
-                        "emoji": "🛢️",
-                        "label": "Petróleo",
-                        "unis": [
-                          "UBA"
-                        ]
-                      }
+                    "id": "e-quimica",
+                    "emoji": "🥽",
+                    "label": "Química",
+                    "unis": [
+                      "UBA",
+                      "UTN"
                     ]
                   }
                 ]
@@ -393,7 +317,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
           },
           {
             "id": "e-solidos",
-            "emoji": "💎",
+            "emoji": "🪨",
             "label": "Sólidos",
             "children": [
               {
@@ -402,40 +326,11 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "label": "Metalurgia",
                 "children": [
                   {
-                    "id": "e-aleaciones",
-                    "emoji": "🧱",
-                    "label": "Aleaciones",
-                    "children": [
-                      {
-                        "id": "e-materiales",
-                        "emoji": "💠",
-                        "label": "Materiales",
-                        "unis": [
-                          "UNSAM-Sabato"
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "id": "e-procesado",
-                "emoji": "🍞",
-                "label": "Procesado",
-                "children": [
-                  {
-                    "id": "e-conservacion",
-                    "emoji": "🥫",
-                    "label": "Conservación",
-                    "children": [
-                      {
-                        "id": "e-alimentos",
-                        "emoji": "🍎",
-                        "label": "Alimentos",
-                        "unis": [
-                          "UBA"
-                        ]
-                      }
+                    "id": "e-materiales",
+                    "emoji": "💎",
+                    "label": "Materiales",
+                    "unis": [
+                      "UNSAM-Sabato"
                     ]
                   }
                 ]
@@ -443,72 +338,73 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
             ]
           },
           {
-            "id": "e-vida",
-            "emoji": "🌱",
-            "label": "Vida",
+            "id": "e-procesado",
+            "emoji": "🍞",
+            "label": "Procesado",
             "children": [
               {
-                "id": "e-ambiente",
-                "emoji": "♻️",
-                "label": "Ambiente",
-                "children": [
-                  {
-                    "id": "e-sostenibilidad",
-                    "emoji": "🌍",
-                    "label": "Sostenibilidad",
-                    "children": [
-                      {
-                        "id": "e-ambiental",
-                        "emoji": "🌿",
-                        "label": "Ambiental",
-                        "unis": [
-                          "UNSAM"
-                        ]
-                      }
-                    ]
-                  }
+                "id": "e-alimentos",
+                "emoji": "🍎",
+                "label": "Alimentos",
+                "unis": [
+                  "UBA"
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "e-vida",
+        "emoji": "🌱",
+        "label": "Vida",
+        "children": [
+          {
+            "id": "e-bioingenieria",
+            "emoji": "🧬",
+            "label": "Bioingeniería",
+            "children": [
               {
-                "id": "e-bioingenieria",
-                "emoji": "🧬",
-                "label": "Bioingeniería",
-                "children": [
-                  {
-                    "id": "e-equipos",
-                    "emoji": "❤️",
-                    "label": "Equipos",
-                    "children": [
-                      {
-                        "id": "e-biomedica",
-                        "emoji": "🩺",
-                        "label": "Biomédica",
-                        "unis": [
-                          "UNSAM"
-                        ]
-                      }
-                    ]
-                  }
+                "id": "e-biomedica",
+                "emoji": "🩺",
+                "label": "Biomédica",
+                "unis": [
+                  "UNSAM"
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "id": "e-ambiente",
+            "emoji": "🌍",
+            "label": "Ambiente",
+            "children": [
               {
-                "id": "e-agro",
-                "emoji": "🌾",
-                "label": "Agro",
+                "id": "e-ambiental",
+                "emoji": "🌿",
+                "label": "Ambiental",
+                "unis": [
+                  "UNSAM"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "e-agro",
+            "emoji": "🌾",
+            "label": "Agro",
+            "children": [
+              {
+                "id": "e-cultivos",
+                "emoji": "🚜",
+                "label": "Cultivos",
                 "children": [
                   {
-                    "id": "e-cultivos",
-                    "emoji": "🚜",
-                    "label": "Cultivos",
-                    "children": [
-                      {
-                        "id": "e-agronomia",
-                        "emoji": "🌾",
-                        "label": "Agronomía",
-                        "unis": [
-                          "UBA-FAUBA"
-                        ]
-                      }
+                    "id": "e-agronomia",
+                    "emoji": "🌽",
+                    "label": "Agronomía",
+                    "unis": [
+                      "UBA-FAUBA"
                     ]
                   }
                 ]
@@ -526,206 +422,137 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
     "children": [
       {
         "id": "s-materia",
-        "emoji": "🌐",
+        "emoji": "🪐",
         "label": "Materia",
         "children": [
           {
-            "id": "s-fisicoquimica",
-            "emoji": "⚛️",
-            "label": "Físico-química",
+            "id": "s-fisica",
+            "emoji": "🔭",
+            "label": "Física",
             "children": [
               {
-                "id": "s-fisica",
-                "emoji": "🔭",
-                "label": "Física",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "s-cuantica",
+                "emoji": "⚛️",
+                "label": "Cuántica",
                 "children": [
                   {
                     "id": "s-cosmologia",
                     "emoji": "🌌",
                     "label": "Cosmología"
-                  },
-                  {
-                    "id": "s-cuantica",
-                    "emoji": "⚛️",
-                    "label": "Cuántica"
-                  },
-                  {
-                    "id": "s-particulas",
-                    "emoji": "🎛️",
-                    "label": "Partículas"
-                  },
-                  {
-                    "id": "s-condensada",
-                    "emoji": "🧲",
-                    "label": "Condensada"
-                  }
-                ]
-              },
-              {
-                "id": "s-quimica",
-                "emoji": "🥽",
-                "label": "Química",
-                "unis": [
-                  "UBA"
-                ],
-                "children": [
-                  {
-                    "id": "s-organica",
-                    "emoji": "🧪",
-                    "label": "Orgánica"
-                  },
-                  {
-                    "id": "s-materiales-quim",
-                    "emoji": "💎",
-                    "label": "Materiales"
-                  },
-                  {
-                    "id": "s-fisicoquimica-pasion",
-                    "emoji": "⚡",
-                    "label": "Físicoquímica"
-                  },
-                  {
-                    "id": "s-verde",
-                    "emoji": "🌿",
-                    "label": "Verde"
                   }
                 ]
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           },
           {
-            "id": "s-tierra",
-            "emoji": "🪐",
-            "label": "Tierra",
+            "id": "s-quimica",
+            "emoji": "🥽",
+            "label": "Química",
             "children": [
               {
-                "id": "s-geologia",
-                "emoji": "⛏️",
-                "label": "Geología",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "s-organica",
+                "emoji": "🧪",
+                "label": "Orgánica"
+              }
+            ],
+            "unis": [
+              "UBA"
+            ]
+          },
+          {
+            "id": "s-geologia",
+            "emoji": "⛏️",
+            "label": "Geología",
+            "children": [
+              {
+                "id": "s-volcanes",
+                "emoji": "🌋",
+                "label": "Volcanes",
                 "children": [
-                  {
-                    "id": "s-volcanes",
-                    "emoji": "🌋",
-                    "label": "Volcanes"
-                  },
                   {
                     "id": "s-minerales",
                     "emoji": "💎",
                     "label": "Minerales"
-                  },
-                  {
-                    "id": "s-tectonica",
-                    "emoji": "🪨",
-                    "label": "Tectónica"
                   }
                 ]
-              },
+              }
+            ],
+            "unis": [
+              "UBA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "s-tierra",
+        "emoji": "🌊",
+        "label": "Tierra",
+        "children": [
+          {
+            "id": "s-oceanografia",
+            "emoji": "🐋",
+            "label": "Oceanografía",
+            "unis": [
+              "UBA"
+            ]
+          },
+          {
+            "id": "s-atmosfera",
+            "emoji": "🛰️",
+            "label": "Atmósfera",
+            "children": [
               {
-                "id": "s-oceanografia",
-                "emoji": "🌊",
-                "label": "Oceanografía",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "s-clima",
+                "emoji": "🌪️",
+                "label": "Clima",
                 "children": [
-                  {
-                    "id": "s-marina",
-                    "emoji": "🐋",
-                    "label": "Marina"
-                  },
-                  {
-                    "id": "s-corrientes",
-                    "emoji": "🌀",
-                    "label": "Corrientes"
-                  },
-                  {
-                    "id": "s-quimica-marina",
-                    "emoji": "🧪",
-                    "label": "Química"
-                  }
-                ]
-              },
-              {
-                "id": "s-atmosfera",
-                "emoji": "🛰️",
-                "label": "Atmósfera",
-                "unis": [
-                  "UBA"
-                ],
-                "children": [
-                  {
-                    "id": "s-clima",
-                    "emoji": "🌪️",
-                    "label": "Clima"
-                  },
                   {
                     "id": "s-tormentas",
                     "emoji": "⛈️",
                     "label": "Tormentas"
-                  },
-                  {
-                    "id": "s-calentamiento",
-                    "emoji": "🌍",
-                    "label": "Calentamiento"
-                  }
-                ]
-              },
-              {
-                "id": "s-paleontologia",
-                "emoji": "🦴",
-                "label": "Paleontología",
-                "unis": [
-                  "UBA"
-                ],
-                "children": [
-                  {
-                    "id": "s-dinos",
-                    "emoji": "🦕",
-                    "label": "Dinos"
-                  },
-                  {
-                    "id": "s-paleobotanica",
-                    "emoji": "🌿",
-                    "label": "Paleobotánica"
-                  },
-                  {
-                    "id": "s-fosiles",
-                    "emoji": "🐚",
-                    "label": "Fósiles"
                   }
                 ]
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           },
           {
-            "id": "s-ambiente",
-            "emoji": "🌱",
-            "label": "Ambiente",
+            "id": "s-paleontologia",
+            "emoji": "🦴",
+            "label": "Paleontología",
             "children": [
               {
-                "id": "s-ambientales",
-                "emoji": "🌿",
-                "label": "Ambientales",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "s-dinos",
+                "emoji": "🦕",
+                "label": "Dinos"
+              }
+            ],
+            "unis": [
+              "UBA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "s-ambiente",
+        "emoji": "🌱",
+        "label": "Ambiente",
+        "children": [
+          {
+            "id": "s-ambientales",
+            "emoji": "🌿",
+            "label": "Ambientales",
+            "children": [
+              {
+                "id": "s-conservacion",
+                "emoji": "♻️",
+                "label": "Conservación",
                 "children": [
-                  {
-                    "id": "s-conservacion",
-                    "emoji": "♻️",
-                    "label": "Conservación"
-                  },
-                  {
-                    "id": "s-aguas",
-                    "emoji": "💧",
-                    "label": "Aguas"
-                  },
                   {
                     "id": "s-ecologia-amb",
                     "emoji": "🌳",
@@ -733,6 +560,9 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                   }
                 ]
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           }
         ]
@@ -743,70 +573,40 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Vida",
         "children": [
           {
-            "id": "s-organismos",
-            "emoji": "🔬",
-            "label": "Organismos",
+            "id": "s-biologia",
+            "emoji": "🦠",
+            "label": "Biología",
             "children": [
               {
-                "id": "s-biologia",
-                "emoji": "🦠",
-                "label": "Biología",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "s-neuro",
+                "emoji": "🧠",
+                "label": "Neuro",
                 "children": [
-                  {
-                    "id": "s-genetica",
-                    "emoji": "🧬",
-                    "label": "Genética"
-                  },
-                  {
-                    "id": "s-ecologia-bio",
-                    "emoji": "🌳",
-                    "label": "Ecología"
-                  },
-                  {
-                    "id": "s-neuro",
-                    "emoji": "🧠",
-                    "label": "Neuro"
-                  },
                   {
                     "id": "s-evolucion",
                     "emoji": "🦋",
                     "label": "Evolución"
                   }
                 ]
-              },
-              {
-                "id": "s-biotecnologia",
-                "emoji": "🧬",
-                "label": "Biotecnología",
-                "unis": [
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "s-farma-biotec",
-                    "emoji": "💊",
-                    "label": "Farma"
-                  },
-                  {
-                    "id": "s-agro-biotec",
-                    "emoji": "🌾",
-                    "label": "Agro"
-                  },
-                  {
-                    "id": "s-industrial-biotec",
-                    "emoji": "🏭",
-                    "label": "Industrial"
-                  },
-                  {
-                    "id": "s-medica-biotec",
-                    "emoji": "🧫",
-                    "label": "Médica"
-                  }
-                ]
               }
+            ],
+            "unis": [
+              "UBA"
+            ]
+          },
+          {
+            "id": "s-biotecnologia",
+            "emoji": "🧫",
+            "label": "Biotecnología",
+            "children": [
+              {
+                "id": "s-agro-biotec",
+                "emoji": "🌾",
+                "label": "Agro"
+              }
+            ],
+            "unis": [
+              "UNSAM"
             ]
           },
           {
@@ -818,50 +618,30 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                 "id": "s-farmacia",
                 "emoji": "💉",
                 "label": "Farmacia",
-                "unis": [
-                  "UBA"
-                ],
                 "children": [
-                  {
-                    "id": "s-farmacos",
-                    "emoji": "💊",
-                    "label": "Fármacos"
-                  },
-                  {
-                    "id": "s-industria-farm",
-                    "emoji": "🏭",
-                    "label": "Industria"
-                  },
                   {
                     "id": "s-cosmetica",
                     "emoji": "🧴",
                     "label": "Cosmética"
                   }
+                ],
+                "unis": [
+                  "UBA"
                 ]
               },
               {
                 "id": "s-bioquimica",
                 "emoji": "🩸",
                 "label": "Bioquímica",
-                "unis": [
-                  "UBA"
-                ],
                 "children": [
                   {
-                    "id": "s-molecular",
-                    "emoji": "🧬",
-                    "label": "Molecular"
-                  },
-                  {
                     "id": "s-clinica",
-                    "emoji": "🔬",
+                    "emoji": "🩺",
                     "label": "Clínica"
-                  },
-                  {
-                    "id": "s-alimentos-bioq",
-                    "emoji": "🍔",
-                    "label": "Alimentos"
                   }
+                ],
+                "unis": [
+                  "UBA"
                 ]
               }
             ]
@@ -877,37 +657,19 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
     "children": [
       {
         "id": "t-computo",
-        "emoji": "⚙️",
+        "emoji": "💻",
         "label": "Cómputo",
         "children": [
           {
-            "id": "t-teoria",
-            "emoji": "🧠",
-            "label": "Teoría",
+            "id": "t-computacion",
+            "emoji": "🖥️",
+            "label": "Computación",
             "children": [
               {
-                "id": "t-computacion",
-                "emoji": "💻",
-                "label": "Computación",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "t-algoritmos",
+                "emoji": "🧮",
+                "label": "Algoritmos",
                 "children": [
-                  {
-                    "id": "t-ia-comp",
-                    "emoji": "🤖",
-                    "label": "IA"
-                  },
-                  {
-                    "id": "t-algoritmos",
-                    "emoji": "🧮",
-                    "label": "Algoritmos"
-                  },
-                  {
-                    "id": "t-graficos",
-                    "emoji": "🎮",
-                    "label": "Gráficos"
-                  },
                   {
                     "id": "t-seguridad",
                     "emoji": "🔐",
@@ -915,232 +677,148 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
                   }
                 ]
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           },
           {
-            "id": "t-desarrollo",
-            "emoji": "🏗️",
-            "label": "Desarrollo",
+            "id": "t-software",
+            "emoji": "🧩",
+            "label": "Software",
             "children": [
               {
-                "id": "t-informatica",
-                "emoji": "🖥️",
-                "label": "Informática",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "t-apps",
+                "emoji": "📱",
+                "label": "Apps",
                 "children": [
-                  {
-                    "id": "t-redes",
-                    "emoji": "🌐",
-                    "label": "Redes"
-                  },
-                  {
-                    "id": "t-bases",
-                    "emoji": "🗄️",
-                    "label": "Bases"
-                  },
-                  {
-                    "id": "t-cloud",
-                    "emoji": "☁️",
-                    "label": "Cloud"
-                  },
-                  {
-                    "id": "t-ciberseguridad",
-                    "emoji": "🔐",
-                    "label": "Ciberseguridad"
-                  }
-                ]
-              },
-              {
-                "id": "t-software",
-                "emoji": "🧩",
-                "label": "Software",
-                "unis": [
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "t-apps",
-                    "emoji": "📱",
-                    "label": "Apps"
-                  },
-                  {
-                    "id": "t-web",
-                    "emoji": "🌐",
-                    "label": "Web"
-                  },
                   {
                     "id": "t-juegos",
                     "emoji": "🎮",
                     "label": "Juegos"
-                  },
-                  {
-                    "id": "t-backend",
-                    "emoji": "⚙️",
-                    "label": "Backend"
                   }
                 ]
               }
+            ],
+            "unis": [
+              "UNSAM"
             ]
           },
           {
-            "id": "t-gestion",
-            "emoji": "🗂️",
-            "label": "Gestión",
+            "id": "t-informatica",
+            "emoji": "🌐",
+            "label": "Informática",
             "children": [
               {
-                "id": "t-sistemas",
-                "emoji": "🔩",
-                "label": "Sistemas",
-                "unis": [
-                  "UTN"
-                ],
-                "children": [
-                  {
-                    "id": "t-empresarial",
-                    "emoji": "🏢",
-                    "label": "Empresarial"
-                  },
-                  {
-                    "id": "t-integracion",
-                    "emoji": "🔗",
-                    "label": "Integración"
-                  },
-                  {
-                    "id": "t-bi",
-                    "emoji": "📊",
-                    "label": "BI"
-                  }
-                ]
-              },
-              {
-                "id": "t-analisis",
-                "emoji": "🗃️",
-                "label": "Análisis",
-                "unis": [
-                  "UBA"
-                ],
-                "children": [
-                  {
-                    "id": "t-requerimientos",
-                    "emoji": "📋",
-                    "label": "Requerimientos"
-                  },
-                  {
-                    "id": "t-procesos-anal",
-                    "emoji": "🔄",
-                    "label": "Procesos"
-                  },
-                  {
-                    "id": "t-testing",
-                    "emoji": "🧪",
-                    "label": "Testing"
-                  }
-                ]
-              },
-              {
-                "id": "t-organizaciones",
-                "emoji": "🏢",
-                "label": "Organizaciones",
-                "unis": [
-                  "UBA-FCE"
-                ],
-                "children": [
-                  {
-                    "id": "t-gestion-org",
-                    "emoji": "📊",
-                    "label": "Gestión"
-                  },
-                  {
-                    "id": "t-procesos-org",
-                    "emoji": "🔄",
-                    "label": "Procesos"
-                  },
-                  {
-                    "id": "t-negocio-org",
-                    "emoji": "💼",
-                    "label": "Negocio"
-                  }
-                ]
+                "id": "t-cloud",
+                "emoji": "☁️",
+                "label": "Cloud"
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           }
         ]
       },
       {
-        "id": "t-informacion",
-        "emoji": "📡",
-        "label": "Información",
+        "id": "t-datos-cat",
+        "emoji": "🗄️",
+        "label": "Datos",
         "children": [
           {
-            "id": "t-ciencia",
-            "emoji": "🔬",
-            "label": "Ciencia",
+            "id": "t-datos",
+            "emoji": "🧠",
+            "label": "Ciencia de Datos",
             "children": [
               {
-                "id": "t-datos",
-                "emoji": "📊",
-                "label": "Datos",
-                "unis": [
-                  "UNSAM",
-                  "UBA"
-                ],
-                "children": [
-                  {
-                    "id": "t-ml",
-                    "emoji": "🤖",
-                    "label": "ML"
-                  },
-                  {
-                    "id": "t-estadistica",
-                    "emoji": "📈",
-                    "label": "Estadística"
-                  },
-                  {
-                    "id": "t-nlp",
-                    "emoji": "🗣️",
-                    "label": "NLP"
-                  },
-                  {
-                    "id": "t-vision",
-                    "emoji": "👁️",
-                    "label": "Visión"
-                  }
-                ]
+                "id": "t-vision",
+                "emoji": "👁️",
+                "label": "Visión"
+              },
+              {
+                "id": "t-nlp",
+                "emoji": "🗣️",
+                "label": "NLP"
               }
+            ],
+            "unis": [
+              "UNSAM",
+              "UBA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t-sistemas-cat",
+        "emoji": "🗂️",
+        "label": "Sistemas",
+        "children": [
+          {
+            "id": "t-sistemas",
+            "emoji": "🔩",
+            "label": "Sistemas",
+            "children": [
+              {
+                "id": "t-integracion",
+                "emoji": "🔗",
+                "label": "Integración"
+              }
+            ],
+            "unis": [
+              "UTN"
             ]
           },
           {
-            "id": "t-negocio",
-            "emoji": "📉",
-            "label": "Negocio",
+            "id": "t-analisis",
+            "emoji": "🗃️",
+            "label": "Análisis",
             "children": [
               {
-                "id": "t-analitica",
-                "emoji": "📈",
-                "label": "Analítica",
-                "unis": [
-                  "UBA-FCE"
-                ],
-                "children": [
-                  {
-                    "id": "t-visualizacion",
-                    "emoji": "📊",
-                    "label": "Visualización"
-                  },
-                  {
-                    "id": "t-marketing-anal",
-                    "emoji": "🎯",
-                    "label": "Marketing"
-                  },
-                  {
-                    "id": "t-negocio-anal",
-                    "emoji": "💼",
-                    "label": "Negocio"
-                  }
-                ]
+                "id": "t-testing",
+                "emoji": "🧪",
+                "label": "Testing"
               }
+            ],
+            "unis": [
+              "UBA"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t-negocio-cat",
+        "emoji": "💼",
+        "label": "Negocio",
+        "children": [
+          {
+            "id": "t-organizaciones",
+            "emoji": "🏢",
+            "label": "Organizaciones",
+            "children": [
+              {
+                "id": "t-estrategia",
+                "emoji": "🎯",
+                "label": "Estrategia"
+              }
+            ],
+            "unis": [
+              "UBA-FCE"
+            ]
+          },
+          {
+            "id": "t-analitica",
+            "emoji": "📈",
+            "label": "Analítica",
+            "children": [
+              {
+                "id": "t-visualizacion",
+                "emoji": "📊",
+                "label": "Visualización"
+              }
+            ],
+            "unis": [
+              "UBA-FCE"
             ]
           }
         ]
@@ -1158,122 +836,85 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Pura",
         "children": [
           {
-            "id": "m-fundamentos",
-            "emoji": "🧮",
-            "label": "Fundamentos",
+            "id": "m-matematica",
+            "emoji": "📐",
+            "label": "Matemática",
             "children": [
               {
-                "id": "m-matematica",
-                "emoji": "📐",
-                "label": "Matemática",
-                "unis": [
-                  "UBA"
-                ],
+                "id": "m-analisis",
+                "emoji": "∑",
+                "label": "Análisis"
+              },
+              {
+                "id": "m-topologia",
+                "emoji": "🌀",
+                "label": "Topología",
                 "children": [
                   {
-                    "id": "m-analisis",
-                    "emoji": "∑",
-                    "label": "Análisis"
-                  },
-                  {
-                    "id": "m-algebra",
-                    "emoji": "⬡",
-                    "label": "Álgebra"
-                  },
-                  {
-                    "id": "m-geometria",
-                    "emoji": "🔺",
-                    "label": "Geometría"
-                  },
-                  {
-                    "id": "m-topologia",
-                    "emoji": "🌀",
-                    "label": "Topología"
-                  },
-                  {
-                    "id": "m-logica",
-                    "emoji": "🔢",
-                    "label": "Lógica"
+                    "id": "m-nudos",
+                    "emoji": "🪢",
+                    "label": "Nudos"
                   }
                 ]
+              },
+              {
+                "id": "m-logica",
+                "emoji": "🔢",
+                "label": "Lógica"
               }
+            ],
+            "unis": [
+              "UBA"
             ]
           }
         ]
       },
       {
-        "id": "m-aplicada",
-        "emoji": "📊",
-        "label": "Aplicada",
+        "id": "m-probabilidad",
+        "emoji": "🎲",
+        "label": "Probabilidad",
         "children": [
           {
-            "id": "m-probabilidad",
-            "emoji": "🎲",
-            "label": "Probabilidad",
+            "id": "m-actuario",
+            "emoji": "💼",
+            "label": "Actuario",
             "children": [
               {
-                "id": "m-actuario",
-                "emoji": "💼",
-                "label": "Actuario",
-                "unis": [
-                  "UBA-FCE"
-                ],
-                "children": [
-                  {
-                    "id": "m-seguros",
-                    "emoji": "🛡️",
-                    "label": "Seguros"
-                  },
-                  {
-                    "id": "m-finanzas-act",
-                    "emoji": "💰",
-                    "label": "Finanzas"
-                  },
-                  {
-                    "id": "m-pensiones",
-                    "emoji": "👴",
-                    "label": "Pensiones"
-                  },
-                  {
-                    "id": "m-riesgo-act",
-                    "emoji": "📉",
-                    "label": "Riesgo"
-                  }
-                ]
+                "id": "m-finanzas-act",
+                "emoji": "💰",
+                "label": "Finanzas"
+              },
+              {
+                "id": "m-seguros",
+                "emoji": "🛡️",
+                "label": "Seguros"
               }
+            ],
+            "unis": [
+              "UBA-FCE"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "id": "m-modelos",
+        "emoji": "🤖",
+        "label": "Modelos",
+        "children": [
           {
-            "id": "m-modelos",
-            "emoji": "🤖",
-            "label": "Modelos",
+            "id": "m-datos",
+            "emoji": "📈",
+            "label": "Datos",
             "children": [
               {
-                "id": "m-datos",
-                "emoji": "📈",
-                "label": "Datos",
-                "unis": [
-                  "UBA",
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "m-ml",
-                    "emoji": "🤖",
-                    "label": "ML"
-                  },
-                  {
-                    "id": "m-estadistica",
-                    "emoji": "📊",
-                    "label": "Estadística"
-                  },
-                  {
-                    "id": "m-ia",
-                    "emoji": "🧠",
-                    "label": "IA"
-                  }
-                ]
+                "id": "m-ia",
+                "emoji": "🧠",
+                "label": "IA"
               }
+            ],
+            "unis": [
+              "UBA",
+              "UNSAM"
             ]
           }
         ]
@@ -1291,156 +932,116 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Economía",
         "children": [
           {
-            "id": "o-mercados",
-            "emoji": "📈",
-            "label": "Mercados",
+            "id": "o-economia-carrera",
+            "emoji": "💹",
+            "label": "Economía",
             "children": [
               {
-                "id": "o-economia-carrera",
-                "emoji": "💹",
-                "label": "Economía",
-                "unis": [
-                  "UBA",
-                  "UNSAM"
-                ],
+                "id": "o-internacional",
+                "emoji": "🌍",
+                "label": "Internacional",
                 "children": [
                   {
-                    "id": "o-macro",
-                    "emoji": "📊",
-                    "label": "Macro"
-                  },
-                  {
-                    "id": "o-micro",
-                    "emoji": "🔬",
-                    "label": "Micro"
-                  },
-                  {
-                    "id": "o-comportamiento",
-                    "emoji": "🧠",
-                    "label": "Comportamiento"
-                  },
-                  {
-                    "id": "o-internacional",
-                    "emoji": "🌍",
-                    "label": "Internacional"
+                    "id": "o-comercio",
+                    "emoji": "💱",
+                    "label": "Comercio"
                   }
                 ]
               },
               {
-                "id": "o-conocimiento",
-                "emoji": "🧠",
-                "label": "Conocimiento",
-                "unis": [
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "o-ia",
-                    "emoji": "🤖",
-                    "label": "IA"
-                  },
-                  {
-                    "id": "o-industria40",
-                    "emoji": "🏭",
-                    "label": "Industria 4.0"
-                  },
-                  {
-                    "id": "o-datos",
-                    "emoji": "📊",
-                    "label": "Datos"
-                  }
-                ]
+                "id": "o-macro",
+                "emoji": "📊",
+                "label": "Macro"
               }
+            ],
+            "unis": [
+              "UBA",
+              "UNSAM"
             ]
           },
           {
-            "id": "o-riesgo",
-            "emoji": "🎲",
-            "label": "Riesgo",
+            "id": "o-conocimiento",
+            "emoji": "🧠",
+            "label": "Conocimiento",
             "children": [
               {
-                "id": "o-actuario",
-                "emoji": "💼",
-                "label": "Actuario",
-                "unis": [
-                  "UBA-FCE"
-                ],
-                "children": [
-                  {
-                    "id": "o-seguros",
-                    "emoji": "🛡️",
-                    "label": "Seguros"
-                  },
-                  {
-                    "id": "o-finanzas-act",
-                    "emoji": "💰",
-                    "label": "Finanzas"
-                  },
-                  {
-                    "id": "o-riesgo-pasion",
-                    "emoji": "📉",
-                    "label": "Riesgo"
-                  }
-                ]
+                "id": "o-ia",
+                "emoji": "🤖",
+                "label": "IA"
               }
+            ],
+            "unis": [
+              "UNSAM"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "id": "o-riesgo",
+        "emoji": "🎲",
+        "label": "Riesgo",
+        "children": [
           {
-            "id": "o-agro",
-            "emoji": "🌾",
-            "label": "Agro",
+            "id": "o-actuario",
+            "emoji": "💼",
+            "label": "Actuario",
             "children": [
               {
-                "id": "o-agraria",
+                "id": "o-finanzas-act",
                 "emoji": "💵",
-                "label": "Agraria",
-                "unis": [
-                  "UBA-FAUBA"
-                ],
-                "children": [
-                  {
-                    "id": "o-produccion-agr",
-                    "emoji": "🌾",
-                    "label": "Producción"
-                  },
-                  {
-                    "id": "o-mercados-agr",
-                    "emoji": "📊",
-                    "label": "Mercados"
-                  },
-                  {
-                    "id": "o-tierras",
-                    "emoji": "🏞️",
-                    "label": "Tierras"
-                  }
-                ]
+                "label": "Finanzas"
               },
               {
-                "id": "o-agroalimentos",
-                "emoji": "🥖",
-                "label": "Agroalimentos",
-                "unis": [
-                  "UBA-FAUBA"
-                ],
-                "children": [
-                  {
-                    "id": "o-industria-agr",
-                    "emoji": "🏭",
-                    "label": "Industria"
-                  },
-                  {
-                    "id": "o-calidad-agr",
-                    "emoji": "🔬",
-                    "label": "Calidad"
-                  },
-                  {
-                    "id": "o-exportacion",
-                    "emoji": "🌍",
-                    "label": "Exportación"
-                  }
-                ]
+                "id": "o-seguros",
+                "emoji": "🛡️",
+                "label": "Seguros"
               }
+            ],
+            "unis": [
+              "UBA-FCE"
             ]
+          }
+        ]
+      },
+      {
+        "id": "o-agro",
+        "emoji": "🌾",
+        "label": "Agro",
+        "children": [
+          {
+            "id": "o-agraria",
+            "emoji": "🚜",
+            "label": "Agraria",
+            "children": [
+              {
+                "id": "o-tierras",
+                "emoji": "🏞️",
+                "label": "Tierras"
+              }
+            ],
+            "unis": [
+              "UBA-FAUBA"
+            ]
+          },
+          {
+            "id": "o-agroalimentos",
+            "emoji": "🥖",
+            "label": "Agroalimentos",
+            "children": [
+              {
+                "id": "o-industria-agr",
+                "emoji": "🏭",
+                "label": "Industria"
+              }
+            ],
+            "unis": [
+              "UBA-FAUBA"
+            ]
+          },
+          {
+            "id": "o-ganaderia",
+            "emoji": "🐄",
+            "label": "Ganadería"
           }
         ]
       },
@@ -1450,79 +1051,45 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
         "label": "Gestión",
         "children": [
           {
-            "id": "o-empresas",
-            "emoji": "📊",
-            "label": "Empresas",
+            "id": "o-administracion",
+            "emoji": "🗃️",
+            "label": "Administración",
             "children": [
               {
-                "id": "o-administracion",
-                "emoji": "🗃️",
-                "label": "Administración",
-                "unis": [
-                  "UBA",
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "o-marketing",
-                    "emoji": "📣",
-                    "label": "Marketing"
-                  },
-                  {
-                    "id": "o-finanzas-adm",
-                    "emoji": "💰",
-                    "label": "Finanzas"
-                  },
-                  {
-                    "id": "o-rrhh",
-                    "emoji": "👥",
-                    "label": "RRHH"
-                  },
-                  {
-                    "id": "o-estrategia",
-                    "emoji": "🎯",
-                    "label": "Estrategia"
-                  }
-                ]
+                "id": "o-estrategia",
+                "emoji": "🎯",
+                "label": "Estrategia"
+              },
+              {
+                "id": "o-marketing",
+                "emoji": "📣",
+                "label": "Marketing"
               }
+            ],
+            "unis": [
+              "UBA",
+              "UNSAM"
             ]
           },
           {
-            "id": "o-cuentas",
-            "emoji": "🧾",
-            "label": "Cuentas",
+            "id": "o-contador",
+            "emoji": "🧮",
+            "label": "Contador",
             "children": [
               {
-                "id": "o-contador",
-                "emoji": "🧮",
-                "label": "Contador",
-                "unis": [
-                  "UBA",
-                  "UNSAM"
-                ],
-                "children": [
-                  {
-                    "id": "o-auditoria",
-                    "emoji": "🔍",
-                    "label": "Auditoría"
-                  },
-                  {
-                    "id": "o-impuestos",
-                    "emoji": "🧾",
-                    "label": "Impuestos"
-                  },
-                  {
-                    "id": "o-costos",
-                    "emoji": "📊",
-                    "label": "Costos"
-                  },
-                  {
-                    "id": "o-gestion-cont",
-                    "emoji": "💼",
-                    "label": "Gestión"
-                  }
-                ]
+                "id": "o-auditoria",
+                "emoji": "🔍",
+                "label": "Auditoría"
+              },
+              {
+                "id": "o-impuestos",
+                "emoji": "🧾",
+                "label": "Impuestos"
               }
+            ],
+            "unis": [
+              "UBA",
+              "UNSAM"
             ]
           }
         ]

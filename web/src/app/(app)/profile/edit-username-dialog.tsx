@@ -57,7 +57,7 @@ export function EditUsernameDialog({
     <Dialog open={open} onOpenChange={reset}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-sans">Cambiar usuario</DialogTitle>
+          <DialogTitle className="font-sans">Usuario</DialogTitle>
           <DialogDescription>
             Tu nombre de usuario aparece en el ranking. Minúsculas, números, punto
             y guion bajo.

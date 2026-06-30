@@ -180,7 +180,11 @@ export function EmojiTreeScreen() {
 
       {!isLoading && root && layout && (
         <div ref={scrollRef} className="flex-1 overflow-auto">
-          <div className="relative" style={{ width, height }}>
+          {/* Centra el árbol en el eje donde entra en pantalla; en el eje que
+              se desborda queda al ras y scrollea (w-max/min-w-full hacen que el
+              wrapper mida max(ancho_arbol, viewport)). */}
+          <div className="flex w-max min-w-full min-h-full items-center justify-center">
+            <div className="relative shrink-0" style={{ width, height }}>
             {/* Conectores en ángulo recto (estilo Minecraft), sin diagonales. */}
             <svg
               className="absolute inset-0"
@@ -220,6 +224,7 @@ export function EmojiTreeScreen() {
                 onClick={() => setFocusedId(n.node.id)}
               />
             ))}
+            </div>
           </div>
         </div>
       )}
@@ -371,7 +376,7 @@ function ConfirmDialog({
     <Dialog open={!!node} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="sm:max-w-xs">
         <DialogHeader>
-          <DialogTitle>Desbloquear {node?.node.label}</DialogTitle>
+          <DialogTitle className="font-sans">{node?.node.label}</DialogTitle>
           <DialogDescription>
             Esta elección es definitiva: las otras ramas de este cruce quedan
             bloqueadas para siempre.
