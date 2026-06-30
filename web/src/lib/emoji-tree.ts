@@ -47,9 +47,12 @@ export type TreeLayout = {
   height: number
 }
 
-const COL_W = 96 // separación horizontal entre niveles
-const ROW_H = 64 // separación vertical entre hojas
-const MARGIN = 48
+// Separaciones entre centros de nodos. Compactas (estilo Minecraft): el tile
+// mide 44px, así que con COL_W=60 el hueco horizontal queda en ~16px y con
+// ROW_H=54 el vertical en ~10px.
+const COL_W = 60 // separación horizontal entre niveles
+const ROW_H = 54 // separación vertical entre hojas
+const MARGIN = 32
 
 export function layoutTree(root: EmojiNode): TreeLayout {
   type Tmp = {
