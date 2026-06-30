@@ -1463,6 +1463,11 @@
               }
             ],
             "title": "Emoji"
+          },
+          "belt": {
+            "type": "string",
+            "title": "Belt",
+            "default": "white"
           }
         },
         "type": "object",

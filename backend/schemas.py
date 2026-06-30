@@ -140,6 +140,7 @@ class LeaderboardEntry(BaseModel):
     career: str | None = None
     university: str | None = None
     emoji: str | None = None  # emoji vestido; None → el front cae al de bucket
+    belt: str = "white"  # máximo cinturón desbloqueado (en cualquier curso)
 
 
 class LeaderboardMe(BaseModel):

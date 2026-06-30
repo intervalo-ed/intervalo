@@ -26,7 +26,7 @@ from auth import (
     get_or_create_user_from_clerk,
     verify_clerk_token,
 )
-from models import User, BeltInfo, Enrollment, Answer
+from models import User, BeltInfo, Enrollment, Answer, UnitState
 from sqlalchemy import func
 from schemas import (
     AnswerResponse,
@@ -498,6 +498,11 @@ def internal_prune_push(
 # Filas a cada lado del usuario en la ventana centrada (`around_me`).
 AROUND_WINDOW = 30
 
+# Orden de cinturones para calcular el máximo del usuario. Una fila UnitState
+# existe sólo cuando el cinturón está desbloqueado, así que el cinturón con
+# mayor rank entre las filas del usuario es su máximo (en cualquier curso).
+BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
+
 
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
@@ -536,6 +541,13 @@ def get_leaderboard(
     exercises_by_user = dict(
         db.query(Answer.user_id, func.count(Answer.id)).group_by(Answer.user_id).all()
     )
+
+    # Máximo cinturón desbloqueado por usuario (en cualquier curso): el de mayor
+    # rank entre las filas UnitState. Por defecto, blanco.
+    max_belt_by_user: dict[int, str] = {}
+    for uid, belt in db.query(UnitState.user_id, UnitState.belt).distinct().all():
+        if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
+            max_belt_by_user[uid] = belt
 
     def uni_of(user: User) -> str | None:
         e = enrollments.get(user.id)
@@ -593,6 +605,7 @@ def get_leaderboard(
             career=enrollments[user.id].career if user.id in enrollments else None,
             university=uni_of(user),
             emoji=emoji_tree.emoji_for(user.emoji_worn),
+            belt=max_belt_by_user.get(user.id, "white"),
         )
         for index, user in enumerate(page)
     ]

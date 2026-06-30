@@ -573,6 +573,11 @@ export interface components {
             university?: string | null;
             /** Emoji */
             emoji?: string | null;
+            /**
+             * Belt
+             * @default white
+             */
+            belt: string;
         };
         /** LeaderboardMe */
         LeaderboardMe: {
