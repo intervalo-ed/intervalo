@@ -5,6 +5,7 @@ import { PencilIcon } from "lucide-react"
 import { useMe } from "@/app/UseMe"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { findNode } from "@/lib/emoji-tree"
+import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
 import { cn } from "@/lib/utils"
 import { useEmojiState } from "./UseEmojiState"
 
@@ -40,6 +41,7 @@ export function ProfileHeaderCard({
 }) {
   const { data: me } = useMe()
   const { data: emoji } = useEmojiState()
+  const badgesAvailable = useBadgesAvailable()
 
   const apodo = me?.display_name || "Apodo"
   const username = me?.username || "usuario"
@@ -79,6 +81,12 @@ export function ProfileHeaderCard({
         )}
       >
         {badge}
+        {badgesAvailable && (
+          <span
+            aria-hidden
+            className="absolute left-1 top-1 size-2.5 rounded-full bg-primary ring-2 ring-background"
+          />
+        )}
         <PencilIcon className="absolute bottom-1 right-1 size-3 text-primary/80 transition-colors group-hover:text-primary" />
       </Link>
     </div>

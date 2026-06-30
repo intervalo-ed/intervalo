@@ -21,6 +21,7 @@ import {
 import { Spinner } from "@/components/ui/spinner"
 import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
+import { setRankingNews } from "@/lib/nav/ranking-news"
 import {
   BELT_HEX,
   BELT_ORDER,
@@ -104,6 +105,7 @@ export default function ZenConfig() {
   function onStart() {
     if (!canStart) return
     sfx.start()
+    setRankingNews(true)
     startZen.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",

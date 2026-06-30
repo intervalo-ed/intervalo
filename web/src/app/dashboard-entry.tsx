@@ -23,6 +23,7 @@ import {
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { useSfx } from "@/lib/audio/useSfx"
+import { setRankingNews } from "@/lib/nav/ranking-news"
 import { cn } from "@/lib/utils"
 import type { components } from "@/lib/api/schema"
 import {
@@ -116,6 +117,7 @@ export default function DashboardEntry() {
 
   function onRepasar() {
     sfx.start()
+    setRankingNews(true)
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "" },
       {

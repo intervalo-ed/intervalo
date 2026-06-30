@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
+import { setRankingNews } from "@/lib/nav/ranking-news"
 import { BELT_HEX } from "@/lib/catalog"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
@@ -70,6 +71,11 @@ export function LeaderboardContent() {
   const didCenterRef = useRef(false)
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
+
+  // Al entrar al ranking se apaga el puntito de novedad de la tab bar.
+  useEffect(() => {
+    setRankingNews(false)
+  }, [])
 
   // Filas cargadas (todas las páginas, en orden). El rank ya viene del backend,
   // calculado sobre el set completo del scope.
