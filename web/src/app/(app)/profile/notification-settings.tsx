@@ -16,7 +16,8 @@ import {
   unsubscribeFromPush,
 } from "@/lib/push/register"
 import { queryKeys } from "@/lib/query/keys"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useNotificationSettingsQuery } from "./UseNotificationSettings"
 import { BellIcon, BellOffIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -51,14 +52,7 @@ export function NotificationSettings() {
     setIsIOS(detectIOS())
   }, [])
 
-  const settings = useQuery({
-    queryKey: queryKeys.notificationSettings(),
-    queryFn: async () => {
-      const { data, error } = await api.GET("/user/notification-settings")
-      if (error) throw error
-      return data
-    },
-  })
+  const settings = useNotificationSettingsQuery()
 
   useEffect(() => {
     if (settings.data?.time) setTime(settings.data.time)
