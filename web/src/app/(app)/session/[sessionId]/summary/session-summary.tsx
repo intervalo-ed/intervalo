@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 import { BELT_VIVID_COLORS } from "@/lib/catalog"
 import { queryKeys } from "@/lib/query/keys"
 import { clearSession } from "@/lib/session/storage"
+import { setRankingNews } from "@/lib/nav/ranking-news"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import { useSummary } from "./UseSummary"
 
@@ -66,6 +67,8 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   useEffect(() => {
     if (!data) return
     clearSession({ id: sessionId })
+    // Terminó la sesión → cambió tu XP/posición: reaparece el puntito del ranking.
+    setRankingNews(true)
     qc.invalidateQueries({
       queryKey: queryKeys.userProgress(),
       refetchType: "all",

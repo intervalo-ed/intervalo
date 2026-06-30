@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
+import { RankingNewsOnEntry } from "./ranking-news-entry"
 
 export default async function AppLayout({
   children,
@@ -23,5 +24,10 @@ export default async function AppLayout({
     // Si el backend no responde, deja pasar
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <RankingNewsOnEntry />
+      {children}
+    </>
+  )
 }
