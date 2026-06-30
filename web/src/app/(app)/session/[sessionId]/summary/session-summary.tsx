@@ -25,11 +25,9 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   const router = useRouter()
   const sfx = useSfx()
   const tick = useTick() // reloj — conteo de XP y de ejercicios (mismo sonido)
-  // Si no se respondió ningún ejercicio bien, el resumen no suena (ni `end` ni
-  // los ticks de los conteos).
+  // Si no se respondió ningún ejercicio bien, los conteos no hacen tick (sí
+  // suena el `end`).
   const noCorrect = data ? data.first_try_correct === 0 : false
-  const noCorrectRef = useRef(noCorrect)
-  noCorrectRef.current = noCorrect
   const [showCards, setShowCards] = useState(false)
   const [showRight, setShowRight] = useState(false)
   const [showButton, setShowButton] = useState(false)
@@ -45,7 +43,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   useEffect(() => {
     const t1 = setTimeout(() => {
       setShowBall(true)
-      if (!noCorrectRef.current) sfxRef.current.end()
+      sfxRef.current.end()
     }, 1000)
     const t2 = setTimeout(() => setExploded(true), 1800)
     return () => {
@@ -142,7 +140,10 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                         variant="steps"
                         value={data.xp_earned}
                         duration={1300}
-                        steps={7}
+                        // Menos ticks cuando hay poca XP: <6 → 3, <12 → 4, resto 7.
+                        steps={
+                          data.xp_earned < 6 ? 3 : data.xp_earned < 12 ? 4 : 7
+                        }
                         // Saltos que arrancan lentos y se aceleran (estirados):
                         // cada salto dispara un tick del reloj con pitch
                         // ascendente, sincronizado con el número que sube.
