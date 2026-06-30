@@ -371,7 +371,7 @@ function ConfirmDialog({
     <Dialog open={!!node} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="sm:max-w-xs">
         <DialogHeader>
-          <DialogTitle>Desbloquear {node?.node.label}</DialogTitle>
+          <DialogTitle className="font-sans">{node?.node.label}</DialogTitle>
           <DialogDescription>
             Esta elección es definitiva: las otras ramas de este cruce quedan
             bloqueadas para siempre.
