@@ -261,7 +261,7 @@ export function LeaderboardContent() {
           centrado y agrega filas al llegar arriba o abajo (scroll infinito). */}
       <div
         ref={scrollRef}
-        className="relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+        className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
       >
         {hasPreviousPage && (
           <div ref={topSentinelRef} aria-hidden className="h-px" />

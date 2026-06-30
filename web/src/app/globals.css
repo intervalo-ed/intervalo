@@ -179,6 +179,15 @@
   }
 }
 
+/* Oculta la barra de scroll (sigue scrolleando). Para listas donde la barra
+   molesta visualmente, como el ranking. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Gráficos (mafs): fondo blanco + grilla gris. Las variables de mafs se definen
    sobre .MafsView, así que hay que overridearlas al mismo nivel. */
 .math-graph .MafsView {
