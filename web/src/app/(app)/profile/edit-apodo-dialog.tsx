@@ -53,7 +53,7 @@ export function EditApodoDialog({
     <Dialog open={open} onOpenChange={reset}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-sans">Cambiar apodo</DialogTitle>
+          <DialogTitle className="font-sans">Apodo</DialogTitle>
           <DialogDescription>
             Cómo te llamamos en notificaciones y mensajes.
           </DialogDescription>
