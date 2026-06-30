@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-import { CAREER_EMOJI } from "@/lib/career-emoji"
+import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 
@@ -281,9 +281,15 @@ export function LeaderboardContent() {
                 </span>
                 {(() => {
                   // El emoji vestido (entry.emoji) reemplaza al de bucket; si no
-                  // eligió ninguno, cae al emoji del bucket de carrera.
-                  const emoji =
+                  // eligió ninguno, cae al emoji del bucket de carrera. La corona
+                  // pisa el icono por defecto para el usuario coronado.
+                  const resolved =
                     entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
+                  const emoji = badgeWithCrown({
+                    username: entry.username,
+                    resolved,
+                    career: entry.career,
+                  })
                   return (
                     emoji && (
                       <span className="shrink-0 text-sm leading-none">{emoji}</span>
