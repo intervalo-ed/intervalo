@@ -2,12 +2,15 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useMe } from "@/app/UseMe"
 import { ProfileHeaderCard } from "./profile-header-card"
 import { EditUsernameDialog } from "./edit-username-dialog"
 import { EditApodoDialog } from "./edit-apodo-dialog"
 import { NotificationSettings } from "./notification-settings"
+import { useEmojiState } from "./UseEmojiState"
+import { useNotificationSettingsQuery } from "./UseNotificationSettings"
 import { SignOutButton } from "@clerk/nextjs"
 import Link from "next/link"
 import {
@@ -23,9 +26,22 @@ const signOutCls =
 
 export function ProfileContent() {
   const muted = useSoundMuted()
-  const { data: me } = useMe()
+  const me = useMe()
+  const emoji = useEmojiState()
+  const notif = useNotificationSettingsQuery()
   const [usernameOpen, setUsernameOpen] = useState(false)
   const [apodoOpen, setApodoOpen] = useState(false)
+
+  // El perfil se muestra entero recién con todos los datos cargados (apodo,
+  // usuario, badge y notificaciones), para no mostrar la tarjeta genérica con
+  // placeholders durante el medio segundo de carga al entrar.
+  if (me.isPending || emoji.isPending || notif.isPending) {
+    return (
+      <div className="flex flex-1 items-center justify-center py-10">
+        <Spinner />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-3">
@@ -72,12 +88,12 @@ export function ProfileContent() {
       <EditUsernameDialog
         open={usernameOpen}
         onOpenChange={setUsernameOpen}
-        current={me?.username ?? ""}
+        current={me.data?.username ?? ""}
       />
       <EditApodoDialog
         open={apodoOpen}
         onOpenChange={setApodoOpen}
-        current={me?.display_name ?? ""}
+        current={me.data?.display_name ?? ""}
       />
     </div>
   )
