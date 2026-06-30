@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { PencilIcon } from "lucide-react"
 import { useMe } from "@/app/UseMe"
-import { CAREER_EMOJI } from "@/lib/career-emoji"
+import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { findNode } from "@/lib/emoji-tree"
 import { cn } from "@/lib/utils"
 import { useEmojiState } from "./UseEmojiState"
@@ -43,10 +43,15 @@ export function ProfileHeaderCard({
 
   const apodo = me?.display_name || "Apodo"
   const username = me?.username || "usuario"
-  const badge =
+  const resolvedBadge =
     findNode(emoji?.bucket, emoji?.worn)?.emoji ??
-    (emoji?.bucket ? CAREER_EMOJI[emoji.bucket] : undefined) ??
-    "✦"
+    (emoji?.bucket ? CAREER_EMOJI[emoji.bucket] : undefined)
+  const badge =
+    badgeWithCrown({
+      username: me?.username,
+      resolved: resolvedBadge,
+      career: emoji?.bucket,
+    }) ?? "✦"
 
   return (
     <div className={cn("flex items-center gap-3 px-4 py-2.5", surfaceCls)}>
