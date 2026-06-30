@@ -14,8 +14,18 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
+import { BELT_HEX } from "@/lib/catalog"
 import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
+
+// Color del nombre según el máximo cinturón del usuario (mismo color que los
+// títulos de unidad en el inicio: variante onDark). Blanco para sin cinturón.
+const BELT_TEXT: Record<string, string> = {
+  white: BELT_HEX.white.onDark,
+  blue: BELT_HEX.blue.onDark,
+  violet: BELT_HEX.violet.onDark,
+  brown: BELT_HEX.brown.onDark,
+}
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
@@ -276,7 +286,10 @@ export function LeaderboardContent() {
                 {entry.rank}
               </span>
               <span className="flex min-w-0 flex-1 items-center gap-1.5">
-                <span className="truncate text-sm font-medium">
+                <span
+                  className="truncate text-sm font-medium"
+                  style={{ color: BELT_TEXT[entry.belt] }}
+                >
                   {entry.username ?? entry.name}
                 </span>
                 {(() => {
