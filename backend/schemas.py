@@ -162,7 +162,7 @@ class SessionExercise(BaseModel):
     graph_fn: str
     graph_view: list[Any] | None = None
     feedback_correct: str
-    feedback_incorrect: str
+    feedback_incorrect: str | list[str | None]
     explanation: str | None = None
 
 

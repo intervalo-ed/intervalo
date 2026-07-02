@@ -1,0 +1,222 @@
+[
+  {
+    "question": "Observá la gráfica de $f(x)=x^2-2x$. ¿En qué valor de $x$ la recta tangente es horizontal?",
+    "options": [
+      "$x = 1$",
+      "$x = 0$",
+      "$x = 2$",
+      "$x = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El vértice de la parábola está en $x=1$, donde $f'(1)=0$.",
+    "feedback_incorrect": "La tangente horizontal corresponde al vértice de la parábola. Completando el cuadrado: $f(x)=(x-1)^2-1$, vértice en $x=1$.",
+    "graph_fn": "x**2 - 2*x",
+    "graph_view": [
+      -2,
+      5,
+      -3,
+      5
+    ],
+    "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^2 - 2x$:\n\n$$f'(x) = 2x - 2 = 0 \\Rightarrow x = 1$$\n\nEn $x=1$, $f(1) = 1 - 2 = -1$: ese es el **vértice** de la parábola. Geométricamente, en el vértice la curva cambia de sentido y la tangente queda perfectamente horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^2$. ¿Cuál es la pendiente de la recta tangente en $x=2$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$1$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x$, entonces $f'(2)=4$.",
+    "feedback_incorrect": "La derivada de $x^2$ es $2x$. En $x=2$: pendiente $= 2(2) = 4$.",
+    "graph_fn": "x**2",
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      8
+    ],
+    "explanation": "Para $f(x) = x^2$, la derivada es $f'(x) = 2x$.\n\nEn $x = 2$: $f'(2) = 2 \\times 2 = 4$.\n\nEsto significa que la tangente en $(2, 4)$ tiene pendiente $4$: por cada unidad que avanza a la derecha, sube $4$ unidades. La parábola se va haciendo más empinada a medida que $|x|$ crece.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿Cuántos puntos de la curva tienen tangente horizontal?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$2$",
+      "$3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=3x^2-3=0$ tiene dos soluciones: $x=-1$ y $x=1$.",
+    "feedback_incorrect": "Igualá $f'(x)=3x^2-3=0$: $x^2=1$, $x=\\pm 1$. Hay dos puntos con tangente horizontal.",
+    "graph_fn": "x**3 - 3*x",
+    "graph_view": [
+      -3,
+      3,
+      -4,
+      4
+    ],
+    "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^3 - 3x$:\n\n$$f'(x) = 3x^2 - 3 = 3(x^2-1) = 3(x-1)(x+1) = 0$$\n\nSoluciones: $x = 1$ y $x = -1$. En $x=1$: mínimo local ($f(1)=-2$). En $x=-1$: máximo local ($f(-1)=2$). **Dos** tangentes horizontales.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=-(x-2)^2+4$. ¿Cuánto vale $f'$ en el punto más alto de la curva?",
+    "options": [
+      "$-2$",
+      "$4$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "En el máximo la tangente es horizontal, así que $f'=0$ allí.",
+    "feedback_incorrect": "En cualquier máximo o mínimo de una función diferenciable, la tangente es horizontal y $f'=0$.",
+    "graph_fn": "-(x-2)**2 + 4",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      6
+    ],
+    "explanation": "El punto más alto de $f(x) = -(x-2)^2 + 4$ es el vértice, en $x=2$, $f(2)=4$.\n\nLa derivada es $f'(x) = -2(x-2)$, entonces $f'(2) = 0$.\n\nEn un **máximo local**, la función deja de crecer y empieza a decrecer: en ese instante la tangente es horizontal y $f'=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^2-4$. ¿En qué valor de $x$ la tangente tiene pendiente $0$?",
+    "options": [
+      "$x = 0$",
+      "$x = 2$",
+      "$x = -2$",
+      "$x = 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x=0$ en $x=0$.",
+    "feedback_incorrect": "$f'(x) = 2x = 0$ se anula en $x=0$. En $x=\\pm 2$ la función vale $0$ pero la pendiente no es $0$.",
+    "graph_fn": "x**2 - 4",
+    "graph_view": [
+      -4,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "Para $f(x) = x^2 - 4$:\n\n$$f'(x) = 2x = 0 \\Rightarrow x = 0$$\n\nEl vértice de la parábola está en $x=0$, $f(0)=-4$. Ahí la tangente es horizontal.\n\nCuidado: $x=\\pm 2$ son los ceros de $f$ (donde la curva cruza el eje $x$), no donde la tangente es horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En cuál de estos intervalos es $f'(x)>0$?",
+    "options": [
+      "$-1 < x < 1$",
+      "$x < -1$ y $x > 1$",
+      "$x > 0$",
+      "$x < 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=3(x-1)(x+1)>0$ fuera del intervalo $(-1,1)$.",
+    "feedback_incorrect": "$f'(x) = 3x^2-3 = 3(x-1)(x+1)$. Analizá el signo: es positivo cuando $x<-1$ o $x>1$.",
+    "graph_fn": "x**3 - 3*x",
+    "graph_view": [
+      -3,
+      3,
+      -4,
+      4
+    ],
+    "explanation": "$f'(x) = 3x^2 - 3 = 3(x+1)(x-1)$.\n\nAnálisis de signo:\n- $x < -1$: $(x+1)<0$, $(x-1)<0$ → producto positivo → $f'>0$ ✓\n- $-1 < x < 1$: $(x+1)>0$, $(x-1)<0$ → producto negativo → $f'<0$\n- $x > 1$: ambos positivos → $f'>0$ ✓\n\nLa función **crece** fuera de $(-1, 1)$ y **decrece** dentro.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^2-2x$. ¿En qué intervalo es $f$ decreciente?",
+    "options": [
+      "$x < 0$",
+      "$x > 1$",
+      "$x < 1$",
+      "$x > 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x-2<0$ para $x<1$, así que $f$ decrece en ese intervalo.",
+    "feedback_incorrect": "$f'(x) = 2x-2 < 0 \\Leftrightarrow x < 1$. La parábola baja hasta su vértice en $x=1$.",
+    "graph_fn": "x**2 - 2*x",
+    "graph_view": [
+      -2,
+      5,
+      -3,
+      5
+    ],
+    "explanation": "$f'(x) = 2x - 2$.\n\n- $f'(x) < 0 \\Leftrightarrow 2x - 2 < 0 \\Leftrightarrow x < 1$ → $f$ es **decreciente** en $(-\\infty, 1)$.\n- $f'(x) > 0 \\Leftrightarrow x > 1$ → $f$ es **creciente** en $(1, +\\infty)$.\n\nEl vértice en $x=1$ es el mínimo: la parábola baja hasta allí y luego sube.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=-(x-1)^2+3$. ¿Cuál es la pendiente de la tangente en $x=0$?",
+    "options": [
+      "$3$",
+      "$-2$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=-2(x-1)$, entonces $f'(0)=-2(-1)=2$.",
+    "feedback_incorrect": "$f'(x) = -2(x-1)$. En $x=0$: $f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$.",
+    "graph_fn": "-(x-1)**2 + 3",
+    "graph_view": [
+      -2,
+      4,
+      -1,
+      5
+    ],
+    "explanation": "Derivando $f(x) = -(x-1)^2 + 3$:\n\n$$f'(x) = -2(x-1)$$\n\nEn $x = 0$:\n$$f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$$\n\nLa tangente en $x=0$ sube (pendiente positiva): estamos a la izquierda del vértice $x=1$, donde la parábola invertida todavía está creciendo.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^2$. ¿Cuál es la ecuación de la recta tangente en $x=-1$?",
+    "options": [
+      "$y = -2x - 1$",
+      "$y = 2x + 1$",
+      "$y = -x - 2$",
+      "$y = -2x + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(-1)=1$, $f'(-1)=-2$, entonces $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
+    "feedback_incorrect": "Con $f(-1)=1$ y $f'(x)=2x \\Rightarrow f'(-1)=-2$: $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
+    "graph_fn": "x**2",
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      8
+    ],
+    "explanation": "1. **Punto:** $f(-1) = (-1)^2 = 1$ → $(-1, 1)$.\n2. **Pendiente:** $f'(x) = 2x$, entonces $f'(-1) = -2$.\n3. **Tangente:** $y - 1 = -2(x - (-1)) = -2(x+1)$\n$$y = -2x - 2 + 1 = -2x - 1$$\n\nPendiente negativa en $x=-1$: la parábola todavía está bajando hacia su vértice en $x=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En qué intervalo la tangente tiene pendiente negativa?",
+    "options": [
+      "$x < -1$",
+      "$-1 < x < 1$",
+      "$x > 1$",
+      "$x < 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=3x^2-3<0$ exactamente cuando $-1<x<1$.",
+    "feedback_incorrect": "$f'(x) = 3x^2-3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$.",
+    "graph_fn": "x**3 - 3*x",
+    "graph_view": [
+      -3,
+      3,
+      -4,
+      4
+    ],
+    "explanation": "La pendiente de la tangente es negativa cuando $f'(x) < 0$.\n\n$$f'(x) = 3x^2 - 3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$$\n\nEn ese intervalo la función **decrece**: va desde el máximo local en $x=-1$ hasta el mínimo local en $x=1$. Geométricamente, las tangentes tienen pendiente negativa en toda esa región.",
+    "reviewed": false
+  }
+]

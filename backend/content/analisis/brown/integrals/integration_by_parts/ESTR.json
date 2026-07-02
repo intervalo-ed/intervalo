@@ -1,0 +1,70 @@
+[
+  {
+    "question": "Al integrar $\\int x^2 \\ln(x) \\, dx$ por partes, ¿cuál es la mejor elección para $u$ según la regla LIATE?",
+    "options": [
+      "$u = x^2$",
+      "$u = \\ln(x)$",
+      "$u = dx$",
+      "$u = x^3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Las funciones logarítmicas tienen prioridad sobre las algebraicas ($x^n$).",
+    "feedback_incorrect": "Recordá la prioridad LIATE: Logarítmicas van antes que Algebraicas ($x^2$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La estrategia **LIATE** nos ayuda a elegir $u$ siguiendo un orden de prioridad: Logarítmicas, Inversas trigonométricas, Algebraicas, Trigonométricas y Exponenciales.\n\nEn la integral $\\int x^2 \\ln(x) \\, dx$, tenés una función algebraica ($x^2$) y una logarítmica ($\\ln(x)$). Como la **L** está antes que la **A** en la sigla, elegimos:\n\n$$u = \\ln(x) \\implies du = \\frac{1}{x} dx$$\n\nEsto facilita el cálculo porque la derivada del logaritmo simplifica el grado de la expresión algebraica en el siguiente paso de la integral.",
+    "reviewed": false
+  },
+  {
+    "question": "Si al aplicar integración por partes llegás a una integral $\\int v \\, du$ que es más compleja que la original, ¿qué deberías intentar?",
+    "options": [
+      "Continuar derivando $u$ hasta que desaparezca",
+      "Intercambiar la elección de $u$ y $dv$",
+      "Usar una sustitución lineal en $v$",
+      "Multiplicar toda la expresión por $x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una mala elección de partes suele complicar la integral en lugar de simplificarla.",
+    "feedback_incorrect": "Si la integral se vuelve más difícil, lo más probable es que hayas elegido mal $u$ y $dv$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El objetivo de la **integración por partes** es transformar una integral difícil en una más sencilla. La clave está en la elección de $u$ y $dv$.\n\nSi elegís, por ejemplo, $u = \\sin(x)$ y $dv = x \\, dx$ para integrar $x \\sin(x)$, vas a obtener una integral con $x^2 \\cos(x)$, lo cual es claramente más complejo. En esos casos, debés **remediar la elección**:\n\nAsigná a $u$ la función que se simplifica al derivar (generalmente la potencia de $x$) y a $dv$ la que no se complica al integrar (como $e^x$ o $\\sin(x)$).",
+    "reviewed": false
+  },
+  {
+    "question": "Al resolver $\\int x^2 e^x \\, dx$, ¿cuántas veces es necesario aplicar el método de integración por partes?",
+    "options": [
+      "Una sola vez",
+      "Dos veces",
+      "Tres veces",
+      "No se puede resolver por partes"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cada aplicación reduce el grado de $x^n$ en una unidad.",
+    "feedback_incorrect": "Como tenés un $x^2$, la primera aplicación te dejará una integral con $x$. Necesitás otra más.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando tenés una potencia natural de $x$ multiplicada por una exponencial o trigonométrica, cada aplicación de integración por partes **reduce el exponente** de $x$ en uno.\n\n1. En la primera vuelta de $\\int x^2 e^x \\, dx$, con $u=x^2$, obtenés un término con $\\int 2x e^x \\, dx$.\n2. En la segunda vuelta, con $u=2x$, obtenés finalmente $\\int 2 e^x \\, dx$, que es directa.\n\nEn general, para $\\int x^n e^x \\, dx$, vas a necesitar aplicar el método $n$ veces.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la fórmula correcta de integración por partes?",
+    "options": [
+      "$\\int u \\, dv = uv - \\int v \\, du$",
+      "$\\int u \\, dv = u'v - uv'$",
+      "$\\int u \\, dv = uv + \\int v \\, du$",
+      "$\\int u \\, dv = \\frac{u}{v} - \\int u \\, du$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Es la versión integral de la regla del producto de derivadas.",
+    "feedback_incorrect": "La fórmula estándar es $uv - \\int v \\, du$. No confundas el signo menos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La fórmula de **integración por partes** proviene de integrar ambos lados de la regla del producto para derivadas:\n\n$$\\frac{d}{dx}(uv) = u \\frac{dv}{dx} + v \\frac{du}{dx}$$\n\nAl integrar respecto a $x$ y reordenar los términos, obtenemos la herramienta que nos permite atacar productos de funciones de distinta naturaleza:\n\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nUna regla mnemotécnica muy usada en Argentina es: \"**U**n **V**iaje **S**in **R**obo **D**e **V**isado\" o similares para recordar el orden de los elementos.",
+    "reviewed": false
+  }
+]

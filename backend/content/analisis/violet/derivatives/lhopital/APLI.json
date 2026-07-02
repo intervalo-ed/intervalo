@@ -1,0 +1,36 @@
+[
+  {
+    "question": "Se estudia el crecimiento de una población $P(t) = \\dfrac{500t}{e^{0.1t}}$. ¿A qué valor tiende la población cuando el tiempo $t$ tiende a infinito?",
+    "options": [
+      "$500$",
+      "$\\infty$",
+      "$0$",
+      "$50$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por L'Hôpital, la derivada del denominador crece más rápido, llevando el límite a 0.",
+    "feedback_incorrect": "Es un límite $\\infty/\\infty$. Al derivar arriba te queda 500 y abajo una exponencial que sigue creciendo; el cociente va a 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para analizar el comportamiento a largo plazo, calculamos $\\lim_{t \\to \\infty} P(t)$. Como tenemos la forma $\\frac{\\infty}{\\infty}$, aplicamos **L'Hôpital**:\n\n$$\\lim_{t \\to \\infty} \\frac{500}{0.1 e^{0.1t}}$$\n\nEn esta nueva expresión, el numerador es constante ($500$) mientras que el denominador sigue tendiendo a infinito. Por lo tanto, el valor de la población tiende a **0**.\n\nFísicamente, esto indica que después de un tiempo la población se extingue porque el factor exponencial de decaimiento domina sobre el crecimiento lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa determina que su costo medio es $C(x) = \\dfrac{20x + 100\\ln(x)}{x}$. ¿Cuál es el costo marginal a largo plazo (cuando $x \\to \\infty$)?",
+    "options": [
+      "$20$",
+      "$0$",
+      "$\\infty$",
+      "$100$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El término con $\\ln(x)/x$ tiende a 0, dejando solo el 20.",
+    "feedback_incorrect": "Separá la fracción en $20 + 100\\ln(x)/x$. El límite de $\\ln(x)/x$ por L'Hôpital es 0, así que queda 20.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar el comportamiento del costo cuando la producción $x$ crece indefinidamente, calculamos el límite:\n\n$$\\lim_{x \\to \\infty} \\left( 20 + \\frac{100\\ln(x)}{x} \\right)$$\n\nAnalizamos el segundo término mediante **L'Hôpital** por ser $\\infty/\\infty$:\n\n$$\\lim_{x \\to \\infty} \\frac{100/x}{1} = 0$$\n\nSumando los resultados, el costo tiende a **20**. Esto significa que para niveles de producción muy altos, el costo fijo representado por el logaritmo se diluye y el costo se estabiliza en la componente lineal.",
+    "reviewed": false
+  }
+]

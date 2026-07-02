@@ -1,0 +1,867 @@
+[
+  {
+    "question": "Una app asigna a cada socio un único casillero. Al revisar, el socio 7 aparece con dos casilleros asignados, el 12 y el 19.\n$$\\begin{aligned} 7 &\\mapsto 12 \\\\ 7 &\\mapsto 19 \\end{aligned}$$\n¿La asignación de socios a casilleros define una función?",
+    "options": [
+      "No, el socio 7 tiene dos salidas distintas",
+      "Sí, porque cada casillero es distinto",
+      "No, porque hay socios sin casillero",
+      "Sí, siempre que los números sean distintos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El socio 7 tiene dos casilleros, así que se rompe la unicidad y no es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el socio 7 recibe dos casilleros,\n$$\\begin{aligned} 7 &\\mapsto 12 \\\\ 7 &\\mapsto 19 \\end{aligned}$$\nComo una entrada tiene dos salidas, la asignación no es función.",
+    "reviewed": false
+  },
+  {
+    "question": "En un torneo, a cada jugador se le asigna su categoría por edad. Los jugadores 4 y 9 quedaron los dos en la categoría 2.\n$$\\begin{aligned} 4 &\\mapsto 2 \\\\ 9 &\\mapsto 2 \\end{aligned}$$\n¿La asignación de jugadores a categorías define una función?",
+    "options": [
+      "Sí, cada jugador tiene una sola categoría",
+      "No, dos jugadores comparten la categoría 2",
+      "No, falta que cada categoría tenga un solo jugador",
+      "Sí, pero solo si todas las categorías son distintas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada jugador tiene una única categoría, así que es función aunque dos compartan la misma.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas.\n\nAcá cada jugador cae en una sola categoría,\n$$\\begin{aligned} 4 &\\mapsto 2 \\\\ 9 &\\mapsto 2 \\end{aligned}$$\nQue dos jugadores compartan categoría no rompe nada, sigue siendo función.",
+    "reviewed": false
+  },
+  {
+    "question": "Un examen puede dar notas enteras del 0 al 100. En un curso, las únicas notas que aparecieron fueron 60, 75 y 90.\n$$N : \\{\\text{alumnos}\\} \\to \\{0,\\dots,100\\}$$\n¿Cuál es el conjunto imagen de $N$?",
+    "options": [
+      "$\\{60, 75, 90\\}$",
+      "$\\{0, 1, \\dots, 100\\}$",
+      "El conjunto de alumnos",
+      "El promedio, 75"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El conjunto imagen son las notas realmente alcanzadas, $\\{60, 75, 90\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas que la regla realmente alcanza, no todas las posibles.\n\nAcá el codominio es $\\{0,\\dots,100\\}$, pero solo se dieron\n$$\\{60, 75, 90\\}$$\nEse es el conjunto imagen.",
+    "reviewed": false
+  },
+  {
+    "question": "Una panadería cobra 250 pesos por factura y vende hasta 12 por cliente. El precio de $n$ facturas es\n$$f(n) = 250\\,n, \\qquad n \\in \\{1,\\dots,12\\}$$\n¿Cuál de estos conjuntos es el dominio de $f$?",
+    "options": [
+      "$\\{1, 2, \\dots, 12\\}$, las cantidades posibles",
+      "$\\{250, 500, \\dots, 3000\\}$, los precios",
+      "El número 250",
+      "Todos los números reales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El dominio son las entradas, las cantidades de facturas $\\{1,\\dots,12\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son las cantidades de facturas,\n$$n \\in \\{1, \\dots, 12\\}$$\nLos precios son las salidas, así que forman la imagen, no el dominio.",
+    "reviewed": false
+  },
+  {
+    "question": "Una casa de cambio transforma dólares en pesos. Por 4 dólares entrega 4000 pesos.\n$$c(4) = 4000$$\n¿Cuál afirmación es correcta?",
+    "options": [
+      "4000 es la imagen de 4",
+      "4 es la imagen de 4000",
+      "4000 es una preimagen de 4",
+      "4 y 4000 son preimágenes entre sí"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $c(4) = 4000$, el 4000 es la imagen de 4 y el 4 es su preimagen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$.\n\nAcá la regla transforma 4 en 4000,\n$$c(4) = 4000$$\nPor eso 4000 es la imagen de 4, no al revés.",
+    "reviewed": false
+  },
+  {
+    "question": "Un juego asigna puntos por nivel. Los niveles 3 y 5 dan ambos 100 puntos.\n$$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$\nRespecto del 100, ¿qué son el 3 y el 5?",
+    "options": [
+      "Dos preimágenes de 100",
+      "Dos imágenes de 100",
+      "El dominio completo",
+      "El conjunto imagen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El 3 y el 5 se transforman en 100, así que son preimágenes de 100.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nAcá tanto el 3 como el 5 dan 100,\n$$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$\nPor eso ambos son preimágenes de 100, un valor puede tener varias.",
+    "reviewed": false
+  },
+  {
+    "question": "El consumo por persona en una fiesta son 600 pesos divididos entre los $p$ invitados.\n$$g(p) = \\frac{600}{p}$$\n¿Qué condición define el dominio natural de esta regla?",
+    "options": [
+      "$p \\neq 0$, no se puede dividir por cero",
+      "$p \\geq 600$",
+      "Cualquier número real sirve",
+      "$p$ debe ser negativo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La división exige $p \\neq 0$, así que ese es el dominio natural.",
+    "feedback_incorrect": [
+      null,
+      "El 600 es lo que se reparte, no una cota inferior para las personas. Con $p = 50$ la cuenta funciona igual.",
+      "El valor $p = 0$ rompe la división y $p$ negativo no representa cantidad de personas.",
+      "Una cantidad negativa de personas no tiene sentido; la restricción real es evitar el $0$ y los negativos, no forzar negativos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nUna división no admite denominador cero, así que pide\n$$p \\neq 0$$\nPor eso el dominio natural excluye el 0.",
+    "reviewed": false
+  },
+  {
+    "question": "El lado de un cuadrado a partir de su área $a$ en metros cuadrados es\n$$L(a) = \\sqrt{a}$$\n¿Qué condición define el dominio natural de esta regla?",
+    "options": [
+      "$a \\geq 0$, el radicando no puede ser negativo",
+      "$a \\neq 0$",
+      "$a > 100$",
+      "Todos los reales, sin restricción"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz cuadrada exige radicando no negativo, así que $a \\geq 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** reúne los valores donde la regla tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo, así que pide\n$$a \\geq 0$$\nEse es el dominio natural de la regla.",
+    "reviewed": false
+  },
+  {
+    "question": "Una encuesta registra la materia favorita de cada estudiante. Los resultados son: estudiante 1 elige Matemática, estudiante 2 elige Historia, estudiante 3 elige Matemática.\n$$\\begin{aligned} 1 &\\mapsto \\text{Mat} \\\\ 2 &\\mapsto \\text{His} \\\\ 3 &\\mapsto \\text{Mat} \\end{aligned}$$\n¿Esta asignación define una función?",
+    "options": [
+      "Sí, cada estudiante tiene una única materia favorita",
+      "No, la materia Mat aparece dos veces",
+      "No, no todas las materias están cubiertas",
+      "Sí, pero solo si hay más materias que estudiantes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada estudiante tiene una única materia favorita, así que es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas.\n\nAcá cada estudiante elige una sola materia. Que dos estudiantes elijan la misma no rompe nada.\n\nLa asignación es función.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla del valor absoluto asigna al $-5$ el valor $5$ y al $5$ también el valor $5$.\n$$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada número tiene un único valor absoluto",
+      "No, dos números distintos dan el mismo resultado",
+      "No, el $-5$ debería dar $-5$",
+      "Sí, pero solo para positivos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada número tiene un único valor absoluto, así que la regla es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nAcá cada número tiene un único valor absoluto. Que $-5$ y $5$ compartan salida no importa.\n\nLa condición se cumple para cada entrada, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "La fórmula que convierte grados Celsius en Fahrenheit es\n$$F(c) = \\frac{9}{5}\\,c + 32$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada temperatura en Celsius da un único valor en Fahrenheit",
+      "No, porque hay temperaturas con el mismo valor en ambas escalas",
+      "No, la fórmula tiene dos operaciones",
+      "Sí, solo para temperaturas positivas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada valor de $c$ da un único valor de $F$, así que la regla es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá cada temperatura en Celsius produce exactamente un valor en Fahrenheit mediante\n$$F(c) = \\frac{9}{5}\\,c + 32$$\nNo hay ambigüedad, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla que eleva al cuadrado da $f(-4) = 16$ y $f(4) = 16$, el mismo resultado para dos entradas distintas.\n$$\\begin{aligned} f(-4) &= 16 \\\\ f(4) &= 16 \\end{aligned}$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada número tiene un único cuadrado",
+      "No, el $-4$ y el $4$ dan lo mismo",
+      "No, el $-4$ al cuadrado debería dar $-16$",
+      "Sí, pero solo para enteros"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada número tiene un único cuadrado, así que la regla es función aunque dos entradas compartan salida.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una única entrada.\n\nAcá $-4$ y $4$ comparten la salida 16, pero cada uno tiene solo una salida.\n\nLa condición se cumple, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Una pintora intenta asignar un color a cada figura. Al círculo le asignó rojo y azul al mismo tiempo.\n$$\\begin{aligned} \\text{círculo} &\\mapsto \\text{rojo} \\\\ \\text{círculo} &\\mapsto \\text{azul} \\end{aligned}$$\n¿Esta asignación define una función?",
+    "options": [
+      "No, el círculo tiene dos colores asignados",
+      "Sí, porque los colores son distintos",
+      "No, porque no todos los colores están usados",
+      "Sí, mientras cada color tenga una figura"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El círculo tiene dos colores, así que falla la unicidad y no es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el círculo recibe dos colores distintos, rojo y azul.\n\nComo una entrada tiene dos salidas, la asignación no es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Un sensor registra la temperatura cada hora. A las 15 h registró 28°C y a las 16 h registró 27°C.\n$$\\begin{aligned} T(15) &= 28 \\\\ T(16) &= 27 \\end{aligned}$$\n¿El registro de temperatura por hora define una función?",
+    "options": [
+      "Sí, cada hora tiene una única temperatura registrada",
+      "No, las temperaturas son distintas",
+      "No, el sensor solo midió dos horas",
+      "Sí, solo si la temperatura sube siempre"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada hora tiene una única temperatura registrada, así que el registro es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá cada hora tiene una sola temperatura registrada. Las temperaturas pueden ser distintas entre horas.\n\nLa condición de unicidad se cumple, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Un sistema impositivo asigna a cada ingreso mensual una categoría. Los ingresos de 80000 y 90000 pesos caen los dos en la categoría 3.\n$$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada ingreso pertenece a una única categoría",
+      "No, dos ingresos distintos comparten categoría",
+      "No, falta que cada categoría tenga un único ingreso",
+      "Sí, pero solo si las categorías son distintas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada ingreso tiene una única categoría, así que la regla es función aunque dos ingresos compartan la misma.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nAcá cada ingreso cae en exactamente una categoría. Que dos ingresos compartan la categoría 3 no rompe nada.\n\nEs función.",
+    "reviewed": false
+  },
+  {
+    "question": "Cada documento de identidad tiene un número único y pertenece a una única persona. El documento 37541892 pertenece a Lucía.\n$$D(37541892) = \\text{Lucía}$$\n¿La asignación de documentos a personas define una función?",
+    "options": [
+      "Sí, cada documento pertenece a una única persona",
+      "No, Lucía podría tener varios documentos",
+      "No, hay personas sin documento",
+      "Sí, pero solo para documentos vigentes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada documento pertenece a una única persona, así que la asignación es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá cada número de documento corresponde a una única persona. Que Lucía tenga otros documentos no afecta esta regla.\n\nLa condición de unicidad se cumple para cada entrada, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla que transforma cada número en su raíz cúbica asigna al 8 el valor 2.\n$$\\begin{aligned} g(x) &= \\sqrt[3]{x} \\\\ g(8) &= 2 \\end{aligned}$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada número tiene una única raíz cúbica real",
+      "No, el 8 podría tener otras raíces cúbicas",
+      "No, la raíz cúbica no está definida para negativos",
+      "Sí, pero solo para números positivos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada número real tiene una única raíz cúbica real, así que la regla es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nA diferencia de la raíz cuadrada, la raíz cúbica de cualquier número real da un único resultado real.\n\nPor ejemplo $\\sqrt[3]{-8} = -2$. La condición de unicidad se cumple siempre, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Una plataforma intenta registrar una calificación por trabajo. Al trabajo del alumno 7 le asignaron las calificaciones Bueno y Excelente a la vez.\n$$\\begin{aligned} 7 &\\mapsto \\text{Bueno} \\\\ 7 &\\mapsto \\text{Excelente} \\end{aligned}$$\n¿Esta asignación define una función?",
+    "options": [
+      "No, el trabajo 7 tiene dos calificaciones",
+      "Sí, porque las calificaciones son distintas",
+      "No, porque no hay calificaciones negativas",
+      "Sí, mientras cada calificación sea distinta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El trabajo 7 tiene dos calificaciones, así que falla la unicidad y no es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el trabajo 7 recibe dos calificaciones distintas, Bueno y Excelente.\n\nComo una entrada tiene dos salidas, la asignación no es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla asigna el valor 0 a todos los números enteros del 1 al 100.\n$$f(x) = 0, \\qquad x \\in \\{1,\\dots,100\\}$$\n¿Esta regla define una función?",
+    "options": [
+      "Sí, cada número tiene una única salida, el 0",
+      "No, todos comparten la misma salida",
+      "No, el conjunto imagen está vacío",
+      "Sí, pero solo para el número 50"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cada número tiene una única salida, el 0, así que la regla es función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá todas las entradas dan la misma salida, el 0. Pero cada entrada tiene exactamente una salida.\n\nQue todas compartan el mismo valor no rompe nada, así que es función.",
+    "reviewed": false
+  },
+  {
+    "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van del 60 al 100 cm, pero en la práctica todos los clientes caen en M o L.\n$$T : \\{60,\\dots,100\\} \\to \\{\\text{S, M, L}\\}$$\n¿Cuál es el conjunto imagen de T?",
+    "options": [
+      "$\\{$M, L$\\}$, las tallas realmente asignadas",
+      "$\\{$S, M, L$\\}$, el codominio completo",
+      "$\\{60,\\dots,100\\}$, las medidas",
+      "Solo la talla M"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El conjunto imagen son las salidas realmente alcanzadas, M y L.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas que la regla realmente alcanza, no todas las posibles.\n\nAcá el codominio incluye S, M y L, pero en la práctica solo se asignan M y L.\n\nEl conjunto imagen es $\\{\\text{M, L}\\}$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función convierte temperaturas en Celsius, entre 0 y 100, a Fahrenheit, entre 32 y 212.\n$$F : \\{0,\\dots,100\\} \\to \\{32,\\dots,212\\}$$\n¿Cuál es el dominio de F?",
+    "options": [
+      "$\\{0,\\dots,100\\}$, las temperaturas en Celsius",
+      "$\\{32,\\dots,212\\}$, las temperaturas en Fahrenheit",
+      "Todos los números reales",
+      "El número 100"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El dominio son las entradas, las temperaturas en Celsius del 0 al 100.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son las temperaturas en Celsius,\n$$\\{0,\\dots,100\\}$$\nLas temperaturas en Fahrenheit son las salidas, así que forman el codominio.",
+    "reviewed": false
+  },
+  {
+    "question": "Un examen puede dar notas del 0 al 10. En un grupo de 30 alumnos, nadie sacó 0 ni 1.\n$$N : \\{\\text{30 alumnos}\\} \\to \\{0,1,\\dots,10\\}$$\n¿Cuál es el conjunto imagen de N en este grupo?",
+    "options": [
+      "$\\{2,3,\\dots,10\\}$, las notas efectivamente sacadas",
+      "$\\{0,1,\\dots,10\\}$, el codominio",
+      "$\\{0, 1\\}$, las notas no alcanzadas",
+      "El conjunto de alumnos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Nadie sacó 0 ni 1, así que el conjunto imagen son las notas del 2 al 10.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas que la regla realmente alcanza, no todas las posibles.\n\nAcá el codominio es $\\{0,\\dots,10\\}$, pero como nadie sacó 0 ni 1, la imagen es\n$$\\{2,3,\\dots,10\\}$$",
+    "reviewed": false
+  },
+  {
+    "question": "Un examen tiene 3 preguntas. Cada una se puntúa con 0, 1 o 2 según la respuesta.\n$$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$\n¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
+    "options": [
+      "El codominio, donde pueden caer los puntajes",
+      "El dominio de la función",
+      "El conjunto imagen exacto",
+      "El promedio de puntajes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El codominio agrupa las salidas posibles declaradas por el modelo.",
+    "feedback_incorrect": [
+      null,
+      "Las entradas de la función son las 3 preguntas, no los puntajes. Esos números son los valores posibles de salida.",
+      "La imagen contiene solo los puntajes que efectivamente aparecen; sin saber qué se sacó en cada pregunta, no podés afirmar que sean los tres.",
+      "El promedio es un número único que resume las salidas, no el conjunto donde viven."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **codominio** es el conjunto donde pueden caer las salidas, no necesariamente todas las que se alcanzan.\n\nAcá los puntajes posibles por pregunta forman el codominio $\\{0, 1, 2\\}$. Las preguntas son el dominio; los puntajes efectivamente obtenidos forman la imagen.\n\nQue exista el 2 como posibilidad no obliga al alumno a sacarlo en ninguna pregunta.",
+    "reviewed": false
+  },
+  {
+    "question": "La función $f$ tiene dominio los enteros y codominio los reales, y transforma cada entero en su cubo.\n$$\\begin{aligned} f : \\mathbb{Z} &\\to \\mathbb{R} \\\\ f(x) &= x^3 \\end{aligned}$$\n¿El conjunto imagen $Im(f)$ es igual al codominio $\\mathbb{R}$?",
+    "options": [
+      "No, solo los cubos de enteros son imagen",
+      "Sí, todo real es cubo de algún entero",
+      "No, la imagen está vacía",
+      "Sí, pero solo para negativos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Solo los cubos de enteros, como 0, 1, 8, 27, son imagen; la mayoría de los reales no lo son.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas efectivamente alcanzadas, que pueden ser menores que el codominio.\n\nAcá el codominio es $\\mathbb{R}$, pero solo los cubos de enteros, como\n$$0,\\; 1,\\; 8,\\; 27,\\; -1,\\; -8,\\dots$$\nson imagen. Números como $\\sqrt{2}$ no son cubo de ningún entero.",
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades.\n$$V : \\{1,\\dots,12\\} \\to \\{0,\\dots,500\\}$$\n¿Cuál de estos conjuntos es el dominio?",
+    "options": [
+      "$\\{1,\\dots,12\\}$, los vendedores",
+      "$\\{0,\\dots,500\\}$, las unidades posibles",
+      "Las unidades que realmente vendió cada uno",
+      "El número 500"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El dominio son las entradas, los 12 vendedores.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son los vendedores, identificados del 1 al 12,\n$$\\{1,\\dots,12\\}$$\nLas unidades posibles forman el codominio y las efectivamente vendidas, el conjunto imagen.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla asigna el valor 7 a todos los números del 1 al 20.\n$$f(x) = 7, \\qquad x \\in \\{1,\\dots,20\\}$$\n¿Cuál es el conjunto imagen de f?",
+    "options": [
+      "$\\{7\\}$, un único valor",
+      "$\\{1,\\dots,20\\}$, el dominio",
+      "$\\{1,\\dots,7\\}$",
+      "El número 20"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La regla siempre produce el 7, así que el conjunto imagen tiene un único elemento.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** reúne las salidas que la regla realmente alcanza.\n\nAcá la regla produce siempre el mismo valor,\n$$f(1) = f(2) = \\dots = f(20) = 7$$\nPor eso el conjunto imagen es $\\{7\\}$, con un único elemento.",
+    "reviewed": false
+  },
+  {
+    "question": "Un almacén registra el stock de cada producto. Al producto 104 le quedan 8 unidades.\n$$S(104) = 8$$\n¿El 104 es parte del dominio o de la imagen de S?",
+    "options": [
+      "Del dominio, es una entrada",
+      "De la imagen, es una salida",
+      "De ambos",
+      "De ninguno"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El 104 es el código del producto, es decir la entrada de la función, así que pertenece al dominio.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas.\n\nAcá el 104 es el código del producto que se ingresa a la función, así que es una entrada.\n\nEl 8 es el stock resultante, es decir la salida, y pertenece a la imagen.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función $f$ tiene dominio $\\{1,2,3\\}$ y codominio $\\{1,\\dots,100\\}$. Las salidas son $f(1)=10$, $f(2)=20$, $f(3)=30$.\n$$\\begin{aligned} f(1) &= 10 \\\\ f(2) &= 20 \\\\ f(3) &= 30 \\end{aligned}$$\n¿Cuál es el conjunto imagen de $f$?",
+    "options": [
+      "$\\{10, 20, 30\\}$",
+      "$\\{1,\\dots,100\\}$",
+      "$\\{1, 2, 3\\}$",
+      "$\\{10,\\dots,100\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las salidas efectivamente alcanzadas son 10, 20 y 30, así que ese es el conjunto imagen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas efectivamente alcanzadas, no el codominio entero.\n\nAcá el codominio es $\\{1,\\dots,100\\}$, pero la función solo produce\n$$10, 20, 30$$\nAsí que la imagen es $\\{10, 20, 30\\}$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una encuesta corta hace 3 preguntas. Cada respuesta se registra como sí o no.\n$$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$\n¿Cuál es el dominio de $E$?",
+    "options": [
+      "Las 3 preguntas de la encuesta",
+      "Las respuestas $S$ y $N$",
+      "Las respuestas registradas por el encuestado",
+      "El número total 3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las preguntas son las entradas que la función procesa, es decir, el dominio.",
+    "feedback_incorrect": [
+      null,
+      "Esas son las salidas posibles (el codominio); el dominio agrupa las entradas.",
+      "Los valores registrados forman la imagen; el dominio es el conjunto de entradas, no de resultados.",
+      "El dominio es un conjunto, no una cantidad. El $3$ solo cuenta cuántas preguntas hay."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la regla.\n\nAcá las entradas son las tres preguntas, $\\{1, 2, 3\\}$. Las respuestas $S$ y $N$ son las salidas posibles (el codominio); las respuestas concretas del encuestado forman la imagen.\n\nContar cuántas preguntas hay no alcanza para nombrar al dominio: el dominio es el conjunto, no su tamaño.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla $f(x) = x^2$ con dominio $\\{0,1,2,3\\}$ produce las salidas 0, 1, 4 y 9.\n$$f(x) = x^2, \\quad x \\in \\{0,1,2,3\\}$$\n¿Cuál de los siguientes es el conjunto imagen y no el codominio?",
+    "options": [
+      "$\\{0, 1, 4, 9\\}$, las salidas efectivas",
+      "$\\{0,1,2,3\\}$, el dominio",
+      "Todos los reales no negativos",
+      "$\\{0,\\dots,9\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las salidas realmente alcanzadas son $\\{0,1,4,9\\}$, que es el conjunto imagen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjunto imagen** son las salidas efectivamente alcanzadas, no el codominio entero.\n\nAcá el codominio podría ser $\\mathbb{R}$ o $\\{0,\\dots,9\\}$, pero la función solo produce\n$$0, 1, 4, 9$$\nAsí que la imagen es exactamente $\\{0, 1, 4, 9\\}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla que eleva al cubo da $f(2) = 8$.\n$$\\begin{aligned} f(x) &= x^3 \\\\ f(2) &= 8 \\end{aligned}$$\n¿Qué es el 2 respecto del 8?",
+    "options": [
+      "Una preimagen de 8",
+      "La imagen de 8",
+      "El dominio de la regla",
+      "El cubo de 8"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El 2 se transforma en 8, así que el 2 es una preimagen de 8.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $x$ es una **preimagen** de $y$ y $y$ es la **imagen** de $x$.\n\nAcá la regla transforma el 2 en 8,\n$$f(2) = 8$$\nPor eso el 2 es una preimagen de 8 y el 8 es la imagen de 2.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla que eleva al cuadrado transforma el $-1$ en $1$.\n$$f(-1) = 1$$\n¿Qué es el $-1$ respecto del $1$?",
+    "options": [
+      "Una preimagen de 1",
+      "La imagen de 1",
+      "El cuadrado de 1",
+      "El dominio de la regla"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El $-1$ se transforma en 1, así que el $-1$ es una preimagen de 1.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $x$ es una **preimagen** de $y$.\n\nAcá $f(-1) = (-1)^2 = 1$, así que $-1$ se transforma en 1.\n\nPor eso $-1$ es una preimagen de 1. El 1 es la imagen de $-1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla da $f(2) = 10$. ¿Cuál de estas afirmaciones sobre imagen y preimagen es correcta?\n$$f(2) = 10$$",
+    "options": [
+      "10 es la imagen de 2 y 2 es una preimagen de 10",
+      "2 es la imagen de 10",
+      "10 y 2 son ambos imágenes",
+      "10 es una preimagen de 2"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $f(2) = 10$, el 10 es la imagen de 2 y el 2 es una preimagen de 10.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$.\n\nAcá $f(2) = 10$, así que la entrada es 2 y la salida es 10.\n\nEl 10 es imagen de 2 y el 2 es preimagen de 10.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma el número 6 en 18.\n$$g(6) = 18$$\n¿Cuál de estas afirmaciones es incorrecta?",
+    "options": [
+      "6 es la imagen de 18",
+      "18 es la imagen de 6",
+      "6 es una preimagen de 18",
+      "$g(6)$ da 18"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El 6 es una preimagen de 18, no la imagen. La imagen de 6 es 18.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$.\n\nAcá $g(6) = 18$, así que el 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, así que esa afirmación es incorrecta.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma cada número en el doble.\n$$f(x) = 2x$$\n¿El número 5 es preimagen del 10?",
+    "options": [
+      "Sí, porque $f(5) = 10$",
+      "No, porque el 5 es menor que el 10",
+      "No, porque el 10 ya es imagen de otro número",
+      "Sí, pero también lo es el 20"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $f(5) = 10$, el 5 se transforma en 10 y por eso es preimagen de 10.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x$ es **preimagen** de $y$ cuando la regla transforma $x$ en $y$.\n\nAcá $f(5) = 2 \\cdot 5 = 10$, así que el 5 se transforma en 10.\n\nPor eso el 5 es preimagen de 10.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma cada número según $f(x) = x^2 - 4$.\n$$f(x) = x^2 - 4$$\n¿Cuáles son las preimágenes del 0?",
+    "options": [
+      "$2$ y $-2$",
+      "Solo el $2$",
+      "El $4$",
+      "No tiene preimagen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $2^2 - 4 = 0$ y $(-2)^2 - 4 = 0$, las preimágenes del 0 son $2$ y $-2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nHay que resolver\n$$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$\nAsí que el 0 tiene dos preimágenes.",
+    "reviewed": false
+  },
+  {
+    "question": "La velocidad de un móvil en función del tiempo es $v(t) = 4t$. A los 5 segundos la velocidad es 20 m/s.\n$$v(5) = 20$$\n¿Cuál afirmación es correcta?",
+    "options": [
+      "5 es una preimagen de 20",
+      "20 es una preimagen de 5",
+      "5 es la imagen de 20",
+      "$v$ y 20 son preimágenes entre sí"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El 5 se transforma en 20, así que el 5 es una preimagen de 20.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $x$ es una **preimagen** de $y$.\n\nAcá $v(5) = 20$, así que el 5 es la entrada y el 20 es la salida.\n\nEl 5 es preimagen de 20 y el 20 es imagen de 5.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla transforma cada número $x$ en $x^2 + 1$.\n$$f(x) = x^2 + 1$$\n¿Tiene preimagen el valor 0?",
+    "options": [
+      "No, porque $x^2 + 1 \\geq 1$ para todo $x$",
+      "Sí, el 0 siempre tiene preimagen",
+      "Sí, la preimagen es $-1$",
+      "No, porque el dominio no incluye el 0"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $x^2 + 1 \\geq 1$ siempre, la función nunca puede valer 0, así que el 0 no tiene preimagen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un valor $y$ tiene **preimagen** solo si hay algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que\n$$f(x) = x^2 + 1 \\geq 1$$\nEl valor 0 nunca se alcanza, así que no tiene preimagen.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma cada número $x$ en $|x| - 1$. Al $-4$ lo transforma en 3.\n$$\\begin{aligned} f(x) &= |x| - 1 \\\\ f(-4) &= 3 \\end{aligned}$$\n¿Qué es el 3 respecto del $-4$?",
+    "options": [
+      "La imagen de $-4$",
+      "La preimagen de $-4$",
+      "El módulo de $-4$",
+      "El dominio evaluado en $-4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $f(-4) = 3$, el 3 es la imagen de $-4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la regla transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$.\n\nAcá $f(-4) = |-4| - 1 = 4 - 1 = 3$, así que el $-4$ se transforma en 3.\n\nEl 3 es la imagen de $-4$.",
+    "reviewed": false
+  },
+  {
+    "question": "La regla $f(x) = x^2$ da $f(4) = 16$ y $f(-4) = 16$.\n$$\\begin{aligned} f(4) &= 16 \\\\ f(-4) &= 16 \\end{aligned}$$\n¿Cuántas preimágenes tiene el 16 bajo esta regla?",
+    "options": [
+      "Dos, el $4$ y el $-4$",
+      "Una sola, el $4$",
+      "Cuatro",
+      "Ninguna, porque el 16 es la imagen"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Tanto el 4 como el $-4$ se transforman en 16, así que el 16 tiene dos preimágenes.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nAcá hay que resolver\n$$x^2 = 16 \\implies x = 4 \\text{ o } x = -4$$\nEl 16 tiene exactamente dos preimágenes.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$h(x) = \\frac{1}{2x + 4}$$\n¿Qué valor excluye el dominio natural de esta regla?",
+    "options": [
+      "$x = -2$, hace el denominador 0",
+      "$x = 0$",
+      "$x = 4$",
+      "$x = -4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador $2x + 4 = 0$ cuando $x = -2$, así que ese valor queda excluido.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** excluye los valores donde la regla no está definida.\n\nEl denominador no puede ser cero,\n$$2x + 4 = 0 \\implies x = -2$$\nPor eso $x = -2$ queda excluido del dominio natural.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$k(x) = \\sqrt{x + 3}$$\n¿Cuál es la restricción que define el dominio natural?",
+    "options": [
+      "$x \\geq -3$, el radicando no puede ser negativo",
+      "$x \\geq 3$",
+      "$x \\geq 0$",
+      "$x \\neq -3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz pide $x + 3 \\geq 0$, es decir $x \\geq -3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo,\n$$x + 3 \\geq 0 \\implies x \\geq -3$$\nPara $x < -3$ el radicando sería negativo y la raíz no estaría definida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$m(x) = \\frac{1}{\\sqrt{x}}$$\n¿Cuál es el dominio natural de esta regla?",
+    "options": [
+      "$x > 0$",
+      "$x \\geq 0$",
+      "$x \\neq 0$",
+      "Todos los reales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz exige $x \\geq 0$ y la división exige $x \\neq 0$, así que el dominio natural es $x > 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nHay dos restricciones: la raíz pide $x \\geq 0$ y el denominador pide $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$.\n\nCombinando ambas, el dominio natural es $x > 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es\n$$t(v) = \\frac{60}{v}$$\n¿Qué condición define el dominio natural?",
+    "options": [
+      "$v > 0$, la velocidad debe ser positiva",
+      "$v \\geq 60$",
+      "$v \\neq 60$",
+      "Todos los reales"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La velocidad no puede ser 0 ni negativa, así que el dominio natural es $v > 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nDividir entre 0 no está definido y una velocidad negativa no tiene sentido físico,\n$$v > 0$$\nEse es el dominio natural de la regla.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$f(x) = \\sqrt{16 - x^2}$$\n¿Cuál es el dominio natural?",
+    "options": [
+      "$-4 \\leq x \\leq 4$",
+      "$x \\leq 4$",
+      "$x \\geq -4$",
+      "$x \\neq 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz pide $16 - x^2 \\geq 0$, es decir $x^2 \\leq 16$, así que $-4 \\leq x \\leq 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz exige radicando no negativo,\n$$16 - x^2 \\geq 0 \\implies x^2 \\leq 16 \\implies -4 \\leq x \\leq 4$$\nFuera de ese intervalo el radicando es negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función racional está dada por\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio natural?",
+    "options": [
+      "$x = 3$ y $x = -3$",
+      "Solo $x = 9$",
+      "$x = 0$",
+      "Ninguno, todos los reales sirven"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador vale 0 cuando $x = 3$ o $x = -3$, así que esos valores quedan excluidos.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** excluye los valores donde el denominador es cero.\n\n$$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$\nPor eso esos dos valores no están en el dominio natural.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$g(x) = \\sqrt{5 - x}$$\n¿Cuál es la restricción del dominio natural?",
+    "options": [
+      "$x \\leq 5$, el radicando no puede ser negativo",
+      "$x \\geq 5$",
+      "$x \\geq 0$",
+      "$x \\neq 5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz pide $5 - x \\geq 0$, es decir $x \\leq 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo,\n$$5 - x \\geq 0 \\implies x \\leq 5$$\nPara $x > 5$ el radicando sería negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de $k$ kg de fruta a 350 pesos el kg es\n$$C(k) = 350\\,k$$\n¿Cuál es el dominio natural de esta regla?",
+    "options": [
+      "$k \\geq 0$, no se puede comprar peso negativo",
+      "$k \\geq 350$",
+      "Cualquier número real",
+      "$k = 350$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un peso negativo no tiene sentido, así que el dominio natural es $k \\geq 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido.\n\nPor eso el dominio natural es $k \\geq 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una regla transforma $x$ según\n$$f(x) = \\frac{x + 1}{x - 5}$$\n¿Qué valor no está en el dominio natural?",
+    "options": [
+      "$x = 5$",
+      "$x = 1$",
+      "$x = -1$",
+      "$x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador $x - 5 = 0$ cuando $x = 5$, así que ese valor queda excluido.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** excluye los valores donde la regla no está definida.\n\nEl denominador no puede ser cero,\n$$x - 5 = 0 \\implies x = 5$$\nPor eso $x = 5$ no pertenece al dominio natural.",
+    "reviewed": false
+  },
+  {
+    "question": "La distancia por persona en un salón de $A$ metros cuadrados con $p$ personas es\n$$d(p) = \\frac{A}{p}$$\n¿Qué condición define el dominio natural?",
+    "options": [
+      "$p > 0$, debe haber al menos una persona",
+      "$p \\geq A$",
+      "Todos los enteros",
+      "$p \\neq A$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "No se puede dividir entre 0 y tampoco tiene sentido tener personas negativas, así que $p > 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nDividir entre 0 no está definido y el número de personas debe ser positivo,\n$$p > 0$$\nEse es el dominio natural de la regla.",
+    "reviewed": false
+  }
+]

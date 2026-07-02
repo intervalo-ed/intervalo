@@ -1,0 +1,222 @@
+[
+  {
+    "question": "En la gráfica, ¿cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$2$",
+      "No existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Al acercarse a $x=1$ desde la izquierda, la función tiende a $1$.",
+    "feedback_incorrect": "El límite por la izquierda se lee en la gráfica acercándose a $x=1$ desde valores menores: la función tiende a $1$.",
+    "graph_fn": "Piecewise((x, x < 1), (x + 2, x >= 1))",
+    "graph_view": [
+      -1,
+      4,
+      -1,
+      7
+    ],
+    "explanation": "Para leer el **límite por la izquierda** en una gráfica, seguimos la rama activa para $x < 1$ y observamos a qué valor se dirige al acercarse a $x=1$.\n\n$$f(x) = x \\text{ para } x < 1 \\Rightarrow \\lim_{x \\to 1^-} f(x) = 1$$\n\nVisualmente: nos desplazamos a lo largo de la curva desde la izquierda hasta casi tocar $x=1$. El valor $y$ al que nos aproximamos es el límite lateral.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma gráfica, ¿cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$2$",
+      "No existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al acercarse a $x=1$ desde la derecha, la función tiende a $3$. Los límites laterales son distintos: el límite bilateral no existe.",
+    "feedback_incorrect": "Por la derecha ($x > 1$), la función sigue $x+2$, que tiende a $1+2=3$ cuando $x \\to 1^+$.",
+    "graph_fn": "Piecewise((x, x < 1), (x + 2, x >= 1))",
+    "graph_view": [
+      -1,
+      4,
+      -1,
+      7
+    ],
+    "explanation": "Para el **límite por la derecha**, seguimos la rama activa para $x \\geq 1$ y vemos a qué valor tiende cuando $x \\to 1^+$.\n\n$$f(x) = x+2 \\text{ para } x \\geq 1 \\Rightarrow \\lim_{x \\to 1^+} f(x) = 1+2 = 3$$\n\nComo $\\lim^- = 1 \\neq 3 = \\lim^+$, el límite bilateral en $x=1$ no existe. La gráfica muestra un salto hacia arriba de $2$ unidades.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, ¿existe $\\lim_{x \\to 2} f(x)$?",
+    "options": [
+      "No, porque $f(2)$ no está definida",
+      "No, porque la función tiene un salto en $x=2$",
+      "Sí, porque $\\lim^- = \\lim^+ = 4$",
+      "Sí, pero solo desde la derecha"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Ambos límites laterales valen $4$, así que el límite bilateral existe y vale $4$.",
+    "feedback_incorrect": "En la gráfica se puede observar que la función se acerca a $4$ desde ambos lados en $x=2$, por lo que el límite existe.",
+    "graph_fn": "Piecewise((x + 2, x < 2), (x + 2, x >= 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      8
+    ],
+    "explanation": "Cuando la gráfica **no tiene salto** en $x=a$, la curva se acerca al mismo valor desde ambos lados y el límite bilateral existe.\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(x+2) = 4 \\\\ \\lim_{x &\\to 2^+}(x+2) = 4 \\Rightarrow \\lim_{x \\to 2} f(x) = 4 \\end{aligned}$$\n\nVisualmente: la curva pasa suavemente por $x=2$ sin ningún salto. Aquí las dos ramas tienen la misma fórmula, garantizando continuidad.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra un hueco (punto removido) en $x = 3$. ¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "options": [
+      "$3$",
+      "No existe porque $f(3)$ no está definida",
+      "$0$",
+      "$5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El límite puede existir aunque $f(3)$ no esté definida. Ambos lados de la gráfica tienden a $5$.",
+    "feedback_incorrect": "El límite no requiere que $f(3)$ exista. Si la función se acerca a $5$ desde ambos lados, $\\lim_{x \\to 3} f(x) = 5$.",
+    "graph_fn": "Piecewise((x + 2, x != 3), (0, x == 3))",
+    "graph_view": [
+      0,
+      6,
+      0,
+      9
+    ],
+    "explanation": "Un **punto removido** (hueco) en la gráfica en $(3, 5)$ indica que $f(3)$ tiene un valor diferente o no está definida, pero la función se acerca a $5$ desde ambos lados.\n\n$$\\begin{aligned} \\lim_{x &\\to 3^-} f(x) = 5 \\\\ \\lim_{x &\\to 3^+} f(x) = 5 \\Rightarrow \\lim_{x \\to 3} f(x) = 5 \\end{aligned}$$\n\nEl límite estudia el comportamiento *cercano* a $x=3$, no el valor exacto en ese punto. El hueco no afecta el límite.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica (función escalera), ¿cuánto vale $\\lim_{x \\to 0^+} f(x)$?",
+    "options": [
+      "$2$",
+      "$-1$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Por la derecha de $x=0$, la función toma el valor $2$.",
+    "feedback_incorrect": "En la función escalera, al aproximarse a $x=0$ desde la derecha ($x > 0$), la función tiende a $2$.",
+    "graph_fn": "Piecewise((-1, x < 0), (2, x >= 0))",
+    "graph_view": [
+      -3,
+      3,
+      -3,
+      4
+    ],
+    "explanation": "En una **función escalera** (a trozos constante por intervalos), el límite lateral es simplemente el valor constante de la rama que corresponde a esa dirección.\n\n$$f(x) = 2 \\text{ para } x \\geq 0 \\Rightarrow \\lim_{x \\to 0^+} f(x) = 2$$\n\nPor la izquierda la función vale $-1$, confirmando el salto: $\\lim^- = -1 \\neq 2 = \\lim^+$, así que el límite bilateral en $x=0$ no existe.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, ¿en qué valor de $x$ NO existe el límite bilateral?",
+    "options": [
+      "$x = 1$",
+      "$x = 0$",
+      "$x = 2$",
+      "$x = -1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $x=0$ hay un salto: $\\lim^- = -1$ y $\\lim^+ = 2$, distintos. El límite bilateral no existe allí.",
+    "feedback_incorrect": "En $x=0$ los límites laterales son distintos ($-1$ por la izquierda, $2$ por la derecha), así que el límite bilateral no existe en ese punto.",
+    "graph_fn": "Piecewise((-1, x < 0), (2, x >= 0))",
+    "graph_view": [
+      -3,
+      3,
+      -3,
+      4
+    ],
+    "explanation": "Para identificar el punto sin límite bilateral, buscamos el **salto** en la gráfica: donde la función cambia abruptamente de valor.\n\n$$\\begin{aligned} x &= 0: \\\\ \\lim^- &= -1 \\\\ \\lim^+ &= 2 \\Rightarrow \\text{no existe el límite bilateral} \\end{aligned}$$\n\nEn cualquier otro punto de esta gráfica, la función es constante a ambos lados y los límites laterales coinciden.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica es continua excepto en $x = 2$ donde hay un salto. ¿En cuál de los siguientes valores de $x$ SÍ existe el límite bilateral?",
+    "options": [
+      "En ningún punto",
+      "$x = 2$",
+      "$x = 1$",
+      "Solo en $x = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $x=1$ (donde no hay salto) la función es continua y el límite bilateral existe.",
+    "feedback_incorrect": "En los puntos donde no hay salto, discontinuidad o asíntota, el límite bilateral existe. En $x=1$ la gráfica es continua.",
+    "graph_fn": "Piecewise((x, x < 2), (x + 2, x >= 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      9
+    ],
+    "explanation": "El límite bilateral existe en los puntos donde la gráfica **no tiene salto**. En $x=1$, la función sigue la misma rama $f(x)=x$ desde ambos lados.\n\n$$\\begin{aligned} x &= 1: \\\\ \\lim_{x &\\to 1^-}(x) = 1 \\\\ \\lim_{x &\\to 1^+}(x) = 1 \\Rightarrow \\text{existe} \\end{aligned}$$\n\nEn $x=2$ hay un salto ($\\lim^- = 2$ y $\\lim^+ = 4$), así que allí el límite bilateral no existe.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra un punto abierto en $(2, 4)$ y un punto cerrado en $(2, 7)$. ¿El límite $\\lim_{x \\to 2} f(x)$ coincide con $f(2)$?",
+    "options": [
+      "No existe el límite en $x=2$",
+      "Sí: ambos valen $7$",
+      "Sí: ambos valen $4$",
+      "No: $\\lim_{x \\to 2} f(x) = 4$ pero $f(2) = 7$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El punto abierto indica hacia dónde tiende la función (límite = 4), mientras que el punto cerrado es el valor real (f(2) = 7).",
+    "feedback_incorrect": "El punto abierto muestra el valor del límite ($4$) y el punto cerrado muestra $f(2) = 7$. El límite y el valor de la función pueden diferir.",
+    "graph_fn": "Piecewise((x + 2, x != 2), (7, x == 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      10
+    ],
+    "explanation": "La convención gráfica es: **punto abierto** indica el valor al que la función *tiende* (el límite), y **punto cerrado** indica el valor real de la función.\n\n$$\\text{Punto abierto en }(2,4): \\lim_{x \\to 2} f(x) = 4$$\n$$\\text{Punto cerrado en }(2,7): f(2) = 7$$\n\nEl límite y el valor de la función son conceptos independientes. Aquí el límite existe ($4$) pero no coincide con $f(2) = 7$: es una discontinuidad evitable.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene dos saltos: uno en $x=-1$ y otro en $x=2$. ¿Cuántos puntos NO tienen límite bilateral?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$1$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En cada punto de salto los límites laterales difieren, así que en $x=-1$ y $x=2$ el límite bilateral no existe: son $2$ puntos.",
+    "feedback_incorrect": "Cada salto hace que los límites laterales sean distintos. Con dos saltos, hay $2$ puntos donde el límite bilateral no existe.",
+    "graph_fn": "Piecewise((1, x < -1), (3, (-1 <= x) & (x < 2)), (5, x >= 2))",
+    "graph_view": [
+      -3,
+      4,
+      -1,
+      7
+    ],
+    "explanation": "Cada **salto** en la gráfica genera exactamente un punto donde los límites laterales difieren. La cantidad de puntos sin límite bilateral coincide con la cantidad de saltos.\n\n$$\\begin{aligned} x &= -1: \\lim^- = 1 \\neq 3 = \\lim^+ \\\\ x &= 2: \\lim^- = 3 \\neq 5 = \\lim^+ \\Rightarrow 2 \\text{ puntos} \\end{aligned}$$\n\nEn cualquier otro punto de la gráfica, la función es constante por trozos y los límites laterales coinciden.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x)$ en $x=2$, se observa $\\lim^- = 1$ y $\\lim^+ = 3$. ¿Cuánto vale $\\lim^-_{x \\to 2} + \\lim^+_{x \\to 2}$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$3$",
+      "No se puede calcular"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Aunque el límite bilateral no exista, sí podemos sumar los límites laterales: $1 + 3 = 4$.",
+    "feedback_incorrect": "Los límites laterales son $1$ y $3$. Su suma es $1 + 3 = 4$, aunque el límite bilateral no exista.",
+    "graph_fn": "Piecewise((x - 1, x < 2), (x + 1, x >= 2))",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      7
+    ],
+    "explanation": "Aunque el límite bilateral no exista cuando $\\lim^- \\neq \\lim^+$, los **límites laterales** son valores numéricos perfectamente definidos con los que se puede operar.\n\n$$\\lim_{x \\to 2^-} f(x) + \\lim_{x \\to 2^+} f(x) = 1 + 3 = 4$$\n\nLa inexistencia del límite bilateral no «contagia» a los laterales: cada uno es un número real válido. La suma, diferencia o producto de límites laterales siempre se puede calcular si cada uno existe individualmente.",
+    "reviewed": false
+  }
+]

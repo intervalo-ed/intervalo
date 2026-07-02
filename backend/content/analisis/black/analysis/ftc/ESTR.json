@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál es la condición fundamental que debe cumplir una función $f$ en un intervalo $[a, b]$ para que el **Teorema Fundamental del Cálculo** garantice que $F(x) = \\int_a^x f(t) \\, dt$ sea derivable?",
+    "options": [
+      "$f$ debe ser continua en $[a, b]$.",
+      "$f$ debe ser derivable en $(a, b)$.",
+      "$f$ debe ser positiva en todo el intervalo.",
+      "$f$ debe ser un polinomio."
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La continuidad es la condición necesaria para aplicar la primera parte del TFC.",
+    "feedback_incorrect": "Para que la función integral sea derivable, la función original $f$ solo necesita ser continua en el intervalo cerrado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Teorema Fundamental del Cálculo** (parte 1) establece que si $f$ es **continua** en $[a, b]$, entonces la función definida por la integral:\n\n$$F(x) = \\int_a^x f(t) \\, dt$$\n\nes continua en $[a, b]$, derivable en $(a, b)$, y su derivada es exactamente $f(x)$. Esta conexión es vital porque asegura que toda función continua tiene una primitiva, aunque no siempre podamos expresarla mediante funciones elementales.\n\nSin la hipótesis de continuidad, no podemos asegurar la derivabilidad de $F(x)$ en todos los puntos del intervalo.",
+    "reviewed": false
+  },
+  {
+    "question": "Al aplicar el TFC Parte 2 (Regla de Barrow), ¿por qué no sumamos la constante $C$ de la integral indefinida al evaluar $\\int_a^b f(x) \\, dx$?",
+    "options": [
+      "Porque las integrales definidas no tienen constante de integración.",
+      "Porque al restar $F(b) - F(a)$, las constantes se cancelan algebraicamente.",
+      "Porque la constante $C$ siempre vale cero en el intervalo $[a, b]$.",
+      "Porque el teorema solo funciona para la primitiva donde $C=1$."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al hacer $(F(b)+C) - (F(a)+C)$, la constante desaparece.",
+    "feedback_incorrect": "La constante $C$ sí existe en cada primitiva, pero se cancela al realizar la resta del límite superior menos el inferior.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **Regla de Barrow** nos dice que si $F$ es cualquier antiderivada de $f$, entonces la integral definida se calcula como:\n\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nSi elegimos una primitiva con una constante genérica $G(x) = F(x) + C$, al evaluar tendríamos:\n\n$$G(b) - G(a) = (F(b) + C) - (F(a) + C) = F(b) - F(a)$$\n\nPor esta razón, por convención y simplicidad, siempre usamos la primitiva más sencilla (donde $C=0$) para realizar el cálculo de integrales definidas.",
+    "reviewed": false
+  },
+  {
+    "question": "Si tenés que derivar $G(x) = \\int_0^{x^3} e^{-t^2} \\, dt$, ¿qué herramientas combinás además del TFC?",
+    "options": [
+      "La Regla del Producto.",
+      "Integración por partes.",
+      "La Regla de la Cadena.",
+      "Sustitución trigonométrica."
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como el límite superior es una función $u(x)$, aplicamos la Regla de la Cadena.",
+    "feedback_incorrect": "Cuando el límite de integración es una función compleja de $x$, el TFC se combina con la Regla de la Cadena para derivar correctamente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando definimos una función mediante una integral donde el límite superior es otra función $g(x)$, estamos ante una **composición de funciones**.\n\nPara derivar $G(x) = \\int_a^{g(x)} f(t) \\, dt$, usamos el TFC junto a la **Regla de la Cadena**:\n\n$$G'(x) = f(g(x)) \\cdot g'(x)$$\n\nEn este caso, evaluarías el integrando en $x^3$ y luego multiplicarías por la derivada de $x^3$ (que es $3x^2$). Es un error común de examen olvidarse de este último paso multiplicativo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la interpretación geométrica de la expresión $F(b) - F(a)$ según el Teorema Fundamental del Cálculo?",
+    "options": [
+      "La pendiente de la secante de la función $f$.",
+      "El valor máximo de la función en el intervalo.",
+      "La longitud de la curva $f$ en el intervalo dado.",
+      "El área neta acumulada bajo la curva de $f$ entre $x=a$ y $x=b$."
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Representa el área neta (considerando signos) entre la función y el eje X.",
+    "feedback_incorrect": "La diferencia de valores de la primitiva en los extremos representa el área neta bajo la función original $f$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **cálculo integral** nació para resolver el problema del área. El TFC conecta este concepto geométrico con el cálculo diferencial.\n\nLa integral definida $\\int_a^b f(x) \\, dx$ nos da el **área neta**: el área por encima del eje X menos el área por debajo del eje X. El teorema nos dice que este valor coincide exactamente con la variación total de cualquier primitiva $F$ en ese intervalo.\n\n$$Area = \\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsto transformó el cálculo de áreas de un problema de límites de sumas infinitas (Sumas de Riemann) a un simple problema de encontrar una derivada inversa.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $F(x) = \\int_{x}^{5} f(t) \\, dt$, ¿cuál es el primer paso correcto para hallar $F'(x)$ usando el TFC?",
+    "options": [
+      "Invertir los límites de integración cambiando el signo de la integral.",
+      "Derivar directamente el límite inferior.",
+      "Ignorar el 5 y evaluar solo en $x$.",
+      "No se puede derivar porque la variable está abajo."
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Usamos la propiedad $\\int_a^b = -\\int_b^a$ para dejar la variable en el límite superior.",
+    "feedback_incorrect": "Para aplicar el TFC estándar, la variable debe estar arriba. Invertís los límites y ponés un signo menos adelante.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma estándar del TFC requiere que la variable esté en el **límite superior**. Si tenés la variable en el límite inferior:\n\n$$F(x) = \\int_{x}^{a} f(t) \\, dt$$\n\nPodés usar la propiedad de linealidad de las integrales para reescribirla como:\n\n$$F(x) = - \\int_{a}^{x} f(t) \\, dt$$\n\nAhora, derivando respecto a $x$, obtenemos:\n\n$$F'(x) = -f(x)$$\n\nEs fundamental recordar ese signo menos, ya que indica que al aumentar el límite inferior, el área acumulada hacia la derecha disminuye.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué representa la variable $t$ en la expresión $F(x) = \\int_a^x f(t) \\, dt$?",
+    "options": [
+      "El tiempo real de ejecución de la función.",
+      "Una variable muda o auxiliar para la integración.",
+      "La misma variable que $x$ pero en otro eje.",
+      "Una constante que desaparece al final."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Es una variable muda que solo sirve para describir el integrando.",
+    "feedback_incorrect": "Se llama variable muda. Podrías usar cualquier letra (u, s, t) y el resultado final, que depende de $x$, sería el mismo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la notación de funciones integrales, es crucial distinguir entre el **límite de integración** ($x$) y la **variable de integración** ($t$).\n\nLa variable $t$ es una **variable muda**. Solo existe dentro de la integral para indicar qué función estamos sumando. Al evaluar la integral en los límites $a$ y $x$, la $t$ desaparece y el resultado es una función de $x$.\n\nSi escribieras $\\int_a^x f(x) \\, dx$, estarías cometiendo un error de notación grave, ya que $x$ no puede ser simultáneamente el punto de llegada y la variable que recorre el camino.",
+    "reviewed": false
+  },
+  {
+    "question": "El Teorema Fundamental del Cálculo establece que la derivación y la integración son:",
+    "options": [
+      "Exactamente la misma operación.",
+      "Operaciones independientes.",
+      "Operaciones inversas.",
+      "Incompatibles entre sí."
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Una deshace lo que la otra hace, uniendo el cálculo diferencial e integral.",
+    "feedback_incorrect": "El TFC demuestra que son procesos inversos: integrar una derivada recupera la función, y derivar una integral recupera el integrando.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes del descubrimiento del **Teorema Fundamental del Cálculo**, el cálculo de pendientes (derivadas) y el cálculo de áreas (integrales) se estudiaban como problemas totalmente distintos.\n\nEl TFC unificó la matemática al demostrar que son procesos inversos:\n1. Si derivás una acumulación de área, obtenés la tasa de cambio actual ($f(x)$).\n2. Si integrás una tasa de cambio, obtenés la acumulación total ($F(b) - F(a)$).\n\nEsta simetría permite que usemos todas las reglas de derivación que conocemos para resolver problemas de integración complejos de forma eficiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Si querés calcular $\\int_1^3 (x^2 + 2) \\, dx$, ¿cuál es el orden correcto de pasos usando Barrow?",
+    "options": [
+      "Hallar la derivada $\\to$ Reemplazar por $3$ y $1$.",
+      "Evaluar en $3$ $\\to$ Derivar $\\to$ Restar el valor en $1$.",
+      "Multiplicar la función por $(3-1)$ y luego derivar.",
+      "Hallar primitiva $\\to$ Evaluar en $3$ $\\to$ Evaluar en $1$ $\\to$ Restar resultados."
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Primitiva, evaluación superior, evaluación inferior y resta.",
+    "feedback_incorrect": "Primero buscás la primitiva $F(x)$, luego calculás $F(3)$ y le restás $F(1)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para aplicar la **Regla de Barrow** (TFC parte 2) seguimos un algoritmo estricto:\n\n1. **Integración:** Encontramos una primitiva $F(x)$ tal que $F'(x) = f(x)$.\n2. **Evaluación:** Sustituimos los límites en la primitiva. Se suele anotar como $[F(x)]_a^b$.\n3. **Cálculo:** Restamos el valor en el límite superior menos el valor en el límite inferior.\n\n$$\\int_1^3 (x^2 + 2) \\, dx = \\left[ \\frac{x^3}{3} + 2x \\right]_1^3 = F(3) - F(1)$$\n\nCualquier error en el orden de la resta ($a-b$ en lugar de $b-a$) cambiará el signo del resultado final.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué sucede si intentás aplicar el TFC a una función que tiene una asíntota vertical (discontinuidad infinita) dentro del intervalo $[a, b]$?",
+    "options": [
+      "El TFC no es aplicable directamente; la integral es impropia.",
+      "El TFC funciona igual siempre que la primitiva exista.",
+      "Se toma el límite de la primitiva y el resultado es siempre $\\infty$.",
+      "Se ignora el punto de discontinuidad."
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La continuidad es un requisito; si hay saltos infinitos, la integral se vuelve impropia.",
+    "feedback_incorrect": "Si la función no es continua en todo el intervalo cerrado, el TFC estándar falla. Entramos en el terreno de las integrales impropias.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un error común es intentar aplicar la **Regla de Barrow** mecánicamente a funciones como $f(x) = 1/x^2$ en el intervalo $[-1, 1]$.\n\nSi ignorás que la función explota en $x=0$, podrías obtener un valor numérico erróneo usando la primitiva $-1/x$. Sin embargo, el TFC **requiere continuidad** en todo el intervalo $[a, b]$.\n\nSi hay una discontinuidad infinita, la integral debe tratarse como una **integral impropia**, dividiendo el intervalo y tomando límites, ya que el área bajo la curva podría ser infinita.",
+    "reviewed": false
+  },
+  {
+    "question": "En la expresión $\\frac{d}{dx} \\int_a^x f(t) \\, dt = f(x)$, ¿qué rol cumple la constante $a$?",
+    "options": [
+      "Debe ser siempre $a=0$.",
+      "Cualquier valor real constante dentro del dominio de continuidad de $f$.",
+      "Debe ser el mismo valor que $x$.",
+      "Es el valor donde la función $f$ vale cero."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Mientras $a$ sea una constante, su valor no afecta a la derivada final.",
+    "feedback_incorrect": "La $a$ puede ser cualquier número constante. Al derivar, el término $F(a)$ es una constante y su derivada es cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor del límite inferior $a$ en el TFC define qué primitiva específica estamos obteniendo, pero no afecta a la **derivada** de la función integral.\n\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces por la definición de primitiva:\n\n$$F(x) = G(x) - G(a)$$\n\nDonde $G$ es una primitiva general. Al derivar respecto a $x$:\n\n$$F'(x) = G'(x) - 0 = f(x)$$\n\nComo $G(a)$ es un número fijo (constante), su derivada desaparece. Por eso, no importa si empezás a integrar desde $0$, $1$ o $-100$, la tasa de cambio de la acumulación de área siempre será el valor de la función en el punto actual $x$.",
+    "reviewed": false
+  }
+]

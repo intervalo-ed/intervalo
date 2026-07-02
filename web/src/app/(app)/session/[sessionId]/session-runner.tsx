@@ -211,7 +211,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     wrongResetRef.current = setTimeout(() => {
       patch({ result: null })
       wrongResetRef.current = null
-    }, 2000)
+    }, 8000)
   }
 
   function openWhy() {
@@ -289,67 +289,75 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                     />
                   )}
 
-                  <div className="flex flex-col gap-2">
-                    {exercise.options.map((opt, i) => {
-                      const isSelected = cur.selection === i
-                      const isCorrectOpt = i === exercise.correct_index
-                      const isWrong = cur.wrongOptions.includes(i)
-                      const isShaking = shakeIdx === i
+                  {(() => {
+                    const useGrid =
+                      exercise.options.length === 4 &&
+                      exercise.options.every((o) => o.length <= 35)
+                    return (
+                      <div className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
+                        {exercise.options.map((opt, i) => {
+                          const isSelected = cur.selection === i
+                          const isCorrectOpt = i === exercise.correct_index
+                          const isWrong = cur.wrongOptions.includes(i)
+                          const isShaking = shakeIdx === i
 
-                      let borderCls = "border-white/10"
-                      let textCls = "text-foreground/80"
-                      let extraCls = ""
-                      if (isShaking) {
-                        borderCls = "border-[#E3690B]"
-                        textCls = "text-[#E3690B] font-medium"
-                      } else if (isWrong) {
-                        extraCls = "opacity-40"
-                      } else if (solved && isSelected && isCorrectOpt) {
-                        if (solvedAfterError) {
-                          borderCls = "border-[#D9F99D]/50"
-                          textCls = "text-[#D9F99D] font-medium"
-                        } else {
-                          borderCls = "border-green-500/50"
-                          textCls = "text-green-400 font-medium"
-                        }
-                      } else if (solved) {
-                        extraCls = "opacity-40"
-                      } else if (isSelected) {
-                        borderCls = "border-[#7e80f7]"
-                        textCls = "text-[#c4c6ff] font-medium"
-                      }
+                          let borderCls = "border-white/10"
+                          let textCls = "text-foreground/80"
+                          let extraCls = ""
+                          if (isShaking) {
+                            borderCls = "border-[#E3690B]"
+                            textCls = "text-[#E3690B] font-medium"
+                          } else if (isWrong) {
+                            extraCls = "opacity-40"
+                          } else if (solved && isSelected && isCorrectOpt) {
+                            if (solvedAfterError) {
+                              borderCls = "border-[#D9F99D]/50"
+                              textCls = "text-[#D9F99D] font-medium"
+                            } else {
+                              borderCls = "border-green-500/50"
+                              textCls = "text-green-400 font-medium"
+                            }
+                          } else if (solved) {
+                            extraCls = "opacity-40"
+                          } else if (isSelected) {
+                            borderCls = "border-[#7e80f7]"
+                            textCls = "text-[#c4c6ff]"
+                          }
 
-                      return (
-                        <button
-                          key={i}
-                          disabled={solved || isWrong}
-                          onClick={() => handlePick(i)}
-                          className={cn(
-                            "w-full rounded-md border bg-white/5 px-4 py-3.5 text-left text-base transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
-                            borderCls,
-                            textCls,
-                            extraCls,
-                          )}
-                        >
-                          <motion.span
-                            className="block"
-                            animate={
-                              isShaking
-                                ? { x: [0, -8, 8, -6, 6, -3, 0] }
-                                : { x: 0 }
-                            }
-                            transition={
-                              isShaking
-                                ? { duration: 0.4, ease: "easeInOut" }
-                                : { duration: 0 }
-                            }
-                          >
-                            <MathText text={opt} />
-                          </motion.span>
-                        </button>
-                      )
-                    })}
-                  </div>
+                          return (
+                            <button
+                              key={i}
+                              disabled={solved || isWrong}
+                              onClick={() => handlePick(i)}
+                              className={cn(
+                                "w-full rounded-md border bg-white/5 px-4 py-3.5 text-base transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
+                                useGrid ? "text-center" : "text-left",
+                                borderCls,
+                                textCls,
+                                extraCls,
+                              )}
+                            >
+                              <motion.span
+                                className="block"
+                                animate={
+                                  isShaking
+                                    ? { x: [0, -8, 8, -6, 6, -3, 0] }
+                                    : { x: 0 }
+                                }
+                                transition={
+                                  isShaking
+                                    ? { duration: 0.4, ease: "easeInOut" }
+                                    : { duration: 0 }
+                                }
+                              >
+                                <MathText text={opt} />
+                              </motion.span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    )
+                  })()}
                 </>
               )}
               </div>
@@ -423,7 +431,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               <div className="mx-auto w-full max-w-2xl text-[15px]">
                 <span className="font-semibold text-orange-400">¿Seguro?</span>
                 <div className="mt-3 text-foreground/85">
-                  Revisá tu respuesta e intentalo una vez más.
+                  {(() => {
+                    const lastWrongIdx = cur.wrongOptions.length > 0 ? cur.wrongOptions[cur.wrongOptions.length - 1] : null
+                    const hint =
+                      Array.isArray(exercise.feedback_incorrect) && lastWrongIdx !== null
+                        ? (exercise.feedback_incorrect[lastWrongIdx] ?? null)
+                        : null
+                    return hint ? <MathText text={hint} /> : "Revisá tu respuesta e intentalo una vez más."
+                  })()}
                 </div>
               </div>
             </div>

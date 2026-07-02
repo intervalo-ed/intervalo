@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 2} \\dfrac{x^2-4}{x-2}$?",
+    "options": [
+      "$4$",
+      "$0$",
+      "$2$",
+      "$\\dfrac{0}{0}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to 2}(x+2) = 4$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x-2} = x+2$ (para $x \\neq 2$). Luego $\\lim_{x \\to 2}(x+2) = 4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa da $\\dfrac{0}{0}$. El numerador $x^2-4$ es **diferencia de cuadrados**: $x^2 - 2^2 = (x-2)(x+2)$.\n\n$$\\frac{x^2-4}{x-2} = \\frac{(x-2)(x+2)}{x-2} = x+2 \\xrightarrow{x \\to 2} 4$$\n\nProtocolo: sustitución $\\to$ indeterminación $\\to$ factorizar $\\to$ cancelar $\\to$ sustituir de nuevo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$?",
+    "options": [
+      "$0$",
+      "$6$",
+      "$3$",
+      "$9$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2-9 = (x-3)(x+3)$. Cancelando: $\\lim_{x \\to 3}(x+3) = 6$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-3)(x+3)}{x-3} = x+3$. Entonces $\\lim_{x \\to 3}(x+3) = 3+3 = 6$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2-9 = (x-3)(x+3)$: **diferencia de cuadrados** con $a=x$ y $b=3$. Al cancelar $(x-3)$ con el denominador, queda $x+3$.\n\n$$\\lim_{x \\to 3}\\frac{x^2-9}{x-3} = \\lim_{x \\to 3}\\frac{(x-3)(x+3)}{x-3} = \\lim_{x \\to 3}(x+3) = 6$$\n\nNota: $3+3=6$, no $3 \\times 3 = 9$. El error más frecuente es confundir suma con producto al evaluar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$?",
+    "options": [
+      "$2$",
+      "$0$",
+      "$1$",
+      "$-1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$x^2+3x+2 = (x+1)(x+2)$. Cancelando: $\\lim_{x \\to -1}(x+2) = 1$.",
+    "feedback_incorrect": "Factorizar el numerador: $(x+1)(x+2)$. Cancelar $(x+1)$: queda $x+2$. $\\lim_{x \\to -1}(x+2) = 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2+3x+2$ es un **trinomio**: buscamos dos números que sumen $3$ y multipliquen $2$. Son $1$ y $2$.\n\n$$\\frac{x^2+3x+2}{x+1} = \\frac{(x+1)(x+2)}{x+1} = x+2 \\xrightarrow{x \\to -1} 1$$\n\nCancelamos $(x+1)$, que genera la indeterminación, y evaluamos $x+2$ en $x=-1$: $-1+2 = 1$. Atención al signo con valores negativos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^2-1}{x^2+x-2}$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$1$",
+      "$0$",
+      "$\\dfrac{2}{3}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$x^2-1 = (x-1)(x+1)$ y $x^2+x-2 = (x-1)(x+2)$. Cancelando: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
+    "feedback_incorrect": "Factorizar ambos: numerador $(x-1)(x+1)$, denominador $(x-1)(x+2)$. Cancelar $(x-1)$: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando **ambos** el numerador y el denominador producen $0$ al sustituir, hay que factorizar los dos y cancelar el factor común.\n\n$$\\frac{(x-1)(x+1)}{(x-1)(x+2)} = \\frac{x+1}{x+2} \\xrightarrow{x \\to 1} \\frac{2}{3}$$\n\n$x^2-1 = (x-1)(x+1)$ es diferencia de cuadrados; $x^2+x-2 = (x-1)(x+2)$ es trinomio ($-1 \\times 2 = -2$, $-1+2=1$).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to -2} \\dfrac{x^2-4}{x+2}$?",
+    "options": [
+      "$-4$",
+      "$4$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to -2}(x-2) = -4$.",
+    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x+2} = x-2$. Entonces $\\lim_{x \\to -2}(x-2) = -2-2 = -4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2-4 = (x-2)(x+2)$: **diferencia de cuadrados**. El denominador es $(x+2)$, así que el factor que cancela es $(x+2)$, quedando $(x-2)$.\n\n$$\\frac{(x-2)(x+2)}{x+2} = x-2 \\xrightarrow{x \\to -2} -4$$\n\nAtención: el resultado es $-4$, negativo. $\\lim_{x \\to -2}(x-2) = -2-2 = -4$. Error frecuente: cancelar el factor equivocado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\dfrac{x^2-16}{x-4}$?",
+    "options": [
+      "$4$",
+      "$8$",
+      "$0$",
+      "$16$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2-16 = (x-4)(x+4)$. Cancelando: $\\lim_{x \\to 4}(x+4) = 8$.",
+    "feedback_incorrect": "$\\dfrac{(x-4)(x+4)}{x-4} = x+4$. $\\lim_{x \\to 4}(x+4) = 8$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2-16 = x^2 - 4^2$: **diferencia de cuadrados** con $b=4$. El factor $(x-4)$ cancela con el denominador.\n\n$$\\frac{(x-4)(x+4)}{x-4} = x+4 \\xrightarrow{x \\to 4} 8$$\n\nEn general, $\\lim_{x \\to a}\\dfrac{x^2-a^2}{x-a} = 2a$. Acá $a=4$, así que $2 \\times 4 = 8$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{x^2+3x}{x}$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$3$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Factor común $x$: $\\dfrac{x(x+3)}{x} = x+3$. $\\lim_{x \\to 0}(x+3) = 3$.",
+    "feedback_incorrect": "Factor común: $\\dfrac{x(x+3)}{x} = x+3$ (para $x \\neq 0$). Entonces $\\lim_{x \\to 0}(x+3) = 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El numerador tiene **factor común $x$**: todos los términos de $x^2+3x$ son divisibles por $x$. Al sacar el factor común, aparece el que cancela con el denominador.\n\n$$\\frac{x^2+3x}{x} = \\frac{x(x+3)}{x} = x+3 \\xrightarrow{x \\to 0} 3$$\n\nEsta es la forma más directa de factorización: sacar $x$ cuando el punto de tendencia es $x=0$ y el denominador también es $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to -3} \\dfrac{x^2+6x+9}{x+3}$?",
+    "options": [
+      "$9$",
+      "$3$",
+      "$6$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$x^2+6x+9 = (x+3)^2$. Cancelando: $\\lim_{x \\to -3}(x+3) = 0$.",
+    "feedback_incorrect": "Trinomio cuadrado perfecto: $(x+3)^2$. Cancelar $(x+3)$: queda $(x+3) \\to 0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2+6x+9 = (x+3)^2$: **trinomio cuadrado perfecto** con $b=3$. Al factorizar como $(x+3)(x+3)$ y cancelar un factor con el denominador, queda el otro.\n\n$$\\frac{(x+3)^2}{x+3} = x+3 \\xrightarrow{x \\to -3} 0$$\n\nEl resultado $0$ es correcto y esperado: el factor que queda, $x+3$, vale cero en el punto de tendencia.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 5} \\dfrac{x^2-10x+25}{x-5}$?",
+    "options": [
+      "$0$",
+      "$5$",
+      "$25$",
+      "$10$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$x^2-10x+25 = (x-5)^2$. Cancelando: $\\lim_{x \\to 5}(x-5) = 0$.",
+    "feedback_incorrect": "$(x-5)^2 = (x-5)(x-5)$. Cancelar un $(x-5)$: queda $x-5 \\to 0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^2-10x+25$: verificamos si es cuadrado perfecto. Raíz del primer término: $x$; raíz del último: $5$ (ya que $5^2=25$); término medio: $2 \\cdot x \\cdot 5 = 10x$ ✓.\n\n$$\\frac{(x-5)^2}{x-5} = x-5 \\xrightarrow{x \\to 5} 0$$\n\nEl factor restante, $x-5$, vale cero en $x=5$. El límite existe y vale $0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^3-1}{x-1}$?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelando: $\\lim_{x \\to 1}(x^2+x+1) = 3$.",
+    "feedback_incorrect": "Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelar $(x-1)$: queda $x^2+x+1 \\to 1+1+1 = 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$x^3-1$ es una **diferencia de cubos**: la identidad es $a^3-b^3 = (a-b)(a^2+ab+b^2)$. Con $a=x$ y $b=1$:\n\n$$\\frac{x^3-1}{x-1} = \\frac{(x-1)(x^2+x+1)}{x-1} = x^2+x+1 \\xrightarrow{x \\to 1} 3$$\n\n$\\lim_{x \\to 1}(x^2+x+1) = 1+1+1 = 3$. La diferencia de cubos sigue el mismo protocolo: factorizar $\\to$ cancelar $\\to$ sustituir.",
+    "reviewed": false
+  }
+]

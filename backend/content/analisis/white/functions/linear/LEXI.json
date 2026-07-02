@@ -1,0 +1,852 @@
+[
+  {
+    "question": "¿Cuál de estas expresiones representa una función lineal?",
+    "options": [
+      "$f(x) = 5x - 2$",
+      "$f(x) = x^2$",
+      "$f(x) = 3^x$",
+      "$f(x) = \\log(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es aquella que puede escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$ son constantes reales. Su gráfica es siempre una **línea recta**.\n\n**Componentes:**\n• $m$ es la **pendiente** — mide la inclinación de la recta.\n• $b$ es la **ordenada al origen** — el valor de $f(0)$.\n\nLa variable $x$ debe aparecer únicamente con exponente 1. Si aparece elevada al cuadrado, dentro de un logaritmo, en el exponente o bajo una raíz, la función pertenece a otra familia.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas NO es una función lineal?",
+    "options": [
+      "$f(x) = 3x + 4$",
+      "$f(x) = x^2 + 1$",
+      "$f(x) = -x + 7$",
+      "$f(x) = 5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^2 + 1$ tiene un término cuadrático, por eso NO es lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe tener la forma $f(x) = mx + b$, donde la variable $x$ aparece solo con exponente 1.\n\n• $3x + 4$: potencia 1 → lineal ✓\n• $x^2 + 1$: potencia 2 → cuadrática ✗\n• $-x + 7$: potencia 1 → lineal ✓\n• $5$: constante (potencia 0) → lineal ✓\n\nEl término $x^2$ la descalifica de la familia lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = mx + b$, ¿cómo se llama el coeficiente $m$?",
+    "options": [
+      "Raíz",
+      "Ordenada al origen",
+      "Pendiente",
+      "Coeficiente cuadrático"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$m$ se llama pendiente e indica cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada símbolo de la forma estándar $f(x) = mx + b$ tiene un significado:\n\n**Pendiente** ($m$): mide la **tasa de cambio**. Indica cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\n\n**Ordenada al origen** ($b$): el valor de la función en $x = 0$, donde la recta corta el eje $Y$:\n$$f(0) = b$$\n\nJuntos, $m$ y $b$ determinan por completo la recta en el plano.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cómo se llama el número $b$ en $f(x) = mx + b$?",
+    "options": [
+      "Pendiente",
+      "Ordenada al origen",
+      "Raíz",
+      "Vértice"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El número $b$ es la ordenada al origen: $f(0) = b$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $f(x) = mx + b$:\n\n**Ordenada al origen** ($b$) es el término independiente, el valor que toma la función cuando $x = 0$:\n$$f(0) = b$$\n\nEs el punto donde la recta corta el eje $Y$. No importa la forma en que esté escrita la función: $b$ siempre es la constante sin $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal con pendiente positiva ($m > 0$) es...",
+    "options": [
+      "Periódica",
+      "Decreciente",
+      "Constante",
+      "Creciente"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Si $m > 0$, la recta sube de izquierda a derecha: la función es creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de la pendiente $m$ determina el comportamiento global:\n\n$$m > 0 \\implies \\text{creciente}$$\n$$m < 0 \\implies \\text{decreciente}$$\n$$m = 0 \\implies \\text{constante}$$\n\nEsta propiedad es **global**: una función lineal mantiene el mismo comportamiento en todo $\\mathbb{R}$. A diferencia de funciones cuadráticas o trigonométricas, una recta con $m \\neq 0$ nunca cambia de dirección.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = 4 - x$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$4 - x$ puede escribirse como $-x + 4$, que es la forma $mx + b$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A veces una función lineal no está en la forma canónica $f(x) = mx + b$. Reescribiendo:\n$$f(x) = 4 - x = -x + 4$$\n\nAhora se ve: $m = -1$ y $b = 4$. Es una **función lineal** con pendiente negativa, aunque el orden esté invertido.\n\nEl criterio es que $x$ tenga exponente 1 y no haya otras operaciones especiales (raíz, logaritmo, exponente).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cómo se llama una función lineal cuya pendiente es cero?",
+    "options": [
+      "Función cuadrática",
+      "Función identidad",
+      "Función constante",
+      "Función afín"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Cuando $m = 0$, $f(x) = b$ es constante: su gráfica es una recta horizontal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando la pendiente es cero ($m = 0$), la función lineal se reduce a:\n$$f(x) = b$$\n\nEsta función se llama **función constante**: devuelve siempre el mismo valor $b$ sin importar $x$.\n\nSu gráfica es una **recta horizontal** que corta el eje $Y$ en $(0, b)$ y nunca corta el eje $X$ (salvo que $b = 0$). No crece ni decrece: la tasa de cambio es exactamente cero.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la característica visual distintiva de una función lineal?",
+    "options": [
+      "Es periódica",
+      "Su gráfica es una parábola",
+      "Tiene asíntotas horizontales",
+      "Su gráfica es una línea recta"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La gráfica de toda función lineal $f(x) = mx + b$ es siempre una línea recta.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es siempre una **línea recta**.\n\nEsto se debe a que la función tiene **tasa de cambio constante**: por cada unidad que avanza $x$, $f(x)$ cambia exactamente $m$ unidades. No se curva, no oscila, no tiene extremos.\n\n• $m > 0$: recta ascendente\n• $m < 0$: recta descendente\n• $m = 0$: recta horizontal",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas veces corta el eje X una función lineal con pendiente no nula?",
+    "options": [
+      "Cero veces",
+      "Una vez",
+      "Dos veces",
+      "Infinitas veces"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función lineal con $m \\neq 0$ corta al eje $X$ exactamente una vez, en su raíz.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ corta al eje $X$ exactamente **una vez**.\n\nSu única raíz se obtiene resolviendo $f(x) = 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\n\nComo $m \\neq 0$, siempre existe exactamente una solución.\n\nEn cambio, una función constante ($m = 0$) no cruza el eje $X$ si $b \\neq 0$, o lo coincide completamente si $b = 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué es la ordenada al origen en términos de la función?",
+    "options": [
+      "El valor máximo de $f$",
+      "El valor de $f(0)$",
+      "La raíz de la función",
+      "La pendiente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es $f(0)$, el valor de la función cuando $x = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** $b$ es el valor que toma la función cuando $x = 0$:\n$$f(0) = b$$\n\nGeométricamente, es el punto donde la recta corta el eje $Y$. Siempre es $(0, b)$.\n\nNo se confunde con la raíz (donde corta el eje $X$) ni con la pendiente (la inclinación).",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 7 - 3x$, ¿cuál es la ordenada al origen?",
+    "options": [
+      "$7$",
+      "$-3$",
+      "$-3x$",
+      "$x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El $7$ es la ordenada al origen: $f(0) = 7$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar los parámetros, reescribir en forma canónica $f(x) = mx + b$:\n$$f(x) = 7 - 3x = -3x + 7$$\nAquí $m = -3$ (pendiente) y $b = 7$ (**ordenada al origen**).\n\nLa ordenada al origen es el valor que toma la función cuando $x = 0$: $f(0) = 7$. No importa si la función está escrita en orden invertido.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 2x + 5$, ¿cuál es la pendiente?",
+    "options": [
+      "$5$",
+      "$2$",
+      "$2x$",
+      "$x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = 2x + 5$: el coeficiente de $x$ es $2$, entonces $m = 2$. El $5$ es la ordenada al origen ($b = 5$).\n\nLa pendiente indica que por cada unidad que $x$ avanza, $f(x)$ sube $2$ unidades.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal con pendiente negativa ($m < 0$) es...",
+    "options": [
+      "Creciente",
+      "Decreciente",
+      "Constante",
+      "Periódica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si $m < 0$, la recta baja de izquierda a derecha: la función es decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de la pendiente determina la monotonía:\n\n$$m < 0 \\implies \\text{decreciente en } \\mathbb{R}$$\n\nCuando $x$ aumenta, $f(x)$ disminuye. Por cada unidad que $x$ sube, $f(x)$ baja $|m|$ unidades.\n\nEsta propiedad vale en todo el dominio $\\mathbb{R}$, sin excepciones.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el dominio natural de una función lineal $f(x) = ax + b$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$[a, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Las funciones lineales están definidas para todo $x \\in \\mathbb{R}$, ya que solo involucran suma y multiplicación.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** de una función es el conjunto más grande de reales donde está definida.\n\nPara $f(x) = ax + b$, las únicas operaciones son multiplicar $x$ por $a$ y sumar $b$. Esas operaciones siempre tienen resultado, sin importar el valor de $x$.\n\nPor eso el dominio de toda función lineal es $\\mathbb{R}$, es decir, todos los números reales.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de la función constante $f(x) = 5$?",
+    "options": [
+      "$\\{5\\}$",
+      "$\\mathbb{R}$",
+      "$[0, 5]$",
+      "$(0, +\\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La función siempre devuelve $5$. La imagen es el conjunto unitario $\\{5\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** (o recorrido) de una función es el conjunto de todos los valores que efectivamente toma $f(x)$.\n\nEn $f(x) = 5$, sin importar qué $x$ uses, la función siempre devuelve $5$. Por eso la imagen es $\\{5\\}$.\n\nEsto contrasta con el **dominio** ($\\mathbb{R}$): la función acepta cualquier $x$, pero siempre produce la misma salida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ tiene imagen...",
+    "options": [
+      "$\\{b\\}$",
+      "$\\mathbb{R}$",
+      "$[b, +\\infty)$",
+      "$[0, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si $m \\neq 0$, la función alcanza todos los valores reales.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para una función lineal $f(x) = mx + b$ con $m \\neq 0$:\n\n• El dominio es $\\mathbb{R}$ (todos los reales entran).\n• La imagen también es $\\mathbb{R}$ (todos los reales salen).\n\nEsto es porque la recta no es horizontal; sube o baja sin límite y cubre todo el eje $Y$.\n\nSolo cuando $m = 0$ (función constante) la imagen se reduce a un punto: $\\{b\\}$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el nombre del punto donde una recta corta el eje Y?",
+    "options": [
+      "Vértice",
+      "Raíz",
+      "Ordenada al origen",
+      "Intercepto en X"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto donde la recta corta el eje Y se llama ordenada al origen (o intercepto en Y).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una recta puede intersectar ambos ejes coordenados.\n\n**Intercepto en $Y$ (ordenada al origen)**: se calcula haciendo $x = 0$:\n$$f(0) = b$$\n\nEste es el punto $(0, b)$, donde la recta cruza el eje $Y$.\n\n**Intercepto en $X$ (raíz o cero)**: se obtiene resolviendo $f(x) = 0$.\n\nEstos son nombres standard en análisis de funciones lineales.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el nombre del valor de $x$ donde una recta corta el eje X?",
+    "options": [
+      "Ordenada al origen",
+      "Vértice",
+      "Raíz o cero",
+      "Intercepto en Y"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El valor de $x$ donde la recta cruza el eje X se llama raíz o cero de la función.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **raíz** (o **cero**) de una función es el valor de $x$ donde $f(x) = 0$.\n\nPara una función lineal $f(x) = mx + b$ con $m \\neq 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\n\nGeométricamente, es el punto $(x, 0)$ donde la recta corta el eje $X$.\n\nNota: la raíz es un número ($x$), no un punto; el punto es $(-b/m, 0)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la diferencia entre pendiente positiva y negativa?",
+    "options": [
+      "Con pendiente positiva no hay raíz",
+      "Con pendiente positiva la recta sube; con negativa baja",
+      "La pendiente no afecta la forma",
+      "Solo afecta el dominio"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con pendiente positiva ($m > 0$) la recta sube; con negativa ($m < 0$) baja.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente $m$ determina la dirección e inclinación de la recta:\n\n• **$m > 0$** (positiva): la recta sube de izquierda a derecha. Función creciente.\n• **$m < 0$** (negativa): la recta baja de izquierda a derecha. Función decreciente.\n• **$m = 0$**: la recta es horizontal. Función constante.\n\nEl valor absoluto $|m|$ indica la inclinación: una pendiente grande (en valor absoluto) significa una recta muy inclinada; una pequeña, una recta casi horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significado tiene la pendiente en términos de variación?",
+    "options": [
+      "Es el valor de $f(0)$",
+      "Es la tasa de cambio de $f$ respecto a $x$",
+      "Es la raíz de la función",
+      "Es el eje de simetría"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente mide cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente** $m$ indica la **tasa de cambio**:\n$$m = \\frac{\\Delta f}{\\Delta x} = \\frac{f(x_2) - f(x_1)}{x_2 - x_1}$$\n\nEn una función lineal, esta tasa es constante. Una pendiente de $m = 3$ significa que por cada unidad que $x$ sube, $f(x)$ sube exactamente $3$ unidades.\n\nEs la clave para entender cómo la función reacciona a cambios en la entrada.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Pertenece $f(x) = \\dfrac{x}{2} + 3$ a la familia lineal?",
+    "options": [
+      "No, porque tiene división",
+      "Sí, es lineal",
+      "No, porque $x$ no está multiplicada",
+      "Sí, pero no tiene ordenada"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\frac{x}{2} + 3$ puede escribirse como $\\frac{1}{2}x + 3$, que es $mx + b$ con $m = \\frac{1}{2}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una división como $\\frac{x}{2}$ es equivalente a una multiplicación por fracción: $\\frac{x}{2} = \\frac{1}{2} \\cdot x$.\n\nReescribiendo:\n$$f(x) = \\frac{x}{2} + 3 = \\frac{1}{2}x + 3$$\n\nEsta es la forma $mx + b$ con $m = \\frac{1}{2}$ y $b = 3$. **Es una función lineal** con pendiente fraccionaria.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la pendiente de $f(x) = -x$?",
+    "options": [
+      "$0$",
+      "$-1$",
+      "$1$",
+      "$x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = -x = -1 \\cdot x + 0$, la pendiente es $m = -1$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = -x$:\n$$f(x) = -1 \\cdot x + 0$$\n\nAquí $m = -1$ (pendiente) y $b = 0$ (ordenada al origen).\n\nLa función pasa por el origen $(0, 0)$ porque $f(0) = 0$. La recta tiene pendiente $-1$, así que baja $1$ unidad por cada unidad que avanza $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la pendiente de $f(x) = 10$?",
+    "options": [
+      "$10$",
+      "$0$",
+      "$1$",
+      "No tiene pendiente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = 10 = 0 \\cdot x + 10$, la pendiente es $m = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función constante $f(x) = c$ puede escribirse como:\n$$f(x) = 0 \\cdot x + c$$\n\nLa pendiente es $m = 0$ (la recta no sube ni baja) y la ordenada al origen es $b = c$.\n\nLa gráfica es una recta horizontal a altura $c$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la diferencia entre dominio e imagen en $f(x) = 2x + 3$?",
+    "options": [
+      "No hay diferencia",
+      "Dominio = entradas; imagen = salidas",
+      "Dominio es $x$; imagen es $m$",
+      "Imagen es más grande que dominio"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio son los valores de $x$ que entran; la imagen, los valores de $f(x)$ que salen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En cualquier función:\n\n• **Dominio**: conjunto de entradas válidas (qué valores de $x$ se permiten).\n• **Imagen** (o rango): conjunto de salidas que realmente se alcanzan (qué valores de $f(x)$ se producen).\n\nPara $f(x) = 2x + 3$:\n• Dominio = $\\mathbb{R}$ (puedo meter cualquier $x$).\n• Imagen = $\\mathbb{R}$ (la recta cubre todo el eje $Y$).",
+    "reviewed": false
+  },
+  {
+    "question": "Si restringís el dominio de $f(x) = 2x$ al intervalo $[1, 4]$, ¿cuál es la imagen?",
+    "options": [
+      "$[1, 4]$",
+      "$[2, 8]$",
+      "$[0, 8]$",
+      "$(2, 8)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(1) = 2$ y $f(4) = 8$. Como $f$ es creciente, la imagen de $[1, 4]$ es $[2, 8]$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar la imagen sobre un dominio restringido, evaluá los extremos:\n\n$$\\begin{aligned} f(1) &= 2 \\cdot 1 = 2 \\\\ f(4) &= 2 \\cdot 4 = 8 \\end{aligned}$$\n\nComo $f(x) = 2x$ es creciente ($m = 2 > 0$), la imagen del intervalo $[1, 4]$ es $[2, 8]$.\n\nSi la función fuera decreciente, los extremos se invertirían.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo crece $f(x) = 3x - 7$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$(-\\infty, 7/3)$",
+      "$\\mathbb{R}$",
+      "$(7/3, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como $m = 3 > 0$, la función es creciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal con pendiente $m \\neq 0$ es monótona (siempre crece o siempre decrece) en **todo** su dominio $\\mathbb{R}$.\n\nPara $f(x) = 3x - 7$: $m = 3 > 0$, así que es **creciente en $\\mathbb{R}$**.\n\nNo hay un intervalo parcial: la función mantiene el mismo comportamiento siempre.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$(-\\infty, 5/2)$",
+      "$\\mathbb{R}$",
+      "$(5/2, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como $m = -2 < 0$, la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -2x + 5$: $m = -2 < 0$, así que es **decreciente en $\\mathbb{R}$**.\n\nLa función pierde el mismo comportamiento en todo el dominio: baja constantemente.\n\nEl valor $x = 5/2$ (donde $f(x) = 0$) es la raíz, no un punto de cambio de monotonía.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = 3x - 9$?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 9$",
+      "$x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $3x - 9 = 0 \\implies x = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **raíz** de una función es el valor de $x$ donde $f(x) = 0$.\n\nPara $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\n\nVerificación: $f(3) = 3(3) - 9 = 0$ ✓\n\nFórmula general para raíz de $f(x) = mx + b$:\n$$x = -\\frac{b}{m}$$\nAquí: $x = -(-9)/3 = 3$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = -2x + 8$?",
+    "options": [
+      "$x = 4$",
+      "$x = -4$",
+      "$x = 2$",
+      "$x = -2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $-2x + 8 = 0 \\implies x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -2x + 8$:\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\n\nVerificación: $f(4) = -2(4) + 8 = 0$ ✓\n\nLa raíz puede ser positiva, negativa o cero. Aquí es positiva.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ordenada al origen de $f(x) = -x + 4$?",
+    "options": [
+      "$4$",
+      "$-1$",
+      "$-4$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es $b = 4$: $f(0) = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** es el valor de $f(0)$:\n$$f(0) = -0 + 4 = 4$$\n\nEn $f(x) = -x + 4 = -1 \\cdot x + 4$, tenemos $m = -1$ (pendiente) y $b = 4$ (ordenada al origen).\n\nEs el punto $(0, 4)$ donde la recta cruza el eje $Y$.",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi arranca con tarifa $T(k) = 500 + 200k$ en pesos, donde $k$ = km. ¿Cuál es el parámetro $b$?",
+    "options": [
+      "$200$",
+      "$500$",
+      "$k$",
+      "$500 + 200$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $T(k) = 500 + 200k$, el término independiente es $b = 500$ pesos.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $T(k) = 200k + 500$ (reordenada):\n\n• $m = 200$ (costo por km, la pendiente)\n• $b = 500$ (bajada de bandera, la ordenada al origen)\n\nEl término $b$ es el que no tiene $k$ multiplicando.",
+    "reviewed": false
+  },
+  {
+    "question": "Un plomero cobra $C(h) = 1500 + 800h$ pesos, donde $h$ = horas. ¿Cuál es el parámetro $m$?",
+    "options": [
+      "$1500$",
+      "$800$",
+      "$h$",
+      "$2300$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $C(h) = 800h + 1500$, el coeficiente de $h$ es $m = 800$ pesos/hora.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $C(h) = 1500 + 800h$ (reordenada a $C(h) = 800h + 1500$):\n\n• $m = 800$ (tarifa por hora, lo que multiplica a $h$)\n• $b = 1500$ (costo fijo, lo que suma aparte)\n\nLa pendiente es lo que varía con la variable independiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Un abono de celular es $P(g) = 1200 + 80g$ pesos, donde $g$ = GB extra. ¿Cuál es la tarifa por GB?",
+    "options": [
+      "$1200$",
+      "$80$",
+      "$1200 + 80$",
+      "$g$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La tarifa por GB es el coeficiente de $g$: $m = 80$ pesos/GB.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $P(g) = 80g + 1200$:\n\n• La **pendiente** $m = 80$ es el costo por GB extra (la tarifa variable).\n• La **ordenada al origen** $b = 1200$ es el abono fijo del mes.\n\nLa pendiente siempre multiplica la variable independiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque tiene 60 litros y pierde 4 L/h. ¿Cuál es el parámetro $m$?",
+    "options": [
+      "$60$",
+      "$4$",
+      "$-4$",
+      "$-60$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como el tanque pierde, la pendiente es negativa: $m = -4$ L/h.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si $V(t) = 60 - 4t$ (litros a los $t$ horas):\n$$V(t) = -4t + 60$$\n\n• $m = -4$ (tasa de pérdida, negativa porque disminuye)\n• $b = 60$ (volumen inicial)\n\nLa pendiente es negativa cuando la función decrece.",
+    "reviewed": false
+  },
+  {
+    "question": "Un sueldo es $S(v) = 3000 + 50v$ pesos, donde $v$ es la cantidad de ventas.\n\n¿Cuál es el sueldo base cuando no hay ninguna venta?",
+    "options": [
+      "$3000$",
+      "$50$",
+      "$50v$",
+      "$3050$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El sueldo base es la ordenada al origen: $b = 3000$ pesos.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $S(v) = 50v + 3000$:\n\n• El término sin $v$ es $b = 3000$, el sueldo base.\n• El coeficiente de $v$ es $m = 50$, la comisión por venta.\n\nLa ordenada al origen es lo que ganas sin trabajar ventas (solo por estar ahí).",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Raíz (irracional)",
+      "Constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\sqrt{x}$ no es lineal porque $x$ está bajo una raíz, no como $mx + b$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser de la forma $f(x) = mx + b$.\n\nEn $f(x) = \\sqrt{x}$, la variable $x$ está dentro de una raíz cuadrada. Esto la saca de la familia lineal.\n\nEsta función pertenece a la familia de funciones radicales o irracionales.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 2^x$?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$2^x$ no es lineal porque $x$ está en el exponente, no como $mx + b$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser $f(x) = mx + b$.\n\nEn $f(x) = 2^x$, la variable $x$ está en el exponente. Esto la hace exponencial.\n\nLas funciones exponenciales crecen (o decrecen) a ritmo acelerado, muy diferente del ritmo constante de las lineales.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = \\log(x)$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(x)$ no es lineal porque $x$ está dentro de un logaritmo, no como $mx + b$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser $f(x) = mx + b$.\n\nEn $f(x) = \\log(x)$, la variable $x$ está dentro de un logaritmo. Esto la hace logarítmica.\n\nLas funciones logarítmicas crecen lentamente y solo están definidas para $x > 0$, muy diferentes de las lineales.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es $f(x) = (x-1)(x+1)$ una función lineal?",
+    "options": [
+      "Sí",
+      "No, porque se expande a $x^2 - 1$",
+      "Sí si expandís",
+      "No, porque tiene paréntesis"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$(x-1)(x+1) = x^2 - 1$, que tiene un término $x^2$: no es lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Expandiendo $(x-1)(x+1)$:\n$$f(x) = x^2 - 1$$\n\nEsta es una función cuadrática, no lineal. La forma no engaña: si expandida tiene $x^2$ (o mayor potencia), no es lineal.\n\nLa forma $mx + b$ requiere que $x$ tenga exponente exactamente 1.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
+    "options": [
+      "No, porque tiene paréntesis",
+      "Sí, es $3x + 6$",
+      "No, porque multiplica",
+      "Sí, pero no es estándar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Expandiendo $3(x + 2) = 3x + 6$, que es la forma $mx + b$: sí es lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Distribuyendo:\n$$f(x) = 3(x + 2) = 3x + 6$$\n\nEsta es la forma $mx + b$ con $m = 3$ y $b = 6$. **Sí es una función lineal.**\n\nLa forma en que está escrita no importa; si se puede reescribir como $mx + b$, es lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el dominio de $f(x) = \\dfrac{1}{x-2}$?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{2\\}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "$(0, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\frac{1}{x-2}$ no está definida en $x = 2$ (división por cero), así que el dominio es $\\mathbb{R} \\setminus \\{2\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta función NO es lineal. Solo menciono para contrastar:\n\nUna función lineal $f(x) = mx + b$ está definida en **todo** $\\mathbb{R}$ porque no hay operaciones problemáticas (raíz, logaritmo, división por expresión que se anula).\n\nSi una función tiene restricciones en su dominio, probablemente no sea lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué la función $f(x) = mx + b$ con $m > 0$ nunca decrece?",
+    "options": [
+      "Porque $b > 0$",
+      "Porque la pendiente positiva hace que $f$ suba constantemente",
+      "Porque el dominio es $\\mathbb{R}$",
+      "Porque la ordenada al origen es positiva"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si $m > 0$, entonces $f(x_2) - f(x_1) = m(x_2 - x_1) > 0$ cuando $x_2 > x_1$: la función siempre sube.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando $m > 0$:\n\nPara cualesquiera $x_2 > x_1$:\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\n\nPor eso $f(x_2) > f(x_1)$: la función es **creciente en todo $\\mathbb{R}$**.\n\nLa pendiente positiva garantiza monotonía creciente global.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué una función lineal con $m \\neq 0$ no tiene máximo ni mínimo?",
+    "options": [
+      "Porque el dominio es $\\mathbb{R}$",
+      "Porque la pendiente es constante y no cero",
+      "Porque sube o baja sin límite",
+      "Porque la ordenada al origen existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Si $m \\neq 0$, la función sube o baja sin límite: nunca alcanza máximo ni mínimo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ es monótona (creciente o decreciente) en todo $\\mathbb{R}$.\n\nPor eso:\n• **No tiene máximo**: si $m > 0$, crece indefinidamente hacia $+\\infty$.\n• **No tiene mínimo**: si $m < 0$, decrece indefinidamente hacia $-\\infty$.\n\nSolo las funciones constantes ($m = 0$) tienen máximo y mínimo al mismo tiempo (el valor $b$).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la fórmula para la raíz de $f(x) = mx + b$ (con $m \\neq 0$)?",
+    "options": [
+      "$x = b/m$",
+      "$x = -b/m$",
+      "$x = m/b$",
+      "$x = b - m$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $mx + b = 0 \\implies x = -b/m$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$:\n$$mx + b = 0$$\n$$mx = -b$$\n$$x = -\\frac{b}{m}$$\n\nEsta es la fórmula general para la raíz de cualquier función lineal con $m \\neq 0$.\n\nNota el signo: es $-b$, no $+b$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la diferencia entre la recta $y = 2x$ y la recta $y = 2x + 3$?",
+    "options": [
+      "La primera no es lineal",
+      "Tienen la misma pendiente pero diferente ordenada al origen",
+      "La segunda es más empinada",
+      "No hay diferencia"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Ambas son lineales. $y = 2x$ tiene $b = 0$; $y = 2x + 3$ tiene $b = 3$. Mismo $m$, diferente $b$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las dos rectas $y = 2x$ e $y = 2x + 3$:\n\n• Tienen la **misma pendiente** $m = 2$ (misma inclinación).\n• Tienen diferentes **ordenadas al origen**: la primera pasa por $(0, 0)$, la segunda por $(0, 3)$.\n• Son **paralelas**: nunca se cruzan.\n\nLa diferencia es solo un desplazamiento vertical de 3 unidades.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas rectas lineales pasan por un punto dado $(x_0, y_0)$?",
+    "options": [
+      "Cero",
+      "Una",
+      "Infinitas",
+      "Depende del punto"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por un punto dado pasan infinitas rectas: una para cada pendiente $m$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dado un punto $(x_0, y_0)$, existen infinitas funciones lineales $f(x) = mx + b$ que lo atraviesan.\n\nCada pendiente $m$ determina un $b$ diferente:\n$$y_0 = mx_0 + b \\implies b = y_0 - mx_0$$\n\nPara cada $m$, hay un $b$ que hace pasar la recta por el punto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas rectas lineales pasan por dos puntos distintos dados?",
+    "options": [
+      "Cero",
+      "Una",
+      "Infinitas",
+      "Depende de los puntos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Por dos puntos distintos pasa exactamente una recta lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dados dos puntos distintos $(x_1, y_1)$ y $(x_2, y_2)$ con $x_1 \\neq x_2$, existe una única función lineal $f(x) = mx + b$ que pasa por ambos.\n\nLa pendiente es:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\n\nY el parámetro $b$ se obtiene sustituyendo cualquiera de los dos puntos. Esto es un postulado de la geometría.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = 3x + 2$ restringida al dominio $[0, 5]$?",
+    "options": [
+      "$[0, 5]$",
+      "$[2, 17]$",
+      "$[3, 15]$",
+      "$(0, 5)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 2$ y $f(5) = 17$. Como es creciente, la imagen es $[2, 17]$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para un dominio restringido $[0, 5]$:\n\n$$f(0) = 3(0) + 2 = 2$$\n$$f(5) = 3(5) + 2 = 17$$\n\nComo $f$ es creciente ($m = 3 > 0$), la imagen es el intervalo desde el menor al mayor valor:\n$$\\text{Imagen} = [2, 17]$$",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = -2x + 5$ restringida al dominio $[1, 3]$?",
+    "options": [
+      "$[1, 3]$",
+      "$[2, 5]$",
+      "$[-1, 3]$",
+      "$[-1, 5]$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(1) = 3$ y $f(3) = -1$. Como es decreciente, la imagen es $[-1, 3]$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para un dominio restringido $[1, 3]$:\n\n$$f(1) = -2(1) + 5 = 3$$\n$$f(3) = -2(3) + 5 = -1$$\n\nComo $f$ es decreciente ($m = -2 < 0$), la imagen es desde el menor al mayor valor:\n$$\\text{Imagen} = [-1, 3]$$",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué caracteriza matemáticamente a una función lineal entre todas las funciones?",
+    "options": [
+      "Pasa por el origen",
+      "Tiene tasa de cambio constante",
+      "No tiene raíz",
+      "Está definida en $\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función lineal se caracteriza por tener **tasa de cambio constante**: $\\frac{\\Delta y}{\\Delta x} = m$ para cualquier intervalo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad definitoria de una función lineal $f(x) = mx + b$ es que:\n\n$$\\frac{f(x_2) - f(x_1)}{x_2 - x_1} = m \\quad \\text{(constante, no depende de } x_1, x_2\\text{)}$$\n\nEsta tasa de cambio constante es lo que hace que la gráfica sea una recta perfecta.\n\nTodas las otras propiedades (dominio $\\mathbb{R}$, imagen $\\mathbb{R}$ si $m \\neq 0$, etc.) derivan de esta.",
+    "reviewed": false
+  }
+]

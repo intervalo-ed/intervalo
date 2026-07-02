@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Al evaluar $\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$ por sustitución directa, ¿qué obtenemos?",
+    "options": [
+      "$\\dfrac{0}{0}$, hay que usar otra técnica",
+      "$2$, el límite es $2$ directamente",
+      "$0$, el límite es $0$",
+      "La expresión no tiene límite"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo $x=2$: $\\dfrac{4-4}{2-2} = \\dfrac{0}{0}$, una indeterminación. Hay que factorizar.",
+    "feedback_incorrect": "Sustituir $x=2$ da $\\dfrac{0}{0}$, que es una indeterminación. Se debe factorizar el numerador: $(x-2)(x+2)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El protocolo estándar es: **paso 1**, intentar sustitución directa. Si el resultado es $\\dfrac{0}{0}$, esa forma es la señal de que existe un factor común cancelable entre numerador y denominador.\n\n$$\\frac{x^2-4}{x-2}\\bigg|_{x=2} = \\frac{0}{0} \\Rightarrow \\text{factorizar el numerador}$$\n\n$x^2-4 = (x-2)(x+2)$. Al cancelar $(x-2)$, queda $x+2$, y el límite vale $4$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estos límites requiere factorización para resolverse?",
+    "options": [
+      "$\\lim_{x \\to 2} (x^2 + 5)$",
+      "$\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$",
+      "$\\lim_{x \\to 1} \\dfrac{x + 3}{x + 2}$",
+      "$\\lim_{x \\to 0} 7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ da $\\dfrac{0}{0}$ al sustituir y requiere factorizar $x^2-9 = (x-3)(x+3)$.",
+    "feedback_incorrect": "Solo $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$ produce una indeterminación al sustituir y necesita factorización. Los demás se resuelven directamente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un límite requiere factorización cuando la sustitución directa produce $\\dfrac{0}{0}$. La señal es que el punto de tendencia anula simultáneamente al numerador y al denominador.\n\n$$\\begin{aligned} \\lim_{x &\\to 3}\\frac{x^2-9}{x-3}: \\\\ \\frac{9-9}{3-3} &= \\frac{0}{0} \\Rightarrow \\text{factorizar} \\end{aligned}$$\n\nLos otros límites del ejercicio dan denominadores distintos de cero al sustituir, así que se resuelven directamente.",
+    "reviewed": false
+  },
+  {
+    "question": "En $\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x - 3}$, el numerador $x^2 - 9$ es una...",
+    "options": [
+      "Trinomio cuadrado perfecto",
+      "Suma de cuadrados: $(x+3)^2$",
+      "Diferencia de cuadrados: $(x-3)(x+3)$",
+      "Diferencia de cubos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$x^2 - 9 = x^2 - 3^2 = (x-3)(x+3)$. Esto permite cancelar el factor $(x-3)$ con el denominador.",
+    "feedback_incorrect": "$x^2 - 9 = (x-3)(x+3)$ es una diferencia de cuadrados. Al cancelar $(x-3)$ queda $x+3$, y el límite es $6$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reconocer la **diferencia de cuadrados** es el primer paso para factorizar en límites: siempre que tengamos $a^2 - b^2$, el resultado es $(a-b)(a+b)$.\n\n$$x^2 - 9 = x^2 - 3^2 = (x-3)(x+3)$$\n\nEn el límite $\\lim_{x \\to 3}\\dfrac{x^2-9}{x-3}$, factorizar permite cancelar $(x-3)$ con el denominador, y el límite queda $\\lim_{x\\to3}(x+3) = 6$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+4} - 2}{x}$, ¿qué técnica es más adecuada?",
+    "options": [
+      "Regla de L'Hôpital (no vista aún)",
+      "Factorización del denominador",
+      "Sustitución directa",
+      "Racionalización (multiplicar por el conjugado)"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Al haber una raíz cuadrada y la indeterminación $\\dfrac{0}{0}$, la técnica es racionalizar multiplicando por $\\dfrac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2}$.",
+    "feedback_incorrect": "Cuando el numerador tiene una raíz cuadrada y se genera $\\dfrac{0}{0}$, la técnica correcta es racionalizar multiplicando por el conjugado $\\sqrt{x+4}+2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el numerador contiene una **raíz cuadrada** y la sustitución produce $\\dfrac{0}{0}$, la técnica es **racionalización**: multiplicar por el conjugado de la expresión con raíz.\n\n$$\\frac{\\sqrt{x+4}-2}{x} \\cdot \\frac{\\sqrt{x+4}+2}{\\sqrt{x+4}+2} = \\frac{(x+4)-4}{x(\\sqrt{x+4}+2)} = \\frac{x}{x(\\sqrt{x+4}+2)}$$\n\nSe cancela $x$ y al sustituir $x=0$ queda $\\dfrac{1}{\\sqrt{4}+2} = \\dfrac{1}{4}$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el orden correcto del proceso para calcular un límite algebraico?",
+    "options": [
+      "Sustituir → si da $\\frac{0}{0}$, simplificar → sustituir de nuevo",
+      "Simplificar → sustituir → verificar",
+      "Factorizar siempre antes de sustituir",
+      "Calcular la derivada y luego sustituir"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El primer paso es siempre intentar la sustitución directa. Si da indeterminación, se aplica la técnica adecuada y luego se vuelve a sustituir.",
+    "feedback_incorrect": "El proceso correcto es: (1) intentar sustitución directa, (2) si da $\\frac{0}{0}$, aplicar factorización o racionalización, (3) sustituir nuevamente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El orden correcto para resolver cualquier límite algebraico es siempre el mismo: intentar primero, simplificar si hay indeterminación, luego volver a evaluar.\n\n$$\\textbf{1. Sustituir} \\longrightarrow \\textbf{2. Si }\\tfrac{0}{0}\\text{, simplificar} \\longrightarrow \\textbf{3. Sustituir de nuevo}$$\n\nFactorizar o racionalizar siempre **antes** de sustituir por segunda vez. La simplificación es el puente entre la indeterminación y el valor del límite.",
+    "reviewed": false
+  },
+  {
+    "question": "En $\\dfrac{x^2 + 5x + 6}{x + 2}$, ¿qué factor del numerador cancela con el denominador?",
+    "options": [
+      "$(x + 3)$",
+      "$(x + 2)$",
+      "$(x - 2)$",
+      "$(x + 6)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2 + 5x + 6 = (x+2)(x+3)$. El factor $(x+2)$ cancela con el denominador, quedando $(x+3)$.",
+    "feedback_incorrect": "$x^2+5x+6 = (x+2)(x+3)$. El factor que cancela con el denominador $(x+2)$ es $(x+2)$, dejando $(x+3)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar el factor que cancela, factorizamos el numerador y comparamos con el denominador. Un trinomio $x^2+bx+c$ se factoriza buscando dos números que sumen $b$ y multipliquen $c$.\n\n$$x^2+5x+6 = (x+2)(x+3)$$\n\nEl factor $(x+2)$ aparece en numerador y denominador y se cancela, dejando $(x+3)$. El límite en $x=-2$ vale $-2+3=1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Después de cancelar $(x+2)$ en $\\dfrac{(x+2)(x+3)}{x+2}$, ¿cuánto vale $\\lim_{x \\to -2}$?",
+    "options": [
+      "$-1$",
+      "$0$",
+      "$1$",
+      "$5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Tras cancelar, queda $\\lim_{x \\to -2}(x+3) = -2+3 = 1$.",
+    "feedback_incorrect": "Tras cancelar el factor $(x+2)$, queda $x+3$. Sustituyendo $x=-2$: $-2+3 = 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Tras cancelar el factor problemático, la expresión simplificada es continua en $x=a$ y se puede **sustituir directamente**. La cancelación es válida porque el límite estudia lo que pasa *cerca* de $x=-2$, no *en* ese punto.\n\n$$\\lim_{x \\to -2}\\frac{(x+2)(x+3)}{x+2} = \\lim_{x \\to -2}(x+3) = -2+3 = 1$$\n\nSiempre se vuelve a sustituir después de simplificar. Ese es el paso final.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $\\lim_{x \\to \\infty} \\dfrac{3x^2}{x^2 + 1}$, ¿qué técnica se aplica?",
+    "options": [
+      "Sustitución directa con $x = \\infty$",
+      "Factorizar el numerador",
+      "Racionalizar",
+      "Dividir numerador y denominador por $x^2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Para límites en el infinito de funciones racionales, se divide por la potencia más alta: $\\dfrac{3}{1 + 1/x^2} \\to 3$.",
+    "feedback_incorrect": "Para límites cuando $x \\to \\infty$ en racionales, se divide numerador y denominador por el término de mayor grado ($x^2$ aquí), obteniendo $\\dfrac{3}{1+1/x^2} \\to 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para límites cuando $x \\to \\infty$ en funciones racionales, la técnica es **dividir numerador y denominador por el término de mayor grado** (aquí, $x^2$). Los términos con potencias negativas de $x$ tienden a $0$.\n\n$$\\frac{3x^2}{x^2+1} \\cdot \\frac{1/x^2}{1/x^2} = \\frac{3}{1 + \\frac{1}{x^2}} \\xrightarrow{x\\to\\infty} \\frac{3}{1+0} = 3$$\n\nEsta técnica también revela la asíntota horizontal de la función: $y=3$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas afirmaciones es FALSA sobre el proceso para resolver un límite?",
+    "options": [
+      "Si obtenemos $\\dfrac{0}{0}$, el límite no existe",
+      "Siempre se intenta primero la sustitución directa",
+      "$\\dfrac{0}{0}$ es una indeterminación que requiere simplificación",
+      "Después de simplificar, se vuelve a sustituir"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\dfrac{0}{0}$ es una indeterminación, no significa que el límite no exista. Con la técnica adecuada suele resolverse.",
+    "feedback_incorrect": "La afirmación falsa es que $\\dfrac{0}{0}$ implica que el límite no existe. Es solo una indeterminación: el límite puede existir y encontrarse con factorización o racionalización.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La afirmación **falsa** es que $\\dfrac{0}{0}$ implica que el límite no existe. $\\dfrac{0}{0}$ es una **indeterminación**: el álgebra no puede decidir el valor, pero el análisis sí puede, usando factorización o racionalización.\n\n$$\\begin{aligned} \\lim_{x &\\to 2}\\frac{x^2-4}{x-2} \\to \\frac{0}{0} \\\\ \\text{pero el límite } &= 4 \\end{aligned}$$\n\nLa indeterminación es una señal de que hay que trabajar más, no de que no hay respuesta.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estos límites se resuelve con factorización de trinomio $ax^2 + bx + c$?",
+    "options": [
+      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+9} - 3}{x}$",
+      "$\\lim_{x \\to -1} \\dfrac{x^2 + 3x + 2}{x + 1}$",
+      "$\\lim_{x \\to \\infty} \\dfrac{2x}{x+1}$",
+      "$\\lim_{x \\to 3} (x^2 - 1)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2+3x+2 = (x+1)(x+2)$. Se cancela $(x+1)$ con el denominador y el límite da $-1+2 = 1$.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$ requiere factorizar el trinomio: $(x+1)(x+2)$. Los demás usan otras técnicas.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un trinomio $ax^2+bx+c$ se factoriza buscando dos números que sumen $b$ y multipliquen $c$ (cuando $a=1$). Esta técnica aplica cuando la sustitución produce $\\dfrac{0}{0}$ y el numerador es cuadrático.\n\n$$x^2+3x+2 = (x+1)(x+2) \\Rightarrow \\lim_{x \\to -1}\\frac{(x+1)(x+2)}{x+1} = \\lim_{x \\to -1}(x+2) = 1$$\n\nLos demás límites del ejercicio usan racionalización o sustitución directa, no factorización de trinomio.",
+    "reviewed": false
+  }
+]

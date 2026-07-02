@@ -1,0 +1,53 @@
+[
+  {
+    "question": "Si querés resolver $\\int \\frac{\\ln(x)}{x} \\, dx$, ¿cuál es la sustitución $u$ más conveniente?",
+    "options": [
+      "$u = x$",
+      "$u = \\frac{1}{x}$",
+      "$u = \\ln(x)$",
+      "$u = x \\cdot \\ln(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como la derivada de $\\ln(x)$ es $1/x$, el diferencial $du$ queda perfecto.",
+    "feedback_incorrect": "Buscá una parte de la función cuya derivada también esté presente en la integral (quizás 'escondida' en el denominador).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En el método de **sustitución**, la clave es elegir una parte de la expresión como $u$ tal que su derivada $du$ aparezca multiplicando en el resto de la integral.\n\nSi elegimos $u = \\ln(x)$, calculamos su diferencial:\n\n$$du = \\frac{1}{x} \\, dx$$\n\nLa integral original se puede ver como $\\int \\ln(x) \\cdot \\frac{1}{x} \\, dx$. Al sustituir, se convierte en la integral simple $\\int u \\, du$. Si hubieras elegido $u=x$, la expresión no se simplificaría en absoluto.",
+    "reviewed": false
+  },
+  {
+    "question": "Para la integral $\\int x^2 \\sqrt{x^3 + 1} \\, dx$, ¿qué expresión representa correctamente a $du$ si elegimos $u = x^3 + 1$?",
+    "options": [
+      "$du = x^2 \\, dx$",
+      "$du = 3x^2 \\, dx$",
+      "$du = \\frac{1}{3} x^2 \\, dx$",
+      "$du = 3x^3 \\, dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La derivada de $x^3+1$ es $3x^2$, por lo que $du = 3x^2 \\, dx$.",
+    "feedback_incorrect": "Derivá $u = x^3 + 1$ respecto a $x$ usando la regla de la potencia. No te olvides del símbolo $dx$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El paso crítico en la sustitución es calcular el **diferencial** $du$. Si definimos una función $u = g(x)$, entonces el diferencial se calcula como $du = g'(x) \\, dx$.\n\nPara $g(x) = x^3 + 1$, su derivada es $g'(x) = 3x^2$. Por lo tanto:\n\n$$du = 3x^2 \\, dx$$\n\nEn la integral original tenés $x^2 \\, dx$. Como te falta el $3$, vos podés escribir $x^2 \\, dx = \\frac{1}{3} du$ para completar la sustitución. Esto te permite transformar una raíz con un polinomio adentro en una simple raíz de $u$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué el método de sustitución también es conocido como 'regla de la cadena a la inversa'?",
+    "options": [
+      "Porque se usa para derivar funciones compuestas",
+      "Porque busca cancelar la derivada de la función interna que surgió al derivar",
+      "Porque solo sirve para funciones polinómicas encadenadas",
+      "Porque permite sumar constantes a las funciones"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La sustitución detecta esa 'derivada interna' y la integra junto con la función principal.",
+    "feedback_incorrect": "Pensá en qué sucede cuando derivás $f(g(x))$. Aparece un $g'(x)$ multiplicando. La sustitución busca ese término.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El método de **sustitución** es la contrapartida de la **regla de la cadena**. Cuando derivás una composición $f(g(x))$, el resultado es $f'(g(x)) \\cdot g'(x)$.\n\nAl integrar, si vos encontrás una estructura donde hay una función compuesta multiplicada por la derivada de su interior, la sustitución te permite 'colapsar' esa expresión de nuevo a su forma original.\n\n$$ \\int f'(g(x)) g'(x) \\, dx = f(g(x)) + C $$\n\nEn la práctica, $u$ toma el lugar de $g(x)$ y $du$ absorbe a $g'(x) \\, dx$, simplificando la operación al núcleo de la función externa.",
+    "reviewed": false
+  }
+]

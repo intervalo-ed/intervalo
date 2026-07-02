@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál es la derivada de $f(x) = x^2 \\cdot \\sin(x)$?",
+    "options": [
+      "$2x \\sin(x) + x^2 \\cos(x)$",
+      "$2x \\cos(x)$",
+      "$2x \\sin(x) - x^2 \\cos(x)$",
+      "$x^2 \\sin(x) + 2x \\cos(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Aplicaste bien la regla del producto: derivás el primero, dejás el segundo, y sumás el primero por la derivada del segundo.",
+    "feedback_incorrect": "Cuidado, no podés derivar cada parte por separado. Tenés que usar la regla del producto: $(f \\cdot g)' = f'g + fg'$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para derivar un producto de funciones como $f(x) = x^2 \\cdot \\sin(x)$, tenés que usar la **regla del producto**.\n\nLlamemos $u = x^2$ y $v = \\sin(x)$. Sus derivadas son $u' = 2x$ y $v' = \\cos(x)$. La fórmula dice:\n\n$$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$$\n\nReemplazando los términos, obtenés:\n\n$$f'(x) = 2x \\cdot \\sin(x) + x^2 \\cdot \\cos(x)$$\n\nEs un error muy común olvidarse de uno de los dos términos o derivar como si fuera una suma.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $f'(x)$ si $f(x) = \\dfrac{e^x}{x}$.",
+    "options": [
+      "$\\dfrac{e^x}{1}$",
+      "$\\dfrac{e^x(x-1)}{x^2}$",
+      "$\\dfrac{e^x(x+1)}{x^2}$",
+      "$\\dfrac{x e^x - e^x}{x}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Usaste la regla del cociente y simplificaste sacando factor común $e^x$.",
+    "feedback_incorrect": "Acordate que en la regla del cociente el denominador va al cuadrado y el signo del numerador es una resta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando tenés un cociente de funciones, aplicás la **regla del cociente**:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nPara $f(x) = \\frac{e^x}{x}$, tenemos $u = e^x$ (entonces $u' = e^x$) y $v = x$ (entonces $v' = 1$):\n\n$$f'(x) = \\frac{e^x \\cdot x - e^x \\cdot 1}{x^2}$$\n\nSi sacás **factor común** $e^x$ en el numerador, la expresión queda más limpia:\n\n$$f'(x) = \\frac{e^x(x - 1)}{x^2}$$",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(x) = x^3 \\ln(x)$, ¿cuánto vale su derivada?",
+    "options": [
+      "$3x^2 \\ln(x) + x^3$",
+      "$3x^2 \\cdot \\frac{1}{x}$",
+      "$3x^2 \\ln(x) + x^2$",
+      "$x^2 (3\\ln(x) - 1)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Derivaste el producto y simplificaste $x^3 \\cdot \\frac{1}{x} = x^2$.",
+    "feedback_incorrect": "Te faltó simplificar el segundo término. Recordá que $x^3 \\cdot \\frac{1}{x}$ es igual a $x^2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del producto** a $f(x) = x^3 \\ln(x)$:\n\n$$f'(x) = (x^3)' \\cdot \\ln(x) + x^3 \\cdot (\\ln x)'$$\n\nSabemos que $(x^3)' = 3x^2$ y $(\\ln x)' = \\frac{1}{x}$. Entonces:\n\n$$f'(x) = 3x^2 \\ln(x) + x^3 \\cdot \\frac{1}{x}$$\n\nAl simplificar el segundo término, $x^3/x$ se convierte en $x^2$. El resultado final es:\n\n$$f'(x) = 3x^2 \\ln(x) + x^2$$\n\nPodés expresar esto también como $x^2(3\\ln(x) + 1)$ si querés factorizar.",
+    "reviewed": false
+  },
+  {
+    "question": "Derivá la función $g(x) = \\dfrac{\\sin(x)}{\\cos(x)}$.",
+    "options": [
+      "$1$",
+      "$\\dfrac{\\cos^2(x) + \\sin^2(x)}{\\cos(x)}$",
+      "$\\dfrac{\\cos^2(x) - \\sin^2(x)}{\\cos^2(x)}$",
+      "$\\dfrac{1}{\\cos^2(x)}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Esa es precisamente la derivada de la tangente, que se obtiene por la identidad pitagórica.",
+    "feedback_incorrect": "Al aplicar la regla del cociente te queda $\\cos^2(x) + \\sin^2(x)$ arriba. ¿Te suena esa identidad?",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $\\frac{\\sin(x)}{\\cos(x)}$ es la tangente. Usando la **regla del cociente**:\n\n$$g'(x) = \\frac{(\\cos x)(\\cos x) - (\\sin x)(-\\sin x)}{\\cos^2(x)}$$\n\nEsto se simplifica a:\n\n$$g'(x) = \\frac{\\cos^2(x) + \\sin^2(x)}{\\cos^2(x)}$$\n\nPor la **identidad fundamental** de la trigonometría, el numerador es igual a $1$. Por lo tanto:\n\n$$g'(x) = \\frac{1}{\\cos^2(x)}$$\n\nEste resultado también se conoce como $\\sec^2(x)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallá la derivada de $h(x) = \\sqrt{x} \\cdot e^x$.",
+    "options": [
+      "$\\dfrac{e^x}{2\\sqrt{x}} + \\sqrt{x} e^x$",
+      "$\\dfrac{e^x}{2\\sqrt{x}}$",
+      "$\\frac{1}{2\\sqrt{x}} + e^x$",
+      "$\\dfrac{\\sqrt{x} e^x - e^x}{2x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Combinaste bien la regla de la potencia para la raíz y la regla del producto.",
+    "feedback_incorrect": "Ojo con la raíz: su derivada es $\\frac{1}{2\\sqrt{x}}$. Después aplicá la regla del producto completa.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para derivar $h(x) = \\sqrt{x} \\cdot e^x$, identificamos los factores $u = \\sqrt{x}$ y $v = e^x$.\n\nLas derivadas son $u' = \\frac{1}{2\\sqrt{x}}$ y $v' = e^x$. Aplicando la **regla del producto**:\n\n$$h'(x) = \\frac{1}{2\\sqrt{x}} \\cdot e^x + \\sqrt{x} \\cdot e^x$$\n\nPodés reescribir esto sacando $e^x$ como factor común para facilitar cálculos posteriores en problemas de optimización o extremos.\n\n$$h'(x) = e^x \\left( \\frac{1}{2\\sqrt{x}} + \\sqrt{x} \\right)$$",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la derivada de $f(x) = \\dfrac{x+1}{x-1}$?",
+    "options": [
+      "$\\dfrac{2}{(x-1)^2}$",
+      "$\\dfrac{-2}{(x-1)^2}$",
+      "$1$",
+      "$\\dfrac{x-1 - (x+1)}{(x-1)}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al restar los términos del numerador, las $x$ se cancelan y queda $-1 - 1 = -2$.",
+    "feedback_incorrect": "Revisá la resta en el numerador: $(1)(x-1) - (x+1)(1) = x - 1 - x - 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del cociente** con $u = x+1$ y $v = x-1$. Ambas funciones tienen derivada igual a $1$.\n\n$$f'(x) = \\frac{1 \\cdot (x-1) - (x+1) \\cdot 1}{(x-1)^2}$$\n\nDistribuyendo el signo negativo en el numerador:\n\n$$f'(x) = \\frac{x - 1 - x - 1}{(x-1)^2}$$\n\nLas $x$ se cancelan, y nos queda:\n\n$$f'(x) = \\frac{-2}{(x-1)^2}$$\n\nNotá que la derivada siempre es negativa, lo que indica que la función es decreciente en todo su dominio.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de $y = (x^2 + 5) \\cdot e^x$.",
+    "options": [
+      "$2x e^x$",
+      "$(2x + 5) e^x$",
+      "$(x^2 + 2x + 5) e^x$",
+      "$(x^2 + 5) e^x + 2x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Derivaste el producto y agrupaste los términos dentro del paréntesis.",
+    "feedback_incorrect": "No te olvides de sumar los dos términos de la regla del producto: $u'v + uv'$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Usamos la **regla del producto** para $y = (x^2 + 5) e^x$:\n\n$$y' = (x^2 + 5)' e^x + (x^2 + 5) (e^x)'$$\n\nCalculamos las derivadas simples: $(x^2+5)' = 2x$ y $(e^x)' = e^x$:\n\n$$y' = 2x e^x + (x^2 + 5) e^x$$\n\nSacando $e^x$ como **factor común**:\n\n$$y' = e^x (2x + x^2 + 5) = e^x (x^2 + 2x + 5)$$\n\nAgrupar de esta forma es fundamental cuando necesitás hallar los puntos donde la derivada se anula.",
+    "reviewed": false
+  },
+  {
+    "question": "Derivá la función $f(x) = \\dfrac{\\ln(x)}{x^2}$.",
+    "options": [
+      "$\\dfrac{2x\\ln(x) - 1}{x^4}$",
+      "$\\dfrac{x - 2x\\ln(x)}{x^2}$",
+      "$\\dfrac{1}{2x^2}$",
+      "$\\dfrac{1 - 2\\ln(x)}{x^3}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Simplificaste un factor $x$ tanto en el numerador como en el denominador.",
+    "feedback_incorrect": "Recordá simplificar: arriba tenés $x - 2x\\ln(x)$, podés sacar una $x$ de factor común y cancelarla con el denominador.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del cociente** con $u = \\ln(x)$ y $v = x^2$:\n\n$$f'(x) = \\frac{(\\frac{1}{x}) \\cdot x^2 - \\ln(x) \\cdot 2x}{(x^2)^2}$$\n\nSimplificamos el primer término del numerador: $(\\frac{1}{x}) \\cdot x^2 = x$:\n\n$$f'(x) = \\frac{x - 2x \\ln(x)}{x^4}$$\n\nSacamos $x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{x(1 - 2 \\ln(x))}{x^4} = \\frac{1 - 2 \\ln(x)}{x^3}$$\n\nSiempre intentá simplificar potencias de $x$ cuando aparezcan en ambos lados de la fracción.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de $f(x) = (x-2) \\cdot (x+3)$.",
+    "options": [
+      "$2x + 1$",
+      "$1$",
+      "$2x - 1$",
+      "$x^2 + x - 6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Podés usar la regla del producto o distribuir primero. Ambas dan $2x+1$.",
+    "feedback_incorrect": "Si usás la regla del producto: $(1)(x+3) + (x-2)(1) = 2x + 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta función se puede derivar de dos maneras. Usando la **regla del producto**:\n\n$$f'(x) = (1)(x+3) + (x-2)(1) = x + 3 + x - 2 = 2x + 1$$\n\nLa otra opción es **distribuir** primero el producto: $f(x) = x^2 + x - 6$. Derivando este polinomio término a término, obtenés el mismo resultado:\n\n$$f'(x) = 2x + 1$$\n\nEn casos simples como este, distribuir suele ser más rápido y menos propenso a errores que la regla del producto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la derivada de $f(x) = \\dfrac{x^2}{e^x}$?",
+    "options": [
+      "$\\dfrac{x^2 - 2x}{e^x}$",
+      "$\\dfrac{2x - x^2}{e^x}$",
+      "$\\dfrac{2x}{e^x}$",
+      "$\\dfrac{2x e^x - x^2 e^x}{e^{2x}}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Simplificaste $e^x$ en la fracción final, que es la forma más elegante de presentarlo.",
+    "feedback_incorrect": "Cuidado con el orden de la resta en el cociente y no te olvides de simplificar el $e^x$ que aparece en todos lados.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del cociente**:\n\n$$f'(x) = \\frac{2x e^x - x^2 e^x}{(e^x)^2}$$\n\nPodemos sacar $e^x$ como factor común en el numerador:\n\n$$f'(x) = \\frac{e^x (2x - x^2)}{e^x \\cdot e^x}$$\n\nCancelando un factor $e^x$ arriba y abajo, llegamos a:\n\n$$f'(x) = \\frac{2x - x^2}{e^x}$$\n\nAlternativamente, podrías haber escrito la función como $x^2 \\cdot e^{-x}$ y usar la regla del producto con regla de la cadena.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Hallá la pendiente de la recta tangente a $f(x) = x \\cdot e^x$ en el punto $x = 0$.",
+    "options": [
+      "$1$",
+      "$0$",
+      "$e$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La derivada es $1 \\cdot e^x + x \\cdot e^x$. Al evaluar en $x=0$, queda $1 \\cdot 1 + 0 = 1$.",
+    "feedback_incorrect": "Primero derivá usando la regla del producto: $f'(x) = e^x + x e^x$. Después reemplazá la $x$ por $0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente de la recta tangente** en un punto es el valor de la derivada en ese punto.\n\nPrimero, derivamos $f(x) = x e^x$ usando la regla del producto:\n\n$$f'(x) = (1) \\cdot e^x + x \\cdot e^x = e^x (1 + x)$$\n\nAhora, evaluamos la derivada en $x = 0$:\n\n$$f'(0) = e^0 (1 + 0) = 1 \\cdot 1 = 1$$\n\nEn la gráfica, esto significa que cuando la función cruza el origen, lo hace con una inclinación de $45^\\circ$ (pendiente $1$).",
+    "reviewed": false
+  },
+  {
+    "question": "Determinar en qué valor de $x$ la función $f(x) = \\dfrac{x}{e^x}$ tiene una recta tangente horizontal.",
+    "options": [
+      "$x = 0$",
+      "$x = 1$",
+      "$x = -1$",
+      "Nunca es horizontal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La derivada se anula cuando el numerador $e^x(1-x)$ es cero, lo que ocurre en $x=1$.",
+    "feedback_incorrect": "Una tangente es horizontal cuando $f'(x)=0$. Derivá usando cociente e igualá el numerador a cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **tangente horizontal** ocurre donde la derivada vale cero.\n\nDerivamos $f(x) = \\frac{x}{e^x}$ usando la regla del cociente:\n\n$$f'(x) = \\frac{1 \\cdot e^x - x \\cdot e^x}{(e^x)^2} = \\frac{e^x(1-x)}{e^{2x}} = \\frac{1-x}{e^x}$$\n\nPara que $f'(x) = 0$, el numerador debe ser cero: $1 - x = 0 \\Rightarrow x = 1$.\n\nEn este punto, la función alcanza su **máximo relativo**. Notá que el denominador $e^x$ nunca es cero, por lo que la derivada está definida para todo $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si la posición de una partícula es $s(t) = \\dfrac{t}{t^2+1}$, ¿cuál es su velocidad en $t = 1$?",
+    "options": [
+      "$-1/2$",
+      "$1/2$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $t=1$ el numerador de la derivada $1-t^2$ se hace cero. La partícula se detiene un instante.",
+    "feedback_incorrect": "La velocidad es la derivada. Usá cociente: $s'(t) = \\frac{1(t^2+1) - t(2t)}{(t^2+1)^2}$ y evaluá en $t=1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **velocidad** es la derivada de la posición respecto al tiempo: $v(t) = s'(t)$.\n\nUsamos la regla del cociente:\n\n$$v(t) = \\frac{1 \\cdot (t^2+1) - t \\cdot (2t)}{(t^2+1)^2} = \\frac{1 - t^2}{(t^2+1)^2}$$\n\nEvaluando en $t = 1$:\n\n$$v(1) = \\frac{1 - 1^2}{(1^2+1)^2} = \\frac{0}{4} = 0$$\n\nEsto indica que en el segundo $1$, la partícula cambia de dirección o llega a un punto de retorno, ya que su velocidad es momentáneamente **nula**.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la pendiente de la tangente a $f(x) = \\sqrt{x} \\ln(x)$ en $x = 1$.",
+    "options": [
+      "$2$",
+      "$0$",
+      "$1/2$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Como $\\ln(1)=0$, el primer término de la derivada se anula y solo queda $\\sqrt{1} \\cdot (1/1) = 1$.",
+    "feedback_incorrect": "Derivá con la regla del producto: $f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\frac{1}{x}$. Luego poné $x=1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del producto** a $f(x) = \\sqrt{x} \\ln(x)$:\n\n$$f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\cdot \\frac{1}{x}$$\n\nPara hallar la pendiente en $x = 1$, evaluamos:\n\n$$f'(1) = \\frac{1}{2\\sqrt{1}} \\ln(1) + \\sqrt{1} \\cdot \\frac{1}{1}$$\n\nComo $\\ln(1) = 0$, el primer sumando desaparece:\n\n$$f'(1) = 0 + 1 = 1$$\n\nLa curva pasa por el punto $(1, 0)$ con una pendiente positiva de $1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallá la ecuación de la recta tangente a $y = \\dfrac{x+1}{x}$ en $x = 1$.",
+    "options": [
+      "$y = -x + 3$",
+      "$y = x + 1$",
+      "$y = -x + 2$",
+      "$y = -x + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La pendiente es $-1$ y el punto es $(1, 2)$. La ecuación queda $y - 2 = -1(x - 1)$.",
+    "feedback_incorrect": "Primero hallá el punto: $f(1)=2$. Luego la pendiente: $f'(x)=-1/x^2 \\Rightarrow f'(1)=-1$. Ahora armá la recta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la **recta tangente**, necesitamos un punto y una pendiente.\n\n1. Punto: $f(1) = \\frac{1+1}{1} = 2$. El punto es $(1, 2)$.\n2. Pendiente: $f(x) = 1 + \\frac{1}{x} \\Rightarrow f'(x) = -\\frac{1}{x^2}$. Evaluando: $f'(1) = -1$.\n\nUsamos la fórmula de la recta punto-pendiente:\n\n$$y - y_0 = m(x - x_0) \\Rightarrow y - 2 = -1(x - 1)$$\n\nSimplificando:\n\n$$y = -x + 1 + 2 \\Rightarrow y = -x + 3$$\n\nEsta recta aproxima linealmente a la función cerca de $x=1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(2) = 3$, $f'(2) = 5$, $g(2) = 1$ y $g'(2) = -2$, ¿cuánto vale $(f \\cdot g)'(2)$?",
+    "options": [
+      "$-10$",
+      "$-1$",
+      "$11$",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Aplicaste $f'(2)g(2) + f(2)g'(2) = 5(1) + 3(-2) = 5 - 6 = -1$.",
+    "feedback_incorrect": "Usá la fórmula: $f'g + fg'$. Tenés todos los valores, solo hay que multiplicar y sumar con cuidado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este es un ejercicio de **aplicación directa** de la regla del producto usando valores puntuales:\n\n$$(f \\cdot g)'(2) = f'(2) \\cdot g(2) + f(2) \\cdot g'(2)$$\n\nReemplazamos con los datos del enunciado:\n\n$$(f \\cdot g)'(2) = (5) \\cdot (1) + (3) \\cdot (-2) = 5 - 6 = -1$$\n\nEste tipo de problemas es común para verificar si entendés la **estructura** de la regla más allá de saber derivar fórmulas específicas de $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la derivada de la función de ingreso promedio $I_p(x) = \\dfrac{R(x)}{x}$, donde $R(x)$ es el ingreso total?",
+    "options": [
+      "$R'(x) - R(x)$",
+      "$\\dfrac{R'(x)}{1}$",
+      "$\\dfrac{x R'(x) - R(x)}{x^2}$",
+      "$\\dfrac{R'(x) - x R(x)}{x^2}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Es la aplicación de la regla del cociente al concepto económico de valor promedio.",
+    "feedback_incorrect": "Simplemente aplicá la regla del cociente tratando a $R(x)$ como la función del numerador.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En **economía**, el ingreso promedio es el ingreso total dividido las unidades vendidas. Para ver cómo cambia ese promedio, derivamos:\n\n$$I_p'(x) = \\frac{R'(x) \\cdot x - R(x) \\cdot 1}{x^2}$$\n\nReordenando el numerador:\n\n$$I_p'(x) = \\frac{x R'(x) - R(x)}{x^2}$$\n\nSi esta derivada es cero, significa que el ingreso marginal ($R'$) es igual al ingreso promedio, que es donde se suelen alcanzar niveles óptimos de eficiencia.",
+    "reviewed": false
+  },
+  {
+    "question": "Encontrá la pendiente de $y = \\dfrac{\\cos(x)}{x}$ en $x = \\pi$.",
+    "options": [
+      "$1/\\pi$",
+      "$-1/\\pi^2$",
+      "$0$",
+      "$1/\\pi^2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f'(\\pi) = \\frac{(-\\sin\\pi)\\pi - \\cos\\pi(1)}{\\pi^2} = \\frac{0 - (-1)}{\\pi^2} = 1/\\pi^2$.",
+    "feedback_incorrect": "Ojo con los signos: $\\cos(\\pi)=-1$ y $\\sin(\\pi)=0$. La regla del cociente tiene una resta que se vuelve suma.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Derivamos usando la **regla del cociente**:\n\n$$y' = \\frac{-\\sin(x) \\cdot x - \\cos(x) \\cdot 1}{x^2}$$\n\nEvaluamos en $x = \\pi$:\n\n$$y'(\\pi) = \\frac{-\\sin(\\pi) \\cdot \\pi - \\cos(\\pi)}{\\pi^2}$$\n\nRecordamos que $\\sin(\\pi) = 0$ y $\\cos(\\pi) = -1$:\n\n$$y'(\\pi) = \\frac{-0 \\cdot \\pi - (-1)}{\\pi^2} = \\frac{1}{\\pi^2}$$\n\nLa pendiente es positiva y muy pequeña, lo que indica que la función está subiendo levemente en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(x) = (x^2-4)g(x)$, ¿cuánto vale $f'(2)$ si sabemos que $g(2)=10$?",
+    "options": [
+      "$40$",
+      "$0$",
+      "$20$",
+      "Faltan datos ($g'(2)$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como el término $(x^2-4)$ se anula en $x=2$, no necesitás conocer $g'(2)$ para hallar el resultado.",
+    "feedback_incorrect": "Aplicá la regla del producto: $f'(x) = 2x g(x) + (x^2-4)g'(x)$. Fijate qué pasa cuando ponés $x=2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la **regla del producto**:\n\n$$f'(x) = (x^2-4)' g(x) + (x^2-4) g'(x) = 2x g(x) + (x^2-4) g'(x)$$\n\nEvaluamos en $x = 2$:\n\n$$f'(2) = 2(2) g(2) + (2^2-4) g'(2)$$\n\nComo $2^2 - 4 = 0$, el segundo término se anula por completo, sin importar cuánto valga $g'(2)$:\n\n$$f'(2) = 4 \\cdot 10 + 0 = 40$$\n\nEste es un truco útil cuando una de las funciones en el producto tiene una **raíz** en el punto de interés.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué puntos la función $f(x) = \\dfrac{x^2+1}{x^2-1}$ no es derivable?",
+    "options": [
+      "Solo en $x=1$",
+      "En $x=1$ y $x=-1$",
+      "En $x=0$",
+      "Es derivable en todos los reales"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función racional no es derivable donde no está definida, es decir, donde el denominador original es cero.",
+    "feedback_incorrect": "Fijate dónde se anula el denominador $x^2-1$. En esos puntos la función ni siquiera es continua.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **derivabilidad** requiere primero que la función sea continua. En una función racional, hay discontinuidades donde el denominador es cero.\n\n$$x^2 - 1 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = 1 \\text{ o } x = -1$$\n\nEn estos puntos hay **asíntotas verticales**. Como la función no está definida allí, tampoco existe su derivada. Al aplicar la regla del cociente, verás que el denominador resultante $(x^2-1)^2$ también se anula en los mismos valores, confirmando que la pendiente 'estalla' hacia el infinito.",
+    "reviewed": false
+  }
+]

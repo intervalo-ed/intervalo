@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import type { components } from "@/lib/api/schema"
-import type { Topic } from "@/lib/catalog/analisis-1.generated"
+import type { Topic } from "@/lib/catalog/analisis.generated"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { cn } from "@/lib/utils"

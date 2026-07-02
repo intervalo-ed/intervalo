@@ -1,0 +1,872 @@
+[
+  {
+    "question": "En $f(x) = -3x + 8$, ¿cuál es la pendiente?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$-3x$",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = -3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = -3x + 8$: el coeficiente de $x$ es $-3$.\n\n**$m = -3$** (negativa, indica que la función decrece).",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 4x - 7$, ¿cuál es la ordenada al origen?",
+    "options": [
+      "$4$",
+      "$-7$",
+      "$4x$",
+      "$7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es el término independiente: $b = -7$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$:\n\n• $m = 4$ (pendiente)\n• $b = -7$ (ordenada al origen)\n\nVerificación: $f(0) = 4(0) - 7 = -7$ ✓\n\nLa ordenada al origen es siempre el término que no tiene $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = \\dfrac{1}{2}x + 5$, ¿cuál es la pendiente?",
+    "options": [
+      "$5$",
+      "$\\dfrac{1}{2}$",
+      "$2$",
+      "$\\dfrac{1}{5}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = \\dfrac{1}{2}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una pendiente fraccionaria sigue siendo válida.\n\nEn $f(x) = \\dfrac{1}{2}x + 5$:\n\n$$\\begin{aligned} m &= \\frac{1}{2} \\\\ b &= 5 \\end{aligned}$$\n\nLa pendiente $\\dfrac{1}{2}$ significa que por cada 2 unidades de $x$, $f(x)$ sube 1 unidad.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 6 - 2x$, ¿cuál es la pendiente?",
+    "options": [
+      "$6$",
+      "$-2$",
+      "$2$",
+      "$-6$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Reescribiendo: $f(x) = -2x + 6$. La pendiente es $m = -2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando la función no está en forma estándar, reescribir:\n$$f(x) = 6 - 2x = -2x + 6$$\n\nAhora se ve: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar el orden.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de la recta con $m = 3$ y $b = -2$?",
+    "options": [
+      "$f(x) = 3x - 2$",
+      "$f(x) = -2x + 3$",
+      "$f(x) = 3 - 2x$",
+      "$f(x) = -2 - 3x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con $m = 3$ y $b = -2$, la ecuación es $f(x) = 3x - 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dando $m$ y $b$, construir la función es directo:\n$$f(x) = mx + b = 3x + (-2) = 3x - 2$$\n\nEs simplemente sustituir en el template $f(x) = mx + b$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de la recta con $m = -1$ y $b = 4$?",
+    "options": [
+      "$f(x) = -x + 4$",
+      "$f(x) = 4x - 1$",
+      "$f(x) = 4 - x$",
+      "$f(x) = x + 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con $m = -1$ y $b = 4$, la ecuación es $f(x) = -x + 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sustituyendo en $f(x) = mx + b$:\n$$f(x) = (-1) \\cdot x + 4 = -x + 4$$\n\nLa pendiente negativa significa que la recta baja.",
+    "reviewed": false
+  },
+  {
+    "question": "Si una recta pasa por $(0, 5)$ con pendiente $2$, ¿cuál es su ecuación?",
+    "options": [
+      "$f(x) = 2x + 5$",
+      "$f(x) = 5x + 2$",
+      "$f(x) = 2x - 5$",
+      "$f(x) = 5 - 2x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Pasar por $(0, 5)$ significa $f(0) = 5$, así que $b = 5$. Con $m = 2$: $f(x) = 2x + 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un punto de la forma $(0, k)$ da directamente la ordenada al origen: $b = k$.\n\nCon $m = 2$ y $b = 5$:\n$$f(x) = 2x + 5$$",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = 2x - 6$?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 2$",
+      "$x = 6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 6 = 0 \\Rightarrow x = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$:\n$$2x - 6 = 0$$\n$$2x = 6$$\n$$x = 3$$\n\nVerificación: $f(3) = 2(3) - 6 = 0$ ✓",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = -x + 5$?",
+    "options": [
+      "$x = 5$",
+      "$x = -5$",
+      "$x = 1$",
+      "$x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $-x + 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$:\n$$-x + 5 = 0$$\n$$-x = -5$$\n$$x = 5$$\n\nVerificación: $f(5) = -5 + 5 = 0$ ✓",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = \\dfrac{1}{2}x - 3$?",
+    "options": [
+      "$x = 6$",
+      "$x = 3$",
+      "$x = -6$",
+      "$x = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $\\dfrac{1}{2}x - 3 = 0 \\Rightarrow x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$:\n$$\\frac{1}{2}x - 3 = 0$$\n$$\\frac{1}{2}x = 3$$\n$$x = 6$$\n\nVerificación: $f(6) = \\dfrac{1}{2}(6) - 3 = 0$ ✓",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = 2x + 1$",
+      "$y = 2x - 1$",
+      "$y = -2x + 1$",
+      "$y = x + 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 1)$ y sube 2 unidades por cada unidad en $x$: $y = 2x + 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x + 1",
+    "graph_view": [
+      -2,
+      4,
+      -2,
+      8
+    ],
+    "explanation": "Leyendo desde el gráfico:\n\n• Intercepto en Y: $(0, 1)$ → $b = 1$\n• Pendiente: sube 2 por cada 1 en $x$ → $m = 2$\n\n**Ecuación: $y = 2x + 1$**",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = -2x + 3$",
+      "$y = 2x + 3$",
+      "$y = 3x - 2$",
+      "$y = -2x - 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 3)$ y baja 2 unidades por cada unidad en $x$: $y = -2x + 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-2*x + 3",
+    "graph_view": [
+      -2,
+      4,
+      -4,
+      6
+    ],
+    "explanation": "Leyendo desde el gráfico:\n\n• Intercepto en Y: $(0, 3)$ → $b = 3$\n• Pendiente: baja 2 por cada 1 en $x$ → $m = -2$\n\n**Ecuación: $y = -2x + 3$**",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = \\dfrac{1}{2}x + 2$",
+      "$y = 2x + 1$",
+      "$y = x + 2$",
+      "$y = \\dfrac{1}{2}x - 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 2)$ y sube 1 unidad por cada 2 en $x$: $y = \\dfrac{1}{2}x + 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 2",
+    "graph_view": [
+      -2,
+      6,
+      -1,
+      6
+    ],
+    "explanation": "Leyendo desde el gráfico:\n\n• Intercepto en Y: $(0, 2)$ → $b = 2$\n• Pendiente: sube 1 por cada 2 en $x$ → $m = \\dfrac{1}{2}$\n\n**Ecuación: $y = \\dfrac{1}{2}x + 2$**",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = -x + 4$",
+      "$y = x + 4$",
+      "$y = -x - 4$",
+      "$y = x - 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 4)$ y baja 1 unidad por cada unidad en $x$: $y = -x + 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 4",
+    "graph_view": [
+      -2,
+      6,
+      -2,
+      6
+    ],
+    "explanation": "Leyendo desde el gráfico:\n\n• Intercepto en Y: $(0, 4)$ → $b = 4$\n• Pendiente: baja 1 por cada 1 en $x$ → $m = -1$\n\n**Ecuación: $y = -x + 4$**",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = 3x$",
+      "$y = 3x + 1$",
+      "$y = x + 3$",
+      "$y = 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 0)$ y sube 3 unidades por cada unidad en $x$: $y = 3x$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Leyendo desde el gráfico:\n\n• Intercepto en Y: $(0, 0)$ → $b = 0$\n• Pendiente: sube 3 por cada 1 en $x$ → $m = 3$\n\n**Ecuación: $y = 3x$** (pasa por el origen)",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la pendiente de una recta que sube 4 unidades por cada 2 en $x$?",
+    "options": [
+      "$2$",
+      "$\\dfrac{1}{2}$",
+      "$4$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Pendiente = $\\dfrac{\\text{subida}}{\\text{avance}} = \\dfrac{4}{2} = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente es la razón entre la variación vertical y horizontal:\n$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi cobra \\$500 fijos + \\$200/km. ¿Cuál es la ecuación del costo?",
+    "options": [
+      "$C(k) = 500k + 200$",
+      "$C(k) = 200k + 500$",
+      "$C(k) = 700k$",
+      "$C(k) = 500 + 200$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Costo = fijo + tarifa × km = $C(k) = 500 + 200k = 200k + 500$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelando el costo:\n\n• Costo fijo = \\$500 → $b = 500$\n• Tarifa por km = \\$200 → $m = 200$\n\n**$C(k) = 200k + 500$**",
+    "reviewed": false
+  },
+  {
+    "question": "Un plomero cobra \\$1500 fijos + \\$300/hora. ¿Cuál es la ecuación del costo?",
+    "options": [
+      "$C(h) = 300h + 1500$",
+      "$C(h) = 1500h + 300$",
+      "$C(h) = 1800h$",
+      "$C(h) = 300 + 1500$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo = fijo + tarifa × hora = $C(h) = 1500 + 300h = 300h + 1500$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelando el costo:\n\n• Costo fijo = \\$1500 → $b = 1500$\n• Tarifa por hora = \\$300 → $m = 300$\n\n**$C(h) = 300h + 1500$**",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque comienza con 100 L y pierde 5 L/min. ¿Cuál es la ecuación del volumen?",
+    "options": [
+      "$V(t) = 100 - 5t$",
+      "$V(t) = 5t - 100$",
+      "$V(t) = 100 + 5t$",
+      "$V(t) = 95t$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Volumen = inicial - pérdida × tiempo = $V(t) = 100 - 5t$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelando el volumen:\n\n• Volumen inicial = 100 L → $b = 100$\n• Pérdida por minuto = 5 L/min → $m = -5$ (negativa, pierde)\n\n**$V(t) = 100 - 5t$**",
+    "reviewed": false
+  },
+  {
+    "question": "Una deuda comienza en \\$10000 y se reduce \\$500/mes. ¿Cuál es la ecuación?",
+    "options": [
+      "$D(m) = 10000 - 500m$",
+      "$D(m) = 500m - 10000$",
+      "$D(m) = 10000 + 500m$",
+      "$D(m) = 9500m$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Deuda = inicial - reducción × mes = $D(m) = 10000 - 500m$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelando la deuda:\n\n• Deuda inicial = \\$10000 → $b = 10000$\n• Reducción por mes = \\$500/mes → $m = -500$ (negativa, disminuye)\n\n**$D(m) = 10000 - 500m$**",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi cobra \\$600 al subir y \\$250 por cada kilómetro recorrido.\n\n¿Cuál es la ecuación del costo total $C$ según los kilómetros $k$?",
+    "options": [
+      "$C(k) = 250 + 600k$",
+      "$C(k) = 600 + 250k$",
+      "$C(k) = 600 - 250k$",
+      "$C(k) = 250k$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La bajada de \\$600 es el término fijo ($b$) y los \\$250/km son la pendiente: $C(k) = 600 + 250k$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, $b$ es el valor inicial y $m$ es cuánto cambia por unidad.\n\nAquí $b = 600$ (costo al subir) y $m = 250$ (\\$250 por km):\n$$C(k) = 600 + 250k$$\n\nEl distractor $C = 250 + 600k$ invierte $m$ y $b$: cobra \\$600/km, que es un taxi muy ambicioso.",
+    "reviewed": false
+  },
+  {
+    "question": "Un gasista cobra \\$2000 por venir y \\$500 por cada hora de trabajo.\n\n¿Cuál es la ecuación del costo total $C$ según las horas $h$?",
+    "options": [
+      "$C(h) = 2000 + 500h$",
+      "$C(h) = 500 + 2000h$",
+      "$C(h) = 2000 - 500h$",
+      "$C(h) = 500h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$2000 más \\$500 por hora: $C(h) = 2000 + 500h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo fijo ($b = 2000$) se paga igual venga 1 hora o 5. La tarifa por hora ($m = 500$) se multiplica por las horas.\n\n$$C(h) = 2000 + 500h$$\n\n$C(h) = 500h$ olvida el costo de la visita. El gasista no se olvida.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque empieza con 80 litros y se vacía a razón de 4 litros por minuto.\n\n¿Cuál es la ecuación del volumen $V$ según los minutos $t$?",
+    "options": [
+      "$V(t) = 80t - 4$",
+      "$V(t) = 80 + 4t$",
+      "$V(t) = 4t - 80$",
+      "$V(t) = 80 - 4t$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El tanque empieza en 80 L y pierde 4 L/min: $V(t) = 80 - 4t$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente es negativa porque el volumen *disminuye*: $m = -4$.\n\nEl volumen inicial es $b = 80$:\n$$V(t) = 80 - 4t$$\n\n$V(t) = 80 + 4t$ subiría el nivel — quizás la mangue está al revés.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona debe \\$60000 y paga \\$4000 por mes.\n\n¿Cuál es la ecuación de la deuda restante $D$ según los meses $m$?",
+    "options": [
+      "$D(m) = 60000 - 4000m$",
+      "$D(m) = 60000 + 4000m$",
+      "$D(m) = 4000 - 60000m$",
+      "$D(m) = 4000m$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La deuda empieza en \\$60000 y baja \\$4000 por mes: $D(m) = 60000 - 4000m$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada mes se pagan \\$4000, así que la deuda *disminuye*: pendiente $m = -4000$.\n\nLa deuda inicial es $b = 60000$:\n$$D(m) = 60000 - 4000m$$\n\n$D(m) = 60000 + 4000m$ la haría crecer. Ojalá no sea así.",
+    "reviewed": false
+  },
+  {
+    "question": "Un empleado cobra \\$15000 fijos por mes más \\$200 por cada pieza producida.\n\n¿Cuál es la ecuación del sueldo mensual $S$ según las piezas $p$?",
+    "options": [
+      "$S(p) = 200 + 15000p$",
+      "$S(p) = 15000 - 200p$",
+      "$S(p) = 15000 + 200p$",
+      "$S(p) = 200p$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sueldo fijo \\$15000 más \\$200 por pieza: $S(p) = 15000 + 200p$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El sueldo fijo es $b = 15000$; el bono por pieza es $m = 200$:\n$$S(p) = 15000 + 200p$$\n\n$S(p) = 200 + 15000p$ diría que cobra \\$15000 por pieza. El sindicato lo aprobaría, el contador no.",
+    "reviewed": false
+  },
+  {
+    "question": "La factura de luz tiene un cargo fijo de \\$400 más \\$12 por cada kWh consumido.\n\n¿Cuál es la ecuación de la factura $F$ según los kWh consumidos $k$?",
+    "options": [
+      "$F(k) = 12k + 400$",
+      "$F(k) = 400k + 12$",
+      "$F(k) = 400 - 12k$",
+      "$F(k) = 12k$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cargo fijo \\$400 más \\$12 por kWh: $F(k) = 400 + 12k = 12k + 400$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La suma es conmutativa, así que $400 + 12k$ y $12k + 400$ son equivalentes. Ambos son correctos.\n\nEl cargo fijo es $b = 400$; el precio por kWh es $m = 12$:\n$$F(k) = 12k + 400$$\n\n$F(k) = 400k + 12$ cobraría \\$400 por kWh — probablemente sin luz igual.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona empieza sin ahorros y deposita \\$5000 cada mes.\n\n¿Cuál es la ecuación del ahorro acumulado $A$ según los meses $m$?",
+    "options": [
+      "$A(m) = 5000 + m$",
+      "$A(m) = 5000m$",
+      "$A(m) = m / 5000$",
+      "$A(m) = 5000 - m$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sin ahorro inicial y \\$5000 por mes: $A(m) = 5000m$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el valor inicial es 0, la función es $f(x) = mx$ (pasa por el origen).\n\nAquí $b = 0$ y $m = 5000$:\n$$A(m) = 5000m$$\n\n$A(m) = 5000 + m$ diría que ya tiene \\$5000 al empezar y solo guarda \\$1 por mes. Inversión algo conservadora.",
+    "reviewed": false
+  },
+  {
+    "question": "El alquiler de una bicicleta cuesta \\$300 más \\$150 por hora de uso.\n\n¿Cuál es la ecuación del costo $C$ según las horas $h$?",
+    "options": [
+      "$C(h) = 300 + 150h$",
+      "$C(h) = 150 + 300h$",
+      "$C(h) = 300h$",
+      "$C(h) = 300 - 150h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$300 más \\$150 por hora: $C(h) = 300 + 150h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo fijo (depósito o primer hora incluida) es $b = 300$; la tarifa horaria es $m = 150$:\n$$C(h) = 300 + 150h$$\n\n$C(h) = 150 + 300h$ cobra \\$300 por hora — la bicicleta no lo merece.",
+    "reviewed": false
+  },
+  {
+    "question": "La temperatura al inicio de la noche es 22°C y baja 3°C por hora.\n\n¿Cuál es la ecuación de la temperatura $T$ según las horas $h$ transcurridas?",
+    "options": [
+      "$T(h) = 22 + 3h$",
+      "$T(h) = 3h - 22$",
+      "$T(h) = 22 - 3h$",
+      "$T(h) = 3 - 22h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Temperatura inicial 22°C que baja 3°C por hora: $T(h) = 22 - 3h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La temperatura *disminuye*, así que la pendiente es negativa: $m = -3$.\n\nLa temperatura inicial es $b = 22$:\n$$T(h) = 22 - 3h$$\n\n$T(h) = 22 + 3h$ haría que la noche se caliente. Puede ser si vivís en el desierto.",
+    "reviewed": false
+  },
+  {
+    "question": "Una tarjeta de transporte tiene \\$800 de saldo inicial. Cada viaje cuesta \\$60.\n\n¿Cuál es la ecuación del saldo $S$ según la cantidad de viajes $v$?",
+    "options": [
+      "$S(v) = 60v - 800$",
+      "$S(v) = 800 + 60v$",
+      "$S(v) = 60 - 800v$",
+      "$S(v) = 800 - 60v$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El saldo empieza en \\$800 y baja \\$60 por viaje: $S(v) = 800 - 60v$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada viaje *descuenta* \\$60: pendiente $m = -60$. El saldo inicial es $b = 800$:\n$$S(v) = 800 - 60v$$\n\n$S(v) = 800 + 60v$ recargaría la tarjeta en cada viaje. Sería el sueño del usuario del subte.",
+    "reviewed": false
+  },
+  {
+    "question": "Un abono de internet tiene un costo fijo de \\$1800 más \\$90 por cada GB adicional consumido.\n\n¿Cuál es la ecuación del costo mensual $P$ según los GB adicionales $g$?",
+    "options": [
+      "$P(g) = 1800 + 90g$",
+      "$P(g) = 90 + 1800g$",
+      "$P(g) = 1800 - 90g$",
+      "$P(g) = 90g$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$1800 más \\$90 por GB adicional: $P(g) = 1800 + 90g$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El abono base es $b = 1800$; cada GB extra cuesta $m = 90$:\n$$P(g) = 1800 + 90g$$\n\n$P(g) = 90g$ olvida el abono fijo. El proveedor no se olvida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona sale desde un punto a 3 km del origen y camina hacia adelante a 5 km por hora.\n\n¿Cuál es la ecuación de la distancia al origen $d$ según las horas $h$?",
+    "options": [
+      "$d(h) = 5 + 3h$",
+      "$d(h) = 5h - 3$",
+      "$d(h) = 3 + 5h$",
+      "$d(h) = 5h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Parte a 3 km del origen y avanza 5 km/h: $d(h) = 3 + 5h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La distancia inicial es $b = 3$ km; la velocidad es $m = 5$ km/h:\n$$d(h) = 3 + 5h$$\n\n$d(h) = 5 + 3h$ confunde la distancia inicial con la velocidad — llegaría al doble de lejos que debería.",
+    "reviewed": false
+  },
+  {
+    "question": "Una planta mide 6 cm y crece 2 cm por semana de forma constante.\n\n¿Cuál es la ecuación de la altura $h$ según las semanas $s$?",
+    "options": [
+      "$h(s) = 2 - 6s$",
+      "$h(s) = 6 + 2s$",
+      "$h(s) = 6 - 2s$",
+      "$h(s) = 2s$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Altura inicial 6 cm, crece 2 cm/semana: $h(s) = 6 + 2s$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La planta *crece*, así que la pendiente es positiva: $m = 2$.\n\nLa altura inicial es $b = 6$:\n$$h(s) = 6 + 2s$$\n\n$h(s) = 6 - 2s$ la haría encogerse. Eso no es una planta, es un sueño mal plantado.",
+    "reviewed": false
+  },
+  {
+    "question": "El tanque de una moto tiene 45 litros. Cada viaje largo consume 9 litros.\n\n¿Cuál es la ecuación de la nafta restante $Q$ según la cantidad de viajes $v$?",
+    "options": [
+      "$Q(v) = 9v$",
+      "$Q(v) = 45 + 9v$",
+      "$Q(v) = 9 - 45v$",
+      "$Q(v) = 45 - 9v$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El tanque empieza con 45 L y pierde 9 L por viaje: $Q(v) = 45 - 9v$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada viaje *reduce* la nafta: pendiente $m = -9$. El tanque inicial es $b = 45$:\n$$Q(v) = 45 - 9v$$\n\n$Q(v) = 9v$ parte de 0 litros y va sumando — la moto funciona al revés.",
+    "reviewed": false
+  },
+  {
+    "question": "Un producto cuesta \\$3000, pero la tienda ofrece un descuento de \\$200 por cada unidad adicional que comprés.\n\n¿Cuál es la ecuación del precio por unidad $P$ según las unidades $u$ compradas?",
+    "options": [
+      "$P(u) = 3000 + 200u$",
+      "$P(u) = 200 - 3000u$",
+      "$P(u) = 3000 - 200u$",
+      "$P(u) = 200u$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El precio empieza en \\$3000 y baja \\$200 por unidad adicional: $P(u) = 3000 - 200u$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un descuento por cantidad hace que el precio *baje* con cada unidad extra: $m = -200$.\n\nEl precio base es $b = 3000$:\n$$P(u) = 3000 - 200u$$\n\n$P(u) = 3000 + 200u$ encarece con cada unidad — eso es una multa, no un descuento.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 7x - 4$.\n\n¿Cuál es la pendiente?",
+    "options": [
+      "$-4$",
+      "$7$",
+      "$4$",
+      "$-7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = 7x - 4$, el coeficiente de $x$ es $7$: esa es la pendiente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $f(x) = mx + b$, la pendiente es el coeficiente que multiplica a $x$.\n\n$f(x) = 7x - 4 \\Rightarrow m = 7$\n\nEl $-4$ es la ordenada al origen, no la pendiente. Confundirlos es el error más clásico del tema.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = -3x + 9$.\n\n¿Cuál es la ordenada al origen $b$?",
+    "options": [
+      "$-3$",
+      "$3$",
+      "$9$",
+      "$-9$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = -3x + 9$, el término independiente es $9$: esa es la ordenada al origen.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la ordenada al origen $b$ es el término sin $x$, es decir, $f(0)$.\n\n$f(0) = -3(0) + 9 = 9$\n\nEl $-3$ es la pendiente. Muchos lo eligen porque está primero, pero el primero no siempre tiene razón.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un remis es $C(k) = 700 + 180k$, donde $k$ son los kilómetros.\n\n¿Cuánto cobra el remis por cada kilómetro adicional?",
+    "options": [
+      "\\$700",
+      "\\$180",
+      "\\$880",
+      "\\$520"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El coeficiente de $k$ es 180: el remis cobra \\$180 por cada kilómetro.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $C(k) = 700 + 180k$:\n\n- $b = 700$ es el costo fijo al subir al auto.\n- $m = 180$ es lo que cobra por cada kilómetro.\n\n\\$700 es lo que pagás antes de arrancar. \\$180 es lo que importa por cada kilómetro de viaje.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 2x - 8$.\n\n¿Cuál es la raíz de la función?",
+    "options": [
+      "$x = 2$",
+      "$x = -8$",
+      "$x = 4$",
+      "$x = 8$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 8 = 0 \\Rightarrow x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz es el valor de $x$ donde la función vale cero, es decir, donde la recta cruza el eje horizontal.\n\n$$2x - 8 = 0 \\Rightarrow 2x = 8 \\Rightarrow x = 4$$\n\n$x = -8$ sería la raíz si el $-8$ estuviera en el lugar de $m$, que no es el caso.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 5 - x$.\n\n¿Cuánto vale $f(3)$?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$2$",
+      "$15$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) = 5 - 3 = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar una función es reemplazar la variable por el valor dado:\n\n$$f(3) = 5 - 3 = 2$$\n\n$f(3) = 8$ viene de sumar $5 + 3$ en vez de restar: el signo negativo delante de $x$ importa.",
+    "reviewed": false
+  },
+  {
+    "question": "El sueldo de un vendedor es $S(v) = 1200 + 80v$, donde $v$ es la cantidad de ventas.\n\n¿Cuántas ventas necesita para ganar exactamente \\$2000?",
+    "options": [
+      "$10$",
+      "$25$",
+      "$40$",
+      "$15$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$1200 + 80v = 2000 \\Rightarrow 80v = 800 \\Rightarrow v = 10$ ventas.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolver $S(v) = 2000$ es despejar $v$:\n\n$$1200 + 80v = 2000$$\n$$80v = 800$$\n$$v = 10$$\n\nCon 10 ventas, el sueldo es exactamente \\$2000. Con 11, ya se pasa — pero seguramente no va a rechazar la undécima.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un servicio técnico es $C(h) = 300 + 250h$, donde $h$ son las horas trabajadas.\n\n¿Cuál es el costo fijo de la visita, sin contar las horas?",
+    "options": [
+      "\\$250",
+      "\\$550",
+      "\\$300",
+      "\\$250h"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $C(h) = 300 + 250h$, el término independiente es \\$300: ese es el costo fijo.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo fijo es el valor de $C$ cuando $h = 0$, es decir, la ordenada al origen:\n\n$$C(0) = 300 + 250(0) = 300$$\n\n\\$250 es la tarifa por hora, no el fijo. \\$550 sería el costo de una hora de trabajo, no el arranque.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones lineales es decreciente?",
+    "options": [
+      "$f(x) = 3x + 1$",
+      "$f(x) = x - 5$",
+      "$f(x) = 0{,}5x + 2$",
+      "$f(x) = -2x + 7$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -2x + 7$ tiene pendiente $-2 < 0$: es la única decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es decreciente cuando su pendiente $m < 0$.\n\n- $3x + 1$: $m = 3 > 0$ → creciente\n- $x - 5$: $m = 1 > 0$ → creciente\n- $0{,}5x + 2$: $m = 0{,}5 > 0$ → creciente\n- $-2x + 7$: $m = -2 < 0$ → **decreciente** ✓",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal tiene pendiente $2$ y ordenada al origen $3$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 3x + 2$",
+      "$f(x) = 2x - 3$",
+      "$f(x) = 2x + 3$",
+      "$f(x) = 3x - 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$m = 2$ y $b = 3$: $f(x) = 2x + 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la pendiente multiplica a $x$ y la ordenada al origen es el término libre.\n\n$m = 2$, $b = 3 \\Rightarrow f(x) = 2x + 3$\n\n$f(x) = 3x + 2$ confunde la posición de $m$ y $b$, el error más popular de este ejercicio.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal pasa por los puntos $(0, 5)$ y $(1, 8)$.\n\n¿Cuál es la pendiente?",
+    "options": [
+      "$m = 3$",
+      "$m = 5$",
+      "$m = 8$",
+      "$m = -3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$m = (8 - 5) / (1 - 0) = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente es el cociente entre el cambio en $y$ y el cambio en $x$:\n\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = \\frac{3}{1} = 3$$\n\nEl punto $(0, 5)$ además nos dice que la ordenada al origen es $b = 5$, así que $f(x) = 3x + 5$.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = -4x + 12$.\n\n¿Cuánto vale $f(-1)$?",
+    "options": [
+      "$8$",
+      "$16$",
+      "$-16$",
+      "$-8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(-1) = -4(-1) + 12 = 4 + 12 = 16$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reemplazar $x$ por $-1$:\n\n$$f(-1) = -4 \\cdot (-1) + 12 = 4 + 12 = 16$$\n\nEl error más común: calcular $-4(-1)$ como $-4$ en vez de $+4$. Multiplicar dos negativos da positivo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 2x + 4$",
+      "$f(x) = 4x + 2$",
+      "$f(x) = 2x - 4$",
+      "$f(x) = 4x - 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$m = (10-4)/(3-0) = 2$ y $b = 4$ (el punto $(0,4)$ es la ordenada al origen): $f(x) = 2x + 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen es directamente $b = 4$.\n\n$$f(x) = 2x + 4$$\n\n$f(x) = 4x + 2$ confunde $m$ con $b$: el clásico intercambio.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 3x - 6$.\n\n¿Para qué valor de $x$ se cumple que $f(x) = 9$?",
+    "options": [
+      "$x = 1$",
+      "$x = 3$",
+      "$x = 5$",
+      "$x = 9$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$3x - 6 = 9 \\Rightarrow 3x = 15 \\Rightarrow x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolver $f(x) = 9$ significa despejar $x$:\n\n$$3x - 6 = 9$$\n$$3x = 15$$\n$$x = 5$$\n\nVerificación: $f(5) = 3(5) - 6 = 15 - 6 = 9$ ✓",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un taxi es $C(k) = 700 + 300k$, donde $k$ son los kilómetros.\n\n¿Cuánto cuesta un viaje de 3 kilómetros?",
+    "options": [
+      "\\$1300",
+      "\\$1000",
+      "\\$1600",
+      "\\$900"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar la función en $k = 3$:\n\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\n\n\\$1300 viene de sumar $700 + 300 + 300$ (solo dos veces). \\$1000 olvidaría los \\$300/km. El taxímetro no olvida.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque empieza con 100 litros y pierde 5 litros por hora.\n\n¿Cuál de estas ecuaciones describe correctamente el volumen $V$ según las horas $h$?",
+    "options": [
+      "$V(h) = 100h - 5$",
+      "$V(h) = 5h - 100$",
+      "$V(h) = 100 - 5h$",
+      "$V(h) = 5 + 100h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Volumen inicial 100 L, pierde 5 L/h: $V(h) = 100 - 5h$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen *disminuye* a ritmo constante: pendiente $m = -5$.\n\nEl volumen inicial es $b = 100$:\n$$V(h) = 100 - 5h$$\n\n$V(h) = 100h - 5$ hace que el volumen aumente 100 litros por hora y empiece en $-5$ litros. Físicamente imposible, algebraicamente desordenado.",
+    "reviewed": false
+  }
+]

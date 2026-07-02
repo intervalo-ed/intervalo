@@ -168,7 +168,7 @@ class ExerciseInSession:
     options: list[str]
     correct_index: int
     feedback_correct: str
-    feedback_incorrect: str
+    feedback_incorrect: str | list
     has_math: bool = False
     graph_fn: str = ""
     graph_view: list | None = None
@@ -1001,7 +1001,12 @@ def record_answer_db(
         "quality": quality,
     })
 
-    feedback = exercise.feedback_correct if is_correct else exercise.feedback_incorrect
+    if is_correct:
+        feedback = exercise.feedback_correct
+    elif isinstance(exercise.feedback_incorrect, list):
+        feedback = exercise.explanation or ""
+    else:
+        feedback = exercise.feedback_incorrect
     return {
         "correct": is_correct,
         "quality": quality,

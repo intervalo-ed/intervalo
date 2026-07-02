@@ -1,0 +1,1102 @@
+[
+  {
+    "question": "Un remis cobra una tarifa fija al subir al auto, más un monto por kilómetro recorrido.\n\nLa gráfica muestra el costo total, en cientos de pesos, según los kilómetros.\n\n¿Qué representa el valor donde la recta toca el eje vertical?",
+    "options": [
+      "El costo del viaje aunque no se recorra ningún kilómetro",
+      "El costo por cada kilómetro adicional",
+      "La distancia máxima que cubre el remis",
+      "El kilómetro donde el costo se duplica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El valor $f(0) = 3$ es la bajada de bandera, el costo fijo sin haber recorrido ningún kilómetro.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El eje vertical muestra el costo cuando $x = 0$, es decir, cuando no se recorrió ningún kilómetro. En términos de la función:\n$$f(0) = b$$\nEso es la bajada de bandera, lo que te cobran aunque el auto todavía no haya arrancado.\n\nLa pendiente representa el costo por km; la ordenada al origen, el costo de subir.",
+    "reviewed": false
+  },
+  {
+    "question": "Un plomero cobra un monto fijo por presentarse en el domicilio, más una tarifa por hora de trabajo.\n\nLa gráfica muestra el cobro total, en cientos de pesos, según las horas trabajadas.\n\n¿Qué significa el punto donde la recta corta el eje vertical?",
+    "options": [
+      "El costo por hora de mano de obra",
+      "Las horas máximas que trabaja",
+      "Lo que cobra aunque no trabaje ninguna hora",
+      "El momento en que el cobro se vuelve constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 2$ es el costo de la visita, lo que se paga aunque el plomero no toque nada.",
+    "feedback_incorrect": "",
+    "graph_fn": "3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La ordenada al origen es $f(0)$, el valor de la función cuando $x = 0$.\n$$f(0) = b$$\nEn este caso, cero horas trabajadas no significa cero cobro: el plomero ya viajó hasta el domicilio.\n\nEse costo fijo es la ordenada al origen. Lo que varía con las horas es la pendiente.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los gigabytes de datos móviles que le quedan a alguien según los días del mes.\n\nArrancó con el paquete completo y no compró datos extra.\n\n¿En qué día se queda sin datos por completo?",
+    "options": [
+      "Día 3",
+      "Día 4",
+      "Día 5",
+      "Día 8"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Los datos se agotan cuando la carga llega a cero. La recta cruza el eje horizontal en $x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-2*x + 8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Los datos se agotan cuando llegan a cero, es decir cuando $f(x) = 0$. Ese es el punto donde la recta cruza el eje horizontal.\n$$-2x + 8 = 0 \\implies x = 4$$\nCuatro días. El paquete no estira más.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra las unidades en stock de un producto, en docenas, según los días transcurridos desde el último reabastecimiento.\n\nCada día se despacha la misma cantidad.\n\n¿En qué día se agota completamente el stock?",
+    "options": [
+      "Día 3",
+      "Día 4",
+      "Día 5",
+      "Día 9"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta cruza el eje horizontal en $x = 3$. El día 3 el stock llega a cero.",
+    "feedback_incorrect": "",
+    "graph_fn": "-3*x + 9",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El stock se agota cuando llega a cero, es decir cuando $f(x) = 0$. Buscá dónde la recta cruza el eje horizontal.\n$$-3x + 9 = 0 \\implies x = 3$$\nA ese ritmo, el depósito dura exactamente 3 días. Después hay que reabastecer.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el costo mensual de electricidad, en cientos de pesos, según los kWh consumidos por encima del mínimo garantizado.\n\n¿Cuántos pesos más paga quien consume 3 kWh respecto a quien consume 1 kWh?",
+    "options": [
+      "$200",
+      "$400",
+      "$600",
+      "$800"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(3) - f(1) = 7 - 3 = 4$, es decir \\$400. Dos kWh de diferencia, a \\$200 cada uno.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia entre dos valores de una función lineal depende solo de la pendiente y del intervalo, no del punto de partida.\n$$f(3) - f(1) = 2 \\cdot (3 - 1) = 4$$\nCada kWh extra cuesta \\$200. Dos kWh de diferencia, \\$400 de diferencia.\n\nEl costo fijo ni aparece en la cuenta.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el tiempo total de viaje, en minutos, según la cantidad de estaciones recorridas desde el centro, incluyendo el tiempo de espera inicial.\n\n¿Cuántos minutos más tarda quien viaja hasta la estación 3 respecto a quien baja en la estación 1?",
+    "options": [
+      "3 min",
+      "6 min",
+      "9 min",
+      "10 min"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(3) - f(1) = 10 - 4 = 6$ minutos. Dos estaciones a 3 minutos cada una.",
+    "feedback_incorrect": "",
+    "graph_fn": "3*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia entre dos valores de una función lineal depende solo de la pendiente y del tramo recorrido.\n$$f(3) - f(1) = 3 \\cdot (3 - 1) = 6$$\nDos estaciones de diferencia, 3 minutos por estación: 6 minutos en total.\n\nLa espera inicial se cancela sola.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los litros que le quedan a un bidón de agua según las horas, mientras se va usando.\n\nEl bidón no se recarga en ese período.\n\n¿Cuántos litros consume por hora?",
+    "options": [
+      "1 litro",
+      "2 litros",
+      "5 litros",
+      "10 litros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta baja 2 unidades por cada hora: se consumen 2 litros por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "-2*x + 10",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto varía $f(x)$ por cada unidad de $x$. Como la recta baja, la pendiente es negativa, el agua disminuye.\n$$m = -2 \\implies \\text{el bidón pierde 2 litros por hora}$$\nEl signo negativo dice que baja; el valor absoluto dice cuánto baja.\n\nEl bidón no hace excepciones.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el puntaje acumulado en un videojuego, en miles de puntos, según los niveles superados.\n\nSe arranca con un bonus inicial.\n\n¿Cuántos miles de puntos suma por cada nivel superado?",
+    "options": [
+      "2 mil",
+      "3 mil",
+      "5 mil",
+      "6 mil"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta sube 3 unidades por nivel: la pendiente es 3 mil puntos por nivel.",
+    "feedback_incorrect": "",
+    "graph_fn": "3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente de la recta indica cuánto varía el puntaje por cada nivel.\n$$m = 3 \\implies \\text{3 mil puntos por nivel}$$\nSe arrancó con 2 mil de bonus y sube parejo.\n\nLa ordenada al origen es el bonus inicial; la pendiente, el ritmo al que se suman puntos.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la temperatura, en grados Celsius, de un líquido mientras se calienta según los minutos desde que se encendió el calefactor.\n\n¿Cuál es la temperatura a los 3 minutos?",
+    "options": [
+      "7 °C",
+      "8 °C",
+      "9 °C",
+      "10 °C"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) = 2 \\cdot 3 + 3 = 9$ °C. Buscá en la gráfica el punto con $x = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(3)$, buscá en la gráfica el punto de la recta con $x = 3$ y mirá a qué altura queda.\n$$f(3) = 2 \\cdot 3 + 3 = 9$$\nEl líquido arrancó a 3 °C y sube 2° por minuto, sin apuros pero sin parar.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el ahorro total, en miles de pesos, de una persona según las semanas, considerando que ya tenía algo guardado al empezar.\n\n¿Cuánto tiene ahorrado a las 3 semanas?",
+    "options": [
+      "$8 mil",
+      "$9 mil",
+      "$10 mil",
+      "$12 mil"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) = 3 \\cdot 3 + 1 = 10$, es decir \\$10 mil. Buscá el punto con $x = 3$ en la gráfica.",
+    "feedback_incorrect": "",
+    "graph_fn": "3*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(3)$, ubicá $x = 3$ en el eje horizontal y mirá a qué altura llega la recta.\n$$f(3) = 3 \\cdot 3 + 1 = 10$$\nGuardaba \\$3 mil por semana y arrancó con \\$1 mil de antes. A las 3 semanas, \\$10 mil en total.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los kilómetros recorridos por un ciclista según las horas de pedaleo, contando una ventaja inicial con la que arrancó.\n\n¿A las cuántas horas llega a los 9 kilómetros?",
+    "options": [
+      "3 hs",
+      "4 hs",
+      "5 hs",
+      "6 hs"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 9$ cuando $x = 4$. A las 4 horas el ciclista llega a 9 km.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor dado, buscá en la gráfica dónde la recta alcanza esa altura.\n$$2x + 1 = 9 \\implies x = 4$$\nA las 4 horas, 9 kilómetros recorridos.\n\nDespués de eso, quizás toque un descanso.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el monto total cobrado por un electricista, en cientos de pesos, según las horas de trabajo, incluyendo el costo fijo de la visita.\n\n¿A las cuántas horas de trabajo el costo total llega a \\$1.100?",
+    "options": [
+      "2 hs",
+      "3 hs",
+      "4 hs",
+      "5 hs"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 11$ cuando $x = 3$. A las 3 horas el costo llega a \\$1.100.",
+    "feedback_incorrect": "",
+    "graph_fn": "3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para encontrar cuándo $f(x)$ llega a \\$1.100, buscá dónde la recta alcanza esa altura en la gráfica.\n$$3x + 2 = 11 \\implies x = 3$$\nTres horas. El costo de la visita ya estaba incluido desde el minuto cero.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el precio de una suscripción mensual, en miles de pesos, según el mes. El precio no cambia nunca.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El precio mensual, que es siempre el mismo",
+      "Cuánto aumenta el precio cada mes",
+      "La cantidad de meses del contrato",
+      "El mes en que el precio baja"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como la recta es horizontal, $f(0)$ es el precio fijo, el mismo todos los meses.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 5",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función cuando $x = 0$.\n$$f(0) = b$$\nEn una recta horizontal la pendiente es cero, así que el precio no cambia, vale lo mismo siempre.\n\nUna función constante también es lineal, con $m = 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Un alquiler de bicicletas cobra un fijo al retirar la bici más un monto por hora.\n\nLa gráfica muestra el costo total, en cientos de pesos, según las horas.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El costo fijo de retirar la bici, sin haber pedaleado",
+      "El costo por cada hora de uso",
+      "La cantidad máxima de horas",
+      "La hora en que conviene devolverla"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 4$ es el cargo fijo de retiro, lo que se paga aunque la bici no se mueva.",
+    "feedback_incorrect": "",
+    "graph_fn": "x + 4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El eje vertical muestra el costo cuando $x = 0$, sin horas de uso.\n$$f(0) = b$$\nEse es el cargo fijo de retiro, lo que cobran antes de pedalear.\n\nLa pendiente es el costo por hora; la ordenada al origen, el de arrancar.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el crédito que queda en una tarjeta prepaga de transporte, en cientos de pesos, según los viajes hechos.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El crédito inicial, antes de hacer ningún viaje",
+      "El costo de cada viaje",
+      "La cantidad de viajes disponibles",
+      "El viaje en que se agota el crédito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 9$ es el crédito inicial, lo que había en la tarjeta antes de viajar.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 9",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El corte con el eje vertical es $f(0)$, el valor cuando todavía no se hizo ningún viaje.\n$$f(0) = b$$\nEse es el crédito con el que arrancó la tarjeta.\n\nLa recta baja porque cada viaje descuenta; la ordenada al origen marca el punto de partida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una app de edición cobra un abono fijo más un extra por cada exportación.\n\nLa gráfica muestra el gasto mensual, en cientos de pesos, según las exportaciones.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El abono fijo, aunque no se exporte nada",
+      "El costo de cada exportación",
+      "El máximo de exportaciones permitidas",
+      "La exportación en que sube el precio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 3$ es el abono fijo, lo que se paga aunque no se exporte nada ese mes.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El eje vertical muestra el gasto cuando $x = 0$, sin exportaciones.\n$$f(0) = b$$\nEse es el abono fijo del mes.\n\nLa pendiente, más suave acá, es el costo por exportación; la ordenada, el piso fijo.",
+    "reviewed": false
+  },
+  {
+    "question": "Un servicio de música cobra un fijo mensual más un cargo por descarga para escuchar sin conexión.\n\nLa gráfica muestra el gasto, en cientos de pesos, según las descargas.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El cargo fijo mensual, sin ninguna descarga",
+      "El costo de cada descarga",
+      "El tope de descargas del plan",
+      "La descarga en que cambia la tarifa"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 2$ es el cargo fijo del mes, lo que se paga aunque no se descargue nada.",
+    "feedback_incorrect": "",
+    "graph_fn": "2/3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El corte con el eje vertical es $f(0)$, el gasto cuando $x = 0$.\n$$f(0) = b$$\nEse es el cargo fijo mensual.\n\nLo que crece con las descargas es la pendiente; el piso es la ordenada al origen.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los litros de combustible en el tanque de una moto, en litros, según los kilómetros recorridos.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "options": [
+      "El combustible inicial, antes de arrancar",
+      "El consumo por kilómetro",
+      "Los kilómetros que faltan para llenar",
+      "El kilómetro en que se queda sin nafta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 8$ es el combustible inicial, lo que había en el tanque antes de arrancar.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*x + 8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El eje vertical muestra el nivel cuando $x = 0$, antes de recorrer nada.\n$$f(0) = b$$\nEse es el combustible con el que salió la moto.\n\nLa recta baja porque cada kilómetro gasta; la ordenada al origen es el punto de partida.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la altura de una vela encendida, en centímetros, según las horas que lleva prendida.\n\n¿A las cuántas horas se consume del todo?",
+    "options": [
+      "5 hs",
+      "6 hs",
+      "7 hs",
+      "4 hs"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La vela se consume cuando la altura llega a cero. La recta cruza el eje horizontal en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La vela se termina cuando su altura llega a cero, es decir cuando $f(x) = 0$. Ese es el punto donde la recta cruza el eje horizontal.\n$$-x + 6 = 0 \\implies x = 6$$\nSeis horas. Ni una llama más.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el saldo de una cuenta, en miles de pesos, según las semanas de ahorro. Arrancó en rojo y se va recuperando.\n\n¿En qué semana el saldo llega a cero?",
+    "options": [
+      "Semana 3",
+      "Semana 4",
+      "Semana 5",
+      "Semana 6"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El saldo llega a cero cuando la recta cruza el eje horizontal, en $x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "x - 4",
+    "graph_view": [
+      -2,
+      10,
+      -6,
+      6
+    ],
+    "explanation": "La deuda queda saldada cuando el saldo llega a cero, es decir cuando $f(x) = 0$. Buscá dónde la recta cruza el eje horizontal.\n$$x - 4 = 0 \\implies x = 4$$\nCuatro semanas para salir del rojo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la carga de una batería externa, en miles de mAh, según las horas de uso. Arrancó llena.\n\n¿A las cuántas horas se agota por completo?",
+    "options": [
+      "6 hs",
+      "7 hs",
+      "8 hs",
+      "4 hs"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La batería se agota cuando la carga llega a cero. La recta cruza el eje horizontal en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*x + 4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La batería se agota cuando $f(x) = 0$, donde la recta cruza el eje horizontal.\n$$-\\frac{1}{2}x + 4 = 0 \\implies x = 8$$\nOcho horas. Con paciencia, todo se descarga.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la temperatura de una cámara frigorífica, en grados, según las horas desde que se apagó. Arrancó bajo cero.\n\n¿A las cuántas horas la temperatura llega a cero grados?",
+    "options": [
+      "5 hs",
+      "6 hs",
+      "7 hs",
+      "2 hs"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La temperatura llega a cero cuando la recta cruza el eje horizontal, en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1/3*x - 2",
+    "graph_view": [
+      -2,
+      10,
+      -6,
+      6
+    ],
+    "explanation": "El cero se alcanza cuando $f(x) = 0$, donde la recta cruza el eje horizontal.\n$$\\frac{1}{3}x - 2 = 0 \\implies x = 6$$\nSeis horas para llegar a cero. Después, a descongelar.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el agua que queda en un bidón, en litros, según los días de una excursión.\n\n¿En qué día se vacía por completo el bidón?",
+    "options": [
+      "Día 7",
+      "Día 8",
+      "Día 9",
+      "Día 3"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El bidón se vacía cuando la recta cruza el eje horizontal, en $x = 9$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-1/3*x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El bidón se vacía cuando $f(x) = 0$, donde la recta cruza el eje horizontal.\n$$-\\frac{1}{3}x + 3 = 0 \\implies x = 9$$\nNueve días. Conviene buscar una canilla antes.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra las entradas que quedan para un recital, en miles, según las horas desde que salieron a la venta.\n\n¿A las cuántas horas se agotan las entradas?",
+    "options": [
+      "5 hs",
+      "6 hs",
+      "7 hs",
+      "4 hs"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Las entradas se agotan cuando la recta cruza el eje horizontal, en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-2/3*x + 4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Se agotan cuando $f(x) = 0$, donde la recta cruza el eje horizontal.\n$$-\\frac{2}{3}x + 4 = 0 \\implies x = 6$$\nSeis horas. Los fans no perdonan.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la factura mensual de internet, en miles de pesos, según los gigabytes consumidos. El plan es de tarifa plana.\n\n¿Cuánto más paga quien consume 8 GB respecto a quien consume 3 GB?",
+    "options": [
+      "Nada, paga lo mismo",
+      "\\$3 mil",
+      "\\$5 mil",
+      "\\$6 mil"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como la recta es horizontal, $f(8) - f(3) = 0$: la tarifa plana no cambia con el consumo.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia entre dos valores de una función depende de su pendiente.\n$$f(8) - f(3) = 0 \\cdot (8 - 3) = 0$$\nLa pendiente es cero, así que el consumo no mueve la factura.\n\nTarifa plana, pague lo que pague el vecino.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el abono mensual de un gimnasio, en miles de pesos, según los días que se asiste. El abono es fijo.\n\n¿Cuánto más paga quien va 20 días respecto a quien va 5 días?",
+    "options": [
+      "Nada, paga lo mismo",
+      "\\$4 mil",
+      "\\$15 mil",
+      "\\$2 mil"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta es horizontal, así que $f(20) - f(5) = 0$: el abono no depende de la asistencia.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia entre dos valores depende de la pendiente.\n$$f(20) - f(5) = 0 \\cdot (20 - 5) = 0$$\nCon pendiente cero, ir más días no cambia el abono.\n\nEl que va una vez paga igual que el que vive ahí.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el costo de un taller, en cientos de pesos, según las horas de duración, con un fijo de inscripción.\n\n¿Cuántos pesos más paga quien toma 7 horas respecto a quien toma 3 horas?",
+    "options": [
+      "\\$200",
+      "\\$300",
+      "\\$400",
+      "\\$500"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(7) - f(3) = 9 - 5 = 4$, es decir \\$400. Cuatro horas de diferencia, a \\$100 cada una.",
+    "feedback_incorrect": "",
+    "graph_fn": "x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia en una función lineal depende solo de la pendiente y del intervalo.\n$$f(7) - f(3) = 1 \\cdot (7 - 3) = 4$$\nCada hora suma \\$100. Cuatro horas de diferencia, \\$400.\n\nEl fijo de inscripción no entra en la resta.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el agua en un tanque, en cientos de litros, según las horas de uso, sin recarga.\n\n¿Cuántos cientos de litros menos hay a las 8 horas que a las 3 horas?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) - f(8) = 7 - 2 = 5$. Cinco horas de uso, a 100 litros por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 10",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La caída entre dos momentos depende de la pendiente y del intervalo.\n$$f(3) - f(8) = 1 \\cdot (8 - 3) = 5$$\nCada hora baja 100 litros. Cinco horas, 500 litros menos.\n\nEl tanque no devuelve nada.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la altura de una planta, en centímetros, según las semanas, con un alto inicial al transplantarla.\n\n¿Cuántos centímetros más mide a la semana 8 que a la semana 2?",
+    "options": [
+      "2 cm",
+      "3 cm",
+      "4 cm",
+      "5 cm"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(8) - f(2) = 5 - 2 = 3$ cm. Seis semanas a medio centímetro por semana.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia depende solo de la pendiente y del intervalo.\n$$f(8) - f(2) = \\frac{1}{2} \\cdot (8 - 2) = 3$$\nMedio centímetro por semana, seis semanas, 3 cm.\n\nEl alto inicial no aparece en la cuenta.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la distancia recorrida en una caminata, en kilómetros, según las horas, con una ventaja inicial.\n\n¿Cuántos kilómetros más recorre en la hora 6 respecto a la hora 3?",
+    "options": [
+      "1 km",
+      "2 km",
+      "3 km",
+      "4 km"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(6) - f(3) = 5 - 3 = 2$ km. Tres horas, a dos tercios de kilómetro por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "2/3*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia depende de la pendiente y del intervalo recorrido.\n$$f(6) - f(3) = \\frac{2}{3} \\cdot (6 - 3) = 2$$\nDos tercios de kilómetro por hora, tres horas, 2 km.\n\nLa ventaja inicial se cancela en la resta.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los litros de agua en un balde bajo una gotera, en litros, según las horas, con algo de agua al inicio.\n\n¿Cuántos litros más hay en la hora 4 respecto a la hora 2?",
+    "options": [
+      "2 litros",
+      "3 litros",
+      "4 litros",
+      "6 litros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(4) - f(2) = 7 - 4 = 3$ litros. Dos horas, a un litro y medio por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "1.5*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La diferencia depende solo de la pendiente y del intervalo.\n$$f(4) - f(2) = \\frac{3}{2} \\cdot (4 - 2) = 3$$\nUn litro y medio por hora, dos horas, 3 litros.\n\nEl agua del arranque no cuenta en la diferencia.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la temperatura de una sala con termostato, en grados, según las horas. El termostato la mantiene fija.\n\n¿Cuántos grados cambia la temperatura por hora?",
+    "options": [
+      "0, se mantiene constante",
+      "5 grados",
+      "Sube 5 por hora",
+      "Baja 5 por hora"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta es horizontal, así que la pendiente es cero: la temperatura no cambia.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 5",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto varía $f(x)$ por cada unidad de $x$.\n$$m = 0 \\implies \\text{no cambia}$$\nUna recta horizontal tiene pendiente cero, la temperatura se queda quieta.\n\nEl termostato hace su trabajo sin sobresaltos.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el nivel de un lago regulado por una represa, en metros, según los días. El nivel se mantiene estable.\n\n¿Cuántos metros cambia el nivel por día?",
+    "options": [
+      "0, se mantiene constante",
+      "3 metros",
+      "Sube 3 por día",
+      "Baja 3 por día"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta es horizontal: la pendiente es cero y el nivel no varía.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente mide la variación de $f(x)$ por cada unidad de $x$.\n$$m = 0 \\implies \\text{no varía}$$\nCon pendiente cero, el nivel se mantiene día tras día.\n\nLa represa manda.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la cantidad de agua en una pileta que se llena, en miles de litros, según las horas, con algo de agua al inicio.\n\n¿Cuántos miles de litros entran por hora?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta sube 1 unidad por hora: la pendiente es 1, mil litros por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto sube $f(x)$ por cada unidad de $x$.\n$$m = 1 \\implies \\text{mil litros por hora}$$\nLa pendiente vale 1, parejo y sin apuro.\n\nEl agua del arranque no afecta el ritmo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la nieve acumulada en un techo, en centímetros, según las horas de sol, mientras se derrite.\n\n¿Cuántos centímetros baja por hora?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "8"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta baja 1 unidad por hora: la pendiente es $-1$, un centímetro por hora.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto varía $f(x)$ por unidad de $x$. Como la recta baja, es negativa.\n$$m = -1 \\implies \\text{baja un centímetro por hora}$$\nEl signo dice que baja; el valor absoluto, cuánto.\n\nEl sol no apura, pero no para.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la altura del agua en un florero que se llena de a poco, en centímetros, según los minutos.\n\n¿Cuántos centímetros sube por minuto?",
+    "options": [
+      "0,5 cm",
+      "1 cm",
+      "2 cm",
+      "1,5 cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta sube 1 cm cada 2 minutos, es decir medio centímetro por minuto: la pendiente es $0{,}5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto sube $f(x)$ por cada unidad de $x$.\n$$m = \\frac{1}{2} \\implies \\text{medio centímetro por minuto}$$\nSube 1 cada 2 minutos, o sea $0{,}5$ por minuto.\n\nLento pero constante, como buen florero.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los puntos de fidelidad de un café, en puntos, según los cafés comprados, con un bonus de bienvenida.\n\n¿Cada cuántos cafés el puntaje aumenta en 1?",
+    "options": [
+      "Cada 2 cafés",
+      "Cada 3 cafés",
+      "Cada 4 cafés",
+      "Cada 1 café"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta sube 1 punto cada 3 cafés: la pendiente es un tercio.",
+    "feedback_incorrect": "",
+    "graph_fn": "1/3*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente indica cuánto sube $f(x)$ por cada unidad de $x$.\n$$m = \\frac{1}{3} \\implies \\text{sube 1 cada 3}$$\nUna pendiente de un tercio significa que hacen falta 3 cafés para sumar 1 punto.\n\nLa fidelidad se gana de a sorbos.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el saldo de datos de un plan, en gigabytes, según los días del mes.\n\n¿Cuántos gigabytes baja el saldo por día?",
+    "options": [
+      "0,5 GB",
+      "1 GB",
+      "2 GB",
+      "1,5 GB"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta baja 1 GB cada 2 días, es decir medio GB por día: la pendiente es $-0{,}5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*x + 9",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pendiente mide cuánto varía $f(x)$ por unidad de $x$. Como baja, es negativa.\n$$m = -\\frac{1}{2} \\implies \\text{baja medio GB por día}$$\nUn GB cada dos días, o sea $0{,}5$ por día.\n\nAlcanza, si nadie mira videos.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la altura de vuelo de un avión en crucero, en miles de pies, según los minutos. Vuela a altura constante.\n\n¿A qué altura está a los 5 minutos?",
+    "options": [
+      "5",
+      "7",
+      "12",
+      "0"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(5) = 7$. Como la recta es horizontal, vale lo mismo en todo momento.",
+    "feedback_incorrect": "",
+    "graph_fn": "0*x + 7",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(5)$, buscá la altura de la recta en $x = 5$.\n$$f(5) = 7$$\nLa pendiente es cero, así que el avión mantiene los 7 mil pies todo el tramo.\n\nCrucero tranquilo, sin baches.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la cantidad de páginas leídas de un libro, en decenas, según los días, contando un arranque previo.\n\n¿Cuántas decenas de páginas lleva al día 6?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(6) = 6 + 2 = 8$. Buscá en la gráfica el punto con $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(6)$, ubicá $x = 6$ y mirá a qué altura queda la recta.\n$$f(6) = 6 + 2 = 8$$\nArrancó con 2 decenas leídas y suma 1 por día.\n\nAl día 6, 80 páginas. Buen ritmo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los ejercicios que faltan en una tarea, en cantidad, según los días.\n\n¿Cuántos ejercicios faltan al día 4?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(4) = -4 + 9 = 5$. Buscá el punto con $x = 4$ en la gráfica.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 9",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(4)$, buscá la altura de la recta en $x = 4$.\n$$f(4) = -4 + 9 = 5$$\nEran 9 y resolvió uno por día.\n\nAl día 4, quedan 5. La cuenta regresiva ayuda.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra cuánto creció una enredadera, en centímetros, según las semanas, con un alto al plantarla.\n\n¿Cuánto mide a la semana 6?",
+    "options": [
+      "4 cm",
+      "5 cm",
+      "6 cm",
+      "7 cm"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(6) = \\frac{1}{2}\\cdot 6 + 2 = 5$ cm. Buscá el punto con $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(6)$, ubicá $x = 6$ y mirá la altura de la recta.\n$$f(6) = \\frac{1}{2} \\cdot 6 + 2 = 5$$\nArrancó en 2 cm y sube medio por semana.\n\nA la semana 6, 5 cm. Sin prisa.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los kilos de residuos reciclados acumulados, en kilos, según las semanas, con algo ya juntado al empezar.\n\n¿Cuántos kilos lleva a la semana 6?",
+    "options": [
+      "5 kg",
+      "6 kg",
+      "7 kg",
+      "8 kg"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(6) = \\frac{2}{3}\\cdot 6 + 2 = 6$ kg. Buscá el punto con $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2/3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$.\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\nDos kilos al arranque y dos tercios por semana.\n\nA la semana 6, 6 kilos. Redondo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la tinta que queda en un cartucho, en mililitros, según las decenas de páginas impresas.\n\n¿Cuántos mililitros quedan a las 4 decenas de páginas?",
+    "options": [
+      "5 ml",
+      "6 ml",
+      "7 ml",
+      "8 ml"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(4) = -\\frac{1}{2}\\cdot 4 + 8 = 6$ ml. Buscá el punto con $x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*x + 8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer $f(4)$, ubicá $x = 4$ y mirá la altura de la recta.\n$$f(4) = -\\frac{1}{2} \\cdot 4 + 8 = 6$$\nEmpezó con 8 ml y gasta medio por decena.\n\nA las 4 decenas, 6 ml. Todavía aguanta.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la cantidad de socios de un club, en decenas, según los meses, con un grupo fundador inicial.\n\n¿A los cuántos meses el club llega a 8 decenas de socios?",
+    "options": [
+      "4 meses",
+      "5 meses",
+      "6 meses",
+      "7 meses"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 8$ cuando $x = 5$. A los 5 meses llega a 8 decenas.",
+    "feedback_incorrect": "",
+    "graph_fn": "x + 3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$x + 3 = 8 \\implies x = 5$$\nA los 5 meses, 80 socios.\n\nDe a poco se llena el club.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra las galletas que quedan en un frasco, en cantidad, según los días.\n\n¿A los cuántos días quedan solo 4 galletas?",
+    "options": [
+      "5 días",
+      "6 días",
+      "7 días",
+      "8 días"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta baja hasta $y = 4$ cuando $x = 6$. Al día 6 quedan 4 galletas.",
+    "feedback_incorrect": "",
+    "graph_fn": "-x + 10",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$-x + 10 = 4 \\implies x = 6$$\nAl día 6, solo 4 galletas.\n\nAlguien anduvo picoteando.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra la altura del agua en un tanque que se llena lento, en metros, según las horas, con algo de agua al inicio.\n\n¿A las cuántas horas el agua llega a 6 metros?",
+    "options": [
+      "6 hs",
+      "7 hs",
+      "8 hs",
+      "9 hs"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 6$ cuando $x = 8$. A las 8 horas llega a 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$\\frac{1}{2}x + 2 = 6 \\implies x = 8$$\nOcho horas para los 6 metros.\n\nLlenarlo lleva su tiempo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el nivel de una cuenta de ahorro, en miles de dólares, según los años, con un depósito inicial.\n\n¿En cuántos años el ahorro llega a 4 mil?",
+    "options": [
+      "7 años",
+      "8 años",
+      "9 años",
+      "10 años"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 4$ cuando $x = 9$. A los 9 años llega a 4 mil.",
+    "feedback_incorrect": "",
+    "graph_fn": "1/3*x + 1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$\\frac{1}{3}x + 1 = 4 \\implies x = 9$$\nNueve años para los 4 mil.\n\nEl interés simple no apura, pero llega.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra los capítulos vistos de una serie, en cantidad, según las noches, contando los que ya había visto.\n\n¿En cuántas noches llega a 6 capítulos?",
+    "options": [
+      "5 noches",
+      "6 noches",
+      "7 noches",
+      "8 noches"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta alcanza $y = 6$ cuando $x = 6$. En 6 noches llega a 6 capítulos.",
+    "feedback_incorrect": "",
+    "graph_fn": "2/3*x + 2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$\\frac{2}{3}x + 2 = 6 \\implies x = 6$$\nSeis noches para los 6 capítulos.\n\nSin maratón, de a dos tercios por noche.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra el crédito de una tarjeta de fotocopias, en cientos de pesos, según los días de cursada.\n\n¿A los cuántos días el crédito baja a 4?",
+    "options": [
+      "8 días",
+      "9 días",
+      "10 días",
+      "11 días"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La recta baja hasta $y = 4$ cuando $x = 10$. Al día 10 el crédito llega a 4.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*x + 9",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para saber cuándo $f(x)$ llega a un valor, buscá dónde la recta alcanza esa altura.\n$$-\\frac{1}{2}x + 9 = 4 \\implies x = 10$$\nDiez días para bajar a 4.\n\nLas fotocopias se comen el saldo.",
+    "reviewed": false
+  }
+]

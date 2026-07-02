@@ -1,0 +1,1102 @@
+[
+  {
+    "question": "Un chico patea una pelota hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza la pelota?",
+    "options": [
+      "6 metros",
+      "8 metros",
+      "4 metros",
+      "10 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto de la parábola es el vértice. Acá está en $(4, 8)$, así que la altura máxima es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "En una parábola que abre hacia abajo, el punto más alto es el **vértice**.\n\nLa altura máxima es la coordenada vertical del vértice. Acá el vértice está en\n$$(4,\\ 8)$$\nLa pelota llega como mucho a 8 metros y después la gravedad hace su trabajo.",
+    "reviewed": false
+  },
+  {
+    "question": "Un sapo da un salto y la gráfica muestra su altura, en centímetros, según los segundos.\n\n¿A los cuántos segundos está en el punto más alto del salto?",
+    "options": [
+      "2 segundos",
+      "4 segundos",
+      "6 segundos",
+      "8 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El instante del punto más alto es la coordenada horizontal del vértice. Acá el vértice está en $(4, 4)$, así que es a los 4 segundos.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-4,2)+4",
+    "graph_view": [
+      -1,
+      9,
+      -1,
+      9
+    ],
+    "explanation": "El punto más alto del salto es el **vértice** de la parábola.\n\nEl momento en que ocurre es la coordenada horizontal del vértice. Acá el vértice está en\n$$(4,\\ 4)$$\nA los 4 segundos el sapo toca el techo de su salto.",
+    "reviewed": false
+  },
+  {
+    "question": "Un delfín salta fuera del agua y la gráfica muestra su altura sobre la superficie, en metros, según los segundos.\n\n¿A los cuántos segundos vuelve a entrar al agua?",
+    "options": [
+      "2 segundos",
+      "3 segundos",
+      "4 segundos",
+      "5 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Vuelve al agua cuando la altura es cero, donde la parábola corta el eje horizontal. Eso pasa en $x = 4$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      9,
+      -1,
+      9
+    ],
+    "explanation": "El delfín vuelve al agua cuando su altura es cero, es decir donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n\nLa parábola arranca en $x = 0$, sube y vuelve a cortar el eje en\n$$x = 4$$\nCuatro segundos de vuelo y de vuelta al agua.",
+    "reviewed": false
+  },
+  {
+    "question": "Se lanza una pelota al aro y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está la pelota a los 2 segundos?",
+    "options": [
+      "4 metros",
+      "6 metros",
+      "8 metros",
+      "5 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Para leer la altura a los 2 segundos, buscá el punto de la parábola con $x = 2$. Ahí la altura es 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer el valor en un instante dado, buscá el punto de la parábola con esa coordenada horizontal.\n\nA los 2 segundos, la altura es\n$$f(2) = -0{,}5\\,(2-4)^2 + 8 = 6$$\nSeis metros, todavía en camino al punto más alto.",
+    "reviewed": false
+  },
+  {
+    "question": "Un cohete de agua sube y baja, y la gráfica muestra su altura, en metros, según los segundos.\n\nA los 2 segundos está a 5 metros subiendo. ¿En qué otro momento vuelve a estar a 5 metros?",
+    "options": [
+      "8 segundos",
+      "10 segundos",
+      "12 segundos",
+      "6 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, que está en $x = 6$. El punto simétrico de $x = 2$ es $x = 10$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6. Si a los 2 segundos está a 5 metros (4 antes del vértice), vuelve a estar a 5 metros 4 después\n$$6 + 4 = 10$$\nSubiendo y bajando, la altura se repite como un espejo.",
+    "reviewed": false
+  },
+  {
+    "question": "El agua de una manguera sale y forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
+    "options": [
+      "6 metros",
+      "8 metros",
+      "4 metros",
+      "10 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(4, 8)$. La altura máxima del chorro es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El chorro dibuja una parábola en el aire. Su punto más alto es el **vértice**.\n\nLa altura máxima es la coordenada vertical del vértice, acá en\n$$(4,\\ 8)$$\nA 4 metros de la manguera, el agua llega a su techo de 8 metros y empieza a caer.",
+    "reviewed": false
+  },
+  {
+    "question": "Un skater despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal recorrida, también en metros.\n\n¿A qué distancia del despegue vuelve a tocar el piso?",
+    "options": [
+      "6 metros",
+      "9 metros",
+      "12 metros",
+      "15 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura es cero, es decir donde la parábola corta el eje horizontal. Eso pasa a los 12 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "El skater toca el piso cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n\nDespega en $x = 0$ y vuelve a cortar el eje en\n$$x = 12$$\nDoce metros de vuelo. Ojalá caiga parado.",
+    "reviewed": false
+  },
+  {
+    "question": "Un puesto de limonada prueba distintos precios. Muy barato deja poca ganancia y muy caro espanta a los clientes.\n\nLa gráfica muestra la ganancia del día, en miles de pesos, según el precio del vaso, en cientos de pesos.\n\n¿Qué precio deja la mayor ganancia?",
+    "options": [
+      "\\$300",
+      "\\$500",
+      "\\$700",
+      "\\$900"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto de la parábola es el vértice, en $(5, 8)$. La mayor ganancia se da con el vaso a \\$500.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "En una parábola que abre hacia abajo, el punto más alto es el **vértice**.\n\nEl precio que deja la mayor ganancia es la coordenada horizontal del vértice, acá\n$$x = 5$$\nMuy barato casi no deja margen y muy caro espanta a la gente, el equilibrio está en \\$500 el vaso.",
+    "reviewed": false
+  },
+  {
+    "question": "Un puesto de panchos prueba distintos precios. La gráfica muestra la ganancia diaria, en miles de pesos, según el precio del pancho, en cientos de pesos.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más alto, porque la parábola abre hacia abajo",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "No tiene ni máximo ni mínimo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo, así que su vértice es el punto más alto, la ganancia máxima.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** indica para dónde abre la parábola.\n\n• Abre hacia abajo, vértice arriba, hay un **máximo**.\n• Abre hacia arriba, vértice abajo, hay un **mínimo**.\n\nAcá abre hacia abajo, así que el vértice es el punto más alto, el precio que deja la mayor ganancia. Ni regalado ni carísimo, hay un punto óptimo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una fábrica mide su costo por unidad según cuántas unidades produce por hora. La gráfica muestra el costo por unidad, en cientos de pesos, según la cantidad producida, en decenas.\n\n¿Con qué nivel de producción el costo por unidad es el más bajo?",
+    "options": [
+      "2 decenas",
+      "5 decenas",
+      "8 decenas",
+      "10 decenas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El costo más bajo es el vértice de la parábola, en $(5, 2)$. El mínimo se da en 5 decenas.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Cuando una parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl nivel de producción con menor costo es la coordenada horizontal del vértice, acá\n$$x = 5$$\nProducir muy poco o demasiado sale caro, el costo más bajo está en el medio.",
+    "reviewed": false
+  },
+  {
+    "question": "Se tira un globo de agua hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "6 segundos",
+      "8 segundos",
+      "4 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El globo vuelve al suelo cuando la altura es cero, donde la parábola corta el eje. Sale en $x = 0$ y cae en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El tiempo en el aire va desde que sale del piso hasta que vuelve a tocarlo, es decir entre las dos **raíces**.\n\nLa parábola corta el eje en\n$$\\begin{aligned} x &= 0 \\\\ x &= 8 \\end{aligned}$$\nOcho segundos de vuelo. Después, chof.",
+    "reviewed": false
+  },
+  {
+    "question": "Un clavadista salta desde un trampolín, sube un poco y cae al agua. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura saltó?",
+    "options": [
+      "6 metros",
+      "4 metros",
+      "2 metros",
+      "0 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura de partida es $f(0)$, donde la parábola corta el eje vertical. Acá vale 4 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La altura desde la que saltó es el valor de la función en el instante cero, $f(0)$, el corte con el eje vertical.\n$$f(0) = 4$$\nCuatro metros. El trampolín, no el vértice, marca el punto de partida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota de tenis sale hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿En qué tramo la pelota está subiendo?",
+    "options": [
+      "Antes de los 4 segundos",
+      "Después de los 4 segundos",
+      "Durante todo el recorrido",
+      "En ningún momento"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La pelota sube hasta el vértice, en $x = 4$, y después baja. Crece antes de los 4 segundos.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola que abre hacia abajo **crece hasta el vértice** y **decrece después**.\n\nEl vértice está en $x = 4$, así que la pelota sube antes de los 4 segundos y baja después.\n\nArriba todo sube, hasta que deja de subir.",
+    "reviewed": false
+  },
+  {
+    "question": "Un fuego artificial sube y explota justo en su punto más alto. La gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos explota?",
+    "options": [
+      "4 segundos",
+      "6 segundos",
+      "8 segundos",
+      "9 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Explota en el punto más alto, el vértice, que está en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "El punto más alto de la trayectoria es el **vértice** de la parábola.\n\nEl instante en que ocurre es su coordenada horizontal,\n$$x = 6$$\nSeis segundos de mecha y a disfrutar.",
+    "reviewed": false
+  },
+  {
+    "question": "Un atleta hace salto en alto y la gráfica muestra la altura de su cuerpo, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura máxima es la coordenada vertical del vértice, en $(2, 2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del salto es el **vértice** de la parábola.\n\nLa altura máxima es su coordenada vertical,\n$$(2,\\ 2)$$\nDos metros. Suficiente para pasar la varilla.",
+    "reviewed": false
+  },
+  {
+    "question": "Se lanza un dardo hacia arriba en una feria y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos llega a su punto más alto?",
+    "options": [
+      "4 segundos",
+      "5 segundos",
+      "6 segundos",
+      "8 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto es el vértice, que está en $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El instante del punto más alto es la coordenada horizontal del **vértice**.\n$$x = 6$$\nSeis segundos para tocar el techo de su recorrido.",
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota de golf sale despedida hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos toca el suelo?",
+    "options": [
+      "4 segundos",
+      "6 segundos",
+      "8 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el suelo cuando la altura es cero, donde la parábola corta el eje horizontal, en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-4,2)+4",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pelota toca el suelo cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 8$$\nOcho segundos. Esperemos que no haya caído en el agua.",
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota de ping-pong rebota hacia arriba y la gráfica muestra su altura, en centímetros, según los segundos.\n\nA los 2 segundos está a 6 cm subiendo. ¿En qué otro momento vuelve a estar a 6 cm?",
+    "options": [
+      "5 segundos",
+      "6 segundos",
+      "7 segundos",
+      "8 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical que pasa por su vértice.\n\nEl vértice está en $x = 4$, así que cada altura se alcanza dos veces, a igual distancia del 4. Si pasa a los 2 segundos, vuelve a los\n$$4 + 2 = 6$$\nSube y baja igualito, como un espejo.",
+    "reviewed": false
+  },
+  {
+    "question": "Un salmón salta para remontar una cascada y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 4 segundos?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí la altura es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nOcho metros, todavía en subida hacia el vértice.",
+    "reviewed": false
+  },
+  {
+    "question": "Un drone de juguete sube y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La altura máxima es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del vuelo es el **vértice** de la parábola.\n\nLa altura máxima es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho metros y a recargar batería.",
+    "reviewed": false
+  },
+  {
+    "question": "Un malabarista lanza una pelota al aire y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 6 segundos?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 6$. Ahí la altura es 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(6) = -0{,}5\\,(6-4)^2 + 8 = 6$$\nSeis metros, ya de bajada hacia la mano.",
+    "reviewed": false
+  },
+  {
+    "question": "Un saltamontes pega un salto y la gráfica muestra su altura, en centímetros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "2 segundos",
+      "3 segundos",
+      "4 segundos",
+      "5 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sale del piso en $x = 0$ y vuelve a caer en $x = 4$. Estuvo 4 segundos en el aire.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El tiempo en el aire va entre las dos **raíces**, donde la altura es cero.\n$$\\begin{aligned} x &= 0 \\\\ x &= 4 \\end{aligned}$$\nCuatro segundos de vuelo. Nada mal para un bicho.",
+    "reviewed": false
+  },
+  {
+    "question": "Un cohete de juguete despega desde una plataforma, sube y cae. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura despegó?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "4 metros",
+      "6 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura de partida es $f(0)$, el corte con el eje vertical. Acá vale 2 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-4,2)+6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La altura desde la que despegó es $f(0)$, el corte de la parábola con el eje vertical.\n$$f(0) = 2$$\nDos metros. La plataforma da una ayudita inicial, el vértice viene después.",
+    "reviewed": false
+  },
+  {
+    "question": "Un jugador hace un tiro libre y la gráfica muestra la altura de la pelota, en metros, según los segundos.\n\n¿A qué altura está la pelota a los 3 segundos?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 3$. Ahí la altura es 6 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer la altura en un instante, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(3) = -0{,}5\\,(3-5)^2 + 8 = 6$$\nSeis metros, todavía subiendo hacia el aro.",
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota de vóley sube por encima de la red y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\nA los 4 segundos está a 6 metros subiendo. ¿En qué otro momento vuelve a estar a 6 metros?",
+    "options": [
+      "7 segundos",
+      "8 segundos",
+      "9 segundos",
+      "10 segundos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 6$. El simétrico de $x = 4$ es $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical de su vértice, acá en $x = 6$.\n\nCada altura se alcanza dos veces, a igual distancia del 6. Si pasa a los 4 segundos, vuelve a los\n$$6 + 2 = 8$$\nMisma altura, una vez de ida y otra de vuelta.",
+    "reviewed": false
+  },
+  {
+    "question": "Un cohete de agua sube bien alto y vuelve a caer. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
+    "options": [
+      "8 segundos",
+      "10 segundos",
+      "12 segundos",
+      "14 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sale en $x = 0$ y cae en $x = 12$, donde la parábola corta el eje. Estuvo 12 segundos en el aire.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "El tiempo en el aire va entre las dos **raíces**, donde la altura es cero.\n$$\\begin{aligned} x &= 0 \\\\ x &= 12 \\end{aligned}$$\nDoce segundos. Buen empujón de agua.",
+    "reviewed": false
+  },
+  {
+    "question": "Una rana salta de una orilla a la otra y la gráfica muestra su altura sobre el agua, en centímetros, según los segundos.\n\n¿A los cuántos segundos vuelve a tocar el suelo?",
+    "options": [
+      "6 segundos",
+      "7 segundos",
+      "8 segundos",
+      "9 segundos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el suelo cuando la altura es cero, donde la parábola corta el eje horizontal, en $x = 8$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La rana toca el suelo cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 8$$\nOcho segundos de salto. Aterrizaje seco, con suerte.",
+    "reviewed": false
+  },
+  {
+    "question": "En un tiro libre, la pelota dibuja un arco. La gráfica muestra su altura, en metros, según la distancia horizontal recorrida, también en metros.\n\n¿Cuál es la altura máxima que alcanza la pelota?",
+    "options": [
+      "6 metros",
+      "8 metros",
+      "4 metros",
+      "10 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(4, 8)$. La altura máxima es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-4,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La pelota dibuja una parábola en el aire. Su punto más alto es el **vértice**.\n\nLa altura máxima es la coordenada vertical del vértice,\n$$(4,\\ 8)$$\nOcho metros de pura curva.",
+    "reviewed": false
+  },
+  {
+    "question": "Una moto despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la rampa vuelve a tocar el piso?",
+    "options": [
+      "8 metros",
+      "10 metros",
+      "12 metros",
+      "14 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura es cero, donde la parábola corta el eje horizontal, a los 12 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La moto toca el piso cuando su altura es cero, donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n$$x = 12$$\nDoce metros de salto. Que la caída sea suave.",
+    "reviewed": false
+  },
+  {
+    "question": "Un bombero apunta la manguera y el agua forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(5, 8)$. La altura máxima es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El chorro dibuja una parábola. Su punto más alto es el **vértice**.\n\nLa altura máxima es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho metros. Alcanza para el primer piso.",
+    "reviewed": false
+  },
+  {
+    "question": "Un jugador tira al aro desde lejos y la pelota traza un arco. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué altura está la pelota a los 4 metros de distancia?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí la altura es 8 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Para leer la altura a una distancia dada, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nOcho metros, todavía subiendo hacia el punto más alto.",
+    "reviewed": false
+  },
+  {
+    "question": "Una moto hace un salto largo y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia del despegue vuelve a tocar el piso?",
+    "options": [
+      "8 metros",
+      "9 metros",
+      "10 metros",
+      "11 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura vuelve a cero, en $x = 10$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La moto vuelve al piso cuando su altura es cero, en la segunda **raíz** de la parábola.\n\nDespega en $x = 2$ y aterriza en\n$$x = 10$$\nDiez metros de vuelo limpio.",
+    "reviewed": false
+  },
+  {
+    "question": "El agua de una manguera de jardín forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la manguera el chorro está más alto?",
+    "options": [
+      "3 metros",
+      "4 metros",
+      "5 metros",
+      "6 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El punto más alto del arco es el **vértice** de la parábola.\n\nLa distancia a la que ocurre es su coordenada horizontal,\n$$x = 5$$\nA cinco metros, el agua llega a su cima y empieza a caer.",
+    "reviewed": false
+  },
+  {
+    "question": "Un delfín salta y dibuja un arco sobre el agua. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima del salto?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(2, 2)$. La altura máxima es 2 metros.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-2,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El salto dibuja una parábola. Su punto más alto es el **vértice**.\n\nLa altura máxima es su coordenada vertical,\n$$(2,\\ 2)$$\nDos metros sobre el agua. Aplausos del público.",
+    "reviewed": false
+  },
+  {
+    "question": "Un auto rinde mejor a velocidades intermedias. A velocidades bajas o muy altas, el consumo sube. La gráfica muestra el rendimiento, en kilómetros por litro, según la velocidad en decenas de km/h.\n\n¿A qué velocidad rinde más?",
+    "options": [
+      "40 km/h",
+      "50 km/h",
+      "60 km/h",
+      "70 km/h"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El mayor rendimiento es el vértice, cuya coordenada horizontal es $x = 6$, es decir 60 km/h.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,\n$$x = 6 \\ \\text{(decenas)} = 60 \\ \\text{km/h}$$\nNi a paso de tortuga ni a los pingos, el punto justo está en el medio.",
+    "reviewed": false
+  },
+  {
+    "question": "Un teatro prueba distintos precios de entrada. La gráfica muestra la recaudación de la noche, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Cuál es la recaudación máxima posible?",
+    "options": [
+      "6 mil",
+      "8 mil",
+      "10 mil",
+      "12 mil"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recaudación máxima es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La recaudación según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl tope de recaudación es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho mil. Más caro o más barato, siempre se recauda menos.",
+    "reviewed": false
+  },
+  {
+    "question": "Un bar quiere saber cuántas mesas conviene poner. Con pocas desaprovecha el espacio y con demasiadas los clientes se van. La gráfica muestra la ganancia de la noche, en miles de pesos, según la cantidad de mesas.\n\n¿Cuántas mesas dan la mayor ganancia?",
+    "options": [
+      "4 mesas",
+      "6 mesas",
+      "8 mesas",
+      "9 mesas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La mayor ganancia es el vértice, cuya coordenada horizontal es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La ganancia según las mesas dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa cantidad ideal es su coordenada horizontal,\n$$x = 6$$\nSeis mesas. Ni vacío ni un hormiguero.",
+    "reviewed": false
+  },
+  {
+    "question": "Un recital prueba distintos precios de entrada. La gráfica muestra la ganancia, en millones de pesos, según el precio.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más alto, porque la parábola abre hacia abajo",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "No tiene ni máximo ni mínimo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo, así que su vértice es el punto más alto, la ganancia máxima.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** dice para dónde abre la parábola.\n\n• Abre hacia abajo, vértice arriba, hay un **máximo**.\n• Abre hacia arriba, vértice abajo, hay un **mínimo**.\n\nAcá abre hacia abajo, así que el vértice es la mayor ganancia. Existe un precio óptimo, ni regalado ni abusivo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una promo vende paquetes de figuritas. La gráfica muestra el ingreso, en miles de pesos, según cuántos paquetes entran en la promo.\n\n¿Cuál es el ingreso si la promo trae 4 paquetes?",
+    "options": [
+      "4 mil",
+      "5 mil",
+      "6 mil",
+      "7 mil"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 4$. Ahí el ingreso es 6 mil.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-6,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer el ingreso con una cantidad dada, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(4) = -0{,}5\\,(4-6)^2 + 8 = 6$$\nSeis mil pesos. Todavía no es lo máximo, eso llega en el vértice.",
+    "reviewed": false
+  },
+  {
+    "question": "Una impresora produce más o menos páginas buenas según su velocidad de impresión. Muy lenta produce poco y muy rápida traba el papel. La gráfica muestra las páginas buenas por minuto según la velocidad en decenas.\n\n¿Cuál es el máximo de páginas buenas por minuto?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El máximo es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Las páginas buenas según la velocidad dibujan una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl tope es su coordenada vertical,\n$$(5,\\ 8)$$\nOcho páginas por minuto. Apurarla de más es contraproducente.",
+    "reviewed": false
+  },
+  {
+    "question": "Una cafetería prueba distintos precios para el café. La gráfica muestra la ganancia diaria, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Qué precio deja la mayor ganancia?",
+    "options": [
+      "\\$400",
+      "\\$600",
+      "\\$800",
+      "\\$1.000"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La mayor ganancia es el vértice, cuya coordenada horizontal es $x = 6$, es decir \\$600.",
+    "feedback_incorrect": "",
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,\n$$x = 6 \\ \\text{(cientos)} = \\$600$$\nMuy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.",
+    "reviewed": false
+  },
+  {
+    "question": "Un cable cuelga entre dos postes y se hunde en el medio. La gráfica muestra la altura del cable, en metros, según la distancia horizontal, también en metros.\n\n¿En qué punto el cable cuelga más bajo?",
+    "options": [
+      "A los 4 metros",
+      "A los 5 metros",
+      "A los 6 metros",
+      "A los 3 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl lugar donde el cable cuelga más bajo es su coordenada horizontal,\n$$x = 5$$\nJusto en el medio, como manda la física de las sogas.",
+    "reviewed": false
+  },
+  {
+    "question": "En una madrugada la temperatura baja y después vuelve a subir. La gráfica muestra la temperatura, en grados, según la hora.\n\n¿Cuál es la temperatura más baja de la noche?",
+    "options": [
+      "0 grados",
+      "1 grado",
+      "2 grados",
+      "3 grados"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La temperatura más baja es la coordenada vertical del vértice, en $(6, 1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-6,2)+1",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa temperatura mínima es su coordenada vertical,\n$$(6,\\ 1)$$\nUn grado. Justo antes de que salga el sol.",
+    "reviewed": false
+  },
+  {
+    "question": "En una rampa con forma de U, un skater baja y vuelve a subir del otro lado. La gráfica muestra su altura, en metros, según los segundos.\n\n¿El recorrido tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más bajo, porque la parábola abre hacia arriba",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "No tiene ningún punto extremo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia arriba, así que su vértice es el punto más bajo del recorrido.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-4,2)+3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** dice para dónde abre la parábola.\n\n• Abre hacia arriba, vértice abajo, hay un **mínimo**.\n• Abre hacia abajo, vértice arriba, hay un **máximo**.\n\nAcá abre hacia arriba, así que el vértice es el punto más bajo, el fondo de la rampa. Lo que baja, sube.",
+    "reviewed": false
+  },
+  {
+    "question": "Durante una sequía el nivel de un río baja y después se recupera. La gráfica muestra el nivel, en metros, según los meses.\n\n¿En qué mes el río está más bajo?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-6,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl mes de menor nivel es su coordenada horizontal,\n$$x = 6$$\nEn el sexto mes toca fondo y después empieza a recuperarse.",
+    "reviewed": false
+  },
+  {
+    "question": "Una guirnalda de luces cuelga entre dos columnas y se hunde en el medio. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura mínima de la guirnalda?",
+    "options": [
+      "1 metro",
+      "2 metros",
+      "3 metros",
+      "4 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura mínima es la coordenada vertical del vértice, en $(4, 2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-4,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa altura mínima es su coordenada vertical,\n$$(4,\\ 2)$$\nDos metros. Justo para que no te lleves la guirnalda puesta.",
+    "reviewed": false
+  },
+  {
+    "question": "Un auto baja la velocidad para tomar una curva y después acelera de nuevo. La gráfica muestra su velocidad, en decenas de km/h, según los segundos.\n\n¿Cuál es la velocidad mínima en la curva?",
+    "options": [
+      "10 km/h",
+      "20 km/h",
+      "30 km/h",
+      "40 km/h"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La velocidad mínima es la coordenada vertical del vértice, en $(5, 2)$, es decir 20 km/h.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nLa velocidad mínima es su coordenada vertical,\n$$(5,\\ 2)\\ \\text{(decenas)} = 20 \\ \\text{km/h}$$\nEn lo más cerrado de la curva, el auto baja a 20 y después pisa de nuevo.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de fabricar cada unidad cambia según cuánto se produce. La gráfica muestra el costo por unidad, en cientos de pesos, según la cantidad, en decenas.\n\n¿Cuál es el costo por unidad si se producen 8 decenas?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Buscá el punto de la parábola con $x = 8$. Ahí el costo es 6.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-4,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Para leer el costo en un nivel dado, ubicá el punto de la parábola con esa coordenada horizontal.\n$$f(8) = 0{,}25\\,(8-4)^2 + 2 = 6$$\nSeis. Lejos del mínimo, producir tanto encarece cada unidad.",
+    "reviewed": false
+  },
+  {
+    "question": "El cable de un puente colgante se hunde en el medio. La gráfica muestra su altura sobre el agua, en metros, según la distancia horizontal, también en metros.\n\nA los 2 metros el cable está a 5 metros de altura. ¿A qué distancia vuelve a estar a 5 metros?",
+    "options": [
+      "5 metros",
+      "6 metros",
+      "7 metros",
+      "8 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5*pow(x-4,2)+3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Una parábola es **simétrica** respecto a la vertical de su vértice, acá en $x = 4$.\n\nCada altura se alcanza dos veces, a igual distancia del 4. Si pasa a los 2 metros, vuelve a los\n$$4 + 2 = 6$$\nEl cable es igual de los dos lados, como buen puente.",
+    "reviewed": false
+  },
+  {
+    "question": "El saldo de una cuenta baja unos meses y después se recupera. La gráfica muestra el saldo, en miles de pesos, según el mes.\n\n¿En qué mes el saldo toca su punto más bajo?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo es el vértice, cuya coordenada horizontal es $x = 5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.25*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Como la parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl mes de menor saldo es su coordenada horizontal,\n$$x = 5$$\nEn el quinto mes toca fondo y después, a recuperarse.",
+    "reviewed": false
+  }
+]

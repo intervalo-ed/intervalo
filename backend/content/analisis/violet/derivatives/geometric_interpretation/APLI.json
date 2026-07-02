@@ -1,0 +1,172 @@
+[
+  {
+    "question": "La recta tangente a $f(x)=x^2$ en $x=2$ intersecta al eje $y$ en el punto...",
+    "options": [
+      "$(0,\\,-4)$",
+      "$(0,\\,4)$",
+      "$(0,\\,0)$",
+      "$(0,\\,-8)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La tangente es $y=4x-4$. En $x=0$: $y=-4$.",
+    "feedback_incorrect": "La tangente en $x=2$: $f(2)=4$, $f'(2)=4$, $y-4=4(x-2) \\Rightarrow y=4x-4$. En $x=0$: $y=-4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "1. $f(2) = 4$, $f'(2) = 2 \\cdot 2 = 4$.\n2. Tangente: $y - 4 = 4(x-2) \\Rightarrow y = 4x - 4$.\n3. Ordenada al origen ($x=0$): $y = 4(0) - 4 = -4$.\n\nLa recta tangente en $(2,4)$ con pendiente $4$ cruza el eje $y$ en $(0, -4)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué punto de $f(x)=x^2$ la recta tangente tiene pendiente $6$?",
+    "options": [
+      "$x = 6$",
+      "$x = 3$",
+      "$x = 2$",
+      "$x = 4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x=6 \\Rightarrow x=3$.",
+    "feedback_incorrect": "Igualá la derivada a $6$: $f'(x) = 2x = 6 \\Rightarrow x = 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar el punto donde la tangente tiene pendiente $6$, igualamos la derivada:\n\n$$f'(x) = 2x = 6 \\Rightarrow x = 3$$\n\nEl punto de tangencia es $(3, f(3)) = (3, 9)$, y la tangente allí es $y - 9 = 6(x-3) \\Rightarrow y = 6x - 9$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Para qué valor de $x$ la recta tangente a $f(x)=x^3$ es horizontal?",
+    "options": [
+      "$x = -1$",
+      "$x = 1$",
+      "$x = 0$",
+      "No existe ninguno"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=3x^2=0 \\Rightarrow x=0$.",
+    "feedback_incorrect": "$f'(x) = 3x^2 = 0$ solo si $x=0$. En ese punto la tangente es horizontal, pero no es un extremo local.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tangente es horizontal cuando $f'(x) = 0$:\n\n$$f'(x) = 3x^2 = 0 \\Rightarrow x = 0$$\n\nInteresante: en $x=0$ la tangente es horizontal ($f'(0)=0$), pero $f(x)=x^3$ **no tiene extremo** allí — es un **punto de inflexión**. La derivada nula no siempre implica máximo o mínimo.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta $y = 4x - 4$ es tangente a $f(x)=x^2$ en $x = ...$",
+    "options": [
+      "$x = -2$",
+      "$x = 1$",
+      "$x = 4$",
+      "$x = 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La pendiente $4 = f'(x) = 2x$ da $x=2$, y $f(2)=4=4(2)-4$ ✓.",
+    "feedback_incorrect": "La pendiente de $y=4x-4$ es $4$. Igualá con $f'(x)=2x=4 \\Rightarrow x=2$. Verificá: $f(2)=4$ y $y(2)=4$ ✓.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que $y = 4x - 4$ sea tangente a $f(x) = x^2$ en $x=a$, necesitamos:\n1. **Igual pendiente:** $f'(a) = 2a = 4 \\Rightarrow a = 2$.\n2. **Igual valor:** $f(2) = 4$ y $y(2) = 4(2)-4 = 4$ ✓.\n\nAmbas condiciones se cumplen en $x=2$: la recta es tangente en el punto $(2, 4)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué valor de $x$ la recta tangente a $f(x)=x^2-4x+5$ es horizontal?",
+    "options": [
+      "$x = 2$",
+      "$x = 4$",
+      "$x = 1$",
+      "$x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x-4=0 \\Rightarrow x=2$.",
+    "feedback_incorrect": "Derivá: $f'(x)=2x-4$. Igualá a $0$: $2x-4=0 \\Rightarrow x=2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f'(x) = 2x - 4 = 0 \\Rightarrow x = 2$.\n\nEn $x=2$: $f(2) = 4 - 8 + 5 = 1$, así que el vértice (y el mínimo) de esta parábola está en $(2, 1)$. Completando el cuadrado: $f(x) = (x-2)^2 + 1$, lo que confirma el vértice en $x=2$.",
+    "reviewed": false
+  },
+  {
+    "question": "La secante a $f(x)=x^2$ entre $x=1$ y $x=3$ tiene pendiente $4$. ¿La tangente en $x=2$ tiene la misma pendiente?",
+    "options": [
+      "No, $f'(2) = 2$",
+      "Sí, $f'(2) = 4$",
+      "No, $f'(2) = 8$",
+      "Sí, pero es pura coincidencia"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(2)=4$, igual que la pendiente de la secante. Lo garantiza el Teorema del Valor Medio.",
+    "feedback_incorrect": "$f'(2) = 2(2) = 4$. Coincide con la pendiente de la secante entre $x=1$ y $x=3$: el Teorema del Valor Medio asegura que existe tal punto.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente de la secante entre $x=1$ y $x=3$ es $\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$.\n\nLa tangente en $x=2$: $f'(2) = 2(2) = 4$. ¡Coinciden!\n\nEl **Teorema del Valor Medio** garantiza que, para $f$ continua y diferenciable en $[1,3]$, existe al menos un $c \\in (1,3)$ donde $f'(c)$ iguala la pendiente de la secante. Aquí ese $c$ es exactamente $2$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué punto de $f(x)=x^2$ la recta tangente es paralela a $y = 6x - 1$?",
+    "options": [
+      "$x = 6$",
+      "$x = 2$",
+      "$x = 3$",
+      "$x = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Dos rectas son paralelas si tienen igual pendiente: $f'(x)=2x=6 \\Rightarrow x=3$.",
+    "feedback_incorrect": "La pendiente de $y=6x-1$ es $6$. Igualá $f'(x)=2x=6 \\Rightarrow x=3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos rectas son **paralelas** si tienen la misma pendiente. La pendiente de $y = 6x - 1$ es $6$.\n\nBuscamos $x$ tal que $f'(x) = 6$:\n$$2x = 6 \\Rightarrow x = 3$$\n\nEl punto de tangencia es $(3, f(3)) = (3, 9)$, y la tangente allí es $y - 9 = 6(x-3) \\Rightarrow y = 6x - 9$, paralela a $y = 6x - 1$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿La recta tangente a $f(x)=x^2$ en $x=1$ pasa por el origen?",
+    "options": [
+      "No, pasa por $(1,\\,0)$",
+      "Sí, pasa por el origen",
+      "No, pasa por $(0,\\,1)$",
+      "No, pasa por $(0,\\,-1)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La tangente es $y=2x-1$. En $x=0$: $y=-1$, no $0$.",
+    "feedback_incorrect": "La tangente en $x=1$: $f(1)=1$, $f'(1)=2$, $y=2x-1$. En $x=0$: $y=-1 \\neq 0$. No pasa por el origen.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Tangente en $x=1$: $f(1)=1$, $f'(1)=2$.\n\n$$y - 1 = 2(x-1) \\Rightarrow y = 2x - 1$$\n\nEn $x = 0$: $y = 2(0) - 1 = -1$. La tangente corta el eje $y$ en $(0, -1)$, **no** en el origen.\n\nPara que la tangente pase por el origen necesitaríamos $y = 2x - 1 = 0$ en $x=0$, lo cual no se cumple.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el punto de tangencia si la recta $y=2x-1$ es tangente a $f(x)=x^2$?",
+    "options": [
+      "$(1,\\,1)$",
+      "$(0,\\,-1)$",
+      "$(2,\\,3)$",
+      "$(1,\\,2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x=2 \\Rightarrow x=1$, y $f(1)=1$: punto de tangencia $(1,1)$.",
+    "feedback_incorrect": "La pendiente de $y=2x-1$ es $2$. Igualá $f'(x)=2x=2 \\Rightarrow x=1$, $f(1)=1$. El punto es $(1,1)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para encontrar el punto de tangencia:\n1. **Pendiente de la recta:** $2$. Igualamos $f'(x) = 2x = 2 \\Rightarrow x = 1$.\n2. **Verificación:** $f(1) = 1$, y la recta en $x=1$: $y = 2(1)-1 = 1$ ✓.\n3. **Punto de tangencia:** $(1, 1)$.\n\nTambién podés resolver el sistema $x^2 = 2x-1 \\Rightarrow (x-1)^2 = 0$: la recta toca la parábola en $x=1$ con multiplicidad $2$ — señal de tangencia.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ordenada al origen de la recta tangente a $f(x)=x^2+1$ en $x=2$?",
+    "options": [
+      "$3$",
+      "$-3$",
+      "$5$",
+      "$-5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La tangente es $y=4x-3$. En $x=0$: $y=-3$.",
+    "feedback_incorrect": "$f(2)=5$, $f'(2)=4$. Tangente: $y-5=4(x-2) \\Rightarrow y=4x-3$. En $x=0$: $y=-3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "1. **Punto:** $f(2) = 4 + 1 = 5$ → $(2, 5)$.\n2. **Pendiente:** $f'(x) = 2x$, entonces $f'(2) = 4$.\n3. **Tangente:** $y - 5 = 4(x-2) \\Rightarrow y = 4x - 3$.\n4. **Ordenada al origen** (valor en $x=0$): $y = 4(0) - 3 = -3$.",
+    "reviewed": false
+  }
+]

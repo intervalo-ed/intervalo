@@ -1,4 +1,4 @@
-import { catalog, type Belt, type BeltKey, type Topic } from "./analisis-1.generated"
+import { catalog, type Belt, type BeltKey, type Topic } from "./analisis.generated"
 
 export { catalog }
 export type { Belt, BeltKey, Topic }

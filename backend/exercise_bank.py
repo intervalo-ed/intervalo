@@ -32,6 +32,16 @@ def _normalize_graph_view(gv):
     return None
 
 
+def _parse_feedback_incorrect(raw: str) -> str | list:
+    try:
+        parsed = json.loads(raw)
+        if isinstance(parsed, list):
+            return parsed
+    except Exception:
+        pass
+    return raw
+
+
 def _row_to_dict(row: Exercise) -> dict:
     gv = None
     if row.graph_view:
@@ -42,11 +52,11 @@ def _row_to_dict(row: Exercise) -> dict:
     return {
         "exercise_type": row.exercise_type,
         "question": row.question,
-        "options": [row.option_a, row.option_b, row.option_c, row.option_d],
+        "options": [o for o in [row.option_a, row.option_b, row.option_c, row.option_d] if o is not None],
         "correct_index": row.correct_index,
         "has_math": row.has_math or False,
         "feedback_correct": row.feedback_correct,
-        "feedback_incorrect": row.feedback_incorrect,
+        "feedback_incorrect": _parse_feedback_incorrect(row.feedback_incorrect),
         "graph_fn": row.graph_fn or "",
         "graph_view": gv,
         "explanation": row.explanation,

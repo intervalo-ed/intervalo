@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Un proyectil sigue la trayectoria $h(t) = -5t^2 + 20t + 2$ metros. ¿En qué momento alcanza su altura máxima?",
+    "options": [
+      "$t = 2$ segundos",
+      "$t = 4$ segundos",
+      "$t = 20$ segundos",
+      "$t = 0$ segundos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La altura máxima ocurre donde la velocidad (derivada) se anula.",
+    "feedback_incorrect": "Derivá $h(t)$ e igualá a cero para encontrar el tiempo del vértice.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En problemas de física, la **altura máxima** de un objeto se alcanza cuando su velocidad vertical es cero. \n\nDerivamos la función de posición para obtener la velocidad:\n\n$$v(t) = h'(t) = -10t + 20$$\n\nIgualando a cero: $-10t + 20 = 0 \\Rightarrow t = 2$. \n\nComo la función es una parábola que abre hacia abajo (coeficiente de $t^2$ negativo), sabemos que este punto crítico es efectivamente un **máximo absoluto**.",
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa determina que su beneficio diario en pesos está dado por $B(x) = -x^2 + 100x - 500$, donde $x$ es la cantidad de artículos vendidos. ¿Cuántos artículos debe vender para maximizar su beneficio?",
+    "options": [
+      "$100$ artículos",
+      "$50$ artículos",
+      "$500$ artículos",
+      "$25$ artículos"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Optimizaste la función hallando el punto donde la derivada es cero.",
+    "feedback_incorrect": "Derivá la función de beneficio e igualala a cero para encontrar el nivel de producción óptimo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Maximizar el **beneficio** es una aplicación clásica del análisis de funciones en economía. \n\nCalculamos la derivada primera:\n\n$$B'(x) = -2x + 100$$\n\nBuscamos el punto crítico: $-2x + 100 = 0 \\Rightarrow x = 50$.\n\nPara verificar que es un máximo, podemos ver que $B''(x) = -2 < 0$, lo que confirma que la función es **cóncava hacia abajo** en todo su dominio y el punto hallado es el máximo.",
+    "reviewed": false
+  },
+  {
+    "question": "Querés cercar un jardín rectangular contra una pared (solo necesitás cercar 3 lados) con 40 metros de alambre. ¿Cuál debe ser el ancho $x$ perpendicular a la pared para que el área sea máxima?",
+    "options": [
+      "$13.3$ metros",
+      "$20$ metros",
+      "$10$ metros",
+      "$5$ metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Modelaste el área como $A(x) = x(40-2x)$ y derivaste.",
+    "feedback_incorrect": "Si el ancho es $x$, el largo es $40-2x$. Optimizá la función área $A = x(40-2x)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este es un problema de **optimización con restricciones**. \n\nSi llamamos $x$ al ancho y $y$ al largo, la restricción de alambre es: $2x + y = 40 \\Rightarrow y = 40 - 2x$. \n\nEl área es $A = x \\cdot y = x(40 - 2x) = 40x - 2x^2$. \n\nDerivamos para optimizar: $A'(x) = 40 - 4x$. Igualando a cero, obtenemos $x = 10$. \n\nCon $x=10$, el largo será $y=20$, logrando un **área máxima** de 200 metros cuadrados.",
+    "reviewed": false
+  },
+  {
+    "question": "Si la posición de una partícula es $s(t) = t^3 - 6t^2 + 9t$, ¿en qué intervalos de tiempo se mueve hacia atrás (velocidad negativa)?",
+    "options": [
+      "$(0, 3)$",
+      "$(0, 1)$",
+      "$(3, \\infty)$",
+      "$(1, 3)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Analizaste el signo de la velocidad $v(t) = 3t^2 - 12t + 9$.",
+    "feedback_incorrect": "Hallá la derivada (velocidad) y determiná en qué intervalo es menor a cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La partícula se mueve **hacia atrás** cuando su velocidad es negativa. \n\nCalculamos la velocidad:\n\n$$v(t) = s'(t) = 3t^2 - 12t + 9 = 3(t^2 - 4t + 3)$$\n\nFactorizando: $v(t) = 3(t - 1)(t - 3)$. \n\nLas raíces son $t=1$ y $t=3$. Analizando el signo entre raíces (por ejemplo, evaluando en $t=2$), vemos que $v(2) = 3(1)(-1) = -3 < 0$. Por lo tanto, retrocede en el intervalo $(1, 3)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Se desea construir una caja abierta a partir de una hoja de cartón cuadrada de 12 cm de lado, cortando cuadraditos de lado $x$ en las esquinas. ¿Qué valor de $x$ maximiza el volumen?",
+    "options": [
+      "$2$ cm",
+      "$3$ cm",
+      "$4$ cm",
+      "$6$ cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El volumen es $V(x) = x(12-2x)^2$. Derivando hallaste el máximo.",
+    "feedback_incorrect": "El volumen es $V = largo \\cdot ancho \\cdot alto = (12-2x) \\cdot (12-2x) \\cdot x$. Optimizá esa función.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen de la caja es $V(x) = x(12 - 2x)^2$. \n\nDerivamos usando regla del producto y cadena:\n\n$$V'(x) = 1 \\cdot (12-2x)^2 + x \\cdot 2(12-2x)(-2) = (12-2x)(12-2x-4x) = (12-2x)(12-6x)$$\n\nLos puntos críticos son $x=6$ (que anula el volumen) y $x=2$. \n\nEn el contexto físico, $x$ debe estar entre $0$ y $6$. El valor $x=2$ maximiza la capacidad de la caja, siendo una aplicación directa de los **puntos críticos** en diseño.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el punto de la recta $y = 2x + 3$ que está más cerca del origen $(0,0)$?",
+    "options": [
+      "$( 0 , 3 )$",
+      "$( -6/5 , 3/5 )$",
+      "$( -1 , 1 )$",
+      "$( -3/2 , 0 )$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Maximizaste el cuadrado de la distancia $d^2 = x^2 + (2x+3)^2$.",
+    "feedback_incorrect": "Optimizá la función distancia al origen $D(x) = \\sqrt{x^2 + (2x+3)^2}$. Es más fácil optimizar $D^2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para minimizar la **distancia**, es equivalente minimizar el cuadrado de la distancia para evitar la raíz:\n\n$$f(x) = x^2 + (2x + 3)^2 = x^2 + 4x^2 + 12x + 9 = 5x^2 + 12x + 9$$\n\nDerivamos: $f'(x) = 10x + 12$. \n\nIgualando a cero: $10x = -12 \\Rightarrow x = -6/5$. \n\nSustituyendo en la recta: $y = 2(-6/5) + 3 = -12/5 + 15/5 = 3/5$. El punto $(-1.2, 0.6)$ es el más cercano al origen.",
+    "reviewed": false
+  },
+  {
+    "question": "En un modelo de crecimiento bacteriano $P(t) = \\dfrac{1000}{1 + 9e^{-t}}$, ¿en qué momento el crecimiento es más rápido (punto de inflexión)?",
+    "options": [
+      "$t = 9$",
+      "$t = 0$",
+      "$t = \\ln(9)$",
+      "$t = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El crecimiento máximo ocurre cuando la derivada segunda es cero.",
+    "feedback_incorrect": "Buscá el punto de inflexión de la función logística, que es donde la derivada primera tiene su máximo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es la **función logística**. El crecimiento es máximo en el **punto de inflexión**, donde la población alcanza la mitad de su capacidad de carga. \n\nLa derivada segunda de una función de la forma $1/(1+ae^{-t})$ se anula cuando $ae^{-t} = 1$. \n\nEn este caso: $9e^{-t} = 1 \\Rightarrow e^t = 9 \\Rightarrow t = \\ln(9)$. \n\nEn este instante, la curva cambia de convexa a cóncava y la tasa de contagio o crecimiento empieza a disminuir.",
+    "reviewed": false
+  },
+  {
+    "question": "Si el costo total de producir $x$ unidades es $C(x) = 0.5x^2 + 10x + 100$, ¿para qué valor de $x$ el costo promedio por unidad es mínimo?",
+    "options": [
+      "$0$",
+      "$10$",
+      "$20$",
+      "$\\sqrt{200} \\approx 14.14$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Minimizaste $\\bar{C}(x) = C(x)/x = 0.5x + 10 + 100/x$.",
+    "feedback_incorrect": "Calculá el costo promedio $\\bar{C}(x) = C(x)/x$, derivalo e igualalo a cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **costo promedio** es $\\bar{C}(x) = \\frac{C(x)}{x} = 0.5x + 10 + \\frac{100}{x}$. \n\nDerivamos para hallar el mínimo:\n\n$$\\bar{C}'(x) = 0.5 - \\frac{100}{x^2}$$\n\nIgualando a cero: $0.5 = 100/x^2 \\Rightarrow x^2 = 200 \\Rightarrow x = \\sqrt{200}$. \n\nEste punto es donde el costo marginal iguala al costo promedio, un concepto clave en el **análisis de producción**.",
+    "reviewed": false
+  },
+  {
+    "question": "Un cilindro circular recto debe tener un volumen de $16\\pi$ cm³. ¿Qué radio $r$ minimiza el área de la superficie total (cerrado)?",
+    "options": [
+      "$2$ cm",
+      "$4$ cm",
+      "$\\sqrt{8}$ cm",
+      "$1$ cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Usaste la relación $h = 16/r^2$ para optimizar $A = 2\\pi r^2 + 32\\pi/r$.",
+    "feedback_incorrect": "Expresá el área en función del radio: $A = 2\\pi r^2 + 2\\pi r h$. Usá el volumen para despejar $h$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen es $V = \\pi r^2 h = 16\\pi \\Rightarrow h = 16/r^2$. \n\nEl área superficial es $A = 2\\pi r^2 + 2\\pi r h = 2\\pi r^2 + 2\\pi r (16/r^2) = 2\\pi r^2 + 32\\pi/r$. \n\nDerivamos: $A'(r) = 4\\pi r - 32\\pi/r^2$. \n\nIgualando a cero: $4\\pi r = 32\\pi/r^2 \\Rightarrow r^3 = 8 \\Rightarrow r = 2$. Con $r=2$ se utiliza la **menor cantidad de material** posible.",
+    "reviewed": false
+  },
+  {
+    "question": "La intensidad de luz $I$ a una distancia $x$ de una fuente es $I(x) = k/x^2$. Si te alejás de la fuente, ¿qué tan rápido disminuye la intensidad?",
+    "options": [
+      "A una tasa de $k/x$",
+      "A una tasa de $-2k/x^3$",
+      "A una tasa constante de $-2k$",
+      "A una tasa de $-k/x^2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La velocidad de cambio es la derivada $I'(x)$.",
+    "feedback_incorrect": "Derivá la función $I(x) = k x^{-2}$ con respecto a $x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La tasa de cambio de cualquier magnitud física se halla mediante la **derivada**. \n\nPara $I(x) = k x^{-2}$, aplicamos la regla de la potencia:\n\n$$I'(x) = -2k x^{-3} = -\\frac{2k}{x^3}$$\n\nEl signo negativo indica que la intensidad **disminuye** al aumentar la distancia. Notá que la caída es mucho más drástica cerca de la fuente (donde $x$ es chico) que lejos de ella.",
+    "reviewed": false
+  }
+]

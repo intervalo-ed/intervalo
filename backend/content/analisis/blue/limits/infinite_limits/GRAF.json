@@ -1,0 +1,222 @@
+[
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota vertical?",
+    "options": [
+      "$x = 1$",
+      "$x = 0$",
+      "$y = 1$",
+      "$y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta vertical $x=1$ es la asíntota: la función explota cuando $x \\to 1$.",
+    "feedback_incorrect": "El denominador se anula en $x=1$, por lo que la gráfica muestra una asíntota vertical en $x=1$.",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [
+      -3,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** se identifica en la gráfica como la recta sobre la cual la función «explota»: la curva se aleja hacia arriba o abajo sin límite.\n\n$$\\begin{aligned} x-1 &= 0 \\Rightarrow x=1 \\\\ \\text{numerador} &= 1 \\neq 0 \\Rightarrow \\text{asíntota vertical en } x=1 \\end{aligned}$$\n\nVisualizando: para $x > 1$, $f \\to +\\infty$; para $x < 1$, $f \\to -\\infty$. Las dos ramas se separan en torno a la recta $x=1$.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota horizontal?",
+    "options": [
+      "$y = 1$",
+      "$y = 0$",
+      "$x = 0$",
+      "$y = -1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuando $x \\to \\pm\\infty$, $1/(x-1) \\to 0$. La asíntota horizontal es $y = 0$.",
+    "feedback_incorrect": "Como $1/(x-1) \\to 0$ cuando $x \\to \\pm\\infty$, la asíntota horizontal es $y=0$ (el eje $x$).",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [
+      -3,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota horizontal** se lee en la gráfica como la recta hacia la que se acerca la curva cuando $x$ se aleja mucho.\n\n$$\\lim_{x \\to \\pm\\infty} \\frac{1}{x-1} = 0 \\Rightarrow \\text{asíntota horizontal } y=0$$\n\nEl grado del denominador ($1$) es mayor que el del numerador ($0$): el límite en el infinito es $0$. La curva se acerca al eje $x$ sin tocarlo.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{x+1}{x-2}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
+    "options": [
+      "$-1$",
+      "$0$",
+      "$1$",
+      "$\\infty$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Con igual grado, el límite es $1/1 = 1$. La gráfica se acerca a $y=1$ para $x$ grande.",
+    "feedback_incorrect": "Cociente de coeficientes líderes: $1/1 = 1$. La asíntota horizontal es $y=1$.",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [
+      -4,
+      8,
+      -5,
+      7
+    ],
+    "explanation": "En la gráfica, la función se aplana hacia una recta horizontal cuando $x$ crece. Ese valor es la asíntota horizontal.\n\n$$\\lim_{x \\to \\infty} \\frac{x+1}{x-2} = \\frac{1}{1} = 1 \\Rightarrow \\text{asíntota horizontal } y=1$$\n\nCociente de coeficientes líderes: numerador $x$ tiene coeficiente $1$, denominador $x$ tiene coeficiente $1$. La curva se aproxima a $y=1$ por arriba o por abajo.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{2x}{x+3}$, ¿cuál es la asíntota horizontal?",
+    "options": [
+      "$y = -3$",
+      "$y = 3$",
+      "$y = 0$",
+      "$y = 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Cociente de coeficientes líderes $= 2/1 = 2$. La gráfica se acerca a $y=2$.",
+    "feedback_incorrect": "La asíntota horizontal es el cociente de coeficientes líderes: $2/1 = 2$.",
+    "graph_fn": "(2 * x) / (x + 3)",
+    "graph_view": [
+      -8,
+      8,
+      -4,
+      5
+    ],
+    "explanation": "La asíntota horizontal es el nivel al que se «aplana» la función en la gráfica para $x$ muy grande o muy pequeño.\n\n$$\\lim_{x \\to \\infty} \\frac{2x}{x+3} = \\frac{2}{1} = 2 \\Rightarrow \\text{asíntota horizontal } y=2$$\n\nVisualizando: para $x$ positivo grande la función se acerca a $2$ desde abajo; para $x \\to -\\infty$ se acerca a $2$ desde arriba.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2}$, ¿qué signo tiene la función cerca de $x = 0$ desde ambos lados?",
+    "options": [
+      "Siempre positivo: $f(x) \\to +\\infty$ tanto por la izquierda como por la derecha",
+      "Positivo por la derecha y negativo por la izquierda",
+      "Negativo en ambos lados",
+      "La función no tiene asíntota en $x=0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$x^2 > 0$ siempre (excepto en $0$), así que $1/x^2 > 0$ y tiende a $+\\infty$ desde ambos lados.",
+    "feedback_incorrect": "Como $x^2 > 0$ para $x \\neq 0$, $1/x^2$ siempre es positivo y tiende a $+\\infty$ al acercarse a $0$ desde cualquier lado.",
+    "graph_fn": "1 / x**2",
+    "graph_view": [
+      -3,
+      3,
+      -0.5,
+      8
+    ],
+    "explanation": "$x^2$ es **siempre positivo** para $x \\neq 0$, por lo que $1/x^2$ también es siempre positivo. Al acercarse a $x=0$ desde cualquier lado, la función tiende a $+\\infty$.\n\n$$\\begin{aligned} x &\\to 0^+: \\frac{1}{(0^+)^2} = +\\infty \\\\ x &\\to 0^-: \\frac{1}{(0^-)^2} = \\frac{1}{(+)} = +\\infty \\end{aligned}$$\n\nEsto contrasta con $1/x$, donde el signo cambia según el lado. Con $x^2$ en el denominador, la asíntota vertical es simétrica: ambas ramas van hacia $+\\infty$.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{-1}{x+2}$, ¿hacia dónde tiende $f(x)$ cuando $x \\to -2^+$?",
+    "options": [
+      "$+\\infty$",
+      "$-\\infty$",
+      "$0$",
+      "$-2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Para $x > -2$ cerca de $-2$: $(x+2) \\to 0^+$, entonces $-1/(x+2) \\to -\\infty$.",
+    "feedback_incorrect": "Por la derecha de $-2$: $(x+2) \\to 0^+$. Con numerador negativo: $-1/(x+2) \\to -\\infty$.",
+    "graph_fn": "-1 / (x + 2)",
+    "graph_view": [
+      -6,
+      2,
+      -8,
+      8
+    ],
+    "explanation": "Analizamos el signo del numerador y del denominador por separado para determinar el resultado.\n\n$$\\begin{aligned} x &\\to -2^+: \\\\ (x+2) &\\to 0^+ \\\\ (\\text{positivo}) \\\\ \\text{Numerador} &= -1 < 0 \\end{aligned}$$\n\n$$\\frac{-1}{0^+} = \\frac{(-)}{(+)} \\to -\\infty$$\n\nEl numerador negativo dividido por un denominador positivo que tiende a $0$ da $-\\infty$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de $f(x) = \\dfrac{3x}{x-1}$ tiene asíntota horizontal $y=3$. ¿Cuántas asíntotas horizontales muestra la gráfica?",
+    "options": [
+      "$0$",
+      "$2$",
+      "$1$",
+      "$3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La función $3x/(x-1)$ tiene una sola asíntota horizontal $y=3$, válida tanto para $x \\to +\\infty$ como para $x \\to -\\infty$.",
+    "feedback_incorrect": "Para este tipo de racional, el límite en $+\\infty$ y en $-\\infty$ coinciden en $y=3$. Hay una sola asíntota horizontal.",
+    "graph_fn": "(3 * x) / (x - 1)",
+    "graph_view": [
+      -5,
+      7,
+      -5,
+      8
+    ],
+    "explanation": "El cociente de coeficientes líderes da el mismo resultado para $+\\infty$ y para $-\\infty$: una sola asíntota horizontal.\n\n$$\\begin{aligned} \\lim_{x &\\to +\\infty} \\frac{3x}{x-1} = 3 \\\\ \\lim_{x &\\to -\\infty} \\frac{3x}{x-1} = 3 \\end{aligned}$$\n\nComo $L_1 = L_2 = 3$, la gráfica muestra una única asíntota horizontal $y=3$. Las dos ramas (izquierda y derecha de la asíntota vertical) se acercan a la misma recta.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2+1}$, ¿a qué valor se acerca $f(x)$ cuando $x \\to \\infty$?",
+    "options": [
+      "$-1$",
+      "$1$",
+      "$\\infty$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El grado del denominador es mayor, así que $1/(x^2+1) \\to 0$ cuando $x \\to \\infty$.",
+    "feedback_incorrect": "Como el denominador crece más rápido que el numerador constante, $1/(x^2+1) \\to 0$.",
+    "graph_fn": "1 / (x**2 + 1)",
+    "graph_view": [
+      -5,
+      5,
+      -0.2,
+      1.5
+    ],
+    "explanation": "$x^2+1$ nunca se anula (siempre es $\\geq 1$), así que esta función no tiene asíntota vertical. Su asíntota horizontal es:\n\n$$\\lim_{x \\to \\infty} \\frac{1}{x^2+1} = 0 \\Rightarrow \\text{asíntota horizontal } y=0$$\n\nEl grado del denominador ($2$) es mayor que el del numerador ($0$). La curva es siempre positiva y se acerca al eje $x$ por arriba sin tocarlo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de $f(x) = \\dfrac{1}{(x-1)(x+3)}$ tiene asíntotas verticales. ¿Cuántas tiene?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las raíces del denominador son $x=1$ y $x=-3$: dos asíntotas verticales.",
+    "feedback_incorrect": "El denominador $(x-1)(x+3)$ se anula en $x=1$ y $x=-3$. Eso da dos asíntotas verticales.",
+    "graph_fn": "1 / ((x - 1) * (x + 3))",
+    "graph_view": [
+      -6,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "El denominador $(x-1)(x+3)$ se anula en dos puntos distintos, y el numerador ($=1$) no se anula en ninguno: dos asíntotas verticales.\n\n$$(x-1)(x+3) = 0 \\Rightarrow x=1 \\text{ y } x=-3 \\Rightarrow 2 \\text{ asíntotas verticales}$$\n\nRegla general: el número de asíntotas verticales de una racional irreducible es igual al número de raíces distintas del denominador.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica de $f(x) = 2^{-x}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$2$",
+      "$+\\infty$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$2^{-x} = (1/2)^x \\to 0$ cuando $x \\to \\infty$. La asíntota horizontal es $y=0$.",
+    "feedback_incorrect": "La función $2^{-x}$ decrece exponencialmente hacia $0$ cuando $x$ crece. La asíntota horizontal es $y=0$.",
+    "graph_fn": "2**(-x)",
+    "graph_view": [
+      -2,
+      6,
+      -0.2,
+      4
+    ],
+    "explanation": "$2^{-x} = \\left(\\dfrac{1}{2}\\right)^x$: es una función exponencial decreciente. Las exponenciales de base $< 1$ tienden a $0$ cuando $x \\to +\\infty$.\n\n$$\\lim_{x \\to \\infty} 2^{-x} = \\lim_{x \\to \\infty} \\left(\\frac{1}{2}\\right)^x = 0$$\n\nLa asíntota horizontal es $y=0$. La función siempre es positiva ($2^{-x} > 0$) y se acerca al eje $x$ sin tocarlo.",
+    "reviewed": false
+  }
+]

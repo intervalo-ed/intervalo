@@ -1,0 +1,897 @@
+[
+  {
+    "question": "La gráfica muestra una función definida para todo $x \\in \\mathbb{R}$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Polinómica",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La curva crece aceleradamente con asíntota en $y = 0$: función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": "3 * pow(1.5, x)",
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      9.5
+    ],
+    "explanation": "Para clasificar una curva como exponencial, buscar estas señales:\n- **Crecimiento acelerado** (no lineal ni constante)\n- **Asíntota horizontal** en $y = 0$ hacia la izquierda\n- La curva **nunca toca el eje $x$** y siempre es positiva\n\nLa función graficada tiene la forma $f(x) = a \\cdot b^x$ con $b > 1$: exponencial creciente. El coeficiente $a$ fija el valor en $x = 0$: $f(0) = a$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = 3 \\cdot 2^x$?",
+    "options": [
+      "Polinómica",
+      "Exponencial",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = 3 \\cdot 2^x$, la variable $x$ está en el exponente: es una función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = 3 \\cdot 2^x$, reconocemos la forma canónica $a \\cdot b^x$ con $a = 3$ y $b = 2$.\n\nEl coeficiente $a = 3$ **escala verticalmente** la curva (no cambia la familia). La variable $x$ sigue en el exponente: es una **función exponencial** creciente.\n\nNo confundir con $3x^2$ (polinómica) ni con $\\log_2(3x)$ (logarítmica). El criterio es siempre la posición de $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = \\left(\\dfrac{1}{3}\\right)^x$?",
+    "options": [
+      "Logarítmica",
+      "Racional",
+      "Exponencial",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La base es $\\frac{1}{3}$ y $x$ está en el exponente: función exponencial decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = \\left(\\frac{1}{3}\\right)^x$ tiene base $b = \\frac{1}{3}$ con $x$ en el exponente: es una **función exponencial**.\n\nComo $0 < \\frac{1}{3} < 1$, la función es **decreciente**. Se puede reescribir:\n$$\\left(\\frac{1}{3}\\right)^x = 3^{-x}$$\nNo es racional (esas son cocientes de polinomios). El nombre correcto de la familia siempre se determina por la forma $b^x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = 4 \\cdot e^x$?",
+    "options": [
+      "Logarítmica",
+      "Polinómica",
+      "Trigonométrica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$e$ es la base del número de Euler y $x$ está en el exponente: función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = 4 \\cdot e^x$ tiene la forma $a \\cdot b^x$ con $a = 4$ y base $b = e \\approx 2{,}718$: es una **función exponencial**.\n\nEl **número de Euler** $e$ es una constante irracional que aparece naturalmente en modelos de crecimiento continuo (interés compuesto, poblaciones, desintegración radiactiva). Como $e > 1$, la función es creciente.\n\nEl coeficiente $4$ solo escala la amplitud: $f(0) = 4 \\cdot e^0 = 4$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función positiva definida para todo $x \\in \\mathbb{R}$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica",
+      "Lineal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La curva decrece aceleradamente hacia $y = 0$: $f(x) = (0{,}5)^x$, exponencial con $b < 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(0.5, x)",
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      8.5
+    ],
+    "explanation": "Una curva exponencial **decreciente** tiene estas características visuales:\n- Decrece rápidamente de izquierda a derecha\n- Tiene una **asíntota horizontal** en $y = 0$ hacia la derecha\n- Siempre es positiva (nunca cruza el eje $x$)\n\nEsto corresponde a $f(x) = (0{,}5)^x$ con base $b = 0{,}5 < 1$. Las logarítmicas tienen forma diferente: crecen lentamente y tienen asíntota vertical.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas es una función exponencial?",
+    "options": [
+      "$f(x) = x^5$",
+      "$f(x) = 2 \\cdot 5^x$",
+      "$f(x) = 5x + 2$",
+      "$f(x) = \\log_5(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $2 \\cdot 5^x$, la variable $x$ está en el exponente: función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Análisis de cada opción:\n- $2 \\cdot 5^x$: $x$ en el exponente → **exponencial** ✓\n- $x^5$: $x$ en la base, exponente constante → polinómica\n- $5x + 2$: grado 1 en $x$ → lineal\n- $\\log_5(x)$: función inversa de la exponencial → logarítmica\n\nSolo $f(x) = 2 \\cdot 5^x$ tiene la variable en el exponente con base constante.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = e^{-x}$?",
+    "options": [
+      "Polinómica",
+      "Logarítmica",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$e^{-x} = (e^{-1})^x$: base $e^{-1} \\approx 0{,}368$, con $x$ en el exponente. Exponencial decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = e^{-x}$ sigue siendo una **función exponencial**: la variable $x$ está en el exponente.\n\nSe puede reescribir como:\n$$e^{-x} = \\left(e^{-1}\\right)^x = \\left(\\frac{1}{e}\\right)^x \\approx (0{,}368)^x$$\nComo la base efectiva $\\frac{1}{e} < 1$, la función es **decreciente**. Este tipo aparece frecuentemente en modelos de decaimiento y en la función de densidad normal.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función positiva definida para todo $x \\in \\mathbb{R}$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Trigonométrica",
+      "Polinómica",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La curva creciente con asíntota en $y = 0$ es una función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(1.7, x)",
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      9.0
+    ],
+    "explanation": "Las claves visuales para identificar una exponencial **creciente** en una gráfica:\n- Crece más y más rápido (aceleración positiva)\n- Asíntota horizontal en $y = 0$ hacia la izquierda\n- Siempre positiva, pasa por $(0, 1)$\n\nUna polinómica también puede crecer, pero su crecimiento es más simétrico y no tiene asíntota horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas NO es una función exponencial?",
+    "options": [
+      "$f(x) = x^4$",
+      "$f(x) = 4^x$",
+      "$f(x) = 4 \\cdot e^x$",
+      "$f(x) = (1{,}5)^x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^4$ tiene $x$ en la base (polinómica de grado 4), no en el exponente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **intruso** es $f(x) = x^4$: tiene $x$ en la base y $4$ como exponente constante → es una función **polinómica** de grado 4.\n\nLas demás son exponenciales:\n- $4^x$: base $4$, $x$ en exponente\n- $4 \\cdot e^x$: base $e$, escalada por $4$\n- $(1{,}5)^x$: base $1{,}5 > 1$, creciente\n\nRegla mnemotécnica: si el número con $x$ está \"arriba\" → exponencial; si está \"abajo\" → polinómica.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 10^x$?",
+    "options": [
+      "Polinómica",
+      "Exponencial",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$10^x$ tiene base 10 y $x$ en el exponente: es una función exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = 10^x$ es una función **exponencial** con base $b = 10$. Como $10 > 1$, es creciente.\n\nEs notable porque $10^x$ crece enormemente: $10^1 = 10$, $10^2 = 100$, $10^3 = 1000$... La **escala logarítmica** usada en ciencias (decibeles, pH, magnitud sísmica) está basada precisamente en la función inversa de $10^x$, que es $\\log_{10}(x)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Puede $f(x) = 2^x$ tomar el valor $0$ para algún $x \\in \\mathbb{R}$?",
+    "options": [
+      "Sí, cuando $x = 0$",
+      "Sí, cuando $x \\to -\\infty$",
+      "No, porque $2^x > 0$ para todo $x \\in \\mathbb{R}$",
+      "Sí, cuando $x$ es un número negativo muy grande en valor absoluto"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$2^x > 0$ para todo real $x$. Aunque $2^x \\to 0$ cuando $x \\to -\\infty$, nunca llega exactamente a cero.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene imagen $(0, +\\infty)$: siempre positiva, nunca nula.\n\nCuando $x \\to -\\infty$, $2^x \\to 0$, pero es un **límite asintótico**: la función se acerca al eje $x$ sin tocarlo nunca.\n\nLa ecuación $2^x = 0$ no tiene solución porque:\n\n$$2^x = 0 \\iff x = \\log_2(0)$$\n\ny el logaritmo de cero no existe.\n\nConclución: el valor $0$ no pertenece a la imagen de ninguna exponencial $a^x$ con $a > 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Para qué valores de la base $a$ es $f(x) = a^x$ una función decreciente?",
+    "options": [
+      "Para $a > 1$",
+      "Para $a = 1$",
+      "Para $a > 0$",
+      "Para $0 < a < 1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Cuando la base $0 < a < 1$, la función exponencial es decreciente: a medida que $x$ crece, $a^x$ se acerca a cero.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El comportamiento de $f(x) = a^x$ depende completamente de la **base** $a$:\n\n- $a > 1$: la función es **creciente**. Ejemplo: $2^x$ crece a medida que $x$ aumenta.\n- $0 < a < 1$: la función es **decreciente**. Ejemplo: $(1/2)^x$ decrece porque cada multiplicación por $a$ reduce el valor.\n- $a = 1$: la función es **constante** ($1^x = 1$ para todo $x$).\n\nFísicamente: base mayor que 1 modela crecimiento; base menor que 1 modela decaimiento (ej: desintegración radiactiva).",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es creciente $f(x) = 2^x$?",
+    "options": [
+      "$(0,\\ +\\infty)$",
+      "$\\mathbb{R}$",
+      "$(-\\infty,\\ 0)$",
+      "Solo para $x > 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2^x$ es creciente en todo $\\mathbb{R}$: cuanto mayor sea $x$, mayor es $2^x$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = 2^x$ tiene base $a = 2 > 1$, así que es **estrictamente creciente en todo $\\mathbb{R}$**.\n\nAlgunos creen que solo crece para $x > 0$, pero eso confunde el dominio con el comportamiento. La función está definida y es creciente para todos los reales:\n\n$$2^{-2} = 0.25 < 2^{-1} = 0.5 < 2^0 = 1 < 2^1 = 2 < 2^2 = 4$$\n\nSiempre que $x$ aumenta, $2^x$ también aumenta. El intervalo de crecimiento es $\\mathbb{R}$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones exponenciales es decreciente?",
+    "options": [
+      "$(1/3)^x$",
+      "$3^x$",
+      "$e^x$",
+      "Ninguna es decreciente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(1/3)^x$ tiene base $1/3 < 1$, así que es decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar si $a^x$ es creciente o decreciente, fijate en la base:\n\n- $(1/3)^x$: base $a = 1/3$, con $0 < 1/3 < 1$ → **decreciente**.\n- $3^x$: base $a = 3 > 1$ → creciente.\n- $e^x$: base $a = e \\approx 2.718 > 1$ → creciente.\n\nNota: $(1/3)^x = 3^{-x}$. Podés reescribir cualquier exponencial decreciente como una creciente con exponente negativo.\n\nMnemotecnia: base mayor que 1 → crece; base entre 0 y 1 → decrece.",
+    "reviewed": false
+  },
+  {
+    "question": "Un banco ofrece dos opciones de ahorro para un depósito inicial de \\$1000.\n\n¿Cuál de las siguientes describe un crecimiento **exponencial**?",
+    "options": [
+      "Opción A: gana \\$50 fijos por mes",
+      "Opción B: gana un 5% del saldo acumulado por mes",
+      "Opción C: gana \\$50 el primer mes y \\$100 el segundo",
+      "Opción D: el saldo no cambia"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Ganar un porcentaje del saldo acumulado genera crecimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La clave es si la ganancia es **fija** (lineal) o **proporcional al saldo** (exponencial):\n- **Opción A**: +\\$50 por mes → suma fija → **lineal**.\n- **Opción B**: +5% del saldo → se multiplica el saldo × 1,05 cada mes → **exponencial**.\n\nModelo: $S(t) = 1000 \\cdot (1{,}05)^t$. Cada mes el saldo crece un poco más que el anterior.",
+    "reviewed": false
+  },
+  {
+    "question": "Una colonia de bacterias tiene 200 unidades y **se duplica cada hora**.\n\n¿Qué familia de función modela la cantidad de bacterias en función de las horas transcurridas?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Duplicarse cada hora implica multiplicar por 2 en cada período: crecimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si la cantidad se **duplica** cada período, la función es exponencial con base $2$:\n$$B(t) = 200 \\cdot 2^t$$\nCada hora, el valor se multiplica por $2$ (no suma $200$). Distractores comunes: lineal (sumaría 200 por hora) y cuadrática (tendría un máximo/mínimo).",
+    "reviewed": false
+  },
+  {
+    "question": "Un auto comprado en \\$50000 **pierde el 15% de su valor cada año**.\n\n¿Qué familia de función modela el valor del auto en función de los años?",
+    "options": [
+      "Lineal decreciente",
+      "Exponencial decreciente",
+      "Cuadrática",
+      "Constante"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Perder un porcentaje fijo anual genera decaimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al perder el $15\\%$ anual, queda el $85\\%$: el valor se multiplica por $0{,}85$ cada año:\n$$V(t) = 50000 \\cdot (0{,}85)^t$$\nLa base $0{,}85 < 1$: exponencial **decreciente**.\n\nDiferencia con la lineal: si restara \\$7500 fijos por año sería lineal. El porcentaje fijo hace que la pérdida sea mayor al principio y menor después.",
+    "reviewed": false
+  },
+  {
+    "question": "Una ciudad tiene 100000 habitantes y **crece un 3% anual**.\n\n¿Qué familia de función modela la población en función de los años?",
+    "options": [
+      "Lineal",
+      "Logarítmica",
+      "Exponencial",
+      "Polinómica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Crecer un porcentaje fijo anual es crecimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar por $(1 + 0{,}03) = 1{,}03$ cada año genera una exponencial:\n$$P(t) = 100000 \\cdot (1{,}03)^t$$\nDistractor frecuente: lineal. La diferencia es que $3\\%$ de $100000 = 3000$, pero al año siguiente es $3\\%$ de $103000 = 3090$. La cantidad que se suma crece, no es fija.",
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa tiene 500 usuarios y **pierde el 10% de sus usuarios por mes**.\n\n¿Qué familia de función modela la cantidad de usuarios en función de los meses?",
+    "options": [
+      "Lineal decreciente",
+      "Exponencial decreciente",
+      "Cuadrática",
+      "Polinómica decreciente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Perder un porcentaje fijo por período es decaimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada mes queda el $90\\%$: se multiplica por $0{,}9$:\n$$U(t) = 500 \\cdot (0{,}9)^t$$\nLa base $0{,}9 < 1$: **exponencial decreciente**.\n\nComparación con la lineal: si perdiera 50 usuarios fijos por mes, sería lineal. El porcentaje fijo es la señal del modelo exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "Un emprendedor ahorra \\$2000 por mes y los deposita en una cuenta sin interés.\n\n¿Qué familia de función modela el saldo acumulado en función de los meses?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sumar una cantidad fija por período es crecimiento lineal, no exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si el saldo crece en \\$2000 **fijos** por mes (sin porcentaje sobre el acumulado):\n$$S(t) = 2000t$$\nEsto es **lineal** (suma constante). El crecimiento exponencial requiere que la ganancia sea un porcentaje del saldo: $S(t+1) = S(t) \\cdot b$ para alguna $b > 1$.",
+    "reviewed": false
+  },
+  {
+    "question": "La temperatura de un café caliente baja un 8% de la diferencia con la temperatura ambiente **cada minuto**.\n\n¿Qué familia de función modela esa diferencia de temperatura en función del tiempo?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Polinómica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Un porcentaje fijo de reducción por período es decaimiento exponencial (Ley de Newton del enfriamiento).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La diferencia de temperatura $D(t)$ satisface:\n$$D(t) = D_0 \\cdot (0{,}92)^t$$\nporque cada minuto queda el $92\\%$. La base $0{,}92 < 1$: **exponencial decreciente**.\n\nEste modelo se llama **Ley de enfriamiento de Newton**. Aplica también al calentamiento: objeto frío que se calienta hasta alcanzar la temperatura del entorno.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 2^x + 5$?",
+    "options": [
+      "Polinómica",
+      "Exponencial",
+      "Logarítmica",
+      "Lineal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sumar una constante no cambia la familia: $2^x + 5$ sigue siendo exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma $f(x) = b^x + k$ es una **exponencial con desplazamiento vertical**:\n$$f(x) = 2^x + 5$$\nLa familia sigue siendo exponencial. El $+5$ solo mueve la asíntota a $y = 5$ y la imagen de $(0,+\\infty)$ a $(5, +\\infty)$. No cambia la estructura multiplicativa.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $g(x) = 3 \\cdot (0{,}4)^{x-2}$?",
+    "options": [
+      "Lineal",
+      "Polinómica",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La base $0{,}4$ con $x$ en el exponente: exponencial decreciente con desplazamiento horizontal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Forma $a \\cdot b^{x-h}$: exponencial con traslación horizontal $h = 2$.\nLa base $0{,}4 < 1$: **decreciente**. El factor $3$ escala el valor inicial.\n\nLas traslaciones y escalas no cambian la familia: la variable sigue en el exponente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $h(x) = 5 \\cdot e^{2x}$?",
+    "options": [
+      "Polinómica de grado 2",
+      "Logarítmica",
+      "Exponencial",
+      "Cuadrática"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$e^{2x} = (e^2)^x$: base $e^2 \\approx 7{,}39$ con $x$ en el exponente. Exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$$h(x) = 5 \\cdot e^{2x} = 5 \\cdot (e^2)^x$$\nEs una exponencial con base $b = e^2 \\approx 7{,}39 > 1$: creciente.\n\nEl $2x$ en el exponente comprime horizontalmente la curva, pero no cambia la familia. No confundir con $5 \\cdot (2x)^e$ que sí sería polinómica.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $p(x) = x^5 + 3x^2 - 1$?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica",
+      "Lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$x$ está en la base con exponentes constantes: función polinómica de grado 5.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $x^5 + 3x^2 - 1$, la variable $x$ está en la **base** y los exponentes $5$, $2$, $0$ son constantes.\n\nEsto define una **función polinómica** de grado 5, no exponencial.\n\nClave de distinción: exponencial tiene base constante y exponente variable ($b^x$); polinómica tiene base variable y exponentes constantes ($x^n$).",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función creciente que se aproxima al eje $x$ por la izquierda y crece sin límite por la derecha.\n\n¿A qué familia pertenece?",
+    "options": [
+      "Lineal creciente",
+      "Cuadrática",
+      "Exponencial creciente",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Crecimiento acelerado con asíntota horizontal en $y = 0$: exponencial creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(1.5, x)",
+    "graph_view": [
+      -5,
+      5,
+      -0.5,
+      8.5
+    ],
+    "explanation": "Señales visuales de una **exponencial creciente**:\n- Crece más y más rápido (curvatura creciente)\n- **Asíntota horizontal** en $y = 0$ hacia la izquierda\n- Siempre positiva, pasa por $(0, 1)$ si $a = 1$\n\nLa lineal también crece, pero con curvatura constante (recta). La logarítmica crece pero tiene asíntota vertical, no horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función decreciente siempre positiva que se aplana hacia la derecha.\n\n¿A qué familia pertenece?",
+    "options": [
+      "Lineal decreciente",
+      "Polinómica decreciente",
+      "Exponencial decreciente",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Decrecimiento hacia $y = 0$ con asíntota horizontal: exponencial decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(0.5, x)",
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      8.5
+    ],
+    "explanation": "Señales visuales de una **exponencial decreciente**:\n- Siempre positiva, nunca toca el eje $x$\n- **Asíntota horizontal** en $y = 0$ hacia la derecha\n- Decrece rápido para $x$ pequeño y lento para $x$ grande\n\nLa lineal decreciente eventualmente cruza el eje $x$ (y toma valores negativos). La polinómica decreciente puede tener múltiples cambios de dirección.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una curva siempre positiva con una asíntota horizontal en $y = 2$ (la curva se acerca a $y = 2$ pero nunca la toca) y crece sin límite hacia la derecha.\n\n¿A qué familia pertenece?",
+    "options": [
+      "Lineal",
+      "Logarítmica",
+      "Polinómica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Asíntota horizontal en $y = 2$ con crecimiento ilimitado: exponencial con desplazamiento vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(2, x) + 2",
+    "graph_view": [
+      -4,
+      4,
+      -0.5,
+      9.0
+    ],
+    "explanation": "Una asíntota horizontal en $y = k \\neq 0$ indica una exponencial desplazada:\n$$f(x) = b^x + k$$\nCon $k = 2$: $f(x) = b^x + 2$. La curva nunca alcanza $y = 2$ por abajo porque $b^x > 0$ siempre.\n\nLa logarítmica tiene asíntota **vertical** (no horizontal). La lineal no tiene asíntota.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una curva positiva que **aumenta lentamente** para $x$ positivo y crece sin límite hacia la izquierda (cuando $x$ es muy negativo, la curva es grande).\n\n¿A qué familia pertenece?",
+    "options": [
+      "Exponencial creciente",
+      "Exponencial decreciente",
+      "Logarítmica",
+      "Polinómica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Grande a la izquierda y que tiende a $0$ hacia la derecha: exponencial decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(0.7, x)",
+    "graph_view": [
+      -6,
+      4,
+      -0.5,
+      9.0
+    ],
+    "explanation": "Una exponencial decreciente ($0 < b < 1$):\n- Para $x \\to -\\infty$: $b^x \\to +\\infty$ (la curva crece hacia la izquierda)\n- Para $x \\to +\\infty$: $b^x \\to 0^+$ (asíntota horizontal por la derecha)\n\nEs el espejo de la creciente. La confusión típica: parece que 'decrece hacia la izquierda' cuando en realidad es grande allí.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = 3^x + 1$?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$(0, +\\infty)$",
+      "$(1, +\\infty)$",
+      "$[1, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como $3^x > 0$, se tiene $3^x + 1 > 1$: la imagen es $(1, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La imagen de $3^x$ es $(0, +\\infty)$. Al sumar $1$:\n$$\\begin{aligned} f(x) &= 3^x + 1 > 0 + 1 = 1 \\\\ \\text{para todo } x \\end{aligned}$$\nLa imagen es $(1, +\\infty)$ — intervalo abierto porque $3^x$ se acerca a $0$ pero nunca llega, así que $f$ se acerca a $1$ pero nunca lo alcanza.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $g(x) = 2^x - 4$?",
+    "options": [
+      "$(-4, +\\infty)$",
+      "$(0, +\\infty)$",
+      "$(-\\infty, -4)$",
+      "$[-4, +\\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como $2^x > 0$, se tiene $2^x - 4 > -4$: la imagen es $(-4, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al restar $4$:\n$$\\begin{aligned} g(x) &= 2^x - 4 > 0 - 4 = -4 \\\\ \\text{para todo } x \\end{aligned}$$\nLa imagen es $(-4, +\\infty)$. La asíntota horizontal baja a $y = -4$. Nota: ahora $g$ sí puede cruzar el eje $x$ (cuando $2^x = 4$, es decir $x = 2$): en este caso la función sí tiene una raíz real.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es **decreciente** la función $f(x) = (0{,}3)^x$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$(-\\infty, 0)$",
+      "En ninguno: es constante",
+      "En todo $\\mathbb{R}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Con base $b = 0{,}3 < 1$, la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una exponencial con $0 < b < 1$ es **estrictamente decreciente** en todo su dominio $\\mathbb{R}$:\n$$x_1 < x_2 \\implies (0{,}3)^{x_1} > (0{,}3)^{x_2}$$\nNunca cambia de dirección. No hay intervalos de crecimiento.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Tiene máximos o mínimos locales la función $f(x) = 4^x$?",
+    "options": [
+      "Tiene un mínimo en $x = 0$",
+      "Tiene un máximo cuando $x \\to +\\infty$",
+      "No tiene ninguno",
+      "Tiene infinitos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La exponencial es estrictamente monótona: no tiene extremos locales.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un extremo local requiere que la función cambie de creciente a decreciente (o viceversa).\nLa función $f(x) = 4^x$ es **estrictamente creciente** en todo $\\mathbb{R}$: nunca cambia de dirección.\n\nNota: $f(0) = 1$ no es un mínimo local — la función es igual de pequeña para valores negativos grandes. No hay mínimo **global** porque la función no tiene cota inferior positiva visible.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Puede $f(x) = 5^x$ tomar el mismo valor para dos entradas distintas?",
+    "options": [
+      "Sí, siempre que $x_1 + x_2 = 0$",
+      "Sí, cuando $x_1 = -x_2$",
+      "No, la exponencial es estrictamente monótona: es inyectiva",
+      "Sí, para $x_1 = 0$ y $x_2 = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La exponencial es inyectiva: $5^{x_1} = 5^{x_2}$ implica $x_1 = x_2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función **inyectiva** no repite valores:\n$$5^{x_1} = 5^{x_2} \\implies x_1 = x_2$$\nEsto se debe a que la exponencial es estrictamente monótona: si $x_1 < x_2$, entonces $5^{x_1} < 5^{x_2}$. Nunca pueden ser iguales con entradas distintas.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función tiene **asíntota vertical** en $x = 0$ (en lugar de asíntota horizontal). Su dominio es $(0, +\\infty)$.\n\n¿A qué familia pertenece?",
+    "options": [
+      "Exponencial creciente",
+      "Logarítmica",
+      "Polinómica",
+      "Lineal"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Asíntota vertical en $x = 0$ con dominio $(0, +\\infty)$: función logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La diferencia visual clave entre exponencial y logarítmica:\n\n| | Exponencial | Logarítmica |\n|---|---|---|\n| Asíntota | Horizontal ($y = k$) | Vertical ($x = h$) |\n| Dominio | $\\mathbb{R}$ | $(h, +\\infty)$ |\n| Imagen | $(k, +\\infty)$ | $\\mathbb{R}$ |\n\nSon funciones inversas entre sí: los dominios e imágenes se intercambian.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones tiene dominio **restringido** (no es todo $\\mathbb{R}$)?",
+    "options": [
+      "$f(x) = 2^x$",
+      "$g(x) = (0{,}5)^x$",
+      "$h(x) = \\log_2(x)$",
+      "$p(x) = e^x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(x)$ solo está definida para $x > 0$: tiene dominio $(0, +\\infty)$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las exponenciales $2^x$, $(0{,}5)^x$ y $e^x$ tienen dominio $\\mathbb{R}$.\n\nEl logaritmo $\\log_2(x)$ solo acepta argumentos **positivos**:\n$$\\log_2(x) \\text{ definida} \\iff x > 0$$\nEsta es la diferencia fundamental: la exponencial no tiene restricción de dominio; su inversa (el logaritmo) sí.",
+    "reviewed": false
+  },
+  {
+    "question": "Cuando $x \\to +\\infty$, ¿hacia dónde tiende $f(x) = (0{,}2)^x$?",
+    "options": [
+      "$+\\infty$",
+      "$0^+$",
+      "$-\\infty$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Base $0{,}2 < 1$: la función decrece hacia $0$ cuando $x \\to +\\infty$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con base $b = 0{,}2 < 1$:\n$$\\lim_{x \\to +\\infty}(0{,}2)^x = 0^+$$\nCada unidad que avanza $x$, el valor se multiplica por $0{,}2$: se hace cada vez más pequeño. La asíntota horizontal es $y = 0$ hacia la derecha.",
+    "reviewed": false
+  },
+  {
+    "question": "Cuando $x \\to -\\infty$, ¿hacia dónde tiende $f(x) = (0{,}2)^x$?",
+    "options": [
+      "$0^+$",
+      "$-\\infty$",
+      "$+\\infty$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Base $0{,}2 < 1$: cuando $x \\to -\\infty$, $(0{,}2)^x \\to +\\infty$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $b < 1$: cuando $x$ es muy negativo, la función es grande:\n$$\\lim_{x \\to -\\infty}(0{,}2)^x = \\lim_{x \\to -\\infty}\\frac{1}{(0{,}2)^{|x|}} = +\\infty$$\nLa asíntota horizontal $y = 0$ está hacia la **derecha** para las exponenciales decrecientes.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones crece sin límite cuando $x \\to -\\infty$?",
+    "options": [
+      "$f(x) = 3^x$",
+      "$g(x) = (1{,}5)^x$",
+      "$h(x) = (0{,}4)^x$",
+      "$p(x) = e^x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Solo las exponenciales con base $b < 1$ tienden a $+\\infty$ cuando $x \\to -\\infty$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = b^x$:\n- Si $b > 1$: $f \\to +\\infty$ cuando $x \\to +\\infty$; $f \\to 0$ cuando $x \\to -\\infty$.\n- Si $0 < b < 1$: $f \\to 0$ cuando $x \\to +\\infty$; $f \\to +\\infty$ cuando $x \\to -\\infty$.\n\nAquí $b = 0{,}4 < 1$: crece sin límite hacia la izquierda.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas NO es una función exponencial?",
+    "options": [
+      "$f(x) = e^{x+1}$",
+      "$g(x) = 4 \\cdot 2^x$",
+      "$h(x) = x^4 + 2$",
+      "$p(x) = (0{,}1)^x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$h(x) = x^4 + 2$ tiene $x$ en la base (polinómica de grado 4), no en el exponente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Verificación de cada opción:\n- $e^{x+1}$: $x$ en el exponente → exponencial.\n- $4 \\cdot 2^x$: $x$ en el exponente → exponencial.\n- $x^4 + 2$: $x$ en la **base**, $4$ es el exponente constante → polinómica.\n- $(0{,}1)^x$: $x$ en el exponente → exponencial decreciente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas SÍ es una función exponencial?",
+    "options": [
+      "$f(x) = x^e$",
+      "$g(x) = 2x^3 - 5$",
+      "$h(x) = \\log_3(x)$",
+      "$p(x) = 7 \\cdot (1{,}2)^x$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$7 \\cdot (1{,}2)^x$ tiene $x$ en el exponente con base $1{,}2 > 1$: exponencial creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Análisis de cada opción:\n- $x^e$: $x$ en la base, $e$ es el exponente → polinómica (irracional).\n- $2x^3 - 5$: $x$ en la base → polinómica de grado 3.\n- $\\log_3(x)$: función logarítmica (inversa de la exponencial).\n- $7 \\cdot (1{,}2)^x$: $x$ en el exponente, base $1{,}2 > 0$ → **exponencial**.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función positiva que pasa por $(0, 3)$ y crece sin límite.\n\n¿Cuál de estas fórmulas corresponde a la curva?",
+    "options": [
+      "$f(x) = 3x + 1$",
+      "$f(x) = 3 \\cdot (1{,}5)^x$",
+      "$f(x) = x^3$",
+      "$f(x) = \\log(x) + 3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Pasa por $(0, 3)$ y crece aceleradamente: $f(x) = 3 \\cdot (1{,}5)^x$ con $f(0) = 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": "3 * pow(1.5, x)",
+    "graph_view": [
+      -5,
+      4,
+      -0.5,
+      10
+    ],
+    "explanation": "Señales que apuntan a $3 \\cdot (1{,}5)^x$:\n- Pasa por $(0, 3)$: $f(0) = 3 \\cdot (1{,}5)^0 = 3 \\cdot 1 = 3$ ✓\n- Crece aceleradamente con asíntota en $y = 0$ ✓\n- No es lineal (no es recta), no es cúbica (no tiene signo opuesto en $\\pm\\infty$), no es logarítmica (esta tendría asíntota vertical en $x = 0$).",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función que pasa por $(0, 1)$, es **siempre positiva** y **decreciente**.\n\n¿Cuál de estas fórmulas corresponde a la curva?",
+    "options": [
+      "$f(x) = 1 - x$",
+      "$f(x) = 2^x$",
+      "$f(x) = (0{,}6)^x$",
+      "$f(x) = -x^2 + 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Pasa por $(0,1)$, siempre positiva y decreciente: $(0{,}6)^x$ con base $< 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "pow(0.6, x)",
+    "graph_view": [
+      -4,
+      6,
+      -0.5,
+      9.0
+    ],
+    "explanation": "$(0{,}6)^x$ cumple todas las señales:\n- $f(0) = 1$ ✓\n- Siempre positiva: $(0{,}6)^x > 0$ ✓\n- Decreciente: base $0{,}6 < 1$ ✓\n\nDescartar: $1 - x$ es negativa para $x > 1$; $2^x$ es creciente; $-x^2 + 1$ tiene máximo y toma valores negativos.",
+    "reviewed": false
+  },
+  {
+    "question": "Un parámetro de contaminación en un río se reduce a la mitad cada 6 horas.\n\n¿Qué familia de función modela la concentración del contaminante en función del tiempo?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Reducirse a la mitad cada período es decaimiento exponencial con base $0{,}5$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Que la cantidad se reduzca a la mitad cada $6$ horas implica:\n$$C(t) = C_0 \\cdot \\left(\\frac{1}{2}\\right)^{t/6}$$\nLa función es **exponencial decreciente**. Este tipo de decaimiento se llama **decaimiento de primer orden** y es la firma de la vida media en física y química.",
+    "reviewed": false
+  },
+  {
+    "question": "Un fondo de inversión promete duplicar el capital cada 10 años.\n\n¿Qué familia de función modela el capital acumulado en función de los años?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Duplicarse en períodos fijos es crecimiento exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si el capital se duplica cada $10$ años:\n$$K(t) = K_0 \\cdot 2^{t/10}$$\nLa función es **exponencial creciente**. Equivalentemente, la tasa anual es $b = 2^{1/10} \\approx 1{,}072$ (un $7{,}2\\%$ anual aproximado).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de las siguientes situaciones NO corresponde a un modelo exponencial?",
+    "options": [
+      "Bacterias que se duplican cada hora",
+      "Un préstamo con interés compuesto anual",
+      "Un taxi que cobra \\$500 fijo más \\$150 por kilómetro",
+      "Una muestra radiactiva que pierde la mitad de su masa cada 5 años"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El taxi suma una cantidad fija por kilómetro: modelo lineal, no exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El taxi tiene costo $C(k) = 500 + 150k$: es **lineal** (la tarifa por km es fija).\n\nLos modelos exponenciales requieren que el cambio sea **proporcional al valor actual**:\n- Bacterias: cada hora se multiplican por $2$.\n- Préstamo: cada período se multiplica por $(1 + r)$.\n- Muestra radiactiva: cada período se multiplica por $0{,}5$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Puede una función exponencial $f(x) = a \\cdot b^x$ con $a > 0$ tomar el valor $0$?",
+    "options": [
+      "Sí, cuando $x = 0$",
+      "Sí, cuando $x \\to -\\infty$",
+      "No, porque $b^x > 0$ y $a > 0$ siempre",
+      "Solo si $b = 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Con $a > 0$ y $b^x > 0$: el producto $a \\cdot b^x > 0$ siempre. Nunca vale cero.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Como $b^x > 0$ para todo $x$ y $a > 0$:\n$$\\begin{aligned} f(x) &= a \\cdot b^x > 0 \\\\ \\text{para todo } x \\in \\mathbb{R} \\end{aligned}$$\nEl $0$ es un límite asintótico ($f \\to 0$ pero nunca llega). Por eso el $0$ no pertenece a la imagen y la ecuación $f(x) = 0$ no tiene solución real.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el dominio de $f(x) = e^{x^2 - 3}$?",
+    "options": [
+      "$(3, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$(\\sqrt{3}, +\\infty)$",
+      "$(-\\sqrt{3}, \\sqrt{3})$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La función $e^u$ está definida para todo $u$ real, y $x^2 - 3$ es real para todo $x$: dominio $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El exponente $u = x^2 - 3$ es un polinomio: está definido para todo $x \\in \\mathbb{R}$.\nComo $e^u$ acepta cualquier valor real de $u$, el dominio es $\\mathbb{R}$.\n\nLa restricción de dominio solo aparece si el exponente contiene un logaritmo o una raíz par de expresión posiblemente negativa, no en este caso.",
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa tenía 1000 seguidores en redes y suma 200 seguidores por semana de manera constante.\n\n¿Qué familia de función modela el total de seguidores en función de las semanas?",
+    "options": [
+      "Exponencial creciente",
+      "Lineal creciente",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sumar una cantidad fija por período es lineal: $S(t) = 1000 + 200t$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La señal clave es **cantidad fija** por período:\n$$S(t) = 1000 + 200t \\quad \\text{(lineal)}$$\nSi en cambio creciera un $20\\%$ por semana sería exponencial:\n$$S(t) = 1000 \\cdot (1{,}2)^t \\quad \\text{(exponencial)}$$\nLa diferencia: sumar constante = lineal; multiplicar por constante = exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "Dos modelos de ahorro para \\$5000 iniciales:\n$$\\begin{aligned} A(t) &= 5000 + 400t \\\\ B(t) &= 5000 \\cdot (1{,}08)^t \\end{aligned}$$\n\n¿Cuál de los dos es exponencial?",
+    "options": [
+      "$A(t)$",
+      "$B(t)$",
+      "Ambos",
+      "Ninguno"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$B(t) = 5000 \\cdot (1{,}08)^t$ tiene $t$ en el exponente: es exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Análisis:\n- $A(t) = 5000 + 400t$: suma $400$ fijos por período → **lineal**.\n- $B(t) = 5000 \\cdot (1{,}08)^t$: multiplica por $1{,}08$ cada período → **exponencial**.\n\n$B$ modela interés compuesto al $8\\%$ anual; $A$ modela interés simple ($400 = 8\\%$ de $5000$). Para $t$ grande, $B$ supera ampliamente a $A$.",
+    "reviewed": false
+  }
+]

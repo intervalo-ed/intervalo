@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál es el valor de $\\int_1^2 3x^2 \\, dx$?",
+    "options": [
+      "$7$",
+      "$8$",
+      "$9$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\left[ x^3 \\right]_1^2 = 8 - 1 = 7$.",
+    "feedback_incorrect": "La primitiva de $3x^2$ es $x^3$. Evaluá en $2$ ($8$) y restale el valor en $1$ ($1$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver esta integral definida aplicamos el **Teorema Fundamental del Cálculo** (Regla de Barrow):\n\n1. Hallamos la primitiva de $f(x) = 3x^2$, que es $F(x) = x^3$ (ya que $(x^3)' = 3x^2$).\n2. Evaluamos en los límites de integración:\n\n$$\\int_1^2 3x^2 \\, dx = [x^3]_1^2 = (2)^3 - (1)^3$$\n\n3. Realizamos el cálculo final: $8 - 1 = 7$.\n\nEste valor representa el área exacta bajo la parábola $3x^2$ entre las rectas verticales $x=1$ y $x=2$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el valor exacto de $\\int_0^{\\pi} \\sin(x) \\, dx$.",
+    "options": [
+      "$0$",
+      "$2$",
+      "$-2$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$[-\\cos(x)]_0^{\\pi} = -(-1) - (-1) = 1 + 1 = 2$.",
+    "feedback_incorrect": "Ojo con los signos: la primitiva es $-\\cos(x)$. Evaluá: $-\\cos(\\pi) - (-\\cos(0)) = -(-1) + 1 = 2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la Regla de Barrow con cuidado en los signos trigonométricos:\n\nLa primitiva de $\\sin(x)$ es $-\\cos(x)$. Entonces:\n\n$$\\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi}$$\n\nEvaluando en el límite superior ($\\pi$) y restando el límite inferior ($0$):\n\n$$(-\\cos(\\pi)) - (-\\cos(0)) = (-(-1)) - (-1) = 1 + 1 = 2$$\n\nGeométricamente, esto nos dice que el área de una 'joroba' completa de la función seno es exactamente $2$ unidades cuadradas.",
+    "reviewed": false
+  },
+  {
+    "question": "Evaluá la integral definida $\\int_0^1 (e^x + 1) \\, dx$.",
+    "options": [
+      "$e + 1$",
+      "$e - 1$",
+      "$e$",
+      "$2e$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$[e^x + x]_0^1 = (e^1 + 1) - (e^0 + 0) = e + 1 - 1 = e$.",
+    "feedback_incorrect": "La primitiva es $e^x + x$. Evaluá en $1$ ($e+1$) y restale el valor en $0$ ($e^0=1$). El resultado es $e$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Usamos la linealidad de la integral y el TFC. La primitiva de $e^x + 1$ es $e^x + x$.\n\nProcedemos con la evaluación:\n\n$$\\int_0^1 (e^x + 1) \\, dx = [e^x + x]_0^1$$\n\nEvaluando en $1$: $e^1 + 1 = e + 1$.\nEvaluando en $0$: $e^0 + 0 = 1$.\n\nRestamos los valores: $(e + 1) - 1 = e$.\n\nRecordá siempre que $e^0 = 1$, un error muy frecuente es pensar que evaluar en cero anula toda la expresión.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\int_1^e \\frac{1}{x} \\, dx$?",
+    "options": [
+      "$\\ln(e) - 1$",
+      "$e$",
+      "$0$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$[\\ln|x|]_1^e = \\ln(e) - \\ln(1) = 1 - 0 = 1$.",
+    "feedback_incorrect": "La primitiva de $1/x$ es $\\ln(x)$. Como $\\ln(e)=1$ y $\\ln(1)=0$, la diferencia es $1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta es una de las integrales más importantes del análisis. La primitiva de $1/x$ es $\\ln|x|$.\n\n$$\\int_1^e \\frac{1}{x} \\, dx = [\\ln(x)]_1^e$$\n\nComo estamos en un intervalo positivo, podemos omitir las barras de valor absoluto:\n\n$$\\ln(e) - \\ln(1) = 1 - 0 = 1$$\n\nEste resultado es de hecho una de las definiciones del número $e$: es el valor tal que el área bajo la hipérbola $1/x$ desde $1$ hasta ese número es exactamente igual a $1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int_{-1}^1 x^3 \\, dx$.",
+    "options": [
+      "$0$",
+      "$\\frac{1}{2}$",
+      "$2$",
+      "$\\frac{1}{4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$[x^4/4]_{-1}^1 = 1/4 - 1/4 = 0$.",
+    "feedback_incorrect": "La primitiva es $x^4/4$. Al ser una potencia par, $(-1)^4 = 1^4$, por lo que al restar da cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo por Barrow:\n\n$$\\int_{-1}^1 x^3 \\, dx = \\left[ \\frac{x^4}{4} \\right]_{-1}^1 = \\frac{(1)^4}{4} - \\frac{(-1)^4}{4} = \\frac{1}{4} - \\frac{1}{4} = 0$$\n\nEste resultado tiene una explicación geométrica clara: $f(x) = x^3$ es una **función impar**. En un intervalo simétrico respecto al origen $[-a, a]$, el área positiva a la derecha se cancela exactamente con el área negativa a la izquierda, resultando en un área neta de cero.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallá el valor de $\\int_0^4 \\sqrt{x} \\, dx$.",
+    "options": [
+      "$4$",
+      "$\\frac{16}{3}$",
+      "$\\frac{8}{3}$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$[\\frac{2}{3}x^{3/2}]_0^4 = \\frac{2}{3}(4)^{3/2} = \\frac{2}{3} \\cdot 8 = 16/3$.",
+    "feedback_incorrect": "Escribí $\\sqrt{x}$ como $x^{1/2}$ y usá la regla de la potencia. La primitiva es $\\frac{2}{3}x^{3/2}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para integrar raíces, las expresamos como potencias fraccionarias: $\\sqrt{x} = x^{1/2}$.\n\nLa primitiva es:\n\n$$F(x) = \\frac{x^{1/2 + 1}}{1/2 + 1} = \\frac{x^{3/2}}{3/2} = \\frac{2}{3}x^{3/2}$$\n\nEvaluamos de $0$ a $4$:\n\n$$\\frac{2}{3}(4)^{3/2} - \\frac{2}{3}(0)^{3/2} = \\frac{2}{3}(\\sqrt{4})^3 = \\frac{2}{3} \\cdot 8 = \\frac{16}{3}$$\n\nEl resultado $16/3$ (aprox. 5.33) es el área bajo la curva radical en ese tramo inicial.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\int_1^2 (x + \\frac{1}{x^2}) \\, dx$?",
+    "options": [
+      "$1$",
+      "$\\frac{3}{2}$",
+      "$2$",
+      "$2.5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$[x^2/2 - 1/x]_1^2 = (2-1/2) - (1/2-1) = 1.5 - (-0.5) = 2$.",
+    "feedback_incorrect": "Primitiva: $x^2/2 - 1/x$. Evaluá con cuidado las fracciones en los límites $2$ y $1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos la integral en dos términos elementales. La primitiva de $x$ es $x^2/2$ y la de $1/x^2$ (que es $x^{-2}$) es $x^{-1}/(-1) = -1/x$.\n\n$$F(x) = \\frac{x^2}{2} - \\frac{1}{x}$$\n\nEvaluamos:\n$F(2) = \\frac{4}{2} - \\frac{1}{2} = 2 - 0.5 = 1.5$\n$F(1) = \\frac{1}{2} - \\frac{1}{1} = 0.5 - 1 = -0.5$\n\nRestamos: $1.5 - (-0.5) = 1.5 + 0.5 = 2$.\n\nFijate cómo el signo menos de la primitiva y el signo menos de la resta de Barrow se combinaron para sumar el valor.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int_0^1 10x^9 \\, dx$.",
+    "options": [
+      "$9$",
+      "$10$",
+      "$0.1$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$[x^{10}]_0^1 = 1^{10} - 0^{10} = 1$.",
+    "feedback_incorrect": "La primitiva es simplemente $x^{10}$. Evaluada entre $0$ y $1$ da $1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicando la regla de la potencia para integrales:\n\n$$\\int 10x^9 \\, dx = 10 \\cdot \\frac{x^{9+1}}{9+1} = 10 \\cdot \\frac{x^{10}}{10} = x^{10}$$\n\nEvaluando en los límites:\n\n$$\\int_0^1 10x^9 \\, dx = [x^{10}]_0^1 = 1^{10} - 0^{10} = 1$$\n\nAunque la función $10x^9$ crece muy rápido hasta valer $10$ en $x=1$, el área acumulada en ese primer intervalo es sorprendentemente pequeña: solo $1$ unidad cuadrada.",
+    "reviewed": false
+  },
+  {
+    "question": "Determiná el valor de $\\int_{-2}^2 5 \\, dx$.",
+    "options": [
+      "$20$",
+      "$10$",
+      "$0$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$5 \\cdot (2 - (-2)) = 5 \\cdot 4 = 20$.",
+    "feedback_incorrect": "La primitiva de una constante $k$ es $kx$. Evaluá $5x$ de $-2$ a $2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La integral de una constante es el caso más sencillo del TFC. La primitiva de $5$ es $5x$.\n\n$$\\int_{-2}^2 5 \\, dx = [5x]_{-2}^2 = 5(2) - 5(-2) = 10 - (-10) = 20$$\n\nGeométricamente, esto representa el área de un **rectángulo** de base $4$ (de $-2$ a $2$) y altura $5$. El área es base por altura: $4 \\cdot 5 = 20$. Siempre que integres una constante, podés verificar tu resultado con esta fórmula geométrica simple.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int_0^{\\pi/4} \\sec^2(x) \\, dx$.",
+    "options": [
+      "$\\sqrt{2}$",
+      "$1$",
+      "$0$",
+      "$\\frac{\\pi}{4}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$[\\tan(x)]_0^{\\pi/4} = \\tan(\\pi/4) - \\tan(0) = 1 - 0 = 1$.",
+    "feedback_incorrect": "Recordá que $(\\tan x)' = \\sec^2 x$. Evaluá la tangente en $\\pi/4$ (que es 1) y en 0 (que es 0).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver integrales trigonométricas es vital reconocer derivadas inmediatas. Sabemos que la derivada de la función tangente es la secante al cuadrado.\n\nPor el TFC:\n\n$$\\int_0^{\\pi/4} \\sec^2(x) \\, dx = [\\tan(x)]_0^{\\pi/4}$$\n\nEvaluamos:\n$\\tan(\\pi/4) = 1$ (ya que $\\sin = \\cos$ en $45^\\circ$)\n$\\tan(0) = 0$\n\nRestamos: $1 - 0 = 1$. Este es un ejemplo clásico donde una función que tiende a infinito (la secante) encierra un área finita muy simple en un intervalo acotado.",
+    "reviewed": false
+  }
+]

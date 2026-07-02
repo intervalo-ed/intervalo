@@ -1,0 +1,87 @@
+[
+  {
+    "question": "¿Cuánto vale el límite $\\lim_{x \\to 0} \\dfrac{\\sin(3x)}{x}$ usando la Regla de L'Hôpital?",
+    "options": [
+      "$0$",
+      "$1$",
+      "$3$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Derivando numerador y denominador obtenés $3\\cos(3x)/1$, que tiende a 3.",
+    "feedback_incorrect": "Al evaluar tenés $0/0$. Derivá el numerador ($3\\cos(3x)$) y el denominador ($1$) para resolverlo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar el límite directamente, obtenés la indeterminación $\\frac{0}{0}$. Aplicando la **Regla de L'Hôpital**, derivamos el numerador y el denominador por separado:\n\n$$\\begin{aligned} ( \\sin(3x) )' &= 3\\cos(3x) \\\\ ( x )' &= 1 \\end{aligned}$$\n\nReescribiendo el límite:\n\n$$\\lim_{x \\to 0} \\frac{3\\cos(3x)}{1} = 3\\cos(0) = 3 \\cdot 1 = 3$$\n\nEste método es mucho más rápido que usar límites notables cuando ya conocés las reglas de derivación.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\lim_{x \\to \\infty} \\dfrac{\\ln(x)}{x}$.",
+    "options": [
+      "$1$",
+      "$0$",
+      "$\\infty$",
+      "$e$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La derivada es $(1/x)/1$, que tiende a 0 cuando $x$ crece.",
+    "feedback_incorrect": "Es una indeterminación $\\infty/\\infty$. Derivá ambos términos: $1/x$ dividido 1 tiende a 0.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Estamos ante una indeterminación del tipo $\\frac{\\infty}{\\infty}$. La **Regla de L'Hôpital** nos permite derivar arriba y abajo:\n\n$$\\begin{aligned} \\frac{d}{dx}[\\ln(x)] &= \\frac{1}{x} \\\\ \\frac{d}{dx}[x] &= 1 \\end{aligned}$$\n\nEl nuevo límite es:\n\n$$\\lim_{x \\to \\infty} \\frac{1/x}{1} = \\lim_{x \\to \\infty} \\frac{1}{x} = 0$$\n\nEsto demuestra formalmente que la función lineal $x$ crece mucho más rápido que la función logarítmica $\\ln(x)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si aplicás L'Hôpital a $\\lim_{x \\to 0} \\dfrac{e^x - 1}{x^2 + x}$, ¿qué resultado obtenés?",
+    "options": [
+      "$0$",
+      "$\\infty$",
+      "$1$",
+      "$\\frac{1}{2}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La derivada es $e^x / (2x + 1)$, que en $x=0$ vale $1/1 = 1$.",
+    "feedback_incorrect": "La indeterminación es $0/0$. Derivá: arriba queda $e^x$ y abajo $2x+1$. Evaluando en 0 da 1.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar en $x=0$ surge la forma $\\frac{0}{0}$. Aplicamos la **Regla de L'Hôpital** derivando ambos componentes:\n\n$$\\begin{aligned} (e^x - 1)' &= e^x \\\\ (x^2 + x)' &= 2x + 1 \\end{aligned}$$\n\nEvaluamos el límite de la nueva fracción:\n\n$$\\lim_{x \\to 0} \\frac{e^x}{2x + 1} = \\frac{e^0}{2(0) + 1} = \\frac{1}{1} = 1$$\n\nFijate que si el denominador hubiera sido solo $x^2$, habríamos necesitado aplicar la regla una segunda vez.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\lim_{x \\to 0} \\dfrac{1 - \\cos(x)}{x^2}$.",
+    "options": [
+      "$1$",
+      "$0$",
+      "$\\frac{1}{2}$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Aplicando L'Hôpital dos veces obtenés $\\cos(x)/2$, que tiende a $1/2$.",
+    "feedback_incorrect": "Requiere L'Hôpital dos veces. La primera derivada da $\\sin(x)/2x$ (sigue $0/0$), y la segunda $\\cos(x)/2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este límite es un clásico que requiere **L'Hôpital sucesivo**. La primera evaluación da $0/0$. Derivamos:\n\n$$\\lim_{x \\to 0} \\frac{\\sin(x)}{2x}$$\n\nComo sigue dando $0/0$, aplicamos la regla por segunda vez:\n\n$$\\lim_{x \\to 0} \\frac{\\cos(x)}{2} = \\frac{1}{2}$$\n\nEs fundamental verificar que la indeterminación persista antes de aplicar la regla por segunda vez. Si la primera derivada ya no fuera indeterminada, no podrías seguir.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el valor de $\\lim_{x \\to 0} \\dfrac{x - \\sin(x)}{x^3}$?",
+    "options": [
+      "$\\frac{1}{6}$",
+      "$0$",
+      "$\\frac{1}{3}$",
+      "$\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Requiere tres aplicaciones de L'Hôpital para llegar a $\\cos(x)/6$.",
+    "feedback_incorrect": "Derivá sucesivamente. Primera: $(1-\\cos x)/3x^2$. Segunda: $\\sin x / 6x$. Tercera: $\\cos x / 6$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este ejercicio requiere aplicar la **Regla de L'Hôpital** tres veces consecutivas porque la indeterminación $0/0$ persiste:\n\n1) $\\lim_{x \\to 0} \\frac{1 - \\cos(x)}{3x^2}$ (Sigue $0/0$)\n2) $\\lim_{x \\to 0} \\frac{\\sin(x)}{6x}$ (Sigue $0/0$)\n3) $\\lim_{x \\to 0} \\frac{\\cos(x)}{6} = \\frac{1}{6}$\n\nEste resultado es la base para entender por qué, en aproximaciones de Taylor, $\\sin(x) \\approx x - \\frac{x^3}{6}$ cerca de cero.",
+    "reviewed": false
+  }
+]

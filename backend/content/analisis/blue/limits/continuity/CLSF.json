@@ -1,0 +1,192 @@
+[
+  {
+    "question": "¿Cuáles son las tres condiciones para que $f$ sea continua en $x = a$?",
+    "options": [
+      "$f(a)$ existe, $\\lim_{x \\to a} f(x)$ existe, y $\\lim_{x \\to a} f(x) = f(a)$",
+      "$f(a) = 0$, $f'(a)$ existe, y $f$ es positiva en $a$",
+      "$f(a)$ existe y $f$ es diferenciable en $a$",
+      "El límite existe y es finito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las tres condiciones son: (1) $f(a)$ existe, (2) el límite existe, (3) ambos coinciden.",
+    "feedback_incorrect": "Para continuidad en $x=a$ se necesitan exactamente tres condiciones: que $f(a)$ esté definida, que el límite exista, y que sean iguales.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **continuidad en un punto** requiere que tres condiciones se cumplan simultáneamente. Basta que falle una sola para que la función sea discontinua.\n\n$$f \\text{ continua en } a \\iff \\begin{cases} \\text{1) } f(a) \\text{ existe} \\\\ \\text{2) } \\lim_{x \\to a} f(x) \\text{ existe} \\\\ \\text{3) } \\lim_{x \\to a} f(x) = f(a) \\end{cases}$$\n\nInformalmente: la función debe estar definida en $a$, acercarse a algo desde ambos lados, y ese «algo» debe coincidir con el valor real de la función en $a$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una discontinuidad es \"removible\" cuando...",
+    "options": [
+      "Los límites laterales son distintos",
+      "El límite bilateral existe, pero no coincide con $f(a)$ (o $f(a)$ no está definida)",
+      "El límite tiende a infinito",
+      "La función no está definida en ningún punto cerca de $a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La discontinuidad es removible si el límite existe pero $f(a)$ falta o difiere. Se puede \"arreglar\" redefiniendo $f(a)$.",
+    "feedback_incorrect": "Una discontinuidad removible es aquella donde $\\lim_{x \\to a} f(x)$ existe, pero $f(a)$ no está definida o tiene un valor distinto al límite.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **discontinuidad removible** es la más «leve»: el límite bilateral existe, pero algo falla en el valor puntual. En la gráfica se ve como un hueco o un punto fuera de lugar.\n\n$$\\begin{aligned} \\lim_{x &\\to a} f(x) = L \\\\ \\text{pero} \\\\ f(a) &\\neq L \\text{ (o } f(a) \\text{ no existe)} \\end{aligned}$$\n\nSe llama removible porque puede «arreglarse» redefiniendo $f(a) = L$ sin cambiar el resto de la función. Ejemplo: $\\dfrac{x^2-4}{x-2}$ tiene una discontinuidad removible en $x=2$, que desaparece al simplificar.",
+    "reviewed": false
+  },
+  {
+    "question": "Una discontinuidad es \"de salto\" cuando...",
+    "options": [
+      "El límite tiende a $\\pm\\infty$",
+      "El límite bilateral existe pero $f(a)$ no está definida",
+      "Los límites laterales existen pero son distintos: $\\lim^- \\neq \\lim^+$",
+      "La función tiene un pico (máximo local)"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En la discontinuidad de salto, la función \"salta\" de un valor a otro: $\\lim^- \\neq \\lim^+$.",
+    "feedback_incorrect": "La discontinuidad de salto ocurre cuando los dos límites laterales existen pero son distintos, causando un salto en la gráfica.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **discontinuidad de salto** ocurre cuando los límites laterales existen y son finitos, pero no son iguales entre sí. El límite bilateral no existe y la gráfica «salta» de un nivel a otro.\n\n$$\\begin{aligned} \\lim_{x &\\to a^-} f(x) = L_1 \\\\ \\lim_{x &\\to a^+} f(x) = L_2 \\\\ L_1 &\\neq L_2 \\end{aligned}$$\n\nEjemplo clásico: las funciones escalera o las funciones a trozos con valores distintos a izquierda y derecha de $a$. A diferencia de la removible, este tipo no puede arreglarse con una simple redefinición.",
+    "reviewed": false
+  },
+  {
+    "question": "Una discontinuidad es \"esencial\" (o infinita) cuando...",
+    "options": [
+      "La función tiene un valor máximo en $x = a$",
+      "Los límites laterales son iguales pero $f(a)$ no está definida",
+      "La función salta de un valor finito a otro",
+      "Al menos uno de los límites laterales es $\\pm\\infty$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La discontinuidad esencial/infinita ocurre cuando la función explota ($\\to \\pm\\infty$) cerca de $x=a$, como en las asíntotas verticales.",
+    "feedback_incorrect": "Una discontinuidad esencial ocurre cuando el límite (o un límite lateral) tiende a $\\pm\\infty$, como en $f(x) = 1/x$ en $x=0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **discontinuidad esencial** (también llamada infinita) es la más grave: al menos uno de los límites laterales es $\\pm\\infty$. La función «explota» cerca de $x=a$, generando una asíntota vertical.\n\n$$\\begin{aligned} \\lim_{x &\\to a^-} f(x) = +\\infty \\\\ \\lim_{x &\\to a^+} f(x) = -\\infty \\end{aligned}$$\n\nEjemplo canónico: $f(x) = \\dfrac{1}{x}$ en $x=0$. No puede arreglarse redefiniendo un punto: la discontinuidad es estructural e imposible de eliminar.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada $f(x) = \\begin{cases} x+1 & x < 2 \\\\ 5 & x = 2 \\\\ x+1 & x > 2 \\end{cases}$, ¿es $f$ continua en $x=2$?",
+    "options": [
+      "No: $\\lim_{x \\to 2} f(x) = 3$ pero $f(2) = 5$",
+      "Sí: $f(2) = 5$ está definida",
+      "Sí: $\\lim_{x \\to 2} f(x) = 5$",
+      "No: el límite no existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El límite existe ($\\lim^- = \\lim^+ = 3$), pero $f(2)=5 \\neq 3$. Discontinuidad removible.",
+    "feedback_incorrect": "$\\lim_{x \\to 2} (x+1) = 3$ pero $f(2) = 5 \\neq 3$. La tercera condición de continuidad falla: discontinuidad removible.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para analizar continuidad en $x=2$, verificamos las tres condiciones. Aquí $f(2)=5$ (primera condición: ok) y el límite existe, pero calculamos cuánto vale.\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(x+1) = 3 \\\\ \\lim_{x &\\to 2^+}(x+1) = 3 \\\\ \\Rightarrow \\\\ \\lim_{x &\\to 2} f(x) = 3 \\end{aligned}$$\n\nComo $\\lim = 3 \\neq 5 = f(2)$, la tercera condición falla. La función tiene una **discontinuidad removible**: el límite existe, pero el punto fue «pegado» en el lugar incorrecto.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra un hueco (punto removido) en $x=2$. ¿Qué tipo de discontinuidad es?",
+    "options": [
+      "De salto",
+      "Removible",
+      "Esencial",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Un hueco en la gráfica (el límite existe pero $f(a)$ falta o difiere) indica discontinuidad removible.",
+    "feedback_incorrect": "Un hueco o punto removido en la gráfica es la representación visual de una discontinuidad removible: el límite existe pero $f(a)$ es distinto o no está definido.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      8
+    ],
+    "explanation": "En la gráfica, un **hueco** (círculo abierto) indica que la función se acerca a un valor concreto desde ambos lados, pero el punto en sí está mal definido o ausente. Eso es exactamente la discontinuidad removible.\n\n$$\\begin{aligned} \\lim_{x &\\to 2} \\frac{x^2-4}{x-2} = \\lim_{x \\to 2}(x+2) = 4 \\\\ \\text{pero} \\\\ f(2) &= 5 \\end{aligned}$$\n\nEl hueco aparece en $y=4$ (adonde tiende la curva) y hay un punto separado en $y=5$ (el valor definido). Si redefinimos $f(2)=4$, la discontinuidad desaparece: de ahí el nombre «removible».",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica salta de $y=1$ a $y=4$ en $x=0$. ¿Qué tipo de discontinuidad es?",
+    "options": [
+      "Esencial",
+      "Removible",
+      "De salto",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Un salto visible en la gráfica (dos ramas separadas) indica una discontinuidad de salto.",
+    "feedback_incorrect": "Cuando la gráfica salta de un nivel a otro, es una discontinuidad de salto. Los límites laterales existen pero son distintos.",
+    "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      6
+    ],
+    "explanation": "La gráfica tiene dos ramas horizontales: una en $y=1$ para $x<0$ y otra en $y=4$ para $x \\geq 0$. Los límites laterales existen y son finitos, pero son distintos.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-} f(x) = 1 \\\\ &\\neq \\\\ \\lim_{x &\\to 0^+} f(x) = 4 \\end{aligned}$$\n\nComo los límites laterales no coinciden, el límite bilateral no existe. Esto es una **discontinuidad de salto**: la función salta abruptamente de un nivel al otro y ninguna redefinición puntual puede arreglarlo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de $f(x) = \\dfrac{1}{x}$ tiene una discontinuidad en $x=0$. ¿De qué tipo es?",
+    "options": [
+      "No hay discontinuidad",
+      "Removible",
+      "De salto",
+      "Esencial (infinita)"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 1/x$ tiene $\\lim_{x \\to 0} = \\pm\\infty$ (asíntota vertical), que es una discontinuidad esencial.",
+    "feedback_incorrect": "En $x=0$, $1/x \\to \\pm\\infty$: los límites laterales son infinitos. Esto es una discontinuidad esencial.",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -4,
+      4,
+      -6,
+      6
+    ],
+    "explanation": "La gráfica de $\\dfrac{1}{x}$ muestra una **asíntota vertical** en $x=0$: la curva se dispara hacia $+\\infty$ por la derecha y hacia $-\\infty$ por la izquierda.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^+} \\frac{1}{x} = +\\infty \\\\ \\lim_{x &\\to 0^-} \\frac{1}{x} = -\\infty \\end{aligned}$$\n\nComo al menos un límite lateral es infinito, la discontinuidad es **esencial**. Es la más severa de las tres: no hay forma de redefinir $f(0)$ para hacerla continua.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Toda función polinómica (como $f(x) = x^3 - 2x + 5$) es continua en todo $\\mathbb{R}$?",
+    "options": [
+      "Sí, los polinomios son continuos en todos los reales",
+      "No, pueden tener discontinuidades en algunos puntos",
+      "Solo si tienen grado par",
+      "Solo si su coeficiente líder es positivo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Toda función polinómica es continua en $\\mathbb{R}$: en cualquier punto $a$, $\\lim_{x \\to a} p(x) = p(a)$.",
+    "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. No tienen discontinuidades sin importar su grado o coeficientes.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los **polinomios** son la familia más «amigable» en términos de continuidad: para cualquier polinomio $p(x)$ y cualquier punto $a \\in \\mathbb{R}$, la sustitución directa siempre funciona.\n\n$$\\begin{aligned} \\lim_{x &\\to a} p(x) = p(a) \\\\ \\text{para todo } a \\in \\mathbb{R} \\end{aligned}$$\n\nEsto se debe a que los polinomios están definidos en todos los reales y no tienen denominadores que puedan anularse. Las tres condiciones de continuidad se cumplen automáticamente en todo punto, sin importar el grado ni los coeficientes.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una curva suave sin interrupciones en el intervalo $[-2, 4]$. ¿Es continua allí?",
+    "options": [
+      "No, solo si la función es un polinomio",
+      "Sí, la curva sin interrupciones indica continuidad",
+      "No se puede determinar solo con la gráfica",
+      "Sí, pero solo en los puntos donde la derivada existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una curva sin saltos, huecos ni asíntotas en el intervalo indica que la función es continua allí.",
+    "feedback_incorrect": "Una gráfica sin saltos, huecos ni asíntotas verticales en un intervalo indica continuidad en ese intervalo.",
+    "graph_fn": "x**2 - 2*x + 1",
+    "graph_view": [
+      -3,
+      5,
+      -1,
+      10
+    ],
+    "explanation": "La **continuidad geométrica** se reconoce visualmente: una función es continua en un intervalo si su gráfica puede trazarse sin levantar el lápiz del papel — sin saltos, sin huecos, sin asíntotas verticales.\n\n$$f \\text{ continua en } [a, b] \\iff \\text{gráfica sin interrupciones en } [a, b]$$\n\nUna curva «suave» puede tener vértices (ángulos) y seguir siendo continua: la continuidad no exige suavidad de la derivada. La parábola $(x-1)^2$ es continua en todo $\\mathbb{R}$ aunque tenga un mínimo bien definido.",
+    "reviewed": false
+  }
+]

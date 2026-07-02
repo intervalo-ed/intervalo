@@ -1,0 +1,172 @@
+[
+  {
+    "question": "La velocidad de un objeto es $v(t) = 2t + 1$ m/s. ¿Qué distancia recorre en los primeros 3 segundos?",
+    "options": [
+      "$6 \\text{ m}$",
+      "$12 \\text{ m}$",
+      "$9 \\text{ m}$",
+      "$10 \\text{ m}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\int_0^3 (2t+1) \\, dt = [t^2+t]_0^3 = 9+3 = 12$.",
+    "feedback_incorrect": "La distancia es la integral de la velocidad. Calculá $\\int_0^3 (2t+1) \\, dt$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En física, la **distancia recorrida** por un objeto (cuando la velocidad es positiva) se calcula integrando la función de velocidad respecto al tiempo:\n\n$$\\Delta x = \\int_{t_1}^{t_2} v(t) \\, dt$$\n\nPara $v(t) = 2t + 1$ entre $t=0$ y $t=3$:\n\n$$\\int_0^3 (2t + 1) \\, dt = [t^2 + t]_0^3 = (3^2 + 3) - (0^2 + 0) = 9 + 3 = 12 \\text{ metros}$$\n\nEste uso de la integral es fundamental en cinemática para pasar de información sobre cambios instantáneos (velocidad) a información sobre cambios totales (posición).",
+    "reviewed": false
+  },
+  {
+    "question": "El costo marginal de producir $x$ unidades es $C'(x) = 10 - 0.2x$. ¿Cuánto aumenta el costo total al pasar de producir 10 a 20 unidades?",
+    "options": [
+      "$70$",
+      "$100$",
+      "$85$",
+      "$30$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Integramos el costo marginal: $[10x - 0.1x^2]_{10}^{20} = (200-40) - (100-10) = 160 - 90 = 70$.",
+    "feedback_incorrect": "El cambio en el costo total es la integral del costo marginal en el intervalo de producción deseado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En economía, el **costo marginal** representa la derivada del costo total. Por lo tanto, para encontrar la variación del costo total al cambiar el nivel de producción, integramos la función marginal:\n\n$$\\Delta C = \\int_{x_1}^{x_2} C'(x) \\, dx$$\n\n$$\\int_{10}^{20} (10 - 0.2x) \\, dx = [10x - 0.1x^2]_{10}^{20}$$\n\nEvaluando: $(200 - 40) - (100 - 10) = 160 - 90 = 70$. Producir esas 10 unidades adicionales incrementa el costo en 70 unidades monetarias.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el área de la región encerrada por $f(x) = x^3$ y el eje $X$ entre $x=0$ y $x=2$?",
+    "options": [
+      "$8$",
+      "$4$",
+      "$2$",
+      "$16$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\int_0^2 x^3 \\, dx = [x^4/4]_0^2 = 16/4 = 4$.",
+    "feedback_incorrect": "Planteá la integral definida de la función $x^3$ en el intervalo $[0, 2]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para calcular el **área bajo la curva**, planteamos la integral definida. Como $x^3$ es positiva en el intervalo $[0, 2]$, el área coincide directamente con el valor de la integral:\n\n$$\\text{Área} = \\int_0^2 x^3 \\, dx$$\n\nBuscamos la primitiva: $F(x) = x^4/4$. Luego aplicamos Barrow:\n\n$$F(2) - F(0) = \\frac{2^4}{4} - \\frac{0^4}{4} = \\frac{16}{4} = 4$$\n\nLa región encerrada tiene una superficie de 4 unidades cuadradas. Si la función fuera negativa en algún tramo, deberíamos usar el valor absoluto para que las áreas no se resten.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque de agua se llena a una tasa de $r(t) = 5\\sqrt{t}$ litros por minuto. ¿Cuánta agua ingresa entre el minuto 0 y el minuto 4?",
+    "options": [
+      "$20 \\text{ L}$",
+      "$\\frac{80}{3} \\text{ L}$",
+      "$40 \\text{ L}$",
+      "$10 \\text{ L}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\int_0^4 5t^{1/2} \\, dt = [5 \\cdot \\frac{2}{3}t^{3/2}]_0^4 = \\frac{10}{3}(8) = 80/3$.",
+    "feedback_incorrect": "La cantidad total es la integral de la tasa de llenado. Integrá $5t^{1/2}$ de 0 a 4.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando conocemos la **tasa de cambio** de una cantidad (en este caso litros/minuto), la integral definida nos permite obtener el cambio total acumulado de esa magnitud.\n\n$$\\text{Agua total} = \\int_0^4 5t^{1/2} \\, dt$$\n\nLa primitiva de $t^{1/2}$ es $\\frac{t^{3/2}}{3/2} = \\frac{2}{3}t^{3/2}$. Multiplicando por la constante 5:\n\n$$F(t) = \\frac{10}{3}t^{3/2} \\Rightarrow F(4) = \\frac{10}{3}(4^{3/2}) = \\frac{10}{3}(8) = \\frac{80}{3}$$\n\nIngresaron aproximadamente $26.67$ litros de agua en esos 4 minutos.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el valor promedio de la función $f(x) = 3x^2$ en el intervalo $[1, 3]$.",
+    "options": [
+      "$13$",
+      "$26$",
+      "$12$",
+      "$39$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\frac{1}{3-1} \\int_1^3 3x^2 \\, dx = \\frac{1}{2} [x^3]_1^3 = \\frac{1}{2}(27-1) = 13$.",
+    "feedback_incorrect": "El valor promedio es la integral dividida por la longitud del intervalo: $\\frac{1}{b-a} \\int_a^b f(x) \\, dx$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Valor Promedio** de una función continua en un intervalo $[a, b]$ se define como la integral de la función dividida por la longitud del intervalo:\n\n$$f_{prom} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx$$\n\nPara $f(x) = 3x^2$ en $[1, 3]$:\n- La integral es $\\int_1^3 3x^2 \\, dx = [x^3]_1^3 = 27 - 1 = 26$.\n- La longitud del intervalo es $3 - 1 = 2$.\n\nPor lo tanto, el promedio es $26 / 2 = 13$. Esto representa la altura de un rectángulo que tendría la misma área que la región bajo la curva en ese intervalo.",
+    "reviewed": false
+  },
+  {
+    "question": "La fuerza aplicada sobre un resorte es $F(x) = 50x$ Newtons. ¿Qué trabajo se realiza al estirarlo desde $x=0$ hasta $x=0.2$ metros?",
+    "options": [
+      "$10 \\text{ J}$",
+      "$5 \\text{ J}$",
+      "$1 \\text{ J}$",
+      "$2 \\text{ J}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$W = \\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25(0.04) = 1$.",
+    "feedback_incorrect": "El trabajo es la integral de la fuerza respecto a la posición. Integrá $50x$ de 0 a 0.2.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En física, el **trabajo realizado** por una fuerza variable $F(x)$ se calcula mediante la integral definida:\n\n$$W = \\int_{x_1}^{x_2} F(x) \\, dx$$\n\nPara un resorte que sigue la ley de Hooke ($F=kx$):\n\n$$\\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25 \\cdot (0.2)^2 = 25 \\cdot 0.04 = 1 \\text{ Joule}$$\n\nLa integral definida nos permite sumar el aporte de fuerza infinitesimal en cada pequeño tramo del desplazamiento para obtener la energía total consumida.",
+    "reviewed": false
+  },
+  {
+    "question": "Se estima que una población crece a una tasa de $P'(t) = 100 e^{0.1t}$ individuos/año. ¿Cuánto crece la población entre el año 0 y el año 10?",
+    "options": [
+      "$1000(e - 1)$",
+      "$100e$",
+      "$1000e$",
+      "$e - 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\int_0^{10} 100e^{0.1t} \\, dt = [\\frac{100}{0.1} e^{0.1t}]_0^{10} = 1000(e^1 - e^0) = 1000(e-1)$.",
+    "feedback_incorrect": "Integrá la tasa de crecimiento. No olvides dividir por 0.1 (o multiplicar por 10) al buscar la primitiva de $e^{0.1t}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **crecimiento poblacional total** se obtiene integrando la tasa de crecimiento en el tiempo deseado:\n\n$$\\Delta P = \\int_0^{10} 100 e^{0.1t} \\, dt$$\n\nUsamos sustitución simple o la regla de integración de exponenciales con argumento lineal:\n\n$$F(t) = 100 \\cdot \\frac{e^{0.1t}}{0.1} = 1000 e^{0.1t}$$\n\nEvaluando en el intervalo $[0, 10]$:\n\n$$1000 e^{0.1(10)} - 1000 e^{0} = 1000 e^1 - 1000 = 1000(e - 1)$$\n\nComo $e \\approx 2.718$, la población creció en aproximadamente 1718 individuos.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el área encerrada por la curva $y = 1 - x^2$ y el eje $X$.",
+    "options": [
+      "$\\frac{2}{3}$",
+      "$\\frac{4}{3}$",
+      "$1$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Las raíces son $-1$ y $1$. $\\int_{-1}^1 (1-x^2) \\, dx = [x-x^3/3]_{-1}^1 = (2/3) - (-2/3) = 4/3$.",
+    "feedback_incorrect": "Primero encontrá dónde la función corta al eje $X$ (raíces) para saber los límites de integración. Luego integrá.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el **área encerrada por una función y el eje X**, primero buscamos las raíces de $1 - x^2 = 0$, que son $x = -1$ y $x = 1$. Estos serán nuestros límites de integración.\n\n$$\\text{Área} = \\int_{-1}^1 (1 - x^2) \\, dx = [x - \\frac{x^3}{3}]_{-1}^1$$\n\nEvaluamos en $1$: $1 - 1/3 = 2/3$.\nEvaluamos en $-1$: $-1 - (-1/3) = -2/3$.\n\nRestamos: $2/3 - (-2/3) = 4/3$. Este valor representa la superficie de la 'colina' que forma la parábola invertida sobre el eje horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "Un flujo de calor es $q(t) = \\sin(t) + 2$. ¿Cuánto calor total se transfiere desde $t=0$ hasta $t=\\pi$?",
+    "options": [
+      "$2 + \\pi$",
+      "$2\\pi + 2$",
+      "$\\pi$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\int_0^{\\pi} (\\sin t + 2) \\, dt = [-\\cos t + 2t]_0^{\\pi} = (1 + 2\\pi) - (-1) = 2\\pi + 2$.",
+    "feedback_incorrect": "Integrá cada término por separado: la primitiva de $\\sin(t)$ es $-\\cos(t)$ y la de $2$ es $2t$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para obtener la **cantidad total de calor**, integramos el flujo térmico en el tiempo dado:\n\n$$\\text{Calor} = \\int_0^{\\pi} (\\sin(t) + 2) \\, dt$$\n\nLa primitiva es $F(t) = -\\cos(t) + 2t$. Aplicamos Barrow:\n\n$$F(\\pi) = -\\cos(\\pi) + 2\\pi = -(-1) + 2\\pi = 1 + 2\\pi$$\n$$F(0) = -\\cos(0) + 2(0) = -1$$\n\nLa transferencia total es $(1 + 2\\pi) - (-1) = 2\\pi + 2$. El término $2\\pi$ viene del flujo constante y el $2$ del aporte variable de la función seno.",
+    "reviewed": false
+  },
+  {
+    "question": "La aceleración de un móvil es constante $a(t) = 4 \\text{ m/s}^2$. Si en $t=0$ está quieto, ¿cuál es su velocidad en $t=5$ segundos?",
+    "options": [
+      "$20 \\text{ m/s}$",
+      "$10 \\text{ m/s}$",
+      "$4 \\text{ m/s}$",
+      "$25 \\text{ m/s}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El cambio de velocidad es la integral de la aceleración: $\\int_0^5 4 \\, dt = [4t]_0^5 = 20$.",
+    "feedback_incorrect": "Recordá que el cambio de velocidad $\\Delta v$ es igual a la integral definida de la aceleración.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **cambio de velocidad** de un cuerpo se puede hallar integrando su aceleración respecto al tiempo:\n\n$$\\Delta v = v(t_2) - v(t_1) = \\int_{t_1}^{t_2} a(t) \\, dt$$\n\nEn este caso, con aceleración constante de $4$ entre $t=0$ y $t=5$:\n\n$$\\int_0^5 4 \\, dt = [4t]_0^5 = 4(5) - 4(0) = 20 \\text{ m/s}$$\n\nComo el móvil partió del reposo ($v(0)=0$), su velocidad final a los 5 segundos es exactamente de 20 m/s. La integral definida simplifica el cálculo de acumulaciones en procesos con tasas constantes o variables.",
+    "reviewed": false
+  }
+]

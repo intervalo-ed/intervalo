@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál de estas fórmulas representa correctamente la **regla de la cadena**?",
+    "options": [
+      "$(f(g(x)))' = f'(g(x)) + g'(x)$",
+      "$(f(g(x)))' = f'(g(x)) \\cdot g'(x)$",
+      "$(f(g(x)))' = f'(x) \\cdot g'(x)$",
+      "$(f(g(x)))' = f'(g'(x))$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Es la derivada de la externa evaluada en la interna, por la derivada de la interna.",
+    "feedback_incorrect": "La regla de la cadena es un producto, no una suma. Y la función externa se evalúa en $g(x)$, no en $x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la cadena** es la herramienta fundamental para derivar funciones compuestas. Se puede pensar como el producto de las razones de cambio de cada capa de la función.\n\nMatemáticamente se escribe:\n\n$$(f \\circ g)'(x) = f'(g(x)) \\cdot g'(x)$$\n\nLo más importante es entender que la función \"de afuera\" ($f$) se deriva pero su argumento ($g(x)$) se mantiene intacto en ese primer paso. Recién después aparece la derivada de lo de adentro multiplicando a todo el bloque.",
+    "reviewed": false
+  },
+  {
+    "question": "Querés derivar $y = \\ln(x^2 + 1)$. ¿Cuál es el primer paso según la regla de la cadena?",
+    "options": [
+      "Derivar $x^2 + 1$ para obtener $2x$.",
+      "Identificar que la función externa es $\\ln(u)$ y su derivada es $1/u$.",
+      "Multiplicar el logaritmo por $2x$.",
+      "Derivar el logaritmo y el paréntesis por separado y sumarlos."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Siempre se empieza identificando la función más externa para saber cómo empezar a 'pelar' la función.",
+    "feedback_incorrect": "Aunque vas a necesitar el $2x$, el primer paso conceptual es identificar la estructura externa de la función.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Derivar por regla de la cadena es como pelar una cebolla: vas de las capas exteriores a las interiores. En $y = \\ln(x^2 + 1)$, lo primero que \"afecta\" a la variable es el logaritmo.\n\nPor eso, el primer paso es reconocer que tenés un **logaritmo de algo**. La regla del logaritmo dice que su derivada es 1 sobre ese \"algo\".\n\nRecién después de escribir ese $1/(x^2+1)$ te encargás de derivar lo que está dentro del paréntesis. Mantener este orden evita que te olvides términos en funciones más complejas.",
+    "reviewed": false
+  },
+  {
+    "question": "En la composición $h(x) = \\sin^2(x)$, ¿quién es la función externa $f(u)$?",
+    "options": [
+      "$f(u) = \\sin(u)$",
+      "$f(u) = x^2$",
+      "$f(u) = u^2$",
+      "$f(u) = \\cos(u)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\sin^2(x)$ es $(\\sin x)^2$, por lo que la potencia es lo que está 'afuera'.",
+    "feedback_incorrect": "Cuidado: $\\sin^2(x)$ no es lo mismo que $\\sin(x^2)$. En $\\sin^2(x)$, lo último que se aplica es el cuadrado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Es vital distinguir entre $\\sin(x^2)$ y $\\sin^2(x)$.\n\nEn $\\sin(x^2)$, la función externa es el seno: $f(u) = \\sin(u)$ y la interna es el cuadrado.\n\nEn $\\sin^2(x)$, que se escribe $(\\sin x)^2$, la función externa es la **potencia**: $f(u) = u^2$ y la interna es el seno. Por eso al derivar $\\sin^2(x)$, lo primero que hacés es bajar el exponente: $2\\sin(x)$ y después multiplicás por el coseno.",
+    "reviewed": false
+  },
+  {
+    "question": "Si tenés una cadena de tres funciones $f(g(h(x)))$, ¿cómo queda su derivada?",
+    "options": [
+      "$f'(g(h(x))) \\cdot g'(h(x)) \\cdot h'(x)$",
+      "$f'(x) \\cdot g'(x) \\cdot h'(x)$",
+      "$f'(g(x)) \\cdot g'(h(x)) \\cdot h'(x)$",
+      "$f'(g(h(x))) + g'(h(x)) + h'(x)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La regla se extiende multiplicando las derivadas de cada capa, cada una evaluada en lo que tiene adentro.",
+    "feedback_incorrect": "No pierdas los argumentos. Cada derivada debe mantener dentro todo lo que la función original tenía.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla de la cadena se puede extender a cualquier número de funciones anidadas. Simplemente vas derivando de afuera hacia adentro y multiplicando los resultados.\n\nPara $f(g(h(x)))$:\n1. Derivás $f$ y dejás $g(h(x))$ adentro.\n2. Multiplicás por la derivada de $g$, dejando $h(x)$ adentro.\n3. Multiplicás por la derivada de $h$.\n\nEsto se llama **regla de la cadena generalizada**. Es muy útil cuando tenés expresiones como $\\sqrt{\\ln(\\sin x)}$, donde tenés que aplicar la regla varias veces seguidas.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué se llama 'Regla de la Cadena'?",
+    "options": [
+      "Porque se usa para funciones que parecen una cadena metálica.",
+      "Porque las derivadas se van multiplicando como eslabones conectados.",
+      "Porque fue inventada por un matemático de apellido Chain.",
+      "Porque encadena el valor de $x$ con el de $y$ de forma lineal."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cada derivada interna es un nuevo eslabón que se suma al producto.",
+    "feedback_incorrect": "Es una metáfora visual. Pensá en cómo cada derivada depende de la anterior en un producto continuo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El nombre proviene de la forma en que se escriben las derivadas en la notación de Leibniz:\n\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\nFijate que el término $du$ parece \"cancelarse\" (aunque no es una fracción literal), conectando la variable final $y$ con la inicial $x$ a través de una variable intermedia $u$. Cada una de estas derivadas es un **eslabón** del producto total. Si tenés más funciones intermedias, la cadena simplemente se hace más larga.",
+    "reviewed": false
+  },
+  {
+    "question": "Al derivar $f(x) = (3x + 1)^2$, ¿es estrictamente necesario usar la regla de la cadena?",
+    "options": [
+      "Sí, no hay otra forma de derivarlo.",
+      "No, se podría desarrollar el binomio y derivar término a término.",
+      "No, se puede usar la regla del producto pero no la de la cadena.",
+      "Sí, porque hay un paréntesis."
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Podrías escribir $9x^2 + 6x + 1$ y derivar eso. ¡Da lo mismo!",
+    "feedback_incorrect": "La regla de la cadena es una herramienta, no una obligación si tenés alternativas algebraicas como desarrollar el polinomio.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Muchas veces tenés varios caminos en matemática. Si desarrollás el binomio $(3x+1)^2 = 9x^2 + 6x + 1$, su derivada es $18x + 6$.\n\nSi usás la regla de la cadena:\n\n$$f'(x) = 2(3x + 1) \\cdot 3 = 6(3x + 1) = 18x + 6$$\n\nComo ves, el resultado es el mismo. Sin embargo, para exponentes grandes como $(3x+1)^{50}$, desarrollar el polinomio es imposible y la regla de la cadena es la única opción razonable.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el error más común al aplicar la regla de la cadena en $f(x) = e^{5x}$?",
+    "options": [
+      "Escribir que la derivada es $e^{5x}$ y olvidarse de multiplicar por 5.",
+      "Bajar el $5x$ multiplicando como si fuera una potencia.",
+      "Poner un signo menos adelante sin motivo.",
+      "Derivar el 5 y que la derivada dé 0."
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Olvidarse de la derivada del exponente es el error número uno en parciales.",
+    "feedback_incorrect": "Aunque bajar el exponente es un error, el más frecuente por lejos es simplemente olvidarse del factor $u'$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El error típico es tratar a la función compuesta como si fuera la función simple. Muchos estudiantes ven $e^{5x}$ y piensan \"la derivada de la exponencial es la misma exponencial\", y ponen $f'(x) = e^{5x}$.\n\nPero la regla de la cadena exige multiplicar por la derivada del exponente. Si no ponés ese 5, estás diciendo que $e^{5x}$ crece a la misma velocidad que $e^x$, lo cual es falso.\n\nAcordate: **Función compuesta necesita derivada interna**. Siempre.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $y = f(u)$ y $u = g(x)$, la notación de Leibniz para la regla de la cadena es:",
+    "options": [
+      "$\\dfrac{dy}{dx} = \\dfrac{dy}{du} + \\dfrac{du}{dx}$",
+      "$\\dfrac{dy}{dx} = \\dfrac{dy}{du} \\cdot \\dfrac{du}{dx}$",
+      "$\\dfrac{dy}{dx} = \\dfrac{du}{dy} \\cdot \\dfrac{dx}{du}$",
+      "$\\dfrac{dy}{dx} = f'(x) \\cdot g'(u)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Esta notación es genial porque parece que los $du$ se simplifican.",
+    "feedback_incorrect": "La regla de la cadena es un producto de tasas de cambio. Mirá bien cómo se encadenan las variables.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación de Leibniz (con diferenciales) es muy intuitiva para la regla de la cadena. Si pensás en las derivadas como \"tasas de cambio\", la fórmula dice:\n\n\"El cambio de $y$ respecto a $x$ es igual al cambio de $y$ respecto a $u$, multiplicado por el cambio de $u$ respecto a $x$.\"\n\nEs como una conversión de unidades. Si $y$ cambia el doble que $u$, y $u$ cambia el triple que $x$, entonces $y$ va a cambiar $2 \\cdot 3 = 6$ veces más rápido que $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué caso **NO** deberías usar la regla de la cadena?",
+    "options": [
+      "$f(x) = (x + 2) \\cdot (x - 3)$",
+      "$f(x) = \\sin(x + 2)$",
+      "$f(x) = e^{x+2}$",
+      "$f(x) = \\sqrt{x+2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Eso es un producto de dos funciones simples, ahí va la regla del producto.",
+    "feedback_incorrect": "Ojo, las otras tres son funciones compuestas (tienen algo adentro). La primera es una multiplicación de dos bloques.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla de la cadena se usa para funciones **anidadas** (una dentro de otra). El primer ejemplo, $(x+2)(x-3)$, es una **multiplicación** de dos funciones.\n\nPara ese caso, tenés que usar la regla del producto: $(u \\cdot v)' = u'v + uv'$.\n\nEn cambio, en $\\sin(x+2)$, el $(x+2)$ está **adentro** del seno. No se están multiplicando, sino que uno es el argumento del otro. Esa es la señal clara de que necesitás la regla de la cadena.",
+    "reviewed": false
+  },
+  {
+    "question": "Derivás $f(g(x))$. Si sabés que $g(x)$ es una función lineal del tipo $ax + b$, ¿cómo queda la derivada?",
+    "options": [
+      "$f'(g(x)) \\cdot (a)$",
+      "$f'(a) \\cdot g(x)$",
+      "$f'(ax + b)$",
+      "$a \\cdot f'(x) + b$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como la derivada de $ax+b$ es simplemente $a$, la cadena solo agrega ese factor constante.",
+    "feedback_incorrect": "Casi. Derivaste la de adentro, pero te olvidaste de derivar la de afuera evaluada en la de adentro.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este es un caso muy común. Cuando la función interna es lineal ($ax + b$), su derivada es simplemente la pendiente $a$.\n\nPor la regla de la cadena:\n\n$$[f(ax + b)]' = f'(ax + b) \\cdot a$$\n\nEjemplos rápidos:\n- $(\\sin(3x))' = 3\\cos(3x)$\n- $(e^{2x})' = 2e^{2x}$\n- $(\\ln(5x))' = \\frac{1}{5x} \\cdot 5 = \\frac{1}{x}$\n\nFijate que en el logaritmo, la constante terminó simplificándose, algo que pasa siempre con la función logaritmo y argumentos lineales.",
+    "reviewed": false
+  }
+]

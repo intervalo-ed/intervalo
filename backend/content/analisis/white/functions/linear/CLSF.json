@@ -1,0 +1,862 @@
+[
+  {
+    "question": "¿A qué familia pertenece $f(x) = 2x - 5$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$2x - 5$ tiene la forma $mx + b$: función lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función pertenece a la familia **lineal** si puede escribirse como $f(x) = mx + b$.\n\nPara $f(x) = 2x - 5$: $m = 2$ y $b = -5$. La variable $x$ aparece únicamente a la primera potencia.\n\nConclusión: $f(x) = 2x - 5$ es **lineal**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 4 - x$?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Racional"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$4 - x$ es equivalente a $-x + 4$, forma $mx + b$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reescribiendo en forma canónica:\n$$f(x) = 4 - x = -x + 4$$\n\nAhora se ve claramente: $m = -1$ y $b = 4$. La función **es lineal** aunque el orden esté invertido.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál NO pertenece a la familia lineal?",
+    "options": [
+      "$f(x) = 6x - 2$",
+      "$f(x) = x^2 - 3x + 1$",
+      "$f(x) = -4$",
+      "$f(x) = x/3 + 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2 - 3x + 1$ contiene $x^2$: es cuadrática, no lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Verificando cada expresión:\n• $6x - 2$: potencia 1 → lineal ✓\n• $-4$: constante → lineal ✓\n• $x/3 + 1$: potencia 1 → lineal ✓\n• $x^2 - 3x + 1$: potencia 2 → cuadrática ✗\n\nEl término $x^2$ la descalifica.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Pertenece $f(x) = 5$ a la familia lineal?",
+    "options": [
+      "No",
+      "Sí, es constante (caso especial)",
+      "Solo si aparece $x$",
+      "Depende del valor"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 5 = 0 \\cdot x + 5$: es lineal constante.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función constante $f(x) = c$ puede escribirse como:\n$$f(x) = 0 \\cdot x + c$$\n\nEs un caso especial de $f(x) = mx + b$ con $m = 0$. Su gráfica es una **recta horizontal**.\n\nLa familia lineal incluye funciones constantes.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = \\dfrac{x}{2} - 3$?",
+    "options": [
+      "Racional",
+      "Lineal",
+      "Irracional",
+      "Trigonométrica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\frac{x}{2} - 3 = \\frac{1}{2}x - 3$, forma $mx + b$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una división como $\\frac{x}{2}$ es una multiplicación por fracción:\n$$\\frac{x}{2} = \\frac{1}{2} \\cdot x$$\n\nAquí:\n$$f(x) = \\frac{1}{2}x - 3$$\n\n$m = 1/2$ (pendiente fraccionaria), $b = -3$. Es **lineal**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Pertenece $f(x) = -x$ a la familia lineal?",
+    "options": [
+      "No",
+      "Sí, con $m = -1$ y $b = 0$",
+      "Solo si sumamos algo",
+      "Depende de la gráfica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$-x = -1 \\cdot x + 0$: es lineal con pendiente negativa.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = -x$:\n$$f(x) = -1 \\cdot x + 0$$\n\n$m = -1$ (pendiente), $b = 0$ (ordenada al origen).\n\nLa recta pasa por el origen y baja. Es **completamente lineal**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 2^x$?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Polinómica",
+      "Racional"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$2^x$ tiene $x$ en el exponente: es exponencial, no lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser $f(x) = mx + b$. En $f(x) = 2^x$:\n\n• La variable $x$ está en el exponente, no multiplicada por $m$.\n• Esta es una **función exponencial**.\n• Crece a ritmo acelerado, no a ritmo constante.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = \\log(x)$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(x)$ tiene $x$ dentro de un logaritmo: es logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser $f(x) = mx + b$. En $f(x) = \\log(x)$:\n\n• La variable $x$ está dentro de un logaritmo.\n• Esta es una **función logarítmica**.\n• Solo está definida para $x > 0$, y crece muy lentamente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
+    "options": [
+      "Lineal",
+      "Irracional/Radical",
+      "Cuadrática",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\sqrt{x}$ tiene $x$ bajo una raíz: es irracional/radical.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe ser $f(x) = mx + b$. En $f(x) = \\sqrt{x}$:\n\n• La variable $x$ está dentro de una raíz cuadrada.\n• Esta es una **función radical**.\n• Solo está definida para $x \\geq 0$, y crece lentamente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = x^2 + 3x - 1$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Cúbica",
+      "Irracional"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$x^2 + 3x - 1$ contiene $x^2$: es cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es $f(x) = mx + b$. En $f(x) = x^2 + 3x - 1$:\n\n• El término $x^2$ la convierte en **cuadrática**.\n• Su gráfica es una parábola, no una recta.",
+    "reviewed": false
+  },
+  {
+    "question": "Un sueldo tiene una base fija más una comisión por cada venta realizada.\n\n¿Qué familia de función describe el sueldo total en función de las ventas?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Base + comisión_unitaria × ventas es $f(v) = b + m \\cdot v$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de sueldo con base $b$ y comisión $m$ por venta:\n$$S(v) = b + m \\cdot v$$\n\nEsta es la forma $f(x) = mx + b$: **función lineal**.\n\nLa tasa (comisión por venta) es constante, lo que caracteriza a las lineales.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque con cierta capacidad inicial pierde agua a ritmo constante.\n\n¿Qué familia de función describe el volumen de agua en el tiempo?",
+    "options": [
+      "Exponencial",
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Volumen = inicial - pérdida_unitaria × tiempo = $V(t) = V_0 - r \\cdot t$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de consumo constante:\n$$V(t) = V_0 - r \\cdot t = -r \\cdot t + V_0$$\n\nEs de la forma $f(x) = mx + b$ con $m = -r < 0$: **función lineal decreciente**.\n\nTasa constante = lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Una colonia de bacterias se duplica cada hora.\n\n¿Qué familia de función describe la cantidad de bacterias con el paso del tiempo?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cantidad = inicial × $2^t$: es exponencial, no lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de crecimiento/decrecimiento multiplicativo:\n$$P(t) = P_0 \\cdot 2^t$$\n\nLa variable $t$ está en el exponente. Esto es **función exponencial**, no lineal.\n\nCrecimiento multiplicativo ≠ crecimiento aditivo (lineal).",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de producción tiene una parte fija más un monto constante por cada unidad fabricada.\n\n¿A qué familia pertenece la función que modela ese costo total?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Costo = fijo + unitario × cantidad es $C(q) = b + m \\cdot q$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de costo lineal:\n$$C(q) = C_0 + c_u \\cdot q$$\n\nDonde $C_0$ es costo fijo y $c_u$ es costo por unidad.\n$$C(q) = c_u \\cdot q + C_0$$\n\nForma $f(x) = mx + b$: **función lineal**.\n\nTasa unitaria constante = lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "El área de un cuadrado es $A = L^2$, donde $L$ es el lado.\n\n¿A qué familia pertenece la función que relaciona el área con el lado?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Cúbica",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El lado $L$ aparece elevado al cuadrado: es cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de área:\n$$A(L) = L^2$$\n\nLa variable $L$ aparece con potencia 2. Esto es **función cuadrática**.\n\nNo es de la forma $mx + b$: los fenómenos de área requieren funciones cuadráticas.",
+    "reviewed": false
+  },
+  {
+    "question": "Un bien pierde el 10% de su valor cada año.\n\n¿Qué familia de función describe el valor restante con el paso del tiempo?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Valor = inicial × $(0.9)^t$: es exponencial (decrecimiento multiplicativo).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo de depreciación porcentual:\n$$V(t) = V_0 \\cdot (0.9)^t$$\n\nLa variable $t$ está en el exponente. Esto es **función exponencial decreciente**.\n\nPorcentaje (factor multiplicativo) ≠ cantidad (factor aditivo).",
+    "reviewed": false
+  },
+  {
+    "question": "El pH de una solución se calcula como $\\text{pH} = -\\log_{10}[H^+]$, donde $[H^+]$ es la concentración de iones hidrógeno.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Logarítmica",
+      "Polinómica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Hay un logaritmo en la fórmula: es logarítmica.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un modelo logarítmico:\n$$\\text{pH} = -\\log_{10}[H^+]$$\n\nLa concentración $[H^+]$ aparece dentro de un logaritmo. Esto es **función logarítmica**.\n\nLogaritmos aparecen en escalas (pH, escala de Richter, decibeles).",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi cobra \\$500 al subir y \\$200 por cada kilómetro recorrido.\n\n¿Qué familia de función modela el costo total del viaje?",
+    "options": [
+      "Exponencial",
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Costo = 500 + 200 × km es $C(k) = 500 + 200k$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El modelo:\n$$C(k) = 500 + 200k$$\n\nEs de la forma $f(x) = mx + b$ con $m = 200$ (tarifa/km) y $b = 500$ (bajada).\n\n**Función lineal creciente**: tarifa constante → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Un objeto en caída libre sigue la fórmula\n$$h(t) = h_0 - \\dfrac{1}{2}gt^2$$\ndonde $t$ es el tiempo transcurrido.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El tiempo $t$ aparece con potencia 2: es cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El modelo de caída libre:\n$$h(t) = h_0 - \\frac{1}{2}gt^2$$\n\nEl término $t^2$ la convierte en **función cuadrática**.\n\nLa aceleración constante causa una dependencia cuadrática, no lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Un abono de celular tiene un costo fijo de \\$1200 más \\$80 por cada GB adicional consumido.\n\n¿Qué familia de función describe el costo total según los GB consumidos?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Precio = 1200 + 80 × GB es $P(g) = 1200 + 80g$: lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El modelo:\n$$P(g) = 1200 + 80g$$\n\nForma $f(x) = mx + b$ con $m = 80$ (tarifa/GB) y $b = 1200$ (abono fijo).\n\n**Función lineal creciente**: tarifa variable constante → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La gráfica es una línea recta: función lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": "2*x - 1",
+    "graph_view": [
+      -2,
+      6,
+      -4,
+      8
+    ],
+    "explanation": "Para clasificar desde el gráfico, observá la **forma de la curva**.\n\nUna **función lineal** produce siempre una línea recta. Características:\n• No se curva en ningún punto.\n• La inclinación es constante.\n• No tiene máximos, mínimos ni puntos de inflexión.\n\nEsta es una recta, así que es **lineal**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece esta gráfica?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La gráfica es una parábola: función cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": "x**2 - 2*x - 1",
+    "graph_view": [
+      -2,
+      4,
+      -3,
+      4
+    ],
+    "explanation": "Una **función cuadrática** produce una parábola. Características:\n• Se curva como un arco.\n• Tiene un vértice (máximo o mínimo).\n• Es simétrica respecto a su eje vertical.\n\nEsta curva no es una recta, así que **no es lineal**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas gráficas representa una función lineal?",
+    "options": [
+      "Parábola",
+      "Línea recta diagonal",
+      "Curva exponencial",
+      "Hipérbola"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una línea recta diagonal es la característica visual de una función lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **función lineal** se identifica visualmente por ser una **línea recta**.\n\n• Si es parabólica → cuadrática\n• Si es curva acelerando → exponencial\n• Si es curva en asíntota → logarítmica\n• Si es recta → lineal ✓",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál familia de función tiene inclinación constante?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Solo la función lineal tiene inclinación (pendiente) constante.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **inclinación constante** es la marca de las funciones lineales.\n\n• Lineal: pendiente $m$ constante → recta ✓\n• Cuadrática: pendiente cambia → parábola\n• Exponencial: pendiente cambia acelerado → curva curva\n• Logarítmica: pendiente cambia desacelerado → curva suave",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué sucede si una recta tiene pendiente 0?",
+    "options": [
+      "Se convierte en exponencial",
+      "Sigue siendo lineal, ahora constante",
+      "Se vuelve cuadrática",
+      "Deja de ser función"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una recta con pendiente 0 sigue siendo lineal: es una función constante.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal con $m = 0$:\n$$f(x) = b$$\n\nEs una **función constante** (caso especial de lineal). Su gráfica es una **recta horizontal**.\n\n• Sigue siendo lineal ✓\n• Dominio = $\\mathbb{R}$\n• Imagen = $\\{b\\}$ (un único valor)",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas veces pueden cortarse dos rectas lineales diferentes?",
+    "options": [
+      "Cero",
+      "Una",
+      "Infinitas",
+      "Depende de las rectas"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Dos rectas lineales se cortan en exactamente un punto (excepto si son paralelas).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos rectas distintas en el plano:\n\n• **Se cortan en 1 punto** (si tienen diferentes pendientes) → secantes\n• **Son paralelas** (si tienen pendientes iguales e interceptos diferentes) → no se cortan\n• **Coinciden** (si son idénticas) → infinitos puntos (pero no es el caso de \"diferentes\")\n\nDos rectas lineales diferentes se cortan en **exactamente 1 punto** (excepto si son paralelas).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el comportamiento global de $f(x) = -3x + 5$?",
+    "options": [
+      "Creciente en $\\mathbb{R}$",
+      "Decreciente en $\\mathbb{R}$",
+      "Creciente en algunos lados",
+      "Varía según $x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $m = -3 < 0$, la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -3x + 5$ con $m = -3 < 0$:\n\n• La función es **decreciente en $\\mathbb{R}$**.\n• Por cada unidad que $x$ aumenta, $f(x)$ disminuye $3$ unidades.\n• El comportamiento es global: no cambia en ningún intervalo.\n\nEsta es una propiedad de todas las funciones lineales: son monótonas.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el comportamiento global de $f(x) = 2x - 8$?",
+    "options": [
+      "Decreciente",
+      "Creciente en $\\mathbb{R}$",
+      "Primero crece, luego decrece",
+      "Constante"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $m = 2 > 0$, la función es creciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 2x - 8$ con $m = 2 > 0$:\n\n• La función es **creciente en $\\mathbb{R}$**.\n• Por cada unidad que $x$ aumenta, $f(x)$ aumenta $2$ unidades.\n• El comportamiento es global: constante en todo el dominio.\n\nNunca decrece ni alcanza extremos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántos máximos y mínimos tiene $f(x) = -x + 6$?",
+    "options": [
+      "Cero máximos y ceros mínimos",
+      "Un máximo y un mínimo",
+      "Depende del dominio",
+      "Uno de cada uno"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una función lineal con $m \\neq 0$ nunca tiene máximo ni mínimo (excepto si es constante).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -x + 6$ con $m = -1 \\neq 0$:\n\n• **No tiene máximo**: decrece hacia $-\\infty$.\n• **No tiene mínimo**: baja indefinidamente.\n• Ni máximo ni mínimo: **0 máximos, 0 mínimos**.\n\nSolo las funciones constantes ($m = 0$) tienen máximo = mínimo = $b$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es creciente o decreciente $f(x) = \\dfrac{x}{4} - 1$?",
+    "options": [
+      "Decreciente",
+      "Creciente",
+      "Primero crece, luego decrece",
+      "Es constante"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $m = 1/4 > 0$, la función es creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = \\frac{1}{4}x - 1$ con $m = \\frac{1}{4} > 0$:\n\n• La función es **creciente en $\\mathbb{R}$**.\n• Por cada 4 unidades que $x$ aumenta, $f(x)$ aumenta 1 unidad.\n• El crecimiento es lento (pendiente pequeña), pero constante.",
+    "reviewed": false
+  },
+  {
+    "question": "Un plomero cobra un monto fijo por venir más una tarifa adicional por cada hora trabajada.\n\n¿Qué familia de función modela el costo total de la visita?",
+    "options": [
+      "Exponencial",
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Costo fijo + tarifa_hora × horas es lineal.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$C(h) = \\text{costo fijo} + \\text{tarifa/h} \\cdot h$$\n\nForma $f(x) = mx + b$: **función lineal**.\n\nTarifa constante (por hora) → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Una deuda se reduce en una cantidad fija cada mes, sin importar cuánto reste por pagar.\n\n¿Qué familia de función describe la deuda restante con el paso del tiempo?",
+    "options": [
+      "Exponencial",
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Deuda = inicial - reducción_fija × mes es lineal decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$D(m) = D_0 - r \\cdot m$$\n\nForma $f(x) = mx + b$ con $m < 0$: **función lineal decreciente**.\n\nReducción fija (por mes) → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "El saldo de una inversión crece un 5% anual.\n\n¿Qué familia de función describe el saldo con el paso del tiempo?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Saldo = inicial × $(1.05)^{\\text{años}}$ es exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$S(t) = S_0 \\cdot (1.05)^t$$\n\nLa variable $t$ está en el exponente: **función exponencial creciente**.\n\nPorcentaje anual (factor multiplicativo) → relación exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque pierde agua a razón de 10 litros por minuto de forma constante.\n\n¿Qué familia de función describe el volumen restante en el tiempo?",
+    "options": [
+      "Exponencial",
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Volumen = inicial - 10 × minutos es lineal decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$V(t) = V_0 - 10t$$\n\nForma $f(x) = mx + b$ con $m = -10 < 0$: **función lineal decreciente**.\n\nFlujo constante (litros por minuto) → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "La altura de una planta aumenta 2 cm por semana de forma constante.\n\n¿Qué familia de función describe la altura con el paso de las semanas?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Altura = inicial + 2 × semanas es lineal creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$h(t) = h_0 + 2t$$\n\nForma $f(x) = mx + b$ con $m = 2 > 0$: **función lineal creciente**.\n\nCrecimiento fijo (cm por semana) → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "La población mundial aumenta un 1% por año, multiplicándose por 1,01 cada año.\n\n¿Qué familia de función describe el crecimiento de la población?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Población = inicial × $(1.01)^{\\text{años}}$ es exponencial.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$P(t) = P_0 \\cdot (1.01)^t$$\n\nLa variable $t$ en el exponente: **función exponencial creciente**.\n\nPorcentaje anual → relación exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "Una fábrica tiene un costo fijo de \\$5000 más \\$10 por cada unidad producida.\n\n¿Qué familia de función modela el costo total de producción?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Costo = 5000 + 10 × unidades es lineal creciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$C(u) = 5000 + 10u$$\n\nForma $f(x) = mx + b$ con $m = 10 > 0, b = 5000$: **función lineal creciente**.\n\nTarifa fija por unidad → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "Un objeto en caída libre recorre una distancia dada por\n$$d = \\dfrac{1}{2}gt^2$$\ndonde $t$ es el tiempo transcurrido.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El tiempo $t$ aparece elevado al cuadrado: cuadrática.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$d(t) = \\frac{1}{2}gt^2$$\n\nLa variable $t$ con potencia 2: **función cuadrática**.\n\nAceleración constante → relación cuadrática (no lineal).",
+    "reviewed": false
+  },
+  {
+    "question": "Una sustancia radioactiva pierde la mitad de su masa cada año.\n\n¿Qué familia de función describe la masa restante con el paso del tiempo?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Cantidad = inicial × $(0.5)^{\\text{años}}$ es exponencial decreciente.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$M(t) = M_0 \\cdot (0.5)^t$$\n\nLa variable $t$ en el exponente: **función exponencial decreciente**.\n\nFactor multiplicativo (mitad cada período) → relación exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "El alquiler de un departamento cuesta \\$2000 fijos por mes, sin importar cuántos meses lleves viviendo ahí.\n\n¿Qué familia de función describe el gasto acumulado en alquiler?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Costo total = 2000 × meses es lineal con ordenada al origen 0.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Modelo:\n$$C(m) = 2000m$$\n\nForma $f(x) = mx + b$ con $m = 2000, b = 0$: **función lineal creciente**.\n\nTarifa fija (por mes) → relación lineal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = -2x + 3$?",
+    "options": [
+      "$\\{3\\}$",
+      "$\\mathbb{R}$",
+      "$[3, +\\infty)$",
+      "$[-2, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Como $m = -2 \\neq 0$, la imagen es todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -2x + 3$ con $m = -2 < 0$:\n\n• La función es decreciente en $\\mathbb{R}$.\n• Alcanza todos los valores reales:\n  - Cuando $x \\to -\\infty$, $f(x) \\to +\\infty$.\n  - Cuando $x \\to +\\infty$, $f(x) \\to -\\infty$.\n• **Imagen = $\\mathbb{R}$** (excepto si el dominio está restringido).",
+    "reviewed": false
+  },
+  {
+    "question": "La función $f(x) = 5$ es constante.\n\n¿Cuál es la imagen de esta función?",
+    "options": [
+      "$\\mathbb{R}$",
+      "$\\{5\\}$",
+      "$[5, +\\infty)$",
+      "$(0, 5)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La función siempre devuelve 5: la imagen es el conjunto unitario $\\{5\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 5$ con $m = 0$:\n\n• La función es constante.\n• Siempre devuelve el mismo valor: 5.\n• **Imagen = $\\{5\\}$** (un solo número, no un intervalo).\n\nEsta es la única función lineal con imagen no $\\mathbb{R}$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significa que dos funciones lineales sean paralelas?",
+    "options": [
+      "Tienen la misma ordenada al origen",
+      "Tienen la misma pendiente",
+      "Tienen la misma raíz",
+      "Nunca se cruzan"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Dos rectas paralelas tienen la misma pendiente (pero diferente ordenada al origen).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las rectas $y = 2x$ e $y = 2x + 3$:\n\n• Tienen la misma **pendiente** $m = 2$.\n• Tienen diferentes **ordenadas al origen** ($b = 0$ y $b = 3$).\n• Nunca se cortan: son **paralelas**.\n\nDos rectas son paralelas si y solo si tienen la misma pendiente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es positiva $f(x) = 2x - 4$?",
+    "options": [
+      "$(-\\infty, 2)$",
+      "$(2, +\\infty)$",
+      "$\\mathbb{R}$",
+      "En ningún lado"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) > 0$ cuando $2x - 4 > 0$, es decir cuando $x > 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 2x - 4$ con raíz en $x = 2$:\n\n• $f(x) = 0$ cuando $x = 2$.\n• $f(x) > 0$ cuando $x > 2$ (a la derecha de la raíz).\n• $f(x) < 0$ cuando $x < 2$ (a la izquierda de la raíz).\n\n**Positiva en $(2, +\\infty)$**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es negativa $f(x) = -x + 3$?",
+    "options": [
+      "$(-\\infty, 3)$",
+      "$(3, +\\infty)$",
+      "$\\mathbb{R}$",
+      "En ningún lado"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) < 0$ cuando $-x + 3 < 0$, es decir cuando $x > 3$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -x + 3$ con raíz en $x = 3$ y $m = -1 < 0$ (decreciente):\n\n• $f(x) = 0$ cuando $x = 3$.\n• $f(x) < 0$ cuando $x > 3$ (a la derecha de la raíz).\n• $f(x) > 0$ cuando $x < 3$ (a la izquierda de la raíz).\n\n**Negativa en $(3, +\\infty)$**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el rango de monotonía de $f(x) = 4x - 7$?",
+    "options": [
+      "Crece en $(-\\infty, 0)$, decrece en $(0, +\\infty)$",
+      "Creciente en $\\mathbb{R}$",
+      "Decreciente en $\\mathbb{R}$",
+      "Varía según $x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $m = 4 > 0$, la función es creciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 4x - 7$ con $m = 4 > 0$:\n\n• La función es **creciente en $\\mathbb{R}$** (monotonía global).\n• No hay intervalo donde decrece.\n• El comportamiento es constante: siempre sube.\n\nEsta es la propiedad fundamental de las funciones lineales: monotonía global.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la solución de $f(x) \\geq 0$ para $f(x) = 3x - 9$?",
+    "options": [
+      "$x \\geq 3$",
+      "$x > 3$",
+      "$x \\leq 3$",
+      "$x < 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$3x - 9 \\geq 0$ cuando $x \\geq 3$ (la raíz es 3).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = 3x - 9$ con raíz en $x = 3$ y $m = 3 > 0$ (creciente):\n\n$$3x - 9 \\geq 0$$\n$$3x \\geq 9$$\n$$x \\geq 3$$\n\n**Solución: $x \\geq 3$** (a partir de la raíz hacia la derecha).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la solución de $f(x) < 0$ para $f(x) = -2x + 8$?",
+    "options": [
+      "$x < 4$",
+      "$x > 4$",
+      "$x \\leq 4$",
+      "$x \\geq 4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$-2x + 8 < 0$ cuando $x > 4$ (la raíz es 4).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -2x + 8$ con raíz en $x = 4$ y $m = -2 < 0$ (decreciente):\n\n$$-2x + 8 < 0$$\n$$-2x < -8$$\n$$x > 4$$\n\n**Solución: $x > 4$** (a la derecha de la raíz).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Dos funciones lineales con la misma pendiente pueden intersectarse?",
+    "options": [
+      "Sí, siempre",
+      "No, excepto si son idénticas",
+      "Sí, depende de la ordenada",
+      "A veces"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si tienen la misma pendiente, son paralelas: no se cortan (excepto si son idénticas).",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos rectas lineales $y = mx + b_1$ e $y = mx + b_2$:\n\n• Si $b_1 = b_2$: son idénticas (infinitos puntos en común).\n• Si $b_1 \\neq b_2$: son paralelas (ningún punto en común).\n\n**Resultado**: No se intersectan en un único punto (excepto si son la misma recta).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la condición para que una función lineal sea creciente?",
+    "options": [
+      "$b > 0$",
+      "$m > 0$",
+      "$m \\neq 0$",
+      "$b \\neq 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una función lineal es creciente si y solo si su pendiente es positiva: $m > 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = mx + b$:\n\n• **Creciente**: $m > 0$ (la pendiente es positiva).\n• **Decreciente**: $m < 0$ (la pendiente es negativa).\n• **Constante**: $m = 0$ (la pendiente es cero).\n\nLa ordenada al origen $b$ **no afecta** la monotonía, solo la posición vertical.",
+    "reviewed": false
+  }
+]
