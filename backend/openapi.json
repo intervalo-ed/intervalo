@@ -594,7 +594,7 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, as\u00ed el front conoce los bordes de\nla ventana y pide m\u00e1s arriba/abajo por offset.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
           {
@@ -637,6 +637,16 @@
             }
           },
           {
+            "name": "around_me",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Around Me"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -653,6 +663,146 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji-tree": {
+      "get": {
+        "summary": "Get Emoji State",
+        "description": "Estado del \u00e1rbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
+        "operationId": "get_emoji_state_user_emoji_tree_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji/unlock": {
+      "post": {
+        "summary": "Unlock Emoji",
+        "description": "Desbloquea el siguiente nodo del camino (irreversible, sin reset).",
+        "operationId": "unlock_emoji_user_emoji_unlock_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmojiUnlockRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/emoji/worn": {
+      "put": {
+        "summary": "Set Worn Emoji",
+        "description": "Viste un emoji ya desbloqueado del camino. None = ra\u00edz del bucket (default).",
+        "operationId": "set_worn_emoji_user_emoji_worn_put",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmojiWornRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmojiStateResponse"
                 }
               }
             }
@@ -1066,6 +1216,77 @@
         ],
         "title": "DueNotification"
       },
+      "EmojiStateResponse": {
+        "properties": {
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp",
+            "default": 0
+          },
+          "path": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Path",
+            "default": []
+          },
+          "worn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Worn"
+          }
+        },
+        "type": "object",
+        "title": "EmojiStateResponse"
+      },
+      "EmojiUnlockRequest": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "node_id"
+        ],
+        "title": "EmojiUnlockRequest"
+      },
+      "EmojiWornRequest": {
+        "properties": {
+          "node_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Node Id"
+          }
+        },
+        "type": "object",
+        "title": "EmojiWornRequest"
+      },
       "EnrollmentRequest": {
         "properties": {
           "university": {
@@ -1231,6 +1452,22 @@
               }
             ],
             "title": "University"
+          },
+          "emoji": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emoji"
+          },
+          "belt": {
+            "type": "string",
+            "title": "Belt",
+            "default": "white"
           }
         },
         "type": "object",

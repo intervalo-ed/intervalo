@@ -1,19 +1,33 @@
-import { auth, currentUser } from "@clerk/nextjs/server"
+import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
+import { RankingNewsOnEntry } from "./ranking-news-entry"
 
 export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { userId } = await auth()
+  const { userId, getToken } = await auth()
   if (!userId) redirect("/sign-in")
 
-  // Backend has no `is_enrolled` field on /auth/me yet (gap #9). We track
-  // onboarding completion in Clerk's unsafeMetadata, set by the wizard on
-  // successful POST /user/enroll.
-  const user = await currentUser()
-  if (user?.unsafeMetadata?.onboarded !== true) redirect("/onboarding/complete")
+  try {
+    const token = await getToken()
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/user/status`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    })
+    if (res.ok) {
+      const status = await res.json()
+      if (!status.enrolled && !status.has_progress) redirect("/onboarding/complete")
+    }
+  } catch {
+    // Si el backend no responde, deja pasar
+  }
 
-  return <>{children}</>
+  return (
+    <>
+      <RankingNewsOnEntry />
+      {children}
+    </>
+  )
 }

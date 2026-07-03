@@ -11,11 +11,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import {
+  USERNAME_MAX,
+  normalizeUsername,
+  validateUsername,
+} from "@/lib/username"
 import { useUpdateProfile } from "./UseUpdateProfile"
 
-const APODO_MAX = 40
-
-export function EditApodoDialog({
+export function EditUsernameDialog({
   open,
   onOpenChange,
   current,
@@ -28,8 +31,9 @@ export function EditApodoDialog({
   const [serverError, setServerError] = useState<string | null>(null)
   const update = useUpdateProfile()
 
-  const unchanged = value.trim() === current
-  const canSave = !unchanged && !update.isPending
+  const clientError = value.length > 0 ? validateUsername(value) : null
+  const unchanged = value === current
+  const canSave = !clientError && !unchanged && !update.isPending
 
   function reset(next: boolean) {
     if (next) {
@@ -42,7 +46,7 @@ export function EditApodoDialog({
   async function save() {
     setServerError(null)
     try {
-      await update.mutateAsync({ display_name: value.trim() })
+      await update.mutateAsync({ username: value })
       onOpenChange(false)
     } catch (e) {
       setServerError(e instanceof Error ? e.message : "No se pudo guardar.")
@@ -53,28 +57,38 @@ export function EditApodoDialog({
     <Dialog open={open} onOpenChange={reset}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-sans">Cambiar apodo</DialogTitle>
+          <DialogTitle className="font-sans">Usuario</DialogTitle>
           <DialogDescription>
-            Cómo te llamamos en notificaciones y mensajes.
+            Tu nombre de usuario aparece en el ranking. Minúsculas, números, punto
+            y guion bajo.
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-1.5">
-          <Input
-            value={value}
-            autoFocus
-            maxLength={APODO_MAX}
-            onChange={(e) => {
-              setValue(e.target.value)
-              setServerError(null)
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && canSave) save()
-            }}
-          />
-          {serverError && (
-            <span className="text-xs text-destructive">{serverError}</span>
-          )}
+          <div className="flex items-center gap-1">
+            <span className="text-muted-foreground">@</span>
+            <Input
+              value={value}
+              autoFocus
+              maxLength={USERNAME_MAX}
+              aria-invalid={!!(clientError || serverError)}
+              onChange={(e) => {
+                setValue(normalizeUsername(e.target.value))
+                setServerError(null)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && canSave) save()
+              }}
+            />
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-destructive">
+              {serverError ?? clientError ?? ""}
+            </span>
+            <span className="text-muted-foreground tabular-nums">
+              {value.length}/{USERNAME_MAX}
+            </span>
+          </div>
         </div>
 
         <DialogFooter className="flex-row justify-end gap-2 sm:justify-end">

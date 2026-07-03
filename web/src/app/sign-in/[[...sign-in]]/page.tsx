@@ -12,7 +12,7 @@ export default function SignInPage() {
       }}
     >
       <SignIn
-        forceRedirectUrl="/onboarding/complete"
+        forceRedirectUrl="/"
         signUpForceRedirectUrl="/onboarding/complete"
         appearance={{
           theme: dark,

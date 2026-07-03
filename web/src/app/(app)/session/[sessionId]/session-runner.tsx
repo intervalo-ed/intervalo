@@ -67,6 +67,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   // Gate del footer de feedback: al navegar se apaga y se vuelve a prender
   // recién cuando termina la animación del slide (para que salga después).
   const [footerReady, setFooterReady] = useState(true)
+  // Al finalizar, la navegación al resumen puede tardar un instante. Apenas se
+  // toca el botón, este flag dispara un fade-out que tapa el contenido para que
+  // la espera no se sienta como una pantalla congelada.
+  const [finishing, setFinishing] = useState(false)
   const startedAt = useRef(Date.now())
   const wrongResetRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -164,7 +168,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   function onContinue() {
     if (isLast) {
-      sfx.continue()
+      // Sonido de "carga" ascendente: arranca al tocar y sigue sonando (sin
+      // cortarse) durante la transición al resumen, donde se carga la bolita.
+      setFinishing(true)
+      sfx.charge()
       router.push(`/session/${sessionId}/summary`)
       return
     }
@@ -484,6 +491,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           </div>
         </div>
       </div>
+
+      {/* Al tocar "Finalizar" el fondo se superpone al instante (sin animación),
+          tapando todo (por delante de los botones, z-40) mientras carga el
+          resumen. */}
+      {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
   )
 }

@@ -115,7 +115,7 @@ export default function DashboardEntry() {
   }, [contentReady, markReady])
 
   function onRepasar() {
-    sfx.continue()
+    sfx.start()
     startSession.mutate(
       { userName: user?.fullName ?? user?.firstName ?? "" },
       {
@@ -419,7 +419,7 @@ function BeltInfoDialog({
           <DialogTitle className="font-sans text-sm font-semibold text-foreground">
             {headline}
           </DialogTitle>
-          <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+          <DialogDescription className="whitespace-pre-line text-sm leading-relaxed text-foreground/80">
             {description}
           </DialogDescription>
         </DialogHeader>

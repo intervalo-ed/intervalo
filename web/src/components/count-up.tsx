@@ -21,6 +21,8 @@ export function CountUp({
   variant?: "slot" | "ease" | "odometer" | "steps"
   flickerMs?: number
   steps?: number
+  stepEase?: (x: number) => number
+  onStep?: (step: number, total: number) => void
 }) {
   if (variant === "ease") {
     return <CountUpEase {...props} />
@@ -35,38 +37,62 @@ export function CountUp({
 }
 
 // Conteo en pocos saltos (máx. `steps`) repartidos en `duration`, frenando en
-// seco en el valor final (sin desaceleración).
+// seco en el valor final (sin desaceleración). `stepEase` permite repartir los
+// saltos de forma no lineal (mapea fracción-de-pasos → fracción-de-duración; por
+// defecto lineal); `onStep` se dispara en cada salto (para sincronizar audio).
 function CountUpSteps({
   value,
   duration = 1000,
   format,
   onDone,
   steps: maxSteps = 4,
-}: CommonProps & { steps?: number }) {
+  stepEase,
+  onStep,
+}: CommonProps & {
+  steps?: number
+  stepEase?: (x: number) => number
+  onStep?: (step: number, total: number) => void
+}) {
   const [n, setN] = useState(0)
   const doneRef = useRef(false)
   const onDoneRef = useRef(onDone)
   onDoneRef.current = onDone
+  // En refs para que un cambio de identidad de los callbacks/ease no re-dispare
+  // el efecto (eso reiniciaría el conteo al re-renderizar).
+  const onStepRef = useRef(onStep)
+  onStepRef.current = onStep
+  const stepEaseRef = useRef(stepEase)
+  stepEaseRef.current = stepEase
   useEffect(() => {
     doneRef.current = false
     setN(0)
     const steps = Math.min(maxSteps, Math.max(1, Math.abs(Math.round(value))))
-    const stepMs = duration / steps
+    const ease = stepEaseRef.current ?? ((x: number) => x)
+    const timeAt = (k: number) => ease(k / steps) * duration
+    const start = performance.now()
     let k = 0
-    const id = setInterval(() => {
+    let timer: ReturnType<typeof setTimeout>
+    const run = () => {
       k++
       if (k >= steps) {
         setN(value)
-        clearInterval(id)
+        onStepRef.current?.(k, steps)
         if (!doneRef.current) {
           doneRef.current = true
           onDoneRef.current?.()
         }
-      } else {
-        setN(Math.round((value * k) / steps))
+        return
       }
-    }, stepMs)
-    return () => clearInterval(id)
+      setN(Math.round((value * k) / steps))
+      onStepRef.current?.(k, steps)
+      schedule()
+    }
+    const schedule = () => {
+      const delay = Math.max(0, timeAt(k + 1) - (performance.now() - start))
+      timer = setTimeout(run, delay)
+    }
+    schedule()
+    return () => clearTimeout(timer)
   }, [value, duration, maxSteps])
   return <>{format ? format(n) : n}</>
 }
