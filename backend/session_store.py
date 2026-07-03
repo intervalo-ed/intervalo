@@ -93,17 +93,24 @@ def _get_course_slug(course_id: int, db: DBSession) -> str:
     return course.slug
 
 
-_BELT_ORDER = [Belt.WHITE, Belt.BLUE, Belt.VIOLET, Belt.BROWN, Belt.BLACK]
+def _belt_order(course_id: int, db: DBSession) -> list[Belt]:
+    """Orden canónico de cinturones del curso, derivado de course.json
+    (antes: constante _BELT_ORDER hardcodeada)."""
+    slug = _get_course_slug(course_id, db)
+    return list(load_belt_catalogs(slug).keys())
 
 
 def _all_topic_keys(course_id: int, db: DBSession) -> list[TopicKey]:
-    """Full ordered list of topic keys across all belts in canonical order."""
+    """Full ordered list of topic keys across all belts in canonical order.
+
+    El orden respeta course.json: cinturones en orden, y dentro de cada cinturón
+    los temas aplanados unidad-por-unidad (ver BeltCatalog.topics). Esto hace que
+    los temas de la unidad 1 se introduzcan antes que los de la unidad 2."""
     slug = _get_course_slug(course_id, db)
     catalogs = load_belt_catalogs(slug)
     keys: list[TopicKey] = []
-    for belt in _BELT_ORDER:
-        if belt in catalogs:
-            keys.extend(catalogs[belt].all_keys())
+    for belt in catalogs:  # dict en orden de course.json
+        keys.extend(catalogs[belt].all_keys())
     return keys
 
 
@@ -369,10 +376,10 @@ def _aggregate_topic_progress(
     ) else "learning"
 
     rows_by_type = {r.exercise_type: r for r in rows}
-    units = []
+    skills = []
     for et in expected_types:
         row = rows_by_type.get(et)
-        units.append(
+        skills.append(
             {
                 "exercise_type": et,
                 "state": _unit_state(row),
@@ -391,7 +398,7 @@ def _aggregate_topic_progress(
         "attempted": attempted,
         "next_review": next_review,
         "failed": False,
-        "units": units,
+        "skills": skills,
     }
 
 
@@ -1133,9 +1140,10 @@ def get_summary_db(
     # Belt progress for the highest belt touched in this session
     if answers:
         belts_in_session = {a.belt for a in answers}
+        order = _belt_order(course_id, db)
         focus_belt_str = max(
             belts_in_session,
-            key=lambda b: _BELT_ORDER.index(Belt(b)),
+            key=lambda b: order.index(Belt(b)),
         )
         focus_belt = Belt(focus_belt_str)
     else:

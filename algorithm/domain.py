@@ -22,7 +22,13 @@ class TopicKey:
 
 @dataclass(frozen=True)
 class UnitKey:
-    """A (belt, topic, exercise_type) triple — the SR unit of knowledge."""
+    """A (belt, topic, exercise_type) triple — the spaced-repetition *skill* state.
+
+    NOTE: this is the SR unit of knowledge tracked per-user in the `unit_states`
+    table. It is NOT the structural `Unit` tier below (a block of topics inside a
+    belt). The names collide for historical reasons; `UnitKey`/`UnitState` are the
+    per-user SR skill-state, `Unit` is content structure.
+    """
     belt: Belt
     topic: str
     exercise_type: str
@@ -37,12 +43,33 @@ class Topic:
     key: str
     name: str
     tooltip: str
+    short_description: str = ""
+    skills: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class Unit:
+    """Structural content block inside a belt: an ordered set of topics.
+
+    A belt has one or more units (análisis: one per belt; other courses may have
+    several). Completing a belt requires completing all its units, in order.
+    """
+    key: str
+    name: str
+    topics: tuple[Topic, ...]
 
 
 @dataclass
 class BeltCatalog:
     belt: Belt
-    topics: list[Topic]
+    units: list[Unit]
+    headline: str = ""
+    description: str = ""
+
+    @property
+    def topics(self) -> list[Topic]:
+        """Flat, ordered list of topics across all units (units in order)."""
+        return [t for u in self.units for t in u.topics]
 
     @property
     def total_topics(self) -> int:
@@ -52,14 +79,37 @@ class BeltCatalog:
         return [TopicKey(belt=self.belt, topic=t.key) for t in self.topics]
 
 
-# ── Belt catalogs (loaded from JSON per course) ────────────────────────────────
+# ── Course structure (loaded from JSON per course) ─────────────────────────────
 #
-# The source of truth lives in backend/content/<course_slug>/catalog.json.
-# Use `load_belt_catalogs(course_slug)` to obtain the belts for a given course.
+# The single source of truth lives in backend/content/<course_slug>/course.json.
+# Use `load_belt_catalogs(course_slug)` for the belt→unit→topic hierarchy used by
+# the SR algorithm, or `load_course_structure(course_slug)` for the raw payload
+# (served verbatim by the API).
 
 _CONTENT_ROOT = Path(__file__).resolve().parent.parent / "backend" / "content"
 
 _CATALOG_CACHE: dict[str, dict[Belt, BeltCatalog]] = {}
+_STRUCTURE_CACHE: dict[str, dict] = {}
+
+
+def _course_path(course_slug: str) -> Path:
+    path = _CONTENT_ROOT / course_slug / "course.json"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"course.json no encontrado para el curso '{course_slug}': {path}"
+        )
+    return path
+
+
+def load_course_structure(course_slug: str) -> dict:
+    """Raw parsed course.json (structure payload). Cached."""
+    cached = _STRUCTURE_CACHE.get(course_slug)
+    if cached is not None:
+        return cached
+    with _course_path(course_slug).open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    _STRUCTURE_CACHE[course_slug] = data
+    return data
 
 
 def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
@@ -67,23 +117,30 @@ def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
     if cached is not None:
         return cached
 
-    catalog_path = _CONTENT_ROOT / course_slug / "catalog.json"
-    if not catalog_path.exists():
-        raise FileNotFoundError(
-            f"Catálogo no encontrado para el curso '{course_slug}': {catalog_path}"
-        )
-
-    with catalog_path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_course_structure(course_slug)
 
     result: dict[Belt, BeltCatalog] = {}
     for belt_entry in data["belts"]:
         belt = Belt(belt_entry["key"])
-        topics = [
-            Topic(key=t["key"], name=t["name"], tooltip=t["tooltip"])
-            for t in belt_entry["topics"]
-        ]
-        result[belt] = BeltCatalog(belt=belt, topics=topics)
+        units: list[Unit] = []
+        for u in belt_entry["units"]:
+            topics = tuple(
+                Topic(
+                    key=t["key"],
+                    name=t["name"],
+                    tooltip=t.get("tooltip", ""),
+                    short_description=t.get("short_description", ""),
+                    skills=tuple(t.get("skills", ())),
+                )
+                for t in u["topics"]
+            )
+            units.append(Unit(key=u["key"], name=u["name"], topics=topics))
+        result[belt] = BeltCatalog(
+            belt=belt,
+            units=units,
+            headline=belt_entry.get("headline", ""),
+            description=belt_entry.get("description", ""),
+        )
 
     _CATALOG_CACHE[course_slug] = result
     return result
@@ -92,5 +149,7 @@ def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
 def clear_catalog_cache(course_slug: str | None = None) -> None:
     if course_slug is None:
         _CATALOG_CACHE.clear()
+        _STRUCTURE_CACHE.clear()
     else:
         _CATALOG_CACHE.pop(course_slug, None)
+        _STRUCTURE_CACHE.pop(course_slug, None)

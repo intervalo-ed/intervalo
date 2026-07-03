@@ -1,5 +1,5 @@
 // Exercise-type metadata (label + description) is course content, defined in
-// the catalog so each course can declare its own. See catalog.json.
+// the catalog so each course can declare its own. See course.json.
 
 import { catalog, type ExerciseType } from "./analisis.generated"
 

@@ -15,7 +15,7 @@ import {
   BELT_HEX,
   BELT_ORDER,
   beltInfo,
-  getBelt,
+  topicsForBelt,
   topicShortLabel,
   type BeltKey,
 } from "@/lib/catalog"
@@ -36,8 +36,8 @@ function itemId({ belt, topic, exercise_type }: TestItem) {
 function allItems(): TestItem[] {
   const out: TestItem[] = []
   for (const belt of BELT_ORDER) {
-    for (const t of getBelt({ key: belt })?.topics ?? []) {
-      for (const et of t.exercise_types) {
+    for (const t of topicsForBelt({ belt })) {
+      for (const et of t.skills) {
         out.push({ belt, topic: t.key, exercise_type: et })
       }
     }
@@ -116,8 +116,8 @@ export default function ZentestConfig() {
         </section>
 
         {BELT_ORDER.map((belt) => {
-          const topics = (getBelt({ key: belt })?.topics ?? []).filter(
-            (t) => t.exercise_types.length > 0,
+          const topics = topicsForBelt({ belt }).filter(
+            (t) => t.skills.length > 0,
           )
           if (topics.length === 0) return null
           return (
@@ -133,7 +133,7 @@ export default function ZentestConfig() {
               </h3>
               <div className="flex flex-col gap-3">
                 {topics.map((t) => {
-                  const topicItems: TestItem[] = t.exercise_types.map((et) => ({
+                  const topicItems: TestItem[] = t.skills.map((et) => ({
                     belt,
                     topic: t.key,
                     exercise_type: et,

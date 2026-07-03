@@ -213,11 +213,12 @@ CLSF/definition tiene ~30 ítems del tipo "¿es función?", naturalmente Sí/No.
 - El binario legítimo queda para el caso verdaderamente sin tercera confusión (el precedente de "¿cumple unicidad?" en `authoring-context.md`), y siempre ≤ 3 ítems por archivo.
 - Reflejado en el `topic-context.md` de definition (§Cardinalidad CLSF y checklist). El criterio es transversal a cualquier topic con preguntas de verificación dicotómica (continuidad sí/no, derivable sí/no, etc.): buscá siempre la tercera opción que capture la confusión clásica antes de caer al binario.
 
-**Alcance de CLSF, redefinido jul-2026 (durante el refactor del JSON):** el `CLSF.json` que había estaba muy desalineado: 13 ítems de "¿es función?" + 37 de identificar dominio/imagen/preimagen (duplicando LEXI), 0 de iny/sob/biy y 0 de representación, y `correct_index` siempre 0. Decisiones tomadas:
-- **CLSF = una sola pregunta, "¿es función?" (unicidad)**, planteada sobre distintas representaciones. Se descartan los ítems que identifican conjuntos (son LEXI).
-- **Iny/sobre/biyectiva queda FUERA de white** (se agenda para un topic posterior con codominio trabajado). No usar la palabra "inyectividad" en options/feedback: describir el concepto ("dos entradas con la misma salida no rompe la unicidad").
-- **La categoría "tipo de representación" se mantiene (~10)** pero reinterpretada como el mismo "¿es función?" en fórmula/lista/diagrama/gráfica, no como "nombrá el formato".
-- **Bug recurrente de la Gema: `correct_index` siempre 0.** El runtime baraja, pero como fuente impide auditar pistas delatoras y balance. Constraint nueva de checklist: variar `correct_index` y balancear Sí/No.
+**Alcance de CLSF, redefinido jul-2026 (durante el refactor del JSON):** el `CLSF.json` que había estaba desalineado: 13 ítems de "¿es función?" + 37 de identificar dominio/imagen/preimagen, 0 de iny/sob/biy, y `correct_index` siempre 0.
+
+Primera decisión (luego revisada): "CLSF = solo ¿es función?". **Revisada jul-2026 por el usuario:** volver a un CLSF de **aplicación** con dos bloques —**~15 de unicidad** (solo rota disfrazada + trampa de inyectividad, los casos que enseñan) + **~35 de identificación** (calcular/distinguir dominio, dominio natural, imagen, codominio, preimagen sobre casos concretos)—. El límite con LEXI ya no es "qué concepto" sino "definir vs. calcular": **LEXI define/reconoce el término (2-3 opciones), CLSF identifica o calcula el conjunto concreto (4 opciones en identificación, 3 en unicidad).** Si un ítem se resuelve de memoria sin mirar el caso, es LEXI.
+- **Iny/sobre/biyectiva sigue FUERA de white** (topic posterior con codominio trabajado). No usar la palabra "inyectividad" en options/feedback: describir el concepto ("dos entradas con la misma salida no rompe la unicidad"). En CLSF la inyectividad aparece solo como distractor en el bloque de unicidad.
+- **Bug recurrente de la Gema: `correct_index` siempre 0.** El runtime baraja, pero como fuente impide auditar pistas delatoras y balance. Constraint de checklist: variar `correct_index` y balancear Sí/No en unicidad.
+- **`feedback_incorrect` faltaba en casi todos los ítems del JSON viejo** (string vacío ""). Ahora requerido en todos, array del mismo largo que `options`, `null` en el correcto.
 - **Nombres propios se colaron** (ítem del DNI usaba "Lucía"). Reforzado en el checklist del topic.
 
 ---

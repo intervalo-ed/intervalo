@@ -2,9 +2,10 @@
 seed_content.py — Seeder idempotente del contenido del curso.
 
 Lee la nueva estructura de carpetas en backend/content/<course-slug>/ y hace
-upsert a la BBDD:
-  - course.json     → upsert en `courses` por slug
-  - belt_info.json  → upsert en `belt_info` por (course_id, belt)
+upsert a la BBDD. La fuente única de estructura es `course.json` (consolida lo
+que antes vivía en course.json + belt_info.json + catalog.json):
+  - course.json (slug/name/description) → upsert en `courses` por slug
+  - course.json (belts[].headline/description) → upsert en `belt_info` por (course_id, belt)
   - {belt}/{unit}/{topic}/{SKILL}.json → upsert en `exercises` por (course_id, external_id)
 
 Los metadatos de cada ejercicio (belt, topic, exercise_type, external_id) se
@@ -119,11 +120,19 @@ def seed_course(db: DBSession, course_dir: Path) -> Course:
 
 
 def seed_belt_info(db: DBSession, course: Course, course_dir: Path) -> int:
-    path = course_dir / "belt_info.json"
-    if not path.exists():
-        return 0
+    """Upsert headline/description por cinturón desde course.json (belts[]).
 
-    entries = _load_json(path)
+    La tabla `belt_info` se mantiene como storage; la fuente ahora es el
+    course.json unificado (antes: belt_info.json)."""
+    data = _load_json(course_dir / "course.json")
+    entries = [
+        {
+            "belt": b["key"],
+            "headline": b.get("headline", ""),
+            "description": b.get("description", ""),
+        }
+        for b in data.get("belts", [])
+    ]
     inserted = updated = 0
 
     for entry in entries:
@@ -162,6 +171,7 @@ def seed_exercises(
     prune: bool = False,
 ) -> int:
     seen_external_ids: set[str] = set()
+    seen_skills: set[tuple[str, str, str]] = set()  # (belt, topic, skill)
     inserted = updated = 0
     total = 0
 
@@ -175,6 +185,7 @@ def seed_exercises(
 
         belt, _unit, topic, skill_name = rel.parts
         skill = Path(skill_name).stem  # drop .json extension
+        seen_skills.add((belt, topic, skill))
 
         entries = _load_json(skill_file)
         if not isinstance(entries, list):
@@ -268,10 +279,31 @@ def seed_exercises(
         if to_delete:
             print(f"  [exercises] pruned {len(to_delete)} stale rows")
 
+    _validate_declared_skills(course_dir, seen_skills)
+
     print(
         f"  [exercises] {total} entries ({inserted} inserted, {updated} updated)"
     )
     return total
+
+
+def _validate_declared_skills(
+    course_dir: Path, seen_skills: set[tuple[str, str, str]]
+) -> None:
+    """Warn if the SKILL.json files on disk don't match course.json topic.skills."""
+    data = _load_json(course_dir / "course.json")
+    declared: set[tuple[str, str, str]] = set()
+    for belt in data.get("belts", []):
+        for unit in belt.get("units", []):
+            for topic in unit.get("topics", []):
+                for skill in topic.get("skills", []):
+                    declared.add((belt["key"], topic["key"], skill))
+    missing = declared - seen_skills   # declared pero sin archivo
+    extra = seen_skills - declared     # archivo sin declarar en course.json
+    if missing:
+        print(f"  [warn] skills declarados sin archivo: {sorted(missing)}")
+    if extra:
+        print(f"  [warn] archivos SKILL sin declarar en course.json: {sorted(extra)}")
 
 
 # ── Entrypoints ────────────────────────────────────────────────────────────────

@@ -1,5 +1,384 @@
 {
-  "description": "Sistema de repaso adaptativo para Análisis Matemático I",
+  "slug": "analisis",
   "name": "Análisis",
-  "slug": "analisis"
+  "description": "Sistema de repaso adaptativo para Análisis Matemático I",
+  "exercise_types": [
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar funciones, puntos o casos."
+    },
+    {
+      "id": "FORM",
+      "label": "Formulación",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "GRAF",
+      "label": "Gráficos",
+      "description": "Leer e interpretar información en gráficos."
+    },
+    {
+      "id": "ESTR",
+      "label": "Estrategia",
+      "description": "Elegir el método o las condiciones para resolver."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular el resultado paso a paso."
+    },
+    {
+      "id": "DERI",
+      "label": "Derivación",
+      "description": "Calcular derivadas aplicando las reglas."
+    },
+    {
+      "id": "INTG",
+      "label": "Integración",
+      "description": "Calcular integrales definidas e indefinidas."
+    },
+    {
+      "id": "APLI",
+      "label": "Aplicación",
+      "description": "Resolver problemas y situaciones reales."
+    }
+  ],
+  "belts": [
+    {
+      "key": "white",
+      "headline": "Funciones",
+      "description": "Una función es una relación que asigna a cada elemento de un conjunto de partida o **dominio**, un único elemento de un conjunto de llegada o **codominio**.\n$$f : X \\to Y, \\quad y = f(x)$$\nEsta relación permite modelar la **dependencia** entre variables y hace posible el **análisis** de su comportamiento a través de límites, derivadas e integrales.",
+      "units": [
+        {
+          "key": "functions",
+          "name": "Funciones",
+          "topics": [
+            {
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Una **función** es una relación que asigna a cada elemento de un conjunto de partida o **dominio**, un único elemento de un conjunto de llegada o **codominio**.\n$$f : X \\to Y, \\quad y = f(x)$$\nLa condición necesaria para esta relación es la **unicidad**, cada valor de entrada se transforma en una y solo una salida.",
+              "short_description": "Una **función** es una relación que asigna a cada elemento de un conjunto de partida o **dominio**, un único elemento de un conjunto de llegada o **codominio**.\n$$f : X \\to Y, \\quad y = f(x)$$",
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "linear",
+              "name": "Funciones lineales",
+              "tooltip": "Una **función lineal** es aquella que puede expresarse como un polinomio de primer grado.\n$$f(x) = mx + b$$\nLa representación gráfica de esta relación en el plano cartesiano es siempre una línea recta, lo que refleja una tasa de cambio constante entre sus variables.",
+              "short_description": "Una **función lineal** es aquella que puede expresarse como un polinomio de primer grado.\n$$f(x) = mx + b$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "quadratic",
+              "name": "Funciones cuadráticas",
+              "tooltip": "Una **función cuadrática** es aquella que puede expresarse como un polinomio de segundo grado.\n$$f(x) = ax^2 + bx + c$$\nLa representación gráfica de esta relación en el plano cartesiano es una curva simétrica conocida como **parábola**.",
+              "short_description": "Una **función cuadrática** es aquella que puede expresarse como un polinomio de segundo grado.\n$$f(x) = ax^2 + bx + c$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "polynomial",
+              "name": "Funciones polinómicas",
+              "tooltip": "Una **función polinómica** es aquella que puede expresarse como un polinomio de grado $n$, generalización que incluye a las funciones lineales y cuadráticas.\n$$f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$$\nLa representación gráfica de esta relación en el plano cartesiano es siempre una curva suave y continua.",
+              "short_description": "Una **función polinómica** es aquella que puede expresarse como un polinomio de grado $n$, generalización que incluye a las funciones lineales y cuadráticas.\n$$f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "exponential",
+              "name": "Funciones exponenciales",
+              "tooltip": "Una **función exponencial** es aquella en la que la variable independiente aparece como exponente de una base constante.\n$$f(x) = a^x$$\nLa representación gráfica de esta relación en el plano cartesiano es una curva continua que refleja un ritmo de crecimiento o decaimiento sumamente rápido.",
+              "short_description": "Una **función exponencial** es aquella en la que la variable independiente aparece como exponente de una base constante.\n$$f(x) = a^x$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "logarithmic",
+              "name": "Funciones logarítmicas",
+              "tooltip": "Una **función logarítmica** es aquella en la que la variable independiente aparece como el argumento de un logaritmo de base constante.\n$$f(x) = \\log_a(x)$$\nLa representación gráfica de esta relación en el plano cartesiano es una curva continua que refleja un ritmo de crecimiento o decaimiento sumamente gradual.",
+              "short_description": "Una **función logarítmica** es aquella en la que la variable independiente aparece como el argumento de un logaritmo de base constante.\n$$f(x) = \\log_a(x)$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "rational",
+              "name": "Funciones racionales",
+              "tooltip": "Una **función racional** es aquella que puede expresarse como el cociente o división entre dos polinomios.\n$$f(x) = \\frac{P(x)}{Q(x)}$$\nLa representación gráfica de esta relación en el plano cartesiano es habitualmente una curva dividida en múltiples ramas, caracterizada por acercarse infinitamente a líneas de límite conocidas como **asíntotas**.",
+              "short_description": "Una **función racional** es aquella que puede expresarse como el cociente o división entre dos polinomios.\n$$f(x) = \\frac{P(x)}{Q(x)}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            },
+            {
+              "key": "modulo",
+              "name": "Función módulo",
+              "tooltip": "Una **función módulo** (o **valor absoluto**) es aquella que devuelve la distancia de un número al cero, resultando siempre en un valor no negativo.\n$$f(x) = |x|$$\nLa representación gráfica de esta relación en el plano cartesiano tiene forma de **V** con vértice en el origen, y presenta un punto no derivable donde la función cambia de rama.",
+              "short_description": "Una **función módulo** (o **valor absoluto**) es aquella que devuelve la distancia de un número al cero, resultando siempre en un valor no negativo.\n$$f(x) = |x|$$",
+              "skills": []
+            },
+            {
+              "key": "trigonometric",
+              "name": "Funciones trigonométricas",
+              "tooltip": "Una **función trigonométrica** es aquella que vincula la medida de un ángulo con las proporciones métricas de un espacio geométrico, destacándose como principales el **seno**, el **coseno** y la **tangente**.\n$$\\begin{aligned} f(x) &= \\sin(x) \\\\ f(x) &= \\cos(x) \\\\ f(x) &= \\tan(x) \\end{aligned}$$\nLa representación gráfica de esta relación en el plano cartesiano se caracteriza por ser una curva que oscila y repite su forma a intervalos regulares, lo que refleja un comportamiento cíclico o periódico.",
+              "short_description": "Una **función trigonométrica** es aquella que vincula la medida de un ángulo con las proporciones métricas de un espacio geométrico, destacándose como principales el **seno**, el **coseno** y la **tangente**.\n$$\\begin{aligned} f(x) &= \\sin(x) \\\\ f(x) &= \\cos(x) \\\\ f(x) &= \\tan(x) \\end{aligned}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "GRAF"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "headline": "Límites",
+      "description": "Un **límite** describe el valor al que se aproxima una función a medida que su variable independiente se acerca a un punto determinado o al infinito.\n$$\\lim_{x \\to a} f(x) = L$$\nEs el concepto que permite definir con rigor la **continuidad**, la **derivada** y la **integral**, y hace posible el estudio del comportamiento local de una función incluso allí donde no está definida.",
+      "units": [
+        {
+          "key": "limits",
+          "name": "Límites",
+          "topics": [
+            {
+              "key": "algebraic_limits",
+              "name": "Límites algebraicos",
+              "tooltip": "Un **límite algebraico** es aquel que se calcula manipulando la expresión de la función sin evaluarla directamente en el punto de tendencia.\n$$\\lim_{x \\to a} f(x) = L$$\nCuando la sustitución directa produce una indeterminación como $\\tfrac{0}{0}$, se recurre a técnicas como la **factorización** o la **racionalización** para simplificar la expresión y obtener el valor buscado.",
+              "short_description": "Un **límite algebraico** es aquel que se calcula manipulando la expresión de la función sin evaluarla directamente en el punto de tendencia.\n$$\\lim_{x \\to a} f(x) = L$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
+            },
+            {
+              "key": "lateral_limits",
+              "name": "Límites laterales",
+              "tooltip": "Los **límites laterales** son aquellos que consideran el acercamiento de la variable a un valor desde un único lado, ya sea por la izquierda o por la derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$\nEl límite general de una función en un punto existe únicamente cuando ambos límites laterales coinciden, condición clave para analizar **saltos** y **discontinuidades**.",
+              "short_description": "Los **límites laterales** son aquellos que consideran el acercamiento de la variable a un valor desde un único lado, ya sea por la izquierda o por la derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$",
+              "skills": [
+                "LEXI",
+                "GRAF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "infinite_limits",
+              "name": "Límites al infinito",
+              "tooltip": "Un **límite al infinito** describe el comportamiento de una función cuando su variable independiente crece o decrece sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L$$\nSu análisis permite identificar **asíntotas horizontales** y caracterizar la tendencia final de la curva, dominada por los términos de mayor peso de la expresión.",
+              "short_description": "Un **límite al infinito** describe el comportamiento de una función cuando su variable independiente crece o decrece sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L$$",
+              "skills": [
+                "LEXI",
+                "GRAF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "continuity",
+              "name": "Continuidad",
+              "tooltip": "Una función es **continua** en un punto cuando el valor al que tiende coincide con el valor que efectivamente toma en él, sin saltos ni huecos en la gráfica.\n$$\\lim_{x \\to a} f(x) = f(a)$$\nLas rupturas de esta condición dan lugar a distintos tipos de **discontinuidad**, evitables o esenciales según cómo se comporten los límites laterales en el punto.",
+              "short_description": "Una función es **continua** en un punto cuando el valor al que tiende coincide con el valor que efectivamente toma en él, sin saltos ni huecos en la gráfica.\n$$\\lim_{x \\to a} f(x) = f(a)$$",
+              "skills": [
+                "CLSF",
+                "GRAF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "factorizacion",
+              "name": "Factorización",
+              "tooltip": "La **factorización** consiste en reescribir una expresión algebraica como el producto de factores más simples, revelando su estructura interna y sus **raíces**.\n$$P(x) = a(x - r_1)(x - r_2)\\cdots(x - r_n)$$\nEs una herramienta esencial para simplificar expresiones, resolver ecuaciones y eliminar indeterminaciones del tipo $\\tfrac{0}{0}$ en el cálculo de límites.",
+              "short_description": "La **factorización** consiste en reescribir una expresión algebraica como el producto de factores más simples, revelando su estructura interna y sus **raíces**.\n$$P(x) = a(x - r_1)(x - r_2)\\cdots(x - r_n)$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
+            },
+            {
+              "key": "racionalizacion",
+              "name": "Racionalización",
+              "tooltip": "La **racionalización** es una técnica que elimina las raíces del numerador o del denominador de una expresión multiplicando por una forma conveniente, típicamente el **conjugado**.\n$$\\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$\nSe utiliza principalmente en el cálculo de límites para transformar indeterminaciones en expresiones equivalentes fáciles de evaluar.",
+              "short_description": "La **racionalización** es una técnica que elimina las raíces del numerador o del denominador de una expresión multiplicando por una forma conveniente, típicamente el **conjugado**.\n$$\\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$",
+              "skills": [
+                "ESTR",
+                "RESL"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "violet",
+      "headline": "Derivadas",
+      "description": "Una **derivada** mide la tasa de cambio instantánea de una función respecto de su variable independiente.\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\nGeométricamente representa la **pendiente** de la **recta tangente** a la curva en un punto, y es la herramienta principal para analizar el crecimiento, la curvatura y el comportamiento local de una función.",
+      "units": [
+        {
+          "key": "derivatives",
+          "name": "Derivadas",
+          "topics": [
+            {
+              "key": "limit_definition",
+              "name": "Definición de derivada",
+              "tooltip": "La **derivada** de una función en un punto se define como el límite del cociente incremental cuando el incremento tiende a cero.\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\nEste límite mide la **tasa de cambio instantánea** de la función en el punto y constituye la base formal del cálculo diferencial.",
+              "short_description": "La **derivada** de una función en un punto se define como el límite del cociente incremental cuando el incremento tiende a cero.\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "GRAF",
+                "ESTR"
+              ]
+            },
+            {
+              "key": "geometric_interpretation",
+              "name": "Interpretación geométrica",
+              "tooltip": "Geométricamente, la **derivada** de una función en un punto representa la **pendiente** de la **recta tangente** a la curva en ese mismo punto.\n$$y = f'(a)(x - a) + f(a)$$\nSurge como el límite de las pendientes de las rectas **secantes**, que al acercar sus extremos convergen a la dirección instantánea de la curva.",
+              "short_description": "Geométricamente, la **derivada** de una función en un punto representa la **pendiente** de la **recta tangente** a la curva en ese mismo punto.\n$$y = f'(a)(x - a) + f(a)$$",
+              "skills": [
+                "LEXI",
+                "GRAF",
+                "ESTR",
+                "APLI"
+              ]
+            },
+            {
+              "key": "basic_rules",
+              "name": "Reglas básicas",
+              "tooltip": "Las **reglas básicas de derivación** son fórmulas directas que permiten calcular la derivada de las funciones elementales sin recurrir a la definición por límites.\n$$(x^n)' = n \\, x^{n-1}$$\nSe combinan mediante la **linealidad** para derivar sumas, restas y múltiplos escalares de funciones potenciales, exponenciales, logarítmicas y trigonométricas.",
+              "short_description": "Las **reglas básicas de derivación** son fórmulas directas que permiten calcular la derivada de las funciones elementales sin recurrir a la definición por límites.\n$$(x^n)' = n \\, x^{n-1}$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "DERI"
+              ]
+            },
+            {
+              "key": "product_quotient",
+              "name": "Producto y cociente",
+              "tooltip": "Las **reglas del producto y del cociente** permiten derivar funciones que resultan de multiplicar o dividir dos expresiones dependientes de la misma variable.\n$$\\begin{aligned} (u \\cdot v)' &= u'v + uv' \\\\ \\left(\\tfrac{u}{v}\\right)' &= \\tfrac{u'v - uv'}{v^2} \\end{aligned}$$\nEstas reglas evitan la expansión previa de la expresión y son indispensables cuando los factores no admiten una simplificación algebraica directa.",
+              "short_description": "Las **reglas del producto y del cociente** permiten derivar funciones que resultan de multiplicar o dividir dos expresiones dependientes de la misma variable.\n$$\\begin{aligned} (u \\cdot v)' &= u'v + uv' \\\\ \\left(\\tfrac{u}{v}\\right)' &= \\tfrac{u'v - uv'}{v^2} \\end{aligned}$$",
+              "skills": [
+                "ESTR",
+                "DERI",
+                "APLI"
+              ]
+            },
+            {
+              "key": "chain_rule",
+              "name": "Regla de la cadena",
+              "tooltip": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$\nSu aplicación consiste en derivar la función **exterior** evaluada en la **interior**, y multiplicarla luego por la derivada de esta última.",
+              "short_description": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$",
+              "skills": [
+                "ESTR",
+                "DERI",
+                "APLI"
+              ]
+            },
+            {
+              "key": "lhopital",
+              "name": "L'Hôpital",
+              "tooltip": "La **regla de L'Hôpital** resuelve límites **indeterminados** del tipo $\\tfrac{0}{0}$ o $\\tfrac{\\infty}{\\infty}$ derivando por separado el numerador y el denominador.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$\nSe aplica reiteradamente mientras la indeterminación persista, aprovechando que las derivadas suelen tener un comportamiento más simple cerca del punto crítico.",
+              "short_description": "La **regla de L'Hôpital** resuelve límites **indeterminados** del tipo $\\tfrac{0}{0}$ o $\\tfrac{\\infty}{\\infty}$ derivando por separado el numerador y el denominador.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$",
+              "skills": [
+                "ESTR",
+                "RESL",
+                "APLI"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "brown",
+      "headline": "Integrales",
+      "description": "Una **integral** acumula cambios infinitesimales y calcula el **área** neta encerrada bajo una curva sobre un intervalo.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nEs la operación inversa de la **derivada** según el **Teorema Fundamental del Cálculo**, y permite reconstruir una función a partir de su tasa de cambio, calcular áreas y sumar acumulaciones a lo largo de un intervalo.",
+      "units": [
+        {
+          "key": "integrals",
+          "name": "Integrales",
+          "topics": [
+            {
+              "key": "indefinite_integral",
+              "name": "Integral indefinida",
+              "tooltip": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$\nLa **constante de integración** $C$ refleja que existe una familia infinita de antiderivadas, todas diferenciadas entre sí únicamente por un valor constante.",
+              "short_description": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "INTG"
+              ]
+            },
+            {
+              "key": "substitution",
+              "name": "Sustitución",
+              "tooltip": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$\nEs la contraparte integral de la **regla de la cadena** y resulta especialmente útil cuando la derivada de una función interior aparece como factor dentro del integrando.",
+              "short_description": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$",
+              "skills": [
+                "ESTR",
+                "INTG",
+                "APLI"
+              ]
+            },
+            {
+              "key": "integration_by_parts",
+              "name": "Integración por partes",
+              "tooltip": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$\nSe elige la parte $u$ que se simplifica al derivarse y la parte $dv$ que resulta fácil de integrar, buscando así una integral remanente más simple que la original.",
+              "short_description": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$",
+              "skills": [
+                "ESTR",
+                "INTG",
+                "APLI"
+              ]
+            },
+            {
+              "key": "definite_integral",
+              "name": "Integral definida",
+              "tooltip": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nSu evaluación se realiza mediante el **Teorema Fundamental del Cálculo**, que conecta la integración con la antiderivada de la función.",
+              "short_description": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$",
+              "skills": [
+                "GRAF",
+                "INTG",
+                "APLI"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -45,10 +45,10 @@ class UserStatusResponse(BaseModel):
 
 # ── Progress ──────────────────────────────────────────────────────────────────
 
-class UnitProgress(BaseModel):
+class SkillProgress(BaseModel):
     exercise_type: str
     state: str          # "sin_empezar" | "aprendiendo" | "dominado"
-    next_review: str | None = None  # ISO date del próximo repaso de esta unit
+    next_review: str | None = None  # ISO date del próximo repaso de este skill
 
 
 class TopicProgress(BaseModel):
@@ -60,7 +60,7 @@ class TopicProgress(BaseModel):
     attempted: bool
     next_review: str | None = None
     failed: bool
-    units: list[UnitProgress] = []
+    skills: list[SkillProgress] = []
 
 
 class LevelInfo(BaseModel):

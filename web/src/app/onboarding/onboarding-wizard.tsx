@@ -48,7 +48,9 @@ const EXERCISE_FEEDBACK = "La imagen del 2 es $f(2) = 2 + 2 = 4$."
 const EXERCISE_EXPLANATION =
   "La **imagen** de un valor $x$ es lo que devuelve la regla al aplicarla, es decir $f(x)$.\n\nAcá la regla suma 2, así que\n$$f(2) = 2 + 2 = 4$$\nLa imagen del 2 es 4. Esperemos que no te hayas equivocado en esta."
 
-const WHITE_TOPICS = catalog.belts.find((b) => b.key === "white")!.topics
+const WHITE_TOPICS = catalog.belts
+  .find((b) => b.key === "white")!
+  .units.flatMap((u) => u.topics)
 
 const WHITE_BELT_FUNCTIONS = [
   { key: "definition", name: "Definición", items: ["LEXI", "CLSF"] },

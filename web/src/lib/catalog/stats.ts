@@ -57,7 +57,7 @@ export function beltStats({
   const out = emptyCounts()
   if (!cat) return out
 
-  for (const topic of cat.topics) {
+  for (const topic of cat.units.flatMap((u) => u.topics)) {
     accumulateTopic({ counts: out, state: topicStates[topic.key] })
   }
   return out
@@ -72,7 +72,7 @@ export function beltTopicStats({
 }): TopicStat[] {
   const cat = getBelt({ key: belt })
   if (!cat) return []
-  return cat.topics.map((topic) => {
+  return cat.units.flatMap((u) => u.topics).map((topic) => {
     const counts = emptyCounts()
     accumulateTopic({ counts, state: topicStates[topic.key] })
     return { topic: topic.key, ...counts }
@@ -95,13 +95,13 @@ function accumulateUnits({
   state,
 }: {
   totals: UnitTotals
-  topic: { exercise_types: string[] }
+  topic: { skills: string[] }
   state: TopicProgress | undefined
 }): void {
-  totals.total += topic.exercise_types.length
+  totals.total += topic.skills.length
   if (!state) return
-  totals.unlocked += state.units.length
-  totals.dominados += state.units.filter((u) => u.state === "dominado").length
+  totals.unlocked += state.skills.length
+  totals.dominados += state.skills.filter((u) => u.state === "dominado").length
 }
 
 // Conteo a nivel ítem (unit) para todo el curso.
@@ -114,7 +114,7 @@ export function courseUnitTotals({
   for (const belt of BELT_ORDER) {
     const cat = getBelt({ key: belt })
     if (!cat) continue
-    for (const topic of cat.topics) {
+    for (const topic of cat.units.flatMap((u) => u.topics)) {
       accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
     }
   }
@@ -132,7 +132,7 @@ export function beltUnitTotals({
   const out = emptyUnitTotals()
   const cat = getBelt({ key: belt })
   if (!cat) return out
-  for (const topic of cat.topics) {
+  for (const topic of cat.units.flatMap((u) => u.topics)) {
     accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
   }
   return out
@@ -166,10 +166,10 @@ export function actionableUnitCount({
   for (const belt of BELT_ORDER) {
     const cat = getBelt({ key: belt })
     if (!cat) continue
-    for (const topic of cat.topics) {
+    for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[topic.key]
       if (!state) continue
-      for (const unit of state.units) {
+      for (const unit of state.skills) {
         if (unit.state === "sin_empezar") count++
         else if (unitDue(unit.next_review)) count++
       }
@@ -189,10 +189,10 @@ export function pendingUnitCount({
   for (const belt of BELT_ORDER) {
     const cat = getBelt({ key: belt })
     if (!cat) continue
-    for (const topic of cat.topics) {
+    for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[topic.key]
       if (!state) continue
-      count += state.units.filter(
+      count += state.skills.filter(
         (u) => u.state !== "sin_empezar" && unitDue(u.next_review),
       ).length
     }

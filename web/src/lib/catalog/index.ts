@@ -1,7 +1,7 @@
-import { catalog, type Belt, type BeltKey, type Topic } from "./analisis.generated"
+import { catalog, type Belt, type BeltKey, type Topic, type Unit } from "./analisis.generated"
 
 export { catalog }
-export type { Belt, BeltKey, Topic }
+export type { Belt, BeltKey, Topic, Unit }
 
 const BELT_ASSET: Record<BeltKey, string> = {
   white: "/belt_white.png",
@@ -17,30 +17,9 @@ const BELT_LABEL: Record<BeltKey, string> = {
   brown: "Marrón",
 }
 
-const BELT_INFO: Record<BeltKey, { headline: string; description: string }> = {
-  white: {
-    headline: "Funciones",
-    description:
-      "El estudio de la relación matemática que asocia a cada elemento de un dominio con una única imagen en un codominio. Representan la estructura lógica básica para modelar cualquier tipo de dependencia entre variables en el cálculo.\n\nPermite transformar entradas en salidas siguiendo leyes definidas, modelar dinámicas de crecimiento, decaimiento o ciclos, y establecer la base para cualquier análisis de cambio posterior.\n\nSe aplica en el modelado de trayectorias físicas, en la predicción de tendencias económicas, en la representación de fenómenos naturales mediante modelos funcionales, etc.",
-  },
-  blue: {
-    headline: "Límites",
-    description:
-      "El análisis del comportamiento de una función a medida que su variable independiente se aproxima a un valor específico o al infinito. Constituyen el concepto crítico que permite definir la continuidad y la derivada de manera rigurosa.\n\nFacilita el estudio de discontinuidades, el cálculo de asíntotas y la evaluación de tasas de variación instantánea, permitiendo resolver indeterminaciones algebraicas fundamentales para el cálculo.\n\nSe aplica en la definición rigurosa de la velocidad instantánea, en el análisis de estabilidad de sistemas, en la aproximación numérica de valores funcionales, etc.",
-  },
-  violet: {
-    headline: "Derivadas",
-    description:
-      "La medida de la tasa de cambio instantánea de una función con respecto a su variable independiente. Actúan como la herramienta principal para entender la sensibilidad, la pendiente y el movimiento de un sistema en un punto dado.\n\nPermite identificar pendientes, calcular razones de cambio, determinar la dirección de crecimiento o decrecimiento y analizar la curvatura de las funciones para entender su comportamiento local.\n\nSe aplica en la física para el cálculo de velocidades y aceleraciones, en la optimización de procesos industriales, en la interpretación geométrica de tangentes, etc.",
-  },
-  brown: {
-    headline: "Integrales",
-    description:
-      "La operación analítica que permite acumular cambios infinitesimales o calcular el área neta bajo curvas en un intervalo definido. Representan el núcleo del cálculo integral y la conexión fundamental mediante el Teorema Fundamental del Cálculo.\n\nPermite reconstruir funciones a partir de sus tasas de cambio, calcular el área neta bajo curvas y determinar volúmenes o acumulaciones de cantidades físicas en intervalos.\n\nSe aplica en el cálculo de áreas de figuras irregulares, en la determinación de centros de masa, en el análisis de trabajo y energía en física, en la reconstrucción de funciones de posición a partir de la velocidad, etc.",
-  },
-}
-
-export const BELT_ORDER: BeltKey[] = ["white", "blue", "violet", "brown"]
+// Orden y descripciones de cinturón vienen del catálogo generado (course.json),
+// no hardcodeados. Ver `beltInfo()`.
+export const BELT_ORDER: BeltKey[] = catalog.belts.map((b) => b.key)
 
 // Fuente de verdad de los colores de cinturón, espejada del ícono de la app
 // (web/src/components/app-icon.tsx). `solid` = el color exacto de la marca, para
@@ -85,18 +64,30 @@ export function beltInfo({ belt }: { belt: BeltKey }): {
   headline: string
   description: string
 } {
-  return BELT_INFO[belt]
+  const b = getBelt({ key: belt })
+  return { headline: b?.headline ?? "", description: b?.description ?? "" }
 }
 
 export function getBelt({ key }: { key: BeltKey }): Belt | undefined {
   return catalog.belts.find((b) => b.key === key)
 }
 
+export function unitsForBelt({ belt }: { belt: BeltKey }): Unit[] {
+  return getBelt({ key: belt })?.units ?? []
+}
+
+// Flattened topics of a belt across all its units (units in order).
+export function topicsForBelt({ belt }: { belt: BeltKey }): Topic[] {
+  return unitsForBelt({ belt }).flatMap((u) => u.topics)
+}
+
 // Topic name comes from the catalog JSON now (no separate label map).
 export function topicLabel({ topic }: { topic: string }): string {
   for (const belt of catalog.belts) {
-    const t = belt.topics.find((t) => t.key === topic)
-    if (t) return t.name
+    for (const unit of belt.units) {
+      const t = unit.topics.find((t) => t.key === topic)
+      if (t) return t.name
+    }
   }
   return topic
 }

@@ -31,8 +31,35 @@ export interface paths {
         /**
          * Get Belt Info
          * @description Returns descriptive info (headline + description) for each belt in a course.
+         *
+         *     DEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarquía
+         *     completa (belts→units→topics→skills). Se mantiene por compatibilidad.
          */
         get: operations["get_belt_info_course__course_id__belts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course_id}/structure": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Course Structure
+         * @description Estructura completa del curso desde course.json: la jerarquía
+         *     curso → cinturón → unidades → temas → skills, más los exercise_types.
+         *
+         *     Fuente única de estructura (config-driven); el frontend genera su catálogo a
+         *     partir de este mismo archivo.
+         */
+        get: operations["get_course_structure_course__course_id__structure_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -706,7 +733,7 @@ export interface components {
             /** Feedback Correct */
             feedback_correct: string;
             /** Feedback Incorrect */
-            feedback_incorrect: string;
+            feedback_incorrect: string | (string | null)[];
             /** Explanation */
             explanation?: string | null;
         };
@@ -750,6 +777,15 @@ export interface components {
         SimpleResponse: {
             /** Success */
             success: boolean;
+        };
+        /** SkillProgress */
+        SkillProgress: {
+            /** Exercise Type */
+            exercise_type: string;
+            /** State */
+            state: string;
+            /** Next Review */
+            next_review?: string | null;
         };
         /** StartSessionRequest */
         StartSessionRequest: {
@@ -809,19 +845,10 @@ export interface components {
             /** Failed */
             failed: boolean;
             /**
-             * Units
+             * Skills
              * @default []
              */
-            units: components["schemas"]["UnitProgress"][];
-        };
-        /** UnitProgress */
-        UnitProgress: {
-            /** Exercise Type */
-            exercise_type: string;
-            /** State */
-            state: string;
-            /** Next Review */
-            next_review?: string | null;
+            skills: components["schemas"]["SkillProgress"][];
         };
         /** UpdateProfileRequest */
         UpdateProfileRequest: {
@@ -924,6 +951,37 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["BeltEntry"];
                     };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_course_structure_course__course_id__structure_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                course_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

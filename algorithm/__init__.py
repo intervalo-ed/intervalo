@@ -4,9 +4,11 @@ from .domain import (
     BeltCatalog,
     Topic,
     TopicKey,
+    Unit,
     UnitKey,
     clear_catalog_cache,
     load_belt_catalogs,
+    load_course_structure,
 )
 from .graduation import BeltProgress, belt_progress, is_mastered, is_topic_mastered
 from .scoring import quality_from_attempts, quality_from_time
@@ -41,6 +43,7 @@ __all__ = [
     "SessionUnit",
     "Topic",
     "TopicKey",
+    "Unit",
     "UnitKey",
     "XP_BELT_PROMOTED",
     "XP_CORRECT",
@@ -59,6 +62,7 @@ __all__ = [
     "level_from_xp",
     "level_progress",
     "load_belt_catalogs",
+    "load_course_structure",
     "quality_from_attempts",
     "quality_from_time",
     "should_reinsert",
