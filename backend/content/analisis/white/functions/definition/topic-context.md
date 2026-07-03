@@ -47,25 +47,29 @@ Los ítems de contraejemplo repetitivo ("dos descuentos al mismo producto", "dos
 
 ### Cardinalidad
 
-2-3 opciones por defecto. 4 solo cuando hay genuinamente 4 confusiones clásicas distintas que vale la pena separar. Evaluar ítem por ítem.
+Regla operativa por **tipo de respuesta** (ver `authoring-context.md`), no por skill:
 
-Preguntas binarias naturales (usar 2 opciones): "¿El dominio incluye o no incluye el 0?", "¿El codominio y la imagen coinciden aquí?", "¿Esta regla cumple unicidad?".
+- **Conceptual/textual** (nombrar el concepto, describirlo): **3 opciones**. Es el caso mayoritario de LEXI/definition.
+- **Numérica corta** (un número, un conjunto chico, una preimagen calculada): **4 opciones**, todas ≤35 caracteres, para triggear la grilla 2×2 del front.
+- **Binario (2 opciones)**: **excepcional**, ≤ 3 ítems en todo el archivo. Casi siempre hay una tercera confusión clásica que convierte un sí/no en una pregunta de 3. No usar binario como recurso por defecto: en masa la sesión se vuelve un juego de moneda.
+
+Meta de distribución para las 50 LEXI: la mayoría en 3 opciones, los ítems de respuesta numérica en 4, prácticamente ningún binario.
 
 ### `feedback_incorrect`
 
 Requerido. Array del mismo largo que `options`, `null` en `correct_index`. 1 oración por distractor.
 
-**Confusiones típicas por concepto:**
+**Confusiones típicas por concepto.** La columna derecha describe la confusión que origina el distractor, **no es el texto literal del `feedback_incorrect`**. Al redactar la pista, traducila a voz descriptiva del concepto o segunda persona amable con tuteo. **Nunca** arranques con "Confunde…", "Invierte…", "Olvida…" (ver `authoring-context.md` §Pistas de feedback_incorrect y Constraint 15). Ejemplo de traducción en la última columna.
 
-| Concepto preguntado | Confusión a diagnosticar |
-|---------------------|--------------------------|
-| Dominio | "confunde dominio con imagen" / "confunde dominio con codominio" / "confunde dominio con la fórmula de la función" |
-| Imagen | "confunde imagen con codominio, la imagen son los valores que la función *realmente* toma, no todos los que podría tomar" / "confunde imagen con dominio" |
-| Codominio | "confunde codominio con imagen, el codominio es el conjunto *declarado* de salidas posibles, no los que realmente se alcanzan" |
-| Preimagen de k | "confunde la preimagen con f(k), la preimagen de k es lo que entra para obtener k, no lo que sale al evaluar en k" / "confunde preimagen con codominio restringido" |
-| Variable independiente | "invierte la relación: la variable independiente es la entrada, no la salida" |
-| Variable dependiente | "invierte la relación: la variable dependiente es la salida, que *depende* de la entrada" |
-| Unicidad | "confunde unicidad con inyectividad, unicidad exige que cada *entrada* tenga una sola salida; inyectividad exige que cada *salida* provenga de una sola entrada" |
+| Concepto preguntado | Confusión que origina el distractor | Ejemplo de pista (voz correcta) |
+|---------------------|-------------------------------------|---------------------------------|
+| Dominio | dominio tomado como imagen, como codominio, o como la fórmula | "Ese es el conjunto de salidas, no las entradas que la regla procesa." |
+| Imagen | imagen tomada como codominio (lo declarado vs. lo realmente alcanzado), o como dominio | "Ese es el conjunto declarado de llegada; la imagen son solo los valores que la función realmente toma." |
+| Codominio | codominio tomado como imagen | "Esos son los valores efectivamente alcanzados (la imagen); el codominio es el conjunto declarado de salidas posibles." |
+| Preimagen de k | preimagen tomada como f(k), o como codominio restringido | "Ese es el valor que sale al evaluar en k; la preimagen es lo que entra para obtener k." |
+| Variable independiente | entrada y salida intercambiadas | "La variable independiente es la que elegís libremente, la entrada; la otra sale de aplicar la regla." |
+| Variable dependiente | entrada y salida intercambiadas | "Esa es la que elegís libremente; la dependiente es la que resulta de aplicar la regla." |
+| Unicidad | unicidad tomada como inyectividad | "Eso describe inyectividad (cada salida viene de una sola entrada); la unicidad pide que cada entrada tenga una sola salida." |
 
 ### Reglas específicas de este topic
 
@@ -80,6 +84,14 @@ Requerido. Array del mismo largo que `options`, `null` en `correct_index`. 1 ora
 
 No repetir la misma estructura de apertura en ítems consecutivos del mismo concepto.
 
+**Cierre de la `explanation`.** Por defecto, la tercera parte es una **advertencia sobre la confusión típica** del concepto o un **consejo práctico**, en voz neutra, y solo cuando aporta:
+- Dominio: "No lo confundas con la imagen: el dominio son las entradas, no las salidas."
+- Imagen vs. codominio: "El codominio es lo que la función podría alcanzar; la imagen, lo que realmente alcanza."
+- Preimagen: "Preimagen de $k$ no es $f(k)$: es qué entrada produce $k$, no qué produce $k$."
+- Unicidad: "Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés."
+
+El **humor es excepcional** (una minoría de los 50 ítems) y solo como **analogía cotidiana exagerada** en tono formal, del tipo escena burocrática o consecuencia práctica absurda ("Un registro que le asigna dos expedientes al mismo trámite no tiene un error de tipeo: tiene un problema de unicidad."). **Nunca antropomorfismos** ("la raíz detesta los negativos") ni chistes externos. Si no hay advertencia pertinente ni analogía que cierre bien, terminá en la aplicación.
+
 **Contextos cotidianos válidos.** Precios de productos, notas de alumnos, tarifas de transporte, temperaturas, puntos de fidelidad, asignación de turnos o lockers, cantidades de bochas/porciones, consumo de datos. Sin nombres propios, usar roles genéricos ("un vendedor", "una empresa", "un remis", "un colegio").
 
 ---
@@ -88,34 +100,40 @@ No repetir la misma estructura de apertura en ítems consecutivos del mismo conc
 
 ### Distribución objetivo
 
-| Tipo de clasificación | Cantidad |
-|-----------------------|----------|
-| ¿Es función?, unicidad rota en tabla de pares o diagrama | ~20 |
-| ¿Es función?, unicidad rota disfrazada en contexto cotidiano | ~10 |
-| ¿Es inyectiva / sobreyectiva / biyectiva? | ~10 |
-| Clasificar por tipo de representación (tabla, diagrama de flechas, fórmula, lista de pares) | ~10 |
+**CLSF es una sola pregunta, "¿es función?", planteada sobre distintas representaciones.** No incluye inyectiva/sobreyectiva/biyectiva (queda fuera del alcance de `white`, se agenda para un topic posterior con codominio bien trabajado) ni identificación de dominio/imagen/preimagen (eso es LEXI, no duplicar). El eje único es la **unicidad**: cada entrada, una sola salida.
+
+| Categoría (todas preguntan "¿es función?") | Cantidad |
+|--------------------------------------------|----------|
+| Unicidad **rota** explícita en tabla de pares o diagrama (una entrada con dos salidas) | ~15 |
+| Unicidad **rota disfrazada** en contexto cotidiano | ~10 |
+| **Sí es función** con trampa de inyectividad (dos entradas comparten salida, y eso NO rompe la unicidad) | ~15 |
+| "¿Es función?" en **distintos formatos** (fórmula, lista de pares, diagrama de flechas, gráfica) para reconocerla en cualquier representación | ~10 |
 | **Total** | **50** |
+
+**Balance de respuestas.** Ni todas "Sí" ni todas "No": las dos primeras categorías resuelven "No, no es función" (~25) y la tercera "Sí, sí lo es" (~15); la cuarta mezcla. Cuidá que el conjunto no quede sesgado a una respuesta.
 
 ### Cardinalidad
 
-- **"¿Es función?"**: 2 opciones (Sí / No). Son preguntas binarias, no rellenar a 4.
-- **"¿Es inyectiva/sobreyectiva/biyectiva?"**: 3-4 opciones (las categorías que realmente aplican al caso; no fabricar categorías que no correspondan).
-- **"¿Por qué NO es función?"**: 3 opciones (la razón correcta + 2 confusiones clásicas).
+- **"¿Es función?"**: **3 opciones, no binario Sí/No.** El binario en masa vuelve la sesión un juego de moneda (ver `authoring-context.md` §Cardinalidad y regla anti-binario). Reformulá el sí/no como tres respuestas que integran el porqué. Las tres cambian según la respuesta correcta del ítem:
+  - **Cuando NO es función** (correcta = negativa con razón correcta): `No, hay una entrada con dos salidas` (correcta) · `Sí, cada entrada tiene una sola salida` (afirmativa falsa) · `No, dos salidas distintas vienen de la misma entrada` u otra negativa con razón espuria.
+  - **Cuando SÍ es función** (correcta = afirmativa): `Sí, cada entrada tiene una sola salida` (correcta) · `No, dos entradas comparten la misma salida` (negativa con la confusión de inyectividad: describila, NO uses la palabra "inyectividad") · `No, la salida se repite` u otra negativa espuria.
+  - El alumno no solo decide si es función, sino que discrimina **por qué**, y la confusión inyectividad↔unicidad queda como distractor central.
+- **Layout:** con **3 opciones el front usa lista vertical, NO grilla 2×2** (la grilla se activa solo con exactamente 4 opciones, todas ≤35 caracteres, ver `session-runner.tsx`). No busques que "caigan en grilla": 3 opciones es lista, y está bien.
 
 ### `feedback_incorrect` para CLSF
 
-Tipo "¿es función?":
-- Distractor "Sí": "Una entrada tiene dos salidas, lo que rompe la unicidad."
-- Distractor "No" cuando es función: especificar qué malentendido llevó ahí (ej. "el hecho de que dos entradas compartan salida no rompe la unicidad, eso sería un problema de inyectividad, no de función").
-
-Tipo inyectiva/sobreyectiva/biyectiva:
-- Nombrar exactamente qué propiedad se confundió y por qué no aplica en este caso.
+Array paralelo a `options`, `null` en el índice correcto, mismo largo (3). Voz descriptiva del concepto, nunca acusatoria ("confunde X con Y" está prohibido).
+- **Distractor afirmativo cuando NO es función:** describir el conflicto, "Acá una misma entrada produce dos salidas, y eso rompe la condición de función."
+- **Distractor negativo con la confusión de inyectividad cuando SÍ es función:** "Que dos entradas distintas compartan la misma salida no rompe la condición de función: la unicidad mira que cada entrada tenga una sola salida, no al revés." (Describí el concepto sin usar la palabra "inyectividad".)
+- **Distractor negativo con razón espuria:** nombrar por qué esa razón no invalida la función ("Que una salida se repita, o que sobren elementos del codominio, no contradice la definición de función.").
 
 ### Reglas específicas para CLSF
 
-**"Cuadrática" y "Polinómica" no pueden convivir en la misma grilla.** Si la respuesta correcta es una familia, los distractores deben ser familias genuinamente distintas (no sub/superconjuntos de la correcta).
+**Unicidad ≠ inyectividad, es el eje del skill.** La confusión central que entrena CLSF es creer que "dos entradas con la misma salida" rompe la función. No la rompe. Describí el concepto sin nombrar "inyectividad" (fuera del alcance de `white`): hablá de "cada entrada, una sola salida" y "al revés".
 
-**Inyectiva ≠ Unicidad.** Los ítems de clasificación deben ser cuidadosos con esta distinción. No mezclar los dos conceptos en el mismo ítem como si fueran equivalentes.
+**Reconocer la función en distintos formatos.** Los ~10 ítems de representación plantean el mismo "¿es función?" sobre una fórmula, una lista de pares, un diagrama de flechas o una gráfica. El aprendizaje es que la propiedad de unicidad es la misma en cualquier formato, no memorizar nombres de representaciones. Para gráficas, la unicidad se lee como "prueba de la recta vertical".
+
+**Sin nombres propios.** Usar roles genéricos (un socio, un alumno, un producto), nunca nombres de persona. El ítem del DNI/persona debe decir "una persona", no un nombre.
 
 ---
 
@@ -133,7 +151,12 @@ Además del checklist global del `gem-instructions.md`, verificá lo específico
 - [ ] Variedad de apertura en las `explanation`: al menos 5 arrancan con pregunta retórica, al menos 5 con contraejemplo, resto con definición formal
 
 **CLSF:**
-- [ ] 50 ítems exactos
-- [ ] Distribución: ~20 unicidad explícita, ~10 unicidad disfrazada, ~10 iny/sobre/biy, ~10 por tipo de representación
-- [ ] Todas las preguntas "¿es función?" tienen 2 opciones (Sí/No), no 3 ni 4
-- [ ] Ninguna opción de tipo de familia mezcla "Cuadrática" con "Polinómica de grado N" como distractores compatibles
+- [ ] 50 ítems exactos, TODOS del tipo "¿es función?" (unicidad)
+- [ ] Distribución: ~15 unicidad rota explícita, ~10 unicidad rota disfrazada, ~15 sí-función con trampa de inyectividad, ~10 en distintos formatos
+- [ ] NINGÚN ítem de identificar dominio/imagen/codominio/preimagen (eso es LEXI, no duplicar)
+- [ ] NINGÚN ítem de inyectiva/sobreyectiva/biyectiva (fuera del alcance de white)
+- [ ] Las preguntas tienen 3 opciones (afirmativa + negativa correcta + negativa con confusión), no binario Sí/No
+- [ ] Balance de respuestas: ~25 correctas "No", ~15 correctas "Sí", resto mezcla; no todas iguales
+- [ ] `correct_index` variado entre 0 y 2, no siempre 0
+- [ ] La palabra "inyectividad" NO aparece en options ni feedback (se describe el concepto)
+- [ ] Sin nombres propios en ningún ítem (revisar el del DNI/persona)

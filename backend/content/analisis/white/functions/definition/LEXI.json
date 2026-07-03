@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida.\n\nAcá la entrada es la cuenta y la salida es el saldo. Si fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nUn error de este estilo provocaría infartos masivos a fin de mes.",
+    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida.\n\nAcá la entrada es la cuenta y la salida es el saldo. Si fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nOjo, no confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
     "reviewed": false
   },
   {
@@ -36,7 +36,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** asegura que cada entrada de una función tenga exactamente una salida asociada.\n\nSi el termómetro cumple esto, a las 14:00 horas registrará una sola medición válida, sin importar si ese valor vuelve a repetirse más tarde.\n\nNadie quiere un reporte meteorológico que diga que hace frío y calor en el mismo microsegundo.",
+    "explanation": "La **unicidad** asegura que cada entrada de una función tenga exactamente una salida asociada.\n\nSi el termómetro cumple esto, a las 14:00 horas registrará una sola medición válida, sin importar si ese valor vuelve a repetirse más tarde.\n\nQue esa medición se repita en otro horario no rompe la unicidad: importa que cada instante tenga una sola lectura, no que cada lectura ocurra una sola vez.",
     "reviewed": false
   },
   {
@@ -56,7 +56,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que exista **unicidad**, la regla debe transformar cada entrada en una única salida.\n\nAcá cada cantidad de compras determina un solo puntaje mediante\n$$p(x) = 3x + 1$$\nA una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. No hay riesgo de que el sistema colapse por dudar cuántos puntos regalar.",
+    "explanation": "Para que exista **unicidad**, la regla debe transformar cada entrada en una única salida.\n\nAcá cada cantidad de compras determina un solo puntaje mediante\n$$p(x) = 3x + 1$$\nA una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. Para verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
     "reviewed": false
   },
   {
@@ -76,7 +76,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** requiere que cada entrada se asocie con una sola salida, sin excepciones.\n\nAcá el producto 305 recibe dos descuentos diferentes,\n$$\\begin{aligned} 305 &\\mapsto 10\\% \\\\ 305 &\\mapsto 20\\% \\end{aligned}$$\nEsa ambigüedad rompe la condición fundamental para ser función. El cajero tendría que adivinar qué precio cobrar para no ser despedido.",
+    "explanation": "La **unicidad** requiere que cada entrada se asocie con una sola salida, sin excepciones.\n\nAcá el producto 305 recibe dos descuentos diferentes,\n$$\\begin{aligned} 305 &\\mapsto 10\\% \\\\ 305 &\\mapsto 20\\% \\end{aligned}$$\nEsa ambigüedad rompe la condición fundamental para ser función. Un sistema de caja que le asigna dos precios al mismo producto no tiene un error de tipeo: tiene un problema de unicidad.",
     "reviewed": false
   },
   {
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma y para las cuales está definida.\n\nAcá las únicas cantidades de bochas que podés pedir forman el conjunto\n$$n \\in \\{1,2,3,4\\}$$\nLos precios resultantes forman la **imagen**. Tratar de pedir cien bochas excede el tamaño físico de la galleta y las matemáticas del local.",
+    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma y para las cuales está definida.\n\nAcá las únicas cantidades de bochas que podés pedir forman el conjunto\n$$n \\in \\{1,2,3,4\\}$$\nLos precios resultantes forman la **imagen**. No confundas el dominio con la imagen: acá el dominio son las cantidades que podés pedir, no los precios que resultan.",
     "reviewed": false
   },
   {
@@ -120,7 +120,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la regla tiene sentido matemático y contextual.\n\nRepartir entre 0 personas no se puede, porque la expresión\n$$\\frac{1200}{0}$$\nno está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$). Intentar lo contrario invoca agujeros negros financieros.",
+    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la regla tiene sentido matemático y contextual.\n\nRepartir entre 0 personas no se puede, porque la expresión\n$$\\frac{1200}{0}$$\nno está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$). Al calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
     "reviewed": false
   },
   {
@@ -142,7 +142,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que lo de adentro no sea negativo, así que\n$$\\frac{h}{5} \\geq 0$$\nEsto da como resultado $h \\geq 0$. Arrojar objetos desde alturas negativas solo funciona si estás cavando un pozo con mucha imaginación.",
+    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que lo de adentro no sea negativo, así que\n$$\\frac{h}{5} \\geq 0$$\nEsto da como resultado $h \\geq 0$. El dominio natural sale de las restricciones de la regla: acá, que el radicando no sea negativo.",
     "reviewed": false
   },
   {
@@ -162,7 +162,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función.\n\nAcá las entradas son los ciudadanos, numerados del 1 al 40000, que se escriben como\n$$\\{1,\\dots,40000\\}$$\nLos expedientes generados pertenecen al **codominio**. Asignarle el mismo turno a todos sería más fácil pero causaría motines municipales.",
+    "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función.\n\nAcá las entradas son los ciudadanos, numerados del 1 al 40000, que se escriben como\n$$\\{1,\\dots,40000\\}$$\nLos expedientes generados pertenecen al **codominio**. No mezcles el dominio con el codominio: los ciudadanos son las entradas; los expedientes que se generan viven en el conjunto de llegada.",
     "reviewed": false
   },
   {
@@ -182,7 +182,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**.\n\nAcá las entradas que vas a procesar son los tipos de copia,\n$$\\{bn, co\\}$$\nLos precios resultantes forman la **imagen** de la función. Cobrar por un tipo de copia que no existe no está contemplado en el modelo.",
+    "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**.\n\nAcá las entradas que vas a procesar son los tipos de copia,\n$$\\{bn, co\\}$$\nLos precios resultantes forman la **imagen** de la función. El dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio.",
     "reviewed": false
   },
   {
@@ -204,7 +204,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de valores que alimentan a la regla.\n\nEn este sistema las entradas son las horas del día,\n$$\\{0, \\dots, 23\\}$$\nLas temperaturas posibles actúan como salidas. Inventar la hora 24 requeriría modificar las leyes físicas y reprogramar todos los relojes del mundo.",
+    "explanation": "El **dominio** es el conjunto de valores que alimentan a la regla.\n\nEn este sistema las entradas son las horas del día,\n$$\\{0, \\dots, 23\\}$$\nLas temperaturas posibles actúan como salidas. El dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.",
     "reviewed": false
   },
   {
@@ -226,7 +226,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema.\n\nDividir entre 0 no está definido, y un viaje no puede durar tiempo negativo, así que\n$$t > 0$$\nEse es el conjunto válido para evaluar la función. Llegar antes de salir requiere un auto que viaje en el tiempo, lo cual anula esta fórmula.",
+    "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema.\n\nDividir entre 0 no está definido, y un viaje no puede durar tiempo negativo, así que\n$$t > 0$$\nEse es el conjunto válido para evaluar la función. Para el dominio natural combiná las dos restricciones: la matemática (no dividir por cero) y la del problema (el tiempo no puede ser negativo).",
     "reviewed": false
   },
   {
@@ -248,7 +248,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n$$2x - 6 \\geq 0 \\implies x \\geq 3$$\nCualquier valor menor te manda directo a los números imaginarios, que no son el enfoque de esta materia.",
+    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n$$2x - 6 \\geq 0 \\implies x \\geq 3$$\nEl error típico es olvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales.",
     "reviewed": false
   },
   {
@@ -270,7 +270,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "¿Qué pasaría si el **dominio** incluyera un valor que la regla no puede procesar? La función se rompería.\n\nDividir entre 0 no está definido en matemáticas, y no podés invitar a cantidades negativas de personas, así que\n$$n \\geq 1$$\nInvitados fraccionarios o invisibles no suelen contribuir a pagar las cuentas a fin de mes.",
+    "explanation": "¿Qué pasaría si el **dominio** incluyera un valor que la regla no puede procesar? La función se rompería.\n\nDividir entre 0 no está definido en matemáticas, y no podés invitar a cantidades negativas de personas, así que\n$$n \\geq 1$$\nUn dominio natural descarta tanto lo que rompe la cuenta (dividir por cero) como lo que no tiene sentido en el contexto (personas negativas).",
     "reviewed": false
   },
   {
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural se compone de las entradas que sobreviven a las restricciones de la fórmula.\n\nLa raíz cuadrada necesita que su interior sea mayor o igual a cero,\n$$10 - x \\geq 0 \\implies 10 \\geq x$$\nPara todo $x \\leq 10$ la regla funciona bien. Probar con un 15 solo logrará que tu calculadora te mire con decepción.",
+    "explanation": "El **dominio** natural se compone de las entradas que sobreviven a las restricciones de la fórmula.\n\nLa raíz cuadrada necesita que su interior sea mayor o igual a cero,\n$$10 - x \\geq 0 \\implies 10 \\geq x$$\nPara todo $x \\leq 10$ la regla funciona bien. El límite del dominio lo pone la raíz: para $x > 10$ el radicando se vuelve negativo y la función deja de estar definida.",
     "reviewed": false
   },
   {
@@ -314,7 +314,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta.\n\nLa única prohibición en una fracción es que el denominador valga cero,\n$$x - 3 \\neq 0 \\implies x \\neq 3$$\nPara el resto de la recta numérica, la función trabaja de maravilla. Usar el 3 es la forma más rápida de generar un error de sistema.",
+    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta.\n\nLa única prohibición en una fracción es que el denominador valga cero,\n$$x - 3 \\neq 0 \\implies x \\neq 3$$\nPara el resto de la recta numérica, la función trabaja de maravilla. En una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
     "reviewed": false
   },
   {
@@ -336,7 +336,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema.\n\nLa raíz cuadrada exige un radicando no negativo,\n$$\\frac{A}{\\pi} \\geq 0 \\implies A \\geq 0$$\nAdemás, un área negativa no existe geométricamente. Tratar de medir un círculo de área $-5$ requiere colapsar las dimensiones del papel.",
+    "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema.\n\nLa raíz cuadrada exige un radicando no negativo,\n$$\\frac{A}{\\pi} \\geq 0 \\implies A \\geq 0$$\nAdemás, un área negativa no existe geométricamente. Acá el dominio combina dos condiciones: el radicando no negativo y que el área tenga sentido geométrico ($A \\geq 0$).",
     "reviewed": false
   },
   {
@@ -356,7 +356,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la entrada que elegís libremente para alimentar la función.\n\nAcá decidís cuántos kilómetros $k$ vas a viajar, y a partir de ahí se calcula lo demás.\n\nEl precio final $T$ depende de esa elección. Si te bajás a mitad de cuadra, el taxista te va a ajustar $k$ sin dudarlo.",
+    "explanation": "La variable **independiente** es la entrada que elegís libremente para alimentar la función.\n\nAcá decidís cuántos kilómetros $k$ vas a viajar, y a partir de ahí se calcula lo demás.\n\nEl precio final $T$ depende de esa elección. La independiente es la que elegís vos ($k$); la dependiente ($T$) queda determinada por esa elección.",
     "reviewed": false
   },
   {
@@ -376,7 +376,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la regla.\n\nAcá ingresás las horas extra $h$, y el total se obtiene de\n$$S(h) = 15000 + 3000h$$\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente. Lamentablemente no podés ingresar tu sueldo deseado para que el universo ajuste tus horas.",
+    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la regla.\n\nAcá ingresás las horas extra $h$, y el total se obtiene de\n$$S(h) = 15000 + 3000h$$\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente. Reconocés la dependiente porque es la salida de la regla: $S$ se calcula a partir de $h$, no al revés.",
     "reviewed": false
   },
   {
@@ -396,7 +396,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo.\n\nEn esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**. Desenchufar el aparato es la única forma de detener a la variable de entrada.",
+    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo.\n\nEn esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**. No inviertas los roles: el tiempo $h$ es la entrada libre; el gasto $C$ es lo que resulta, la dependiente.",
     "reviewed": false
   },
   {
@@ -416,7 +416,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es el valor final que entrega la función, subordinado a la entrada.\n\nAcá elegís qué volumen $v$ vas a cargar. El monto final sale de\n$$P(v) = 700v$$\nComo $P$ necesita del dato $v$ para existir, es dependiente. El surtidor te obedece primero y te cobra después.",
+    "explanation": "La variable **dependiente** es el valor final que entrega la función, subordinado a la entrada.\n\nAcá elegís qué volumen $v$ vas a cargar. El monto final sale de\n$$P(v) = 700v$$\nComo $P$ necesita del dato $v$ para existir, es dependiente. La dependiente es siempre la que necesita del otro dato para existir: sin $v$ no hay $P$.",
     "reviewed": false
   },
   {
@@ -436,7 +436,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es la salida que arroja el modelo luego de realizar los cálculos.\n\nAcá elegís cuántos objetos $m$ cargar, y el peso definitivo se obtiene con\n$$W(m) = 2 + 0{,}3m$$\nComo $W$ responde directamente a esa cantidad, ocupa el rol dependiente. La caja no puede decidir pesar cinco kilos por arte de magia.",
+    "explanation": "La variable **dependiente** es la salida que arroja el modelo luego de realizar los cálculos.\n\nAcá elegís cuántos objetos $m$ cargar, y el peso definitivo se obtiene con\n$$W(m) = 2 + 0{,}3m$$\nComo $W$ responde directamente a esa cantidad, ocupa el rol dependiente. El peso $W$ es la dependiente porque queda fijado por la cantidad $m$ que elegís, no al revés.",
     "reviewed": false
   },
   {
@@ -456,7 +456,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la magnitud libre que acciona el comportamiento de la función.\n\nAcá el cronómetro marca el tiempo $t$, y a partir de ese dato se deduce la distancia.\n\nLa distancia final $d$ está obligada a seguir al tiempo. El reloj sigue corriendo aunque el ciclista decida tirarse a dormir en el pasto.",
+    "explanation": "La variable **independiente** es la magnitud libre que acciona el comportamiento de la función.\n\nAcá el cronómetro marca el tiempo $t$, y a partir de ese dato se deduce la distancia.\n\nLa distancia final $d$ está obligada a seguir al tiempo. La independiente es la que avanza sola ($t$); la distancia $d$ es la que la sigue, la dependiente.",
     "reviewed": false
   },
   {
@@ -476,7 +476,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es el resultado, el valor que reacciona a los cambios en la entrada.\n\nLa función procesa el precio original $p$ del artículo que llevás. El monto descontado emerge de\n$$D(p) = 0{,}15p$$\nComo $D$ precisa de un precio para determinarse, asume el rol dependiente. Sin artículo, el descuento vale cero y la tienda no te regala nada.",
+    "explanation": "La variable **dependiente** es el resultado, el valor que reacciona a los cambios en la entrada.\n\nLa función procesa el precio original $p$ del artículo que llevás. El monto descontado emerge de\n$$D(p) = 0{,}15p$$\nComo $D$ precisa de un precio para determinarse, asume el rol dependiente. La dependiente es el resultado ($D$): reacciona al precio $p$, que es el dato de entrada.",
     "reviewed": false
   },
   {
@@ -496,7 +496,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la entrada, el dato que ingresás para que la cuenta empiece.\n\nEn esta estructura, introducís el valor en Celsius $c$, y la regla lo transforma.\n\nEl resultado $F$ obedece a esa elección y es la variable **dependiente**. Convertir el clima en papel no te va a salvar de llevar abrigo.",
+    "explanation": "La variable **independiente** es la entrada, el dato que ingresás para que la cuenta empiece.\n\nEn esta estructura, introducís el valor en Celsius $c$, y la regla lo transforma.\n\nEl resultado $F$ obedece a esa elección y es la variable **dependiente**. Identificás la dependiente por el sentido de la flecha: ingresás $c$ y obtenés $F$, nunca al revés.",
     "reviewed": false
   },
   {
@@ -516,7 +516,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** corresponde a la salida, el efecto que produce la regla matemática.\n\nAcá ingresás el tiempo transcurrido $a$. El monto de ganancias surge de\n$$I(a) = 300a$$\nComo $I$ no puede calcularse sin saber los años, juega el rol dependiente. El banco solo te va a dar plata si tenés paciencia para dejar pasar el tiempo.",
+    "explanation": "La variable **dependiente** corresponde a la salida, el efecto que produce la regla matemática.\n\nAcá ingresás el tiempo transcurrido $a$. El monto de ganancias surge de\n$$I(a) = 300a$$\nComo $I$ no puede calcularse sin saber los años, juega el rol dependiente. La dependiente es la salida: $I$ no se puede calcular sin antes fijar los años $a$.",
     "reviewed": false
   },
   {
@@ -536,7 +536,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde van a caer las salidas, estén todas en uso o no.\n\nAcá las salidas teóricas posibles van del 0 al 100,\n$$\\{0, 1, \\dots, 100\\}$$\nLas notas realmente obtenidas forman el conjunto **imagen**. Declarar que te podés sacar un 150 está fuera del reglamento del profesor.",
+    "explanation": "El **codominio** es el conjunto donde van a caer las salidas, estén todas en uso o no.\n\nAcá las salidas teóricas posibles van del 0 al 100,\n$$\\{0, 1, \\dots, 100\\}$$\nLas notas realmente obtenidas forman el conjunto **imagen**. No confundas codominio con imagen: el codominio es todo lo que se podría obtener (0 a 100); la imagen, lo que realmente se obtuvo.",
     "reviewed": false
   },
   {
@@ -556,7 +556,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto completo que contiene a los resultados potenciales de la regla.\n\nLas salidas son las cantidades de asientos, que por arquitectura habitan en\n$$\\{1, \\dots, 500\\}$$\nLos tamaños que existen en la realidad forman el conjunto **imagen**. Que el edificio permita 500 butacas no obliga al dueño a instalarlas todas.",
+    "explanation": "El **codominio** es el conjunto completo que contiene a los resultados potenciales de la regla.\n\nLas salidas son las cantidades de asientos, que por arquitectura habitan en\n$$\\{1, \\dots, 500\\}$$\nLos tamaños que existen en la realidad forman el conjunto **imagen**. El codominio es el conjunto de llegada declarado; la imagen es el subconjunto que efectivamente se usa.",
     "reviewed": false
   },
   {
@@ -596,7 +596,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** oficia de contenedor oficial para todos los valores de salida permitidos.\n\nAcá las reglas del negocio estipulan que los precios rondan en\n$$\\{5000, \\dots, 50000\\}$$\nLos montos cobrados en la práctica conforman el conjunto **imagen**. El mecánico se cubre las espaldas con el catálogo antes de mirar tu motor.",
+    "explanation": "El **codominio** oficia de contenedor oficial para todos los valores de salida permitidos.\n\nAcá las reglas del negocio estipulan que los precios rondan en\n$$\\{5000, \\dots, 50000\\}$$\nLos montos cobrados en la práctica conforman el conjunto **imagen**. El codominio fija el rango teórico de precios; lo que realmente se cobra forma la imagen, que puede ser más chica.",
     "reviewed": false
   },
   {
@@ -616,7 +616,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde aterrizan las salidas de una función.\n\nAcá las únicas etiquetas que el sistema admite ingresar son\n$$\\{0, 1\\}$$\nLos alumnos rinden y toman el lugar del **dominio**. Intentar cargar un \"tal vez\" haría que la base de datos tire un error fatal.",
+    "explanation": "El **codominio** es el conjunto donde aterrizan las salidas de una función.\n\nAcá las únicas etiquetas que el sistema admite ingresar son\n$$\\{0, 1\\}$$\nLos alumnos rinden y toman el lugar del **dominio**. Un formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio.",
     "reviewed": false
   },
   {
@@ -636,7 +636,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** establece el espacio total de respuestas que la regla matemática puede entregar.\n\nEn este hardware, las salidas posibles conviven en el segmento\n$$[50, 200]$$\nLo que los usuarios compren en la realidad constituye el conjunto **imagen**. Si nadie pide la opción de 200 ml, el manual del fabricante no se entera.",
+    "explanation": "El **codominio** establece el espacio total de respuestas que la regla matemática puede entregar.\n\nEn este hardware, las salidas posibles conviven en el segmento\n$$[50, 200]$$\nLo que los usuarios compren en la realidad constituye el conjunto **imagen**. Aunque nadie compre cierto valor, sigue estando en el codominio; la imagen es solo lo que se compró de verdad.",
     "reviewed": false
   },
   {
@@ -678,7 +678,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la regla.\n\nAl multiplicar cada número permitido por 2, obtenés:\n$$\\begin{aligned} f(1) &= 2 \\\\ f(2) &= 4 \\\\ f(3) &= 6 \\end{aligned}$$\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. Cualquier otro valor par simplemente no fue invitado a la fiesta en este **dominio**.",
+    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la regla.\n\nAl multiplicar cada número permitido por 2, obtenés:\n$$\\begin{aligned} f(1) &= 2 \\\\ f(2) &= 4 \\\\ f(3) &= 6 \\end{aligned}$$\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del dominio: cambiá las entradas y cambia el conjunto de salidas.",
     "reviewed": false
   },
   {
@@ -700,7 +700,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar.\n\nAl elevar las entradas al cuadrado, surgen estos números:\n$$\\begin{aligned} (-3)^2 &= 9 \\\\ (-1)^2 &= 1 \\\\ 0^2 &= 0 \\\\ 1^2 &= 1 \\\\ 3^2 &= 9 \\end{aligned}$$\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$. El signo menos desapareció rápido en la cuenta.",
+    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar.\n\nAl elevar las entradas al cuadrado, surgen estos números:\n$$\\begin{aligned} (-3)^2 &= 9 \\\\ (-1)^2 &= 1 \\\\ 0^2 &= 0 \\\\ 1^2 &= 1 \\\\ 3^2 &= 9 \\end{aligned}$$\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$. Ojo con los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
     "reviewed": false
   },
   {
@@ -720,7 +720,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** agrupa las paradas que la función (el aparato) logra concretar.\n\nEl **codominio** oficial marca del 1 al 20, pero la realidad mecánica excluye los pisos averiados.\n\nPor eso la imagen es ese grupo recortado sin el 13 y el 17. Los dueños del edificio prefieren llamarlo \"servicio exclusivo\" en lugar de admitir la falla.",
+    "explanation": "La **imagen** agrupa las paradas que la función (el aparato) logra concretar.\n\nEl **codominio** oficial marca del 1 al 20, pero la realidad mecánica excluye los pisos averiados.\n\nPor eso la imagen es ese grupo recortado sin el 13 y el 17. La imagen puede ser más chica que el codominio: los pisos averiados están en el conjunto de llegada pero no en la imagen.",
     "reviewed": false
   },
   {
@@ -742,7 +742,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática.\n\nAl extraer el valor absoluto de cada término inicial,\n$$\\begin{aligned} |-4| &= 4 \\\\ |-2| &= 2 \\\\ |0| &= 0 \\\\ |2| &= 2 \\\\ |4| &= 4 \\end{aligned}$$\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$. La operación funciona como un túnel de lavado para los signos.",
+    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática.\n\nAl extraer el valor absoluto de cada término inicial,\n$$\\begin{aligned} |-4| &= 4 \\\\ |-2| &= 2 \\\\ |0| &= 0 \\\\ |2| &= 2 \\\\ |4| &= 4 \\end{aligned}$$\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$. Al armar la imagen quedate solo con los resultados distintos: $\\{0, 2, 4\\}$, sin repetir.",
     "reviewed": false
   },
   {
@@ -786,7 +786,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad.\n\nComo la regla aplasta cualquier valor que ingresa devolviendo siempre el 5,\n$$f(\\text{cualquier cosa}) = 5$$\nEl conjunto imagen consta de un único elemento, el $\\{5\\}$. Es la función con menos imaginación de toda la familia matemática.",
+    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad.\n\nComo la regla aplasta cualquier valor que ingresa devolviendo siempre el 5,\n$$f(\\text{cualquier cosa}) = 5$$\nEl conjunto imagen consta de un único elemento, el $\\{5\\}$. En una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
     "reviewed": false
   },
   {
@@ -808,7 +808,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** contiene estrictamente los números que escupe la regla, sin agregar valores intermedios inventados.\n\nEn este modelo de escalones, la función solo tiene dos respuestas programadas en su interior:\n$$\\begin{aligned} &1000 \\\\ &2000 \\end{aligned}$$\nPor eso la imagen es exactamente $\\{1000, 2000\\}$. Intentar negociar un punto medio con el sistema logístico es una causa perdida.",
+    "explanation": "La **imagen** contiene estrictamente los números que escupe la regla, sin agregar valores intermedios inventados.\n\nEn este modelo de escalones, la función solo tiene dos respuestas programadas en su interior:\n$$\\begin{aligned} &1000 \\\\ &2000 \\end{aligned}$$\nPor eso la imagen es exactamente $\\{1000, 2000\\}$. La imagen contiene solo los valores que la regla realmente devuelve: no agregues intermedios que la función nunca produce.",
     "reviewed": false
   },
   {
@@ -828,7 +828,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función convierte una entrada $x$ en un resultado $y$, llamamos **imagen** de $x$ a esa salida.\n\nAcá el modelo recibe un 3 y lo empuja a través del cubo:\n$$f(3) = 27$$\nPor eso afirmamos que el 27 es la imagen puntual del 3. El número creció tan rápido que cuesta reconocerlo.",
+    "explanation": "Si una función convierte una entrada $x$ en un resultado $y$, llamamos **imagen** de $x$ a esa salida.\n\nAcá el modelo recibe un 3 y lo empuja a través del cubo:\n$$f(3) = 27$$\nPor eso afirmamos que el 27 es la imagen puntual del 3. La imagen de un punto es el resultado de evaluar la función en ese punto: $f(3) = 27$.",
     "reviewed": false
   },
   {
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el marco de una regla, la salida directa que produce una entrada toma el título de **imagen**.\n\nEn la cuenta de impuestos, al procesar el monto base,\n$$F(1000) = 1210$$\nEl 1210 ocupa el lugar de la imagen del 1000. El contador oficial del estado agradece tu contribución a las arcas.",
+    "explanation": "En el marco de una regla, la salida directa que produce una entrada toma el título de **imagen**.\n\nEn la cuenta de impuestos, al procesar el monto base,\n$$F(1000) = 1210$$\nEl 1210 ocupa el lugar de la imagen del 1000. La imagen de $1000$ es el valor que sale al aplicarle la regla: $1210$.",
     "reviewed": false
   },
   {
@@ -868,7 +868,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor producido al aplicar una función sobre un número específico se bautiza como su **imagen**.\n\nAl procesar el dato en la expresión cuadrática,\n$$f(-2) = (-2)^2 + 1 = 5$$\nEl 5 asume su puesto de imagen del $-2$. El signo negativo se sacrificó heroicamente en el paso de la potencia.",
+    "explanation": "El valor producido al aplicar una función sobre un número específico se bautiza como su **imagen**.\n\nAl procesar el dato en la expresión cuadrática,\n$$f(-2) = (-2)^2 + 1 = 5$$\nEl 5 asume su puesto de imagen del $-2$. Cuidado con el orden: primero se eleva al cuadrado y después se suma, por eso $f(-2) = 5$ y no un número negativo.",
     "reviewed": false
   },
   {
@@ -888,7 +888,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La salida matemática particular que se logra desde una entrada se clasifica como su **imagen**.\n\nAl meter el 6 en la función que duplica valores, obtenés\n$$f(6) = 12$$\nEl 12 cumple el rol de imagen puntual del 6. No es magia, es simple multiplicación trabajando a tu favor.",
+    "explanation": "La salida matemática particular que se logra desde una entrada se clasifica como su **imagen**.\n\nAl meter el 6 en la función que duplica valores, obtenés\n$$f(6) = 12$$\nEl 12 cumple el rol de imagen puntual del 6. La imagen puntual del $6$ es el valor que devuelve la función al evaluarla: $12$.",
     "reviewed": false
   },
   {
@@ -910,7 +910,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo.\n\nPara atrapar a la preimagen del 0, necesitás despejar la ecuación,\n$$\\begin{aligned} 2x - 6 &= 0 \\\\ 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa preimagen buscada es el 3. Jugar al revés con las matemáticas requiere desandar el camino sin tropezar.",
+    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo.\n\nPara atrapar a la preimagen del 0, necesitás despejar la ecuación,\n$$\\begin{aligned} 2x - 6 &= 0 \\\\ 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa preimagen buscada es el 3. Preimagen no es $f(k)$: acá no evaluás, despejás qué entrada produce la salida $0$.",
     "reviewed": false
   },
   {
@@ -932,7 +932,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida.\n\nAcá se busca destrabar la expresión,\n$$x^2 = 25$$\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$. La función cuadrática es generosa y acepta dos caminos diferentes para el mismo destino.",
+    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida.\n\nAcá se busca destrabar la expresión,\n$$x^2 = 25$$\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$. Un mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$.",
     "reviewed": false
   },
   {
@@ -974,7 +974,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de fabricarlo como salida.\n\nComo la regla aplana todo el universo numérico en el 8,\n$$g(x) = 10 \\implies \\text{Imposible}$$\nNo hay preimagen que solucione esto. El 10 quedó excluido permanentemente del sistema de producción de esta fórmula.",
+    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de fabricarlo como salida.\n\nComo la regla aplana todo el universo numérico en el 8,\n$$g(x) = 10 \\implies \\text{Imposible}$$\nNo hay preimagen que solucione esto. Si un valor no pertenece a la imagen no tiene preimagen: no hay entrada que lo produzca.",
     "reviewed": false
   },
   {
@@ -996,7 +996,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** invierte el interrogante: te dan el resultado y te exigen averiguar la entrada.\n\nPara rastrear la fuente del costo 35, igualás el modelo,\n$$\\begin{aligned} 5a + 10 &= 35 \\\\ 5a &= 25 \\\\ a &= 5 \\end{aligned}$$\nLa preimagen pedida es el 5. Resulta que las compras compulsivas tienen un rastro rastreable.",
+    "explanation": "La **preimagen** invierte el interrogante: te dan el resultado y te exigen averiguar la entrada.\n\nPara rastrear la fuente del costo 35, igualás el modelo,\n$$\\begin{aligned} 5a + 10 &= 35 \\\\ 5a &= 25 \\\\ a &= 5 \\end{aligned}$$\nLa preimagen pedida es el 5. Un registro que anota el costo 35 sin poder decir de qué compra vino tendría un problema de trazabilidad: acá, despejando, la preimagen es sin ambigüedad el 5.",
     "reviewed": false
   },
   {
@@ -1016,7 +1016,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor que alimenta a la regla para fabricar un resultado en particular adquiere el nombre de **preimagen**.\n\nAcá el 4 viaja por el procesamiento de la función y desemboca en\n$$V(4) = 64$$\nDecimos que el 4 asume su puesto de preimagen del 64. Las matemáticas operan como un archivo de registro perfecto para recuperar la entrada.",
+    "explanation": "El valor que alimenta a la regla para fabricar un resultado en particular adquiere el nombre de **preimagen**.\n\nAcá el 4 viaja por el procesamiento de la función y desemboca en\n$$V(4) = 64$$\nDecimos que el 4 asume su puesto de preimagen del 64. No confundas la preimagen con la imagen: el 4 es la preimagen del 64, es decir la entrada, no la salida.",
     "reviewed": false
   },
   {
@@ -1036,7 +1036,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado.\n\nEn este escenario económico,\n$$R(1000) = 50$$\nEl 1000 se consagra como la preimagen del 50. Ganar plata escuchando música es lento, pero al menos la relación funcional no falla.",
+    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado.\n\nEn este escenario económico,\n$$R(1000) = 50$$\nEl 1000 se consagra como la preimagen del 50, la entrada que la regla transforma en esa salida.",
     "reviewed": false
   }
 ]

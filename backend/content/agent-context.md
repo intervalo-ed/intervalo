@@ -154,7 +154,7 @@ En iter 6 los 50/50 ítems tenían `correct_index: 0`. No lo habíamos detectado
 - Bullet mecánico en el self-critique: contar la distribución al final y rebalancear (reordenar `options` + `feedback_incorrect` en paralelo) si más del 50% cae en la misma posición.
 - No requiere cambio en `topic-context.md`. Es transversal a todos los topics.
 
-### 13b. `feedback_incorrect` en voz acusatoria en tercera persona
+### 13. `feedback_incorrect` en voz acusatoria en tercera persona
 
 Regresión iter 7: ~24 casos de `feedback_incorrect` arrancando con "Confunde X con Y", "Invierte la relación", "Olvida el negativo", "Interpreta mal". Suenan a diagnóstico frío sobre el alumno, no a pista amable. La causa parece ser que la Gem tomó al pie de la letra "nombra el error" y lo formuló como sentencia sobre el estudiante.
 
@@ -164,9 +164,9 @@ Regresión iter 7: ~24 casos de `feedback_incorrect` arrancando con "Confunde X 
 - Bullet mecánico en el self-critique: escanear cada `feedback_incorrect[i]` contra la lista prohibida y reescribir.
 - Voces permitidas: (a) descriptiva del concepto ("Ese es el codominio, no la imagen…"); (b) segunda persona amable con tuteo ("Hay otra solución además del 5…").
 
-### 12c. Cardinalidad binaria abusiva en items conceptuales o numéricos
+### 14. Cardinalidad binaria abusiva en items conceptuales o numéricos
 
-Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada de correcciones): 22 de 50 ítems quedaron con 2 opciones (binario). Aun cuando cada binario era técnicamente válido (dos confusiones plausibles), el **conjunto** resultaba demasiado fácil — el alumno no debe poder tirar una moneda 22 veces. Además, los ítems numéricos con 2 opciones desperdiciaban espacio: en el frontend hay una grilla 2×2 disponible cuando `length === 4 && all(o.length <= 35)`.
+Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada de correcciones): 22 de 50 ítems quedaron con 2 opciones (binario). Aun cuando cada binario era técnicamente válido (dos confusiones plausibles), el **conjunto** resultaba demasiado fácil: el alumno no debe poder tirar una moneda 22 veces. Además, los ítems numéricos con 2 opciones desperdiciaban espacio: en el frontend hay una grilla 2×2 disponible cuando `length === 4 && all(o.length <= 35)`.
 
 **Cómo prevenirlo:**
 - Regla operativa en `authoring-context.md` sección *Cardinalidad de opciones por skill* (rehecha): la cardinalidad depende del **tipo de respuesta**, no del skill.
@@ -177,7 +177,7 @@ Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada d
 - Bullet mecánico en el self-critique: contar la distribución y rebalancear.
 - **Referencia frontend**: `web/src/app/(app)/session/[sessionId]/session-runner.tsx` líneas 293-295 (heurística de grilla).
 
-### 12b. Distractores numéricos con magnitud descartable por gut-check
+### 15. Distractores numéricos con magnitud descartable por gut-check
 
 Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distractor "canónico" para preimagen es `$f(y)$` en vez de `$f^{-1}(y)$` (confundir despejar con evaluar). Formalmente es una confusión clásica documentada. En la práctica, si `$f(y)$` da un número muy distinto en magnitud a la correcta (ej. correcta $5$, distractor $185$; correcta $\pm 5$, distractor $625$), el alumno descarta el distractor a ojo sin razonar. El error no se diagnostica: solo se filtra por tamaño.
 
@@ -188,14 +188,37 @@ Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distracto
 - **Reemplazos válidos**: errores aritméticos plausibles del mismo orden. Ej. `$5a + 10 = 35$` → distractor `$6$` (restó $5$ en vez de $10$), no `$185$` (evaluó $C(35)$).
 - **Excepción documentada**: cuando la confusión intrínseca produce magnitud distinta (ej. lectura de porcentaje `8%` → `8` vs `1,08`), el gap grande es parte del error, no bandera roja.
 
-### 13. Humor y antropomorfismos se filtran al cuerpo de la explicación
+### 16. El cierre de la explicación es advertencia/consejo, no humor obligatorio (revisado jul-2026)
 
-En iter 6 aparecieron frases como "la raíz cuadrada detesta a los negativos" o "la regla se cansa de emitir respuestas rotativas" dentro del cuerpo de la explanation (definición o aplicación), no solo en el cierre. La regla original de `authoring-context.md` decía humor "al final", pero la Gem lo interpretaba flojo.
+**Historia:** en iter 6 aparecieron frases como "la raíz cuadrada detesta a los negativos" o "la regla se cansa de emitir respuestas rotativas" dentro del cuerpo de la explanation, no solo en el cierre. Se cerró con Constraint 25 confinando el humor al cierre. Pero eso dejó el problema mayor: **el humor era obligatorio en cada ítem**, y con 50 explicaciones rematando siempre con un chiste el remate se vuelve fórmula y compite con la advertencia útil por el último renglón (el que más se recuerda).
 
-**Cómo prevenirlo:**
-- Constraint 15 explícita: humor y antropomorfismos **exclusivamente** en el cierre (tercera parte de la explanation).
-- Reforzado en `authoring-context.md` en la sección *Reglas críticas* (bullet 5) y en *Estructura de la explicación*.
-- No requiere cambio en `topic-context.md`.
+**Decisión jul-2026 (transversal a todo el curso):**
+- El cierre (tercera parte) pasa a ser por defecto una **advertencia de la confusión típica o un consejo práctico**, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación).
+- El humor pasa a ser **excepcional** (minoría de ítems) y solo como **analogía cotidiana exagerada** (consecuencia práctica o escena burocrática absurda) en tono formal. Sub-estilo preferido por el usuario: la escena burocrática/consecuencia práctica absurda.
+- Los **antropomorfismos** ("la raíz detesta…", "la regla se cansa…") quedan **prohibidos en todo el campo**, cuerpo y cierre. El chiste externo al tema también.
+
+**Dónde quedó reflejado:**
+- `authoring-context.md`: regla crítica 7 reescrita, *Estructura de la explicación* parte 3, resumen operativo (NUNCA/bullet), y la línea de la sección *Redacción*.
+- `gamification-context.md`: sección "Cierre de la explicación: advertencia por defecto, humor excepcional" (reemplaza a "Humor en el cierre… por qué").
+- `gem-instructions.md`: Constraint 25 reescrita + nota en el bloque de longitud (línea del "cierre con advertencia/consejo").
+- `topic-context.md` de definition: guía de cierre en la sección de `explanation`.
+- Ítems: se reescribieron los cierres de `definition/LEXI.json` (la mayoría a advertencia/consejo, una minoría a analogía burocrática formal). Al generar otros skills/temas, aplicar el mismo criterio.
+
+### 17. El binario "¿es función? Sí/No" en masa choca con la regla anti-binario
+
+CLSF/definition tiene ~30 ítems del tipo "¿es función?", naturalmente Sí/No. La tentación de dejarlos binarios choca de frente con la regla anti-binario (learning 14: ≤3 binarios por archivo de 50). Un archivo con 30 sí/no es un juego de moneda, aunque cada ítem sea técnicamente válido. Es la misma tensión que resolvimos en LEXI, pero acá el binario parece "más justificado" porque el criterio matemático realmente es dicotómico.
+
+**Cómo resolverlo (decidido jul-2026):**
+- Reformular cada "¿es función?" a **3 opciones que integran el porqué**: una afirmativa, una negativa con la razón correcta, y una negativa con una confusión clásica como razón falsa (típicamente inyectividad disfrazada de condición de función). El alumno deja de decidir sí/no y pasa a discriminar la razón, que es el aprendizaje real.
+- El binario legítimo queda para el caso verdaderamente sin tercera confusión (el precedente de "¿cumple unicidad?" en `authoring-context.md`), y siempre ≤ 3 ítems por archivo.
+- Reflejado en el `topic-context.md` de definition (§Cardinalidad CLSF y checklist). El criterio es transversal a cualquier topic con preguntas de verificación dicotómica (continuidad sí/no, derivable sí/no, etc.): buscá siempre la tercera opción que capture la confusión clásica antes de caer al binario.
+
+**Alcance de CLSF, redefinido jul-2026 (durante el refactor del JSON):** el `CLSF.json` que había estaba muy desalineado: 13 ítems de "¿es función?" + 37 de identificar dominio/imagen/preimagen (duplicando LEXI), 0 de iny/sob/biy y 0 de representación, y `correct_index` siempre 0. Decisiones tomadas:
+- **CLSF = una sola pregunta, "¿es función?" (unicidad)**, planteada sobre distintas representaciones. Se descartan los ítems que identifican conjuntos (son LEXI).
+- **Iny/sobre/biyectiva queda FUERA de white** (se agenda para un topic posterior con codominio trabajado). No usar la palabra "inyectividad" en options/feedback: describir el concepto ("dos entradas con la misma salida no rompe la unicidad").
+- **La categoría "tipo de representación" se mantiene (~10)** pero reinterpretada como el mismo "¿es función?" en fórmula/lista/diagrama/gráfica, no como "nombrá el formato".
+- **Bug recurrente de la Gema: `correct_index` siempre 0.** El runtime baraja, pero como fuente impide auditar pistas delatoras y balance. Constraint nueva de checklist: variar `correct_index` y balancear Sí/No.
+- **Nombres propios se colaron** (ítem del DNI usaba "Lucía"). Reforzado en el checklist del topic.
 
 ---
 

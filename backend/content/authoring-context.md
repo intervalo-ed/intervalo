@@ -16,7 +16,7 @@ Estas siete reglas son las que más se violan y las que más rompen el render o 
 4. **Si una opción lleva glosa aclaratoria, todas las opciones la llevan.** Si la correcta dice `$\{1,2,3,4\}$, las cantidades de bochas` y otra dice solo `$\{600,1200\}$`, se delata la respuesta.
 5. **Sin adjetivos decorativos en enunciados** ("moderno", "automatizado", "eficiente"). Redacción al grano.
 6. **NUNCA usar guion largo `—` (em-dash, U+2014) en ningún campo del ejercicio.** Ni en `question`, `options`, `feedback_correct`, `feedback_incorrect` o `explanation`. Usá `,` (coma), `:` (dos puntos), `;` (punto y coma) o `.` (punto) según corresponda. El guion medio `–` también prohibido en prosa (salvo rangos numéricos "2–4"). Solo el guion `-` común es válido, y solo uniendo palabras compuestas.
-7. **Humor y antropomorfismos SOLO en el cierre (tercera parte) de la `explanation`.** El cuerpo (definición + aplicación) va en voz neutra y técnica. Frases como "la raíz cuadrada detesta los negativos" o "la regla se cansa de emitir respuestas" son **inválidas fuera del cierre**, aunque suenen simpáticas. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la regla se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
 
 ---
 
@@ -79,7 +79,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 - **Respuesta conceptual/textual** (nombre de concepto, categoría, descripción): **3 opciones** por defecto. Tres confusiones clásicas alcanzan.
 - **Respuesta numérica corta** (un número, un conjunto chico, un intervalo, una expresión tipo `x ≥ 3`): **4 opciones**. Cuatro variantes del error de cálculo son cómodas de distinguir y **triggean la grilla 2×2** del frontend (que requiere 4 opciones + todas ≤35 caracteres).
-- **Binario** (2 opciones): reservado para casos donde el criterio es genuinamente binario y no hay una tercera confusión plausible (ej. "¿cumple unicidad? Sí/No"). En LEXI y CLSF de definición esto es raro — casi siempre hay una tercera confusión.
+- **Binario** (2 opciones): reservado para casos donde el criterio es genuinamente binario y no hay una tercera confusión plausible (ej. "¿cumple unicidad? Sí/No"). En LEXI y CLSF de definición esto es raro, casi siempre hay una tercera confusión.
 
 **Regla mecánica:** si las respuestas son valores numéricos (`$5$`, `$\{1,2,3\}$`, `$x \geq 3$`) o expresiones cortas, hacé 4 opciones y verificá que todas quepan en ≤35 caracteres para que el frontend las renderice en grilla 2×2 compacta. Si la respuesta es un párrafo o una descripción, hacé 3 opciones (no van a entrar en grilla y quedan como lista vertical).
 
@@ -92,17 +92,17 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 **Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4 && options.every(o => o.length <= 35)`. Aprovechá el compactado siempre que la respuesta lo permita.
 
-**Precedente:** unicidad en `CLSF` reformulada como "¿esta regla cumple el criterio de unicidad?" con 2 opciones (Sí/No) — caso raro de binario legítimo.
+**Precedente:** unicidad en `CLSF` reformulada como "¿esta regla cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
 
 ---
 
-## Formato de Cálculo Numérico, grilla compacta (PENDIENTE de soporte de front)
+## Formato de Cálculo Numérico, grilla compacta 2×2
 
-Para skills de cálculo (`RESL`, `DERI`, `INTG`) donde las 4 opciones son valores numéricos o vectores cortos, el ideal es presentarlas en una **grilla compacta 2×2** en vez de la lista vertical apilada actual.
+Para skills de cálculo (`RESL`, `DERI`, `INTG`) y para cualquier ítem de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
 
-**Estado: NO implementado.** El campo `options` hoy es un array plano de strings que el front renderiza como botones apilados verticalmente. Una grilla 2×2 es un cambio de layout del componente de ejercicio, no resolverlo metiendo HTML/tablas dentro del string de `options`, eso genera inconsistencia de renderizado.
+**Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4 && exercise.options.every(o => o.length <= 35)` (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, alrededor de la línea 293). Para aprovecharlo: 4 opciones, todas de ≤35 caracteres. Si alguna opción supera los 35 caracteres, el front cae a lista vertical.
 
-**No tocar el contenido de ningún ejercicio de cálculo numérico invocando esta regla hasta que el front la soporte.**
+**Nunca** metas HTML ni tablas dentro del string de `options` para forzar una grilla: el `options` es un array plano de strings y el layout lo decide el componente. Tu única palanca es la cardinalidad (4) y la longitud (≤35) de cada opción.
 
 ---
 
@@ -114,7 +114,7 @@ Para skills de cálculo (`RESL`, `DERI`, `INTG`) donde las 4 opciones son valore
 
 ### Declaraciones de tipo de función `A : X \to Y`: extensión corta por diseño
 
-Las declaraciones tipo `$$A : X \to Y$$` tienen que caber **en una sola línea en mobile** (~30 caracteres visibles como máximo). **NO** resolvés el overflow partiendo en dos líneas con `\begin{aligned}` — visualmente queda cortada y pierde la lectura natural "de A en X hacia Y". La solución correcta es **diseñar el ejercicio con conjuntos chicos desde el principio**.
+Las declaraciones tipo `$$A : X \to Y$$` tienen que caber **en una sola línea en mobile** (~30 caracteres visibles como máximo). **NO** resolvés el overflow partiendo en dos líneas con `\begin{aligned}`: visualmente queda cortada y pierde la lectura natural "de A en X hacia Y". La solución correcta es **diseñar el ejercicio con conjuntos chicos desde el principio**.
 
 **Regla operativa:** dominio y codominio con **2-4 elementos**, cada elemento **de 1-2 caracteres**. Preferir dígitos sueltos o letras cortas. Palabras largas (`\text{lunes},\dots,\text{domingo}`, `\text{laborable, feriado}`, números grandes tipo `15000, 20000, 25000, 30000`) están prohibidas dentro de la declaración.
 
@@ -140,7 +140,7 @@ $$E : \{1, 2, 3\} \to \{S, N\}$$      (encuesta sí/no)
 
 **Prohibido dentro de `$$A : X \to Y$$`**:
 - Palabras completas envueltas en `\text{}`.
-- Elipsis `\dots` con extremos largos (`\{15000, \dots, 30000\}` — si necesitás elipsis, la extensión ya es larga; usá conjuntos concretos chicos).
+- Elipsis `\dots` con extremos largos (`\{15000, \dots, 30000\}`, si necesitás elipsis, la extensión ya es larga; usá conjuntos concretos chicos).
 - Números de 4+ dígitos.
 
 Si el ejercicio realmente exige un contexto con muchas o largas etiquetas, **describilo en prosa antes** y usá una variable neutra para la declaración: "Una liga clasifica jugadores por edad" + `$$K : E \to C$$` con la explicación en prosa. Pero eso ya es un ejercicio más avanzado; en LEXI/CLSF de definición preferí siempre la extensión corta.
@@ -159,7 +159,7 @@ $$(-3)^2 = 9, \quad (-1)^2 = 1, \quad 0^2 = 0, \quad 1^2 = 1, \quad 3^2 = 9$$
 $$\begin{aligned} (-3)^2 &= 9 \\ (-1)^2 &= 1 \\ 0^2 &= 0 \\ 1^2 &= 1 \\ 3^2 &= 9 \end{aligned}$$
 ```
 
-**Regla:** dos o más asignaciones/evaluaciones (`f(x) = y`, `x^2 = k`, `x \mapsto v`) en el mismo bloque display → **obligatorio** `\begin{aligned}...\end{aligned}` con `&=` como punto de alineación y `\\` entre líneas. Aplica también cuando son solo 2 valores unidos por `\text{y}` — usar `aligned` en vez de `1000 \quad \text{y} \quad 2000`.
+**Regla:** dos o más asignaciones/evaluaciones (`f(x) = y`, `x^2 = k`, `x \mapsto v`) en el mismo bloque display → **obligatorio** `\begin{aligned}...\end{aligned}` con `&=` como punto de alineación y `\\` entre líneas. Aplica también cuando son solo 2 valores unidos por `\text{y}`: usar `aligned` en vez de `1000 \quad \text{y} \quad 2000`.
 
 **Excepción:** una sola igualdad o expresión (`f(3) = 27`, `x^2 = 25`) va en su propio bloque display sin `aligned`.
 
@@ -214,8 +214,8 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 
 ## Redacción del enunciado
 
-- **Sin paréntesis** para aclaraciones: usar coma + "es decir" / "o sea" / guion. Los `:` de notación matemática sí van, pero dentro de LaTeX.
-- **Sin dos puntos `:` en la prosa**: preferir `.` o `,`.
+- **Sin paréntesis para aclaraciones en el enunciado.** Si una aclaración es imprescindible, integrala como oración propia. No la resuelvas con muletillas "es decir…" / "o sea…" / "esto es…" (prohibidas en `question`, ver *Preguntas directas* más abajo) ni con guion (em-dash y en-dash prohibidos, ver regla crítica 6). Los `:` de notación matemática sí van, pero dentro de LaTeX.
+- **Evitá dos puntos `:` en la prosa del cuerpo**: preferir `.` o `,`. **Excepción**: un `:` de cierre para introducir una fórmula display es válido y recomendado (`Consideremos la función:` antes de `$$...$$`), ver *Sin preámbulos colgantes* más abajo.
 - **"transforma"**: referirse a la función como "la regla que transforma [entradas] en [salidas]". NUNCA usar la flecha `A → B` en prosa (solo en la fórmula centrada).
 - **Situación cotidiana concreta + pregunta puntual** (no "¿qué significa X?").
 - **Estructura de embudo invertido**: contexto liviano → objeto matemático aislado en `$$` → restricción/pregunta final. Cada capa reduce en volumen pero aumenta en abstracción.
@@ -259,7 +259,7 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 - **Sin pistas en las opciones**: la opción correcta no debe llevar una glosa aclaratoria entre paréntesis que las distractoras no tengan, delata la respuesta.
   - ❌ `Lineal (constante)` → ✅ `Lineal`
 - **"Cuadrática" y "Polinómica" no pueden convivir en la misma grilla**: si la respuesta correcta es `Cuadrática`, ninguna opción puede ser `Polinómica de grado N` (porque toda cuadrática es un polinomio → ambigüedad). Elegir distractor de familia claramente distinta. La regla aplica en espejo: si la correcta es `Polinómica`, no ofrecer `Cuadrática`.
-- Toque de humor en las explicaciones, sin pasarse.
+- El cierre de la explicación es advertencia/consejo por defecto; humor solo excepcional (analogía cotidiana exagerada, nunca antropomorfismo). Ver *Estructura de la explicación*.
 - **Sin nombres propios**: usar roles genéricos, "un vendedor", "una empresa", "un estudiante", "un puesto de limonada", "un remis", etc.
 - **Dos fórmulas en un mismo enunciado**: nunca poner dos funciones en la misma línea display con `\qquad`, en mobile se corta. Usar dos bloques `$$` separados:
   - ❌ `$$f(x) = 3x^2 + 1 \qquad g(x) = 0{,}5x^2 + 1$$`
@@ -318,13 +318,14 @@ Cada campo `explanation` sigue una estructura de **tres partes**:
    &= \text{resultado}
    \end{aligned}$$
    ```
-3. **Cierre con humor** (cuando sea posible): una oración breve y liviana que cierre la explicación con algo ingenioso relacionado con el tema.
+3. **Cierre útil** (cuando aporte): por defecto, una oración que advierte sobre la **confusión o el error típico** del concepto, o da un **consejo práctico** para no volver a caer, en voz neutra. El humor es **excepcional**: solo si surge naturalmente una **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal, nunca antropomorfismos ni un chiste externo. Si no hay una advertencia pertinente ni una analogía que cierre bien, terminá en la aplicación: un cierre forzado resta.
 
-**Extensión mínima:** las tres partes juntas deben superar los 250 caracteres. Una sola oración de resultado no es una explicación.
+**Extensión mínima:** las tres partes juntas deben superar los 250 caracteres. Una sola oración de resultado no es una explicación. Cuando el cierre no va, compensá con más detalle en el concepto o la aplicación.
 
 **Errores frecuentes:**
 - Poner solo el resultado de la cuenta sin explicar el concepto general.
-- Omitir el cierre: la parte 3 es lo que hace memorable al ejercicio.
+- Forzar humor donde no cierra: si no surge una analogía natural, la parte 3 va como advertencia/consejo o directamente no va.
+- Cerrar con un antropomorfismo o un chiste externo al tema (prohibido, ver regla crítica 7).
 - Usar la cadena horizontal `A = B = C = D` para derivaciones largas, usar `\begin{aligned}` vertical en su lugar.
 
 ---
@@ -346,7 +347,7 @@ Cinco NUNCA y cinco SIEMPRE. Están duplicadas arriba a propósito, para que tam
 - NUNCA agregar glosa solo a la opción correcta.
 - NUNCA usar nombres propios (usar roles genéricos).
 - NUNCA inflar el enunciado con adjetivos decorativos.
-- NUNCA meter humor ni antropomorfismos fuera del cierre de la `explanation`.
+- NUNCA meter antropomorfismos ni chistes externos; el cierre es advertencia/consejo, y el humor (excepcional) va como analogía cotidiana formal.
 
 **SIEMPRE:**
 - SIEMPRE `\n\n` entre contexto y pregunta.

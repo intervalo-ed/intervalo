@@ -153,31 +153,6 @@
           "tooltip": "La **integral definida** calcula el área (neta) bajo una curva entre dos límites.\n\n**Notación y definición:**\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nDonde $F$ es cualquier antiderivada de $f$. Esto se llama el **Teorema Fundamental del Cálculo**.\n\n**Propiedades:**\n• $\\int_a^b f(x) \\, dx = -\\int_b^a f(x) \\, dx$\n• $\\int_a^a f(x) \\, dx = 0$\n• $\\int_a^b [f(x) + g(x)] \\, dx = \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$\n• $\\int_a^c f(x) \\, dx = \\int_a^b f(x) \\, dx + \\int_b^c f(x) \\, dx$ (aditividad)\n\n**Interpretación geométrica:**\nSi $f(x) \\geq 0$ en $[a,b]$, $\\int_a^b f(x) \\, dx$ es el área entre la curva y el eje $X$.\n\nEjemplo: $\\int_0^2 x^2 \\, dx = \\left[\\frac{x^3}{3}\\right]_0^2 = \\frac{8}{3} - 0 = \\frac{8}{3}$"
         }
       ]
-    },
-    {
-      "key": "black",
-      "topics": [
-        {
-          "key": "function_analysis",
-          "name": "Análisis de funciones",
-          "tooltip": "El **análisis de funciones** es un estudio completo de una función para entender su comportamiento global.\n\n**Pasos principales:**\n1. **Dominio:** ¿Qué valores de $x$ están permitidos?\n2. **Intersecciones:** ¿Dónde cruza los ejes? (ceros y ordenada al origen)\n3. **Simetría:** ¿Es par $f(-x) = f(x)$ o impar $f(-x) = -f(x)$?\n4. **Asíntotas:** Líneas que la gráfica aproxima pero no toca\n5. **Monotonía:** ¿Dónde crece ($f' > 0$) o decrece ($f' < 0$)?\n6. **Extremos:** Máximos y mínimos locales (donde $f' = 0$ o no existe)\n7. **Concavidad:** ¿Dónde es convexa ($f'' > 0$) o cóncava ($f'' < 0$)?\n8. **Puntos de inflexión:** Donde cambia la concavidad ($f'' = 0$)\n\nEste análisis produce un **bosquejo preciso** de la gráfica."
-        },
-        {
-          "key": "optimization",
-          "name": "Optimización",
-          "tooltip": "La **optimización** busca los valores máximo y mínimo de una función, aplicado a problemas reales.\n\n**Método del cálculo:**\n1. Identificar la función a optimizar: $f(x)$ (ganancia, costo, área, etc.)\n2. Encontrar puntos críticos: resolver $f'(x) = 0$ y puntos donde $f'$ no existe\n3. Usar el **criterio de la segunda derivada:**\n   - Si $f''(x) > 0$: mínimo local\n   - Si $f''(x) < 0$: máximo local\n4. Comparar con valores en los extremos del dominio\n\n**Tipos de problemas:**\n• Maximizar ganancia, minimizar costos\n• Minimizar distancia, maximizar área\n• Optimizar velocidad, eficiencia\n\nEjemplo: Una caja abierta se hace de una lámina cuadrada quitando esquinas. La ecuación del volumen es $V(x) = x(20-2x)^2$. Optimizar encontrando dónde $V'(x) = 0$."
-        },
-        {
-          "key": "area_calculation",
-          "name": "Cálculo de áreas",
-          "tooltip": "El cálculo de **áreas** entre curvas usa integrales definidas.\n\n**Área entre dos curvas:**\nSi $f(x) \\geq g(x)$ en $[a, b]$, el área entre ellas es:\n$$A = \\int_a^b [f(x) - g(x)] \\, dx$$\n\n**Casos:**\n• **Área entre curva y eje $X$:** Si $f(x) \\geq 0$ en $[a,b]$, $A = \\int_a^b f(x) \\, dx$\n• **Área en regiones donde $f < 0$:** Usar $A = \\int_a^b |f(x)| \\, dx$\n• **Área entre múltiples curvas:** Dividir en regiones donde el orden de las curvas es consistente\n\n**Estrategia:**\n1. Graficar para visualizar la región\n2. Encontrar puntos de intersección (donde $f(x) = g(x)$)\n3. Establecer la integral con la función superior menos la inferior\n4. Integrar\n\nEjemplo: Área entre $f(x) = x^2$ y $g(x) = 2x$ de $x=0$ a $x=2$:\n$$A = \\int_0^2 (2x - x^2) \\, dx = \\left[x^2 - \\frac{x^3}{3}\\right]_0^2 = 4 - \\frac{8}{3} = \\frac{4}{3}$$"
-        },
-        {
-          "key": "ftc",
-          "name": "Teorema fundamental",
-          "tooltip": "El **Teorema Fundamental del Cálculo** conecta derivadas e integrales, mostrando que son operaciones inversas.\n\n**Primera parte (diferenciación de integrales):**\nSi $F(x) = \\int_a^x f(t) \\, dt$, entonces:\n$$F'(x) = f(x)$$\n\nLa derivada de una integral recupera la función original.\n\n**Segunda parte (cálculo de integrales definidas):**\nSi $F$ es una antiderivada de $f$, entonces:\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\n\nEsta parte es lo que usamos para evaluar integrales definidas.\n\n**Impacto histórico:**\nEste teorema unificó el cálculo diferencial (derivadas) e integral (integrales), mostrando que son fundamentalmente relacionados.\n\nEjemplo: Para $\\int_1^3 2x \\, dx$, una antiderivada es $F(x) = x^2$, así que:\n$$\\int_1^3 2x \\, dx = F(3) - F(1) = 9 - 1 = 8$$"
-        }
-      ]
     }
   ],
   "exercise_types": [

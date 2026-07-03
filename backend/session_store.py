@@ -421,6 +421,24 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
     }
 
 
+def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
+    """Shuffle options preserving the parallel alignment of feedback_incorrect.
+
+    feedback_incorrect is a per-option array (null on the correct index); it must
+    be permuted with the exact same order as options, or hints end up attached to
+    the wrong option.
+    """
+    order = list(range(len(ex["options"])))
+    random.shuffle(order)
+    shuffled = [ex["options"][i] for i in order]
+    new_correct_index = order.index(ex["correct_index"])
+    feedback = ex.get("feedback_incorrect")
+    shuffled_feedback = (
+        [feedback[i] for i in order] if isinstance(feedback, list) else feedback
+    )
+    return shuffled, new_correct_index, shuffled_feedback
+
+
 def _build_exercise(
     idx: int,
     unit_key: UnitKey,
@@ -434,10 +452,7 @@ def _build_exercise(
         unit_key.exercise_type,
         db,
     )
-    correct_answer = ex["options"][ex["correct_index"]]
-    shuffled = ex["options"][:]
-    random.shuffle(shuffled)
-    new_correct_index = shuffled.index(correct_answer)
+    shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
         unit_key=unit_key,
@@ -445,7 +460,7 @@ def _build_exercise(
         options=shuffled,
         correct_index=new_correct_index,
         feedback_correct=ex["feedback_correct"],
-        feedback_incorrect=ex["feedback_incorrect"],
+        feedback_incorrect=shuffled_feedback,
         has_math=ex.get("has_math", False),
         graph_fn=ex.get("graph_fn", ""),
         graph_view=ex.get("graph_view"),
@@ -773,18 +788,16 @@ def create_test_session_db(
         unit_key = UnitKey(belt=belt_enum, topic=topic, exercise_type=et)
         rows = list_exercises_db(course_id, belt, topic, et, db)
         for ex in rows:
-            correct_answer = ex["options"][ex["correct_index"]]
-            shuffled = ex["options"][:]
-            random.shuffle(shuffled)
+            shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
                     exercise_id=f"ex_{idx:03d}",
                     unit_key=unit_key,
                     question=ex["question"],
                     options=shuffled,
-                    correct_index=shuffled.index(correct_answer),
+                    correct_index=new_correct_index,
                     feedback_correct=ex["feedback_correct"],
-                    feedback_incorrect=ex["feedback_incorrect"],
+                    feedback_incorrect=shuffled_feedback,
                     has_math=ex.get("has_math", False),
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view"),

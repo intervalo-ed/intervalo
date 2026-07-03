@@ -66,7 +66,6 @@ const BELT_COLOR: Record<BeltKey, string> = {
   blue: BELT_HEX.blue.onDark,
   violet: BELT_HEX.violet.onDark,
   brown: BELT_HEX.brown.onDark,
-  black: BELT_HEX.black.onDark,
 }
 
 export default function DashboardEntry() {

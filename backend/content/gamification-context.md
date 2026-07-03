@@ -50,10 +50,15 @@ motor de SRS:
    opción es la confusión clásica que es*. El feedback es accionable y atado a la
    elección concreta del usuario, no a la pregunta en abstracto.
 
-2. **Cardinalidad reducida (2-3 opciones)**: una elección es "significativa" en el
-   sentido de CD3 solo si representa una decisión real. Forzar 4 opciones cuando la
-   pregunta es binaria mete elecciones falsas, exactamente lo que genera fatiga en vez
-   de evitarla.
+2. **Cardinalidad ajustada al número real de confusiones**: una elección es
+   "significativa" en el sentido de CD3 solo si cada opción representa una decisión
+   real. La regla operativa (ver `authoring-context.md`) fija la cardinalidad por
+   **tipo de respuesta**: numérica corta → 4 (cada distractor es un error aritmético
+   distinto y genuino, además de que el front las compacta en grilla 2×2), conceptual
+   → 3 (tres confusiones clásicas alcanzan), binario → excepcional. Lo que genera
+   fatiga no es "4" en abstracto, sino rellenar con opciones que nadie elegiría por
+   razones reales. Cuatro errores de cálculo plausibles son cuatro elecciones
+   significativas; cuatro variantes de una pregunta sí/no son ruido.
 
 ---
 
@@ -69,20 +74,26 @@ del texto, primera letra, si "suena" a número grande) en vez de analítica. Red
 cardinalidad donde el concepto lo permite **fuerza al Sistema 2 a pronunciarse sobre el
 contenido**, no sobre el bulto de las opciones.
 
-**Calibración por skill:**
+**Calibración (la regla operativa es por tipo de respuesta, ver `authoring-context.md`).**
+La tabla de abajo es orientativa por skill, pero la fuente de verdad es el tipo de
+respuesta: numérica corta → 4, conceptual/textual → 3, binario → excepcional.
 
-| Skill | Proceso dominante | Cardinalidad |
+| Skill | Proceso dominante | Cardinalidad típica |
 |-------|-------------------|--------------|
-| `LEXI`, `CLSF` | Sistema 1, reconocimiento rápido de categoría/término | 2-3 |
-| `ESTR` | puente: conceptual pero con estados discretos | 2-3 |
-| `GRAF` | Sistema 1 perceptual (leer la curva) + Sistema 2 para valor | 2-4 según propiedad |
+| `LEXI`, `CLSF` | Sistema 1, reconocimiento rápido de categoría/término | 3 conceptual · 4 si la respuesta es numérica corta |
+| `ESTR` | puente: conceptual pero con estados discretos | 3 |
+| `GRAF` | Sistema 1 perceptual (leer la curva) + Sistema 2 para valor | 3 si es categórica · 4 si es valor/fórmula |
 | `APLI` | Sistema 2 con contexto cotidiano | 3-4 |
 | `RESL`, `DERI`, `INTG` | Sistema 2 puro, proceso deliberado de cálculo | 4 (errores de procedimiento genuinos) |
 
-**Grilla compacta 2×2 para cálculo numérico**: cuando las 4 opciones de `RESL`/`DERI`/`INTG`
-son valores numéricos, el layout en matrix concentra las opciones visualmente y el
-Sistema 1 no puede buscar patrones de longitud de texto, el juicio queda forzado al
-valor numérico en sí. Estado: pendiente de implementación de front.
+El binario (2 opciones) se reserva para criterios genuinamente sí/no sin tercera
+confusión plausible, y no debe superar ~3 ítems por archivo de 50: en masa vuelve la
+sesión un juego de moneda.
+
+**Grilla compacta 2×2**: cuando las 4 opciones son valores numéricos o expresiones
+cortas, el layout en matrix concentra las opciones visualmente y el Sistema 1 no puede
+buscar patrones de longitud de texto, el juicio queda forzado al valor en sí. Estado:
+implementado en el front (se activa con 4 opciones, todas ≤35 caracteres).
 
 **Estructura de embudo invertido en el enunciado**: contexto liviano → objeto matemático
 en `$$` → restricción/pregunta final. Cada capa reduce en volumen pero aumenta en
@@ -114,19 +125,28 @@ fuera de la sesión.
 
 ---
 
-## Humor en el cierre de la explicación, por qué
+## Cierre de la explicación: advertencia por defecto, humor excepcional
 
 El error es el estado emocional más frágil de la sesión para CD2: el usuario acaba de
-fallar y su "accomplishment" está momentáneamente amenazado. Un cierre liviano en la
-`explanation` hace dos cosas:
+fallar y su "accomplishment" está momentáneamente amenazado. La tercera parte de la
+`explanation` es la que trabaja ese momento, y por defecto lo hace señalando la
+**confusión típica o dando un consejo práctico**:
 
-1. **Reduce la fricción afectiva post-error**: señala implícitamente "esto es normal,
-   no es el fin del mundo". El humor funciona como regulador emocional mínimo.
-2. **Hace el ejercicio memorable**: la emoción leve (risita, sorpresa) actúa como
-   ancla de memoria. Un ejercicio con remate se recuerda; uno seco no.
+1. **Cierra el loop metacognitivo**: nombrar el error clásico ("ojo, esto suele
+   confundirse con la imagen") le da al alumno una regla accionable para la próxima,
+   que es lo que consolida el aprendizaje después de fallar.
+2. **Reduce la fricción afectiva sin frivolizar**: enmarca el error como algo previsto
+   y común, no como una falla personal. Baja la carga emocional apoyándose en el
+   contenido, no en un chiste.
 
-El toque tiene que ser liviano y relacionado con el tema matemático, no un chiste
-externo que rompa el contexto.
+**Por qué el humor es ahora la excepción y no la regla:** cuando cada explicación
+remata con un chiste, el remate deja de sorprender (se vuelve fórmula) y a veces
+compite con la advertencia útil por el último renglón, que es el que más se recuerda.
+El humor sigue siendo válido, pero solo cuando surge naturalmente una **analogía
+cotidiana exagerada** (una consecuencia práctica o una escena burocrática absurda)
+que además refuerza el concepto. Enunciada en tono formal, funciona como ancla de
+memoria sin volverse tic. Los antropomorfismos y los chistes externos al tema quedan
+fuera siempre.
 
 ---
 
