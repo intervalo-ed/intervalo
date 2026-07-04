@@ -512,15 +512,15 @@ def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
 
 
 def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
-    """Crea units 'atrasadas' (catch-up): exercise_types o temas que quedaron
-    DETRÁS del frontier ya desbloqueado del usuario (p.ej. al agregar un ítem
-    nuevo al catálogo en una posición previa). Exento del tope ACTIVE_CAP: se
-    desbloquean de inmediato y vencen hoy para que sean repasables ya.
+    """Rellena exercise_types faltantes en temas que el usuario YA tocó
+    (tiene ≥1 fila). Cubre el caso de agregar un skill nuevo a un tema activo
+    (p.ej. GRAF agregado retro a funciones ya en uso). Exento del tope
+    ACTIVE_CAP: se desbloquean de inmediato y vencen hoy para que sean
+    repasables ya.
 
-    El frontier es el mayor índice de tema (en orden de catálogo) que tenga
-    alguna unit. Se rellena cada exercise_type faltante de cada tema en/antes del
-    frontier. El desbloqueo hacia adelante (temas después del frontier) lo sigue
-    manejando _ensure_active_units, con el tope."""
+    NO crea filas para temas con 0 filas del usuario: los temas nuevos o
+    renombrados los desbloquea _ensure_active_units cuando la progresión
+    normal alcanza esa posición del catálogo, respetando el tope."""
     topic_keys = _all_topic_keys(course_id, db)
 
     rows = db.query(UnitState).filter(
@@ -530,19 +530,13 @@ def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
     existing = {(r.belt, r.topic, r.exercise_type) for r in rows}
     topics_with_units = {(r.belt, r.topic) for r in rows}
 
-    # Pase 1: frontier = mayor índice de tema con alguna unit.
-    frontier_idx = -1
-    for idx, tk in enumerate(topic_keys):
-        if (tk.belt.value, tk.topic) in topics_with_units:
-            frontier_idx = idx
-    if frontier_idx < 0:
-        return
-
-    # Pase 2: rellenar los exercise_types faltantes de cada tema en/antes del
-    # frontier. La unique constraint es el backstop anti-duplicado.
     today = user_today(db, user_id)
     changed = False
-    for tk in topic_keys[: frontier_idx + 1]:
+    for tk in topic_keys:
+        # Solo rellenar temas que el usuario ya tocó: evita auto-desbloquear
+        # temas nuevos (o keys renombradas) que quedan "atrás" en el catálogo.
+        if (tk.belt.value, tk.topic) not in topics_with_units:
+            continue
         types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
         for et in sorted(types):
             if (tk.belt.value, tk.topic, et) in existing:
