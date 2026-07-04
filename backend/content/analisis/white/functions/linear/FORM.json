@@ -1,0 +1,1122 @@
+[
+  {
+    "question": "En $f(x) = -3x + 8$, ¿cuál es la pendiente?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$-3x$",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = -3$.",
+    "feedback_incorrect": [
+      "$8$ es la ordenada al origen, el término sin $x$.",
+      null,
+      "$-3x$ es el término completo con la variable; la pendiente es solo el coeficiente.",
+      "El signo forma parte de la pendiente: el coeficiente de $x$ es $-3$, no $3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma canónica $f(x) = mx + b$, la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara $f(x) = -3x + 8$ el coeficiente de $x$ es $-3$: la recta baja 3 unidades por cada unidad que avanza $x$. El $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 4x - 7$, ¿cuál es la ordenada al origen?",
+    "options": [
+      "$4$",
+      "$-7$",
+      "$4x$",
+      "$7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es el término independiente: $b = -7$.",
+    "feedback_incorrect": [
+      "$4$ es la pendiente, el coeficiente que multiplica a $x$.",
+      null,
+      "$4x$ es el término variable completo, no un parámetro.",
+      "El signo viene con el término: el independiente es $-7$, no $7$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = mx + b$, la ordenada al origen es el término independiente, el que no tiene $x$ al lado.\n\nPara $f(x) = 4x - 7$ los parámetros son $m = 4$ y $b = -7$. La verificación directa es evaluar en cero\n$$f(0) = 4 \\cdot 0 - 7 = -7$$\nel valor donde la recta corta el eje $Y$.\n\nEl signo pertenece al término: leer $7$ en lugar de $-7$ ubica el corte del lado equivocado del eje.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = \\dfrac{1}{2}x + 5$, ¿cuál es la pendiente?",
+    "options": [
+      "$5$",
+      "$\\dfrac{1}{2}$",
+      "$2$",
+      "$\\dfrac{1}{5}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = \\dfrac{1}{2}$.",
+    "feedback_incorrect": [
+      "$5$ es la ordenada al origen, no el coeficiente de $x$.",
+      null,
+      "$2$ es solo el denominador; la pendiente es la fracción completa $\\frac{1}{2}$.",
+      "$\\frac{1}{5}$ mezcla el numerador con la ordenada al origen; el coeficiente de $x$ es $\\frac{1}{2}$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn $f(x) = \\frac{1}{2}x + 5$, los parámetros son $m = \\frac{1}{2}$ y $b = 5$. La lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
+    "reviewed": false
+  },
+  {
+    "question": "En $f(x) = 6 - 2x$, ¿cuál es la pendiente?",
+    "options": [
+      "$6$",
+      "$-2$",
+      "$2$",
+      "$-6$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Reescribiendo: $f(x) = -2x + 6$. La pendiente es $m = -2$.",
+    "feedback_incorrect": [
+      "$6$ es la ordenada al origen; quedó primera porque la fórmula viene desordenada.",
+      null,
+      "El signo integra la pendiente: reordenando queda $-2x + 6$, coeficiente $-2$.",
+      "$-6$ cruza el signo del coeficiente con el término independiente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando la función no está en forma estándar, conviene reordenarla primero\n$$f(x) = 6 - 2x = -2x + 6$$\nAhí se leen los parámetros sin riesgo: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar en qué posición venga escrito el término.\n\nEn fórmulas desordenadas el error típico es doble: tomar el primer número como pendiente o perder el signo del coeficiente. Reordenar antes de leer evita los dos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de la recta con $m = 3$ y $b = -2$?",
+    "options": [
+      "$f(x) = -2x + 3$",
+      "$f(x) = 3x + 2$",
+      "$f(x) = -2 - 3x$",
+      "$f(x) = 3x - 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Con $m = 3$ y $b = -2$, la ecuación es $f(x) = 3x - 2$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: el $3$ es la pendiente y debe multiplicar a $x$.",
+      "El signo de la ordenada al origen no corresponde: $b = -2$.",
+      "La pendiente pedida es positiva; acá el $-3$ multiplica a $x$ y el $-2$ quedó suelto.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde\n$$f(x) = mx + b = 3x + (-2) = 3x - 2$$\nla pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de la recta con $m = -1$ y $b = 4$?",
+    "options": [
+      "$f(x) = -x + 4$",
+      "$f(x) = 4x - 1$",
+      "$f(x) = x + 4$",
+      "$f(x) = -x - 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con $m = -1$ y $b = 4$, la ecuación es $f(x) = -x + 4$.",
+    "feedback_incorrect": [
+      null,
+      "Los parámetros están intercambiados: el $4$ es la ordenada al origen, no la pendiente.",
+      "El signo de la pendiente se perdió: con $m = -1$ la recta baja.",
+      "El signo cambiado está en el término equivocado: $b = 4$ es positivo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sustituyendo los parámetros en el molde\n$$f(x) = (-1) \\cdot x + 4 = -x + 4$$\nla pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
+    "reviewed": false
+  },
+  {
+    "question": "Si una recta pasa por $(0, 5)$ con pendiente $2$, ¿cuál es su ecuación?",
+    "options": [
+      "$f(x) = 5x + 2$",
+      "$f(x) = 2x + 5$",
+      "$f(x) = 2x - 5$",
+      "$f(x) = 5 - 2x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Pasar por $(0, 5)$ significa $f(0) = 5$, así que $b = 5$. Con $m = 2$: $f(x) = 2x + 5$.",
+    "feedback_incorrect": [
+      "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
+      null,
+      "El punto $(0, 5)$ dice que la función vale $+5$ en cero, no $-5$.",
+      "El signo de la pendiente cambió: la recta pedida sube con $m = 2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda\n$$f(x) = 2x + 5$$\nsin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = 2x - 6$?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 2$",
+      "$x = 6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 6 = 0 \\Rightarrow x = 3$.",
+    "feedback_incorrect": [
+      null,
+      "El signo se dio vuelta en el despeje: de $2x = 6$ sale $x = 3$ positivo.",
+      "$2$ es el coeficiente de $x$, no el resultado del despeje.",
+      "$6$ es el paso intermedio $2x = 6$: queda pendiente dividir por 2."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz es el valor de $x$ que anula la función. Se resuelve la ecuación\n$$2x - 6 = 0 \\implies 2x = 6 \\implies x = 3$$\nVerificación: $f(3) = 2 \\cdot 3 - 6 = 0$.\n\nEl despeje tiene dos pasos: pasar el término independiente (cambia de signo) y dividir por el coeficiente.\n\nCortar el despeje a mitad de camino, quedándose con $6$, o equivocar el signo al pasar el término son los deslices típicos de esta cuenta.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = -x + 5$?",
+    "options": [
+      "$x = -5$",
+      "$x = 1$",
+      "$x = 0$",
+      "$x = 5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $-x + 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_incorrect": [
+      "El doble negativo se resuelve positivo: $-x = -5$ da $x = 5$.",
+      "$1$ no anula la función: $f(1) = 4$.",
+      "$x = 0$ da $f(0) = 5$, que es la ordenada al origen, no la raíz.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$\n$$-x + 5 = 0 \\implies -x = -5 \\implies x = 5$$\nVerificación: $f(5) = -5 + 5 = 0$.\n\nEl paso delicado es el último: dividir (o multiplicar) por $-1$ ambos lados. Los dos signos negativos se cancelan y el resultado es positivo.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero; en $x = 0$ la función vale 5.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = \\dfrac{1}{2}x - 3$?",
+    "options": [
+      "$x = 6$",
+      "$x = 3$",
+      "$x = -6$",
+      "$x = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $\\dfrac{1}{2}x - 3 = 0 \\Rightarrow x = 6$.",
+    "feedback_incorrect": [
+      null,
+      "$3$ es el paso intermedio $\\frac{1}{2}x = 3$: queda pendiente multiplicar por 2.",
+      "El signo quedó al revés: el despeje de esta ecuación da un valor positivo.",
+      "$2$ es el denominador de la pendiente, no la raíz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$\n$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$\nVerificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nCon pendientes fraccionarias, el error típico es dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = 2x + 1$",
+      "$y = 2x - 1$",
+      "$y = -2x + 1$",
+      "$y = x + 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 1)$ y sube 2 unidades por cada unidad en $x$: $y = 2x + 1$.",
+    "feedback_incorrect": [
+      null,
+      "El corte con el eje vertical está en $+1$, no en $-1$: mirá el valor de la recta en $x = 0$.",
+      "La recta sube hacia la derecha, así que la pendiente es positiva.",
+      "Los números están cruzados: la recta sube 2 por unidad y corta al eje en 1."
+    ],
+    "graph_fn": "2*x + 1",
+    "graph_view": [
+      -3,
+      5,
+      -3,
+      5
+    ],
+    "explanation": "Para leer la ecuación desde el gráfico se buscan los dos parámetros por separado. El corte con el eje vertical está en $(0, 1)$, así que $b = 1$.\n\nPara la pendiente, avanzá una unidad en $x$ y medí el cambio vertical: la recta sube 2 unidades, así que $m = 2$. La ecuación queda\n$$y = 2x + 1$$\ncombinando las dos lecturas.\n\nLeé primero el valor en $x = 0$ y después el ritmo de subida: mezclar los dos números del gráfico es el error de lectura más común.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = 2x + 3$",
+      "$y = -2x + 3$",
+      "$y = 3x - 2$",
+      "$y = -2x - 3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 3)$ y baja 2 unidades por cada unidad en $x$: $y = -2x + 3$.",
+    "feedback_incorrect": [
+      "La recta baja hacia la derecha: la pendiente es negativa.",
+      null,
+      "Los números están cruzados: el corte con el eje vertical es 3 y la caída es 2 por unidad.",
+      "El corte con el eje vertical está en $+3$: mirá dónde la recta cruza el eje $Y$."
+    ],
+    "graph_fn": "-2*x + 3",
+    "graph_view": [
+      -2,
+      6,
+      -3,
+      5
+    ],
+    "explanation": "El corte con el eje vertical está en $(0, 3)$: la ordenada al origen es $b = 3$.\n\nLa recta baja 2 unidades por cada unidad que avanza $x$, así que la pendiente es $m = -2$ y la ecuación queda\n$$y = -2x + 3$$\ncon los dos parámetros leídos del dibujo.\n\nLa dirección de la recta te da el signo antes de medir nada: si baja hacia la derecha, la pendiente es negativa; verificalo antes de comparar opciones.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = \\dfrac{1}{2}x + 2$",
+      "$y = 2x + 1$",
+      "$y = x + 2$",
+      "$y = \\dfrac{1}{2}x - 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 2)$ y sube 1 unidad por cada 2 en $x$: $y = \\dfrac{1}{2}x + 2$.",
+    "feedback_incorrect": [
+      null,
+      "La lectura quedó invertida: la recta sube 1 cada 2 unidades de avance, y el corte está en 2.",
+      "La recta no sube una unidad por unidad: necesita 2 de avance para subir 1.",
+      "El corte con el eje vertical es $+2$, no $-2$."
+    ],
+    "graph_fn": "0.5*x + 2",
+    "graph_view": [
+      -2,
+      6,
+      -2,
+      6
+    ],
+    "explanation": "El corte con el eje vertical está en $(0, 2)$: la ordenada al origen es $b = 2$.\n\nLa recta sube 1 unidad por cada 2 de avance: la pendiente es el cociente $m = \\frac{1}{2}$, y la ecuación queda\n$$y = \\frac{1}{2}x + 2$$\nuniendo ambas lecturas.\n\nCon pendientes fraccionarias conviene medir sobre varios cuadritos: contar una sola unidad de avance lleva a leer el ritmo al revés y confundir $\\frac{1}{2}$ con 2.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de esta recta?",
+    "options": [
+      "$y = x + 4$",
+      "$y = -x - 4$",
+      "$y = x - 4$",
+      "$y = -x + 4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 4)$ y baja 1 unidad por cada unidad en $x$: $y = -x + 4$.",
+    "feedback_incorrect": [
+      "La recta baja hacia la derecha: la pendiente es $-1$, no $+1$.",
+      "El corte con el eje vertical está en $+4$: mirá dónde la recta cruza el eje $Y$.",
+      "Los dos signos quedaron al revés: la recta baja y corta al eje en $+4$.",
+      null
+    ],
+    "graph_fn": "-x + 4",
+    "graph_view": [
+      -2,
+      6,
+      -2,
+      6
+    ],
+    "explanation": "El corte con el eje vertical está en $(0, 4)$: la ordenada al origen es $b = 4$.\n\nLa recta baja 1 unidad por cada unidad de avance: la pendiente es $m = -1$, y la ecuación queda\n$$y = -x + 4$$\ncon ambos parámetros leídos del gráfico.\n\nChequeá los dos signos por separado: la dirección de la recta fija el signo de la pendiente, y el lado del eje donde está el corte fija el signo de la ordenada. Cada distractor falla en uno.",
+    "reviewed": false
+  },
+  {
+    "question": "Una recta pasa por el origen y sube 3 unidades por cada unidad que avanza $x$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$y = 3x$",
+      "$y = 3x + 1$",
+      "$y = x + 3$",
+      "$y = 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 0)$ y sube 3 unidades por cada unidad en $x$: $y = 3x$.",
+    "feedback_incorrect": [
+      null,
+      "Pasar por el origen significa $b = 0$: el $+1$ agrega un corte que la recta no tiene.",
+      "Los números quedaron cruzados: el 3 es el ritmo de subida, no el corte con el eje.",
+      "$y = 3$ es una recta horizontal que no sube."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$. Subir 3 unidades por cada unidad de avance es la pendiente $m = 3$.\n\nSustituyendo en el molde\n$$y = 3x + 0 = 3x$$\nla ecuación es $y = 3x$, una relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la pendiente de una recta que sube 4 unidades por cada 2 en $x$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$4$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Pendiente = $\\dfrac{\\text{subida}}{\\text{avance}} = \\dfrac{4}{2} = 2$.",
+    "feedback_incorrect": [
+      "La fracción quedó invertida: se divide la subida por el avance, $4/2$.",
+      "$4$ es solo la subida, sin dividir por el avance.",
+      null,
+      "$6$ suma los dos datos; la pendiente es un cociente, no una suma."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente es la razón entre el cambio vertical y el horizontal\n$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$\nla recta sube 2 unidades por cada unidad de avance.\n\nEl orden del cociente importa: la variación vertical va en el numerador y la horizontal en el denominador; invertirlo produce $\\frac{1}{2}$, la confusión clásica.\n\nTampoco alcanza con la subida sola: la pendiente siempre compara las dos variaciones entre sí.",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi cobra \\$500 fijos + \\$200/km. ¿Cuál es la ecuación del costo?",
+    "options": [
+      "$C(k) = 500k + 200$",
+      "$C(k) = 200k + 500$",
+      "$C(k) = 700k$",
+      "$C(k) = 500 + 200$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Costo = fijo + tarifa × km = $C(k) = 500 + 200k = 200k + 500$.",
+    "feedback_incorrect": [
+      "El \\$500 no depende de los kilómetros: es el término fijo, no el que multiplica a $k$.",
+      null,
+      "Sumar los dos montos en una sola tarifa mezcla el fijo con el variable: solo los \\$200 se repiten por km.",
+      "A esa expresión le falta la variable: sin $k$, el costo no cambia con el viaje."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente\n$$C(k) = 200k + 500$$\nlos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: el número que multiplica a la variable es siempre el que se cobra por unidad.",
+    "reviewed": false
+  },
+  {
+    "question": "Un plomero cobra \\$1500 fijos + \\$300/hora. ¿Cuál es la ecuación del costo?",
+    "options": [
+      "$C(h) = 300h + 1500$",
+      "$C(h) = 1500h + 300$",
+      "$C(h) = 1800h$",
+      "$C(h) = 300 + 1500$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo = fijo + tarifa × hora = $C(h) = 1500 + 300h = 300h + 1500$.",
+    "feedback_incorrect": [
+      null,
+      "Los parámetros están cruzados: el \\$1500 se paga una vez, no por cada hora.",
+      "Sumar fijo y tarifa en un solo coeficiente cobra los \\$1500 en cada hora.",
+      "A esa expresión le falta la variable $h$: así el costo no depende de las horas trabajadas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo combina la visita (fija) con la tarifa horaria (variable)\n$$C(h) = 300h + 1500$$\ncon $b = 1500$ el monto que se paga una sola vez y $m = 300$ el que acompaña a cada hora.\n\nLa verificación inmediata es $C(0) = 1500$: venir ya cuesta eso, sin trabajar ninguna hora.\n\nAntes de elegir, preguntate qué monto se repite por unidad de tiempo: ese es el que tiene que multiplicar a la variable.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque comienza con 100 L y pierde 5 L/min. ¿Cuál es la ecuación del volumen?",
+    "options": [
+      "$V(t) = 5t - 100$",
+      "$V(t) = 100 + 5t$",
+      "$V(t) = 95t$",
+      "$V(t) = 100 - 5t$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Volumen = inicial - pérdida × tiempo = $V(t) = 100 - 5t$.",
+    "feedback_incorrect": [
+      "El orden de la resta importa: así el tanque arranca en $-100$ litros y se llena.",
+      "El signo de la tasa está al revés: el volumen baja, el término con $t$ resta.",
+      "Restar los datos y usarlos como tarifa mezcla el volumen inicial con la pérdida: son parámetros separados.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen parte de 100 litros y pierde 5 por minuto: la tasa es negativa\n$$V(t) = 100 - 5t$$\ncon $b = 100$ (volumen inicial) y $m = -5$ (pérdida por minuto).\n\nLa verificación rápida: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros en el primer minuto.\n\nEn procesos que decrecen, revisá dos cosas antes de responder: que el valor inicial esté como término independiente y que el término variable reste.",
+    "reviewed": false
+  },
+  {
+    "question": "Una deuda comienza en \\$10000 y se reduce \\$500/mes. ¿Cuál es la ecuación?",
+    "options": [
+      "$D(m) = 10000 - 500m$",
+      "$D(m) = 500m - 10000$",
+      "$D(m) = 10000 + 500m$",
+      "$D(m) = 9500m$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Deuda = inicial - reducción × mes = $D(m) = 10000 - 500m$.",
+    "feedback_incorrect": [
+      null,
+      "El orden de la resta importa: así la deuda arranca en $-10000$ y crece.",
+      "El signo está al revés: cada pago reduce la deuda, el término con $m$ resta.",
+      "Restar los datos y usarlos de tarifa mezcla la deuda inicial con la cuota mensual."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La deuda parte de \\$10000 y baja \\$500 por mes\n$$D(m) = 10000 - 500m$$\ncon $b = 10000$ (deuda inicial) y $m = -500$ (reducción mensual).\n\nVerificación: $D(0) = 10000$ y $D(1) = 9500$, bajó justo una cuota.\n\nEl molde de estos procesos es siempre el mismo: valor inicial como término independiente y tasa restando cuando la magnitud disminuye.",
+    "reviewed": false
+  },
+  {
+    "question": "Un taxi cobra \\$600 al subir y \\$250 por cada kilómetro recorrido.\n\n¿Cuál es la ecuación del costo total $C$ según los kilómetros $k$?",
+    "options": [
+      "$C(k) = 250 + 600k$",
+      "$C(k) = 600 + 250k$",
+      "$C(k) = 600 - 250k$",
+      "$C(k) = 250k$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La bajada de \\$600 es el término fijo ($b$) y los \\$250/km son la pendiente: $C(k) = 600 + 250k$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: el \\$600 se paga al subir, una sola vez; el que se repite por km es el \\$250.",
+      null,
+      "El signo está al revés: cada kilómetro suma costo, no lo descuenta.",
+      "A esa fórmula le falta la bajada de bandera: el viaje cuesta algo aunque mida cero kilómetros."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro\n$$C(k) = 600 + 250k$$\ndonde $b = 600$ es la bajada de bandera y $m = 250$ la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero: $C(0) = 600$, lo que cuesta subir al taxi sin viajar.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: la que multiplica a la variable es la pendiente, el monto por unidad.",
+    "reviewed": false
+  },
+  {
+    "question": "Un gasista cobra \\$2000 por venir y \\$500 por cada hora de trabajo.\n\n¿Cuál es la ecuación del costo total $C$ según las horas $h$?",
+    "options": [
+      "$C(h) = 2000 + 500h$",
+      "$C(h) = 500 + 2000h$",
+      "$C(h) = 2000 - 500h$",
+      "$C(h) = 500h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$2000 más \\$500 por hora: $C(h) = 2000 + 500h$.",
+    "feedback_incorrect": [
+      null,
+      "Los montos están cruzados: los \\$2000 se pagan por la visita, no por cada hora.",
+      "El signo del término variable está al revés: cada hora de trabajo suma costo.",
+      "A esa fórmula le falta el costo de la visita: aunque trabaje cero horas, venir cuesta \\$2000."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo fijo se paga una sola vez y la tarifa acompaña a cada hora\n$$C(h) = 2000 + 500h$$\ncon $b = 2000$ (la visita) y $m = 500$ (cada hora de trabajo).\n\nEvaluá en cero para verificar: $C(0) = 2000$, el costo de que venga sin trabajar todavía.\n\nAl armar la fórmula desde el enunciado, asigná primero el rol de cada número: el que no depende de la variable va suelto; el que se repite por unidad, multiplicando.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque empieza con 80 litros y se vacía a razón de 4 litros por minuto.\n\n¿Cuál es la ecuación del volumen $V$ según los minutos $t$?",
+    "options": [
+      "$V(t) = 80t - 4$",
+      "$V(t) = 80 + 4t$",
+      "$V(t) = 4t - 80$",
+      "$V(t) = 80 - 4t$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El tanque empieza en 80 L y pierde 4 L/min: $V(t) = 80 - 4t$.",
+    "feedback_incorrect": [
+      "Los parámetros quedaron cruzados y el signo perdido: el 80 es el punto de partida, no una tarifa por minuto.",
+      "El signo de la tasa está al revés: el tanque se vacía, el término con $t$ resta.",
+      "El orden de la resta importa: así el volumen arranca en $-80$ y sube, lo contrario del vaciado.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen arranca en 80 litros y pierde 4 por minuto: la pendiente es negativa\n$$V(t) = 80 - 4t$$\ncon $b = 80$ (volumen inicial) y $m = -4$ (tasa de vaciado).\n\nPara verificar, evaluá el arranque: $V(0) = 80$, y un minuto después $V(1) = 76$: bajó 4 litros, como dice el enunciado.\n\nEn procesos que decrecen, el error típico es escribir la tasa sumando: si la cantidad baja, el término con la variable tiene que restar.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona debe \\$60000 y paga \\$4000 por mes.\n\n¿Cuál es la ecuación de la deuda restante $D$ según los meses $m$?",
+    "options": [
+      "$D(m) = 60000 + 4000m$",
+      "$D(m) = 4000 - 60000m$",
+      "$D(m) = 4000m$",
+      "$D(m) = 60000 - 4000m$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La deuda empieza en \\$60000 y baja \\$4000 por mes: $D(m) = 60000 - 4000m$.",
+    "feedback_incorrect": [
+      "El signo está al revés: cada pago reduce la deuda, el término con $m$ resta.",
+      "Los parámetros están cruzados: la deuda arranca en \\$60000 y baja de a \\$4000.",
+      "Esa fórmula cuenta lo ya pagado, no lo que falta pagar.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La deuda parte de \\$60000 y cada mes se le descuentan \\$4000\n$$D(m) = 60000 - 4000m$$\ncon $b = 60000$ (deuda inicial) y $m = -4000$ (pago mensual, con signo negativo porque reduce el saldo).\n\nVerificación: $D(0) = 60000$ y $D(1) = 56000$, bajó exactamente un pago.\n\nDistinguí qué mide la función: la deuda restante baja desde el inicial; el total pagado ($4000m$) sube desde cero. Son dos rectas distintas y el enunciado pide la primera.",
+    "reviewed": false
+  },
+  {
+    "question": "Un empleado cobra \\$15000 fijos por mes más \\$200 por cada pieza producida.\n\n¿Cuál es la ecuación del sueldo mensual $S$ según las piezas $p$?",
+    "options": [
+      "$S(p) = 200 + 15000p$",
+      "$S(p) = 15000 - 200p$",
+      "$S(p) = 15000 + 200p$",
+      "$S(p) = 200p$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sueldo fijo \\$15000 más \\$200 por pieza: $S(p) = 15000 + 200p$.",
+    "feedback_incorrect": [
+      "Los montos están intercambiados: el sueldo fijo es \\$15000 y el bono por pieza \\$200.",
+      "El signo está al revés: producir piezas suma al sueldo, no lo descuenta.",
+      null,
+      "A esa fórmula le falta el sueldo fijo: sin piezas igual se cobran \\$15000."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El sueldo combina la parte fija con el bono por producción\n$$S(p) = 15000 + 200p$$\ncon $b = 15000$ (el fijo mensual) y $m = 200$ (el adicional por cada pieza).\n\nLa verificación: $S(0) = 15000$, lo que cobra un mes sin producir ninguna pieza.\n\nEl intercambio de $m$ y $b$ es el distractor clásico en sueldos: preguntate cuál de los dos montos se repite con cada pieza; ese es el que multiplica a la variable.",
+    "reviewed": false
+  },
+  {
+    "question": "La factura de luz tiene un cargo fijo de \\$400 más \\$12 por cada kWh consumido.\n\n¿Cuál es la ecuación de la factura $F$ según los kWh consumidos $k$?",
+    "options": [
+      "$F(k) = 400k + 12$",
+      "$F(k) = 400 - 12k$",
+      "$F(k) = 12k$",
+      "$F(k) = 12k + 400$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Cargo fijo \\$400 más \\$12 por kWh: $F(k) = 400 + 12k = 12k + 400$.",
+    "feedback_incorrect": [
+      "Los montos están cruzados: el cargo fijo es \\$400 y cada kWh cuesta \\$12.",
+      "El signo está al revés: consumir suma a la factura, no la reduce.",
+      "A esa fórmula le falta el cargo fijo: la factura llega aunque el consumo sea cero.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente\n$$F(k) = 12k + 400$$\nComo la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación: $F(0) = 400$, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona empieza sin ahorros y deposita \\$5000 cada mes.\n\n¿Cuál es la ecuación del ahorro acumulado $A$ según los meses $m$?",
+    "options": [
+      "$A(m) = 5000 + m$",
+      "$A(m) = 5000m$",
+      "$A(m) = m / 5000$",
+      "$A(m) = 5000 - m$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sin ahorro inicial y \\$5000 por mes: $A(m) = 5000m$.",
+    "feedback_incorrect": [
+      "Acá los \\$5000 quedaron como ahorro inicial y el depósito mensual en \\$1: los roles están cruzados.",
+      null,
+      "Dividir los meses por el depósito no modela una suma repetida.",
+      "El signo está al revés: cada depósito suma al ahorro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el valor inicial es cero, la recta pasa por el origen y el término independiente desaparece\n$$A(m) = 5000m$$\ncon $b = 0$ (empieza sin ahorros) y $m = 5000$ (el depósito mensual).\n\nVerificación: $A(0) = 0$ y $A(1) = 5000$, un depósito acumulado.\n\nQue no haya término suelto no es un dato faltante: es la traducción exacta de \"empieza sin ahorros\". No agregues una ordenada que el enunciado no da.",
+    "reviewed": false
+  },
+  {
+    "question": "El alquiler de una bicicleta cuesta \\$300 más \\$150 por hora de uso.\n\n¿Cuál es la ecuación del costo $C$ según las horas $h$?",
+    "options": [
+      "$C(h) = 300 + 150h$",
+      "$C(h) = 150 + 300h$",
+      "$C(h) = 300h$",
+      "$C(h) = 300 - 150h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$300 más \\$150 por hora: $C(h) = 300 + 150h$.",
+    "feedback_incorrect": [
+      null,
+      "Los montos están cruzados: el fijo es \\$300 y la hora \\$150.",
+      "A esa fórmula le falta el cargo fijo: usar la bici cero horas igual cuesta \\$300.",
+      "El signo está al revés: cada hora de uso suma costo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo combina el cargo fijo con la tarifa horaria\n$$C(h) = 300 + 150h$$\ncon $b = 300$ (se paga al alquilar, sin importar el tiempo) y $m = 150$ (cada hora de uso).\n\nVerificación: $C(0) = 300$ y cada hora agrega \\$150 exactos.\n\nPara no cruzar los montos, buscá en el enunciado la palabra que indica repetición (\"por hora\", \"por km\", \"por unidad\"): ese monto es siempre la pendiente.",
+    "reviewed": false
+  },
+  {
+    "question": "La temperatura al inicio de la noche es 22°C y baja 3°C por hora.\n\n¿Cuál es la ecuación de la temperatura $T$ según las horas $h$ transcurridas?",
+    "options": [
+      "$T(h) = 22 + 3h$",
+      "$T(h) = 3h - 22$",
+      "$T(h) = 22 - 3h$",
+      "$T(h) = 3 - 22h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Temperatura inicial 22°C que baja 3°C por hora: $T(h) = 22 - 3h$.",
+    "feedback_incorrect": [
+      "El signo de la tasa está al revés: la temperatura baja, el término con $h$ resta.",
+      "El orden de la resta importa: así la noche arranca en $-22$°C y sube.",
+      null,
+      "Los parámetros están cruzados: 22 es la temperatura inicial y 3 lo que baja por hora."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La temperatura parte de 22°C y baja 3°C por hora: la tasa es negativa\n$$T(h) = 22 - 3h$$\ncon $b = 22$ (temperatura al inicio de la noche) y $m = -3$ (el descenso horario).\n\nVerificación: $T(0) = 22$ y $T(1) = 19$, bajó 3 grados en la primera hora.\n\nCuando la magnitud desciende, el término con la variable resta: escribirlo sumando invierte el fenómeno completo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una tarjeta de transporte tiene \\$800 de saldo inicial. Cada viaje cuesta \\$60.\n\n¿Cuál es la ecuación del saldo $S$ según la cantidad de viajes $v$?",
+    "options": [
+      "$S(v) = 60v - 800$",
+      "$S(v) = 800 + 60v$",
+      "$S(v) = 60 - 800v$",
+      "$S(v) = 800 - 60v$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El saldo empieza en \\$800 y baja \\$60 por viaje: $S(v) = 800 - 60v$.",
+    "feedback_incorrect": [
+      "El orden de la resta importa: así el saldo arranca en $-800$ y sube con cada viaje.",
+      "El signo está al revés: viajar descuenta saldo, no lo recarga.",
+      "Los parámetros están cruzados: el saldo inicial es \\$800 y el viaje cuesta \\$60.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El saldo parte de \\$800 y cada viaje descuenta \\$60\n$$S(v) = 800 - 60v$$\ncon $b = 800$ (la carga inicial) y $m = -60$ (el costo de cada viaje, restando).\n\nVerificación: $S(0) = 800$ y $S(1) = 740$, un viaje descontado.\n\nEn los modelos de saldo, el error típico es el signo del término variable: si la tarjeta se gasta, el viaje resta; revisalo evaluando un caso chico antes de responder.",
+    "reviewed": false
+  },
+  {
+    "question": "Un abono de internet tiene un costo fijo de \\$1800 más \\$90 por cada GB adicional consumido.\n\n¿Cuál es la ecuación del costo mensual $P$ según los GB adicionales $g$?",
+    "options": [
+      "$P(g) = 1800 + 90g$",
+      "$P(g) = 90 + 1800g$",
+      "$P(g) = 1800 - 90g$",
+      "$P(g) = 90g$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Costo fijo \\$1800 más \\$90 por GB adicional: $P(g) = 1800 + 90g$.",
+    "feedback_incorrect": [
+      null,
+      "Los montos están cruzados: el abono es \\$1800 y cada GB extra \\$90.",
+      "El signo está al revés: consumir GB suma al costo.",
+      "A esa fórmula le falta el abono fijo: sin GB adicionales igual se pagan \\$1800."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo mensual combina el abono fijo con el precio por GB adicional\n$$P(g) = 1800 + 90g$$\ncon $b = 1800$ (se paga siempre) y $m = 90$ (cada GB extra).\n\nVerificación: $P(0) = 1800$, la factura de un mes sin excedentes.\n\nEl monto que aparece junto a \"por cada\" en el enunciado es la pendiente; el otro es el término fijo. Esa lectura evita el intercambio clásico de parámetros.",
+    "reviewed": false
+  },
+  {
+    "question": "Una persona sale desde un punto a 3 km del origen y camina hacia adelante a 5 km por hora.\n\n¿Cuál es la ecuación de la distancia al origen $d$ según las horas $h$?",
+    "options": [
+      "$d(h) = 5 + 3h$",
+      "$d(h) = 5h - 3$",
+      "$d(h) = 3 + 5h$",
+      "$d(h) = 5h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Parte a 3 km del origen y avanza 5 km/h: $d(h) = 3 + 5h$.",
+    "feedback_incorrect": [
+      "Los datos están cruzados: parte a 3 km del origen y avanza a 5 km/h, no al revés.",
+      "El punto de partida no se resta: a las cero horas la distancia es 3 km, no $-3$.",
+      null,
+      "A esa fórmula le falta la distancia inicial: la persona no parte del origen."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La distancia al origen parte de 3 km y crece 5 km por cada hora de caminata\n$$d(h) = 3 + 5h$$\ncon $b = 3$ (posición inicial) y $m = 5$ (la velocidad).\n\nVerificación: $d(0) = 3$ y $d(1) = 8$, avanzó 5 km en la primera hora.\n\nEn cinemática lineal los roles son estables: la posición inicial es la ordenada al origen y la velocidad es la pendiente. Cruzarlos duplica o achica el recorrido calculado.",
+    "reviewed": false
+  },
+  {
+    "question": "Una planta mide 6 cm y crece 2 cm por semana de forma constante.\n\n¿Cuál es la ecuación de la altura $h$ según las semanas $s$?",
+    "options": [
+      "$h(s) = 2 - 6s$",
+      "$h(s) = 6 + 2s$",
+      "$h(s) = 6 - 2s$",
+      "$h(s) = 2s$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Altura inicial 6 cm, crece 2 cm/semana: $h(s) = 6 + 2s$.",
+    "feedback_incorrect": [
+      "Los datos están cruzados y el crecimiento quedó restando: mide 6 cm y suma 2 por semana.",
+      null,
+      "El signo está al revés: la planta crece, el término con $s$ suma.",
+      "A esa fórmula le falta la altura inicial: la planta ya medía 6 cm al empezar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La altura parte de 6 cm y suma 2 cm por semana\n$$h(s) = 6 + 2s$$\ncon $b = 6$ (la altura al comenzar) y $m = 2$ (el crecimiento semanal).\n\nVerificación: $h(0) = 6$ y $h(1) = 8$, creció 2 cm en la primera semana.\n\nCuando la magnitud aumenta, el término variable suma; escribirlo restando modela una planta que se achica, lo contrario del enunciado.",
+    "reviewed": false
+  },
+  {
+    "question": "El tanque de una moto tiene 45 litros. Cada viaje largo consume 9 litros.\n\n¿Cuál es la ecuación de la nafta restante $Q$ según la cantidad de viajes $v$?",
+    "options": [
+      "$Q(v) = 9v$",
+      "$Q(v) = 45 + 9v$",
+      "$Q(v) = 9 - 45v$",
+      "$Q(v) = 45 - 9v$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El tanque empieza con 45 L y pierde 9 L por viaje: $Q(v) = 45 - 9v$.",
+    "feedback_incorrect": [
+      "Esa fórmula cuenta la nafta gastada, no la que queda en el tanque.",
+      "El signo está al revés: cada viaje consume nafta, el término con $v$ resta.",
+      "Los parámetros están cruzados: el tanque arranca con 45 litros y gasta 9 por viaje.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La nafta restante parte de 45 litros y cada viaje descuenta 9\n$$Q(v) = 45 - 9v$$\ncon $b = 45$ (el tanque lleno) y $m = -9$ (el consumo por viaje).\n\nVerificación: $Q(0) = 45$ y $Q(1) = 36$, un viaje consumido.\n\nDistinguí la magnitud pedida: lo que queda baja desde 45; lo gastado ($9v$) sube desde cero. El enunciado pregunta por la primera, y confundirlas invierte toda la fórmula.",
+    "reviewed": false
+  },
+  {
+    "question": "Un producto cuesta \\$3000, pero la tienda ofrece un descuento de \\$200 por cada unidad adicional que comprés.\n\n¿Cuál es la ecuación del precio por unidad $P$ según las unidades $u$ compradas?",
+    "options": [
+      "$P(u) = 3000 + 200u$",
+      "$P(u) = 200 - 3000u$",
+      "$P(u) = 3000 - 200u$",
+      "$P(u) = 200u$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El precio empieza en \\$3000 y baja \\$200 por unidad adicional: $P(u) = 3000 - 200u$.",
+    "feedback_incorrect": [
+      "El signo está al revés: un descuento hace bajar el precio, el término con $u$ resta.",
+      "Los parámetros están cruzados: el precio base es \\$3000 y el descuento \\$200 por unidad.",
+      null,
+      "A esa fórmula le falta el precio base: solo cuenta el descuento acumulado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El precio por unidad parte de \\$3000 y baja \\$200 por cada unidad adicional\n$$P(u) = 3000 - 200u$$\ncon $b = 3000$ (el precio base) y $m = -200$ (el descuento por unidad, restando).\n\nVerificación: $P(0) = 3000$ y $P(1) = 2800$, un descuento aplicado.\n\nLa palabra \"descuento\" define el signo antes de escribir nada: si el precio baja con cada unidad, el término variable tiene que restar.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 7x - 4$.\n\n¿Cuál es la pendiente?",
+    "options": [
+      "$-4$",
+      "$7$",
+      "$4$",
+      "$-7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = 7x - 4$, el coeficiente de $x$ es $7$: esa es la pendiente.",
+    "feedback_incorrect": [
+      "$-4$ es la ordenada al origen, el término sin $x$.",
+      null,
+      "$4$ toma el término independiente y además le cambia el signo; la pendiente es el coeficiente de $x$.",
+      "El signo no corresponde: el coeficiente de $x$ es $7$ positivo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $f(x) = mx + b$, la pendiente es el coeficiente que multiplica a $x$.\n\nPara $f(x) = 7x - 4$, ese coeficiente es $7$: la función sube 7 unidades por cada unidad de $x$. El $-4$ es la ordenada al origen, el valor de $f(0)$.\n\nIntercambiar pendiente y ordenada al origen es el error más clásico del tema: antes de responder, ubicá cuál número está pegado a la $x$ y cuál está suelto.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = -3x + 9$.\n\n¿Cuál es la ordenada al origen $b$?",
+    "options": [
+      "$-3$",
+      "$3$",
+      "$9$",
+      "$-9$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = -3x + 9$, el término independiente es $9$: esa es la ordenada al origen.",
+    "feedback_incorrect": [
+      "$-3$ es la pendiente, el coeficiente de $x$.",
+      "$3$ es la pendiente con el signo cambiado, no el término independiente.",
+      null,
+      "El signo no corresponde: el término independiente es $+9$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La ordenada al origen es el término sin $x$, que coincide con el valor de la función en cero\n$$f(0) = -3 \\cdot 0 + 9 = 9$$\nPara $f(x) = -3x + 9$, entonces, $b = 9$ y la pendiente es $m = -3$.\n\nEl orden en que aparecen los números en la fórmula no define su rol: lo define estar o no pegado a la variable.\n\nElegir el primer número que se ve es el reflejo a evitar: identificá el término independiente evaluando mentalmente en $x = 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un remis es $C(k) = 700 + 180k$, donde $k$ son los kilómetros.\n\n¿Cuánto cobra el remis por cada kilómetro adicional?",
+    "options": [
+      "\\$700",
+      "\\$180",
+      "\\$880",
+      "\\$520"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El coeficiente de $k$ es 180: el remis cobra \\$180 por cada kilómetro.",
+    "feedback_incorrect": [
+      "\\$700 es el costo fijo al subir, no lo que se agrega por cada kilómetro.",
+      null,
+      "\\$880 es el costo total de un viaje de 1 km, no la tarifa unitaria.",
+      "\\$520 es la resta de los dos parámetros, una cuenta que no representa nada del viaje."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $C(k) = 700 + 180k$, el coeficiente de $k$ es lo que se agrega por cada kilómetro: \\$180. El \\$700 es el costo fijo de subir al auto.\n\nLa diferencia se ve comparando viajes consecutivos: $C(1) = 880$ y $C(2) = 1060$; entre uno y otro hay exactamente \\$180.\n\nLa tarifa por unidad es siempre la pendiente: no la confundas ni con el fijo ni con el costo total de un viaje puntual.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 2x - 8$.\n\n¿Cuál es la raíz de la función?",
+    "options": [
+      "$x = 2$",
+      "$x = -8$",
+      "$x = 4$",
+      "$x = 8$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 8 = 0 \\Rightarrow x = 4$.",
+    "feedback_incorrect": [
+      "$2$ es el coeficiente de $x$, no el valor que anula la función.",
+      "El signo quedó al revés: al despejar, el $-8$ pasa sumando.",
+      null,
+      "$8$ es el paso intermedio $2x = 8$: queda pendiente dividir por 2."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz es el valor de $x$ donde la función vale cero, es decir, donde la recta cruza el eje horizontal\n$$2x - 8 = 0 \\implies 2x = 8 \\implies x = 4$$\nVerificación: $f(4) = 2 \\cdot 4 - 8 = 0$.\n\nEl despeje completo tiene dos pasos: el término independiente cruza sumando y después se divide por el coeficiente.\n\nQuedarse en el paso intermedio ($8$) o responder el coeficiente ($2$) son los atajos que fallan: terminá el despeje y verificá sustituyendo.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 5 - x$.\n\n¿Cuánto vale $f(3)$?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$2$",
+      "$15$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) = 5 - 3 = 2$.",
+    "feedback_incorrect": [
+      "$8$ sale de sumar $5 + 3$: el signo menos delante de la $x$ pide restar.",
+      "$-3$ pierde el 5 inicial de la fórmula.",
+      null,
+      "$15$ multiplica los números en lugar de aplicar la fórmula."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar una función es reemplazar la variable por el valor dado y hacer la cuenta\n$$f(3) = 5 - 3 = 2$$\nla salida es 2.\n\nEl signo menos delante de la $x$ es parte de la fórmula: indica que al 5 se le resta la entrada.\n\nLa lectura apurada de $5 - x$ como \"$5$ más $x$\" es el desliz típico: fijate siempre qué operación conecta el término independiente con la variable antes de sustituir.",
+    "reviewed": false
+  },
+  {
+    "question": "El sueldo de un vendedor es $S(v) = 1200 + 80v$, donde $v$ es la cantidad de ventas.\n\n¿Cuántas ventas necesita para ganar exactamente \\$2000?",
+    "options": [
+      "$10$",
+      "$25$",
+      "$40$",
+      "$15$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$1200 + 80v = 2000 \\Rightarrow 80v = 800 \\Rightarrow v = 10$ ventas.",
+    "feedback_incorrect": [
+      null,
+      "$25$ sale de dividir $2000/80$, sin descontar primero el sueldo base.",
+      "$40$ no surge del despeje: la ecuación correcta es $80v = 800$.",
+      "$15$ divide el sueldo base por la comisión, una cuenta que mezcla los roles."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$\n$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$\nCon 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nDividir el objetivo completo por la comisión (sin restar el base) es el error típico: el fijo no se gana vendiendo, ya estaba.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un servicio técnico es $C(h) = 300 + 250h$, donde $h$ son las horas trabajadas.\n\n¿Cuál es el costo fijo de la visita, sin contar las horas?",
+    "options": [
+      "\\$250",
+      "\\$550",
+      "\\$300",
+      "\\$250h"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En $C(h) = 300 + 250h$, el término independiente es \\$300: ese es el costo fijo.",
+    "feedback_incorrect": [
+      "\\$250 es la tarifa por hora, el término que acompaña a $h$.",
+      "\\$550 es el costo con una hora trabajada, $C(1)$, no el fijo.",
+      null,
+      "$250h$ es el término variable completo, que vale 0 sin horas trabajadas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El costo fijo es lo que se cobra aunque no se trabaje ninguna hora: el valor de la función en cero\n$$C(0) = 300 + 250 \\cdot 0 = 300$$\nPor eso el fijo es la ordenada al origen, \\$300.\n\nLos \\$250 son la tarifa horaria (la pendiente) y \\$550 es lo que costaría una visita con una hora de trabajo.\n\nEvaluar en cero es el test infalible para el término fijo: lo que sobrevive a $h = 0$ es lo que se paga siempre.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones lineales es decreciente?",
+    "options": [
+      "$f(x) = 3x + 1$",
+      "$f(x) = x - 5$",
+      "$f(x) = 0{,}5x + 2$",
+      "$f(x) = -2x + 7$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -2x + 7$ tiene pendiente $-2 < 0$: es la única decreciente.",
+    "feedback_incorrect": [
+      "Su pendiente es $3 > 0$: la recta sube.",
+      "Su pendiente es $1 > 0$: sube, aunque el $-5$ despiste.",
+      "Una pendiente chica sigue siendo positiva: $0{,}5 > 0$, la función crece.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando los coeficientes de $x$: $3$, $1$ y $0{,}5$ son positivos (funciones crecientes), mientras que $-2x + 7$ tiene $m = -2 < 0$: es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie. Mirá solo el signo del número que multiplica a la $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal tiene pendiente $2$ y ordenada al origen $3$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 3x + 2$",
+      "$f(x) = 2x - 3$",
+      "$f(x) = 2x + 3$",
+      "$f(x) = 3x - 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$m = 2$ y $b = 3$: $f(x) = 2x + 3$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: la pendiente 2 debe multiplicar a $x$.",
+      "El signo de la ordenada al origen no corresponde: es $+3$.",
+      null,
+      "Acá se cruzaron los parámetros y además cambió un signo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Construir la ecuación es sustituir cada parámetro en su lugar del molde\n$$f(x) = mx + b = 2x + 3$$\nla pendiente 2 pegada a la $x$ y la ordenada al origen 3 como término suelto.\n\nVerificación doble: $f(0) = 3$ (la ordenada) y $f(1) = 5$, que subió 2 (la pendiente).\n\nEl intercambio de $m$ y $b$ es el distractor más elegido en este formato: los dos números del enunciado no son intercambiables, cada uno tiene su posición.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal pasa por los puntos $(0, 5)$ y $(1, 8)$.\n\n¿Cuál es la pendiente?",
+    "options": [
+      "$m = 5$",
+      "$m = 8$",
+      "$m = -3$",
+      "$m = 3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$m = (8 - 5) / (1 - 0) = 3$.",
+    "feedback_incorrect": [
+      "$5$ es el valor de la función en $x = 0$ (la ordenada al origen), no la pendiente.",
+      "$8$ es el valor de $f(1)$, no cuánto cambió entre los dos puntos.",
+      "El signo no corresponde: de $x = 0$ a $x = 1$ la función sube de 5 a 8.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\npor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es $f(x) = 3x + 5$.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = -4x + 12$.\n\n¿Cuánto vale $f(-1)$?",
+    "options": [
+      "$8$",
+      "$16$",
+      "$-16$",
+      "$-8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(-1) = -4(-1) + 12 = 4 + 12 = 16$.",
+    "feedback_incorrect": [
+      "$8$ aparece si $-4 \\cdot (-1)$ se calcula como $-4$: dos negativos multiplicados dan positivo.",
+      null,
+      "El signo final no corresponde: ambos términos de la cuenta quedan positivos.",
+      "$-8$ arrastra dos errores de signo en la misma cuenta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar en $x = -1$ exige cuidado con los signos\n$$f(-1) = -4 \\cdot (-1) + 12 = 4 + 12 = 16$$\nEl producto de dos negativos es positivo: $-4 \\cdot (-1) = +4$, y a eso se suma el 12.\n\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 4x + 2$",
+      "$f(x) = 2x - 4$",
+      "$f(x) = 2x + 4$",
+      "$f(x) = 4x - 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$m = (10-4)/(3-0) = 2$ y $b = 4$ (el punto $(0,4)$ es la ordenada al origen): $f(x) = 2x + 4$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
+      "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
+      null,
+      "Acá los parámetros se cruzaron y un signo cambió: $m = 2$ y $b = 4$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nla recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "reviewed": false
+  },
+  {
+    "question": "La función es $f(x) = 3x - 6$.\n\n¿Para qué valor de $x$ se cumple que $f(x) = 9$?",
+    "options": [
+      "$x = 1$",
+      "$x = 3$",
+      "$x = 5$",
+      "$x = 9$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$3x - 6 = 9 \\Rightarrow 3x = 15 \\Rightarrow x = 5$.",
+    "feedback_incorrect": [
+      "$1$ sale de restar el 6 en lugar de pasarlo sumando: el despeje correcto da $3x = 15$.",
+      "$3$ es el coeficiente de $x$, no la solución.",
+      null,
+      "$9$ es el valor buscado de $f(x)$, no el de $x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada\n$$\\begin{aligned} 3x - 6 &= 9 \\\\ 3x &= 15 \\\\ x &= 5 \\end{aligned}$$\nVerificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda $9 + 6 = 15$, no $9 - 6$.\n\nNo confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
+    "reviewed": false
+  },
+  {
+    "question": "El costo de un taxi es $C(k) = 700 + 300k$, donde $k$ son los kilómetros.\n\n¿Cuánto cuesta un viaje de 3 kilómetros?",
+    "options": [
+      "\\$1300",
+      "\\$1000",
+      "\\$1600",
+      "\\$900"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$.",
+    "feedback_incorrect": [
+      "\\$1300 cuenta los \\$300 solo dos veces: el viaje tiene 3 kilómetros.",
+      "\\$1000 suma el fijo con una sola tarifa, sin multiplicar por los kilómetros.",
+      null,
+      "\\$900 es solo la parte por kilómetro: le falta la bajada de bandera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar la función en $k = 3$\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nel viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
+    "reviewed": false
+  },
+  {
+    "question": "Un tanque empieza con 100 litros y pierde 5 litros por hora.\n\n¿Cuál de estas ecuaciones describe correctamente el volumen $V$ según las horas $h$?",
+    "options": [
+      "$V(h) = 100h - 5$",
+      "$V(h) = 5h - 100$",
+      "$V(h) = 100 - 5h$",
+      "$V(h) = 5 + 100h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Volumen inicial 100 L, pierde 5 L/h: $V(h) = 100 - 5h$.",
+    "feedback_incorrect": [
+      "Los parámetros están cruzados y el signo perdido: el 100 es el punto de partida, no una tasa por hora.",
+      "El orden de la resta importa: así el tanque arranca en $-100$ litros.",
+      null,
+      "Los roles están invertidos: el volumen parte de 100 y baja de a 5."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen parte de 100 litros y pierde 5 por hora\n$$V(h) = 100 - 5h$$\ncon $b = 100$ (el contenido inicial) y $m = -5$ (la pérdida horaria, restando).\n\nVerificación: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta. Un tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
+    "reviewed": false
+  }
+]

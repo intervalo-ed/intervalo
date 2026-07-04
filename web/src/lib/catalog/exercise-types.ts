@@ -1,7 +1,7 @@
 // Exercise-type metadata (label + description) is course content, defined in
-// the catalog so each course can declare its own. See catalog.json.
+// the catalog so each course can declare its own. See course.json.
 
-import { catalog, type ExerciseType } from "./analisis-1.generated"
+import { catalog, type ExerciseType } from "./analisis.generated"
 
 const BY_ID: Record<string, ExerciseType> = Object.fromEntries(
   catalog.exercise_types.map((t) => [t.id, t]),

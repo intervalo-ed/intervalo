@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Sea $f(x) = \\begin{cases} x^2-1 & x \\neq 1 \\\\ 0 & x=1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "Sí: $\\lim_{x \\to 1}(x^2-1) = 0 = f(1)$, las tres condiciones se cumplen",
+      "No: el límite no existe porque $f$ cambia de definición en $x=1$",
+      "No: $\\lim_{x \\to 1} = 0$ pero $f(1) = 1$",
+      "No: $f(1)$ no está definida"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\lim_{x \\to 1}(x^2-1) = 0$ y $f(1) = 0$. Las tres condiciones se cumplen: $f$ es continua.",
+    "feedback_incorrect": "$\\lim_{x \\to 1}(x^2-1) = 1-1 = 0$ y $f(1) = 0$. Como límite $=$ valor, $f$ es continua en $x=1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Verificamos las tres condiciones una por una. Primero, $f(1) = 0$ (está definida ✓). Luego calculamos el límite:\n\n$$\\lim_{x \\to 1}(x^2 - 1) = 1^2 - 1 = 0$$\n\nEl límite existe y vale $0$ ✓. Finalmente, $\\lim = 0 = f(1)$ ✓. Las tres condiciones se cumplen, así que $f$ es **continua** en $x=1$. Que la función esté definida por partes no implica discontinuidad: aquí la rama principal y el valor en el punto coinciden perfectamente.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = \\begin{cases} x+3 & x < 1 \\\\ x^2+1 & x \\geq 1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "Sí: ambos lados dan el mismo valor",
+      "No: $\\lim^- = 4$ pero $f(1) = 2$",
+      "No: el límite no existe",
+      "Sí: $f(1) = 2$ está definida"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\lim^- = 1+3=4$ y $f(1) = 1+1=2$. Como $4 \\neq 2$, la función no es continua en $x=1$.",
+    "feedback_incorrect": "$\\lim_{x \\to 1^-} = 4$ y $f(1) = 2$. No coinciden: discontinuidad en $x=1$ (de salto, ya que $\\lim^+ = 2$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En funciones a trozos, calculamos los límites laterales usando la rama correspondiente a cada lado:\n\n$$\\begin{aligned} \\lim_{x &\\to 1^-}(x+3) = 4 \\\\ \\lim_{x &\\to 1^+}(x^2+1) = 2 \\\\ f(1) &= 1^2+1 = 2 \\end{aligned}$$\n\nComo $\\lim^- = 4 \\neq 2 = \\lim^+$, el límite bilateral no existe y la tercera condición falla. Es una **discontinuidad de salto**: la gráfica salta de $y=4$ (desde la izquierda) a $y=2$ (desde la derecha y en el punto).",
+    "reviewed": false
+  },
+  {
+    "question": "Hallar $k$ para que $f(x) = \\begin{cases} kx+1 & x < 2 \\\\ x^2-1 & x \\geq 2 \\end{cases}$ sea continua en $x=2$.",
+    "options": [
+      "$k = 3$",
+      "$k = 2$",
+      "$k = 1$",
+      "$k = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Se necesita $\\lim^- = f(2)$: $2k+1 = 4-1 = 3$, entonces $2k = 2$, $k=1$.",
+    "feedback_incorrect": "Para continuidad: $\\lim^- = \\lim^+$. $\\lim^- = 2k+1$ y $f(2) = 4-1=3$. Entonces $2k+1=3 \\Rightarrow k=1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que $f$ sea continua en $x=2$, los límites laterales deben coincidir con $f(2)$. Calculamos cada parte y **planteamos la ecuación**:\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(kx+1) = 2k+1 \\\\ f(2) &= 2^2-1 = 3 \\end{aligned}$$\n\nIgualando: $2k+1 = 3 \\Rightarrow 2k = 2 \\Rightarrow k = 1$. El proceso general es siempre el mismo: evaluar cada rama en el punto de «unión» y despejar el parámetro desconocido.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallar $k$ para que $f(x) = \\begin{cases} 3x-k & x \\leq 1 \\\\ x^2+2 & x > 1 \\end{cases}$ sea continua en $x=1$.",
+    "options": [
+      "$k = -3$",
+      "$k = 3$",
+      "$k = 1$",
+      "$k = 0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Para continuidad: $3(1)-k = 1+2 = 3$, entonces $3-k=3$, $k=0$.",
+    "feedback_incorrect": "Igualar: $f(1^-) = 3(1)-k = 3-k$ y $f(1^+) = 1+2 = 3$. Entonces $3-k = 3 \\Rightarrow k=0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La condición de continuidad en $x=1$ exige que la función valga lo mismo desde ambos lados y en el punto. Calculamos:\n\n$$\\begin{aligned} f(1^-) &= 3(1) - k = 3 - k \\\\ f(1^+) &= 1^2 + 2 = 3 \\end{aligned}$$\n\nImponemos $3 - k = 3 \\Rightarrow k = 0$. Con $k=0$, la rama izquierda es $3x$ y vale $3$ en $x=1$, que coincide con $1+2=3$ de la rama derecha. La función queda continua.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es $f(x) = \\dfrac{x^2-4}{x-2}$ continua en $x=2$?",
+    "options": [
+      "No: $f(2)$ no está definida (aunque el límite existe y vale $4$)",
+      "Sí: el límite en $x=2$ vale $4$",
+      "Sí: porque el límite existe",
+      "No: el límite no existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(2)$ no está definida (división por cero), así que la primera condición de continuidad falla. Hay una discontinuidad removible.",
+    "feedback_incorrect": "Para continuidad, $f(a)$ debe estar definida. Como $f(2)$ no existe (denominador = 0), no es continua en $x=2$, aunque $\\lim_{x \\to 2} = 4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aunque el límite existe y vale $4$, la **primera condición** de continuidad ya falla:\n\n$$\\begin{aligned} f(2) &= \\frac{2^2-4}{2-2} = \\frac{0}{0} \\\\ \\text{— no está definida} \\end{aligned}$$\n\nPor lo tanto $f$ no es continua en $x=2$. Es una **discontinuidad removible**: si redefinimos $f(2) = 4$, la función sería continua. Pero en su forma original, sin esa corrección, la discontinuidad existe.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es $f(x) = |x|$ continua en $x=0$?",
+    "options": [
+      "No: la función tiene un ángulo en $x=0$",
+      "Sí: $f(0) = 0$ y $\\lim_{x \\to 0} |x| = 0$",
+      "No: los límites laterales son distintos",
+      "Sí, pero solo por la derecha"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 0$, $\\lim^- = 0$, $\\lim^+ = 0$. Las tres condiciones se cumplen: $|x|$ es continua en $x=0$.",
+    "feedback_incorrect": "$|x|$: $\\lim^- = 0$ y $\\lim^+ = 0$, ambos iguales a $f(0) = 0$. La función es continua aunque tenga un vértice.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor absoluto se define como $|x| = x$ si $x \\geq 0$ y $|x| = -x$ si $x < 0$. Verificamos los límites laterales en $x=0$:\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-}(-x) = 0 \\\\ \\lim_{x &\\to 0^+}(x) = 0 \\\\ f(0) &= 0 \\end{aligned}$$\n\nLas tres condiciones se cumplen: $f$ es **continua** en $x=0$. El ángulo (vértice) que se ve en la gráfica no es una discontinuidad — la continuidad no exige que la derivada exista, solo que los valores se peguen.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es $f(x) = \\dfrac{1}{x}$ continua en $x=0$?",
+    "options": [
+      "Sí: $f(0) = 0$",
+      "Sí: el límite existe",
+      "No: $f(0)$ no está definida",
+      "No: el límite vale infinito pero eso es suficiente"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 1/0$ no está definida. La primera condición de continuidad falla. Además, $\\lim_{x \\to 0} 1/x = \\pm\\infty$.",
+    "feedback_incorrect": "$f(0)$ no está definida (división por cero) y $\\lim_{x \\to 0} = \\pm\\infty$. Hay una discontinuidad esencial en $x=0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Basta verificar la primera condición: $f(0) = \\dfrac{1}{0}$ no está definida. Eso alcanza para concluir que $f$ **no es continua** en $x=0$.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^+} \\frac{1}{x} = +\\infty \\\\ \\lim_{x &\\to 0^-} \\frac{1}{x} = -\\infty \\end{aligned}$$\n\nAdemás, los límites laterales son infinitos, así que tampoco hay límite bilateral. La discontinuidad es **esencial**: la más grave de las tres categorías. No puede corregirse redefiniendo un punto.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallar $a$ para que $f(x) = \\begin{cases} x^2 & x \\leq 3 \\\\ ax-6 & x > 3 \\end{cases}$ sea continua en $x=3$.",
+    "options": [
+      "$a = 1$",
+      "$a = 3$",
+      "$a = 9$",
+      "$a = 5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Para continuidad: $f(3^-) = 9$ y $f(3^+) = 3a-6$. Igualando: $3a-6=9$, entonces $a=5$.",
+    "feedback_incorrect": "Condición: $9 = 3a-6 \\Rightarrow 3a = 15 \\Rightarrow a = 5$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluamos cada rama en el punto de unión $x=3$:\n\n$$\\begin{aligned} f(3^-) &= 3^2 = 9 \\\\ f(3^+) &= 3a - 6 \\end{aligned}$$\n\nImponemos $3a - 6 = 9 \\Rightarrow 3a = 15 \\Rightarrow a = 5$. Con $a=5$, la rama derecha vale $5(3)-6 = 9$, que coincide con $3^2 = 9$. La función empalma perfectamente en $x=3$ y queda continua.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada $f(x) = \\sin(\\pi x)$, se sabe que $f(1) = 0$ y $\\lim_{x \\to 1} \\sin(\\pi x) = 0$. ¿Es $f$ continua en $x=1$?",
+    "options": [
+      "Sí: $f(1) = 0$, el límite existe y vale $0$, y $\\lim = f(1)$",
+      "No: las funciones trigonométricas no son continuas",
+      "No: el límite no coincide con el valor",
+      "Solo si $x$ es un número entero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las tres condiciones se cumplen: $f(1)=0$, $\\lim=0$, y $\\lim=f(1)$. $f$ es continua en $x=1$.",
+    "feedback_incorrect": "Las tres condiciones de continuidad se verifican: $f(1)=0$, $\\lim_{x \\to 1} = 0$, y coinciden. $f$ es continua.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las funciones trigonométricas como $\\sin$ son continuas en todo $\\mathbb{R}$. En $x=1$ simplemente verificamos las tres condiciones:\n\n$$\\begin{aligned} f(1) &= \\sin(\\pi \\cdot 1) = \\sin(\\pi) = 0 \\\\ \\lim_{x &\\to 1}\\sin(\\pi x) = 0 \\end{aligned}$$\n\nComo $\\lim = 0 = f(1)$, las tres condiciones se cumplen y $f$ es **continua** en $x=1$. Al igual que los polinomios, las funciones trigonométricas no necesitan verificación caso por caso: son continuas globalmente.",
+    "reviewed": false
+  },
+  {
+    "question": "Hallar $c$ para que $f(x) = \\begin{cases} cx^2+2 & x < 1 \\\\ x+4 & x \\geq 1 \\end{cases}$ sea continua en $x=1$.",
+    "options": [
+      "$c = 1$",
+      "$c = 3$",
+      "$c = 5$",
+      "$c = 2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(1^+) = 1+4 = 5$. Para continuidad: $c(1)^2+2 = 5$, entonces $c+2=5$, $c=3$.",
+    "feedback_incorrect": "Igualar: $c+2 = 1+4 = 5 \\Rightarrow c = 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Calculamos el valor de cada rama en $x=1$ y planteamos la ecuación de continuidad:\n\n$$\\begin{aligned} f(1^-) &= c(1)^2 + 2 = c + 2 \\\\ f(1) &= 1 + 4 = 5 \\end{aligned}$$\n\nCondición: $c + 2 = 5 \\Rightarrow c = 3$. Verificación: con $c=3$, la rama izquierda vale $3(1)+2=5$, que coincide con $1+4=5$ de la rama derecha. La función es continua en $x=1$.",
+    "reviewed": false
+  }
+]

@@ -38,3 +38,9 @@ backend/intervalo.db
 .devlogs/
 .vercel
 .env*
+
+# Screenshots/análisis local
+heatmap_main.png
+usuarios_analisis.png
+*.log
+dev-server.log

@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Sea $f(x) = \\begin{cases} 2x+1 & x < 3 \\\\ x^2-2 & x \\geq 3 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
+    "options": [
+      "$7$",
+      "$9$",
+      "$5$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Para $x < 3$, se usa $f(x) = 2x+1$. Sustituyendo $x=3$: $2(3)+1 = 7$.",
+    "feedback_incorrect": "Por la izquierda ($x < 3$) se usa $f(x) = 2x+1$. Sustituyendo: $2(3)+1 = 7$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para el **límite por la izquierda**, usamos la fórmula que define $f$ cuando $x < a$. Aquí $a=3$ y la fórmula para $x < 3$ es $2x+1$.\n\n$$\\lim_{x \\to 3^-} f(x) = \\lim_{x \\to 3^-}(2x+1) = 2(3)+1 = 7$$\n\nIgnoramos $x^2-2$: esa fórmula aplica para $x \\geq 3$. El límite lateral depende exclusivamente de la rama que corresponde a esa dirección.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = \\begin{cases} 2x+1 & x < 3 \\\\ x^2-2 & x \\geq 3 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
+    "options": [
+      "$9$",
+      "$7$",
+      "$5$",
+      "$11$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Para $x \\geq 3$, se usa $f(x) = x^2-2$. Sustituyendo $x=3$: $9-2 = 7$. Como $\\lim^- = \\lim^+ = 7$, el límite bilateral existe.",
+    "feedback_incorrect": "Por la derecha ($x \\geq 3$) se usa $f(x) = x^2-2$. Sustituyendo: $3^2-2 = 7$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para el **límite por la derecha**, usamos la fórmula que define $f$ cuando $x \\geq 3$, que es $x^2-2$.\n\n$$\\lim_{x \\to 3^+} f(x) = \\lim_{x \\to 3^+}(x^2-2) = 3^2-2 = 7$$\n\nComo $\\lim^- = 7 = \\lim^+$, el límite bilateral existe y vale $7$. Aunque las fórmulas son distintas, coinciden en el mismo valor en $x=3$: la función está bien «pegada».",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = \\begin{cases} x+4 & x \\leq 1 \\\\ 3x-1 & x > 1 \\end{cases}$. ¿Cuánto valen $\\lim_{x \\to 1^-}$ y $\\lim_{x \\to 1^+}$?",
+    "options": [
+      "$\\lim^- = 2$ y $\\lim^+ = 5$, el límite no existe",
+      "$\\lim^- = 5$ y $\\lim^+ = 5$, el límite existe y vale $5$",
+      "$\\lim^- = 5$ y $\\lim^+ = 2$, por lo tanto el límite no existe",
+      "$\\lim^- = 1$ y $\\lim^+ = 1$, el límite existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\lim^- = 1+4 = 5$ y $\\lim^+ = 3(1)-1 = 2$. Como $5 \\neq 2$, el límite bilateral no existe.",
+    "feedback_incorrect": "$\\lim^-$: usar $x+4$ → $1+4=5$. $\\lim^+$: usar $3x-1$ → $3(1)-1=2$. Como $5 \\neq 2$, el límite no existe.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Calculamos cada límite lateral con la fórmula que corresponde a su lado.\n\n$$\\begin{aligned} \\lim_{x &\\to 1^-}(x+4) = 1+4 = 5 \\\\ \\lim_{x &\\to 1^+}(3x-1) = 3(1)-1 = 2 \\end{aligned}$$\n\nComo $5 \\neq 2$, el límite bilateral no existe. La función tiene un **salto** en $x=1$: por la izquierda tiende a $5$ y por la derecha a $2$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = \\begin{cases} x^2 & x < 0 \\\\ -x & x \\geq 0 \\end{cases}$. ¿Existe $\\lim_{x \\to 0} f(x)$?",
+    "options": [
+      "Sí, y vale $-1$",
+      "No, porque la función cambia de definición en $x=0$",
+      "No, porque $\\lim^- = 1$ y $\\lim^+ = -1$",
+      "Sí, porque $\\lim^- = 0$ y $\\lim^+ = 0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\lim^- = (0)^2 = 0$ y $\\lim^+ = -(0) = 0$. Como son iguales, el límite bilateral es $0$.",
+    "feedback_incorrect": "$\\lim_{x \\to 0^-} = 0^2 = 0$ y $\\lim_{x \\to 0^+} = -(0) = 0$. Ambos valen $0$, así que el límite bilateral existe y vale $0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aunque la función cambia de fórmula en $x=0$, lo importante es el **valor al que tiende** desde cada lado, no el cambio de definición.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-} x^2 = 0 \\\\ \\lim_{x &\\to 0^+}(-x) = 0 \\end{aligned}$$\n\nComo $\\lim^- = \\lim^+ = 0$, el límite bilateral existe y vale $0$. El cambio de fórmula en el punto no implica que el límite no exista.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $f(x) = \\dfrac{|x-2|}{x-2}$, ¿cuánto valen $\\lim_{x \\to 2^+}$ y $\\lim_{x \\to 2^-}$?",
+    "options": [
+      "$\\lim^+ = 1$ y $\\lim^- = -1$",
+      "$\\lim^+ = -1$ y $\\lim^- = 1$",
+      "$\\lim^+ = 0$ y $\\lim^- = 0$",
+      "Ambos límites valen $1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Para $x > 2$: $|x-2| = x-2$, entonces $f = 1$. Para $x < 2$: $|x-2| = -(x-2)$, entonces $f = -1$.",
+    "feedback_incorrect": "Para $x > 2$: $f(x) = (x-2)/(x-2) = 1$. Para $x < 2$: $f(x) = -(x-2)/(x-2) = -1$. Los límites laterales son $1$ y $-1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor absoluto $|x-2|$ se define por casos: igual a $x-2$ cuando $x > 2$, e igual a $-(x-2)$ cuando $x < 2$.\n\n$$\\begin{aligned} x &> 2: \\frac{x-2}{x-2} = 1 \\Rightarrow \\lim^+ = 1 \\\\ x &< 2: \\frac{-(x-2)}{x-2} = -1 \\Rightarrow \\lim^- = -1 \\end{aligned}$$\n\nComo $1 \\neq -1$, el límite bilateral no existe. Las funciones con valor absoluto en el denominador frecuentemente generan este patrón de límites laterales opuestos.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = \\begin{cases} 3 & x < -1 \\\\ x+5 & x \\geq -1 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to -1^-} f(x)$?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$-1$",
+      "$5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Para $x < -1$ se usa $f(x) = 3$. El límite por la izquierda es la constante $3$.",
+    "feedback_incorrect": "Para $x < -1$, $f(x) = 3$ (constante). El límite por la izquierda en $x=-1$ es $3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $x < -1$, la función es la **constante** $f(x) = 3$. El límite de una función constante es la constante misma, independientemente de desde qué dirección se aproxima $x$.\n\n$$\\lim_{x \\to -1^-} f(x) = \\lim_{x \\to -1^-} 3 = 3$$\n\nNo hay cálculo que hacer: la función vale $3$ en todos los puntos a la izquierda de $x=-1$, así que también tiende a $3$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para la misma función $f(x) = \\begin{cases} 3 & x < -1 \\\\ x+5 & x \\geq -1 \\end{cases}$, ¿existe $\\lim_{x \\to -1} f(x)$?",
+    "options": [
+      "Sí, y vale $4$",
+      "Sí, y vale $3$",
+      "No, porque $\\lim^- = 3$ y $\\lim^+ = 4$",
+      "Sí, y vale $3{,}5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\lim^- = 3$ y $\\lim^+ = -1+5 = 4$. Como $3 \\neq 4$, el límite bilateral no existe.",
+    "feedback_incorrect": "$\\lim^- = 3$ (constante) y $\\lim^+ = -1+5 = 4$. Como los límites laterales difieren, el límite bilateral no existe.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Ya sabemos $\\lim^- = 3$. Para el límite por la derecha usamos la fórmula activa para $x \\geq -1$, que es $x+5$.\n\n$$\\lim_{x \\to -1^+}(x+5) = -1+5 = 4$$\n\nComo $3 \\neq 4$, el límite bilateral no existe. La función tiene un salto de $3$ a $4$ en $x=-1$: la rama constante «llega» a $3$ pero la nueva rama «arranca» en $4$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $g(x) = \\begin{cases} x^2-1 & x \\leq 2 \\\\ 2x-1 & x > 2 \\end{cases}$. ¿Existe $\\lim_{x \\to 2} g(x)$?",
+    "options": [
+      "Sí, y vale $4$",
+      "No, porque la función cambia de fórmula en $x=2$",
+      "No, porque $\\lim^- = 3$ y $\\lim^+ = 5$",
+      "Sí, y vale $3$ (ambos límites laterales son iguales)"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\lim^- = 4-1 = 3$ y $\\lim^+ = 4-1 = 3$. Son iguales, así que el límite existe y vale $3$.",
+    "feedback_incorrect": "$\\lim_{x \\to 2^-} = 2^2-1 = 3$ y $\\lim_{x \\to 2^+} = 2(2)-1 = 3$. Como ambos son $3$, el límite bilateral existe y vale $3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Calculamos ambos límites laterales con sus respectivas fórmulas.\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(x^2-1) = 4-1 = 3 \\\\ \\lim_{x &\\to 2^+}(2x-1) = 4-1 = 3 \\end{aligned}$$\n\nComo $\\lim^- = \\lim^+ = 3$, el límite bilateral existe y vale $3$. El cambio de fórmula en $x=2$ no importa: lo que importa es que ambos lados convergen al mismo valor.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas funciones a trozos tiene límite bilateral en $x = 0$?",
+    "options": [
+      "$f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ 2x+1 & x \\geq 0 \\end{cases}$",
+      "$f(x) = \\begin{cases} x+1 & x < 0 \\\\ x+3 & x \\geq 0 \\end{cases}$",
+      "$f(x) = \\begin{cases} 5 & x < 0 \\\\ -5 & x \\geq 0 \\end{cases}$",
+      "$f(x) = \\begin{cases} x^2 & x < 0 \\\\ x+1 & x \\geq 0 \\end{cases}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En la primera opción, ambas fórmulas son iguales, entonces $\\lim^- = \\lim^+ = 1$. El límite existe.",
+    "feedback_incorrect": "En la primera opción, $\\lim^- = 2(0)+1 = 1$ y $\\lim^+ = 2(0)+1 = 1$. Son iguales. En las demás, los límites laterales difieren.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que el límite bilateral exista, los dos laterales deben coincidir. La forma más directa: cuando ambas ramas son la **misma expresión**.\n\n$$\\begin{aligned} \\lim^- &= 2(0)+1 = 1 \\\\ \\lim^+ &= 2(0)+1 = 1 \\Rightarrow \\lim_{x \\to 0} = 1 \\end{aligned}$$\n\nEn las otras opciones, las fórmulas distintas producen valores distintos en $x=0$: segunda da $1$ y $3$, tercera da $5$ y $-5$, cuarta da $0$ y $1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Dado que $\\lim_{x \\to a^+} f(x) = -2$ y $\\lim_{x \\to a^-} f(x) = -2$, ¿cuánto vale $\\lim_{x \\to a} f(x)$?",
+    "options": [
+      "$0$",
+      "$-2$",
+      "$2$",
+      "No existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuando los dos límites laterales coinciden, el límite bilateral toma ese valor: $\\lim_{x \\to a} f(x) = -2$.",
+    "feedback_incorrect": "Si $\\lim^+ = \\lim^- = -2$, entonces el límite bilateral existe y vale $-2$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La definición del límite bilateral establece que si ambos laterales existen y son iguales a $L$, el límite bilateral es exactamente $L$.\n\n$$\\lim^- = -2 = \\lim^+ \\Rightarrow \\lim_{x \\to a} f(x) = -2$$\n\nEl signo negativo no es un problema: el límite puede ser cualquier número real. $-2$ es un resultado perfectamente válido.",
+    "reviewed": false
+  }
+]

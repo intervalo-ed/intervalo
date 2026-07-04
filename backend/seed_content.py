@@ -1,19 +1,21 @@
 """
 seed_content.py — Seeder idempotente del contenido del curso.
 
-Lee los archivos JSON en backend/content/<course-slug>/ y hace upsert a la BBDD:
-  - course.json     → upsert en `courses` por slug
-  - belt_info.json  → upsert en `belt_info` por (course_id, belt)
-  - exercises/*.json → upsert en `exercises` por (course_id, external_id)
+Lee la nueva estructura de carpetas en backend/content/<course-slug>/ y hace
+upsert a la BBDD. La fuente única de estructura es `course.json` (consolida lo
+que antes vivía en course.json + belt_info.json + catalog.json):
+  - course.json (slug/name/description) → upsert en `courses` por slug
+  - course.json (belts[].headline/description) → upsert en `belt_info` por (course_id, belt)
+  - {belt}/{unit}/{topic}/{SKILL}.json → upsert en `exercises` por (course_id, external_id)
 
-El catálogo (catalog.json) NO se carga a BBDD: se lee en runtime desde
-algorithm.domain.load_belt_catalogs().
+Los metadatos de cada ejercicio (belt, topic, exercise_type, external_id) se
+infieren de la ruta — no se leen desde los campos del JSON.
 
 Uso:
-    python seed_content.py --all                         # todos los cursos
-    python seed_content.py --course analisis-1           # uno solo
-    python seed_content.py --course analisis-1 --prune   # borra ejercicios del curso
-                                                         # que ya no están en los JSON
+    python seed_content.py --all                    # todos los cursos en content/
+    python seed_content.py --course analisis         # uno solo
+    python seed_content.py --course analisis --prune # borra ejercicios del curso
+                                                     # que ya no están en los JSON
 """
 from __future__ import annotations
 
@@ -25,8 +27,6 @@ from typing import Any
 
 from sqlalchemy.orm import Session as DBSession
 
-# Resolver imports cuando el script se corre como `python seed_content.py`
-# desde backend/ directamente.
 _THIS_DIR = Path(__file__).resolve().parent
 if str(_THIS_DIR) not in sys.path:
     sys.path.insert(0, str(_THIS_DIR))
@@ -36,6 +36,9 @@ from models import BeltInfo, Course, Exercise  # noqa: E402
 
 
 CONTENT_ROOT = _THIS_DIR / "content"
+
+# Filenames that are course-level metadata, not exercise files.
+_META_FILES = frozenset({"course.json", "catalog.json", "belt_info.json"})
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -47,39 +50,27 @@ def _load_json(path: Path) -> Any:
 
 def _validate_exercise(entry: dict, source: Path, idx: int) -> None:
     required = [
-        "external_id", "belt", "topic", "exercise_type",
         "question", "options", "correct_index",
         "feedback_correct", "feedback_incorrect",
     ]
     missing = [k for k in required if k not in entry]
     if missing:
         raise ValueError(
-            f"{source.name}[{idx}]: faltan campos requeridos: {missing}"
+            f"{source}[{idx}]: faltan campos requeridos: {missing}"
         )
-    if not isinstance(entry["options"], list) or len(entry["options"]) != 4:
+    opts = entry["options"]
+    if not isinstance(opts, list) or not (2 <= len(opts) <= 4):
         raise ValueError(
-            f"{source.name}[{idx}] ({entry['external_id']}): "
-            f"'options' debe ser una lista de 4 strings"
+            f"{source}[{idx}]: 'options' debe ser una lista de 2-4 strings "
+            f"(got {len(opts) if isinstance(opts, list) else type(opts).__name__})"
         )
-    if entry["correct_index"] not in (0, 1, 2, 3):
+    if entry["correct_index"] not in range(len(opts)):
         raise ValueError(
-            f"{source.name}[{idx}] ({entry['external_id']}): "
-            f"'correct_index' debe estar en 0..3"
-        )
-    if not isinstance(entry["exercise_type"], str) or not entry["exercise_type"]:
-        raise ValueError(
-            f"{source.name}[{idx}] ({entry['external_id']}): "
-            f"'exercise_type' debe ser un string no vacío"
+            f"{source}[{idx}]: 'correct_index' debe estar en 0..{len(opts)-1}"
         )
 
 
 def _serialize_graph_view(gv: Any) -> str | None:
-    """content JSON usa lista [xmin,xmax,ymin,ymax]; la columna guarda un string.
-
-    Algunos ejercicios viejos traían un objeto {xMin,xMax,yMin,yMax}; lo
-    convertimos a la lista canónica para no guardar datos que el response model
-    rechaza (list[Any]).
-    """
     if gv is None:
         return None
     if isinstance(gv, str):
@@ -90,6 +81,13 @@ def _serialize_graph_view(gv: Any) -> str | None:
         except KeyError:
             return None
     return json.dumps(gv)
+
+
+def _serialize_feedback_incorrect(fi: Any) -> str:
+    """Store list as JSON string; keep plain string as-is."""
+    if isinstance(fi, list):
+        return json.dumps(fi, ensure_ascii=False)
+    return fi if isinstance(fi, str) else ""
 
 
 # ── Seeders por tabla ──────────────────────────────────────────────────────────
@@ -122,11 +120,19 @@ def seed_course(db: DBSession, course_dir: Path) -> Course:
 
 
 def seed_belt_info(db: DBSession, course: Course, course_dir: Path) -> int:
-    path = course_dir / "belt_info.json"
-    if not path.exists():
-        return 0
+    """Upsert headline/description por cinturón desde course.json (belts[]).
 
-    entries = _load_json(path)
+    La tabla `belt_info` se mantiene como storage; la fuente ahora es el
+    course.json unificado (antes: belt_info.json)."""
+    data = _load_json(course_dir / "course.json")
+    entries = [
+        {
+            "belt": b["key"],
+            "headline": b.get("headline", ""),
+            "description": b.get("description", ""),
+        }
+        for b in data.get("belts", [])
+    ]
     inserted = updated = 0
 
     for entry in entries:
@@ -164,36 +170,50 @@ def seed_exercises(
     course_dir: Path,
     prune: bool = False,
 ) -> int:
-    exercises_dir = course_dir / "exercises"
-    if not exercises_dir.exists():
-        print("  [exercises] (no exercises dir)")
-        return 0
-
     seen_external_ids: set[str] = set()
+    seen_skills: set[tuple[str, str, str]] = set()  # (belt, topic, skill)
     inserted = updated = 0
     total = 0
 
-    for json_file in sorted(exercises_dir.glob("*.json")):
-        entries = _load_json(json_file)
+    # Walk belt/unit/topic/SKILL.json (exactly 4 path components from course_dir)
+    for skill_file in sorted(course_dir.rglob("*.json")):
+        if skill_file.name in _META_FILES:
+            continue
+        rel = skill_file.relative_to(course_dir)
+        if len(rel.parts) != 4:
+            continue  # not a skill file
+
+        belt, _unit, topic, skill_name = rel.parts
+        skill = Path(skill_name).stem  # drop .json extension
+        seen_skills.add((belt, topic, skill))
+
+        entries = _load_json(skill_file)
         if not isinstance(entries, list):
-            raise ValueError(f"{json_file.name}: el contenido raíz debe ser una lista")
+            raise ValueError(f"{skill_file}: root must be a list")
 
         for idx, entry in enumerate(entries):
-            _validate_exercise(entry, json_file, idx)
-            ext_id = entry["external_id"]
-            if ext_id in seen_external_ids:
+            _validate_exercise(entry, skill_file, idx)
+            external_id = f"{belt}_{topic}_{skill}_{idx+1:02d}"
+
+            if external_id in seen_external_ids:
                 raise ValueError(
-                    f"external_id duplicado en el curso {course.slug}: {ext_id}"
+                    f"external_id duplicado en el curso {course.slug}: {external_id}"
                 )
-            seen_external_ids.add(ext_id)
+            seen_external_ids.add(external_id)
             total += 1
 
             options = entry["options"]
+            opt_a = options[0]
+            opt_b = options[1]
+            opt_c = options[2] if len(options) > 2 else None
+            opt_d = options[3] if len(options) > 3 else None
+            fi_stored = _serialize_feedback_incorrect(entry["feedback_incorrect"])
+
             existing = (
                 db.query(Exercise)
                 .filter(
                     Exercise.course_id == course.id,
-                    Exercise.external_id == ext_id,
+                    Exercise.external_id == external_id,
                 )
                 .first()
             )
@@ -201,19 +221,19 @@ def seed_exercises(
             if existing is None:
                 db.add(Exercise(
                     course_id=course.id,
-                    external_id=ext_id,
-                    belt=entry["belt"],
-                    topic=entry["topic"],
-                    exercise_type=entry["exercise_type"],
+                    external_id=external_id,
+                    belt=belt,
+                    topic=topic,
+                    exercise_type=skill,
                     question=entry["question"],
-                    option_a=options[0],
-                    option_b=options[1],
-                    option_c=options[2],
-                    option_d=options[3],
+                    option_a=opt_a,
+                    option_b=opt_b,
+                    option_c=opt_c,
+                    option_d=opt_d,
                     correct_index=entry["correct_index"],
                     has_math=bool(entry.get("has_math", False)),
                     feedback_correct=entry["feedback_correct"],
-                    feedback_incorrect=entry["feedback_incorrect"],
+                    feedback_incorrect=fi_stored,
                     graph_fn=entry.get("graph_fn"),
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
                     explanation=entry.get("explanation"),
@@ -221,18 +241,18 @@ def seed_exercises(
                 inserted += 1
             else:
                 fields = {
-                    "belt":               entry["belt"],
-                    "topic":              entry["topic"],
-                    "exercise_type":      entry["exercise_type"],
+                    "belt":               belt,
+                    "topic":              topic,
+                    "exercise_type":      skill,
                     "question":           entry["question"],
-                    "option_a":           options[0],
-                    "option_b":           options[1],
-                    "option_c":           options[2],
-                    "option_d":           options[3],
+                    "option_a":           opt_a,
+                    "option_b":           opt_b,
+                    "option_c":           opt_c,
+                    "option_d":           opt_d,
                     "correct_index":      entry["correct_index"],
                     "has_math":           bool(entry.get("has_math", False)),
                     "feedback_correct":   entry["feedback_correct"],
-                    "feedback_incorrect": entry["feedback_incorrect"],
+                    "feedback_incorrect": fi_stored,
                     "graph_fn":           entry.get("graph_fn"),
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
                     "explanation":        entry.get("explanation"),
@@ -245,7 +265,6 @@ def seed_exercises(
                 if changed:
                     updated += 1
 
-    # Prune: borra ejercicios del curso que no aparecieron en los JSON.
     if prune:
         to_delete = (
             db.query(Exercise)
@@ -260,10 +279,31 @@ def seed_exercises(
         if to_delete:
             print(f"  [exercises] pruned {len(to_delete)} stale rows")
 
+    _validate_declared_skills(course_dir, seen_skills)
+
     print(
         f"  [exercises] {total} entries ({inserted} inserted, {updated} updated)"
     )
     return total
+
+
+def _validate_declared_skills(
+    course_dir: Path, seen_skills: set[tuple[str, str, str]]
+) -> None:
+    """Warn if the SKILL.json files on disk don't match course.json topic.skills."""
+    data = _load_json(course_dir / "course.json")
+    declared: set[tuple[str, str, str]] = set()
+    for belt in data.get("belts", []):
+        for unit in belt.get("units", []):
+            for topic in unit.get("topics", []):
+                for skill in topic.get("skills", []):
+                    declared.add((belt["key"], topic["key"], skill))
+    missing = declared - seen_skills   # declared pero sin archivo
+    extra = seen_skills - declared     # archivo sin declarar en course.json
+    if missing:
+        print(f"  [warn] skills declarados sin archivo: {sorted(missing)}")
+    if extra:
+        print(f"  [warn] archivos SKILL sin declarar en course.json: {sorted(extra)}")
 
 
 # ── Entrypoints ────────────────────────────────────────────────────────────────
@@ -304,7 +344,7 @@ def main() -> int:
     args = parser.parse_args()
 
     if not args.all and not args.course:
-        args.all = True  # default: seedear todo
+        args.all = True
 
     db = SessionLocal()
     try:

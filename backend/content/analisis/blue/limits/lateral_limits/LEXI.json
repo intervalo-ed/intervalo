@@ -1,0 +1,182 @@
+[
+  {
+    "question": "¿Qué significa $\\lim_{x \\to 3^+} f(x)$?",
+    "options": [
+      "El límite de $f(x)$ cuando $x$ se aproxima a $3$ por la derecha",
+      "El valor de $f(3)$",
+      "El límite de $f(x)$ cuando $x$ se aproxima a $3$ por la izquierda",
+      "El límite de $f(x)$ cuando $x$ tiende a más infinito"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El superíndice $+$ indica que $x$ se acerca a $3$ tomando valores mayores que $3$ (por la derecha).",
+    "feedback_incorrect": "La notación $\\lim_{x \\to 3^+}$ indica que $x$ se aproxima a $3$ desde la derecha, es decir, con $x > 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación $\\lim_{x \\to 3^+}$ es el **límite lateral por la derecha**: $x$ se aproxima a $3$ tomando valores estrictamente mayores que $3$.\n\n$$\\begin{aligned} \\lim_{x &\\to 3^+}: \\\\ x &= 3.1, \\; 3.01, \\; 3.001, \\ldots \\to 3 \\end{aligned}$$\n\nEl superíndice $+$ indica la dirección de llegada, no el signo del resultado. Análogamente, $\\lim_{x \\to 3^-}$ indica que $x$ viene de la izquierda con $x < 3$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significa $\\lim_{x \\to 3^-} f(x)$?",
+    "options": [
+      "El límite de $f(x)$ cuando $x$ se aproxima a $3$ por la derecha",
+      "El límite de $f(x)$ cuando $x$ se aproxima a $3$ por la izquierda",
+      "El valor $f(3) - 1$",
+      "El límite cuando $x$ tiende a $-3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El superíndice $-$ indica que $x$ se acerca a $3$ tomando valores menores que $3$ (por la izquierda).",
+    "feedback_incorrect": "La notación $\\lim_{x \\to 3^-}$ indica que $x$ se aproxima a $3$ desde la izquierda, es decir, con $x < 3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación $\\lim_{x \\to 3^-}$ es el **límite lateral por la izquierda**: $x$ se aproxima a $3$ tomando valores estrictamente menores que $3$.\n\n$$\\begin{aligned} \\lim_{x &\\to 3^-}: \\\\ x &= 2.9, \\; 2.99, \\; 2.999, \\ldots \\to 3 \\end{aligned}$$\n\nEl superíndice $-$ no significa que $x$ sea negativo ni que el límite sea negativo: indica únicamente que $x$ llega desde el lado izquierdo. No confundir con $\\lim_{x \\to -3}$, que es un punto de tendencia distinto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuándo existe el límite bilateral $\\lim_{x \\to a} f(x)$?",
+    "options": [
+      "Siempre que $f$ sea una función polinómica",
+      "Cuando $f(a)$ está definida",
+      "Cuando $\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$",
+      "Cuando $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El límite bilateral existe cuando los dos límites laterales son iguales: $\\lim^- = \\lim^+$.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x)$ existe si y solo si $\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **límite bilateral** $\\lim_{x \\to a} f(x)$ existe si y solo si ambos límites laterales existen y son iguales.\n\n$$\\begin{aligned} \\lim_{x &\\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = L \\\\ \\lim_{x &\\to a^+} f(x) = L \\end{aligned}$$\n\nSi $\\lim^- \\neq \\lim^+$, el límite bilateral no existe. Si $f(a)$ no está definida pero los laterales coinciden, el límite bilateral existe igual: lo que importa es el comportamiento cercano, no el valor puntual.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $\\lim_{x \\to a^-} f(x) = 2$ y $\\lim_{x \\to a^+} f(x) = 5$, ¿existe $\\lim_{x \\to a} f(x)$?",
+    "options": [
+      "Sí, y vale $5$",
+      "Sí, y vale $\\dfrac{2+5}{2} = 3{,}5$",
+      "Sí, y vale $2$",
+      "No, porque los límites laterales son distintos"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Como $\\lim^- \\neq \\lim^+$ ($2 \\neq 5$), el límite bilateral no existe.",
+    "feedback_incorrect": "Para que $\\lim_{x \\to a} f(x)$ exista, los límites laterales deben ser iguales. Como $2 \\neq 5$, el límite bilateral no existe.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La condición necesaria y suficiente para que el límite bilateral exista es que los dos laterales sean **iguales**. Cuando difieren, el límite no existe.\n\n$$\\lim^- = 2 \\neq 5 = \\lim^+ \\Rightarrow \\lim_{x \\to a} f(x) \\text{ no existe}$$\n\nPromediar $\\dfrac{2+5}{2} = 3.5$ no tiene sustento: el límite bilateral no es el promedio de los laterales. O ambos convergen al mismo valor, o el límite no existe.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué notación representa el límite por la izquierda cuando $x$ tiende a $a$?",
+    "options": [
+      "$\\lim_{x \\to a^-}$",
+      "$\\lim_{x \\to a^+}$",
+      "$\\lim_{x < a}$",
+      "$\\lim_{x \\to -a}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El símbolo $a^-$ significa que $x$ se acerca a $a$ desde la izquierda (con $x < a$).",
+    "feedback_incorrect": "El límite por la izquierda se denota $\\lim_{x \\to a^-}$, donde el superíndice $-$ indica que $x$ viene de valores menores que $a$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **límite por la izquierda** se escribe colocando un superíndice $-$ sobre el valor de tendencia. El superíndice indica la dirección, no el signo.\n\n$$\\begin{aligned} \\lim_{x &\\to a^-} f(x): \\\\ x \\text{ se aproxima a } a \\text{ con } x &< a \\end{aligned}$$\n\nErrores frecuentes: $\\lim_{x < a}$ no es notación válida para un límite; $\\lim_{x \\to -a}$ cambia el punto de tendencia a $-a$, que puede ser un número completamente distinto.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, ¿cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "options": [
+      "$4$",
+      "$2$",
+      "$1$",
+      "No existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al acercarse a $x=1$ por la izquierda, la función se aproxima a $2$.",
+    "feedback_incorrect": "El límite por la izquierda se lee en la gráfica acercándose a $x=1$ desde valores menores. La función se aproxima a $2$.",
+    "graph_fn": "Piecewise((2*x, x < 1), (x + 3, x >= 1))",
+    "graph_view": [
+      -1,
+      4,
+      -1,
+      7
+    ],
+    "explanation": "Para leer $\\lim_{x \\to 1^-}$ en una gráfica, seguimos la rama activa para $x < 1$ y observamos a qué valor se dirige cuando $x$ se acerca a $1$.\n\n$$f(x) = 2x \\text{ para } x < 1 \\Rightarrow \\lim_{x \\to 1^-} f(x) = 2(1) = 2$$\n\nIgnoramos completamente la rama $x+3$: esa aplica para $x \\geq 1$. El límite por la izquierda depende solo del comportamiento con $x < 1$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué tipo de funciones es más frecuente que $\\lim^- \\neq \\lim^+$?",
+    "options": [
+      "Funciones exponenciales",
+      "Funciones polinómicas",
+      "Funciones definidas a trozos con salto",
+      "Funciones constantes"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Las funciones definidas a trozos con un salto en $x = a$ son el caso típico donde los límites laterales difieren.",
+    "feedback_incorrect": "Las funciones a trozos con salto son las que más frecuentemente tienen $\\lim^- \\neq \\lim^+$, haciendo que el límite bilateral no exista.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **funciones a trozos con salto** son el caso arquetípico donde los límites laterales difieren. Cada trozo puede converger a un valor distinto en el punto de empalme.\n\n$$f(x) = \\begin{cases} g(x) & x < a \\\\ h(x) & x \\geq a \\end{cases} \\Rightarrow \\lim^- = \\lim_{x \\to a} g(x), \\quad \\lim^+ = \\lim_{x \\to a} h(x)$$\n\nLos polinomios y las funciones constantes son siempre continuas, así que en ellas $\\lim^- = \\lim^+$ siempre.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $\\lim_{x \\to 1^-} f(x) = L$ y $\\lim_{x \\to 1^+} f(x) = L$, ¿qué se puede concluir?",
+    "options": [
+      "$f(1) = L$",
+      "La función es continua en $x = 1$",
+      "El límite no existe porque hay dos límites laterales",
+      "El límite bilateral $\\lim_{x \\to 1} f(x)$ existe y vale $L$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Cuando los dos límites laterales son iguales, el límite bilateral existe y tiene ese valor común.",
+    "feedback_incorrect": "Si $\\lim^- = \\lim^+ = L$, el límite bilateral $\\lim_{x \\to 1} f(x) = L$ existe. (Eso no garantiza continuidad: falta que $f(1) = L$.)",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando los límites laterales coinciden en el mismo valor $L$, eso es exactamente la definición del **límite bilateral**.\n\n$$\\lim^- = L \\text{ y } \\lim^+ = L \\Rightarrow \\lim_{x \\to 1} f(x) = L$$\n\nAtención: esto no garantiza que $f(1) = L$. La función podría tener un punto levantado o no estar definida en $x=1$. La igualdad de límites laterales asegura el límite bilateral, no la continuidad.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significa \"límite bilateral\"?",
+    "options": [
+      "El límite usual $\\lim_{x \\to a} f(x)$, considerando la aproximación desde ambos lados",
+      "El promedio de los dos límites laterales",
+      "El límite que existe solo si $f$ es continua",
+      "El límite cuando $x$ tiende a $+\\infty$ y $-\\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "\"Bilateral\" simplemente significa que se considera la aproximación desde ambos lados (izquierda y derecha).",
+    "feedback_incorrect": "Límite bilateral es el límite ordinario $\\lim_{x \\to a}$, que requiere que la función se aproxime al mismo valor tanto por la izquierda como por la derecha.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término **bilateral** significa “de dos lados”: el límite $\\lim_{x \\to a} f(x)$ exige que la función se acerque al mismo valor $L$ tanto desde la izquierda como desde la derecha.\n\n$$\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = L \\text{ y } \\lim_{x \\to a^+} f(x) = L$$\n\nNo es el promedio de los laterales ni requiere que $f(a)$ esté definida. Es simplemente el límite clásico que requiere coherencia desde ambos lados.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, ¿cuánto vale $\\lim_{x \\to 2^+} f(x)$?",
+    "options": [
+      "$1$",
+      "$5$",
+      "$3$",
+      "No existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al acercarse a $x=2$ por la derecha, la función tiende a $5$.",
+    "feedback_incorrect": "El límite por la derecha se lee en la gráfica aproximándose a $x=2$ desde valores mayores. La función tiende a $5$.",
+    "graph_fn": "Piecewise((x - 1, x <= 2), (2*x + 1, x > 2))",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      11
+    ],
+    "explanation": "Para leer $\\lim_{x \\to 2^+}$ en la gráfica, seguimos la rama activa para $x > 2$ y observamos a qué valor tiende cuando $x \\to 2$.\n\n$$f(x) = 2x+1 \\text{ para } x > 2 \\Rightarrow \\lim_{x \\to 2^+} f(x) = 2(2)+1 = 5$$\n\nPor la izquierda: $f(x) = x-1 \\Rightarrow \\lim^- = 2-1 = 1$. Como $1 \\neq 5$, el límite bilateral no existe. La gráfica muestra un salto de $4$ unidades.",
+    "reviewed": false
+  }
+]

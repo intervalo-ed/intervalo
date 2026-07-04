@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 2} (3x^2 - x + 1)$?",
+    "options": [
+      "$11$",
+      "$9$",
+      "$13$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo directamente: $3(4) - 2 + 1 = 12 - 2 + 1 = 11$.",
+    "feedback_incorrect": "Se sustituye $x=2$ directamente: $3(2)^2 - 2 + 1 = 12 - 2 + 1 = 11$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los **polinomios** son continuos en todo $\\mathbb{R}$: se puede aplicar sustitución directa sin verificar condiciones adicionales.\n\n$$\\lim_{x \\to 2}(3x^2 - x + 1) = 3(2)^2 - 2 + 1 = 12 - 2 + 1 = 11$$\n\nRegla práctica: si la función es un polinomio, reemplazá $x$ por el valor indicado y calculá paso a paso.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x+3}{x+2}$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{4}{3}$",
+      "$2$",
+      "$\\dfrac{3}{2}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo $x=1$: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$.",
+    "feedback_incorrect": "Se sustituye $x=1$ directamente: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$. No hay indeterminación.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para una función racional, primero verificamos que el denominador no se anule en $x=a$. Aquí $x+2 \\neq 0$ cuando $x=1$, así que la **sustitución directa** es válida.\n\n$$\\lim_{x \\to 1}\\frac{x+3}{x+2} = \\frac{1+3}{1+2} = \\frac{4}{3}$$\n\nSi el denominador hubiera dado $0$, habría que factorizar o racionalizar antes de evaluar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 0} (2x^3 + 5x - 1)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-1$",
+      "$5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo $x=0$: $2(0) + 5(0) - 1 = -1$.",
+    "feedback_incorrect": "Sustituir $x=0$: $2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar límites de polinomios, la sustitución directa siempre funciona. Reemplazamos $x=0$ término a término.\n\n$$\\lim_{x \\to 0}(2x^3 + 5x - 1) = 2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$$\n\nLa constante $-1$ «sobrevive» porque no depende de $x$. Las potencias de $0$ son todas $0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 7} 4$?",
+    "options": [
+      "$28$",
+      "$7$",
+      "$0$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El límite de una constante es la constante misma: $\\lim_{x \\to 7} 4 = 4$.",
+    "feedback_incorrect": "El límite de una función constante es siempre esa constante, independientemente del valor al que tiende $x$: $\\lim_{x \\to 7} 4 = 4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El límite de una **función constante** es siempre esa constante, sin importar a qué valor tiende $x$. La función $f(x)=4$ vale $4$ en todo punto, y por lo tanto también cerca de $x=7$.\n\n$$\\begin{aligned} \\lim_{x &\\to a} c = c \\\\ \\text{para cualquier constante } c \\in \\mathbb{R} \\end{aligned}$$\n\nEn este caso: $\\lim_{x \\to 7} 4 = 4$. La gráfica de una constante es una recta horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to -3} x$?",
+    "options": [
+      "$-3$",
+      "$3$",
+      "$0$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El límite de la función identidad $f(x) = x$ cuando $x \\to a$ es simplemente $a$.",
+    "feedback_incorrect": "Para $f(x) = x$, el límite cuando $x \\to -3$ es $-3$. La función identidad tiende al mismo valor al que se acerca $x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **función identidad** $f(x)=x$ se acerca a cualquier valor $a$ cuando $x \\to a$. Es el caso más elemental de límite.\n\n$$\\lim_{x \\to a} x = a$$\n\nAquí: $\\lim_{x \\to -3} x = -3$. La función «devuelve» exactamente el valor al que se acerca $x$, sin ninguna transformación.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $\\lim_{x \\to a} f(x) = 3$ y $\\lim_{x \\to a} g(x) = 5$, ¿cuánto vale $\\lim_{x \\to a} [f(x) + g(x)]$?",
+    "options": [
+      "$15$",
+      "$8$",
+      "$2$",
+      "$\\dfrac{3}{5}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de suma: $\\lim [f + g] = \\lim f + \\lim g = 3 + 5 = 8$.",
+    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) + g(x)] = \\lim f(x) + \\lim g(x) = 3 + 5 = 8$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad de suma** de límites permite separar la operación: el límite de la suma es la suma de los límites, siempre que ambos existan como números reales.\n\n$$\\lim_{x \\to a}[f(x)+g(x)] = \\lim_{x \\to a}f(x) + \\lim_{x \\to a}g(x)$$\n\nCon $\\lim f = 3$ y $\\lim g = 5$: el resultado es $3 + 5 = 8$. Esta propiedad se extiende a diferencias, productos y cocientes.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $\\lim_{x \\to a} f(x) = 2$ y $\\lim_{x \\to a} g(x) = -4$, ¿cuánto vale $\\lim_{x \\to a} [f(x) \\cdot g(x)]$?",
+    "options": [
+      "$-2$",
+      "$8$",
+      "$-8$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de producto: $\\lim [f \\cdot g] = \\lim f \\cdot \\lim g = 2 \\cdot (-4) = -8$.",
+    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) \\cdot g(x)] = \\lim f(x) \\cdot \\lim g(x) = 2 \\cdot (-4) = -8$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad de producto** de límites establece que el límite del producto es el producto de los límites, cuando ambos existen.\n\n$$\\lim_{x \\to a}[f(x)\\cdot g(x)] = \\lim_{x \\to a}f(x) \\cdot \\lim_{x \\to a}g(x)$$\n\nCon $\\lim f=2$ y $\\lim g=-4$: el resultado es $2 \\cdot (-4) = -8$. El signo negativo se mantiene.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\sqrt{x + 5}$?",
+    "options": [
+      "$\\sqrt{9} + 1$",
+      "$2$",
+      "$\\sqrt{5}$",
+      "$3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo: $\\sqrt{4+5} = \\sqrt{9} = 3$.",
+    "feedback_incorrect": "Se sustituye $x=4$ directamente: $\\sqrt{4+5} = \\sqrt{9} = 3$. No hay indeterminación.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función raíz cuadrada es continua para argumentos no negativos. Como $x+5 > 0$ cerca de $x=4$, la **sustitución directa** es válida.\n\n$$\\lim_{x \\to 4}\\sqrt{x+5} = \\sqrt{4+5} = \\sqrt{9} = 3$$\n\nSi la sustitución hubiera producido $\\dfrac{\\sqrt{\\ldots}-k}{0}$, la técnica correcta sería racionalizar con el conjugado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\lim_{x \\to -1} (x^3 + 2x^2 - x + 3)$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$-1$",
+      "$7$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
+    "feedback_incorrect": "Sustituir $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con polinomios, aplicamos sustitución directa y evaluamos cuidadosamente con $x$ negativo, recordando las reglas de potencias.\n\n$$\\lim_{x \\to -1}(x^3+2x^2-x+3) = (-1)^3 + 2(-1)^2-(-1)+3 = -1+2+1+3 = 5$$\n\nAtención: $(-1)^3 = -1$ pero $(-1)^2 = +1$. Los signos con potencias impares/pares son el error más frecuente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estos límites se puede resolver directamente por sustitución (sin indeterminación)?",
+    "options": [
+      "$\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$",
+      "$\\lim_{x \\to 3} (x^2 + 1)$",
+      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1} - 1}{x}$",
+      "$\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\lim_{x \\to 3} (x^2 + 1) = 9 + 1 = 10$, sin indeterminación. Los demás generan $\\dfrac{0}{0}$.",
+    "feedback_incorrect": "Solo $\\lim_{x \\to 3} (x^2 + 1)$ no genera indeterminación al sustituir: $3^2 + 1 = 10$. Los demás dan $\\dfrac{0}{0}$ al sustituir.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El primer paso siempre es intentar la **sustitución directa**. Si el resultado no es una indeterminación, el límite queda resuelto en ese único paso.\n\n$$\\begin{aligned} \\lim_{x &\\to 3}(x^2+1) = 3^2+1 = 10 \\\\ \\text{(sin indeterminación)} \\end{aligned}$$\n\nLos otros límites del ejercicio producen $\\dfrac{0}{0}$ al sustituir, señal de que hay un factor cancelable que requiere factorización.",
+    "reviewed": false
+  }
+]

@@ -25,7 +25,7 @@ import {
   BELT_HEX,
   BELT_ORDER,
   beltInfo,
-  getBelt,
+  topicsForBelt,
   topicShortLabel,
   type BeltKey,
 } from "@/lib/catalog"
@@ -43,9 +43,7 @@ const ctaCls =
 
 // Topics with at least one exercise type are the only ones that yield exercises.
 function playableTopics({ belt }: { belt: BeltKey }) {
-  return (getBelt({ key: belt })?.topics ?? []).filter(
-    (t) => t.exercise_types.length > 0,
-  )
+  return topicsForBelt({ belt }).filter((t) => t.skills.length > 0)
 }
 
 export default function ZenConfig() {

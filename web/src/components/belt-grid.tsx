@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import type { components } from "@/lib/api/schema"
-import type { Topic } from "@/lib/catalog/analisis-1.generated"
+import type { Topic } from "@/lib/catalog/analisis.generated"
 import { topicShortLabel } from "@/lib/catalog"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { cn } from "@/lib/utils"
@@ -141,14 +141,14 @@ export function topicToCells({
   types: string[]
 }): { typeId: string; cell: Cell }[] {
   return types.map((typeId) => {
-    if (!topic || topic.units.length === 0) {
+    if (!topic || topic.skills.length === 0) {
       return { typeId, cell: { kind: "empty" } as Cell }
     }
-    const unit = topic.units.find((u) => u.exercise_type === typeId)
-    if (!unit || unit.state === "sin_empezar") {
+    const skill = topic.skills.find((s) => s.exercise_type === typeId)
+    if (!skill || skill.state === "sin_empezar") {
       return { typeId, cell: { kind: "nuevo" } as Cell }
     }
-    const days = daysUntil(unit.next_review)
+    const days = daysUntil(skill.next_review)
     if (days === null) {
       return { typeId, cell: { kind: "aprendiendo", days: 1 } as Cell }
     }

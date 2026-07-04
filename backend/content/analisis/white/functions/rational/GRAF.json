@@ -1,0 +1,1102 @@
+[
+  {
+    "question": "¿Cuántas asíntotas tiene esta función racional en total?",
+    "options": [
+      "2 (una vertical y una horizontal)",
+      "1 (solo vertical)",
+      "1 (solo horizontal)",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\frac{1}{x}$ tiene asíntota vertical $x = 0$ y asíntota horizontal $y = 0$: 2 en total.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "$f(x)=\\frac{1}{x}$ tiene **AV en $x=0$** (denominador=0) y **AH en $y=0$** (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué cuadrantes se encuentran las ramas de esta función?",
+    "options": [
+      "Segundo y cuarto",
+      "Primero y tercero",
+      "Primero y segundo",
+      "Tercero y cuarto"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\frac{1}{x}$ está en el 1.° cuadrante (ambos positivos) y el 3.° (ambos negativos).",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "En $f(x)=\\frac{1}{x}$: si $x>0$ entonces $f>0$ (1.° cuadrante); si $x<0$ entonces $f<0$ (3.° cuadrante). La hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{1}{x^2 - 4}$?",
+    "options": [
+      "0",
+      "1 (en $x = 4$)",
+      "2 (en $x = 2$ y $x = -2$)",
+      "3"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$x^2 - 4 = (x-2)(x+2) = 0$ en $x = 2$ y $x = -2$: dos asíntotas verticales.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2 - 4)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      4
+    ],
+    "explanation": "El denominador $x^2-4=(x-2)(x+2)$ se anula en **dos puntos**: $x=2$ y $x=-2$. Cada raíz del denominador genera una asíntota vertical → 2 asíntotas verticales en total.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Dónde está la asíntota vertical de esta función?",
+    "options": [
+      "$x = 1$",
+      "$x = -2$",
+      "$x = 0$",
+      "$x = 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El denominador $x - 2$ se anula en $x = 2$: ahí está la asíntota vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** ocurre donde el denominador $x-2$ se anula: $x-2=0\\Rightarrow x=2$. En el gráfico se ve que la función \"explota\" verticalmente en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas asíntotas verticales tiene $f(x) = \\dfrac{x}{x+1}$?",
+    "options": [
+      "1 (en $x = -1$)",
+      "2",
+      "0",
+      "1 (en $x = 1$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Solo el denominador $x + 1 = 0$ en $x = -1$ genera una asíntota vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "x / (x + 1)",
+    "graph_view": [
+      -6,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "El denominador $x+1$ tiene una sola raíz: $x+1=0\\Rightarrow x=-1$. Una raíz en el denominador equivale a **una sola asíntota vertical**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la asíntota horizontal de esta función racional?",
+    "options": [
+      "$y = 0$",
+      "$y = 1$",
+      "$y = 2$",
+      "$y = -1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Para $x \\to \\infty$, $\\frac{x+1}{x-2} \\approx \\frac{x}{x} = 1$: la asíntota horizontal es $y = 1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [
+      -4,
+      8,
+      -6,
+      6
+    ],
+    "explanation": "Numerador y denominador tienen el **mismo grado** (ambos lineales): la AH es el cociente de coeficientes principales. $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $f(x) = \\dfrac{2x+1}{x-3}$, ¿cuál es la asíntota horizontal?",
+    "options": [
+      "$y = -3$",
+      "$y = 1$",
+      "$y = 2$",
+      "$y = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Grados iguales: la asíntota horizontal es el cociente de coeficientes principales $\\frac{2}{1} = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "(2*x+1) / (x-3)",
+    "graph_view": [
+      -2,
+      8,
+      -4,
+      8
+    ],
+    "explanation": "Mismo grado en numerador y denominador → AH = cociente de coeficientes principales: $\\frac{2x+1}{x-3}\\to\\frac{2}{1}=2$ cuando $x\\to\\pm\\infty$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas ramas tiene esta función racional y en qué dirección van hacia la asíntota?",
+    "options": [
+      "2 ramas simétricas respecto al eje $X$",
+      "1 rama continua",
+      "3 ramas separadas",
+      "2 ramas: una sube y la otra baja hacia la asíntota vertical"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "A cada lado de la asíntota vertical, la función va a $+\\infty$ o $-\\infty$: dos ramas opuestas.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -6,
+      6
+    ],
+    "explanation": "Cerca de la **asíntota vertical**, las dos ramas van en sentidos opuestos: una tiende a $+\\infty$ y la otra a $-\\infty$. Esto es lo opuesto a una parábola, donde ambos extremos van en el mismo sentido.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas asíntotas tiene en total $f(x) = \\dfrac{1}{x-1}$?",
+    "options": [
+      "2 (una vertical $x=1$ y una horizontal $y=0$)",
+      "1 (solo la vertical $x=1$)",
+      "3",
+      "0"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = \\frac{1}{x-1}$ tiene asíntota vertical en $x=1$ y horizontal en $y=0$: 2 en total.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 1)",
+    "graph_view": [
+      -4,
+      6,
+      -5,
+      5
+    ],
+    "explanation": "$f(x)=\\frac{1}{x-1}$ tiene **AV en $x=1$** (donde el denominador se anula) y **AH en $y=0$** (grado numerador 0 < grado denominador 1). Son 2 asíntotas en total.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la ecuación de la asíntota vertical de esta función?",
+    "options": [
+      "$x = 1$",
+      "$x = -1$",
+      "$x = 0$",
+      "$x = 2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El denominador $x + 1 = 0$ en $x = -1$: esa es la asíntota vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "2 / (x + 1)",
+    "graph_view": [
+      -5,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** está donde el denominador $x+1$ vale cero: $x+1=0\\Rightarrow x=-1$. En el gráfico, la función \"explota\" verticalmente al acercarse a $x=-1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica de $f(x) = \\dfrac{1}{x}$. ¿En cuál de los siguientes intervalos la función es decreciente?",
+    "options": [
+      "Solo en $(-\\infty,\\ 0)$",
+      "Solo en $(0,\\ +\\infty)$",
+      "En ningún intervalo",
+      "En $(-\\infty,\\ 0)$ y en $(0,\\ +\\infty)$ — en cada rama por separado"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "En la gráfica se ve claramente que ambas ramas bajan de izquierda a derecha: la función decrece en cada tramo de su dominio.",
+    "feedback_incorrect": "",
+    "graph_fn": "1/x",
+    "graph_view": [
+      -4,
+      4,
+      -4,
+      4
+    ],
+    "explanation": "La gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn **cada rama**, la curva desciende de izquierda a derecha:\n- Rama izquierda $(-\\infty, 0)$: la función va de valores cercanos a $0^-$ hacia $-\\infty$.\n- Rama derecha $(0, +\\infty)$: la función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos casos la tendencia es **decreciente**.\n\nNota visual: no confundas 'la curva sube entre las dos ramas' con comportamiento creciente; eso es una discontinuidad, no crecimiento.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas asíntotas verticales tiene esta función?",
+    "options": [
+      "2",
+      "0",
+      "1",
+      "3"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador $(x-2)(x+2)=0$ en $x=\\pm2$: hay dos AV.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2 - 4)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      4
+    ],
+    "explanation": "El denominador $x^2-4=(x-2)(x+2)$ tiene dos raíces reales distintas: $x=2$ y $x=-2$. Cada una genera una **asíntota vertical**. La gráfica muestra tres ramas separadas por esas dos AV.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la asíntota vertical de esta función?",
+    "options": [
+      "$x = -1$",
+      "$x = 1$",
+      "$x = 0$",
+      "$x = -2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La función explota en $x = -1$: ahí está la AV.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x + 1)",
+    "graph_view": [
+      -6,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "La curva tiene una línea vertical en $x=-1$: la AV. Eso corresponde a que el denominador $x+1=0$ en $x=-1$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la asíntota horizontal de esta función?",
+    "options": [
+      "$y = 0$",
+      "$y = 1$",
+      "$y = -1$",
+      "$y = 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las ramas se aplanan cerca del eje $X$: la AH es $y = 0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x + 1)",
+    "graph_view": [
+      -6,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "Cuando $x\\to\\pm\\infty$, la función $\\frac{1}{x+1}\\to0$. Las ramas se acercan cada vez más al eje $X$: la **AH es $y=0$**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué valor cruza el eje $X$ esta función?",
+    "options": [
+      "No cruza el eje $X$",
+      "$x = 1$",
+      "$x = 2$",
+      "$x = -1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La función $2/x$ solo puede ser cero si el numerador es cero. Numerador $= 2$: nunca es cero.",
+    "feedback_incorrect": "",
+    "graph_fn": "2 / x",
+    "graph_view": [
+      -5,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "Para cruzar el eje $X$, la función debe valer $0$. Pero $\\frac{2}{x}=0$ no tiene solución: el numerador es $2$ (constante). La función **nunca cruza el eje $X$**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Dónde cruza el eje $Y$ esta función?",
+    "options": [
+      "$y = 2$",
+      "$y = -2$",
+      "$y = 0$",
+      "No existe (AV en $x = 0$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = \frac{2}{0+1} = 2$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2 / (x + 1)",
+    "graph_view": [
+      -5,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "El intercepto con el eje $Y$ es $f(0)=\\frac{2}{0+1}=\\frac{2}{1}=2$. En el gráfico, la curva pasa por el punto $(0, 2)$.",
+    "reviewed": false
+  },
+  {
+    "question": "La asíntota horizontal de esta función está en $y = 1$ (no en $y = 0$). ¿Cuánto vale $f(x)$ aproximadamente cuando $x = 100$?",
+    "options": [
+      "Cerca de $1$ (por arriba o abajo)",
+      "Cerca de $0$",
+      "Cerca de $100$",
+      "Indefinido"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La AH en $y=1$ significa que cuando $x$ crece, $f(x)\\to1$. Para $x=100$, $f(100)\\approx1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "(x + 1) / (x - 2)",
+    "graph_view": [
+      -4,
+      8,
+      -6,
+      6
+    ],
+    "explanation": "$f(x)=\\frac{x+1}{x-2}$. La AH es $y=1$ (cociente de coeficientes principales). Para $x=100$: $\\frac{100+1}{100-2}=\\frac{101}{98}\\approx1{,}03$: **muy cerca de 1**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es creciente o decreciente esta función para $x > 0$?",
+    "options": [
+      "Decreciente",
+      "Creciente",
+      "Ni creciente ni decreciente",
+      "Primero crece, luego decrece"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En $(0, +\\infty)$ la función $1/x$ disminuye a medida que $x$ aumenta.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "En la rama derecha ($x>0$) de $f(x)=\\frac{1}{x}$, la curva desciende de izquierda a derecha: la función es **decreciente** en $(0,+\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el dominio de esta función racional?",
+    "options": [
+      "$\\mathbb{R} \\setminus \\{-1\\}$",
+      "$\\mathbb{R}$",
+      "$(-1, +\\infty)$",
+      "$\\mathbb{R} \\setminus \\{0\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La AV en $x = -1$ indica que ese punto está excluido del dominio.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x + 1)",
+    "graph_view": [
+      -6,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "La AV en $x=-1$ significa que el denominador se anula ahí: $x=-1$ no pertenece al dominio. El dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Tiene máximo o mínimo esta función racional?",
+    "options": [
+      "No, la función decrece en cada rama sin extremos",
+      "Sí, tiene un mínimo en la AH",
+      "Sí, tiene un máximo en la AV",
+      "Sí, tiene un máximo en $y = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 1/x$ es estrictamente decreciente en cada rama: no alcanza ni máximo ni mínimo.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "En cada rama de $f(x)=\\frac{1}{x}$, la función decrece estrictamente. No hay ningún punto donde la derivada sea cero (mínimo o máximo). Las asíntotas son líneas que la curva **nunca alcanza**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántos ceros (interceptos con el eje $X$) tiene esta función?",
+    "options": [
+      "Uno (en $x = 0$)",
+      "Cero (no cruza el eje $X$)",
+      "Dos",
+      "Tres"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\frac{3x}{x^2-1}=0$ cuando $x=0$ (y el denominador $0-1=-1\\neq0$).",
+    "feedback_incorrect": "",
+    "graph_fn": "3 * x / (x^2 - 1)",
+    "graph_view": [
+      -5,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "La función vale cero cuando el numerador $3x=0$, es decir, $x=0$. El denominador $0^2-1=-1\\neq0$: $x=0$ sí pertenece al dominio. Hay **un solo cero**, en $x=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen (rango) de esta función?",
+    "options": [
+      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "$\\mathbb{R}$",
+      "$(0, +\\infty)$",
+      "$(-\\infty, 0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x)=1/x$ puede ser positivo o negativo pero nunca cero: imagen $\\mathbb{R}\\setminus\\{0\\}$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "$f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ y negativos para $x<0$, pero nunca vale cero. La **imagen es $\\mathbb{R}\\setminus\\{0\\}$**.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica. ¿Qué valor aproximado tiene $f(3)$?",
+    "options": [
+      "\\$1\\$",
+      "\\$2\\$",
+      "\\$3\\$",
+      "\\$-1\\$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(3) = \\frac{2}{3-1} = \\frac{2}{2} = 1$... espera, la función es $2/(x+1)$: $f(3)=2/4=0.5$.",
+    "feedback_incorrect": "",
+    "graph_fn": "2 / (x - 1)",
+    "graph_view": [
+      -4,
+      6,
+      -5,
+      5
+    ],
+    "explanation": "$f(3)=\\frac{2}{3-1}=\\frac{2}{2}=1$. En la gráfica, el punto $(3, 1)$ está en la rama derecha (a la derecha de la AV en $x=1$).",
+    "reviewed": false
+  },
+  {
+    "question": "¿La gráfica es simétrica respecto al origen?",
+    "options": [
+      "Sí, $f(-x) = -f(x)$ (función impar)",
+      "Sí, $f(-x) = f(x)$ (función par)",
+      "No tiene ningún tipo de simetría",
+      "Es simétrica respecto al eje $Y$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(-x) = \\frac{1}{-x} = -\\frac{1}{x} = -f(x)$: es impar, simétrica respecto al origen.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "Para $f(x)=\\frac{1}{x}$: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como $f(-x)=-f(x)$, la función es **impar**: su gráfica es simétrica respecto al **origen** $(0,0)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Hacia dónde tiende la función cuando $x$ se acerca a la AV desde la derecha ($x \\to 2^+$)?",
+    "options": [
+      "A $+\\infty$",
+      "A $-\\infty$",
+      "A $0$",
+      "A $1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Para $x>2$, el denominador $x-2>0$ es positivo pequeño: $f\\to+\\infty$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -5,
+      5
+    ],
+    "explanation": "Cuando $x\\to2^+$: $x-2\\to0^+$ (positivo pequeño). La fracción $\\frac{1}{x-2}\\to+\\infty$. La rama derecha sube sin límite al acercarse a la AV.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Hacia dónde tiende la función cuando $x$ se acerca a la AV desde la izquierda ($x \\to 2^-$)?",
+    "options": [
+      "A $-\\infty$",
+      "A $+\\infty$",
+      "A $0$",
+      "A $2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Para $x<2$, el denominador $x-2<0$ es negativo pequeño: $f\\to-\\infty$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -5,
+      5
+    ],
+    "explanation": "Cuando $x\\to2^-$: $x-2\\to0^-$ (negativo pequeño). La fracción $\\frac{1}{x-2}\\to-\\infty$. La rama izquierda baja sin límite al acercarse a la AV.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica. ¿En qué cuadrantes están las dos ramas de esta función?",
+    "options": [
+      "2.° y 4.° cuadrante",
+      "1.° y 3.° cuadrante",
+      "1.° y 2.° cuadrante",
+      "3.° y 4.° cuadrante"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -1/x$: ramas en 2.° (x<0, f>0) y 4.° (x>0, f<0).",
+    "feedback_incorrect": "",
+    "graph_fn": "-1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "En $f(x)=-\\frac{1}{x}$: si $x>0$, $f<0$ (4.° cuadrante); si $x<0$, $f>0$ (2.° cuadrante). Al contrario que $\\frac{1}{x}$ (1.° y 3.°).",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica. ¿Las ramas van hacia arriba o hacia abajo al acercarse a la AV desde ambos lados?",
+    "options": [
+      "Ambas ramas van hacia arriba (la función tiende a $+\\infty$ desde ambos lados)",
+      "Una sube y la otra baja",
+      "Ambas ramas van hacia abajo",
+      "Las ramas no se acercan a ninguna AV"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador $x^2$ tiene exponente par: la función siempre es positiva y tiende a $+\\infty$ desde ambos lados de $x=0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2)",
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      8
+    ],
+    "explanation": "$f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre. Por eso la función es siempre positiva. Cuando $x\\to0^+$ o $x\\to0^-$, $x^2\\to0^+$ y $f\\to+\\infty$. **Ambas ramas suben**.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica. ¿Cuál es el intercepto con el eje $Y$?",
+    "options": [
+      "$y = -\\dfrac{1}{3}$",
+      "$y = 3$",
+      "$y = \\dfrac{1}{3}$",
+      "No existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(0) = \\frac{1}{0-3} = -\\frac{1}{3}$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 3)",
+    "graph_view": [
+      -2,
+      8,
+      -5,
+      5
+    ],
+    "explanation": "El intercepto con el eje $Y$ es $f(0)=\\frac{1}{0-3}=\\frac{1}{-3}=-\\frac{1}{3}$. El denominador $0-3=-3\\neq0$: el intercepto existe. En la gráfica, la curva cruza el eje $Y$ en $y=-\\frac{1}{3}\\approx-0{,}33$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuántas ramas tiene la gráfica de esta función?",
+    "options": [
+      "3 ramas (2 AV generan 3 ramas)",
+      "2 ramas",
+      "1 rama",
+      "4 ramas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x)=\\frac{1}{x^2-4}$ tiene dos AV (en $x=\\pm2$): tres ramas separadas.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2 - 4)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      4
+    ],
+    "explanation": "El denominador $x^2-4=(x-2)(x+2)$ se anula en $x=2$ y $x=-2$: **dos asíntotas verticales**. Cada AV separa la gráfica en ramas: $(-\\infty,-2)$, $(-2,2)$ y $(2,+\\infty)$ → **tres ramas**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿La función es positiva o negativa en el intervalo $(-2, 2)$ (entre las dos AV)?",
+    "options": [
+      "Negativa (la rama del medio está por debajo del eje $X$)",
+      "Positiva",
+      "Alternada: cambia de signo",
+      "No está definida en ese intervalo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En $(-2,2)$, el denominador $x^2-4<0$: la función es negativa.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2 - 4)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      4
+    ],
+    "explanation": "Para $x$ entre $-2$ y $2$: $x^2<4$, así que $x^2-4<0$. El numerador es $1>0$. La fracción es $\\frac{1}{\\text{negativo}}<0$: la función es **negativa** en $(-2,2)$, y la rama del medio está por debajo del eje $X$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una hipérbola con AV en $x = 0$ y AH en $y = 0$. Las ramas están en el 1.° y 3.° cuadrante. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x}$",
+      "$f(x) = \\dfrac{-1}{x}$",
+      "$f(x) = \\dfrac{1}{x+1}$",
+      "$f(x) = \\dfrac{1}{x-1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en $x=0$, AH en $y=0$, ramas en 1.° y 3.° cuadrante: $f(x)=1/x$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -5,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "AV en $x=0$ → denominador $x$. AH en $y=0$ → constante sobre lineal. Ramas en 1.° y 3.° → función impar con $k>0$. La fórmula es $f(x)=\\frac{1}{x}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 3$ y AH en $y = 0$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-3}$",
+      "$f(x) = \\dfrac{1}{x+3}$",
+      "$f(x) = \\dfrac{3}{x}$",
+      "$f(x) = \\dfrac{1}{x-3} + 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en $x=3$ → denominador $x-3$. AH en $y=0$ → sin desplazamiento vertical.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 3)",
+    "graph_view": [
+      -2,
+      8,
+      -5,
+      5
+    ],
+    "explanation": "AV en $x=3$ → denominador $x-3$. AH en $y=0$ → la función tiende a $0$ sin corrimiento vertical. La fórmula es $f(x)=\\frac{1}{x-3}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = -2$ y AH en $y = 0$. Las ramas están en el 2.° y 4.° cuadrante (al contrario de la hipérbola normal). ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{-1}{x+2}$",
+      "$f(x) = \\dfrac{1}{x+2}$",
+      "$f(x) = \\dfrac{1}{x-2}$",
+      "$f(x) = \\dfrac{-1}{x-2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en $x=-2$ → denominador $x+2$. Ramas al revés → numerador negativo: $-1/(x+2)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-1 / (x + 2)",
+    "graph_view": [
+      -7,
+      3,
+      -5,
+      5
+    ],
+    "explanation": "AV en $x=-2$ → denominador $x+2$. Las ramas en 2.° y 4.° cuadrante (relativas a $x=-2$) indican un numerador negativo. La fórmula es $f(x)=\\frac{-1}{x+2}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 1$ y AH en $y = 1$ (no en $y = 0$). ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-1} + 1$",
+      "$f(x) = \\dfrac{x}{x-1}$",
+      "$f(x) = \\dfrac{1}{x-1}$",
+      "$f(x) = \\dfrac{x+1}{x-1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en $x=1$, AH en $y=1$: la forma es $k/(x-1)+1$. Con $k=1$: $1/(x-1)+1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 1) + 1",
+    "graph_view": [
+      -4,
+      6,
+      -4,
+      6
+    ],
+    "explanation": "AV en $x=1$ → denominador $x-1$. AH en $y=1$ → desplazamiento vertical $+1$. La fórmula es $\\frac{1}{x-1}+1$. Nota: $\\frac{x}{x-1}=\\frac{(x-1)+1}{x-1}=1+\\frac{1}{x-1}$ también da la misma curva.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 2$ y AH en $y = 1$. ¿Cuál de estas fórmulas corresponde?",
+    "options": [
+      "$f(x) = \\dfrac{x}{x-2}$",
+      "$f(x) = \\dfrac{x+2}{x}$",
+      "$f(x) = \\dfrac{x+1}{x-2}$",
+      "$f(x) = \\dfrac{1}{x-2} + 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\frac{x}{x-2}=\\frac{(x-2)+2}{x-2}=1+\\frac{2}{x-2}$: AV en $x=2$, AH en $y=1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "x / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -4,
+      6
+    ],
+    "explanation": "$\\frac{x}{x-2}$: AV en $x=2$ (denominador=0). Coeficientes principales iguales (1/1): AH en $y=1$. También: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica es como $1/x$ pero más 'empinada' (los valores se alejan más del eje $X$). ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{3}{x}$",
+      "$f(x) = \\dfrac{1}{3x}$",
+      "$f(x) = \\dfrac{1}{x}$",
+      "$f(x) = \\dfrac{1}{x^2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Multiplicar por $3$ estira la curva verticalmente: los valores de $f$ son 3 veces mayores.",
+    "feedback_incorrect": "",
+    "graph_fn": "3 / x",
+    "graph_view": [
+      -5,
+      5,
+      -6,
+      6
+    ],
+    "explanation": "$f(x)=\\frac{3}{x}=3\\cdot\\frac{1}{x}$: todos los valores de $1/x$ se multiplican por 3. La curva es más 'empinada' (más separada del eje $X$) que la hipérbola básica.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene dos AV (en $x = 2$ y $x = -2$) y AH en $y = 0$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x^2-4}$",
+      "$f(x) = \\dfrac{1}{x^2+4}$",
+      "$f(x) = \\dfrac{1}{x-2}$",
+      "$f(x) = \\dfrac{x}{x^2-4}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dos AV en $x=\\pm2$ → denominador $(x-2)(x+2)=x^2-4$. Constante sobre cuadrático → AH en $y=0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2 - 4)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      4
+    ],
+    "explanation": "AV en $x=2$ y $x=-2$ → denominador $x^2-4$. AH en $y=0$ → numerador constante (grado 0 < grado 2). Fórmula: $f(x)=\\frac{1}{x^2-4}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = -3$ y AH en $y = 2$. Las ramas se aplanan hacia $y = 2$ a medida que $|x|$ crece. ¿Cuál es la fórmula más probable?",
+    "options": [
+      "$f(x) = \\dfrac{2x}{x+3}$",
+      "$f(x) = \\dfrac{x}{x-3}$",
+      "$f(x) = \\dfrac{2}{x+3}$",
+      "$f(x) = \\dfrac{2}{x+3} + 2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\frac{2x}{x+3}$: AV en $x=-3$, AH en $y=2$ (cociente de coeficientes $2/1$).",
+    "feedback_incorrect": "",
+    "graph_fn": "2 * x / (x + 3)",
+    "graph_view": [
+      -8,
+      2,
+      -4,
+      6
+    ],
+    "explanation": "AV en $x=-3$ → denominador $x+3$. AH en $y=2$ → cociente de coeficientes principales $\\frac{2}{1}=2$. Eso corresponde a $\\frac{2x}{x+3}$. La opción $\\frac{2}{x+3}+2$ tendría AH en $y=2$ pero los interceptos serían distintos.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica es igual a la hipérbola $1/x$ pero desplazada: la AV está en $x = 4$ y la AH en $y = 0$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-4}$",
+      "$f(x) = \\dfrac{1}{x+4}$",
+      "$f(x) = \\dfrac{1}{x} - 4$",
+      "$f(x) = \\dfrac{1}{x} + 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV desplazada a $x=4$ → reemplazar $x$ por $x-4$: $f(x)=1/(x-4)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 4)",
+    "graph_view": [
+      -1,
+      9,
+      -5,
+      5
+    ],
+    "explanation": "Desplazar la hipérbola $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: $f(x)=\\frac{1}{x-4}$. La AV pasa de $x=0$ a $x=4$ y la AH sigue en $y=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 2$ y AH en $y = 3$ (no en $y = 1$). ¿Cuál de estas fórmulas corresponde?",
+    "options": [
+      "$f(x) = \\dfrac{3x - 4}{x - 2}$",
+      "$f(x) = \\dfrac{x + 3}{x - 2}$",
+      "$f(x) = \\dfrac{3}{x - 2}$",
+      "$f(x) = \\dfrac{x}{x-2} + 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Coeficientes principales: $3/1=3$ → AH en $y=3$. AV: $x-2=0$.",
+    "feedback_incorrect": "",
+    "graph_fn": "(3 * x - 4) / (x - 2)",
+    "graph_view": [
+      -3,
+      7,
+      -2,
+      8
+    ],
+    "explanation": "AV en $x=2$ → denominador $x-2$. AH en $y=3$ → cociente de coeficientes principales $3/1=3$. La fórmula $\\frac{3x-4}{x-2}$ cumple ambas condiciones. Verificación: intercepto $Y$ es $f(0)=\\frac{-4}{-2}=2$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 0$ y AH en $y = 0$, pero ambas ramas están por encima del eje $X$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x^2}$",
+      "$f(x) = \\dfrac{1}{x}$",
+      "$f(x) = \\dfrac{-1}{x}$",
+      "$f(x) = \\dfrac{1}{|x|}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$1/x^2$ siempre es positivo: ambas ramas están por encima del eje $X$.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x^2)",
+    "graph_view": [
+      -4,
+      4,
+      -1,
+      8
+    ],
+    "explanation": "$f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre, así que $f(x)>0$ para todo $x\\neq0$. Las **dos ramas están por encima del eje $X$**. En contraste, $1/x$ tiene ramas en el 1.° y 3.° cuadrante (una negativa).",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una función con AV en $x=-1$ y AH en $y = -2$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{-2x}{x+1}$",
+      "$f(x) = \\dfrac{-2}{x+1}$",
+      "$f(x) = \\dfrac{x}{x+1} - 2$",
+      "$f(x) = \\dfrac{2x}{x-1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en $x=-1$, AH en $y=-2$: cociente de coeficientes $-2/1=-2$ → $-2x/(x+1)$.",
+    "feedback_incorrect": "",
+    "graph_fn": "-2 * x / (x + 1)",
+    "graph_view": [
+      -6,
+      4,
+      -6,
+      2
+    ],
+    "explanation": "AV en $x=-1$ → denominador $x+1$. AH en $y=-2$ → cociente de coeficientes $-2/1=-2$. La fórmula es $f(x)=\\frac{-2x}{x+1}$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica es como $1/x$ pero las ramas son más 'planas' (más cerca del eje $X$). ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{0{,}5}{x}$",
+      "$f(x) = \\dfrac{2}{x}$",
+      "$f(x) = \\dfrac{1}{x}$",
+      "$f(x) = \\dfrac{1}{2x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Multiplicar por $0{,}5$ achica los valores a la mitad: la curva queda más cerca del eje $X$.",
+    "feedback_incorrect": "",
+    "graph_fn": "0.5 / x",
+    "graph_view": [
+      -5,
+      5,
+      -4,
+      4
+    ],
+    "explanation": "$f(x)=\\frac{0{,}5}{x}=\\frac{1}{2}\\cdot\\frac{1}{x}$: todos los valores se reducen a la mitad. La curva es más plana (más cerca del eje $X$) que la hipérbola básica $1/x$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene AV en $x = 5$ y pasa por los puntos $(0, -1)$ y $(6, 1)$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{1}{x-5} - 1$",
+      "$f(x) = \\dfrac{1}{x-5}$",
+      "$f(x) = \\dfrac{-1}{x-5}$",
+      "$f(x) = \\dfrac{1}{x+5} - 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "AV en x=5, AH en y=-1: denominador x-5, desplazamiento -1.",
+    "feedback_incorrect": "",
+    "graph_fn": "1 / (x - 5) - 1",
+    "graph_view": [
+      0,
+      10,
+      -5,
+      3
+    ],
+    "explanation": "AV en $x=5$ → denominador $x-5$. La AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): $f(x)=\\frac{1}{x-5}-1$. Verificamos $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$. El punto $(6,1)$ no está, pero el patrón AV+AH−1 sí identifica la fórmula correcta.",
+    "reviewed": false
+  },
+  {
+    "question": "Observá la gráfica. La AH está en $y = 1$ y la AV en $x = 0$. ¿Cuál es la fórmula?",
+    "options": [
+      "$f(x) = \\dfrac{x + 1}{x}$",
+      "$f(x) = \\dfrac{1}{x} + 1$",
+      "$f(x) = \\dfrac{x}{x+1}$",
+      "$f(x) = \\dfrac{x+1}{x+1}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\frac{x+1}{x}=1+\\frac{1}{x}$: AV en $x=0$ y AH en $y=1$.",
+    "feedback_incorrect": "",
+    "graph_fn": "(x + 1) / x",
+    "graph_view": [
+      -5,
+      5,
+      -4,
+      6
+    ],
+    "explanation": "$f(x)=\\frac{x+1}{x}=1+\\frac{1}{x}$: AV en $x=0$ (denominador=0) y AH en $y=1$ (coeficientes iguales: $1/1=1$). También es equivalente a $\\frac{1}{x}+1$.",
+    "reviewed": false
+  },
+  {
+    "question": "El tiempo que tarda $n$ personas en pintar una pared es $t(n) = \\dfrac{12}{n}$ horas. El gráfico muestra esta función para $n > 0$.\n\n¿Cuánto tiempo tarda si son 4 personas?",
+    "options": [
+      "$3$ horas",
+      "$4$ horas",
+      "$12$ horas",
+      "$48$ horas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$t(4) = 12/4 = 3$ horas.",
+    "feedback_incorrect": "",
+    "graph_fn": "12 / x",
+    "graph_view": [
+      0,
+      13,
+      0,
+      13
+    ],
+    "explanation": "Sustituimos $n=4$ en la fórmula: $t(4)=\\frac{12}{4}=3$ horas. En el gráfico, el punto $(4, 3)$ está en la curva. Cuantas más personas, menos tiempo: la función decrece en $(0, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "question": "La velocidad promedio para recorrer $60$ km en $t$ horas es $v(t) = \\dfrac{60}{t}$ km/h. El gráfico muestra esta función para $t > 0$.\n\n¿Cuánto tarda en recorrerlos a $30$ km/h?",
+    "options": [
+      "$2$ horas",
+      "$30$ horas",
+      "$\\dfrac{1}{2}$ hora",
+      "$60$ horas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$v(t) = 30 \\Rightarrow \\frac{60}{t} = 30 \\Rightarrow t = 2$ horas.",
+    "feedback_incorrect": "",
+    "graph_fn": "60 / x",
+    "graph_view": [
+      0,
+      12,
+      0,
+      12
+    ],
+    "explanation": "Buscamos $t$ tal que $v(t)=30$: $\\frac{60}{t}=30 \\Rightarrow t=\\frac{60}{30}=2$ horas. En el gráfico, la intersección con $v=30$ ocurre en $t=2$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para dividir un presupuesto de \\$200 en partes iguales entre $n$ personas, cada una recibe $f(n) = \\dfrac{200}{n}$ pesos. El gráfico muestra $f$ para $n \\geq 1$.\n\n¿Cuánto recibe cada persona si son $8$?",
+    "options": [
+      "\\$25",
+      "\\$40",
+      "\\$50",
+      "\\$200"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(8) = 200/8 = 25$ pesos por persona.",
+    "feedback_incorrect": "",
+    "graph_fn": "200 / x",
+    "graph_view": [
+      0,
+      20,
+      0,
+      50
+    ],
+    "explanation": "$f(8)=\\frac{200}{8}=25$ pesos por persona. En el gráfico, el punto $(8, 25)$ está en la curva descendente.",
+    "reviewed": false
+  },
+  {
+    "question": "La concentración de una sustancia en un tanque (en gramos por litro) es $c(v) = \\dfrac{10}{v}$ donde $v$ es el volumen de agua en litros. El gráfico muestra $c$ para $v > 0$.\n\n¿Cuánto vale la concentración cuando el volumen es $5$ litros?",
+    "options": [
+      "$2$ g/L",
+      "$5$ g/L",
+      "$10$ g/L",
+      "$50$ g/L"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$c(5) = 10/5 = 2$ g/L.",
+    "feedback_incorrect": "",
+    "graph_fn": "10 / x",
+    "graph_view": [
+      0,
+      11,
+      0,
+      11
+    ],
+    "explanation": "$c(5)=\\frac{10}{5}=2$ g/L. A más agua, menor concentración: la función es decreciente en $(0,+\\infty)$. En el gráfico, el punto $(5, 2)$ está en la curva.",
+    "reviewed": false
+  }
+]

@@ -1,5 +1,99 @@
 {
   "slug": "algebra",
   "name": "Álgebra",
-  "description": "Sistema de repaso adaptativo para Álgebra Lineal"
+  "description": "Sistema de repaso adaptativo para Álgebra Lineal",
+  "exercise_types": [
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar objetos matemáticos."
+    },
+    {
+      "id": "FORM",
+      "label": "Formulación",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "GRAF",
+      "label": "Gráficos",
+      "description": "Leer e interpretar información en gráficos."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular el resultado paso a paso."
+    },
+    {
+      "id": "APLI",
+      "label": "Aplicación",
+      "description": "Resolver problemas y situaciones reales."
+    }
+  ],
+  "belts": [
+    {
+      "key": "white",
+      "headline": "Vectores",
+      "description": "Trabajás el concepto de vector como entidad matemática que posee magnitud y dirección. Es el formalismo necesario para la representación geométrica y el análisis algebraico en dimensiones superiores.",
+      "units": [
+        {
+          "key": "vectors",
+          "name": "Vectores",
+          "topics": [
+            {
+              "key": "vectores",
+              "name": "Vectores",
+              "tooltip": "Un **vector** es una entidad matemática que posee magnitud y dirección, permitiendo la descripción de puntos en espacios euclidianos mediante coordenadas.\n\n**Operaciones fundamentales:**\n• **Suma:** $(a_1, a_2) + (b_1, b_2) = (a_1+b_1, a_2+b_2)$\n• **Producto escalar:** $\\lambda \\cdot (a_1, a_2) = (\\lambda a_1, \\lambda a_2)$\n• **Módulo:** $|\\vec{v}| = \\sqrt{a_1^2 + a_2^2}$\n• **Producto punto:** $\\vec{u} \\cdot \\vec{v} = u_1 v_1 + u_2 v_2$\n\nEl producto punto permite calcular ángulos: $\\cos\\theta = \\dfrac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}||\\vec{v}|}$.\n\nDos vectores son **perpendiculares** si $\\vec{u} \\cdot \\vec{v} = 0$.\n\nEjemplo: El vector $\\vec{v} = (3, 4)$ tiene módulo $|\\vec{v}| = 5$.",
+              "short_description": "Un **vector** es una entidad matemática con magnitud y dirección, representado por coordenadas $(a_1, a_2, \\ldots, a_n)$ en un espacio euclídeo.",
+              "skills": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "headline": "Matrices",
+      "description": "Explorás las matrices como representación estructural de transformaciones y sistemas de ecuaciones lineales. Proporcionan el marco para gestionar relaciones entre múltiples variables de manera simultánea.",
+      "units": [
+        {
+          "key": "matrices",
+          "name": "Matrices",
+          "topics": [
+            {
+              "key": "matrices",
+              "name": "Matrices",
+              "tooltip": "Una **matriz** es un arreglo rectangular de números organizados en filas y columnas. Se denota $A \\in \\mathbb{R}^{m \\times n}$ para una matriz de $m$ filas y $n$ columnas.\n\n**Operaciones principales:**\n• **Suma:** $A + B$ (mismas dimensiones, suma elemento a elemento)\n• **Producto escalar:** $\\lambda A$\n• **Producto matricial:** $(AB)_{ij} = \\sum_k A_{ik} B_{kj}$ (columnas de $A$ = filas de $B$)\n• **Transpuesta:** $A^T$ intercambia filas y columnas\n\n**Casos especiales:**\n• **Matriz cuadrada:** $m = n$\n• **Matriz identidad $I$:** diagonal de unos, resto ceros; $AI = IA = A$\n• **Matriz inversa $A^{-1}$:** existe solo si $\\det(A) \\neq 0$ y cumple $A A^{-1} = I$\n\nEjemplo: $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$",
+              "short_description": "Una **matriz** $A \\in \\mathbb{R}^{m \\times n}$ es un arreglo rectangular de números que representa transformaciones lineales y sistemas de ecuaciones.",
+              "skills": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "violet",
+      "headline": "Espacios",
+      "description": "Trabajás con la generalización abstracta de conjuntos que preservan la estructura bajo suma y producto escalar. Introduce los conceptos de independencia lineal, bases y dimensión.",
+      "units": [
+        {
+          "key": "vector_spaces",
+          "name": "Espacios",
+          "topics": [
+            {
+              "key": "espacios",
+              "name": "Espacios vectoriales",
+              "tooltip": "Un **espacio vectorial** es un conjunto $V$ con dos operaciones (suma y producto escalar) que satisfacen ciertos axiomas. El ejemplo prototípico es $\\mathbb{R}^n$.\n\n**Conceptos clave:**\n• **Subespacio:** subconjunto de $V$ que también es espacio vectorial\n• **Combinación lineal:** $\\alpha_1 v_1 + \\alpha_2 v_2 + \\cdots + \\alpha_k v_k$\n• **Dependencia lineal:** hay escalares no todos cero tal que $\\sum \\alpha_i v_i = \\vec{0}$\n• **Independencia lineal:** la única combinación que da $\\vec{0}$ es la trivial\n• **Base:** conjunto linealmente independiente que genera todo el espacio\n• **Dimensión:** número de vectores en cualquier base\n\n**Espacios asociados a una matriz $A$:**\n• **Espacio columna:** generado por las columnas de $A$\n• **Espacio nulo:** soluciones de $A\\vec{x} = \\vec{0}$\n• **Rango:** dimensión del espacio columna\n\nEjemplo: $\\{(1,0), (0,1)\\}$ es una base de $\\mathbb{R}^2$, por lo que $\\dim(\\mathbb{R}^2) = 2$.",
+              "short_description": "Un **espacio vectorial** es un conjunto con operaciones de suma y producto escalar que permite definir conceptos de independencia lineal, base y dimensión.",
+              "skills": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

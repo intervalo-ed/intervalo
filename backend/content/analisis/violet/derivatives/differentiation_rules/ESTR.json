@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Para derivar $f(x) = 3x^4$, ¿cuál es el orden correcto de aplicación de reglas?",
+    "options": [
+      "Primero sacar el $3$ afuera (múltiplo constante), luego derivar $x^4$ con la regla de la potencia",
+      "Primero aplicar la regla de la potencia a $3x^4$ directamente bajando el $3$",
+      "Usar la regla del producto con $f=3$ y $g=x^4$",
+      "No se puede derivar: falta la definición de límite"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Constante afuera, luego potencia: $3 \\cdot 4x^3 = 12x^3$.",
+    "feedback_incorrect": "El flujo correcto: regla del múltiplo constante → regla de la potencia. Resultado: $3 \\cdot 4x^3 = 12x^3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El proceso estructurado para derivar $3x^4$:\n\n1. **Múltiplo constante:** $(3 \\cdot x^4)' = 3 \\cdot (x^4)'$\n2. **Potencia:** $(x^4)' = 4x^3$\n3. **Resultado:** $3 \\cdot 4x^3 = 12x^3$\n\nPodés pensarlo como un único paso: el $3$ se queda, el $4$ baja, el exponente se reduce en $1$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cómo se reescribe $\\sqrt{x}$ para poder aplicar la regla de la potencia?",
+    "options": [
+      "$x^2$",
+      "$x^{1/2}$",
+      "$x^{-1/2}$",
+      "$2x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\sqrt{x} = x^{1/2}$, así la regla de la potencia aplica directamente.",
+    "feedback_incorrect": "La raíz cuadrada es la potencia $1/2$: $\\sqrt{x} = x^{1/2}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Convertir raíces a potencias fraccionarias es el primer paso para derivarlas:\n\n$$\\begin{aligned} \\sqrt{x} &= x^{1/2} \\\\ \\sqrt[3]{x} &= x^{1/3} \\\\ \\sqrt[n]{x} &= x^{1/n} \\end{aligned}$$\n\nLuego se aplica la regla de la potencia normalmente:\n$$\\frac{d}{dx}[x^{1/2}] = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué regla permite derivar $x^3 - 5x^2 + 2$ término a término?",
+    "options": [
+      "Regla de la cadena",
+      "Regla del producto",
+      "Regla de la suma y diferencia",
+      "Regla del cociente"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La regla de la suma y diferencia permite derivar cada término por separado.",
+    "feedback_incorrect": "La **regla de la suma/diferencia** dice que $(f \\pm g)' = f' \\pm g'$: se derivan los términos por separado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la suma y diferencia** es la que habilita la derivación término a término:\n\n$$(x^3 - 5x^2 + 2)' = (x^3)' - (5x^2)' + (2)' = 3x^2 - 10x + 0 = 3x^2 - 10x$$\n\nSin esta regla, no podrías separar los términos de un polinomio. Con ella, cualquier polinomio se deriva fácilmente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué la derivada de la constante $f(x) = 7$ es $0$?",
+    "options": [
+      "Por convención matemática, sin justificación real",
+      "Porque $7' = 7-1 = 6$ no tiene sentido",
+      "Porque la regla de la potencia no aplica a constantes",
+      "Porque una constante no cambia: su tasa de cambio instantánea es siempre cero"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La derivada mide el cambio. Una constante no cambia, entonces su derivada es $0$.",
+    "feedback_incorrect": "La derivada es la tasa de cambio instantánea. Si $f(x)=7$ siempre, $f$ no cambia → $f'=0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La derivada mide cómo cambia una función. Si $f(x) = 7$ para todo $x$, entonces:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} = \\lim_{h \\to 0} \\frac{7 - 7}{h} = \\lim_{h \\to 0} 0 = 0$$\n\nGeométricamente: la gráfica es una recta horizontal, con pendiente $0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Aplicando la regla de la potencia a $f(x) = x^1$: ¿cuál es $f'(x)$?",
+    "options": [
+      "$1$",
+      "$x$",
+      "$0$",
+      "$x^2/2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$.",
+    "feedback_incorrect": "$(x^1)' = 1 \\cdot x^{1-1} = x^0 = 1$. La derivada de $f(x)=x$ es la constante $1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicando la regla de la potencia con $n=1$:\n\n$$\\frac{d}{dx}[x^1] = 1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$$\n\nTiene sentido: $f(x) = x$ es una recta con pendiente $1$, y la derivada da exactamente eso. La regla de la potencia es consistente con casos simples.",
+    "reviewed": false
+  },
+  {
+    "question": "Para derivar $f(x) = \\dfrac{4}{x^3}$, ¿cuál es el primer paso correcto?",
+    "options": [
+      "Usar la regla del cociente con $u=4$ y $v=x^3$",
+      "Reescribir como $4x^{-3}$ para aplicar la regla de la potencia",
+      "Calcular el límite de la definición de derivada directamente",
+      "Aplicar $\\ln$ a ambos lados"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Reescribir como potencia negativa es el camino más directo.",
+    "feedback_incorrect": "El paso más eficiente: $\\frac{4}{x^3} = 4x^{-3}$, luego aplicar la regla de la potencia.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La estrategia es convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Se puede aplicar la regla de la potencia para calcular $(e^x)'$?",
+    "options": [
+      "Sí, porque $e$ es una constante",
+      "Sí: $(e^x)' = x \\cdot e^{x-1}$",
+      "No: en $e^x$ la variable está en el exponente, no en la base",
+      "No, porque $e^x$ no es diferenciable"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La regla de la potencia aplica a $x^n$ (base variable, exponente constante), no a $a^x$.",
+    "feedback_incorrect": "La regla de la potencia es para $x^n$ (base $x$, exponente constante $n$). En $e^x$, $x$ está en el exponente: se usa $(e^x)' = e^x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Error conceptual común: confundir $x^n$ con $a^x$.\n\n- **Regla de la potencia:** $\\frac{d}{dx}[x^n] = nx^{n-1}$ → base variable, exponente **constante**.\n- **Regla exponencial:** $\\frac{d}{dx}[e^x] = e^x$ → base **constante**, exponente variable.\n\nSi aplicás la regla de la potencia a $e^x$, obtenés el resultado incorrecto $x \\cdot e^{x-1}$.",
+    "reviewed": false
+  },
+  {
+    "question": "Aplicando la regla de la potencia a $f(x) = x^{-3}$: ¿cuál es $f'(x)$?",
+    "options": [
+      "$-4x^{-3}$",
+      "$-3x^{-2}$",
+      "$3x^{-4}$",
+      "$-3x^{-4}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El exponente $-3$ baja y el nuevo exponente es $-3-1=-4$: $-3x^{-4}$.",
+    "feedback_incorrect": "$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4}$. Exponente $-3$ baja, nuevo exponente $-4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Regla de la potencia con $n = -3$:\n\n$$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}$$\n\nEl proceso es idéntico al caso con exponentes positivos: el exponente baja como coeficiente y se reduce en $1$. El resultado negativo tiene sentido: $f(x) = 1/x^3$ decrece para $x > 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para derivar $f(x) = x^2 + e^x$, ¿qué reglas combinás?",
+    "options": [
+      "Regla de la suma, regla de la potencia y derivada de $e^x$",
+      "Solo la regla del producto",
+      "Regla de la cadena y regla de la potencia",
+      "Regla del cociente y regla de la suma"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Suma para separar, potencia para $x^2$, y la fórmula especial para $e^x$.",
+    "feedback_incorrect": "$(x^2 + e^x)' = (x^2)' + (e^x)'$: primero suma para separar, luego potencia en $x^2$ y la fórmula de $e^x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Combinando reglas:\n\n$$f'(x) = (x^2 + e^x)' = (x^2)' + (e^x)' = 2x + e^x$$\n\n1. **Regla de la suma:** separá los términos.\n2. **Regla de la potencia:** $(x^2)' = 2x$.\n3. **Derivada especial:** $(e^x)' = e^x$.\n\nLas reglas básicas se combinan libremente para funciones más complejas.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f'(x) = g'(x)$ para todo $x$: ¿qué relación existe entre $f$ y $g$?",
+    "options": [
+      "Son la misma función: $f(x) = g(x)$",
+      "Difieren en una constante: $f(x) = g(x) + C$",
+      "Una es el doble de la otra: $f(x) = 2g(x)$",
+      "No se puede decir nada sobre $f$ y $g$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Igual derivada implica que difieren en una constante.",
+    "feedback_incorrect": "Si $f'=g'$, entonces $(f-g)'=0$, lo que implica $f-g=C$ (constante). Así $f(x)=g(x)+C$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si $f'(x) = g'(x)$ para todo $x$, entonces $(f - g)'(x) = 0$ para todo $x$.\n\nUna función con derivada cero en todo punto es **constante** (lo garantiza el Teorema del Valor Medio):\n\n$$f(x) - g(x) = C \\Rightarrow f(x) = g(x) + C$$\n\nEsto es fundamental para el cálculo integral: la integral indefinida tiene una **constante de integración $C$** por exactamente esta razón.",
+    "reviewed": false
+  }
+]

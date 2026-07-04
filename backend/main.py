@@ -201,12 +201,37 @@ def health_check():
 
 @app.get("/course/{course_id}/belts", response_model=dict[str, BeltEntry])
 def get_belt_info(course_id: int, db: Session = Depends(get_db)):
-    """Returns descriptive info (headline + description) for each belt in a course."""
+    """Returns descriptive info (headline + description) for each belt in a course.
+
+    DEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarquía
+    completa (belts→units→topics→skills). Se mantiene por compatibilidad."""
     rows = db.query(BeltInfo).filter(BeltInfo.course_id == course_id).all()
     return {
         row.belt: {"headline": row.headline, "description": row.description}
         for row in rows
     }
+
+
+@app.get("/course/{course_id}/structure")
+def get_course_structure(course_id: int, db: Session = Depends(get_db)):
+    """Estructura completa del curso desde course.json: la jerarquía
+    curso → cinturón → unidades → temas → skills, más los exercise_types.
+
+    Fuente única de estructura (config-driven); el frontend genera su catálogo a
+    partir de este mismo archivo."""
+    from models import Course
+    from algorithm import load_course_structure
+
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if course is None:
+        raise HTTPException(status_code=404, detail="Curso no encontrado")
+    try:
+        return load_course_structure(course.slug)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail=f"course.json no encontrado para '{course.slug}'",
+        )
 
 
 # ── Authentication ────────────────────────────────────────────────────────────

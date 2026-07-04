@@ -1,0 +1,867 @@
+[
+  {
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La gráfica es una parábola: $f(x) = x^2 - 4x + 3$, una función cuadrática.",
+    "feedback_incorrect": "La gráfica es una parábola ($f(x) = x^2 - 4x + 3$), característica de una función cuadrática.",
+    "graph_fn": "x*x - 4*x + 3",
+    "graph_view": [
+      -1,
+      5,
+      -2,
+      8
+    ],
+    "explanation": "Para clasificar una función a partir de su gráfica, observar la **forma de la curva** es el criterio principal.\n\nUna parábola se reconoce por: forma de U (o U invertida), **simetría** respecto a una recta vertical, y presencia de exactamente un punto extremo (vértice). Ninguna otra función elemental tiene estas tres características simultáneamente.\n\nLa gráfica mostrada es $f(x) = x^2 - 4x + 3$: tiene forma de U, vértice en $(2, -1)$ y eje de simetría $x = 2$. Conclusión: es una función **cuadrática**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = x^2 - 4x + 3$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Racional"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^2 - 4x + 3$ tiene la forma $ax^2 + bx + c$: es una función cuadrática.",
+    "feedback_incorrect": "$f(x) = x^2 - 4x + 3$ tiene un término $x^2$ como mayor potencia: es una función cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para clasificar una función algebraica, identificar el **término de mayor grado** es el paso clave.\n\nEn $f(x) = x^2 - 4x + 3$, los términos son $x^2$ (grado 2), $-4x$ (grado 1) y $3$ (grado 0). El término de mayor grado es $x^2$, con coeficiente $a = 1 \\neq 0$.\n\nEsto la ubica exactamente en la forma $ax^2 + bx + c$ con $a=1$, $b=-4$, $c=3$: es una función **cuadrática**. Su gráfica es una parábola con vértice en $(2,-1)$ y raíces en $x=1$ y $x=3$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = -2x^2 + x - 5$?",
+    "options": [
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática",
+      "Trigonométrica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$-2x^2 + x - 5$ tiene la forma $ax^2 + bx + c$ con $a = -2 \\neq 0$: cuadrática.",
+    "feedback_incorrect": "$f(x) = -2x^2 + x - 5$ tiene $x^2$ como término de mayor grado: es cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coeficiente negativo $a = -2$ no cambia la familia: $f(x) = -2x^2 + x - 5$ sigue siendo **cuadrática**.\n\nIdentificación directa: $a = -2$, $b = 1$, $c = -5$. La condición $a \\neq 0$ se cumple, así que la función pertenece a la familia $ax^2 + bx + c$.\n\nEl signo de $a$ solo afecta la **concavidad**: como $a < 0$, la parábola se abre hacia abajo y tiene un máximo. Además, $\\Delta = 1 - 4(-2)(-5) = 1 - 40 = -39 < 0$, por lo que esta parábola no tiene raíces reales (no cruza el eje $X$).",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = (x-1)^2$?",
+    "options": [
+      "Racional",
+      "Lineal",
+      "Exponencial",
+      "Cuadrática"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$(x-1)^2 = x^2 - 2x + 1$: es una función cuadrática en forma de vértice.",
+    "feedback_incorrect": "$(x-1)^2$ se expande a $x^2 - 2x + 1$, que es una cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = (x-1)^2$ está escrita en **forma de vértice** $a(x-h)^2 + k$ con $a=1$, $h=1$, $k=0$.\n\nExpandiendo:\n$$(x-1)^2 = x^2 - 2x + 1$$\nque es exactamente la forma estándar $ax^2 + bx + c$ con $a=1$, $b=-2$, $c=1$.\n\nConclusión: es **cuadrática**. Su vértice es $(1, 0)$, toca el eje $X$ en $x=1$ (raíz doble, $\\Delta = 0$) y se abre hacia arriba. La forma $(x-h)^2 + k$ no cambia la familia: siempre que el exponente más alto sea 2, la función es cuadrática.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola invertida es $f(x) = -x^2 + 4$, una función cuadrática con $a < 0$.",
+    "feedback_incorrect": "La parábola que se abre hacia abajo es $f(x) = -x^2 + 4$, una función cuadrática.",
+    "graph_fn": "-x*x + 4",
+    "graph_view": [
+      -4,
+      4,
+      -2,
+      6
+    ],
+    "explanation": "Una parábola **invertida** (que se abre hacia abajo, forma de $\\cap$) sigue siendo una función cuadrática; simplemente tiene $a < 0$.\n\nLa gráfica es $f(x) = -x^2 + 4$: misma simetría y forma de U que cualquier parábola, pero con el vértice arriba. El vértice es $(0, 4)$ y las raíces son $x = \\pm 2$.\n\nNo confundir con funciones exponenciales (que no tienen simetría respecto a un eje vertical) ni logarítmicas (que solo están definidas para $x > 0$). La forma en $\\cap$ es la firma visual de una cuadrática con $a < 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas expresiones es una función cuadrática?",
+    "options": [
+      "$f(x) = x^3 - 1$",
+      "$f(x) = 3x^2 - 7$",
+      "$f(x) = 5 \\cdot 2^x$",
+      "$f(x) = \\ln(x)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$3x^2 - 7$ tiene $x^2$ como término principal con $a = 3 \\neq 0$: cuadrática.",
+    "feedback_incorrect": "$f(x) = 3x^2 - 7$ tiene $x^2$ como mayor potencia: es una función cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Analizando cada opción por su **término de mayor grado** o estructura:\n\n- $f(x) = 3x^2 - 7$: tiene $x^2$ con $a = 3 \\neq 0$ y $b = 0$. Es la forma $ax^2 + c$: **cuadrática**.\n- $f(x) = x^3 - 1$: término de mayor grado $x^3$, grado 3: **cúbica** (no cuadrática).\n- $f(x) = 5 \\cdot 2^x$: la variable $x$ está en el exponente: **exponencial**.\n- $f(x) = \\ln(x)$: función **logarítmica**, no polinómica.\n\nNota: en $3x^2 - 7$ el coeficiente lineal es $b = 0$, pero eso no le quita el carácter cuadrático. La condición es $a \\neq 0$, no $b \\neq 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = x^2$?",
+    "options": [
+      "Logarítmica",
+      "Lineal",
+      "Cuadrática",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^2$ es la cuadrática más simple ($a=1$, $b=0$, $c=0$).",
+    "feedback_incorrect": "$f(x) = x^2$ es la parábola básica: pertenece a la familia cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = x^2$ es la **parábola básica**: la función cuadrática más simple posible.\n\nEn la forma estándar $ax^2 + bx + c$: $a = 1$, $b = 0$, $c = 0$. La condición $a \\neq 0$ se cumple con $a = 1$.\n\nSus propiedades: vértice en el origen $(0, 0)$, eje de simetría $x = 0$ (eje $Y$), se abre hacia arriba, una única raíz $x = 0$ (doble). Toda parábola puede entenderse como una transformación (traslación, reflexión, escala) de esta parábola básica $f(x) = x^2$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece esta gráfica?",
+    "options": [
+      "Racional",
+      "Lineal",
+      "Logarítmica",
+      "Cuadrática"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La parábola con vértice en $(1, -4)$ es $f(x) = x^2 - 2x - 3$, una cuadrática.",
+    "feedback_incorrect": "La curva en forma de U es una parábola ($f(x) = x^2 - 2x - 3$): función cuadrática.",
+    "graph_fn": "x*x - 2*x - 3",
+    "graph_view": [
+      -2,
+      4,
+      -5,
+      5
+    ],
+    "explanation": "La gráfica muestra una curva en forma de U con **simetría bilateral**: esto es la firma visual inconfundible de una **parábola**, gráfica de toda función cuadrática.\n\nLa función correspondiente es $f(x) = x^2 - 2x - 3$. Verificación: el vértice está en $x_v = -(-2)/(2 \\cdot 1) = 1$, $y_v = 1 - 2 - 3 = -4$, es decir, $(1, -4)$, que coincide con el mínimo visible en la gráfica.\n\nUna función lineal daría una recta, una logarítmica crece sin simetría, y una racional tendría asíntotas. La curva simétrica con mínimo es característica de la familia **cuadrática**.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas NO es una función cuadrática?",
+    "options": [
+      "$f(x) = x^3 - 2$",
+      "$f(x) = 5x^2$",
+      "$f(x) = x^2 - x$",
+      "$f(x) = -(x+1)^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^3 - 2$ es un polinomio de grado 3, no cuadrático.",
+    "feedback_incorrect": "$f(x) = x^3 - 2$ tiene grado 3: no es cuadrática. Las cuadráticas tienen grado exactamente 2.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función cuadrática tiene **grado exactamente 2**: el término de mayor potencia en $x$ es $x^2$.\n\n$f(x) = x^3 - 2$ tiene $x^3$ como término principal: es un polinomio de **grado 3** (cúbico), no cuadrático.\n\nLas otras tres son cuadráticas: $5x^2$ tiene $a=5$, $b=0$, $c=0$; $x^2 - x$ tiene $a=1$, $b=-1$, $c=0$; $-(x+1)^2 = -x^2 - 2x - 1$ tiene $a=-1$. Todas cumplen $a \\neq 0$ con grado máximo 2. El grado 3 excluye automáticamente a $x^3 - 2$ de la familia cuadrática.",
+    "reviewed": false
+  },
+  {
+    "question": "¿A qué familia pertenece $f(x) = 5x^2 - 3$?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$5x^2 - 3$ tiene la forma $ax^2 + c$ con $a = 5 \\neq 0$: es cuadrática.",
+    "feedback_incorrect": "$f(x) = 5x^2 - 3$ es un polinomio de grado 2: pertenece a la familia cuadrática.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(x) = 5x^2 - 3$ es la forma $ax^2 + c$ con $a = 5$ y $c = -3$ (el coeficiente lineal $b = 0$).\n\nLa ausencia del término $bx$ no cambia la familia: la condición para ser cuadrática es solo $a \\neq 0$, y aquí $a = 5 \\neq 0$. Es una función **cuadrática** sin término lineal.\n\nSu parábola es **simétrica respecto al eje $Y$** (eje de simetría $x = 0$), con vértice en $(0, -3)$ y se abre hacia arriba. Las raíces son $x = \\pm\\sqrt{3/5}$, ya que $5x^2 - 3 = 0 \\Rightarrow x^2 = 3/5$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = -(x - 2)^2 + 3$?",
+    "options": [
+      "$[3, +\\infty)$",
+      "$(-\\infty, 3]$",
+      "$\\mathbb{R}$",
+      "$\\{3\\}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo con vértice en $(2, 3)$. El valor máximo es $3$, por lo que la imagen es $(-\\infty, 3]$.",
+    "feedback_incorrect": "La función $-(x-2)^2 + 3$ abre hacia abajo: el término $-(x-2)^2 \\leq 0$, así que $f(x) \\leq 3$. El máximo es $f(2) = 3$. La imagen es $(-\\infty, 3]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = -(x-2)^2 + 3$ es una parábola en **forma canónica** con vértice en $(2, 3)$ y coeficiente negativo (abre hacia abajo).\n\nComo $(x-2)^2 \\geq 0$ para todo $x$, se tiene:\n\n$$f(x) = \\underbrace{-(x-2)^2}_{\\leq\\, 0} + 3 \\leq 3$$\n\nEl valor máximo $f(2) = 3$ se alcanza en el vértice. Además, como la parábola baja sin límite, la imagen es $(-\\infty, 3]$.\n\nRegla general: si la parábola abre hacia abajo con vértice $(h, k)$, la imagen es $(-\\infty, k]$. Si abre hacia arriba, la imagen es $[k, +\\infty)$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es decreciente $f(x) = x^2 - 4x + 1$?",
+    "options": [
+      "$(0,\\ 4)$",
+      "$(-\\infty,\\ 2]$",
+      "$[2,\\ +\\infty)$",
+      "$(4,\\ +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El vértice está en $x = 2$. Como la parábola abre hacia arriba ($a > 0$), decrece en $(-\\infty, 2]$.",
+    "feedback_incorrect": "El vértice de $f(x) = x^2 - 4x + 1$ está en $x = -\\frac{-4}{2 \\cdot 1} = 2$. Como abre hacia arriba, la función decrece antes del vértice: en $(-\\infty, 2]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = x^2 - 4x + 1$ (parábola con $a = 1 > 0$, abre hacia arriba), el vértice se calcula como:\n\n$$x_v = -\\frac{b}{2a} = -\\frac{-4}{2 \\cdot 1} = 2$$\n\nEl vértice es el **punto mínimo**. La función:\n- **Decrece** en $(-\\infty, 2]$: la parábola baja hacia el vértice.\n- **Crece** en $[2, +\\infty)$: la parábola sube a partir del vértice.\n\nRegla general: si $a > 0$, la parábola decrece a la izquierda del vértice y crece a la derecha.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué intervalo es creciente $f(x) = -x^2 + 6x$?",
+    "options": [
+      "$(-\\infty,\\ 0)$",
+      "$(0,\\ 3)$",
+      "$(3,\\ +\\infty)$",
+      "$(-\\infty,\\ 3]$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El vértice está en $x = 3$. Como la parábola abre hacia abajo ($a < 0$), crece en $(-\\infty, 3]$.",
+    "feedback_incorrect": "El vértice de $f(x) = -x^2 + 6x$ está en $x = 3$. Como $a = -1 < 0$ (abre hacia abajo), la función crece antes del vértice: en $(-\\infty, 3]$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -x^2 + 6x$ (parábola con $a = -1 < 0$, abre hacia abajo), el vértice es:\n\n$$x_v = -\\frac{b}{2a} = -\\frac{6}{2 \\cdot (-1)} = 3$$\n\nEl vértice es el **punto máximo**. La función:\n- **Crece** en $(-\\infty, 3]$: la parábola sube hacia el vértice.\n- **Decrece** en $[3, +\\infty)$: la parábola baja a partir del vértice.\n\nRegla general: si $a < 0$, la parábola crece a la izquierda del vértice y decrece a la derecha.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $f(x) = (x - 1)^2 + 2$, ¿en qué intervalo es creciente?",
+    "options": [
+      "$[1,\\ +\\infty)$",
+      "$(-\\infty,\\ 1]$",
+      "$(-\\infty,\\ 2]$",
+      "$[2,\\ +\\infty)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En forma canónica $f(x) = (x-1)^2 + 2$, el vértice es $(1, 2)$. Como abre hacia arriba, crece en $[1, +\\infty)$.",
+    "feedback_incorrect": "La función está en forma canónica $f(x) = (x-h)^2 + k$ con $h = 1, k = 2$. El vértice es $(1, 2)$. Como $a = 1 > 0$ (abre hacia arriba), crece para $x \\geq 1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = (x-1)^2 + 2$ está en **forma canónica** $f(x) = a(x-h)^2 + k$, con $a = 1 > 0$, $h = 1$, $k = 2$.\n\nEl vértice es el punto $(h, k) = (1, 2)$: el mínimo de la parábola.\n\nComo $a > 0$ (abre hacia arriba):\n- La función **decrece** en $(-\\infty, 1]$.\n- La función **crece** en $[1, +\\infty)$.\n\nLeer el intervalo de crecimiento directamente de la forma canónica: crece para $x \\geq h$.",
+    "reviewed": false
+  },
+  {
+    "question": "Un albañil quiere saber cuánto cerámico necesita para cubrir el piso de un cuarto cuadrado de lado $x$ metros.\n\n¿Qué familia de función describe el área del piso en función del lado?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área de un cuadrado es $A = x^2$: la variable aparece elevada al cuadrado. Cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "El área de cualquier figura donde la longitud se multiplica por sí misma da una función cuadrática.\n\nPara un cuarto cuadrado de lado $x$: $A(x) = x \\cdot x = x^2$.\n\nLa clave que delata la cuadrática es el exponente 2, no una tasa constante ni un porcentaje. El albañil lo sabe; a veces los estudiantes, no.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un agricultor tiene 20 metros de alambre para cercar un corral rectangular. Si un lado mide $x$ metros, el lado opuesto mide $10 - x$ metros y el área es $A(x) = x(10 - x)$.\n\n¿A qué familia pertenece la función que describe el área del corral?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Raíz cuadrada"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$x(10 - x) = 10x - x^2$: aparece $x^2$, así que es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el área resulta del producto de dos expresiones lineales en $x$, el resultado es siempre una función cuadrática.\n\n$A(x) = x(10 - x) = 10x - x^2$\n\nEl término $-x^2$ define la familia. Además, esta parábola tiene un máximo: hay un ancho $x$ que maximiza el área del corral. El agricultor lo encontraría en $x = 5$ m.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un jugador patea una pelota. La altura en metros al cabo de $t$ segundos sigue la fórmula\n$$h(t) = -5t^2 + 10t$$\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Exponencial",
+      "Cuadrática",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$-5t^2 + 10t$ tiene $t^2$ como término principal: es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "La presencia de $t^2$ en la fórmula hace que $h(t)$ sea una función cuadrática.\n\nEl coeficiente $-5 < 0$ indica que la parábola abre hacia abajo: la pelota sube, llega a un máximo (el vértice) y luego cae. El signo negativo no cambia la familia, solo la orientación.\n\nEsta es la estructura clásica de cualquier objeto en vuelo bajo la gravedad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un objeto se suelta desde lo alto de un edificio. La distancia recorrida, en metros, al cabo de $t$ segundos es\n$$d(t) = 5t^2$$\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Constante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$5t^2$ tiene $t^2$ como único término: es cuadrática con $a = 5$, $b = 0$, $c = 0$.",
+    "feedback_incorrect": "",
+    "explanation": "La caída libre bajo la gravedad produce siempre una función cuadrática: la distancia es proporcional al cuadrado del tiempo.\n\n$d(t) = 5t^2$ es la forma $at^2 + bt + c$ con $a = 5$, $b = 0$, $c = 0$.\n\nNo es lineal porque la velocidad de caída aumenta con el tiempo, no es constante. Eso es lo que hace que cuadrática y caída libre sean inseparables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un puesto de limonada sube el precio y vende menos vasos. La ganancia diaria en pesos según el precio $p$ es\n$$G(p) = -p^2 + 12p$$\n¿A qué familia pertenece la función ganancia?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$-p^2 + 12p$ tiene $p^2$: cuadrática. El signo negativo indica que hay un precio óptimo.",
+    "feedback_incorrect": "",
+    "explanation": "La ganancia es el producto del precio por la cantidad vendida. Si la cantidad vendida depende linealmente del precio ($q = 12 - p$, por ejemplo), entonces:\n\n$G = p \\cdot q = p(12 - p) = 12p - p^2$\n\nEl producto de dos factores lineales da siempre una cuadrática. El vértice en $p = 6$ indica el precio que maximiza la ganancia. Nicolás debería haberlo calculado antes de fijar el precio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un cine tiene 300 butacas. Si cobra $p$ pesos por entrada, estima que vende $300 - 3p$ entradas. La recaudación total es $R(p) = p(300 - 3p)$.\n\n¿A qué familia pertenece la función recaudación?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Raíz cuadrada"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$p(300 - 3p) = 300p - 3p^2$: aparece $p^2$, es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando la recaudación es precio por cantidad, y la cantidad depende linealmente del precio, el resultado es siempre una cuadrática.\n\n$R(p) = p(300 - 3p) = 300p - 3p^2$\n\nEl vértice indica el precio que maximiza la recaudación. Subir demasiado el precio vacía la sala; bajarlo demasiado recauda poco. La cuadrática captura ese equilibrio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La trayectoria de un tiro libre de básquet sigue la fórmula\n$$h(d) = -0{,}1d^2 + d + 2$$\ndonde $d$ es la distancia horizontal en metros y $h$ la altura en metros.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Trigonométrica",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El término $-0{,}1d^2$ hace que la función sea cuadrática. La trayectoria de cualquier proyectil es una parábola.",
+    "feedback_incorrect": "",
+    "explanation": "La trayectoria de un proyectil (sin rozamiento del aire) siempre es una parábola, es decir, una función cuadrática.\n\nEl coeficiente $a = -0{,}1 < 0$ indica que la parábola abre hacia abajo: la pelota sube, llega a un pico y luego cae hacia el aro. El término independiente $c = 2$ indica que el jugador lanza desde 2 metros de altura.\n\nFísica y álgebra, juntas en cada triple.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un comercio nota que al subir el precio de un artículo, la demanda baja. El ingreso total según el precio $p$ resulta\n$$I(p) = 120p - 4p^2$$\n¿A qué familia pertenece la función ingreso?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$p(120 - 4p) = 120p - 4p^2$: el término $p^2$ define la familia cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el ingreso resulta del producto de dos expresiones lineales en el precio, el resultado es una cuadrática.\n\n$I(p) = 120p - 4p^2$\n\nEsta es la estructura típica de los problemas de optimización de ingresos en economía: hay un precio óptimo que maximiza el ingreso, y ese precio es el vértice de la parábola.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "El cable principal de un puente colgante tiene su punto más bajo a 5 metros sobre el río. La altura del cable se modela como\n$$h(x) = 0{,}01x^2 - 0{,}8x + 21$$\ndonde $x$ es la distancia horizontal en metros.\n\n¿A qué familia pertenece esta función?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}01x^2 - 0{,}8x + 21$ tiene $x^2$: cuadrática. Abre hacia arriba porque $a > 0$.",
+    "feedback_incorrect": "",
+    "explanation": "La forma de un cable colgante es una parábola (o catenaria, pero en los modelos simplificados se usa cuadrática).\n\nEl coeficiente $a = 0{,}01 > 0$ indica que la parábola abre hacia arriba: el cable tiene un mínimo, que es su punto más bajo sobre el río.\n\nEsta es la cuadrática del tipo mínimo, a diferencia del tiro de pelota que tiene máximo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "El área de un triángulo rectángulo con ambos catetos iguales a $x$ cm es\n$$A(x) = \\dfrac{x^2}{2}$$\n¿A qué familia pertenece la función área?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Raíz cuadrada",
+      "Constante"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\frac{x^2}{2}$ es de la forma $ax^2$ con $a = \\frac{1}{2}$: cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "El área de cualquier figura que depende del cuadrado de una medida es una función cuadrática.\n\n$A(x) = \\dfrac{x^2}{2} = \\dfrac{1}{2}x^2$\n\nEsto tiene la forma $ax^2 + bx + c$ con $a = \\frac{1}{2}$, $b = 0$, $c = 0$. El coeficiente no necesita ser entero para que la función sea cuadrática.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un nene lanza un cohete de papel desde 1 metro de altura. La altura en metros es\n$$h(t) = -3t^2 + 6t + 1$$\n¿En qué tramo de tiempo la altura está creciendo?",
+    "options": [
+      "Para todo $t > 0$",
+      "En $[0, 1]$",
+      "En $[0, 3]$",
+      "En $[0, 2]$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El vértice está en $t = -b/(2a) = -6/(2 \\cdot (-3)) = 1$ s. La altura crece antes del vértice: en $[0, 1]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a < 0$ (abre hacia abajo), la función **crece** hasta el vértice y **decrece** después.\n\nEl vértice está en:\n$$t_v = -\\frac{b}{2a} = -\\frac{6}{2(-3)} = 1 \\text{ s}$$\n\nAsí que la altura crece en $[0, 1]$ y decrece en $[1, +\\infty)$. El cohete de papel no llega muy lejos, pero al menos el cálculo es prolijo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un remis cobra \\$800 al subir al auto y \\$300 por cada kilómetro recorrido.\n\n¿Qué familia de función describe el costo total del viaje según los kilómetros?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Costo fijo más monto por km = tasa constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Una función lineal describe situaciones con una **tasa constante de cambio**: por cada kilómetro extra, el costo sube siempre en \\$300.\n\n$C(k) = 800 + 300k$\n\nEsto es $mx + b$ con $m = 300$ y $b = 800$. No hay $k^2$ porque el costo por km no varía según cuántos km lleves recorridos. Un buen discriminador: si la tarifa por unidad es siempre la misma, la función es lineal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una colonia de bacterias parte de 200 células y se duplica cada hora.\n\n¿Qué familia de función describe la cantidad de bacterias en función del tiempo?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Duplicarse cada hora = multiplicar por 2 periódicamente = función exponencial.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando una cantidad **se multiplica por un factor fijo** en cada período, la función es exponencial.\n\n$N(t) = 200 \\cdot 2^t$\n\nNo es cuadrática porque la tasa de crecimiento no es constante ni produce un punto óptimo: las bacterias solo suben, sin vértice ni parabólea. No es lineal porque el incremento no es el mismo cada hora. Con las bacterias, ningún modelo optimista alcanza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un ahorro de \\$10000 crece a una tasa del 6% anual.\n\n¿Qué familia de función describe el saldo según los años?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Multiplicar por 1,06 cada año = crecimiento proporcional = función exponencial.",
+    "feedback_incorrect": "",
+    "explanation": "El interés compuesto multiplica el saldo por un factor fijo cada período:\n\n$S(n) = 10000 \\cdot 1{,}06^n$\n\nLa diferencia clave con la cuadrática: una cuadrática tiene un vértice (máximo o mínimo) mientras que una exponencial solo sube (o solo baja) sin parar. El saldo con interés compuesto nunca tiene un máximo: ojalá.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una enredadera crece 4 cm por semana de forma constante, sin importar cuánto ya mida.\n\n¿Qué familia de función describe la altura de la planta en función de las semanas?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Crecer la misma cantidad por período = tasa constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Una función es lineal cuando la **variación por unidad de tiempo es constante**: 4 cm por semana, siempre.\n\n$h(t) = h_0 + 4t$\n\nNo es cuadrática porque no hay un punto máximo ni mínimo: la planta no sube y después baja. Tampoco es exponencial porque no se multiplica por nada: solo suma. La enredadera es linealmente confiable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un celular pierde el 20% de su valor cada año.\n\n¿Qué familia de función describe el valor del celular en función de los años?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "Perder el mismo porcentaje cada año = multiplicar por 0,8 = función exponencial decreciente.",
+    "feedback_incorrect": "",
+    "explanation": "La depreciación porcentual constante produce una función exponencial decreciente:\n\n$V(t) = V_0 \\cdot 0{,}8^t$\n\nDiferencia con la lineal: en la lineal se pierde siempre la misma *cantidad* de pesos; en la exponencial se pierde siempre el mismo *porcentaje*. Al principio la diferencia es grande, con el tiempo el celular vale centavos pero técnicamente nunca llega a cero.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La escala de Richter mide la magnitud de un sismo como $M = \\log_{10}(I / I_0)$, donde $I$ es la intensidad medida e $I_0$ es la intensidad de referencia.\n\n¿A qué familia pertenece $M$ como función de $I$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 3,
+    "feedback_correct": "$M = \\log_{10}(I/I_0)$ es una función logarítmica de $I$.",
+    "feedback_incorrect": "",
+    "explanation": "Cualquier función de la forma $f(x) = \\log_b(x)$ pertenece a la familia **logarítmica**.\n\n$M(I) = \\log_{10}(I / I_0)$\n\nEl logaritmo crece muy despacio: pasar de magnitud 5 a 6 no es sumar uno sino multiplicar la intensidad real por 10. No es cuadrática: no hay vértice ni fenómeno con punto óptimo. Un sismo no tiene un \"máximo conveniente\".",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa registra que su maquinaria pierde \\$5000 de valor por año, independientemente de su estado.\n\n¿Qué familia de función describe el valor de la maquinaria en el tiempo?",
+    "options": [
+      "Exponencial",
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Pérdida fija de \\$5000 por año = tasa de cambio constante = función lineal.",
+    "feedback_incorrect": "",
+    "explanation": "Cuando la pérdida (o ganancia) es siempre la misma cantidad por período, la función es lineal.\n\n$V(t) = V_0 - 5000t$\n\nSi en cambio la pérdida fuera un porcentaje del valor actual, sería exponencial. La diferencia: en la lineal todos los años se deprecia lo mismo; en la exponencial, los primeros años se pierde más y con el tiempo se pierde menos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "El pH de una solución es $\\text{pH} = -\\log_{10}[H^+]$, donde $[H^+]$ es la concentración de iones hidrógeno.\n\n¿A qué familia pertenece el pH como función de $[H^+]$?",
+    "options": [
+      "Cuadrática",
+      "Lineal",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$-\\log_{10}[H^+]$ es una función logarítmica de $[H^+]$.",
+    "feedback_incorrect": "",
+    "explanation": "El pH usa el logaritmo para comprimir una escala de concentraciones enormemente amplia en valores manejables del 0 al 14.\n\n$\\text{pH}([H^+]) = -\\log_{10}[H^+]$\n\nNo es cuadrática: no hay ningún punto óptimo de acidez. Tampoco es lineal porque el cambio en pH no es proporcional al cambio en concentración. La familia logarítmica describe exactamente esas escalas que crecen despacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La ganancia diaria de una heladería sube al vender más porciones, hasta un máximo de 80 porciones. A partir de ahí, más porciones implica más insumos y la ganancia cae.\n\n¿En qué intervalo de porciones vendidas la función ganancia es creciente?",
+    "options": [
+      "En $(80, +\\infty)$",
+      "En $(-\\infty, 80]$",
+      "En $[0, 80]$",
+      "Siempre es creciente"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "La ganancia crece desde 0 hasta el máximo en 80 porciones: el intervalo creciente es $[0, 80]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática con máximo (parábola hacia abajo) **crece** hasta el vértice y **decrece** después.\n\nAquí el vértice está en $x = 80$ porciones: ese es el punto donde la ganancia es máxima.\n\nIntervalo creciente: $[0, 80]$. Intervalo decreciente: $[80, +\\infty)$. A la heladería le conviene no pasarse de 80 porciones diarias, aunque en verano es difícil contenerse.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Para $f(x) = 2x^2 - 12x + 10$, ¿en qué intervalo es decreciente la función?",
+    "options": [
+      "$[3, +\\infty)$",
+      "$(-\\infty, 3]$",
+      "$(-\\infty, 6]$",
+      "$[0, 6]$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice está en $x = 12/(2 \\cdot 2) = 3$. Como $a = 2 > 0$, la función decrece antes del vértice: en $(-\\infty, 3]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a > 0$ (abre hacia arriba), la función **decrece** hasta el vértice y **crece** después.\n\nEl vértice es:\n$$x_v = -\\frac{b}{2a} = -\\frac{-12}{2 \\cdot 2} = \\frac{12}{4} = 3$$\n\nIntervalo decreciente: $(-\\infty, 3]$. Intervalo creciente: $[3, +\\infty)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota alcanza su altura máxima a los 3 segundos de ser lanzada. La función de altura es cuadrática con $a < 0$.\n\n¿En qué tramo de tiempo la altura de la pelota está creciendo?",
+    "options": [
+      "En $[3, +\\infty)$",
+      "En $(-\\infty, 3]$",
+      "En $[0, 3]$",
+      "Siempre decrece"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El máximo es a los 3 s. Con $a < 0$ la función crece antes del máximo: en $[0, 3]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una parábola con $a < 0$ (abre hacia abajo) **crece** hasta el vértice y **decrece** después.\n\nEl vértice (altura máxima) está en $t = 3$ s. Antes de ese momento la pelota sube, después cae.\n\nIntervalo creciente: $[0, 3]$. Intervalo decreciente: $[3, +\\infty)$. La pelota no consulta el álgebra antes de subir, pero el álgebra siempre tiene razón.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Para $f(x) = -(x - 5)^2 + 8$, ¿en qué intervalo es creciente la función?",
+    "options": [
+      "$[5, +\\infty)$",
+      "$(-\\infty, 5]$",
+      "$(-\\infty, 8]$",
+      "$[8, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice está en $x = 5$. Como $a = -1 < 0$, la función crece antes del vértice: en $(-\\infty, 5]$.",
+    "feedback_incorrect": "",
+    "explanation": "En forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es $(h, k)$.\n\nAquí $h = 5$, $k = 8$, $a = -1 < 0$: parábola hacia abajo con vértice en $(5, 8)$.\n\nIntervalo creciente: $(-\\infty, 5]$. Intervalo decreciente: $[5, +\\infty)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "El consumo de combustible de un auto, medido en litros cada 100 km, tiene su valor mínimo a 80 km/h. Cuando va más lento o más rápido, consume más.\n\n¿En qué intervalo de velocidades el consumo está decreciendo?",
+    "options": [
+      "En $[80, +\\infty)$",
+      "En $[0, 80]$",
+      "En $(-\\infty, 80]$",
+      "Siempre está creciendo"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El mínimo es a 80 km/h. El consumo decrece (mejora) antes del mínimo, es decir, en $[0, 80]$.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática con mínimo (parábola hacia arriba, $a > 0$) **decrece** hasta el vértice y **crece** después.\n\nAquí el vértice es el mínimo de consumo, en $v = 80$ km/h.\n\nAntes de 80 km/h, el consumo baja al acercarse a la velocidad óptima. Después de 80 km/h, el consumo sube. Intervalo decreciente (consumo mejora): $[0, 80]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La función $f(x) = x^2 - 8x + 12$ tiene su vértice en $x = 4$.\n\n¿En qué intervalo es creciente?",
+    "options": [
+      "$(-\\infty, 4]$",
+      "$[4, +\\infty)$",
+      "$(-\\infty, 12]$",
+      "$[0, 4]$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Con $a = 1 > 0$ y vértice en $x = 4$, la función crece en $[4, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a > 0$ (abre hacia arriba), el vértice es un mínimo.\n\nLa función **decrece** a la izquierda del vértice y **crece** a la derecha.\n\nVértice en $x = 4$: intervalo creciente $[4, +\\infty)$, intervalo decreciente $(-\\infty, 4]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La altura de una pelota lanzada hacia arriba alcanza un punto máximo y luego cae.\n\n¿Qué signo tiene el coeficiente $a$ de la función cuadrática que modela la altura?",
+    "options": [
+      "$a > 0$ (parábola hacia arriba)",
+      "$a < 0$ (parábola hacia abajo)",
+      "$a = 0$ (es lineal)",
+      "$a$ puede ser cualquier valor"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice máximo implica parábola hacia abajo: $a < 0$.",
+    "feedback_incorrect": "",
+    "explanation": "El signo de $a$ determina si la parábola tiene un **máximo** o un **mínimo**.\n\n- $a < 0$: parábola hacia abajo $\\cap$, el vértice es un **máximo**.\n- $a > 0$: parábola hacia arriba $\\cup$, el vértice es un **mínimo**.\n\nLa pelota que sube y baja tiene un máximo de altura: su $a$ es negativo. Ninguna pelota defrauda la física.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Un cable colgante entre dos postes forma una curva con el punto más bajo en el centro.\n\n¿Cómo se abre la parábola que modela la altura del cable?",
+    "options": [
+      "Hacia abajo, porque hay un máximo",
+      "Hacia arriba, porque hay un mínimo",
+      "Es una recta horizontal",
+      "No es una parábola"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El punto más bajo es un mínimo: la parábola abre hacia arriba ($a > 0$).",
+    "feedback_incorrect": "",
+    "explanation": "Cuando el fenómeno tiene un **mínimo** (punto más bajo), la parábola abre hacia arriba y su coeficiente $a > 0$.\n\nEl cable colgante tiene su punto más bajo en el centro: eso es el vértice de una parábola $\\cup$. Distinto al tiro de pelota que tiene su punto más alto (vértice de una parábola $\\cap$).\n\nLa gravedad hace que los cables cuelguen hacia abajo y los proyectiles también caigan: pero los gráficos son opuestos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una empresa modela su ganancia semanal con una función cuadrática que tiene un valor máximo.\n\n¿Qué se puede afirmar sobre el coeficiente $a$ de esa función?",
+    "options": [
+      "$a > 0$",
+      "$a < 0$",
+      "$a = 0$",
+      "No se puede saber"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Si la ganancia tiene un máximo, la parábola abre hacia abajo: $a < 0$.",
+    "feedback_incorrect": "",
+    "explanation": "Si una cuadrática tiene un **máximo**, el vértice es el punto más alto de la parábola: la curva abre hacia abajo.\n\nParábola hacia abajo $\\Leftrightarrow$ $a < 0$.\n\nLa empresa sabe que hay un nivel de producción o precio que maximiza la ganancia; más allá de ese punto la ganancia cae. Es el signo más rentable que puede tener una empresa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La temperatura de la madrugada tiene un mínimo a las 4 am y luego empieza a subir.\n\n¿Qué dice eso sobre la parábola que modela la temperatura?",
+    "options": [
+      "Abre hacia abajo: tiene un máximo a las 4 am",
+      "Abre hacia arriba: tiene un mínimo a las 4 am",
+      "Es una recta decreciente",
+      "Es una función exponencial"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Mínimo a las 4 am implica parábola hacia arriba ($a > 0$) con vértice en $h = 4$.",
+    "feedback_incorrect": "",
+    "explanation": "Un mínimo en la función corresponde a una parábola que abre hacia **arriba** ($a > 0$).\n\nLa temperatura más fría ocurre en el vértice de una parábola $\\cup$. Antes de las 4 am baja, después sube.\n\nContraste con el tiro de pelota: la pelota tiene un máximo (parábola $\\cap$, $a < 0$). La temperatura de madrugada tiene un mínimo (parábola $\\cup$, $a > 0$). Dos cuadráticas, dos orientaciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Una pelota se lanza y su altura máxima es 20 metros. La función de altura es cuadrática con vértice en $(3, 20)$ y $a < 0$.\n\n¿Cuál es el rango de valores que puede tomar la altura?",
+    "options": [
+      "$[20, +\\infty)$",
+      "$(-\\infty, 20]$",
+      "$[0, 20]$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Parábola hacia abajo con vértice $(3, 20)$: la imagen es $(-\\infty, 20]$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática con $a < 0$ (parábola hacia abajo), el vértice es el **valor máximo**.\n\nLa imagen de la función es $(-\\infty, k]$ donde $k$ es la coordenada $y$ del vértice.\n\nAquí $k = 20$: la altura nunca supera los 20 m. En el contexto físico, la altura tampoco puede ser negativa (el suelo está en $h = 0$), pero matemáticamente la cuadrática sí toma valores negativos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = 2(x - 3)^2 + 1$?",
+    "options": [
+      "$(-\\infty, 1]$",
+      "$[1, +\\infty)$",
+      "$[3, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice es $(3, 1)$ y $a = 2 > 0$: parábola hacia arriba, imagen $[1, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática en forma de vértice $a(x-h)^2 + k$:\n\n- Si $a > 0$ (abre hacia arriba), el vértice es el **mínimo** y la imagen es $[k, +\\infty)$.\n- Si $a < 0$ (abre hacia abajo), el vértice es el **máximo** y la imagen es $(-\\infty, k]$.\n\nAquí $a = 2 > 0$ y $k = 1$: imagen $[1, +\\infty)$. La función nunca vale menos que 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la imagen de $f(x) = -3(x + 1)^2$?",
+    "options": [
+      "$[0, +\\infty)$",
+      "$(-\\infty, 0]$",
+      "$\\{0\\}$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El vértice es $(-1, 0)$ y $a = -3 < 0$: parábola hacia abajo, imagen $(-\\infty, 0]$.",
+    "feedback_incorrect": "",
+    "explanation": "En $f(x) = -3(x + 1)^2$, el vértice está en $(-1, 0)$ con $k = 0$ y $a = -3 < 0$.\n\nParábola hacia abajo: el vértice es el valor máximo. La función vale como máximo 0 (en $x = -1$) y decrece sin límite para $x$ alejados del vértice.\n\nImagen: $(-\\infty, 0]$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "Para una función cuadrática con vértice $(4, -3)$ que abre hacia arriba, ¿cuál es su imagen?",
+    "options": [
+      "$(-\\infty, -3]$",
+      "$[-3, +\\infty)$",
+      "$[4, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Vértice $(4, -3)$ con $a > 0$: el mínimo es $-3$ y la imagen es $[-3, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "Para una cuadrática que abre hacia arriba ($a > 0$), el vértice $(h, k)$ marca el **mínimo** de la función.\n\nLa imagen es $[k, +\\infty)$: todos los valores mayores o iguales al mínimo.\n\nAquí $k = -3$: imagen $[-3, +\\infty)$. Nota: el vértice en $x = 4$ indica *dónde* ocurre el mínimo, pero la imagen usa la coordenada $y$ del vértice, no la $x$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas expresiones NO es una función cuadrática?",
+    "options": [
+      "$f(x) = (x + 2)(x - 3)$",
+      "$g(x) = 0{,}5x^2 - 1$",
+      "$h(x) = x^3 - x^2$",
+      "$p(x) = -(x - 1)^2 + 4$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$h(x) = x^3 - x^2$ tiene grado 3: no es cuadrática.",
+    "feedback_incorrect": "",
+    "explanation": "Una función cuadrática tiene **grado exactamente 2**: el término de mayor potencia en $x$ es $x^2$.\n\n- $f(x) = (x+2)(x-3) = x^2 - x - 6$: grado 2 ✓\n- $g(x) = 0{,}5x^2 - 1$: grado 2 ✓\n- $h(x) = x^3 - x^2$: grado **3** ✗ (el término dominante es $x^3$)\n- $p(x) = -(x-1)^2 + 4 = -x^2 + 2x + 3$: grado 2 ✓\n\nLa presencia de $-x^2$ en $h$ no alcanza: el $x^3$ lo desclasifica.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas situaciones se modela con una función cuadrática?",
+    "options": [
+      "El saldo bancario crece un 3% mensual.",
+      "Una vela se consume a razón de 2 cm por hora.",
+      "El área de un cuadrado en función de su lado.",
+      "La presión del agua baja 0,1 bar por metro de altura."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "El área de un cuadrado es $A = L^2$: cuadrática. Las demás son exponencial y dos lineales.",
+    "feedback_incorrect": "",
+    "explanation": "Para identificar la familia correcta, la clave está en la **estructura de la relación**.\n\n- Saldo con 3% mensual → se multiplica por 1,03 cada mes → **exponencial**.\n- Vela a 2 cm/hora → tasa constante → **lineal**.\n- Área del cuadrado → $A = L \\cdot L = L^2$ → **cuadrática** ✓\n- Presión baja 0,1 bar/metro → tasa constante → **lineal**.\n\nEl área es la gran fuente de cuadráticas en la vida cotidiana.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  },
+  {
+    "question": "La función $f(x) = \\dfrac{1}{4}(x - 2)^2 - 5$ es cuadrática.\n\n¿Cuál es su imagen?",
+    "options": [
+      "$[-5, +\\infty)$",
+      "$(-\\infty, -5]$",
+      "$[2, +\\infty)$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Vértice $(2, -5)$ con $a = \\frac{1}{4} > 0$: parábola hacia arriba, imagen $[-5, +\\infty)$.",
+    "feedback_incorrect": "",
+    "explanation": "La función $f(x) = \\frac{1}{4}(x-2)^2 - 5$ está en forma de vértice con $a = \\frac{1}{4}$, $h = 2$, $k = -5$.\n\nComo $a > 0$, la parábola abre hacia arriba y el vértice $(2, -5)$ es el **mínimo**.\n\nImagen: $[-5, +\\infty)$. El coeficiente $\\frac{1}{4}$ hace la parábola más abierta que la básica $x^2$, pero no cambia que el mínimo sea $-5$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

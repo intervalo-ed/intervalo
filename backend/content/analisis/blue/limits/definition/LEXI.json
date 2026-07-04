@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Qué describe la expresión $\\lim_{x \\to a} f(x) = L$?",
+    "options": [
+      "El valor al que se acerca $f(x)$ cuando $x$ se aproxima a $a$",
+      "El valor de $f(a)$",
+      "La pendiente de $f$ en $x = a$",
+      "El área bajo la curva en $x = a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El límite describe el comportamiento de $f(x)$ cuando $x$ se acerca a $a$, no necesariamente el valor en ese punto.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x) = L$ describe el valor al que se aproxima $f(x)$ cuando $x$ tiende a $a$, independientemente de lo que valga $f(a)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **límite** $\\lim_{x \\to a} f(x) = L$ describe el comportamiento de $f(x)$ cuando $x$ se acerca a $a$, no el valor en ese punto. El punto $x=a$ puede incluso no estar en el dominio de $f$: lo que importa es lo que sucede alrededor.\n\n$$\\lim_{x \\to a} f(x) = L$$\n\nEjemplo: si $f(x) = x+1$, entonces $\\lim_{x \\to 2}f(x)=3$ porque cuando $x$ se acerca a $2$, $f(x)$ se acerca a $3$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significa la notación $x \\to 3$?",
+    "options": [
+      "$x$ es igual a $3$",
+      "$x$ se aproxima a $3$ sin necesariamente llegar a valer $3$",
+      "$x$ es mayor que $3$",
+      "$x$ tiende a $3$ solo por la derecha"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La notación $x \\to 3$ indica que $x$ se acerca a $3$, pero no necesariamente toma ese valor.",
+    "feedback_incorrect": "La notación $x \\to 3$ significa que $x$ se aproxima a $3$ desde ambos lados, sin necesariamente llegar a ese valor.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación $x \\to 3$ significa que $x$ **se aproxima** a $3$ desde ambos lados, sin necesariamente llegar a ese valor. El límite estudia el comportamiento cercano, no el punto exacto.\n\n$$\\begin{aligned} x &\\to 3 \\\\ \\Leftrightarrow \\\\ x \\text{ se acerca a } 3, \\; x &\\neq 3 \\end{aligned}$$\n\nEsto es fundamental: $x=3$ podría estar excluido del dominio y el límite puede existir igual.",
+    "reviewed": false
+  },
+  {
+    "question": "Si al sustituir $x = a$ en $\\dfrac{f(x)}{g(x)}$ obtenemos $\\dfrac{0}{0}$, ¿cómo se llama esta situación?",
+    "options": [
+      "Asíntota",
+      "Discontinuidad",
+      "Indeterminación",
+      "Límite infinito"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\dfrac{0}{0}$ es una indeterminación: el límite puede existir, pero no se puede evaluar directamente.",
+    "feedback_incorrect": "Cuando la sustitución directa da $\\dfrac{0}{0}$, se llama indeterminación. Hay que aplicar otra técnica (factorización, racionalización, etc.).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al sustituir $x=a$ y obtener $\\dfrac{0}{0}$, la expresión se llama **indeterminación**: el cociente no tiene un valor algebraico definido. No es cero, no es uno, no es infinito.\n\n$$\\frac{0}{0} \\text{ es una indeterminación — no se puede evaluar directamente}$$\n\nLa buena noticia: la indeterminación no implica que el límite no exista. Con factorización o racionalización se puede resolver en casi todos los casos del cinturón azul.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuándo se puede resolver $\\lim_{x \\to a} f(x)$ por sustitución directa?",
+    "options": [
+      "Siempre, sin importar la función",
+      "Cuando $f(a) = 0$",
+      "Cuando $f$ tiene una asíntota en $x = a$",
+      "Cuando $f$ es continua en $x = a$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Si $f$ es continua en $a$, entonces $\\lim_{x \\to a} f(x) = f(a)$ y basta con sustituir.",
+    "feedback_incorrect": "La sustitución directa funciona cuando $f$ es continua en $x = a$, es decir, cuando $\\lim_{x \\to a} f(x) = f(a)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **sustitución directa** es válida cuando $f$ es continua en $x=a$: en ese caso el límite coincide con el valor de la función. Esto aplica a polinomios, raíces y racionales sin denominador cero en $x=a$.\n\n$$f \\text{ continua en } a \\Rightarrow \\lim_{x \\to a} f(x) = f(a)$$\n\nSi sustituir produce $\\dfrac{0}{0}$ o $\\dfrac{k}{0}$ con $k\\neq 0$, la función no es continua en ese punto y hay que usar otra técnica.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué significa que $\\lim_{x \\to a} f(x)$ sea un límite finito?",
+    "options": [
+      "Que $L$ es un número real",
+      "Que $f(a)$ está definida",
+      "Que $f$ solo está definida en un intervalo acotado",
+      "Que el límite vale cero"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un límite finito significa que $L \\in \\mathbb{R}$, es decir, el límite existe y es un número real.",
+    "feedback_incorrect": "Un límite finito es aquel donde $L$ es un número real (no $\\pm\\infty$). No depende de si $f(a)$ está definida.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **límite finito** es aquel cuyo valor $L$ pertenece a los números reales: $L \\in \\mathbb{R}$. Significa que $f(x)$ se estabiliza cerca de un número concreto al acercarse $x$ a $a$.\n\n$$\\begin{aligned} \\lim_{x &\\to a} f(x) = L \\\\ L \\in \\mathbb{R} \\end{aligned}$$\n\nNo tiene relación con si $f(a)$ está definida: el límite es sobre el comportamiento cercano. Si $L = \\pm\\infty$, el límite existe pero es **infinito**, no finito.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas expresiones genera una indeterminación $\\dfrac{0}{0}$ al sustituir $x = 2$?",
+    "options": [
+      "$\\dfrac{x + 3}{x - 5}$",
+      "$\\dfrac{x^2 - 4}{x - 2}$",
+      "$\\dfrac{x^2 + 1}{x + 1}$",
+      "$\\dfrac{2x}{x^2 + 4}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Al sustituir $x = 2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{0}{0}$, que es una indeterminación.",
+    "feedback_incorrect": "Al sustituir $x=2$ en $\\dfrac{x^2-4}{x-2}$ obtenemos $\\dfrac{4-4}{2-2} = \\dfrac{0}{0}$. Las otras opciones dan valores definidos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para detectar una indeterminación $\\dfrac{0}{0}$, sustituimos el valor en numerador y denominador por separado. Solo si **ambos** valen $0$ al mismo tiempo hay indeterminación.\n\n$$\\begin{aligned} \\frac{x^2-4}{x-2}\\bigg|_{x &= 2} = \\frac{4-4}{2-2} = \\frac{0}{0} \\\\ \\checkmark \\end{aligned}$$\n\nLas otras opciones dan denominador distinto de cero al sustituir, por lo que se resuelven directamente sin indeterminación.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la escritura correcta del límite de $f(x)$ cuando $x$ tiende a $5$?",
+    "options": [
+      "$f(x) \\to 5$",
+      "$\\lim_{f \\to 5} x$",
+      "$\\lim_{x \\to 5} f(x)$",
+      "$\\lim_{x = 5} f(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La notación estándar es $\\lim_{x \\to 5} f(x)$, donde la variable que tiende al valor va debajo del símbolo $\\lim$.",
+    "feedback_incorrect": "La notación correcta es $\\lim_{x \\to 5} f(x)$. Usamos $\\to$ (tiende a) debajo del símbolo de límite para indicar a qué valor se aproxima $x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La notación estándar escribe el símbolo **lím**, debajo la variable que se acerca y el valor al que tiende ($x \\to 5$), y a la derecha la función evaluada.\n\n$$\\lim_{x \\to 5} f(x)$$\n\nErrores frecuentes: escribir $\\lim_{f\\to5}x$ (la variable de tendencia es $x$, no $f$), o usar $=$ en vez de $\\to$ debajo del lím (porque $x$ se *acerca* a $5$, no *es igual* a $5$).",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(2) = 7$ pero $\\lim_{x \\to 2} f(x) = 5$, ¿qué podemos concluir?",
+    "options": [
+      "El límite no existe",
+      "Hay un error, porque el límite siempre debe ser igual a $f(a)$",
+      "La función no está definida en $x = 2$",
+      "El límite y el valor de la función en $x=2$ pueden ser distintos"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El límite describe el comportamiento de $f$ cerca de $x=2$, no en $x=2$. Pueden tener valores distintos.",
+    "feedback_incorrect": "El límite y el valor de la función pueden diferir. $\\lim_{x \\to 2} f(x)$ depende del comportamiento de $f$ cerca de $2$, no del valor $f(2)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **límite** y el **valor de la función** son conceptos independientes. El límite describe lo que $f(x)$ se acerca cuando $x \\to a$; el valor $f(a)$ es lo que la función vale exactamente en $a$. Pueden coincidir o no.\n\n$$\\begin{aligned} \\lim_{x &\\to 2}f(x) = 5 \\\\ \\text{pero} \\\\ f(2) &= 7 \\end{aligned}$$\n\nEste caso es posible cuando la función tiene un punto «levantado» en $x=2$: la curva se acerca a $5$, pero el punto definido está en $7$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas expresiones NO es una indeterminación?",
+    "options": [
+      "$\\dfrac{1}{0}$",
+      "$\\dfrac{0}{0}$",
+      "$\\dfrac{\\infty}{\\infty}$",
+      "$\\infty - \\infty$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\dfrac{1}{0}$ no es una indeterminación: indica que el límite tiende a $\\pm\\infty$. Las indeterminaciones son formas como $\\dfrac{0}{0}$, $\\dfrac{\\infty}{\\infty}$, $\\infty - \\infty$, etc.",
+    "feedback_incorrect": "$\\dfrac{1}{0}$ no es una indeterminación sino un límite infinito ($\\pm\\infty$). Las indeterminaciones son $\\dfrac{0}{0}$, $\\dfrac{\\infty}{\\infty}$, $\\infty - \\infty$, entre otras.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **indeterminación** es una forma que no permite determinar el valor del límite sin más trabajo. Las formas clásicas son $\\dfrac{0}{0}$, $\\dfrac{\\infty}{\\infty}$, $\\infty - \\infty$, $0 \\cdot \\infty$, entre otras.\n\n$$\\frac{1}{0} \\text{ NO es indeterminación: indica } \\pm\\infty$$\n\n$\\dfrac{1}{0}$ tiene un comportamiento claro: el cociente crece sin límite. Por eso se llama **límite infinito**, no indeterminación.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué afirma $\\lim_{x \\to a} f(x) = L$ sobre el comportamiento de $f(x)$?",
+    "options": [
+      "Que $f(a) = L$ siempre",
+      "Que $f(x)$ se acerca a $L$ cuando $x$ se acerca a $a$",
+      "Que $f$ es constante e igual a $L$",
+      "Que $f(x) > L$ para todo $x$ cercano a $a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El límite expresa que $f(x)$ se aproxima a $L$ a medida que $x$ se aproxima a $a$.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to a} f(x) = L$ significa que $f(x)$ se acerca tanto como queramos a $L$ cuando $x$ se acerca a $a$, sin importar $f(a)$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La afirmación $\\lim_{x \\to a} f(x) = L$ establece que $f(x)$ puede acercarse **tanto como se quiera** a $L$, eligiendo $x$ suficientemente cerca de $a$. Es una declaración sobre el comportamiento local de la función.\n\n$$\\begin{aligned} \\lim_{x &\\to a}f(x) = L \\\\ \\Leftrightarrow \\\\ f(x) \\text{ se aproxima a } L \\text{ cuando } x \\text{ se aproxima a } a \\end{aligned}$$\n\nEl límite no dice nada sobre $f(a)$: solo describe lo que ocurre *alrededor* del punto.",
+    "reviewed": false
+  }
+]

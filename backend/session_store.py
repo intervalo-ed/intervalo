@@ -93,17 +93,24 @@ def _get_course_slug(course_id: int, db: DBSession) -> str:
     return course.slug
 
 
-_BELT_ORDER = [Belt.WHITE, Belt.BLUE, Belt.VIOLET, Belt.BROWN, Belt.BLACK]
+def _belt_order(course_id: int, db: DBSession) -> list[Belt]:
+    """Orden canónico de cinturones del curso, derivado de course.json
+    (antes: constante _BELT_ORDER hardcodeada)."""
+    slug = _get_course_slug(course_id, db)
+    return list(load_belt_catalogs(slug).keys())
 
 
 def _all_topic_keys(course_id: int, db: DBSession) -> list[TopicKey]:
-    """Full ordered list of topic keys across all belts in canonical order."""
+    """Full ordered list of topic keys across all belts in canonical order.
+
+    El orden respeta course.json: cinturones en orden, y dentro de cada cinturón
+    los temas aplanados unidad-por-unidad (ver BeltCatalog.topics). Esto hace que
+    los temas de la unidad 1 se introduzcan antes que los de la unidad 2."""
     slug = _get_course_slug(course_id, db)
     catalogs = load_belt_catalogs(slug)
     keys: list[TopicKey] = []
-    for belt in _BELT_ORDER:
-        if belt in catalogs:
-            keys.extend(catalogs[belt].all_keys())
+    for belt in catalogs:  # dict en orden de course.json
+        keys.extend(catalogs[belt].all_keys())
     return keys
 
 
@@ -168,7 +175,7 @@ class ExerciseInSession:
     options: list[str]
     correct_index: int
     feedback_correct: str
-    feedback_incorrect: str
+    feedback_incorrect: str | list
     has_math: bool = False
     graph_fn: str = ""
     graph_view: list | None = None
@@ -369,10 +376,10 @@ def _aggregate_topic_progress(
     ) else "learning"
 
     rows_by_type = {r.exercise_type: r for r in rows}
-    units = []
+    skills = []
     for et in expected_types:
         row = rows_by_type.get(et)
-        units.append(
+        skills.append(
             {
                 "exercise_type": et,
                 "state": _unit_state(row),
@@ -391,7 +398,7 @@ def _aggregate_topic_progress(
         "attempted": attempted,
         "next_review": next_review,
         "failed": False,
-        "units": units,
+        "skills": skills,
     }
 
 
@@ -421,6 +428,24 @@ def _exercise_to_dict(ex: ExerciseInSession) -> dict:
     }
 
 
+def _shuffle_options(ex: dict) -> tuple[list, int, list | None]:
+    """Shuffle options preserving the parallel alignment of feedback_incorrect.
+
+    feedback_incorrect is a per-option array (null on the correct index); it must
+    be permuted with the exact same order as options, or hints end up attached to
+    the wrong option.
+    """
+    order = list(range(len(ex["options"])))
+    random.shuffle(order)
+    shuffled = [ex["options"][i] for i in order]
+    new_correct_index = order.index(ex["correct_index"])
+    feedback = ex.get("feedback_incorrect")
+    shuffled_feedback = (
+        [feedback[i] for i in order] if isinstance(feedback, list) else feedback
+    )
+    return shuffled, new_correct_index, shuffled_feedback
+
+
 def _build_exercise(
     idx: int,
     unit_key: UnitKey,
@@ -434,10 +459,7 @@ def _build_exercise(
         unit_key.exercise_type,
         db,
     )
-    correct_answer = ex["options"][ex["correct_index"]]
-    shuffled = ex["options"][:]
-    random.shuffle(shuffled)
-    new_correct_index = shuffled.index(correct_answer)
+    shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
     return ExerciseInSession(
         exercise_id=f"ex_{idx:03d}",
         unit_key=unit_key,
@@ -445,7 +467,7 @@ def _build_exercise(
         options=shuffled,
         correct_index=new_correct_index,
         feedback_correct=ex["feedback_correct"],
-        feedback_incorrect=ex["feedback_incorrect"],
+        feedback_incorrect=shuffled_feedback,
         has_math=ex.get("has_math", False),
         graph_fn=ex.get("graph_fn", ""),
         graph_view=ex.get("graph_view"),
@@ -773,18 +795,16 @@ def create_test_session_db(
         unit_key = UnitKey(belt=belt_enum, topic=topic, exercise_type=et)
         rows = list_exercises_db(course_id, belt, topic, et, db)
         for ex in rows:
-            correct_answer = ex["options"][ex["correct_index"]]
-            shuffled = ex["options"][:]
-            random.shuffle(shuffled)
+            shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
                     exercise_id=f"ex_{idx:03d}",
                     unit_key=unit_key,
                     question=ex["question"],
                     options=shuffled,
-                    correct_index=shuffled.index(correct_answer),
+                    correct_index=new_correct_index,
                     feedback_correct=ex["feedback_correct"],
-                    feedback_incorrect=ex["feedback_incorrect"],
+                    feedback_incorrect=shuffled_feedback,
                     has_math=ex.get("has_math", False),
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view"),
@@ -1001,7 +1021,12 @@ def record_answer_db(
         "quality": quality,
     })
 
-    feedback = exercise.feedback_correct if is_correct else exercise.feedback_incorrect
+    if is_correct:
+        feedback = exercise.feedback_correct
+    elif isinstance(exercise.feedback_incorrect, list):
+        feedback = exercise.explanation or ""
+    else:
+        feedback = exercise.feedback_incorrect
     return {
         "correct": is_correct,
         "quality": quality,
@@ -1115,9 +1140,10 @@ def get_summary_db(
     # Belt progress for the highest belt touched in this session
     if answers:
         belts_in_session = {a.belt for a in answers}
+        order = _belt_order(course_id, db)
         focus_belt_str = max(
             belts_in_session,
-            key=lambda b: _BELT_ORDER.index(Belt(b)),
+            key=lambda b: order.index(Belt(b)),
         )
         focus_belt = Belt(focus_belt_str)
     else:

@@ -1,0 +1,172 @@
+[
+  {
+    "question": "Usando la definición de derivada, calculá $f'(x)$ para $f(x) = 3x+2$.",
+    "options": [
+      "$3$",
+      "$3x+2$",
+      "$2$",
+      "$3x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El cociente incremental $\\frac{3h}{h}=3$ no depende de $h$, por lo que el límite es $3$ directamente.",
+    "feedback_incorrect": "Para $f(x)=3x+2$: $\\frac{[3(x+h)+2]-(3x+2)}{h} = \\frac{3h}{h} = 3$. El límite cuando $h\\to0$ es $3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x)=3x+2$, el cociente incremental simplifica directamente a la pendiente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{[3(x+h)+2]-(3x+2)}{h} = \\frac{3h}{h} = 3$$\n\nComo el resultado no depende de $h$, el límite es inmediato: $f'(x) = \\lim_{h\\to 0} 3 = 3$. Para cualquier función lineal $f(x)=mx+b$, la derivada es la pendiente $m$.",
+    "reviewed": false
+  },
+  {
+    "question": "Usando la definición de derivada, calculá $f'(x)$ para $f(x) = x^2$.",
+    "options": [
+      "$x^2$",
+      "$2x$",
+      "$2$",
+      "$x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Expandir $(x+h)^2$, cancelar $x^2$ y dividir por $h$ da $2x+h$; al límite resulta $2x$.",
+    "feedback_incorrect": "Expandiendo: $\\frac{(x+h)^2-x^2}{h} = \\frac{2xh+h^2}{h} = 2x+h \\xrightarrow{h\\to0} 2x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Expandimos $(x+h)^2 = x^2 + 2xh + h^2$ y formamos el cociente:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{2xh + h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nAl tomar $\\lim_{h\\to0}(2x+h) = 2x$, obtenemos $f'(x) = 2x$. Este es el caso fundamental que muestra cómo $h$ se cancela antes de tomar el límite.",
+    "reviewed": false
+  },
+  {
+    "question": "Primer paso de la definición: calculá $f(x+h)$ para $f(x) = x^2 + 1$.",
+    "options": [
+      "$x^2 + h + 1$",
+      "$x^2 + h^2 + 1$",
+      "$x^2 + 2xh + h^2 + 1$",
+      "$(x+h)^2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$(x+h)^2 = x^2+2xh+h^2$, más el $+1$ de la función.",
+    "feedback_incorrect": "Reemplazamos $x$ por $(x+h)$: $f(x+h) = (x+h)^2+1 = x^2+2xh+h^2+1$. No olvidar el término cruzado $2xh$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para calcular $f(x+h)$, reemplazamos **cada aparición de $x$** por $(x+h)$ en la fórmula de $f$:\n\n$$f(x+h) = (x+h)^2 + 1 = x^2 + 2xh + h^2 + 1$$\n\nEl error más frecuente es escribir $x^2 + h^2 + 1$ (olvidar el término cruzado $2xh$) o $x^2 + h + 1$ (no elevar al cuadrado). La expansión correcta de $(x+h)^2$ siempre tiene tres términos.",
+    "reviewed": false
+  },
+  {
+    "question": "Simplificá el cociente incremental: $\\dfrac{(x+h)^2 - x^2}{h}$.",
+    "options": [
+      "$2xh$",
+      "$2x$",
+      "$h + 2x^2$",
+      "$2x + h$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Expandir, cancelar $x^2$ y factorizar $h$ en el numerador da $2x+h$.",
+    "feedback_incorrect": "Expandiendo: $\\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Expandimos el numerador y cancelamos $h$:\n\n$$\\frac{(x+h)^2 - x^2}{h} = \\frac{x^2+2xh+h^2-x^2}{h} = \\frac{2xh+h^2}{h} = \\frac{h(2x+h)}{h} = 2x+h$$\n\nLa clave es **factorizar $h$** en el numerador antes de cancelar con el denominador. Nunca se puede cancelar $h$ si no está factorizado.",
+    "reviewed": false
+  },
+  {
+    "question": "Después de simplificar el cociente a $2x+h$, ¿cuánto vale $f'(x) = \\lim_{h\\to0}(2x+h)$?",
+    "options": [
+      "$2x$",
+      "$2x+h$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Al sustituir $h=0$ en $2x+h$ obtenemos $2x$.",
+    "feedback_incorrect": "Una vez simplificado, sustituimos $h=0$: $\\lim_{h\\to0}(2x+h) = 2x+0 = 2x$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una vez simplificado el cociente incremental, se aplica el límite cuando $h \\to 0$. El término $h$ desaparece y queda solo el término con $x$:\n\n$$f'(x) = \\lim_{h \\to 0}(2x+h) = 2x + 0 = 2x$$\n\nEste es el paso final del proceso: simplificar primero (para que no haya $\\frac{0}{0}$), y luego sustituir $h=0$ libremente.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $f'(2)$ para $f(x) = x^2$ usando la definición.",
+    "options": [
+      "$2$",
+      "$4$",
+      "$8$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x$, entonces $f'(2)=4$. La tangente a $x^2$ en $x=2$ tiene pendiente $4$.",
+    "feedback_incorrect": "Usando $f'(x)=2x$ (o la definición directa con $a=2$): $f'(2)=2\\cdot2=4$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Podemos usar el resultado general $f'(x)=2x$ y evaluar en $x=2$, o aplicar la definición directamente con $a=2$:\n\n$$f'(2) = \\lim_{h \\to 0}\\frac{(2+h)^2 - 4}{h} = \\lim_{h \\to 0}\\frac{4+4h+h^2-4}{h} = \\lim_{h\\to0}(4+h) = 4$$\n\nAmbos caminos dan $f'(2)=4$: la tangente a la parábola en $x=2$ tiene pendiente $4$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sea $f(x) = 5$ (función constante). Calculá $f'(x)$ usando la definición.",
+    "options": [
+      "$1$",
+      "$5$",
+      "$0$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El numerador $f(x+h)-f(x)=5-5=0$ siempre, así que el límite es $0$.",
+    "feedback_incorrect": "Para $f(x)=5$: $\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = 0$. El límite cuando $h\\to0$ es $0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para una función constante, $f(x+h) = 5$ y $f(x) = 5$, así que el numerador es siempre $0$:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{5-5}{h} = \\frac{0}{h} = 0$$\n\nEl límite cuando $h\\to0$ es $0$, por lo que $f'(x)=0$. Intuitivamente: una función constante no cambia, su tasa de cambio es nula.",
+    "reviewed": false
+  },
+  {
+    "question": "¿En qué paso del proceso de la definición se puede cancelar $h$ del denominador?",
+    "options": [
+      "Solo si $h > 0$",
+      "Después de tomar el límite cuando $h\\to0$",
+      "Al principio, antes de expandir $f(x+h)$",
+      "Al factorizar $h$ en el numerador, antes de tomar el límite"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Primero se factoriza $h$ en el numerador, luego se cancela con el denominador, y recién entonces se toma el límite.",
+    "feedback_incorrect": "La cancelación de $h$ ocurre durante la simplificación algebraica: factorizar $h$ en el numerador y luego cancelar, antes de aplicar $h\\to0$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La cancelación de $h$ ocurre **durante la simplificación algebraica**, no después de tomar el límite. El orden correcto es:\n\n$$\\frac{f(x+h)-f(x)}{h} \\xrightarrow{\\text{expandir}} \\frac{\\ldots + h(\\ldots)}{h} \\xrightarrow{\\text{cancelar } h} \\text{expresión sin } h \\text{ en denom.} \\xrightarrow{h\\to0} f'(x)$$\n\nNunca se aplica $h=0$ mientras $h$ esté en el denominador: eso daría $\\frac{0}{0}$. La cancelación previa es lo que habilita la sustitución final.",
+    "reviewed": false
+  },
+  {
+    "question": "Usando la definición, calculá $f'(x)$ para $f(x) = 2x^2 - x$.",
+    "options": [
+      "$4x - 1$",
+      "$2x - 1$",
+      "$4x$",
+      "$2x^2 - 1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Expandiendo $f(x+h)$ y simplificando: $\\frac{4xh+2h^2-h}{h}=4x+2h-1 \\xrightarrow{h\\to0} 4x-1$.",
+    "feedback_incorrect": "Expandiendo: $f(x+h)=2(x+h)^2-(x+h)=2x^2+4xh+2h^2-x-h$. El cociente simplifica a $4x+2h-1 \\to 4x-1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Expandimos $f(x+h)=2(x+h)^2-(x+h) = 2x^2+4xh+2h^2-x-h$ y formamos el cociente:\n\n$$\\frac{f(x+h)-f(x)}{h} = \\frac{4xh+2h^2-h}{h} = \\frac{h(4x+2h-1)}{h} = 4x+2h-1$$\n\nTomando $\\lim_{h\\to0}(4x+2h-1)=4x-1$. Hay que ser cuidadoso con el término lineal $-h$ que contribuye con $-1$ al resultado final.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $f'(0)$ para $f(x) = x^2 - 3x$ usando la definición.",
+    "options": [
+      "$0$",
+      "$-3$",
+      "$3$",
+      "$-6$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f'(x)=2x-3$, entonces $f'(0)=2(0)-3=-3$.",
+    "feedback_incorrect": "La definición con $a=0$: $\\frac{h^2-3h}{h} = h-3 \\xrightarrow{h\\to0} -3$. O bien: $f'(x)=2x-3$, evaluado en $x=0$ da $-3$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Derivamos $f(x)=x^2-3x$ por definición y obtenemos $f'(x)=2x-3$ (o evaluamos directamente en $a=0$):\n\n$$f'(0) = \\lim_{h\\to0}\\frac{h^2-3h}{h} = \\lim_{h\\to0}(h-3) = -3$$\n\nEl resultado $-3$ significa que en $x=0$ la curva cae con pendiente $3$: por cada unidad que avanza $x$, $f$ baja $3$ unidades.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál es la regla de la potencia para derivar $f(x)=x^n$?",
+    "options": [
+      "$f'(x) = n \\cdot x^{n-1}$",
+      "$f'(x) = x^{n+1}$",
+      "$f'(x) = n \\cdot x^n$",
+      "$f'(x) = (n-1) \\cdot x^{n-2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La regla de la potencia: bajás el exponente como coeficiente y lo reducís en $1$.",
+    "feedback_incorrect": "La regla de la potencia dice: $\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$. El exponente baja como coeficiente y el nuevo exponente es $n-1$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la potencia** es la más usada en derivación:\n\n$$\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$$\n\nEl exponente $n$ **baja** como coeficiente multiplicador, y el nuevo exponente es $n-1$.\n\nEjemplos: $(x^3)' = 3x^2$, $(x^5)' = 5x^4$, $(x^{-2})' = -2x^{-3}$. Funciona para cualquier exponente real: entero, fraccionario o negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale la derivada de una función constante $f(x) = c$?",
+    "options": [
+      "$c$",
+      "$0$",
+      "$1$",
+      "$c \\cdot x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Una constante no cambia, por lo que su tasa de cambio es $0$.",
+    "feedback_incorrect": "La derivada de cualquier constante es $0$: $\\frac{d}{dx}[c] = 0$. Una función constante no crece ni decrece.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si $f(x) = c$ (constante), su gráfica es una recta horizontal con **pendiente cero**.\n\nComo la derivada mide la pendiente de la tangente:\n\n$$\\frac{d}{dx}[c] = 0$$\n\nTambién se puede ver desde la definición: $\\frac{f(x+h)-f(x)}{h} = \\frac{c-c}{h} = 0$ para todo $h \\neq 0$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $k$ es una constante, ¿cuánto vale $(k \\cdot f(x))'$?",
+    "options": [
+      "$k \\cdot f(x) \\cdot f'(x)$",
+      "$k + f'(x)$",
+      "$k \\cdot f'(x)$",
+      "$f'(x) / k$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La constante sale afuera de la derivada: $(k \\cdot f)' = k \\cdot f'$.",
+    "feedback_incorrect": "La **regla del múltiplo constante**: $(k \\cdot f)' = k \\cdot f'$. La constante se mantiene como factor.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla del múltiplo constante** dice que podés sacar la constante afuera:\n\n$$(k \\cdot f)' = k \\cdot f'$$\n\nEjemplo: $(5x^3)' = 5 \\cdot (x^3)' = 5 \\cdot 3x^2 = 15x^2$.\n\nEsto funciona porque la derivada es una operación **lineal**: escalar la función escala su derivada en la misma proporción.",
+    "reviewed": false
+  },
+  {
+    "question": "La derivada de $f(x) + g(x)$ es igual a...",
+    "options": [
+      "$\\dfrac{f'(x)}{g'(x)}$",
+      "$f'(x) \\cdot g'(x)$",
+      "$f(x) \\cdot g'(x) + f'(x) \\cdot g(x)$",
+      "$f'(x) + g'(x)$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La regla de la suma: la derivada de la suma es la suma de las derivadas.",
+    "feedback_incorrect": "La **regla de la suma**: $(f+g)' = f' + g'$. No se multiplican las derivadas.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la suma** (y diferencia) establece:\n\n$$(f + g)' = f' + g'$$\n$$(f - g)' = f' - g'$$\n\nPodés derivar **término a término**. Ejemplo: si $f(x) = x^3 + x^2$, entonces $f'(x) = 3x^2 + 2x$.\n\nEsto, junto con la regla del múltiplo constante, permite derivar cualquier polinomio fácilmente.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\dfrac{d}{dx}[e^x]$?",
+    "options": [
+      "$e^x$",
+      "$x \\cdot e^{x-1}$",
+      "$e^{x-1}$",
+      "$e$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La función $e^x$ es su propia derivada.",
+    "feedback_incorrect": "$(e^x)' = e^x$. Esta es una propiedad única de la función exponencial natural: es su propia derivada.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La derivada de $e^x$ es **ella misma**:\n\n$$\\frac{d}{dx}[e^x] = e^x$$\n\nEsta propiedad hace a $e^x$ la función más especial del cálculo. La constante $e \\approx 2{,}718$ se define precisamente para que esto ocurra.\n\nNota: NO se aplica la regla de la potencia aquí ($x$ está en el exponente, no en la base).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\ln x]$?",
+    "options": [
+      "$\\ln x$",
+      "$\\dfrac{1}{x}$",
+      "$e^x$",
+      "$\\dfrac{1}{\\ln x}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La derivada del logaritmo natural es $1/x$.",
+    "feedback_incorrect": "$\\frac{d}{dx}[\\ln x] = \\frac{1}{x}$ (definida para $x > 0$).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La derivada del logaritmo natural es:\n\n$$\\begin{aligned} \\frac{d}{dx}[\\ln x] &= \\frac{1}{x} \\\\ (x &> 0) \\end{aligned}$$\n\nEsto significa que la pendiente de $\\ln x$ en $x=1$ es $1$, en $x=2$ es $0{,}5$, en $x=10$ es $0{,}1$: la función $\\ln x$ crece cada vez más despacio a medida que $x$ aumenta.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\sin x]$?",
+    "options": [
+      "$-\\sin x$",
+      "$-\\cos x$",
+      "$\\cos x$",
+      "$\\tan x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La derivada del seno es el coseno.",
+    "feedback_incorrect": "$(\\sin x)' = \\cos x$. La derivada del coseno es $-\\sin x$ (con signo negativo).",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las derivadas de las funciones trigonométricas básicas son:\n\n$$\\frac{d}{dx}[\\sin x] = \\cos x$$\n$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nNota el **ciclo**: $\\sin \\to \\cos \\to -\\sin \\to -\\cos \\to \\sin \\to \\cdots$ Cada derivada rota al siguiente elemento del ciclo. Son fundamentales en el estudio de oscilaciones y ondas.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\dfrac{d}{dx}[\\cos x]$?",
+    "options": [
+      "$\\tan x$",
+      "$\\sin x$",
+      "$-\\cos x$",
+      "$-\\sin x$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La derivada del coseno es $-\\sin x$ (con signo negativo).",
+    "feedback_incorrect": "$(\\cos x)' = -\\sin x$. El signo negativo es importante: no confundir con la derivada del seno.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$$\\frac{d}{dx}[\\cos x] = -\\sin x$$\n\nEl signo negativo es clave. En $x=0$: $\\cos(0)=1$ (máximo), y $-\\sin(0)=0$ (pendiente cero) ✓.\n\nEn $x=\\pi/2$: $\\cos(\\pi/2)=0$ (cruza el eje), y $-\\sin(\\pi/2)=-1$ (pendiente negativa, la función baja) ✓.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\dfrac{d}{dx}[a^x]$ para $a > 0$, $a \\neq 1$?",
+    "options": [
+      "$a^x \\ln a$",
+      "$x \\cdot a^{x-1}$",
+      "$a^x$",
+      "$a^x / \\ln a$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La derivada de $a^x$ incluye el factor $\\ln a$.",
+    "feedback_incorrect": "$(a^x)' = a^x \\ln a$. El caso especial $a=e$ da $(e^x)' = e^x \\cdot \\ln e = e^x$ ✓.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la exponencial de base arbitraria:\n\n$$\\frac{d}{dx}[a^x] = a^x \\ln a$$\n\nEl factor $\\ln a$ aparece por la relación $a^x = e^{x \\ln a}$. Derivando con regla de la cadena: $(e^{x\\ln a})' = e^{x\\ln a} \\cdot \\ln a = a^x \\ln a$.\n\nCaso especial: $a = e \\Rightarrow \\ln e = 1 \\Rightarrow (e^x)' = e^x$ ✓.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la derivada de $\\sqrt{x}$?",
+    "options": [
+      "$\\dfrac{1}{\\sqrt{x}}$",
+      "$\\dfrac{1}{2\\sqrt{x}}$",
+      "$2\\sqrt{x}$",
+      "$\\sqrt{x}/2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\sqrt{x} = x^{1/2}$, entonces la derivada es $\\frac{1}{2}x^{-1/2} = \\frac{1}{2\\sqrt{x}}$.",
+    "feedback_incorrect": "Reescribí $\\sqrt{x} = x^{1/2}$ y aplicá la regla de la potencia: $\\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reescribiendo la raíz cuadrada como potencia fraccionaria:\n\n$$\\sqrt{x} = x^{1/2}$$\n\nAplicando la regla de la potencia:\n\n$$\\frac{d}{dx}\\left[x^{1/2}\\right] = \\frac{1}{2} x^{1/2 - 1} = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$\n\nLa regla de la potencia vale para **cualquier exponente real**, no solo enteros.",
+    "reviewed": false
+  }
+]

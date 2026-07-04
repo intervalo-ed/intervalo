@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Qué representa la expresión $f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$?",
+    "options": [
+      "La pendiente de la recta tangente a $f$ en $x=a$",
+      "El área bajo la curva de $f$ entre $0$ y $a$",
+      "El valor de $f$ en $x=a$",
+      "La distancia entre $f(a+h)$ y $f(a)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La definición formal de la derivada captura la pendiente de la recta tangente como límite del cociente incremental.",
+    "feedback_incorrect": "La expresión $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ define $f'(a)$, que es la pendiente de la recta tangente a $f$ en $x=a$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **derivada** $f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$ captura la pendiente de la recta tangente a la curva en $x=a$. El cociente $\\frac{f(a+h)-f(a)}{h}$ es la pendiente de la secante que pasa por $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\nAl hacer $h \\to 0$, la secante se convierte en la tangente: el límite da la pendiente exacta en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cómo se llama la expresión $\\frac{f(a+h)-f(a)}{h}$?",
+    "options": [
+      "Derivada en un punto",
+      "Cociente incremental",
+      "Diferencial de $f$",
+      "Límite lateral"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El cociente incremental representa la tasa de cambio promedio de $f$ en el intervalo $[a, a+h]$.",
+    "feedback_incorrect": "La expresión $\\frac{f(a+h)-f(a)}{h}$ se llama **cociente incremental**: es la pendiente de la secante antes de tomar el límite.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **cociente incremental** $\\frac{f(a+h)-f(a)}{h}$ representa la tasa de cambio *promedio* de $f$ en el intervalo $[a,\\,a+h]$. Es la pendiente de la recta secante que une los puntos $(a, f(a))$ y $(a+h, f(a+h))$.\n\n$$\\text{Cociente incremental} = \\frac{f(a+h)-f(a)}{h}$$\n\nAl tomar el límite cuando $h \\to 0$, el cociente incremental converge a la derivada $f'(a)$: la tasa de cambio *instantánea*.",
+    "reviewed": false
+  },
+  {
+    "question": "En la definición $\\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$, ¿qué variable tiende a $0$?",
+    "options": [
+      "$a$",
+      "$x$",
+      "$h$",
+      "$f(a)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$h$ es el incremento en $x$; es quien achicamos hasta cero para obtener la tasa instantánea.",
+    "feedback_incorrect": "En la definición, $h$ es el incremento que tiende a $0$. El punto $a$ es fijo; $x$ no aparece en esta forma de la definición.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la definición de la derivada, $h$ representa el **incremento** en $x$: la distancia desde $a$ hasta $a+h$. Es $h$ quien tiende a $0$, no $x$ ni $a$.\n\n$$f'(a) = \\lim_{\\mathbf{h} \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es un punto fijo; $h$ es la variable que achicamos. Cuando $h=0$ el cociente sería $\\frac{0}{0}$, por eso necesitamos el límite en vez de la evaluación directa.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de las siguientes es la notación de Leibniz para la derivada de $f$ respecto de $x$?",
+    "options": [
+      "$Df$",
+      "$\\Delta f / \\Delta x$",
+      "$f'$",
+      "$\\dfrac{df}{dx}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La notación $\\dfrac{df}{dx}$ es la notación de Leibniz; enfatiza que la derivada es una razón de cambios infinitesimales.",
+    "feedback_incorrect": "La notación de Leibniz para la derivada es $\\dfrac{df}{dx}$. Las otras opciones son notaciones válidas de derivada (Lagrange, Euler) o el cociente incremental finito.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Existen varias notaciones equivalentes para la derivada. La **notación de Leibniz** es $\\dfrac{df}{dx}$ (o $\\dfrac{dy}{dx}$ si $y=f(x)$), y enfatiza que la derivada es una razón de cambios infinitesimales.\n\n$$f'(x) = \\frac{df}{dx} = \\frac{d}{dx}[f(x)]$$\n\n$f'(x)$ es la notación de Lagrange, $Df$ la de Euler, y $\\Delta f/\\Delta x$ es el cociente incremental finito (no la derivada). Todas son útiles; en cálculo diferencial se mezclan según el contexto.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f'(a)$ existe y es un número real finito, se dice que $f$ es ___ en $x=a$.",
+    "options": [
+      "Diferenciable",
+      "Continua",
+      "Integrable",
+      "Periódica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Cuando el límite del cociente incremental existe como número real, $f$ es diferenciable en ese punto.",
+    "feedback_incorrect": "Si $f'(a)$ existe y es finito, $f$ es **diferenciable** en $x=a$. Continuidad es necesaria pero no suficiente para diferenciabilidad.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el límite $\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}$ existe y vale un número real finito, decimos que $f$ es **diferenciable** en $x=a$.\n\n$$f \\text{ diferenciable en } a \\iff f'(a) \\in \\mathbb{R}$$\n\nDiferenciable es más restrictivo que continua: toda función diferenciable es continua, pero no toda función continua es diferenciable (ejemplo clásico: $f(x)=|x|$ en $x=0$).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué diferencia hay entre $f(a)$ y $f'(a)$?",
+    "options": [
+      "$f(a)$ es la derivada; $f'(a)$ es el valor de la función",
+      "$f(a)$ es el valor de la función en $a$; $f'(a)$ es su tasa de cambio instantánea",
+      "Son iguales si $f$ es continua en $a$",
+      "$f'(a)$ es siempre mayor que $f(a)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(a)$ y $f'(a)$ son objetos distintos: valor de la función vs. pendiente de la tangente.",
+    "feedback_incorrect": "$f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto. Son conceptos completamente distintos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$f(a)$ y $f'(a)$ son objetos completamente distintos. $f(a)$ es la **altura** de la curva en $x=a$; $f'(a)$ es la **pendiente** de la tangente en ese punto.\n\n$$\\begin{aligned} f(a) &= \\text{valor} \\\\ f'(a) &= \\text{tasa de cambio instantánea} \\end{aligned}$$\n\nEjemplo: para $f(x)=x^2$, $f(3)=9$ (el punto está en $y=9$) pero $f'(3)=6$ (la curva sube con pendiente $6$ en ese punto).",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de las siguientes es la definición correcta de $f'(x)$?",
+    "options": [
+      "$\\lim_{x\\to0}\\dfrac{f(x+h)-f(x)}{h}$",
+      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{x}$",
+      "$\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}{h}$",
+      "$\\dfrac{f(x+h)-f(x)}{h}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El límite cuando $h \\to 0$ del cociente $\\frac{f(x+h)-f(x)}{h}$ define la derivada.",
+    "feedback_incorrect": "La definición correcta divide la variación de $f$ por $h$ (no por $x$) y toma el límite cuando $h \\to 0$ (no $x \\to 0$). Sin el límite, es solo el cociente incremental.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La definición correcta de la derivada divide la variación de $f$ por el **incremento** $h$ y luego toma el límite cuando ese incremento tiende a cero.\n\n$$f'(x) = \\lim_{h \\to 0}\\frac{f(x+h)-f(x)}{h}$$\n\nLos errores frecuentes: dividir por $x$ en vez de $h$ (opción B), hacer tender $x$ en vez de $h$ (opción C), u olvidar el límite (opción D). Sin el límite, la expresión es el cociente incremental, no la derivada.",
+    "reviewed": false
+  },
+  {
+    "question": "La derivada $f'(a)$ mide la ___ de $f$ en el punto $x=a$.",
+    "options": [
+      "Área acumulada hasta $x=a$",
+      "Tasa de cambio promedio en $[0, a]$",
+      "Valor máximo de $f$",
+      "Tasa de cambio instantánea"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La derivada captura la tasa de cambio en un instante, no en un intervalo.",
+    "feedback_incorrect": "La derivada $f'(a)$ mide la **tasa de cambio instantánea** en $x=a$: cómo cambia $f$ en ese punto exacto, no en un intervalo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **tasa de cambio instantánea** en $x=a$ responde a la pregunta: ¿a qué velocidad está cambiando $f$ exactamente en ese punto? No en un intervalo, sino en un instante.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h} = \\text{tasa instantánea en } x=a$$\n\nContraste con la tasa promedio en $[a, b]$: $\\dfrac{f(b)-f(a)}{b-a}$. Cuando el intervalo se achica hasta un punto, la tasa promedio converge a la instantánea.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de estas notaciones NO representa la derivada de $y=f(x)$?",
+    "options": [
+      "$\\Delta f / f$",
+      "$f'(x)$",
+      "$\\dfrac{dy}{dx}$",
+      "$\\dfrac{d}{dx}[f(x)]$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\Delta f / f$ no es una notación estándar de derivada. Las otras tres sí representan la derivada.",
+    "feedback_incorrect": "$\\Delta f / f$ no es una notación de derivada. El cociente incremental es $\\Delta f / \\Delta x$, no $\\Delta f / f$. Las opciones B, C y D sí representan la derivada.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\Delta f / f$ no es una notación estándar para la derivada. $\\Delta f$ representa una variación finita de $f$ y dividirla por $f$ no tiene un significado diferencial definido.\n\n$$\\text{Notaciones válidas: } f'(x),\\; \\frac{dy}{dx},\\; \\frac{d}{dx}[f(x)],\\; Df,\\; \\dot{f}$$\n\nEl cociente $\\Delta f / \\Delta x$ (con $\\Delta x$, no $f$) sí es el cociente incremental finito, que al tomar el límite da la derivada. La opción A confunde $\\Delta x$ con $f$.",
+    "reviewed": false
+  },
+  {
+    "question": "$f'(a)$ es el límite del cociente incremental cuando ___.",
+    "options": [
+      "$x \\to 0$",
+      "$h \\to 0$ (el incremento tiende a cero)",
+      "$a \\to 0$",
+      "$f(a) \\to 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El incremento $h$ es quien tiende a cero en la definición de la derivada.",
+    "feedback_incorrect": "En la definición $f'(a) = \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$, es $h$ quien tiende a $0$. El punto $a$ es fijo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La definición de derivada siempre termina con el límite cuando el **incremento** $h$ tiende a cero. Es $h$, la variación en $x$, quien se achica.\n\n$$f'(a) = \\lim_{h \\to 0}\\frac{f(a+h)-f(a)}{h}$$\n\n$a$ es el punto fijo donde evaluamos; $x$ no aparece en esta forma de la definición. Que $h \\to 0$ significa que observamos el comportamiento de la función en una vecindad cada vez más pequeña alrededor de $a$.",
+    "reviewed": false
+  }
+]

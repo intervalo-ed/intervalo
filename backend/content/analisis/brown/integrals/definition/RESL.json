@@ -1,0 +1,172 @@
+[
+  {
+    "question": "¿Cuál es la integral indefinida de $f(x) = x^5$?",
+    "options": [
+      "$6x^6 + C$",
+      "$5x^4 + C$",
+      "$\\dfrac{x^6}{6} + C$",
+      "$\\dfrac{x^4}{4} + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Usá la regla de la potencia: sumás 1 al exponente y dividís por ese mismo número.",
+    "feedback_incorrect": "Usá la regla de la potencia: sumás 1 al exponente y dividís por ese mismo número.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para integrar una potencia $x^n$ (con $n \\neq -1$), aplicás la **regla de la potencia inversa**:\n\n$$\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$$\n\nEn este caso, con $n=5$, el nuevo exponente es $5+1=6$. Luego dividís por $6$ para compensar la bajada del exponente que ocurriría si derivaras. Por lo tanto, el resultado es $\\dfrac{x^6}{6} + C$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale $\\int e^x \\, dx$?",
+    "options": [
+      "$\\ln(e^x) + C$",
+      "$xe^{x-1} + C$",
+      "$\\dfrac{e^{x+1}}{x+1} + C$",
+      "$e^x + C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La función exponencial es la más fácil de todas: su integral es ella misma.",
+    "feedback_incorrect": "La función exponencial es la más fácil de todas: su integral es ella misma.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $e^x$ tiene la propiedad única de ser su propia derivada. Debido a esto, su **integral indefinida** también es ella misma (más la constante):\n\n$$\\int e^x \\, dx = e^x + C$$\n\nEs un error común intentar aplicar la regla de la potencia (sumar 1 al exponente), pero recordá que esa regla solo sirve cuando la variable $x$ está en la base, no en el exponente.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int \\dfrac{1}{x} \\, dx$ para $x > 0$.",
+    "options": [
+      "$\\ln(x) + C$",
+      "$\\ln|x| + C$",
+      "$x^{-2} + C$",
+      "$-x^{-2} + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El caso $n=-1$ es la excepción a la regla de la potencia y su resultado involucra logaritmos.",
+    "feedback_incorrect": "El caso $n=-1$ es la excepción a la regla de la potencia y su resultado involucra logaritmos.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla de la potencia falla cuando el exponente es $-1$ (ya que dividiríamos por cero). La función cuya derivada es $1/x$ es el **logaritmo natural**.\n\n$$\\int \\frac{1}{x} \\, dx = \\ln|x| + C$$\n\nUsamos el valor absoluto para asegurar que el argumento del logaritmo sea positivo. Como el enunciado aclara que $x > 0$, el resultado es simplemente $\\ln(x) + C$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el resultado de $\\int \\cos(x) \\, dx$?",
+    "options": [
+      "$-\\sin(x) + C$",
+      "$\\sin(x) + C$",
+      "$\\cos(x) + C$",
+      "$-\\cos(x) + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Pensá: ¿qué función, al derivarla, te da el coseno positivo?",
+    "feedback_incorrect": "Pensá: ¿qué función, al derivarla, te da el coseno positivo?",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver integrales trigonométricas básicas, tenés que recordar las reglas de derivación al revés. \n\nComo sabemos que $(\\sin(x))' = \\cos(x)$, entonces la integral del coseno es el **seno**:\n\n$$\\int \\cos(x) \\, dx = \\sin(x) + C$$\n\n¡Cuidado con los signos! Es muy común confundirse con la integral del seno, que sí lleva un signo menos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto da la integral $\\int \\sin(x) \\, dx$?",
+    "options": [
+      "$\\sin(x) + C$",
+      "$\\cos(x) + C$",
+      "$-\\cos(x) + C$",
+      "$-\\sin(x) + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Recordá que la derivada del coseno es menos seno, así que la integral del seno debe compensar ese signo.",
+    "feedback_incorrect": "Recordá que la derivada del coseno es menos seno, así que la integral del seno debe compensar ese signo.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sabemos que la derivada de $\\cos(x)$ es $-\\sin(x)$. Para obtener un $\\sin(x)$ positivo al integrar, necesitamos que la primitiva tenga un signo negativo adelante:\n\n$$\\int \\sin(x) \\, dx = -\\cos(x) + C$$\n\nSi derivás $-\\cos(x)$, obtenés $-(-\\sin(x))$, lo que vuelve a ser $\\sin(x)$, verificando que el resultado es correcto.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int 7 \\, dx$.",
+    "options": [
+      "$\\dfrac{7x^2}{2} + C$",
+      "$0 + C$",
+      "$7 + C$",
+      "$7x + C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La integral de una constante es esa constante multiplicada por la variable.",
+    "feedback_incorrect": "La integral de una constante es esa constante multiplicada por la variable.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cualquier número constante $k$ puede pensarse como $k \\cdot x^0$. Aplicando la regla de la potencia:\n\n$$\\int k \\, dx = kx + C$$\n\nPara el caso de $\\int 7 \\, dx$, el resultado es $7x + C$. Podés verlo de forma intuitiva: ¿cuál es la función cuya pendiente es siempre $7$? Una recta con pendiente $7$, es decir, $7x$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la integral de $f(x) = \\sqrt{x}$?",
+    "options": [
+      "$\\dfrac{2}{3}x^{3/2} + C$",
+      "$\\dfrac{3}{2}x^{3/2} + C$",
+      "$\\dfrac{1}{2\\sqrt{x}} + C$",
+      "$x^{1/2} + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Escribí la raíz como exponente fraccionario $x^{1/2}$ y aplicá la regla de la potencia.",
+    "feedback_incorrect": "Escribí la raíz como exponente fraccionario $x^{1/2}$ y aplicá la regla de la potencia.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero reescribimos la raíz: $\\sqrt{x} = x^{1/2}$. Ahora aplicamos la regla sumando $1$ al exponente: $1/2 + 1 = 3/2$. \n\n$$\\int x^{1/2} \\, dx = \\frac{x^{3/2}}{3/2} + C = \\frac{2}{3}x^{3/2} + C$$\n\nDividir por una fracción es lo mismo que multiplicar por su inversa, por eso el $3/2$ del denominador pasa a ser $2/3$ como coeficiente multiplicador.",
+    "reviewed": false
+  },
+  {
+    "question": "Resolvé $\\int (x^2 - x) \\, dx$.",
+    "options": [
+      "$\\dfrac{x^3}{3} - x + C$",
+      "$\\dfrac{x^3}{3} - \\dfrac{x^2}{2} + C$",
+      "$2x - 1 + C$",
+      "$x^3 - x^2 + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Usá la propiedad de linealidad: integrá cada término del polinomio por separado.",
+    "feedback_incorrect": "Usá la propiedad de linealidad: integrá cada término del polinomio por separado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Gracias a la propiedad de **linealidad**, podemos separar la integral de una resta en la resta de las integrales:\n\n$$\\int (x^2 - x) \\, dx = \\int x^2 \\, dx - \\int x \\, dx$$\n\nIntegrando cada parte con la regla de la potencia obtenemos $\\frac{x^3}{3}$ y $\\frac{x^2}{2}$. Al final sumamos la constante de integración única para toda la expresión.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es la integral de $f(x) = \\dfrac{1}{x^3}$?",
+    "options": [
+      "$\\ln|x^3| + C$",
+      "$\\dfrac{1}{4x^4} + C$",
+      "$-\\dfrac{1}{2x^2} + C$",
+      "$-\\dfrac{3}{x^4} + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Subí la $x$ al numerador con exponente negativo $x^{-3}$ antes de integrar.",
+    "feedback_incorrect": "Subí la $x$ al numerador con exponente negativo $x^{-3}$ antes de integrar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para funciones racionales simples, conviene usar exponentes negativos: $\\frac{1}{x^3} = x^{-3}$. \n\nAl aplicar la regla de la potencia: sumamos $1$ al exponente, $-3 + 1 = -2$, y dividimos por ese valor:\n\n$$\\int x^{-3} \\, dx = \\frac{x^{-2}}{-2} + C = -\\frac{1}{2x^2} + C$$\n\nTené cuidado con los números negativos: sumarle uno a $-3$ da $-2$, no $-4$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá $\\int 4e^x \\, dx$.",
+    "options": [
+      "$\\dfrac{4e^{x+1}}{x+1} + C$",
+      "$e^{4x} + C$",
+      "$4xe^x + C$",
+      "$4e^x + C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Las constantes que multiplican 'salen' de la integral y no afectan al proceso de integración.",
+    "feedback_incorrect": "Las constantes que multiplican 'salen' de la integral y no afectan al proceso de integración.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Por la propiedad de linealidad, la constante $4$ se mantiene multiplicando al resultado de la integral:\n\n$$\\int 4e^x \\, dx = 4 \\int e^x \\, dx = 4e^x + C$$\n\nComo la integral de $e^x$ es simplemente $e^x$, el coeficiente se conserva tal cual. Es una de las integrales más directas que vas a encontrar en el curso.",
+    "reviewed": false
+  }
+]

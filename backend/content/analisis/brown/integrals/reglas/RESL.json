@@ -1,0 +1,19 @@
+[
+  {
+    "question": "¿Cuánto vale $\\int x^6 \\, dx$?",
+    "options": [
+      "$\\dfrac{x^7}{7} + C$",
+      "$6x^5 + C$",
+      "$\\dfrac{x^5}{5} + C$",
+      "$7x^7 + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Regla de la potencia: $\\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.",
+    "feedback_incorrect": "Aplicá la regla de la potencia para integrar: $\\int x^6 \\, dx = \\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\int x^6 \\, dx = \\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.\n\nEl exponente sube en $1$ (pasa de $6$ a $7$) y el resultado se divide por el nuevo exponente. Siempre seguís el mismo patrón con la regla de la potencia, y no olvides sumar la **constante de integración** $C$.",
+    "reviewed": false
+  }
+]

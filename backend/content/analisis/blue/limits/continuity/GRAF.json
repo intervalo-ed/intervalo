@@ -1,0 +1,222 @@
+[
+  {
+    "question": "En la gráfica, ¿en cuál punto la función NO es continua?",
+    "options": [
+      "$x = 2$",
+      "$x = 0$",
+      "$x = -1$",
+      "$x = 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En $x=2$ hay un hueco en la gráfica: la función no está definida o tiene un valor distinto al límite.",
+    "feedback_incorrect": "En la gráfica, el hueco o punto removido en $x=2$ es el punto de discontinuidad.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      8
+    ],
+    "explanation": "Para identificar una discontinuidad en la gráfica, buscamos tres señales: un **hueco** (punto removido), un **salto** (dos ramas separadas) o una **asíntota vertical** (la curva escapa al infinito).\n\n$$\\text{Hueco en } x=2 \\Rightarrow \\lim_{x \\to 2} f(x) \\neq f(2)$$\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados, pero el punto definido está en $y=5$. La discontinuidad está en $x=2$; los demás puntos marcados ($x=0$, $x=-1$, $x=4$) son partes continuas de la gráfica.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma gráfica con hueco en $x=2$, ¿qué tipo de discontinuidad es?",
+    "options": [
+      "De salto",
+      "Removible",
+      "Esencial",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Un hueco en la gráfica indica discontinuidad removible: el límite existe pero no coincide con $f(a)$.",
+    "feedback_incorrect": "El hueco indica que el límite existe (la gráfica se acerca a un valor) pero $f(a)$ tiene otro valor o no está definida: discontinuidad removible.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (5, x == 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      8
+    ],
+    "explanation": "El **diccionario visual** de los tres tipos de discontinuidad es:\n\n$$\\text{Hueco} \\leftrightarrow \\text{Removible} \\qquad \\text{Salto} \\leftrightarrow \\text{De salto} \\qquad \\text{Asíntota vertical} \\leftrightarrow \\text{Esencial}$$\n\nUn hueco (círculo vacío en la curva, con o sin punto suelto) indica que el límite existe — la curva se acerca a un valor — pero $f(a)$ difiere o falta. Eso es exactamente la definición de discontinuidad removible. En esta gráfica, la curva tiende a $y=4$ pero el punto está en $y=5$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica salta en $x=0$. ¿Es $f$ continua en $x=0$?",
+    "options": [
+      "Sí: el valor de $f(0)$ coincide con $\\lim^+$",
+      "Sí: la función está definida en $x=0$",
+      "No: los límites laterales son distintos",
+      "No: $f(0)$ no está definida"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Un salto implica $\\lim^- \\neq \\lim^+$, por lo que el límite bilateral no existe y la función no es continua.",
+    "feedback_incorrect": "El salto hace que los límites laterales sean distintos: el límite bilateral no existe y la función no puede ser continua en ese punto.",
+    "graph_fn": "Piecewise((1, x < 0), (4, x >= 0))",
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      6
+    ],
+    "explanation": "La gráfica tiene dos ramas horizontales: $y=1$ para $x<0$ y $y=4$ para $x\\geq 0$. El salto visible en $x=0$ nos dice que los límites laterales son distintos:\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-} f(x) = 1 \\\\ &\\neq \\\\ \\lim_{x &\\to 0^+} f(x) = 4 \\end{aligned}$$\n\nComo los límites laterales no coinciden, el límite bilateral no existe, y la segunda condición de continuidad falla. Aunque $f(0)=4$ está definida, la discontinuidad de salto no puede corregirse.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica muestra una parábola $f(x) = x^2$ sin interrupciones. ¿En cuál de los puntos marcados ($x=-1$, $x=0$, $x=2$) es $f$ continua?",
+    "options": [
+      "En ninguno",
+      "Solo en $x=0$",
+      "Solo en $x=2$",
+      "En todos: $x=-1$, $x=0$ y $x=2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Un polinomio como $x^2$ es continuo en todo $\\mathbb{R}$, así que lo es en todos los puntos marcados.",
+    "feedback_incorrect": "La parábola $x^2$ es continua en todo $\\mathbb{R}$. En $x=-1$, $0$ y $2$ no hay ninguna interrupción.",
+    "graph_fn": "x**2",
+    "graph_view": [
+      -3,
+      3,
+      -1,
+      9
+    ],
+    "explanation": "La parábola $f(x)=x^2$ es un polinomio de grado $2$. Los polinomios son continuos en todo $\\mathbb{R}$ sin excepciones.\n\n$$\\begin{aligned} \\lim_{x &\\to a} x^2 = a^2 = f(a) \\\\ \\text{para cualquier } a \\end{aligned}$$\n\nEn $x=-1$: $\\lim = 1 = f(-1)$ ✓. En $x=0$: $\\lim = 0 = f(0)$ ✓. En $x=2$: $\\lim = 4 = f(2)$ ✓. La curva suave y sin interrupciones de la gráfica confirma visualmente la continuidad en todos los puntos marcados.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de $f(x) = 1/x$ tiene una discontinuidad en $x=0$. ¿Qué tipo es?",
+    "options": [
+      "Esencial (infinita)",
+      "Removible",
+      "De salto",
+      "No hay discontinuidad"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La gráfica muestra una asíntota vertical en $x=0$: $\\lim = \\pm\\infty$. Discontinuidad esencial.",
+    "feedback_incorrect": "La asíntota vertical en $x=0$ (con la función tendiendo a $\\pm\\infty$) corresponde a una discontinuidad esencial.",
+    "graph_fn": "1 / x",
+    "graph_view": [
+      -4,
+      4,
+      -6,
+      6
+    ],
+    "explanation": "La gráfica de $1/x$ muestra una **asíntota vertical** en $x=0$: la curva sube hacia $+\\infty$ por la derecha y baja hacia $-\\infty$ por la izquierda. El «diccionario visual» lo clasifica directamente:\n\n$$\\text{Asíntota vertical en } x=0 \\longleftrightarrow \\text{Discontinuidad esencial}$$\n\nLos límites laterales son $+\\infty$ y $-\\infty$ respectivamente, ninguno es un número real finito. Es la categoría más grave: la función no tiene «solución de arreglo» en $x=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene discontinuidades en $x=0$ (salto) y $x=3$ (hueco). ¿Cuántos puntos de discontinuidad hay?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Hay dos puntos de discontinuidad: $x=0$ (salto) y $x=3$ (removible).",
+    "feedback_incorrect": "Se identifican dos puntos de discontinuidad: uno en $x=0$ (salto) y otro en $x=3$ (discontinuidad removible).",
+    "graph_fn": "Piecewise((x, x < 0), (x + 2, (0 <= x) & (x != 3)), (6, x == 3))",
+    "graph_view": [
+      -2,
+      5,
+      -2,
+      8
+    ],
+    "explanation": "Para contar discontinuidades en una gráfica, recorremos visualmente la curva y anotamos cada interrupción:\n\n$$\\begin{aligned} x &= 0: \\text{ salto (dos ramas separadas)} \\\\ + \\\\ x &= 3: \\text{ hueco (punto mal definido)} \\end{aligned}$$\n\nTotal: **2 puntos de discontinuidad**. El truco es no confundir el tipo con el conteo: hay dos puntos problemáticos, no importa si son del mismo tipo o de tipos distintos. El resto de la gráfica es continuo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica es continua en el intervalo $[1, 4]$. ¿En cuál intervalo alternativo también es continua?",
+    "options": [
+      "$[4, 6]$",
+      "$[-1, 0]$",
+      "$[0, 5]$",
+      "En ningún otro intervalo"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Si la función es continua en $[1,4]$, también lo es en $[0,5]$ si no hay discontinuidades en ese rango más amplio.",
+    "feedback_incorrect": "La continuidad en $[1,4]$ puede extenderse al intervalo $[0,5]$ si la gráfica no muestra ninguna interrupción en ese rango.",
+    "graph_fn": "x**2 - 2*x + 1",
+    "graph_view": [
+      -1,
+      6,
+      -1,
+      10
+    ],
+    "explanation": "La función graficada es $(x-1)^2$, un polinomio continuo en todo $\\mathbb{R}$. Si es continua en $[1,4]$, lo es en cualquier intervalo que no contenga discontinuidades.\n\n$$[0,5] \\supset [1,4] \\quad \\text{y la gráfica no tiene interrupciones en } [0,5]$$\n\nLos intervalos $[-1,0]$ y $[4,6]$ no incluyen partes nuevas con problemas en este caso, pero la gráfica confirma que $[0,5]$ es el intervalo alternativo más amplio que contiene $[1,4]$ y permanece continuo.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene un hueco en $x=2$ (punto removido). ¿Existe $\\lim_{x \\to 2} f(x)$ aunque $f(2)$ no esté definida?",
+    "options": [
+      "Solo si el hueco está sobre el eje $x$",
+      "No: si $f(2)$ no existe, el límite tampoco existe",
+      "Solo si la función es polinómica",
+      "Sí: el límite puede existir aunque $f(2)$ no esté definida"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El límite depende del comportamiento de $f$ cerca de $x=2$, no en $x=2$. Puede existir aunque $f(2)$ no esté definida.",
+    "feedback_incorrect": "El límite $\\lim_{x \\to 2}$ depende de lo que pasa alrededor de $x=2$, no en el punto mismo. Puede existir aunque $f(2)$ falte.",
+    "graph_fn": "Piecewise(((x**2 - 4)/(x - 2), x != 2), (None, x == 2))",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      7
+    ],
+    "explanation": "Esta es una distinción fundamental: el **límite** describe el comportamiento de $f$ *alrededor* de $x=a$, no *en* $x=a$. Por definición, $x \\to 2$ significa $x$ se acerca a $2$ pero $x \\neq 2$.\n\n$$\\begin{aligned} \\lim_{x &\\to 2} \\frac{x^2-4}{x-2} = \\lim_{x \\to 2}(x+2) = 4 \\\\ \\text{aunque } f(2) \\text{ no exista} \\end{aligned}$$\n\nEl hueco en la gráfica muestra exactamente esto: la curva se dirige hacia $y=4$ desde ambos lados (el límite existe), pero el punto en $x=2$ está ausente ($f(2)$ no definida).",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de $f(x) = x^2 - 3$ es una parábola sin interrupciones. ¿Es continua para todo $x$ real?",
+    "options": [
+      "Sí, es continua en todo $\\mathbb{R}$",
+      "No, solo en $x > 0$",
+      "Solo para $x \\geq -\\sqrt{3}$",
+      "No, tiene una discontinuidad en $x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Todo polinomio es continuo en $\\mathbb{R}$. La parábola $x^2-3$ no tiene ninguna discontinuidad.",
+    "feedback_incorrect": "Los polinomios son siempre continuos en $\\mathbb{R}$. La parábola $x^2-3$ es continua en todos los reales.",
+    "graph_fn": "x**2 - 3",
+    "graph_view": [
+      -4,
+      4,
+      -4,
+      13
+    ],
+    "explanation": "La función $f(x) = x^2 - 3$ es un polinomio de grado $2$. La gráfica — una parábola desplazada — no tiene huecos, saltos ni asíntotas en ninguna parte.\n\n$$\\begin{aligned} \\lim_{x &\\to a}(x^2 - 3) = a^2 - 3 = f(a) \\\\ \\text{para todo } a \\in \\mathbb{R} \\end{aligned}$$\n\nLas opciones incorrectas confunden continuidad con dominio de raíces o signo de valores: que $f(0) = -3 < 0$ o que $f(x) = 0$ en $x = \\pm\\sqrt{3}$ no tiene nada que ver con la continuidad del polinomio.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica tiene un salto en $x=-1$ y un hueco en $x=2$. ¿Cuántos tipos distintos de discontinuidad muestra?",
+    "options": [
+      "$1$ (solo removible)",
+      "$2$ (de salto y removible)",
+      "$2$ (de salto y esencial)",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El salto es una discontinuidad de salto y el hueco es una discontinuidad removible: dos tipos distintos.",
+    "feedback_incorrect": "Un salto corresponde a discontinuidad de salto, y un hueco (punto removido) corresponde a discontinuidad removible. Son dos tipos distintos.",
+    "graph_fn": "Piecewise((x, x < -1), (x + 3, (-1 <= x) & (x != 2)), (6, x == 2))",
+    "graph_view": [
+      -3,
+      4,
+      -3,
+      7
+    ],
+    "explanation": "El **diccionario visual** aplicado a esta gráfica: el salto en $x=-1$ (dos ramas con distintos niveles) es una discontinuidad de salto, y el hueco en $x=2$ (punto mal definido con límite existente) es una discontinuidad removible.\n\n$$\\begin{aligned} x &= -1: \\lim^- \\neq \\lim^+ \\rightarrow \\text{de salto} \\\\ x &= 2: \\lim \\neq f(2) \\rightarrow \\text{removible} \\end{aligned}$$\n\nSon **dos tipos distintos** de discontinuidad en la misma función. El conteo de tipos (2) coincide con el conteo de puntos problemáticos (2), pero eso no siempre ocurre: una función puede tener tres saltos (3 puntos, 1 tipo) o un salto y un hueco (2 puntos, 2 tipos).",
+    "reviewed": false
+  }
+]

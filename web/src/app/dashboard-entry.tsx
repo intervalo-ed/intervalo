@@ -1,6 +1,7 @@
 "use client"
 
 import { BottomNav } from "@/components/bottom-nav"
+import MathText from "@/components/math-text"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import {
@@ -357,42 +358,52 @@ function BeltSection({
   const info = beltInfo({ belt })
   const isActive = stats.unlocked > 0
 
-  // Ocultamos temas sin ejercicios todavía (p.ej. Módulo): se mostrarán recién
-  // cuando su banco esté cargado.
-  const rows: BeltGridRow[] = (cat?.topics ?? [])
-    .filter((topic) => topic.exercise_types.length > 0)
-    .map((topic) => ({
-      topic,
-      cells: topicToCells({
-        topic: topicStates[topic.key],
-        types: topic.exercise_types,
-      }),
-    }))
+  // Un bloque por unidad. El cinturón aporta el color; cada unidad es un bloque
+  // titulado (pintado con el color del cinturón). Con 1 unidad/cinturón (análisis)
+  // se ve como un único bloque, igual que antes.
+  const units = cat?.units ?? []
 
   return (
     <section
       className={cn(
-        "flex flex-col gap-3 rounded-md border p-4",
+        "flex flex-col gap-4 rounded-md border p-4",
         isActive ? "border-white/10" : "border-white/15 bg-white/5 opacity-60",
       )}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-0.5">
-          <span
-            className="text-lg font-semibold leading-tight"
-            style={{ color: BELT_COLOR[belt] }}
-          >
-            {info.headline}
-          </span>
-        </div>
-        <BeltInfoDialog
-          beltName={beltLabel({ belt })}
-          headline={info.headline}
-          description={info.description}
-        />
-      </div>
+      {units.map((unit, i) => {
+        // Ocultamos temas sin ejercicios todavía (p.ej. Módulo).
+        const rows: BeltGridRow[] = unit.topics
+          .filter((topic) => topic.skills.length > 0)
+          .map((topic) => ({
+            topic,
+            cells: topicToCells({
+              topic: topicStates[topic.key],
+              types: topic.skills,
+            }),
+          }))
 
-      {rows.length > 0 && <BeltGrid rows={rows} showState />}
+        return (
+          <div key={unit.key} className="flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-3">
+              <span
+                className="text-lg font-semibold leading-tight"
+                style={{ color: BELT_COLOR[belt] }}
+              >
+                {unit.name}
+              </span>
+              {i === 0 && (
+                <BeltInfoDialog
+                  beltName={beltLabel({ belt })}
+                  headline={info.headline}
+                  description={info.description}
+                />
+              )}
+            </div>
+
+            {rows.length > 0 && <BeltGrid rows={rows} showState />}
+          </div>
+        )
+      })}
     </section>
   )
 }
@@ -420,7 +431,7 @@ function BeltInfoDialog({
             {headline}
           </DialogTitle>
           <DialogDescription className="whitespace-pre-line text-sm leading-relaxed text-foreground/80">
-            {description}
+            <MathText text={description} />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
