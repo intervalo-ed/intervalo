@@ -16,13 +16,19 @@ No se pide reescribir los problemas: se pide corregir el formato, sumar los feed
 
 ## Correcciones de formato transversales (los 4 skills)
 
-Defectos detectados en la auditoría (jul-2026). Cuadráticas ya está limpia en `\n\n$$` pegado a display y em-dash `—`; los tres puntos que quedan:
+Defectos detectados en la auditoría (jul-2026). Aplicar a todos los ítems afectados.
 
-1. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
+1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 11, FORM 32, CLSF 8, GRAF 0). Viola la regla crítica 2 del `authoring-context.md`: las fórmulas display van con **un solo `\n`** antes y después, nunca `\n\n`. KaTeX ya agrega su propio margen; el doble salto abre un hueco vertical.
+   - ❌ `escribirse en la forma:\n\n$$f(x) = ax^2 + bx + c$$\n\ndonde $a$, $b$ y $c$...`
+   - ✅ `escribirse en la forma\n$$f(x) = ax^2 + bx + c$$\ndonde $a$, $b$ y $c$...`
+2. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
    - ❌ `• $a$ es el coeficiente principal.\n• $b$ y $c$ son...`
    - ✅ Prosa: `El **coeficiente principal** $a$ define la apertura y el signo de la concavidad; $b$ y $c$ acompañan sin cambiar la familia.`
-2. **Cierres con humor o antropomorfismo**. El cierre de la `explanation` debe ser **advertencia del error típico o consejo práctico**, en voz neutra (regla crítica 7 del `authoring-context.md`). Nada de remates de chiste.
-3. **`correct_index` muy sesgado a un índice** (LEXI: 38/50 en índice 1; CLSF: 23/50 en índice 1; GRAF: 28/50 en índice 1 y **cero en índice 3**). El runtime baraja igual, pero como fuente dificulta auditar pistas delatoras. Al pasar por refactor, variar el índice correcto y garantizar presencia mínima en los cuatro índices para GRAF.
+3. **Em-dash `—` y en-dash `–`** (LEXI 8, FORM 6). Prohibidos (regla crítica 6). Reemplazar por `,`, `:`, `;` o `.` según corresponda.
+4. **Explicaciones cortas** (`explanation < 250 chars`: FORM 22, GRAF 39). Estructura mínima de 3 partes según `authoring-context.md`: concepto general → aplicación al caso → cierre útil. Cierre en advertencia neutra cuando aporte; si no, la explicación termina en la aplicación con detalle suficiente.
+5. **Cierres con humor o antropomorfismo**. El cierre de la `explanation` debe ser **advertencia del error típico o consejo práctico**, en voz neutra (regla crítica 7 del `authoring-context.md`). Nada de remates de chiste.
+6. **`correct_index` muy sesgado a un índice** (LEXI: 38/50 en índice 1; CLSF: 23/50 en índice 1; GRAF: 28/50 en índice 1 y **cero en índice 3**). El runtime baraja igual, pero como fuente dificulta auditar pistas delatoras. Al pasar por refactor, variar el índice correcto y garantizar presencia mínima en los cuatro índices para GRAF.
+7. **LEXI: negrita en primera mención** faltante en ~75% de los campos (`question`/`explanation`) del skill. Ver la sección LEXI para la lista de términos afectados; el checkeo es mecánico y hay que pasarlo por los 50 ítems.
 
 ---
 
