@@ -174,21 +174,20 @@
           "name": "Límites",
           "topics": [
             {
-              "key": "algebraic_limits",
-              "name": "Límites algebraicos",
-              "tooltip": "Un **límite algebraico** es aquel que se calcula manipulando la expresión de la función sin evaluarla directamente en el punto de tendencia.\n$$\\lim_{x \\to a} f(x) = L$$\nCuando la sustitución directa produce una indeterminación como $\\tfrac{0}{0}$, se recurre a técnicas como la **factorización** o la **racionalización** para simplificar la expresión y obtener el valor buscado.",
-              "short_description": "Un **límite algebraico** es aquel que se calcula manipulando la expresión de la función sin evaluarla directamente en el punto de tendencia.\n$$\\lim_{x \\to a} f(x) = L$$",
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "El **límite** de una función formaliza la idea de **tendencia**. Describe a qué valor se acerca cuando su variable tiende a un valor $a$, sin importar si está definida exactamente allí.\n$$\\lim_{x \\to a} f(x) = L$$\nMientras que evaluar una función exige un valor fijo, el límite opera desde la **aproximación**. Permite comprender su comportamiento hacia un valor determinado a partir del análisis de su entorno.",
+              "short_description": "El **límite** de una función formaliza la idea de **tendencia**. Describe a qué valor se acerca cuando su variable tiende a un valor $a$, sin importar si está definida exactamente allí.\n$$\\lim_{x \\to a} f(x) = L$$",
               "skills": [
                 "LEXI",
-                "ESTR",
                 "RESL"
               ]
             },
             {
               "key": "lateral_limits",
               "name": "Límites laterales",
-              "tooltip": "Los **límites laterales** son aquellos que consideran el acercamiento de la variable a un valor desde un único lado, ya sea por la izquierda o por la derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$\nEl límite general de una función en un punto existe únicamente cuando ambos límites laterales coinciden, condición clave para analizar **saltos** y **discontinuidades**.",
-              "short_description": "Los **límites laterales** son aquellos que consideran el acercamiento de la variable a un valor desde un único lado, ya sea por la izquierda o por la derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$",
+              "tooltip": "Los **límites laterales** desglosan el análisis de una tendencia al restringir la aproximación a una única dirección, acercándose a un valor exclusivamente por su izquierda o por su derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$\nSu evaluación es indispensable en funciones que presentan **saltos** o **puntos de quiebre**. El **límite bilateral** existe si y solo si ambos caminos laterales convergen de forma simultánea hacia el mismo destino.",
+              "short_description": "Los **límites laterales** desglosan el análisis de una tendencia al restringir la aproximación a una única dirección, acercándose a un valor exclusivamente por su izquierda o por su derecha.\n$$\\lim_{x \\to a^-} f(x), \\quad \\lim_{x \\to a^+} f(x)$$",
               "skills": [
                 "LEXI",
                 "GRAF",
@@ -198,8 +197,8 @@
             {
               "key": "infinite_limits",
               "name": "Límites al infinito",
-              "tooltip": "Un **límite al infinito** describe el comportamiento de una función cuando su variable independiente crece o decrece sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L$$\nSu análisis permite identificar **asíntotas horizontales** y caracterizar la tendencia final de la curva, dominada por los términos de mayor peso de la expresión.",
-              "short_description": "Un **límite al infinito** describe el comportamiento de una función cuando su variable independiente crece o decrece sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L$$",
+              "tooltip": "Los **límites al infinito** y los **límites infinitos** extienden el concepto de tendencia a escenarios donde la variable o la función crecen sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L, \\quad \\lim_{x \\to a} f(x) = \\pm\\infty$$\nSu cálculo permite identificar las **asíntotas** de la gráfica, lo que hace posible distinguir entre una relación que se estabiliza a largo plazo y una que diverge en un punto específico de su dominio.",
+              "short_description": "Los **límites al infinito** y los **límites infinitos** extienden el concepto de tendencia a escenarios donde la variable o la función crecen sin cota.\n$$\\lim_{x \\to \\pm\\infty} f(x) = L, \\quad \\lim_{x \\to a} f(x) = \\pm\\infty$$",
               "skills": [
                 "LEXI",
                 "GRAF",
@@ -209,8 +208,8 @@
             {
               "key": "continuity",
               "name": "Continuidad",
-              "tooltip": "Una función es **continua** en un punto cuando el valor al que tiende coincide con el valor que efectivamente toma en él, sin saltos ni huecos en la gráfica.\n$$\\lim_{x \\to a} f(x) = f(a)$$\nLas rupturas de esta condición dan lugar a distintos tipos de **discontinuidad**, evitables o esenciales según cómo se comporten los límites laterales en el punto.",
-              "short_description": "Una función es **continua** en un punto cuando el valor al que tiende coincide con el valor que efectivamente toma en él, sin saltos ni huecos en la gráfica.\n$$\\lim_{x \\to a} f(x) = f(a)$$",
+              "tooltip": "Una función es **continua** en un punto o un intervalo cuando la tendencia en un entorno coincide exactamente con su evaluación en el punto.\n$$\\lim_{x \\to a} f(x) = f(a)$$\nEl incumplimiento de esta igualdad genera una **discontinuidad**. Clasificar su gravedad, ya sea removible, de salto o esencial, depende puramente del comportamiento de los límites laterales.",
+              "short_description": "Una función es **continua** en un punto o un intervalo cuando la tendencia en un entorno coincide exactamente con su evaluación en el punto.\n$$\\lim_{x \\to a} f(x) = f(a)$$",
               "skills": [
                 "CLSF",
                 "GRAF",
@@ -218,23 +217,22 @@
               ]
             },
             {
-              "key": "factorizacion",
+              "key": "factorization",
               "name": "Factorización",
-              "tooltip": "La **factorización** consiste en reescribir una expresión algebraica como el producto de factores más simples, revelando su estructura interna y sus **raíces**.\n$$P(x) = a(x - r_1)(x - r_2)\\cdots(x - r_n)$$\nEs una herramienta esencial para simplificar expresiones, resolver ecuaciones y eliminar indeterminaciones del tipo $\\tfrac{0}{0}$ en el cálculo de límites.",
-              "short_description": "La **factorización** consiste en reescribir una expresión algebraica como el producto de factores más simples, revelando su estructura interna y sus **raíces**.\n$$P(x) = a(x - r_1)(x - r_2)\\cdots(x - r_n)$$",
+              "tooltip": "La **factorización** es el método algebraico para resolver límites frente a una indeterminación de la forma $\\tfrac{0}{0}$. Permite reescribir expresiones polinómicas como el producto de factores más simples.\n$$\\lim_{x \\to a} \\frac{f(x)(x-a)}{g(x)(x-a)}$$\nAl aislar este factor en el numerador y el denominador, hace posible su cancelación, lo que elimina la indeterminación y habilita la evaluación directa de la tendencia de la función.",
+              "short_description": "La **factorización** es el método algebraico para resolver límites frente a una indeterminación de la forma $\\tfrac{0}{0}$. Permite reescribir expresiones polinómicas como el producto de factores más simples.\n$$\\lim_{x \\to a} \\frac{f(x)(x-a)}{g(x)(x-a)}$$",
               "skills": [
                 "LEXI",
-                "ESTR",
                 "RESL"
               ]
             },
             {
-              "key": "racionalizacion",
+              "key": "rationalization",
               "name": "Racionalización",
-              "tooltip": "La **racionalización** es una técnica que elimina las raíces del numerador o del denominador de una expresión multiplicando por una forma conveniente, típicamente el **conjugado**.\n$$\\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$\nSe utiliza principalmente en el cálculo de límites para transformar indeterminaciones en expresiones equivalentes fáciles de evaluar.",
-              "short_description": "La **racionalización** es una técnica que elimina las raíces del numerador o del denominador de una expresión multiplicando por una forma conveniente, típicamente el **conjugado**.\n$$\\frac{1}{a + \\sqrt{b}} \\cdot \\frac{a - \\sqrt{b}}{a - \\sqrt{b}} = \\frac{a - \\sqrt{b}}{a^2 - b}$$",
+              "tooltip": "La **racionalización** es el método algebraico para resolver límites frente a una indeterminación de la forma $\\tfrac{0}{0}$ cuando intervienen raíces cuadradas. Permite transformar la expresión multiplicando por una fracción unitaria.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\cdot \\frac{\\sqrt{u}+c}{\\sqrt{u}+c}$$\nAl forzar una diferencia de cuadrados, aísla el factor en el numerador y el denominador, lo que hace posible su cancelación y habilita la evaluación directa de la tendencia de la función.",
+              "short_description": "La **racionalización** es el método algebraico para resolver límites frente a una indeterminación de la forma $\\tfrac{0}{0}$ cuando intervienen raíces cuadradas. Permite transformar la expresión multiplicando por una fracción unitaria.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\cdot \\frac{\\sqrt{u}+c}{\\sqrt{u}+c}$$",
               "skills": [
-                "ESTR",
+                "LEXI",
                 "RESL"
               ]
             }
