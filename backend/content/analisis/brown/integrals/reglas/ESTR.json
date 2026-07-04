@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Para integrar $\\int 5x^3 \\, dx$, ¿cuál es el orden correcto de aplicación de reglas?",
+    "options": [
+      "Primero sacar el $5$ afuera (múltiplo constante), luego integrar $x^3$ con la regla de la potencia",
+      "Primero aplicar la regla de la potencia a $5x^3$ directamente subiendo el $5$",
+      "Usar integración por partes con $u=5$ y $dv=x^3 \\, dx$",
+      "No se puede integrar sin conocer los límites de integración"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Constante afuera, luego potencia: $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$.",
+    "feedback_incorrect": "El flujo correcto: regla del múltiplo constante → regla de la potencia. Resultado: $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El proceso estructurado para integrar $5x^3$:\n\n1. **Múltiplo constante:** $\\int 5 \\cdot x^3 \\, dx = 5 \\cdot \\int x^3 \\, dx$\n2. **Potencia:** $\\int x^3 \\, dx = \\dfrac{x^4}{4} + C$\n3. **Resultado:** $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$\n\nLa constante multiplicativa **atraviesa** la integral sin modificarse, un patrón simétrico a lo que ocurre al derivar. La $C$ se agrega una única vez al final, no en cada paso.",
+    "reviewed": false
+  }
+]

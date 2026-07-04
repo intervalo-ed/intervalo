@@ -1,0 +1,70 @@
+[
+  {
+    "question": "En la regla del cociente $\\left( \\dfrac{u}{v} \\right)'$, ¿qué término va restando en el numerador?",
+    "options": [
+      "$u' \\cdot v$ (la derivada del numerador por el denominador original)",
+      "$u \\cdot v'$ (el numerador original por la derivada del denominador)",
+      "$(u-v)'$",
+      "Siempre es una suma, no una resta"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Se resta el término que tiene la derivada del que está abajo.",
+    "feedback_incorrect": "Cuidado con el orden. La fórmula es $u'v - uv'$. El que resta es el que tiene la derivada del denominador.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla del cociente** tiene un orden estricto porque hay una resta en el numerador:\n\n$$\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}$$\n\nEl término positivo es el que tiene la derivada de 'el de arriba' ($u'v$). El término negativo es el que tiene la derivada de 'el de abajo' ($uv'$).\n\nSi invertís este orden, el signo de tu derivada va a estar mal y vas a concluir erróneamente si la función crece o decrece.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el primer paso recomendado para derivar $f(x) = \\dfrac{5}{x^3}$?",
+    "options": [
+      "Derivar el 5 y el $x^3$ por separado",
+      "Usar obligatoriamente la regla del cociente",
+      "Reescribir como $5x^{-3}$ y usar regla de la potencia",
+      "Igualar a cero la función"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Aunque el cociente funciona, pasar a potencia negativa suele ser mucho más rápido y menos propenso a errores.",
+    "feedback_incorrect": "Poder podés usar cociente, pero derivar una constante te va a dar cero y te vas a complicar la vida al simplificar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "No siempre que veas una fracción tenés que usar la **regla del cociente**. Si el numerador es una constante, es mucho más eficiente reescribir la función como una potencia negativa:\n\n$$f(x) = \\frac{5}{x^3} = 5x^{-3}$$\n\nAhora derivás usando la regla de la potencia:\n\n$$f'(x) = 5 \\cdot (-3)x^{-4} = -15x^{-4} = -\\frac{15}{x^4}$$\n\nSi usaras la regla del cociente, llegarías a lo mismo pero con pasos extra donde podrías equivocarte de signo.",
+    "reviewed": false
+  },
+  {
+    "question": "Al aplicar la regla del cociente, ¿cuál es el error más común respecto al denominador?",
+    "options": [
+      "Olvidarse de elevarlo al cuadrado",
+      "Derivarlo en vez de dejarlo como está",
+      "No ponerlo en la fórmula",
+      "Todas las anteriores"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Los tres son errores típicos. Hay que estar muy atento a mantener el denominador al cuadrado y sin derivar.",
+    "feedback_incorrect": "En realidad, todos esos son errores que los estudiantes suelen cometer. El denominador debe ser $[v(x)]^2$ sin derivar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **denominador** en la regla del cociente es simplemente el denominador original elevado al cuadrado:\n\n$$\\text{Denominador} = [v(x)]^2$$\n\nUn error frecuente es intentar derivar este denominador mientras se aplica la fórmula, o simplemente olvidarse de escribirlo. Recordá que este término es el que determina que la derivada de una función racional suele tener un exponente mayor en el denominador que la función original.",
+    "reviewed": false
+  },
+  {
+    "question": "En la regla del cociente, si el numerador es $u$ y el denominador es $v$, ¿qué representa $v^2$?",
+    "options": [
+      "El denominador original elevado al cuadrado",
+      "La derivada del denominador",
+      "El área bajo la curva del denominador",
+      "Un factor de corrección que siempre es 1"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Siempre es la función de abajo al cuadrado.",
+    "feedback_incorrect": "El término de abajo en la regla del cociente es simplemente el denominador que ya tenías, pero al cuadrado.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $v^2$ en el denominador de la **regla del cociente** asegura que la unidad de medida y la escala de la pendiente sean correctas.\n\nUna consecuencia importante es que, como cualquier número real al cuadrado es no negativo, el signo de la derivada (que nos dice si la función sube o baja) depende exclusivamente del **numerador**. Por eso, al buscar extremos, solemos ignorar el denominador e igualar el numerador a cero.",
+    "reviewed": false
+  }
+]

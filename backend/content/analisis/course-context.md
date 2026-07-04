@@ -22,9 +22,9 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 | Cinturón | Unidad | Temas |
 |----------|--------|-------|
 | `white` | `functions` | definición, lineal, cuadrática, polinómica, racional, exponencial, logarítmica, trigonométrica, módulo |
-| `blue` | `limits` | límites algebraicos, laterales, infinitos, continuidad, factorización, racionalización |
-| `violet` | `derivatives` | definición por límite, reglas básicas, producto/cociente, regla de la cadena, interpretación geométrica, L'Hôpital |
-| `brown` | `integrals` | integral indefinida, definida, sustitución, integración por partes |
+| `blue` | `limits` | definición, laterales, infinitos, continuidad, factorización, racionalización |
+| `violet` | `derivatives` | definición por límite, interpretación geométrica, reglas, producto, cociente, regla de la cadena, L'Hôpital |
+| `brown` | `integrals` | definición, reglas, sustitución, partes, definidas |
 | `black` | `analysis` | análisis de funciones, optimización, cálculo de área, teorema fundamental del cálculo (FTC) |
 
 ## Estado matemático del alumno por cinturón (regla dura)

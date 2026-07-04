@@ -1,5 +1,39 @@
 [
   {
+    "question": "Calculá el área bajo la curva $f(x) = x e^x$ desde $x=0$ hasta $x=1$.",
+    "options": [
+      "$1$",
+      "$e - 1$",
+      "$e$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La integral definida de $x e^x$ evaluada da exactamente 1.",
+    "feedback_incorrect": "Calculá primero la indefinida $(x e^x - e^x)$ y luego aplicá la Regla de Barrow.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar el área, calculamos la integral definida $\\int_{0}^{1} x e^x \\, dx$. Primero, por partes, sabemos que:\n\n$$\\int x e^x \\, dx = x e^x - e^x$$\n\nAhora aplicamos la **Regla de Barrow** evaluando en los límites $0$ y $1$:\n\n$$(1 e^1 - e^1) - (0 e^0 - e^0) = (e - e) - (0 - 1) = 0 - (-1) = 1$$\n\nEl área sombreada bajo esta función en ese intervalo es exactamente una unidad cuadrada, un resultado sorprendentemente simple para una función exponencial.",
+    "reviewed": false
+  },
+  {
+    "question": "En física, el centro de masa de una varilla con densidad $\\rho(x) = \\ln(x+1)$ requiere integrar $x \\ln(x+1)$. ¿Qué técnica es la más directa?",
+    "options": [
+      "Sustitución $u = x+1$ y luego integración por partes",
+      "Sustitución trigonométrica únicamente",
+      "Descomposición en fracciones simples",
+      "Regla de la cadena inversa"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La sustitución simplifica el argumento del logaritmo para que sea más fácil aplicar partes.",
+    "feedback_incorrect": "El logaritmo sugiere partes, pero el $(x+1)$ es más cómodo si primero hacés un cambio de variable.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando tenés una función compuesta dentro de una integral que pide partes, a veces conviene **limpiar** el argumento primero.\n\nSi hacés $t = x+1$, entonces $x = t-1$ y $dx = dt$. La integral se transforma en $\\int (t-1) \\ln(t) \\, dt$, que se puede separar en dos integrales por partes más sencillas.\n\nEste tipo de combinaciones entre **sustitución e integración por partes** es muy común en problemas de aplicación donde las funciones no son básicas.",
+    "reviewed": false
+  },
+  {
     "question": "¿Cuál es el resultado de la integral $\\int x \\sin(x) \\, dx$?",
     "options": [
       "$x \\cos(x) + \\sin(x) + C$",

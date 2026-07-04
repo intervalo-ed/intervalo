@@ -83,8 +83,7 @@ respuesta: numérica corta → 4, conceptual/textual → 3, binario → excepcio
 | `LEXI`, `CLSF` | Sistema 1, reconocimiento rápido de categoría/término | 3 conceptual · 4 si la respuesta es numérica corta |
 | `ESTR` | puente: conceptual pero con estados discretos | 3 |
 | `GRAF` | Sistema 1 perceptual (leer la curva) + Sistema 2 para valor | 3 si es categórica · 4 si es valor/fórmula |
-| `APLI` | Sistema 2 con contexto cotidiano | 3-4 |
-| `RESL`, `DERI`, `INTG` | Sistema 2 puro, proceso deliberado de cálculo | 4 (errores de procedimiento genuinos) |
+| `RESL` | Sistema 2 deliberado: cálculo puro o con contexto cotidiano | 4 (errores de procedimiento genuinos) |
 
 El binario (2 opciones) se reserva para criterios genuinamente sí/no sin tercera
 confusión plausible, y no debe superar ~3 ítems por archivo de 50: en masa vuelve la

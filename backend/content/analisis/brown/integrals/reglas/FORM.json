@@ -1,0 +1,19 @@
+[
+  {
+    "question": "¿Cuál es la regla de la potencia para integrar $\\int x^n \\, dx$ con $n \\neq -1$?",
+    "options": [
+      "$\\dfrac{x^{n+1}}{n+1} + C$",
+      "$n \\cdot x^{n-1} + C$",
+      "$\\dfrac{x^{n-1}}{n-1} + C$",
+      "$x^{n+1} + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Subís el exponente en $1$ y dividís por el nuevo exponente.",
+    "feedback_incorrect": "La regla de la potencia para integrar dice: $\\int x^n \\, dx = \\dfrac{x^{n+1}}{n+1} + C$. Subís el exponente en $1$ y dividís por ese nuevo exponente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la potencia** para integrar es la operación inversa de la regla de la potencia para derivar:\n\n$$\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1$$\n\nEl exponente **sube** en $1$ y el resultado se **divide** por ese nuevo exponente.\n\nOjo con la restricción $n \\neq -1$: el caso $\\int x^{-1} \\, dx$ no sigue esta regla porque dividir por $n+1=0$ es imposible; su antiderivada es $\\ln|x| + C$.",
+    "reviewed": false
+  }
+]

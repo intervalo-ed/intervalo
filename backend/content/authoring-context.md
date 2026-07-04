@@ -65,10 +65,9 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - **Corto:** 1 oración, ideal ≤ 2 renglones en celular. Es una pista para el segundo intento, no una mini-explicación, eso ya lo cubre `explanation`.
 - **Sin pistas en cascada:** cada texto es autosuficiente para SU distractor; no asume que el usuario ya leyó la pista de otra opción.
 - **Contenido típico de la pista según skill:**
-  - `RESL`/`DERI`/`INTG` (cálculo): error de procedimiento, signo, regla mal aplicada, paso salteado, constante de integración olvidada.
+  - `RESL` (cálculo): error de procedimiento, signo, regla mal aplicada, paso salteado, constante de integración olvidada. También cubre confusión entre el contexto cotidiano y el resultado matemático puro cuando el ítem se plantea en contexto.
   - `ESTR`/`CLSF` (conceptual): la condición que falta o se confundió, releer el concepto sin re-explicarlo entero.
   - `GRAF`: qué parte del gráfico releer, "fijate qué pasa a la izquierda del salto", sin nombrar el valor.
-  - `APLI`: confusión entre el contexto cotidiano y el resultado matemático puro.
 - **Migración:** los belts con `""` se completan al pasar por refactor; no hace falta backfill manual fuera de ese proceso.
 
 ---
@@ -87,8 +86,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - `ESTR`, `CLSF` (conceptual): **3 opciones por defecto.** Binario solo si el criterio es genuinamente sí/no y no hay tercera confusión.
 - `LEXI` (léxico/recall): **3 opciones para conceptuales, 4 para numéricas**. Ver *topic-context.md* del tema.
 - `GRAF` (lectura de gráfico): 3 cuando la propiedad leída es categórica; 4 cuando hay que elegir entre fórmulas o valores numéricos leídos del gráfico (grilla 2×2 si son cortos).
-- `APLI` (aplicación/modelado): 3-4, las opciones son interpretaciones de contexto que compiten.
-- `RESL`, `DERI`, `INTG` (cálculo): **4 sigue siendo el default**, porque acá la cantidad de errores de procedimiento clásicos sí sostiene 4 distractores reales. Si los 4 son numéricos cortos, se renderizan en grilla 2×2.
+- `RESL` (cálculo, incluida aplicación en contexto): **4 sigue siendo el default**, porque acá la cantidad de errores de procedimiento clásicos sí sostiene 4 distractores reales. Si los 4 son numéricos cortos, se renderizan en grilla 2×2.
 
 **Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4 && options.every(o => o.length <= 35)`. Aprovechá el compactado siempre que la respuesta lo permita.
 
@@ -98,7 +96,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 ## Formato de Cálculo Numérico, grilla compacta 2×2
 
-Para skills de cálculo (`RESL`, `DERI`, `INTG`) y para cualquier ítem de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
+Para el skill de cálculo (`RESL`) y para cualquier ítem de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
 
 **Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4 && exercise.options.every(o => o.length <= 35)` (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, alrededor de la línea 293). Para aprovecharlo: 4 opciones, todas de ≤35 caracteres. Si alguna opción supera los 35 caracteres, el front cae a lista vertical.
 
