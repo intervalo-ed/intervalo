@@ -323,7 +323,7 @@ export const catalog: Catalog = {
             {
               "key": "quotient",
               "name": "Cociente",
-              "tooltip": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$\nEvita la reescritura previa de la expresión y es indispensable cuando el numerador y el denominador no admiten una simplificación algebraica directa.",
+              "tooltip": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$\nLa resta en la fórmula refleja el balance matemático de la fracción. El crecimiento del numerador incrementa el valor total y el aumento del denominador lo reduce. Al quedar el divisor al cuadrado, el signo de la pendiente depende exclusivamente de esta diferencia.",
               "short_description": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$",
               "skills": [
                 "ESTR",
@@ -333,7 +333,7 @@ export const catalog: Catalog = {
             {
               "key": "chain_rule",
               "name": "Cadena",
-              "tooltip": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$\nSu aplicación consiste en derivar la función **exterior** evaluada en la **interior**, y multiplicarla luego por la derivada de esta última.",
+              "tooltip": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$\nLa multiplicación en la fórmula refleja un efecto de transmisión secuencial. La tasa de cambio total resulta del producto entre la variación de la función exterior y la velocidad a la que se modifica su argumento interior.",
               "short_description": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$",
               "skills": [
                 "ESTR",
@@ -356,12 +356,12 @@ export const catalog: Catalog = {
             {
               "key": "definition",
               "name": "Definición",
-              "tooltip": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$\nLa **constante de integración** $C$ refleja que existe una familia infinita de antiderivadas, todas diferenciadas entre sí únicamente por un valor constante.",
-              "short_description": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$",
+              "tooltip": "La **integral indefinida** de una función es su **antiderivada**, una nueva función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$\nRepresenta el proceso inverso a la derivación y revela la función que originó una tasa de cambio. Al derivar se pierde definitivamente la información sobre la altura inicial en el plano. Por eso el resultado es una familia de curvas paralelas donde la constante $C$ repone esa libertad de desplazamiento vertical.",
+              "short_description": "La **integral indefinida** de una función es su **antiderivada**, una nueva función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$",
               "skills": [
                 "LEXI",
-                "ESTR",
-                "RESL"
+                "FORM",
+                "ESTR"
               ]
             },
             {
