@@ -1056,7 +1056,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         if not topic_rows:
             continue
         expected = topic_exercise_types(course_id, key.belt.value, key.topic, db)
-        topic_states[key.topic] = _aggregate_topic_progress(topic_rows, expected, today)
+        topic_states[f"{key.belt.value}/{key.topic}"] = _aggregate_topic_progress(topic_rows, expected, today)
 
     user = db.query(User).filter(User.id == user_id).first()
     total_xp = user.total_xp if user else 0
@@ -1129,7 +1129,7 @@ def get_summary_db(
         ts_dict = _aggregate_topic_progress(topic_rows, expected, today)
         if (key.belt.value, key.topic) in failed_in_session:
             ts_dict["failed"] = True
-        topic_states[key.topic] = ts_dict
+        topic_states[f"{key.belt.value}/{key.topic}"] = ts_dict
 
     # Belt progress for the highest belt touched in this session
     if answers:

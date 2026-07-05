@@ -302,8 +302,8 @@ export const catalog: Catalog = {
             {
               "key": "differentiation_rules",
               "name": "Reglas",
-              "tooltip": "Las **reglas de derivación** simplifican el cálculo de derivadas mediante fórmulas directas que combinan linealmente las derivadas de funciones elementales, incluyendo potencias, exponenciales, logaritmos y funciones trigonométricas.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
-              "short_description": "Las **reglas de derivación** simplifican el cálculo de derivadas mediante fórmulas directas que combinan linealmente las derivadas de funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
+              "tooltip": "Las **reglas de derivación** simplifican el cálculo de derivadas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$\nEstas reglas aportan fórmulas directas para obtener la tasa de cambio de expresiones polinómicas, exponenciales, logarítmicas y trigonométricas. Cada una de estas identidades se deduce a partir de la definición de derivada como límite del cociente incremental, y su combinación permite resolver la mayoría de los casos sin recurrir al desarrollo con límite.",
+              "short_description": "Las **reglas de derivación** simplifican el cálculo de derivadas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
               "skills": [
                 "FORM",
                 "ESTR",
@@ -323,7 +323,7 @@ export const catalog: Catalog = {
             {
               "key": "quotient",
               "name": "Cociente",
-              "tooltip": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$\nEvita la reescritura previa de la expresión y es indispensable cuando el numerador y el denominador no admiten una simplificación algebraica directa.",
+              "tooltip": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$\nLa resta en la fórmula refleja el balance matemático de la fracción. El crecimiento del numerador incrementa el valor total y el aumento del denominador lo reduce. Al quedar el divisor al cuadrado, el signo de la pendiente depende exclusivamente de esta diferencia.",
               "short_description": "La **regla del cociente** permite derivar funciones que resultan de dividir dos expresiones dependientes de la misma variable.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$$",
               "skills": [
                 "ESTR",
@@ -333,7 +333,7 @@ export const catalog: Catalog = {
             {
               "key": "chain_rule",
               "name": "Cadena",
-              "tooltip": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$\nSu aplicación consiste en derivar la función **exterior** evaluada en la **interior**, y multiplicarla luego por la derivada de esta última.",
+              "tooltip": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$\nLa multiplicación en la fórmula refleja un efecto de transmisión secuencial. La tasa de cambio total resulta del producto entre la variación de la función exterior y la velocidad a la que se modifica su argumento interior.",
               "short_description": "La **regla de la cadena** permite derivar funciones **compuestas**, es decir, aquellas en las que una función actúa sobre el resultado de otra.\n$$(g \\circ h)'(x) = g'(h(x)) \\cdot h'(x)$$",
               "skills": [
                 "ESTR",
@@ -356,19 +356,19 @@ export const catalog: Catalog = {
             {
               "key": "definition",
               "name": "Definición",
-              "tooltip": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$\nLa **constante de integración** $C$ refleja que existe una familia infinita de antiderivadas, todas diferenciadas entre sí únicamente por un valor constante.",
-              "short_description": "La **integral indefinida** de una función es su **antiderivada**, es decir, otra función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$",
+              "tooltip": "La **integral indefinida** de una función es su **antiderivada**, una nueva función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$\nRepresenta el proceso inverso a la derivación y revela la función que originó una tasa de cambio. Al derivar se pierde definitivamente la información sobre la altura inicial en el plano. Por eso el resultado es una familia de curvas paralelas donde la constante $C$ repone esa libertad de desplazamiento vertical.",
+              "short_description": "La **integral indefinida** de una función es su **antiderivada**, una nueva función cuya derivada devuelve a la original.\n$$\\int f(x) \\, dx = F(x) + C$$",
               "skills": [
                 "LEXI",
-                "ESTR",
-                "RESL"
+                "FORM",
+                "ESTR"
               ]
             },
             {
               "key": "reglas",
               "name": "Reglas",
-              "tooltip": "Las **reglas de integración** simplifican el cálculo de integrales mediante fórmulas directas que combinan linealmente las antiderivadas de funciones elementales, incluyendo potencias, exponenciales, logaritmos y funciones trigonométricas.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
-              "short_description": "Las **reglas de integración** simplifican el cálculo de integrales mediante fórmulas directas que combinan linealmente las antiderivadas de funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
+              "tooltip": "Las **reglas de integración** simplifican el cálculo de primitivas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$\nEstas reglas aportan fórmulas directas para resolver expresiones polinómicas, exponenciales, logarítmicas y trigonométricas. Al tratarse de la operación inversa, cada una de estas identidades se deduce naturalmente al revertir las reglas de derivación ya conocidas.",
+              "short_description": "Las **reglas de integración** simplifican el cálculo de primitivas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
               "skills": [
                 "FORM",
                 "ESTR",
@@ -378,8 +378,8 @@ export const catalog: Catalog = {
             {
               "key": "substitution",
               "name": "Sustitución",
-              "tooltip": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$\nEs la contraparte integral de la **regla de la cadena** y resulta especialmente útil cuando la derivada de una función interior aparece como factor dentro del integrando.",
-              "short_description": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$",
+              "tooltip": "La **integración por sustitución** simplifica el cálculo de primitivas al introducir un cambio de variable que absorbe una parte de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$\nEste método funciona como la operación inversa de la **regla de la cadena**. Se aplica cuando la integral contiene una función compuesta multiplicada por la derivada de su interior. Al realizar el reemplazo de variables, la estructura compleja se reduce a una de las formas integrables por las reglas de integración.",
+              "short_description": "La **integración por sustitución** simplifica el cálculo de primitivas al introducir un cambio de variable que absorbe una parte de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$",
               "skills": [
                 "ESTR",
                 "RESL"
@@ -388,7 +388,7 @@ export const catalog: Catalog = {
             {
               "key": "parts",
               "name": "Partes",
-              "tooltip": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$\nSe elige la parte $u$ que se simplifica al derivarse y la parte $dv$ que resulta fácil de integrar, buscando así una integral remanente más simple que la original.",
+              "tooltip": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$\nEste método transforma una expresión complicada en una más sencilla de resolver. Consiste en asignar una parte para derivar que reduzca su complejidad y otra para integrar que mantenga una forma manejable.",
               "short_description": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$",
               "skills": [
                 "ESTR",
@@ -398,8 +398,8 @@ export const catalog: Catalog = {
             {
               "key": "definite",
               "name": "Definidas",
-              "tooltip": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nSu evaluación se realiza mediante el **Teorema Fundamental del Cálculo**, que conecta la integración con la antiderivada de la función.",
-              "short_description": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$",
+              "tooltip": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo numérico determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nSu evaluación se realiza mediante la **Regla de Barrow** y el **Teorema Fundamental del Cálculo**. Este puente teórico conecta la integración con la antiderivada para resolver acumulaciones exactas sin depender de aproximaciones geométricas visuales.",
+              "short_description": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo numérico determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$",
               "skills": [
                 "GRAF",
                 "RESL"
