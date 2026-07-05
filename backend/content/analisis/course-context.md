@@ -23,7 +23,7 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 |----------|--------|-------|
 | `white` | `functions` | definición, lineal, cuadrática, polinómica, racional, exponencial, logarítmica, trigonométrica, módulo |
 | `blue` | `limits` | definición, laterales, infinitos, continuidad, factorización, racionalización |
-| `violet` | `derivatives` | definición por límite, interpretación geométrica, reglas, producto, cociente, regla de la cadena, L'Hôpital |
+| `violet` | `derivatives` | definición por límite, interpretación geométrica, reglas, producto, cociente, regla de la cadena |
 | `brown` | `integrals` | definición, reglas, sustitución, partes, definidas |
 | `black` | `analysis` | análisis de funciones, optimización, cálculo de área, teorema fundamental del cálculo (FTC) |
 
@@ -33,7 +33,7 @@ El alumno de un cinturón **solo conoce lo de su cinturón y los anteriores**. N
 
 - **`white` (funciones):** conjuntos, dominio/imagen/codominio/preimagen, unicidad, familias de funciones y sus gráficas, operaciones algebraicas. **No** existen todavía: límite, continuidad formal, derivada, integral.
 - **`blue` (límites):** todo lo de white + noción de límite, límites laterales e infinitos, continuidad. **No** existen todavía: derivada, integral.
-- **`violet` (derivadas):** todo lo anterior + derivada como límite, reglas de derivación, recta tangente, L'Hôpital. **No** existe todavía: integral.
+- **`violet` (derivadas):** todo lo anterior + derivada como límite, reglas de derivación, recta tangente. **No** existe todavía: integral.
 - **`brown` (integrales):** todo lo anterior + antiderivada, integral definida e indefinida, técnicas de integración.
 - **`black` (análisis):** todo el curso disponible. Es el único cinturón donde podés cruzar derivada, integral y análisis de función en un mismo ejercicio.
 
