@@ -378,8 +378,8 @@ export const catalog: Catalog = {
             {
               "key": "substitution",
               "name": "Sustitución",
-              "tooltip": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$\nEs la contraparte integral de la **regla de la cadena** y resulta especialmente útil cuando la derivada de una función interior aparece como factor dentro del integrando.",
-              "short_description": "La **integración por sustitución** simplifica una integral introduciendo un **cambio de variable** que absorbe una parte compuesta de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$",
+              "tooltip": "La **integración por sustitución** simplifica el cálculo de primitivas al introducir un cambio de variable que absorbe una parte de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$\nEste método funciona como la operación inversa de la **regla de la cadena**. Se aplica cuando la integral contiene una función compuesta multiplicada por la derivada de su interior. Al realizar el reemplazo de variables, la estructura compleja se reduce a una de las formas integrables por las reglas de integración.",
+              "short_description": "La **integración por sustitución** simplifica el cálculo de primitivas al introducir un cambio de variable que absorbe una parte de la expresión.\n$$\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du$$",
               "skills": [
                 "ESTR",
                 "RESL"
@@ -388,7 +388,7 @@ export const catalog: Catalog = {
             {
               "key": "parts",
               "name": "Partes",
-              "tooltip": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$\nSe elige la parte $u$ que se simplifica al derivarse y la parte $dv$ que resulta fácil de integrar, buscando así una integral remanente más simple que la original.",
+              "tooltip": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$\nEste método transforma una expresión complicada en una más sencilla de resolver. Consiste en asignar una parte para derivar que reduzca su complejidad y otra para integrar que mantenga una forma manejable.",
               "short_description": "La **integración por partes** descompone una integral en dos términos apoyándose en la regla del producto para derivadas.\n$$\\int u \\, dv = u \\, v - \\int v \\, du$$",
               "skills": [
                 "ESTR",
