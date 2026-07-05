@@ -339,16 +339,6 @@ export const catalog: Catalog = {
                 "ESTR",
                 "RESL"
               ]
-            },
-            {
-              "key": "lhopital",
-              "name": "L'Hôpital",
-              "tooltip": "La **regla de L'Hôpital** resuelve límites **indeterminados** del tipo $\\tfrac{0}{0}$ o $\\tfrac{\\infty}{\\infty}$ derivando por separado el numerador y el denominador.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$\nSe aplica reiteradamente mientras la indeterminación persista, aprovechando que las derivadas suelen tener un comportamiento más simple cerca del punto crítico.",
-              "short_description": "La **regla de L'Hôpital** resuelve límites **indeterminados** del tipo $\\tfrac{0}{0}$ o $\\tfrac{\\infty}{\\infty}$ derivando por separado el numerador y el denominador.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}$$",
-              "skills": [
-                "ESTR",
-                "RESL"
-              ]
             }
           ]
         }
