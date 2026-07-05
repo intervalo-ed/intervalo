@@ -357,8 +357,8 @@
             {
               "key": "definite",
               "name": "Definidas",
-              "tooltip": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nSu evaluación se realiza mediante el **Teorema Fundamental del Cálculo**, que conecta la integración con la antiderivada de la función.",
-              "short_description": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$",
+              "tooltip": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo numérico determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$\nSu evaluación se realiza mediante la **Regla de Barrow** y el **Teorema Fundamental del Cálculo**. Este puente teórico conecta la integración con la antiderivada para resolver acumulaciones exactas sin depender de aproximaciones geométricas visuales.",
+              "short_description": "La **integral definida** calcula el **área neta** encerrada entre una función y el eje horizontal sobre un intervalo numérico determinado.\n$$\\int_a^b f(x) \\, dx = F(b) - F(a)$$",
               "skills": [
                 "GRAF",
                 "RESL"
