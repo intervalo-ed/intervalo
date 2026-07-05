@@ -58,7 +58,7 @@ export function beltStats({
   if (!cat) return out
 
   for (const topic of cat.units.flatMap((u) => u.topics)) {
-    accumulateTopic({ counts: out, state: topicStates[topic.key] })
+    accumulateTopic({ counts: out, state: topicStates[`${belt}/${topic.key}`] })
   }
   return out
 }
@@ -74,7 +74,7 @@ export function beltTopicStats({
   if (!cat) return []
   return cat.units.flatMap((u) => u.topics).map((topic) => {
     const counts = emptyCounts()
-    accumulateTopic({ counts, state: topicStates[topic.key] })
+    accumulateTopic({ counts, state: topicStates[`${belt}/${topic.key}`] })
     return { topic: topic.key, ...counts }
   })
 }
@@ -115,7 +115,7 @@ export function courseUnitTotals({
     const cat = getBelt({ key: belt })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
-      accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
+      accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
     }
   }
   return out
@@ -133,7 +133,7 @@ export function beltUnitTotals({
   const cat = getBelt({ key: belt })
   if (!cat) return out
   for (const topic of cat.units.flatMap((u) => u.topics)) {
-    accumulateUnits({ totals: out, topic, state: topicStates[topic.key] })
+    accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
   }
   return out
 }
@@ -167,7 +167,7 @@ export function actionableUnitCount({
     const cat = getBelt({ key: belt })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
-      const state = topicStates[topic.key]
+      const state = topicStates[`${belt}/${topic.key}`]
       if (!state) continue
       for (const unit of state.skills) {
         if (unit.state === "sin_empezar") count++
@@ -190,7 +190,7 @@ export function pendingUnitCount({
     const cat = getBelt({ key: belt })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
-      const state = topicStates[topic.key]
+      const state = topicStates[`${belt}/${topic.key}`]
       if (!state) continue
       count += state.skills.filter(
         (u) => u.state !== "sin_empezar" && unitDue(u.next_review),

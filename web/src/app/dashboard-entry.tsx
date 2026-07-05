@@ -377,7 +377,7 @@ function BeltSection({
           .map((topic) => ({
             topic,
             cells: topicToCells({
-              topic: topicStates[topic.key],
+              topic: topicStates[`${belt}/${topic.key}`],
               types: topic.skills,
             }),
           }))
