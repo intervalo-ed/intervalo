@@ -520,8 +520,20 @@ def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
 
     NO crea filas para temas con 0 filas del usuario: los temas nuevos o
     renombrados los desbloquea _ensure_active_units cuando la progresión
-    normal alcanza esa posición del catálogo, respetando el tope."""
-    topic_keys = _all_topic_keys(course_id, db)
+    normal alcanza esa posición del catálogo, respetando el tope.
+
+    Los skills se toman del catálogo (course.json), no de la tabla exercises:
+    si hay filas huérfanas en exercises (p.ej. APLI para geometric_interpretation
+    tras la fusión APLI→RESL), NO se auto-crean como catch-up."""
+    slug = _get_course_slug(course_id, db)
+    catalogs = load_belt_catalogs(slug)
+    catalog_skills: dict[tuple[str, str], list[str]] = {}
+    topic_keys: list[TopicKey] = []
+    for belt, cat in catalogs.items():
+        for topic in cat.topics:
+            key = (belt.value, topic.key)
+            catalog_skills[key] = list(topic.skills)
+            topic_keys.append(TopicKey(belt=belt, topic=topic.key))
 
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
@@ -537,8 +549,7 @@ def _fill_catchup_units(user_id: int, course_id: int, db: DBSession) -> None:
         # temas nuevos (o keys renombradas) que quedan "atrás" en el catálogo.
         if (tk.belt.value, tk.topic) not in topics_with_units:
             continue
-        types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
-        for et in sorted(types):
+        for et in sorted(catalog_skills.get((tk.belt.value, tk.topic), [])):
             if (tk.belt.value, tk.topic, et) in existing:
                 continue
             db.add(UnitState(
