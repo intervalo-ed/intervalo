@@ -326,8 +326,8 @@
             {
               "key": "reglas",
               "name": "Reglas",
-              "tooltip": "Las **reglas de integración** simplifican el cálculo de integrales mediante fórmulas directas que combinan linealmente las antiderivadas de funciones elementales, incluyendo potencias, exponenciales, logaritmos y funciones trigonométricas.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
-              "short_description": "Las **reglas de integración** simplifican el cálculo de integrales mediante fórmulas directas que combinan linealmente las antiderivadas de funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
+              "tooltip": "Las **reglas de integración** simplifican el cálculo de primitivas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$\nEstas reglas aportan fórmulas directas para resolver expresiones polinómicas, exponenciales, logarítmicas y trigonométricas. Al tratarse de la operación inversa, cada una de estas identidades se deduce naturalmente al revertir las reglas de derivación ya conocidas.",
+              "short_description": "Las **reglas de integración** simplifican el cálculo de primitivas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\int [f(x) \\pm g(x)] \\, dx = \\int f(x) \\, dx \\pm \\int g(x) \\, dx$$",
               "skills": [
                 "FORM",
                 "ESTR",
