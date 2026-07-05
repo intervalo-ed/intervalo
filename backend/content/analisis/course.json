@@ -261,8 +261,8 @@
             {
               "key": "differentiation_rules",
               "name": "Reglas",
-              "tooltip": "Las **reglas de derivación** simplifican el cálculo de derivadas mediante fórmulas directas que combinan linealmente las derivadas de funciones elementales, incluyendo potencias, exponenciales, logaritmos y funciones trigonométricas.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
-              "short_description": "Las **reglas de derivación** simplifican el cálculo de derivadas mediante fórmulas directas que combinan linealmente las derivadas de funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
+              "tooltip": "Las **reglas de derivación** simplifican el cálculo de derivadas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$\nEstas reglas aportan fórmulas directas para obtener la tasa de cambio de expresiones polinómicas, exponenciales, logarítmicas y trigonométricas. Cada una de estas identidades se deduce a partir de la definición de derivada como límite del cociente incremental, y su combinación permite resolver la mayoría de los casos sin recurrir al desarrollo con límite.",
+              "short_description": "Las **reglas de derivación** simplifican el cálculo de derivadas apoyándose en propiedades algebraicas para combinar linealmente las funciones elementales.\n$$\\frac{d}{dx}[f(x) \\pm g(x)] = f'(x) \\pm g'(x)$$",
               "skills": [
                 "FORM",
                 "ESTR",
