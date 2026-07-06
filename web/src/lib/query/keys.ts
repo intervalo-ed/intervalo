@@ -15,6 +15,9 @@ export const queryKeys = {
   leaderboard: ({ university }: { university?: string } = {}) =>
     [...queryKeys.all, "leaderboard", university ?? "all"] as const,
 
+  universityLeaderboard: () =>
+    [...queryKeys.all, "leaderboard", "universities"] as const,
+
   beltInfo: ({ courseId }: { courseId: number }) =>
     [...queryKeys.all, "course", courseId, "belts"] as const,
 

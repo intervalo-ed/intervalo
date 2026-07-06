@@ -162,6 +162,20 @@ class LeaderboardResponse(BaseModel):
     universities: list[str]          # universidades presentes (para el filtro)
 
 
+class UniversityRankRow(BaseModel):
+    university: str
+    total_xp: int                 # XP acumulada por sus estudiantes
+    students: int                 # estudiantes con esta universidad
+    careers: dict[str, int]       # conteo por carrera; llaves: E, S, T, M, Otra
+
+
+class UniversityLeaderboardResponse(BaseModel):
+    rows: list[UniversityRankRow]  # ordenadas por total_xp desc
+    total_students: int            # estudiantes con universidad (suma de rows)
+    total_universities: int        # universidades distintas
+    career_totals: dict[str, int]  # agregado global por carrera (llaves E,S,T,M,Otra)
+
+
 # ── Session ───────────────────────────────────────────────────────────────────
 
 class SessionExercise(BaseModel):

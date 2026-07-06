@@ -43,6 +43,8 @@ from schemas import (
     SessionStartResponse,
     SessionSummaryResponse,
     SimpleResponse,
+    UniversityLeaderboardResponse,
+    UniversityRankRow,
     UserProgressResponse,
     UserStatusResponse,
 )
@@ -642,6 +644,71 @@ def get_leaderboard(
         has_more=page_offset + len(page) < total_count,
         me=me,
         universities=universities,
+    )
+
+
+# Carreras conocidas; cualquier otro valor (o null) cae en "Otra".
+CAREER_BUCKETS = ["E", "S", "T", "M", "Otra"]
+
+
+@app.get("/leaderboard/universities", response_model=UniversityLeaderboardResponse)
+def get_university_leaderboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Ranking de universidades: agrega estudiantes por universidad y carrera.
+
+    A diferencia del leaderboard individual (paginado, ventana alrededor del
+    usuario), acá se recorre el set completo una vez y se agregan los totales
+    por universidad, así el front puede comparar universidades entre sí.
+    """
+    users = db.query(User).all()
+    enrollments = {
+        e.user_id: e
+        for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    }
+
+    def bucket(career: str | None) -> str:
+        return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
+
+    # Agregación por universidad + agregado global por carrera.
+    by_uni: dict[str, dict] = {}
+    career_totals = {c: 0 for c in CAREER_BUCKETS}
+    total_students = 0
+    for user in users:
+        e = enrollments.get(user.id)
+        uni = e.university if e else None
+        if not uni:
+            continue
+        total_students += 1
+        b = bucket(e.career if e else None)
+        career_totals[b] += 1
+        agg = by_uni.setdefault(
+            uni,
+            {"total_xp": 0, "students": 0, "careers": {c: 0 for c in CAREER_BUCKETS}},
+        )
+        agg["total_xp"] += user.total_xp
+        agg["students"] += 1
+        agg["careers"][b] += 1
+
+    rows = [
+        UniversityRankRow(
+            university=uni,
+            total_xp=agg["total_xp"],
+            students=agg["students"],
+            careers=agg["careers"],
+        )
+        for uni, agg in by_uni.items()
+    ]
+    # El ranking de universidades es por estudiantes registrados (XP como
+    # desempate secundario).
+    rows.sort(key=lambda r: (r.students, r.total_xp), reverse=True)
+
+    return UniversityLeaderboardResponse(
+        rows=rows,
+        total_students=total_students,
+        total_universities=len(by_uni),
+        career_totals=career_totals,
     )
 
 

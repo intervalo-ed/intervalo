@@ -26,7 +26,7 @@
     "/course/{course_id}/belts": {
       "get": {
         "summary": "Get Belt Info",
-        "description": "Returns descriptive info (headline + description) for each belt in a course.\n\nDEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarquía\ncompleta (belts→units→topics→skills). Se mantiene por compatibilidad.",
+        "description": "Returns descriptive info (headline + description) for each belt in a course.\n\nDEPRECATED: usar `GET /course/{course_id}/structure`, que devuelve la jerarqu\u00eda\ncompleta (belts\u2192units\u2192topics\u2192skills). Se mantiene por compatibilidad.",
         "operationId": "get_belt_info_course__course_id__belts_get",
         "parameters": [
           {
@@ -70,7 +70,7 @@
     "/course/{course_id}/structure": {
       "get": {
         "summary": "Get Course Structure",
-        "description": "Estructura completa del curso desde course.json: la jerarquía\ncurso → cinturón → unidades → temas → skills, más los exercise_types.\n\nFuente única de estructura (config-driven); el frontend genera su catálogo a\npartir de este mismo archivo.",
+        "description": "Estructura completa del curso desde course.json: la jerarqu\u00eda\ncurso \u2192 cintur\u00f3n \u2192 unidades \u2192 temas \u2192 skills, m\u00e1s los exercise_types.\n\nFuente \u00fanica de estructura (config-driven); el frontend genera su cat\u00e1logo a\npartir de este mismo archivo.",
         "operationId": "get_course_structure_course__course_id__structure_get",
         "parameters": [
           {
@@ -288,7 +288,7 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el\nusuario para que el \"día\" de la repetición espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.",
+        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
           {
@@ -632,7 +632,7 @@
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
-        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la página pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, así el front conoce los bordes de\nla ventana y pide más arriba/abajo por offset.",
+        "description": "Leaderboard ranked by total XP descending, paginado (offset/limit).\n\nEl ranking, los totales y los datos del usuario actual se calculan sobre el\nset completo del scope (global o filtrado por universidad); solo `entries`\ndevuelve la p\u00e1gina pedida para el scroll infinito.\n\nCon `around_me=true` se ignoran `offset`/`limit` y se devuelve una ventana\ncentrada en el usuario actual (`AROUND_WINDOW` filas a cada lado), para que\nel front cargue el ranking con el usuario en el medio y scrollee hacia ambos\nlados. Cada entry trae su `rank` absoluto, as\u00ed el front conoce los bordes de\nla ventana y pide m\u00e1s arriba/abajo por offset.",
         "operationId": "get_leaderboard_leaderboard_get",
         "parameters": [
           {
@@ -718,10 +718,50 @@
         }
       }
     },
+    "/leaderboard/universities": {
+      "get": {
+        "summary": "Get University Leaderboard",
+        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.",
+        "operationId": "get_university_leaderboard_leaderboard_universities_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UniversityLeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/emoji-tree": {
       "get": {
         "summary": "Get Emoji State",
-        "description": "Estado del árbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
+        "description": "Estado del \u00e1rbol de desbloqueo del usuario (bucket, XP, camino, vestido).",
         "operationId": "get_emoji_state_user_emoji_tree_get",
         "parameters": [
           {
@@ -811,7 +851,7 @@
     "/user/emoji/worn": {
       "put": {
         "summary": "Set Worn Emoji",
-        "description": "Viste un emoji ya desbloqueado del camino. None = raíz del bucket (default).",
+        "description": "Viste un emoji ya desbloqueado del camino. None = ra\u00edz del bucket (default).",
         "operationId": "set_worn_emoji_user_emoji_worn_put",
         "parameters": [
           {
@@ -1104,7 +1144,7 @@
     "/feedback": {
       "post": {
         "summary": "Submit Feedback",
-        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort — if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
+        "description": "Save user feedback and notify via email. user_id comes from the token.\n\nThe email is best-effort \u2014 if Resend fails we still return success so the\nuser isn't blocked by a provider outage.",
         "operationId": "submit_feedback_feedback_post",
         "parameters": [
           {
@@ -2231,6 +2271,71 @@
           "failed"
         ],
         "title": "TopicProgress"
+      },
+      "UniversityLeaderboardResponse": {
+        "properties": {
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/UniversityRankRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          },
+          "total_students": {
+            "type": "integer",
+            "title": "Total Students"
+          },
+          "total_universities": {
+            "type": "integer",
+            "title": "Total Universities"
+          },
+          "career_totals": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Career Totals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rows",
+          "total_students",
+          "total_universities",
+          "career_totals"
+        ],
+        "title": "UniversityLeaderboardResponse"
+      },
+      "UniversityRankRow": {
+        "properties": {
+          "university": {
+            "type": "string",
+            "title": "University"
+          },
+          "total_xp": {
+            "type": "integer",
+            "title": "Total Xp"
+          },
+          "students": {
+            "type": "integer",
+            "title": "Students"
+          },
+          "careers": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Careers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "university",
+          "total_xp",
+          "students",
+          "careers"
+        ],
+        "title": "UniversityRankRow"
       },
       "UpdateProfileRequest": {
         "properties": {
