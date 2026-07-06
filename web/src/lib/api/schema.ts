@@ -288,6 +288,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/leaderboard/universities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get University Leaderboard
+         * @description Ranking de universidades: agrega estudiantes por universidad y carrera.
+         *
+         *     A diferencia del leaderboard individual (paginado, ventana alrededor del
+         *     usuario), acá se recorre el set completo una vez y se agregan los totales
+         *     por universidad, así el front puede comparar universidades entre sí.
+         */
+        get: operations["get_university_leaderboard_leaderboard_universities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/user/emoji-tree": {
         parameters: {
             query?: never;
@@ -850,6 +874,32 @@ export interface components {
              */
             skills: components["schemas"]["SkillProgress"][];
         };
+        /** UniversityLeaderboardResponse */
+        UniversityLeaderboardResponse: {
+            /** Rows */
+            rows: components["schemas"]["UniversityRankRow"][];
+            /** Total Students */
+            total_students: number;
+            /** Total Universities */
+            total_universities: number;
+            /** Career Totals */
+            career_totals: {
+                [key: string]: number;
+            };
+        };
+        /** UniversityRankRow */
+        UniversityRankRow: {
+            /** University */
+            university: string;
+            /** Total Xp */
+            total_xp: number;
+            /** Students */
+            students: number;
+            /** Careers */
+            careers: {
+                [key: string]: number;
+            };
+        };
         /** UpdateProfileRequest */
         UpdateProfileRequest: {
             /** Username */
@@ -1387,6 +1437,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_university_leaderboard_leaderboard_universities_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UniversityLeaderboardResponse"];
                 };
             };
             /** @description Validation Error */

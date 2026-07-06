@@ -16,8 +16,14 @@ import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { setRankingNews } from "@/lib/nav/ranking-news"
 import { BELT_HEX } from "@/lib/catalog"
-import { FlagTriangleRightIcon, TrendingUpIcon } from "lucide-react"
+import {
+  FlagTriangleRightIcon,
+  GraduationCapIcon,
+  TrendingUpIcon,
+  UserIcon,
+} from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
+import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
 // Color del nombre según el máximo cinturón del usuario (mismo color que los
 // títulos de unidad en el inicio: variante onDark). Blanco para sin cinturón.
@@ -28,11 +34,19 @@ const BELT_TEXT: Record<string, string> = {
   brown: BELT_HEX.brown.onDark,
 }
 
+// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; label =
+// abreviación de 3 letras para las etiquetas de los contenedores de carrera.
+const CAREER_META: { key: string; label: string }[] = [
+  { key: "S", label: "Cie." },
+  { key: "T", label: "Tec." },
+  { key: "E", label: "Ing." },
+  { key: "M", label: "Mat." },
+  { key: "Otra", label: "Otr." },
+]
+
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
 // el de los items del inicio: texto en color, borde "+99", fondo "+33".
-// Monocromático como los items del inicio (texto en color, borde "+99",
-// fondo "+33"). Colores un poco brillantes + la tipografía de cada uni.
 type UniTagStyle = { color: string; font: React.CSSProperties }
 const UNI_TAG: Record<string, UniTagStyle> = {
   UBA: {
@@ -49,7 +63,61 @@ const UNI_TAG: Record<string, UniTagStyle> = {
   },
 }
 
+type RankingView = "individual" | "university"
+
 export function LeaderboardContent() {
+  const [view, setView] = useState<RankingView>("individual")
+
+  // Al entrar al ranking se apaga el puntito de novedad de la tab bar.
+  useEffect(() => {
+    setRankingNews(false)
+  }, [])
+
+  return (
+    <div className="flex h-full min-h-0 flex-col gap-2.5">
+      <RankingToggle view={view} onChange={setView} />
+      {view === "individual" ? <IndividualRanking /> : <UniversityRanking />}
+    </div>
+  )
+}
+
+function RankingToggle({
+  view,
+  onChange,
+}: {
+  view: RankingView
+  onChange: (v: RankingView) => void
+}) {
+  const options: { value: RankingView; label: string }[] = [
+    { value: "individual", label: "Individual" },
+    { value: "university", label: "Universitario" },
+  ]
+  return (
+    <div className="grid shrink-0 grid-cols-2 gap-2">
+      {options.map((o) => {
+        const active = view === o.value
+        return (
+          <button
+            key={o.value}
+            type="button"
+            aria-pressed={active}
+            onClick={() => onChange(o.value)}
+            className={cn(
+              "rounded-md border px-4 py-2.5 text-sm font-bold transition-colors",
+              active
+                ? "border-[#7e80f7] bg-white/5 text-[#c4c6ff]"
+                : "border-white bg-white text-black hover:bg-white/90",
+            )}
+          >
+            {o.label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+function IndividualRanking() {
   const [uni, setUni] = useState<string>(ALL)
   const {
     data,
@@ -71,11 +139,6 @@ export function LeaderboardContent() {
   const didCenterRef = useRef(false)
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
-
-  // Al entrar al ranking se apaga el puntito de novedad de la tab bar.
-  useEffect(() => {
-    setRankingNews(false)
-  }, [])
 
   // Filas cargadas (todas las páginas, en orden). El rank ya viene del backend,
   // calculado sobre el set completo del scope.
@@ -186,7 +249,7 @@ export function LeaderboardContent() {
   const totalExercises = first.total_exercises
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-2.5">
+    <div className="flex min-h-0 flex-1 flex-col gap-2.5">
       <div className="grid shrink-0 grid-cols-2 gap-2">
         <Metric
           label="Ejercicios hechos"
@@ -216,7 +279,8 @@ export function LeaderboardContent() {
 
       <div className="grid shrink-0 grid-cols-3 gap-2">
         <Metric
-          label={"Posición\nactual"}
+          dense
+          label="Posición actual"
           value={
             myRank ? (
               <CountUp value={myRank} format={(n) => `#${n.toLocaleString("es")}`} />
@@ -226,7 +290,8 @@ export function LeaderboardContent() {
           }
         />
         <Metric
-          label={"XP para\nsubir"}
+          dense
+          label="XP para subir"
           value={
             xpToNext == null ? (
               "-"
@@ -238,7 +303,7 @@ export function LeaderboardContent() {
             )
           }
         />
-        <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3">
+        <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2">
           <Select value={uni} onValueChange={(v) => v && setUni(v)}>
             <SelectTrigger
               aria-label="Filtrar por universidad"
@@ -257,7 +322,7 @@ export function LeaderboardContent() {
               ))}
             </SelectContent>
           </Select>
-          <span className="whitespace-pre-line text-[0.7rem] leading-tight text-foreground/60">
+          <span className="whitespace-nowrap text-[0.65rem] leading-tight text-foreground/60">
             Universidad
           </span>
         </div>
@@ -341,22 +406,184 @@ export function LeaderboardContent() {
   )
 }
 
+function UniversityRanking() {
+  const { data, isLoading, isError, error } = useUniversityLeaderboard()
+
+  if (isLoading) {
+    return <UniversitySkeleton />
+  }
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertDescription>
+          No pudimos cargar el ranking: {error.message}
+        </AlertDescription>
+      </Alert>
+    )
+  }
+
+  if (!data || data.rows.length === 0) {
+    return (
+      <p className="text-sm text-muted-foreground">
+        Todavía no hay ranking de universidades.
+      </p>
+    )
+  }
+
+  // Fuente uniforme de los contenedores de carrera: se achica a medida que el
+  // valor más largo suma dígitos, así el número + emoji nunca desborda el box.
+  const fmt = (n: number) => n.toLocaleString("es")
+  const careerMaxLen = Math.max(
+    ...CAREER_META.map((c) => fmt(data.career_totals[c.key] ?? 0).length),
+  )
+  const careerFontRem =
+    careerMaxLen <= 2 ? 1.125 : Math.max(0.6, (1.125 * 2) / careerMaxLen)
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col gap-2.5">
+      <div className="grid shrink-0 grid-cols-2 gap-2">
+        <Metric
+          label="Estudiantes registrados"
+          value={
+            <span className="inline-flex items-start gap-1.5">
+              <CountUp value={data.total_students} format={fmt} />
+              <PopulationIcon className="mt-[0.15em] text-primary" />
+            </span>
+          }
+        />
+        <Metric
+          label="Universidades registradas"
+          value={
+            <span className="inline-flex items-center gap-1.5">
+              <CountUp value={data.total_universities} format={fmt} />
+              <GraduationCapIcon className="size-[0.85em] text-primary" />
+            </span>
+          }
+        />
+      </div>
+
+      <div className="grid shrink-0 grid-cols-5 gap-2">
+        {CAREER_META.map((c) => (
+          <Metric
+            key={c.key}
+            dense
+            label={c.label}
+            valueStyle={{ fontSize: `${careerFontRem}rem` }}
+            value={
+              <span className="inline-flex items-center gap-1">
+                <CountUp value={data.career_totals[c.key] ?? 0} format={fmt} />
+                <span className="text-[0.8em] leading-none">
+                  {CAREER_EMOJI[c.key]}
+                </span>
+              </span>
+            }
+          />
+        ))}
+      </div>
+
+      <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+        <ol className="flex flex-col gap-2 py-1">
+          {data.rows.map((row, index) => (
+            <li
+              key={row.university}
+              className="flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+            >
+              <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+                {index + 1}
+              </span>
+              <span className="flex w-14 shrink-0 justify-start">
+                <UniTag university={row.university} />
+              </span>
+              {/* Conteos por carrera pegados al borde derecho (donde antes iba el
+                  XP); celdas de ancho fijo para que las columnas se alineen entre
+                  universidades. Mismo criterio de renglón (número + emoji,
+                  items-center) que la 2da fila. */}
+              <div className="flex shrink-0 gap-0.5 text-sm tabular-nums ml-auto">
+                {CAREER_META.map((c) => {
+                  // π (M) y ✦ (Otra) son glifos de texto: los corro un pelo. π
+                  // además baja un toque para asentarse en el renglón.
+                  const nudge =
+                    c.key === "M"
+                      ? "ml-[0.1em] translate-y-[0.075em]"
+                      : c.key === "Otra"
+                        ? "ml-[0.1em]"
+                        : ""
+                  return (
+                    <span
+                      key={c.key}
+                      className="inline-flex w-8 items-center justify-start gap-0.5"
+                    >
+                      {row.careers[c.key] ?? 0}
+                      <span className={cn("text-[0.8em] leading-none", nudge)}>
+                        {CAREER_EMOJI[c.key]}
+                      </span>
+                    </span>
+                  )
+                })}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )
+}
+
 function Metric({
   label,
   value,
+  dense = false,
+  valueStyle,
 }: {
   label: React.ReactNode
   value: React.ReactNode
+  dense?: boolean
+  valueStyle?: React.CSSProperties
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3">
-      <span className="text-lg font-semibold leading-none tabular-nums">
+    <div
+      className={cn(
+        "flex flex-col gap-1 rounded-md border border-white/10 bg-white/5",
+        dense ? "px-3 py-2" : "p-3",
+      )}
+    >
+      <span
+        className="text-lg font-semibold leading-none tabular-nums"
+        style={valueStyle}
+      >
         {value}
       </span>
-      <span className="whitespace-pre-line text-[0.7rem] leading-tight text-foreground/60">
+      <span
+        className={cn(
+          "whitespace-nowrap leading-tight text-foreground/60",
+          dense ? "text-[0.65rem]" : "text-[0.7rem]",
+        )}
+      >
         {label}
       </span>
     </div>
+  )
+}
+
+// Ícono de "estudiantes": el mismo del perfil (UserIcon) por triplicado, encimados
+// horizontalmente. La del medio se antepone (halo del color del box + z-index para
+// ocluir a las laterales).
+function PopulationIcon({ className }: { className?: string }) {
+  return (
+    <span className={cn("inline-flex items-start", className)}>
+      <UserIcon className="size-[0.72em]" />
+      <span className="relative z-10 -mx-[0.24em] inline-flex items-center justify-center">
+        {/* del medio con halo que cubre su silueta para ocluir a los de las puntas
+            donde se cruzan → los de las puntas quedan detrás */}
+        <span
+          aria-hidden
+          className="absolute inset-[6%] rounded-full bg-[#1f1f2f]"
+        />
+        <UserIcon className="relative size-[0.72em]" />
+      </span>
+      <UserIcon className="size-[0.72em]" />
+    </span>
   )
 }
 
@@ -377,15 +604,15 @@ function LeaderboardSkeleton() {
         ))}
       </div>
 
-      {/* 3 indicadores abajo (posición, XP para subir, filtro) */}
+      {/* 3 indicadores abajo (posición, XP para subir, filtro) — compactos */}
       <div className="grid grid-cols-3 gap-2">
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
+            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2"
           >
             <div className="h-[18px] w-12 rounded bg-white/10" />
-            <div className="h-3.5 w-3/4 rounded bg-white/10" />
+            <div className="h-3 w-3/4 rounded bg-white/10" />
           </div>
         ))}
       </div>
@@ -416,6 +643,65 @@ function LeaderboardSkeleton() {
               <span className="invisible">UNSAM</span>
             </span>
             {/* xp */}
+            <span className="shrink-0 text-sm">
+              <span className="inline-block h-3.5 w-10 rounded bg-white/10 align-middle" />
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function UniversitySkeleton() {
+  return (
+    <div className="flex animate-pulse flex-col gap-2.5">
+      {/* 2 indicadores arriba */}
+      <div className="grid grid-cols-2 gap-2">
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
+          >
+            <div className="h-[18px] w-16 rounded bg-white/10" />
+            <div className="h-3.5 w-3/4 rounded bg-white/10" />
+          </div>
+        ))}
+      </div>
+
+      {/* 5 indicadores de carrera — compactos */}
+      <div className="grid grid-cols-5 gap-2">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2"
+          >
+            <div className="h-[18px] w-8 rounded bg-white/10" />
+            <div className="h-3 w-3/4 rounded bg-white/10" />
+          </div>
+        ))}
+      </div>
+
+      {/* Filas de universidades */}
+      <div className="flex flex-col gap-2">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+          >
+            <span className="w-4 shrink-0 text-center text-sm">
+              <span className="inline-block h-3.5 w-3 rounded bg-white/10 align-middle" />
+            </span>
+            <span className="inline-flex w-16 shrink-0 items-center justify-start rounded-md border border-transparent bg-white/10 px-1 py-1 text-[0.55rem] leading-none">
+              <span className="invisible">UNSAM</span>
+            </span>
+            <div className="flex shrink-0 gap-3">
+              {Array.from({ length: 5 }).map((_, j) => (
+                <span key={j} className="flex w-8 justify-center">
+                  <span className="inline-block h-3.5 w-6 rounded bg-white/10" />
+                </span>
+              ))}
+            </div>
             <span className="shrink-0 text-sm">
               <span className="inline-block h-3.5 w-10 rounded bg-white/10 align-middle" />
             </span>
