@@ -44,6 +44,15 @@ const CAREER_META: { key: string; label: string }[] = [
   { key: "Otra", label: "Otr." },
 ]
 
+// Tamaño y posición uniformes de los emojis de carrera del tablero universitario:
+// chicos y bajados un toque para asentarse en el renglón del número. π (M) es un
+// glifo de texto y a igual font-size se ve más chico que los emojis a color, así
+// que le damos un tamaño un poco mayor.
+function careerEmojiCls(key: string) {
+  const size = key === "M" ? "text-[0.82em]" : "text-[0.7em]"
+  return `translate-y-[0.06em] leading-none ${size}`
+}
+
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
 // el de los items del inicio: texto en color, borde "+99", fondo "+33".
@@ -440,6 +449,16 @@ function UniversityRanking() {
   const careerFontRem =
     careerMaxLen <= 2 ? 1.125 : Math.max(0.6, (1.125 * 2) / careerMaxLen)
 
+  // Ancho (en dígitos) del número más largo entre todas las universidades, para
+  // reservar un slot fijo y que los emojis queden siempre alineados en columna,
+  // sin importar cuántos dígitos tenga cada universidad.
+  const rowNumDigits = Math.max(
+    1,
+    ...data.rows.flatMap((r) =>
+      CAREER_META.map((c) => String(r.careers[c.key] ?? 0).length),
+    ),
+  )
+
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-2.5">
       <div className="grid shrink-0 grid-cols-2 gap-2">
@@ -473,9 +492,7 @@ function UniversityRanking() {
             value={
               <span className="inline-flex items-center gap-1">
                 <CountUp value={data.career_totals[c.key] ?? 0} format={fmt} />
-                <span className="text-[0.8em] leading-none">
-                  {CAREER_EMOJI[c.key]}
-                </span>
+                <span className={careerEmojiCls(c.key)}>{CAREER_EMOJI[c.key]}</span>
               </span>
             }
           />
@@ -496,31 +513,21 @@ function UniversityRanking() {
                 <UniTag university={row.university} />
               </span>
               {/* Conteos por carrera pegados al borde derecho (donde antes iba el
-                  XP); celdas de ancho fijo para que las columnas se alineen entre
-                  universidades. Mismo criterio de renglón (número + emoji,
-                  items-center) que la 2da fila. */}
-              <div className="flex shrink-0 gap-0.5 text-sm tabular-nums ml-auto">
-                {CAREER_META.map((c) => {
-                  // π (M) y ✦ (Otra) son glifos de texto: los corro un pelo. π
-                  // además baja un toque para asentarse en el renglón.
-                  const nudge =
-                    c.key === "M"
-                      ? "ml-[0.1em] translate-y-[0.075em]"
-                      : c.key === "Otra"
-                        ? "ml-[0.1em]"
-                        : ""
-                  return (
+                  XP). El número va en un slot de ancho fijo (rowNumDigits) y
+                  right-aligned, así el emoji siempre arranca en la misma columna
+                  aunque las universidades tengan distinta cantidad de dígitos. */}
+              <div className="flex shrink-0 items-center gap-1.5 tabular-nums ml-auto text-sm font-semibold">
+                {CAREER_META.map((c) => (
+                  <span key={c.key} className="inline-flex items-center gap-0.5">
                     <span
-                      key={c.key}
-                      className="inline-flex w-8 items-center justify-start gap-0.5"
+                      className="shrink-0 text-right"
+                      style={{ width: `${rowNumDigits}ch` }}
                     >
-                      {row.careers[c.key] ?? 0}
-                      <span className={cn("text-[0.8em] leading-none", nudge)}>
-                        {CAREER_EMOJI[c.key]}
-                      </span>
+                      <CountUp value={row.careers[c.key] ?? 0} format={fmt} />
                     </span>
-                  )
-                })}
+                    <span className={careerEmojiCls(c.key)}>{CAREER_EMOJI[c.key]}</span>
+                  </span>
+                ))}
               </div>
             </li>
           ))}
