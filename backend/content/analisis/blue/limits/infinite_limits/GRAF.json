@@ -1,222 +1,399 @@
 [
   {
-    "question": "En la gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota vertical?",
+    "question": "La gráfica muestra una curva que se estabiliza en una altura fija a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
-      "$x = 1$",
-      "$x = 0$",
-      "$y = 1$",
-      "$y = 0$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La recta vertical $x=1$ es la asíntota: la función explota cuando $x \\to 1$.",
-    "feedback_incorrect": "El denominador se anula en $x=1$, por lo que la gráfica muestra una asíntota vertical en $x=1$.",
-    "graph_fn": "1 / (x - 1)",
-    "graph_view": [
-      -3,
-      5,
-      -6,
-      6
-    ],
-    "explanation": "La **asíntota vertical** se identifica en la gráfica como la recta sobre la cual la función «explota»: la curva se aleja hacia arriba o abajo sin límite.\n\n$$\\begin{aligned} x-1 &= 0 \\Rightarrow x=1 \\\\ \\text{numerador} &= 1 \\neq 0 \\Rightarrow \\text{asíntota vertical en } x=1 \\end{aligned}$$\n\nVisualizando: para $x > 1$, $f \\to +\\infty$; para $x < 1$, $f \\to -\\infty$. Las dos ramas se separan en torno a la recta $x=1$.",
-    "reviewed": false
-  },
-  {
-    "question": "En la misma gráfica de $f(x) = \\dfrac{1}{x-1}$, ¿cuál es la asíntota horizontal?",
-    "options": [
-      "$y = 1$",
-      "$y = 0$",
-      "$x = 0$",
-      "$y = -1$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Cuando $x \\to \\pm\\infty$, $1/(x-1) \\to 0$. La asíntota horizontal es $y = 0$.",
-    "feedback_incorrect": "Como $1/(x-1) \\to 0$ cuando $x \\to \\pm\\infty$, la asíntota horizontal es $y=0$ (el eje $x$).",
-    "graph_fn": "1 / (x - 1)",
-    "graph_view": [
-      -3,
-      5,
-      -6,
-      6
-    ],
-    "explanation": "La **asíntota horizontal** se lee en la gráfica como la recta hacia la que se acerca la curva cuando $x$ se aleja mucho.\n\n$$\\lim_{x \\to \\pm\\infty} \\frac{1}{x-1} = 0 \\Rightarrow \\text{asíntota horizontal } y=0$$\n\nEl grado del denominador ($1$) es mayor que el del numerador ($0$): el límite en el infinito es $0$. La curva se acerca al eje $x$ sin tocarlo.",
-    "reviewed": false
-  },
-  {
-    "question": "En la gráfica de $f(x) = \\dfrac{x+1}{x-2}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
-    "options": [
-      "$-1$",
-      "$0$",
-      "$1$",
-      "$\\infty$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Con igual grado, el límite es $1/1 = 1$. La gráfica se acerca a $y=1$ para $x$ grande.",
-    "feedback_incorrect": "Cociente de coeficientes líderes: $1/1 = 1$. La asíntota horizontal es $y=1$.",
-    "graph_fn": "(x + 1) / (x - 2)",
-    "graph_view": [
-      -4,
-      8,
-      -5,
-      7
-    ],
-    "explanation": "En la gráfica, la función se aplana hacia una recta horizontal cuando $x$ crece. Ese valor es la asíntota horizontal.\n\n$$\\lim_{x \\to \\infty} \\frac{x+1}{x-2} = \\frac{1}{1} = 1 \\Rightarrow \\text{asíntota horizontal } y=1$$\n\nCociente de coeficientes líderes: numerador $x$ tiene coeficiente $1$, denominador $x$ tiene coeficiente $1$. La curva se aproxima a $y=1$ por arriba o por abajo.",
-    "reviewed": false
-  },
-  {
-    "question": "En la gráfica de $f(x) = \\dfrac{2x}{x+3}$, ¿cuál es la asíntota horizontal?",
-    "options": [
-      "$y = -3$",
+      "$y = 2$",
       "$y = 3$",
       "$y = 0$",
-      "$y = 2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Cociente de coeficientes líderes $= 2/1 = 2$. La gráfica se acerca a $y=2$.",
-    "feedback_incorrect": "La asíntota horizontal es el cociente de coeficientes líderes: $2/1 = 2$.",
-    "graph_fn": "(2 * x) / (x + 3)",
-    "graph_view": [
-      -8,
-      8,
-      -4,
-      5
-    ],
-    "explanation": "La asíntota horizontal es el nivel al que se «aplana» la función en la gráfica para $x$ muy grande o muy pequeño.\n\n$$\\lim_{x \\to \\infty} \\frac{2x}{x+3} = \\frac{2}{1} = 2 \\Rightarrow \\text{asíntota horizontal } y=2$$\n\nVisualizando: para $x$ positivo grande la función se acerca a $2$ desde abajo; para $x \\to -\\infty$ se acerca a $2$ desde arriba.",
-    "reviewed": false
-  },
-  {
-    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2}$, ¿qué signo tiene la función cerca de $x = 0$ desde ambos lados?",
-    "options": [
-      "Siempre positivo: $f(x) \\to +\\infty$ tanto por la izquierda como por la derecha",
-      "Positivo por la derecha y negativo por la izquierda",
-      "Negativo en ambos lados",
-      "La función no tiene asíntota en $x=0$"
+      "$x = 2$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$x^2 > 0$ siempre (excepto en $0$), así que $1/x^2 > 0$ y tiende a $+\\infty$ desde ambos lados.",
-    "feedback_incorrect": "Como $x^2 > 0$ para $x \\neq 0$, $1/x^2$ siempre es positivo y tiende a $+\\infty$ al acercarse a $0$ desde cualquier lado.",
-    "graph_fn": "1 / x**2",
-    "graph_view": [
-      -3,
-      3,
-      -0.5,
-      8
+    "feedback_correct": "Correcto: la curva se acerca a la altura $y=2$ en ambos extremos del gráfico.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es la altura del corte con el eje $y$ ($f(0)=3$), no la altura de estabilización en los extremos.",
+      "La curva no se estabiliza en $y=0$, se acerca a un valor positivo distinto de cero en ambos extremos.",
+      "Esa forma correspondería a una recta vertical, pero acá se pide la recta horizontal a la que se acerca la curva."
     ],
-    "explanation": "$x^2$ es **siempre positivo** para $x \\neq 0$, por lo que $1/x^2$ también es siempre positivo. Al acercarse a $x=0$ desde cualquier lado, la función tiende a $+\\infty$.\n\n$$\\begin{aligned} x &\\to 0^+: \\frac{1}{(0^+)^2} = +\\infty \\\\ x &\\to 0^-: \\frac{1}{(0^-)^2} = \\frac{1}{(+)} = +\\infty \\end{aligned}$$\n\nEsto contrasta con $1/x$, donde el signo cambia según el lado. Con $x^2$ en el denominador, la asíntota vertical es simétrica: ambas ramas van hacia $+\\infty$.",
+    "graph_fn": "2 + 1/(x**2 + 1)",
+    "graph_view": [
+      -6,
+      6,
+      -1,
+      6
+    ],
+    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza el eje vertical.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2$$\nEn esta gráfica la curva cruza el eje $y$ en $3$, pero se estabiliza en $2$ hacia ambos extremos, dos lecturas distintas que conviene no mezclar.",
     "reviewed": false
   },
   {
-    "question": "En la gráfica de $f(x) = \\dfrac{-1}{x+2}$, ¿hacia dónde tiende $f(x)$ cuando $x \\to -2^+$?",
+    "question": "La gráfica presenta un pico en el centro y luego desciende hacia ambos lados, estabilizándose en una altura constante.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
-      "$+\\infty$",
-      "$-\\infty$",
-      "$0$",
-      "$-2$"
+      "$y = 4$",
+      "$y = 1$",
+      "$x = 0$",
+      "$y = 0$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Para $x > -2$ cerca de $-2$: $(x+2) \\to 0^+$, entonces $-1/(x+2) \\to -\\infty$.",
-    "feedback_incorrect": "Por la derecha de $-2$: $(x+2) \\to 0^+$. Con numerador negativo: $-1/(x+2) \\to -\\infty$.",
-    "graph_fn": "-1 / (x + 2)",
+    "feedback_correct": "Correcto: hacia los extremos, la curva desciende y se estabiliza en $y=1$.",
+    "feedback_incorrect": [
+      "Ese valor es la altura del pico central, un valor puntual, no la altura a la que se estabiliza la curva en los extremos.",
+      null,
+      "Esa forma correspondería a una recta vertical, pero se pide la recta horizontal de estabilización.",
+      "La curva no llega a $0$, se acerca a un valor positivo mayor que cero en ambos extremos."
+    ],
+    "graph_fn": "1 + 3/(x**2 + 1)",
     "graph_view": [
       -6,
-      2,
-      -8,
-      8
+      6,
+      -1,
+      6
     ],
-    "explanation": "Analizamos el signo del numerador y del denominador por separado para determinar el resultado.\n\n$$\\begin{aligned} x &\\to -2^+: \\\\ (x+2) &\\to 0^+ \\\\ (\\text{positivo}) \\\\ \\text{Numerador} &= -1 < 0 \\end{aligned}$$\n\n$$\\frac{-1}{0^+} = \\frac{(-)}{(+)} \\to -\\infty$$\n\nEl numerador negativo dividido por un denominador positivo que tiende a $0$ da $-\\infty$.",
+    "explanation": "Distinguir un pico central de una **asíntota horizontal** es clave al leer una gráfica: el pico es un valor puntual, mientras que la asíntota describe el comportamiento sostenido en los extremos.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 1$$\nAunque la curva alcanza $4$ en el centro, ese valor no se repite ni se sostiene hacia los extremos, así que no es la asíntota.",
     "reviewed": false
   },
   {
-    "question": "La gráfica de $f(x) = \\dfrac{3x}{x-1}$ tiene asíntota horizontal $y=3$. ¿Cuántas asíntotas horizontales muestra la gráfica?",
+    "question": "La gráfica pasa por un punto marcado en el interior de la curva, en $x=1$, además de estabilizarse hacia los extremos.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
-      "$0$",
-      "$2$",
-      "$1$",
-      "$3$"
+      "$y = 1$",
+      "$y = 3$",
+      "$y = 5$",
+      "$x = 1$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La función $3x/(x-1)$ tiene una sola asíntota horizontal $y=3$, válida tanto para $x \\to +\\infty$ como para $x \\to -\\infty$.",
-    "feedback_incorrect": "Para este tipo de racional, el límite en $+\\infty$ y en $-\\infty$ coinciden en $y=3$. Hay una sola asíntota horizontal.",
-    "graph_fn": "(3 * x) / (x - 1)",
-    "graph_view": [
-      -5,
-      7,
-      -5,
-      8
+    "feedback_correct": "Correcto: la curva se acerca a $y=5$ en ambos extremos, sin importar el valor puntual marcado en $x=1$.",
+    "feedback_incorrect": [
+      "Ese es el valor del corte con el eje $y$, no la altura a la que se acerca la curva en los extremos.",
+      "Ese es el valor puntual de la curva en $x=1$, un punto interior, no la altura de estabilización en los extremos.",
+      null,
+      "Esa forma correspondería a una recta vertical, pero se pide la recta horizontal de estabilización."
     ],
-    "explanation": "El cociente de coeficientes líderes da el mismo resultado para $+\\infty$ y para $-\\infty$: una sola asíntota horizontal.\n\n$$\\begin{aligned} \\lim_{x &\\to +\\infty} \\frac{3x}{x-1} = 3 \\\\ \\lim_{x &\\to -\\infty} \\frac{3x}{x-1} = 3 \\end{aligned}$$\n\nComo $L_1 = L_2 = 3$, la gráfica muestra una única asíntota horizontal $y=3$. Las dos ramas (izquierda y derecha de la asíntota vertical) se acercan a la misma recta.",
+    "graph_fn": "5 - 4/(x**2 + 1)",
+    "graph_view": [
+      -6,
+      6,
+      -1,
+      7
+    ],
+    "explanation": "Un punto marcado en el interior de una curva, como $f(1)=3$, es un valor puntual de la función y no debe confundirse con la **asíntota horizontal**, que describe el comportamiento sostenido en los extremos del gráfico.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 5$$\nEl punto interior puede coincidir por casualidad con la altura de estabilización en otros ejemplos, pero acá son claramente distintos, $3$ contra $5$.",
     "reviewed": false
   },
   {
-    "question": "En la gráfica de $f(x) = \\dfrac{1}{x^2+1}$, ¿a qué valor se acerca $f(x)$ cuando $x \\to \\infty$?",
+    "question": "La curva se estabiliza en una altura negativa a medida que $x$ crece y decrece sin cota.\n\n¿Cuál es la ecuación de la **asíntota horizontal**?",
     "options": [
-      "$-1$",
-      "$1$",
-      "$\\infty$",
-      "$0$"
+      "$y = -1$",
+      "$y = 0$",
+      "$x = -2$",
+      "$y = -2$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "El grado del denominador es mayor, así que $1/(x^2+1) \\to 0$ cuando $x \\to \\infty$.",
-    "feedback_incorrect": "Como el denominador crece más rápido que el numerador constante, $1/(x^2+1) \\to 0$.",
-    "graph_fn": "1 / (x**2 + 1)",
-    "graph_view": [
-      -5,
-      5,
-      -0.2,
-      1.5
+    "feedback_correct": "Correcto: la curva se estabiliza en $y=-2$ en ambos extremos.",
+    "feedback_incorrect": [
+      "Ese valor está cerca del corte con el eje $y$, pero no es la altura a la que se acerca la curva en los extremos.",
+      "La curva no se estabiliza en $0$, se acerca a un valor negativo en ambos extremos.",
+      "Esa forma correspondería a una recta vertical, pero se pide la recta horizontal de estabilización.",
+      null
     ],
-    "explanation": "$x^2+1$ nunca se anula (siempre es $\\geq 1$), así que esta función no tiene asíntota vertical. Su asíntota horizontal es:\n\n$$\\lim_{x \\to \\infty} \\frac{1}{x^2+1} = 0 \\Rightarrow \\text{asíntota horizontal } y=0$$\n\nEl grado del denominador ($2$) es mayor que el del numerador ($0$). La curva es siempre positiva y se acerca al eje $x$ por arriba sin tocarlo.",
+    "graph_fn": "-2 + 1/(x**2 + 1)",
+    "graph_view": [
+      -6,
+      6,
+      -4,
+      2
+    ],
+    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to -2$$\nUn error frecuente es leer solo la magnitud de la altura y olvidar el signo negativo al escribir la ecuación de la recta.",
     "reviewed": false
   },
   {
-    "question": "La gráfica de $f(x) = \\dfrac{1}{(x-1)(x+3)}$ tiene asíntotas verticales. ¿Cuántas tiene?",
+    "question": "La gráfica de una función se estabiliza en una altura fija a medida que $x \\to \\pm\\infty$.\n\n¿Tiene esta función una **asíntota horizontal**?",
     "options": [
-      "$2$",
-      "$1$",
-      "$3$",
-      "$0$"
+      "Sí",
+      "No",
+      "No se puede determinar"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Las raíces del denominador son $x=1$ y $x=-3$: dos asíntotas verticales.",
-    "feedback_incorrect": "El denominador $(x-1)(x+3)$ se anula en $x=1$ y $x=-3$. Eso da dos asíntotas verticales.",
-    "graph_fn": "1 / ((x - 1) * (x + 3))",
+    "feedback_correct": "Correcto: la gráfica muestra estabilización en ambos extremos, hay asíntota horizontal.",
+    "feedback_incorrect": [
+      null,
+      "La gráfica muestra exactamente el comportamiento que define una asíntota horizontal, estabilización en los extremos.",
+      "La gráfica sí alcanza para determinarlo, se ve con claridad que la curva se acerca a una altura fija en ambos extremos."
+    ],
+    "graph_fn": "3 + 1/(x**2+1)",
     "graph_view": [
       -6,
-      4,
-      -5,
-      5
+      6,
+      -1,
+      6
     ],
-    "explanation": "El denominador $(x-1)(x+3)$ se anula en dos puntos distintos, y el numerador ($=1$) no se anula en ninguno: dos asíntotas verticales.\n\n$$(x-1)(x+3) = 0 \\Rightarrow x=1 \\text{ y } x=-3 \\Rightarrow 2 \\text{ asíntotas verticales}$$\n\nRegla general: el número de asíntotas verticales de una racional irreducible es igual al número de raíces distintas del denominador.",
+    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota. En esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 3$$\nLa curva puede cruzar esa altura en la zona central del gráfico sin que eso afecte la existencia de la asíntota en los extremos.",
     "reviewed": false
   },
   {
-    "question": "En la gráfica de $f(x) = 2^{-x}$, ¿cuánto vale $\\lim_{x \\to \\infty} f(x)$?",
+    "question": "En la gráfica, la curva cruza la altura $y=2$ en la zona central antes de estabilizarse en esa misma altura hacia los extremos.\n\n¿Sigue siendo $y=2$ la **asíntota horizontal** de esta función, a pesar de que la curva la cruza en el medio?",
     "options": [
-      "$1$",
-      "$0$",
-      "$2$",
-      "$+\\infty$"
+      "No",
+      "Sí",
+      "No se puede determinar"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$2^{-x} = (1/2)^x \\to 0$ cuando $x \\to \\infty$. La asíntota horizontal es $y=0$.",
-    "feedback_incorrect": "La función $2^{-x}$ decrece exponencialmente hacia $0$ cuando $x$ crece. La asíntota horizontal es $y=0$.",
-    "graph_fn": "2**(-x)",
+    "feedback_correct": "Correcto: cruzar la altura en la zona central no impide que sea la asíntota horizontal, lo que importa es el comportamiento en los extremos.",
+    "feedback_incorrect": [
+      "Que la curva cruce la altura en la zona central no cambia el comportamiento en los extremos, que es lo que define la asíntota.",
+      null,
+      "La gráfica sí permite determinarlo, se ve que hacia los extremos la curva vuelve a acercarse a esa misma altura."
+    ],
+    "graph_fn": "2 + sin(x)/(x**2 + 1)",
+    "graph_view": [
+      -10,
+      10,
+      -1,
+      4
+    ],
+    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar. Es común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2, \\text{ aunque cruce } y=2 \\text{ en el medio}$$\nConfundir la asíntota con una cota infranqueable es un error clásico, la definición solo habla del comportamiento en los extremos.",
+    "reviewed": false
+  },
+  {
+    "question": "La curva se rompe y escapa a $\\pm\\infty$ en un valor puntual de $x$, distinto de donde la curva cruza el eje horizontal.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
+    "options": [
+      "$x = 1$",
+      "$x = 3$",
+      "$y = 3$",
+      "$y = 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: la función escapa a $\\pm\\infty$ exactamente en $x=3$.",
+    "feedback_incorrect": [
+      "Ese es el valor donde la curva cruza el eje horizontal ($f=0$), no donde la función escapa a $\\pm\\infty$.",
+      null,
+      "Esa forma correspondería a una recta horizontal, pero se pide la recta vertical donde la función se rompe.",
+      "Esa forma correspondería a una recta horizontal, pero se pide la recta vertical donde la función se rompe."
+    ],
+    "graph_fn": "(x-1)/(x-3)",
+    "graph_view": [
+      -2,
+      8,
+      -6,
+      6
+    ],
+    "explanation": "La **asíntota vertical** de una gráfica es la recta $x=a$ donde la función no está definida y escapa a $\\pm\\infty$. No hay que confundirla con la raíz de la función, el punto donde la curva cruza el eje horizontal.\n$$x \\to 3 \\ \\Rightarrow \\ f(x) \\to \\pm\\infty$$\nEn esta gráfica, la curva cruza el eje horizontal en $x=1$ pero se rompe en $x=3$, dos lecturas distintas de la misma curva.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, la curva cruza el eje horizontal en un punto y se rompe escapando a $\\pm\\infty$ en otro.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
+    "options": [
+      "$x = -2$",
+      "$y = 1$",
+      "$x = 1$",
+      "$y = -2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: la función escapa a $\\pm\\infty$ exactamente en $x=1$.",
+    "feedback_incorrect": [
+      "Ese es el valor donde la curva cruza el eje horizontal, la raíz de la función, no donde escapa a $\\pm\\infty$.",
+      "Esa forma correspondería a una recta horizontal, pero se pide la vertical donde la función se rompe.",
+      null,
+      "Esa forma correspondería a una recta horizontal, pero se pide la vertical donde la función se rompe."
+    ],
+    "graph_fn": "(x+2)/(x-1)",
+    "graph_view": [
+      -6,
+      6,
+      -8,
+      8
+    ],
+    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que escapan hacia $+\\infty$ y $-\\infty$, no el valor donde cruza el eje horizontal.\n$$x \\to 1 \\ \\Rightarrow \\ f(x) \\to \\pm\\infty$$\nLa raíz en $x=-2$ es un punto donde la función vale $0$, un dato completamente distinto de dónde diverge.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de una función muestra una rama que sube sin cota justo antes de un valor de $x$ y otra rama que baja sin cota justo después de ese mismo valor.\n\n¿Tiene esta función una **asíntota vertical** en ese punto?",
+    "options": [
+      "No",
+      "No se puede determinar",
+      "Sí"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: dos ramas que escapan a infinito en direcciones opuestas en el mismo punto confirman la asíntota vertical.",
+    "feedback_incorrect": [
+      "La gráfica muestra exactamente el comportamiento que define una asíntota vertical, ramas que escapan a infinito en direcciones opuestas.",
+      "La gráfica sí alcanza para determinarlo, se ve con claridad la ruptura y el escape hacia $\\pm\\infty$ en ese punto.",
+      null
+    ],
+    "graph_fn": "1/(x-2)",
     "graph_view": [
       -2,
       6,
-      -0.2,
-      4
+      -8,
+      8
     ],
-    "explanation": "$2^{-x} = \\left(\\dfrac{1}{2}\\right)^x$: es una función exponencial decreciente. Las exponenciales de base $< 1$ tienden a $0$ cuando $x \\to +\\infty$.\n\n$$\\lim_{x \\to \\infty} 2^{-x} = \\lim_{x \\to \\infty} \\left(\\frac{1}{2}\\right)^x = 0$$\n\nLa asíntota horizontal es $y=0$. La función siempre es positiva ($2^{-x} > 0$) y se acerca al eje $x$ sin tocarlo.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales escapa a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$. En esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= -\\infty \\\\ \\lim_{x \\to 2^+} f(x) &= +\\infty \\end{aligned}$$\nNo hace falta que ambas ramas vayan en la misma dirección para que exista la asíntota vertical, alcanza con que al menos una escape al infinito.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica, la función se rompe en un valor negativo de $x$ y además pasa por el origen.\n\n¿Cuál es la ecuación de la **asíntota vertical**?",
+    "options": [
+      "$x = 0$",
+      "$y = -4$",
+      "$y = 0$",
+      "$x = -4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: la función escapa a $\\pm\\infty$ exactamente en $x=-4$.",
+    "feedback_incorrect": [
+      "Ese es el punto donde la curva pasa por el origen, la raíz de la función, no donde escapa a $\\pm\\infty$.",
+      "Esa forma correspondería a una recta horizontal, pero se pide la vertical donde la función se rompe.",
+      "Esa forma correspondería a una recta horizontal, pero se pide la vertical donde la función se rompe.",
+      null
+    ],
+    "graph_fn": "(2*x)/(x+4)",
+    "graph_view": [
+      -10,
+      6,
+      -10,
+      10
+    ],
+    "explanation": "Pasar por el origen y romperse en un punto negativo son dos lecturas distintas de la misma gráfica. La **asíntota vertical** se ubica donde la curva escapa a $\\pm\\infty$, no donde cruza los ejes.\n$$x \\to -4 \\ \\Rightarrow \\ f(x) \\to \\pm\\infty$$\nEl origen, en este caso, es simplemente la raíz de la función, un punto donde $f(0)=0$ sin ninguna ruptura.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de una función es una parábola completa, sin ninguna ruptura visible en su dominio.\n\n¿Tiene esta función una **asíntota vertical**?",
+    "options": [
+      "Sí",
+      "No",
+      "No se puede determinar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: una parábola completa no tiene ninguna ruptura, no hay asíntota vertical.",
+    "feedback_incorrect": [
+      "La gráfica no muestra ninguna rama que escape a $\\pm\\infty$ en un punto puntual, no hay asíntota vertical en este caso.",
+      null,
+      "La gráfica sí alcanza para determinarlo, una parábola completa y sin rupturas no tiene asíntota vertical."
+    ],
+    "graph_fn": "x**2 - 2",
+    "graph_view": [
+      -4,
+      4,
+      -3,
+      10
+    ],
+    "explanation": "Una **asíntota vertical** requiere que la función escape a $\\pm\\infty$ cerca de un valor puntual de $x$. Una parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.\n$$\\text{sin rupturas visibles} \\ \\Rightarrow \\ \\text{sin asíntota vertical}$$\nNo toda función tiene asíntota vertical, los polinomios completos, como las parábolas, nunca la tienen.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de una función exponencial se aplana hacia un lado y se dispara sin cota hacia el otro.\n\n¿Cuánto vale $\\lim_{x \\to -\\infty} f(x)$ en esta gráfica?",
+    "options": [
+      "$0$",
+      "$+\\infty$",
+      "$1$",
+      "No existe"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: hacia $x \\to -\\infty$, la curva exponencial se aplasta hacia $0$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el comportamiento del otro extremo, cuando $x \\to +\\infty$, no el que se pide acá.",
+      "Ese es el valor donde la curva cruza el eje $y$, no el límite cuando $x \\to -\\infty$.",
+      "El límite sí existe en ese extremo, la curva se aplana claramente hacia una altura fija."
+    ],
+    "graph_fn": "2**x",
+    "graph_view": [
+      -6,
+      6,
+      -1,
+      10
+    ],
+    "explanation": "En una función exponencial creciente, la diferencia de comportamiento entre extremos es la norma, no la excepción. Hacia $x \\to -\\infty$ la curva se aplasta hacia $0$, mientras que hacia $x \\to +\\infty$ se dispara sin cota.\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nAsumir que ambos extremos se comportan igual es un error frecuente al leer gráficas de funciones exponenciales.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma gráfica exponencial del ítem anterior.\n\n¿Cuánto vale $\\lim_{x \\to +\\infty} f(x)$?",
+    "options": [
+      "$0$",
+      "$+\\infty$",
+      "$1$",
+      "No existe"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: hacia $x \\to +\\infty$, la curva exponencial crece sin cota.",
+    "feedback_incorrect": [
+      "Ese es el comportamiento del otro extremo, cuando $x \\to -\\infty$, no el que se pide acá.",
+      null,
+      "Ese es el valor donde la curva cruza el eje $y$, no el límite cuando $x \\to +\\infty$.",
+      "El límite sí existe en ese extremo, la curva crece sin cota de forma clara."
+    ],
+    "graph_fn": "2**x",
+    "graph_view": [
+      -6,
+      6,
+      -1,
+      10
+    ],
+    "explanation": "Hacia $x \\to +\\infty$, una función exponencial creciente no se estabiliza en ningún valor, sigue creciendo sin cota.\n$$\\lim_{x \\to +\\infty} 2^x = +\\infty$$\nEsta gráfica confirma que mientras un extremo se aplana en $y=0$, el otro diverge, dos comportamientos completamente distintos en la misma curva.",
+    "reviewed": false
+  },
+  {
+    "question": "La gráfica de una función racional diverge hacia $+\\infty$ en un extremo y hacia $-\\infty$ en el otro.\n\n¿Cuánto vale $\\lim_{x \\to -\\infty} f(x)$?",
+    "options": [
+      "$+\\infty$",
+      "$0$",
+      "$-\\infty$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: hacia $x \\to -\\infty$, esta función racional diverge a $-\\infty$.",
+    "feedback_incorrect": [
+      "Ese es el comportamiento del extremo opuesto, cuando $x \\to +\\infty$, acá se pregunta por $x \\to -\\infty$.",
+      "La curva no se estabiliza en un valor finito hacia ningún extremo, en ambos casos diverge.",
+      null,
+      "El límite sí existe como una tendencia infinita, la curva desciende sin cota de forma clara hacia ese lado."
+    ],
+    "graph_fn": "x**3/(x**2+1)",
+    "graph_view": [
+      -6,
+      6,
+      -8,
+      8
+    ],
+    "explanation": "En funciones racionales donde el numerador domina en grado, cada extremo se analiza por separado. Acá el grado del numerador es impar, así que el signo del resultado se invierte entre un extremo y el otro.\n$$\\lim_{x \\to -\\infty} \\frac{x^3}{x^2+1} = -\\infty$$\nNo hay que asumir que ambos extremos divergen con el mismo signo, esta es una gráfica típica de un polinomio de grado impar que domina sobre el denominador.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma gráfica racional del ítem anterior.\n\n¿Cuánto vale $\\lim_{x \\to +\\infty} f(x)$?",
+    "options": [
+      "$-\\infty$",
+      "$0$",
+      "$+\\infty$",
+      "No existe"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: hacia $x \\to +\\infty$, esta función racional diverge a $+\\infty$.",
+    "feedback_incorrect": [
+      "Ese es el comportamiento del extremo opuesto, cuando $x \\to -\\infty$, acá se pregunta por $x \\to +\\infty$.",
+      "La curva no se estabiliza en un valor finito hacia ningún extremo, en ambos casos diverge.",
+      null,
+      "El límite sí existe como una tendencia infinita, la curva asciende sin cota de forma clara hacia ese lado."
+    ],
+    "graph_fn": "x**3/(x**2+1)",
+    "graph_view": [
+      -6,
+      6,
+      -8,
+      8
+    ],
+    "explanation": "Hacia $x \\to +\\infty$, el numerador de grado impar domina con signo positivo, así que la función crece sin cota.\n$$\\lim_{x \\to +\\infty} \\frac{x^3}{x^2+1} = +\\infty$$\nJunto con el ítem anterior, esta gráfica confirma que ambos extremos divergen pero con signos opuestos, la asimetría completa del comportamiento en el infinito.",
     "reviewed": false
   }
 ]
