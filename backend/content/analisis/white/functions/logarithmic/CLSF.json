@@ -10,7 +10,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva crece lentamente para $x > 0$: $f(x) = \\log_2(x) + 1$, una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una exponencial creciente tiene asíntota horizontal y se acelera; acá la curva se frena a medida que $x$ crece y la asíntota es vertical en $x=0$.",
+      "Una función racional como $1/x$ también puede tener asíntota vertical, pero existe a ambos lados de ella; esta curva solo está definida para $x>0$.",
+      "Una recta crece siempre al mismo ritmo; esta curva cambia de ritmo, cada vez más lento, y tiene una asíntota vertical que una recta nunca tiene."
+    ],
     "graph_fn": "log2(x) + 1",
     "graph_view": [
       -0.5,
@@ -18,7 +23,7 @@
       -2,
       6
     ],
-    "explanation": "Para identificar una función **logarítmica** en su gráfica, buscá estas características:\n\n1. Solo existe para $x > 0$ (o para $x > c$ si está desplazada).\n2. Tiene **asíntota vertical** en el borde izquierdo del dominio.\n3. Crece (o decrece) cada vez más lentamente — curva cóncava hacia abajo.\n4. Pasa por un punto donde $f(x) = 0$ (el intercepto con el eje $X$).\n\nEsta gráfica corresponde a $f(x) = \\log_2(x) + 1$: una logarítmica desplazada 1 unidad hacia arriba.",
+    "explanation": "Para identificar una función **logarítmica** en su gráfica, buscá estas características:\n\n1. Solo existe para $x > 0$ (o para $x > c$ si está desplazada).\n2. Tiene **asíntota vertical** en el borde izquierdo del dominio.\n3. Crece (o decrece) cada vez más lentamente, con curva cóncava hacia abajo.\n4. Pasa por un punto donde $f(x) = 0$ (el intercepto con el eje $X$).\n\nEsta gráfica corresponde a $f(x) = \\log_2(x) + 1$: una logarítmica desplazada 1 unidad hacia arriba.",
     "reviewed": false
   },
   {
@@ -32,7 +37,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$f(x) = \\log_2(x) + 1$ aplica un logaritmo a $x$: es una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa sería la familia si $x$ estuviera en el exponente, pero acá el logaritmo actúa sobre $x$, no al revés.",
+      null,
+      "Racional describe cocientes de polinomios como $1/x$; acá no hay ninguna división por una expresión en $x$.",
+      "Sumar una constante a una recta la sigue haciendo lineal, pero acá la operación principal sobre $x$ es un logaritmo, no una multiplicación por una pendiente."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Sumar o restar una constante a una función no cambia su familia: $f(x) = \\log_2(x) + 1$ sigue siendo **logarítmica**.\n\nEl $+1$ es una **traslación vertical** que desplaza la curva un punto hacia arriba, pero la operación principal sigue siendo el logaritmo de $x$.\n\nRegla general: si la operación principal sobre $x$ es un logaritmo ($\\log_a$, $\\ln$, $\\log$), la función es **logarítmica**, sin importar las constantes sumadas o restadas.",
@@ -41,18 +51,23 @@
   {
     "question": "¿A qué familia de funciones pertenece $f(x) = \\ln(x)$?",
     "options": [
+      "Logarítmica",
       "Polinómica",
       "Exponencial",
-      "Logarítmica",
       "Trigonométrica"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\ln(x) = \\log_e(x)$ es el logaritmo natural: función logarítmica con base $e$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una polinómica es suma de potencias de $x$ con exponente natural; acá la variable está dentro de un logaritmo, no elevada a una potencia.",
+      "La exponencial y la logarítmica son inversas y suelen confundirse: en la exponencial la variable está en el exponente, acá está dentro del logaritmo.",
+      "Las trigonométricas oscilan de forma periódica; esta función crece sin repetirse nunca."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **logaritmo natural** $\\ln(x)$ es simplemente $\\log_e(x)$: un logaritmo con base $e \\approx 2{,}718$.\n\n$$\\ln(x) = \\log_e(x) \\iff e^y = x$$\n\nEs una función logarítmica como cualquier otra: mismo dominio ($x > 0$), misma asíntota vertical ($x = 0$), mismos puntos clave:\n- $\\ln(1) = 0$ (pasa por $(1, 0)$)\n- $\\ln(e) = 1$ (pasa por $(e, 1)$)\n\nEs la base más usada en matemática avanzada y cálculo.",
+    "explanation": "El **logaritmo natural** $\\ln(x)$ es simplemente $\\log_e(x)$, un logaritmo con base $e \\approx 2{,}718$ que se define como la inversa de la exponencial de base $e$:\n$$\\ln(x) = \\log_e(x) \\iff e^y = x$$\nEs una función logarítmica como cualquier otra: mismo dominio $x > 0$, misma asíntota vertical en $x = 0$ y los mismos puntos de referencia, ya que $\\ln(1) = 0$ (pasa por $(1, 0)$) y $\\ln(e) = 1$ (pasa por $(e, 1)$).\n\nEs la base más usada en matemática avanzada y cálculo, y suele confundirse con la exponencial $e^x$ precisamente porque son funciones inversas entre sí: una tiene la variable en el exponente y la otra dentro del logaritmo.",
     "reviewed": false
   },
   {
@@ -66,10 +81,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\log_{10}(x)$ (logaritmo decimal) es una función logarítmica con base $10$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una polinómica combina potencias de $x$ con exponentes naturales; acá $x$ está dentro de un logaritmo, no elevada a una potencia.",
+      "Una racional es un cociente de polinomios; acá no hay ninguna división por una expresión en $x$, solo un logaritmo.",
+      "En la exponencial la variable está en el exponente; acá el $10$ es la base del logaritmo, no una potencia de $x$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\log_{10}(x)$ es el **logaritmo decimal** o **logaritmo común**, base $10$.\n\nCuando se escribe $\\log(x)$ sin subíndice, se sobreentiende base $10$: $\\log(x) = \\log_{10}(x)$.\n\nEs una función logarítmica con las propiedades estándar:\n$$\\begin{aligned} \\log_{10}(1) &= 0 \\\\ \\log_{10}(10) &= 1 \\\\ \\log_{10}(100) &= 2 \\end{aligned}$$\n\nSe usa ampliamente en ciencias: escala de pH, decibeles, escala de Richter.",
+    "explanation": "$f(x) = \\log_{10}(x)$ es el **logaritmo decimal** o **logaritmo común**, base $10$.\n\nCuando se escribe $\\log(x)$ sin subíndice, se sobreentiende base $10$: $\\log(x) = \\log_{10}(x)$.\n\nEs una función logarítmica con las propiedades estándar:\n$$\\begin{aligned} \\log_{10}(1) &= 0 \\\\ \\log_{10}(10) &= 1 \\\\ \\log_{10}(100) &= 2 \\end{aligned}$$\nSe usa ampliamente en ciencias: escala de pH, decibeles, escala de Richter.",
     "reviewed": false
   },
   {
@@ -83,7 +103,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva creciente con asíntota vertical en $x = 0$ es $f(x) = \\log_3(x)$: logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una exponencial creciente se acelera y tiene asíntota horizontal; esta curva se aplana y su asíntota es vertical, en $x=0$.",
+      "Una recta no tiene asíntotas ni cambia de ritmo; esta curva se frena a medida que $x$ crece y no está definida para $x\\leq 0$.",
+      "Una parábola está definida para todos los reales y no tiene asíntota; esta curva solo existe para $x>0$."
+    ],
     "graph_fn": "log(x) / log(3)",
     "graph_view": [
       -0.5,
@@ -91,7 +116,7 @@
       -3,
       5
     ],
-    "explanation": "La curva muestra las señas características de una función **logarítmica**:\n\n- Solo existe para $x > 0$: asíntota vertical en $x = 0$.\n- Pasa por $(1,\\, 0)$ — intercepto con el eje $X$.\n- Crece lentamente y de forma cóncava hacia abajo.\n\nEsta curva corresponde a $f(x) = \\log_3(x)$. Cambia de base respecto a $\\log_2$, pero la forma general es la misma: a mayor base (con $b > 1$), más lento es el crecimiento.",
+    "explanation": "La curva muestra las señas características de una función **logarítmica**: solo existe para $x > 0$, con asíntota vertical en $x = 0$, pasa por $(1,\\, 0)$ (el intercepto con el eje $X$) y crece lentamente con concavidad hacia abajo.\n\nEsta curva corresponde a $f(x) = \\log_3(x)$: cambia de base respecto a $\\log_2$, pero la forma general es la misma.\n\nA mayor base (con $b > 1$), más lento es el crecimiento, así que dos logarítmicas de distinta base solo se diferencian en qué tan rápido se aplanan, nunca en la forma cualitativa de la curva.",
     "reviewed": false
   },
   {
@@ -105,7 +130,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log(x + 2)$ aplica el logaritmo al argumento $(x+2)$: es logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá la variable está elevada al cuadrado, no dentro de un logaritmo: esa es la seña de una polinómica (cuadrática), no de una logarítmica.",
+      null,
+      "Acá la variable está en el exponente: esa es la exponencial, la inversa de la logarítmica, no la logarítmica misma.",
+      "Esta es una recta, con la variable multiplicada por una pendiente; no hay ningún logaritmo aplicado a $x$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\log(x + 2)$ es **logarítmica**: la operación principal sobre la variable es el logaritmo.\n\nEl hecho de que el argumento sea $(x + 2)$ en lugar de $x$ solo implica un **desplazamiento horizontal** de 2 unidades a la izquierda, pero no cambia la familia.\n\nLas otras opciones pertenecen a otras familias: $x^2 + 2$ es polinómica (cuadrática), $2^x$ es exponencial y $2x - 1$ es lineal.",
@@ -114,15 +144,20 @@
   {
     "question": "¿A qué familia pertenece $f(x) = -\\log_2(x)$?",
     "options": [
+      "Logarítmica",
       "Racional",
       "Exponencial",
-      "Logarítmica",
       "Trigonométrica"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El signo negativo invierte la curva, pero sigue siendo logarítmica: $f(x) = -\\log_2(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una racional tendría a $x$ en un denominador; acá la variable está dentro de un logaritmo con un signo negativo adelante.",
+      "El signo menos al frente refleja la curva pero no la convierte en exponencial: la variable sigue dentro del logaritmo, no en un exponente.",
+      "Las trigonométricas oscilan periódicamente; esta función, aunque decreciente, nunca se repite."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Multiplicar una función por $-1$ produce una **reflexión** respecto al eje $X$, pero **no cambia la familia**.\n\n$f(x) = -\\log_2(x)$ es logarítmica: la operación central es $\\log_2(x)$, y el signo negativo solo invierte los valores.\n\nEsta función es **decreciente** (a diferencia de $\\log_2(x)$ que es creciente), pero comparte las mismas propiedades estructurales: dominio $x > 0$, asíntota vertical en $x = 0$, y pasa por $(1,\\, 0)$.",
@@ -139,7 +174,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La curva crece lentamente con asíntota vertical: $f(x) = \\ln(x) + 1$, logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una recta no tiene asíntotas y crece al mismo ritmo siempre; esta curva se frena a medida que $x$ crece y tiene una asíntota vertical.",
+      "Una exponencial creciente tiene asíntota horizontal y se acelera; esta curva tiene asíntota vertical y se frena.",
+      "Una racional como $1/x$ existiría a ambos lados de la asíntota vertical; esta curva solo está definida para $x>0$.",
+      null
+    ],
     "graph_fn": "log(x) + 1",
     "graph_view": [
       -0.5,
@@ -147,7 +187,7 @@
       -2,
       6
     ],
-    "explanation": "Esta gráfica muestra $f(x) = \\ln(x) + 1$: una función **logarítmica** (logaritmo natural) desplazada 1 unidad hacia arriba.\n\nClaves para identificarla:\n- Asíntota vertical en $x = 0$: la curva cae a $-\\infty$ al acercarse desde la derecha.\n- Dominio solo para $x > 0$.\n- Crece lentamente con concavidad hacia abajo.\n\nEl desplazamiento vertical ($+1$) mueve la curva pero no cambia la familia ni la asíntota.",
+    "explanation": "Esta gráfica muestra $f(x) = \\ln(x) + 1$: una función **logarítmica** (logaritmo natural) desplazada 1 unidad hacia arriba.\n\nLas claves para identificarla son la asíntota vertical en $x = 0$, donde la curva cae a $-\\infty$ al acercarse desde la derecha, el dominio restringido a $x > 0$ y el crecimiento lento con concavidad hacia abajo.\n\nEl desplazamiento vertical ($+1$) mueve la curva hacia arriba pero no cambia ni la familia ni la posición de la asíntota, que sigue en $x=0$ porque el desplazamiento afecta al resultado del logaritmo, no a su argumento.",
     "reviewed": false
   },
   {
@@ -161,10 +201,15 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = e^x$ es una función exponencial (la inversa del logaritmo natural).",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Esta sí es logarítmica: el logaritmo en base 5 actúa directamente sobre $x$.",
+      "Esta también es logarítmica, aunque el argumento sea $3x$ en vez de $x$ solo: $\\ln(3x) = \\ln 3 + \\ln x$, sigue siendo un logaritmo.",
+      "Esta sigue siendo logarítmica: elevar $x$ al cuadrado dentro del logaritmo solo multiplica el resultado por $2$, no cambia la familia."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = e^x$ es una función **exponencial**: la variable $x$ está en el exponente y la base es $e$.\n\nEs justamente la **inversa** del logaritmo natural: $\\ln(e^x) = x$.\n\nLas otras opciones sí son logarítmicas:\n- $\\log_5(x)$: logaritmo base 5.\n- $\\ln(3x) = \\ln 3 + \\ln x$: logaritmo natural de $3x$.\n- $\\log(x^2) = 2\\log x$: logaritmo de una potencia.",
+    "explanation": "$f(x) = e^x$ es una función **exponencial**: la variable $x$ está en el exponente y la base es $e$, mientras que en una logarítmica la variable está dentro del logaritmo.\n\nEs justamente la **inversa** del logaritmo natural, ya que $\\ln(e^x) = x$: aplicar una función y su inversa en cadena devuelve el valor original.\n\nLas otras tres opciones sí son logarítmicas: $\\log_5(x)$ es un logaritmo en base 5, $\\ln(3x) = \\ln 3 + \\ln x$ es el logaritmo natural de $3x$ reescrito por la propiedad del producto, y $\\log(x^2) = 2\\log x$ es el logaritmo de una potencia. En los tres casos la operación central sigue siendo el logaritmo, no la exponencial.",
     "reviewed": false
   },
   {
@@ -178,10 +223,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log(2x) = \\log(2) + \\log(x)$: sigue siendo una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá la variable sigue dentro de un logaritmo, no en un exponente: la exponencial sería lo inverso, con $x$ arriba.",
+      null,
+      "El $2$ multiplicando adentro del logaritmo no la vuelve lineal: sigue siendo el logaritmo el que actúa sobre $x$, solo que desplazado verticalmente.",
+      "No hay ninguna división por una expresión en $x$; el $2$ está multiplicando dentro del argumento del logaritmo, no en un denominador."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\log(2x)$ es **logarítmica**: la operación principal sobre $x$ sigue siendo el logaritmo.\n\nUsando la propiedad del producto:\n$$\\log(2x) = \\log(2) + \\log(x)$$\n\nEsto muestra que $f(x) = \\log(2x)$ es simplemente $\\log(x)$ desplazado verticalmente en $\\log(2)$ unidades. La forma de la curva y todas sus propiedades logarítmicas se conservan.",
+    "explanation": "$f(x) = \\log(2x)$ es **logarítmica**: la operación principal sobre $x$ sigue siendo el logaritmo.\n\nUsando la propiedad del producto:\n$$\\log(2x) = \\log(2) + \\log(x)$$\nEsto muestra que $f(x) = \\log(2x)$ es simplemente $\\log(x)$ desplazado verticalmente en $\\log(2)$ unidades. La forma de la curva y todas sus propiedades logarítmicas se conservan.",
     "reviewed": false
   },
   {
@@ -195,10 +245,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "El argumento del logaritmo debe ser positivo: $x - 3 > 0 \\Rightarrow x > 3$. El dominio es $(3, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el dominio si $x=3$ fuera solo un punto excluido de una función definida en todos los demás reales, como una racional; acá todo el intervalo a la izquierda de $3$ queda fuera.",
+      "El signo dentro del logaritmo es $x-3$, no $x+3$: conviene resolver la desigualdad completa en vez de solo cambiar el signo de la constante.",
+      "En $x=3$ el argumento del logaritmo vale $0$, y $\\ln(0)$ no existe, así que ese extremo queda afuera del dominio.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\ln(x - 3)$ esté definida, el argumento del logaritmo debe ser **estrictamente positivo**:\n\n$$x - 3 > 0 \\iff x > 3$$\n\nEl dominio es $(3, +\\infty)$.\n\nNotas importantes:\n- $x = 3$ no pertenece al dominio porque $\\ln(0)$ no existe.\n- El intervalo es **abierto** en $3$: $(3, +\\infty)$, no $[3, +\\infty)$.\n- La traslación $x - 3$ desplaza el dominio del logaritmo estándar $(0, +\\infty)$ tres unidades a la derecha.",
+    "explanation": "Para que $f(x) = \\ln(x - 3)$ esté definida, el argumento del logaritmo debe ser **estrictamente positivo**:\n$$x - 3 > 0 \\iff x > 3$$\nEl **dominio** es $(3, +\\infty)$.\n\n$x = 3$ no pertenece al dominio porque $\\ln(0)$ no existe, así que el intervalo es abierto en $3$, es decir $(3, +\\infty)$ y no $[3, +\\infty)$.\n\nLa traslación $x - 3$ desplaza el dominio del logaritmo estándar $(0, +\\infty)$ tres unidades a la derecha, arrastrando también la asíntota vertical de $x=0$ a $x=3$.",
     "reviewed": false
   },
   {
@@ -212,27 +267,37 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\ln(x)$ es estrictamente creciente en todo su dominio $(0, +\\infty)$: si $x_1 < x_2$ entonces $\\ln(x_1) < \\ln(x_2)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Que $\\ln(1)=0$ no significa que ahí se frene: el logaritmo sigue subiendo para todo $x>1$, no hay ningún máximo.",
+      "El logaritmo se aplana cerca de $e$ pero nunca cambia de dirección; comparar $\\ln(e)$ con $\\ln(e^2)$ muestra que sigue subiendo.",
+      "El crecimiento no arranca en $x=1$: también entre $0$ y $1$ el logaritmo va subiendo, aunque tome valores negativos."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x) = \\ln(x)$ es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nAlgunos se confunden porque $\\ln(1) = 0$: piensan que ahí hay un máximo, pero no. El logaritmo sigue creciendo:\n\n$$\\ln(1) = 0 < \\ln(e) = 1 < \\ln(e^2) = 2 < \\ln(e^3) = 3 \\ldots$$\n\nSolo se aplana (crece más lentamente) pero nunca deja de crecer ni retrocede.\n\nEsto es coherente con que $\\ln$ y $e^x$ son funciones inversas: una es el espejo de la otra, y $e^x$ es creciente.",
+    "explanation": "La función $f(x) = \\ln(x)$ es **estrictamente creciente** en todo su dominio $(0, +\\infty)$.\n\nAlgunos se confunden porque $\\ln(1) = 0$ y piensan que ahí hay un máximo, pero no: el logaritmo sigue creciendo más allá de $1$, como muestra la secuencia\n$$\\ln(1) = 0 < \\ln(e) = 1 < \\ln(e^2) = 2 < \\ln(e^3) = 3 \\ldots$$\nSolo se aplana, es decir crece cada vez más lentamente, pero nunca deja de crecer ni retrocede.\n\nEsto es coherente con que $\\ln$ y $e^x$ son funciones inversas: una es el espejo de la otra, y como $e^x$ es creciente, su inversa también lo es.",
     "reviewed": false
   },
   {
     "question": "¿Para qué valores de la base $b$ es $f(x) = \\log_b(x)$ una función decreciente?",
     "options": [
+      "Para $0 < b < 1$",
       "Para $b > 1$",
       "Para $b = e$",
-      "Para $0 < b < 1$",
       "Para $b = 1$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Cuando $0 < b < 1$, $\\log_b(x)$ es decreciente: valores mayores de $x$ producen logaritmos menores.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Con base mayor que $1$ el logaritmo es creciente, no decreciente; la base que produce decrecimiento está entre $0$ y $1$.",
+      "$e\\approx 2{,}718$ es mayor que $1$, así que $\\ln(x)$ es creciente, no decreciente.",
+      "Con base $1$ el logaritmo ni siquiera está definido, porque $1$ elevado a cualquier exponente da siempre $1$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento de $f(x) = \\log_b(x)$ depende de la **base** $b$, igual que en las exponenciales:\n\n- $b > 1$: logaritmo **creciente**. Ejemplo: $\\log_2(1) = 0 < \\log_2(4) = 2$.\n- $0 < b < 1$: logaritmo **decreciente**. Ejemplo: $\\log_{0.5}(1) = 0 > \\log_{0.5}(2) = -1$.\n- $b = 1$: no está definido como logaritmo.\n\nEsta regla es el espejo exacto de la regla para las exponenciales: $\\log_b$ y $b^x$ son inversas, y comparten el mismo tipo de comportamiento (creciente o decreciente).",
+    "explanation": "El comportamiento de $f(x) = \\log_b(x)$ depende de la **base** $b$, igual que en las exponenciales.\n\nCon $b > 1$ el logaritmo es creciente, como en $\\log_2(1) = 0 < \\log_2(4) = 2$; con $0 < b < 1$ es decreciente, como en $\\log_{0.5}(1) = 0 > \\log_{0.5}(2) = -1$; y con $b = 1$ directamente no está definido como logaritmo.\n\nEsta regla es el espejo exacto de la regla para las exponenciales: $\\log_b$ y $b^x$ son inversas, y comparten el mismo tipo de comportamiento, creciente o decreciente, según esté la base por encima o por debajo de $1$.",
     "reviewed": false
   },
   {
@@ -246,27 +311,37 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\log_{0.5}(x)$ tiene base $0.5 < 1$, así que es decreciente.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Base $2$ es mayor que $1$, así que esta función es creciente, no decreciente.",
+      null,
+      "El logaritmo natural tiene base $e\\approx 2{,}718$, mayor que $1$, así que también es creciente.",
+      "Sí existe una decreciente entre las opciones: revisá cuál tiene base entre $0$ y $1$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para identificar si $\\log_b(x)$ es creciente o decreciente, revisá la base:\n\n- $\\log_2(x)$: base $b = 2 > 1$ → **creciente**.\n- $\\log_{0.5}(x)$: base $b = 0.5$, con $0 < 0.5 < 1$ → **decreciente**.\n- $\\ln(x)$: base $b = e \\approx 2.718 > 1$ → creciente.\n\nNota útil: $\\log_{0.5}(x) = -\\log_2(x)$. Podés reescribir logaritmos decrecientes como el opuesto de uno creciente.\n\nEsto es coherente con las exponenciales: $0.5^x$ es decreciente, y $\\log_{0.5}$ (su inversa) también lo es.",
+    "explanation": "Para identificar si $\\log_b(x)$ es creciente o decreciente, hay que revisar la base $b$: $\\log_2(x)$ tiene base $b=2>1$, así que es creciente, igual que $\\ln(x)$, con base $b=e\\approx 2.718>1$. En cambio $\\log_{0.5}(x)$ tiene base $b=0.5$, con $0<0.5<1$, así que es decreciente.\n\nUna nota útil es que $\\log_{0.5}(x) = -\\log_2(x)$: cualquier logaritmo decreciente se puede reescribir como el opuesto de uno creciente de base recíproca.\n\nEsto es coherente con las exponenciales: $0.5^x$ es decreciente, y $\\log_{0.5}$, que es su inversa, también lo es.",
     "reviewed": false
   },
   {
     "question": "Una inversión de \\$1000 crece un 10% anual. Se quiere saber **cuántos años** tardará en llegar a \\$2000.\n\n¿A qué familia de funciones pertenece la regla que calcula los años necesarios en función del monto objetivo?",
     "options": [
       "Lineal",
-      "Exponencial",
       "Logarítmica",
+      "Exponencial",
       "Cuadrática"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Despejar el tiempo en $M = 1000 \\cdot (1{,}1)^t$ da $t = \\log_{1{,}1}(M/1000)$: una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá el monto no crece por una suma fija cada año, sino por un porcentaje; el tiempo para llegar a un monto no se calcula con una división simple.",
+      null,
+      "Esa sería la familia de la función que da el monto después de $t$ años; acá se pregunta lo inverso, cuántos años hacen falta para llegar a un monto dado.",
+      "No hay ningún $t$ elevado al cuadrado en esta relación; el tiempo aparece como exponente de la tasa de crecimiento."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función que da el **monto** después de $t$ años es exponencial: $M(t) = 1000 \\cdot (1{,}1)^t$.\n\nPero si la pregunta es '¿cuántos **años** para llegar a $M$?', se despeja $t$:\n$$t = \\log_{1{,}1}\\!\\left(\\frac{M}{1000}\\right)$$\n\nEsta función $t(M)$ es logarítmica: la variable está dentro del logaritmo. La exponencial y la logarítmica son inversas.",
+    "explanation": "La función que da el **monto** después de $t$ años es exponencial: $M(t) = 1000 \\cdot (1{,}1)^t$.\n\nPero si la pregunta es '¿cuántos **años** para llegar a $M$?', se despeja $t$:\n$$t = \\log_{1{,}1}\\!\\left(\\frac{M}{1000}\\right)$$\nEsta función $t(M)$ es logarítmica: la variable está dentro del logaritmo. La exponencial y la logarítmica son inversas.",
     "reviewed": false
   },
   {
@@ -280,10 +355,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Despejar $t$ de $N = 50 \\cdot 2^t$ da $t = \\log_2(N/50)$: una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "No hay ningún término al cuadrado en esta relación: el tiempo aparece como exponente de $2$, no como base elevada al cuadrado.",
+      "Esa es la familia de la cantidad de bacterias en función del tiempo; acá se pregunta lo inverso, el tiempo en función de la cantidad.",
+      "El cultivo no crece por una cantidad fija cada hora, sino que se duplica, así que el tiempo para llegar a $N$ no es proporcional a $N$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La cantidad de bacterias en función del tiempo es exponencial: $B(t) = 50 \\cdot 2^t$.\n\nPero si se pregunta cuántos **períodos** para llegar a $N$:\n$$N = 50 \\cdot 2^t \\implies 2^t = \\frac{N}{50} \\implies t = \\log_2\\!\\left(\\frac{N}{50}\\right)$$\n\nEsa función $t(N)$ es logarítmica.",
+    "explanation": "La cantidad de bacterias en función del tiempo es exponencial: $B(t) = 50 \\cdot 2^t$.\n\nPero si se pregunta cuántas **horas** para llegar a $N$:\n$$N = 50 \\cdot 2^t \\implies 2^t = \\frac{N}{50} \\implies t = \\log_2\\!\\left(\\frac{N}{50}\\right)$$\nEsa función $t(N)$ es logarítmica: la variable objetivo $N$ quedó dentro del logaritmo al despejar el tiempo.",
     "reviewed": false
   },
   {
@@ -297,24 +377,34 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Despejar el tiempo de una ecuación exponencial siempre da una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa sería la familia del monto de la deuda en función de los meses; acá se pregunta por los meses en función de la tasa, que es la relación inversa.",
+      null,
+      "La deuda no crece por una suma fija cada mes sino por un porcentaje, así que el tiempo para duplicarla no es proporcional a $r$.",
+      "No hay ninguna división por una expresión en $r$ en el planteo original; la $r$ aparece dentro de un logaritmo al despejar el tiempo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para duplicar la deuda: $2 = (1 + r)^t$. Despejando:\n$$t = \\log_{1+r}(2) = \\frac{\\ln(2)}{\\ln(1+r)}$$\n\nEsta función de $r$ es logarítmica. Siempre que se despeje el tiempo de una ecuación exponencial, el resultado es un logaritmo.",
+    "explanation": "Cuando una deuda o una inversión crece un porcentaje fijo por período, el monto sigue una ley exponencial, y el **tiempo** necesario para alcanzar cierto múltiplo es la operación inversa, es decir un logaritmo.\n\nPara duplicar la deuda: $2 = (1 + r)^t$. Despejando el exponente $t$:\n$$t = \\log_{1+r}(2) = \\frac{\\ln(2)}{\\ln(1+r)}$$\nEsta función de $r$ es logarítmica, porque la tasa $r$ queda dentro del logaritmo.\n\nRegla general: siempre que se despeje el tiempo de una ecuación exponencial, el resultado es una función logarítmica de la cantidad objetivo o de la tasa, nunca al revés.",
     "reviewed": false
   },
   {
     "question": "¿A qué familia de funciones pertenece $f(x) = -\\ln(x)$?",
     "options": [
+      "Logarítmica",
       "Exponencial",
       "Racional",
-      "Logarítmica",
       "Lineal"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El signo negativo refleja la curva, pero la operación central sigue siendo el logaritmo.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "El signo negativo refleja la curva, pero la variable sigue dentro de un logaritmo, no en un exponente.",
+      "No hay ninguna división por una expresión en $x$: la operación central es el logaritmo natural, con un signo negativo adelante.",
+      "Una recta no tendría asíntota vertical ni un crecimiento cada vez más lento; acá ambas cosas están presentes."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Multiplicar por $-1$ produce una reflexión, pero no cambia la familia.\n\n$f(x) = -\\ln(x)$ es logarítmica: la operación principal sobre $x$ es el logaritmo natural.\n\nEsta función es **decreciente** (al revés que $\\ln(x)$), pero comparte el mismo dominio $(0, +\\infty)$, la misma imagen $\\mathbb{R}$ y la misma asíntota vertical $x = 0$.",
@@ -331,10 +421,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Escalar verticalmente un logaritmo no cambia su familia: sigue siendo logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El $2$ multiplica al logaritmo desde afuera, no aparece como exponente de $x$; la variable sigue dentro del logaritmo.",
+      null,
+      "Escalar verticalmente por $2$ no aplana la curva en una recta: sigue siendo el logaritmo el que determina la forma.",
+      "No hay ningún $x$ elevado al cuadrado en esta expresión: el $2$ es un factor que multiplica al logaritmo, no un exponente de $x$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = 2 \\cdot \\log_2(x)$ es **logarítmica**: la operación principal sobre $x$ es $\\log_2(x)$. El factor $2$ solo estira la curva verticalmente.\n\nNota: $2 \\cdot \\log_2(x) = \\log_2(x^2)$ por la propiedad de la potencia — otra forma de ver que sigue siendo un logaritmo.",
+    "explanation": "$f(x) = 2 \\cdot \\log_2(x)$ es **logarítmica**: la operación principal sobre $x$ es $\\log_2(x)$. El factor $2$ solo estira la curva verticalmente, no cambia su familia.\n\nNota: $2 \\cdot \\log_2(x) = \\log_2(x^2)$ por la propiedad de la potencia, otra forma de ver que la función sigue siendo un logaritmo.",
     "reviewed": false
   },
   {
@@ -348,10 +443,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\log_{0{,}5}(x)$ es logarítmica con base $0{,}5$, que está en $(0, 1)$, así que es decreciente.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "No hay ninguna división por una expresión en $x$: la variable está dentro de un logaritmo, no en un denominador.",
+      "La variable $x$ está dentro del logaritmo, no en el exponente; la base $0{,}5$ acompaña al logaritmo, no a una potencia de $x$.",
+      null,
+      "Que la función sea decreciente no la vuelve una recta: sigue siendo un logaritmo, solo que con base menor que $1$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_{0{,}5}(x)$ es una función **logarítmica** con base $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**: a mayor $x$, menor $f(x)$.\n\nNota útil: $\\log_{0{,}5}(x) = -\\log_2(x)$, es el opuesto del logaritmo en base $2$.",
+    "explanation": "$\\log_{0{,}5}(x)$ es una función **logarítmica** con base $b = 0{,}5$: la variable $x$ sigue dentro del logaritmo, que es lo que define la familia sin importar cuál sea la base.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**, a mayor $x$ corresponde un $f(x)$ menor, al revés de lo que pasa con bases mayores que $1$.\n\nUna nota útil es que $\\log_{0{,}5}(x) = -\\log_2(x)$: toda logarítmica con base entre $0$ y $1$ se puede reescribir como el opuesto de una logarítmica creciente.",
     "reviewed": false
   },
   {
@@ -365,10 +465,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$g(x) = \\ln(x)$ es logarítmica (base $e$); $f(x) = e^x$ es su inversa, la exponencial.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá la variable está en el exponente, no dentro de un logaritmo: esa es justamente la función inversa, la exponencial.",
+      null,
+      "Solo una de las dos tiene la variable dentro de un logaritmo; la otra la tiene en el exponente, y eso las hace inversas, no iguales en familia.",
+      "$g(x)=\\ln(x)$ sí aplica un logaritmo directamente a $x$, así que sí hay una función logarítmica entre las dos."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$g(x) = \\ln(x) = \\log_e(x)$ es una función **logarítmica** con base $e$.\n\n$f(x) = e^x$ es una función **exponencial** — son inversas entre sí.\n\nForma de distinguirlas: en la exponencial, la variable está en el **exponente** ($e^x$); en la logarítmica, la variable está dentro del **logaritmo** ($\\ln(x)$).",
+    "explanation": "$g(x) = \\ln(x) = \\log_e(x)$ es una función **logarítmica** con base $e$.\n\n$f(x) = e^x$ es una función **exponencial**, y ambas son inversas entre sí.\n\nForma de distinguirlas: en la exponencial, la variable está en el **exponente** ($e^x$); en la logarítmica, la variable está dentro del **logaritmo** ($\\ln(x)$).",
     "reviewed": false
   },
   {
@@ -382,24 +487,34 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$g(x) = \\log_2(x)$ es logarítmica (base $2$); $f(x) = 2^x$ es su inversa, la exponencial.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá la variable está en el exponente: esa es la exponencial, la inversa de la logarítmica que se busca.",
+      null,
+      "Solo una de las dos tiene la variable dentro del logaritmo; la otra la tiene en el exponente, por eso son inversas y no la misma familia.",
+      "$g(x)=\\log_2(x)$ sí aplica el logaritmo directamente sobre $x$, así que sí hay una logarítmica entre las opciones."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Regla clave: en la **exponencial**, la variable va en el exponente → $f(x) = 2^x$.\n\nEn la **logarítmica**, la variable va dentro del logaritmo → $g(x) = \\log_2(x)$.\n\nSon funciones inversas: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.",
+    "explanation": "La regla clave para distinguirlas está en dónde aparece la variable: en la **exponencial** va en el exponente, como en $f(x) = 2^x$, mientras que en la **logarítmica** va dentro del logaritmo, como en $g(x) = \\log_2(x)$.\n\nEstas dos funciones no son cualquier par de exponencial y logarítmica, son funciones inversas entre sí porque comparten la base $2$: $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$.\n\nPor eso suelen confundirse en ejercicios de clasificación: comparten la misma base, pero la posición de la variable determina a qué familia pertenece cada una.",
     "reviewed": false
   },
   {
     "question": "La gráfica muestra una función definida solo para $x > 0$, con una curva creciente que tiene asíntota vertical en $x = 0$ y pasa por el punto $(1, 0)$.\n\n¿A qué familia de funciones pertenece esta gráfica?",
     "options": [
+      "Logarítmica",
       "Exponencial",
       "Cuadrática",
-      "Logarítmica",
       "Lineal"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Asíntota vertical en $x = 0$, dominio $(0, +\\infty)$ y punto $(1, 0)$ son sellos de una logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una exponencial creciente tendría asíntota horizontal, no vertical; acá la asíntota está en $x=0$.",
+      "Una parábola está definida en todos los reales y no tiene asíntota; esta curva solo existe para $x>0$.",
+      "Una recta no se aplana ni tiene asíntota vertical; esta curva crece cada vez más lento y no está definida para $x\\leq 0$."
+    ],
     "graph_fn": "log2(x)",
     "graph_view": [
       -0.5,
@@ -407,7 +522,7 @@
       -3,
       5
     ],
-    "explanation": "Las señas distintivas de una función **logarítmica** en su gráfica:\n1. Solo existe para $x > 0$ (o $x > c$ si está desplazada).\n2. Asíntota vertical al borde izquierdo del dominio.\n3. Pasa por $(1,\\, 0)$ (para la forma básica).\n4. Crece (o decrece) cada vez más lentamente — curva cóncava.\n\nEsta gráfica corresponde a $\\log_2(x)$.",
+    "explanation": "Las señas distintivas de una función **logarítmica** en su gráfica:\n1. Solo existe para $x > 0$ (o $x > c$ si está desplazada).\n2. Asíntota vertical al borde izquierdo del dominio.\n3. Pasa por $(1,\\, 0)$ (para la forma básica).\n4. Crece (o decrece) cada vez más lentamente, con curva cóncava.\n\nEsta gráfica corresponde a $\\log_2(x)$.",
     "reviewed": false
   },
   {
@@ -421,10 +536,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Se necesita $x - 2 > 0$, es decir $x > 2$. El dominio es $(2, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El argumento es $x-2$, no $x+2$: conviene resolver la desigualdad completa en vez de solo cambiar el signo de la constante.",
+      "En $x=2$ el argumento del logaritmo vale $0$, y $\\ln(0)$ no existe, así que ese extremo no puede incluirse.",
+      null,
+      "El logaritmo natural no está definido para argumentos negativos ni cero, así que el dominio no puede ser todo $\\mathbb{R}$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $\\ln(x - 2)$ esté definido:\n$$x - 2 > 0 \\implies x > 2$$\n\nDominio: $(2, +\\infty)$, con asíntota vertical en $x = 2$.\n\nEl intervalo es **abierto** en $x = 2$ porque $\\ln(0)$ no existe.",
+    "explanation": "Para que $\\ln(x - 2)$ esté definida, el argumento del logaritmo debe ser positivo:\n$$x - 2 > 0 \\implies x > 2$$\nEl **dominio** es $(2, +\\infty)$, con asíntota vertical en $x = 2$.\n\nEl intervalo es abierto en $x = 2$ porque $\\ln(0)$ no existe, así que ese punto exacto queda excluido del dominio.\n\nEsta función es $\\ln(x)$ desplazada 2 unidades a la derecha: el desplazamiento horizontal mueve tanto el dominio como la asíntota vertical, que pasa de $x=0$ a $x=2$.",
     "reviewed": false
   },
   {
@@ -438,10 +558,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Sumar $3$ desplaza la curva hacia arriba, pero la imagen sigue siendo $\\mathbb{R}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el tipo de imagen que tendría una exponencial desplazada, como $2^x+3$; una logarítmica no tiene cota inferior en su imagen.",
+      "Sumar $3$ desplaza los valores de la imagen, pero la imagen del logaritmo ya era todo $\\mathbb{R}$, así que desplazarla sigue dando $\\mathbb{R}$.",
+      "Ese intervalo describe el dominio de la logarítmica básica, no su imagen; la imagen de cualquier logarítmica es $\\mathbb{R}$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_2(x)$ tiene imagen $\\mathbb{R}$. Sumar $3$ desplaza todos los valores en $+3$:\n\n$$\\text{Imagen de } (\\log_2(x) + 3) = \\mathbb{R} + 3 = \\mathbb{R}$$\n\nUn desplazamiento vertical no acota la imagen de un logaritmo. Contraste con la exponencial $2^x + 3$, cuya imagen es $(3, +\\infty)$.",
+    "explanation": "$\\log_2(x)$ tiene **imagen** $\\mathbb{R}$, y sumar $3$ solo desplaza todos los valores en $+3$:\n$$\\text{Imagen de } (\\log_2(x) + 3) = \\mathbb{R} + 3 = \\mathbb{R}$$\nUn desplazamiento vertical no acota la imagen de un logaritmo, porque $\\mathbb{R}$ desplazado sigue siendo $\\mathbb{R}$.\n\nContraste útil: en la exponencial $2^x + 3$, cuya imagen sí está acotada por abajo, el desplazamiento produce $(3, +\\infty)$. La logarítmica nunca tiene ese tipo de cota porque su imagen ya cubre todos los reales antes de desplazarla.",
     "reviewed": false
   },
   {
@@ -455,10 +580,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Despejar el tiempo de $0{,}5 = (0{,}8)^t$ da una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "No hay ningún término elevado al cuadrado en esta relación: el tiempo aparece como exponente de $0{,}8$.",
+      "El auto no pierde una cantidad fija de valor cada año, sino un porcentaje, así que el tiempo para llegar a la mitad no es proporcional.",
+      "Esa es la familia del valor del auto en función del tiempo; acá se pregunta lo inverso, los años en función del valor objetivo.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor del auto es $V(t) = V_0 \\cdot (0{,}8)^t$ — función exponencial.\n\nPara saber cuándo vale la mitad: $0{,}5 = (0{,}8)^t$. Despejando:\n$$t = \\log_{0{,}8}(0{,}5) = \\frac{\\ln(0{,}5)}{\\ln(0{,}8)} \\approx 3{,}1 \\text{ años}$$\n\nLa función que calcula el tiempo en función del factor de depreciación es logarítmica.",
+    "explanation": "El valor del auto es $V(t) = V_0 \\cdot (0{,}8)^t$, una función exponencial.\n\nPara saber cuándo vale la mitad: $0{,}5 = (0{,}8)^t$. Despejando el exponente $t$:\n$$t = \\log_{0{,}8}(0{,}5) = \\frac{\\ln(0{,}5)}{\\ln(0{,}8)} \\approx 3{,}1 \\text{ años}$$\nLa función que calcula el tiempo en función del factor de depreciación es logarítmica, porque el tiempo quedó despejado dentro de un logaritmo.",
     "reviewed": false
   },
   {
@@ -472,7 +602,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Asíntota vertical en $x = 0$, dominio $(0, +\\infty)$ y paso por $(1, 0)$: es logarítmica con base $< 1$ o negada.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una recta no tiene asíntotas ni cambia de ritmo de crecimiento; esta curva se acerca cada vez más a una asíntota vertical.",
+      "Una exponencial decreciente tiene asíntota horizontal, en $y=0$; acá la asíntota es vertical, en $x=0$.",
+      "Una racional como $1/x$ existiría a ambos lados de la asíntota vertical; esta curva solo está definida para $x>0$.",
+      null
+    ],
     "graph_fn": "-log2(x)",
     "graph_view": [
       -0.5,
@@ -480,7 +615,7 @@
       -4,
       4
     ],
-    "explanation": "Una curva **decreciente** con asíntota vertical en $x = 0$ y dominio $(0, +\\infty)$ puede ser:\n- $\\log_b(x)$ con $0 < b < 1$ (por ejemplo $\\log_{0{,}5}(x)$)\n- O $-\\log_b(x)$ con $b > 1$ (por ejemplo $-\\log_2(x)$)\n\nAmbas son funciones **logarítmicas**. La diferencia con la exponencial: esta tiene asíntota **vertical**, no horizontal.",
+    "explanation": "Una curva **decreciente** con asíntota vertical en $x = 0$ y dominio $(0, +\\infty)$ puede corresponder a dos formas equivalentes de una logarítmica: $\\log_b(x)$ con $0 < b < 1$, por ejemplo $\\log_{0{,}5}(x)$, o bien $-\\log_b(x)$ con $b > 1$, por ejemplo $-\\log_2(x)$.\n\nAmbas son funciones **logarítmicas**, aunque decrezcan en vez de crecer.\n\nLa diferencia clave con la exponencial es la asíntota: la logarítmica siempre tiene asíntota **vertical**, mientras que la exponencial la tiene horizontal, sin importar si cada una crece o decrece según su base.",
     "reviewed": false
   },
   {
@@ -494,10 +629,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Si se deposita \\$200 por semana (suma fija), el tiempo necesario crece linealmente con el saldo: $t = S / 200$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "La logarítmica aparece cuando el crecimiento es porcentual; acá se suma una cantidad fija cada semana, no un porcentaje del saldo.",
+      null,
+      "No hay ningún término elevado al cuadrado en esta relación: el saldo crece en línea recta con el tiempo.",
+      "El saldo no se multiplica por un factor cada semana, sino que se le suma una cantidad fija; eso es crecimiento lineal, no exponencial."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Suma fija por período → crecimiento **lineal**. El saldo es $S(t) = 200t$. Despejando el tiempo:\n$$t = \\frac{S}{200}$$\n\nEsa función es **lineal** en $S$, no logarítmica.\n\nLa logarítmica aparece cuando el crecimiento es **multiplicativo** (porcentual), no aditivo. Si la cuenta creciera un 5% por semana, ahí el tiempo de duplicación sería logarítmico.",
+    "explanation": "Una suma fija por período produce un crecimiento **lineal**: el saldo es $S(t) = 200t$. Despejando el tiempo:\n$$t = \\frac{S}{200}$$\nEsa función es **lineal** en $S$, no logarítmica, porque despejar $t$ de una ecuación lineal siempre da otra función lineal.\n\nLa logarítmica aparece cuando el crecimiento es **multiplicativo** (porcentual), no aditivo. Si la cuenta creciera un 5% por semana en vez de sumar \\$200 fijos, ahí sí el tiempo necesario para llegar a un saldo dado sería una función logarítmica.",
     "reviewed": false
   },
   {
@@ -511,7 +651,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Una función estrictamente creciente nunca tiene extremos locales.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "$x=0$ ni siquiera pertenece al dominio de $\\log_2(x)$, así que no puede haber ahí un extremo local.",
+      "En $x=1$ el logaritmo vale $0$ y sigue creciendo después, no se frena ahí: no es un máximo.",
+      null,
+      "Restar $5$ desplaza toda la curva hacia abajo, pero no crea ningún punto donde la función cambie de subir a bajar."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\log_2(x) - 5$ es estrictamente creciente en $(0, +\\infty)$. Una función que siempre crece (o siempre decrece) nunca 'da la vuelta', por lo que **no tiene extremos locales**.\n\nRestar $5$ desplaza la curva hacia abajo, pero no cambia el hecho de que es monótona.",
@@ -528,7 +673,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Asíntota vertical en $x = 1$ y dominio $(1, +\\infty)$ son propios de una logarítmica desplazada.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una racional como $1/(x-1)$ también tendría asíntota vertical en $x=1$, pero existiría a ambos lados; esta curva solo está definida para $x>1$.",
+      "Una exponencial no tiene asíntota vertical, solo horizontal; acá la asíntota es vertical, en $x=1$.",
+      "Una recta no tiene asíntotas ni se aplana; esta curva se frena a medida que $x$ crece y tiene una asíntota vertical.",
+      null
+    ],
     "graph_fn": "log2(x - 1)",
     "graph_view": [
       0.5,
@@ -536,21 +686,26 @@
       -3,
       4
     ],
-    "explanation": "La curva tiene asíntota vertical en $x = 1$ (no en $x = 0$): señal de que el argumento del logaritmo es $(x - 1)$.\n\nCorresponde a $f(x) = \\log_2(x - 1)$: pasa por $(2,\\, 0)$ ya que $\\log_2(2 - 1) = \\log_2(1) = 0$ ✓.",
+    "explanation": "La curva tiene asíntota vertical en $x = 1$, no en $x = 0$: esa es la señal de que el argumento del logaritmo no es $x$ solo, sino $(x - 1)$, desplazado una unidad a la derecha.\n\nCorresponde a $f(x) = \\log_2(x - 1)$, que pasa por $(2,\\, 0)$ porque $\\log_2(2 - 1) = \\log_2(1) = 0$.\n\nRegla general: cualquier desplazamiento horizontal de una logarítmica mueve la asíntota vertical la misma cantidad de unidades, así que ubicar dónde está la asíntota permite reconstruir el argumento del logaritmo.",
     "reviewed": false
   },
   {
     "question": "¿A qué familia pertenece $f(x) = \\log(x + 2) - 1$?",
     "options": [
+      "Logarítmica",
       "Lineal",
       "Exponencial",
-      "Logarítmica",
       "Racional"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La operación principal sobre $x$ es el logaritmo: es una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Sumar $2$ dentro del argumento y restar $1$ al resultado son desplazamientos; la operación central sobre $x$ sigue siendo el logaritmo, no una recta.",
+      "La variable $x$ sigue dentro del logaritmo, no en un exponente; eso descarta la exponencial.",
+      "No hay ninguna división por una expresión en $x$: los desplazamientos suman y restan constantes, no dividen."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Sumar $2$ dentro del argumento y restar $1$ al resultado son transformaciones (desplazamientos), pero la operación central sigue siendo el logaritmo de $x$.\n\nDominio: $x + 2 > 0 \\implies x > -2$. Asíntota vertical: $x = -2$.\n\nLa función sigue siendo **logarítmica**, con dominio $(-2, +\\infty)$.",
@@ -567,10 +722,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Despejar $t$ de $P = P_0 \\cdot (1{,}03)^t$ da $t = \\log_{1{,}03}(P/P_0)$: función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa es la familia de la población en función del tiempo; acá se pregunta lo inverso, los años en función de la población objetivo.",
+      "No hay ningún término elevado al cuadrado en esta relación: el tiempo aparece como exponente de la tasa de crecimiento.",
+      null,
+      "La población no crece por una cantidad fija cada año, sino por un porcentaje, así que el tiempo para llegar a $P$ no es proporcional a $P$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función 'años para llegar a $P$' es la inversa de la función exponencial de crecimiento:\n$$P = P_0 \\cdot (1{,}03)^t \\implies t = \\frac{\\ln(P/P_0)}{\\ln(1{,}03)}$$\n\nEsa función de $P$ es logarítmica.",
+    "explanation": "La cantidad de población en función del tiempo crece de forma exponencial, $P = P_0 \\cdot (1{,}03)^t$, porque cada año se multiplica por el mismo factor $1{,}03$.\n\nLa función 'años para llegar a $P$' es la inversa de esa exponencial: se despeja el exponente $t$\n$$t = \\frac{\\ln(P/P_0)}{\\ln(1{,}03)}$$\nEsa función de $P$ es logarítmica, porque la variable objetivo quedó dentro de un logaritmo.\n\nRegla general: cuando la pregunta pasa de 'cuánto hay después de $t$ períodos' a 'cuántos períodos hacen falta para llegar a cierta cantidad', la familia de la función cambia de exponencial a logarítmica.",
     "reviewed": false
   },
   {
@@ -584,7 +744,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Una función estrictamente creciente es inyectiva: a distintos $x$ les corresponden distintos valores.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "No hay dos valores distintos de $x$ que den el mismo logaritmo, justamente porque la función es estrictamente creciente: eso es lo que la hace inyectiva, no lo contrario.",
+      null,
+      "Que la imagen sea $\\mathbb{R}$ y no esté acotada no impide la inyectividad; lo que garantiza que no se repitan valores es que la función sea estrictamente monótona.",
+      "La inyectividad se cumple en todo el dominio $(0,+\\infty)$, no solo para $x>1$: el logaritmo nunca repite un valor, ni siquiera entre $0$ y $1$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función **inyectiva** nunca repite valores: si $x_1 \\neq x_2$, entonces $f(x_1) \\neq f(x_2)$.\n\n$\\log_2(x)$ es estrictamente creciente en todo su dominio $(0, +\\infty)$: como siempre sube, nunca devuelve el mismo valor dos veces. Es, por lo tanto, inyectiva.\n\nEsta propiedad permite 'cancelar' logaritmos en ambos lados de una ecuación.",
@@ -601,24 +766,34 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Se necesita $x + 5 > 0$, es decir $x > -5$. Dominio: $(-5, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El argumento es $x+5$, no $x-5$: sumar dentro del logaritmo desplaza la asíntota hacia la izquierda, no hacia la derecha.",
+      "Ese sería el dominio del logaritmo sin desplazar; acá el argumento es $x+5$, así que el punto donde se anula cambia.",
+      null,
+      "El logaritmo no está definido para argumentos negativos ni cero, sin importar el desplazamiento; el dominio nunca puede ser todo $\\mathbb{R}$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El argumento del logaritmo debe ser positivo:\n$$x + 5 > 0 \\implies x > -5$$\n\nDominio: $(-5, +\\infty)$. Asíntota vertical: $x = -5$.\n\nEsta función es $\\log(x)$ desplazada $5$ unidades a la izquierda.",
+    "explanation": "El argumento del logaritmo debe ser positivo:\n$$x + 5 > 0 \\implies x > -5$$\nEl **dominio** es $(-5, +\\infty)$, con asíntota vertical en $x = -5$.\n\nEsta función es $\\log(x)$ desplazada $5$ unidades a la izquierda: el $+5$ dentro del argumento mueve tanto el dominio como la asíntota vertical desde $x=0$ hasta $x=-5$.\n\nUn desplazamiento hacia la izquierda dentro del argumento del logaritmo (sumar) mueve la asíntota hacia números negativos, al contrario de lo que podría esperarse de una suma.",
     "reviewed": false
   },
   {
     "question": "La gráfica muestra una función creciente definida para $x > 0$, con asíntota vertical en $x = 0$ y que pasa por el punto $(1,\\, 1)$.\n\n¿A qué familia pertenece esta gráfica?",
     "options": [
       "Lineal",
-      "Exponencial",
       "Logarítmica",
+      "Exponencial",
       "Cuadrática"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Asíntota vertical en $x = 0$ y paso por $(1,1)$ son propios de $\\log_2(x) + 1$: logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una recta no tiene asíntotas ni se aplana; esta curva se frena a medida que $x$ crece y tiene una asíntota vertical en $x=0$.",
+      null,
+      "Una exponencial creciente tiene asíntota horizontal, no vertical; acá la asíntota está en $x=0$, que es vertical.",
+      "Una parábola está definida en todos los reales y no tiene asíntota; esta curva solo existe para $x>0$."
+    ],
     "graph_fn": "log2(x)+1",
     "graph_view": [
       -0.5,
@@ -626,7 +801,7 @@
       -2,
       6
     ],
-    "explanation": "La gráfica corresponde a $f(x) = \\log_2(x) + 1$: logarítmica con desplazamiento vertical de $+1$.\n\nVerificación: $f(1) = \\log_2(1) + 1 = 0 + 1 = 1$ ✓. Asíntota vertical en $x = 0$ ✓.",
+    "explanation": "La gráfica corresponde a $f(x) = \\log_2(x) + 1$, una función **logarítmica** con un desplazamiento vertical de $+1$: el logaritmo sigue siendo la operación central sobre $x$, y el $+1$ solo mueve toda la curva hacia arriba.\n\nSe puede verificar con el punto dado: $f(1) = \\log_2(1) + 1 = 0 + 1 = 1$, que coincide con $(1,\\,1)$, y la asíntota vertical sigue en $x = 0$ porque el desplazamiento afecta al resultado, no al argumento del logaritmo.\n\nUna curva creciente con asíntota vertical y que pasa por un punto cercano a $x=1$ es la seña más confiable de una logarítmica, incluso cuando el desplazamiento vertical cambia el punto exacto de paso por el eje.",
     "reviewed": false
   },
   {
@@ -640,10 +815,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\ln(x)$ es logarítmica con dominio $(0,+\\infty)$; $1/x$ es racional con dominio $\\mathbb{R} \\setminus \\{0\\}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Las dos funciones tienen asíntota vertical en $x=0$; la diferencia está en el dominio completo y en la forma de la curva, no en si hay o no asíntota.",
+      "Es al revés: $\\ln(x)$ no está definida para $x\\leq 0$, mientras que $\\frac{1}{x}$ sí existe para valores negativos de $x$.",
+      null,
+      "Comparten la asíntota vertical, pero $\\ln(x)$ es logarítmica y $\\frac{1}{x}$ es racional, con dominios y formas distintas."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Ambas tienen asíntota vertical en $x = 0$, pero son de familias distintas:\n\n- $\\ln(x)$: **logarítmica**, dominio solo $(0, +\\infty)$ — no está definida para $x < 0$.\n- $\\frac{1}{x}$: **racional**, definida para todo $x \\neq 0$ — existe en ambos lados de la asíntota.\n\nLa forma visual también difiere: $\\ln(x)$ siempre es creciente y tiene intercepto en $(1, 0)$; $\\frac{1}{x}$ tiene dos ramas y no corta el eje $X$.",
+    "explanation": "Ambas funciones tienen asíntota vertical en $x = 0$, pero pertenecen a familias distintas. $\\ln(x)$ es **logarítmica**, con dominio solo $(0, +\\infty)$, ya que no está definida para $x \\leq 0$, mientras que $\\frac{1}{x}$ es **racional**, definida para todo $x \\neq 0$ y existe en ambos lados de la asíntota.\n\nLa forma visual también difiere: $\\ln(x)$ siempre es creciente y tiene un intercepto en $(1, 0)$, mientras que $\\frac{1}{x}$ tiene dos ramas separadas y nunca corta el eje $X$.\n\nCompartir la misma asíntota vertical no alcanza para clasificar una función: hay que fijarse también en el dominio completo y en si la curva tiene una o dos ramas.",
     "reviewed": false
   },
   {
@@ -657,7 +837,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$M(t) = 1000 \\cdot (1{,}08)^t$ es una función exponencial: la variable $t$ está en el exponente.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa sería la familia de la función inversa, que da los años necesarios para llegar a un monto; acá se pregunta por el monto en función de los años.",
+      "El monto no crece por una suma fija cada año, sino por un porcentaje, así que la relación entre monto y años no es una recta.",
+      "No hay ningún término elevado al cuadrado: la variable $t$ aparece como exponente de la tasa de crecimiento.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$M(t) = 1000 \\cdot (1{,}08)^t$ es **exponencial**: la variable $t$ está en el exponente.\n\nContraste: si la pregunta fuera '¿cuántos años para llegar a $M$?', se despeja $t = \\log_{1{,}08}(M/1000)$, que es logarítmica.\n\nMonto en función del tiempo → exponencial. Tiempo en función del monto → logarítmica.",
@@ -674,7 +859,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La operación principal sobre $x$ es $\\ln(x+1)$: es una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "La variable $x$ está dentro del logaritmo, no en un exponente; eso descarta la exponencial.",
+      "El factor $3$ y el $+1$ dentro del argumento son transformaciones; la operación central sobre $x$ sigue siendo el logaritmo, no una recta.",
+      "No hay ninguna división por una expresión en $x$: el $+1$ está dentro del argumento del logaritmo, no en un denominador.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = 3 \\cdot \\ln(x + 1)$ es **logarítmica**: la operación central sobre $x$ es el logaritmo natural.\n\nEl factor $3$ escala verticalmente y el $+1$ desplaza horizontalmente, pero no cambian la familia.\n\nDominio: $x + 1 > 0 \\implies x > -1$. Asíntota vertical: $x = -1$.",
@@ -691,10 +881,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Con base $b > 1$, el logaritmo es siempre creciente en todo su dominio.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Con base mayor que $1$ el logaritmo es creciente, no decreciente; la base que produce decrecimiento está entre $0$ y $1$.",
+      null,
+      "En $x=1$ el logaritmo vale $0$, pero sigue subiendo después: no hay ahí ningún mínimo ni cambio de dirección.",
+      "El crecimiento no arranca en $x=1$: también entre $0$ y $1$ el logaritmo va subiendo, aunque tome valores negativos."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Regla: para $\\log_b(x)$:\n- $b > 1$ → función **creciente** en $(0, +\\infty)$.\n- $0 < b < 1$ → función **decreciente** en $(0, +\\infty)$.\n\nComo $5 > 1$, $\\log_5(x)$ es estrictamente creciente en todo su dominio. No tiene mínimo ni máximo local.",
+    "explanation": "La regla general para $\\log_b(x)$ es que con $b > 1$ la función es **creciente** en todo su dominio $(0, +\\infty)$, y con $0 < b < 1$ es **decreciente**.\n\nComo $5 > 1$, $\\log_5(x)$ es estrictamente creciente en todo su dominio: a mayor $x$, siempre corresponde un valor mayor de $f(x)$.\n\nUna función estrictamente creciente no tiene mínimo ni máximo local en ningún punto interior de su dominio, porque nunca cambia de dirección: siempre sube, del mismo modo que $\\ln(x)$ o cualquier logaritmo con base mayor que $1$.",
     "reviewed": false
   },
   {
@@ -708,24 +903,34 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Despejar $t$ de $6400 = 100 \\cdot 2^t$ da $t = \\log_2(64) = 6$ horas: función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "La colonia no crece por una cantidad fija cada hora, sino que se duplica, así que el tiempo para llegar a $N$ no es proporcional a $N$.",
+      "No hay ningún término elevado al cuadrado en esta relación: el tiempo aparece como exponente de $2$.",
+      "Esa es la familia de la cantidad de bacterias en función del tiempo; acá se pregunta lo inverso, las horas en función de la cantidad.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$B(t) = 100 \\cdot 2^t$. Para llegar a $6400$:\n$$6400 = 100 \\cdot 2^t \\implies 2^t = 64 = 2^6 \\implies t = 6$$\n\nEl proceso de 'despejar el tiempo' usa un logaritmo. En general, cuántas horas para llegar a $N$ es:\n$$t = \\log_2(N/100)$$\nEsa función de $N$ es logarítmica.",
+    "explanation": "$B(t) = 100 \\cdot 2^t$ es exponencial. Para llegar a $6400$:\n$$6400 = 100 \\cdot 2^t \\implies 2^t = 64 = 2^6 \\implies t = 6$$\nEl proceso de 'despejar el tiempo' usa un logaritmo, aunque acá se haya resuelto por tanteo con potencias de $2$.\n\nEn general, cuántas horas hacen falta para llegar a $N$ bacterias es\n$$t = \\log_2(N/100)$$\nEsa función de $N$ es logarítmica, porque la cantidad objetivo quedó dentro del logaritmo al despejar el tiempo.",
     "reviewed": false
   },
   {
     "question": "La gráfica muestra una función creciente definida para $x > 1$, con asíntota vertical en $x = 1$.\n\n¿A qué familia pertenece esta gráfica?",
     "options": [
+      "Logarítmica",
       "Lineal",
       "Exponencial",
-      "Logarítmica",
       "Racional"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Asíntota vertical en $x = 1$ y dominio $(1, +\\infty)$: es una logarítmica desplazada.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Una recta no tiene asíntotas ni se aplana; esta curva se frena a medida que $x$ crece y tiene una asíntota vertical en $x=1$.",
+      "Una exponencial no tiene asíntota vertical, solo horizontal; acá la asíntota es vertical, en $x=1$.",
+      "Una racional como $1/(x-1)$ también tendría asíntota vertical en $x=1$, pero existiría a ambos lados; esta curva solo está definida para $x>1$."
+    ],
     "graph_fn": "log2(x - 1)",
     "graph_view": [
       0.5,
@@ -733,7 +938,7 @@
       -3,
       4
     ],
-    "explanation": "La curva tiene asíntota vertical en $x = 1$ y solo existe para $x > 1$.\n\nEsto corresponde a $\\log_b(x - 1)$ para alguna base $b > 1$: la traslación $-1$ en el argumento mueve la asíntota de $x = 0$ a $x = 1$.",
+    "explanation": "La curva tiene asíntota vertical en $x = 1$ y solo existe para $x > 1$, en vez de para $x > 0$ como la logarítmica básica.\n\nEsto corresponde a $\\log_b(x - 1)$ para alguna base $b > 1$: la traslación $-1$ dentro del argumento mueve la asíntota de $x = 0$ a $x = 1$, y con ella todo el dominio se corre una unidad hacia la derecha.\n\nRegla general: cualquier corrimiento de la asíntota vertical respecto de $x=0$ es señal de un desplazamiento horizontal dentro del argumento del logaritmo, y la cantidad que se resta o suma ahí coincide con la posición de la nueva asíntota.",
     "reviewed": false
   },
   {
@@ -747,10 +952,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Exponencial → asíntota horizontal ($y = 0$). Logarítmica → asíntota vertical ($x = 0$).",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Es al revés: la exponencial tiene asíntota horizontal (su imagen está acotada) y la logarítmica tiene asíntota vertical (su dominio está acotado).",
+      "Solo la exponencial tiene asíntota horizontal en $y=0$; la logarítmica no tiene asíntota horizontal, tiene una vertical en $x=0$.",
+      null,
+      "Ambas funciones sí tienen asíntota, cada una de un tipo distinto: la exponencial horizontal y la logarítmica vertical."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Son funciones inversas, y sus asíntotas también 'se invierten':\n\n- Exponencial $b^x$: asíntota **horizontal** en $y = 0$ (dominio $\\mathbb{R}$, imagen $(0,+\\infty)$).\n- Logarítmica $\\log_b(x)$: asíntota **vertical** en $x = 0$ (dominio $(0,+\\infty)$, imagen $\\mathbb{R}$).\n\nEsta distinción es la señal visual más rápida para diferenciarlas en una gráfica.",
+    "explanation": "La exponencial y la logarítmica son funciones inversas, y sus asíntotas también 'se invierten' entre sí: la exponencial $b^x$ tiene asíntota **horizontal** en $y = 0$, con dominio $\\mathbb{R}$ e imagen $(0,+\\infty)$, mientras que la logarítmica $\\log_b(x)$ tiene asíntota **vertical** en $x = 0$, con dominio $(0,+\\infty)$ e imagen $\\mathbb{R}$.\n\nEsta simetría no es casual: al invertir una función, el dominio y la imagen se intercambian, y con ellos también se intercambian el tipo de asíntota.\n\nEsta distinción es la señal visual más rápida para diferenciarlas en una gráfica: si la curva se achica hacia una línea horizontal, es exponencial; si se dispara hacia una línea vertical, es logarítmica.",
     "reviewed": false
   },
   {
@@ -764,10 +974,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\log(3x) = \\log(3) + \\log(x)$: sigue siendo una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El $3$ multiplicando dentro del argumento no vuelve lineal a la función: sigue siendo el logaritmo el que actúa sobre $x$.",
+      "La variable $x$ sigue dentro del logaritmo, no en un exponente; eso descarta la exponencial.",
+      null,
+      "No hay ninguna división por una expresión en $x$: el $3$ multiplica dentro del argumento del logaritmo, no en un denominador."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\log(3x)$ es **logarítmica**: la operación central es el logaritmo de $x$.\n\nPor la propiedad del producto: $\\log(3x) = \\log(3) + \\log(x)$. Esto muestra que $f$ es simplemente $\\log(x)$ desplazada verticalmente en $\\log(3)$ — la forma de la curva es idéntica.",
+    "explanation": "$f(x) = \\log(3x)$ es **logarítmica**: la operación central es el logaritmo de $x$.\n\nPor la propiedad del producto, $\\log(3x) = \\log(3) + \\log(x)$, lo que muestra que $f$ es simplemente $\\log(x)$ desplazada verticalmente en $\\log(3)$, con la forma de la curva idéntica a la del logaritmo sin multiplicar.",
     "reviewed": false
   },
   {
@@ -781,7 +996,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Una curva decreciente con asíntota vertical en $x = 0$ y paso por $(1,0)$ es una logarítmica negada o con base $< 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una racional como $1/x$ existiría a ambos lados de la asíntota vertical; esta curva solo está definida para $x>0$.",
+      "Una recta no tiene asíntotas ni se aplana; esta curva se acerca cada vez más a una asíntota vertical en $x=0$.",
+      "Una exponencial decreciente tendría asíntota horizontal, no vertical; acá la asíntota está en $x=0$, que es vertical.",
+      null
+    ],
     "graph_fn": "log(x)/log(0.5)",
     "graph_view": [
       -0.5,
@@ -789,7 +1009,7 @@
       -4,
       4
     ],
-    "explanation": "La curva tiene las características de una función logarítmica:\n- Asíntota vertical en $x = 0$.\n- Dominio $(0, +\\infty)$.\n- Pasa por $(1, 0)$.\n\nEl hecho de que sea **decreciente** indica que la base es $0 < b < 1$ (como $\\log_{0{,}5}(x)$) o que se trata de un logaritmo negado ($-\\log_2(x)$).",
+    "explanation": "La curva tiene las características de una función logarítmica: asíntota vertical en $x = 0$, dominio $(0, +\\infty)$ y paso por el punto $(1, 0)$.\n\nEl hecho de que sea **decreciente** indica que la base está entre $0$ y $1$, como en $\\log_{0{,}5}(x)$, o que se trata de un logaritmo negado, como $-\\log_2(x)$.\n\nEn ambos casos la familia sigue siendo logarítmica: lo que cambia con la base o el signo es si la curva sube o baja, nunca el tipo de asíntota ni el dominio.",
     "reviewed": false
   },
   {
@@ -803,10 +1023,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Despejar $t$ de $(1+r)^t = 3$ da $t = \\log_{1+r}(3) = \\ln(3)/\\ln(1+r)$: función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa es la familia del capital en función de los años; acá se pregunta lo inverso, los años en función de la tasa de crecimiento.",
+      "No hay ningún término elevado al cuadrado en esta relación: el tiempo aparece como exponente de $(1+r)$.",
+      null,
+      "El capital no crece por una suma fija cada año, sino por un porcentaje, así que los años para triplicarlo no son proporcionales a $r$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para triplicar: $(1 + r)^t = 3$. Despejando:\n$$t = \\log_{1+r}(3) = \\frac{\\ln(3)}{\\ln(1+r)}$$\n\nEsta función de $r$ es logarítmica. A mayor tasa $r$, menos años se necesitan — la función decrece, lo cual es coherente con que $\\ln(1+r)$ crece.",
+    "explanation": "Para triplicar el capital se necesita resolver $(1 + r)^t = 3$. Despejando el exponente $t$:\n$$t = \\log_{1+r}(3) = \\frac{\\ln(3)}{\\ln(1+r)}$$\nEsta función de $r$ es logarítmica, porque la tasa quedó dentro de un logaritmo al despejar el tiempo.\n\nA mayor tasa $r$, menos años hacen falta para triplicar: la función decrece con $r$, algo coherente con que $\\ln(1+r)$ crece en el denominador y por lo tanto achica el cociente completo.\n\nEsta relación inversa entre tasa y tiempo es la misma lógica que en cualquier problema de interés compuesto: cuanto más rápido crece el capital por período, menos períodos hacen falta para alcanzar un múltiplo dado.",
     "reviewed": false
   },
   {
@@ -820,27 +1045,37 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Se necesita $2x - 4 > 0$, es decir $x > 2$. Dominio: $(2, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el dominio de $\\log(x-4)$, sin el coeficiente $2$ multiplicando a $x$; acá hay que dividir por $2$ al despejar.",
+      "Ese es el dominio del logaritmo sin desplazar ni escalar; acá el argumento es $2x-4$, que se anula en un punto distinto de $x=0$.",
+      null,
+      "El signo de la constante es negativo ($-4$), no positivo: despejando $2x>4$ se obtiene $x>2$, no $x>-2$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El argumento debe ser positivo:\n$$2x - 4 > 0 \\implies 2x > 4 \\implies x > 2$$\n\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNo confundir con $x > 4$: ese sería el dominio de $\\log(x - 4)$, no de $\\log(2x - 4)$.",
+    "explanation": "El argumento del logaritmo debe ser positivo:\n$$2x - 4 > 0 \\implies 2x > 4 \\implies x > 2$$\nEl **dominio** es $(2, +\\infty)$, con asíntota vertical en $x = 2$.\n\nNo hay que confundir esto con $x > 4$, que sería el dominio de $\\log(x - 4)$: acá el coeficiente $2$ multiplicando a $x$ cambia el punto donde el argumento se anula.\n\nConviene resolver la desigualdad completa paso a paso en vez de mirar solo la constante $-4$, porque el coeficiente que acompaña a $x$ también participa en el despeje.",
     "reviewed": false
   },
   {
     "question": "¿Cuál de estas situaciones modela una función logarítmica (no exponencial)?",
     "options": [
+      "Los años necesarios para que una colonia de bacterias cuadruplique su tamaño",
       "El monto de una deuda que crece un 5% mensual, en función de los meses",
       "La cantidad de bacterias que se duplican por hora, en función de las horas",
-      "Los años necesarios para que una colonia de bacterias cuadruplique su tamaño",
       "El precio de un auto que se deprecia un 10% anual, en función de los años"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Calcular cuántos años (tiempo) se necesitan es la inversa de la función exponencial: logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Esta describe cómo varía una cantidad (el monto) a lo largo del tiempo: es la relación exponencial, no su inversa.",
+      "Esta también describe una cantidad en función del tiempo, así que es exponencial, no logarítmica.",
+      "Esta describe el valor del auto en función del tiempo, no el tiempo en función del valor: sigue siendo exponencial."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las opciones 1, 2 y 4 describen cómo varía una **cantidad** a lo largo del **tiempo** → funciones exponenciales.\n\nLa opción 3 pregunta por el **tiempo** necesario para llegar a cierta **cantidad** → inversa de la exponencial → función **logarítmica**.\n\nClave: cuando la incógnita pasa del tiempo a la cantidad (o viceversa), la familia de función cambia.",
+    "explanation": "Las otras tres opciones describen cómo varía una **cantidad** a lo largo del **tiempo**: eso es siempre una función exponencial.\n\nLa opción correcta pregunta por el **tiempo** necesario para llegar a cierta **cantidad**, que es la inversa de la exponencial y por lo tanto una función **logarítmica**.\n\nClave: cuando la incógnita pasa del tiempo a la cantidad (o viceversa), la familia de función cambia.",
     "reviewed": false
   },
   {
@@ -854,7 +1089,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Desplazar horizontalmente el argumento no cambia la imagen: sigue siendo $\\mathbb{R}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el dominio de $f(x)=\\log_2(x-3)$, no su imagen; no hay que confundir el eje horizontal restringido con el conjunto de valores que toma la función.",
+      "Ese intervalo describe el dominio del logaritmo básico sin desplazar, y tampoco es la imagen de esta función.",
+      "El desplazamiento es $x-3$, no $x+3$; además, ningún desplazamiento horizontal acota la imagen de un logaritmo.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El desplazamiento horizontal $-3$ cambia el **dominio** (que pasa a ser $(3, +\\infty)$), pero no cambia la imagen.\n\nComo $x - 3$ toma cualquier valor positivo cuando $x > 3$, y $\\log_2$ de cualquier positivo da cualquier real, la imagen sigue siendo $\\mathbb{R}$.\n\nNo confundir dominio con imagen: $(3, +\\infty)$ es el dominio, no la imagen.",
@@ -871,10 +1111,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$\\ln(x) \\to +\\infty$ cuando $x \\to +\\infty$: la función no tiene máximo.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "$\\ln(e)=1$ es un valor que la función toma, pero sigue subiendo después de $x=e$: no es un máximo.",
+      "$\\ln(1)=0$ no es un máximo, es solo el punto donde el logaritmo cruza el eje $X$; la función sigue creciendo para $x>1$.",
+      null,
+      "$\\ln(e^e)=e$ es un valor alcanzado, pero el logaritmo sigue subiendo para $x$ mayores, así que no hay ningún máximo ahí."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\ln(x)$ es creciente y no está acotada superiormente:\n$$\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$$\n\nPor eso no tiene máximo en su dominio. Tampoco tiene mínimo, porque:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\n\nLa imagen $\\mathbb{R}$ confirma que no hay cota.",
+    "explanation": "$\\ln(x)$ es creciente y no está acotada superiormente:\n$$\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$$\nPor eso no tiene máximo en su dominio.\n\nTampoco tiene mínimo, porque cerca del borde izquierdo del dominio la función cae sin límite:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\nLa imagen $\\mathbb{R}$ confirma que no hay cota ni por arriba ni por abajo, algo que distingue a la logarítmica de funciones acotadas como la exponencial, que sí tiene una asíntota horizontal que limita su imagen.",
     "reviewed": false
   },
   {
@@ -888,10 +1133,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$f(x) = \\log_5(x + 1)$ usa el logaritmo de $x$: es una función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Acá la variable está en el exponente, no dentro de un logaritmo: esa es la seña de una exponencial.",
+      "Acá la variable está en la base, elevada a una potencia fija: esa es la seña de una polinómica, no de un logaritmo.",
+      null,
+      "Acá la variable está en el denominador de una división: esa es la seña de una racional, no de un logaritmo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos cada función:\n- $5^x + 1$: la variable está en el **exponente** → exponencial.\n- $x^5 - 3x$: la variable está en la **base** de una potencia con exponente fijo → polinómica.\n- $\\log_5(x + 1)$: la variable está **dentro del logaritmo** → logarítmica ✓\n- $\\frac{5}{x+1}$: la variable está en el **denominador** → racional.",
+    "explanation": "Para identificar cada función conviene fijarse en dónde aparece la variable $x$: en $5^x + 1$ está en el **exponente**, lo que la hace exponencial; en $x^5 - 3x$ está en la **base** de una potencia con exponente fijo, lo que la hace polinómica.\n\nEn $\\log_5(x + 1)$ la variable está **dentro del logaritmo**, así que esta es la función logarítmica buscada; en cambio en $\\frac{5}{x+1}$ la variable está en el **denominador**, lo que la hace racional.\n\nEsta lógica de 'dónde vive la $x$' es la forma más rápida de clasificar una función sin necesidad de graficarla: exponente, base con exponente fijo, argumento de un logaritmo o denominador definen cada familia.",
     "reviewed": false
   }
 ]
