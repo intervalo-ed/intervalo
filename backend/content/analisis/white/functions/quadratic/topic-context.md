@@ -16,19 +16,24 @@ No se pide reescribir los problemas: se pide corregir el formato, sumar los feed
 
 ## Correcciones de formato transversales (los 4 skills)
 
-Defectos detectados en la auditoría (jul-2026). Cuadráticas ya está limpia en `\n\n$$` pegado a display y em-dash `—`; los tres puntos que quedan:
+Defectos detectados en la auditoría (jul-2026). **Corrección sobre la auditoría anterior**: la afirmación de que cuadráticas ya estaba limpia en `\n\n$$` pegado a display y en em-dash `—` era incorrecta, verificado programáticamente sobre los 4 JSON. Los defectos reales que quedan:
 
-1. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
+1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 10, CLSF 5, FORM 30 ítems; GRAF 0, ya limpio). Viola la regla crítica 2 del `authoring-context.md`: un solo `\n` antes y después de cada bloque display, nunca `\n\n`. Concentrado sobre todo en `explanation` de FORM, donde cada paso intermedio abre su fórmula con `\n\n$$...$$\n\n`.
+   - ❌ `se calcula como:\n\n$$x_v = -\frac{b}{2a}$$\n\nCon $a = 4$...`
+   - ✅ `se calcula como\n$$x_v = -\frac{b}{2a}$$\ncon $a = 4$...`
+2. **Em-dash `—` y en-dash `–`** (LEXI 8, FORM 6 ítems; CLSF y GRAF limpios). Prohibidos (regla crítica 6). Reemplazar por `,`, `:`, `;` o `.`. Coinciden en buena parte con los ítems de viñetas de LEXI.
+3. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
    - ❌ `• $a$ es el coeficiente principal.\n• $b$ y $c$ son...`
    - ✅ Prosa: `El **coeficiente principal** $a$ define la apertura y el signo de la concavidad; $b$ y $c$ acompañan sin cambiar la familia.`
-2. **Cierres con humor o antropomorfismo**. El cierre de la `explanation` debe ser **advertencia del error típico o consejo práctico**, en voz neutra (regla crítica 7 del `authoring-context.md`). Nada de remates de chiste.
-3. **`correct_index` muy sesgado a un índice** (LEXI: 38/50 en índice 1; CLSF: 23/50 en índice 1; GRAF: 28/50 en índice 1 y **cero en índice 3**). El runtime baraja igual, pero como fuente dificulta auditar pistas delatoras. Al pasar por refactor, variar el índice correcto y garantizar presencia mínima en los cuatro índices para GRAF.
+4. **Cierres con humor o antropomorfismo**. El cierre de la `explanation` debe ser **advertencia del error típico o consejo práctico**, en voz neutra (regla crítica 7 del `authoring-context.md`). Nada de remates de chiste.
+5. **`correct_index` muy sesgado a un índice** (LEXI: 38/50 en índice 1; CLSF: 23/50 en índice 1; GRAF: 28/50 en índice 1 y **cero en índice 3**). El runtime baraja igual, pero como fuente dificulta auditar pistas delatoras. Al pasar por refactor, variar el índice correcto y garantizar presencia mínima en los cuatro índices para GRAF.
+6. **`explanation` bajo el mínimo de 250 caracteres** (regla de *Extensión mínima* del `authoring-context.md`): GRAF 39/50, FORM 22/50, CLSF 2/50, LEXI 0/50. En GRAF son casi todas: solo cubren concepto + aplicación en 2-3 renglones cortos y no llegan al mínimo; hay que engordar el concepto general o sumar un cierre de advertencia/consejo (no ambos si el cierre no aporta, ver regla crítica 7) para cruzar el umbral sin inflar con relleno.
 
 ---
 
-## `feedback_incorrect`, falta en 175 ítems
+## `feedback_incorrect`, falta en los 200 ítems
 
-Hoy 175/200 son `""`. Completar con un `array<string|null>` paralelo a `options`, mismo largo, `null` en el índice correcto. Voz **descriptiva del concepto**, nunca acusatoria (`"confunde X con Y"` prohibido; ver `authoring-context.md` §Pistas). Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
+Hoy 175/200 son `""` (string vacío, legacy). Los 25 restantes (CLSF 14, FORM 11) **no están resueltos tampoco**: el campo es un `string` (no un `array`) que repite o parafrasea el `feedback_correct` explicando por qué la opción correcta es correcta, no una pista por distractor. Tratarlos igual que los `""`: descartar el contenido existente y escribir desde cero el `array<string|null>` paralelo a `options`, mismo largo, `null` en el índice correcto. Voz **descriptiva del concepto**, nunca acusatoria (`"confunde X con Y"` prohibido; ver `authoring-context.md` §Pistas). Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
@@ -157,10 +162,13 @@ Vértice-y (valor máx/mín) · vértice-x (cuándo/dónde el óptimo) · concav
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una pista descriptiva por distractor
+- [ ] `feedback_incorrect` completo en los 50 ítems: `array` del largo de `options`, `null` en el correcto, una pista descriptiva por distractor (incluye reescribir los que hoy son `string` no vacío, son duplicados del `feedback_correct`)
+- [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (un solo `\n`)
+- [ ] Ningún em-dash `—` ni en-dash `–` en ningún campo
 - [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`: todas en 3 párrafos de prosa
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `correct_index` variado, no concentrado en un solo índice
+- [ ] `explanation` supera los 250 caracteres entre las 3 partes
 - [ ] Montos con `\$` escapado
 
 **LEXI:**
