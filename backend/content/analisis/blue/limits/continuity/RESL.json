@@ -1,172 +1,332 @@
 [
   {
-    "question": "Sea $f(x) = \\begin{cases} x^2-1 & x \\neq 1 \\\\ 0 & x=1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "question": "Una **función a trozos** está dada por\n$$f(x) = \\begin{cases} 2x + 1, & x < 1 \\\\ x^2 + 2, & x \\geq 1 \\end{cases}$$\n¿Cómo se clasifica $f$ en el **punto de quiebre** $x=1$?",
     "options": [
-      "Sí: $\\lim_{x \\to 1}(x^2-1) = 0 = f(1)$, las tres condiciones se cumplen",
-      "No: el límite no existe porque $f$ cambia de definición en $x=1$",
-      "No: $\\lim_{x \\to 1} = 0$ pero $f(1) = 1$",
-      "No: $f(1)$ no está definida"
+      "Continua",
+      "Removible",
+      "De salto",
+      "Esencial"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\lim_{x \\to 1}(x^2-1) = 0$ y $f(1) = 0$. Las tres condiciones se cumplen: $f$ es continua.",
-    "feedback_incorrect": "$\\lim_{x \\to 1}(x^2-1) = 1-1 = 0$ y $f(1) = 0$. Como límite $=$ valor, $f$ es continua en $x=1$.",
+    "feedback_correct": "Correcto: ambos laterales y $f(1)$ coinciden en $3$.",
+    "feedback_incorrect": [
+      null,
+      "Removible aparece cuando el límite y $f(1)$ no coinciden; acá coinciden exactamente.",
+      "De salto exige laterales distintos entre sí; volvé a evaluar cada rama en $x=1$.",
+      "Esencial exige que algún lateral diverja; ambas ramas dan un número finito en $x=1$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Verificamos las tres condiciones una por una. Primero, $f(1) = 0$ (está definida ✓). Luego calculamos el límite:\n\n$$\\lim_{x \\to 1}(x^2 - 1) = 1^2 - 1 = 0$$\n\nEl límite existe y vale $0$ ✓. Finalmente, $\\lim = 0 = f(1)$ ✓. Las tres condiciones se cumplen, así que $f$ es **continua** en $x=1$. Que la función esté definida por partes no implica discontinuidad: aquí la rama principal y el valor en el punto coinciden perfectamente.",
+    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (2x+1) &= 3 \\\\ \\lim_{x \\to 1^+} (x^2+2) &= 3 \\\\ f(1) &= 1^2 + 2 = 3 \\end{aligned}$$\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad.\n\nConviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
     "reviewed": false
   },
   {
-    "question": "Sea $f(x) = \\begin{cases} x+3 & x < 1 \\\\ x^2+1 & x \\geq 1 \\end{cases}$. ¿Es $f$ continua en $x=1$?",
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
-      "Sí: ambos lados dan el mismo valor",
-      "No: $\\lim^- = 4$ pero $f(1) = 2$",
-      "No: el límite no existe",
-      "Sí: $f(1) = 2$ está definida"
+      "Continua",
+      "De salto",
+      "Removible",
+      "Esencial"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\lim^- = 1+3=4$ y $f(1) = 1+1=2$. Como $4 \\neq 2$, la función no es continua en $x=1$.",
-    "feedback_incorrect": "$\\lim_{x \\to 1^-} = 4$ y $f(1) = 2$. No coinciden: discontinuidad en $x=1$ (de salto, ya que $\\lim^+ = 2$).",
+    "feedback_correct": "Correcto: el lateral izquierdo da $6$ y el derecho da $5$, valores distintos.",
+    "feedback_incorrect": [
+      "Continua exige que los dos laterales coincidan entre sí; volvé a calcular cada rama por separado.",
+      null,
+      "Removible exige un límite bilateral existente; acá los laterales ya difieren, así que el bilateral no existe.",
+      "Esencial exige que algún lateral diverja; ambas ramas dan números finitos."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En funciones a trozos, calculamos los límites laterales usando la rama correspondiente a cada lado:\n\n$$\\begin{aligned} \\lim_{x &\\to 1^-}(x+3) = 4 \\\\ \\lim_{x &\\to 1^+}(x^2+1) = 2 \\\\ f(1) &= 1^2+1 = 2 \\end{aligned}$$\n\nComo $\\lim^- = 4 \\neq 2 = \\lim^+$, el límite bilateral no existe y la tercera condición falla. Es una **discontinuidad de salto**: la gráfica salta de $y=4$ (desde la izquierda) a $y=2$ (desde la derecha y en el punto).",
+    "explanation": "El procedimiento estándar es sustituir $x=2$ en cada rama por separado, sin mezclar ambas expresiones.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (x+4) &= 6 \\\\ \\lim_{x \\to 2^+} (3x-1) &= 5 \\end{aligned}$$\nComo $6 \\neq 5$, el límite bilateral no existe: la segunda condición de continuidad falla directamente.\n\nEl error más común acá es calcular una sola rama y asumir que alcanza; siempre hay que verificar las dos para poder comparar.",
     "reviewed": false
   },
   {
-    "question": "Hallar $k$ para que $f(x) = \\begin{cases} kx+1 & x < 2 \\\\ x^2-1 & x \\geq 2 \\end{cases}$ sea continua en $x=2$.",
+    "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{x^2 - 9}{x - 3}, & x \\neq 3 \\\\ 5, & x = 3 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=3$?",
     "options": [
-      "$k = 3$",
-      "$k = 2$",
-      "$k = 1$",
-      "$k = 0$"
+      "Continua",
+      "De salto",
+      "Removible",
+      "Esencial"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Se necesita $\\lim^- = f(2)$: $2k+1 = 4-1 = 3$, entonces $2k = 2$, $k=1$.",
-    "feedback_incorrect": "Para continuidad: $\\lim^- = \\lim^+$. $\\lim^- = 2k+1$ y $f(2) = 4-1=3$. Entonces $2k+1=3 \\Rightarrow k=1$.",
+    "feedback_correct": "Correcto: el límite vale $6$ pero $f(3)=5$, valores distintos.",
+    "feedback_incorrect": [
+      "Continua exige que el límite coincida con $f(3)$; volvé a comparar ambos valores.",
+      "De salto exige laterales distintos entre sí; acá el límite bilateral sí existe y es único.",
+      null,
+      "Esencial exige que el límite diverja; acá la factorización muestra un límite finito."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f$ sea continua en $x=2$, los límites laterales deben coincidir con $f(2)$. Calculamos cada parte y **planteamos la ecuación**:\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(kx+1) = 2k+1 \\\\ f(2) &= 2^2-1 = 3 \\end{aligned}$$\n\nIgualando: $2k+1 = 3 \\Rightarrow 2k = 2 \\Rightarrow k = 1$. El proceso general es siempre el mismo: evaluar cada rama en el punto de «unión» y despejar el parámetro desconocido.",
+    "explanation": "Cuando la sustitución directa da $\\tfrac{0}{0}$, conviene factorizar antes de concluir que el límite no existe.\n$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla.\n\nEl valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
     "reviewed": false
   },
   {
-    "question": "Hallar $k$ para que $f(x) = \\begin{cases} 3x-k & x \\leq 1 \\\\ x^2+2 & x > 1 \\end{cases}$ sea continua en $x=1$.",
+    "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{1}{x - 2}, & x < 2 \\\\ x, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
+      "Continua",
+      "Removible",
+      "De salto",
+      "Esencial"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: el lateral izquierdo diverge a $-\\infty$, así que es esencial.",
+    "feedback_incorrect": [
+      "Continua exige que ambos laterales coincidan con $f(2)$; acá uno de los laterales ni siquiera es finito.",
+      "Removible exige un límite bilateral finito; acá el bilateral no existe por la divergencia.",
+      "De salto exige que ambos laterales sean finitos pero distintos; acá el izquierdo diverge.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de comparar valores, conviene revisar si algún lateral diverge en vez de converger a un número finito.\n$$\\begin{aligned} \\lim_{x \\to 2^-} \\frac{1}{x-2} &= -\\infty \\\\ \\lim_{x \\to 2^+} x &= 2 \\end{aligned}$$\nEl lateral izquierdo diverge a $-\\infty$, así que el límite bilateral ni siquiera existe como número real.\n\nCon un solo lateral divergente alcanza para clasificar la falla como esencial, sin necesidad de mirar la otra rama con más detalle.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "options": [
+      "$k = 1$",
+      "$k = 0$",
+      "$k = -1$",
+      "$k = 0{,}5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: $2k+1=1$ se resuelve con $k=0$.",
+    "feedback_incorrect": [
+      "Ese valor sale de despejar $2k=1$ sin arrastrar el $+1$ de la izquierda al otro lado de la ecuación.",
+      null,
+      "Revisá el signo al pasar el $1$ de la izquierda al lado derecho de la igualdad.",
+      "Ese valor sale de igualar el resultado de la derecha a $2$ en vez de a $1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (kx+1) &= 2k+1 \\\\ \\lim_{x \\to 2^+} (x^2-3) &= 1 \\\\ 2k+1 &= 1 \\Rightarrow k = 0 \\end{aligned}$$\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nEl error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
+    "options": [
+      "$k = 7$",
+      "$k = -1$",
+      "$k = 1$",
+      "$k = 6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: $6+k=7$ se resuelve con $k=1$.",
+    "feedback_incorrect": [
+      "Ese valor sale de tomar $2 \\cdot 3 + k = 3^2 - 2$ e ignorar que $3^2-2=7$, no $9$.",
+      "Revisá el signo del $6$ al pasarlo al otro lado de la igualdad.",
+      null,
+      "Ese valor es lo que sale de calcular $2 \\cdot 3$, pero falta terminar el despeje del parámetro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El procedimiento es el mismo sin importar el punto de quiebre: se igualan las dos ramas evaluadas en ese valor de $x$.\n$$\\begin{aligned} \\lim_{x \\to 3^-} (2x+k) &= 6+k \\\\ \\lim_{x \\to 3^+} (x^2-2) &= 7 \\\\ 6+k &= 7 \\Rightarrow k=1 \\end{aligned}$$\nCon $k=1$ ambas ramas llegan a $y=7$ en $x=3$.\n\nConviene resolver primero el valor numérico de la rama sin parámetro antes de armar la ecuación completa, así se evitan errores de arrastre.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
+    "options": [
+      "$k = 3$",
+      "$k = 3{,}5$",
+      "$k = -4$",
+      "$k = 4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: $4k-2=14$ se resuelve con $k=4$.",
+    "feedback_incorrect": [
+      "Ese es el coeficiente de la rama derecha, pero no resuelve la igualdad para la rama izquierda.",
+      "Revisá la división final: $16/4$ no da ese resultado.",
+      "Revisá el signo de $k$ al despejar, la ecuación pide un valor positivo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Se igualan los dos laterales evaluados en el punto de quiebre y se despeja el parámetro desde ahí.\n$$\\begin{aligned} \\lim_{x \\to 4^-} (kx-2) &= 4k-2 \\\\ \\lim_{x \\to 4^+} (3x+2) &= 14 \\\\ 4k-2 &= 14 \\Rightarrow k = 4 \\end{aligned}$$\nCon $k=4$ ambas ramas llegan a $y=14$ en $x=4$.\n\nUn despeje con dos pasos, primero sumar y después dividir, conviene hacerlo en ese orden para no perder el signo del término independiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
+    "options": [
+      "$k = -1$",
+      "$k = 1$",
+      "$k = 5$",
+      "$k = -5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: $k+3=2$ se resuelve con $k=-1$.",
+    "feedback_incorrect": [
+      null,
+      "Revisá el signo al pasar el $3$ al otro lado de la igualdad.",
+      "Ese valor sale de ignorar el término independiente de la rama izquierda.",
+      "Ese valor invierte el signo correcto del despeje final."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el parámetro está en la rama derecha, el procedimiento es idéntico: primero se resuelve la rama sin incógnita.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (x^2+1) &= 2 \\\\ \\lim_{x \\to 1^+} (kx+3) &= k+3 \\\\ k+3 &= 2 \\Rightarrow k=-1 \\end{aligned}$$\nCon $k=-1$ ambas ramas llegan a $y=2$ en $x=1$.\n\nQue el parámetro esté a la derecha o a la izquierda del punto de quiebre no cambia el método: siempre se igualan ambas ramas entre sí.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
+    "options": [
+      "$k = 5$",
       "$k = -3$",
-      "$k = 3$",
-      "$k = 1$",
-      "$k = 0$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Para continuidad: $3(1)-k = 1+2 = 3$, entonces $3-k=3$, $k=0$.",
-    "feedback_incorrect": "Igualar: $f(1^-) = 3(1)-k = 3-k$ y $f(1^+) = 1+2 = 3$. Entonces $3-k = 3 \\Rightarrow k=0$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La condición de continuidad en $x=1$ exige que la función valga lo mismo desde ambos lados y en el punto. Calculamos:\n\n$$\\begin{aligned} f(1^-) &= 3(1) - k = 3 - k \\\\ f(1^+) &= 1^2 + 2 = 3 \\end{aligned}$$\n\nImponemos $3 - k = 3 \\Rightarrow k = 0$. Con $k=0$, la rama izquierda es $3x$ y vale $3$ en $x=1$, que coincide con $1+2=3$ de la rama derecha. La función queda continua.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Es $f(x) = \\dfrac{x^2-4}{x-2}$ continua en $x=2$?",
-    "options": [
-      "No: $f(2)$ no está definida (aunque el límite existe y vale $4$)",
-      "Sí: el límite en $x=2$ vale $4$",
-      "Sí: porque el límite existe",
-      "No: el límite no existe"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f(2)$ no está definida (división por cero), así que la primera condición de continuidad falla. Hay una discontinuidad removible.",
-    "feedback_incorrect": "Para continuidad, $f(a)$ debe estar definida. Como $f(2)$ no existe (denominador = 0), no es continua en $x=2$, aunque $\\lim_{x \\to 2} = 4$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Aunque el límite existe y vale $4$, la **primera condición** de continuidad ya falla:\n\n$$\\begin{aligned} f(2) &= \\frac{2^2-4}{2-2} = \\frac{0}{0} \\\\ \\text{— no está definida} \\end{aligned}$$\n\nPor lo tanto $f$ no es continua en $x=2$. Es una **discontinuidad removible**: si redefinimos $f(2) = 4$, la función sería continua. Pero en su forma original, sin esa corrección, la discontinuidad existe.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Es $f(x) = |x|$ continua en $x=0$?",
-    "options": [
-      "No: la función tiene un ángulo en $x=0$",
-      "Sí: $f(0) = 0$ y $\\lim_{x \\to 0} |x| = 0$",
-      "No: los límites laterales son distintos",
-      "Sí, pero solo por la derecha"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(0) = 0$, $\\lim^- = 0$, $\\lim^+ = 0$. Las tres condiciones se cumplen: $|x|$ es continua en $x=0$.",
-    "feedback_incorrect": "$|x|$: $\\lim^- = 0$ y $\\lim^+ = 0$, ambos iguales a $f(0) = 0$. La función es continua aunque tenga un vértice.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El valor absoluto se define como $|x| = x$ si $x \\geq 0$ y $|x| = -x$ si $x < 0$. Verificamos los límites laterales en $x=0$:\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-}(-x) = 0 \\\\ \\lim_{x &\\to 0^+}(x) = 0 \\\\ f(0) &= 0 \\end{aligned}$$\n\nLas tres condiciones se cumplen: $f$ es **continua** en $x=0$. El ángulo (vértice) que se ve en la gráfica no es una discontinuidad — la continuidad no exige que la derivada exista, solo que los valores se peguen.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Es $f(x) = \\dfrac{1}{x}$ continua en $x=0$?",
-    "options": [
-      "Sí: $f(0) = 0$",
-      "Sí: el límite existe",
-      "No: $f(0)$ no está definida",
-      "No: el límite vale infinito pero eso es suficiente"
+      "$k = -5$",
+      "$k = 3$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(0) = 1/0$ no está definida. La primera condición de continuidad falla. Además, $\\lim_{x \\to 0} 1/x = \\pm\\infty$.",
-    "feedback_incorrect": "$f(0)$ no está definida (división por cero) y $\\lim_{x \\to 0} = \\pm\\infty$. Hay una discontinuidad esencial en $x=0$.",
+    "feedback_correct": "Correcto: $-k-1=4$ se resuelve con $k=-5$.",
+    "feedback_incorrect": [
+      "Revisá el signo de $k$ al despejar de $-k-1=4$, el resultado final cambia de signo.",
+      "Ese valor sale de olvidar el $-1$ que se resta en la rama izquierda.",
+      null,
+      "Ese valor tiene el signo invertido respecto del despeje correcto."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Basta verificar la primera condición: $f(0) = \\dfrac{1}{0}$ no está definida. Eso alcanza para concluir que $f$ **no es continua** en $x=0$.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^+} \\frac{1}{x} = +\\infty \\\\ \\lim_{x &\\to 0^-} \\frac{1}{x} = -\\infty \\end{aligned}$$\n\nAdemás, los límites laterales son infinitos, así que tampoco hay límite bilateral. La discontinuidad es **esencial**: la más grave de las tres categorías. No puede corregirse redefiniendo un punto.",
+    "explanation": "Con un punto de quiebre negativo, conviene sustituir con cuidado el signo de $x$ dentro de cada rama.\n$$\\begin{aligned} \\lim_{x \\to -1^-} (kx-1) &= -k-1 \\\\ \\lim_{x \\to -1^+} (x^2+3) &= 4 \\\\ -k-1 &= 4 \\Rightarrow k=-5 \\end{aligned}$$\nCon $k=-5$ ambas ramas llegan a $y=4$ en $x=-1$.\n\nSustituir un punto de quiebre negativo dentro de un término con parámetro es la fuente más común de errores de signo en este tipo de despeje.",
     "reviewed": false
   },
   {
-    "question": "Hallar $a$ para que $f(x) = \\begin{cases} x^2 & x \\leq 3 \\\\ ax-6 & x > 3 \\end{cases}$ sea continua en $x=3$.",
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
-      "$a = 1$",
-      "$a = 3$",
-      "$a = 9$",
-      "$a = 5$"
+      "$k = 4$",
+      "$k = -10$",
+      "$k = 6$",
+      "$k = -4$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Para continuidad: $f(3^-) = 9$ y $f(3^+) = 3a-6$. Igualando: $3a-6=9$, entonces $a=5$.",
-    "feedback_incorrect": "Condición: $9 = 3a-6 \\Rightarrow 3a = 15 \\Rightarrow a = 5$.",
+    "feedback_correct": "Correcto: $10+k=6$ se resuelve con $k=-4$.",
+    "feedback_incorrect": [
+      "Ese valor tiene el signo invertido respecto del despeje correcto.",
+      "Ese valor sale de olvidar sumar el $10$ de la rama izquierda antes de despejar.",
+      "Ese valor corresponde solo al resultado de la rama derecha, sin completar el despeje de $k$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluamos cada rama en el punto de unión $x=3$:\n\n$$\\begin{aligned} f(3^-) &= 3^2 = 9 \\\\ f(3^+) &= 3a - 6 \\end{aligned}$$\n\nImponemos $3a - 6 = 9 \\Rightarrow 3a = 15 \\Rightarrow a = 5$. Con $a=5$, la rama derecha vale $5(3)-6 = 9$, que coincide con $3^2 = 9$. La función empalma perfectamente en $x=3$ y queda continua.",
+    "explanation": "Se calcula primero el valor de la rama sin parámetro, y después se arma la ecuación con la rama que sí lo tiene.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (5x+k) &= 10+k \\\\ \\lim_{x \\to 2^+} (x^2+x) &= 6 \\\\ 10+k &= 6 \\Rightarrow k=-4 \\end{aligned}$$\nCon $k=-4$ ambas ramas llegan a $y=6$ en $x=2$.\n\nCuando el resultado de $k$ es negativo, conviene volver a sustituirlo en la rama original para confirmar que las dos ramas efectivamente coinciden.",
     "reviewed": false
   },
   {
-    "question": "Dada $f(x) = \\sin(\\pi x)$, se sabe que $f(1) = 0$ y $\\lim_{x \\to 1} \\sin(\\pi x) = 0$. ¿Es $f$ continua en $x=1$?",
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
     "options": [
-      "Sí: $f(1) = 0$, el límite existe y vale $0$, y $\\lim = f(1)$",
-      "No: las funciones trigonométricas no son continuas",
-      "No: el límite no coincide con el valor",
-      "Solo si $x$ es un número entero"
+      "$k = 2$",
+      "$k = 9$",
+      "$k = -2$",
+      "$k = 7$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Las tres condiciones se cumplen: $f(1)=0$, $\\lim=0$, y $\\lim=f(1)$. $f$ es continua en $x=1$.",
-    "feedback_incorrect": "Las tres condiciones de continuidad se verifican: $f(1)=0$, $\\lim_{x \\to 1} = 0$, y coinciden. $f$ es continua.",
+    "feedback_correct": "Correcto: $k+7=9$ se resuelve con $k=2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el resultado de la rama derecha antes de restar el $7$ de la izquierda.",
+      "Ese valor tiene el signo invertido respecto del despeje correcto.",
+      "Ese valor corresponde al término independiente de la rama izquierda, no al parámetro despejado."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las funciones trigonométricas como $\\sin$ son continuas en todo $\\mathbb{R}$. En $x=1$ simplemente verificamos las tres condiciones:\n\n$$\\begin{aligned} f(1) &= \\sin(\\pi \\cdot 1) = \\sin(\\pi) = 0 \\\\ \\lim_{x &\\to 1}\\sin(\\pi x) = 0 \\end{aligned}$$\n\nComo $\\lim = 0 = f(1)$, las tres condiciones se cumplen y $f$ es **continua** en $x=1$. Al igual que los polinomios, las funciones trigonométricas no necesitan verificación caso por caso: son continuas globalmente.",
+    "explanation": "Nuevamente, primero se resuelve la rama sin incógnita, y recién después se iguala con la rama que tiene el parámetro.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (kx+7) &= k+7 \\\\ \\lim_{x \\to 1^+} (4x+5) &= 9 \\\\ k+7 &= 9 \\Rightarrow k=2 \\end{aligned}$$\nCon $k=2$ ambas ramas llegan a $y=9$ en $x=1$.\n\nRestar el término independiente antes de aislar $k$ evita el error de arrastrar un número de más en el resultado final.",
     "reviewed": false
   },
   {
-    "question": "Hallar $c$ para que $f(x) = \\begin{cases} cx^2+2 & x < 1 \\\\ x+4 & x \\geq 1 \\end{cases}$ sea continua en $x=1$.",
+    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
-      "$c = 1$",
-      "$c = 3$",
-      "$c = 5$",
-      "$c = 2$"
+      "$k = 1$",
+      "$k = 0{,}5$",
+      "$k = -0{,}5$",
+      "$k = 2$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(1^+) = 1+4 = 5$. Para continuidad: $c(1)^2+2 = 5$, entonces $c+2=5$, $c=3$.",
-    "feedback_incorrect": "Igualar: $c+2 = 1+4 = 5 \\Rightarrow c = 3$.",
+    "feedback_correct": "Correcto: $2k+1=2$ se resuelve con $k=0{,}5$.",
+    "feedback_incorrect": [
+      "Ese valor sale de despejar $2k=2$ sin restar el $1$ de la derecha primero.",
+      null,
+      "Ese valor tiene el signo invertido respecto del despeje correcto.",
+      "Ese valor corresponde al coeficiente de $x$ antes de dividir entre $2$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Calculamos el valor de cada rama en $x=1$ y planteamos la ecuación de continuidad:\n\n$$\\begin{aligned} f(1^-) &= c(1)^2 + 2 = c + 2 \\\\ f(1) &= 1 + 4 = 5 \\end{aligned}$$\n\nCondición: $c + 2 = 5 \\Rightarrow c = 3$. Verificación: con $c=3$, la rama izquierda vale $3(1)+2=5$, que coincide con $1+4=5$ de la rama derecha. La función es continua en $x=1$.",
+    "explanation": "El mismo método de siempre aplica también cuando el resultado del parámetro no es un número entero.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (x^2-2) &= 2 \\\\ \\lim_{x \\to 2^+} (kx+1) &= 2k+1 \\\\ 2k+1 &= 2 \\Rightarrow k=0{,}5 \\end{aligned}$$\nCon $k=0{,}5$ ambas ramas llegan a $y=2$ en $x=2$.\n\nUn parámetro decimal no cambia el procedimiento algebraico, solo conviene revisar la división final con cuidado antes de dar la respuesta.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función racional está dada por\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿En qué valor negativo de $x$ presenta $r$ una discontinuidad?",
+    "options": [
+      "$x = 3$",
+      "$x = -9$",
+      "$x = 9$",
+      "$x = -3$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: $x=-3$ anula el denominador y queda fuera del dominio.",
+    "feedback_incorrect": [
+      "Ese valor también anula el denominador, pero la consigna pide específicamente el negativo.",
+      "Ese valor es el término independiente antes de factorizar, no una raíz del denominador.",
+      "Ese valor tampoco anula el denominador de la expresión original.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El dominio de una racional excluye los valores que anulan el denominador, y ahí es exactamente donde aparece la discontinuidad.\n$$x^2 - 9 = 0 \\Rightarrow x = 3 \\ \\text{o} \\ x = -3$$\nComo la consigna pide el valor negativo, la respuesta es $x=-3$.\n\nCuando el denominador tiene dos raíces reales, conviene prestar atención a cuál pide exactamente el enunciado antes de responder.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función con raíz par está dada por\n$$f(x) = \\sqrt{x - 5}$$\n¿Cuál es el valor de $x$ que marca la frontera del dominio de $f$?",
+    "options": [
+      "$x = 5$",
+      "$x = -5$",
+      "$x = 0$",
+      "$x = 10$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: el argumento se anula en $x=5$, frontera exacta del dominio.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor haría el argumento igual a $-10$, muy alejado de la frontera real del dominio.",
+      "En $x=0$ el argumento ya es negativo, ese punto está dentro de la zona sin definir, no en la frontera.",
+      "Ese valor deja al argumento en $5$, un punto ya dentro del dominio, no en su borde."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una raíz de índice par exige que su argumento sea mayor o igual a $0$, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n$$x - 5 = 0 \\Rightarrow x = 5$$\nPara $x < 5$ el argumento sería negativo y la expresión no estaría definida en los reales.\n\nLa frontera en sí, $x=5$, sí pertenece al dominio porque la raíz de $0$ está perfectamente definida; el problema empieza estrictamente antes de ese valor.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función logarítmica está dada por\n$$f(x) = \\ln(x + 2)$$\n¿Cuál es el valor de $x$ que queda justo en la frontera del dominio de $f$?",
+    "options": [
+      "$x = 0$",
+      "$x = -2$",
+      "$x = 2$",
+      "$x = -4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: el argumento se anula en $x=-2$, frontera del dominio.",
+    "feedback_incorrect": [
+      "En $x=0$ el argumento vale $2$, un punto ya dentro del dominio, no en su borde.",
+      null,
+      "En $x=2$ el argumento vale $4$, bastante alejado de la frontera real.",
+      "Ese valor haría el argumento igual a $-2$, ya dentro de la zona sin definir, no en la frontera exacta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n$$x + 2 = 0 \\Rightarrow x = -2$$\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí.\n\nConfundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
     "reviewed": false
   }
 ]
