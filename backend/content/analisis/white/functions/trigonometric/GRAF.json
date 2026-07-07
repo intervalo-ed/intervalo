@@ -1026,7 +1026,7 @@
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función es creciente o decreciente en $[\\pi, 3\\pi/2]$?",
+    "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función es creciente o decreciente en $[3\\pi/2, 2\\pi]$?",
     "options": [
       "Creciente, de $0$ a $1$",
       "Constante",
@@ -1035,7 +1035,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. En $[\\pi, 3\\pi/2]$ el seno pasa de $0$ a $-1$: eso es decreciente.",
+    "feedback_correct": "Correcto. En $[3\\pi/2, 2\\pi]$ el seno pasa de $-1$ a $0$: eso es creciente.",
     "feedback_incorrect": [
       "Esa dirección no coincide con lo que hace la curva en ese tramo, revisá si sube o baja ahí.",
       "La curva sí cambia en ese tramo, no se queda plana, fijate en el movimiento entre los dos extremos del intervalo.",
