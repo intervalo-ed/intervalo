@@ -430,7 +430,7 @@
       "En $[0, 3]$",
       "En $[0, 2]$"
     ],
-    "correct_index": 0,
+    "correct_index": 1,
     "feedback_correct": "El vértice está en $t = -b/(2a) = -6/(2 \\cdot (-3)) = 1$ s. La altura crece antes del vértice: en $[0, 1]$.",
     "feedback_incorrect": "",
     "explanation": "Para una cuadrática con $a < 0$ (abre hacia abajo), la función **crece** hasta el vértice y **decrece** después.\n\nEl vértice está en:\n$$t_v = -\\frac{b}{2a} = -\\frac{6}{2(-3)} = 1 \\text{ s}$$\n\nAsí que la altura crece en $[0, 1]$ y decrece en $[1, +\\infty)$. El cohete de papel no llega muy lejos, pero al menos el cálculo es prolijo.",
