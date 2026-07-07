@@ -1100,7 +1100,7 @@
     "options": [
       "$-24$",
       "$24$",
-      "$\\dfrac{3}{2}$",
+      "$3$",
       "$\\dfrac{6}{4} = 1{,}5$"
     ],
     "correct_index": 3,
@@ -1109,7 +1109,7 @@
     "feedback_incorrect": [
       "El exponente negativo no vuelve negativo el resultado, invierte la base: $2^{-2}=\\frac{1}{4}$, no $-2^2$.",
       "Ahí se trató el exponente como positivo; con $x=-2$ hay que invertir la base, no multiplicarla directamente.",
-      "Ese valor equivale numéricamente al resultado buscado, pero la opción correcta pide identificarlo en la forma en que sale directamente de la potencia, con el $6$ y el $4$ sin simplificar.",
+      "Ese valor sale de invertir la base una sola vez ($2^{-1}=\\tfrac12$), pero el exponente es $-2$: hay que invertirla dos veces ($2^{-2}=\\tfrac14$), no una.",
       null
     ],
     "graph_fn": null,
