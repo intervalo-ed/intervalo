@@ -1,214 +1,354 @@
 [
   {
-    "question": "La gráfica muestra $f(x) = x^2 - 4$. ¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿Cuál es el signo de $f'(0)$?",
     "options": [
-      "$x = 0$",
-      "$x = 2$",
-      "$x = -4$",
-      "$x = 1$"
+      "Negativa",
+      "Positiva",
+      "Cero"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "En el vértice $x=0$ la tangente es horizontal: $f'(0)=2\\cdot0=0$.",
-    "feedback_incorrect": "La tangente es horizontal donde $f'(x)=0$. Para $f(x)=x^2-4$, $f'(x)=2x=0$ en $x=0$ (el vértice de la parábola).",
-    "graph_fn": "x**2 - 4",
-    "graph_view": [
-      -4,
-      4,
-      -5,
-      5
+    "feedback_correct": "Correcto, en $x=0$ la curva todavía está bajando hacia el vértice.",
+    "feedback_incorrect": [
+      null,
+      "A la izquierda del vértice la curva está bajando, no subiendo, así que la derivada no puede ser positiva ahí.",
+      "La derivada se anula justo en el vértice, $x=2$, en $x=0$ la curva todavía tiene pendiente distinta de cero."
     ],
-    "explanation": "La **tangente horizontal** ocurre donde $f'(x)=0$. Para $f(x)=x^2-4$, derivamos: $f'(x)=2x$, que se anula en $x=0$.\n\n$$f'(x) = 2x = 0 \\implies x = 0$$\n\nGeométricamente, $x=0$ es el vértice de la parábola: el punto más bajo. En ese punto la curva «cambia de bajada a subida» y la tangente es exactamente horizontal.",
-    "reviewed": false
-  },
-  {
-    "question": "La gráfica muestra $f(x) = x^2 - 2x$. ¿En cuál de estos intervalos es $f'(x) > 0$?",
-    "options": [
-      "$x < 0$",
-      "$x > 1$",
-      "$x < 1$",
-      "$x > 0$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=2x-2>0$ cuando $x>1$: la curva sube a la derecha del vértice.",
-    "feedback_incorrect": "$f'(x)=2x-2$. Para que sea positivo: $2x-2>0 \\Rightarrow x>1$. El vértice está en $x=1$; a la derecha la función crece.",
-    "graph_fn": "x**2 - 2*x",
-    "graph_view": [
-      -2,
-      4,
-      -2,
-      4
-    ],
-    "explanation": "La derivada $f'(x)=2x-2$ es positiva cuando $2x-2>0$, es decir, cuando $x>1$.\n\n$$f'(x) = 2x-2 > 0 \\iff x > 1$$\n\nGeométricamente: la curva **sube** (de izquierda a derecha) en $x>1$. El vértice de la parábola está en $x=1$ (donde $f'(1)=0$); a la derecha la función crece, a la izquierda decrece.",
-    "reviewed": false
-  },
-  {
-    "question": "La gráfica muestra $f(x) = |x-2|$. ¿Es $f$ diferenciable en $x=2$?",
-    "options": [
-      "Sí: $f'(2)=0$ porque la esquina es el mínimo",
-      "Sí: $f(2)=0$ y la función es continua allí",
-      "No: hay una esquina en $x=2$ y los límites laterales del cociente son distintos",
-      "No: $f(2)$ no está definido"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La esquina en $x=2$ impide la diferenciabilidad: los cocientes laterales dan $-1$ y $+1$.",
-    "feedback_incorrect": "La gráfica muestra una esquina en $x=2$: la tangente desde la izquierda tiene pendiente $-1$ y desde la derecha $+1$. Como difieren, $f'(2)$ no existe.",
-    "graph_fn": "Piecewise((-(x-2), x < 2), (x-2, x >= 2))",
+    "graph_fn": "x**2 - 4*x + 3",
     "graph_view": [
       -1,
       5,
-      -1,
-      4
-    ],
-    "explanation": "La gráfica muestra una **esquina** en $x=2$. Las derivadas laterales son:\n\n$$\\begin{aligned} \\lim_{h &\\to 0^-}\\frac{f(2+h)-0}{h} = -1 \\\\ &\\neq \\\\ \\lim_{h &\\to 0^+}\\frac{f(2+h)-0}{h} = +1 \\end{aligned}$$\n\nComo difieren, $f'(2)$ no existe: la función **no es diferenciable** en $x=2$. Sin embargo sí es continua: la curva pasa por $(2,0)$ sin saltos.",
-    "reviewed": false
-  },
-  {
-    "question": "La gráfica muestra $f(x) = x^2$. Calculá la pendiente de la recta secante que pasa por los puntos $(1, f(1))$ y $(3, f(3))$.",
-    "options": [
-      "$9$",
-      "$2$",
-      "$6$",
-      "$4$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$.",
-    "feedback_incorrect": "$f(1)=1$ y $f(3)=9$. La pendiente de la secante es $\\frac{9-1}{3-1} = \\frac{8}{2} = 4$.",
-    "graph_fn": "x**2",
-    "graph_view": [
       -3,
-      4,
-      -1,
-      9
+      5
     ],
-    "explanation": "La **pendiente de la secante** entre dos puntos de la curva es el cociente incremental finito:\n\n$$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = \\frac{8}{2} = 4$$\n\nEste valor es la tasa de cambio *promedio* de $f$ en $[1,3]$. Si achicáramos el intervalo hasta $h\\to0$, convergeríamos a la tasa instantánea $f'(1)=2$ o $f'(3)=6$, según el extremo elegido.",
+    "explanation": "El **signo de la derivada** en un punto se lee directamente de si la curva sube, baja o queda horizontal justo ahí.\n\nEsta parábola tiene su vértice en $x=2$, así que a la izquierda de ese punto, incluido $x=0$, la curva está descendiendo hacia el mínimo.\n\nCuando la curva baja de izquierda a derecha, la derivada en ese tramo es **negativa**, sin importar cuánto valga numéricamente.",
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f'(x) = x^2 - 1$. ¿En qué valores de $x$ se anula $f'$? (Esos son candidatos a extremos de $f$.)",
+    "question": "En la misma gráfica de $f(x) = x^2 - 4x + 3$, ¿cuál es el signo de $f'(4)$?",
     "options": [
-      "$x = -1$ y $x = 1$",
-      "$x = 0$ únicamente",
-      "$x = 1$ únicamente",
-      "$x = -1$ únicamente"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$x^2-1=0 \\Rightarrow x=\\pm1$: en esos puntos $f$ puede tener un extremo local.",
-    "feedback_incorrect": "Los ceros de $f'$ son donde la gráfica cruza el eje $x$: $x^2-1=0 \\Rightarrow x=\\pm1$. En $x=-1$ y $x=1$, la tangente a $f$ es horizontal.",
-    "graph_fn": "x**2 - 1",
-    "graph_view": [
-      -3,
-      3,
-      -2,
-      4
-    ],
-    "explanation": "Los ceros de $f'$ (donde la gráfica de $f'$ cruza el eje $x$) son los puntos donde la tangente a $f$ es horizontal: **candidatos a extremos locales**.\n\n$$f'(x) = x^2-1 = 0 \\implies x = \\pm 1$$\n\nEn $x=-1$ y $x=1$, la función $f$ tiene tangente horizontal. Para determinar si son máximos, mínimos o inflexiones, habría que analizar el signo de $f'$ a cada lado.",
-    "reviewed": false
-  },
-  {
-    "question": "La gráfica muestra $f(x) = 5 - x^2$. En $x=3$, ¿qué signo tiene $f'(3)$?",
-    "options": [
-      "Positivo: $f(3)=-4<0$ indica crecimiento",
-      "Negativo: la curva desciende en $x=3$",
-      "Cero: $f'(3)=0$",
-      "No se puede determinar a partir de la gráfica"
+      "Cero",
+      "Positiva",
+      "Negativa"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f'(x)=-2x$, entonces $f'(3)=-6<0$: la curva baja en $x=3$.",
-    "feedback_incorrect": "En $x=3$ la curva está bajando (mirá la gráfica). Algebraicamente: $f'(x)=-2x$, $f'(3)=-6<0$. Derivada negativa = función decreciente.",
-    "graph_fn": "5 - x**2",
+    "feedback_correct": "Correcto, a la derecha del vértice la curva ya está subiendo.",
+    "feedback_incorrect": [
+      "El único punto donde la derivada se anula es el vértice, $x=2$, en $x=4$ la curva ya tiene pendiente positiva.",
+      null,
+      "A la derecha del vértice, en $x=2$, la curva ya cambió de dirección y está subiendo, no bajando."
+    ],
+    "graph_fn": "x**2 - 4*x + 3",
     "graph_view": [
       -1,
-      4,
-      -5,
-      6
+      5,
+      -3,
+      5
     ],
-    "explanation": "La derivada $f'(x)=-2x$ en $x=3$ vale $f'(3)=-6<0$.\n\n$$f'(3) = -2 \\cdot 3 = -6 < 0$$\n\nGeométricamente: en $x=3$ la curva **desciende** (la tangente tiene pendiente negativa). La función $5-x^2$ es una parábola invertida con vértice en $x=0$; para $x>0$ siempre decrece.",
+    "explanation": "El vértice de esta parábola está en $x=2$, y a partir de ahí la curva cambia de dirección y comienza a **subir**.\n\nEn $x=4$, ya bien a la derecha del vértice, la pendiente de la curva es claramente positiva, la función crece a medida que $x$ aumenta.\n\nConviene ubicar siempre el vértice primero, porque marca el punto exacto donde el signo de la derivada cambia.",
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f(x) = x^3 - 3x$. ¿En cuántos puntos la recta tangente es horizontal?",
+    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2$.\n\n¿Cuál es el signo de $f'(-1)$?",
     "options": [
-      "$1$ (solo en $x=0$)",
-      "$0$",
-      "$2$ (en $x=-1$ y $x=1$)",
-      "$3$"
+      "Negativa",
+      "Cero",
+      "Positiva"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f'(x)=3x^2-3=0 \\Rightarrow x=\\pm1$: dos puntos con tangente horizontal.",
-    "feedback_incorrect": "$f'(x)=3x^2-3=3(x-1)(x+1)=0$ en $x=1$ y $x=-1$. Son dos puntos con tangente horizontal: el máximo local en $x=-1$ y el mínimo local en $x=1$.",
-    "graph_fn": "x**3 - 3*x",
+    "feedback_correct": "Correcto, a la izquierda del vértice de esta parábola invertida la curva está subiendo.",
+    "feedback_incorrect": [
+      "Como la parábola se abre hacia abajo, a la izquierda del vértice la curva sube, no baja.",
+      "La derivada se anula solo en el vértice, $x=0$, en $x=-1$ la curva todavía tiene pendiente positiva.",
+      null
+    ],
+    "graph_fn": "-x**2 + 2",
     "graph_view": [
       -3,
       3,
       -4,
-      4
+      3
     ],
-    "explanation": "Buscamos donde $f'(x)=0$: $f'(x)=3x^2-3=3(x-1)(x+1)$.\n\n$$3x^2-3=0 \\implies x^2=1 \\implies x=\\pm 1$$\n\nEn $x=-1$ la función tiene un **máximo local** ($f(-1)=2$) y en $x=1$ un **mínimo local** ($f(1)=-2$). En ambos puntos la tangente es horizontal: la curva «da vuelta».",
+    "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=0$, así que su comportamiento es opuesto al de una parábola estándar.\n\nA la izquierda del vértice, incluido $x=-1$, la curva está subiendo hacia el máximo, así que la derivada ahí es **positiva**.\n\nEs un error común aplicar el mismo patrón de signos que en una parábola que se abre hacia arriba, conviene primero fijarse hacia dónde se abre la curva.",
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f(x) = -(x-2)^2 + 4$. Observando la gráfica, ¿qué signo tiene $f'(x)$ para $x \\in (2, 4)$?",
+    "question": "En la misma gráfica de $f(x) = -x^2 + 2$, ¿cuál es el signo de $f'(1)$?",
     "options": [
-      "No definido en ese intervalo",
-      "Positivo: la curva asciende",
-      "Cero: la curva es constante",
-      "Negativo: la curva desciende en ese intervalo"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Para $x>2$, la parábola desciende desde el vértice: $f'(x)=-2(x-2)<0$.",
-    "feedback_incorrect": "En el intervalo $(2,4)$, la curva baja desde el vértice $(2,4)$. Algebraicamente: $f'(x)=-2(x-2)<0$ para $x>2$.",
-    "graph_fn": "-(x-2)**2 + 4",
-    "graph_view": [
-      -1,
-      5,
-      -2,
-      5
-    ],
-    "explanation": "Para $x>2$, la parábola $-(x-2)^2+4$ desciende desde el vértice $(2,4)$ hacia abajo. Eso se refleja en la derivada:\n\n$$\\begin{aligned} f'(x) &= -2(x-2) < 0 \\\\ \\text{para } x &> 2 \\end{aligned}$$\n\nGeométricamente: **función decreciente ↔ derivada negativa**. El vértice en $x=2$ es donde $f'(2)=0$ y la curva cambia de sentido.",
-    "reviewed": false
-  },
-  {
-    "question": "La gráfica muestra $f(x) = x^2$. ¿Cuál de las siguientes describe la gráfica de $f'(x)$?",
-    "options": [
-      "Una recta que pasa por el origen con pendiente $2$: $y = 2x$",
-      "La misma parábola $y = x^2$",
-      "Una recta horizontal $y = 2$",
-      "Una parábola $y = 2x^2$"
+      "Negativa",
+      "Positiva",
+      "Cero"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f'(x)=2x$ es una función lineal: recta con pendiente $2$ que pasa por el origen.",
-    "feedback_incorrect": "La derivada de $f(x)=x^2$ es $f'(x)=2x$: una función **lineal** (recta), no otra parábola. Pasa por el origen con pendiente $2$.",
-    "graph_fn": "x**2",
+    "feedback_correct": "Correcto, a la derecha del vértice de esta parábola invertida la curva ya está bajando.",
+    "feedback_incorrect": [
+      null,
+      "A la derecha del vértice, la parábola invertida ya empezó a bajar desde el máximo, no a subir.",
+      "El único punto con derivada cero es el vértice, $x=0$, en $x=1$ la curva ya tiene pendiente negativa."
+    ],
+    "graph_fn": "-x**2 + 2",
     "graph_view": [
       -3,
       3,
-      -1,
-      6
+      -4,
+      3
     ],
-    "explanation": "Derivamos $f(x)=x^2$ por definición y obtenemos $f'(x)=2x$.\n\n$$f'(x) = 2x \\quad \\text{— una función lineal (recta)}$$\n\nLa gráfica de $f'$ es la recta $y=2x$: pasa por el origen con pendiente $2$. Esto confirma lo que se ve en la parábola: en $x=0$ la tangente es horizontal ($f'(0)=0$), y la pendiente crece simétricamente a los costados.",
+    "explanation": "Con vértice en $x=0$ y abriéndose hacia abajo, esta parábola alcanza su máximo ahí y luego comienza a **descender**.\n\nEn $x=1$, a la derecha del vértice, la curva ya está bajando, así que la derivada en ese punto es negativa.\n\nRecordar la forma general, hacia arriba o hacia abajo, evita confundir el signo de la derivada a cada lado del vértice.",
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f(x) = x^2$. Sabiendo que $f(1)=1$ y $f'(1)=2$, ¿cuál es la ecuación de la recta tangente en $x=1$?",
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x + 1$.\n\n¿Cuál es el signo de $f'(1)$?",
     "options": [
-      "$y = 2x + 1$",
-      "$y = 2x - 1$",
-      "$y = x + 1$",
-      "$y = 2x$"
+      "Negativa",
+      "Cero",
+      "Positiva"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
-    "feedback_incorrect": "Usando la fórmula punto-pendiente: $y - f(1) = f'(1)(x-1) \\Rightarrow y-1=2(x-1) \\Rightarrow y=2x-1$.",
+    "feedback_correct": "Correcto, $x=1$ es exactamente el vértice de esta parábola.",
+    "feedback_incorrect": [
+      "En el vértice la curva tampoco está bajando, cambia de dirección justo ahí.",
+      null,
+      "En el vértice la curva queda horizontal por un instante, no está subiendo."
+    ],
+    "graph_fn": "x**2 - 2*x + 1",
+    "graph_view": [
+      -2,
+      4,
+      -2,
+      5
+    ],
+    "explanation": "Esta parábola tiene vértice en $x=1$, el punto exacto donde la curva deja de bajar y empieza a subir.\n\nEn ese instante, la recta tangente a la curva queda perfectamente horizontal, así que la derivada vale **cero** justo ahí.\n\nEste tipo de punto, un vértice suave, sigue siendo diferenciable, la derivada existe y vale cero, no hay que confundirlo con un quiebre.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^3$.\n\n¿Cuál es el signo de $f'(0)$?",
+    "options": [
+      "Positiva",
+      "Negativa",
+      "Cero"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, en $x=0$ la curva queda momentáneamente horizontal antes de seguir subiendo.",
+    "feedback_incorrect": [
+      "Aunque la curva crece en todo su dominio, justo en $x=0$ hay un instante de meseta donde la pendiente se anula.",
+      "La curva nunca desciende, así que la derivada no puede ser negativa en ningún punto de esta gráfica.",
+      null
+    ],
+    "graph_fn": "x**3",
+    "graph_view": [
+      -2,
+      2,
+      -4,
+      4
+    ],
+    "explanation": "Esta curva crece en todo su dominio, pero en $x=0$ presenta una **meseta**, un instante donde la pendiente se aplana antes de seguir subiendo.\n\nEse aplanamiento momentáneo hace que la recta tangente en $x=0$ quede horizontal, así que $f'(0)=0$, aunque la función siga siendo creciente a ambos lados.\n\nEste caso muestra que una derivada nula no siempre marca un máximo o un mínimo, acá es apenas una pausa dentro de un crecimiento continuo.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "options": [
+      "$x=3$",
+      "$x=0$",
+      "$x=2$",
+      "$x=1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el vértice está en $x=2$.",
+    "feedback_incorrect": [
+      "Ese también es una raíz de la función, $f(x)=0$, la derivada se anula en el vértice, no en los cortes con el eje.",
+      "En $x=0$ la curva todavía tiene pendiente negativa, no está en el vértice.",
+      null,
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz, no donde $f'(x)=0$."
+    ],
+    "graph_fn": "x**2 - 4*x + 3",
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      5
+    ],
+    "explanation": "La derivada de una parábola se anula exactamente en su **vértice**, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene vértice en $x=2$, mientras que $x=1$ y $x=3$ son sus raíces, los puntos donde $f(x)=0$, no donde $f'(x)=0$.\n\nConfundir ceros de la función con ceros de la derivada es un error frecuente, conviene siempre distinguir dónde la curva toca el eje de dónde la curva queda horizontal.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 4$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "options": [
+      "$x=-2$",
+      "$x=2$",
+      "$x=1$",
+      "$x=0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el vértice de esta parábola está en $x=0$.",
+    "feedback_incorrect": [
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz, la derivada se anula en el vértice, no ahí.",
+      "Esa también es una raíz de $f$, el vértice está en $x=0$, no en los cortes con el eje.",
+      "En $x=1$ la curva todavía tiene pendiente negativa, no coincide con el vértice.",
+      null
+    ],
+    "graph_fn": "-x**2 + 4",
+    "graph_view": [
+      -3,
+      3,
+      -3,
+      5
+    ],
+    "explanation": "El vértice de esta parábola invertida está en $x=0$, y es exactamente ahí donde la recta tangente queda horizontal y $f'(x)=0$.\n\nLas raíces de la función, $x=-2$ y $x=2$, son los puntos donde la curva cruza el eje horizontal, un concepto distinto al de dónde se anula la derivada.\n\nAntes de responder este tipo de preguntas, conviene ubicar primero el vértice de la parábola, ahí es donde vive el único cero de $f'$.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x - 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "options": [
+      "$x=1$",
+      "$x=-1$",
+      "$x=3$",
+      "$x=0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el vértice de esta parábola está en $x=1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz de la función, no de la derivada.",
+      "Esa también es una raíz de $f$, el vértice está en $x=1$, entre las dos raíces.",
+      "En $x=0$ la curva todavía está bajando, la derivada ahí no vale cero."
+    ],
+    "graph_fn": "x**2 - 2*x - 3",
+    "graph_view": [
+      -3,
+      5,
+      -5,
+      5
+    ],
+    "explanation": "El vértice de esta parábola se ubica en $x=1$, justo a mitad de camino entre sus dos raíces, $x=-1$ y $x=3$.\n\nEn ese punto la curva pasa de bajar a subir, y la recta tangente ahí queda horizontal, así que $f'(1)=0$.\n\nLos cortes con el eje horizontal son un dato distinto, útil para otras preguntas, pero no marcan dónde se anula la derivada.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
+    "options": [
+      "$x=4$",
+      "$x=1$",
+      "$x=-1$",
+      "$x=3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el vértice de esta parábola invertida está en $x=1$.",
+    "feedback_incorrect": [
+      "Ese valor no corresponde a ningún punto especial de esta gráfica dentro del rango mostrado.",
+      null,
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz de la función, no de la derivada.",
+      "Esa también es una raíz de $f$, el vértice está en $x=1$, entre las dos raíces."
+    ],
+    "graph_fn": "-x**2 + 2*x + 3",
+    "graph_view": [
+      -3,
+      5,
+      -3,
+      6
+    ],
+    "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=1$, el punto donde alcanza su valor máximo.\n\nJusto ahí, la curva deja de subir y empieza a bajar, así que la recta tangente queda horizontal y $f'(1)=0$.\n\nLas raíces, $x=-1$ y $x=3$, marcan dónde la curva cruza el eje, un dato geométrico distinto al de dónde se anula la pendiente.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra una parábola con vértice en $x=2$ y raíces en $x=0$ y $x=4$.\n\n¿En cuál de estos valores se cumple $f'(x)=0$?",
+    "options": [
+      "$x=4$",
+      "$x=3$",
+      "$x=2$",
+      "$x=0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la derivada se anula únicamente en el vértice.",
+    "feedback_incorrect": [
+      "Esa también es una raíz de la función, no un punto donde la pendiente se anula.",
+      "Ese valor no coincide con el vértice indicado en la gráfica, la curva todavía tiene pendiente distinta de cero ahí.",
+      null,
+      "Ese es un punto donde $f(x)=0$, una raíz, la derivada se anula en el vértice, más al medio de la parábola."
+    ],
+    "graph_fn": "0.5*(x-0)*(x-4)",
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      5
+    ],
+    "explanation": "Toda parábola tiene un único vértice, y es justo ahí donde la recta tangente queda horizontal y la derivada se anula.\n\nEn esta gráfica el vértice está marcado en $x=2$, exactamente a mitad de camino entre las dos raíces, $x=0$ y $x=4$.\n\nLas raíces son puntos donde $f(x)=0$, mientras que el vértice es el único punto donde $f'(x)=0$, distinguir ambos conceptos evita el error más común de esta familia de ejercicios.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = |x-2| + 1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en $x=2$?",
+    "options": [
+      "Es diferenciable, con tangente horizontal",
+      "Presenta un salto, no es continua ahí",
+      "Presenta un quiebre, no es diferenciable ahí"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el pico anguloso en $x=2$ rompe la diferenciabilidad.",
+    "feedback_incorrect": [
+      "La tangente no queda horizontal en un pico, cada rama tiene una pendiente distinta, y ninguna de las dos es cero.",
+      "La función sigue siendo continua en $x=2$, las dos ramas se encuentran en el mismo valor, no hay ningún salto.",
+      null
+    ],
+    "graph_fn": "abs(x-2) + 1",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "explanation": "Esta gráfica muestra un **quiebre** típico en $x=2$, el punto donde el valor absoluto cambia de rama.\n\nLa función es continua ahí, las dos ramas se encuentran en el mismo valor, pero no es diferenciable, porque cada rama llega con una pendiente distinta.\n\nEste tipo de pico anguloso es la versión gráfica exacta del contraejemplo $|x|$, solo que desplazado a otro punto del dominio.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "options": [
+      "Presenta un salto, no es continua ni diferenciable",
+      "Es diferenciable en $x=1$",
+      "Es continua pero no diferenciable en $x=1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, un salto rompe primero la continuidad, y con ella también la diferenciabilidad.",
+    "feedback_incorrect": [
+      null,
+      "El salto impide que exista el límite del cociente incremental, así que la función no puede ser diferenciable en $x=1$.",
+      "Para pertenecer a esa categoría la función tendría que ser continua en $x=1$, y acá justamente no lo es."
+    ],
+    "graph_fn": "Piecewise((x + 1, x < 1), (x + 3, x >= 1))",
+    "graph_view": [
+      -2,
+      4,
+      -2,
+      8
+    ],
+    "explanation": "En un **salto**, los dos tramos de la función se acercan a alturas distintas, así que la función deja de ser continua en ese punto.\n\nComo la continuidad es condición necesaria para la derivada, la falla de continuidad ya alcanza para descartar también la diferenciabilidad.\n\nEste caso se distingue del quiebre porque ahí la función sí llega a un único valor por ambos lados, acá directamente hay dos alturas distintas.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^2$, con un punto marcado en su vértice, $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "options": [
+      "Presenta un salto, no es continua ahí",
+      "Es diferenciable, con tangente horizontal, $f'(0)=0$",
+      "Presenta un quiebre, no es diferenciable ahí"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, un vértice suave sigue siendo diferenciable.",
+    "feedback_incorrect": [
+      "La función es continua en todo su dominio, no hay ningún salto en el vértice de una parábola.",
+      null,
+      "Un vértice suave, como el de una parábola, no es un pico anguloso, las dos ramas llegan con la misma pendiente, cero."
+    ],
     "graph_fn": "x**2",
     "graph_view": [
       -3,
@@ -216,7 +356,32 @@
       -1,
       6
     ],
-    "explanation": "La ecuación de la recta tangente usa la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x-a) \\implies y - 1 = 2(x-1) \\implies y = 2x-1$$\n\nLa recta pasa por $(1,1)$ con pendiente $f'(1)=2$. Es la mejor aproximación lineal a la parábola cerca de $x=1$: si nos alejamos poco de $x=1$, la recta tangente es casi indistinguible de la curva.",
+    "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre es el error más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^{1/3}$, con un punto marcado en $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
+    "options": [
+      "Es diferenciable, con $f'(0)=0$",
+      "Presenta un quiebre común, como el de $|x|$",
+      "No es diferenciable, tiene tangente vertical"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la curva se vuelve vertical justo en $x=0$.",
+    "feedback_incorrect": [
+      "La derivada no vale cero, de hecho no existe como número, el cociente incremental tiende a infinito por ambos lados.",
+      "No es un quiebre como el de $|x|$, ahí los laterales del cociente incremental son finitos pero distintos, acá ambos tienden a infinito.",
+      null
+    ],
+    "graph_fn": "sign(x) * abs(x) ** (1/3)",
+    "graph_view": [
+      -3,
+      3,
+      -2,
+      2
+    ],
+    "explanation": "Esta curva se vuelve completamente vertical justo en $x=0$, un caso distinto tanto del salto como del quiebre.\n\nEn ese punto, el cociente incremental tiende a $+\\infty$ tanto por izquierda como por derecha, así que el límite no converge a ningún número real y la derivada no existe.\n\nEste caso, la **tangente vertical**, conviene distinguirlo bien del quiebre, ahí los laterales dan valores finitos distintos, acá ambos se disparan a infinito.",
     "reviewed": false
   }
 ]
