@@ -84,7 +84,8 @@ export function ProfileHeaderCard({
         {badgesAvailable && (
           <span
             aria-hidden
-            className="absolute left-1 top-1 size-2.5 rounded-full bg-primary ring-2 ring-background"
+            className="absolute -right-0.5 -top-0.5 size-2 rounded-full ring-1 ring-background"
+            style={{ backgroundColor: "#EC4869" }}
           />
         )}
         <PencilIcon className="absolute bottom-1 right-1 size-3 text-primary/80 transition-colors group-hover:text-primary" />

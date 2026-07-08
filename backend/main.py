@@ -700,9 +700,9 @@ def get_university_leaderboard(
         )
         for uni, agg in by_uni.items()
     ]
-    # El ranking de universidades es por estudiantes registrados (XP como
+    # El ranking de universidades es por XP acumulado (estudiantes como
     # desempate secundario).
-    rows.sort(key=lambda r: (r.students, r.total_xp), reverse=True)
+    rows.sort(key=lambda r: (r.total_xp, r.students), reverse=True)
 
     return UniversityLeaderboardResponse(
         rows=rows,
