@@ -14,13 +14,12 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { setRankingNews } from "@/lib/nav/ranking-news"
 import { BELT_HEX } from "@/lib/catalog"
 import {
   FlagTriangleRightIcon,
   GraduationCapIcon,
   TrendingUpIcon,
-  UserIcon,
+  UsersIcon,
 } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
@@ -76,11 +75,6 @@ type RankingView = "individual" | "university"
 
 export function LeaderboardContent() {
   const [view, setView] = useState<RankingView>("individual")
-
-  // Al entrar al ranking se apaga el puntito de novedad de la tab bar.
-  useEffect(() => {
-    setRankingNews(false)
-  }, [])
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2.5">
@@ -261,7 +255,7 @@ function IndividualRanking() {
     <div className="flex min-h-0 flex-1 flex-col gap-2.5">
       <div className="grid shrink-0 grid-cols-2 gap-2">
         <Metric
-          label="Ejercicios hechos"
+          label="Ejercicios resueltos"
           value={
             <span className="inline-flex items-center gap-1.5">
               <CountUp
@@ -273,7 +267,7 @@ function IndividualRanking() {
           }
         />
         <Metric
-          label="XP acumulado"
+          label="Experiencia acumulada"
           value={
             <span className="inline-flex items-center gap-1.5">
               <CountUp
@@ -449,16 +443,6 @@ function UniversityRanking() {
   const careerFontRem =
     careerMaxLen <= 2 ? 1.125 : Math.max(0.6, (1.125 * 2) / careerMaxLen)
 
-  // Ancho (en dígitos) del número más largo entre todas las universidades, para
-  // reservar un slot fijo y que los emojis queden siempre alineados en columna,
-  // sin importar cuántos dígitos tenga cada universidad.
-  const rowNumDigits = Math.max(
-    1,
-    ...data.rows.flatMap((r) =>
-      CAREER_META.map((c) => String(r.careers[c.key] ?? 0).length),
-    ),
-  )
-
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-2.5">
       <div className="grid shrink-0 grid-cols-2 gap-2">
@@ -467,7 +451,7 @@ function UniversityRanking() {
           value={
             <span className="inline-flex items-start gap-1.5">
               <CountUp value={data.total_students} format={fmt} />
-              <PopulationIcon className="mt-[0.15em] text-primary" />
+              <UsersIcon className="size-[0.9em] text-primary" />
             </span>
           }
         />
@@ -509,26 +493,21 @@ function UniversityRanking() {
               <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
                 {index + 1}
               </span>
-              <span className="flex w-14 shrink-0 justify-start">
+              <span className="flex min-w-0 flex-1 items-center">
                 <UniTag university={row.university} />
               </span>
-              {/* Conteos por carrera pegados al borde derecho (donde antes iba el
-                  XP). El número va en un slot de ancho fijo (rowNumDigits) y
-                  right-aligned, así el emoji siempre arranca en la misma columna
-                  aunque las universidades tengan distinta cantidad de dígitos. */}
-              <div className="flex shrink-0 items-center gap-1.5 tabular-nums ml-auto text-sm font-semibold">
-                {CAREER_META.map((c) => (
-                  <span key={c.key} className="inline-flex items-center gap-0.5">
-                    <span
-                      className="shrink-0 text-right"
-                      style={{ width: `${rowNumDigits}ch` }}
-                    >
-                      <CountUp value={row.careers[c.key] ?? 0} format={fmt} />
-                    </span>
-                    <span className={careerEmojiCls(c.key)}>{CAREER_EMOJI[c.key]}</span>
-                  </span>
-                ))}
-              </div>
+              {/* Estudiantes registrados de la universidad, alineados a la derecha
+                  (a la izquierda del XP). Ícono de población en el mismo blanco que
+                  el de XP. */}
+              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+                <CountUp value={row.students} format={fmt} />
+                <UsersIcon className="size-[0.9em] text-white" />
+              </span>
+              {/* XP acumulado a la derecha, idéntico al ranking individual. */}
+              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+                <CountUp value={row.total_xp} format={fmt} />
+                <XpDots className="size-[0.85em] text-white" />
+              </span>
             </li>
           ))}
         </ol>
@@ -570,27 +549,6 @@ function Metric({
         {label}
       </span>
     </div>
-  )
-}
-
-// Ícono de "estudiantes": el mismo del perfil (UserIcon) por triplicado, encimados
-// horizontalmente. La del medio se antepone (halo del color del box + z-index para
-// ocluir a las laterales).
-function PopulationIcon({ className }: { className?: string }) {
-  return (
-    <span className={cn("inline-flex items-start", className)}>
-      <UserIcon className="size-[0.72em]" />
-      <span className="relative z-10 -mx-[0.24em] inline-flex items-center justify-center">
-        {/* del medio con halo que cubre su silueta para ocluir a los de las puntas
-            donde se cruzan → los de las puntas quedan detrás */}
-        <span
-          aria-hidden
-          className="absolute inset-[6%] rounded-full bg-[#1f1f2f]"
-        />
-        <UserIcon className="relative size-[0.72em]" />
-      </span>
-      <UserIcon className="size-[0.72em]" />
-    </span>
   )
 }
 
