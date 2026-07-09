@@ -4,12 +4,13 @@ import { cn } from "@/lib/utils"
 import { useRankingNews } from "@/lib/nav/ranking-news"
 import { useProfileNews } from "@/lib/nav/profile-news"
 import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
-import { HomeIcon, TrophyIcon, UserIcon } from "lucide-react"
+import { LayersIcon, TargetIcon, TrophyIcon, UserIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const TABS = [
-  { href: "/", label: "Inicio", icon: HomeIcon },
+  { href: "/", label: "Repasar", icon: LayersIcon },
+  { href: "/practice", label: "Practicar", icon: TargetIcon },
   { href: "/leaderboard", label: "Ranking", icon: TrophyIcon },
   { href: "/profile", label: "Perfil", icon: UserIcon },
 ] as const
