@@ -1,0 +1,19 @@
+[
+  {
+    "question": "¿De cuántas maneras distintas se pueden ordenar los 4 finalistas de una carrera en el podio (1º, 2º, 3º y 4º puesto)?",
+    "options": ["$4$", "$16$", "$24$", "$256$"],
+    "correct_index": 2,
+    "feedback_correct": "Es una permutación de 4 elementos: $4! = 24$.",
+    "feedback_incorrect": [
+      "Ese es el número de finalistas, no la cantidad de ordenamientos posibles.",
+      "Ese es $4^{2}$; aparece si se piensa en solo 2 puestos con repetición.",
+      null,
+      "Ese es $4^{4}$: cuenta como si cada puesto pudiera ser cualquiera de los 4 finalistas con repetición, pero un mismo corredor no puede ocupar dos puestos."
+    ],
+    "explanation": "El número de **permutaciones** de $n$ elementos distintos es $n!$, el producto de todos los enteros positivos desde 1 hasta $n$.\n\nAcá se ordenan los 4 finalistas en 4 puestos, así que:\n$$P_4 = 4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\n\nLa confusión típica es aplicar potencias ($4^4$ o $4^2$) tratando cada puesto como una decisión con repetición; en un podio cada corredor ocupa un solo lugar, así que después de asignar el 1er puesto solo quedan 3 opciones para el 2º, y así sucesivamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

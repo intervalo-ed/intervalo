@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
+    "options": [
+      "$f(b) - f(a)$",
+      "$\\displaystyle \\int_a^b f(x)\\,dx$",
+      "$\\displaystyle \\sum_{x=a}^{b} f(x)$",
+      "$f(a) \\cdot f(b)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La probabilidad continua es el área bajo la densidad entre $a$ y $b$.",
+    "feedback_incorrect": [
+      "Esa es la variación de valores de $f$, no una probabilidad; la densidad no es probabilidad acumulada.",
+      null,
+      "La suma discreta aplica a puntuales, no a densidades continuas.",
+      "El producto no aparece en la definición de probabilidad; el área bajo la curva se calcula con integral."
+    ],
+    "explanation": "En una variable aleatoria continua la probabilidad puntual es cero ($P(X=x)=0$) y la probabilidad de un intervalo se calcula como el **área bajo la curva de densidad**:\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\n\nLa densidad total tiene que integrar 1 sobre todo el dominio ($\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$).\n\nLa confusión típica es leer $f(x)$ como si fuera una probabilidad puntual: $f(x)$ es una densidad y puede superar 1 sin problema; lo que representa una probabilidad es el área que encierra bajo la curva.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

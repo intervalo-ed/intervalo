@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim N(\\mu, \\sigma^{2})$.\n\n¿Qué transformación estandariza $X$ a una normal $N(0, 1)$?",
+    "options": [
+      "$Z = X - \\mu$",
+      "$Z = X / \\sigma$",
+      "$Z = \\dfrac{X - \\mu}{\\sigma}$",
+      "$Z = \\dfrac{X - \\mu}{\\sigma^{2}}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Estandarización: centrar en $\\mu$ y escalar por $\\sigma$.",
+    "feedback_incorrect": [
+      "Solo centrar en $\\mu$ elimina la media pero deja la desviación en $\\sigma$, no en 1.",
+      "Solo escalar por $\\sigma$ deja la media desplazada en $\\mu/\\sigma$, no en 0.",
+      null,
+      "Estás dividiendo por la varianza $\\sigma^{2}$; la estandarización usa $\\sigma$ (desvío estándar), no su cuadrado."
+    ],
+    "explanation": "Para llevar $X \\sim N(\\mu, \\sigma^{2})$ a la escala estándar se aplica:\n$$Z = \\frac{X - \\mu}{\\sigma}$$\n\nDe esa forma $Z \\sim N(0, 1)$ y las probabilidades pueden buscarse en tablas o calcularse con software.\n\nLa confusión típica es dividir por $\\sigma^{2}$ (la varianza) en lugar de $\\sigma$ (el desvío estándar): recordá que la estandarización unifica las unidades y la escala de dispersión es la desviación estándar, con las mismas unidades que la variable.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

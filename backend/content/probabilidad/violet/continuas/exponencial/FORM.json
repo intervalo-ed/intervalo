@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim Exp(\\lambda)$ una variable exponencial con tasa $\\lambda$.\n\n¿Cuál es su función de densidad?",
+    "options": [
+      "$f(x) = \\lambda e^{-\\lambda x}$ para $x \\geq 0$",
+      "$f(x) = e^{-\\lambda x}$ para $x \\geq 0$",
+      "$f(x) = \\dfrac{1}{\\lambda} e^{-\\lambda x}$ para $x \\geq 0$",
+      "$f(x) = \\lambda x e^{-\\lambda}$ para $x \\geq 0$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Densidad estándar de la exponencial.",
+    "feedback_incorrect": [
+      "Falta el factor $\\lambda$ afuera; sin ese factor la densidad no integra 1.",
+      null,
+      "Ese factor $1/\\lambda$ aparece en la esperanza $E[X]=1/\\lambda$, pero no en la densidad.",
+      "Esa expresión mezcla mal los factores; el exponente no debe ser una constante $-\\lambda$."
+    ],
+    "explanation": "La densidad de la **exponencial** con tasa $\\lambda$ es:\n$$f(x) = \\lambda e^{-\\lambda x} \\text{ para } x \\geq 0$$\n\nSu esperanza es $E[X] = 1/\\lambda$ y su varianza es $Var(X) = 1/\\lambda^{2}$. La función acumulada es $F(x) = 1 - e^{-\\lambda x}$.\n\nLa confusión típica es confundir $\\lambda$ (la tasa) con $1/\\lambda$ (el tiempo medio de espera): en la fórmula de la densidad aparece $\\lambda$ como factor multiplicativo, mientras que $1/\\lambda$ solo aparece en momentos como la esperanza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $(X, Y)$ un vector continuo con densidad conjunta $f(x, y)$.\n\n¿Qué expresión da la marginal $f_X(x)$?",
+    "options": [
+      "$f_X(x) = f(x, x)$",
+      "$f_X(x) = \\displaystyle \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$",
+      "$f_X(x) = f(x, 0)$",
+      "$f_X(x) = f(x, y) \\cdot f_Y(y)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Marginal se obtiene integrando la conjunta respecto de la otra variable.",
+    "feedback_incorrect": [
+      "Esa es la densidad conjunta evaluada en la diagonal $y=x$, no la marginal.",
+      null,
+      "Esa es la conjunta evaluada en $y=0$, un corte específico, no la marginal.",
+      "Ese producto es cierto solo bajo independencia, no es la definición de marginal."
+    ],
+    "explanation": "La **densidad marginal** de $X$ se obtiene integrando la densidad conjunta sobre todos los valores posibles de la otra variable:\n$$f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$\n\nEs el análogo continuo de \"colapsar filas\" en una tabla discreta. La marginal ya no depende de $y$ y describe la distribución de $X$ ignorando a $Y$.\n\nLa confusión típica es evaluar la conjunta en un valor fijo de $y$ (por ejemplo $y=0$) en vez de integrar sobre todos: eso da un corte específico, no la marginal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En un experimento, $P(A) = 0{,}6$ y $P(B) = 0{,}3$, con $A$ y $B$ eventos mutuamente excluyentes.\n\n¿Qué propiedad conviene usar para calcular $P(A \\cup B)$?",
+    "options": [
+      "Aditividad de los axiomas: $P(A \\cup B) = P(A) + P(B)$.",
+      "Regla del complemento: $P(A \\cup B) = 1 - P(A \\cap B)$.",
+      "Probabilidad condicional: $P(A \\cup B) = P(A|B) \\cdot P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Excluyentes ($A \\cap B = \\emptyset$) permite sumar directo por aditividad.",
+    "feedback_incorrect": [
+      null,
+      "El complemento se aplica al evento contrario, no a una unión de eventos dados.",
+      "La condicional relaciona un evento condicionado a otro, no calcula uniones."
+    ],
+    "explanation": "El tercer **axioma** de Kolmogorov (aditividad) establece que cuando dos eventos son mutuamente excluyentes ($A \\cap B = \\emptyset$), la probabilidad de la unión es la suma:\n$$P(A \\cup B) = P(A) + P(B) = 0{,}6 + 0{,}3 = 0{,}9$$\n\nSi no fueran excluyentes, habría que restar el solapamiento con la fórmula general $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.\n\nLa confusión típica es aplicar la suma directa sin verificar la exclusión: siempre revisar si los eventos pueden ocurrir a la vez antes de sumar sus probabilidades.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

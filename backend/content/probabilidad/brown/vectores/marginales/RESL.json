@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Un vector discreto $(X, Y)$ tiene la siguiente conjunta:\n$$\\begin{aligned} p(0, 0) &= 0{,}1 \\\\ p(0, 1) &= 0{,}2 \\\\ p(1, 0) &= 0{,}3 \\\\ p(1, 1) &= 0{,}4 \\end{aligned}$$\n\n¿Cuánto vale la marginal $p_X(1)$?",
+    "options": ["$0{,}3$", "$0{,}4$", "$0{,}5$", "$0{,}7$"],
+    "correct_index": 3,
+    "feedback_correct": "$p_X(1) = p(1,0) + p(1,1) = 0{,}3 + 0{,}4 = 0{,}7$.",
+    "feedback_incorrect": [
+      "Ese es solo $p(1,0)$; falta sumar $p(1,1)$ para obtener la marginal en $X=1$.",
+      "Ese es solo $p(1,1)$; falta sumar $p(1,0)$ para obtener la marginal en $X=1$.",
+      "Ese es la marginal en $X=0$ ($p(0,0)+p(0,1)$), no en $X=1$.",
+      null
+    ],
+    "explanation": "La **marginal** de $X$ se calcula sumando la conjunta sobre todos los valores posibles de $Y$:\n$$p_X(x) = \\sum_y p(x, y)$$\n\nPara $x=1$:\n$$p_X(1) = p(1, 0) + p(1, 1) = 0{,}3 + 0{,}4 = 0{,}7$$\n\nLa confusión típica es tomar solo una fila o columna de la conjunta como marginal; la marginal es siempre la SUMA a lo largo del eje que se está \"colapsando\", no un valor puntual.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

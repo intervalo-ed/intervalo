@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim Geom(p)$ la cantidad de ensayos hasta el primer éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es $P(X=k)$?",
+    "options": [
+      "$p^{k}(1-p)^{k}$",
+      "$(1-p)^{k-1} p$",
+      "$\\binom{k}{1} p (1-p)^{k-1}$",
+      "$\\dfrac{p^{k}}{k!}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$k-1$ fracasos seguidos de un éxito.",
+    "feedback_incorrect": [
+      "Esa fórmula no tiene interpretación probabilística estándar; el éxito solo ocurre 1 vez (el último), no $k$.",
+      null,
+      "El binomial no aporta información nueva ($\\binom{k}{1}=k$), y el éxito no se \"ubica\", siempre está al final.",
+      "Ese es un pedazo mal armado de Poisson; no aparece en la geométrica."
+    ],
+    "explanation": "La distribución **geométrica** modela ensayos independientes con probabilidad de éxito $p$ hasta que ocurre el primer éxito:\n$$P(X=k) = (1-p)^{k-1} p$$\n\nLos primeros $k-1$ ensayos son fracasos (cada uno con probabilidad $1-p$) y el $k$-ésimo es el primer éxito (probabilidad $p$).\n\nLa confusión típica es sumar un $\\binom{k}{1}$ como en la binomial: en la geométrica el éxito no puede ir en cualquier lugar, siempre está en la última posición porque se detiene ahí, así que no hay combinaciones que contar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

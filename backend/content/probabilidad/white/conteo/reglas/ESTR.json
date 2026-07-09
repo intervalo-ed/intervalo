@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Una cerradura acepta como clave una sola letra minúscula del alfabeto español (27 letras) o un solo dígito del 0 al 9.\n\nCada intento usa un único carácter.\n\n¿Qué regla conviene usar para contar la cantidad de claves posibles?",
+    "options": [
+      "Regla de la suma: son alternativas excluyentes.",
+      "Regla del producto: son decisiones consecutivas.",
+      "Combinaciones: el orden no importa."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Como la clave es letra O dígito (nunca ambos), se cuentan por separado y se suman.",
+    "feedback_incorrect": [
+      null,
+      "No hay dos decisiones seguidas, solo una: se elige entre categorías, no se combinan.",
+      "No se está eligiendo un subconjunto de caracteres, se elige uno único entre alternativas mutuamente excluyentes."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá la clave es una letra ($27$ opciones) o un dígito ($10$ opciones), nunca las dos cosas a la vez, así que:\n$$27 + 10 = 37 \\text{ claves posibles}$$\n\nEl error clásico es aplicar producto en cuanto aparecen dos conjuntos: el producto solo cabe si se toma un elemento de cada uno, no si se elige entre uno u otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

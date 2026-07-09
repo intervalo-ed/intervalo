@@ -882,7 +882,6 @@ def _reconstruct_session_state(
 def record_answer_db(
     session_id_db: int,
     user_id: int,
-    course_id: int,
     exercise_id: str,
     answer_index: int,
     attempts: int,
@@ -897,6 +896,9 @@ def record_answer_db(
     if not db_session:
         raise KeyError(f"Sesión {session_id_db} no encontrada o no pertenece al usuario.")
 
+    # course_id proviene siempre de la sesión (no del cliente), así respetamos
+    # el curso al que la sesión pertenece y evitamos drift entre client/server.
+    course_id = db_session.course_id
     session_id_str = str(session_id_db)
     state = _sessions.get(session_id_str)
     if state is None:
@@ -1062,6 +1064,22 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     total_xp = user.total_xp if user else 0
     lp = level_progress(total_xp)
 
+    # Última sesión del usuario (cualquier curso), para que el dashboard pueda
+    # abrir por defecto el curso donde estuvo trabajando.
+    last_session = (
+        db.query(SessionModel)
+        .filter(SessionModel.user_id == user_id)
+        .order_by(SessionModel.started_at.desc())
+        .first()
+    )
+    last_course_slug: str | None = None
+    if last_session is not None:
+        last_course_row = (
+            db.query(Course).filter(Course.id == last_session.course_id).first()
+        )
+        if last_course_row is not None:
+            last_course_slug = last_course_row.slug
+
     return {
         "topic_states": topic_states,
         "level_info": {
@@ -1071,6 +1089,7 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
             "progress_pct": lp.progress_pct,
         },
         "main_session_done_today": _has_main_session_today(user_id, course_id, db),
+        "last_course": last_course_slug,
     }
 
 

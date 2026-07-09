@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Considerá el siguiente problema: en una empresa hay 8 empleados y hay que elegir a uno como director y a otro como subdirector.\n\nEs decir, se eligen 2 personas de 8 y el orden importa (no es lo mismo ser director que subdirector).\n\n¿Qué técnica de conteo aplica?",
+    "options": [
+      "Combinación de 8 tomados de 2.",
+      "Variación de 8 tomados de 2.",
+      "Permutación de 8 elementos."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se elige un subgrupo ordenado de una población mayor: es una variación.",
+    "feedback_incorrect": [
+      "En combinación NO importa el orden; acá sí, porque director y subdirector son puestos distintos.",
+      null,
+      "La permutación completa ordena TODOS los elementos; acá solo se eligen 2 de los 8."
+    ],
+    "explanation": "Las **variaciones** cuentan la cantidad de formas de elegir y ordenar $k$ elementos entre un total de $n$, cuando el orden importa:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\n\nAcá se eligen $k=2$ empleados entre $n=8$ y el orden importa (director ≠ subdirector), así que corresponde una variación de 8 tomados de 2.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si intercambiar dos elementos elegidos genera un resultado distinto. Si dos puestos son intercambiables (misma etiqueta), es combinación; si son diferenciables, es variación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

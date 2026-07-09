@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 7?",
+    "options": [
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{6}{36}$",
+      "$\\dfrac{1}{12}$",
+      "$\\dfrac{7}{36}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "6 pares $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$ sobre 36 pares posibles = $1/6$.",
+    "feedback_incorrect": [
+      null,
+      "Es la misma probabilidad ($6/36 = 1/6$), pero mirá si podés simplificar la fracción como pide la respuesta.",
+      "Ese resultado sale de contar solo 3 pares (no considerar $(a,b)$ y $(b,a)$ como distintos).",
+      "Estás poniendo el valor 7 en el numerador; los favorables son los PARES cuya suma da 7, no el número 7."
+    ],
+    "explanation": "La **regla de Laplace** exige contar bien casos favorables y posibles. Con dos dados hay $6 \\times 6 = 36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 7 son:\n$$\\begin{aligned} (1,6),\\ (2,5),\\ (3,4),\\\\ (4,3),\\ (5,2),\\ (6,1) \\end{aligned}$$\n\nSon 6 pares favorables, así que:\n$$P(\\text{suma}=7) = \\frac{6}{36} = \\frac{1}{6}$$\n\nLa confusión típica es contar solo las combinaciones no ordenadas y obtener 3 pares; en dos dados distinguibles $(1,6)$ y $(6,1)$ son resultados distintos del espacio muestral.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

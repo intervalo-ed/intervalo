@@ -1,0 +1,24 @@
+[
+  {
+    "question": "En una urna hay 8 bolas: 3 rojas y 5 azules, todas indistinguibles al tacto.\n\nSe extrae una bola al azar.\n\n¿Qué expresión da la probabilidad de que sea roja?",
+    "options": [
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{3}{8}$",
+      "$\\dfrac{5}{8}$",
+      "$\\dfrac{8}{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Regla de Laplace: casos favorables ($3$ rojas) sobre casos posibles ($8$ bolas).",
+    "feedback_incorrect": [
+      "Estás dividiendo rojas por azules; el denominador de Laplace es el TOTAL de casos, no los desfavorables.",
+      "Esa es la probabilidad de sacar una azul, no una roja.",
+      null,
+      "Estás invirtiendo la fracción; la probabilidad nunca supera 1 así que el numerador es siempre ≤ denominador."
+    ],
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y todos los resultados son equiprobables:\n$$P(A) = \\frac{\\text{Casos favorables}}{\\text{Casos posibles}}$$\n\nEn la urna, hay 3 casos favorables (sacar cualquier bola roja) sobre 8 casos posibles (cualquier bola del total), así que:\n$$P(\\text{roja}) = \\frac{3}{8}$$\n\nLa confusión típica es poner en el denominador solo los casos desfavorables ($3/5$) o invertir la fracción; recordá que el denominador siempre representa el total del espacio muestral, no una parte.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

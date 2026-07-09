@@ -1,0 +1,19 @@
+[
+  {
+    "question": "En un curso de 6 estudiantes hay que elegir un representante titular y un suplente distintos.\n\n¿Cuántas asignaciones distintas de los dos cargos son posibles?",
+    "options": ["$12$", "$15$", "$30$", "$36$"],
+    "correct_index": 2,
+    "feedback_correct": "$V_{6,2} = 6 \\times 5 = 30$.",
+    "feedback_incorrect": [
+      "Ese es $6 \\times 2$: aparece si se multiplica la población por la cantidad de cargos en vez de asignarlos.",
+      "Ese es $\\binom{6}{2}$ (combinación), que ignora la distinción entre titular y suplente.",
+      null,
+      "Ese es $6^{2}$: aparece si se permite que la misma persona ocupe los dos cargos, pero acá titular y suplente deben ser distintos."
+    ],
+    "explanation": "En una **variación** sin repetición se eligen y ordenan $k$ elementos de $n$:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\n\nCon $n=6$ estudiantes y $k=2$ cargos distintos:\n$$V_{6,2} = \\frac{6!}{4!} = 6 \\times 5 = 30$$\n\nLa confusión típica es aplicar $6^{2}$ (arreglo CON repetición) sin notar que un mismo estudiante no puede ser titular y suplente a la vez; siempre revisá si el enunciado prohíbe la repetición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

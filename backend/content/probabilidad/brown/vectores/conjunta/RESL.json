@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Sea $(X, Y)$ un vector discreto con función de probabilidad conjunta dada por la tabla:\n$$\\begin{aligned} p(0, 0) &= 0{,}1 \\\\ p(0, 1) &= 0{,}2 \\\\ p(1, 0) &= 0{,}3 \\\\ p(1, 1) &= 0{,}4 \\end{aligned}$$\n\n¿Cuánto vale $P(X + Y = 1)$?",
+    "options": ["$0{,}1$", "$0{,}3$", "$0{,}5$", "$0{,}7$"],
+    "correct_index": 2,
+    "feedback_correct": "$P(0,1) + P(1,0) = 0{,}2 + 0{,}3 = 0{,}5$.",
+    "feedback_incorrect": [
+      "Ese es $p(0,0)$; corresponde a $X+Y=0$, no a $X+Y=1$.",
+      "Ese es solo $p(1,0)$; falta sumar $p(0,1)$ que también da $X+Y=1$.",
+      null,
+      "Ese es la suma $p(0,1)+p(1,0)+p(0,0)$ sumando por error también un caso de $X+Y=0$."
+    ],
+    "explanation": "Para un evento definido sobre la **conjunta**, se suman las probabilidades de los pares que lo cumplen. Los pares con $X + Y = 1$ son $(0, 1)$ y $(1, 0)$:\n$$P(X + Y = 1) = p(0, 1) + p(1, 0) = 0{,}2 + 0{,}3 = 0{,}5$$\n\nLa confusión típica es sumar solo un par o incluir pares que no cumplen la condición; siempre listá primero los pares $(x, y)$ que satisfacen la condición antes de sumar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

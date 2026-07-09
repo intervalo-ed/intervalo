@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El tiempo continuo entre llamadas en un call center sigue una distribución exponencial con tasa $\\lambda = 2$ por minuto.\n\n¿Cuál es la probabilidad de esperar más de 1 minuto hasta la próxima llamada?",
+    "options": [
+      "$e^{-2}$",
+      "$1 - e^{-2}$",
+      "$\\dfrac{1}{2}$",
+      "$2e^{-2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(X > 1) = e^{-\\lambda \\cdot 1} = e^{-2} \\approx 0{,}135$.",
+    "feedback_incorrect": [
+      "Ese es $F(1) = P(X \\leq 1)$, la probabilidad complementaria a la pedida.",
+      "Ese es $1/\\lambda$, la esperanza de la variable, no una probabilidad.",
+      null,
+      "Ese es $\\lambda e^{-\\lambda}$, el valor de la densidad en $x=1$, no una probabilidad de la cola."
+    ],
+    "explanation": "Para $X \\sim Exp(\\lambda)$, la probabilidad de que la espera supere un umbral $t$ es:\n$$P(X > t) = e^{-\\lambda t}$$\n\nCon $\\lambda = 2$ y $t = 1$:\n$$P(X > 1) = e^{-2 \\cdot 1} = e^{-2} \\approx 0{,}135$$\n\nLa confusión típica es responder $1 - e^{-2}$ (que es $F(1)$, la probabilidad de esperar MENOS de 1 minuto); recordá que $P(X > t)$ y $P(X \\leq t)$ son eventos complementarios y suman 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

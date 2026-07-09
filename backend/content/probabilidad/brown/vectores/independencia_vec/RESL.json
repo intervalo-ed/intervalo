@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Sean $X$ e $Y$ dos variables aleatorias independientes con $Var(X) = 3$ y $Var(Y) = 5$.\n\n¿Cuánto vale $Var(X + Y)$?",
+    "options": ["$2$", "$4$", "$8$", "$15$"],
+    "correct_index": 2,
+    "feedback_correct": "Bajo independencia, $Var(X+Y) = Var(X) + Var(Y) = 8$.",
+    "feedback_incorrect": [
+      "Estás restando en vez de sumar; la varianza de una suma es siempre no negativa y suma varianzas bajo independencia.",
+      "Ese resultado no corresponde a ninguna fórmula estándar de varianza.",
+      null,
+      "Ese es $Var(X) \\cdot Var(Y)$; la varianza no se multiplica al sumar variables, se suma bajo independencia."
+    ],
+    "explanation": "Para dos variables aleatorias cualesquiera:\n$$Var(X + Y) = Var(X) + Var(Y) + 2\\,Cov(X, Y)$$\n\nSi además son **independientes**, entonces $Cov(X, Y) = 0$ y la fórmula se simplifica:\n$$Var(X + Y) = Var(X) + Var(Y) = 3 + 5 = 8$$\n\nLa confusión típica es multiplicar en vez de sumar las varianzas: bajo independencia, las esperanzas y las varianzas de sumas se comportan aditivamente, mientras que la multiplicación aparece en las probabilidades conjuntas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

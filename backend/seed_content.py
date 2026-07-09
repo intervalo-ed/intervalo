@@ -37,6 +37,10 @@ from models import BeltInfo, Course, Exercise  # noqa: E402
 
 CONTENT_ROOT = _THIS_DIR / "content"
 
+# Cursos habilitados para el seed masivo (`--all`). Otros cursos siguen
+# accesibles vía `--course <slug>` explícito.
+ENABLED_COURSES = frozenset({"analisis", "probabilidad"})
+
 # Filenames that are course-level metadata, not exercise files.
 _META_FILES = frozenset({"course.json", "catalog.json", "belt_info.json"})
 
@@ -175,15 +179,19 @@ def seed_exercises(
     inserted = updated = 0
     total = 0
 
-    # Walk belt/unit/topic/SKILL.json (exactly 4 path components from course_dir)
+    # Walk belt/[unit/]topic/SKILL.json (3 or 4 path components from course_dir).
+    # Cursos con units[] usan 4 partes (belt/unit/topic/skill); cursos flat sin
+    # units[] usan 3 (belt/topic/skill).
     for skill_file in sorted(course_dir.rglob("*.json")):
         if skill_file.name in _META_FILES:
             continue
         rel = skill_file.relative_to(course_dir)
-        if len(rel.parts) != 4:
+        if len(rel.parts) == 4:
+            belt, _unit, topic, skill_name = rel.parts
+        elif len(rel.parts) == 3:
+            belt, topic, skill_name = rel.parts
+        else:
             continue  # not a skill file
-
-        belt, _unit, topic, skill_name = rel.parts
         skill = Path(skill_name).stem  # drop .json extension
         seen_skills.add((belt, topic, skill))
 
@@ -294,7 +302,10 @@ def _validate_declared_skills(
     data = _load_json(course_dir / "course.json")
     declared: set[tuple[str, str, str]] = set()
     for belt in data.get("belts", []):
-        for unit in belt.get("units", []):
+        # Cursos con units[] (analisis) o con topics[] directo bajo el cinturón
+        # (probabilidad) igual declaran las skills al mismo nivel de topic.
+        unit_iter = belt.get("units") or [{"topics": belt.get("topics", [])}]
+        for unit in unit_iter:
             for topic in unit.get("topics", []):
                 for skill in topic.get("skills", []):
                     declared.add((belt["key"], topic["key"], skill))
@@ -324,7 +335,10 @@ def seed_all(db: DBSession, prune: bool = False) -> None:
     if not CONTENT_ROOT.is_dir():
         print(f"[seed] (no content directory at {CONTENT_ROOT})")
         return
-    course_dirs = [p for p in sorted(CONTENT_ROOT.iterdir()) if p.is_dir()]
+    course_dirs = [
+        p for p in sorted(CONTENT_ROOT.iterdir())
+        if p.is_dir() and p.name in ENABLED_COURSES
+    ]
     if not course_dirs:
         print("[seed] (no courses found)")
         return

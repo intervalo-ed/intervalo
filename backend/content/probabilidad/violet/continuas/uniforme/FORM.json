@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim U(a, b)$ una variable aleatoria uniforme continua sobre $[a, b]$.\n\n¿Cuál es su función de densidad?",
+    "options": [
+      "$f(x) = \\dfrac{1}{b-a}$ sobre $[a, b]$",
+      "$f(x) = \\dfrac{x-a}{b-a}$ sobre $[a, b]$",
+      "$f(x) = \\dfrac{1}{b+a}$ sobre $[a, b]$",
+      "$f(x) = e^{-(b-a)}$ sobre $[a, b]$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Densidad constante $1/(b-a)$ sobre el intervalo.",
+    "feedback_incorrect": [
+      "Esa es la función de distribución acumulada $F(x)$ de la uniforme, no la densidad.",
+      "Esa expresión no integra 1 y no representa la densidad uniforme.",
+      "Esa es la exponencial evaluada en el ancho del intervalo, no una densidad uniforme.",
+      "Esa expresión evaluada como constante daría distintas de la densidad estándar."
+    ],
+    "explanation": "La distribución **uniforme continua** sobre $[a, b]$ tiene densidad constante:\n$$f(x) = \\frac{1}{b-a} \\text{ para } a \\leq x \\leq b$$\n\ny 0 fuera de ese intervalo. Su función de distribución acumulada crece linealmente:\n$$F(x) = \\frac{x-a}{b-a}$$\n\nLa confusión típica es intercambiar densidad y acumulada: la densidad es constante en cada punto del intervalo, la acumulada crece linealmente de 0 en $a$ a 1 en $b$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

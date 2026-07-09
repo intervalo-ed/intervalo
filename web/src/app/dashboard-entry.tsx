@@ -27,13 +27,15 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { cn } from "@/lib/utils"
 import type { components } from "@/lib/api/schema"
 import {
-  beltInfo,
-  beltLabel,
+  beltOrderFor,
   BELT_HEX,
-  BELT_ORDER,
+  COURSE_LABEL,
+  COURSE_ORDER,
   getBelt,
   type BeltKey,
+  type CourseId,
 } from "@/lib/catalog"
+import type { Topic } from "@/lib/catalog/analisis.generated"
 import {
   actionableUnitCount,
   beltStats,
@@ -42,14 +44,20 @@ import {
 } from "@/lib/catalog/stats"
 import { useSplash } from "@/app/splash-context"
 import { useUser } from "@clerk/nextjs"
-import { InfoIcon } from "lucide-react"
-import { motion, useReducedMotion } from "motion/react"
+import { ChevronLeft, ChevronRight, InfoIcon } from "lucide-react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useMemo } from "react"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
+
+const LAST_COURSE_KEY = "intervalo:last_course"
+
+function isCourseId(v: unknown): v is CourseId {
+  return typeof v === "string" && (COURSE_ORDER as string[]).includes(v)
+}
 
 type TopicStates = Record<string, components["schemas"]["TopicProgress"]>
 
@@ -70,19 +78,74 @@ const BELT_COLOR: Record<BeltKey, string> = {
 }
 
 export default function DashboardEntry() {
-  const { data, isLoading, isError, error } = useUserProgress()
   const leaderboard = useLeaderboard()
   const { user } = useUser()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const startSession = useStartSession()
   const sfx = useSfx()
   const { markReady } = useSplash()
   const reduceMotion = useReducedMotion()
 
+  // Prefetch de ambos cursos: React Query cachea por queryKey y ambos hooks se
+  // resuelven en paralelo. Cambiar de curso solo alterna qué `data` se lee.
+  const analisisQuery = useUserProgress({ course: "analisis" })
+  const probabilidadQuery = useUserProgress({ course: "probabilidad" })
+
+  // Curso activo: URL param → last_course del back → localStorage → analisis.
+  // Se persiste en localStorage como fallback cuando el back todavía no expone
+  // `last_course`.
+  const urlCourse = searchParams.get("course")
+  const lastCourseFromApi =
+    analisisQuery.data?.last_course ?? probabilidadQuery.data?.last_course ?? null
+  const storedCourse =
+    typeof window !== "undefined" ? window.localStorage.getItem(LAST_COURSE_KEY) : null
+
+  const course: CourseId = isCourseId(urlCourse)
+    ? urlCourse
+    : isCourseId(lastCourseFromApi)
+      ? lastCourseFromApi
+      : isCourseId(storedCourse)
+        ? storedCourse
+        : "analisis"
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(LAST_COURSE_KEY, course)
+    }
+  }, [course])
+
+  const activeQuery = course === "analisis" ? analisisQuery : probabilidadQuery
+  const { data, isLoading, isError, error } = activeQuery
+
+  const setCourse = useCallback(
+    ({ next }: { next: CourseId }) => {
+      sfx.iterate()
+      const params = new URLSearchParams(searchParams.toString())
+      params.set("course", next)
+      router.replace(`/?${params.toString()}`)
+    },
+    [router, searchParams, sfx],
+  )
+
+  const goPrev = useCallback(() => {
+    const idx = COURSE_ORDER.indexOf(course)
+    const next = COURSE_ORDER[(idx - 1 + COURSE_ORDER.length) % COURSE_ORDER.length]
+    setCourse({ next })
+  }, [course, setCourse])
+
+  const goNext = useCallback(() => {
+    const idx = COURSE_ORDER.indexOf(course)
+    const next = COURSE_ORDER[(idx + 1) % COURSE_ORDER.length]
+    setCourse({ next })
+  }, [course, setCourse])
+
+  const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
+
   const totals = data
-    ? BELT_ORDER.reduce(
+    ? beltOrder.reduce(
         (acc, belt) => {
-          const s = beltStats({ belt, topicStates: data.topic_states })
+          const s = beltStats({ belt, topicStates: data.topic_states, course })
           acc.pendientes += s.pendientes
           acc.unlocked += s.unlocked
           return acc
@@ -99,13 +162,13 @@ export default function DashboardEntry() {
 
   const totalXp = leaderboard.data?.pages[0]?.me.total_xp
   const unitTotals = data
-    ? courseUnitTotals({ topicStates: data.topic_states })
+    ? courseUnitTotals({ topicStates: data.topic_states, course })
     : null
   const pendingNew = data
-    ? actionableUnitCount({ topicStates: data.topic_states })
+    ? actionableUnitCount({ topicStates: data.topic_states, course })
     : 0
   const pendingItems = data
-    ? pendingUnitCount({ topicStates: data.topic_states })
+    ? pendingUnitCount({ topicStates: data.topic_states, course })
     : 0
 
   // Cuando el home ya tiene todo para pintarse, avisamos al splash para que haga
@@ -118,7 +181,7 @@ export default function DashboardEntry() {
   function onRepasar() {
     sfx.start()
     startSession.mutate(
-      { userName: user?.fullName ?? user?.firstName ?? "" },
+      { userName: user?.fullName ?? user?.firstName ?? "", course },
       {
         onSuccess: (payload) => router.push(`/session/${payload.session_id}`),
       },
@@ -133,7 +196,7 @@ export default function DashboardEntry() {
         </Link>
       </ScreenHeader>
 
-      <ScreenBody className="gap-4 py-4">
+      <ScreenBody className="gap-4 py-4 no-scrollbar">
         {isLoading && <DashboardSkeleton />}
         {isError && (
           <Alert variant="destructive">
@@ -150,6 +213,38 @@ export default function DashboardEntry() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
+            <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between gap-2 h-9 rounded-md border border-white/10 bg-white/[0.03] px-1">
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Curso anterior"
+                onClick={goPrev}
+              >
+                <ChevronLeft />
+              </Button>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={course}
+                  className="text-sm font-semibold"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  {COURSE_LABEL[course]}
+                </motion.span>
+              </AnimatePresence>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Curso siguiente"
+                onClick={goNext}
+              >
+                <ChevronRight />
+              </Button>
+            </div>
+
             <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Experiencia total"
@@ -168,7 +263,11 @@ export default function DashboardEntry() {
                 label="Ítems desbloqueados"
                 value={
                   <>
-                    {unitTotals.unlocked}
+                    <CountUp
+                      variant="ease"
+                      value={unitTotals.unlocked}
+                      duration={1000}
+                    />
                     <span className="text-[0.75em] text-foreground/60">
                       {" "}
                       / {unitTotals.total}
@@ -179,7 +278,11 @@ export default function DashboardEntry() {
               <Metric
                 label="Ítems pendientes"
                 value={
-                  <CountUp variant="ease" value={pendingNew} duration={1000} />
+                  <CountUp
+                    variant="ease"
+                    value={pendingNew}
+                    duration={1000}
+                  />
                 }
                 accent={
                   pendingItems > 0
@@ -189,6 +292,7 @@ export default function DashboardEntry() {
                       : undefined
                 }
               />
+            </div>
             </div>
 
             {canRepasar ? (
@@ -213,7 +317,7 @@ export default function DashboardEntry() {
                 className={zenCls}
                 nativeButton={false}
                 onClick={() => sfx.continue()}
-                render={<Link href="/zen" />}
+                render={<Link href={`/zen?course=${course}`} />}
               >
                 Practicar
               </Button>
@@ -227,15 +331,29 @@ export default function DashboardEntry() {
               </Alert>
             )}
 
-            <div className="flex flex-col gap-4">
-              {BELT_ORDER.map((belt) => (
-                <BeltSection
-                  key={belt}
-                  belt={belt}
-                  topicStates={data.topic_states}
-                />
-              ))}
-            </div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={`belts-${course}`}
+                className="flex flex-col gap-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {beltOrder.flatMap((belt) => {
+                  const cat = getBelt({ key: belt, course })
+                  return (cat?.units ?? []).map((unit) => (
+                    <UnitSection
+                      key={`${belt}/${unit.key}`}
+                      belt={belt}
+                      unit={unit}
+                      course={course}
+                      topicStates={data.topic_states}
+                    />
+                  ))
+                })}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         )}
       </ScreenBody>
@@ -346,89 +464,74 @@ function Metric({
   )
 }
 
-function BeltSection({
+function UnitSection({
   belt,
+  unit,
   topicStates,
+  course = "analisis",
 }: {
   belt: BeltKey
+  unit: { key: string; name: string; description?: string; topics: Topic[] }
   topicStates: TopicStates
+  course?: CourseId
 }) {
-  const cat = getBelt({ key: belt })
-  const stats = beltStats({ belt, topicStates })
-  const info = beltInfo({ belt })
-  const isActive = stats.unlocked > 0
+  const rows: BeltGridRow[] = unit.topics
+    .filter((topic) => topic.skills.length > 0)
+    .map((topic) => ({
+      topic,
+      cells: topicToCells({
+        topic: topicStates[`${belt}/${topic.key}`],
+        types: topic.skills,
+      }),
+    }))
 
-  // Un bloque por unidad. El cinturón aporta el color; cada unidad es un bloque
-  // titulado (pintado con el color del cinturón). Con 1 unidad/cinturón (análisis)
-  // se ve como un único bloque, igual que antes.
-  const units = cat?.units ?? []
+  const isActive = rows.some(({ cells }) =>
+    cells.some((c) => c.cell.kind !== "empty"),
+  )
 
   return (
     <section
       className={cn(
-        "flex flex-col gap-4 rounded-md border p-4",
+        "flex flex-col gap-3 rounded-md border p-4",
         isActive ? "border-white/10" : "border-white/15 bg-white/5 opacity-60",
       )}
     >
-      {units.map((unit, i) => {
-        // Ocultamos temas sin ejercicios todavía (p.ej. Módulo).
-        const rows: BeltGridRow[] = unit.topics
-          .filter((topic) => topic.skills.length > 0)
-          .map((topic) => ({
-            topic,
-            cells: topicToCells({
-              topic: topicStates[`${belt}/${topic.key}`],
-              types: topic.skills,
-            }),
-          }))
+      <div className="flex items-start justify-between gap-3">
+        <span
+          className="text-lg font-semibold leading-tight"
+          style={{ color: BELT_COLOR[belt] }}
+        >
+          {unit.name}
+        </span>
+        {unit.description && (
+          <UnitInfoDialog name={unit.name} description={unit.description} />
+        )}
+      </div>
 
-        return (
-          <div key={unit.key} className="flex flex-col gap-3">
-            <div className="flex items-start justify-between gap-3">
-              <span
-                className="text-lg font-semibold leading-tight"
-                style={{ color: BELT_COLOR[belt] }}
-              >
-                {unit.name}
-              </span>
-              {i === 0 && (
-                <BeltInfoDialog
-                  beltName={beltLabel({ belt })}
-                  headline={info.headline}
-                  description={info.description}
-                />
-              )}
-            </div>
-
-            {rows.length > 0 && <BeltGrid rows={rows} showState />}
-          </div>
-        )
-      })}
+      {rows.length > 0 && <BeltGrid rows={rows} showState />}
     </section>
   )
 }
 
-function BeltInfoDialog({
-  beltName,
-  headline,
+function UnitInfoDialog({
+  name,
   description,
 }: {
-  beltName: string
-  headline: string
+  name: string
   description: string
 }) {
   return (
     <Dialog>
       <DialogTrigger
         render={<Button variant="ghost" size="icon-sm" />}
-        aria-label={`Información de ${beltName}`}
+        aria-label={`Información de ${name}`}
       >
         <InfoIcon className="size-4 text-muted-foreground" />
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader className="gap-0.5">
           <DialogTitle className="font-sans text-sm font-semibold text-foreground">
-            {headline}
+            {name}
           </DialogTitle>
           <DialogDescription className="whitespace-pre-line text-sm leading-relaxed text-foreground/80">
             <MathText text={description} />

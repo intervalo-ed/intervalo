@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se sabe que $P(A \\cap B) = 0{,}15$ y $P(B) = 0{,}6$.\n\n¿Qué expresión corresponde a $P(A|B)$?",
+    "options": [
+      "$0{,}15 \\cdot 0{,}6$",
+      "$\\dfrac{0{,}15}{0{,}6}$",
+      "$\\dfrac{0{,}6}{0{,}15}$",
+      "$0{,}6 - 0{,}15$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$P(A|B) = P(A \\cap B)/P(B) = 0{,}15/0{,}6 = 0{,}25$.",
+    "feedback_incorrect": [
+      "Ese producto sería útil si supiéramos $P(A|B)$ y quisiéramos $P(A \\cap B)$, no al revés.",
+      null,
+      "Estás invirtiendo la fracción; el denominador es siempre la probabilidad de la condición conocida ($B$).",
+      "La condicional no se resuelve restando; se define como el cociente entre intersección y condición."
+    ],
+    "explanation": "La **probabilidad condicional** se define como:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\n\nCon los datos:\n$$P(A|B) = \\frac{0{,}15}{0{,}6} = 0{,}25$$\n\nUna confusión típica es invertir numerador y denominador (poner $P(B)$ arriba): el denominador es siempre la probabilidad de lo que se sabe que ocurrió, y el numerador es la probabilidad de que ambos eventos ocurran a la vez.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

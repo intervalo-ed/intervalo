@@ -1,0 +1,21 @@
+[
+  {
+    "question": "Se lanzan dos dados balanceados. Definimos:\n\n$A$ = el primer dado sale 6\n$B$ = el segundo dado sale 6\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son independientes: la ocurrencia de uno no afecta al otro.",
+      "Son mutuamente excluyentes: no pueden ocurrir a la vez.",
+      "Son condicionalmente dependientes: si ocurre $A$, cambia $P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada dado se lanza por separado; el resultado del primero no altera al segundo.",
+    "feedback_incorrect": [
+      "Excluyentes serían si no pudieran ocurrir juntos; acá pueden salir 6 en ambos dados a la vez.",
+      "Los lanzamientos son físicamente independientes: no hay conexión entre dados que haga cambiar la probabilidad del segundo."
+    ],
+    "explanation": "Dos eventos son **independientes** cuando la ocurrencia de uno no aporta información sobre la probabilidad del otro. Formalmente:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\n\nEn los dos dados $P(A) = P(B) = 1/6$ y $P(A \\cap B) = 1/36 = (1/6) \\cdot (1/6)$, así que la condición se cumple.\n\nLa confusión típica es asociar independencia con exclusión: excluyentes significa que NO pueden ocurrir juntos, mientras que independientes significa que uno no altera la probabilidad del otro. En dos dados los eventos pueden ocurrir juntos y son independientes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

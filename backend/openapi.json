@@ -288,7 +288,7 @@
     "/user/progress": {
       "get": {
         "summary": "Get User Progress",
-        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.",
+        "description": "Get user's current progress (topic states and level info).\n\n`tz` es la zona horaria IANA del navegador; si es v\u00e1lida, la persistimos en el\nusuario para que el \"d\u00eda\" de la repetici\u00f3n espaciada use su zona, no la del\nservidor (UTC). El home llama a este endpoint en cada carga, as\u00ed queda fresca.\n\n`course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el\ncurso por defecto (id=1, \"analisis\").",
         "operationId": "get_user_progress_user_progress_get",
         "parameters": [
           {
@@ -305,6 +305,22 @@
                 }
               ],
               "title": "Tz"
+            }
+          },
+          {
+            "name": "course",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Course"
             }
           },
           {
@@ -2109,6 +2125,17 @@
           "user_name": {
             "type": "string",
             "title": "User Name"
+          },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
           }
         },
         "type": "object",
@@ -2125,6 +2152,17 @@
             },
             "type": "array",
             "title": "Items"
+          },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
           }
         },
         "type": "object",
@@ -2153,6 +2191,17 @@
           "count": {
             "type": "integer",
             "title": "Count"
+          },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
           }
         },
         "type": "object",
@@ -2380,6 +2429,17 @@
           "main_session_done_today": {
             "type": "boolean",
             "title": "Main Session Done Today"
+          },
+          "last_course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Course"
           }
         },
         "type": "object",

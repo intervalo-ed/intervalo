@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere expresar la cantidad de formas de elegir 3 cartas de un mazo de 40, sin importar el orden.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{40!}{3!}$",
+      "$\\dfrac{40!}{37!}$",
+      "$\\dfrac{40!}{3!\\,37!}$",
+      "$40^{3}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Combinación: $\\binom{40}{3} = \\dfrac{40!}{3!\\,37!}$.",
+    "feedback_incorrect": [
+      "Falta dividir por $(n-k)! = 37!$ para cancelar los elementos no elegidos.",
+      "Esa es la variación $V_{40,3}$: cuenta el orden, pero acá el orden no importa.",
+      null,
+      "Ese es el arreglo con repetición: acá se eligen 3 cartas distintas del mazo, sin reposición."
+    ],
+    "explanation": "Las **combinaciones** eligen $k$ elementos de $n$ sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\n\nEn el mazo $n=40$ y $k=3$, así que:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\n\nUn error clásico es confundir la fórmula con la de variación y olvidar dividir por $k!$: recordá que el $k!$ del denominador es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

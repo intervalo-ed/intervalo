@@ -1,0 +1,19 @@
+[
+  {
+    "question": "En una encuesta se sabe que $P(A) = 0{,}7$ y $P(B) = 0{,}5$, con $P(A \\cap B) = 0{,}3$.\n\nCalculá $P(A \\cup B)$.",
+    "options": ["$0{,}5$", "$0{,}7$", "$0{,}9$", "$1{,}2$"],
+    "correct_index": 2,
+    "feedback_correct": "$P(A \\cup B) = 0{,}7 + 0{,}5 - 0{,}3 = 0{,}9$.",
+    "feedback_incorrect": [
+      "Ese es $P(B)$ solo, sin sumar la contribución de $A$ ni descontar la intersección.",
+      "Ese es $P(A)$ solo, sin sumar la contribución de $B$ ni descontar la intersección.",
+      null,
+      "Estás sumando sin restar la intersección; una probabilidad no puede superar 1."
+    ],
+    "explanation": "La regla de la **suma** para dos eventos que pueden solaparse se deduce de los axiomas y descuenta el solapamiento contado dos veces:\n$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$\n\nCon los valores dados:\n$$0{,}7 + 0{,}5 - 0{,}3 = 0{,}9$$\n\nLa confusión típica es sumar sin restar la intersección y obtener valores mayores que 1: cada vez que aparece $P(A) + P(B) > 1$, es señal de que hay que descontar la parte compartida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

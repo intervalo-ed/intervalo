@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\ny $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\int_0^{1/2} 2x\\,dx = x^2 \\Big|_0^{1/2} = 1/4$.",
+    "feedback_incorrect": [
+      "Ese sería $P(0 \\leq X \\leq 1/\\sqrt{2})$; verificá el límite superior de integración.",
+      null,
+      "Ese es $P(1/2 \\leq X \\leq 1)$, el complemento del intervalo pedido.",
+      "Ese es el área total bajo la densidad ($P(0 \\leq X \\leq 1)$), no la restringida al intervalo pedido."
+    ],
+    "explanation": "Para una variable continua la probabilidad es el área bajo la **densidad**:\n$$P(0 \\leq X \\leq 1/2) = \\int_0^{1/2} 2x\\,dx$$\n\nCalculando la integral:\n$$\\int_0^{1/2} 2x\\,dx = x^2 \\Big|_0^{1/2} = \\frac{1}{4}$$\n\nLa confusión típica es asumir que si el intervalo pedido es la \"mitad izquierda\" del dominio, la probabilidad debería ser $1/2$; en una densidad no uniforme la probabilidad se concentra donde $f$ es mayor, y acá $f(x)=2x$ está sesgada hacia la derecha, así que la mitad izquierda tiene menos área.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

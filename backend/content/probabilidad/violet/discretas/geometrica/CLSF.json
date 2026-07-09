@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Se lanza un dado balanceado repetidamente hasta obtener el primer 6.\n\nSea $X$ la cantidad de lanzamientos necesarios.\n\n¿Qué distribución sigue $X$?",
+    "options": [
+      "Binomial con $n$ fijo.",
+      "Geométrica con $p = 1/6$.",
+      "Poisson con $\\lambda = 1/6$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ensayos independientes hasta el primer éxito: geométrica.",
+    "feedback_incorrect": [
+      "La binomial cuenta éxitos en un $n$ fijo; acá $n$ no es fijo, es el objeto de estudio.",
+      null,
+      "Poisson modela conteos en un intervalo continuo; no cuenta ensayos hasta un evento discreto."
+    ],
+    "explanation": "La distribución **geométrica** modela la cantidad de ensayos independientes hasta obtener el primer éxito, donde cada ensayo tiene probabilidad de éxito $p$:\n$$P(X=k) = (1-p)^{k-1} p$$\n\nEn este caso $p = 1/6$ (probabilidad de sacar 6 en un dado) y $X \\sim Geom(1/6)$.\n\nLa confusión típica es aplicar binomial pensando en \"cuántos éxitos hay\": en binomial se fija el número de ensayos y se cuentan éxitos; en geométrica se fija el número de éxitos (uno) y se cuenta cuántos ensayos hicieron falta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

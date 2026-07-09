@@ -1,7 +1,26 @@
-import { catalog, type Belt, type BeltKey, type Topic, type Unit } from "./analisis.generated"
+import { catalog as catalogAnalisis, type Belt, type BeltKey, type Topic, type Unit } from "./analisis.generated"
+import { catalog as catalogProbabilidad } from "./probabilidad.generated"
 
-export { catalog }
+// A partir de este archivo, `catalog`, `BeltKey`, `Belt`, `Unit`, `Topic` siguen
+// refiriéndose al curso `analisis` para que los consumidores mono-curso (zen,
+// onboarding, resto de la app) sigan funcionando sin cambios. Los helpers con
+// parámetro `course` permiten operar sobre cualquier curso soportado.
+export const catalog = catalogAnalisis
 export type { Belt, BeltKey, Topic, Unit }
+
+export type CourseId = "analisis" | "probabilidad"
+
+export const COURSE_ORDER: CourseId[] = ["analisis", "probabilidad"]
+
+export const COURSE_LABEL: Record<CourseId, string> = {
+  analisis: "Análisis",
+  probabilidad: "Probabilidad",
+}
+
+export const CATALOGS: Record<CourseId, typeof catalogAnalisis> = {
+  analisis: catalogAnalisis,
+  probabilidad: catalogProbabilidad as unknown as typeof catalogAnalisis,
+}
 
 const BELT_ASSET: Record<BeltKey, string> = {
   white: "/belt_white.png",
@@ -20,6 +39,10 @@ const BELT_LABEL: Record<BeltKey, string> = {
 // Orden y descripciones de cinturón vienen del catálogo generado (course.json),
 // no hardcodeados. Ver `beltInfo()`.
 export const BELT_ORDER: BeltKey[] = catalog.belts.map((b) => b.key)
+
+export function beltOrderFor({ course }: { course: CourseId }): BeltKey[] {
+  return CATALOGS[course].belts.map((b) => b.key as BeltKey)
+}
 
 // Fuente de verdad de los colores de cinturón, espejada del ícono de la app
 // (web/src/components/app-icon.tsx). `solid` = el color exacto de la marca, para
@@ -60,30 +83,57 @@ export function beltLabel({ belt }: { belt: BeltKey }): string {
   return BELT_LABEL[belt]
 }
 
-export function beltInfo({ belt }: { belt: BeltKey }): {
-  headline: string
-  description: string
-} {
-  const b = getBelt({ key: belt })
+export function beltInfo({
+  belt,
+  course = "analisis",
+}: {
+  belt: BeltKey
+  course?: CourseId
+}): { headline: string; description: string } {
+  const b = getBelt({ key: belt, course })
   return { headline: b?.headline ?? "", description: b?.description ?? "" }
 }
 
-export function getBelt({ key }: { key: BeltKey }): Belt | undefined {
-  return catalog.belts.find((b) => b.key === key)
+export function getBelt({
+  key,
+  course = "analisis",
+}: {
+  key: BeltKey
+  course?: CourseId
+}): Belt | undefined {
+  return CATALOGS[course].belts.find((b) => b.key === key) as Belt | undefined
 }
 
-export function unitsForBelt({ belt }: { belt: BeltKey }): Unit[] {
-  return getBelt({ key: belt })?.units ?? []
+export function unitsForBelt({
+  belt,
+  course = "analisis",
+}: {
+  belt: BeltKey
+  course?: CourseId
+}): Unit[] {
+  return getBelt({ key: belt, course })?.units ?? []
 }
 
 // Flattened topics of a belt across all its units (units in order).
-export function topicsForBelt({ belt }: { belt: BeltKey }): Topic[] {
-  return unitsForBelt({ belt }).flatMap((u) => u.topics)
+export function topicsForBelt({
+  belt,
+  course = "analisis",
+}: {
+  belt: BeltKey
+  course?: CourseId
+}): Topic[] {
+  return unitsForBelt({ belt, course }).flatMap((u) => u.topics)
 }
 
 // Topic name comes from the catalog JSON now (no separate label map).
-export function topicLabel({ topic }: { topic: string }): string {
-  for (const belt of catalog.belts) {
+export function topicLabel({
+  topic,
+  course = "analisis",
+}: {
+  topic: string
+  course?: CourseId
+}): string {
+  for (const belt of CATALOGS[course].belts) {
     for (const unit of belt.units) {
       const t = unit.topics.find((t) => t.key === topic)
       if (t) return t.name
@@ -110,6 +160,16 @@ const TOPIC_SHORT_LABEL: Record<string, string> = {
   ftc: "Teorema",
 }
 
-export function topicShortLabel({ topic }: { topic: string }): string {
-  return TOPIC_SHORT_LABEL[topic] ?? topicLabel({ topic })
+export function topicShortLabel({
+  topic,
+  course = "analisis",
+  fallback,
+}: {
+  topic: string
+  course?: CourseId
+  fallback?: string
+}): string {
+  if (TOPIC_SHORT_LABEL[topic]) return TOPIC_SHORT_LABEL[topic]
+  if (fallback) return fallback
+  return topicLabel({ topic, course })
 }

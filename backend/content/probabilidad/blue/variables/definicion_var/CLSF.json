@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Se mide la duración exacta, en horas, de una batería antes de agotarse.\n\n¿Qué tipo de variable aleatoria representa esa duración?",
+    "options": [
+      "Discreta.",
+      "Continua.",
+      "Categórica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "La duración puede tomar cualquier valor en un intervalo real, es continua.",
+    "feedback_incorrect": [
+      "Una variable discreta toma valores aislados (0, 1, 2…); una duración puede tomar cualquier decimal.",
+      null,
+      "Categórica clasifica en etiquetas sin orden numérico; acá el valor es un número real medido en horas."
+    ],
+    "explanation": "Una **variable aleatoria** se clasifica según los valores que puede tomar:\n$$\\begin{aligned} &\\textbf{Discreta:} \\text{ valores aislados o contables (}0, 1, 2, \\dots\\text{)} \\\\ &\\textbf{Continua:} \\text{ cualquier valor en un intervalo real} \\end{aligned}$$\n\nLa duración de la batería puede ser $2{,}3$ horas, $2{,}31$ horas o $\\pi$ horas: cualquier valor de un intervalo continuo, así que es una variable continua.\n\nLa confusión típica es tratar como discreta cualquier magnitud que se reporta con pocos decimales; recordá que lo discreto/continuo depende del rango posible de valores, no de cómo se registran.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

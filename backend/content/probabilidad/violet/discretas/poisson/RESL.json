@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Un negocio recibe en promedio 2 clientes por minuto, siguiendo una distribución de Poisson.\n\n¿Cuál es la probabilidad de que en un minuto no llegue ningún cliente?",
+    "options": [
+      "$e^{-2}$",
+      "$1 - e^{-2}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{e^{-2}}{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$P(X=0) = e^{-2}\\lambda^{0}/0! = e^{-2} \\approx 0{,}135$.",
+    "feedback_incorrect": [
+      "Ese es $P(X \\geq 1)$, la probabilidad de que llegue al menos un cliente, no de que no llegue ninguno.",
+      "Ese es un valor tipo Laplace, sin relación con la tasa Poisson $\\lambda=2$.",
+      null,
+      "Ese es $P(X=1)/2$: aparece si se calcula bien $\\lambda^{1}$ pero se divide de más."
+    ],
+    "explanation": "Para $X \\sim Pois(2)$, evaluamos la fórmula en $k=0$:\n$$P(X=0) = \\frac{e^{-2} \\cdot 2^{0}}{0!} = e^{-2} \\approx 0{,}135$$\n\nRecordá que $2^{0} = 1$ y $0! = 1$, así que el resultado se simplifica al término exponencial puro.\n\nLa confusión típica es reportar $1 - e^{-2}$ (\"al menos 1\") pensando en el complemento: siempre revisá si el enunciado pide $P(X=0)$ o $P(X \\geq 1)$, son cantidades distintas y complementarias.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

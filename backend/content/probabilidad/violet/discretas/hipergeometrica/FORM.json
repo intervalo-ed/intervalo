@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ el número de éxitos al extraer $n$ elementos sin reposición de una población de $N$ elementos con $K$ éxitos.\n\n¿Cuál es $P(X=k)$?",
+    "options": [
+      "$\\binom{n}{k} p^{k}(1-p)^{n-k}$",
+      "$\\dfrac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$",
+      "$\\dfrac{K}{N}$",
+      "$\\dfrac{K^{k}}{N^{n}}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Elige $k$ éxitos entre $K$ y $n-k$ fracasos entre $N-K$, dividido por el total de muestras.",
+    "feedback_incorrect": [
+      "Esa es la binomial (con reposición); acá la probabilidad cambia en cada extracción.",
+      null,
+      "Ese es un valor puntual $P(\\text{éxito})$ en una sola extracción, no la probabilidad de $k$ éxitos.",
+      "Esa expresión trata las extracciones como con reposición y no representa una probabilidad válida en general."
+    ],
+    "explanation": "La **hipergeométrica** cuenta los éxitos al muestrear sin reposición:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\n\nCada término tiene su rol: $\\binom{K}{k}$ elige los $k$ éxitos entre los $K$ disponibles, $\\binom{N-K}{n-k}$ elige los $n-k$ fracasos entre los $N-K$ disponibles, y $\\binom{N}{n}$ cuenta el total de muestras posibles.\n\nLa confusión típica es aplicar binomial: recordá que la binomial pide independencia entre ensayos, que se pierde apenas la extracción altera la composición de la población. Cuando la muestra es chica respecto de la población, ambas dan resultados cercanos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

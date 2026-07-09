@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Un gráfico muestra la función de distribución acumulada $F(x)$ de una variable continua $X$.\n\nSe observa que $F(2) = 0{,}3$ y $F(5) = 0{,}8$.\n\n¿Cuánto vale $P(2 < X \\leq 5)$?",
+    "options": ["$0{,}3$", "$0{,}5$", "$0{,}8$", "$1{,}1$"],
+    "correct_index": 1,
+    "feedback_correct": "$P(2 < X \\leq 5) = F(5) - F(2) = 0{,}8 - 0{,}3 = 0{,}5$.",
+    "feedback_incorrect": [
+      "Ese es $F(2)$, la probabilidad acumulada hasta 2, no el intervalo entre 2 y 5.",
+      null,
+      "Ese es $F(5)$, la probabilidad acumulada hasta 5, sin descontar la parte anterior a 2.",
+      "Estás sumando $F(2) + F(5)$; para un intervalo hay que RESTAR las acumuladas, no sumarlas."
+    ],
+    "explanation": "La probabilidad de un intervalo se calcula como diferencia de la **función de distribución acumulada** en los extremos:\n$$P(a < X \\leq b) = F(b) - F(a)$$\n\nCon los valores del gráfico:\n$$P(2 < X \\leq 5) = 0{,}8 - 0{,}3 = 0{,}5$$\n\nLa confusión típica es sumar los dos valores de $F$ pensando en \"acumulación\": recordá que $F(x)$ ya integra desde $-\\infty$ hasta $x$, así que para un intervalo hay que restar la parte que sobra por debajo de $a$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

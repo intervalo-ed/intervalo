@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Sea $X \\sim N(10, 4)$ (media $\\mu = 10$, varianza $\\sigma^{2} = 4$).\n\n¿A qué valor de $Z$ le corresponde $X = 14$ tras estandarizar?",
+    "options": ["$1$", "$2$", "$4$", "$\\dfrac{1}{2}$"],
+    "correct_index": 1,
+    "feedback_correct": "$Z = (14 - 10)/2 = 2$.",
+    "feedback_incorrect": [
+      "Ese resultado sale de dividir por $\\sigma^{2} = 4$ en vez de por $\\sigma = 2$.",
+      null,
+      "Ese es $X - \\mu = 4$ sin dividir por $\\sigma$; falta escalar.",
+      "Ese resultado sale de invertir la fracción o mezclar mal los factores."
+    ],
+    "explanation": "Estandarizar convierte una $N(\\mu, \\sigma^{2})$ a $N(0, 1)$ vía:\n$$Z = \\frac{X - \\mu}{\\sigma}$$\n\nRecordá que $\\sigma^{2} = 4$ implica $\\sigma = 2$. Aplicando la fórmula:\n$$Z = \\frac{14 - 10}{2} = 2$$\n\nLa confusión típica es dividir por la varianza en lugar de por la desviación estándar: siempre extraé la raíz cuando el enunciado da $\\sigma^{2}$, la fórmula de estandarización trabaja con $\\sigma$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

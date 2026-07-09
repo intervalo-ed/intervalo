@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El gráfico de la densidad de una variable aleatoria continua $X$ es un rectángulo de altura $h$ sobre el intervalo $[0, 4]$, y vale 0 fuera de ese intervalo.\n\n¿Cuánto vale $h$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{4}$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El área total debe ser 1: $h \\cdot 4 = 1 \\Rightarrow h = 1/4$.",
+    "feedback_incorrect": [
+      "Ese es $1/2$: el área de un rectángulo de altura $1/2$ sobre $[0,4]$ sería 2, no 1.",
+      null,
+      "Si $h=1$, el área del rectángulo sería 4, no la unidad requerida.",
+      "Estás confundiendo la altura con el ancho del rectángulo; la altura debe hacer que el área total dé 1."
+    ],
+    "explanation": "La **densidad** de una variable continua siempre encierra un área total igual a 1:\n$$\\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\n\nPara un rectángulo de base 4 y altura $h$ sobre $[0, 4]$:\n$$h \\cdot 4 = 1 \\Rightarrow h = \\frac{1}{4}$$\n\nLa confusión típica es asumir que la altura de una densidad debe ser 1 (como si fuera una probabilidad); la densidad puede tomar cualquier valor no negativo, lo que debe ser 1 es el área acumulada bajo la curva.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

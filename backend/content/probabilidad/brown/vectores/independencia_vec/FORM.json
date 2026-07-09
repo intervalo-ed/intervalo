@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sean $X$ e $Y$ dos variables aleatorias.\n\n¿Cuál de las siguientes es una condición **necesaria** para que sean independientes?",
+    "options": [
+      "$Cov(X, Y) = 0$",
+      "$E[X] = E[Y]$",
+      "$Var(X) = Var(Y)$",
+      "$X = Y$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Independencia implica covarianza nula (pero no al revés en general).",
+    "feedback_incorrect": [
+      null,
+      "Que las esperanzas coincidan no tiene relación con la independencia.",
+      "Que las varianzas coincidan no tiene relación con la independencia.",
+      "Que las variables sean iguales es lo opuesto a independientes: quedarían totalmente ligadas."
+    ],
+    "explanation": "Si $X$ e $Y$ son **independientes**, entonces $E[XY] = E[X]E[Y]$, lo que implica:\n$$Cov(X, Y) = E[XY] - E[X]E[Y] = 0$$\n\nAsí que covarianza nula es una condición **necesaria** de independencia.\n\nSin embargo, no es **suficiente**: existen variables con $Cov = 0$ que no son independientes (dependencia no lineal). El único caso donde $Cov = 0$ implica independencia es cuando $(X, Y)$ es normal bivariada.\n\nLa confusión típica es confundir necesario con suficiente: la implicación va de independencia hacia covarianza nula, no al revés en general.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

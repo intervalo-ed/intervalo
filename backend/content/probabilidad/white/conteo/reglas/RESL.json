@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Un formulario de identificación pide una letra vocal (5 posibles) seguida de dos dígitos del 0 al 9, con repetición permitida.\n\n¿Cuántos códigos distintos se pueden armar?",
+    "options": ["$25$", "$100$", "$500$", "$1000$"],
+    "correct_index": 2,
+    "feedback_correct": "Tres decisiones independientes: $5 \\times 10 \\times 10 = 500$.",
+    "feedback_incorrect": [
+      "Ese resultado sale de multiplicar solo las vocales por 5, olvidando los dos dígitos.",
+      "Estás contando solo los dos dígitos ($10 \\times 10$) sin la vocal inicial.",
+      null,
+      "Estás usando la vocal como si tuviera 10 opciones, pero son 5."
+    ],
+    "explanation": "La **regla del producto** encadena decisiones independientes: si la primera tiene $m$ opciones, la segunda $n$ y la tercera $k$, el total es $m \\times n \\times k$.\n\nAcá hay tres decisiones independientes (permitir repetición mantiene el número de opciones en cada dígito):\n$$5 \\times 10 \\times 10 = 500 \\text{ códigos}$$\n\nEl error típico es olvidar alguna de las decisiones al armar el producto: conviene enumerar mentalmente los \"casilleros\" antes de multiplicar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

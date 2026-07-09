@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En una fábrica, el 60% de las piezas viene de la línea 1 y el 40% de la línea 2.\n\nLa línea 1 produce un 5% de piezas defectuosas y la línea 2 un 8%.\n\nSe quiere calcular la probabilidad de que una pieza tomada al azar sea defectuosa. ¿Qué estrategia conviene?",
+    "options": [
+      "Regla de Laplace directa sobre las piezas defectuosas.",
+      "Teorema de la probabilidad total ponderando por línea.",
+      "Regla del complemento sobre las piezas sanas."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El espacio se parte por líneas y se pondera la probabilidad de defecto en cada una.",
+    "feedback_incorrect": [
+      "Laplace requiere equiprobabilidad; acá las probabilidades condicionales varían por línea.",
+      null,
+      "El complemento no ayuda a mezclar dos condicionales distintas; ese descompone un evento con su contrario, no combina escenarios."
+    ],
+    "explanation": "El **teorema de la probabilidad total** permite calcular $P(D)$ cuando el espacio se descompone en escenarios excluyentes $A_i$ y se conoce $P(D|A_i)$:\n$$P(D) = \\sum_i P(D|A_i) \\cdot P(A_i)$$\n\nAcá $A_1$ = línea 1 y $A_2$ = línea 2, con $P(A_1) = 0{,}6$, $P(A_2) = 0{,}4$, $P(D|A_1) = 0{,}05$ y $P(D|A_2) = 0{,}08$:\n$$P(D) = 0{,}05 \\cdot 0{,}6 + 0{,}08 \\cdot 0{,}4 = 0{,}062$$\n\nLa confusión típica es promediar las tasas de defecto sin ponderar por el peso de cada línea; la ponderación por $P(A_i)$ es lo que hace que el resultado refleje la mezcla real de la producción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

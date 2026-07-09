@@ -1,0 +1,24 @@
+[
+  {
+    "question": "En una urna, hay dos cajas idénticas. La caja $A$ tiene 3 bolas rojas y 1 blanca; la caja $B$ tiene 1 roja y 3 blancas.\n\nSe elige una caja al azar y se saca una bola. La bola resultó roja.\n\n¿Cuál es la probabilidad de que la bola provenga de la caja $A$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{3}{4}$",
+      "$\\dfrac{3}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$\\dfrac{(3/4)(1/2)}{(3/4)(1/2)+(1/4)(1/2)} = 3/4$.",
+    "feedback_incorrect": [
+      "Ese es $P(A)$ a priori, sin usar la evidencia \"salió roja\".",
+      "Ese es $P(\\text{roja}|B)$, condicional en la caja equivocada.",
+      null,
+      "Ese es $P(A \\cap \\text{roja}) = (1/2)(3/4)$ sin dividir por la probabilidad total de sacar roja."
+    ],
+    "explanation": "Se aplica el **teorema de Bayes** con la evidencia \"salió roja\":\n$$P(A|R) = \\frac{P(R|A) \\cdot P(A)}{P(R)}$$\n\nLos ingredientes son:\n$$\\begin{aligned} P(R|A) &= 3/4 \\\\ P(R|B) &= 1/4 \\\\ P(A) = P(B) &= 1/2 \\\\ P(R) &= (3/4)(1/2)+(1/4)(1/2) = 1/2 \\end{aligned}$$\n\nEntonces $P(A|R) = (3/8)/(1/2) = 3/4$.\n\nLa confusión típica es responder $1/2$ pensando que las cajas son equiprobables: la evidencia \"salió roja\" actualiza la creencia hacia la caja con más rojas, así que la caja $A$ pasa de $1/2$ a $3/4$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

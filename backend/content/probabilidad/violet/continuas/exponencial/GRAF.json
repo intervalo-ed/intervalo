@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Un gráfico muestra la densidad de una variable aleatoria continua no negativa.\n\nLa curva arranca en un valor positivo en $x=0$ y decae de forma monótona hacia 0 a medida que $x$ crece, sin cruzar el eje.\n\n¿Qué distribución representa?",
+    "options": [
+      "Uniforme sobre $[0, \\infty)$.",
+      "Exponencial con tasa $\\lambda > 0$.",
+      "Normal centrada en 0."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Decae exponencialmente desde un valor positivo en 0: es la exponencial.",
+    "feedback_incorrect": [
+      "La uniforme sobre un intervalo infinito no sería una densidad válida; además no decae, es constante.",
+      null,
+      "La normal es simétrica en forma de campana con soporte en toda la recta, no monótona decreciente."
+    ],
+    "explanation": "La distribución **exponencial** modela tiempos de espera continuos con densidad:\n$$f(x) = \\lambda e^{-\\lambda x} \\text{ para } x \\geq 0$$\n\nSu gráfico arranca en $f(0) = \\lambda$ y decae monótonamente hacia 0, sin nunca tocar el eje horizontal.\n\nUna confusión frecuente es leer un decaimiento monótono como \"cola de normal\": la normal tiene forma de campana simétrica alrededor de la media, no una monotonía decreciente desde el origen.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

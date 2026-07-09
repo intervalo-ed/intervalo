@@ -15,6 +15,7 @@ export interface Topic {
 export interface Unit {
   key: string
   name: string
+  description?: string
   topics: Topic[]
 }
 
@@ -84,6 +85,7 @@ export const catalog: Catalog = {
         {
           "key": "functions",
           "name": "Funciones",
+          "description": "Una **función** es una relación que asigna a cada elemento de un conjunto de partida o **dominio**, un único elemento de un conjunto de llegada o **codominio**.\n$$f : X \\to Y, \\quad y = f(x)$$\nEsta unidad recorre las familias más comunes y las herramientas para analizarlas.",
           "topics": [
             {
               "key": "definition",
@@ -198,6 +200,7 @@ export const catalog: Catalog = {
         {
           "key": "limits",
           "name": "Límites",
+          "description": "El **límite** de una función describe el valor al que tienden sus imágenes cuando la variable se aproxima a un punto o al infinito.\n$$\\lim_{x \\to a} f(x) = L$$\nEs la herramienta que formaliza la noción de continuidad y sostiene el resto del análisis.",
           "topics": [
             {
               "key": "definition",
@@ -274,6 +277,7 @@ export const catalog: Catalog = {
         {
           "key": "derivatives",
           "name": "Derivadas",
+          "description": "La **derivada** de una función mide su tasa instantánea de variación en cada punto, capturando cómo cambia la salida frente a un cambio infinitesimal en la entrada.\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$\nEs la herramienta central para analizar crecimiento, extremos y concavidad.",
           "topics": [
             {
               "key": "limit_definition",
@@ -352,6 +356,7 @@ export const catalog: Catalog = {
         {
           "key": "integrals",
           "name": "Integrales",
+          "description": "La **integral** de una función acumula sus valores a lo largo de un intervalo, formalizando la noción de área bajo la curva.\n$$\\int_a^b f(x)\\,dx$$\nSe conecta con la derivada mediante el teorema fundamental del cálculo, cerrando el ciclo entre acumulación y variación.",
           "topics": [
             {
               "key": "definition",

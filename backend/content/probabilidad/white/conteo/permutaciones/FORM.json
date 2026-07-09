@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere contar la cantidad de anagramas distintos que se pueden formar reordenando todas las letras de la palabra **CASA**, considerando que hay dos letras A idénticas.\n\n¿Qué expresión aplica?",
+    "options": [
+      "$4!$",
+      "$\\dfrac{4!}{2!}$",
+      "$\\dfrac{4!}{2!\\,2!}$",
+      "$\\binom{4}{2}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Permutación con repetición: se divide por el factorial del grupo repetido.",
+    "feedback_incorrect": [
+      "Ese conteo trata las dos A como distintas y cuenta el doble de anagramas reales.",
+      null,
+      "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay UN grupo de letras iguales (las dos A).",
+      "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
+    ],
+    "explanation": "La **permutación con repetición** para ordenar $n$ elementos entre los cuales hay grupos indistinguibles se calcula dividiendo el factorial total por el factorial de cada grupo repetido:\n$$P_n^{a_1, a_2, \\dots} = \\frac{n!}{a_1!\\, a_2!\\, \\dots}$$\n\nEn CASA hay $n=4$ letras con un solo grupo repetido (dos A), así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12 \\text{ anagramas}$$\n\nLa trampa típica es olvidar dividir y contar los reordenamientos como si las A fueran distintas; recordá que solo se divide por los grupos con al menos 2 elementos idénticos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

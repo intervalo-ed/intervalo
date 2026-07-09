@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Un gráfico de barras muestra la función de probabilidad puntual de una variable aleatoria $X$ con dominio $\\{0, 1, 2, 3\\}$. Las alturas de las barras son:\n\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}3 \\\\ p(2) &= 0{,}4 \\\\ p(3) &= ? \\end{aligned}$$\n\n¿Cuánto debe valer $p(3)$?",
+    "options": ["$0{,}0$", "$0{,}1$", "$0{,}3$", "$0{,}9$"],
+    "correct_index": 1,
+    "feedback_correct": "$0{,}2 + 0{,}3 + 0{,}4 + 0{,}1 = 1$.",
+    "feedback_incorrect": [
+      "Si $p(3) = 0$, la suma total daría 0,9 y no cerraría en 1.",
+      "Esa altura repite la de $p(1)$, pero la suma total superaría 1.",
+      null,
+      "Ese es la suma de las otras tres, no el valor faltante para completar 1."
+    ],
+    "explanation": "La **función de probabilidad puntual** debe sumar 1 sobre todo el dominio de $X$:\n$$\\sum_x p(x) = 1$$\n\nDespejando la altura faltante:\n$$p(3) = 1 - (0{,}2 + 0{,}3 + 0{,}4) = 0{,}1$$\n\nUn error frecuente es leer la altura mayor del gráfico como la que \"debe cerrar\" o sumar visualmente sin verificar; usá siempre la restricción de que las alturas de barras suman 1 como control.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

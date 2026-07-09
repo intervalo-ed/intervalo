@@ -166,6 +166,9 @@ export interface paths {
          *     `tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el
          *     usuario para que el "día" de la repetición espaciada use su zona, no la del
          *     servidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.
+         *
+         *     `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
+         *     curso por defecto (id=1, "analisis").
          */
         get: operations["get_user_progress_user_progress_get"];
         put?: never;
@@ -815,11 +818,15 @@ export interface components {
         StartSessionRequest: {
             /** User Name */
             user_name: string;
+            /** Course */
+            course?: string | null;
         };
         /** StartTestSessionRequest */
         StartTestSessionRequest: {
             /** Items */
             items: components["schemas"]["TestSessionItem"][];
+            /** Course */
+            course?: string | null;
         };
         /** StartZenSessionRequest */
         StartZenSessionRequest: {
@@ -831,6 +838,8 @@ export interface components {
             topics: string[];
             /** Count */
             count: number;
+            /** Course */
+            course?: string | null;
         };
         /** SummaryItem */
         SummaryItem: {
@@ -916,6 +925,8 @@ export interface components {
             level_info: components["schemas"]["LevelInfo"];
             /** Main Session Done Today */
             main_session_done_today: boolean;
+            /** Last Course */
+            last_course?: string | null;
         };
         /** UserResponse */
         UserResponse: {
@@ -1181,6 +1192,7 @@ export interface operations {
         parameters: {
             query?: {
                 tz?: string | null;
+                course?: string | null;
             };
             header?: {
                 authorization?: string;

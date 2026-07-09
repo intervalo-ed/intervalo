@@ -1,0 +1,24 @@
+[
+  {
+    "question": "De una caja con 4 lapiceras azules y 6 negras, se sacan 3 sin reposición.\n\n¿Cuál es la probabilidad de sacar exactamente 2 azules?",
+    "options": [
+      "$\\dfrac{1}{5}$",
+      "$\\dfrac{3}{10}$",
+      "$\\dfrac{2}{5}$",
+      "$\\dfrac{9}{125}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{\\binom{4}{2}\\binom{6}{1}}{\\binom{10}{3}} = \\dfrac{6 \\cdot 6}{120} = \\dfrac{3}{10}$.",
+    "feedback_incorrect": [
+      "Ese resultado es $(4/10)^{2}$, tratando extracciones como independientes.",
+      null,
+      "Ese es $(4/10) + (4/10 - 1/9)$ mal aplicado; hay que combinar hipergeométricamente.",
+      "Ese es $(4/10)^{2}(6/10)$, fórmula binomial que ignora la falta de reposición."
+    ],
+    "explanation": "Se aplica la fórmula **hipergeométrica** con $N=10$, $K=4$, $n=3$, $k=2$:\n$$P(X=2) = \\frac{\\binom{4}{2}\\binom{6}{1}}{\\binom{10}{3}} = \\frac{6 \\cdot 6}{120} = \\frac{3}{10}$$\n\n$\\binom{4}{2}$ elige las 2 azules entre 4, $\\binom{6}{1}$ elige la lapicera negra faltante entre 6, y $\\binom{10}{3}$ cuenta todas las muestras posibles.\n\nLa confusión típica es aplicar la fórmula binomial $\\binom{3}{2}(4/10)^{2}(6/10)$ tratando la muestra como con reposición; con solo 10 elementos la corrección hipergeométrica sí importa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

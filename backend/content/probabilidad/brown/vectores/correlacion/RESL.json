@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Se sabe que $Cov(X, Y) = 6$, $\\sigma_X = 3$ y $\\sigma_Y = 4$.\n\n¿Cuánto vale el coeficiente de correlación $\\rho_{X, Y}$?",
+    "options": ["$0{,}25$", "$0{,}5$", "$0{,}75$", "$1$"],
+    "correct_index": 1,
+    "feedback_correct": "$6/(3 \\cdot 4) = 0{,}5$.",
+    "feedback_incorrect": [
+      "Ese es $6/(3 \\cdot 4) / 2 = 0{,}25$; estás dividiendo dos veces.",
+      null,
+      "Ese es $6/(4+4) = 0{,}75$: aparece si dividís por la suma o mezclás mal los desvíos.",
+      "Un valor de $1$ implicaría dependencia lineal perfecta; acá la relación existe pero no es perfecta."
+    ],
+    "explanation": "El **coeficiente de correlación** se calcula como:\n$$\\rho_{X, Y} = \\frac{Cov(X, Y)}{\\sigma_X \\sigma_Y}$$\n\nCon los datos:\n$$\\rho_{X, Y} = \\frac{6}{3 \\cdot 4} = \\frac{6}{12} = 0{,}5$$\n\nEl valor $0{,}5$ indica una relación lineal positiva moderada. La confusión típica es sumar los desvíos en el denominador ($3 + 4 = 7$) en vez de multiplicarlos; la estandarización correcta usa el producto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

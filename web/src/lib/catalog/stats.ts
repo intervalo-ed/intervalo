@@ -1,5 +1,5 @@
 import type { components } from "@/lib/api/schema"
-import { BELT_ORDER, getBelt, type BeltKey } from "./index"
+import { beltOrderFor, getBelt, type BeltKey, type CourseId } from "./index"
 
 type TopicProgress = components["schemas"]["TopicProgress"]
 type TopicStates = Record<string, TopicProgress>
@@ -49,11 +49,13 @@ function accumulateTopic({
 export function beltStats({
   belt,
   topicStates,
+  course = "analisis",
 }: {
   belt: BeltKey
   topicStates: TopicStates
+  course?: CourseId
 }): BeltStats {
-  const cat = getBelt({ key: belt })
+  const cat = getBelt({ key: belt, course })
   const out = emptyCounts()
   if (!cat) return out
 
@@ -66,11 +68,13 @@ export function beltStats({
 export function beltTopicStats({
   belt,
   topicStates,
+  course = "analisis",
 }: {
   belt: BeltKey
   topicStates: TopicStates
+  course?: CourseId
 }): TopicStat[] {
-  const cat = getBelt({ key: belt })
+  const cat = getBelt({ key: belt, course })
   if (!cat) return []
   return cat.units.flatMap((u) => u.topics).map((topic) => {
     const counts = emptyCounts()
@@ -107,12 +111,14 @@ function accumulateUnits({
 // Conteo a nivel ítem (unit) para todo el curso.
 export function courseUnitTotals({
   topicStates,
+  course = "analisis",
 }: {
   topicStates: TopicStates
+  course?: CourseId
 }): UnitTotals {
   const out = emptyUnitTotals()
-  for (const belt of BELT_ORDER) {
-    const cat = getBelt({ key: belt })
+  for (const belt of beltOrderFor({ course })) {
+    const cat = getBelt({ key: belt, course })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
@@ -125,12 +131,14 @@ export function courseUnitTotals({
 export function beltUnitTotals({
   belt,
   topicStates,
+  course = "analisis",
 }: {
   belt: BeltKey
   topicStates: TopicStates
+  course?: CourseId
 }): UnitTotals {
   const out = emptyUnitTotals()
-  const cat = getBelt({ key: belt })
+  const cat = getBelt({ key: belt, course })
   if (!cat) return out
   for (const topic of cat.units.flatMap((u) => u.topics)) {
     accumulateUnits({ totals: out, topic, state: topicStates[`${belt}/${topic.key}`] })
@@ -159,12 +167,14 @@ function unitDue(nextReview: string | null | undefined): boolean {
 // pendientes (con repaso vencido por unit). Espeja los pills azules + naranjas.
 export function actionableUnitCount({
   topicStates,
+  course = "analisis",
 }: {
   topicStates: TopicStates
+  course?: CourseId
 }): number {
   let count = 0
-  for (const belt of BELT_ORDER) {
-    const cat = getBelt({ key: belt })
+  for (const belt of beltOrderFor({ course })) {
+    const cat = getBelt({ key: belt, course })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[`${belt}/${topic.key}`]
@@ -182,12 +192,14 @@ export function actionableUnitCount({
 // (los pills naranjas de la grilla).
 export function pendingUnitCount({
   topicStates,
+  course = "analisis",
 }: {
   topicStates: TopicStates
+  course?: CourseId
 }): number {
   let count = 0
-  for (const belt of BELT_ORDER) {
-    const cat = getBelt({ key: belt })
+  for (const belt of beltOrderFor({ course })) {
+    const cat = getBelt({ key: belt, course })
     if (!cat) continue
     for (const topic of cat.units.flatMap((u) => u.topics)) {
       const state = topicStates[`${belt}/${topic.key}`]
@@ -205,12 +217,14 @@ export function pendingUnitCount({
 // to the highest unlocked belt (e.g. if everything is mastered already).
 export function currentBelt({
   topicStates,
+  course = "analisis",
 }: {
   topicStates: TopicStates
+  course?: CourseId
 }): BeltKey | null {
   let lastUnlocked: BeltKey | null = null
-  for (const belt of BELT_ORDER) {
-    const s = beltStats({ belt, topicStates })
+  for (const belt of beltOrderFor({ course })) {
+    const s = beltStats({ belt, topicStates, course })
     if (s.unlocked === 0) continue
     lastUnlocked = belt
     if (s.dominados < s.total) return belt

@@ -1,0 +1,19 @@
+[
+  {
+    "question": "En una reunión de 6 personas, todas se saludan estrechando la mano una única vez con cada una.\n\n¿Cuántos apretones de manos se dan en total?",
+    "options": ["$12$", "$15$", "$30$", "$36$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\binom{6}{2} = \\dfrac{6 \\times 5}{2} = 15$.",
+    "feedback_incorrect": [
+      "Ese es $6 \\times 2$: aparece si se cuenta cada persona dando 2 saludos, pero eso no es el total.",
+      null,
+      "Ese es $V_{6,2} = 6 \\times 5$: cuenta cada apretón dos veces (una por cada dirección).",
+      "Ese es $6^{2}$: cuenta también los saludos de cada uno consigo mismo y los repetidos en ambos sentidos."
+    ],
+    "explanation": "Un apretón de manos entre dos personas es un subconjunto de 2 elementos donde el orden no importa (el saludo A→B es el mismo que B→A), así que corresponde una **combinación**:\n$$\\binom{6}{2} = \\frac{6!}{2!\\,4!} = \\frac{6 \\times 5}{2} = 15$$\n\nEl error típico es aplicar variación ($6 \\times 5 = 30$), que cuenta el apretón A-B como distinto al B-A y duplica el total; siempre que dos elementos sean intercambiables sin cambiar el resultado, va combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

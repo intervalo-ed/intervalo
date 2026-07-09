@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Un centro de atención recibe en promedio 5 llamadas por hora, con las llegadas distribuidas de forma independiente en el tiempo.\n\nSea $X$ la cantidad de llamadas recibidas en una hora.\n\n¿Qué distribución modela $X$?",
+    "options": [
+      "Binomial con $n$ fijo.",
+      "Poisson con $\\lambda = 5$.",
+      "Geométrica con $p = 1/5$."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Conteo de eventos por unidad de tiempo con tasa promedio: Poisson.",
+    "feedback_incorrect": [
+      "Binomial requiere un $n$ fijo de ensayos; acá no hay una cantidad predefinida de \"intentos\".",
+      null,
+      "Geométrica cuenta ensayos hasta el primer éxito, no eventos en un intervalo."
+    ],
+    "explanation": "La distribución de **Poisson** modela la cantidad de eventos que ocurren en un intervalo (de tiempo, longitud, área) cuando ocurren con tasa promedio $\\lambda$:\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\n\nAcá $\\lambda = 5$ llamadas por hora, así que $X \\sim Pois(5)$.\n\nLa confusión típica es forzar la binomial cuando el intervalo es continuo: la binomial pide un número fijo de ensayos discretos; Poisson aparece precisamente cuando lo natural es una tasa por unidad de tiempo o espacio, no un conteo entre ensayos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

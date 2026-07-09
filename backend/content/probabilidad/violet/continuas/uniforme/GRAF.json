@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Una variable aleatoria continua $X$ sigue una distribución uniforme sobre el intervalo $[2, 6]$.\n\nLa densidad se grafica como un rectángulo de altura constante sobre ese intervalo.\n\n¿Cuánto vale la altura de ese rectángulo?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{6}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Base $6-2=4$; altura $1/4$ para que el área sea 1.",
+    "feedback_incorrect": [
+      "Esa altura daría área 2 sobre un ancho 4, no una probabilidad total válida.",
+      null,
+      "Ese es $1/6$, aparece si se divide por el extremo superior en vez de por la longitud del intervalo.",
+      "Si la altura fuera 1, el área sería 4, cuatro veces la probabilidad total permitida."
+    ],
+    "explanation": "La distribución **uniforme** continua sobre $[a, b]$ tiene densidad constante:\n$$f(x) = \\frac{1}{b-a} \\text{ para } a \\leq x \\leq b$$\n\nCon $a=2$ y $b=6$:\n$$f(x) = \\frac{1}{6-2} = \\frac{1}{4}$$\n\nEl área del rectángulo (base 4, altura 1/4) da $4 \\cdot 1/4 = 1$, la probabilidad total requerida.\n\nLa confusión típica es dividir por el extremo superior ($1/6$) o por el ancho equivocado; la altura de la uniforme siempre es el inverso de la longitud del intervalo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -123,7 +123,21 @@ def load_belt_catalogs(course_slug: str) -> dict[Belt, BeltCatalog]:
     for belt_entry in data["belts"]:
         belt = Belt(belt_entry["key"])
         units: list[Unit] = []
-        for u in belt_entry["units"]:
+        # Los course.json pueden traer `units[]` (analisis) o `topics[]` directo
+        # bajo el cinturón (probabilidad). En el caso flat, envolvemos los
+        # topics bajo una unidad sintética con la key del cinturón para que el
+        # resto del sistema (folder walk, agregaciones) siga viendo la misma
+        # jerarquía belt → unit → topic.
+        raw_units = belt_entry.get("units")
+        if raw_units:
+            unit_iter = raw_units
+        else:
+            unit_iter = [{
+                "key": belt_entry["key"],
+                "name": belt_entry.get("headline", belt_entry["key"]),
+                "topics": belt_entry.get("topics", []),
+            }]
+        for u in unit_iter:
             topics = tuple(
                 Topic(
                     key=t["key"],

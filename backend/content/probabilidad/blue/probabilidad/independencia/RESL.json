@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se lanza una moneda balanceada 3 veces de forma independiente.\n\n¿Cuál es la probabilidad de obtener cara en las 3 tiradas?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{1}{6}$",
+      "$\\dfrac{1}{8}$",
+      "$\\dfrac{3}{8}$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$(1/2)^{3} = 1/8$ por independencia de las tiradas.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de cara en una sola tirada, no en las tres seguidas.",
+      "Ese resultado sale de dividir $1/2$ por 3 en lugar de multiplicar las probabilidades.",
+      null,
+      "Ese es $3 \\cdot (1/8)$, la probabilidad de exactamente 1 cara en 3 tiradas, no las 3 caras seguidas."
+    ],
+    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran los tres a la vez es el producto de sus probabilidades individuales:\n$$P(C_1 \\cap C_2 \\cap C_3) = P(C_1) \\cdot P(C_2) \\cdot P(C_3)$$\n\nCon cada tirada dando $P(C) = 1/2$:\n$$\\left(\\frac{1}{2}\\right)^{3} = \\frac{1}{8}$$\n\nLa confusión típica es sumar probabilidades ($3 \\cdot 1/2 = 3/2$) o dividir; recordá que \"y\" pide multiplicar bajo independencia, mientras que \"o\" en eventos excluyentes suma.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

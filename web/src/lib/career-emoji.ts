@@ -5,7 +5,7 @@ export const CAREER_EMOJI: Record<string, string> = {
   E: "⚙️",
   S: "🔬",
   T: "🤖",
-  M: "π",
+  M: "📐",
   Otra: "✦",
 }
 

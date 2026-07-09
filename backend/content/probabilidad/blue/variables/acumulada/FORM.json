@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria y $F(x)$ su función de distribución acumulada.\n\n¿Qué representa $F(x)$?",
+    "options": [
+      "$P(X = x)$",
+      "$P(X \\leq x)$",
+      "$P(X > x)$",
+      "$P(X = 0)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Definición estándar de la acumulada.",
+    "feedback_incorrect": [
+      "Esa es la puntual $p(x)$ (para discretas) o $0$ (para continuas), no la acumulada.",
+      null,
+      "Ese es el complemento de la acumulada: $P(X > x) = 1 - F(x)$.",
+      "Ese es un valor fijo evaluado en 0, no una función que dependa de $x$."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable aleatoria mide la probabilidad de que la variable tome un valor menor o igual a un umbral $x$:\n$$F(x) = P(X \\leq x)$$\n\nEs una función no decreciente que arranca en 0 cuando $x \\to -\\infty$ y tiende a 1 cuando $x \\to \\infty$.\n\nUna confusión frecuente es leer $F(x)$ como $P(X = x)$: la acumulada suma (o integra) toda la probabilidad hasta $x$ inclusive, no solo la puntual en $x$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]
