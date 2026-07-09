@@ -38,7 +38,7 @@ import { useMemo, useState } from "react"
 import { useStartPractice } from "./UseStartPractice"
 
 const ctaCls =
-  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-12 w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 // Topics with at least one exercise type are the only ones that yield exercises.
 function playableTopics({ belt, course }: { belt: BeltKey; course: CourseId }) {

@@ -18,7 +18,7 @@ export function CourseSwitcher({
   onNext: () => void
 }) {
   return (
-    <div className="flex h-9 items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.03] px-1">
+    <div className="flex h-9 shrink-0 items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.03] px-1">
       <Button
         variant="ghost"
         size="icon-sm"
