@@ -14,12 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Screen,
-  ScreenBody,
-  ScreenFooter,
-  ScreenHeader,
-} from "@/components/ui/screen"
+import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -152,21 +147,20 @@ export default function PracticeConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+        <div className="flex flex-col gap-2">
+          <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+          <Button
+            size="lg"
+            className={ctaCls}
+            onClick={onStart}
+            disabled={!canStart || startPractice.isPending}
+          >
+            {startPractice.isPending ? <Spinner /> : null}
+            {startPractice.isPending ? "Cargando…" : "Comenzar"}
+          </Button>
+        </div>
 
-        <section className="flex flex-col gap-0.5 rounded-md border border-white/10 p-4">
-          <h2 className="font-sans text-lg font-semibold leading-tight">
-            Práctica
-          </h2>
-          <p className="text-sm text-foreground/60">
-            No actualiza tu progreso, pero suma XP.
-          </p>
-        </section>
-
-        <motion.section
-          layout
-          className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
-        >
+        <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
           <div className="flex flex-col gap-0.5">
             <h2 className="font-sans text-lg font-semibold leading-tight">
               Temas
@@ -206,7 +200,7 @@ export default function PracticeConfig() {
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              key={belt}
+              key={`${course}-${belt}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -253,7 +247,7 @@ export default function PracticeConfig() {
               )}
             </motion.div>
           </AnimatePresence>
-        </motion.section>
+        </section>
 
         <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
           <div className="flex flex-col gap-0.5">
@@ -313,18 +307,6 @@ export default function PracticeConfig() {
           </Alert>
         )}
       </ScreenBody>
-
-      <ScreenFooter>
-        <Button
-          size="lg"
-          className={ctaCls}
-          onClick={onStart}
-          disabled={!canStart || startPractice.isPending}
-        >
-          {startPractice.isPending ? <Spinner /> : null}
-          {startPractice.isPending ? "Cargando…" : "Comenzar"}
-        </Button>
-      </ScreenFooter>
 
       <BottomNav />
     </Screen>
