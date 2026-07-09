@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Calculá el valor de la expresión\n$$\\frac{7!}{5!}$$\n¿Cuál es el resultado?",
+    "options": ["$2$", "$12$", "$42$", "$5040$"],
+    "correct_index": 2,
+    "feedback_correct": "Se simplifica $\\frac{7!}{5!} = 7 \\times 6 = 42$.",
+    "feedback_incorrect": [
+      "Estás restando los subíndices ($7-5$) en lugar de simplificar el cociente de factoriales.",
+      "Ese es $3! \\times 2$: aparece si se dividen los subíndices en vez de simplificar factor a factor.",
+      null,
+      "Ese es el valor de $7!$ completo, sin simplificar contra $5!$ del denominador."
+    ],
+    "explanation": "El **factorial** cumple la relación recursiva $n! = n \\times (n-1)!$, así que un cociente $\\frac{n!}{k!}$ con $n > k$ se simplifica cancelando los términos comunes:\n$$\\frac{7!}{5!} = \\frac{7 \\times 6 \\times 5!}{5!} = 7 \\times 6 = 42$$\n\nLa confusión típica es tratar el factorial como un exponente o una resta y calcular $7 - 5 = 2$; el factorial es un producto y la simplificación se hace factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $(X, Y)$ un vector aleatorio continuo con densidad conjunta $f(x, y)$.\n\n¿Cuál de las siguientes debe cumplir $f(x, y)$?",
+    "options": [
+      "$\\displaystyle \\int_{-\\infty}^{\\infty}\\int_{-\\infty}^{\\infty} f(x, y)\\,dx\\,dy = 1$",
+      "$\\displaystyle \\int_{-\\infty}^{\\infty} f(x, y)\\,dx = 1$",
+      "$f(x, y) = f_X(x) + f_Y(y)$",
+      "$f(x, y) = f_X(x) - f_Y(y)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Toda densidad conjunta integra 1 sobre todo el plano.",
+    "feedback_incorrect": [
+      "Esa integra solo respecto de $x$: da la marginal $f_Y(y)$, no la constante 1.",
+      null,
+      "Esa relación entre conjunta y marginales solo vale si son independientes, y ahí es un PRODUCTO, no una suma.",
+      "La diferencia no aparece en probabilidad; las densidades no se restan."
+    ],
+    "explanation": "Para un vector aleatorio $(X, Y)$ continuo, la **densidad conjunta** cumple:\n$$\\int_{-\\infty}^{\\infty}\\int_{-\\infty}^{\\infty} f(x, y)\\,dx\\,dy = 1$$\n\nLas densidades marginales se obtienen integrando respecto de la otra variable:\n$$f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$\n\nSi además $X$ e $Y$ son independientes, la conjunta se factoriza como $f(x, y) = f_X(x)\\, f_Y(y)$ (producto, no suma).\n\nLa confusión típica es sumar marginales para recuperar la conjunta: la relación solo es multiplicativa y únicamente bajo independencia; en general la conjunta requiere información propia que no se deduce de las marginales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

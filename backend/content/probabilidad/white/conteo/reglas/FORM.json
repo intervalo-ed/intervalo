@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Un menú de cafetería ofrece 4 sándwiches distintos y 3 bebidas distintas.\n\nCada combo se arma eligiendo un sándwich y una bebida.\n\n¿Qué expresión cuenta la cantidad de combos posibles?",
+    "options": ["$4 + 3$", "$4 \\times 3$", "$4^{3}$", "$\\binom{4}{3}$"],
+    "correct_index": 1,
+    "feedback_correct": "Elegir sándwich Y bebida es una secuencia de dos decisiones independientes: se multiplican.",
+    "feedback_incorrect": [
+      "Esa es la regla de la suma, aplica cuando las opciones son excluyentes: elegís sándwich O bebida, no ambas.",
+      null,
+      "Ese es el arreglo con repetición de 3 lugares eligiendo entre 4, distinto del caso: acá hay solo dos decisiones.",
+      "El binomial cuenta subconjuntos de 3 elementos elegidos entre 4, no una secuencia de decisiones independientes."
+    ],
+    "explanation": "La **regla del producto** dice que si una decisión tiene $m$ opciones y una segunda decisión (independiente) tiene $n$ opciones, la secuencia completa tiene $m \\times n$ resultados.\n\nAcá cada combo se arma con una decisión de sándwich (4 opciones) seguida de una decisión de bebida (3 opciones), así que:\n$$4 \\times 3 = 12 \\text{ combos}$$\n\nEl error clásico es confundir la regla del producto con la de la suma: la suma solo aplica cuando las alternativas son mutuamente excluyentes (elegís una o la otra, no las dos).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

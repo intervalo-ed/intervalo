@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
+    "options": [
+      "$\\sum_x p(x)$",
+      "$\\sum_x x \\cdot p(x)$",
+      "$\\max_x p(x)$",
+      "$\\dfrac{1}{n}\\sum_x x$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Promedio ponderado de los valores por sus probabilidades.",
+    "feedback_incorrect": [
+      "Esa suma da 1 (propiedad de la puntual), no la esperanza.",
+      null,
+      "Ese es el valor más probable (moda), no la esperanza.",
+      "Ese es el promedio aritmético simple, ignora el peso de cada valor."
+    ],
+    "explanation": "La **esperanza** de una variable aleatoria discreta es el promedio ponderado de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nRepresenta el valor promedio a largo plazo tras muchas repeticiones del experimento.\n\nLa confusión típica es reemplazarla por un promedio aritmético $\\frac{1}{n}\\sum x$: eso trata a todos los valores como equiprobables, cuando en realidad cada uno debe pesarse por su probabilidad puntual $p(x)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

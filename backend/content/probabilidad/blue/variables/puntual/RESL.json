@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ la cantidad de caras al lanzar 2 monedas balanceadas.\n\n¿Cuál es $P(X = 1)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "2 resultados favorables $CX, XC$ sobre 4 posibles.",
+    "feedback_incorrect": [
+      "Esa es la probabilidad de un único resultado (por ejemplo $CX$); $X=1$ agrupa dos resultados favorables.",
+      null,
+      "Ese es $P(X \\geq 1)$; la puntual pide exactamente 1 cara, no al menos 1.",
+      "Ese sería si toda la probabilidad se concentrara en $X=1$; hay resultados con 0 y 2 caras también."
+    ],
+    "explanation": "El espacio muestral del experimento es $\\Omega = \\{CC, CX, XC, XX\\}$ con 4 resultados equiprobables.\n\nLos resultados con exactamente 1 cara son $CX$ y $XC$, así que la **función de probabilidad puntual** en $x=1$ es:\n$$p(1) = P(X=1) = \\frac{2}{4} = \\frac{1}{2}$$\n\nLa confusión típica es identificar $X=1$ con un único resultado del espacio muestral; el valor de la variable puede provenir de varios resultados distintos y la puntual suma la probabilidad de todos ellos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

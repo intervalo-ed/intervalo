@@ -1,0 +1,21 @@
+[
+  {
+    "question": "Se lanzan dos dados balanceados. Sea $X$ el resultado del primer dado e $Y$ el del segundo.\n\nConsiderá la función $p(x, y)$ que asigna probabilidad al par $(X=x, Y=y)$.\n\n¿Qué representa $p(x, y)$?",
+    "options": [
+      "La distribución conjunta discreta de $X$ e $Y$.",
+      "La distribución marginal de $X$.",
+      "La distribución condicional $P(X|Y)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Probabilidad de dos valores en simultáneo: es la conjunta.",
+    "feedback_incorrect": [
+      "La marginal solo depende de $x$; acá aparecen $x$ e $y$ juntos.",
+      "La condicional lleva un divisor $P(Y)$; acá es la probabilidad conjunta sin condicionar."
+    ],
+    "explanation": "La **distribución conjunta** de dos variables aleatorias describe la probabilidad de que ambas tomen valores específicos al mismo tiempo:\n$$p(x, y) = P(X=x \\cap Y=y)$$\n\nEn los dos dados $p(x, y) = 1/36$ para cada par $(x, y)$ con $x, y \\in \\{1, \\dots, 6\\}$.\n\nLa confusión típica es leer $p(x, y)$ como marginal o condicional: la marginal describe una sola variable ignorando la otra, la condicional restringe el espacio a un valor conocido, y la conjunta considera los dos valores en simultáneo sin condicionar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

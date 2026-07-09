@@ -23,18 +23,20 @@ import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   BELT_HEX,
-  BELT_ORDER,
   beltInfo,
+  beltOrderFor,
+  COURSE_ORDER,
   topicsForBelt,
   topicShortLabel,
   type BeltKey,
+  type CourseId,
 } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
 import { ChevronLeft, ChevronRight, Info } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { parseAsInteger, useQueryState } from "nuqs"
+import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
 import { useMemo, useState } from "react"
 import { useStartZen } from "./UseStartZen"
 
@@ -42,8 +44,8 @@ const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 // Topics with at least one exercise type are the only ones that yield exercises.
-function playableTopics({ belt }: { belt: BeltKey }) {
-  return topicsForBelt({ belt }).filter((t) => t.skills.length > 0)
+function playableTopics({ belt, course }: { belt: BeltKey; course: CourseId }) {
+  return topicsForBelt({ belt, course }).filter((t) => t.skills.length > 0)
 }
 
 export default function ZenConfig() {
@@ -56,27 +58,31 @@ export default function ZenConfig() {
     "count",
     parseAsInteger.withDefault(10),
   )
+  const [course] = useQueryState(
+    "course",
+    parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
+  )
+  const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
 
   const [beltIdx, setBeltIdx] = useState(0)
-  const belt = BELT_ORDER[beltIdx]
-  const topics = useMemo(() => playableTopics({ belt }), [belt])
+  const belt = beltOrder[Math.min(beltIdx, beltOrder.length - 1)]
+  const topics = useMemo(() => playableTopics({ belt, course }), [belt, course])
 
   // Topics enabled for the current unit. Default: all off.
   const [enabled, setEnabled] = useState<Set<string>>(() => new Set())
 
   function selectBelt(nextIdx: number) {
     sfx.iterate()
-    const next = BELT_ORDER[nextIdx]
     setBeltIdx(nextIdx)
     setEnabled(new Set())
   }
 
   function prevBelt() {
-    selectBelt((beltIdx - 1 + BELT_ORDER.length) % BELT_ORDER.length)
+    selectBelt((beltIdx - 1 + beltOrder.length) % beltOrder.length)
   }
 
   function nextBelt() {
-    selectBelt((beltIdx + 1) % BELT_ORDER.length)
+    selectBelt((beltIdx + 1) % beltOrder.length)
   }
 
   function toggleTopic(key: string) {
@@ -108,6 +114,7 @@ export default function ZenConfig() {
         belt,
         topics: selectedTopics,
         count: count ?? 10,
+        course,
       },
       {
         onSuccess: (payload) => router.push(`/session/${payload.session_id}`),
@@ -171,7 +178,7 @@ export default function ZenConfig() {
               className="flex-1 text-center text-base font-semibold"
               style={{ color: BELT_HEX[belt].onDark }}
             >
-              {beltInfo({ belt }).headline}
+              {beltInfo({ belt, course }).headline}
             </div>
             <Button
               variant="outline"
@@ -205,18 +212,18 @@ export default function ZenConfig() {
                   >
                     <Dialog>
                       <DialogTrigger
-                        aria-label={`Más sobre ${topicShortLabel({ topic: t.key })}`}
+                        aria-label={`Más sobre ${topicShortLabel({ topic: t.key, course, fallback: t.name })}`}
                         className="flex flex-1 items-center gap-1.5 text-left outline-none"
                       >
                         <span className="text-sm">
-                          {topicShortLabel({ topic: t.key })}
+                          {topicShortLabel({ topic: t.key, course, fallback: t.name })}
                         </span>
                         <Info className="size-3.5 shrink-0 text-foreground/40" />
                       </DialogTrigger>
                       <DialogContent className="max-h-[80vh] overflow-y-auto">
                         <DialogHeader className="gap-0.5">
                           <DialogTitle className="font-sans text-sm font-semibold text-foreground">
-                            {topicShortLabel({ topic: t.key })}
+                            {topicShortLabel({ topic: t.key, course, fallback: t.name })}
                           </DialogTitle>
                           <DialogDescription className="text-sm leading-relaxed text-foreground/80">
                             <MathText text={t.tooltip} />

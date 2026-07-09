@@ -18,14 +18,14 @@ import { BELT_BAR_COLORS } from "@/lib/catalog"
 import { catalog, type Topic } from "@/lib/catalog/analisis.generated"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
-import { useSignIn } from "@clerk/nextjs"
+import { useSignIn, useSignUp } from "@clerk/nextjs"
 import { useEffect, useRef, useState } from "react"
 
 const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencias", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
-  { value: "M", label: "Matemática", emoji: "π" },
+  { value: "M", label: "Matemática", emoji: "📐" },
 ]
 
 const UNIVERSITIES = ["UBA", "UTN", "UNSAM"]
@@ -353,6 +353,7 @@ function IntroLogo({ onDone }: { onDone: () => void }) {
 
 export default function OnboardingWizard() {
   const { signIn } = useSignIn()
+  const { signUp } = useSignUp()
   const sfx = useSfx()
   const [step, setStep] = useState(-1) // -1 = intro animada del logo
   const [prevStep, setPrevStep] = useState(-1)
@@ -489,11 +490,15 @@ export default function OnboardingWizard() {
     }, 2000)
   }
 
+  // Final del onboarding = registro: arranca un sign-UP con Google. Un usuario
+  // nuevo completa el sign-up de una (sin el error "External Account not found"
+  // que da el sign-in al no encontrar cuenta). Si la cuenta ya existía, el
+  // callback /sso-callback transfiere el sign-up a sign-in.
   function onFinish() {
-    if (!signIn) return
+    if (!signUp) return
     saveOnboarding({ name: name.trim(), career, university, introItemCorrect: firstTryCorrect })
     const origin = window.location.origin
-    signIn.sso({
+    signUp.sso({
       strategy: "oauth_google",
       redirectUrl: `${origin}/onboarding/complete`,
       redirectCallbackUrl: `${origin}/sso-callback`,

@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.pool import NullPool
 
 # Database URL from environment or use SQLite for development.
 # Railway exposes the Postgres URL with the legacy `postgres://` scheme that
@@ -12,11 +12,15 @@ if DATABASE_URL.startswith("postgres://"):
 
 # Configure engine based on database type
 if DATABASE_URL.startswith("sqlite"):
-    # SQLite configuration for development
+    # SQLite en dev: NullPool → una conexión por request. StaticPool comparte
+    # UNA sola conexión entre threads, y como FastAPI corre endpoints en
+    # threadpool, requests paralelos (p.ej. el prefetch dual analisis+probabilidad
+    # del dashboard) pisan cursor state y devuelven filas corruptas
+    # (`IndexError: tuple index out of range`).
     engine = create_engine(
         DATABASE_URL,
         connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
+        poolclass=NullPool,
     )
 else:
     # PostgreSQL configuration for production

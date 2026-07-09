@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué condición debe cumplir $p(x)$ sobre todo el dominio de $X$?",
+    "options": [
+      "$\\sum p(x) = 0$",
+      "$\\sum p(x) = 1$",
+      "$\\int p(x)\\,dx = 1$",
+      "$p(x) = 1$ para todo $x$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Suma total 1: la probabilidad se reparte entre todos los valores posibles.",
+    "feedback_incorrect": [
+      "La suma debe ser 1; si diera 0 no habría probabilidad asignada a ningún valor.",
+      null,
+      "La integral se usa para variables continuas; en discretas se suma sobre los valores del dominio.",
+      "Cada $p(x)$ es la probabilidad de un valor puntual, no puede ser 1 para todos (se pasaría de 1 al sumar)."
+    ],
+    "explanation": "La **función de probabilidad puntual** de una variable aleatoria discreta cumple dos propiedades:\n$$\\begin{aligned} &p(x) \\geq 0 \\text{ para todo } x \\\\ &\\sum_x p(x) = 1 \\end{aligned}$$\n\nLa segunda propiedad refleja que $X$ debe tomar algún valor, así que la probabilidad total repartida entre todos los valores del dominio es 1.\n\nLa confusión típica es usar integrales para variables discretas: los símbolos $\\sum$ y $\\int$ juegan el mismo rol conceptual (barrer todos los valores), pero uno se aplica a valores aislados y el otro a un continuo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -135,10 +135,24 @@ def require_internal_secret(x_internal_secret: str = Header(None)):
         raise HTTPException(status_code=401, detail="Invalid internal secret")
 
 
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def _resolve_course_id(course: str | None, db: Session) -> int:
+    """Resolve a course slug to its id. Fallback to id=1 (analisis) for compat."""
+    if not course:
+        return 1
+    from models import Course
+    row = db.query(Course).filter(Course.slug == course).first()
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Curso '{course}' no encontrado")
+    return row.id
+
+
 # ── Pydantic models ───────────────────────────────────────────────────────────
 
 class StartSessionRequest(BaseModel):
     user_name: str
+    course: str | None = None
 
 
 class StartZenSessionRequest(BaseModel):
@@ -146,6 +160,7 @@ class StartZenSessionRequest(BaseModel):
     belt: str
     topics: list[str]
     count: int
+    course: str | None = None
 
 
 class TestSessionItem(BaseModel):
@@ -156,6 +171,7 @@ class TestSessionItem(BaseModel):
 
 class StartTestSessionRequest(BaseModel):
     items: list[TestSessionItem]
+    course: str | None = None
 
 
 class AnswerRequest(BaseModel):
@@ -400,6 +416,7 @@ def get_user_status(
 @app.get("/user/progress", response_model=UserProgressResponse)
 def get_user_progress(
     tz: str | None = Query(default=None),
+    course: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -408,6 +425,9 @@ def get_user_progress(
     `tz` es la zona horaria IANA del navegador; si es válida, la persistimos en el
     usuario para que el "día" de la repetición espaciada use su zona, no la del
     servidor (UTC). El home llama a este endpoint en cada carga, así queda fresca.
+
+    `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
+    curso por defecto (id=1, "analisis").
     """
     if tz and tz != current_user.timezone:
         try:
@@ -418,10 +438,21 @@ def get_user_progress(
             current_user.timezone = tz
             db.commit()
     try:
-        course_id = 1  # Default course
+        from models import Course
+        if course:
+            course_row = db.query(Course).filter(Course.slug == course).first()
+            if course_row is None:
+                raise HTTPException(status_code=404, detail=f"Curso '{course}' no encontrado")
+            course_id = course_row.id
+        else:
+            course_id = 1  # Default course
         return get_user_progress_db(current_user.id, course_id, db)
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
 
 
 # ── Push notifications ──────────────────────────────────────────────────────────
@@ -811,8 +842,7 @@ def start_session(
     """Start a new session linked to authenticated user in database."""
     from session_store import create_session_db, DailySessionLimitError
 
-    # Default course_id to 1 for now (analyze-1)
-    course_id = 1
+    course_id = _resolve_course_id(body.course, db)
 
     try:
         result = create_session_db(current_user.id, course_id, db)
@@ -835,9 +865,10 @@ def start_zen_session(
         raise HTTPException(status_code=400, detail="Seleccioná al menos un tema.")
     if body.count < 1:
         raise HTTPException(status_code=400, detail="El número de ejercicios debe ser al menos 1.")
+    course_id = _resolve_course_id(body.course, db)
     try:
         return create_zen_session_db(
-            user_id=current_user.id, course_id=1,
+            user_id=current_user.id, course_id=course_id,
             belt=body.belt, topics=body.topics, count=body.count, db=db,
         )
     except ValueError as e:
@@ -855,9 +886,10 @@ def start_test_session(
 
     if not body.items:
         raise HTTPException(status_code=400, detail="Seleccioná al menos un item.")
+    course_id = _resolve_course_id(body.course, db)
     try:
         return create_test_session_db(
-            user_id=current_user.id, course_id=1,
+            user_id=current_user.id, course_id=course_id,
             items=[i.model_dump() for i in body.items], db=db,
         )
     except ValueError as e:
@@ -876,12 +908,10 @@ def submit_answer(
     try:
         # Parse session_id as integer (it's stored as string in frontend but is DB ID)
         session_id_db = int(body.session_id)
-        course_id = 1  # Default for now
 
         result = record_answer_db(
             session_id_db,
             current_user.id,
-            course_id,
             body.exercise_id,
             body.answer_index,
             body.attempts,

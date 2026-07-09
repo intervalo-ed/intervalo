@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria con esperanza $\\mu = E[X]$.\n\n¿Qué expresión define la **varianza** $Var(X)$?",
+    "options": [
+      "$E[X] - \\mu$",
+      "$E[(X - \\mu)^{2}]$",
+      "$(E[X])^{2}$",
+      "$E[X] \\cdot \\mu$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Esperanza del cuadrado de la desviación respecto de la media.",
+    "feedback_incorrect": [
+      "Esa expresión vale 0 (por definición de esperanza), no la varianza.",
+      null,
+      "Ese es el cuadrado de la esperanza; aparece en la fórmula alternativa $Var(X) = E[X^{2}] - (E[X])^{2}$ pero no es la definición.",
+      "El producto de la esperanza consigo misma da $\\mu^{2}$, no la dispersión."
+    ],
+    "explanation": "La **varianza** mide la dispersión promedio de una variable aleatoria respecto de su esperanza:\n$$Var(X) = E[(X - \\mu)^{2}]$$\n\nUna fórmula equivalente muy usada en cálculos es:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\n\nLa confusión típica es escribir $E[X] - \\mu$ (que siempre da 0) o $E[X^{2}]$ solo (sin restar $\\mu^{2}$): sin el cuadrado y sin el ajuste por la media, no queda una medida de dispersión.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

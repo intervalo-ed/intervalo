@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\ny $0$ fuera de ese intervalo.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
+    "options": [
+      "$\\dfrac{1}{4}$",
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{3}{4}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "$F(3) = \\int_0^3 \\frac{1}{4}\\,dx = 3/4$.",
+    "feedback_incorrect": [
+      "Ese es el valor de la densidad $f(3)$, no la acumulada hasta 3.",
+      "Ese es $F(2)$, la acumulada hasta la mitad del intervalo, no hasta 3.",
+      null,
+      "Ese es $F(4)$, cuando ya se acumula toda la probabilidad. En $x=3$ falta acumular el último cuarto."
+    ],
+    "explanation": "La **función de distribución acumulada** de una variable continua se obtiene integrando la densidad desde $-\\infty$ hasta $x$:\n$$F(x) = \\int_{-\\infty}^{x} f(t)\\,dt$$\n\nPara la densidad uniforme sobre $[0, 4]$:\n$$F(3) = \\int_0^3 \\frac{1}{4}\\,dt = \\frac{3}{4}$$\n\nLa confusión típica es reportar el valor de la densidad ($f(3) = 1/4$) en lugar del área acumulada: recordá que la acumulada es la que integra, no la altura puntual de la densidad.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

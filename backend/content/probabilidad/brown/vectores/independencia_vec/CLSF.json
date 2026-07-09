@@ -1,0 +1,21 @@
+[
+  {
+    "question": "Sean $X$ e $Y$ dos variables aleatorias con densidad conjunta $f(x, y)$ y marginales $f_X(x)$, $f_Y(y)$.\n\nSe observa que para todo par $(x, y)$ se cumple $f(x, y) = f_X(x) \\cdot f_Y(y)$.\n\n¿Qué se puede afirmar?",
+    "options": [
+      "$X$ e $Y$ son independientes.",
+      "$X$ e $Y$ están perfectamente correlacionadas.",
+      "$X$ e $Y$ son mutuamente excluyentes."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Conjunta = producto de marginales: definición de independencia.",
+    "feedback_incorrect": [
+      "Estarían perfectamente correlacionadas si $Y$ fuera función determinista de $X$; eso no es lo que dice la factorización.",
+      "La exclusión mutua es un concepto de eventos ($A \\cap B = \\emptyset$), no de variables aleatorias con densidad."
+    ],
+    "explanation": "Dos variables aleatorias $X$ e $Y$ son **independientes** si su densidad conjunta se factoriza como el producto de las marginales:\n$$f(x, y) = f_X(x) \\cdot f_Y(y)$$\n\nEquivalentemente, saber el valor de una no aporta información sobre la otra.\n\nLa confusión típica es asociar independencia con exclusión mutua: la exclusión aplica a eventos (subconjuntos del espacio muestral), mientras que la independencia entre variables se traduce en la factorización de la densidad/probabilidad conjunta. Dos variables independientes tienen $Cov = 0$, pero $Cov = 0$ no siempre implica independencia (salvo en el caso normal multivariado).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere calcular la cantidad de banderas distintas que se pueden armar eligiendo y ordenando 3 franjas de colores entre un total de 7 colores disponibles, sin repetir colores.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$\\dfrac{7!}{3!}$",
+      "$\\dfrac{7!}{4!}$",
+      "$\\dfrac{7!}{3!\\,4!}$",
+      "$7^{3}$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Variación: $V_{7,3} = \\dfrac{7!}{(7-3)!} = \\dfrac{7!}{4!}$.",
+    "feedback_incorrect": [
+      "Estás dividiendo por $k! = 3!$ en vez de $(n-k)! = 4!$; el cociente de variación cancela los factores que NO se usan.",
+      null,
+      "Esa expresión es la combinación ($\\binom{7}{3}$), que ignora el orden; acá el orden de las franjas SÍ importa.",
+      "Ese es el arreglo con repetición: acá los colores no se repiten en la misma bandera."
+    ],
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir $k$ elementos entre $n$ cuando el orden importa y no hay repetición:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\n\nEn este caso $n=7$ colores y $k=3$ franjas:\n$$V_{7,3} = \\frac{7!}{4!} = 7 \\times 6 \\times 5 = 210 \\text{ banderas}$$\n\nLa confusión típica es dividir por $k!$ (fórmula de combinación) o restar en lugar de aplicar factorial: verificá siempre en el denominador el $(n-k)!$ que representa los elementos NO seleccionados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

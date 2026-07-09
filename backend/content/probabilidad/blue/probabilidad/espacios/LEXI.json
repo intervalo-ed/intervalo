@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En probabilidad, ¿cómo se llama al conjunto que contiene todos los resultados posibles de un experimento aleatorio?",
+    "options": [
+      "Espacio muestral.",
+      "Evento elemental.",
+      "Evento compuesto."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Es la definición estándar del espacio muestral $\\Omega$.",
+    "feedback_incorrect": [
+      null,
+      "Un evento elemental es un único resultado, no el conjunto de todos.",
+      "Un evento compuesto es un subconjunto del espacio, no el conjunto total."
+    ],
+    "explanation": "El **espacio muestral**, denotado $\\Omega$ o $S$, es el conjunto de todos los resultados posibles de un experimento aleatorio. Sobre él se definen los eventos como subconjuntos.\n\nEn el lanzamiento de un dado de 6 caras:\n$$\\Omega = \\{1, 2, 3, 4, 5, 6\\}$$\n\nLa confusión típica es intercambiar espacio muestral y evento: el espacio es el marco global de referencia, y cada evento es un subconjunto de él que agrupa uno o más resultados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Considerá el siguiente problema: se quiere formar un comité de 4 personas elegidas entre los 12 empleados de una oficina, sin distinguir roles dentro del comité.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Combinación de 12 tomados de 4.",
+      "Variación de 12 tomados de 4.",
+      "Permutación de 12 elementos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se elige un subgrupo donde el orden no importa: es una combinación.",
+    "feedback_incorrect": [
+      null,
+      "En variación el orden importa; acá los 4 miembros del comité son intercambiables entre sí.",
+      "La permutación completa ordena todos los elementos; acá se elige un subconjunto sin ordenar."
+    ],
+    "explanation": "Las **combinaciones** cuentan las formas de elegir un subconjunto de $k$ elementos entre $n$, sin importar el orden dentro del subconjunto:\n$$C_{n,k} = \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\n\nEn el comité los 4 miembros no tienen roles diferenciados, así que el grupo $\\{A, B, C, D\\}$ es el mismo que $\\{D, C, B, A\\}$: corresponde combinación de 12 tomados de 4.\n\nEl criterio decisivo para distinguir combinación de variación es siempre el mismo: si el problema asigna etiquetas o roles distintos a las posiciones (titular/suplente, 1º/2º/3º), es variación; si todas las posiciones son intercambiables, es combinación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

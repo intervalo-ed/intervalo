@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Se lanzan 20 veces una moneda balanceada y se cuenta la cantidad total de caras obtenidas.\n\n¿Qué distribución sigue esa cantidad?",
+    "options": [
+      "Binomial con $n=20$ y $p=0{,}5$.",
+      "Poisson con $\\lambda = 20$.",
+      "Geométrica con $p=0{,}5$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$n$ ensayos fijos, independientes y con misma $p$ contando éxitos: es binomial.",
+    "feedback_incorrect": [
+      null,
+      "Poisson modela conteos en un intervalo de tiempo o espacio; acá hay un número fijo de ensayos.",
+      "La geométrica cuenta ensayos hasta el primer éxito, no la cantidad de éxitos en un número fijo de ensayos."
+    ],
+    "explanation": "La distribución **binomial** modela el número de éxitos en $n$ ensayos independientes con la misma probabilidad de éxito $p$:\n$$P(X=k) = \\binom{n}{k} p^{k}(1-p)^{n-k}$$\n\nAcá $n = 20$ ensayos y $p = 1/2$ por cada moneda, así que $X \\sim Bin(20, 0{,}5)$.\n\nLa confusión típica es aplicar Poisson cuando aparece la palabra \"conteo\": Poisson pide una tasa promedio $\\lambda$ sobre un intervalo continuo, no un número fijo de ensayos con dos resultados posibles cada uno.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

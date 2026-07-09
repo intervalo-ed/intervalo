@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sean $X$ e $Y$ dos variables aleatorias con desvíos $\\sigma_X, \\sigma_Y > 0$.\n\n¿Cuál es la fórmula del coeficiente de **correlación** de Pearson $\\rho_{X,Y}$?",
+    "options": [
+      "$Cov(X, Y) \\cdot \\sigma_X \\sigma_Y$",
+      "$\\dfrac{Cov(X, Y)}{\\sigma_X \\sigma_Y}$",
+      "$\\dfrac{Cov(X, Y)}{\\sigma_X + \\sigma_Y}$",
+      "$Cov(X, Y) - \\sigma_X \\sigma_Y$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Se estandariza la covarianza dividiendo por el producto de los desvíos.",
+    "feedback_incorrect": [
+      "Multiplicar amplía la escala en vez de estandarizarla; el coeficiente quedaría dependiendo de las unidades.",
+      null,
+      "El denominador es el PRODUCTO de los desvíos, no la suma; sumar no estandariza correctamente.",
+      "La correlación no se define restando; se busca acotar la covarianza entre $-1$ y $1$, lo que requiere dividir."
+    ],
+    "explanation": "El **coeficiente de correlación** de Pearson normaliza la covarianza dividiéndola por el producto de las desviaciones estándar:\n$$\\rho_{X, Y} = \\frac{Cov(X, Y)}{\\sigma_X \\sigma_Y}$$\n\nEsta estandarización garantiza que $\\rho \\in [-1, 1]$, permitiendo comparar la fuerza y dirección de la relación lineal entre variables medidas en unidades distintas.\n\nLa confusión típica es sumar en el denominador o no dividir: sin el ajuste por los desvíos, el signo se conserva pero la magnitud queda atada a las unidades originales, perdiendo la interpretabilidad universal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

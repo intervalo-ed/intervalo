@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual dada por:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n\n¿Cuánto vale $E[X]$?",
+    "options": ["$1{,}0$", "$1{,}1$", "$1{,}5$", "$3{,}0$"],
+    "correct_index": 1,
+    "feedback_correct": "$0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 1{,}1$.",
+    "feedback_incorrect": [
+      "Ese resultado sale de asumir equiprobabilidad (promedio simple $(0+1+2)/3=1$), sin usar los pesos.",
+      null,
+      "Ese es $(0+1+2)/2$: no corresponde a esperanza ni a promedio simple.",
+      "Ese es la suma pura de los valores $0+1+2$, sin ponderar por probabilidad."
+    ],
+    "explanation": "La **esperanza** es la suma ponderada de los valores por sus probabilidades:\n$$E[X] = \\sum_x x \\cdot p(x)$$\n\nCon los datos:\n$$E[X] = 0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 0 + 0{,}5 + 0{,}6 = 1{,}1$$\n\nUn error clásico es promediar los valores como si fueran equiprobables ($(0+1+2)/3 = 1$); la esperanza pondera por la probabilidad de cada valor, así que los valores más probables (acá el $1$ y el $2$) empujan el promedio hacia arriba.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

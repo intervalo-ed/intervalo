@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sean $A_1, A_2$ una partición de $\\Omega$ y $B$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(B)$?",
+    "options": [
+      "$P(B|A_1) + P(B|A_2)$",
+      "$P(B|A_1) \\cdot P(A_1) + P(B|A_2) \\cdot P(A_2)$",
+      "$\\dfrac{P(B \\cap A_1)}{P(A_1)}$",
+      "$P(A_1) + P(A_2) - P(B)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Suma ponderada por el peso de cada escenario de la partición.",
+    "feedback_incorrect": [
+      "Falta ponderar cada condicional por $P(A_i)$; sumar condicionales solas puede dar valores mayores que 1.",
+      null,
+      "Ese es el condicional $P(B|A_1)$ para un solo escenario, no la probabilidad total.",
+      "Esa expresión mezcla probabilidades de la partición con $P(B)$ sin sentido conceptual claro."
+    ],
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{A_1, \\dots, A_n\\}$ es una partición del espacio muestral (excluyentes y cubren todo $\\Omega$):\n$$P(B) = \\sum_i P(B|A_i) \\cdot P(A_i)$$\n\nCada término suma la contribución de $B$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nLa confusión típica es sumar los condicionales sin ponderar: sin el peso $P(A_i)$ la suma no representa una probabilidad válida (puede superar 1) y pierde la lógica de \"mezcla\" de los escenarios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

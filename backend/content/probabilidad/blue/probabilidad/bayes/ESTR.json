@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Un test médico da positivo o negativo. Se conocen:\n\n$P(\\text{enfermo}) = 0{,}01$\n$P(\\text{positivo}|\\text{enfermo}) = 0{,}95$\n$P(\\text{positivo}|\\text{sano}) = 0{,}05$\n\nSe quiere saber la probabilidad de estar enfermo dado que el test dio positivo. ¿Qué estrategia se aplica?",
+    "options": [
+      "Regla de Laplace: casos favorables sobre posibles.",
+      "Teorema de Bayes: invertir el condicional usando la a priori.",
+      "Independencia: multiplicar las probabilidades individuales."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "El problema pide invertir un condicional conocido, exactamente lo que hace Bayes.",
+    "feedback_incorrect": [
+      "Laplace supone equiprobabilidad y no ayuda a invertir un condicional dado.",
+      null,
+      "No corresponde independencia: precisamente el interés está en cómo la evidencia (test positivo) actualiza la probabilidad de estar enfermo."
+    ],
+    "explanation": "El **teorema de Bayes** invierte un condicional conocido usando la probabilidad a priori y la probabilidad total de la evidencia:\n$$P(E|+) = \\frac{P(+|E) \\cdot P(E)}{P(+)}$$\n\nAcá $P(+) = P(+|E) \\cdot P(E) + P(+|S) \\cdot P(S) = 0{,}95 \\cdot 0{,}01 + 0{,}05 \\cdot 0{,}99 \\approx 0{,}0590$, y entonces:\n$$P(E|+) = \\frac{0{,}0095}{0{,}0590} \\approx 0{,}161$$\n\nLa confusión típica es asumir que el test positivo implica alta probabilidad de enfermedad; cuando la a priori $P(E)$ es muy baja, la evidencia positiva sube la probabilidad pero no la lleva cerca de 1.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

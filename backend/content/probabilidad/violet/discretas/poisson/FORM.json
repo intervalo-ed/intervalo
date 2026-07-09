@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim Pois(\\lambda)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "options": [
+      "$\\lambda^{k} e^{-\\lambda}$",
+      "$\\dfrac{e^{-\\lambda}\\lambda^{k}}{k!}$",
+      "$\\binom{n}{k}\\lambda^{k}(1-\\lambda)^{n-k}$",
+      "$(1-\\lambda)^{k-1}\\lambda$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Fórmula estándar de Poisson.",
+    "feedback_incorrect": [
+      "Falta dividir por $k!$; sin la corrección factorial no queda una probabilidad bien normalizada.",
+      null,
+      "Esa fórmula mezcla binomial con Poisson; en Poisson no hay $n$ fijo.",
+      "Esa es la fórmula de la geométrica (con parámetro $\\lambda$ como si fuera probabilidad, cosa que no es)."
+    ],
+    "explanation": "La distribución de **Poisson** con tasa promedio $\\lambda$ tiene función de probabilidad puntual:\n$$P(X=k) = \\frac{e^{-\\lambda}\\lambda^{k}}{k!}$$\n\nSu esperanza y varianza son ambas iguales a $\\lambda$, propiedad característica y útil para verificar rápido.\n\nLa confusión típica es olvidar el $k!$ del denominador (el resultado dejaría de ser una probabilidad) o mezclar la fórmula con la binomial: recordá que Poisson no tiene $n$ ni $p$, solo un parámetro $\\lambda$ que actúa como tasa promedio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

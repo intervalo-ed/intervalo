@@ -667,7 +667,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
             "children": [
               {
                 "id": "t-algoritmos",
-                "emoji": "🧮",
+                "emoji": "📐",
                 "label": "Algoritmos",
                 "children": [
                   {
@@ -827,7 +827,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
   },
   "M": {
     "id": "M",
-    "emoji": "π",
+    "emoji": "📐",
     "label": "Matemática",
     "children": [
       {
@@ -1073,7 +1073,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
           },
           {
             "id": "o-contador",
-            "emoji": "🧮",
+            "emoji": "📐",
             "label": "Contador",
             "children": [
               {

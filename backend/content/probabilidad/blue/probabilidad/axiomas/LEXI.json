@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál de las siguientes propiedades NO forma parte de los **axiomas de Kolmogorov** de la probabilidad?",
+    "options": [
+      "$P(A) \\geq 0$ para todo evento $A$.",
+      "$P(\\Omega) = 1$.",
+      "$P(A \\cup B) = P(A) + P(B)$ si $A \\cap B = \\emptyset$.",
+      "$P(A^c) = 1 - P(A)$."
+    ],
+    "correct_index": 3,
+    "feedback_correct": "El complemento no es axioma: es un teorema que se deduce de los otros.",
+    "feedback_incorrect": [
+      "Es el axioma de no negatividad, sí forma parte del sistema.",
+      "Es el axioma de certidumbre, sí forma parte del sistema.",
+      "Es el axioma de aditividad para excluyentes, sí forma parte del sistema.",
+      null
+    ],
+    "explanation": "Los tres **axiomas de Kolmogorov** son:\n$$\\begin{aligned} &1)\\ P(A) \\geq 0 \\\\ &2)\\ P(\\Omega) = 1 \\\\ &3)\\ P(A \\cup B) = P(A) + P(B) \\text{ si } A \\cap B = \\emptyset \\end{aligned}$$\n\nLa fórmula del complemento $P(A^c) = 1 - P(A)$ es cierta, pero es una **consecuencia** de los axiomas 2 y 3 (aplicando aditividad a $\\Omega = A \\cup A^c$), no un axioma independiente.\n\nUna confusión típica es tratar toda propiedad conocida de la probabilidad como axioma; recordá que los axiomas son la base mínima desde la que se demuestra todo el resto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

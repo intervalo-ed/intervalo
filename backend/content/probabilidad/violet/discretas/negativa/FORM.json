@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X$ la cantidad de ensayos hasta obtener el $r$-ésimo éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "options": [
+      "$\\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$",
+      "$\\binom{k}{r} p^{r}(1-p)^{k-r}$",
+      "$(1-p)^{k-1} p$",
+      "$\\binom{k-1}{r} p^{k}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Fórmula estándar de la binomial negativa.",
+    "feedback_incorrect": [
+      "Esa es la binomial: $n$ ensayos totales y se cuentan éxitos, pero acá el último ensayo debe ser éxito, no cualquiera.",
+      null,
+      "Esa es la geométrica ($r=1$); acá $r$ éxitos, no uno.",
+      "El exponente de $p$ debe ser $r$ (los éxitos exactos), no $k$."
+    ],
+    "explanation": "La **binomial negativa** modela la cantidad de ensayos hasta el $r$-ésimo éxito:\n$$P(X=k) = \\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$$\n\nLa clave está en el coeficiente $\\binom{k-1}{r-1}$: el último ensayo (el $k$-ésimo) debe ser el $r$-ésimo éxito, y los $r-1$ éxitos anteriores pueden estar en cualquiera de los $k-1$ ensayos previos.\n\nLa confusión típica es escribir $\\binom{k}{r}$ (fórmula de la binomial): eso permitiría que el éxito $r$ estuviera en cualquier lugar de los $k$, pero acá el último ensayo tiene que ser éxito por definición del proceso.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

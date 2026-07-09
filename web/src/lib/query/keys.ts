@@ -5,7 +5,8 @@ export const queryKeys = {
 
   userStatus: () => [...queryKeys.all, "user", "status"] as const,
 
-  userProgress: () => [...queryKeys.all, "user", "progress"] as const,
+  userProgress: ({ course }: { course?: string } = {}) =>
+    [...queryKeys.all, "user", "progress", course ?? "default"] as const,
 
   notificationSettings: () =>
     [...queryKeys.all, "user", "notification-settings"] as const,

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se sabe que $P(A) = 0{,}4$ y $P(B) = 0{,}3$, con $A$ y $B$ eventos independientes.\n\n¿Qué expresión da $P(A \\cap B)$?",
+    "options": [
+      "$0{,}4 + 0{,}3$",
+      "$0{,}4 - 0{,}3$",
+      "$0{,}4 \\cdot 0{,}3$",
+      "$0{,}4 / 0{,}3$"
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Independencia implica $P(A \\cap B) = P(A) \\cdot P(B) = 0{,}12$.",
+    "feedback_incorrect": [
+      "La suma corresponde a la unión de eventos excluyentes, no a la intersección de independientes.",
+      "La resta no aparece en la fórmula de intersección de independientes.",
+      null,
+      "La división aparece en la fórmula de condicional, no en la intersección de independientes."
+    ],
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\n\nCon los datos:\n$$P(A \\cap B) = 0{,}4 \\cdot 0{,}3 = 0{,}12$$\n\nLa confusión típica es aplicar suma pensando en \"probabilidad total\" o restar buscando el complemento: la marca clara de independencia es la multiplicación de las probabilidades individuales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

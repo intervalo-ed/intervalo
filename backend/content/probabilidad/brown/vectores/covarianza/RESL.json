@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Se conocen los momentos $E[X]=2$, $E[Y]=3$ y $E[XY]=7$.\n\n¿Cuánto vale $Cov(X, Y)$?",
+    "options": ["$1$", "$5$", "$6$", "$13$"],
+    "correct_index": 0,
+    "feedback_correct": "$Cov(X,Y) = 7 - 2 \\cdot 3 = 1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $E[X] + E[Y]$, la esperanza de la suma, no la covarianza.",
+      "Ese es $E[X]E[Y]$, el término que hay que RESTAR de $E[XY]$, no el resultado.",
+      "Ese es $E[XY] + E[X]E[Y] = 7 + 6 = 13$; el signo es RESTA, no suma."
+    ],
+    "explanation": "La **covarianza** se calcula como:\n$$Cov(X, Y) = E[XY] - E[X] \\cdot E[Y]$$\n\nCon los datos:\n$$Cov(X, Y) = 7 - 2 \\cdot 3 = 7 - 6 = 1$$\n\nUn $Cov > 0$ indica tendencia a moverse en la misma dirección, aunque este valor por sí solo no dice qué tan fuerte es la relación (para eso hay que estandarizarlo con las desviaciones y calcular la correlación).\n\nLa confusión típica es sumar en vez de restar $E[X]E[Y]$; la fórmula surge de expandir $E[(X-\\mu_X)(Y-\\mu_Y)]$ y el signo menos aparece del cruce entre términos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

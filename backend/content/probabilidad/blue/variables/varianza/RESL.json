@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual\n$$\\begin{aligned} p(0) &= 0{,}5 \\\\ p(2) &= 0{,}5 \\end{aligned}$$\n\n¿Cuánto vale $Var(X)$?",
+    "options": ["$0$", "$1$", "$2$", "$4$"],
+    "correct_index": 1,
+    "feedback_correct": "$E[X]=1$, $E[X^2]=2$, $Var(X)=2-1=1$.",
+    "feedback_incorrect": [
+      "Ese sería si los dos valores fueran idénticos y no hubiera dispersión; acá $X$ toma 0 o 2.",
+      null,
+      "Ese es $E[X^{2}]$: falta restar $(E[X])^{2}=1$.",
+      "Ese es $E[X^{2}]^{2}$; recordá restar $\\mu^{2}$, no elevar al cuadrado $E[X^{2}]$."
+    ],
+    "explanation": "La **varianza** se calcula con la fórmula alternativa:\n$$Var(X) = E[X^{2}] - (E[X])^{2}$$\n\nPrimero la esperanza y el segundo momento:\n$$\\begin{aligned} E[X] &= 0 \\cdot 0{,}5 + 2 \\cdot 0{,}5 = 1 \\\\ E[X^{2}] &= 0 \\cdot 0{,}5 + 4 \\cdot 0{,}5 = 2 \\end{aligned}$$\n\nEntonces $Var(X) = 2 - 1^{2} = 1$.\n\nLa confusión típica es reportar $E[X^{2}]$ como la varianza sin restar $\\mu^{2}$: el ajuste por la media al cuadrado es lo que centra la dispersión respecto de la esperanza.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

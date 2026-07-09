@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Considerá el siguiente problema: se quiere contar de cuántas maneras se pueden ordenar en fila las 5 personas de un equipo de fútbol sala para una foto.\n\n¿Qué técnica de conteo corresponde?",
+    "options": [
+      "Permutación de 5 elementos.",
+      "Combinación de 5 tomados de 5.",
+      "Variación de 5 tomados de 3."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se ordenan todos los elementos y el orden importa: es una permutación completa.",
+    "feedback_incorrect": [
+      null,
+      "En combinación el orden NO importa; acá dos fotos con las mismas personas en distinto orden cuentan distinto.",
+      "En variación se elige un subconjunto ordenado; acá se usan todas las personas, no solo 3."
+    ],
+    "explanation": "Una **permutación** cuenta los ordenamientos posibles de un conjunto de $n$ elementos cuando se usan **todos** y el orden importa:\n$$P_n = n!$$\n\nEn una foto de las 5 personas del equipo, cada disposición es distinta si cambia el orden, así que la técnica es la permutación de 5 elementos y hay $5! = 120$ fotos distintas.\n\nLa confusión típica es confundir con combinaciones: el criterio decisivo es preguntarse si intercambiar dos elementos produce un resultado distinto. Si sí, hay orden y toca permutar o variar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

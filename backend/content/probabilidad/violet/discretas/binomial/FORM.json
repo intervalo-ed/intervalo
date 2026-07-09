@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sea $X \\sim Bin(n, p)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "options": [
+      "$p^{k}(1-p)^{n-k}$",
+      "$\\binom{n}{k} p^{k}(1-p)^{n-k}$",
+      "$\\dfrac{e^{-\\lambda}\\lambda^{k}}{k!}$",
+      "$(1-p)^{k-1} p$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Fórmula estándar de la binomial.",
+    "feedback_incorrect": [
+      "Ese es solo el producto de las probabilidades de una secuencia específica; falta $\\binom{n}{k}$ que cuenta cuántas secuencias tienen $k$ éxitos.",
+      null,
+      "Esa es la fórmula de Poisson con parámetro $\\lambda$, no de la binomial.",
+      "Esa es la puntual de la geométrica (cantidad de ensayos hasta el primer éxito)."
+    ],
+    "explanation": "La **binomial** cuenta las formas de ubicar $k$ éxitos en $n$ ensayos y las combina con la probabilidad de cada secuencia particular:\n$$P(X=k) = \\binom{n}{k} p^{k}(1-p)^{n-k}$$\n\nCada elemento tiene rol propio: $\\binom{n}{k}$ cuenta ubicaciones posibles, $p^{k}$ pesa los éxitos y $(1-p)^{n-k}$ pesa los fracasos.\n\nLa confusión típica es olvidar el $\\binom{n}{k}$ y quedarse solo con las probabilidades: sin el coeficiente combinatorio se calcularía la probabilidad de una única secuencia ordenada específica, no la del total de secuencias con $k$ éxitos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Sean $X$ e $Y$ dos variables aleatorias con esperanzas $\\mu_X$ y $\\mu_Y$.\n\n¿Cuál es la fórmula de la **covarianza** $Cov(X, Y)$?",
+    "options": [
+      "$E[XY] - E[X]E[Y]$",
+      "$E[X + Y]$",
+      "$E[X] \\cdot E[Y]$",
+      "$E[X^{2}] - (E[X])^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Definición estándar equivalente a $E[(X-\\mu_X)(Y-\\mu_Y)]$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la esperanza de la suma; no mide la relación entre las variables.",
+      "Ese es el producto de las esperanzas; aparece como término a restar en la fórmula, no como la covarianza.",
+      "Esa es la varianza de $X$, no la covarianza entre $X$ e $Y$."
+    ],
+    "explanation": "La **covarianza** mide en qué grado dos variables aleatorias tienden a variar juntas y se define equivalentemente como:\n$$Cov(X, Y) = E[(X - \\mu_X)(Y - \\mu_Y)] = E[XY] - E[X]E[Y]$$\n\nSi $Cov > 0$ las variables tienden a moverse en la misma dirección; si $Cov < 0$ en direcciones opuestas; y $Cov = 0$ indica ausencia de relación lineal.\n\nLa confusión típica es olvidar la resta $E[X]E[Y]$ o intercambiarla con la varianza (que usa $E[X^{2}] - (E[X])^{2}$): la varianza es un caso particular de la covarianza donde $X = Y$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

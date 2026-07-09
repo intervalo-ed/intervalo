@@ -1,0 +1,21 @@
+[
+  {
+    "question": "El gráfico de la densidad de una variable aleatoria continua tiene forma de campana simétrica centrada en 0, con máximo en $x=0$ y colas que decaen suavemente hacia ambos lados sin tocar el eje.\n\n¿Qué distribución representa?",
+    "options": [
+      "Uniforme.",
+      "Exponencial.",
+      "Normal estándar."
+    ],
+    "correct_index": 2,
+    "feedback_correct": "Campana simétrica centrada en 0: normal estándar $N(0,1)$.",
+    "feedback_incorrect": [
+      "La uniforme tiene densidad constante en forma de rectángulo, no una campana.",
+      "La exponencial decae monótonamente desde el origen; no es simétrica ni tiene forma de campana."
+    ],
+    "explanation": "La distribución **normal** con media $\\mu$ y desviación $\\sigma$ tiene densidad:\n$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^{2}}$$\n\nCuando $\\mu = 0$ y $\\sigma = 1$ se llama normal estándar $N(0,1)$: es la campana simétrica centrada en 0.\n\nLa confusión típica es leer cualquier curva unimodal como normal; la firma de la normal es la **simetría** alrededor de la media y las colas que decaen sin cortarse, lo que la distingue de la exponencial (asimétrica) o de la uniforme (constante).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

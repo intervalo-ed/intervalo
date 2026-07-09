@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El **teorema de Bayes** relaciona el condicional $P(A|B)$ con su inverso $P(B|A)$.\n\n¿Cuál es la fórmula correcta?",
+    "options": [
+      "$P(A|B) = P(B|A) \\cdot P(A)$",
+      "$P(A|B) = \\dfrac{P(B|A) \\cdot P(A)}{P(B)}$",
+      "$P(A|B) = \\dfrac{P(A) \\cdot P(B)}{P(B|A)}$",
+      "$P(A|B) = P(A) + P(B|A)$"
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Regla estándar de Bayes: verosimilitud por a priori, dividido por la probabilidad total.",
+    "feedback_incorrect": [
+      "Falta dividir por $P(B)$; sin el denominador no queda una probabilidad bien normalizada.",
+      null,
+      "Estás invirtiendo la fracción; recordá que el denominador es la probabilidad de la evidencia $B$.",
+      "Bayes no suma: relaciona multiplicativamente la verosimilitud, la a priori y la probabilidad total."
+    ],
+    "explanation": "El **teorema de Bayes** se deduce de la definición del condicional aplicada dos veces:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$\n\nCada componente tiene un nombre estándar:\n$$\\begin{aligned} &P(A): \\text{ a priori} \\\\ &P(B|A): \\text{ verosimilitud} \\\\ &P(B): \\text{ probabilidad total de la evidencia} \\end{aligned}$$\n\nLa confusión típica es olvidar dividir por $P(B)$ (queda una cantidad no normalizada) o invertir numerador y denominador; la clave conceptual es que Bayes es una manera de reordenar $P(A \\cap B) = P(A|B) P(B) = P(B|A) P(A)$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Un candidato busca trabajo y decide seguir enviando currículums hasta conseguir 3 respuestas positivas.\n\nCada envío tiene una probabilidad independiente $p$ de recibir respuesta positiva.\n\nSea $X$ la cantidad total de currículums enviados hasta cumplir el objetivo. ¿Qué distribución sigue $X$?",
+    "options": [
+      "Geométrica.",
+      "Binomial negativa.",
+      "Binomial."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Ensayos hasta $r=3$ éxitos: binomial negativa.",
+    "feedback_incorrect": [
+      "La geométrica cuenta ensayos hasta el PRIMER éxito, acá se buscan 3.",
+      null,
+      "La binomial cuenta éxitos en un $n$ fijo; acá $n$ no está fijado, se busca alcanzar un número fijo de éxitos."
+    ],
+    "explanation": "La distribución **binomial negativa** generaliza la geométrica: cuenta la cantidad de ensayos independientes con probabilidad de éxito $p$ necesarios para obtener exactamente $r$ éxitos:\n$$P(X=k) = \\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$$\n\nCuando $r=1$ se reduce a la geométrica, así que la geométrica es un caso particular. Acá $r=3$ y $X \\sim BN(3, p)$.\n\nLa confusión típica es aplicar binomial porque hay varias respuestas positivas: la diferencia clave está en qué es fijo y qué es aleatorio. En binomial se fija $n$ (envíos) y se cuentan éxitos; en binomial negativa se fija $r$ (respuestas positivas requeridas) y se cuentan envíos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

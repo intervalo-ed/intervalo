@@ -1,0 +1,22 @@
+[
+  {
+    "question": "De una urna con 5 bolas rojas y 5 bolas azules se extraen 3 bolas **sin reposición** y se cuenta la cantidad de rojas obtenidas.\n\n¿Qué distribución sigue esa cantidad?",
+    "options": [
+      "Binomial con $n=3$ y $p=0{,}5$.",
+      "Hipergeométrica.",
+      "Geométrica."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Extracciones sin reposición desde población finita: hipergeométrica.",
+    "feedback_incorrect": [
+      "La binomial requiere ensayos independientes con la misma $p$; sin reposición la probabilidad cambia en cada extracción.",
+      null,
+      "La geométrica cuenta ensayos hasta el primer éxito, no éxitos en una muestra fija."
+    ],
+    "explanation": "La distribución **hipergeométrica** modela el conteo de éxitos al extraer una muestra sin reposición de una población finita:\n$$P(X=k) = \\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$$\n\ndonde $N$ es la población total, $K$ el número de \"éxitos\" en la población, $n$ el tamaño de la muestra y $k$ el número de éxitos observados.\n\nAcá $N=10$, $K=5$, $n=3$ y $X \\sim H(10, 5, 3)$.\n\nLa confusión típica es aplicar binomial: la binomial exige independencia y probabilidad constante entre ensayos, que se pierde cuando la población se achica en cada extracción. Con reposición sí valdría binomial.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

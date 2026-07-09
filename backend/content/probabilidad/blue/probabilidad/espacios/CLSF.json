@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Se lanza una moneda dos veces y se registra la secuencia de caras (C) y cecas (X).\n\nConsiderá el subconjunto $A = \\{CC, CX\\}$.\n\n¿Qué es $A$ respecto del espacio muestral?",
+    "options": [
+      "Un evento elemental.",
+      "Un evento compuesto.",
+      "El espacio muestral completo."
+    ],
+    "correct_index": 1,
+    "feedback_correct": "Agrupa 2 resultados del espacio, así que es un evento compuesto.",
+    "feedback_incorrect": [
+      "Un evento elemental contiene un único resultado; acá $A$ tiene dos.",
+      null,
+      "El espacio muestral tiene 4 resultados ($CC, CX, XC, XX$); $A$ es solo un subconjunto."
+    ],
+    "explanation": "El **espacio muestral** del experimento es $\\Omega = \\{CC, CX, XC, XX\\}$ (los 4 resultados posibles).\n\nUn **evento** es cualquier subconjunto de $\\Omega$: cuando contiene un solo resultado se llama **elemental**, y cuando agrupa 2 o más se llama **compuesto**. Como $A = \\{CC, CX\\}$ tiene dos resultados, es un evento compuesto (todas las secuencias que empiezan con cara).\n\nLa confusión típica es leer \"evento\" como sinónimo de \"resultado individual\": los eventos son colecciones de resultados, no elementos sueltos del espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

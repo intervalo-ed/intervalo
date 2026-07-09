@@ -650,7 +650,7 @@
             "children": [
               {
                 "id": "t-algoritmos",
-                "emoji": "🧮",
+                "emoji": "📐",
                 "label": "Algoritmos",
                 "children": [
                   {
@@ -810,7 +810,7 @@
   },
   "M": {
     "id": "M",
-    "emoji": "π",
+    "emoji": "📐",
     "label": "Matemática",
     "children": [
       {
@@ -1056,7 +1056,7 @@
           },
           {
             "id": "o-contador",
-            "emoji": "🧮",
+            "emoji": "📐",
             "label": "Contador",
             "children": [
               {

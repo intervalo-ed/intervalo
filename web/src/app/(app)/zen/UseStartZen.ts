@@ -13,14 +13,16 @@ export function useStartZen() {
       belt,
       topics,
       count,
+      course,
     }: {
       userName: string
       belt: string
       topics: string[]
       count: number
+      course?: string
     }) => {
       const { data, error } = await api.POST("/session/start-zen", {
-        body: { user_name: userName, belt, topics, count },
+        body: { user_name: userName, belt, topics, count, course },
       })
       if (error) throw error
       // OpenAPI spec types this response as `unknown`; the actual shape matches

@@ -19,7 +19,7 @@ import { Info } from "lucide-react"
 type TopicProgress = components["schemas"]["TopicProgress"]
 
 function topicLabel(topic: Topic): string {
-  return topicShortLabel({ topic: topic.key })
+  return topicShortLabel({ topic: topic.key, fallback: topic.name })
 }
 
 // Paleta de estados de ítem. Fuente de verdad de colores, espejada del onboarding.
