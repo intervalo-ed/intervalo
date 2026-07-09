@@ -1,172 +1,324 @@
 [
   {
-    "question": "La recta tangente a $f(x)=x^2$ en $x=2$ intersecta al eje $y$ en el punto...",
+    "question": "La recta tangente a una función en cierto punto es\n$$y = 3x - 1$$\n¿Cuál es la ordenada al origen de esta recta?",
     "options": [
-      "$(0,\\,-4)$",
-      "$(0,\\,4)$",
-      "$(0,\\,0)$",
-      "$(0,\\,-8)$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La tangente es $y=4x-4$. En $x=0$: $y=-4$.",
-    "feedback_incorrect": "La tangente en $x=2$: $f(2)=4$, $f'(2)=4$, $y-4=4(x-2) \\Rightarrow y=4x-4$. En $x=0$: $y=-4$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "1. $f(2) = 4$, $f'(2) = 2 \\cdot 2 = 4$.\n2. Tangente: $y - 4 = 4(x-2) \\Rightarrow y = 4x - 4$.\n3. Ordenada al origen ($x=0$): $y = 4(0) - 4 = -4$.\n\nLa recta tangente en $(2,4)$ con pendiente $4$ cruza el eje $y$ en $(0, -4)$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿En qué punto de $f(x)=x^2$ la recta tangente tiene pendiente $6$?",
-    "options": [
-      "$x = 6$",
-      "$x = 3$",
-      "$x = 2$",
-      "$x = 4$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=2x=6 \\Rightarrow x=3$.",
-    "feedback_incorrect": "Igualá la derivada a $6$: $f'(x) = 2x = 6 \\Rightarrow x = 3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para encontrar el punto donde la tangente tiene pendiente $6$, igualamos la derivada:\n\n$$f'(x) = 2x = 6 \\Rightarrow x = 3$$\n\nEl punto de tangencia es $(3, f(3)) = (3, 9)$, y la tangente allí es $y - 9 = 6(x-3) \\Rightarrow y = 6x - 9$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Para qué valor de $x$ la recta tangente a $f(x)=x^3$ es horizontal?",
-    "options": [
-      "$x = -1$",
-      "$x = 1$",
-      "$x = 0$",
-      "No existe ninguno"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=3x^2=0 \\Rightarrow x=0$.",
-    "feedback_incorrect": "$f'(x) = 3x^2 = 0$ solo si $x=0$. En ese punto la tangente es horizontal, pero no es un extremo local.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La tangente es horizontal cuando $f'(x) = 0$:\n\n$$f'(x) = 3x^2 = 0 \\Rightarrow x = 0$$\n\nInteresante: en $x=0$ la tangente es horizontal ($f'(0)=0$), pero $f(x)=x^3$ **no tiene extremo** allí — es un **punto de inflexión**. La derivada nula no siempre implica máximo o mínimo.",
-    "reviewed": false
-  },
-  {
-    "question": "La recta $y = 4x - 4$ es tangente a $f(x)=x^2$ en $x = ...$",
-    "options": [
-      "$x = -2$",
-      "$x = 1$",
-      "$x = 4$",
-      "$x = 2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La pendiente $4 = f'(x) = 2x$ da $x=2$, y $f(2)=4=4(2)-4$ ✓.",
-    "feedback_incorrect": "La pendiente de $y=4x-4$ es $4$. Igualá con $f'(x)=2x=4 \\Rightarrow x=2$. Verificá: $f(2)=4$ y $y(2)=4$ ✓.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para que $y = 4x - 4$ sea tangente a $f(x) = x^2$ en $x=a$, necesitamos:\n1. **Igual pendiente:** $f'(a) = 2a = 4 \\Rightarrow a = 2$.\n2. **Igual valor:** $f(2) = 4$ y $y(2) = 4(2)-4 = 4$ ✓.\n\nAmbas condiciones se cumplen en $x=2$: la recta es tangente en el punto $(2, 4)$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿En qué valor de $x$ la recta tangente a $f(x)=x^2-4x+5$ es horizontal?",
-    "options": [
-      "$x = 2$",
-      "$x = 4$",
-      "$x = 1$",
-      "$x = 0$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=2x-4=0 \\Rightarrow x=2$.",
-    "feedback_incorrect": "Derivá: $f'(x)=2x-4$. Igualá a $0$: $2x-4=0 \\Rightarrow x=2$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$f'(x) = 2x - 4 = 0 \\Rightarrow x = 2$.\n\nEn $x=2$: $f(2) = 4 - 8 + 5 = 1$, así que el vértice (y el mínimo) de esta parábola está en $(2, 1)$. Completando el cuadrado: $f(x) = (x-2)^2 + 1$, lo que confirma el vértice en $x=2$.",
-    "reviewed": false
-  },
-  {
-    "question": "La secante a $f(x)=x^2$ entre $x=1$ y $x=3$ tiene pendiente $4$. ¿La tangente en $x=2$ tiene la misma pendiente?",
-    "options": [
-      "No, $f'(2) = 2$",
-      "Sí, $f'(2) = 4$",
-      "No, $f'(2) = 8$",
-      "Sí, pero es pura coincidencia"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f'(2)=4$, igual que la pendiente de la secante. Lo garantiza el Teorema del Valor Medio.",
-    "feedback_incorrect": "$f'(2) = 2(2) = 4$. Coincide con la pendiente de la secante entre $x=1$ y $x=3$: el Teorema del Valor Medio asegura que existe tal punto.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La pendiente de la secante entre $x=1$ y $x=3$ es $\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$.\n\nLa tangente en $x=2$: $f'(2) = 2(2) = 4$. ¡Coinciden!\n\nEl **Teorema del Valor Medio** garantiza que, para $f$ continua y diferenciable en $[1,3]$, existe al menos un $c \\in (1,3)$ donde $f'(c)$ iguala la pendiente de la secante. Aquí ese $c$ es exactamente $2$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿En qué punto de $f(x)=x^2$ la recta tangente es paralela a $y = 6x - 1$?",
-    "options": [
-      "$x = 6$",
-      "$x = 2$",
-      "$x = 3$",
-      "$x = 1$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Dos rectas son paralelas si tienen igual pendiente: $f'(x)=2x=6 \\Rightarrow x=3$.",
-    "feedback_incorrect": "La pendiente de $y=6x-1$ es $6$. Igualá $f'(x)=2x=6 \\Rightarrow x=3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Dos rectas son **paralelas** si tienen la misma pendiente. La pendiente de $y = 6x - 1$ es $6$.\n\nBuscamos $x$ tal que $f'(x) = 6$:\n$$2x = 6 \\Rightarrow x = 3$$\n\nEl punto de tangencia es $(3, f(3)) = (3, 9)$, y la tangente allí es $y - 9 = 6(x-3) \\Rightarrow y = 6x - 9$, paralela a $y = 6x - 1$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿La recta tangente a $f(x)=x^2$ en $x=1$ pasa por el origen?",
-    "options": [
-      "No, pasa por $(1,\\,0)$",
-      "Sí, pasa por el origen",
-      "No, pasa por $(0,\\,1)$",
-      "No, pasa por $(0,\\,-1)$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La tangente es $y=2x-1$. En $x=0$: $y=-1$, no $0$.",
-    "feedback_incorrect": "La tangente en $x=1$: $f(1)=1$, $f'(1)=2$, $y=2x-1$. En $x=0$: $y=-1 \\neq 0$. No pasa por el origen.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Tangente en $x=1$: $f(1)=1$, $f'(1)=2$.\n\n$$y - 1 = 2(x-1) \\Rightarrow y = 2x - 1$$\n\nEn $x = 0$: $y = 2(0) - 1 = -1$. La tangente corta el eje $y$ en $(0, -1)$, **no** en el origen.\n\nPara que la tangente pase por el origen necesitaríamos $y = 2x - 1 = 0$ en $x=0$, lo cual no se cumple.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es el punto de tangencia si la recta $y=2x-1$ es tangente a $f(x)=x^2$?",
-    "options": [
-      "$(1,\\,1)$",
-      "$(0,\\,-1)$",
-      "$(2,\\,3)$",
-      "$(1,\\,2)$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=2x=2 \\Rightarrow x=1$, y $f(1)=1$: punto de tangencia $(1,1)$.",
-    "feedback_incorrect": "La pendiente de $y=2x-1$ es $2$. Igualá $f'(x)=2x=2 \\Rightarrow x=1$, $f(1)=1$. El punto es $(1,1)$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para encontrar el punto de tangencia:\n1. **Pendiente de la recta:** $2$. Igualamos $f'(x) = 2x = 2 \\Rightarrow x = 1$.\n2. **Verificación:** $f(1) = 1$, y la recta en $x=1$: $y = 2(1)-1 = 1$ ✓.\n3. **Punto de tangencia:** $(1, 1)$.\n\nTambién podés resolver el sistema $x^2 = 2x-1 \\Rightarrow (x-1)^2 = 0$: la recta toca la parábola en $x=1$ con multiplicidad $2$ — señal de tangencia.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es la ordenada al origen de la recta tangente a $f(x)=x^2+1$ en $x=2$?",
-    "options": [
+      "$-1$",
       "$3$",
-      "$-3$",
-      "$5$",
-      "$-5$"
+      "$1$",
+      "$-3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, evaluando en $x=0$ queda $y=-1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es la pendiente de la recta, la ordenada al origen se obtiene evaluando en $x=0$.",
+      "Revisá el signo, al evaluar en $x=0$ el resultado es negativo, no positivo.",
+      "Revisá el cálculo, al evaluar en $x=0$ solo queda el término independiente tal como está en la ecuación."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** de una recta se obtiene evaluándola en $x=0$, dejando que desaparezca por completo el término que depende de la pendiente.\n\n$$y = 3\\cdot 0 - 1 = -1$$\nEste valor corresponde al punto donde la recta cruza el eje vertical, distinto de la pendiente, que describe su inclinación, y distinto también de la raíz, que se calcula igualando la recta a cero.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta tangente a una función en cierto punto es\n$$y = 2x - 6$$\n¿Cuál es la raíz de esta recta?",
+    "options": [
+      "$x=6$",
+      "$x=3$",
+      "$x=-3$",
+      "$x=-6$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La tangente es $y=4x-3$. En $x=0$: $y=-3$.",
-    "feedback_incorrect": "$f(2)=5$, $f'(2)=4$. Tangente: $y-5=4(x-2) \\Rightarrow y=4x-3$. En $x=0$: $y=-3$.",
+    "feedback_correct": "Correcto, resolviendo $2x-6=0$ se obtiene $x=3$.",
+    "feedback_incorrect": [
+      "Falta dividir por el coeficiente $2$, ese valor es directamente el término independiente cambiado de signo.",
+      null,
+      "Revisá el signo al despejar, $2x=6$ da $x=3$ positivo, no negativo.",
+      "Ese valor es la ordenada al origen, la raíz se obtiene igualando la recta a cero, no evaluando en $x=0$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "1. **Punto:** $f(2) = 4 + 1 = 5$ → $(2, 5)$.\n2. **Pendiente:** $f'(x) = 2x$, entonces $f'(2) = 4$.\n3. **Tangente:** $y - 5 = 4(x-2) \\Rightarrow y = 4x - 3$.\n4. **Ordenada al origen** (valor en $x=0$): $y = 4(0) - 3 = -3$.",
+    "explanation": "La **raíz** de una recta es el valor de $x$ donde $y=0$.\n\n$$\\begin{aligned} 2x - 6 &= 0 \\\\ 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nConviene no confundir la raíz, corte con el eje $x$, con la ordenada al origen, corte con el eje $y$, cada una responde una pregunta distinta.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta tangente a una función en cierto punto es\n$$y = -4x + 8$$\n¿Cuál es la ordenada al origen de esta recta?",
+    "options": [
+      "$-8$",
+      "$2$",
+      "$8$",
+      "$-4$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, evaluando en $x=0$ queda $y=8$.",
+    "feedback_incorrect": [
+      "Revisá el signo, al evaluar en $x=0$ el resultado es positivo, no negativo.",
+      "Ese valor corresponde a la raíz de la recta, no a la ordenada al origen.",
+      null,
+      "Ese valor es la pendiente de la recta, la ordenada al origen se obtiene evaluando en $x=0$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar en $x=0$ elimina el término con la pendiente y deja únicamente el término independiente de la ecuación.\n\n$$y = -4\\cdot 0 + 8 = 8$$\nEste valor marca el punto donde la recta cruza el eje vertical, independientemente de qué tan inclinada esté, y no debe confundirse con la raíz, que se calcula igualando toda la recta a cero.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta tangente a una función en cierto punto es\n$$y = 5x - 10$$\n¿Cuál es la raíz de esta recta?",
+    "options": [
+      "$x=-2$",
+      "$x=-10$",
+      "$x=10$",
+      "$x=2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, resolviendo $5x-10=0$ se obtiene $x=2$.",
+    "feedback_incorrect": [
+      "Revisá el signo al despejar, $5x=10$ da $x=2$ positivo, no negativo.",
+      "Ese valor es la ordenada al origen, la raíz se obtiene igualando la recta a cero.",
+      "Falta dividir por el coeficiente $5$, ese valor es directamente el término independiente cambiado de signo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la raíz de la recta, se iguala $y$ a cero y se despeja $x$.\n\n$$\\begin{aligned} 5x - 10 &= 0 \\\\ 5x &= 10 \\\\ x &= 2 \\end{aligned}$$\nEl coeficiente que multiplica a $x$ siempre tiene que dividir al término independiente al despejar, saltear ese paso deja el resultado sin simplificar.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta tangente a una función en cierto punto es\n$$y = x + 4$$\n¿Cuál es la ordenada al origen de esta recta?",
+    "options": [
+      "$4$",
+      "$1$",
+      "$-4$",
+      "$-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, evaluando en $x=0$ queda $y=4$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es la pendiente de la recta, la ordenada al origen se obtiene evaluando en $x=0$.",
+      "Revisá el signo, al evaluar en $x=0$ el resultado es positivo, no negativo.",
+      "Revisá el signo de la pendiente, esa no es la ordenada al origen buscada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al evaluar la recta en $x=0$, el término con $x$ desaparece por completo, sin importar cuál sea el valor de la pendiente.\n\n$$y = 0 + 4 = 4$$\nLa ordenada al origen queda entonces determinada únicamente por el término independiente de la ecuación, un dato distinto de la raíz o de la pendiente.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta tangente a una función en cierto punto es\n$$y = -2x - 3$$\n¿Cuál es la raíz de esta recta?",
+    "options": [
+      "$x=-6$",
+      "$x=-1,5$",
+      "$x=1,5$",
+      "$x=-3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, resolviendo $-2x-3=0$ se obtiene $x=-1,5$.",
+    "feedback_incorrect": [
+      "Falta dividir por el coeficiente $-2$, ese valor es directamente el término independiente sin dividir.",
+      null,
+      "Revisá el signo al despejar, $-2x=3$ da un valor negativo, no positivo.",
+      "Ese valor es la ordenada al origen, la raíz se obtiene igualando la recta a cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Esta raíz no da un número entero, así que conviene expresarla con coma decimal.\n\n$$\\begin{aligned} -2x - 3 &= 0 \\\\ -2x &= 3 \\\\ x &= -1,5 \\end{aligned}$$\nLas raíces de una recta no siempre caen en valores enteros, dividir con cuidado el término independiente por la pendiente evita errores de redondeo.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f'(x) = 2x$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=6x+1$.",
+    "options": [
+      "$x=6$",
+      "$x=1/3$",
+      "$x=3$",
+      "$x=-3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $2x=6$ da $x=3$.",
+    "feedback_incorrect": [
+      "Falta dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
+      "Ese valor sale de invertir la ecuación, hay que despejar $x$ dividiendo, no invirtiendo la fracción.",
+      null,
+      "Revisá el signo al despejar, $2x=6$ da $x=3$ positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos rectas son **paralelas** cuando tienen la misma pendiente, así que la condición es $f'(x)=m$, con $m=6$ la pendiente de la recta dada.\n\n$$\\begin{aligned} 2x &= 6 \\\\ x &= 3 \\end{aligned}$$\nLa condición de paralelismo usa siempre la derivada, no la función original, igualar $f(x)=m$ en vez de $f'(x)=m$ es el error más común de este tipo de ítem.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f'(x) = -2x$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=-3x+2$.",
+    "options": [
+      "$x=-1,5$",
+      "$x=-3$",
+      "$x=3$",
+      "$x=1,5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, $-2x=-3$ da $x=1,5$.",
+    "feedback_incorrect": [
+      "Revisá el signo al despejar, $-2x=-3$ da un valor positivo, no negativo.",
+      "Ese valor es directamente la pendiente de la recta dada, sin despejar la ecuación $f'(x)=m$.",
+      "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $-2$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que la tangente sea paralela a $y=-3x+2$, su pendiente tiene que igualar $m=-3$.\n\n$$\\begin{aligned} -2x &= -3 \\\\ x &= 1,5 \\end{aligned}$$\nCon coeficientes negativos en ambos lados, conviene despejar con cuidado, el resultado final termina siendo positivo aunque los datos parezcan sugerir lo contrario.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f'(x) = 4x - 2$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=6x+5$.",
+    "options": [
+      "$x=2$",
+      "$x=-2$",
+      "$x=1,5$",
+      "$x=8$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $4x-2=6$ da $x=2$.",
+    "feedback_incorrect": [
+      null,
+      "Revisá el signo al despejar, $4x=8$ da $x=2$ positivo, no negativo.",
+      "Falta el término $-2$ dentro de la ecuación, se resolvió como si $f'(x)$ fuera solo $4x$.",
+      "Falta dividir por el coeficiente $4$, ese valor es directamente el numerador sin dividir."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La condición de paralelismo exige que $f'(x)$ iguale la pendiente $m=6$ de la recta dada.\n\n$$\\begin{aligned} 4x - 2 &= 6 \\\\ 4x &= 8 \\\\ x &= 2 \\end{aligned}$$\nCuando $f'(x)$ tiene un término independiente, hay que arrastrarlo hasta el final del despeje, perderlo cambia el resultado.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f'(x) = -x$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=5x-1$.",
+    "options": [
+      "$x=-1$",
+      "$x=-5$",
+      "$x=5$",
+      "$x=0,2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $-x=5$ da $x=-5$.",
+    "feedback_incorrect": [
+      "Ese valor no surge de igualar $f'(x)=5$, revisá el despeje completo.",
+      null,
+      "Revisá el signo al despejar, $-x=5$ da un valor negativo, no positivo.",
+      "Ese valor sale de invertir la ecuación, hay que despejar $x$ directamente, no invertir la pendiente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente buscada es $m=5$, la de la recta dada, así que hay que resolver $-x=5$.\n\n$$\\begin{aligned} -x &= 5 \\\\ x &= -5 \\end{aligned}$$\nCon $f'(x)=-x$, cualquier pendiente positiva exige un $x$ negativo, y viceversa, conviene verificar que el signo final tenga sentido con esa relación.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f'(x) = 3x + 3$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=-3x+7$.",
+    "options": [
+      "$x=-1$",
+      "$x=-6$",
+      "$x=-2$",
+      "$x=2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $3x+3=-3$ da $x=-2$.",
+    "feedback_incorrect": [
+      "Falta el término $+3$ dentro de la ecuación, se resolvió como si $f'(x)$ fuera solo $3x$.",
+      "Falta dividir por el coeficiente $3$, ese valor es directamente el numerador sin dividir.",
+      null,
+      "Revisá el signo al despejar, $3x=-6$ da un valor negativo, no positivo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La condición de **paralelismo** usa la pendiente de la recta dada, $m=-3$, e iguala $f'(x)=m$, nunca $f(x)=m$.\n\n$$\\begin{aligned} 3x + 3 &= -3 \\\\ 3x &= -6 \\\\ x &= -2 \\end{aligned}$$\nConfundir esta condición con la de perpendicularidad, que usaría $-\\tfrac{1}{m}$, es un error clásico cuando se trabaja con paralelismo.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función $f$ es continua en $[1,5]$ y derivable en $(1,5)$. La recta secante entre esos extremos tiene pendiente $m=3$.\n\nSegún el **Teorema del Valor Medio**, ¿qué se puede garantizar sobre las tangentes dentro del intervalo?",
+    "options": [
+      "Existe exactamente un $c \\in (1,5)$ con $f'(c)=3$",
+      "No se puede garantizar nada, sin más datos",
+      "Existe al menos un $c \\in (1,5)$ con $f'(c)=3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el teorema garantiza la existencia de al menos un punto así.",
+    "feedback_incorrect": [
+      "El teorema garantiza que existe al menos un punto con esa propiedad, no que sea el único.",
+      "Cumpliéndose las hipótesis de continuidad y derivabilidad, el teorema sí garantiza la existencia de ese punto.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Teorema del Valor Medio** asegura que, si $f$ es continua en $[a,b]$ y derivable en $(a,b)$, existe al menos un punto interior $c$ donde la tangente tiene la misma pendiente que la secante entre los extremos.\n\nEn este caso, la secante entre $1$ y $5$ tiene pendiente $3$, así que el teorema garantiza que hay al menos un $c \\in (1,5)$ con $f'(c)=3$.\n\nEl teorema no dice cuántos puntos cumplen esa condición, solo garantiza que hay como mínimo uno, puede haber más de uno según la forma de $f$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función $g$ presenta un salto en $x=3$, dentro del intervalo $[1,5]$.\n\n¿Se puede aplicar el **Teorema del Valor Medio** en $[1,5]$?",
+    "options": [
+      "No, las hipótesis de continuidad no se cumplen",
+      "Sí, el salto no afecta la conclusión del teorema",
+      "Sí, siempre que la función esté definida en los extremos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el salto rompe la continuidad exigida por las hipótesis del teorema.",
+    "feedback_incorrect": [
+      null,
+      "El salto sí afecta la aplicación del teorema, la continuidad en todo el intervalo cerrado es una de sus hipótesis.",
+      "Estar definida en los extremos no alcanza, la función tiene que ser continua en todo el intervalo cerrado, sin ningún salto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **Teorema del Valor Medio** exige que la función sea continua en todo el intervalo cerrado $[a,b]$, sin excepciones.\n\nUn salto en $x=3$ rompe esa continuidad, así que las hipótesis del teorema no se cumplen y su conclusión ya no está garantizada en $[1,5]$.\n\nAntes de aplicar el teorema, siempre conviene revisar el intervalo completo en busca de saltos, huecos o picos que puedan romper alguna hipótesis.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función $h$ es continua en $[0,4]$ pero tiene un pico anguloso en $x=2$, dentro del intervalo abierto $(0,4)$.\n\n¿Se cumplen las hipótesis del **Teorema del Valor Medio** en $[0,4]$?",
+    "options": [
+      "Sí, el pico no afecta ninguna hipótesis",
+      "No, falta la derivabilidad en todo el intervalo abierto",
+      "Sí, la continuidad alcanza para aplicar el teorema"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el pico rompe la derivabilidad exigida en el intervalo abierto.",
+    "feedback_incorrect": [
+      "El pico sí afecta una de las hipótesis, la función deja de ser derivable justo en ese punto.",
+      null,
+      "La continuidad es una hipótesis necesaria pero no la única, también hace falta derivabilidad en todo el intervalo abierto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El teorema exige **dos** hipótesis simultáneas, continuidad en el intervalo cerrado y derivabilidad en el intervalo abierto.\n\nUn pico anguloso mantiene la continuidad de $h$, pero rompe la derivabilidad justo en ese punto, así que la segunda hipótesis falla.\n\nCon una sola hipótesis incumplida, ya no se puede aplicar la conclusión del teorema en todo el intervalo, aunque el resto de la función se comporte bien.",
+    "reviewed": false
+  },
+  {
+    "question": "La recta secante de $f$ entre $x=a$ y $x=b$ tiene pendiente $m$. Suponiendo que se cumplen las hipótesis del **Teorema del Valor Medio**, ¿es correcto afirmar que TODOS los puntos interiores $c \\in (a,b)$ cumplen $f'(c)=m$?",
+    "options": [
+      "Sí, todos los puntos interiores cumplen esa condición",
+      "No, el teorema no garantiza la existencia de ningún punto así",
+      "No, el teorema garantiza que existe al menos uno, no todos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el teorema garantiza la existencia de al menos un punto, no de todos.",
+    "feedback_incorrect": [
+      "El teorema no garantiza que todos los puntos cumplan esa condición, solo asegura la existencia de al menos uno.",
+      "Con las hipótesis cumplidas, el teorema sí garantiza la existencia de al menos un punto con esa propiedad.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una lectura apurada del **Teorema del Valor Medio** puede hacer pensar que todos los puntos interiores comparten la pendiente de la secante, pero eso es falso.\n\nEl teorema garantiza únicamente la existencia de al menos un punto $c$ con $f'(c)=m$, no que la propiedad se cumpla en todo el intervalo.\n\nEn funciones con curvatura variable puede haber varios puntos así, o uno solo, pero nunca se garantiza que sean todos los del intervalo.",
     "reviewed": false
   }
 ]

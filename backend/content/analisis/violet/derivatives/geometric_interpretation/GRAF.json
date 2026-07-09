@@ -1,222 +1,393 @@
 [
   {
-    "question": "Observá la gráfica de $f(x)=x^2-2x$. ¿En qué valor de $x$ la recta tangente es horizontal?",
+    "question": "En la gráfica se muestra la curva $f(x) = x^2$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "$x = 1$",
-      "$x = 0$",
-      "$x = 2$",
-      "$x = -1$"
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es una recta transversal"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El vértice de la parábola está en $x=1$, donde $f'(1)=0$.",
-    "feedback_incorrect": "La tangente horizontal corresponde al vértice de la parábola. Completando el cuadrado: $f(x)=(x-1)^2-1$, vértice en $x=1$.",
-    "graph_fn": "x**2 - 2*x",
-    "graph_view": [
-      -2,
-      5,
-      -3,
-      5
+    "feedback_correct": "Correcto, la recta sigue la misma dirección que la curva justo en el punto marcado, sin cruzarla de nuevo.",
+    "feedback_incorrect": [
+      null,
+      "Una secante tendría que volver a cruzar la curva en un segundo punto visible, acá eso no pasa.",
+      "La recta sigue exactamente la misma dirección que la curva en el punto marcado, no hay ningún quiebre visible."
     ],
-    "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^2 - 2x$:\n\n$$f'(x) = 2x - 2 = 0 \\Rightarrow x = 1$$\n\nEn $x=1$, $f(1) = 1 - 2 = -1$: ese es el **vértice** de la parábola. Geométricamente, en el vértice la curva cambia de sentido y la tangente queda perfectamente horizontal.",
+    "graph_fn": "Piecewise((x**2, x<1), (2*x-1, x>=1))",
+    "graph_view": [
+      -3,
+      4,
+      -2,
+      10
+    ],
+    "explanation": "Para reconocer una **recta tangente** en una gráfica, hay que fijarse si la recta sigue exactamente la misma dirección que la curva justo en el punto de contacto, sin ningún quiebre.\n\nEn este caso, la recta se une a la curva en $x=1$ sin cambiar de dirección, y además no vuelve a cruzarla en ningún otro punto visible.\n\nEsa ausencia de quiebre y de segundo cruce es la señal gráfica más confiable de que se trata de una verdadera tangente.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=x^2$. ¿Cuál es la pendiente de la recta tangente en $x=2$?",
+    "question": "En la gráfica se muestra la curva $f(x) = x^2$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "$2$",
-      "$4$",
-      "$1$",
-      "$8$"
+      "No, es una recta transversal",
+      "No, es secante",
+      "Sí, es tangente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f'(x)=2x$, entonces $f'(2)=4$.",
-    "feedback_incorrect": "La derivada de $x^2$ es $2x$. En $x=2$: pendiente $= 2(2) = 4$.",
-    "graph_fn": "x**2",
-    "graph_view": [
-      -4,
-      4,
-      -1,
-      8
+    "feedback_correct": "Correcto, la recta cambia de dirección en el punto marcado y vuelve a cruzar la curva más adelante.",
+    "feedback_incorrect": [
+      "Una recta transversal no vuelve a tocar la curva en otro punto, acá sí se ve un segundo cruce más adelante.",
+      null,
+      "Si fuera tangente, la recta seguiría la misma dirección de la curva sin volver a cruzarla, acá sí hay un quiebre y un segundo cruce."
     ],
-    "explanation": "Para $f(x) = x^2$, la derivada es $f'(x) = 2x$.\n\nEn $x = 2$: $f'(2) = 2 \\times 2 = 4$.\n\nEsto significa que la tangente en $(2, 4)$ tiene pendiente $4$: por cada unidad que avanza a la derecha, sube $4$ unidades. La parábola se va haciendo más empinada a medida que $|x|$ crece.",
+    "graph_fn": "Piecewise((x**2, x<1), (4*x-3, x>=1))",
+    "graph_view": [
+      -3,
+      4,
+      -2,
+      10
+    ],
+    "explanation": "Esta recta se une a la curva en $x=1$ con un cambio de dirección visible, y vuelve a cruzarla en $x=3$, dentro del rango mostrado.\n\nEse segundo punto de cruce es la señal característica de una **recta secante**, que queda definida por dos puntos de contacto con la curva, no por uno solo.\n\nLa pendiente de esta secante corresponde a la tasa de cambio media entre $x=1$ y $x=3$, distinta de la pendiente instantánea en cualquiera de los dos puntos.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿Cuántos puntos de la curva tienen tangente horizontal?",
+    "question": "En la gráfica se muestra la curva $f(x) = x^2$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
     "options": [
-      "$1$",
-      "$0$",
-      "$2$",
-      "$3$"
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es una recta transversal"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f'(x)=3x^2-3=0$ tiene dos soluciones: $x=-1$ y $x=1$.",
-    "feedback_incorrect": "Igualá $f'(x)=3x^2-3=0$: $x^2=1$, $x=\\pm 1$. Hay dos puntos con tangente horizontal.",
-    "graph_fn": "x**3 - 3*x",
+    "feedback_correct": "Correcto, la recta cambia de dirección en el punto marcado y no vuelve a cruzar la curva dentro de la vista.",
+    "feedback_incorrect": [
+      "Si fuera tangente, no habría ningún quiebre en la dirección justo en el punto de contacto, acá sí lo hay.",
+      "Para ser secante, la recta tendría que volver a cruzar la curva en un segundo punto visible, acá eso no ocurre.",
+      null
+    ],
+    "graph_fn": "Piecewise((x**2, x<1), (-x+2, x>=1))",
     "graph_view": [
       -3,
+      4,
+      -2,
+      10
+    ],
+    "explanation": "En este caso la recta se une a la curva en $x=1$, pero cambia bruscamente de dirección respecto de la curva, un quiebre claramente visible.\n\nA diferencia de la secante, esta recta no vuelve a cruzar la curva dentro del tramo mostrado, así que no cumple la definición de dos puntos de contacto.\n\nEste tipo de recta, que corta con un ángulo distinto sin ser ni tangente ni secante dentro de la vista, se clasifica como **recta transversal**.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la curva $f(x) = -x^2 + 4$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "options": [
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es una recta transversal"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta sigue la misma dirección que la curva justo en el punto marcado.",
+    "feedback_incorrect": [
+      null,
+      "Una secante volvería a cruzar la curva en un segundo punto visible, acá eso no ocurre.",
+      "La recta sigue exactamente la misma dirección de la curva en el punto marcado, no hay ningún quiebre."
+    ],
+    "graph_fn": "Piecewise((-x**2+4, x<1), (-2*x+5, x>=1))",
+    "graph_view": [
+      -3,
+      4,
+      -3,
+      6
+    ],
+    "explanation": "En esta parábola invertida, la recta se une a la curva en $x=1$ manteniendo exactamente la misma dirección, sin ningún quiebre visible.\n\nAdemás, la recta no vuelve a cruzar la curva en ningún otro punto de la vista, lo que confirma que se trata de una **recta tangente**.\n\nEste mismo criterio, sin quiebre y sin segundo cruce, sirve para identificar tangentes sin importar si la parábola se abre hacia arriba o hacia abajo.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la curva $f(x) = -x^2 + 4$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "options": [
+      "No, es una recta transversal",
+      "No, es secante",
+      "Sí, es tangente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta vuelve a cruzar la curva en un segundo punto dentro de la vista.",
+    "feedback_incorrect": [
+      "Una recta transversal no vuelve a tocar la curva en otro punto, acá sí hay un segundo cruce visible.",
+      null,
+      "Si fuera tangente no habría un segundo cruce con la curva, acá sí se ve uno más adelante."
+    ],
+    "graph_fn": "Piecewise((-x**2+4, x<1), (-3*x+6, x>=1))",
+    "graph_view": [
+      -3,
+      4,
+      -3,
+      6
+    ],
+    "explanation": "Esta recta se une a la curva en $x=1$ con un cambio de dirección, y vuelve a cruzarla en $x=2$, ambos dentro del rango de la vista.\n\nEse segundo cruce es la marca distintiva de una **recta secante**, que se apoya en dos puntos de la curva en vez de uno solo.\n\nSu pendiente representa la tasa de cambio media entre esos dos puntos, no la pendiente instantánea de ninguno de los dos por separado.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la curva $f(x) = -x^2 + 4$ junto con una recta que se une a ella en el punto marcado.\n\n¿La recta que se une a la curva en ese punto es tangente ahí?",
+    "options": [
+      "Sí, es tangente",
+      "No, es secante",
+      "No, es una recta transversal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, hay un quiebre en el punto marcado y no vuelve a cruzar la curva dentro de la vista.",
+    "feedback_incorrect": [
+      "Si fuera tangente no habría ningún quiebre en la dirección justo en el punto de contacto, acá sí lo hay.",
+      "Para ser secante tendría que volver a cruzar la curva en un segundo punto visible, acá eso no pasa.",
+      null
+    ],
+    "graph_fn": "Piecewise((-x**2+4, x<1), (x+2, x>=1))",
+    "graph_view": [
+      -3,
+      4,
+      -3,
+      6
+    ],
+    "explanation": "Acá la recta se une a la curva en $x=1$ con un cambio de dirección evidente respecto de la curva original.\n\nDentro del tramo mostrado, la recta no vuelve a cruzar la parábola, así que tampoco cumple la definición de secante.\n\nEste tipo de contacto, con quiebre y sin segundo cruce visible, corresponde a una **recta transversal**, ni tangente ni secante.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
+    "options": [
+      "$-2$",
+      "$1$",
+      "$2$",
+      "$0,5$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta sube $2$ unidades por cada unidad que avanza en $x$.",
+    "feedback_incorrect": [
+      "La recta sube de izquierda a derecha, así que la pendiente tiene que ser positiva, no negativa.",
+      "Contá de nuevo cuántas unidades sube la recta por cada unidad que avanza en $x$, sube más de una unidad por cada paso.",
+      null,
+      "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$."
+    ],
+    "graph_fn": "2*x-3",
+    "graph_view": [
+      -2,
+      4,
+      -4,
+      4
+    ],
+    "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\n\nEn esta recta, por cada unidad que se avanza en $x$, la recta sube $2$ unidades en $y$, así que $f'(a)=2$.\n\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden es el error más común al leer pendientes en una grilla.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
+    "options": [
+      "$1$",
+      "$-0,5$",
+      "$-2$",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta baja $1$ unidad por cada unidad que avanza en $x$.",
+    "feedback_incorrect": [
+      "La recta baja de izquierda a derecha, así que la pendiente tiene que ser negativa, no positiva.",
+      "Contá de nuevo cuánto baja la recta por cada unidad de avance horizontal, baja exactamente una unidad completa.",
+      "Ese valor duplica la bajada real, la recta baja una sola unidad por cada unidad de avance, no dos.",
+      null
+    ],
+    "graph_fn": "-x+1",
+    "graph_view": [
+      -3,
+      3,
+      -3,
+      3
+    ],
+    "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\n\nContando la grilla, por cada unidad que avanza en $x$, la recta baja exactamente $1$ unidad en $y$, lo que da $f'(a)=-1$.\n\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
+    "options": [
+      "$0,5$",
+      "$2$",
+      "$-0,5$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta sube media unidad por cada unidad que avanza en $x$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$.",
+      "La recta sube de izquierda a derecha, así que la pendiente tiene que ser positiva, no negativa.",
+      "Contá de nuevo la subida por cada paso horizontal, sube menos de una unidad completa."
+    ],
+    "graph_fn": "0.5*x+1",
+    "graph_view": [
+      -4,
+      4,
+      -2,
+      4
+    ],
+    "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\n\nContando con cuidado la grilla, la recta sube $1$ unidad por cada $2$ unidades de avance en $x$, lo que da $f'(a)=0,5$.\n\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
+    "options": [
+      "$-1$",
+      "$-2$",
+      "$2$",
+      "$-0,5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la recta baja $2$ unidades por cada unidad que avanza en $x$.",
+    "feedback_incorrect": [
+      "Contá de nuevo cuánto baja la recta por cada paso horizontal, baja más de una unidad completa.",
+      null,
+      "La recta baja de izquierda a derecha, así que la pendiente tiene que ser negativa, no positiva.",
+      "Ese valor sale de invertir el cociente, la pendiente es $\\frac{\\Delta y}{\\Delta x}$, no $\\frac{\\Delta x}{\\Delta y}$."
+    ],
+    "graph_fn": "-2*x+2",
+    "graph_view": [
+      -2,
       3,
       -4,
       4
     ],
-    "explanation": "La tangente es horizontal donde $f'(x) = 0$. Para $f(x) = x^3 - 3x$:\n\n$$f'(x) = 3x^2 - 3 = 3(x^2-1) = 3(x-1)(x+1) = 0$$\n\nSoluciones: $x = 1$ y $x = -1$. En $x=1$: mínimo local ($f(1)=-2$). En $x=-1$: máximo local ($f(-1)=2$). **Dos** tangentes horizontales.",
+    "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\n\nContando la grilla, por cada unidad de avance en $x$, la recta baja $2$ unidades en $y$, lo que da $f'(a)=-2$.\n\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si sube o baja.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=-(x-2)^2+4$. ¿Cuánto vale $f'$ en el punto más alto de la curva?",
+    "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente de la recta en la grilla?",
     "options": [
-      "$-2$",
-      "$4$",
-      "$2$",
-      "$0$"
+      "$-3$",
+      "$1$",
+      "$3$",
+      "$2$"
     ],
-    "correct_index": 3,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "En el máximo la tangente es horizontal, así que $f'=0$ allí.",
-    "feedback_incorrect": "En cualquier máximo o mínimo de una función diferenciable, la tangente es horizontal y $f'=0$.",
-    "graph_fn": "-(x-2)**2 + 4",
-    "graph_view": [
-      -1,
-      5,
-      -1,
-      6
+    "feedback_correct": "Correcto, la recta sube $3$ unidades por cada unidad que avanza en $x$.",
+    "feedback_incorrect": [
+      "La recta sube de izquierda a derecha, así que la pendiente tiene que ser positiva, no negativa.",
+      "Contá de nuevo la subida por cada paso horizontal, sube bastante más de una unidad.",
+      null,
+      "Contá de nuevo cuánto sube la recta por cada paso horizontal, sube más de dos unidades."
     ],
-    "explanation": "El punto más alto de $f(x) = -(x-2)^2 + 4$ es el vértice, en $x=2$, $f(2)=4$.\n\nLa derivada es $f'(x) = -2(x-2)$, entonces $f'(2) = 0$.\n\nEn un **máximo local**, la función deja de crecer y empieza a decrecer: en ese instante la tangente es horizontal y $f'=0$.",
-    "reviewed": false
-  },
-  {
-    "question": "Observá la gráfica de $f(x)=x^2-4$. ¿En qué valor de $x$ la tangente tiene pendiente $0$?",
-    "options": [
-      "$x = 0$",
-      "$x = 2$",
-      "$x = -2$",
-      "$x = 4$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=2x=0$ en $x=0$.",
-    "feedback_incorrect": "$f'(x) = 2x = 0$ se anula en $x=0$. En $x=\\pm 2$ la función vale $0$ pero la pendiente no es $0$.",
-    "graph_fn": "x**2 - 4",
+    "graph_fn": "3*x-2",
     "graph_view": [
-      -4,
-      4,
+      -2,
+      3,
       -5,
       5
     ],
-    "explanation": "Para $f(x) = x^2 - 4$:\n\n$$f'(x) = 2x = 0 \\Rightarrow x = 0$$\n\nEl vértice de la parábola está en $x=0$, $f(0)=-4$. Ahí la tangente es horizontal.\n\nCuidado: $x=\\pm 2$ son los ceros de $f$ (donde la curva cruza el eje $x$), no donde la tangente es horizontal.",
+    "explanation": "Esta recta es la más inclinada de la serie, sube $3$ unidades en $y$ por cada unidad que avanza en $x$.\n\nEse ritmo de subida tan pronunciado da una pendiente $f'(a)=3$, más del doble que una recta a $45°$.\n\nContar varios pasos horizontales completos, en vez de fijarse en un solo cuadradito, ayuda a leer con precisión pendientes grandes como esta.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En cuál de estos intervalos es $f'(x)>0$?",
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 6x + 5$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
-      "$-1 < x < 1$",
-      "$x < -1$ y $x > 1$",
-      "$x > 0$",
-      "$x < 0$"
+      "$x=1$",
+      "$x=5$",
+      "$x=0$",
+      "$x=3$"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$f'(x)=3(x-1)(x+1)>0$ fuera del intervalo $(-1,1)$.",
-    "feedback_incorrect": "$f'(x) = 3x^2-3 = 3(x-1)(x+1)$. Analizá el signo: es positivo cuando $x<-1$ o $x>1$.",
-    "graph_fn": "x**3 - 3*x",
-    "graph_view": [
-      -3,
-      3,
-      -4,
-      4
+    "feedback_correct": "Correcto, el vértice de esta parábola está en $x=3$.",
+    "feedback_incorrect": [
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz, la tangente horizontal está en el vértice.",
+      "Esa también es una raíz de la función, el vértice está en $x=3$, entre las dos raíces.",
+      "En $x=0$ la curva todavía tiene pendiente distinta de cero, no coincide con el vértice.",
+      null
     ],
-    "explanation": "$f'(x) = 3x^2 - 3 = 3(x+1)(x-1)$.\n\nAnálisis de signo:\n- $x < -1$: $(x+1)<0$, $(x-1)<0$ → producto positivo → $f'>0$ ✓\n- $-1 < x < 1$: $(x+1)>0$, $(x-1)<0$ → producto negativo → $f'<0$\n- $x > 1$: ambos positivos → $f'>0$ ✓\n\nLa función **crece** fuera de $(-1, 1)$ y **decrece** dentro.",
+    "graph_fn": "x**2-6*x+5",
+    "graph_view": [
+      -1,
+      7,
+      -6,
+      6
+    ],
+    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$, mientras que $x=1$ y $x=5$ son sus raíces, puntos donde $f(x)=0$ pero la tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal es un error frecuente, conviene siempre ubicar primero el vértice antes de responder.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=x^2-2x$. ¿En qué intervalo es $f$ decreciente?",
+    "question": "En la gráfica se muestra la función $f(x) = -x^2 + 4x$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
-      "$x < 0$",
-      "$x > 1$",
-      "$x < 1$",
-      "$x > 2$"
+      "$x=2$",
+      "$x=0$",
+      "$x=4$",
+      "$x=3$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f'(x)=2x-2<0$ para $x<1$, así que $f$ decrece en ese intervalo.",
-    "feedback_incorrect": "$f'(x) = 2x-2 < 0 \\Leftrightarrow x < 1$. La parábola baja hasta su vértice en $x=1$.",
-    "graph_fn": "x**2 - 2*x",
+    "feedback_correct": "Correcto, el vértice de esta parábola invertida está en $x=2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz, no el vértice donde la tangente es horizontal.",
+      "Esa también es una raíz de $f$, el vértice está en $x=2$, entre las dos raíces.",
+      "En $x=3$ la curva todavía tiene pendiente distinta de cero, no coincide con el vértice."
+    ],
+    "graph_fn": "-x**2+4*x",
     "graph_view": [
-      -2,
+      -1,
       5,
       -3,
       5
     ],
-    "explanation": "$f'(x) = 2x - 2$.\n\n- $f'(x) < 0 \\Leftrightarrow 2x - 2 < 0 \\Leftrightarrow x < 1$ → $f$ es **decreciente** en $(-\\infty, 1)$.\n- $f'(x) > 0 \\Leftrightarrow x > 1$ → $f$ es **creciente** en $(1, +\\infty)$.\n\nEl vértice en $x=1$ es el mínimo: la parábola baja hasta allí y luego sube.",
+    "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=2$, el único punto donde la recta tangente queda horizontal.\n\nLas raíces, $x=0$ y $x=4$, marcan dónde la curva cruza el eje, un dato geométrico distinto de dónde la pendiente se anula.\n\nEl vértice siempre se ubica a mitad de camino entre las dos raíces de una parábola, un atajo útil para verificar la respuesta.",
     "reviewed": false
   },
   {
-    "question": "Observá la gráfica de $f(x)=-(x-1)^2+3$. ¿Cuál es la pendiente de la tangente en $x=0$?",
+    "question": "En la gráfica se muestra la función $f(x) = x^2 + 2x - 3$.\n\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
     "options": [
-      "$3$",
-      "$-2$",
-      "$0$",
-      "$2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f'(x)=-2(x-1)$, entonces $f'(0)=-2(-1)=2$.",
-    "feedback_incorrect": "$f'(x) = -2(x-1)$. En $x=0$: $f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$.",
-    "graph_fn": "-(x-1)**2 + 3",
-    "graph_view": [
-      -2,
-      4,
-      -1,
-      5
-    ],
-    "explanation": "Derivando $f(x) = -(x-1)^2 + 3$:\n\n$$f'(x) = -2(x-1)$$\n\nEn $x = 0$:\n$$f'(0) = -2(0-1) = -2 \\cdot (-1) = 2$$\n\nLa tangente en $x=0$ sube (pendiente positiva): estamos a la izquierda del vértice $x=1$, donde la parábola invertida todavía está creciendo.",
-    "reviewed": false
-  },
-  {
-    "question": "Observá la gráfica de $f(x)=x^2$. ¿Cuál es la ecuación de la recta tangente en $x=-1$?",
-    "options": [
-      "$y = -2x - 1$",
-      "$y = 2x + 1$",
-      "$y = -x - 2$",
-      "$y = -2x + 1$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f(-1)=1$, $f'(-1)=-2$, entonces $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
-    "feedback_incorrect": "Con $f(-1)=1$ y $f'(x)=2x \\Rightarrow f'(-1)=-2$: $y-1=-2(x+1) \\Rightarrow y=-2x-1$.",
-    "graph_fn": "x**2",
-    "graph_view": [
-      -4,
-      4,
-      -1,
-      8
-    ],
-    "explanation": "1. **Punto:** $f(-1) = (-1)^2 = 1$ → $(-1, 1)$.\n2. **Pendiente:** $f'(x) = 2x$, entonces $f'(-1) = -2$.\n3. **Tangente:** $y - 1 = -2(x - (-1)) = -2(x+1)$\n$$y = -2x - 2 + 1 = -2x - 1$$\n\nPendiente negativa en $x=-1$: la parábola todavía está bajando hacia su vértice en $x=0$.",
-    "reviewed": false
-  },
-  {
-    "question": "Observá la gráfica de $f(x)=x^3-3x$. ¿En qué intervalo la tangente tiene pendiente negativa?",
-    "options": [
-      "$x < -1$",
-      "$-1 < x < 1$",
-      "$x > 1$",
-      "$x < 0$"
+      "$x=0$",
+      "$x=-1$",
+      "$x=-3$",
+      "$x=1$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f'(x)=3x^2-3<0$ exactamente cuando $-1<x<1$.",
-    "feedback_incorrect": "$f'(x) = 3x^2-3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$.",
-    "graph_fn": "x**3 - 3*x",
+    "feedback_correct": "Correcto, el vértice de esta parábola está en $x=-1$.",
+    "feedback_incorrect": [
+      "En $x=0$ la curva todavía tiene pendiente distinta de cero, no coincide con el vértice.",
+      null,
+      "Ese es uno de los puntos donde $f(x)=0$, una raíz, el vértice está en $x=-1$, entre las dos raíces.",
+      "Esa también es una raíz de $f$, no el vértice donde la tangente es horizontal."
+    ],
+    "graph_fn": "x**2+2*x-3",
+    "graph_view": [
+      -5,
+      3,
+      -5,
+      5
+    ],
+    "explanation": "El vértice de esta parábola está en $x=-1$, exactamente a mitad de camino entre sus dos raíces, $x=-3$ y $x=1$.\n\nEn ese punto la recta tangente a la curva queda perfectamente horizontal, porque la función pasa de bajar a subir justo ahí.\n\nUbicar primero las raíces y promediarlas es una forma rápida de encontrar el vértice sin tener que analizar la curva completa.",
+    "reviewed": false
+  },
+  {
+    "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x - 3$, con un único vértice visible.\n\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
+    "options": [
+      "No, ninguna tangente es horizontal en esta curva",
+      "Sí, pero solo en las raíces de la función",
+      "Sí, en el vértice"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el único punto con tangente horizontal es el vértice.",
+    "feedback_incorrect": [
+      "Sí existe ese punto, es el vértice de la parábola, donde la curva cambia de bajar a subir.",
+      "En las raíces la tangente no suele ser horizontal, ese comportamiento aparece únicamente en el vértice.",
+      null
+    ],
+    "graph_fn": "x**2-2*x-3",
     "graph_view": [
       -3,
-      3,
-      -4,
+      5,
+      -6,
       4
     ],
-    "explanation": "La pendiente de la tangente es negativa cuando $f'(x) < 0$.\n\n$$f'(x) = 3x^2 - 3 < 0 \\Leftrightarrow x^2 < 1 \\Leftrightarrow -1 < x < 1$$\n\nEn ese intervalo la función **decrece**: va desde el máximo local en $x=-1$ hasta el mínimo local en $x=1$. Geométricamente, las tangentes tienen pendiente negativa en toda esa región.",
+    "explanation": "Toda parábola tiene exactamente un vértice, y ese es el único lugar donde la recta tangente a la curva queda horizontal.\n\nEn cualquier otro punto del dominio, incluidas las raíces donde $f(x)=0$, la tangente conserva una pendiente distinta de cero.\n\nEste resultado es general para cualquier parábola, sin importar hacia dónde se abra ni dónde estén ubicadas sus raíces.",
     "reviewed": false
   }
 ]
