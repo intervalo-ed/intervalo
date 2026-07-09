@@ -1,1 +1,302 @@
-[]
+[
+  {
+    "question": "Considerá la integral\n$$\\int (4x^2 - 3\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$4\\int x^2\\,dx - 3\\int \\sin x\\,dx$",
+      "$4\\int x^2\\,dx + 3\\int \\sin x\\,dx$",
+      "$\\int 4x^2\\,dx - 3\\int\\sin x\\,dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada término conserva su escalar extraído y su signo.",
+    "feedback_incorrect": [
+      null,
+      "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
+      "Falta extraer el $4$ fuera de la primera integral, la linealidad saca todos los escalares afuera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **linealidad** del operador integral permite separar sumas y restas, y extraer cada escalar fuera de su propia integral.\n\n$$\\int (4x^2-3\\sin x)\\,dx = 4\\int x^2\\,dx - 3\\int \\sin x\\,dx$$\nTanto el signo de cada término como el escalar que lo acompaña tienen que conservarse exactamente al pasar a la forma separada.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$\\int (x+\\sin x)\\,dx$",
+      "$\\int x\\,dx + \\int \\sin x\\,dx$",
+      "$\\int x + \\int \\sin x\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el diferencial acompaña a cada integral por separado.",
+    "feedback_incorrect": [
+      "Esa forma no está separada todavía, la linealidad exige partir la suma en dos integrales independientes.",
+      null,
+      "Falta el diferencial $dx$ en el primer término, cada integral separada necesita su propio $dx$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$\nDejar el $dx$ pegado solo a uno de los dos términos es un error de escritura frecuente al aplicar la linealidad por primera vez.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (5x^3 - 2x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$5\\int x^3\\,dx + 2\\int x\\,dx$",
+      "$\\int 5x^3\\,dx - \\int 2x\\,dx$",
+      "$5\\int x^3\\,dx - 2\\int x\\,dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada término conserva su escalar extraído y su signo.",
+    "feedback_incorrect": [
+      "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
+      "Falta extraer los escalares $5$ y $2$ fuera de sus integrales, la linealidad los saca siempre afuera.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con dos términos que llevan coeficientes distintos, cada uno se extrae de forma independiente sin alterar el signo de la resta original.\n\n$$\\int (5x^3-2x)\\,dx = 5\\int x^3\\,dx - 2\\int x\\,dx$$\nExtraer los escalares es el primer paso obligatorio de la linealidad, dejarlos adentro de la integral no cuenta como forma armada.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int 7e^x\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$7\\int e^x\\,dx$",
+      "$\\int 7e^x\\,dx$",
+      "$\\int 7\\,dx \\cdot \\int e^x\\,dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el escalar $7$ se extrae fuera de la integral.",
+    "feedback_incorrect": [
+      null,
+      "Esa forma todavía no extrajo el escalar $7$, dejarlo adentro no cuenta como forma armada por linealidad.",
+      "La linealidad no convierte un múltiplo escalar en un producto de dos integrales, el $7$ simplemente se extrae afuera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n\n$$\\int 7e^x\\,dx = 7\\int e^x\\,dx$$\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (x^2+x-4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$\\int x^{2+1}\\,dx$",
+      "$\\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$",
+      "$\\int x^2\\,dx+\\int x\\,dx-4\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada uno de los tres términos queda en su propia integral con su diferencial.",
+    "feedback_incorrect": [
+      "Los exponentes no se combinan al separar una suma, cada término mantiene su propio exponente dentro de su propia integral.",
+      null,
+      "Falta el símbolo de integral en el último término, cada parte separada necesita su propio $\\int$ y su propio $dx$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos, como si $x^2$ y $x$ se fusionaran en $x^{2+1}$, rompe por completo la estructura de la suma original.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (-6\\cos x+x^4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$6\\int\\cos x\\,dx+\\int x^4\\,dx$",
+      "$\\int -6\\cos x\\,dx+\\int x^4\\,dx$",
+      "$-6\\int\\cos x\\,dx+\\int x^4\\,dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el signo negativo se conserva junto con el escalar extraído.",
+    "feedback_incorrect": [
+      "El signo negativo del primer término se perdió, la linealidad conserva el signo original de cada parte.",
+      "Falta extraer el $-6$ fuera de la primera integral, dejarlo adentro no cuenta como forma armada por linealidad.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando un término empieza con signo negativo, ese signo viaja junto con el escalar que se extrae fuera de la integral.\n\n$$\\int (-6\\cos x+x^4)\\,dx = -6\\int\\cos x\\,dx+\\int x^4\\,dx$$\nSeparar el signo del coeficiente es un error frecuente, ambos forman una única unidad que se extrae en conjunto.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$2\\int x\\,dx-9\\int \\ln x\\,dx$",
+      "$2\\int x\\,dx+9\\int \\ln x\\,dx$",
+      "$\\int 2x\\,dx-\\int 9\\ln x\\,dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada término conserva su escalar extraído y su signo.",
+    "feedback_incorrect": [
+      null,
+      "El signo del segundo término se perdió, la resta original tiene que conservarse en la forma armada.",
+      "Falta extraer los escalares $2$ y $9$ fuera de sus integrales, la linealidad los saca siempre afuera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con dos términos de familias distintas, potencial y logarítmica, cada uno se procesa por separado sin mezclar sus escalares.\n\n$$\\int (2x-9\\ln x)\\,dx = 2\\int x\\,dx-9\\int \\ln x\\,dx$$\nEl orden y el signo de la resta original se preservan exactamente igual en la forma separada por linealidad.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (x^3+2x^2-x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "options": [
+      "$\\int x^3\\,dx+\\int 2x^2\\,dx-\\int x\\,dx$",
+      "$\\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$",
+      "$\\int x^3+2x^2-x\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, los tres términos quedan separados con el escalar del medio extraído.",
+    "feedback_incorrect": [
+      "Falta extraer el escalar $2$ fuera de la integral del término del medio, dejarlo adentro no cuenta como forma armada.",
+      null,
+      "Esa forma no está separada, la linealidad exige partir la suma en integrales independientes, cada una con su diferencial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n\n$$\\int (x^3+2x^2-x)\\,dx = \\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$$\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x\\cos x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
+      "Sí, es $\\int x\\,dx + \\int \\cos x\\,dx$",
+      "No, la integral de un producto no es el producto de las integrales"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la linealidad no vale para productos de funciones.",
+    "feedback_incorrect": [
+      "La linealidad no convierte un producto en un producto de integrales, esa propiedad no existe para la integración.",
+      "Tampoco se puede convertir el producto en una suma, esa operación cambiaría por completo la función original.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando dos funciones distintas de $x$ se multiplican dentro del integrando, la **linealidad** no permite separarlas en integrales independientes.\n\n$$\\int x\\cos x\\,dx \\neq \\int x\\,dx \\cdot \\int \\cos x\\,dx$$\nEste tipo de producto necesita una herramienta distinta, integración por partes, que se estudia en un tópico posterior; acá solo hace falta reconocer que no se puede separar así.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "No, la integral de un cociente no es el cociente de las integrales",
+      "Sí, es $\\dfrac{\\int \\sin x\\,dx}{\\int x\\,dx}$",
+      "Sí, es $\\int \\sin x\\,dx - \\int x\\,dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la linealidad no vale para cocientes de funciones.",
+    "feedback_incorrect": [
+      null,
+      "La linealidad no convierte un cociente en un cociente de integrales, esa propiedad no existe para la integración.",
+      "Tampoco se puede convertir el cociente en una resta, esa operación cambiaría por completo la función original."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el integrando es una fracción entre dos funciones distintas de $x$, la **linealidad** tampoco permite separarlas en un cociente de integrales.\n\n$$\\int \\frac{\\sin x}{x}\\,dx \\neq \\frac{\\int \\sin x\\,dx}{\\int x\\,dx}$$\nEsta expresión, de hecho, ni siquiera tiene una primitiva elemental expresable con las funciones vistas hasta ahora, pero eso es un detalle aparte del principio general.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
+      "No, la integral de un producto no es el producto de las integrales",
+      "Sí, es $\\int e^x\\,dx \\cdot \\int \\ln x\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la linealidad no vale para productos de funciones.",
+    "feedback_incorrect": [
+      "Tampoco se puede convertir el producto en una suma, esa operación cambiaría por completo la función original.",
+      null,
+      "La linealidad no convierte un producto en un producto de integrales, esa propiedad no existe para la integración."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n\n$$\\int e^x \\ln x\\,dx \\neq \\int e^x\\,dx \\cdot \\int \\ln x\\,dx$$\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "No, hay que integrar por partes",
+      "No, hay que usar sustitución",
+      "Sí, es $3\\int x\\,dx + \\int 5\\,dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, una suma con un escalar sí se puede separar por linealidad.",
+    "feedback_incorrect": [
+      "No hace falta integración por partes, esta expresión es apenas una suma con un escalar, la linealidad alcanza.",
+      "No hace falta sustitución, esta expresión es apenas una suma con un escalar, la linealidad alcanza.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A diferencia de un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$",
+      "No, hay que aplicar la regla del cociente para integrales",
+      "No, el cociente de funciones nunca se puede separar"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, dividir por una constante equivale a un múltiplo escalar.",
+    "feedback_incorrect": [
+      null,
+      "No existe una regla del cociente para integrales, y en este caso ni hace falta, el denominador es una constante.",
+      "La restricción de cocientes aplica cuando ambas partes dependen de $x$, acá el denominador es apenas un número fijo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el denominador de una fracción es una **constante**, dividir equivale a multiplicar por un escalar, y la linealidad sí aplica.\n\n$$\\int \\frac{x^2+3}{5}\\,dx = \\frac{1}{5}\\int(x^2+3)\\,dx$$\nLa restricción sobre cocientes se refiere a fracciones donde ambas partes dependen de $x$, un denominador constante es apenas un caso particular de múltiplo escalar.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^2 \\cdot 4\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "No, hay que aplicar integración por partes",
+      "Sí, es $4\\int x^2\\,dx$, el $4$ es un escalar",
+      "No, es un producto de dos funciones, no se puede separar"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el $4$ es una constante, no una segunda función.",
+    "feedback_incorrect": [
+      "No hace falta integración por partes, esta expresión es apenas un múltiplo escalar de $x^2$.",
+      null,
+      "El $4$ no depende de $x$, no es una función, así que no aplica la restricción de productos entre funciones."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n\n$$\\int x^2 \\cdot 4\\,dx = 4\\int x^2\\,dx$$\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\tan x \\cdot \\sec x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "options": [
+      "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",
+      "Sí, es $\\int \\tan x\\,dx + \\int \\sec x\\,dx$",
+      "No, la integral de un producto no es el producto de las integrales"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la linealidad no vale para productos de funciones.",
+    "feedback_incorrect": [
+      "La linealidad no convierte un producto en un producto de integrales, esa propiedad no existe para la integración.",
+      "Tampoco se puede convertir el producto en una suma, esa operación cambiaría por completo la función original.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n\n$$\\int \\tan x \\cdot \\sec x\\,dx \\neq \\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$$\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
+    "reviewed": false
+  }
+]
