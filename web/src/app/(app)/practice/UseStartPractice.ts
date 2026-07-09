@@ -5,7 +5,7 @@ import { useApi } from "@/lib/api/useApi"
 import { stashSession } from "@/lib/session/storage"
 import type { SessionStartResponse } from "@/lib/api/types"
 
-export function useStartZen() {
+export function useStartPractice() {
   const api = useApi()
   return useMutation({
     mutationFn: async ({
@@ -21,6 +21,8 @@ export function useStartZen() {
       count: number
       course?: string
     }) => {
+      // El modo se renombró a "practice" en el front; el endpoint del back sigue
+      // siendo /session/start-zen (sin cambios de API).
       const { data, error } = await api.POST("/session/start-zen", {
         body: { user_name: userName, belt, topics, count, course },
       })

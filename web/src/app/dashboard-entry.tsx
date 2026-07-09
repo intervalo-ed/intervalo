@@ -29,7 +29,6 @@ import type { components } from "@/lib/api/schema"
 import {
   beltOrderFor,
   BELT_HEX,
-  COURSE_LABEL,
   COURSE_ORDER,
   getBelt,
   type BeltKey,
@@ -43,8 +42,9 @@ import {
   pendingUnitCount,
 } from "@/lib/catalog/stats"
 import { useSplash } from "@/app/splash-context"
+import { CourseSwitcher } from "@/components/course-switcher"
 import { useUser } from "@clerk/nextjs"
-import { ChevronLeft, ChevronRight, InfoIcon } from "lucide-react"
+import { InfoIcon } from "lucide-react"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -64,8 +64,8 @@ type TopicStates = Record<string, components["schemas"]["TopicProgress"]>
 const ctaCls =
   "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
-// Variante del CTA: fondo blanco con texto violeta (modo Zen / práctica libre).
-const zenCls =
+// Variante del CTA: fondo blanco con texto violeta (modo práctica libre).
+const practiceCls =
   "h-12 w-full rounded-md bg-white text-[#3B1E73] hover:bg-white/90 hover:text-[#3B1E73]"
 
 // Color del título de cada unidad, tomado del cinturón correspondiente
@@ -214,36 +214,7 @@ export default function DashboardEntry() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-2 h-9 rounded-md border border-white/10 bg-white/[0.03] px-1">
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label="Curso anterior"
-                onClick={goPrev}
-              >
-                <ChevronLeft />
-              </Button>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={course}
-                  className="text-sm font-semibold"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  {COURSE_LABEL[course]}
-                </motion.span>
-              </AnimatePresence>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label="Curso siguiente"
-                onClick={goNext}
-              >
-                <ChevronRight />
-              </Button>
-            </div>
+            <CourseSwitcher course={course} onPrev={goPrev} onNext={goNext} />
 
             <div className="grid grid-cols-3 gap-2">
               <Metric
@@ -314,10 +285,10 @@ export default function DashboardEntry() {
             ) : (
               <Button
                 size="lg"
-                className={zenCls}
+                className={practiceCls}
                 nativeButton={false}
                 onClick={() => sfx.continue()}
-                render={<Link href={`/zen?course=${course}`} />}
+                render={<Link href={`/practice?course=${course}`} />}
               >
                 Practicar
               </Button>

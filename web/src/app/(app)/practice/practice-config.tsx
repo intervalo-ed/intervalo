@@ -1,5 +1,7 @@
 "use client"
 
+import { BottomNav } from "@/components/bottom-nav"
+import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -38,7 +40,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
 import { useMemo, useState } from "react"
-import { useStartZen } from "./UseStartZen"
+import { useStartPractice } from "./UseStartPractice"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
@@ -48,17 +50,17 @@ function playableTopics({ belt, course }: { belt: BeltKey; course: CourseId }) {
   return topicsForBelt({ belt, course }).filter((t) => t.skills.length > 0)
 }
 
-export default function ZenConfig() {
+export default function PracticeConfig() {
   const { user } = useUser()
   const router = useRouter()
-  const startZen = useStartZen()
+  const startPractice = useStartPractice()
   const sfx = useSfx()
 
   const [count, setCount] = useQueryState(
     "count",
     parseAsInteger.withDefault(10),
   )
-  const [course] = useQueryState(
+  const [course, setCourse] = useQueryState(
     "course",
     parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
   )
@@ -85,6 +87,25 @@ export default function ZenConfig() {
     selectBelt((beltIdx + 1) % beltOrder.length)
   }
 
+  function selectCourse(next: CourseId) {
+    sfx.iterate()
+    setCourse(next)
+    // Los temas dependen del curso: volvemos a la primera unidad y limpiamos la
+    // selección para no arrastrar temas de otro curso.
+    setBeltIdx(0)
+    setEnabled(new Set())
+  }
+
+  function prevCourse() {
+    const idx = COURSE_ORDER.indexOf(course)
+    selectCourse(COURSE_ORDER[(idx - 1 + COURSE_ORDER.length) % COURSE_ORDER.length])
+  }
+
+  function nextCourse() {
+    const idx = COURSE_ORDER.indexOf(course)
+    selectCourse(COURSE_ORDER[(idx + 1) % COURSE_ORDER.length])
+  }
+
   function toggleTopic(key: string) {
     sfx.iterate()
     setEnabled((prev) => {
@@ -108,7 +129,7 @@ export default function ZenConfig() {
   function onStart() {
     if (!canStart) return
     sfx.start()
-    startZen.mutate(
+    startPractice.mutate(
       {
         userName: user?.fullName ?? user?.firstName ?? "",
         belt,
@@ -124,23 +145,15 @@ export default function ZenConfig() {
 
   return (
     <Screen>
-      <ScreenHeader innerClassName="relative justify-center">
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label="Volver"
-          nativeButton={false}
-          render={<Link href="/" />}
-          className="absolute left-0 inset-y-0 my-auto transition-none active:translate-y-0"
-        >
-          <ChevronLeft />
-        </Button>
+      <ScreenHeader innerClassName="justify-center">
         <Link href="/" aria-label="Intervalo">
           <Wordmark textClass="text-[15px]" barClass="h-[3px]" />
         </Link>
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
+        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+
         <section className="flex flex-col gap-0.5 rounded-md border border-white/10 p-4">
           <h2 className="font-sans text-lg font-semibold leading-tight">
             Práctica
@@ -294,9 +307,9 @@ export default function ZenConfig() {
           </div>
         </section>
 
-        {startZen.isError && (
+        {startPractice.isError && (
           <Alert variant="destructive">
-            <AlertDescription>{startZen.error.message}</AlertDescription>
+            <AlertDescription>{startPractice.error.message}</AlertDescription>
           </Alert>
         )}
       </ScreenBody>
@@ -306,12 +319,14 @@ export default function ZenConfig() {
           size="lg"
           className={ctaCls}
           onClick={onStart}
-          disabled={!canStart || startZen.isPending}
+          disabled={!canStart || startPractice.isPending}
         >
-          {startZen.isPending ? <Spinner /> : null}
-          {startZen.isPending ? "Cargando…" : "Comenzar"}
+          {startPractice.isPending ? <Spinner /> : null}
+          {startPractice.isPending ? "Cargando…" : "Comenzar"}
         </Button>
       </ScreenFooter>
+
+      <BottomNav />
     </Screen>
   )
 }
