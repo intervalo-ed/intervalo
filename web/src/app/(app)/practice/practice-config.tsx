@@ -38,7 +38,7 @@ import { useMemo, useState } from "react"
 import { useStartPractice } from "./UseStartPractice"
 
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-12 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 // Topics with at least one exercise type are the only ones that yield exercises.
 function playableTopics({ belt, course }: { belt: BeltKey; course: CourseId }) {
@@ -147,18 +147,16 @@ export default function PracticeConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <div className="flex flex-col gap-2">
-          <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
-          <Button
-            size="lg"
-            className={ctaCls}
-            onClick={onStart}
-            disabled={!canStart || startPractice.isPending}
-          >
-            {startPractice.isPending ? <Spinner /> : null}
-            {startPractice.isPending ? "Cargando…" : "Comenzar"}
-          </Button>
-        </div>
+        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+        <Button
+          size="lg"
+          className={ctaCls}
+          onClick={onStart}
+          disabled={!canStart || startPractice.isPending}
+        >
+          {startPractice.isPending ? <Spinner /> : null}
+          {startPractice.isPending ? "Cargando…" : "Comenzar"}
+        </Button>
 
         <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
           <div className="flex flex-col gap-0.5">
