@@ -1,70 +1,302 @@
 [
   {
-    "question": "Al integrar $\\int x^2 \\ln(x) \\, dx$ por partes, ¿cuál es la mejor elección para $u$ según la regla LIATE?",
+    "question": "Para resolver\n$$\\int x^2\\ln x\\,dx$$\npor **partes**, ¿cuál es la elección correcta de $u$ y $dv$ según **LIATE**?",
     "options": [
-      "$u = x^2$",
-      "$u = \\ln(x)$",
-      "$u = dx$",
-      "$u = x^3$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Las funciones logarítmicas tienen prioridad sobre las algebraicas ($x^n$).",
-    "feedback_incorrect": "Recordá la prioridad LIATE: Logarítmicas van antes que Algebraicas ($x^2$).",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La estrategia **LIATE** nos ayuda a elegir $u$ siguiendo un orden de prioridad: Logarítmicas, Inversas trigonométricas, Algebraicas, Trigonométricas y Exponenciales.\n\nEn la integral $\\int x^2 \\ln(x) \\, dx$, tenés una función algebraica ($x^2$) y una logarítmica ($\\ln(x)$). Como la **L** está antes que la **A** en la sigla, elegimos:\n\n$$u = \\ln(x) \\implies du = \\frac{1}{x} dx$$\n\nEsto facilita el cálculo porque la derivada del logaritmo simplifica el grado de la expresión algebraica en el siguiente paso de la integral.",
-    "reviewed": false
-  },
-  {
-    "question": "Si al aplicar integración por partes llegás a una integral $\\int v \\, du$ que es más compleja que la original, ¿qué deberías intentar?",
-    "options": [
-      "Continuar derivando $u$ hasta que desaparezca",
-      "Intercambiar la elección de $u$ y $dv$",
-      "Usar una sustitución lineal en $v$",
-      "Multiplicar toda la expresión por $x$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Una mala elección de partes suele complicar la integral en lugar de simplificarla.",
-    "feedback_incorrect": "Si la integral se vuelve más difícil, lo más probable es que hayas elegido mal $u$ y $dv$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El objetivo de la **integración por partes** es transformar una integral difícil en una más sencilla. La clave está en la elección de $u$ y $dv$.\n\nSi elegís, por ejemplo, $u = \\sin(x)$ y $dv = x \\, dx$ para integrar $x \\sin(x)$, vas a obtener una integral con $x^2 \\cos(x)$, lo cual es claramente más complejo. En esos casos, debés **remediar la elección**:\n\nAsigná a $u$ la función que se simplifica al derivar (generalmente la potencia de $x$) y a $dv$ la que no se complica al integrar (como $e^x$ o $\\sin(x)$).",
-    "reviewed": false
-  },
-  {
-    "question": "Al resolver $\\int x^2 e^x \\, dx$, ¿cuántas veces es necesario aplicar el método de integración por partes?",
-    "options": [
-      "Una sola vez",
-      "Dos veces",
-      "Tres veces",
-      "No se puede resolver por partes"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Cada aplicación reduce el grado de $x^n$ en una unidad.",
-    "feedback_incorrect": "Como tenés un $x^2$, la primera aplicación te dejará una integral con $x$. Necesitás otra más.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando tenés una potencia natural de $x$ multiplicada por una exponencial o trigonométrica, cada aplicación de integración por partes **reduce el exponente** de $x$ en uno.\n\n1. En la primera vuelta de $\\int x^2 e^x \\, dx$, con $u=x^2$, obtenés un término con $\\int 2x e^x \\, dx$.\n2. En la segunda vuelta, con $u=2x$, obtenés finalmente $\\int 2 e^x \\, dx$, que es directa.\n\nEn general, para $\\int x^n e^x \\, dx$, vas a necesitar aplicar el método $n$ veces.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es la fórmula correcta de integración por partes?",
-    "options": [
-      "$\\int u \\, dv = uv - \\int v \\, du$",
-      "$\\int u \\, dv = u'v - uv'$",
-      "$\\int u \\, dv = uv + \\int v \\, du$",
-      "$\\int u \\, dv = \\frac{u}{v} - \\int u \\, du$"
+      "$u=\\ln x, dv=x^2\\,dx$",
+      "$u=x^2, dv=\\ln x\\,dx$",
+      "$u=x^2\\ln x, dv=dx$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Es la versión integral de la regla del producto de derivadas.",
-    "feedback_incorrect": "La fórmula estándar es $uv - \\int v \\, du$. No confundas el signo menos.",
+    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_incorrect": [
+      null,
+      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de **integración por partes** proviene de integrar ambos lados de la regla del producto para derivadas:\n\n$$\\frac{d}{dx}(uv) = u \\frac{dv}{dx} + v \\frac{du}{dx}$$\n\nAl integrar respecto a $x$ y reordenar los términos, obtenemos la herramienta que nos permite atacar productos de funciones de distinta naturaleza:\n\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nUna regla mnemotécnica muy usada en Argentina es: \"**U**n **V**iaje **S**in **R**obo **D**e **V**isado\" o similares para recordar el orden de los elementos.",
+    "explanation": "La **regla LIATE** ordena las familias de funciones, Logaritmo, Inversa trigonométrica, Algebraica, Trigonométrica, Exponencial, para decidir cuál asume el rol de $u$.\n\n$$u=\\ln x, \\quad dv=x^2\\,dx$$\nElegir el logaritmo como $u$ deja una $dv$ fácil de integrar, y $du=\\frac{1}{x}\\,dx$ termina simplificando la integral remanente.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int xe^x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=xe^x, dv=dx$",
+      "$u=x, dv=e^x\\,dx$",
+      "$u=e^x, dv=x\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_incorrect": [
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
+      null,
+      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla **LIATE** prioriza Algebraica (A) por sobre Exponencial (E) al elegir $u$, sin importar cuán simple parezca la exponencial.\n\n$$u=x, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int x\\sin x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=\\sin x, dv=x\\,dx$",
+      "$u=x\\sin x, dv=dx$",
+      "$u=x, dv=\\sin x\\,dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
+    "feedback_incorrect": [
+      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original.",
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T) al elegir $u$.\n\n$$u=x, \\quad dv=\\sin x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int x^3\\ln x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=\\ln x, dv=x^3\\,dx$",
+      "$u=x^3, dv=\\ln x\\,dx$",
+      "$u=x^3\\ln x, dv=dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_incorrect": [
+      null,
+      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n\n$$u=\\ln x, \\quad dv=x^3\\,dx$$\nEsta elección deja $du=\\frac{1}{x}\\,dx$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int xe^{3x}\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=xe^{3x}, dv=dx$",
+      "$u=x, dv=e^{3x}\\,dx$",
+      "$u=e^{3x}, dv=x\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_incorrect": [
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
+      null,
+      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza Algebraica (A) por sobre Exponencial (E).\n\n$$u=x, \\quad dv=e^{3x}\\,dx$$\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int x\\cos x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=\\cos x, dv=x\\,dx$",
+      "$u=x\\cos x, dv=dx$",
+      "$u=x, dv=\\cos x\\,dx$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la trigonométrica para elegir $u$.",
+    "feedback_incorrect": [
+      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original.",
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T), sin importar si la función es seno o coseno.\n\n$$u=x, \\quad dv=\\cos x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int 2x\\ln x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=\\ln x, dv=2x\\,dx$",
+      "$u=2x, dv=\\ln x\\,dx$",
+      "$u=2x\\ln x, dv=dx$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza el logaritmo por sobre la función algebraica para elegir $u$.",
+    "feedback_incorrect": [
+      null,
+      "Elegiste LIATE al revés, la regla prioriza logaritmo antes que algebraica para el rol de $u$.",
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n\n$$u=\\ln x, \\quad dv=2x\\,dx$$\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int x^2e^x\\,dx$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "options": [
+      "$u=x^2e^x, dv=dx$",
+      "$u=x^2, dv=e^x\\,dx$",
+      "$u=e^x, dv=x^2\\,dx$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, LIATE prioriza la función algebraica por sobre la exponencial para elegir $u$.",
+    "feedback_incorrect": [
+      "Ese bloque completo no deja ningún $dv$ integrable de forma directa, hace falta separar en dos factores.",
+      null,
+      "Elegiste LIATE al revés, esa elección deja una integral remanente más difícil que la original."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando Algebraica (A) por sobre Exponencial (E).\n\n$$u=x^2, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^2e^x\\,dx$$\n¿Cómo se comporta al resolverla por **partes**?",
+    "options": [
+      "Requiere una iteración",
+      "Es cíclica (despejar la original)",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el grado $2$ del polinomio exige aplicar la fórmula dos veces.",
+    "feedback_incorrect": [
+      "Con grado $2$ en la parte polinómica, una sola aplicación no reduce el polinomio a una constante, hace falta repetir el método.",
+      "Esta integral no es cíclica, el grado del polinomio termina bajando hasta una constante tras aplicar el método dos veces.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "Es cíclica (despejar la original)",
+      "Requiere una iteración",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicar la fórmula dos veces devuelve la integral original con signo cambiado.",
+    "feedback_incorrect": [
+      null,
+      "Una sola aplicación no cierra esta integral, el remanente sigue siendo un producto de exponencial y trigonométrica.",
+      "Aplicar la fórmula dos veces no reduce el problema, devuelve la integral original, así que hace falta despejar en vez de seguir aplicando."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx \\text{ (con signo cambiado)}$$\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "No se puede resolver por partes",
+      "Requiere una iteración",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación, sin importar el grado del polinomio.",
+    "feedback_incorrect": [
+      "Esta integral sí se puede resolver por partes, eligiendo $u=\\ln x$ y $dv=x^5\\,dx$.",
+      null,
+      "El grado del exponente no obliga a repetir el método, la derivada de $\\ln x$ cancela exactamente una potencia de $x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando $u=\\ln x$, su derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente, sin importar el grado original.\n\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "Requiere una iteración",
+      "Es cíclica (despejar la original)",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el grado $2$ del polinomio exige aplicar la fórmula dos veces.",
+    "feedback_incorrect": [
+      "Con grado $2$ en la parte polinómica, una sola aplicación no reduce el polinomio a una constante, hace falta repetir el método.",
+      "Esta integral no es cíclica, el grado del polinomio termina bajando hasta una constante tras aplicar el método dos veces.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Igual que con $x^2e^x$, el grado $2$ del polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "Es cíclica (despejar la original)",
+      "Requiere una iteración",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicar la fórmula dos veces devuelve la integral original con signo cambiado.",
+    "feedback_incorrect": [
+      null,
+      "Una sola aplicación no cierra esta integral, el remanente sigue siendo un producto de exponencial y trigonométrica.",
+      "Aplicar la fórmula dos veces no reduce el problema, devuelve la integral original, así que hace falta despejar en vez de seguir aplicando."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx \\text{ (con signo cambiado)}$$\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "Es cíclica (despejar la original)",
+      "Requiere una iteración",
+      "Requiere dos iteraciones"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación.",
+    "feedback_incorrect": [
+      "Esta integral no es cíclica, la derivada de $\\ln x$ simplifica el remanente a una integral directa de tabla.",
+      null,
+      "El grado $1$ del polinomio no obliga a repetir el método, la derivada de $\\ln x$ ya cancela la potencia de $x$ en un solo paso."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{2}\\int x\\,dx$$\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "options": [
+      "Requiere diez iteraciones",
+      "Requiere dos iteraciones",
+      "Requiere una iteración"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, elegir $u=\\ln x$ cierra la integral en una única aplicación, sin importar el grado del polinomio.",
+    "feedback_incorrect": [
+      "El grado del polinomio no determina la cantidad de iteraciones acá, la derivada de $\\ln x$ cancela la potencia en un único paso.",
+      "El grado del polinomio no determina la cantidad de iteraciones acá, con $u=\\ln x$ el método cierra directamente.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=\\frac{1}{x}\\,dx$, que cancela una potencia de $x$ en un único paso.\n\n$$\\int \\frac{x^{11}}{11}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{11}\\int x^{10}\\,dx$$\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.",
     "reviewed": false
   }
 ]
