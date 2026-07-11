@@ -3,18 +3,42 @@
   "name": "Probabilidad",
   "description": "Sistema de repaso adaptativo para Probabilidad y Estadística",
   "exercise_types": [
-    { "id": "LEXI", "label": "Léxico", "description": "Definiciones, vocabulario y notación del tema." },
-    { "id": "CLSF", "label": "Clasificación", "description": "Reconocer y clasificar funciones, puntos o casos." },
-    { "id": "FORM", "label": "Formulación", "description": "Identificar y aplicar los componentes de una fórmula." },
-    { "id": "GRAF", "label": "Gráficos", "description": "Leer e interpretar información en gráficos." },
-    { "id": "ESTR", "label": "Estrategia", "description": "Elegir el método o las condiciones para resolver." },
-    { "id": "RESL", "label": "Resolución", "description": "Calcular el resultado paso a paso." }
+    {
+      "id": "LEXI",
+      "label": "Léxico",
+      "description": "Definiciones, vocabulario y notación del tema."
+    },
+    {
+      "id": "CLSF",
+      "label": "Clasificación",
+      "description": "Reconocer y clasificar funciones, puntos o casos."
+    },
+    {
+      "id": "FORM",
+      "label": "Formulación",
+      "description": "Identificar y aplicar los componentes de una fórmula."
+    },
+    {
+      "id": "GRAF",
+      "label": "Gráficos",
+      "description": "Leer e interpretar información en gráficos."
+    },
+    {
+      "id": "ESTR",
+      "label": "Estrategia",
+      "description": "Elegir el método o las condiciones para resolver."
+    },
+    {
+      "id": "RESL",
+      "label": "Resolución",
+      "description": "Calcular el resultado paso a paso."
+    }
   ],
   "belts": [
     {
       "key": "white",
       "headline": "Conteo",
-      "description": "Trabajás tu capacidad para calcular combinaciones y permutaciones, sentando las bases lógicas necesarias para cuantificar espacios de múltiples resultados.",
+      "description": "Trabajás las bases del cálculo de probabilidades: contás combinaciones y permutaciones y dominás los axiomas y teoremas fundamentales de la incertidumbre.",
       "units": [
         {
           "key": "conteo",
@@ -26,45 +50,57 @@
               "name": "Reglas",
               "tooltip": "Las **reglas de conteo** son los principios que permiten determinar la cantidad de resultados posibles de un experimento compuesto sin necesidad de enumerarlos.\n$$N = m \\times n, \\quad N = m + n$$\nLa regla del **producto** aplica cuando varias decisiones se combinan en secuencia, y la regla de la **suma** aplica cuando las alternativas son mutuamente excluyentes.",
               "short_description": "Las **reglas de conteo** cuantifican la cantidad de resultados posibles de un experimento compuesto.\n$$N = m \\times n$$",
-              "skills": ["FORM", "ESTR", "RESL"]
+              "skills": [
+                "FORM",
+                "ESTR",
+                "RESL"
+              ]
             },
             {
               "key": "factoriales",
               "name": "Factoriales",
               "tooltip": "El **factorial** de un número natural $n$ es el producto de todos los enteros positivos desde $1$ hasta $n$, con la convención $0! = 1$.\n$$n! = n \\times (n-1) \\times (n-2) \\times \\cdots \\times 1$$\nEs la operación base sobre la que se construyen las fórmulas de permutaciones, variaciones y combinaciones, y satisface la relación recursiva $n! = n \\cdot (n-1)!$.",
               "short_description": "El **factorial** $n!$ es el producto de todos los enteros positivos desde $1$ hasta $n$.\n$$n! = n \\times (n-1) \\times \\cdots \\times 1$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "permutaciones",
               "name": "Permutaciones",
               "tooltip": "Las **permutaciones** cuentan la cantidad de formas de ordenar $n$ elementos distintos cuando el orden importa y se utilizan todos los elementos disponibles.\n$$P_n = n!$$\nCuando hay elementos repetidos, se divide por el factorial de cada grupo idéntico para no contar la misma disposición varias veces.",
               "short_description": "Las **permutaciones** cuentan las formas de ordenar $n$ elementos distintos cuando el orden importa.\n$$P_n = n!$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "variaciones",
               "name": "Variaciones",
               "tooltip": "Las **variaciones** cuentan la cantidad de formas de elegir y ordenar $k$ elementos distintos de un total de $n$, considerando que el orden en que aparecen los seleccionados forma parte del resultado.\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nA diferencia de la permutación completa, aquí solo se organiza un subgrupo del conjunto original.",
               "short_description": "Las **variaciones** cuentan las formas de elegir y ordenar $k$ elementos de un total de $n$.\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "combinaciones",
               "name": "Combinaciones",
               "tooltip": "Las **combinaciones** cuentan la cantidad de formas de elegir $k$ elementos de un total de $n$ cuando el orden en que se seleccionan no altera el resultado.\n$$C_{n,k} = \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSe obtiene dividiendo las variaciones por $k!$, ya que cada subconjunto puede ordenarse internamente de $k!$ maneras equivalentes.",
               "short_description": "Las **combinaciones** cuentan las formas de elegir $k$ elementos de un total de $n$ cuando el orden no importa.\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "blue",
-      "headline": "Probabilidad y Variables",
-      "description": "Dominás los axiomas y teoremas fundamentales de la incertidumbre y explorás cómo traducir experimentos aleatorios a funciones matemáticas.",
-      "units": [
+        },
         {
           "key": "probabilidad",
           "name": "Probabilidad",
@@ -75,52 +111,85 @@
               "name": "Espacios",
               "tooltip": "El **espacio muestral** $\\Omega$ es el conjunto de todos los resultados posibles de un experimento aleatorio, y cualquier subconjunto $A \\subseteq \\Omega$ constituye un evento.\n$$A \\subseteq \\Omega, \\quad \\omega \\in \\Omega$$\nLos resultados individuales que no pueden descomponerse en subeventos se denominan sucesos elementales.",
               "short_description": "El **espacio muestral** $\\Omega$ es el conjunto de todos los resultados posibles de un experimento aleatorio.\n$$A \\subseteq \\Omega$$",
-              "skills": ["LEXI", "CLSF"]
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
             },
             {
               "key": "axiomas",
               "name": "Axiomas",
               "tooltip": "Los **axiomas de Kolmogorov** son las condiciones que debe cumplir toda medida de probabilidad $P$ sobre un espacio muestral $\\Omega$, dando estructura formal a la noción intuitiva de incertidumbre.\n$$P(A) \\geq 0, \\quad P(\\Omega) = 1, \\quad P(A \\cup B) = P(A) + P(B) \\text{ si } A \\cap B = \\emptyset$$\nDe estas condiciones se deducen todas las propiedades operativas, como la probabilidad del complemento $P(A^c) = 1 - P(A)$.",
               "short_description": "Los **axiomas** son las condiciones formales que debe cumplir toda medida de probabilidad.\n$$0 \\leq P(A) \\leq 1, \\quad P(\\Omega) = 1$$",
-              "skills": ["LEXI", "ESTR", "RESL"]
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
             },
             {
               "key": "laplace",
               "name": "Laplace",
               "tooltip": "La **regla de Laplace** asigna la probabilidad de un evento en un espacio muestral finito y equiprobable como el cociente entre los casos favorables y los casos posibles.\n$$P(A) = \\frac{\\#\\text{casos favorables}}{\\#\\text{casos posibles}}$$\nSu validez depende estrictamente de la simetría del experimento; deja de aplicar cuando los resultados no son igualmente probables o el espacio es infinito.",
               "short_description": "La **regla de Laplace** define la probabilidad como el cociente entre casos favorables y casos posibles en espacios equiprobables.\n$$P(A) = \\dfrac{\\#\\text{favorables}}{\\#\\text{posibles}}$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "condicional",
               "name": "Condicional",
               "tooltip": "La **probabilidad condicional** mide la probabilidad de un evento $A$ una vez que se sabe que otro evento $B$ ha ocurrido, restringiendo el espacio muestral efectivo al conjunto $B$.\n$$P(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}, \\quad P(B) > 0$$\nEsta operación redimensiona la medida original y permite modelar cómo la información parcial modifica la incertidumbre de un evento.",
               "short_description": "La **probabilidad condicional** mide la probabilidad de un evento sabiendo que otro ya ocurrió.\n$$P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$$",
-              "skills": ["ESTR", "FORM", "RESL"]
+              "skills": [
+                "ESTR",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "independencia",
               "name": "Independencia",
               "tooltip": "Dos eventos $A$ y $B$ son **independientes** cuando la ocurrencia de uno no modifica la probabilidad del otro, lo que se traduce en que la probabilidad del intersecto factoriza en el producto de las probabilidades individuales.\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nEsta condición equivale a $P(A \\mid B) = P(A)$ siempre que $P(B) > 0$.",
               "short_description": "Dos eventos son **independientes** cuando la ocurrencia de uno no modifica la probabilidad del otro.\n$$P(A \\cap B) = P(A) \\cdot P(B)$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "total",
               "name": "Total",
               "tooltip": "La **probabilidad total** calcula la probabilidad de un evento $B$ descomponiendo el espacio muestral en una partición de eventos mutuamente excluyentes y colectivamente exhaustivos $\\{A_i\\}$.\n$$P(B) = \\sum_{i} P(B \\mid A_i) \\cdot P(A_i)$$\nEs la estrategia estándar para evaluar eventos cuyas probabilidades directas se desconocen pero cuyo comportamiento condicionado a cada escenario es conocido.",
               "short_description": "La **probabilidad total** calcula la probabilidad de un evento descomponiendo el espacio en escenarios excluyentes.\n$$P(B) = \\sum_{i} P(B \\mid A_i) \\cdot P(A_i)$$",
-              "skills": ["ESTR", "FORM", "RESL"]
+              "skills": [
+                "ESTR",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "bayes",
               "name": "Bayes",
               "tooltip": "El **teorema de Bayes** invierte una probabilidad condicional, permitiendo actualizar la probabilidad de un evento a la luz de una nueva observación.\n$$P(A \\mid B) = \\frac{P(B \\mid A) \\cdot P(A)}{P(B)}$$\nCombina una probabilidad a priori $P(A)$ con la verosimilitud $P(B \\mid A)$ para obtener la probabilidad a posteriori de la hipótesis $A$.",
               "short_description": "El **teorema de Bayes** invierte una probabilidad condicional para actualizar hipótesis con nueva evidencia.\n$$P(A \\mid B) = \\dfrac{P(B \\mid A) \\cdot P(A)}{P(B)}$$",
-              "skills": ["ESTR", "FORM", "RESL"]
+              "skills": [
+                "ESTR",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "headline": "Variables",
+      "description": "Explorás cómo traducir experimentos aleatorios a funciones matemáticas: variables aleatorias, sus distribuciones puntual, de densidad y acumulada, y sus resúmenes numéricos como la esperanza y la varianza.",
+      "units": [
         {
           "key": "variables",
           "name": "Variables",
@@ -131,42 +200,63 @@
               "name": "Definición",
               "tooltip": "Una **variable aleatoria** es una función que asigna un valor numérico real a cada resultado del espacio muestral, trasladando el análisis probabilístico del universo de eventos al universo de los números.\n$$X : \\Omega \\to \\mathbb{R}$$\nSegún el conjunto de valores que toma, se clasifica en discreta si es contable o continua si recorre un intervalo real.",
               "short_description": "Una **variable aleatoria** asigna un valor numérico real a cada resultado del espacio muestral.\n$$X : \\Omega \\to \\mathbb{R}$$",
-              "skills": ["LEXI", "CLSF"]
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
             },
             {
               "key": "puntual",
               "name": "Puntual",
               "tooltip": "La **función de probabilidad puntual** de una variable aleatoria discreta $X$ asigna a cada valor posible $x$ la probabilidad exacta con la que la variable lo asume.\n$$p(x) = P(X = x), \\quad \\sum_{x} p(x) = 1$$\nSe representa gráficamente como un conjunto de barras verticales, una por cada valor del soporte, cuyas alturas suman uno.",
               "short_description": "La **función puntual** describe la probabilidad exacta de que una variable discreta tome un valor específico.\n$$p(x) = P(X = x)$$",
-              "skills": ["FORM", "GRAF", "RESL"]
+              "skills": [
+                "FORM",
+                "GRAF",
+                "RESL"
+              ]
             },
             {
               "key": "densidad",
               "name": "Densidad",
               "tooltip": "La **función de densidad** de una variable aleatoria continua $X$ describe cómo se distribuye la probabilidad sobre el eje real, entendiéndose como el reparto local de una masa total unitaria.\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx, \\quad \\int_{-\\infty}^{\\infty} f(x)\\,dx = 1$$\nLa probabilidad de que la variable tome un valor puntual es cero, y las probabilidades se calculan como áreas bajo la curva.",
               "short_description": "La **función de densidad** modela variables continuas; la probabilidad se obtiene como área bajo su curva.\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$",
-              "skills": ["FORM", "GRAF", "RESL"]
+              "skills": [
+                "FORM",
+                "GRAF",
+                "RESL"
+              ]
             },
             {
               "key": "acumulada",
               "name": "Acumulada",
               "tooltip": "La **función de distribución acumulada** $F(x)$ indica la probabilidad de que una variable aleatoria tome un valor menor o igual a $x$, integrando toda la información probabilística del punto en cuestión hacia la izquierda.\n$$F(x) = P(X \\leq x)$$\nEs una función no decreciente que arranca en $0$ y tiende asintóticamente a $1$, y para variables continuas se obtiene integrando la densidad desde $-\\infty$ hasta $x$.",
               "short_description": "La **función acumulada** indica la probabilidad de que la variable tome un valor menor o igual a un $x$ dado.\n$$F(x) = P(X \\leq x)$$",
-              "skills": ["FORM", "GRAF", "RESL"]
+              "skills": [
+                "FORM",
+                "GRAF",
+                "RESL"
+              ]
             },
             {
               "key": "esperanza",
               "name": "Esperanza",
               "tooltip": "La **esperanza** de una variable aleatoria $X$ es su promedio ponderado a largo plazo, donde cada valor posible se pesa por su probabilidad o densidad.\n$$E[X] = \\sum_{x} x \\cdot p(x), \\quad E[X] = \\int_{-\\infty}^{\\infty} x \\cdot f(x)\\,dx$$\nRepresenta el centro de masa de la distribución y es un operador lineal: $E[aX + b] = a \\cdot E[X] + b$.",
               "short_description": "La **esperanza** es el promedio ponderado a largo plazo de una variable aleatoria.\n$$E[X] = \\sum_{x} x \\cdot p(x)$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "varianza",
               "name": "Varianza",
               "tooltip": "La **varianza** mide la dispersión promedio de una variable aleatoria respecto de su esperanza, cuantificando cuán alejados están sus valores del centro de la distribución.\n$$\\mathrm{Var}(X) = E\\left[(X - \\mu)^2\\right] = E[X^2] - (E[X])^2$$\nSu raíz cuadrada $\\sigma = \\sqrt{\\mathrm{Var}(X)}$ es la desviación estándar y se expresa en las mismas unidades que la variable original.",
               "short_description": "La **varianza** mide la dispersión promedio de una variable aleatoria respecto de su centro.\n$$\\mathrm{Var}(X) = E[X^2] - (E[X])^2$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         }
@@ -187,35 +277,55 @@
               "name": "Binomial",
               "tooltip": "La distribución **binomial** modela la cantidad total de éxitos observados al repetir $n$ ensayos independientes idénticos con probabilidad de éxito constante $p$.\n$$P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}, \\quad k \\in \\{0, 1, \\ldots, n\\}$$\nSu esperanza es $E[X] = np$ y su varianza es $\\mathrm{Var}(X) = np(1-p)$, reflejando cómo la dispersión crece con la cantidad de ensayos y se maximiza cuando $p = 0.5$.",
               "short_description": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con probabilidad $p$.\n$$P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "geometrica",
               "name": "Geométrica",
               "tooltip": "La distribución **geométrica** modela la cantidad de ensayos necesarios hasta obtener el primer éxito en una secuencia de pruebas independientes con probabilidad de éxito $p$.\n$$P(X = k) = (1-p)^{k-1} p, \\quad k \\in \\{1, 2, 3, \\ldots\\}$$\nEs la única distribución discreta con propiedad de pérdida de memoria: los fracasos acumulados no alteran la distribución del tiempo restante hasta el próximo éxito.",
               "short_description": "La distribución **geométrica** modela la cantidad de ensayos necesarios hasta obtener el primer éxito.\n$$P(X = k) = (1-p)^{k-1} p$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "negativa",
               "name": "Binomial negativa",
               "tooltip": "La distribución **binomial negativa** generaliza la geométrica al modelar la cantidad de ensayos necesarios hasta acumular $r$ éxitos en una sucesión de pruebas independientes con probabilidad de éxito $p$.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}, \\quad k \\geq r$$\nSu esperanza es $E[X] = r/p$ y coincide con la geométrica cuando $r = 1$.",
               "short_description": "La distribución **binomial negativa** modela la cantidad de ensayos necesarios hasta acumular $r$ éxitos.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "hipergeometrica",
               "name": "Hipergeométrica",
               "tooltip": "La distribución **hipergeométrica** modela la cantidad de éxitos obtenidos al extraer una muestra sin reposición de tamaño $n$ desde una población finita de $N$ individuos, de los cuales $K$ son éxitos.\n$$P(X = k) = \\frac{\\binom{K}{k} \\binom{N-K}{n-k}}{\\binom{N}{n}}$$\nA diferencia de la binomial, la probabilidad de éxito varía en cada extracción porque la población se reduce con cada selección.",
               "short_description": "La distribución **hipergeométrica** modela la cantidad de éxitos en extracciones sin reposición.\n$$P(X = k) = \\dfrac{\\binom{K}{k} \\binom{N-K}{n-k}}{\\binom{N}{n}}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "poisson",
               "name": "Poisson",
               "tooltip": "La distribución de **Poisson** modela la cantidad de eventos que ocurren en un intervalo fijo de tiempo, longitud o área, cuando los eventos son independientes y aparecen a una tasa promedio $\\lambda$.\n$$P(X = k) = \\frac{e^{-\\lambda} \\lambda^k}{k!}, \\quad k \\in \\{0, 1, 2, \\ldots\\}$$\nSu esperanza y su varianza coinciden con la tasa: $E[X] = \\mathrm{Var}(X) = \\lambda$, propiedad que la vuelve el modelo natural de conteos raros en un continuo.",
               "short_description": "La distribución de **Poisson** modela la cantidad de eventos en un intervalo fijo con tasa promedio $\\lambda$.\n$$P(X = k) = \\dfrac{e^{-\\lambda} \\lambda^k}{k!}$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         },
@@ -229,21 +339,33 @@
               "name": "Uniforme",
               "tooltip": "La distribución **uniforme continua** describe una variable que asume cualquier valor de un intervalo $[a, b]$ con densidad constante, sin favorecer ninguna región del soporte.\n$$f(x) = \\frac{1}{b-a}, \\quad a \\leq x \\leq b$$\nSu esperanza es $E[X] = (a+b)/2$ y su representación gráfica es un rectángulo de altura $1/(b-a)$ sobre el intervalo.",
               "short_description": "La distribución **uniforme continua** modela una variable con densidad constante en un intervalo $[a, b]$.\n$$f(x) = \\dfrac{1}{b-a}, \\quad a \\leq x \\leq b$$",
-              "skills": ["GRAF", "FORM", "RESL"]
+              "skills": [
+                "GRAF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "exponencial",
               "name": "Exponencial",
               "tooltip": "La distribución **exponencial** modela el tiempo continuo transcurrido entre eventos sucesivos de un proceso de Poisson con tasa $\\lambda$.\n$$f(x) = \\lambda e^{-\\lambda x}, \\quad x \\geq 0$$\nEs la única distribución continua con propiedad de pérdida de memoria: el tiempo ya esperado no altera la distribución del tiempo restante hasta el próximo evento.",
               "short_description": "La distribución **exponencial** modela el tiempo continuo entre eventos de un proceso de Poisson.\n$$f(x) = \\lambda e^{-\\lambda x}, \\quad x \\geq 0$$",
-              "skills": ["GRAF", "FORM", "RESL"]
+              "skills": [
+                "GRAF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "normal",
               "name": "Normal",
               "tooltip": "La distribución **normal** es un modelo continuo simétrico centrado en su media $\\mu$ y con dispersión controlada por su desvío $\\sigma$, cuya densidad tiene forma de campana.\n$$f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} \\exp\\!\\left(-\\tfrac{1}{2}\\left(\\tfrac{x - \\mu}{\\sigma}\\right)^2\\right)$$\nCualquier variable normal se estandariza mediante $Z = (X - \\mu)/\\sigma$ para calcular probabilidades usando la normal estándar $Z \\sim N(0, 1)$.",
               "short_description": "La distribución **normal** es el modelo continuo simétrico en forma de campana centrado en la media.\n$$f(x) = \\dfrac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$$",
-              "skills": ["GRAF", "FORM", "RESL"]
+              "skills": [
+                "GRAF",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         }
@@ -264,35 +386,52 @@
               "name": "Conjunta",
               "tooltip": "La distribución **conjunta** describe el comportamiento probabilístico simultáneo de dos o más variables aleatorias, capturando las probabilidades de todas las combinaciones posibles de sus valores.\n$$p(x, y) = P(X = x, Y = y), \\quad f(x, y) \\text{ para el caso continuo}$$\nSu integral o suma sobre todo el dominio vale $1$ y de ella se derivan las distribuciones marginales y condicionales.",
               "short_description": "La distribución **conjunta** describe el comportamiento simultáneo de dos o más variables aleatorias.\n$$p(x, y) = P(X = x, Y = y)$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "marginales",
               "name": "Marginales",
               "tooltip": "La distribución **marginal** de una variable se obtiene a partir de la conjunta sumando o integrando sobre todos los valores posibles del resto de las variables.\n$$p_X(x) = \\sum_{y} p(x, y), \\quad f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$\nPermite estudiar el comportamiento individual de cada variable ignorando la información aportada por las demás.",
               "short_description": "La distribución **marginal** extrae la probabilidad individual de una variable a partir de una conjunta.\n$$f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "covarianza",
               "name": "Covarianza",
               "tooltip": "La **covarianza** entre dos variables aleatorias $X$ e $Y$ cuantifica la tendencia de ambas a variar en la misma dirección respecto de sus respectivas esperanzas.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$\nUn signo positivo indica que las variables tienden a moverse juntas, un signo negativo que se mueven en sentidos opuestos, y su magnitud depende de las unidades de las variables.",
               "short_description": "La **covarianza** cuantifica la tendencia conjunta de dos variables a variar respecto de sus medias.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "correlacion",
               "name": "Correlación",
               "tooltip": "El coeficiente de **correlación** estandariza la covarianza dividiéndola por el producto de los desvíos estándar, obteniendo una medida adimensional de la relación lineal entre dos variables.\n$$\\rho_{X,Y} = \\frac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}, \\quad -1 \\leq \\rho \\leq 1$$\nValores cercanos a $\\pm 1$ indican una relación lineal fuerte, mientras que un valor cercano a cero indica ausencia de relación lineal sin descartar dependencias no lineales.",
               "short_description": "La **correlación** estandariza la covarianza para medir la relación lineal entre dos variables en el rango $[-1, 1]$.\n$$\\rho_{X,Y} = \\dfrac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}$$",
-              "skills": ["FORM", "RESL"]
+              "skills": [
+                "FORM",
+                "RESL"
+              ]
             },
             {
               "key": "independencia_vec",
               "name": "Independencia",
               "tooltip": "Dos variables aleatorias son **independientes** cuando el valor que toma una no aporta información sobre la distribución de la otra, condición que se traduce en que la distribución conjunta factoriza en el producto de las marginales.\n$$p(x, y) = p_X(x) \\cdot p_Y(y), \\quad f(x, y) = f_X(x) \\cdot f_Y(y)$$\nLa independencia implica $\\mathrm{Cov}(X, Y) = 0$, pero la covarianza nula solo garantiza independencia en el caso normal multivariado.",
               "short_description": "Dos variables son **independientes** cuando la conjunta factoriza en el producto de sus marginales.\n$$f(x, y) = f_X(x) \\cdot f_Y(y)$$",
-              "skills": ["CLSF", "FORM", "RESL"]
+              "skills": [
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         }
