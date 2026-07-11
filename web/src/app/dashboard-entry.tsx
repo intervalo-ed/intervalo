@@ -44,12 +44,27 @@ import {
 } from "@/lib/catalog/stats"
 import { useSplash } from "@/app/splash-context"
 import { CourseSwitcher } from "@/components/course-switcher"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { topicShortLabel } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
-import { InfoIcon } from "lucide-react"
+import { CheckIcon, InfoIcon, RotateCcwIcon } from "lucide-react"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
+import { LearningCountStepper } from "./learning-count-stepper"
+import { useCourseEditor } from "./UseCourseEditor"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
@@ -68,6 +83,13 @@ const ctaCls =
 // Variante del CTA: fondo blanco con texto violeta (modo práctica libre).
 const practiceCls =
   "h-12 w-full rounded-md bg-white text-[#3B1E73] hover:bg-white/90 hover:text-[#3B1E73]"
+
+// Botones del modo editor: rojo (reiniciar curso) y verde (cerrar edición), con
+// el mismo lenguaje visual que los botones outline del perfil.
+const resetCourseCls =
+  "h-12 w-full justify-center rounded-md border-red-500/30 bg-transparent text-red-400 hover:bg-red-500/10 hover:text-red-400"
+const saveEditCls =
+  "h-12 w-full justify-center rounded-md border-green-500/30 bg-transparent text-green-400 hover:bg-green-500/10 hover:text-green-400"
 
 // Color del título de cada unidad, tomado del cinturón correspondiente
 // (variante `onDark`, legible sobre el fondo oscuro).
@@ -118,6 +140,9 @@ export default function DashboardEntry() {
 
   const activeQuery = course === "analisis" ? analisisQuery : probabilidadQuery
   const { data, isLoading, isError, error } = activeQuery
+
+  const [editing, setEditing] = useState(false)
+  const editor = useCourseEditor(course)
 
   const setCourse = useCallback(
     ({ next }: { next: CourseId }) => {
@@ -215,9 +240,25 @@ export default function DashboardEntry() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <div className="flex flex-col gap-2">
-            <CourseSwitcher course={course} onPrev={goPrev} onNext={goNext} />
+            <CourseSwitcher
+              course={course}
+              onPrev={goPrev}
+              onNext={goNext}
+              editing={editing}
+              onToggleEdit={() => setEditing((v) => !v)}
+            />
 
-            <div className="grid grid-cols-3 gap-2">
+            {editing ? (
+              <LearningCountStepper
+                course={course}
+                value={data.active_cap}
+                total={data.total_items}
+                busy={editor.setCap.isPending}
+                previewCap={editor.previewCap}
+                applyCap={(v) => editor.setCap.mutate(v)}
+              />
+            ) : (
+              <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Experiencia total"
                 value={
@@ -264,10 +305,55 @@ export default function DashboardEntry() {
                       : undefined
                 }
               />
-            </div>
+              </div>
+            )}
             </div>
 
-            {canRepasar ? (
+            {editing ? (
+              <div className="flex flex-col gap-2">
+                <AlertDialog>
+                  <AlertDialogTrigger
+                    render={
+                      <Button size="lg" variant="outline" className={resetCourseCls}>
+                        <RotateCcwIcon className="size-5" />
+                        Reiniciar curso
+                      </Button>
+                    }
+                  />
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-center font-sans">
+                        ¿Reiniciar el curso?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">
+                        Tu progreso actual se archiva y empezás de cero. Tu cinturón va
+                        a reflejar el nuevo progreso. El historial anterior se conserva.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogAction
+                        className="h-10 w-full rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
+                        onClick={() => editor.resetCourse.mutate()}
+                      >
+                        Reiniciar
+                      </AlertDialogAction>
+                      <AlertDialogCancel className="h-10 w-full rounded-md bg-background dark:bg-background">
+                        Cancelar
+                      </AlertDialogCancel>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className={saveEditCls}
+                  onClick={() => setEditing(false)}
+                >
+                  <CheckIcon className="size-5" />
+                  Guardar cambios
+                </Button>
+              </div>
+            ) : canRepasar ? (
               <Button
                 size="lg"
                 className={ctaCls}
@@ -321,6 +407,8 @@ export default function DashboardEntry() {
                       unit={unit}
                       course={course}
                       topicStates={data.topic_states}
+                      editing={editing}
+                      editor={editor}
                     />
                   ))
                 })}
@@ -399,26 +487,76 @@ function DashboardSkeleton() {
   )
 }
 
+function topicEditState(ts: TopicStates[string] | undefined): TopicEditState {
+  if (!ts) return "locked"
+  if (ts.suspended) return "suspended"
+  return "unlocked"
+}
+
 function UnitSection({
   belt,
   unit,
   topicStates,
   course = "analisis",
+  editing = false,
+  editor,
 }: {
   belt: BeltKey
   unit: { key: string; name: string; description?: string; topics: Topic[] }
   topicStates: TopicStates
   course?: CourseId
+  editing?: boolean
+  editor?: ReturnType<typeof useCourseEditor>
 }) {
-  const rows: BeltGridRow[] = unit.topics
-    .filter((topic) => topic.skills.length > 0)
-    .map((topic) => ({
-      topic,
-      cells: topicToCells({
-        topic: topicStates[`${belt}/${topic.key}`],
-        types: topic.skills,
-      }),
-    }))
+  const playable = unit.topics.filter((topic) => topic.skills.length > 0)
+
+  // Modo editor: mostrar TODOS los temas (incluidos bloqueados y suspendidos)
+  // con sus tres acciones.
+  if (editing && editor) {
+    return (
+      <section className="flex flex-col gap-2 rounded-md border border-white/10 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <span
+            className="text-lg font-semibold leading-tight"
+            style={{ color: BELT_COLOR[belt] }}
+          >
+            {unit.name}
+          </span>
+          {unit.description && (
+            <UnitInfoDialog name={unit.name} description={unit.description} />
+          )}
+        </div>
+        {playable.map((topic) => (
+          <CourseEditorRow
+            key={topic.key}
+            label={topicShortLabel({ topic: topic.key, course, fallback: topic.name })}
+            state={topicEditState(topicStates[`${belt}/${topic.key}`])}
+            onAdvance={() => editor.advance.mutate({ belt, topic: topic.key })}
+            onSuspend={() => editor.suspend.mutate({ belt, topic: topic.key })}
+            onReset={() => editor.resetTopic.mutate({ belt, topic: topic.key })}
+          />
+        ))}
+      </section>
+    )
+  }
+
+  // Modo normal: ocultar temas suspendidos; si la unidad entera quedó suspendida,
+  // no renderizar su contenedor.
+  const visible = playable.filter(
+    (topic) => !topicStates[`${belt}/${topic.key}`]?.suspended,
+  )
+  const anySuspended = playable.some(
+    (topic) => topicStates[`${belt}/${topic.key}`]?.suspended,
+  )
+  if (visible.length === 0 && anySuspended) return null
+
+  const rows: BeltGridRow[] = visible.map((topic) => ({
+    topic,
+    cells: topicToCells({
+      topic: topicStates[`${belt}/${topic.key}`],
+      types: topic.skills,
+    }),
+  }))
 
   const isActive = rows.some(({ cells }) =>
     cells.some((c) => c.cell.kind !== "empty"),

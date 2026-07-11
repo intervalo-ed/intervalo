@@ -1,0 +1,140 @@
+"use client"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { cn } from "@/lib/utils"
+import { ChevronsRightIcon, PauseIcon, RotateCcwIcon } from "lucide-react"
+import type { ReactNode } from "react"
+
+export type TopicEditState = "locked" | "unlocked" | "suspended"
+
+const confirmCls =
+  "h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+const cancelCls = "h-10 w-full rounded-md bg-background dark:bg-background"
+
+function ActionButton({
+  enabled,
+  icon,
+  label,
+  title,
+  description,
+  confirmLabel,
+  onConfirm,
+}: {
+  enabled: boolean
+  icon: ReactNode
+  label: string
+  title: string
+  description: string
+  confirmLabel: string
+  onConfirm: () => void
+}) {
+  if (!enabled) {
+    return (
+      <span
+        aria-hidden
+        className="flex size-9 items-center justify-center rounded-md border border-white/5 text-foreground/20"
+      >
+        {icon}
+      </span>
+    )
+  }
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger
+        render={
+          <button
+            type="button"
+            aria-label={label}
+            className="flex size-9 items-center justify-center rounded-md border border-white/15 bg-white/5 text-foreground transition-colors hover:bg-white/10"
+          >
+            {icon}
+          </button>
+        }
+      />
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-center font-sans">
+            {title}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-center">
+            {description}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction className={confirmCls} onClick={onConfirm}>
+            {confirmLabel}
+          </AlertDialogAction>
+          <AlertDialogCancel className={cancelCls}>Cancelar</AlertDialogCancel>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
+// Fila de tema en modo editor: label + tres acciones (Adelantar / Suspender /
+// Reiniciar). El botón "encendido" depende del estado del tema.
+export function CourseEditorRow({
+  label,
+  state,
+  onAdvance,
+  onSuspend,
+  onReset,
+}: {
+  label: string
+  state: TopicEditState
+  onAdvance: () => void
+  onSuspend: () => void
+  onReset: () => void
+}) {
+  const unlocked = state === "unlocked"
+  const canAdvance = state === "locked" || state === "suspended"
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between gap-3 py-1.5",
+        state === "suspended" && "opacity-40",
+      )}
+    >
+      <span className="text-sm leading-tight text-foreground/80">{label}</span>
+      <div className="flex gap-1.5">
+        <ActionButton
+          enabled={canAdvance}
+          icon={<ChevronsRightIcon className="size-4" />}
+          label={`Adelantar ${label}`}
+          title="¿Adelantar este tema?"
+          description="Los ejercicios de este tema van a aparecer en tus sesiones de repaso. Podés revertir esto usando la opción de Suspender."
+          confirmLabel="Adelantar"
+          onConfirm={onAdvance}
+        />
+        <ActionButton
+          enabled={unlocked}
+          icon={<PauseIcon className="size-4" />}
+          label={`Suspender ${label}`}
+          title="¿Suspender este tema?"
+          description="Se va a ocultar de tu curso y no aparecerá en tus repasos. Sus ítems en aprendizaje se ceden a los temas siguientes. Podés reactivarlo con Adelantar."
+          confirmLabel="Suspender"
+          onConfirm={onSuspend}
+        />
+        <ActionButton
+          enabled={unlocked}
+          icon={<RotateCcwIcon className="size-4" />}
+          label={`Reiniciar ${label}`}
+          title="¿Reiniciar este tema?"
+          description="Todos sus ítems vuelven a estado nuevo y se reprograman desde cero en tus próximas sesiones."
+          confirmLabel="Reiniciar"
+          onConfirm={onReset}
+        />
+      </div>
+    </div>
+  )
+}
