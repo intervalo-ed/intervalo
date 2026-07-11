@@ -65,16 +65,16 @@ const WHITE_BELT_FUNCTIONS = [
 
 const ITEM_COLORS = {
   nuevo: "#3B82F6",
-  pendiente: "#E3690B",
-  aprendiendo: "#A0CC18",
-  graduado: "#1A9447",
+  pendiente: "#F6B012",
+  aprendiendo: "#6BC02A",
+  graduado: "#2BB35F",
 } as const
 
-// Color del contador de días: naranja (día 0) → verde maduro (día 30+).
+// Color del contador de días: ámbar (día 0) → verde maduro (día 30+).
 function dayColor(day: number): string {
   const t = Math.min(day, 30) / 30
-  const from = [227, 105, 11] // #E3690B
-  const to = [26, 148, 71] // #1A9447
+  const from = [246, 176, 18] // #F6B012
+  const to = [43, 179, 95] // #2BB35F
   const ch = (i: number) => Math.round(from[i] + (to[i] - from[i]) * t)
   return `rgb(${ch(0)}, ${ch(1)}, ${ch(2)})`
 }
