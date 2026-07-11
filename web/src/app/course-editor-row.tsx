@@ -21,8 +21,8 @@ const confirmCls =
   "h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 const cancelCls = "h-10 w-full rounded-md bg-background dark:bg-background"
 
-// Tamaño cercano al de los pills de ítem (h-6 w-9).
-const btnCls = "flex h-7 w-9 items-center justify-center rounded-md border"
+// Mismo tamaño que los pills de ítem (h-6 w-9) para igualar el ritmo vertical.
+const btnCls = "flex h-6 w-9 items-center justify-center rounded-md border"
 
 function ActionButton({
   enabled,
@@ -103,7 +103,7 @@ export function CourseEditorRow({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-3 py-1.5",
+        "flex items-center justify-between gap-3",
         state === "suspended" && "opacity-40",
       )}
     >

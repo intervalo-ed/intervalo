@@ -518,7 +518,7 @@ function UnitSection({
   // con sus tres acciones.
   if (editing && editor) {
     return (
-      <section className="flex flex-col gap-2 rounded-md border border-white/10 p-4">
+      <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
         <div className="flex items-start justify-between gap-3">
           <span
             className="text-lg font-semibold leading-tight"
@@ -530,16 +530,18 @@ function UnitSection({
             <UnitInfoDialog name={unit.name} description={unit.description} />
           )}
         </div>
-        {playable.map((topic) => (
-          <CourseEditorRow
-            key={topic.key}
-            label={topicShortLabel({ topic: topic.key, course, fallback: topic.name })}
-            state={topicEditState(topicStates[`${belt}/${topic.key}`])}
-            onAdvance={() => editor.advance.mutate({ belt, topic: topic.key })}
-            onSuspend={() => editor.suspend.mutate({ belt, topic: topic.key })}
-            onReset={() => editor.resetTopic.mutate({ belt, topic: topic.key })}
-          />
-        ))}
+        <div className="flex flex-col gap-2.5">
+          {playable.map((topic) => (
+            <CourseEditorRow
+              key={topic.key}
+              label={topicShortLabel({ topic: topic.key, course, fallback: topic.name })}
+              state={topicEditState(topicStates[`${belt}/${topic.key}`])}
+              onAdvance={() => editor.advance.mutate({ belt, topic: topic.key })}
+              onSuspend={() => editor.suspend.mutate({ belt, topic: topic.key })}
+              onReset={() => editor.resetTopic.mutate({ belt, topic: topic.key })}
+            />
+          ))}
+        </div>
       </section>
     )
   }
