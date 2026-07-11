@@ -333,7 +333,11 @@ export default function DashboardEntry() {
                     <AlertDialogFooter>
                       <AlertDialogAction
                         className="h-10 w-full rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
-                        onClick={() => editor.resetCourse.mutate()}
+                        onClick={() =>
+                          editor.resetCourse.mutate(undefined, {
+                            onSuccess: () => setEditing(false),
+                          })
+                        }
                       >
                         Reiniciar
                       </AlertDialogAction>
