@@ -40,6 +40,7 @@ from schemas import (
     LeaderboardMe,
     LeaderboardResponse,
     NotificationSettings,
+    PracticeStatsResponse,
     SessionStartResponse,
     SessionSummaryResponse,
     SimpleResponse,
@@ -453,6 +454,40 @@ def get_user_progress(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
+
+
+@app.get("/user/practice-stats", response_model=PracticeStatsResponse)
+def get_practice_stats(
+    course: str | None = Query(default=None),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Stats acumuladas del usuario para un curso: ejercicios resueltos y
+    acertados al primer intento (todas las respuestas del curso, todos los modos).
+
+    `course` es el slug del curso; si no viene, se usa el curso por defecto (id=1).
+    """
+    from models import Course
+    if course:
+        course_row = db.query(Course).filter(Course.slug == course).first()
+        if course_row is None:
+            raise HTTPException(status_code=404, detail=f"Curso '{course}' no encontrado")
+        course_id = course_row.id
+    else:
+        course_id = 1  # Default course
+
+    answered, first_try_correct = db.query(
+        func.count(Answer.id),
+        func.count().filter(Answer.quality_score == 5),
+    ).filter(
+        Answer.user_id == current_user.id,
+        Answer.course_id == course_id,
+    ).one()
+
+    return PracticeStatsResponse(
+        answered=answered or 0,
+        first_try_correct=first_try_correct or 0,
+    )
 
 
 # ── Push notifications ──────────────────────────────────────────────────────────

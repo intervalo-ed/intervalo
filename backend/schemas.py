@@ -85,6 +85,12 @@ class UserProgressResponse(BaseModel):
     last_course: str | None = None
 
 
+class PracticeStatsResponse(BaseModel):
+    # Stats acumuladas del usuario para un curso (todos los modos).
+    answered: int             # ejercicios resueltos (respuestas totales)
+    first_try_correct: int    # acertados al primer intento (quality_score == 5)
+
+
 # ── Push notifications ──────────────────────────────────────────────────────────
 
 class NotificationSettings(BaseModel):

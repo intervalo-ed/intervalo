@@ -8,6 +8,9 @@ export const queryKeys = {
   userProgress: ({ course }: { course?: string } = {}) =>
     [...queryKeys.all, "user", "progress", course ?? "default"] as const,
 
+  practiceStats: ({ course }: { course?: string } = {}) =>
+    [...queryKeys.all, "user", "practice-stats", course ?? "default"] as const,
+
   notificationSettings: () =>
     [...queryKeys.all, "user", "notification-settings"] as const,
 

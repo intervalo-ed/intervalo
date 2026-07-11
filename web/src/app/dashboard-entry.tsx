@@ -10,6 +10,7 @@ import {
   topicToCells,
   type BeltGridRow,
 } from "@/components/belt-grid"
+import { Metric } from "@/components/metric-card"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -394,43 +395,6 @@ function DashboardSkeleton() {
           </div>
         </div>
       ))}
-    </div>
-  )
-}
-
-function Metric({
-  label,
-  value,
-  accent,
-}: {
-  label: string
-  value: React.ReactNode
-  accent?: string
-}) {
-  return (
-    <div
-      className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
-      style={
-        accent
-          ? {
-              color: accent,
-              borderColor: `${accent}99`,
-              backgroundColor: `${accent}33`,
-            }
-          : undefined
-      }
-    >
-      <span className="text-lg font-semibold tabular-nums leading-none">
-        {value}
-      </span>
-      <span
-        className={cn(
-          "text-[0.7rem] leading-tight",
-          accent ? "opacity-80" : "text-foreground/60",
-        )}
-      >
-        {label}
-      </span>
     </div>
   )
 }

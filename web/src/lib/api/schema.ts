@@ -179,6 +179,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/practice-stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Practice Stats
+         * @description Stats acumuladas del usuario para un curso: ejercicios resueltos y
+         *     acertados al primer intento (todas las respuestas del curso, todos los modos).
+         *
+         *     `course` es el slug del curso; si no viene, se usa el curso por defecto (id=1).
+         */
+        get: operations["get_practice_stats_user_practice_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/push/subscribe": {
         parameters: {
             query?: never;
@@ -703,6 +726,13 @@ export interface components {
             /** Timezone */
             timezone?: string | null;
         };
+        /** PracticeStatsResponse */
+        PracticeStatsResponse: {
+            /** Answered */
+            answered: number;
+            /** First Try Correct */
+            first_try_correct: number;
+        };
         /** PrunePushRequest */
         PrunePushRequest: {
             /** Subscription Ids */
@@ -1209,6 +1239,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_practice_stats_user_practice_stats_get: {
+        parameters: {
+            query?: {
+                course?: string | null;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PracticeStatsResponse"];
                 };
             };
             /** @description Validation Error */

@@ -357,6 +357,62 @@
         }
       }
     },
+    "/user/practice-stats": {
+      "get": {
+        "summary": "Get Practice Stats",
+        "description": "Stats acumuladas del usuario para un curso: ejercicios resueltos y\nacertados al primer intento (todas las respuestas del curso, todos los modos).\n\n`course` es el slug del curso; si no viene, se usa el curso por defecto (id=1).",
+        "operationId": "get_practice_stats_user_practice_stats_get",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeStatsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/push/subscribe": {
       "post": {
         "summary": "Push Subscribe",
@@ -1786,6 +1842,24 @@
           "enabled"
         ],
         "title": "NotificationSettingsRequest"
+      },
+      "PracticeStatsResponse": {
+        "properties": {
+          "answered": {
+            "type": "integer",
+            "title": "Answered"
+          },
+          "first_try_correct": {
+            "type": "integer",
+            "title": "First Try Correct"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answered",
+          "first_try_correct"
+        ],
+        "title": "PracticeStatsResponse"
       },
       "PrunePushRequest": {
         "properties": {
