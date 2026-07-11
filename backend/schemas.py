@@ -60,6 +60,7 @@ class TopicProgress(BaseModel):
     attempted: bool
     next_review: str | None = None
     failed: bool
+    suspended: bool = False
     skills: list[SkillProgress] = []
 
 
@@ -83,12 +84,36 @@ class UserProgressResponse(BaseModel):
     level_info: LevelInfo
     main_session_done_today: bool
     last_course: str | None = None
+    active_cap: int = 18          # ítems en aprendizaje permitidos a la vez
+    total_items: int = 0          # total de ítems del curso (máx del cap)
+    iteration: int = 1            # iteración de progreso vigente
 
 
 class PracticeStatsResponse(BaseModel):
     # Stats acumuladas del usuario para un curso (todos los modos).
     answered: int             # ejercicios resueltos (respuestas totales)
     first_try_correct: int    # acertados al primer intento (quality_score == 5)
+
+
+# ── Editor de curso ─────────────────────────────────────────────────────────
+
+class TopicActionRequest(BaseModel):
+    belt: str
+    topic: str
+
+
+class ActiveCapRequest(BaseModel):
+    value: int
+
+
+class CapPreviewResponse(BaseModel):
+    value: int                 # valor clampeado (1..total)
+    unlock: list[str] = []     # claves "belt/topic" que se desbloquean
+    lock: list[str] = []       # claves "belt/topic" que se re-bloquean
+
+
+class CourseResetResponse(BaseModel):
+    iteration: int             # nueva iteración de progreso
 
 
 # ── Push notifications ──────────────────────────────────────────────────────────

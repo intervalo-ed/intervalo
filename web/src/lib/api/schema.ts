@@ -188,14 +188,134 @@ export interface paths {
         };
         /**
          * Get Practice Stats
-         * @description Stats acumuladas del usuario para un curso: ejercicios resueltos y
-         *     acertados al primer intento (todas las respuestas del curso, todos los modos).
-         *
-         *     `course` es el slug del curso; si no viene, se usa el curso por defecto (id=1).
+         * @description Stats del usuario para un curso en la iteración de progreso vigente:
+         *     ejercicios resueltos y acertados al primer intento (todos los modos).
          */
         get: operations["get_practice_stats_user_practice_stats_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/advance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Advance
+         * @description Adelantar un tema: lo desbloquea fuera de orden (o lo reactiva si estaba
+         *     suspendido). Devuelve el progreso actualizado del curso.
+         */
+        post: operations["course_topic_advance_course__course__topic_advance_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/suspend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Suspend
+         * @description Suspender un tema: lo oculta del home y cede su cupo a los temas siguientes.
+         */
+        post: operations["course_topic_suspend_course__course__topic_suspend_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Reset
+         * @description Reiniciar un tema: sus ítems vuelven a 'nuevo' y reingresan a repaso.
+         */
+        post: operations["course_topic_reset_course__course__topic_reset_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/active-cap/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Course Active Cap Preview
+         * @description Sin aplicar: qué temas se desbloquean/re-bloquean al fijar el cap en `value`.
+         */
+        get: operations["course_active_cap_preview_course__course__active_cap_preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/active-cap": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Course Set Active Cap
+         * @description Fija cuántos ítems puede tener en aprendizaje a la vez (clamp 1..total).
+         */
+        put: operations["course_set_active_cap_course__course__active_cap_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Reset
+         * @description Reiniciar el curso: archiva el progreso vigente y arranca una iteración
+         *     nueva (el cinturón refleja solo la iteración vigente).
+         */
+        post: operations["course_reset_course__course__reset_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -525,6 +645,11 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** ActiveCapRequest */
+        ActiveCapRequest: {
+            /** Value */
+            value: number;
+        };
         /** AnswerRequest */
         AnswerRequest: {
             /** Session Id */
@@ -553,6 +678,26 @@ export interface components {
             total: number;
             /** Promoted */
             promoted: boolean;
+        };
+        /** CapPreviewResponse */
+        CapPreviewResponse: {
+            /** Value */
+            value: number;
+            /**
+             * Unlock
+             * @default []
+             */
+            unlock: string[];
+            /**
+             * Lock
+             * @default []
+             */
+            lock: string[];
+        };
+        /** CourseResetResponse */
+        CourseResetResponse: {
+            /** Iteration */
+            iteration: number;
         };
         /** DueNotification */
         DueNotification: {
@@ -889,6 +1034,13 @@ export interface components {
             /** Exercise Type */
             exercise_type: string;
         };
+        /** TopicActionRequest */
+        TopicActionRequest: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
+        };
         /** TopicProgress */
         TopicProgress: {
             /** Phase */
@@ -907,6 +1059,11 @@ export interface components {
             next_review?: string | null;
             /** Failed */
             failed: boolean;
+            /**
+             * Suspended
+             * @default false
+             */
+            suspended: boolean;
             /**
              * Skills
              * @default []
@@ -957,6 +1114,21 @@ export interface components {
             main_session_done_today: boolean;
             /** Last Course */
             last_course?: string | null;
+            /**
+             * Active Cap
+             * @default 18
+             */
+            active_cap: number;
+            /**
+             * Total Items
+             * @default 0
+             */
+            total_items: number;
+            /**
+             * Iteration
+             * @default 1
+             */
+            iteration: number;
         };
         /** UserResponse */
         UserResponse: {
@@ -1272,6 +1444,222 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PracticeStatsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_advance_course__course__topic_advance_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_suspend_course__course__topic_suspend_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_reset_course__course__topic_reset_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_active_cap_preview_course__course__active_cap_preview_get: {
+        parameters: {
+            query: {
+                value: number;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CapPreviewResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_set_active_cap_course__course__active_cap_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActiveCapRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_reset_course__course__reset_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseResetResponse"];
                 };
             };
             /** @description Validation Error */

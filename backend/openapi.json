@@ -360,7 +360,7 @@
     "/user/practice-stats": {
       "get": {
         "summary": "Get Practice Stats",
-        "description": "Stats acumuladas del usuario para un curso: ejercicios resueltos y\nacertados al primer intento (todas las respuestas del curso, todos los modos).\n\n`course` es el slug del curso; si no viene, se usa el curso por defecto (id=1).",
+        "description": "Stats del usuario para un curso en la iteraci\u00f3n de progreso vigente:\nejercicios resueltos y acertados al primer intento (todos los modos).",
         "operationId": "get_practice_stats_user_practice_stats_get",
         "parameters": [
           {
@@ -396,6 +396,349 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PracticeStatsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/advance": {
+      "post": {
+        "summary": "Course Topic Advance",
+        "description": "Adelantar un tema: lo desbloquea fuera de orden (o lo reactiva si estaba\nsuspendido). Devuelve el progreso actualizado del curso.",
+        "operationId": "course_topic_advance_course__course__topic_advance_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/suspend": {
+      "post": {
+        "summary": "Course Topic Suspend",
+        "description": "Suspender un tema: lo oculta del home y cede su cupo a los temas siguientes.",
+        "operationId": "course_topic_suspend_course__course__topic_suspend_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/reset": {
+      "post": {
+        "summary": "Course Topic Reset",
+        "description": "Reiniciar un tema: sus \u00edtems vuelven a 'nuevo' y reingresan a repaso.",
+        "operationId": "course_topic_reset_course__course__topic_reset_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/active-cap/preview": {
+      "get": {
+        "summary": "Course Active Cap Preview",
+        "description": "Sin aplicar: qu\u00e9 temas se desbloquean/re-bloquean al fijar el cap en `value`.",
+        "operationId": "course_active_cap_preview_course__course__active_cap_preview_get",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Value"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapPreviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/active-cap": {
+      "put": {
+        "summary": "Course Set Active Cap",
+        "description": "Fija cu\u00e1ntos \u00edtems puede tener en aprendizaje a la vez (clamp 1..total).",
+        "operationId": "course_set_active_cap_course__course__active_cap_put",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveCapRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/reset": {
+      "post": {
+        "summary": "Course Reset",
+        "description": "Reiniciar el curso: archiva el progreso vigente y arranca una iteraci\u00f3n\nnueva (el cintur\u00f3n refleja solo la iteraci\u00f3n vigente).",
+        "operationId": "course_reset_course__course__reset_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResetResponse"
                 }
               }
             }
@@ -1266,6 +1609,19 @@
   },
   "components": {
     "schemas": {
+      "ActiveCapRequest": {
+        "properties": {
+          "value": {
+            "type": "integer",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "ActiveCapRequest"
+      },
       "AnswerRequest": {
         "properties": {
           "session_id": {
@@ -1339,6 +1695,48 @@
           "promoted"
         ],
         "title": "BeltProgressInfo"
+      },
+      "CapPreviewResponse": {
+        "properties": {
+          "value": {
+            "type": "integer",
+            "title": "Value"
+          },
+          "unlock": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unlock",
+            "default": []
+          },
+          "lock": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lock",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "CapPreviewResponse"
+      },
+      "CourseResetResponse": {
+        "properties": {
+          "iteration": {
+            "type": "integer",
+            "title": "Iteration"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iteration"
+        ],
+        "title": "CourseResetResponse"
       },
       "DueNotification": {
         "properties": {
@@ -2333,6 +2731,24 @@
         ],
         "title": "TestSessionItem"
       },
+      "TopicActionRequest": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic"
+        ],
+        "title": "TopicActionRequest"
+      },
       "TopicProgress": {
         "properties": {
           "phase": {
@@ -2373,6 +2789,11 @@
           "failed": {
             "type": "boolean",
             "title": "Failed"
+          },
+          "suspended": {
+            "type": "boolean",
+            "title": "Suspended",
+            "default": false
           },
           "skills": {
             "items": {
@@ -2514,6 +2935,21 @@
               }
             ],
             "title": "Last Course"
+          },
+          "active_cap": {
+            "type": "integer",
+            "title": "Active Cap",
+            "default": 18
+          },
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items",
+            "default": 0
+          },
+          "iteration": {
+            "type": "integer",
+            "title": "Iteration",
+            "default": 1
           }
         },
         "type": "object",
