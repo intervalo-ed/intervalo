@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { cn } from "@/lib/utils"
-import { ChevronsRightIcon, PauseIcon, RotateCcwIcon } from "lucide-react"
+import { PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
 export type TopicEditState = "locked" | "unlocked" | "suspended"
@@ -20,6 +20,9 @@ export type TopicEditState = "locked" | "unlocked" | "suspended"
 const confirmCls =
   "h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 const cancelCls = "h-10 w-full rounded-md bg-background dark:bg-background"
+
+// Tamaño cercano al de los pills de ítem (h-6 w-9).
+const btnCls = "flex h-7 w-9 items-center justify-center rounded-md border"
 
 function ActionButton({
   enabled,
@@ -40,10 +43,7 @@ function ActionButton({
 }) {
   if (!enabled) {
     return (
-      <span
-        aria-hidden
-        className="flex size-9 items-center justify-center rounded-md border border-white/5 text-foreground/20"
-      >
+      <span aria-hidden className={cn(btnCls, "border-white/5 text-foreground/20")}>
         {icon}
       </span>
     )
@@ -55,7 +55,10 @@ function ActionButton({
           <button
             type="button"
             aria-label={label}
-            className="flex size-9 items-center justify-center rounded-md border border-white/15 bg-white/5 text-foreground transition-colors hover:bg-white/10"
+            className={cn(
+              btnCls,
+              "border-white/15 bg-white/5 text-foreground transition-colors hover:bg-white/10",
+            )}
           >
             {icon}
           </button>
@@ -97,7 +100,6 @@ export function CourseEditorRow({
   onReset: () => void
 }) {
   const unlocked = state === "unlocked"
-  const canAdvance = state === "locked" || state === "suspended"
   return (
     <div
       className={cn(
@@ -107,27 +109,32 @@ export function CourseEditorRow({
     >
       <span className="text-sm leading-tight text-foreground/80">{label}</span>
       <div className="flex gap-1.5">
-        <ActionButton
-          enabled={canAdvance}
-          icon={<ChevronsRightIcon className="size-4" />}
-          label={`Adelantar ${label}`}
-          title="¿Adelantar este tema?"
-          description="Los ejercicios de este tema van a aparecer en tus sesiones de repaso. Podés revertir esto usando la opción de Suspender."
-          confirmLabel="Adelantar"
-          onConfirm={onAdvance}
-        />
+        {/* Botón que alterna adelantar (play) ↔ suspender (pause): uno cancela al
+            otro según el estado del tema. */}
+        {unlocked ? (
+          <ActionButton
+            enabled
+            icon={<PauseIcon className="size-3.5" />}
+            label={`Suspender ${label}`}
+            title="¿Suspender este tema?"
+            description="Se va a ocultar de tu curso y no aparecerá en tus repasos. Sus ítems en aprendizaje se ceden a los temas siguientes. Podés reactivarlo con Adelantar."
+            confirmLabel="Suspender"
+            onConfirm={onSuspend}
+          />
+        ) : (
+          <ActionButton
+            enabled
+            icon={<PlayIcon className="size-3.5" />}
+            label={`Adelantar ${label}`}
+            title="¿Adelantar este tema?"
+            description="Los ejercicios de este tema van a aparecer en tus sesiones de repaso. Podés revertir esto usando la opción de Suspender."
+            confirmLabel="Adelantar"
+            onConfirm={onAdvance}
+          />
+        )}
         <ActionButton
           enabled={unlocked}
-          icon={<PauseIcon className="size-4" />}
-          label={`Suspender ${label}`}
-          title="¿Suspender este tema?"
-          description="Se va a ocultar de tu curso y no aparecerá en tus repasos. Sus ítems en aprendizaje se ceden a los temas siguientes. Podés reactivarlo con Adelantar."
-          confirmLabel="Suspender"
-          onConfirm={onSuspend}
-        />
-        <ActionButton
-          enabled={unlocked}
-          icon={<RotateCcwIcon className="size-4" />}
+          icon={<RotateCcwIcon className="size-3.5" />}
           label={`Reiniciar ${label}`}
           title="¿Reiniciar este tema?"
           description="Todos sus ítems vuelven a estado nuevo y se reprograman desde cero en tus próximas sesiones."
