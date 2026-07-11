@@ -33,36 +33,34 @@ export function CourseSwitcher({
       >
         <ChevronLeft />
       </Button>
-      <div className="flex items-center gap-1.5">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={course}
-            className="text-sm font-semibold"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            {COURSE_LABEL[course]}
-          </motion.span>
-        </AnimatePresence>
-        {onToggleEdit && (
-          <button
-            type="button"
-            onClick={onToggleEdit}
-            aria-label={editing ? "Salir del editor" : "Editar curso"}
-            aria-pressed={editing}
-            className={cn(
-              "flex size-6 items-center justify-center rounded-md border transition-colors",
-              editing
-                ? "border-primary/40 bg-primary/15 text-primary"
-                : "border-transparent text-foreground/50 hover:text-foreground",
-            )}
-          >
-            <SettingsIcon className="size-4" />
-          </button>
-        )}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={course}
+          className="flex items-center gap-1.5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          <span className="text-sm font-semibold">{COURSE_LABEL[course]}</span>
+          {onToggleEdit && (
+            <button
+              type="button"
+              onClick={onToggleEdit}
+              aria-label={editing ? "Salir del editor" : "Editar curso"}
+              aria-pressed={editing}
+              className={cn(
+                "flex size-6 items-center justify-center rounded-md border transition-colors",
+                editing
+                  ? "border-primary/40 bg-primary/15 text-primary"
+                  : "border-transparent text-foreground/50 hover:text-foreground",
+              )}
+            >
+              <SettingsIcon className="size-4" />
+            </button>
+          )}
+        </motion.div>
+      </AnimatePresence>
       <Button
         variant="ghost"
         size="icon-sm"
