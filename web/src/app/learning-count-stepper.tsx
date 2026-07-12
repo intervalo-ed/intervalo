@@ -31,7 +31,7 @@ export function LearningCountStepper({
   }
 
   return (
-    <div className="flex h-12 items-center justify-between rounded-md border border-white/10 bg-white/5 px-3">
+    <div className="flex h-10 items-center justify-between rounded-md border border-white/10 bg-white/5 px-3">
       <div className="flex items-center gap-1.5">
         <span className="text-sm">Ítems activos</span>
         <Dialog>
