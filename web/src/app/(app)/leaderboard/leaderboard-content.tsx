@@ -29,14 +29,15 @@ const BELT_TEXT: Record<string, string> = {
   brown: BELT_HEX.brown.onDark,
 }
 
-// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; label =
-// abreviación de 3 letras para las etiquetas y el filtro de carrera.
-const CAREER_META: { key: string; label: string }[] = [
-  { key: "S", label: "Cie." },
-  { key: "T", label: "Tec." },
-  { key: "E", label: "Ing." },
-  { key: "M", label: "Mat." },
-  { key: "Otra", label: "Otr." },
+// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; `label` =
+// abreviación para el valor colapsado del filtro; `name` = nombre completo para
+// los items del desplegable.
+const CAREER_META: { key: string; label: string; name: string }[] = [
+  { key: "S", label: "Cie.", name: "Ciencias" },
+  { key: "T", label: "Tec.", name: "Tecnología" },
+  { key: "E", label: "Ing.", name: "Ingeniería" },
+  { key: "M", label: "Mat.", name: "Matemática" },
+  { key: "Otra", label: "Otr.", name: "Otra" },
 ]
 const CAREER_LABEL: Record<string, string> = Object.fromEntries(
   CAREER_META.map((c) => [c.key, c.label]),
@@ -126,7 +127,8 @@ export function LeaderboardContent() {
           <SelectItem value={ALL}>Todas</SelectItem>
           {CAREER_META.map((c) => (
             <SelectItem key={c.key} value={c.key}>
-              {CAREER_EMOJI[c.key]} {c.label}
+              <span className="flex-1">{c.name}</span>
+              <span>{CAREER_EMOJI[c.key]}</span>
             </SelectItem>
           ))}
         </FilterBox>
