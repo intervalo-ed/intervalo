@@ -112,7 +112,7 @@ export function LeaderboardContent() {
           label="Ranking"
           value={view}
           onChange={(v) => setView(v as RankingView)}
-          display={(v) => (v === "individual" ? "Individual" : "Univ.")}
+          display={(v) => (v === "individual" ? "Individual" : "Universitario")}
         >
           <SelectItem value="individual">Individual</SelectItem>
           <SelectItem value="university">Universitario</SelectItem>
@@ -139,9 +139,9 @@ export function LeaderboardContent() {
           label="Universidad"
           value={uni}
           onChange={setUni}
-          display={(v) => (v === ALL ? "-" : v)}
+          display={(v) => (v === ALL ? "Todas" : v)}
         >
-          <SelectItem value={ALL}>-</SelectItem>
+          <SelectItem value={ALL}>Todas</SelectItem>
           {universities.map((u) => (
             <SelectItem key={u} value={u}>
               {u}
@@ -177,7 +177,7 @@ function FilterBox({
       <Select value={value} onValueChange={(v) => v && onChange(v)}>
         <SelectTrigger
           aria-label={label}
-          className="h-auto! w-full justify-between gap-1 border-0 bg-transparent p-0 text-sm font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
+          className="h-auto! w-full justify-between gap-1 border-0 bg-transparent p-0 text-xs font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
         >
           <SelectValue className="truncate text-left">{display}</SelectValue>
         </SelectTrigger>
