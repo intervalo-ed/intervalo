@@ -87,9 +87,9 @@ const practiceCls =
 // Botones del modo editor: rojo (reiniciar curso) y verde (cerrar edición), con
 // el mismo lenguaje visual que los botones outline del perfil.
 const resetCourseCls =
-  "h-8 w-full justify-center rounded-md border-red-500/30 bg-transparent text-red-400 hover:bg-red-500/10 hover:text-red-400"
+  "h-9 w-full justify-center rounded-md border-red-500/30 bg-transparent text-red-400 hover:bg-red-500/10 hover:text-red-400"
 const saveEditCls =
-  "h-8 w-full justify-center rounded-md border-green-500/30 bg-transparent text-green-400 hover:bg-green-500/10 hover:text-green-400"
+  "h-9 w-full justify-center rounded-md border-green-500/30 bg-transparent text-green-400 hover:bg-green-500/10 hover:text-green-400"
 
 // Color del título de cada unidad, tomado del cinturón correspondiente
 // (variante `onDark`, legible sobre el fondo oscuro).
