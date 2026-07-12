@@ -173,7 +173,7 @@ function FilterBox({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2">
+    <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 pt-2 pb-[10px]">
       <Select value={value} onValueChange={(v) => v && onChange(v)}>
         <SelectTrigger
           aria-label={label}
@@ -446,7 +446,7 @@ function Metric({
   value: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3">
+    <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 pt-3 pb-[15px]">
       <span className="text-lg font-semibold leading-none tabular-nums">
         {value}
       </span>
