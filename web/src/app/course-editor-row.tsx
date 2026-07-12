@@ -117,7 +117,14 @@ export function CourseEditorRow({
             icon={<PauseIcon className="size-3.5" />}
             label={`Suspender ${label}`}
             title="¿Suspender este tema?"
-            description="Se va a ocultar de tu curso y no aparecerá en tus repasos. Sus ítems en aprendizaje se ceden a los temas siguientes. Podés reactivarlo con Adelantar."
+            description={
+              <>
+                Se va a ocultar de tu curso y no aparecerá en tus repasos. Sus
+                ítems en aprendizaje se ceden a los temas siguientes. Podés
+                revertir esto usando la opción de{" "}
+                <em className="italic">adelantar</em>.
+              </>
+            }
             confirmLabel="Suspender"
             onConfirm={onSuspend}
           />
