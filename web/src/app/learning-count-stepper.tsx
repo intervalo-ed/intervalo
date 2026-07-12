@@ -1,76 +1,66 @@
 "use client"
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { topicShortLabel, type CourseId } from "@/lib/catalog"
-import type { components } from "@/lib/api/schema"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { ChevronLeft, ChevronRight, HelpCircleIcon } from "lucide-react"
 
-type CapPreview = components["schemas"]["CapPreviewResponse"]
-
-const confirmCls =
-  "h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-const cancelCls = "h-10 w-full rounded-md bg-background dark:bg-background"
-
-// Selector de "ítems en aprendizaje" (el cap configurable). Al mover el contador
-// consulta el preview; si hay temas que se desbloquean/re-bloquean, confirma con
-// un diálogo antes de aplicar.
+// Selector de "ítems activos" (el cap configurable). Al mover el contador aplica
+// el cambio al instante (sin confirmación): subir desbloquea más temas, bajar
+// vuelve a bloquear los últimos.
 export function LearningCountStepper({
-  course,
   value,
   total,
   busy,
-  previewCap,
   applyCap,
 }: {
-  course: CourseId
   value: number
   total: number
   busy: boolean
-  previewCap: (value: number) => Promise<CapPreview>
   applyCap: (value: number) => void
 }) {
-  const [pending, setPending] = useState<{ target: number; preview: CapPreview } | null>(
-    null,
-  )
-
-  async function step(delta: number) {
+  function step(delta: number) {
     const target = Math.max(1, Math.min(total, value + delta))
-    if (target === value) return
-    const preview = await previewCap(target)
-    if (preview.unlock.length === 0 && preview.lock.length === 0) {
-      applyCap(target) // nada que confirmar (no cambia ningún tema aún)
-      return
-    }
-    setPending({ target, preview })
+    if (target !== value) applyCap(target)
   }
-
-  function labelOf(key: string): string {
-    const topic = key.split("/")[1] ?? key
-    return topicShortLabel({ topic, course, fallback: topic })
-  }
-
-  const isUnlock = pending !== null && pending.target > value
 
   return (
     <div className="flex h-12 items-center justify-between rounded-md border border-white/10 bg-white/5 px-3">
-      <span className="text-sm">Ítems en aprendizaje</span>
+      <div className="flex items-center gap-1.5">
+        <span className="text-sm">Ítems activos</span>
+        <Dialog>
+          <DialogTrigger
+            aria-label="Qué son los ítems activos"
+            className="text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+          >
+            <HelpCircleIcon className="size-3.5" />
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader className="gap-1">
+              <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                Ítems activos
+              </DialogTitle>
+              <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                Cuántos ítems tenés aprendiendo a la vez. Subir el número
+                desbloquea más temas para tus repasos; bajarlo vuelve a bloquear
+                los últimos. Los ítems ya consolidados no se ven afectados.
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
       <div className="flex items-center gap-3">
         <Button
           variant="outline"
           size="icon-sm"
           className="rounded-md"
-          aria-label="Menos ítems en aprendizaje"
+          aria-label="Menos ítems activos"
           disabled={value <= 1 || busy}
           onClick={() => step(-1)}
         >
@@ -83,52 +73,13 @@ export function LearningCountStepper({
           variant="outline"
           size="icon-sm"
           className="rounded-md"
-          aria-label="Más ítems en aprendizaje"
+          aria-label="Más ítems activos"
           disabled={value >= total || busy}
           onClick={() => step(1)}
         >
           <ChevronRight />
         </Button>
       </div>
-
-      <AlertDialog
-        open={pending !== null}
-        onOpenChange={(open) => {
-          if (!open) setPending(null)
-        }}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-center font-sans">
-              {isUnlock ? "¿Desbloquear temas?" : "¿Volver a bloquear temas?"}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-center">
-              {pending && pending.preview.unlock.length > 0 && (
-                <>Se van a desbloquear: {pending.preview.unlock.map(labelOf).join(", ")}.</>
-              )}
-              {pending && pending.preview.lock.length > 0 && (
-                <>
-                  Se van a volver a bloquear:{" "}
-                  {pending.preview.lock.map(labelOf).join(", ")}. Sus ítems vuelven a
-                  quedar bloqueados.
-                </>
-              )}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction
-              className={confirmCls}
-              onClick={() => {
-                if (pending) applyCap(pending.target)
-                setPending(null)
-              }}
-            >
-              Confirmar
-            </AlertDialogAction>
-            <AlertDialogCancel className={cancelCls}>Cancelar</AlertDialogCancel>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   )
 }

@@ -250,11 +250,9 @@ export default function DashboardEntry() {
 
             {editing ? (
               <LearningCountStepper
-                course={course}
                 value={data.active_cap}
                 total={data.total_items}
                 busy={editor.setCap.isPending}
-                previewCap={editor.previewCap}
                 applyCap={(v) => editor.setCap.mutate(v)}
               />
             ) : (
