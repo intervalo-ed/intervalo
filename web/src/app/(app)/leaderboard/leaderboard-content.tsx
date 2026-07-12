@@ -122,7 +122,9 @@ export function LeaderboardContent() {
           label="Carrera"
           value={career}
           onChange={setCareer}
-          display={(v) => (v === ALL ? "Todas" : CAREER_LABEL[v] ?? v)}
+          display={(v) =>
+            v === ALL ? "Todas" : `${CAREER_LABEL[v] ?? v} ${CAREER_EMOJI[v] ?? ""}`
+          }
         >
           <SelectItem value={ALL}>Todas</SelectItem>
           {CAREER_META.map((c) => (
