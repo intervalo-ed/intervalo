@@ -11,8 +11,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import MathText from "@/components/math-text"
 import { cn } from "@/lib/utils"
-import { PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react"
+import { HelpCircleIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
 export type TopicEditState = "locked" | "unlocked" | "suspended"
@@ -88,12 +97,14 @@ function ActionButton({
 // Reiniciar). El botón "encendido" depende del estado del tema.
 export function CourseEditorRow({
   label,
+  description,
   state,
   onAdvance,
   onSuspend,
   onReset,
 }: {
   label: string
+  description?: string
   state: TopicEditState
   onAdvance: () => void
   onSuspend: () => void
@@ -107,7 +118,31 @@ export function CourseEditorRow({
         state === "suspended" && "opacity-40",
       )}
     >
-      <span className="text-sm leading-tight text-foreground/80">{label}</span>
+      {description ? (
+        <Dialog>
+          <DialogTrigger
+            aria-label={`Qué es ${label}`}
+            className="flex items-center gap-1.5 text-left outline-none"
+          >
+            <span className="text-sm leading-tight text-foreground/80">
+              {label}
+            </span>
+            <HelpCircleIcon className="size-3.5 shrink-0 text-foreground/40" />
+          </DialogTrigger>
+          <DialogContent className="max-h-[80vh] overflow-y-auto">
+            <DialogHeader className="gap-0.5">
+              <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                {label}
+              </DialogTitle>
+              <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                <MathText text={description} />
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <span className="text-sm leading-tight text-foreground/80">{label}</span>
+      )}
       <div className="flex gap-1.5">
         {/* Botón que alterna adelantar (play) ↔ suspender (pause): uno cancela al
             otro según el estado del tema. */}

@@ -533,6 +533,7 @@ function UnitSection({
             <CourseEditorRow
               key={topic.key}
               label={topicShortLabel({ topic: topic.key, course, fallback: topic.name })}
+              description={topic.short_description ?? topic.tooltip}
               state={topicEditState(topicStates[`${belt}/${topic.key}`])}
               onAdvance={() => editor.advance.mutate({ belt, topic: topic.key })}
               onSuspend={() => editor.suspend.mutate({ belt, topic: topic.key })}
