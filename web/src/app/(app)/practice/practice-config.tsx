@@ -4,7 +4,7 @@ import { BottomNav } from "@/components/bottom-nav"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
-import { Metric } from "@/components/metric-card"
+import { Metric, accuracyColor } from "@/components/metric-card"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -66,7 +66,11 @@ export default function PracticeConfig() {
 
   const statsQuery = usePracticeStats({ course })
   const sessionsCompleted = statsQuery.data?.sessions_completed ?? 0
+  const answered = statsQuery.data?.exercises_answered ?? 0
   const exercisesCorrect = statsQuery.data?.exercises_correct ?? 0
+  const accuracyPct = answered
+    ? Math.round((exercisesCorrect / answered) * 100)
+    : 0
 
   const [beltIdx, setBeltIdx] = useState(0)
   const belt = beltOrder[Math.min(beltIdx, beltOrder.length - 1)]
@@ -167,7 +171,9 @@ export default function PracticeConfig() {
             <Metric
               label="Ejercicios acertados"
               value={
-                <CountUp variant="ease" value={exercisesCorrect} duration={1000} />
+                <span style={{ color: accuracyColor(accuracyPct) }}>
+                  {accuracyPct}%
+                </span>
               }
             />
           </div>

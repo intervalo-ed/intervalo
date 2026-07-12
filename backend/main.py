@@ -492,18 +492,21 @@ def get_practice_stats(
         SessionModel.finished_at.isnot(None),
     ).scalar()
 
-    exercises_correct = db.query(func.count(Answer.id)).join(
+    answered, exercises_correct = db.query(
+        func.count(Answer.id),
+        func.count().filter(Answer.is_correct.is_(True)),
+    ).join(
         SessionModel, Answer.session_id == SessionModel.id,
     ).filter(
         Answer.user_id == current_user.id,
         Answer.course_id == course_id,
         Answer.iteration == iteration,
-        Answer.is_correct.is_(True),
         SessionModel.mode == "zen",
-    ).scalar()
+    ).one()
 
     return PracticeStatsResponse(
         sessions_completed=sessions_completed or 0,
+        exercises_answered=answered or 0,
         exercises_correct=exercises_correct or 0,
     )
 

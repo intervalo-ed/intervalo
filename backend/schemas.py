@@ -92,6 +92,7 @@ class UserProgressResponse(BaseModel):
 class PracticeStatsResponse(BaseModel):
     # Stats del usuario para un curso (iteración vigente), solo modo práctica (zen).
     sessions_completed: int   # sesiones de práctica terminadas
+    exercises_answered: int   # ejercicios respondidos en sesiones de práctica
     exercises_correct: int    # ejercicios acertados en sesiones de práctica
 
 

@@ -2247,6 +2247,10 @@
             "type": "integer",
             "title": "Sessions Completed"
           },
+          "exercises_answered": {
+            "type": "integer",
+            "title": "Exercises Answered"
+          },
           "exercises_correct": {
             "type": "integer",
             "title": "Exercises Correct"
@@ -2255,6 +2259,7 @@
         "type": "object",
         "required": [
           "sessions_completed",
+          "exercises_answered",
           "exercises_correct"
         ],
         "title": "PracticeStatsResponse"

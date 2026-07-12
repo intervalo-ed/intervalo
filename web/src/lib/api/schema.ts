@@ -875,6 +875,8 @@ export interface components {
         PracticeStatsResponse: {
             /** Sessions Completed */
             sessions_completed: number;
+            /** Exercises Answered */
+            exercises_answered: number;
             /** Exercises Correct */
             exercises_correct: number;
         };
