@@ -39,6 +39,7 @@ from schemas import (
     LeaderboardEntry,
     LeaderboardMe,
     LeaderboardResponse,
+    LeaderboardSummaryResponse,
     ActiveCapRequest,
     CapPreviewResponse,
     CourseResetResponse,
@@ -707,6 +708,7 @@ BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
+    career: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
     around_me: bool = Query(default=False),
@@ -758,14 +760,19 @@ def get_leaderboard(
         e = enrollments.get(user.id)
         return e.university if e else None
 
+    def career_of(user: User) -> str:
+        e = enrollments.get(user.id)
+        return _career_bucket(e.career if e else None)
+
     # Universidades presentes (set completo), para poblar el filtro.
     universities = sorted({u for user in users if (u := uni_of(user)) is not None})
 
-    # Scope: todos o solo los de la universidad elegida. El orden ya viene por XP.
-    scoped = (
-        users if university is None
-        else [user for user in users if uni_of(user) == university]
-    )
+    # Scope: filtra por universidad y/o carrera (intersección). El orden ya viene por XP.
+    scoped = [
+        user for user in users
+        if (university is None or uni_of(user) == university)
+        and (career is None or career_of(user) == career)
+    ]
 
     total_count = len(scoped)
     total_xp = sum(user.total_xp for user in scoped)
@@ -829,8 +836,15 @@ def get_leaderboard(
 CAREER_BUCKETS = ["E", "S", "T", "M", "Otra"]
 
 
+def _career_bucket(career: str | None) -> str:
+    """Normaliza la carrera de la enrollment a un bucket conocido (o 'Otra')."""
+    return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
+
+
 @app.get("/leaderboard/universities", response_model=UniversityLeaderboardResponse)
 def get_university_leaderboard(
+    career: str | None = Query(default=None),
+    university: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -839,15 +853,15 @@ def get_university_leaderboard(
     A diferencia del leaderboard individual (paginado, ventana alrededor del
     usuario), acá se recorre el set completo una vez y se agregan los totales
     por universidad, así el front puede comparar universidades entre sí.
+
+    `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
+    carrera. `university`: limita a esa universidad (aislarla).
     """
     users = db.query(User).all()
     enrollments = {
         e.user_id: e
         for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
     }
-
-    def bucket(career: str | None) -> str:
-        return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
 
     # Agregación por universidad + agregado global por carrera.
     by_uni: dict[str, dict] = {}
@@ -858,8 +872,12 @@ def get_university_leaderboard(
         uni = e.university if e else None
         if not uni:
             continue
+        if university is not None and uni != university:
+            continue
+        b = _career_bucket(e.career if e else None)
+        if career is not None and b != career:
+            continue
         total_students += 1
-        b = bucket(e.career if e else None)
         career_totals[b] += 1
         agg = by_uni.setdefault(
             uni,
@@ -887,6 +905,25 @@ def get_university_leaderboard(
         total_students=total_students,
         total_universities=len(by_uni),
         career_totals=career_totals,
+    )
+
+
+@app.get("/leaderboard/summary", response_model=LeaderboardSummaryResponse)
+def get_leaderboard_summary(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Números generales (globales) de la cabecera del leaderboard: estudiantes
+    registrados, ejercicios acumulados y universidades presentes. No dependen de
+    ningún filtro de carrera/universidad."""
+    enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    universities = sorted({e.university for e in enrollments if e.university})
+    total_students = sum(1 for e in enrollments if e.university)
+    total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+    return LeaderboardSummaryResponse(
+        total_students=total_students,
+        total_exercises=total_exercises,
+        universities=universities,
     )
 
 

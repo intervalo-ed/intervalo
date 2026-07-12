@@ -209,6 +209,14 @@ class UniversityLeaderboardResponse(BaseModel):
     career_totals: dict[str, int]  # agregado global por carrera (llaves E,S,T,M,Otra)
 
 
+class LeaderboardSummaryResponse(BaseModel):
+    # Números generales de la cabecera del leaderboard, SIEMPRE globales (sin
+    # filtros de carrera/universidad).
+    total_students: int            # usuarios con universidad registrada
+    total_exercises: int           # ejercicios resueltos (todos los usuarios)
+    universities: list[str]        # universidades presentes (para el filtro)
+
+
 # ── Session ───────────────────────────────────────────────────────────────────
 
 class SessionExercise(BaseModel):

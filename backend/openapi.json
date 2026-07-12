@@ -1067,6 +1067,22 @@
             }
           },
           {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
+          {
             "name": "limit",
             "in": "query",
             "required": false,
@@ -1136,9 +1152,41 @@
     "/leaderboard/universities": {
       "get": {
         "summary": "Get University Leaderboard",
-        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.",
+        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.\n\n`career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa\ncarrera. `university`: limita a esa universidad (aislarla).",
         "operationId": "get_university_leaderboard_leaderboard_universities_get",
         "parameters": [
+          {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
+          {
+            "name": "university",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "University"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -1156,6 +1204,46 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UniversityLeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboard/summary": {
+      "get": {
+        "summary": "Get Leaderboard Summary",
+        "description": "N\u00fameros generales (globales) de la cabecera del leaderboard: estudiantes\nregistrados, ejercicios acumulados y universidades presentes. No dependen de\nning\u00fan filtro de carrera/universidad.",
+        "operationId": "get_leaderboard_summary_leaderboard_summary_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardSummaryResponse"
                 }
               }
             }
@@ -2109,6 +2197,32 @@
           "universities"
         ],
         "title": "LeaderboardResponse"
+      },
+      "LeaderboardSummaryResponse": {
+        "properties": {
+          "total_students": {
+            "type": "integer",
+            "title": "Total Students"
+          },
+          "total_exercises": {
+            "type": "integer",
+            "title": "Total Exercises"
+          },
+          "universities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Universities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_students",
+          "total_exercises",
+          "universities"
+        ],
+        "title": "LeaderboardSummaryResponse"
       },
       "LevelInfo": {
         "properties": {

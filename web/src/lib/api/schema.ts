@@ -448,8 +448,33 @@ export interface paths {
          *     A diferencia del leaderboard individual (paginado, ventana alrededor del
          *     usuario), acá se recorre el set completo una vez y se agregan los totales
          *     por universidad, así el front puede comparar universidades entre sí.
+         *
+         *     `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
+         *     carrera. `university`: limita a esa universidad (aislarla).
          */
         get: operations["get_university_leaderboard_leaderboard_universities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/leaderboard/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Leaderboard Summary
+         * @description Números generales (globales) de la cabecera del leaderboard: estudiantes
+         *     registrados, ejercicios acumulados y universidades presentes. No dependen de
+         *     ningún filtro de carrera/universidad.
+         */
+        get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -826,6 +851,15 @@ export interface components {
             /** Has More */
             has_more: boolean;
             me: components["schemas"]["LeaderboardMe"];
+            /** Universities */
+            universities: string[];
+        };
+        /** LeaderboardSummaryResponse */
+        LeaderboardSummaryResponse: {
+            /** Total Students */
+            total_students: number;
+            /** Total Exercises */
+            total_exercises: number;
             /** Universities */
             universities: string[];
         };
@@ -1883,6 +1917,7 @@ export interface operations {
         parameters: {
             query?: {
                 university?: string | null;
+                career?: string | null;
                 limit?: number;
                 offset?: number;
                 around_me?: boolean;
@@ -1917,7 +1952,10 @@ export interface operations {
     };
     get_university_leaderboard_leaderboard_universities_get: {
         parameters: {
-            query?: never;
+            query?: {
+                career?: string | null;
+                university?: string | null;
+            };
             header?: {
                 authorization?: string;
             };
@@ -1933,6 +1971,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UniversityLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_leaderboard_summary_leaderboard_summary_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeaderboardSummaryResponse"];
                 };
             };
             /** @description Validation Error */
