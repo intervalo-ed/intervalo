@@ -446,7 +446,7 @@ function Metric({
   value: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 pt-3 pb-[17px]">
+    <div className="flex flex-col justify-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 py-[14px]">
       <span className="text-lg font-semibold leading-none tabular-nums">
         {value}
       </span>
