@@ -75,9 +75,12 @@ export function LeaderboardContent() {
   const universities = summary.data?.universities ?? []
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-2.5">
+    <div className="flex h-full min-h-0 flex-col gap-4">
+      {/* Cabecera: mismo agrupado/espaciado que el switcher + métricas de
+          Repasar/Practicar (gap-2 entre filas, gap-4 hasta la lista). */}
+      <div className="flex shrink-0 flex-col gap-2">
       {/* Fila 1: dos números generales (globales, no dependen de los filtros). */}
-      <div className="grid shrink-0 grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <Metric
           label="Estudiantes registrados"
           value={
@@ -107,7 +110,7 @@ export function LeaderboardContent() {
       </div>
 
       {/* Fila 2: selector de ranking + filtros de carrera y universidad. */}
-      <div className="grid shrink-0 grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-2">
         <FilterBox
           label="Ranking"
           value={view}
@@ -148,6 +151,7 @@ export function LeaderboardContent() {
             </SelectItem>
           ))}
         </FilterBox>
+      </div>
       </div>
 
       {view === "individual" ? (
