@@ -132,8 +132,9 @@ export function LeaderboardContent() {
           <SelectItem value={ALL}>Todas</SelectItem>
           {CAREER_META.map((c) => (
             <SelectItem key={c.key} value={c.key}>
-              <span className="flex-1">{c.name}</span>
-              <span>{CAREER_EMOJI[c.key]}</span>
+              <span>
+                {c.name} {CAREER_EMOJI[c.key]}
+              </span>
             </SelectItem>
           ))}
         </FilterBox>
