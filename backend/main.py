@@ -584,6 +584,20 @@ def course_set_active_cap(
     return get_user_progress_db(current_user.id, course_id, db)
 
 
+@app.put("/course/{course}/session-size", response_model=UserProgressResponse)
+def course_set_session_size(
+    course: str,
+    body: ActiveCapRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Fija el máximo de ejercicios por sesión de repaso (clamp 1..30)."""
+    from session_store import set_session_size, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    set_session_size(current_user.id, course_id, body.value, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
 @app.post("/course/{course}/reset", response_model=CourseResetResponse)
 def course_reset(
     course: str,

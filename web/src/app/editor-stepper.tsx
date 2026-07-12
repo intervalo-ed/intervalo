@@ -11,32 +11,37 @@ import {
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, HelpCircleIcon } from "lucide-react"
 
-// Selector de "ítems activos" (el cap configurable). Al mover el contador aplica
-// el cambio al instante (sin confirmación): subir desbloquea más temas, bajar
-// vuelve a bloquear los últimos.
-export function LearningCountStepper({
+// Selector numérico del editor de curso (contador con < valor >). Aplica el
+// cambio al instante y muestra un (?) con una explicación breve.
+export function EditorStepper({
+  label,
+  help,
   value,
-  total,
+  min = 1,
+  max,
   busy,
-  applyCap,
+  onChange,
 }: {
+  label: string
+  help: string
   value: number
-  total: number
+  min?: number
+  max: number
   busy: boolean
-  applyCap: (value: number) => void
+  onChange: (value: number) => void
 }) {
   function step(delta: number) {
-    const target = Math.max(1, Math.min(total, value + delta))
-    if (target !== value) applyCap(target)
+    const target = Math.max(min, Math.min(max, value + delta))
+    if (target !== value) onChange(target)
   }
 
   return (
     <div className="flex h-10 items-center justify-between rounded-md border border-white/10 bg-white/5 px-3">
       <div className="flex items-center gap-1.5">
-        <span className="text-sm">Ítems activos</span>
+        <span className="text-sm">{label}</span>
         <Dialog>
           <DialogTrigger
-            aria-label="Qué son los ítems activos"
+            aria-label={`Qué es ${label}`}
             className="text-foreground/40 outline-none transition-colors hover:text-foreground/70"
           >
             <HelpCircleIcon className="size-3.5" />
@@ -44,12 +49,10 @@ export function LearningCountStepper({
           <DialogContent>
             <DialogHeader className="gap-1">
               <DialogTitle className="font-sans text-sm font-semibold text-foreground">
-                Ítems activos
+                {label}
               </DialogTitle>
               <DialogDescription className="text-sm leading-relaxed text-foreground/80">
-                Cuántos ítems tenés aprendiendo a la vez. Subir el número
-                desbloquea más temas para tus repasos; bajarlo vuelve a bloquear
-                los últimos. Los ítems ya consolidados no se ven afectados.
+                {help}
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
@@ -60,8 +63,8 @@ export function LearningCountStepper({
           variant="outline"
           size="icon-sm"
           className="rounded-md"
-          aria-label="Menos ítems activos"
-          disabled={value <= 1 || busy}
+          aria-label={`Menos: ${label}`}
+          disabled={value <= min || busy}
           onClick={() => step(-1)}
         >
           <ChevronLeft />
@@ -73,8 +76,8 @@ export function LearningCountStepper({
           variant="outline"
           size="icon-sm"
           className="rounded-md"
-          aria-label="Más ítems activos"
-          disabled={value >= total || busy}
+          aria-label={`Más: ${label}`}
+          disabled={value >= max || busy}
           onClick={() => step(1)}
         >
           <ChevronRight />

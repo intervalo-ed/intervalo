@@ -512,6 +512,10 @@ def _rows_to_unit_states(
 
 ACTIVE_CAP_DEFAULT = 18
 
+# Límites del "máximo de ejercicios por sesión" configurable.
+SESSION_SIZE_MIN = 1
+SESSION_SIZE_MAX = 30
+
 
 def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
     """Fila de CourseProgress del usuario para el curso, creada lazy con defaults."""
@@ -700,11 +704,14 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
 
     # El desbloqueo lo maneja _ensure_active_units (cap de 15); la sesión solo
-    # arma con lo que está activo/vencido, sin introducir temas extra.
+    # arma con lo que está activo/vencido, sin introducir temas extra. El tope de
+    # ejercicios por sesión es configurable por usuario+curso (session_size).
+    session_size = _get_course_progress(user_id, course_id, db).session_size
     session_units = build_session(
         unit_states,
         unit_attempted=unit_attempted,
         introduce_new_topic=None,
+        config=SM2Config(max_session_exercises=session_size),
     )
 
     exercises = [
@@ -1142,6 +1149,8 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         "active_cap": cp.active_cap,
         "total_items": total_items,
         "iteration": cp.iteration,
+        "session_size": cp.session_size,
+        "session_size_max": SESSION_SIZE_MAX,
     }
 
 
@@ -1373,6 +1382,15 @@ def set_active_cap(user_id: int, course_id: int, value: int, db: DBSession) -> i
         _ensure_active_units(user_id, course_id, db)
     elif value < old:
         _relock_last_items(user_id, course_id, value, db)
+    return value
+
+
+def set_session_size(user_id: int, course_id: int, value: int, db: DBSession) -> int:
+    """Fija el máximo de ejercicios por sesión (clamp SESSION_SIZE_MIN..MAX)."""
+    value = max(SESSION_SIZE_MIN, min(int(value), SESSION_SIZE_MAX))
+    cp = _get_course_progress(user_id, course_id, db)
+    cp.session_size = value
+    db.commit()
     return value
 
 

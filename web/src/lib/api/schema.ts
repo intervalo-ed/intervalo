@@ -301,6 +301,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/course/{course}/session-size": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Course Set Session Size
+         * @description Fija el máximo de ejercicios por sesión de repaso (clamp 1..30).
+         */
+        put: operations["course_set_session_size_course__course__session_size_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/course/{course}/reset": {
         parameters: {
             query?: never;
@@ -1165,6 +1185,16 @@ export interface components {
              * @default 1
              */
             iteration: number;
+            /**
+             * Session Size
+             * @default 8
+             */
+            session_size: number;
+            /**
+             * Session Size Max
+             * @default 30
+             */
+            session_size_max: number;
         };
         /** UserResponse */
         UserResponse: {
@@ -1640,6 +1670,43 @@ export interface operations {
         };
     };
     course_set_active_cap_course__course__active_cap_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActiveCapRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_set_session_size_course__course__session_size_put: {
         parameters: {
             query?: never;
             header?: {

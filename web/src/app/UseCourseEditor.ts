@@ -74,6 +74,18 @@ export function useCourseEditor(course: CourseId) {
     onSuccess: writeProgress,
   })
 
+  const setSessionSize = useMutation({
+    mutationFn: async (value: number) => {
+      const { data, error } = await api.PUT("/course/{course}/session-size", {
+        params: { path: { course } },
+        body: { value },
+      })
+      if (error) throw new Error(errMessage(error))
+      return data as Progress
+    },
+    onSuccess: writeProgress,
+  })
+
   const resetCourse = useMutation({
     mutationFn: async () => {
       const { data, error } = await api.POST("/course/{course}/reset", {
@@ -98,5 +110,5 @@ export function useCourseEditor(course: CourseId) {
     return data
   }
 
-  return { advance, suspend, resetTopic, setCap, resetCourse, previewCap }
+  return { advance, suspend, resetTopic, setCap, setSessionSize, resetCourse, previewCap }
 }

@@ -707,6 +707,65 @@
         }
       }
     },
+    "/course/{course}/session-size": {
+      "put": {
+        "summary": "Course Set Session Size",
+        "description": "Fija el m\u00e1ximo de ejercicios por sesi\u00f3n de repaso (clamp 1..30).",
+        "operationId": "course_set_session_size_course__course__session_size_put",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveCapRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/course/{course}/reset": {
       "post": {
         "summary": "Course Reset",
@@ -3069,6 +3128,16 @@
             "type": "integer",
             "title": "Iteration",
             "default": 1
+          },
+          "session_size": {
+            "type": "integer",
+            "title": "Session Size",
+            "default": 8
+          },
+          "session_size_max": {
+            "type": "integer",
+            "title": "Session Size Max",
+            "default": 30
           }
         },
         "type": "object",

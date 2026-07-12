@@ -87,6 +87,8 @@ class UserProgressResponse(BaseModel):
     active_cap: int = 18          # ítems en aprendizaje permitidos a la vez
     total_items: int = 0          # total de ítems del curso (máx del cap)
     iteration: int = 1            # iteración de progreso vigente
+    session_size: int = 8         # máx de ejercicios por sesión de repaso
+    session_size_max: int = 30    # tope superior del selector de session_size
 
 
 class PracticeStatsResponse(BaseModel):

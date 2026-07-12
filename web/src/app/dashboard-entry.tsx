@@ -63,7 +63,7 @@ import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
-import { LearningCountStepper } from "./learning-count-stepper"
+import { EditorStepper } from "./editor-stepper"
 import { useCourseEditor } from "./UseCourseEditor"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
@@ -249,12 +249,24 @@ export default function DashboardEntry() {
             />
 
             {editing ? (
-              <LearningCountStepper
-                value={data.active_cap}
-                total={data.total_items}
-                busy={editor.setCap.isPending}
-                applyCap={(v) => editor.setCap.mutate(v)}
-              />
+              <div className="flex flex-col gap-2">
+                <EditorStepper
+                  label="Ítems activos"
+                  help="Cuántos ítems tenés aprendiendo a la vez. Subir el número desbloquea más temas para tus repasos; bajarlo vuelve a bloquear los últimos. Los ítems ya consolidados no se ven afectados."
+                  value={data.active_cap}
+                  max={data.total_items}
+                  busy={editor.setCap.isPending}
+                  onChange={(v) => editor.setCap.mutate(v)}
+                />
+                <EditorStepper
+                  label="Ejercicios por sesión"
+                  help="El máximo de ejercicios que entran en cada sesión de repaso. Si hay más pendientes, el resto aparece en las próximas sesiones."
+                  value={data.session_size}
+                  max={data.session_size_max}
+                  busy={editor.setSessionSize.isPending}
+                  onChange={(v) => editor.setSessionSize.mutate(v)}
+                />
+              </div>
             ) : (
               <div className="grid grid-cols-3 gap-2">
               <Metric
@@ -308,7 +320,7 @@ export default function DashboardEntry() {
             </div>
 
             {editing ? (
-              <div className="flex flex-col gap-1">
+              <div className="grid grid-cols-2 gap-2">
                 <AlertDialog>
                   <AlertDialogTrigger
                     render={
