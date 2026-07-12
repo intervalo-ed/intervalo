@@ -1283,18 +1283,26 @@ def _topic_key(course_id: int, belt: str, topic: str, db: DBSession) -> "TopicKe
 
 def advance_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSession) -> None:
     """Adelantar: desbloquea un tema fuera de orden, o lo reactiva si estaba
-    suspendido. Puede superar el cap (elección explícita del usuario)."""
+    suspendido. Los ítems recién activados suben el contador de "ítems activos"
+    (cap) si lo superan, así el contador refleja los ítems que agregaste."""
     rows = _topic_rows(user_id, course_id, belt, topic, db)
     if rows:
         for r in rows:
             r.suspended = False
-        db.commit()
-        return
-    key = _topic_key(course_id, belt, topic, db)
-    if key is None:
-        raise ValueError(f"Tema desconocido: {belt}/{topic}")
-    _create_topic_units(user_id, course_id, key, db)
+    else:
+        key = _topic_key(course_id, belt, topic, db)
+        if key is None:
+            raise ValueError(f"Tema desconocido: {belt}/{topic}")
+        _create_topic_units(user_id, course_id, key, db)
     db.commit()
+
+    # Subir el cap para incluir los ítems recién activados (adelantar es una
+    # elección explícita de agregar ítems, aunque supere el cap actual).
+    cp = _get_course_progress(user_id, course_id, db)
+    active = _active_unit_count(user_id, course_id, db)
+    if active > cp.active_cap:
+        cp.active_cap = active
+        db.commit()
 
 
 def suspend_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSession) -> None:
