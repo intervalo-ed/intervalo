@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, HelpCircleIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight, InfoIcon } from "lucide-react"
 
 // Selector numérico del editor de curso (contador con < valor >). Aplica el
 // cambio al instante y muestra un (?) con una explicación breve.
@@ -44,7 +44,7 @@ export function EditorStepper({
             aria-label={`Qué es ${label}`}
             className="text-foreground/40 outline-none transition-colors hover:text-foreground/70"
           >
-            <HelpCircleIcon className="size-3.5" />
+            <InfoIcon className="size-3.5" />
           </DialogTrigger>
           <DialogContent>
             <DialogHeader className="gap-1">

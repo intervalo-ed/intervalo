@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog"
 import MathText from "@/components/math-text"
 import { cn } from "@/lib/utils"
-import { HelpCircleIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react"
+import { InfoIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
 export type TopicEditState = "locked" | "unlocked" | "suspended"
@@ -127,7 +127,7 @@ export function CourseEditorRow({
             <span className="text-sm leading-tight text-foreground/80">
               {label}
             </span>
-            <HelpCircleIcon className="size-3.5 shrink-0 text-foreground/40" />
+            <InfoIcon className="size-3.5 shrink-0 text-foreground/40" />
           </DialogTrigger>
           <DialogContent className="max-h-[80vh] overflow-y-auto">
             <DialogHeader className="gap-0.5">
