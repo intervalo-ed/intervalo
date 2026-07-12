@@ -186,7 +186,7 @@ export function BeltGrid({
               aria-label={`Más sobre ${topicLabel(row.topic)}`}
               className="flex items-center gap-1.5 text-left outline-none"
             >
-              <span className="text-sm font-normal leading-none text-foreground/80">
+              <span className="text-sm leading-tight text-foreground/80">
                 {topicLabel(row.topic)}
               </span>
               <Info className="size-3.5 shrink-0 text-foreground/40" />
