@@ -50,10 +50,10 @@ export function CourseSwitcher({
               aria-label={editing ? "Salir del editor" : "Editar curso"}
               aria-pressed={editing}
               className={cn(
-                "flex size-6 items-center justify-center rounded-md border transition-colors",
+                "flex size-6 items-center justify-center transition-colors",
                 editing
-                  ? "border-primary/40 bg-primary/15 text-primary"
-                  : "border-transparent text-foreground/50 hover:text-foreground",
+                  ? "text-primary"
+                  : "text-foreground/50 hover:text-foreground",
               )}
             >
               <SettingsIcon className="size-4" />
