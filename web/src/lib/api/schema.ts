@@ -179,6 +179,169 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/practice-stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Practice Stats
+         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
+         *     (zen): sesiones de práctica completadas y ejercicios acertados en ellas.
+         */
+        get: operations["get_practice_stats_user_practice_stats_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/advance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Advance
+         * @description Adelantar un tema: lo desbloquea fuera de orden (o lo reactiva si estaba
+         *     suspendido). Devuelve el progreso actualizado del curso.
+         */
+        post: operations["course_topic_advance_course__course__topic_advance_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/suspend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Suspend
+         * @description Suspender un tema: lo oculta del home y cede su cupo a los temas siguientes.
+         */
+        post: operations["course_topic_suspend_course__course__topic_suspend_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/topic/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Topic Reset
+         * @description Reiniciar un tema: sus ítems vuelven a 'nuevo' y reingresan a repaso.
+         */
+        post: operations["course_topic_reset_course__course__topic_reset_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/active-cap/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Course Active Cap Preview
+         * @description Sin aplicar: qué temas se desbloquean/re-bloquean al fijar el cap en `value`.
+         */
+        get: operations["course_active_cap_preview_course__course__active_cap_preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/active-cap": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Course Set Active Cap
+         * @description Fija cuántos ítems puede tener en aprendizaje a la vez (clamp 1..total).
+         */
+        put: operations["course_set_active_cap_course__course__active_cap_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/session-size": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Course Set Session Size
+         * @description Fija el máximo de ejercicios por sesión de repaso (clamp 1..30).
+         */
+        put: operations["course_set_session_size_course__course__session_size_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/course/{course}/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Course Reset
+         * @description Reiniciar el curso: archiva el progreso vigente y arranca una iteración
+         *     nueva (el cinturón refleja solo la iteración vigente).
+         */
+        post: operations["course_reset_course__course__reset_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/push/subscribe": {
         parameters: {
             query?: never;
@@ -305,8 +468,33 @@ export interface paths {
          *     A diferencia del leaderboard individual (paginado, ventana alrededor del
          *     usuario), acá se recorre el set completo una vez y se agregan los totales
          *     por universidad, así el front puede comparar universidades entre sí.
+         *
+         *     `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
+         *     carrera. `university`: limita a esa universidad (aislarla).
          */
         get: operations["get_university_leaderboard_leaderboard_universities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/leaderboard/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Leaderboard Summary
+         * @description Números generales (globales) de la cabecera del leaderboard: estudiantes
+         *     registrados, ejercicios acumulados y universidades presentes. No dependen de
+         *     ningún filtro de carrera/universidad.
+         */
+        get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -502,6 +690,11 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** ActiveCapRequest */
+        ActiveCapRequest: {
+            /** Value */
+            value: number;
+        };
         /** AnswerRequest */
         AnswerRequest: {
             /** Session Id */
@@ -530,6 +723,26 @@ export interface components {
             total: number;
             /** Promoted */
             promoted: boolean;
+        };
+        /** CapPreviewResponse */
+        CapPreviewResponse: {
+            /** Value */
+            value: number;
+            /**
+             * Unlock
+             * @default []
+             */
+            unlock: string[];
+            /**
+             * Lock
+             * @default []
+             */
+            lock: string[];
+        };
+        /** CourseResetResponse */
+        CourseResetResponse: {
+            /** Iteration */
+            iteration: number;
         };
         /** DueNotification */
         DueNotification: {
@@ -661,6 +874,15 @@ export interface components {
             /** Universities */
             universities: string[];
         };
+        /** LeaderboardSummaryResponse */
+        LeaderboardSummaryResponse: {
+            /** Total Students */
+            total_students: number;
+            /** Total Exercises */
+            total_exercises: number;
+            /** Universities */
+            universities: string[];
+        };
         /** LevelInfo */
         LevelInfo: {
             /** Level */
@@ -702,6 +924,15 @@ export interface components {
             time?: string | null;
             /** Timezone */
             timezone?: string | null;
+        };
+        /** PracticeStatsResponse */
+        PracticeStatsResponse: {
+            /** Sessions Completed */
+            sessions_completed: number;
+            /** Exercises Answered */
+            exercises_answered: number;
+            /** Exercises Correct */
+            exercises_correct: number;
         };
         /** PrunePushRequest */
         PrunePushRequest: {
@@ -859,6 +1090,13 @@ export interface components {
             /** Exercise Type */
             exercise_type: string;
         };
+        /** TopicActionRequest */
+        TopicActionRequest: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
+        };
         /** TopicProgress */
         TopicProgress: {
             /** Phase */
@@ -877,6 +1115,11 @@ export interface components {
             next_review?: string | null;
             /** Failed */
             failed: boolean;
+            /**
+             * Suspended
+             * @default false
+             */
+            suspended: boolean;
             /**
              * Skills
              * @default []
@@ -927,6 +1170,31 @@ export interface components {
             main_session_done_today: boolean;
             /** Last Course */
             last_course?: string | null;
+            /**
+             * Active Cap
+             * @default 18
+             */
+            active_cap: number;
+            /**
+             * Total Items
+             * @default 0
+             */
+            total_items: number;
+            /**
+             * Iteration
+             * @default 1
+             */
+            iteration: number;
+            /**
+             * Session Size
+             * @default 8
+             */
+            session_size: number;
+            /**
+             * Session Size Max
+             * @default 30
+             */
+            session_size_max: number;
         };
         /** UserResponse */
         UserResponse: {
@@ -1222,6 +1490,292 @@ export interface operations {
             };
         };
     };
+    get_practice_stats_user_practice_stats_get: {
+        parameters: {
+            query?: {
+                course?: string | null;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PracticeStatsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_advance_course__course__topic_advance_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_suspend_course__course__topic_suspend_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_topic_reset_course__course__topic_reset_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_active_cap_preview_course__course__active_cap_preview_get: {
+        parameters: {
+            query: {
+                value: number;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CapPreviewResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_set_active_cap_course__course__active_cap_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActiveCapRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_set_session_size_course__course__session_size_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActiveCapRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProgressResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    course_reset_course__course__reset_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                course: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseResetResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     push_subscribe_push_subscribe_post: {
         parameters: {
             query?: never;
@@ -1430,6 +1984,7 @@ export interface operations {
         parameters: {
             query?: {
                 university?: string | null;
+                career?: string | null;
                 limit?: number;
                 offset?: number;
                 around_me?: boolean;
@@ -1464,7 +2019,10 @@ export interface operations {
     };
     get_university_leaderboard_leaderboard_universities_get: {
         parameters: {
-            query?: never;
+            query?: {
+                career?: string | null;
+                university?: string | null;
+            };
             header?: {
                 authorization?: string;
             };
@@ -1480,6 +2038,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UniversityLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_leaderboard_summary_leaderboard_summary_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeaderboardSummaryResponse"];
                 };
             };
             /** @description Validation Error */

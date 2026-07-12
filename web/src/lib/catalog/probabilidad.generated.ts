@@ -80,7 +80,7 @@ export const catalog: Catalog = {
     {
       "key": "white",
       "headline": "Conteo",
-      "description": "Trabajás tu capacidad para calcular combinaciones y permutaciones, sentando las bases lógicas necesarias para cuantificar espacios de múltiples resultados.",
+      "description": "Trabajás las bases del cálculo de probabilidades: contás combinaciones y permutaciones y dominás los axiomas y teoremas fundamentales de la incertidumbre.",
       "units": [
         {
           "key": "conteo",
@@ -142,14 +142,7 @@ export const catalog: Catalog = {
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "blue",
-      "headline": "Probabilidad y Variables",
-      "description": "Dominás los axiomas y teoremas fundamentales de la incertidumbre y explorás cómo traducir experimentos aleatorios a funciones matemáticas.",
-      "units": [
+        },
         {
           "key": "probabilidad",
           "name": "Probabilidad",
@@ -231,7 +224,14 @@ export const catalog: Catalog = {
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "blue",
+      "headline": "Variables",
+      "description": "Explorás cómo traducir experimentos aleatorios a funciones matemáticas: variables aleatorias, sus distribuciones puntual, de densidad y acumulada, y sus resúmenes numéricos como la esperanza y la varianza.",
+      "units": [
         {
           "key": "variables",
           "name": "Variables",

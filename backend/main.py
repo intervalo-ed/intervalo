@@ -39,8 +39,14 @@ from schemas import (
     LeaderboardEntry,
     LeaderboardMe,
     LeaderboardResponse,
+    LeaderboardSummaryResponse,
+    ActiveCapRequest,
+    CapPreviewResponse,
+    CourseResetResponse,
     NotificationSettings,
+    PracticeStatsResponse,
     SessionStartResponse,
+    TopicActionRequest,
     SessionSummaryResponse,
     SimpleResponse,
     UniversityLeaderboardResponse,
@@ -455,6 +461,157 @@ def get_user_progress(
         raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
 
 
+def _resolve_course_id(course: str | None, db: Session) -> int:
+    """Resuelve el id de curso desde el slug; default = curso id=1 (analisis)."""
+    if not course:
+        return 1
+    from models import Course
+    course_row = db.query(Course).filter(Course.slug == course).first()
+    if course_row is None:
+        raise HTTPException(status_code=404, detail=f"Curso '{course}' no encontrado")
+    return course_row.id
+
+
+@app.get("/user/practice-stats", response_model=PracticeStatsResponse)
+def get_practice_stats(
+    course: str | None = Query(default=None),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
+    (zen): sesiones de práctica completadas y ejercicios acertados en ellas."""
+    from models import Session as SessionModel
+    from session_store import _get_course_progress
+    course_id = _resolve_course_id(course, db)
+    iteration = _get_course_progress(current_user.id, course_id, db).iteration
+
+    sessions_completed = db.query(func.count(SessionModel.id)).filter(
+        SessionModel.user_id == current_user.id,
+        SessionModel.course_id == course_id,
+        SessionModel.iteration == iteration,
+        SessionModel.mode == "zen",
+        SessionModel.finished_at.isnot(None),
+    ).scalar()
+
+    answered, exercises_correct = db.query(
+        func.count(Answer.id),
+        func.count().filter(Answer.is_correct.is_(True)),
+    ).join(
+        SessionModel, Answer.session_id == SessionModel.id,
+    ).filter(
+        Answer.user_id == current_user.id,
+        Answer.course_id == course_id,
+        Answer.iteration == iteration,
+        SessionModel.mode == "zen",
+    ).one()
+
+    return PracticeStatsResponse(
+        sessions_completed=sessions_completed or 0,
+        exercises_answered=answered or 0,
+        exercises_correct=exercises_correct or 0,
+    )
+
+
+# ── Editor de curso ───────────────────────────────────────────────────────────
+
+@app.post("/course/{course}/topic/advance", response_model=UserProgressResponse)
+def course_topic_advance(
+    course: str,
+    body: TopicActionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Adelantar un tema: lo desbloquea fuera de orden (o lo reactiva si estaba
+    suspendido). Devuelve el progreso actualizado del curso."""
+    from session_store import advance_topic, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    advance_topic(current_user.id, course_id, body.belt, body.topic, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
+@app.post("/course/{course}/topic/suspend", response_model=UserProgressResponse)
+def course_topic_suspend(
+    course: str,
+    body: TopicActionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Suspender un tema: lo oculta del home y cede su cupo a los temas siguientes."""
+    from session_store import suspend_topic, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    suspend_topic(current_user.id, course_id, body.belt, body.topic, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
+@app.post("/course/{course}/topic/reset", response_model=UserProgressResponse)
+def course_topic_reset(
+    course: str,
+    body: TopicActionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Reiniciar un tema: sus ítems vuelven a 'nuevo' y reingresan a repaso."""
+    from session_store import reset_topic, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    reset_topic(current_user.id, course_id, body.belt, body.topic, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
+@app.get("/course/{course}/active-cap/preview", response_model=CapPreviewResponse)
+def course_active_cap_preview(
+    course: str,
+    value: int = Query(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Sin aplicar: qué temas se desbloquean/re-bloquean al fijar el cap en `value`."""
+    from session_store import cap_change_preview
+    course_id = _resolve_course_id(course, db)
+    return cap_change_preview(current_user.id, course_id, value, db)
+
+
+@app.put("/course/{course}/active-cap", response_model=UserProgressResponse)
+def course_set_active_cap(
+    course: str,
+    body: ActiveCapRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Fija cuántos ítems puede tener en aprendizaje a la vez (clamp 1..total)."""
+    from session_store import set_active_cap, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    set_active_cap(current_user.id, course_id, body.value, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
+@app.put("/course/{course}/session-size", response_model=UserProgressResponse)
+def course_set_session_size(
+    course: str,
+    body: ActiveCapRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Fija el máximo de ejercicios por sesión de repaso (clamp 1..30)."""
+    from session_store import set_session_size, get_user_progress_db
+    course_id = _resolve_course_id(course, db)
+    set_session_size(current_user.id, course_id, body.value, db)
+    return get_user_progress_db(current_user.id, course_id, db)
+
+
+@app.post("/course/{course}/reset", response_model=CourseResetResponse)
+def course_reset(
+    course: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Reiniciar el curso: archiva el progreso vigente y arranca una iteración
+    nueva (el cinturón refleja solo la iteración vigente)."""
+    from session_store import reset_course
+    course_id = _resolve_course_id(course, db)
+    iteration = reset_course(current_user.id, course_id, db)
+    return CourseResetResponse(iteration=iteration)
+
+
 # ── Push notifications ──────────────────────────────────────────────────────────
 
 @app.post("/push/subscribe", response_model=SimpleResponse)
@@ -565,6 +722,7 @@ BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 @app.get("/leaderboard", response_model=LeaderboardResponse)
 def get_leaderboard(
     university: str | None = Query(default=None),
+    career: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
     around_me: bool = Query(default=False),
@@ -603,7 +761,12 @@ def get_leaderboard(
     # Máximo cinturón desbloqueado por usuario (en cualquier curso): el de mayor
     # rank entre las filas UnitState. Por defecto, blanco.
     max_belt_by_user: dict[int, str] = {}
-    for uid, belt in db.query(UnitState.user_id, UnitState.belt).distinct().all():
+    for uid, belt in (
+        db.query(UnitState.user_id, UnitState.belt)
+        .filter(UnitState.suspended.is_(False))
+        .distinct()
+        .all()
+    ):
         if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
             max_belt_by_user[uid] = belt
 
@@ -611,14 +774,19 @@ def get_leaderboard(
         e = enrollments.get(user.id)
         return e.university if e else None
 
+    def career_of(user: User) -> str:
+        e = enrollments.get(user.id)
+        return _career_bucket(e.career if e else None)
+
     # Universidades presentes (set completo), para poblar el filtro.
     universities = sorted({u for user in users if (u := uni_of(user)) is not None})
 
-    # Scope: todos o solo los de la universidad elegida. El orden ya viene por XP.
-    scoped = (
-        users if university is None
-        else [user for user in users if uni_of(user) == university]
-    )
+    # Scope: filtra por universidad y/o carrera (intersección). El orden ya viene por XP.
+    scoped = [
+        user for user in users
+        if (university is None or uni_of(user) == university)
+        and (career is None or career_of(user) == career)
+    ]
 
     total_count = len(scoped)
     total_xp = sum(user.total_xp for user in scoped)
@@ -682,8 +850,15 @@ def get_leaderboard(
 CAREER_BUCKETS = ["E", "S", "T", "M", "Otra"]
 
 
+def _career_bucket(career: str | None) -> str:
+    """Normaliza la carrera de la enrollment a un bucket conocido (o 'Otra')."""
+    return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
+
+
 @app.get("/leaderboard/universities", response_model=UniversityLeaderboardResponse)
 def get_university_leaderboard(
+    career: str | None = Query(default=None),
+    university: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -692,15 +867,15 @@ def get_university_leaderboard(
     A diferencia del leaderboard individual (paginado, ventana alrededor del
     usuario), acá se recorre el set completo una vez y se agregan los totales
     por universidad, así el front puede comparar universidades entre sí.
+
+    `career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa
+    carrera. `university`: limita a esa universidad (aislarla).
     """
     users = db.query(User).all()
     enrollments = {
         e.user_id: e
         for e in db.query(Enrollment).filter(Enrollment.course_id == 1).all()
     }
-
-    def bucket(career: str | None) -> str:
-        return career if career in CAREER_BUCKETS and career != "Otra" else "Otra"
 
     # Agregación por universidad + agregado global por carrera.
     by_uni: dict[str, dict] = {}
@@ -711,8 +886,12 @@ def get_university_leaderboard(
         uni = e.university if e else None
         if not uni:
             continue
+        if university is not None and uni != university:
+            continue
+        b = _career_bucket(e.career if e else None)
+        if career is not None and b != career:
+            continue
         total_students += 1
-        b = bucket(e.career if e else None)
         career_totals[b] += 1
         agg = by_uni.setdefault(
             uni,
@@ -740,6 +919,25 @@ def get_university_leaderboard(
         total_students=total_students,
         total_universities=len(by_uni),
         career_totals=career_totals,
+    )
+
+
+@app.get("/leaderboard/summary", response_model=LeaderboardSummaryResponse)
+def get_leaderboard_summary(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Números generales (globales) de la cabecera del leaderboard: estudiantes
+    registrados, ejercicios acumulados y universidades presentes. No dependen de
+    ningún filtro de carrera/universidad."""
+    enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
+    universities = sorted({e.university for e in enrollments if e.university})
+    total_students = sum(1 for e in enrollments if e.university)
+    total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+    return LeaderboardSummaryResponse(
+        total_students=total_students,
+        total_exercises=total_exercises,
+        universities=universities,
     )
 
 

@@ -43,7 +43,15 @@ from algorithm import (
 )
 from exercise_bank import get_exercise_db, list_exercises_db, topic_exercise_types
 from sqlalchemy.orm import Session as DBSession
-from models import Answer, Course, Session as SessionModel, UnitState, User
+from models import (
+    Answer,
+    Course,
+    CourseProgress,
+    Session as SessionModel,
+    UnitState,
+    UnitStateArchive,
+    User,
+)
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -389,6 +397,8 @@ def _aggregate_topic_progress(
             }
         )
 
+    suspended = bool(rows) and all(r.suspended for r in rows)
+
     return {
         "phase": aggregate_phase,
         "step_index": mastered,
@@ -398,6 +408,7 @@ def _aggregate_topic_progress(
         "attempted": attempted,
         "next_review": next_review,
         "failed": False,
+        "suspended": suspended,
         "skills": skills,
     }
 
@@ -499,15 +510,43 @@ def _rows_to_unit_states(
     return states, attempted
 
 
-ACTIVE_CAP = 18
+ACTIVE_CAP_DEFAULT = 18
+
+# Límites del "máximo de ejercicios por sesión" configurable.
+SESSION_SIZE_MIN = 1
+SESSION_SIZE_MAX = 30
+
+
+def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseProgress:
+    """Fila de CourseProgress del usuario para el curso, creada lazy con defaults."""
+    cp = db.query(CourseProgress).filter(
+        CourseProgress.user_id == user_id,
+        CourseProgress.course_id == course_id,
+    ).first()
+    if cp is None:
+        cp = CourseProgress(
+            user_id=user_id,
+            course_id=course_id,
+            iteration=1,
+            active_cap=ACTIVE_CAP_DEFAULT,
+        )
+        db.add(cp)
+        db.commit()
+    return cp
+
+
+def _active_cap(user_id: int, course_id: int, db: DBSession) -> int:
+    return _get_course_progress(user_id, course_id, db).active_cap
 
 
 def _active_unit_count(user_id: int, course_id: int, db: DBSession) -> int:
-    """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas."""
+    """Units activas = en fase de aprendizaje (nuevo + aprendiendo), no graduadas
+    ni suspendidas. Las suspendidas liberan cupo (se ceden a temas siguientes)."""
     return db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
         UnitState.phase != "review",
+        UnitState.suspended.is_(False),
     ).count()
 
 
@@ -567,28 +606,30 @@ def _ensure_active_units(
     db: DBSession,
 ) -> None:
     """Desbloquea temas en orden de catálogo respetando un máximo ESTRICTO de
-    ACTIVE_CAP (18) units en fase de aprendizaje. Como un tema se desbloquea
-    entero (todos sus exercise_types de golpe), solo se introduce el siguiente
-    tema si entra completo sin pasarse de 18; si no entra, se espera a que
-    gradúen units y se liberen cupos. A medida que las units graduan (pasan a
-    'review') se vuelven a desbloquear temas hasta volver a llenar los 18."""
+    `active_cap` (configurable por usuario+curso, default 18) units en fase de
+    aprendizaje. Como un tema se desbloquea entero (todos sus exercise_types de
+    golpe), solo se introduce el siguiente tema si entra completo sin pasarse del
+    cap; si no entra, se espera a que gradúen units y se liberen cupos. A medida
+    que las units graduan (pasan a 'review') se vuelven a desbloquear temas hasta
+    volver a llenar el cap."""
     # Catch-up primero (exento del tope): ítems que quedaron detrás del frontier
-    # ya desbloqueado deben aparecer aunque haya >=18 units activas.
+    # ya desbloqueado deben aparecer aunque haya >=cap units activas.
     _fill_catchup_units(user_id, course_id, db)
 
+    cap = _active_cap(user_id, course_id, db)
     active = _active_unit_count(user_id, course_id, db)
-    if active >= ACTIVE_CAP:
+    if active >= cap:
         return
     changed = False
     for tk in _all_topic_keys(course_id, db):
-        if active >= ACTIVE_CAP:
+        if active >= cap:
             break
         if _topic_has_any_units(user_id, course_id, tk, db):
             continue
         types = topic_exercise_types(course_id, tk.belt.value, tk.topic, db)
         # Mantener el orden del catálogo: si el próximo tema no entra completo,
         # frenar (no saltearlo) para no desbloquear temas fuera de orden.
-        if active + len(types) > ACTIVE_CAP:
+        if active + len(types) > cap:
             break
         _create_topic_units(user_id, course_id, tk, db)
         active += len(types)
@@ -602,9 +643,11 @@ def _load_unit_states(
     course_id: int,
     db: DBSession,
 ) -> tuple[dict[UnitKey, SM2UnitState], dict[UnitKey, bool]]:
+    # Las suspendidas se excluyen de sesiones, resumen y cálculo de maestría.
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
+        UnitState.suspended.is_(False),
     ).all()
     return _rows_to_unit_states(rows, user_today(db, user_id))
 
@@ -661,11 +704,14 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     unit_states, unit_attempted = _load_unit_states(user_id, course_id, db)
 
     # El desbloqueo lo maneja _ensure_active_units (cap de 15); la sesión solo
-    # arma con lo que está activo/vencido, sin introducir temas extra.
+    # arma con lo que está activo/vencido, sin introducir temas extra. El tope de
+    # ejercicios por sesión es configurable por usuario+curso (session_size).
+    session_size = _get_course_progress(user_id, course_id, db).session_size
     session_units = build_session(
         unit_states,
         unit_attempted=unit_attempted,
         introduce_new_topic=None,
+        config=SM2Config(max_session_exercises=session_size),
     )
 
     exercises = [
@@ -679,6 +725,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         started_at=datetime.utcnow(),
         exercises_total=len(exercises),
         mode="main",
+        iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
     db.flush()
@@ -744,6 +791,7 @@ def create_zen_session_db(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
         mode="zen",
+        iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
     db.flush()
@@ -817,6 +865,7 @@ def create_test_session_db(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
         mode="zen",  # reuse zen guard: no SR tracking, XP only
+        iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
     db.flush()
@@ -1000,6 +1049,7 @@ def record_answer_db(
         quality_score=quality,
         xp_earned=xp_earned,
         answered_at=datetime.utcnow(),
+        iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
 
     user = db.query(User).filter(User.id == user_id).first()
@@ -1080,6 +1130,12 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         if last_course_row is not None:
             last_course_slug = last_course_row.slug
 
+    cp = _get_course_progress(user_id, course_id, db)
+    total_items = sum(
+        len(topic_exercise_types(course_id, key.belt.value, key.topic, db))
+        for key in catalog_keys
+    )
+
     return {
         "topic_states": topic_states,
         "level_info": {
@@ -1090,6 +1146,11 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
         },
         "main_session_done_today": _has_main_session_today(user_id, course_id, db),
         "last_course": last_course_slug,
+        "active_cap": cp.active_cap,
+        "total_items": total_items,
+        "iteration": cp.iteration,
+        "session_size": cp.session_size,
+        "session_size_max": SESSION_SIZE_MAX,
     }
 
 
@@ -1128,6 +1189,7 @@ def get_summary_db(
 
     rows = db.query(UnitState).filter(
         UnitState.user_id == user_id, UnitState.course_id == course_id,
+        UnitState.suspended.is_(False),
     ).all()
     rows_by_topic = _topic_rows_index(rows)
 
@@ -1198,3 +1260,193 @@ def get_summary_db(
             "progress_pct": lp.progress_pct,
         },
     }
+
+
+# ── Editor de curso ──────────────────────────────────────────────────────────
+
+def _course_total_items(course_id: int, db: DBSession) -> int:
+    """Total de ítems (exercise_types) del curso: el máximo posible del cap."""
+    return sum(
+        len(topic_exercise_types(course_id, k.belt.value, k.topic, db))
+        for k in _all_topic_keys(course_id, db)
+    )
+
+
+def _topic_rows(
+    user_id: int, course_id: int, belt: str, topic: str, db: DBSession,
+) -> list[UnitState]:
+    return db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+        UnitState.belt == belt,
+        UnitState.topic == topic,
+    ).all()
+
+
+def _topic_key(course_id: int, belt: str, topic: str, db: DBSession) -> "TopicKey | None":
+    for k in _all_topic_keys(course_id, db):
+        if k.belt.value == belt and k.topic == topic:
+            return k
+    return None
+
+
+def advance_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSession) -> None:
+    """Adelantar: desbloquea un tema fuera de orden, o lo reactiva si estaba
+    suspendido. Los ítems recién activados suben el contador de "ítems activos"
+    (cap) si lo superan, así el contador refleja los ítems que agregaste."""
+    rows = _topic_rows(user_id, course_id, belt, topic, db)
+    if rows:
+        for r in rows:
+            r.suspended = False
+    else:
+        key = _topic_key(course_id, belt, topic, db)
+        if key is None:
+            raise ValueError(f"Tema desconocido: {belt}/{topic}")
+        _create_topic_units(user_id, course_id, key, db)
+    db.commit()
+
+    # Subir el cap para incluir los ítems recién activados (adelantar es una
+    # elección explícita de agregar ítems, aunque supere el cap actual).
+    cp = _get_course_progress(user_id, course_id, db)
+    active = _active_unit_count(user_id, course_id, db)
+    if active > cp.active_cap:
+        cp.active_cap = active
+        db.commit()
+
+
+def suspend_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSession) -> None:
+    """Suspender: oculta el tema del home y lo excluye de sesiones/maestría. El
+    cupo liberado se cede a los temas siguientes."""
+    rows = _topic_rows(user_id, course_id, belt, topic, db)
+    for r in rows:
+        r.suspended = True
+    db.commit()
+    _ensure_active_units(user_id, course_id, db)
+
+
+def reset_topic(user_id: int, course_id: int, belt: str, topic: str, db: DBSession) -> None:
+    """Reiniciar tema: todos sus ítems vuelven a 'nuevo' (learning fresco, vencen
+    hoy) y reingresan como candidatos de repaso."""
+    rows = _topic_rows(user_id, course_id, belt, topic, db)
+    today = user_today(db, user_id)
+    for r in rows:
+        r.phase = "learning"
+        r.step_index = 0
+        r.ease_factor = 2.5
+        r.interval_days = 1
+        r.repetitions = 0
+        r.next_due = today
+        r.attempted = False
+        r.suspended = False
+        r.last_reviewed_at = None
+        r.updated_at = datetime.utcnow()
+    db.commit()
+
+
+def _relock_last_items(user_id: int, course_id: int, cap: int, db: DBSession) -> list[str]:
+    """Borra ítems en aprendizaje desde el final del orden de catálogo hasta que
+    la cantidad activa no supere `cap`. Devuelve 'belt/topic' de los tocados."""
+    keys = _all_topic_keys(course_id, db)
+    active = _active_unit_count(user_id, course_id, db)
+    touched: list[str] = []
+    for tk in reversed(keys):
+        if active <= cap:
+            break
+        rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
+        learning = [r for r in rows if r.phase != "review" and not r.suspended]
+        if not learning:
+            continue
+        removed = False
+        for r in learning:
+            if active <= cap:
+                break
+            db.delete(r)
+            active -= 1
+            removed = True
+        if removed:
+            touched.append(f"{tk.belt.value}/{tk.topic}")
+    db.commit()
+    return touched
+
+
+def set_active_cap(user_id: int, course_id: int, value: int, db: DBSession) -> int:
+    """Fija cuántos ítems puede tener en aprendizaje (clamp 1..total). Subir
+    desbloquea más; bajar re-bloquea los últimos ítems en aprendizaje."""
+    total = _course_total_items(course_id, db)
+    value = max(1, min(int(value), total))
+    cp = _get_course_progress(user_id, course_id, db)
+    old = cp.active_cap
+    cp.active_cap = value
+    db.commit()
+    if value > old:
+        _ensure_active_units(user_id, course_id, db)
+    elif value < old:
+        _relock_last_items(user_id, course_id, value, db)
+    return value
+
+
+def set_session_size(user_id: int, course_id: int, value: int, db: DBSession) -> int:
+    """Fija el máximo de ejercicios por sesión (clamp SESSION_SIZE_MIN..MAX)."""
+    value = max(SESSION_SIZE_MIN, min(int(value), SESSION_SIZE_MAX))
+    cp = _get_course_progress(user_id, course_id, db)
+    cp.session_size = value
+    db.commit()
+    return value
+
+
+def cap_change_preview(user_id: int, course_id: int, value: int, db: DBSession) -> dict:
+    """Sin aplicar: qué temas se desbloquean/re-bloquean al cambiar el cap."""
+    total = _course_total_items(course_id, db)
+    value = max(1, min(int(value), total))
+    active = _active_unit_count(user_id, course_id, db)
+    keys = _all_topic_keys(course_id, db)
+    unlock: list[str] = []
+    lock: list[str] = []
+    if value > active:
+        remaining = value - active
+        for tk in keys:
+            if remaining <= 0:
+                break
+            if _topic_has_any_units(user_id, course_id, tk, db):
+                continue
+            n = len(topic_exercise_types(course_id, tk.belt.value, tk.topic, db))
+            if n > remaining:
+                break
+            unlock.append(f"{tk.belt.value}/{tk.topic}")
+            remaining -= n
+    elif value < active:
+        remaining = active - value
+        for tk in reversed(keys):
+            if remaining <= 0:
+                break
+            rows = _topic_rows(user_id, course_id, tk.belt.value, tk.topic, db)
+            learning = [r for r in rows if r.phase != "review" and not r.suspended]
+            if not learning:
+                continue
+            lock.append(f"{tk.belt.value}/{tk.topic}")
+            remaining -= min(len(learning), remaining)
+    return {"value": value, "unlock": unlock, "lock": lock}
+
+
+def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
+    """Reiniciar curso: archiva el progreso vigente en unit_state_archive con la
+    iteración actual, lo borra de unit_states e incrementa la iteración. Los
+    Answer/Session quedan etiquetados con su iteración. Devuelve la nueva."""
+    cp = _get_course_progress(user_id, course_id, db)
+    rows = db.query(UnitState).filter(
+        UnitState.user_id == user_id,
+        UnitState.course_id == course_id,
+    ).all()
+    for r in rows:
+        db.add(UnitStateArchive(
+            user_id=user_id, course_id=course_id, iteration=cp.iteration,
+            belt=r.belt, topic=r.topic, exercise_type=r.exercise_type,
+            phase=r.phase, step_index=r.step_index, ease_factor=r.ease_factor,
+            interval_days=r.interval_days, repetitions=r.repetitions,
+            next_due=r.next_due, attempted=r.attempted,
+            is_catchup=r.is_catchup, suspended=r.suspended,
+        ))
+        db.delete(r)
+    cp.iteration += 1
+    db.commit()
+    return cp.iteration

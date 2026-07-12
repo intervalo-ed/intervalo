@@ -8,16 +8,33 @@ export const queryKeys = {
   userProgress: ({ course }: { course?: string } = {}) =>
     [...queryKeys.all, "user", "progress", course ?? "default"] as const,
 
+  practiceStats: ({ course }: { course?: string } = {}) =>
+    [...queryKeys.all, "user", "practice-stats", course ?? "default"] as const,
+
   notificationSettings: () =>
     [...queryKeys.all, "user", "notification-settings"] as const,
 
   emojiState: () => [...queryKeys.all, "user", "emoji-tree"] as const,
 
-  leaderboard: ({ university }: { university?: string } = {}) =>
-    [...queryKeys.all, "leaderboard", university ?? "all"] as const,
+  leaderboard: ({
+    university,
+    career,
+  }: { university?: string; career?: string } = {}) =>
+    [...queryKeys.all, "leaderboard", university ?? "all", career ?? "all"] as const,
 
-  universityLeaderboard: () =>
-    [...queryKeys.all, "leaderboard", "universities"] as const,
+  universityLeaderboard: ({
+    university,
+    career,
+  }: { university?: string; career?: string } = {}) =>
+    [
+      ...queryKeys.all,
+      "leaderboard",
+      "universities",
+      university ?? "all",
+      career ?? "all",
+    ] as const,
+
+  leaderboardSummary: () => [...queryKeys.all, "leaderboard", "summary"] as const,
 
   beltInfo: ({ courseId }: { courseId: number }) =>
     [...queryKeys.all, "course", courseId, "belts"] as const,

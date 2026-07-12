@@ -1,8 +1,10 @@
 "use client"
 
 import { BottomNav } from "@/components/bottom-nav"
+import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
+import { Metric, accuracyColor } from "@/components/metric-card"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -35,6 +37,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
 import { useMemo, useState } from "react"
+import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"
 
 const ctaCls =
@@ -60,6 +63,14 @@ export default function PracticeConfig() {
     parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
   )
   const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
+
+  const statsQuery = usePracticeStats({ course })
+  const sessionsCompleted = statsQuery.data?.sessions_completed ?? 0
+  const answered = statsQuery.data?.exercises_answered ?? 0
+  const exercisesCorrect = statsQuery.data?.exercises_correct ?? 0
+  const accuracyPct = answered
+    ? Math.round((exercisesCorrect / answered) * 100)
+    : 0
 
   const [beltIdx, setBeltIdx] = useState(0)
   const belt = beltOrder[Math.min(beltIdx, beltOrder.length - 1)]
@@ -147,7 +158,27 @@ export default function PracticeConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+        <div className="flex flex-col gap-2">
+          <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+
+          <div className="grid grid-cols-2 gap-2">
+            <Metric
+              label="Sesiones completadas"
+              value={
+                <CountUp variant="ease" value={sessionsCompleted} duration={1000} />
+              }
+            />
+            <Metric
+              label="Ejercicios acertados"
+              value={
+                <span style={{ color: accuracyColor(accuracyPct) }}>
+                  {accuracyPct}%
+                </span>
+              }
+            />
+          </div>
+        </div>
+
         <Button
           size="lg"
           className={ctaCls}

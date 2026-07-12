@@ -94,6 +94,30 @@ class Enrollment(Base):
     course = relationship("Course", back_populates="enrollments")
 
 
+class CourseProgress(Base):
+    """Configuración y estado de progreso del usuario para un curso: cuántos
+    ítems puede tener en aprendizaje a la vez (`active_cap`) y en qué iteración
+    de progreso está (se incrementa al reiniciar el curso). Fila creada de forma
+    lazy la primera vez que se necesita (default cap = ACTIVE_CAP_DEFAULT)."""
+    __tablename__ = "course_progress"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+
+    iteration = Column(Integer, nullable=False, default=1, server_default="1")
+    active_cap = Column(Integer, nullable=False, default=18, server_default="18")
+    # Máximo de ejercicios por sesión de repaso (config del editor).
+    session_size = Column(Integer, nullable=False, default=8, server_default="8")
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "course_id", name="unique_user_course_progress"),
+    )
+
+
 class UnitState(Base):
     """SM-2 state for each (belt, topic, exercise_type) unit per user per course."""
     __tablename__ = "unit_states"
@@ -118,6 +142,9 @@ class UnitState(Base):
     # excluye del cálculo de maestría/cinturón para no despromocionar un tema ya
     # dominado; se aprende como repaso extra.
     is_catchup = Column(Boolean, nullable=False, default=False, server_default="false")
+    # Tema suspendido por el usuario desde el editor: se oculta del home y se
+    # excluye de sesiones y del cálculo de maestría/cinturón. Reversible (Adelantar).
+    suspended = Column(Boolean, nullable=False, default=False, server_default="false")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -136,6 +163,39 @@ class UnitState(Base):
     course = relationship("Course", back_populates="unit_states")
 
 
+class UnitStateArchive(Base):
+    """Snapshot de las UnitState al reiniciar un curso. Preserva el progreso de
+    iteraciones anteriores (no se pierde el dato) mientras `unit_states` queda
+    solo con la iteración vigente, así las queries activas y el cálculo de
+    cinturón no necesitan filtrar por iteración."""
+    __tablename__ = "unit_state_archive"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    iteration = Column(Integer, nullable=False, default=1)
+
+    belt = Column(String(20), nullable=False)
+    topic = Column(String(50), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
+
+    phase = Column(String(20), nullable=False)
+    step_index = Column(Integer, default=0)
+    ease_factor = Column(Float, default=2.5)
+    interval_days = Column(Integer, default=1)
+    repetitions = Column(Integer, default=0)
+    next_due = Column(Date, nullable=True)
+    attempted = Column(Boolean, default=False)
+    is_catchup = Column(Boolean, nullable=False, default=False)
+    suspended = Column(Boolean, nullable=False, default=False)
+
+    archived_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_unit_state_archive_user_course", "user_id", "course_id"),
+    )
+
+
 class Session(Base):
     __tablename__ = "sessions"
 
@@ -151,6 +211,10 @@ class Session(Base):
     exercises_total = Column(Integer, nullable=False)
     exercises_correct = Column(Integer, default=0)
     xp_earned = Column(Integer, default=0)
+
+    # Iteración de progreso del curso al momento de la sesión (ver CourseProgress).
+    # Reiniciar el curso incrementa la iteración; el histórico queda etiquetado.
+    iteration = Column(Integer, nullable=False, default=1, server_default="1")
 
     # "main" for the daily spaced-repetition session, "zen" for free practice.
     # Only "main" sessions count toward the 1-per-day gate.
@@ -186,6 +250,10 @@ class Answer(Base):
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
+
+    # Iteración de progreso del curso (ver CourseProgress). Reiniciar el curso
+    # incrementa la iteración; las respuestas viejas quedan etiquetadas.
+    iteration = Column(Integer, nullable=False, default=1, server_default="1")
 
     answered_at = Column(DateTime, default=datetime.utcnow)
     intra_session_position = Column(Integer, nullable=True)

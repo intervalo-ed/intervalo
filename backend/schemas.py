@@ -60,6 +60,7 @@ class TopicProgress(BaseModel):
     attempted: bool
     next_review: str | None = None
     failed: bool
+    suspended: bool = False
     skills: list[SkillProgress] = []
 
 
@@ -83,6 +84,39 @@ class UserProgressResponse(BaseModel):
     level_info: LevelInfo
     main_session_done_today: bool
     last_course: str | None = None
+    active_cap: int = 18          # ítems en aprendizaje permitidos a la vez
+    total_items: int = 0          # total de ítems del curso (máx del cap)
+    iteration: int = 1            # iteración de progreso vigente
+    session_size: int = 8         # máx de ejercicios por sesión de repaso
+    session_size_max: int = 30    # tope superior del selector de session_size
+
+
+class PracticeStatsResponse(BaseModel):
+    # Stats del usuario para un curso (iteración vigente), solo modo práctica (zen).
+    sessions_completed: int   # sesiones de práctica terminadas
+    exercises_answered: int   # ejercicios respondidos en sesiones de práctica
+    exercises_correct: int    # ejercicios acertados en sesiones de práctica
+
+
+# ── Editor de curso ─────────────────────────────────────────────────────────
+
+class TopicActionRequest(BaseModel):
+    belt: str
+    topic: str
+
+
+class ActiveCapRequest(BaseModel):
+    value: int
+
+
+class CapPreviewResponse(BaseModel):
+    value: int                 # valor clampeado (1..total)
+    unlock: list[str] = []     # claves "belt/topic" que se desbloquean
+    lock: list[str] = []       # claves "belt/topic" que se re-bloquean
+
+
+class CourseResetResponse(BaseModel):
+    iteration: int             # nueva iteración de progreso
 
 
 # ── Push notifications ──────────────────────────────────────────────────────────
@@ -175,6 +209,14 @@ class UniversityLeaderboardResponse(BaseModel):
     total_students: int            # estudiantes con universidad (suma de rows)
     total_universities: int        # universidades distintas
     career_totals: dict[str, int]  # agregado global por carrera (llaves E,S,T,M,Otra)
+
+
+class LeaderboardSummaryResponse(BaseModel):
+    # Números generales de la cabecera del leaderboard, SIEMPRE globales (sin
+    # filtros de carrera/universidad).
+    total_students: int            # usuarios con universidad registrada
+    total_exercises: int           # ejercicios resueltos (todos los usuarios)
+    universities: list[str]        # universidades presentes (para el filtro)
 
 
 # ── Session ───────────────────────────────────────────────────────────────────

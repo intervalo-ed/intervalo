@@ -16,17 +16,21 @@ type PageParam =
   | { around: false; offset: number; limit: number }
 
 export function useLeaderboard(
-  { university }: { university: string } = { university: ALL },
+  { university, career }: { university: string; career: string } = {
+    university: ALL,
+    career: ALL,
+  },
 ) {
   const api = useApi()
   return useInfiniteQuery({
-    queryKey: queryKeys.leaderboard({ university }),
+    queryKey: queryKeys.leaderboard({ university, career }),
     initialPageParam: { around: true } as PageParam,
     queryFn: async ({ pageParam }) => {
       const { data, error } = await api.GET("/leaderboard", {
         params: {
           query: {
             university: university === ALL ? undefined : university,
+            career: career === ALL ? undefined : career,
             ...(pageParam.around
               ? { around_me: true }
               : { offset: pageParam.offset, limit: pageParam.limit }),

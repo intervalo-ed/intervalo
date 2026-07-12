@@ -15,13 +15,9 @@ import {
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_HEX } from "@/lib/catalog"
-import {
-  FlagTriangleRightIcon,
-  GraduationCapIcon,
-  TrendingUpIcon,
-  UsersIcon,
-} from "lucide-react"
+import { TrendingUpIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
+import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
 
 // Color del nombre según el máximo cinturón del usuario (mismo color que los
@@ -33,24 +29,19 @@ const BELT_TEXT: Record<string, string> = {
   brown: BELT_HEX.brown.onDark,
 }
 
-// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; label =
-// abreviación de 3 letras para las etiquetas de los contenedores de carrera.
-const CAREER_META: { key: string; label: string }[] = [
-  { key: "S", label: "Cie." },
-  { key: "T", label: "Tec." },
-  { key: "E", label: "Ing." },
-  { key: "M", label: "Mat." },
-  { key: "Otra", label: "Otr." },
+// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; `label` =
+// abreviación para el valor colapsado del filtro; `name` = nombre completo para
+// los items del desplegable.
+const CAREER_META: { key: string; label: string; name: string }[] = [
+  { key: "S", label: "Cie.", name: "Ciencias" },
+  { key: "T", label: "Tec.", name: "Tecnología" },
+  { key: "E", label: "Ing.", name: "Ingeniería" },
+  { key: "M", label: "Mat.", name: "Matemática" },
+  { key: "Otra", label: "Otr.", name: "Otra" },
 ]
-
-// Tamaño y posición uniformes de los emojis de carrera del tablero universitario:
-// chicos y bajados un toque para asentarse en el renglón del número. π (M) es un
-// glifo de texto y a igual font-size se ve más chico que los emojis a color, así
-// que le damos un tamaño un poco mayor.
-function careerEmojiCls(key: string) {
-  const size = key === "M" ? "text-[0.82em]" : "text-[0.7em]"
-  return `translate-y-[0.06em] leading-none ${size}`
-}
+const CAREER_LABEL: Record<string, string> = Object.fromEntries(
+  CAREER_META.map((c) => [c.key, c.label]),
+)
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
 // peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
@@ -58,70 +49,159 @@ function careerEmojiCls(key: string) {
 type UniTagStyle = { color: string; font: React.CSSProperties }
 const UNI_TAG: Record<string, UniTagStyle> = {
   UBA: {
-    color: "#4F76E0", // azul UBA (royal, término medio con el navy)
+    color: "#4F76E0",
     font: { fontFamily: "var(--font-uba)", fontWeight: 500, letterSpacing: "0.06em" },
   },
   UTN: {
-    color: "#EC4869", // rojo UTN (crimson/frambuesa, brillante)
+    color: "#EC4869",
     font: { fontFamily: "var(--font-utn)", fontWeight: 600, letterSpacing: "0.1em" },
   },
   UNSAM: {
-    color: "#4D90F2", // celeste azulado (más azul, menos turquesa)
+    color: "#4D90F2",
     font: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
   },
 }
 
 type RankingView = "individual" | "university"
 
+const fmt = (n: number) => n.toLocaleString("es")
+
 export function LeaderboardContent() {
   const [view, setView] = useState<RankingView>("individual")
-
-  return (
-    <div className="flex h-full min-h-0 flex-col gap-2.5">
-      <RankingToggle view={view} onChange={setView} />
-      {view === "individual" ? <IndividualRanking /> : <UniversityRanking />}
-    </div>
-  )
-}
-
-function RankingToggle({
-  view,
-  onChange,
-}: {
-  view: RankingView
-  onChange: (v: RankingView) => void
-}) {
-  const options: { value: RankingView; label: string }[] = [
-    { value: "individual", label: "Individual" },
-    { value: "university", label: "Universitario" },
-  ]
-  return (
-    <div className="grid shrink-0 grid-cols-2 gap-2">
-      {options.map((o) => {
-        const active = view === o.value
-        return (
-          <button
-            key={o.value}
-            type="button"
-            aria-pressed={active}
-            onClick={() => onChange(o.value)}
-            className={cn(
-              "rounded-md border px-4 py-2.5 text-sm font-bold transition-colors",
-              active
-                ? "border-[#7e80f7] bg-white/5 text-[#c4c6ff]"
-                : "border-white bg-white text-black hover:bg-white/90",
-            )}
-          >
-            {o.label}
-          </button>
-        )
-      })}
-    </div>
-  )
-}
-
-function IndividualRanking() {
+  const [career, setCareer] = useState<string>(ALL)
   const [uni, setUni] = useState<string>(ALL)
+
+  const summary = useLeaderboardSummary()
+  const universities = summary.data?.universities ?? []
+
+  return (
+    <div className="flex h-full min-h-0 flex-col gap-4">
+      {/* Cabecera: mismo agrupado/espaciado que el switcher + métricas de
+          Repasar/Practicar (gap-2 entre filas, gap-4 hasta la lista). */}
+      <div className="flex shrink-0 flex-col gap-2">
+      {/* Fila 1: dos números generales (globales, no dependen de los filtros). */}
+      <div className="grid grid-cols-2 gap-2">
+        <Metric
+          label="Estudiantes registrados"
+          value={
+            <span className="inline-flex items-center gap-1.5">
+              {summary.data ? (
+                <CountUp value={summary.data.total_students} format={fmt} />
+              ) : (
+                "…"
+              )}
+              <UsersIcon className="size-[0.85em] text-primary" />
+            </span>
+          }
+        />
+        <Metric
+          label="Ejercicios acumulados"
+          value={
+            <span className="inline-flex items-center gap-1.5">
+              {summary.data ? (
+                <CountUp value={summary.data.total_exercises} format={fmt} />
+              ) : (
+                "…"
+              )}
+              <TrendingUpIcon className="size-[0.85em] text-primary" />
+            </span>
+          }
+        />
+      </div>
+
+      {/* Fila 2: selector de ranking + filtros de carrera y universidad. */}
+      <div className="grid grid-cols-3 gap-2">
+        <FilterBox
+          label="Ranking"
+          value={view}
+          onChange={(v) => setView(v as RankingView)}
+          display={(v) => (v === "individual" ? "Individual" : "Universitario")}
+        >
+          <SelectItem value="individual">Individual</SelectItem>
+          <SelectItem value="university">Universitario</SelectItem>
+        </FilterBox>
+
+        <FilterBox
+          label="Carrera"
+          value={career}
+          onChange={setCareer}
+          display={(v) =>
+            v === ALL ? "Todas" : `${CAREER_LABEL[v] ?? v} ${CAREER_EMOJI[v] ?? ""}`
+          }
+        >
+          <SelectItem value={ALL}>Todas</SelectItem>
+          {CAREER_META.map((c) => (
+            <SelectItem key={c.key} value={c.key}>
+              <span>
+                {c.name} {CAREER_EMOJI[c.key]}
+              </span>
+            </SelectItem>
+          ))}
+        </FilterBox>
+
+        <FilterBox
+          label="Universidad"
+          value={uni}
+          onChange={setUni}
+          display={(v) => (v === ALL ? "Todas" : v)}
+        >
+          <SelectItem value={ALL}>Todas</SelectItem>
+          {universities.map((u) => (
+            <SelectItem key={u} value={u}>
+              {u}
+            </SelectItem>
+          ))}
+        </FilterBox>
+      </div>
+      </div>
+
+      {view === "individual" ? (
+        <IndividualRanking university={uni} career={career} />
+      ) : (
+        <UniversityRanking university={uni} career={career} />
+      )}
+    </div>
+  )
+}
+
+function FilterBox({
+  label,
+  value,
+  onChange,
+  display,
+  children,
+}: {
+  label: string
+  value: string
+  onChange: (v: string) => void
+  display: (v: string) => React.ReactNode
+  children: React.ReactNode
+}) {
+  return (
+    <div className="flex flex-col justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px]">
+      <Select value={value} onValueChange={(v) => v && onChange(v)}>
+        <SelectTrigger
+          aria-label={label}
+          className="h-auto! w-full justify-between gap-1 border-0 bg-transparent p-0 text-xs font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
+        >
+          <SelectValue className="truncate text-left">{display}</SelectValue>
+        </SelectTrigger>
+        <SelectContent>{children}</SelectContent>
+      </Select>
+      <span className="whitespace-nowrap text-[0.65rem] leading-tight text-foreground/60">
+        {label}
+      </span>
+    </div>
+  )
+}
+
+function IndividualRanking({
+  university,
+  career,
+}: {
+  university: string
+  career: string
+}) {
   const {
     data,
     isLoading,
@@ -133,29 +213,24 @@ function IndividualRanking() {
     fetchPreviousPage,
     hasPreviousPage,
     isFetchingPreviousPage,
-  } = useLeaderboard({ university: uni })
+  } = useLeaderboard({ university, career })
 
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const topSentinelRef = useRef<HTMLDivElement | null>(null)
   const bottomSentinelRef = useRef<HTMLDivElement | null>(null)
-  // Centrado inicial (una vez por scope) + anclaje del scroll al anteponer filas.
   const didCenterRef = useRef(false)
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
 
-  // Filas cargadas (todas las páginas, en orden). El rank ya viene del backend,
-  // calculado sobre el set completo del scope.
   const rows = data?.pages.flatMap((p) => p.entries) ?? []
 
-  // Al cambiar de universidad se reinicia la query: hay que volver a centrar.
+  // Al cambiar de scope (universidad o carrera) se reinicia la query: recentrar.
   useEffect(() => {
     didCenterRef.current = false
     prevTopRankRef.current = null
     prevHeightRef.current = 0
-  }, [uni])
+  }, [university, career])
 
-  // Centrado inicial en el usuario y, al cargar filas hacia arriba, anclaje del
-  // viewport (scroll anchoring) para que la lista no salte.
   useLayoutEffect(() => {
     const el = scrollRef.current
     if (!el || rows.length === 0) return
@@ -163,9 +238,6 @@ function IndividualRanking() {
     if (!didCenterRef.current) {
       const meEl = el.querySelector<HTMLElement>("[data-current='true']")
       if (meEl) {
-        // Para los primeros del ranking el resultado da negativo y para los
-        // últimos se pasa del máximo: el navegador acota scrollTop a su rango,
-        // así arrancan pegados arriba/abajo (la vista de antes del cambio).
         el.scrollTop =
           meEl.offsetTop - el.clientHeight / 2 + meEl.offsetHeight / 2
       }
@@ -181,8 +253,6 @@ function IndividualRanking() {
     prevHeightRef.current = el.scrollHeight
   })
 
-  // Scroll infinito bidireccional: centinelas arriba/abajo dentro del contenedor
-  // de la lista. Al entrar en viewport piden la página previa/siguiente.
   useEffect(() => {
     const root = scrollRef.current
     if (!root) return
@@ -220,7 +290,7 @@ function IndividualRanking() {
   ])
 
   if (isLoading) {
-    return <LeaderboardSkeleton />
+    return <ListSkeleton />
   }
 
   if (isError) {
@@ -240,180 +310,90 @@ function IndividualRanking() {
     )
   }
 
-  // Universidades presentes (las da el backend), en el orden preferido de UNI_TAG.
-  const universities = Object.keys(UNI_TAG).filter((u) =>
-    first.universities.includes(u),
-  )
-
-  // "Posición actual", "XP para subir" y totales: del scope completo (backend).
-  const myRank = first.me.rank ?? undefined
-  const xpToNext = first.me.xp_to_next ?? undefined
-  const totalXp = first.total_xp
-  const totalExercises = first.total_exercises
-
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-2.5">
-      <div className="grid shrink-0 grid-cols-2 gap-2">
-        <Metric
-          label="Ejercicios resueltos"
-          value={
-            <span className="inline-flex items-center gap-1.5">
-              <CountUp
-                value={totalExercises}
-                format={(n) => n.toLocaleString("es")}
-              />
-              <TrendingUpIcon className="size-[0.85em] text-primary" />
-            </span>
-          }
-        />
-        <Metric
-          label="Experiencia acumulada"
-          value={
-            <span className="inline-flex items-center gap-1.5">
-              <CountUp
-                value={totalXp}
-                format={(n) => n.toLocaleString("es")}
-              />
-              <XpDots className="size-[0.85em] text-primary" />
-            </span>
-          }
-        />
-      </div>
-
-      <div className="grid shrink-0 grid-cols-3 gap-2">
-        <Metric
-          dense
-          label="Posición actual"
-          value={
-            myRank ? (
-              <CountUp value={myRank} format={(n) => `#${n.toLocaleString("es")}`} />
-            ) : (
-              "-"
-            )
-          }
-        />
-        <Metric
-          dense
-          label="XP para subir"
-          value={
-            xpToNext == null ? (
-              "-"
-            ) : (
-              <span className="inline-flex items-center gap-1.5">
-                <CountUp value={xpToNext} format={(n) => n.toLocaleString("es")} />
-                <FlagTriangleRightIcon className="size-[0.72em] text-[#EC4869]" />
-              </span>
-            )
-          }
-        />
-        <div className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2">
-          <Select value={uni} onValueChange={(v) => v && setUni(v)}>
-            <SelectTrigger
-              aria-label="Filtrar por universidad"
-              className="h-auto! w-full justify-start gap-1.5 border-0 bg-transparent p-0 text-lg font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
-            >
-              <SelectValue className="flex-none!">
-                {(value: string) => (value === ALL ? "-" : value)}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={ALL}>-</SelectItem>
-              {universities.map((u) => (
-                <SelectItem key={u} value={u}>
-                  {u}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <span className="whitespace-nowrap text-[0.65rem] leading-tight text-foreground/60">
-            Universidad
-          </span>
+    <div
+      ref={scrollRef}
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+    >
+      {hasPreviousPage && (
+        <div ref={topSentinelRef} aria-hidden className="h-px" />
+      )}
+      {isFetchingPreviousPage && (
+        <div className="flex justify-center py-2">
+          <Spinner />
         </div>
-      </div>
+      )}
 
-      {/* La lista es su propio contenedor scrolleable: carga con el usuario
-          centrado y agrega filas al llegar arriba o abajo (scroll infinito). */}
-      <div
-        ref={scrollRef}
-        className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
-      >
-        {hasPreviousPage && (
-          <div ref={topSentinelRef} aria-hidden className="h-px" />
-        )}
-        {isFetchingPreviousPage && (
-          <div className="flex justify-center py-2">
-            <Spinner />
-          </div>
-        )}
-
-        <ol className="flex flex-col gap-2 py-1">
-          {rows.map((entry) => (
-            <li
-              key={entry.user_id}
-              data-current={entry.is_current_user ? "true" : undefined}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
-                entry.is_current_user && "bg-primary/10 ring-primary/30",
-              )}
-            >
-              <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-                {entry.rank}
+      <ol className="flex flex-col gap-2 py-1">
+        {rows.map((entry) => (
+          <li
+            key={entry.user_id}
+            data-current={entry.is_current_user ? "true" : undefined}
+            className={cn(
+              "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
+              entry.is_current_user && "bg-primary/10 ring-primary/30",
+            )}
+          >
+            <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+              {entry.rank}
+            </span>
+            <span className="flex min-w-0 flex-1 items-center gap-1.5">
+              <span
+                className="truncate text-sm font-medium"
+                style={{ color: BELT_TEXT[entry.belt] }}
+              >
+                {entry.username ?? entry.name}
               </span>
-              <span className="flex min-w-0 flex-1 items-center gap-1.5">
-                <span
-                  className="truncate text-sm font-medium"
-                  style={{ color: BELT_TEXT[entry.belt] }}
-                >
-                  {entry.username ?? entry.name}
-                </span>
-                {(() => {
-                  // El emoji vestido (entry.emoji) reemplaza al de bucket; si no
-                  // eligió ninguno, cae al emoji del bucket de carrera. La corona
-                  // pisa el icono por defecto para el usuario coronado.
-                  const resolved =
-                    entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
-                  const emoji = badgeWithCrown({
-                    username: entry.username,
-                    resolved,
-                    career: entry.career,
-                  })
-                  return (
-                    emoji && (
-                      <span className="shrink-0 text-sm leading-none">{emoji}</span>
-                    )
+              {(() => {
+                const resolved =
+                  entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
+                const emoji = badgeWithCrown({
+                  username: entry.username,
+                  resolved,
+                  career: entry.career,
+                })
+                return (
+                  emoji && (
+                    <span className="shrink-0 text-sm leading-none">{emoji}</span>
                   )
-                })()}
-              </span>
-              {entry.university && <UniTag university={entry.university} />}
-              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
-                <CountUp
-                  value={entry.total_xp}
-                  format={(n) => n.toLocaleString("es")}
-                />
-                <XpDots className="size-[0.85em] text-white" />
-              </span>
-            </li>
-          ))}
-        </ol>
+                )
+              })()}
+            </span>
+            {entry.university && <UniTag university={entry.university} />}
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+              <CountUp value={entry.total_xp} format={fmt} />
+              <XpDots className="size-[0.85em] text-white" />
+            </span>
+          </li>
+        ))}
+      </ol>
 
-        {isFetchingNextPage && (
-          <div className="flex justify-center py-2">
-            <Spinner />
-          </div>
-        )}
-        {hasNextPage && (
-          <div ref={bottomSentinelRef} aria-hidden className="h-px" />
-        )}
-      </div>
+      {isFetchingNextPage && (
+        <div className="flex justify-center py-2">
+          <Spinner />
+        </div>
+      )}
+      {hasNextPage && (
+        <div ref={bottomSentinelRef} aria-hidden className="h-px" />
+      )}
     </div>
   )
 }
 
-function UniversityRanking() {
-  const { data, isLoading, isError, error } = useUniversityLeaderboard()
+function UniversityRanking({
+  university,
+  career,
+}: {
+  university: string
+  career: string
+}) {
+  const { data, isLoading, isError, error } = useUniversityLeaderboard({
+    university,
+    career,
+  })
 
   if (isLoading) {
-    return <UniversitySkeleton />
+    return <ListSkeleton />
   }
 
   if (isError) {
@@ -434,84 +414,31 @@ function UniversityRanking() {
     )
   }
 
-  // Fuente uniforme de los contenedores de carrera: se achica a medida que el
-  // valor más largo suma dígitos, así el número + emoji nunca desborda el box.
-  const fmt = (n: number) => n.toLocaleString("es")
-  const careerMaxLen = Math.max(
-    ...CAREER_META.map((c) => fmt(data.career_totals[c.key] ?? 0).length),
-  )
-  const careerFontRem =
-    careerMaxLen <= 2 ? 1.125 : Math.max(0.6, (1.125 * 2) / careerMaxLen)
-
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-2.5">
-      <div className="grid shrink-0 grid-cols-2 gap-2">
-        <Metric
-          label="Estudiantes registrados"
-          value={
-            <span className="inline-flex items-start gap-1.5">
-              <CountUp value={data.total_students} format={fmt} />
-              <UsersIcon className="size-[0.9em] text-primary" />
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+      <ol className="flex flex-col gap-2 py-1">
+        {data.rows.map((row, index) => (
+          <li
+            key={row.university}
+            className="flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+          >
+            <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+              {index + 1}
             </span>
-          }
-        />
-        <Metric
-          label="Universidades registradas"
-          value={
-            <span className="inline-flex items-center gap-1.5">
-              <CountUp value={data.total_universities} format={fmt} />
-              <GraduationCapIcon className="size-[0.85em] text-primary" />
+            <span className="flex min-w-0 flex-1 items-center">
+              <UniTag university={row.university} />
             </span>
-          }
-        />
-      </div>
-
-      <div className="grid shrink-0 grid-cols-5 gap-2">
-        {CAREER_META.map((c) => (
-          <Metric
-            key={c.key}
-            dense
-            label={c.label}
-            valueStyle={{ fontSize: `${careerFontRem}rem` }}
-            value={
-              <span className="inline-flex items-center gap-1">
-                <CountUp value={data.career_totals[c.key] ?? 0} format={fmt} />
-                <span className={careerEmojiCls(c.key)}>{CAREER_EMOJI[c.key]}</span>
-              </span>
-            }
-          />
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+              <CountUp value={row.students} format={fmt} />
+              <UsersIcon className="size-[0.9em] text-white" />
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+              <CountUp value={row.total_xp} format={fmt} />
+              <XpDots className="size-[0.85em] text-white" />
+            </span>
+          </li>
         ))}
-      </div>
-
-      <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1">
-        <ol className="flex flex-col gap-2 py-1">
-          {data.rows.map((row, index) => (
-            <li
-              key={row.university}
-              className="flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
-            >
-              <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-                {index + 1}
-              </span>
-              <span className="flex min-w-0 flex-1 items-center">
-                <UniTag university={row.university} />
-              </span>
-              {/* Estudiantes registrados de la universidad, alineados a la derecha
-                  (a la izquierda del XP). Ícono de población en el mismo blanco que
-                  el de XP. */}
-              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
-                <CountUp value={row.students} format={fmt} />
-                <UsersIcon className="size-[0.9em] text-white" />
-              </span>
-              {/* XP acumulado a la derecha, idéntico al ranking individual. */}
-              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
-                <CountUp value={row.total_xp} format={fmt} />
-                <XpDots className="size-[0.85em] text-white" />
-              </span>
-            </li>
-          ))}
-        </ol>
-      </div>
+      </ol>
     </div>
   )
 }
@@ -519,82 +446,35 @@ function UniversityRanking() {
 function Metric({
   label,
   value,
-  dense = false,
-  valueStyle,
 }: {
   label: React.ReactNode
   value: React.ReactNode
-  dense?: boolean
-  valueStyle?: React.CSSProperties
 }) {
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-1 rounded-md border border-white/10 bg-white/5",
-        dense ? "px-3 py-2" : "p-3",
-      )}
-    >
-      <span
-        className="text-lg font-semibold leading-none tabular-nums"
-        style={valueStyle}
-      >
+    <div className="flex flex-col justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[14px]">
+      <span className="text-lg font-semibold leading-none tabular-nums">
         {value}
       </span>
-      <span
-        className={cn(
-          "whitespace-nowrap leading-tight text-foreground/60",
-          dense ? "text-[0.65rem]" : "text-[0.7rem]",
-        )}
-      >
+      <span className="whitespace-nowrap text-[0.7rem] leading-tight text-foreground/60">
         {label}
       </span>
     </div>
   )
 }
 
-function LeaderboardSkeleton() {
+function ListSkeleton() {
   const nameW = ["w-24", "w-32", "w-28", "w-36", "w-24", "w-32"]
   return (
-    <div className="flex animate-pulse flex-col gap-2.5">
-      {/* 2 indicadores arriba */}
-      <div className="grid grid-cols-2 gap-2">
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
-          >
-            <div className="h-[18px] w-16 rounded bg-white/10" />
-            <div className="h-3.5 w-3/4 rounded bg-white/10" />
-          </div>
-        ))}
-      </div>
-
-      {/* 3 indicadores abajo (posición, XP para subir, filtro) — compactos */}
-      <div className="grid grid-cols-3 gap-2">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2"
-          >
-            <div className="h-[18px] w-12 rounded bg-white/10" />
-            <div className="h-3 w-3/4 rounded bg-white/10" />
-          </div>
-        ))}
-      </div>
-
-      {/* Lista: misma estructura/clases que el <li> real para que el alto de cada
-          fila quede idéntico (el alto lo fija la línea del tag + py-3). */}
-      <div className="flex flex-col gap-2">
+    <div className="no-scrollbar min-h-0 flex-1 overflow-hidden">
+      <div className="flex animate-pulse flex-col gap-2 py-1">
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
             className="flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
           >
-            {/* rank */}
             <span className="w-4 shrink-0 text-center text-sm">
               <span className="inline-block h-3.5 w-3 rounded bg-white/10 align-middle" />
             </span>
-            {/* nombre */}
             <span className="flex min-w-0 flex-1 items-center text-sm">
               <span
                 className={cn(
@@ -603,70 +483,9 @@ function LeaderboardSkeleton() {
                 )}
               />
             </span>
-            {/* tag de universidad: réplica exacta de UniTag (fija el alto) */}
             <span className="inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none">
               <span className="invisible">UNSAM</span>
             </span>
-            {/* xp */}
-            <span className="shrink-0 text-sm">
-              <span className="inline-block h-3.5 w-10 rounded bg-white/10 align-middle" />
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function UniversitySkeleton() {
-  return (
-    <div className="flex animate-pulse flex-col gap-2.5">
-      {/* 2 indicadores arriba */}
-      <div className="grid grid-cols-2 gap-2">
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
-          >
-            <div className="h-[18px] w-16 rounded bg-white/10" />
-            <div className="h-3.5 w-3/4 rounded bg-white/10" />
-          </div>
-        ))}
-      </div>
-
-      {/* 5 indicadores de carrera — compactos */}
-      <div className="grid grid-cols-5 gap-2">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-2"
-          >
-            <div className="h-[18px] w-8 rounded bg-white/10" />
-            <div className="h-3 w-3/4 rounded bg-white/10" />
-          </div>
-        ))}
-      </div>
-
-      {/* Filas de universidades */}
-      <div className="flex flex-col gap-2">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
-          >
-            <span className="w-4 shrink-0 text-center text-sm">
-              <span className="inline-block h-3.5 w-3 rounded bg-white/10 align-middle" />
-            </span>
-            <span className="inline-flex w-16 shrink-0 items-center justify-start rounded-md border border-transparent bg-white/10 px-1 py-1 text-[0.55rem] leading-none">
-              <span className="invisible">UNSAM</span>
-            </span>
-            <div className="flex shrink-0 gap-3">
-              {Array.from({ length: 5 }).map((_, j) => (
-                <span key={j} className="flex w-8 justify-center">
-                  <span className="inline-block h-3.5 w-6 rounded bg-white/10" />
-                </span>
-              ))}
-            </div>
             <span className="shrink-0 text-sm">
               <span className="inline-block h-3.5 w-10 rounded bg-white/10 align-middle" />
             </span>

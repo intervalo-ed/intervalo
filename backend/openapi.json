@@ -357,6 +357,464 @@
         }
       }
     },
+    "/user/practice-stats": {
+      "get": {
+        "summary": "Get Practice Stats",
+        "description": "Stats del usuario para un curso en la iteraci\u00f3n vigente, SOLO modo pr\u00e1ctica\n(zen): sesiones de pr\u00e1ctica completadas y ejercicios acertados en ellas.",
+        "operationId": "get_practice_stats_user_practice_stats_get",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeStatsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/advance": {
+      "post": {
+        "summary": "Course Topic Advance",
+        "description": "Adelantar un tema: lo desbloquea fuera de orden (o lo reactiva si estaba\nsuspendido). Devuelve el progreso actualizado del curso.",
+        "operationId": "course_topic_advance_course__course__topic_advance_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/suspend": {
+      "post": {
+        "summary": "Course Topic Suspend",
+        "description": "Suspender un tema: lo oculta del home y cede su cupo a los temas siguientes.",
+        "operationId": "course_topic_suspend_course__course__topic_suspend_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/topic/reset": {
+      "post": {
+        "summary": "Course Topic Reset",
+        "description": "Reiniciar un tema: sus \u00edtems vuelven a 'nuevo' y reingresan a repaso.",
+        "operationId": "course_topic_reset_course__course__topic_reset_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/active-cap/preview": {
+      "get": {
+        "summary": "Course Active Cap Preview",
+        "description": "Sin aplicar: qu\u00e9 temas se desbloquean/re-bloquean al fijar el cap en `value`.",
+        "operationId": "course_active_cap_preview_course__course__active_cap_preview_get",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Value"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapPreviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/active-cap": {
+      "put": {
+        "summary": "Course Set Active Cap",
+        "description": "Fija cu\u00e1ntos \u00edtems puede tener en aprendizaje a la vez (clamp 1..total).",
+        "operationId": "course_set_active_cap_course__course__active_cap_put",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveCapRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/session-size": {
+      "put": {
+        "summary": "Course Set Session Size",
+        "description": "Fija el m\u00e1ximo de ejercicios por sesi\u00f3n de repaso (clamp 1..30).",
+        "operationId": "course_set_session_size_course__course__session_size_put",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveCapRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course}/reset": {
+      "post": {
+        "summary": "Course Reset",
+        "description": "Reiniciar el curso: archiva el progreso vigente y arranca una iteraci\u00f3n\nnueva (el cintur\u00f3n refleja solo la iteraci\u00f3n vigente).",
+        "operationId": "course_reset_course__course__reset_post",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Course"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/push/subscribe": {
       "post": {
         "summary": "Push Subscribe",
@@ -668,6 +1126,22 @@
             }
           },
           {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
+          {
             "name": "limit",
             "in": "query",
             "required": false,
@@ -737,9 +1211,41 @@
     "/leaderboard/universities": {
       "get": {
         "summary": "Get University Leaderboard",
-        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.",
+        "description": "Ranking de universidades: agrega estudiantes por universidad y carrera.\n\nA diferencia del leaderboard individual (paginado, ventana alrededor del\nusuario), ac\u00e1 se recorre el set completo una vez y se agregan los totales\npor universidad, as\u00ed el front puede comparar universidades entre s\u00ed.\n\n`career` (bucket E/S/T/M/Otra): agrega contando solo estudiantes de esa\ncarrera. `university`: limita a esa universidad (aislarla).",
         "operationId": "get_university_leaderboard_leaderboard_universities_get",
         "parameters": [
+          {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
+          {
+            "name": "university",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "University"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -757,6 +1263,46 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UniversityLeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboard/summary": {
+      "get": {
+        "summary": "Get Leaderboard Summary",
+        "description": "N\u00fameros generales (globales) de la cabecera del leaderboard: estudiantes\nregistrados, ejercicios acumulados y universidades presentes. No dependen de\nning\u00fan filtro de carrera/universidad.",
+        "operationId": "get_leaderboard_summary_leaderboard_summary_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardSummaryResponse"
                 }
               }
             }
@@ -1210,6 +1756,19 @@
   },
   "components": {
     "schemas": {
+      "ActiveCapRequest": {
+        "properties": {
+          "value": {
+            "type": "integer",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "ActiveCapRequest"
+      },
       "AnswerRequest": {
         "properties": {
           "session_id": {
@@ -1283,6 +1842,48 @@
           "promoted"
         ],
         "title": "BeltProgressInfo"
+      },
+      "CapPreviewResponse": {
+        "properties": {
+          "value": {
+            "type": "integer",
+            "title": "Value"
+          },
+          "unlock": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unlock",
+            "default": []
+          },
+          "lock": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lock",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "CapPreviewResponse"
+      },
+      "CourseResetResponse": {
+        "properties": {
+          "iteration": {
+            "type": "integer",
+            "title": "Iteration"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iteration"
+        ],
+        "title": "CourseResetResponse"
       },
       "DueNotification": {
         "properties": {
@@ -1656,6 +2257,32 @@
         ],
         "title": "LeaderboardResponse"
       },
+      "LeaderboardSummaryResponse": {
+        "properties": {
+          "total_students": {
+            "type": "integer",
+            "title": "Total Students"
+          },
+          "total_exercises": {
+            "type": "integer",
+            "title": "Total Exercises"
+          },
+          "universities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Universities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_students",
+          "total_exercises",
+          "universities"
+        ],
+        "title": "LeaderboardSummaryResponse"
+      },
       "LevelInfo": {
         "properties": {
           "level": {
@@ -1786,6 +2413,29 @@
           "enabled"
         ],
         "title": "NotificationSettingsRequest"
+      },
+      "PracticeStatsResponse": {
+        "properties": {
+          "sessions_completed": {
+            "type": "integer",
+            "title": "Sessions Completed"
+          },
+          "exercises_answered": {
+            "type": "integer",
+            "title": "Exercises Answered"
+          },
+          "exercises_correct": {
+            "type": "integer",
+            "title": "Exercises Correct"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sessions_completed",
+          "exercises_answered",
+          "exercises_correct"
+        ],
+        "title": "PracticeStatsResponse"
       },
       "PrunePushRequest": {
         "properties": {
@@ -2259,6 +2909,24 @@
         ],
         "title": "TestSessionItem"
       },
+      "TopicActionRequest": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic"
+        ],
+        "title": "TopicActionRequest"
+      },
       "TopicProgress": {
         "properties": {
           "phase": {
@@ -2299,6 +2967,11 @@
           "failed": {
             "type": "boolean",
             "title": "Failed"
+          },
+          "suspended": {
+            "type": "boolean",
+            "title": "Suspended",
+            "default": false
           },
           "skills": {
             "items": {
@@ -2440,6 +3113,31 @@
               }
             ],
             "title": "Last Course"
+          },
+          "active_cap": {
+            "type": "integer",
+            "title": "Active Cap",
+            "default": 18
+          },
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items",
+            "default": 0
+          },
+          "iteration": {
+            "type": "integer",
+            "title": "Iteration",
+            "default": 1
+          },
+          "session_size": {
+            "type": "integer",
+            "title": "Session Size",
+            "default": 8
+          },
+          "session_size_max": {
+            "type": "integer",
+            "title": "Session Size Max",
+            "default": 30
           }
         },
         "type": "object",

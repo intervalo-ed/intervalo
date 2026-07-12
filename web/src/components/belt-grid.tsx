@@ -25,9 +25,9 @@ function topicLabel(topic: Topic): string {
 // Paleta de estados de ítem. Fuente de verdad de colores, espejada del onboarding.
 export const ITEM_COLORS = {
   nuevo: "#3B82F6", // azul
-  pendiente: "#E3690B", // naranja
-  aprendiendo: "#A0CC18", // lima
-  graduado: "#1A9447", // verde maduro
+  pendiente: "#F6B012", // ámbar amarillento
+  aprendiendo: "#6BC02A", // verde-lima
+  graduado: "#2BB35F", // verde fresco
 } as const
 
 // Estado de un ítem en la grilla. `days` = días restantes hasta el próximo repaso.
@@ -129,7 +129,7 @@ function daysUntil(nextReview: string | null | undefined): number | null {
 
 // A partir de cuántos días de intervalo se considera "consolidado" (verde) en
 // vez de "próximo" (lima). Por debajo de esto el repaso es cercano.
-const CONSOLIDATED_DAYS = 7
+const CONSOLIDATED_DAYS = 3
 
 // Mapea el progreso real de un tema → una celda por cada exercise_type esperado,
 // usando el `next_review` PROPIO de cada unit. Temas bloqueados → "empty".
@@ -186,7 +186,7 @@ export function BeltGrid({
               aria-label={`Más sobre ${topicLabel(row.topic)}`}
               className="flex items-center gap-1.5 text-left outline-none"
             >
-              <span className="text-sm font-normal leading-none text-foreground/80">
+              <span className="text-sm leading-tight text-foreground/80">
                 {topicLabel(row.topic)}
               </span>
               <Info className="size-3.5 shrink-0 text-foreground/40" />
