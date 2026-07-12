@@ -188,8 +188,8 @@ export interface paths {
         };
         /**
          * Get Practice Stats
-         * @description Stats del usuario para un curso en la iteración de progreso vigente:
-         *     ejercicios resueltos y acertados al primer intento (todos los modos).
+         * @description Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
+         *     (zen): sesiones de práctica completadas y ejercicios acertados en ellas.
          */
         get: operations["get_practice_stats_user_practice_stats_get"];
         put?: never;
@@ -873,10 +873,10 @@ export interface components {
         };
         /** PracticeStatsResponse */
         PracticeStatsResponse: {
-            /** Answered */
-            answered: number;
-            /** First Try Correct */
-            first_try_correct: number;
+            /** Sessions Completed */
+            sessions_completed: number;
+            /** Exercises Correct */
+            exercises_correct: number;
         };
         /** PrunePushRequest */
         PrunePushRequest: {

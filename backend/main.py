@@ -477,24 +477,34 @@ def get_practice_stats(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Stats del usuario para un curso en la iteración de progreso vigente:
-    ejercicios resueltos y acertados al primer intento (todos los modos)."""
+    """Stats del usuario para un curso en la iteración vigente, SOLO modo práctica
+    (zen): sesiones de práctica completadas y ejercicios acertados en ellas."""
+    from models import Session as SessionModel
     from session_store import _get_course_progress
     course_id = _resolve_course_id(course, db)
     iteration = _get_course_progress(current_user.id, course_id, db).iteration
 
-    answered, first_try_correct = db.query(
-        func.count(Answer.id),
-        func.count().filter(Answer.quality_score == 5),
+    sessions_completed = db.query(func.count(SessionModel.id)).filter(
+        SessionModel.user_id == current_user.id,
+        SessionModel.course_id == course_id,
+        SessionModel.iteration == iteration,
+        SessionModel.mode == "zen",
+        SessionModel.finished_at.isnot(None),
+    ).scalar()
+
+    exercises_correct = db.query(func.count(Answer.id)).join(
+        SessionModel, Answer.session_id == SessionModel.id,
     ).filter(
         Answer.user_id == current_user.id,
         Answer.course_id == course_id,
         Answer.iteration == iteration,
-    ).one()
+        Answer.is_correct.is_(True),
+        SessionModel.mode == "zen",
+    ).scalar()
 
     return PracticeStatsResponse(
-        answered=answered or 0,
-        first_try_correct=first_try_correct or 0,
+        sessions_completed=sessions_completed or 0,
+        exercises_correct=exercises_correct or 0,
     )
 
 

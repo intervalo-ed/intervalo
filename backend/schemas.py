@@ -90,9 +90,9 @@ class UserProgressResponse(BaseModel):
 
 
 class PracticeStatsResponse(BaseModel):
-    # Stats acumuladas del usuario para un curso (todos los modos).
-    answered: int             # ejercicios resueltos (respuestas totales)
-    first_try_correct: int    # acertados al primer intento (quality_score == 5)
+    # Stats del usuario para un curso (iteración vigente), solo modo práctica (zen).
+    sessions_completed: int   # sesiones de práctica terminadas
+    exercises_correct: int    # ejercicios acertados en sesiones de práctica
 
 
 # ── Editor de curso ─────────────────────────────────────────────────────────

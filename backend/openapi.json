@@ -360,7 +360,7 @@
     "/user/practice-stats": {
       "get": {
         "summary": "Get Practice Stats",
-        "description": "Stats del usuario para un curso en la iteraci\u00f3n de progreso vigente:\nejercicios resueltos y acertados al primer intento (todos los modos).",
+        "description": "Stats del usuario para un curso en la iteraci\u00f3n vigente, SOLO modo pr\u00e1ctica\n(zen): sesiones de pr\u00e1ctica completadas y ejercicios acertados en ellas.",
         "operationId": "get_practice_stats_user_practice_stats_get",
         "parameters": [
           {
@@ -2243,19 +2243,19 @@
       },
       "PracticeStatsResponse": {
         "properties": {
-          "answered": {
+          "sessions_completed": {
             "type": "integer",
-            "title": "Answered"
+            "title": "Sessions Completed"
           },
-          "first_try_correct": {
+          "exercises_correct": {
             "type": "integer",
-            "title": "First Try Correct"
+            "title": "Exercises Correct"
           }
         },
         "type": "object",
         "required": [
-          "answered",
-          "first_try_correct"
+          "sessions_completed",
+          "exercises_correct"
         ],
         "title": "PracticeStatsResponse"
       },

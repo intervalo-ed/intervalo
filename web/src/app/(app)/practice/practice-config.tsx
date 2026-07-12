@@ -4,7 +4,7 @@ import { BottomNav } from "@/components/bottom-nav"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
-import { Metric, accuracyColor } from "@/components/metric-card"
+import { Metric } from "@/components/metric-card"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -65,11 +65,8 @@ export default function PracticeConfig() {
   const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
 
   const statsQuery = usePracticeStats({ course })
-  const answered = statsQuery.data?.answered ?? 0
-  const firstTryCorrect = statsQuery.data?.first_try_correct ?? 0
-  const accuracyPct = answered
-    ? Math.round((firstTryCorrect / answered) * 100)
-    : 0
+  const sessionsCompleted = statsQuery.data?.sessions_completed ?? 0
+  const exercisesCorrect = statsQuery.data?.exercises_correct ?? 0
 
   const [beltIdx, setBeltIdx] = useState(0)
   const belt = beltOrder[Math.min(beltIdx, beltOrder.length - 1)]
@@ -157,23 +154,23 @@ export default function PracticeConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
+        <div className="flex flex-col gap-2">
+          <CourseSwitcher course={course} onPrev={prevCourse} onNext={nextCourse} />
 
-        <div className="grid grid-cols-2 gap-2">
-          <Metric
-            label="Ejercicios resueltos"
-            value={
-              <CountUp variant="ease" value={answered} duration={1000} />
-            }
-          />
-          <Metric
-            label="Acertados al primer intento"
-            value={
-              <span style={{ color: accuracyColor(accuracyPct) }}>
-                {accuracyPct}%
-              </span>
-            }
-          />
+          <div className="grid grid-cols-2 gap-2">
+            <Metric
+              label="Sesiones completadas"
+              value={
+                <CountUp variant="ease" value={sessionsCompleted} duration={1000} />
+              }
+            />
+            <Metric
+              label="Ejercicios acertados"
+              value={
+                <CountUp variant="ease" value={exercisesCorrect} duration={1000} />
+              }
+            />
+          </div>
         </div>
 
         <Button
