@@ -1,104 +1,332 @@
 [
   {
-    "question": "Calculá el área bajo la curva $f(x) = x e^x$ desde $x=0$ hasta $x=1$.",
+    "question": "Calculá\n$$\\int x\\sin x\\,dx$$",
     "options": [
-      "$1$",
-      "$e - 1$",
-      "$e$",
-      "$-1$"
+      "$-x\\cos x+\\sin x+C$",
+      "$x\\cos x+\\sin x+C$",
+      "$-x\\cos x-\\sin x+C$",
+      "$-x\\cos x+\\sin x$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La integral definida de $x e^x$ evaluada da exactamente 1.",
-    "feedback_incorrect": "Calculá primero la indefinida $(x e^x - e^x)$ y luego aplicá la Regla de Barrow.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para hallar el área, calculamos la integral definida $\\int_{0}^{1} x e^x \\, dx$. Primero, por partes, sabemos que:\n\n$$\\int x e^x \\, dx = x e^x - e^x$$\n\nAhora aplicamos la **Regla de Barrow** evaluando en los límites $0$ y $1$:\n\n$$(1 e^1 - e^1) - (0 e^0 - e^0) = (e - e) - (0 - 1) = 0 - (-1) = 1$$\n\nEl área sombreada bajo esta función en ese intervalo es exactamente una unidad cuadrada, un resultado sorprendentemente simple para una función exponencial.",
-    "reviewed": false
-  },
-  {
-    "question": "En física, el centro de masa de una varilla con densidad $\\rho(x) = \\ln(x+1)$ requiere integrar $x \\ln(x+1)$. ¿Qué técnica es la más directa?",
-    "options": [
-      "Sustitución $u = x+1$ y luego integración por partes",
-      "Sustitución trigonométrica únicamente",
-      "Descomposición en fracciones simples",
-      "Regla de la cadena inversa"
+    "feedback_correct": "Correcto, el signo negativo de la fórmula y el de la primitiva del seno se combinan correctamente.",
+    "feedback_incorrect": [
+      null,
+      "Falta el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
     ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La sustitución simplifica el argumento del logaritmo para que sea más fácil aplicar partes.",
-    "feedback_incorrect": "El logaritmo sugiere partes, pero el $(x+1)$ es más cómodo si primero hacés un cambio de variable.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tenés una función compuesta dentro de una integral que pide partes, a veces conviene **limpiar** el argumento primero.\n\nSi hacés $t = x+1$, entonces $x = t-1$ y $dx = dt$. La integral se transforma en $\\int (t-1) \\ln(t) \\, dt$, que se puede separar en dos integrales por partes más sencillas.\n\nEste tipo de combinaciones entre **sustitución e integración por partes** es muy común en problemas de aplicación donde las funciones no son básicas.",
+    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$, con $du=dx$ y $v=-\\cos x$.\n\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
     "reviewed": false
   },
   {
-    "question": "¿Cuál es el resultado de la integral $\\int x \\sin(x) \\, dx$?",
+    "question": "Calculá\n$$\\int xe^{2x}\\,dx$$",
     "options": [
-      "$x \\cos(x) + \\sin(x) + C$",
-      "$-x \\cos(x) - \\sin(x) + C$",
-      "$-x \\cos(x) + \\sin(x) + C$",
-      "$x \\sin(x) + \\cos(x) + C$"
+      "$\\frac{xe^{2x}}{2}-e^{2x}+C$",
+      "$\\frac{e^{2x}(2x-1)}{4}+C$",
+      "$xe^{2x}-\\frac{e^{2x}}{2}+C$",
+      "$\\frac{e^{2x}(2x+1)}{4}+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el factor $\\frac{1}{2}$ se arrastra en ambos términos, y factorizando $\\frac{e^{2x}}{4}$ queda esta forma compacta.",
+    "feedback_incorrect": [
+      "Falta dividir una vez más por $2$ en el segundo término, ese factor sale de integrar $e^{2x}$.",
+      null,
+      "Falta el factor $\\frac{1}{2}$ que sale de integrar $e^{2x}$, ese ajuste se arrastra en ambos términos.",
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int x\\cos x\\,dx$$",
+    "options": [
+      "$-x\\sin x+\\cos x+C$",
+      "$x\\cos x+\\sin x+C$",
+      "$x\\sin x+\\cos x+C$",
+      "$x\\sin x-\\cos x+C$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Aplicaste bien la fórmula con $u=x$ y $dv=\\sin(x)dx$.",
-    "feedback_incorrect": "Revisá los signos: la integral de $\\sin(x)$ es $-\\cos(x)$ y la de $-\\cos(x)$ es $-\\sin(x)$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para resolver $\\int x \\sin(x) \\, dx$ usamos integración por partes. Elegimos $u = x$ (algebraica) y $dv = \\sin(x) \\, dx$ (trigonométrica).\n\nCalculamos sus partes:\n$$\\begin{aligned} du &= dx \\\\ y \\\\ v &= -\\cos(x) \\end{aligned}$$\n\nAplicando la fórmula $\\int u \\, dv = uv - \\int v \\, du$:\n\n$$x(-\\cos(x)) - \\int (-\\cos(x)) \\, dx = -x \\cos(x) + \\int \\cos(x) \\, dx$$\n\nFinalmente, sumamos la constante de integración: $-x \\cos(x) + \\sin(x) + C$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\int \\ln(x) \\, dx$?",
-    "options": [
-      "$\\frac{1}{x} + C$",
-      "$x \\ln(x) - x + C$",
-      "$x \\ln(x) + x + C$",
-      "$\\ln(x) - x + C$"
+    "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
+    "feedback_incorrect": [
+      "Falta el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
+      null,
+      "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente."
     ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Aunque no parezca un producto, se usa $u=\\ln(x)$ y $dv=dx$.",
-    "feedback_incorrect": "No olvides el término $uv$. Se resuelve por partes tomando $dv = dx$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para integrar el logaritmo natural, usamos un truco clásico: considerar que está multiplicado por $1$.\n\nElegimos $u = \\ln(x)$ y $dv = 1 \\cdot dx$. Entonces:\n$$\\begin{aligned} du &= \\frac{1}{x} dx \\\\ y \\\\ v &= x \\end{aligned}$$\n\nAplicamos la fórmula:\n\n$$\\int \\ln(x) \\, dx = (\\ln(x))(x) - \\int x \\cdot \\frac{1}{x} \\, dx = x \\ln(x) - \\int 1 \\, dx$$\n\nEsto resulta en $x \\ln(x) - x + C$. Es una de las integrales por partes más importantes de recordar.",
+    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la integral de $f(x) = x \\ln(x)$?",
+    "question": "Calculá\n$$\\int xe^x\\,dx$$",
     "options": [
-      "$\\frac{x^2}{2} \\ln(x) - \\frac{x^2}{4} + C$",
-      "$\\frac{x^2}{2} \\ln(x) - \\frac{x^2}{2} + C$",
-      "$x^2 \\ln(x) - x^2 + C$",
-      "$\\frac{x^2}{2} \\ln(x) - x + C$"
+      "$xe^x+e^x+C$",
+      "$e^x-xe^x+C$",
+      "$xe^x-e^x$",
+      "$xe^x-e^x+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la fórmula resta el término $\\int v\\,du$, dejando $-e^x$.",
+    "feedback_incorrect": [
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "El orden y el signo de los términos están alterados, revisá el desarrollo completo de la fórmula.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=x$, $dv=e^x\\,dx$, con $du=dx$ y $v=e^x$.\n\n$$\\begin{aligned} \\int xe^x\\,dx &= xe^x - \\int e^x\\,dx \\\\ &= xe^x - e^x \\\\ &= xe^x-e^x+C \\end{aligned}$$\nEste es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int xe^{-x}\\,dx$$",
+    "options": [
+      "$-xe^{-x}-e^{-x}+C$",
+      "$xe^{-x}-e^{-x}+C$",
+      "$-xe^{-x}+e^{-x}+C$",
+      "$-xe^{-x}-e^{-x}$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Al derivar $u=\\ln(x)$ y simplificar con $v=x^2/2$, aparece el factor $1/4$.",
-    "feedback_incorrect": "Cuidado al integrar $\\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\, dx$: eso da $x^2/4$.",
+    "feedback_correct": "Correcto, el signo negativo de $v=-e^{-x}$ se traslada a ambos términos.",
+    "feedback_incorrect": [
+      null,
+      "Falta el signo negativo del término $uv$, revisá el cálculo de $v=-e^{-x}$.",
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos partes con $u = \\ln(x)$ y $dv = x \\, dx$. Las derivadas e integrales son:\n$$\\begin{aligned} du &= \\frac{1}{x} dx \\\\ y \\\\ v &= \\frac{x^2}{2} \\end{aligned}$$\n\nSustituyendo en la fórmula:\n\n$$\\int x \\ln(x) \\, dx = \\frac{x^2}{2} \\ln(x) - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\, dx$$\n\nLa integral restante es $\\int \\frac{x}{2} \\, dx = \\frac{x^2}{4}$. Por lo tanto, el resultado final es $\\frac{x^2}{2} \\ln(x) - \\frac{x^2}{4} + C$.",
+    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$, con $du=dx$ y $v=-e^{-x}$.\n\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
     "reviewed": false
   },
   {
-    "question": "¿Qué sucede al intentar integrar $\\int e^x \\sin(x) \\, dx$ por partes?",
+    "question": "Calculá\n$$\\int 3x\\sin x\\,dx$$",
     "options": [
-      "La integral desaparece y da cero",
-      "Se vuelve una integral cíclica que requiere despejar la original",
-      "No se puede resolver porque $u$ nunca se simplifica",
-      "Solo se puede resolver por series de potencias"
+      "$-3x\\cos x+3\\sin x$",
+      "$-3x\\cos x+3\\sin x+C$",
+      "$3x\\cos x+3\\sin x+C$",
+      "$-3x\\cos x-3\\sin x+C$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Se llama integral cíclica porque la función original reaparece tras dos aplicaciones.",
-    "feedback_incorrect": "Reaparece la misma integral. Tenés que llamarla $I$ y despejarla algebraicamente.",
+    "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
+    "feedback_incorrect": [
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      null,
+      "Falta el signo negativo del término $uv$, la fórmula es $uv-\\int v\\,du$, con signo negativo.",
+      "El signo del segundo término es positivo, revisá el desarrollo de la integral remanente."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las integrales que combinan exponenciales y trigonométricas (seno o coseno) son **cíclicas**. Tras aplicar partes dos veces, volvés a obtener la integral original multiplicada por una constante.\n\nSi llamamos $I = \\int e^x \\sin(x) \\, dx$, después de dos pasos llegarás a algo como:\n\n$$I = e^x \\sin(x) - e^x \\cos(x) - I$$\n\nSumando $I$ a ambos lados tenés $2I = e^x(\\sin(x) - \\cos(x))$, y despejando obtenés el resultado. Es un recurso algebraico fundamental en este tema.",
+    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$, con $du=3\\,dx$ y $v=-\\cos x$.\n\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int 2xe^x\\,dx$$",
+    "options": [
+      "$xe^x-2e^x+C$",
+      "$2xe^x-2e^x$",
+      "$2xe^x-2e^x+C$",
+      "$2xe^x+2e^x+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $2$ se conserva en ambos términos del resultado.",
+    "feedback_incorrect": [
+      "Falta el coeficiente $2$ en el primer término, ese factor viene de $u=2x$.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      null,
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$, con $du=2\\,dx$ y $v=e^x$.\n\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (x+1)\\cos x\\,dx$$",
+    "options": [
+      "$(x+1)\\sin x-\\cos x+C$",
+      "$-(x+1)\\sin x+\\cos x+C$",
+      "$(x+1)\\cos x+\\sin x+C$",
+      "$(x+1)\\sin x+\\cos x+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva del coseno es el seno sin signo, y la del seno lleva signo negativo.",
+    "feedback_incorrect": [
+      "El signo de la primitiva del coseno es positivo, revisá el desarrollo de la integral remanente.",
+      "Falta el signo positivo del término $uv$, revisá la fórmula $uv-\\int v\\,du$ con cuidado.",
+      "Confundiste seno con coseno en la elección de $v$, revisá cuál función corresponde a cada rol.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\ln x\\,dx$$",
+    "options": [
+      "$x\\ln x-x+C$",
+      "$\\frac{(\\ln x)^2}{2}+C$",
+      "$-x+C$",
+      "$x\\ln x+x+C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln x-x+C$.",
+    "feedback_incorrect": [
+      null,
+      "El logaritmo natural no está en la tabla de integrales inmediatas, hace falta partes con el factor oculto $dv=1\\,dx$.",
+      "Falta el término $uv=x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\nEl factor oculto es la clave para integrar cualquier función que \"no parece\" un producto, tratándola como si estuviera multiplicada por $1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int x\\ln x\\,dx$$",
+    "options": [
+      "$x^2\\ln x-\\frac{x^2}{4}+C$",
+      "$\\frac{x^2(2\\ln x-1)}{4}+C$",
+      "$\\frac{x^2\\ln x}{2}-x+C$",
+      "$\\frac{x^2(2\\ln x+1)}{4}+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^2}{4}$, y factorizando $\\frac{x^2}{4}$ queda esta forma compacta.",
+    "feedback_incorrect": [
+      "Falta el coeficiente $\\frac{1}{2}$ en el primer término, ese factor viene de $v=\\frac{x^2}{2}$.",
+      null,
+      "Revisá la simplificación de la integral remanente, $\\frac{1}{2}\\int x\\,dx=\\frac{x^2}{4}$, no $x$.",
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\ln(2x)\\,dx$$",
+    "options": [
+      "$-x+C$",
+      "$\\ln(2x)-x+C$",
+      "$x\\ln(2x)-x+C$",
+      "$x\\ln(2x)+x+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, con el factor oculto $dv=1\\,dx$ se obtiene $uv-\\int v\\,du = x\\ln(2x)-x+C$.",
+    "feedback_incorrect": [
+      "Falta el término $uv=x\\ln(2x)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Falta el factor $x$ que multiplica al logaritmo en el término $uv$, ese factor viene de $v=x$.",
+      null,
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$, así que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int 3\\ln x\\,dx$$",
+    "options": [
+      "$3x\\ln x+3x+C$",
+      "$-3x+C$",
+      "$x\\ln x-x+C$",
+      "$3x\\ln x-3x+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $3$ se conserva en ambos términos del resultado.",
+    "feedback_incorrect": [
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Falta el término $uv=3x\\ln x$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado.",
+      "Falta el coeficiente $3$ en ambos términos, ese factor viene de la constante que multiplica al logaritmo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int x^3\\ln x\\,dx$$",
+    "options": [
+      "$\\frac{x^4(4\\ln x-1)}{16}+C$",
+      "$\\frac{x^4(\\ln x-1)}{4}+C$",
+      "$\\frac{x^4(4\\ln x+1)}{16}+C$",
+      "$x^4\\ln x-\\frac{x^4}{16}+C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^4}{16}$, y factorizando $\\frac{x^4}{16}$ queda esta forma compacta.",
+    "feedback_incorrect": [
+      null,
+      "Revisá la simplificación de la integral remanente, $\\frac{1}{4}\\int x^3\\,dx=\\frac{x^4}{16}$, no $\\frac{x^4}{4}$.",
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Falta el coeficiente $\\frac{1}{4}$ en el primer término, ese factor viene de $v=\\frac{x^4}{4}$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\ln(x-1)\\,dx$$",
+    "options": [
+      "$x\\ln(x-1)-x+C$",
+      "$(x-1)\\ln(x-1)-x+C$",
+      "$(x-1)\\ln(x-1)+x+C$",
+      "$-x+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, elegir $v=x-1$ simplifica la integral remanente a una constante.",
+    "feedback_incorrect": [
+      "El coeficiente de $\\ln(x-1)$ en el término $uv$ tiene que ser $(x-1)$, no $x$, para que la integral remanente se cancele.",
+      null,
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Falta el término $uv=(x-1)\\ln(x-1)$, la fórmula da $uv-\\int v\\,du$, ambos términos aparecen en el resultado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$, pero conviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.\n\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int x^2\\ln x\\,dx$$",
+    "options": [
+      "$\\frac{x^3(3\\ln x+1)}{9}+C$",
+      "$x^3\\ln x-\\frac{x^3}{9}+C$",
+      "$\\frac{x^3(3\\ln x-1)}{9}+C$",
+      "$\\frac{x^3(\\ln x-1)}{3}+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la integral remanente se simplifica a $\\frac{x^3}{9}$, y factorizando $\\frac{x^3}{9}$ queda esta forma compacta.",
+    "feedback_incorrect": [
+      "Falta el signo negativo antes de la integral remanente, la fórmula es $uv-\\int v\\,du$.",
+      "Falta el coeficiente $\\frac{1}{3}$ en el primer término, ese factor viene de $v=\\frac{x^3}{3}$.",
+      null,
+      "Revisá la simplificación de la integral remanente, $\\frac{1}{3}\\int x^2\\,dx=\\frac{x^3}{9}$, no $\\frac{x^3}{3}$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
     "reviewed": false
   }
 ]

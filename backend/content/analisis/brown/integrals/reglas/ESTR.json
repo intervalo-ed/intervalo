@@ -1,19 +1,302 @@
 [
   {
-    "question": "Para integrar $\\int 5x^3 \\, dx$, ¿cuál es el orden correcto de aplicación de reglas?",
+    "question": "Considerá la integral\n$$\\int \\pi\\,dx$$\n¿Qué regla corresponde aplicar?",
     "options": [
-      "Primero sacar el $5$ afuera (múltiplo constante), luego integrar $x^3$ con la regla de la potencia",
-      "Primero aplicar la regla de la potencia a $5x^3$ directamente subiendo el $5$",
-      "Usar integración por partes con $u=5$ y $dv=x^3 \\, dx$",
-      "No se puede integrar sin conocer los límites de integración"
+      "Regla de la constante",
+      "Regla exponencial (base $e$)",
+      "Regla de la potencia"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Constante afuera, luego potencia: $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$.",
-    "feedback_incorrect": "El flujo correcto: regla del múltiplo constante → regla de la potencia. Resultado: $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$.",
+    "feedback_correct": "Correcto, $\\pi$ es un número fijo, no una función de $x$.",
+    "feedback_incorrect": [
+      null,
+      "$\\pi$ no tiene ninguna base exponencial ni variable en el exponente, es apenas un número fijo.",
+      "$\\pi$ no es una potencia de $x$, es una constante numérica sin ninguna variable."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El proceso estructurado para integrar $5x^3$:\n\n1. **Múltiplo constante:** $\\int 5 \\cdot x^3 \\, dx = 5 \\cdot \\int x^3 \\, dx$\n2. **Potencia:** $\\int x^3 \\, dx = \\dfrac{x^4}{4} + C$\n3. **Resultado:** $5 \\cdot \\dfrac{x^4}{4} + C = \\dfrac{5x^4}{4} + C$\n\nLa constante multiplicativa **atraviesa** la integral sin modificarse, un patrón simétrico a lo que ocurre al derivar. La $C$ se agrega una única vez al final, no en cada paso.",
+    "explanation": "Aunque $\\pi$ tenga una apariencia matemática especial, sigue siendo un **número fijo**, así que corresponde la **regla de la constante**.\n\n$$\\int \\pi\\,dx = \\pi x + C$$\nNo hay ninguna variable $x$ dentro del integrando, así que ninguna regla de función elemental aplica acá, solo la de la constante.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^2\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la potencia",
+      "Regla de la constante",
+      "Regla exponencial (base $e$)"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $e^2$ es un número fijo, no la exponencial $e^x$.",
+    "feedback_incorrect": [
+      "$e^2$ no es una potencia de $x$, es un número fijo, aproximadamente $7,389$.",
+      null,
+      "La regla exponencial aplica a $e^x$, con la variable en el exponente, no a $e^2$, que es un número fijo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$e^2$ es un **número fijo**, aproximadamente $7,389$, sin ninguna variable $x$ dentro de su valor.\n\n$$\\int e^2\\,dx = e^2 x + C$$\nConfundir esta constante con la exponencial $e^x$ es un error frecuente, la presencia visual de $e$ no basta para decidir la regla.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\ln 5\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla del logaritmo",
+      "Regla exponencial (base $a$)",
+      "Regla de la constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\ln 5$ es un número fijo, no una función logarítmica de $x$.",
+    "feedback_incorrect": [
+      "La regla del logaritmo aplica a $\\frac{1}{x}$, no a $\\ln 5$, que ya es un número fijo evaluado.",
+      "No hay ninguna base exponencial con variable en el exponente, $\\ln 5$ es apenas un número fijo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\ln 5$ es un **número fijo**, aproximadamente $1,609$, sin ninguna variable $x$ dentro de su valor.\n\n$$\\int \\ln 5\\,dx = (\\ln 5)x + C$$\nEl símbolo $\\ln$ evoca la regla del logaritmo, pero acá está evaluado en un número concreto, así que el integrando es apenas una constante.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\sqrt{2}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la constante",
+      "Regla de la potencia",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\sqrt{2}$ es un número fijo, sin ninguna variable.",
+    "feedback_incorrect": [
+      null,
+      "La regla de la potencia necesita una base variable, $\\sqrt{2}$ es apenas un número fijo sin ninguna $x$.",
+      "No hay ninguna variable en el exponente, $\\sqrt{2}$ es un número fijo, no una exponencial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\sqrt{2}$ es un **número fijo**, sin ninguna dependencia de $x$, aunque su apariencia recuerde a una expresión algebraica.\n\n$$\\int \\sqrt{2}\\,dx = \\sqrt{2}\\,x + C$$\nLa presencia de una raíz no implica automáticamente una potencia de $x$, hay que verificar primero si la variable está realmente presente.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int 3^2\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la potencia",
+      "Regla de la constante",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $3^2$ es un número fijo, ya evaluado como $9$.",
+    "feedback_incorrect": [
+      "La regla de la potencia necesita variable en la base, $3^2$ ya está evaluado como un número fijo, $9$.",
+      null,
+      "La regla exponencial necesita variable en el exponente, $3^2$ ya está evaluado como un número fijo, $9$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La expresión $3^2$ ya está completamente evaluada, es el número fijo $9$, sin ninguna variable $x$ presente.\n\n$$\\int 3^2\\,dx = 9x + C$$\nNi la base ni el exponente dependen de $x$ en esta expresión, así que ninguna regla de función elemental aplica, solo la de la constante.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\cos(\\pi/3)\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla trigonométrica",
+      "Regla de la potencia",
+      "Regla de la constante"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\cos(\\pi/3)$ es un número fijo, ya evaluado como $\\frac{1}{2}$.",
+    "feedback_incorrect": [
+      "La regla trigonométrica aplica a $\\cos x$, con $x$ variable, no a $\\cos(\\pi/3)$, un ángulo fijo ya evaluado.",
+      "No hay ninguna base ni exponente variable acá, $\\cos(\\pi/3)$ es un número fijo, $\\frac{1}{2}$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El coseno evaluado en un ángulo fijo, $\\pi/3$, da como resultado un **número fijo**, en este caso $\\frac{1}{2}$.\n\n$$\\int \\cos(\\pi/3)\\,dx = \\frac{1}{2}x + C$$\nLa presencia de la función trigonométrica en la escritura no implica que la variable de integración esté involucrada, acá el ángulo ya está fijo.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^{\\ln 4}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la constante",
+      "Regla exponencial (base $e$)",
+      "Regla del logaritmo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $e^{\\ln 4}$ es un número fijo, ya evaluado como $4$.",
+    "feedback_incorrect": [
+      null,
+      "La regla exponencial necesita variable en el exponente, $e^{\\ln 4}$ ya está evaluado como un número fijo, $4$.",
+      "La regla del logaritmo necesita variable dentro del logaritmo, acá todo el exponente ya es un número fijo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La expresión $e^{\\ln 4}$ se simplifica por completo a $4$, ya que la exponencial y el logaritmo natural son operaciones inversas.\n\n$$\\int e^{\\ln 4}\\,dx = 4x + C$$\nAntes de decidir la regla, conviene simplificar cualquier combinación de exponencial y logaritmo que resulte en un número fijo sin variable.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int (-7)\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla exponencial (base $e$)",
+      "Regla de la constante",
+      "Regla de la potencia"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $-7$ es un número fijo, sin ninguna variable.",
+    "feedback_incorrect": [
+      "No hay ninguna exponencial acá, $-7$ es simplemente un número fijo negativo.",
+      null,
+      "No hay ninguna base variable, $-7$ es un número fijo sin ninguna $x$ presente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo negativo no cambia el análisis, $-7$ sigue siendo un **número fijo**, sin ninguna variable $x$ presente.\n\n$$\\int (-7)\\,dx = -7x + C$$\nLa regla de la constante se aplica igual sin importar el signo del número, el signo simplemente se conserva en el resultado.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^e\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla exponencial (base $a$)",
+      "Regla exponencial (base $e$)",
+      "Regla de la potencia"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en la base, así que aplica la regla de la potencia.",
+    "feedback_incorrect": [
+      "El exponente $e$ es un número fijo, la variable está en la base, así que corresponde la regla de la potencia.",
+      "No hay ninguna variable en el exponente, $e$ es un número fijo, la variable está en la base $x$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $x^e$, la variable $x$ está en la **base**, y el exponente $e$ es apenas un número real fijo.\n\n$$\\int x^e\\,dx = \\frac{x^{e+1}}{e+1} + C$$\nConfundir esta estructura con una exponencial es un error frecuente, hay que revisar siempre en qué posición está la variable, base o exponente.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int e^x\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla exponencial (base $e$)",
+      "Regla de la potencia",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en el exponente y la base es $e$.",
+    "feedback_incorrect": [
+      null,
+      "La variable está en el exponente, no en la base, así que no corresponde la regla de la potencia.",
+      "La base es exactamente $e$, un caso especial con su propia fórmula más simple que la base general."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $e^x$, la variable $x$ está en el **exponente**, y la base es la constante $e$, la estructura típica de la regla exponencial.\n\n$$\\int e^x\\,dx = e^x + C$$\nEsta estructura es opuesta a $x^e$, donde la variable está en la base, la posición de $x$ es lo que decide qué regla corresponde en cada caso.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int x^2\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla trigonométrica",
+      "Regla de la potencia",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en la base, así que aplica la regla de la potencia.",
+    "feedback_incorrect": [
+      "No hay ninguna función trigonométrica en esta expresión, es una potencia de $x$.",
+      null,
+      "No hay ninguna variable en el exponente, $2$ es un número fijo, la variable está en la base."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, la estructura típica de la **regla de la potencia**.\n\n$$\\int x^2\\,dx = \\frac{x^3}{3} + C$$\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int 2^x\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la potencia",
+      "Regla exponencial (base $e$)",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en el exponente y la base es $2$, distinta de $e$.",
+    "feedback_incorrect": [
+      "La variable está en el exponente, no en la base, así que no corresponde la regla de la potencia.",
+      "La base es $2$, no $e$, así que hace falta el factor $\\ln 2$ propio de la regla exponencial general.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $2^x$, la variable está en el exponente, pero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla del logaritmo",
+      "Regla de la potencia",
+      "Regla exponencial (base $a$)"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\frac{1}{x}=x^{-1}$ es exactamente el caso especial del logaritmo.",
+    "feedback_incorrect": [
+      null,
+      "El exponente $-1$ es la excepción de la regla de la potencia, ahí es donde entra la regla del logaritmo.",
+      "No hay ninguna variable en el exponente, la variable está en el denominador de la fracción."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La expresión $\\frac{1}{x}$ equivale a $x^{-1}$, exactamente el exponente que queda excluido de la **regla de la potencia**.\n\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEste caso especial, $n=-1$, tiene su propia entrada en la tabla porque la fórmula general de la potencia produciría una división por cero.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla exponencial (base $e$)",
+      "Regla de la potencia",
+      "Regla del logaritmo"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\frac{1}{x^2}=x^{-2}$ no es el caso especial del logaritmo.",
+    "feedback_incorrect": [
+      "No hay ninguna exponencial en esta expresión, es una potencia de $x$ con exponente negativo.",
+      null,
+      "El caso del logaritmo es exclusivamente $n=-1$, acá el exponente es $-2$, así que sigue aplicando la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$, un exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n\n$$\\int \\frac{1}{x^2}\\,dx = \\frac{x^{-1}}{-1} + C = -\\frac{1}{x} + C$$\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo es un error frecuente, la excepción es exclusivamente $n=-1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la integral\n$$\\int \\cos x\\,dx$$\n¿Qué regla corresponde aplicar?",
+    "options": [
+      "Regla de la potencia",
+      "Regla exponencial (base $e$)",
+      "Regla trigonométrica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\cos x$ pertenece a la familia trigonométrica.",
+    "feedback_incorrect": [
+      "No hay ninguna base ni exponente involucrados, $\\cos x$ es una función trigonométrica.",
+      "No hay ninguna base $e$ involucrada, $\\cos x$ es una función trigonométrica.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "$\\cos x$ pertenece a la familia trigonométrica de la **tabla de integrales inmediatas**, con su propia fórmula directa.\n\n$$\\int \\cos x\\,dx = \\sin x + C$$\nNinguna otra regla de la tabla, potencia ni exponencial, se aplica a esta familia, cada una tiene su propia fórmula específica.",
     "reviewed": false
   }
 ]

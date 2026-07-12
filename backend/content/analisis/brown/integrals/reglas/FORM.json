@@ -1,19 +1,318 @@
 [
   {
-    "question": "¿Cuál es la regla de la potencia para integrar $\\int x^n \\, dx$ con $n \\neq -1$?",
+    "question": "Calculá\n$$\\int \\cos x\\,dx$$",
     "options": [
-      "$\\dfrac{x^{n+1}}{n+1} + C$",
-      "$n \\cdot x^{n-1} + C$",
-      "$\\dfrac{x^{n-1}}{n-1} + C$",
-      "$x^{n+1} + C$"
+      "$\\sin x + C$",
+      "$-\\sin x + C$",
+      "$\\sin x$",
+      "$-\\cos x + C$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Subís el exponente en $1$ y dividís por el nuevo exponente.",
-    "feedback_incorrect": "La regla de la potencia para integrar dice: $\\int x^n \\, dx = \\dfrac{x^{n+1}}{n+1} + C$. Subís el exponente en $1$ y dividís por ese nuevo exponente.",
+    "feedback_correct": "Correcto, la primitiva de $\\cos x$ es $\\sin x$, sin signo negativo.",
+    "feedback_incorrect": [
+      null,
+      "El signo negativo corresponde a la primitiva de $\\sin x$, no a la de $\\cos x$.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "Esa es la primitiva de $\\sin x$, no la de $\\cos x$, revisá la **tabla de integrales inmediatas**."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** para integrar es la operación inversa de la regla de la potencia para derivar:\n\n$$\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C, \\quad n \\neq -1$$\n\nEl exponente **sube** en $1$ y el resultado se **divide** por ese nuevo exponente.\n\nOjo con la restricción $n \\neq -1$: el caso $\\int x^{-1} \\, dx$ no sigue esta regla porque dividir por $n+1=0$ es imposible; su antiderivada es $\\ln|x| + C$.",
+    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int e^x\\,dx$$",
+    "options": [
+      "$\\frac{e^{x+1}}{x+1} + C$",
+      "$e^x + C$",
+      "$xe^{x-1} + C$",
+      "$e^x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $e^x$ es su propia primitiva.",
+    "feedback_incorrect": [
+      "Esa forma también sale de aplicar la regla de la potencia, la variable está en el exponente, no en la base.",
+      null,
+      "Esa forma sale de aplicar la regla de la potencia, pero $e^x$ es una exponencial, no una potencia de $x$.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\n$$\\int e^x\\,dx = e^x + C$$\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\sec^2 x\\,dx$$",
+    "options": [
+      "$\\tan x$",
+      "$-\\tan x + C$",
+      "$\\tan x + C$",
+      "$\\sec x\\tan x + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva de $\\sec^2 x$ es $\\tan x$.",
+    "feedback_incorrect": [
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "El signo de esta primitiva es positivo, revisá la **tabla de integrales inmediatas**.",
+      null,
+      "Esa expresión es la derivada de $\\sec x$, no la primitiva de $\\sec^2 x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\n$$\\int \\sec^2 x\\,dx = \\tan x + C$$\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\sin x\\,dx$$",
+    "options": [
+      "$\\cos x + C$",
+      "$-\\cos x$",
+      "$\\sin x + C$",
+      "$-\\cos x + C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva de $\\sin x$ lleva signo negativo.",
+    "feedback_incorrect": [
+      "Falta el signo negativo, la primitiva de $\\sin x$ es $-\\cos x$, porque $(-\\cos x)'=\\sin x$.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      "Esa es la función original, no su primitiva, revisá la **tabla de integrales inmediatas**.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\frac{1}{x}\\,dx$$",
+    "options": [
+      "$\\ln|x| + C$",
+      "$\\ln x + C$",
+      "$\\frac{x^0}{0} + C$",
+      "$\\ln|x|$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva de $\\frac{1}{x}$ es el logaritmo natural con valor absoluto.",
+    "feedback_incorrect": [
+      null,
+      "Falta el valor absoluto, $\\ln|x|$ respeta el dominio de $\\frac{1}{x}$, que incluye valores negativos.",
+      "Aplicaste la **regla de la potencia** con $n=-1$, y eso genera una división por cero, ese exponente es la excepción de la tabla.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla, la **regla del logaritmo**.\n\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEl valor absoluto es obligatorio, porque $\\frac{1}{x}$ está definida tanto para $x>0$ como para $x<0$, y $\\ln x$ solo cubriría la mitad positiva del dominio.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int x^3\\,dx$$",
+    "options": [
+      "$4x^2 + C$",
+      "$\\frac{x^4}{4} + C$",
+      "$x^4 + C$",
+      "$\\frac{x^4}{3} + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el exponente sube en uno y el resultado se divide por ese nuevo exponente.",
+    "feedback_incorrect": [
+      "Esa expresión es la derivada de $x^3$, no su primitiva, la operación va en sentido inverso.",
+      null,
+      "Subiste el exponente pero te faltó dividir por el nuevo exponente, $4$, ese paso es parte de la **regla de la potencia**.",
+      "Dividiste por el exponente original, $3$, en vez del nuevo exponente, $4$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\n$$\\int x^3\\,dx = \\frac{x^{3+1}}{3+1} + C = \\frac{x^4}{4} + C$$\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int 5\\,dx$$",
+    "options": [
+      "$0 + C$",
+      "$5x$",
+      "$5x + C$",
+      "$5 + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva de una constante es esa constante multiplicada por $x$.",
+    "feedback_incorrect": [
+      "Esa sería la derivada de una constante, no su primitiva, la operación acá va en sentido inverso.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa.",
+      null,
+      "Esa expresión deja la constante sin multiplicar por $x$, la **regla de la constante** exige agregar la variable."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int 2^x\\,dx$$",
+    "options": [
+      "$2^x + C$",
+      "$\\frac{2^{x+1}}{x+1} + C$",
+      "$2^x\\ln 2 + C$",
+      "$\\frac{2^x}{\\ln 2} + C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la exponencial de base $2$ divide por $\\ln 2$ al integrarse.",
+    "feedback_incorrect": [
+      "Esa forma solo vale para base $e$, con base $2$ hace falta dividir por $\\ln 2$.",
+      "Esa forma sale de aplicar la regla de la potencia, pero la variable está en el exponente, no en la base.",
+      "El factor $\\ln 2$ va dividiendo, no multiplicando, revisá la **regla exponencial** para base general.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$\\frac{1}{x}$$?",
+    "options": [
+      "$\\ln x + C$",
+      "$-\\frac{1}{x^2} + C$",
+      "$\\ln|x| + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(\\ln|x|)' = \\frac{1}{x}$.",
+    "feedback_incorrect": [
+      "Esa forma no cubre el dominio completo de $\\frac{1}{x}$, hace falta el valor absoluto.",
+      "Esa expresión es la derivada de $\\frac{1}{x}$, no una función que se derive a $\\frac{1}{x}$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$e^x$$?",
+    "options": [
+      "$e^x + C$",
+      "$xe^{x-1} + C$",
+      "$\\frac{e^{x+1}}{x+1} + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(e^x)' = e^x$.",
+    "feedback_incorrect": [
+      null,
+      "Esa forma sale de derivar como si fuera una potencia de $x$, pero $e^x$ es una exponencial, no una potencia.",
+      "Esa forma también trata a $e^x$ como una potencia, la variable está en el exponente, no en la base."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n\n$$(e^x)' = e^x$$\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$\\cos x$$?",
+    "options": [
+      "$-\\cos x + C$",
+      "$\\sin x + C$",
+      "$-\\sin x + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(\\sin x)' = \\cos x$.",
+    "feedback_incorrect": [
+      "Esa expresión se deriva a $\\sin x$, no a $\\cos x$.",
+      null,
+      "Esa expresión tiene un signo de más, $(-\\sin x)'=-\\cos x$, no coincide con $\\cos x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n\n$$(\\sin x)' = \\cos x$$\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$\\sin x$$?",
+    "options": [
+      "$\\cos x + C$",
+      "$\\sin x + C$",
+      "$-\\cos x + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(-\\cos x)' = \\sin x$.",
+    "feedback_incorrect": [
+      "Esa expresión se deriva a $-\\sin x$, no a $\\sin x$, falta el signo negativo.",
+      "Esa expresión se deriva a $\\cos x$, no a $\\sin x$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El pensamiento inverso confirma que la función que reproduce $\\sin x$ al derivarse necesita un signo negativo.\n\n$$(-\\cos x)' = \\sin x$$\nEste signo es el que suele perderse cuando se calcula la primitiva del seno de manera automática, sin verificar el pensamiento inverso.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$\\sec^2 x$$?",
+    "options": [
+      "$\\tan x + C$",
+      "$\\sec x\\tan x + C$",
+      "$-\\tan x + C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(\\tan x)' = \\sec^2 x$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión es la derivada de $\\sec x$, no la función que se deriva a $\\sec^2 x$.",
+      "Esa expresión se deriva a $-\\sec^2 x$, con el signo cambiado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n\n$$(\\tan x)' = \\sec^2 x$$\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$x^4$$?",
+    "options": [
+      "$5x^3 + C$",
+      "$\\frac{x^5}{5} + C$",
+      "$x^5 + C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\left(\\frac{x^5}{5}\\right)' = x^4$.",
+    "feedback_incorrect": [
+      "Esa expresión es la derivada de $x^4$, no una función que se derive a $x^4$.",
+      null,
+      "Esa expresión se deriva a $5x^4$, no a $x^4$, falta dividir por el exponente nuevo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El pensamiento inverso confirma por qué la **regla de la potencia** divide por el exponente nuevo.\n\n$$\\left(\\frac{x^5}{5}\\right)' = \\frac{5x^4}{5} = x^4$$\nVerificar derivando el resultado es una forma directa de comprobar que la primitiva propuesta es correcta.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué función, al derivarse, da\n$$7 \\text{ (una constante)}$$?",
+    "options": [
+      "$7 + C$",
+      "$0 + C$",
+      "$7x + C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(7x)' = 7$.",
+    "feedback_incorrect": [
+      "Esa expresión se deriva a $0$, no a $7$, falta multiplicar la constante por $x$.",
+      "Esa función se derivaría a $0$, no reproduce la constante $7$ al derivarse.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n\n$$(7x)' = 7$$\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
     "reviewed": false
   }
 ]

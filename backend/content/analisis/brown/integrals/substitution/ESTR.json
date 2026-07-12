@@ -1,53 +1,302 @@
 [
   {
-    "question": "Si querés resolver $\\int \\frac{\\ln(x)}{x} \\, dx$, ¿cuál es la sustitución $u$ más conveniente?",
+    "question": "Para resolver\n$$\\int \\frac{\\ln x}{x}\\,dx$$\npor **sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
-      "$u = x$",
-      "$u = \\frac{1}{x}$",
-      "$u = \\ln(x)$",
-      "$u = x \\cdot \\ln(x)$"
+      "$u=\\ln x$",
+      "$u=\\frac{\\ln x}{x}$",
+      "$u=\\frac{1}{x}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $u=\\ln x$ hace que $du=\\frac{1}{x}\\,dx$ sea exactamente el resto del integrando.",
+    "feedback_incorrect": [
+      null,
+      "Ese bloque completo no deja ningún resto reconocible como $du$, la sustitución busca la función interior, no toda la expresión.",
+      "Esa es la derivada de $\\ln x$, no la función interior misma, la sustitución reemplaza a $\\ln x$, no a su derivada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **integración por sustitución** busca una función interior cuya derivada aparezca, salvo constantes, como el resto del integrando.\n\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nCon esa elección, el $\\frac{1}{x}\\,dx$ restante coincide exactamente con $du$, dejando la integral lista para resolverse en la variable $u$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int x\\cos(x^2)\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "options": [
+      "$u=\\cos(x^2)$",
+      "$u=x^2$",
+      "$u=2x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $u=x^2$ hace que $du=2x\\,dx$ coincida con el resto del integrando salvo una constante.",
+    "feedback_incorrect": [
+      "Ese es el resultado de aplicar el coseno sobre la interior, la sustitución busca justamente esa interior, $x^2$, no la función exterior completa.",
+      null,
+      "Esa es la derivada de la función interior, la sustitución reemplaza a la función interior misma, $x^2$, no a su derivada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$, la interior es $x^2$, y su derivada, $2x$, aparece salvo constante en el resto del integrando.\n\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ que multiplica al coseno en el integrando original es exactamente la mitad de $du$, lo que confirma que esta elección de $u$ es la correcta.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int e^{3x+1}\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "options": [
+      "$u=3$",
+      "$u=e^{3x+1}$",
+      "$u=3x+1$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Como la derivada de $\\ln(x)$ es $1/x$, el diferencial $du$ queda perfecto.",
-    "feedback_incorrect": "Buscá una parte de la función cuya derivada también esté presente en la integral (quizás 'escondida' en el denominador).",
+    "feedback_correct": "Correcto, $u=3x+1$ hace que $du=3\\,dx$ deje el resto del integrando como una constante.",
+    "feedback_incorrect": [
+      "Ese valor es la derivada de la interior, la sustitución reemplaza a la función interior misma, $3x+1$, no a su derivada.",
+      "Esa es la función exterior completa, la sustitución busca la interior, $3x+1$, no toda la expresión exponencial.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el método de **sustitución**, la clave es elegir una parte de la expresión como $u$ tal que su derivada $du$ aparezca multiplicando en el resto de la integral.\n\nSi elegimos $u = \\ln(x)$, calculamos su diferencial:\n\n$$du = \\frac{1}{x} \\, dx$$\n\nLa integral original se puede ver como $\\int \\ln(x) \\cdot \\frac{1}{x} \\, dx$. Al sustituir, se convierte en la integral simple $\\int u \\, du$. Si hubieras elegido $u=x$, la expresión no se simplificaría en absoluto.",
+    "explanation": "En $e^{3x+1}$, la **función compuesta** tiene como interior a $3x+1$, una expresión lineal simple.\n\n$$u = 3x+1 \\implies du = 3\\,dx$$\nComo la derivada de la interior es una constante, este es el caso más simple de sustitución, con un ajuste de diferencial directo.",
     "reviewed": false
   },
   {
-    "question": "Para la integral $\\int x^2 \\sqrt{x^3 + 1} \\, dx$, ¿qué expresión representa correctamente a $du$ si elegimos $u = x^3 + 1$?",
+    "question": "Para resolver\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
     "options": [
-      "$du = x^2 \\, dx$",
-      "$du = 3x^2 \\, dx$",
-      "$du = \\frac{1}{3} x^2 \\, dx$",
-      "$du = 3x^3 \\, dx$"
+      "$u=x^2+5$",
+      "$u=2x$",
+      "$u=\\frac{2x}{x^2+5}$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La derivada de $x^3+1$ es $3x^2$, por lo que $du = 3x^2 \\, dx$.",
-    "feedback_incorrect": "Derivá $u = x^3 + 1$ respecto a $x$ usando la regla de la potencia. No te olvides del símbolo $dx$.",
+    "feedback_correct": "Correcto, $u=x^2+5$ hace que $du=2x\\,dx$ coincida exactamente con el numerador.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la derivada del denominador, la sustitución reemplaza al denominador mismo, $x^2+5$, no a su derivada.",
+      "Ese bloque completo no deja ningún resto reconocible como $du$, la sustitución busca la función interior, no toda la fracción."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El paso crítico en la sustitución es calcular el **diferencial** $du$. Si definimos una función $u = g(x)$, entonces el diferencial se calcula como $du = g'(x) \\, dx$.\n\nPara $g(x) = x^3 + 1$, su derivada es $g'(x) = 3x^2$. Por lo tanto:\n\n$$du = 3x^2 \\, dx$$\n\nEn la integral original tenés $x^2 \\, dx$. Como te falta el $3$, vos podés escribir $x^2 \\, dx = \\frac{1}{3} du$ para completar la sustitución. Esto te permite transformar una raíz con un polinomio adentro en una simple raíz de $u$.",
+    "explanation": "Cuando el numerador de una fracción es exactamente la **derivada** del denominador, esa es la señal clásica para elegir $u$ como el denominador.\n\n$$u = x^2+5 \\implies du = 2x\\,dx$$\nCon esta elección, el numerador $2x\\,dx$ coincide exactamente con $du$, dejando una integral inmediata del tipo $\\int \\frac{du}{u}$.",
     "reviewed": false
   },
   {
-    "question": "¿Por qué el método de sustitución también es conocido como 'regla de la cadena a la inversa'?",
+    "question": "Para resolver\n$$\\int \\sin(4x)\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
     "options": [
-      "Porque se usa para derivar funciones compuestas",
-      "Porque busca cancelar la derivada de la función interna que surgió al derivar",
-      "Porque solo sirve para funciones polinómicas encadenadas",
-      "Porque permite sumar constantes a las funciones"
+      "$u=\\sin(4x)$",
+      "$u=4x$",
+      "$u=4$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La sustitución detecta esa 'derivada interna' y la integra junto con la función principal.",
-    "feedback_incorrect": "Pensá en qué sucede cuando derivás $f(g(x))$. Aparece un $g'(x)$ multiplicando. La sustitución busca ese término.",
+    "feedback_correct": "Correcto, $u=4x$ hace que $du=4\\,dx$ deje el resto del integrando como una constante.",
+    "feedback_incorrect": [
+      "Esa es la función exterior completa, la sustitución busca la interior, $4x$, no toda la expresión trigonométrica.",
+      null,
+      "Ese valor es la derivada de la interior, la sustitución reemplaza a la función interior misma, $4x$, no a su derivada."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El método de **sustitución** es la contrapartida de la **regla de la cadena**. Cuando derivás una composición $f(g(x))$, el resultado es $f'(g(x)) \\cdot g'(x)$.\n\nAl integrar, si vos encontrás una estructura donde hay una función compuesta multiplicada por la derivada de su interior, la sustitución te permite 'colapsar' esa expresión de nuevo a su forma original.\n\n$$ \\int f'(g(x)) g'(x) \\, dx = f(g(x)) + C $$\n\nEn la práctica, $u$ toma el lugar de $g(x)$ y $du$ absorbe a $g'(x) \\, dx$, simplificando la operación al núcleo de la función externa.",
+    "explanation": "En $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya derivada es simplemente una constante.\n\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, argumento lineal dentro de una función trigonométrica, es uno de los casos más frecuentes de sustitución inmediata.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "options": [
+      "$u=\\frac{1}{x}$",
+      "$u=\\cos(\\ln x)$",
+      "$u=\\ln x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $u=\\ln x$ hace que $du=\\frac{1}{x}\\,dx$ coincida con el resto del integrando.",
+    "feedback_incorrect": [
+      "Esa es la derivada de la interior, la sustitución reemplaza a la función interior misma, $\\ln x$, no a su derivada.",
+      "Ese es el resultado de aplicar el coseno sobre la interior, la sustitución busca justamente esa interior, $\\ln x$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $\\cos(\\ln x)$, la interior es $\\ln x$, y su derivada, $\\frac{1}{x}$, aparece exactamente como el resto del integrando.\n\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nReconocer este patrón, logaritmo como interior de otra función, es clave para identificar sustituciones con funciones trascendentes.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int 2x\\,e^{x^2}\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "options": [
+      "$u=x^2$",
+      "$u=2x$",
+      "$u=e^{x^2}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $u=x^2$ hace que $du=2x\\,dx$ coincida exactamente con el resto del integrando.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la derivada de la interior, la sustitución reemplaza a la función interior misma, $x^2$, no a su derivada.",
+      "Esa es la función exterior completa, la sustitución busca la interior, $x^2$, no toda la expresión exponencial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $e^{x^2}$, la interior es $x^2$, y su derivada, $2x$, aparece exactamente como el factor que multiplica a la exponencial.\n\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste caso no necesita ningún ajuste de constante, el $2x\\,dx$ del integrando coincide exactamente con $du$.",
+    "reviewed": false
+  },
+  {
+    "question": "Para resolver\n$$\\int \\cos x \\sin^3 x\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "options": [
+      "$u=\\sin^3 x$",
+      "$u=\\sin x$",
+      "$u=\\cos x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $u=\\sin x$ hace que $du=\\cos x\\,dx$ coincida con el resto del integrando.",
+    "feedback_incorrect": [
+      "Ese bloque ya incluye el exponente, la sustitución busca la base interior, $\\sin x$, para que quede como una potencia simple de $u$.",
+      null,
+      "Esa es la derivada de la interior, la sustitución reemplaza a la función interior misma, $\\sin x$, no a su derivada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $\\sin^3 x$, la interior relevante es $\\sin x$, cuya derivada, $\\cos x$, aparece como el otro factor del integrando.\n\n$$u = \\sin x \\implies du = \\cos x\\,dx$$\nCon esta elección, la integral se transforma en $\\int u^3\\,du$, una potencia simple de $u$, lista para resolverse con la regla de la potencia.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=5x-2$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=5\\,du$",
+      "$dx=du$",
+      "$dx=\\frac{1}{5}du$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, despejar $dx$ de $du=5\\,dx$ exige dividir por $5$.",
+    "feedback_incorrect": [
+      "Derivar da $du=5\\,dx$, despejar $dx$ requiere dividir por $5$, no multiplicar.",
+      "El coeficiente $5$ no puede desaparecer del despeje, tiene que dividir a $du$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=5x-2$ respecto de $x$, se obtiene $du=5\\,dx$, y despejar $dx$ implica dividir ambos lados por el coeficiente.\n\n$$\\begin{aligned} u &= 5x-2 \\\\ du &= 5\\,dx \\\\ dx &= \\frac{1}{5}\\,du \\end{aligned}$$\nEste **diferencial** ajustado es el que se reemplaza en la integral original, cuidando que el coeficiente divida y no multiplique.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=3x+1$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=\\frac{1}{3}du$",
+      "$dx=3\\,du$",
+      "$dx=du$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, despejar $dx$ de $du=3\\,dx$ exige dividir por $3$.",
+    "feedback_incorrect": [
+      null,
+      "Derivar da $du=3\\,dx$, despejar $dx$ requiere dividir por $3$, no multiplicar.",
+      "El coeficiente $3$ no puede desaparecer del despeje, tiene que dividir a $du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=3x+1$, se obtiene $du=3\\,dx$, y el despeje de $dx$ requiere dividir por el coeficiente lineal.\n\n$$\\begin{aligned} u &= 3x+1 \\\\ du &= 3\\,dx \\\\ dx &= \\frac{1}{3}\\,du \\end{aligned}$$\nEste ajuste es el que permite reemplazar correctamente el $dx$ original dentro de la integral en función de $u$.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=\\frac{x}{2}$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=du$",
+      "$dx=2\\,du$",
+      "$dx=\\frac{1}{2}du$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, despejar $dx$ de $du=\\frac{1}{2}dx$ exige multiplicar por $2$.",
+    "feedback_incorrect": [
+      "El coeficiente $\\frac{1}{2}$ no puede desaparecer del despeje, hay que invertirlo para aislar $dx$.",
+      null,
+      "Derivar da $du=\\frac{1}{2}dx$, despejar $dx$ requiere multiplicar por $2$, no dividir de nuevo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=\\frac{x}{2}$, se obtiene $du=\\frac{1}{2}dx$, y despejar $dx$ implica multiplicar ambos lados por el recíproco del coeficiente.\n\n$$\\begin{aligned} u &= \\frac{x}{2} \\\\ du &= \\frac{1}{2}\\,dx \\\\ dx &= 2\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, el despeje va en sentido contrario al de un coeficiente entero, hay que multiplicar en vez de dividir.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=-2x$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=\\frac{1}{2}du$",
+      "$dx=-2\\,du$",
+      "$dx=-\\frac{1}{2}du$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
+    "feedback_incorrect": [
+      "Falta el signo negativo, la derivada de $-2x$ es $-2$, y ese signo se conserva al despejar $dx$.",
+      "El coeficiente $-2$ no puede desaparecer del despeje, tiene que dividir a $du$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=-2x$, se obtiene $du=-2\\,dx$, y el signo negativo del coeficiente se mantiene durante todo el despeje.\n\n$$\\begin{aligned} u &= -2x \\\\ du &= -2\\,dx \\\\ dx &= -\\frac{1}{2}\\,du \\end{aligned}$$\nPerder el signo negativo en este paso es un error frecuente, conviene revisarlo con la misma atención que el valor numérico del coeficiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=4x-7$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=\\frac{1}{4}du$",
+      "$dx=4\\,du$",
+      "$dx=du$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, despejar $dx$ de $du=4\\,dx$ exige dividir por $4$.",
+    "feedback_incorrect": [
+      null,
+      "Derivar da $du=4\\,dx$, despejar $dx$ requiere dividir por $4$, no multiplicar.",
+      "El coeficiente $4$ no puede desaparecer del despeje, tiene que dividir a $du$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=4x-7$, se obtiene $du=4\\,dx$, sin que el término constante $-7$ afecte en nada a este cálculo.\n\n$$\\begin{aligned} u &= 4x-7 \\\\ du &= 4\\,dx \\\\ dx &= \\frac{1}{4}\\,du \\end{aligned}$$\nLos términos constantes dentro de $u$ desaparecen al derivar, así que solo el coeficiente que multiplica a $x$ afecta el ajuste del diferencial.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=\\frac{x}{3}+1$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=du$",
+      "$dx=3\\,du$",
+      "$dx=\\frac{1}{3}du$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, despejar $dx$ de $du=\\frac{1}{3}dx$ exige multiplicar por $3$.",
+    "feedback_incorrect": [
+      "El coeficiente $\\frac{1}{3}$ no puede desaparecer del despeje, hay que invertirlo para aislar $dx$.",
+      null,
+      "Derivar da $du=\\frac{1}{3}dx$, despejar $dx$ requiere multiplicar por $3$, no dividir de nuevo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=\\frac{x}{3}+1$, se obtiene $du=\\frac{1}{3}dx$, sin que la constante $+1$ afecte al cálculo.\n\n$$\\begin{aligned} u &= \\frac{x}{3}+1 \\\\ du &= \\frac{1}{3}\\,dx \\\\ dx &= 3\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, invertirlo al despejar es el paso clave, multiplicar por $3$ en vez de dividir.",
+    "reviewed": false
+  },
+  {
+    "question": "Dada la sustitución $u=-x+5$, ¿cómo queda expresado $dx$ en términos de $du$?",
+    "options": [
+      "$dx=du$",
+      "$dx=5\\,du$",
+      "$dx=-du$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el signo negativo se conserva en el despeje.",
+    "feedback_incorrect": [
+      "Falta el signo negativo, la derivada de $-x+5$ es $-1$, y ese signo se conserva al despejar $dx$.",
+      "El término $5$ es una constante y desaparece al derivar, no afecta el ajuste del diferencial.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado.\n\n$$\\begin{aligned} u &= -x+5 \\\\ du &= -dx \\\\ dx &= -du \\end{aligned}$$\nAunque el coeficiente sea $-1$, sigue siendo un coeficiente que hay que despejar con cuidado, el signo no desaparece del resultado.",
     "reviewed": false
   }
 ]

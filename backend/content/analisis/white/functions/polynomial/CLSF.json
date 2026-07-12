@@ -10,7 +10,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva es un polinomio de grado 3: $f(x) = x^3 - 2x^2 + x - 1$.",
-    "feedback_incorrect": "La curva con dos cambios de dirección es $f(x) = x^3 - 2x^2 + x - 1$, un polinomio de grado 3.",
+    "feedback_incorrect": [
+      null,
+      "Las funciones racionales muestran una asíntota vertical u horizontal en el gráfico; acá la curva es continua en todo el dominio visible, sin ese comportamiento.",
+      "Una recta no cambia de dirección; esta curva tiene un pico y un valle, lo que descarta la familia lineal.",
+      "Una exponencial crece o decrece sin cambiar de dirección; esta curva sí presenta dos cambios de dirección."
+    ],
     "graph_fn": "pow(x, 3) - 2*pow(x, 2) + x - 1",
     "graph_view": [
       -2,
@@ -18,7 +23,7 @@
       -5,
       4
     ],
-    "explanation": "Para clasificar una función a partir de su gráfica, se observan sus características globales:\n\n- **Recta**: función lineal o constante.\n- **Curva con asíntota**: función racional o exponencial.\n- **Curva en S** (hasta 2 cambios de dirección, extremos opuestos): polinómica de grado 3.\n- **Curva en W o M** (hasta 3 cambios de dirección): polinómica de grado 4.\n\nEsta gráfica presenta dos cambios de dirección y sus extremos van hacia $+\\infty$ (derecha) y $-\\infty$ (izquierda): comportamiento típico de un **polinomio de grado 3** con coeficiente principal positivo.",
+    "explanation": "Para clasificar una función a partir de su gráfica conviene mirar el comportamiento global de la curva. Una recta señala una función lineal, una curva con asíntota indica una función racional o exponencial, y una curva continua con cambios de dirección remite a una función **polinómica**: forma en S con un pico y un valle para grado 3, forma en W o M con hasta tres cambios de dirección para grado 4.\n\nEsta gráfica presenta exactamente dos cambios de dirección y sus extremos van hacia $+\\infty$ a la derecha y hacia $-\\infty$ a la izquierda, comportamiento típico de un polinomio de grado 3 con coeficiente principal positivo. La curva corresponde a $f(x) = x^3 - 2x^2 + x - 1$.\n\nLa confusión más común es contar mal los cambios de dirección y asignarle un grado equivocado a la curva: conviene contar picos y valles antes de decidir el grado.",
     "reviewed": false
   },
   {
@@ -32,7 +37,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$f(x) = x^3 - 2x^2 + x - 1$ es un polinomio de grado 3.",
-    "feedback_incorrect": "$f(x) = x^3 - 2x^2 + x - 1$ tiene $x^3$ como término de mayor grado: es un polinomio de grado 3.",
+    "feedback_incorrect": [
+      "Sería racional si hubiera una $x$ en un denominador; acá no hay ningún cociente.",
+      null,
+      "Una función lineal tiene grado 1; acá el exponente más alto es 3.",
+      "En una exponencial la variable estaría en el exponente, como $3^x$; acá $x$ es la base."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función pertenece a la familia **polinómica** si y solo si puede escribirse como:\n$$f(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_1 x + a_0$$\ndonde $n \\in \\mathbb{N}_0$ y todos los $a_k \\in \\mathbb{R}$.\n\nEn $f(x) = x^3 - 2x^2 + x - 1$: la variable $x$ aparece únicamente con exponentes enteros no negativos ($3$, $2$, $1$, $0$). El término de mayor grado es $x^3$, por lo que es un **polinomio de grado 3**.\n\nNo es racional (no hay denominador con $x$), lineal (grado 1) ni exponencial (la variable no está en el exponente).",
@@ -49,10 +59,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$x^4 - 2x^2 + 1$ tiene exponentes enteros no negativos con grado 4: es polinómica.",
-    "feedback_incorrect": "$f(x) = x^4 - 2x^2 + 1$ es un polinomio de grado 4.",
+    "feedback_incorrect": [
+      "Una función logarítmica necesita $\\log$ o $\\ln$ aplicado a la variable; acá no aparece ninguno.",
+      "En una exponencial la variable estaría en el exponente, como $a^x$; acá $x$ es la base con exponente constante.",
+      null,
+      "Sería racional si hubiera un cociente con $x$ en el denominador; acá no hay ninguna división."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = x^4 - 2x^2 + 1$, los exponentes presentes son $4$, $2$ y $0$: todos enteros no negativos. Se descarta cada opción incorrecta:\n\n- **Exponencial**: la variable está en el exponente, como $a^x$; aquí no es así.\n- **Logarítmica**: involucra $\\log$ o $\\ln$; aquí no aparece.\n- **Racional**: cociente de polinomios con denominador no constante; aquí no hay denominador.\n\nConclusión: $f(x) = x^4 - 2x^2 + 1$ es un **polinomio de grado 4**. Se puede factorizar como $(x^2-1)^2 = (x-1)^2(x+1)^2$.",
+    "explanation": "Una función es **polinómica** cuando la variable aparece únicamente como base elevada a exponentes enteros no negativos, sumados y multiplicados por coeficientes reales.\n\nEn $f(x) = x^4 - 2x^2 + 1$ los exponentes presentes son $4$, $2$ y $0$, todos enteros no negativos, así que la expresión es un **polinomio de grado 4**. Se puede factorizar como $(x^2-1)^2 = (x-1)^2(x+1)^2$.\n\nEl error típico es dejarse llevar por el tamaño del exponente y pensar en exponencial o logarítmica solo porque la función 'crece rápido'; lo que define la familia es dónde está la variable, no la velocidad de crecimiento.",
     "reviewed": false
   },
   {
@@ -66,10 +81,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$-2x^3 + x - 7$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
-    "feedback_incorrect": "$f(x) = -2x^3 + x - 7$ tiene la estructura de un polinomio: sumas de potencias enteras de $x$.",
+    "feedback_incorrect": [
+      "$\\sqrt{x-1} = (x-1)^{1/2}$ tiene exponente fraccionario, no entero, así que no es un polinomio.",
+      "$\\frac{x+1}{x-2}$ es un cociente con $x$ en el denominador, la marca de una función racional.",
+      "$e^x$ tiene la variable en el exponente, la marca de una función exponencial.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se analiza cada opción:\n\n- $\\frac{x+1}{x-2}$: cociente con variable en el denominador → **función racional**, no polinomio.\n- $e^x$: la variable está en el exponente → **función exponencial**, no polinomio.\n- $\\sqrt{x-1} = (x-1)^{1/2}$: exponente fraccionario → **no es polinomio**.\n- $-2x^3 + x - 7$: exponentes $3$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 3** con coeficiente principal $-2$.\n\nLa única expresión polinómica es $f(x) = -2x^3 + x - 7$.",
+    "explanation": "Un polinomio admite únicamente sumas y restas de términos $a_k x^k$ con exponente $k$ entero no negativo. Cualquier raíz, cociente con variable en el denominador o variable en el exponente saca a la expresión de esa familia.\n\n$\\sqrt{x-1}$ tiene exponente $\\frac12$, $\\frac{x+1}{x-2}$ tiene $x$ en el denominador y $e^x$ tiene la variable en el exponente: ninguna de las tres es polinomio. En cambio, $-2x^3+x-7$ solo usa los exponentes $3$, $1$ y $0$, todos enteros no negativos.\n\nLa confusión clásica es mirar solo si 'hay una $x$' sin fijarse en cómo interviene: el criterio no es la presencia de la variable sino la forma exacta en la que aparece.",
     "reviewed": false
   },
   {
@@ -83,7 +103,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La curva con 3 cambios de dirección corresponde a un polinomio de grado 4.",
-    "feedback_incorrect": "Una curva con hasta 3 extremos locales es típica de un polinomio de grado 4.",
+    "feedback_incorrect": [
+      null,
+      "Una exponencial no cambia de dirección: crece o decrece de forma continua, sin picos ni valles.",
+      "Una recta no tiene extremos locales; esta curva presenta tres cambios de dirección.",
+      "Una función racional muestra una asíntota en el gráfico; acá la curva es continua en todo el dominio visible."
+    ],
     "graph_fn": "pow(x, 4) - 5*pow(x, 2) + 4",
     "graph_view": [
       -3,
@@ -91,24 +116,29 @@
       -2,
       8
     ],
-    "explanation": "Las pistas visuales para identificar un **polinomio de grado 4** en una gráfica son:\n\n- Hasta **3 cambios de dirección** (extremos locales).\n- **Ambos extremos** de la curva van en la misma dirección ($+\\infty$ o $-\\infty$), a diferencia del grado 3 donde van en sentidos opuestos.\n- La curva es continua y suave, sin asíntotas ni saltos.\n\nUna función exponencial sube o baja indefinidamente sin cambiar de dirección. Una racional tiene asíntotas. Esta gráfica muestra dos mínimos y un máximo (3 cambios de dirección) con ambos extremos apuntando hacia arriba: patrón típico de un **polinomio de grado 4 con coeficiente principal positivo**.",
+    "explanation": "Para reconocer un **polinomio de grado 4** en una gráfica hay que buscar hasta tres cambios de dirección y que ambos extremos de la curva vayan en la misma dirección ($+\\infty$ o $-\\infty$), a diferencia del grado 3, donde los extremos van en sentidos opuestos.\n\nEsta gráfica muestra dos mínimos y un máximo, es decir tres cambios de dirección, con ambos extremos apuntando hacia arriba. Ese patrón corresponde a un polinomio de grado 4 con coeficiente principal positivo, como $f(x) = x^4 - 5x^2 + 4$.\n\nEl error más común es confundir esta forma en W con la forma en S del grado 3: contar bien los cambios de dirección y fijarse si los dos extremos apuntan igual o distinto evita esa confusión.",
     "reviewed": false
   },
   {
     "question": "¿A qué familia de funciones pertenece $f(x) = -2x^3 + x$?",
     "options": [
-      "Racional",
       "Polinómica",
+      "Racional",
       "Exponencial",
       "Trigonométrica"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$-2x^3 + x$ tiene exponentes enteros no negativos: es un polinomio de grado 3.",
-    "feedback_incorrect": "$f(x) = -2x^3 + x$ es un polinomio de grado 3.",
+    "feedback_incorrect": [
+      null,
+      "Sería racional si hubiera una $x$ en un denominador; acá no hay ningún cociente.",
+      "En una exponencial la variable estaría en el exponente, como $3^x$; acá $x$ es la base.",
+      "Una función trigonométrica involucra $\\sin$, $\\cos$ o $\\tan$; acá no aparece ninguna."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = -2x^3 + x$, la variable $x$ aparece elevada a potencias $3$ y $1$: ambas enteras y no negativas.\n\n- **Racional**: requeriría un denominador con $x$, como $\\frac{1}{x}$; aquí no hay.\n- **Exponencial**: requeriría que $x$ esté en el exponente, como $a^x$.\n- **Trigonométrica**: involucraría $\\sin$, $\\cos$, $\\tan$, etc.\n\nConclusión: $f(x) = -2x^3 + x$ es un **polinomio de grado 3** con coeficiente principal $-2$ (negativo), por lo que la curva baja hacia $+\\infty$ a la derecha.",
+    "explanation": "Una expresión pertenece a la familia **polinómica** cuando la variable aparece solo como base con exponentes enteros no negativos, combinada con sumas, restas y coeficientes reales.\n\nEn $f(x) = -2x^3 + x$ los exponentes presentes son $3$ y $1$, ambos enteros y no negativos, así que la función es un **polinomio de grado 3** con coeficiente principal $-2$; ese signo negativo hace que la curva baje hacia $+\\infty$ a la derecha.\n\nNinguna de las otras familias interviene aquí: no hay denominador con $x$ (racional), la variable no está en el exponente (exponencial) ni aparecen funciones circulares (trigonométrica). El criterio siempre es cómo interviene la variable, no el aspecto general de la fórmula.",
     "reviewed": false
   },
   {
@@ -116,16 +146,21 @@
     "options": [
       "$f(x) = x^2 - x + 1$",
       "$f(x) = x^5 - 3x$",
-      "$f(x) = \\dfrac{1}{x^2}$",
-      "$f(x) = 7$"
+      "$f(x) = 7$",
+      "$f(x) = \\dfrac{1}{x^2}$"
     ],
-    "correct_index": 2,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\frac{1}{x^2} = x^{-2}$ tiene exponente negativo: no es un polinomio.",
-    "feedback_incorrect": "$f(x) = \\frac{1}{x^2}$ equivale a $x^{-2}$, que tiene exponente negativo: no es polinomio.",
+    "feedback_incorrect": [
+      "$x^2-x+1$ tiene exponentes $2$, $1$ y $0$, todos enteros no negativos: sí es polinomio.",
+      "$x^5-3x$ tiene exponentes $5$ y $1$, ambos enteros no negativos: sí es polinomio.",
+      "$7 = 7x^0$ tiene exponente $0$: es un polinomio constante, sí pertenece a la familia.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los polinomios requieren exponentes **enteros no negativos**. Reescribiendo cada opción:\n\n- $\\frac{1}{x^2} = x^{-2}$: exponente $-2$ → **NO es polinomio** (función de potencia racional).\n- $x^5 - 3x$: exponentes $5$ y $1$ → polinomio de grado 5.\n- $x^2 - x + 1$: exponentes $2$, $1$ y $0$ → polinomio de grado 2.\n- $7 = 7x^0$: exponente $0$ → polinomio de grado 0 (constante).\n\nLa intrusa es $f(x) = \\frac{1}{x^2}$, que es una **función racional** y tiene una asíntota vertical en $x = 0$.",
+    "explanation": "Los polinomios exigen que la variable tenga siempre exponentes **enteros no negativos** ($0,1,2,3,\\dots$). Cualquier exponente negativo o fraccionario saca a la expresión de esa familia, sin importar cuántos términos tenga.\n\nReescribiendo $\\frac{1}{x^2}$ como $x^{-2}$ se ve el exponente $-2$, que es negativo. Las otras tres opciones sí cumplen la condición: $x^2-x+1$ (grado 2), $x^5-3x$ (grado 5) y $7=7x^0$ (grado 0, constante).\n\nEl error típico es fijarse solo en si la expresión 'parece' un polinomio por tener varios términos, sin revisar el exponente de cada uno. Basta un exponente negativo o fraccionario para descartar toda la expresión.",
     "reviewed": false
   },
   {
@@ -139,7 +174,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La curva antisimétrica con un cambio de dirección es $f(x) = -x^3 + x$, un polinomio de grado 3.",
-    "feedback_incorrect": "La curva que baja a la derecha con un cambio de dirección es un polinomio de grado 3.",
+    "feedback_incorrect": [
+      "Una exponencial no tiene raíces múltiples ni cambia de dirección de esta forma; crece o decrece sin picos ni valles.",
+      "Una función racional tendría una asíntota visible en el gráfico; acá la curva es continua en todo punto.",
+      "Una recta no puede tener un pico y un valle; esta curva sí cambia de dirección.",
+      null
+    ],
     "graph_fn": "-pow(x, 3) + x",
     "graph_view": [
       -2,
@@ -147,7 +187,7 @@
       -3,
       3
     ],
-    "explanation": "Esta gráfica corresponde a $f(x) = -x^3 + x$. Las características que la identifican como un **polinomio de grado 3**:\n\n- La curva tiene **simetría antisimétrica** respecto al origen (función impar: $f(-x) = -f(x)$).\n- Presenta exactamente un **cambio de dirección** visible, con un máximo local y un mínimo local.\n- Los extremos van en **sentidos opuestos**: hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha (coeficiente principal negativo).\n\nLas funciones exponenciales y racionales no tienen esta combinación de raíces y comportamiento en extremos.",
+    "explanation": "Una curva con simetría respecto al origen, un único cambio de dirección y extremos que van en sentidos opuestos es la firma visual de un **polinomio de grado 3**.\n\nEsta gráfica corresponde a $f(x) = -x^3 + x$. Presenta un máximo local y un mínimo local (un cambio de dirección), y sus extremos van hacia $+\\infty$ a la izquierda y $-\\infty$ a la derecha, lo que indica coeficiente principal negativo.\n\nEl error más frecuente es confundir esta forma en S con una curva racional o exponencial solo porque 'sube y baja'; la clave está en que no hay asíntotas y en contar exactamente los cambios de dirección.",
     "reviewed": false
   },
   {
@@ -161,7 +201,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = x^5$ es el monomio de grado 5: un polinomio de grado 5.",
-    "feedback_incorrect": "$f(x) = x^5$ es el caso más simple de un polinomio de grado 5.",
+    "feedback_incorrect": [
+      null,
+      "En $5^x$ la variable estaría en el exponente; en $x^5$ la variable es la base y el exponente es constante.",
+      "Una función racional necesita variable en el denominador, como $\\frac{1}{x}$; acá no hay ninguna división.",
+      "Una función lineal tiene grado 1; acá el único exponente presente es 5."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Un **monomio** es un polinomio con un solo término. $f(x) = x^5 = 1 \\cdot x^5$ tiene un único término con exponente $5$, entero y no negativo.\n\nNo confundir con la función **exponencial**: en $x^5$ la base es $x$ (la variable) y el exponente es constante, mientras que en $5^x$ la base es constante y el exponente es $x$.\n\nTampoco es racional: una función racional requiere variable en el denominador, como $\\frac{1}{x}$.\n\nConclusión: $f(x) = x^5$ es un **polinomio de grado 5** (monomio). Su gráfica pasa por el origen y sus extremos van en sentidos opuestos (grado impar, coef. positivo).",
@@ -170,18 +215,23 @@
   {
     "question": "¿Cuál de estas expresiones pertenece a la familia polinómica?",
     "options": [
-      "$f(x) = 3^x + 2$",
       "$f(x) = 3x^4 - x + 2$",
+      "$f(x) = 3^x + 2$",
       "$f(x) = \\log_3(x)$",
       "$f(x) = \\dfrac{x^2}{x+1}$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$3x^4 - x + 2$ tiene exponentes enteros no negativos: es un polinomio.",
-    "feedback_incorrect": "$f(x) = 3x^4 - x + 2$ tiene la estructura de un polinomio de grado 4.",
+    "feedback_incorrect": [
+      null,
+      "En $3^x+2$ la variable está en el exponente, la marca de una función exponencial, no de un polinomio.",
+      "$\\log_3(x)$ aplica un logaritmo a la variable, lo que la clasifica como función logarítmica.",
+      "$\\frac{x^2}{x+1}$ es un cociente con $x$ en el denominador, la marca de una función racional."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se descarta cada opción no polinómica:\n\n- $3^x + 2$: la variable $x$ está en el **exponente** → función exponencial.\n- $\\log_3(x)$: función **logarítmica** → no es polinomio.\n- $\\frac{x^2}{x+1}$: cociente con variable en el denominador → función **racional** (no simplificable a polinomio).\n- $3x^4 - x + 2$: exponentes $4$, $1$ y $0$, todos enteros no negativos → **polinomio de grado 4**.\n\nUna regla rápida: si la variable $x$ aparece solo como base con exponentes enteros no negativos, es un polinomio.",
+    "explanation": "Para reconocer un polinomio conviene descartar primero las estructuras que no lo son: variable en el exponente (exponencial), variable dentro de un logaritmo (logarítmica) o variable en un denominador (racional).\n\n$3^x+2$ tiene la variable en el exponente, $\\log_3(x)$ aplica un logaritmo y $\\frac{x^2}{x+1}$ tiene un cociente con denominador variable: ninguna es polinomio. En cambio, $3x^4-x+2$ solo usa los exponentes $4$, $1$ y $0$, todos enteros no negativos, así que es un polinomio de grado 4.\n\nUna regla rápida para no confundirse: si la variable aparece únicamente como base con exponente entero no negativo, es polinomio; cualquier otro rol de la variable descarta la familia.",
     "reviewed": false
   },
   {
@@ -195,7 +245,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$p(x)$ es un polinomio, así que su dominio es $\\mathbb{R}$.",
-    "feedback_incorrect": "$p(x) = x^5 - 3x^2 + 7$ es un polinomio. No hay denominadores, raíces ni logaritmos. El dominio es $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "Ese intervalo restringiría el dominio como si $p$ tuviera una raíz o un logaritmo en su definición; $p(x)$ no tiene ninguna de esas operaciones.",
+      "Esa exclusión del $0$ correspondería a una función racional con denominador $x$; $p(x)$ no tiene denominador variable.",
+      "Ese intervalo simétrico surge de despejar una raíz de $p(x)=0$, pero eso no tiene relación con el dominio de la función.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para determinar el dominio de $p(x) = x^5 - 3x^2 + 7$, buscamos restricciones: divisiones por cero, raíces de negativos, logaritmos de no positivos.\n\nNo hay ninguna de esas operaciones. Solo hay potencias enteras y sumas, definidas para todo $x \\in \\mathbb{R}$.\n\nEl dominio es $\\mathbb{R}$.\n\nNota: el intervalo $[-7^{1/5}, 7^{1/5}]$ no tiene ningún significado especial aquí. El dominio de un polinomio no depende de sus raíces ni de los valores que toma, sino solo de las operaciones involucradas.",
@@ -212,7 +267,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$f(x) = x^3$ es estrictamente creciente en todo $\\mathbb{R}$: si $x_1 < x_2$ entonces $x_1^3 < x_2^3$.",
-    "feedback_incorrect": "Aunque $f'(0) = 0$, la función $f(x) = x^3$ nunca decrece. Si $x_1 < x_2$, siempre se tiene $x_1^3 < x_2^3$. Es estrictamente creciente en $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      null,
+      "Esa restricción confundiría el punto de inflexión en $x=0$ (donde la curva se aplana) con un cambio real de monotonía; la función sigue creciendo ahí.",
+      "$f(x)=x^3$ nunca decrece: para $x_1 < x_2$ siempre se cumple $x_1^3 < x_2^3$, incluso con valores negativos.",
+      "Esa acotación invierte el comportamiento real: la función también sigue creciendo para $x>0$, no solo a la izquierda del origen."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La función $f(x) = x^3$ es **estrictamente creciente** en todo $\\mathbb{R}$.\n\nPodés verificarlo directamente: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$ (elevar al cubo preserva el orden).\n\nAlgunos se confunden porque la curva es 'casi plana' cerca de $x = 0$ (el punto de inflexión), pero eso no implica decrecimiento: la función nunca retrocede.\n\nEsto contrasta con $f(x) = x^2$, que sí decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$.",
@@ -229,7 +289,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "$f(x) = -x^3$ es decreciente en todo $\\mathbb{R}$: multiplicar por $-1$ invierte el comportamiento de $x^3$.",
-    "feedback_incorrect": "Como $f(x) = -x^3$, el signo negativo invierte el comportamiento de $x^3$ (que era creciente). El resultado es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "$f(x)=-x^3$ es decreciente en todo $\\mathbb{R}$, sin tramos donde crezca.",
+      "Ese patrón de crecer y luego decrecer corresponde a una parábola, no a $-x^3$, que no tiene extremos locales.",
+      null,
+      "Ese patrón inverso (decrecer y luego crecer) tampoco ocurre: $-x^3$ no cambia de tendencia en ningún punto."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Dado que $f(x) = x^3$ es estrictamente creciente en $\\mathbb{R}$, la función $f(x) = -x^3$ (multiplicada por $-1$) es **estrictamente decreciente** en $\\mathbb{R}$.\n\nLa lógica: si $x_1 < x_2$, entonces $x_1^3 < x_2^3$, y multiplicando por $-1$ se invierte la desigualdad: $-x_1^3 > -x_2^3$.\n\nEso significa que $f(x_1) > f(x_2)$, es decir, la función asigna valores menores a los $x$ más grandes: **decreciente**.\n\nEl punto $x = 0$ es un punto de inflexión, no un extremo.",
@@ -246,7 +311,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Todo polinomio de grado par $\\geq 2$ tiene al menos un extremo local (un máximo o mínimo), por lo que no puede ser siempre creciente.",
-    "feedback_incorrect": "Un polinomio de grado par (como $x^2$, $x^4$, etc.) siempre tiene un extremo local: decrece en una parte de $\\mathbb{R}$ y crece en otra. No puede ser siempre creciente.",
+    "feedback_incorrect": [
+      "El signo del coeficiente principal decide hacia dónde apuntan los extremos, no si existen: todo polinomio de grado par tiene al menos un extremo local.",
+      "Esa condición vale para $x^2$, pero cualquier grado par (2, 4, 6, ...) tiene el mismo problema: siempre aparece al menos un extremo local.",
+      "Ningún polinomio de grado par puede ser siempre creciente, sin importar el coeficiente ni el grado específico.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Los polinomios de **grado par** tienen ambos extremos en la misma dirección: ambos van a $+\\infty$ o ambos a $-\\infty$ según el signo del coeficiente principal.\n\nEsto implica que la función debe 'cambiar de dirección' al menos una vez: tiene al menos un **extremo local** (mínimo o máximo).\n\nPor ejemplo, $f(x) = x^2$ decrece en $(-\\infty, 0]$ y crece en $[0, +\\infty)$. Ningún polinomio de grado par puede ser monótono en todo $\\mathbb{R}$.\n\nEn contraste, polinomios de grado impar como $x^3$ o $x^5$ sí pueden ser siempre crecientes o siempre decrecientes.",
@@ -262,7 +332,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "Hay una variable en el denominador: es una función racional, no un polinomio.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Un polinomio no puede tener $x$ en el denominador; acá el denominador $x-3$ sí depende de la variable.",
+      "En una exponencial la variable estaría en el exponente; acá $x$ aparece elevada a potencias enteras, tanto arriba como abajo.",
+      null,
+      "Una función logarítmica necesita $\\log$ o $\\ln$ aplicado a la variable; acá no aparece ninguno."
+    ],
     "explanation": "Un polinomio no puede tener la variable en el denominador. $f(x) = \\frac{x^2+1}{x-3}$ es un **cociente de dos polinomios** con denominador no constante: eso define una **función racional**.\n\nLas funciones racionales tienen asíntotas verticales donde el denominador se anula (aquí en $x = 3$) y no están definidas para todos los reales.\n\nSi el denominador fuera una constante, como $\\frac{x^2+1}{4}$, sí sería un polinomio.",
     "has_math": true,
     "graph_fn": null,
@@ -273,14 +348,19 @@
     "question": "La función es $f(x) = 2 \\cdot 3^x - 1$.\n\n¿A qué familia pertenece?",
     "options": [
       "Polinómica",
-      "Exponencial",
       "Racional",
-      "Lineal"
+      "Lineal",
+      "Exponencial"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "feedback_correct": "La variable está en el exponente: $3^x$ es exponencial.",
-    "feedback_incorrect": "",
-    "explanation": "En $f(x) = 2 \\cdot 3^x - 1$, la variable $x$ aparece como **exponente** de la base $3$. Eso define una **función exponencial**.\n\nContraste con una función polinómica:\n- Polinómica: $x$ es la base, el exponente es constante. Ejemplo: $x^3$.\n- Exponencial: la base es constante, $x$ es el exponente. Ejemplo: $3^x$.\n\nAunque la fórmula parece un polinomio con el $-1$, la presencia de $3^x$ hace que sea exponencial.",
+    "feedback_incorrect": [
+      "Un polinomio no puede tener la variable en el exponente; acá $3^x$ sí la tiene.",
+      "Sería racional si hubiera un cociente con $x$ en el denominador; acá no hay ninguna división.",
+      "Una función lineal tiene la forma $mx+b$ con $x$ en la base, no en el exponente.",
+      null
+    ],
+    "explanation": "Lo que define a una función **exponencial** es que la variable aparece como exponente de una base constante, al revés de lo que ocurre en un polinomio, donde la base es la variable y el exponente es constante.\n\nEn $f(x) = 2 \\cdot 3^x - 1$, la variable $x$ es el exponente de la base $3$: eso la clasifica como exponencial, aunque el $-1$ final haga que la fórmula recuerde a un polinomio.\n\nEl error típico es mirar la fórmula completa y dejarse llevar por los términos sueltos ($-1$, el $2$) en vez de fijarse en dónde está la variable. Con que un solo término tenga la variable en el exponente alcanza para clasificar la función como exponencial.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -296,7 +376,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "Grado 3 → máximo 3 raíces reales.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El máximo de raíces reales es igual al grado del polinomio, no un valor por debajo de él.",
+      "El grado de $g(x)$ es 3, no 4; contar mal los exponentes lleva a sobreestimar el máximo de raíces.",
+      null,
+      "Ese sería el mínimo posible en algunos casos, pero la pregunta es por el máximo, que coincide con el grado."
+    ],
     "explanation": "El número **máximo** de raíces reales de un polinomio es igual a su **grado**.\n\n$g(x) = x^3 - 5x^2 + 6x$ tiene grado 3, así que puede tener como máximo $3$ raíces reales.\n\nEn este caso se alcanzan las 3: $g(x) = x(x^2 - 5x + 6) = x(x-2)(x-3)$, con raíces en $x = 0$, $x = 2$ y $x = 3$.",
     "has_math": true,
     "graph_fn": null,
@@ -313,7 +398,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "$\\ln$ aplicado a una expresión: función logarítmica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "$x^2+1$ es polinomio, pero aplicarle $\\ln$ cambia la familia de toda la expresión.",
+      "Sería racional si hubiera un cociente con $x$ en el denominador; acá no hay ninguna división, hay un logaritmo.",
+      null,
+      "En una exponencial la variable estaría en el exponente; acá la variable está dentro de un logaritmo."
+    ],
     "explanation": "En $h(x) = \\ln(x^2 + 1)$, la variable $x$ está dentro del argumento de un **logaritmo**. Eso la clasifica como función **logarítmica** (o composición con logaritmo).\n\nAunque $x^2 + 1$ es un polinomio, aplicarle $\\ln$ a un polinomio produce una función logarítmica, no un polinomio.\n\nRecordatorio: un polinomio solo puede tener sumas, restas, productos y potencias enteras de $x$. Ni $\\ln$, ni $e^x$, ni $\\sqrt{x}$.",
     "has_math": true,
     "graph_fn": null,
@@ -330,8 +420,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Dos cambios de dirección + extremos opuestos = grado 3.",
-    "feedback_incorrect": "",
-    "explanation": "Las claves visuales para clasificar una función polinómica:\n\n- **Extremos en sentidos opuestos** (uno arriba, uno abajo): grado **impar**.\n- **Dos cambios de dirección** (un pico + un valle): a lo sumo $n - 1 = 2$ → grado $n = 3$.\n\nCombinando: **polinómica de grado 3**. La forma en **S** es su firma visual.\n\nGrado 4 tendría ambos extremos en la **misma** dirección. Exponencial no tiene cambios de dirección.",
+    "feedback_incorrect": [
+      "Una exponencial no cambia de dirección; esta curva sí tiene un pico y un valle.",
+      null,
+      "Una función racional mostraría una asíntota en el gráfico; acá la curva es continua, sin ese comportamiento.",
+      "Extremos opuestos, uno hacia $+\\infty$ y otro hacia $-\\infty$, indican grado impar, no grado 4 (que tendría ambos extremos en la misma dirección)."
+    ],
+    "explanation": "Dos claves visuales permiten clasificar una función polinómica a partir de su gráfico: la dirección de los extremos y la cantidad de cambios de dirección. Extremos en sentidos opuestos (uno arriba, uno abajo) indican grado impar, mientras que extremos en la misma dirección indican grado par.\n\nEsta curva tiene dos cambios de dirección, un pico y un valle, y sus extremos van en sentidos opuestos. Con dos cambios de dirección el grado mínimo es 3 (ya que el máximo de cambios para grado n es n-1), y los extremos opuestos confirman que el grado es impar. Combinando ambos datos, la forma en S es la firma visual de un polinomio de grado 3.\n\nEl error más común es confundir esta forma en S con la forma en W o M de grado 4, que en cambio tiene ambos extremos apuntando en la misma dirección; conviene comparar siempre los dos extremos entre sí antes de decidir la paridad del grado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -347,8 +442,13 @@
     ],
     "correct_index": 3,
     "feedback_correct": "3 cambios → grado 4; ambos extremos abajo → coef. negativo.",
-    "feedback_incorrect": "",
-    "explanation": "Dos datos se leen del gráfico:\n\n1. **3 cambios de dirección**: el máximo de cambios para grado $n$ es $n-1$. Con 3 cambios, $n \\geq 4$. El grado más probable es **4**.\n\n2. **Ambos extremos hacia abajo**: grado par con coef. principal **negativo** (como $-x^4$, que abre hacia abajo).\n\nConclusión: polinomio de **grado 4** con **coef. negativo** — forma de **M** (o **W** invertida).",
+    "feedback_incorrect": [
+      "Grado 3 permite como máximo 2 cambios de dirección; esta curva tiene 3, así que el grado real es mayor.",
+      "El grado se corresponde con 3 cambios de dirección (grado 4), pero el signo del coeficiente no encaja: ambos extremos van hacia abajo, no hacia arriba.",
+      "3 cambios de dirección indican grado 4, no grado 3; con grado 3 alcanzarían como máximo 2 cambios.",
+      null
+    ],
+    "explanation": "Dos datos se leen del gráfico:\n\n1. **3 cambios de dirección**: el máximo de cambios para grado $n$ es $n-1$. Con 3 cambios, $n \\geq 4$. El grado más probable es **4**.\n\n2. **Ambos extremos hacia abajo**: grado par con coef. principal **negativo** (como $-x^4$, que abre hacia abajo).\n\nConclusión: polinomio de **grado 4** con **coef. negativo**, forma de **M** (o **W** invertida).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -364,7 +464,12 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Grado 3 → máximo $3 - 1 = 2$ cambios de dirección.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el máximo si el grado fuera 2, pero acá el grado es 3, que permite hasta 2 cambios de dirección.",
+      null,
+      "El máximo de cambios de dirección para grado 3 es $3-1=2$, no 3.",
+      "Un polinomio de grado 3 sí puede tener cambios de dirección; solo $x^3$ puro (sin extremos) no los tiene."
+    ],
     "explanation": "La cantidad **máxima** de cambios de dirección (extremos locales) de un polinomio de grado $n$ es $n - 1$.\n\nPara grado 3: máximo $3 - 1 = 2$ cambios.\n\nPero un polinomio de grado 3 puede tener **0, 1 o 2** cambios, no necesariamente los 2. Por ejemplo, $f(x) = x^3$ no tiene ningún extremo local aunque sea de grado 3.\n\nEn la curva descrita (un solo cruce del eje $x$, forma S), el polinomio puede tener 0 o 2 extremos locales.",
     "has_math": true,
     "graph_fn": null,
@@ -381,8 +486,13 @@
     ],
     "correct_index": 3,
     "feedback_correct": "Dos picos y un valle implican múltiples cambios de dirección: modelo polinómico.",
-    "feedback_incorrect": "",
-    "explanation": "Una función con múltiples picos y valles necesita una familia que pueda tener **varios extremos locales**.\n\n- **Lineal**: sin extremos (recta).\n- **Exponencial**: sin extremos locales (siempre creciente o siempre decreciente).\n- **Logarítmica**: sin extremos locales (siempre creciente).\n- **Polinómica**: puede tener hasta $n-1$ extremos locales. ✓\n\nDos picos + un valle = 3 extremos locales → se necesita al menos grado 4.",
+    "feedback_incorrect": [
+      "Una recta no tiene extremos locales; esta trayectoria tiene dos picos y un valle.",
+      "Una exponencial es siempre creciente o siempre decreciente, sin picos ni valles intermedios.",
+      "Una logarítmica también es monótona, sin cambios de dirección; no puede describir dos picos y un valle.",
+      null
+    ],
+    "explanation": "Un modelo con varios picos y valles necesita una familia de funciones capaz de tener **varios extremos locales**: las funciones lineales, exponenciales y logarítmicas son siempre monótonas y no ofrecen esa flexibilidad.\n\nLa familia **polinómica** sí puede tener hasta $n-1$ extremos locales para un polinomio de grado $n$. El perfil descrito, con dos picos y un valle, tiene tres extremos locales, lo que exige un polinomio de grado 4 como mínimo.\n\nEl error más común es modelar este tipo de contexto con una función cuadrática, que solo tiene un extremo. En cuanto el enunciado describe más de una subida y bajada, el modelo necesita grado 3 o mayor.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -398,7 +508,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "4 extremos locales requieren al menos grado 5 (máximo $n-1$ extremos).",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una recta no tiene extremos locales; este caudal describe cuatro cambios de dirección.",
+      "Grado 3 permite como máximo 2 extremos locales; acá se necesitan 4 (dos picos y dos valles).",
+      null,
+      "Una exponencial no tiene extremos locales; es siempre creciente o siempre decreciente."
+    ],
     "explanation": "Con 2 picos + 2 valles hay **4 extremos locales**. El máximo de extremos locales de un polinomio de grado $n$ es $n - 1$.\n\nNecesitamos $n - 1 \\geq 4$, es decir, $n \\geq 5$.\n\nGrado 3 solo puede tener hasta 2 extremos locales: insuficiente. Grado 5 puede tener hasta 4: justo lo que necesitamos.\n\nLineal y exponencial tienen 0 extremos locales.",
     "has_math": true,
     "graph_fn": null,
@@ -415,7 +530,12 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Un mínimo y un máximo locales son 2 extremos locales: polinómica de grado ≥ 3.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una recta no puede tener un mínimo y un máximo; solo tiene una dirección constante.",
+      null,
+      "Una función racional describe asíntotas, no un mínimo y un máximo suaves como los de este contexto.",
+      "Una función logarítmica es siempre creciente, sin mínimos ni máximos locales."
+    ],
     "explanation": "Un mínimo y un máximo locales representan **2 extremos locales**. Para tener 2 extremos locales se necesita $n - 1 \\geq 2$, es decir, grado $\\geq 3$.\n\nUna **función polinómica de grado 3 o mayor** puede tener esta forma. Un polinomio de grado 3 con coef. positivo tiene exactamente un mínimo y un máximo locales.\n\nLa función lineal no tiene extremos. La logarítmica y racional tienen comportamientos distintos (asíntotas o crecimiento indefinido sin extremos).",
     "has_math": true,
     "graph_fn": null,
@@ -427,13 +547,18 @@
     "options": [
       "Lineal",
       "Exponencial",
-      "Polinómica",
-      "Logarítmica"
+      "Logarítmica",
+      "Polinómica"
     ],
-    "correct_index": 2,
+    "correct_index": 3,
     "feedback_correct": "Dos ceros positivos y un mínimo entre ellos: polinómica con al menos grado 3.",
-    "feedback_incorrect": "",
-    "explanation": "Las características del modelo:\n- **Dos raíces reales positivas** (el objeto toca el suelo dos veces).\n- **Un mínimo local** entre ellas (rebote).\n\nUn polinomio puede tener múltiples raíces y extremos locales. Con al menos una raíz más (el inicio en suelo), podría ser de grado 3 o 4.\n\nLineal, exponencial y logarítmica no pueden tener dos raíces con un mínimo entre ellas.",
+    "feedback_incorrect": [
+      "Una recta no puede tener dos raíces con un mínimo entre ellas; solo cruza el eje una vez.",
+      "Una exponencial no toca el eje $x$ más de una vez ni tiene mínimos locales entre raíces.",
+      "Una logarítmica solo puede cruzar el eje $x$ una vez y no tiene extremos locales.",
+      null
+    ],
+    "explanation": "Un modelo con **dos raíces reales positivas** y un **mínimo local** entre ellas necesita una familia capaz de anularse más de una vez y de cambiar de dirección.\n\nLas funciones lineal, exponencial y logarítmica solo pueden cruzar el eje $x$ a lo sumo una vez y no tienen extremos locales entre dos raíces. Un **polinomio**, en cambio, puede tener varias raíces y varios extremos locales: con una raíz adicional en el origen, un polinomio de grado 3 o 4 modela bien esta trayectoria.\n\nLa confusión típica es pensar el rebote como un fenómeno exclusivamente físico y buscar la familia por la forma de la 'pelota' en vez de contar cuántas veces la función cruza el eje y cuántos extremos locales tiene.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -442,14 +567,19 @@
   {
     "question": "Un polinomio tiene coeficiente principal negativo y grado par.\n\n¿Cuál es su comportamiento cuando $x \\to +\\infty$?",
     "options": [
-      "Va hacia $+\\infty$",
       "Va hacia $-\\infty$",
+      "Va hacia $+\\infty$",
       "Va hacia $0$",
       "Depende del término independiente"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "Grado par, coef. negativo: $x \\to +\\infty \\Rightarrow p(x) \\to -\\infty$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese sería el comportamiento con coeficiente principal positivo; acá el coeficiente es negativo, así que la curva cae hacia $-\\infty$.",
+      "Los polinomios de grado par y coeficiente negativo divergen hacia $-\\infty$; no tienden a un valor finito como 0.",
+      "El comportamiento en el infinito depende solo del grado y el signo del coeficiente principal; el término independiente no influye."
+    ],
     "explanation": "El comportamiento en el infinito de un polinomio depende **solo** del grado y del signo del coeficiente principal. El término independiente no influye.\n\nGrado **par**, coef. **negativo**: como $-x^4$, la función cae en ambas direcciones:\n$$\\begin{aligned} x &\\to +\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\end{aligned}$$",
     "has_math": true,
     "graph_fn": null,
@@ -466,8 +596,13 @@
     ],
     "correct_index": 3,
     "feedback_correct": "Extremos opuestos ($+\\infty$ izquierda, $-\\infty$ derecha) → grado impar, coef. negativo.",
-    "feedback_incorrect": "",
-    "explanation": "De la tabla de comportamiento en extremos:\n\n- $x \\to -\\infty \\Rightarrow p(x) \\to +\\infty$\n- $x \\to +\\infty \\Rightarrow p(x) \\to -\\infty$\n\nLos extremos son opuestos → grado **impar**. La función sube a la izquierda y baja a la derecha → coef. principal **negativo** (como $-x^3$).\n\nMnemotécnica: si la curva «baja a la derecha», el coef. es negativo para grado impar.",
+    "feedback_incorrect": [
+      "Grado par tendría ambos extremos en la misma dirección; acá van en sentidos opuestos ($+\\infty$ y $-\\infty$), lo que indica grado impar.",
+      "Grado par tendría ambos extremos en la misma dirección; además, el signo del coeficiente tampoco encaja con lo que describe el enunciado.",
+      "Extremos opuestos sí indican grado impar, pero el coeficiente positivo haría subir la curva a la derecha; acá baja, así que el coeficiente es negativo.",
+      null
+    ],
+    "explanation": "El comportamiento de un polinomio en los extremos se lee combinando dos datos: si ambos extremos van en la misma dirección el grado es par, y si van en sentidos opuestos el grado es impar. El signo del coeficiente principal decide, dentro de cada caso, hacia qué lado apunta la curva.\n\nAcá $p(x) \\to +\\infty$ cuando $x \\to -\\infty$ y $p(x) \\to -\\infty$ cuando $x \\to +\\infty$: los extremos son opuestos, así que el grado es impar. Como la curva sube a la izquierda y baja a la derecha, el coeficiente principal es negativo, como en $-x^3$.\n\nLa confusión típica es mirar solo un extremo y decidir el signo sin comparar los dos; conviene leer siempre el par completo de comportamientos antes de concluir grado y signo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -483,7 +618,12 @@
     ],
     "correct_index": 0,
     "feedback_correct": "Grado par, coef. positivo → hay un mínimo global. Ese mínimo es $f(0) = -2$, y la imagen es $[-2, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "El término independiente por sí solo no garantiza que ese valor sea el mínimo global; lo que determina la existencia de un mínimo es el grado par con coeficiente positivo.",
+      "La función sí toma valores negativos, como $f(0)=-2$; no es siempre positiva.",
+      "El dominio de $f(x)=x^4-2$ es $\\mathbb{R}$, no ese intervalo; ese conjunto corresponde a la imagen, no al dominio."
+    ],
     "explanation": "Grado **par** con coef. **positivo** → ambos extremos van a $+\\infty$ → la función tiene un **mínimo global**.\n\nPara $f(x) = x^4 - 2$: el mínimo se alcanza en $x = 0$ (donde $x^4$ es mínimo, en $0$) y vale $f(0) = -2$.\n\nComo la función nunca baja de $-2$ y sube indefinidamente, su imagen es $[-2, +\\infty)$.\n\nCuidado: $f(0) = -2$ es el mínimo, pero la imagen **incluye** ese valor (corchete cerrado).",
     "has_math": true,
     "graph_fn": null,
@@ -500,8 +640,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Grado impar: la función va de $-\\infty$ a $+\\infty$ pasando por todos los valores reales.",
-    "feedback_incorrect": "",
-    "explanation": "$f(x) = -x^3 + 2$ tiene grado **impar** con coef. negativo:\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow f(x) \\to +\\infty \\\\ x &\\to +\\infty \\Rightarrow f(x) \\to -\\infty \\end{aligned}$$\n\nComo la función es continua y va de $+\\infty$ a $-\\infty$, por el **Teorema del Valor Intermedio** pasa por **todos** los valores reales: imagen $= \\mathbb{R}$.\n\nDominio $= \\mathbb{R}$ no implica imagen $= \\mathbb{R}$ (una parábola también tiene dominio $\\mathbb{R}$ pero imagen acotada).",
+    "feedback_incorrect": [
+      "El dominio de $f$ es $\\mathbb{R}$, pero eso no explica por qué la imagen también lo es; hace falta ver qué valores toma la función.",
+      null,
+      "El signo del coeficiente influye en la dirección de los extremos, pero por sí solo no prueba que la imagen sea todo $\\mathbb{R}$.",
+      "Tener raíces reales no implica que la imagen sea $\\mathbb{R}$; una parábola también tiene raíces y su imagen está acotada."
+    ],
+    "explanation": "$f(x) = -x^3 + 2$ tiene grado **impar** con coef. negativo:\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow f(x) \\to +\\infty \\\\ x &\\to +\\infty \\Rightarrow f(x) \\to -\\infty \\end{aligned}$$\nComo la función es continua y va de $+\\infty$ a $-\\infty$, por el **Teorema del Valor Intermedio** pasa por **todos** los valores reales: imagen $= \\mathbb{R}$.\n\nDominio $= \\mathbb{R}$ no implica imagen $= \\mathbb{R}$ (una parábola también tiene dominio $\\mathbb{R}$ pero imagen acotada).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -517,8 +662,13 @@
     ],
     "correct_index": 0,
     "feedback_correct": "Extremos en la misma dirección → grado par.",
-    "feedback_incorrect": "",
-    "explanation": "Regla visual rápida para polinomios:\n\n- **Ambos extremos en la misma dirección** → grado **par** (como $x^2$, $x^4$).\n- **Extremos en sentidos opuestos** → grado **impar** (como $x^3$, $x^5$).\n\nEl signo del coef. principal determina **hacia dónde** van esos extremos:\n- Par, coef. $+$: ambos hacia $+\\infty$.\n- Par, coef. $-$: ambos hacia $-\\infty$.",
+    "feedback_incorrect": [
+      null,
+      "Extremos en sentidos opuestos, no en la misma dirección, son la señal de grado impar; acá ambos van hacia $+\\infty$.",
+      "El signo del coeficiente principal decide hacia dónde apuntan los extremos, no si el grado es par o impar; esa distinción depende únicamente de si los extremos coinciden o se oponen.",
+      "El comportamiento en los extremos sí determina la paridad del grado: ambos extremos iguales significan grado par."
+    ],
+    "explanation": "El grado de un polinomio se puede leer del comportamiento de sus extremos: si ambos apuntan en la **misma dirección** el grado es par, y si apuntan en **sentidos opuestos** el grado es impar.\n\nAcá los dos extremos de la curva van hacia $+\\infty$, la misma dirección, así que el grado es **par**, como $x^2$ o $x^4$. El signo del coeficiente principal es lo que decide si ambos extremos suben (coeficiente positivo) o ambos bajan (coeficiente negativo), pero no cambia la paridad del grado.\n\nEl error habitual es mezclar las dos preguntas, paridad del grado y signo del coeficiente, y sacar la paridad a partir del signo. Conviene primero comparar los dos extremos entre sí, y recién después mirar hacia dónde apuntan.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -527,14 +677,19 @@
   {
     "question": "La gráfica muestra una función polinómica. Su extremo izquierdo va hacia $+\\infty$ y su extremo derecho hacia $-\\infty$. La curva cruza el eje $x$ exactamente tres veces.\n\n¿Qué grado tiene el polinomio?",
     "options": [
-      "$2$",
       "$3$",
+      "$2$",
       "$4$",
       "$5$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "Extremos opuestos → grado impar. Tres cruces → al menos grado 3. La respuesta más simple es grado 3.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Grado 2 permitiría solo un cambio de dirección; acá hay tres cruces del eje $x$, más de lo que un polinomio de grado 2 puede tener.",
+      "Grado 4 sería posible junto a extremos opuestos, pero el patrón de extremos descrito corresponde a grado impar, y el grado impar más simple que da tres raíces es menor que 4.",
+      "Grado 5 también podría dar tres raíces reales (con dos complejas), pero no es la opción más simple: el grado impar más chico que alcanza es menor."
+    ],
     "explanation": "Dos datos del gráfico:\n\n1. **Extremos en sentidos opuestos** → grado **impar**.\n2. **Tres cruces del eje $x$** (tres raíces simples reales) → grado $\\geq 3$.\n\nEl grado impar más pequeño que permite 3 raíces simples es **3**. Podría ser 5 (con 2 raíces complejas), pero el más simple y usual es grado 3.",
     "has_math": true,
     "graph_fn": null,
@@ -551,7 +706,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "La raíz cuadrada de un polinomio produce una función radical, no un polinomio.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Un polinomio exige exponentes enteros no negativos; acá el exponente es $\\frac12$ tras reescribir la raíz.",
+      "Sería racional si hubiera un cociente con $x$ en el denominador; acá hay una raíz, no una división.",
+      null,
+      "En una exponencial la variable estaría en el exponente con base constante; acá la variable está dentro de una raíz."
+    ],
     "explanation": "$f(x) = \\sqrt{x^3 - 1} = (x^3 - 1)^{1/2}$: el exponente $\\frac{1}{2}$ no es entero.\n\nEso la clasifica como función **radical** (o irracional). No es un polinomio porque los polinomios exigen exponentes enteros no negativos.\n\nAdemás, tiene restricciones de dominio: para que la raíz exista en $\\mathbb{R}$, se necesita $x^3 - 1 \\geq 0$, es decir, $x \\geq 1$. Los polinomios siempre tienen dominio $\\mathbb{R}$.",
     "has_math": true,
     "graph_fn": null,
@@ -568,7 +728,12 @@
     ],
     "correct_index": 1,
     "feedback_correct": "$x^{-1} = 1/x$ tiene exponente negativo: no es un polinomio.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El término $x^3$ sí es polinomial, pero $x^{-1}$ tiene exponente negativo, así que la suma completa no es un polinomio.",
+      null,
+      "Tener más de un término no es un problema para un polinomio; lo que descarta la expresión es el exponente negativo de $x^{-1}$.",
+      "El grado de un polinomio nunca es negativo; un exponente negativo directamente saca a la expresión de la familia polinómica."
+    ],
     "explanation": "$x^{-1} = \\frac{1}{x}$ tiene exponente $-1$, que es **negativo**. Los polinomios requieren exponentes **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\nEl término $x^3$ sí es polinomial, pero basta con que un término no lo sea para que toda la función no sea un polinomio.\n\n$f(x) = x^3 + x^{-1} = x^3 + \\frac{1}{x}$ es una **función racional** (suma de un polinomio y una función racional).",
     "has_math": true,
     "graph_fn": null,
@@ -585,8 +750,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "La función baja desde el máximo local $x=-1$ hasta el mínimo local $x=1$: es decreciente en $(-1, 1)$.",
-    "feedback_incorrect": "",
-    "explanation": "Entre el máximo local y el mínimo local, la función va de un valor alto a uno bajo: es **decreciente**.\n\nPara $f(x) = x^3 - 3x$:\n- **Crece** en $(-\\infty, -1)$ (sube hasta el máximo local).\n- **Decrece** en $(-1, 1)$ (baja desde el máximo hasta el mínimo).\n- **Crece** en $(1, +\\infty)$ (sube desde el mínimo hacia $+\\infty$).\n\nVerificación: $f(-1) = -1 + 3 = 2$ (máximo local) y $f(1) = 1 - 3 = -2$ (mínimo local).",
+    "feedback_incorrect": [
+      "Ese intervalo es donde la función crece hacia el máximo local en $x=-1$, no donde decrece.",
+      null,
+      "Ese intervalo es donde la función crece desde el mínimo local en $x=1$ hacia $+\\infty$, no donde decrece.",
+      "Ese intervalo mezcla una zona de crecimiento con otra de decrecimiento; el tramo puramente decreciente es más corto."
+    ],
+    "explanation": "Entre un máximo local y el mínimo local siguiente, la función pasa de un valor alto a uno bajo: ese tramo es donde la función es **decreciente**.\n\nPara $f(x) = x^3 - 3x$, la función crece en $(-\\infty,-1)$ hasta el máximo local, decrece en $(-1,1)$ hasta el mínimo local, y vuelve a crecer en $(1,+\\infty)$. Puede verificarse con $f(-1)=2$ (máximo) y $f(1)=-2$ (mínimo), valores que confirman el tramo decreciente entre ambos.\n\nEl error típico es identificar el intervalo decreciente mirando solo uno de los dos extremos locales; conviene ubicar ambos extremos y mirar qué pasa estrictamente entre ellos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -602,8 +772,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Crece en $(-\\infty, -\\sqrt{2})$ y en $(0, \\sqrt{2})$: dos intervalos.",
-    "feedback_incorrect": "",
-    "explanation": "Con extremos locales en $x = -\\sqrt{2}$, $x = 0$ y $x = \\sqrt{2}$, los intervalos de monotonía son:\n\n- $(-\\infty, -\\sqrt{2})$: **crece** hasta el máximo.\n- $(-\\sqrt{2}, 0)$: **decrece** hasta el mínimo.\n- $(0, \\sqrt{2})$: **crece** hasta el otro máximo.\n- $(\\sqrt{2}, +\\infty)$: **decrece** hacia $-\\infty$.\n\nLa función es creciente en **2** intervalos.",
+    "feedback_incorrect": [
+      "Ese conteo deja afuera uno de los tramos crecientes; hay dos intervalos donde la función sube, no uno.",
+      null,
+      "Ese conteo suma de más: entre tres extremos locales solo hay dos tramos crecientes y dos decrecientes, cuatro en total, mitad y mitad.",
+      "Ese sería el total de tramos de monotonía (crecientes y decrecientes juntos), no solo los crecientes."
+    ],
+    "explanation": "Entre extremos locales consecutivos, una función polinómica alterna entre tramos crecientes y decrecientes: sube hasta un máximo, baja hasta un mínimo, y así sucesivamente.\n\nCon extremos en $x=-\\sqrt2$ (máximo), $x=0$ (mínimo) y $x=\\sqrt2$ (máximo), los tramos son: crece en $(-\\infty,-\\sqrt2)$, decrece en $(-\\sqrt2,0)$, crece en $(0,\\sqrt2)$ y decrece en $(\\sqrt2,+\\infty)$. Eso da **2 intervalos crecientes**.\n\nEl error común es contar todos los tramos de monotonía como si fueran del mismo tipo, sin separar crecientes de decrecientes. Conviene recorrer los extremos en orden y etiquetar cada tramo intermedio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -619,7 +794,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "$T(m)$ es una suma de potencias enteras de $m$: función polinómica.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una función lineal tiene un solo término con $m$; $T(m)$ tiene potencias $3$, $2$, $1$ y $0$, más términos de los que admite una recta.",
+      "En una exponencial la variable estaría en el exponente; acá $m$ aparece como base con exponentes enteros.",
+      null,
+      "Sería racional si hubiera un cociente con $m$ en el denominador; acá no hay ninguna división."
+    ],
     "explanation": "$T(m) = -0{,}1m^3 + 1{,}5m^2 - 5m + 10$ tiene exponentes $3$, $2$, $1$ y $0$: todos enteros no negativos. Es un **polinomio de grado 3**.\n\nEste tipo de modelo se usa para ajustar curvas de temperatura, caudal u otras magnitudes estacionales. El polinomio puede capturar un mínimo y un máximo local (2 cambios de dirección = grado 3).\n\nNo es lineal (tendría solo un término con $m$), ni exponencial (la variable no está en el exponente).",
     "has_math": true,
     "graph_fn": null,
@@ -636,8 +816,13 @@
     ],
     "correct_index": 2,
     "feedback_correct": "4 extremos locales requieren grado mínimo 5 ($n - 1 \\geq 4 \\Rightarrow n \\geq 5$).",
-    "feedback_incorrect": "",
-    "explanation": "Con 2 picos + 2 valles hay **4 extremos locales**.\n\nEl máximo de extremos locales para grado $n$ es $n - 1$:\n$$n - 1 \\geq 4 \\Rightarrow n \\geq 5$$\n\nEl grado mínimo es **5**. Con grado 4 solo podrían modelarse hasta 3 extremos locales (insuficiente). Grado 5 permite exactamente 4.",
+    "feedback_incorrect": [
+      "Grado 3 permite como máximo 2 extremos locales, insuficiente para los 4 que describe la trayectoria.",
+      "Grado 4 permite como máximo 3 extremos locales, todavía insuficiente para los 4 necesarios.",
+      null,
+      "Grado 6 también alcanzaría para 4 extremos, pero no es el grado mínimo: con grado 5 ya se cubren exactamente los 4 necesarios."
+    ],
+    "explanation": "Con 2 picos + 2 valles hay **4 extremos locales**.\n\nEl máximo de extremos locales para grado $n$ es $n - 1$:\n$$n - 1 \\geq 4 \\Rightarrow n \\geq 5$$\nEl grado mínimo es **5**. Con grado 4 solo podrían modelarse hasta 3 extremos locales (insuficiente). Grado 5 permite exactamente 4.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -653,7 +838,12 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Las funciones racionales tienen asíntotas verticales donde el denominador se anula: no tienen dominio $\\mathbb{R}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El grado no es lo que distingue a una racional de una polinómica; ambas familias pueden tener cualquier grado.",
+      null,
+      "Una función racional sí puede tener raíces reales, donde el numerador se anula; lo que la distingue no son las raíces sino las asíntotas.",
+      "La velocidad de crecimiento no es un criterio confiable para distinguir familias; lo determinante es si la función tiene asíntotas y un dominio restringido."
+    ],
     "explanation": "Una **función racional** es un cociente de dos polinomios: $f(x) = p(x)/q(x)$. Cuando $q(x) = 0$, la función no está definida: hay una **asíntota vertical**.\n\nUn **polinomio** siempre está definido en todo $\\mathbb{R}$: no tiene asíntotas ni puntos de exclusión.\n\nEjemplo: $f(x) = \\frac{1}{x-2}$ tiene asíntota vertical en $x = 2$ y no está definida ahí. En cambio, $p(x) = x^3 - 2$ está definida en todo $\\mathbb{R}$.",
     "has_math": true,
     "graph_fn": null,
@@ -670,8 +860,13 @@
     ],
     "correct_index": 2,
     "feedback_correct": "Grado impar → imagen $\\mathbb{R}$. Grado par → hay mínimo o máximo global: imagen acotada por uno de sus lados.",
-    "feedback_incorrect": "",
-    "explanation": "La imagen de un polinomio depende de la paridad del grado:\n\n- **Grado impar**: la función va de $-\\infty$ a $+\\infty$ (o viceversa). Imagen $= \\mathbb{R}$.\n- **Grado par, coef. $+$**: hay mínimo global $k$. Imagen $= [k, +\\infty)$.\n- **Grado par, coef. $-$**: hay máximo global $k$. Imagen $= (-\\infty, k]$.\n\nEl número de raíces no determina la imagen directamente.",
+    "feedback_incorrect": [
+      "Eso vale solo para grado impar; con grado par la imagen puede quedar acotada por un mínimo o un máximo global.",
+      "Eso vale solo para grado par; con grado impar la imagen es todo $\\mathbb{R}$, sin cota.",
+      null,
+      "El número de raíces no determina la imagen; lo que la determina es la paridad del grado y el signo del coeficiente principal."
+    ],
+    "explanation": "La **imagen** de un polinomio depende de la paridad de su grado. Con grado impar, la función va de $-\\infty$ a $+\\infty$ (o al revés) y pasa por todos los valores reales.\n\nCon grado par y coeficiente positivo hay un mínimo global $k$ y la imagen es $[k,+\\infty)$; con grado par y coeficiente negativo hay un máximo global $k$ y la imagen es $(-\\infty,k]$. El número de raíces reales no interviene en este análisis.\n\nEl error frecuente es asumir que todo polinomio tiene imagen $\\mathbb{R}$ solo porque su dominio lo es; conviene revisar primero la paridad del grado antes de sacar esa conclusión.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -687,7 +882,12 @@
     ],
     "correct_index": 2,
     "feedback_correct": "La curva cruza el eje $x$ en tres puntos: tiene 3 raíces reales.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese conteo deja afuera al menos un cruce del eje $x$ visible en el gráfico.",
+      "Ese conteo todavía deja afuera un cruce del eje $x$ visible en el gráfico.",
+      null,
+      "Ese conteo suma de más: la curva cruza el eje solo tres veces, no cuatro."
+    ],
     "explanation": "Se cuentan los puntos donde la curva **cruza** el eje $x$ (donde $f(x) = 0$).\n\nEsta curva es $f(x) = (x+2) \\cdot x \\cdot (x-2) / 4$, con raíces en $x = -2$, $x = 0$ y $x = 2$: las tres son simples (la curva cruza el eje sin rebotar).\n\nTres raíces reales para un polinomio de grado 3: el máximo posible.",
     "has_math": true,
     "graph_fn": "(x+2)*x*(x-2)/4",
@@ -703,14 +903,19 @@
     "question": "La gráfica muestra una función polinómica.\n\n¿El coeficiente principal es positivo o negativo?",
     "options": [
       "Positivo, porque la curva sube a la derecha",
-      "Negativo, porque la curva baja a la derecha",
       "Positivo, porque tiene raíces reales",
-      "No se puede determinar desde el gráfico"
+      "No se puede determinar desde el gráfico",
+      "Negativo, porque la curva baja a la derecha"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "feedback_correct": "La curva baja a la derecha (y sube a la izquierda): grado impar con coef. negativo.",
-    "feedback_incorrect": "",
-    "explanation": "El comportamiento en el extremo derecho ($x \\to +\\infty$) revela el signo del coeficiente principal:\n\n- Si la curva **sube** a la derecha: coef. positivo (para grado impar) o grado par con coef. positivo.\n- Si la curva **baja** a la derecha: coef. negativo.\n\nEsta curva ($-x^3/4 + x$) baja a la derecha y sube a la izquierda → grado impar con coef. **negativo**.",
+    "feedback_incorrect": [
+      "La curva de este gráfico baja a la derecha, no sube; ese comportamiento indica coeficiente negativo, no positivo.",
+      "Tener raíces reales no determina el signo del coeficiente principal; lo que lo determina es hacia dónde apunta la curva en los extremos.",
+      "El comportamiento en los extremos del gráfico sí revela el signo del coeficiente principal, no hace falta más información.",
+      null
+    ],
+    "explanation": "El comportamiento de la curva cerca de $x \\to +\\infty$ revela el signo del coeficiente principal: si la curva sube a la derecha el coeficiente es positivo (en grado impar), y si baja a la derecha, es negativo.\n\nEsta curva corresponde a $f(x) = -\\frac{x^3}{4} + x$: baja a la derecha y sube a la izquierda, extremos opuestos propios de grado impar, con coeficiente principal **negativo**.\n\nEl error típico es sacar el signo del coeficiente a partir de la cantidad de raíces o de otras características que no tienen relación directa con ese signo; el dato relevante siempre es la dirección de los extremos.",
     "has_math": true,
     "graph_fn": "-pow(x,3)/4 + x",
     "graph_view": [
@@ -731,8 +936,13 @@
     ],
     "correct_index": 2,
     "feedback_correct": "La curva tiene dos máximos locales y un mínimo local: 3 extremos en total.",
-    "feedback_incorrect": "",
-    "explanation": "Se cuentan los cambios de dirección: cada pico es un **máximo local** y cada valle es un **mínimo local**.\n\nEsta curva tiene:\n- Un máximo local a la izquierda.\n- Un mínimo local en el centro.\n- Otro máximo local a la derecha.\n\nTotal: **3 extremos locales**. Eso indica que el polinomio tiene grado $\\geq 4$ (ya que el máximo de extremos locales para grado $n$ es $n-1$, y $n-1 \\geq 3 \\Rightarrow n \\geq 4$).",
+    "feedback_incorrect": [
+      "Ese conteo deja afuera al menos un cambio de dirección visible en la curva.",
+      "Ese conteo todavía deja afuera un cambio de dirección visible en la curva.",
+      null,
+      "Ese conteo suma de más: la curva cambia de dirección tres veces, no cuatro."
+    ],
+    "explanation": "Cada cambio de dirección de una curva polinómica es un **extremo local**: un pico corresponde a un máximo local y un valle a un mínimo local.\n\nEsta curva tiene un máximo local a la izquierda, un mínimo local en el centro y otro máximo local a la derecha, es decir, tres extremos locales en total. Eso implica que el polinomio tiene grado $\\geq 4$, ya que el máximo de extremos locales para grado $n$ es $n-1$, y $n-1\\geq3$ exige $n\\geq4$.\n\nEl error frecuente es contar los picos y los valles por separado sin sumarlos, o confundir un extremo local con una raíz; conviene marcar cada cambio de dirección uno por uno antes de sumarlos.",
     "has_math": true,
     "graph_fn": "-(pow(x,4) - 5*pow(x,2) + 4)/3",
     "graph_view": [
@@ -753,8 +963,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "$x^{-2}$ tiene exponente negativo: no es un polinomio.",
-    "feedback_incorrect": "",
-    "explanation": "Los polinomios requieren exponentes **enteros no negativos** ($0, 1, 2, 3, \\ldots$).\n\n- $7x^3 - 2x + 1$: exponentes $3$, $1$, $0$ ✓\n- $x^{-2} + 3x$: el término $x^{-2} = 1/x^2$ tiene exponente $-2$ ✗\n- $f(x) = 0$: el polinomio cero ✓\n- $x^{10} - x^5 + x$: exponentes $10$, $5$, $1$ ✓\n\nLa intrusa es $f(x) = x^{-2} + 3x$.",
+    "feedback_incorrect": [
+      "$7x^3-2x+1$ tiene exponentes $3$, $1$ y $0$, todos enteros no negativos: sí es polinomio.",
+      null,
+      "$f(x)=0$ es el polinomio cero, un caso válido dentro de la familia.",
+      "$x^{10}-x^5+x$ tiene exponentes $10$, $5$ y $1$, todos enteros no negativos: sí es polinomio."
+    ],
+    "explanation": "Los polinomios admiten únicamente exponentes **enteros no negativos** ($0,1,2,3,\\dots$); basta con que un solo término no cumpla esa condición para que toda la expresión deje de ser un polinomio.\n\nEn $x^{-2}+3x$ el término $x^{-2}=\\frac{1}{x^2}$ tiene exponente $-2$, negativo, así que esa expresión no es un polinomio. Las otras tres sí cumplen: $7x^3-2x+1$ (grado 3), $f(x)=0$ (el polinomio cero) y $x^{10}-x^5+x$ (grado 10).\n\nEl error habitual es revisar solo el término más visible o el de mayor grado y no chequear todos los exponentes uno por uno; alcanza con un exponente negativo o fraccionario en cualquier término para descartar toda la expresión.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -763,14 +978,19 @@
   {
     "question": "Un polinomio de grado 6 con coeficiente principal positivo tiene dominio $\\mathbb{R}$.\n\n¿Cuál es su imagen?",
     "options": [
-      "$\\mathbb{R}$",
       "$[k, +\\infty)$ para algún $k$",
+      "$\\mathbb{R}$",
       "$(-\\infty, k]$ para algún $k$",
       "$(0, +\\infty)$"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "feedback_correct": "Grado par, coef. positivo → hay mínimo global $k$: imagen $[k, +\\infty)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "$\\mathbb{R}$ sería la imagen si el grado fuera impar; acá el grado es par (6), así que la imagen queda acotada por un mínimo global.",
+      "Esa cota corresponde a un polinomio de grado par con coeficiente **negativo** (máximo global); acá el coeficiente es positivo, así que hay un mínimo global.",
+      "Ese intervalo no incluye valores negativos ni el cero, pero el mínimo global $k$ podría ser negativo, cero o positivo según el polinomio."
+    ],
     "explanation": "Grado **par** ($6$) con coef. **positivo**: ambos extremos van a $+\\infty$. La función tiene un **mínimo global** $k$.\n\nLa imagen es $[k, +\\infty)$: la función nunca baja de $k$ y crece indefinidamente hacia arriba.\n\nEjemplo: $f(x) = x^6 - 3$ tiene mínimo en $x = 0$ con valor $f(0) = -3$. Imagen $= [-3, +\\infty)$.",
     "has_math": true,
     "graph_fn": null,
@@ -787,7 +1007,12 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Un solo mínimo (en el mes 6) = 1 extremo local.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El modelo sí tiene un extremo local: el mínimo en el mes 6 marca un cambio de dirección.",
+      null,
+      "El modelo solo describe una bajada y una subida alrededor de un único mínimo, no dos extremos locales.",
+      "El modelo describe un único cambio de dirección, no tres; hace falta más de una subida y bajada para llegar a ese número."
+    ],
     "explanation": "El modelo describe una curva que **baja, toca un mínimo y vuelve a subir**: exactamente **1 extremo local** (el mínimo en el mes 6).\n\nUn polinomio con 1 extremo local puede ser de grado 2 (parábola) o cualquier grado par mayor. En el contexto de temperatura anual, el más común es un polinomio de grado 2 o 3 ajustado a los datos.\n\n2 extremos locales implicarían una subida y dos bajadas, que no es lo descrito.",
     "has_math": true,
     "graph_fn": null,
@@ -799,13 +1024,18 @@
     "options": [
       "Una función continua en todo $\\mathbb{R}$",
       "Una función con dominio $\\mathbb{R}$ y 3 raíces reales",
-      "Una función con una asíntota vertical en $x = 2$",
-      "Una función con dos extremos locales"
+      "Una función con dos extremos locales",
+      "Una función con una asíntota vertical en $x = 2$"
     ],
-    "correct_index": 2,
+    "correct_index": 3,
     "feedback_correct": "Los polinomios no tienen asíntotas: están definidos para todo $x \\in \\mathbb{R}$ sin discontinuidades.",
-    "feedback_incorrect": "",
-    "explanation": "Los **polinomios** son funciones continuas en todo $\\mathbb{R}$, sin asíntotas verticales, horizontales ni oblicuas.\n\nUna **asíntota vertical en $x = 2$** implica que la función no está definida (o va a $\\pm\\infty$) en ese punto. Eso excluye a los polinomios.\n\n- Continua en $\\mathbb{R}$: los polinomios sí son continuos. ✓\n- Dominio $\\mathbb{R}$ con 3 raíces: posible para grado $\\geq 3$. ✓\n- Dos extremos locales: posible para grado $\\geq 3$. ✓\n- Asíntota vertical: **imposible** para un polinomio. ✗",
+    "feedback_incorrect": [
+      "Los polinomios sí son siempre continuos en todo $\\mathbb{R}$; esta opción describe una propiedad que un polinomio cumple, no una que lo excluya.",
+      "Un polinomio de grado 3 o mayor puede tener dominio $\\mathbb{R}$ y 3 raíces reales sin problema; esta opción no lo descarta.",
+      "Un polinomio de grado 3 o mayor puede tener exactamente dos extremos locales sin problema; esta opción no lo descarta.",
+      null
+    ],
+    "explanation": "Los polinomios son funciones continuas en todo $\\mathbb{R}$, sin asíntotas verticales, horizontales ni oblicuas: siempre están definidos para cualquier valor real de $x$.\n\nSer continua en $\\mathbb{R}$, tener **dominio** $\\mathbb{R}$ con 3 raíces reales o tener dos extremos locales son propiedades compatibles con un polinomio de grado adecuado. En cambio, una asíntota vertical implica que la función no está definida en ese punto, algo que ningún polinomio puede tener.\n\nEl error típico es pensar que cualquier comportamiento inusual del gráfico (muchas raíces, varios extremos) descarta la familia polinómica; lo único que realmente la excluye es una discontinuidad como una asíntota.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -815,13 +1045,18 @@
     "question": "La función $p(x) = x^4 - 2x^2 + 1$ cumple $p(-x) = p(x)$ para todo $x$.\n\n¿Cómo se clasifica ese comportamiento?",
     "options": [
       "Función impar",
-      "Función par",
       "Función creciente",
-      "Función periódica"
+      "Función periódica",
+      "Función par"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "feedback_correct": "$p(-x) = p(x)$: simetría respecto al eje $y$. Se llama **función par**.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Una función impar cumpliría $f(-x)=-f(x)$; acá se cumple $p(-x)=p(x)$, la condición de una función par.",
+      "El hecho de que $p(-x)=p(x)$ no dice nada sobre si la función crece o decrece; describe simetría, no monotonía.",
+      "$p(-x)=p(x)$ describe simetría respecto al eje $y$, no una repetición de valores en intervalos regulares como en una función periódica.",
+      null
+    ],
     "explanation": "$p(-x) = (-x)^4 - 2(-x)^2 + 1 = x^4 - 2x^2 + 1 = p(x)$ ✓\n\nEsto significa que la gráfica es **simétrica respecto al eje $y$**: la mitad derecha es el espejo de la izquierda.\n\nUna función que cumple $f(-x) = f(x)$ se llama **función par** (los polinomios pares solo tienen potencias de grado par: $x^0, x^2, x^4, \\ldots$).\n\nContraste: función **impar** cumple $f(-x) = -f(x)$, con simetría respecto al origen.",
     "has_math": true,
     "graph_fn": null,
@@ -838,8 +1073,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "El mínimo global es $-3$: la función nunca baja de ahí. Imagen $= [-3, +\\infty)$.",
-    "feedback_incorrect": "",
-    "explanation": "Grado par ($4$), coef. positivo → ambos extremos a $+\\infty$ → hay un **mínimo global**.\n\nDado que el mínimo global es $f(1) = -3$:\n- La función nunca toma valores menores que $-3$.\n- Toma el valor $-3$ (en $x = 1$) y valores arbitrariamente grandes.\n\nImagen $= [-3, +\\infty)$: el $-3$ se incluye (corchete cerrado, porque sí se alcanza).",
+    "feedback_incorrect": [
+      "Esa cota describiría un **máximo** global, propio de coeficiente principal negativo; acá el coeficiente es positivo, así que hay un mínimo.",
+      null,
+      "$\\mathbb{R}$ sería la imagen si el grado fuera impar; acá el grado es par (4) y hay un mínimo global que acota la imagen.",
+      "La función toma muchos más valores que ese único punto; $-3$ es solo el mínimo, no el único valor de la imagen."
+    ],
+    "explanation": "Un polinomio de grado par con coeficiente principal positivo tiene ambos extremos apuntando hacia $+\\infty$, lo que garantiza la existencia de un mínimo global.\n\nSi ese mínimo global vale $f(1)=-3$, la función nunca toma valores menores que $-3$ pero sí alcanza valores arbitrariamente grandes hacia arriba. Eso da una **imagen** $[-3,+\\infty)$, con el $-3$ incluido porque efectivamente se alcanza en $x=1$.\n\nLa confusión habitual es tratar el mínimo global como si fuera el único valor posible, o dejarlo afuera de la imagen con un intervalo abierto; el valor mínimo sí forma parte de la imagen porque la función lo alcanza.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,8 +1095,13 @@
     ],
     "correct_index": 0,
     "feedback_correct": "Tres factores lineales → grado 3 y tres raíces: $x=1$, $x=-2$, $x=3$.",
-    "feedback_incorrect": "",
-    "explanation": "La forma factorizada $f(x) = (x-1)(x+2)(x-3)$ muestra directamente:\n\n- **Raíces**: $x = 1$, $x = -2$, $x = 3$ — todas simples.\n- **Grado**: al multiplicar los factores, el término dominante es $x \\cdot x \\cdot x = x^3$. Grado $= 3$.\n\nEl grado del producto de factores lineales es la cantidad de factores. Tres factores lineales → grado 3.",
+    "feedback_incorrect": [
+      null,
+      "El grado de un producto de tres factores lineales es 3, no 6: se suman los grados de cada factor, uno por cada factor.",
+      "Los tres factores dan tres raíces distintas ($x=1$, $x=-2$, $x=3$), no una sola.",
+      "El producto de tres factores lineales tiene grado 3 y aporta tres raíces, no dos."
+    ],
+    "explanation": "La forma **factorizada** de un polinomio muestra directamente sus raíces: cada factor $(x-r)$ aporta una raíz en $x=r$, y el grado total es la cantidad de factores lineales multiplicados.\n\nEn $f(x) = (x-1)(x+2)(x-3)$ hay tres factores lineales, así que el grado es 3, y las raíces son $x=1$, $x=-2$ y $x=3$, todas simples porque cada factor aparece una sola vez. Al multiplicar los tres factores, el término dominante es $x \\cdot x \\cdot x = x^3$.\n\nEl error típico es sumar mal la cantidad de factores o de raíces, sobre todo cuando hay signos que confunden: conviene contar los paréntesis uno por uno antes de concluir el grado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -872,8 +1117,13 @@
     ],
     "correct_index": 1,
     "feedback_correct": "Toca sin cruzar → raíz doble en $x=0$. Cruza normalmente → raíz simple en $x=3$.",
-    "feedback_incorrect": "",
-    "explanation": "El comportamiento de la curva al pasar por una raíz indica su multiplicidad:\n\n- **Toca el eje sin cruzarlo** en $x = 0$: la curva rebota → raíz de multiplicidad **par** → **raíz doble**.\n- **Cruza el eje** en $x = 3$: la curva cambia de signo → raíz de multiplicidad **impar** → **raíz simple**.\n\nUn polinomio posible: $p(x) = x^2(x-3)$ — raíz doble en $0$ y simple en $3$, grado 3.",
+    "feedback_incorrect": [
+      "Tocar el eje sin cruzarlo es la marca de una raíz de multiplicidad par (doble), no simple; y cruzar normalmente es la marca de una raíz simple, no doble: los roles están invertidos.",
+      null,
+      "Si ambas fueran simples, la curva cruzaría el eje en los dos puntos; pero en $x=0$ la curva solo toca el eje sin cruzarlo.",
+      "Si ambas fueran dobles, la curva tocaría el eje sin cruzarlo en los dos puntos; pero en $x=3$ sí cruza."
+    ],
+    "explanation": "La multiplicidad de una raíz se lee en cómo la curva atraviesa el eje $x$: si lo cruza cambiando de signo, la raíz es simple (multiplicidad impar); si solo lo toca y rebota sin cruzar, la raíz tiene multiplicidad par, la más simple de las cuales es la raíz doble.\n\nEn este gráfico, la curva toca el eje en $x=0$ sin cruzarlo, así que ahí hay una raíz doble, y cruza normalmente en $x=3$, donde la raíz es simple. Un polinomio con ese comportamiento es $p(x) = x^2(x-3)$, de grado 3.\n\nEl error más común es invertir los roles y suponer que tocar sin cruzar es la raíz simple; conviene recordar que 'tocar y rebotar' señala multiplicidad par, mientras que 'cruzar' señala multiplicidad impar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

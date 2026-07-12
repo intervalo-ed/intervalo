@@ -1,0 +1,302 @@
+[
+  {
+    "question": "Antes de racionalizar un límite, hay que reconocer el **conjugado** de la expresión con raíz.\n\n¿Cuál es el conjugado de $\\sqrt{x+4} - 2$?",
+    "options": [
+      "$\\sqrt{x+4}+2$",
+      "$\\sqrt{x-4}+2$",
+      "$(x+4)+2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El conjugado invierte el signo entre los dos términos externos, sin tocar el signo de adentro de la raíz.",
+    "feedback_incorrect": [
+      null,
+      "Fijate en el signo que está dentro de la raíz: ese queda igual al armar el conjugado, el cambio de signo ocurre solo entre los dos términos de afuera.",
+      "El conjugado conserva la raíz intacta; lo que desaparece surge recién después de multiplicar y aplicar la diferencia de cuadrados."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nEl error más común es tocar el signo de adentro de la raíz en lugar del signo entre los términos externos: conviene revisar ese detalle antes de multiplicar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el conjugado de $\\sqrt{x+9} + 5$?",
+    "options": [
+      "$\\sqrt{x-9}+5$",
+      "$\\sqrt{x+9}-5$",
+      "$(x+9)-5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El conjugado solo invierte el signo entre los dos términos externos: la raíz queda intacta y el signo interno no se toca.",
+    "feedback_incorrect": [
+      "El radicando dentro de la raíz no se altera al armar el conjugado, ahí el signo tiene que quedar igual que en la expresión original.",
+      null,
+      "El conjugado mantiene la raíz sin resolver; lo que se cancela aparece después de aplicar la diferencia de cuadrados, no antes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nUn desliz típico es cambiar el signo dentro de la raíz en vez del signo externo: conviene chequear cuál de los dos signos corresponde modificar antes de avanzar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el conjugado de $\\sqrt{2x+1} - 3$?",
+    "options": [
+      "$(2x+1)+3$",
+      "$\\sqrt{2x-1}+3$",
+      "$\\sqrt{2x+1}+3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Solo cambia el signo entre los dos términos externos; la raíz y su contenido se mantienen exactamente igual.",
+    "feedback_incorrect": [
+      "El conjugado conserva la raíz tal cual; lo que se cancela sale recién después de multiplicar y aplicar la diferencia de cuadrados.",
+      "El signo dentro del radicando no se toca al armar el conjugado, ese permanece igual que en la expresión original.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nConfundir el signo interno con el externo es el error más frecuente en este paso: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el conjugado de $\\sqrt{x-5} - 4$?",
+    "options": [
+      "$\\sqrt{x-5}+4$",
+      "$\\sqrt{x+5}+4$",
+      "$(x-5)+4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El radicando $x-5$ se mantiene igual, únicamente se invierte el signo entre los dos términos externos.",
+    "feedback_incorrect": [
+      null,
+      "El signo dentro de la raíz no cambia al construir el conjugado, tiene que quedar igual que en la expresión de partida.",
+      "El conjugado no elimina la raíz, la mantiene intacta hasta que se aplica la diferencia de cuadrados en el producto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjugado** de una expresión $\\sqrt{u} - c$ cambia únicamente el signo entre los dos términos externos, respetando el radicando $u$ sin modificaciones.\n$$\\sqrt{x-5} - 4 \\;\\to\\; \\sqrt{x-5} + 4$$\nEsa construcción es la que habilita, al multiplicar, la **diferencia de cuadrados** $(x-5) - 16$, clave para romper la raíz y poder simplificar.\n\nSi el radicando cambia de signo al armar el conjugado, el resultado ya no sirve para cancelar la raíz original: conviene comparar ambos radicandos antes de seguir.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el conjugado de $\\sqrt{3x+2} + 1$?",
+    "options": [
+      "$\\sqrt{3x-2}-1$",
+      "$(3x+2)-1$",
+      "$\\sqrt{3x+2}-1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Se invierte el signo entre los dos términos externos y el radicando $3x+2$ queda sin cambios.",
+    "feedback_incorrect": [
+      "El radicando debe permanecer igual: el cambio de signo ocurre entre los dos términos externos, no en el de adentro de la raíz.",
+      "La raíz no se resuelve al armar el conjugado, se mantiene hasta multiplicar y aplicar la diferencia de cuadrados.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Armar el **conjugado** de $\\sqrt{u} + c$ consiste en invertir solo el signo entre los dos términos externos, dejando el radicando $u$ exactamente igual.\n$$\\sqrt{3x+2} + 1 \\;\\to\\; \\sqrt{3x+2} - 1$$\nMultiplicar por este conjugado produce la **diferencia de cuadrados** $(3x+2) - 1$, que ya no tiene raíces y permite continuar con la simplificación.\n\nUna confusión típica es invertir el signo del radicando en lugar del externo: conviene siempre chequear que ambos radicandos, el original y el del conjugado, coincidan.",
+    "reviewed": false
+  },
+  {
+    "question": "La **identidad fundamental** de la racionalización dice que, al multiplicar una raíz por su conjugado, la raíz desaparece.\n\n¿A qué es igual $(\\sqrt{u} - c)(\\sqrt{u} + c)$?",
+    "options": [
+      "$u - c^2$",
+      "$u - 2c\\sqrt{u} + c^2$",
+      "$u + c^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto de una raíz por su conjugado es siempre una diferencia de cuadrados: el radicando menos el cuadrado del otro término.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión corresponde al cuadrado de un binomio $(\\sqrt{u}-c)^2$, no al producto por el conjugado, que no deja ningún término con raíz.",
+      "El término $c^2$ se resta, no se suma: los términos cruzados con la raíz se cancelan entre sí, dejando $u - c^2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **identidad fundamental** de la racionalización establece que el producto de una expresión con raíz por su **conjugado** siempre da una **diferencia de cuadrados**.\n$$(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$$\nLos términos cruzados $c\\sqrt{u}$ y $-c\\sqrt{u}$ se cancelan entre sí, y solo sobrevive el radicando menos el cuadrado del otro término.\n\nEsta identidad se confunde con frecuencia con el cuadrado de un binomio, que sí conserva un término con raíz: la clave para distinguirlas es que acá los signos entre los términos son opuestos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale el producto $(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3)$?",
+    "options": [
+      "$x+6$",
+      "$x$",
+      "$x+18$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Aplicando la diferencia de cuadrados, $(x+9) - 9 = x$.",
+    "feedback_incorrect": [
+      "Ahí se restó $3$ en vez de $3^2 = 9$: la identidad pide restar el cuadrado del segundo término, no el término tal cual.",
+      null,
+      "Ese resultado suma $9$ en vez de restarlo: la diferencia de cuadrados resta el cuadrado del segundo término, no lo suma."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n$$(\\sqrt{x+9} - 3)(\\sqrt{x+9} + 3) = (x+9) - 3^2 = (x+9) - 9 = x$$\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nUn error frecuente es restar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale el producto $(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4)$?",
+    "options": [
+      "$x+32$",
+      "$x+8$",
+      "$x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Con $u = x+16$ y $c=4$, la diferencia de cuadrados da $(x+16) - 16 = x$.",
+    "feedback_incorrect": [
+      "Ese resultado suma $16$ en vez de restarlo: la identidad resta el cuadrado del segundo término, no lo suma.",
+      "Ahí se restó $4$ en lugar de $4^2 = 16$: hay que elevar al cuadrado el segundo término antes de restar.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **diferencia de cuadrados** aplicada a $\\sqrt{u} - c$ y su conjugado da $u - c^2$, acá con $u = x+16$ y $c=4$.\n$$(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4) = (x+16) - 4^2 = x$$\nComo en toda aplicación de esta identidad, el resultado queda libre de raíces apenas se resuelve el cuadrado del segundo término.\n\nConviene siempre identificar primero quién es $u$ y quién es $c$ antes de operar, para no restar el valor sin elevarlo al cuadrado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Qué producto de conjugados da como resultado $x - 25$?",
+    "options": [
+      "$(\\sqrt{x}-5)(\\sqrt{x}+5)$",
+      "$(\\sqrt{x}-5)(\\sqrt{x}-5)$",
+      "$(\\sqrt{x}+5)(\\sqrt{x}+5)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Con $u=x$ y $c=5$, la diferencia de cuadrados da exactamente $x - 25$.",
+    "feedback_incorrect": [
+      null,
+      "Multiplicar la expresión por sí misma, sin invertir el signo, da el cuadrado del binomio, no la diferencia de cuadrados.",
+      "Con los dos signos iguales el producto vuelve a ser un cuadrado del binomio, no una diferencia de cuadrados."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reconocer la **identidad fundamental** en sentido inverso ayuda a identificar qué conjugados generan un resultado dado. Acá $x - 25$ tiene la forma $u - c^2$ con $u=x$ y $c=5$.\n$$(\\sqrt{x}-5)(\\sqrt{x}+5) = x - 25$$\nSolo el producto con signos opuestos entre los términos externos produce esa **diferencia de cuadrados**; con signos iguales se obtiene un cuadrado del binomio, que conserva un término con raíz.\n\nPracticar esta lectura inversa ayuda a reconocer rápido el conjugado correcto en un límite nuevo, antes incluso de multiplicar.",
+    "reviewed": false
+  },
+  {
+    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$, que da la **indeterminación** $\\tfrac{0}{0}$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
+    "options": [
+      "Racionalizar",
+      "Factorizar",
+      "Sustitución directa"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sin raíces en la expresión, corresponde aplicar la técnica de factoreo sobre el polinomio del tópico anterior.",
+    "feedback_incorrect": [
+      "La racionalización se reserva para expresiones con raíz cuadrada, y acá el cociente es puramente polinómico.",
+      null,
+      "La sustitución directa en $x=3$ da $\\tfrac{0}{0}$, así que hace falta transformar la expresión antes de evaluar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Diagnosticar la técnica correcta empieza por revisar dos cosas: si aparece **indeterminación** al sustituir y si la expresión tiene alguna raíz cuadrada.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\nAl sustituir $x=3$ se obtiene $\\tfrac{0}{0}$, pero como no hay ninguna raíz en el cociente, la indeterminación se resuelve factorizando el polinomio del numerador, no racionalizando.\n\nLa racionalización solo entra en juego cuando la indeterminación viene acompañada de al menos una raíz cuadrada en la expresión.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$, que da la indeterminación $\\tfrac{0}{0}$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
+    "options": [
+      "Sustitución directa",
+      "Indeterminación no resoluble",
+      "Racionalizar"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Con una raíz cuadrada presente y $\\tfrac{0}{0}$ al sustituir, corresponde multiplicar por el conjugado.",
+    "feedback_incorrect": [
+      "Sustituir $x=0$ directamente da $\\tfrac{0}{0}$, así que hace falta transformar la expresión antes de poder evaluarla.",
+      "El límite sí tiene solución: la indeterminación con raíz cuadrada se resuelve con la técnica del conjugado, no queda sin resolver.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El diagnóstico combina dos señales: la **indeterminación** $\\tfrac{0}{0}$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+1}-1}{x}$$\nAl sustituir $x=0$ se obtiene $\\tfrac{0}{0}$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**: multiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
+    "reviewed": false
+  },
+  {
+    "question": "Para $\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$, ¿qué técnica corresponde aplicar?",
+    "options": [
+      "Racionalizar",
+      "Factorizar",
+      "Sustitución directa"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Sustituyendo $x=2$ se obtiene un valor finito, $\\tfrac{3}{3}=1$, sin ninguna indeterminación que resolver.",
+    "feedback_incorrect": [
+      "No hay ninguna indeterminación al sustituir, así que no hace falta multiplicar por ningún conjugado.",
+      "El cociente ya da un valor finito al sustituir, no hay ninguna indeterminación que factorizar.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con $\\tfrac{0}{0}$; si ya da un número, ese número es directamente el límite.",
+    "reviewed": false
+  },
+  {
+    "question": "Al racionalizar, se multiplica tanto el numerador como el denominador por el **conjugado**.\n\n¿Por qué no alcanza con multiplicar solo el numerador?",
+    "options": [
+      "Porque el denominador nunca tiene raíces que romper",
+      "Para no alterar la función, ya que equivale a multiplicar por $1$",
+      "Porque así se elimina la variable $x$ del límite"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Multiplicar arriba y abajo por el mismo conjugado equivale a multiplicar por $1$, así la función original no cambia.",
+    "feedback_incorrect": [
+      "El denominador puede o no tener raíz, pero esa no es la razón por la que hace falta multiplicarlo también.",
+      null,
+      "El objetivo no es eliminar la variable $x$, sino romper la raíz y dejar libre el factor que se puede cancelar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjugado** se multiplica arriba y abajo porque la fracción $\\tfrac{\\text{conjugado}}{\\text{conjugado}}$ es igual a $1$.\n$$\\frac{f(x)}{g(x)} \\cdot \\frac{\\text{conjugado}}{\\text{conjugado}} = \\frac{f(x)}{g(x)}$$\nMultiplicar por $1$ transforma la forma de la expresión sin cambiar su valor, lo que permite reescribirla hasta que la **indeterminación** desaparezca.\n\nSi se multiplicara solo el numerador, la función dejaría de ser la misma, y el límite calculado ya no correspondería al original.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál es el objetivo de multiplicar por el conjugado en un límite con raíz cuadrada?",
+    "options": [
+      "Cambiar el valor al que tiende $x$",
+      "Liberar el factor $(x-a)$ para poder cancelarlo",
+      "Eliminar la indeterminación sin cancelar ningún factor"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El objetivo es romper la raíz mediante la diferencia de cuadrados para que aparezca un factor cancelable.",
+    "feedback_incorrect": [
+      "El valor al que tiende $x$ es un dato fijo del enunciado, la racionalización no lo modifica en ningún paso.",
+      null,
+      "La indeterminación se resuelve justamente cancelando el factor común que queda libre tras romper la raíz, no de otra forma."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar por el **conjugado** rompe la raíz mediante la **diferencia de cuadrados**, lo que deja expuesto un factor común con el denominador.\n$$\\frac{(\\sqrt{u}-c)(\\sqrt{u}+c)}{(x-a)(\\sqrt{u}+c)} = \\frac{u-c^2}{(x-a)(\\sqrt{u}+c)}$$\nSi $u - c^2$ resulta múltiplo de $(x-a)$, ese factor se cancela y la **indeterminación** desaparece antes de sustituir.\n\nSin esa cancelación, sustituir directamente seguiría dando $\\tfrac{0}{0}$: el conjugado es un medio para llegar al factor cancelable, no un fin en sí mismo.",
+    "reviewed": false
+  },
+  {
+    "question": "Si al racionalizar se multiplica solo el numerador por el conjugado, sin tocar el denominador, ¿qué ocurre?",
+    "options": [
+      "El límite da siempre $0$",
+      "La raíz desaparece igual, sin alterar nada más",
+      "Se modifica la función original, porque ya no se multiplicó por $1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Multiplicar solo una parte de la fracción cambia su valor, porque deja de ser una multiplicación por $1$.",
+    "feedback_incorrect": [
+      "El resultado del límite depende de la expresión, multiplicar mal el conjugado no fuerza que dé cero.",
+      "Sí se altera algo más: al no dividir por el mismo conjugado, la fracción entera deja de ser equivalente a la original.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n$$\\frac{f(x) \\cdot \\text{conjugado}}{g(x)} \\neq \\frac{f(x)}{g(x)}$$\nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste es un error grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
+    "reviewed": false
+  }
+]
