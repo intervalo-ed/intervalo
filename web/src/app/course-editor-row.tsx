@@ -37,7 +37,7 @@ function ActionButton({
   icon: ReactNode
   label: string
   title: string
-  description: string
+  description: ReactNode
   confirmLabel: string
   onConfirm: () => void
 }) {
@@ -127,7 +127,13 @@ export function CourseEditorRow({
             icon={<PlayIcon className="size-3.5" />}
             label={`Adelantar ${label}`}
             title="¿Adelantar este tema?"
-            description="Los ejercicios de este tema van a aparecer en tus sesiones de repaso. Podés revertir esto usando la opción de Suspender."
+            description={
+              <>
+                Los ejercicios de este tema van a aparecer en tus sesiones de
+                repaso. Podés revertir esto usando la opción de{" "}
+                <em className="italic">suspender</em>.
+              </>
+            }
             confirmLabel="Adelantar"
             onConfirm={onAdvance}
           />
