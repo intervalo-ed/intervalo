@@ -2535,6 +2535,16 @@
             "type": "string",
             "title": "Id"
           },
+          "external_id": {
+            "type": "string",
+            "title": "External Id",
+            "default": ""
+          },
+          "exercise_type": {
+            "type": "string",
+            "title": "Exercise Type",
+            "default": ""
+          },
           "question": {
             "type": "string",
             "title": "Question"
@@ -2643,6 +2653,11 @@
           "total": {
             "type": "integer",
             "title": "Total"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": "main"
           },
           "exercises": {
             "items": {
@@ -2813,6 +2828,21 @@
               }
             ],
             "title": "Course"
+          },
+          "shuffle": {
+            "type": "boolean",
+            "title": "Shuffle",
+            "default": true
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TestFilters"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2885,6 +2915,22 @@
           "correct"
         ],
         "title": "SummaryItem"
+      },
+      "TestFilters": {
+        "properties": {
+          "has_math": {
+            "type": "boolean",
+            "title": "Has Math",
+            "default": false
+          },
+          "has_graph": {
+            "type": "boolean",
+            "title": "Has Graph",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "TestFilters"
       },
       "TestSessionItem": {
         "properties": {

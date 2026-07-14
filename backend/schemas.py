@@ -223,6 +223,8 @@ class LeaderboardSummaryResponse(BaseModel):
 
 class SessionExercise(BaseModel):
     id: str
+    external_id: str = ""
+    exercise_type: str = ""
     question: str
     options: list[str]
     correct_index: int
@@ -240,6 +242,7 @@ class SessionStartResponse(BaseModel):
     session_id: str
     user_name: str
     total: int
+    mode: str = "main"
     exercises: list[SessionExercise]
 
 

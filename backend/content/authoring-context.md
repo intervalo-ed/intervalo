@@ -16,7 +16,9 @@ Estas siete reglas son las que más se violan y las que más rompen el render o 
 4. **Si una opción lleva glosa aclaratoria, todas las opciones la llevan.** Si la correcta dice `$\{1,2,3,4\}$, las cantidades de bochas` y otra dice solo `$\{600,1200\}$`, se delata la respuesta.
 5. **Sin adjetivos decorativos en enunciados** ("moderno", "automatizado", "eficiente"). Redacción al grano.
 6. **NUNCA usar guion largo `—` (em-dash, U+2014) en ningún campo del ejercicio.** Ni en `question`, `options`, `feedback_correct`, `feedback_incorrect` o `explanation`. Usá `,` (coma), `:` (dos puntos), `;` (punto y coma) o `.` (punto) según corresponda. El guion medio `–` también prohibido en prosa (salvo rangos numéricos "2–4"). Solo el guion `-` común es válido, y solo uniendo palabras compuestas.
-7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la regla se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la función se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+8. **"Función", nunca "regla", para nombrar el objeto matemático.** "Regla" se reserva para procedimientos con nombre propio ("regla del producto", "regla de la cadena"). Ver *Vocabulario: términos prohibidos y su reemplazo formal*.
+9. **Nunca cortar una oración a la mitad para insertar una fórmula display en el medio.** El fragmento antes de `$$...$$` debe cerrar en un signo de puntuación válido (`.` o `:`), no continuar la misma oración después de la fórmula. Ver *Sin preámbulos colgantes* más abajo.
 
 ---
 
@@ -90,7 +92,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 **Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4 && options.every(o => o.length <= 35)`. Aprovechá el compactado siempre que la respuesta lo permita.
 
-**Precedente:** unicidad en `CLSF` reformulada como "¿esta regla cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
+**Precedente:** unicidad en `CLSF` reformulada como "¿esta función cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
 
 ---
 
@@ -214,7 +216,7 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 
 - **Sin paréntesis para aclaraciones en el enunciado.** Si una aclaración es imprescindible, integrala como oración propia. No la resuelvas con muletillas "es decir…" / "o sea…" / "esto es…" (prohibidas en `question`, ver *Preguntas directas* más abajo) ni con guion (em-dash y en-dash prohibidos, ver regla crítica 6). Los `:` de notación matemática sí van, pero dentro de LaTeX.
 - **Evitá dos puntos `:` en la prosa del cuerpo**: preferir `.` o `,`. **Excepción**: un `:` de cierre para introducir una fórmula display es válido y recomendado (`Consideremos la función:` antes de `$$...$$`), ver *Sin preámbulos colgantes* más abajo.
-- **"transforma"**: referirse a la función como "la regla que transforma [entradas] en [salidas]". NUNCA usar la flecha `A → B` en prosa (solo en la fórmula centrada).
+- **Terminología: "función", nunca "regla".** Referirse siempre al objeto matemático como "la función" (nunca "la regla" ni "la regla matemática"). "Regla" queda reservada para nombrar procedimientos con nombre propio ("regla del producto", "regla de la cadena", "regla de derivación"), nunca como sinónimo genérico de función. Para describir el mecanismo: "la función transforma [entradas] en [salidas]". NUNCA usar la flecha `A → B` en prosa (solo en la fórmula centrada).
 - **Situación cotidiana concreta + pregunta puntual** (no "¿qué significa X?").
 - **Estructura de embudo invertido**: contexto liviano → objeto matemático aislado en `$$` → restricción/pregunta final. Cada capa reduce en volumen pero aumenta en abstracción.
 - **Contexto y pregunta en párrafos separados**: cuando el enunciado tiene una oración de contexto seguida de la pregunta, separarlas con `\n\n`.
@@ -224,10 +226,13 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
   - ❌ `Entre dos parábolas, ¿cuál se ve más abierta?`
   - ✅ `Considerá las dos parábolas\n$$p(x) = 0{,}2x^2 - 3$$\n$$q(x) = 4x^2 - 3$$\n¿Cuál de las dos se ve más abierta?`
 - **Sin preámbulos colgantes antes de una fórmula display**: prohibido abrir el enunciado con un fragmento de 1-3 palabras sin verbo, seguido de un `$$...$$`. Queda un texto suelto arriba del bloque que no cierra ninguna idea. Reescribí con una frase completa que introduzca la fórmula.
-  - ❌ `La regla\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
+  - ❌ `La función\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
   - ✅ `Una función racional está dada por\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
   - ✅ `Considerá la función\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
-  - Fragmentos aceptables antes de `$$`: frases que terminan en `:` (`Consideremos la función:`), imperativas cortas con verbo (`Analizá la función`), o frases descriptivas completas (`Una función lineal modela el costo`). Sustantivos sueltos como `La regla`, `La función`, `El modelo` no cuentan como frase.
+  - Fragmentos aceptables antes de `$$`: frases que terminan en `:` (`Consideremos la función:`), imperativas cortas con verbo (`Analizá la función`), o frases descriptivas completas (`Una función lineal modela el costo`). Sustantivos sueltos como `La función`, `El modelo` no cuentan como frase.
+  - **Nunca cortar una oración a la mitad para meter la fórmula en el medio.** El texto antes del `$$` tiene que cerrar como unidad (punto o dos puntos), y lo que sigue después de la fórmula empieza como oración nueva; no puede ser la continuación gramatical de la misma oración que la fórmula interrumpió.
+    - ❌ `El costo total depende de la cantidad producida según\n$$C(q) = 500 + 10q$$\ny se mide en pesos.` (la oración "depende... según... y se mide en pesos" queda partida a la mitad por la fórmula)
+    - ✅ `El costo total depende de la cantidad producida según la siguiente expresión.\n$$C(q) = 500 + 10q$$\nSe mide en pesos.`
 - **Preguntas directas, sin muletillas de aclaración**: prohibido colgar "es decir…", "o sea…", "esto es…" después de la pregunta principal para reformularla en palabras simples. Si la primera formulación es clara, la aclaración sobra; si no es clara, reescribí la primera formulación directamente. Las muletillas de aclaración regalan la respuesta o inflan el enunciado sin agregar información.
   - ❌ `¿Cuál es la preimagen del 0, es decir qué número entra para que salga 0?`
   - ✅ `¿Cuál es la preimagen del 0?`
@@ -266,10 +271,35 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
   - ❌ `$$I(p) = p(80 + 4(10 - p)) = p(120 - 4p)$$`
   - ✅ `$$I(p) = 120p - 4p^2$$`
 - **Opciones "Otra/Otra2/Otra3"**: marcador de ejercicio incompleto. Nunca reseedear con opciones placeholder.
+- **Notación consistente dentro de un mismo `options`**: todas las opciones de un ítem comparten el mismo registro. Si una opción usa notación simbólica/LaTeX (un conjunto, $\mathbb{R}$, una condición), ninguna otra puede ser una frase de prosa libre.
+  - ❌ `["Cualquier precio entre 1000 y 2000", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]` (la primera desentona, rompe el registro simbólico de las otras tres)
+  - ✅ `["$[1000, 2000]$", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]`
+  - ❌ `["$a \\geq 0$", "Todos los reales", "$a \\neq 0$", "$a > 100$"]`
+  - ✅ `["$a \\geq 0$", "$\\mathbb{R}$", "$a \\neq 0$", "$a > 100$"]`
+  - ❌ `["$\\{2, 3, \\dots, 10\\}$", "El conjunto de alumnos"]` (mezcla notación de conjunto con descripción textual del rol)
+  - ✅ describir el otro conjunto también en notación de conjunto (`$\\{\\text{alumnos}\\}$`) o, si no es representable en esa notación, reformular todas las opciones en prosa pareja.
 - **Nunca mezcles decimales con coma dentro de conjuntos.** En español los decimales se escriben con coma (`4,3`) y los conjuntos separan elementos con coma (`{a, b, c}`). Si mezclás ambos en la misma opción, se vuelve ilegible: `$\{4{,}3, 6{,}7, 6{,}2\}$` parece un conjunto de 6 números, no de 3 decimales.
   - ❌ `$\{4{,}3, 6{,}7, 6{,}2, 8{,}8, 8{,}1\}$` (¿5 decimales o 10 enteros?).
   - ✅ Elegí valores enteros para la función. Si el ejercicio requiere colapso o repetición de valores, usá contextos con salidas naturales enteras (precios en pesos, cantidades, puntos, edades) en vez de forzar decimales.
   - Si es indispensable usar decimales dentro de un conjunto, usar punto (`4.3`) o separar visualmente con punto y coma (`$\{4{,}3;\; 6{,}7;\; 6{,}2\}$`). Preferí evitar la situación antes que resolverla con puntuación exótica.
+
+---
+
+## Vocabulario: términos prohibidos y su reemplazo formal
+
+Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`, `feedback_correct`, `feedback_incorrect` y `explanation`.
+
+| Prohibido | Reemplazo |
+|-----------|-----------|
+| "regla" / "regla matemática" (como sinónimo de función) | "función" (ver *Terminología* en Redacción del enunciado) |
+| "escupir" (la función escupe un valor) | "dar como resultado", "producir" |
+| "fabricar" (fabricar una función/regla) | "definirse", "construirse" |
+| "aterrizan" (los valores aterrizan en...) | reformular sin metáfora: "llegan a", "caen en", o directo "son" |
+| "procesa valores" | "transforma [entradas] en [salidas]" |
+| "salida matemática" | "salida", "el valor de la función" |
+| "error habitual" (como cierre de `explanation`) | "una confusión común", "un error común" (tono empático, no de diagnóstico clínico) |
+
+**Regla general:** si una palabra o metáfora no aparece en el resto del documento como convención aceptada, y suena coloquial o jergosa, no se usa. Ante la duda, preferir la formulación más simple y neutra en vez de la más "creativa".
 
 ---
 
@@ -318,6 +348,12 @@ Cada campo `explanation` sigue una estructura de **tres partes**:
    ```
 3. **Cierre útil** (cuando aporte): por defecto, una oración que advierte sobre la **confusión o el error típico** del concepto, o da un **consejo práctico** para no volver a caer, en voz neutra. El humor es **excepcional**: solo si surge naturalmente una **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal, nunca antropomorfismos ni un chiste externo. Si no hay una advertencia pertinente ni una analogía que cierre bien, terminá en la aplicación: un cierre forzado resta.
 
+**Nunca cortar una oración a la mitad para insertar una fórmula display en el medio** (misma regla que en *Redacción del enunciado* → *Sin preámbulos colgantes*, aplica igual acá): el texto antes del `$$` cierra en punto o dos puntos, y lo que sigue después empieza como oración nueva.
+
+**Un párrafo, una oración.** Dentro de cada una de las tres partes, si hace falta más de una oración, cada oración va en su propio párrafo (separado por `\n\n`). Nunca dos oraciones completas juntas en el mismo párrafo.
+- ❌ `Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés. Es un error habitual confundir ambos conceptos.` (dos oraciones en un mismo párrafo)
+- ✅ `Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés.\n\nConfundir ambos conceptos es una confusión común.`
+
 **Extensión mínima:** las tres partes juntas deben superar los 250 caracteres. Una sola oración de resultado no es una explicación. Cuando el cierre no va, compensá con más detalle en el concepto o la aplicación.
 
 **Errores frecuentes:**
@@ -346,6 +382,10 @@ Cinco NUNCA y cinco SIEMPRE. Están duplicadas arriba a propósito, para que tam
 - NUNCA usar nombres propios (usar roles genéricos).
 - NUNCA inflar el enunciado con adjetivos decorativos.
 - NUNCA meter antropomorfismos ni chistes externos; el cierre es advertencia/consejo, y el humor (excepcional) va como analogía cotidiana formal.
+- NUNCA decir "regla" por "función" (salvo nombre propio: "regla del producto", "regla de la cadena").
+- NUNCA cortar una oración a la mitad para meter una fórmula display en el medio; el fragmento antes cierra en punto o dos puntos, y lo que sigue después es oración nueva.
+- NUNCA mezclar registro de notación dentro de un mismo `options` (una opción en prosa libre y otras en notación simbólica/LaTeX).
+- NUNCA usar vocabulario informal ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual"); ver *Vocabulario: términos prohibidos*.
 
 **SIEMPRE:**
 - SIEMPRE `\n\n` entre contexto y pregunta.
@@ -353,3 +393,4 @@ Cinco NUNCA y cinco SIEMPRE. Están duplicadas arriba a propósito, para que tam
 - SIEMPRE `**dominio**`, `**imagen**`, `**codominio**`, `**preimagen**`, `**unicidad**` en su primera mención en `question` y en `explanation`.
 - SIEMPRE `feedback_incorrect` como array del mismo largo que `options`, con `null` en el índice correcto.
 - SIEMPRE `\$` para pesos (en JSON: `\\$`).
+- SIEMPRE una oración por párrafo dentro de `explanation` (separar con `\n\n` si hace falta una segunda oración en la misma parte).

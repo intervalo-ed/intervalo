@@ -45,12 +45,15 @@ function allItems(): TestItem[] {
   return out
 }
 
-export default function ZentestConfig() {
+export default function TestConfig() {
   const router = useRouter()
   const startTest = useStartTest()
 
   const items = useMemo(allItems, [])
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [shuffle, setShuffle] = useState(true)
+  const [onlyMath, setOnlyMath] = useState(false)
+  const [onlyGraph, setOnlyGraph] = useState(false)
 
   function toggle(it: TestItem) {
     const id = itemId(it)
@@ -81,7 +84,11 @@ export default function ZentestConfig() {
   function onStart() {
     if (!canStart) return
     startTest.mutate(
-      { items: selectedItems },
+      {
+        items: selectedItems,
+        shuffle,
+        filters: { has_math: onlyMath, has_graph: onlyGraph },
+      },
       { onSuccess: (p) => router.push(`/session/${p.session_id}`) },
     )
   }
@@ -105,14 +112,41 @@ export default function ZentestConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <section className="flex flex-col gap-0.5 rounded-md border border-white/10 p-4">
-          <h2 className="font-sans text-lg font-semibold leading-tight">
-            Test de contenido
-          </h2>
-          <p className="text-sm text-foreground/60">
-            Elegí items, una skill de un tema, y la sesión incluye TODOS sus
-            ejercicios, en orden. Sin tracking de progreso.
-          </p>
+        <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
+          <div className="flex flex-col gap-0.5">
+            <h2 className="font-sans text-lg font-semibold leading-tight">
+              Test de contenido
+            </h2>
+            <p className="text-sm text-foreground/60">
+              Elegí items, una skill de un tema. Sin tracking de progreso.
+            </p>
+          </div>
+          <div className="flex flex-col gap-1.5 border-t border-white/10 pt-3 text-sm">
+            <label className="flex items-center gap-2 text-foreground/80">
+              <input
+                type="checkbox"
+                checked={shuffle}
+                onChange={(e) => setShuffle(e.target.checked)}
+              />
+              Orden aleatorio
+            </label>
+            <label className="flex items-center gap-2 text-foreground/80">
+              <input
+                type="checkbox"
+                checked={onlyMath}
+                onChange={(e) => setOnlyMath(e.target.checked)}
+              />
+              Solo ítems con LaTeX
+            </label>
+            <label className="flex items-center gap-2 text-foreground/80">
+              <input
+                type="checkbox"
+                checked={onlyGraph}
+                onChange={(e) => setOnlyGraph(e.target.checked)}
+              />
+              Solo ítems con gráfico
+            </label>
+          </div>
         </section>
 
         {BELT_ORDER.map((belt) => {

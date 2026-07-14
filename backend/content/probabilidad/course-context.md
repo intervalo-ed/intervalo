@@ -1,8 +1,8 @@
 # Curso: Probabilidad y Estadística
 
-Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `gem-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Ver `analisis/course-context.md` para el modelo completo de esta jerarquía de docs; acá se documenta lo propio de Probabilidad.
+Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `generation-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Ver `analisis/course-context.md` para el modelo completo de esta jerarquía de docs; acá se documenta lo propio de Probabilidad.
 
-> **Estado:** curso en etapa temprana. Los `gem-instructions.md` por cinturón y los `topic-context.md` por tema todavía no están escritos. Este archivo fija el alcance y el mapa de cinturones para cuando se armen.
+> **Estado:** curso en etapa temprana. Los `generation-instructions.md` por cinturón y los `topic-context.md` por tema todavía no están escritos. Este archivo fija el alcance y el mapa de cinturones para cuando se armen.
 
 ---
 
@@ -32,7 +32,7 @@ El alumno de un cinturón solo conoce lo de su cinturón y los anteriores. No us
 - **`brown` (discretas):** todo lo anterior + distribuciones discretas (binomial, Poisson, geométrica, hipergeométrica).
 - **`black` (continuas):** todo el curso disponible + distribuciones continuas (uniforme, exponencial, normal), función de densidad.
 
-> **Nota de dependencia entre cursos:** las distribuciones continuas (black) usan integrales. Si el alumno cursa Probabilidad sin haber visto integrales en Análisis, el cinturón black asume esa herramienta. Documentar en el `gem-instructions.md` de black cómo tratar la integral (dar la fórmula ya resuelta vs. pedir el cálculo).
+> **Nota de dependencia entre cursos:** las distribuciones continuas (black) usan integrales. Si el alumno cursa Probabilidad sin haber visto integrales en Análisis, el cinturón black asume esa herramienta. Documentar en el `generation-instructions.md` de black cómo tratar la integral (dar la fórmula ya resuelta vs. pedir el cálculo).
 
 ## Convenciones transversales del curso
 

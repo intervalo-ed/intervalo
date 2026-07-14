@@ -3,8 +3,17 @@
 import { Coordinates, Line, Mafs, Plot, Point, Text, usePaneContext, useTransformContext } from "mafs"
 import "mafs/core.css"
 import { compile, type EvalFunction } from "mathjs"
-import { Home, Move } from "lucide-react"
+import { Home, Info, Lock, LockOpen } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { markGraphInfoSeen, useGraphInfoUnseen } from "@/lib/nav/graph-info-seen"
 
 type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
@@ -224,10 +233,12 @@ function axisTicks(min: number, max: number, step: number): number[] {
 function GraphContent({
   fn,
   widthPx,
+  heightPx,
   piX,
 }: {
   fn: RealFn
   widthPx: number
+  heightPx: number
   piX: boolean
 }) {
   const { xPaneRange, yPaneRange } = usePaneContext()
@@ -262,8 +273,21 @@ function GraphContent({
 
   // El eje y siempre es decimal (amplitud), con su propio paso según su rango.
   // En vistas cuadradas 1:1 coincide con el de x; en sinusoides (anchas) queda
-  // con marcas decimales mientras x va en π.
-  const yStep = niceStep(yMax - yMin)
+  // con marcas decimales mientras x va en π. Misma histéresis que x (mismo
+  // problema de panes cuantizados), usando el alto en px en vez del ancho.
+  const yRange = heightPx / pxPerUnitY
+  const naturalYStep = niceStep(yRange)
+  const yStepRef = useRef(naturalYStep)
+  if (naturalYStep !== yStepRef.current) {
+    const goingUp = naturalYStep > yStepRef.current
+    const threshold = goingUp
+      ? GRID_DENSITY * yStepRef.current * 1.05
+      : GRID_DENSITY * naturalYStep * 0.95
+    if (goingUp ? yRange > threshold : yRange < threshold) {
+      yStepRef.current = naturalYStep
+    }
+  }
+  const yStep = yStepRef.current
   const ySubdivisions = niceSubdivisions(yStep)
 
   const margin = (yMax - yMin) * 0.1
@@ -382,6 +406,8 @@ export default function MathGraph({
   const fn = useMemo(() => buildFn(graphFn), [graphFn])
   const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
   const [resetKey, setResetKey] = useState(0)
+  const [locked, setLocked] = useState(true)
+  const infoUnseen = useGraphInfoUnseen()
 
   const [xmin, xmax, ymin, ymax] = toView(graphView)
 
@@ -413,39 +439,70 @@ export default function MathGraph({
     <div
       ref={wrapRef}
       className="math-graph relative overflow-hidden rounded-md border bg-white"
+      // Evita que arrastrar/pellizcar el gráfico dispare el swipe de "siguiente
+      // ejercicio" (drag="x" en el motion.div ancestro de session-runner.tsx).
+      onPointerDown={(e) => e.stopPropagation()}
     >
       <Mafs
         key={resetKey}
         height={height}
         viewBox={{ x: [xmin, xmax], y: [ymin, ymax] }}
-        pan
-        zoom={{ min: 0.3, max: 6 }}
+        pan={!locked}
+        zoom={locked ? false : { min: 0.3, max: 6 }}
       >
-        <GraphContent fn={fn} widthPx={width} piX={piX} />
+        <GraphContent fn={fn} widthPx={width} heightPx={height} piX={piX} />
       </Mafs>
 
-      <div className="pointer-events-none absolute bottom-2 right-2 flex items-center gap-1.5">
-        <Move size={13} className="text-gray-400" fill="white" />
-        <svg
-          width={13}
-          height={13}
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-gray-400"
-        >
-          <circle cx="10" cy="10" r="6" fill="white" />
-          <path d="m14.5 14.5 7 7" />
-        </svg>
+      <div className="absolute top-2 right-2 flex items-center gap-1.5">
         <button
+          type="button"
+          onClick={() => setLocked((v) => !v)}
+          className="p-1 text-gray-400 transition-colors hover:text-gray-600"
+          title={locked ? "Desbloquear (mover y hacer zoom)" : "Bloquear"}
+        >
+          {locked ? <Lock size={13} fill="white" /> : <LockOpen size={13} fill="white" />}
+        </button>
+        <button
+          type="button"
           onClick={() => setResetKey((k) => k + 1)}
-          className="pointer-events-auto p-1 text-gray-400 transition-colors hover:text-gray-600"
+          className="p-1 text-gray-400 transition-colors hover:text-gray-600"
           title="Volver al inicio"
         >
           <Home size={13} fill="white" />
         </button>
+        <Dialog>
+          <DialogTrigger
+            aria-label="Cómo mover el gráfico"
+            onClick={markGraphInfoSeen}
+            className="relative p-1 text-gray-400 outline-none transition-colors hover:text-gray-600"
+          >
+            <Info size={13} fill="white" />
+            {infoUnseen && (
+              <span
+                aria-hidden
+                className="absolute right-1 top-1 block rounded-full ring-1 ring-background"
+                style={{ width: 3, height: 3, backgroundColor: "#EC4869" }}
+              />
+            )}
+          </DialogTrigger>
+          <DialogContent className="max-h-[80vh] overflow-y-auto">
+            <DialogHeader className="gap-0.5">
+              <DialogTitle className="font-sans text-sm font-semibold text-foreground">
+                Gráficos
+              </DialogTitle>
+              <DialogDescription className="text-sm leading-relaxed text-foreground/80">
+                Tocá el <Lock size={12} className="inline align-middle" /> para desbloquear el{" "}
+                <strong className="font-semibold text-foreground">movimiento</strong> y el{" "}
+                <strong className="font-semibold text-foreground">zoom</strong> del gráfico. Volvé
+                a tocarlo para bloquearlo.
+                <br />
+                Tocá el <Home size={12} className="inline align-middle" /> para{" "}
+                <strong className="font-semibold text-foreground">restablecer</strong> la vista
+                original.
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   )

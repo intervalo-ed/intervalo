@@ -1,6 +1,6 @@
 # Agent context, aprendizajes para diseñar topic-context.md
 
-> **Audiencia:** este archivo es para el agente (Claude) que asiste al usuario en configurar `topic-context.md` de nuevos topics. **NO es para la Gem de Gemini.** La Gem tiene sus propias reglas en `gem-instructions.md`.
+> **Audiencia:** este archivo es para el agente (Claude) que asiste al usuario en configurar `topic-context.md` de nuevos topics. **NO es para la Gem de Gemini.** La Gem tiene sus propias reglas en `generation-instructions.md`.
 >
 > **Propósito:** compilar los aprendizajes de las iteraciones LEXI/definition (jun-2026) para reutilizarlos al configurar futuros topics. Cada punto acá viene de un fallo o acierto observado en un audit real, no de intuiciones.
 
@@ -10,7 +10,7 @@
 
 El pipeline es:
 1. El usuario define un `topic-context.md` con la ayuda del agente.
-2. El usuario pega el `topic-context.md` en un chat de una Gem de Gemini (ya configurada con `authoring-context.md`, `gamification-context.md`, `gem-instructions.md`).
+2. El usuario pega el `topic-context.md` en un chat de una Gem de Gemini (ya configurada con `authoring-context.md`, `gamification-context.md`, `generation-instructions.md`).
 3. La Gem devuelve `SKILL.json` + `SKILL_decisions.md`.
 4. El usuario audita, seedea, y prueba en la app.
 
@@ -29,7 +29,7 @@ No hace falta reforzarlas en el `topic-context.md`:
 - Sin nombres propios.
 - Escapado JSON correcto (después de la primera iteración fallida).
 
-Estos ya están cubiertos por `authoring-context.md` y `gem-instructions.md`. **No los duplicar en el `topic-context.md`**, hincha el archivo sin ganancia.
+Estos ya están cubiertos por `authoring-context.md` y `generation-instructions.md`. **No los duplicar en el `topic-context.md`**, hincha el archivo sin ganancia.
 
 ---
 
@@ -51,7 +51,7 @@ Sin cupos estrictos, la Gem sobre-representa el concepto con más contextos coti
 **Cómo prevenirlo:**
 - Cupos con número **exacto**, no rangos ("4", no "4-5").
 - Frase explícita en el archivo: "Cantidades exactas, no aproximadas."
-- El `gem-instructions.md` ya obliga al planning con contador `(k/N)`. Al llegar a `N/N`, ese concepto se cierra.
+- El `generation-instructions.md` ya obliga al planning con contador `(k/N)`. Al llegar a `N/N`, ese concepto se cierra.
 
 ### 3. Sustituye contextos específicos por "equivalentes"
 
@@ -60,7 +60,7 @@ Si pedís "cajero automático con dos saldos", la Gem lo sustituye por "supermer
 **Cómo prevenirlo:**
 - **Enumerar textualmente** los contextos obligatorios en el `topic-context.md`.
 - Marcar como "OBLIGATORIO, no negociable" (mayúsculas, negrita).
-- `gem-instructions.md` ya dice "o los generás textual o los marcás como `[PENDIENTE]`". Confirmar que la sección obligatoria del `topic-context.md` sea idéntica en fraseo a la que aparece en `gem-instructions.md` para que la Gem las cruce.
+- `generation-instructions.md` ya dice "o los generás textual o los marcás como `[PENDIENTE]`". Confirmar que la sección obligatoria del `topic-context.md` sea idéntica en fraseo a la que aparece en `generation-instructions.md` para que la Gem las cruce.
 
 ### 4. Ignora "1-2" o "al menos" en cantidades
 
@@ -75,15 +75,15 @@ Si pedís "cajero automático con dos saldos", la Gem lo sustituye por "supermer
 Reglas de compresión aplicadas a `question` (60 palabras, sin adjetivos decorativos) contaminan `explanation`. Aparecen explanations de 220-249 chars cuando el piso es 250.
 
 **Cómo prevenirlo:**
-- Esto se cubre en `gem-instructions.md` explicitando "el límite de 60 palabras aplica solo a `question`, NO a `explanation`". No hace falta repetirlo en el `topic-context.md`.
+- Esto se cubre en `generation-instructions.md` explicitando "el límite de 60 palabras aplica solo a `question`, NO a `explanation`". No hace falta repetirlo en el `topic-context.md`.
 
 ### 6. Salta negrita de concepto cuando la pregunta es corta
 
 Si la question del ítem es corta y termina en "¿cuál es el dominio?", la Gem tiende a olvidar la negrita en `**dominio**`.
 
 **Cómo prevenirlo:**
-- Cubierto en `gem-instructions.md`. Si aparece de nuevo, reforzar el bullet del self-critique con "verificá ítem por ítem, incluso si la palabra aparece dentro de una pregunta corta".
-- Adicionalmente en `explanation`: la Gem tiende a olvidar la negrita en la **primera oración** de la explicación ("El dominio es el conjunto de entradas…" sin `**dominio**`). Es el caso más frecuente de regresión, incluso cuando en `question` sí se cumple. Hay un bullet dedicado en el self-critique de `gem-instructions.md` para esto.
+- Cubierto en `generation-instructions.md`. Si aparece de nuevo, reforzar el bullet del self-critique con "verificá ítem por ítem, incluso si la palabra aparece dentro de una pregunta corta".
+- Adicionalmente en `explanation`: la Gem tiende a olvidar la negrita en la **primera oración** de la explicación ("El dominio es el conjunto de entradas…" sin `**dominio**`). Es el caso más frecuente de regresión, incluso cuando en `question` sí se cumple. Hay un bullet dedicado en el self-critique de `generation-instructions.md` para esto.
 
 ### 7. Baja calidad de redacción en ítems generados desde cero (vs. refactorizados)
 
@@ -114,25 +114,25 @@ Se siguieron las reglas de distribución y formato...
 Y perdimos la auditabilidad por ítem que era el motivo principal del archivo.
 
 **Cómo prevenirlo:**
-- Cubierto en `gem-instructions.md` Constraint 12: "el `.md` se genera completo con los N ítems del target, no como resumen. Los ítems no modificados llevan la nota `, sin cambios respecto de iter N`".
+- Cubierto en `generation-instructions.md` Constraint 12: "el `.md` se genera completo con los N ítems del target, no como resumen. Los ítems no modificados llevan la nota `, sin cambios respecto de iter N`".
 
 ### 9. La lista veto de adjetivos siempre queda corta
 
 Cada iteración descubre sinónimos nuevos: iter 3 → "artesanal", "electrónico"; iter 4 → "milenario", "inflexible", "genuino", "abstractamente", "natural", "local", "total".
 
 **Cómo prevenirlo:**
-- El `gem-instructions.md` ahora usa una **regla positiva** en Constraint 13: "el enunciado usa solo palabras que aportan información necesaria para responder la pregunta. Antes de escribir un adjetivo, preguntate: '¿si lo saco, cambia el problema?'". Esto reemplaza la lista veto como fuente de verdad.
+- El `generation-instructions.md` ahora usa una **regla positiva** en Constraint 13: "el enunciado usa solo palabras que aportan información necesaria para responder la pregunta. Antes de escribir un adjetivo, preguntate: '¿si lo saco, cambia el problema?'". Esto reemplaza la lista veto como fuente de verdad.
 - La lista veto se mantiene como ayuda mnemotécnica pero **no es la regla**. Cualquier adjetivo decorativo nuevo va contra la regla positiva aunque no esté en la lista.
 
 ### 10. AI Studio y la Gem web no son equivalentes en modo refactor
 
 Con exactamente el mismo `.md` de instrucciones, la Gem web y AI Studio dan outputs distintos:
 
-- **Gem web** aplica reglas a todo el output, incluso a ítems no modificados. Bien para respetar `gem-instructions.md` completo. Mal para calidad de redacción de ítems nuevos (introduce adjetivos raros como "milenaria", "inflexible", "abstractamente").
+- **Gem web** aplica reglas a todo el output, incluso a ítems no modificados. Bien para respetar `generation-instructions.md` completo. Mal para calidad de redacción de ítems nuevos (introduce adjetivos raros como "milenaria", "inflexible", "abstractamente").
 - **AI Studio** interpreta "refactor" más literal: conserva la estructura histórica de los ítems no modificados (cardinalidad 4, sin negrita si no la tenía) y solo aplica reglas a los ítems que reemplaza. Bien para calidad de redacción de ítems nuevos (contextos concretos, sin adjetivos raros). Mal para aplicar reglas globales (iter 5 dejó 45/50 con cardinalidad 4 cuando la regla es 2-3).
 
 **Cómo prevenirlo:**
-- El `gem-instructions.md` ahora tiene un párrafo dedicado en Paso 1: "en modo refactor aplicás TODAS las reglas actuales a TODOS los ítems, no solo a los que decidís reemplazar". Esto es para forzar el comportamiento de la Gem web en AI Studio.
+- El `generation-instructions.md` ahora tiene un párrafo dedicado en Paso 1: "en modo refactor aplicás TODAS las reglas actuales a TODOS los ítems, no solo a los que decidís reemplazar". Esto es para forzar el comportamiento de la Gem web en AI Studio.
 - Alternativa: dividir el trabajo en dos pasadas cuando la calidad importa más que la eficiencia, (a) regenerar los ítems mantenidos aplicando reglas nuevas (usar Gem web); (b) agregar los nuevos con redacción limpia (usar AI Studio).
 - **La calidad de la redacción es intrínseca al generador; las reglas mecánicas son intrínsecas al prompt.** No confundir las dos.
 
@@ -141,7 +141,7 @@ Con exactamente el mismo `.md` de instrucciones, la Gem web y AI Studio dan outp
 3 iteraciones seguidas fallaron (iter 3: 8; iter 4: 15; iter 5: 22, está empeorando). Los refuerzos verbales del checklist ("verificá ítem por ítem") no bastan.
 
 **Cómo prevenirlo:**
-- Convertir la verificación en **pasada mecánica final** en el self-critique. Formulación en `gem-instructions.md`: "para cada uno de los 50 ítems, buscá en la `explanation` la primera aparición literal de `dominio`/`imagen`/`codominio`/`preimagen`/`unicidad`; si no está envuelta en `**...**`, envolvela ahora". Trabajarlo como find & replace masivo, no como criterio estético.
+- Convertir la verificación en **pasada mecánica final** en el self-critique. Formulación en `generation-instructions.md`: "para cada uno de los 50 ítems, buscá en la `explanation` la primera aparición literal de `dominio`/`imagen`/`codominio`/`preimagen`/`unicidad`; si no está envuelta en `**...**`, envolvela ahora". Trabajarlo como find & replace masivo, no como criterio estético.
 - La pasada mecánica funcionó: iter 6 bajó a 3 casos (contra 22 de iter 5).
 - Si la regla sigue regresando, la próxima escalada es correr el script de audit y devolverle el output a la Gem con "estos son los ítems que faltaron, corregilos y reenviá".
 
@@ -150,7 +150,7 @@ Con exactamente el mismo `.md` de instrucciones, la Gem web y AI Studio dan outp
 En iter 6 los 50/50 ítems tenían `correct_index: 0`. No lo habíamos detectado antes porque el frontend randomiza las opciones al render, así que el sesgo era invisible para el alumno pero real en el JSON. Es un problema de diseño de dataset (auditorías estadísticas, exportación a otras plataformas) más que de experiencia.
 
 **Cómo prevenirlo:**
-- Constraint 14 explícita en `gem-instructions.md`: "distribuí `correct_index` entre 0, 1 y 2 de forma aproximadamente uniforme".
+- Constraint 14 explícita en `generation-instructions.md`: "distribuí `correct_index` entre 0, 1 y 2 de forma aproximadamente uniforme".
 - Bullet mecánico en el self-critique: contar la distribución al final y rebalancear (reordenar `options` + `feedback_incorrect` en paralelo) si más del 50% cae en la misma posición.
 - No requiere cambio en `topic-context.md`. Es transversal a todos los topics.
 
@@ -160,7 +160,7 @@ Regresión iter 7: ~24 casos de `feedback_incorrect` arrancando con "Confunde X 
 
 **Cómo prevenirlo:**
 - Regla explícita en `authoring-context.md` sección *Pistas de feedback_incorrect*: prohibición de arrancar con `Confunde`/`Invierte`/`Olvida`/`Ignora`/`Interpreta`/`Falla`/`Falta`, con ejemplos ❌/✅.
-- Constraint 15 en `gem-instructions.md` con la misma prohibición explícita.
+- Constraint 15 en `generation-instructions.md` con la misma prohibición explícita.
 - Bullet mecánico en el self-critique: escanear cada `feedback_incorrect[i]` contra la lista prohibida y reescribir.
 - Voces permitidas: (a) descriptiva del concepto ("Ese es el codominio, no la imagen…"); (b) segunda persona amable con tuteo ("Hay otra solución además del 5…").
 
@@ -173,7 +173,7 @@ Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada d
   - Respuesta numérica corta → 4 opciones (triggea grilla 2×2 en frontend).
   - Respuesta conceptual/textual → 3 opciones.
   - Binario → excepcional (≤ 3 ítems en un archivo de 50).
-- Constraint 20 en `gem-instructions.md` explícito.
+- Constraint 20 en `generation-instructions.md` explícito.
 - Bullet mecánico en el self-critique: contar la distribución y rebalancear.
 - **Referencia frontend**: `web/src/app/(app)/session/[sessionId]/session-runner.tsx` líneas 293-295 (heurística de grilla).
 
@@ -183,7 +183,7 @@ Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distracto
 
 **Cómo prevenirlo:**
 - Regla explícita en `authoring-context.md` sección *Distractores del mismo orden de magnitud*: ratio máximo aceptable ~3-5× entre correcta y distractor numérico.
-- Constraint 18 en `gem-instructions.md`.
+- Constraint 18 en `generation-instructions.md`.
 - Bullet mecánico en el self-critique: calcular ratio y reemplazar si supera 3-5×.
 - **Reemplazos válidos**: errores aritméticos plausibles del mismo orden. Ej. `$5a + 10 = 35$` → distractor `$6$` (restó $5$ en vez de $10$), no `$185$` (evaluó $C(35)$).
 - **Excepción documentada**: cuando la confusión intrínseca produce magnitud distinta (ej. lectura de porcentaje `8%` → `8` vs `1,08`), el gap grande es parte del error, no bandera roja.
@@ -200,7 +200,7 @@ Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distracto
 **Dónde quedó reflejado:**
 - `authoring-context.md`: regla crítica 7 reescrita, *Estructura de la explicación* parte 3, resumen operativo (NUNCA/bullet), y la línea de la sección *Redacción*.
 - `gamification-context.md`: sección "Cierre de la explicación: advertencia por defecto, humor excepcional" (reemplaza a "Humor en el cierre… por qué").
-- `gem-instructions.md`: Constraint 25 reescrita + nota en el bloque de longitud (línea del "cierre con advertencia/consejo").
+- `generation-instructions.md`: Constraint 25 reescrita + nota en el bloque de longitud (línea del "cierre con advertencia/consejo").
 - `topic-context.md` de definition: guía de cierre en la sección de `explanation`.
 - Ítems: se reescribieron los cierres de `definition/LEXI.json` (la mayoría a advertencia/consejo, una minoría a analogía burocrática formal). Al generar otros skills/temas, aplicar el mismo criterio.
 
@@ -271,7 +271,7 @@ Solo las que no están cubiertas por `authoring-context.md`. Ej: qué términos 
 
 ## Checklist del topic
 
-Al final, checklist específico. No repetir el checklist global de `gem-instructions.md`.
+Al final, checklist específico. No repetir el checklist global de `generation-instructions.md`.
 ```
 
 ---
@@ -279,9 +279,9 @@ Al final, checklist específico. No repetir el checklist global de `gem-instruct
 ## Qué NO poner en el `topic-context.md`
 
 - Reglas de formato JSON, LaTeX, párrafos, escape de caracteres, van en `authoring-context.md`.
-- Reglas de flujo, output format, cardinalidad global, van en `gem-instructions.md`.
+- Reglas de flujo, output format, cardinalidad global, van en `generation-instructions.md`.
 - Rationale de Core Drives o Sistema 1/2, va en `gamification-context.md`.
-- El checklist global de self-critique, va en `gem-instructions.md`.
+- El checklist global de self-critique, va en `generation-instructions.md`.
 
 El `topic-context.md` es exclusivamente **qué generar** para este topic. No cómo escribir ni por qué.
 
@@ -307,7 +307,7 @@ Detectados en outputs reales de la Gem. **La lista no es la regla, la regla es l
 
 Cada iteración descubre sinónimos nuevos. **No sirve seguir engordando la lista;** la regla positiva ("¿aporta información necesaria?") es lo que hay que reforzar.
 
-Si un output futuro trae un adjetivo decorativo nuevo, agregarlo acá para el script de audit, pero no agregarlo al `gem-instructions.md` como veto explícito, porque el veto por lista no escala.
+Si un output futuro trae un adjetivo decorativo nuevo, agregarlo acá para el script de audit, pero no agregarlo al `generation-instructions.md` como veto explícito, porque el veto por lista no escala.
 
 ---
 

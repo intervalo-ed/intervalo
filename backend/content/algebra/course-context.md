@@ -1,8 +1,8 @@
 # Curso: Álgebra
 
-Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `gem-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Ver `analisis/course-context.md` para el modelo completo de esta jerarquía de docs; acá se documenta lo propio de Álgebra.
+Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `generation-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Ver `analisis/course-context.md` para el modelo completo de esta jerarquía de docs; acá se documenta lo propio de Álgebra.
 
-> **Estado:** curso en etapa temprana. Los `gem-instructions.md` por cinturón y los `topic-context.md` por tema todavía no están escritos. Este archivo fija el alcance y el mapa de cinturones para cuando se armen.
+> **Estado:** curso en etapa temprana. Los `generation-instructions.md` por cinturón y los `topic-context.md` por tema todavía no están escritos. Este archivo fija el alcance y el mapa de cinturones para cuando se armen.
 
 ---
 

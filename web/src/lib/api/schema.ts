@@ -972,6 +972,16 @@ export interface components {
         SessionExercise: {
             /** Id */
             id: string;
+            /**
+             * External Id
+             * @default
+             */
+            external_id: string;
+            /**
+             * Exercise Type
+             * @default
+             */
+            exercise_type: string;
             /** Question */
             question: string;
             /** Options */
@@ -1003,6 +1013,11 @@ export interface components {
             user_name: string;
             /** Total */
             total: number;
+            /**
+             * Mode
+             * @default main
+             */
+            mode: string;
             /** Exercises */
             exercises: components["schemas"]["SessionExercise"][];
         };
@@ -1058,6 +1073,12 @@ export interface components {
             items: components["schemas"]["TestSessionItem"][];
             /** Course */
             course?: string | null;
+            /**
+             * Shuffle
+             * @default true
+             */
+            shuffle: boolean;
+            filters?: components["schemas"]["TestFilters"] | null;
         };
         /** StartZenSessionRequest */
         StartZenSessionRequest: {
@@ -1080,6 +1101,19 @@ export interface components {
             belt: string;
             /** Correct */
             correct: boolean;
+        };
+        /** TestFilters */
+        TestFilters: {
+            /**
+             * Has Math
+             * @default false
+             */
+            has_math: boolean;
+            /**
+             * Has Graph
+             * @default false
+             */
+            has_graph: boolean;
         };
         /** TestSessionItem */
         TestSessionItem: {

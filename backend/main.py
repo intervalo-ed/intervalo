@@ -175,9 +175,16 @@ class TestSessionItem(BaseModel):
     exercise_type: str
 
 
+class TestFilters(BaseModel):
+    has_math: bool = False
+    has_graph: bool = False
+
+
 class StartTestSessionRequest(BaseModel):
     items: list[TestSessionItem]
     course: str | None = None
+    shuffle: bool = True
+    filters: TestFilters | None = None
 
 
 class AnswerRequest(BaseModel):
@@ -1089,6 +1096,8 @@ def start_test_session(
         return create_test_session_db(
             user_id=current_user.id, course_id=course_id,
             items=[i.model_dump() for i in body.items], db=db,
+            shuffle=body.shuffle,
+            filters=body.filters.model_dump() if body.filters else None,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

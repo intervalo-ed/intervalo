@@ -151,7 +151,6 @@ const TOPIC_SHORT_LABEL: Record<string, string> = {
   exponential: "Exponenciales",
   logarithmic: "Logarítmicas",
   rational: "Racionales",
-  modulo: "Módulo",
   trigonometric: "Trigonométricas",
   limit_definition: "Definición",
   geometric_interpretation: "Interpretación",

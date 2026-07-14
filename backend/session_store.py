@@ -188,6 +188,7 @@ class ExerciseInSession:
     graph_fn: str = ""
     graph_view: list | None = None
     explanation: str | None = None
+    external_id: str = ""
 
     @property
     def topic_key(self) -> TopicKey:
@@ -425,6 +426,8 @@ def _unit_state(row: UnitState | None) -> str:
 def _exercise_to_dict(ex: ExerciseInSession) -> dict:
     return {
         "id": ex.exercise_id,
+        "external_id": ex.external_id,
+        "exercise_type": ex.exercise_type,
         "question": ex.question,
         "options": ex.options,
         "correct_index": ex.correct_index,
@@ -483,6 +486,7 @@ def _build_exercise(
         graph_fn=ex.get("graph_fn", ""),
         graph_view=ex.get("graph_view"),
         explanation=ex.get("explanation"),
+        external_id=ex.get("external_id", ""),
     )
 
 
@@ -744,6 +748,7 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
+        "mode": "main",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
@@ -809,6 +814,7 @@ def create_zen_session_db(
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
+        "mode": "zen",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
@@ -818,12 +824,19 @@ def create_test_session_db(
     course_id: int,
     items: list[dict],
     db: DBSession,
+    shuffle: bool = True,
+    filters: dict | None = None,
 ) -> dict:
     """QA/test mode: play through EVERY exercise in each selected item
-    (belt, topic, exercise_type), in order. No SR tracking, like zen.
+    (belt, topic, exercise_type). No SR tracking.
 
     `items` is a list of {belt, topic, exercise_type} dicts.
+    `filters` may contain `has_math: bool` and `has_graph: bool` to narrow the
+    exercise set (both default to no-op).
     """
+    only_math = bool(filters and filters.get("has_math"))
+    only_graph = bool(filters and filters.get("has_graph"))
+
     exercises: list[ExerciseInSession] = []
     idx = 0
     for item in items:
@@ -837,6 +850,10 @@ def create_test_session_db(
         unit_key = UnitKey(belt=belt_enum, topic=topic, exercise_type=et)
         rows = list_exercises_db(course_id, belt, topic, et, db)
         for ex in rows:
+            if only_math and not ex.get("has_math"):
+                continue
+            if only_graph and not ex.get("graph_fn"):
+                continue
             shuffled, new_correct_index, shuffled_feedback = _shuffle_options(ex)
             exercises.append(
                 ExerciseInSession(
@@ -851,6 +868,7 @@ def create_test_session_db(
                     graph_fn=ex.get("graph_fn", ""),
                     graph_view=ex.get("graph_view"),
                     explanation=ex.get("explanation"),
+                    external_id=ex.get("external_id", ""),
                 )
             )
             idx += 1
@@ -858,13 +876,13 @@ def create_test_session_db(
     if not exercises:
         raise ValueError("No hay ejercicios para los items seleccionados.")
 
-    # Orden aleatorio respecto al orden de contenido de los JSONs.
-    random.shuffle(exercises)
+    if shuffle:
+        random.shuffle(exercises)
 
     db_session = SessionModel(
         user_id=user_id, course_id=course_id,
         started_at=datetime.utcnow(), exercises_total=len(exercises),
-        mode="zen",  # reuse zen guard: no SR tracking, XP only
+        mode="test",
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     )
     db.add(db_session)
@@ -883,6 +901,7 @@ def create_test_session_db(
         "session_id": session_id_str,
         "user_name": "",
         "total": len(exercises),
+        "mode": "test",
         "exercises": [_exercise_to_dict(ex) for ex in exercises],
     }
 
@@ -1004,7 +1023,7 @@ def record_answer_db(
 
     # Zen mode is free practice: it only awards XP and must not touch the
     # student's spaced-repetition progress (phase, interval, due date, mastery).
-    if db_us and db_session.mode != "zen":
+    if db_us and db_session.mode not in ("zen", "test"):
         old_phase = db_us.phase
         db_us.phase = new_state.phase
         db_us.step_index = new_state.step_index

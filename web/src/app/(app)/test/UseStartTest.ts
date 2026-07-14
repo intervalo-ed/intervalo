@@ -11,16 +11,27 @@ export type TestItem = {
   exercise_type: string
 }
 
+export type TestFilters = {
+  has_math: boolean
+  has_graph: boolean
+}
+
 export function useStartTest() {
   const api = useApi()
   return useMutation({
-    mutationFn: async ({ items }: { items: TestItem[] }) => {
+    mutationFn: async ({
+      items,
+      shuffle,
+      filters,
+    }: {
+      items: TestItem[]
+      shuffle: boolean
+      filters: TestFilters
+    }) => {
       const { data, error } = await api.POST("/session/start-test", {
-        body: { items },
+        body: { items, shuffle, filters },
       })
       if (error) throw error
-      // OpenAPI types this response as `unknown`; the shape matches
-      // SessionStartResponse, same as start-zen.
       const payload = data as SessionStartResponse
       stashSession({ id: payload.session_id, payload })
       return payload
