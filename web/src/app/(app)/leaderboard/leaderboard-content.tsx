@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_HEX } from "@/lib/catalog"
-import { TrendingUpIcon, UsersIcon } from "lucide-react"
+import { ChevronDownIcon, TrendingUpIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
@@ -29,18 +29,17 @@ const BELT_TEXT: Record<string, string> = {
   brown: BELT_HEX.brown.onDark,
 }
 
-// Carreras en orden fijo + catch-all "Otra". Emoji desde CAREER_EMOJI; `label` =
-// abreviación para el valor colapsado del filtro; `name` = nombre completo para
-// los items del desplegable.
-const CAREER_META: { key: string; label: string; name: string }[] = [
-  { key: "S", label: "Cie.", name: "Ciencias" },
-  { key: "T", label: "Tec.", name: "Tecnología" },
-  { key: "E", label: "Ing.", name: "Ingeniería" },
-  { key: "M", label: "Mat.", name: "Matemática" },
-  { key: "Otra", label: "Otr.", name: "Otra" },
+// Carreras en orden fijo + catch-all "Otra". Nombre completo, sin abreviar y
+// sin emoji, tanto en el valor colapsado del filtro como en el desplegable.
+const CAREER_META: { key: string; name: string }[] = [
+  { key: "S", name: "Ciencia" },
+  { key: "T", name: "Tecnología" },
+  { key: "E", name: "Ingeniería" },
+  { key: "M", name: "Matemática" },
+  { key: "Otra", name: "Otra" },
 ]
-const CAREER_LABEL: Record<string, string> = Object.fromEntries(
-  CAREER_META.map((c) => [c.key, c.label]),
+const CAREER_NAME: Record<string, string> = Object.fromEntries(
+  CAREER_META.map((c) => [c.key, c.name]),
 )
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
@@ -125,16 +124,12 @@ export function LeaderboardContent() {
           label="Carrera"
           value={career}
           onChange={setCareer}
-          display={(v) =>
-            v === ALL ? "Todas" : `${CAREER_LABEL[v] ?? v} ${CAREER_EMOJI[v] ?? ""}`
-          }
+          display={(v) => (v === ALL ? "Todas" : (CAREER_NAME[v] ?? v))}
         >
           <SelectItem value={ALL}>Todas</SelectItem>
           {CAREER_META.map((c) => (
             <SelectItem key={c.key} value={c.key}>
-              <span>
-                {c.name} {CAREER_EMOJI[c.key]}
-              </span>
+              {c.name}
             </SelectItem>
           ))}
         </FilterBox>
@@ -178,20 +173,21 @@ function FilterBox({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px]">
-      <Select value={value} onValueChange={(v) => v && onChange(v)}>
-        <SelectTrigger
-          aria-label={label}
-          className="h-auto! w-full justify-between gap-1 border-0 bg-transparent p-0 text-xs font-semibold leading-none tabular-nums text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent dark:hover:bg-transparent"
-        >
-          <SelectValue className="truncate text-left">{display}</SelectValue>
-        </SelectTrigger>
-        <SelectContent>{children}</SelectContent>
-      </Select>
-      <span className="whitespace-nowrap text-[0.65rem] leading-tight text-foreground/60">
-        {label}
-      </span>
-    </div>
+    <Select value={value} onValueChange={(v) => v && onChange(v)}>
+      <SelectTrigger
+        aria-label={label}
+        className="flex h-auto! w-full flex-col items-stretch justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px] text-foreground shadow-none [&>svg]:hidden"
+      >
+        <SelectValue className="truncate text-left text-[0.75rem] font-semibold leading-none tabular-nums">
+          {display}
+        </SelectValue>
+        <span className="flex items-center justify-between gap-1 text-[0.65rem] leading-tight text-foreground/60">
+          <span className="truncate whitespace-nowrap">{label}</span>
+          <ChevronDownIcon className="size-3 shrink-0" />
+        </span>
+      </SelectTrigger>
+      <SelectContent>{children}</SelectContent>
+    </Select>
   )
 }
 

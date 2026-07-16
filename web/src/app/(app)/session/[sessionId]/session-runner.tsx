@@ -193,10 +193,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   }
 
   function copyFeedback() {
-    const eid = exercise.external_id || exercise.id
-    const header = `[${eid} · ${exercise.belt} / ${exercise.topic} / ${exercise.exercise_type || "?"}]`
-    const opts = JSON.stringify(exercise.options)
-    const correctText = exercise.options[exercise.correct_index]
+    const rawJson = JSON.stringify(exercise, null, 2)
     const distractorFb = distractorFbByIdx[idx] ?? {}
     const distractorLines = Object.entries(distractorFb)
       .filter(([, t]) => t.trim())
@@ -208,10 +205,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
     const explanationFb = (explanationFbByIdx[idx] ?? "").trim()
     const generalFb = (feedbackByIdx[idx] ?? "").trim()
     const snippet =
-      `${header}\n` +
-      `enunciado: ${exercise.question}\n` +
-      `opciones: ${opts}\n` +
-      `correcta (idx ${exercise.correct_index}): ${correctText}\n` +
+      `${rawJson}\n` +
       (generalFb ? `\nfeedback general:\n${generalFb}\n` : "") +
       (distractorLines ? `\n${distractorLines}` : "") +
       (explanationFb ? `\nfeedback sobre la explicación:\n${explanationFb}\n` : "")
@@ -417,6 +411,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               {cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">
                   <MathText text={exercise.explanation ?? ""} />
+                  {isTest && <TestFeedbackBox
+                    idx={idx}
+                    value={feedbackByIdx[idx] ?? ""}
+                    onChange={(v) =>
+                      setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
+                    }
+                    onCopy={copyFeedback}
+                  />}
                 </div>
               ) : (
                 <>
@@ -432,9 +434,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   )}
 
                   {(() => {
+                    const hasLatex = exercise.options.some((o) => o.includes("$"))
+                    const limit = hasLatex ? 16 : 25
                     const useGrid =
                       exercise.options.length === 4 &&
-                      exercise.options.every((o) => o.length <= 35)
+                      exercise.options.every((o) => o.length <= limit)
                     return (
                       <div className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
                         {exercise.options.map((opt, i) => {
@@ -562,30 +566,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                     </div>
                   )}
                   {isTest && (
-                    <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
-                      <label className="text-xs font-semibold uppercase tracking-wide text-foreground/50">
-                        Feedback para este ítem
-                      </label>
-                      <textarea
-                        value={feedbackByIdx[idx] ?? ""}
-                        onChange={(e) =>
-                          setFeedbackByIdx((f) => ({
-                            ...f,
-                            [idx]: e.target.value,
-                          }))
-                        }
-                        placeholder="Qué está mal, qué esperabas, qué regla se rompe…"
-                        className="min-h-24 rounded-md border border-white/15 bg-white/5 p-2 text-sm text-foreground/85 outline-none focus:border-white/40"
-                      />
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={copyFeedback}
-                        className="self-end"
-                      >
-                        Copiar snippet
-                      </Button>
-                    </div>
+                    <TestFeedbackBox
+                      idx={idx}
+                      value={feedbackByIdx[idx] ?? ""}
+                      onChange={(v) =>
+                        setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
+                      }
+                      onCopy={copyFeedback}
+                    />
                   )}
                 </>
               )}
@@ -737,6 +725,36 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           resumen. */}
       {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
+  )
+}
+
+function TestFeedbackBox({
+  idx,
+  value,
+  onChange,
+  onCopy,
+}: {
+  idx: number
+  value: string
+  onChange: (value: string) => void
+  onCopy: () => void
+}) {
+  return (
+    <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
+      <label className="text-xs font-semibold uppercase tracking-wide text-foreground/50">
+        Feedback para este ítem
+      </label>
+      <textarea
+        key={idx}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Qué está mal, qué esperabas, qué regla se rompe…"
+        className="min-h-24 rounded-md border border-white/15 bg-white/5 p-2 text-sm text-foreground/85 outline-none focus:border-white/40"
+      />
+      <Button size="sm" variant="outline" onClick={onCopy} className="self-end">
+        Copiar snippet
+      </Button>
+    </div>
   )
 }
 
