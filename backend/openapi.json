@@ -1513,7 +1513,7 @@
     "/session/start-zen": {
       "post": {
         "summary": "Start Zen Session",
-        "description": "Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic.",
+        "description": "Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.",
         "operationId": "start_zen_session_session_start_zen_post",
         "parameters": [
           {
@@ -2857,16 +2857,12 @@
             "type": "string",
             "title": "User Name"
           },
-          "belt": {
-            "type": "string",
-            "title": "Belt"
-          },
-          "topics": {
+          "items": {
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/ZenSessionItem"
             },
             "type": "array",
-            "title": "Topics"
+            "title": "Items"
           },
           "count": {
             "type": "integer",
@@ -2887,8 +2883,7 @@
         "type": "object",
         "required": [
           "user_name",
-          "belt",
-          "topics",
+          "items",
           "count"
         ],
         "title": "StartZenSessionRequest"
@@ -3307,6 +3302,24 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "ZenSessionItem": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic"
+        ],
+        "title": "ZenSessionItem"
       }
     }
   }

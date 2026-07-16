@@ -39,7 +39,7 @@ CONTENT_ROOT = _THIS_DIR / "content"
 
 # Cursos habilitados para el seed masivo (`--all`). Otros cursos siguen
 # accesibles vía `--course <slug>` explícito.
-ENABLED_COURSES = frozenset({"analisis", "probabilidad"})
+ENABLED_COURSES = frozenset({"analisis", "probabilidad", "algebra"})
 
 # Filenames that are course-level metadata, not exercise files.
 _META_FILES = frozenset({"course.json", "catalog.json", "belt_info.json"})
@@ -92,6 +92,13 @@ def _serialize_feedback_incorrect(fi: Any) -> str:
     if isinstance(fi, list):
         return json.dumps(fi, ensure_ascii=False)
     return fi if isinstance(fi, str) else ""
+
+
+def _serialize_tags(tags: Any) -> str | None:
+    """Store list as JSON string; absent/invalid tags stay None (legacy, untagged)."""
+    if isinstance(tags, list):
+        return json.dumps(tags, ensure_ascii=False)
+    return None
 
 
 # ── Seeders por tabla ──────────────────────────────────────────────────────────
@@ -245,6 +252,7 @@ def seed_exercises(
                     graph_fn=entry.get("graph_fn"),
                     graph_view=_serialize_graph_view(entry.get("graph_view")),
                     explanation=entry.get("explanation"),
+                    tags=_serialize_tags(entry.get("tags")),
                 ))
                 inserted += 1
             else:
@@ -264,6 +272,7 @@ def seed_exercises(
                     "graph_fn":           entry.get("graph_fn"),
                     "graph_view":         _serialize_graph_view(entry.get("graph_view")),
                     "explanation":        entry.get("explanation"),
+                    "tags":               _serialize_tags(entry.get("tags")),
                 }
                 changed = False
                 for k, v in fields.items():

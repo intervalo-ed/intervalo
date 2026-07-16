@@ -418,7 +418,7 @@ export const EMOJI_TREE: Record<EmojiBucket, EmojiNode> = {
   "S": {
     "id": "S",
     "emoji": "🔬",
-    "label": "Ciencias",
+    "label": "Ciencia",
     "children": [
       {
         "id": "s-materia",

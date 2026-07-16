@@ -756,35 +756,36 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
 def create_zen_session_db(
     user_id: int,
     course_id: int,
-    belt: str,
-    topics: list[str],
+    items: list[dict],
     count: int,
     db: DBSession,
 ) -> dict:
-    """Zen mode: random exercises from selected topics of a single unit, no SR tracking."""
+    """Zen mode: random exercises from selected (belt, topic) items, no SR tracking."""
     slug = _get_course_slug(course_id, db)
     all_catalogs = load_belt_catalogs(slug)
 
-    try:
-        belt_enum = Belt(belt)
-    except ValueError:
-        raise ValueError(f"Unidad desconocida: {belt}")
-    catalog = all_catalogs.get(belt_enum)
-    if not catalog:
-        raise ValueError(f"Unidad desconocida: {belt}")
-
-    wanted = set(topics)
     candidate_units: list[UnitKey] = []
-    for tk in catalog.all_keys():
-        if tk.topic not in wanted:
+    seen: set[tuple[str, str]] = set()
+    for item in items:
+        belt = item.get("belt")
+        topic = item.get("topic")
+        try:
+            belt_enum = Belt(belt)
+        except ValueError:
+            raise ValueError(f"Unidad desconocida: {belt}")
+        if belt_enum not in all_catalogs:
+            raise ValueError(f"Unidad desconocida: {belt}")
+        key = (belt_enum.value, topic)
+        if key in seen:
             continue
-        for et in topic_exercise_types(course_id, tk.belt.value, tk.topic, db):
+        seen.add(key)
+        for et in topic_exercise_types(course_id, belt_enum.value, topic, db):
             candidate_units.append(
-                UnitKey(belt=tk.belt, topic=tk.topic, exercise_type=et)
+                UnitKey(belt=belt_enum, topic=topic, exercise_type=et)
             )
 
     if not candidate_units:
-        raise ValueError(f"No hay ejercicios disponibles para los temas seleccionados: {topics}")
+        raise ValueError("No hay ejercicios disponibles para los temas seleccionados.")
 
     sampled = random.choices(candidate_units, k=count)
     exercises = [

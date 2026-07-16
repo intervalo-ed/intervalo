@@ -594,7 +594,7 @@ export interface paths {
         put?: never;
         /**
          * Start Zen Session
-         * @description Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic.
+         * @description Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.
          */
         post: operations["start_zen_session_session_start_zen_post"];
         delete?: never;
@@ -1084,10 +1084,8 @@ export interface components {
         StartZenSessionRequest: {
             /** User Name */
             user_name: string;
-            /** Belt */
-            belt: string;
-            /** Topics */
-            topics: string[];
+            /** Items */
+            items: components["schemas"]["ZenSessionItem"][];
             /** Count */
             count: number;
             /** Course */
@@ -1264,6 +1262,13 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
+        };
+        /** ZenSessionItem */
+        ZenSessionItem: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
         };
     };
     responses: never;
