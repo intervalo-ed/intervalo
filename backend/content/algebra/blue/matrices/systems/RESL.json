@@ -1,0 +1,24 @@
+[
+  {
+    "question": "En el sistema $x+y=5$, $x-y=1$, ¿cuánto vale $x$?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$4$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Sumando ambas ecuaciones: $2x=6 \\Rightarrow x=3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de $y$, no de $x$.",
+      "Ese valor no satisface ambas ecuaciones a la vez.",
+      "Ese es el término independiente de la segunda ecuación, no el valor de $x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sumar las dos ecuaciones elimina la variable $y$ y deja una ecuación con una sola incógnita.\n$$(x+y) + (x-y) = 5+1 \\Rightarrow 2x = 6$$\n\nDespejando, $x=3$; reemplazando en la primera ecuación, $y=2$.\n\nSumar o restar ecuaciones para cancelar una variable es la idea base detrás del método de eliminación.",
+    "reviewed": false
+  }
+]

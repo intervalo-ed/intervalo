@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estas funciones es una **transformación lineal** de $\\mathbb{R}^2$ en $\\mathbb{R}^2$?",
+    "options": [
+      "$T(x,y) = (2x, -y)$",
+      "$T(x,y) = (x+1, y)$",
+      "$T(x,y) = (x^2, y)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$T(x,y)=(2x,-y)$ preserva sumas y productos por escalar: es lineal.",
+    "feedback_incorrect": [
+      null,
+      "Sumar una constante rompe la linealidad, no manda el origen al origen.",
+      "Elevar al cuadrado no preserva la suma ni el producto por escalar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que una función sea una transformación lineal, debe mandar el origen al origen y preservar combinaciones lineales.\n\n$T(x,y)=(2x,-y)$ cumple ambas cosas: $T(0,0)=(0,0)$ y escalar o sumar antes o después de aplicar $T$ da el mismo resultado.\n\n$T(x,y)=(x+1,y)$ no manda el origen al origen ($T(0,0)=(1,0)$), y $T(x,y)=(x^2,y)$ no preserva la suma: duplicar la entrada no duplica la salida en la primera componente.",
+    "reviewed": false
+  }
+]

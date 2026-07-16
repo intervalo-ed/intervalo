@@ -1,0 +1,22 @@
+[
+  {
+    "question": "La recta $L$ pasa por el punto $(1, 2, 0)$ con vector director $(0, 0, 1)$.\n\n¿En qué dirección se mueve un punto de la recta al aumentar el parámetro $t$?",
+    "options": [
+      "Solo en la dirección del eje $z$",
+      "Solo en la dirección del eje $x$",
+      "En una combinación de los tres ejes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El vector director $(0,0,1)$ apunta únicamente en la dirección del eje $z$.",
+    "feedback_incorrect": [
+      null,
+      "El vector director no tiene componente en el eje $x$.",
+      "Solo hay una componente no nula, no una combinación de los tres ejes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El vector director de una recta indica hacia dónde se desplaza a medida que crece el parámetro $t$.\n\nAcá el vector director es $(0,0,1)$: tiene componente nula en $x$ e $y$, y solo componente en $z$.\n\nPor eso, al aumentar $t$, el punto se mueve exclusivamente a lo largo del eje $z$, manteniendo fijas las coordenadas $x=1$ e $y=2$.",
+    "reviewed": false
+  }
+]

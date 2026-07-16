@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué significa que un conjunto de vectores sea **generador** de un espacio $V$?",
+    "options": [
+      "Que toda combinación lineal de ellos puede construir cualquier vector de $V$",
+      "Que son linealmente independientes entre sí",
+      "Que tienen la misma norma que los vectores de $V$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un conjunto generador permite construir, mediante combinaciones lineales, cualquier vector del espacio.",
+    "feedback_incorrect": [
+      null,
+      "La independencia lineal es una propiedad distinta, no lo que define a un generador.",
+      "La norma de los vectores no está relacionada con la propiedad de generar el espacio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones lineales permiten construir cualquier vector de un espacio dado.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$\n\nAbarcan todo el espacio, aunque no necesariamente de forma eficiente: puede haber vectores redundantes en el conjunto.\n\nUn conjunto generador que además es linealmente independiente recibe un nombre especial: base.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué dos operaciones debe tener un conjunto $V$ para ser un **espacio vectorial**?",
+    "options": [
+      "Suma y producto por escalar",
+      "Producto escalar y producto vectorial",
+      "Suma y resta únicamente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un espacio vectorial necesita suma entre elementos y producto por un escalar.",
+    "feedback_incorrect": [
+      null,
+      "El producto vectorial es una operación específica de $\\mathbb{R}^3$, no parte de la definición general.",
+      "La resta se deriva de la suma más el opuesto, no es una operación independiente exigida por los axiomas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **espacio vectorial** es un conjunto $V$ equipado con dos operaciones: la suma entre elementos de $V$ y el producto de un elemento de $V$ por un escalar.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n\nEstas dos operaciones deben cumplir un conjunto de axiomas: clausura, asociatividad, existencia de neutro y opuesto, y distributividad respecto a la suma de escalares y de vectores.\n\n$\\mathbb{R}^n$ es el ejemplo más común, pero la misma estructura aplica a conjuntos de polinomios o de matrices.",
+    "reviewed": false
+  }
+]

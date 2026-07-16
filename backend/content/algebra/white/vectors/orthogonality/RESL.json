@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Para qué valor de $k$ son ortogonales $\\vec{u}=(k,4)$ y $\\vec{v}=(3,-6)$?",
+    "options": [
+      "$8$",
+      "$-8$",
+      "$2$",
+      "$24$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$3k - 24 = 0 \\Rightarrow k = 8$.",
+    "feedback_incorrect": [
+      null,
+      "El signo de $k$ quedó invertido.",
+      "Ese valor no anula la suma $3k-24$.",
+      "Ese es el término independiente antes de despejar, falta dividir por $3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos vectores son ortogonales cuando su producto escalar es cero.\n$$\\vec{u}\\cdot\\vec{v} = 3k + 4(-6) = 3k - 24 = 0$$\n\nDespejando, $3k=24$, así que $k=8$.\n\nConviene armar la ecuación completa antes de despejar, para no perder algún término en el camino.",
+    "reviewed": false
+  }
+]

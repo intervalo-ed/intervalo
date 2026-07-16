@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Para qué valor de $k$ el conjunto $\\{(1,2), (3,k)\\}$ es linealmente **dependiente**?",
+    "options": [
+      "$6$",
+      "$3$",
+      "$2$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dependiente cuando $(3,k)=3(1,2)=(3,6)$, es decir $k=6$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor no hace que $(3,k)$ sea múltiplo de $(1,2)$.",
+      "Ese es el factor de escala, no el valor de $k$.",
+      "Ese valor tampoco produce un múltiplo exacto de $(1,2)$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos vectores son dependientes cuando uno es múltiplo escalar del otro.\n$$(3,k) = \\lambda(1,2) \\Rightarrow \\lambda=3 \\Rightarrow k=3\\cdot2=6$$\n\nComo la primera componente ya fija $\\lambda=3$ (porque $3=3\\cdot1$), la segunda componente debe ser $3\\cdot2=6$ para mantener la misma proporción.\n\nSi $k$ tomara cualquier otro valor, los vectores dejarían de ser paralelos y pasarían a ser independientes.",
+    "reviewed": false
+  }
+]

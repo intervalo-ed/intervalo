@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estas expresiones representa un **vector** de $\\mathbb{R}^3$?",
+    "options": [
+      "$(2, -1, 5)$",
+      "$7$",
+      "$x + y = 4$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(2,-1,5)$ es una tupla ordenada de 3 componentes reales: un vector de $\\mathbb{R}^3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es un escalar, un único número sin componentes.",
+      "Esa es una ecuación entre dos variables, no una tupla de componentes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **vector** de $\\mathbb{R}^3$ necesita exactamente 3 componentes reales ordenadas.\n\n$(2,-1,5)$ cumple esa condición: tiene tres números en un orden fijo, uno por cada eje del espacio.\n\nEl número $7$ es un escalar (sin componentes), y $x+y=4$ es una ecuación que describe una relación entre variables, no una tupla de componentes concretas.",
+    "reviewed": false
+  }
+]

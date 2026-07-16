@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué establece el **teorema de la dimensión** para una transformación $T: V \\to W$?",
+    "options": [
+      "$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$",
+      "$\\dim(\\ker(T)) = \\dim(\\text{Im}(T))$",
+      "$\\dim(V) = \\dim(W)$ siempre"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El teorema establece que la dimensión del núcleo más la de la imagen es igual a la dimensión del dominio.",
+    "feedback_incorrect": [
+      null,
+      "El teorema no exige que núcleo e imagen tengan la misma dimensión, solo relaciona su suma con $\\dim(V)$.",
+      "El dominio y el codominio pueden tener dimensiones distintas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **teorema de la dimensión** establece que la dimensión del dominio se conserva y se reparte entre la imagen y el núcleo.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\n\nCada dimensión del dominio que colapsa en el núcleo se resta directamente de las dimensiones efectivas que tendrá la imagen.\n\nEste resultado permite calcular una de las tres cantidades si se conocen las otras dos.",
+    "reviewed": false
+  }
+]

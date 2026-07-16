@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué propiedad cumple la **matriz inversa** $A^{-1}$?",
+    "options": [
+      "$AA^{-1} = A^{-1}A = I$",
+      "$AA^{-1} = 0$",
+      "$A^{-1} = A^T$ siempre"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La inversa cumple $AA^{-1}=A^{-1}A=I$, la matriz identidad.",
+    "feedback_incorrect": [
+      null,
+      "El producto de una matriz por su inversa da la identidad, no la matriz nula.",
+      "La inversa y la transpuesta son operaciones distintas, no coinciden en general."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **matriz inversa** $A^{-1}$ es aquella que, multiplicada por $A$, da la matriz identidad.\n$$AA^{-1} = A^{-1}A = I$$\n\nFunciona como la operación de división en el álgebra matricial, deshaciendo la transformación que aplica $A$.\n\nSolo existe para matrices cuadradas con determinante distinto de cero; si $\\det(A)=0$, la matriz no tiene inversa.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál es el determinante de $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix}$?",
+    "options": [
+      "$5$",
+      "$11$",
+      "$8$",
+      "$-5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\det(A) = 2\\cdot4 - 3\\cdot1 = 8-3 = 5$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar en vez de restar el producto cruzado.",
+      "Falta restar el segundo producto, quedó solo el primero.",
+      "El signo del resultado quedó invertido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El determinante de una matriz $2\\times2$ se calcula con el producto cruzado de sus elementos.\n$$\\det(A) = a_{11}a_{22} - a_{12}a_{21} = 2\\cdot4 - 3\\cdot1$$\n\nCalculando, $8-3=5$: ese es el determinante de $A$.\n\nUn error común es sumar ambos productos en vez de restarlos, o invertir cuál producto se resta de cuál.",
+    "reviewed": false
+  }
+]

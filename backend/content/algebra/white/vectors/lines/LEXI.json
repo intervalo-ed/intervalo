@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué dos elementos determinan una **recta** en el espacio?",
+    "options": [
+      "Un punto de paso y un vector director",
+      "Dos vectores normales",
+      "Solo la pendiente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una recta queda determinada por un punto de paso y un vector director.",
+    "feedback_incorrect": [
+      null,
+      "Los vectores normales determinan planos, no rectas.",
+      "La pendiente por sí sola no alcanza para fijar una recta en el espacio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **recta** en el espacio se determina con un punto de paso y un vector director.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$\n\nAl variar el parámetro $t$, se recorren todos los puntos de la recta a partir de $\\vec{p}$ en la dirección de $\\vec{d}$.\n\nCambiar el vector director por otro paralelo (un múltiplo escalar) describe la misma recta, aunque la ecuación paramétrica se vea distinta.",
+    "reviewed": false
+  }
+]

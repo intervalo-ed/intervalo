@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En $\\pi: 3x - 2y + z = 6$, ¿cuál es el vector normal del plano?",
+    "options": [
+      "$(3,-2,1)$",
+      "$(6,0,0)$",
+      "$(3,-2,1,6)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El vector normal son los coeficientes de $x$, $y$, $z$: $(3,-2,1)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el término independiente, no el vector normal.",
+      "El vector normal tiene solo 3 componentes, no incluye el término independiente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la ecuación implícita de un plano, el vector normal está formado por los coeficientes de $x$, $y$ y $z$.\n$$\\pi: ax+by+cz=d \\quad\\Rightarrow\\quad \\vec{n}=(a,b,c)$$\n\nAcá los coeficientes son $3$, $-2$ y $1$, así que $\\vec{n}=(3,-2,1)$.\n\nEl término independiente $d$ no forma parte del vector normal, solo ubica la posición del plano respecto del origen.",
+    "reviewed": false
+  }
+]

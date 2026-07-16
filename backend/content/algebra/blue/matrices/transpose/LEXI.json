@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué operación produce la **matriz transpuesta** $A^T$?",
+    "options": [
+      "Intercambiar filas por columnas",
+      "Invertir el signo de cada elemento",
+      "Multiplicar cada elemento por $-1$ y sumar $1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La transpuesta intercambia filas por columnas: $(A^T)_{ij}=A_{ji}$.",
+    "feedback_incorrect": [
+      null,
+      "Invertir el signo describe a $-A$, no a la transpuesta.",
+      "Esa operación no corresponde a ninguna operación matricial estándar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **matriz transpuesta** se obtiene intercambiando filas por columnas.\n$$(A^T)_{ij} = A_{ji}$$\n\nSi $A$ es de $m\\times n$, entonces $A^T$ es de $n\\times m$: filas y columnas cambian de rol.\n\nSi una matriz es igual a su transpuesta se la llama simétrica; la diagonal principal nunca se modifica en esta operación.",
+    "reviewed": false
+  }
+]

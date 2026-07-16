@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos pares de vectores es **ortogonal**?",
+    "options": [
+      "$\\vec{u}=(2,0)$ y $\\vec{v}=(0,3)$",
+      "$\\vec{u}=(1,1)$ y $\\vec{v}=(2,2)$",
+      "$\\vec{u}=(1,2)$ y $\\vec{v}=(3,1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(2,0)\\cdot(0,3) = 0+0 = 0$: son ortogonales.",
+    "feedback_incorrect": [
+      null,
+      "$(1,1)\\cdot(2,2) = 4 \\neq 0$: no son ortogonales, son paralelos.",
+      "$(1,2)\\cdot(3,1) = 5 \\neq 0$: no son ortogonales."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para verificar ortogonalidad se calcula el producto escalar entre el par de vectores.\n\n$(2,0)\\cdot(0,3) = 2\\cdot0 + 0\\cdot3 = 0$: al dar cero, el par es ortogonal.\n\nLos otros dos pares dan productos escalares distintos de cero ($4$ y $5$ respectivamente), así que no cumplen la condición de perpendicularidad.",
+    "reviewed": false
+  }
+]

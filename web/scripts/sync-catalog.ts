@@ -21,7 +21,7 @@ const OUT_DIR = resolve(here, "../src/lib/catalog")
 
 // Only these courses are surfaced to the frontend. Add more as they become
 // available in the dashboard UI.
-const ENABLED_COURSES = new Set(["analisis", "probabilidad"])
+const ENABLED_COURSES = new Set(["analisis", "probabilidad", "algebra"])
 
 type RawTopic = {
   key: string

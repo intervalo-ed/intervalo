@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $B=\\{(1,1),(1,-1)\\}$ es base de $\\mathbb{R}^2$, ¿qué coeficientes escriben a $(4,2)$ como combinación de $B$?",
+    "options": [
+      "$a=3,\\ b=1$",
+      "$a=1,\\ b=3$",
+      "$a=2,\\ b=2$",
+      "$a=4,\\ b=2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Resolviendo $a+b=4$ y $a-b=2$: $a=3$, $b=1$.",
+    "feedback_incorrect": [
+      null,
+      "Los valores de $a$ y $b$ quedaron intercambiados.",
+      "Esos valores no satisfacen ambas ecuaciones a la vez.",
+      "Esos son directamente las componentes de $(4,2)$, no los coeficientes de la combinación."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para expresar un vector en una base distinta a la canónica, se plantea un sistema con las componentes del vector.\n$$a(1,1)+b(1,-1) = (4,2) \\Rightarrow a+b=4,\\ a-b=2$$\n\nSumando ambas ecuaciones, $2a=6$, entonces $a=3$; reemplazando, $b=1$.\n\nUn error común es tomar directamente las componentes del vector como los coeficientes, sin resolver el sistema que impone la base elegida.",
+    "reviewed": false
+  }
+]

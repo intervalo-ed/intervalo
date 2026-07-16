@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Existe la inversa de $A = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$?",
+    "options": [
+      "No, porque $\\det(A)=0$",
+      "Sí, porque $A$ es cuadrada",
+      "Sí, porque todos sus elementos son positivos",
+      "No, porque $A$ no es simétrica"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\det(A) = 2\\cdot2 - 4\\cdot1 = 0$: no existe $A^{-1}$.",
+    "feedback_incorrect": [
+      null,
+      "Ser cuadrada es necesaria pero no alcanza, además hace falta determinante no nulo.",
+      "El signo de los elementos no garantiza que exista la inversa.",
+      "La simetría no es la condición que determina si existe la inversa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz cuadrada tiene inversa únicamente si su determinante es distinto de cero.\n$$\\det(A) = 2\\cdot2 - 4\\cdot1 = 4-4 = 0$$\n\nComo el determinante da cero, esta matriz no es inversible: no existe $A^{-1}$ que la multiplique y dé la identidad.\n\nQue una matriz sea cuadrada es condición necesaria pero no suficiente, también hace falta que el determinante no se anule.",
+    "reviewed": false
+  }
+]

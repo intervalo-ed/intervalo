@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Si $T(x,y)=(x,0)$, ¿cuál de estos vectores pertenece a la **imagen** de $T$?",
+    "options": [
+      "$(3,0)$",
+      "$(0,3)$",
+      "$(3,3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(3,0)=T(3,y)$ para cualquier $y$: pertenece a la imagen.",
+    "feedback_incorrect": [
+      null,
+      "Ningún vector de la forma $(x,0)$ produce una segunda componente distinta de cero.",
+      "La segunda componente del resultado de $T$ siempre es cero, nunca puede ser $3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La imagen de $T(x,y)=(x,0)$ está formada por todos los vectores cuya segunda componente es cero.\n\n$(3,0)$ cumple esa forma: por ejemplo $T(3,7)=(3,0)$, así que $(3,0)$ está en la imagen.\n\n$(0,3)$ y $(3,3)$ tienen segunda componente distinta de cero, y ningún vector del dominio produce ese resultado bajo esta transformación.",
+    "reviewed": false
+  }
+]

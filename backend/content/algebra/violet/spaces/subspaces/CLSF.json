@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos conjuntos de $\\mathbb{R}^2$ es un **subespacio**?",
+    "options": [
+      "La recta $y=2x$",
+      "La recta $y=2x+1$",
+      "El conjunto $\\{(x,y) : x\\geq 0\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$y=2x$ pasa por el origen y es cerrada bajo suma y escalar: es un subespacio.",
+    "feedback_incorrect": [
+      null,
+      "$y=2x+1$ no pasa por el origen, así que no es un subespacio.",
+      "Ese conjunto no es cerrado bajo el producto por un escalar negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda recta que sea subespacio debe pasar por el origen, ya que el vector nulo tiene que pertenecer a $S$.\n\n$y=2x$ cumple esa condición y además es cerrada bajo suma y producto por escalar.\n\n$y=2x+1$ no pasa por el origen (falla en $x=0$, $y=1\\neq0$), y $\\{x\\geq0\\}$ no es cerrado bajo escalares negativos: multiplicar por $-1$ saca al vector del conjunto.",
+    "reviewed": false
+  }
+]

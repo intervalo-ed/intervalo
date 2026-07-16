@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuánto vale la combinación lineal $2(1,0) + 3(0,1)$?",
+    "options": [
+      "$(2,3)$",
+      "$(5,0)$",
+      "$(1,1)$",
+      "$(6,0)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$2(1,0)+3(0,1) = (2,0)+(0,3) = (2,3)$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar los escalares en vez de aplicarlos a cada vector.",
+      "Eso ignora los coeficientes $2$ y $3$, dejando solo los vectores originales sumados.",
+      "Eso sale de multiplicar los escalares entre sí en vez de escalar cada vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para calcular una combinación lineal, cada vector se multiplica primero por su escalar y después se suman los resultados.\n$$2(1,0) + 3(0,1) = (2,0) + (0,3) = (2,3)$$\n\nCada escalar afecta únicamente a su vector correspondiente, nunca se mezcla con el otro escalar.\n\nUn error común es sumar los coeficientes entre sí antes de aplicarlos a los vectores.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué es una **combinación lineal** de los vectores $\\vec{v}_1, \\dots, \\vec{v}_k$?",
+    "options": [
+      "La suma $c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k$ con escalares $c_i$",
+      "El producto $\\vec{v}_1 \\times \\vec{v}_2 \\times \\dots$",
+      "La norma de la suma de los vectores"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una combinación lineal es la suma de los vectores multiplicados por escalares.",
+    "feedback_incorrect": [
+      null,
+      "El producto cruz no se generaliza a más de dos vectores de esta forma, y no es lo que define una combinación lineal.",
+      "La norma de la suma es un número, no una combinación lineal, que siempre da un vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **combinación lineal** es el vector resultante de sumar vectores previamente multiplicados por escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$\n\nEs la forma fundamental de moverse dentro de un espacio vectorial: cada escalar $c_i$ dicta cuánto pesa la dirección de $\\vec{v}_i$.\n\nEl resultado de una combinación lineal siempre es otro vector del mismo espacio, nunca un escalar.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué es el **núcleo** $\\ker(T)$ de una transformación lineal?",
+    "options": [
+      "El conjunto de vectores del dominio que se mapean al vector nulo",
+      "El conjunto de vectores alcanzados en el codominio",
+      "La matriz asociada a la transformación"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El núcleo son los vectores del dominio que $T$ manda al vector nulo.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe a la imagen, no al núcleo.",
+      "La matriz asociada es un objeto distinto, no el núcleo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **núcleo** o *kernel* de una transformación es el conjunto de vectores del dominio que se mapean al vector nulo.\n$$\\ker(T) = \\{ \\vec{v} \\in V \\mid T(\\vec{v}) = \\vec{0} \\}$$\n\nEs un subespacio del dominio que mide cuánta información se pierde al aplicar la transformación.\n\nSi el núcleo contiene solo al vector nulo, la transformación es inyectiva.",
+    "reviewed": false
+  }
+]

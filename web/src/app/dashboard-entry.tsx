@@ -58,7 +58,7 @@ import {
 import { topicShortLabel } from "@/lib/catalog"
 import { useUser } from "@clerk/nextjs"
 import { CheckIcon, InfoIcon, RotateCcwIcon } from "lucide-react"
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
@@ -108,19 +108,28 @@ export default function DashboardEntry() {
   const startSession = useStartSession()
   const sfx = useSfx()
   const { markReady } = useSplash()
-  const reduceMotion = useReducedMotion()
 
-  // Prefetch de ambos cursos: React Query cachea por queryKey y ambos hooks se
+  // Prefetch de los 3 cursos: React Query cachea por queryKey y los hooks se
   // resuelven en paralelo. Cambiar de curso solo alterna qué `data` se lee.
   const analisisQuery = useUserProgress({ course: "analisis" })
   const probabilidadQuery = useUserProgress({ course: "probabilidad" })
+  const algebraQuery = useUserProgress({ course: "algebra" })
+
+  const queryByCourse: Record<CourseId, typeof analisisQuery> = {
+    analisis: analisisQuery,
+    probabilidad: probabilidadQuery,
+    algebra: algebraQuery,
+  }
 
   // Curso activo: URL param → last_course del back → localStorage → analisis.
   // Se persiste en localStorage como fallback cuando el back todavía no expone
   // `last_course`.
   const urlCourse = searchParams.get("course")
   const lastCourseFromApi =
-    analisisQuery.data?.last_course ?? probabilidadQuery.data?.last_course ?? null
+    analisisQuery.data?.last_course ??
+    probabilidadQuery.data?.last_course ??
+    algebraQuery.data?.last_course ??
+    null
   const storedCourse =
     typeof window !== "undefined" ? window.localStorage.getItem(LAST_COURSE_KEY) : null
 
@@ -138,7 +147,7 @@ export default function DashboardEntry() {
     }
   }, [course])
 
-  const activeQuery = course === "analisis" ? analisisQuery : probabilidadQuery
+  const activeQuery = queryByCourse[course]
   const { data, isLoading, isError, error } = activeQuery
 
   const [editing, setEditing] = useState(false)
@@ -233,12 +242,7 @@ export default function DashboardEntry() {
         )}
 
         {data && totals && unitTotals && (
-          <motion.div
-            className="flex flex-col gap-4"
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-          >
+          <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
             <CourseSwitcher
               course={course}
@@ -428,20 +432,11 @@ export default function DashboardEntry() {
                 })}
               </motion.div>
             </AnimatePresence>
-          </motion.div>
+          </div>
         )}
       </ScreenBody>
 
-      {contentReady && (
-        <motion.div
-          className="shrink-0"
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.18 }}
-        >
-          <BottomNav />
-        </motion.div>
-      )}
+      {contentReady && <BottomNav />}
     </Screen>
   )
 }
@@ -528,7 +523,7 @@ function UnitSection({
   // con sus tres acciones.
   if (editing && editor) {
     return (
-      <section className="flex flex-col gap-3 rounded-md border border-white/10 p-4">
+      <section className="flex flex-col gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
         <div className="flex items-start justify-between gap-3">
           <span
             className="text-lg font-semibold leading-tight"
@@ -583,7 +578,9 @@ function UnitSection({
     <section
       className={cn(
         "flex flex-col gap-3 rounded-md border p-4",
-        isActive ? "border-white/10" : "border-white/15 bg-white/5 opacity-60",
+        isActive
+          ? "border-white/10 bg-white/[0.01]"
+          : "border-white/15 bg-white/5 opacity-60",
       )}
     >
       <div className="flex items-start justify-between gap-3">

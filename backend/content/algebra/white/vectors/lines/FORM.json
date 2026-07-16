@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En $L: \\vec{x} = (2,-1,3) + t(1,4,-2)$, ¿cuál es el vector director?",
+    "options": [
+      "$(1,4,-2)$",
+      "$(2,-1,3)$",
+      "$t(1,4,-2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El vector director es el que acompaña al parámetro $t$: $(1,4,-2)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el punto de paso, no el vector director.",
+      "Eso incluye el parámetro $t$, no es el vector director en sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la ecuación paramétrica de una recta, el vector director es el que multiplica al parámetro.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$\n\nAcá $\\vec{p}=(2,-1,3)$ es el punto de paso y $\\vec{d}=(1,4,-2)$ es el vector director.\n\nConfundir ambos es un error común, el punto de paso fija dónde arranca la recta, el vector director fija hacia dónde avanza.",
+    "reviewed": false
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál es la matriz asociada a $T(x,y) = (2x, 3y)$?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 2 & 3 \\\\ 0 & 0 \\end{pmatrix}$",
+      "$\\begin{pmatrix} 0 & 2 \\\\ 3 & 0 \\end{pmatrix}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Las columnas de $A$ son $T(1,0)=(2,0)$ y $T(0,1)=(0,3)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa matriz no reproduce $T(0,1)=(0,3)$ correctamente.",
+      "Los coeficientes están ubicados en las posiciones equivocadas de la matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La matriz asociada a $T$ se arma calculando la imagen de cada vector de la base canónica.\n$$T(1,0)=(2,0), \\qquad T(0,1)=(0,3)$$\n\nEsas imágenes se colocan como columnas de la matriz asociada.\n$$A = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$$\n\nUn error común es ubicar los coeficientes fuera de la diagonal o intercambiar filas con columnas al armar la matriz.",
+    "reviewed": false
+  }
+]

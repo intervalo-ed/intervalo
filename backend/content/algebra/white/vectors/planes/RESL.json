@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál es el valor de $d$ para que el punto $(1,2,3)$ pertenezca al plano $\\pi: x - y + 2z = d$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$-3$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$1 - 2 + 2(3) = 1-2+6 = 5$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de sumar sin el coeficiente $2$ en el último término.",
+      "El signo de alguno de los términos quedó invertido.",
+      "Eso es solo la primera componente, falta sumar el resto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para que un punto pertenezca a un plano, sus coordenadas deben satisfacer la ecuación implícita.\n$$1 - 2 + 2(3) = d$$\n\nReemplazando cada coordenada en su lugar: $1-2+6=5$, entonces $d=5$.\n\nConviene reemplazar coordenada por coordenada con cuidado en los signos y los coeficientes antes de sumar todo.",
+    "reviewed": false
+  }
+]

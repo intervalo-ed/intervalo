@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $\\vec{u} = (2, -3)$ y $\\vec{v} = (-1, 4)$, ¿cuánto vale $\\vec{u} + \\vec{v}$?",
+    "options": [
+      "$(1, 1)$",
+      "$(3, -7)$",
+      "$(1, -1)$",
+      "$(-2, -12)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(2,-3)+(-1,4) = (2-1,\\, -3+4) = (1,1)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa resta las componentes en vez de sumarlas.",
+      "El signo de la segunda componente quedó invertido.",
+      "Eso sale de multiplicar las componentes, no de sumarlas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para sumar vectores se suman las componentes que están en la misma posición.\n$$\\vec{u}+\\vec{v} = (2 + (-1),\\; -3 + 4) = (1, 1)$$\n\nConviene sumar cada componente por separado y no mezclar el signo de una posición con otra.\n\nUn error común es restar en vez de sumar, o invertir el signo de alguna componente al operar.",
+    "reviewed": false
+  }
+]

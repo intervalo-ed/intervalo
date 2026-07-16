@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos conjuntos es una **base** de $\\mathbb{R}^2$?",
+    "options": [
+      "$\\{(1,0), (0,1)\\}$",
+      "$\\{(1,0), (2,0)\\}$",
+      "$\\{(1,0), (0,1), (1,1)\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(1,0)$ y $(0,1)$ generan $\\mathbb{R}^2$ y son independientes: es una base.",
+    "feedback_incorrect": [
+      null,
+      "$(2,0)=2(1,0)$: son dependientes, no forman base.",
+      "Con 3 vectores en $\\mathbb{R}^2$ hay redundancia, no pueden ser independientes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una base de $\\mathbb{R}^2$ necesita exactamente 2 vectores, generadores e independientes entre sí.\n\n$(1,0)$ y $(0,1)$ cumplen ambas condiciones: son la base más simple del plano.\n\n$(1,0)$ y $(2,0)$ son dependientes (paralelos), y agregar un tercer vector a un conjunto ya generador de $\\mathbb{R}^2$ siempre produce dependencia lineal.",
+    "reviewed": false
+  }
+]

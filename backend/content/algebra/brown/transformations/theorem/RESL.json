@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $\\dim(V)=5$ y $\\dim(\\ker(T))=2$, ¿cuánto vale $\\dim(\\text{Im}(T))$?",
+    "options": [
+      "$3$",
+      "$7$",
+      "$2$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\dim(\\text{Im}(T)) = 5 - 2 = 3$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar en vez de restar las dimensiones.",
+      "Ese es el valor de $\\dim(\\ker(T))$, no de la imagen.",
+      "Ese es $\\dim(V)$, falta restar la dimensión del núcleo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El teorema de la dimensión relaciona el dominio, el núcleo y la imagen de una transformación.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\n\nDespejando, $\\dim(\\text{Im}(T)) = \\dim(V) - \\dim(\\ker(T)) = 5-2 = 3$.\n\nConviene recordar que la fórmula es una suma que da el dominio, así que para despejar la imagen hay que restar la dimensión del núcleo, no sumarla.",
+    "reviewed": false
+  }
+]

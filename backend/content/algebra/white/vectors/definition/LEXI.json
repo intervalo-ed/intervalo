@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué caracteriza a un **vector** en $\\mathbb{R}^n$?",
+    "options": [
+      "Una tupla ordenada de $n$ componentes reales",
+      "Un único número real sin dirección",
+      "Una ecuación que vincula dos variables"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un vector es una tupla ordenada $(v_1, \\dots, v_n)$ de componentes reales.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe un escalar, sin componentes ni dirección.",
+      "Eso describe una ecuación, no la estructura de un vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **vector** en $\\mathbb{R}^n$ es una tupla ordenada de $n$ componentes reales.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\n\nPor ejemplo, $\\vec{v} = (3, -1, 2)$ es un vector de $\\mathbb{R}^3$: tres componentes reales, en un orden fijo.\n\nUn escalar es apenas un número, sin componentes ni orden interno; confundir ambos objetos es un error común al empezar con notación vectorial.",
+    "reviewed": false
+  }
+]

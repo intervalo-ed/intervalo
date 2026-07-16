@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$, ¿cuánto vale el elemento $(A^T)_{2,1}$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$3$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(A^T)_{2,1} = A_{1,2} = 2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $A_{2,1}$, no $A_{1,2}$: los índices quedaron sin invertir.",
+      "Ese es $A_{1,3}$, no el elemento pedido.",
+      "Ese es $A_{2,3}$, no el elemento pedido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar un elemento de la transpuesta, se invierten los índices de fila y columna.\n$$(A^T)_{ij} = A_{ji}$$\n\nAcá se pide $(A^T)_{2,1}$, que equivale a $A_{1,2}$: la fila $1$, columna $2$ de la matriz original, que vale $2$.\n\nUn error frecuente es copiar el elemento con los índices sin invertir, es decir, tomar $A_{2,1}$ en vez de $A_{1,2}$.",
+    "reviewed": false
+  }
+]

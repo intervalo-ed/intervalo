@@ -1,5 +1,6 @@
 import { catalog as catalogAnalisis, type Belt, type BeltKey, type Topic, type Unit } from "./analisis.generated"
 import { catalog as catalogProbabilidad } from "./probabilidad.generated"
+import { catalog as catalogAlgebra } from "./algebra.generated"
 
 // A partir de este archivo, `catalog`, `BeltKey`, `Belt`, `Unit`, `Topic` siguen
 // refiriéndose al curso `analisis` para que los consumidores mono-curso (zen,
@@ -8,18 +9,20 @@ import { catalog as catalogProbabilidad } from "./probabilidad.generated"
 export const catalog = catalogAnalisis
 export type { Belt, BeltKey, Topic, Unit }
 
-export type CourseId = "analisis" | "probabilidad"
+export type CourseId = "analisis" | "probabilidad" | "algebra"
 
-export const COURSE_ORDER: CourseId[] = ["analisis", "probabilidad"]
+export const COURSE_ORDER: CourseId[] = ["analisis", "probabilidad", "algebra"]
 
 export const COURSE_LABEL: Record<CourseId, string> = {
   analisis: "Análisis",
   probabilidad: "Probabilidad",
+  algebra: "Álgebra",
 }
 
 export const CATALOGS: Record<CourseId, typeof catalogAnalisis> = {
   analisis: catalogAnalisis,
   probabilidad: catalogProbabilidad as unknown as typeof catalogAnalisis,
+  algebra: catalogAlgebra as unknown as typeof catalogAnalisis,
 }
 
 const BELT_ASSET: Record<BeltKey, string> = {

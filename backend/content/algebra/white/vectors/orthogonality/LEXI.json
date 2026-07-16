@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuándo se dice que dos vectores son **ortogonales**?",
+    "options": [
+      "Cuando su producto escalar es $0$",
+      "Cuando tienen la misma norma",
+      "Cuando son paralelos entre sí"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Dos vectores son ortogonales si su producto escalar da cero.",
+    "feedback_incorrect": [
+      null,
+      "Tener la misma norma no implica perpendicularidad.",
+      "Vectores paralelos forman ángulo $0°$, no $90°$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos vectores son **ortogonales** cuando el ángulo entre ellos es recto, lo que se verifica con el producto escalar.\n$$\\vec{u}\\cdot\\vec{v} = 0$$\n\nSi el producto escalar da distinto de cero, los vectores no son perpendiculares entre sí.\n\nEsta condición es clave para construir sistemas de coordenadas donde el movimiento en una dirección no afecta a la otra.",
+    "reviewed": false
+  }
+]

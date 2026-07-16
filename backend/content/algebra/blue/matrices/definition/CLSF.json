@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos objetos es una **matriz**?",
+    "options": [
+      "$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$",
+      "$(1, 2, 3)$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El arreglo con filas y columnas es una matriz de $2\\times 2$.",
+    "feedback_incorrect": [
+      null,
+      "Eso es un vector, una única fila de componentes.",
+      "Eso es un escalar, un único número."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una matriz necesita al menos dos filas o dos columnas para distinguirse de un vector.\n\n$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ tiene 2 filas y 2 columnas: es una matriz de $2\\times2$.\n\n$(1,2,3)$ es un vector (una sola fila), y $5$ es apenas un escalar, sin estructura de filas ni columnas.",
+    "reviewed": false
+  }
+]

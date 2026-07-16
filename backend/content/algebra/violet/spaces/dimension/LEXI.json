@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué representa la **dimensión** $\\dim(V)$ de un espacio vectorial?",
+    "options": [
+      "La cantidad de vectores en cualquiera de sus bases",
+      "La norma del vector más grande de $V$",
+      "La cantidad de subespacios que contiene"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La dimensión es la cantidad de vectores que tiene cualquier base de $V$.",
+    "feedback_incorrect": [
+      null,
+      "La norma de un vector particular no define la dimensión del espacio.",
+      "La cantidad de subespacios de un espacio no es lo que mide la dimensión."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **dimensión** de un espacio vectorial es la cantidad exacta de vectores que contiene cualquiera de sus bases.\n$$\\dim(V) = n$$\n\nEs una propiedad intrínseca del espacio, representa sus grados de libertad.\n\nAunque un espacio tenga infinitas bases posibles, todas ellas comparten la misma cantidad de elementos.",
+    "reviewed": false
+  }
+]

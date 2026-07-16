@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál de estos vectores pertenece al núcleo de $T(x,y,z)=(x-y,\\, y-z)$?",
+    "options": [
+      "$(1,1,1)$",
+      "$(1,0,0)$",
+      "$(0,1,0)$",
+      "$(1,2,3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$T(1,1,1) = (1-1,\\, 1-1) = (0,0)$: pertenece al núcleo.",
+    "feedback_incorrect": [
+      null,
+      "$T(1,0,0)=(1,0)\\neq(0,0)$.",
+      "$T(0,1,0)=(-1,1)\\neq(0,0)$.",
+      "$T(1,2,3)=(-1,-1)\\neq(0,0)$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar un vector del núcleo de $T(x,y,z)=(x-y,\\,y-z)$, hay que resolver $x-y=0$ y $y-z=0$, es decir $x=y=z$.\n\nEl vector $(1,1,1)$ cumple esa condición: $T(1,1,1)=(1-1,\\,1-1)=(0,0)$.\n\nCualquier múltiplo de $(1,1,1)$ también pertenece al núcleo, ya que la condición $x=y=z$ define toda una recta de soluciones.",
+    "reviewed": false
+  }
+]

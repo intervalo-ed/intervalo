@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ y $\\vec{x}=(1,0)$, ¿cuánto vale $A\\vec{x}$?",
+    "options": [
+      "$(1,3)$",
+      "$(1,2)$",
+      "$(3,4)$",
+      "$(2,4)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$A\\vec{x}$ con $\\vec{x}=(1,0)$ da la primera columna de $A$: $(1,3)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la primera fila de $A$, no el resultado del producto.",
+      "Esa es la segunda fila de $A$, no la columna correspondiente.",
+      "Esa es la segunda columna de $A$, pero $\\vec{x}$ selecciona la primera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar una matriz por el vector $(1,0)$ selecciona la primera columna de la matriz.\n$$A\\vec{x} = \\begin{pmatrix} 1\\cdot1+2\\cdot0 \\\\ 3\\cdot1+4\\cdot0 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$$\n\nCada fila de $A$ se combina con las componentes de $\\vec{x}$, y como la segunda componente es cero, solo sobrevive la primera columna.\n\nUn error común es confundir filas con columnas al armar el resultado.",
+    "reviewed": false
+  }
+]

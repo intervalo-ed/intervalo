@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Para verificar si un conjunto de $n$ vectores es **base** de $\\mathbb{R}^n$, ¿qué estrategia alcanza?",
+    "options": [
+      "Verificar que son linealmente independientes",
+      "Verificar que todos tienen la misma norma",
+      "Verificar que ninguno tiene componentes negativas"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Si son exactamente $n$ vectores en $\\mathbb{R}^n$, alcanza con verificar independencia lineal.",
+    "feedback_incorrect": [
+      null,
+      "La norma de los vectores no determina si forman una base.",
+      "El signo de las componentes no es relevante para ser base."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando ya se tienen exactamente $n$ vectores en un espacio de dimensión $n$, verificar la independencia lineal alcanza para confirmar que forman una base.\n\nSi son independientes, automáticamente también son generadores: no puede faltarles alcanzar ninguna dirección del espacio.\n\nEsta es una simplificación importante, no hace falta probar por separado que generan el espacio, con la cantidad correcta de vectores independientes ya está garantizado.",
+    "reviewed": false
+  }
+]
