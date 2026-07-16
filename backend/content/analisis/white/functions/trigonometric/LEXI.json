@@ -517,7 +517,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2} \\\\\\\\\n&= \\pi\n\\end{aligned}$\n\nCiclos en $[0,2\\pi]$: $2\\pi/\\pi=2$. La función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una. Velocidad doble, energía doble.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi\n\\end{aligned}$$\n\nCiclos en $[0,2\\pi]$: $2\\pi/\\pi=2$. La función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una. Velocidad doble, energía doble.",
     "reviewed": false
   },
   {
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.\n\n$\\begin{aligned}\n\\text{máx} &= D + |A| \\\\\\\\\n&= 1 + 3 \\\\\\\\\n&= 4\n\\end{aligned}$\n\nLa opción $3$ es la **amplitud** ($|A|$), no el máximo. La opción $1$ es el **desplazamiento** ($D$). El máximo siempre suma ambos. Para la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.\n\n$$\\begin{aligned}\n\\text{máx} &= D + |A| \\\\\n&= 1 + 3 \\\\\n&= 4\n\\end{aligned}$$\n\nLa opción $3$ es la **amplitud** ($|A|$), no el máximo. La opción $1$ es el **desplazamiento** ($D$). El máximo siempre suma ambos. Para la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
     "reviewed": false
   },
   {
@@ -605,7 +605,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n\n$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\\\\\n&= -1 - 2 \\\\\\\\\n&= -3\n\\end{aligned}$\n\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3\n\\end{aligned}$$\n\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
     "reviewed": false
   },
   {
@@ -891,7 +891,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2} \\\\\\\\\n&= \\pi\n\\end{aligned}$\n\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. $\\pi/2$ correspondería a $B=4$. Con $B=2$, la respuesta correcta es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi\n\\end{aligned}$$\n\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. $\\pi/2$ correspondería a $B=4$. Con $B=2$, la respuesta correcta es $\\pi$.",
     "reviewed": false
   },
   {
@@ -913,7 +913,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{1/2} \\\\\\\\\n&= 4\\pi\n\\end{aligned}$\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
+    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/2} \\\\\n&= 4\\pi\n\\end{aligned}$$\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
     "reviewed": false
   },
   {
@@ -1001,7 +1001,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.\n\n$\\begin{aligned}\n\\text{imagen} &= [-1+3,\\; 1+3] \\\\\\\\\n&= [2,\\; 4]\n\\end{aligned}$\n\nLa opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**. La clave es sumar $D$ a ambos extremos del rango base.",
+    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.\n\n$$\\begin{aligned}\n\\text{imagen} &= [-1+3,\\; 1+3] \\\\\n&= [2,\\; 4]\n\\end{aligned}$$\n\nLa opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**. La clave es sumar $D$ a ambos extremos del rango base.",
     "reviewed": false
   },
   {

@@ -97,4 +97,119 @@ El tema más limpio de la unidad en formato: verificado programáticamente, prá
 - [ ] Sin antropomorfismo del seno/coseno en los cierres (LEXI y CLSF, ver lista de ítems arriba)
 - [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice)
 - [ ] Notación española `\operatorname{sen}(x)` en texto, `sin(x)` solo en `graph_fn`
+- [ ] Ningún `\begin{aligned}` envuelto en `$...$` inline: siempre `$$...$$`, un solo `\\` por salto de línea (bug ya reparado en esta ronda, ver hallazgos)
+- [ ] Cada ítem lleva `"tags": ["<slug>"]` según la tabla de distribución de su skill (ver sección más abajo), conteo por slug coincide con el target
+- [ ] En `options` con fracciones cortas para grilla 2×2, notación de barra (`1/3`) en vez de `\frac`/`\dfrac`
+- [ ] Ningún párrafo de `explanation` acumula 2+ fragmentos LaTeX inline sueltos
+- [ ] En opciones `CLSF` que ya son una fórmula, sin nombre de familia entre paréntesis al lado
+- [ ] Fórmula central del `question` separada del texto cuando es una fracción/expresión compleja (regla crítica 18)
+
+### Hallazgos de auditoría (ronda 1, jul-2026)
+
+**Bug de render crítico, ya reparado en esta ronda** (no es parte del refactor pendiente, ya está resuelto en disco y reseedeado): 58 ítems (LEXI 6, CLSF 3, FORM 28, GRAF 21) tenían `\begin{aligned}...\end{aligned}` envuelto en `$...$` inline en vez de `$$...$$` display, más un `\\` duplicado en cada salto de línea. El parser de `MathText` excluye saltos de línea de su regex inline, así que el campo entero se mostraba como texto crudo sin renderizar. Reparado con un script mecánico (validado contra `json.loads`) y reseedeado. Ver regla crítica 17b en `authoring-context.md`.
+
+10 ítems corregidos por el usuario en esta ronda (`correciones_analisis_funciones_trigon_13_7.md`), además del bug de arriba:
+- `GRAF_47`: fórmula del enunciado (fracción, `T(m) = 8\cos(\pi/6 \cdot (m-1)) + 15`) tejida inline, debía ir separada y centrada (regla crítica 18, 2ª confirmación cross-topic tras `rational`).
+- `LEXI_50`: propuesta de regla nueva (ahora regla crítica 20): opciones con fracciones cortas en notación de barra (`1/3`) en vez de `\dfrac`, para grilla 2×2 pareja.
+- `GRAF_38`: símbolos ✓/✗ en la `explanation` (ya prohibidos, reaparición) y estructura de párrafo pobre en la segunda mitad, muchas fórmulas inline sin separar (dio origen a la regla crítica 21, umbral de 2+ inline por párrafo).
+- `FORM_07`, `LEXI_02`, `GRAF_07`: sin separación de párrafos (`\n\n`) en `explanation`, mismo sesgo sistémico transversal a casi todos los topics auditados.
+- `GRAF_32`: símbolos ✓/✗ de nuevo, y confirmación textual del umbral de la regla 21.
+- `CLSF_36`: opciones con nombre de familia entre paréntesis redundante junto a la fórmula (dio origen a la regla crítica 22).
+- `GRAF_02`: opción correcta notablemente más larga y con justificación entre paréntesis que las demás no tienen (regla 4/15, ya documentada), y una aclaración parentética innecesaria en la pregunta ("incluyendo los extremos").
+
+### Distribución objetivo, con `tags`
+
+Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Diseñada leyendo los 200 ítems reales.
+
+**LEXI** (50 ítems):
+
+| Sub-familia | Cantidad | Slug |
+|---|---:|---|
+| Reconocimiento de función trigonométrica (qué es/no es) | 2 | `reconocimiento-trigonometrica` |
+| Valores notables (sen/cos en ángulos especiales) | 7 | `valores-notables` |
+| Amplitud (concepto y cálculo) | 5 | `amplitud` |
+| Período básico (concepto, sen/cos sin coeficiente) | 4 | `periodo-basico` |
+| Período con coeficiente $B$ | 4 | `periodo-con-b` |
+| Paridad de la función (par/impar) | 3 | `paridad-funcion` |
+| Imagen/rango básica | 2 | `imagen-basica` |
+| Imagen/rango con transformación | 2 | `imagen-transformada` |
+| Dominio | 1 | `dominio-trig` |
+| Extremos (máx/mín) con transformación | 2 | `extremos-con-transformacion` |
+| Transformaciones (desplazamiento, reflexión) | 4 | `transformaciones-trig` |
+| Identidad pitagórica | 1 | `identidad-pitagorica` |
+| Monotonía en un intervalo | 2 | `monotonia-intervalo-lexi` |
+| Definición de periodicidad | 1 | `definicion-periodicidad` |
+| Definición de tangente | 1 | `tangente-definicion` |
+| Ceros de la función | 2 | `ceros-funcion` |
+| Contexto cotidiano, reconocimiento | 2 | `contexto-cotidiano-reconocimiento` |
+| Comparación seno/coseno (propiedades) | 1 | `comparacion-sen-cos` |
+| Raíces de función desplazada | 1 | `raices-desplazada` |
+| Conteo de extremos en un intervalo | 1 | `conteo-extremos-intervalo` |
+| Identificar función desde comportamiento | 1 | `identificar-funcion-comportamiento` |
+| **Total** | **50** | |
+
+**CLSF** (50 ítems):
+
+| Sub-familia | Cantidad | Slug |
+|---|---:|---|
+| Es trigonométrica, dada una fórmula | 18 | `es-trigonometrica-desde-formula` |
+| NO es trigonométrica (distinguir de otra familia) | 2 | `no-es-trigonometrica` |
+| Elegir cuál de 4 opciones ES trigonométrica | 2 | `es-trigonometrica-eleccion` |
+| Reconocimiento desde gráfico (rasgos descriptos en prosa) | 11 | `reconocimiento-desde-grafico-clsf` |
+| Descripción abstracta → trigonométrica | 3 | `descripcion-abstracta-trigonometrica` |
+| Descripción abstracta → otra familia (distractor) | 3 | `descripcion-abstracta-otra-familia` |
+| Contexto cotidiano, reconocimiento | 7 | `contexto-cotidiano-clsf` |
+| Monotonía en un intervalo | 2 | `monotonia-intervalo-clsf` |
+| Conteo de cambios de monotonía | 1 | `conteo-cambios-monotonia` |
+| Dominio/restricción de la tangente | 1 | `dominio-tangente` |
+| **Total** | **50** | |
+
+**FORM** (50 ítems):
+
+| Sub-familia | Cantidad | Slug |
+|---|---:|---|
+| Amplitud, cálculo | 5 | `amplitud-calculo-form` |
+| Período, cálculo | 7 | `periodo-calculo-form` |
+| Hallar el parámetro $B$ dado el período | 1 | `hallar-parametro-b` |
+| Qué representa el parámetro $B$ | 1 | `significado-parametro-b` |
+| Evaluación puntual $f(a)$ | 8 | `evaluacion-puntual-form` |
+| Fórmula desde gráfico | 3 | `formula-desde-grafico-form-trig` |
+| Dominio | 1 | `dominio-form-trig` |
+| Extremos (máx/mín) desde fórmula | 4 | `extremos-desde-formula` |
+| Lectura directa del gráfico (valor/amplitud/D) | 6 | `lectura-grafico-directa-trig` |
+| Imagen/rango | 6 | `imagen-rango-form-trig` |
+| Cruce con el eje $X$ | 1 | `cruce-eje-x` |
+| Primer extremo con desfase | 1 | `primer-extremo-desfase` |
+| Existencia de asíntotas | 1 | `asintotas-existencia-trig` |
+| Fórmula desde propiedades (amplitud+período dados) | 3 | `formula-desde-propiedades-trig` |
+| Contexto cotidiano aplicado | 2 | `contexto-cotidiano-aplicado-form` |
+| **Total** | **50** | |
+
+**GRAF** (50 ítems):
+
+*Tipo A — leer propiedad directamente del gráfico (33 ítems):*
+
+| Sub-familia | Cantidad | Slug |
+|---|---:|---|
+| Conteo de máximos | 3 | `conteo-maximos` |
+| Conteo de ceros | 2 | `conteo-ceros` |
+| Período desde el gráfico | 2 | `periodo-desde-grafico` |
+| Paridad/simetría desde el gráfico | 2 | `paridad-desde-grafico` |
+| Amplitud desde el gráfico | 2 | `amplitud-desde-grafico` |
+| Diferencia visual seno/coseno | 1 | `diferencia-visual-sen-cos` |
+| Conteo de períodos completos | 3 | `conteo-periodos-completos` |
+| Monotonía en un intervalo | 4 | `monotonia-intervalo-graf-trig` |
+| Valor máximo/mínimo desde el gráfico | 2 | `valor-max-min-grafico` |
+| Dominio desde el gráfico | 1 | `dominio-desde-grafico-trig` |
+| Imagen desde el gráfico | 4 | `imagen-desde-grafico-trig` |
+| Ceros en valores específicos | 1 | `ceros-valores-especificos` |
+| Evaluación puntual desde el gráfico | 2 | `evaluacion-puntual-grafico` |
+| Primera raíz positiva | 1 | `primera-raiz-positiva` |
+| Ubicación de máximos locales | 1 | `ubicacion-maximos-locales` |
+| Eje de oscilación ($D$) | 1 | `eje-oscilacion` |
+| Ubicación del mínimo | 1 | `ubicacion-minimo` |
+
+*Tipo B — identificar fórmula desde el gráfico (11 ítems):* slug único `formula-desde-grafico-trig`.
+
+*Tipo C — contexto cotidiano con gráfico real (6 ítems):* slug único `contexto-cotidiano-graf-trig`.
 

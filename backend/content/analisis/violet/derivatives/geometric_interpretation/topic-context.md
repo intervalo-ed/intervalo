@@ -61,13 +61,15 @@ Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Vocabulario geométrico | Diferenciar conceptualmente **recta secante** (dos puntos, **tasa media**) vs. **recta tangente** (un punto, **tasa instantánea**). Punto de tangencia, corte transversal, dirección instantánea. | 20 |
-| B. Anatomía de la fórmula punto-pendiente | Diseccionar $y = f'(a)(x - a) + f(a)$. Identificar qué representa $f'(a)$ (la **inclinación**) y qué representa $(a, f(a))$ (el **punto de anclaje**). Reconocer variantes equivalentes. | 15 |
-| C. Aproximación lineal | Teórico: cómo y por qué la recta tangente actúa como "la mejor aproximación" únicamente **cerca del punto de tangencia**; qué pasa cuando uno se aleja. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Vocabulario geométrico | Diferenciar conceptualmente **recta secante** (dos puntos, **tasa media**) vs. **recta tangente** (un punto, **tasa instantánea**). Punto de tangencia, corte transversal, dirección instantánea. | `vocabulario-geometrico-secante-tangente` | 20 |
+| B. Anatomía de la fórmula punto-pendiente | Diseccionar $y = f'(a)(x - a) + f(a)$. Identificar qué representa $f'(a)$ (la **inclinación**) y qué representa $(a, f(a))$ (el **punto de anclaje**). Reconocer variantes equivalentes. | `anatomia-formula-punto-pendiente` | 15 |
+| C. Aproximación lineal | Teórico: cómo y por qué la recta tangente actúa como "la mejor aproximación" únicamente **cerca del punto de tangencia**; qué pasa cuando uno se aleja. | `aproximacion-lineal-local` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Secante llamada tangente**: elegir "tangente" para una recta que corta la curva en dos puntos. Recordar: la tangente toca en un solo punto (en un entorno pequeño).
@@ -92,13 +94,15 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - **3 opciones** para preguntas categóricas (cuál es tangente, hay/no hay tangente horizontal).
 - **4 opciones** para respuestas numéricas cortas (valor de pendiente estimado).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Identificación de la tangente | Dada una curva con **varias rectas** dibujadas en el mismo gráfico, discriminar visualmente cuál es **secante** (dos puntos), cuál corta **transversalmente** y cuál es la **verdadera tangente** en un punto dado. | 20 |
-| B. Lectura de pendiente | Dada una curva con su tangente trazada sobre una **grilla clara**, estimar numéricamente $f'(a)$ midiendo $\tfrac{\Delta y}{\Delta x}$ de la recta. | 15 |
-| C. Extremos y tangentes horizontales | Marcar visualmente los puntos donde la tangente asume una **pendiente nula** (paralela al eje horizontal): vértices, crestas, valles. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Identificación de la tangente | Dada una curva con **varias rectas** dibujadas en el mismo gráfico, discriminar visualmente cuál es **secante** (dos puntos), cuál corta **transversalmente** y cuál es la **verdadera tangente** en un punto dado. | `identificacion-visual-tangente` | 20 |
+| B. Lectura de pendiente | Dada una curva con su tangente trazada sobre una **grilla clara**, estimar numéricamente $f'(a)$ midiendo $\tfrac{\Delta y}{\Delta x}$ de la recta. | `lectura-de-pendiente` | 15 |
+| C. Extremos y tangentes horizontales | Marcar visualmente los puntos donde la tangente asume una **pendiente nula** (paralela al eje horizontal): vértices, crestas, valles. | `extremos-tangentes-horizontales` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Secante identificada como tangente**: elegir la recta que corta la curva en dos puntos visibles. La tangente **toca** en un punto y tiene la misma dirección que la curva ahí.
@@ -124,13 +128,15 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Armado de la ecuación de la tangente | Dados numéricamente el punto y la pendiente (ej. $f(2) = 5$, $f'(2) = 3$), construir la ecuación en forma punto-pendiente y llevarla a $y = mx + b$. | 25 |
-| B. Cálculo de secantes | Dadas las coordenadas de dos puntos sobre una curva, calcular la pendiente de la recta secante como $\tfrac{f(b) - f(a)}{b - a}$. | 15 |
-| C. Tangentes horizontales | Dada una expresión simple para $f'(x)$ (ej. $f'(x) = 2x - 4$), igualarla a cero y encontrar el $x$ del vértice donde la tangente es horizontal. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Armado de la ecuación de la tangente | Dados numéricamente el punto y la pendiente (ej. $f(2) = 5$, $f'(2) = 3$), construir la ecuación en forma punto-pendiente y llevarla a $y = mx + b$. | `armado-ecuacion-tangente` | 25 |
+| B. Cálculo de secantes | Dadas las coordenadas de dos puntos sobre una curva, calcular la pendiente de la recta secante como $\tfrac{f(b) - f(a)}{b - a}$. | `calculo-de-secantes` | 15 |
+| C. Tangentes horizontales | Dada una expresión simple para $f'(x)$ (ej. $f'(x) = 2x - 4$), igualarla a cero y encontrar el $x$ del vértice donde la tangente es horizontal. | `tangentes-horizontales-calculo` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo de $a$ en la fórmula punto-pendiente**: en $y = f'(a)(x - a) + f(a)$ con $a = 2$, escribir $(x + 2)$ en lugar de $(x - 2)$. El signo dentro va **opuesto** al valor de $a$.
@@ -160,13 +166,15 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - **4 opciones** cuando la respuesta es un valor numérico o una ecuación corta.
 - **3 opciones** cuando la respuesta es categórica o cualitativa.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Intersecciones de la tangente | Tras deducir o recibir $y = mx + b$, calcular la **ordenada al origen** (evaluar en $x = 0$) o la **raíz** (resolver $mx + b = 0$). | 20 |
-| B. Paralelismo | Plantear: si se busca una tangente paralela a $y = mx + b$, imponer la condición $f'(x) = m$ y despejar el $x$ del punto de tangencia. Datos numéricos simples. | 15 |
-| C. Teorema del Valor Medio (cualitativo) | Situaciones que exigen comprender que si la secante en $[a, b]$ tiene pendiente $m$, existe un punto interior $c \in (a, b)$ donde la tangente tiene esa misma pendiente $m$. Sin cálculo del $c$: solo el diagnóstico geométrico. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Intersecciones de la tangente | Tras deducir o recibir $y = mx + b$, calcular la **ordenada al origen** (evaluar en $x = 0$) o la **raíz** (resolver $mx + b = 0$). | `intersecciones-de-la-tangente` | 20 |
+| B. Paralelismo | Plantear: si se busca una tangente paralela a $y = mx + b$, imponer la condición $f'(x) = m$ y despejar el $x$ del punto de tangencia. Datos numéricos simples. | `paralelismo-de-tangentes` | 15 |
+| C. Teorema del Valor Medio (cualitativo) | Situaciones que exigen comprender que si la secante en $[a, b]$ tiene pendiente $m$, existe un punto interior $c \in (a, b)$ donde la tangente tiene esa misma pendiente $m$. Sin cálculo del $c$: solo el diagnóstico geométrico. | `teorema-valor-medio-cualitativo` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Raíz confundida con ordenada al origen**: dar el corte con el eje $y$ cuando se pide la raíz, o al revés. Recordar: raíz = corte con eje $x$ (donde $y = 0$); ordenada al origen = corte con eje $y$ (donde $x = 0$).

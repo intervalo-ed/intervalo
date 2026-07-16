@@ -296,25 +296,38 @@ function GraphContent({
 
   // Split the visible x-range into continuous branches to avoid bridging across
   // discontinuities (asymptotes, domain gaps). Recomputed on every viewport change.
+  //
+  // A per-point visibility test alone isn't enough: near a vertical asymptote the
+  // function can jump from a large positive value to a large negative one (or vice
+  // versa) between two adjacent coarse samples, and both samples can individually
+  // land inside [lo, hi] (e.g. +3.9 then -3.9 inside a [-4, 4] view). Treating those
+  // as the same run draws a straight line bridging the pole. So a run is also cut
+  // when the jump between consecutive samples is large relative to the visible
+  // height, even if both points are individually "visible".
   const branches = useMemo<[number, number][]>(() => {
     const N = 300
     const step = (xMax - xMin) / N
+    const heightRange = hi - lo
     const xs: number[] = []
+    const ys: number[] = []
     const visible: boolean[] = []
     for (let i = 0; i <= N; i++) {
       const x = xMin + i * step
       const y = fn(x)
       xs.push(x)
+      ys.push(y)
       visible.push(Number.isFinite(y) && y >= lo && y <= hi)
     }
     const runs: [number, number][] = []
     let start = -1
     for (let i = 0; i <= N; i++) {
-      if (visible[i]) {
+      const jumpFromPrev =
+        i > 0 && visible[i - 1] && visible[i] && Math.abs(ys[i] - ys[i - 1]) > heightRange * 0.5
+      if (visible[i] && !jumpFromPrev) {
         if (start === -1) start = i
-      } else if (start !== -1) {
-        runs.push([xs[Math.max(0, start - 1)], xs[i]])
-        start = -1
+      } else {
+        if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[i - 1]])
+        start = visible[i] ? i : -1
       }
     }
     if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[N]])

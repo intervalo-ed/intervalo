@@ -50,7 +50,7 @@
       -1,
       9
     ],
-    "explanation": "En una parábola que abre hacia abajo, el **vértice** marca el punto más alto de todo el recorrido, y su coordenada horizontal indica en qué momento se llega a esa altura máxima.\n\nAcá el vértice está en\n$$(4,\\ 4)$$\nasí que a los 4 segundos el sapo alcanza el punto más alto de su salto, a 4 centímetros de altura.\n\nConviene distinguir bien las dos coordenadas del vértice: una responde \"cuánto\" (la altura) y la otra responde \"cuándo\" (el instante), y acá la pregunta apunta al cuándo.",
+    "explanation": "En una parábola que abre hacia abajo, el **vértice** marca el punto más alto de todo el recorrido, y su coordenada horizontal indica en qué momento se llega a esa altura máxima.\n\nAcá el vértice está en:\n$$(4, 4)$$\nAsí que a los 4 segundos el sapo alcanza el punto más alto de su salto, a 4 centímetros de altura.\n\nConviene distinguir bien las dos coordenadas del vértice, una responde cuánto vale la altura y la otra responde cuándo ocurre, y acá la pregunta apunta al cuándo.",
     "reviewed": false
   },
   {
@@ -119,7 +119,7 @@
     "has_math": true,
     "feedback_correct": "La parábola es simétrica respecto al vértice, que está en $x = 6$. El punto simétrico de $x = 2$ es $x = 10$.",
     "feedback_incorrect": [
-      "Fijate cuántos segundos hay entre los 2 segundos dados y el vértice en $x=6$; el instante simétrico debe quedar a esa misma distancia, del otro lado.",
+      "Medí la distancia entre los 2 segundos dados y el vértice, y buscá el mismo instante del otro lado.",
       null,
       "A los 12 segundos la altura ya es cero, ahí el cohete toca el agua, no vuelve a estar a 5 metros.",
       "Ese es el instante del punto más alto, con una altura distinta a los 5 metros pedidos."
@@ -131,7 +131,7 @@
       -1,
       13
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6. Si a los 2 segundos está a 5 metros (4 antes del vértice), vuelve a estar a 5 metros 4 después\n$$6 + 4 = 10$$\nSubiendo y bajando, la altura se repite como un espejo.",
+    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6. Si a los 2 segundos está a 5 metros, 4 antes del vértice, vuelve a estar a 5 metros 4 segundos después:\n$$6 + 4 = 10$$\nSubiendo y bajando, la altura se repite como un espejo.",
     "reviewed": false
   },
   {
@@ -671,7 +671,7 @@
       -1,
       11
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice. Eso quiere decir que, salvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 6$: los 4 segundos del enunciado quedan a 2 unidades de distancia, así que el otro instante con la misma altura está a esa misma distancia del otro lado\n$$6 + 2 = 8$$\nla pelota vuelve a estar a 6 metros a los 8 segundos.\n\nConviene medir la distancia al vértice una sola vez y repetirla del otro lado, en vez de contar los segundos desde el arranque del recorrido.",
+    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 6$, y los 4 segundos del enunciado quedan a 2 unidades de distancia.\n\nEl instante simétrico está a esa misma distancia del otro lado del vértice:\n$$6 + 2 = 8$$\nLa pelota vuelve a estar a 6 metros a los 8 segundos.\n\nConviene medir la distancia al vértice una sola vez y repetirla del otro lado, en vez de contar los segundos desde el arranque del recorrido.",
     "reviewed": false
   },
   {

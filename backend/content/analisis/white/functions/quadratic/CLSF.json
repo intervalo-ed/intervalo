@@ -23,7 +23,7 @@
       -2,
       8
     ],
-    "explanation": "Para clasificar una función a partir de su gráfica, observar la **forma de la curva** es el criterio principal.\n\nUna parábola se reconoce por: forma de U (o U invertida), **simetría** respecto a una recta vertical, y presencia de exactamente un punto extremo (vértice). Ninguna otra función elemental tiene estas tres características simultáneamente.\n\nLa gráfica mostrada es $f(x) = x^2 - 4x + 3$: tiene forma de U, vértice en $(2, -1)$ y eje de simetría $x = 2$. Conclusión: es una función **cuadrática**.",
+    "explanation": "Para clasificar una función a partir de su gráfica, observar la **forma de la curva** es el criterio principal.\n\nUna parábola se reconoce por su forma de U, su **simetría** respecto a un eje vertical y un único vértice.\n\nNinguna otra función elemental combina esas tres características a la vez.\n\nLa gráfica mostrada, $f(x) = x^2 - 4x + 3$, tiene vértice en $(2, -1)$ y eje de simetría en $x = 2$, así que es una función **cuadrática**.",
     "reviewed": false
   },
   {
@@ -573,14 +573,14 @@
       "Lineal"
     ],
     "correct_index": 3,
-    "feedback_correct": "Costo fijo más monto por km = tasa constante = función lineal.",
+    "feedback_correct": "El costo fijo más un monto constante por km es una tasa constante de cambio, la firma de una función lineal.",
     "feedback_incorrect": [
       "No hay ningún producto de dos magnitudes que dependan de $k$; el costo fijo más el costo por kilómetro no genera un término $k^2$.",
       "El costo no se multiplica por un factor fijo en cada kilómetro; se suma siempre la misma cantidad, \\$300, por km.",
       "No hay ningún logaritmo en el costo total, que crece por tramos iguales de kilómetro.",
       null
     ],
-    "explanation": "Una función lineal describe situaciones con una **tasa constante de cambio**: por cada kilómetro extra, el costo sube siempre en \\$300.\n\n$C(k) = 800 + 300k$\n\nEsto es $mx + b$ con $m = 300$ y $b = 800$. No hay $k^2$ porque el costo por km no varía según cuántos km lleves recorridos. Un buen discriminador: si la tarifa por unidad es siempre la misma, la función es lineal.",
+    "explanation": "Una función lineal describe situaciones con una **tasa constante de cambio**. Por cada kilómetro extra, el costo sube siempre en \\$300.\n\n$C(k) = 800 + 300k$\n\nEsto es $mx + b$ con $m = 300$ y $b = 800$; no hay $k^2$ porque el costo por kilómetro no varía según cuántos km lleves recorridos.\n\nSi la tarifa por unidad se mantiene siempre igual, la función es lineal; ese es el discriminador clave frente a la cuadrática.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -983,7 +983,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la imagen de $f(x) = 2(x - 3)^2 + 1$?",
+    "question": "¿Cuál es la **imagen** de $f(x) = 2(x - 3)^2 + 1$?",
     "options": [
       "$(-\\infty, 1]$",
       "$[1, +\\infty)$",
@@ -991,14 +991,14 @@
       "$\\mathbb{R}$"
     ],
     "correct_index": 1,
-    "feedback_correct": "El vértice es $(3, 1)$ y $a = 2 > 0$: parábola hacia arriba, imagen $[1, +\\infty)$.",
+    "feedback_correct": "El vértice es $(3, 1)$ y $a = 2 > 0$, así que la parábola abre hacia arriba con imagen $[1, +\\infty)$.",
     "feedback_incorrect": [
       "Esa sería la imagen si la parábola abriera hacia abajo, pero acá $a=2>0$, así que abre hacia arriba.",
       null,
       "El $3$ es la coordenada $x$ del vértice, no la $y$; la imagen se define con el valor mínimo de $f$, que es $1$, no con dónde ocurre.",
       "$\\mathbb{R}$ sería la imagen si no hubiera vértice que frene la curva, pero acá el mínimo de 1 sí acota los valores por abajo."
     ],
-    "explanation": "Para una cuadrática en forma de vértice $a(x-h)^2+k$, el signo de $a$ decide si el vértice es un mínimo o un máximo: con $a>0$ la parábola abre hacia arriba y el vértice es el valor más bajo, con imagen $[k, +\\infty)$; con $a<0$ abre hacia abajo y el vértice es el valor más alto, con imagen $(-\\infty, k]$.\n\nEn $f(x) = 2(x-3)^2 + 1$ los parámetros son $a=2>0$ y $k=1$, así que el vértice $(3,1)$ es un mínimo y la imagen es $[1, +\\infty)$: la función nunca vale menos que 1.\n\nLa coordenada $x$ del vértice no interviene en la imagen, solo la coordenada $y$: el error típico es confundir cuál de las dos coordenadas del vértice define el límite de la imagen.",
+    "explanation": "Para una cuadrática en forma de vértice $a(x-h)^2+k$, el signo de $a$ decide si el vértice es un mínimo o un máximo.\n\nCon $a>0$, la parábola abre hacia arriba, el vértice es el valor más bajo y la **imagen** es $[k, +\\infty)$.\n\nCon $a<0$, abre hacia abajo, el vértice es el valor más alto y la imagen es $(-\\infty, k]$.\n\nEn $f(x) = 2(x-3)^2 + 1$ los parámetros son $a=2>0$ y $k=1$, así que el vértice $(3,1)$ es un mínimo. La función nunca vale menos que 1, y la imagen es $[1, +\\infty)$.\n\nLa coordenada $x$ del vértice no interviene en la imagen, solo la coordenada $y$ lo hace. El error típico es confundir cuál de las dos coordenadas del vértice define el límite de la imagen.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

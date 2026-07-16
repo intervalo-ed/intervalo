@@ -59,14 +59,16 @@ Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | 15 |
-| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | 15 |
-| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | 10 |
-| D. Operabilidad | Si el bilateral no existe, los laterales siguen siendo números reales válidos y se pueden sumar, restar, comparar. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | `notacion-y-direccion-lateral` | 15 |
+| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | `teorema-existencia-bilateral` | 15 |
+| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | `discontinuidad-por-salto` | 10 |
+| D. Operabilidad | Si el bilateral no existe, los laterales siguen siendo números reales válidos y se pueden sumar, restar, comparar. | `operabilidad-laterales` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Superíndice leído como signo del número**: interpretar $x \to 2^-$ como $x \to -2$. Describir: "el signo menos indica la dirección desde la que te acercás a $2$ (por valores menores), no un número negativo".
@@ -91,13 +93,15 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 - **4 opciones** cuando la respuesta es numérica corta.
 - **3 opciones** cuando la respuesta es conceptual o de existencia (sí / no / depende).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | 20 |
-| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | 15 |
-| C. Operación visual | Sumar o restar dos laterales leídos del gráfico, o comparar dos límites laterales de puntos distintos. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 20 |
+| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 15 |
+| C. Operación visual | Sumar o restar dos laterales leídos del gráfico, o comparar dos límites laterales de puntos distintos. | `operacion-visual-laterales` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Lado contrario**: al pedir $\lim^-$, leer el valor del lado derecho del salto. Describir qué mirar: "estás leyendo hacia dónde sube la rama derecha; el lateral por izquierda es hacia dónde llega la rama izquierda".
@@ -122,13 +126,15 @@ Ejecutar el álgebra direccional eligiendo la **rama correcta** de una función 
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | 20 |
-| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | 20 |
-| C. Valor absoluto | Expresiones del tipo $\dfrac{\|x - c\|}{x - c}$ o $\dfrac{\|x\|}{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | `trozos-un-lateral` | 20 |
+| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | `trozos-bilateral` | 20 |
+| C. Valor absoluto | Expresiones del tipo $\dfrac{\|x - c\|}{x - c}$ o $\dfrac{\|x\|}{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | `laterales-valor-absoluto` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Rama invertida**: elegir la rama de $x > a$ cuando se pide $\lim^-$. Describir: "$\lim^-$ mira valores menores que $a$, así que corresponde a la rama definida para $x < a$".

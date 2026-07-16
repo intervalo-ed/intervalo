@@ -60,14 +60,16 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem. Fuerza la lectura profunda y evita el descarte automático. Nada de rellenar con una cuarta opción implausible.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. La naturaleza de la aproximación | Qué significa $x \to a$: acercarse vs. llegar. Notación correcta. La flecha es tendencia, no evaluación. | 15 |
-| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | 15 |
-| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | 10 |
-| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. La naturaleza de la aproximación | Qué significa $x \to a$: acercarse vs. llegar. Notación correcta. La flecha es tendencia, no evaluación. | `naturaleza-aproximacion` | 15 |
+| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 15 |
+| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 10 |
+| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Confundir tendencia con evaluación**: "el límite en $x = 2$ es $f(2)$" cuando $f$ no está definida en $2$. Describir: "estás evaluando la función; el límite mira los valores cercanos a $2$, no en $2$".
@@ -91,14 +93,16 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem. Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**) para disparar la grilla 2×2 en el frontend.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Sustitución en polinomios y constantes | Evaluación pura. Trampas con tendencias negativas ($x \to -2$) y potencias con signo. Límites de funciones constantes ($\lim_{x \to 5} 8 = 8$). | 15 |
-| B. Racionales y radicales SIN indeterminación | Fracciones y raíces donde el denominador no se anula y el argumento de la raíz es válido. Filtro anti-autómatas: alumnos que intentan "factorizar todo lo que ven" pierden. | 15 |
-| C. Propiedades de suma y escalar | Operador lineal: dadas $\lim f(x) = 3$ y $\lim g(x) = -2$, calcular $\lim [2f(x) - g(x)]$ y variantes. | 10 |
-| D. Propiedades de producto y cociente | Separación de términos multiplicativos. Trampas de división por cero al aplicar la propiedad de cociente (el cociente no se puede separar si el límite del denominador es $0$). | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Sustitución en polinomios y constantes | Evaluación pura. Trampas con tendencias negativas ($x \to -2$) y potencias con signo. Límites de funciones constantes ($\lim_{x \to 5} 8 = 8$). | `sustitucion-polinomios-constantes` | 15 |
+| B. Racionales y radicales SIN indeterminación | Fracciones y raíces donde el denominador no se anula y el argumento de la raíz es válido. Filtro anti-autómatas: alumnos que intentan "factorizar todo lo que ven" pierden. | `racionales-radicales-sin-indeterminacion` | 15 |
+| C. Propiedades de suma y escalar | Operador lineal: dadas $\lim f(x) = 3$ y $\lim g(x) = -2$, calcular $\lim [2f(x) - g(x)]$ y variantes. | `propiedades-suma-escalar` | 10 |
+| D. Propiedades de producto y cociente | Separación de términos multiplicativos. Trampas de división por cero al aplicar la propiedad de cociente (el cociente no se puede separar si el límite del denominador es $0$). | `propiedades-producto-cociente` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo en potencias con base negativa**: en $\lim_{x \to -2} x^2 = 4$, elegir $-4$ (arrastrar el signo). Describir: "al elevar al cuadrado, el signo desaparece; el resultado es positivo".

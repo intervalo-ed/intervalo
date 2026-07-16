@@ -77,13 +77,15 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | 15 |
-| B. Clasificación analítica | Se dan valores puntuales de $\lim^-$, $\lim^+$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim^- = 3$, $\lim^+ = 5$ → salto. | 20 |
-| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 15 |
+| B. Clasificación analítica | Se dan valores puntuales de $\lim^-$, $\lim^+$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim^- = 3$, $\lim^+ = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 20 |
+| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Confundir removible con salto**: cuando $\lim^- = \lim^+ = L$ pero $f(a) \neq L$ (o no existe), elegir "de salto". Recordar: si el bilateral existe y es finito, la discontinuidad es **removible**.
@@ -109,12 +111,14 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 - **4 opciones** cuando la respuesta es un valor de $x$ o $y$.
 - **3 opciones** cuando la respuesta es una clasificación de tipo.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | 25 |
-| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 25 |
+| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Vértice suave confundido con discontinuidad**: elegir el $x$ donde hay un pico (tipo $|x|$ en $0$) como punto discontinuo. Un pico es continuo; el problema sería de derivabilidad, que no se estudia acá.
@@ -141,13 +145,15 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim^-$, $\lim^+$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | 15 |
-| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | 25 |
-| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim^-$, $\lim^+$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 15 |
+| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 25 |
+| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$k$ resuelto por una sola rama**: en el despeje, igualar solo $\lim^-$ a un número y dar ese $k$ sin verificar el bilateral con $\lim^+$. La ecuación para continuidad es $\lim^- = \lim^+ = f(a)$.

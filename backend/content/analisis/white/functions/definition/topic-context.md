@@ -28,17 +28,19 @@ Revisión manual ítem por ítem vía `/test`. Los siguientes son ejemplos concr
 
 ### Distribución objetivo
 
-| Concepto | Sub-tipo | Cantidad exacta |
-|----------|----------|----------------:|
-| Dominio | conjunto explícito o natural | 12 |
-| Variable independiente / dependiente |, | 9 |
-| Imagen | como conjunto (¿cuál es el conjunto imagen?) | 8 |
-| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | 4 |
-| Codominio |, | 6 |
-| Preimagen | como cálculo (¿qué entradas dan $y$?) | 5 |
-| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | 2 |
-| Unicidad (cupo estricto, ver abajo) |, | 4 |
-| **Total** | | **50** |
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
+| Concepto | Sub-tipo | Slug | Cantidad exacta |
+|----------|----------|------|----------------:|
+| Dominio | conjunto explícito o natural | `dominio` | 12 |
+| Variable independiente / dependiente |, | `variable-indep-dep` | 9 |
+| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 8 |
+| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 4 |
+| Codominio |, | `codominio` | 6 |
+| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 5 |
+| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 2 |
+| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 4 |
+| **Total** | | | **50** |
 
 **Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ítems de imagen o unicidad "porque salieron mejor".
 
@@ -123,16 +125,18 @@ El **humor es excepcional** (una minoría de los 50 ítems) y solo como **analog
 - **~15 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
 - **~35 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
 
-| Categoría | Cantidad |
-|-----------|----------|
-| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | ~7 |
-| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | ~8 |
-| **Dominio**: identificar el conjunto de entradas en un caso concreto | ~6 |
-| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | ~10 |
-| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | ~9 |
-| **Codominio**: distinguir del conjunto imagen | ~4 |
-| **Preimagen**: calcular preimágenes / distinguir de la imagen | ~6 |
-| **Total** | **50** |
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
+| Categoría | Slug | Cantidad |
+|-----------|------|----------|
+| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | ~7 |
+| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | ~8 |
+| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | ~6 |
+| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | ~10 |
+| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | ~9 |
+| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | ~4 |
+| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | ~6 |
+| **Total** | | **50** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ítem se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
 

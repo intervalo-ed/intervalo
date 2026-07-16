@@ -59,12 +59,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 ### Cardinalidad
 **3 opciones** si el ítem evalúa una propiedad conceptual (signo del resultado, interpretación de $\int_b^a$, aditividad). **4 opciones** cortas si se pide el valor numérico del área para forzar grilla 2×2.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | 25 |
-| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades. Casos: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$ (invertir límites cambia signo); $\int_a^a f(x) \, dx = 0$ (límites iguales); aditividad $\int_a^c f + \int_c^b f = \int_a^b f$ (fraccionar en intervalos contiguos). Todo desde un gráfico dado. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 25 |
+| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades. Casos: $\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx$ (invertir límites cambia signo); $\int_a^a f(x) \, dx = 0$ (límites iguales); aditividad $\int_a^c f + \int_c^b f = \int_a^b f$ (fraccionar en intervalos contiguos). Todo desde un gráfico dado. | `propiedades-limites-integracion` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -101,12 +103,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - **En sustitución (sub-B)**: los límites se **actualizan** al cambiar a $u$ o la primitiva se **vuelve a $x$** antes de evaluar. Dejar la primitiva en $u$ evaluando con los límites originales es distractor deliberado.
 - **Áreas entre curvas prohibidas**: solo una función vs eje $x$.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | 25 |
-| B. Barrow con Sustitución y Partes | Ítems que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^2 x(x^2 + 1)^3 \, dx$ (por sustitución con $u = x^2 + 1$, límites $u = 1$ a $u = 5$) $= \tfrac{5^4 - 1^4}{8} = \tfrac{624}{8} = 78$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 25 |
+| B. Barrow con Sustitución y Partes | Ítems que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^2 x(x^2 + 1)^3 \, dx$ (por sustitución con $u = x^2 + 1$, límites $u = 1$ a $u = 5$) $= \tfrac{5^4 - 1^4}{8} = \tfrac{624}{8} = 78$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites. | `barrow-con-sustitucion-y-partes` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 

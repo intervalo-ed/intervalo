@@ -70,14 +70,16 @@ Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las re
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Álgebra del infinito y el cero | $\tfrac{k}{\infty} \to 0$ vs $\tfrac{k}{0^+} \to \infty$. Contraste con la indeterminación $\tfrac{0}{0}$. Casos $\tfrac{\infty}{\infty}$ y $\infty - \infty$ como indeterminaciones (sin resolver). | 15 |
-| B. Contraste de asíntotas | Diferenciar $x \to \infty \implies L$ (asíntota horizontal) de $x \to a \implies \infty$ (asíntota vertical). Cuál se identifica en cada dirección de lectura. | 15 |
-| C. Dominancia de grados en racionales | Preguntas teóricas sin cálculo: "¿qué sucede cuando el grado del denominador es estrictamente mayor?" — la respuesta es $0$. Cuando gana el numerador — diverge. Cuando son iguales — cociente de coeficientes principales. | 10 |
-| D. Crecimiento exponencial vs polinómico | Intuición teórica sobre dominancia entre familias: la exponencial supera a cualquier polinomio, y cualquier polinomio supera al logaritmo, cuando $x \to \infty$. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Álgebra del infinito y el cero | $\tfrac{k}{\infty} \to 0$ vs $\tfrac{k}{0^+} \to \infty$. Contraste con la indeterminación $\tfrac{0}{0}$. Casos $\tfrac{\infty}{\infty}$ y $\infty - \infty$ como indeterminaciones (sin resolver). | `algebra-infinito-cero` | 15 |
+| B. Contraste de asíntotas | Diferenciar $x \to \infty \implies L$ (asíntota horizontal) de $x \to a \implies \infty$ (asíntota vertical). Cuál se identifica en cada dirección de lectura. | `contraste-asintotas` | 15 |
+| C. Dominancia de grados en racionales | Preguntas teóricas sin cálculo: "¿qué sucede cuando el grado del denominador es estrictamente mayor?" — la respuesta es $0$. Cuando gana el numerador — diverge. Cuando son iguales — cociente de coeficientes principales. | `dominancia-grados-racionales` | 10 |
+| D. Crecimiento exponencial vs polinómico | Intuición teórica sobre dominancia entre familias: la exponencial supera a cualquier polinomio, y cualquier polinomio supera al logaritmo, cuando $x \to \infty$. | `crecimiento-exponencial-vs-polinomico` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$\tfrac{k}{\infty}$ leído como indeterminación**: pensar que "$k$ dividido infinito" es una indeterminación. Describir: "dividir un número fijo entre algo que crece sin cota lleva el cociente a cero; no es una indeterminación".
@@ -103,13 +105,15 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 - **4 opciones** cuando la respuesta es un valor numérico o una ecuación de recta corta.
 - **3 opciones** cuando la respuesta es una propiedad conceptual (existe/no existe, tiene asíntota, es par, etc.).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Identificación de asíntota horizontal | Leer a qué altura $y = L$ se estabiliza la curva cuando $x \to \pm\infty$. Distractores: el corte con $y$, el máximo local, un valor puntual en el interior. | 20 |
-| B. Identificación de asíntota vertical | Detectar en qué recta $x = a$ la curva se rompe y diverge. **Distractor principal**: confundir $x = a$ (la asíntota) con el corte en $x$ (donde $f = 0$). | 15 |
-| C. Asimetría en el infinito | Gráficos donde $\lim_{x \to +\infty} \neq \lim_{x \to -\infty}$. Típico: exponenciales que tienen asíntota horizontal hacia un lado y explotan hacia el otro; racionales con distinto comportamiento extremo. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Identificación de asíntota horizontal | Leer a qué altura $y = L$ se estabiliza la curva cuando $x \to \pm\infty$. Distractores: el corte con $y$, el máximo local, un valor puntual en el interior. | `identificacion-asintota-horizontal` | 20 |
+| B. Identificación de asíntota vertical | Detectar en qué recta $x = a$ la curva se rompe y diverge. **Distractor principal**: confundir $x = a$ (la asíntota) con el corte en $x$ (donde $f = 0$). | `identificacion-asintota-vertical` | 15 |
+| C. Asimetría en el infinito | Gráficos donde $\lim_{x \to +\infty} \neq \lim_{x \to -\infty}$. Típico: exponenciales que tienen asíntota horizontal hacia un lado y explotan hacia el otro; racionales con distinto comportamiento extremo. | `asimetria-en-el-infinito` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Asíntota horizontal ↔ corte con $y$**: dar el valor $f(0)$ cuando se pregunta la asíntota horizontal. Describir: "la asíntota es a qué valor se acerca la curva en los extremos, no dónde cruza el eje $y$".
@@ -135,13 +139,15 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Racionales: mismo grado o gana denominador | $x \to \pm\infty$ con resultado constante (cociente de coeficientes principales) o $0$ (denominador de mayor grado). **Trampa**: signos negativos en los coeficientes principales. | 20 |
-| B. Racionales: gana numerador | $x \to \pm\infty$ con resultado divergente ($+\infty$ o $-\infty$). **Desafío**: determinar el signo final correctamente cruzando signo de coeficientes principales con paridad del grado y dirección de $x$. | 10 |
-| C. Cálculo de asíntota vertical | $\lim_{x \to a^{\pm}} \tfrac{k}{x - a}$ y variantes. **Desafío**: analizar si el "cero" del denominador tiende por $0^+$ o $0^-$, y cruzarlo con el signo del numerador para concluir $+\infty$ o $-\infty$. | 20 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Racionales: mismo grado o gana denominador | $x \to \pm\infty$ con resultado constante (cociente de coeficientes principales) o $0$ (denominador de mayor grado). **Trampa**: signos negativos en los coeficientes principales. | `racionales-mismo-grado-o-denominador` | 20 |
+| B. Racionales: gana numerador | $x \to \pm\infty$ con resultado divergente ($+\infty$ o $-\infty$). **Desafío**: determinar el signo final correctamente cruzando signo de coeficientes principales con paridad del grado y dirección de $x$. | `racionales-gana-numerador` | 10 |
+| C. Cálculo de asíntota vertical | $\lim_{x \to a^{\pm}} \tfrac{k}{x - a}$ y variantes. **Desafío**: analizar si el "cero" del denominador tiende por $0^+$ o $0^-$, y cruzarlo con el signo del numerador para concluir $+\infty$ o $-\infty$. | `calculo-asintota-vertical` | 20 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo del coeficiente principal ignorado**: en $\lim_{x \to +\infty} \tfrac{-3x^2 + \ldots}{x^2 + \ldots}$ dar $3$ en vez de $-3$. Describir: "el cociente de coeficientes principales incluye el signo; $\tfrac{-3}{1} = -3$".

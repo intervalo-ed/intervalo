@@ -576,7 +576,7 @@
       -2,
       2
     ],
-    "explanation": "Una onda que completa **dos ciclos** en el intervalo $[0,2\\pi]$ tiene período $\\pi$, lo que corresponde a $B=2$ en $T=2\\pi/B$. El gráfico muestra $\\cos(2x)$: función trigonométrica.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n\\pi &= \\frac{2\\pi}{2}\n\\end{aligned}$\n\nLa familia es trigonométrica porque la curva es periódica, acotada, y oscila simétricamente. Una función lineal, exponencial o cuadrática no produce este comportamiento.",
+    "explanation": "Una onda que completa **dos ciclos** en el intervalo $[0,2\\pi]$ tiene período $\\pi$, lo que corresponde a $B=2$ en $T=2\\pi/B$. El gráfico muestra $\\cos(2x)$: función trigonométrica.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n\\pi &= \\frac{2\\pi}{2}\n\\end{aligned}$$\n\nLa familia es trigonométrica porque la curva es periódica, acotada, y oscila simétricamente. Una función lineal, exponencial o cuadrática no produce este comportamiento.",
     "reviewed": false
   },
   {
@@ -855,7 +855,7 @@
       -2,
       2
     ],
-    "explanation": "Una onda que completa exactamente **un ciclo** en el intervalo $[0,4\\pi]$ tiene período $T=4\\pi$. Usando $T=2\\pi/B$: $B=2\\pi/(4\\pi)=1/2$. La función es $\\operatorname{sen}(x/2)$: trigonométrica.\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\\\\\n&= \\frac{1}{2}\n\\end{aligned}$\n\nLa familia es trigonométrica porque la curva oscila periódicamente. Un período largo ($4\\pi$) solo significa que la onda es más lenta, no que sea de otra familia.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en el intervalo $[0,4\\pi]$ tiene período $T=4\\pi$. Usando $T=2\\pi/B$: $B=2\\pi/(4\\pi)=1/2$. La función es $\\operatorname{sen}(x/2)$: trigonométrica.\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\n&= \\frac{1}{2}\n\\end{aligned}$$\n\nLa familia es trigonométrica porque la curva oscila periódicamente. Un período largo ($4\\pi$) solo significa que la onda es más lenta, no que sea de otra familia.",
     "reviewed": false
   },
   {
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función **periódica** con período $\\pi$ e imagen $[-1,1]$ es trigonométrica. El período $\\pi$ requiere $B=2$ en la fórmula $T=2\\pi/B$: la función es $\\operatorname{sen}(2x)$ o $\\cos(2x)$.\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nLa imagen $[-1,1]$ confirma amplitud $1$. No hay desplazamiento vertical. La función es trigonométrica con $A=1$, $B=2$, $D=0$.",
+    "explanation": "Una función **periódica** con período $\\pi$ e imagen $[-1,1]$ es trigonométrica. El período $\\pi$ requiere $B=2$ en la fórmula $T=2\\pi/B$: la función es $\\operatorname{sen}(2x)$ o $\\cos(2x)$.\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2\n\\end{aligned}$$\n\nLa imagen $[-1,1]$ confirma amplitud $1$. No hay desplazamiento vertical. La función es trigonométrica con $A=1$, $B=2$, $D=0$.",
     "reviewed": false
   },
   {

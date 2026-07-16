@@ -66,12 +66,14 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 ### Cardinalidad
 **3 opciones por defecto**. **4 opciones** cuando los resultados numéricos son cortos y entran en grilla 2×2 (≤ 35 caracteres cada uno) — típicamente en sub-A cuando la respuesta es una primitiva compacta como `"$\\sin x + C$"`.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln|x| + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | 25 |
-| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln|x| + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln|x| + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | `reconocimiento-directo-antiderivadas` | 25 |
+| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln|x| + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | `identificacion-inversa-derivada` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -101,12 +103,14 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | 25 |
-| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | `constantes-enganosas` | 25 |
+| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | `discriminacion-de-familias` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -141,12 +145,14 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 - **$+C$ obligatorio en todas las opciones** (incluidos los distractores, para forzar la comparación por contenido, no por presencia/ausencia de la constante). Excepción única controlada: **en algún ítem específico**, una opción **sin** $+C$ puede aparecer como distractor deliberado "olvidé la constante" — con `feedback_incorrect` explícito.
 - **Alcance de exponentes**: enteros positivos y negativos (incluida la excepción $n = -1$ que dispara $\ln|x|$), fraccionarios simples. Ningún irracional.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | 25 |
-| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\|x\| + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | `suma-resta-terminos-elementales` | 25 |
+| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\|x\| + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | `polinomios-fracciones-simples-combinadas` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
