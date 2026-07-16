@@ -200,3 +200,8 @@
 .math-graph .MafsView text {
   font-size: 8px;
 }
+/* mafs pone touch-action:none sin condicionar al candado (core.css). Bloqueado,
+   dejamos pasar el scroll vertical de la página por encima del gráfico. */
+.math-graph.graph-locked .MafsView {
+  touch-action: pan-y;
+}
