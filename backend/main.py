@@ -935,16 +935,38 @@ def get_university_leaderboard(
 
 @app.get("/leaderboard/summary", response_model=LeaderboardSummaryResponse)
 def get_leaderboard_summary(
+    university: str | None = Query(default=None),
+    career: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Números generales (globales) de la cabecera del leaderboard: estudiantes
-    registrados, ejercicios acumulados y universidades presentes. No dependen de
-    ningún filtro de carrera/universidad."""
+    """Números de la cabecera del leaderboard: estudiantes registrados,
+    ejercicios completados y universidades presentes.
+
+    `universities` siempre lista el set completo (para poblar el filtro), pero
+    `total_students`/`total_exercises` respetan `career`/`university` si se
+    pasan, igual que el scope de `/leaderboard`."""
     enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
     universities = sorted({e.university for e in enrollments if e.university})
-    total_students = sum(1 for e in enrollments if e.university)
-    total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+
+    if university is None and career is None:
+        total_students = sum(1 for e in enrollments if e.university)
+        total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+    else:
+        scoped_user_ids = [
+            e.user_id
+            for e in enrollments
+            if e.university
+            and (university is None or e.university == university)
+            and (career is None or _career_bucket(e.career) == career)
+        ]
+        total_students = len(scoped_user_ids)
+        total_exercises = (
+            db.query(func.count(Answer.id))
+            .filter(Answer.user_id.in_(scoped_user_ids))
+            .scalar()
+            or 0
+        )
     return LeaderboardSummaryResponse(
         total_students=total_students,
         total_exercises=total_exercises,

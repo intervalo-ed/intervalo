@@ -1283,9 +1283,41 @@
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
-        "description": "N\u00fameros generales (globales) de la cabecera del leaderboard: estudiantes\nregistrados, ejercicios acumulados y universidades presentes. No dependen de\nning\u00fan filtro de carrera/universidad.",
+        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.",
         "operationId": "get_leaderboard_summary_leaderboard_summary_get",
         "parameters": [
+          {
+            "name": "university",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "University"
+            }
+          },
+          {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",

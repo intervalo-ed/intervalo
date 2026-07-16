@@ -811,7 +811,7 @@
   "M": {
     "id": "M",
     "emoji": "📐",
-    "label": "Matemática",
+    "label": "Matemáticas",
     "children": [
       {
         "id": "m-pura",
@@ -821,7 +821,7 @@
           {
             "id": "m-matematica",
             "emoji": "📐",
-            "label": "Matemática",
+            "label": "Matemáticas",
             "children": [
               {
                 "id": "m-analisis",

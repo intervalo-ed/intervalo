@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_HEX } from "@/lib/catalog"
-import { ChevronDownIcon, TrendingUpIcon, UsersIcon } from "lucide-react"
+import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
@@ -35,7 +35,7 @@ const CAREER_META: { key: string; name: string }[] = [
   { key: "S", name: "Ciencia" },
   { key: "T", name: "Tecnología" },
   { key: "E", name: "Ingeniería" },
-  { key: "M", name: "Matemática" },
+  { key: "M", name: "Matemáticas" },
   { key: "Otra", name: "Otra" },
 ]
 const CAREER_NAME: Record<string, string> = Object.fromEntries(
@@ -70,7 +70,7 @@ export function LeaderboardContent() {
   const [career, setCareer] = useState<string>(ALL)
   const [uni, setUni] = useState<string>(ALL)
 
-  const summary = useLeaderboardSummary()
+  const summary = useLeaderboardSummary({ university: uni, career })
   const universities = summary.data?.universities ?? []
 
   return (
@@ -94,7 +94,7 @@ export function LeaderboardContent() {
           }
         />
         <Metric
-          label="Ejercicios acumulados"
+          label="Ejercicios completados"
           value={
             <span className="inline-flex items-center gap-1.5">
               {summary.data ? (
@@ -102,7 +102,7 @@ export function LeaderboardContent() {
               ) : (
                 "…"
               )}
-              <TrendingUpIcon className="size-[0.85em] text-primary" />
+              <LayersIcon className="size-[0.85em] text-primary" />
             </span>
           }
         />

@@ -490,9 +490,12 @@ export interface paths {
         };
         /**
          * Get Leaderboard Summary
-         * @description Números generales (globales) de la cabecera del leaderboard: estudiantes
-         *     registrados, ejercicios acumulados y universidades presentes. No dependen de
-         *     ningún filtro de carrera/universidad.
+         * @description Números de la cabecera del leaderboard: estudiantes registrados,
+         *     ejercicios completados y universidades presentes.
+         *
+         *     `universities` siempre lista el set completo (para poblar el filtro), pero
+         *     `total_students`/`total_exercises` respetan `career`/`university` si se
+         *     pasan, igual que el scope de `/leaderboard`.
          */
         get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
@@ -2092,7 +2095,10 @@ export interface operations {
     };
     get_leaderboard_summary_leaderboard_summary_get: {
         parameters: {
-            query?: never;
+            query?: {
+                university?: string | null;
+                career?: string | null;
+            };
             header?: {
                 authorization?: string;
             };

@@ -25,7 +25,7 @@ const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },
   { value: "S", label: "Ciencia", emoji: "🔬" },
   { value: "T", label: "Tecnología", emoji: "🤖" },
-  { value: "M", label: "Matemática", emoji: "📐" },
+  { value: "M", label: "Matemáticas", emoji: "📐" },
 ]
 
 const UNIVERSITIES = ["UBA", "UTN", "UNSAM"]
