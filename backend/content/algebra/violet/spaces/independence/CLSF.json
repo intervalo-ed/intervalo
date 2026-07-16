@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos conjuntos es **linealmente independiente**?",
+    "options": [
+      "$\\{(1,0), (0,1)\\}$",
+      "$\\{(1,2), (2,4)\\}$",
+      "$\\{(1,1), (2,2), (3,3)\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(1,0)$ y $(0,1)$ no son múltiplos entre sí: son independientes.",
+    "feedback_incorrect": [
+      null,
+      "$(2,4) = 2(1,2)$: uno es múltiplo del otro, son dependientes.",
+      "Los tres vectores son múltiplos de $(1,1)$: son dependientes entre sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos vectores son dependientes si uno es múltiplo escalar del otro.\n\n$(1,0)$ y $(0,1)$ no cumplen esa relación: ningún escalar transforma uno en el otro, así que son independientes.\n\nEn cambio, $(2,4)=2\\cdot(1,2)$, y los tres vectores $(1,1)$, $(2,2)$, $(3,3)$ son todos múltiplos entre sí: ambos conjuntos son dependientes.",
+    "reviewed": false
+  }
+]

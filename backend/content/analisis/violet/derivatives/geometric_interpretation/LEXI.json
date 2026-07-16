@@ -1,172 +1,302 @@
 [
   {
-    "question": "¿Qué representa geométricamente $f'(a)$?",
+    "question": "¿Cómo se llama la recta que toca a la curva en un único punto y comparte con $f$ la misma dirección instantánea ahí?",
     "options": [
-      "La pendiente de la recta tangente a $f$ en $x=a$",
-      "El valor de $f$ en $x=a$",
-      "La longitud del arco de la curva cerca de $x=a$",
-      "El área bajo la curva hasta $x=a$"
+      "Tangente",
+      "Secante",
+      "Recta transversal"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f'(a)$ es la pendiente de la recta tangente a la gráfica de $f$ en el punto $(a, f(a))$.",
-    "feedback_incorrect": "$f'(a)$ no es el valor de la función ni un área: es la pendiente de la recta tangente en $x=a$.",
+    "feedback_correct": "Correcto, esa es la definición de recta tangente.",
+    "feedback_incorrect": [
+      null,
+      "La secante corta a la curva en dos puntos distintos, acá se describe un único punto de contacto.",
+      "Una recta transversal cruza la curva sin coincidir con su dirección instantánea, acá sí coincide."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **derivada** $f'(a)$ tiene una interpretación geométrica precisa: es la **pendiente de la recta tangente** a la gráfica de $f$ en el punto $(a, f(a))$.\n\nUna recta con pendiente $m$ sube $m$ unidades por cada unidad que avanza hacia la derecha. Así, $f'(a)$ dice qué tan inclinada está la curva en ese punto exacto.\n\nSi $f'(a)>0$, la curva sube. Si $f'(a)<0$, baja. Si $f'(a)=0$, la tangente es horizontal — típico de un máximo o mínimo local.",
+    "explanation": "La **recta tangente** es la que toca a la curva en un único punto y, en ese punto, apunta exactamente en la misma dirección que la curva.\n\nEsta coincidencia de dirección es lo que la distingue de cualquier otra recta que simplemente pase por ese punto sin seguir la misma inclinación.\n\nConviene no confundirla con la secante, que necesita dos puntos de contacto con la curva para quedar definida.",
     "reviewed": false
   },
   {
-    "question": "¿Cómo se llama la recta que pasa por dos puntos distintos de la curva?",
+    "question": "¿Cómo se llama la recta que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
     "options": [
-      "Recta tangente",
-      "Recta secante",
-      "Recta normal",
-      "Recta asíntota"
+      "Recta transversal",
+      "Secante",
+      "Tangente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La recta secante une dos puntos de la curva y su pendiente es el cociente incremental.",
-    "feedback_incorrect": "La recta tangente toca la curva en un solo punto. La que pasa por dos puntos es la **secante**.",
+    "feedback_correct": "Correcto, esa es la definición de recta secante.",
+    "feedback_incorrect": [
+      "La recta transversal no necesariamente pasa por dos puntos de la curva con esa propiedad de tasa media.",
+      null,
+      "La tangente toca a la curva en un único punto, acá se describen dos puntos de contacto."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **recta secante** a una curva es la que pasa por dos puntos de la misma: $(a, f(a))$ y $(a+h, f(a+h))$.\n\nSu pendiente es el **cociente incremental**: $\\frac{f(a+h)-f(a)}{h}$.\n\nA medida que $h \\to 0$, el segundo punto se acerca al primero y la secante se convierte en la **recta tangente**. Ese límite es precisamente la derivada $f'(a)$.",
+    "explanation": "La **recta secante** queda definida por dos puntos distintos de la curva, y su pendiente coincide con la tasa de cambio media de $f$ entre esos dos puntos.\n\nA diferencia de la tangente, la secante no necesita coincidir con la dirección instantánea de la curva en ningún punto particular.\n\nEsta distinción es la base para entender por qué, al acercar los dos puntos, la secante se transforma gradualmente en la tangente.",
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la ecuación de la recta tangente a $f$ en el punto $x=a$?",
+    "question": "¿Cómo se llama el punto donde la recta tangente toca a la curva?",
     "options": [
-      "$y = f'(a) + f(a)$",
-      "$y = f(a) \\cdot x$",
-      "$y - f(a) = f'(a)(x - a)$",
-      "$y - a = f(a)(x - f'(a))$"
+      "Punto de corte",
+      "Origen de coordenadas",
+      "Punto de tangencia"
+    ],
+    "correct_index": 2,
+    "has_math": false,
+    "feedback_correct": "Correcto, ese punto se llama punto de tangencia.",
+    "feedback_incorrect": [
+      "Ese nombre se usa más para cortes con los ejes, no para el contacto entre curva y tangente.",
+      "El origen de coordenadas es siempre $(0,0)$, el punto de tangencia puede estar en cualquier lugar del dominio.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **punto de tangencia** es el lugar exacto donde la recta tangente entra en contacto con la curva, y sus coordenadas son $(a, f(a))$ para el punto $a$ elegido.\n\nEse punto funciona como el ancla de toda la recta tangente, a partir de él se construye la ecuación completa usando la pendiente $f'(a)$.\n\nNo hay que confundirlo con el origen de coordenadas, que es siempre $(0,0)$ sin importar en qué punto se trace la tangente.",
+    "reviewed": false
+  },
+  {
+    "question": "La pendiente de la recta secante entre dos puntos de $f$ representa...",
+    "options": [
+      "La tasa de cambio media entre esos dos puntos",
+      "La tasa de cambio instantánea en uno de los puntos",
+      "La curvatura de la función entre esos puntos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la secante siempre describe una tasa media, nunca una instantánea.",
+    "feedback_incorrect": [
+      null,
+      "La tasa instantánea corresponde a la tangente, la secante describe el promedio entre dos puntos separados.",
+      "La curvatura es un concepto distinto, relacionado con cómo cambia la propia pendiente, no con la pendiente de una única secante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda **recta secante** representa una tasa de cambio media, porque su pendiente compara la variación de $f$ entre dos puntos separados del dominio.\n\nEsta tasa promedio no dice nada sobre qué tan rápido cambia $f$ en un punto puntual, solo resume el cambio total entre los dos extremos elegidos.\n\nRecién cuando esos dos puntos se acercan hasta coincidir, la tasa media se transforma en la tasa instantánea de la tangente.",
+    "reviewed": false
+  },
+  {
+    "question": "La pendiente de la recta tangente en un punto representa...",
+    "options": [
+      "El valor de la función en ese punto",
+      "La tasa de cambio instantánea en ese punto",
+      "La tasa de cambio media en un intervalo cercano"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la tangente siempre describe una tasa instantánea.",
+    "feedback_incorrect": [
+      "El valor de la función en ese punto es $f(a)$, un dato distinto de la pendiente de la tangente, que es $f'(a)$.",
+      null,
+      "Esa descripción corresponde a la secante, la tangente ya no involucra un intervalo, solo un único punto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente de la **recta tangente** en un punto coincide, por definición, con la tasa de cambio instantánea de $f$ ahí, es decir, con $f'(a)$.\n\nEste valor describe qué tan rápido cambia la función justo en ese punto, sin necesidad de comparar con ningún otro punto del dominio.\n\nConfundir esta pendiente con $f(a)$ es un error frecuente, $f(a)$ es apenas la altura del punto de tangencia, no su inclinación.",
+    "reviewed": false
+  },
+  {
+    "question": "Si se toman dos puntos muy cercanos entre sí sobre la curva, sin tomar ningún límite, la recta que los une...",
+    "options": [
+      "Ya es la recta tangente",
+      "Deja de tener pendiente definida",
+      "Sigue siendo una secante, aunque los puntos estén cerca"
+    ],
+    "correct_index": 2,
+    "has_math": false,
+    "feedback_correct": "Correcto, sin el límite la recta sigue siendo secante, sin importar qué tan cerca estén los puntos.",
+    "feedback_incorrect": [
+      "Para volverse tangente hace falta tomar el límite cuando el segundo punto se acerca al primero, la sola cercanía no alcanza.",
+      "Dos puntos distintos, por cercanos que estén, siempre definen una recta con una pendiente perfectamente calculable.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Mientras existan dos puntos distintos sobre la curva, aunque estén muy cerca uno del otro, la recta que los une sigue siendo una **secante**.\n\nEsta recta se transforma en tangente recién cuando se toma el límite formal, haciendo que la distancia entre los dos puntos tienda exactamente a cero.\n\nEste matiz suele pasarse por alto, la cercanía visual no reemplaza al proceso de límite que define matemáticamente la tangente.",
+    "reviewed": false
+  },
+  {
+    "question": "En la ecuación punto-pendiente de la recta tangente\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa $f'(a)$?",
+    "options": [
+      "La inclinación (pendiente) de la recta tangente",
+      "La altura del punto de anclaje",
+      "La variable independiente de la recta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $f'(a)$ es la pendiente de la recta tangente.",
+    "feedback_incorrect": [
+      null,
+      "Esa altura corresponde a $f(a)$, que aparece sumado al final de la fórmula, no como coeficiente de $(x-a)$.",
+      "La variable independiente de la recta es $x$, $f'(a)$ es un número fijo que multiplica a $(x-a)$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente** de la recta, es decir, $f'(a)$.\n\nEste valor mide qué tan inclinada queda la recta, mientras que el resto de la fórmula se encarga de anclarla en el punto correcto del plano.\n\nConfundir $f'(a)$ con $f(a)$ es el error más frecuente de esta fórmula, uno es la pendiente y el otro es la altura del punto de tangencia.",
+    "reviewed": false
+  },
+  {
+    "question": "En la misma ecuación\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa el punto $(a, f(a))$?",
+    "options": [
+      "La pendiente de la recta",
+      "El punto de anclaje, donde la recta toca a la curva",
+      "La ordenada al origen de la recta"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $(a, f(a))$ es el punto de anclaje de la tangente.",
+    "feedback_incorrect": [
+      "La pendiente de la recta es $f'(a)$, un número distinto de las coordenadas del punto de anclaje.",
+      null,
+      "La ordenada al origen se calcula evaluando la recta en $x=0$, no tiene por qué coincidir con $(a, f(a))$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\n\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$.\n\nUn error típico es pensar que este punto es la ordenada al origen, que solo coincidiría con $(a, f(a))$ en el caso particular de que $a=0$.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuál de las siguientes es una forma equivalente de la ecuación punto-pendiente\n$$y = f'(a)(x-a) + f(a)$$?",
+    "options": [
+      "$y = f'(a) \\cdot x + f(a)$",
+      "$y = f(a)(x-a) + f'(a)$",
+      "$y - f(a) = f'(a)(x-a)$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Es la ecuación punto-pendiente con punto $(a, f(a))$ y pendiente $f'(a)$.",
-    "feedback_incorrect": "La tangente usa la forma punto-pendiente: $y - f(a) = f'(a)(x-a)$, donde $f'(a)$ es la pendiente y $(a, f(a))$ el punto de tangencia.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La recta tangente en $x=a$ se escribe con la fórmula punto-pendiente:\n\n$$y - f(a) = f'(a)(x - a)$$\n\nAquí, $f(a)$ es la **ordenada del punto de tangencia** y $f'(a)$ es la **pendiente** (la derivada en ese punto). Despejando: $y = f'(a)\\,x - f'(a)\\,a + f(a)$, que es una recta con pendiente $f'(a)$ y ordenada al origen $f(a) - f'(a)\\,a$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es la pendiente de la recta secante entre $(a,\\, f(a))$ y $(a+h,\\, f(a+h))$?",
-    "options": [
-      "$\\dfrac{f(a)}{h}$",
-      "$f'(a)$",
-      "$f(a+h) - f(a)$",
-      "$\\dfrac{f(a+h)-f(a)}{h}$"
+    "feedback_correct": "Correcto, esa es la misma ecuación reordenada.",
+    "feedback_incorrect": [
+      "Ahí falta el $-a$ dentro del paréntesis, la pendiente tiene que multiplicar a $(x-a)$ completo, no solo a $x$.",
+      "Los roles están invertidos, $f'(a)$ es la pendiente y $f(a)$ es el término independiente, no al revés.",
+      null
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Ese cociente es la pendiente de la secante, también llamado cociente incremental.",
-    "feedback_incorrect": "La pendiente de cualquier recta entre dos puntos es $\\Delta y / \\Delta x$. Aquí: $\\frac{f(a+h)-f(a)}{h}$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente de la recta que une dos puntos $(x_1, y_1)$ y $(x_2, y_2)$ es $\\frac{y_2 - y_1}{x_2 - x_1}$.\n\nPara la secante entre $(a, f(a))$ y $(a+h, f(a+h))$:\n\n$$m_{\\text{sec}} = \\frac{f(a+h)-f(a)}{h}$$\n\nEste cociente mide la **tasa de cambio media** de $f$ en el intervalo $[a,\\, a+h]$. Cuando $h \\to 0$, este cociente converge a $f'(a)$, la tasa de cambio **instantánea**.",
+    "explanation": "La ecuación punto-pendiente admite formas equivalentes, siempre que se respete qué número multiplica a $(x-a)$ y cuál se suma al final.\n\n$$y - f(a) = f'(a)(x-a)$$\nes simplemente la misma fórmula con $f(a)$ pasado al otro lado de la igualdad, sin alterar ni la pendiente ni el punto de anclaje.\n\nCualquier variante que multiplique a $(x-a)$ por $f(a)$ en lugar de $f'(a)$, o que omita el $-a$, rompe el significado geométrico de la fórmula.",
     "reviewed": false
   },
   {
-    "question": "¿Qué sucede con la recta secante cuando $h \\to 0$?",
+    "question": "¿Qué papel cumple $a$ dentro de la ecuación punto-pendiente?",
     "options": [
-      "Se convierte en la recta tangente",
-      "Desaparece",
-      "Se vuelve vertical",
-      "Su pendiente tiende a infinito"
+      "Es la coordenada $x$ del punto de tangencia",
+      "Es la pendiente de la recta",
+      "Es la ordenada al origen de la recta"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Al acercar el segundo punto al primero ($h \\to 0$), la secante converge a la tangente.",
-    "feedback_incorrect": "Cuando $h \\to 0$ los dos puntos de la secante se juntan, y la recta resultante es la **tangente** a la curva en ese punto.",
+    "feedback_correct": "Correcto, $a$ marca la coordenada horizontal del punto de tangencia.",
+    "feedback_incorrect": [
+      null,
+      "La pendiente de la recta es $f'(a)$, un número que depende de $a$ pero que no es $a$ mismo.",
+      "La ordenada al origen se obtiene evaluando la recta en $x=0$, un cálculo distinto del valor de $a$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Imaginá que movés el segundo punto de la secante cada vez más cerca del primero. La recta rota suavemente hasta que, en el límite, queda **pegada** a la curva tocándola en un único punto.\n\nEsa recta límite es la **tangente**. Matemáticamente:\n\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h)-f(a)}{h}$$\n\nLa derivada $f'(a)$ **es** la pendiente de esa tangente.",
+    "explanation": "Dentro de la ecuación punto-pendiente, $a$ es la coordenada $x$ del **punto de tangencia**, el lugar del dominio donde se traza la recta.\n\nJunto con $f(a)$, forma las coordenadas completas del punto de anclaje, $(a, f(a))$, sobre el que se apoya toda la construcción de la recta.\n\nCambiar el valor de $a$ cambia tanto el punto de tangencia como, en general, la pendiente $f'(a)$, así que ambos datos van siempre atados entre sí.",
     "reviewed": false
   },
   {
-    "question": "Si $f'(a) = 0$, la recta tangente en $x=a$ es...",
+    "question": "Sabiendo que $f(3) = 7$ y $f'(3) = 2$, ¿cuál es la ecuación punto-pendiente de la tangente en $x=3$?",
     "options": [
-      "Vertical",
-      "Horizontal",
-      "Paralela a $y = x$",
-      "Inexistente"
+      "$y = 2(x+3)+7$",
+      "$y = 2(x-3)+7$",
+      "$y = 7(x-3)+2$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Pendiente cero significa tangente horizontal.",
-    "feedback_incorrect": "Una recta tiene pendiente $0$ cuando es horizontal. Si $f'(a)=0$, la tangente es horizontal en $x=a$.",
+    "feedback_correct": "Correcto, la pendiente $2$ multiplica a $(x-3)$ y se suma $7$ al final.",
+    "feedback_incorrect": [
+      "El signo dentro del paréntesis va opuesto al valor de $a$, como $a=3$, corresponde $(x-3)$, no $(x+3)$.",
+      null,
+      "Los roles están invertidos, la pendiente es $f'(3)=2$ y el punto de anclaje usa $f(3)=7$, no al revés."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La ecuación de la tangente es $y = f'(a)(x-a) + f(a)$. Si $f'(a) = 0$, esa recta se reduce a $y = f(a)$: una **recta horizontal**.\n\nGeométricamente, la curva en $x=a$ no sube ni baja en ese instante. Esto ocurre típicamente en **máximos y mínimos locales**, aunque no es la única posibilidad (por ejemplo, $f(x)=x^3$ en $x=0$).",
+    "explanation": "Para armar la ecuación punto-pendiente basta con sustituir los datos numéricos en la fórmula general, $y = f'(a)(x-a) + f(a)$.\n\n$$y = 2(x-3) + 7$$\nCon $a=3$, $f(3)=7$ y $f'(3)=2$, la pendiente $2$ acompaña siempre a $(x-3)$, y el valor $7$ se suma al final, sin invertir ninguno de los dos roles.",
     "reviewed": false
   },
   {
-    "question": "La pendiente de la recta secante representa...",
+    "question": "¿Por qué la recta tangente funciona como la **aproximación lineal** de $f$ cerca del punto de tangencia?",
     "options": [
-      "La aceleración de $f$",
-      "La tasa de cambio instantánea de $f$ en $x=a$",
-      "La tasa de cambio media de $f$ en el intervalo $[a,\\, a+h]$",
-      "El valor máximo de $f$ en el intervalo"
+      "Porque coincide con $f$ en todo su dominio",
+      "Porque siempre queda por encima de la curva",
+      "Porque comparte con $f$ el mismo valor y la misma dirección instantánea en ese punto"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La secante promedia el cambio de $f$ a lo largo del intervalo.",
-    "feedback_incorrect": "La tasa de cambio instantánea la da la **tangente** ($f'(a)$). La **secante** promedia el cambio entre dos puntos: es la tasa de cambio media.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La pendiente de la secante entre $x=a$ y $x=a+h$ es:\n\n$$\\frac{f(a+h)-f(a)}{h} = \\text{tasa de cambio media}$$\n\nDice cuánto cambió $f$ en promedio por unidad de $x$ a lo largo del intervalo $[a, a+h]$.\n\nCuando $h \\to 0$, esa media se convierte en el cambio **instantáneo**, es decir, la derivada $f'(a)$.",
-    "reviewed": false
-  },
-  {
-    "question": "$f'(a) > 0$ geométricamente indica que la tangente en $x=a$...",
-    "options": [
-      "Es perpendicular al eje $x$",
-      "Es horizontal",
-      "Tiene pendiente negativa",
-      "Tiene pendiente positiva (sube de izquierda a derecha)"
+    "feedback_correct": "Correcto, comparten valor y dirección instantánea justo en el punto de tangencia.",
+    "feedback_incorrect": [
+      "La coincidencia es solo local, cerca del punto de tangencia, no en todo el dominio de $f$.",
+      "La posición relativa depende de la curvatura de $f$, la tangente puede quedar por encima o por debajo según el tramo.",
+      null
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Pendiente positiva significa que la recta sube al moverse hacia la derecha.",
-    "feedback_incorrect": "Si la pendiente es positiva, la recta **sube** de izquierda a derecha. Eso implica que $f$ es localmente creciente en $x=a$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una recta con pendiente positiva forma un ángulo agudo con el eje $x$ positivo: sube de izquierda a derecha.\n\nSi $f'(a) > 0$, la tangente tiene esa forma, lo que indica que $f$ está **creciendo** cerca de $x = a$.\n\nAnálogamente: $f'(a) < 0$ → tangente con pendiente negativa → $f$ decrece. $f'(a) = 0$ → tangente horizontal → posible extremo.",
+    "explanation": "La recta tangente funciona como **aproximación lineal** de $f$ porque, en el punto de tangencia, coincide exactamente con el valor de la función y con su dirección instantánea.\n\nEsa doble coincidencia hace que, para puntos cercanos al de tangencia, los valores de la recta y de la curva queden muy próximos entre sí.\n\nEsta propiedad es puramente local, no hay ninguna garantía de que la aproximación siga siendo buena a medida que uno se aleja del punto de contacto.",
     "reviewed": false
   },
   {
-    "question": "¿Qué es la recta tangente a $f$ en $x=a$?",
+    "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
     "options": [
-      "La recta que mejor aproxima a $f$ cerca de $x=a$",
-      "La recta perpendicular a $f$ en $x=a$",
-      "La recta que pasa por el origen con pendiente $f(a)$",
-      "La recta que intersecta a $f$ exactamente en dos puntos"
+      "El error entre la recta y la curva crece",
+      "El error se mantiene siempre igual",
+      "El error desaparece por completo"
     ],
     "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La tangente es la mejor aproximación lineal de $f$ cerca del punto de tangencia.",
-    "feedback_incorrect": "La recta tangente no tiene por qué pasar por el origen ni ser perpendicular. Es la mejor **aproximación lineal** de $f$ cerca de $x=a$.",
+    "has_math": false,
+    "feedback_correct": "Correcto, el error crece a medida que uno se aleja del punto de tangencia.",
+    "feedback_incorrect": [
+      null,
+      "El error no se mantiene constante, va aumentando cuanto más se aleja el punto evaluado del punto de tangencia.",
+      "El error no desaparece, al contrario, tiende a crecer conforme la curva se separa cada vez más de la recta."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La recta tangente en $x=a$ es la **mejor aproximación lineal** de $f$ cerca de ese punto. Esto significa que, para $x$ cerca de $a$:\n\n$$f(x) \\approx f(a) + f'(a)(x-a)$$\n\nEsta idea es la base de la **linealización** y del cálculo diferencial: reemplazar una función complicada por una recta cerca de un punto de interés.",
+    "explanation": "Cuanto más se aleja un punto del **punto de tangencia**, mayor es la diferencia entre el valor real de $f$ y el valor que predice la recta tangente.\n\nEsto ocurre porque la tangente solo replica el comportamiento de $f$ en un entorno chico, no captura la curvatura que va apareciendo más lejos.\n\nPor eso la aproximación lineal es una herramienta local, útil cerca del punto elegido, pero cada vez menos confiable a medida que uno se desplaza.",
     "reviewed": false
   },
   {
-    "question": "$f'(a)$ es el límite de ___ cuando $h \\to 0$.",
+    "question": "¿Es correcto afirmar que la recta tangente aproxima bien a $f$ en todo el dominio?",
     "options": [
-      "Los valores de $f(a+h)$",
-      "Las pendientes de las rectas secantes",
-      "Las áreas bajo la curva en $[a, a+h]$",
-      "Los cocientes $f(a)/h$"
+      "No, la tangente nunca se aproxima a $f$ en ningún punto",
+      "No, la aproximación solo es buena cerca del punto de tangencia",
+      "Sí, la tangente coincide con $f$ en todos sus valores"
     ],
     "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La derivada es el límite de las pendientes de las secantes.",
-    "feedback_incorrect": "$f'(a) = \\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}$: el límite de las **pendientes de las secantes**, no de los valores de $f$.",
+    "has_math": false,
+    "feedback_correct": "Correcto, la buena aproximación se limita a un entorno del punto de tangencia.",
+    "feedback_incorrect": [
+      "Cerca del punto de tangencia sí hay una buena aproximación, el error recién se hace grande a medida que uno se aleja.",
+      null,
+      "Esa coincidencia total solo pasaría si $f$ fuera lineal, en general la recta y la curva se separan lejos del punto de tangencia."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por definición:\n\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h)-f(a)}{h}$$\n\nCada valor de $h$ da una recta secante con pendiente $\\frac{f(a+h)-f(a)}{h}$. La derivada es el **límite de esas pendientes** cuando $h$ se achica hacia cero.\n\nGeométricamente: las secantes rotan y convergen a la tangente, cuya pendiente es $f'(a)$.",
+    "explanation": "La afirmación de que la tangente aproxima bien a $f$ en **todo** el dominio es falsa en general, la buena aproximación se limita a un entorno chico del punto de tangencia.\n\nLejos de ese punto, la curvatura propia de $f$ hace que la curva se aparte cada vez más de la recta, por más que ambas coincidan exactamente en el punto de contacto.\n\nEsta es una de las confusiones más comunes del tema, la aproximación lineal es una herramienta local, nunca global, salvo que $f$ sea ella misma una recta.",
+    "reviewed": false
+  },
+  {
+    "question": "Cuanto mayor es la curvatura de $f$ cerca del punto de tangencia, ¿qué pasa con la **aproximación lineal**?",
+    "options": [
+      "Se mantiene exacta sin importar la curvatura",
+      "Deja de ser una recta",
+      "Se aleja más rápido de la curva real"
+    ],
+    "correct_index": 2,
+    "has_math": false,
+    "feedback_correct": "Correcto, a mayor curvatura, más rápido se separan recta y curva.",
+    "feedback_incorrect": [
+      "La curvatura sí influye, cuanto más curvada está $f$ cerca del punto, más rápido crece el error de la aproximación.",
+      "La recta tangente sigue siendo una recta siempre, lo que cambia con la curvatura es qué tan rápido se aleja de la curva real.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **aproximación lineal** depende de cuánto se curva $f$ cerca del punto de tangencia, cuanto mayor es esa curvatura, más rápido se separan la recta y la curva real.\n\nEn zonas donde $f$ es casi recta, la tangente se mantiene cercana durante un tramo más largo; en zonas muy curvadas, el error crece enseguida.\n\nEsta relación entre curvatura y calidad de la aproximación es la razón por la que, más adelante en el curso, se estudian formas de medir y corregir ese error.",
     "reviewed": false
   }
 ]

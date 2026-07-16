@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estas expresiones corresponde a un **sistema de ecuaciones lineales** en forma matricial?",
+    "options": [
+      "$\\begin{pmatrix} 2 & 1 \\\\ 1 & 3 \\end{pmatrix}\\vec{x} = \\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix}$",
+      "$\\det(A) = 5$",
+      "$A^T = A$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$A\\vec{x}=\\vec{b}$ es exactamente la forma matricial de un sistema lineal.",
+    "feedback_incorrect": [
+      null,
+      "Eso es una ecuación sobre el determinante, no un sistema de ecuaciones.",
+      "Eso expresa que $A$ es simétrica, no un sistema de ecuaciones."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un sistema lineal en forma matricial siempre tiene la estructura $A\\vec{x}=\\vec{b}$.\n\nLa primera opción cumple esa estructura, con $A$ la matriz de coeficientes, $\\vec{x}$ las incógnitas y $\\vec{b}$ los términos independientes.\n\nLas otras dos expresiones describen propiedades de una matriz (su determinante o su simetría), no un sistema de ecuaciones a resolver.",
+    "reviewed": false
+  }
+]

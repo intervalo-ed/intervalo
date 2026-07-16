@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál es la **dimensión** de $\\mathbb{R}^3$?",
+    "options": [
+      "$3$",
+      "$2$",
+      "Infinita"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\mathbb{R}^3$ tiene dimensión $3$: cualquier base suya tiene 3 vectores.",
+    "feedback_incorrect": [
+      null,
+      "Esa sería la dimensión de $\\mathbb{R}^2$, no de $\\mathbb{R}^3$.",
+      "$\\mathbb{R}^3$ es un espacio de dimensión finita, no infinita."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La dimensión de $\\mathbb{R}^n$ coincide siempre con el valor de $n$.\n\nPara $\\mathbb{R}^3$, la base canónica $\\{(1,0,0),(0,1,0),(0,0,1)\\}$ tiene exactamente 3 vectores.\n\nNinguna base de $\\mathbb{R}^3$ puede tener una cantidad distinta de elementos, sea cual sea la base elegida.",
+    "reviewed": false
+  }
+]

@@ -64,12 +64,14 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 - **3 opciones** cuando la respuesta es una fórmula o descripción textual.
 - **4 opciones** cuando la respuesta es numérica corta.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | 35 |
-| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | `derivadas-elementales` | 35 |
+| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | `notacion-y-operadores` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo de $(\cos x)'$**: dar $\sin x$ en vez de $-\sin x$. La derivada del coseno es **negativa** del seno.
@@ -95,12 +97,14 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | 25 |
-| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | `jerarquia-de-reglas` | 25 |
+| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | `descomposicion-de-funciones` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Aplicar la potencia sin reescribir**: intentar derivar $\sqrt{x}$ o $\tfrac{1}{x^3}$ sin llevarlos primero a $x^{1/2}$ o $x^{-3}$.
@@ -124,14 +128,16 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | 15 |
-| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | 20 |
-| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | 10 |
-| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | 5 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | `derivadas-elementales-aplicacion` | 15 |
+| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | `combinaciones-lineales` | 20 |
+| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | `tangentes-rapidas` | 10 |
+| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | `razones-de-cambio` | 5 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Coeficiente olvidado en la potencia**: dar $(3x^4)' = 3 x^3$ (olvidar el $4$). Es $3 \cdot 4 x^3 = 12 x^3$.

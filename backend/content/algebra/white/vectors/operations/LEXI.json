@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cómo se calcula la **suma** de $\\vec{u}=(u_1,u_2)$ y $\\vec{v}=(v_1,v_2)$?",
+    "options": [
+      "Sumando cada componente por separado: $(u_1+v_1,\\, u_2+v_2)$",
+      "Multiplicando las componentes entre sí",
+      "Sumando solo la primera componente de cada vector"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La suma de vectores se hace componente a componente.",
+    "feedback_incorrect": [
+      null,
+      "Esa sería una especie de producto, no la suma definida para vectores.",
+      "Hay que sumar todas las componentes, no solo la primera."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **suma** de vectores se define componente a componente.\n$$\\vec{u}+\\vec{v} = (u_1+v_1,\\, u_2+v_2)$$\n\nPor ejemplo, si $\\vec{u}=(2,3)$ y $\\vec{v}=(-1,4)$, entonces $\\vec{u}+\\vec{v}=(1,7)$.\n\nCada componente se suma con su correspondiente en la misma posición, nunca se combinan posiciones distintas.",
+    "reviewed": false
+  }
+]

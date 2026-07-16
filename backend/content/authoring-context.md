@@ -8,15 +8,62 @@ Guía de campos, reglas de formato y convenciones de redacción de los ejercicio
 
 ## Reglas críticas, leer antes de escribir un solo ítem
 
-Estas siete reglas son las que más se violan y las que más rompen el render o la coherencia. Ninguna es negociable.
+Estas reglas son las que más se violan y las que más rompen el render o la coherencia. Ninguna es negociable.
 
 1. **Negrita SOLO en `question` y `explanation`, NUNCA en `options`.** La regla se repite en la sección *Redacción del enunciado* con ejemplos.
 2. **Bloques `$$...$$` van pegados con UN solo `\n`**, nunca `\n\n`. Ver sección *Formato de párrafos*.
 3. **Primera mención de conceptos clave va en negrita en `question` y en `explanation`.** Aplica a `dominio`, `imagen`, `codominio`, `preimagen`, `unicidad` (y variantes como `único`/`única`). Solo la primera mención por campo.
-4. **Si una opción lleva glosa aclaratoria, todas las opciones la llevan.** Si la correcta dice `$\{1,2,3,4\}$, las cantidades de bochas` y otra dice solo `$\{600,1200\}$`, se delata la respuesta.
+4. **Si una opción lleva glosa aclaratoria, todas las opciones la llevan.** Si la correcta dice `$\{1,2,3,4\}$, las cantidades de bochas` y otra dice solo `$\{600,1200\}$`, se delata la respuesta. Misma lógica para la **longitud**: si la correcta queda como la única opción notablemente más larga o más completa que el resto, se delata igual aunque no tenga una glosa aclaratoria explícita. No resolver esto alargando los distractores con relleno que no aporta distracción real: igualar longitudes acortando la correcta a su idea esencial, o sumando a los distractores algo que sí compita genuinamente.
+    - ❌ `["El valor máximo o mínimo", "La ordenada al origen", "La posición del eje de simetría y del vértice en $x$", "El coeficiente principal"]` (la correcta casi duplica el largo de las demás).
+    - ✅ `["El valor máximo o mínimo", "La ordenada al origen", "La posición del vértice en $x$", "El coeficiente principal"]`
+    - **También aplica al *formato numérico*, no solo a la longitud del string.** Si 3 opciones comparten un patrón (todas decimales o fraccionarias menores a 1) y la correcta es la única con un formato distinto (entera, mayor a 1), se delata igual aunque el string no sea más largo.
+      - ❌ `["$(0{,}9)^x$", "$3^x$", "$(0{,}2)^x$", "$(1/3)^x$"]` para "¿cuál es creciente?" (la correcta es la única base entera y mayor a 1; las otras tres son decimales o fracciones menores a 1, el patrón numérico ya la señala).
+      - ✅ variar el formato de forma pareja entre las 4 (ej. dos bases fraccionarias/decimales y dos enteras, mezclando cuáles son mayores y menores a 1), para que el formato no sea la pista.
 5. **Sin adjetivos decorativos en enunciados** ("moderno", "automatizado", "eficiente"). Redacción al grano.
 6. **NUNCA usar guion largo `—` (em-dash, U+2014) en ningún campo del ejercicio.** Ni en `question`, `options`, `feedback_correct`, `feedback_incorrect` o `explanation`. Usá `,` (coma), `:` (dos puntos), `;` (punto y coma) o `.` (punto) según corresponda. El guion medio `–` también prohibido en prosa (salvo rangos numéricos "2–4"). Solo el guion `-` común es válido, y solo uniendo palabras compuestas.
-7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la regla se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+7. **El cierre de la `explanation` es una advertencia de la confusión típica o un consejo práctico, no un chiste.** Por defecto, la tercera parte señala el error clásico del concepto o da una pista para no volver a caer, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación). El humor dejó de ser obligatorio: es **excepcional** y solo se admite como **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal. Los antropomorfismos ("la raíz cuadrada detesta los negativos", "la función se cansa de emitir respuestas") están **prohibidos en todo el campo**. Ver *Estructura de la explicación* para el detalle de las 3 partes.
+8. **"Función", nunca "regla", para nombrar el objeto matemático.** "Regla" se reserva para procedimientos con nombre propio ("regla del producto", "regla de la cadena"). Ver *Vocabulario: términos prohibidos y su reemplazo formal*.
+9. **Nunca cortar una oración a la mitad para insertar una fórmula display en el medio.** El fragmento antes de `$$...$$` debe cerrar en un signo de puntuación válido (`.` o `:`), no continuar la misma oración después de la fórmula. Ver *Sin preámbulos colgantes* más abajo.
+10. **Toda oración empieza con mayúscula**, incluida la primera palabra después de una fórmula display o de un `\n\n`. Aplica a `question`, `explanation`, `feedback_correct` y `feedback_incorrect`. Una variable en minúscula (`$b$`, `$x$`) al arrancar la oración no exime de la mayúscula: si la oración empieza en prosa, empieza en mayúscula ("Con $b = 300$…" no "con $b = 300$…").
+11. **Nunca abrir un párrafo con una palabra o frase corta a modo de rótulo/etiqueta seguida de `:`** ("Verificación:", "Nota:", "Ejemplo:", "Ojo:"). Se siente a encabezado de sección, no a prosa narrativa. **No confundir con la excepción ya permitida** de cerrar en `:` para introducir una fórmula display ("Consideremos la función:" antes de un `$$...$$`) — esa sigue válida. Lo prohibido es el rótulo de una palabra que funciona como título de párrafo. Integrá la idea en una oración completa en su lugar.
+    - ❌ `Verificación: $C(0) = 300$ y cada hora agrega \$150 exactos.`
+    - ✅ `Para comprobarlo, evaluamos $C(0) = 300$ y notamos que cada hora suma \$150 exactos.`
+12. **Nunca invocar conceptos fuera de la frontera matemática del cinturón** (ver `analisis/course-context.md`) para justificar una conclusión, aunque simplifique la explicación. En `white`, eso significa nunca usar derivadas, límites ni integrales, ni en `explanation` ni en `feedback_incorrect`: para justificar monotonía o extremos de un polinomio, usar evaluación en puntos concretos, comportamiento en los extremos según grado/signo del coeficiente principal, o lectura directa del gráfico. **Confirmado como sesgo sistémico de la generación original**: reapareció en `polynomial` (derivada), `exponential` (límite) y `logarithmic` (límite) por igual, tres topics sin relación conceptual entre sí. Auditar el 100% de los ítems de cualquier topic todavía no revisado contra esta regla, no confiar en que sea puntual.
+    - ❌ `Su derivada: $$f'(x) = \frac{3x^2}{8} \geq 0$$ Como $f'(x) \geq 0$, la función nunca decrece.`
+    - ✅ `Al ser un monomio de grado impar con coeficiente positivo, $f$ crece en todo su dominio: a medida que $x$ aumenta, $x^3$ también aumenta, sin excepción.`
+13. **Máximo 1 aclaración entre paréntesis o comillas por oración.** Enumerar 2 o más ejemplos entre comillas dentro de un paréntesis se lee como una lista con viñetas camuflada en prosa. Si hay que dar varios ejemplos, narralos dentro de la oración en vez de listarlos entre comillas, y preferí coma sobre dos puntos para unir la aclaración con el resto de la oración (ver también la regla de *Redacción del enunciado* → *Evitá dos puntos en la prosa del cuerpo*, la preferencia global es coma o punto por sobre dos puntos, salvo la excepción de introducir una fórmula display).
+    - ❌ `buscá en el enunciado la palabra que indica repetición ("por hora", "por km", "por unidad"): ese monto es siempre la pendiente.`
+    - ✅ `buscá en el enunciado la palabra que indica una repetición, como cuánto se cobra por cada hora o unidad extra, y ese monto es siempre la pendiente.`
+14. **NUNCA usar los símbolos ✓ (tick/check) o ✗/✘ (X) en ningún campo del ejercicio.** Ni sueltos al final de una fórmula, ni como viñeta, ni en ningún otro lugar. Si hace falta indicar que una verificación cierra correctamente, decilo en prosa ("lo cual confirma el resultado", "coincide con lo esperado"), nunca con el símbolo.
+    - ❌ `$\log_2(2-1)=\log_2(1)=0$ ✓`
+    - ✅ `$\log_2(2-1)=\log_2(1)=0$, lo que confirma el resultado.`
+15. **Paridad de longitud de opciones, también en el sentido inverso: la correcta notablemente más *corta* que el resto también se delata.** La regla crítica 4 ya cubre el caso de la correcta más larga; el mismo razonamiento aplica en espejo. Si 3 distractores tienen una justificación/condición explícita y la correcta es una frase breve sin esa elaboración, iguala hacia el medio: sumale a la correcta el detalle que le falta, o recortá los distractores a la misma brevedad.
+    - ❌ `["Creciente solo para $x>1$...", "Ni creciente ni decreciente: tiene un mínimo en $x=1$", "Creciente, porque la base $5>1$", "Decreciente, porque la base $5>1$ hace que el logaritmo baje"]` (la correcta es la única sin ninguna cláusula extra tipo "para..."/"porque...", contrasta contra las 3 más elaboradas).
+    - ✅ recortar las 3 distractoras a la misma brevedad, o agregarle a la correcta una cláusula equivalente ("Creciente, porque la base $5>1$ y eso no cambia en ningún tramo del dominio").
+16. **En un bloque `\begin{aligned}`, nunca metas una línea de puro texto transicional sin punto de alineación (`&`) cuando el resto de las líneas sí lo tienen.** Columnas desparejas entre líneas de un mismo `aligned` rompen el render de KaTeX. Si hace falta narrar un paso intermedio ("porque", "ya que"), esa frase va en prosa fuera del bloque, no como línea suelta adentro.
+    - ❌ `$$\begin{aligned} \ln(e) &= \log_e(e) = 1 \\ \text{porque} \\ e^1 &= e \end{aligned}$$` (la línea `\text{porque}` no tiene `&`, rompe la alineación de las otras dos).
+    - ✅ `Aplicando la propiedad $\log_b(b)=1$:\n$$\ln(e) = \log_e(e) = 1$$\nPorque $e^1 = e$.` (la transición queda en prosa, fuera del bloque).
+17. **Todo párrafo cierra con puntuación terminal (`.`), incluido el último de cada campo.** No dejar una oración colgando sin punto final, ni siquiera cuando el párrafo termina justo antes de un salto de línea o del final del campo.
+17b. **Un bloque `\begin{aligned}...\end{aligned}` va SIEMPRE envuelto en `$$...$$` (display), nunca en `$...$` (inline).** El parser de `MathText` (`web/src/components/math-text.tsx`) usa una regex distinta para inline que **excluye saltos de línea** (`[^$\n]`); como un `aligned` de 2+ líneas siempre tiene `\n` adentro, envolverlo en `$...$` hace que el regex nunca haga match y el campo entero se muestre como texto crudo sin renderizar, un bug de render real encontrado en `trigonometric` (58 ítems). Además, cada salto de línea dentro del bloque usa el comando `\\` **una sola vez** (nunca `\\\\`, que en LaTeX son dos saltos de línea consecutivos y también rompe el render).
+    - ❌ `"$\begin{aligned}\nT(1) &= 8\cos(0)+15 \\\\\n&= 23\n\end{aligned}$"` (envuelto en `$`, y `\\\\` duplicado en cada línea)
+    - ✅ `"$$\begin{aligned}\nT(1) &= 8\cos(0)+15 \\\n&= 23\n\end{aligned}$$"` (envuelto en `$$`, un solo `\\` por línea)
+18. **Fórmula central del `question` (enunciado): separada del texto, nunca tejida inline, sobre todo si es una fracción.** Si el enunciado gira en torno a una función puntual (`$f(x) = \dfrac{...}{...}$`), esa fórmula va en su propio bloque `$$...$$` centrado, con el texto acompañándola en oraciones propias antes y/o después, no empotrada dentro de la pregunta como un inciso. Si el enunciado necesita citar dos fórmulas (ej. `g(x)` y `f(x)`), cada una va en su propia oración/bloque, nunca las dos apretadas en la misma línea. Regla general: **siempre preferir las fórmulas separadas de los textos, y los textos acompañándolas**, no al revés.
+    - ❌ `En $f(x) = \dfrac{x^2 - 1}{x - 1}$, ¿para qué valor de $x$ no está definida?` (fracción tejida inline dentro de la pregunta)
+    - ✅ `Considerá la función:\n$$f(x) = \frac{x^2 - 1}{x - 1}$$\n¿Para qué valor de $x$ no está definida?`
+    - ❌ `Si $g(x) = \dfrac{1}{x}$, ¿cómo se obtiene $f(x) = \dfrac{1}{x} - 3$?` (dos fórmulas en la misma línea de la pregunta)
+    - ✅ `Partiendo de $g(x) = \frac{1}{x}$.\n\n¿Cómo se obtiene $f(x) = \frac{1}{x} - 3$?`
+19. **Opciones compuestas: no repetir la etiqueta de eje/variable si la pregunta ya fija el orden.** Cuando una opción combina dos o más valores relacionados (ej. intercepto en $X$ y en $Y$) y la pregunta ya establece en qué orden se piden, no hace falta prefijar cada valor con su rótulo dentro de la opción.
+    - ❌ `"Eje $X$: $x=-\dfrac{1}{2}$; eje $Y$: $y=\dfrac{1}{5}$"` (la pregunta ya pidió "el intercepto con el eje $X$ y el eje $Y$", en ese orden)
+    - ✅ `"$x=-\dfrac{1}{2}$, $y=\dfrac{1}{5}$"`
+20. **En `options` con fracciones cortas destinadas a grilla 2×2, preferir notación de barra (`x/y`) sobre `\frac{x}{y}`/`\dfrac{x}{y}`.** Cuando las 4 opciones son valores numéricos cortos que van a activar la grilla compacta, una fracción apilada (`\frac`/`\dfrac`) ocupa más alto que las demás opciones y rompe la uniformidad visual de la grilla. Usá `1/3` en vez de `\dfrac{1}{3}` en ese contexto. Esto es una excepción puntual a la preferencia general por LaTeX (regla de *Notación consistente*): acá el criterio es "todas las opciones ocupan una sola línea pareja", no la densidad simbólica.
+    - ❌ `["$-3$", "$6$", "$\dfrac{1}{3}$", "$3$"]` (la fracción apilada desentona en altura con los enteros)
+    - ✅ `["$-3$", "$6$", "$1/3$", "$3$"]`
+21. **2 o más fragmentos LaTeX inline (`$...$`) en el mismo párrafo de `explanation` es señal de dividir el párrafo.** No es solo una preferencia de estilo, es un umbral concreto: si una oración o párrafo acumula 2+ expresiones `$...$` sueltas tejidas en la prosa, separalo en párrafos más cortos (`\n\n`) o sacá la fórmula central a un bloque `$$...$$`. Párrafos con múltiples inline sueltos leen como una lista de verificaciones (`✓`/`✗`) camuflada en prosa, no como una explicación narrada.
+    - ❌ `Verificando cada opción: $-\cos(0)=-1$ y $-\cos(\pi)=1$. Las otras: $\operatorname{sen}(0)=0$; $-\operatorname{sen}(0)=0$; $\cos(0)=1$.` (5 fragmentos inline en un solo párrafo, ilegible)
+    - ✅ separar la verificación de la opción correcta (con su fórmula en bloque `$$...$$` si hace falta) del resto en un párrafo aparte, narrando en prosa por qué las demás no cumplen sin encadenar todos los cálculos sueltos.
+22. **En opciones tipo clasificación (`CLSF`) que ya muestran una fórmula, no agregar el nombre de familia entre paréntesis al lado.** Si la opción ya es `$C(t) = A\cos(Bt) + D$`, agregar `(trigonométrica)` al lado es una aclaración redundante, la fórmula ya lo dice. Cuantas menos aclaraciones entre paréntesis, mejor.
+    - ❌ `["$C(t) = A\cos(Bt) + D$ (trigonométrica)", "$C(t) = at + b$ (lineal)", "$C(t) = e^{kt}$ (exponencial)", "$C(t) = \log(t)$ (logarítmica)"]`
+    - ✅ `["$C(t) = A\cos(Bt) + D$", "$C(t) = at + b$", "$C(t) = e^{kt}$", "$C(t) = \log(t)$"]`
 
 ---
 
@@ -29,12 +76,42 @@ Estas siete reglas son las que más se violan y las que más rompen el render o 
 | `correct_index` | índice (0–N) de la correcta. |
 | `feedback_correct` | **corto**, 1 oración. |
 | `feedback_incorrect` | **`array<string\|null>` paralelo a `options`**: un texto corto por distractor (índice correcto = `null`). Ver sección *Pistas de feedback_incorrect* más abajo. **Legacy:** en belts no refactorizados todavía es `""` (string vacío). |
-| `explanation` | texto del botón "¿Por qué?". Párrafos cortos, ≤4 renglones en celular. Estructura de 3 partes: ver *Estructura de la explicación* más abajo. |
+| `explanation` | texto del botón "¿Por qué?". Párrafos ≤200 caracteres (ideal ~100), mínimo 300 caracteres en total. Estructura de 3 partes: ver *Estructura de la explicación* más abajo. |
 | `has_math` | `true` si hay LaTeX en cualquier campo. |
 | `graph_fn`, `graph_view` | ver sección Gráficos. `null` si no hay gráfico. |
 | `reviewed` | `false` hasta revisión manual. |
+| `tags` | **opcional.** `array<string>` con un slug de sub-familia/arquetipo. Ver sección *Etiquetas (tags)* más abajo. **Legacy:** ausente en ítems todavía no tageados. |
 
 El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}`) y **no va en el JSON**.
+
+---
+
+## Etiquetas (tags)
+
+**Qué es y para qué sirve.** Cada ejercicio puede llevar un campo `tags` que identifica a qué **sub-familia o arquetipo** de la distribución objetivo de su skill pertenece (la misma sub-familia que ya documenta cada `topic-context.md`, sea como tabla A/B/C/D o como desglose por concepto). Sirve para tres cosas: (1) verificar programáticamente que la distribución real de un refactor coincide con la distribución objetivo, sin releer los 50 ítems a mano, (2) buscar en bloque todos los ejercicios de un sub-tipo puntual durante una auditoría, (3) análisis futuro de cómo les va a los usuarios por sub-tipo, no solo por skill.
+
+**Shape:** `array<string>`, un solo slug por ahora (el array queda abierto a futuro, no es una promesa de que hoy haya más de uno).
+
+```json
+"tags": ["dominio"]
+```
+
+**Formato del slug:**
+- Kebab-case, en español, sin tildes: `vertice-x`, `signo-de-h`, `anulacion-por-raiz`.
+- 2 a 4 palabras, describiendo el concepto o mecánica del sub-tipo, no una letra ni un número (`A`, `B1` no sirven).
+- El slug tiene que ser **el mismo** que la columna "slug" de la tabla de distribución de ese skill en su `topic-context.md` — no inventes uno nuevo al tagear un ítem, usá el de la tabla.
+
+**Convención de esta ronda:** un tag por ejercicio, el de su sub-familia. Ejercicios legacy sin tagear simplemente no tienen el campo (no hace falta `[]` ni `null`).
+
+**Ejemplo resuelto**, de `white/functions/definition` LEXI, sub-familia "dominio" de su tabla de distribución:
+
+```json
+{
+  "question": "¿Cuál es el dominio de la función que asigna a cada alumno su legajo?",
+  "options": ["..."],
+  "tags": ["dominio"]
+}
+```
 
 ---
 
@@ -62,7 +139,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
   - ❌ *"Invierte la relación: el sueldo es la salida."* → ✅ *"El sueldo no se elige libremente, sale de aplicar la fórmula, así que es la variable dependiente."*
   - ❌ *"Falta un valor, elevar el $-5$ al cuadrado también da 25."* → ✅ *"Hay otra solución además del 5: elevar el $-5$ al cuadrado también da 25."*
   - Voces válidas: (a) **descriptiva del concepto** ("Ese es el codominio, no la imagen…"), (b) **segunda persona amable con tuteo** ("estás tomando…", "hay otra solución además…"). Nunca la voz *"[el alumno] confunde/invierte/olvida"*.
-- **Corto:** 1 oración, ideal ≤ 2 renglones en celular. Es una pista para el segundo intento, no una mini-explicación, eso ya lo cubre `explanation`.
+- **Corto:** ideal 1 oración, 2 como máximo. En renglones en celular: ideal ≤ 2, hasta 3 está bien, 4 como máximo absoluto. Es una pista para el segundo intento, no una mini-explicación, eso ya lo cubre `explanation`.
 - **Sin pistas en cascada:** cada texto es autosuficiente para SU distractor; no asume que el usuario ya leyó la pista de otra opción.
 - **Contenido típico de la pista según skill:**
   - `RESL` (cálculo): error de procedimiento, signo, regla mal aplicada, paso salteado, constante de integración olvidada. También cubre confusión entre el contexto cotidiano y el resultado matemático puro cuando el ítem se plantea en contexto.
@@ -77,10 +154,10 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 **Regla general:** la cardinalidad depende del **tipo de respuesta**, no del skill:
 
 - **Respuesta conceptual/textual** (nombre de concepto, categoría, descripción): **3 opciones** por defecto. Tres confusiones clásicas alcanzan.
-- **Respuesta numérica corta** (un número, un conjunto chico, un intervalo, una expresión tipo `x ≥ 3`): **4 opciones**. Cuatro variantes del error de cálculo son cómodas de distinguir y **triggean la grilla 2×2** del frontend (que requiere 4 opciones + todas ≤35 caracteres).
+- **Respuesta numérica corta** (un número, un conjunto chico, un intervalo, una expresión tipo `x ≥ 3`): **4 opciones**. Cuatro variantes del error de cálculo son cómodas de distinguir y **triggean la grilla 2×2** del frontend (ver límites exactos más abajo, distintos si la opción tiene LaTeX o es texto plano).
 - **Binario** (2 opciones): reservado para casos donde el criterio es genuinamente binario y no hay una tercera confusión plausible (ej. "¿cumple unicidad? Sí/No"). En LEXI y CLSF de definición esto es raro, casi siempre hay una tercera confusión.
 
-**Regla mecánica:** si las respuestas son valores numéricos (`$5$`, `$\{1,2,3\}$`, `$x \geq 3$`) o expresiones cortas, hacé 4 opciones y verificá que todas quepan en ≤35 caracteres para que el frontend las renderice en grilla 2×2 compacta. Si la respuesta es un párrafo o una descripción, hacé 3 opciones (no van a entrar en grilla y quedan como lista vertical).
+**Regla mecánica:** si las respuestas son valores numéricos (`$5$`, `$\{1,2,3\}$`, `$x \geq 3$`) o expresiones cortas, hacé 4 opciones y verificá que todas quepan en el límite de caracteres correspondiente (≤16 si la opción tiene `$...$`, ≤25 si es texto plano) para que el frontend las renderice en grilla 2×2 compacta. Si la respuesta es un párrafo, una descripción, o una ecuación completa (`$C(h) = 300 + 150h$`), hacé 3 opciones (no van a entrar en grilla y quedan como lista vertical) — una ecuación con operadores y coeficientes desborda la caja de la grilla aunque el string crudo sea corto, porque KaTeX renderiza el LaTeX mucho más ancho por carácter que texto plano.
 
 **Guía por skill:**
 - `ESTR`, `CLSF` (conceptual): **3 opciones por defecto.** Binario solo si el criterio es genuinamente sí/no y no hay tercera confusión.
@@ -88,9 +165,9 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - `GRAF` (lectura de gráfico): 3 cuando la propiedad leída es categórica; 4 cuando hay que elegir entre fórmulas o valores numéricos leídos del gráfico (grilla 2×2 si son cortos).
 - `RESL` (cálculo, incluida aplicación en contexto): **4 sigue siendo el default**, porque acá la cantidad de errores de procedimiento clásicos sí sostiene 4 distractores reales. Si los 4 son numéricos cortos, se renderizan en grilla 2×2.
 
-**Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4 && options.every(o => o.length <= 35)`. Aprovechá el compactado siempre que la respuesta lo permita.
+**Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4` y todas las opciones caben en el límite de caracteres correspondiente: **≤16 si alguna opción contiene `$` (LaTeX)**, **≤25 si el set es texto plano**. El límite es más estricto en LaTeX porque KaTeX renderiza mucho más ancho por carácter que texto normal (cursiva, espaciado de operadores). Aprovechá el compactado siempre que la respuesta lo permita, pero no fuerces una ecuación completa a entrar recortando texto: si no entra en el límite, va como lista vertical de 3 o 4 opciones.
 
-**Precedente:** unicidad en `CLSF` reformulada como "¿esta regla cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
+**Precedente:** unicidad en `CLSF` reformulada como "¿esta función cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
 
 ---
 
@@ -98,9 +175,16 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 Para el skill de cálculo (`RESL`) y para cualquier ítem de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
 
-**Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4 && exercise.options.every(o => o.length <= 35)` (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, alrededor de la línea 293). Para aprovecharlo: 4 opciones, todas de ≤35 caracteres. Si alguna opción supera los 35 caracteres, el front cae a lista vertical.
+**Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4` y todas las opciones caben en el límite de caracteres correspondiente (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, función `hasLatex`/`limit` cerca de la línea 435):
 
-**Nunca** metas HTML ni tablas dentro del string de `options` para forzar una grilla: el `options` es un array plano de strings y el layout lo decide el componente. Tu única palanca es la cardinalidad (4) y la longitud (≤35) de cada opción.
+- **Si alguna opción contiene `$` (LaTeX)**: límite **≤16 caracteres** por opción.
+- **Si ninguna opción tiene `$` (texto plano)**: límite **≤25 caracteres** por opción.
+
+El límite de LaTeX es más chico porque KaTeX renderiza mucho más ancho por carácter que texto plano: una ecuación como `$C(h) = 300 + 150h$` (19 caracteres crudos) desborda la caja de la grilla aunque el string sea corto. Reservá la grilla para valores/expresiones genuinamente cortas (`$5$`, `$x \geq 3$`, `$\{1,2,3\}$`, `$(-1, -5)$`), no para ecuaciones completas con operadores y coeficientes.
+
+**Ojo con `\;` y otros comandos de espaciado LaTeX en pares ordenados.** El heurístico cuenta caracteres crudos, no ancho renderizado: preferí un espacio común después de la coma (`$(-1, -5)$`) en vez de `\;` (`$(-1,\; -5)$`), que suma caracteres sin sumar ancho visual real.
+
+**Nunca** metas HTML ni tablas dentro del string de `options` para forzar una grilla: el `options` es un array plano de strings y el layout lo decide el componente. Tu única palanca es la cardinalidad (4) y la longitud (≤16 con LaTeX, ≤25 en texto plano) de cada opción.
 
 ---
 
@@ -109,6 +193,12 @@ Para el skill de cálculo (`RESL`) y para cualquier ítem de respuesta numérica
 - **Inline (`$...$`)**: variables sueltas, coordenadas de un punto, o expresiones algebraicas elementales que no alteren la altura de línea (`$x$`, `$(3, 20)$`, `$a < 0$`).
 - **Display (`$$...$$`)**: obligatorio para cualquier expresión densa, fracciones, límites con subíndices, derivadas, sumatorias, integrales. Aislarla en su propio bloque evita que KaTeX reduzca el tamaño de fuente en mobile.
 - Regla rápida: si la expresión "tiene partes arriba y abajo de la línea base" (fracción, límite, sumatoria) → `$$`.
+
+**Preferencia de estilo en `explanation` (no obligatoria): centrada por sobre inline cuando la fórmula es el objeto central del razonamiento.** Cuando la `explanation` gira en torno a una fórmula puntual (la función del ítem, un resultado intermedio del cálculo), preferí mostrarla en su propio bloque `$$...$$` aunque sea corta, en vez de tejerla inline dentro de una oración larga. Varias fórmulas inline salpicadas en un mismo párrafo son difíciles de leer en mobile. Reservá el inline para números sueltos o variables que acompañan la prosa (`$x$`, `$a<0$`), no para la primera aparición de la función que define el ítem.
+- ❌ `Un polinomio $f(x)=x^3-2x+5$ evaluado en $x=0$ da $f(0)=5$, que es el término independiente.` (fórmula central tejida inline en una oración larga)
+- ✅ `Evaluando el polinomio en $x=0$:\n$$f(0) = 5$$\nEse valor coincide con el término independiente.`
+
+**En `question` la misma preferencia es regla crítica, no solo estilo (ver regla crítica 18).** La fórmula que define la función del ítem no se teje inline dentro de la pregunta: va en su propio bloque centrado, sobre todo si es una fracción. Ver regla crítica 18 para ejemplos.
 
 ### Declaraciones de tipo de función `A : X \to Y`: extensión corta por diseño
 
@@ -161,6 +251,12 @@ $$\begin{aligned} (-3)^2 &= 9 \\ (-1)^2 &= 1 \\ 0^2 &= 0 \\ 1^2 &= 1 \\ 3^2 &= 9
 
 **Excepción:** una sola igualdad o expresión (`f(3) = 27`, `x^2 = 25`) va en su propio bloque display sin `aligned`.
 
+**Aclaración: la obligación de `aligned` es sobre cadenas que desbordan o confunden, no sobre cualquier cadena de 2+ igualdades por default.** Si una cadena corta de igualdades encadenadas entra cómoda en una línea de mobile y se lee de corrido sin esfuerzo, no hace falta partirla en `aligned`. El criterio es ancho/legibilidad, no la cantidad de signos `=`.
+- ✅ `$$\frac{5^{x+2}}{5^x} = 5^{(x+2)-x} = 5^2 = 25$$` (3 igualdades, pero cada término es corto y la línea completa entra sin overflow, queda clara en una sola fila).
+- Si la misma cadena tuviera términos más largos (fracciones grandes, expresiones con varios sumandos), ahí sí aplica partir en `aligned` o en bloques apilados, como en el resto de esta sección.
+
+**Ojo: pasar a `aligned` no alcanza si una línea individual sigue siendo larga.** El `aligned` resuelve el problema de "muchas asignaciones amontonadas en una fila", no el de "una asignación cuyo lado derecho es en sí mismo ancho" (ej. una expansión de varios términos dentro de una sola línea del bloque). Cada línea de un `aligned` tiene que ser corta por sí sola; si un paso individual es inherentemente largo, partilo en dos líneas de `aligned` (un paso intermedio más) o simplificá la expresión, no lo dejes todo en una línea esperando que el `aligned` lo resuelva.
+
 ---
 
 ## Negrita: dos usos distintos
@@ -196,6 +292,23 @@ Al elevar al cuadrado se obtiene\n$$0^2 = 0, \quad (\pm 1)^2 = 1$$\nLas salidas 
 Una función transforma cada entrada en una única salida.\n\nAcá el 9 podría transformarse en 3 o en $-3$.
 ```
 
+### Fórmulas anchas: partir en pasos, nunca scroll horizontal
+
+El frontend **no** agrega scroll horizontal a los bloques `$$...$$` ni a las fórmulas inline: una fórmula que no entra en el ancho de pantalla se corta contra el borde, y no hay que resolverlo con scroll. Nunca encadenes varias igualdades largas en una sola fórmula (`$$f(x) = 1 \cdot (x-1)^2 + (-3) = (x-1)^2 - 3$$`) ni pongas una expansión de varios términos en una fórmula inline (`$...$`, que además renderiza con `white-space: nowrap` y no puede partirse en dos líneas). Partí la derivación en **varios bloques `$$...$$` cortos, uno por paso**.
+
+**Orden de preferencia para partir un paso:**
+1. **Apilar los bloques verticalmente, sin texto entre medio**, cuando el paso siguiente se entiende solo (dos `$$...$$` consecutivos, cada uno con su `\n` de separación). Es la opción más limpia si no hace falta narrar nada entre un paso y el otro.
+2. **Si apilarlos sin texto queda confuso** (el lector no entiende por qué se pasó de una expresión a la otra), agregar una frase corta de transición entre los dos bloques. Preferible a forzar todo en una sola expresión horizontal larga, aunque agregue una oración de más.
+
+- ❌ `$$f(x) = 1 \cdot (x - 1)^2 + (-3) = (x-1)^2 - 3$$` (una sola fórmula con dos igualdades encadenadas, ancha).
+- ❌ `Expandiendo: $(x-1)^2 - 3 = x^2 - 2x + 1 - 3 = x^2 - 2x - 2$.` (expansión de tres términos metida inline).
+- ✅ Apilado directo, sin texto: `$$(x-1)^2 - 3 = x^2 - 2x + 1 - 3$$\n$$x^2 - 2x - 2$$`.
+- ✅ Con texto de transición, cuando hace falta narrar el paso: `Sustituyendo $h=1$, $k=-3$ y $a=1$:\n$$f(x) = (x - 1)^2 - 3$$` para el primer paso, y `Expandiendo $(x-1)^2 - 3$:\n$$x^2 - 2x + 1 - 3$$\nQue se simplifica a\n$$x^2 - 2x - 2$$` para el segundo.
+
+**Esta regla aplica a todos los campos con LaTeX, no solo a `explanation`/`question`.** `feedback_correct` también puede desbordar si carga una derivación completa en una sola fórmula larga. Como `feedback_correct` tiene que quedar en 1 oración corta, ahí la partición en pasos no es una opción: la solución es mantenerlo con la relación o el resultado final, corto, y mover cualquier paso intermedio de la derivación a `explanation`.
+- ❌ `feedback_correct: "$(2x+1)^2 = (2x)^2 + 2(2x)(1) + 1^2 = 4x^2 + 4x + 1$."` (encadena 3 igualdades en un campo que debe ser 1 oración corta)
+- ✅ `feedback_correct: "$(2x+1)^2 = 4x^2 + 4x + 1$."` (el desarrollo paso a paso va en `explanation`)
+
 ### Planteos de GRAF: contexto en dos párrafos
 
 En enunciados con gráfico, separar el **contexto** en dos párrafos cuando hay dos oraciones distintas (situación + qué muestra el gráfico), y la **pregunta** en un tercer párrafo:
@@ -208,13 +321,17 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 ¿Qué representa el valor donde la recta toca el eje vertical?
 ```
 
+**Ojo: esto aplica a contexto cotidiano (situación real), no a restablecer en prosa lo que el gráfico ya muestra directamente.** Si el ítem no tiene un contexto cotidiano (es lectura pura de un gráfico abstracto) y el párrafo inicial solo describe rasgos visuales que el propio gráfico ya deja ver (ej. "la gráfica muestra dos ramas separadas por una asíntota, que se aplanan cerca del eje $X$"), ese párrafo es redundante y sobra: ir directo a la pregunta. El párrafo de contexto se justifica cuando aporta información que el gráfico solo no da (una situación real, unidades, qué representa cada eje), no cuando repite en palabras lo que ya es visualmente obvio.
+- ❌ `La gráfica muestra dos ramas separadas por una línea vertical, y ambas ramas se aplanan horizontalmente cerca del eje $X$ a medida que $x$ crece.\n\n¿A qué familia de funciones pertenece esta gráfica?` (describe en prosa lo que el gráfico ya muestra, sin agregar nada)
+- ✅ `¿A qué familia de funciones pertenece esta gráfica?` (el gráfico ya comunica esos rasgos, no hace falta describirlos antes)
+
 ---
 
 ## Redacción del enunciado
 
 - **Sin paréntesis para aclaraciones en el enunciado.** Si una aclaración es imprescindible, integrala como oración propia. No la resuelvas con muletillas "es decir…" / "o sea…" / "esto es…" (prohibidas en `question`, ver *Preguntas directas* más abajo) ni con guion (em-dash y en-dash prohibidos, ver regla crítica 6). Los `:` de notación matemática sí van, pero dentro de LaTeX.
 - **Evitá dos puntos `:` en la prosa del cuerpo**: preferir `.` o `,`. **Excepción**: un `:` de cierre para introducir una fórmula display es válido y recomendado (`Consideremos la función:` antes de `$$...$$`), ver *Sin preámbulos colgantes* más abajo.
-- **"transforma"**: referirse a la función como "la regla que transforma [entradas] en [salidas]". NUNCA usar la flecha `A → B` en prosa (solo en la fórmula centrada).
+- **Terminología: "función", nunca "regla".** Referirse siempre al objeto matemático como "la función" (nunca "la regla" ni "la regla matemática"). "Regla" queda reservada para nombrar procedimientos con nombre propio ("regla del producto", "regla de la cadena", "regla de derivación"), nunca como sinónimo genérico de función. Para describir el mecanismo: "la función transforma [entradas] en [salidas]". NUNCA usar la flecha `A → B` en prosa (solo en la fórmula centrada).
 - **Situación cotidiana concreta + pregunta puntual** (no "¿qué significa X?").
 - **Estructura de embudo invertido**: contexto liviano → objeto matemático aislado en `$$` → restricción/pregunta final. Cada capa reduce en volumen pero aumenta en abstracción.
 - **Contexto y pregunta en párrafos separados**: cuando el enunciado tiene una oración de contexto seguida de la pregunta, separarlas con `\n\n`.
@@ -224,10 +341,13 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
   - ❌ `Entre dos parábolas, ¿cuál se ve más abierta?`
   - ✅ `Considerá las dos parábolas\n$$p(x) = 0{,}2x^2 - 3$$\n$$q(x) = 4x^2 - 3$$\n¿Cuál de las dos se ve más abierta?`
 - **Sin preámbulos colgantes antes de una fórmula display**: prohibido abrir el enunciado con un fragmento de 1-3 palabras sin verbo, seguido de un `$$...$$`. Queda un texto suelto arriba del bloque que no cierra ninguna idea. Reescribí con una frase completa que introduzca la fórmula.
-  - ❌ `La regla\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
+  - ❌ `La función\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
   - ✅ `Una función racional está dada por\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
   - ✅ `Considerá la función\n$$r(x) = \frac{1}{x^2 - 9}$$\n¿Qué valores no están en el dominio?`
-  - Fragmentos aceptables antes de `$$`: frases que terminan en `:` (`Consideremos la función:`), imperativas cortas con verbo (`Analizá la función`), o frases descriptivas completas (`Una función lineal modela el costo`). Sustantivos sueltos como `La regla`, `La función`, `El modelo` no cuentan como frase.
+  - Fragmentos aceptables antes de `$$`: frases que terminan en `:` (`Consideremos la función:`), imperativas cortas con verbo (`Analizá la función`), o frases descriptivas completas (`Una función lineal modela el costo`). Sustantivos sueltos como `La función`, `El modelo` no cuentan como frase.
+  - **Nunca cortar una oración a la mitad para meter la fórmula en el medio.** El texto antes del `$$` tiene que cerrar como unidad (punto o dos puntos), y lo que sigue después de la fórmula empieza como oración nueva; no puede ser la continuación gramatical de la misma oración que la fórmula interrumpió.
+    - ❌ `El costo total depende de la cantidad producida según\n$$C(q) = 500 + 10q$$\ny se mide en pesos.` (la oración "depende... según... y se mide en pesos" queda partida a la mitad por la fórmula)
+    - ✅ `El costo total depende de la cantidad producida según la siguiente expresión.\n$$C(q) = 500 + 10q$$\nSe mide en pesos.`
 - **Preguntas directas, sin muletillas de aclaración**: prohibido colgar "es decir…", "o sea…", "esto es…" después de la pregunta principal para reformularla en palabras simples. Si la primera formulación es clara, la aclaración sobra; si no es clara, reescribí la primera formulación directamente. Las muletillas de aclaración regalan la respuesta o inflan el enunciado sin agregar información.
   - ❌ `¿Cuál es la preimagen del 0, es decir qué número entra para que salga 0?`
   - ✅ `¿Cuál es la preimagen del 0?`
@@ -266,10 +386,38 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
   - ❌ `$$I(p) = p(80 + 4(10 - p)) = p(120 - 4p)$$`
   - ✅ `$$I(p) = 120p - 4p^2$$`
 - **Opciones "Otra/Otra2/Otra3"**: marcador de ejercicio incompleto. Nunca reseedear con opciones placeholder.
+- **Notación consistente dentro de un mismo `options`**: todas las opciones de un ítem comparten el mismo registro. Si una opción usa notación simbólica/LaTeX (un conjunto, $\mathbb{R}$, una condición), ninguna otra puede ser una frase de prosa libre.
+  - ❌ `["Cualquier precio entre 1000 y 2000", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]` (la primera desentona, rompe el registro simbólico de las otras tres)
+  - ✅ `["$[1000, 2000]$", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]`
+  - ❌ `["$a \\geq 0$", "Todos los reales", "$a \\neq 0$", "$a > 100$"]`
+  - ✅ `["$a \\geq 0$", "$\\mathbb{R}$", "$a \\neq 0$", "$a > 100$"]`
+  - ❌ `["$\\{2, 3, \\dots, 10\\}$", "El conjunto de alumnos"]` (mezcla notación de conjunto con descripción textual del rol)
+  - ✅ describir el otro conjunto también en notación de conjunto (`$\\{\\text{alumnos}\\}$`) o, si no es representable en esa notación, reformular todas las opciones en prosa pareja.
+- **Preferencia por notación LaTeX/simbólica en `options`, no solo por consistencia.** Ante la duda entre redactar una opción en prosa o en LaTeX, preferí LaTeX: además de evitar la mezcla de registros, ejercita el vocabulario simbólico del alumno, que es parte del objetivo del curso. Reservá la prosa para cuando el concepto no tiene una notación simbólica natural (nombres de familia de función, descripciones de comportamiento).
+  - ❌ `["$\\mathbb{R}$ (todos los reales)", "$(0, +\\infty)$", "$\\mathbb{R} \\setminus \\{0\\}$", "Depende del grado"]` (la glosa "(todos los reales)" solo en la correcta, y mezcla con una opción en prosa pura)
+  - ✅ `["$\\mathbb{R}$", "$(0, +\\infty)$", "$\\mathbb{R} \\setminus \\{0\\}$", "Depende del grado del polinomio"]`
 - **Nunca mezcles decimales con coma dentro de conjuntos.** En español los decimales se escriben con coma (`4,3`) y los conjuntos separan elementos con coma (`{a, b, c}`). Si mezclás ambos en la misma opción, se vuelve ilegible: `$\{4{,}3, 6{,}7, 6{,}2\}$` parece un conjunto de 6 números, no de 3 decimales.
   - ❌ `$\{4{,}3, 6{,}7, 6{,}2, 8{,}8, 8{,}1\}$` (¿5 decimales o 10 enteros?).
   - ✅ Elegí valores enteros para la función. Si el ejercicio requiere colapso o repetición de valores, usá contextos con salidas naturales enteras (precios en pesos, cantidades, puntos, edades) en vez de forzar decimales.
   - Si es indispensable usar decimales dentro de un conjunto, usar punto (`4.3`) o separar visualmente con punto y coma (`$\{4{,}3;\; 6{,}7;\; 6{,}2\}$`). Preferí evitar la situación antes que resolverla con puntuación exótica.
+
+---
+
+## Vocabulario: términos prohibidos y su reemplazo formal
+
+Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`, `feedback_correct`, `feedback_incorrect` y `explanation`.
+
+| Prohibido | Reemplazo |
+|-----------|-----------|
+| "regla" / "regla matemática" (como sinónimo de función) | "función" (ver *Terminología* en Redacción del enunciado) |
+| "escupir" (la función escupe un valor) | "dar como resultado", "producir" |
+| "fabricar" (fabricar una función/regla) | "definirse", "construirse" |
+| "aterrizan" (los valores aterrizan en...) | reformular sin metáfora: "llegan a", "caen en", o directo "son" |
+| "procesa valores" | "transforma [entradas] en [salidas]" |
+| "salida matemática" | "salida", "el valor de la función" |
+| "error habitual" (como cierre de `explanation`) | "una confusión común", "un error común" (tono empático, no de diagnóstico clínico) |
+
+**Regla general:** si una palabra o metáfora no aparece en el resto del documento como convención aceptada, y suena coloquial o jergosa, no se usa. Ante la duda, preferir la formulación más simple y neutra en vez de la más "creativa".
 
 ---
 
@@ -287,7 +435,7 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 
 El componente `web/src/components/math-graph.tsx` renderiza con **relación de aspecto 1:1** (misma escala px/unidad en ambos ejes) y grilla cuadrada dinámica.
 
-- **Pendientes legibles a 1:1**: `|m| ≤ 3`. Con 1:1, `m=3 → 71°`, todavía legible cuadrito a cuadrito. Pendientes grandes (ej. `m=15`) salen casi verticales e ilegibles.
+- **Pendientes legibles a 1:1**: `|m| ≤ 2`. Con 1:1, `m=2 → 63°`, todavía legible cuadrito a cuadrito. Pendientes grandes (ej. `m=15`) salen casi verticales e ilegibles.
 - **`graph_view` cuadrado**: `[xmin, xmax, ymin, ymax]` con `xRange ≈ yRange`. Los puntos clave deben caer dentro de la vista.
 - Si un contexto cotidiano exige magnitudes dispares, **rediseñar el ejercicio** con números chicos en vez de romper el 1:1.
 
@@ -318,7 +466,14 @@ Cada campo `explanation` sigue una estructura de **tres partes**:
    ```
 3. **Cierre útil** (cuando aporte): por defecto, una oración que advierte sobre la **confusión o el error típico** del concepto, o da un **consejo práctico** para no volver a caer, en voz neutra. El humor es **excepcional**: solo si surge naturalmente una **analogía cotidiana exagerada** (una consecuencia práctica o escena burocrática absurda) enunciada en tono formal, nunca antropomorfismos ni un chiste externo. Si no hay una advertencia pertinente ni una analogía que cierre bien, terminá en la aplicación: un cierre forzado resta.
 
-**Extensión mínima:** las tres partes juntas deben superar los 250 caracteres. Una sola oración de resultado no es una explicación. Cuando el cierre no va, compensá con más detalle en el concepto o la aplicación.
+**Nunca cortar una oración a la mitad para insertar una fórmula display en el medio** (misma regla que en *Redacción del enunciado* → *Sin preámbulos colgantes*, aplica igual acá): el texto antes del `$$` cierra en punto o dos puntos, y lo que sigue después empieza como oración nueva.
+
+**Largo de párrafo: máximo ~200 caracteres, ideal ~100.** Cada párrafo (unidad separada por `\n\n`) no supera los 200 caracteres; el largo cómodo de lectura en mobile ronda los 100. Si un párrafo se pasa de 200, cortalo en dos separados por `\n\n`, no importa si eso parte una oración larga en dos frases más cortas o dos oraciones distintas en dos párrafos.
+- ❌ `Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés. Es un error habitual confundir ambos conceptos.` (un solo párrafo, ~145 caracteres pero rozando el límite y mezclando dos ideas)
+- ✅ `Ojo, unicidad no es inyectividad: acá miramos que cada entrada dé una sola salida, no al revés.\n\nConfundir ambos conceptos es una confusión común.`
+- Dos oraciones cortas que juntas no superan los ~100-160 caracteres pueden convivir en el mismo párrafo sin problema; no hay obligación de separar oración por oración.
+
+**Extensión mínima:** las tres partes juntas deben superar los 300 caracteres. Una sola oración de resultado no es una explicación. Cuando el cierre no va, compensá con más detalle en el concepto o la aplicación.
 
 **Errores frecuentes:**
 - Poner solo el resultado de la cuenta sin explicar el concepto general.
@@ -337,15 +492,30 @@ Cada campo `explanation` sigue una estructura de **tres partes**:
 
 ## Resumen operativo, repetir mentalmente antes de cada ítem
 
-Cinco NUNCA y cinco SIEMPRE. Están duplicadas arriba a propósito, para que también estén disponibles al final del documento (donde el modelo suele buscarlas antes de generar).
+Están duplicadas arriba a propósito, para que también estén disponibles al final del documento (donde el modelo suele buscarlas antes de generar).
 
 **NUNCA:**
 - NUNCA usar `**...**` dentro de `options`.
 - NUNCA usar `\n\n` pegado a un bloque `$$...$$`.
-- NUNCA agregar glosa solo a la opción correcta.
+- NUNCA agregar glosa solo a la opción correcta, ni dejar que la correcta sea la única notablemente más larga O más corta que el resto.
 - NUNCA usar nombres propios (usar roles genéricos).
 - NUNCA inflar el enunciado con adjetivos decorativos.
 - NUNCA meter antropomorfismos ni chistes externos; el cierre es advertencia/consejo, y el humor (excepcional) va como analogía cotidiana formal.
+- NUNCA decir "regla" por "función" (salvo nombre propio: "regla del producto", "regla de la cadena").
+- NUNCA cortar una oración a la mitad para meter una fórmula display en el medio; el fragmento antes cierra en punto o dos puntos, y lo que sigue después es oración nueva.
+- NUNCA mezclar registro de notación dentro de un mismo `options` (una opción en prosa libre y otras en notación simbólica/LaTeX).
+- NUNCA usar vocabulario informal ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual"); ver *Vocabulario: términos prohibidos*.
+- NUNCA invocar derivadas, límites ni integrales (ni ningún concepto fuera de la frontera matemática del cinturón) para justificar una conclusión, aunque simplifique la explicación.
+- NUNCA usar los símbolos ✓/✗/✘ en ningún campo.
+- NUNCA dejar una línea de puro texto sin `&` dentro de un `aligned` que sí tiene `&` en otras líneas.
+- NUNCA dejar un párrafo sin puntuación terminal.
+- NUNCA tejer la fórmula central del enunciado inline dentro de la pregunta (sobre todo fracciones); va separada en su propio bloque, con el texto acompañándola.
+- NUNCA repetir la etiqueta de eje/variable en una opción compuesta si la pregunta ya fija el orden de los valores.
+- NUNCA describir en prosa, antes de la pregunta, rasgos de un gráfico que el gráfico ya muestra directamente (distinto del contexto cotidiano real, que sí va).
+- NUNCA envolver un `\begin{aligned}` en `$...$` inline; siempre `$$...$$` display, con un solo `\\` por salto de línea (nunca `\\\\`).
+- NUNCA usar `\frac`/`\dfrac` en opciones cortas de grilla 2×2 cuando una notación de barra (`1/3`) mantiene todas las opciones a la misma altura.
+- NUNCA acumular 2 o más fórmulas LaTeX inline sueltas en el mismo párrafo de `explanation`; es señal de dividir el párrafo o subir la fórmula central a `$$...$$`.
+- NUNCA agregar el nombre de familia entre paréntesis al lado de una opción que ya es una fórmula autoexplicativa.
 
 **SIEMPRE:**
 - SIEMPRE `\n\n` entre contexto y pregunta.
@@ -353,3 +523,5 @@ Cinco NUNCA y cinco SIEMPRE. Están duplicadas arriba a propósito, para que tam
 - SIEMPRE `**dominio**`, `**imagen**`, `**codominio**`, `**preimagen**`, `**unicidad**` en su primera mención en `question` y en `explanation`.
 - SIEMPRE `feedback_incorrect` como array del mismo largo que `options`, con `null` en el índice correcto.
 - SIEMPRE `\$` para pesos (en JSON: `\\$`).
+- SIEMPRE párrafos de `explanation` ≤200 caracteres (ideal ~100); cortar con `\n\n` si se pasa.
+- SIEMPRE mayúscula al empezar una oración, incluso si arranca con una variable en minúscula (`$b$`, `$x$`) o después de una fórmula display.

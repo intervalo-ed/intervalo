@@ -1,172 +1,332 @@
 [
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 2} \\dfrac{x^2-4}{x-2}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 2} \\dfrac{x^2-4}{x-2}$$",
     "options": [
       "$4$",
-      "$0$",
       "$2$",
-      "$\\dfrac{0}{0}$"
+      "$0$",
+      "$-4$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to 2}(x+2) = 4$.",
-    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x-2} = x+2$ (para $x \\neq 2$). Luego $\\lim_{x \\to 2}(x+2) = 4$.",
+    "feedback_correct": "Correcto, cancelando $(x-2)$ queda $x+2$, que en $x=2$ vale $4$.",
+    "feedback_incorrect": [
+      null,
+      "Estás sustituyendo $x=2$ en el factor que ya cancelaste en vez de hacerlo en el cociente simplificado $x+2$.",
+      "Sustituiste antes de cancelar el factor común y te quedaste con la indeterminación $\\tfrac{0}{0}$ leída como si valiera $0$.",
+      "Revisá el signo de la factorización, $x^2-4=(x-2)(x+2)$, sin ningún signo negativo extra que invierta el resultado."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa da $\\dfrac{0}{0}$. El numerador $x^2-4$ es **diferencia de cuadrados**: $x^2 - 2^2 = (x-2)(x+2)$.\n\n$$\\frac{x^2-4}{x-2} = \\frac{(x-2)(x+2)}{x-2} = x+2 \\xrightarrow{x \\to 2} 4$$\n\nProtocolo: sustitución $\\to$ indeterminación $\\to$ factorizar $\\to$ cancelar $\\to$ sustituir de nuevo.",
+    "explanation": "La sustitución directa de $x=2$ en $\\dfrac{x^2-4}{x-2}$ da $\\dfrac{0}{0}$, así que corresponde aplicar **factorización**. El numerador es una **diferencia de cuadrados**.\n$$\\begin{aligned} \\frac{x^2-4}{x-2} &= \\frac{(x-2)(x+2)}{x-2} \\\\ &= x+2 \\\\ &\\xrightarrow{x \\to 2} 4 \\end{aligned}$$\nEl factor $(x-2)$ se cancela porque aparece tanto en el numerador como en el denominador, y recién después de esa cancelación corresponde sustituir el valor de tendencia.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 0} \\dfrac{x^2+3x}{x}$$",
     "options": [
       "$0$",
-      "$6$",
       "$3$",
-      "$9$"
+      "$6$",
+      "$-3$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$x^2-9 = (x-3)(x+3)$. Cancelando: $\\lim_{x \\to 3}(x+3) = 6$.",
-    "feedback_incorrect": "Factorizar: $\\dfrac{(x-3)(x+3)}{x-3} = x+3$. Entonces $\\lim_{x \\to 3}(x+3) = 3+3 = 6$.",
+    "feedback_correct": "Correcto, cancelando $x$ queda $x+3$, que en $x=0$ vale $3$.",
+    "feedback_incorrect": [
+      "Sustituiste antes de cancelar el factor común $x$ y te quedaste con la indeterminación $\\tfrac{0}{0}$ leída como si valiera $0$.",
+      null,
+      "Estás sumando el $3$ dos veces al simplificar $\\dfrac{x(x+3)}{x}$, cuando el factor común $x$ se cancela una sola vez.",
+      "Revisá el signo del factor común, $x^2+3x=x(x+3)$, no $x(x-3)$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$x^2-9 = (x-3)(x+3)$: **diferencia de cuadrados** con $a=x$ y $b=3$. Al cancelar $(x-3)$ con el denominador, queda $x+3$.\n\n$$\\lim_{x \\to 3}\\frac{x^2-9}{x-3} = \\lim_{x \\to 3}\\frac{(x-3)(x+3)}{x-3} = \\lim_{x \\to 3}(x+3) = 6$$\n\nNota: $3+3=6$, no $3 \\times 3 = 9$. El error más frecuente es confundir suma con producto al evaluar.",
+    "explanation": "La sustitución directa de $x=0$ en $\\dfrac{x^2+3x}{x}$ da $\\dfrac{0}{0}$, así que corresponde extraer **factor común** en el numerador.\n$$\\begin{aligned} \\frac{x^2+3x}{x} &= \\frac{x(x+3)}{x} \\\\ &= x+3 \\\\ &\\xrightarrow{x \\to 0} 3 \\end{aligned}$$\nEl factor $x$ se cancela una sola vez, en todo el numerador a la vez, no término por término dentro de la suma.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to -1} \\dfrac{x^2+3x+2}{x+1}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$",
     "options": [
-      "$2$",
+      "$3$",
       "$0$",
-      "$1$",
-      "$-1$"
+      "$6$",
+      "$-6$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2+3x+2 = (x+1)(x+2)$. Cancelando: $\\lim_{x \\to -1}(x+2) = 1$.",
-    "feedback_incorrect": "Factorizar el numerador: $(x+1)(x+2)$. Cancelar $(x+1)$: queda $x+2$. $\\lim_{x \\to -1}(x+2) = 1$.",
+    "feedback_correct": "Correcto, cancelando $(x-3)$ queda $x+3$, que en $x=3$ vale $6$.",
+    "feedback_incorrect": [
+      "Estás sustituyendo $x=3$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x+3$.",
+      "Sustituiste antes de cancelar el factor común $(x-3)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      null,
+      "Revisá el signo de la factorización, $x^2-9=(x-3)(x+3)$, sin signo negativo adicional."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$x^2+3x+2$ es un **trinomio**: buscamos dos números que sumen $3$ y multipliquen $2$. Son $1$ y $2$.\n\n$$\\frac{x^2+3x+2}{x+1} = \\frac{(x+1)(x+2)}{x+1} = x+2 \\xrightarrow{x \\to -1} 1$$\n\nCancelamos $(x+1)$, que genera la indeterminación, y evaluamos $x+2$ en $x=-1$: $-1+2 = 1$. Atención al signo con valores negativos.",
+    "explanation": "La sustitución directa de $x=3$ en $\\dfrac{x^2-9}{x-3}$ da $\\dfrac{0}{0}$, así que corresponde aplicar **factorización**. El numerador es una diferencia de cuadrados.\n$$\\begin{aligned} \\frac{x^2-9}{x-3} &= \\frac{(x-3)(x+3)}{x-3} \\\\ &= x+3 \\\\ &\\xrightarrow{x \\to 3} 6 \\end{aligned}$$\nEl factor $(x-3)$ se cancela porque aparece tanto en el numerador como en el denominador, y recién ahí corresponde sustituir el valor de tendencia.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^2-1}{x^2+x-2}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to -1} \\dfrac{x^2-1}{x+1}$$",
     "options": [
-      "$\\dfrac{1}{2}$",
       "$1$",
       "$0$",
-      "$\\dfrac{2}{3}$"
+      "$2$",
+      "$-2$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^2-1 = (x-1)(x+1)$ y $x^2+x-2 = (x-1)(x+2)$. Cancelando: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
-    "feedback_incorrect": "Factorizar ambos: numerador $(x-1)(x+1)$, denominador $(x-1)(x+2)$. Cancelar $(x-1)$: $\\dfrac{x+1}{x+2} \\to \\dfrac{2}{3}$.",
+    "feedback_correct": "Correcto, cancelando $(x+1)$ queda $x-1$, que en $x=-1$ vale $-2$.",
+    "feedback_incorrect": [
+      "Estás sustituyendo $x=-1$ con el signo cambiado, el cociente simplificado es $x-1$, no $1-x$.",
+      "Sustituiste antes de cancelar el factor común $(x+1)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Revisá el signo de la factorización, $x^2-1=(x-1)(x+1)$, y el cociente $x-1$ evaluado en $x=-1$ da un resultado negativo.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando **ambos** el numerador y el denominador producen $0$ al sustituir, hay que factorizar los dos y cancelar el factor común.\n\n$$\\frac{(x-1)(x+1)}{(x-1)(x+2)} = \\frac{x+1}{x+2} \\xrightarrow{x \\to 1} \\frac{2}{3}$$\n\n$x^2-1 = (x-1)(x+1)$ es diferencia de cuadrados; $x^2+x-2 = (x-1)(x+2)$ es trinomio ($-1 \\times 2 = -2$, $-1+2=1$).",
+    "explanation": "La sustitución directa de $x=-1$ en $\\dfrac{x^2-1}{x+1}$ da $\\dfrac{0}{0}$, así que corresponde aplicar factorización. El numerador es una diferencia de cuadrados.\n$$\\begin{aligned} \\frac{x^2-1}{x+1} &= \\frac{(x-1)(x+1)}{x+1} \\\\ &= x-1 \\\\ &\\xrightarrow{x \\to -1} -2 \\end{aligned}$$\nEl factor $(x+1)$ se cancela porque aparece tanto en el numerador como en el denominador, y hay que prestar atención al signo del cociente simplificado al evaluar en un valor negativo.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to -2} \\dfrac{x^2-4}{x+2}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 5} \\dfrac{2x^2-10x}{x-5}$$",
+    "options": [
+      "$5$",
+      "$10$",
+      "$2$",
+      "$-10$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x-5)$ queda $2x$, que en $x=5$ vale $10$.",
+    "feedback_incorrect": [
+      "Te olvidaste del coeficiente principal $2$ al simplificar $2x(x-5)$, el cociente correcto es $2x$, no $x$.",
+      null,
+      "Estás sustituyendo $x=5$ en el factor cancelado en vez de hacerlo en el cociente simplificado $2x$.",
+      "Revisá el signo de la factorización, $2x^2-10x=2x(x-5)$, sin signo negativo adicional."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=5$ en $\\dfrac{2x^2-10x}{x-5}$ da $\\dfrac{0}{0}$, así que corresponde extraer factor común en el numerador, sin descartar el coeficiente principal.\n$$\\begin{aligned} \\frac{2x^2-10x}{x-5} &= \\frac{2x(x-5)}{x-5} \\\\ &= 2x \\\\ &\\xrightarrow{x \\to 5} 10 \\end{aligned}$$\nEl factor $(x-5)$ se cancela, pero el coeficiente $2$ que multiplica a $x$ queda en el cociente y debe respetarse hasta la sustitución final.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 4} \\dfrac{x^2-16}{x-4}$$",
+    "options": [
+      "$8$",
+      "$4$",
+      "$0$",
+      "$-8$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x-4)$ queda $x+4$, que en $x=4$ vale $8$.",
+    "feedback_incorrect": [
+      null,
+      "Estás sustituyendo $x=4$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x+4$.",
+      "Sustituiste antes de cancelar el factor común $(x-4)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Revisá el signo de la factorización, $x^2-16=(x-4)(x+4)$, sin signo negativo adicional."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=4$ en $\\dfrac{x^2-16}{x-4}$ da $\\dfrac{0}{0}$, así que corresponde aplicar factorización. El numerador es una diferencia de cuadrados.\n$$\\begin{aligned} \\frac{x^2-16}{x-4} &= \\frac{(x-4)(x+4)}{x-4} \\\\ &= x+4 \\\\ &\\xrightarrow{x \\to 4} 8 \\end{aligned}$$\nEl factor $(x-4)$ se cancela porque aparece tanto en el numerador como en el denominador, y recién después corresponde sustituir el valor de tendencia.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 2} \\dfrac{x^2-5x+6}{x-2}$$",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-3$",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x-2)$ queda $x-3$, que en $x=2$ vale $-1$.",
+    "feedback_incorrect": [
+      "Revisá los signos de la factorización, los dos números deben sumar $-5$ y multiplicar $6$, así que ambos son negativos, no uno positivo.",
+      "Sustituiste antes de cancelar el factor común $(x-2)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Estás sustituyendo $x=2$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x-3$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=2$ en $\\dfrac{x^2-5x+6}{x-2}$ da $\\dfrac{0}{0}$, así que corresponde factorizar el **trinomio** buscando dos números que sumen $-5$ y multipliquen $6$.\n$$\\begin{aligned} x^2-5x+6 &= (x-2)(x-3) \\\\ \\frac{(x-2)(x-3)}{x-2} &= x-3 \\\\ &\\xrightarrow{x \\to 2} -1 \\end{aligned}$$\nLos dos números que resuelven el trinomio son $-2$ y $-3$, y ambos deben llevar el signo correcto para que la suma y el producto coincidan a la vez.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 3} \\dfrac{x^2-x-6}{x-3}$$",
+    "options": [
+      "$-1$",
+      "$5$",
+      "$1$",
+      "$-5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x-3)$ queda $x+2$, que en $x=3$ vale $5$.",
+    "feedback_incorrect": [
+      "Revisá los signos, los dos números deben sumar $-1$ y multiplicar $-6$, así que son $-3$ y $2$, no ambos negativos.",
+      null,
+      "Estás sustituyendo $x=3$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x+2$.",
+      "Revisá el signo del cociente simplificado $x+2$, en $x=3$ el resultado es positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=3$ en $\\dfrac{x^2-x-6}{x-3}$ da $\\dfrac{0}{0}$, así que corresponde factorizar el trinomio buscando dos números que sumen $-1$ y multipliquen $-6$.\n$$\\begin{aligned} x^2-x-6 &= (x-3)(x+2) \\\\ \\frac{(x-3)(x+2)}{x-3} &= x+2 \\\\ &\\xrightarrow{x \\to 3} 5 \\end{aligned}$$\nLos dos números que resuelven el trinomio son $-3$ y $2$, uno de cada signo, porque el producto es negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to -2} \\dfrac{x^2+x-2}{x+2}$$",
+    "options": [
+      "$-3$",
+      "$1$",
+      "$0$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x+2)$ queda $x-1$, que en $x=-2$ vale $-3$.",
+    "feedback_incorrect": [
+      null,
+      "Estás sustituyendo $x=-2$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x-1$.",
+      "Sustituiste antes de cancelar el factor común $(x+2)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Revisá el signo del cociente simplificado $x-1$, en $x=-2$ el resultado es negativo, no positivo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=-2$ en $\\dfrac{x^2+x-2}{x+2}$ da $\\dfrac{0}{0}$, así que corresponde factorizar el trinomio buscando dos números que sumen $1$ y multipliquen $-2$.\n$$\\begin{aligned} x^2+x-2 &= (x-1)(x+2) \\\\ \\frac{(x-1)(x+2)}{x+2} &= x-1 \\\\ &\\xrightarrow{x \\to -2} -3 \\end{aligned}$$\nLos dos números que resuelven el trinomio son $-1$ y $2$, uno de cada signo, porque el producto es negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 1} \\dfrac{x^2-2x+1}{x-1}$$",
+    "options": [
+      "$1$",
+      "$-1$",
+      "$0$",
+      "$2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando un factor $(x-1)$ queda $x-1$, que en $x=1$ vale $0$.",
+    "feedback_incorrect": [
+      "Estás sustituyendo $x=1$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x-1$.",
+      "Revisá el signo de la factorización, $x^2-2x+1=(x-1)^2$, con ambos factores iguales y negativos, no uno de cada signo.",
+      null,
+      "Sustituiste el valor de tendencia con el signo cambiado, el cociente simplificado es $x-1$, no $x+1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=1$ en $\\dfrac{x^2-2x+1}{x-1}$ da $\\dfrac{0}{0}$. El numerador es un **trinomio cuadrado perfecto**, con doble producto $-2x$ entre $x$ y $1$.\n$$\\begin{aligned} x^2-2x+1 &= (x-1)^2 \\\\ \\frac{(x-1)^2}{x-1} &= x-1 \\\\ &\\xrightarrow{x \\to 1} 0 \\end{aligned}$$\nAl ser un cuadrado perfecto, se cancela solo una de las dos apariciones del factor $(x-1)$, y la otra queda en el cociente simplificado.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to -5} \\dfrac{x^2+8x+15}{x+5}$$",
+    "options": [
+      "$2$",
+      "$-2$",
+      "$0$",
+      "$-8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x+5)$ queda $x+3$, que en $x=-5$ vale $-2$.",
+    "feedback_incorrect": [
+      "Revisá el signo del cociente simplificado $x+3$, en $x=-5$ el resultado es negativo, no positivo.",
+      null,
+      "Sustituiste antes de cancelar el factor común $(x+5)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Estás sustituyendo $x=-5$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x+3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=-5$ en $\\dfrac{x^2+8x+15}{x+5}$ da $\\dfrac{0}{0}$, así que corresponde factorizar el trinomio buscando dos números que sumen $8$ y multipliquen $15$.\n$$\\begin{aligned} x^2+8x+15 &= (x+5)(x+3) \\\\ \\frac{(x+5)(x+3)}{x+5} &= x+3 \\\\ &\\xrightarrow{x \\to -5} -2 \\end{aligned}$$\nLos dos números que resuelven el trinomio son $5$ y $3$, ambos positivos, porque tanto la suma como el producto lo son.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 6} \\dfrac{x^2-4x-12}{x-6}$$",
     "options": [
       "$-4$",
       "$4$",
       "$0$",
-      "$2$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$x^2-4 = (x-2)(x+2)$. Cancelando: $\\lim_{x \\to -2}(x-2) = -4$.",
-    "feedback_incorrect": "Factorizar: $\\dfrac{(x-2)(x+2)}{x+2} = x-2$. Entonces $\\lim_{x \\to -2}(x-2) = -2-2 = -4$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$x^2-4 = (x-2)(x+2)$: **diferencia de cuadrados**. El denominador es $(x+2)$, así que el factor que cancela es $(x+2)$, quedando $(x-2)$.\n\n$$\\frac{(x-2)(x+2)}{x+2} = x-2 \\xrightarrow{x \\to -2} -4$$\n\nAtención: el resultado es $-4$, negativo. $\\lim_{x \\to -2}(x-2) = -2-2 = -4$. Error frecuente: cancelar el factor equivocado.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\dfrac{x^2-16}{x-4}$?",
-    "options": [
-      "$4$",
-      "$8$",
-      "$0$",
-      "$16$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$x^2-16 = (x-4)(x+4)$. Cancelando: $\\lim_{x \\to 4}(x+4) = 8$.",
-    "feedback_incorrect": "$\\dfrac{(x-4)(x+4)}{x-4} = x+4$. $\\lim_{x \\to 4}(x+4) = 8$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$x^2-16 = x^2 - 4^2$: **diferencia de cuadrados** con $b=4$. El factor $(x-4)$ cancela con el denominador.\n\n$$\\frac{(x-4)(x+4)}{x-4} = x+4 \\xrightarrow{x \\to 4} 8$$\n\nEn general, $\\lim_{x \\to a}\\dfrac{x^2-a^2}{x-a} = 2a$. Acá $a=4$, así que $2 \\times 4 = 8$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to 0} \\dfrac{x^2+3x}{x}$?",
-    "options": [
-      "$1$",
-      "$0$",
-      "$3$",
-      "No existe"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Factor común $x$: $\\dfrac{x(x+3)}{x} = x+3$. $\\lim_{x \\to 0}(x+3) = 3$.",
-    "feedback_incorrect": "Factor común: $\\dfrac{x(x+3)}{x} = x+3$ (para $x \\neq 0$). Entonces $\\lim_{x \\to 0}(x+3) = 3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El numerador tiene **factor común $x$**: todos los términos de $x^2+3x$ son divisibles por $x$. Al sacar el factor común, aparece el que cancela con el denominador.\n\n$$\\frac{x^2+3x}{x} = \\frac{x(x+3)}{x} = x+3 \\xrightarrow{x \\to 0} 3$$\n\nEsta es la forma más directa de factorización: sacar $x$ cuando el punto de tendencia es $x=0$ y el denominador también es $x$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to -3} \\dfrac{x^2+6x+9}{x+3}$?",
-    "options": [
-      "$9$",
-      "$3$",
-      "$6$",
-      "$0$"
+      "$8$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^2+6x+9 = (x+3)^2$. Cancelando: $\\lim_{x \\to -3}(x+3) = 0$.",
-    "feedback_incorrect": "Trinomio cuadrado perfecto: $(x+3)^2$. Cancelar $(x+3)$: queda $(x+3) \\to 0$.",
+    "feedback_correct": "Correcto, cancelando $(x-6)$ queda $x+2$, que en $x=6$ vale $8$.",
+    "feedback_incorrect": [
+      "Revisá los signos, los dos números deben sumar $-4$ y multiplicar $-12$, y el cociente simplificado $x+2$ es positivo en $x=6$.",
+      "Estás sustituyendo $x=6$ en el factor cancelado en vez de hacerlo en el cociente simplificado $x+2$.",
+      "Sustituiste antes de cancelar el factor común $(x-6)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$x^2+6x+9 = (x+3)^2$: **trinomio cuadrado perfecto** con $b=3$. Al factorizar como $(x+3)(x+3)$ y cancelar un factor con el denominador, queda el otro.\n\n$$\\frac{(x+3)^2}{x+3} = x+3 \\xrightarrow{x \\to -3} 0$$\n\nEl resultado $0$ es correcto y esperado: el factor que queda, $x+3$, vale cero en el punto de tendencia.",
+    "explanation": "La sustitución directa de $x=6$ en $\\dfrac{x^2-4x-12}{x-6}$ da $\\dfrac{0}{0}$, así que corresponde factorizar el trinomio buscando dos números que sumen $-4$ y multipliquen $-12$.\n$$\\begin{aligned} x^2-4x-12 &= (x-6)(x+2) \\\\ \\frac{(x-6)(x+2)}{x-6} &= x+2 \\\\ &\\xrightarrow{x \\to 6} 8 \\end{aligned}$$\nLos dos números que resuelven el trinomio son $-6$ y $2$, uno de cada signo, porque el producto es negativo.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 5} \\dfrac{x^2-10x+25}{x-5}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x^2-5x+6}$$",
     "options": [
+      "$1$",
       "$0$",
-      "$5$",
-      "$25$",
-      "$10$"
+      "$6$",
+      "$-6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, cancelando $(x-3)$ en ambos queda $\\dfrac{x+3}{x-2}$, que en $x=3$ vale $6$.",
+    "feedback_incorrect": [
+      "Factorizaste el numerador pero te quedaste con el denominador sin factorizar, hay que factorizar también $(x-2)(x-3)$ para poder cancelar.",
+      "Sustituiste antes de cancelar el factor común $(x-3)$ presente en ambos y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      null,
+      "Revisá el signo del cociente simplificado $\\dfrac{x+3}{x-2}$, en $x=3$ el resultado es positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La sustitución directa de $x=3$ en $\\dfrac{x^2-9}{x^2-5x+6}$ da $\\dfrac{0}{0}$, así que corresponde factorizar **tanto el numerador como el denominador** para exhibir el factor común.\n$$\\begin{aligned} \\frac{x^2-9}{x^2-5x+6} &= \\frac{(x-3)(x+3)}{(x-2)(x-3)} \\\\ &= \\frac{x+3}{x-2} \\\\ &\\xrightarrow{x \\to 3} 6 \\end{aligned}$$\nEn esta cancelación múltiple es necesario factorizar los dos polinomios antes de identificar cuál factor se repite en ambos, no alcanza con transformar solo uno de los dos.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to 2} \\dfrac{x^2-4}{x^2-3x+2}$$",
+    "options": [
+      "$4$",
+      "$1$",
+      "$0$",
+      "$-4$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$x^2-10x+25 = (x-5)^2$. Cancelando: $\\lim_{x \\to 5}(x-5) = 0$.",
-    "feedback_incorrect": "$(x-5)^2 = (x-5)(x-5)$. Cancelar un $(x-5)$: queda $x-5 \\to 0$.",
+    "feedback_correct": "Correcto, cancelando $(x-2)$ en ambos queda $\\dfrac{x+2}{x-1}$, que en $x=2$ vale $4$.",
+    "feedback_incorrect": [
+      null,
+      "Factorizaste el numerador pero dejaste el denominador sin factorizar, hace falta expresar también $(x-1)(x-2)$ para poder cancelar.",
+      "Sustituiste antes de cancelar el factor común $(x-2)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Revisá el signo del cociente simplificado $\\dfrac{x+2}{x-1}$, en $x=2$ el resultado es positivo, no negativo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$x^2-10x+25$: verificamos si es cuadrado perfecto. Raíz del primer término: $x$; raíz del último: $5$ (ya que $5^2=25$); término medio: $2 \\cdot x \\cdot 5 = 10x$ ✓.\n\n$$\\frac{(x-5)^2}{x-5} = x-5 \\xrightarrow{x \\to 5} 0$$\n\nEl factor restante, $x-5$, vale cero en $x=5$. El límite existe y vale $0$.",
+    "explanation": "La sustitución directa de $x=2$ en $\\dfrac{x^2-4}{x^2-3x+2}$ da $\\dfrac{0}{0}$, así que corresponde factorizar tanto el numerador como el denominador para exhibir el factor común.\n$$\\begin{aligned} \\frac{x^2-4}{x^2-3x+2} &= \\frac{(x-2)(x+2)}{(x-1)(x-2)} \\\\ &= \\frac{x+2}{x-1} \\\\ &\\xrightarrow{x \\to 2} 4 \\end{aligned}$$\nEn esta cancelación múltiple hace falta factorizar los dos polinomios antes de identificar cuál factor se repite en ambos, no alcanza con transformar solo uno de los dos.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x^3-1}{x-1}$?",
+    "question": "¿Cuánto vale\n$$\\lim_{x \\to -2} \\dfrac{x^2-4}{x^2+5x+6}$$",
     "options": [
       "$1$",
-      "$3$",
+      "$-4$",
       "$0$",
-      "$2$"
+      "$4$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelando: $\\lim_{x \\to 1}(x^2+x+1) = 3$.",
-    "feedback_incorrect": "Diferencia de cubos: $x^3-1 = (x-1)(x^2+x+1)$. Cancelar $(x-1)$: queda $x^2+x+1 \\to 1+1+1 = 3$.",
+    "feedback_correct": "Correcto, cancelando $(x+2)$ en ambos queda $\\dfrac{x-2}{x+3}$, que en $x=-2$ vale $-4$.",
+    "feedback_incorrect": [
+      "Factorizaste el numerador pero dejaste el denominador sin factorizar, hace falta expresar también $(x+2)(x+3)$ para poder cancelar.",
+      null,
+      "Sustituiste antes de cancelar el factor común $(x+2)$ y quedó la indeterminación $\\tfrac{0}{0}$ leída como $0$.",
+      "Revisá el signo del cociente simplificado $\\dfrac{x-2}{x+3}$, en $x=-2$ el resultado es negativo, no positivo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$x^3-1$ es una **diferencia de cubos**: la identidad es $a^3-b^3 = (a-b)(a^2+ab+b^2)$. Con $a=x$ y $b=1$:\n\n$$\\frac{x^3-1}{x-1} = \\frac{(x-1)(x^2+x+1)}{x-1} = x^2+x+1 \\xrightarrow{x \\to 1} 3$$\n\n$\\lim_{x \\to 1}(x^2+x+1) = 1+1+1 = 3$. La diferencia de cubos sigue el mismo protocolo: factorizar $\\to$ cancelar $\\to$ sustituir.",
+    "explanation": "La sustitución directa de $x=-2$ en $\\dfrac{x^2-4}{x^2+5x+6}$ da $\\dfrac{0}{0}$, así que corresponde factorizar tanto el numerador como el denominador para exhibir el factor común.\n$$\\begin{aligned} \\frac{x^2-4}{x^2+5x+6} &= \\frac{(x-2)(x+2)}{(x+2)(x+3)} \\\\ &= \\frac{x-2}{x+3} \\\\ &\\xrightarrow{x \\to -2} -4 \\end{aligned}$$\nEn esta cancelación múltiple hay que factorizar los dos polinomios antes de identificar cuál factor se repite en ambos, no alcanza con transformar solo uno de los dos.",
     "reviewed": false
   }
 ]

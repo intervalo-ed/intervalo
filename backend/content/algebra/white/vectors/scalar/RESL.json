@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $\\vec{u}=(1,2)$ y $\\vec{v}=(3,-1)$, ¿cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
+    "options": [
+      "$1$",
+      "$5$",
+      "$-1$",
+      "$(3,-2)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\vec{u}\\cdot\\vec{v} = 1\\cdot3 + 2\\cdot(-1) = 3-2 = 1$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar los productos sin restar el segundo término.",
+      "El signo de alguno de los productos quedó invertido.",
+      "El resultado del producto escalar es un número, no un vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El producto escalar se calcula sumando el producto de las componentes homólogas.\n$$\\vec{u}\\cdot\\vec{v} = (1)(3) + (2)(-1) = 3 - 2 = 1$$\n\nCada componente de $\\vec{u}$ se multiplica por la componente en la misma posición de $\\vec{v}$, y después se suman los resultados.\n\nUn olvido común es no respetar el signo negativo de una componente al multiplicar.",
+    "reviewed": false
+  }
+]

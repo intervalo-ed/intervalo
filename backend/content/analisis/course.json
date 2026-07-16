@@ -128,13 +128,6 @@
               ]
             },
             {
-              "key": "modulo",
-              "name": "Función módulo",
-              "tooltip": "Una **función módulo** (o **valor absoluto**) es aquella que devuelve la distancia de un número al cero, resultando siempre en un valor no negativo.\n$$f(x) = |x|$$\nLa representación gráfica de esta relación en el plano cartesiano tiene forma de **V** con vértice en el origen, y presenta un punto no derivable donde la función cambia de rama.",
-              "short_description": "Una **función módulo** (o **valor absoluto**) es aquella que devuelve la distancia de un número al cero, resultando siempre en un valor no negativo.\n$$f(x) = |x|$$",
-              "skills": []
-            },
-            {
               "key": "trigonometric",
               "name": "Funciones trigonométricas",
               "tooltip": "Una **función trigonométrica** es aquella que vincula la medida de un ángulo con las proporciones métricas de un espacio geométrico, destacándose como principales el **seno**, el **coseno** y la **tangente**.\n$$\\begin{aligned} f(x) &= \\sin(x) \\\\ f(x) &= \\cos(x) \\\\ f(x) &= \\tan(x) \\end{aligned}$$\nLa representación gráfica de esta relación en el plano cartesiano se caracteriza por ser una curva que oscila y repite su forma a intervalos regulares, lo que refleja un comportamiento cíclico o periódico.",

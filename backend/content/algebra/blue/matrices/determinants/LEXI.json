@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué indica que $\\det(A) \\neq 0$ para una matriz cuadrada $A$?",
+    "options": [
+      "Que $A$ es inversible",
+      "Que $A$ es simétrica",
+      "Que todos los elementos de $A$ son positivos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un determinante no nulo indica que la matriz es inversible.",
+    "feedback_incorrect": [
+      null,
+      "La simetría depende de si $A=A^T$, no del valor del determinante.",
+      "El signo de los elementos no está relacionado con el determinante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **determinante** es un escalar asociado a una matriz cuadrada.\n$$\\det(A) \\neq 0 \\iff A \\text{ es inversible}$$\n\nGeométricamente, el determinante mide el factor por el cual la matriz expande o contrae el volumen del espacio.\n\nSi el determinante es cero, la matriz colapsa el espacio en una dimensión menor y no tiene inversa.",
+    "reviewed": false
+  }
+]

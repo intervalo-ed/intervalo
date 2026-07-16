@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cómo se calcula el elemento $C_{ij}$ del producto matricial $C=AB$?",
+    "options": [
+      "Sumando los productos de la fila $i$ de $A$ por la columna $j$ de $B$",
+      "Multiplicando el elemento $A_{ij}$ por $B_{ij}$",
+      "Sumando todos los elementos de $A$ y de $B$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$C_{ij} = \\sum_k A_{ik}B_{kj}$: fila de $A$ por columna de $B$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sería un producto elemento a elemento, no el producto matricial.",
+      "Eso ignora la estructura de filas y columnas del producto matricial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **producto matricial** combina la fila $i$ de $A$ con la columna $j$ de $B$.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$\n\nCada elemento del resultado surge de sumar productos término a término entre una fila y una columna.\n\nA diferencia del producto de números reales, la multiplicación de matrices no es conmutativa: el orden de los factores altera el resultado.",
+    "reviewed": false
+  }
+]

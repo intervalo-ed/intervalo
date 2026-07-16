@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos conjuntos es **generador** de $\\mathbb{R}^2$?",
+    "options": [
+      "$\\{(1,0), (0,1)\\}$",
+      "$\\{(1,0)\\}$",
+      "$\\{(2,4)\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(1,0)$ y $(0,1)$ generan cualquier vector de $\\mathbb{R}^2$ combinándolos.",
+    "feedback_incorrect": [
+      null,
+      "Un solo vector solo genera una recta, no todo $\\mathbb{R}^2$.",
+      "Un único vector, aunque distinto, sigue generando solo una recta, no el plano completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para generar $\\mathbb{R}^2$ hacen falta al menos dos vectores no paralelos.\n\n$(1,0)$ y $(0,1)$ cumplen esa condición: cualquier punto del plano se escribe como $a(1,0)+b(0,1)$.\n\nUn único vector, sea cual sea, solo genera la recta que pasa por el origen en su dirección, nunca el plano completo.",
+    "reviewed": false
+  }
+]

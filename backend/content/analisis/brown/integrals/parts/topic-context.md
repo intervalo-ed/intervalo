@@ -57,12 +57,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Elección de variables y regla LIATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). LIATE prioriza L → I → A → T → E para elegir $u$. | 25 |
-| B. Diagnóstico de iteración y ciclos | Predecir el comportamiento del método sin resolver. Casos: $\int x^2 e^x \, dx$ requiere **aplicar la fórmula dos veces** (grado 2 en polinómica); $\int e^x \sin x \, dx$ genera una **integral cíclica** (aplicar dos veces regresa a la original con signo cambiado, hay que **despejar**); $\int x^n \ln x \, dx$ cierra en **una** iteración cualquiera sea $n$. Distinguir estos comportamientos. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Elección de variables y regla LIATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). LIATE prioriza L → I → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 25 |
+| B. Diagnóstico de iteración y ciclos | Predecir el comportamiento del método sin resolver. Casos: $\int x^2 e^x \, dx$ requiere **aplicar la fórmula dos veces** (grado 2 en polinómica); $\int e^x \sin x \, dx$ genera una **integral cíclica** (aplicar dos veces regresa a la original con signo cambiado, hay que **despejar**); $\int x^n \ln x \, dx$ cierra en **una** iteración cualquiera sea $n$. Distinguir estos comportamientos. | `diagnostico-iteracion-y-ciclos` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -99,12 +101,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - **$+C$ obligatorio en todas las opciones**.
 - **Signo negativo de la fórmula respetado**: distractores clásicos con $uv + \int v \, du$.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | 25 |
-| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere simplificar una **fracción** que sale directa de tabla: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$. | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | `aplicacion-directa-una-iteracion` | 25 |
+| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere simplificar una **fracción** que sale directa de tabla: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$. | `factor-oculto-reducciones-cortas` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 

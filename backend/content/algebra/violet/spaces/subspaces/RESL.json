@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿El vector $(4,2)$ pertenece al subespacio $S: x - 2y = 0$?",
+    "options": [
+      "Sí, porque $4 - 2(2) = 0$",
+      "No, porque $4 - 2(2) \\neq 0$",
+      "Sí, porque ambas componentes son positivas",
+      "No, porque la primera componente es mayor que la segunda"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$4-2(2)=0$: el vector cumple la ecuación del subespacio.",
+    "feedback_incorrect": [
+      null,
+      "El cálculo $4-2(2)$ sí da cero, la condición se cumple.",
+      "El signo de las componentes no es el criterio para pertenecer al subespacio.",
+      "Comparar el tamaño de las componentes no es la condición del subespacio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para verificar si un vector pertenece a un subespacio definido por una ecuación, se reemplazan sus componentes.\n$$x - 2y = 4 - 2(2) = 4-4 = 0$$\n\nComo el resultado da cero, el vector $(4,2)$ satisface la ecuación y pertenece a $S$.\n\nLa pertenencia a un subespacio se decide siempre verificando la ecuación que lo define, no por el signo o el tamaño relativo de las componentes.",
+    "reviewed": false
+  }
+]

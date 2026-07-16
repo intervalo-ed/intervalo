@@ -1,172 +1,332 @@
 [
   {
-    "question": "Sea $f(x) = \\begin{cases} 2x+1 & x < 3 \\\\ x^2-2 & x \\geq 3 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
+    "question": "Una **función a trozos** está definida por\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
     "options": [
       "$7$",
-      "$9$",
+      "$6$",
       "$5$",
-      "$3$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Para $x < 3$, se usa $f(x) = 2x+1$. Sustituyendo $x=3$: $2(3)+1 = 7$.",
-    "feedback_incorrect": "Por la izquierda ($x < 3$) se usa $f(x) = 2x+1$. Sustituyendo: $2(3)+1 = 7$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para el **límite por la izquierda**, usamos la fórmula que define $f$ cuando $x < a$. Aquí $a=3$ y la fórmula para $x < 3$ es $2x+1$.\n\n$$\\lim_{x \\to 3^-} f(x) = \\lim_{x \\to 3^-}(2x+1) = 2(3)+1 = 7$$\n\nIgnoramos $x^2-2$: esa fórmula aplica para $x \\geq 3$. El límite lateral depende exclusivamente de la rama que corresponde a esa dirección.",
-    "reviewed": false
-  },
-  {
-    "question": "Sea $f(x) = \\begin{cases} 2x+1 & x < 3 \\\\ x^2-2 & x \\geq 3 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
-    "options": [
-      "$9$",
-      "$7$",
-      "$5$",
-      "$11$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Para $x \\geq 3$, se usa $f(x) = x^2-2$. Sustituyendo $x=3$: $9-2 = 7$. Como $\\lim^- = \\lim^+ = 7$, el límite bilateral existe.",
-    "feedback_incorrect": "Por la derecha ($x \\geq 3$) se usa $f(x) = x^2-2$. Sustituyendo: $3^2-2 = 7$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para el **límite por la derecha**, usamos la fórmula que define $f$ cuando $x \\geq 3$, que es $x^2-2$.\n\n$$\\lim_{x \\to 3^+} f(x) = \\lim_{x \\to 3^+}(x^2-2) = 3^2-2 = 7$$\n\nComo $\\lim^- = 7 = \\lim^+$, el límite bilateral existe y vale $7$. Aunque las fórmulas son distintas, coinciden en el mismo valor en $x=3$: la función está bien «pegada».",
-    "reviewed": false
-  },
-  {
-    "question": "Sea $f(x) = \\begin{cases} x+4 & x \\leq 1 \\\\ 3x-1 & x > 1 \\end{cases}$. ¿Cuánto valen $\\lim_{x \\to 1^-}$ y $\\lim_{x \\to 1^+}$?",
-    "options": [
-      "$\\lim^- = 2$ y $\\lim^+ = 5$, el límite no existe",
-      "$\\lim^- = 5$ y $\\lim^+ = 5$, el límite existe y vale $5$",
-      "$\\lim^- = 5$ y $\\lim^+ = 2$, por lo tanto el límite no existe",
-      "$\\lim^- = 1$ y $\\lim^+ = 1$, el límite existe"
+      "$2$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$\\lim^- = 1+4 = 5$ y $\\lim^+ = 3(1)-1 = 2$. Como $5 \\neq 2$, el límite bilateral no existe.",
-    "feedback_incorrect": "$\\lim^-$: usar $x+4$ → $1+4=5$. $\\lim^+$: usar $3x-1$ → $3(1)-1=2$. Como $5 \\neq 2$, el límite no existe.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Calculamos cada límite lateral con la fórmula que corresponde a su lado.\n\n$$\\begin{aligned} \\lim_{x &\\to 1^-}(x+4) = 1+4 = 5 \\\\ \\lim_{x &\\to 1^+}(3x-1) = 3(1)-1 = 2 \\end{aligned}$$\n\nComo $5 \\neq 2$, el límite bilateral no existe. La función tiene un **salto** en $x=1$: por la izquierda tiende a $5$ y por la derecha a $2$.",
-    "reviewed": false
-  },
-  {
-    "question": "Sea $f(x) = \\begin{cases} x^2 & x < 0 \\\\ -x & x \\geq 0 \\end{cases}$. ¿Existe $\\lim_{x \\to 0} f(x)$?",
-    "options": [
-      "Sí, y vale $-1$",
-      "No, porque la función cambia de definición en $x=0$",
-      "No, porque $\\lim^- = 1$ y $\\lim^+ = -1$",
-      "Sí, porque $\\lim^- = 0$ y $\\lim^+ = 0$"
+    "feedback_correct": "Correcto: la rama $x+2$ evaluada en $x=3$ da $5$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a la otra rama, la que se usa para $x \\geq 3$, no la que se acerca por la izquierda.",
+      "Revisá la sustitución en la rama izquierda, el resultado no coincide con $x+2$ evaluado en $x=3$.",
+      null,
+      "Ese valor sale de tomar solo el término independiente de la rama, sin sumar el $x$ evaluado en $3$."
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\lim^- = (0)^2 = 0$ y $\\lim^+ = -(0) = 0$. Como son iguales, el límite bilateral es $0$.",
-    "feedback_incorrect": "$\\lim_{x \\to 0^-} = 0^2 = 0$ y $\\lim_{x \\to 0^+} = -(0) = 0$. Ambos valen $0$, así que el límite bilateral existe y vale $0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque la función cambia de fórmula en $x=0$, lo importante es el **valor al que tiende** desde cada lado, no el cambio de definición.\n\n$$\\begin{aligned} \\lim_{x &\\to 0^-} x^2 = 0 \\\\ \\lim_{x &\\to 0^+}(-x) = 0 \\end{aligned}$$\n\nComo $\\lim^- = \\lim^+ = 0$, el límite bilateral existe y vale $0$. El cambio de fórmula en el punto no implica que el límite no exista.",
+    "explanation": "Para un **límite lateral** de una función a trozos, se elige la rama que corresponde a la dirección de aproximación pedida, y se sustituye directamente el punto de tendencia en esa rama.\n\nComo se pide $x \\to 3^-$, se usa la rama $x<3$:\n$$\\lim_{x \\to 3^-} f(x) = 3 + 2 = 5$$\n\nLa rama $3x-2$, válida para $x \\geq 3$, no interviene en este cálculo aunque el punto de quiebre sea el mismo.",
     "reviewed": false
   },
   {
-    "question": "Para $f(x) = \\dfrac{|x-2|}{x-2}$, ¿cuánto valen $\\lim_{x \\to 2^+}$ y $\\lim_{x \\to 2^-}$?",
+    "question": "Con la misma **función a trozos**\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
-      "$\\lim^+ = 1$ y $\\lim^- = -1$",
-      "$\\lim^+ = -1$ y $\\lim^- = 1$",
-      "$\\lim^+ = 0$ y $\\lim^- = 0$",
-      "Ambos límites valen $1$"
+      "$7$",
+      "$5$",
+      "$9$",
+      "$4$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Para $x > 2$: $|x-2| = x-2$, entonces $f = 1$. Para $x < 2$: $|x-2| = -(x-2)$, entonces $f = -1$.",
-    "feedback_incorrect": "Para $x > 2$: $f(x) = (x-2)/(x-2) = 1$. Para $x < 2$: $f(x) = -(x-2)/(x-2) = -1$. Los límites laterales son $1$ y $-1$.",
+    "feedback_correct": "Correcto: la rama $3x-2$ evaluada en $x=3$ da $7$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a la rama izquierda, la que no se usa para el límite por la derecha.",
+      "Revisá la sustitución en la rama derecha, el resultado no coincide con $3x-2$ evaluado en $x=3$.",
+      "Ese valor sale de una sustitución incompleta en la rama derecha."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor absoluto $|x-2|$ se define por casos: igual a $x-2$ cuando $x > 2$, e igual a $-(x-2)$ cuando $x < 2$.\n\n$$\\begin{aligned} x &> 2: \\frac{x-2}{x-2} = 1 \\Rightarrow \\lim^+ = 1 \\\\ x &< 2: \\frac{-(x-2)}{x-2} = -1 \\Rightarrow \\lim^- = -1 \\end{aligned}$$\n\nComo $1 \\neq -1$, el límite bilateral no existe. Las funciones con valor absoluto en el denominador frecuentemente generan este patrón de límites laterales opuestos.",
+    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\n\nComo $\\lim^- = 5 \\neq 7 = \\lim^+$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
     "reviewed": false
   },
   {
-    "question": "Sea $f(x) = \\begin{cases} 3 & x < -1 \\\\ x+5 & x \\geq -1 \\end{cases}$. ¿Cuánto vale $\\lim_{x \\to -1^-} f(x)$?",
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "options": [
+      "$1$",
+      "$5$",
+      "$-5$",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: $-2+1=-1$, con el signo negativo de la rama.",
+    "feedback_incorrect": [
+      "Fijate el signo, la rama izquierda es $-x+1$, al evaluarla en $x=2$ el resultado queda negativo.",
+      "Ese valor corresponde a la rama derecha, la que no se usa para el límite por la izquierda.",
+      "Revisá el signo del término independiente al evaluar $-x+1$ en $x=2$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando una rama tiene coeficiente negativo, conviene sustituir con cuidado para no perder el signo en el resultado final.\n\n$$\\lim_{x \\to 2^-} f(x) = -(2) + 1 = -2 + 1 = -1$$\n\nEl signo negativo de la pendiente afecta directamente el resultado, un descuido acá es la fuente más común de error en ramas con coeficientes negativos.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 2x - 1 & \\text{si } x \\leq 1 \\\\ x + 4 & \\text{si } x > 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$3$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: la rama $2x-1$ evaluada en $x=1$ da $1$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a la rama derecha, la que no se usa para el límite por la izquierda.",
+      null,
+      "Revisá la sustitución en $2x-1$ evaluada en $x=1$.",
+      "Ese valor sale de sustituir mal el término independiente de la rama izquierda."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.\n\n$$\\lim_{x \\to 1^-} f(x) = 2(1) - 1 = 1$$\nse usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 1 \\\\ x^2 + 4 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "options": [
+      "$2$",
+      "$4$",
+      "$5$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: $1^2+4=5$, usando la rama derecha.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a la rama izquierda, la que no se usa para el límite por la derecha.",
+      "Revisá la sustitución en $x^2+4$ evaluada en $x=1$.",
+      null,
+      "Ese valor sale de sumar mal el término independiente de la rama derecha."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Con ramas cuadráticas, la sustitución directa sigue siendo el procedimiento correcto: se eleva al cuadrado el punto de tendencia y se aplica la rama correspondiente.\n\n$$\\lim_{x \\to 1^+} f(x) = (1)^2 + 4 = 1 + 4 = 5$$\n\nEl grado del polinomio en cada rama no cambia el procedimiento, solo hay que elegir la rama correcta según la dirección pedida y sustituir.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 3x & \\text{si } x < 0 \\\\ x + 5 & \\text{si } x \\geq 0 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "options": [
+      "$5$",
+      "$3$",
+      "$-3$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: $3 \\cdot 0 = 0$, usando la rama izquierda.",
+    "feedback_incorrect": [
+      "Ese valor sale de usar la rama de $x \\geq 0$, que no corresponde al límite por la izquierda.",
+      "Revisá la sustitución en $3x$ evaluada en $x=0$.",
+      "Ese resultado no corresponde a ninguna de las dos ramas evaluadas en $x=0$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.\n\n$$\\lim_{x \\to 0^-} f(x) = 3 \\cdot 0 = 0$$\nusando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) es la confusión clásica de invertir el sentido de la aproximación pedida.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 3 & \\text{si } x < 2 \\\\ 3x - 1 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "options": [
+      "No existe",
+      "$5$",
+      "$3$",
+      "$8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: ambas ramas dan $5$ en $x=2$, el bilateral existe.",
+    "feedback_incorrect": [
+      "Acá las dos ramas sí coinciden en $x=2$, así que el límite bilateral existe como número.",
+      null,
+      "Revisá la sustitución en la rama izquierda evaluada en $x=2$.",
+      "Ese valor sale de sustituir mal en la rama derecha."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para el **límite bilateral** de una función a trozos, se evalúan las dos ramas en el punto de quiebre, y si coinciden, ese valor común es el límite.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 2 + 3 = 5 \\\\ \\lim_{x \\to 2^+} f(x) &= 3(2) - 1 = 5 \\end{aligned}$$\ncomo ambas ramas dan el mismo valor, $\\lim_{x \\to 2} f(x) = 5$.\n\nAntes de responder 'no existe' por reflejo, siempre conviene evaluar ambas ramas y comparar los resultados.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
+    "options": [
+      "$2$",
+      "$6$",
+      "No existe",
+      "$4$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto: las ramas dan $2$ y $6$, valores distintos, el bilateral no existe.",
+    "feedback_incorrect": [
+      "Ese es el valor de la rama izquierda, pero el bilateral necesita que ambas ramas coincidan.",
+      "Ese es el valor de la rama derecha, pero el bilateral necesita que ambas ramas coincidan.",
+      null,
+      "Ese valor no corresponde a ninguna de las dos ramas evaluadas en $x=1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando las dos ramas de una función a trozos dan valores distintos en el punto de quiebre, el límite bilateral no existe, sin importar cuáles sean esos valores.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 1 + 1 = 2 \\\\ \\lim_{x \\to 1^+} f(x) &= 1 + 5 = 6 \\end{aligned}$$\ncomo $2 \\neq 6$, la respuesta correcta es 'No existe'.\n\nNo corresponde elegir ninguno de los dos valores como si fuera el bilateral: cuando difieren, la única respuesta válida es la inexistencia.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "options": [
+      "$4{,}5$",
+      "No existe",
+      "$3$",
+      "$6$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: ambas ramas dan $4{,}5$ en $x=3$.",
+    "feedback_incorrect": [
+      null,
+      "Acá las dos ramas sí coinciden en $x=3$, así que el límite bilateral existe como número.",
+      "Revisá la sustitución en $x+1{,}5$ evaluada en $x=3$.",
+      "Revisá la sustitución en $2x-1{,}5$ evaluada en $x=3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El procedimiento del **límite bilateral** no cambia cuando los coeficientes son decimales: se evalúa cada rama por sustitución directa y se comparan los resultados.\n\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1{,}5 = 4{,}5 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 1{,}5 = 6 - 1{,}5 = 4{,}5 \\end{aligned}$$\n\nComo ambas ramas coinciden en $4{,}5$, ese es el valor del límite bilateral, escrito siempre con coma decimal.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
+    "options": [
+      "$3$",
+      "$-3$",
+      "$0$",
+      "No existe"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: las ramas dan $3$ y $-3$, difieren en el signo, el bilateral no existe.",
+    "feedback_incorrect": [
+      "Ese es el valor de la rama izquierda, pero el bilateral necesita que ambas ramas coincidan.",
+      "Ese es el valor de la rama derecha, pero el bilateral necesita que ambas ramas coincidan.",
+      "Esa suma o promedio de las ramas no es el criterio para el límite bilateral.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando las dos ramas de una función a trozos difieren solo en el signo, siguen siendo valores distintos, y el límite bilateral no existe igual que en cualquier otro caso de ramas desiguales.\n\n$$\\begin{aligned} \\lim_{x \\to 5^-} f(x) &= 5 - 2 = 3 \\\\ \\lim_{x \\to 5^+} f(x) &= -5 + 2 = -3 \\end{aligned}$$\ncomo $3 \\neq -3$, la respuesta es 'No existe'.\n\nQue los dos valores sean opuestos en signo no los vuelve iguales: la condición del teorema de existencia exige coincidencia exacta, no solo la misma magnitud.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 3x - 4 & \\text{si } x < 2 \\\\ x & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "options": [
+      "No existe",
+      "$2$",
+      "$6$",
+      "$4$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto: ambas ramas dan $2$ en $x=2$, el bilateral existe.",
+    "feedback_incorrect": [
+      "Antes de descartar el bilateral por reflejo, conviene evaluar ambas ramas, acá sí coinciden en $x=2$.",
+      null,
+      "Revisá la sustitución en $3x-4$ evaluada en $x=2$.",
+      "Ese valor no corresponde a ninguna de las dos ramas evaluadas en $x=2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3(2) - 4 = 2 \\\\ \\lim_{x \\to 2^+} f(x) &= 2 \\end{aligned}$$\ncomo ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función a trozos, de tres ramas, está definida por\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 0 \\\\ x + 1 & \\text{si } 0 \\leq x < 3 \\\\ 2x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
     "options": [
       "$4$",
-      "$3$",
-      "$-1$",
-      "$5$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Para $x < -1$ se usa $f(x) = 3$. El límite por la izquierda es la constante $3$.",
-    "feedback_incorrect": "Para $x < -1$, $f(x) = 3$ (constante). El límite por la izquierda en $x=-1$ es $3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para $x < -1$, la función es la **constante** $f(x) = 3$. El límite de una función constante es la constante misma, independientemente de desde qué dirección se aproxima $x$.\n\n$$\\lim_{x \\to -1^-} f(x) = \\lim_{x \\to -1^-} 3 = 3$$\n\nNo hay cálculo que hacer: la función vale $3$ en todos los puntos a la izquierda de $x=-1$, así que también tiende a $3$.",
-    "reviewed": false
-  },
-  {
-    "question": "Para la misma función $f(x) = \\begin{cases} 3 & x < -1 \\\\ x+5 & x \\geq -1 \\end{cases}$, ¿existe $\\lim_{x \\to -1} f(x)$?",
-    "options": [
-      "Sí, y vale $4$",
-      "Sí, y vale $3$",
-      "No, porque $\\lim^- = 3$ y $\\lim^+ = 4$",
-      "Sí, y vale $3{,}5$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$\\lim^- = 3$ y $\\lim^+ = -1+5 = 4$. Como $3 \\neq 4$, el límite bilateral no existe.",
-    "feedback_incorrect": "$\\lim^- = 3$ (constante) y $\\lim^+ = -1+5 = 4$. Como los límites laterales difieren, el límite bilateral no existe.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Ya sabemos $\\lim^- = 3$. Para el límite por la derecha usamos la fórmula activa para $x \\geq -1$, que es $x+5$.\n\n$$\\lim_{x \\to -1^+}(x+5) = -1+5 = 4$$\n\nComo $3 \\neq 4$, el límite bilateral no existe. La función tiene un salto de $3$ a $4$ en $x=-1$: la rama constante «llega» a $3$ pero la nueva rama «arranca» en $4$.",
-    "reviewed": false
-  },
-  {
-    "question": "Sea $g(x) = \\begin{cases} x^2-1 & x \\leq 2 \\\\ 2x-1 & x > 2 \\end{cases}$. ¿Existe $\\lim_{x \\to 2} g(x)$?",
-    "options": [
-      "Sí, y vale $4$",
-      "No, porque la función cambia de fórmula en $x=2$",
-      "No, porque $\\lim^- = 3$ y $\\lim^+ = 5$",
-      "Sí, y vale $3$ (ambos límites laterales son iguales)"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\lim^- = 4-1 = 3$ y $\\lim^+ = 4-1 = 3$. Son iguales, así que el límite existe y vale $3$.",
-    "feedback_incorrect": "$\\lim_{x \\to 2^-} = 2^2-1 = 3$ y $\\lim_{x \\to 2^+} = 2(2)-1 = 3$. Como ambos son $3$, el límite bilateral existe y vale $3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Calculamos ambos límites laterales con sus respectivas fórmulas.\n\n$$\\begin{aligned} \\lim_{x &\\to 2^-}(x^2-1) = 4-1 = 3 \\\\ \\lim_{x &\\to 2^+}(2x-1) = 4-1 = 3 \\end{aligned}$$\n\nComo $\\lim^- = \\lim^+ = 3$, el límite bilateral existe y vale $3$. El cambio de fórmula en $x=2$ no importa: lo que importa es que ambos lados convergen al mismo valor.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál de estas funciones a trozos tiene límite bilateral en $x = 0$?",
-    "options": [
-      "$f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ 2x+1 & x \\geq 0 \\end{cases}$",
-      "$f(x) = \\begin{cases} x+1 & x < 0 \\\\ x+3 & x \\geq 0 \\end{cases}$",
-      "$f(x) = \\begin{cases} 5 & x < 0 \\\\ -5 & x \\geq 0 \\end{cases}$",
-      "$f(x) = \\begin{cases} x^2 & x < 0 \\\\ x+1 & x \\geq 0 \\end{cases}$"
+      "No existe",
+      "$1$",
+      "$7$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "En la primera opción, ambas fórmulas son iguales, entonces $\\lim^- = \\lim^+ = 1$. El límite existe.",
-    "feedback_incorrect": "En la primera opción, $\\lim^- = 2(0)+1 = 1$ y $\\lim^+ = 2(0)+1 = 1$. Son iguales. En las demás, los límites laterales difieren.",
+    "feedback_correct": "Correcto: las dos ramas que se tocan en $x=3$ dan $4$.",
+    "feedback_incorrect": [
+      null,
+      "Acá las ramas que se tocan en $x=3$ sí coinciden, así que el límite bilateral existe como número.",
+      "Ese valor corresponde al punto de quiebre en $x=0$, no al de $x=3$.",
+      "Revisá la sustitución en $2x-2$ evaluada en $x=3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que el límite bilateral exista, los dos laterales deben coincidir. La forma más directa: cuando ambas ramas son la **misma expresión**.\n\n$$\\begin{aligned} \\lim^- &= 2(0)+1 = 1 \\\\ \\lim^+ &= 2(0)+1 = 1 \\Rightarrow \\lim_{x \\to 0} = 1 \\end{aligned}$$\n\nEn las otras opciones, las fórmulas distintas producen valores distintos en $x=0$: segunda da $1$ y $3$, tercera da $5$ y $-5$, cuarta da $0$ y $1$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.\n\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1 = 4 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 2 = 4 \\end{aligned}$$\ncomo ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false
   },
   {
-    "question": "Dado que $\\lim_{x \\to a^+} f(x) = -2$ y $\\lim_{x \\to a^-} f(x) = -2$, ¿cuánto vale $\\lim_{x \\to a} f(x)$?",
+    "question": "Considerá la expresión con **valor absoluto**\n$$f(x) = \\frac{|x|}{x}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "No existe",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto: para $x<0$, $|x|=-x$, y el cociente da $-1$.",
+    "feedback_incorrect": [
+      "Ese sería el resultado por la derecha, por la izquierda el numerador cambia de signo.",
+      "El cociente no puede dar $0$ en ningún tramo de esta expresión.",
+      "Como es un límite lateral, no bilateral, sí se puede calcular con una sola rama.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para resolver un límite con **valor absoluto**, conviene reescribirlo por ramas antes de sustituir: $|x| = -x$ si $x<0$, y $|x| = x$ si $x \\geq 0$.\n\nComo se pide $x \\to 0^-$, se usa la rama $x<0$:\n$$\\lim_{x \\to 0^-} \\frac{|x|}{x} = \\lim_{x \\to 0^-} \\frac{-x}{x} = -1$$\n\nEl signo del numerador cambia según el lado de aproximación, por eso conviene siempre separar el valor absoluto en sus dos ramas antes de simplificar.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la expresión con valor absoluto, con $c \\neq 0$ fijo,\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c^+} f(x)$?",
     "options": [
       "$0$",
-      "$-2$",
-      "$2$",
+      "$1$",
+      "$-1$",
       "No existe"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Cuando los dos límites laterales coinciden, el límite bilateral toma ese valor: $\\lim_{x \\to a} f(x) = -2$.",
-    "feedback_incorrect": "Si $\\lim^+ = \\lim^- = -2$, entonces el límite bilateral existe y vale $-2$.",
+    "feedback_correct": "Correcto: para $x>c$, $|x-c|=x-c$, y el cociente da $1$.",
+    "feedback_incorrect": [
+      "El cociente no puede dar $0$ en ningún tramo de esta expresión.",
+      null,
+      "Ese sería el resultado por la izquierda, por la derecha el numerador no cambia de signo.",
+      "Como es un límite lateral, no bilateral, sí se puede calcular con una sola rama."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La definición del límite bilateral establece que si ambos laterales existen y son iguales a $L$, el límite bilateral es exactamente $L$.\n\n$$\\lim^- = -2 = \\lim^+ \\Rightarrow \\lim_{x \\to a} f(x) = -2$$\n\nEl signo negativo no es un problema: el límite puede ser cualquier número real. $-2$ es un resultado perfectamente válido.",
+    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, y vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:\n$$\\lim_{x \\to c^+} \\frac{|x-c|}{x-c} = \\lim_{x \\to c^+} \\frac{x-c}{x-c} = 1$$\n\nPor la derecha de $c$ el numerador y el denominador coinciden en signo, así que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
+    "reviewed": false
+  },
+  {
+    "question": "Considerá la misma expresión, con $c \\neq 0$ fijo,\n$$f(x) = \\frac{|x - c|}{x - c}$$\n¿Cuánto vale $\\lim_{x \\to c} f(x)$?",
+    "options": [
+      "No existe",
+      "$1$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto: los laterales valen $1$ y $-1$, distintos entre sí, el bilateral no existe.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor del límite por la derecha, pero el bilateral necesita que ambos laterales coincidan.",
+      "Ese es el valor del límite por la izquierda, pero el bilateral necesita que ambos laterales coincidan.",
+      "El cociente no puede dar $0$ en ningún tramo de esta expresión."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **límite bilateral** de esta expresión exige comparar los dos laterales, que ya se calcularon por ramas en los casos anteriores.\n\n$$\\begin{aligned} \\lim_{x \\to c^-} f(x) &= -1 \\\\ \\lim_{x \\to c^+} f(x) &= 1 \\end{aligned}$$\ncomo $-1 \\neq 1$, el límite bilateral no existe.\n\nEsta expresión es un ejemplo clásico de laterales que difieren exclusivamente en el signo: alcanza con esa diferencia, por mínima que parezca, para que el bilateral no exista.",
     "reviewed": false
   }
 ]

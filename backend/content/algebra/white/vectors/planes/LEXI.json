@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué dos elementos determinan un **plano** en el espacio?",
+    "options": [
+      "Un punto de paso y un vector normal",
+      "Dos puntos cualesquiera",
+      "Un solo vector director"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un plano queda determinado por un punto de paso y un vector normal.",
+    "feedback_incorrect": [
+      null,
+      "Dos puntos determinan una recta, no alcanzan para fijar un plano.",
+      "Un solo vector director determina una recta, no un plano."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **plano** en el espacio se determina con un punto de paso y un vector normal, perpendicular a toda la superficie.\n$$\\pi: \\vec{n}\\cdot(\\vec{x}-\\vec{p}) = 0$$\n\nLa ecuación dice que cualquier vector contenido en el plano es ortogonal al vector normal.\n\nDos puntos, en cambio, solo alcanzan para determinar una recta que los une, no un plano completo.",
+    "reviewed": false
+  }
+]

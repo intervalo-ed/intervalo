@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Si $\\dim(V)=4$ y $\\dim(\\ker(T))=0$, ¿qué se puede afirmar sobre $T$?",
+    "options": [
+      "Es inyectiva",
+      "Es sobreyectiva",
+      "Su imagen tiene dimensión $0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un núcleo trivial ($\\dim=0$) implica que $T$ es inyectiva.",
+    "feedback_incorrect": [
+      null,
+      "La sobreyectividad depende de la dimensión del codominio, que no se dio acá.",
+      "Por el teorema de la dimensión, $\\dim(\\text{Im}(T))=4-0=4$, no $0$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el núcleo de una transformación contiene solo al vector nulo ($\\dim(\\ker(T))=0$), la transformación es inyectiva: ningún par de vectores distintos se mapea al mismo resultado.\n\nPor el teorema de la dimensión, $\\dim(\\text{Im}(T)) = \\dim(V) - \\dim(\\ker(T)) = 4 - 0 = 4$.\n\nLa sobreyectividad, en cambio, depende de si esa imagen de dimensión $4$ coincide con todo el codominio $W$, algo que no puede afirmarse sin conocer $\\dim(W)$.",
+    "reviewed": false
+  }
+]

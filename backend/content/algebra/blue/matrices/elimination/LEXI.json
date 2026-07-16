@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué logra la **eliminación de Gauss** sobre la matriz de un sistema?",
+    "options": [
+      "Transformarla en una forma escalonada mediante operaciones por fila",
+      "Calcular directamente su determinante",
+      "Encontrar su matriz transpuesta"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La eliminación de Gauss lleva la matriz a una forma escalonada mediante operaciones por fila.",
+    "feedback_incorrect": [
+      null,
+      "El determinante puede leerse de la forma escalonada, pero no es lo que busca directamente el método.",
+      "La transpuesta es una operación distinta, no el objetivo de la eliminación."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **eliminación de Gauss** es un algoritmo que transforma la matriz de un sistema en una forma escalonada.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$\n\nSe aplican operaciones por fila (sumar, restar, multiplicar por un escalar) que preservan el conjunto de soluciones del sistema original.\n\nUna vez escalonada, el sistema se resuelve fácilmente por sustitución inversa, despejando desde la última ecuación hacia arriba.",
+    "reviewed": false
+  }
+]

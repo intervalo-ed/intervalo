@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué es la **imagen** $\\text{Im}(T)$ de una transformación lineal?",
+    "options": [
+      "El conjunto de todos los vectores alcanzables en el codominio",
+      "El conjunto de vectores que se mapean al vector nulo",
+      "El determinante de la matriz asociada"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La imagen es el conjunto de vectores alcanzados en el codominio.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe al núcleo, no a la imagen.",
+      "El determinante es un número asociado a la matriz, no un conjunto de vectores."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** de una transformación es el conjunto de todos los vectores que pueden alcanzarse en el espacio de llegada.\n$$\\text{Im}(T) = \\{ T(\\vec{v}) \\mid \\vec{v} \\in V \\}$$\n\nCoincide con el subespacio generado por las columnas de la matriz asociada a $T$.\n\nSi la imagen cubre todo el codominio, la transformación es sobreyectiva.",
+    "reviewed": false
+  }
+]

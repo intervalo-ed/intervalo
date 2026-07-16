@@ -57,12 +57,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | 25 |
-| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | `identificacion-anatomica-de-u` | 25 |
+| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). | `ajuste-del-diferencial` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -100,12 +102,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - **Toda respuesta correcta vuelve a la variable $x$**. Una opción "quedada en $u$" aparece como **distractor deliberado** en al menos algunos ítems, con `feedback_incorrect` explícito.
 - **$\ln|·|$ con valor absoluto** en toda respuesta que involucre logaritmo.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | 25 |
-| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln|x^2 + 5| + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | `sustitucion-lineal-inmediata` | 25 |
+| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln|x^2 + 5| + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | `sustitucion-grado-superior-trascendentes` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 

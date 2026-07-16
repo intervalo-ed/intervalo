@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué propiedad debe cumplir una **transformación lineal** $T$?",
+    "options": [
+      "$T(\\alpha\\vec{u}+\\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$",
+      "$T(\\vec{u}) = \\|\\vec{u}\\|$",
+      "$T(\\vec{u}) = \\vec{u} + \\vec{u}$ siempre"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una transformación lineal preserva la suma y el producto por escalar.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe a la norma, una función que no es lineal en el sentido vectorial.",
+      "Esa regla fija $T$ como el doble de $\\vec{u}$, no la condición general de linealidad."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **transformación lineal** es una función entre espacios vectoriales que preserva la suma y la multiplicación por escalar.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\n\nEsta condición garantiza que la estructura geométrica se mantenga: rectas siguen siendo rectas y el origen no varía.\n\nRotaciones, proyecciones y reflexiones son ejemplos típicos de transformaciones lineales.",
+    "reviewed": false
+  }
+]

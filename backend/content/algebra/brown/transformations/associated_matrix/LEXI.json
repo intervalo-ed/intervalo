@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cómo se relaciona la **matriz asociada** $A$ con una transformación lineal $T$?",
+    "options": [
+      "$T(\\vec{x}) = A\\vec{x}$",
+      "$T(\\vec{x}) = \\vec{x} + A$",
+      "$A = \\det(T)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La matriz asociada cumple $T(\\vec{x})=A\\vec{x}$.",
+    "feedback_incorrect": [
+      null,
+      "Sumar una matriz a un vector no está definido, no es la relación correcta.",
+      "El determinante es un escalar, la matriz asociada es un arreglo completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda transformación lineal entre espacios de dimensión finita puede representarse multiplicando un vector de coordenadas por una **matriz asociada**.\n$$T(\\vec{x}) = A\\vec{x}$$\n\nEsta matriz actúa como un diccionario algebraico: calcula el efecto exacto de $T$ sobre cualquier vector.\n\nLas columnas de $A$ son, precisamente, las imágenes de los vectores de la base elegida en el dominio.",
+    "reviewed": false
+  }
+]

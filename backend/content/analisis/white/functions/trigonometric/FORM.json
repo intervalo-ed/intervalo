@@ -10,7 +10,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "En $A \\cdot \\operatorname{sen}(Bx + C)$, la amplitud es $A = 3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el coeficiente $B$, que determina el período, no la amplitud.",
+      "Ese es el término de fase $C$, que desplaza la curva horizontalmente, no la amplitud.",
+      "$1$ sería la amplitud si no hubiera coeficiente delante del seno, pero acá $A=3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**: determina cuánto se aleja la onda del eje central.\nAquí $A=3$, así que la onda oscila entre $-3$ y $3$.\n$B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\nCada parámetro tiene un rol independiente: no confundir amplitud con período ni con fase.",
@@ -27,7 +32,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La curva parte de su máximo en $x = 0$ con amplitud 1: $f(x) = \\cos(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El seno vale $0$ en $x=0$, pero la curva del gráfico arranca en su valor máximo.",
+      null,
+      "Esa amplitud llegaría hasta $y=2$, pero la curva del gráfico solo alcanza $y=1$.",
+      "Ese período sería la mitad ($\\pi$), pero la curva del gráfico completa un ciclo en $2\\pi$."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -49,7 +59,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "El período de $\\operatorname{sen}(Bx)$ es $\\frac{2\\pi}{B}$. Con $B = 3$: período $= \\frac{2\\pi}{3}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor multiplica $\\pi$ por $B$ en vez de dividir: el período es $2\\pi/B$, no $B\\pi$.",
+      "Ese es el período del seno sin modificar, pero acá $B=3$ sí lo achica.",
+      null,
+      "Ese resultado sale de usar $B=6$ en vez de $B=3$ en el cociente $2\\pi/B$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **período** de $A\\cdot\\operatorname{sen}(Bx)$ es $T=\\dfrac{2\\pi}{B}$.\nCon $B=3$: $T=\\dfrac{2\\pi}{3}$. A mayor $B$, más ciclos por unidad y menor período.\nEl coeficiente $A=2$ afecta solo a la amplitud, no al período.\n$$T = \\frac{2\\pi}{B} = \\frac{2\\pi}{3}$$\nNo confundir $B$ con la amplitud $A$: son parámetros independientes.",
@@ -66,7 +81,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Con $B = \\frac{1}{2}$: período $= \\frac{2\\pi}{1/2} = 4\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor duplica de más: con $B=1/2$ el período es $2\\pi/(1/2)=4\\pi$, no el doble de eso.",
+      "Ese es el período del coseno sin modificar, pero acá $B=1/2$ lo estira.",
+      "Ese período correspondería a $B=2$, pero acá el coeficiente achica a $B=1/2$, que agranda el período.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Con $B=\\dfrac{1}{2}$ en $\\cos(x/2)$: período $=\\dfrac{2\\pi}{1/2}=4\\pi$.\nCuando $B<1$, el período se **estira**: la onda tarda más en completar un ciclo.\n$$T = \\frac{2\\pi}{1/2} = 4\\pi$$\nSi $B=1$ el período es $2\\pi$ (coseno básico). Si $B=2$ sería $\\pi$ (más corto).\nA menor $B$, mayor período: la onda se extiende horizontalmente.",
@@ -83,7 +103,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La onda oscila entre 0 y 2 (desplazada 1 unidad hacia arriba): $f(x) = \\operatorname{sen}(x) + 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Esa curva oscilaría entre $-1$ y $1$, sin el desplazamiento vertical que muestra el gráfico.",
+      "Ese desplazamiento bajaría la onda hasta $y=-2$, pero el gráfico no baja de $y=0$.",
+      "Esa amplitud haría que la onda bajara hasta $y=-2$, cuando el gráfico nunca cruza el eje $x$."
+    ],
     "graph_fn": "sin(x) + 1",
     "graph_view": [
       -7,
@@ -105,7 +130,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$B$ determina el período: $T = \\frac{2\\pi}{B}$. A mayor $B$, más ciclos por unidad.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese rol lo cumple el coeficiente $A$ delante del seno, no $B$.",
+      null,
+      "Ese rol lo cumple la constante $D$ sumada al final, no $B$.",
+      "Ese rol lo cumple $C$ dentro del argumento, no el coeficiente $B$ que multiplica a $x$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $A\\cdot\\operatorname{sen}(Bx+C)$, el parámetro $B$ controla el **período**: $T=\\dfrac{2\\pi}{B}$.\nA mayor $B$, más ciclos por unidad (mayor frecuencia). $A$ controla la amplitud.\n$C$ desplaza la fase horizontalmente (no cambia período ni amplitud).\nResumen: $A$ → amplitud, $B$ → período, $C$ → fase. Cada letra tiene un rol único.",
@@ -114,15 +144,20 @@
   {
     "question": "¿Cuánto vale $f(\\pi/2)$ para $f(x) = \\operatorname{sen}(x)$?",
     "options": [
-      "$-1$",
-      "$0$",
       "$1$",
+      "$0$",
+      "$-1$",
       "$\\pi/2$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\operatorname{sen}(\\pi/2) = 1$: es el valor máximo del seno.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor del seno en $x=0$ o $x=\\pi$, no en $\\pi/2$.",
+      "Ese es el valor mínimo del seno, alcanzado en $3\\pi/2$, no en $\\pi/2$.",
+      "Ese es el ángulo mismo, no el valor que toma la función en ese ángulo."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\operatorname{sen}(\\pi/2)=1$: este es el **valor máximo** del seno, alcanzado en $x=\\pi/2$.\nEs un valor que conviene memorizar junto con $\\operatorname{sen}(0)=0$ y $\\operatorname{sen}(\\pi)=0$.\nEl coseno hace lo contrario: $\\cos(0)=1$ y $\\cos(\\pi/2)=0$.\nEstos valores especiales son la base para evaluar funciones trigonométricas sin calculadora.",
@@ -139,7 +174,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La curva oscila entre $-2$ y $2$, comienza en su máximo ($x=0$): $f(x) = 2\\cos(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese período sería la mitad ($\\pi$), pero el gráfico muestra un ciclo completo en $2\\pi$.",
+      "Esa amplitud llegaría solo hasta $y=1$, pero el gráfico alcanza $y=2$.",
+      "Esa curva arrancaría en $y=0$, pero el gráfico arranca en su valor máximo.",
+      null
+    ],
     "graph_fn": "2 * cos(x)",
     "graph_view": [
       -7,
@@ -161,7 +201,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\operatorname{sen}(\\pi) = 0$: el seno vale cero en todos los múltiplos de $\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor máximo del seno, alcanzado en $\\pi/2$, no en $\\pi$.",
+      "Ese es el valor mínimo del seno, alcanzado en $3\\pi/2$, no en $\\pi$.",
+      "Ese es el ángulo mismo, no el valor que toma la función al evaluarlo."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\operatorname{sen}(\\pi)=0$: el seno se anula en todos los **múltiplos enteros de $\\pi$**: $x=0,\\pi,2\\pi,3\\pi,\\ldots$\nEn $x=\\pi$ el seno completa su primer ciclo y regresa a cero.\nNo confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o $\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
@@ -171,14 +216,19 @@
     "question": "¿Cuál es la amplitud de $f(x) = -3 \\cdot \\cos(x)$?",
     "options": [
       "$-3$",
-      "$3$",
+      "$2\\pi$",
       "$1$",
-      "$2\\pi$"
+      "$3$"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La amplitud es el valor absoluto del coeficiente: $|-3| = 3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el coeficiente con signo, pero la amplitud es siempre un valor absoluto positivo.",
+      "Ese valor es el período del coseno básico, no la amplitud.",
+      "Esa sería la amplitud del coseno sin escalar, olvidando el coeficiente $3$ que lo multiplica.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **amplitud** es el valor absoluto del coeficiente: $|A|$.\nEn $f(x)=-3\\cos(x)$, $A=-3$, entonces amplitud $=|-3|=3$.\nEl signo negativo refleja la onda (lo que era máximo ahora es mínimo), pero no cambia su tamaño.\nLa amplitud siempre es positiva: mide distancia, no dirección.",
@@ -195,10 +245,15 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\cos(x)$ está definido para todo real $x$. Su dominio es $\\mathbb{R}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el rango de valores que toma el coseno, la imagen, no el conjunto de entradas válidas.",
+      "Ese intervalo acotado no agota todos los valores de entrada posibles del coseno.",
+      "Esa restricción aplica a la tangente, que tiene al coseno en el denominador, no al coseno mismo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$. No hay denominador, logaritmo ni raíz que genere restricciones.\n\n- **Dominio** de $\\cos$: $\\mathbb{R}$\n- **Imagen** de $\\cos$: $[-1, 1]$\n\nEs un error frecuente confundir ambos. La imagen ($[-1, 1]$) es el rango de valores que produce $\\cos$, no el conjunto de entradas válidas.\n\nContraste con $f(x) = \\tan(x)$: su dominio sí excluye $x = \\pi/2 + n\\pi$, porque $\\tan$ lleva $\\cos(x)$ en el denominador.",
+    "explanation": "El coseno es una función definida para **todo** $x \\in \\mathbb{R}$: no hay denominador, logaritmo ni raíz que genere restricciones sobre las entradas.\n\nEl **dominio** de $\\cos$ es $\\mathbb{R}$ y su **imagen** es $[-1, 1]$. Es un error frecuente confundir ambos: la imagen es el rango de valores que produce la función, no el conjunto de entradas válidas.\n\nEl contraste queda claro con $f(x) = \\tan(x)$, cuyo dominio sí excluye $x = \\pi/2 + n\\pi$, porque la tangente lleva a $\\cos(x)$ en el denominador.",
     "reviewed": false
   },
   {
@@ -212,7 +267,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. La amplitud es $|A| = 3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa es la amplitud del seno sin escalar, olvidando el coeficiente $3$ que lo multiplica.",
+      null,
+      "Ese valor duplica la amplitud real: el coeficiente ya es directamente la amplitud, no hay que multiplicarlo por $2$.",
+      "$\\pi$ describe el período de referencia, no la amplitud."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo. El coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$. La función oscila entre $-3$ y $3$. La opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si $A=6$. $\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno. No hay trampa.",
@@ -229,27 +289,37 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Período $= \\dfrac{2\\pi}{4} = \\dfrac{\\pi}{2}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor multiplica $\\pi$ por $B$ en vez de dividir por $B$.",
+      "Ese valor también sale de multiplicar en vez de dividir, con un factor distinto.",
+      null,
+      "Ese período correspondería a $B=2$, pero acá $B=4$ achica el período a la mitad de eso."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Con $B=4$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{4} \\\\\\\\\n&= \\frac{\\pi}{2}\n\\end{aligned}$\n\nLos distractores $8\\pi$ y $4\\pi$ son múltiplos de $\\pi$, no el cociente. $\\pi$ correspondería a $B=2$. Con $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$. Con $B=4$:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}\n\\end{aligned}$$\n\nLos distractores $8\\pi$ y $4\\pi$ son múltiplos de $\\pi$, no el cociente. $\\pi$ correspondería a $B=2$. Con $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
     "reviewed": false
   },
   {
     "question": "¿Cuál es el valor máximo de $g(x) = 2\\,\\operatorname{sen}(x) + 3$?",
     "options": [
-      "$2$",
-      "$3$",
       "$5$",
+      "$3$",
+      "$2$",
       "$1$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo $= D + |A| = 3 + 2 = 5$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es solo el desplazamiento vertical $D$, falta sumar la amplitud $A$.",
+      "Esa es solo la amplitud $A$, falta sumar el desplazamiento vertical $D$.",
+      "Ese valor confunde el mínimo del seno ($-1$) con el resultado final de la suma."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** ocurre cuando $\\operatorname{sen}(x)=1$: $g_{\\max}=A\\cdot1+D=A+D$.\n\n$\\begin{aligned}\ng_{\\max} &= A + D \\\\\\\\\n&= 2 + 3 \\\\\\\\\n&= 5\n\\end{aligned}$\n\nLa opción $3$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $1$ confunde el mínimo del seno ($-1$) con el resultado. El máximo suma $A$ y $D$.",
+    "explanation": "En $g(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** ocurre cuando $\\operatorname{sen}(x)=1$: $g_{\\max}=A\\cdot1+D=A+D$.\n\n$$\\begin{aligned}\ng_{\\max} &= A + D \\\\\n&= 2 + 3 \\\\\n&= 5\n\\end{aligned}$$\n\nLa opción $3$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $1$ confunde el mínimo del seno ($-1$) con el resultado. El máximo suma $A$ y $D$.",
     "reviewed": false
   },
   {
@@ -263,10 +333,15 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. Mínimo $= D - |A| = -2 - 1 = -3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el mínimo del coseno sin el desplazamiento vertical, falta restar $2$.",
+      "Ese es solo el desplazamiento vertical $D$, falta restar la amplitud del coseno.",
+      "Ese valor sale de sumar en vez de restar el desplazamiento al mínimo del coseno."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $h(x)=\\cos(x)+D$, el **mínimo** ocurre cuando $\\cos(x)=-1$: $h_{\\min}=-1+D$.\n\n$\\begin{aligned}\nh_{\\min} &= -1 + D \\\\\\\\\n&= -1 + (-2) \\\\\\\\\n&= -3\n\\end{aligned}$\n\nLa opción $-1$ es el mínimo del coseno sin desplazamiento. La opción $-2$ es solo $D$. El mínimo real agrega el desplazamiento vertical al mínimo base.",
+    "explanation": "En $h(x)=\\cos(x)+D$, el **mínimo** ocurre cuando $\\cos(x)=-1$: $h_{\\min}=-1+D$.\n\n$$\\begin{aligned}\nh_{\\min} &= -1 + D \\\\\n&= -1 + (-2) \\\\\n&= -3\n\\end{aligned}$$\n\nLa opción $-1$ es el mínimo del coseno sin desplazamiento. La opción $-2$ es solo $D$. El mínimo real agrega el desplazamiento vertical al mínimo base.",
     "reviewed": false
   },
   {
@@ -280,7 +355,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $\\operatorname{sen}(\\pi/6) = \\dfrac{1}{2}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/3)$, el ángulo complementario, no $\\pi/6$.",
+      "Ese es el máximo del seno, alcanzado en $\\pi/2$, no en $\\pi/6$.",
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/4)$, un ángulo distinto.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El ángulo $\\pi/6=30°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones $1:\\sqrt{3}:2$. El seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nTabla de valores clave:\n$\\operatorname{sen}(\\pi/6)=1/2$, $\\operatorname{sen}(\\pi/4)=\\sqrt{2}/2$, $\\operatorname{sen}(\\pi/3)=\\sqrt{3}/2$, $\\operatorname{sen}(\\pi/2)=1$.\n\n$\\operatorname{sen}(30°)=1/2$: el resultado más fácil de la tabla trigonométrica. Empezá memorizando este.",
@@ -297,7 +377,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $\\cos(\\pi/3) = \\dfrac{1}{2}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\cos(\\pi/6)$, el ángulo complementario, no $\\pi/3$.",
+      null,
+      "Ese es el máximo del coseno, alcanzado en $x=0$, no en $\\pi/3$.",
+      "Ese es el valor del coseno en $\\pi/2$, no en $\\pi/3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones $1:\\sqrt{3}:2$. El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$, porque $60°$ y $30°$ son complementarios. El distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$. La tabla trigonométrica tiene más simetrías que un copo de nieve.",
@@ -314,10 +399,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $B = 1/3$, período $= 2\\pi / (1/3) = 6\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese resultado sale de usar $B=3$ en vez de $B=1/3$ en el cociente.",
+      "Ese es el período del coseno sin modificar, pero acá $B=1/3$ lo estira más.",
+      null,
+      "Ese resultado sale de usar $B=2/3$ en vez de $B=1/3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ en $T=2\\pi/|B|$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{1/3} \\\\\\\\\n&= 6\\pi\n\\end{aligned}$\n\nLa opción $2\\pi/3$ sería con $B=3$ (no $1/3$). La opción $2\\pi$ es el período del coseno sin modificar. La opción $3\\pi$ sería con $B=2/3$. Con $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
+    "explanation": "El **período** de $f(x)=\\cos(x/3)$ se calcula con $B=1/3$ en $T=2\\pi/|B|$:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/3} \\\\\n&= 6\\pi\n\\end{aligned}$$\n\nLa opción $2\\pi/3$ sería con $B=3$ (no $1/3$). La opción $2\\pi$ es el período del coseno sin modificar. La opción $3\\pi$ sería con $B=2/3$. Con $B=1/3$ el ciclo se estira a $6\\pi\\approx18{,}85$ unidades.",
     "reviewed": false
   },
   {
@@ -331,7 +421,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. La amplitud es $|{-4}| = 4$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el coeficiente con signo, pero la amplitud es siempre un valor absoluto positivo.",
+      "Ese valor sería la mitad de la amplitud real.",
+      null,
+      "Ese valor duplica la amplitud, confundiéndola con el rango total entre máximo y mínimo."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es siempre $|A|$: el valor absoluto del coeficiente. El signo de $A$ indica si la onda está reflejada verticalmente, pero no afecta la amplitud.\n\nPara $f(x)=-4\\,\\operatorname{sen}(x)$: $|A|=|-4|=4$. La onda oscila entre $-4$ y $4$, igual que $4\\,\\operatorname{sen}(x)$, pero invertida. La opción $-4$ es el coeficiente con signo, no la amplitud. $8$ sería el rango total, no la amplitud.\n\nAmplitud $= |-4| = 4$: el signo negativo voltea la onda pero no la aplana ni la estira.",
@@ -348,24 +443,34 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $[-1 - 1,\\, 1 - 1] = [-2, 0]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese intervalo mezcla mal los extremos, no respeta el ancho de $2$ unidades de la imagen del seno.",
+      "Ese es el rango del seno sin desplazamiento, falta correr todo $1$ unidad hacia abajo.",
+      null,
+      "Ese intervalo sale de sumar $1$ en vez de restarlo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ exactamente $1$ unidad hacia abajo:\n\n$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\\\\\n&= [-2,\\; 0]\n\\end{aligned}$\n\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. $[0,2]$ sería el resultado de $+1$, no $-1$. Restar $1$ baja todo el rango $1$ unidad.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)-1$ se obtiene desplazando $[-1,1]$ exactamente $1$ unidad hacia abajo:\n\n$$\\begin{aligned}\n\\text{imagen} &= [-1-1,\\; 1-1] \\\\\n&= [-2,\\; 0]\n\\end{aligned}$$\n\nLa opción $[-1,1]$ es el rango del seno sin desplazamiento. $[-2,1]$ confunde la amplitud. $[0,2]$ sería el resultado de $+1$, no $-1$. Restar $1$ baja todo el rango $1$ unidad.",
     "reviewed": false
   },
   {
     "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n¿Cuánto vale $f\\!\\left(\\dfrac{\\pi}{2}\\right)$?",
     "options": [
-      "$0$",
-      "$1$",
       "$2$",
+      "$1$",
+      "$0$",
       "$-2$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. $f(\\pi/2) = 2 \\cdot \\operatorname{sen}(\\pi/2) = 2 \\cdot 1 = 2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el máximo del seno sin escalar, olvidando el coeficiente $2$ que lo multiplica.",
+      "Ese sería el valor en $x=0$ o $x=\\pi$, no en $\\pi/2$.",
+      "Ese es el mínimo de la función, alcanzado cuando el seno vale $-1$, no en $\\pi/2$."
+    ],
     "graph_fn": "2*sin(x)",
     "graph_view": [
       -7,
@@ -373,7 +478,7 @@
       -3,
       3
     ],
-    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$. El seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$. Multiplicado por $2$:\n\n$\\begin{aligned}\nf\\!\\left(\\frac{\\pi}{2}\\right) &= 2\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\\\\\n&= 2 \\cdot 1 \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEste es el valor máximo de $f$. La opción $0$ sería $f(0)$ o $f(\\pi)$. La opción $1$ es el máximo del seno sin escalar.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)$. El seno alcanza su **máximo** cuando el argumento es $\\pi/2$: $\\operatorname{sen}(\\pi/2)=1$. Multiplicado por $2$:\n\n$$\\begin{aligned}\nf\\!\\left(\\frac{\\pi}{2}\\right) &= 2\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 2 \\cdot 1 \\\\\n&= 2\n\\end{aligned}$$\n\nEste es el valor máximo de $f$. La opción $0$ sería $f(0)$ o $f(\\pi)$. La opción $1$ es el máximo del seno sin escalar.",
     "reviewed": false
   },
   {
@@ -387,7 +492,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $\\operatorname{sen}(\\pi - \\pi) = \\operatorname{sen}(0) = 0$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ahí el argumento vale $-\\pi$, que también da seno cero, pero no es el primer cruce positivo tras el desfase.",
+      null,
+      "Ese valor haría que el argumento fuera $-\\pi/2$, donde el seno no se anula.",
+      "Ese valor sí anula la función, pero no es el primer cruce después de $x=0$."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi)$ tiene su primer cero positivo cuando el argumento vale $0$: $x-\\pi=0\\Rightarrow x=\\pi$.\n\nEl desfase $-\\pi$ desplaza toda la curva $\\pi$ unidades a la derecha. El cero que $\\operatorname{sen}(x)$ tiene en $x=0$ se mueve a $x=\\pi$. Verificación: $\\operatorname{sen}(\\pi-\\pi)=\\operatorname{sen}(0)=0$ ✓.\n\nLa onda se corrió $\\pi$ a la derecha: llegó tarde al origen, pero llegó justo a tiempo en $x=\\pi$.",
@@ -404,10 +514,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $B = 2\\pi / T = 2\\pi / (\\pi/3) = 6$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es el denominador del período dado, no el resultado de despejar $B$.",
+      null,
+      "Ese valor es demasiado chico: un período tan corto como $\\pi/3$ exige un $B$ grande, no una fracción menor a $1$.",
+      "Ese valor también es menor a $1$, insuficiente para producir un período tan corto."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$. Despejando $B$ a partir de $T=\\pi/3$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi/3} \\\\\\\\\n&= 2\\pi \\cdot \\frac{3}{\\pi} \\\\\\\\\n&= 6\n\\end{aligned}$\n\nLa opción $3$ es el inverso del período (no es $B$). Las opciones $1/6$ y $1/3$ son demasiado pequeñas. Un período corto $\\pi/3$ exige un $B$ grande ($6$): la onda completa 6 ciclos en $2\\pi$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$. Despejando $B$ a partir de $T=\\pi/3$:\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{\\pi/3} \\\\\n&= 2\\pi \\cdot \\frac{3}{\\pi} \\\\\n&= 6\n\\end{aligned}$$\n\nLa opción $3$ es el inverso del período (no es $B$). Las opciones $1/6$ y $1/3$ son demasiado pequeñas. Un período corto $\\pi/3$ exige un $B$ grande ($6$): la onda completa 6 ciclos en $2\\pi$.",
     "reviewed": false
   },
   {
@@ -421,27 +536,37 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo $= D + |A| = -1 + 3 = 2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado suma el desplazamiento en vez de restarlo: $D=-1$, no $+1$.",
+      "Ese es solo el valor de $3\\cos(x)$ en su máximo, olvidando restar $1$.",
+      "Ese es el valor mínimo de la función, no el máximo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $h(x)=3\\cos(x)-1$, el **máximo** ocurre cuando $\\cos(x)=1$:\n\n$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\\\\\n&= 3 - 1 \\\\\\\\\n&= 2\n\\end{aligned}$\n\nLa opción $3$ es el valor de $3\\cos(x)$ cuando $\\cos=1$, olvidando el $-1$. La opción $4$ usaría $+1$ en vez de $-1$. La opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$). El máximo correcto es $2$.",
+    "explanation": "En $h(x)=3\\cos(x)-1$, el **máximo** ocurre cuando $\\cos(x)=1$:\n\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1 - 1 \\\\\n&= 3 - 1 \\\\\n&= 2\n\\end{aligned}$$\n\nLa opción $3$ es el valor de $3\\cos(x)$ cuando $\\cos=1$, olvidando el $-1$. La opción $4$ usaría $+1$ en vez de $-1$. La opción $-4$ es el mínimo ($3\\cdot(-1)-1=-4$). El máximo correcto es $2$.",
     "reviewed": false
   },
   {
     "question": "¿Cuál es la imagen de $g(x) = 2\\cos(x) + 1$?",
     "options": [
       "$[0, 4]$",
-      "$[-1, 3]$",
+      "$[1, 3]$",
       "$[-2, 2]$",
-      "$[1, 3]$"
+      "$[-1, 3]$"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $[1 - 2,\\, 1 + 2] = [-1, 3]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese intervalo sale de sumar $2$ en vez de $1$ al rango escalado.",
+      "Ese intervalo toma $[0,2]+1$ en vez de partir del rango correcto $[-2,2]$.",
+      "Ese es el rango tras escalar por $2$, pero olvida sumar el desplazamiento vertical $+1$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n\n$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\\\\\n2\\cos(x) &\\in [-2,2] \\\\\\\\\n2\\cos(x)+1 &\\in [-1,3]\n\\end{aligned}$\n\nLa opción $[0,4]$ se obtiene si se suma $2$ en vez de $1$. La opción $[-2,2]$ olvida el desplazamiento vertical. La opción $[1,3]$ toma $[0,2]+1$ en vez de $[-2,2]+1$. El rango final es $[-1,3]$.",
+    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n2\\cos(x) &\\in [-2,2] \\\\\n2\\cos(x)+1 &\\in [-1,3]\n\\end{aligned}$$\n\nLa opción $[0,4]$ se obtiene si se suma $2$ en vez de $1$. La opción $[-2,2]$ olvida el desplazamiento vertical. La opción $[1,3]$ toma $[0,2]+1$ en vez de $[-2,2]+1$. El rango final es $[-1,3]$.",
     "reviewed": false
   },
   {
@@ -455,7 +580,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. El coseno en $x = 0$ vale $1$ (su máximo).",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el valor del seno en $x=0$, no del coseno.",
+      "Ese es el mínimo del coseno, alcanzado en $x=\\pi$, no en $x=0$.",
+      "Ese valor corresponde a otro ángulo de la tabla trigonométrica, no a $\\cos(0)$.",
+      null
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -463,7 +593,7 @@
       -2,
       2
     ],
-    "explanation": "La función es $f(x)=\\cos(x)$. Evaluar en $x=0$:\n\n$\\begin{aligned}\nf(0) &= \\cos(0) \\\\\\\\\n&= 1\n\\end{aligned}$\n\nEl coseno arranca en su **máximo** ($1$) cuando $x=0$: esa es la diferencia visual clave entre coseno y seno. El seno vale $0$ en $x=0$; el coseno vale $1$. La gráfica confirma el pico inicial.",
+    "explanation": "La función es $f(x)=\\cos(x)$. Evaluar en $x=0$:\n\n$$\\begin{aligned}\nf(0) &= \\cos(0) \\\\\n&= 1\n\\end{aligned}$$\n\nEl coseno arranca en su **máximo** ($1$) cuando $x=0$: esa es la diferencia visual clave entre coseno y seno. El seno vale $0$ en $x=0$; el coseno vale $1$. La gráfica confirma el pico inicial.",
     "reviewed": false
   },
   {
@@ -477,10 +607,15 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El coeficiente $A = 2$ no afecta el período; $B = 3$ da $T = 2\\pi/3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado invierte el cociente $2\\pi/B$.",
+      "Ese es el período sin modificar, ignorando que $B=3$ lo achica.",
+      "Ese resultado sale de usar $B=2/3$ en vez de $B=3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=2\\,\\operatorname{sen}(3x)$ depende solo del coeficiente $B=3$ del argumento, no de la amplitud $A=2$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{3}\n\\end{aligned}$\n\nLa opción $6\\pi$ invierte el cociente. La opción $2\\pi$ ignora $B=3$. La opción $3\\pi$ usa $B=2/3$ en vez de $3$. La amplitud $A=2$ no afecta al período.",
+    "explanation": "El **período** de $f(x)=2\\,\\operatorname{sen}(3x)$ depende solo del coeficiente $B=3$ del argumento, no de la amplitud $A=2$:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{3}\n\\end{aligned}$$\n\nLa opción $6\\pi$ invierte el cociente. La opción $2\\pi$ ignora $B=3$. La opción $3\\pi$ usa $B=2/3$ en vez de $3$. La amplitud $A=2$ no afecta al período.",
     "reviewed": false
   },
   {
@@ -494,7 +629,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. El seno está definido para todo real; no tiene asíntotas verticales.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ahí el seno vale $0$, un punto normal de la curva, no una discontinuidad.",
+      "Esa restricción aplica a la tangente, que tiene al coseno en el denominador, no al seno.",
+      null,
+      "Esos son los ceros del seno, valores normales de la función, no puntos de asíntota."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La función $f(x)=\\operatorname{sen}(x)$ está definida para **todo** $x\\in\\mathbb{R}$: no hay valores de $x$ que la hagan indefinida ni que creen asíntotas verticales.\n\nContraste con $\\tan(x)=\\operatorname{sen}(x)/\\cos(x)$: la tangente tiene asíntotas en $x=\\pi/2+k\\pi$ porque el denominador $\\cos(x)$ se anula. El seno y el coseno **no** tienen denominador; son continuas y definidas en todo $\\mathbb{R}$ sin interrupciones.\n\nEl seno no tiene asíntotas. Es la función más honesta: nunca se va al infinito ni desaparece.",
@@ -511,7 +651,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $= (\\text{máximo} - \\text{mínimo}) / 2 = (3 - (-3)) / 2 = 3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el rango total entre máximo y mínimo, falta dividirlo a la mitad para obtener la amplitud.",
+      "Ese valor ignora la distancia real entre el eje central y el pico.",
+      null,
+      "Ese valor sale de dividir el rango total por $4$ en vez de por $2$."
+    ],
     "graph_fn": "3*sin(x)",
     "graph_view": [
       -7,
@@ -519,7 +664,7 @@
       -4,
       4
     ],
-    "explanation": "Una onda con máximo $M$ y mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n\n$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\\\\\n&= \\frac{3 - (-3)}{2} \\\\\\\\\n&= \\frac{6}{2} \\\\\\\\\n&= 3\n\\end{aligned}$\n\nLa opción $6$ es el rango total (de mínimo a máximo), no la amplitud. La amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Una onda con máximo $M$ y mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3\n\\end{aligned}$$\n\nLa opción $6$ es el rango total (de mínimo a máximo), no la amplitud. La amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false
   },
   {
@@ -533,10 +678,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Con $A = -2$ y $D = 1$: mínimo $= 1 - |-2| = 1 - 2 = -1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el máximo de la función, no el mínimo.",
+      null,
+      "Ese valor ignora el desplazamiento vertical $D=1$, usando solo la amplitud con signo.",
+      "Ese es solo el desplazamiento $D$, falta restar la amplitud $|A|$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=-2\\,\\operatorname{sen}(x)+1$, el **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo, lo que ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$\\begin{aligned}\nf_{\\min} &= D - |A| \\\\\\\\\n&= 1 - 2 \\\\\\\\\n&= -1\n\\end{aligned}$\n\nLa fórmula $D-|A|$ funciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento. La opción $-2$ ignora el desplazamiento $D=1$. La opción $3$ es el máximo, no el mínimo.",
+    "explanation": "En $f(x)=-2\\,\\operatorname{sen}(x)+1$, el **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo, lo que ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$$\\begin{aligned}\nf_{\\min} &= D - |A| \\\\\n&= 1 - 2 \\\\\n&= -1\n\\end{aligned}$$\n\nLa fórmula $D-|A|$ funciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento. La opción $-2$ ignora el desplazamiento $D=1$. La opción $3$ es el máximo, no el mínimo.",
     "reviewed": false
   },
   {
@@ -550,27 +700,37 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $f(\\pi) = 3 \\cdot \\cos(\\pi) = 3 \\cdot (-1) = -3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el valor de $3\\cos(0)$, no de $3\\cos(\\pi)$.",
+      "Ese sería el resultado si $\\cos(\\pi)$ valiera $0$, pero en $\\pi$ el coseno vale $-1$.",
+      null,
+      "Ese es el valor de $\\cos(\\pi)$ sin el factor $3$, y además con el signo cambiado."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$, se usa el valor estándar $\\cos(\\pi)=-1$:\n\n$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\\\\\n&= 3 \\cdot (-1) \\\\\\\\\n&= -3\n\\end{aligned}$\n\n$\\pi$ radianes ($=180°$) lleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$, luego $\\cos(\\pi)=-1$. El factor $3$ da el resultado final $-3$.",
+    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$, se usa el valor estándar $\\cos(\\pi)=-1$:\n\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3\n\\end{aligned}$$\n\n$\\pi$ radianes ($=180°$) lleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$, luego $\\cos(\\pi)=-1$. El factor $3$ da el resultado final $-3$.",
     "reviewed": false
   },
   {
     "question": "Una onda tipo seno tiene amplitud $4$ y período $\\pi$. ¿Cuál es su fórmula?",
     "options": [
-      "$f(x) = \\pi\\,\\operatorname{sen}(4x)$",
-      "$f(x) = 4\\,\\operatorname{sen}(\\pi x)$",
       "$f(x) = 4\\,\\operatorname{sen}(2x)$",
+      "$f(x) = 4\\,\\operatorname{sen}(\\pi x)$",
+      "$f(x) = \\pi\\,\\operatorname{sen}(4x)$",
       "$f(x) = 2\\,\\operatorname{sen}(4x)$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $4$ da $A = 4$; período $\\pi$ da $B = 2\\pi/\\pi = 2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Con $B=\\pi$ el período de esta opción sería $2$, no $\\pi$ como pide el enunciado.",
+      "Acá la amplitud es $\\pi$ y el período sale de $B=4$: ninguno de los dos coincide con los datos.",
+      "Esta opción tiene la amplitud y el período de la fórmula intercambiados entre sí."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=A\\,\\operatorname{sen}(Bx)$ con amplitud $4$ y período $\\pi$, se determinan $A$ y $B$:\n\n$\\begin{aligned}\nA &= 4 \\\\\\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$\n\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$. La opción $\\pi\\,\\operatorname{sen}(4x)$ tiene $A=\\pi$ y $B=4$: ni la amplitud ni el período coinciden. La opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$, no $\\pi$.",
+    "explanation": "Para $f(x)=A\\,\\operatorname{sen}(Bx)$ con amplitud $4$ y período $\\pi$, se determinan $A$ y $B$:\n\n$$\\begin{aligned}\nA &= 4 \\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$$\n\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$. La opción $\\pi\\,\\operatorname{sen}(4x)$ tiene $A=\\pi$ y $B=4$: ni la amplitud ni el período coinciden. La opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$, no $\\pi$.",
     "reviewed": false
   },
   {
@@ -584,7 +744,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Cambiar la frecuencia no cambia la imagen: sigue siendo $[-1, 1]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese rango correspondería a un coeficiente $A=2$ delante del seno, que acá no está.",
+      "$\\mathbb{R}$ sería el dominio de la función, no su imagen.",
+      "Ese intervalo solo cubre la mitad positiva del seno, ignorando los valores negativos.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ y la imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen. En $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
@@ -601,10 +766,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $\\cos(\\pi/4) = \\dfrac{\\sqrt{2}}{2} \\approx 0{,}707$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\cos(\\pi/3)$, no a $\\pi/4$.",
+      "Ese valor corresponde a $\\cos(\\pi/6)$, no a $\\pi/4$.",
+      "Ese es el máximo del coseno, alcanzado en $x=0$, no en $\\pi/4$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa $\\sqrt{2}$. El coseno es cateto adyacente sobre hipotenusa:\n\n$\\begin{aligned}\n\\cos\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$\n\nLa opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$. La opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$. A $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa $\\sqrt{2}$. El coseno es cateto adyacente sobre hipotenusa:\n\n$$\\begin{aligned}\n\\cos\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$$\n\nLa opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$. La opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$. A $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
     "reviewed": false
   },
   {
@@ -618,7 +788,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. El eje de oscilación es $y = D = 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el eje del seno sin desplazar, pero acá se sumó $1$.",
+      "Ese valor invierte el signo del desplazamiento aplicado.",
+      "Ese es el valor máximo de la función, no el eje de oscilación.",
+      null
+    ],
     "graph_fn": "sin(x)+1",
     "graph_view": [
       -7,
@@ -640,10 +815,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $B = \\pi$, período $= 2\\pi / \\pi = 2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor confunde el numerador del cociente con el resultado final.",
+      "Ese resultado invierte el cociente $2\\pi/B$.",
+      "Ese es el período del coseno sin modificar, ignorando que $B=\\pi$ lo achica.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEl resultado $T=2$ (dos unidades en el eje $x$, no $2\\pi$). La opción $\\pi$ confunde el numerador con el resultado. La opción $2\\pi$ ignora el $B=\\pi$. La opción $1/\\pi$ invierte el cociente. Con $B=\\pi$, el período es simplemente $2$.",
+    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2\n\\end{aligned}$$\n\nEl resultado $T=2$ (dos unidades en el eje $x$, no $2\\pi$). La opción $\\pi$ confunde el numerador con el resultado. La opción $2\\pi$ ignora el $B=\\pi$. La opción $1/\\pi$ invierte el cociente. Con $B=\\pi$, el período es simplemente $2$.",
     "reviewed": false
   },
   {
@@ -657,10 +837,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $= (\\text{máx} - \\text{mín}) / 2 = (5 - (-5)) / 2 = 5$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el rango total entre máximo y mínimo, falta dividirlo a la mitad.",
+      "Ese valor sale de dividir el rango total por $4$ en vez de por $2$.",
+      null,
+      "Ese valor ignora la distancia real entre el eje central y el pico."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$, la **amplitud** es:\n\n$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\\\\\n&= \\frac{5 - (-5)}{2} \\\\\\\\\n&= \\frac{10}{2} \\\\\\\\\n&= 5\n\\end{aligned}$\n\nLa opción $10$ es el rango total (de $-5$ a $5$). La opción $2{,}5$ dividiría por $4$ en vez de $2$. La amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$, la **amplitud** es:\n\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5\n\\end{aligned}$$\n\nLa opción $10$ es el rango total (de $-5$ a $5$). La opción $2{,}5$ dividiría por $4$ en vez de $2$. La amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false
   },
   {
@@ -674,10 +859,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $\\operatorname{sen}(3\\pi/2) = -1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el valor en $x=0$, $\\pi$ o $2\\pi$, no en $3\\pi/2$.",
+      "Ese es el máximo del seno, alcanzado en $\\pi/2$, no en $3\\pi/2$.",
+      null,
+      "Ese valor corresponde a otro ángulo de la tabla trigonométrica, no a $3\\pi/2$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior. El seno es la coordenada $y$:\n\n$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1\n\\end{aligned}$\n\nEste es el **mínimo global** del seno. La opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$. La opción $1$ sería $\\operatorname{sen}(\\pi/2)$. A $270°$ la curva está en el fondo.",
+    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior. El seno es la coordenada $y$:\n\n$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1\n\\end{aligned}$$\n\nEste es el **mínimo global** del seno. La opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$. La opción $1$ sería $\\operatorname{sen}(\\pi/2)$. A $270°$ la curva está en el fondo.",
     "reviewed": false
   },
   {
@@ -691,10 +881,15 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $= (6-2)/2 = 2$; eje $D = (6+2)/2 = 4$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esta opción no tiene el desplazamiento vertical, así que oscilaría entre $-2$ y $2$, no entre $2$ y $6$.",
+      "Esta opción tiene la amplitud igual al máximo dado, cuando la amplitud real es la mitad del rango.",
+      "Esta opción usa la amplitud como si fuera el promedio entre máximo y mínimo, mezclando ambos parámetros.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dada onda con máximo $6$, mínimo $2$ y período $2\\pi$, se calculan $A$, $D$ y $B$:\n\n$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\\\\\nD &= \\frac{6+2}{2} = 4 \\\\\\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$\n\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$. La opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$ y mínimo $-4$, no $2$. La opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$, no $2$.",
+    "explanation": "Dada onda con máximo $6$, mínimo $2$ y período $2\\pi$, se calculan $A$, $D$ y $B$:\n\n$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$$\n\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$. La opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$ y mínimo $-4$, no $2$. La opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$, no $2$.",
     "reviewed": false
   },
   {
@@ -708,10 +903,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $3$ desplazada $-1$: $[-3 - 1,\\, 3 - 1] = [-4, 2]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese intervalo usa amplitud $1$ en vez de $3$, ignorando el coeficiente que escala el seno.",
+      "Ese es el rango tras escalar por $3$, pero olvida restar el desplazamiento vertical.",
+      null,
+      "Ese intervalo sale de sumar el desplazamiento en vez de restarlo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n\n$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]\n\\end{aligned}$\n\nLa opción $[-1,3]$ usa $A=1$ en vez de $A=3$. La opción $[-3,3]$ olvida el desplazamiento $-1$. La imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n\n$$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]\n\\end{aligned}$$\n\nLa opción $[-1,3]$ usa $A=1$ en vez de $A=3$. La opción $[-3,3]$ olvida el desplazamiento $-1$. La imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
     "reviewed": false
   },
   {
@@ -725,10 +925,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $B = 200\\pi$, período $= 2\\pi / (200\\pi) = 1/100$ s.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el valor de $B$, no el período que resulta de dividir $2\\pi$ entre $B$.",
+      null,
+      "Ese resultado sale de dividir por $2$ en vez de aplicar el cociente completo $2\\pi/B$.",
+      "Ese valor ignora el factor $\\pi$ dentro del coeficiente $B=200\\pi$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $I(t)=\\operatorname{sen}(200\\pi t)$, el coeficiente del argumento es $B=200\\pi$. El **período** es:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{200\\pi} \\\\\\\\\n&= \\frac{1}{100}\\,\\text{s}\n\\end{aligned}$\n\nPeríodo $T=1/100$ s corresponde a frecuencia $f=100\\,Hz$: cien ciclos por segundo. La opción $200\\pi$ s es el valor de $B$, no el período. La opción $100\\pi$ invierte el cociente. $1/100$ s es la respuesta.",
+    "explanation": "Para $I(t)=\\operatorname{sen}(200\\pi t)$, el coeficiente del argumento es $B=200\\pi$. El **período** es:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{200\\pi} \\\\\n&= \\frac{1}{100}\\,\\text{s}\n\\end{aligned}$$\n\nPeríodo $T=1/100$ s corresponde a frecuencia $f=100\\,Hz$: cien ciclos por segundo. La opción $200\\pi$ s es el valor de $B$, no el período. La opción $100\\pi$ invierte el cociente. $1/100$ s es la respuesta.",
     "reviewed": false
   },
   {
@@ -742,7 +947,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo $= D + A = 1 + 2 = 3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es solo el desplazamiento vertical $D$, falta sumar la amplitud $A$.",
+      null,
+      "Esa es solo la amplitud $A$, falta sumar el desplazamiento vertical $D$.",
+      "Ese resultado suma la amplitud dos veces en vez de sumarla una sola vez al desplazamiento."
+    ],
     "graph_fn": "2*sin(x)+1",
     "graph_view": [
       -7,
@@ -750,38 +960,48 @@
       -2,
       4
     ],
-    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)+1$. El **máximo** ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$\\begin{aligned}\nf_{\\max} &= 2\\cdot1 + 1 \\\\\\\\\n&= 2 + 1 \\\\\\\\\n&= 3\n\\end{aligned}$\n\nLa opción $1$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $4$ usaría $2+2$ en vez de $2+1$. El máximo es siempre $A+D=2+1=3$.",
+    "explanation": "La función es $f(x)=2\\,\\operatorname{sen}(x)+1$. El **máximo** ocurre cuando $\\operatorname{sen}(x)=1$:\n\n$$\\begin{aligned}\nf_{\\max} &= 2\\cdot1 + 1 \\\\\n&= 2 + 1 \\\\\n&= 3\n\\end{aligned}$$\n\nLa opción $1$ es solo el desplazamiento $D$. La opción $2$ es solo la amplitud $A$. La opción $4$ usaría $2+2$ en vez de $2+1$. El máximo es siempre $A+D=2+1=3$.",
     "reviewed": false
   },
   {
     "question": "Una onda tipo coseno tiene amplitud $1$, eje $y = 0$ y período $4\\pi$. ¿Cuál es su fórmula?",
     "options": [
       "$f(x) = \\cos(4\\pi x)$",
-      "$f(x) = \\cos\\!\\left(\\dfrac{x}{2}\\right)$",
+      "$f(x) = \\cos(2x)$",
       "$f(x) = 4\\pi \\cos(x)$",
-      "$f(x) = \\cos(2x)$"
+      "$f(x) = \\cos\\!\\left(\\dfrac{x}{2}\\right)$"
     ],
-    "correct_index": 1,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Período $4\\pi \\Rightarrow B = 2\\pi / (4\\pi) = 1/2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Con $B=4\\pi$ el período de esta opción sería mucho menor que $4\\pi$, no coincide con el dato.",
+      "Esta opción tiene período $\\pi$, demasiado corto frente al período $4\\pi$ pedido.",
+      "Acá el coeficiente $4\\pi$ multiplica al coseno como si fuera la amplitud, cuando el enunciado pide amplitud $1$.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=\\cos(Bx)$ con amplitud $1$, eje $y=0$ y período $4\\pi$, se determina $B$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\\\\\n&= \\frac{1}{2}\n\\end{aligned}$\n\nLuego $f(x)=\\cos(x/2)$. La opción $\\cos(4\\pi x)$ tendría período $2\\pi/(4\\pi)=1/2$: demasiado corto. La opción $\\cos(2x)$ tendría período $\\pi$. Solo $\\cos(x/2)$ tiene período $4\\pi$.",
+    "explanation": "Para $f(x)=\\cos(Bx)$ con amplitud $1$, eje $y=0$ y período $4\\pi$, se determina $B$:\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{4\\pi} \\\\\n&= \\frac{1}{2}\n\\end{aligned}$$\n\nLuego $f(x)=\\cos(x/2)$. La opción $\\cos(4\\pi x)$ tendría período $2\\pi/(4\\pi)=1/2$: demasiado corto. La opción $\\cos(2x)$ tendría período $\\pi$. Solo $\\cos(x/2)$ tiene período $4\\pi$.",
     "reviewed": false
   },
   {
     "question": "¿Cuál es la imagen de $f(x) = -\\cos(x)$?",
     "options": [
-      "$[0, 1]$",
-      "$[-1, 0]$",
       "$[-1, 1]$",
+      "$[-1, 0]$",
+      "$[0, 1]$",
       "$\\mathbb{R}$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. La imagen de $-\\cos(x)$ es $[-1, 1]$: el signo solo refleja, no cambia el rango.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese intervalo solo cubre la mitad del rango real del coseno negado.",
+      "Ese intervalo solo cubre la otra mitad del rango real del coseno negado.",
+      "$\\mathbb{R}$ sería el dominio de la función, no su imagen."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **imagen** de $f(x)=-\\cos(x)$ se obtiene negando el coseno. Como $\\cos(x)\\in[-1,1]$, su negación $-\\cos(x)$ también está en $[-1,1]$ (los extremos se intercambian pero el conjunto es el mismo).\n\n$-\\cos(x)\\in[-1,1]$: cuando $\\cos=1$, $-\\cos=-1$ (mínimo); cuando $\\cos=-1$, $-\\cos=1$ (máximo). La imagen de $-\\cos(x)$ es exactamente $[-1,1]$, igual que la de $\\cos(x)$.\n\nNegar el coseno invierte sus extremos pero no cambia el rango: $[-1,1]$ sigue siendo $[-1,1]$, al revés.",
@@ -798,10 +1018,15 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $\\operatorname{sen}(\\pi/4) = \\dfrac{\\sqrt{2}}{2} \\approx 0{,}707$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/6)$, no a $\\pi/4$.",
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/3)$, no a $\\pi/4$.",
+      null,
+      "Ese es el máximo del seno, alcanzado en $\\pi/2$, no en $\\pi/4$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo ($1, 1, \\sqrt{2}$). El seno es cateto opuesto sobre hipotenusa:\n\n$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$\n\nA $45°$, seno y coseno son iguales: $\\sqrt{2}/2\\approx0{,}707$. La opción $1/2$ es $\\operatorname{sen}(30°)$; la opción $\\sqrt{3}/2$ es $\\operatorname{sen}(60°)$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo ($1, 1, \\sqrt{2}$). El seno es cateto opuesto sobre hipotenusa:\n\n$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\n&= \\frac{\\sqrt{2}}{2}\n\\end{aligned}$$\n\nA $45°$, seno y coseno son iguales: $\\sqrt{2}/2\\approx0{,}707$. La opción $1/2$ es $\\operatorname{sen}(30°)$; la opción $\\sqrt{3}/2$ es $\\operatorname{sen}(60°)$.",
     "reviewed": false
   },
   {
@@ -815,10 +1040,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $B = 2/3$, período $= 2\\pi / (2/3) = 3\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese resultado invierte el cociente $2\\pi/B$.",
+      null,
+      "Ese valor confunde $B=2/3$ con su recíproco $3/2$.",
+      "Ese resultado sale de usar $B=1/3$ en vez de $B=2/3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(2x/3)$ tiene $B=2/3$:\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\\\\\n&= \\frac{2\\pi}{2/3} \\\\\\\\\n&= 2\\pi \\cdot \\frac{3}{2} \\\\\\\\\n&= 3\\pi\n\\end{aligned}$\n\nLa opción $4\\pi/3$ invertiría el cociente. La opción $2\\pi/3$ confundiría $B=3/2$ con $B=2/3$. La opción $6\\pi$ usaría $B=1/3$. Con $B=2/3$ el período es $3\\pi$.",
+    "explanation": "El **período** de $f(x)=\\cos(2x/3)$ tiene $B=2/3$:\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2/3} \\\\\n&= 2\\pi \\cdot \\frac{3}{2} \\\\\n&= 3\\pi\n\\end{aligned}$$\n\nLa opción $4\\pi/3$ invertiría el cociente. La opción $2\\pi/3$ confundiría $B=3/2$ con $B=2/3$. La opción $6\\pi$ usaría $B=1/3$. Con $B=2/3$ el período es $3\\pi$.",
     "reviewed": false
   },
   {
@@ -832,10 +1062,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. El máximo de $\\operatorname{sen}(u)$ ocurre en $u = \\pi/2$; con $u = x - \\pi/2$: $x = \\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor no hace que el argumento $x-\\pi/2$ alcance $\\pi/2$, que es donde el seno tiene su máximo.",
+      null,
+      "Ahí el argumento vale $0$, donde el seno no está en su máximo sino cruzando el eje.",
+      "Ese valor sí es un máximo del seno desfasado, pero no el primero tras $x=0$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:\n\n$\\begin{aligned}\nx - \\frac{\\pi}{2} &= \\frac{\\pi}{2} \\\\\\\\\nx &= \\frac{\\pi}{2} + \\frac{\\pi}{2} \\\\\\\\\nx &= \\pi\n\\end{aligned}$\n\nVerificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ ✓. El máximo del seno se desplazó de $x=\\pi/2$ a $x=\\pi$ por el desfase $-\\pi/2$.",
+    "explanation": "La función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:\n\n$$\\begin{aligned}\nx - \\frac{\\pi}{2} &= \\frac{\\pi}{2} \\\\\nx &= \\frac{\\pi}{2} + \\frac{\\pi}{2} \\\\\nx &= \\pi\n\\end{aligned}$$\n\nVerificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ ✓. El máximo del seno se desplazó de $x=\\pi/2$ a $x=\\pi$ por el desfase $-\\pi/2$.",
     "reviewed": false
   },
   {
@@ -849,7 +1084,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $= |A| = 1/2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor sale de dividir el coeficiente por $2$ de más.",
+      "Ese valor invierte el coeficiente, tomando el recíproco en vez del valor directo.",
+      "Ese valor ignora el factor $1/2$ que multiplica al seno.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **amplitud** de $f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$ es $|A|=|1/2|=1/2$. El coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$, mínimo $=-1/2$, imagen $=[-1/2,1/2]$. La opción $1/4$ dividiría por $4$; la opción $2$ invertiría el coeficiente; la opción $1$ ignoraría el factor $1/2$. La amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía. Misma melodía, volumen reducido a la mitad.",
@@ -866,7 +1106,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. La imagen del seno siempre es $[-1, 1]$ sin importar el período.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese rango correspondería a un coeficiente $A=2$ delante del seno, que acá no está.",
+      null,
+      "Ese intervalo solo cubre la mitad positiva del seno, ignorando los valores negativos.",
+      "$\\mathbb{R}$ sería el dominio de la función, no su imagen."
+    ],
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x/2)$ no depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$. El período cambia a $4\\pi$, pero el rango vertical permanece inalterado. La opción $[-2,2]$ sería si $A=2$; la opción $\\mathbb{R}$ sería el dominio.\n\n$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio. La imagen $[-1,1]$ no se negocia.",
@@ -883,10 +1128,15 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo $= D + A = 20 + 10 = 30\\,°C$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es solo el valor de la amplitud $A$, falta sumar el eje de oscilación $D$.",
+      null,
+      "Ese es solo el eje de oscilación $D$, falta sumar la amplitud $A$ para llegar al máximo.",
+      "Ese valor no corresponde a sumar directamente $A+D$ con los datos del modelo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\nT_{\\max} &= 10 \\cdot 1 + 20 \\\\\\\\\n&= 10 + 20 \\\\\\\\\n&= 30\\,°C\n\\end{aligned}$\n\nEl desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$), pero no cambia el valor máximo. La opción $10°C$ es solo la amplitud. La opción $20°C$ es el eje de oscilación.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$$\\begin{aligned}\nT_{\\max} &= 10 \\cdot 1 + 20 \\\\\n&= 10 + 20 \\\\\n&= 30\\,°C\n\\end{aligned}$$\n\nEl desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$), pero no cambia el valor máximo. La opción $10°C$ es solo la amplitud. La opción $20°C$ es el eje de oscilación.",
     "reviewed": false
   }
 ]

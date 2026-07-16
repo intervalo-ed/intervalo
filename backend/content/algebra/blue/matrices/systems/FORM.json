@@ -1,0 +1,22 @@
+[
+  {
+    "question": "En el sistema $\\begin{pmatrix} 1 & 2 \\\\ 3 & -1 \\end{pmatrix}\\vec{x} = \\begin{pmatrix} 4 \\\\ 5 \\end{pmatrix}$, ¿qué representa el vector $(4,5)$?",
+    "options": [
+      "Los términos independientes $\\vec{b}$",
+      "La matriz de coeficientes",
+      "Las incógnitas del sistema"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(4,5)$ es el vector de términos independientes $\\vec{b}$.",
+    "feedback_incorrect": [
+      null,
+      "La matriz de coeficientes es el arreglo $2\\times2$ a la izquierda, no ese vector.",
+      "Las incógnitas son el vector $\\vec{x}$, que todavía no se conoce."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la ecuación $A\\vec{x}=\\vec{b}$, cada símbolo cumple un rol distinto.\n\n$A$ es la matriz de coeficientes, $\\vec{x}$ son las incógnitas a despejar, y $\\vec{b}$ es el vector de términos independientes, el lado derecho de cada ecuación.\n\nAcá $(4,5)$ ocupa esa posición: son los valores que deben igualar las combinaciones de incógnitas, no coeficientes ni incógnitas en sí.",
+    "reviewed": false
+  }
+]

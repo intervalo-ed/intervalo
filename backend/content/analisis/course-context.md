@@ -1,12 +1,12 @@
 # Curso: Análisis Matemático I
 
-Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `gem-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Define el alcance del curso, el mapa de cinturones y, sobre todo, **el estado matemático del alumno en cada cinturón**, que determina qué conceptos podés usar en distractores y explicaciones y cuáles todavía no existen para ese alumno.
+Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por encima de los `generation-instructions.md` (scoped por cinturón) y de los `topic-context.md` (scoped por tema). Define el alcance del curso, el mapa de cinturones y, sobre todo, **el estado matemático del alumno en cada cinturón**, que determina qué conceptos podés usar en distractores y explicaciones y cuáles todavía no existen para ese alumno.
 
 > **Dónde encaja en la jerarquía de docs:**
 > - `authoring-context.md`, cómo escribir (global, todos los cursos).
 > - `gamification-context.md`, por qué (global).
 > - `course-context.md` (este archivo), qué sabe el alumno en cada cinturón de **este** curso.
-> - `analisis/{belt}/gem-instructions.md`, flujo + checklist + constraints, scoped al cinturón.
+> - `analisis/{belt}/generation-instructions.md`, flujo + checklist + constraints, scoped al cinturón.
 > - `analisis/{belt}/{unit}/{topic}/topic-context.md`, qué generar en el tema puntual.
 
 ---
@@ -21,7 +21,7 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 
 | Cinturón | Unidad | Temas |
 |----------|--------|-------|
-| `white` | `functions` | definición, lineal, cuadrática, polinómica, racional, exponencial, logarítmica, trigonométrica, módulo |
+| `white` | `functions` | definición, lineal, cuadrática, polinómica, racional, exponencial, logarítmica, trigonométrica |
 | `blue` | `limits` | definición, laterales, infinitos, continuidad, factorización, racionalización |
 | `violet` | `derivatives` | definición por límite, interpretación geométrica, reglas, producto, cociente, regla de la cadena |
 | `brown` | `integrals` | definición, reglas, sustitución, partes, definidas |
@@ -37,7 +37,7 @@ El alumno de un cinturón **solo conoce lo de su cinturón y los anteriores**. N
 - **`brown` (integrales):** todo lo anterior + antiderivada, integral definida e indefinida, técnicas de integración.
 - **`black` (análisis):** todo el curso disponible. Es el único cinturón donde podés cruzar derivada, integral y análisis de función en un mismo ejercicio.
 
-Cada `gem-instructions.md` de cinturón repite su propia frontera en la sección *Alcance*; este archivo es la vista de conjunto.
+Cada `generation-instructions.md` de cinturón repite su propia frontera en la sección *Alcance*; este archivo es la vista de conjunto.
 
 ## Convenciones transversales del curso
 

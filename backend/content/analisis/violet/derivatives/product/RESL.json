@@ -1,155 +1,332 @@
 [
   {
-    "question": "Hallá la pendiente de la recta tangente a $f(x) = x \\cdot e^x$ en el punto $x = 0$.",
+    "question": "Sabiendo que\n$$f(x) = (x^2-4)e^x$$\ncalculá $f'(2)$.",
     "options": [
-      "$1$",
-      "$0$",
-      "$e$",
-      "$-1$"
+      "$4e^2$",
+      "$2e^2$",
+      "$4e^4$",
+      "$0$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La derivada es $1 \\cdot e^x + x \\cdot e^x$. Al evaluar en $x=0$, queda $1 \\cdot 1 + 0 = 1$.",
-    "feedback_incorrect": "Primero derivá usando la regla del producto: $f'(x) = e^x + x e^x$. Después reemplazá la $x$ por $0$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **pendiente de la recta tangente** en un punto es el valor de la derivada en ese punto.\n\nPrimero, derivamos $f(x) = x e^x$ usando la regla del producto:\n\n$$f'(x) = (1) \\cdot e^x + x \\cdot e^x = e^x (1 + x)$$\n\nAhora, evaluamos la derivada en $x = 0$:\n\n$$f'(0) = e^0 (1 + 0) = 1 \\cdot 1 = 1$$\n\nEn la gráfica, esto significa que cuando la función cruza el origen, lo hace con una inclinación de $45^\\circ$ (pendiente $1$).",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá la pendiente de la tangente a $f(x) = \\sqrt{x} \\ln(x)$ en $x = 1$.",
-    "options": [
-      "$2$",
-      "$0$",
-      "$1/2$",
-      "$1$"
+    "feedback_correct": "Correcto, el término $u(2)v'(2)$ se anula porque $u(2)=0$, queda solo $u'(2)v(2)$.",
+    "feedback_incorrect": [
+      null,
+      "Revisá $u'(2)$, con $u(x)=x^2-4$ resulta $u'(x)=2x$, así que $u'(2)=4$, no $2$.",
+      "El exponente de $e$ no cambia al derivar, queda $e^2$, no $e^4$.",
+      "Solo se anula el término $u(2)v'(2)$, el otro término, $u'(2)v(2)$, no se anula."
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Como $\\ln(1)=0$, el primer término de la derivada se anula y solo queda $\\sqrt{1} \\cdot (1/1) = 1$.",
-    "feedback_incorrect": "Derivá con la regla del producto: $f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\frac{1}{x}$. Luego poné $x=1$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto** a $f(x) = \\sqrt{x} \\ln(x)$:\n\n$$f'(x) = \\frac{1}{2\\sqrt{x}} \\ln(x) + \\sqrt{x} \\cdot \\frac{1}{x}$$\n\nPara hallar la pendiente en $x = 1$, evaluamos:\n\n$$f'(1) = \\frac{1}{2\\sqrt{1}} \\ln(1) + \\sqrt{1} \\cdot \\frac{1}{1}$$\n\nComo $\\ln(1) = 0$, el primer sumando desaparece:\n\n$$f'(1) = 0 + 1 = 1$$\n\nLa curva pasa por el punto $(1, 0)$ con una pendiente positiva de $1$.",
+    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(2) &= 0, \\quad v'(2) = e^2 \\\\ u'(2) &= 4, \\quad v(2) = e^2 \\\\ f'(2) &= u'(2)v(2) + u(2)v'(2) = 4e^2 + 0 \\end{aligned}$$\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u$, así que solo queda el aporte de $u'(2)v(2)$.",
     "reviewed": false
   },
   {
-    "question": "Si $f(2) = 3$, $f'(2) = 5$, $g(2) = 1$ y $g'(2) = -2$, ¿cuánto vale $(f \\cdot g)'(2)$?",
+    "question": "Sabiendo que\n$$f(x) = (x-1)e^x$$\ncalculá $f'(1)$.",
     "options": [
-      "$-10$",
-      "$-1$",
-      "$11$",
-      "$3$"
+      "$-e$",
+      "$e$",
+      "$2e$",
+      "$0$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Aplicaste $f'(2)g(2) + f(2)g'(2) = 5(1) + 3(-2) = 5 - 6 = -1$.",
-    "feedback_incorrect": "Usá la fórmula: $f'g + fg'$. Tenés todos los valores, solo hay que multiplicar y sumar con cuidado.",
+    "feedback_correct": "Correcto, el término $u(1)v'(1)$ se anula porque $u(1)=0$, queda solo $u'(1)v(1)$.",
+    "feedback_incorrect": [
+      "Revisá el signo, ninguno de los factores involucrados aporta un signo negativo al resultado.",
+      null,
+      "Revisá el cálculo, $u'(1)v(1)=1\\cdot e^1=e$, sin ningún factor extra.",
+      "Solo se anula el término $u(1)v'(1)$, el otro término, $u'(1)v(1)$, no se anula."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es un ejercicio de **aplicación directa** de la regla del producto usando valores puntuales:\n\n$$(f \\cdot g)'(2) = f'(2) \\cdot g(2) + f(2) \\cdot g'(2)$$\n\nReemplazamos con los datos del enunciado:\n\n$$(f \\cdot g)'(2) = (5) \\cdot (1) + (3) \\cdot (-2) = 5 - 6 = -1$$\n\nEste tipo de problemas es común para verificar si entendés la **estructura** de la regla más allá de saber derivar fórmulas específicas de $x$.",
+    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(1) &= 0, \\quad v'(1) = e \\\\ u'(1) &= 1, \\quad v(1) = e \\\\ f'(1) &= u'(1)v(1) + u(1)v'(1) = e + 0 \\end{aligned}$$\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz de $u$, así que el resultado final queda determinado solo por $u'(1)v(1)$.",
     "reviewed": false
   },
   {
-    "question": "Si $f(x) = (x^2-4)g(x)$, ¿cuánto vale $f'(2)$ si sabemos que $g(2)=10$?",
+    "question": "Sabiendo que\n$$f(x) = (x^2-9)\\ln x$$\ncalculá $f'(3)$.",
     "options": [
-      "$40$",
+      "$6\\ln 9$",
       "$0$",
-      "$20$",
-      "Faltan datos ($g'(2)$)"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Como el término $(x^2-4)$ se anula en $x=2$, no necesitás conocer $g'(2)$ para hallar el resultado.",
-    "feedback_incorrect": "Aplicá la regla del producto: $f'(x) = 2x g(x) + (x^2-4)g'(x)$. Fijate qué pasa cuando ponés $x=2$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto**:\n\n$$f'(x) = (x^2-4)' g(x) + (x^2-4) g'(x) = 2x g(x) + (x^2-4) g'(x)$$\n\nEvaluamos en $x = 2$:\n\n$$f'(2) = 2(2) g(2) + (2^2-4) g'(2)$$\n\nComo $2^2 - 4 = 0$, el segundo término se anula por completo, sin importar cuánto valga $g'(2)$:\n\n$$f'(2) = 4 \\cdot 10 + 0 = 40$$\n\nEste es un truco útil cuando una de las funciones en el producto tiene una **raíz** en el punto de interés.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es la derivada de $f(x) = x^2 \\cdot \\sin(x)$?",
-    "options": [
-      "$2x \\sin(x) + x^2 \\cos(x)$",
-      "$2x \\cos(x)$",
-      "$2x \\sin(x) - x^2 \\cos(x)$",
-      "$x^2 \\sin(x) + 2x \\cos(x)$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Aplicaste bien la regla del producto: derivás el primero, dejás el segundo, y sumás el primero por la derivada del segundo.",
-    "feedback_incorrect": "Cuidado, no podés derivar cada parte por separado. Tenés que usar la regla del producto: $(f \\cdot g)' = f'g + fg'$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para derivar un producto de funciones como $f(x) = x^2 \\cdot \\sin(x)$, tenés que usar la **regla del producto**.\n\nLlamemos $u = x^2$ y $v = \\sin(x)$. Sus derivadas son $u' = 2x$ y $v' = \\cos(x)$. La fórmula dice:\n\n$$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$$\n\nReemplazando los términos, obtenés:\n\n$$f'(x) = 2x \\cdot \\sin(x) + x^2 \\cdot \\cos(x)$$\n\nEs un error muy común olvidarse de uno de los dos términos o derivar como si fuera una suma.",
-    "reviewed": false
-  },
-  {
-    "question": "Si $f(x) = x^3 \\ln(x)$, ¿cuánto vale su derivada?",
-    "options": [
-      "$3x^2 \\ln(x) + x^3$",
-      "$3x^2 \\cdot \\frac{1}{x}$",
-      "$3x^2 \\ln(x) + x^2$",
-      "$x^2 (3\\ln(x) - 1)$"
+      "$6\\ln 3$",
+      "$3\\ln 3$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Derivaste el producto y simplificaste $x^3 \\cdot \\frac{1}{x} = x^2$.",
-    "feedback_incorrect": "Te faltó simplificar el segundo término. Recordá que $x^3 \\cdot \\frac{1}{x}$ es igual a $x^2$.",
+    "feedback_correct": "Correcto, el término $u(3)v'(3)$ se anula porque $u(3)=0$, queda solo $u'(3)v(3)$.",
+    "feedback_incorrect": [
+      "El argumento del logaritmo no cambia al derivar $u$, sigue siendo $\\ln 3$, no $\\ln 9$.",
+      "Solo se anula el término $u(3)v'(3)$, el otro término, $u'(3)v(3)$, no se anula.",
+      null,
+      "Revisá $u'(3)$, con $u(x)=x^2-9$ resulta $u'(x)=2x$, así que $u'(3)=6$, no $3$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la **regla del producto** a $f(x) = x^3 \\ln(x)$:\n\n$$f'(x) = (x^3)' \\cdot \\ln(x) + x^3 \\cdot (\\ln x)'$$\n\nSabemos que $(x^3)' = 3x^2$ y $(\\ln x)' = \\frac{1}{x}$. Entonces:\n\n$$f'(x) = 3x^2 \\ln(x) + x^3 \\cdot \\frac{1}{x}$$\n\nAl simplificar el segundo término, $x^3/x$ se convierte en $x^2$. El resultado final es:\n\n$$f'(x) = 3x^2 \\ln(x) + x^2$$\n\nPodés expresar esto también como $x^2(3\\ln(x) + 1)$ si querés factorizar.",
+    "explanation": "Identificamos $u(x)=x^2-9$, $v(x)=\\ln x$, con $u'(x)=2x$ y $v'(x)=\\frac{1}{x}$.\n\n$$\\begin{aligned} u(3) &= 0, \\quad v'(3) = \\frac{1}{3} \\\\ u'(3) &= 6, \\quad v(3) = \\ln 3 \\\\ f'(3) &= u'(3)v(3) + u(3)v'(3) = 6\\ln 3 + 0 \\end{aligned}$$\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz de $u$, así que el resultado queda determinado por $u'(3)v(3)$.",
     "reviewed": false
   },
   {
-    "question": "Hallá la derivada de $h(x) = \\sqrt{x} \\cdot e^x$.",
+    "question": "Sabiendo que\n$$f(x) = (x+5)x^2$$\ncalculá $f'(-5)$.",
     "options": [
-      "$\\dfrac{e^x}{2\\sqrt{x}} + \\sqrt{x} e^x$",
-      "$\\dfrac{e^x}{2\\sqrt{x}}$",
-      "$\\frac{1}{2\\sqrt{x}} + e^x$",
-      "$\\dfrac{\\sqrt{x} e^x - e^x}{2x}$"
+      "$-25$",
+      "$10$",
+      "$0$",
+      "$25$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $u(-5)v'(-5)$ se anula porque $u(-5)=0$, queda solo $u'(-5)v(-5)$.",
+    "feedback_incorrect": [
+      "Revisá el signo, $v(-5)=(-5)^2=25$ es positivo, no negativo.",
+      "Ese valor corresponde a $v'(-5)$ solo, falta multiplicarlo por $u'(-5)$ para armar el término completo.",
+      "Solo se anula el término $u(-5)v'(-5)$, el otro término, $u'(-5)v(-5)$, no se anula.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.\n\n$$\\begin{aligned} u(-5) &= 0, \\quad v'(-5) = -10 \\\\ u'(-5) &= 1, \\quad v(-5) = 25 \\\\ f'(-5) &= u'(-5)v(-5) + u(-5)v'(-5) = 25 + 0 \\end{aligned}$$\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz de $u$, así que el resultado final queda determinado por $u'(-5)v(-5)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = (x-4)e^x$$\ncalculá $f'(4)$.",
+    "options": [
+      "$e^4$",
+      "$4e^4$",
+      "$0$",
+      "$e^3$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Combinaste bien la regla de la potencia para la raíz y la regla del producto.",
-    "feedback_incorrect": "Ojo con la raíz: su derivada es $\\frac{1}{2\\sqrt{x}}$. Después aplicá la regla del producto completa.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para derivar $h(x) = \\sqrt{x} \\cdot e^x$, identificamos los factores $u = \\sqrt{x}$ y $v = e^x$.\n\nLas derivadas son $u' = \\frac{1}{2\\sqrt{x}}$ y $v' = e^x$. Aplicando la **regla del producto**:\n\n$$h'(x) = \\frac{1}{2\\sqrt{x}} \\cdot e^x + \\sqrt{x} \\cdot e^x$$\n\nPodés reescribir esto sacando $e^x$ como factor común para facilitar cálculos posteriores en problemas de optimización o extremos.\n\n$$h'(x) = e^x \\left( \\frac{1}{2\\sqrt{x}} + \\sqrt{x} \\right)$$",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá la derivada de $y = (x^2 + 5) \\cdot e^x$.",
-    "options": [
-      "$2x e^x$",
-      "$(2x + 5) e^x$",
-      "$(x^2 + 2x + 5) e^x$",
-      "$(x^2 + 5) e^x + 2x$"
+    "feedback_correct": "Correcto, el término $u(4)v'(4)$ se anula porque $u(4)=0$, queda solo $u'(4)v(4)$.",
+    "feedback_incorrect": [
+      null,
+      "No corresponde ningún factor $4$ multiplicando al resultado final, solo queda $e^4$.",
+      "Solo se anula el término $u(4)v'(4)$, el otro término, $u'(4)v(4)$, no se anula.",
+      "El exponente de $e$ no cambia al derivar, queda $e^4$, no $e^3$."
     ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Derivaste el producto y agrupaste los términos dentro del paréntesis.",
-    "feedback_incorrect": "No te olvides de sumar los dos términos de la regla del producto: $u'v + uv'$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usamos la **regla del producto** para $y = (x^2 + 5) e^x$:\n\n$$y' = (x^2 + 5)' e^x + (x^2 + 5) (e^x)'$$\n\nCalculamos las derivadas simples: $(x^2+5)' = 2x$ y $(e^x)' = e^x$:\n\n$$y' = 2x e^x + (x^2 + 5) e^x$$\n\nSacando $e^x$ como **factor común**:\n\n$$y' = e^x (2x + x^2 + 5) = e^x (x^2 + 2x + 5)$$\n\nAgrupar de esta forma es fundamental cuando necesitás hallar los puntos donde la derivada se anula.",
+    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(4) &= 0, \\quad v'(4) = e^4 \\\\ u'(4) &= 1, \\quad v(4) = e^4 \\\\ f'(4) &= u'(4)v(4) + u(4)v'(4) = e^4 + 0 \\end{aligned}$$\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz de $u$, así que el resultado queda determinado por $u'(4)v(4)$.",
     "reviewed": false
   },
   {
-    "question": "Calculá la derivada de $f(x) = (x-2) \\cdot (x+3)$.",
+    "question": "Sabiendo que\n$$f(x) = \\cos x \\cdot e^x$$\ncalculá $f'(0)$.",
     "options": [
-      "$2x + 1$",
+      "$e$",
       "$1$",
-      "$2x - 1$",
-      "$x^2 + x - 6$"
+      "$0$",
+      "$-1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $u'(0)v(0)$ se anula porque $u'(0)=0$, queda solo $u(0)v'(0)$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde solo a $v'(0)$, falta multiplicarlo por $u(0)$ para armar el término completo.",
+      null,
+      "Solo se anula el término $u'(0)v(0)$, el otro término, $u(0)v'(0)$, no se anula.",
+      "Revisá el signo, $u(0)v'(0)=1\\cdot 1=1$ es positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=e^x$, con $u'(x)=-\\sin x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u'(0) &= -\\sin 0 = 0, \\quad v(0) = 1 \\\\ u(0) &= 1, \\quad v'(0) = 1 \\\\ f'(0) &= u'(0)v(0) + u(0)v'(0) = 0 + 1 \\end{aligned}$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = (x^2+3)e^x$$\ncalculá $f'(0)$.",
+    "options": [
+      "$-3$",
+      "$6$",
+      "$3$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $u'(0)v(0)$ se anula porque $u'(0)=0$, queda solo $u(0)v'(0)$.",
+    "feedback_incorrect": [
+      "Revisá el signo, $u(0)v'(0)=3\\cdot 1=3$ es positivo, no negativo.",
+      "Revisá el valor de $u(0)$, con $u(x)=x^2+3$ resulta $u(0)=3$, no $6$.",
+      null,
+      "Solo se anula el término $u'(0)v(0)$, el otro término, $u(0)v'(0)$, no se anula."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=x^2+3$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u'(0) &= 0, \\quad v(0) = 1 \\\\ u(0) &= 3, \\quad v'(0) = 1 \\\\ f'(0) &= u'(0)v(0) + u(0)v'(0) = 0 + 3 \\end{aligned}$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = \\cos x \\cdot (x^2+2)$$\ncalculá $f'(\\pi)$.",
+    "options": [
+      "$2\\pi$",
+      "$-\\pi$",
+      "$0$",
+      "$-2\\pi$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $u'(\\pi)v(\\pi)$ se anula porque $u'(\\pi)=0$, queda solo $u(\\pi)v'(\\pi)$.",
+    "feedback_incorrect": [
+      "Revisá el signo, $u(\\pi)=\\cos\\pi=-1$ es negativo, así que el producto final también lo es.",
+      "Falta el factor $2$ que aparece al derivar $x^2+2$, ese término se perdió en el cálculo.",
+      "Solo se anula el término $u'(\\pi)v(\\pi)$, el otro término, $u(\\pi)v'(\\pi)$, no se anula.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, con $u'(x)=-\\sin x$ y $v'(x)=2x$.\n\n$$\\begin{aligned} u'(\\pi) &= -\\sin\\pi = 0, \\quad v(\\pi) = \\pi^2+2 \\\\ u(\\pi) &= -1, \\quad v'(\\pi) = 2\\pi \\\\ f'(\\pi) &= u'(\\pi)v(\\pi) + u(\\pi)v'(\\pi) = 0 + (-1)(2\\pi) \\end{aligned}$$\nEl término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u$, así que el resultado queda determinado por $u(\\pi)v'(\\pi)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\ncalculá $f'(1)$.",
+    "options": [
+      "$5e$",
+      "$0$",
+      "$-5e$",
+      "$10e$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Podés usar la regla del producto o distribuir primero. Ambas dan $2x+1$.",
-    "feedback_incorrect": "Si usás la regla del producto: $(1)(x+3) + (x-2)(1) = 2x + 1$.",
+    "feedback_correct": "Correcto, el término $u'(1)v(1)$ se anula porque $u'(1)=0$, queda solo $u(1)v'(1)$.",
+    "feedback_incorrect": [
+      null,
+      "Solo se anula el término $u'(1)v(1)$, el otro término, $u(1)v'(1)$, no se anula.",
+      "Revisá el signo, $u(1)v'(1)=5\\cdot e=5e$ es positivo, no negativo.",
+      "Revisá el valor de $u(1)$, con $u(x)=(x-1)^2+5$ resulta $u(1)=5$, no $10$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función se puede derivar de dos maneras. Usando la **regla del producto**:\n\n$$f'(x) = (1)(x+3) + (x-2)(1) = x + 3 + x - 2 = 2x + 1$$\n\nLa otra opción es **distribuir** primero el producto: $f(x) = x^2 + x - 6$. Derivando este polinomio término a término, obtenés el mismo resultado:\n\n$$f'(x) = 2x + 1$$\n\nEn casos simples como este, distribuir suele ser más rápido y menos propenso a errores que la regla del producto.",
+    "explanation": "Identificamos $u(x)=(x-1)^2+5$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u'(1) &= 0, \\quad v(1) = e \\\\ u(1) &= 5, \\quad v'(1) = e \\\\ f'(1) &= u'(1)v(1) + u(1)v'(1) = 0 + 5e \\end{aligned}$$\nEl término $u'(1)v(1)$ se anula porque $x=1$ es el vértice de $u$, así que el resultado queda determinado por $u(1)v'(1)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = x^2 \\cdot e^x$$\ncalculá $f'(0)$.",
+    "options": [
+      "$e$",
+      "$0$",
+      "$1$",
+      "$2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, en $x=0$ se anulan los dos términos de la suma a la vez.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $v'(0)$ solo, pero acá ambos términos de la suma se anulan.",
+      null,
+      "Ese valor corresponde a $f(0)$, la función original, no a su derivada $f'(0)$.",
+      "Ninguno de los dos términos de la suma sobrevive en $x=0$, el resultado final es cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=x^2$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(0) &= 0, \\quad u'(0) = 0 \\\\ f'(0) &= u'(0)v(0) + u(0)v'(0) = 0 \\cdot 1 + 0 \\cdot 1 \\end{aligned}$$\nComo $u(0)$ y $u'(0)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = (x-1)^2 \\cdot e^x$$\ncalculá $f'(1)$.",
+    "options": [
+      "$2e$",
+      "$-e$",
+      "$0$",
+      "$e$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, en $x=1$ se anulan los dos términos de la suma a la vez.",
+    "feedback_incorrect": [
+      "Ninguno de los dos términos de la suma sobrevive en $x=1$, el resultado final es cero.",
+      "Ninguno de los dos términos de la suma sobrevive en $x=1$, sin importar el signo.",
+      null,
+      "Ese valor asume que solo un término sobrevive, pero acá ambos se anulan a la vez."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=(x-1)^2$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(1) &= 0, \\quad u'(1) = 0 \\\\ f'(1) &= u'(1)v(1) + u(1)v'(1) = 0 \\cdot e + 0 \\cdot e \\end{aligned}$$\nComo $u(1)$ y $u'(1)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\ncalculá $f'(-2)$.",
+    "options": [
+      "$4$",
+      "$-4$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, en $x=-2$ se anulan los dos términos de la suma a la vez.",
+    "feedback_incorrect": [
+      "Ninguno de los dos términos de la suma sobrevive en $x=-2$, el resultado final es cero.",
+      "Ninguno de los dos términos de la suma sobrevive en $x=-2$, sin importar el signo.",
+      "Ese valor no surge de ningún cálculo correcto de este producto en $x=-2$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos $u(x)=(x+2)^2$, $v(x)=\\cos x$, con $u'(x)=2(x+2)$ y $v'(x)=-\\sin x$.\n\n$$\\begin{aligned} u(-2) &= 0, \\quad u'(-2) = 0 \\\\ f'(-2) &= u'(-2)v(-2) + u(-2)v'(-2) = 0 + 0 \\end{aligned}$$\nComo $u(-2)$ y $u'(-2)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(2)=0$, $f'(2)=5$, $g(2)=4$, $g'(2)=-1$, calculá $(f\\cdot g)'(2)$.",
+    "options": [
+      "$20$",
+      "$-4$",
+      "$19$",
+      "$0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $f(2)g'(2)$ se anula porque $f(2)=0$, queda solo $f'(2)g(2)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde solo al término $f(2)g'(2)$, que además se anula, falta $f'(2)g(2)$.",
+      "Revisá la multiplicación, $f'(2)g(2)=5\\cdot 4=20$, no $19$.",
+      "El dato $f(2)=0$ anula solo uno de los dos términos de la suma, no el resultado completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La fórmula de la **regla del producto** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\n$$\\begin{aligned} (f\\cdot g)'(2) &= f'(2)g(2) + f(2)g'(2) \\\\ &= 5\\cdot 4 + 0\\cdot(-1) \\\\ &= 20 + 0 \\end{aligned}$$\nEl dato $f(2)=0$ anula el segundo término de la suma, dejando el resultado final determinado únicamente por $f'(2)g(2)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(1)=3$, $f'(1)=0$, $g(1)=-2$, $g'(1)=6$, calculá $(f\\cdot g)'(1)$.",
+    "options": [
+      "$-18$",
+      "$18$",
+      "$-2$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $f'(1)g(1)$ se anula porque $f'(1)=0$, queda solo $f(1)g'(1)$.",
+    "feedback_incorrect": [
+      "Revisá el signo, $f(1)g'(1)=3\\cdot 6=18$ es positivo, no negativo.",
+      null,
+      "Ese valor corresponde solo al término $f'(1)g(1)$, que además se anula, falta $f(1)g'(1)$.",
+      "El dato $f'(1)=0$ anula solo uno de los dos términos de la suma, no el resultado completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados.\n\n$$\\begin{aligned} (f\\cdot g)'(1) &= f'(1)g(1) + f(1)g'(1) \\\\ &= 0\\cdot(-2) + 3\\cdot 6 \\\\ &= 0 + 18 \\end{aligned}$$\nEl dato $f'(1)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(1)g'(1)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f(0)=5$, $f'(0)=-2$, $g(0)=0$, $g'(0)=3$, calculá $(f\\cdot g)'(0)$.",
+    "options": [
+      "$0$",
+      "$-15$",
+      "$15$",
+      "$-2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $f'(0)g(0)$ se anula porque $g(0)=0$, queda solo $f(0)g'(0)$.",
+    "feedback_incorrect": [
+      "El dato $g(0)=0$ anula solo uno de los dos términos de la suma, no el resultado completo.",
+      "Revisá el signo, $f(0)g'(0)=5\\cdot 3=15$ es positivo, no negativo.",
+      null,
+      "Ese valor corresponde solo al término $f'(0)g(0)$, que además se anula, falta $f(0)g'(0)$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados.\n\n$$\\begin{aligned} (f\\cdot g)'(0) &= f'(0)g(0) + f(0)g'(0) \\\\ &= (-2)\\cdot 0 + 5\\cdot 3 \\\\ &= 0 + 15 \\end{aligned}$$\nEl dato $g(0)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(0)g'(0)$.",
     "reviewed": false
   }
 ]

@@ -1,172 +1,332 @@
 [
   {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = x^7$?",
+    "question": "Calculá la derivada de\n$$f(x) = x^6$$",
     "options": [
-      "$7x^6$",
-      "$7x^7$",
-      "$6x^7$",
-      "$x^6$"
+      "$6x^5$",
+      "$x^5$",
+      "$6x^6$",
+      "$5x^5$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Regla de la potencia: $7 \\cdot x^{7-1} = 7x^6$.",
-    "feedback_incorrect": "Aplicá la regla de la potencia: $(x^7)' = 7 \\cdot x^{7-1} = 7x^6$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$(x^7)' = 7 \\cdot x^{7-1} = 7x^6$.\n\nEl exponente $7$ baja como coeficiente y el nuevo exponente es $7-1=6$. Siempre seguís el mismo patrón con la regla de la potencia.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = 3x^4$?",
-    "options": [
-      "$12x^4$",
-      "$12x^3$",
-      "$3x^3$",
-      "$4x^3$"
+    "feedback_correct": "Correcto, el exponente $6$ baja como coeficiente y el nuevo exponente es $5$.",
+    "feedback_incorrect": [
+      null,
+      "Falta el coeficiente $6$ que baja desde el exponente original.",
+      "Falta restar $1$ al exponente, quedó igual que el original.",
+      "El coeficiente que baja es el exponente original, $6$, no $5$."
     ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Múltiplo constante + potencia: $3 \\cdot 4x^3 = 12x^3$.",
-    "feedback_incorrect": "Combinar: constante $3$ afuera, luego potencia: $3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Combinando la regla del múltiplo constante y la de la potencia:\n\n$$(3x^4)' = 3 \\cdot (x^4)' = 3 \\cdot 4x^3 = 12x^3$$\n\nLa constante $3$ sale afuera, y la potencia se deriva normalmente.",
+    "explanation": "Identificamos un único término, una potencia de $x$ con exponente $6$.\n\n$$\\begin{aligned} f'(x) &= 6x^{6-1} \\\\ &= 6x^5 \\end{aligned}$$\nEl coeficiente que baja siempre coincide con el exponente original, y el nuevo exponente queda uno menos que el de partida.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = x^3 - 2x + 1$?",
+    "question": "Calculá la derivada de\n$$f(x) = \\ln x$$",
     "options": [
-      "$3x^2 + 2$",
-      "$3x^2 - 2x$",
-      "$3x^2 - 2$",
-      "$x^2 - 2$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Término a término: $(x^3)' - (2x)' + (1)' = 3x^2 - 2 + 0$.",
-    "feedback_incorrect": "Derivá término a término: $(x^3)' = 3x^2$, $(2x)' = 2$, $(1)' = 0$. Total: $3x^2 - 2$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Aplicando la regla de la suma y diferencia término a término:\n\n$$f'(x) = (x^3)' - (2x)' + (1)' = 3x^2 - 2 + 0 = 3x^2 - 2$$\n\nLa constante $1$ tiene derivada $0$, el término $2x$ deriva a $2$, y $x^3$ deriva a $3x^2$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = 5x^2 + 3x - 7$?",
-    "options": [
-      "$5x + 3$",
-      "$10x^2 + 3$",
-      "$10x + 3x$",
-      "$10x + 3$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$(5x^2)' + (3x)' + (-7)' = 10x + 3 + 0$.",
-    "feedback_incorrect": "Derivá cada término: $(5x^2)' = 10x$, $(3x)' = 3$, $(-7)' = 0$. Total: $10x + 3$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$$f'(x) = (5x^2)' + (3x)' + (-7)'$$\n$$= 5 \\cdot 2x + 3 \\cdot 1 + 0 = 10x + 3$$\n\nPolinomio de grado $2$ → derivada de grado $1$. En general, la derivada de un polinomio de grado $n$ tiene grado $n-1$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = x^{-2}$?",
-    "options": [
-      "$-2x^{-3}$",
-      "$-2x^{-1}$",
-      "$2x^{-3}$",
-      "$-x^{-3}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Regla de la potencia con exponente negativo: $-2 \\cdot x^{-2-1} = -2x^{-3}$.",
-    "feedback_incorrect": "La regla de la potencia funciona igual con negativos: $(x^{-2})' = -2 \\cdot x^{-3}$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La regla de la potencia funciona con cualquier exponente, incluyendo negativos:\n\n$$(x^{-2})' = -2 \\cdot x^{-2-1} = -2x^{-3} = -\\frac{2}{x^3}$$\n\nEsto es equivalente a derivar $f(x) = \\frac{1}{x^2}$. La regla de la potencia es más práctica que aplicar la regla del cociente directamente.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = 4e^x - 3$?",
-    "options": [
-      "$4e^x - 3$",
-      "$4e^x$",
-      "$4xe^{x-1}$",
-      "$4e^x + 1$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$(4e^x)' = 4e^x$ y $(-3)' = 0$.",
-    "feedback_incorrect": "$(4e^x)' = 4 \\cdot e^x$ (constante afuera) y $(-3)' = 0$. Total: $4e^x$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$$f'(x) = (4e^x)' + (-3)' = 4 \\cdot (e^x)' + 0 = 4e^x$$\n\nLa constante $-3$ desaparece al derivar. La exponencial $e^x$ se mantiene con su factor $4$. La derivada es proporcional a la función misma.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = 2\\sin x + \\cos x$?",
-    "options": [
-      "$-2\\cos x - \\sin x$",
-      "$2\\cos x + \\sin x$",
-      "$2\\cos x - \\sin x$",
-      "$2\\sin x - \\cos x$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$(2\\sin x)' = 2\\cos x$ y $(\\cos x)' = -\\sin x$.",
-    "feedback_incorrect": "$(2\\sin x)' = 2\\cos x$ y $(\\cos x)' = -\\sin x$. No olvides el signo negativo del coseno.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Derivando término a término:\n\n$$f'(x) = (2\\sin x)' + (\\cos x)' = 2\\cos x + (-\\sin x) = 2\\cos x - \\sin x$$\n\nAplicamos la regla del múltiplo constante al primer término, y la derivada conocida de $\\cos x$ al segundo. El signo negativo en $-\\sin x$ es fundamental.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = \\ln x + x^2$?",
-    "options": [
-      "$\\dfrac{1}{x^2} + 2x$",
-      "$\\dfrac{1}{x} + x^2$",
-      "$\\ln x + 2x$",
-      "$\\dfrac{1}{x} + 2x$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$(\\ln x)' = 1/x$ y $(x^2)' = 2x$.",
-    "feedback_incorrect": "$(\\ln x)' = \\frac{1}{x}$ y $(x^2)' = 2x$. La suma de derivadas da $\\frac{1}{x} + 2x$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Aplicando la regla de la suma:\n\n$$f'(x) = (\\ln x)' + (x^2)' = \\frac{1}{x} + 2x$$\n\nDos funciones de familias distintas (logarítmica y potencia), derivadas por separado y sumadas. El resultado mezcla $1/x$ (derivada decreciente) con $2x$ (derivada creciente).",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = \\dfrac{1}{x}$?",
-    "options": [
-      "$-\\dfrac{1}{x^2}$",
-      "$\\dfrac{1}{x^2}$",
+      "$-1/x$",
+      "$1/x$",
       "$\\ln x$",
-      "$-\\dfrac{1}{x}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f(x) = x^{-1}$, entonces $f'(x) = -1 \\cdot x^{-2} = -1/x^2$.",
-    "feedback_incorrect": "Reescribí como $x^{-1}$ y aplicá potencia: $(-1)x^{-2} = -\\frac{1}{x^2}$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Reescribiendo:\n\n$$f(x) = \\frac{1}{x} = x^{-1}$$\n\n$$f'(x) = -1 \\cdot x^{-1-1} = -x^{-2} = -\\frac{1}{x^2}$$\n\nLa derivada de $1/x$ es negativa para todo $x \\neq 0$: la función hipérbola siempre decrece en cada rama.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $f'(x)$ si $f(x) = 6x^{1/3}$?",
-    "options": [
-      "$6x^{-2/3}$",
-      "$2x^{-2/3}$",
-      "$2x^{1/3}$",
-      "$\\dfrac{1}{3}x^{-2/3}$"
+      "$x$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$6 \\cdot \\frac{1}{3} x^{1/3-1} = 2x^{-2/3}$.",
-    "feedback_incorrect": "Regla de la potencia con exponente fraccionario: $6 \\cdot \\frac{1}{3} x^{-2/3} = 2x^{-2/3}$.",
+    "feedback_correct": "Correcto, la derivada del logaritmo natural es $1/x$.",
+    "feedback_incorrect": [
+      "El signo es positivo, no negativo, la derivada del logaritmo natural no lleva signo negativo.",
+      null,
+      "Esa es la función original, la derivada del logaritmo natural es $\\frac{1}{x}$.",
+      "El resultado no es $x$, sino su recíproco, $\\frac{1}{x}$."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$f'(x) = 6 \\cdot \\frac{1}{3} x^{1/3 - 1} = 2 x^{-2/3} = \\frac{2}{x^{2/3}} = \\frac{2}{\\sqrt[3]{x^2}}$$\n\nEl exponente $1/3$ baja como coeficiente (multiplicado por $6$ da $2$) y el nuevo exponente es $1/3 - 1 = -2/3$. La regla de la potencia vale para exponentes fraccionarios.",
+    "explanation": "Identificamos un único término en la expresión, la función logaritmo natural, sin ningún coeficiente que la acompañe.\n\n$$f'(x) = \\frac{1}{x}$$\nEsta fórmula elemental se aplica directamente, sin necesidad de ningún paso algebraico adicional, ni de reescribir la expresión de ninguna forma.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = \\cos x$$",
+    "options": [
+      "$\\cos x$",
+      "$-\\cos x$",
+      "$-\\sin x$",
+      "$\\sin x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la derivada del coseno lleva signo negativo.",
+    "feedback_incorrect": [
+      "Esa es la función original, la derivada del coseno es $-\\sin x$, una función distinta.",
+      "El resultado cambia de función, de coseno pasa a seno, no se mantiene como coseno.",
+      null,
+      "Falta el signo negativo, la derivada del coseno es $-\\sin x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos un único término en la expresión, la función coseno, sin ningún coeficiente ni argumento compuesto.\n\n$$f'(x) = -\\sin x$$\nEl signo negativo de esta fórmula es el detalle que más se pierde al aplicarla, conviene revisarlo siempre antes de dar la respuesta final, sobre todo al combinarla con otros términos.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = e^x$$",
+    "options": [
+      "$xe^{x-1}$",
+      "$e^{x-1}$",
+      "$0$",
+      "$e^x$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, la exponencial de base $e$ es su propia derivada.",
+    "feedback_incorrect": [
+      "Esa forma sale de aplicar la regla de la potencia, pero $e^x$ es una exponencial, no una potencia de $x$.",
+      "Restar $1$ al exponente solo aplica a la regla de la potencia, no a la exponencial.",
+      "$e^x$ no es una constante, cambia con $x$, así que su derivada no puede ser cero.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos un único término en la expresión, la función exponencial de base $e$, sin ningún coeficiente que la acompañe.\n\n$$f'(x) = e^x$$\nEsta es la única derivada elemental que coincide exactamente con la función original, un caso especial que conviene recordar bien y no confundir con la regla de la potencia.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$",
+    "options": [
+      "$12x^2-2\\cos x+1/x$",
+      "$4x^2-2\\cos x+1/x$",
+      "$12x^2+2\\cos x+1/x$",
+      "$12x^2-2\\cos x-1/x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada término se derivó con su regla correspondiente.",
+    "feedback_incorrect": [
+      null,
+      "Falta multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
+      "Perdiste el signo negativo del término $-2\\sin x$, su derivada es $-2\\cos x$.",
+      "El signo del término logarítmico es positivo, la derivada de $\\ln x$ es $\\frac{1}{x}$ sin signo negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y uno logarítmico, cada uno con su propia regla.\n\n$$\\begin{aligned} f'(x) &= (4x^3)' - (2\\sin x)' + (\\ln x)' \\\\ &= 12x^2 - 2\\cos x + \\frac{1}{x} \\end{aligned}$$\nCombinamos los tres resultados por linealidad, sin alterar ninguno de los signos originales de la expresión.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = 5x^2 + 3\\cos x - 4$$",
+    "options": [
+      "$10x-3\\sin x-4$",
+      "$10x-3\\sin x$",
+      "$10x+3\\sin x$",
+      "$5x-3\\sin x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la constante desaparece y el coseno aporta con signo negativo.",
+    "feedback_incorrect": [
+      "La constante $-4$ tiene derivada cero, no debería aparecer en el resultado final.",
+      null,
+      "Perdiste el signo negativo del término $3\\cos x$, su derivada es $-3\\sin x$.",
+      "Falta multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos tres términos, uno potencial, uno trigonométrico y una constante.\n\n$$\\begin{aligned} f'(x) &= (5x^2)' + (3\\cos x)' - (4)' \\\\ &= 10x - 3\\sin x - 0 \\\\ &= 10x-3\\sin x \\end{aligned}$$\nLa constante desaparece por completo del resultado, mientras que el coseno aporta su derivada con signo negativo.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = x^4 - 6\\tan x$$",
+    "options": [
+      "$x^3-6\\sec^2x$",
+      "$4x^3-\\sec^2x$",
+      "$4x^3-6\\sec^2x$",
+      "$4x^3-6\\tan^2x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la potencia y la tangente se derivaron cada una con su regla.",
+    "feedback_incorrect": [
+      "Falta el coeficiente $4$ que baja desde el exponente de $x^4$.",
+      "Falta el coeficiente $6$ que multiplica a la derivada de la tangente.",
+      null,
+      "Esa no es la fórmula de la derivada de la tangente, es $\\sec^2 x$, no $\\tan^2 x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos dos términos, uno potencial y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (x^4)' - (6\\tan x)' \\\\ &= 4x^3 - 6\\sec^2 x \\end{aligned}$$\nEl coeficiente $6$ se conserva multiplicando al resultado de derivar la tangente, sin alterar la fórmula elemental de esa función.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = 2e^x + 5x$$",
+    "options": [
+      "$2e^x+5x$",
+      "$2xe^{x-1}+5$",
+      "$e^x+5$",
+      "$2e^x+5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término exponencial se mantiene y el término lineal deriva a $5$.",
+    "feedback_incorrect": [
+      "Falta derivar el término lineal $5x$, cuya derivada es $5$, no $5x$ sin cambios.",
+      "Esa forma sale de aplicar la regla de la potencia, pero $e^x$ es una exponencial, no una potencia de $x$.",
+      "Falta el coeficiente $2$ que multiplica al término exponencial.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos dos términos, uno exponencial y uno lineal.\n\n$$\\begin{aligned} f'(x) &= (2e^x)' + (5x)' \\\\ &= 2e^x + 5 \\end{aligned}$$\nEl término exponencial se mantiene igual a sí mismo multiplicado por su coeficiente, mientras que el término lineal deriva a su propio coeficiente.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = 7 - 3x^2 + \\sin x$$",
+    "options": [
+      "$-6x+\\cos x$",
+      "$-6x-\\cos x$",
+      "$-3x+\\cos x$",
+      "$7-6x+\\cos x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la constante desaparece y el resto se deriva término a término.",
+    "feedback_incorrect": [
+      null,
+      "El signo del término trigonométrico es positivo, la derivada de $\\sin x$ es $\\cos x$ sin signo negativo.",
+      "Falta multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
+      "La constante $7$ tiene derivada cero, no debería aparecer en el resultado final."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos tres términos, una constante, uno potencial con signo negativo y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (7)' - (3x^2)' + (\\sin x)' \\\\ &= 0 - 6x + \\cos x \\\\ &= -6x+\\cos x \\end{aligned}$$\nLa constante inicial se cancela por completo, dejando solo los dos términos que sí dependen de $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá la derivada de\n$$f(x) = \\ln x + 4\\cos x$$",
+    "options": [
+      "$1/x-4\\cos x$",
+      "$1/x-4\\sin x$",
+      "$1/x+4\\sin x$",
+      "$x-4\\sin x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el logaritmo y el coseno se derivaron cada uno con su regla.",
+    "feedback_incorrect": [
+      "Falta cambiar la función trigonométrica, la derivada de $\\cos x$ es $-\\sin x$, no $-\\cos x$.",
+      null,
+      "Perdiste el signo negativo del término $4\\cos x$, su derivada es $-4\\sin x$.",
+      "La derivada del logaritmo natural es $\\frac{1}{x}$, no $x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Identificamos dos términos, uno logarítmico y uno trigonométrico.\n\n$$\\begin{aligned} f'(x) &= (\\ln x)' + (4\\cos x)' \\\\ &= \\frac{1}{x} - 4\\sin x \\end{aligned}$$\nEl coeficiente $4$ se conserva multiplicando al resultado de derivar el coseno, junto con el signo negativo propio de esa fórmula.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = x^3$$\nhallá $f'(2)$.",
+    "options": [
+      "$8$",
+      "$3$",
+      "$12$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $f'(x)=3x^2$ evaluada en $x=2$ da $12$.",
+    "feedback_incorrect": [
+      "Ese es el valor de $f(2)$, la función original, no de su derivada $f'(2)$.",
+      "Falta evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
+      null,
+      "Falta elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\n$$\\begin{aligned} f'(x) &= 3x^2 \\\\ f'(2) &= 3 \\cdot 2^2 = 12 \\end{aligned}$$\nEvaluar antes de derivar es un error común en este tipo de ítem, siempre hay que derivar la función completa primero.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = \\sin x$$\nhallá $f'(0)$.",
+    "options": [
+      "$0$",
+      "$-1$",
+      "$\\pi$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, $f'(x)=\\cos x$ evaluada en $x=0$ da $1$.",
+    "feedback_incorrect": [
+      "Ese es el valor de $f(0)=\\sin 0$, la función original, no de su derivada $f'(0)$.",
+      "Ese valor corresponde a $-\\cos 0$, revisá el signo de la derivada del seno, no lleva ningún signo negativo.",
+      "$\\pi$ no es un valor numérico de esta evaluación, hay que sustituir $x=0$ en $\\cos x$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n\n$$\\begin{aligned} f'(x) &= \\cos x \\\\ f'(0) &= \\cos 0 = 1 \\end{aligned}$$\nConfundir $f(0)$ con $f'(0)$ es el error más común en este tipo de ítem, siempre hay que derivar primero.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = e^x + x$$\nhallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
+    "options": [
+      "$y=2x+1$",
+      "$y=2x-1$",
+      "$y=x+1$",
+      "$y=2x$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, con $f(0)=1$ y $f'(0)=2$ la ecuación queda $y=2x+1$.",
+    "feedback_incorrect": [
+      null,
+      "Revisá el signo del término independiente, $f(0)=1$ se suma, no se resta.",
+      "Falta el aporte de $e^x$ a la pendiente, $f'(0)=e^0+1=2$, no solo $1$.",
+      "Falta sumar $f(0)=1$ al final, ese término se perdió en el despeje."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Primero se calculan $f(0)$ y $f'(0)$, y recién después se arma la ecuación punto-pendiente.\n\n$$\\begin{aligned} f(0) &= e^0+0 = 1, \\quad f'(x) = e^x+1, \\quad f'(0)=2 \\\\ y &= 2(x-0)+1 \\\\ &= 2x+1 \\end{aligned}$$\nEl término $e^x$ aporta $1$ a la pendiente evaluado en $x=0$, un detalle que conviene no perder al calcular $f'(0)$.",
+    "reviewed": false
+  },
+  {
+    "question": "Una partícula tiene posición\n$$s(t) = t^3 - 2t$$\nHallá la velocidad $v(t) = s'(t)$.",
+    "options": [
+      "$v(t)=3t^2-2t$",
+      "$v(t)=3t^2-2$",
+      "$v(t)=3t^2$",
+      "$v(t)=t^2-2$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, cada término de la posición se derivó por separado.",
+    "feedback_incorrect": [
+      "Falta derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
+      null,
+      "Falta derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
+      "Falta multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **velocidad** es la derivada de la posición respecto del tiempo, así que se deriva $s(t)$ término a término.\n\n$$\\begin{aligned} v(t) &= (t^3)' - (2t)' \\\\ &= 3t^2 - 2 \\end{aligned}$$\nEste mismo procedimiento, derivar la posición para obtener la velocidad, es la aplicación más directa de las reglas de derivación a un contexto físico.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que\n$$f(x) = x^2$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=4x+1$.",
+    "options": [
+      "$x=4$",
+      "$x=8$",
+      "$x=2$",
+      "$x=-2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $2x=4$ da $x=2$.",
+    "feedback_incorrect": [
+      "Falta dividir por el coeficiente $2$, ese valor es directamente la pendiente buscada sin dividir.",
+      "Ese resultado sale de multiplicar en vez de dividir, hay que despejar $x$ dividiendo por $2$.",
+      null,
+      "Revisá el signo al despejar, $2x=4$ da $x=2$ positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La condición de **paralelismo** exige que $f'(x)$ iguale la pendiente $m=4$ de la recta dada.\n\n$$\\begin{aligned} f'(x) &= 2x \\\\ 2x &= 4 \\\\ x &= 2 \\end{aligned}$$\nEsta misma condición, igualar la derivada a la pendiente buscada, es la que se usa para encontrar cualquier punto de tangencia con una inclinación dada.",
     "reviewed": false
   }
 ]

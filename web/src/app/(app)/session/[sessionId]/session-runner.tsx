@@ -14,18 +14,29 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { useSfx } from "@/lib/audio/useSfx"
+import { topicShortLabel } from "@/lib/catalog"
+import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { cn } from "@/lib/utils"
-import { ChevronLeft, X } from "lucide-react"
+import { Braces, ChevronLeft, Eye, EyeOff, SkipForward, X } from "lucide-react"
 import { animate, AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { useAnswer } from "./UseAnswer"
 import { useSessionPayload } from "./UseSessionPayload"
+import type { SessionExercise } from "@/lib/api/types"
 
 const ctaCls =
   "h-[var(--cta-h)] flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
@@ -64,6 +75,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   const [dir, setDir] = useState<1 | -1>(1)
   const [states, setStates] = useState<Record<number, ExState>>({})
   const [shakeIdx, setShakeIdx] = useState<number | null>(null)
+  const [feedbackByIdx, setFeedbackByIdx] = useState<Record<number, string>>({})
+  const [distractorFbByIdx, setDistractorFbByIdx] = useState<
+    Record<number, Record<number, string>>
+  >({})
+  const [explanationFbByIdx, setExplanationFbByIdx] = useState<
+    Record<number, string>
+  >({})
+  const [noAnswer, setNoAnswer] = useState(false)
+  const [gotoValue, setGotoValue] = useState("")
   // Gate del footer de feedback: al navegar se apaga y se vuelve a prender
   // recién cuando termina la animación del slide (para que salga después).
   const [footerReady, setFooterReady] = useState(true)
@@ -133,6 +153,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
   const total = payload.exercises.length
   const exercise = payload.exercises[idx]
+  const isTest = payload.mode === "test"
   if (!exercise) return null
 
   const cur = states[idx] ?? DEFAULT_EX
@@ -142,10 +163,57 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
   // Resuelto recién después de haber fallado al menos una vez → acento lima.
   const solvedAfterError = solved && cur.wrongOptions.length > 0
   const continueLabel = isLast ? "Finalizar" : "Continuar"
-  const canGoBack = idx > 0 || cur.showWhy
+  const canGoBack = isTest ? idx > 0 || cur.showWhy : idx > 0 || cur.showWhy
 
   function patch(p: Partial<ExState>) {
     setStates((s) => ({ ...s, [idx]: { ...(s[idx] ?? DEFAULT_EX), ...p } }))
+  }
+
+  const skillProgress = (() => {
+    const et = exercise.exercise_type
+    if (!et) return null
+    const group = payload.exercises.filter((e) => e.exercise_type === et)
+    const posInGroup = group.findIndex((e) => e.id === exercise.id) + 1
+    return { et, posInGroup, groupSize: group.length }
+  })()
+
+  function onSkip() {
+    if (isLast) return
+    sfx.continue()
+    navTo(idx + 1, 1)
+  }
+
+  function onGoto() {
+    const n = parseInt(gotoValue, 10)
+    if (!Number.isFinite(n) || n < 1 || n > total) return
+    const target = n - 1
+    if (target === idx) return
+    navTo(target, target > idx ? 1 : -1)
+    setGotoValue("")
+  }
+
+  function copyFeedback() {
+    const rawJson = JSON.stringify(exercise, null, 2)
+    const distractorFb = distractorFbByIdx[idx] ?? {}
+    const distractorLines = Object.entries(distractorFb)
+      .filter(([, t]) => t.trim())
+      .map(
+        ([i, t]) =>
+          `feedback sobre distractor ${i} (${exercise.options[Number(i)]}):\n${t}\n`,
+      )
+      .join("\n")
+    const explanationFb = (explanationFbByIdx[idx] ?? "").trim()
+    const generalFb = (feedbackByIdx[idx] ?? "").trim()
+    const snippet =
+      `${rawJson}\n` +
+      (generalFb ? `\nfeedback general:\n${generalFb}\n` : "") +
+      (distractorLines ? `\n${distractorLines}` : "") +
+      (explanationFb ? `\nfeedback sobre la explicación:\n${explanationFb}\n` : "")
+    navigator.clipboard?.writeText(snippet)
+  }
+
+  function copyExternalId() {
+    navigator.clipboard?.writeText(exercise.external_id || exercise.id)
   }
 
   function navTo(target: number, direction: 1 | -1) {
@@ -240,16 +308,77 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
         >
           <ChevronLeft />
         </Button>
-        <div className="h-3 flex-1 overflow-hidden rounded-full bg-border">
-          <motion.div
-            className="h-full rounded-full bg-primary"
-            initial={{ width: "0%" }}
-            animate={{ width: `${pct}%` }}
-            transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
-          />
-        </div>
+        {isTest ? (
+          <div className="flex flex-1 items-center gap-2 overflow-hidden">
+            <button
+              onClick={copyExternalId}
+              title="Copiar external_id"
+              className="truncate rounded-md border border-white/15 bg-white/5 px-2 py-1 font-mono text-[11px] text-foreground/80 hover:border-white/40"
+            >
+              {exercise.external_id || exercise.id}
+            </button>
+            {skillProgress && (
+              <span className="shrink-0 rounded-md border border-white/10 px-2 py-1 text-[11px] text-foreground/60">
+                {skillProgress.posInGroup}/{skillProgress.groupSize} ·{" "}
+                {exerciseTypeInfo({ type: skillProgress.et }).label}
+              </span>
+            )}
+            <span className="ml-auto flex items-center gap-1">
+              <JsonDialog exercise={exercise} />
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                onClick={() => setNoAnswer((v) => !v)}
+                aria-label="Modo sin responder"
+                title={noAnswer ? "Salir del modo revisión" : "Ver sin responder"}
+              >
+                {noAnswer ? <EyeOff /> : <Eye />}
+              </Button>
+            </span>
+          </div>
+        ) : (
+          <div className="h-3 flex-1 overflow-hidden rounded-full bg-border">
+            <motion.div
+              className="h-full rounded-full bg-primary"
+              initial={{ width: "0%" }}
+              animate={{ width: `${pct}%` }}
+              transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+            />
+          </div>
+        )}
         <ExitButton />
       </ScreenHeader>
+      {isTest && (
+        <div className="border-b border-white/5 px-5 py-1.5 text-xs text-foreground/60">
+          <div className="mx-auto flex w-full max-w-2xl items-center gap-2">
+            <span>
+              {topicShortLabel({ topic: exercise.topic })} · {exercise.belt}
+            </span>
+            <span className="ml-auto flex items-center gap-1">
+              <span>{idx + 1}/{total}</span>
+              <span className="mx-1 text-foreground/30">·</span>
+              <span>ir a</span>
+              <input
+                type="number"
+                min={1}
+                max={total}
+                value={gotoValue}
+                onChange={(e) => setGotoValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") onGoto()
+                }}
+                className="w-14 rounded border border-white/15 bg-white/5 px-1 py-0.5 text-right text-foreground/80"
+              />
+              <button
+                onClick={onGoto}
+                className="rounded border border-white/15 px-1.5 py-0.5 text-foreground/70 hover:border-white/40"
+              >
+                OK
+              </button>
+            </span>
+          </div>
+        </div>
+      )}
 
       <ScreenBody ref={bodyRef} className="overflow-x-hidden pt-0">
         <div className="grid min-h-full w-full grid-cols-1">
@@ -282,6 +411,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               {cur.showWhy ? (
                 <div className="flex flex-col gap-3 leading-relaxed text-foreground/80">
                   <MathText text={exercise.explanation ?? ""} />
+                  {isTest && <TestFeedbackBox
+                    idx={idx}
+                    value={feedbackByIdx[idx] ?? ""}
+                    onChange={(v) =>
+                      setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
+                    }
+                    onCopy={copyFeedback}
+                  />}
                 </div>
               ) : (
                 <>
@@ -297,9 +434,11 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   )}
 
                   {(() => {
+                    const hasLatex = exercise.options.some((o) => o.includes("$"))
+                    const limit = hasLatex ? 16 : 25
                     const useGrid =
                       exercise.options.length === 4 &&
-                      exercise.options.every((o) => o.length <= 35)
+                      exercise.options.every((o) => o.length <= limit)
                     return (
                       <div className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
                         {exercise.options.map((opt, i) => {
@@ -311,7 +450,14 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                           let borderCls = "border-white/10"
                           let textCls = "text-foreground/80"
                           let extraCls = ""
-                          if (isShaking) {
+                          if (isTest && noAnswer) {
+                            if (isCorrectOpt) {
+                              borderCls = "border-green-500/50"
+                              textCls = "text-green-400 font-medium"
+                            } else {
+                              extraCls = "opacity-60"
+                            }
+                          } else if (isShaking) {
                             borderCls = "border-[#E3690B]"
                             textCls = "text-[#E3690B] font-medium"
                           } else if (isWrong) {
@@ -334,7 +480,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                           return (
                             <button
                               key={i}
-                              disabled={solved || isWrong}
+                              disabled={solved || isWrong || (isTest && noAnswer)}
                               onClick={() => handlePick(i)}
                               className={cn(
                                 "w-full rounded-md border bg-white/5 px-4 py-3.5 text-base transition-[color,border-color,opacity] duration-200 disabled:pointer-events-none",
@@ -365,6 +511,70 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                       </div>
                     )
                   })()}
+                  {isTest && noAnswer && (
+                    <div className="flex flex-col gap-3 border-t border-white/10 pt-4 text-sm text-foreground/80">
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-semibold uppercase tracking-wide text-foreground/50">
+                          Feedback correcto
+                        </span>
+                        <MathText text={exercise.feedback_correct} />
+                      </div>
+                      {Array.isArray(exercise.feedback_incorrect) &&
+                        exercise.feedback_incorrect.map((hint, i) =>
+                          hint ? (
+                            <div key={i} className="flex flex-col gap-1.5">
+                              <span className="text-xs font-semibold uppercase tracking-wide text-orange-400/80">
+                                Distractor {i}: {exercise.options[i]}
+                              </span>
+                              <MathText text={hint} />
+                              <textarea
+                                value={(distractorFbByIdx[idx] ?? {})[i] ?? ""}
+                                onChange={(e) =>
+                                  setDistractorFbByIdx((f) => ({
+                                    ...f,
+                                    [idx]: {
+                                      ...(f[idx] ?? {}),
+                                      [i]: e.target.value,
+                                    },
+                                  }))
+                                }
+                                placeholder="Feedback sobre este distractor…"
+                                className="min-h-16 rounded-md border border-white/10 bg-white/5 p-2 text-xs text-foreground/85 outline-none focus:border-white/40"
+                              />
+                            </div>
+                          ) : null,
+                        )}
+                      {exercise.explanation && (
+                        <div className="flex flex-col gap-1.5">
+                          <span className="text-xs font-semibold uppercase tracking-wide text-foreground/50">
+                            Explicación
+                          </span>
+                          <MathText text={exercise.explanation} />
+                          <textarea
+                            value={explanationFbByIdx[idx] ?? ""}
+                            onChange={(e) =>
+                              setExplanationFbByIdx((f) => ({
+                                ...f,
+                                [idx]: e.target.value,
+                              }))
+                            }
+                            placeholder="Feedback sobre la explicación…"
+                            className="min-h-16 rounded-md border border-white/10 bg-white/5 p-2 text-xs text-foreground/85 outline-none focus:border-white/40"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {isTest && (
+                    <TestFeedbackBox
+                      idx={idx}
+                      value={feedbackByIdx[idx] ?? ""}
+                      onChange={(v) =>
+                        setFeedbackByIdx((f) => ({ ...f, [idx]: v }))
+                      }
+                      onCopy={copyFeedback}
+                    />
+                  )}
                 </>
               )}
               </div>
@@ -462,6 +672,10 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
               <Button size="lg" className={ctaCls} onClick={onContinue}>
                 {continueLabel}
               </Button>
+            ) : isTest && noAnswer ? (
+              <Button size="lg" className={ctaCls} onClick={onSkip}>
+                {isLast ? "Terminar" : "Siguiente"}
+              </Button>
             ) : solved ? (
               <>
                 {exercise.explanation && (
@@ -479,14 +693,28 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                 </Button>
               </>
             ) : (
-              <Button
-                size="lg"
-                className={ctaCls}
-                disabled={cur.selection === null || cur.result === "wrong"}
-                onClick={onRevisar}
-              >
-                Revisar
-              </Button>
+              <>
+                <Button
+                  size="lg"
+                  className={ctaCls}
+                  disabled={cur.selection === null || cur.result === "wrong"}
+                  onClick={onRevisar}
+                >
+                  Revisar
+                </Button>
+                {isTest && !isLast && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="h-[var(--cta-h)] rounded-md bg-background dark:bg-background"
+                    onClick={onSkip}
+                    aria-label="Saltear"
+                    title="Saltear"
+                  >
+                    <SkipForward />
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -497,6 +725,74 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
           resumen. */}
       {finishing && <div className="fixed inset-0 z-50 bg-background" />}
     </Screen>
+  )
+}
+
+function TestFeedbackBox({
+  idx,
+  value,
+  onChange,
+  onCopy,
+}: {
+  idx: number
+  value: string
+  onChange: (value: string) => void
+  onCopy: () => void
+}) {
+  return (
+    <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
+      <label className="text-xs font-semibold uppercase tracking-wide text-foreground/50">
+        Feedback para este ítem
+      </label>
+      <textarea
+        key={idx}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Qué está mal, qué esperabas, qué regla se rompe…"
+        className="min-h-24 rounded-md border border-white/15 bg-white/5 p-2 text-sm text-foreground/85 outline-none focus:border-white/40"
+      />
+      <Button size="sm" variant="outline" onClick={onCopy} className="self-end">
+        Copiar snippet
+      </Button>
+    </div>
+  )
+}
+
+function JsonDialog({ exercise }: { exercise: SessionExercise }) {
+  function copy() {
+    navigator.clipboard?.writeText(JSON.stringify(exercise, null, 2))
+  }
+  return (
+    <Dialog>
+      <DialogTrigger
+        render={
+          <Button variant="ghost" size="icon-sm" aria-label="Ver JSON crudo">
+            <Braces />
+          </Button>
+        }
+      />
+      <DialogContent className="max-h-[85vh] w-[min(90vw,44rem)] max-w-none gap-3 overflow-hidden">
+        <DialogHeader className="gap-0.5">
+          <DialogTitle className="font-mono text-sm">
+            {exercise.external_id || exercise.id}
+          </DialogTitle>
+          <DialogDescription>
+            JSON crudo del ejercicio actual.
+          </DialogDescription>
+        </DialogHeader>
+        <pre className="max-h-[60vh] overflow-auto rounded-md border border-white/10 bg-black/40 p-3 text-[11px] leading-relaxed text-foreground/85">
+          {JSON.stringify(exercise, null, 2)}
+        </pre>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={copy}
+          className="self-end"
+        >
+          Copiar JSON
+        </Button>
+      </DialogContent>
+    </Dialog>
   )
 }
 

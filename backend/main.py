@@ -161,10 +161,14 @@ class StartSessionRequest(BaseModel):
     course: str | None = None
 
 
+class ZenSessionItem(BaseModel):
+    belt: str
+    topic: str
+
+
 class StartZenSessionRequest(BaseModel):
     user_name: str
-    belt: str
-    topics: list[str]
+    items: list[ZenSessionItem]
     count: int
     course: str | None = None
 
@@ -175,9 +179,16 @@ class TestSessionItem(BaseModel):
     exercise_type: str
 
 
+class TestFilters(BaseModel):
+    has_math: bool = False
+    has_graph: bool = False
+
+
 class StartTestSessionRequest(BaseModel):
     items: list[TestSessionItem]
     course: str | None = None
+    shuffle: bool = True
+    filters: TestFilters | None = None
 
 
 class AnswerRequest(BaseModel):
@@ -924,16 +935,38 @@ def get_university_leaderboard(
 
 @app.get("/leaderboard/summary", response_model=LeaderboardSummaryResponse)
 def get_leaderboard_summary(
+    university: str | None = Query(default=None),
+    career: str | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Números generales (globales) de la cabecera del leaderboard: estudiantes
-    registrados, ejercicios acumulados y universidades presentes. No dependen de
-    ningún filtro de carrera/universidad."""
+    """Números de la cabecera del leaderboard: estudiantes registrados,
+    ejercicios completados y universidades presentes.
+
+    `universities` siempre lista el set completo (para poblar el filtro), pero
+    `total_students`/`total_exercises` respetan `career`/`university` si se
+    pasan, igual que el scope de `/leaderboard`."""
     enrollments = db.query(Enrollment).filter(Enrollment.course_id == 1).all()
     universities = sorted({e.university for e in enrollments if e.university})
-    total_students = sum(1 for e in enrollments if e.university)
-    total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+
+    if university is None and career is None:
+        total_students = sum(1 for e in enrollments if e.university)
+        total_exercises = db.query(func.count(Answer.id)).scalar() or 0
+    else:
+        scoped_user_ids = [
+            e.user_id
+            for e in enrollments
+            if e.university
+            and (university is None or e.university == university)
+            and (career is None or _career_bucket(e.career) == career)
+        ]
+        total_students = len(scoped_user_ids)
+        total_exercises = (
+            db.query(func.count(Answer.id))
+            .filter(Answer.user_id.in_(scoped_user_ids))
+            .scalar()
+            or 0
+        )
     return LeaderboardSummaryResponse(
         total_students=total_students,
         total_exercises=total_exercises,
@@ -1056,10 +1089,10 @@ def start_zen_session(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic."""
+    """Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic."""
     from session_store import create_zen_session_db
 
-    if not body.topics:
+    if not body.items:
         raise HTTPException(status_code=400, detail="Seleccioná al menos un tema.")
     if body.count < 1:
         raise HTTPException(status_code=400, detail="El número de ejercicios debe ser al menos 1.")
@@ -1067,7 +1100,7 @@ def start_zen_session(
     try:
         return create_zen_session_db(
             user_id=current_user.id, course_id=course_id,
-            belt=body.belt, topics=body.topics, count=body.count, db=db,
+            items=[i.model_dump() for i in body.items], count=body.count, db=db,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -1089,6 +1122,8 @@ def start_test_session(
         return create_test_session_db(
             user_id=current_user.id, course_id=course_id,
             items=[i.model_dump() for i in body.items], db=db,
+            shuffle=body.shuffle,
+            filters=body.filters.model_dump() if body.filters else None,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

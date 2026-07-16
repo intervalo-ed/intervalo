@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Antes de aplicar eliminación de Gauss, ¿qué operación por fila es válida para simplificar el sistema?",
+    "options": [
+      "Sumar un múltiplo de una fila a otra fila",
+      "Elevar al cuadrado los elementos de una fila",
+      "Eliminar una fila completa sin usarla en el cálculo"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Sumar un múltiplo de una fila a otra es una de las operaciones elementales permitidas.",
+    "feedback_incorrect": [
+      null,
+      "Elevar al cuadrado no es una operación elemental por fila válida.",
+      "Descartar una fila sin operar con ella no preserva el sistema original."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las operaciones elementales por fila permitidas en la eliminación de Gauss son tres: intercambiar dos filas, multiplicar una fila por un escalar no nulo, y sumar un múltiplo de una fila a otra.\n\nSumar un múltiplo de una fila a otra fila es la operación clave para ir generando ceros debajo de la diagonal.\n\nCualquier operación fuera de esas tres, como elevar al cuadrado o descartar filas, puede cambiar el conjunto de soluciones del sistema, y por eso no está permitida.",
+    "reviewed": false
+  }
+]

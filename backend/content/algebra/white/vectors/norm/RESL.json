@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál es la norma de $\\vec{v} = (3, 4)$?",
+    "options": [
+      "$5$",
+      "$7$",
+      "$25$",
+      "$\\sqrt{7}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\|\\vec{v}\\| = \\sqrt{3^2+4^2} = \\sqrt{25} = 5$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar las componentes en vez de elevarlas al cuadrado.",
+      "Eso es la suma de los cuadrados, falta la raíz cuadrada final.",
+      "Faltó elevar cada componente al cuadrado antes de sumar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La norma se calcula elevando al cuadrado cada componente, sumando, y sacando raíz cuadrada.\n$$\\|\\vec{v}\\| = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5$$\n\nEste vector, $(3,4)$, es un caso clásico porque su norma da un número entero.\n\nUn error frecuente es olvidar la raíz cuadrada final y quedarse con la suma de los cuadrados.",
+    "reviewed": false
+  }
+]

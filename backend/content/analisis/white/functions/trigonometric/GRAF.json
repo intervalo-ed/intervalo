@@ -10,7 +10,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El seno tiene un único máximo (en $x = \\pi/2$) en cada período $[0, 2\\pi]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Estás contando un pico de más, revisá si ese segundo pico realmente cae dentro de $[0,2\\pi]$ o pertenece a otro período.",
+      "Repasá la curva completa entre $0$ y $2\\pi$, sí hay un tramo donde llega arriba antes de bajar.",
+      "Ese conteo corresponde a más de un período, revisá que estés mirando solo el tramo $[0,2\\pi]$."
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -32,7 +37,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "$\\operatorname{sen}(0) = \\operatorname{sen}(\\pi) = \\operatorname{sen}(2\\pi) = 0$: hay 3 ceros en $[0, 2\\pi]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Releé los extremos del intervalo, si contaste solo los cruces interiores te falta sumar los bordes.",
+      null,
+      "Repasá toda la curva entre $0$ y $2\\pi$, cruza el eje horizontal más de una vez.",
+      "Contá de nuevo los cruces con el eje, estás sumando uno que no aparece en ese tramo."
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -46,15 +56,20 @@
   {
     "question": "¿Cuál es el período de esta función trigonométrica según la gráfica?",
     "options": [
-      "$\\pi/2$",
-      "$2\\pi$",
       "$\\pi$",
+      "$2\\pi$",
+      "$\\pi/2$",
       "$4\\pi$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "La onda completa un ciclo en $\\pi$ radianes: período $= \\pi$, consistente con $\\operatorname{sen}(2x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese valor corresponde a varios ciclos seguidos, no a la longitud de un ciclo completo.",
+      "Fijate dónde termina realmente el primer ciclo completo, ese tramo es más largo de lo que estás midiendo.",
+      "Ese valor corresponde a contar varios ciclos completos, no uno solo."
+    ],
     "graph_fn": "sin(2*x)",
     "graph_view": [
       -5,
@@ -76,7 +91,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "La gráfica del coseno es simétrica respecto al eje $Y$: es una función par.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Volvé a mirar ambos lados del eje $Y$, la curva sí se repite en espejo.",
+      "Esa simetría respecto al origen corresponde al seno, releé cómo se refleja esta curva en particular.",
+      "Repasá la mitad izquierda contra la derecha respecto al eje $Y$, si son espejo hay simetría.",
+      null
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -98,7 +118,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El coseno tiene un máximo por período ($2\\pi$): en $[0, 4\\pi]$ hay exactamente 2 máximos.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Revisá cuántos períodos completos entran en $[0,4\\pi]$, hay más de uno y cada uno aporta su propio pico.",
+      "Estás contando también los mínimos o los cruces por el eje, fijate solo en los picos hacia arriba.",
+      "Repasá el ancho de cada período dentro de $[0,4\\pi]$, te sobra un pico en el conteo."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -120,7 +145,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La curva oscila entre $-3$ y $3$: la amplitud (distancia del eje al máximo) es 3.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es la amplitud del seno sin escalar, mirá hasta dónde llega realmente esta curva en el eje vertical.",
+      null,
+      "Fijate en el punto más alto de la curva, no a mitad de camino entre el eje y el techo.",
+      "Ese número tiene que ver con el período, no con la altura de la curva desde el eje central."
+    ],
     "graph_fn": "3 * sin(x)",
     "graph_view": [
       -7,
@@ -134,15 +164,20 @@
   {
     "question": "¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
-      "1",
-      "3",
       "2 (en $x = \\pi/2$ y $x = 3\\pi/2$)",
+      "3",
+      "1",
       "0"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "$\\cos(\\pi/2) = \\cos(3\\pi/2) = 0$: hay 2 ceros del coseno en $[0, 2\\pi]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Contá de nuevo los cruces con el eje, estás sumando uno que no aparece en este tramo.",
+      "Repasá la curva completa entre $0$ y $2\\pi$, hay más de un cruce con el eje horizontal.",
+      "El coseno sí toca el eje horizontal en ese intervalo, fijate entre el máximo inicial y el mínimo."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -164,7 +199,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "$\\cos(0) = 1$ (máximo) y $\\operatorname{sen}(0) = 0$: esa es la diferencia clave en $x = 0$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Repasá la gráfica del coseno en un ciclo completo, sí cruza el eje horizontal en algún punto.",
+      "Compará la altura máxima de ambas curvas, las dos llegan al mismo techo.",
+      "Medí el ancho de un ciclo completo en cada curva, son iguales.",
+      null
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -186,7 +226,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "El período es $2\\pi$: en $[0, 4\\pi]$ caben exactamente 2 períodos completos.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Fijate cuántas veces se repite el ciclo completo dentro de todo el intervalo $[0,4\\pi]$, no solo en la primera mitad.",
+      "Estás contando algo distinto a ciclos completos, repasá cuántas veces sube y baja la curva entera.",
+      "Revisá de nuevo cuántas veces entra un ciclo completo en $[0,4\\pi]$, te sobra uno en el conteo."
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -208,7 +253,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "La función $\\operatorname{sen}(2x)$ tiene período $\\pi$: en $[0, 2\\pi]$ se completan 2 ciclos.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Volvé a contar los picos positivos en el tramo visible, hay más de uno.",
+      null,
+      "Contá de nuevo, estás sumando ciclos que no entran en el tramo mostrado.",
+      "Fijate cuántos picos completos entran realmente en la parte visible, no todos los que imaginás fuera de rango."
+    ],
     "graph_fn": "sin(2*x)",
     "graph_view": [
       -5,
@@ -230,7 +280,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "En la gráfica se ve que la curva sube desde $-\\pi/2$ hasta $\\pi/2$, pasando por el máximo $\\sin(\\pi/2)=1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese tramo mezcla una bajada y una subida, no es monótono, fijate que la curva primero baja y después sube ahí.",
+      null,
+      "Repasá ese tramo con cuidado, la curva baja de principio a fin en ese intervalo.",
+      "Ese intervalo tampoco es monótono, la curva baja y después sube dentro de él."
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -6.5,
@@ -238,7 +293,7 @@
       -2,
       2
     ],
-    "explanation": "En la gráfica de $f(x) = \\sin(x)$, un tramo **creciente** es aquel donde la curva sube de izquierda a derecha.\n\nLos tramos crecientes de $\\sin$ son $[-\\pi/2 + 2k\\pi,\\ \\pi/2 + 2k\\pi]$ para $k \\in \\mathbb{Z}$.\n\nDe las opciones:\n- $[-\\pi/2, \\pi/2]$: la curva sube desde $-1$ hasta $1$ pasando por el cero. **Creciente**.\n- $[-\\pi, 0]$: la curva baja de $0$ a $-1$ y luego sube de $-1$ a $0$. No es monótona en ese intervalo.\n- $[\\pi/2, 3\\pi/2]$: la curva baja desde $1$ hasta $-1$. **Decreciente**.\n- $[\\pi, 2\\pi]$: la curva baja y luego sube. No es monótona.",
+    "explanation": "En la gráfica de $f(x) = \\sin(x)$, un tramo **creciente** es aquel donde la curva sube de izquierda a derecha. Los tramos crecientes de $\\sin$ son $[-\\pi/2 + 2k\\pi,\\ \\pi/2 + 2k\\pi]$ para $k \\in \\mathbb{Z}$.\n\nDe las opciones, en $[-\\pi/2, \\pi/2]$ la curva sube desde $-1$ hasta $1$ pasando por el cero, así que es el único tramo creciente. En $[-\\pi, 0]$ la curva baja de $0$ a $-1$ y luego sube de $-1$ a $0$, por lo que no es monótona en ese intervalo. En $[\\pi/2, 3\\pi/2]$ la curva baja desde $1$ hasta $-1$, es decreciente. Y en $[\\pi, 2\\pi]$ la curva baja y luego sube, tampoco es monótona.\n\nPara identificar un tramo creciente de un vistazo, ubicá dónde la curva pasa por un mínimo y seguí hasta el próximo máximo: ese es siempre el tramo que crece.",
     "reviewed": false
   },
   {
@@ -252,7 +307,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. La amplitud es $2$; el máximo es $2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese sería el techo del seno sin el factor que multiplica, fijate cuánto más alto llega esta curva en particular.",
+      "Ese valor duplicaría lo que realmente muestra el gráfico, mirá con cuidado hasta dónde llega el pico.",
+      "Estás sumando de más, fijate en qué altura exacta del eje vertical toca el punto más alto de la curva.",
+      null
+    ],
     "graph_fn": "2*sin(x)",
     "graph_view": [
       -7,
@@ -266,15 +326,20 @@
   {
     "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿Cuál es el dominio de $f$?",
     "options": [
-      "$(0, +\\infty)$",
-      "$[-\\pi, \\pi]$",
       "$\\mathbb{R}$",
+      "$[-\\pi, \\pi]$",
+      "$(0, +\\infty)$",
       "$[-1, 1]$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El coseno está definido para todo real.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese sería un recorte arbitrario del eje horizontal, la curva sigue dibujándose sin cortes hacia ambos lados.",
+      "Esa forma, que arranca en un punto y no existe a la izquierda, es de otra familia de funciones, esta curva se extiende sin límite hacia ambos lados.",
+      "Ese intervalo corresponde a los valores que toma la curva en el eje vertical, no a los valores de entrada."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -296,7 +361,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El seno va de $-1$ a $1$; sumando $1$: imagen $[0, 2]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el recorrido del seno antes de correrlo hacia arriba, fijate cuánto sube el piso y el techo de la curva en el gráfico.",
+      "Ese intervalo cubriría solo la mitad del recorrido vertical, mirá tanto el punto más bajo como el más alto de la curva.",
+      "Revisá el punto más bajo de la curva en el gráfico, no baja tanto como para llegar a ese valor."
+    ],
     "graph_fn": "sin(x)+1",
     "graph_view": [
       -7,
@@ -304,7 +374,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n\n$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\\\\\n&= [0,\\; 2]\n\\end{aligned}$\n\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$. La opción $[-1,1]$ es el rango sin desplazamiento. La opción $[1,2]$ tendría amplitud $0{,}5$. La imagen correcta es $[0,2]$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n\n$$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\n&= [0,\\; 2]\n\\end{aligned}$$\n\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$. La opción $[-1,1]$ es el rango sin desplazamiento. La opción $[1,2]$ tendría amplitud $0{,}5$. La imagen correcta es $[0,2]$.",
     "reviewed": false
   },
   {
@@ -318,7 +388,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $B = 2$, período $= 2\\pi/2 = \\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor sale de estirar el ciclo al doble, en el gráfico el ciclo se ve más corto, no más largo.",
+      null,
+      "Ese sería el período del seno sin comprimir, contá de nuevo cuántas oscilaciones entran en ese mismo ancho.",
+      "Ese valor comprime el ciclo más de lo que muestra el gráfico, medí bien la distancia entre dos picos consecutivos."
+    ],
     "graph_fn": "sin(2*x)",
     "graph_view": [
       -5,
@@ -326,7 +401,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad. En el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas, lo que confirma período $=2\\pi/2=\\pi$.\n\n$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi\n\\end{aligned}$\n\nLa opción $4\\pi$ sería con $B=1/2$. La opción $2\\pi$ ignoraría el $B=2$. La opción $\\pi/2$ necesitaría $B=4$. El período correcto es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad. En el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas, lo que confirma período $=2\\pi/2=\\pi$.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi\n\\end{aligned}$$\n\nLa opción $4\\pi$ sería con $B=1/2$. La opción $2\\pi$ ignoraría el $B=2$. La opción $\\pi/2$ necesitaría $B=4$. El período correcto es $\\pi$.",
     "reviewed": false
   },
   {
@@ -340,7 +415,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $-\\operatorname{sen}(x)$ crece donde el seno decrece: $[\\pi/2, 3\\pi/2]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Repasá ese tramo en el gráfico, ahí la curva en realidad baja, no sube.",
+      null,
+      "Ese tramo mezcla una bajada y una subida, no es monótono, fijate dónde cambia de dirección la curva.",
+      "Ese intervalo también combina subida y bajada, mirá con cuidado el punto donde la curva cambia de sentido."
+    ],
     "graph_fn": "-sin(x)",
     "graph_view": [
       -7,
@@ -362,7 +442,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $3$, parte en $0$: es $3\\,\\operatorname{sen}(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese coeficiente dentro del argumento cambiaría el período, y el gráfico muestra el mismo ancho de ciclo que el seno básico.",
+      "Esa fórmula arranca en el techo en $x=0$, mirá con qué valor empieza realmente la curva en el gráfico.",
+      null,
+      "Esa fórmula tiene una amplitud distinta a la que muestra el gráfico, fijate hasta dónde llega realmente el pico."
+    ],
     "graph_fn": "3*sin(x)",
     "graph_view": [
       -7,
@@ -370,7 +455,7 @@
       -4,
       4
     ],
-    "explanation": "La onda tiene máximo $3$, mínimo $-3$, período $2\\pi$, y en $x=0$ vale $0$. Las señales apuntan a $f(x)=3\\,\\operatorname{sen}(x)$:\n\n— Amplitud $3$ $\\Rightarrow$ coeficiente $A=3$.\n— Período $2\\pi$ $\\Rightarrow$ $B=1$.\n— $f(0)=3\\,\\operatorname{sen}(0)=0$ ✓ (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada. La opción $\\operatorname{sen}(3x)$ tiene amplitud $1$, no $3$. La que arranca en $0$ con amplitud $3$ es $3\\,\\operatorname{sen}(x)$.",
+    "explanation": "La onda tiene máximo $3$, mínimo $-3$, período $2\\pi$, y en $x=0$ vale $0$. Las señales apuntan a $f(x)=3\\,\\operatorname{sen}(x)$: amplitud $3$ implica coeficiente $A=3$, período $2\\pi$ implica $B=1$, y $f(0)=3\\,\\operatorname{sen}(0)=0$ ✓ (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada. La opción $\\operatorname{sen}(3x)$ tiene amplitud $1$, no $3$. La que arranca en $0$ con amplitud $3$ es $3\\,\\operatorname{sen}(x)$.",
     "reviewed": false
   },
   {
@@ -384,7 +469,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. La firma del coseno es el máximo en $x = 0$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa función vale cero en $x=0$ según el gráfico, no toca el techo justo ahí.",
+      "Esa función arranca en el piso, no en el techo, fijate en el valor inicial que muestra la curva.",
+      null,
+      "Esa función también arranca en el piso, no en el techo como muestra la curva en $x=0$."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -398,15 +488,20 @@
   {
     "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n¿En qué valores de $x \\in [0, 2\\pi]$ la función se anula?",
     "options": [
-      "$x = \\pi/2$ y $x = 3\\pi/2$",
-      "$x = 0$ y $x = 2\\pi$",
       "$x = 0$, $x = \\pi$ y $x = 2\\pi$",
+      "$x = 0$ y $x = 2\\pi$",
+      "$x = \\pi/2$ y $x = 3\\pi/2$",
       "$x = \\pi/4$ y $x = 5\\pi/4$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. $2\\,\\operatorname{sen}(x) = 0$ en los múltiplos de $\\pi$: $0, \\pi, 2\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Te falta un cruce con el eje intermedio, revisá toda la curva entre los extremos, no solo las puntas.",
+      "Esos valores marcan dónde la curva toca el techo y el piso, no dónde cruza el eje horizontal.",
+      "Esos puntos no están sobre el eje horizontal en el gráfico, fijate bien dónde la curva realmente lo cruza."
+    ],
     "graph_fn": "2*sin(x)",
     "graph_view": [
       -7,
@@ -428,7 +523,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $f(\\pi) = -\\cos(\\pi) = -(-1) = 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor corresponde al coseno sin el signo negativo, fijate qué hace el signo con la altura de la curva en ese punto.",
+      "Revisá el punto exacto $x=\\pi$ en el gráfico, ahí la curva no está sobre el eje horizontal.",
+      null,
+      "Ese valor mezcla el ángulo con la altura de la curva, mirá el eje vertical, no el horizontal."
+    ],
     "graph_fn": "-cos(x)",
     "graph_view": [
       -7,
@@ -436,7 +536,7 @@
       -2,
       2
     ],
-    "explanation": "Para evaluar $f(\\pi)=-\\cos(\\pi)$, se usa $\\cos(\\pi)=-1$:\n\n$\\begin{aligned}\nf(\\pi) &= -\\cos(\\pi) \\\\\\\\\n&= -(-1) \\\\\\\\\n&= 1\n\\end{aligned}$\n\nEl gráfico confirma: en $x=\\pi$, la curva de $-\\cos(x)$ alcanza su máximo $1$ (pues es la reflexión del coseno, cuyo mínimo en $\\pi$ se convierte en máximo). La opción $-1$ sería $\\cos(\\pi)$, sin el signo negativo.",
+    "explanation": "Para evaluar $f(\\pi)=-\\cos(\\pi)$, se usa $\\cos(\\pi)=-1$:\n\n$$\\begin{aligned}\nf(\\pi) &= -\\cos(\\pi) \\\\\n&= -(-1) \\\\\n&= 1\n\\end{aligned}$$\n\nEl gráfico confirma: en $x=\\pi$, la curva de $-\\cos(x)$ alcanza su máximo $1$ (pues es la reflexión del coseno, cuyo mínimo en $\\pi$ se convierte en máximo). La opción $-1$ sería $\\cos(\\pi)$, sin el signo negativo.",
     "reviewed": false
   },
   {
@@ -450,7 +550,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $1$, eje $y = 1$: $\\operatorname{sen}(x) + 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula bajaría hasta el piso opuesto, releé el mínimo que describe el gráfico.",
+      null,
+      "Esa fórmula tiene un piso más alto del que describe el gráfico, revisá el valor mínimo.",
+      "Esa fórmula duplica la altura del techo, releé la distancia entre el máximo y el eje central del gráfico."
+    ],
     "graph_fn": "sin(x)+1",
     "graph_view": [
       -7,
@@ -472,7 +577,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Período $= \\pi$, en $[0, 2\\pi]$ caben $2$ ciclos.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese conteo corresponde a un ciclo más lento del que muestra el gráfico, fijate cuántas veces se repite el patrón.",
+      "Estás contando de más, revisá cuántas veces realmente sube y baja la curva dentro de ese tramo.",
+      "Ese número duplica lo que realmente se ve, contá de nuevo cuántos ciclos completos entran en el intervalo.",
+      null
+    ],
     "graph_fn": "cos(2*x)",
     "graph_view": [
       -5,
@@ -480,7 +590,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben:\n\n$\\begin{aligned}\n\\text{ciclos} &= \\frac{\\text{largo del intervalo}}{T} \\\\\\\\\n&= \\frac{2\\pi}{\\pi} \\\\\\\\\n&= 2\n\\end{aligned}$\n\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$. La opción $1$ sería el resultado con $B=1$. La opción $4$ necesitaría $B=4$.",
+    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben:\n\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{\\text{largo del intervalo}}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2\n\\end{aligned}$$\n\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$. La opción $1$ sería el resultado con $B=1$. La opción $4$ necesitaría $B=4$.",
     "reviewed": false
   },
   {
@@ -494,7 +604,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $2$, período $2\\pi$, parte en máximo: $2\\cos(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula tendría un ciclo más corto del que describe el enunciado, revisá el período.",
+      "Esa fórmula no arranca en el techo, releé en qué valor está la curva en $x=0$ según el enunciado.",
+      null,
+      "Esa fórmula tiene una amplitud mucho menor a la que describe el enunciado, revisá el máximo y el mínimo."
+    ],
     "graph_fn": "2*cos(x)",
     "graph_view": [
       -7,
@@ -508,15 +623,20 @@
   {
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x) - 1$.\n\n¿Cuál es el valor mínimo de $f$?",
     "options": [
-      "$0$",
-      "$-1$",
       "$-2$",
+      "$-1$",
+      "$0$",
       "$1$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El mínimo del seno es $-1$; restando $1$: $-1 - 1 = -2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el mínimo del seno sin desplazar, fijate cuánto más abajo baja la curva desplazada en el gráfico.",
+      "Ese sería el mínimo si no hubiera desplazamiento hacia abajo, revisá el punto más bajo que realmente toca la curva.",
+      "Ese valor está del lado positivo, mirá el punto más bajo de la curva, que queda debajo del eje horizontal."
+    ],
     "graph_fn": "sin(x)-1",
     "graph_view": [
       -7,
@@ -524,7 +644,7 @@
       -3,
       1
     ],
-    "explanation": "El **mínimo** de $f(x)=\\operatorname{sen}(x)-1$ se alcanza cuando $\\operatorname{sen}(x)=-1$:\n\n$\\begin{aligned}\nf_{\\min} &= -1 + D \\\\\\\\\n&= -1 + (-1) \\\\\\\\\n&= -2\n\\end{aligned}$\n\nLa opción $-1$ es el mínimo del seno sin desplazamiento, o el valor de $D$. La opción $0$ es el mínimo si $D=1$. El gráfico muestra la curva tocando $y=-2$ en su punto más bajo: ese es el mínimo.",
+    "explanation": "El **mínimo** de $f(x)=\\operatorname{sen}(x)-1$ se alcanza cuando $\\operatorname{sen}(x)=-1$:\n\n$$\\begin{aligned}\nf_{\\min} &= -1 + D \\\\\n&= -1 + (-1) \\\\\n&= -2\n\\end{aligned}$$\n\nLa opción $-1$ es el mínimo del seno sin desplazamiento, o el valor de $D$. La opción $0$ es el mínimo si $D=1$. El gráfico muestra la curva tocando $y=-2$ en su punto más bajo: ese es el mínimo.",
     "reviewed": false
   },
   {
@@ -538,7 +658,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $\\operatorname{sen}(2x) = 0$ en $2x = \\pi$, es decir $x = \\pi/2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el segundo cruce positivo con el eje, no el primero, fijate cuál aparece antes en el gráfico.",
+      "Ese punto no está sobre el eje horizontal en el gráfico, revisá dónde la curva realmente lo cruza.",
+      null,
+      "Ese valor corresponde a varios ciclos después, fijate en el primer cruce con el eje después de $x=0$."
+    ],
     "graph_fn": "sin(2*x)",
     "graph_view": [
       -5,
@@ -546,7 +671,7 @@
       -2,
       2
     ],
-    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n\n$\\begin{aligned}\nx &= \\frac{\\pi}{2}\n\\end{aligned}$\n\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
+    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}\n\\end{aligned}$$\n\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false
   },
   {
@@ -560,7 +685,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Parte en $0$ y baja primero: $-\\operatorname{sen}(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa función sube primero en vez de bajar, fijate hacia dónde va la curva justo después de $x=0$.",
+      "Esa función no arranca en el eje horizontal, arranca ya abajo, revisá el valor en $x=0$.",
+      null,
+      "Esa función arranca en el techo, no en el eje horizontal, revisá el valor inicial de la curva."
+    ],
     "graph_fn": "-sin(x)",
     "graph_view": [
       -7,
@@ -582,7 +712,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $3$: imagen $[-3, 3]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el recorrido del seno sin escalar, fijate cuánto más alto y más bajo llega esta curva en particular.",
+      null,
+      "Esa mitad del recorrido deja afuera todo lo que la curva baja por debajo del eje, revisá el punto más bajo.",
+      "Esa mitad del recorrido deja afuera todo lo que la curva sube por encima del eje, revisá el punto más alto."
+    ],
     "graph_fn": "3*sin(x)",
     "graph_view": [
       -7,
@@ -590,7 +725,7 @@
       -4,
       4
     ],
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $3$ da:\n\n$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]\n\\end{aligned}$\n\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo), y no supera esos valores. La opción $[-1,1]$ es la imagen sin amplificar. La opción $[0,3]$ solo cubriría la mitad positiva.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $3$ da:\n\n$$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]\n\\end{aligned}$$\n\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo), y no supera esos valores. La opción $[-1,1]$ es la imagen sin amplificar. La opción $[0,3]$ solo cubriría la mitad positiva.",
     "reviewed": false
   },
   {
@@ -604,7 +739,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $T(6) = 10\\,\\operatorname{sen}(0) + 20 = 20\\,°C$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es el máximo del modelo, que ocurre en otra hora del día, no a las $6$ a.m.",
+      "Ese valor sería la amplitud del modelo, no la temperatura en un instante puntual, releé qué representa cada parámetro.",
+      "Ese valor está a mitad de camino entre el eje de oscilación y el máximo, revisá en qué parte del ciclo cae esa hora.",
+      null
+    ],
     "graph_fn": "10*sin(pi/12*(x-6))+20",
     "graph_view": [
       -2,
@@ -612,21 +752,26 @@
       5,
       35
     ],
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n\n$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\\\\\n&= 10\\cdot0+20 \\\\\\\\\n&= 20\\,°C\n\\end{aligned}$\n\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$). El modelo indica que a las $6$ el día apenas empieza a calentarse.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n\n$$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\n&= 10\\cdot0+20 \\\\\n&= 20\\,°C\n\\end{aligned}$$\n\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$). El modelo indica que a las $6$ el día apenas empieza a calentarse.",
     "reviewed": false
   },
   {
     "question": "Usando el mismo modelo $T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$, ¿a qué hora ocurre la temperatura máxima?",
     "options": [
-      "$h = 0$ (medianoche)",
-      "$h = 18$ (6 p.m.)",
       "$h = 12$ (mediodía)",
+      "$h = 18$ (6 p.m.)",
+      "$h = 0$ (medianoche)",
       "$h = 6$ (6 a.m.)"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El seno es $1$ cuando el argumento $= \\pi/2$: $(h-6)\\pi/12 = \\pi/2 \\Rightarrow h = 12$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Esa hora corresponde a cuando el modelo ya está volviendo hacia el valor medio, no al pico más alto.",
+      "Esa hora corresponde al valor mínimo del modelo, no al máximo, revisá en qué parte del ciclo cae.",
+      "Esa hora es cuando el modelo pasa por su eje de oscilación, no por el pico más alto."
+    ],
     "graph_fn": "10*sin(pi/12*(x-6))+20",
     "graph_view": [
       -2,
@@ -634,7 +779,7 @@
       5,
       35
     ],
-    "explanation": "El **máximo** de $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$ ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\n\\frac{\\pi}{12}(h-6) &= \\frac{\\pi}{2} \\\\\\\\\nh - 6 &= 6 \\\\\\\\\nh &= 12\n\\end{aligned}$\n\nLa temperatura máxima ($30°C$) ocurre a las $12{:}00$ del mediodía. El gráfico muestra el pico en $h=12$. La opción $h=18$ daría el valor de vuelta al equilibrio (tarde).",
+    "explanation": "El **máximo** de $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$ ocurre cuando $\\operatorname{sen}=1$:\n\n$$\\begin{aligned}\n\\frac{\\pi}{12}(h-6) &= \\frac{\\pi}{2} \\\\\nh - 6 &= 6 \\\\\nh &= 12\n\\end{aligned}$$\n\nLa temperatura máxima ($30°C$) ocurre a las $12{:}00$ del mediodía. El gráfico muestra el pico en $h=12$. La opción $h=18$ daría el valor de vuelta al equilibrio (tarde).",
     "reviewed": false
   },
   {
@@ -648,7 +793,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Los máximos locales del seno ocurren en $x = \\pi/2 + 2k\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "El seno sí alcanza un techo en cada ciclo, fijate en el gráfico dónde toca el punto más alto.",
+      "Esos valores marcan dónde la curva cruza el eje horizontal, no dónde toca el techo.",
+      null,
+      "Esos valores no corresponden a ningún punto especial de la curva, fijate dónde está el pico en el gráfico."
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -670,7 +820,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Período $4\\pi \\Rightarrow B = 1/2$: $\\operatorname{sen}(x/2)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula comprime el ciclo mucho más de lo que describe el enunciado, revisá cuántos ciclos entrarían con ese ancho.",
+      "Esa fórmula cambia la altura del pico, no el ancho del ciclo, releé qué parámetro describe el enunciado.",
+      null,
+      "Esa fórmula también arranca en el techo y con un ciclo mucho más corto del que describe el enunciado."
+    ],
     "graph_fn": "sin(x/2)",
     "graph_view": [
       -10,
@@ -678,7 +833,7 @@
       -2,
       2
     ],
-    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$. Con $T=2\\pi/B$:\n\n$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}\n\\end{aligned}$\n\nLa función es $\\operatorname{sen}(x/2)$. La opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$). La opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos). Solo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$. Con $T=2\\pi/B$:\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}\n\\end{aligned}$$\n\nLa función es $\\operatorname{sen}(x/2)$. La opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$). La opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos). Solo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
     "reviewed": false
   },
   {
@@ -692,7 +847,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. La amplitud es $|A| = 2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es el máximo de la curva, no la distancia entre el eje central y el pico.",
+      "Ese valor es el desplazamiento del eje central, no la distancia entre el eje y el pico.",
+      null,
+      "Ese valor duplica la distancia real entre el eje central y el pico, revisá esa distancia en el gráfico."
+    ],
     "graph_fn": "2*sin(x)+1",
     "graph_view": [
       -7,
@@ -706,15 +866,20 @@
   {
     "question": "La gráfica muestra $f(x) = \\cos(x) - 2$.\n\n¿Cuál es el eje de oscilación (valor de $D$)?",
     "options": [
-      "$D = 0$",
-      "$D = -1$",
       "$D = -2$",
+      "$D = -1$",
+      "$D = 0$",
       "$D = 2$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. El desplazamiento vertical es $D = -2$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese valor está a mitad de camino, revisá alrededor de qué altura oscila realmente la curva completa.",
+      "Ese sería el eje sin desplazar, fijate cuánto bajó realmente el centro de oscilación en el gráfico.",
+      "Ese valor tiene signo contrario al que muestra el gráfico, fijate si la curva oscila arriba o abajo del eje."
+    ],
     "graph_fn": "cos(x)-2",
     "graph_view": [
       -7,
@@ -736,7 +901,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $2$ + período $\\pi$: $2\\,\\operatorname{sen}(2x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula tiene un ciclo mucho más largo que el que describe el enunciado, revisá el período.",
+      "Esa fórmula arranca en el techo, no en el eje, y además tiene un ciclo más largo del que describe el enunciado.",
+      "Esa fórmula tiene una amplitud menor a la que describe el enunciado, revisá la altura del pico.",
+      null
+    ],
     "graph_fn": "2*sin(2*x)",
     "graph_view": [
       -5,
@@ -744,7 +914,7 @@
       -3,
       3
     ],
-    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $\\pi$. Se determinan $A$ y $B$:\n\n$\\begin{aligned}\nA &= \\frac{2-(-2)}{2} = 2 \\\\\\\\\nB &= \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$\n\nLa función arranca en $0$ en $x=0$ (seno, no coseno). Luego: $f(x)=2\\,\\operatorname{sen}(2x)$. La opción $2\\cos(x)$ tiene período $2\\pi$, no $\\pi$. La opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, no $2$.",
+    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $\\pi$. Se determinan $A$ y $B$:\n\n$$\\begin{aligned}\nA &= \\frac{2-(-2)}{2} = 2 \\\\\nB &= \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$$\n\nLa función arranca en $0$ en $x=0$ (seno, no coseno). Luego: $f(x)=2\\,\\operatorname{sen}(2x)$. La opción $2\\cos(x)$ tiene período $2\\pi$, no $\\pi$. La opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, no $2$.",
     "reviewed": false
   },
   {
@@ -758,7 +928,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. $\\cos(\\pi) = -1$, $\\cos(3\\pi) = -1$, ...: $x = \\pi + 2k\\pi$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esos valores incluyen también los puntos donde la curva toca el techo, no solo el piso.",
+      "Esos valores marcan los picos hacia arriba, no los mínimos, fijate bien en el gráfico.",
+      "Esos valores marcan los cruces con el eje horizontal, no los puntos más bajos de la curva.",
+      null
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -773,14 +948,19 @@
     "question": "El nivel del mar (en metros) sigue el modelo $h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$, donde $t$ es la hora del día.\n\nSegún la gráfica, ¿cuál es el nivel mínimo del mar?",
     "options": [
       "$3$ m",
-      "$5$ m",
       "$2$ m",
+      "$5$ m",
       "$8$ m"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. Mínimo $= D - A = 5 - 3 = 2\\,\\text{m}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es la distancia entre el eje de oscilación y los extremos, no el nivel mínimo en sí.",
+      null,
+      "Ese valor es el eje de oscilación del modelo, no el punto más bajo que alcanza la marea.",
+      "Ese valor es el nivel máximo del modelo, no el mínimo, revisá bien qué parámetro se pide."
+    ],
     "graph_fn": "3*sin(pi/6*x)+5",
     "graph_view": [
       -2,
@@ -788,7 +968,7 @@
       -1,
       10
     ],
-    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n\n$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\\\\\n&= -3+5 \\\\\\\\\n&= 2\\,\\text{m}\n\\end{aligned}$\n\nLa opción $3$ m es solo la amplitud. La opción $5$ m es el eje de oscilación. La opción $8$ m es el máximo. El nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n\n$$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\n&= -3+5 \\\\\n&= 2\\,\\text{m}\n\\end{aligned}$$\n\nLa opción $3$ m es solo la amplitud. La opción $5$ m es el eje de oscilación. La opción $8$ m es el máximo. El nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
     "reviewed": false
   },
   {
@@ -802,7 +982,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo $= D + A = 5 + 3 = 8\\,\\text{m}$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es el eje de oscilación del modelo, no el punto más alto que alcanza la marea.",
+      "Ese valor es la amplitud del modelo, no el nivel máximo en sí.",
+      null,
+      "Ese valor no corresponde a ningún parámetro del modelo, revisá la suma entre el eje y la amplitud."
+    ],
     "graph_fn": "3*sin(pi/6*x)+5",
     "graph_view": [
       -2,
@@ -810,7 +995,7 @@
       -1,
       10
     ],
-    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$\\begin{aligned}\nh_{\\max} &= 3\\cdot1+5 \\\\\\\\\n&= 3+5 \\\\\\\\\n&= 8\\,\\text{m}\n\\end{aligned}$\n\nLa opción $5$ m es el nivel medio (eje de oscilación). La opción $3$ m es la amplitud. La opción $6$ m no corresponde a ningún valor del modelo. El máximo de la marea es $8$ m.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1+5 \\\\\n&= 3+5 \\\\\n&= 8\\,\\text{m}\n\\end{aligned}$$\n\nLa opción $5$ m es el nivel medio (eje de oscilación). La opción $3$ m es la amplitud. La opción $6$ m no corresponde a ningún valor del modelo. El máximo de la marea es $8$ m.",
     "reviewed": false
   },
   {
@@ -824,7 +1009,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. El mínimo en $x = 0$ ($f(0) = -1$) y máximo en $x = \\pi$ identifican $-\\cos(x)$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa función arranca en el eje horizontal, no en el piso, revisá el valor inicial que describe el enunciado.",
+      "Esa función arranca en el eje horizontal y baja primero, no arranca directamente en el piso.",
+      "Esa función arranca en el techo, no en el piso, revisá el valor inicial que describe el enunciado.",
+      null
+    ],
     "graph_fn": "-cos(x)",
     "graph_view": [
       -7,
@@ -836,7 +1026,7 @@
     "reviewed": false
   },
   {
-    "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función es creciente o decreciente en $[\\pi, 3\\pi/2]$?",
+    "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función es creciente o decreciente en $[3\\pi/2, 2\\pi]$?",
     "options": [
       "Creciente, de $0$ a $1$",
       "Constante",
@@ -845,8 +1035,13 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. En $[\\pi, 3\\pi/2]$ el seno pasa de $0$ a $-1$: eso es decreciente.",
-    "feedback_incorrect": "",
+    "feedback_correct": "Correcto. En $[3\\pi/2, 2\\pi]$ el seno pasa de $-1$ a $0$: eso es creciente.",
+    "feedback_incorrect": [
+      "Esa dirección no coincide con lo que hace la curva en ese tramo, revisá si sube o baja ahí.",
+      "La curva sí cambia en ese tramo, no se queda plana, fijate en el movimiento entre los dos extremos del intervalo.",
+      "Esa dirección es la opuesta a la que corresponde, revisá si la curva sube o baja entre esos dos extremos.",
+      null
+    ],
     "graph_fn": "sin(x)",
     "graph_view": [
       -7,
@@ -861,14 +1056,19 @@
     "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿El eje $Y$ es un eje de simetría de la gráfica?",
     "options": [
       "No, el coseno no es simétrico",
-      "No, es simétrico respecto al eje $X$",
       "Sí, porque $\\cos(-x) = \\cos(x)$",
+      "No, es simétrico respecto al eje $X$",
       "Solo parcialmente"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. El coseno es par: $\\cos(-x) = \\cos(x)$, luego el eje $Y$ es eje de simetría.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Repasá ambos lados del eje $Y$ en el gráfico, sí hay una simetría, la curva es espejo de sí misma.",
+      null,
+      "Esa simetría respecto al eje horizontal correspondería a otra relación, fijate qué eje realmente refleja esta curva.",
+      "Repasá el gráfico completo, la simetría se cumple en todo el dominio, no solo en una parte."
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,
@@ -890,7 +1090,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Máximo en $x = 0$ → coseno; amplitud $3$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula arranca en el eje horizontal, no en el techo, revisá el valor en $x=0$ que describe el enunciado.",
+      "Esa fórmula tiene un ciclo mucho más corto y una amplitud menor a la que describe el enunciado.",
+      "Esa fórmula tiene un ciclo mucho más corto del que describe el enunciado, revisá el período.",
+      null
+    ],
     "graph_fn": "3*cos(x)",
     "graph_view": [
       -7,
@@ -905,14 +1110,19 @@
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$.\n\n¿Cuánto vale $f(\\pi)$?",
     "options": [
       "$0$",
-      "$-1$",
+      "$1$",
       "$\\dfrac{1}{2}$",
-      "$1$"
+      "$-1$"
     ],
-    "correct_index": 3,
+    "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $f(\\pi) = \\operatorname{sen}(\\pi/2) = 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor sería el resultado en un cruce con el eje horizontal, revisá en qué parte del ciclo cae este punto.",
+      null,
+      "Ese valor no corresponde a ningún punto especial de la curva, revisá el ángulo real que se evalúa acá.",
+      "Ese valor tiene signo contrario al que corresponde, revisá si el punto cae en la parte de arriba o de abajo de la curva."
+    ],
     "graph_fn": "sin(x/2)",
     "graph_view": [
       -10,
@@ -920,7 +1130,7 @@
       -2,
       2
     ],
-    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$. En $x=\\pi$:\n\n$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\\\\\n&= 1\n\\end{aligned}$\n\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo). En el gráfico, $x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
+    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$. En $x=\\pi$:\n\n$$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 1\n\\end{aligned}$$\n\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo). En el gráfico, $x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
     "reviewed": false
   },
   {
@@ -934,7 +1144,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $I(0) = 311\\,\\operatorname{sen}(0) = 0$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es la amplitud del modelo, no el valor puntual en $t=0$.",
+      null,
+      "Ese valor tiene el signo invertido y además corresponde a otro instante del ciclo, no a $t=0$.",
+      "Ese valor no corresponde a ningún parámetro del modelo evaluado en $t=0$."
+    ],
     "graph_fn": "311*sin(100*pi*x)",
     "graph_view": [
       -0.03,
@@ -942,7 +1157,7 @@
       -350,
       350
     ],
-    "explanation": "Para $I(t)=311\\,\\operatorname{sen}(100\\pi t)$, en $t=0$:\n\n$\\begin{aligned}\nI(0) &= 311\\,\\operatorname{sen}(100\\pi\\cdot0) \\\\\\\\\n&= 311\\,\\operatorname{sen}(0) \\\\\\\\\n&= 311\\cdot0 \\\\\\\\\n&= 0\\,\\text{A}\n\\end{aligned}$\n\nLa corriente alterna empieza en $0$ porque el modelo usa el seno (que vale $0$ en $t=0$). El valor $311$ A es la amplitud, no el valor inicial. El gráfico parte del origen.",
+    "explanation": "Para $I(t)=311\\,\\operatorname{sen}(100\\pi t)$, en $t=0$:\n\n$$\\begin{aligned}\nI(0) &= 311\\,\\operatorname{sen}(100\\pi\\cdot0) \\\\\n&= 311\\,\\operatorname{sen}(0) \\\\\n&= 311\\cdot0 \\\\\n&= 0\\,\\text{A}\n\\end{aligned}$$\n\nLa corriente alterna empieza en $0$ porque el modelo usa el seno (que vale $0$ en $t=0$). El valor $311$ A es la amplitud, no el valor inicial. El gráfico parte del origen.",
     "reviewed": false
   },
   {
@@ -956,7 +1171,12 @@
     "correct_index": 0,
     "has_math": true,
     "feedback_correct": "Correcto. Seno $\\in [-1,1]$, desplazado $+1$: $[0, 2]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      null,
+      "Ese es el recorrido antes de correrlo hacia arriba, fijate cuánto sube el piso y el techo de la curva en el gráfico.",
+      "Ese intervalo tendría una amplitud mayor a la que muestra el gráfico, revisá bien el máximo y el mínimo.",
+      "Esa mitad del recorrido deja afuera la parte más baja de la curva, revisá el punto mínimo en el gráfico."
+    ],
     "graph_fn": "sin(2*x)+1",
     "graph_view": [
       -5,
@@ -964,7 +1184,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$), no del período:\n\n$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]\n\\end{aligned}$\n\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical. La imagen es $[0,2]$. La opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$. La opción $[1,3]$ ignoraría la parte negativa del seno.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$), no del período:\n\n$$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]\n\\end{aligned}$$\n\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical. La imagen es $[0,2]$. La opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$. La opción $[1,3]$ ignoraría la parte negativa del seno.",
     "reviewed": false
   },
   {
@@ -978,7 +1198,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Imagen $[-2, 0]$ = seno $[-1,1]$ desplazado $-1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula tendría un piso más alto del que describe el enunciado, revisá el mínimo.",
+      "Esa fórmula no está desplazada hacia abajo, revisá el máximo y el mínimo que describe el enunciado.",
+      "Esa fórmula arranca en el piso en $x=0$ en vez de en el eje, revisá con qué valor arranca la curva descripta.",
+      null
+    ],
     "graph_fn": "sin(x)-1",
     "graph_view": [
       -7,
@@ -986,7 +1211,7 @@
       -3,
       1
     ],
-    "explanation": "La onda tiene máximo $0$ y mínimo $-2$. Con estos datos:\n\n$\\begin{aligned}\nD &= \\frac{0+(-2)}{2} = -1 \\\\\\\\\nA &= \\frac{0-(-2)}{2} = 1\n\\end{aligned}$\n\nLa fórmula es $\\operatorname{sen}(x)-1$. Verificación: máx $= 1-1=0$ ✓, mín $= -1-1=-2$ ✓. La opción $-\\operatorname{sen}(x)-1$ tendría el mismo rango pero la curva invertida (partiría del mínimo en $x=0$).",
+    "explanation": "La onda tiene máximo $0$ y mínimo $-2$. Con estos datos:\n\n$$\\begin{aligned}\nD &= \\frac{0+(-2)}{2} = -1 \\\\\nA &= \\frac{0-(-2)}{2} = 1\n\\end{aligned}$$\n\nLa fórmula es $\\operatorname{sen}(x)-1$. Verificación: máx $= 1-1=0$ ✓, mín $= -1-1=-2$ ✓. La opción $-\\operatorname{sen}(x)-1$ tendría el mismo rango pero la curva invertida (partiría del mínimo en $x=0$).",
     "reviewed": false
   },
   {
@@ -1000,7 +1225,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. Período $\\pi$: en $[0, 4\\pi]$ caben $4$ ciclos, cada uno con un máximo.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese conteo corresponde a la mitad del intervalo, revisá cuántos ciclos completos entran en $[0,4\\pi]$.",
+      "Ese conteo corresponde a un cuarto del intervalo, fijate cuántas veces se repite el ciclo entero.",
+      null,
+      "Te falta contar un pico, revisá con cuidado cuántos ciclos completos entran en todo el intervalo."
+    ],
     "graph_fn": "sin(2*x)",
     "graph_view": [
       -5,
@@ -1008,7 +1238,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el período es $\\pi$ y hay un máximo por ciclo. En el intervalo $[0,4\\pi]$:\n\n$\\begin{aligned}\n\\text{ciclos} &= \\frac{4\\pi}{\\pi} = 4 \\\\\\\\\n\\text{máximos} &= 4 \\times 1 = 4\n\\end{aligned}$\n\nLos máximos ocurren en $x=\\pi/4, 5\\pi/4, 9\\pi/4, 13\\pi/4$: exactamente $4$ máximos en $[0,4\\pi]$. La opción $2$ contaría solo un período. La opción $1$ contaría medio período.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el período es $\\pi$ y hay un máximo por ciclo. En el intervalo $[0,4\\pi]$:\n\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{4\\pi}{\\pi} = 4 \\\\\n\\text{máximos} &= 4 \\times 1 = 4\n\\end{aligned}$$\n\nLos máximos ocurren en $x=\\pi/4, 5\\pi/4, 9\\pi/4, 13\\pi/4$: exactamente $4$ máximos en $[0,4\\pi]$. La opción $2$ contaría solo un período. La opción $1$ contaría medio período.",
     "reviewed": false
   },
   {
@@ -1022,7 +1252,12 @@
     "correct_index": 2,
     "has_math": true,
     "feedback_correct": "Correcto. $T(1) = 8\\,\\cos(0) + 15 = 8 + 15 = 23\\,°C$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese valor es el eje de oscilación del modelo, no la temperatura en el mes puntual que se pide.",
+      "Ese valor es el mínimo del modelo, no la temperatura en enero.",
+      null,
+      "Ese valor es la amplitud del modelo, no la temperatura en un mes puntual."
+    ],
     "graph_fn": "8*cos(pi/6*(x-1))+15",
     "graph_view": [
       -1,
@@ -1030,7 +1265,7 @@
       0,
       30
     ],
-    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n\n$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\\\\\n&= 8\\cos(0)+15 \\\\\\\\\n&= 8\\cdot1+15 \\\\\\\\\n&= 23\\,°C\n\\end{aligned}$\n\nEn enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$. La opción $15°C$ sería la temperatura media (eje de oscilación). La opción $7°C$ sería el mínimo.",
+    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n\n$$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\n&= 8\\cos(0)+15 \\\\\n&= 8\\cdot1+15 \\\\\n&= 23\\,°C\n\\end{aligned}$$\n\nEn enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$. La opción $15°C$ sería la temperatura media (eje de oscilación). La opción $7°C$ sería el mínimo.",
     "reviewed": false
   },
   {
@@ -1044,7 +1279,12 @@
     "correct_index": 1,
     "has_math": true,
     "feedback_correct": "Correcto. $-\\cos(x) \\in [-1,1]$; sumando $1$: $[0, 2]$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Ese es el recorrido antes de correrlo hacia arriba, fijate cuánto sube el piso y el techo de la curva reflejada.",
+      null,
+      "Ese intervalo queda del lado negativo, revisá hacia qué lado se corrió realmente el recorrido de la curva.",
+      "Esa mitad del recorrido deja afuera la parte más baja de la curva, revisá el punto mínimo en el gráfico."
+    ],
     "graph_fn": "-cos(x)+1",
     "graph_view": [
       -7,
@@ -1052,7 +1292,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=-\\cos(x)+1$ se construye en pasos:\n\n$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\\\\\n-\\cos(x) &\\in [-1,1] \\\\\\\\\n-\\cos(x)+1 &\\in [0,2]\n\\end{aligned}$\n\nLa reflexión conserva el rango $[-1,1]$; el desplazamiento $+1$ lo eleva a $[0,2]$. En el gráfico la curva toca $y=0$ (mínimo, cuando $\\cos=1$) y $y=2$ (máximo, cuando $\\cos=-1$).",
+    "explanation": "La **imagen** de $f(x)=-\\cos(x)+1$ se construye en pasos:\n\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x)+1 &\\in [0,2]\n\\end{aligned}$$\n\nLa reflexión conserva el rango $[-1,1]$; el desplazamiento $+1$ lo eleva a $[0,2]$. En el gráfico la curva toca $y=0$ (mínimo, cuando $\\cos=1$) y $y=2$ (máximo, cuando $\\cos=-1$).",
     "reviewed": false
   },
   {
@@ -1066,7 +1306,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. Amplitud $= (3-(-1))/2 = 2$; eje $= (3+(-1))/2 = 1$.",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa fórmula tiene una amplitud menor a la que describe el enunciado, revisá la distancia entre el máximo y el eje central.",
+      "Esa fórmula tiene el eje de oscilación desplazado al lado contrario, revisá el promedio entre el máximo y el mínimo.",
+      "Esa fórmula arranca en el techo en $x=0$, no en el eje, revisá con qué valor arranca la curva descripta.",
+      null
+    ],
     "graph_fn": "2*sin(x)+1",
     "graph_view": [
       -7,
@@ -1074,7 +1319,7 @@
       -2,
       4
     ],
-    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n\n$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$\n\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
+    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n\n$$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$$\n\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
     "reviewed": false
   },
   {
@@ -1088,7 +1333,12 @@
     "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto. En $[\\pi, 2\\pi]$ el coseno sube de $-1$ (en $x=\\pi$) a $1$ (en $x=2\\pi$).",
-    "feedback_incorrect": "",
+    "feedback_incorrect": [
+      "Esa dirección es la opuesta, revisá si la curva sube o baja entre esos dos extremos del intervalo.",
+      "La curva sí cambia en ese tramo, no se queda plana, fijate en el movimiento entre los dos extremos.",
+      "Esos valores de inicio y fin están invertidos, revisá cuál es el valor en $x=\\pi$ y cuál en $x=2\\pi$.",
+      null
+    ],
     "graph_fn": "cos(x)",
     "graph_view": [
       -7,

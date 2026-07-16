@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué es una **matriz** $A \\in \\mathbb{R}^{m\\times n}$?",
+    "options": [
+      "Un arreglo rectangular de $m$ filas y $n$ columnas",
+      "Una tupla ordenada de $n$ componentes",
+      "Un único número real"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una matriz es un arreglo rectangular de escalares, con $m$ filas y $n$ columnas.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe a un vector, no a una matriz.",
+      "Eso describe a un escalar, no a una matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **matriz** $A \\in \\mathbb{R}^{m\\times n}$ es un arreglo rectangular de escalares ordenados en $m$ filas y $n$ columnas.\n\nPor ejemplo, una matriz de $2\\times 3$ tiene 2 filas y 3 columnas, con 6 elementos en total.\n\nUn vector es un caso particular con una sola fila o columna; un escalar es apenas un número, sin filas ni columnas.",
+    "reviewed": false
+  }
+]

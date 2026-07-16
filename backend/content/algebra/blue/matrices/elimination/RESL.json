@@ -1,0 +1,24 @@
+[
+  {
+    "question": "En el sistema $2x+y=5$, $4x+3y=13$, al restar $2$ veces la primera fila de la segunda, ¿qué ecuación queda?",
+    "options": [
+      "$y=3$",
+      "$y=8$",
+      "$2y=3$",
+      "$y=-3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(4x+3y)-2(2x+y) = y$, y $13-2(5)=3$: queda $y=3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor sale de sumar en vez de restar el término independiente.",
+      "Falta despejar $y$, quedó el coeficiente $2$ sin simplificar.",
+      "El signo del resultado quedó invertido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Restar un múltiplo de una fila a otra elimina una variable, dejando una ecuación más simple.\n$$(4x+3y) - 2(2x+y) = 13 - 2(5)$$\n\nEn el lado izquierdo, el término en $x$ se cancela: $4x-4x=0$ y $3y-2y=y$. En el derecho, $13-10=3$.\n\nEl resultado es la ecuación $y=3$, que ya tiene una sola incógnita despejada, lista para sustituir en la otra ecuación.",
+    "reviewed": false
+  }
+]

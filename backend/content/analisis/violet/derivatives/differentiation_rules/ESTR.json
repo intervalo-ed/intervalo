@@ -1,172 +1,302 @@
 [
   {
-    "question": "Para derivar $f(x) = 3x^4$, ¿cuál es el orden correcto de aplicación de reglas?",
+    "question": "Antes de derivar\n$$f(x) = 3x^2 + \\sin x$$\n¿qué es lo primero que hay que reconocer?",
     "options": [
-      "Primero sacar el $3$ afuera (múltiplo constante), luego derivar $x^4$ con la regla de la potencia",
-      "Primero aplicar la regla de la potencia a $3x^4$ directamente bajando el $3$",
-      "Usar la regla del producto con $f=3$ y $g=x^4$",
-      "No se puede derivar: falta la definición de límite"
+      "Que se deriva término a término por linealidad",
+      "Que hay que aplicar la regla del producto entre los dos términos",
+      "Que hay que reescribir $\\sin x$ como una potencia"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Constante afuera, luego potencia: $3 \\cdot 4x^3 = 12x^3$.",
-    "feedback_incorrect": "El flujo correcto: regla del múltiplo constante → regla de la potencia. Resultado: $3 \\cdot 4x^3 = 12x^3$.",
+    "feedback_correct": "Correcto, una suma se deriva término a término.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún producto entre los dos términos, están sumados, así que corresponde linealidad, no la regla del producto.",
+      "$\\sin x$ ya es una derivada elemental conocida, no hace falta ninguna reescritura previa."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El proceso estructurado para derivar $3x^4$:\n\n1. **Múltiplo constante:** $(3 \\cdot x^4)' = 3 \\cdot (x^4)'$\n2. **Potencia:** $(x^4)' = 4x^3$\n3. **Resultado:** $3 \\cdot 4x^3 = 12x^3$\n\nPodés pensarlo como un único paso: el $3$ se queda, el $4$ baja, el exponente se reduce en $1$.",
+    "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas para productos o composiciones cuando en realidad hay una suma es un error de planificación, no de cálculo.",
     "reviewed": false
   },
   {
-    "question": "¿Cómo se reescribe $\\sqrt{x}$ para poder aplicar la regla de la potencia?",
+    "question": "Para derivar\n$$f(x) = \\frac{1}{x^3}$$\ncon las reglas de este tópico, ¿qué paso previo hay que dar?",
     "options": [
-      "$x^2$",
-      "$x^{1/2}$",
-      "$x^{-1/2}$",
-      "$2x$"
+      "Dejarla como está y derivar el numerador y el denominador por separado",
+      "Reescribir la expresión como $x^{-3}$ y aplicar la regla de la potencia",
+      "Aplicar directamente la regla del cociente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\sqrt{x} = x^{1/2}$, así la regla de la potencia aplica directamente.",
-    "feedback_incorrect": "La raíz cuadrada es la potencia $1/2$: $\\sqrt{x} = x^{1/2}$.",
+    "feedback_correct": "Correcto, reescribir como potencia negativa habilita la regla de la potencia.",
+    "feedback_incorrect": [
+      "Derivar numerador y denominador por separado no es un procedimiento válido para una fracción de este tipo.",
+      null,
+      "La regla del cociente todavía no está disponible en este tópico, la vía correcta es reescribir como potencia."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Convertir raíces a potencias fraccionarias es el primer paso para derivarlas:\n\n$$\\begin{aligned} \\sqrt{x} &= x^{1/2} \\\\ \\sqrt[3]{x} &= x^{1/3} \\\\ \\sqrt[n]{x} &= x^{1/n} \\end{aligned}$$\n\nLuego se aplica la regla de la potencia normalmente:\n$$\\frac{d}{dx}[x^{1/2}] = \\frac{1}{2} x^{-1/2} = \\frac{1}{2\\sqrt{x}}$$",
+    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\n$$\\frac{1}{x^3} = x^{-3}$$\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.",
     "reviewed": false
   },
   {
-    "question": "¿Qué regla permite derivar $x^3 - 5x^2 + 2$ término a término?",
+    "question": "Para derivar\n$$f(x) = \\sqrt{x}$$\ncon las reglas de este tópico, ¿qué paso previo conviene dar?",
     "options": [
-      "Regla de la cadena",
+      "Aplicar la regla del cociente sobre la raíz",
+      "Tratarla como una función trigonométrica compuesta",
+      "Reescribir la expresión como $x^{1/2}$ y aplicar la regla de la potencia"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la raíz cuadrada se reescribe como potencia fraccionaria.",
+    "feedback_incorrect": [
+      "No hay ningún cociente en esta expresión, la vía correcta es reescribirla como potencia.",
+      "La raíz cuadrada no tiene nada que ver con funciones trigonométricas, se resuelve reescribiéndola como potencia.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\n$$\\sqrt{x} = x^{1/2}$$\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 5x^4 - 2x + 7$$\n¿qué regla permite derivar cada término por separado antes de combinar los resultados?",
+    "options": [
+      "Linealidad (suma/resta)",
       "Regla del producto",
-      "Regla de la suma y diferencia",
-      "Regla del cociente"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La regla de la suma y diferencia permite derivar cada término por separado.",
-    "feedback_incorrect": "La **regla de la suma/diferencia** dice que $(f \\pm g)' = f' \\pm g'$: se derivan los términos por separado.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **regla de la suma y diferencia** es la que habilita la derivación término a término:\n\n$$(x^3 - 5x^2 + 2)' = (x^3)' - (5x^2)' + (2)' = 3x^2 - 10x + 0 = 3x^2 - 10x$$\n\nSin esta regla, no podrías separar los términos de un polinomio. Con ella, cualquier polinomio se deriva fácilmente.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Por qué la derivada de la constante $f(x) = 7$ es $0$?",
-    "options": [
-      "Por convención matemática, sin justificación real",
-      "Porque $7' = 7-1 = 6$ no tiene sentido",
-      "Porque la regla de la potencia no aplica a constantes",
-      "Porque una constante no cambia: su tasa de cambio instantánea es siempre cero"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La derivada mide el cambio. Una constante no cambia, entonces su derivada es $0$.",
-    "feedback_incorrect": "La derivada es la tasa de cambio instantánea. Si $f(x)=7$ siempre, $f$ no cambia → $f'=0$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La derivada mide cómo cambia una función. Si $f(x) = 7$ para todo $x$, entonces:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} = \\lim_{h \\to 0} \\frac{7 - 7}{h} = \\lim_{h \\to 0} 0 = 0$$\n\nGeométricamente: la gráfica es una recta horizontal, con pendiente $0$.",
-    "reviewed": false
-  },
-  {
-    "question": "Aplicando la regla de la potencia a $f(x) = x^1$: ¿cuál es $f'(x)$?",
-    "options": [
-      "$1$",
-      "$x$",
-      "$0$",
-      "$x^2/2$"
+      "Regla de la cadena"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$.",
-    "feedback_incorrect": "$(x^1)' = 1 \\cdot x^{1-1} = x^0 = 1$. La derivada de $f(x)=x$ es la constante $1$.",
+    "feedback_correct": "Correcto, la linealidad habilita derivar término a término.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún producto entre los términos, están sumados y restados, corresponde linealidad.",
+      "No hay ninguna composición de funciones acá, cada término es una expresión elemental separada."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la regla de la potencia con $n=1$:\n\n$$\\frac{d}{dx}[x^1] = 1 \\cdot x^{1-1} = 1 \\cdot x^0 = 1 \\cdot 1 = 1$$\n\nTiene sentido: $f(x) = x$ es una recta con pendiente $1$, y la derivada da exactamente eso. La regla de la potencia es consistente con casos simples.",
+    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\n$$(5x^4 - 2x + 7)' = (5x^4)' - (2x)' + (7)'$$\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.",
     "reviewed": false
   },
   {
-    "question": "Para derivar $f(x) = \\dfrac{4}{x^3}$, ¿cuál es el primer paso correcto?",
+    "question": "En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?",
     "options": [
-      "Usar la regla del cociente con $u=4$ y $v=x^3$",
-      "Reescribir como $4x^{-3}$ para aplicar la regla de la potencia",
-      "Calcular el límite de la definición de derivada directamente",
-      "Aplicar $\\ln$ a ambos lados"
+      "Regla de la cadena sobre el exponente",
+      "Múltiplo escalar junto con la regla de la potencia",
+      "Regla del cociente sobre el coeficiente"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Reescribir como potencia negativa es el camino más directo.",
-    "feedback_incorrect": "El paso más eficiente: $\\frac{4}{x^3} = 4x^{-3}$, luego aplicar la regla de la potencia.",
+    "feedback_correct": "Correcto, el coeficiente se trata como múltiplo escalar y el resto con la potencia.",
+    "feedback_incorrect": [
+      "El exponente no es una función compuesta, es un número fijo, así que la regla de la cadena no aplica acá.",
+      null,
+      "No hay ningún cociente en este término, el coeficiente $5$ se trata simplemente como múltiplo escalar."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La estrategia es convertir la fracción en potencia negativa antes de derivar.\n\n$$\\frac{4}{x^3} = 4 \\cdot x^{-3}$$\n\nAhora sí aplicamos potencia y múltiplo constante:\n$$f'(x) = 4 \\cdot (-3) x^{-4} = -12x^{-4} = -\\frac{12}{x^4}$$\n\nMás directo que la regla del cociente para este caso.",
+    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(5x^4)' = 5 \\cdot (x^4)' = 5 \\cdot 4x^3 = 20x^3$$\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.",
     "reviewed": false
   },
   {
-    "question": "¿Se puede aplicar la regla de la potencia para calcular $(e^x)'$?",
+    "question": "¿En qué orden conviene derivar\n$$f(x) = 4\\ln x + 3\\cos x$$?",
     "options": [
-      "Sí, porque $e$ es una constante",
-      "Sí: $(e^x)' = x \\cdot e^{x-1}$",
-      "No: en $e^x$ la variable está en el exponente, no en la base",
-      "No, porque $e^x$ no es diferenciable"
+      "Aplicar primero la regla del producto entre los dos términos",
+      "Combinar ambos términos en uno solo antes de derivar",
+      "Aplicar linealidad primero, y a cada término la regla que le corresponda por separado"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La regla de la potencia aplica a $x^n$ (base variable, exponente constante), no a $a^x$.",
-    "feedback_incorrect": "La regla de la potencia es para $x^n$ (base $x$, exponente constante $n$). En $e^x$, $x$ está en el exponente: se usa $(e^x)' = e^x$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Error conceptual común: confundir $x^n$ con $a^x$.\n\n- **Regla de la potencia:** $\\frac{d}{dx}[x^n] = nx^{n-1}$ → base variable, exponente **constante**.\n- **Regla exponencial:** $\\frac{d}{dx}[e^x] = e^x$ → base **constante**, exponente variable.\n\nSi aplicás la regla de la potencia a $e^x$, obtenés el resultado incorrecto $x \\cdot e^{x-1}$.",
-    "reviewed": false
-  },
-  {
-    "question": "Aplicando la regla de la potencia a $f(x) = x^{-3}$: ¿cuál es $f'(x)$?",
-    "options": [
-      "$-4x^{-3}$",
-      "$-3x^{-2}$",
-      "$3x^{-4}$",
-      "$-3x^{-4}$"
+    "feedback_correct": "Correcto, primero linealidad, después la regla elemental de cada término.",
+    "feedback_incorrect": [
+      "No hay ningún producto entre los dos términos, están sumados, así que corresponde linealidad, no la regla del producto.",
+      "Los dos términos son funciones distintas, logaritmo y coseno, no se pueden combinar en una sola expresión antes de derivar.",
+      null
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El exponente $-3$ baja y el nuevo exponente es $-3-1=-4$: $-3x^{-4}$.",
-    "feedback_incorrect": "$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4}$. Exponente $-3$ baja, nuevo exponente $-4$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Regla de la potencia con $n = -3$:\n\n$$(x^{-3})' = -3 \\cdot x^{-3-1} = -3x^{-4} = -\\frac{3}{x^4}$$\n\nEl proceso es idéntico al caso con exponentes positivos: el exponente baja como coeficiente y se reduce en $1$. El resultado negativo tiene sentido: $f(x) = 1/x^3$ decrece para $x > 0$.",
+    "explanation": "El orden correcto siempre empieza por reconocer la estructura general de la expresión, en este caso una suma de dos términos.\n\nUna vez identificada esa **linealidad**, cada término se deriva con la regla elemental que le corresponde, el logaritmo con su fórmula y el coseno con la suya.\n\nIntentar combinar o mezclar los términos antes de derivar rompe la estructura de la expresión y suele llevar a errores de planificación.",
     "reviewed": false
   },
   {
-    "question": "Para derivar $f(x) = x^2 + e^x$, ¿qué reglas combinás?",
+    "question": "Para derivar\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
     "options": [
-      "Regla de la suma, regla de la potencia y derivada de $e^x$",
-      "Solo la regla del producto",
-      "Regla de la cadena y regla de la potencia",
-      "Regla del cociente y regla de la suma"
+      "Ver el $\\frac{1}{5}$ como un múltiplo escalar constante y derivar $x^3$ con la potencia",
+      "Aplicar la regla del cociente entre $x^3$ y $5$",
+      "Reescribir $5$ como una función de $x$ antes de derivar"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Suma para separar, potencia para $x^2$, y la fórmula especial para $e^x$.",
-    "feedback_incorrect": "$(x^2 + e^x)' = (x^2)' + (e^x)'$: primero suma para separar, luego potencia en $x^2$ y la fórmula de $e^x$.",
+    "feedback_correct": "Correcto, dividir por una constante es lo mismo que multiplicar por un múltiplo escalar.",
+    "feedback_incorrect": [
+      null,
+      "El denominador es una constante, no una función de $x$, así que no hace falta la regla del cociente.",
+      "$5$ es un número fijo, no depende de $x$, no corresponde tratarlo como una función."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Combinando reglas:\n\n$$f'(x) = (x^2 + e^x)' = (x^2)' + (e^x)' = 2x + e^x$$\n\n1. **Regla de la suma:** separá los términos.\n2. **Regla de la potencia:** $(x^2)' = 2x$.\n3. **Derivada especial:** $(e^x)' = e^x$.\n\nLas reglas básicas se combinan libremente para funciones más complejas.",
+    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\n$$\\frac{x^3}{5} = \\frac{1}{5} \\cdot x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.",
     "reviewed": false
   },
   {
-    "question": "Si $f'(x) = g'(x)$ para todo $x$: ¿qué relación existe entre $f$ y $g$?",
+    "question": "¿Qué regla corresponde aplicar a una constante aislada, como el término $-8$ dentro de una suma más grande?",
     "options": [
-      "Son la misma función: $f(x) = g(x)$",
-      "Difieren en una constante: $f(x) = g(x) + C$",
-      "Una es el doble de la otra: $f(x) = 2g(x)$",
-      "No se puede decir nada sobre $f$ y $g$"
+      "Linealidad, hay que sumarla al resto de las derivadas",
+      "Regla de la constante, su derivada es cero",
+      "Regla de la potencia con exponente cero"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Igual derivada implica que difieren en una constante.",
-    "feedback_incorrect": "Si $f'=g'$, entonces $(f-g)'=0$, lo que implica $f-g=C$ (constante). Así $f(x)=g(x)+C$.",
+    "feedback_correct": "Correcto, un término constante siempre deriva a cero.",
+    "feedback_incorrect": [
+      "La linealidad permite separar los términos de la suma, pero el término constante en sí se resuelve con la regla de la constante, no sumándose sin más.",
+      null,
+      "Aunque $x^0=1$ es cierto, ese no es el razonamiento que se usa, la constante se deriva directamente a cero por su propia regla."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si $f'(x) = g'(x)$ para todo $x$, entonces $(f - g)'(x) = 0$ para todo $x$.\n\nUna función con derivada cero en todo punto es **constante** (lo garantiza el Teorema del Valor Medio):\n\n$$f(x) - g(x) = C \\Rightarrow f(x) = g(x) + C$$\n\nEsto es fundamental para el cálculo integral: la integral indefinida tiene una **constante de integración $C$** por exactamente esta razón.",
+    "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n\n$$(-8)' = 0$$\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $\\sin x$?",
+    "options": [
+      "Regla de la potencia",
+      "Derivada de logaritmo",
+      "Derivada trigonométrica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\sin x$ se deriva con la fórmula trigonométrica correspondiente.",
+    "feedback_incorrect": [
+      "$\\sin x$ no es una potencia de $x$, corresponde la derivada trigonométrica, no la regla de la potencia.",
+      "$\\sin x$ no es un logaritmo, corresponde la derivada trigonométrica del seno.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Antes de derivar una suma, conviene identificar el tipo de función elemental que es cada término por separado.\n\nEl término $\\sin x$ es una función trigonométrica, así que le corresponde la **derivada trigonométrica** del seno, $\\cos x$, sin mezclarla con las reglas de los otros términos.\n\nEsta identificación previa evita aplicar por error la regla de otro tipo de función a un término que no le corresponde.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $-\\ln x$?",
+    "options": [
+      "Derivada de logaritmo",
+      "Derivada trigonométrica",
+      "Regla de la constante"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término logarítmico usa su propia fórmula elemental.",
+    "feedback_incorrect": [
+      null,
+      "$\\ln x$ no es una función trigonométrica, le corresponde la derivada de logaritmo.",
+      "$\\ln x$ no es una constante, es una función que cambia con $x$, le corresponde la derivada de logaritmo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $-\\ln x$ combina un signo negativo con la función logaritmo natural.\n\nEl signo negativo se conserva sin cambios, mientras que $\\ln x$ se deriva con su **derivada de logaritmo** correspondiente, $\\frac{1}{x}$.\n\nSeparar el signo del tipo de función ayuda a no perder ninguno de los dos detalles al armar el resultado final.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $3x^2$?",
+    "options": [
+      "Regla de la constante",
+      "Múltiplo escalar junto con la regla de la potencia",
+      "Derivada de exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $3$ se combina con la regla de la potencia sobre $x^2$.",
+    "feedback_incorrect": [
+      "El término $3x^2$ sí depende de $x$, no es una constante, corresponde derivarlo con la potencia.",
+      null,
+      "$x^2$ no tiene la variable en el exponente, no es una exponencial, corresponde la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(3x^2)' = 3 \\cdot 2x = 6x$$\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 2e^x - \\cos x + 6$$\n¿cuántos términos distintos hay que derivar por separado?",
+    "options": [
+      "Dos",
+      "Uno",
+      "Tres"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, hay tres términos separados por sumas y restas.",
+    "feedback_incorrect": [
+      "Contá de nuevo, hay un término exponencial, uno trigonométrico y uno constante, tres en total.",
+      "La expresión tiene más de un término, hay que descomponerla completa antes de derivar.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres, el término exponencial $2e^x$, el término trigonométrico $-\\cos x$ y el término constante $6$.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = 2e^x - \\cos x + 6$$\n¿qué regla corresponde aplicar al término $6$?",
+    "options": [
+      "Regla de la constante",
+      "Múltiplo escalar",
+      "Derivada de exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, un término sin variable siempre deriva a cero.",
+    "feedback_incorrect": [
+      null,
+      "El múltiplo escalar necesita una función de $x$ multiplicada por un número, acá $6$ está solo, sin ninguna variable.",
+      "$6$ no tiene ninguna variable en el exponente, no es una exponencial, corresponde la regla de la constante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $6$ es un número fijo, sin ninguna dependencia de $x$, así que corresponde la **regla de la constante**, sin importar qué tan grande sea ese número.\n\n$$(6)' = 0$$\nEste término desaparece por completo del resultado final, sin dejar ningún rastro en la derivada de la función completa, a diferencia de los términos que sí dependen de $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿qué regla corresponde aplicar al término $x^5$?",
+    "options": [
+      "Múltiplo escalar",
+      "Regla de la potencia",
+      "Derivada trigonométrica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $x^5$ se deriva con la regla de la potencia, sin coeficiente adicional.",
+    "feedback_incorrect": [
+      "El coeficiente de $x^5$ es $1$, así que no hace falta ningún múltiplo escalar, solo la regla de la potencia.",
+      null,
+      "$x^5$ no es una función trigonométrica, corresponde la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\n$$(x^5)' = 5x^4$$\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.",
+    "reviewed": false
+  },
+  {
+    "question": "En\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿qué regla corresponde aplicar al término $-4\\tan x$?",
+    "options": [
+      "Regla de la potencia",
+      "Derivada de exponencial",
+      "Múltiplo escalar junto con la derivada trigonométrica"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $-4$ se combina con la derivada de la tangente.",
+    "feedback_incorrect": [
+      "$\\tan x$ no es una potencia de $x$, corresponde la derivada trigonométrica, no la regla de la potencia.",
+      "$\\tan x$ no tiene la variable en el exponente, no es una exponencial, corresponde la derivada trigonométrica.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo escalar** junto con la derivada trigonométrica.\n\n$$(-4\\tan x)' = -4 \\sec^2 x$$\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
     "reviewed": false
   }
 ]

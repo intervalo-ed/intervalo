@@ -1,342 +1,332 @@
 [
   {
-    "question": "La velocidad de un objeto es $v(t) = 2t + 1$ m/s. ¿Qué distancia recorre en los primeros 3 segundos?",
+    "question": "Calculá\n$$\\int_0^2 (x^2+1)\\,dx$$",
     "options": [
-      "$6 \\text{ m}$",
-      "$12 \\text{ m}$",
-      "$9 \\text{ m}$",
-      "$10 \\text{ m}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\int_0^3 (2t+1) \\, dt = [t^2+t]_0^3 = 9+3 = 12$.",
-    "feedback_incorrect": "La distancia es la integral de la velocidad. Calculá $\\int_0^3 (2t+1) \\, dt$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En física, la **distancia recorrida** por un objeto (cuando la velocidad es positiva) se calcula integrando la función de velocidad respecto al tiempo:\n\n$$\\Delta x = \\int_{t_1}^{t_2} v(t) \\, dt$$\n\nPara $v(t) = 2t + 1$ entre $t=0$ y $t=3$:\n\n$$\\int_0^3 (2t + 1) \\, dt = [t^2 + t]_0^3 = (3^2 + 3) - (0^2 + 0) = 9 + 3 = 12 \\text{ metros}$$\n\nEste uso de la integral es fundamental en cinemática para pasar de información sobre cambios instantáneos (velocidad) a información sobre cambios totales (posición).",
-    "reviewed": false
-  },
-  {
-    "question": "El costo marginal de producir $x$ unidades es $C'(x) = 10 - 0.2x$. ¿Cuánto aumenta el costo total al pasar de producir 10 a 20 unidades?",
-    "options": [
-      "$70$",
-      "$100$",
-      "$85$",
-      "$30$"
+      "$14/3$",
+      "$10/3$",
+      "$14/3+C$",
+      "$8/3$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Integramos el costo marginal: $[10x - 0.1x^2]_{10}^{20} = (200-40) - (100-10) = 160 - 90 = 70$.",
-    "feedback_incorrect": "El cambio en el costo total es la integral del costo marginal en el intervalo de producción deseado.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En economía, el **costo marginal** representa la derivada del costo total. Por lo tanto, para encontrar la variación del costo total al cambiar el nivel de producción, integramos la función marginal:\n\n$$\\Delta C = \\int_{x_1}^{x_2} C'(x) \\, dx$$\n\n$$\\int_{10}^{20} (10 - 0.2x) \\, dx = [10x - 0.1x^2]_{10}^{20}$$\n\nEvaluando: $(200 - 40) - (100 - 10) = 160 - 90 = 70$. Producir esas 10 unidades adicionales incrementa el costo en 70 unidades monetarias.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es el área de la región encerrada por $f(x) = x^3$ y el eje $X$ entre $x=0$ y $x=2$?",
-    "options": [
-      "$8$",
-      "$4$",
-      "$2$",
-      "$16$"
+    "feedback_correct": "Correcto, $\\frac{8}{3}+2=\\frac{14}{3}$ con denominador común.",
+    "feedback_incorrect": [
+      null,
+      "Revisá la suma con denominador común, $\\frac{8}{3}+\\frac{6}{3}=\\frac{14}{3}$, no $\\frac{10}{3}$.",
+      "En definidas la $C$ se cancela al restar $F(2)-F(0)$, la respuesta es un número puro.",
+      "Falta sumar el aporte del término constante, $F(2)=\\frac{8}{3}+2$, no solo $\\frac{8}{3}$."
     ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\int_0^2 x^3 \\, dx = [x^4/4]_0^2 = 16/4 = 4$.",
-    "feedback_incorrect": "Planteá la integral definida de la función $x^3$ en el intervalo $[0, 2]$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para calcular el **área bajo la curva**, planteamos la integral definida. Como $x^3$ es positiva en el intervalo $[0, 2]$, el área coincide directamente con el valor de la integral:\n\n$$\\text{Área} = \\int_0^2 x^3 \\, dx$$\n\nBuscamos la primitiva: $F(x) = x^4/4$. Luego aplicamos Barrow:\n\n$$F(2) - F(0) = \\frac{2^4}{4} - \\frac{0^4}{4} = \\frac{16}{4} = 4$$\n\nLa región encerrada tiene una superficie de 4 unidades cuadradas. Si la función fuera negativa en algún tramo, deberíamos usar el valor absoluto para que las áreas no se resten.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n\n$$\\begin{aligned} F(2) &= \\frac{8}{3}+2 = \\frac{14}{3} \\\\ F(0) &= 0 \\\\ \\int_0^2 (x^2+1)\\,dx &= \\frac{14}{3}-0 = \\frac{14}{3} \\end{aligned}$$\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso es el error aritmético más frecuente acá.",
     "reviewed": false
   },
   {
-    "question": "Un tanque de agua se llena a una tasa de $r(t) = 5\\sqrt{t}$ litros por minuto. ¿Cuánta agua ingresa entre el minuto 0 y el minuto 4?",
+    "question": "Calculá\n$$\\int_0^1 e^x\\,dx$$",
     "options": [
-      "$20 \\text{ L}$",
-      "$\\frac{80}{3} \\text{ L}$",
-      "$40 \\text{ L}$",
-      "$10 \\text{ L}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\int_0^4 5t^{1/2} \\, dt = [5 \\cdot \\frac{2}{3}t^{3/2}]_0^4 = \\frac{10}{3}(8) = 80/3$.",
-    "feedback_incorrect": "La cantidad total es la integral de la tasa de llenado. Integrá $5t^{1/2}$ de 0 a 4.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando conocemos la **tasa de cambio** de una cantidad (en este caso litros/minuto), la integral definida nos permite obtener el cambio total acumulado de esa magnitud.\n\n$$\\text{Agua total} = \\int_0^4 5t^{1/2} \\, dt$$\n\nLa primitiva de $t^{1/2}$ es $\\frac{t^{3/2}}{3/2} = \\frac{2}{3}t^{3/2}$. Multiplicando por la constante 5:\n\n$$F(t) = \\frac{10}{3}t^{3/2} \\Rightarrow F(4) = \\frac{10}{3}(4^{3/2}) = \\frac{10}{3}(8) = \\frac{80}{3}$$\n\nIngresaron aproximadamente $26.67$ litros de agua en esos 4 minutos.",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá el valor promedio de la función $f(x) = 3x^2$ en el intervalo $[1, 3]$.",
-    "options": [
-      "$13$",
-      "$26$",
-      "$12$",
-      "$39$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$\\frac{1}{3-1} \\int_1^3 3x^2 \\, dx = \\frac{1}{2} [x^3]_1^3 = \\frac{1}{2}(27-1) = 13$.",
-    "feedback_incorrect": "El valor promedio es la integral dividida por la longitud del intervalo: $\\frac{1}{b-a} \\int_a^b f(x) \\, dx$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **Valor Promedio** de una función continua en un intervalo $[a, b]$ se define como la integral de la función dividida por la longitud del intervalo:\n\n$$f_{prom} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx$$\n\nPara $f(x) = 3x^2$ en $[1, 3]$:\n- La integral es $\\int_1^3 3x^2 \\, dx = [x^3]_1^3 = 27 - 1 = 26$.\n- La longitud del intervalo es $3 - 1 = 2$.\n\nPor lo tanto, el promedio es $26 / 2 = 13$. Esto representa la altura de un rectángulo que tendría la misma área que la región bajo la curva en ese intervalo.",
-    "reviewed": false
-  },
-  {
-    "question": "La fuerza aplicada sobre un resorte es $F(x) = 50x$ Newtons. ¿Qué trabajo se realiza al estirarlo desde $x=0$ hasta $x=0.2$ metros?",
-    "options": [
-      "$10 \\text{ J}$",
-      "$5 \\text{ J}$",
-      "$1 \\text{ J}$",
-      "$2 \\text{ J}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$W = \\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25(0.04) = 1$.",
-    "feedback_incorrect": "El trabajo es la integral de la fuerza respecto a la posición. Integrá $50x$ de 0 a 0.2.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En física, el **trabajo realizado** por una fuerza variable $F(x)$ se calcula mediante la integral definida:\n\n$$W = \\int_{x_1}^{x_2} F(x) \\, dx$$\n\nPara un resorte que sigue la ley de Hooke ($F=kx$):\n\n$$\\int_0^{0.2} 50x \\, dx = [25x^2]_0^{0.2} = 25 \\cdot (0.2)^2 = 25 \\cdot 0.04 = 1 \\text{ Joule}$$\n\nLa integral definida nos permite sumar el aporte de fuerza infinitesimal en cada pequeño tramo del desplazamiento para obtener la energía total consumida.",
-    "reviewed": false
-  },
-  {
-    "question": "Se estima que una población crece a una tasa de $P'(t) = 100 e^{0.1t}$ individuos/año. ¿Cuánto crece la población entre el año 0 y el año 10?",
-    "options": [
-      "$1000(e - 1)$",
-      "$100e$",
-      "$1000e$",
-      "$e - 1$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$\\int_0^{10} 100e^{0.1t} \\, dt = [\\frac{100}{0.1} e^{0.1t}]_0^{10} = 1000(e^1 - e^0) = 1000(e-1)$.",
-    "feedback_incorrect": "Integrá la tasa de crecimiento. No olvides dividir por 0.1 (o multiplicar por 10) al buscar la primitiva de $e^{0.1t}$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **crecimiento poblacional total** se obtiene integrando la tasa de crecimiento en el tiempo deseado:\n\n$$\\Delta P = \\int_0^{10} 100 e^{0.1t} \\, dt$$\n\nUsamos sustitución simple o la regla de integración de exponenciales con argumento lineal:\n\n$$F(t) = 100 \\cdot \\frac{e^{0.1t}}{0.1} = 1000 e^{0.1t}$$\n\nEvaluando en el intervalo $[0, 10]$:\n\n$$1000 e^{0.1(10)} - 1000 e^{0} = 1000 e^1 - 1000 = 1000(e - 1)$$\n\nComo $e \\approx 2.718$, la población creció en aproximadamente 1718 individuos.",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá el área encerrada por la curva $y = 1 - x^2$ y el eje $X$.",
-    "options": [
-      "$\\frac{2}{3}$",
-      "$\\frac{4}{3}$",
-      "$1$",
-      "$\\frac{1}{3}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Las raíces son $-1$ y $1$. $\\int_{-1}^1 (1-x^2) \\, dx = [x-x^3/3]_{-1}^1 = (2/3) - (-2/3) = 4/3$.",
-    "feedback_incorrect": "Primero encontrá dónde la función corta al eje $X$ (raíces) para saber los límites de integración. Luego integrá.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para hallar el **área encerrada por una función y el eje X**, primero buscamos las raíces de $1 - x^2 = 0$, que son $x = -1$ y $x = 1$. Estos serán nuestros límites de integración.\n\n$$\\text{Área} = \\int_{-1}^1 (1 - x^2) \\, dx = [x - \\frac{x^3}{3}]_{-1}^1$$\n\nEvaluamos en $1$: $1 - 1/3 = 2/3$.\nEvaluamos en $-1$: $-1 - (-1/3) = -2/3$.\n\nRestamos: $2/3 - (-2/3) = 4/3$. Este valor representa la superficie de la 'colina' que forma la parábola invertida sobre el eje horizontal.",
-    "reviewed": false
-  },
-  {
-    "question": "Un flujo de calor es $q(t) = \\sin(t) + 2$. ¿Cuánto calor total se transfiere desde $t=0$ hasta $t=\\pi$?",
-    "options": [
-      "$2 + \\pi$",
-      "$2\\pi + 2$",
-      "$\\pi$",
-      "$2$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\int_0^{\\pi} (\\sin t + 2) \\, dt = [-\\cos t + 2t]_0^{\\pi} = (1 + 2\\pi) - (-1) = 2\\pi + 2$.",
-    "feedback_incorrect": "Integrá cada término por separado: la primitiva de $\\sin(t)$ es $-\\cos(t)$ y la de $2$ es $2t$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para obtener la **cantidad total de calor**, integramos el flujo térmico en el tiempo dado:\n\n$$\\text{Calor} = \\int_0^{\\pi} (\\sin(t) + 2) \\, dt$$\n\nLa primitiva es $F(t) = -\\cos(t) + 2t$. Aplicamos Barrow:\n\n$$F(\\pi) = -\\cos(\\pi) + 2\\pi = -(-1) + 2\\pi = 1 + 2\\pi$$\n$$F(0) = -\\cos(0) + 2(0) = -1$$\n\nLa transferencia total es $(1 + 2\\pi) - (-1) = 2\\pi + 2$. El término $2\\pi$ viene del flujo constante y el $2$ del aporte variable de la función seno.",
-    "reviewed": false
-  },
-  {
-    "question": "La aceleración de un móvil es constante $a(t) = 4 \\text{ m/s}^2$. Si en $t=0$ está quieto, ¿cuál es su velocidad en $t=5$ segundos?",
-    "options": [
-      "$20 \\text{ m/s}$",
-      "$10 \\text{ m/s}$",
-      "$4 \\text{ m/s}$",
-      "$25 \\text{ m/s}$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El cambio de velocidad es la integral de la aceleración: $\\int_0^5 4 \\, dt = [4t]_0^5 = 20$.",
-    "feedback_incorrect": "Recordá que el cambio de velocidad $\\Delta v$ es igual a la integral definida de la aceleración.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **cambio de velocidad** de un cuerpo se puede hallar integrando su aceleración respecto al tiempo:\n\n$$\\Delta v = v(t_2) - v(t_1) = \\int_{t_1}^{t_2} a(t) \\, dt$$\n\nEn este caso, con aceleración constante de $4$ entre $t=0$ y $t=5$:\n\n$$\\int_0^5 4 \\, dt = [4t]_0^5 = 4(5) - 4(0) = 20 \\text{ m/s}$$\n\nComo el móvil partió del reposo ($v(0)=0$), su velocidad final a los 5 segundos es exactamente de 20 m/s. La integral definida simplifica el cálculo de acumulaciones en procesos con tasas constantes o variables.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es el valor de $\\int_0^1 x^2 \\, dx$?",
-    "options": [
-      "$1$",
-      "$\\frac{1}{2}$",
-      "$\\frac{1}{3}$",
-      "$\\frac{1}{4}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Aplicaste bien la Regla de Barrow: $[x^3/3]_0^1 = 1/3 - 0 = 1/3$.",
-    "feedback_incorrect": "Buscá la primitiva $x^3/3$ y evaluá en el límite superior (1) y restale el valor en el inferior (0).",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para resolver una **integral definida**, usamos la **Regla de Barrow**. Primero buscamos una primitiva de la función $f(x) = x^2$, que por la regla de la potencia es:\n\n$$F(x) = \\frac{x^3}{3}$$\n\nLuego evaluamos en los límites de integración $[0, 1]$:\n\n$$F(1) - F(0) = \\frac{1^3}{3} - \\frac{0^3}{3} = \\frac{1}{3}$$\n\nFijate que no sumamos la constante $C$, ya que al restar $F(b) - F(a)$ esa constante siempre se termina cancelando.",
-    "reviewed": false
-  },
-  {
-    "question": "Si $\\int_a^b f(x) \\, dx = 5$, ¿cuánto vale $\\int_b^a f(x) \\, dx$?",
-    "options": [
-      "$5$",
-      "$-5$",
-      "$0$",
-      "No se puede determinar"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Cambiar el orden de los límites de integración invierte el signo del resultado.",
-    "feedback_incorrect": "Una propiedad fundamental es que si invertís los límites, el resultado cambia de signo: $\\int_b^a f = -\\int_a^b f$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Una de las **propiedades de la integral definida** establece que si permutamos (intercambiamos) los límites de integración, el valor de la integral cambia su signo:\n\n$$\\int_a^b f(x) \\, dx = -\\int_b^a f(x) \\, dx$$\n\nEsto se deduce directamente de la **Regla de Barrow**, ya que $F(b) - F(a)$ es exactamente el opuesto de $F(a) - F(b)$.\n\nPor ejemplo, si la integral de una función entre 0 y 2 te da 10, entonces entre 2 y 0 te va a dar -10.",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá el valor de $\\int_1^e \\frac{1}{x} \\, dx$.",
-    "options": [
-      "$0$",
+      "$1-e$",
+      "$e-1$",
       "$e$",
-      "$1$",
-      "$\\ln(e) - 1$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La primitiva es $\\ln|x|$, y evaluando te queda $\\ln(e) - \\ln(1) = 1 - 0 = 1$.",
-    "feedback_incorrect": "La primitiva de $1/x$ es $\\ln|x|$. Recordá que $\\ln(e) = 1$ y $\\ln(1) = 0$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para resolver $\\int_1^e \\frac{1}{x} \\, dx$, recordamos que la **primitiva de la función logarítmica** es:\n\n$$F(x) = \\ln|x|$$\n\nEvaluamos usando los límites de integración dados:\n\n$$[\\ln(x)]_1^e = \\ln(e) - \\ln(1)$$\n\nComo el logaritmo natural de $e$ es $1$ y el de $1$ es $0$, el resultado final es $1 - 0 = 1$. Esto representa el área bajo la curva $1/x$ entre el 1 y el número de Euler.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuál es el valor de $\\int_{-2}^{-2} (x^5 - 3x^2 + 1) \\, dx$?",
-    "options": [
-      "$-2$",
-      "$0$",
-      "$1$",
-      "$5$"
+      "$e-1+C$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Si los límites son iguales, el área es nula sin importar la función.",
-    "feedback_incorrect": "Cualquier integral definida donde el límite inferior y superior sean el mismo ($a=b$) siempre vale $0$.",
+    "feedback_correct": "Correcto, $F(0)=e^0=1$ no se puede omitir de la resta.",
+    "feedback_incorrect": [
+      "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
+      null,
+      "Falta restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
+      "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta es una **propiedad de nulidad** de la integral definida. Cuando el intervalo de integración tiene longitud cero (es decir, $a = b$):\n\n$$\\int_a^a f(x) \\, dx = 0$$\n\nGeométricamente, no se está encerrando ninguna superficie bajo la curva, ya que el ancho del intervalo es nulo. Algebraicamente, por Barrow tenés $F(a) - F(a)$, lo que siempre resulta en cero para cualquier función continua.",
+    "explanation": "Armamos la primitiva $F(x)=e^x$ y aplicamos Barrow.\n\n$$\\begin{aligned} F(1) &= e^1 = e \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 e^x\\,dx &= e-1 \\end{aligned}$$\nEl error más común acá es asumir que $F(0)=0$ porque el límite inferior es cero, pero $e^0=1$, no cero.",
     "reviewed": false
   },
   {
-    "question": "Calculá $\\int_0^{\\pi} \\sin(x) \\, dx$.",
+    "question": "Calculá\n$$\\int_0^{\\pi} \\sin x\\,dx$$",
     "options": [
-      "$0$",
-      "$1$",
       "$-2$",
-      "$2$"
+      "$2+C$",
+      "$2$",
+      "$0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $-\\cos\\pi-(-\\cos 0)=1+1=2$.",
+    "feedback_incorrect": [
+      "Revisá el signo de la primitiva del seno, $-\\cos x$, antes de evaluar en los límites.",
+      "En definidas la $C$ se cancela al restar $F(\\pi)-F(0)$, la respuesta es un número puro.",
+      null,
+      "El resultado no se anula, revisá el cálculo de $F(\\pi)-F(0)$ con la primitiva $-\\cos x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n\n$$\\begin{aligned} F(\\pi) &= -\\cos\\pi = 1 \\\\ F(0) &= -\\cos 0 = -1 \\\\ \\int_0^{\\pi} \\sin x\\,dx &= 1-(-1) = 2 \\end{aligned}$$\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^1 x^3\\,dx$$",
+    "options": [
+      "$1$",
+      "$1/4+C$",
+      "$-1/4$",
+      "$1/4$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$[-\\cos(x)]_0^{\\pi} = -(-1) - (-1) = 1 + 1 = 2$.",
-    "feedback_incorrect": "La primitiva de $\\sin(x)$ es $-\\cos(x)$. Ojo con los signos al evaluar: $-\\cos(\\pi) - (-\\cos(0))$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La primitiva de $f(x) = \\sin(x)$ es $F(x) = -\\cos(x)$. Aplicamos la **Regla de Barrow** en el intervalo $[0, \\pi]$:\n\n$$\\int_0^{\\pi} \\sin(x) \\, dx = [-\\cos(x)]_0^{\\pi} = -\\cos(\\pi) - (-\\cos(0))$$\n\nSabiendo que $\\cos(\\pi) = -1$ y $\\cos(0) = 1$:\n\n$$(-(-1)) - (-1) = 1 + 1 = 2$$\n\nEsto significa que el área de una 'montaña' de la función seno (de $0$ a $\\pi$) es exactamente de 2 unidades cuadradas.",
-    "reviewed": false
-  },
-  {
-    "question": "Si $\\int_0^3 f(x) \\, dx = 10$ y $\\int_0^3 g(x) \\, dx = 4$, ¿cuánto vale $\\int_0^3 [f(x) - 2g(x)] \\, dx$?",
-    "options": [
-      "$6$",
-      "$2$",
-      "$18$",
-      "$14$"
+    "feedback_correct": "Correcto, $F(1)=\\frac{1}{4}$ y $F(0)=0$.",
+    "feedback_incorrect": [
+      "Falta dividir por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
+      "El resultado es positivo, ambos valores de la función son positivos en este intervalo.",
+      null
     ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Por linealidad: $10 - 2(4) = 10 - 8 = 2$.",
-    "feedback_incorrect": "Usá la propiedad de linealidad: la integral de la resta es la resta de las integrales, y podés sacar constantes fuera.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La integral definida es un **operador lineal**, lo que nos permite separar sumas y sacar constantes fuera de la integral:\n\n$$\\int_a^b [k \\cdot f(x) + g(x)] \\, dx = k \\int_a^b f(x) \\, dx + \\int_a^b g(x) \\, dx$$\n\nEn este caso:\n\n$$\\int_0^3 f(x) \\, dx - 2 \\int_0^3 g(x) \\, dx = 10 - 2(4) = 2$$\n\nEsta propiedad es muy útil para descomponer problemas complejos en partes más simples que ya conocemos.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^4}{4}$ y aplicamos Barrow.\n\n$$\\begin{aligned} F(1) &= \\frac{1}{4} \\\\ F(0) &= 0 \\\\ \\int_0^1 x^3\\,dx &= \\frac{1}{4}-0 = \\frac{1}{4} \\end{aligned}$$\nEste es el caso más simple, el límite inferior aporta cero, pero conviene igual escribir ambas evaluaciones para no perder el hábito.",
     "reviewed": false
   },
   {
-    "question": "Calculá el valor de $\\int_0^1 e^x \\, dx$.",
+    "question": "Calculá\n$$\\int_0^{\\pi/2} \\cos x\\,dx$$",
     "options": [
-      "$e$",
-      "$e - 1$",
       "$1$",
-      "$e + 1$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La primitiva es $e^x$, y evaluando queda $e^1 - e^0 = e - 1$.",
-    "feedback_incorrect": "La primitiva de $e^x$ es ella misma. Evaluá $e^1$ y restale $e^0$. Recordá que $e^0 = 1$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La función exponencial $f(x) = e^x$ es su propia primitiva. Para resolver la **integral definida** en $[0, 1]$, simplemente evaluamos:\n\n$$\\int_0^1 e^x \\, dx = [e^x]_0^1 = e^1 - e^0$$\n\nComo cualquier número (distinto de cero) elevado a la cero es uno:\n\n$$e^1 - e^0 = e - 1$$\n\nEste valor es aproximadamente $1.718$ y representa el área bajo la curva exponencial desde el origen hasta $x=1$.",
-    "reviewed": false
-  },
-  {
-    "question": "Usando la aditividad del intervalo, si $\\int_1^5 f(x) \\, dx = 12$ y $\\int_4^5 f(x) \\, dx = 3$, ¿cuánto vale $\\int_1^4 f(x) \\, dx$?",
-    "options": [
-      "$15$",
-      "$9$",
-      "$-9$",
-      "$4$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Como el intervalo $[1,5]$ se divide en $[1,4]$ y $[4,5]$, restamos $12 - 3 = 9$.",
-    "feedback_incorrect": "Recordá la aditividad: $\\int_1^5 f = \\int_1^4 f + \\int_4^5 f$. Despejá el valor que te falta.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **propiedad de aditividad** nos dice que si tenemos un punto intermedio $c$ en el intervalo $[a, b]$, la integral total es la suma de las integrales de los subintervalos:\n\n$$\\int_1^5 f(x) \\, dx = \\int_1^4 f(x) \\, dx + \\int_4^5 f(x) \\, dx$$\n\nSustituyendo los valores que conocemos:\n\n$$12 = \\int_1^4 f(x) \\, dx + 3 \\Rightarrow \\int_1^4 f(x) \\, dx = 9$$\n\nEsta propiedad es válida incluso si el punto de división no está estrictamente 'dentro' del intervalo original, siempre que la función sea integrable.",
-    "reviewed": false
-  },
-  {
-    "question": "Calculá $\\int_0^2 (3x+1) \\, dx$.",
-    "options": [
-      "$8$",
-      "$7$",
-      "$6$",
-      "$10$"
+      "$\\pi/2$",
+      "$1+C$",
+      "$-1$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La primitiva es $\\frac{3}{2}x^2 + x$. Evaluando: $\\frac{3}{2}(4) + 2 = 6 + 2 = 8$.",
-    "feedback_incorrect": "Integrá término a término: $\\frac{3x^2}{2} + x$. Luego aplicá Barrow evaluando en 2 y en 0.",
+    "feedback_correct": "Correcto, $\\sin(\\pi/2)-\\sin 0=1-0=1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor es el límite superior de integración, no el resultado de evaluar la primitiva ahí.",
+      "En definidas la $C$ se cancela al restar $F(\\pi/2)-F(0)$, la respuesta es un número puro.",
+      "La resta va primero el límite superior menos el inferior, $F(\\pi/2)-F(0)$, no al revés."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver esta integral, primero encontramos la **primitiva de un polinomio**:\n\n$$F(x) = \\int (3x + 1) \\, dx = \\frac{3x^2}{2} + x$$\n\nEvaluamos en los extremos del intervalo $[0, 2]$:\n\n$$F(2) = \\frac{3(2)^2}{2} + 2 = \\frac{12}{2} + 2 = 6 + 2 = 8$$\n$$F(0) = \\frac{3(0)^2}{2} + 0 = 0$$\n\nLa resta $F(2) - F(0)$ nos da $8$. Este resultado coincide con el área de un trapecio, ya que la función $3x+1$ es una recta.",
+    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n\n$$\\begin{aligned} F(\\pi/2) &= \\sin(\\pi/2) = 1 \\\\ F(0) &= \\sin 0 = 0 \\\\ \\int_0^{\\pi/2} \\cos x\\,dx &= 1-0 = 1 \\end{aligned}$$\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.",
     "reviewed": false
   },
   {
-    "question": "Si $f(x)$ es una función impar (como $x^3$), ¿cuánto vale $\\int_{-a}^{a} f(x) \\, dx$?",
+    "question": "Calculá\n$$\\int_1^2 \\frac{1}{x}\\,dx$$",
     "options": [
-      "$2 \\int_0^a f(x) \\, dx$",
-      "$a$",
-      "$0$",
-      "$-a$"
+      "$-\\ln 2$",
+      "$\\ln 2$",
+      "$\\ln 2+C$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, $\\ln 2-\\ln 1=\\ln 2-0=\\ln 2$.",
+    "feedback_incorrect": [
+      "La resta va primero el límite superior menos el inferior, $F(2)-F(1)$, no al revés.",
+      null,
+      "En definidas la $C$ se cancela al restar $F(2)-F(1)$, la respuesta es un número puro.",
+      "El resultado no se anula, $\\ln 1=0$, así que la resta deja $\\ln 2$, no cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Armamos la primitiva $F(x)=\\ln|x|$ y aplicamos Barrow.\n\n$$\\begin{aligned} F(2) &= \\ln|2| = \\ln 2 \\\\ F(1) &= \\ln|1| = 0 \\\\ \\int_1^2 \\frac{1}{x}\\,dx &= \\ln 2-0 = \\ln 2 \\end{aligned}$$\nCon límites positivos como estos, el valor absoluto dentro del logaritmo no cambia el resultado, pero conviene mantenerlo por hábito.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^2 3x^2\\,dx$$",
+    "options": [
+      "$24$",
+      "$4$",
+      "$8$",
+      "$8+C$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "En funciones impares, el área negativa a la izquierda cancela exactamente al área positiva a la derecha.",
-    "feedback_incorrect": "Recordá la simetría de las funciones impares: lo que ocurre en el lado negativo es el opuesto de lo que ocurre en el positivo.",
+    "feedback_correct": "Correcto, la primitiva $x^3$ evaluada en $2$ da $8$.",
+    "feedback_incorrect": [
+      "Falta dividir por el nuevo exponente, ese ajuste ya está incluido dentro del coeficiente $3$ original.",
+      "Revisá el cálculo de $F(2)=2^3=8$, no $2^2$.",
+      null,
+      "En definidas la $C$ se cancela al restar $F(2)-F(0)$, la respuesta es un número puro."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función impar** cumple que $f(-x) = -f(x)$. Cuando integramos este tipo de funciones en un intervalo simétrico respecto al origen $[-a, a]$, el resultado siempre es **cero**.\n\n$$\\int_{-a}^{a} f(x) \\, dx = 0 \\quad (\\text{si } f \\text{ es impar})$$\n\nEsto sucede porque el área 'acumulada' de un lado del eje $Y$ tiene el mismo valor absoluto pero signo contrario que la del otro lado, cancelándose mutuamente.\n\nUn ejemplo clásico es $\\int_{-1}^1 x^3 \\, dx = 0$ o la integral de $\\sin(x)$ en cualquier intervalo $[-\\pi, \\pi]$.",
+    "explanation": "Armamos la primitiva $F(x)=x^3$, ya que $3\\int x^2\\,dx=3\\cdot\\frac{x^3}{3}=x^3$, y aplicamos Barrow.\n\n$$\\begin{aligned} F(2) &= 2^3 = 8 \\\\ F(0) &= 0 \\\\ \\int_0^2 3x^2\\,dx &= 8-0 = 8 \\end{aligned}$$\nEl coeficiente $3$ se cancela exactamente con el $3$ que aparece al dividir por el nuevo exponente, dejando una primitiva compacta.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^1 2e^{2x}\\,dx$$",
+    "options": [
+      "$e^2$",
+      "$e^2-1+C$",
+      "$1-e^2$",
+      "$e^2-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, $F(0)=e^0=1$ no se puede omitir de la resta.",
+    "feedback_incorrect": [
+      "Falta restar $F(0)=e^0=1$, ese valor no es cero solo porque el límite inferior es cero.",
+      "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
+      "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Armamos la primitiva $F(x)=e^{2x}$, ya que la sustitución $u=2x$ deja $2\\int e^{2x}\\,dx=e^{2x}$, y aplicamos Barrow.\n\n$$\\begin{aligned} F(1) &= e^2 \\\\ F(0) &= e^0 = 1 \\\\ \\int_0^1 2e^{2x}\\,dx &= e^2-1 \\end{aligned}$$\nIgual que con la exponencial simple, el error más común es dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^1 xe^x\\,dx$$",
+    "options": [
+      "$1$",
+      "$1+C$",
+      "$e$",
+      "$e-2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicando partes y evaluando en los límites da $1$.",
+    "feedback_incorrect": [
+      null,
+      "En definidas la $C$ se cancela al restar $F(1)-F(0)$, la respuesta es un número puro.",
+      "Falta restar la integral remanente, solo evaluaste el término $uv$ sin la parte que resta.",
+      "Revisá el arrastre del signo negativo de la fórmula de partes en la evaluación final."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos partes con $u=x$, $dv=e^x\\,dx$, obteniendo la primitiva $F(x)=xe^x-e^x$.\n\n$$\\begin{aligned} F(1) &= 1\\cdot e-e = 0 \\\\ F(0) &= 0-1 = -1 \\\\ \\int_0^1 xe^x\\,dx &= 0-(-1) = 1 \\end{aligned}$$\nEl término $uv$ evaluado por separado no alcanza, hace falta restar también la integral remanente para llegar al resultado correcto.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^2 x(x^2+1)^3\\,dx$$",
+    "options": [
+      "$78+C$",
+      "$78$",
+      "$2$",
+      "$624$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, actualizando los límites a $u=1$ y $u=5$ y evaluando ahí.",
+    "feedback_incorrect": [
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
+      null,
+      "Los límites no se actualizaron a la variable $u$, con $u=x^2+1$ los límites correctos son $u=1$ y $u=5$.",
+      "Falta dividir por $8$, ese factor sale de la regla de la potencia combinada con el ajuste del diferencial."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sustituimos $u=x^2+1$, con $du=2x\\,dx$, y **actualizamos los límites**: $u(0)=1$, $u(2)=5$.\n\n$$\\begin{aligned} \\int_0^2 x(x^2+1)^3\\,dx &= \\int_1^5 \\frac{u^3}{2}\\,du \\\\ &= \\left[\\frac{u^4}{8}\\right]_1^5 \\\\ &= \\frac{625-1}{8} = 78 \\end{aligned}$$\nActualizar los límites a la variable $u$ evita tener que volver a $x$ antes de evaluar, ambos caminos son válidos si se hacen completos.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^{\\pi/2} x\\cos x\\,dx$$",
+    "options": [
+      "$\\pi/2$",
+      "$1-\\pi/2$",
+      "$\\pi/2-1$",
+      "$\\pi/2-1+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicando partes y evaluando en los límites da $\\pi/2-1$.",
+    "feedback_incorrect": [
+      "Falta restar el término $\\cos x$ de la primitiva, solo consideraste la parte $x\\sin x$.",
+      "La resta va primero el límite superior menos el inferior, no al revés.",
+      null,
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos partes con $u=x$, $dv=\\cos x\\,dx$, obteniendo la primitiva $F(x)=x\\sin x+\\cos x$.\n\n$$\\begin{aligned} F(\\pi/2) &= \\frac{\\pi}{2}\\cdot 1+0 = \\frac{\\pi}{2} \\\\ F(0) &= 0+1 = 1 \\\\ \\int_0^{\\pi/2} x\\cos x\\,dx &= \\frac{\\pi}{2}-1 \\end{aligned}$$\nEl término $\\cos x$ de la primitiva aporta un valor distinto de cero en $x=0$, y ese valor es justamente el que resta al final.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_1^2 2xe^{x^2}\\,dx$$",
+    "options": [
+      "$e^4-e+C$",
+      "$e^2-e$",
+      "$e^4/2-e/2$",
+      "$e^4-e$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, actualizando los límites a $u=1$ y $u=4$ y evaluando ahí.",
+    "feedback_incorrect": [
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
+      "Los límites no se actualizaron a la variable $u$, con $u=x^2$ los límites correctos son $u=1$ y $u=4$.",
+      "El factor $2x\\,dx$ ya coincide exactamente con $du$, no hace falta dividir por ningún factor extra.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sustituimos $u=x^2$, con $du=2x\\,dx$, y **actualizamos los límites**: $u(1)=1$, $u(2)=4$.\n\n$$\\begin{aligned} \\int_1^2 2xe^{x^2}\\,dx &= \\int_1^4 e^u\\,du \\\\ &= \\left[e^u\\right]_1^4 \\\\ &= e^4-e \\end{aligned}$$\nEl factor $2x\\,dx$ coincide exactamente con $du$, así que no hace falta ningún ajuste de constante, solo actualizar los límites.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^1 \\ln(x+1)\\,dx$$",
+    "options": [
+      "$2\\ln 2-1$",
+      "$2\\ln 2-1+C$",
+      "$2\\ln 2$",
+      "$\\ln 2-1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicando partes con factor oculto y evaluando en los límites.",
+    "feedback_incorrect": [
+      null,
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
+      "Falta restar el término $-x$ de la primitiva, solo consideraste la parte con el logaritmo.",
+      "Falta el coeficiente $(x+1)$ multiplicando al logaritmo en el término $uv$, no solo $1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos partes con el **factor oculto** $dv=1\\,dx$ y $v=x+1$, obteniendo la primitiva $F(x)=(x+1)\\ln(x+1)-x$.\n\n$$\\begin{aligned} F(1) &= 2\\ln 2-1 \\\\ F(0) &= 1\\cdot\\ln 1-0 = 0 \\\\ \\int_0^1 \\ln(x+1)\\,dx &= 2\\ln 2-1 \\end{aligned}$$\nElegir $v=x+1$ en vez de $v=x$ simplifica la integral remanente, cancelando exactamente el denominador que aparece en $du$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^{\\pi/2} \\sin x\\cos x\\,dx$$",
+    "options": [
+      "$1$",
+      "$1/2$",
+      "$1/2+C$",
+      "$\\pi^2/8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, actualizando los límites a $u=0$ y $u=1$ y evaluando ahí.",
+    "feedback_incorrect": [
+      "Falta dividir por $2$, ese factor sale de la regla de la potencia aplicada a $u^2$.",
+      null,
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro.",
+      "Los límites no se actualizaron a la variable $u$, con $u=\\sin x$ los límites correctos son $u=0$ y $u=1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Sustituimos $u=\\sin x$, con $du=\\cos x\\,dx$, y **actualizamos los límites**: $u(0)=0$, $u(\\pi/2)=1$.\n\n$$\\begin{aligned} \\int_0^{\\pi/2} \\sin x\\cos x\\,dx &= \\int_0^1 u\\,du \\\\ &= \\left[\\frac{u^2}{2}\\right]_0^1 \\\\ &= \\frac{1}{2} \\end{aligned}$$\nActualizar los límites a valores simples de $u$, entre $0$ y $1$, deja una integral mucho más sencilla que la original en $x$.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int_0^1 xe^{-x}\\,dx$$",
+    "options": [
+      "$2/e-1$",
+      "$-2/e$",
+      "$1-2/e$",
+      "$1-2/e+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, aplicando partes y restando $F(0)=-1$ correctamente.",
+    "feedback_incorrect": [
+      "La resta va primero el límite superior menos el inferior, $F(1)-F(0)$, no al revés.",
+      "Falta restar $F(0)=-1$, ese valor no se puede omitir aunque el límite inferior sea cero.",
+      null,
+      "En definidas la $C$ se cancela al restar, la respuesta es un número puro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos partes con $u=x$, $dv=e^{-x}\\,dx$, obteniendo la primitiva $F(x)=-xe^{-x}-e^{-x}$.\n\n$$\\begin{aligned} F(1) &= -e^{-1}-e^{-1} = -\\frac{2}{e} \\\\ F(0) &= 0-1 = -1 \\\\ \\int_0^1 xe^{-x}\\,dx &= -\\frac{2}{e}-(-1) = 1-\\frac{2}{e} \\end{aligned}$$\nRestar $F(0)=-1$ es el paso que más se pierde acá, sobre todo porque el límite inferior es cero y parece que no debería aportar nada.",
     "reviewed": false
   }
 ]

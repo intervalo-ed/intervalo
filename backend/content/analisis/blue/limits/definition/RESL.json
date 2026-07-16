@@ -1,172 +1,332 @@
 [
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 2} (3x^2 - x + 1)$?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 2} (3x + 1)$$",
     "options": [
-      "$11$",
-      "$9$",
-      "$13$",
-      "$7$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Sustituyendo directamente: $3(4) - 2 + 1 = 12 - 2 + 1 = 11$.",
-    "feedback_incorrect": "Se sustituye $x=2$ directamente: $3(2)^2 - 2 + 1 = 12 - 2 + 1 = 11$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Los **polinomios** son continuos en todo $\\mathbb{R}$: se puede aplicar sustitución directa sin verificar condiciones adicionales.\n\n$$\\lim_{x \\to 2}(3x^2 - x + 1) = 3(2)^2 - 2 + 1 = 12 - 2 + 1 = 11$$\n\nRegla práctica: si la función es un polinomio, reemplazá $x$ por el valor indicado y calculá paso a paso.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to 1} \\dfrac{x+3}{x+2}$?",
-    "options": [
-      "$\\dfrac{1}{2}$",
-      "$\\dfrac{4}{3}$",
-      "$2$",
-      "$\\dfrac{3}{2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Sustituyendo $x=1$: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$.",
-    "feedback_incorrect": "Se sustituye $x=1$ directamente: $\\dfrac{1+3}{1+2} = \\dfrac{4}{3}$. No hay indeterminación.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para una función racional, primero verificamos que el denominador no se anule en $x=a$. Aquí $x+2 \\neq 0$ cuando $x=1$, así que la **sustitución directa** es válida.\n\n$$\\lim_{x \\to 1}\\frac{x+3}{x+2} = \\frac{1+3}{1+2} = \\frac{4}{3}$$\n\nSi el denominador hubiera dado $0$, habría que factorizar o racionalizar antes de evaluar.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to 0} (2x^3 + 5x - 1)$?",
-    "options": [
-      "$1$",
-      "$0$",
-      "$-1$",
-      "$5$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Sustituyendo $x=0$: $2(0) + 5(0) - 1 = -1$.",
-    "feedback_incorrect": "Sustituir $x=0$: $2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Al evaluar límites de polinomios, la sustitución directa siempre funciona. Reemplazamos $x=0$ término a término.\n\n$$\\lim_{x \\to 0}(2x^3 + 5x - 1) = 2(0)^3 + 5(0) - 1 = 0 + 0 - 1 = -1$$\n\nLa constante $-1$ «sobrevive» porque no depende de $x$. Las potencias de $0$ son todas $0$.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to 7} 4$?",
-    "options": [
-      "$28$",
       "$7$",
-      "$0$",
+      "$5$",
+      "$6$",
       "$4$"
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El límite de una constante es la constante misma: $\\lim_{x \\to 7} 4 = 4$.",
-    "feedback_incorrect": "El límite de una función constante es siempre esa constante, independientemente del valor al que tiende $x$: $\\lim_{x \\to 7} 4 = 4$.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El límite de una **función constante** es siempre esa constante, sin importar a qué valor tiende $x$. La función $f(x)=4$ vale $4$ en todo punto, y por lo tanto también cerca de $x=7$.\n\n$$\\begin{aligned} \\lim_{x &\\to a} c = c \\\\ \\text{para cualquier constante } c \\in \\mathbb{R} \\end{aligned}$$\n\nEn este caso: $\\lim_{x \\to 7} 4 = 4$. La gráfica de una constante es una recta horizontal.",
-    "reviewed": false
-  },
-  {
-    "question": "¿Cuánto vale $\\lim_{x \\to -3} x$?",
-    "options": [
-      "$-3$",
-      "$3$",
-      "$0$",
-      "$9$"
-    ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El límite de la función identidad $f(x) = x$ cuando $x \\to a$ es simplemente $a$.",
-    "feedback_incorrect": "Para $f(x) = x$, el límite cuando $x \\to -3$ es $-3$. La función identidad tiende al mismo valor al que se acerca $x$.",
+    "feedback_correct": "Sustituís $x=2$ directo: $3(2)+1=7$.",
+    "feedback_incorrect": [
+      null,
+      "Sumaste $3$ y $2$ en vez de multiplicarlos, revisá el orden de las operaciones.",
+      "Te faltó sumar el $+1$ después de multiplicar $3 \\cdot 2$.",
+      "Sustituiste $x$ por $1$ en lugar de por $2$, revisá el punto de tendencia."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **función identidad** $f(x)=x$ se acerca a cualquier valor $a$ cuando $x \\to a$. Es el caso más elemental de límite.\n\n$$\\lim_{x \\to a} x = a$$\n\nAquí: $\\lim_{x \\to -3} x = -3$. La función «devuelve» exactamente el valor al que se acerca $x$, sin ninguna transformación.",
+    "explanation": "Cuando la función es un polinomio y no hay ninguna restricción en el punto, el límite se calcula por **sustitución directa**: se reemplaza $x$ por el valor de tendencia y se opera.\n$$\\begin{aligned} \\lim_{x \\to 2} (3x+1) &= 3(2)+1 \\\\ &= 7 \\end{aligned}$$\nConviene siempre reemplazar primero y recién después operar, así se evita perder algún término de la expresión.",
     "reviewed": false
   },
   {
-    "question": "Si $\\lim_{x \\to a} f(x) = 3$ y $\\lim_{x \\to a} g(x) = 5$, ¿cuánto vale $\\lim_{x \\to a} [f(x) + g(x)]$?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to -2} x^2$$",
     "options": [
-      "$15$",
-      "$8$",
+      "$-4$",
+      "$4$",
       "$2$",
-      "$\\dfrac{3}{5}$"
+      "$-2$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Por la propiedad de suma: $\\lim [f + g] = \\lim f + \\lim g = 3 + 5 = 8$.",
-    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) + g(x)] = \\lim f(x) + \\lim g(x) = 3 + 5 = 8$.",
+    "feedback_correct": "$(-2)^2 = 4$, el cuadrado de un negativo siempre da positivo.",
+    "feedback_incorrect": [
+      "Al elevar al cuadrado el signo desaparece, el resultado no puede ser negativo.",
+      null,
+      "No hace falta sacar raíz, hay que elevar al cuadrado el valor de tendencia.",
+      "Ese es el punto de tendencia, no el resultado de elevarlo al cuadrado."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de suma** de límites permite separar la operación: el límite de la suma es la suma de los límites, siempre que ambos existan como números reales.\n\n$$\\lim_{x \\to a}[f(x)+g(x)] = \\lim_{x \\to a}f(x) + \\lim_{x \\to a}g(x)$$\n\nCon $\\lim f = 3$ y $\\lim g = 5$: el resultado es $3 + 5 = 8$. Esta propiedad se extiende a diferencias, productos y cocientes.",
+    "explanation": "En potencias pares, el signo de la base desaparece al elevar al cuadrado, así que el resultado de la **sustitución directa** siempre es positivo o cero.\n$$\\begin{aligned} \\lim_{x \\to -2} x^2 &= (-2)^2 \\\\ &= 4 \\end{aligned}$$\nArrastrar el signo negativo al resultado final es el error más frecuente en potencias pares con tendencias negativas.",
     "reviewed": false
   },
   {
-    "question": "Si $\\lim_{x \\to a} f(x) = 2$ y $\\lim_{x \\to a} g(x) = -4$, ¿cuánto vale $\\lim_{x \\to a} [f(x) \\cdot g(x)]$?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to -2} x^3$$",
     "options": [
-      "$-2$",
       "$8$",
+      "$-6$",
       "$-8$",
       "$6$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Por la propiedad de producto: $\\lim [f \\cdot g] = \\lim f \\cdot \\lim g = 2 \\cdot (-4) = -8$.",
-    "feedback_incorrect": "La propiedad de límites establece que $\\lim [f(x) \\cdot g(x)] = \\lim f(x) \\cdot \\lim g(x) = 2 \\cdot (-4) = -8$.",
+    "feedback_correct": "$(-2)^3 = -8$, en potencias impares el signo de la base se conserva.",
+    "feedback_incorrect": [
+      "En potencias impares el signo de la base se conserva, no desaparece como en las pares.",
+      "No se multiplica la base por el exponente, hay que elevarla a esa potencia.",
+      null,
+      "Ese resultado no corresponde a elevar $-2$ al cubo, revisá el cálculo de la potencia."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de producto** de límites establece que el límite del producto es el producto de los límites, cuando ambos existen.\n\n$$\\lim_{x \\to a}[f(x)\\cdot g(x)] = \\lim_{x \\to a}f(x) \\cdot \\lim_{x \\to a}g(x)$$\n\nCon $\\lim f=2$ y $\\lim g=-4$: el resultado es $2 \\cdot (-4) = -8$. El signo negativo se mantiene.",
+    "explanation": "A diferencia de las potencias pares, las potencias impares conservan el signo de la base al evaluarlas.\n$$\\begin{aligned} \\lim_{x \\to -2} x^3 &= (-2)^3 \\\\ &= -8 \\end{aligned}$$\nAntes de responder, conviene chequear si el exponente es par o impar, porque cambia si el signo se conserva o desaparece.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to 4} \\sqrt{x + 5}$?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 5} 8$$",
     "options": [
-      "$\\sqrt{9} + 1$",
-      "$2$",
-      "$\\sqrt{5}$",
-      "$3$"
+      "$5$",
+      "$40$",
+      "$13$",
+      "$8$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Sustituyendo: $\\sqrt{4+5} = \\sqrt{9} = 3$.",
-    "feedback_incorrect": "Se sustituye $x=4$ directamente: $\\sqrt{4+5} = \\sqrt{9} = 3$. No hay indeterminación.",
+    "feedback_correct": "Una función constante tiende siempre a su propio valor, sin importar el punto.",
+    "feedback_incorrect": [
+      "Ese es el punto de tendencia, no el valor de la función constante.",
+      "No hay que multiplicar la constante por el punto de tendencia, la función constante no depende de $x$.",
+      "No hay que sumar la constante con el punto de tendencia, son cantidades independientes.",
+      null
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función raíz cuadrada es continua para argumentos no negativos. Como $x+5 > 0$ cerca de $x=4$, la **sustitución directa** es válida.\n\n$$\\lim_{x \\to 4}\\sqrt{x+5} = \\sqrt{4+5} = \\sqrt{9} = 3$$\n\nSi la sustitución hubiera producido $\\dfrac{\\sqrt{\\ldots}-k}{0}$, la técnica correcta sería racionalizar con el conjugado.",
+    "explanation": "El **límite** de una función constante es siempre esa misma constante, sin importar a qué valor tienda $x$, porque $f(x)=8$ no cambia nunca.\n$$\\lim_{x \\to 5} 8 = 8$$\nConfundir la constante con el punto de tendencia es un error común, conviene recordar que una función constante no depende para nada de $x$.",
     "reviewed": false
   },
   {
-    "question": "¿Cuánto vale $\\lim_{x \\to -1} (x^3 + 2x^2 - x + 3)$?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 3} (x^2 - 2x + 1)$$",
     "options": [
-      "$5$",
-      "$3$",
-      "$-1$",
-      "$7$"
+      "$4$",
+      "$10$",
+      "$16$",
+      "$2$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Sustituyendo $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
-    "feedback_incorrect": "Sustituir $x=-1$: $(-1)^3 + 2(-1)^2 - (-1) + 3 = -1 + 2 + 1 + 3 = 5$.",
+    "feedback_correct": "Sustituís $x=3$ directo: $9-6+1=4$.",
+    "feedback_incorrect": [
+      null,
+      "Olvidaste restar el término $2x$ después de elevar al cuadrado.",
+      "Sumaste todos los términos en vez de restar el término del medio.",
+      "Falta sumar el $+1$ final después de operar los primeros dos términos."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con polinomios, aplicamos sustitución directa y evaluamos cuidadosamente con $x$ negativo, recordando las reglas de potencias.\n\n$$\\lim_{x \\to -1}(x^3+2x^2-x+3) = (-1)^3 + 2(-1)^2-(-1)+3 = -1+2+1+3 = 5$$\n\nAtención: $(-1)^3 = -1$ pero $(-1)^2 = +1$. Los signos con potencias impares/pares son el error más frecuente.",
+    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en cada término por separado y respetando los signos de la expresión.\n$$\\begin{aligned} \\lim_{x \\to 3} (x^2-2x+1) &= 3^2 - 2(3) + 1 \\\\ &= 9-6+1 \\\\ &= 4 \\end{aligned}$$\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo en el camino.",
     "reviewed": false
   },
   {
-    "question": "¿Cuál de estos límites se puede resolver directamente por sustitución (sin indeterminación)?",
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 1} \\frac{x+3}{x+2}$$",
     "options": [
-      "$\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}$",
-      "$\\lim_{x \\to 3} (x^2 + 1)$",
-      "$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1} - 1}{x}$",
-      "$\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$"
+      "$\\tfrac{3}{4}$",
+      "$\\tfrac{4}{3}$",
+      "$4$",
+      "$\\tfrac{1}{3}$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\lim_{x \\to 3} (x^2 + 1) = 9 + 1 = 10$, sin indeterminación. Los demás generan $\\dfrac{0}{0}$.",
-    "feedback_incorrect": "Solo $\\lim_{x \\to 3} (x^2 + 1)$ no genera indeterminación al sustituir: $3^2 + 1 = 10$. Los demás dan $\\dfrac{0}{0}$ al sustituir.",
+    "feedback_correct": "El denominador no se anula en $x=1$, así que alcanza con sustituir directo.",
+    "feedback_incorrect": [
+      "Invertiste el numerador y el denominador al sustituir.",
+      null,
+      "Te faltó dividir por el denominador, no alcanza con el numerador solo.",
+      "El denominador no se anula en $x=1$, no hace falta ningún otro procedimiento además de sustituir directo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El primer paso siempre es intentar la **sustitución directa**. Si el resultado no es una indeterminación, el límite queda resuelto en ese único paso.\n\n$$\\begin{aligned} \\lim_{x &\\to 3}(x^2+1) = 3^2+1 = 10 \\\\ \\text{(sin indeterminación)} \\end{aligned}$$\n\nLos otros límites del ejercicio producen $\\dfrac{0}{0}$ al sustituir, señal de que hay un factor cancelable que requiere factorización.",
+    "explanation": "Cuando el denominador de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica adicional.\n$$\\begin{aligned} \\lim_{x \\to 1} \\frac{x+3}{x+2} &= \\frac{1+3}{1+2} \\\\ &= \\frac{4}{3} \\end{aligned}$$\nAntes de aplicar otra técnica, siempre conviene chequear si el denominador se anula en el punto, si no se anula, el trabajo ya terminó.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 4} \\sqrt{x+5}$$",
+    "options": [
+      "$9$",
+      "$2$",
+      "$3$",
+      "$-3$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El argumento es positivo en el punto, sustituís directo y sacás la raíz: $\\sqrt{9}=3$.",
+    "feedback_incorrect": [
+      "Te faltó aplicar la raíz después de sumar, $9$ es el argumento, no el resultado final.",
+      "Calculaste $\\sqrt{4}$ en vez de $\\sqrt{4+5}$, revisá qué va dentro de la raíz.",
+      null,
+      "La raíz cuadrada principal nunca da un resultado negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando el argumento de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida.\n$$\\begin{aligned} \\lim_{x \\to 4} \\sqrt{x+5} &= \\sqrt{4+5} \\\\ &= \\sqrt{9} \\\\ &= 3 \\end{aligned}$$\nConviene primero resolver la expresión dentro de la raíz y recién después aplicar la raíz, nunca al revés.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 3} \\frac{x^2-4}{x-1}$$",
+    "options": [
+      "$5$",
+      "$\\tfrac{5}{4}$",
+      "$0$",
+      "$\\tfrac{5}{2}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El denominador no se anula en $x=3$, la sustitución directa alcanza sin necesidad de ninguna otra técnica.",
+    "feedback_incorrect": [
+      "Te faltó dividir por el denominador, calculaste solo el numerador.",
+      "El denominador en $x=3$ da $2$, no $4$, revisá la sustitución.",
+      "El numerador no se anula en $x=3$, no hay ninguna raíz cancelable ahí.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "No toda expresión con una potencia cuadrada necesita un tratamiento especial: si el denominador no se anula en el punto de tendencia, la **sustitución directa** es suficiente.\n$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-4}{x-1} &= \\frac{3^2-4}{3-1} \\\\ &= \\frac{5}{2} \\end{aligned}$$\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario, primero conviene chequear si hace falta.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá el límite:\\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}}{x+3}$$",
+    "options": [
+      "$1$",
+      "$3$",
+      "$\\tfrac{1}{3}$",
+      "$9$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El denominador no se anula y el argumento de la raíz es positivo, la sustitución directa alcanza.",
+    "feedback_incorrect": [
+      null,
+      "Te faltó dividir el resultado de la raíz por el denominador.",
+      "Invertiste el numerador y el denominador al calcular la división final.",
+      "Ese es el argumento de la raíz antes de aplicarla, no el resultado del límite completo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando ni el denominador se anula ni el argumento de la raíz es negativo en el punto de tendencia, la **sustitución directa** resuelve la expresión completa de una sola vez.\n$$\\begin{aligned} \\lim_{x \\to 0} \\frac{\\sqrt{x+9}}{x+3} &= \\frac{\\sqrt{0+9}}{0+3} \\\\ &= \\frac{3}{3} \\\\ &= 1 \\end{aligned}$$\nCon expresiones combinadas conviene resolver primero la raíz y recién después la división, para no mezclar ambos pasos.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 3$ y $\\lim_{x \\to a} g(x) = -2$, calculá:\\n$$\\lim_{x \\to a} [2f(x) - g(x)]$$",
+    "options": [
+      "$4$",
+      "$8$",
+      "$10$",
+      "$1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$2(3)-(-2)=6+2=8$, aplicando las propiedades de escalar y resta.",
+    "feedback_incorrect": [
+      "Te faltó multiplicar el escalar $2$ antes de restar, no alcanza con restar los límites directo.",
+      null,
+      "Multiplicaste el escalar dos veces, el $2$ solo afecta a $f$, no a $g$.",
+      "Revisá el signo de la resta, restar un número negativo equivale a sumar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término, siempre que cada límite exista por separado.\n$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$\nRestar un límite negativo equivale a sumar su valor absoluto, un detalle de signo que conviene revisar siempre.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 4$ y $\\lim_{x \\to a} g(x) = 1$, calculá:\\n$$\\lim_{x \\to a} [f(x) + 3g(x)]$$",
+    "options": [
+      "$5$",
+      "$15$",
+      "$7$",
+      "$12$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$4+3(1)=7$, aplicando las propiedades de suma y escalar por separado.",
+    "feedback_incorrect": [
+      "Te faltó multiplicar el escalar $3$ antes de sumar.",
+      "Multiplicaste el escalar también sobre $f$, pero el $3$ solo acompaña a $g$.",
+      null,
+      "Multiplicaste ambos límites entre sí en lugar de sumarlos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando una expresión combina suma y escalar, cada propiedad se aplica por separado, sin mezclar ambos límites en una sola operación.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)+3g(x)] &= \\lim_{x \\to a} f(x) + 3\\lim_{x \\to a} g(x) \\\\ &= 4 + 3(1) \\\\ &= 7 \\end{aligned}$$\nConviene aplicar el escalar solo al término que lo acompaña, distribuirlo sobre el otro término es un error frecuente.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 5$ y $\\lim_{x \\to a} g(x) = 2$, calculá:\\n$$\\lim_{x \\to a} [3f(x) - g(x)]$$",
+    "options": [
+      "$9$",
+      "$11$",
+      "$21$",
+      "$13$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$3(5)-2=15-2=13$, el escalar solo multiplica al término que acompaña.",
+    "feedback_incorrect": [
+      "Te faltó multiplicar el escalar $3$, restaste los límites sin aplicar el factor.",
+      "Multiplicaste el escalar $3$ también sobre $g(x)$, pero ese factor solo acompaña a $f(x)$.",
+      "Sumaste en vez de restar el segundo término.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un error clásico al combinar escalar y resta es distribuir el mismo factor sobre ambos términos, cuando en realidad solo acompaña a uno de ellos.\n$$\\begin{aligned} \\lim_{x \\to a} [3f(x)-g(x)] &= 3\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 3(5) - 2 \\\\ &= 13 \\end{aligned}$$\nAntes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 2$ y $\\lim_{x \\to a} g(x) = 5$, calculá:\\n$$\\lim_{x \\to a} [f(x) \\cdot g(x)]$$",
+    "options": [
+      "$10$",
+      "$7$",
+      "$3$",
+      "$25$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$2 \\cdot 5 = 10$, el límite de un producto es el producto de los límites.",
+    "feedback_incorrect": [
+      null,
+      "Sumaste los límites en vez de multiplicarlos.",
+      "Restaste los límites en vez de multiplicarlos.",
+      "Elevaste uno de los límites al cuadrado en vez de multiplicar ambos entre sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad de producto indica que el límite de un producto de funciones es el producto de sus límites por separado, siempre que ambos existan.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)\\cdot g(x)] &= \\lim_{x \\to a} f(x) \\cdot \\lim_{x \\to a} g(x) \\\\ &= 2 \\cdot 5 \\\\ &= 10 \\end{aligned}$$\nConfundir producto con suma es un desliz común cuando se opera rápido, conviene fijarse bien en el símbolo de la expresión original.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 8$ y $\\lim_{x \\to a} g(x) = 4$, calculá:\\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)}$$",
+    "options": [
+      "$32$",
+      "$2$",
+      "$4$",
+      "$12$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$8/4=2$, el límite del cociente es el cociente de los límites cuando el denominador no es $0$.",
+    "feedback_incorrect": [
+      "Multiplicaste los límites en vez de dividirlos.",
+      null,
+      "Ese es el valor de $\\lim g(x)$, no el resultado de la división.",
+      "Sumaste los límites en vez de dividirlos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad de cociente permite dividir los límites por separado, siempre que el límite del denominador sea distinto de $0$.\n$$\\begin{aligned} \\lim_{x \\to a} \\frac{f(x)}{g(x)} &= \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)} \\\\ &= \\frac{8}{4} \\\\ &= 2 \\end{aligned}$$\nEsta propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente.",
+    "reviewed": false
+  },
+  {
+    "question": "Sabiendo que $\\lim_{x \\to a} f(x) = 6$ y $\\lim_{x \\to a} g(x) = 0$, ¿qué puede afirmarse de $\\lim_{x \\to a} \\frac{f(x)}{g(x)}$?",
+    "options": [
+      "$6$",
+      "$0$",
+      "Es una indeterminación",
+      "No existe ningún límite"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Cuando el denominador tiende a $0$, la propiedad de cociente no se puede aplicar directo, hay que diagnosticar antes de operar.",
+    "feedback_incorrect": [
+      "La propiedad de cociente no se puede aplicar así cuando el denominador tiende a $0$, hace falta diagnosticar antes.",
+      "No alcanza con mirar el numerador, el denominador tendiendo a $0$ impide aplicar la propiedad directamente.",
+      null,
+      "Afirmar que no existe es apresurado, hace falta diagnosticar el tipo de indeterminación antes de concluir."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad de cociente exige que el límite del denominador sea distinto de $0$, si se anula, no se puede separar la división en dos límites por separado.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\neq \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)}$$\nEn este caso, con $\\lim_{x \\to a} g(x) = 0$, el resultado queda como una **indeterminación** que requiere otra técnica, no un cálculo directo con la propiedad de cociente.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ es un error frecuente, siempre conviene verificar esa condición primero.",
     "reviewed": false
   }
 ]

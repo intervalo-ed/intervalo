@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cómo se expresa de forma compacta un **sistema de ecuaciones lineales**?",
+    "options": [
+      "$A\\vec{x} = \\vec{b}$",
+      "$A + \\vec{x} = \\vec{b}$",
+      "$A\\vec{x} = A$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un sistema lineal se expresa como $A\\vec{x}=\\vec{b}$: matriz de coeficientes por incógnitas, igual a términos independientes.",
+    "feedback_incorrect": [
+      null,
+      "Los sistemas lineales se expresan con producto matricial, no con suma.",
+      "El lado derecho es el vector de términos independientes $\\vec{b}$, no la misma matriz $A$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **sistema de ecuaciones lineales** se expresa de forma compacta como una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$\n\nAquí $A$ concentra los coeficientes del sistema, $\\vec{x}$ agrupa las incógnitas y $\\vec{b}$ son los términos independientes.\n\nEsta notación permite abordar sistemas con muchas ecuaciones e incógnitas de forma unificada, sin escribir cada ecuación por separado.",
+    "reviewed": false
+  }
+]

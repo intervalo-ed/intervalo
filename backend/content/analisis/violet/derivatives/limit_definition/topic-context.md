@@ -63,13 +63,15 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | 20 |
-| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | 15 |
-| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | `anatomia-del-limite` | 20 |
+| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | `tasa-instantanea-vs-promedio` | 15 |
+| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | `notacion-formal-derivada` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$h$ confundido con $x$**: pensar que "lo que tiende a $0$" es $x$ o $a$. Recordar: $h$ es el **incremento**; $a$ es el punto donde se calcula la derivada y queda fijo.
@@ -93,13 +95,15 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Teorema diferenciabilidad ⇒ continuidad | Consolidar la implicación: **diferenciable ⇒ continua**, pero **continua ⇏ diferenciable**. Reconocer que una función con salto es no diferenciable **por** no ser continua. | 20 |
-| B. Casos teóricos de no-diferenciabilidad | Clasificar por qué una función no es derivable en un punto: quiebre (laterales del cociente incremental difieren), salto (falla continuidad), tangente vertical (derivada infinita). Sin gráfico, con descripción analítica. | 15 |
-| C. El contraejemplo de $\|x\|$ | El caso paradigmático: $f(x) = \|x\|$ es continua en $x = 0$ pero no diferenciable ahí, porque el cociente incremental tiene laterales $-1$ y $+1$. Ítems que aíslen esta situación. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Teorema diferenciabilidad ⇒ continuidad | Consolidar la implicación: **diferenciable ⇒ continua**, pero **continua ⇏ diferenciable**. Reconocer que una función con salto es no diferenciable **por** no ser continua. | `teorema-diferenciable-implica-continua` | 20 |
+| B. Casos teóricos de no-diferenciabilidad | Clasificar por qué una función no es derivable en un punto: quiebre (laterales del cociente incremental difieren), salto (falla continuidad), tangente vertical (derivada infinita). Sin gráfico, con descripción analítica. | `casos-teoricos-no-diferenciabilidad` | 15 |
+| C. El contraejemplo de $\|x\|$ | El caso paradigmático: $f(x) = \|x\|$ es continua en $x = 0$ pero no diferenciable ahí, porque el cociente incremental tiene laterales $-1$ y $+1$. Ítems que aíslen esta situación. | `contraejemplo-valor-absoluto` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Implicación invertida**: sostener que "continua ⇒ diferenciable". El contraejemplo es $|x|$: continua en $0$, no derivable.
@@ -124,13 +128,15 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 - **3 opciones** para preguntas categóricas (signo de $f'$, existencia de la derivada).
 - **4 opciones** para respuestas numéricas cortas (valor de $x$ donde $f' = 0$, etc.).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | 20 |
-| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | 15 |
-| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $|x|$), salto (discontinuidad), tangente vertical. | 15 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | `signo-de-la-derivada-visual` | 20 |
+| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | `identificacion-ceros-derivada` | 15 |
+| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $|x|$), salto (discontinuidad), tangente vertical. | `diagnostico-esquinas-y-saltos` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo invertido**: leer $f'(a) < 0$ en un tramo donde la curva sube. Recordar: sube ⇒ derivada positiva; baja ⇒ derivada negativa.
@@ -156,13 +162,15 @@ Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusiva
 ### Cardinalidad
 **Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Cuadráticas y el binomio | **Core del cálculo**. Derivar $f(x) = ax^2 + bx + c$ o casos particulares. Expandir $(x + h)^2 = x^2 + 2xh + h^2$, distribuir, no olvidar el **término cruzado** $2xh$, cancelar los términos sin $h$ del numerador, factorizar $h$ y evaluar el límite. | 25 |
-| B. Pasos intermedios del límite | Preguntas de **proceso**, no de resultado. Ejemplo: "tras expandir y cancelar los términos sin $h$, ¿qué factor común se extrae del numerador?" o "¿cuál es el numerador simplificado antes de tomar el límite?". | 15 |
-| C. Lineales y constantes | Límites del tipo $\tfrac{5 - 5}{h} = 0$ (constantes) o $\tfrac{3(x + h) - 3x}{h} = \tfrac{3h}{h} = 3$ (lineales), donde $h$ se cancela de inmediato dando un resultado constante. Casos que introducen el método sin cálculo pesado. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Cuadráticas y el binomio | **Core del cálculo**. Derivar $f(x) = ax^2 + bx + c$ o casos particulares. Expandir $(x + h)^2 = x^2 + 2xh + h^2$, distribuir, no olvidar el **término cruzado** $2xh$, cancelar los términos sin $h$ del numerador, factorizar $h$ y evaluar el límite. | `cuadraticas-y-el-binomio` | 25 |
+| B. Pasos intermedios del límite | Preguntas de **proceso**, no de resultado. Ejemplo: "tras expandir y cancelar los términos sin $h$, ¿qué factor común se extrae del numerador?" o "¿cuál es el numerador simplificado antes de tomar el límite?". | `pasos-intermedios-del-limite` | 15 |
+| C. Lineales y constantes | Límites del tipo $\tfrac{5 - 5}{h} = 0$ (constantes) o $\tfrac{3(x + h) - 3x}{h} = \tfrac{3h}{h} = 3$ (lineales), donde $h$ se cancela de inmediato dando un resultado constante. Casos que introducen el método sin cálculo pesado. | `lineales-y-constantes-cociente` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Término cruzado olvidado**: en $(x + h)^2$ dar $x^2 + h^2$ (olvidar el $2xh$). Es el error más costoso: sin el $2xh$ no hay cociente incremental correcto.

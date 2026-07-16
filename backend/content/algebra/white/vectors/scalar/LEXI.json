@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué devuelve la operación **escalar** entre dos vectores?",
+    "options": [
+      "Un número real",
+      "Un nuevo vector",
+      "Una matriz"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto escalar combina dos vectores y devuelve un número real.",
+    "feedback_incorrect": [
+      null,
+      "Eso describe al producto vectorial (en $\\mathbb{R}^3$), no al escalar.",
+      "El resultado del producto escalar no es una matriz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **producto escalar** (o interno) toma dos vectores y devuelve un número real.\n$$\\vec{u}\\cdot\\vec{v} = u_1v_1 + u_2v_2 + \\dots + u_nv_n$$\n\nA diferencia del producto vectorial, que da como resultado otro vector, acá el resultado siempre es un escalar.\n\nEste número vincula las magnitudes de ambos vectores con el ángulo que forman entre sí.",
+    "reviewed": false
+  }
+]

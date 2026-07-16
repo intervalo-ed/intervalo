@@ -1283,9 +1283,41 @@
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
-        "description": "N\u00fameros generales (globales) de la cabecera del leaderboard: estudiantes\nregistrados, ejercicios acumulados y universidades presentes. No dependen de\nning\u00fan filtro de carrera/universidad.",
+        "description": "N\u00fameros de la cabecera del leaderboard: estudiantes registrados,\nejercicios completados y universidades presentes.\n\n`universities` siempre lista el set completo (para poblar el filtro), pero\n`total_students`/`total_exercises` respetan `career`/`university` si se\npasan, igual que el scope de `/leaderboard`.",
         "operationId": "get_leaderboard_summary_leaderboard_summary_get",
         "parameters": [
+          {
+            "name": "university",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "University"
+            }
+          },
+          {
+            "name": "career",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Career"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -1513,7 +1545,7 @@
     "/session/start-zen": {
       "post": {
         "summary": "Start Zen Session",
-        "description": "Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic.",
+        "description": "Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.",
         "operationId": "start_zen_session_session_start_zen_post",
         "parameters": [
           {
@@ -2535,6 +2567,16 @@
             "type": "string",
             "title": "Id"
           },
+          "external_id": {
+            "type": "string",
+            "title": "External Id",
+            "default": ""
+          },
+          "exercise_type": {
+            "type": "string",
+            "title": "Exercise Type",
+            "default": ""
+          },
           "question": {
             "type": "string",
             "title": "Question"
@@ -2643,6 +2685,11 @@
           "total": {
             "type": "integer",
             "title": "Total"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": "main"
           },
           "exercises": {
             "items": {
@@ -2813,6 +2860,21 @@
               }
             ],
             "title": "Course"
+          },
+          "shuffle": {
+            "type": "boolean",
+            "title": "Shuffle",
+            "default": true
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TestFilters"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2827,16 +2889,12 @@
             "type": "string",
             "title": "User Name"
           },
-          "belt": {
-            "type": "string",
-            "title": "Belt"
-          },
-          "topics": {
+          "items": {
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/ZenSessionItem"
             },
             "type": "array",
-            "title": "Topics"
+            "title": "Items"
           },
           "count": {
             "type": "integer",
@@ -2857,8 +2915,7 @@
         "type": "object",
         "required": [
           "user_name",
-          "belt",
-          "topics",
+          "items",
           "count"
         ],
         "title": "StartZenSessionRequest"
@@ -2885,6 +2942,22 @@
           "correct"
         ],
         "title": "SummaryItem"
+      },
+      "TestFilters": {
+        "properties": {
+          "has_math": {
+            "type": "boolean",
+            "title": "Has Math",
+            "default": false
+          },
+          "has_graph": {
+            "type": "boolean",
+            "title": "Has Graph",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "TestFilters"
       },
       "TestSessionItem": {
         "properties": {
@@ -3261,6 +3334,24 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "ZenSessionItem": {
+        "properties": {
+          "belt": {
+            "type": "string",
+            "title": "Belt"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "belt",
+          "topic"
+        ],
+        "title": "ZenSessionItem"
       }
     }
   }

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuándo un conjunto de vectores es **linealmente independiente**?",
+    "options": [
+      "Cuando la única combinación lineal que da $\\vec{0}$ es la trivial ($c_i=0$)",
+      "Cuando todos los vectores son paralelos entre sí",
+      "Cuando la cantidad de vectores es mayor que la dimensión del espacio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un conjunto es independiente si solo la combinación trivial (todos los escalares en cero) da el vector nulo.",
+    "feedback_incorrect": [
+      null,
+      "Vectores paralelos son, de hecho, el caso típico de dependencia lineal.",
+      "Tener más vectores que la dimensión del espacio garantiza dependencia, no independencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un conjunto de vectores es **linealmente independiente** si ninguno puede expresarse como combinación lineal del resto.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$\n\nLa única forma de obtener el vector nulo con esa combinación es que todos los coeficientes sean cero.\n\nEsto asegura que cada vector del conjunto aporta una dirección genuinamente nueva, sin redundancia.",
+    "reviewed": false
+  }
+]

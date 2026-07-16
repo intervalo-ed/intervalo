@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué condición debe cumplir un **subespacio vectorial** $S$?",
+    "options": [
+      "Ser cerrado bajo la suma y el producto por escalar",
+      "Tener exactamente $n$ elementos",
+      "Estar formado solo por vectores positivos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un subespacio debe ser cerrado bajo suma y producto por escalar.",
+    "feedback_incorrect": [
+      null,
+      "La cantidad de elementos no es la condición que define un subespacio.",
+      "El signo de las componentes no forma parte de la definición de subespacio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **subespacio vectorial** es un subconjunto de un espacio mayor que se comporta como espacio vectorial por sí mismo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\n\nPara calificar como tal, debe ser cerrado bajo la suma y el producto por escalar: combinar elementos de $S$ siempre da otro elemento de $S$.\n\nEsta condición exige, en particular, que el vector nulo pertenezca siempre al subespacio.",
+    "reviewed": false
+  }
+]

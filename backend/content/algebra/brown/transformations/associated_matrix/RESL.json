@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Si $A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}$ es la matriz asociada a $T$, ¿cuánto vale $T(3,1)$?",
+    "options": [
+      "$(5,1)$",
+      "$(3,1)$",
+      "$(1,5)$",
+      "$(4,1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$A(3,1) = (1\\cdot3+2\\cdot1,\\; 0\\cdot3+1\\cdot1) = (5,1)$.",
+    "feedback_incorrect": [
+      null,
+      "Esas son las componentes originales, sin aplicar la matriz.",
+      "Las componentes del resultado quedaron invertidas.",
+      "Falta multiplicar correctamente la segunda fila de $A$ por el vector."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para aplicar la transformación, se multiplica la matriz asociada por el vector, fila por vector.\n$$T(3,1) = A\\begin{pmatrix}3\\\\1\\end{pmatrix} = \\begin{pmatrix} 1\\cdot3+2\\cdot1 \\\\ 0\\cdot3+1\\cdot1 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 1 \\end{pmatrix}$$\n\nLa primera fila de $A$ combina ambas componentes del vector, mientras que la segunda fila solo conserva la segunda componente.\n\nConviene calcular cada fila del producto por separado, para no mezclar los coeficientes de una fila con los de la otra.",
+    "reviewed": false
+  }
+]

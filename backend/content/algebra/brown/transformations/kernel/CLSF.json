@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Si $T(x,y)=(x,0)$, ¿cuál de estos vectores pertenece al **núcleo** de $T$?",
+    "options": [
+      "$(0,5)$",
+      "$(5,0)$",
+      "$(3,3)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$T(0,5)=(0,0)$: pertenece al núcleo.",
+    "feedback_incorrect": [
+      null,
+      "$T(5,0)=(5,0)\\neq(0,0)$: no pertenece al núcleo.",
+      "$T(3,3)=(3,0)\\neq(0,0)$: no pertenece al núcleo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para verificar si un vector está en el núcleo, se aplica $T$ y se revisa si el resultado es el vector nulo.\n\n$T(0,5) = (0,0)$: cumple la condición, así que $(0,5)$ pertenece al núcleo.\n\n$T(5,0)=(5,0)$ y $T(3,3)=(3,0)$ no dan el vector nulo, así que esos vectores quedan fuera del núcleo de $T$.",
+    "reviewed": false
+  }
+]

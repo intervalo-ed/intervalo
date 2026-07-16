@@ -48,6 +48,23 @@ Hoy todos son `""`. Completar con un `array<string|null>` paralelo a `options`, 
 ### Qué evalúa
 Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identificar **pendiente** $m$ y **ordenada al origen** $b$ desde la fórmula, signo de $m$ y monotonía, raíz, dominio e imagen, casos especiales ($m = 0$ constante). Mezcla de ítems de identificación numérica (leer $m$ o $b$) y conceptuales (nombrar el parámetro, describir monotonía).
 
+### Distribución objetivo
+
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `LEXI.json`:
+
+| Concepto | Slug | Cantidad actual |
+|----------|------|-----------------:|
+| Identificación de fórmula (es/no es lineal, otras familias) | `identificacion-formula` | 10 |
+| Dominio e imagen (natural o restringido) | `dominio-imagen` | 8 |
+| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 7 |
+| Nombrar parámetros/vocabulario (pendiente, ordenada, constante, raíz) | `nombre-parametros` | 6 |
+| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 6 |
+| Parámetros $m$/$b$ leídos en contexto cotidiano | `parametros-contexto` | 5 |
+| Pendiente, cálculo directo | `pendiente-calculo` | 3 |
+| Raíz, cálculo directo | `raiz-calculo` | 3 |
+| Ordenada al origen, cálculo directo | `ordenada-calculo` | 2 |
+| **Total** | | **50** |
+
 ### Cardinalidad
 - **Identificación numérica** (leer $m$, $b$, raíz, imagen): **4 opciones**, valores cortos, disparan la grilla 2×2.
 - **Conceptual puro** (nombrar un parámetro, elegir la descripción): **3 opciones** si solo hay tres confusiones reales; no rellenar con una cuarta implausible.
@@ -69,6 +86,23 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 
 ### Qué evalúa
 Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 2x - 5$ es lineal; $x^2$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (tasa constante → lineal; porcentaje/factor multiplicativo → exponencial; área → cuadrática). Incluye también monotonía e imagen de lineales, y 2 ítems con gráfico (recta vs. parábola vs. curva).
+
+### Distribución objetivo
+
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `CLSF.json`:
+
+| Concepto | Slug | Cantidad actual |
+|----------|------|-----------------:|
+| Clasificar desde situación cotidiana (correcta = lineal) | `clasificacion-desde-situacion` | 11 |
+| Clasificar desde fórmula (lineal o distractor de otra familia) | `clasificacion-desde-formula` | 10 |
+| Distractor de familia en situación cotidiana (correcta ≠ lineal) | `clasificacion-distractor-situacion` | 9 |
+| Monotonía, signo del comportamiento global | `monotonia-signo` | 5 |
+| Signo/intervalo (positiva, negativa, resolver inecuación) | `signo-intervalo` | 4 |
+| Propiedades generales (inclinación constante, pendiente 0, cortes, extremos) | `propiedades-generales` | 4 |
+| Clasificar desde gráfico | `clasificacion-desde-grafico` | 3 |
+| Dominio e imagen | `dominio-imagen` | 2 |
+| Rectas paralelas | `rectas-paralelas` | 2 |
+| **Total** | | **50** |
 
 ### Cardinalidad
 - **Clasificación de familia**: **4 opciones** (Lineal, Cuadrática, Exponencial, Logarítmica). Es el caso legítimo de 4: hay cuatro familias genuinamente distintas. Mantener las cuatro.
@@ -92,6 +126,26 @@ Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, ex
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **pendiente** $m$ (tarifa por unidad, ritmo) y la **ordenada al origen** $b$ (costo fijo, valor inicial), armar la ecuación. Incluye raíz (resolver $f(x) = 0$), imagen sobre dominio restringido $[a, b]$, y 4 ítems que leen la ecuación desde un gráfico.
 
+### Distribución objetivo
+
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `FORM.json`:
+
+| Concepto | Slug | Cantidad actual |
+|----------|------|-----------------:|
+| Armar fórmula desde situación cotidiana (costo, tanque, deuda, etc.) | `armar-formula-cotidiano` | 20 |
+| Pendiente, cálculo directo | `pendiente-calculo` | 4 |
+| Raíz, cálculo directo | `raiz-calculo` | 4 |
+| Gráfico → fórmula | `grafico-a-formula` | 4 |
+| Armar fórmula dados $m$ y $b$ | `armar-formula-mb` | 3 |
+| Armar fórmula dados uno o dos puntos | `armar-formula-puntos` | 3 |
+| Evaluar $f(\text{valor})$, abstracto o en contexto | `evaluar-f` | 3 |
+| Leer un parámetro ($m$ o $b$) ya en contexto | `leer-parametro-contexto` | 2 |
+| Ordenada al origen, cálculo directo | `ordenada-calculo` | 2 |
+| Pendiente interpretada como tasa descrita en palabras | `pendiente-concepto-tasa` | 2 |
+| Resolver la ecuación ($f(x) = k$) | `resolver-ecuacion` | 2 |
+| Propiedades generales (identificar la decreciente) | `propiedades-generales` | 1 |
+| **Total** | | **50** |
+
 ### Cardinalidad
 - **Armar/leer la fórmula, pendiente, raíz**: **4 opciones**, expresiones cortas ($C(k) = 500 + 200k$ y variantes), grilla 2×2.
 
@@ -112,6 +166,20 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 
 ### Qué evalúa
 Leer una recta desde su gráfico: **ordenada al origen** (bajada de bandera, valor inicial), **pendiente** (costo por km, ritmo), raíz, comparación de dos valores, y el caso de pendiente cero (abono fijo). Los 50 tienen `graph_fn`.
+
+### Distribución objetivo
+
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `GRAF.json`:
+
+| Concepto | Slug | Cantidad actual |
+|----------|------|-----------------:|
+| Pendiente como tasa (cuánto cambia por unidad, incluido $m=0$) | `pendiente-tasa` | 9 |
+| Pendiente, diferencia entre dos puntos leídos | `pendiente-diferencia` | 9 |
+| Ordenada al origen, qué representa el corte con el eje Y | `ordenada-origen-concepto` | 8 |
+| Raíz/agotamiento (cuándo llega a cero) | `raiz-agotamiento` | 8 |
+| Lectura de $y$ dado un $x$ | `lectura-y-dado-x` | 8 |
+| Lectura de $x$ dado un $y$ (≠ 0) | `lectura-x-dado-y` | 8 |
+| **Total** | | **50** |
 
 ### Cardinalidad
 - **4 opciones**, mezcla de descripciones cortas de contexto y valores numéricos leídos del gráfico.

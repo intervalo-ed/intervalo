@@ -4,23 +4,43 @@ Belt: `white`, Unit: `functions`, Topic: `definition`
 
 Skills en este topic: `LEXI`, `CLSF`.
 
+## Hallazgos de auditoría (ronda 1, 13/7)
+
+Revisión manual ítem por ítem vía `/test`. Los siguientes son ejemplos concretos de violaciones a `authoring-context.md` (terminología, vocabulario prohibido, notación de opciones, cortes de oración) encontradas en el contenido actual. **Todo el topic** (no solo los ítems citados) debe revisarse contra estas reglas al refactorizar, no únicamente los `external_id` listados abajo:
+
+- **`white_definition_LEXI_39`**: la opción `"Cualquier precio entre 1000 y 2000"` está en prosa libre mientras el resto de las opciones son notación de conjunto (`$\{1000, 2000\}$`, etc.) — reescribir en notación equivalente (ej. `$[1000, 2000]$`) o un distractor conceptual distinto que mantenga el registro simbólico. La `explanation` de este ítem usaba "escupir" (prohibido) y tenía dos oraciones juntas en el párrafo de cierre sin separar (ver regla de "un párrafo, una oración").
+- **`white_definition_CLSF_23`**: la opción `"Todos los reales"` rompe el registro simbólico frente a `$a \geq 0$`, `$a \neq 0$`, `$a > 100$` — reemplazar por `$\mathbb{R}$`. La `question` decía "regla" en vez de "función".
+- **`white_definition_LEXI_36`**: la `explanation` usaba "fabricar" (prohibido) — reemplazar por "se define".
+- **`white_definition_CLSF_30`**: `question` decía "regla" en vez de "función".
+- **`white_definition_LEXI_25`**: el enunciado dejaba la oración abierta antes de la fórmula display en vez de cerrar con punto (ver regla "nunca cortar una oración a la mitad para insertar una fórmula") y usaba la expresión "regla matemática" (prohibida, usar "función").
+- **`white_definition_CLSF_35`**: la `explanation` cerraba con "es un error habitual" — reemplazar por "una confusión común" / "un error común" (tono empático, no clínico).
+- **`white_definition_LEXI_43`**: usaba "salida matemática" (prohibido) — usar "función" o simplemente "salida".
+- **`white_definition_LEXI_15`**: usaba "procesa valores" y "regla" (ambos prohibidos) — usar "la función transforma [entradas] en [salidas]".
+- **`white_definition_LEXI_30`**: la `explanation` usaba "aterrizan" (prohibido, metáfora informal) — reformular sin metáfora.
+- **`white_definition_CLSF_43`**: distractores flojos ("imagen garantizada", "salidas declaradas por el modelo") y la función descrita como si fuera un actor en vez de una herramienta — revisar tono en toda `explanation` del topic: la función no "hace" cosas por sí misma, es un objeto que se aplica.
+- **`white_definition_CLSF_34`**: la opción `"El conjunto de alumnos"` en prosa libre rompe el registro de conjunto (`$\{0, 1\}$`, `$\{2, 3, \dots, 10\}$`) frente al resto — usar notación de conjunto equivalente (`$\{\text{alumnos}\}$`) en vez de descripción textual.
+
+**Regla transversal para el refactor:** revisar los 100 ítems (50 LEXI + 50 CLSF) contra `authoring-context.md` actualizado — terminología "función" (nunca "regla"), vocabulario prohibido (ver tabla en authoring-context.md), notación consistente dentro de cada `options`, ninguna oración cortada a la mitad por una fórmula display, y un párrafo por oración en `explanation`.
+
 ---
 
 ## LEXI, 50 ítems
 
 ### Distribución objetivo
 
-| Concepto | Sub-tipo | Cantidad exacta |
-|----------|----------|----------------:|
-| Dominio | conjunto explícito o natural | 12 |
-| Variable independiente / dependiente |, | 9 |
-| Imagen | como conjunto (¿cuál es el conjunto imagen?) | 8 |
-| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | 4 |
-| Codominio |, | 6 |
-| Preimagen | como cálculo (¿qué entradas dan $y$?) | 5 |
-| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | 2 |
-| Unicidad (cupo estricto, ver abajo) |, | 4 |
-| **Total** | | **50** |
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
+| Concepto | Sub-tipo | Slug | Cantidad exacta |
+|----------|----------|------|----------------:|
+| Dominio | conjunto explícito o natural | `dominio` | 12 |
+| Variable independiente / dependiente |, | `variable-indep-dep` | 9 |
+| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 8 |
+| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 4 |
+| Codominio |, | `codominio` | 6 |
+| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 5 |
+| Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 2 |
+| Unicidad (cupo estricto, ver abajo) |, | `unicidad` | 4 |
+| **Total** | | | **50** |
 
 **Cantidades exactas, no aproximadas.** La Gem debe respetar exactamente estos números; no más ítems de imagen o unicidad "porque salieron mejor".
 
@@ -105,16 +125,18 @@ El **humor es excepcional** (una minoría de los 50 ítems) y solo como **analog
 - **~15 de unicidad ("¿es función?")**, acotados a los dos casos que de verdad enseñan: **unicidad rota disfrazada** en contexto (no la tabla obvia de "una entrada con dos salidas") y **trampa de inyectividad** (dos entradas comparten salida y eso NO rompe la función). Este bloque entrena la confusión central unicidad↔inyectividad; los casos de unicidad rota explícita y evidente ya no se repiten en masa.
 - **~35 de identificación**, calcular o distinguir el conjunto concreto en un caso dado: cuál es el dominio de esta $f$, cuál es su conjunto imagen, qué valores excluye el dominio natural, cuáles son las preimágenes de $k$.
 
-| Categoría | Cantidad |
-|-----------|----------|
-| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | ~7 |
-| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | ~8 |
-| **Dominio**: identificar el conjunto de entradas en un caso concreto | ~6 |
-| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | ~10 |
-| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | ~9 |
-| **Codominio**: distinguir del conjunto imagen | ~4 |
-| **Preimagen**: calcular preimágenes / distinguir de la imagen | ~6 |
-| **Total** | **50** |
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
+| Categoría | Slug | Cantidad |
+|-----------|------|----------|
+| Unicidad **rota disfrazada** en contexto cotidiano ("¿es función?") | `unicidad-rota-disfrazada` | ~7 |
+| **Trampa de inyectividad**: sí es función aunque dos entradas compartan salida | `trampa-inyectividad` | ~8 |
+| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | ~6 |
+| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | ~10 |
+| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | ~9 |
+| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | ~4 |
+| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | ~6 |
+| **Total** | | **50** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ítem se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
 
@@ -154,7 +176,7 @@ Array paralelo a `options`, `null` en el índice correcto, mismo largo que `opti
 
 ## Checklist del topic, verificar antes de adjuntar el JSON
 
-Además del checklist global del `gem-instructions.md`, verificá lo específico de este topic:
+Además del checklist global del `generation-instructions.md`, verificá lo específico de este topic:
 
 **LEXI:**
 - [ ] 50 ítems exactos

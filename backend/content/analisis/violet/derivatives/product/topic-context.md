@@ -54,12 +54,14 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 ### Cardinalidad
 **Exactamente 3 opciones** por ítem.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del producto es válida pero **estratégicamente ineficiente o innecesaria**. Constante multiplicada por función ($f(x) = 4 \sin x$ es linealidad, no producto), polinomios distribuibles antes de derivar ($f(x) = (x+2)(x-2) = x^2 - 4$), potencias reescribibles ($f(x) = x^2 \cdot x^3 = x^5$). | 25 |
-| B. Identificación del esqueleto y factores | Desglosar correctamente la función inicial en $u$ y $v$, aislando las partes funcionales antes de empezar a derivar. Funciones mixtas sin signo de multiplicación explícito ($f(x) = x^2 \ln x$, $f(x) = \sqrt{x} \, e^x$, $f(x) = x \sin x$). | 25 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del producto es válida pero **estratégicamente ineficiente o innecesaria**. Constante multiplicada por función ($f(x) = 4 \sin x$ es linealidad, no producto), polinomios distribuibles antes de derivar ($f(x) = (x+2)(x-2) = x^2 - 4$), potencias reescribibles ($f(x) = x^2 \cdot x^3 = x^5$). | `falsos-positivos-alternativas-algebraicas` | 25 |
+| B. Identificación del esqueleto y factores | Desglosar correctamente la función inicial en $u$ y $v$, aislando las partes funcionales antes de empezar a derivar. Funciones mixtas sin signo de multiplicación explícito ($f(x) = x^2 \ln x$, $f(x) = \sqrt{x} \, e^x$, $f(x) = x \sin x$). | `identificacion-esqueleto-y-factores` | 25 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -92,14 +94,16 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - **Sin contextos cotidianos**. La habilidad evalúa mecánica pura de la fórmula, no modelado.
 - **Anulación forzada**: en toda evaluación puntual en $x = a$, **al menos uno de los términos de la suma** ($u'(a) v(a)$ o $u(a) v'(a)$) debe anularse resultando en $0$. Esto simplifica el cálculo final y desplaza el foco a la elección correcta de qué término se anula y por qué, en vez de a la aritmética.
 
+`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+
 ### Distribución por sub-familia
 
-| Sub-familia | Foco | Cant. |
-|-------------|------|:-----:|
-| A. Anulación por raíz de la función | El punto de evaluación $x = a$ es una **raíz de uno de los factores iniciales** ($u(a) = 0$ o $v(a) = 0$). Ejemplo: $f(x) = (x^2 - 4) e^x$ evaluada en $x = 2$. Se anula el término $u(a) v'(a) = 0 \cdot e^2 = 0$, queda $u'(2) v(2) = 4 e^2$. | 15 |
-| B. Anulación por extremo local (derivada nula) | El punto de evaluación $x = a$ **anula la derivada de uno de los factores** ($u'(a) = 0$ o $v'(a) = 0$). Ejemplo: $f(x) = \cos(x) \cdot e^x$ evaluada en $x = 0$. Como $(\cos x)'\|_{x=0} = -\sin 0 = 0$, se anula $u'(0) v(0) = 0$, queda $u(0) v'(0) = 1 \cdot 1 = 1$. | 15 |
-| C. Anulación cruzada completa | El punto de evaluación colapsa **ambos términos simultáneamente** ($u(a) = 0$ y $v'(a) = 0$, o $u'(a) = 0$ y $v(a) = 0$). El resultado final de la pendiente es $0$. | 10 |
-| D. Evaluación con datos abstractos | Se brindan los **valores puntuales** de $f(a), f'(a), g(a), g'(a)$, forzando a que uno o más sean $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 5$, $g(2) = 4$, $g'(2) = -1$, calculá $(f \cdot g)'(2)$". Obliga al uso de la **estructura abstracta pura** de la fórmula, sin cálculo de derivadas. Respuesta: $5 \cdot 4 + 0 \cdot (-1) = 20$. | 10 |
+| Sub-familia | Foco | Slug | Cant. |
+|-------------|------|------|:-----:|
+| A. Anulación por raíz de la función | El punto de evaluación $x = a$ es una **raíz de uno de los factores iniciales** ($u(a) = 0$ o $v(a) = 0$). Ejemplo: $f(x) = (x^2 - 4) e^x$ evaluada en $x = 2$. Se anula el término $u(a) v'(a) = 0 \cdot e^2 = 0$, queda $u'(2) v(2) = 4 e^2$. | `anulacion-por-raiz-producto` | 15 |
+| B. Anulación por extremo local (derivada nula) | El punto de evaluación $x = a$ **anula la derivada de uno de los factores** ($u'(a) = 0$ o $v'(a) = 0$). Ejemplo: $f(x) = \cos(x) \cdot e^x$ evaluada en $x = 0$. Como $(\cos x)'\|_{x=0} = -\sin 0 = 0$, se anula $u'(0) v(0) = 0$, queda $u(0) v'(0) = 1 \cdot 1 = 1$. | `anulacion-por-derivada-nula-producto` | 15 |
+| C. Anulación cruzada completa | El punto de evaluación colapsa **ambos términos simultáneamente** ($u(a) = 0$ y $v'(a) = 0$, o $u'(a) = 0$ y $v(a) = 0$). El resultado final de la pendiente es $0$. | `anulacion-cruzada-completa` | 10 |
+| D. Evaluación con datos abstractos | Se brindan los **valores puntuales** de $f(a), f'(a), g(a), g'(a)$, forzando a que uno o más sean $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 5$, $g(2) = 4$, $g'(2) = -1$, calculá $(f \cdot g)'(2)$". Obliga al uso de la **estructura abstracta pura** de la fórmula, sin cálculo de derivadas. Respuesta: $5 \cdot 4 + 0 \cdot (-1) = 20$. | `evaluacion-datos-abstractos-producto` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 

@@ -10,21 +10,19 @@ export function useStartPractice() {
   return useMutation({
     mutationFn: async ({
       userName,
-      belt,
-      topics,
+      items,
       count,
       course,
     }: {
       userName: string
-      belt: string
-      topics: string[]
+      items: { belt: string; topic: string }[]
       count: number
       course?: string
     }) => {
       // El modo se renombró a "practice" en el front; el endpoint del back sigue
       // siendo /session/start-zen (sin cambios de API).
       const { data, error } = await api.POST("/session/start-zen", {
-        body: { user_name: userName, belt, topics, count, course },
+        body: { user_name: userName, items, count, course },
       })
       if (error) throw error
       // OpenAPI spec types this response as `unknown`; the actual shape matches

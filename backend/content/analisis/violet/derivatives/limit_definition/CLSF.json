@@ -1,172 +1,302 @@
 [
   {
-    "question": "¿Es $f(x) = |x|$ diferenciable en $x=0$?",
+    "question": "Si una función $f$ es **diferenciable** en $x=a$, ¿qué se puede afirmar sobre su continuidad en ese punto?",
     "options": [
-      "No: los límites laterales del cociente incremental son $+1$ y $-1$, distintos",
-      "Sí: $f'(0) = 0$",
-      "Sí: $f'(0) = 1$",
-      "No: $f(0)$ no está definido"
+      "Es necesariamente continua en $a$",
+      "Puede ser discontinua en $a$",
+      "No hay ninguna relación entre ambas propiedades"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$\\lim_{h\\to0^+}\\frac{|h|}{h}=+1 \\neq -1 = \\lim_{h\\to0^-}\\frac{|h|}{h}$, por lo que $f'(0)$ no existe.",
-    "feedback_incorrect": "El cociente incremental en $x=0$ es $\\frac{|h|}{h}$: vale $+1$ para $h>0$ y $-1$ para $h<0$. Al diferir, el límite no existe y $f$ no es diferenciable en $x=0$.",
+    "feedback_correct": "Correcto, diferenciable implica continua.",
+    "feedback_incorrect": [
+      null,
+      "Si fuera discontinua, el límite del cociente incremental ni siquiera podría existir, así que no puede ser diferenciable y discontinua a la vez.",
+      "Sí hay una relación de implicación, ser diferenciable exige antes ser continua."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x)=|x|$, el cociente incremental en $a=0$ es $\\frac{|h|}{h}$, que depende del signo de $h$:\n\n$$\\lim_{h\\to0^+}\\frac{|h|}{h}=+1 \\neq -1 = \\lim_{h\\to0^-}\\frac{|h|}{h}$$\n\nComo los límites laterales difieren, $f'(0)$ no existe: $|x|$ **no es diferenciable** en $x=0$. Es el ejemplo canónico de función continua (pasa por el origen) pero no suave (tiene una esquina).",
+    "explanation": "El teorema central de esta relación establece que toda función **diferenciable** en un punto es también **continua** en ese punto.\n\nEsto ocurre porque el límite que define la derivada solo puede existir si, antes, la función no presenta ningún salto ni ruptura en ese lugar.\n\nLa implicación va en un único sentido, así que diferenciable siempre garantiza continua, pero no vale al revés.",
     "reviewed": false
   },
   {
-    "question": "Si $f'(a)$ existe, entonces $f$ es ___ en $x=a$.",
+    "question": "Si una función $f$ es **continua** en $x=a$, ¿qué se puede afirmar sobre su diferenciabilidad en ese punto?",
     "options": [
-      "Diferenciable en todo $\\mathbb{R}$",
-      "Continua",
-      "Constante cerca de $a$",
-      "Igual a $f'(a)$"
+      "Es diferenciable solo si $f$ es un polinomio",
+      "No se puede asegurar que sea diferenciable",
+      "Es necesariamente diferenciable"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Diferenciabilidad implica continuidad: si $f'(a)$ existe, $f$ es continua en $x=a$.",
-    "feedback_incorrect": "Si $f'(a)$ existe, entonces $f$ es **continua** en $x=a$. La diferenciabilidad implica continuidad (pero no al revés).",
+    "feedback_correct": "Correcto, la continuidad no alcanza para garantizar diferenciabilidad.",
+    "feedback_incorrect": [
+      "La forma algebraica de $f$ no decide nada por sí sola, hay polinomios diferenciables en todos lados y también funciones no polinómicas diferenciables.",
+      null,
+      "La continuidad es una condición necesaria pero no suficiente, existen funciones continuas que no son diferenciables."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **diferenciabilidad implica continuidad**: si $f'(a)$ existe, entonces $f$ es necesariamente continua en $x=a$. La demostración usa que $\\lim_{h\\to0}f(a+h) = f(a)$ se deduce de la existencia del límite del cociente incremental.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nLa recíproca es **falsa**: continuidad no implica diferenciabilidad. El ejemplo es $f(x)=|x|$ en $x=0$: continua pero no diferenciable.",
+    "explanation": "La **continuidad** es una condición necesaria para la diferenciabilidad, pero no alcanza por sí sola para garantizarla.\n\nEl ejemplo más conocido es $f(x)=|x|$ en $x=0$, continua ahí, pero sin derivada porque los laterales del cociente incremental no coinciden.\n\nPor eso, frente a una función continua, siempre hay que revisar el comportamiento del cociente incremental antes de afirmar que también es diferenciable.",
     "reviewed": false
   },
   {
-    "question": "Si $f$ es continua en $x=a$, ¿es necesariamente diferenciable allí?",
+    "question": "Una función tiene un salto en $x=a$, es decir, no es continua ahí. ¿Cómo se clasifica su diferenciabilidad en ese punto?",
     "options": [
-      "Solo si $f'(a) > 0$",
-      "Sí, siempre",
-      "No: $f(x)=|x|$ es continua pero no diferenciable en $x=0$",
-      "Solo si $f(a) = 0$"
+      "Diferenciable",
+      "Continua pero no diferenciable",
+      "Discontinua"
+    ],
+    "correct_index": 2,
+    "has_math": false,
+    "feedback_correct": "Correcto, si falla la continuidad, directamente se clasifica como discontinua y no diferenciable.",
+    "feedback_incorrect": [
+      "No puede ser diferenciable, porque la diferenciabilidad exige antes que la función sea continua, y acá no lo es.",
+      "Esa categoría es para funciones que sí son continuas pero fallan solo en la derivada, acá directamente falla la continuidad.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando una función presenta un salto en $x=a$, ya deja de ser **continua** en ese punto, y como la continuidad es condición necesaria para derivar, tampoco puede ser diferenciable.\n\nNo hace falta revisar el cociente incremental en este caso, basta con detectar el salto para descartar ambas propiedades de una sola vez.\n\nConfundir este caso con \"continua pero no diferenciable\" es un error típico, esa categoría se reserva para funciones que sí superan la prueba de continuidad.",
+    "reviewed": false
+  },
+  {
+    "question": "Una función es continua en $x=a$ pero presenta un pico anguloso justo ahí. ¿Cómo se clasifica su diferenciabilidad?",
+    "options": [
+      "Continua pero no diferenciable",
+      "Diferenciable",
+      "Discontinua"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Correcto, el pico rompe la diferenciabilidad sin romper la continuidad.",
+    "feedback_incorrect": [
+      null,
+      "El pico anguloso hace que los laterales del cociente incremental no coincidan, así que no es diferenciable ahí.",
+      "La función sigue siendo continua, un pico no es un salto, la curva no se corta, solo cambia de dirección bruscamente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un pico anguloso, o **quiebre**, mantiene la continuidad de la función porque no hay ningún salto en el valor, pero rompe la diferenciabilidad.\n\nEsto pasa porque los límites laterales del cociente incremental, acercándose por izquierda y por derecha, dan resultados distintos y el límite completo no existe.\n\nEste caso es distinto de un salto, ahí la función sigue siendo continua, la única propiedad que falla es la derivada.",
+    "reviewed": false
+  },
+  {
+    "question": "Si $f$ es **diferenciable** en $x=a$, ¿cuál de las siguientes afirmaciones es necesariamente cierta?",
+    "options": [
+      "$f$ no está definida en algún punto cercano a $a$",
+      "$f$ es continua en $a$",
+      "$f$ tiene un pico anguloso en $a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la continuidad es una consecuencia directa de la diferenciabilidad.",
+    "feedback_incorrect": [
+      "Para que el cociente incremental tenga sentido, la función debe estar definida en todo un entorno de $a$, no puede faltar en puntos cercanos.",
+      null,
+      "Un pico anguloso justamente impide que exista la derivada, así que es incompatible con ser diferenciable en ese punto."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda función **diferenciable** en $x=a$ es, como consecuencia directa del teorema, también **continua** en ese punto.\n\nEsta implicación se puede razonar desde la definición, si el límite del cociente incremental existe, entonces el numerador $f(a+h)-f(a)$ debe tender a cero cuando $h \\to 0$, lo cual es justo la definición de continuidad.\n\nPor eso conviene pensar en la diferenciabilidad como una condición más exigente que la continuidad, nunca al revés.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Es correcto afirmar que toda función continua es también diferenciable?",
+    "options": [
+      "Sí, ambas propiedades son siempre equivalentes",
+      "No, ninguna función continua es diferenciable",
+      "No, la continuidad es necesaria pero no suficiente para la diferenciabilidad"
+    ],
+    "correct_index": 2,
+    "has_math": false,
+    "feedback_correct": "Correcto, hay funciones continuas que fallan en ser diferenciables.",
+    "feedback_incorrect": [
+      "No son equivalentes, la diferenciabilidad es una condición más fuerte, hay funciones continuas sin derivada en algún punto.",
+      "Esa afirmación va al otro extremo, la mayoría de las funciones continuas sí son diferenciables, solo falla en puntos particulares como picos o tangentes verticales.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La afirmación \"toda función continua es diferenciable\" es **falsa** en general, la continuidad es una condición necesaria pero no suficiente.\n\nEl contraejemplo clásico es $f(x)=|x|$, continua en todo su dominio, pero sin derivada en $x=0$ por el pico anguloso que presenta ahí.\n\nConviene recordar esta implicación en un solo sentido cada vez que se evalúe la relación entre ambas propiedades, evita afirmar la equivalencia por error.",
+    "reviewed": false
+  },
+  {
+    "question": "En $x=a$, los límites laterales del cociente incremental de $f$ existen pero son distintos entre sí. ¿A qué caso de no diferenciabilidad corresponde?",
+    "options": [
+      "Un quiebre, es decir, un pico anguloso",
+      "Un salto de discontinuidad",
+      "Una tangente vertical"
+    ],
+    "correct_index": 0,
+    "has_math": false,
+    "feedback_correct": "Correcto, laterales finitos pero distintos describen un quiebre.",
+    "feedback_incorrect": [
+      null,
+      "Un salto rompe primero la continuidad, acá los laterales del cociente incremental existen, así que la función sigue siendo continua.",
+      "En una tangente vertical los laterales del cociente incremental tienden a infinito, acá son finitos pero distintos entre sí."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando los límites laterales del cociente incremental existen como números finitos pero no coinciden, la función presenta un **quiebre** en ese punto.\n\nGeométricamente esto corresponde a un pico anguloso, la curva sigue siendo continua, pero cambia de dirección de forma abrupta.\n\nEste caso se distingue de un salto porque ahí la función sigue siendo continua, y de una tangente vertical porque los laterales son finitos, no infinitos.",
+    "reviewed": false
+  },
+  {
+    "question": "En $x=a$, la función presenta un salto, los límites laterales de $f$ son distintos entre sí. ¿Por qué no es diferenciable ahí?",
+    "options": [
+      "Porque la derivada vale infinito en ese punto",
+      "Porque al no ser continua, tampoco puede ser diferenciable",
+      "Porque el cociente incremental converge a un valor finito distinto por cada lado"
+    ],
+    "correct_index": 1,
+    "has_math": false,
+    "feedback_correct": "Correcto, la falla de continuidad ya descarta cualquier posibilidad de derivada.",
+    "feedback_incorrect": [
+      "La derivada no toma el valor infinito, cuando el límite no existe se dice directamente que la derivada no existe, sin asignarle infinito.",
+      null,
+      "Ese comportamiento describe un quiebre, no un salto, en un salto la función misma no es continua."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un **salto** rompe la continuidad de $f$ en $x=a$, porque los valores de la función a izquierda y derecha se acercan a alturas distintas.\n\nComo la continuidad es condición necesaria para la diferenciabilidad, ni siquiera hace falta analizar el cociente incremental, la falla de continuidad ya descarta la derivada.\n\nEste caso se diferencia de un quiebre, donde la función sí sigue siendo continua y el problema aparece recién en los laterales del cociente incremental.",
+    "reviewed": false
+  },
+  {
+    "question": "En $x=a$, el cociente incremental de $f$ tiende a $+\\infty$ o $-\\infty$ por ambos lados. ¿Qué caso de no diferenciabilidad describe esta situación?",
+    "options": [
+      "Un quiebre",
+      "Un salto",
+      "Una tangente vertical"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La continuidad no garantiza diferenciabilidad: $|x|$ es el contraejemplo clásico.",
-    "feedback_incorrect": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en $x=0$ pero no diferenciable: tiene una esquina.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Continuidad **no implica** diferenciabilidad. $f(x)=|x|$ es continua en todo $\\mathbb{R}$, incluso en $x=0$: el límite existe e iguala $f(0)=0$.\n\n$$\\begin{aligned} \\lim_{x &\\to 0}|x|=0=f(0) \\\\ \\checkmark \\text{ (continua)} \\end{aligned}$$\n$$\\text{pero } \\lim_{h\\to0}\\frac{|h|}{h} \\text{ no existe} \\quad \\Rightarrow \\text{no diferenciable}$$\n\nLa esquina en $x=0$ es la evidencia gráfica: las tangentes desde la izquierda y la derecha no coinciden.",
-    "reviewed": false
-  },
-  {
-    "question": "Una función con una esquina (vértice abrupto) en $x=a$ es ___ en ese punto.",
-    "options": [
-      "Discontinua en $x=a$",
-      "Diferenciable con $f'(a)=0$",
-      "Continua y diferenciable",
-      "No diferenciable: las derivadas laterales son distintas"
+    "feedback_correct": "Correcto, cuando el cociente incremental diverge a infinito por ambos lados, la curva tiene tangente vertical.",
+    "feedback_incorrect": [
+      "En un quiebre los laterales son finitos pero distintos entre sí, acá ambos se van a infinito.",
+      "Un salto involucra que la función misma sea discontinua, acá $f$ puede seguir siendo continua y el problema está en el cociente incremental.",
+      null
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Una esquina significa que las tangentes desde la izquierda y la derecha tienen distinta pendiente: $f'(a)$ no existe.",
-    "feedback_incorrect": "Una esquina en $x=a$ implica que las derivadas laterales difieren, por lo que $f'(a)$ no existe: la función **no es diferenciable** allí. Puede ser continua igual.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **esquina** en $x=a$ significa que la curva cambia de dirección abruptamente: la tangente desde la izquierda tiene una pendiente y desde la derecha otra.\n\n$$\\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} \\neq \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nComo los límites laterales del cociente incremental difieren, $f'(a)$ no existe. La función puede ser continua en $x=a$ (la curva pasa por el punto) pero no diferenciable (tiene quiebre).",
+    "explanation": "Cuando el cociente incremental crece sin límite, tendiendo a $+\\infty$ o $-\\infty$ por ambos lados de $a$, la curva presenta una **tangente vertical** en ese punto.\n\nLa derivada no existe como número real ahí, porque el límite que la define no converge a ningún valor finito, sino que diverge.\n\nEste caso suele confundirse con \"derivada infinita\", pero la convención correcta es decir que la derivada no existe, $\\pm\\infty$ no es un valor admitido para $f'(a)$.",
     "reviewed": false
   },
   {
-    "question": "Si $\\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} \\neq \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$, entonces $f$ es ___ en $x=a$.",
+    "question": "¿Cuál de las siguientes condiciones garantiza que $f$ NO es diferenciable en $x=a$?",
     "options": [
-      "No diferenciable",
-      "Diferenciable con derivada promedio de ambos lados",
-      "Continua pero no acotada",
-      "Diferenciable en todo $\\mathbb{R}$"
+      "Los límites laterales del cociente incremental existen pero no coinciden",
+      "El cociente incremental converge al mismo valor finito por ambos lados",
+      "La función es un polinomio en un entorno de $a$"
     ],
     "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Para que $f'(a)$ exista, los límites laterales del cociente deben coincidir. Si difieren, $f$ no es diferenciable.",
-    "feedback_incorrect": "Si las derivadas laterales son distintas, el límite bilateral del cociente no existe: $f'(a)$ no existe y $f$ **no es diferenciable** en $a$.",
+    "has_math": false,
+    "feedback_correct": "Correcto, si los laterales no coinciden, el límite completo no existe y la derivada tampoco.",
+    "feedback_incorrect": [
+      null,
+      "Si ambos laterales coinciden en un mismo valor finito, eso es justamente la condición para que exista la derivada.",
+      "Los polinomios son diferenciables en todo su dominio, esa condición garantiza diferenciabilidad, no la descarta."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f'(a)$ exista, el límite del cociente incremental debe existir como límite bilateral. Eso requiere que los límites laterales **coincidan**:\n\n$$f'(a) \\text{ existe} \\iff \\lim_{h\\to0^-}\\frac{f(a+h)-f(a)}{h} = \\lim_{h\\to0^+}\\frac{f(a+h)-f(a)}{h}$$\n\nSi difieren, $f'(a)$ no existe y $f$ es **no diferenciable** en $x=a$. Esto ocurre en esquinas, cúspides y puntos donde la tangente sería vertical.",
+    "explanation": "Para que exista la **derivada** en un punto, el límite del cociente incremental tiene que dar el mismo resultado al acercarse por izquierda y por derecha.\n\nSi los laterales existen como números pero no coinciden entre sí, el límite bilateral simplemente no existe, y por lo tanto tampoco existe la derivada.\n\nEsta es la condición que falla en cualquier quiebre, y es la herramienta central para justificar por qué un punto anguloso no es diferenciable.",
     "reviewed": false
   },
   {
-    "question": "¿Es $f(x) = x^3$ diferenciable en $x=0$?",
+    "question": "Para distinguir un quiebre de un salto en $x=a$, ¿qué propiedad conviene revisar primero?",
     "options": [
-      "No: tiene una esquina en $x=0$",
-      "Sí: $f'(0) = 0$ (tangente horizontal)",
-      "No: el cociente incremental no existe en $x=0$",
-      "Sí: $f'(0) = 1$"
+      "Si $f(a)$ es positivo o negativo",
+      "Si $f$ es continua en $a$",
+      "Si $f$ es un polinomio"
     ],
     "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(x)=x^3$ es suave en el origen: $\\frac{h^3}{h}=h^2\\to0$, por lo que $f'(0)=0$.",
-    "feedback_incorrect": "$f(x)=x^3$ es diferenciable en todo $\\mathbb{R}$. En $x=0$: $\\frac{(0+h)^3-0}{h}=h^2\\to0$, luego $f'(0)=0$. No hay esquina: la curva pasa suavemente por el origen.",
+    "has_math": false,
+    "feedback_correct": "Correcto, revisar la continuidad primero separa de entrada los saltos de los quiebres.",
+    "feedback_incorrect": [
+      "El signo del valor de la función en $a$ no tiene relación con si hay un salto o un quiebre en ese punto.",
+      null,
+      "Que $f$ sea o no un polinomio no distingue entre estos dos casos, ambos pueden darse en funciones de cualquier tipo."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x)=x^3$ es diferenciable en **todo** $\\mathbb{R}$, incluso en $x=0$. El cociente incremental:\n\n$$\\frac{(0+h)^3 - 0}{h} = \\frac{h^3}{h} = h^2 \\xrightarrow{h\\to0} 0$$\n\nAsí que $f'(0) = 0$: la tangente en el origen es horizontal. A diferencia de $|x|$, la curva $x^3$ pasa suavemente por el origen sin esquinas, aunque visualmente tenga un punto de inflexión.",
+    "explanation": "La forma más directa de distinguir un **quiebre** de un **salto** es revisar primero si $f$ es continua en $x=a$.\n\nSi la función no es continua ahí, se trata de un salto, y ni siquiera hace falta analizar el cociente incremental, la derivada ya queda descartada.\n\nSi la función sí es continua, recién ahí conviene revisar los laterales del cociente incremental, porque el caso pasa a ser un quiebre o una tangente vertical.",
     "reviewed": false
   },
   {
-    "question": "Una función con una discontinuidad de salto en $x=1$, ¿es diferenciable en $x=1$?",
+    "question": "La función $f(x) = |x|$, ¿es continua en $x=0$?",
     "options": [
-      "Solo si el valor $f(1)$ está definido",
-      "Sí, si el salto es pequeño",
-      "No: la diferenciabilidad requiere continuidad, que no se cumple",
-      "Depende de la pendiente a cada lado del salto"
+      "No, tiene un salto en $x=0$",
+      "No está definida en $x=0$",
+      "Sí, es continua en $x=0$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Toda discontinuidad implica no-diferenciabilidad: diferenciable implica continua.",
-    "feedback_incorrect": "La diferenciabilidad requiere continuidad como condición previa. Un salto es una discontinuidad, y donde $f$ no es continua tampoco puede ser diferenciable.",
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La diferenciabilidad requiere continuidad como condición previa. Si $f$ tiene una **discontinuidad de salto** en $x=1$, no es continua allí, y por lo tanto tampoco puede ser diferenciable.\n\n$$f \\text{ diferenciable en } a \\Rightarrow f \\text{ continua en } a$$\n\nContrarecíproco: si $f$ **no** es continua en $a$, entonces **no** es diferenciable en $a$. La cadena de implicación no puede sostenerse si hay un salto.",
-    "reviewed": false
-  },
-  {
-    "question": "Si $f'(a) = 0$, ¿qué indica geométricamente?",
-    "options": [
-      "La función es creciente en $x=a$",
-      "$f(a) = 0$: la curva cruza el eje $x$",
-      "$f$ tiene una discontinuidad en $x=a$",
-      "La recta tangente en $x=a$ es horizontal"
+    "feedback_correct": "Correcto, $|x|$ es continua en todo su dominio, incluido $x=0$.",
+    "feedback_incorrect": [
+      "No hay ningún salto, los dos tramos de $|x|$ se encuentran exactamente en el mismo valor, $f(0)=0$.",
+      "$f(0)=0$ está perfectamente definido, la función existe en todo $\\mathbb{R}$.",
+      null
     ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La derivada es la pendiente de la tangente; si $f'(a)=0$, la tangente es horizontal.",
-    "feedback_incorrect": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**. No implica que $f(a)=0$.",
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada $f'(a)$ es la pendiente de la tangente. Si $f'(a)=0$, la pendiente es nula: la tangente es **horizontal**.\n\n$$f'(a) = 0 \\implies \\text{tangente horizontal en } x=a$$\n\nEsto ocurre en **máximos** y **mínimos locales** (y también en puntos de inflexión horizontales como $x=0$ para $f(x)=x^3$). No implica que $f(a)=0$: el punto puede estar a cualquier altura.",
+    "explanation": "La función $f(x)=|x|$ está formada por dos tramos, $f(x)=x$ para $x \\geq 0$ y $f(x)=-x$ para $x<0$, que se encuentran ambos en el valor $f(0)=0$.\n\nComo ambos tramos se acercan al mismo valor desde ambos lados, la función es **continua** en $x=0$, no hay ningún salto.\n\nEste caso es justamente el contraejemplo clásico que muestra que la continuidad no alcanza para garantizar diferenciabilidad.",
     "reviewed": false
   },
   {
-    "question": "$f'(a) > 0$ implica que $f$ es ___ cerca de $x=a$.",
+    "question": "La función $f(x)=|x|$, ¿es diferenciable en $x=0$?",
     "options": [
-      "Localmente creciente",
-      "Localmente decreciente",
-      "Constante",
-      "Cóncava hacia arriba"
+      "No, porque los límites laterales del cociente incremental valen $-1$ y $+1$",
+      "Sí, con $f'(0)=0$ por simetría",
+      "Sí, con $f'(0)=1$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Derivada positiva ↔ función creciente: la tangente sube de izquierda a derecha.",
-    "feedback_incorrect": "Si $f'(a)>0$, la función es **localmente creciente** en $x=a$: la tangente tiene pendiente positiva, la curva sube al avanzar en $x$.",
+    "feedback_correct": "Correcto, los laterales no coinciden y la derivada no existe en ese punto.",
+    "feedback_incorrect": [
+      null,
+      "La simetría de la gráfica no implica derivada nula, el pico anguloso en $0$ hace que el límite del cociente incremental directamente no exista.",
+      "Ese valor corresponde solo al lado derecho, el lateral izquierdo da $-1$, y como no coinciden, la derivada no existe."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada positiva indica que la función **crece**: por cada pequeño avance en $x$, $f(x)$ aumenta.\n\n$$f'(a) > 0 \\implies f \\text{ es creciente en una vecindad de } a$$\n\nGeométricamente: la tangente sube de izquierda a derecha (pendiente positiva). Contraste: $f'(a)<0$ implica función decreciente; $f'(a)=0$ podría ser extremo o inflexión.",
+    "explanation": "Para $f(x)=|x|$ en $a=0$, el cociente incremental por la derecha da $\\frac{|h|-0}{h}=\\frac{h}{h}=1$, mientras que por la izquierda da $\\frac{|h|-0}{h}=\\frac{-h}{h}=-1$.\n\n$$\\begin{aligned} \\lim_{h \\to 0^+} \\frac{|h|}{h} &= 1 \\\\ \\lim_{h \\to 0^-} \\frac{|h|}{h} &= -1 \\end{aligned}$$\nComo los dos límites laterales existen pero no coinciden, el límite bilateral no existe, así que $f$ no es **diferenciable** en $x=0$, a pesar de ser continua ahí.",
     "reviewed": false
   },
   {
-    "question": "¿Cuál de estas condiciones garantiza que $f$ es diferenciable en $x=a$?",
+    "question": "¿Cómo se clasifica $f(x)=|x|$ en $x=0$ según la relación entre diferenciabilidad y continuidad?",
     "options": [
-      "$f(a)$ está definido y $f$ es continua en $a$",
-      "El límite $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ existe y es un número real finito",
-      "$f'(x)>0$ para todo $x$ cercano a $a$",
-      "La gráfica de $f$ es una recta cerca de $a$"
+      "Discontinua",
+      "Continua pero no diferenciable",
+      "Diferenciable"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Esa es exactamente la definición de diferenciabilidad: el límite del cociente incremental existe como número real.",
-    "feedback_incorrect": "La definición de diferenciabilidad es que $\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$ exista como número real finito. Continuidad (opción B) es necesaria pero no suficiente.",
+    "feedback_correct": "Correcto, es el ejemplo paradigmático de esta categoría.",
+    "feedback_incorrect": [
+      "No es discontinua, los dos tramos de la función se encuentran en el mismo valor $f(0)=0$.",
+      null,
+      "No es diferenciable, los laterales del cociente incremental valen $-1$ y $+1$, así que el límite bilateral no existe."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **definición formal** de diferenciabilidad es que el límite del cociente incremental exista y sea un número real:\n\n$$f \\text{ diferenciable en } a \\iff \\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h} = L \\in \\mathbb{R}$$\n\nContinuidad (opción B) es necesaria pero no suficiente. Que $f'(a)>0$ (opción C) ya asumiría que existe. Y la gráfica podría ser localmente recta sin ser diferenciable en sentido estricto.",
+    "explanation": "La función $f(x)=|x|$ en $x=0$ es el ejemplo paradigmático de la categoría **continua pero no diferenciable**.\n\nEs continua porque los dos tramos se encuentran en el mismo valor, pero no es diferenciable porque el pico anguloso hace que los laterales del cociente incremental difieran.\n\nConviene memorizar este ejemplo como referencia rápida cada vez que haga falta distinguir estas dos propiedades.",
+    "reviewed": false
+  },
+  {
+    "question": "¿Por qué $f(x)=|x|$ no es diferenciable en $x=0$ a pesar de ser continua ahí?",
+    "options": [
+      "Porque $f(0)$ no está definido",
+      "Porque la función tiene una tangente vertical en $0$",
+      "Porque el límite lateral izquierdo del cociente incremental es $-1$ y el derecho es $+1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, los laterales del cociente incremental no coinciden en $0$.",
+    "feedback_incorrect": [
+      "$f(0)=0$ sí está definido, el problema no es de dominio, sino de que los laterales del cociente incremental no coinciden.",
+      "No es una tangente vertical, ahí los laterales tenderían a infinito, acá ambos son finitos pero distintos entre sí.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El motivo exacto por el que $f(x)=|x|$ falla en ser diferenciable en $x=0$ es que sus límites laterales del cociente incremental no coinciden, uno da $-1$ y el otro $+1$.\n\nEsto corresponde geométricamente al pico anguloso que se ve en la gráfica, la curva cambia de dirección de forma abrupta justo en ese punto.\n\nEste caso queda separado tanto de un salto, que rompería la continuidad, como de una tangente vertical, donde los laterales tenderían a infinito en vez de dar valores finitos distintos.",
     "reviewed": false
   }
 ]

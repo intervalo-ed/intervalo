@@ -50,6 +50,7 @@ def _row_to_dict(row: Exercise) -> dict:
         except (json.JSONDecodeError, TypeError):
             pass
     return {
+        "external_id": row.external_id,
         "exercise_type": row.exercise_type,
         "question": row.question,
         "options": [o for o in [row.option_a, row.option_b, row.option_c, row.option_d] if o is not None],

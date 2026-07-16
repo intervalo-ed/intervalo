@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Qué dos condiciones debe cumplir un conjunto para ser **base** de un espacio $V$?",
+    "options": [
+      "Ser generador de $V$ y linealmente independiente",
+      "Tener más elementos que la dimensión de $V$",
+      "Estar formado por vectores unitarios"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Una base debe generar el espacio y ser linealmente independiente.",
+    "feedback_incorrect": [
+      null,
+      "Tener más elementos que la dimensión rompe la independencia lineal.",
+      "Los vectores de una base no necesitan tener norma $1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **base** es un conjunto de vectores que actúa como sistema de referencia óptimo.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$\n\nGenera todo el espacio (no falta ningún vector) y es linealmente independiente (no sobra ninguno).\n\nEsta doble condición garantiza que cualquier vector del espacio se escriba de forma única como combinación lineal de la base.",
+    "reviewed": false
+  }
+]

@@ -1,7 +1,7 @@
 {
   "slug": "algebra",
-  "name": "Álgebra",
-  "description": "Sistema de repaso adaptativo para Álgebra Lineal",
+  "name": "Álgebra Lineal",
+  "description": "Sistema de repaso adaptativo para Álgebra Lineal I",
   "exercise_types": [
     {
       "id": "LEXI",
@@ -11,45 +11,123 @@
     {
       "id": "CLSF",
       "label": "Clasificación",
-      "description": "Reconocer y clasificar objetos matemáticos."
+      "description": "Reconocer y clasificar objetos, vectores, matrices o transformaciones."
     },
     {
       "id": "FORM",
       "label": "Formulación",
-      "description": "Identificar y aplicar los componentes de una fórmula."
+      "description": "Identificar y aplicar los componentes de una fórmula o ecuación."
     },
     {
       "id": "GRAF",
       "label": "Gráficos",
-      "description": "Leer e interpretar información en gráficos."
+      "description": "Leer e interpretar información geométrica y representaciones en el plano y el espacio."
+    },
+    {
+      "id": "ESTR",
+      "label": "Estrategia",
+      "description": "Elegir el método o las condiciones para resolver."
     },
     {
       "id": "RESL",
       "label": "Resolución",
       "description": "Calcular el resultado paso a paso."
-    },
-    {
-      "id": "APLI",
-      "label": "Aplicación",
-      "description": "Resolver problemas y situaciones reales."
     }
   ],
   "belts": [
     {
       "key": "white",
       "headline": "Vectores",
-      "description": "Trabajás el concepto de vector como entidad matemática que posee magnitud y dirección. Es el formalismo necesario para la representación geométrica y el análisis algebraico en dimensiones superiores.",
+      "description": "Un **vector** es una herramienta matemática que modela magnitudes físicas con dirección y sentido. Su estudio en $\\mathbb{R}^n$ sienta las bases para comprender la geometría del espacio, la ortogonalidad y la construcción de sistemas de coordenadas independientes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\nEsta unidad recorre la definición de vectores, sus operaciones métricas y la representación de rectas y planos.",
       "units": [
         {
           "key": "vectors",
           "name": "Vectores",
+          "description": "Un **vector** es un ente matemático que pertenece a un espacio $\\mathbb{R}^n$, definido por una tupla ordenada de componentes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\nEsta unidad introduce los conceptos fundamentales de geometría vectorial, operaciones, métricas y geometría analítica en el plano y el espacio.",
           "topics": [
             {
-              "key": "vectores",
-              "name": "Vectores",
-              "tooltip": "Un **vector** es una entidad matemática que posee magnitud y dirección, permitiendo la descripción de puntos en espacios euclidianos mediante coordenadas.\n\n**Operaciones fundamentales:**\n• **Suma:** $(a_1, a_2) + (b_1, b_2) = (a_1+b_1, a_2+b_2)$\n• **Producto escalar:** $\\lambda \\cdot (a_1, a_2) = (\\lambda a_1, \\lambda a_2)$\n• **Módulo:** $|\\vec{v}| = \\sqrt{a_1^2 + a_2^2}$\n• **Producto punto:** $\\vec{u} \\cdot \\vec{v} = u_1 v_1 + u_2 v_2$\n\nEl producto punto permite calcular ángulos: $\\cos\\theta = \\dfrac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}||\\vec{v}|}$.\n\nDos vectores son **perpendiculares** si $\\vec{u} \\cdot \\vec{v} = 0$.\n\nEjemplo: El vector $\\vec{v} = (3, 4)$ tiene módulo $|\\vec{v}| = 5$.",
-              "short_description": "Un **vector** es una entidad matemática con magnitud y dirección, representado por coordenadas $(a_1, a_2, \\ldots, a_n)$ en un espacio euclídeo.",
-              "skills": []
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Un **vector** es un ente matemático que pertenece a un espacio $\\mathbb{R}^n$, definido por una tupla ordenada de componentes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\nGeométricamente, en $\\mathbb{R}^2$ y $\\mathbb{R}^3$, modela magnitudes que poseen dirección y sentido, como desplazamientos o fuerzas. Constituye el objeto de estudio fundamental sobre el cual se construyen los espacios vectoriales.",
+              "short_description": "Un **vector** es un ente matemático que pertenece a un espacio $\\mathbb{R}^n$, definido por una tupla ordenada de componentes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$",
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "operations",
+              "name": "Operaciones",
+              "tooltip": "Las operaciones básicas entre vectores son la **suma** componente a componente y el **producto por un escalar**.\n$$\\alpha\\vec{v} = (\\alpha v_1, \\alpha v_2, \\dots, \\alpha v_n)$$\nEstas operaciones permiten escalar, invertir o combinar vectores geométricamente. Son las dos operaciones que estructuran axiomáticamente a cualquier espacio vectorial.",
+              "short_description": "Las operaciones básicas entre vectores son la **suma** componente a componente y el **producto por un escalar**.\n$$\\alpha\\vec{v} = (\\alpha v_1, \\alpha v_2, \\dots, \\alpha v_n)$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "norm",
+              "name": "Norma",
+              "tooltip": "La **norma** o módulo de un vector cuantifica su longitud o magnitud en el espacio, calculada a partir de sus componentes.\n$$\\| \\vec{v} \\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$\nPermite definir conceptos métricos como la distancia entre dos puntos y la normalización de vectores, llevándolos a longitud unitaria sin alterar su dirección.",
+              "short_description": "La **norma** o módulo de un vector cuantifica su longitud o magnitud en el espacio, calculada a partir de sus componentes.\n$$\\| \\vec{v} \\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "scalar",
+              "name": "Escalar",
+              "tooltip": "La operación **escalar** (producto interno) toma dos vectores y devuelve un número real, vinculando sus magnitudes con el ángulo que forman.\n$$\\vec{u} \\cdot \\vec{v} = \\| \\vec{u} \\| \\| \\vec{v} \\| \\cos(\\theta)$$\nAlgebraicamente, se calcula sumando el producto de sus componentes homólogas. Es la herramienta principal para proyectar un vector sobre otro y analizar la relación angular.",
+              "short_description": "La operación **escalar** (producto interno) toma dos vectores y devuelve un número real, vinculando sus magnitudes con el ángulo que forman.\n$$\\vec{u} \\cdot \\vec{v} = \\| \\vec{u} \\| \\| \\vec{v} \\| \\cos(\\theta)$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "orthogonality",
+              "name": "Ortogonalidad",
+              "tooltip": "Dos vectores son **ortogonales** si el ángulo entre ellos es recto, lo cual se verifica analíticamente cuando su producto escalar es nulo.\n$$\\vec{u} \\cdot \\vec{v} = 0$$\nEsta condición de perpendicularidad simplifica cálculos de proyecciones y es la base para construir sistemas de coordenadas independientes, donde el movimiento en una dirección no afecta a la otra.",
+              "short_description": "Dos vectores son **ortogonales** si el ángulo entre ellos es recto, lo cual se verifica analíticamente cuando su producto escalar es nulo.\n$$\\vec{u} \\cdot \\vec{v} = 0$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "product",
+              "name": "Producto",
+              "tooltip": "El **producto** vectorial es una operación exclusiva de $\\mathbb{R}^3$ que toma dos vectores y devuelve un tercer vector, perpendicular a ambos.\n$$\\vec{w} = \\vec{u} \\times \\vec{v}$$\nLa norma de este nuevo vector equivale al área del paralelogramo que forman los vectores originales. Se utiliza habitualmente para hallar vectores normales a planos.",
+              "short_description": "El **producto** vectorial es una operación exclusiva de $\\mathbb{R}^3$ que toma dos vectores y devuelve un tercer vector, perpendicular a ambos.\n$$\\vec{w} = \\vec{u} \\times \\vec{v}$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "lines",
+              "name": "Rectas",
+              "tooltip": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$\nAl variar el parámetro escalar $t$, se recorren todos los puntos que pertenecen a la recta, generando un subespacio unidimensional desplazado desde el origen.",
+              "short_description": "Una **recta** en el espacio queda determinada unívocamente por un punto de paso y un vector director que marca su orientación.\n$$L: \\vec{x} = \\vec{p} + t\\vec{d}$$",
+              "skills": [
+                "LEXI",
+                "FORM",
+                "GRAF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "planes",
+              "name": "Planos",
+              "tooltip": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$\nLa ecuación refleja que cualquier vector contenido dentro del plano es ortogonal al vector normal. Las intersecciones entre planos modelan geométricamente los sistemas de ecuaciones.",
+              "short_description": "Un **plano** en el espacio requiere un punto de paso y un vector normal que define su inclinación respecto a los ejes.\n$$\\pi: \\vec{n} \\cdot (\\vec{x} - \\vec{p}) = 0$$",
+              "skills": [
+                "LEXI",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         }
@@ -58,18 +136,85 @@
     {
       "key": "blue",
       "headline": "Matrices",
-      "description": "Explorás las matrices como representación estructural de transformaciones y sistemas de ecuaciones lineales. Proporcionan el marco para gestionar relaciones entre múltiples variables de manera simultánea.",
+      "description": "Una **matriz** organiza coeficientes y variables en estructuras rectangulares, funcionando como el núcleo de los sistemas de ecuaciones lineales y como operadores que transforman el espacio a través de rotaciones, proyecciones e inversiones.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nEsta unidad introduce la definición, operaciones, determinantes, matrices inversas y sistemas de ecuaciones lineales.",
       "units": [
         {
           "key": "matrices",
           "name": "Matrices",
+          "description": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nEsta unidad abarca el álgebra matricial, los determinantes, la inversión de matrices y los métodos para resolver sistemas lineales.",
           "topics": [
             {
-              "key": "matrices",
-              "name": "Matrices",
-              "tooltip": "Una **matriz** es un arreglo rectangular de números organizados en filas y columnas. Se denota $A \\in \\mathbb{R}^{m \\times n}$ para una matriz de $m$ filas y $n$ columnas.\n\n**Operaciones principales:**\n• **Suma:** $A + B$ (mismas dimensiones, suma elemento a elemento)\n• **Producto escalar:** $\\lambda A$\n• **Producto matricial:** $(AB)_{ij} = \\sum_k A_{ik} B_{kj}$ (columnas de $A$ = filas de $B$)\n• **Transpuesta:** $A^T$ intercambia filas y columnas\n\n**Casos especiales:**\n• **Matriz cuadrada:** $m = n$\n• **Matriz identidad $I$:** diagonal de unos, resto ceros; $AI = IA = A$\n• **Matriz inversa $A^{-1}$:** existe solo si $\\det(A) \\neq 0$ y cumple $A A^{-1} = I$\n\nEjemplo: $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$",
-              "short_description": "Una **matriz** $A \\in \\mathbb{R}^{m \\times n}$ es un arreglo rectangular de números que representa transformaciones lineales y sistemas de ecuaciones.",
-              "skills": []
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nFunciona como una estructura de datos para organizar coeficientes de sistemas de ecuaciones y como el operador matemático que aplica transformaciones lineales sobre vectores.",
+              "short_description": "Una **matriz** es un arreglo rectangular de escalares dispuestos en filas y columnas.\n$$A \\in \\mathbb{R}^{m \\times n}$$",
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "operations",
+              "name": "Operaciones",
+              "tooltip": "La suma de matrices se realiza elemento a elemento, mientras que el **producto matricial** combina las filas de la primera con las columnas de la segunda.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$\nA diferencia del producto de números reales, la multiplicación de matrices no es conmutativa. El orden de los factores altera el resultado, reflejando transformaciones secuenciales.",
+              "short_description": "La suma de matrices se realiza elemento a elemento, mientras que el **producto matricial** combina las filas de la primera con las columnas de la segunda.\n$$C_{ij} = \\sum_{k=1}^n A_{ik}B_{kj}$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "transpose",
+              "name": "Transpuesta",
+              "tooltip": "La **matriz transpuesta** se obtiene intercambiando las filas por las columnas de la matriz original.\n$$(A^T)_{ij} = A_{ji}$$\nSi una matriz es igual a su transpuesta, se clasifica como simétrica. Esta operación conserva la diagonal principal inalterada e invierte el orden en el caso del producto matricial.",
+              "short_description": "La **matriz transpuesta** se obtiene intercambiando las filas por las columnas de la matriz original.\n$$(A^T)_{ij} = A_{ji}$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "determinants",
+              "name": "Determinantes",
+              "tooltip": "El **determinante** es un escalar asociado a una matriz cuadrada que indica, entre otras propiedades, si el sistema tiene solución única.\n$$\\det(A) \\neq 0 \\iff \\text{Inversible}$$\nGeométricamente, representa el factor por el cual la matriz expande o contrae el volumen en el espacio. Si el determinante es cero, la transformación colapsa el espacio.",
+              "short_description": "El **determinante** es un escalar asociado a una matriz cuadrada que indica si la matriz es inversible.\n$$\\det(A) \\neq 0 \\iff \\text{Inversible}$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "inverse",
+              "name": "Inversa",
+              "tooltip": "La **matriz inversa** es aquella que, al multiplicarse por la matriz original, da como resultado la matriz identidad.\n$$A A^{-1} = A^{-1} A = I$$\nFunciona como la operación de división en el álgebra matricial, deshaciendo la transformación aplicada por la matriz original. Solo existe para matrices cuadradas de determinante no nulo.",
+              "short_description": "La **matriz inversa** es aquella que, al multiplicarse por la matriz original, da como resultado la matriz identidad.\n$$A A^{-1} = A^{-1} A = I$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "systems",
+              "name": "Sistemas",
+              "tooltip": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$\nAquí, la matriz concentra los coeficientes, el vector agrupa las incógnitas y el segundo vector representa los términos independientes. Permite abordar sistemas lineales de forma global.",
+              "short_description": "Un **sistema de ecuaciones lineales** puede expresarse de forma compacta mediante una ecuación matricial.\n$$A\\vec{x} = \\vec{b}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "FORM",
+                "RESL"
+              ]
+            },
+            {
+              "key": "elimination",
+              "name": "Eliminación",
+              "tooltip": "La **eliminación de Gauss** es un algoritmo sistemático que transforma la matriz de un sistema en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$\nEl proceso preserva el conjunto de soluciones del sistema original mientras despeja progresivamente las variables, facilitando su resolución mediante sustitución inversa.",
+              "short_description": "La **eliminación de Gauss** es un algoritmo que transforma la matriz en una forma escalonada mediante operaciones por fila.\n$$\\begin{pmatrix} A | \\vec{b} \\end{pmatrix} \\to \\begin{pmatrix} U | \\vec{c} \\end{pmatrix}$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
             }
           ]
         }
@@ -77,19 +222,157 @@
     },
     {
       "key": "violet",
-      "headline": "Espacios",
-      "description": "Trabajás con la generalización abstracta de conjuntos que preservan la estructura bajo suma y producto escalar. Introduce los conceptos de independencia lineal, bases y dimensión.",
+      "headline": "Espacios vectoriales",
+      "description": "Un **espacio vectorial** es una estructura algebraica que formaliza y generaliza las propiedades de los vectores, permitiendo estudiar la independencia lineal, los sistemas de generadores, las bases y la noción de dimensión.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad cubre subespacios vectoriales, combinaciones lineales, dependencia lineal, conjuntos generadores, bases y dimensiones de subespacios.",
       "units": [
         {
-          "key": "vector_spaces",
+          "key": "spaces",
           "name": "Espacios",
+          "description": "Un espacio vectorial es un conjunto de elementos sobre un cuerpo que cumple los axiomas de clausura y linealidad.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nEsta unidad introduce los conceptos fundamentales de subespacios, combinaciones, bases y dimensión.",
           "topics": [
             {
-              "key": "espacios",
-              "name": "Espacios vectoriales",
-              "tooltip": "Un **espacio vectorial** es un conjunto $V$ con dos operaciones (suma y producto escalar) que satisfacen ciertos axiomas. El ejemplo prototípico es $\\mathbb{R}^n$.\n\n**Conceptos clave:**\n• **Subespacio:** subconjunto de $V$ que también es espacio vectorial\n• **Combinación lineal:** $\\alpha_1 v_1 + \\alpha_2 v_2 + \\cdots + \\alpha_k v_k$\n• **Dependencia lineal:** hay escalares no todos cero tal que $\\sum \\alpha_i v_i = \\vec{0}$\n• **Independencia lineal:** la única combinación que da $\\vec{0}$ es la trivial\n• **Base:** conjunto linealmente independiente que genera todo el espacio\n• **Dimensión:** número de vectores en cualquier base\n\n**Espacios asociados a una matriz $A$:**\n• **Espacio columna:** generado por las columnas de $A$\n• **Espacio nulo:** soluciones de $A\\vec{x} = \\vec{0}$\n• **Rango:** dimensión del espacio columna\n\nEjemplo: $\\{(1,0), (0,1)\\}$ es una base de $\\mathbb{R}^2$, por lo que $\\dim(\\mathbb{R}^2) = 2$.",
-              "short_description": "Un **espacio vectorial** es un conjunto con operaciones de suma y producto escalar que permite definir conceptos de independencia lineal, base y dimensión.",
-              "skills": []
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Un **espacio vectorial** es un conjunto $V$ con dos operaciones, suma y producto por escalar, que satisfacen un conjunto de axiomas: clausura, asociatividad, existencia de neutro y opuesto, y distributividad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$\n$\\mathbb{R}^n$ es el ejemplo prototípico, pero la definición abstracta permite trabajar con otros conjuntos, como polinomios o matrices, bajo la misma estructura.",
+              "short_description": "Un **espacio vectorial** es un conjunto $V$ con operaciones de suma y producto por escalar que satisface un conjunto de axiomas de clausura y linealidad.\n$$\\vec{u}+\\vec{v} \\in V, \\quad \\alpha\\vec{v} \\in V$$",
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "subspaces",
+              "name": "Subespacios",
+              "tooltip": "Un **subespacio vectorial** es un subconjunto de un espacio mayor que se comporta como un espacio vectorial por sí mismo.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$\nPara calificar como tal, debe ser cerrado bajo la suma y el producto por escalar, lo que exige geométricamente que incluya al vector nulo. Rectas y planos por el origen son ejemplos clásicos.",
+              "short_description": "Un **subespacio vectorial** es un subconjunto de un espacio mayor cerrado bajo sumas y productos escalares.\n$$\\alpha\\vec{u} + \\vec{v} \\in S$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "combinations",
+              "name": "Combinaciones",
+              "tooltip": "Una **combinación lineal** es el vector resultante de sumar un conjunto de vectores previamente multiplicados por escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$\nEs la forma fundamental de moverse dentro de un espacio vectorial: cada escalar dicta la intensidad del desplazamiento en la dirección de su vector correspondiente.",
+              "short_description": "Una **combinación lineal** es la suma de vectores previamente multiplicados por coeficientes escalares.\n$$\\vec{v} = c_1\\vec{v}_1 + c_2\\vec{v}_2 + \\dots + c_k\\vec{v}_k$$",
+              "skills": [
+                "LEXI",
+                "RESL"
+              ]
+            },
+            {
+              "key": "independence",
+              "name": "Independencia",
+              "tooltip": "Un conjunto de vectores es **linealmente independiente** si ninguno de ellos puede expresarse como combinación lineal del resto.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$\nLa única forma de obtener el vector nulo es con coeficientes nulos. Asegura que cada vector aporta una nueva dimensión útil.",
+              "short_description": "Un conjunto es **linealmente independiente** si ningún vector puede expresarse en función de los otros.\n$$c_1\\vec{v}_1 + \\dots + c_k\\vec{v}_k = \\vec{0} \\implies c_i = 0$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "generators",
+              "name": "Generadores",
+              "tooltip": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones lineales permiten construir cualquier vector de un espacio dado.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$\nAbarcan todo el subespacio, pero no necesariamente con eficiencia: pueden existir elementos redundantes que no comprometan el espacio cubierto.",
+              "short_description": "Un conjunto de **generadores** es un grupo de vectores cuyas combinaciones generan todo un espacio.\n$$\\text{gen}(\\{\\vec{v}_1, \\dots, \\vec{v}_k\\}) = V$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "bases",
+              "name": "Bases",
+              "tooltip": "Una **base** es un conjunto de vectores que actúa como sistema de referencia óptimo: genera todo el espacio y es linealmente independiente.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$\nGarantiza que cualquier vector del espacio se escriba de forma única como combinación lineal de los vectores de la base.",
+              "short_description": "Una **base** es un conjunto linealmente independiente que genera la totalidad de un espacio.\n$$V = \\text{gen}(B) \\quad \\text{y} \\quad B \\text{ es L.I.}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "ESTR",
+                "RESL"
+              ]
+            },
+            {
+              "key": "dimension",
+              "name": "Dimensión",
+              "tooltip": "La **dimensión** de un espacio vectorial es la cantidad exacta de vectores que contiene cualquiera de sus bases.\n$$\\dim(V) = n$$\nEs una propiedad intrínseca del espacio que representa sus grados de libertad. Aunque existan infinitas bases, todas poseen la misma cantidad de elementos.",
+              "short_description": "La **dimensión** de un espacio vectorial es la cantidad de elementos que posee cualquiera de sus bases.\n$$\\dim(V) = n$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "brown",
+      "headline": "Transformaciones lineales",
+      "description": "Una **transformación lineal** es una función entre espacios vectoriales que preserva las operaciones esenciales de suma y multiplicación escalar, mapeando rectas en rectas y manteniendo el origen inalterado.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nEsta unidad cubre la definición, el núcleo (kernel), la imagen, el teorema de la dimensión y la matriz asociada a la transformación.",
+      "units": [
+        {
+          "key": "transformations",
+          "name": "Transformaciones",
+          "description": "Una transformación lineal mapea vectores de un dominio a un codominio preservando la linealidad.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nEsta unidad profundiza en el comportamiento algebraico y la representación matricial de estas funciones vectoriales.",
+          "topics": [
+            {
+              "key": "definition",
+              "name": "Definición",
+              "tooltip": "Una **transformación lineal** es una función entre espacios vectoriales que preserva las operaciones de suma y multiplicación por escalar.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$\nGarantiza que la estructura geométrica se mantenga: rectas siguen siendo rectas y el origen no varía. Modela rotaciones, proyecciones y reflexiones.",
+              "short_description": "Una **transformación lineal** es una función entre espacios que preserva la suma y el producto escalar.\n$$T(\\alpha\\vec{u} + \\vec{v}) = \\alpha T(\\vec{u}) + T(\\vec{v})$$",
+              "skills": [
+                "LEXI",
+                "CLSF"
+              ]
+            },
+            {
+              "key": "kernel",
+              "name": "Núcleo",
+              "tooltip": "El **núcleo** o *kernel* de una transformación es el conjunto de todos los vectores del dominio que son mapeados al vector nulo.\n$$\\ker(T) = \\{ \\vec{v} \\in V \\mid T(\\vec{v}) = \\vec{0} \\}$$\nEs un subespacio que mide la pérdida de información algebraico-geométrica. Si contiene solo al vector nulo, la transformación es inyectiva.",
+              "short_description": "El **núcleo** o *kernel* es el conjunto de vectores del dominio que se mapean al origen de llegada.\n$$\\ker(T) = \\{ \\vec{v} \\in V \\mid T(\\vec{v}) = \\vec{0} \\}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "image",
+              "name": "Imagen",
+              "tooltip": "La **imagen** de una transformación es el conjunto de todos los vectores que pueden alcanzarse en el espacio de llegada.\n$$\\text{Im}(T) = \\{ T(\\vec{v}) \\mid \\vec{v} \\in V \\}$$\nCoincide con el subespacio generado por las columnas de su matriz asociada. Si cubre todo el codominio, la transformación es sobreyectiva.",
+              "short_description": "La **imagen** de una transformación es el conjunto de todos los vectores alcanzados en el codominio.\n$$\\text{Im}(T) = \\{ T(\\vec{v}) \\mid \\vec{v} \\in V \\}$$",
+              "skills": [
+                "LEXI",
+                "CLSF",
+                "RESL"
+              ]
+            },
+            {
+              "key": "theorem",
+              "name": "Teorema",
+              "tooltip": "El **teorema de la dimensión** establece que la dimensión del dominio se conserva y se reparte entre la imagen y el núcleo.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$\nCada dimensión del dominio que colapsa y desaparece en el núcleo se resta directamente de las dimensiones efectivas que tendrá la imagen final.",
+              "short_description": "Establece que la dimensión del dominio equivale a la suma de la dimensión del núcleo y de la imagen.\n$$\\dim(\\ker(T)) + \\dim(\\text{Im}(T)) = \\dim(V)$$",
+              "skills": [
+                "LEXI",
+                "ESTR",
+                "RESL"
+              ]
+            },
+            {
+              "key": "associated_matrix",
+              "name": "Asociada",
+              "tooltip": "Toda transformación lineal entre espacios de dimensión finita puede representarse multiplicando un vector de coordenadas por una **matriz asociada**.\n$$T(\\vec{x}) = A\\vec{x}$$\nEsta matriz actúa como diccionario algebraico, calculando el efecto exacto sobre cualquier punto analizando los elementos de la base original.",
+              "short_description": "Toda transformación lineal de dimensión finita puede expresarse mediante una **matriz asociada**.\n$$T(\\vec{x}) = A\\vec{x}$$",
+              "skills": [
+                "LEXI",
+                "FORM",
+                "RESL"
+              ]
             }
           ]
         }

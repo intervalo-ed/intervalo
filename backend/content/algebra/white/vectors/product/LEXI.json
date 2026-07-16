@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿En qué espacio está definido el **producto** vectorial (cruz) entre dos vectores?",
+    "options": [
+      "Solo en $\\mathbb{R}^3$",
+      "En cualquier $\\mathbb{R}^n$",
+      "Solo en $\\mathbb{R}^2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El producto vectorial es una operación exclusiva de $\\mathbb{R}^3$.",
+    "feedback_incorrect": [
+      null,
+      "El producto cruz, tal como se define acá, no se generaliza a cualquier $n$.",
+      "En $\\mathbb{R}^2$ no está definido el producto cruz de esta forma."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **producto** vectorial (o cruz) es una operación exclusiva de $\\mathbb{R}^3$.\n$$\\vec{w} = \\vec{u}\\times\\vec{v}$$\n\nToma dos vectores del espacio y devuelve un tercer vector, perpendicular a ambos.\n\nSu norma equivale al área del paralelogramo que forman los vectores originales, y se usa habitualmente para hallar vectores normales a un plano.",
+    "reviewed": false
+  }
+]

@@ -490,9 +490,12 @@ export interface paths {
         };
         /**
          * Get Leaderboard Summary
-         * @description Números generales (globales) de la cabecera del leaderboard: estudiantes
-         *     registrados, ejercicios acumulados y universidades presentes. No dependen de
-         *     ningún filtro de carrera/universidad.
+         * @description Números de la cabecera del leaderboard: estudiantes registrados,
+         *     ejercicios completados y universidades presentes.
+         *
+         *     `universities` siempre lista el set completo (para poblar el filtro), pero
+         *     `total_students`/`total_exercises` respetan `career`/`university` si se
+         *     pasan, igual que el scope de `/leaderboard`.
          */
         get: operations["get_leaderboard_summary_leaderboard_summary_get"];
         put?: never;
@@ -594,7 +597,7 @@ export interface paths {
         put?: never;
         /**
          * Start Zen Session
-         * @description Start a Zen session: random exercises from selected topics of one unit, no SM-2 logic.
+         * @description Start a Zen session: random exercises from selected (belt, topic) items, no SM-2 logic.
          */
         post: operations["start_zen_session_session_start_zen_post"];
         delete?: never;
@@ -972,6 +975,16 @@ export interface components {
         SessionExercise: {
             /** Id */
             id: string;
+            /**
+             * External Id
+             * @default
+             */
+            external_id: string;
+            /**
+             * Exercise Type
+             * @default
+             */
+            exercise_type: string;
             /** Question */
             question: string;
             /** Options */
@@ -1003,6 +1016,11 @@ export interface components {
             user_name: string;
             /** Total */
             total: number;
+            /**
+             * Mode
+             * @default main
+             */
+            mode: string;
             /** Exercises */
             exercises: components["schemas"]["SessionExercise"][];
         };
@@ -1058,15 +1076,19 @@ export interface components {
             items: components["schemas"]["TestSessionItem"][];
             /** Course */
             course?: string | null;
+            /**
+             * Shuffle
+             * @default true
+             */
+            shuffle: boolean;
+            filters?: components["schemas"]["TestFilters"] | null;
         };
         /** StartZenSessionRequest */
         StartZenSessionRequest: {
             /** User Name */
             user_name: string;
-            /** Belt */
-            belt: string;
-            /** Topics */
-            topics: string[];
+            /** Items */
+            items: components["schemas"]["ZenSessionItem"][];
             /** Count */
             count: number;
             /** Course */
@@ -1080,6 +1102,19 @@ export interface components {
             belt: string;
             /** Correct */
             correct: boolean;
+        };
+        /** TestFilters */
+        TestFilters: {
+            /**
+             * Has Math
+             * @default false
+             */
+            has_math: boolean;
+            /**
+             * Has Graph
+             * @default false
+             */
+            has_graph: boolean;
         };
         /** TestSessionItem */
         TestSessionItem: {
@@ -1230,6 +1265,13 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
+        };
+        /** ZenSessionItem */
+        ZenSessionItem: {
+            /** Belt */
+            belt: string;
+            /** Topic */
+            topic: string;
         };
     };
     responses: never;
@@ -2053,7 +2095,10 @@ export interface operations {
     };
     get_leaderboard_summary_leaderboard_summary_get: {
         parameters: {
-            query?: never;
+            query?: {
+                university?: string | null;
+                career?: string | null;
+            };
             header?: {
                 authorization?: string;
             };

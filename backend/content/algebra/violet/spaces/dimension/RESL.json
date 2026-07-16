@@ -1,0 +1,24 @@
+[
+  {
+    "question": "¿Cuál es la dimensión del subespacio generado por $\\{(1,2), (2,4)\\}$?",
+    "options": [
+      "$1$",
+      "$2$",
+      "$0$",
+      "$3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$(2,4)=2(1,2)$: son dependientes, así que el subespacio generado tiene dimensión $1$.",
+    "feedback_incorrect": [
+      null,
+      "Esa sería la dimensión si ambos vectores fueran independientes, pero acá son dependientes.",
+      "El subespacio no es solo el vector nulo, contiene infinitos vectores en una recta.",
+      "$\\mathbb{R}^2$ no puede contener un subespacio de dimensión $3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La dimensión de un subespacio generado por un conjunto de vectores es la cantidad de vectores independientes entre ellos.\n\nAcá $(2,4) = 2(1,2)$: el segundo vector es múltiplo del primero, así que son dependientes.\n\nCon un solo vector independiente, el subespacio generado es una recta que pasa por el origen: su dimensión es $1$, no $2$.",
+    "reviewed": false
+  }
+]

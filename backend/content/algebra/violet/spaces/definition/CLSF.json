@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cuál de estos conjuntos, con sus operaciones usuales, es un **espacio vectorial**?",
+    "options": [
+      "$\\mathbb{R}^2$ con la suma y el producto por escalar habituales",
+      "Los enteros positivos con la suma habitual",
+      "Los vectores de norma $1$ en $\\mathbb{R}^2$, con la suma habitual"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\mathbb{R}^2$ con sus operaciones habituales cumple todos los axiomas de espacio vectorial.",
+    "feedback_incorrect": [
+      null,
+      "Los enteros positivos no son cerrados bajo el producto por escalares negativos, y no tienen opuesto dentro del conjunto.",
+      "La suma de dos vectores de norma $1$ no necesariamente tiene norma $1$: ese conjunto no es cerrado bajo la suma."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para ser espacio vectorial, un conjunto debe ser cerrado bajo sus operaciones y cumplir los axiomas asociados.\n\n$\\mathbb{R}^2$ con la suma y el producto escalar habituales cumple todos los axiomas: es el ejemplo canónico de espacio vectorial.\n\nLos enteros positivos fallan porque no tienen opuesto ni son cerrados bajo escalares negativos, y los vectores de norma $1$ fallan porque sumar dos de ellos puede dar un vector de norma distinta de $1$, rompiendo la clausura.",
+    "reviewed": false
+  }
+]

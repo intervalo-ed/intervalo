@@ -1,6 +1,6 @@
 # Gamificación y diseño de ejercicios en Intervalo
 
-> **Cómo usar este documento:** es el "por qué" detrás de las reglas de `authoring-context.md`. No contiene reglas nuevas ni constraints operativos, todos los constraints activos viven en `authoring-context.md`, `gem-instructions.md` y el `topic-context.md` correspondiente. Usalo para decidir cuando tengas dudas sobre matices que las reglas mecánicas no cubren (qué tono darle a una explicación, cómo elegir entre dos contextos cotidianos equivalentes, cuándo un chiste "cierra" y cuándo sobra).
+> **Cómo usar este documento:** es el "por qué" detrás de las reglas de `authoring-context.md`. No contiene reglas nuevas ni constraints operativos, todos los constraints activos viven en `authoring-context.md`, `generation-instructions.md` y el `topic-context.md` correspondiente. Usalo para decidir cuando tengas dudas sobre matices que las reglas mecánicas no cubren (qué tono darle a una explicación, cómo elegir entre dos contextos cotidianos equivalentes, cuándo un chiste "cierra" y cuándo sobra).
 
 Marco de referencia: *Actionable Gamification* (Yu-kai Chou), framework Octalysis. Cada
 Core Drive tiene una posición en el octágono: arriba = **White Hat** (motivación positiva,

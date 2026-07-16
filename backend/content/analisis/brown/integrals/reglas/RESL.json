@@ -1,19 +1,332 @@
 [
   {
-    "question": "¿Cuánto vale $\\int x^6 \\, dx$?",
+    "question": "Calculá\n$$\\int (4x^3 - 2\\sin x)\\,dx$$",
     "options": [
-      "$\\dfrac{x^7}{7} + C$",
-      "$6x^5 + C$",
-      "$\\dfrac{x^5}{5} + C$",
-      "$7x^7 + C$"
+      "$x^4+2\\cos x+C$",
+      "$x^4-2\\cos x+C$",
+      "$4x^4+2\\cos x+C$",
+      "$x^4+2\\cos x$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Regla de la potencia: $\\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.",
-    "feedback_incorrect": "Aplicá la regla de la potencia para integrar: $\\int x^6 \\, dx = \\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.",
+    "feedback_correct": "Correcto, el signo de la primitiva del seno se combina con el signo del enunciado dando positivo.",
+    "feedback_incorrect": [
+      null,
+      "La primitiva de $\\sin x$ es $-\\cos x$, y ese signo se combina con el signo negativo del enunciado dando positivo.",
+      "El coeficiente $4$ ya se simplificó al dividir por el nuevo exponente, no debería multiplicar de nuevo al resultado.",
+      "Te faltó sumar $+C$, la primitiva de una integral indefinida siempre es una familia completa."
+    ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\int x^6 \\, dx = \\dfrac{x^{6+1}}{6+1} + C = \\dfrac{x^7}{7} + C$.\n\nEl exponente sube en $1$ (pasa de $6$ a $7$) y el resultado se divide por el nuevo exponente. Siempre seguís el mismo patrón con la regla de la potencia, y no olvides sumar la **constante de integración** $C$.",
+    "explanation": "Separamos por **linealidad** los dos términos y aplicamos la fórmula de tabla a cada uno.\n\n$$\\begin{aligned} \\int (4x^3-2\\sin x)\\,dx &= 4\\int x^3\\,dx - 2\\int \\sin x\\,dx \\\\ &= 4\\cdot\\frac{x^4}{4} - 2(-\\cos x) \\\\ &= x^4+2\\cos x+C \\end{aligned}$$\nEl doble signo negativo, el del enunciado y el de la primitiva del seno, se combina en un resultado final positivo, ese es el paso donde más se pierde el signo.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (6x^2 + \\cos x)\\,dx$$",
+    "options": [
+      "$2x^2+\\sin x+C$",
+      "$2x^3+\\sin x+C$",
+      "$6x^3+\\sin x+C$",
+      "$2x^3-\\sin x+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $6$ se simplifica al dividir por el nuevo exponente.",
+    "feedback_incorrect": [
+      "Falta subir el exponente de $x^2$ a $x^3$ antes de escribir el resultado final.",
+      null,
+      "Falta dividir el coeficiente $6$ por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
+      "El signo de la primitiva de $\\cos x$ es positivo, no negativo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la **regla de la potencia** y la trigonométrica a cada término.\n\n$$\\begin{aligned} \\int (6x^2+\\cos x)\\,dx &= 6\\int x^2\\,dx + \\int \\cos x\\,dx \\\\ &= 6\\cdot\\frac{x^3}{3} + \\sin x \\\\ &= 2x^3+\\sin x+C \\end{aligned}$$\nEl coeficiente $6$ dividido por el nuevo exponente $3$ da $2$, un paso de simplificación que conviene no saltear.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (3e^x - 4x)\\,dx$$",
+    "options": [
+      "$3xe^{x-1}-2x^2+C$",
+      "$3e^x+2x^2+C$",
+      "$3e^x-2x^2+C$",
+      "$3e^x-4x^2+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $4$ se simplifica al dividir por el nuevo exponente.",
+    "feedback_incorrect": [
+      "Esa forma sale de aplicar la regla de la potencia al término exponencial, pero $e^x$ se integra con la regla exponencial.",
+      "El signo del término con $x$ es negativo, no positivo.",
+      null,
+      "Falta dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la **regla exponencial** y la de la potencia a cada término.\n\n$$\\begin{aligned} \\int (3e^x-4x)\\,dx &= 3\\int e^x\\,dx - 4\\int x\\,dx \\\\ &= 3e^x - 4\\cdot\\frac{x^2}{2} \\\\ &= 3e^x-2x^2+C \\end{aligned}$$\nEl término exponencial no cambia de forma al integrarse, mientras que el término lineal necesita dividir su coeficiente por el nuevo exponente.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (-5\\sin x + 2)\\,dx$$",
+    "options": [
+      "$-5\\cos x+2x+C$",
+      "$5\\cos x+2+C$",
+      "$5\\cos x-2x+C$",
+      "$5\\cos x+2x+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el signo negativo del enunciado se combina con el signo de la primitiva del seno.",
+    "feedback_incorrect": [
+      "El signo negativo del enunciado se combina con el de la primitiva del seno, el resultado final queda positivo.",
+      "La constante $2$ debe multiplicarse por $x$ al integrarse, no queda igual a sí misma.",
+      "El signo del término constante es positivo, revisá la regla de la constante.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la constante a cada término.\n\n$$\\begin{aligned} \\int (-5\\sin x+2)\\,dx &= -5\\int \\sin x\\,dx + \\int 2\\,dx \\\\ &= -5(-\\cos x) + 2x \\\\ &= 5\\cos x+2x+C \\end{aligned}$$\nEl doble signo negativo del primer término, el del enunciado y el de la primitiva del seno, se cancela dando un resultado positivo.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (x^5 - 3\\cos x)\\,dx$$",
+    "options": [
+      "$\\frac{x^6}{6}-3\\sin x+C$",
+      "$x^6-3\\sin x+C$",
+      "$\\frac{x^6}{6}+3\\sin x+C$",
+      "$\\frac{x^6}{5}-3\\sin x+C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el exponente sube en uno y el resultado se divide por el nuevo exponente.",
+    "feedback_incorrect": [
+      null,
+      "Falta dividir por el nuevo exponente, $6$, ese paso es parte de la regla de la potencia.",
+      "El signo de la primitiva de $\\cos x$ es positivo, así que con el signo negativo del enunciado el resultado queda negativo.",
+      "Dividiste por el exponente original, $5$, en vez del nuevo exponente, $6$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la regla de la potencia y la trigonométrica a cada término.\n\n$$\\begin{aligned} \\int (x^5-3\\cos x)\\,dx &= \\int x^5\\,dx - 3\\int \\cos x\\,dx \\\\ &= \\frac{x^6}{6} - 3\\sin x \\\\ &= \\frac{x^6}{6}-3\\sin x+C \\end{aligned}$$\nEl signo negativo del segundo término se conserva sin cambios, la primitiva del coseno no lleva ningún signo extra como sí lleva la del seno.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (2\\sec^2 x - x^2)\\,dx$$",
+    "options": [
+      "$-2\\tan x-\\frac{x^3}{3}+C$",
+      "$2\\tan x-\\frac{x^3}{3}+C$",
+      "$2\\tan x-x^3+C$",
+      "$2\\sec x\\tan x-\\frac{x^3}{3}+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, la primitiva de $\\sec^2 x$ es $\\tan x$, y el exponente de $x^2$ se divide por $3$.",
+    "feedback_incorrect": [
+      "El signo del primer término es positivo, revisá la regla trigonométrica de $\\sec^2 x$.",
+      null,
+      "Falta dividir el término potencial por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia.",
+      "Esa expresión es la derivada de $\\sec x$, no la primitiva de $\\sec^2 x$, que es $\\tan x$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\n$$\\begin{aligned} \\int (2\\sec^2 x-x^2)\\,dx &= 2\\int \\sec^2 x\\,dx - \\int x^2\\,dx \\\\ &= 2\\tan x - \\frac{x^3}{3} \\\\ &= 2\\tan x-\\frac{x^3}{3}+C \\end{aligned}$$\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (7 - 4e^x)\\,dx$$",
+    "options": [
+      "$7x-4xe^{x-1}+C$",
+      "$7x+4e^x+C$",
+      "$7x-4e^x+C$",
+      "$7-4e^x+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la constante se multiplica por $x$ y el término exponencial se mantiene igual.",
+    "feedback_incorrect": [
+      "Esa forma sale de aplicar la regla de la potencia al término exponencial, pero $e^x$ se integra con la regla exponencial.",
+      "El signo del término exponencial es negativo, revisá el signo original del enunciado.",
+      null,
+      "Falta multiplicar la constante $7$ por $x$ al integrarla, la regla de la constante lo exige."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la regla de la constante y la exponencial a cada término.\n\n$$\\begin{aligned} \\int (7-4e^x)\\,dx &= \\int 7\\,dx - 4\\int e^x\\,dx \\\\ &= 7x - 4e^x \\\\ &= 7x-4e^x+C \\end{aligned}$$\nLa constante $7$ necesita el factor $x$ que aparece siempre en la regla de la constante, dejarlo de lado es un error frecuente.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int (3\\cos x + 8x^3)\\,dx$$",
+    "options": [
+      "$3\\sin x+8x^4+C$",
+      "$-3\\sin x+2x^4+C$",
+      "$3\\sin x-2x^4+C$",
+      "$3\\sin x+2x^4+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $8$ se simplifica al dividir por el nuevo exponente.",
+    "feedback_incorrect": [
+      "Falta dividir el coeficiente $8$ por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      "El signo de la primitiva de $\\cos x$ es positivo, no negativo.",
+      "El signo del término potencial es positivo, revisá el signo original del enunciado.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\n$$\\begin{aligned} \\int (3\\cos x+8x^3)\\,dx &= 3\\int \\cos x\\,dx + 8\\int x^3\\,dx \\\\ &= 3\\sin x + 8\\cdot\\frac{x^4}{4} \\\\ &= 3\\sin x+2x^4+C \\end{aligned}$$\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$, un paso de simplificación que conviene no saltear.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(x^2+\\frac{5}{x}\\right)\\,dx$$",
+    "options": [
+      "$\\frac{x^3}{3}+5\\ln|x|+C$",
+      "$\\frac{x^3}{3}+5\\ln x+C$",
+      "$\\frac{x^3}{3}-\\frac{5}{x^2}+C$",
+      "$x^3+5\\ln|x|+C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $\\frac{5}{x}$ integra con logaritmo y valor absoluto.",
+    "feedback_incorrect": [
+      null,
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
+      "Falta dividir el primer término por el nuevo exponente, $3$, ese paso es parte de la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{5}{x}$ es el caso especial $n=-1$.\n\n$$\\begin{aligned} \\int \\left(x^2+\\frac{5}{x}\\right)\\,dx &= \\int x^2\\,dx + 5\\int \\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3} + 5\\ln|x| \\\\ &= \\frac{x^3}{3}+5\\ln|x|+C \\end{aligned}$$\nEl término $\\frac{5}{x}$ no sigue la regla de la potencia normal, es la excepción que dispara la regla del logaritmo con valor absoluto.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(\\frac{3}{x}+x^3\\right)\\,dx$$",
+    "options": [
+      "$-\\frac{3}{x^2}+\\frac{x^4}{4}+C$",
+      "$3\\ln|x|+\\frac{x^4}{4}+C$",
+      "$3\\ln x+\\frac{x^4}{4}+C$",
+      "$3\\ln|x|+x^4+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $\\frac{3}{x}$ integra con logaritmo y valor absoluto.",
+    "feedback_incorrect": [
+      "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
+      null,
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "Falta dividir el segundo término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{3}{x}$ es el caso especial $n=-1$.\n\n$$\\begin{aligned} \\int \\left(\\frac{3}{x}+x^3\\right)\\,dx &= 3\\int \\frac{1}{x}\\,dx + \\int x^3\\,dx \\\\ &= 3\\ln|x| + \\frac{x^4}{4} \\\\ &= 3\\ln|x|+\\frac{x^4}{4}+C \\end{aligned}$$\nEl orden en que aparecen los términos en el enunciado no cambia el procedimiento, cada uno se resuelve con su propia regla.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$",
+    "options": [
+      "$\\frac{1}{2}x^{3/2}+2\\ln|x|+C$",
+      "$\\frac{2}{3}x^{3/2}-\\frac{2}{x}+C$",
+      "$\\frac{2}{3}x^{3/2}+2\\ln|x|+C$",
+      "$\\frac{2}{3}x^{3/2}+2\\ln x+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el exponente fraccionario y el término logarítmico se resuelven cada uno con su regla.",
+    "feedback_incorrect": [
+      "Revisá la división del exponente fraccionario, $\\frac{1}{3/2}=\\frac{2}{3}$, no $\\frac{1}{2}$.",
+      "El signo del término logarítmico es positivo, revisá el signo original del enunciado.",
+      null,
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia con exponente fraccionario y el caso especial del logaritmo.\n\n$$\\begin{aligned} \\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx &= \\int x^{1/2}\\,dx + 2\\int \\frac{1}{x}\\,dx \\\\ &= \\frac{x^{3/2}}{3/2} + 2\\ln|x| \\\\ &= \\frac{2}{3}x^{3/2}+2\\ln|x|+C \\end{aligned}$$\nDividir por un exponente fraccionario equivale a multiplicar por su recíproco, $\\frac{1}{3/2}=\\frac{2}{3}$, un paso algebraico que conviene revisar con cuidado.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$",
+    "options": [
+      "$2x^2-\\ln x+C$",
+      "$2x^2+\\ln|x|+C$",
+      "$4x^2-\\ln|x|+C$",
+      "$2x^2-\\ln|x|+C$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto, el coeficiente $4$ se simplifica al dividir por el nuevo exponente.",
+    "feedback_incorrect": [
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "El signo del término logarítmico es negativo, revisá el signo original del enunciado.",
+      "Falta dividir el coeficiente $4$ por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, aplicando la regla de la potencia y el caso especial del logaritmo.\n\n$$\\begin{aligned} \\int \\left(4x-\\frac{1}{x}\\right)\\,dx &= 4\\int x\\,dx - \\int \\frac{1}{x}\\,dx \\\\ &= 4\\cdot\\frac{x^2}{2} - \\ln|x| \\\\ &= 2x^2-\\ln|x|+C \\end{aligned}$$\nEl coeficiente $4$ dividido por el nuevo exponente $2$ da $2$, mientras que el término logarítmico conserva su signo negativo original.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$",
+    "options": [
+      "$-\\frac{1}{x}+\\frac{3x^2}{2}+C$",
+      "$\\ln|x|+\\frac{3x^2}{2}+C$",
+      "$\\frac{1}{x}+\\frac{3x^2}{2}+C$",
+      "$-\\frac{1}{x}+3x^2+C$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, $x^{-2}$ no es el caso especial del logaritmo, sigue la regla de la potencia normal.",
+    "feedback_incorrect": [
+      null,
+      "El caso del logaritmo es exclusivamente $n=-1$, acá el exponente es $-2$, sigue aplicando la potencia.",
+      "Revisá el signo, la regla de la potencia con exponente negativo da un resultado negativo acá.",
+      "Falta dividir el segundo término por el nuevo exponente, $2$, ese paso es parte de la regla de la potencia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, reconociendo que $x^{-2}$ no es el caso especial del logaritmo, sigue la regla de la potencia normal.\n\n$$\\begin{aligned} \\int \\left(x^{-2}+3x\\right)\\,dx &= \\int x^{-2}\\,dx + 3\\int x\\,dx \\\\ &= \\frac{x^{-1}}{-1} + 3\\cdot\\frac{x^2}{2} \\\\ &= -\\frac{1}{x}+\\frac{3x^2}{2}+C \\end{aligned}$$\nSolo el exponente $-1$ dispara el caso especial del logaritmo, cualquier otro exponente negativo sigue la fórmula general de la potencia.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(\\frac{6}{x}-x^2\\right)\\,dx$$",
+    "options": [
+      "$-\\frac{6}{x^2}-\\frac{x^3}{3}+C$",
+      "$6\\ln|x|-\\frac{x^3}{3}+C$",
+      "$6\\ln x-\\frac{x^3}{3}+C$",
+      "$6\\ln|x|+\\frac{x^3}{3}+C$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $\\frac{6}{x}$ integra con logaritmo y valor absoluto.",
+    "feedback_incorrect": [
+      "Aplicaste la regla de la potencia con $n=-1$, ese exponente es la excepción que exige la regla del logaritmo.",
+      null,
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$.",
+      "El signo del término potencial es negativo, revisá el signo original del enunciado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{6}{x}$ es el caso especial $n=-1$.\n\n$$\\begin{aligned} \\int \\left(\\frac{6}{x}-x^2\\right)\\,dx &= 6\\int \\frac{1}{x}\\,dx - \\int x^2\\,dx \\\\ &= 6\\ln|x| - \\frac{x^3}{3} \\\\ &= 6\\ln|x|-\\frac{x^3}{3}+C \\end{aligned}$$\nEl signo negativo del segundo término se conserva sin cambios, la regla de la potencia no altera el signo en este caso.",
+    "reviewed": false
+  },
+  {
+    "question": "Calculá\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$",
+    "options": [
+      "$\\frac{x^4}{4}+4\\ln|x|+C$",
+      "$x^4-4\\ln|x|+C$",
+      "$\\frac{x^4}{4}-4\\ln|x|+C$",
+      "$\\frac{x^4}{4}-4\\ln x+C$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el término $\\frac{4}{x}$ integra con logaritmo y valor absoluto.",
+    "feedback_incorrect": [
+      "El signo del término logarítmico es negativo, revisá el signo original del enunciado.",
+      "Falta dividir el primer término por el nuevo exponente, $4$, ese paso es parte de la regla de la potencia.",
+      null,
+      "Falta el valor absoluto en el logaritmo, $\\ln|x|$ respeta el dominio completo de $\\frac{1}{x}$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{4}{x}$ es el caso especial $n=-1$.\n\n$$\\begin{aligned} \\int \\left(x^3-\\frac{4}{x}\\right)\\,dx &= \\int x^3\\,dx - 4\\int \\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4} - 4\\ln|x| \\\\ &= \\frac{x^4}{4}-4\\ln|x|+C \\end{aligned}$$\nEl primer término sigue la regla de la potencia normal, mientras que el segundo dispara el caso especial del logaritmo.",
     "reviewed": false
   }
 ]
