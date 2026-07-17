@@ -618,6 +618,25 @@ export default function MathGraph({
     return () => ro.disconnect()
   }, [])
 
+  // El motion.div ancestro (drag="x" en session-runner.tsx) engancha su propio
+  // pointerdown nativo directo sobre ese nodo. React solo despacha su
+  // onPointerDown sintético cuando el evento nativo YA llegó a la raíz de la
+  // app — es decir, después de haber pasado por (y disparado) el listener del
+  // motion.div. Un onPointerDownCapture tampoco sirve: al ser sintético de
+  // React también se dispatchea desde la raíz, y frenarlo ahí corta el evento
+  // antes de que baje a los elementos internos de Mafs (rompe el pan propio
+  // del gráfico). La única forma de frenarlo justo antes del motion.div, sin
+  // afectar a Mafs, es un listener nativo puesto a mano en este nodo — corre
+  // en el orden real del DOM, después de los descendientes (Mafs) y antes de
+  // los ancestros (motion.div).
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const stop = (e: PointerEvent) => e.stopPropagation()
+    el.addEventListener("pointerdown", stop)
+    return () => el.removeEventListener("pointerdown", stop)
+  }, [])
+
   if (!build) {
     return (
       <div className="border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
@@ -630,13 +649,6 @@ export default function MathGraph({
     <div
       ref={wrapRef}
       className="math-graph relative overflow-hidden rounded-md border bg-white"
-      // Capture (no bubble): el motion.div ancestro (drag="x" en session-runner.tsx)
-      // engancha su propio pointerdown nativo directo sobre ese nodo, que en el
-      // camino de bubbling se dispara ANTES de que React llegue a despachar nuestro
-      // handler sintético. Solo frenándolo en fase de captura (que corre en el
-      // contenedor raíz antes de que el evento nativo baje hasta el motion.div)
-      // evita que arranque su PanSession por un touch que empieza en el gráfico.
-      onPointerDownCapture={(e) => e.stopPropagation()}
     >
       <Mafs
         key={resetKey}
