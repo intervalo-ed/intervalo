@@ -629,13 +629,21 @@ export default function MathGraph({
   // afectar a Mafs, es un listener nativo puesto a mano en este nodo — corre
   // en el orden real del DOM, después de los descendientes (Mafs) y antes de
   // los ancestros (motion.div).
+  //
+  // Solo se frena desbloqueado: ahí el gráfico tiene que quedarse con el touch
+  // para su propio pan/zoom. Bloqueado, Mafs ya tiene pan/zoom deshabilitados
+  // (no consume el touch), así que dejamos el evento seguir de largo hacia el
+  // motion.div — scroll vertical nativo y swipe horizontal de ejercicio deben
+  // comportarse igual que tocando cualquier otra parte de la tarjeta.
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
-    const stop = (e: PointerEvent) => e.stopPropagation()
+    const stop = (e: PointerEvent) => {
+      if (!locked) e.stopPropagation()
+    }
     el.addEventListener("pointerdown", stop)
     return () => el.removeEventListener("pointerdown", stop)
-  }, [])
+  }, [locked])
 
   if (!build) {
     return (
