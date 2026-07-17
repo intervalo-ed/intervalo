@@ -189,13 +189,23 @@
 }
 
 /* Gráficos (mafs): fondo blanco + grilla gris. Las variables de mafs se definen
-   sobre .MafsView, así que hay que overridearlas al mismo nivel. */
+   sobre .MafsView, así que hay que overridearlas al mismo nivel.
+   .MafsView es el DIV contenedor (no el <svg> interno) y trae touch-action:none
+   fijo de mafs/core.css, sin importar pan/zoom — bloquea el scroll vertical
+   nativo siempre. El <svg> interno sí varía su propio touch-action (none/auto)
+   según pan, pero al ser un ancestro-lo-intersecta: none le gana a lo que diga
+   acá. Poner pan-y acá es seguro en ambos casos: bloqueado, el svg interno no
+   restringe (auto) y esto queda como valor efectivo → deja scrollear vertical;
+   desbloqueado, el svg interno ya pone none (más restrictivo, gana la
+   intersección igual) → mafs sigue quedándose con el gesto para su propio
+   pan/zoom como siempre. */
 .math-graph .MafsView {
   --mafs-bg: #ffffff;
   --mafs-fg: #6b7280;
   --mafs-origin-color: #9ca3af;
   --mafs-line-color: rgba(100, 116, 139, 0.22);
   --grid-line-subdivision-color: rgba(100, 116, 139, 0.1);
+  touch-action: pan-y;
 }
 .math-graph .MafsView text {
   font-size: 8px;
