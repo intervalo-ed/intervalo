@@ -14,7 +14,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { markGraphInfoSeen, useGraphInfoUnseen } from "@/lib/nav/graph-info-seen"
-import { cn } from "@/lib/utils"
 
 type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
@@ -580,7 +579,7 @@ function GraphContent({
             svgCircleProps={
               m.closed
                 ? { r: 3 }
-                : { r: 3.5, style: { fill: "#ffffff", stroke: LINE_COLOR, strokeWidth: 1.5 } }
+                : { r: 3, style: { fill: "#ffffff", stroke: LINE_COLOR, strokeWidth: 1.2 } }
             }
           />
         ))}
@@ -630,13 +629,14 @@ export default function MathGraph({
   return (
     <div
       ref={wrapRef}
-      className={cn(
-        "math-graph relative overflow-hidden rounded-md border bg-white",
-        locked && "graph-locked",
-      )}
-      // Evita que arrastrar/pellizcar el gráfico dispare el swipe de "siguiente
-      // ejercicio" (drag="x" en el motion.div ancestro de session-runner.tsx).
-      onPointerDown={(e) => e.stopPropagation()}
+      className="math-graph relative overflow-hidden rounded-md border bg-white"
+      // Capture (no bubble): el motion.div ancestro (drag="x" en session-runner.tsx)
+      // engancha su propio pointerdown nativo directo sobre ese nodo, que en el
+      // camino de bubbling se dispara ANTES de que React llegue a despachar nuestro
+      // handler sintético. Solo frenándolo en fase de captura (que corre en el
+      // contenedor raíz antes de que el evento nativo baje hasta el motion.div)
+      // evita que arranque su PanSession por un touch que empieza en el gráfico.
+      onPointerDownCapture={(e) => e.stopPropagation()}
     >
       <Mafs
         key={resetKey}
