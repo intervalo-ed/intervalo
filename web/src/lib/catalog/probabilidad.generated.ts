@@ -2,7 +2,7 @@
 // Source: backend/content/probabilidad/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "white" | "blue" | "violet" | "brown"
+export type BeltKey = "white" | "blue" | "violet"
 
 export interface Topic {
   key: string
@@ -392,72 +392,6 @@ export const catalog: Catalog = {
               "skills": [
                 "GRAF",
                 "FORM"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "brown",
-      "headline": "Vectores",
-      "description": "Integrás múltiples variables simultáneamente, analizando su comportamiento probabilístico conjunto, evaluando la covarianza y determinando la independencia estadística.",
-      "units": [
-        {
-          "key": "vectores",
-          "name": "Vectores",
-          "description": "Un **vector aleatorio** agrupa varias variables aleatorias en una única entidad para analizar su comportamiento probabilístico conjunto.\n$$(X, Y) : \\Omega \\to \\mathbb{R}^2$$\nEsta unidad estudia sus distribuciones conjunta y marginales, junto con las medidas de dependencia entre componentes.",
-          "topics": [
-            {
-              "key": "conjunta",
-              "name": "Conjunta",
-              "tooltip": "La distribución **conjunta** describe el comportamiento probabilístico simultáneo de dos o más variables aleatorias, capturando las probabilidades de todas las combinaciones posibles de sus valores.\n$$p(x, y) = P(X = x, Y = y), \\quad f(x, y) \\text{ para el caso continuo}$$\nSu integral o suma sobre todo el dominio vale $1$ y de ella se derivan las distribuciones marginales y condicionales.",
-              "short_description": "La distribución **conjunta** describe el comportamiento simultáneo de dos o más variables aleatorias.\n$$p(x, y) = P(X = x, Y = y)$$",
-              "skills": [
-                "CLSF",
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "marginales",
-              "name": "Marginales",
-              "tooltip": "La distribución **marginal** de una variable se obtiene a partir de la conjunta sumando o integrando sobre todos los valores posibles del resto de las variables.\n$$p_X(x) = \\sum_{y} p(x, y), \\quad f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$\nPermite estudiar el comportamiento individual de cada variable ignorando la información aportada por las demás.",
-              "short_description": "La distribución **marginal** extrae la probabilidad individual de una variable a partir de una conjunta.\n$$f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "covarianza",
-              "name": "Covarianza",
-              "tooltip": "La **covarianza** entre dos variables aleatorias $X$ e $Y$ cuantifica la tendencia de ambas a variar en la misma dirección respecto de sus respectivas esperanzas.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$\nUn signo positivo indica que las variables tienden a moverse juntas, un signo negativo que se mueven en sentidos opuestos, y su magnitud depende de las unidades de las variables.",
-              "short_description": "La **covarianza** cuantifica la tendencia conjunta de dos variables a variar respecto de sus medias.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "correlacion",
-              "name": "Correlación",
-              "tooltip": "El coeficiente de **correlación** estandariza la covarianza dividiéndola por el producto de los desvíos estándar, obteniendo una medida adimensional de la relación lineal entre dos variables.\n$$\\rho_{X,Y} = \\frac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}, \\quad -1 \\leq \\rho \\leq 1$$\nValores cercanos a $\\pm 1$ indican una relación lineal fuerte, mientras que un valor cercano a cero indica ausencia de relación lineal sin descartar dependencias no lineales.",
-              "short_description": "La **correlación** estandariza la covarianza para medir la relación lineal entre dos variables en el rango $[-1, 1]$.\n$$\\rho_{X,Y} = \\dfrac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "independencia_vec",
-              "name": "Independencia",
-              "tooltip": "Dos variables aleatorias son **independientes** cuando el valor que toma una no aporta información sobre la distribución de la otra, condición que se traduce en que la distribución conjunta factoriza en el producto de las marginales.\n$$p(x, y) = p_X(x) \\cdot p_Y(y), \\quad f(x, y) = f_X(x) \\cdot f_Y(y)$$\nLa independencia implica $\\mathrm{Cov}(X, Y) = 0$, pero la covarianza nula solo garantiza independencia en el caso normal multivariado.",
-              "short_description": "Dos variables son **independientes** cuando la conjunta factoriza en el producto de sus marginales.\n$$f(x, y) = f_X(x) \\cdot f_Y(y)$$",
-              "skills": [
-                "CLSF",
-                "FORM",
-                "RESL"
               ]
             }
           ]
