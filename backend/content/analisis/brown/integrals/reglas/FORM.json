@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
+    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
     "reviewed": false
   },
   {
@@ -40,7 +40,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n\n$$\\int e^x\\,dx = e^x + C$$\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.",
+    "explanation": "La **regla exponencial** para base $e$ es el caso más simple de la tabla, la primitiva coincide exactamente con el integrando.\n$$\\int e^x\\,dx = e^x + C$$\nEsta coincidencia es exclusiva de la base $e$, ninguna otra exponencial ni ninguna potencia comparte esta propiedad.",
     "reviewed": false
   },
   {
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n\n$$\\int \\sec^2 x\\,dx = \\tan x + C$$\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.",
+    "explanation": "La **tabla de integrales inmediatas** incluye a $\\sec^2 x$ como la derivada directa de la tangente.\n$$\\int \\sec^2 x\\,dx = \\tan x + C$$\nEste resultado se obtiene directamente de reconocer que $(\\tan x)' = \\sec^2 x$, sin necesidad de ningún desarrollo adicional.",
     "reviewed": false
   },
   {
@@ -84,7 +84,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
+    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
     "reviewed": false
   },
   {
@@ -106,7 +106,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla, la **regla del logaritmo**.\n\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEl valor absoluto es obligatorio, porque $\\frac{1}{x}$ está definida tanto para $x>0$ como para $x<0$, y $\\ln x$ solo cubriría la mitad positiva del dominio.",
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla, la **regla del logaritmo**.\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEl valor absoluto es obligatorio, porque $\\frac{1}{x}$ está definida tanto para $x>0$ como para $x<0$, y $\\ln x$ solo cubriría la mitad positiva del dominio.",
     "reviewed": false
   },
   {
@@ -128,7 +128,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n\n$$\\int x^3\\,dx = \\frac{x^{3+1}}{3+1} + C = \\frac{x^4}{4} + C$$\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.",
+    "explanation": "La **regla de la potencia** sube el exponente en uno y divide el resultado por ese nuevo exponente.\n$$\\int x^3\\,dx = \\frac{x^{3+1}}{3+1} + C = \\frac{x^4}{4} + C$$\nConfundir el exponente que va en el divisor, si es el original o el nuevo, es el error más frecuente al aplicar esta fórmula.",
     "reviewed": false
   },
   {
@@ -150,7 +150,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
+    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
     "reviewed": false
   },
   {
@@ -172,7 +172,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.",
+    "explanation": "Para una exponencial de base distinta de $e$, la **regla exponencial** agrega un factor $\\ln a$ dividiendo.\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nEste factor aparece porque la derivada de $a^x$ trae un $\\ln a$ multiplicando, y al invertir el proceso ese factor pasa a dividir.",
     "reviewed": false
   },
   {
@@ -192,7 +192,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
+    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
     "reviewed": false
   },
   {
@@ -212,7 +212,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n\n$$(e^x)' = e^x$$\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
+    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n$$(e^x)' = e^x$$\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
     "reviewed": false
   },
   {
@@ -232,7 +232,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n\n$$(\\sin x)' = \\cos x$$\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
+    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n$$(\\sin x)' = \\cos x$$\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
     "reviewed": false
   },
   {
@@ -252,7 +252,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma que la función que reproduce $\\sin x$ al derivarse necesita un signo negativo.\n\n$$(-\\cos x)' = \\sin x$$\nEste signo es el que suele perderse cuando se calcula la primitiva del seno de manera automática, sin verificar el pensamiento inverso.",
+    "explanation": "El pensamiento inverso confirma que la función que reproduce $\\sin x$ al derivarse necesita un signo negativo.\n$$(-\\cos x)' = \\sin x$$\nEste signo es el que suele perderse cuando se calcula la primitiva del seno de manera automática, sin verificar el pensamiento inverso.",
     "reviewed": false
   },
   {
@@ -272,7 +272,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n\n$$(\\tan x)' = \\sec^2 x$$\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
+    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n$$(\\tan x)' = \\sec^2 x$$\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
     "reviewed": false
   },
   {
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma por qué la **regla de la potencia** divide por el exponente nuevo.\n\n$$\\left(\\frac{x^5}{5}\\right)' = \\frac{5x^4}{5} = x^4$$\nVerificar derivando el resultado es una forma directa de comprobar que la primitiva propuesta es correcta.",
+    "explanation": "El pensamiento inverso confirma por qué la **regla de la potencia** divide por el exponente nuevo.\n$$\\left(\\frac{x^5}{5}\\right)' = \\frac{5x^4}{5} = x^4$$\nVerificar derivando el resultado es una forma directa de comprobar que la primitiva propuesta es correcta.",
     "reviewed": false
   },
   {
@@ -312,7 +312,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n\n$$(7x)' = 7$$\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
+    "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n$$(7x)' = 7$$\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
     "reviewed": false
   }
 ]

@@ -192,6 +192,16 @@ Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusiva
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+Auditoría en vivo (`/test`) sobre ítems ya existentes, más un patrón dominante detectado al escanear los 4 archivos completos:
+
+- **`LEXI_08`** (`ex_007`): el enunciado condensa contexto + pregunta en una sola oración larga ("Al tomar el límite cuando $h \to 0$ del cociente incremental... la tasa de cambio promedio se transforma en..."). Reescribir en **2 párrafos**: uno que sitúa el proceso, otro que hace la pregunta puntual con las mismas opciones.
+- **`ESTR_11`** (`ex_055`) y **`LEXI_05`** (`ex_004`): ambos asumen que el alumno ya tiene presente la fórmula del cociente incremental de otro ítem de la sesión y arrancan directo en un tecnicismo derivado de ella (factorizar $h$ en $2xh+h^2$; qué representa el denominador $h$). **Violación de la regla crítica 31** (nueva esta ronda): reintroducir la definición $f'(a) = \lim_{h \to 0} \tfrac{f(a+h)-f(a)}{h}$ con su LaTeX centrado antes de la pregunta puntual, en los dos casos.
+- **Patrón dominante confirmado en los 4 archivos completos** (no solo los 2 ítems de arriba): `ESTR` abre 12/15 ítems con la plantilla idéntica `"Calculé, por definición, la derivada de\n$$...$$"`. Es una cláusula completa (verbo + objeto), el problema es que **le falta el `:`** y se repite idéntica en los 12 ítems; agregar el `:` y variar la redacción alcanza, no hace falta reescribir el enunciado entero. `LEXI_01` abre con `"En la misma fórmula\n$$...$$"`: acá sí es un fragmento sin objeto propio, necesita reescribirse como cláusula completa. **Violación de la regla crítica 32** (nueva esta ronda) en ambos casos. Al completar hasta 50 ítems por skill, variar la redacción de apertura ítem a ítem y cerrar siempre con `:` los openers que ya son cláusulas completas.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
@@ -201,6 +211,9 @@ Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusiva
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ningún ítem que dependa de la fórmula del cociente incremental la asume vista en otro ítem**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
+- [ ] **"Calculá, por definición, la derivada de" tiene el `:` antes del bloque `$$...$$`** (es cláusula completa, solo faltaba la puntuación); **"En la misma fórmula" está reescrito como cláusula completa** (fragmento sin objeto propio). Redacción variada ítem a ítem en ambos casos (regla crítica 32)
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; esa alineación es solo para pasos reales de una misma derivación (regla crítica 30)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

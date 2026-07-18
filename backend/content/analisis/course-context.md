@@ -17,7 +17,7 @@ Análisis Matemático I de una universidad, primer curso de cálculo para estudi
 
 ## Mapa de cinturones
 
-La progresión de cinturones sigue el orden `white → blue → violet → brown → black`. Cada cinturón es una unidad temática:
+La progresión de cinturones sigue el orden `white → blue → violet → brown`. Cada cinturón es una unidad temática:
 
 | Cinturón | Unidad | Temas |
 |----------|--------|-------|
@@ -25,7 +25,8 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 | `blue` | `limits` | definición, laterales, infinitos, continuidad, factorización, racionalización |
 | `violet` | `derivatives` | definición por límite, interpretación geométrica, reglas, producto, cociente, regla de la cadena |
 | `brown` | `integrals` | definición, reglas, sustitución, partes, definidas |
-| `black` | `analysis` | análisis de funciones, optimización, cálculo de área, teorema fundamental del cálculo (FTC) |
+
+Un quinto cinturón `black` (análisis de funciones, optimización, áreas, TFC) queda **fuera de alcance por ahora**: no tiene contenido ni specs en el repo.
 
 ## Estado matemático del alumno por cinturón (regla dura)
 
@@ -34,10 +35,19 @@ El alumno de un cinturón **solo conoce lo de su cinturón y los anteriores**. N
 - **`white` (funciones):** conjuntos, dominio/imagen/codominio/preimagen, unicidad, familias de funciones y sus gráficas, operaciones algebraicas. **No** existen todavía: límite, continuidad formal, derivada, integral.
 - **`blue` (límites):** todo lo de white + noción de límite, límites laterales e infinitos, continuidad. **No** existen todavía: derivada, integral.
 - **`violet` (derivadas):** todo lo anterior + derivada como límite, reglas de derivación, recta tangente. **No** existe todavía: integral.
-- **`brown` (integrales):** todo lo anterior + antiderivada, integral definida e indefinida, técnicas de integración.
-- **`black` (análisis):** todo el curso disponible. Es el único cinturón donde podés cruzar derivada, integral y análisis de función en un mismo ejercicio.
+- **`brown` (integrales):** todo lo anterior + antiderivada, integral definida e indefinida, técnicas de integración. Es el último cinturón activo: nada de análisis de funciones con integrales, optimización ni áreas entre curvas (eran temas del cinturón `black`, hoy fuera de alcance).
 
 Cada `generation-instructions.md` de cinturón repite su propia frontera en la sección *Alcance*; este archivo es la vista de conjunto.
+
+## Refuerzo de intuición en la unidad `blue` (límites)
+
+En **todos los topics** de esta unidad (`definition`, `lateral_limits`, `infinite_limits`, `continuity`, `factorization`, `rationalization`), las `explanation` priorizan la explicación intuitiva de la **noción de límite** en juego, no solo la resolución mecánica del problema puntual.
+
+Es una extensión de la regla crítica 25 de `authoring-context.md` (el porqué, no solo el qué), un paso más allá: además de razonar por qué el mecanismo del ítem funciona, agregar **1 o 2 párrafos cortos** que construyan la intuición general de la noción de límite en juego (qué representa, por qué se define así, qué problema resuelve), en el mismo lenguaje formal ya establecido en `authoring-context.md` (sin antropomorfismo, sin humor forzado). La estructura de 3 partes de la explicación sigue siendo la base; estos párrafos son un agregado, no un reemplazo.
+
+Aplica a todo campo `explanation` de la unidad al generar o regenerar ítems, no solo a los ítems puntuales ya señalados en auditorías previas. Sumar este chequeo al checklist de cada topic al auditarlo.
+
+**Ejemplo ya aplicado** (sub-familia "tamaño del salto" de `lateral_limits`): no alcanza con calcular $\lim^+ - \lim^-$ y dar el resultado; la explicación agrega un párrafo construyendo la intuición de por qué esa resta representa el tamaño del salto (la distancia entre las dos alturas a las que "apunta" cada rama al acercarse al punto de quiebre), antes de aplicarlo al caso puntual del ítem.
 
 ## Convenciones transversales del curso
 

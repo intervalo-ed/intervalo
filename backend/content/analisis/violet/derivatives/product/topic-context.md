@@ -75,7 +75,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo elección de método/descomposición.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla del producto"`, `"Linealidad (múltiplo escalar)"`, `"Distribuir y derivar por potencia"`, `"Reescribir como potencia única"`, `"Regla de la potencia"`.
+- **Opciones con textos exactos** para elección de estrategia: `"Regla del producto"`, `"Múltiplo escalar"`, `"Distribuir y derivar por potencia"`, `"Reescribir como potencia única"`, `"Regla de la potencia"`. **Nunca "linealidad" sola** como texto de opción (ver hallazgos de auditoría más abajo): el alumno no está tan familiarizado con el término, siempre aludir directo a "múltiplo escalar".
 - **Sub-A**: la respuesta correcta es siempre la **alternativa algebraica**, no la regla del producto. El distractor mayoritario es "regla del producto".
 - **Sub-B**: opciones que muestran distintas particiones $u/v$ como texto exacto (por ejemplo, `"u = x^2, v = \ln x"`), no en prosa descriptiva.
 - **Negrita en primera mención** de `regla del producto`, `linealidad`, `múltiplo escalar`.
@@ -127,6 +127,17 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+Auditoría en vivo (`/test`) sobre ítems ya existentes:
+
+- **`ESTR_01`** (`ex_165`): la opción usaba `"Linealidad (múltiplo escalar)"`, con "linealidad" como término poco familiar para el alumno. Corregido en el texto exacto prescripto arriba (§ESTR → Reglas específicas): ahora es `"Múltiplo escalar"` a secas, y se agregó a la tabla de vocabulario prohibido de `authoring-context.md`.
+- **`RESL_07`** (`ex_186`): la primera oración de la `explanation` amontonaba demasiado LaTeX inline (identificar $u,v,u',v'$ todo tejido en una sola oración). Además, el `\begin{aligned}` alineaba con columna de `=` dos líneas de **datos sueltos evaluados** ($u'(0)=0, v(0)=1$ y $u(0)=3, v'(0)=1$) junto con una tercera línea que sí era el **resultado real** de aplicar la fórmula, mezclando dos cosas distintas en la misma alineación. **Confirma la regla crítica 30**, nueva en `authoring-context.md` esta ronda (el hallazgo que más claramente la motivó fue el mismo patrón en `chain_rule/RESL_12`). Reescribir así: los datos evaluados van en una oración de prosa (o líneas simples sin `&`), y el `aligned` con columna de `=` queda solo para el cálculo real que aplica la fórmula.
+  - ❌ (patrón encontrado): `$$\begin{aligned} u'(0) &= 0, \quad v(0) = 1 \\ u(0) &= 3, \quad v'(0) = 1 \\ f'(0) &= u'(0)v(0) + u(0)v'(0) = 0 + 3 \end{aligned}$$`
+  - ✅: `Con $u(0)=3$, $v(0)=1$, $u'(0)=0$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0\cdot 1 + 3\cdot 1 = 3$$`
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -136,6 +147,10 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ninguna opción dice "linealidad" a secas** (reincidencia confirmada en `ESTR_01`); siempre "múltiplo escalar"
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente junto con el cálculo real** (reincidencia confirmada en `RESL_07`, regla crítica 30): datos sueltos van en prosa, la alineación queda solo para el cálculo que aplica la fórmula
+- [ ] **Ningún párrafo de `explanation` acumula 2+ fragmentos LaTeX inline sueltos** en la oración que identifica $u,v,u',v'$ (regla 21)
+- [ ] **"Sabiendo que" y "Para derivar" reescritos como cláusula completa** (fragmentos sin objeto propio, el `:` no los arregla); **"Considerá la función" con el `:` agregado** antes del bloque `$$...$$` (ya es cláusula completa). Redacción variada ítem a ítem (regla crítica 32)
 
 **ESTR:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

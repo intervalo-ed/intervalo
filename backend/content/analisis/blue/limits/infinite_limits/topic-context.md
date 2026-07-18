@@ -168,6 +168,17 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_infinito_1.md`), aplicar al regenerar:
+
+- **`GRAF_15`**: el enunciado abría con "En la misma gráfica racional del ítem anterior" y la `explanation` cerraba con "Junto con el ítem anterior...". **Violación directa de la regla crítica 24** (nunca enmarcar un ítem respecto de otro de la sesión), en dos campos del mismo ítem. Cada ítem de `GRAF` tiene que describir su propio gráfico de forma autocontenida (o embeber el gráfico y preguntar directo), nunca asumir que el alumno vio el ítem previo.
+- **`RESL_07`**: el desarrollo en `\begin{aligned}` tenía una línea final que encadenaba 2 igualdades ("&= \lim_{x\to+\infty} 2x^2 = +\infty"), en vez de partirla en un tercer renglón. Recurrencia de la aclaración ya documentada en *Fórmulas anchas* de `authoring-context.md` ("pasar a `aligned` no alcanza si una línea individual sigue siendo larga"): cada renglón del `aligned` tiene que ser corto por sí solo, si un paso sigue siendo largo, se parte en un renglón más.
+- **`GRAF_08`**: uso de la palabra "escapa"/"escapan" para describir la divergencia cerca de la asíntota vertical. Motivó agregar **"escapar"/"escapa" al vocabulario prohibido** de `authoring-context.md` (reemplazo: "diverge", "crece sin cota", "tiende a $\pm\infty$").
+- **2 capturas de pantalla (ítems de dominancia exponencial vs. polinómica y de $\infty-\infty$)**: bloques `$$...$$` con una oración completa en español metida vía `\text{...}` junto a los símbolos (ej. `$$a^x \succ x^{100} \quad \text{cuando } x \to +\infty\text{, aunque tarde...}$$`), desbordando el ancho de la pantalla y literalmente cortados. **Esto originó la regla crítica 26, nueva en `authoring-context.md`**: un bloque `$$...$$` lleva solo símbolos y números, las palabras siempre van en la prosa que rodea la fórmula, nunca dentro de `\text{}` como oración completa.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
@@ -178,6 +189,12 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios
 - [ ] Notación consistente para $\pm\infty$; `No existe` como texto exacto cuando aplique
+- [ ] **Ningún ítem se enmarca respecto de otro de la sesión** (regla crítica 24), ni en `question` ni en `explanation`: cada `GRAF` describe o embebe su propio gráfico de forma autocontenida
+- [ ] **El concepto abstracto de cada `explanation` justifica el porqué, no solo declara el qué** (regla crítica 25): dominancia de grados, dominancia entre familias, y por qué $\infty-\infty$ es indeterminación se razonan, no solo se nombran
+- [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual (ver `course-context.md` §Refuerzo de intuición en `blue`)
+- [ ] **Ningún bloque `$$...$$` mete una oración completa en español vía `\text{...}`** (regla crítica 26): las palabras van en la prosa, la fórmula solo lleva símbolos
+- [ ] Ningún renglón de un `\begin{aligned}` encadena 2+ igualdades por sí solo; si un paso sigue siendo largo, se parte en un renglón más
+- [ ] Sin la palabra "escapar"/"escapa" para describir divergencia (usar "diverge", "crece sin cota", "tiende a $\pm\infty$")
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem
@@ -191,6 +208,7 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 - [ ] Asíntotas escritas como ecuación de recta (`y = L`, `x = a`), no como valor suelto
 - [ ] Cardinalidad ajustada: 4 si numérica/recta, 3 si conceptual
 - [ ] Opciones de existencia con `Sí` / `No` / `No se puede determinar`
+- [ ] Ningún ítem asume que el alumno vio el gráfico de otro ítem ("la misma gráfica del ítem anterior")
 
 **RESL:**
 - [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
@@ -199,3 +217,4 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 - [ ] Sub-C con laterales explícitos; el signo del $0^{\pm}$ y el signo del numerador se justifican en la explicación
 - [ ] Ninguna aplicación de L'Hôpital
 - [ ] Resultado como valor real, `+\infty`, `-\infty` o `No existe` (nunca expresión sin evaluar)
+- [ ] Ningún renglón final de `aligned` encadena 2 igualdades (ej. `&= 2x^2 = +\infty`); partir en un renglón más

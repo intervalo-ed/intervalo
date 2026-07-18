@@ -14,7 +14,7 @@ Los `external_id` se generarán como `brown_definite_graf_01…`, `brown_definit
 
 - **Lo que sabe:** todo el cinturón violet (derivadas completas) + `definition` de integrales (anatomía, primitiva, linealidad, acondicionamiento previo) + `reglas` de integración inmediata (tabla completa con $\ln|x|$, casos especiales, etc.) + `substitution` ($u$-sub, con o sin compensación de constante) + `parts` (integración por partes con LIATE, factor oculto).
 - **Lo que está aprendiendo acá:** la **integral definida** $\int_a^b f(x) \, dx = F(b) - F(a)$; la **Regla de Barrow** como puente entre la primitiva y el valor numérico exacto; el **Teorema Fundamental del Cálculo** como fundamento teórico; la interpretación geométrica del resultado como **área neta** con signos (áreas sobre el eje $x$ suman, áreas debajo restan); las **propiedades de los límites** de integración (inversión de límites cambia signo, límites iguales dan cero, aditividad sobre intervalos contiguos).
-- **Lo que NO sabe todavía:** todo lo del cinturón black. Específicamente **áreas entre dos curvas** (`area_calculation`), **análisis de funciones** con integrales, **optimización** con integrales, **TFC** en su versión aplicada avanzada (`ftc` como topic dedicado). El scope de este tópico es rigurosamente **una sola función vs eje $x$**.
+- **Lo que NO sabe todavía:** nada más allá de este tópico. **Áreas entre dos curvas**, **análisis de funciones** con integrales, **optimización** con integrales y el **TFC** en su versión aplicada avanzada quedan **fuera del alcance del curso** (eran temas del viejo cinturón `black`, hoy eliminado). El scope de este tópico es rigurosamente **una sola función vs eje $x$**.
 
 ### Regla dura
 
@@ -22,9 +22,9 @@ En este tópico se aplica **exclusivamente** el método de Barrow sobre una func
 
 **Prohibido**:
 
-- **Áreas entre dos curvas** ($\int_a^b [f(x) - g(x)] \, dx$): fuera de scope. Vive en `black/analysis/area_calculation`.
-- **Análisis de funciones con integrales** (crecimiento, concavidad, extremos vía integrales): fuera de scope. Cinturón black.
-- **Optimización con integrales**: fuera de scope. Cinturón black.
+- **Áreas entre dos curvas** ($\int_a^b [f(x) - g(x)] \, dx$): fuera del alcance del curso.
+- **Análisis de funciones con integrales** (crecimiento, concavidad, extremos vía integrales): fuera del alcance del curso.
+- **Optimización con integrales**: fuera del alcance del curso.
 - **Constante de integración $C$ en respuestas correctas**: en definidas la $C$ se **cancela** al restar $F(b) - F(a)$. Toda respuesta correcta muestra un **valor numérico** (no una expresión en $x$). $+C$ aparece **solo como distractor deliberado** en algunos ítems, con `feedback_incorrect` explícito ("en definidas la $C$ se cancela al restar").
 - **Sustitución sin actualizar los límites**: en RESL sub-B con $u$-sub, cambiar los límites de integración a los nuevos valores en $u$ (o volver a $x$ antes de evaluar). Dejar la primitiva en $u$ evaluando con los límites originales en $x$ es un **distractor deliberado**.
 - **Ninguna referencia a "suma de Riemann"** o construcciones formales de límite; se toma Barrow como definición operativa.
@@ -134,16 +134,32 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Pre-revisión programática sobre los ítems de prueba existentes:
+
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`GRAF`, `RESL`, 30 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
+- **`GRAF#14`: `$$\text{integral definida (con signo)} \neq \text{área geométrica (siempre positiva)}$$`.** Viola la regla crítica 26: dentro de `\text{}` hay cláusulas con aclaración entre paréntesis, no un rótulo corto. Reescribir sacando las aclaraciones a la prosa que rodea la fórmula, dejando solo símbolos en el bloque (ej. `$$\text{integral definida} \neq \text{área geométrica}$$`, con "(con signo)"/"(siempre positiva)" movidos a la oración de antes o después).
+- **`GRAF#6`/`#7`: `\text{área arriba}`, `\text{área abajo}` dentro de `$$...$$`.** Más borderline (2 palabras, sin paréntesis), probablemente tolerable como rótulo corto, pero conviene sacarlo a la prosa igual para no dar pie a que el patrón crezca al completar los 50 ítems.
+- **`GRAF#9`/`#12`: opciones `["$0$", "$f(a)$", "No se puede determinar sin más datos"]`.** La correcta (`$0$`, 3 caracteres) es la más corta por lejos frente a un distractor de 36 caracteres. Reincidencia de la regla crítica 4/15 (paridad también en el sentido "la correcta es la única mucho más corta"). Igualar longitudes al completar los 50 ítems, no dejar la correcta como la única breve.
+- **`RESL`: 15/15 ítems abren con `"Calculá\n$$...$$"`.** Mismo patrón que en el resto de la unidad: cláusula completa, solo falta el `:` y variar la redacción.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
 - [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
-- [ ] Ninguna aplicación de áreas entre curvas, análisis de funciones, optimización, ni ningún tema del cinturón black
+- [ ] Ninguna aplicación de áreas entre curvas, análisis de funciones, optimización, ni ningún tema fuera del alcance del curso
 - [ ] Ningún resultado con $+C$ en respuestas correctas
 - [ ] Al menos algunos ítems con "$+C$ sumada" como distractor deliberado con `feedback_incorrect` explícito
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
+- [ ] **Ningún `\text{}` dentro de `$$...$$` lleva una aclaración entre paréntesis** (reincidencia confirmada en `GRAF#14`, regla crítica 26); rótulos cortos tipo "área arriba"/"área abajo" preferentemente movidos a la prosa
+- [ ] **Ninguna opción numérica corta (`$0$`) queda como la única mucho más breve que un distractor largo** (reincidencia confirmada en `GRAF#9`/`#12`, regla crítica 4/15)
+- [ ] **`"Calculá"` (RESL) tiene el `:` agregado** y varía de redacción ítem a ítem (regla crítica 32)
 
 **GRAF:**
 - [ ] 50 ítems; cardinalidad flexible (3 conceptual, 4 numérica corta)

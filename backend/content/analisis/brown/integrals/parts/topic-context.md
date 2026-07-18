@@ -131,6 +131,17 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Pre-revisión programática sobre los ítems de prueba existentes:
+
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`ESTR`, `RESL`, 30 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
+- **`ESTR`: 8/15 ítems abren con `"Para resolver\n$$...$$\npor partes, ¿cuál es la elección correcta de $u$ y $dv$ según LIATE?"`.** Es **una sola oración cortada por la fórmula** (la pregunta sigue en minúscula, gramaticalmente continuación de "para resolver X por partes"), viola la **regla crítica 9**, no solo la 32. Reescribir como `"Para resolver esta integral por partes:\n$$...$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?"`.
+- **`ESTR`: 7/15 con `"Considerá la integral\n$$...$$"`.** Cláusula completa, solo le falta el `:` y variar la redacción.
+- **`RESL`: 15/15 con `"Calculá\n$$...$$"`.** Mismo caso que en `reglas`/`substitution`/`definite`: cláusula completa, solo falta el `:` y variar la redacción (hoy 100% idéntica).
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -144,6 +155,9 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
+- [ ] **`"Para resolver"` (ESTR) reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9); **`"Considerá la integral"` (ESTR) y `"Calculá"` (RESL) tienen el `:` agregado** y varían de redacción ítem a ítem (regla crítica 32)
+- [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **ESTR:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

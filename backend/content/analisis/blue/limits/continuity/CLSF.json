@@ -100,7 +100,7 @@
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = 3$, $\\lim^+ = 3$, pero $f(a)$ no está definida.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = 3$, $\\lim_{x \\to a^+} = 3$, pero $f(a)$ no está definida.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "De salto",
@@ -116,11 +116,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n$$\\lim^- = 3 = \\lim^+ \\Rightarrow \\lim_{x \\to a} f(x) = 3$$\nPero $f(a)$ no está definida, así que falta la primera condición de continuidad.\n\nUn límite existente sin punto definido es exactamente el caso de una **discontinuidad** removible: se arregla con una sola redefinición.",
+    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n$$\\lim_{x \\to a^-} = 3 = \\lim_{x \\to a^+} \\Rightarrow \\lim_{x \\to a} f(x) = 3$$\nPero $f(a)$ no está definida, así que falta la primera condición de continuidad.\n\nUn límite existente sin punto definido es exactamente el caso de una **discontinuidad** removible: se arregla con una sola redefinición.",
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = 4$ y $\\lim^+ = 6$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = 4$ y $\\lim_{x \\to a^+} = 6$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "Esencial",
@@ -136,11 +136,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n$$\\lim^- = 4 \\neq 6 = \\lim^+$$\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
+    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n$$\\lim_{x \\to a^-} = 4 \\neq 6 = \\lim_{x \\to a^+}$$\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = +\\infty$ y $\\lim^+ = 5$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = +\\infty$ y $\\lim_{x \\to a^+} = 5$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Esencial",
       "De salto",
@@ -156,11 +156,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n$$\\lim^- = +\\infty \\Rightarrow \\text{el bilateral no existe}$$\nEl lado derecho converge a $5$, pero eso no compensa la divergencia del lado izquierdo.\n\nBasta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
+    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n$$\\lim_{x \\to a^-} = +\\infty \\Rightarrow \\text{el bilateral no existe}$$\nEl lado derecho converge a $5$, pero eso no compensa la divergencia del lado izquierdo.\n\nBasta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = 2$, $\\lim^+ = 2$ y $f(a) = 2$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = 2$, $\\lim_{x \\to a^+} = 2$ y $f(a) = 2$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "Continua",
@@ -176,11 +176,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n$$\\lim^- = \\lim^+ = f(a) = 2$$\nNo hace falta redefinir nada ni hay ninguna rama que corregir.\n\nEste es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
+    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n$$\\lim_{x \\to a^-} = \\lim_{x \\to a^+} = f(a) = 2$$\nNo hace falta redefinir nada ni hay ninguna rama que corregir.\n\nEste es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = 5$, $\\lim^+ = 5$ y $f(a) = 9$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = 5$, $\\lim_{x \\to a^+} = 5$ y $f(a) = 9$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Removible",
       "De salto",
@@ -196,11 +196,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n$$\\lim^- = \\lim^+ = 5 \\neq 9 = f(a)$$\nEl límite y el valor puntual son números distintos, así que falla exclusivamente la tercera condición.\n\nCon el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como removible, sin necesidad de mirar ningún otro dato.",
+    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n$$\\lim_{x \\to a^-} = \\lim_{x \\to a^+} = 5 \\neq 9 = f(a)$$\nEl límite y el valor puntual son números distintos, así que falla exclusivamente la tercera condición.\n\nCon el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como removible, sin necesidad de mirar ningún otro dato.",
     "reviewed": false
   },
   {
-    "question": "Una función cumple $\\lim^- = -\\infty$ y $\\lim^+ = -\\infty$.\n\n¿Cómo se clasifica en $x=a$?",
+    "question": "Una función cumple $\\lim_{x \\to a^-} = -\\infty$ y $\\lim_{x \\to a^+} = -\\infty$.\n\n¿Cómo se clasifica en $x=a$?",
     "options": [
       "Continua",
       "Esencial",
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n$$\\lim^- = -\\infty = \\lim^+ \\Rightarrow \\text{no hay límite finito}$$\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$.\n\nCualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría esencial.",
+    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n$$\\lim_{x \\to a^-} = -\\infty = \\lim_{x \\to a^+} \\Rightarrow \\text{no hay límite finito}$$\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$.\n\nCualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría esencial.",
     "reviewed": false
   },
   {

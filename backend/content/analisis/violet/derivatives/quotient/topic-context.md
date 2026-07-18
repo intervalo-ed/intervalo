@@ -76,7 +76,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo elección de método/descomposición o identificación de anatomía.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla del cociente"`, `"Reescribir como potencia negativa"`, `"Múltiplo escalar (linealidad)"`, `"Simplificar el cociente primero"`, `"Regla del producto"`.
+- **Opciones con textos exactos** para elección de estrategia: `"Regla del cociente"`, `"Reescribir como potencia negativa"`, `"Múltiplo escalar"`, `"Simplificar el cociente primero"`, `"Regla del producto"`. **Sin paréntesis aclaratorio** (`"(linealidad)"` u otro) al lado de ninguna de estas opciones: si una lo lleva y las demás no, delata la respuesta (ver hallazgos de auditoría más abajo).
 - **Sub-A**: la respuesta correcta es siempre la **alternativa algebraica**, no la regla del cociente. El distractor mayoritario es "regla del cociente".
 - **Sub-B**: opciones que muestran distintas fórmulas exactas (`"(u'v - uv') / v^2"`, `"(uv' - u'v) / v^2"`, `"(u'v + uv') / v^2"`) como texto — evaluar reconocimiento de la fórmula correcta.
 - **Negrita en primera mención** de `regla del cociente`, `numerador`, `denominador`.
@@ -130,6 +130,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+Auditoría en vivo (`/test`) sobre ítems ya existentes:
+
+- **`ESTR_04`/`ESTR_05`** (`ex_198`/`ex_199`): la opción correcta llevaba un paréntesis aclaratorio de más (`"Múltiplo escalar (linealidad)"`) que la delataba frente a las demás opciones sin ninguna glosa. **Reincidencia de la regla crítica 4.** Corregido en el texto exacto prescripto arriba (§ESTR → Reglas específicas): ahora es `"Múltiplo escalar"` sin paréntesis en ningún caso.
+- **`RESL_10`/`RESL_12`** (`ex_219`/`ex_221`): opciones numéricas rellenas con `"solamente"` de forma asimétrica frente a otras que ya tienen 2 valores (`"x=0$ solamente"` vs. `"x=1$ y $x=-2$"`). **Reincidencia de la regla crítica 4/15.** Nunca rellenar con palabras que no aportan distracción real; si hace falta paridad de longitud, conseguirla con contenido matemático genuino, no con relleno textual.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -139,6 +148,9 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ninguna opción lleva paréntesis aclaratorio ni relleno textual ("solamente") que las demás no lleven** (reincidencia confirmada en `ESTR_04`/`ESTR_05` y `RESL_10`/`RESL_12`, regla crítica 4/15)
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de una misma derivación (regla crítica 30)
+- [ ] **Ningún enunciado abre con un opener corto y genérico** ("Sabiendo que", "Para derivar") sin cerrar la oración antes del bloque `$$...$$` (regla crítica 32)
 
 **ESTR:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

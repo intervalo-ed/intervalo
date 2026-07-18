@@ -178,6 +178,17 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Pre-revisión programática sobre los ítems de prueba existentes:
+
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`FORM`, `ESTR`, `RESL`, 45 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico que se usó en `definition`.
+- **`ESTR`: 15/15 ítems abren con `"Considerá la integral\n$$...$$"`.** Cláusula completa, solo le falta el `:` (regla 32) y variar la redacción.
+- **`RESL`: 15/15 ítems abren con la palabra suelta `"Calculá\n$$...$$"`**, sin ningún objeto explícito (ni siquiera "la integral"). Es un imperativo con la fórmula como objeto directo: **cláusula completa, solo le falta el `:`** (`"Calculá:\n$$...$$"`) y variar la redacción (hoy 100% idéntica en los 15 ítems).
+- **`FORM`: 8/15 con `"Calculá\n$$...$$"`** (mismo caso que RESL, solo falta `:`) **y 7/15 con `"¿Qué función, al derivarse, da\n$$...$$?"`**. Este último es una pregunta única con la fórmula como objeto embebido, cerrando junto con el `?`; es un patrón distinto y más aceptable que un preámbulo colgante (no corta una oración en dos), pero conviene variar la redacción igual para no repetirlo en el 100% de sub-B.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
@@ -190,6 +201,9 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
+- [ ] **`"Considerá la integral"` (ESTR) y `"Calculá"` (FORM/RESL) tienen el `:` antes del bloque `$$...$$`** y varían de redacción ítem a ítem (regla crítica 32)
+- [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **FORM:**
 - [ ] 50 ítems; **3 opciones por defecto**, **4 opciones** cuando las respuestas cortas entren en grilla 2×2 (≤ 35 caracteres)

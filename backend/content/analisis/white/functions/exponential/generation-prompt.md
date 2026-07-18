@@ -5,6 +5,8 @@ Repo: `intervalo`. Branch de trabajo: `content-analisis-round2`. Antes de tocar 
 - Si **no existe**, creala desde `main` actualizado (`git checkout main && git pull && git checkout -b content-analisis-round2`).
 No commitear directo a `main`.
 
+> **Antes de arrancar**: leé `backend/content/generation-workflow.md`, el flujo completo de la ronda (ciclo por topic, validadores automáticos, criterios de commit). Este prompt es el detalle de UN topic dentro de ese flujo.
+
 ## Contexto
 
 `topic-context.md` de este topic ya tenía, de una auditoría programática anterior (sección **"Estado (auditoría jul-2026)"**), el detalle de lo que falta para alinear `exponential` con `authoring-context.md`: `feedback_incorrect` vacío en los 200 ítems, `\n\n` pegado a bloques `$$...$$`, em-dash/en-dash, explicaciones con viñetas, `explanation` bajo el mínimo de caracteres (el defecto más extendido del tema, GRAF casi entero), `correct_index` sesgado. Esa sección tiene el detalle línea por línea, no lo repito acá.
@@ -14,6 +16,16 @@ No commitear directo a `main`.
 **Importante, leer con atención:** 5 de esos 8 hallazgos **no son defectos puntuales de `exponential`**, son las mismas reglas que ya se habían detectado como sistémicas en el refactor de `polynomial` (párrafos largos, opción correcta más larga/elaborada, `feedback_correct` con fórmula ancha, rótulos tipo `"Nota:"`, y límites/derivadas fuera de la frontera del cinturón). Que se repitan en un topic sin relación conceptual con `polynomial` confirma que es un **sesgo de la generación original de todo el curso**, no de un tema puntual. Aplicá estas 5 reglas al 100% de los 200 ítems, no solo a los 8 citados.
 
 **No es una regeneración desde cero.** No reescribas enunciados, opciones ni la respuesta correcta salvo que lo pida explícitamente `topic-context.md` o rompan una regla de formato. Es una pasada de **formato, feedback y estilo**.
+
+## Recordatorio prioritario, antes de generar un solo ítem
+
+De todas las reglas de `authoring-context.md`, estas son las que más rompen la experiencia cuando se pasan por alto. Chequealas en cada ítem a medida que lo escribís, no solo al final:
+
+1. **Paridad de opciones (reglas críticas 4 y 15).** Ninguna opción puede quedar como la única notablemente más larga/elaborada NI la única más corta/pelada que el resto; tampoco la única con un formato numérico distinto (entera vs. decimal, con vs. sin glosa aclaratoria). Si notás esa asimetría en cualquier ítem, igualá hacia el medio antes de seguir con el próximo.
+2. **Estructura de párrafos y LaTeX.** Párrafos de `explanation`/`question` ≤200 caracteres (ideal ~100); 2+ fragmentos LaTeX inline sueltos en el mismo párrafo se dividen (regla 21); la fórmula central del enunciado va separada del texto en su propio `$$...$$`, nunca tejida inline (regla 18); cualquier derivación de 2+ pasos va vertical en `\begin{aligned}`, nunca encadenada en una sola línea horizontal, y cada renglón tiene que ser corto por sí solo.
+3. **Aligned solo para derivaciones reales (regla 30, nueva de la última ronda).** Un `\begin{aligned}` con columna de `=` se reserva para una ecuación que se despeja o una expresión que se transforma paso a paso; nunca para listar datos o valores evaluados de forma independiente, esos van en prosa.
+4. **Reintroducir la definición central en cada ítem (regla 31, nueva).** Si la pregunta depende de una fórmula/definición que no está explícita en el propio enunciado, se reintroduce con LaTeX centrado antes de la pregunta puntual; nunca asumirla vista en otro ítem de la sesión.
+5. **Openers y puntuación (regla 32, nueva).** Un imperativo con objeto concreto ("Considerá la función") es cláusula completa y solo necesita el `:` antes del bloque `$$...$$`; un fragmento sin objeto propio ("Sabiendo que", "Para derivar", "En") no se arregla con `:`, se reescribe como cláusula completa. En ambos casos, variar la redacción ítem a ítem, nunca repetir la misma apertura como plantilla en toda una sub-familia.
 
 ## Leer antes de escribir una sola línea, en este orden
 
@@ -61,7 +73,7 @@ Sobre `LEXI.json`, `CLSF.json`, `FORM.json` y `GRAF.json` de `backend/content/an
 
 **Paso 3 — Commit solo si todo salió bien.** Antes de commitear:
 1. Corré el checklist de self-critique de `generation-instructions.md` + el checklist transversal de `topic-context.md` ítem por ítem sobre los 200 ítems finales. Prestá atención especial a: derivadas/límites fuera de frontera, longitud/formato de opciones, `feedback_correct` con fórmulas anchas, rótulos tipo "Nota:". Incluí el chequeo de `tags`: contá cuántos ítems tienen cada slug por skill y verificá que coincide con la tabla de distribución.
-2. Validá el formato con el seeder: desde `backend/`, `python -m seed_content --course analisis` (sin `--all`) y revisá que no tire errores sobre este topic.
+2. Validá el formato con el seeder: desde `backend/`, `python seed_content.py --course analisis` (sin `--all`) y revisá que no tire errores sobre este topic.
 3. Si el seeder tira error o el checklist no cierra, **no commitees**: arreglá primero y repetí la validación.
 4. Recién con el checklist limpio y el seeder sin errores, commiteá con mensaje tipo `refactor(analisis/white/exponential): formato, feedback_incorrect y convenciones globales`.
 5. En el mensaje del commit, resumí: cuántos ítems tenían `feedback_incorrect` vacío y quedaron completados, cuántos casos de las 5 reglas sistémicas encontraste y corregiste por tipo, y qué decidiste sobre `LEXI_22`.

@@ -193,6 +193,12 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+No hubo ítems puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ítems con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 50 ítems por skill: variar la redacción ítem a ítem y cerrar siempre la oración introductoria.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
@@ -202,6 +208,9 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ningún enunciado abre con un opener corto y genérico** ("La recta tangente a una función en cierto punto es", "Sabiendo que", "En la ecuación punto-pendiente") sin cerrar la oración antes del bloque `$$...$$` (regla crítica 32, confirmado como patrón dominante en los 4 archivos)
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de una misma derivación (regla crítica 30)
+- [ ] **Ningún ítem que dependa de la fórmula punto-pendiente la asume vista en otro ítem**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

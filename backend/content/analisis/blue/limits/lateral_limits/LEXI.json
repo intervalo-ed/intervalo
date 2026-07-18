@@ -236,7 +236,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un contexto cotidiano con tarifas por tramos suele producir exactamente el mismo comportamiento que un salto en una gráfica matemática: el costo justo antes del umbral tiende a un valor, y el costo justo después tiende a otro valor distinto.\n\nSi el costo antes de la hora tiende a \\$500 y el costo después tiende a \\$800, entonces\n$$\\lim^- = 500 \\neq 800 = \\lim^+$$\ny por el teorema de existencia, el límite bilateral del costo en ese instante no existe.\n\nEste tipo de salto es habitual en tarifas escalonadas: transporte, estacionamiento o telefonía suelen tener este comportamiento discontinuo en los umbrales.",
+    "explanation": "Un contexto cotidiano con tarifas por tramos suele producir exactamente el mismo comportamiento que un salto en una gráfica matemática: el costo justo antes del umbral tiende a un valor, y el costo justo después tiende a otro valor distinto.\n\nLlamando $C(t)$ al costo en función del tiempo $t$ (en horas), si $C(t)$ tiende a \\$500 por izquierda y a \\$800 por derecha cuando $t \\to 1$, entonces\n$$\\lim_{t \\to 1^-} C(t) = 500 \\neq 800 = \\lim_{t \\to 1^+} C(t)$$\ny por el teorema de existencia, el límite bilateral del costo en ese instante no existe.\n\nEste tipo de salto es habitual en tarifas escalonadas: transporte, estacionamiento o telefonía suelen tener este comportamiento discontinuo en los umbrales.",
     "reviewed": false
   },
   {

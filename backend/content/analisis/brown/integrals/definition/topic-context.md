@@ -25,7 +25,7 @@ En este tópico se trabaja **sin ejecutar el cálculo integral final**. El alumn
 **Prohibido**:
 
 - **Aplicar la regla de la potencia para integrar** ($\int x^n \, dx = \tfrac{x^{n+1}}{n+1} + C$) como paso resolutivo dentro de un ítem. En ESTR se puede indicar la **reescritura previa** ($\tfrac{1}{x^3} \to x^{-3}$), pero no dar el resultado ya integrado.
-- **Integral definida** ($\int_a^b$), **área bajo la curva**, **Teorema Fundamental del Cálculo**: son tópicos posteriores (`definite`, `ftc` en cinturón black). Se pueden usar como **distractores explícitos** en LEXI sub-B para descartar la confusión "la integral devuelve un área" en esta etapa.
+- **Integral definida** ($\int_a^b$), **área bajo la curva**, **Teorema Fundamental del Cálculo**: la definida es un tópico posterior de este mismo cinturón (`definite`); el TFC aplicado avanzado queda fuera del alcance del curso. Se pueden usar como **distractores explícitos** en LEXI sub-B para descartar la confusión "la integral devuelve un área" en esta etapa.
 - **Integración por sustitución** ($u$-sub) o **por partes**: tópicos siguientes; no aparecen ni como método ni como distractor razonable acá.
 - **Justificar por sumas de Riemann** o construcciones de tipo "límite de la suma": el alumno todavía no vio la definición integral formal; se toma la antiderivada como definición operativa.
 - **Constante de integración omitida**: todo ítem que muestre una primitiva sin $+ C$ (fuera de contextos donde se auditara explícitamente esa omisión) se descarta. La familia infinita de primitivas es constitutiva del concepto.
@@ -153,6 +153,19 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Pre-revisión programática (script propio contra el snowball completo de `authoring-context.md`) sobre los ítems de prueba existentes, antes de completar la generación:
+
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`LEXI`, `FORM`, `ESTR`, 45 ítems) tenían el bloque de desarrollo de la `explanation` pegado con `\n\n$$` en vez de `\n$$` (violación de la regla 2). Corregido con un script de reemplazo mecánico (`\n\n$$` → `\n$$`, `$$\n\n` → `$$\n`) sobre los 3 archivos. Si aparece de nuevo en ítems nuevos, es un error de generación, no un bug de render.
+- **`FORM`: 15/15 ítems abren con `"Considerá la integral\n$$...$$"`.** Es una cláusula completa (verbo + objeto), **solo le falta el `:`** antes del bloque (regla 32) y variar la redacción ítem a ítem (hoy es 100% idéntica).
+- **`ESTR`: 15/15 ítems abren con `"Antes de resolver\n$$...$$\n¿qué paso previo conviene dar?"`.** Esto es más grave que un simple opener: es **una sola oración cortada por la fórmula en el medio** (la pregunta sigue en minúscula, gramaticalmente parte de "antes de resolver X"), viola directamente la **regla crítica 9**, no solo la 32. Reescribir como `"Antes de resolver esta integral:\n$$...$$\n¿Qué paso previo conviene dar?"` (cierre propio + pregunta nueva en mayúscula).
+- **`LEXI`: aperturas variadas pero varias incompletas** (`"En la notación"`, `"En la misma notación"`, `"En"` a secas, `"Al escribir"`). A diferencia de "Considerá la integral", estos son fragmentos sin objeto propio: el `:` no los arregla, necesitan reescritura completa.
+- **`ESTR`: opciones con ratio de longitud alto** (ej. `[23, 51, 21]` caracteres), la del medio casi el doble de las otras dos. Revisar paridad (regla 4/15) al completar los 50 ítems.
+- **Nota de vocabulario, no es un hallazgo real**: `FORM` usa "linealidad" con frecuencia en `explanation` como **el nombre correcto de la propiedad** del operador integral (∫(f+g)=∫f+∫g, ∫kf=k∫f). La entrada de la tabla de vocabulario prohibido en `authoring-context.md` banea "linealidad" **solo como nombre de estrategia en `options`** (contexto de `violet/derivatives`, donde competía con "múltiplo escalar"); acá es terminología legítima en prosa y no hay que tocarla.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
@@ -163,6 +176,9 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] Constante de integración $C$ presente en todo resultado mostrado como primitiva
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo en ítems nuevos)
+- [ ] **`"Considerá la integral"` (FORM) tiene el `:` antes del bloque `$$...$$`** (ya es cláusula completa); **`"Antes de resolver"` (ESTR) está reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9 y 32); aperturas de LEXI variadas y completas
+- [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

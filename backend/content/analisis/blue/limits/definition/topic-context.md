@@ -64,12 +64,23 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 ### Distribución por sub-familia
 
+**Ronda 2 (esta auditoría): se le da más peso relativo a A** (lectura de la notación), porque hoy mezclaba notación y concepto y quedaba subrepresentada frente al resto. B, C y D bajan levemente para compensar, sin perder su rol.
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. La naturaleza de la aproximación | Qué significa $x \to a$: acercarse vs. llegar. Notación correcta. La flecha es tendencia, no evaluación. | `naturaleza-aproximacion` | 15 |
-| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 15 |
-| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 10 |
-| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 10 |
+| A. Lectura de la notación, partes de la fórmula | Dado $\lim_{x\to a} f(x) = L$ (o una variante con números concretos), identificar qué representa cada símbolo por separado: la variable que se mueve ($x$), el punto de tendencia ($a$), la expresión evaluada en el entorno ($f(x)$), el resultado ($L$), y el sentido de la flecha (acercarse, nunca llegar). Incluye trampas de notación: confundir $a$ con $L$, escribir $x=a$ como si fuera el resultado, leer $f(a)$ donde corresponde $L$. | `lectura-notacion` | 20 |
+| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 12 |
+| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 9 |
+| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 9 |
+
+### El "porqué", no solo el "qué" (regla crítica 25 de `authoring-context.md`)
+
+**Esta es la corrección de más peso de esta ronda.** Las explicaciones de B, C y D tienden a *declarar* el resultado ("es una indeterminación", "el límite no depende de $f(a)$", "hace falta continuidad") sin razonar el mecanismo detrás. Cada skill de este topic tiene que construir la intuición, no solo nombrarla:
+
+- **C, diagnóstico de la indeterminación**: no alcanza con "$\tfrac{0}{0}$ es indeterminación, $\tfrac{k}{0}$ no". Hay que explicar **por qué** cada caso se comporta así: en $\tfrac{k}{0}$ el numerador queda fijo mientras el denominador se achica, y dividir algo fijo por algo cada vez más chico crece sin cota, sin importar qué función sea, el resultado ya está determinado. En $\tfrac{0}{0}$, numerador y denominador se achican **juntos**, y el cociente depende de qué tan rápido se achica cada uno respecto del otro, esa "carrera" es distinta en cada función, por eso $\tfrac{0}{0}$ no alcanza para saber el resultado y hace falta otra técnica que sí la revele.
+- **B, independencia $L$ vs. $f(a)$**: no alcanza con "el límite no es el valor de la función". Hay que explicar **por qué** pueden ser independientes: el límite solo mira el comportamiento de $f$ en un entorno de $a$, nunca lo que pasa exactamente en $a$, son dos preguntas distintas que la definición separa a propósito. Por eso un hueco, un valor redefinido o un punto aislado no afectan a $L$, la definición de límite ni siquiera necesita que $f(a)$ exista.
+- **D, condiciones para sustituir directo**: no alcanza con "hace falta que esté definida ahí". Hay que explicar **por qué** funciona cuando funciona: si $f$ es continua en $a$, eso significa por definición que el comportamiento de $f$ cerca de $a$ coincide con $f(a)$, la sustitución directa no es un atajo de cálculo, es la consecuencia directa de esa garantía. Por eso, cuando algo rompe la garantía (división por cero, argumento negativo en raíz o log), ya no hay "comportamiento cercano" que evaluar así.
+- **A, lectura de la notación**: en vez de "la flecha significa que $x$ se acerca a $a$" sin más, explicar por qué la notación está construida así: la flecha separa dos cosas distintas, el proceso de acercarse (que ocurre en un entorno) del resultado de ese proceso (un número, $L$), si se usara "=" desde el enunciado se perdería esa distinción y se confundiría con evaluar la función.
 
 ### `feedback_incorrect`, confusiones fuente
 - **Confundir tendencia con evaluación**: "el límite en $x = 2$ es $f(2)$" cuando $f$ no está definida en $2$. Describir: "estás evaluando la función; el límite mira los valores cercanos a $2$, no en $2$".
@@ -82,6 +93,7 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 - **Negrita en primera mención** de `límite`, `tendencia`, `aproximación`, `sustitución directa`, `indeterminación`, `continuidad` en `question` y `explanation`.
 - Notación: usar $\lim_{x \to a} f(x) = L$ en display cuando aparezca la definición; inline $x \to a$ en la prosa.
 - **Nunca** insinuar que $\tfrac{0}{0}$ se puede resolver (esa técnica no se estudió acá).
+- **El concepto abstracto siempre justifica el mecanismo, no solo nombra la regla** (ver sección "El porqué, no solo el qué" arriba y regla crítica 25 de `authoring-context.md`).
 
 ---
 
@@ -118,6 +130,20 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 - **Explicaciones con `\begin{aligned}`** para el desarrollo paso a paso (una línea por paso, `&=` alineado).
 - Si el ítem incluye una tendencia con $\tfrac{0}{0}$ como distractor conceptual, dejarlo como "indeterminación" en la opción, no como valor numérico ni como forma simplificada.
 - **Decimales con coma** (`4,3`).
+- **Concepto abstracto justifica el mecanismo**, no solo nombra la propiedad (regla crítica 25): cuando el ítem usa una propiedad de linealidad (suma, producto, cociente), explicar brevemente por qué la propiedad es válida bajo esa hipótesis, no solo aplicarla mecánicamente.
+
+---
+
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Corrección puntual del usuario sobre los ítems de prueba de este topic (`correciones_analisis_limites_definicion_1.md`), aplicar al regenerar:
+
+- **Espaciado desparejo entre renglones de un `\begin{aligned}`**: renglones con distinta altura (ej. uno con $\lim_{x\to a}$, los siguientes con aritmética simple) quedaban con distinto espacio vertical entre sí. **Ya corregido a nivel global** en `web/src/components/math-text.tsx` (strut `\vphantom` fijo al inicio de cada renglón), no requiere ningún cambio de contenido.
+- **RESL, fórmula del enunciado tejida junto al texto en vez de centrada y sola**: en ítems que dan dos datos (ej. "$\lim f(x)=6$ y $\lim g(x)=0$, ¿qué puede afirmarse de $\lim \tfrac{f(x)}{g(x)}$?") y en ítems con la fórmula a calcular pegada a la consigna ("calculá: $\lim [f(x)\cdot g(x)]$"), conviene separar la fórmula central en su propio bloque `$$...$$` y dejar el texto acompañándola en oraciones propias. Esto ya es la regla crítica 18 de `authoring-context.md`, extenderla explícitamente a este patrón de RESL (dato + fórmula a evaluar), no solo a funciones puntuales tipo `f(x) = ...`.
+- **LEXI, opción correcta demasiado larga**: en 2 ítems la opción correcta quedó mucho más extensa que las demás, y en uno de ellos agregaba información extra después de una coma que no aportaba a la distinción (regla crítica 4, ya documentada, remarcar acá porque reapareció).
+- **LEXI, ítem sin contexto de límites**: uno de los ítems de la sub-familia C (contraste $\tfrac00$ vs. $\tfrac0k$) no mencionaba en ningún lugar del enunciado que se estuviera hablando de límites, quedando ambiguo fuera de contexto. Al regenerar, cada ítem tiene que dejar explícito desde la primera oración que se está evaluando un límite (mención a $\lim$ o a "tendencia"), no asumirlo solo por estar en esta carpeta.
+
+Todo lo anterior se aplica en el próximo round de generación de este topic (no se reescriben los 15 ítems de prueba actuales en esta pasada).
 
 ---
 
@@ -130,15 +156,22 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios
+- [ ] **El concepto abstracto de cada `explanation` justifica el porqué, no solo declara el qué** (regla crítica 25): ninguna indeterminación, condición de dominio o propiedad operatoria se nombra sin razonar el mecanismo que la produce (ver sección "El porqué, no solo el qué" de LEXI, aplica igual al desarrollo de RESL)
+- [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual (ver `course-context.md` §Refuerzo de intuición en `blue`)
+- [ ] Bloques `\begin{aligned}` con espaciado uniforme entre renglones (fix de `math-text.tsx` ya aplicado a nivel de frontend, no requiere nada especial en el contenido)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem
-- [ ] Distribución A/B/C/D respetada (15/15/10/10)
+- [ ] Distribución A/B/C/D respetada (**20/12/9/9**, ronda 2: más peso a lectura de notación)
 - [ ] Negrita en primera mención de `límite`, `tendencia`, `aproximación`, `sustitución directa`, `indeterminación`, `continuidad`
 - [ ] Ningún ítem sugiere que $\tfrac{0}{0}$ se pueda resolver
+- [ ] Sub-familia A (`lectura-notacion`) aísla la identificación de partes de la fórmula ($x$, $a$, $f(x)$, $L$, la flecha) de la intuición de tendencia, que vive en el resto de las sub-familias
+- [ ] Cada ítem deja explícito desde el enunciado que se está hablando de un límite (mención a $\lim$ o "tendencia"), ninguno queda ambiguo fuera de contexto
+- [ ] Ningún ítem se enmarca respecto de otro de la sesión (regla crítica 24); la apertura de cada ítem varía su redacción, no repite la misma frase en toda una sub-familia
 
 **RESL:**
 - [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Ninguna sustitución ilegal en la respuesta correcta (denominador $\to 0$ o argumento fuera de dominio)
 - [ ] Ítems de propiedades (C, D) dan los valores de $\lim f$ y $\lim g$ en el enunciado, sin pedir calcularlos aparte
+- [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18), incluso cuando el enunciado da datos previos (ej. "$\lim f=6$ y $\lim g=0$" en una oración, la fórmula a calcular en su propio bloque)

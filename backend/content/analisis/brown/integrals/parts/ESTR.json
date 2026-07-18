@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla LIATE** ordena las familias de funciones, Logaritmo, Inversa trigonométrica, Algebraica, Trigonométrica, Exponencial, para decidir cuál asume el rol de $u$.\n\n$$u=\\ln x, \\quad dv=x^2\\,dx$$\nElegir el logaritmo como $u$ deja una $dv$ fácil de integrar, y $du=\\frac{1}{x}\\,dx$ termina simplificando la integral remanente.",
+    "explanation": "La **regla LIATE** ordena las familias de funciones, Logaritmo, Inversa trigonométrica, Algebraica, Trigonométrica, Exponencial, para decidir cuál asume el rol de $u$.\n$$u=\\ln x, \\quad dv=x^2\\,dx$$\nElegir el logaritmo como $u$ deja una $dv$ fácil de integrar, y $du=\\frac{1}{x}\\,dx$ termina simplificando la integral remanente.",
     "reviewed": false
   },
   {
@@ -36,7 +36,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla **LIATE** prioriza Algebraica (A) por sobre Exponencial (E) al elegir $u$, sin importar cuán simple parezca la exponencial.\n\n$$u=x, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
+    "explanation": "La regla **LIATE** prioriza Algebraica (A) por sobre Exponencial (E) al elegir $u$, sin importar cuán simple parezca la exponencial.\n$$u=x, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, y la integral remanente queda de tabla inmediata, lista para resolverse en un solo paso.",
     "reviewed": false
   },
   {
@@ -56,7 +56,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T) al elegir $u$.\n\n$$u=x, \\quad dv=\\sin x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.",
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T) al elegir $u$.\n$$u=x, \\quad dv=\\sin x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.",
     "reviewed": false
   },
   {
@@ -76,7 +76,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n\n$$u=\\ln x, \\quad dv=x^3\\,dx$$\nEsta elección deja $du=\\frac{1}{x}\\,dx$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.",
+    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n$$u=\\ln x, \\quad dv=x^3\\,dx$$\nEsta elección deja $du=\\frac{1}{x}\\,dx$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.",
     "reviewed": false
   },
   {
@@ -96,7 +96,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza Algebraica (A) por sobre Exponencial (E).\n\n$$u=x, \\quad dv=e^{3x}\\,dx$$\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.",
+    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza Algebraica (A) por sobre Exponencial (E).\n$$u=x, \\quad dv=e^{3x}\\,dx$$\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.",
     "reviewed": false
   },
   {
@@ -116,7 +116,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T), sin importar si la función es seno o coseno.\n\n$$u=x, \\quad dv=\\cos x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.",
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T), sin importar si la función es seno o coseno.\n$$u=x, \\quad dv=\\cos x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.",
     "reviewed": false
   },
   {
@@ -136,7 +136,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n\n$$u=\\ln x, \\quad dv=2x\\,dx$$\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.",
+    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n$$u=\\ln x, \\quad dv=2x\\,dx$$\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.",
     "reviewed": false
   },
   {
@@ -156,7 +156,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando Algebraica (A) por sobre Exponencial (E).\n\n$$u=x^2, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.",
+    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando Algebraica (A) por sobre Exponencial (E).\n$$u=x^2, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.",
     "reviewed": false
   },
   {
@@ -176,7 +176,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.",
+    "explanation": "Cada aplicación de **integración por partes** con $u=x^n$ reduce el grado del polinomio en uno, hasta llegar a una constante.\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCon grado $2$, hacen falta exactamente dos aplicaciones del método antes de que la integral remanente sea inmediata.",
     "reviewed": false
   },
   {
@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx \\text{ (con signo cambiado)}$$\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
+    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx \\text{ (con signo cambiado)}$$\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $u=\\ln x$, su derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente, sin importar el grado original.\n\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
+    "explanation": "Cuando $u=\\ln x$, su derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente una potencia de $x$ en la integral remanente, sin importar el grado original.\n$$\\int \\frac{x^{n+1}}{n+1}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{n+1}\\int x^n\\,dx$$\nEsa integral remanente es directamente de tabla, así que $\\int x^n\\ln x\\,dx$ siempre cierra en una única aplicación del método.",
     "reviewed": false
   },
   {
@@ -236,7 +236,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $x^2e^x$, el grado $2$ del polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
+    "explanation": "Igual que con $x^2e^x$, el grado $2$ del polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
     "reviewed": false
   },
   {
@@ -256,7 +256,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx \\text{ (con signo cambiado)}$$\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
+    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx \\text{ (con signo cambiado)}$$\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
     "reviewed": false
   },
   {
@@ -276,7 +276,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{2}\\int x\\,dx$$\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.",
+    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{2}\\int x\\,dx$$\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.",
     "reviewed": false
   },
   {
@@ -296,7 +296,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=\\frac{1}{x}\\,dx$, que cancela una potencia de $x$ en un único paso.\n\n$$\\int \\frac{x^{11}}{11}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{11}\\int x^{10}\\,dx$$\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.",
+    "explanation": "Sin importar cuán grande sea el exponente del polinomio, elegir $u=\\ln x$ deja $du=\\frac{1}{x}\\,dx$, que cancela una potencia de $x$ en un único paso.\n$$\\int \\frac{x^{11}}{11}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{11}\\int x^{10}\\,dx$$\nEsta cancelación es la que garantiza que $\\int x^n\\ln x\\,dx$ siempre cierre en una única aplicación del método, cualquiera sea $n$.",
     "reviewed": false
   }
 ]
