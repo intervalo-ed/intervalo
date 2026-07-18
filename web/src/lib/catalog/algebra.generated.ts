@@ -2,7 +2,7 @@
 // Source: backend/content/algebra/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "blue" | "violet"
+export type BeltKey = "white" | "blue" | "violet"
 
 export interface Topic {
   key: string
@@ -77,6 +77,92 @@ export const catalog: Catalog = {
     }
   ],
   "belts": [
+    {
+      "key": "white",
+      "headline": "Aritmética",
+      "description": "Las **operaciones aritméticas** fundamentales (fracciones, potencias, raíces, signos) son la base operativa sobre la que se apoya el resto del álgebra. Pendiente de completar con sus topics.",
+      "units": [
+        {
+          "key": "aritmetica",
+          "name": "Aritmética",
+          "description": "Las **operaciones aritméticas fundamentales** (fracciones, potencias, radicales, notación, valor absoluto y propiedades algebraicas básicas) son la base operativa sobre la que se apoya el resto del álgebra.\n$$\\frac{a}{b}, \\quad a^n, \\quad \\sqrt[n]{a}$$\nDominarlas evita que un error de cálculo bloquee el razonamiento en temas más avanzados.",
+          "topics": [
+            {
+              "key": "divisibility",
+              "name": "Divisibilidad",
+              "tooltip": "Un número $a$ es **divisor** de $b$ cuando $b$ es múltiplo exacto de $a$, sin resto.\n$$b = a \\times k, \\quad k \\in \\mathbb{Z}$$\nEl **MCD** (máximo común divisor) y el **MCM** (mínimo común múltiplo) se obtienen descomponiendo los números en sus factores primos, y son la base para simplificar fracciones y operar con denominadores distintos.",
+              "short_description": "El **MCD** y el **MCM** se obtienen factorizando números en primos.\n$$b = a \\times k$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "fractions",
+              "name": "Fracciones",
+              "tooltip": "Una **fracción** $\\dfrac{a}{b}$ representa una división no resuelta entre un numerador y un denominador distinto de cero.\n$$\\frac{a}{b} + \\frac{c}{d} = \\frac{ad + bc}{bd}$$\nSumar, restar, multiplicar y dividir fracciones, y simplificarlas usando el MCD, es la operación aritmética que más arrastra errores hacia el álgebra simbólica.",
+              "short_description": "Las **fracciones** se combinan mediante reglas propias de suma, resta, producto y división.\n$$\\frac{a}{b} + \\frac{c}{d} = \\frac{ad+bc}{bd}$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "powers",
+              "name": "Potenciación",
+              "tooltip": "La **potenciación** $a^n$ representa la multiplicación repetida de una base $a$ por sí misma $n$ veces.\n$$a^m \\cdot a^n = a^{m+n}, \\quad a^{-n} = \\frac{1}{a^n}$$\nSus propiedades (producto y cociente de potencias de igual base, potencia de potencia, exponente negativo y fraccionario) son la herramienta operativa detrás de toda la notación algebraica posterior.",
+              "short_description": "Las **propiedades de la potenciación** permiten operar exponentes sin desarrollar la multiplicación completa.\n$$a^m \\cdot a^n = a^{m+n}$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "radicals",
+              "name": "Radicales",
+              "tooltip": "La **raíz enésima** $\\sqrt[n]{a}$ es la operación inversa de elevar a la potencia $n$.\n$$\\sqrt[n]{a} = a^{1/n}$$\nSimplificar radicales y racionalizar denominadores, eliminar raíces del denominador multiplicando por un factor adecuado, evita arrastrar expresiones irracionales innecesarias en los cálculos.",
+              "short_description": "La **raíz enésima** es la operación inversa de la potenciación.\n$$\\sqrt[n]{a} = a^{1/n}$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "scientific_notation",
+              "name": "Notación",
+              "tooltip": "La **notación científica** expresa cualquier número como el producto de un valor entre $1$ y $10$ por una potencia de $10$.\n$$a \\times 10^n, \\quad 1 \\leq |a| < 10$$\nFacilita operar con cantidades extremadamente grandes o pequeñas sin escribir todos los ceros, y es el formato estándar en ciencias e ingeniería.",
+              "short_description": "La **notación científica** expresa un número como $a \\times 10^n$ con $1 \\leq |a| < 10$.\n$$a \\times 10^n$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "absolute_value",
+              "name": "Absoluto",
+              "tooltip": "El **valor absoluto** $|a|$ de un número mide su distancia al cero en la recta numérica, sin importar el signo.\n$$|a| = \\begin{cases} a & \\text{si } a \\geq 0 \\\\ -a & \\text{si } a < 0 \\end{cases}$$\nAparece constantemente al resolver ecuaciones e inecuaciones, y su propiedad clave es que siempre devuelve un resultado no negativo.",
+              "short_description": "El **valor absoluto** mide la distancia de un número al cero, siempre con resultado no negativo.\n$$|{-5}| = 5$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "algebraic_properties",
+              "name": "Propiedades",
+              "tooltip": "La **propiedad distributiva** y la extracción de **factor común** permiten transformar una expresión con paréntesis en una suma de términos, y viceversa.\n$$a(b + c) = ab + ac$$\nDominar el manejo de signos al abrir o cerrar paréntesis, sobre todo cuando el signo exterior es negativo, es el paso operativo que conecta la aritmética numérica con el álgebra simbólica de las unidades siguientes.",
+              "short_description": "La **distributiva** transforma una expresión entre paréntesis en una suma de términos.\n$$a(b+c) = ab + ac$$",
+              "skills": [
+                "RESL"
+              ]
+            },
+            {
+              "key": "logarithms",
+              "name": "Logaritmos",
+              "tooltip": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nSus propiedades operativas (logaritmo de un producto, un cociente y una potencia) permiten simplificar cálculos antes de que aparezca la función logarítmica como objeto en sí.",
+              "short_description": "El **logaritmo** en base $b$ de $x$ es el exponente al que se eleva $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$",
+              "skills": [
+                "RESL"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "key": "blue",
       "headline": "Vectores",
