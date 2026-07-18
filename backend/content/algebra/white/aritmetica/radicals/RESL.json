@@ -1,0 +1,24 @@
+[
+  {
+    "question": "**Racionalizar un denominador** significa reescribir una fracción para que no queden raíces en el denominador, multiplicando arriba y abajo por un factor adecuado.\n\nAl racionalizar la fracción:\n$$\\frac{3}{\\sqrt{5}}$$\n¿Cuál es el resultado equivalente sin raíz en el denominador?",
+    "options": [
+      "$\\frac{3\\sqrt{5}}{5}$",
+      "$\\frac{3}{5}$",
+      "$\\frac{3\\sqrt{5}}{25}$",
+      "$\\frac{9}{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicando numerador y denominador por $\\sqrt{5}$: $\\dfrac{3}{\\sqrt5}\\cdot\\dfrac{\\sqrt5}{\\sqrt5}=\\dfrac{3\\sqrt5}{5}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de multiplicar el denominador por $\\sqrt{5}$ pero olvidar multiplicar también el numerador.",
+      "Eso sale de elevar el denominador al cuadrado dos veces, cuando $(\\sqrt{5})^2$ ya da $5$ sin necesidad de otra multiplicación.",
+      "Eso sale de elevar toda la fracción original al cuadrado en vez de racionalizarla."
+    ],
+    "explanation": "**Racionalizar** un denominador consiste en multiplicar la fracción por una forma de $1$, el mismo radical sobre sí mismo, para que la raíz desaparezca del denominador y quede en el numerador.\n\nAplicando el factor racionalizante a la fracción dada:\n$$\\frac{3}{\\sqrt{5}} \\cdot \\frac{\\sqrt{5}}{\\sqrt{5}} = \\frac{3\\sqrt{5}}{5}$$\nEl denominador queda como $(\\sqrt{5})^2=5$, un número entero sin raíz.\n\nUn error común es multiplicar solo el denominador por el radical y olvidar aplicar la misma multiplicación al numerador, lo que cambia el valor de la fracción.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

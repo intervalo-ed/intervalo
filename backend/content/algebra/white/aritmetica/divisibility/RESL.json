@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El **máximo común divisor**, también llamado MCD, de dos números es el mayor número que los divide a ambos sin dejar resto.\n\nUn taller organiza dos lotes de piezas, uno de $36$ unidades y otro de $60$, y quiere formar grupos iguales del mayor tamaño posible sin que sobren piezas de ningún lote.\n\n¿Cuál es el tamaño máximo de cada grupo?",
+    "options": [
+      "$12$",
+      "$6$",
+      "$180$",
+      "$4$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El MCD toma los factores primos comunes con menor exponente: $2^2 \\cdot 3 = 12$.",
+    "feedback_incorrect": [
+      null,
+      "Ese valor toma un solo factor $2$ en vez de los dos que comparten $36$ y $60$.",
+      "Ese es el mínimo común múltiplo, no el máximo común divisor.",
+      "Ese valor solo considera el factor $2^2$ común, pero falta el $3$ que también divide a ambos."
+    ],
+    "explanation": "El **máximo común divisor** se calcula descomponiendo cada número en producto de factores primos y tomando, de los que aparecen en ambas descomposiciones, la potencia menor de cada uno.\n\nAl descomponer los dos lotes en factores primos:\n$$36 = 2^2 \\cdot 3^2$$\n$$60 = 2^2 \\cdot 3 \\cdot 5$$\nLos factores comunes son $2^2$ y $3$, así que:\n$$\\gcd(36, 60) = 2^2 \\cdot 3 = 12$$\nUn error frecuente es confundir el MCD con el mínimo común múltiplo, que se arma multiplicando todos los factores primos con la mayor potencia en lugar de la menor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

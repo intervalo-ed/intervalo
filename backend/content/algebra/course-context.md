@@ -10,14 +10,14 @@ Contexto de nivel **curso** para generar ejercicios de Intervalo. Está por enci
 
 ## Mapa de cinturones
 
-La progresión de cinturones sigue el orden `white → blue → violet → brown`. Cada cinturón es una unidad temática que organiza los tópicos de forma acumulativa:
+La progresión de cinturones sigue el orden `white → blue → violet → brown`. Cada cinturón es una unidad temática que organiza los tópicos de forma acumulativa. **Estado actual (post-reordenamiento):** el curso arranca en `white/aritmetica`, un repaso operativo pre-universitario; `spaces` y `transformations` quedan agrupadas bajo `brown` y **ocultas** (`"hidden": true` en `course.json`) hasta que se pueblen del todo — sus datos siguen en `/content` pero no se sirven al usuario.
 
-| Cinturón | Unidad | Temas |
-|----------|--------|-------|
-| `white` | `vectors` | definición, operaciones, norma, escalar, ortogonalidad, producto, rectas, planos |
-| `blue` | `matrices` | definición, operaciones, transpuesta, determinantes, inversa, sistemas, eliminación |
-| `violet` | `spaces` | subespacios, combinaciones, independencia, generadores, bases, dimensión |
-| `brown` | `transformations` | definición, núcleo, imagen, teorema, asociada |
+| Cinturón | Unidad(es) | Temas | Estado |
+|----------|--------|-------|--------|
+| `white` | `aritmetica` | divisibilidad, fracciones, potenciación, radicales, notación (científica), absoluto (valor absoluto), propiedades (algebraicas), logaritmos | Oculto (`hidden`): solo 1 ítem de ejemplo por topic, pendiente poblar |
+| `blue` | `vectors` | definición, operaciones, norma, escalar, ortogonalidad, producto, rectas, planos | Visible |
+| `violet` | `matrices` | definición, operaciones, transpuesta, determinantes, inversa, sistemas, eliminación | Visible |
+| `brown` | `spaces` + `transformations` | spaces: subespacios, combinaciones, independencia, generadores, bases, dimensión / transformations: definición, núcleo, imagen, teorema, asociada | Oculto (`hidden`) |
 
 ---
 
@@ -25,10 +25,10 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 
 El alumno de un cinturón **solo conoce lo de su cinturón y los anteriores**. Nunca uses conceptos de un cinturón posterior como distractor, en una explicación o en el enunciado. Esta regla anula cualquier atajo pedagógico o simplificación formal que desborde el estado cognitivo de ese momento.
 
-- **`white` (vectores):** operaciones de espacio euclídeo básico en $\mathbb{R}^2$ y $\mathbb{R}^3$. Se manejan la norma, el producto interno (llamado **escalar**), la perpendicularidad (**ortogonalidad**), el producto cruz o exterior (llamado **producto** en $\mathbb{R}^3$), rectas parametrizadas y planos expresados tanto vectorial como implícitamente. **No** existen todavía: matrices, sistemas de ecuaciones abstractos (G-J), espacios vectoriales formales ni transformaciones lineales.
-- **`blue` (matrices):** todo lo de white + manipulación algebraica de arreglos numéricos. Se introducen operaciones matriciales básicas, propiedades de la matriz transpuesta, cálculo y propiedades de determinantes, la matriz inversa y su cálculo, y la formulación matricial de sistemas $A\vec{x}=\vec{b}$ resueltos sistemáticamente por el método de eliminación gaussiana. **No** existen todavía: las definiciones abstractas de espacio vectorial, combinaciones lineales formales, bases ni transformaciones lineales.
-- **`violet` (espacios):** todo lo anterior + la abstracción estructural. Se formaliza el concepto de espacio y subespacio vectorial (axiomas de clausura). Se estudian las combinaciones lineales de vectores, el concepto de dependencia e independencia lineal, sistemas de generadores, la noción óptima de base (coordenadas unívocas) y la dimensión. **No** existen todavía: las transformaciones lineales ni sus subespacios asociados ($núcleo$ e $imagen$).
-- **`brown` (transformaciones):** todo lo de los cinturones anteriores. Se introducen las funciones entre espacios vectoriales que preservan sumas y productos por escalares (**transformaciones lineales**). Se definen formalmente sus dos subespacios asociados esenciales: el **núcleo** (kernel) y la **imagen**. Se estudia y aplica el **teorema de la dimensión** para analizar inyectividad/sobreyectividad y se construye algebraicamente la **matriz asociada** a una transformación respecto de diferentes bases.
+- **`white` (aritmética):** es el punto de partida del curso, no asume ningún cinturón anterior. Repasa operaciones aritméticas pre-universitarias: divisibilidad (MCD/MCM por factorización en primos), fracciones, propiedades de la potenciación (incluido exponente negativo), radicales y racionalización, notación científica, valor absoluto, propiedades algebraicas básicas (distributiva, factor común, signos al abrir paréntesis, como puente hacia la notación simbólica) y logaritmos numéricos (sin variable). **No** existen todavía: vectores, matrices, ni ningún objeto propio del álgebra lineal.
+- **`blue` (vectores):** todo lo de white + operaciones de espacio euclídeo básico en $\mathbb{R}^2$ y $\mathbb{R}^3$. Se manejan la norma, el producto interno (llamado **escalar**), la perpendicularidad (**ortogonalidad**), el producto cruz o exterior (llamado **producto** en $\mathbb{R}^3$), rectas parametrizadas y planos expresados tanto vectorial como implícitamente. **No** existen todavía: matrices, sistemas de ecuaciones abstractos (G-J), espacios vectoriales formales ni transformaciones lineales.
+- **`violet` (matrices):** todo lo anterior + manipulación algebraica de arreglos numéricos. Se introducen operaciones matriciales básicas, propiedades de la matriz transpuesta, cálculo y propiedades de determinantes, la matriz inversa y su cálculo, y la formulación matricial de sistemas $A\vec{x}=\vec{b}$ resueltos sistemáticamente por el método de eliminación gaussiana. **No** existen todavía: las definiciones abstractas de espacio vectorial, combinaciones lineales formales, bases ni transformaciones lineales.
+- **`brown` (espacios + transformaciones, oculto):** todo lo anterior + la abstracción estructural. `spaces` formaliza el concepto de espacio y subespacio vectorial (axiomas de clausura), combinaciones lineales, dependencia e independencia, generadores, base y dimensión. `transformations` introduce las funciones entre espacios vectoriales que preservan sumas y productos por escalares (**transformaciones lineales**), sus dos subespacios asociados (**núcleo** e **imagen**), el **teorema de la dimensión** y la construcción de la **matriz asociada** a una transformación. **Nota:** ambas unidades comparten el topic key `definition`; si se reactiva este cinturón, resolver esa colisión de `external_id` antes de reseedear.
 
 ---
 
