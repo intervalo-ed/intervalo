@@ -704,6 +704,8 @@ export interface components {
             session_id: string;
             /** Exercise Id */
             exercise_id: string;
+            /** External Id */
+            external_id?: string | null;
             /** Answer Index */
             answer_index: number;
             /** Attempts */
