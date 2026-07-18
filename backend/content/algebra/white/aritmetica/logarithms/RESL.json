@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nAl calcular:\n$$\\log_3(81)$$\n¿Cuál es su valor?",
+    "options": [
+      "$4$",
+      "$27$",
+      "$3$",
+      "$5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$3^4=81$, así que $\\log_3(81)=4$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de dividir $81$ por $3$ una sola vez, en vez de buscar cuántas veces hay que multiplicar $3$ por sí mismo para llegar a $81$.",
+      "Eso confunde el resultado del logaritmo con la base $3$; el logaritmo es el exponente, no la base.",
+      "Eso sale de contar una multiplicación de más: $3^5=243$, que ya se pasó de $81$."
+    ],
+    "explanation": "El **logaritmo** deshace a la potenciación: $\\log_b(x)$ pregunta a qué exponente hay que elevar la base $b$ para obtener $x$.\n\nAplicando esto al cálculo pedido, hay que encontrar el exponente $y$ tal que:\n$$3^{y} = 81$$\nProbando potencias sucesivas de $3$:\n$$\\begin{aligned} 3^1 &= 3 \\\\ 3^2 &= 9 \\\\ 3^3 &= 27 \\\\ 3^4 &= 81 \\end{aligned}$$\nComo $3^4=81$, se cumple que $\\log_3(81)=4$.\n\nUn error frecuente es confundir el resultado del logaritmo con la base o con el argumento, cuando en realidad es el exponente que los conecta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

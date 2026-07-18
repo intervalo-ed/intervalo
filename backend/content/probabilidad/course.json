@@ -268,9 +268,9 @@
       "description": "Aprendés a identificar y aplicar los modelos probabilísticos clásicos, desde pruebas de Bernoulli hasta la distribución Normal y el Teorema Central del Límite.",
       "units": [
         {
-          "key": "discretas",
-          "name": "Discretas",
-          "description": "Las **distribuciones discretas** modelan variables aleatorias cuyo soporte es un conjunto contable de valores, típicamente asociadas a conteos o repeticiones de ensayos.\n$$P(X = k) = p(k), \\quad k \\in \\mathbb{N}_0$$\nCada familia paramétrica describe una situación experimental diferente.",
+          "key": "distribuciones",
+          "name": "Distribuciones",
+          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$P(X = k) = p(k) \\qquad P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe una situación experimental distinta.",
           "topics": [
             {
               "key": "binomial",
@@ -279,8 +279,7 @@
               "short_description": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con probabilidad $p$.\n$$P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -290,19 +289,17 @@
               "short_description": "La distribución **geométrica** modela la cantidad de ensayos necesarios hasta obtener el primer éxito.\n$$P(X = k) = (1-p)^{k-1} p$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
               "key": "negativa",
-              "name": "Binomial negativa",
+              "name": "Negativa",
               "tooltip": "La distribución **binomial negativa** generaliza la geométrica al modelar la cantidad de ensayos necesarios hasta acumular $r$ éxitos en una sucesión de pruebas independientes con probabilidad de éxito $p$.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}, \\quad k \\geq r$$\nSu esperanza es $E[X] = r/p$ y coincide con la geométrica cuando $r = 1$.",
               "short_description": "La distribución **binomial negativa** modela la cantidad de ensayos necesarios hasta acumular $r$ éxitos.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -312,8 +309,7 @@
               "short_description": "La distribución **hipergeométrica** modela la cantidad de éxitos en extracciones sin reposición.\n$$P(X = k) = \\dfrac{\\binom{K}{k} \\binom{N-K}{n-k}}{\\binom{N}{n}}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -323,17 +319,9 @@
               "short_description": "La distribución de **Poisson** modela la cantidad de eventos en un intervalo fijo con tasa promedio $\\lambda$.\n$$P(X = k) = \\dfrac{e^{-\\lambda} \\lambda^k}{k!}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
-            }
-          ]
-        },
-        {
-          "key": "continuas",
-          "name": "Continuas",
-          "description": "Las **distribuciones continuas** modelan variables aleatorias cuyo soporte es un intervalo real, donde la probabilidad se distribuye como área bajo una función de densidad.\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe un fenómeno continuo con su propia forma característica.",
-          "topics": [
+            },
             {
               "key": "uniforme",
               "name": "Uniforme",
@@ -341,8 +329,7 @@
               "short_description": "La distribución **uniforme continua** modela una variable con densidad constante en un intervalo $[a, b]$.\n$$f(x) = \\dfrac{1}{b-a}, \\quad a \\leq x \\leq b$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -352,8 +339,7 @@
               "short_description": "La distribución **exponencial** modela el tiempo continuo entre eventos de un proceso de Poisson.\n$$f(x) = \\lambda e^{-\\lambda x}, \\quad x \\geq 0$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -363,8 +349,7 @@
               "short_description": "La distribución **normal** es el modelo continuo simétrico en forma de campana centrado en la media.\n$$f(x) = \\dfrac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             }
           ]
@@ -435,7 +420,8 @@
             }
           ]
         }
-      ]
+      ],
+      "hidden": true
     }
   ]
 }

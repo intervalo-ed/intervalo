@@ -1,0 +1,24 @@
+[
+  {
+    "question": "El **valor absoluto** de un número mide su distancia al cero, así que una ecuación con valor absoluto igualado a un valor positivo tiene, en general, dos soluciones.\n\nAl resolver la ecuación:\n$$|2x-3|=7$$\n¿Cuál es el conjunto solución?",
+    "options": [
+      "$\\{5, -2\\}$",
+      "$\\{5\\}$",
+      "$\\{5, -5\\}$",
+      "$\\{5, 2\\}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Las dos ramas de la ecuación dan como soluciones $x=5$ y $x=-2$.",
+    "feedback_incorrect": [
+      null,
+      "Faltó la segunda rama: la ecuación también se cumple cuando lo que está dentro de las barras es $-7$.",
+      "En la segunda rama el signo se aplica mal: $2x-3=-7$ da $x=-2$, no $x=-5$.",
+      "La segunda rama sale de $2x-3=-7$, no de $2x+3=7$; el signo se cambia del lado derecho, no dentro de las barras."
+    ],
+    "explanation": "Una ecuación de la forma $|A|=k$ con $k>0$ equivale a dos ecuaciones sin barras.\n\nUna es $A=k$ y la otra es $A=-k$, porque tanto un número como su opuesto tienen la misma distancia al cero.\n\nAplicando esto a la ecuación dada, se separan las dos ramas:\n$$2x-3=7$$\n$$2x-3=-7$$\nDespejando $x$ en cada una:\n$$x=5$$\n$$x=-2$$\nEl error más común es plantear una sola ecuación, solo el caso positivo, y perder la segunda solución, que es igual de válida.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

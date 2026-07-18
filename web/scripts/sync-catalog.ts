@@ -37,6 +37,7 @@ type RawBelt = {
   key: string
   headline: string
   description: string
+  hidden?: boolean
   units?: RawUnit[]
   topics?: RawTopic[]
 }
@@ -74,7 +75,9 @@ function generateOne({ slug }: { slug: string }) {
   const raw: RawCourse = JSON.parse(readFileSync(source, "utf8"))
   const normalized: NormalCourse = {
     ...raw,
-    belts: raw.belts.map(normalizeBelt),
+    // Belts marcados "hidden": true en course.json quedan fuera del catálogo del
+    // front (desactivados/ocultos del usuario); sus datos siguen en /content.
+    belts: raw.belts.filter((b) => !b.hidden).map(normalizeBelt),
   }
 
   const beltKeys = normalized.belts.map((b) => b.key)

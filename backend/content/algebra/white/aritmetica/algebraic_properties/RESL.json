@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Al **abrir un paréntesis precedido por un signo menos**, cada término dentro cambia de signo, porque restar una suma equivale a sumar sus opuestos.\n\nAl simplificar la expresión:\n$$5x - (3x - 7)$$\n¿Cuál es el resultado?",
+    "options": [
+      "$2x+7$",
+      "$2x-7$",
+      "$8x-7$",
+      "$-2x+7$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al restar el paréntesis, cada término interno cambia de signo: $5x-3x+7=2x+7$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de restar los términos del paréntesis sin cambiarles el signo; el signo menos afecta a los dos términos de adentro, no solo al primero.",
+      "Eso sale de sumar el paréntesis en vez de restarlo.",
+      "Eso sale de cambiarle el signo también al término $5x$, que está afuera del paréntesis y no se ve afectado."
+    ],
+    "explanation": "La **propiedad distributiva** del signo menos indica que restar un paréntesis equivale a sumar el opuesto de cada uno de sus términos, no solo el del primero.\n\nAplicando esto a la expresión dada:\n$$5x - (3x - 7) = 5x - 3x + 7$$\nAgrupando los términos semejantes:\n$$5x - 3x + 7 = 2x + 7$$\nUn error frecuente es cambiar el signo de un solo término dentro del paréntesis y dejar el otro sin modificar, rompiendo la equivalencia con la expresión original.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

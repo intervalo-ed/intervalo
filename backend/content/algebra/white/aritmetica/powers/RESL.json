@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan.\n\nAl simplificar la expresión:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\n¿Cuál es el resultado como potencia de $2$?",
+    "options": [
+      "$2^{-1}$",
+      "$2^{7}$",
+      "$2^{3}$",
+      "$2^{1}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "En el numerador los exponentes se suman: $5+(-2)=3$; al dividir por $2^4$ se resta: $3-4=-1$, así que el resultado es $2^{-1}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar también el exponente del denominador en vez de restarlo, como si toda la expresión fuera una multiplicación.",
+      "Eso sale de ignorar la resta final por el denominador $2^4$ y quedarse solo con el resultado del numerador.",
+      "Eso sale de invertir el orden de la resta entre los exponentes."
+    ],
+    "explanation": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan; estas reglas evitan tener que desarrollar cada potencia por separado.\n\nAplicando la propiedad a la expresión dada:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\nEn el numerador los exponentes se suman:\n$$2^5 \\cdot 2^{-2} = 2^{3}$$\nDividiendo por $2^4$ se resta el exponente del denominador:\n$$2^{3} \\div 2^{4} = 2^{-1}$$\nUn error frecuente es olvidar que dividir potencias resta exponentes, no los suma, sobre todo cuando alguno de ellos ya es negativo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

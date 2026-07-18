@@ -2,7 +2,7 @@
 // Source: backend/content/probabilidad/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "white" | "blue" | "violet" | "brown"
+export type BeltKey = "white" | "blue" | "violet"
 
 export interface Topic {
   key: string
@@ -310,9 +310,9 @@ export const catalog: Catalog = {
       "description": "Aprendés a identificar y aplicar los modelos probabilísticos clásicos, desde pruebas de Bernoulli hasta la distribución Normal y el Teorema Central del Límite.",
       "units": [
         {
-          "key": "discretas",
-          "name": "Discretas",
-          "description": "Las **distribuciones discretas** modelan variables aleatorias cuyo soporte es un conjunto contable de valores, típicamente asociadas a conteos o repeticiones de ensayos.\n$$P(X = k) = p(k), \\quad k \\in \\mathbb{N}_0$$\nCada familia paramétrica describe una situación experimental diferente.",
+          "key": "distribuciones",
+          "name": "Distribuciones",
+          "description": "Las **distribuciones de probabilidad** son los modelos paramétricos que describen el comportamiento de una variable aleatoria, tanto en el caso discreto, de soporte contable, como en el continuo, de soporte real.\n$$P(X = k) = p(k) \\qquad P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe una situación experimental distinta.",
           "topics": [
             {
               "key": "binomial",
@@ -321,8 +321,7 @@ export const catalog: Catalog = {
               "short_description": "La distribución **binomial** modela la cantidad de éxitos en $n$ ensayos independientes con probabilidad $p$.\n$$P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -332,19 +331,17 @@ export const catalog: Catalog = {
               "short_description": "La distribución **geométrica** modela la cantidad de ensayos necesarios hasta obtener el primer éxito.\n$$P(X = k) = (1-p)^{k-1} p$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
               "key": "negativa",
-              "name": "Binomial negativa",
+              "name": "Negativa",
               "tooltip": "La distribución **binomial negativa** generaliza la geométrica al modelar la cantidad de ensayos necesarios hasta acumular $r$ éxitos en una sucesión de pruebas independientes con probabilidad de éxito $p$.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}, \\quad k \\geq r$$\nSu esperanza es $E[X] = r/p$ y coincide con la geométrica cuando $r = 1$.",
               "short_description": "La distribución **binomial negativa** modela la cantidad de ensayos necesarios hasta acumular $r$ éxitos.\n$$P(X = k) = \\binom{k-1}{r-1} p^r (1-p)^{k-r}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -354,8 +351,7 @@ export const catalog: Catalog = {
               "short_description": "La distribución **hipergeométrica** modela la cantidad de éxitos en extracciones sin reposición.\n$$P(X = k) = \\dfrac{\\binom{K}{k} \\binom{N-K}{n-k}}{\\binom{N}{n}}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -365,17 +361,9 @@ export const catalog: Catalog = {
               "short_description": "La distribución de **Poisson** modela la cantidad de eventos en un intervalo fijo con tasa promedio $\\lambda$.\n$$P(X = k) = \\dfrac{e^{-\\lambda} \\lambda^k}{k!}$$",
               "skills": [
                 "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
-            }
-          ]
-        },
-        {
-          "key": "continuas",
-          "name": "Continuas",
-          "description": "Las **distribuciones continuas** modelan variables aleatorias cuyo soporte es un intervalo real, donde la probabilidad se distribuye como área bajo una función de densidad.\n$$P(a \\leq X \\leq b) = \\int_a^b f(x)\\,dx$$\nCada familia paramétrica describe un fenómeno continuo con su propia forma característica.",
-          "topics": [
+            },
             {
               "key": "uniforme",
               "name": "Uniforme",
@@ -383,8 +371,7 @@ export const catalog: Catalog = {
               "short_description": "La distribución **uniforme continua** modela una variable con densidad constante en un intervalo $[a, b]$.\n$$f(x) = \\dfrac{1}{b-a}, \\quad a \\leq x \\leq b$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -394,8 +381,7 @@ export const catalog: Catalog = {
               "short_description": "La distribución **exponencial** modela el tiempo continuo entre eventos de un proceso de Poisson.\n$$f(x) = \\lambda e^{-\\lambda x}, \\quad x \\geq 0$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             },
             {
@@ -405,74 +391,7 @@ export const catalog: Catalog = {
               "short_description": "La distribución **normal** es el modelo continuo simétrico en forma de campana centrado en la media.\n$$f(x) = \\dfrac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$$",
               "skills": [
                 "GRAF",
-                "FORM",
-                "RESL"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "brown",
-      "headline": "Vectores",
-      "description": "Integrás múltiples variables simultáneamente, analizando su comportamiento probabilístico conjunto, evaluando la covarianza y determinando la independencia estadística.",
-      "units": [
-        {
-          "key": "vectores",
-          "name": "Vectores",
-          "description": "Un **vector aleatorio** agrupa varias variables aleatorias en una única entidad para analizar su comportamiento probabilístico conjunto.\n$$(X, Y) : \\Omega \\to \\mathbb{R}^2$$\nEsta unidad estudia sus distribuciones conjunta y marginales, junto con las medidas de dependencia entre componentes.",
-          "topics": [
-            {
-              "key": "conjunta",
-              "name": "Conjunta",
-              "tooltip": "La distribución **conjunta** describe el comportamiento probabilístico simultáneo de dos o más variables aleatorias, capturando las probabilidades de todas las combinaciones posibles de sus valores.\n$$p(x, y) = P(X = x, Y = y), \\quad f(x, y) \\text{ para el caso continuo}$$\nSu integral o suma sobre todo el dominio vale $1$ y de ella se derivan las distribuciones marginales y condicionales.",
-              "short_description": "La distribución **conjunta** describe el comportamiento simultáneo de dos o más variables aleatorias.\n$$p(x, y) = P(X = x, Y = y)$$",
-              "skills": [
-                "CLSF",
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "marginales",
-              "name": "Marginales",
-              "tooltip": "La distribución **marginal** de una variable se obtiene a partir de la conjunta sumando o integrando sobre todos los valores posibles del resto de las variables.\n$$p_X(x) = \\sum_{y} p(x, y), \\quad f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$\nPermite estudiar el comportamiento individual de cada variable ignorando la información aportada por las demás.",
-              "short_description": "La distribución **marginal** extrae la probabilidad individual de una variable a partir de una conjunta.\n$$f_X(x) = \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "covarianza",
-              "name": "Covarianza",
-              "tooltip": "La **covarianza** entre dos variables aleatorias $X$ e $Y$ cuantifica la tendencia de ambas a variar en la misma dirección respecto de sus respectivas esperanzas.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$\nUn signo positivo indica que las variables tienden a moverse juntas, un signo negativo que se mueven en sentidos opuestos, y su magnitud depende de las unidades de las variables.",
-              "short_description": "La **covarianza** cuantifica la tendencia conjunta de dos variables a variar respecto de sus medias.\n$$\\mathrm{Cov}(X, Y) = E[XY] - E[X] \\cdot E[Y]$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "correlacion",
-              "name": "Correlación",
-              "tooltip": "El coeficiente de **correlación** estandariza la covarianza dividiéndola por el producto de los desvíos estándar, obteniendo una medida adimensional de la relación lineal entre dos variables.\n$$\\rho_{X,Y} = \\frac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}, \\quad -1 \\leq \\rho \\leq 1$$\nValores cercanos a $\\pm 1$ indican una relación lineal fuerte, mientras que un valor cercano a cero indica ausencia de relación lineal sin descartar dependencias no lineales.",
-              "short_description": "La **correlación** estandariza la covarianza para medir la relación lineal entre dos variables en el rango $[-1, 1]$.\n$$\\rho_{X,Y} = \\dfrac{\\mathrm{Cov}(X, Y)}{\\sigma_X \\, \\sigma_Y}$$",
-              "skills": [
-                "FORM",
-                "RESL"
-              ]
-            },
-            {
-              "key": "independencia_vec",
-              "name": "Independencia",
-              "tooltip": "Dos variables aleatorias son **independientes** cuando el valor que toma una no aporta información sobre la distribución de la otra, condición que se traduce en que la distribución conjunta factoriza en el producto de las marginales.\n$$p(x, y) = p_X(x) \\cdot p_Y(y), \\quad f(x, y) = f_X(x) \\cdot f_Y(y)$$\nLa independencia implica $\\mathrm{Cov}(X, Y) = 0$, pero la covarianza nula solo garantiza independencia en el caso normal multivariado.",
-              "short_description": "Dos variables son **independientes** cuando la conjunta factoriza en el producto de sus marginales.\n$$f(x, y) = f_X(x) \\cdot f_Y(y)$$",
-              "skills": [
-                "CLSF",
-                "FORM",
-                "RESL"
+                "FORM"
               ]
             }
           ]

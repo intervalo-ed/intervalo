@@ -1,0 +1,24 @@
+[
+  {
+    "question": "La **notación científica** expresa un número como el producto de un valor entre $1$ y $10$ por una potencia de $10$, lo que facilita operar con cantidades muy grandes o muy pequeñas.\n\nAl multiplicar:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\n¿Cuál es el resultado en notación científica?",
+    "options": [
+      "$6\\times10^{-2}$",
+      "$6\\times10^{10}$",
+      "$5\\times10^{-2}$",
+      "$6\\times10^{4}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los coeficientes se multiplican ($3\\times2=6$) y los exponentes se suman ($4+(-6)=-2$), así que el resultado es $6\\times10^{-2}$.",
+    "feedback_incorrect": [
+      null,
+      "Eso sale de sumar los exponentes ignorando el signo negativo del segundo: $4+6=10$ en vez de $4+(-6)=-2$.",
+      "Eso sale de sumar los coeficientes en vez de multiplicarlos: $3+2=5$ en vez de $3\\times2=6$.",
+      "Eso sale de copiar solo el exponente del primer factor y no sumarle el del segundo."
+    ],
+    "explanation": "Para **multiplicar números en notación científica** se multiplican los coeficientes entre sí y se suman los exponentes de las potencias de $10$, porque $10^a \\cdot 10^b = 10^{a+b}$.\n\nAplicando esta regla al producto dado:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\nLos coeficientes se multiplican:\n$$3 \\times 2 = 6$$\nY los exponentes se suman:\n$$4 + (-6) = -2$$\nCombinando ambos resultados:\n$$6\\times10^{-2}$$\nUn error común es sumar los coeficientes en vez de multiplicarlos, o descuidar el signo del exponente negativo al combinarlo con el positivo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]
