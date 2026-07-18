@@ -2,7 +2,7 @@
 // Source: backend/content/algebra/course.json
 // Do not edit by hand; rerun `bun run scripts/sync-catalog.ts`.
 
-export type BeltKey = "white" | "blue"
+export type BeltKey = "blue" | "violet"
 
 export interface Topic {
   key: string
@@ -78,9 +78,9 @@ export const catalog: Catalog = {
   ],
   "belts": [
     {
-      "key": "white",
+      "key": "blue",
       "headline": "Vectores",
-      "description": "Un **vector** es una herramienta matemática que modela magnitudes físicas con dirección y sentido. Su estudio en $\\mathbb{R}^n$ sienta las bases para comprender la geometría del espacio, la ortogonalidad y la construcción de sistemas de coordenadas independientes.\n$$\\vec{v} = (v_1, v_2, \\dots, v_n)$$\nEsta unidad recorre la definición de vectores, sus operaciones métricas y la representación de rectas y planos.",
+      "description": "Un **vector** en el plano o el espacio es una magnitud con dirección y sentido, representable como un segmento orientado o como una lista de componentes.\n$$\u000bec{v} = (v_1, v_2, v_3)$$\nSus operaciones y propiedades son la base de las matrices y las transformaciones lineales.",
       "units": [
         {
           "key": "vectors",
@@ -176,9 +176,9 @@ export const catalog: Catalog = {
       ]
     },
     {
-      "key": "blue",
+      "key": "violet",
       "headline": "Matrices",
-      "description": "Una **matriz** organiza coeficientes y variables en estructuras rectangulares, funcionando como el núcleo de los sistemas de ecuaciones lineales y como operadores que transforman el espacio a través de rotaciones, proyecciones e inversiones.\n$$A \\in \\mathbb{R}^{m \\times n}$$\nEsta unidad introduce la definición, operaciones, determinantes, matrices inversas y sistemas de ecuaciones lineales.",
+      "description": "Una **matriz** organiza números en filas y columnas para representar sistemas de ecuaciones y transformaciones lineales de forma compacta.\n$$A \\in \\mathbb{R}^{m \times n}$$\nSus operaciones, determinante e inversa permiten resolver sistemas y estudiar la estructura del espacio que la matriz transforma.",
       "units": [
         {
           "key": "matrices",
