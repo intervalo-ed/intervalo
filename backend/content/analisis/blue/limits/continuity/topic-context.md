@@ -21,13 +21,13 @@ Skills en este topic: `CLSF`, `GRAF`, `RESL`. **50 ítems cada uno (150 en total
 Para que $f$ sea continua en $x = a$ deben cumplirse **las tres** condiciones:
 
 1. $f(a)$ está definida.
-2. $\lim_{x \to a} f(x)$ existe (es decir, $\lim^- = \lim^+$ y ambos son finitos).
+2. $\lim_{x \to a} f(x)$ existe (es decir, $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x)$ y ambos son finitos).
 3. $\lim_{x \to a} f(x) = f(a)$.
 
 La discontinuidad se clasifica según cuál condición falla:
 
 - **Removible (evitable)**: el límite bilateral existe y es finito, pero $f(a)$ no está definida o $f(a) \neq L$. Se "arregla" redefiniendo el punto.
-- **De salto**: los laterales existen y son finitos pero $\lim^- \neq \lim^+$. No se arregla redefiniendo un solo punto.
+- **De salto**: los laterales existen y son finitos pero $\lim_{x \to a^-} f(x) \neq \lim_{x \to a^+} f(x)$. No se arregla redefiniendo un solo punto.
 - **Esencial (infinita)**: al menos uno de los laterales diverge (asíntota vertical), o no existe por oscilación.
 
 ### Regla dura de restricción
@@ -46,6 +46,10 @@ Toda verificación analítica se sostiene exclusivamente en:
 3. La **comparación** entre ambos según las 3 condiciones.
 
 Los ítems que quiebren esta regla se descartan y se reescriben.
+
+---
+
+**Nota para cuando se audite este topic**: ver `course-context.md` sección "Refuerzo de intuición en `blue`" (agregada en la auditoría de `lateral_limits`/`infinite_limits`): las `explanation` de toda la unidad `limits` suman 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual. Sumarlo al checklist de este topic al cerrarlo.
 
 ---
 
@@ -81,14 +85,16 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 ### Distribución por sub-familia
 
+**Ronda 2 (esta auditoría): se le da mucho más peso relativo a A** (las 3 condiciones formales pasa de 30% a 50%), y se recorta B y C para compensar, quedando en una distribución redonda 50/40/10.
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 15 |
-| B. Clasificación analítica | Se dan valores puntuales de $\lim^-$, $\lim^+$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim^- = 3$, $\lim^+ = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 20 |
-| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 15 |
+| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 25 |
+| B. Clasificación analítica | Se dan valores puntuales de $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim_{x\to a^-} f(x) = 3$, $\lim_{x\to a^+} f(x) = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 20 |
+| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 5 |
 
 ### `feedback_incorrect`, confusiones fuente
-- **Confundir removible con salto**: cuando $\lim^- = \lim^+ = L$ pero $f(a) \neq L$ (o no existe), elegir "de salto". Recordar: si el bilateral existe y es finito, la discontinuidad es **removible**.
+- **Confundir removible con salto**: cuando $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$ pero $f(a) \neq L$ (o no existe), elegir "de salto". Recordar: si el bilateral existe y es finito, la discontinuidad es **removible**.
 - **Salto clasificado como esencial**: cuando ambos laterales son finitos pero distintos, elegir "esencial". Esencial requiere que al menos un lateral diverja u oscile.
 - **Continua declarada cuando falta $f(a)$**: elegir "continua" cuando $\lim$ existe pero $f(a)$ no está definida. Falta la condición 1: la función debe estar **definida** en el punto.
 - **Racional continua en su raíz del denominador**: creer que $\tfrac{1}{x-2}$ es continua en $x = 2$ porque "es una función elemental". Las racionales son continuas en su dominio; $x = 2$ está fuera del dominio.
@@ -115,10 +121,12 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 
 ### Distribución por sub-familia
 
+**Ronda 2 (esta auditoría): se le da mucho más peso relativo a B** (clasificación visual pasa de 50% a 80%), recortando A al 20%.
+
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 25 |
-| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 25 |
+| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 10 |
+| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 40 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Vértice suave confundido con discontinuidad**: elegir el $x$ donde hay un pico (tipo $|x|$ en $0$) como punto discontinuo. Un pico es continuo; el problema sería de derivabilidad, que no se estudia acá.
@@ -151,12 +159,12 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim^-$, $\lim^+$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 15 |
+| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 15 |
 | B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 25 |
 | C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
-- **$k$ resuelto por una sola rama**: en el despeje, igualar solo $\lim^-$ a un número y dar ese $k$ sin verificar el bilateral con $\lim^+$. La ecuación para continuidad es $\lim^- = \lim^+ = f(a)$.
+- **$k$ resuelto por una sola rama**: en el despeje, igualar solo $\lim_{x\to a^-} f(x)$ a un número y dar ese $k$ sin verificar el bilateral con $\lim_{x\to a^+} f(x)$. La ecuación para continuidad es $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$.
 - **Igualar la rama al valor $f(a)$ ignorando el otro lateral**: en $f(x) = \{kx+1 \text{ si } x<2;\ x^2-3 \text{ si } x \geq 2\}$, resolver $k \cdot 2 + 1 = k \cdot 2 + 1$ (tautología) o solo con una rama.
 - **Signo invertido en el despeje**: al resolver $2k + 1 = 1$, dar $k = 1$ en vez de $k = 0$.
 - **Confundir dominio con continuidad**: en sub-C, dar el $x$ donde la función SÍ está definida como respuesta. Se pide dónde NO está definida (raíz del denominador, argumento fuera del dominio).
@@ -174,6 +182,16 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_continuidad_1.md`), aplicar al regenerar:
+
+- **Error generalizado de notación**: `\lim^-`/`\lim^+` sin el punto de tendencia en el subíndice, encontrado en `CLSF.json` de este topic y en los 3 archivos de `lateral_limits` (33 ocurrencias en 10 ítems en total). **Ya corregido con un script** (cada ocurrencia reescrita a `\lim_{x \to a^-}`/`\lim_{x \to a^+}` con el punto de tendencia correcto de cada ítem) y **documentado como regla crítica 27, nueva en `authoring-context.md`**.
+- **`RESL_06`**: la `explanation` está bien pero se puede reestructurar para mayor claridad: evaluar ambos laterales primero, una oración de transición, y luego 2 renglones más de `aligned` para plantear la igualdad de ramas y el resultado final de $k$, empezando ese segundo bloque con la flecha para marcar la continuidad de la operación (en vez de mezclar la evaluación de laterales y el despeje en el mismo bloque). Aplicar este ordenamiento en sub-B al regenerar.
+- **`GRAF_07`**: el enunciado decía "la curva de una racional" pero el `graph_fn` (`Piecewise` de $(x^2-1)/(x+1)$ con hueco) se ve visualmente como una **recta** (se simplifica a $y=x-1$ con un hueco), no como una curva racional típica. Al describir el gráfico en el enunciado, usar una palabra que coincida con lo que el alumno ve ("una recta con un punto removido"), no el nombre técnico de la familia original si la simplificación cambia el aspecto visual.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
@@ -184,16 +202,19 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios
 - [ ] Textos exactos `"Continua"`, `"Removible"`, `"De salto"`, `"Esencial"` en opciones de clasificación
+- [ ] **Todo límite lateral lleva el punto de tendencia en el subíndice** (`\lim_{x \to a^-}`/`\lim_{x \to a^+}`, regla crítica 27), nunca `\lim^-`/`\lim^+` sueltos
+- [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego (ver `course-context.md` §Refuerzo de intuición en `blue`)
+- [ ] La descripción del gráfico en `GRAF` coincide con lo que se ve visualmente, no con el nombre técnico de la familia original si la simplificación cambia el aspecto (ver hallazgo `GRAF_07`)
 
 **CLSF:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem
-- [ ] Distribución A/B/C respetada (15/20/15)
+- [ ] Distribución A/B/C respetada (25/20/5, ronda 2: más peso a las 3 condiciones formales)
 - [ ] Negrita en primera mención de `continua`, `discontinuidad`, `removible`, `de salto`, `esencial`
 - [ ] Sub-A y sub-B trabajan con datos numéricos concretos; sub-C es teórica sin datos numéricos
 
 **GRAF:**
 - [ ] 50 ítems con `graph_fn` o gráfico embebido
-- [ ] Distribución A/B respetada (25/25)
+- [ ] Distribución A/B respetada (10/40, ronda 2: más peso a clasificación visual)
 - [ ] Vértices suaves incluidos como distractor en sub-A (no son discontinuidades)
 - [ ] Puntos abiertos vs. cerrados claramente distinguidos
 - [ ] Cardinalidad ajustada: 4 si valor $x$/$y$, 3 si clasificación
@@ -202,6 +223,6 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 - [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (15/25/10)
 - [ ] Funciones a trozos con 2 ramas y punto de quiebre único (por defecto)
-- [ ] Sub-B con un solo parámetro por ítem, verificando $\lim^- = \lim^+ = f(a)$ en el despeje
+- [ ] Sub-B con un solo parámetro por ítem, verificando $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$ en el despeje
 - [ ] Sub-C con dominio bien definido; el enunciado precisa qué punto se pide cuando hay varios candidatos
 - [ ] Ninguna aplicación de L'Hôpital

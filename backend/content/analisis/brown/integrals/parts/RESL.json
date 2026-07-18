@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$, con $du=dx$ y $v=-\\cos x$.\n\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
+    "explanation": "Elegimos $u=x$, $dv=\\sin x\\,dx$, con $du=dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int x\\sin x\\,dx &= x(-\\cos x) - \\int (-\\cos x)\\,dx \\\\ &= -x\\cos x + \\int \\cos x\\,dx \\\\ &= -x\\cos x+\\sin x+C \\end{aligned}$$\nEl signo negativo de la fórmula se combina con el de la primitiva del seno, dando un segundo término positivo, doble atención al signo en este tipo de ítem.",
     "reviewed": false
   },
   {
@@ -40,7 +40,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
+    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
     "reviewed": false
   },
   {
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
+    "explanation": "Elegimos $u=x$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int x\\cos x\\,dx &= x\\sin x - \\int \\sin x\\,dx \\\\ &= x\\sin x - (-\\cos x) \\\\ &= x\\sin x+\\cos x+C \\end{aligned}$$\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.",
     "reviewed": false
   },
   {
@@ -84,7 +84,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^x\\,dx$, con $du=dx$ y $v=e^x$.\n\n$$\\begin{aligned} \\int xe^x\\,dx &= xe^x - \\int e^x\\,dx \\\\ &= xe^x - e^x \\\\ &= xe^x-e^x+C \\end{aligned}$$\nEste es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.",
+    "explanation": "Elegimos $u=x$, $dv=e^x\\,dx$, con $du=dx$ y $v=e^x$.\n$$\\begin{aligned} \\int xe^x\\,dx &= xe^x - \\int e^x\\,dx \\\\ &= xe^x - e^x \\\\ &= xe^x-e^x+C \\end{aligned}$$\nEste es el caso más simple de la fórmula, sin ningún ajuste de constante, ya que la exponencial de base $e$ es su propia primitiva.",
     "reviewed": false
   },
   {
@@ -106,7 +106,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$, con $du=dx$ y $v=-e^{-x}$.\n\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
+    "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$, con $du=dx$ y $v=-e^{-x}$.\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
     "reviewed": false
   },
   {
@@ -128,7 +128,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$, con $du=3\\,dx$ y $v=-\\cos x$.\n\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
+    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$, con $du=3\\,dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
     "reviewed": false
   },
   {
@@ -150,7 +150,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$, con $du=2\\,dx$ y $v=e^x$.\n\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa.",
+    "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$, con $du=2\\,dx$ y $v=e^x$.\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa.",
     "reviewed": false
   },
   {
@@ -172,7 +172,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
+    "explanation": "Elegimos $u=x+1$, $dv=\\cos x\\,dx$, con $du=dx$ y $v=\\sin x$.\n$$\\begin{aligned} \\int (x+1)\\cos x\\,dx &= (x+1)\\sin x - \\int \\sin x\\,dx \\\\ &= (x+1)\\sin x - (-\\cos x) \\\\ &= (x+1)\\sin x+\\cos x+C \\end{aligned}$$\nEl término constante dentro de $u$ no complica el desarrollo, se arrastra igual que la parte lineal en todo el procedimiento.",
     "reviewed": false
   },
   {
@@ -194,7 +194,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\nEl factor oculto es la clave para integrar cualquier función que \"no parece\" un producto, tratándola como si estuviera multiplicada por $1$.",
+    "explanation": "El $\\ln x$ solo no tiene primitiva directa de tabla, así que se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$$\\begin{aligned} u &= \\ln x, \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln x\\,dx &= x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln x-x+C \\end{aligned}$$\nEl factor oculto es la clave para integrar cualquier función que \"no parece\" un producto, tratándola como si estuviera multiplicada por $1$.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
     "reviewed": false
   },
   {
@@ -238,7 +238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$, así que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
+    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$, así que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
     "reviewed": false
   },
   {
@@ -260,7 +260,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
+    "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
     "reviewed": false
   },
   {
@@ -282,7 +282,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
     "reviewed": false
   },
   {
@@ -304,7 +304,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$, pero conviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.\n\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
+    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$, pero conviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
     "reviewed": false
   },
   {
@@ -326,7 +326,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
     "reviewed": false
   }
 ]

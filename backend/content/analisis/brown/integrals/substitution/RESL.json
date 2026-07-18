@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\\\ &= \\frac{1}{4}e^{4x+1}+C \\end{aligned}$$\nEl paso final vuelve a la variable $x$, reemplazando $u$ por $4x+1$, la respuesta nunca queda expresada en $u$.",
+    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\\\ &= \\frac{1}{4}e^{4x+1}+C \\end{aligned}$$\nEl paso final vuelve a la variable $x$, reemplazando $u$ por $4x+1$, la respuesta nunca queda expresada en $u$.",
     "reviewed": false
   },
   {
@@ -40,7 +40,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n\n$$\\begin{aligned} \\int \\cos(3x)\\,dx &= \\int \\cos u \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\sin u + C \\\\ &= \\frac{1}{3}\\sin(3x)+C \\end{aligned}$$\nLa primitiva del coseno no lleva signo negativo, a diferencia de la del seno, ese es el detalle que más se pierde en este tipo de ítem.",
+    "explanation": "Identificamos $u=3x$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int \\cos(3x)\\,dx &= \\int \\cos u \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\sin u + C \\\\ &= \\frac{1}{3}\\sin(3x)+C \\end{aligned}$$\nLa primitiva del coseno no lleva signo negativo, a diferencia de la del seno, ese es el detalle que más se pierde en este tipo de ítem.",
     "reviewed": false
   },
   {
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n\n$$\\begin{aligned} \\int (2x-1)^5\\,dx &= \\int u^5 \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\cdot\\frac{u^6}{6} + C \\\\ &= \\frac{(2x-1)^6}{12}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $6$ de la regla de la potencia y el $2$ del ajuste del diferencial, ambos multiplicados dan $12$.",
+    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int (2x-1)^5\\,dx &= \\int u^5 \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\cdot\\frac{u^6}{6} + C \\\\ &= \\frac{(2x-1)^6}{12}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $6$ de la regla de la potencia y el $2$ del ajuste del diferencial, ambos multiplicados dan $12$.",
     "reviewed": false
   },
   {
@@ -84,7 +84,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=5x$, con $du=5\\,dx$, así que $dx=\\frac{1}{5}\\,du$.\n\n$$\\begin{aligned} \\int \\sin(5x)\\,dx &= \\int \\sin u \\cdot \\frac{1}{5}\\,du \\\\ &= -\\frac{1}{5}\\cos u + C \\\\ &= -\\frac{1}{5}\\cos(5x)+C \\end{aligned}$$\nEl signo negativo de la primitiva del seno se conserva sin cambios, sin importar el coeficiente lineal de la sustitución.",
+    "explanation": "Identificamos $u=5x$, con $du=5\\,dx$, así que $dx=\\frac{1}{5}\\,du$.\n$$\\begin{aligned} \\int \\sin(5x)\\,dx &= \\int \\sin u \\cdot \\frac{1}{5}\\,du \\\\ &= -\\frac{1}{5}\\cos u + C \\\\ &= -\\frac{1}{5}\\cos(5x)+C \\end{aligned}$$\nEl signo negativo de la primitiva del seno se conserva sin cambios, sin importar el coeficiente lineal de la sustitución.",
     "reviewed": false
   },
   {
@@ -106,7 +106,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=-2x$, con $du=-2\\,dx$, así que $dx=-\\frac{1}{2}\\,du$.\n\n$$\\begin{aligned} \\int e^{-2x}\\,dx &= \\int e^u \\cdot \\left(-\\frac{1}{2}\\right)\\,du \\\\ &= -\\frac{1}{2}e^u + C \\\\ &= -\\frac{1}{2}e^{-2x}+C \\end{aligned}$$\nEl signo negativo del coeficiente de la sustitución se traslada directamente al resultado final, sin ningún otro ajuste adicional.",
+    "explanation": "Identificamos $u=-2x$, con $du=-2\\,dx$, así que $dx=-\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int e^{-2x}\\,dx &= \\int e^u \\cdot \\left(-\\frac{1}{2}\\right)\\,du \\\\ &= -\\frac{1}{2}e^u + C \\\\ &= -\\frac{1}{2}e^{-2x}+C \\end{aligned}$$\nEl signo negativo del coeficiente de la sustitución se traslada directamente al resultado final, sin ningún otro ajuste adicional.",
     "reviewed": false
   },
   {
@@ -128,7 +128,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x+2$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n\n$$\\begin{aligned} \\int (3x+2)^4\\,dx &= \\int u^4 \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\cdot\\frac{u^5}{5} + C \\\\ &= \\frac{(3x+2)^5}{15}+C \\end{aligned}$$\nEl denominador final combina el $5$ de la regla de la potencia y el $3$ del ajuste del diferencial, ambos multiplicados dan $15$.",
+    "explanation": "Identificamos $u=3x+2$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int (3x+2)^4\\,dx &= \\int u^4 \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\cdot\\frac{u^5}{5} + C \\\\ &= \\frac{(3x+2)^5}{15}+C \\end{aligned}$$\nEl denominador final combina el $5$ de la regla de la potencia y el $3$ del ajuste del diferencial, ambos multiplicados dan $15$.",
     "reviewed": false
   },
   {
@@ -150,7 +150,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(2x-1)+C \\end{aligned}$$\nEl término constante $-1$ dentro del argumento no afecta el ajuste del diferencial, solo el coeficiente $2$ que multiplica a $x$ importa.",
+    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(2x-1)+C \\end{aligned}$$\nEl término constante $-1$ dentro del argumento no afecta el ajuste del diferencial, solo el coeficiente $2$ que multiplica a $x$ importa.",
     "reviewed": false
   },
   {
@@ -172,7 +172,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\\\ &= \\frac{1}{2}\\ln|2x+3|+C \\end{aligned}$$\nEl valor absoluto dentro del logaritmo es obligatorio siempre, sin importar si la sustitución lineal tiene coeficiente distinto de $1$.",
+    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\\\ &= \\frac{1}{2}\\ln|2x+3|+C \\end{aligned}$$\nEl valor absoluto dentro del logaritmo es obligatorio siempre, sin importar si la sustitución lineal tiene coeficiente distinto de $1$.",
     "reviewed": false
   },
   {
@@ -194,7 +194,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(x^2)+C \\end{aligned}$$\nEl factor $x$ del integrando original se absorbe por completo dentro de $du$, no debería sobrevivir sin transformar en el resultado final.",
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(x^2)+C \\end{aligned}$$\nEl factor $x$ del integrando original se absorbe por completo dentro de $du$, no debería sobrevivir sin transformar en el resultado final.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|x^2+5|+C \\end{aligned}$$\nCuando el numerador coincide exactamente con $du$, sin ningún coeficiente sobrante, no hace falta ningún ajuste adicional de constante.",
+    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|x^2+5|+C \\end{aligned}$$\nCuando el numerador coincide exactamente con $du$, sin ningún coeficiente sobrante, no hace falta ningún ajuste adicional de constante.",
     "reviewed": false
   },
   {
@@ -238,7 +238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\\\ &= \\frac{(\\ln x)^2}{2}+C \\end{aligned}$$\nEl paréntesis alrededor de $\\ln x$ es importante, el cuadrado afecta a todo el logaritmo, no solo a la $x$ dentro de él.",
+    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\\\ &= \\frac{(\\ln x)^2}{2}+C \\end{aligned}$$\nEl paréntesis alrededor de $\\ln x$ es importante, el cuadrado afecta a todo el logaritmo, no solo a la $x$ dentro de él.",
     "reviewed": false
   },
   {
@@ -260,7 +260,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\\\ &= \\frac{\\sin^4 x}{4}+C \\end{aligned}$$\nEl factor $\\cos x$ del integrando original se absorbe por completo dentro de $du$, dejando una potencia simple de $u$ para integrar.",
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\\\ &= \\frac{\\sin^4 x}{4}+C \\end{aligned}$$\nEl factor $\\cos x$ del integrando original se absorbe por completo dentro de $du$, dejando una potencia simple de $u$ para integrar.",
     "reviewed": false
   },
   {
@@ -282,7 +282,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\\\ &= e^{x^2}+C \\end{aligned}$$\nCuando el factor que multiplica coincide exactamente con $du$, sin ningún coeficiente sobrante, el resultado no necesita ningún ajuste adicional.",
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\\\ &= e^{x^2}+C \\end{aligned}$$\nCuando el factor que multiplica coincide exactamente con $du$, sin ningún coeficiente sobrante, el resultado no necesita ningún ajuste adicional.",
     "reviewed": false
   },
   {
@@ -304,7 +304,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|\\sin x|+C \\end{aligned}$$\nEste patrón, derivada del denominador en el numerador, es el mismo que dispara el logaritmo en cualquier fracción de este tipo.",
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|\\sin x|+C \\end{aligned}$$\nEste patrón, derivada del denominador en el numerador, es el mismo que dispara el logaritmo en cualquier fracción de este tipo.",
     "reviewed": false
   },
   {
@@ -326,7 +326,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\\\ &= 2\\ln|x^2-3|+C \\end{aligned}$$\nCuando el numerador es un múltiplo de $du$ en vez de coincidir exactamente, ese múltiplo sobrevive como coeficiente del logaritmo final.",
+    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\\\ &= 2\\ln|x^2-3|+C \\end{aligned}$$\nCuando el numerador es un múltiplo de $du$ en vez de coincidir exactamente, ese múltiplo sobrevive como coeficiente del logaritmo final.",
     "reviewed": false
   }
 ]

@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frente a un binomio elevado al cuadrado dentro de una integral, el paso previo obligatorio es **desarrollarlo** en un polinomio simple.\n\n$$(x+2)^2 = x^2+4x+4$$\nRecién con el trinomio desarrollado, cada término queda listo para integrarse por separado usando linealidad, sin necesitar ninguna regla especial para potencias de binomios.",
+    "explanation": "Frente a un binomio elevado al cuadrado dentro de una integral, el paso previo obligatorio es **desarrollarlo** en un polinomio simple.\n$$(x+2)^2 = x^2+4x+4$$\nRecién con el trinomio desarrollado, cada término queda listo para integrarse por separado usando linealidad, sin necesitar ninguna regla especial para potencias de binomios.",
     "reviewed": false
   },
   {
@@ -36,7 +36,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un polinomio se divide por un monomio, conviene **repartir** esa división entre cada término del numerador.\n\n$$\\frac{x^3+5x}{x} = \\frac{x^3}{x}+\\frac{5x}{x} = x^2+5$$\nCon la expresión repartida, queda un polinomio simple que se integra directamente por linealidad, sin ninguna regla especial de cocientes.",
+    "explanation": "Cuando un polinomio se divide por un monomio, conviene **repartir** esa división entre cada término del numerador.\n$$\\frac{x^3+5x}{x} = \\frac{x^3}{x}+\\frac{5x}{x} = x^2+5$$\nCon la expresión repartida, queda un polinomio simple que se integra directamente por linealidad, sin ninguna regla especial de cocientes.",
     "reviewed": false
   },
   {
@@ -56,7 +56,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Frente a un producto entre un monomio y un binomio, el paso previo obligatorio es **distribuir** antes de integrar.\n\n$$x(x^2-1) = x^3-x$$\nCon el producto ya distribuido, cada término se integra por separado usando linealidad, evitando cualquier confusión con reglas de producto que todavía no aplican acá.",
+    "explanation": "Frente a un producto entre un monomio y un binomio, el paso previo obligatorio es **distribuir** antes de integrar.\n$$x(x^2-1) = x^3-x$$\nCon el producto ya distribuido, cada término se integra por separado usando linealidad, evitando cualquier confusión con reglas de producto que todavía no aplican acá.",
     "reviewed": false
   },
   {
@@ -76,7 +76,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier cociente entre un polinomio y un monomio, conviene repartir la división término a término.\n\n$$\\frac{x^4-3x^2}{x^2} = \\frac{x^4}{x^2}-\\frac{3x^2}{x^2} = x^2-3$$\nUna vez repartido, el resultado es un polinomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
+    "explanation": "Igual que con cualquier cociente entre un polinomio y un monomio, conviene repartir la división término a término.\n$$\\frac{x^4-3x^2}{x^2} = \\frac{x^4}{x^2}-\\frac{3x^2}{x^2} = x^2-3$$\nUna vez repartido, el resultado es un polinomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
     "reviewed": false
   },
   {
@@ -96,7 +96,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier binomio al cuadrado, el paso previo es desarrollarlo por completo antes de integrar término a término.\n\n$$(x-3)^2 = x^2-6x+9$$\nEl signo negativo dentro del binomio no cambia el procedimiento, solo hay que distribuirlo con cuidado al expandir el cuadrado y conservar el término cruzado.",
+    "explanation": "Igual que con cualquier binomio al cuadrado, el paso previo es desarrollarlo por completo antes de integrar término a término.\n$$(x-3)^2 = x^2-6x+9$$\nEl signo negativo dentro del binomio no cambia el procedimiento, solo hay que distribuirlo con cuidado al expandir el cuadrado y conservar el término cruzado.",
     "reviewed": false
   },
   {
@@ -116,7 +116,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.",
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.",
     "reviewed": false
   },
   {
@@ -136,7 +136,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un denominador que también lleva un coeficiente numérico, la repartición sigue funcionando igual, término a término.\n\n$$\\frac{6x^2+2x}{2x} = \\frac{6x^2}{2x}+\\frac{2x}{2x} = 3x+1$$\nEl resultado queda como un binomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
+    "explanation": "Con un denominador que también lleva un coeficiente numérico, la repartición sigue funcionando igual, término a término.\n$$\\frac{6x^2+2x}{2x} = \\frac{6x^2}{2x}+\\frac{2x}{2x} = 3x+1$$\nEl resultado queda como un binomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
     "reviewed": false
   },
   {
@@ -156,7 +156,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.",
+    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.",
     "reviewed": false
   },
   {
@@ -176,7 +176,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de integrar cualquier fracción con potencia en el denominador, conviene reescribirla como una **potencia negativa**.\n\n$$\\frac{1}{x^3} = x^{-3}$$\nEsta reescritura es la que habilita usar directamente la regla de la potencia en el tópico siguiente, sin necesidad de ninguna fórmula especial para fracciones.",
+    "explanation": "Antes de integrar cualquier fracción con potencia en el denominador, conviene reescribirla como una **potencia negativa**.\n$$\\frac{1}{x^3} = x^{-3}$$\nEsta reescritura es la que habilita usar directamente la regla de la potencia en el tópico siguiente, sin necesidad de ninguna fórmula especial para fracciones.",
     "reviewed": false
   },
   {
@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.",
+    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.",
+    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.",
     "reviewed": false
   },
   {
@@ -236,7 +236,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta expresión combina dos reescrituras en una sola, la raíz se convierte en exponente fraccionario y el denominador cambia el signo del exponente.\n\n$$\\frac{1}{\\sqrt{x}} = \\frac{1}{x^{1/2}} = x^{-1/2}$$\nAplicar ambas reescrituras a la vez es lo que deja la expresión lista para la regla de la potencia del tópico siguiente.",
+    "explanation": "Esta expresión combina dos reescrituras en una sola, la raíz se convierte en exponente fraccionario y el denominador cambia el signo del exponente.\n$$\\frac{1}{\\sqrt{x}} = \\frac{1}{x^{1/2}} = x^{-1/2}$$\nAplicar ambas reescrituras a la vez es lo que deja la expresión lista para la regla de la potencia del tópico siguiente.",
     "reviewed": false
   },
   {
@@ -256,7 +256,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier fracción con potencia en el denominador, conviene reescribirla como potencia negativa antes de integrar.\n\n$$\\frac{1}{x^5} = x^{-5}$$\nEl exponente original del denominador pasa arriba con el signo cambiado, un patrón que se repite siempre igual sin importar el valor del exponente.",
+    "explanation": "Igual que con cualquier fracción con potencia en el denominador, conviene reescribirla como potencia negativa antes de integrar.\n$$\\frac{1}{x^5} = x^{-5}$$\nEl exponente original del denominador pasa arriba con el signo cambiado, un patrón que se repite siempre igual sin importar el valor del exponente.",
     "reviewed": false
   },
   {
@@ -276,7 +276,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.",
+    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.",
     "reviewed": false
   },
   {
@@ -296,7 +296,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.",
+    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.",
     "reviewed": false
   }
 ]

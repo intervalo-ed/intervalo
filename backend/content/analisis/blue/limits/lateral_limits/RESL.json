@@ -40,7 +40,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\n\nComo $\\lim^- = 5 \\neq 7 = \\lim^+$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
+    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\n\nComo $\\lim_{x \\to 3^-} f(x) = 5 \\neq 7 = \\lim_{x \\to 3^+} f(x)$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
     "reviewed": false
   },
   {

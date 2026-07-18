@@ -60,6 +60,16 @@ function toBoolFn(code: EvalFunction): BoolFn {
   }
 }
 
+type PieceBound = { x: number; included: boolean }
+type PieceDomain =
+  | { kind: "point"; x: number }
+  | { kind: "excludePoint"; x: number }
+  | { kind: "left"; bound: PieceBound }
+  | { kind: "right"; bound: PieceBound }
+  | { kind: "range"; lo: PieceBound; hi: PieceBound }
+  | null
+type PieceMarker = { x: number; y: number; closed: boolean }
+
 function parsePiecewise(
   input: string,
 ): { expr: string; cond: string }[] | null {
@@ -102,6 +112,134 @@ function parsePiecewise(
   return pairs.length > 0 ? pairs : null
 }
 
+// Solo cubre comparaciones simples contra una constante (x < c, x >= c, ...) y su
+// combinación en un rango acotado ((x >= a) & (x < b)) — las únicas formas que
+// aparecen en el contenido real (Piecewise en backend/content). Cualquier otra
+// forma devuelve null: esa pieza no genera corte forzado ni marcador, y queda
+// sujeta solo al heurístico de salto por magnitud (asíntotas).
+const SIMPLE_COND = /^x\s*(<=|>=|==|!=|<|>)\s*(-?\d+(?:\.\d+)?)$/
+
+function parseSimpleCond(cond: string): { op: string; c: number } | null {
+  const m = cond.trim().match(SIMPLE_COND)
+  return m ? { op: m[1], c: Number(m[2]) } : null
+}
+
+function parseCondDomain(cond: string): PieceDomain {
+  const trimmed = cond.trim()
+  const simple = parseSimpleCond(trimmed)
+  if (simple) {
+    const { op, c } = simple
+    switch (op) {
+      case "==":
+        return { kind: "point", x: c }
+      case "!=":
+        return { kind: "excludePoint", x: c }
+      case "<":
+        return { kind: "left", bound: { x: c, included: false } }
+      case "<=":
+        return { kind: "left", bound: { x: c, included: true } }
+      case ">":
+        return { kind: "right", bound: { x: c, included: false } }
+      case ">=":
+        return { kind: "right", bound: { x: c, included: true } }
+      default:
+        return null
+    }
+  }
+  const compound = trimmed.match(/^\(([^()]*)\)\s*&\s*\(([^()]*)\)$/)
+  if (!compound) return null
+  const a = parseSimpleCond(compound[1])
+  const b = parseSimpleCond(compound[2])
+  if (!a || !b) return null
+  const lower = a.op === ">" || a.op === ">=" ? a : b.op === ">" || b.op === ">=" ? b : null
+  const upper = a.op === "<" || a.op === "<=" ? a : b.op === "<" || b.op === "<=" ? b : null
+  if (!lower || !upper || lower === upper) return null
+  return {
+    kind: "range",
+    lo: { x: lower.c, included: lower.op === ">=" },
+    hi: { x: upper.c, included: upper.op === "<=" },
+  }
+}
+
+// Extremos de cada pieza vía límite lateral numérico (fn(borde ± eps)) en vez de
+// evaluar exactamente en el borde: cubre por igual piezas comunes, agujeros
+// evitables tipo (x²-4)/(x-2) (límite finito aunque fn(2) dé NaN) y expr="None"
+// (NaN vía el catch existente de toRealFn → sin marcador, gratis).
+const MARKER_EPS = 1e-4
+
+function buildPieceMarkers(
+  pieces: { expr: string; cond: string }[],
+  realExprs: RealFn[],
+): { boundaryXs: number[]; markers: PieceMarker[] } {
+  const boundaryXs: number[] = []
+  const raw: PieceMarker[] = []
+  pieces.forEach((p, idx) => {
+    const domain = parseCondDomain(p.cond)
+    if (!domain) return
+    const fn = realExprs[idx]
+    if (domain.kind === "point") {
+      boundaryXs.push(domain.x)
+      const y = fn(domain.x)
+      if (Number.isFinite(y)) raw.push({ x: domain.x, y, closed: true })
+    } else if (domain.kind === "excludePoint") {
+      boundaryXs.push(domain.x)
+      const yLeft = fn(domain.x - MARKER_EPS)
+      const yRight = fn(domain.x + MARKER_EPS)
+      if (Number.isFinite(yLeft)) raw.push({ x: domain.x, y: yLeft, closed: false })
+      if (Number.isFinite(yRight)) raw.push({ x: domain.x, y: yRight, closed: false })
+    } else if (domain.kind === "left") {
+      boundaryXs.push(domain.bound.x)
+      const y = fn(domain.bound.x - MARKER_EPS)
+      if (Number.isFinite(y)) raw.push({ x: domain.bound.x, y, closed: domain.bound.included })
+    } else if (domain.kind === "right") {
+      boundaryXs.push(domain.bound.x)
+      const y = fn(domain.bound.x + MARKER_EPS)
+      if (Number.isFinite(y)) raw.push({ x: domain.bound.x, y, closed: domain.bound.included })
+    } else if (domain.kind === "range") {
+      boundaryXs.push(domain.lo.x, domain.hi.x)
+      const yLo = fn(domain.lo.x + MARKER_EPS)
+      const yHi = fn(domain.hi.x - MARKER_EPS)
+      if (Number.isFinite(yLo)) raw.push({ x: domain.lo.x, y: yLo, closed: domain.lo.included })
+      if (Number.isFinite(yHi)) raw.push({ x: domain.hi.x, y: yHi, closed: domain.hi.included })
+    }
+  })
+  // Los valores de y vienen de un límite ± MARKER_EPS, así que dos marcadores del
+  // "mismo" punto matemático (ej. límite izq/der de un agujero evitable, o el
+  // empalme de dos piezas realmente continuas) casi nunca coinciden en el bit
+  // exacto — hace falta una tolerancia numérica, no comparar strings. Los saltos
+  // pedagógicos reales son de varias unidades, muy por encima de MERGE_TOL.
+  const MERGE_TOL = 1e-2
+  const clusterByY = (items: PieceMarker[]): PieceMarker[] => {
+    const clusters: { x: number; y: number; n: number }[] = []
+    for (const m of items) {
+      const c = clusters.find((cl) => Math.abs(cl.y - m.y) < MERGE_TOL)
+      if (c) {
+        c.y = (c.y * c.n + m.y) / (c.n + 1)
+        c.n++
+      } else {
+        clusters.push({ x: m.x, y: m.y, n: 1 })
+      }
+    }
+    return clusters.map((c) => ({ x: c.x, y: c.y, closed: items[0]?.closed ?? false }))
+  }
+
+  const byX = new Map<number, PieceMarker[]>()
+  for (const m of raw) {
+    const group = byX.get(m.x) ?? []
+    group.push(m)
+    byX.set(m.x, group)
+  }
+  const markers: PieceMarker[] = []
+  for (const group of byX.values()) {
+    const closed = clusterByY(group.filter((m) => m.closed))
+    const open = clusterByY(group.filter((m) => !m.closed)).filter(
+      (o) => !closed.some((c) => Math.abs(c.y - o.y) < MERGE_TOL),
+    )
+    markers.push(...closed, ...open)
+  }
+  return { boundaryXs: [...new Set(boundaryXs)], markers }
+}
+
 // Pure-angle trig (x es un ángulo en radianes) → eje x en múltiplos de π. Los
 // trig "aplicados" (x = tiempo/meses: 311*sin(100*pi*x), 10*sin(pi/12*(x-6))+20)
 // siempre llevan `pi` en la fórmula y deben quedar con grilla decimal.
@@ -109,7 +247,9 @@ function isAngleTrig(graphFn: string): boolean {
   return /\b(sin|cos|tan)\b/.test(graphFn) && !/\bpi\b/i.test(graphFn)
 }
 
-function buildFn(graphFn: string): RealFn | null {
+type GraphBuild = { fn: RealFn; boundaryXs: number[]; markers: PieceMarker[] }
+
+function buildFn(graphFn: string): GraphBuild | null {
   const pieces = parsePiecewise(graphFn)
   if (pieces) {
     const compiled = pieces.map((p) => ({
@@ -119,15 +259,17 @@ function buildFn(graphFn: string): RealFn | null {
     if (compiled.some((c) => !c.expr || !c.cond)) return null
     const realExprs = compiled.map((c) => toRealFn(c.expr!))
     const boolConds = compiled.map((c) => toBoolFn(c.cond!))
-    return (x: number) => {
+    const fn: RealFn = (x: number) => {
       for (let k = 0; k < boolConds.length; k++) {
         if (boolConds[k](x)) return realExprs[k](x)
       }
       return NaN
     }
+    const { boundaryXs, markers } = buildPieceMarkers(pieces, realExprs)
+    return { fn, boundaryXs, markers }
   }
   const code = compileFn(graphFn)
-  return code ? toRealFn(code) : null
+  return code ? { fn: toRealFn(code), boundaryXs: [], markers: [] } : null
 }
 
 function toView(
@@ -232,11 +374,15 @@ function axisTicks(min: number, max: number, step: number): number[] {
 // Grid, ticks, and the function plot all update dynamically as the user pans/zooms.
 function GraphContent({
   fn,
+  boundaryXs,
+  markers,
   widthPx,
   heightPx,
   piX,
 }: {
   fn: RealFn
+  boundaryXs: number[]
+  markers: PieceMarker[]
   widthPx: number
   heightPx: number
   piX: boolean
@@ -331,8 +477,25 @@ function GraphContent({
       }
     }
     if (start !== -1) runs.push([xs[Math.max(0, start - 1)], xs[N]])
-    return runs
-  }, [fn, xMin, xMax, lo, hi])
+
+    // Corte forzado en cada borde de pieza del piecewise, independiente del salto
+    // de altura: el heurístico de arriba es un fallback para asíntotas, no la vía
+    // principal para separar ramas de un Piecewise (ver math-graph.tsx AGENTS/plan).
+    const cutXs = boundaryXs.filter((x) => x > xMin && x < xMax)
+    if (cutXs.length === 0) return runs
+    const cutEps = (xMax - xMin) * 1e-5
+    return runs.flatMap(([s, e]) => {
+      let segs: [number, number][] = [[s, e]]
+      for (const cx of cutXs) {
+        segs = segs.flatMap(([a, b]) =>
+          cx > a && cx < b
+            ? ([[a, cx - cutEps], [cx + cutEps, b]] as [number, number][])
+            : ([[a, b]] as [number, number][]),
+        )
+      }
+      return segs
+    })
+  }, [fn, xMin, xMax, lo, hi, boundaryXs])
 
   const xTicks = axisTicks(xMin, xMax, xStep)
   const yTicks = axisTicks(yMin, yMax, yStep)
@@ -405,6 +568,21 @@ function GraphContent({
       {lattice.map(([x, y]) => (
         <Point key={`pt-${x}-${y}`} x={x} y={y} color={LINE_COLOR} svgCircleProps={{ r: 2 }} />
       ))}
+      {markers
+        .filter((m) => m.x >= xMin && m.x <= xMax && m.y >= lo && m.y <= hi)
+        .map((m) => (
+          <Point
+            key={`b-${m.x}-${m.y}-${m.closed}`}
+            x={m.x}
+            y={m.y}
+            color={LINE_COLOR}
+            svgCircleProps={
+              m.closed
+                ? { r: 3 }
+                : { r: 3, style: { fill: "#ffffff", stroke: LINE_COLOR, strokeWidth: 1.2 } }
+            }
+          />
+        ))}
     </>
   )
 }
@@ -416,7 +594,7 @@ export default function MathGraph({
   graphFn: string
   graphView?: unknown[] | null
 }) {
-  const fn = useMemo(() => buildFn(graphFn), [graphFn])
+  const build = useMemo(() => buildFn(graphFn), [graphFn])
   const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
   const [resetKey, setResetKey] = useState(0)
   const [locked, setLocked] = useState(true)
@@ -440,7 +618,34 @@ export default function MathGraph({
     return () => ro.disconnect()
   }, [])
 
-  if (!fn) {
+  // El motion.div ancestro (drag="x" en session-runner.tsx) engancha su propio
+  // pointerdown nativo directo sobre ese nodo. React solo despacha su
+  // onPointerDown sintético cuando el evento nativo YA llegó a la raíz de la
+  // app — es decir, después de haber pasado por (y disparado) el listener del
+  // motion.div. Un onPointerDownCapture tampoco sirve: al ser sintético de
+  // React también se dispatchea desde la raíz, y frenarlo ahí corta el evento
+  // antes de que baje a los elementos internos de Mafs (rompe el pan propio
+  // del gráfico). La única forma de frenarlo justo antes del motion.div, sin
+  // afectar a Mafs, es un listener nativo puesto a mano en este nodo — corre
+  // en el orden real del DOM, después de los descendientes (Mafs) y antes de
+  // los ancestros (motion.div).
+  //
+  // Solo se frena desbloqueado: ahí el gráfico tiene que quedarse con el touch
+  // para su propio pan/zoom. Bloqueado, Mafs ya tiene pan/zoom deshabilitados
+  // (no consume el touch), así que dejamos el evento seguir de largo hacia el
+  // motion.div — scroll vertical nativo y swipe horizontal de ejercicio deben
+  // comportarse igual que tocando cualquier otra parte de la tarjeta.
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const stop = (e: PointerEvent) => {
+      if (!locked) e.stopPropagation()
+    }
+    el.addEventListener("pointerdown", stop)
+    return () => el.removeEventListener("pointerdown", stop)
+  }, [locked])
+
+  if (!build) {
     return (
       <div className="border border-dashed bg-muted/30 p-4 text-sm text-muted-foreground">
         No se pudo graficar: {graphFn}
@@ -452,9 +657,6 @@ export default function MathGraph({
     <div
       ref={wrapRef}
       className="math-graph relative overflow-hidden rounded-md border bg-white"
-      // Evita que arrastrar/pellizcar el gráfico dispare el swipe de "siguiente
-      // ejercicio" (drag="x" en el motion.div ancestro de session-runner.tsx).
-      onPointerDown={(e) => e.stopPropagation()}
     >
       <Mafs
         key={resetKey}
@@ -463,7 +665,14 @@ export default function MathGraph({
         pan={!locked}
         zoom={locked ? false : { min: 0.3, max: 6 }}
       >
-        <GraphContent fn={fn} widthPx={width} heightPx={height} piX={piX} />
+        <GraphContent
+          fn={build.fn}
+          boundaryXs={build.boundaryXs}
+          markers={build.markers}
+          widthPx={width}
+          heightPx={height}
+          piX={piX}
+        />
       </Mafs>
 
       <div className="absolute top-2 right-2 flex items-center gap-1.5">

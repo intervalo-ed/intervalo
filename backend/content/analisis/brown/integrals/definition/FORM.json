@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **linealidad** del operador integral permite separar sumas y restas, y extraer cada escalar fuera de su propia integral.\n\n$$\\int (4x^2-3\\sin x)\\,dx = 4\\int x^2\\,dx - 3\\int \\sin x\\,dx$$\nTanto el signo de cada término como el escalar que lo acompaña tienen que conservarse exactamente al pasar a la forma separada.",
+    "explanation": "La **linealidad** del operador integral permite separar sumas y restas, y extraer cada escalar fuera de su propia integral.\n$$\\int (4x^2-3\\sin x)\\,dx = 4\\int x^2\\,dx - 3\\int \\sin x\\,dx$$\nTanto el signo de cada término como el escalar que lo acompaña tienen que conservarse exactamente al pasar a la forma separada.",
     "reviewed": false
   },
   {
@@ -36,7 +36,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$\nDejar el $dx$ pegado solo a uno de los dos términos es un error de escritura frecuente al aplicar la linealidad por primera vez.",
+    "explanation": "Al separar una suma dentro de una integral, el diferencial $dx$ tiene que acompañar a **cada** término por separado, no solo al último.\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$\nDejar el $dx$ pegado solo a uno de los dos términos es un error de escritura frecuente al aplicar la linealidad por primera vez.",
     "reviewed": false
   },
   {
@@ -56,7 +56,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con dos términos que llevan coeficientes distintos, cada uno se extrae de forma independiente sin alterar el signo de la resta original.\n\n$$\\int (5x^3-2x)\\,dx = 5\\int x^3\\,dx - 2\\int x\\,dx$$\nExtraer los escalares es el primer paso obligatorio de la linealidad, dejarlos adentro de la integral no cuenta como forma armada.",
+    "explanation": "Con dos términos que llevan coeficientes distintos, cada uno se extrae de forma independiente sin alterar el signo de la resta original.\n$$\\int (5x^3-2x)\\,dx = 5\\int x^3\\,dx - 2\\int x\\,dx$$\nExtraer los escalares es el primer paso obligatorio de la linealidad, dejarlos adentro de la integral no cuenta como forma armada.",
     "reviewed": false
   },
   {
@@ -76,7 +76,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n\n$$\\int 7e^x\\,dx = 7\\int e^x\\,dx$$\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.",
+    "explanation": "Un único término con un coeficiente constante se resuelve extrayendo ese coeficiente fuera de la integral, sin necesidad de ningún otro paso previo.\n$$\\int 7e^x\\,dx = 7\\int e^x\\,dx$$\nEste es el caso más simple de linealidad, apenas un múltiplo escalar, sin ninguna suma o resta de por medio que complique la forma armada.",
     "reviewed": false
   },
   {
@@ -96,7 +96,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos, como si $x^2$ y $x$ se fusionaran en $x^{2+1}$, rompe por completo la estructura de la suma original.",
+    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos, como si $x^2$ y $x$ se fusionaran en $x^{2+1}$, rompe por completo la estructura de la suma original.",
     "reviewed": false
   },
   {
@@ -116,7 +116,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término empieza con signo negativo, ese signo viaja junto con el escalar que se extrae fuera de la integral.\n\n$$\\int (-6\\cos x+x^4)\\,dx = -6\\int\\cos x\\,dx+\\int x^4\\,dx$$\nSeparar el signo del coeficiente es un error frecuente, ambos forman una única unidad que se extrae en conjunto.",
+    "explanation": "Cuando un término empieza con signo negativo, ese signo viaja junto con el escalar que se extrae fuera de la integral.\n$$\\int (-6\\cos x+x^4)\\,dx = -6\\int\\cos x\\,dx+\\int x^4\\,dx$$\nSeparar el signo del coeficiente es un error frecuente, ambos forman una única unidad que se extrae en conjunto.",
     "reviewed": false
   },
   {
@@ -136,7 +136,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con dos términos de familias distintas, potencial y logarítmica, cada uno se procesa por separado sin mezclar sus escalares.\n\n$$\\int (2x-9\\ln x)\\,dx = 2\\int x\\,dx-9\\int \\ln x\\,dx$$\nEl orden y el signo de la resta original se preservan exactamente igual en la forma separada por linealidad.",
+    "explanation": "Con dos términos de familias distintas, potencial y logarítmica, cada uno se procesa por separado sin mezclar sus escalares.\n$$\\int (2x-9\\ln x)\\,dx = 2\\int x\\,dx-9\\int \\ln x\\,dx$$\nEl orden y el signo de la resta original se preservan exactamente igual en la forma separada por linealidad.",
     "reviewed": false
   },
   {
@@ -156,7 +156,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n\n$$\\int (x^3+2x^2-x)\\,dx = \\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$$\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.",
+    "explanation": "Con tres términos de distinto grado, cada uno se separa en su propia integral y el coeficiente del término del medio se extrae afuera.\n$$\\int (x^3+2x^2-x)\\,dx = \\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$$\nAplicar la linealidad completa significa hacer los dos pasos a la vez, separar la suma y extraer cada escalar, ninguno de los dos pasos alcanza por sí solo.",
     "reviewed": false
   },
   {
@@ -176,7 +176,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando dos funciones distintas de $x$ se multiplican dentro del integrando, la **linealidad** no permite separarlas en integrales independientes.\n\n$$\\int x\\cos x\\,dx \\neq \\int x\\,dx \\cdot \\int \\cos x\\,dx$$\nEste tipo de producto necesita una herramienta distinta, integración por partes, que se estudia en un tópico posterior; acá solo hace falta reconocer que no se puede separar así.",
+    "explanation": "Cuando dos funciones distintas de $x$ se multiplican dentro del integrando, la **linealidad** no permite separarlas en integrales independientes.\n$$\\int x\\cos x\\,dx \\neq \\int x\\,dx \\cdot \\int \\cos x\\,dx$$\nEste tipo de producto necesita una herramienta distinta, integración por partes, que se estudia en un tópico posterior; acá solo hace falta reconocer que no se puede separar así.",
     "reviewed": false
   },
   {
@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el integrando es una fracción entre dos funciones distintas de $x$, la **linealidad** tampoco permite separarlas en un cociente de integrales.\n\n$$\\int \\frac{\\sin x}{x}\\,dx \\neq \\frac{\\int \\sin x\\,dx}{\\int x\\,dx}$$\nEsta expresión, de hecho, ni siquiera tiene una primitiva elemental expresable con las funciones vistas hasta ahora, pero eso es un detalle aparte del principio general.",
+    "explanation": "Cuando el integrando es una fracción entre dos funciones distintas de $x$, la **linealidad** tampoco permite separarlas en un cociente de integrales.\n$$\\int \\frac{\\sin x}{x}\\,dx \\neq \\frac{\\int \\sin x\\,dx}{\\int x\\,dx}$$\nEsta expresión, de hecho, ni siquiera tiene una primitiva elemental expresable con las funciones vistas hasta ahora, pero eso es un detalle aparte del principio general.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n\n$$\\int e^x \\ln x\\,dx \\neq \\int e^x\\,dx \\cdot \\int \\ln x\\,dx$$\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.",
+    "explanation": "El producto de una exponencial y un logaritmo tampoco se puede separar en integrales independientes por linealidad.\n$$\\int e^x \\ln x\\,dx \\neq \\int e^x\\,dx \\cdot \\int \\ln x\\,dx$$\nCualquier producto de dos funciones distintas de $x$ dentro del integrando queda fuera del alcance de la linealidad, sin importar de qué familias sean esas funciones.",
     "reviewed": false
   },
   {
@@ -236,7 +236,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
+    "explanation": "A diferencia de un producto o un cociente entre funciones, una suma con un coeficiente escalar sí respeta por completo la **linealidad**.\n$$\\int (3x+5)\\,dx = 3\\int x\\,dx + \\int 5\\,dx$$\nConviene distinguir siempre la estructura del integrando, sumas y escalares se separan sin problema, productos y cocientes de funciones no.",
     "reviewed": false
   },
   {
@@ -256,7 +256,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador de una fracción es una **constante**, dividir equivale a multiplicar por un escalar, y la linealidad sí aplica.\n\n$$\\int \\frac{x^2+3}{5}\\,dx = \\frac{1}{5}\\int(x^2+3)\\,dx$$\nLa restricción sobre cocientes se refiere a fracciones donde ambas partes dependen de $x$, un denominador constante es apenas un caso particular de múltiplo escalar.",
+    "explanation": "Cuando el denominador de una fracción es una **constante**, dividir equivale a multiplicar por un escalar, y la linealidad sí aplica.\n$$\\int \\frac{x^2+3}{5}\\,dx = \\frac{1}{5}\\int(x^2+3)\\,dx$$\nLa restricción sobre cocientes se refiere a fracciones donde ambas partes dependen de $x$, un denominador constante es apenas un caso particular de múltiplo escalar.",
     "reviewed": false
   },
   {
@@ -276,7 +276,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n\n$$\\int x^2 \\cdot 4\\,dx = 4\\int x^2\\,dx$$\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.",
+    "explanation": "Aunque la expresión tenga forma de producto, el $4$ es una constante fija, no una función que dependa de $x$.\n$$\\int x^2 \\cdot 4\\,dx = 4\\int x^2\\,dx$$\nLa restricción sobre productos aplica cuando ambos factores son funciones de $x$, multiplicar por una constante siempre es un caso de múltiplo escalar.",
     "reviewed": false
   },
   {
@@ -296,7 +296,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n\n$$\\int \\tan x \\cdot \\sec x\\,dx \\neq \\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$$\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
+    "explanation": "El producto de dos funciones trigonométricas distintas tampoco se puede separar en integrales independientes por linealidad.\n$$\\int \\tan x \\cdot \\sec x\\,dx \\neq \\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$$\nQue ambas funciones pertenezcan a la misma familia trigonométrica no cambia nada, la restricción sobre productos no distingue entre familias de funciones.",
     "reviewed": false
   }
 ]

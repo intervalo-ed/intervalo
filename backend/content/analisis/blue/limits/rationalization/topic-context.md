@@ -4,7 +4,7 @@ Belt: `blue`, Unit: `limits`, Topic: `rationalization`
 
 Skills en este topic: `LEXI`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos (`ESTR`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. **Nota**: el folder no tiene `LEXI.json` todavía (se creará al generar los 50 ítems nuevos del refactor).
+**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. `LEXI.json` y `RESL.json` ya existen con 15 ítems de prueba cada uno; el refactor a los 50 ítems de la distribución nueva se hace en otro turno.
 
 Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -29,6 +29,10 @@ Este doc especifica el alcance nuevo, las reglas duras de restricción y la dist
 La única técnica permitida para salvar la indeterminación $\tfrac{0}{0}$ acá es **multiplicar numerador y denominador por el conjugado** de la expresión con raíz cuadrada, aplicar la **diferencia de cuadrados**, cancelar el factor común $(x - a)$ y sustituir.
 
 Los ítems que quiebren esta regla se descartan y se reescriben.
+
+---
+
+**Nota para cuando se audite este topic**: ver `course-context.md` sección "Refuerzo de intuición en `blue`" (agregada en la auditoría de `lateral_limits`/`infinite_limits`): las `explanation` de toda la unidad `limits` suman 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual. Sumarlo al checklist de este topic al cerrarlo.
 
 ---
 
@@ -70,7 +74,7 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 | A. Identificación del conjugado | Dada una expresión con raíz (ej. $\sqrt{x + 4} - 2$), elegir su conjugado exacto. **Cuidar**: el signo interno de la raíz no se altera, solo se invierte el signo entre los dos términos externos. | `identificacion-del-conjugado` | 15 |
 | B. Identidad fundamental | Evaluar el resultado abstracto de multiplicar una raíz por su conjugado. Confirmar que $(\sqrt{u} - c)(\sqrt{u} + c) = u - c^2$; identificar el resultado en casos concretos. | `identidad-fundamental-conjugado` | 15 |
 | C. Diagnóstico de técnica | Distinguir cuándo corresponde **racionalizar** (hay raíz cuadrada + $\tfrac{0}{0}$) y cuándo **factorizar** (no hay raíz, solo polinomios). Un caso híbrido también puede requerir ambas. | `diagnostico-racionalizar-vs-factorizar` | 10 |
-| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (liberar el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 10 |
+| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (exponer el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Conjugado con signo interno alterado**: para $\sqrt{x + 4} - 2$ dar $\sqrt{x - 4} + 2$ (invertir el signo dentro de la raíz). Recordar: el conjugado invierte solo el signo entre los dos términos externos, no dentro del radicando.
@@ -118,11 +122,25 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 ### Reglas específicas
 - **Cociente con $\tfrac{0}{0}$ obligatorio** en el enunciado (verificar por sustitución directa). Si no hay indeterminación, el ejercicio no pertenece a este tópico.
 - **Al menos una raíz cuadrada** en la expresión (si no hay raíz, va a `factorization`).
-- **Números que caen en cuadrados perfectos chicos**: radicandos que resultan en $\sqrt{4} = 2$, $\sqrt{9} = 3$, $\sqrt{16} = 4$, $\sqrt{25} = 5$ tras sustituir.
-- **Explicaciones con `\begin{aligned}`** mostrando: diagnóstico → multiplicación por conjugado → diferencia de cuadrados → cancelación → sustitución. Una línea por paso.
+- **Números que caen en cuadrados perfectos chicos, tope $c \leq 5$**: radicandos que resultan en $\sqrt{4} = 2$, $\sqrt{9} = 3$, $\sqrt{16} = 4$, $\sqrt{25} = 5$ tras sustituir. **Nunca superar $c=5$** (ej. $\sqrt{36}=6$ o $\sqrt{49}=7$ ya son demasiado grandes para el foco de mecánica simple del skill; ver hallazgos, esto afectó a 4 de los 15 ítems de prueba, no solo a uno).
+- **Nunca usar $+1$/$-1$ como desplazamiento dentro de la raíz** (ej. $\sqrt{x-1}-2$). Ese desplazamiento chico no aporta nada conceptualmente y agrega un paso de aritmética gratuito antes de la técnica real (calcular el radicando en el punto de tendencia), que además se confunde fácil con el propio $x$. Preferir directamente el patrón $\sqrt{x + c^2} - c$ con **tendencia $x \to 0$ como default**, donde el radicando en el punto de tendencia se lee directo sin ningún paso intermedio. Tendencias no nulas (y desplazamientos distintos de $c^2$) quedan reservadas para una **minoría de ítems avanzados**, y ahí el desplazamiento nunca es $\pm1$.
+- **Explicaciones con `\begin{aligned}`** mostrando: diagnóstico → multiplicación por conjugado → diferencia de cuadrados → cancelación → sustitución. Una línea por paso. **El planteo de la multiplicación por el conjugado va en su propio renglón, separado de su resultado ya simplificado** (ver sección *Fórmulas anchas* → *Caso particular: multiplicar por un factor* de `authoring-context.md`); nunca los dos en la misma línea.
 - **Resultado numérico final** en las opciones (nunca una expresión sin evaluar).
 - **Ninguna aplicación de L'Hôpital**; ninguna factorización adicional más allá de la diferencia de cuadrados forzada.
 - **Decimales con coma** (`4,3`).
+
+---
+
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_racionalizacion_1.md`), aplicar al regenerar:
+
+- **`RESL_05`**: usa $c=6$ (radicando $32$, $\sqrt{36}=6$), superando el tope de cuadrados perfectos chicos; además el primer renglón del `aligned` (multiplicación por el conjugado + resultado simplificado en la misma línea) desborda el ancho de pantalla en mobile. **Motivó el tope explícito $c \leq 5$** y la separación del planteo de la multiplicación en su propio renglón (ver *Reglas específicas* de `RESL` arriba y la nueva sección de `authoring-context.md` *Fórmulas anchas* → *Caso particular: multiplicar por un factor*).
+- **`RESL_02`**: mismo desborde del primer renglón que `RESL_05` (el radicando $16$ en sí está dentro del tope permitido, el problema es puramente de formato).
+- **`RESL_01`**: mismo desborde de formato; además señalado como con "demasiadas operaciones" para el foco de mecánica simple del skill, reforzando que el planteo de la multiplicación separado en su propio renglón (en vez de fusionado con el resultado) es necesario para que la derivación se lea con más aire, no solo para que entre en pantalla.
+- **Revisión completa de los 15 ítems de `RESL` (más allá de los señalados en la corrección)**: además de `RESL_05` ($c=6$), otros 3 ítems de prueba también superan el tope: uno de sub-A con $c=7$ ($\sqrt{x+40}-7$) y dos de sub-B con $c=6$ y $c=7$ ($\tfrac{x-36}{\sqrt{x}-6}$, $\tfrac{x-49}{\sqrt{x}-7}$). Los 4 se corrigen a $c \leq 5$ al regenerar.
+- **`RESL` con desplazamiento $\pm1$ dentro de la raíz** (ej. $\sqrt{x-1}-2$ con tendencia $x\to5$): agrega un paso de aritmética gratuito (calcular el radicando en un punto de tendencia no nulo) que no aporta nada conceptual y se confunde con el propio $x$. **Motivó la regla nueva**: nunca $\pm1$ como desplazamiento, y tendencia $x\to0$ como default (ver *Reglas específicas* de `RESL` arriba).
+- **`LEXI_14`**: la palabra "liberar" (en la opción correcta, "Liberar el factor $(x-a)$ para poder cancelarlo") no convence; reemplazada por "exponer" en la tabla de distribución de arriba (sub-familia D). Además, la `explanation` teje $\tfrac{0}{0}$ apilado dentro de un párrafo de prosa ("sustituir directamente seguiría dando $\tfrac{0}{0}$"), **recurrencia de la regla crítica 28** (ya establecida en `factorization`): usar la forma horizontal `0/0` en texto corrido.
 
 ---
 
@@ -134,8 +152,10 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `feedback_correct` conciso; desarrollo completo en `explanation` con `\begin{aligned}`
 - [ ] `correct_index` variado
-- [ ] Radicandos que dan cuadrados perfectos chicos; sin nombres propios
+- [ ] Radicandos que dan cuadrados perfectos chicos, **tope $c \leq 5$**; sin nombres propios
 - [ ] Decimales con coma
+- [ ] **Ninguna fracción $\tfrac{0}{0}$ apilada tejida en un párrafo de prosa** (regla crítica 28); en texto corrido usar `0/0`
+- [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego (ver `course-context.md` §Refuerzo de intuición en `blue`)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem
@@ -151,3 +171,6 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 - [ ] Ningún resultado dejado como expresión sin evaluar
 - [ ] Sub-C con el paso de extracción de $-1$ documentado en la explicación
 - [ ] Ninguna aplicación de L'Hôpital ni factorización de polinomios sin raíces
+- [ ] **El planteo de la multiplicación por el conjugado va en su propio renglón del `aligned`**, separado de su resultado ya simplificado (ver hallazgos `RESL_01`/`RESL_02`/`RESL_05`)
+- [ ] **Ningún ítem con $c>5$** (verificar los 50 ítems, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
+- [ ] **Ningún desplazamiento $\pm1$ dentro de la raíz**; sub-A y sub-B usan por default tendencia $x\to0$ con radicando $x+c^2$, reservando tendencias no nulas a una minoría avanzada sin desplazamiento $\pm1$

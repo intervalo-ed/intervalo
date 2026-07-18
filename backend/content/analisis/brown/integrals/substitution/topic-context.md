@@ -132,6 +132,16 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Pre-revisión programática sobre los ítems de prueba existentes:
+
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`ESTR`, `RESL`, 30 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
+- **`ESTR`: 8/15 ítems abren con `"Para resolver\n$$...$$\n..."` cortando la oración con la fórmula en el medio**, mismo patrón que en `parts` (regla crítica 9). Reescribir con cierre propio antes del bloque y la pregunta en su propia oración.
+- **`RESL`: 15/15 con `"Calculá\n$$...$$"`.** Cláusula completa, solo le falta el `:` y variar la redacción (hoy 100% idéntica).
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -144,6 +154,9 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
+- [ ] **`"Para resolver"` (ESTR) reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9); **`"Calculá"` (RESL) tiene el `:` agregado** y varía de redacción ítem a ítem (regla crítica 32)
+- [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **ESTR:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

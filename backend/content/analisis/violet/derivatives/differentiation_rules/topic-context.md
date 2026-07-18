@@ -159,6 +159,15 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+Auditoría en vivo (`/test`) sobre ítems ya existentes:
+
+- **`ESTR_05`** (`ex_139`): el enunciado ("En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?") condensa contexto y pregunta en una sola oración. Separar en **2 párrafos**: uno introductorio que sitúa el término dentro de una suma más grande, otro que hace la pregunta puntual.
+- **`ESTR_12`** (`ex_146`): patrón de apertura `"En\n$$f(x) = 2e^x - \cos x + 6$$\n¿cuántos términos distintos hay que derivar por separado?"` — abre con la palabra corta "En" pegada directo al bloque `$$...$$`, sin cerrar la oración, y la pregunta que sigue no arranca en mayúscula tras un cierre propio. **Esto originó la regla crítica 32**, nueva en `authoring-context.md` esta ronda. Reescribir con una oración introductoria sustantiva que cierre en `.`/`:` antes de la fórmula, y la pregunta en su propia oración después.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
@@ -168,6 +177,9 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ningún enunciado condensa contexto + pregunta en una sola oración cuando el término necesita situarse dentro de una expresión más grande** (reincidencia confirmada en `ESTR_05`); separar en 2 párrafos
+- [ ] **Ningún enunciado abre con un opener corto tipo "En" pegado directo a un bloque `$$...$$` sin cerrar la oración** (reincidencia confirmada en `ESTR_12`, regla crítica 32)
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de la misma derivación (regla crítica 30)
 
 **FORM:**
 - [ ] 50 ítems; cardinalidad 3 (fórmulas/textuales) o 4 (numéricas)

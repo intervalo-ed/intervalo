@@ -50,7 +50,7 @@
       -1,
       8
     ],
-    "explanation": "Para el **límite lateral** por la derecha, se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n\n$$\\lim_{x \\to 1^+} f(x) = 1 + 4 = 5$$\nComo $\\lim^- = 2 \\neq 5 = \\lim^+$, el límite bilateral en $x=1$ no existe.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.",
+    "explanation": "Para el **límite lateral** por la derecha, se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n\n$$\\lim_{x \\to 1^+} f(x) = 1 + 4 = 5$$\nComo $\\lim_{x \\to 1^-} f(x) = 2 \\neq 5 = \\lim_{x \\to 1^+} f(x)$, el límite bilateral en $x=1$ no existe.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.",
     "reviewed": false
   },
   {
@@ -283,7 +283,7 @@
       -2,
       12
     ],
-    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por separado.\n\n$$\\begin{aligned} x &= -1: \\lim^- = \\lim^+ = 2 \\\\ x &= 2: \\lim^- = 5 \\neq 8 = \\lim^+ \\end{aligned}$$\nEn $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe. En $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
+    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por separado.\n\n$$\\begin{aligned} x &= -1: \\lim_{x \\to (-1)^-} f(x) = \\lim_{x \\to (-1)^+} f(x) = 2 \\\\ x &= 2: \\lim_{x \\to 2^-} f(x) = 5 \\neq 8 = \\lim_{x \\to 2^+} f(x) \\end{aligned}$$\nEn $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe. En $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
     "reviewed": false
   },
   {

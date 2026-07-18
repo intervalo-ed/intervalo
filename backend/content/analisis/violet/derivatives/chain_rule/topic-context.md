@@ -74,7 +74,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo lectura anatómica o elección de regla.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla de la cadena"`, `"Regla del producto"`, `"Regla del cociente"`, `"Múltiplo escalar (linealidad)"`, `"No es composición"`.
+- **Opciones con textos exactos** para elección de estrategia: `"Regla de la cadena"`, `"Regla del producto"`, `"Regla del cociente"`, `"Múltiplo escalar"`, `"No es composición"`.
 - **Sub-A**: opciones que muestran distintas particiones "exterior/interior" como texto exacto (por ejemplo, `"g(u) = u^2, h(x) = \\sin x"` vs `"g(u) = \\sin u, h(x) = x^2"`). El distractor mayoritario es la partición invertida.
 - **Sub-B**: la respuesta correcta es la regla que realmente aplica; el distractor mayoritario es la otra regla que la estructura sugiere visualmente.
 - **Máximo 2 capas** en todos los ítems ESTR. Nada de $\ln(\cos(2x))$ ni $(e^{\sin x})^2$.
@@ -130,6 +130,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
+## Hallazgos de auditoría (ronda 2, jul-2026)
+
+Auditoría en vivo (`/test`) sobre ítems ya existentes:
+
+- **`RESL_12`** (`ex_251`): la `explanation` alineaba con `=` en columna 3 líneas de un `\begin{aligned}` que en realidad eran datos evaluados de forma independiente ($h(\pi)=0$, $g'(h(\pi))=1$, $h'(\pi)=1$), no una cadena de transformación de una misma expresión. **Esto originó la regla crítica 30**, nueva en `authoring-context.md` esta ronda (la regla ya se documentó primero acá y se generalizó al resto de la unidad). Alinear con `=` solo cuando cada línea es un paso real de la misma derivación; los datos evaluados van en prosa.
+- **`RESL_14`** (`ex_253`): el enunciado ("Si $h(1)=0$, $h'(1)=6$ y $g'(0)=2$, calculá $(g\circ h)'(1)$.") da 3 datos sueltos y la pregunta todo tejido en una sola oración con LaTeX inline. Hubiese estado mejor con la fórmula/datos centrados en su propio bloque `$$...$$` y 2 oraciones (antes/después) en vez de todo inline.
+
+---
+
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
@@ -140,6 +149,9 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
+- [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente** (reincidencia confirmada en `RESL_12`, regla crítica 30): esa alineación es solo para pasos reales de una misma derivación
+- [ ] **Ningún enunciado con datos abstractos sueltos teje todo inline** (reincidencia confirmada en `RESL_14`); considerar fórmula/datos centrados + 2 oraciones
+- [ ] **Openers: `"Considerá la función"` solo necesita el `:` antes del bloque `$$...$$` (es cláusula completa); `"Sabiendo que"` necesita reescribirse entero (fragmento sin objeto propio, el `:` no lo arregla). Redacción variada ítem a ítem en ambos casos** (regla crítica 32)
 
 **ESTR:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem

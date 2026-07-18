@@ -31,6 +31,10 @@ Los ítems que quiebren esta regla se descartan y se reescriben.
 
 ---
 
+**Nota para cuando se audite este topic**: ver `course-context.md` sección "Refuerzo de intuición en `blue`" (agregada en la auditoría de `lateral_limits`/`infinite_limits`): las `explanation` de toda la unidad `limits` suman 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual. Sumarlo al checklist de este topic al cerrarlo.
+
+---
+
 ## Correcciones de formato transversales (los 2 skills)
 
 Reglas de authoring que se aplican al escribir los 100 ítems:
@@ -117,9 +121,22 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 - **Cociente con indeterminación $\tfrac{0}{0}$** obligatorio en el enunciado (verificar por sustitución directa). Si la sustitución da un valor finito, el ejercicio va al tópico `definition`, no acá.
 - **Coeficientes chicos y raíces enteras**: números en la escala $[-10, 10]$ para trinomios; evitar coeficientes principales distintos de $\pm 1$ salvo casos explícitos de factor común.
 - **Explicaciones con `\begin{aligned}`** mostrando: diagnóstico de indeterminación → factorización → cancelación → sustitución. Una línea por paso.
+- **Cada línea del `aligned` mantiene `\lim_{x \to a}` explícito** (regla crítica 29 de `authoring-context.md`), incluidas las líneas intermedias de simplificación algebraica; nunca dejarlo caer después de la primera línea ni reemplazarlo por `\xrightarrow{}` en el paso final.
 - **Ninguna aplicación de L'Hôpital**; ninguna racionalización.
 - **Resultado numérico final** en las opciones (nunca una expresión sin evaluar).
 - **Decimales con coma** (`4,3`).
+- **$\tfrac{0}{0}$ nunca apilado dentro de un párrafo de prosa** (regla crítica 28): al nombrarlo en una oración ("la sustitución directa da 0/0"), usar la forma horizontal simple, sin `\dfrac`/`\frac`.
+
+---
+
+## Hallazgos de auditoría (ronda 1, jul-2026)
+
+Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_factorizacion_1.md`), aplicar al regenerar:
+
+- **`LEXI_15`**: la palabra "salvar" está de más ("...ya no alcanza para salvar una indeterminación"), redundante y coloquial; recortar a algo tipo "...ya no resuelve una indeterminación". Además, la `explanation` mete texto en español dentro de un bloque `$$...$$` (`\text{la factorización ya no alcanza}`), **violación directa de la regla crítica 26**. También en el `question`, la fracción $\tfrac{0}{0}$ queda tejida inline en la misma oración de la pregunta; mejor una oración más formal en el enunciado, y la fórmula del límite igualada a $0/0$ en su propio bloque `$$...$$` separado (extensión de la regla crítica 18 a este patrón).
+- **`RESL_02`, `RESL_09`** (y 3 ítems más de `RESL` con el mismo patrón): el desarrollo en `\begin{aligned}` deja caer el `\lim_{x \to a}` después de la primera línea y usa una flecha `\xrightarrow{x \to a}` en el paso final en vez de mantener el límite explícito. **Motivó la regla crítica 29, nueva en `authoring-context.md`**: todas las líneas del desarrollo mantienen `\lim_{x \to a}` explícito, hasta el resultado final. También motivó la **regla crítica 28**: la fracción $\tfrac{0}{0}$ tejida inline en la prosa ("da $\dfrac{0}{0}$") debería ir en su forma horizontal simple `0/0`, sin LaTeX apilado.
+- **Ítem de diferencia de cuadrados (LEXI, sin `external_id` visible en la captura)**: sugerencia estructural de reordenar la `explanation`: presentar primero la identidad abstracta (ya está), una oración de transición, y luego el desarrollo en 3 líneas de `aligned` (expresión original → paso intermedio → forma factorizada) en vez de 2 líneas. Aplicar esta estructura de 3 pasos al regenerar los ítems de este patrón.
+- **`LEXI_08`**: el enunciado tiene 2 oraciones completas sin separar en párrafos (`\n\n`); separarlas al regenerar.
 
 ---
 
@@ -133,12 +150,18 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 - [ ] `correct_index` variado
 - [ ] Coeficientes chicos, raíces enteras; sin nombres propios
 - [ ] Decimales con coma
+- [ ] **Ningún bloque `$$...$$` mete una oración completa en español vía `\text{...}`** (regla crítica 26)
+- [ ] **Ninguna fracción $\tfrac{0}{0}$ apilada tejida en un párrafo de prosa** (regla crítica 28); en texto corrido usar `0/0`
+- [ ] **Todo desarrollo en `aligned` mantiene `\lim_{x\to a}` explícito en cada línea** (regla crítica 29), nunca solo en la primera ni reemplazado por `\xrightarrow{}`
+- [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego (ver `course-context.md` §Refuerzo de intuición en `blue`)
+- [ ] La fórmula del límite igualada a $0/0$, cuando se menciona en el enunciado, va separada del texto en su propio bloque `$$...$$` (extensión de la regla crítica 18, ver hallazgo `LEXI_15`)
 
 **LEXI:**
 - [ ] 50 ítems; **exactamente 3 opciones** por ítem
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Negrita en primera mención de `factorización`, `indeterminación`, `diferencia de cuadrados`, `trinomio cuadrado perfecto`, `factor común`, `teorema del factor`
 - [ ] Textos exactos en opciones de clasificación (`"Diferencia de cuadrados"`, `"Trinomio cuadrado perfecto"`, `"Factor común"`, `"Trinomio general"`, `"No factoriza en R"`)
+- [ ] Explicaciones de "diferencia de cuadrados" con desarrollo de 3 líneas (expresión original → paso intermedio → forma factorizada) y una oración de transición antes del bloque (ver hallazgo)
 
 **RESL:**
 - [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
