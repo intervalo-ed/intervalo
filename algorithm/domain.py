@@ -108,6 +108,9 @@ def load_course_structure(course_slug: str) -> dict:
         return cached
     with _course_path(course_slug).open("r", encoding="utf-8") as f:
         data = json.load(f)
+    # Belts marcados "hidden": true quedan fuera de la estructura servida:
+    # desactivados/ocultos del usuario, aunque sus JSON sigan en /content.
+    data = {**data, "belts": [b for b in data.get("belts", []) if not b.get("hidden")]}
     _STRUCTURE_CACHE[course_slug] = data
     return data
 

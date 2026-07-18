@@ -143,6 +143,7 @@ def seed_belt_info(db: DBSession, course: Course, course_dir: Path) -> int:
             "description": b.get("description", ""),
         }
         for b in data.get("belts", [])
+        if not b.get("hidden")  # belts ocultos no exponen su metadata
     ]
     inserted = updated = 0
 
@@ -170,8 +171,19 @@ def seed_belt_info(db: DBSession, course: Course, course_dir: Path) -> int:
                 existing.description = entry["description"]
                 updated += 1
 
+    # Reconciliar: borrar belt_info de belts ya no declarados (removidos u ocultos).
+    declared = {e["belt"] for e in entries}
+    stale = (
+        db.query(BeltInfo)
+        .filter(BeltInfo.course_id == course.id, BeltInfo.belt.notin_(declared))
+        .all()
+    )
+    for row in stale:
+        db.delete(row)
+
     total = len(entries)
-    print(f"  [belt_info] {total} entries ({inserted} inserted, {updated} updated)")
+    pruned = f", {len(stale)} pruned" if stale else ""
+    print(f"  [belt_info] {total} entries ({inserted} inserted, {updated} updated{pruned})")
     return total
 
 
@@ -185,6 +197,10 @@ def seed_exercises(
     seen_skills: set[tuple[str, str, str]] = set()  # (belt, topic, skill)
     inserted = updated = 0
     total = 0
+
+    # Belts marcados "hidden": true en course.json conservan sus JSON en /content
+    # pero no se seedean (quedan desactivados/ocultos hasta reactivarlos).
+    hidden_belts = _hidden_belts(course_dir)
 
     # Walk belt/[unit/]topic/SKILL.json (3 or 4 path components from course_dir).
     # Cursos con units[] usan 4 partes (belt/unit/topic/skill); cursos flat sin
@@ -200,6 +216,8 @@ def seed_exercises(
         else:
             continue  # not a skill file
         skill = Path(skill_name).stem  # drop .json extension
+        if belt in hidden_belts:
+            continue  # belt oculto: datos en /content pero fuera de la DB
         seen_skills.add((belt, topic, skill))
 
         entries = _load_json(skill_file)
@@ -304,6 +322,12 @@ def seed_exercises(
     return total
 
 
+def _hidden_belts(course_dir: Path) -> set[str]:
+    """Belt keys marcados "hidden": true en course.json (desactivados)."""
+    data = _load_json(course_dir / "course.json")
+    return {b["key"] for b in data.get("belts", []) if b.get("hidden")}
+
+
 def _validate_declared_skills(
     course_dir: Path, seen_skills: set[tuple[str, str, str]]
 ) -> None:
@@ -311,6 +335,8 @@ def _validate_declared_skills(
     data = _load_json(course_dir / "course.json")
     declared: set[tuple[str, str, str]] = set()
     for belt in data.get("belts", []):
+        if belt.get("hidden"):
+            continue  # belt oculto: no se seedea, no se valida contra disco
         # Cursos con units[] (analisis) o con topics[] directo bajo el cinturón
         # (probabilidad) igual declaran las skills al mismo nivel de topic.
         unit_iter = belt.get("units") or [{"topics": belt.get("topics", [])}]
