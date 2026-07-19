@@ -265,7 +265,6 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
         {
           session_id: sessionId,
           exercise_id: exercise.id,
-          external_id: exercise.external_id,
           answer_index: cur.selection,
           attempts: cur.wrongOptions.length + 1,
           response_time_s: (Date.now() - startedAt.current) / 1000,

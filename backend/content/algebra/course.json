@@ -119,7 +119,8 @@
             }
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "key": "blue",

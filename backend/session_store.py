@@ -956,7 +956,6 @@ def record_answer_db(
     attempts: int,
     response_time_s: float,
     db: DBSession,
-    external_id: str | None = None,
 ) -> dict:
     """Record an answer, update SM-2 state for the unit, return feedback."""
     db_session = db.query(SessionModel).filter(
@@ -978,14 +977,6 @@ def record_answer_db(
     exercise = next((e for e in state.exercises if e.exercise_id == exercise_id), None)
     if exercise is None:
         raise KeyError(f"Ejercicio '{exercise_id}' no encontrado en la sesión.")
-
-    # Identidad exacta del ejercicio que vio el usuario. La fuente autoritativa es
-    # el external_id que reporta el cliente (lo que efectivamente renderizó): la
-    # caché en memoria puede enfriarse y _reconstruct_session_state re-sortea los
-    # ejercicios al azar, así que el external_id del slot en memoria no es
-    # confiable tras un reinicio. Si el cliente no lo manda (compat), caemos al de
-    # memoria.
-    resolved_external_id = external_id or exercise.external_id or None
 
     unit_key = exercise.unit_key
     is_correct = attempts <= 3
@@ -1070,7 +1061,6 @@ def record_answer_db(
         user_id=user_id,
         course_id=course_id,
         exercise_id=exercise_id,
-        exercise_external_id=resolved_external_id,
         belt=unit_key.belt.value,
         topic=unit_key.topic,
         exercise_type=unit_key.exercise_type,

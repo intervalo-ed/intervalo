@@ -242,11 +242,6 @@ class Answer(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
 
     exercise_id = Column(String(20), nullable=True)
-    # Identificador estable del ejercicio real que vio el usuario (p. ej.
-    # "white_definition_clsf_01"). exercise_id es solo el slot posicional de la
-    # sesión ("ex_000"); este campo es el que permite auditar exactamente qué
-    # ejercicio se sirvió. Lo reporta el cliente al responder.
-    exercise_external_id = Column(String(100), nullable=True)
     belt = Column(String(20), nullable=False)
     topic = Column(String(50), nullable=False)
     exercise_type = Column(String(20), nullable=False)
@@ -270,7 +265,6 @@ class Answer(Base):
         Index("idx_answers_user_course", "user_id", "course_id"),
         Index("idx_answers_answered_at", "answered_at"),
         Index("idx_answers_belt_topic", "belt", "topic"),
-        Index("idx_answers_exercise_external_id", "exercise_external_id"),
     )
 
     session = relationship("Session", back_populates="answers")
