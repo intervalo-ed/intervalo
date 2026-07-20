@@ -45,9 +45,12 @@ const itbaFont = Outfit({ subsets: ["latin"], variable: "--font-itba" });
 const unlamFont = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-unlam" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.intervalo.xyz"),
   title: "Intervalo",
   description: "Repasá análisis matemático todos los días.",
   openGraph: {
+    type: "website",
+    url: "https://www.intervalo.xyz/",
     title: "Intervalo",
     description: "Repasá análisis matemático todos los días.",
   },
