@@ -1,5 +1,7 @@
 ## Patrón de modernización: tema `logarithmic`
 
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/logarithmic/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento sigue mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
+
 **Rama:** `modernizacion-logarithmic` | **Fecha:** 2026-06-17 | **PR:** pendiente
 
 ### Partida

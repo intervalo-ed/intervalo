@@ -1,4 +1,6 @@
-## Patrón de modernización: tema `polynomial` (LEXI / CLSF / FORM / GRAF)
+## Patrón de modernización: tema `polynomial` (LEXI / FORM / GRAF)
+
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/polynomial/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento sigue mencionando CLSF en registros de auditoría históricos (rutas `polynomial_CLSF_NN`, distribuciones, hallazgos), que quedan como referencia, no como guía de generación.
 
 ### Eje conceptual
 

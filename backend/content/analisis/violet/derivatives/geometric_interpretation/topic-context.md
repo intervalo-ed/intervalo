@@ -2,9 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `geometric_interpretation`
 
-Skills en este topic: `LEXI`, `GRAF`, `ESTR`, `RESL`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
-Este topic tiene 4 ítems (uno por skill): `LEXI`, `GRAF`, `ESTR`, `RESL`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+> **RESL archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/violet/derivatives/geometric_interpretation/RESL.json`. No generar RESL para este topic en rondas futuras; el resto de este documento puede seguir mencionando RESL en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
 **Estado.** Los ejercicios viejos se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -18,7 +18,7 @@ Este es el **segundo tópico** de la unidad de derivadas: cubre la interpretaci�
 - **Lo que está aprendiendo acá:** el contraste geométrico entre **recta secante** (dos puntos, tasa media) y **recta tangente** (un punto, tasa instantánea); el armado de la ecuación **punto-pendiente** $y = f'(a)(x - a) + f(a)$ y su reducción a $y = mx + b$; el criterio de **paralelismo** vía $f'(x) = m$; la intuición visual del **Teorema del Valor Medio**.
 - **Lo que NO sabe todavía:** reglas prácticas de derivación (regla de la potencia $nx^{n-1}$, producto, cociente, cadena), derivadas de funciones elementales (sin, cos, exp, log).
 
-### Regla dura 1 (ESTR y RESL)
+### Regla dura 1 (ESTR)
 
 Como el alumno **aún no conoce las reglas prácticas**, todos los cálculos numéricos de pendiente o tangente deben ajustarse a una de estas dos formas:
 
@@ -35,7 +35,7 @@ Los ejercicios que quiebren cualquiera de las reglas duras se descartan y se ree
 
 ---
 
-## Correcciones de formato transversales (los 4 skills)
+## Correcciones de formato transversales (los 3 skills activos; RESL archivado, ver nota arriba)
 
 Reglas de authoring que se aplican al escribir los 200 ejercicios:
 
@@ -159,42 +159,6 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ---
 
-## RESL, 50 ejercicios
-
-### Qué evalúa
-**Usar la recta tangente** ya construida (o los datos suficientes para construirla) para responder preguntas geométricas: intersecciones con los ejes, condición de paralelismo con otra recta, y aplicación del **Teorema del Valor Medio** de forma cualitativa.
-
-### Cardinalidad
-- **4 opciones** cuando la respuesta es un valor numérico o una ecuación corta.
-- **3 opciones** cuando la respuesta es categórica o cualitativa.
-
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
-
-### Distribución por sub-familia
-
-| Sub-familia | Foco | Slug | Cant. |
-|-------------|------|------|:-----:|
-| A. Intersecciones de la tangente | Tras deducir o recibir $y = mx + b$, calcular la **ordenada al origen** (evaluar en $x = 0$) o la **raíz** (resolver $mx + b = 0$). | `intersecciones-de-la-tangente` | 20 |
-| B. Paralelismo | Plantear: si se busca una tangente paralela a $y = mx + b$, imponer la condición $f'(x) = m$ y despejar el $x$ del punto de tangencia. Datos numéricos simples. | `paralelismo-de-tangentes` | 15 |
-| C. Teorema del Valor Medio (cualitativo) | Situaciones que exigen comprender que si la secante en $[a, b]$ tiene pendiente $m$, existe un punto interior $c \in (a, b)$ donde la tangente tiene esa misma pendiente $m$. Sin cálculo del $c$: solo el diagnóstico geométrico. | `teorema-valor-medio-cualitativo` | 15 |
-
-### `feedback_incorrect`, confusiones fuente
-- **Raíz confundida con ordenada al origen**: dar el corte con el eje $y$ cuando se pide la raíz, o al revés. Recordar: raíz = corte con eje $x$ (donde $y = 0$); ordenada al origen = corte con eje $y$ (donde $x = 0$).
-- **Ordenada al origen mal despejada**: en $y = 3x - 1$ dar $b = 1$ (perder el signo). $b = -1$.
-- **Paralelismo con $f(x) = m$ en vez de $f'(x) = m$**: igualar la función original a la pendiente en lugar de la derivada. La condición de paralelismo pide igual **pendiente**, y la pendiente de la tangente es $f'(x)$.
-- **Perpendicular vs paralelo**: usar $f'(x) = -\tfrac{1}{m}$ (perpendicularidad) cuando se pide paralelismo. Paralelo pide misma pendiente.
-- **TVM enunciado como "todos los puntos"**: sostener que **todos** los puntos interiores tienen tangente con pendiente igual a la de la secante. El TVM garantiza **al menos uno**, no todos.
-- **TVM sin continuidad/derivabilidad**: aplicar el TVM a una función con salto o esquina. Las hipótesis exigen continua en $[a, b]$ y derivable en $(a, b)$.
-
-### Reglas específicas
-- **Datos numéricos simples** en A y B; los `m` y `b` de las tangentes se dan o se derivan de cuadráticas simples.
-- **Sub-C sin pedir el valor de $c$**: solo interpretación cualitativa ("¿qué garantiza el TVM aquí?", "¿se cumplen las hipótesis?").
-- **Opciones cualitativas** en sub-C con textos exactos: `"Existe al menos un c"`, `"Existe exactamente un c"`, `"No se cumplen las hipótesis"`, `"El TVM no aplica"`.
-- **Explicaciones con `\begin{aligned}`** para el desarrollo aritmético en A y B; prosa geométrica en C.
-- **Decimales con coma** (`4,3`).
-
----
-
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
 No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ejercicios con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 50 ejercicios por skill: variar la redacción ejercicio a ejercicio y cerrar siempre la oración introductoria.
@@ -203,7 +167,7 @@ No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
-**Transversal (los 4 skills):**
+**Transversal (los 3 skills activos):**
 - [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de reglas prácticas de derivación (potencia, producto, cociente, cadena); ninguna función elemental (sin, cos, exp, log, √)
 - [ ] Solo lineales, cuadráticas o valores dados de $f(a)$ y $f'(a)$
@@ -232,10 +196,3 @@ No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta
 - [ ] Sub-A con $f(a)$ y $f'(a)$ dados numéricamente o con función lineal/cuadrática
 - [ ] Sub-C con $f'(x)$ explícito; ningún ejercicio pide derivar previamente
 - [ ] Explicaciones con `\begin{aligned}` mostrando distribuir → despejar
-
-**RESL:**
-- [ ] 50 ejercicios; cardinalidad ajustada (4 numérica / 3 categórica)
-- [ ] Distribución A/B/C respetada (20/15/15)
-- [ ] Sub-B con paralelismo vía $f'(x) = m$ (no perpendicularidad, no $f(x) = m$)
-- [ ] Sub-C sin pedir el valor de $c$; textos exactos en opciones cualitativas
-- [ ] Ninguna aplicación de reglas prácticas ni funciones elementales

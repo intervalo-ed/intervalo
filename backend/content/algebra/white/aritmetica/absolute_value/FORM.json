@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere resolver la inecuación $|x - 3| < 5$.\n\n¿Qué expresión equivalente corresponde plantear antes de despejar $x$?",
+    "options": [
+      "$-5 < x - 3 < 5$",
+      "$x - 3 < 5$ o $x - 3 < -5$",
+      "$x - 3 = 5$ o $x - 3 = -5$",
+      "$x - 3 > -5$ y $x - 3 > 5$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La condición $|a| < b$ (con $b>0$) equivale a la doble desigualdad $-b < a < b$, que es el planteo correcto antes de despejar.",
+    "feedback_incorrect": [
+      null,
+      "Esa opción no combina ambas condiciones en una sola cadena de desigualdades, y usa \"o\" en vez de la doble desigualdad.",
+      "Esa opción plantea igualdades, pero el enunciado pide una inecuación con desigualdad estricta.",
+      "Los signos de esas desigualdades no corresponden a $|a| < b$."
+    ],
+    "explanation": "Antes de resolver, hay que identificar la **expresión equivalente** a la desigualdad con valor absoluto.\n\nPara $|x-3| < 5$, la equivalencia $|a| < b \\iff -b < a < b$ da:\n$$-5 < x-3 < 5$$\nRecién sobre esa doble desigualdad se despeja $x$ sumando $3$ en cada tramo.\nUn error común es plantear la equivalencia con \"o\" en vez de una única cadena de desigualdades, que es la forma correcta cuando el valor absoluto es menor que una cota.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

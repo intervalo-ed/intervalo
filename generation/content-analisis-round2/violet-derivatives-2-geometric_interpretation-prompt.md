@@ -1,4 +1,6 @@
-# Prompt de refactor: analisis / violet / derivatives / geometric_interpretation (LEXI + GRAF + ESTR + RESL)
+# Prompt de refactor: analisis / violet / derivatives / geometric_interpretation (LEXI + GRAF + ESTR)
+
+> **RESL archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/violet/derivatives/geometric_interpretation/RESL.json`. **No generar RESL para este topic en esta ronda ni en futuras**; si el resto de este prompt todavía menciona RESL, es una referencia histórica/de contexto, no una instrucción vigente.
 
 Repo: `intervalo`. Branch de trabajo: `content-analisis-round2`. Antes de tocar nada, fijate si esa branch ya existe (local o en `origin`):
 - Si **ya existe** (por ejemplo, porque ya se hizo el refactor de otro topic de `violet/derivatives`, `blue/limits` o `white/functions` en ella), hacé checkout y seguí trabajando ahí, no crees una nueva ni la pises.

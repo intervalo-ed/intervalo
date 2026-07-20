@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere racionalizar la fracción $\\dfrac{5}{\\sqrt{3}}$.\n\n¿Qué expresión corresponde al factor por el que hay que multiplicar numerador y denominador?",
+    "options": [
+      "$\\dfrac{\\sqrt{3}}{\\sqrt{3}}$",
+      "$\\dfrac{3}{3}$",
+      "$\\dfrac{\\sqrt{3}}{3}$",
+      "$\\dfrac{5}{5}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Multiplicar por $\\sqrt{3}/\\sqrt{3}$ (una forma de $1$) hace que el denominador quede como $(\\sqrt{3})^2 = 3$, sin raíz.",
+    "feedback_incorrect": [
+      null,
+      "Ese factor no es una raíz, no elimina el radical del denominador.",
+      "Ese factor no representa una forma de $1$ construida a partir del radical del denominador.",
+      "Multiplicar por ese factor no afecta al radical del denominador, que es lo que hay que eliminar."
+    ],
+    "explanation": "Antes de resolver, hay que identificar la **expresión racionalizante**: una forma de $1$ construida con el mismo radical del denominador.\n\nPara $\\dfrac{5}{\\sqrt{3}}$, el factor correcto es $\\dfrac{\\sqrt{3}}{\\sqrt{3}}$, porque al multiplicar el denominador queda $(\\sqrt{3})^2=3$, un número entero sin raíz.\nUn error común es multiplicar por un factor que no coincide con el radical presente, lo que no elimina la raíz del denominador.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

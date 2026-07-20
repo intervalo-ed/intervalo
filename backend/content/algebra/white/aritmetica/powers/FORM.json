@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere simplificar la expresión $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$.\n\n¿Qué propiedad de la potenciación corresponde aplicar primero?",
+    "options": [
+      "$a^m \\cdot a^n = a^{m+n}$ en el numerador",
+      "$(a^m)^n = a^{m \\cdot n}$ en el numerador",
+      "$a^m \\cdot a^n = a^{m+n}$ en el denominador",
+      "$a^{-n} = \\dfrac{1}{a^n}$ en el denominador"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador combina dos potencias de igual base multiplicadas, así que corresponde sumar los exponentes: $a^5 \\cdot a^{-2} = a^3$.",
+    "feedback_incorrect": [
+      null,
+      "No hay una potencia elevada a otra potencia en esta expresión, esa propiedad no aplica acá.",
+      "El denominador tiene una sola potencia, no un producto de dos potencias.",
+      "El exponente negativo ya está en la base del numerador, no hace falta invertir nada todavía."
+    ],
+    "explanation": "Antes de calcular el resultado final, hay que identificar qué **propiedad de la potenciación** corresponde a cada parte de la expresión.\n\nEn $\\dfrac{a^5 \\cdot a^{-2}}{a^3}$, el numerador multiplica dos potencias de igual base, así que se aplica $a^m \\cdot a^n = a^{m+n}$: $a^5 \\cdot a^{-2} = a^{3}$.\nRecién después se aplica la propiedad del cociente entre el resultado y $a^3$.\nUn error frecuente es aplicar la propiedad del cociente antes de simplificar el producto del numerador.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]
