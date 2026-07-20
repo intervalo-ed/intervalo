@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_HEX } from "@/lib/catalog"
+import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
 import { ChevronDownIcon, LayersIcon, UsersIcon } from "lucide-react"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
@@ -43,23 +44,9 @@ const CAREER_NAME: Record<string, string> = Object.fromEntries(
 )
 
 // Tag por universidad (rivalidad): color de tinte único + la misma tipografía,
-// peso y espaciado que usa cada una en el onboarding (UNI_FONT). El formato es
-// el de los items del inicio: texto en color, borde "+99", fondo "+33".
-type UniTagStyle = { color: string; font: React.CSSProperties }
-const UNI_TAG: Record<string, UniTagStyle> = {
-  UBA: {
-    color: "#4F76E0",
-    font: { fontFamily: "var(--font-uba)", fontWeight: 500, letterSpacing: "0.06em" },
-  },
-  UTN: {
-    color: "#EC4869",
-    font: { fontFamily: "var(--font-utn)", fontWeight: 600, letterSpacing: "0.1em" },
-  },
-  UNSAM: {
-    color: "#4D90F2",
-    font: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
-  },
-}
+// peso y espaciado que usa cada una en el onboarding. Fuente única de verdad en
+// @/lib/university-tags. El formato es el de los items del inicio: texto en
+// color, borde "+99", fondo "+33".
 
 type RankingView = "individual" | "university"
 
@@ -493,7 +480,7 @@ function ListSkeleton() {
 }
 
 function UniTag({ university }: { university: string }) {
-  const cfg = UNI_TAG[university]
+  const cfg = UNIVERSITY_TAG_BY_KEY[university]
   if (!cfg) {
     return (
       <span className="inline-flex shrink-0 items-center justify-center rounded bg-white/10 px-1 py-1 text-center text-[0.55rem] leading-none text-foreground/70">
@@ -503,11 +490,13 @@ function UniTag({ university }: { university: string }) {
   }
   return (
     <span
-      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center text-[0.55rem] leading-none"
+      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center leading-none"
       style={{
         color: cfg.color,
         borderColor: `${cfg.color}99`,
         backgroundColor: `${cfg.color}33`,
+        fontSize: cfg.tagFontSize,
+        transform: cfg.tagDy ? `translateY(${cfg.tagDy}px)` : undefined,
         ...cfg.font,
       }}
     >
