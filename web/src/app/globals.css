@@ -115,12 +115,15 @@
        (--nav-pt/--cta-pt) y abajo el despeje del home-indicator (0.65× del
        safe-area-inset-bottom) más 1.5rem de aire fijo para separar el CTA del
        borde. El banner superior (--hdr-*) hereda :root; se mantienen el
-       safe-area-inset-top del header y el fix de over-scroll. */
+       safe-area-inset-top del header y el fix de over-scroll.
+       --nav-safe-pb tiene un piso de 12px: en celulares sin home-indicator
+       (Android, iPhone con botón físico) safe-area-inset-bottom da 0px, y sin
+       este piso la tab bar quedaría pegada al borde de la pantalla. */
     --cta-pb: calc(1.5rem + env(safe-area-inset-bottom, 0px) * 0.65);
     --cta-pt: 1.25rem;
     --nav-pt: 0.88rem;
     --nav-pb: 0.25rem;
-    --nav-safe-pb: calc(env(safe-area-inset-bottom, 0px) * 0.65);
+    --nav-safe-pb: max(calc(env(safe-area-inset-bottom, 0px) * 0.65), 12px);
   }
 }
 
