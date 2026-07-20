@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `normal`
 
 Skills en este topic: `GRAF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `GRAF`, `FORM`.
+
 Concepto: $X\sim N(\mu,\sigma^2)$, densidad en forma de campana simétrica centrada en $\mu$, dispersión controlada por $\sigma$. Se estandariza con $Z=(X-\mu)/\sigma$ a $N(0,1)$. Cierra `violet/distribuciones`.
 
 **Nota de dependencia con integrales**: cualquier probabilidad de la normal se busca vía la variable estandarizada $Z$ y valores de tabla ya dados (nunca se pide integrar la densidad), consistente con la nota de `probabilidad/course-context.md`.
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X\sim N(\mu,\sigma^2)$, densidad en forma de campana simétrica centr
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -49,12 +51,12 @@ Concepto: $X\sim N(\mu,\sigma^2)$, densidad en forma de campana simétrica centr
 ## Reglas específicas del topic
 
 - **Parámetros con valores simples** ($\mu$, $\sigma$ enteros o con un decimal), consistente con el resto de la unidad.
-- **Ningún ítem pide el valor numérico de una probabilidad de tabla** (eso excede la frontera de este topic sin una tabla de valores $Z$ provista); los cálculos se limitan a estandarización, simetría e identificación de parámetros.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Ningún ejercicio pide el valor numérico de una probabilidad de tabla** (eso excede la frontera de este topic sin una tabla de valores $Z$ provista); los cálculos se limitan a estandarización, simetría e identificación de parámetros.
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Ningún ítem requiere consultar una tabla de valores $Z$ no provista en el enunciado
-- [ ] Los ítems de dispersión comparan correctamente la forma (más ancha = mayor $\sigma$)
+- [ ] Ningún ejercicio requiere consultar una tabla de valores $Z$ no provista en el enunciado
+- [ ] Los ejercicios de dispersión comparan correctamente la forma (más ancha = mayor $\sigma$)
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

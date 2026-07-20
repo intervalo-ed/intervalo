@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `geometrica`
 
 Skills en este topic: `CLSF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `CLSF`, `FORM`.
+
 Concepto: $X\sim Geom(p)$ modela la cantidad de ensayos hasta el **primer** éxito. $P(X=k)=(1-p)^{k-1}p$, $E[X]=1/p$. Única distribución discreta con **pérdida de memoria**.
 
 **Frontera con el resto del topic:** la distinción con `binomial` (cuenta éxitos en $n$ fijo, no ensayos hasta el primero) y con `negativa` (busca el $r$-ésimo éxito con $r>1$, la geométrica es el caso $r=1$) es la fuente principal de distractores.
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X\sim Geom(p)$ modela la cantidad de ensayos hasta el **primer** éxi
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -49,11 +51,11 @@ Concepto: $X\sim Geom(p)$ modela la cantidad de ensayos hasta el **primer** éxi
 ## Reglas específicas del topic
 
 - **Contextos válidos**: intentos hasta el primer acierto (dado, tiro al arco, prueba de un producto), primer cliente que acepta una oferta.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Todo contexto de `reconocer-geometrica` pregunta por el número de ensayos hasta el **primer** éxito, nunca un total fijo de $n$
 - [ ] El distractor de binomial negativa especifica $r>1$ explícitamente
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

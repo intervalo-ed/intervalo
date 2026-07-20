@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `independencia`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: dos eventos $A$ y $B$ son **independientes** cuando $P(A \cap B) = P(A) \cdot P(B)$, equivalente a $P(A\mid B) = P(A)$ (la ocurrencia de uno no cambia la probabilidad del otro).
 
 **Frontera con el resto de la unidad:** distingue explícitamente independencia de "mutuamente excluyentes" (`espacios`): dos eventos mutuamente excluyentes casi nunca son independientes (salvo el caso trivial de probabilidad $0$), y es la confusión más común del topic. Reutiliza la fórmula de `condicional` como forma alternativa de verificar independencia.
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 Reconocer si dos eventos son **independientes o dependientes**, sin calcular.
 
@@ -25,7 +27,7 @@ Reconocer si dos eventos son **independientes o dependientes**, sin calcular.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -38,7 +40,7 @@ Reconocer si dos eventos son **independientes o dependientes**, sin calcular.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Distribución objetivo
 

@@ -4,13 +4,15 @@ Belt: `blue`, Unit: `variables`, Topic: `varianza`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: la **varianza** $\mathrm{Var}(X)=E[(X-\mu)^2]=E[X^2]-(E[X])^2$ mide la dispersión respecto de la esperanza $\mu=E[X]$. La desviación estándar es $\sigma=\sqrt{\mathrm{Var}(X)}$. Propiedad: $\mathrm{Var}(aX+b)=a^2\,\mathrm{Var}(X)$.
 
 **Cierre de la unidad `variables`**: reutiliza `esperanza` en cada cálculo ($E[X]$ y $E[X^2]$).
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **varianza** $\mathrm{Var}(X)=E[(X-\mu)^2]=E[X^2]-(E[X])^2$ mide la
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -49,11 +51,11 @@ Concepto: la **varianza** $\mathrm{Var}(X)=E[(X-\mu)^2]=E[X^2]-(E[X])^2$ mide la
 ## Reglas específicas del topic
 
 - **Dominio discreto chico** (3-5 valores), consistente con `puntual`/`esperanza`.
-- **Cada ítem reintroduce la fórmula operativa** $\mathrm{Var}(X)=E[X^2]-(E[X])^2$ cuando la usa (regla crítica 31), mostrando el cálculo de $E[X]$ y $E[X^2]$ como pasos separados en `\begin{aligned}` si el desarrollo lo amerita.
+- **Cada ejercicio reintroduce la fórmula operativa** $\mathrm{Var}(X)=E[X^2]-(E[X])^2$ cuando la usa (regla crítica 31), mostrando el cálculo de $E[X]$ y $E[X^2]$ como pasos separados en `\begin{aligned}` si el desarrollo lo amerita.
 
 ## Checklist del topic
 
 - [ ] Todo cálculo de varianza discreta desarrolla $E[X]$ y $E[X^2]$ como pasos separados antes de restar
-- [ ] Ningún ítem confunde $\sigma$ con $\mathrm{Var}(X)$
+- [ ] Ningún ejercicio confunde $\sigma$ con $\mathrm{Var}(X)$
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

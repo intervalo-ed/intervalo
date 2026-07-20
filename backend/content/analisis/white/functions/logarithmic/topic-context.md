@@ -64,10 +64,10 @@ log2(x-1)+1          [0.5, 9.5, -2, 5]
 
 Verificado programáticamente sobre los 4 JSON (post-auditoría de junio, que ya había vaciado `feedback_incorrect`: sigue vacío en los 200, sin bug de duplicado).
 
-1. **`feedback_incorrect` falta en los 200 ítems** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
+1. **`feedback_incorrect` falta en los 200 ejercicios** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
 2. **`\n\n` pegado a bloques `$$...$$`**: LEXI 28/50 (más de la mitad), CLSF 18, FORM 24, GRAF 2. LEXI y FORM son los más afectados.
 3. **Em-dash `—`/en-dash `–`**: LEXI 5 (#8,11,26,41,47), CLSF 9 (#0,4,18,20,22,25,35,42,44), FORM 1 (#12), GRAF 1 (#10).
-4. **Explicaciones con viñetas `•`/sub-ítems `-`**: LEXI 3 (#8,10,42), CLSF 13, FORM 1 (#26), GRAF 0 (limpio).
+4. **Explicaciones con viñetas `•`/sub-ejercicios `-`**: LEXI 3 (#8,10,42), CLSF 13, FORM 1 (#26), GRAF 0 (limpio).
 5. **`explanation` bajo 300 caracteres** (mínimo vigente en `authoring-context.md`, no 250): LEXI 24/50, CLSF 12, FORM 34/50, **GRAF 45/50 (casi todo el archivo)**, conteos contra el umbral viejo de 250, verificar de nuevo contra 300 (van a subir). Mismo patrón que en `exponential`: falta el párrafo de concepto general o el cierre de advertencia/consejo.
 6. **Cierres con humor/antropomorfismo**: no se detectaron casos (verificado con scan de palabras clave). Igual revisar al escribir cierres nuevos.
 7. **`correct_index` sesgado, el más desparejo del tema**: LEXI {0:4,1:9,2:27,3:10}, CLSF {0:4,1:11,2:22,3:13}, FORM {0:5,1:15,2:22,3:8}, **GRAF {0:1,1:5,2:13,3:31}** (31/50 en índice 3, casi nada en 0). Rebalancear a ~{0:12,1:13,2:12,3:13} reordenando `options` (mismo contenido, nueva posición) y sincronizando `feedback_incorrect`.
@@ -84,7 +84,7 @@ Verificado programáticamente sobre los 4 JSON (post-auditoría de junio, que ya
 
 ### Hallazgos de auditoría (ronda 1, jul-2026)
 
-Auditoría en vivo vía `/test`, muestra al azar de 12 ítems (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`).
+Auditoría en vivo vía `/test`, muestra al azar de 12 ejercicios (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`).
 
 **Esta es la tercera confirmación seguida de que un grupo de reglas es sesgo sistémico de la generación original**, no un defecto puntual de este topic. Ya se habían visto en `polynomial` y `exponential`; acá reaparecen otra vez sin relación conceptual con esos temas:
 
@@ -93,9 +93,9 @@ Auditoría en vivo vía `/test`, muestra al azar de 12 ítems (no exhaustiva, ve
 - Límites usados en `explanation` para justificar una conclusión (regla crítica 12) — `LEXI_42`, `LEXI_10`.
 - Fórmula display larga sin partir en pasos (`FORM_47`).
 
-**Nuevo en esta ronda (no reincidencia), confirmado 3 veces solo en esta muestra:** el símbolo ✓ aparece en `LEXI_20`, `FORM_05` y `GRAF_29`. Se agregó como regla crítica 14 en `authoring-context.md`; auditar el 100% de los ítems de cualquier topic (incluidos los ya cerrados) por si quedó algún caso suelto.
+**Nuevo en esta ronda (no reincidencia), confirmado 3 veces solo en esta muestra:** el símbolo ✓ aparece en `LEXI_20`, `FORM_05` y `GRAF_29`. Se agregó como regla crítica 14 en `authoring-context.md`; auditar el 100% de los ejercicios de cualquier topic (incluidos los ya cerrados) por si quedó algún caso suelto.
 
-Ítems concretos de esta ronda:
+Ejercicios concretos de esta ronda:
 
 - `white_logarithmic_FORM_09`: rótulos `"Nota:"` y `"Regla general:"` en la `explanation`. Además, guía de contenido nueva: explicar **por qué** el argumento del logaritmo no puede ser negativo o cero (no alcanza con enunciar la restricción), ver sección de guías de contenido más abajo.
 - `white_logarithmic_FORM_06`: bloque `\begin{aligned}` con una línea de puro texto (`\text{porque}`) sin `&`, mientras las otras líneas sí tenían `&`; el render colapsó. Ver regla crítica 16 nueva en `authoring-context.md`.
@@ -106,17 +106,17 @@ Auditoría en vivo vía `/test`, muestra al azar de 12 ítems (no exhaustiva, ve
 - `white_logarithmic_FORM_05`: símbolo ✓ en la `explanation`; el último párrafo no cerraba con punto. Ver regla crítica 17 nueva.
 - `white_logarithmic_LEXI_10`: `explanation` usó notación de límite ($\lim_{x\to0^+}\ln(x)=-\infty$) para justificar la asíntota vertical, fuera de la frontera de `white`. Reformular con razonamiento intuitivo (ej. "a medida que $x$ se acerca a $0$ por la derecha, hay que elevar la base a exponentes cada vez más negativos y grandes en valor absoluto para obtener un número tan chico, así que el resultado crece sin límite hacia $-\infty$").
 - `white_logarithmic_CLSF_39`: opción correcta notablemente más **corta** y menos elaborada que las 3 distractoras (caso simétrico de la regla 4, ver regla crítica 15 nueva).
-- `white_logarithmic_LEXI_16`: guía de contenido nueva: para ítems de propiedades del logaritmo (producto/cociente/potencia), preferir derivar la propiedad desde la definición como inversa de la exponencial en vez de solo enunciar cuándo aplica y cuándo no. Ver sección de guías de contenido más abajo.
+- `white_logarithmic_LEXI_16`: guía de contenido nueva: para ejercicios de propiedades del logaritmo (producto/cociente/potencia), preferir derivar la propiedad desde la definición como inversa de la exponencial en vez de solo enunciar cuándo aplica y cuándo no. Ver sección de guías de contenido más abajo.
 - `white_logarithmic_GRAF_29`: flechas `→` usadas en prosa dentro de una lista numerada en `explanation` (ya prohibido, ver *Redacción del enunciado*); símbolo ✓ también presente.
 
 ### Guías de contenido específicas de `logarithmic` (no son reglas de formato, son de profundidad conceptual)
 
-1. **Ítems de dominio de logaritmo** (`FORM` con `log(x-c)`, `log(ax+b)`, etc.): no alcanza con enunciar "el argumento debe ser positivo". Explicar el *por qué*: el logaritmo pregunta a qué exponente hay que elevar la base para obtener el argumento, y ninguna potencia real de una base positiva da como resultado un número negativo o cero, por eso el argumento tiene que ser estrictamente positivo.
-2. **Ítems de propiedades del logaritmo** (`LEXI` producto/cociente/potencia): preferir derivar la propiedad desde la relación inversa con la exponencial (que el alumno ya vio en `exponential`), no solo mostrar la igualdad y decir cuándo se puede aplicar. Ejemplo: la propiedad del producto sale de que sumar exponentes de una misma base equivale a multiplicar las potencias, y el logaritmo "deshace" la potencia.
+1. **Ejercicios de dominio de logaritmo** (`FORM` con `log(x-c)`, `log(ax+b)`, etc.): no alcanza con enunciar "el argumento debe ser positivo". Explicar el *por qué*: el logaritmo pregunta a qué exponente hay que elevar la base para obtener el argumento, y ninguna potencia real de una base positiva da como resultado un número negativo o cero, por eso el argumento tiene que ser estrictamente positivo.
+2. **Ejercicios de propiedades del logaritmo** (`LEXI` producto/cociente/potencia): preferir derivar la propiedad desde la relación inversa con la exponencial (que el alumno ya vio en `exponential`), no solo mostrar la igualdad y decir cuándo se puede aplicar. Ejemplo: la propiedad del producto sale de que sumar exponentes de una misma base equivale a multiplicar las potencias, y el logaritmo "deshace" la potencia.
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
-Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
+Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
 
 **LEXI (50):**
 
@@ -217,10 +217,10 @@ Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ítems por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (foco en LEXI y FORM)
 - [ ] Ningún em-dash `—` ni en-dash `–`
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes (foco especial en GRAF y FORM)
 - [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice; GRAF necesita el rebalanceo más grande del tema)
@@ -232,6 +232,6 @@ Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
 - [ ] Ningún `\begin{aligned}` tiene una línea de puro texto sin `&` (ver `FORM_06`)
 - [ ] Todo párrafo cierra con punto, incluido el último de cada campo (ver `FORM_05`)
 - [ ] Ninguna flecha `→` usada en prosa fuera de una fórmula (ver `GRAF_29`)
-- [ ] Ítems de dominio de logaritmo explican por qué el argumento debe ser positivo, no solo lo enuncian (ver guía de contenido 1)
-- [ ] Cada ítem tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
+- [ ] Ejercicios de dominio de logaritmo explican por qué el argumento debe ser positivo, no solo lo enuncian (ver guía de contenido 1)
+- [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
 

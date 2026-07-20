@@ -2,7 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `chain_rule`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
 **Estado.** Este es el primer tópico donde el alumno **compone funciones al derivar**. La distribución completa (50 por skill) se hace en otro turno.
 
@@ -27,13 +29,13 @@ En este tópico se **aplica la regla de la cadena** sobre funciones compuestas $
 - **Composiciones donde la interior es a su vez un producto o cociente no trivial** ($\sin(u \cdot v)$, $e^{u/v}$). La interior $h(x)$ debe ser una función elemental (polinómica, trigonométrica, exponencial, logarítmica) evaluada en un argumento lineal simple ($ax + b$) o en $x$.
 - **Contextos cotidianos en RESL** (ver §RESL).
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos la **capa exterior** $g$ y la **capa interior** $h$ con sus derivadas usando `\begin{aligned}`, (b) aplicamos $g'(h(a)) \cdot h'(a)$ señalando el orden de evaluación (la derivada exterior se evalúa en $h(a)$, no en $a$), (c) simplificamos y cerramos con advertencia técnica sobre el error común (evaluar exterior en $a$ en vez de en $h(a)$, sumar en vez de multiplicar, omitir la derivada interior). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -45,15 +47,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Auditoría de la lectura anatómica** de la función compuesta antes de derivar. No se ejecuta la cadena completa: se identifica la jerarquía "exterior / interior" o se decide **qué regla aplicar** (cadena vs producto vs cociente) para estructuras visualmente similares. Sin cálculo numérico final.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -77,25 +79,25 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 - **Opciones con textos exactos** para elección de estrategia: `"Regla de la cadena"`, `"Regla del producto"`, `"Regla del cociente"`, `"Múltiplo escalar"`, `"No es composición"`.
 - **Sub-A**: opciones que muestran distintas particiones "exterior/interior" como texto exacto (por ejemplo, `"g(u) = u^2, h(x) = \\sin x"` vs `"g(u) = \\sin u, h(x) = x^2"`). El distractor mayoritario es la partición invertida.
 - **Sub-B**: la respuesta correcta es la regla que realmente aplica; el distractor mayoritario es la otra regla que la estructura sugiere visualmente.
-- **Máximo 2 capas** en todos los ítems ESTR. Nada de $\ln(\cos(2x))$ ni $(e^{\sin x})^2$.
+- **Máximo 2 capas** en todos los ejercicios ESTR. Nada de $\ln(\cos(2x))$ ni $(e^{\sin x})^2$.
 - **Negrita en primera mención** de `regla de la cadena`, `función compuesta`, `capa exterior`, `capa interior`.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla de la cadena: identificar $g$ y $h$, calcular $g'$ y $h'$, armar $g'(h(a)) \cdot h'(a)$ y **evaluar en un punto** $x = a$ donde el producto colapse o al menos un factor sea trivial ($0$ o $1$).
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
 - **Sin contextos cotidianos**. Mecánica pura de la fórmula.
-- **Máximo 2 capas** en todos los ítems RESL. Sin excepciones.
+- **Máximo 2 capas** en todos los ejercicios RESL. Sin excepciones.
 - **Ancla forzada**: en toda evaluación puntual en $x = a$, al menos uno de los factores del producto ($g'(h(a))$ o $h'(a)$) debe ser $0$, $1$ o $-1$ (o un valor exacto amigable). El objetivo es que el alumno se enfoque en la lectura de la cadena, no en aritmética de multiplicación no trivial.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -105,7 +107,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 | B. Evaluación en ancla trivial | El punto $x = a$ hace que $h(a)$ devuelva un valor exacto que simplifica $g'(h(a))$ (típicamente $0$, $1$, $\pi$, o un múltiplo simple). Ejemplo: $f(x) = e^{\sin x}$ en $x = \pi$: $\sin \pi = 0$, $g'(0) = e^0 = 1$, $h'(\pi) = \cos \pi = -1$; resultado $= 1 \cdot (-1) = -1$. | `evaluacion-ancla-trivial` | 20 |
 | C. Evaluación con datos abstractos | Se brindan valores puntuales de $g(a), g'(a), h(a), h'(a)$, forzando a construir $g'(h(a)) \cdot h'(a)$. Ejemplo: "Si $h(2) = 3$, $h'(2) = 4$ y $g'(3) = 5$, calculá $(g \circ h)'(2)$". El alumno debe buscar $g'$ evaluada en $h(2) = 3$, no en $2$. Distractores: evaluar $g'(2) \cdot h'(2)$ o sumar en lugar de multiplicar. | `evaluacion-datos-abstractos-cadena` | 10 |
 
-**Nota**: La sub-familia "Aplicación iterada (Tres capas)" del prompt original se descarta por la restricción de máximo 2 capas. Sus 10 ítems se redistribuyen: 5 a sub-A (más drill de anulación) y 5 a sub-B (más drill de ancla trivial). El total de RESL queda 20/20/10.
+**Nota**: La sub-familia "Aplicación iterada (Tres capas)" del prompt original se descarta por la restricción de máximo 2 capas. Sus 10 ejercicios se redistribuyen: 5 a sub-A (más drill de anulación) y 5 a sub-B (más drill de ancla trivial). El total de RESL queda 20/20/10.
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -120,7 +122,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ### Reglas específicas
 - **Explicaciones con estructura algorítmica**: (1) identificar $g$, $h$, $g'$, $h'$ en un `\begin{aligned}`, (2) evaluar $h(a)$ para conocer dónde va $g'$; escribir $g'(h(a)) \cdot h'(a)$ con los números; (3) simplificar y cerrar con advertencia sobre el error típico (evaluar exterior en $a$, olvidar la interior, sumar en vez de multiplicar).
-- **Máximo 2 capas** en todos los ítems.
+- **Máximo 2 capas** en todos los ejercicios.
 - **Interior con argumento lineal o $x$ solo**: $h(x) = ax + b$, $x^n$, $\sin x$, $\cos x$, $e^x$, $\ln x$. Nada de $h(x) = \sin(2x + 1)$ dentro de otra composición (eso es 3 capas encubiertas).
 - **Puntos de evaluación simples**: enteros pequeños ($0, 1, 2$), $\pi$, $\pi/2$, o valores que hagan colapsar el producto. Nada de fracciones incómodas.
 - **Sub-A**: la respuesta correcta es siempre $0$. Los distractores son valores plausibles si el alumno evalúa $g'$ correctamente pero olvida el factor $h'(a) = 0$.
@@ -132,7 +134,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-Auditoría en vivo (`/test`) sobre ítems ya existentes:
+Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 
 - **`RESL_12`** (`ex_251`): la `explanation` alineaba con `=` en columna 3 líneas de un `\begin{aligned}` que en realidad eran datos evaluados de forma independiente ($h(\pi)=0$, $g'(h(\pi))=1$, $h'(\pi)=1$), no una cadena de transformación de una misma expresión. **Esto originó la regla crítica 30**, nueva en `authoring-context.md` esta ronda (la regla ya se documentó primero acá y se generalizó al resto de la unidad). Alinear con `=` solo cuando cada línea es un paso real de la misma derivación; los datos evaluados van en prosa.
 - **`RESL_14`** (`ex_253`): el enunciado ("Si $h(1)=0$, $h'(1)=6$ y $g'(0)=2$, calculá $(g\circ h)'(1)$.") da 3 datos sueltos y la pregunta todo tejido en una sola oración con LaTeX inline. Hubiese estado mejor con la fórmula/datos centrados en su propio bloque `$$...$$` y 2 oraciones (antes/después) en vez de todo inline.
@@ -142,7 +144,7 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna composición de 3 o más capas
 - [ ] Ninguna interior que sea a su vez producto o cociente no trivial
 - [ ] Ningún desarrollo por límite
@@ -151,10 +153,10 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente** (reincidencia confirmada en `RESL_12`, regla crítica 30): esa alineación es solo para pasos reales de una misma derivación
 - [ ] **Ningún enunciado con datos abstractos sueltos teje todo inline** (reincidencia confirmada en `RESL_14`); considerar fórmula/datos centrados + 2 oraciones
-- [ ] **Openers: `"Considerá la función"` solo necesita el `:` antes del bloque `$$...$$` (es cláusula completa); `"Sabiendo que"` necesita reescribirse entero (fragmento sin objeto propio, el `:` no lo arregla). Redacción variada ítem a ítem en ambos casos** (regla crítica 32)
+- [ ] **Openers: `"Considerá la función"` solo necesita el `:` antes del bloque `$$...$$` (es cláusula completa); `"Sabiendo que"` necesita reescribirse entero (fragmento sin objeto propio, el `:` no lo arregla). Redacción variada ejercicio a ejercicio en ambos casos** (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo lectura anatómica o elección de regla
 - [ ] Sub-A con opciones tipo `"g(u) = u^2, h(x) = \\sin x"` textuales; distractor mayoritario = partición invertida
@@ -162,10 +164,10 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 - [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Distribución A/B/C respetada (20/20/10) — sub "tres capas" eliminada
-- [ ] Todos los ítems cumplen la **ancla forzada** ($g'(h(a)) \in \{0, 1, -1\}$ o valor exacto amigable, o $h'(a) = 0$)
+- [ ] Todos los ejercicios cumplen la **ancla forzada** ($g'(h(a)) \in \{0, 1, -1\}$ o valor exacto amigable, o $h'(a) = 0$)
 - [ ] Sub-A: respuesta correcta siempre $0$; distractores plausibles si el alumno olvida el factor $h'(a) = 0$
 - [ ] Sub-C con datos abstractos presentados como igualdades numéricas en el enunciado
 - [ ] Ninguna composición de 3+ capas ni interior producto/cociente

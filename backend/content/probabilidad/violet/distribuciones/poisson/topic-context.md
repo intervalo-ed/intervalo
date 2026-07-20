@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `poisson`
 
 Skills en este topic: `CLSF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `CLSF`, `FORM`.
+
 Concepto: cantidad de eventos independientes en un intervalo fijo de tiempo, longitud o área, a tasa promedio $\lambda$. $P(X=k)=\dfrac{e^{-\lambda}\lambda^k}{k!}$, $E[X]=\mathrm{Var}(X)=\lambda$.
 
 **Frontera con el resto del topic:** distinguir de `binomial` (no hay un $n$ de ensayos discreto, sino una tasa continua de ocurrencia) y de `geometrica` (Poisson cuenta eventos en un intervalo, no espera hasta el primer evento).
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: cantidad de eventos independientes en un intervalo fijo de tiempo, lon
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -50,11 +52,11 @@ Concepto: cantidad de eventos independientes en un intervalo fijo de tiempo, lon
 
 - **Contextos válidos**: llamadas por hora en un call center, clientes por minuto en una caja, errores tipográficos por página, autos por minuto en un semáforo.
 - **$\lambda$ acotado** (≤15) para que $e^{-\lambda}$ no genere números que se descarten a ojo por magnitud.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Todo contexto especifica explícitamente la tasa promedio y el intervalo al que corresponde
-- [ ] Los ítems de ajuste de tasa reescalan $\lambda$ correctamente y lo muestran como paso explícito
+- [ ] Los ejercicios de ajuste de tasa reescalan $\lambda$ correctamente y lo muestran como paso explícito
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

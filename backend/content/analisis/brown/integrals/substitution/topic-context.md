@@ -2,7 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `substitution`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico introduce el **primer método** de integración: el **cambio de variable** ($u$-sub), operación inversa de la regla de la cadena vista en violet. El alumno aprende a detectar la anatomía "función compuesta + derivada del interior" y a compensar constantes cuando el diferencial no cierra exacto.
 
@@ -27,16 +29,16 @@ En este tópico se aplica **exclusivamente** el método de sustitución + tabla 
 - **Sustitución trigonométrica** ($u = \sin\theta$ para $\sqrt{a^2 - x^2}$, etc.) o **fracciones parciales**: fuera de scope; son técnicas avanzadas posteriores.
 - **$u$ más allá del techo**: el alcance de $u$ es **polinomio hasta grado 2** ($u = ax + b$, $u = x^2 + k$, $u = x^2 - kx + m$) + **trascendentes simples** ($u = \ln x$, $u = \sin x$, $u = \cos x$, $u = e^x$). Ningún $u$ de grado 3+.
 - **Constante de integración $C$ omitida**: toda respuesta correcta lleva $+C$. Se mantiene el hábito iniciado en `reglas`.
-- **Respuesta dejada en la variable $u$**: toda respuesta correcta en RESL **vuelve a $x$**. Dejar la primitiva expresada en $u$ es un **distractor deliberado** (en al menos algunos ítems) con `feedback_incorrect` que dice "olvidaste volver a la variable original".
+- **Respuesta dejada en la variable $u$**: toda respuesta correcta en RESL **vuelve a $x$**. Dejar la primitiva expresada en $u$ es un **distractor deliberado** (en al menos algunos ejercicios) con `feedback_incorrect` que dice "olvidaste volver a la variable original".
 - **$\ln|x|$ sin valor absoluto**: en cualquier resultado que involucre $\ln$, el valor absoluto es obligatorio ($\ln|u| \to \ln|g(x)|$).
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificar $u$ y $du$, señalar por qué esa elección hace colapsar el integrando; usar `\begin{aligned}` para mostrar $u = g(x)$, $du = g'(x) \, dx$, y el despeje de $dx$ si hace falta constante compensatoria, (b) reemplazar en la integral, aplicar la fórmula de tabla que corresponde a $\int f(u) \, du$, (c) **volver a la variable $x$**, agregar $+C$, y cerrar con advertencia técnica (compensación de constante, valor absoluto en $\ln$, volver a $x$). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -49,15 +51,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Visión anatómica** del integrando antes de aplicar el método. Desglosar mentalmente la expresión para encontrar el **cambio de variable óptimo** y **ajustar el diferencial** cuando la derivada del interior aparece salvo un factor constante. Sin cálculo integral final.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -86,23 +88,23 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del método**: elegir $u$, calcular $du$, reemplazar, aplicar la fórmula de tabla que corresponde en la variable $u$, **volver a $x$**, compensar constantes, agregar $+C$. Sin contextos cotidianos.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
 - **Sin contextos cotidianos**. Mecánica pura de la fórmula.
 - **Solo integrales indefinidas**. Nada de $\int_a^b$, nada de áreas, nada de regla de Barrow.
 - **Techo de $u$**: **polinomio hasta grado 2** ($u = ax + b$, $u = x^2 + k$, $u = x^2 - k$) o **trascendentes simples** ($u = \ln x$, $u = \sin x$, $u = \cos x$, $u = e^x$). Ningún $u$ de grado 3+.
 - **$+C$ obligatorio en todas las opciones** (incluidos distractores).
-- **Toda respuesta correcta vuelve a la variable $x$**. Una opción "quedada en $u$" aparece como **distractor deliberado** en al menos algunos ítems, con `feedback_incorrect` explícito.
+- **Toda respuesta correcta vuelve a la variable $x$**. Una opción "quedada en $u$" aparece como **distractor deliberado** en al menos algunos ejercicios, con `feedback_incorrect` explícito.
 - **$\ln|·|$ con valor absoluto** en toda respuesta que involucre logaritmo.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -134,10 +136,10 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Pre-revisión programática sobre los ítems de prueba existentes:
+Pre-revisión programática sobre los ejercicios de prueba existentes:
 
-- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`ESTR`, `RESL`, 30 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
-- **`ESTR`: 8/15 ítems abren con `"Para resolver\n$$...$$\n..."` cortando la oración con la fórmula en el medio**, mismo patrón que en `parts` (regla crítica 9). Reescribir con cierre propio antes del bloque y la pregunta en su propia oración.
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 2 archivos (`ESTR`, `RESL`, 30 ejercicios) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico.
+- **`ESTR`: 8/15 ejercicios abren con `"Para resolver\n$$...$$\n..."` cortando la oración con la fórmula en el medio**, mismo patrón que en `parts` (regla crítica 9). Reescribir con cierre propio antes del bloque y la pregunta en su propia oración.
 - **`RESL`: 15/15 con `"Calculá\n$$...$$"`.** Cláusula completa, solo le falta el `:` y variar la redacción (hoy 100% idéntica).
 
 ---
@@ -145,7 +147,7 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de partes, integral definida, TFC, áreas, ni sustitución trigonométrica
 - [ ] Ningún $u$ de grado 3 o mayor
 - [ ] $\ln|·|$ con valor absoluto obligatorio en toda respuesta que involucre logaritmo
@@ -155,11 +157,11 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
-- [ ] **`"Para resolver"` (ESTR) reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9); **`"Calculá"` (RESL) tiene el `:` agregado** y varía de redacción ítem a ítem (regla crítica 32)
+- [ ] **`"Para resolver"` (ESTR) reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9); **`"Calculá"` (RESL) tiene el `:` agregado** y varía de redacción ejercicio a ejercicio (regla crítica 32)
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo integral final; solo elección de $u$ o ajuste del diferencial
 - [ ] Sub-A con distractor mayoritario = "u = función exterior completa" o "u = derivada de la interior"
@@ -167,11 +169,11 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 - [ ] Textos exactos en opciones de elección de $u$ y de $dx$ (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Solo integrales indefinidas; ningún $\int_a^b$, ningún área
 - [ ] Distribución A/B respetada (25/25)
-- [ ] Sub-A con $u = ax + b$ únicamente; compensación de constante en todos los ítems donde el coeficiente $\neq 1$
+- [ ] Sub-A con $u = ax + b$ únicamente; compensación de constante en todos los ejercicios donde el coeficiente $\neq 1$
 - [ ] Sub-B con $u$ hasta grado 2 o trascendente simple; casos $\tfrac{g'(x)}{g(x)}$ que disparan $\ln|·|$
-- [ ] Al menos algunos ítems tienen "respuesta en $u$" como distractor deliberado
-- [ ] Al menos algunos ítems tienen "$+C$ olvidada" como distractor deliberado
+- [ ] Al menos algunos ejercicios tienen "respuesta en $u$" como distractor deliberado
+- [ ] Al menos algunos ejercicios tienen "$+C$ olvidada" como distractor deliberado

@@ -4,13 +4,15 @@ Belt: `white`, Unit: `conteo`, Topic: `reglas`
 
 Skills en este topic: `FORM`, `ESTR`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`.
+
 Concepto: la **regla del producto** (decisiones secuenciales o independientes, se multiplican las opciones de cada paso) y la **regla de la suma** (alternativas mutuamente excluyentes, se suman los casos). Este topic es la base de todo el resto de la unidad: `factoriales`, `permutaciones`, `variaciones` y `combinaciones` son casos particulares donde ya no alcanza con producto/suma directos y hace falta una fórmula específica.
 
-**Frontera con el resto de la unidad:** ningún ítem de este topic usa factorial, $P_n$, $V_{n,k}$ ni $\binom{n}{k}$. Si un problema requiere ordenar un conjunto completo o elegir un subconjunto sin reponer elementos, es un ítem de `permutaciones`/`variaciones`/`combinaciones`, no de `reglas`. Acá el conteo siempre sale de multiplicar/sumar cantidades de opciones por paso, con o sin repetición permitida entre pasos (pero cada paso se resuelve por conteo directo, no por una fórmula de arreglo).
+**Frontera con el resto de la unidad:** ningún ejercicio de este topic usa factorial, $P_n$, $V_{n,k}$ ni $\binom{n}{k}$. Si un problema requiere ordenar un conjunto completo o elegir un subconjunto sin reponer elementos, es un ejercicio de `permutaciones`/`variaciones`/`combinaciones`, no de `reglas`. Acá el conteo siempre sale de multiplicar/sumar cantidades de opciones por paso, con o sin repetición permitida entre pasos (pero cada paso se resuelve por conteo directo, no por una fórmula de arreglo).
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Armar la **expresión** que cuenta el total (no calcular el valor numérico, eso es `RESL`).
 
@@ -25,11 +27,11 @@ Armar la **expresión** que cuenta el total (no calcular el valor numérico, eso
 | Armar la expresión desde un diagrama de árbol descrito en prosa (contar ramas) | 5 | `desde-arbol` |
 | **Total** | **50** | |
 
-Cantidades exactas, no aproximadas. Sin bucket "contexto general": si un ítem no encaja en una fila, no se genera.
+Cantidades exactas, no aproximadas. Sin bucket "contexto general": si un ejercicio no encaja en una fila, no se genera.
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 Elegir **qué regla conviene aplicar**, sin calcular el resultado. Los distractores son la regla equivocada, no un número.
 
@@ -47,7 +49,7 @@ Elegir **qué regla conviene aplicar**, sin calcular el resultado. Los distracto
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -81,13 +83,13 @@ Calcular el **resultado numérico**.
 ## Reglas específicas del topic
 
 - **Contextos válidos**: claves/contraseñas, menús combinados, placas/códigos alfanuméricos, caminos entre ciudades, señales con banderas/colores, diagramas de árbol de decisiones. Evitar contextos ya reservados para topics posteriores (podios, comités, anagramas: esos son de `permutaciones`/`combinaciones`).
-- **"Y" vs. "o" en el enunciado**: la palabra que conecta las decisiones es la pista central del ítem (regla crítica: nombrar la estructura, no explicarla). Un enunciado de regla del producto conecta decisiones con "y luego", "seguido de"; uno de regla de la suma con "o", "en cualquiera de los casos".
+- **"Y" vs. "o" en el enunciado**: la palabra que conecta las decisiones es la pista central del ejercicio (regla crítica: nombrar la estructura, no explicarla). Un enunciado de regla del producto conecta decisiones con "y luego", "seguido de"; uno de regla de la suma con "o", "en cualquiera de los casos".
 - **Restricciones explícitas y verificables**: "el primer carácter no puede ser $0$", "no se puede repetir el mismo color dos veces seguidas". Nunca una restricción ambigua que admita más de una lectura.
 
 ## Checklist del topic
 
-- [ ] Ningún ítem usa factorial, $P_n$, $V_{n,k}$ ni $\binom{n}{k}$
-- [ ] La palabra conectora del enunciado ("y"/"o") es consistente con la regla que evalúa el ítem
+- [ ] Ningún ejercicio usa factorial, $P_n$, $V_{n,k}$ ni $\binom{n}{k}$
+- [ ] La palabra conectora del enunciado ("y"/"o") es consistente con la regla que evalúa el ejercicio
 - [ ] En restricciones, el enunciado dice explícitamente sobre qué paso aplica
 - [ ] `tags` con el slug de la tabla de distribución, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM/ESTR conceptuales → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

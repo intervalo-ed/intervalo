@@ -2,7 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `quotient`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_quotient_estr_01…`, `violet_quotient_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. La distribución completa (50 por skill) se hace en otro turno.
 
@@ -24,17 +26,17 @@ En este tópico se **aplica la regla del cociente** sobre funciones que ya son c
 
 - Regla de la **cadena**: los factores $u$ y $v$ tienen argumento interno = $x$ solo. Nada de $u(x) = \sin(2x + 1)$ o $v(x) = e^{-x}$.
 - **Justificar por límite** la regla del cociente — se toma como fórmula conocida derivada del cociente incremental.
-- **Cocientes de tres o más niveles** — solo un cociente por ítem, sin fracciones anidadas.
+- **Cocientes de tres o más niveles** — solo un cociente por ejercicio, sin fracciones anidadas.
 - **Denominador que se anula en el punto de evaluación**: en RESL, $v(a) \neq 0$ siempre (ver §RESL restricciones).
 - **Contextos cotidianos en RESL** (ver §RESL).
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos $u$ y $v$ y calculamos $u'$ y $v'$ usando `\begin{aligned}`, (b) aplicamos la fórmula $\tfrac{u'v - uv'}{v^2}$ señalando el orden estricto de la resta, (c) simplificamos y cerramos con advertencia técnica (orden de la resta, cuadrado del denominador, signo). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -46,15 +48,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Auditoría de la toma de decisiones previa al cálculo** y **comprensión anatómica de la fórmula**. No se ejecuta la derivación completa: se decide **qué regla aplicar**, **cómo desglosar la expresión** y **qué orden respetar en la resta del numerador**. Sin cálculo numérico final.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -83,20 +85,20 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla del cociente: identificar $u$ y $v$, calcular $u'$ y $v'$, armar $\tfrac{u'v - uv'}{v^2}$ y **evaluar en un punto** $x = a$ donde al menos un término de la resta se anula (con $v(a) \neq 0$ garantizado).
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
 - **Sin contextos cotidianos**. Mecánica pura de la fórmula.
 - **Anulación forzada**: en toda evaluación puntual en $x = a$, **al menos uno de los términos de la resta** ($u'(a) v(a)$ o $u(a) v'(a)$) debe anularse resultando en $0$. Excepción: sub-C (tangentes horizontales), donde se resuelve una ecuación en vez de evaluar en un punto dado.
 - **Denominador no nulo**: $v(a) \neq 0$ siempre. El punto de evaluación jamás puede hacer estallar la fracción.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -104,7 +106,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 |-------------|------|------|:-----:|
 | A. Anulación por raíz en el numerador | El punto $x = a$ anula $u$ ($u(a) = 0$), haciendo desaparecer el término $u(a) v'(a)$. Queda $\tfrac{u'(a) v(a)}{v(a)^2} = \tfrac{u'(a)}{v(a)}$. Ejemplo: $f(x) = \tfrac{x^2 - 4}{e^x}$ evaluada en $x = 2$. | `anulacion-raiz-numerador-cociente` | 15 |
 | B. Anulación por extremo local (derivada nula) | El punto $x = a$ anula $u'$ o $v'$. Ejemplo: $f(x) = \tfrac{\sin x}{x}$ evaluada en $x = \tfrac{\pi}{2}$ (acá $\cos(\pi/2) = 0$, anula $u'(a) v(a) = 0$, queda $-\tfrac{u(a) v'(a)}{v(a)^2} = -\tfrac{1 \cdot 1}{(\pi/2)^2} = -\tfrac{4}{\pi^2}$). | `anulacion-derivada-nula-cociente` | 15 |
-| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ítems se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 10 |
+| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ejercicios se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 10 |
 | D. Evaluación con datos abstractos | Se brindan valores puntuales de $f(a), f'(a), g(a), g'(a)$, uno o más iguales a $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 3$, $g(2) = 4$, $g'(2) = -1$, calculá $\left(\tfrac{f}{g}\right)'(2)$". Respuesta: $\tfrac{3 \cdot 4 - 0 \cdot (-1)}{4^2} = \tfrac{12}{16} = \tfrac{3}{4}$. Fuerza la estructura abstracta pura respetando el **orden de la resta**. | `evaluacion-datos-abstractos-cociente` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
@@ -132,7 +134,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-Auditoría en vivo (`/test`) sobre ítems ya existentes:
+Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 
 - **`ESTR_04`/`ESTR_05`** (`ex_198`/`ex_199`): la opción correcta llevaba un paréntesis aclaratorio de más (`"Múltiplo escalar (linealidad)"`) que la delataba frente a las demás opciones sin ninguna glosa. **Reincidencia de la regla crítica 4.** Corregido en el texto exacto prescripto arriba (§ESTR → Reglas específicas): ahora es `"Múltiplo escalar"` sin paréntesis en ningún caso.
 - **`RESL_10`/`RESL_12`** (`ex_219`/`ex_221`): opciones numéricas rellenas con `"solamente"` de forma asimétrica frente a otras que ya tienen 2 valores (`"x=0$ solamente"` vs. `"x=1$ y $x=-2$"`). **Reincidencia de la regla crítica 4/15.** Nunca rellenar con palabras que no aportan distracción real; si hace falta paridad de longitud, conseguirla con contenido matemático genuino, no con relleno textual.
@@ -142,9 +144,9 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla de la cadena; ninguna función compuesta en $u$ o $v$
-- [ ] Ningún desarrollo por límite; un solo cociente por ítem
+- [ ] Ningún desarrollo por límite; un solo cociente por ejercicio
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
@@ -153,18 +155,18 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 - [ ] **Ningún enunciado abre con un opener corto y genérico** ("Sabiendo que", "Para derivar") sin cerrar la oración antes del bloque `$$...$$` (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición/anatomía
 - [ ] Sub-A con distractor mayoritario = "regla del cociente"; sub-B con opciones tipo fórmulas exactas (`"(u'v - uv') / v^2"`) para reconocimiento
 - [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
-- [ ] En sub-A/B: todos los ítems cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
-- [ ] En todos los ítems con evaluación puntual: $v(a) \neq 0$ garantizado
+- [ ] En sub-A/B: todos los ejercicios cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
+- [ ] En todos los ejercicios con evaluación puntual: $v(a) \neq 0$ garantizado
 - [ ] Sub-C con ecuaciones factorizables a mano; sin resolvente incómoda
 - [ ] Sub-D con datos abstractos presentados como igualdades numéricas en el enunciado
 - [ ] Explicaciones con estructura algorítmica (identificar $u,v,u',v'$ → aplicar fórmula señalando anulación → simplificar)

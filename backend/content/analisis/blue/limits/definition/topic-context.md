@@ -2,7 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `definition`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `algebraic_limits`. La carpeta fue renombrada (`blue/limits/definition/`) y los `external_id` se van a regenerar en la próxima seed (`blue_definition_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos (`LEXI`, `ESTR`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno.
 
@@ -29,13 +31,13 @@ Este doc especifica el alcance nuevo, las reglas duras de restricción y la dist
 
 Si una sustitución directa produce $\tfrac{0}{0}$, el ejercicio **termina** indicando que es una **indeterminación** o un "estado de pausa" que requiere una técnica que aún no se estudió. Nunca se pide resolverla en este tópico.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems (misma línea que los otros topic-contexts):
+Reglas de authoring que se aplican al escribir los 100 ejercicios (misma línea que los otros topic-contexts):
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`. KaTeX agrega su propio margen.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto, (b) aplicación paso a paso al caso (usar `\begin{aligned}` para desarrollos), (c) cierre útil o advertencia técnica en voz neutra. Sin viñetas `•`, sin sub-`-`, sin em-dash `—`, sin humor ni antropomorfismos.
@@ -46,21 +48,21 @@ Reglas de authoring que se aplican al escribir los 100 ítems (misma línea que 
 
 ---
 
-## `feedback_incorrect` en los 100 ítems
+## `feedback_incorrect` en los 100 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **límite**. Naturaleza de la aproximación, distinción entre $L$ y $f(a)$, diagnóstico de $\tfrac{0}{0}$ vs. tendencia infinita, condiciones para poder sustituir directo.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem. Fuerza la lectura profunda y evita el descarte automático. Nada de rellenar con una cuarta opción implausible.
+**Exactamente 3 opciones** por ejercicio. Fuerza la lectura profunda y evita el descarte automático. Nada de rellenar con una cuarta opción implausible.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -97,15 +99,15 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la función es continua en el punto, y aplicar las **propiedades de linealidad** del operador límite (suma, resta, escalar, producto, cociente sin división por cero).
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem. Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**) para disparar la grilla 2×2 en el frontend.
+**Exactamente 4 opciones** por ejercicio. Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**) para disparar la grilla 2×2 en el frontend.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -128,29 +130,29 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 ### Reglas específicas
 - **Resultado numérico o expresión simplificada final** en las opciones; nunca dejar la expresión sin evaluar cuando la evaluación es legal.
 - **Explicaciones con `\begin{aligned}`** para el desarrollo paso a paso (una línea por paso, `&=` alineado).
-- Si el ítem incluye una tendencia con $\tfrac{0}{0}$ como distractor conceptual, dejarlo como "indeterminación" en la opción, no como valor numérico ni como forma simplificada.
+- Si el ejercicio incluye una tendencia con $\tfrac{0}{0}$ como distractor conceptual, dejarlo como "indeterminación" en la opción, no como valor numérico ni como forma simplificada.
 - **Decimales con coma** (`4,3`).
-- **Concepto abstracto justifica el mecanismo**, no solo nombra la propiedad (regla crítica 25): cuando el ítem usa una propiedad de linealidad (suma, producto, cociente), explicar brevemente por qué la propiedad es válida bajo esa hipótesis, no solo aplicarla mecánicamente.
+- **Concepto abstracto justifica el mecanismo**, no solo nombra la propiedad (regla crítica 25): cuando el ejercicio usa una propiedad de linealidad (suma, producto, cociente), explicar brevemente por qué la propiedad es válida bajo esa hipótesis, no solo aplicarla mecánicamente.
 
 ---
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Corrección puntual del usuario sobre los ítems de prueba de este topic (`correciones_analisis_limites_definicion_1.md`), aplicar al regenerar:
+Corrección puntual del usuario sobre los ejercicios de prueba de este topic (`correciones_analisis_limites_definicion_1.md`), aplicar al regenerar:
 
 - **Espaciado desparejo entre renglones de un `\begin{aligned}`**: renglones con distinta altura (ej. uno con $\lim_{x\to a}$, los siguientes con aritmética simple) quedaban con distinto espacio vertical entre sí. **Ya corregido a nivel global** en `web/src/components/math-text.tsx` (strut `\vphantom` fijo al inicio de cada renglón), no requiere ningún cambio de contenido.
-- **RESL, fórmula del enunciado tejida junto al texto en vez de centrada y sola**: en ítems que dan dos datos (ej. "$\lim f(x)=6$ y $\lim g(x)=0$, ¿qué puede afirmarse de $\lim \tfrac{f(x)}{g(x)}$?") y en ítems con la fórmula a calcular pegada a la consigna ("calculá: $\lim [f(x)\cdot g(x)]$"), conviene separar la fórmula central en su propio bloque `$$...$$` y dejar el texto acompañándola en oraciones propias. Esto ya es la regla crítica 18 de `authoring-context.md`, extenderla explícitamente a este patrón de RESL (dato + fórmula a evaluar), no solo a funciones puntuales tipo `f(x) = ...`.
-- **LEXI, opción correcta demasiado larga**: en 2 ítems la opción correcta quedó mucho más extensa que las demás, y en uno de ellos agregaba información extra después de una coma que no aportaba a la distinción (regla crítica 4, ya documentada, remarcar acá porque reapareció).
-- **LEXI, ítem sin contexto de límites**: uno de los ítems de la sub-familia C (contraste $\tfrac00$ vs. $\tfrac0k$) no mencionaba en ningún lugar del enunciado que se estuviera hablando de límites, quedando ambiguo fuera de contexto. Al regenerar, cada ítem tiene que dejar explícito desde la primera oración que se está evaluando un límite (mención a $\lim$ o a "tendencia"), no asumirlo solo por estar en esta carpeta.
+- **RESL, fórmula del enunciado tejida junto al texto en vez de centrada y sola**: en ejercicios que dan dos datos (ej. "$\lim f(x)=6$ y $\lim g(x)=0$, ¿qué puede afirmarse de $\lim \tfrac{f(x)}{g(x)}$?") y en ejercicios con la fórmula a calcular pegada a la consigna ("calculá: $\lim [f(x)\cdot g(x)]$"), conviene separar la fórmula central en su propio bloque `$$...$$` y dejar el texto acompañándola en oraciones propias. Esto ya es la regla crítica 18 de `authoring-context.md`, extenderla explícitamente a este patrón de RESL (dato + fórmula a evaluar), no solo a funciones puntuales tipo `f(x) = ...`.
+- **LEXI, opción correcta demasiado larga**: en 2 ejercicios la opción correcta quedó mucho más extensa que las demás, y en uno de ellos agregaba información extra después de una coma que no aportaba a la distinción (regla crítica 4, ya documentada, remarcar acá porque reapareció).
+- **LEXI, ejercicio sin contexto de límites**: uno de los ejercicios de la sub-familia C (contraste $\tfrac00$ vs. $\tfrac0k$) no mencionaba en ningún lugar del enunciado que se estuviera hablando de límites, quedando ambiguo fuera de contexto. Al regenerar, cada ejercicio tiene que dejar explícito desde la primera oración que se está evaluando un límite (mención a $\lim$ o a "tendencia"), no asumirlo solo por estar en esta carpeta.
 
-Todo lo anterior se aplica en el próximo round de generación de este topic (no se reescriben los 15 ítems de prueba actuales en esta pasada).
+Todo lo anterior se aplica en el próximo round de generación de este topic (no se reescriben los 15 ejercicios de prueba actuales en esta pasada).
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de factorización, racionalización, L'Hôpital, límites laterales formales, límites al infinito, ni derivadas
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash, humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -161,17 +163,17 @@ Todo lo anterior se aplica en el próximo round de generación de este topic (no
 - [ ] Bloques `\begin{aligned}` con espaciado uniforme entre renglones (fix de `math-text.tsx` ya aplicado a nivel de frontend, no requiere nada especial en el contenido)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C/D respetada (**20/12/9/9**, ronda 2: más peso a lectura de notación)
 - [ ] Negrita en primera mención de `límite`, `tendencia`, `aproximación`, `sustitución directa`, `indeterminación`, `continuidad`
-- [ ] Ningún ítem sugiere que $\tfrac{0}{0}$ se pueda resolver
+- [ ] Ningún ejercicio sugiere que $\tfrac{0}{0}$ se pueda resolver
 - [ ] Sub-familia A (`lectura-notacion`) aísla la identificación de partes de la fórmula ($x$, $a$, $f(x)$, $L$, la flecha) de la intuición de tendencia, que vive en el resto de las sub-familias
-- [ ] Cada ítem deja explícito desde el enunciado que se está hablando de un límite (mención a $\lim$ o "tendencia"), ninguno queda ambiguo fuera de contexto
-- [ ] Ningún ítem se enmarca respecto de otro de la sesión (regla crítica 24); la apertura de cada ítem varía su redacción, no repite la misma frase en toda una sub-familia
+- [ ] Cada ejercicio deja explícito desde el enunciado que se está hablando de un límite (mención a $\lim$ o "tendencia"), ninguno queda ambiguo fuera de contexto
+- [ ] Ningún ejercicio se enmarca respecto de otro de la sesión (regla crítica 24); la apertura de cada ejercicio varía su redacción, no repite la misma frase en toda una sub-familia
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Ninguna sustitución ilegal en la respuesta correcta (denominador $\to 0$ o argumento fuera de dominio)
-- [ ] Ítems de propiedades (C, D) dan los valores de $\lim f$ y $\lim g$ en el enunciado, sin pedir calcularlos aparte
+- [ ] Ejercicios de propiedades (C, D) dan los valores de $\lim f$ y $\lim g$ en el enunciado, sin pedir calcularlos aparte
 - [ ] Fórmula a evaluar/calcular separada del texto en su propio bloque `$$...$$` centrado (regla crítica 18), incluso cuando el enunciado da datos previos (ej. "$\lim f=6$ y $\lim g=0$" en una oración, la fórmula a calcular en su propio bloque)

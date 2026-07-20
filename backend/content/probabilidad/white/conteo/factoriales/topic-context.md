@@ -4,13 +4,15 @@ Belt: `white`, Unit: `conteo`, Topic: `factoriales`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: el **factorial** $n! = n \times (n-1) \times \cdots \times 1$, con la convención $0! = 1$, y la relación recursiva $n! = n \cdot (n-1)!$. Es la operación sobre la que se construyen `permutaciones`, `variaciones` y `combinaciones`; acá se trabaja aislada, sin todavía nombrar esas técnicas.
 
-**Frontera con el resto de la unidad:** ningún ítem plantea un problema de conteo con contexto (personas, objetos a ordenar/elegir); son manipulaciones y evaluaciones directas de la expresión $n!$ y de cocientes/combinaciones simples entre factoriales. El contexto narrativo (podios, comités) empieza recién en `permutaciones`.
+**Frontera con el resto de la unidad:** ningún ejercicio plantea un problema de conteo con contexto (personas, objetos a ordenar/elegir); son manipulaciones y evaluaciones directas de la expresión $n!$ y de cocientes/combinaciones simples entre factoriales. El contexto narrativo (podios, comités) empieza recién en `permutaciones`.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Identificar o armar la **expresión** equivalente (no calcular el valor numérico).
 
@@ -27,7 +29,7 @@ Identificar o armar la **expresión** equivalente (no calcular el valor numéric
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **valor numérico**.
 
@@ -62,14 +64,14 @@ Calcular el **valor numérico**.
 
 ## Reglas específicas del topic
 
-- **Sin contexto narrativo**: los ítems son manipulación/evaluación directa de expresiones con factorial, no problemas de conteo con personas u objetos. El contexto llega en `permutaciones`.
+- **Sin contexto narrativo**: los ejercicios son manipulación/evaluación directa de expresiones con factorial, no problemas de conteo con personas u objetos. El contexto llega en `permutaciones`.
 - **$n$ acotado**: usar $n \leq 8$ en factoriales completos para que el resultado no sea un número gigante que se descarta a ojo (ratio de magnitud entre opciones, regla crítica de `authoring-context.md`).
-- **Reintroducir la definición** (regla crítica 31): cada ítem que usa $n!$ reintroduce brevemente qué es (aunque sea en una subordinada corta), no asume que el alumno la vio en otro ítem de la sesión.
+- **Reintroducir la definición** (regla crítica 31): cada ejercicio que usa $n!$ reintroduce brevemente qué es (aunque sea en una subordinada corta), no asume que el alumno la vio en otro ejercicio de la sesión.
 
 ## Checklist del topic
 
-- [ ] Ningún ítem tiene contexto narrativo de personas/objetos a ordenar o elegir
+- [ ] Ningún ejercicio tiene contexto narrativo de personas/objetos a ordenar o elegir
 - [ ] $n \leq 8$ en factoriales completos, sin excepción
-- [ ] $0!$ tratado como $1$ en todos los ítems que lo usan
+- [ ] $0!$ tratado como $1$ en todos los ejercicios que lo usan
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad numérica → 4 opciones ≤35 caracteres

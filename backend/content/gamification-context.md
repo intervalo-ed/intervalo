@@ -20,7 +20,7 @@ intrínseco:
   detrás no significa nada. Si el ejercicio es trivial, CD2 se vacía aunque la animación
   sea espectacular.
 - **CD8, Loss & Avoidance** (segundo motor): la premisa del SRS entero es "repasar
-  antes de olvidar". Presente en el contador de pendientes, los ítems vencidos, el
+  antes de olvidar". Presente en el contador de pendientes, los ejercicios vencidos, el
   reintento-con-menos-XP. Black Hat voluntario y saludable (como ir al gym).
 - **CD3, Empowerment of Creativity & Feedback** (el más débil y el más importante para
   esta iteración): ver sección dedicada más abajo.
@@ -29,7 +29,7 @@ intrínseco:
   enunciados son su puerta de entrada dentro del ejercicio.
 - **CD6, Scarcity**: el "no hay repaso hoy" es un *appointment dynamic* sano del SRS
   diario.
-- **CD7, Unpredictability**: qué ítem toca en la sesión es impredecible, pero la UI no
+- **CD7, Unpredictability**: qué ejercicio toca en la sesión es impredecible, pero la UI no
   lo comunica todavía.
 
 ---
@@ -86,7 +86,7 @@ respuesta: numérica corta → 4, conceptual/textual → 3, binario → excepcio
 | `RESL` | Sistema 2 deliberado: cálculo puro o con contexto cotidiano | 4 (errores de procedimiento genuinos) |
 
 El binario (2 opciones) se reserva para criterios genuinamente sí/no sin tercera
-confusión plausible, y no debe superar ~3 ítems por archivo de 50: en masa vuelve la
+confusión plausible, y no debe superar ~3 ejercicios por archivo de 50: en masa vuelve la
 sesión un juego de moneda.
 
 **Grilla compacta 2×2**: cuando las 4 opciones son valores numéricos o expresiones

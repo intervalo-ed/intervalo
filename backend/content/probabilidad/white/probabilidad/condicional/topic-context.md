@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `condicional`
 
 Skills en este topic: `ESTR`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `ESTR`, `FORM`, `RESL`.
+
 Concepto: la **probabilidad condicional** $P(A \mid B) = \dfrac{P(A \cap B)}{P(B)}$, $P(B) > 0$, restringe el espacio muestral efectivo al evento $B$ que ya se sabe que ocurrió.
 
 **Frontera con el resto de la unidad:** todavía no se nombra "independencia" (eso viene después, aunque conceptualmente esté a un paso: $P(A|B)=P(A)$ es el caso particular). No se usa total ni Bayes (que reutilizan esta fórmula pero con la incógnita despejada al revés).
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 Elegir la **estrategia**, sin calcular.
 
@@ -25,7 +27,7 @@ Elegir la **estrategia**, sin calcular.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -38,7 +40,7 @@ Elegir la **estrategia**, sin calcular.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -68,14 +70,14 @@ Elegir la **estrategia**, sin calcular.
 
 ## Reglas específicas del topic
 
-- **Reintroducir la fórmula** (regla crítica 31) en cada ítem que la usa, sea o no la pregunta directa.
+- **Reintroducir la fórmula** (regla crítica 31) en cada ejercicio que la usa, sea o no la pregunta directa.
 - **Conteo directo con espacio muestral chico**: dados (1-6), monedas, cartas de un mazo reducido; el evento $B$ siempre se puede enumerar explícitamente para que el alumno vea la restricción del espacio ("de los resultados donde salió par, ¿cuáles además son ≥4?").
 - **No nombrar "independencia" ni usar la igualdad $P(A|B)=P(A)$** en este topic; ese caso se reserva para el topic `independencia`.
 
 ## Checklist del topic
 
-- [ ] Cada ítem reintroduce la fórmula $P(A\mid B) = P(A\cap B)/P(B)$
-- [ ] Ningún ítem usa la palabra "independiente" ni el caso $P(A|B)=P(A)$
-- [ ] Los ítems de conteo directo restringen explícitamente el espacio a los casos donde ocurrió la condición
+- [ ] Cada ejercicio reintroduce la fórmula $P(A\mid B) = P(A\cap B)/P(B)$
+- [ ] Ningún ejercicio usa la palabra "independiente" ni el caso $P(A|B)=P(A)$
+- [ ] Los ejercicios de conteo directo restringen explícitamente el espacio a los casos donde ocurrió la condición
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: ESTR/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

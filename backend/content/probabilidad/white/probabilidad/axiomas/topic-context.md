@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `axiomas`
 
 Skills en este topic: `LEXI`, `ESTR`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `ESTR`, `RESL`.
+
 Concepto: los **axiomas de Kolmogorov** ($P(A) \geq 0$; $P(\Omega) = 1$; $P(A \cup B) = P(A) + P(B)$ si $A \cap B = \emptyset$) y las propiedades **derivadas**: $P(\emptyset) = 0$, $P(A^c) = 1 - P(A)$, la regla general de la unión $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (para eventos no necesariamente excluyentes), monotonía ($A \subseteq B \Rightarrow P(A) \leq P(B)$) y acotación $0 \leq P(A) \leq 1$.
 
 **Frontera con el resto de la unidad:** primer topic donde aparece un número de probabilidad. No usa todavía `laplace` (conteo de casos favorables/posibles), `condicional` ni `independencia`; los valores de $P(A)$, $P(B)$, $P(A \cap B)$ siempre vienen dados en el enunciado, nunca se calculan por conteo.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -25,7 +27,7 @@ Concepto: los **axiomas de Kolmogorov** ($P(A) \geq 0$; $P(\Omega) = 1$; $P(A \c
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 Elegir **qué propiedad conviene aplicar**, sin calcular.
 
@@ -41,7 +43,7 @@ Elegir **qué propiedad conviene aplicar**, sin calcular.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -79,7 +81,7 @@ Elegir **qué propiedad conviene aplicar**, sin calcular.
 ## Checklist del topic
 
 - [ ] Ningún valor de probabilidad se calcula por conteo (siempre viene dado en el enunciado)
-- [ ] Ningún ítem usa condicional, independencia o Laplace para justificar el resultado
-- [ ] Los ítems de "unión general" especifican que los eventos NO son mutuamente excluyentes (o dan $P(A\cap B) \neq 0$)
+- [ ] Ningún ejercicio usa condicional, independencia o Laplace para justificar el resultado
+- [ ] Los ejercicios de "unión general" especifican que los eventos NO son mutuamente excluyentes (o dan $P(A\cap B) \neq 0$)
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: LEXI/ESTR conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

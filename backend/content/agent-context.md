@@ -14,7 +14,7 @@ El pipeline es:
 3. La Gem devuelve `SKILL.json` + `SKILL_decisions.md`.
 4. El usuario audita, seedea, y prueba en la app.
 
-El `topic-context.md` es lo único que cambia entre topics. Sus errores de diseño se pagan caro porque la Gem no los detecta, los replica ítem por ítem.
+El `topic-context.md` es lo único que cambia entre topics. Sus errores de diseño se pagan caro porque la Gem no los detecta, los replica ejercicio por ejercicio.
 
 ---
 
@@ -37,16 +37,16 @@ Estos ya están cubiertos por `authoring-context.md` y `generation-instructions.
 
 ### 1. Rellena buckets vagos con contenido de otros buckets
 
-Si el `topic-context.md` incluye un bucket llamado "contexto general" u "otros", la Gem va a llenar ese cupo con ítems de otros conceptos ya cubiertos, disfrazándolos ligeramente. En LEXI/definition, "contexto general (6 ítems)" terminó siendo 4 items de imagen puntual + 2 de preimagen puntual.
+Si el `topic-context.md` incluye un bucket llamado "contexto general" u "otros", la Gem va a llenar ese cupo con ejercicios de otros conceptos ya cubiertos, disfrazándolos ligeramente. En LEXI/definition, "contexto general (6 ejercicios)" terminó siendo 4 ejercicios de imagen puntual + 2 de preimagen puntual.
 
 **Cómo prevenirlo:**
 - **Nunca dejar un bucket vago.** Todo cupo debe tener una definición clara y ejemplos.
 - Si necesitás capturar variantes del mismo concepto (ej. "imagen como conjunto" vs. "imagen puntual"), **usá sub-tipos explícitos con cantidad exacta** en vez de un bucket "otros".
-- Si un concepto no aporta ítems distintos, **no lo agregues al cupo**, mejor 44 ítems bien definidos que 50 con 6 rellenos.
+- Si un concepto no aporta ejercicios distintos, **no lo agregues al cupo**, mejor 44 ejercicios bien definidos que 50 con 6 rellenos.
 
 ### 2. Sobre-representa el concepto más fácil de escribir
 
-Sin cupos estrictos, la Gem sobre-representa el concepto con más contextos cotidianos disponibles. En LEXI/definition fue "unicidad" (10 ítems vs. target 4-5 en las primeras iteraciones) porque "una entrada con dos salidas" admite infinitas variantes (asientos, casilleros, descuentos, etc.).
+Sin cupos estrictos, la Gem sobre-representa el concepto con más contextos cotidianos disponibles. En LEXI/definition fue "unicidad" (10 ejercicios vs. target 4-5 en las primeras iteraciones) porque "una entrada con dos salidas" admite infinitas variantes (asientos, casilleros, descuentos, etc.).
 
 **Cómo prevenirlo:**
 - Cupos con número **exacto**, no rangos ("4", no "4-5").
@@ -64,10 +64,10 @@ Si pedís "cajero automático con dos saldos", la Gem lo sustituye por "supermer
 
 ### 4. Ignora "1-2" o "al menos" en cantidades
 
-"Incluir al menos 1-2 ítems que…" fue interpretado como "opcional". La Gem no lo generó nunca.
+"Incluir al menos 1-2 ejercicios que…" fue interpretado como "opcional". La Gem no lo generó nunca.
 
 **Cómo prevenirlo:**
-- Nunca usar "al menos", "idealmente", "sería bueno". Solo "exactamente N ítems".
+- Nunca usar "al menos", "idealmente", "sería bueno". Solo "exactamente N ejercicios".
 - Todo cupo secundario también debe tener número exacto.
 
 ### 5. Comprime `explanation` cuando se compacta `question`
@@ -79,42 +79,42 @@ Reglas de compresión aplicadas a `question` (60 palabras, sin adjetivos decorat
 
 ### 6. Salta negrita de concepto cuando la pregunta es corta
 
-Si la question del ítem es corta y termina en "¿cuál es el dominio?", la Gem tiende a olvidar la negrita en `**dominio**`.
+Si la question del ejercicio es corta y termina en "¿cuál es el dominio?", la Gem tiende a olvidar la negrita en `**dominio**`.
 
 **Cómo prevenirlo:**
-- Cubierto en `generation-instructions.md`. Si aparece de nuevo, reforzar el bullet del self-critique con "verificá ítem por ítem, incluso si la palabra aparece dentro de una pregunta corta".
+- Cubierto en `generation-instructions.md`. Si aparece de nuevo, reforzar el bullet del self-critique con "verificá ejercicio por ejercicio, incluso si la palabra aparece dentro de una pregunta corta".
 - Adicionalmente en `explanation`: la Gem tiende a olvidar la negrita en la **primera oración** de la explicación ("El dominio es el conjunto de entradas…" sin `**dominio**`). Es el caso más frecuente de regresión, incluso cuando en `question` sí se cumple. Hay un bullet dedicado en el self-critique de `generation-instructions.md` para esto.
 
-### 7. Baja calidad de redacción en ítems generados desde cero (vs. refactorizados)
+### 7. Baja calidad de redacción en ejercicios generados desde cero (vs. refactorizados)
 
-Cuando la Gem hace un refactor con reemplazos parciales (ej. agregar 4 ítems nuevos a un JSON existente de 46), los ítems compuestos desde cero tienen redacción más artificial que los mantenidos. Observado en iter 4:
+Cuando la Gem hace un refactor con reemplazos parciales (ej. agregar 4 ejercicios nuevos a un JSON existente de 46), los ejercicios compuestos desde cero tienen redacción más artificial que los mantenidos. Observado en iter 4:
 
 - "Una regla transforma **abstractamente y sin demora** cada ingreso numérico"
 - "La regla matemática **milenaria** determina un **gran volumen** de cubo"
 - "Una **inflexible** tarifa telefónica **local** calcula cobros **a medida guiándose libre de** los minutos"
 
-Los ítems mantenidos heredan la calidad del original. Los nuevos degradan.
+Los ejercicios mantenidos heredan la calidad del original. Los nuevos degradan.
 
 **Cómo prevenirlo:**
-- Cuando el batch nuevo es grande (5+ ítems), pedirlo como generación limpia separada, no como refactor incremental.
-- Para batches chicos (1-4 nuevos), hacer una segunda pasada solo sobre los ítems marcados como "nuevo" en el `.md`, pedir "revisá los ítems 47-50 y corregí adjetivos decorativos y construcciones forzadas".
+- Cuando el batch nuevo es grande (5+ ejercicios), pedirlo como generación limpia separada, no como refactor incremental.
+- Para batches chicos (1-4 nuevos), hacer una segunda pasada solo sobre los ejercicios marcados como "nuevo" en el `.md`, pedir "revisá los ejercicios 47-50 y corregí adjetivos decorativos y construcciones forzadas".
 
 ### 8. Colapso del `.md` de decisiones en modo refactor
 
 Sin regla explícita, la Gem interpreta que en un refactor solo necesita detallar los cambios. En iter 4 entregó:
 
 ```
-## Ítem 1 a 50
+## Ejercicio 1 a 50
 Se siguieron las reglas de distribución y formato...
-* Ítem 13: cajero, implementado.
-* Ítem 47: nuevo (restaurante).
-* Ítem 48-50: nuevos.
+* Ejercicio 13: cajero, implementado.
+* Ejercicio 47: nuevo (restaurante).
+* Ejercicio 48-50: nuevos.
 ```
 
-Y perdimos la auditabilidad por ítem que era el motivo principal del archivo.
+Y perdimos la auditabilidad por ejercicio que era el motivo principal del archivo.
 
 **Cómo prevenirlo:**
-- Cubierto en `generation-instructions.md` Constraint 12: "el `.md` se genera completo con los N ítems del target, no como resumen. Los ítems no modificados llevan la nota `, sin cambios respecto de iter N`".
+- Cubierto en `generation-instructions.md` Constraint 12: "el `.md` se genera completo con los N ejercicios del target, no como resumen. Los ejercicios no modificados llevan la nota `, sin cambios respecto de iter N`".
 
 ### 9. La lista veto de adjetivos siempre queda corta
 
@@ -128,26 +128,26 @@ Cada iteración descubre sinónimos nuevos: iter 3 → "artesanal", "electrónic
 
 Con exactamente el mismo `.md` de instrucciones, la Gem web y AI Studio dan outputs distintos:
 
-- **Gem web** aplica reglas a todo el output, incluso a ítems no modificados. Bien para respetar `generation-instructions.md` completo. Mal para calidad de redacción de ítems nuevos (introduce adjetivos raros como "milenaria", "inflexible", "abstractamente").
-- **AI Studio** interpreta "refactor" más literal: conserva la estructura histórica de los ítems no modificados (cardinalidad 4, sin negrita si no la tenía) y solo aplica reglas a los ítems que reemplaza. Bien para calidad de redacción de ítems nuevos (contextos concretos, sin adjetivos raros). Mal para aplicar reglas globales (iter 5 dejó 45/50 con cardinalidad 4 cuando la regla es 2-3).
+- **Gem web** aplica reglas a todo el output, incluso a ejercicios no modificados. Bien para respetar `generation-instructions.md` completo. Mal para calidad de redacción de ejercicios nuevos (introduce adjetivos raros como "milenaria", "inflexible", "abstractamente").
+- **AI Studio** interpreta "refactor" más literal: conserva la estructura histórica de los ejercicios no modificados (cardinalidad 4, sin negrita si no la tenía) y solo aplica reglas a los ejercicios que reemplaza. Bien para calidad de redacción de ejercicios nuevos (contextos concretos, sin adjetivos raros). Mal para aplicar reglas globales (iter 5 dejó 45/50 con cardinalidad 4 cuando la regla es 2-3).
 
 **Cómo prevenirlo:**
-- El `generation-instructions.md` ahora tiene un párrafo dedicado en Paso 1: "en modo refactor aplicás TODAS las reglas actuales a TODOS los ítems, no solo a los que decidís reemplazar". Esto es para forzar el comportamiento de la Gem web en AI Studio.
-- Alternativa: dividir el trabajo en dos pasadas cuando la calidad importa más que la eficiencia, (a) regenerar los ítems mantenidos aplicando reglas nuevas (usar Gem web); (b) agregar los nuevos con redacción limpia (usar AI Studio).
+- El `generation-instructions.md` ahora tiene un párrafo dedicado en Paso 1: "en modo refactor aplicás TODAS las reglas actuales a TODOS los ejercicios, no solo a los que decidís reemplazar". Esto es para forzar el comportamiento de la Gem web en AI Studio.
+- Alternativa: dividir el trabajo en dos pasadas cuando la calidad importa más que la eficiencia, (a) regenerar los ejercicios mantenidos aplicando reglas nuevas (usar Gem web); (b) agregar los nuevos con redacción limpia (usar AI Studio).
 - **La calidad de la redacción es intrínseca al generador; las reglas mecánicas son intrínsecas al prompt.** No confundir las dos.
 
 ### 11. La regla de negrita en `explanation` es la más regresada de todas
 
-3 iteraciones seguidas fallaron (iter 3: 8; iter 4: 15; iter 5: 22, está empeorando). Los refuerzos verbales del checklist ("verificá ítem por ítem") no bastan.
+3 iteraciones seguidas fallaron (iter 3: 8; iter 4: 15; iter 5: 22, está empeorando). Los refuerzos verbales del checklist ("verificá ejercicio por ejercicio") no bastan.
 
 **Cómo prevenirlo:**
-- Convertir la verificación en **pasada mecánica final** en el self-critique. Formulación en `generation-instructions.md`: "para cada uno de los 50 ítems, buscá en la `explanation` la primera aparición literal de `dominio`/`imagen`/`codominio`/`preimagen`/`unicidad`; si no está envuelta en `**...**`, envolvela ahora". Trabajarlo como find & replace masivo, no como criterio estético.
+- Convertir la verificación en **pasada mecánica final** en el self-critique. Formulación en `generation-instructions.md`: "para cada uno de los 50 ejercicios, buscá en la `explanation` la primera aparición literal de `dominio`/`imagen`/`codominio`/`preimagen`/`unicidad`; si no está envuelta en `**...**`, envolvela ahora". Trabajarlo como find & replace masivo, no como criterio estético.
 - La pasada mecánica funcionó: iter 6 bajó a 3 casos (contra 22 de iter 5).
-- Si la regla sigue regresando, la próxima escalada es correr el script de audit y devolverle el output a la Gem con "estos son los ítems que faltaron, corregilos y reenviá".
+- Si la regla sigue regresando, la próxima escalada es correr el script de audit y devolverle el output a la Gem con "estos son los ejercicios que faltaron, corregilos y reenviá".
 
 ### 12. Sesgo de `correct_index` hacia la posición 0
 
-En iter 6 los 50/50 ítems tenían `correct_index: 0`. No lo habíamos detectado antes porque el frontend randomiza las opciones al render, así que el sesgo era invisible para el alumno pero real en el JSON. Es un problema de diseño de dataset (auditorías estadísticas, exportación a otras plataformas) más que de experiencia.
+En iter 6 los 50/50 ejercicios tenían `correct_index: 0`. No lo habíamos detectado antes porque el frontend randomiza las opciones al render, así que el sesgo era invisible para el alumno pero real en el JSON. Es un problema de diseño de dataset (auditorías estadísticas, exportación a otras plataformas) más que de experiencia.
 
 **Cómo prevenirlo:**
 - Constraint 14 explícita en `generation-instructions.md`: "distribuí `correct_index` entre 0, 1 y 2 de forma aproximadamente uniforme".
@@ -164,22 +164,22 @@ Regresión iter 7: ~24 casos de `feedback_incorrect` arrancando con "Confunde X 
 - Bullet mecánico en el self-critique: escanear cada `feedback_incorrect[i]` contra la lista prohibida y reescribir.
 - Voces permitidas: (a) descriptiva del concepto ("Ese es el codominio, no la imagen…"); (b) segunda persona amable con tuteo ("Hay otra solución además del 5…").
 
-### 14. Cardinalidad binaria abusiva en items conceptuales o numéricos
+### 14. Cardinalidad binaria abusiva en ejercicios conceptuales o numéricos
 
-Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada de correcciones): 22 de 50 ítems quedaron con 2 opciones (binario). Aun cuando cada binario era técnicamente válido (dos confusiones plausibles), el **conjunto** resultaba demasiado fácil: el alumno no debe poder tirar una moneda 22 veces. Además, los ítems numéricos con 2 opciones desperdiciaban espacio: en el frontend hay una grilla 2×2 disponible cuando `length === 4 && all(o.length <= 35)`.
+Regresión detectada en iter 7 (LEXI/definition, después de la primera pasada de correcciones): 22 de 50 ejercicios quedaron con 2 opciones (binario). Aun cuando cada binario era técnicamente válido (dos confusiones plausibles), el **conjunto** resultaba demasiado fácil: el alumno no debe poder tirar una moneda 22 veces. Además, los ejercicios numéricos con 2 opciones desperdiciaban espacio: en el frontend hay una grilla 2×2 disponible cuando `length === 4 && all(o.length <= 35)`.
 
 **Cómo prevenirlo:**
 - Regla operativa en `authoring-context.md` sección *Cardinalidad de opciones por skill* (rehecha): la cardinalidad depende del **tipo de respuesta**, no del skill.
   - Respuesta numérica corta → 4 opciones (triggea grilla 2×2 en frontend).
   - Respuesta conceptual/textual → 3 opciones.
-  - Binario → excepcional (≤ 3 ítems en un archivo de 50).
+  - Binario → excepcional (≤ 3 ejercicios en un archivo de 50).
 - Constraint 20 en `generation-instructions.md` explícito.
 - Bullet mecánico en el self-critique: contar la distribución y rebalancear.
 - **Referencia frontend**: `web/src/app/(app)/session/[sessionId]/session-runner.tsx` líneas 293-295 (heurística de grilla).
 
 ### 15. Distractores numéricos con magnitud descartable por gut-check
 
-Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distractor "canónico" para preimagen es `$f(y)$` en vez de `$f^{-1}(y)$` (confundir despejar con evaluar). Formalmente es una confusión clásica documentada. En la práctica, si `$f(y)$` da un número muy distinto en magnitud a la correcta (ej. correcta $5$, distractor $185$; correcta $\pm 5$, distractor $625$), el alumno descarta el distractor a ojo sin razonar. El error no se diagnostica: solo se filtra por tamaño.
+Regresión detectada en iter 7 (ejercicios 45 y 48 de LEXI/definition): el distractor "canónico" para preimagen es `$f(y)$` en vez de `$f^{-1}(y)$` (confundir despejar con evaluar). Formalmente es una confusión clásica documentada. En la práctica, si `$f(y)$` da un número muy distinto en magnitud a la correcta (ej. correcta $5$, distractor $185$; correcta $\pm 5$, distractor $625$), el alumno descarta el distractor a ojo sin razonar. El error no se diagnostica: solo se filtra por tamaño.
 
 **Cómo prevenirlo:**
 - Regla explícita en `authoring-context.md` sección *Distractores del mismo orden de magnitud*: ratio máximo aceptable ~3-5× entre correcta y distractor numérico.
@@ -190,11 +190,11 @@ Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distracto
 
 ### 16. El cierre de la explicación es advertencia/consejo, no humor obligatorio (revisado jul-2026)
 
-**Historia:** en iter 6 aparecieron frases como "la raíz cuadrada detesta a los negativos" o "la regla se cansa de emitir respuestas rotativas" dentro del cuerpo de la explanation, no solo en el cierre. Se cerró con Constraint 25 confinando el humor al cierre. Pero eso dejó el problema mayor: **el humor era obligatorio en cada ítem**, y con 50 explicaciones rematando siempre con un chiste el remate se vuelve fórmula y compite con la advertencia útil por el último renglón (el que más se recuerda).
+**Historia:** en iter 6 aparecieron frases como "la raíz cuadrada detesta a los negativos" o "la regla se cansa de emitir respuestas rotativas" dentro del cuerpo de la explanation, no solo en el cierre. Se cerró con Constraint 25 confinando el humor al cierre. Pero eso dejó el problema mayor: **el humor era obligatorio en cada ejercicio**, y con 50 explicaciones rematando siempre con un chiste el remate se vuelve fórmula y compite con la advertencia útil por el último renglón (el que más se recuerda).
 
 **Decisión jul-2026 (transversal a todo el curso):**
 - El cierre (tercera parte) pasa a ser por defecto una **advertencia de la confusión típica o un consejo práctico**, en voz neutra, y **solo cuando aporta** (si no, la explicación cierra en la aplicación).
-- El humor pasa a ser **excepcional** (minoría de ítems) y solo como **analogía cotidiana exagerada** (consecuencia práctica o escena burocrática absurda) en tono formal. Sub-estilo preferido por el usuario: la escena burocrática/consecuencia práctica absurda.
+- El humor pasa a ser **excepcional** (minoría de ejercicios) y solo como **analogía cotidiana exagerada** (consecuencia práctica o escena burocrática absurda) en tono formal. Sub-estilo preferido por el usuario: la escena burocrática/consecuencia práctica absurda.
 - Los **antropomorfismos** ("la raíz detesta…", "la regla se cansa…") quedan **prohibidos en todo el campo**, cuerpo y cierre. El chiste externo al tema también.
 
 **Dónde quedó reflejado:**
@@ -202,24 +202,24 @@ Regresión detectada en iter 7 (ítems 45 y 48 de LEXI/definition): el distracto
 - `gamification-context.md`: sección "Cierre de la explicación: advertencia por defecto, humor excepcional" (reemplaza a "Humor en el cierre… por qué").
 - `generation-instructions.md`: Constraint 25 reescrita + nota en el bloque de longitud (línea del "cierre con advertencia/consejo").
 - `topic-context.md` de definition: guía de cierre en la sección de `explanation`.
-- Ítems: se reescribieron los cierres de `definition/LEXI.json` (la mayoría a advertencia/consejo, una minoría a analogía burocrática formal). Al generar otros skills/temas, aplicar el mismo criterio.
+- Ejercicios: se reescribieron los cierres de `definition/LEXI.json` (la mayoría a advertencia/consejo, una minoría a analogía burocrática formal). Al generar otros skills/temas, aplicar el mismo criterio.
 
 ### 17. El binario "¿es función? Sí/No" en masa choca con la regla anti-binario
 
-CLSF/definition tiene ~30 ítems del tipo "¿es función?", naturalmente Sí/No. La tentación de dejarlos binarios choca de frente con la regla anti-binario (learning 14: ≤3 binarios por archivo de 50). Un archivo con 30 sí/no es un juego de moneda, aunque cada ítem sea técnicamente válido. Es la misma tensión que resolvimos en LEXI, pero acá el binario parece "más justificado" porque el criterio matemático realmente es dicotómico.
+CLSF/definition tiene ~30 ejercicios del tipo "¿es función?", naturalmente Sí/No. La tentación de dejarlos binarios choca de frente con la regla anti-binario (learning 14: ≤3 binarios por archivo de 50). Un archivo con 30 sí/no es un juego de moneda, aunque cada ejercicio sea técnicamente válido. Es la misma tensión que resolvimos en LEXI, pero acá el binario parece "más justificado" porque el criterio matemático realmente es dicotómico.
 
 **Cómo resolverlo (decidido jul-2026):**
 - Reformular cada "¿es función?" a **3 opciones que integran el porqué**: una afirmativa, una negativa con la razón correcta, y una negativa con una confusión clásica como razón falsa (típicamente inyectividad disfrazada de condición de función). El alumno deja de decidir sí/no y pasa a discriminar la razón, que es el aprendizaje real.
-- El binario legítimo queda para el caso verdaderamente sin tercera confusión (el precedente de "¿cumple unicidad?" en `authoring-context.md`), y siempre ≤ 3 ítems por archivo.
+- El binario legítimo queda para el caso verdaderamente sin tercera confusión (el precedente de "¿cumple unicidad?" en `authoring-context.md`), y siempre ≤ 3 ejercicios por archivo.
 - Reflejado en el `topic-context.md` de definition (§Cardinalidad CLSF y checklist). El criterio es transversal a cualquier topic con preguntas de verificación dicotómica (continuidad sí/no, derivable sí/no, etc.): buscá siempre la tercera opción que capture la confusión clásica antes de caer al binario.
 
-**Alcance de CLSF, redefinido jul-2026 (durante el refactor del JSON):** el `CLSF.json` que había estaba desalineado: 13 ítems de "¿es función?" + 37 de identificar dominio/imagen/preimagen, 0 de iny/sob/biy, y `correct_index` siempre 0.
+**Alcance de CLSF, redefinido jul-2026 (durante el refactor del JSON):** el `CLSF.json` que había estaba desalineado: 13 ejercicios de "¿es función?" + 37 de identificar dominio/imagen/preimagen, 0 de iny/sob/biy, y `correct_index` siempre 0.
 
-Primera decisión (luego revisada): "CLSF = solo ¿es función?". **Revisada jul-2026 por el usuario:** volver a un CLSF de **aplicación** con dos bloques —**~15 de unicidad** (solo rota disfrazada + trampa de inyectividad, los casos que enseñan) + **~35 de identificación** (calcular/distinguir dominio, dominio natural, imagen, codominio, preimagen sobre casos concretos)—. El límite con LEXI ya no es "qué concepto" sino "definir vs. calcular": **LEXI define/reconoce el término (2-3 opciones), CLSF identifica o calcula el conjunto concreto (4 opciones en identificación, 3 en unicidad).** Si un ítem se resuelve de memoria sin mirar el caso, es LEXI.
+Primera decisión (luego revisada): "CLSF = solo ¿es función?". **Revisada jul-2026 por el usuario:** volver a un CLSF de **aplicación** con dos bloques —**~15 de unicidad** (solo rota disfrazada + trampa de inyectividad, los casos que enseñan) + **~35 de identificación** (calcular/distinguir dominio, dominio natural, imagen, codominio, preimagen sobre casos concretos)—. El límite con LEXI ya no es "qué concepto" sino "definir vs. calcular": **LEXI define/reconoce el término (2-3 opciones), CLSF identifica o calcula el conjunto concreto (4 opciones en identificación, 3 en unicidad).** Si un ejercicio se resuelve de memoria sin mirar el caso, es LEXI.
 - **Iny/sobre/biyectiva sigue FUERA de white** (topic posterior con codominio trabajado). No usar la palabra "inyectividad" en options/feedback: describir el concepto ("dos entradas con la misma salida no rompe la unicidad"). En CLSF la inyectividad aparece solo como distractor en el bloque de unicidad.
 - **Bug recurrente de la Gema: `correct_index` siempre 0.** El runtime baraja, pero como fuente impide auditar pistas delatoras y balance. Constraint de checklist: variar `correct_index` y balancear Sí/No en unicidad.
-- **`feedback_incorrect` faltaba en casi todos los ítems del JSON viejo** (string vacío ""). Ahora requerido en todos, array del mismo largo que `options`, `null` en el correcto.
-- **Nombres propios se colaron** (ítem del DNI usaba "Lucía"). Reforzado en el checklist del topic.
+- **`feedback_incorrect` faltaba en casi todos los ejercicios del JSON viejo** (string vacío ""). Ahora requerido en todos, array del mismo largo que `options`, `null` en el correcto.
+- **Nombres propios se colaron** (ejercicio del DNI usaba "Lucía"). Reforzado en el checklist del topic.
 
 ---
 
@@ -236,17 +236,17 @@ Skills en este topic: `SKILL1`, `SKILL2`.
 
 ---
 
-## SKILL1, N ítems
+## SKILL1, N ejercicios
 
 ### Distribución objetivo
 
 Tabla con concepto | sub-tipo | cantidad exacta. Sumar exactamente N.
 Enfatizar "cantidades exactas, no aproximadas".
-Enfatizar "no hay bucket 'contexto general', si un ítem no encaja, descartalo".
+Enfatizar "no hay bucket 'contexto general', si un ejercicio no encaja, descartalo".
 
 ### <Concepto especial con obligatoriedad>
 
-Cupo estricto: N ítems. Enumerar textualmente los ítems obligatorios con sus contextos específicos.
+Cupo estricto: N ejercicios. Enumerar textualmente los ejercicios obligatorios con sus contextos específicos.
 "OBLIGATORIO, no negociable."
 
 ### Cardinalidad
@@ -263,7 +263,7 @@ Solo las que no están cubiertas por `authoring-context.md`. Ej: qué términos 
 
 ---
 
-## SKILL2, N ítems
+## SKILL2, N ejercicios
 
 ...
 
@@ -289,8 +289,8 @@ El `topic-context.md` es exclusivamente **qué generar** para este topic. No có
 
 ## Cómo iterar con la Gem, proceso comprobado
 
-1. **Primer batch chico de testing.** Pedirle 5 ítems primero, no 50. Auditar. Ver qué reglas ignoró.
-2. **Comparar `.md` de decisiones con conteo real.** Contar manualmente los ítems del JSON y compararlos con lo que declaró la Gem en el `.md`. Discrepancias entre plan y realidad son la fuente principal de bugs de distribución.
+1. **Primer batch chico de testing.** Pedirle 5 ejercicios primero, no 50. Auditar. Ver qué reglas ignoró.
+2. **Comparar `.md` de decisiones con conteo real.** Contar manualmente los ejercicios del JSON y compararlos con lo que declaró la Gem en el `.md`. Discrepancias entre plan y realidad son la fuente principal de bugs de distribución.
 3. **Fijar cupos exactos si sobre-representa un concepto.** Nunca dejar rangos ("4-5"), nunca dejar buckets vagos.
 4. **Enumerar textualmente contextos obligatorios.** La Gem los sustituye si son opcionales.
 5. **Cuando algo funciona, no tocarlo.** Cada regla nueva puede causar regresión en otras. Iter 3 introdujo "60 palabras" y compactó `explanation` como efecto secundario.

@@ -4,13 +4,15 @@ Belt: `white`, Unit: `conteo`, Topic: `combinaciones`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: las **combinaciones** cuentan las formas de elegir $k$ elementos de un total de $n$ cuando el orden **no** importa: $\binom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$. Cierra la unidad `conteo`: es la técnica que más se reutiliza en `white/probabilidad` (Laplace, espacios muestrales con casos favorables/posibles).
 
 **Frontera con el resto de la unidad:** si el orden de los $k$ elegidos importa, es `variaciones`, no `combinaciones`. La distinción "¿importa el orden entre los elegidos?" ya se trabajó como distractor en `variaciones`; acá se invierte el rol (la respuesta correcta es combinación, el distractor es variación).
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 Reconocer la **técnica**, sin calcular.
 
@@ -26,7 +28,7 @@ Reconocer la **técnica**, sin calcular.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Armar la **expresión**.
 
@@ -42,7 +44,7 @@ Armar la **expresión**.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -82,8 +84,8 @@ Calcular el **resultado numérico**.
 
 ## Checklist del topic
 
-- [ ] Todo ítem tiene $k < n$ estrictamente
+- [ ] Todo ejercicio tiene $k < n$ estrictamente
 - [ ] El distractor de "en realidad es variación" describe roles/posiciones distintas entre los elegidos, sin nombrar $V_{n,k}$
-- [ ] Los ítems con condición (persona fija/excluida) usan $\binom{n-1}{k-1}$ o $\binom{n-1}{k}$ correctamente según el caso
+- [ ] Los ejercicios con condición (persona fija/excluida) usan $\binom{n-1}{k-1}$ o $\binom{n-1}{k}$ correctamente según el caso
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

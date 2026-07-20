@@ -13,7 +13,7 @@ Todos los comandos se corren **desde `backend/`**.
 ## Qué es una ronda y en cuál estamos
 
 **Estamos preparando la ronda 1.** Hoy los 31 topics del curso tienen cada uno un
-único ítem dummy por skill (`SKILL.json` con un array de 1 elemento), generado como
+único ejercicio dummy por skill (`SKILL.json` con un array de 1 elemento), generado como
 placeholder al armar la estructura de carpetas y el catálogo (`course.json`). No hay
 contenido real todavía.
 
@@ -25,7 +25,7 @@ contenido real todavía.
   nuevo en esta etapa**, solo se escribieron los documentos que van a guiar la
   generación.
 - **Ronda 1 (próxima, una vez que un topic tenga su `topic-context.md` listo):**
-  generación limpia desde el ítem dummy hasta el target de la tabla de abajo,
+  generación limpia desde el ejercicio dummy hasta el target de la tabla de abajo,
   siguiendo el patrón usado en `analisis` (ver
   `generation/content-analisis-round2/0-generation-prompt.md` para el modelo
   completo del ciclo).
@@ -37,7 +37,7 @@ contenido real todavía.
 
 ## Alcance: los 31 topics
 
-| Belt / unit | Topic | Skills | Ítems/skill (ronda 1) |
+| Belt / unit | Topic | Skills | Ejercicios/skill (ronda 1) |
 |-------------|-------|--------|:---------------------:|
 | white/conteo | reglas | FORM, ESTR, RESL | 50 |
 | white/conteo | factoriales | FORM, RESL | 50 |
@@ -120,7 +120,7 @@ seguí, no la pises.
 ### 2. Escribir/confirmar el `topic-context.md` (etapa de preparación)
 
 Si el topic todavía no tiene `topic-context.md`, diseñá la taxonomía leyendo el
-`tooltip`/`short_description` del topic en `course.json` y el ítem dummy existente
+`tooltip`/`short_description` del topic en `course.json` y el ejercicio dummy existente
 como semilla de contexto (no como contenido a preservar). Seguí la estructura
 recomendada en `agent-context.md` (distribución por sub-familia con cantidad
 exacta y slug, confusiones fuente por skill, reglas específicas del topic,
@@ -131,7 +131,7 @@ paso.
 
 Seguí el "Paso 2" (planning) y "Paso 3" (generación) de
 `white/generation-instructions.md`: plan numerado en el chat antes de escribir un
-solo ítem, después generación siguiendo el plan.
+solo ejercicio, después generación siguiendo el plan.
 
 ### 4. Seedear (formato + integridad)
 
@@ -139,7 +139,7 @@ solo ítem, después generación siguiendo el plan.
 python seed_content.py --course probabilidad
 ```
 
-Tiene que correr sin errores. Debería reportar los ítems del topic como `created`
+Tiene que correr sin errores. Debería reportar los ejercicios del topic como `created`
 o `updated`.
 
 ### 5. Validar (reglas automatizables)
@@ -158,7 +158,7 @@ Por ejemplo: `python content/validate_content.py --course probabilidad --topic w
 ### 6. Checklist manual del topic
 
 Corré el checklist del final del `topic-context.md` y el self-critique de
-`white/generation-instructions.md`, ítem por ítem.
+`white/generation-instructions.md`, ejercicio por ejercicio.
 
 ### 7. Commitear (solo si 4, 5 y 6 cierran)
 
@@ -166,7 +166,7 @@ Corré el checklist del final del `topic-context.md` y el self-critique de
 feat(probabilidad/<belt>/<topic>): generar ejercicios ronda 1
 ```
 
-En el cuerpo del commit resumí: cantidad de ítems por skill, el conteo por `tags`,
+En el cuerpo del commit resumí: cantidad de ejercicios por skill, el conteo por `tags`,
 y los warnings que quedaron con su justificación.
 
 ---

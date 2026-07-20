@@ -2,9 +2,11 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `rationalization`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. `LEXI.json` y `RESL.json` ya existen con 15 ítems de prueba cada uno; el refactor a los 50 ítems de la distribución nueva se hace en otro turno.
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+**Estado.** Este tópico reemplaza a `racionalizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/rationalization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_rationalization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. `LEXI.json` y `RESL.json` ya existen con 15 ejercicios de prueba cada uno; el refactor a los 50 ejercicios de la distribución nueva se hace en otro turno.
 
 Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -28,7 +30,7 @@ Este doc especifica el alcance nuevo, las reglas duras de restricción y la dist
 
 La única técnica permitida para salvar la indeterminación $\tfrac{0}{0}$ acá es **multiplicar numerador y denominador por el conjugado** de la expresión con raíz cuadrada, aplicar la **diferencia de cuadrados**, cancelar el factor común $(x - a)$ y sustituir.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
@@ -38,7 +40,7 @@ Los ítems que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto algebraico aplicado (diagnóstico visual: veo raíz + $\tfrac{0}{0}$ → racionalizar), (b) desarrollo formal en `\begin{aligned}` (multiplicar por conjugado → diferencia de cuadrados → cancelación → sustitución), (c) cierre con la evaluación final o advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (estrictamente prohibido en todo el contenido)**, sin humor.
@@ -51,21 +53,21 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## `feedback_incorrect` en los 100 ítems
+## `feedback_incorrect` en los 100 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de diferencia de cuadrados** aplicada a raíces, y justificación algebraica de la técnica (por qué "arriba y abajo", cuándo aplicarla).
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -92,15 +94,15 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de cuadrados**, cancelar el factor común $(x - a)$ y evaluar el límite por sustitución directa.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -122,8 +124,8 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 ### Reglas específicas
 - **Cociente con $\tfrac{0}{0}$ obligatorio** en el enunciado (verificar por sustitución directa). Si no hay indeterminación, el ejercicio no pertenece a este tópico.
 - **Al menos una raíz cuadrada** en la expresión (si no hay raíz, va a `factorization`).
-- **Números que caen en cuadrados perfectos chicos, tope $c \leq 5$**: radicandos que resultan en $\sqrt{4} = 2$, $\sqrt{9} = 3$, $\sqrt{16} = 4$, $\sqrt{25} = 5$ tras sustituir. **Nunca superar $c=5$** (ej. $\sqrt{36}=6$ o $\sqrt{49}=7$ ya son demasiado grandes para el foco de mecánica simple del skill; ver hallazgos, esto afectó a 4 de los 15 ítems de prueba, no solo a uno).
-- **Nunca usar $+1$/$-1$ como desplazamiento dentro de la raíz** (ej. $\sqrt{x-1}-2$). Ese desplazamiento chico no aporta nada conceptualmente y agrega un paso de aritmética gratuito antes de la técnica real (calcular el radicando en el punto de tendencia), que además se confunde fácil con el propio $x$. Preferir directamente el patrón $\sqrt{x + c^2} - c$ con **tendencia $x \to 0$ como default**, donde el radicando en el punto de tendencia se lee directo sin ningún paso intermedio. Tendencias no nulas (y desplazamientos distintos de $c^2$) quedan reservadas para una **minoría de ítems avanzados**, y ahí el desplazamiento nunca es $\pm1$.
+- **Números que caen en cuadrados perfectos chicos, tope $c \leq 5$**: radicandos que resultan en $\sqrt{4} = 2$, $\sqrt{9} = 3$, $\sqrt{16} = 4$, $\sqrt{25} = 5$ tras sustituir. **Nunca superar $c=5$** (ej. $\sqrt{36}=6$ o $\sqrt{49}=7$ ya son demasiado grandes para el foco de mecánica simple del skill; ver hallazgos, esto afectó a 4 de los 15 ejercicios de prueba, no solo a uno).
+- **Nunca usar $+1$/$-1$ como desplazamiento dentro de la raíz** (ej. $\sqrt{x-1}-2$). Ese desplazamiento chico no aporta nada conceptualmente y agrega un paso de aritmética gratuito antes de la técnica real (calcular el radicando en el punto de tendencia), que además se confunde fácil con el propio $x$. Preferir directamente el patrón $\sqrt{x + c^2} - c$ con **tendencia $x \to 0$ como default**, donde el radicando en el punto de tendencia se lee directo sin ningún paso intermedio. Tendencias no nulas (y desplazamientos distintos de $c^2$) quedan reservadas para una **minoría de ejercicios avanzados**, y ahí el desplazamiento nunca es $\pm1$.
 - **Explicaciones con `\begin{aligned}`** mostrando: diagnóstico → multiplicación por conjugado → diferencia de cuadrados → cancelación → sustitución. Una línea por paso. **El planteo de la multiplicación por el conjugado va en su propio renglón, separado de su resultado ya simplificado** (ver sección *Fórmulas anchas* → *Caso particular: multiplicar por un factor* de `authoring-context.md`); nunca los dos en la misma línea.
 - **Resultado numérico final** en las opciones (nunca una expresión sin evaluar).
 - **Ninguna aplicación de L'Hôpital**; ninguna factorización adicional más allá de la diferencia de cuadrados forzada.
@@ -133,12 +135,12 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_racionalizacion_1.md`), aplicar al regenerar:
+Corrección puntual del usuario sobre ejercicios de prueba de este topic (`correciones_analisis_limites_racionalizacion_1.md`), aplicar al regenerar:
 
 - **`RESL_05`**: usa $c=6$ (radicando $32$, $\sqrt{36}=6$), superando el tope de cuadrados perfectos chicos; además el primer renglón del `aligned` (multiplicación por el conjugado + resultado simplificado en la misma línea) desborda el ancho de pantalla en mobile. **Motivó el tope explícito $c \leq 5$** y la separación del planteo de la multiplicación en su propio renglón (ver *Reglas específicas* de `RESL` arriba y la nueva sección de `authoring-context.md` *Fórmulas anchas* → *Caso particular: multiplicar por un factor*).
 - **`RESL_02`**: mismo desborde del primer renglón que `RESL_05` (el radicando $16$ en sí está dentro del tope permitido, el problema es puramente de formato).
 - **`RESL_01`**: mismo desborde de formato; además señalado como con "demasiadas operaciones" para el foco de mecánica simple del skill, reforzando que el planteo de la multiplicación separado en su propio renglón (en vez de fusionado con el resultado) es necesario para que la derivación se lea con más aire, no solo para que entre en pantalla.
-- **Revisión completa de los 15 ítems de `RESL` (más allá de los señalados en la corrección)**: además de `RESL_05` ($c=6$), otros 3 ítems de prueba también superan el tope: uno de sub-A con $c=7$ ($\sqrt{x+40}-7$) y dos de sub-B con $c=6$ y $c=7$ ($\tfrac{x-36}{\sqrt{x}-6}$, $\tfrac{x-49}{\sqrt{x}-7}$). Los 4 se corrigen a $c \leq 5$ al regenerar.
+- **Revisión completa de los 15 ejercicios de `RESL` (más allá de los señalados en la corrección)**: además de `RESL_05` ($c=6$), otros 3 ejercicios de prueba también superan el tope: uno de sub-A con $c=7$ ($\sqrt{x+40}-7$) y dos de sub-B con $c=6$ y $c=7$ ($\tfrac{x-36}{\sqrt{x}-6}$, $\tfrac{x-49}{\sqrt{x}-7}$). Los 4 se corrigen a $c \leq 5$ al regenerar.
 - **`RESL` con desplazamiento $\pm1$ dentro de la raíz** (ej. $\sqrt{x-1}-2$ con tendencia $x\to5$): agrega un paso de aritmética gratuito (calcular el radicando en un punto de tendencia no nulo) que no aporta nada conceptual y se confunde con el propio $x$. **Motivó la regla nueva**: nunca $\pm1$ como desplazamiento, y tendencia $x\to0$ como default (ver *Reglas específicas* de `RESL` arriba).
 - **`LEXI_14`**: la palabra "liberar" (en la opción correcta, "Liberar el factor $(x-a)$ para poder cancelarlo") no convence; reemplazada por "exponer" en la tabla de distribución de arriba (sub-familia D). Además, la `explanation` teje $\tfrac{0}{0}$ apilado dentro de un párrafo de prosa ("sustituir directamente seguiría dando $\tfrac{0}{0}$"), **recurrencia de la regla crítica 28** (ya establecida en `factorization`): usar la forma horizontal `0/0` en texto corrido.
 
@@ -147,7 +149,7 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas, raíces cúbicas, raíces anidadas ni conjugados complejos
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `feedback_correct` conciso; desarrollo completo en `explanation` con `\begin{aligned}`
@@ -158,13 +160,13 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 - [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego (ver `course-context.md` §Refuerzo de intuición en `blue`)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Negrita en primera mención de `racionalización`, `conjugado`, `diferencia de cuadrados`, `indeterminación`
 - [ ] Textos exactos en opciones de diagnóstico (`"Factorizar"`, `"Racionalizar"`, `"Sustitución directa"`, `"Indeterminación no resoluble"`)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (20/20/10)
 - [ ] Todo enunciado presenta $\tfrac{0}{0}$ por sustitución directa **y** al menos una raíz cuadrada (verificado)
 - [ ] Explicaciones con la secuencia diagnóstico → conjugado → diferencia de cuadrados → cancelación → sustitución
@@ -172,5 +174,5 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 - [ ] Sub-C con el paso de extracción de $-1$ documentado en la explicación
 - [ ] Ninguna aplicación de L'Hôpital ni factorización de polinomios sin raíces
 - [ ] **El planteo de la multiplicación por el conjugado va en su propio renglón del `aligned`**, separado de su resultado ya simplificado (ver hallazgos `RESL_01`/`RESL_02`/`RESL_05`)
-- [ ] **Ningún ítem con $c>5$** (verificar los 50 ítems, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
+- [ ] **Ningún ejercicio con $c>5$** (verificar los 50 ejercicios, no solo los señalados en la auditoría; se encontraron 4 de 15 en la ronda 1)
 - [ ] **Ningún desplazamiento $\pm1$ dentro de la raíz**; sub-A y sub-B usan por default tendencia $x\to0$ con radicando $x+c^2$, reservando tendencias no nulas a una minoría avanzada sin desplazamiento $\pm1$

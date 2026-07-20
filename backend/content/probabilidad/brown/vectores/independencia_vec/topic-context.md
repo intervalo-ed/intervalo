@@ -4,13 +4,15 @@ Belt: `brown`, Unit: `vectores`, Topic: `independencia_vec`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: $X$ e $Y$ son **independientes** cuando la conjunta factoriza en el producto de las marginales: $p(x,y)=p_X(x)\cdot p_Y(y)$ (o $f(x,y)=f_X(x)f_Y(y)$ en el caso continuo). La independencia implica $\mathrm{Cov}(X,Y)=0$, pero la recíproca **no** es cierta en general. Cierra el curso.
 
 **Frontera con el resto de la unidad:** retoma `conjunta`/`marginales` (factorización) y `covarianza`/`correlacion` (covarianza cero como consecuencia necesaria, no suficiente).
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X$ e $Y$ son **independientes** cuando la conjunta factoriza en el pr
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -32,7 +34,7 @@ Concepto: $X$ e $Y$ son **independientes** cuando la conjunta factoriza en el pr
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -59,13 +61,13 @@ Concepto: $X$ e $Y$ son **independientes** cuando la conjunta factoriza en el pr
 
 ## Reglas específicas del topic
 
-- **Reutilizar el mismo tipo de tabla** de `conjunta`/`marginales` para los ítems que verifican factorización.
+- **Reutilizar el mismo tipo de tabla** de `conjunta`/`marginales` para los ejercicios que verifican factorización.
 - **El distractor de covarianza cero es central en este topic**: cada vez que se calcula covarianza en el contexto de independencia, la `explanation` aclara explícitamente que covarianza $0$ no prueba independencia por sí sola (regla crítica 25, justificar el porqué).
-- **Cada ítem reintroduce la condición de factorización o la propiedad de varianza** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la condición de factorización o la propiedad de varianza** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Ningún ítem afirma que covarianza cero implica independencia sin la aclaración de que es solo condición necesaria
-- [ ] Los ítems de `Var(X+Y)` especifican explícitamente si las variables son independientes o no
+- [ ] Ningún ejercicio afirma que covarianza cero implica independencia sin la aclaración de que es solo condición necesaria
+- [ ] Los ejercicios de `Var(X+Y)` especifican explícitamente si las variables son independientes o no
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

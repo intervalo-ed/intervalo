@@ -4,13 +4,15 @@ Belt: `blue`, Unit: `variables`, Topic: `acumulada`
 
 Skills en este topic: `FORM`, `GRAF`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `FORM`, `GRAF`, `RESL`.
+
 Concepto: la **función de distribución acumulada** $F(x) = P(X\leq x)$, no decreciente, con $F\to 0$ cuando $x\to-\infty$ y $F\to 1$ cuando $x\to+\infty$. Propiedad clave: $P(a<X\leq b) = F(b)-F(a)$.
 
 **Frontera con el resto de la unidad:** reutiliza `puntual` (discreta, suma acumulada de $p(x)$) y `densidad` (continua, área acumulada bajo $f(x)$) ya trabajados. No usa todavía esperanza ni varianza.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **función de distribución acumulada** $F(x) = P(X\leq x)$, no dec
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -32,7 +34,7 @@ Concepto: la **función de distribución acumulada** $F(x) = P(X\leq x)$, no dec
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -61,11 +63,11 @@ Concepto: la **función de distribución acumulada** $F(x) = P(X\leq x)$, no dec
 ## Reglas específicas del topic
 
 - **Reutilizar los mismos tipos de densidad/función puntual** de `densidad`/`puntual` (uniforme, lineal simple, dominios discretos chicos), nunca introducir una distribución nueva en este topic.
-- **Cada ítem reintroduce** la propiedad $P(a<X\leq b)=F(b)-F(a)$ cuando la usa (regla crítica 31).
+- **Cada ejercicio reintroduce** la propiedad $P(a<X\leq b)=F(b)-F(a)$ cuando la usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Toda densidad/función puntual reutilizada es uniforme, lineal simple o discreta chica (ya vista en topics anteriores)
-- [ ] Ningún ítem acepta $F(x)$ fuera de $[0,1]$
+- [ ] Ningún ejercicio acepta $F(x)$ fuera de $[0,1]$
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; GRAF/RESL numérico → 4 opciones ≤35 caracteres

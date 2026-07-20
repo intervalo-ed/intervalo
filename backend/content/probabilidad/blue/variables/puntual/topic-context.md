@@ -4,13 +4,15 @@ Belt: `blue`, Unit: `variables`, Topic: `puntual`
 
 Skills en este topic: `FORM`, `GRAF`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `FORM`, `GRAF`, `RESL`.
+
 Concepto: la **función de probabilidad puntual** $p(x) = P(X=x)$ de una variable discreta, con la condición $\sum_x p(x) = 1$.
 
 **Frontera con el resto de la unidad:** solo variables **discretas**; la versión continua (densidad) es el topic siguiente. No usa todavía acumulada, esperanza ni varianza.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **función de probabilidad puntual** $p(x) = P(X=x)$ de una variabl
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 Gráfico de barras de $p(x)$.
 
@@ -34,7 +36,7 @@ Gráfico de barras de $p(x)$.
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -63,11 +65,11 @@ Gráfico de barras de $p(x)$.
 
 - **Dominio finito y chico**: 3 a 5 valores posibles de $X$ (ej. $\{0,1,2,3\}$), para que las sumas de verificación sean manejables a mano.
 - **Contextos**: cantidad de caras en $n$ monedas, cantidad de éxitos en pocos ensayos, valores de un dado, cantidad de clientes en un intervalo corto.
-- **Cada ítem reintroduce la condición de normalización** cuando la usa para despejar (regla crítica 31).
+- **Cada ejercicio reintroduce la condición de normalización** cuando la usa para despejar (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] El dominio de $X$ tiene entre 3 y 5 valores en todos los ítems
-- [ ] Los ítems de evento compuesto suman correctamente 2 o más valores puntuales
+- [ ] El dominio de $X$ tiene entre 3 y 5 valores en todos los ejercicios
+- [ ] Los ejercicios de evento compuesto suman correctamente 2 o más valores puntuales
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; GRAF/RESL numérico → 4 opciones ≤35 caracteres

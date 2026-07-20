@@ -65,10 +65,10 @@ Con desplazamiento vertical:
 
 Verificado programáticamente sobre los 4 JSON (post-auditoría de junio, que ya había vaciado `feedback_incorrect` a `""` en batch: sigue vacío en los 200, sin el bug de duplicado con `feedback_correct` que sí aparece en otros temas).
 
-1. **`feedback_incorrect` falta en los 200 ítems** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
+1. **`feedback_incorrect` falta en los 200 ejercicios** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
 2. **`\n\n` pegado a bloques `$$...$$`**: LEXI 3 (#3,4,9), CLSF 3 (#10,12,49), FORM 0 (limpio), GRAF 0 (limpio).
 3. **Em-dash `—`/en-dash `–`**: LEXI 5 (#9,24,25,33,42), CLSF 2 (#29,32), FORM 4 (#11,14,34,40), GRAF 3 (#9,21,46).
-4. **Explicaciones con viñetas `•`/sub-ítems `-`**: LEXI 4 (#10,14,42,46), CLSF 18 (#0,4,5,7,8,11,13,14,25,26,28,38,39,40,41,42,45,49), FORM 4 (#0,11,12,32), GRAF 18 (#11,16,17,25-39 en bloque). Reescribir a los 3 párrafos de prosa.
+4. **Explicaciones con viñetas `•`/sub-ejercicios `-`**: LEXI 4 (#10,14,42,46), CLSF 18 (#0,4,5,7,8,11,13,14,25,26,28,38,39,40,41,42,45,49), FORM 4 (#0,11,12,32), GRAF 18 (#11,16,17,25-39 en bloque). Reescribir a los 3 párrafos de prosa.
 5. **`explanation` bajo 300 caracteres** (mínimo vigente en `authoring-context.md`, no 250), el defecto más extendido del tema: LEXI 7, CLSF 7, FORM 32/50 (más de la mitad), **GRAF 45/50 (casi todo el archivo)**, conteos tomados contra el umbral viejo de 250, verificar de nuevo contra 300 (van a subir). El patrón repetido en GRAF es "señal visual + regla + fórmula corta" sin un párrafo de cierre; sumar una advertencia/consejo o ampliar el concepto general para cruzar el mínimo.
 6. **Cierres con humor/antropomorfismo**: no se detectaron casos en los 4 JSON. Igual verificar al escribir cierres nuevos: por defecto son advertencia/consejo neutro.
 7. **`correct_index` sesgado**: LEXI {0:7,1:19,2:20,3:4}, CLSF {0:5,1:15,2:23,3:7}, FORM {0:10,1:19,2:17,3:4}, GRAF {0:17,1:17,2:14,3:2}. Rebalancear a ~{0:12,1:13,2:12,3:13} reordenando `options` (mismo contenido, nueva posición) y sincronizando `feedback_incorrect`.
@@ -85,9 +85,9 @@ Verificado programáticamente sobre los 4 JSON (post-auditoría de junio, que ya
 
 ### Hallazgos de auditoría (ronda 1, jul-2026)
 
-Auditoría en vivo vía `/test`, muestra al azar de 8 ítems (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`).
+Auditoría en vivo vía `/test`, muestra al azar de 8 ejercicios (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`).
 
-**Importante: esta muestra confirma que las siguientes reglas son sesgo sistémico de la generación anterior, no casos aislados.** Las mismas 5 violaciones aparecieron primero en `polynomial` (ver su `topic-context.md`, sección "Correcciones de formato transversales de esta ronda") y ahora de nuevo acá, en un topic sin relación conceptual. **Confirmado por tercera vez en `logarithmic`** (ver su `topic-context.md`, sección "Hallazgos de auditoría"), que además sumó violaciones nuevas propias (símbolo ✓, paridad de longitud en ambos sentidos, `aligned` con línea de texto suelta, puntuación terminal). Esto significa que **muy probablemente aparecen en el resto de los topics de `white/functions` todavía no auditados** (`rational`, `trigonometric`). Al ejecutar cualquier `generation-prompt.md` de esos topics, revisar el 100% de los ítems contra estas reglas, no confiar en que sea un defecto puntual:
+**Importante: esta muestra confirma que las siguientes reglas son sesgo sistémico de la generación anterior, no casos aislados.** Las mismas 5 violaciones aparecieron primero en `polynomial` (ver su `topic-context.md`, sección "Correcciones de formato transversales de esta ronda") y ahora de nuevo acá, en un topic sin relación conceptual. **Confirmado por tercera vez en `logarithmic`** (ver su `topic-context.md`, sección "Hallazgos de auditoría"), que además sumó violaciones nuevas propias (símbolo ✓, paridad de longitud en ambos sentidos, `aligned` con línea de texto suelta, puntuación terminal). Esto significa que **muy probablemente aparecen en el resto de los topics de `white/functions` todavía no auditados** (`rational`, `trigonometric`). Al ejecutar cualquier `generation-prompt.md` de esos topics, revisar el 100% de los ejercicios contra estas reglas, no confiar en que sea un defecto puntual:
 
 1. **Párrafos de `explanation` demasiado largos** (regla ya vigente, ≤200 caracteres, ideal ~100).
 2. **Opción correcta más larga o más elaborada que las demás** (regla crítica 4), incluso cuando ninguna lleva glosa aclaratoria explícita.
@@ -95,7 +95,7 @@ Auditoría en vivo vía `/test`, muestra al azar de 8 ítems (no exhaustiva, ver
 4. **Rótulos tipo `"Nota:"` abriendo un párrafo** (regla crítica 11).
 5. **Límites/derivadas usados en `explanation` para justificar una conclusión** (regla crítica 12, agregada tras el refactor de `polynomial`; esta es la segunda confirmación en dos topics seguidos).
 
-Ítems concretos de esta ronda:
+Ejercicios concretos de esta ronda:
 
 - `white_exponential_FORM_48`: la opción correcta incluía `"= 25"` de más (`"$5^2 = 25$"` vs. distractores más cortos como `"$2$"`), llamando la atención de más; párrafos de `explanation` largos. (La fórmula display `$$\frac{5^{x+2}}{5^x} = 5^{(x+2)-x} = 5^2 = 25$$` en sí **no** tuvo que partirse en vertical: es corta y entra cómoda en una línea, ver aclaración nueva en `authoring-context.md` §Enumeraciones de valores calculados.)
 - `white_exponential_CLSF_34`: opción correcta notablemente más larga/elaborada que las demás; párrafos de `explanation` largos.
@@ -108,7 +108,7 @@ Auditoría en vivo vía `/test`, muestra al azar de 8 ítems (no exhaustiva, ver
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
-Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
+Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026).
 
 **LEXI (50):**
 
@@ -141,7 +141,7 @@ Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
 | Inecuación exponencial | 1 | `inecuacion-exponencial` |
 | **Total** | **50** | |
 
-> Nota: `white_exponential_LEXI_22` ("¿Cuál propiedad especial tiene $f(x)=e^x$ en cálculo? Su derivada es $e^x$") invoca **derivada**, fuera de la frontera de `white`. Al refactorizar, reformular sin ese concepto (ej. describir a $e$ como la única base cuya curva tiene una propiedad de crecimiento particular, sin nombrarla como derivada) o reclasificar el ítem.
+> Nota: `white_exponential_LEXI_22` ("¿Cuál propiedad especial tiene $f(x)=e^x$ en cálculo? Su derivada es $e^x$") invoca **derivada**, fuera de la frontera de `white`. Al refactorizar, reformular sin ese concepto (ej. describir a $e$ como la única base cuya curva tiene una propiedad de crecimiento particular, sin nombrarla como derivada) o reclasificar el ejercicio.
 
 **CLSF (50):**
 
@@ -217,10 +217,10 @@ Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ítems por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes (foco especial en GRAF y FORM)
 - [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice)
@@ -230,5 +230,5 @@ Taxonomía diseñada leyendo los 200 ítems reales (jul-2026).
 - [ ] Ninguna opción correcta se delata por longitud NI por formato numérico distinto al patrón del resto (ver "Hallazgos de auditoría", `LEXI_10`)
 - [ ] `feedback_correct` no encadena una derivación completa que se salga de pantalla (ver "Hallazgos de auditoría", `LEXI_36`)
 - [ ] Ningún párrafo abre con un rótulo tipo `"Nota:"`, `"Ojo:"` (ver "Hallazgos de auditoría", `LEXI_44`)
-- [ ] Cada ítem tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
+- [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill; contar por slug y verificar que coincide con la cantidad de la tabla
 

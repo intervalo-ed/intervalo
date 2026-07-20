@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `bayes`
 
 Skills en este topic: `ESTR`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `ESTR`, `FORM`, `RESL`.
+
 Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B)}$, donde el denominador $P(B)$ se calcula con probabilidad total. Cierra la unidad `probabilidad`: combina `condicional`, `independencia` (para descartar) y `total` en un solo cálculo.
 
-**Frontera con el resto de la unidad:** el rasgo distintivo frente a `condicional`/`total` es que acá el dato viene en una dirección ($P(B\mid A)$) y se pide la dirección contraria ($P(A\mid B)$). Si el enunciado pide la misma dirección del dato, es un ítem de `condicional`, no de `bayes`.
+**Frontera con el resto de la unidad:** el rasgo distintivo frente a `condicional`/`total` es que acá el dato viene en una dirección ($P(B\mid A)$) y se pide la dirección contraria ($P(A\mid B)$). Si el enunciado pide la misma dirección del dato, es un ejercicio de `condicional`, no de `bayes`.
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -23,7 +25,7 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -36,7 +38,7 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -66,14 +68,14 @@ Concepto: el **teorema de Bayes** $P(A\mid B) = \dfrac{P(B\mid A)\cdot P(A)}{P(B
 
 ## Reglas específicas del topic
 
-- **Reintroducir la fórmula completa** (regla crítica 31) en cada ítem, con el denominador desarrollado explícitamente cuando el escenario lo amerita.
+- **Reintroducir la fórmula completa** (regla crítica 31) en cada ejercicio, con el denominador desarrollado explícitamente cuando el escenario lo amerita.
 - **Contextos válidos**: tests diagnósticos (enfermedad/sano, positivo/negativo), control de calidad (línea de producción/defecto), urnas o cajas elegidas al azar antes de extraer, filtros de spam.
 - **El resultado suele ser contraintuitivo** (ej. un test con alta sensibilidad puede tener baja probabilidad posterior si la enfermedad es rara): esto es contenido, no un error a evitar; la `explanation` puede señalarlo como advertencia del cierre (regla crítica 7), nunca como sorpresa retórica vacía.
 
 ## Checklist del topic
 
-- [ ] Cada ítem reintroduce la fórmula de Bayes con su denominador desarrollado
+- [ ] Cada ejercicio reintroduce la fórmula de Bayes con su denominador desarrollado
 - [ ] La dirección del condicional pedido es siempre la opuesta a la del dato principal
-- [ ] Los ítems de urnas/cajas no equiprobables ponderan correctamente por la probabilidad de elegir cada una
+- [ ] Los ejercicios de urnas/cajas no equiprobables ponderan correctamente por la probabilidad de elegir cada una
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: ESTR/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

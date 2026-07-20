@@ -4,9 +4,18 @@ Guía de campos, reglas de formato y convenciones de redacción de los ejercicio
 
 > Tras editar ejercicios: `python seed_content.py --course <curso>` desde `backend/`. Si cambian las skills de un tema, regenerar el catálogo con `bun run scripts/sync-catalog.ts` desde `web/`.
 
+## Vocabulario: Ítem vs. Ejercicio
+
+Dos palabras que no son intercambiables:
+
+- **Ítem**: la combinación de un topic con una de sus skills (ej. `white/conteo/reglas` + `FORM` es un ítem, y corresponde a un archivo `FORM.json`). Un topic tiene tantos ítems como skills declara (ver `Skills en este topic:` en su `topic-context.md`).
+- **Ejercicio**: cada objeto individual dentro del array de un ítem (`SKILL.json`). Un ítem contiene varios ejercicios (ej. "el ítem `FORM` de `reglas` tiene 50 ejercicios").
+
+Cualquier mención a "N ítems" refiriéndose a una cantidad de ejercicios (como "FORM, 50 ítems") es un uso incorrecto del término; en ese caso siempre es "N ejercicios".
+
 ---
 
-## Reglas críticas, leer antes de escribir un solo ítem
+## Reglas críticas, leer antes de escribir un solo ejercicio
 
 Estas reglas son las que más se violan y las que más rompen el render o la coherencia. Ninguna es negociable.
 
@@ -29,7 +38,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 11. **Nunca abrir un párrafo con una palabra o frase corta a modo de rótulo/etiqueta seguida de `:`** ("Verificación:", "Nota:", "Ejemplo:", "Ojo:"). Se siente a encabezado de sección, no a prosa narrativa. **No confundir con la excepción ya permitida** de cerrar en `:` para introducir una fórmula display ("Consideremos la función:" antes de un `$$...$$`) — esa sigue válida. Lo prohibido es el rótulo de una palabra que funciona como título de párrafo. Integrá la idea en una oración completa en su lugar.
     - ❌ `Verificación: $C(0) = 300$ y cada hora agrega \$150 exactos.`
     - ✅ `Para comprobarlo, evaluamos $C(0) = 300$ y notamos que cada hora suma \$150 exactos.`
-12. **Nunca invocar conceptos fuera de la frontera matemática del cinturón** (ver `analisis/course-context.md`) para justificar una conclusión, aunque simplifique la explicación. En `white`, eso significa nunca usar derivadas, límites ni integrales, ni en `explanation` ni en `feedback_incorrect`: para justificar monotonía o extremos de un polinomio, usar evaluación en puntos concretos, comportamiento en los extremos según grado/signo del coeficiente principal, o lectura directa del gráfico. **Confirmado como sesgo sistémico de la generación original**: reapareció en `polynomial` (derivada), `exponential` (límite) y `logarithmic` (límite) por igual, tres topics sin relación conceptual entre sí. Auditar el 100% de los ítems de cualquier topic todavía no revisado contra esta regla, no confiar en que sea puntual.
+12. **Nunca invocar conceptos fuera de la frontera matemática del cinturón** (ver `analisis/course-context.md`) para justificar una conclusión, aunque simplifique la explicación. En `white`, eso significa nunca usar derivadas, límites ni integrales, ni en `explanation` ni en `feedback_incorrect`: para justificar monotonía o extremos de un polinomio, usar evaluación en puntos concretos, comportamiento en los extremos según grado/signo del coeficiente principal, o lectura directa del gráfico. **Confirmado como sesgo sistémico de la generación original**: reapareció en `polynomial` (derivada), `exponential` (límite) y `logarithmic` (límite) por igual, tres topics sin relación conceptual entre sí. Auditar el 100% de los ejercicios de cualquier topic todavía no revisado contra esta regla, no confiar en que sea puntual.
     - ❌ `Su derivada: $$f'(x) = \frac{3x^2}{8} \geq 0$$ Como $f'(x) \geq 0$, la función nunca decrece.`
     - ✅ `Al ser un monomio de grado impar con coeficiente positivo, $f$ crece en todo su dominio: a medida que $x$ aumenta, $x^3$ también aumenta, sin excepción.`
 13. **Máximo 1 aclaración entre paréntesis o comillas por oración.** Enumerar 2 o más ejemplos entre comillas dentro de un paréntesis se lee como una lista con viñetas camuflada en prosa. Si hay que dar varios ejemplos, narralos dentro de la oración en vez de listarlos entre comillas, y preferí coma sobre dos puntos para unir la aclaración con el resto de la oración (ver también la regla de *Redacción del enunciado* → *Evitá dos puntos en la prosa del cuerpo*, la preferencia global es coma o punto por sobre dos puntos, salvo la excepción de introducir una fórmula display).
@@ -45,7 +54,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - ❌ `$$\begin{aligned} \ln(e) &= \log_e(e) = 1 \\ \text{porque} \\ e^1 &= e \end{aligned}$$` (la línea `\text{porque}` no tiene `&`, rompe la alineación de las otras dos).
     - ✅ `Aplicando la propiedad $\log_b(b)=1$:\n$$\ln(e) = \log_e(e) = 1$$\nPorque $e^1 = e$.` (la transición queda en prosa, fuera del bloque).
 17. **Todo párrafo cierra con puntuación terminal (`.`), incluido el último de cada campo.** No dejar una oración colgando sin punto final, ni siquiera cuando el párrafo termina justo antes de un salto de línea o del final del campo.
-17b. **Un bloque `\begin{aligned}...\end{aligned}` va SIEMPRE envuelto en `$$...$$` (display), nunca en `$...$` (inline).** El parser de `MathText` (`web/src/components/math-text.tsx`) usa una regex distinta para inline que **excluye saltos de línea** (`[^$\n]`); como un `aligned` de 2+ líneas siempre tiene `\n` adentro, envolverlo en `$...$` hace que el regex nunca haga match y el campo entero se muestre como texto crudo sin renderizar, un bug de render real encontrado en `trigonometric` (58 ítems). Además, cada salto de línea dentro del bloque usa el comando `\\` **una sola vez** (nunca `\\\\`, que en LaTeX son dos saltos de línea consecutivos y también rompe el render).
+17b. **Un bloque `\begin{aligned}...\end{aligned}` va SIEMPRE envuelto en `$$...$$` (display), nunca en `$...$` (inline).** El parser de `MathText` (`web/src/components/math-text.tsx`) usa una regex distinta para inline que **excluye saltos de línea** (`[^$\n]`); como un `aligned` de 2+ líneas siempre tiene `\n` adentro, envolverlo en `$...$` hace que el regex nunca haga match y el campo entero se muestre como texto crudo sin renderizar, un bug de render real encontrado en `trigonometric` (58 ejercicios). Además, cada salto de línea dentro del bloque usa el comando `\\` **una sola vez** (nunca `\\\\`, que en LaTeX son dos saltos de línea consecutivos y también rompe el render).
     - ❌ `"$\begin{aligned}\nT(1) &= 8\cos(0)+15 \\\\\n&= 23\n\end{aligned}$"` (envuelto en `$`, y `\\\\` duplicado en cada línea)
     - ✅ `"$$\begin{aligned}\nT(1) &= 8\cos(0)+15 \\\n&= 23\n\end{aligned}$$"` (envuelto en `$$`, un solo `\\` por línea)
 18. **Fórmula central del `question` (enunciado): separada del texto, nunca tejida inline, sobre todo si es una fracción.** Si el enunciado gira en torno a una función puntual (`$f(x) = \dfrac{...}{...}$`), esa fórmula va en su propio bloque `$$...$$` centrado, con el texto acompañándola en oraciones propias antes y/o después, no empotrada dentro de la pregunta como un inciso. Si el enunciado necesita citar dos fórmulas (ej. `g(x)` y `f(x)`), cada una va en su propia oración/bloque, nunca las dos apretadas en la misma línea. Regla general: **siempre preferir las fórmulas separadas de los textos, y los textos acompañándolas**, no al revés.
@@ -65,11 +74,11 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 22. **En opciones tipo clasificación (`CLSF`) que ya muestran una fórmula, no agregar el nombre de familia entre paréntesis al lado.** Si la opción ya es `$C(t) = A\cos(Bt) + D$`, agregar `(trigonométrica)` al lado es una aclaración redundante, la fórmula ya lo dice. Cuantas menos aclaraciones entre paréntesis, mejor.
     - ❌ `["$C(t) = A\cos(Bt) + D$ (trigonométrica)", "$C(t) = at + b$ (lineal)", "$C(t) = e^{kt}$ (exponencial)", "$C(t) = \log(t)$ (logarítmica)"]`
     - ✅ `["$C(t) = A\cos(Bt) + D$", "$C(t) = at + b$", "$C(t) = e^{kt}$", "$C(t) = \log(t)$"]`
-24. **Nunca enmarcar un ítem en relación a otro ítem de la sesión.** Prohibido abrir con lenguaje que implique orden o comparación con otro ejercicio ("un caso más exigente", "a diferencia del anterior", "ahora un ejemplo más difícil"). Los ítems se presentan desordenados e independientes en una sesión, no hay garantía de que el alumno haya visto "el anterior". Cada ítem se redacta como si fuera el único que ve.
-    - ❌ `Un caso más exigente aparece cuando el punto de tendencia ya es negativo, como en\n$$\lim_{x \to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?` (compara con un ítem implícito anterior).
-    - ✅ `El punto de tendencia también puede ser negativo, como en\n$$\lim_{x \to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?` (no se refiere a otro ítem).
+24. **Nunca enmarcar un ejercicio en relación a otro ejercicio de la sesión.** Prohibido abrir con lenguaje que implique orden o comparación con otro ejercicio ("un caso más exigente", "a diferencia del anterior", "ahora un ejemplo más difícil"). Los ejercicios se presentan desordenados e independientes en una sesión, no hay garantía de que el alumno haya visto "el anterior". Cada ejercicio se redacta como si fuera el único que ve.
+    - ❌ `Un caso más exigente aparece cuando el punto de tendencia ya es negativo, como en\n$$\lim_{x \to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?` (compara con un ejercicio implícito anterior).
+    - ✅ `El punto de tendencia también puede ser negativo, como en\n$$\lim_{x \to (-2)^+} f(x)$$\n¿Qué valores toma $x$ al acercarse de esta manera?` (no se refiere a otro ejercicio).
     - **Nombrar la estructura, no explicarla**: la oración que lleva al planteo técnico menciona con qué objeto se va a trabajar ("la expresión", "la ecuación", "el límite", "la fracción", "la función"), no lo define ni lo explica antes de mostrarlo. Alcanza con un lead-in corto tipo "Al simplificar la expresión:" o "Al resolver la ecuación:" — una oración/párrafo aparte que declara qué *es* el concepto (p. ej. "El logaritmo en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.") es una introducción disfrazada de contexto, y le regala al alumno la técnica antes de que la tenga que reconocer.
-    - ❌ `El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\log_b(x) = y \iff b^y = x$$\nAl calcular:\n$$\log_3(81)$$\n¿Cuál es su valor?` (define el logaritmo antes de plantear el ítem, delata la técnica).
+    - ❌ `El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\log_b(x) = y \iff b^y = x$$\nAl calcular:\n$$\log_3(81)$$\n¿Cuál es su valor?` (define el logaritmo antes de plantear el ejercicio, delata la técnica).
     - ✅ `Al calcular el logaritmo:\n$$\log_3(81)$$\n¿Cuál es su valor?` (nombra "el logaritmo" al pasar, sin explicarlo).
 25. **El concepto abstracto de la `explanation` justifica el porqué, no solo declara el qué.** Enunciar una regla o resultado sin razonarlo deja al alumno memorizando en vez de entender. No alcanza con nombrar la propiedad o la clasificación, hay que explicar el mecanismo que la produce. Esto pesa especialmente en resultados que suelen "declararse" sin más: indeterminaciones, condiciones de dominio, por qué una propiedad operatoria exige tal hipótesis, por qué dos objetos coinciden o difieren.
     - ❌ `Cuando el denominador tiende a $0$ y el numerador no, la expresión es una tendencia a $\pm\infty$, no una indeterminación.` (declara la clasificación sin razonarla)
@@ -79,7 +88,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
     - ✅ `Aunque tarde en cruzarse, $a^x \succ x^{100}$ cuando $x \to +\infty$.` (la prosa queda en el texto, la fórmula solo lleva símbolos)
     - ❌ `$$\infty - \infty \text{ no se resuelve por cancelación directa}$$`
     - ✅ `$\infty - \infty$ no se resuelve por cancelación directa.` (fórmula corta inline, el resto es prosa común)
-27. **Un límite lateral SIEMPRE lleva el punto de tendencia en el subíndice: `\lim_{x \to a^-}`/`\lim_{x \to a^+}`, nunca `\lim^-`/`\lim^+` sueltos.** Escribir el signo de dirección como superíndice pegado directamente a `\lim` (sin el `_{x \to ...}` debajo) es notación incompleta: no dice a qué valor tiende $x$, solo la dirección. Encontrado como **error generalizado en 10 ítems** de `continuity` y `lateral_limits` (corregido en esta ronda, ver *Bugs conocidos*).
+27. **Un límite lateral SIEMPRE lleva el punto de tendencia en el subíndice: `\lim_{x \to a^-}`/`\lim_{x \to a^+}`, nunca `\lim^-`/`\lim^+` sueltos.** Escribir el signo de dirección como superíndice pegado directamente a `\lim` (sin el `_{x \to ...}` debajo) es notación incompleta: no dice a qué valor tiende $x$, solo la dirección. Encontrado como **error generalizado en 10 ejercicios** de `continuity` y `lateral_limits` (corregido en esta ronda, ver *Bugs conocidos*).
     - ❌ `$$\lim^- = 3 = \lim^+ \Rightarrow \lim_{x \to a} f(x) = 3$$`
     - ✅ `$$\lim_{x \to a^-} f(x) = 3 = \lim_{x \to a^+} f(x) \Rightarrow \lim_{x \to a} f(x) = 3$$`
 28. **La fracción $\tfrac{0}{0}$ apilada (`\dfrac{0}{0}`/`\frac{0}{0}`) nunca va tejida dentro de un párrafo de prosa.** Una fracción LaTeX apilada inline rompe la altura de línea del párrafo que la rodea. Si hace falta nombrar la indeterminación dentro de una oración, usar la forma horizontal simple `0/0` (sin LaTeX apilado); reservar `\dfrac{0}{0}$` para cuando esté sola en su propio bloque `$$...$$`.
@@ -91,16 +100,16 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 30. **Un bloque `\begin{aligned}` con columna de `=` se reserva para una ecuación que se despeja o una expresión que se transforma paso a paso para simplificar. Nunca para listar valores o datos evaluados de forma independiente.** Evaluar $u(0)=3$, $v'(0)=1$, etc. no es una cadena de transformaciones de una misma expresión, es una lista de datos sueltos: alinearlos por `=` junto con el paso final (que sí es una transformación real) mezcla dos cosas distintas en la misma columna y no aporta nada al lector. Los datos evaluados van en prosa o en líneas simples sin `&`/alineación; el `aligned` con columna de `=` queda solo para cuando cada línea es un paso genuino de la misma derivación.
     - ❌ `$$\begin{aligned} u'(0) &= 0, \quad v(0) = 1 \\ u(0) &= 3, \quad v'(0) = 1 \\ f'(0) &= u'(0)v(0) + u(0)v'(0) = 0 + 3 \end{aligned}$$` (las primeras 2 líneas son datos sueltos, no una transformación de la línea anterior; alinearlas con la tercera no tiene sentido)
     - ✅ `Con $u(0)=3$, $v(0)=1$, $u'(0)=0$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0\cdot 1 + 3\cdot 1 = 3$$` (los datos en prosa, el cálculo real en su propio bloque)
-31. **Todo ítem reintroduce la definición o fórmula central del concepto que usa, aunque ya haya aparecido en otro ítem de la sesión.** Extensión concreta de la regla crítica 24 (independencia entre ítems): no alcanza con no compararse contra otro ítem, tampoco hay que asumir que el alumno ya vio la fórmula/definición en juego. Cuando la pregunta depende de un objeto que no está explícito en el propio enunciado (la definición de derivada como límite del cociente incremental, una fórmula de regla operatoria, etc.), esa definición se reintroduce, con su LaTeX centrado si hace falta, antes de la pregunta puntual.
+31. **Todo ejercicio reintroduce la definición o fórmula central del concepto que usa, aunque ya haya aparecido en otro ejercicio de la sesión.** Extensión concreta de la regla crítica 24 (independencia entre ejercicios): no alcanza con no compararse contra otro ejercicio, tampoco hay que asumir que el alumno ya vio la fórmula/definición en juego. Cuando la pregunta depende de un objeto que no está explícito en el propio enunciado (la definición de derivada como límite del cociente incremental, una fórmula de regla operatoria, etc.), esa definición se reintroduce, con su LaTeX centrado si hace falta, antes de la pregunta puntual.
     - ❌ `Al factorizar $h$ en el numerador $2xh+h^2$, ¿qué factor común se extrae?` (asume que el alumno ya tiene presente de dónde salió ese numerador, sin reintroducir el cociente incremental que lo originó)
     - ✅ `La derivada de $f$ en $a$ se define como\n$$f'(a) = \lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$$\nAl factorizar $h$ en el numerador $2xh+h^2$ de ese cociente, ¿qué factor común se extrae?`
-32. **El fragmento antes de un bloque `$$...$$` tiene que ser una cláusula completa que cierre en `.`/`:` antes de la fórmula, y esa apertura no puede repetirse literalmente ítem tras ítem.** Es una extensión de las reglas críticas 9 y 24. Dos violaciones distintas, no confundir:
+32. **El fragmento antes de un bloque `$$...$$` tiene que ser una cláusula completa que cierre en `.`/`:` antes de la fórmula, y esa apertura no puede repetirse literalmente ejercicio tras ejercicio.** Es una extensión de las reglas críticas 9 y 24. Dos violaciones distintas, no confundir:
     - **Fragmento incompleto, aunque tenga puntuación.** Un verbo corto que no cierra una idea por sí solo ("Sabiendo que", "Para derivar", "En", "Antes de derivar") no se arregla poniéndole `:` al lado: hay que reescribirlo como cláusula completa. En cambio, un imperativo con objeto concreto ("Considerá la función", "Analizá la función", "Calculá la derivada de la función") **sí es una cláusula completa** (verbo + objeto sustantivo) y **solo le falta el `:`** antes del bloque display; no hace falta reescribirlo desde cero.
       - ❌ `Sabiendo que\n$$f(x) = (x^2+3)e^x$$\ncalculá $f'(0)$.` (fragmento sin objeto propio; agregarle `:` no lo completa)
       - ❌ `Considerá la función\n$$f(x) = (x^2+3)e^x$$\ncalculá $f'(0)$.` (cláusula completa pero sin el `:` que la cierra)
       - ✅ `Considerá la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$ aplicando la regla del producto.` (mismo opener, con `:` agregado y la pregunta en su propia oración con mayúscula)
-    - **Repetición literal de la misma apertura en toda una sub-familia.** Aunque el opener sea válido y esté bien puntuado, repetir el mismo `"Considerá la función:"` en los 50 ítems de un skill se lee como plantilla. Variar la redacción ítem a ítem (regla 24 ya pedía esto para la situación del concepto; acá aplica igual a la apertura).
-    - **Confirmado como sesgo sistémico de la generación original**: reapareció en prácticamente todo `ESTR`/`RESL` de las 6 topics de `violet/derivatives` (más de 100 ítems), igual que el de la regla 12 en `white/functions`. Auditar el 100% de los ítems de cualquier topic todavía no revisado contra esta regla: la mayoría son solo cuestión de agregar el `:` faltante y variar la redacción, no de reescribir el enunciado entero.
+    - **Repetición literal de la misma apertura en toda una sub-familia.** Aunque el opener sea válido y esté bien puntuado, repetir el mismo `"Considerá la función:"` en los 50 ejercicios de un skill se lee como plantilla. Variar la redacción ejercicio a ejercicio (regla 24 ya pedía esto para la situación del concepto; acá aplica igual a la apertura).
+    - **Confirmado como sesgo sistémico de la generación original**: reapareció en prácticamente todo `ESTR`/`RESL` de las 6 topics de `violet/derivatives` (más de 100 ejercicios), igual que el de la regla 12 en `white/functions`. Auditar el 100% de los ejercicios de cualquier topic todavía no revisado contra esta regla: la mayoría son solo cuestión de agregar el `:` faltante y variar la redacción, no de reescribir el enunciado entero.
 
 ---
 
@@ -117,7 +126,7 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 | `has_math` | `true` si hay LaTeX en cualquier campo. |
 | `graph_fn`, `graph_view` | ver sección Gráficos. `null` si no hay gráfico. |
 | `reviewed` | `false` hasta revisión manual. |
-| `tags` | **opcional.** `array<string>` con un slug de sub-familia/arquetipo. Ver sección *Etiquetas (tags)* más abajo. **Legacy:** ausente en ítems todavía no tageados. |
+| `tags` | **opcional.** `array<string>` con un slug de sub-familia/arquetipo. Ver sección *Etiquetas (tags)* más abajo. **Legacy:** ausente en ejercicios todavía no tageados. |
 
 El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}`) y **no va en el JSON**.
 
@@ -125,7 +134,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 ## Etiquetas (tags)
 
-**Qué es y para qué sirve.** Cada ejercicio puede llevar un campo `tags` que identifica a qué **sub-familia o arquetipo** de la distribución objetivo de su skill pertenece (la misma sub-familia que ya documenta cada `topic-context.md`, sea como tabla A/B/C/D o como desglose por concepto). Sirve para tres cosas: (1) verificar programáticamente que la distribución real de un refactor coincide con la distribución objetivo, sin releer los 50 ítems a mano, (2) buscar en bloque todos los ejercicios de un sub-tipo puntual durante una auditoría, (3) análisis futuro de cómo les va a los usuarios por sub-tipo, no solo por skill.
+**Qué es y para qué sirve.** Cada ejercicio puede llevar un campo `tags` que identifica a qué **sub-familia o arquetipo** de la distribución objetivo de su skill pertenece (la misma sub-familia que ya documenta cada `topic-context.md`, sea como tabla A/B/C/D o como desglose por concepto). Sirve para tres cosas: (1) verificar programáticamente que la distribución real de un refactor coincide con la distribución objetivo, sin releer los 50 ejercicios a mano, (2) buscar en bloque todos los ejercicios de un sub-tipo puntual durante una auditoría, (3) análisis futuro de cómo les va a los usuarios por sub-tipo, no solo por skill.
 
 **Shape:** `array<string>`, un solo slug por ahora (el array queda abierto a futuro, no es una promesa de que hoy haya más de uno).
 
@@ -136,7 +145,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 **Formato del slug:**
 - Kebab-case, en español, sin tildes: `vertice-x`, `signo-de-h`, `anulacion-por-raiz`.
 - 2 a 4 palabras, describiendo el concepto o mecánica del sub-tipo, no una letra ni un número (`A`, `B1` no sirven).
-- El slug tiene que ser **el mismo** que la columna "slug" de la tabla de distribución de ese skill en su `topic-context.md` — no inventes uno nuevo al tagear un ítem, usá el de la tabla.
+- El slug tiene que ser **el mismo** que la columna "slug" de la tabla de distribución de ese skill en su `topic-context.md` — no inventes uno nuevo al tagear un ejercicio, usá el de la tabla.
 
 **Convención de esta ronda:** un tag por ejercicio, el de su sub-familia. Ejercicios legacy sin tagear simplemente no tienen el campo (no hace falta `[]` ni `null`).
 
@@ -179,7 +188,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - **Corto:** ideal 1 oración, 2 como máximo. En renglones en celular: ideal ≤ 2, hasta 3 está bien, 4 como máximo absoluto. Es una pista para el segundo intento, no una mini-explicación, eso ya lo cubre `explanation`.
 - **Sin pistas en cascada:** cada texto es autosuficiente para SU distractor; no asume que el usuario ya leyó la pista de otra opción.
 - **Contenido típico de la pista según skill:**
-  - `RESL` (cálculo): error de procedimiento, signo, regla mal aplicada, paso salteado, constante de integración olvidada. También cubre confusión entre el contexto cotidiano y el resultado matemático puro cuando el ítem se plantea en contexto.
+  - `RESL` (cálculo): error de procedimiento, signo, regla mal aplicada, paso salteado, constante de integración olvidada. También cubre confusión entre el contexto cotidiano y el resultado matemático puro cuando el ejercicio se plantea en contexto.
   - `ESTR`/`CLSF` (conceptual): la condición que falta o se confundió, releer el concepto sin re-explicarlo entero.
   - `GRAF`: qué parte del gráfico releer, "fijate qué pasa a la izquierda del salto", sin nombrar el valor.
 - **Migración:** los belts con `""` se completan al pasar por refactor; no hace falta backfill manual fuera de ese proceso.
@@ -210,7 +219,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 ## Formato de Cálculo Numérico, grilla compacta 2×2
 
-Para el skill de cálculo (`RESL`) y para cualquier ítem de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
+Para el skill de cálculo (`RESL`) y para cualquier ejercicio de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
 
 **Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4` y todas las opciones caben en el límite de caracteres correspondiente (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, función `hasLatex`/`limit` cerca de la línea 435):
 
@@ -231,7 +240,7 @@ El límite de LaTeX es más chico porque KaTeX renderiza mucho más ancho por ca
 - **Display (`$$...$$`)**: obligatorio para cualquier expresión densa, fracciones, límites con subíndices, derivadas, sumatorias, integrales. Aislarla en su propio bloque evita que KaTeX reduzca el tamaño de fuente en mobile.
 - Regla rápida: si la expresión "tiene partes arriba y abajo de la línea base" (fracción, límite, sumatoria) → `$$`.
 
-**Preferencia de estilo en `explanation` (no obligatoria): centrada por sobre inline cuando la fórmula es el objeto central del razonamiento.** Cuando la `explanation` gira en torno a una fórmula puntual (la función del ítem, un resultado intermedio del cálculo), preferí mostrarla en su propio bloque `$$...$$` aunque sea corta, en vez de tejerla inline dentro de una oración larga. Varias fórmulas inline salpicadas en un mismo párrafo son difíciles de leer en mobile. Reservá el inline para números sueltos o variables que acompañan la prosa (`$x$`, `$a<0$`), no para la primera aparición de la función que define el ítem.
+**Preferencia de estilo en `explanation` (no obligatoria): centrada por sobre inline cuando la fórmula es el objeto central del razonamiento.** Cuando la `explanation` gira en torno a una fórmula puntual (la función del ejercicio, un resultado intermedio del cálculo), preferí mostrarla en su propio bloque `$$...$$` aunque sea corta, en vez de tejerla inline dentro de una oración larga. Varias fórmulas inline salpicadas en un mismo párrafo son difíciles de leer en mobile. Reservá el inline para números sueltos o variables que acompañan la prosa (`$x$`, `$a<0$`), no para la primera aparición de la función que define el ejercicio.
 - ❌ `Un polinomio $f(x)=x^3-2x+5$ evaluado en $x=0$ da $f(0)=5$, que es el término independiente.` (fórmula central tejida inline en una oración larga)
 - ✅ `Evaluando el polinomio en $x=0$:\n$$f(0) = 5$$\nEse valor coincide con el término independiente.`
 
@@ -239,7 +248,7 @@ El límite de LaTeX es más chico porque KaTeX renderiza mucho más ancho por ca
 - ❌ `Aplicamos la regla del producto: la derivada de $u\cdot v$ es $u'v+uv'$, así que con $u=x^2$ y $v=e^x$ queda $u'=2x$ y $v'=e^x$, entonces $f'(x)=2x\,e^x+x^2 e^x$, que factorizando da $x e^x(2+x)$.` (todos los pasos amontonados inline en un solo párrafo denso)
 - ✅ `Por la regla del producto, la derivada de $u\cdot v$ es:\n$$u'v + uv'$$\nAcá $u=x^2$ y $v=e^x$, con $u'=2x$ y $v'=e^x$. Sustituyendo cada parte:\n$$f'(x) = 2x\,e^x + x^2 e^x$$\nSacando $x e^x$ de factor común, queda la forma más compacta:\n$$f'(x) = x e^x (2 + x)$$` (cada momento clave anclado en su bloque, la prosa narra la transición entre uno y otro)
 
-**En `question` la misma preferencia es regla crítica, no solo estilo (ver regla crítica 18).** La fórmula que define la función del ítem no se teje inline dentro de la pregunta: va en su propio bloque centrado, sobre todo si es una fracción. Ver regla crítica 18 para ejemplos.
+**En `question` la misma preferencia es regla crítica, no solo estilo (ver regla crítica 18).** La fórmula que define la función del ejercicio no se teje inline dentro de la pregunta: va en su propio bloque centrado, sobre todo si es una fracción. Ver regla crítica 18 para ejemplos.
 
 ### Declaraciones de tipo de función `A : X \to Y`: extensión corta por diseño
 
@@ -366,7 +375,7 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
 ¿Qué representa el valor donde la recta toca el eje vertical?
 ```
 
-**Ojo: esto aplica a contexto cotidiano (situación real), no a restablecer en prosa lo que el gráfico ya muestra directamente.** Si el ítem no tiene un contexto cotidiano (es lectura pura de un gráfico abstracto) y el párrafo inicial solo describe rasgos visuales que el propio gráfico ya deja ver (ej. "la gráfica muestra dos ramas separadas por una asíntota, que se aplanan cerca del eje $X$"), ese párrafo es redundante y sobra: ir directo a la pregunta. El párrafo de contexto se justifica cuando aporta información que el gráfico solo no da (una situación real, unidades, qué representa cada eje), no cuando repite en palabras lo que ya es visualmente obvio.
+**Ojo: esto aplica a contexto cotidiano (situación real), no a restablecer en prosa lo que el gráfico ya muestra directamente.** Si el ejercicio no tiene un contexto cotidiano (es lectura pura de un gráfico abstracto) y el párrafo inicial solo describe rasgos visuales que el propio gráfico ya deja ver (ej. "la gráfica muestra dos ramas separadas por una asíntota, que se aplanan cerca del eje $X$"), ese párrafo es redundante y sobra: ir directo a la pregunta. El párrafo de contexto se justifica cuando aporta información que el gráfico solo no da (una situación real, unidades, qué representa cada eje), no cuando repite en palabras lo que ya es visualmente obvio.
 - ❌ `La gráfica muestra dos ramas separadas por una línea vertical, y ambas ramas se aplanan horizontalmente cerca del eje $X$ a medida que $x$ crece.\n\n¿A qué familia de funciones pertenece esta gráfica?` (describe en prosa lo que el gráfico ya muestra, sin agregar nada)
 - ✅ `¿A qué familia de funciones pertenece esta gráfica?` (el gráfico ya comunica esos rasgos, no hace falta describirlos antes)
 
@@ -431,7 +440,7 @@ La gráfica muestra el costo total, en cientos de pesos, según los kilómetros.
   - ❌ `$$I(p) = p(80 + 4(10 - p)) = p(120 - 4p)$$`
   - ✅ `$$I(p) = 120p - 4p^2$$`
 - **Opciones "Otra/Otra2/Otra3"**: marcador de ejercicio incompleto. Nunca reseedear con opciones placeholder.
-- **Notación consistente dentro de un mismo `options`**: todas las opciones de un ítem comparten el mismo registro. Si una opción usa notación simbólica/LaTeX (un conjunto, $\mathbb{R}$, una condición), ninguna otra puede ser una frase de prosa libre.
+- **Notación consistente dentro de un mismo `options`**: todas las opciones de un ejercicio comparten el mismo registro. Si una opción usa notación simbólica/LaTeX (un conjunto, $\mathbb{R}$, una condición), ninguna otra puede ser una frase de prosa libre.
   - ❌ `["Cualquier precio entre 1000 y 2000", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]` (la primera desentona, rompe el registro simbólico de las otras tres)
   - ✅ `["$[1000, 2000]$", "$\\{1000, 2000\\}$", "$\\{1000\\}$", "$\\{2000\\}$"]`
   - ❌ `["$a \\geq 0$", "Todos los reales", "$a \\neq 0$", "$a > 100$"]`
@@ -534,13 +543,13 @@ Cada campo `explanation` sigue una estructura de **tres partes**:
 ## Bugs conocidos / pendientes técnicos
 
 - **[CORREGIDO] Render de `$` de pesos**: montos con `$` sin escapar rompían KaTeX. Solución: `\$` en contenido + soporte de escape en `MathText`. Verificar que ningún ejercicio nuevo use `$` sin escapar para dinero.
-- **[CORREGIDO A NIVEL GLOBAL] Saltos de línea doble-escapados (`\\n` en vez de `\n`)**: algunos ítems generados guardan el salto de línea como los dos caracteres literales `\` + `n` en el JSON en vez de un salto de línea real, lo que se mostraba como el texto crudo `\n` en pantalla en vez de un salto. `MathText` ahora normaliza cualquier `\n` literal a salto de línea real en los segmentos de texto plano (nunca dentro de `$...$`/`$$...$$`, así que no puede corromper comandos LaTeX como `\neq`/`\nu`/`\nabla`). No hace falta editar el contenido existente ni futuro para este problema puntual, pero **seguí escribiendo `\n` real (no `\\n`) al generar JSON nuevo**, es la forma correcta.
+- **[CORREGIDO A NIVEL GLOBAL] Saltos de línea doble-escapados (`\\n` en vez de `\n`)**: algunos ejercicios generados guardan el salto de línea como los dos caracteres literales `\` + `n` en el JSON en vez de un salto de línea real, lo que se mostraba como el texto crudo `\n` en pantalla en vez de un salto. `MathText` ahora normaliza cualquier `\n` literal a salto de línea real en los segmentos de texto plano (nunca dentro de `$...$`/`$$...$$`, así que no puede corromper comandos LaTeX como `\neq`/`\nu`/`\nabla`). No hace falta editar el contenido existente ni futuro para este problema puntual, pero **seguí escribiendo `\n` real (no `\\n`) al generar JSON nuevo**, es la forma correcta.
 - Las **sesiones cachean** el contenido del ejercicio al construirse (`session_store.py`), en memoria. Tras reseedear, las sesiones ya abiertas siguen con el snapshot viejo; arrancar una sesión nueva para ver cambios.
-- **[CORREGIDO EN CONTENIDO] Límites laterales sin punto de tendencia (`\lim^-`/`\lim^+` sueltos)**: 10 ítems entre `continuity/CLSF.json` y `lateral_limits/{GRAF,LEXI,RESL}.json` (33 ocurrencias) escribían el lateral sin el `_{x \to a}` debajo. Corregido con un script puntual (reemplazo directo por ítem, agregando el punto de tendencia correcto de cada caso). Ver regla crítica 27. Si aparece de nuevo en contenido nuevo, es un error de generación, no un bug de render.
+- **[CORREGIDO EN CONTENIDO] Límites laterales sin punto de tendencia (`\lim^-`/`\lim^+` sueltos)**: 10 ejercicios entre `continuity/CLSF.json` y `lateral_limits/{GRAF,LEXI,RESL}.json` (33 ocurrencias) escribían el lateral sin el `_{x \to a}` debajo. Corregido con un script puntual (reemplazo directo por ejercicio, agregando el punto de tendencia correcto de cada caso). Ver regla crítica 27. Si aparece de nuevo en contenido nuevo, es un error de generación, no un bug de render.
 
 ---
 
-## Resumen operativo, repetir mentalmente antes de cada ítem
+## Resumen operativo, repetir mentalmente antes de cada ejercicio
 
 Están duplicadas arriba a propósito, para que también estén disponibles al final del documento (donde el modelo suele buscarlas antes de generar).
 
@@ -573,8 +582,8 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - NUNCA tejer una fracción $\tfrac{0}{0}$ apilada dentro de un párrafo de prosa; usar la forma horizontal `0/0` en texto corrido.
 - NUNCA dejar caer el `\lim_{x \to a}` de las líneas intermedias de un desarrollo `aligned`, ni reemplazarlo por una flecha `\xrightarrow{}`; se repite en cada línea hasta el resultado final.
 - NUNCA alinear con columna de `=` en un `aligned` para listar datos/valores evaluados de forma independiente; esa alineación se reserva para una ecuación que se despeja o una expresión que se transforma paso a paso.
-- NUNCA asumir que el alumno ya vio la definición/fórmula central en otro ítem de la sesión; cada ítem la reintroduce si la necesita.
-- NUNCA dejar un imperativo con objeto concreto ("Considerá la función", "Analizá la función") sin el `:` que lo cierra antes de un bloque `$$...$$`; y NUNCA usar un fragmento sin objeto propio ("Sabiendo que", "Para derivar", "En") como si el `:` solo lo arreglara, hay que reescribirlo como cláusula completa. En ambos casos, variar la redacción ítem a ítem, no repetir la misma apertura en toda una sub-familia.
+- NUNCA asumir que el alumno ya vio la definición/fórmula central en otro ejercicio de la sesión; cada ejercicio la reintroduce si la necesita.
+- NUNCA dejar un imperativo con objeto concreto ("Considerá la función", "Analizá la función") sin el `:` que lo cierra antes de un bloque `$$...$$`; y NUNCA usar un fragmento sin objeto propio ("Sabiendo que", "Para derivar", "En") como si el `:` solo lo arreglara, hay que reescribirlo como cláusula completa. En ambos casos, variar la redacción ejercicio a ejercicio, no repetir la misma apertura en toda una sub-familia.
 
 **SIEMPRE:**
 - SIEMPRE `\n\n` entre contexto y pregunta.

@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `laplace`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: la **regla de Laplace** asigna $P(A) = \dfrac{\#\text{favorables}}{\#\text{posibles}}$ en espacios muestrales finitos y **equiprobables**. Reutiliza directamente las técnicas de conteo de la unidad `conteo` (regla del producto/suma, permutaciones, variaciones, combinaciones) para contar favorables y posibles.
 
-**Frontera con el resto de la unidad:** ningún ítem usa condicional, independencia, total ni Bayes; el foco es exclusivamente contar y dividir. La validez de Laplace (equiprobabilidad) es parte del contenido: reconocer cuándo NO aplica es tan importante como aplicarla bien.
+**Frontera con el resto de la unidad:** ningún ejercicio usa condicional, independencia, total ni Bayes; el foco es exclusivamente contar y dividir. La validez de Laplace (equiprobabilidad) es parte del contenido: reconocer cuándo NO aplica es tan importante como aplicarla bien.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Armar la **expresión** (fracción de conteo), sin resolver el número final.
 
@@ -26,7 +28,7 @@ Armar la **expresión** (fracción de conteo), sin resolver el número final.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **valor** de la probabilidad.
 
@@ -65,8 +67,8 @@ Calcular el **valor** de la probabilidad.
 
 ## Checklist del topic
 
-- [ ] Ningún ítem usa condicional, independencia, total o Bayes
-- [ ] Los ítems de "no equiprobable" dan una pista explícita de por qué no lo es
+- [ ] Ningún ejercicio usa condicional, independencia, total o Bayes
+- [ ] Los ejercicios de "no equiprobable" dan una pista explícita de por qué no lo es
 - [ ] Favorables y posibles se cuentan con la misma convención de orden/reposición
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: numérica → 4 opciones, fracciones en notación de barra

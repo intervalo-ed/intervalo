@@ -4,11 +4,13 @@ Belt: `brown`, Unit: `vectores`, Topic: `covarianza`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: $\mathrm{Cov}(X,Y)=E[XY]-E[X]\cdot E[Y]$ cuantifica la tendencia de $X$ e $Y$ a variar juntas. Signo positivo: se mueven en la misma dirección; negativo: en direcciones opuestas.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -19,7 +21,7 @@ Concepto: $\mathrm{Cov}(X,Y)=E[XY]-E[X]\cdot E[Y]$ cuantifica la tendencia de $X
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -47,11 +49,11 @@ Concepto: $\mathrm{Cov}(X,Y)=E[XY]-E[X]\cdot E[Y]$ cuantifica la tendencia de $X
 ## Reglas específicas del topic
 
 - **Reutilizar el mismo tipo de tabla** de `conjunta`/`marginales` cuando se calcula desde una tabla.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Los ítems desde tabla desarrollan $E[XY]$, $E[X]$ y $E[Y]$ como pasos separados antes de combinar
-- [ ] Ningún ítem confunde covarianza con correlación (esa relación es del topic siguiente)
+- [ ] Los ejercicios desde tabla desarrollan $E[XY]$, $E[X]$ y $E[Y]$ como pasos separados antes de combinar
+- [ ] Ningún ejercicio confunde covarianza con correlación (esa relación es del topic siguiente)
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

@@ -4,13 +4,15 @@ Belt: `white`, Unit: `probabilidad`, Topic: `espacios`
 
 Skills en este topic: `LEXI`, `CLSF`.
 
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `CLSF`.
+
 Concepto: el **espacio muestral** $\Omega$ (todos los resultados posibles de un experimento aleatorio), el **evento** ($A \subseteq \Omega$), el **suceso elemental** (resultado individual que no se descompone en subeventos), el **evento seguro** ($\Omega$), el **evento imposible** ($\emptyset$), el **complemento** de un evento, y la relación entre dos eventos (**mutuamente excluyentes** o no). Es el vocabulario base de toda la unidad `probabilidad`.
 
-**Frontera con el resto de la unidad:** ningún ítem calcula una probabilidad numérica todavía (eso empieza en `axiomas`/`laplace`). Acá se trabaja pura teoría de conjuntos sobre $\Omega$: identificar, nombrar y clasificar, no medir.
+**Frontera con el resto de la unidad:** ningún ejercicio calcula una probabilidad numérica todavía (eso empieza en `axiomas`/`laplace`). Acá se trabaja pura teoría de conjuntos sobre $\Omega$: identificar, nombrar y clasificar, no medir.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -27,7 +29,7 @@ Concepto: el **espacio muestral** $\Omega$ (todos los resultados posibles de un 
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 ### Distribución objetivo
 
@@ -62,7 +64,7 @@ Concepto: el **espacio muestral** $\Omega$ (todos los resultados posibles de un 
 
 ## Checklist del topic
 
-- [ ] Ningún ítem calcula una probabilidad numérica (eso es de otro topic)
+- [ ] Ningún ejercicio calcula una probabilidad numérica (eso es de otro topic)
 - [ ] Todo espacio muestral es finito y enumerable explícitamente en el enunciado
 - [ ] El distractor de independencia (si aparece) no usa la palabra "independiente"
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target

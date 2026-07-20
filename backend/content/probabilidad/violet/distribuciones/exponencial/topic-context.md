@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `exponencial`
 
 Skills en este topic: `GRAF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `GRAF`, `FORM`.
+
 Concepto: $X\sim Exp(\lambda)$ modela el tiempo continuo entre eventos sucesivos de un proceso de Poisson con tasa $\lambda$. $f(x)=\lambda e^{-\lambda x}$, $x\geq 0$. $E[X]=1/\lambda$. Única distribución continua con pérdida de memoria (análoga a `geometrica` en el caso discreto).
 
-**Nota de dependencia con integrales**: cuando un ítem necesite $P(a\leq X\leq b)$, dar la fórmula cerrada ya resuelta ($P(X\leq x)=1-e^{-\lambda x}$) en vez de pedir la integral (ver `probabilidad/course-context.md`).
+**Nota de dependencia con integrales**: cuando un ejercicio necesite $P(a\leq X\leq b)$, dar la fórmula cerrada ya resuelta ($P(X\leq x)=1-e^{-\lambda x}$) en vez de pedir la integral (ver `probabilidad/course-context.md`).
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X\sim Exp(\lambda)$ modela el tiempo continuo entre eventos sucesivos
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -50,11 +52,11 @@ Concepto: $X\sim Exp(\lambda)$ modela el tiempo continuo entre eventos sucesivos
 
 - **$\lambda$ en valores simples** (ej. $\lambda=0{,}5$, $\lambda=2$) para que $E[X]=1/\lambda$ dé un número manejable.
 - **Contextos válidos**: tiempo entre llegadas de clientes, vida útil de un componente, tiempo entre fallas de una máquina.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Ningún ítem pide resolver una integral; las fórmulas de probabilidad acumulada vienen ya cerradas
+- [ ] Ningún ejercicio pide resolver una integral; las fórmulas de probabilidad acumulada vienen ya cerradas
 - [ ] $\lambda$ es un valor simple que da $1/\lambda$ manejable
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

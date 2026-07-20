@@ -2,7 +2,7 @@
 
 Este es el **plano** de un ejercicio: qué partes lo componen, qué hace cada una y
 qué reglas (cualitativas y cuantitativas) tiene que cumplir. Sirve para dos cosas:
-decidir de un vistazo si un ítem está bien armado, y para que alguien que nunca
+decidir de un vistazo si un ejercicio está bien armado, y para que alguien que nunca
 generó contenido entienda la estructura antes de escribir el primero.
 
 - **Este documento es el resumen legible.** Da la forma y los números clave.
@@ -20,7 +20,7 @@ Flujo de generación completo (rondas, ciclo por topic, validación):
 
 ## El esqueleto: un ejercicio es un objeto JSON
 
-Cada ejercicio vive dentro de un archivo `{SKILL}.json` (un array de ítems). Los
+Cada ejercicio vive dentro de un archivo `{SKILL}.json` (un array de ejercicios). Los
 campos:
 
 | Campo | Tipo | Rol |
@@ -31,7 +31,7 @@ campos:
 | `feedback_correct` | `string` | Confirmación corta al acertar (1 oración). |
 | `feedback_incorrect` | `array<string\|null>` | Pista por distractor, paralela a `options`. `null` en el índice correcto. |
 | `explanation` | `string` | El "¿Por qué?" completo. 3 partes, mínimo 300 caracteres. |
-| `tags` | `array<string>` | Slug de la sub-familia del ítem (de la tabla del `topic-context.md`). |
+| `tags` | `array<string>` | Slug de la sub-familia del ejercicio (de la tabla del `topic-context.md`). |
 | `has_math` | `bool` | `true` si hay LaTeX en cualquier campo. |
 | `graph_fn`, `graph_view` | `string`/`array`/`null` | Gráfico embebido (solo skills `GRAF`). |
 | `correct_index`, `reviewed` | | metadata. `external_id` **no va en el JSON** (lo infiere el seeder de la ruta). |
@@ -49,13 +49,13 @@ y sube en abstracción.
 
 ### Criterios cualitativos
 
-- **Sitúa el concepto desde la primera oración** en ítems abstractos (nombrar
+- **Sitúa el concepto desde la primera oración** en ejercicios abstractos (nombrar
   función/límite/derivada/integral antes del tecnicismo). No aplica si un gráfico
   o una función a trozos ya dan ese contexto. (R24)
 - **Reintroduce la definición o fórmula central** que la pregunta necesita, aunque
-  ya haya aparecido en otro ítem. Cada ítem se lee solo. (R31)
-- **Nunca se enmarca contra otro ítem** ("a diferencia del anterior", "un caso más
-  difícil"): los ítems se presentan desordenados e independientes. (R24)
+  ya haya aparecido en otro ejercicio. Cada ejercicio se lee solo. (R31)
+- **Nunca se enmarca contra otro ejercicio** ("a diferencia del anterior", "un caso más
+  difícil"): los ejercicios se presentan desordenados e independientes. (R24)
 - **La fórmula central va aislada en su propio bloque `$$...$$`**, nunca tejida
   inline dentro de la pregunta, sobre todo si es una fracción. El texto acompaña la
   fórmula en oraciones propias, antes y/o después. (R18)
@@ -78,7 +78,7 @@ y sube en abstracción.
 | Fragmento antes de un `$$` | Cláusula completa que **cierra en `.` o `:`** (R9, R32) |
 | Separador contexto ↔ pregunta | `\n\n` (línea en blanco) |
 | Separador texto ↔ fórmula `$$` | un solo `\n` (R2) |
-| Aperturas repetidas | Variar ítem a ítem; misma apertura literal en ≥30% del archivo = plantilla (warning) (R32) |
+| Aperturas repetidas | Variar ejercicio a ejercicio; misma apertura literal en ≥30% del archivo = plantilla (warning) (R32) |
 | Aclaraciones entre paréntesis/comillas | máximo **1 por oración** (R13) |
 | Declaración `A : X \to Y` | cabe en una línea mobile (~30 chars); conjuntos de 2-4 elementos de 1-2 chars (LaTeX/display) |
 
@@ -242,5 +242,5 @@ python content/validate_content.py --course analisis --topic <belt/unit/topic>
 
 Lo que **no** es automatizable y queda en el checklist manual del `topic-context.md`:
 que la explicación razone el porqué (R25), que un `aligned` no aliñe datos sueltos
-(R30), que cada ítem reintroduzca su definición (R31) y las reglas duras del topic
+(R30), que cada ejercicio reintroduzca su definición (R31) y las reglas duras del topic
 (`+C`, límites actualizados, frontera del cinturón).

@@ -72,12 +72,12 @@ como aplicada (grilla decimal).
 
 El tema más limpio de la unidad en formato: verificado programáticamente, prácticamente sin `\n\n$$` glue, sin em-dash, sin viñetas, sin explicaciones cortas. Solo dos pendientes reales:
 
-1. **`feedback_incorrect` falta en los 200 ítems** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
+1. **`feedback_incorrect` falta en los 200 ejercicios** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
 2. **Antropomorfismo del seno/coseno, un problema localizado en LEXI y CLSF** (no aparece en FORM/GRAF): varios cierres de `explanation` personifican las funciones trigonométricas con rasgos humanos, violación directa de la regla crítica 7 (`authoring-context.md`). Encontrados:
    - **LEXI** #15 ("el coseno llega... con toda la energía. El seno prefiere arrancar despacio"), #18 ("¡Qué disciplina!"), #23 ("el piso en que vive"), #24 ("el seno llega tarde a la fiesta... la invitación decía"), #47 ("el seno siempre llega tarde, pero llega"), #48 ("sin drama con el eje $X$").
    - **CLSF** #28 ("el seno pesimista que en vez de subir, decide bajar primero"), #33 ("el seno ahora duerme... pero sigue soñando"), #42 ("el coseno siempre empieza con lo mejor. El seno prefiere arrancar... y ganarlo").
    - Reescribir estos cierres a advertencia/consejo neutro (ej. nombrar la diferencia real: coseno arranca en su máximo, seno arranca en cero) sin personificación.
-3. **Defectos menores de formato** (no requieren pasada completa, solo tocar los ítems puntuales): `\n\n$$` glue en CLSF #10; em-dash en LEXI #29, CLSF #39, GRAF #16; viñetas en LEXI #10, CLSF #11-12, FORM #10, GRAF #10.
+3. **Defectos menores de formato** (no requieren pasada completa, solo tocar los ejercicios puntuales): `\n\n$$` glue en CLSF #10; em-dash en LEXI #29, CLSF #39, GRAF #16; viñetas en LEXI #10, CLSF #11-12, FORM #10, GRAF #10.
 4. **`correct_index` con sesgo moderado** (menor que en el resto de la unidad, pero corregible): LEXI {0:4,1:17,2:21,3:8}, CLSF {0:6,1:18,2:15,3:11}, FORM {0:7,1:16,2:17,3:10}, GRAF {0:5,1:10,2:21,3:14}. Rebalancear a ~{0:12,1:13,2:12,3:13}.
 
 ### Confusiones fuente para `feedback_incorrect`, por skill
@@ -93,12 +93,12 @@ El tema más limpio de la unidad en formato: verificado programáticamente, prá
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ítems por skill: `array` del largo de `options`, `null` en el correcto
-- [ ] Sin antropomorfismo del seno/coseno en los cierres (LEXI y CLSF, ver lista de ítems arriba)
+- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] Sin antropomorfismo del seno/coseno en los cierres (LEXI y CLSF, ver lista de ejercicios arriba)
 - [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice)
 - [ ] Notación española `\operatorname{sen}(x)` en texto, `sin(x)` solo en `graph_fn`
 - [ ] Ningún `\begin{aligned}` envuelto en `$...$` inline: siempre `$$...$$`, un solo `\\` por salto de línea (bug ya reparado en esta ronda, ver hallazgos)
-- [ ] Cada ítem lleva `"tags": ["<slug>"]` según la tabla de distribución de su skill (ver sección más abajo), conteo por slug coincide con el target
+- [ ] Cada ejercicio lleva `"tags": ["<slug>"]` según la tabla de distribución de su skill (ver sección más abajo), conteo por slug coincide con el target
 - [ ] En `options` con fracciones cortas para grilla 2×2, notación de barra (`1/3`) en vez de `\frac`/`\dfrac`
 - [ ] Ningún párrafo de `explanation` acumula 2+ fragmentos LaTeX inline sueltos
 - [ ] En opciones `CLSF` que ya son una fórmula, sin nombre de familia entre paréntesis al lado
@@ -106,9 +106,9 @@ El tema más limpio de la unidad en formato: verificado programáticamente, prá
 
 ### Hallazgos de auditoría (ronda 1, jul-2026)
 
-**Bug de render crítico, ya reparado en esta ronda** (no es parte del refactor pendiente, ya está resuelto en disco y reseedeado): 58 ítems (LEXI 6, CLSF 3, FORM 28, GRAF 21) tenían `\begin{aligned}...\end{aligned}` envuelto en `$...$` inline en vez de `$$...$$` display, más un `\\` duplicado en cada salto de línea. El parser de `MathText` excluye saltos de línea de su regex inline, así que el campo entero se mostraba como texto crudo sin renderizar. Reparado con un script mecánico (validado contra `json.loads`) y reseedeado. Ver regla crítica 17b en `authoring-context.md`.
+**Bug de render crítico, ya reparado en esta ronda** (no es parte del refactor pendiente, ya está resuelto en disco y reseedeado): 58 ejercicios (LEXI 6, CLSF 3, FORM 28, GRAF 21) tenían `\begin{aligned}...\end{aligned}` envuelto en `$...$` inline en vez de `$$...$$` display, más un `\\` duplicado en cada salto de línea. El parser de `MathText` excluye saltos de línea de su regex inline, así que el campo entero se mostraba como texto crudo sin renderizar. Reparado con un script mecánico (validado contra `json.loads`) y reseedeado. Ver regla crítica 17b en `authoring-context.md`.
 
-10 ítems corregidos por el usuario en esta ronda (`correciones_analisis_funciones_trigon_13_7.md`), además del bug de arriba:
+10 ejercicios corregidos por el usuario en esta ronda (`correciones_analisis_funciones_trigon_13_7.md`), además del bug de arriba:
 - `GRAF_47`: fórmula del enunciado (fracción, `T(m) = 8\cos(\pi/6 \cdot (m-1)) + 15`) tejida inline, debía ir separada y centrada (regla crítica 18, 2ª confirmación cross-topic tras `rational`).
 - `LEXI_50`: propuesta de regla nueva (ahora regla crítica 20): opciones con fracciones cortas en notación de barra (`1/3`) en vez de `\dfrac`, para grilla 2×2 pareja.
 - `GRAF_38`: símbolos ✓/✗ en la `explanation` (ya prohibidos, reaparición) y estructura de párrafo pobre en la segunda mitad, muchas fórmulas inline sin separar (dio origen a la regla crítica 21, umbral de 2+ inline por párrafo).
@@ -119,9 +119,9 @@ El tema más limpio de la unidad en formato: verificado programáticamente, prá
 
 ### Distribución objetivo, con `tags`
 
-Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Diseñada leyendo los 200 ítems reales.
+Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Diseñada leyendo los 200 ejercicios reales.
 
-**LEXI** (50 ítems):
+**LEXI** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -148,7 +148,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Identificar función desde comportamiento | 1 | `identificar-funcion-comportamiento` |
 | **Total** | **50** | |
 
-**CLSF** (50 ítems):
+**CLSF** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -164,7 +164,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Dominio/restricción de la tangente | 1 | `dominio-tangente` |
 | **Total** | **50** | |
 
-**FORM** (50 ítems):
+**FORM** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -185,9 +185,9 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Contexto cotidiano aplicado | 2 | `contexto-cotidiano-aplicado-form` |
 | **Total** | **50** | |
 
-**GRAF** (50 ítems):
+**GRAF** (50 ejercicios):
 
-*Tipo A — leer propiedad directamente del gráfico (33 ítems):*
+*Tipo A — leer propiedad directamente del gráfico (33 ejercicios):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -209,7 +209,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Eje de oscilación ($D$) | 1 | `eje-oscilacion` |
 | Ubicación del mínimo | 1 | `ubicacion-minimo` |
 
-*Tipo B — identificar fórmula desde el gráfico (11 ítems):* slug único `formula-desde-grafico-trig`.
+*Tipo B — identificar fórmula desde el gráfico (11 ejercicios):* slug único `formula-desde-grafico-trig`.
 
-*Tipo C — contexto cotidiano con gráfico real (6 ítems):* slug único `contexto-cotidiano-graf-trig`.
+*Tipo C — contexto cotidiano con gráfico real (6 ejercicios):* slug único `contexto-cotidiano-graf-trig`.
 

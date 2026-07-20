@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `uniforme`
 
 Skills en este topic: `GRAF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `GRAF`, `FORM`.
+
 Concepto: $X\sim U(a,b)$, densidad constante $f(x)=\dfrac{1}{b-a}$ en $[a,b]$. $E[X]=(a+b)/2$. Reutiliza directamente lo visto en `blue/variables/densidad` (rectángulo), ahora nombrado como distribución con parámetros propios.
 
 **Nota de dependencia con integrales**: como en `blue/variables/densidad`, el área bajo $f(x)$ es siempre un rectángulo, calculable geométricamente sin técnica de integración (ver `probabilidad/course-context.md`).
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X\sim U(a,b)$, densidad constante $f(x)=\dfrac{1}{b-a}$ en $[a,b]$. $
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -48,11 +50,11 @@ Concepto: $X\sim U(a,b)$, densidad constante $f(x)=\dfrac{1}{b-a}$ en $[a,b]$. $
 ## Reglas específicas del topic
 
 - **Intervalos enteros cortos** (longitud 2 a 8) para que los cálculos sean manejables a mano.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Todo intervalo $[a,b]$ es entero con longitud entre 2 y 8
-- [ ] Ningún ítem requiere técnica de integración, solo geometría de rectángulos
+- [ ] Ningún ejercicio requiere técnica de integración, solo geometría de rectángulos
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: GRAF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

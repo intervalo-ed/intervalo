@@ -2,12 +2,14 @@
 
 Belt: `white`, Unit: `functions`, Topic: `linear`
 
-Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ítems cada uno (200 en total).
+Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+
+Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
 
 **Estado.** Los ejercicios (enunciados, opciones y respuestas correctas) están validados y se conservan. Este documento especifica lo que falta para dejar el tema al día con las convenciones actuales:
 
 1. **Correcciones de formato** pendientes (defectos sistémicos del estilo viejo).
-2. **`feedback_incorrect`** que falta en los 200 ítems (hoy todos con `""`).
+2. **`feedback_incorrect`** que falta en los 200 ejercicios (hoy todos con `""`).
 3. **Distribución objetivo** de cada skill, para preservarla en cualquier refactor.
 
 No se pide reescribir los problemas: se pide corregir el formato, sumar los feedback y no romper la distribución.
@@ -16,13 +18,13 @@ No se pide reescribir los problemas: se pide corregir el formato, sumar los feed
 
 ## Correcciones de formato transversales (los 4 skills)
 
-Defectos detectados en la auditoría (jul-2026). Aplicar a todos los ítems afectados.
+Defectos detectados en la auditoría (jul-2026). Aplicar a todos los ejercicios afectados.
 
-1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 29, CLSF 27, FORM 32 ítems). Viola la regla crítica 2 del `authoring-context.md`: las fórmulas display van con **un solo `\n`** antes y después, nunca `\n\n`. KaTeX ya agrega su propio margen; el doble salto abre un hueco vertical.
+1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 29, CLSF 27, FORM 32 ejercicios). Viola la regla crítica 2 del `authoring-context.md`: las fórmulas display van con **un solo `\n`** antes y después, nunca `\n\n`. KaTeX ya agrega su propio margen; el doble salto abre un hueco vertical.
    - ❌ `escribirse en la forma:\n\n$$f(x) = mx + b$$\n\ndonde $m$ y $b$...`
    - ✅ `escribirse en la forma\n$$f(x) = mx + b$$\ndonde $m$ y $b$...`
    - El `:` que colgaba antes del `$$` se saca (o se deja como cierre de la frase, pero sin `\n\n`).
-2. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 13, CLSF 23, FORM 10). Es el estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
+2. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 13, CLSF 23, FORM 10). Es el estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ejercicios con `-`.
    - ❌ `• $m$ es la pendiente — mide la inclinación.\n• $b$ es la ordenada...`
    - ✅ Prosa: `El parámetro $m$ es la **pendiente** y $b$ es la **ordenada al origen**...`
 3. **Em-dash `—` y en-dash `–`** (FORM 7, LEXI 1). Prohibidos (regla crítica 6). Reemplazar por `,`, `:`, `;` o `.`. Aparecen sobre todo como separador de viñeta y en los cierres humorísticos.
@@ -37,20 +39,20 @@ Defectos detectados en la auditoría (jul-2026). Aplicar a todos los ítems afec
 
 ---
 
-## `feedback_incorrect`, falta en los 200 ítems
+## `feedback_incorrect`, falta en los 200 ejercicios
 
 Hoy todos son `""`. Completar con un `array<string|null>` paralelo a `options`, mismo largo, `null` en el índice correcto. Voz **descriptiva del concepto**, nunca acusatoria (`"confunde X con Y"` prohibido; ver `authoring-context.md` §Pistas). Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
-Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identificar **pendiente** $m$ y **ordenada al origen** $b$ desde la fórmula, signo de $m$ y monotonía, raíz, dominio e imagen, casos especiales ($m = 0$ constante). Mezcla de ítems de identificación numérica (leer $m$ o $b$) y conceptuales (nombrar el parámetro, describir monotonía).
+Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identificar **pendiente** $m$ y **ordenada al origen** $b$ desde la fórmula, signo de $m$ y monotonía, raíz, dominio e imagen, casos especiales ($m = 0$ constante). Mezcla de ejercicios de identificación numérica (leer $m$ o $b$) y conceptuales (nombrar el parámetro, describir monotonía).
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `LEXI.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `LEXI.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -82,14 +84,14 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 ### Qué evalúa
-Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 2x - 5$ es lineal; $x^2$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (tasa constante → lineal; porcentaje/factor multiplicativo → exponencial; área → cuadrática). Incluye también monotonía e imagen de lineales, y 2 ítems con gráfico (recta vs. parábola vs. curva).
+Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 2x - 5$ es lineal; $x^2$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (tasa constante → lineal; porcentaje/factor multiplicativo → exponencial; área → cuadrática). Incluye también monotonía e imagen de lineales, y 2 ejercicios con gráfico (recta vs. parábola vs. curva).
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `CLSF.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `CLSF.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -116,19 +118,19 @@ Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, ex
 
 ### Reglas específicas
 - **Nunca poner "Cuadrática" y "Polinómica" juntas** en la misma grilla (ver `authoring-context.md`). Acá no aplica porque las familias son lineal/cuadrática/exp/log, pero mantenerlo en mente si se agregan opciones.
-- **Contexto y pregunta en párrafos separados** (`\n\n`), con la pregunta nombrando la magnitud concreta ("¿qué familia describe el valor restante...?"), no `¿Qué familia?` telegráfico. Esto ya se corrigió en jun-2026; mantenerlo al tocar los ítems.
+- **Contexto y pregunta en párrafos separados** (`\n\n`), con la pregunta nombrando la magnitud concreta ("¿qué familia describe el valor restante...?"), no `¿Qué familia?` telegráfico. Esto ya se corrigió en jun-2026; mantenerlo al tocar los ejercicios.
 - **Sin traducir el porcentaje a multiplicador en el enunciado**: "pierde el 10% cada año" se deja así; convertirlo a "se multiplica por 0,9" regala la clasificación (ver `authoring-context.md` §Preguntas directas).
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Qué evalúa
-Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **pendiente** $m$ (tarifa por unidad, ritmo) y la **ordenada al origen** $b$ (costo fijo, valor inicial), armar la ecuación. Incluye raíz (resolver $f(x) = 0$), imagen sobre dominio restringido $[a, b]$, y 4 ítems que leen la ecuación desde un gráfico.
+Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **pendiente** $m$ (tarifa por unidad, ritmo) y la **ordenada al origen** $b$ (costo fijo, valor inicial), armar la ecuación. Incluye raíz (resolver $f(x) = 0$), imagen sobre dominio restringido $[a, b]$, y 4 ejercicios que leen la ecuación desde un gráfico.
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `FORM.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `FORM.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -162,14 +164,14 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 Leer una recta desde su gráfico: **ordenada al origen** (bajada de bandera, valor inicial), **pendiente** (costo por km, ritmo), raíz, comparación de dos valores, y el caso de pendiente cero (abono fijo). Los 50 tienen `graph_fn`.
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `GRAF.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `GRAF.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -199,29 +201,29 @@ Leer una recta desde su gráfico: **ordenada al origen** (bajada de bandera, val
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una pista descriptiva por distractor
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una pista descriptiva por distractor
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (un solo `\n`)
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`: todas en 3 párrafos de prosa
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`: todas en 3 párrafos de prosa
 - [ ] Ningún em-dash `—` ni en-dash `–` en ningún campo
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `correct_index` variado, no concentrado en un solo índice
 - [ ] Montos con `\$` escapado
 
 **LEXI:**
-- [ ] 50 ítems; negrita en primera mención de `pendiente`/`ordenada al origen`/`dominio`/`imagen`
+- [ ] 50 ejercicios; negrita en primera mención de `pendiente`/`ordenada al origen`/`dominio`/`imagen`
 - [ ] Conceptuales puros a 3 opciones cuando no hay una cuarta confusión real; numéricos a 4
 
 **CLSF:**
-- [ ] 50 ítems; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
+- [ ] 50 ejercicios; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
 - [ ] Contexto y pregunta separados por `\n\n`, pregunta con la magnitud nombrada
 - [ ] Ningún enunciado traduce el porcentaje a multiplicador (no regalar la clasificación)
 
 **FORM:**
-- [ ] 50 ítems; forma final de la fórmula en el enunciado, paso intermedio en la explicación
+- [ ] 50 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación
 - [ ] Distractores de $m \leftrightarrow b$ y signo presentes, del mismo orden de magnitud
 - [ ] Los 7 cierres con em-dash reescritos a advertencia
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn`, `graph_view` cuadrado y $|m| \leq 3$
+- [ ] 50 ejercicios con `graph_fn`, `graph_view` cuadrado y $|m| \leq 3$
 - [ ] Formato de prosa conservado (referencia de estilo)
 - [ ] Cierres humorísticos pasados a advertencia/consejo

@@ -4,13 +4,15 @@ Belt: `brown`, Unit: `vectores`, Topic: `marginales`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: la **marginal** de una variable se obtiene de la conjunta sumando (discreta, $p_X(x)=\sum_y p(x,y)$) o integrando (continua, $f_X(x)=\int f(x,y)\,dy$) sobre todos los valores de la otra variable.
 
 **Frontera con el resto de la unidad:** reutiliza directamente las tablas conjuntas de `conjunta`. No usa todavía covarianza, correlación ni independencia.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **marginal** de una variable se obtiene de la conjunta sumando (dis
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -48,11 +50,11 @@ Concepto: la **marginal** de una variable se obtiene de la conjunta sumando (dis
 ## Reglas específicas del topic
 
 - **Reutilizar el mismo tipo de tabla** de `conjunta` (dominio $2\times2$ a $3\times3$).
-- **Cada ítem reintroduce la fórmula de marginal** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula de marginal** que usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Toda tabla reutiliza el formato de `conjunta` (dominio $2\times2$ a $3\times3$)
-- [ ] Las marginales calculadas suman $1$ en los ítems que las verifican
+- [ ] Las marginales calculadas suman $1$ en los ejercicios que las verifican
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

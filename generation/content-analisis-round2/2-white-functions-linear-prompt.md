@@ -9,21 +9,21 @@ No commitear directo a `main`.
 
 ## Contexto
 
-`topic-context.md` de este topic ya documentaba, desde antes de esta ronda, que los 200 ítems (LEXI, CLSF, FORM, GRAF, 50 cada uno) están **validados en contenido** (enunciado, opciones, respuesta correcta) pero necesitan: (1) correcciones de formato del estilo viejo, (2) agregar `feedback_incorrect` que hoy está vacío (`""`) en los 200 ítems, (3) preservar la distribución objetivo de cada skill. Esa sección ya tiene el detalle línea por línea, no la repito acá.
+`topic-context.md` de este topic ya documentaba, desde antes de esta ronda, que los 200 ejercicios (LEXI, CLSF, FORM, GRAF, 50 cada uno) están **validados en contenido** (enunciado, opciones, respuesta correcta) pero necesitan: (1) correcciones de formato del estilo viejo, (2) agregar `feedback_incorrect` que hoy está vacío (`""`) en los 200 ejercicios, (3) preservar la distribución objetivo de cada skill. Esa sección ya tiene el detalle línea por línea, no la repito acá.
 
 **Además**, desde el refactor de `definition` (ronda anterior) se actualizaron varias convenciones globales en `authoring-context.md` que también aplican acá. Este refactor de `linear` tiene que aplicar **ambas cosas**: lo que ya pedía `topic-context.md` + las convenciones globales nuevas.
 
 **No es una regeneración desde cero.** No reescribas enunciados, opciones ni la respuesta correcta salvo que lo pida explícitamente `topic-context.md` o rompan una regla de formato. Es una pasada de **formato, feedback y estilo**.
 
-## Recordatorio prioritario, antes de generar un solo ítem
+## Recordatorio prioritario, antes de generar un solo ejercicio
 
-De todas las reglas de `authoring-context.md`, estas son las que más rompen la experiencia cuando se pasan por alto. Chequealas en cada ítem a medida que lo escribís, no solo al final:
+De todas las reglas de `authoring-context.md`, estas son las que más rompen la experiencia cuando se pasan por alto. Chequealas en cada ejercicio a medida que lo escribís, no solo al final:
 
-1. **Paridad de opciones (reglas críticas 4 y 15).** Ninguna opción puede quedar como la única notablemente más larga/elaborada NI la única más corta/pelada que el resto; tampoco la única con un formato numérico distinto (entera vs. decimal, con vs. sin glosa aclaratoria). Si notás esa asimetría en cualquier ítem, igualá hacia el medio antes de seguir con el próximo.
+1. **Paridad de opciones (reglas críticas 4 y 15).** Ninguna opción puede quedar como la única notablemente más larga/elaborada NI la única más corta/pelada que el resto; tampoco la única con un formato numérico distinto (entera vs. decimal, con vs. sin glosa aclaratoria). Si notás esa asimetría en cualquier ejercicio, igualá hacia el medio antes de seguir con el próximo.
 2. **Estructura de párrafos y LaTeX.** Párrafos de `explanation`/`question` ≤200 caracteres (ideal ~100); 2+ fragmentos LaTeX inline sueltos en el mismo párrafo se dividen (regla 21); la fórmula central del enunciado va separada del texto en su propio `$$...$$`, nunca tejida inline (regla 18); cualquier derivación de 2+ pasos va vertical en `\begin{aligned}`, nunca encadenada en una sola línea horizontal, y cada renglón tiene que ser corto por sí solo.
 3. **Aligned solo para derivaciones reales (regla 30, nueva de la última ronda).** Un `\begin{aligned}` con columna de `=` se reserva para una ecuación que se despeja o una expresión que se transforma paso a paso; nunca para listar datos o valores evaluados de forma independiente, esos van en prosa.
-4. **Reintroducir la definición central en cada ítem (regla 31, nueva).** Si la pregunta depende de una fórmula/definición que no está explícita en el propio enunciado, se reintroduce con LaTeX centrado antes de la pregunta puntual; nunca asumirla vista en otro ítem de la sesión.
-5. **Openers y puntuación (regla 32, nueva).** Un imperativo con objeto concreto ("Considerá la función") es cláusula completa y solo necesita el `:` antes del bloque `$$...$$`; un fragmento sin objeto propio ("Sabiendo que", "Para derivar", "En") no se arregla con `:`, se reescribe como cláusula completa. En ambos casos, variar la redacción ítem a ítem, nunca repetir la misma apertura como plantilla en toda una sub-familia.
+4. **Reintroducir la definición central en cada ejercicio (regla 31, nueva).** Si la pregunta depende de una fórmula/definición que no está explícita en el propio enunciado, se reintroduce con LaTeX centrado antes de la pregunta puntual; nunca asumirla vista en otro ejercicio de la sesión.
+5. **Openers y puntuación (regla 32, nueva).** Un imperativo con objeto concreto ("Considerá la función") es cláusula completa y solo necesita el `:` antes del bloque `$$...$$`; un fragmento sin objeto propio ("Sabiendo que", "Para derivar", "En") no se arregla con `:`, se reescribe como cláusula completa. En ambos casos, variar la redacción ejercicio a ejercicio, nunca repetir la misma apertura como plantilla en toda una sub-familia.
 
 ## Leer antes de escribir una sola línea, en este orden
 
@@ -57,35 +57,35 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
 3. `backend/content/analisis/course-context.md` — estado matemático del alumno en `white` (sin límites, derivadas ni integrales todavía).
 4. `backend/content/analisis/white/generation-instructions.md` — flujo y el checklist de self-critique, ya incluye los checks de todas las reglas de arriba (constraints 1 a 41). No hace falta agregar checks adicionales, correlo completo.
 5. `backend/content/analisis/white/functions/linear/topic-context.md` — este topic. Tiene la sección **"Correcciones de formato transversales (los 4 skills)"** con los defectos sistémicos detectados, y las secciones por skill con la distribución objetivo a preservar (ahora con columna **Slug**, ver siguiente punto) y el detalle de `feedback_incorrect` faltante.
-6. `backend/content/authoring-context.md` sección **"Etiquetas (tags)"**: cada ítem lleva un campo nuevo `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de cada skill (punto anterior). Campo nuevo a agregar, no reemplaza nada existente.
+6. `backend/content/authoring-context.md` sección **"Etiquetas (tags)"**: cada ejercicio lleva un campo nuevo `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de cada skill (punto anterior). Campo nuevo a agregar, no reemplaza nada existente.
 
 ## Objetivo
 
-Sobre `LEXI.json`, `CLSF.json`, `FORM.json` y `GRAF.json` de `backend/content/analisis/white/functions/linear/` (50 ítems cada uno, 200 en total):
+Sobre `LEXI.json`, `CLSF.json`, `FORM.json` y `GRAF.json` de `backend/content/analisis/white/functions/linear/` (50 ejercicios cada uno, 200 en total):
 
 - Aplicar las correcciones de formato listadas en `topic-context.md` (sección "Correcciones de formato transversales" + las específicas de cada skill).
-- Completar `feedback_incorrect` en los 200 ítems (hoy `""` en todos), siguiendo las reglas de *Pistas de `feedback_incorrect`* de `authoring-context.md` (voz descriptiva o segunda persona amable, nunca acusatoria).
-- **Agregar `tags` a los 200 ítems.** Cada ítem lleva `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (cada una de las 4 skills tiene su propia tabla en `topic-context.md`). No inventes slugs nuevos, usá los ya definidos.
-- Aplicar el checklist acumulado completo del punto 1 de la sección anterior a los 200 ítems, no solo a los que ya ibas a tocar por otro motivo.
-- **Preservar la distribución objetivo** por concepto/sub-tipo de cada skill definida en `topic-context.md`. Si al corregir formato notás que algún ítem no encaja en su concepto asignado, señalalo en el resumen final en vez de reclasificarlo silenciosamente.
+- Completar `feedback_incorrect` en los 200 ejercicios (hoy `""` en todos), siguiendo las reglas de *Pistas de `feedback_incorrect`* de `authoring-context.md` (voz descriptiva o segunda persona amable, nunca acusatoria).
+- **Agregar `tags` a los 200 ejercicios.** Cada ejercicio lleva `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (cada una de las 4 skills tiene su propia tabla en `topic-context.md`). No inventes slugs nuevos, usá los ya definidos.
+- Aplicar el checklist acumulado completo del punto 1 de la sección anterior a los 200 ejercicios, no solo a los que ya ibas a tocar por otro motivo.
+- **Preservar la distribución objetivo** por concepto/sub-tipo de cada skill definida en `topic-context.md`. Si al corregir formato notás que algún ejercicio no encaja en su concepto asignado, señalalo en el resumen final en vez de reclasificarlo silenciosamente.
 
 ## Qué SI está fuera de alcance
 
 - No reescribas el contenido matemático (enunciado, opciones, respuesta correcta) salvo que lo pida `topic-context.md` o rompa una regla de formato/estilo.
-- No agregues ni quites ítems (quedan 50 × 4 = 200).
+- No agregues ni quites ejercicios (quedan 50 × 4 = 200).
 - No cambies la distribución por concepto/sub-tipo.
 - No toques otros topics ni otros belts.
 - No modifiques `authoring-context.md`, `gamification-context.md`, `course-context.md`, `generation-instructions.md` ni `topic-context.md` — son insumo de lectura.
 
 ## Cómo proceder: planificar, ejecutar, commitear
 
-**Paso 1 — Plan, antes de tocar un solo ítem.** Escribí en el chat el plan: qué ítems de cada skill tocás, qué regla dispara cada cambio (de `topic-context.md` o de las nuevas globales), y cómo vas a completar `feedback_incorrect` en los que hoy están vacíos. Si tenés dudas de alcance, marcalas y seguí, no te bloquees esperando respuesta.
+**Paso 1 — Plan, antes de tocar un solo ejercicio.** Escribí en el chat el plan: qué ejercicios de cada skill tocás, qué regla dispara cada cambio (de `topic-context.md` o de las nuevas globales), y cómo vas a completar `feedback_incorrect` en los que hoy están vacíos. Si tenés dudas de alcance, marcalas y seguí, no te bloquees esperando respuesta.
 
 **Paso 2 — Ejecutar** el refactor sobre los 4 archivos según el plan.
 
 **Paso 3 — Commit solo si todo salió bien.** Antes de commitear:
-1. Corré el checklist de self-critique de `generation-instructions.md` + el checklist acumulado completo ítem por ítem sobre los 200 ítems finales. Si algo falla, corregí y volvé a revisar. Incluí el chequeo de `tags`: contá cuántos ítems tienen cada slug por skill y verificá que coincide con la cantidad de la tabla de distribución.
+1. Corré el checklist de self-critique de `generation-instructions.md` + el checklist acumulado completo ejercicio por ejercicio sobre los 200 ejercicios finales. Si algo falla, corregí y volvé a revisar. Incluí el chequeo de `tags`: contá cuántos ejercicios tienen cada slug por skill y verificá que coincide con la cantidad de la tabla de distribución.
 2. Validá el formato con el seeder: desde `backend/`, `python seed_content.py --course analisis` (sin `--all`) y revisá que no tire errores sobre este topic.
 3. Si el seeder tira error o el checklist no cierra, **no commitees**: arreglá primero y repetí la validación.
 4. Recién con el checklist limpio y el seeder sin errores, commiteá con mensaje tipo `refactor(analisis/white/linear): formato, feedback_incorrect y convenciones globales`.
-5. En el mensaje del commit, resumí: cuántos ítems de cada skill tenían `feedback_incorrect` vacío y quedaron completados, qué correcciones de formato de `topic-context.md` se aplicaron, y si encontraste algún `graph_fn` con pendiente `|m| > 2` que hubo que rediseñar.
+5. En el mensaje del commit, resumí: cuántos ejercicios de cada skill tenían `feedback_incorrect` vacío y quedaron completados, qué correcciones de formato de `topic-context.md` se aplicaron, y si encontraste algún `graph_fn` con pendiente `|m| > 2` que hubo que rediseñar.

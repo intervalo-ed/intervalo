@@ -4,11 +4,13 @@ Belt: `blue`, Unit: `variables`, Topic: `esperanza`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: la **esperanza** $E[X]=\sum_x x\cdot p(x)$ (discreta) o $E[X]=\int x\cdot f(x)\,dx$ (continua), el promedio ponderado a largo plazo. Es lineal: $E[aX+b]=a\cdot E[X]+b$.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -19,7 +21,7 @@ Concepto: la **esperanza** $E[X]=\sum_x x\cdot p(x)$ (discreta) o $E[X]=\int x\c
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -48,11 +50,11 @@ Concepto: la **esperanza** $E[X]=\sum_x x\cdot p(x)$ (discreta) o $E[X]=\int x\c
 
 - **Dominio discreto chico** (3-5 valores), consistente con `puntual`.
 - **Densidad continua uniforme únicamente**, reutilizando la fórmula ya vista $(a+b)/2$; no pedir la integral en este topic.
-- **Cada ítem reintroduce la fórmula de esperanza** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula de esperanza** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Los ítems discretos ponderan correctamente cada valor por su $p(x)$
-- [ ] Los ítems continuos usan solo densidad uniforme con fórmula ya conocida
+- [ ] Los ejercicios discretos ponderan correctamente cada valor por su $p(x)$
+- [ ] Los ejercicios continuos usan solo densidad uniforme con fórmula ya conocida
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

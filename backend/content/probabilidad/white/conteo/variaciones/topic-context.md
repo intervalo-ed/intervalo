@@ -4,13 +4,15 @@ Belt: `white`, Unit: `conteo`, Topic: `variaciones`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: las **variaciones** cuentan las formas de elegir y ordenar $k$ elementos distintos de un total de $n$, sin repetición, donde el orden importa: $V_{n,k} = \dfrac{n!}{(n-k)!}$.
 
 **Frontera con el resto de la unidad:** si $k = n$ (se usan todos los elementos), colapsa a `permutaciones` ($V_{n,n} = n!$); ese caso no se genera acá, queda reservado al topic anterior. Si el orden no importa, es `combinaciones`. La distinción central de `CLSF` en este topic es "¿importa el orden de los $k$ elegidos?" (variación) vs. "¿no importa?" (combinación), dado que ambas ya comparten el rasgo "se elige un subconjunto $k<n$".
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 Reconocer la **técnica**, sin calcular.
 
@@ -26,7 +28,7 @@ Reconocer la **técnica**, sin calcular.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Armar la **expresión**.
 
@@ -41,7 +43,7 @@ Armar la **expresión**.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -74,13 +76,13 @@ Calcular el **resultado numérico**.
 ## Reglas específicas del topic
 
 - **Contextos válidos**: cargos distintos (director/subdirector, titular/suplente), podios parciales (1° y 2° puesto de un grupo más grande), franjas de bandera con colores distintos, códigos con posiciones distintas.
-- **$k$ siempre estrictamente menor que $n$**: si un ítem necesita $k=n$, pertenece a `permutaciones`, no se genera acá.
+- **$k$ siempre estrictamente menor que $n$**: si un ejercicio necesita $k=n$, pertenece a `permutaciones`, no se genera acá.
 - **El distractor de combinación en `CLSF` no nombra $\binom{n}{k}$**: describe la situación ("se eligen 2 representantes sin diferenciar cuál es titular y cuál suplente").
 
 ## Checklist del topic
 
-- [ ] Todo ítem tiene $k < n$ estrictamente (nunca $k=n$)
+- [ ] Todo ejercicio tiene $k < n$ estrictamente (nunca $k=n$)
 - [ ] Los distractores de "en realidad es combinación/permutación" describen la situación, no nombran la fórmula
-- [ ] Los ítems de `resl-desde-contexto` no usan la notación $V_{n,k}$ en el enunciado, solo en la explicación
+- [ ] Los ejercicios de `resl-desde-contexto` no usan la notación $V_{n,k}$ en el enunciado, solo en la explicación
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres
