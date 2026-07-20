@@ -268,6 +268,8 @@ class BeltProgressInfo(BaseModel):
 class SessionSummaryResponse(BaseModel):
     session_id: str
     user_name: str
+    mode: str
+    course: str
     total: int
     correct: int
     first_try_correct: int
