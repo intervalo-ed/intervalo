@@ -148,6 +148,22 @@ export default function DashboardEntry() {
     }
   }, [course])
 
+  // La URL de "/" siempre debe tener ?course=, para que la tab bar pueda
+  // pasarlo a /practice (y viceversa) sin perderlo. Si no vino en la URL,
+  // se escribe recién cuando ya sabemos el curso resuelto (alguna de las 3
+  // queries respondió) — antes de eso `course` es un default transitorio
+  // ("analisis") que no hay que congelar en la URL.
+  const lastCourseKnown =
+    analisisQuery.data !== undefined ||
+    probabilidadQuery.data !== undefined ||
+    algebraQuery.data !== undefined
+  useEffect(() => {
+    if (!lastCourseKnown || isCourseId(urlCourse)) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("course", course)
+    router.replace(`/?${params.toString()}`)
+  }, [lastCourseKnown, urlCourse, course, searchParams, router])
+
   const activeQuery = queryByCourse[course]
   const { data, isLoading, isError, error } = activeQuery
 
