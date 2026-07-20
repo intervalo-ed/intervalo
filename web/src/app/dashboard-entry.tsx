@@ -64,6 +64,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
 import { EditorStepper } from "./editor-stepper"
+import { useDebouncedStepper } from "./UseDebouncedStepper"
 import { useCourseEditor } from "./UseCourseEditor"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
@@ -152,6 +153,20 @@ export default function DashboardEntry() {
 
   const [editing, setEditing] = useState(false)
   const editor = useCourseEditor(course)
+  const capStepper = useDebouncedStepper({
+    serverValue: data?.active_cap ?? 0,
+    mutate: (v) => editor.setCap.mutate(v),
+  })
+  const sessionStepper = useDebouncedStepper({
+    serverValue: data?.session_size ?? 0,
+    mutate: (v) => editor.setSessionSize.mutate(v),
+  })
+
+  function closeEditing() {
+    capStepper.flush()
+    sessionStepper.flush()
+    setEditing(false)
+  }
 
   const setCourse = useCallback(
     ({ next }: { next: CourseId }) => {
@@ -249,7 +264,7 @@ export default function DashboardEntry() {
               onPrev={goPrev}
               onNext={goNext}
               editing={editing}
-              onToggleEdit={() => setEditing((v) => !v)}
+              onToggleEdit={() => (editing ? closeEditing() : setEditing(true))}
             />
 
             {editing ? (
@@ -257,18 +272,18 @@ export default function DashboardEntry() {
                 <EditorStepper
                   label="Ítems activos"
                   help="Cuántos ítems tenés aprendiendo a la vez. Subir el número desbloquea más temas para tus repasos; bajarlo vuelve a bloquear los últimos. Los ítems ya consolidados no se ven afectados."
-                  value={data.active_cap}
+                  value={capStepper.value}
                   max={data.total_items}
                   busy={editor.setCap.isPending}
-                  onChange={(v) => editor.setCap.mutate(v)}
+                  onChange={capStepper.setValue}
                 />
                 <EditorStepper
                   label="Ejercicios por sesión"
                   help="El máximo de ejercicios que entran en cada sesión de repaso. Si hay más pendientes, el resto aparece en las próximas sesiones."
-                  value={data.session_size}
+                  value={sessionStepper.value}
                   max={data.session_size_max}
                   busy={editor.setSessionSize.isPending}
-                  onChange={(v) => editor.setSessionSize.mutate(v)}
+                  onChange={sessionStepper.setValue}
                 />
               </div>
             ) : (
@@ -349,7 +364,11 @@ export default function DashboardEntry() {
                         className="h-10 w-full sm:w-auto rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
                         onClick={() =>
                           editor.resetCourse.mutate(undefined, {
-                            onSuccess: () => setEditing(false),
+                            onSuccess: () => {
+                              capStepper.cancel()
+                              sessionStepper.cancel()
+                              setEditing(false)
+                            },
                           })
                         }
                       >
@@ -365,7 +384,7 @@ export default function DashboardEntry() {
                   size="lg"
                   variant="outline"
                   className={saveEditCls}
-                  onClick={() => setEditing(false)}
+                  onClick={closeEditing}
                 >
                   <CheckIcon className="size-4" />
                   Listo
