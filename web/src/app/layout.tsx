@@ -19,9 +19,12 @@ const utnFont = Cabin({ subsets: ["latin"], variable: "--font-utn" });
 const unsamFont = Saira({ subsets: ["latin"], variable: "--font-unsam" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.intervalo.xyz"),
   title: "Intervalo",
   description: "Repasá análisis matemático todos los días.",
   openGraph: {
+    type: "website",
+    url: "https://www.intervalo.xyz/",
     title: "Intervalo",
     description: "Repasá análisis matemático todos los días.",
   },
