@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import { BELT_BAR_COLORS } from "@/lib/catalog"
 import { catalog, type Topic } from "@/lib/catalog/analisis.generated"
+import { PRESET_UNIVERSITIES, UNIVERSITY_TAG_BY_KEY, matchUniversities } from "@/lib/university-tags"
 import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
 import { ChevronLeft, Pause, Play, RotateCcw } from "lucide-react"
 import { useSignIn, useSignUp } from "@clerk/nextjs"
@@ -28,14 +29,7 @@ const CAREERS = [
   { value: "M", label: "Matemáticas", emoji: "📐" },
 ]
 
-const UNIVERSITIES = ["UBA", "UTN", "UNSAM"]
-
-// Tipografía que evoca el logo de cada universidad.
-const UNI_FONT: Record<string, React.CSSProperties> = {
-  UBA: { fontFamily: "var(--font-uba)", fontWeight: 500, letterSpacing: "0.06em" },
-  UTN: { fontFamily: "var(--font-utn)", fontWeight: 600, letterSpacing: "0.1em" },
-  UNSAM: { fontFamily: "var(--font-unsam)", fontWeight: 500, letterSpacing: "0.02em" },
-}
+const UNIVERSITIES = PRESET_UNIVERSITIES
 
 // Ejercicio de prueba del onboarding: inspirado en el banco real (Definición ·
 // Léxico, imagen/preimagen) y simplificado a f(x) = x + 2 para la demo.
@@ -375,6 +369,14 @@ export default function OnboardingWizard() {
   const [university, setUniversity] = useState("")
   const [universityOther, setUniversityOther] = useState("")
   const [showOther, setShowOther] = useState(false)
+  const universityInputRef = useRef<HTMLInputElement>(null)
+  const universitySuggestions = universityOther.trim() ? matchUniversities(universityOther) : []
+
+  function selectUniversitySuggestion(key: string) {
+    sfx.select()
+    setUniversityOther(key)
+    universityInputRef.current?.focus()
+  }
 
   // Acierto limpio = correcto sin ningún error previo. Decide el estado inicial
   // del ítem (mañana vs hoy) y se persiste al registrarse.
@@ -829,7 +831,7 @@ export default function OnboardingWizard() {
                         <OptionButton
                           key={u}
                           className="flex-1 text-base"
-                          style={UNI_FONT[u]}
+                          style={UNIVERSITY_TAG_BY_KEY[u]?.font}
                           selected={university === u && !showOther}
                           onClick={() => handleUniversity(u)}
                         >
@@ -843,6 +845,7 @@ export default function OnboardingWizard() {
                     {showOther && (
                       <div className="flex flex-col gap-3 pt-1">
                         <input
+                          ref={universityInputRef}
                           type="text"
                           value={universityOther}
                           onChange={(e) => setUniversityOther(e.target.value)}
@@ -851,6 +854,26 @@ export default function OnboardingWizard() {
                           autoFocus
                           className="h-11 rounded-md border border-white/10 bg-white/5 px-4 text-foreground outline-none focus:border-[#7e80f7] transition-colors"
                         />
+                        {universitySuggestions.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {universitySuggestions.map((s) => (
+                              <button
+                                key={s.key}
+                                type="button"
+                                onClick={() => selectUniversitySuggestion(s.key)}
+                                className="inline-flex items-center justify-center rounded-md border px-2.5 py-1.5 text-xs transition-opacity hover:opacity-80"
+                                style={{
+                                  color: s.color,
+                                  borderColor: `${s.color}99`,
+                                  backgroundColor: `${s.color}33`,
+                                  ...s.font,
+                                }}
+                              >
+                                {s.key}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

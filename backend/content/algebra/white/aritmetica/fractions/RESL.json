@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **fracción** representa una división no resuelta entre dos números enteros, y para sumarlas con distinto denominador hay que llevarlas primero a un denominador común.\n\nUn tanque se llena $\\frac{2}{3}$ de su capacidad en la primera hora de bombeo y $\\frac{1}{4}$ más en la segunda hora.\n\n¿Qué fracción del tanque queda llena después de las dos horas?",
+    "question": "Un tanque se llena $\\frac{2}{3}$ de su capacidad en la primera hora de bombeo, y una **fracción** más, $\\frac{1}{4}$, en la segunda hora.\n\n¿Qué fracción del tanque queda llena después de las dos horas?",
     "options": [
       "$\\frac{11}{12}$",
       "$\\frac{3}{7}$",

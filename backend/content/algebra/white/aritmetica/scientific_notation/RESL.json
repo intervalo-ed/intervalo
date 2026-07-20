@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **notación científica** expresa un número como el producto de un valor entre $1$ y $10$ por una potencia de $10$, lo que facilita operar con cantidades muy grandes o muy pequeñas.\n\nAl multiplicar:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\n¿Cuál es el resultado en notación científica?",
+    "question": "Al multiplicar estos dos números en **notación científica**:\n$$(3\\times10^{4}) \\times (2\\times10^{-6})$$\n¿Cuál es el resultado en notación científica?",
     "options": [
       "$6\\times10^{-2}$",
       "$6\\times10^{10}$",

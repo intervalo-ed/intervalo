@@ -1,6 +1,6 @@
 [
   {
-    "question": "Al **multiplicar potencias de igual base** los exponentes se suman, y al dividirlas se restan.\n\nAl simplificar la expresión:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\n¿Cuál es el resultado como potencia de $2$?",
+    "question": "Al simplificar la **expresión** con potencias de igual base:\n$$\\frac{2^5 \\cdot 2^{-2}}{2^4}$$\n¿Cuál es el resultado como potencia de $2$?",
     "options": [
       "$2^{-1}$",
       "$2^{7}$",

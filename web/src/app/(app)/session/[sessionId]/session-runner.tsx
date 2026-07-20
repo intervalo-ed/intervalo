@@ -38,6 +38,28 @@ import { useAnswer } from "./UseAnswer"
 import { useSessionPayload } from "./UseSessionPayload"
 import type { SessionExercise } from "@/lib/api/types"
 
+// Funciones que LaTeX renderiza como palabra completa (ej. \cos x -> "cos x"),
+// a diferencia de comandos como \times o \pi que renderizan como un solo símbolo.
+const LATEX_NAMED_FUNCTIONS =
+  /\\(sin|cos|tan|cot|sec|csc|ln|log|lim|exp|min|max|gcd|lcm|det|dim|ker|sinh|cosh|tanh|arcsin|arccos|arctan)\b/g
+
+// Estima el ancho visual renderizado de una opción con LaTeX, en vez de contar
+// caracteres de código fuente (que sobrestima el peso de comandos como \sqrt o
+// \frac, cortos en pantalla pero largos en texto plano).
+function latexVisualLength(option: string): number {
+  let s = option.replace(/\$/g, "")
+  s = s.replace(/\\operatorname\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length))
+  s = s.replace(/\\sqrt\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length + 1))
+  s = s.replace(
+    /\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g,
+    (_, num, den) => "x".repeat(Math.max(num.length, den.length)),
+  )
+  s = s.replace(LATEX_NAMED_FUNCTIONS, (_, name) => "x".repeat(name.length))
+  s = s.replace(/\\[a-zA-Z]+/g, "x")
+  s = s.replace(/(?<!\\)[{}]/g, "")
+  return s.length
+}
+
 const ctaCls =
   "h-[var(--cta-h)] flex-1 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
@@ -435,10 +457,12 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
 
                   {(() => {
                     const hasLatex = exercise.options.some((o) => o.includes("$"))
-                    const limit = hasLatex ? 16 : 25
+                    const limit = hasLatex ? 12 : 25
                     const useGrid =
                       exercise.options.length === 4 &&
-                      exercise.options.every((o) => o.length <= limit)
+                      exercise.options.every((o) =>
+                        (hasLatex ? latexVisualLength(o) : o.length) <= limit,
+                      )
                     return (
                       <div className={useGrid ? "grid grid-cols-2 gap-2" : "flex flex-col gap-2"}>
                         {exercise.options.map((opt, i) => {

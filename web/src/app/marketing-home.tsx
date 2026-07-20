@@ -474,7 +474,7 @@ export default function MarketingHome() {
       <footer>
         <div className="flex flex-col items-center gap-5 bg-[#7E80F7] px-6 py-16 text-center">
           <h2 className="max-w-[28rem] font-sans text-[clamp(1.5rem,4vw,2rem)] font-semibold leading-[1.25] text-[#131324]">
-            No pierdas lo que ya aprendiste.
+            No pierdas lo que ya entendiste.
           </h2>
           <p className="text-[0.875rem] text-[rgba(19,19,36,0.65)]">
             Repasá de forma inteligente haciendo un poco todos los días.

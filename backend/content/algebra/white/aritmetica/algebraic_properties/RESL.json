@@ -1,6 +1,6 @@
 [
   {
-    "question": "Al **abrir un paréntesis precedido por un signo menos**, cada término dentro cambia de signo, porque restar una suma equivale a sumar sus opuestos.\n\nAl simplificar la expresión:\n$$5x - (3x - 7)$$\n¿Cuál es el resultado?",
+    "question": "Al simplificar la **expresión**, abriendo el paréntesis precedido por un signo menos:\n$$5x - (3x - 7)$$\n¿Cuál es el resultado?",
     "options": [
       "$2x+7$",
       "$2x-7$",
