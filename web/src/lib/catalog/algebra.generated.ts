@@ -113,6 +113,7 @@ export const catalog: Catalog = {
               "tooltip": "La **potenciación** $a^n$ representa la multiplicación repetida de una base $a$ por sí misma $n$ veces.\n$$a^m \\cdot a^n = a^{m+n}, \\quad a^{-n} = \\frac{1}{a^n}$$\nSus propiedades (producto y cociente de potencias de igual base, potencia de potencia, exponente negativo y fraccionario) son la herramienta operativa detrás de toda la notación algebraica posterior.",
               "short_description": "Las **propiedades de la potenciación** permiten operar exponentes sin desarrollar la multiplicación completa.\n$$a^m \\cdot a^n = a^{m+n}$$",
               "skills": [
+                "LEXI",
                 "RESL",
                 "FORM"
               ]
@@ -123,6 +124,7 @@ export const catalog: Catalog = {
               "tooltip": "La **raíz enésima** $\\sqrt[n]{a}$ es la operación inversa de elevar a la potencia $n$.\n$$\\sqrt[n]{a} = a^{1/n}$$\nSimplificar radicales y racionalizar denominadores, eliminar raíces del denominador multiplicando por un factor adecuado, evita arrastrar expresiones irracionales innecesarias en los cálculos.",
               "short_description": "La **raíz enésima** es la operación inversa de la potenciación.\n$$\\sqrt[n]{a} = a^{1/n}$$",
               "skills": [
+                "LEXI",
                 "RESL",
                 "FORM"
               ]
@@ -153,6 +155,7 @@ export const catalog: Catalog = {
               "tooltip": "La **propiedad distributiva** y la extracción de **factor común** permiten transformar una expresión con paréntesis en una suma de términos, y viceversa.\n$$a(b + c) = ab + ac$$\nDominar el manejo de signos al abrir o cerrar paréntesis, sobre todo cuando el signo exterior es negativo, es el paso operativo que conecta la aritmética numérica con el álgebra simbólica de las unidades siguientes.",
               "short_description": "La **distributiva** transforma una expresión entre paréntesis en una suma de términos.\n$$a(b+c) = ab + ac$$",
               "skills": [
+                "LEXI",
                 "RESL",
                 "FORM"
               ]
@@ -163,6 +166,7 @@ export const catalog: Catalog = {
               "tooltip": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nSus propiedades operativas (logaritmo de un producto, un cociente y una potencia) permiten simplificar cálculos antes de que aparezca la función logarítmica como objeto en sí.",
               "short_description": "El **logaritmo** en base $b$ de $x$ es el exponente al que se eleva $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$",
               "skills": [
+                "LEXI",
                 "RESL",
                 "FORM"
               ]
