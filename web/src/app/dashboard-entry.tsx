@@ -1,6 +1,5 @@
 "use client"
 
-import { BottomNav } from "@/components/bottom-nav"
 import MathText from "@/components/math-text"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
@@ -470,8 +469,6 @@ export default function DashboardEntry() {
           </div>
         )}
       </ScreenBody>
-
-      {contentReady && <BottomNav />}
     </Screen>
   )
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Spinner } from "@/components/ui/spinner"
+import { Skeleton } from "@/components/ui/skeleton"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useMe } from "@/app/UseMe"
 import { ProfileHeaderCard } from "./profile-header-card"
@@ -32,15 +32,8 @@ export function ProfileContent() {
   const [usernameOpen, setUsernameOpen] = useState(false)
   const [apodoOpen, setApodoOpen] = useState(false)
 
-  // El perfil se muestra entero recién con todos los datos cargados (apodo,
-  // usuario, badge y notificaciones), para no mostrar la tarjeta genérica con
-  // placeholders durante el medio segundo de carga al entrar.
   if (me.isPending || emoji.isPending || notif.isPending) {
-    return (
-      <div className="flex flex-1 items-center justify-center py-10">
-        <Spinner />
-      </div>
-    )
+    return <ProfileSkeleton />
   }
 
   return (
@@ -95,6 +88,24 @@ export function ProfileContent() {
         onOpenChange={setApodoOpen}
         current={me.data?.display_name ?? ""}
       />
+    </div>
+  )
+}
+
+function ProfileSkeleton() {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-3 rounded-md border border-border px-4 py-2.5">
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+        <Skeleton className="size-16 shrink-0" />
+      </div>
+      <Skeleton className="h-12 w-full rounded-md" />
+      <Skeleton className="h-12 w-full rounded-md" />
+      <Skeleton className="h-12 w-full rounded-md" />
+      <Skeleton className="h-12 w-full rounded-md" />
     </div>
   )
 }
