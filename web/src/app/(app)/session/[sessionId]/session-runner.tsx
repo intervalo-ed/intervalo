@@ -458,7 +458,15 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   {(() => {
                     const hasLatex = exercise.options.some((o) => o.includes("$"))
                     const limit = hasLatex ? 12 : 25
+                    // Una raíz anidada dentro de una fracción (ej. 3√5/5) pesa poco en
+                    // el estimado de ancho, pero el símbolo de raíz + la barra de
+                    // fracción apiladas se leen recargadas y chicas comprimidas a la
+                    // mitad del ancho en la grilla — para esa combinación, mejor lista.
+                    const hasNestedSqrtFrac = exercise.options.some(
+                      (o) => /\\sqrt/.test(o) && /\\d?frac/.test(o),
+                    )
                     const useGrid =
+                      !hasNestedSqrtFrac &&
                       exercise.options.length === 4 &&
                       exercise.options.every((o) =>
                         (hasLatex ? latexVisualLength(o) : o.length) <= limit,
