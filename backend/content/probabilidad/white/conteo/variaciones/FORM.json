@@ -15,10 +15,47 @@
       "Esa expresión es la combinación ($\\binom{7}{3}$), que ignora el orden; acá el orden de las franjas SÍ importa.",
       "Ese es el arreglo con repetición: acá los colores no se repiten en la misma bandera."
     ],
-    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir $k$ elementos entre $n$ cuando el orden importa y no hay repetición:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\n\nEn este caso $n=7$ colores y $k=3$ franjas:\n$$V_{7,3} = \\frac{7!}{4!} = 7 \\times 6 \\times 5 = 210 \\text{ banderas}$$\n\nLa confusión típica es dividir por $k!$ (fórmula de combinación) o restar en lugar de aplicar factorial: verificá siempre en el denominador el $(n-k)!$ que representa los elementos NO seleccionados.",
+    "explanation": "Las **variaciones** cuentan cuántas formas hay de elegir $k$ elementos entre $n$ cuando el orden importa y no hay repetición:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nEn este caso $n=7$ colores y $k=3$ franjas:\n$$V_{7,3} = \\frac{7!}{4!} = 7 \\times 6 \\times 5 = 210 \\text{ banderas}$$\nLa confusión típica es dividir por $k!$ (fórmula de combinación) o restar en lugar de aplicar factorial: verificá siempre en el denominador el $(n-k)!$ que representa los elementos NO seleccionados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la variación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\binom{n}{k}$", "$\\dfrac{n!}{k!}$"],
+    "correct_index": 0,
+    "feedback_correct": "La variación de $n$ tomados de $k$ es $\\dfrac{n!}{(n-k)!}$, que cancela los elementos no elegidos.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la permutación completa, que usa todos los $n$ elementos, no solo un subconjunto de $k$.",
+      "Esa es la combinación, que además divide por $k!$ para ignorar el orden entre los elegidos.",
+      "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación."
+    ],
+    "explanation": "La **variación** de $n$ elementos tomados de a $k$, con orden y sin repetición, se define como:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nLas otras expresiones corresponden a técnicas distintas: $n!$ es la permutación completa, y $\\binom{n}{k}$ ignora el orden entre los elegidos.\n\nUn error común es confundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$; conviene recordar que el denominador \"cancela\" los elementos que NO se usan.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Se quiere armar la expresión de la variación de 9 elementos tomados de a 3 como un producto directo de factores decrecientes, sin pasar por el cociente de factoriales.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$9\\times 8\\times 7$", "$9\\times 8$", "$9\\times 8\\times 7\\times 6$", "$9\\times 7\\times 5$"],
+    "correct_index": 0,
+    "feedback_correct": "Se multiplican 3 factores decrecientes empezando en 9: $9\\times8\\times7$.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto tiene un factor de menos: hay que multiplicar exactamente $k=3$ factores decrecientes, no $2$.",
+      "Ese producto tiene un factor de más: hay que detenerse justo en $k=3$ factores, no seguir hasta el cuarto.",
+      "Esos factores no son consecutivos decrecientes desde 9, sino que saltean números."
+    ],
+    "explanation": "La variación $V_{n,k}$ también se puede escribir como el producto de $k$ factores decrecientes empezando en $n$, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\dots \\times (n-k+1)$$\nCon $n=9$ y $k=3$, se multiplican exactamente 3 factores decrecientes desde el 9:\n$$9 \\times 8 \\times 7 = 504$$\nUn error común es multiplicar un factor de más o de menos; conviene contar explícitamente que la cantidad de factores coincida con $k$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["producto-decreciente"]
   }
 ]

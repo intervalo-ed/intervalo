@@ -15,10 +15,65 @@
       null,
       "Ese es el arreglo con repetición: acá se eligen 3 cartas distintas del mazo, sin reposición."
     ],
-    "explanation": "Las **combinaciones** eligen $k$ elementos de $n$ sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\n\nEn el mazo $n=40$ y $k=3$, así que:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\n\nUn error clásico es confundir la fórmula con la de variación y olvidar dividir por $k!$: recordá que el $k!$ del denominador es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
+    "explanation": "Las **combinaciones** eligen $k$ elementos de $n$ sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo $n=40$ y $k=3$, así que:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\nUn error clásico es confundir la fórmula con la de variación y olvidar dividir por $k!$: recordá que el $k!$ del denominador es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la combinación de $n$ elementos tomados de a $k$.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$\\dfrac{n!}{k!\\,(n-k)!}$", "$\\dfrac{n!}{(n-k)!}$", "$n!$", "$\\dfrac{n!}{k!}$"],
+    "correct_index": 0,
+    "feedback_correct": "La combinación de $n$ tomados de $k$ divide por $k!$ y por $(n-k)!$ para ignorar el orden y los no elegidos.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la variación, que no divide por $k!$ y por lo tanto sí distingue el orden entre los elegidos.",
+      "Esa es la permutación completa, que usa todos los $n$ elementos, no un subconjunto de $k$.",
+      "Esa expresión no cancela los elementos no elegidos, le falta dividir también por $(n-k)!$."
+    ],
+    "explanation": "La **combinación** de $n$ elementos tomados de a $k$, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nLas otras expresiones corresponden a técnicas distintas: sin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nUn error común es olvidar alguno de los dos factores del denominador; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
+  },
+  {
+    "question": "Sabiendo que $\\binom{10}{3} = 120$, se quiere calcular $\\binom{10}{7}$ sin repetir todo el cálculo desde cero.\n\n¿Cuál es el valor de $\\binom{10}{7}$?",
+    "options": ["$120$", "$720$", "$210$", "$45$"],
+    "correct_index": 0,
+    "feedback_correct": "Por la propiedad de simetría $\\binom{n}{k}=\\binom{n}{n-k}$, y $10-7=3$, así que $\\binom{10}{7}=\\binom{10}{3}=120$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado no corresponde a ninguna combinación de $10$ elementos con estos parámetros.",
+      "Ese valor sería el de $\\binom{10}{4}$, no el de $\\binom{10}{7}$.",
+      "Ese valor sería el de $\\binom{10}{2}$, no el de $\\binom{10}{7}$."
+    ],
+    "explanation": "La **combinación** cumple la propiedad de simetría:\n$$\\binom{n}{k} = \\binom{n}{n-k}$$\nElegir $k$ elementos para incluir equivale a elegir $n-k$ elementos para dejar afuera.\n\nCon $n=10$ y $k=7$, se cumple $10-7=3$, así que $\\binom{10}{7}=\\binom{10}{3}=120$.\n\nUna confusión común es no reconocer esta simetría y recalcular todo el cociente de factoriales, cuando alcanza con identificar el par $k$ y $n-k$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["propiedad-simetria"]
+  },
+  {
+    "question": "De un grupo de $n$ personas se arma un comité de $k$ integrantes que debe excluir obligatoriamente a una persona en particular.\n\n¿Qué expresión cuenta la cantidad de comités posibles?",
+    "options": ["$\\binom{n-1}{k}$", "$\\binom{n-1}{k-1}$", "$\\binom{n}{k}$", "$\\binom{n}{k-1}$"],
+    "correct_index": 0,
+    "feedback_correct": "Al excluir a esa persona, el comité se arma eligiendo los $k$ integrantes entre las $n-1$ personas restantes.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión corresponde al caso de incluir obligatoriamente a una persona, no al de excluirla.",
+      "Esa expresión no descarta a la persona excluida, sigue contando comités donde podría participar.",
+      "Esa expresión reduce en uno la cantidad de integrantes a elegir, un ajuste que no corresponde a excluir a una persona del total disponible."
+    ],
+    "explanation": "Cuando una combinación excluye obligatoriamente a un elemento, ese elemento simplemente se saca del conjunto disponible antes de elegir.\n\nCon la persona excluida, quedan $n-1$ personas para elegir los $k$ integrantes del comité:\n$$\\binom{n-1}{k}$$\nUn error común es confundir este caso con el de incluir a alguien obligatoriamente ($\\binom{n-1}{k-1}$); conviene distinguir si el elemento fijo ya ocupa un lugar (incluir) o si directamente no está disponible (excluir).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-condicion"]
   }
 ]

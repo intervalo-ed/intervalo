@@ -10,10 +10,65 @@
       null,
       "Estás usando la vocal como si tuviera 10 opciones, pero son 5."
     ],
-    "explanation": "La **regla del producto** encadena decisiones independientes: si la primera tiene $m$ opciones, la segunda $n$ y la tercera $k$, el total es $m \\times n \\times k$.\n\nAcá hay tres decisiones independientes (permitir repetición mantiene el número de opciones en cada dígito):\n$$5 \\times 10 \\times 10 = 500 \\text{ códigos}$$\n\nEl error típico es olvidar alguna de las decisiones al armar el producto: conviene enumerar mentalmente los \"casilleros\" antes de multiplicar.",
+    "explanation": "La **regla del producto** encadena decisiones independientes: si la primera tiene $m$ opciones, la segunda $n$ y la tercera $k$, el total es $m \\times n \\times k$.\n\nAcá hay tres decisiones independientes (permitir repetición mantiene el número de opciones en cada dígito):\n$$5 \\times 10 \\times 10 = 500 \\text{ códigos}$$\nEl error típico es olvidar alguna de las decisiones al armar el producto: conviene enumerar mentalmente los \"casilleros\" antes de multiplicar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["producto-puro"]
+  },
+  {
+    "question": "Una tienda ofrece 6 modelos de zapatillas o 4 modelos de ojotas, y cada compra es de un solo tipo de calzado.\n\n¿Cuántas opciones de calzado hay en total?",
+    "options": ["$10$", "$20$", "$24$", "$2$"],
+    "correct_index": 0,
+    "feedback_correct": "Como se elige zapatillas O ojotas, se suman los modelos: $6+4=10$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de contar cada modelo dos veces, una de más, en vez de sumar cada conjunto una sola vez.",
+      "Ese resultado multiplica $6 \\times 4$, como si cada compra combinara un modelo de cada tipo, pero la compra es de un solo tipo.",
+      "Ese resultado resta los modelos de un conjunto al otro, en vez de sumarlos."
+    ],
+    "explanation": "Cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes, se aplica la **regla de la suma**: se cuenta cada alternativa por separado y se suman.\n\nAcá la compra es de zapatillas ($6$ modelos) o de ojotas ($4$ modelos), nunca de las dos categorías en la misma compra:\n$$6 + 4 = 10 \\text{ opciones de calzado}$$\nEl error típico es multiplicar apenas aparecen dos conjuntos numéricos: conviene primero preguntarse si la elección real combina ambos conjuntos o elige uno solo de ellos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["suma-pura"]
+  },
+  {
+    "question": "Un puesto de comida arma un combo con 3 entradas y 2 bebidas, o vende 5 platos únicos sin combo, que ya incluyen todo.\n\n¿Cuántas opciones distintas para comer hay en total?",
+    "options": ["$6$", "$11$", "$10$", "$30$"],
+    "correct_index": 1,
+    "feedback_correct": "El combo tiene $3\\times2=6$ variantes, más los 5 platos únicos: $6+5=11$.",
+    "feedback_incorrect": [
+      "Ese resultado cuenta solo las variantes del combo y se olvida de sumar los 5 platos únicos.",
+      null,
+      "Ese resultado suma $3+2+5$ directamente, sin multiplicar primero entrada y bebida dentro del combo.",
+      "Ese resultado multiplica las 3 partes juntas ($3\\times2\\times5$) en vez de sumar los platos únicos como alternativa aparte."
+    ],
+    "explanation": "Cuando un problema combina una regla del producto dentro de una rama y una regla de la suma entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $3 \\times 2 = 6$ variantes, y el puesto ofrece además $5$ platos únicos como alternativa aparte:\n$$3 \\times 2 + 5 = 11 \\text{ opciones}$$\nUn error común es sumar todos los números sueltos por igual, sin distinguir qué decisiones son secuenciales y cuáles son alternativas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["producto-y-suma"]
+  },
+  {
+    "question": "Una contraseña de 3 dígitos no puede empezar con $0$, y los otros dos dígitos aceptan cualquier valor del $0$ al $9$ con repetición.\n\n¿Cuántas contraseñas distintas hay?",
+    "options": ["$1000$", "$729$", "$810$", "$900$"],
+    "correct_index": 3,
+    "feedback_correct": "El primer dígito tiene 9 opciones (sin el 0) y los otros dos, 10 cada uno: $9\\times10\\times10=900$.",
+    "feedback_incorrect": [
+      "Ese resultado ignora la restricción del primer dígito, como si el $0$ también estuviera permitido ahí.",
+      "Ese resultado aplica la restricción de 9 opciones a los tres dígitos ($9\\times9\\times9$), pero solo el primero tiene esa limitación.",
+      "Ese resultado aplica la restricción a dos dígitos ($9\\times9\\times10$) en vez de a uno solo.",
+      null
+    ],
+    "explanation": "Una restricción puntual en la regla del producto solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$ (9 opciones), y los otros dos aceptan cualquier valor del $0$ al $9$ (10 opciones cada uno):\n$$9 \\times 10 \\times 10 = 900$$\nUn error frecuente es aplicar la restricción a todos los dígitos por igual, cuando el enunciado la fija solo sobre uno de los pasos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["producto-con-restriccion"]
   }
 ]

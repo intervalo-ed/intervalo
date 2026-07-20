@@ -1,4 +1,4 @@
-# Topic: Factoriales
+# Topic: Factorial
 
 Belt: `white`, Unit: `conteo`, Topic: `factoriales`
 
