@@ -29,7 +29,7 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
 1. **`$$...$$` pegado con un solo `\n` (regla 2).** El bug de `\n\n$$` ya se corrigió en los ejercicios existentes; no reintroducirlo en los nuevos.
 2. **Openers y puntuación (regla 32, reincidencia confirmada).** `"Considerá la integral"` es cláusula completa, solo necesita el `:`. `"Antes de resolver"` corta la oración con la fórmula en el medio (regla 9): reescribir con cierre propio antes del bloque y la pregunta en su propia oración después.
 3. **Paridad de opciones (reglas críticas 4 y 15).** Ninguna opción puede quedar como la única notablemente más larga/elaborada NI la única más corta/pelada que el resto.
-4. **"Linealidad" es vocabulario correcto acá, no prohibido.** La entrada de `authoring-context.md` banea "linealidad" solo como nombre de estrategia en `options` de `violet/derivatives`; en este topic es el nombre legítimo de la propiedad del operador integral, usalo en prosa sin reemplazarlo.
+4. **"Linealidad" es vocabulario correcto acá, no prohibido.** La entrada de `authoring-context.md` banea "linealidad" solo como nombre de planteo en `options` de `violet/derivatives`; en este topic es el nombre legítimo de la propiedad del operador integral, usalo en prosa sin reemplazarlo.
 
 ## Leer antes de escribir una sola línea, en este orden
 
@@ -67,7 +67,7 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
    - Preferencia por notación LaTeX/simbólica sobre prosa en `options`.
    - Fórmulas anchas: nunca encadenar igualdades largas en una sola línea horizontal, partir en `\begin{aligned}` vertical; cada renglón corto por sí solo.
    - Grilla 2×2: ≤35 caracteres en ejercicios numéricos de este topic (ver cardinalidad por skill).
-   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa"). **"Linealidad" NO está prohibida acá**: es el nombre correcto de la propiedad del operador integral, distinto del contexto de `violet/derivatives` donde competía como nombre de estrategia con "múltiplo escalar".
+   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa"). **"Linealidad" NO está prohibida acá**: es el nombre correcto de la propiedad del operador integral, distinto del contexto de `violet/derivatives` donde competía como nombre de planteo con "múltiplo escalar".
    - `explanation` ≥ 300 caracteres, estructura de 3 partes (concepto abstracto con el porqué, aplicación paso a paso, cierre útil).
 2. `backend/content/analisis/course-context.md` — estado matemático del alumno en `brown`.
 3. `backend/content/analisis/brown/integrals/definition/topic-context.md` — este topic. Tiene la **regla dura de restricción** (sin ejecutar el cálculo integral final, sin integral definida/sustitución/partes), la **distribución objetivo con `tags`** (LEXI 25/25, FORM 25/25, ESTR 25/25), las **confusiones fuente** por skill, y **"Hallazgos de auditoría (ronda 1, jul-2026)"**.

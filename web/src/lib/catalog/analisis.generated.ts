@@ -67,7 +67,7 @@ export const catalog: Catalog = {
     },
     {
       "id": "ESTR",
-      "label": "Estrategia",
+      "label": "Planteo",
       "description": "Elegir el método o las condiciones para resolver."
     },
     {

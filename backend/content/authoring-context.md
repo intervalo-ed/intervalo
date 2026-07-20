@@ -471,7 +471,7 @@ Registro formal y sencillo, sin jerga ni informalismos, en `question`, `options`
 | "salida matemática" | "salida", "el valor de la función" |
 | "error habitual" (como cierre de `explanation`) | "una confusión común", "un error común" (tono empático, no de diagnóstico clínico) |
 | "escapar"/"escapa" (la función escapa a infinito) | "diverge", "crece sin cota", "tiende a $+\infty$/$-\infty$" |
-| "linealidad" a secas (como nombre de estrategia de derivación) | "múltiplo escalar" (o "múltiplo escalar (linealidad)" solo la primera vez que se define el término en el topic, nunca como la única palabra en una opción). En `violet/derivatives`, "linealidad" sola no es lo bastante concreta para el alumno; siempre aludir directo a la constante que se factoriza. |
+| "linealidad" a secas (como nombre de planteo de derivación) | "múltiplo escalar" (o "múltiplo escalar (linealidad)" solo la primera vez que se define el término en el topic, nunca como la única palabra en una opción). En `violet/derivatives`, "linealidad" sola no es lo bastante concreta para el alumno; siempre aludir directo a la constante que se factoriza. |
 
 **Regla general:** si una palabra o metáfora no aparece en el resto del documento como convención aceptada, y suena coloquial o jergosa, no se usa. Ante la duda, preferir la formulación más simple y neutra en vez de la más "creativa".
 

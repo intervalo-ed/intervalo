@@ -66,7 +66,7 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
    - Preferencia por notación LaTeX/simbólica sobre prosa en `options`.
    - Fórmulas anchas: nunca encadenar igualdades largas en una sola línea horizontal, partir en `\begin{aligned}` vertical; cada renglón corto por sí solo.
    - Grilla 2×2: ≤35 caracteres en `RESL` y en ejercicios numéricos de `FORM` (ver cardinalidad propia).
-   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa"). "Linealidad" es vocabulario correcto acá (nombre de la propiedad, no de una estrategia de opción).
+   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa"). "Linealidad" es vocabulario correcto acá (nombre de la propiedad, no de un planteo de opción).
    - `explanation` ≥ 300 caracteres, estructura de 3 partes (concepto abstracto con el porqué, aplicación paso a paso, cierre útil).
 2. `backend/content/analisis/course-context.md` — estado matemático del alumno en `brown`.
 3. `backend/content/analisis/brown/integrals/reglas/topic-context.md` — este topic. Tiene la **regla dura de restricción** (solo tabla + linealidad + reescritura previa, nada de métodos, set de familias trigonométricas acotado), la **distribución objetivo con `tags`** (FORM 25/25, ESTR 25/25, RESL 25/25), las **confusiones fuente** por skill, y **"Hallazgos de auditoría (ronda 1, jul-2026)"**.
