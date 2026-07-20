@@ -1,6 +1,24 @@
 [
   {
-    "question": "Se quiere contar la cantidad de anagramas distintos que se pueden formar reordenando todas las letras de la palabra **CASA**, considerando que hay dos letras A idénticas.\n\n¿Qué expresión aplica?",
+    "question": "Se quiere ordenar en una fila a los 6 integrantes de un equipo, usando a todos.\n\n¿Qué expresión cuenta la cantidad de órdenes posibles?",
+    "options": ["$6!$", "$\\binom{6}{6}$", "$6^{6}$", "$\\dfrac{6!}{2!}$"],
+    "correct_index": 0,
+    "feedback_correct": "Se ordenan todos los elementos distintos: la permutación simple es $6!$.",
+    "feedback_incorrect": [
+      null,
+      "Ese binomial vale $1$: cuenta subconjuntos de 6 elegidos entre 6, no los distintos órdenes posibles.",
+      "Esa potencia permitiría repetir integrantes en varias posiciones, algo que no corresponde al ordenar personas distintas sin reposición.",
+      "Esa expresión divide como si hubiera un grupo de elementos repetidos, pero acá los 6 integrantes son todos distintos."
+    ],
+    "explanation": "La **permutación simple** de $n$ elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon $n=6$ integrantes distintos ordenándose en fila, la expresión correcta es $6!$.\n\nUna confusión típica es aplicar el binomial o una potencia, fórmulas reservadas para elegir subconjuntos o para decisiones independientes con repetición, no para ordenar un conjunto fijo de elementos distintos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-simple"]
+  },
+  {
+    "question": "Se quiere contar de cuántas maneras se pueden ordenar todas las letras de la palabra **CASA**, considerando que hay dos letras A idénticas.\n\n¿Qué expresión aplica?",
     "options": [
       "$4!$",
       "$\\dfrac{4!}{2!}$",
@@ -15,10 +33,29 @@
       "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay UN grupo de letras iguales (las dos A).",
       "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
     ],
-    "explanation": "La **permutación con repetición** para ordenar $n$ elementos entre los cuales hay grupos indistinguibles se calcula dividiendo el factorial total por el factorial de cada grupo repetido:\n$$P_n^{a_1, a_2, \\dots} = \\frac{n!}{a_1!\\, a_2!\\, \\dots}$$\n\nEn CASA hay $n=4$ letras con un solo grupo repetido (dos A), así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12 \\text{ anagramas}$$\n\nLa trampa típica es olvidar dividir y contar los reordenamientos como si las A fueran distintas; recordá que solo se divide por los grupos con al menos 2 elementos idénticos.",
+    "explanation": "La **permutación con repetición** para ordenar $n$ elementos entre los cuales hay grupos indistinguibles se calcula dividiendo el factorial total por el factorial de cada grupo repetido:\n$$P_n^{a_1, a_2, \\dots} = \\frac{n!}{a_1!\\, a_2!\\, \\dots}$$\nEn CASA hay $n=4$ letras con un solo grupo repetido (dos A), así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12 \\text{ anagramas}$$\nLa trampa típica es olvidar dividir y contar los reordenamientos como si las A fueran distintas; recordá que solo se divide por los grupos con al menos 2 elementos idénticos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-con-repeticion"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde a la permutación simple de $n$ elementos.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$n!$", "$\\dfrac{n!}{(n-k)!}$", "$\\binom{n}{k}$", "$n^{n}$"],
+    "correct_index": 0,
+    "feedback_correct": "La permutación simple de $n$ elementos distintos es siempre $n!$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la fórmula de la variación, que elige y ordena solo $k$ elementos de los $n$ disponibles.",
+      "Esa es la fórmula de la combinación, que ignora el orden dentro del subconjunto elegido.",
+      "Esa potencia permitiría repetir elementos en varias posiciones, algo que la permutación simple no admite."
+    ],
+    "explanation": "La **permutación** de $n$ elementos distintos, usando todos, se define como:\n$$P_n = n!$$\nLas otras expresiones corresponden a técnicas distintas: la variación $\\dfrac{n!}{(n-k)!}$ elige y ordena un subconjunto, y el binomial $\\binom{n}{k}$ ignora el orden.\n\nUn error común es confundir estas fórmulas parecidas; conviene fijarse si se usan todos los elementos (permutación) o solo un subconjunto (variación o combinación).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]

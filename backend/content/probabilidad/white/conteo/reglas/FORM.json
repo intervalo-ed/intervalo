@@ -10,10 +10,83 @@
       "Ese es el arreglo con repetición de 3 lugares eligiendo entre 4, distinto del caso: acá hay solo dos decisiones.",
       "El binomial cuenta subconjuntos de 3 elementos elegidos entre 4, no una secuencia de decisiones independientes."
     ],
-    "explanation": "La **regla del producto** dice que si una decisión tiene $m$ opciones y una segunda decisión (independiente) tiene $n$ opciones, la secuencia completa tiene $m \\times n$ resultados.\n\nAcá cada combo se arma con una decisión de sándwich (4 opciones) seguida de una decisión de bebida (3 opciones), así que:\n$$4 \\times 3 = 12 \\text{ combos}$$\n\nEl error clásico es confundir la regla del producto con la de la suma: la suma solo aplica cuando las alternativas son mutuamente excluyentes (elegís una o la otra, no las dos).",
+    "explanation": "La **regla del producto** dice que si una decisión tiene $m$ opciones y una segunda decisión (independiente) tiene $n$ opciones, la secuencia completa tiene $m \\times n$ resultados.\n\nAcá cada combo se arma con una decisión de sándwich (4 opciones) seguida de una decisión de bebida (3 opciones), así que:\n$$4 \\times 3 = 12 \\text{ combos}$$\nEl error clásico es confundir la regla del producto con la de la suma: la suma solo aplica cuando las alternativas son mutuamente excluyentes (elegís una o la otra, no las dos).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["producto-puro"]
+  },
+  {
+    "question": "Para viajar de una ciudad a otra hay 3 líneas de micro directas o 5 vuelos directos, sin combinar nunca un micro con un vuelo en el mismo viaje.\n\n¿Qué expresión cuenta el total de opciones de viaje?",
+    "options": ["$3\\times 5$", "$5^{3}$", "$3+5$", "$3^{5}$"],
+    "correct_index": 2,
+    "feedback_correct": "Como el viaje es en micro O en vuelo (nunca ambos), las alternativas se suman.",
+    "feedback_incorrect": [
+      "Esa es la regla del producto, que aplica cuando se combinan dos decisiones secuenciales, no cuando se elige una alternativa excluyente entre las dos.",
+      "Ese resultado corresponde a elegir 3 veces entre 5 opciones con repetición, un escenario distinto al de elegir un único medio de viaje.",
+      null,
+      "Ese resultado corresponde a elegir 5 veces entre 3 opciones con repetición, un escenario distinto al de elegir un único medio de viaje."
+    ],
+    "explanation": "La **regla de la suma** aplica cuando el resultado sale de una sola de varias alternativas mutuamente excluyentes: se cuenta cada alternativa por separado y se suman.\n\nAcá el viaje es en micro (3 opciones) o en vuelo (5 opciones), nunca las dos cosas a la vez, así que:\n$$3 + 5 = 8 \\text{ opciones de viaje}$$\nEl error clásico es multiplicar en cuanto aparecen dos conjuntos de opciones: el producto solo corresponde cuando se toma un elemento de cada conjunto en la misma elección, no cuando se elige uno u otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["suma-pura"]
+  },
+  {
+    "question": "Un restaurante arma un combo eligiendo una de 2 entradas y uno de 3 postres, o bien ofrece 4 platos únicos que ya vienen completos sin combo.\n\n¿Qué expresión cuenta el total de opciones para comer?",
+    "options": ["$2+3+4$", "$2\\times 3+4$", "$2\\times 3\\times 4$", "$(2+3)\\times 4$"],
+    "correct_index": 1,
+    "feedback_correct": "El combo multiplica entrada por postre, y esa cantidad se suma con los platos únicos, alternativa excluyente del combo.",
+    "feedback_incorrect": [
+      "Estás sumando las 2 entradas y los 3 postres como si fueran alternativas sueltas, en vez de multiplicarlas porque forman parte del mismo combo.",
+      null,
+      "Estás multiplicando también por los 4 platos únicos, pero esos son una alternativa aparte, no una tercera decisión del mismo combo.",
+      "Estás sumando entrada y postre antes de multiplicar por los platos únicos, una combinación que no representa ninguna de las dos alternativas del enunciado."
+    ],
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una de las alternativas de una **regla de la suma**, primero se resuelve el producto de cada rama y después se suman las ramas excluyentes entre sí.\n\nEl combo tiene $2 \\times 3 = 6$ variantes, y el restaurante ofrece además $4$ platos únicos como alternativa aparte:\n$$2 \\times 3 + 4 = 10 \\text{ opciones}$$\nUn error común es sumar todos los números sueltos sin distinguir qué decisiones son secuenciales (van multiplicadas) y cuáles son alternativas excluyentes (van sumadas).",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["producto-y-suma"]
+  },
+  {
+    "question": "Una contraseña de 3 dígitos no puede empezar con $0$, y los demás dígitos sí pueden repetirse y valer cualquier cifra del $0$ al $9$.\n\n¿Qué expresión cuenta la cantidad de contraseñas posibles?",
+    "options": ["$10\\times 10\\times 10$", "$9\\times 9\\times 9$", "$9+10+10$", "$9\\times 10\\times 10$"],
+    "correct_index": 3,
+    "feedback_correct": "El primer dígito tiene 9 opciones (sin el 0) y los otros dos, 10 cada uno.",
+    "feedback_incorrect": [
+      "Ese resultado ignora la restricción del primer dígito, como si el $0$ también estuviera permitido ahí.",
+      "Ese resultado aplica la restricción de 9 opciones a los tres dígitos, pero solo el primero tiene esa limitación.",
+      "Esa expresión suma las opciones de cada dígito en vez de multiplicarlas, tratando la contraseña como si fuera una elección única entre alternativas.",
+      null
+    ],
+    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$, así que tiene $9$ opciones; los otros dos dígitos sí aceptan cualquier valor del $0$ al $9$, con $10$ opciones cada uno:\n$$9 \\times 10 \\times 10 = 900 \\text{ contraseñas}$$\nUn error frecuente es aplicar la restricción a todos los dígitos por igual, cuando en realidad solo pesa sobre el paso que el enunciado menciona explícitamente.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["producto-con-restriccion"]
+  },
+  {
+    "question": "Un mapa de rutas muestra que desde una ciudad salen 2 caminos principales hacia otra: el de la izquierda se abre en 4 sub-rutas y el de la derecha se abre en 3 sub-rutas, todas hacia el mismo destino.\n\n¿Qué expresión cuenta el total de rutas posibles?",
+    "options": ["$4+3$", "$4\\times 3$", "$2\\times(4+3)$", "$4\\times 2\\times 3$"],
+    "correct_index": 0,
+    "feedback_correct": "Cada rama principal lleva a un conjunto distinto de sub-rutas, así que el total es la suma de las ramas completas.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado multiplica las sub-rutas de ambas ramas entre sí, como si cada sub-ruta de la izquierda se combinara con una de la derecha, cuando en realidad son caminos alternativos.",
+      "Ese resultado cuenta cada rama dos veces, una por cada camino principal, en vez de sumar las sub-rutas de cada rama una sola vez.",
+      "Ese resultado mezcla el número de caminos principales con las sub-rutas de ambas ramas en un solo producto, sin corresponder a ningún camino real del mapa."
+    ],
+    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7 \\text{ rutas posibles}$$\nUn error común es contar los nodos intermedios en vez de las ramas completas: lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["desde-arbol"]
   }
 ]

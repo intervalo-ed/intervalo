@@ -10,10 +10,52 @@
       null,
       "Ese es $4^{4}$: cuenta como si cada puesto pudiera ser cualquiera de los 4 finalistas con repetición, pero un mismo corredor no puede ocupar dos puestos."
     ],
-    "explanation": "El número de **permutaciones** de $n$ elementos distintos es $n!$, el producto de todos los enteros positivos desde 1 hasta $n$.\n\nAcá se ordenan los 4 finalistas en 4 puestos, así que:\n$$P_4 = 4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\n\nLa confusión típica es aplicar potencias ($4^4$ o $4^2$) tratando cada puesto como una decisión con repetición; en un podio cada corredor ocupa un solo lugar, así que después de asignar el 1er puesto solo quedan 3 opciones para el 2º, y así sucesivamente.",
+    "explanation": "El número de **permutaciones** de $n$ elementos distintos es $n!$, el producto de todos los enteros positivos desde 1 hasta $n$.\n\nAcá se ordenan los 4 finalistas en 4 puestos, así que:\n$$P_4 = 4! = 4 \\times 3 \\times 2 \\times 1 = 24$$\nLa confusión típica es aplicar potencias ($4^4$ o $4^2$) tratando cada puesto como una decisión con repetición; en un podio cada corredor ocupa un solo lugar, así que después de asignar el 1er puesto solo quedan 3 opciones para el 2º, y así sucesivamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-simple"]
+  },
+  {
+    "question": "Se quiere contar los anagramas distintos de la palabra **NANA**, donde la N se repite 2 veces y la A se repite 2 veces.\n\n¿Cuántos anagramas distintos hay?",
+    "options": ["$4$", "$6$", "$12$", "$24$"],
+    "correct_index": 1,
+    "feedback_correct": "$\\dfrac{4!}{2!\\,2!}=\\dfrac{24}{4}=6$.",
+    "feedback_incorrect": [
+      "Ese resultado sale de dividir de más, como si hubiera un tercer grupo repetido además de las N y las A.",
+      null,
+      "Ese resultado solo divide por uno de los dos grupos repetidos ($2!$), olvidando dividir también por el otro.",
+      "Ese es $4!$ completo, sin dividir por ningún grupo repetido."
+    ],
+    "explanation": "La **permutación con repetición** divide el factorial total por el factorial de cada grupo de elementos idénticos.\n\nEn NANA hay $n=4$ letras con dos grupos repetidos (dos N y dos A), así que:\n$$\\frac{4!}{2!\\,2!} = \\frac{24}{4} = 6$$\nUn error común es dividir solo por uno de los grupos repetidos, olvidando que cada grupo idéntico aporta su propio factorial en el denominador.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-repeticion"]
+  },
+  {
+    "question": "Se comparan dos formas de ordenar las letras de **ROMA** (todas distintas) contra las de **ANANA** (con letras repetidas).\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": [
+      "ROMA tiene más ordenamientos distintos que ANANA.",
+      "Ambas tienen la misma cantidad de ordenamientos distintos.",
+      "ANANA tiene más ordenamientos distintos que ROMA.",
+      "No se pueden comparar porque tienen distinta cantidad de letras."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "ROMA tiene $4!=24$ ordenamientos, mientras que ANANA (5 letras con repetición) tiene $\\dfrac{5!}{3!\\,2!}=10$.",
+    "feedback_incorrect": [
+      null,
+      "Aunque ambas palabras cuentan reordenamientos, las repeticiones de ANANA reducen su cantidad de anagramas distintos por debajo de los de ROMA.",
+      "Las repeticiones en ANANA reducen la cantidad de anagramas distintos, no la aumentan por encima de una palabra sin repeticiones.",
+      "Sí se pueden comparar: cada palabra tiene su propio conteo de anagramas, sin importar que difieran en la cantidad de letras."
+    ],
+    "explanation": "Cuando una palabra tiene letras repetidas, su cantidad de anagramas distintos se reduce respecto de una palabra de similar longitud sin repeticiones, porque se divide por el factorial de cada grupo idéntico.\n\nROMA tiene $4$ letras distintas: $4!=24$ anagramas. ANANA tiene $5$ letras con la A repetida 3 veces y la N repetida 2 veces:\n$$\\frac{5!}{3!\\,2!} = \\frac{120}{12} = 10$$\nUn error común es asumir que más letras siempre implica más anagramas, sin notar que las repeticiones bajan el conteo real.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-comparacion"]
   }
 ]

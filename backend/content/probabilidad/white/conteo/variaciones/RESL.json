@@ -10,10 +10,47 @@
       null,
       "Ese es $6^{2}$: aparece si se permite que la misma persona ocupe los dos cargos, pero acá titular y suplente deben ser distintos."
     ],
-    "explanation": "En una **variación** sin repetición se eligen y ordenan $k$ elementos de $n$:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\n\nCon $n=6$ estudiantes y $k=2$ cargos distintos:\n$$V_{6,2} = \\frac{6!}{4!} = 6 \\times 5 = 30$$\n\nLa confusión típica es aplicar $6^{2}$ (arreglo CON repetición) sin notar que un mismo estudiante no puede ser titular y suplente a la vez; siempre revisá si el enunciado prohíbe la repetición.",
+    "explanation": "En una **variación** sin repetición se eligen y ordenan $k$ elementos de $n$:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nCon $n=6$ estudiantes y $k=2$ cargos distintos:\n$$V_{6,2} = \\frac{6!}{4!} = 6 \\times 5 = 30$$\nLa confusión típica es aplicar $6^{2}$ (arreglo CON repetición) sin notar que un mismo estudiante no puede ser titular y suplente a la vez; siempre revisá si el enunciado prohíbe la repetición.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-directo"]
+  },
+  {
+    "question": "Con los mismos datos de $n=7$ y $k=2$, se quiere comparar el resultado de la variación $V_{7,2}$ contra el de la combinación $\\binom{7}{2}$.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
+    "options": ["$V_{7,2}$ es el doble de $\\binom{7}{2}$.", "Ambas dan el mismo resultado.", "$\\binom{7}{2}$ es mayor que $V_{7,2}$.", "$V_{7,2}$ es la mitad de $\\binom{7}{2}$."],
+    "correct_index": 0,
+    "feedback_correct": "$V_{7,2}=42$ y $\\binom{7}{2}=21$: la variación cuenta cada par dos veces, una por cada orden.",
+    "feedback_incorrect": [
+      null,
+      "No dan el mismo resultado: la variación distingue el orden entre los 2 elegidos y la combinación no.",
+      "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
+      "Es al revés: la variación es la que multiplica a la combinación por $k!$, no la divide."
+    ],
+    "explanation": "Para el mismo $n$ y $k$, la variación y la combinación se relacionan por el factor $k!$ que distingue el orden:\n$$V_{n,k} = \\binom{n}{k} \\times k!$$\nCon $n=7$, $k=2$: $\\binom{7}{2}=21$ y $V_{7,2}=21\\times2!=42$.\n\nUn error común es asumir que ambas técnicas dan el mismo número; la variación siempre es mayor o igual, porque cuenta cada subconjunto tantas veces como ordenamientos internos tiene.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-comparacion-combinacion"]
+  },
+  {
+    "question": "Un club tiene 9 socios disponibles para cubrir 2 cargos distintos, presidente y tesorero, sin que la misma persona ocupe los dos cargos.\n\n¿De cuántas formas se pueden asignar ambos cargos?",
+    "options": ["$17$", "$45$", "$72$", "$81$"],
+    "correct_index": 2,
+    "feedback_correct": "Hay 9 opciones para presidente y, una vez asignado, 8 para tesorero: $9\\times8=72$.",
+    "feedback_incorrect": [
+      "Ese resultado sale de sumar en vez de multiplicar las opciones de cada cargo.",
+      "Ese es $\\binom{9}{2}$, que ignora la diferencia entre presidente y tesorero.",
+      null,
+      "Ese resultado permite que la misma persona ocupe los dos cargos, algo que el enunciado prohíbe."
+    ],
+    "explanation": "Cuando se eligen y asignan $k$ cargos distintos entre $n$ personas, sin repetir a nadie, corresponde una **variación**:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nCon $n=9$ socios y $k=2$ cargos distintos:\n$$V_{9,2} = 9 \\times 8 = 72$$\nUn error común es no reconocer la variación cuando el enunciado no usa su notación explícita; conviene fijarse en las palabras clave, acá \"cargos distintos\" señala que el orden entre los elegidos importa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-desde-contexto"]
   }
 ]

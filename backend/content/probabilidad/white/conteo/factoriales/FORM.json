@@ -15,10 +15,88 @@
       "Ese es el arreglo de 2 lugares tomados de 5, no el factorial completo.",
       "Estás elevando al cuadrado un factor consigo mismo cinco veces, no encadenando los naturales previos."
     ],
-    "explanation": "El **factorial** $n!$ es el producto de todos los enteros positivos desde $1$ hasta $n$:\n$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 1$$\n\nAplicado a $n=5$:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\n\nUna confusión frecuente es leer el símbolo $!$ como una suma; recordá que aparece siempre en contextos multiplicativos (ordenamientos, permutaciones, coeficientes binomiales).",
+    "explanation": "El **factorial** $n!$ es el producto de todos los enteros positivos desde $1$ hasta $n$:\n$$n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 1$$\nAplicado a $n=5$:\n$$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$$\nUna confusión frecuente es leer el símbolo $!$ como una suma; recordá que aparece siempre en contextos multiplicativos (ordenamientos, permutaciones, coeficientes binomiales).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["expansion-directa"]
+  },
+  {
+    "question": "Se quiere simplificar el siguiente cociente, dejando el producto de los factores que no se cancelan:\n$$\\frac{8!}{6!}$$\n¿Cuál es la expresión simplificada?",
+    "options": ["$8\\times7$", "$8\\times7\\times6$", "$2$", "$8-6$"],
+    "correct_index": 0,
+    "feedback_correct": "Los factores de $6!$ se cancelan con parte de $8!$, quedando solo $8\\times7$.",
+    "feedback_incorrect": [
+      null,
+      "Ese producto incluye un factor de más: el $6$ ya forma parte del $6!$ que se cancela.",
+      "Ese resultado sale de restar los subíndices, un procedimiento que no corresponde para simplificar el cociente.",
+      "Ese resultado también resta los subíndices, sin simplificar factor a factor el producto de factoriales."
+    ],
+    "explanation": "El **factorial** cumple $n! = n \\times (n-1)!$, así que un cociente $\\dfrac{n!}{k!}$ con $n>k$ se simplifica cancelando los factores comunes desde $k!$ hacia abajo.\n\nEn $\\dfrac{8!}{6!}$, el $6!$ del denominador cancela los factores de $8!$ desde $6$ hasta $1$, dejando:\n$$\\frac{8!}{6!} = 8 \\times 7$$\nLa confusión típica es restar los subíndices ($8-6=2$) en vez de reconocer que el factorial es un producto que se cancela factor por factor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["cociente-simplificado"]
+  },
+  {
+    "question": "Sabiendo que $6! = 720$, se quiere reescribir $7!$ usando la relación recursiva del factorial.\n\n¿Cuál es la expresión correcta?",
+    "options": ["$7\\times 6!$", "$7+6!$", "$6\\times 7!$", "$7!\\times 6!$"],
+    "correct_index": 0,
+    "feedback_correct": "La relación recursiva dice que $n!=n\\times(n-1)!$, así que $7!=7\\times6!$.",
+    "feedback_incorrect": [
+      null,
+      "Estás sumando en vez de multiplicar: la relación recursiva del factorial es siempre un producto.",
+      "Esa expresión invierte los roles: es $6!$ el que se construye a partir de $7!$ y no al revés en esta dirección.",
+      "Esa expresión ya asume conocido el resultado que se busca construir, no reduce $7!$ a un factorial menor."
+    ],
+    "explanation": "El **factorial** satisface la relación recursiva:\n$$n! = n \\times (n-1)!$$\nEsta relación permite construir un factorial a partir del anterior sin recalcular todo el producto.\n\nCon $n=7$, se obtiene $7! = 7 \\times 6!$, y como $6!=720$, resulta $7! = 7 \\times 720 = 5040$.\n\nUn error común es aplicar la recursión en la dirección equivocada o con el índice incorrecto, conviene siempre verificar que el factor que multiplica sea exactamente $n$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["relacion-recursiva"]
+  },
+  {
+    "question": "Se quiere evaluar la siguiente expresión:\n$$0! + 1!$$\n¿Cuál es su valor?",
+    "options": ["$0$", "$1$", "$2$", "$3$"],
+    "correct_index": 2,
+    "feedback_correct": "Por convención $0!=1$ y también $1!=1$, así que $0!+1!=1+1=2$.",
+    "feedback_incorrect": [
+      "Ese resultado trata $0!$ como $0$, cuando por convención vale $1$.",
+      "Ese resultado solo cuenta uno de los dos factoriales, olvidando sumar el otro.",
+      null,
+      "Ese resultado suma un factor de más, como si alguno de los dos factoriales valiera $2$."
+    ],
+    "explanation": "Por convención, el **factorial** de $0$ vale $1$ ($0!=1$), y $1!=1$ por ser el producto de un solo entero positivo.\n\nEntonces:\n$$0! + 1! = 1 + 1 = 2$$\nUna confusión frecuente es tratar $0!$ como $0$ por analogía con la multiplicación por cero, pero el factorial de $0$ se define aparte, precisamente para que las fórmulas de conteo con factoriales funcionen sin casos especiales.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["casos-especiales"]
+  },
+  {
+    "question": "Se quiere identificar si la siguiente igualdad es correcta, sin necesariamente calcular $7!$:\n$$4! + 3! = 7!$$\n¿Cuál es la conclusión correcta?",
+    "options": [
+      "Es falsa: los factoriales no se suman igual que sus índices.",
+      "Es verdadera, por la relación recursiva del factorial.",
+      "Es falsa, porque falta multiplicar ambos lados por $2!$.",
+      "Es verdadera, porque $4+3=7$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sumar factoriales no equivale a sumar sus índices y factorizar después.",
+    "feedback_incorrect": [
+      null,
+      "La relación recursiva conecta un factorial con el anterior mismo índice, no permite sumar dos factoriales de índices distintos.",
+      "No hace falta ningún factor adicional: el problema es que la suma de factoriales nunca colapsa al factorial de la suma de índices.",
+      "Que los índices sumen 7 no implica que los factoriales se comporten igual: el factorial no se distribuye sobre la suma."
+    ],
+    "explanation": "El **factorial** no se distribuye sobre la suma: $a! + b!$ no es en general igual a $(a+b)!$, porque cada factorial es un producto independiente de números distintos.\n\nEvaluando por separado, $4!=24$ y $3!=6$, así que $4!+3!=30$, un valor muy lejano a $7!=5040$.\n\nLa trampa clásica es guiarse por la coincidencia de que los índices suman 7 y asumir que los factoriales también se combinan así; siempre hay que expandir cada factorial antes de sumar o restar.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["suma-resta-factoriales"]
   }
 ]
