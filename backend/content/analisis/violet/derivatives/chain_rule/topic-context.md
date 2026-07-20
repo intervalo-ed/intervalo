@@ -76,7 +76,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo lectura anatómica o elección de regla.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla de la cadena"`, `"Regla del producto"`, `"Regla del cociente"`, `"Múltiplo escalar"`, `"No es composición"`.
+- **Opciones con textos exactos** para elección de planteo: `"Regla de la cadena"`, `"Regla del producto"`, `"Regla del cociente"`, `"Múltiplo escalar"`, `"No es composición"`.
 - **Sub-A**: opciones que muestran distintas particiones "exterior/interior" como texto exacto (por ejemplo, `"g(u) = u^2, h(x) = \\sin x"` vs `"g(u) = \\sin u, h(x) = x^2"`). El distractor mayoritario es la partición invertida.
 - **Sub-B**: la respuesta correcta es la regla que realmente aplica; el distractor mayoritario es la otra regla que la estructura sugiere visualmente.
 - **Máximo 2 capas** en todos los ejercicios ESTR. Nada de $\ln(\cos(2x))$ ni $(e^{\sin x})^2$.
@@ -161,7 +161,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] Ningún cálculo numérico final; solo lectura anatómica o elección de regla
 - [ ] Sub-A con opciones tipo `"g(u) = u^2, h(x) = \\sin x"` textuales; distractor mayoritario = partición invertida
 - [ ] Sub-B con distractor mayoritario = la otra regla que la estructura sugiere visualmente
-- [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
+- [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
 - [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres

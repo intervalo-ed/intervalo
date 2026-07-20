@@ -77,7 +77,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo elección de método/descomposición.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla del producto"`, `"Múltiplo escalar"`, `"Distribuir y derivar por potencia"`, `"Reescribir como potencia única"`, `"Regla de la potencia"`. **Nunca "linealidad" sola** como texto de opción (ver hallazgos de auditoría más abajo): el alumno no está tan familiarizado con el término, siempre aludir directo a "múltiplo escalar".
+- **Opciones con textos exactos** para elección de planteo: `"Regla del producto"`, `"Múltiplo escalar"`, `"Distribuir y derivar por potencia"`, `"Reescribir como potencia única"`, `"Regla de la potencia"`. **Nunca "linealidad" sola** como texto de opción (ver hallazgos de auditoría más abajo): el alumno no está tan familiarizado con el término, siempre aludir directo a "múltiplo escalar".
 - **Sub-A**: la respuesta correcta es siempre la **alternativa algebraica**, no la regla del producto. El distractor mayoritario es "regla del producto".
 - **Sub-B**: opciones que muestran distintas particiones $u/v$ como texto exacto (por ejemplo, `"u = x^2, v = \ln x"`), no en prosa descriptiva.
 - **Negrita en primera mención** de `regla del producto`, `linealidad`, `múltiplo escalar`.
@@ -159,7 +159,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición
 - [ ] Sub-A con distractor mayoritario = "regla del producto"; sub-B con opciones tipo `"u = x^2, v = \ln x"` textuales
-- [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
+- [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
 - [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres

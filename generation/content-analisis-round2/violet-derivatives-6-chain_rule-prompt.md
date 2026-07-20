@@ -62,7 +62,7 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
    - Preferencia por notación LaTeX/simbólica sobre prosa en `options`.
    - Fórmulas anchas: nunca encadenar igualdades largas en una sola línea horizontal, partir en `\begin{aligned}` vertical; cada renglón corto por sí solo.
    - Grilla 2×2: ≤35 caracteres en `RESL` de este topic (ver cardinalidad propia).
-   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa", y "linealidad" a secas: siempre "múltiplo escalar" en las opciones de `ESTR` que nombran esta estrategia, ya corregido en el texto exacto prescripto de `topic-context.md`).
+   - Vocabulario prohibido ("escupir", "fabricar", "aterrizan", "procesa valores", "salida matemática", "error habitual", "escapar"/"escapa", y "linealidad" a secas: siempre "múltiplo escalar" en las opciones de `ESTR` que nombran este planteo, ya corregido en el texto exacto prescripto de `topic-context.md`).
    - `explanation` ≥ 300 caracteres, estructura de 3 partes (concepto abstracto con el porqué, aplicación paso a paso, cierre útil).
 2. `backend/content/analisis/course-context.md` — estado matemático del alumno en `violet`.
 3. `backend/content/analisis/violet/derivatives/chain_rule/topic-context.md` — este topic. Tiene la **regla dura de restricción** (máximo 2 capas, nada de interior compuesta por producto/cociente no trivial, contextos cotidianos en RESL), la **distribución objetivo con `tags`** (ESTR 25/25, RESL 20/20/10), las **confusiones fuente** por skill, y **"Hallazgos de auditoría (ronda 2, jul-2026)"**.

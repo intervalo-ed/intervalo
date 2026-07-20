@@ -14,7 +14,7 @@ Concepto: la **probabilidad condicional** $P(A \mid B) = \dfrac{P(A \cap B)}{P(B
 
 ## ESTR, 50 ejercicios
 
-Elegir la **estrategia**, sin calcular.
+Elegir el **planteo**, sin calcular.
 
 ### Distribución objetivo
 

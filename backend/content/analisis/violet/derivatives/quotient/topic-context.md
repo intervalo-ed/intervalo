@@ -78,7 +78,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ### Reglas específicas
 - **Ningún cálculo numérico final** en ESTR — solo elección de método/descomposición o identificación de anatomía.
-- **Opciones con textos exactos** para elección de estrategia: `"Regla del cociente"`, `"Reescribir como potencia negativa"`, `"Múltiplo escalar"`, `"Simplificar el cociente primero"`, `"Regla del producto"`. **Sin paréntesis aclaratorio** (`"(linealidad)"` u otro) al lado de ninguna de estas opciones: si una lo lleva y las demás no, delata la respuesta (ver hallazgos de auditoría más abajo).
+- **Opciones con textos exactos** para elección de planteo: `"Regla del cociente"`, `"Reescribir como potencia negativa"`, `"Múltiplo escalar"`, `"Simplificar el cociente primero"`, `"Regla del producto"`. **Sin paréntesis aclaratorio** (`"(linealidad)"` u otro) al lado de ninguna de estas opciones: si una lo lleva y las demás no, delata la respuesta (ver hallazgos de auditoría más abajo).
 - **Sub-A**: la respuesta correcta es siempre la **alternativa algebraica**, no la regla del cociente. El distractor mayoritario es "regla del cociente".
 - **Sub-B**: opciones que muestran distintas fórmulas exactas (`"(u'v - uv') / v^2"`, `"(uv' - u'v) / v^2"`, `"(u'v + uv') / v^2"`) como texto — evaluar reconocimiento de la fórmula correcta.
 - **Negrita en primera mención** de `regla del cociente`, `numerador`, `denominador`.
@@ -159,7 +159,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición/anatomía
 - [ ] Sub-A con distractor mayoritario = "regla del cociente"; sub-B con opciones tipo fórmulas exactas (`"(u'v - uv') / v^2"`) para reconocimiento
-- [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
+- [ ] Textos exactos en opciones de elección de planteo (ver §Reglas específicas)
 
 **RESL:**
 - [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres

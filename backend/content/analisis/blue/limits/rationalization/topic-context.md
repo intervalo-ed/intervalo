@@ -118,7 +118,7 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 - **Cancelar antes de completar la diferencia de cuadrados**: cancelar $\sqrt{x}$ con $\sqrt{x}$ dentro de la raíz. No se puede: primero hay que aplicar la identidad completa.
 - **Olvidar el factor cancelable en la sustitución**: sustituir $x = a$ en el cociente **sin** cancelar el factor $(x - a)$, obtener $\tfrac{0}{\text{algo}}$ o $\tfrac{\text{algo}}{0}$. Cancelar primero, sustituir después.
 - **No manejar el signo oculto en sub-C**: en $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$ dar $+4$ olvidando que $4 - x = -(x - 4)$: el resultado va con signo menos.
-- **Racionalizar por el conjugado del lado equivocado**: en un límite donde la raíz está en el numerador, multiplicar por el conjugado del denominador. La estrategia estándar es racionalizar el lado donde está la raíz que genera la indeterminación.
+- **Racionalizar por el conjugado del lado equivocado**: en un límite donde la raíz está en el numerador, multiplicar por el conjugado del denominador. El planteo estándar es racionalizar el lado donde está la raíz que genera la indeterminación.
 - **Aritmética final invertida**: tras cancelar y sustituir, resolver mal el cociente (típico: $\tfrac{1}{2\sqrt{a}}$ con signo o denominador mal armado).
 
 ### Reglas específicas
