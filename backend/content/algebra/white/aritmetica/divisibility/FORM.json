@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Un taller organiza dos lotes de piezas, uno de $36$ unidades y otro de $60$, y quiere formar grupos iguales del mayor tamaño posible sin que sobren piezas de ningún lote.\n\n¿Qué expresión permite calcular el tamaño máximo del grupo a partir de la descomposición en factores primos?",
+    "options": [
+      "$2^2 \\cdot 3$ (factores comunes con menor exponente)",
+      "$2^2 \\cdot 3^2 \\cdot 5$ (todos los factores con mayor exponente)",
+      "$2 \\cdot 3 \\cdot 5$ (todos los factores sin repetir)",
+      "$3^2 \\cdot 5$ (factores no comunes)"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El MCD se arma con los factores primos comunes a ambas descomposiciones, elevados a la menor potencia con la que aparecen.",
+    "feedback_incorrect": [
+      null,
+      "Esa combinación arma el mínimo común múltiplo, no el máximo común divisor.",
+      "Esa expresión mezcla factores que no son comunes a ambos números.",
+      "Esos factores no son comunes a las dos descomposiciones, así que no forman el MCD."
+    ],
+    "explanation": "Antes de calcular el **máximo común divisor**, hay que identificar la expresión correcta a partir de las descomposiciones en factores primos.\n\nDescomponiendo:\n$$36 = 2^2 \\cdot 3^2$$\n$$60 = 2^2 \\cdot 3 \\cdot 5$$\nEl MCD se arma tomando cada factor primo **común** a ambas descomposiciones, elevado a la **menor** potencia con la que aparece: $2^2 \\cdot 3$.\nUn error frecuente es armar la expresión con la mayor potencia de cada factor (eso da el mínimo común múltiplo) en vez de la menor.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

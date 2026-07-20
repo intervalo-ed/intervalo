@@ -2,9 +2,9 @@
 
 Belt: `white`, Unit: `functions`, Topic: `quadratic`
 
-Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+Skills en este topic: `LEXI`, `FORM`, `GRAF`. 50 ejercicios cada uno (150 en total).
 
-Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/quadratic/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento puede seguir mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
 **Estado.** Los ejercicios (enunciados, opciones y respuestas correctas) están validados y se conservan. Este documento especifica lo que falta para dejar el tema al día con las convenciones actuales:
 
@@ -50,7 +50,7 @@ Revisión manual ejercicio por ejercicio vía `/test`, corregidos en vivo durant
 
 ---
 
-## Correcciones de formato transversales (los 4 skills)
+## Correcciones de formato transversales (los 3 skills activos; CLSF archivado, ver nota arriba)
 
 Defectos detectados en la auditoría (jul-2026). **Corrección sobre la auditoría anterior**: la afirmación de que cuadráticas ya estaba limpia en `\n\n$$` pegado a display y en em-dash `—` era incorrecta, verificado programáticamente sobre los 4 JSON. Los defectos reales que quedan:
 
@@ -112,47 +112,6 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 ### Reglas específicas
 - **Negrita en primera mención** de `parábola`, `vértice`, `eje de simetría`, `raíces`, `ordenada al origen`, `concavidad`, `coeficiente principal`, `dominio`, `imagen` en `question` y `explanation`.
 - Reescribir a forma canónica o vértice como primer paso de la `explanation` cuando el enunciado viene en forma factorizada o desordenada.
-
----
-
-## CLSF, 50 ejercicios
-
-### Qué evalúa
-Clasificar a qué familia pertenece una función: cuadrática vs. lineal, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 3x^2 - x$ es cuadrática; $2x + 1$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (producto de dos magnitudes lineales, tiro con gravedad, precio×cantidad con demanda decreciente → cuadrática; tasa constante → lineal; factor multiplicativo → exponencial). Incluye también concavidad, monotonía por intervalos e imagen acotada por el vértice desde gráfico.
-
-**Distractor más común: lineal vs cuadrática** (tasa constante vs. producto de dos magnitudes lineales, o "sube y después baja" mal leído como lineal). El resto de la tabla señal→familia vive en `authoring-context.md`.
-
-### Distribución objetivo
-
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `CLSF.json`:
-
-| Concepto | Slug | Cantidad actual |
-|----------|------|-----------------:|
-| Clasificar desde situación cotidiana (correcta = cuadrática) | `clasificacion-desde-situacion` | 11 |
-| Monotonía por intervalos (creciente/decreciente) | `monotonia-intervalo` | 10 |
-| Clasificar desde fórmula (correcta = cuadrática o su negación) | `clasificacion-desde-formula` | 8 |
-| Imagen acotada por el vértice, cálculo | `imagen-calculo` | 6 |
-| Concavidad, signo de $a$ desde contexto | `concavidad-signo-a` | 4 |
-| Clasificar desde gráfico | `clasificacion-desde-grafico` | 3 |
-| Distractor de familia: situación en realidad lineal | `clasificacion-distractor-lineal` | 3 |
-| Distractor de familia: situación en realidad exponencial | `clasificacion-distractor-exponencial` | 3 |
-| Distractor de familia: situación en realidad logarítmica | `clasificacion-distractor-logaritmica` | 2 |
-| **Total** | | **50** |
-
-### Cardinalidad
-- **Clasificación de familia**: **4 opciones** (Lineal, Cuadrática, Exponencial, Logarítmica). Es el caso legítimo de 4: hay cuatro familias genuinamente distintas.
-- **Concavidad / monotonía / imagen**: según la respuesta, 3 conceptual o 4 si es intervalo.
-
-### `feedback_incorrect`, confusiones fuente
-- **"Sube y después baja" leído como lineal**: el eje del skill. Una recta no puede tener un punto de máximo; si el fenómeno tiene un óptimo, es cuadrática. Describir: "una recta crece o decrece siempre al mismo ritmo, no puede tener un valor máximo".
-- **Área confundida con lineal**: "lado × lado" o "largo × ancho con perímetro fijo" es cuadrática, no lineal. El producto de dos magnitudes que dependen de una misma variable eleva el grado.
-- **Confundir con exponencial**: elegir exponencial por "crece rápido"; nombrar qué la caracteriza (multiplicación por un factor fijo cada período, no elevar la variable al cuadrado).
-- **Confundir con logarítmica**: elegir logarítmica por descarte; describir el crecimiento que se frena vs. la parábola que crece cada vez más rápido.
-- **Distractor de familia en fórmula**: cuando la correcta es cuadrática, cada distractor nombra qué haría a la función de esa otra familia ($x$ a la primera potencia, $x$ en el exponente, $x$ dentro de un log).
-
-### Reglas específicas
-- **Nunca poner "Cuadrática" y "Polinómica" juntas** en la misma grilla (ver `authoring-context.md`).
-- **Contexto y pregunta en párrafos separados** (`\n\n`), con la pregunta nombrando la magnitud concreta ("¿qué familia describe la altura del proyectil en función del tiempo?"), no `¿Qué familia?` telegráfico.
 
 ---
 
@@ -280,11 +239,6 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 **LEXI:**
 - [ ] 50 ejercicios; negrita en primera mención de `parábola`/`vértice`/`eje de simetría`/`raíces`/`ordenada al origen`/`concavidad`/`coeficiente principal`/`dominio`/`imagen`
 - [ ] Conceptuales puros a 3 opciones cuando no hay una cuarta confusión real; numéricos a 4
-
-**CLSF:**
-- [ ] 50 ejercicios; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
-- [ ] Nunca "Cuadrática" y "Polinómica" juntas en la misma grilla
-- [ ] Contexto y pregunta separados por `\n\n`, pregunta con la magnitud nombrada
 
 **FORM:**
 - [ ] 50 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación

@@ -104,7 +104,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función lineal** es aquella que puede expresarse como un polinomio de primer grado.\n$$f(x) = mx + b$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -116,7 +115,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función cuadrática** es aquella que puede expresarse como un polinomio de segundo grado.\n$$f(x) = ax^2 + bx + c$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -128,7 +126,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función polinómica** es aquella que puede expresarse como un polinomio de grado $n$, generalización que incluye a las funciones lineales y cuadráticas.\n$$f(x) = a_nx^n + a_{n-1}x^{n-1} + \\cdots + a_1x + a_0$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -140,7 +137,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función exponencial** es aquella en la que la variable independiente aparece como exponente de una base constante.\n$$f(x) = a^x$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -152,7 +148,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función logarítmica** es aquella en la que la variable independiente aparece como el argumento de un logaritmo de base constante.\n$$f(x) = \\log_a(x)$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -164,7 +159,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función racional** es aquella que puede expresarse como el cociente o división entre dos polinomios.\n$$f(x) = \\frac{P(x)}{Q(x)}$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -176,7 +170,6 @@ export const catalog: Catalog = {
               "short_description": "Una **función trigonométrica** es aquella que vincula la medida de un ángulo con las proporciones métricas de un espacio geométrico, destacándose como principales el **seno**, el **coseno** y la **tangente**.\n$$\\begin{aligned} f(x) &= \\sin(x) \\\\ f(x) &= \\cos(x) \\\\ f(x) &= \\tan(x) \\end{aligned}$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "FORM",
                 "GRAF"
               ]
@@ -279,7 +272,6 @@ export const catalog: Catalog = {
               "short_description": "La **derivada** mide la **tasa de cambio instantánea** de una función. Describe a qué velocidad exacta está variando una magnitud en un momento o punto específico.\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$",
               "skills": [
                 "LEXI",
-                "CLSF",
                 "GRAF",
                 "ESTR"
               ]
@@ -292,8 +284,7 @@ export const catalog: Catalog = {
               "skills": [
                 "LEXI",
                 "GRAF",
-                "ESTR",
-                "RESL"
+                "ESTR"
               ]
             },
             {

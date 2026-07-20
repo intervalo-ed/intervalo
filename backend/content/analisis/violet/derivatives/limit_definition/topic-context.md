@@ -2,9 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `limit_definition`
 
-Skills en este topic: `LEXI`, `CLSF`, `GRAF`, `ESTR`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
-Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `GRAF`, `ESTR`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/violet/derivatives/limit_definition/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento puede seguir mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
 **Estado.** Los ejercicios viejos (`LEXI`, `CLSF`, `GRAF`, `ESTR`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -37,7 +37,7 @@ Los ejercicios que quiebren cualquiera de las reglas duras se descartan y se ree
 
 ---
 
-## Correcciones de formato transversales (los 4 skills)
+## Correcciones de formato transversales (los 3 skills activos; CLSF archivado, ver nota arriba)
 
 Reglas de authoring que se aplican al escribir los 200 ejercicios:
 
@@ -86,38 +86,6 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 - **Negrita en primera mención** de `derivada`, `tasa de cambio instantánea`, `cociente incremental`, `notación de Leibniz`, `notación de Lagrange`.
 - Sub-A trabaja con la fórmula simbólica; ninguna cuenta numérica.
 - Sub-C con opciones que muestran distintas notaciones, no en prosa.
-
----
-
-## CLSF, 50 ejercicios
-
-### Qué evalúa
-Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin hacer cálculos: implicaciones lógicas, contraejemplos clásicos, condiciones necesarias vs. suficientes.
-
-### Cardinalidad
-**Exactamente 3 opciones** por ejercicio.
-
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
-
-### Distribución por sub-familia
-
-| Sub-familia | Foco | Slug | Cant. |
-|-------------|------|------|:-----:|
-| A. Teorema diferenciabilidad ⇒ continuidad | Consolidar la implicación: **diferenciable ⇒ continua**, pero **continua ⇏ diferenciable**. Reconocer que una función con salto es no diferenciable **por** no ser continua. | `teorema-diferenciable-implica-continua` | 20 |
-| B. Casos teóricos de no-diferenciabilidad | Clasificar por qué una función no es derivable en un punto: quiebre (laterales del cociente incremental difieren), salto (falla continuidad), tangente vertical (derivada infinita). Sin gráfico, con descripción analítica. | `casos-teoricos-no-diferenciabilidad` | 15 |
-| C. El contraejemplo de $\|x\|$ | El caso paradigmático: $f(x) = \|x\|$ es continua en $x = 0$ pero no diferenciable ahí, porque el cociente incremental tiene laterales $-1$ y $+1$. Ejercicios que aíslen esta situación. | `contraejemplo-valor-absoluto` | 15 |
-
-### `feedback_incorrect`, confusiones fuente
-- **Implicación invertida**: sostener que "continua ⇒ diferenciable". El contraejemplo es $|x|$: continua en $0$, no derivable.
-- **Quiebre confundido con salto**: llamar "salto" al pico de $|x|$ en $0$. Hay quiebre (laterales del cociente difieren) sin salto (la función sigue siendo continua).
-- **Salto clasificado como continuo pero no diferenciable**: creer que una función con salto es "solo no diferenciable" en el punto. Un salto rompe la continuidad **y** la diferenciabilidad.
-- **Función derivable en $x = 0$ para $|x|$**: dar $f'(0) = 0$ (por simetría) o $f'(0) = 1$. Los laterales del cociente incremental valen $-1$ y $+1$, así que el límite no existe.
-- **Tangente vertical clasificada como diferenciable con pendiente infinita**: creer que $f'(a) = \infty$ es un valor legítimo. La derivada se define como un número real; $\pm\infty$ significa que la derivada **no existe**.
-
-### Reglas específicas
-- **Sin cálculos**; el trabajo es lógico / de clasificación teórica.
-- **Textos exactos** en opciones para clasificar diferenciabilidad: `"Diferenciable"`, `"Continua pero no diferenciable"`, `"Discontinua"`, `"No se puede determinar"`.
-- **Negrita en primera mención** de `diferenciable`, `continua`.
 
 ---
 
@@ -206,7 +174,7 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes, más un patrón dom
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
-**Transversal (los 4 skills):**
+**Transversal (los 3 skills activos):**
 - [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de reglas prácticas de derivación (potencia, producto, cociente, cadena)
 - [ ] Ninguna ecuación de recta tangente ni cálculo numérico de pendiente de secante (reservado para el tópico siguiente)
@@ -221,12 +189,6 @@ Auditoría en vivo (`/test`) sobre ejercicios ya existentes, más un patrón dom
 - [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Negrita en primera mención de `derivada`, `tasa de cambio instantánea`, `cociente incremental`, `notación de Leibniz`, `notación de Lagrange`
-
-**CLSF:**
-- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
-- [ ] Distribución A/B/C respetada (20/15/15)
-- [ ] Sin cálculos; solo lógica y clasificación teórica
-- [ ] Textos exactos `"Diferenciable"`, `"Continua pero no diferenciable"`, `"Discontinua"`, `"No se puede determinar"` cuando aplique
 
 **GRAF:**
 - [ ] 50 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado

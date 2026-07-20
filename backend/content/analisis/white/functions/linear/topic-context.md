@@ -2,9 +2,9 @@
 
 Belt: `white`, Unit: `functions`, Topic: `linear`
 
-Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+Skills en este topic: `LEXI`, `FORM`, `GRAF`. 50 ejercicios cada uno (150 en total).
 
-Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/linear/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento puede seguir mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
 
 **Estado.** Los ejercicios (enunciados, opciones y respuestas correctas) están validados y se conservan. Este documento especifica lo que falta para dejar el tema al día con las convenciones actuales:
 
@@ -16,7 +16,7 @@ No se pide reescribir los problemas: se pide corregir el formato, sumar los feed
 
 ---
 
-## Correcciones de formato transversales (los 4 skills)
+## Correcciones de formato transversales (los 3 skills activos; CLSF archivado, ver nota arriba)
 
 Defectos detectados en la auditoría (jul-2026). Aplicar a todos los ejercicios afectados.
 
@@ -81,45 +81,6 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 ### Reglas específicas
 - **Negrita en primera mención** de `pendiente`, `ordenada al origen`, `dominio`, `imagen` en `question` y `explanation`.
 - Reescribir en forma canónica $f(x) = mx + b$ como primer paso de la `explanation` cuando el enunciado viene desordenado ($7 - 3x$).
-
----
-
-## CLSF, 50 ejercicios
-
-### Qué evalúa
-Clasificar a qué familia pertenece una función: **lineal** vs. cuadrática, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 2x - 5$ es lineal; $x^2$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (tasa constante → lineal; porcentaje/factor multiplicativo → exponencial; área → cuadrática). Incluye también monotonía e imagen de lineales, y 2 ejercicios con gráfico (recta vs. parábola vs. curva).
-
-### Distribución objetivo
-
-`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `CLSF.json`:
-
-| Concepto | Slug | Cantidad actual |
-|----------|------|-----------------:|
-| Clasificar desde situación cotidiana (correcta = lineal) | `clasificacion-desde-situacion` | 11 |
-| Clasificar desde fórmula (lineal o distractor de otra familia) | `clasificacion-desde-formula` | 10 |
-| Distractor de familia en situación cotidiana (correcta ≠ lineal) | `clasificacion-distractor-situacion` | 9 |
-| Monotonía, signo del comportamiento global | `monotonia-signo` | 5 |
-| Signo/intervalo (positiva, negativa, resolver inecuación) | `signo-intervalo` | 4 |
-| Propiedades generales (inclinación constante, pendiente 0, cortes, extremos) | `propiedades-generales` | 4 |
-| Clasificar desde gráfico | `clasificacion-desde-grafico` | 3 |
-| Dominio e imagen | `dominio-imagen` | 2 |
-| Rectas paralelas | `rectas-paralelas` | 2 |
-| **Total** | | **50** |
-
-### Cardinalidad
-- **Clasificación de familia**: **4 opciones** (Lineal, Cuadrática, Exponencial, Logarítmica). Es el caso legítimo de 4: hay cuatro familias genuinamente distintas. Mantener las cuatro.
-- **Monotonía / imagen**: según la respuesta, 3 conceptual o 4 si es un conjunto/intervalo.
-
-### `feedback_incorrect`, confusiones fuente
-- **Porcentaje/multiplicativo leído como lineal**: el eje del skill. "Perder 10% por año" o "multiplicarse por 1,01" es exponencial, no lineal; un porcentaje es un factor que multiplica, no una cantidad fija que se suma. Describir sin la fórmula: "un cambio del mismo porcentaje cada período multiplica, y eso curva el crecimiento".
-- **Confundir con cuadrática**: creer que hay término $x^2$ donde no lo hay, o clasificar un área como lineal.
-- **Confundir con logarítmica**: elegir logarítmica por descarte; nombrar qué la caracteriza (crecimiento que se frena, no una recta).
-- **Distractor de familia en fórmula**: cuando la correcta es lineal, cada distractor nombra qué haría a la función de esa otra familia ($x$ al cuadrado, $x$ en el exponente, $x$ dentro de un log).
-
-### Reglas específicas
-- **Nunca poner "Cuadrática" y "Polinómica" juntas** en la misma grilla (ver `authoring-context.md`). Acá no aplica porque las familias son lineal/cuadrática/exp/log, pero mantenerlo en mente si se agregan opciones.
-- **Contexto y pregunta en párrafos separados** (`\n\n`), con la pregunta nombrando la magnitud concreta ("¿qué familia describe el valor restante...?"), no `¿Qué familia?` telegráfico. Esto ya se corrigió en jun-2026; mantenerlo al tocar los ejercicios.
-- **Sin traducir el porcentaje a multiplicador en el enunciado**: "pierde el 10% cada año" se deja así; convertirlo a "se multiplica por 0,9" regala la clasificación (ver `authoring-context.md` §Preguntas directas).
 
 ---
 
@@ -212,11 +173,6 @@ Leer una recta desde su gráfico: **ordenada al origen** (bajada de bandera, val
 **LEXI:**
 - [ ] 50 ejercicios; negrita en primera mención de `pendiente`/`ordenada al origen`/`dominio`/`imagen`
 - [ ] Conceptuales puros a 3 opciones cuando no hay una cuarta confusión real; numéricos a 4
-
-**CLSF:**
-- [ ] 50 ejercicios; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
-- [ ] Contexto y pregunta separados por `\n\n`, pregunta con la magnitud nombrada
-- [ ] Ningún enunciado traduce el porcentaje a multiplicador (no regalar la clasificación)
 
 **FORM:**
 - [ ] 50 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación

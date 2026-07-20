@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere calcular $\\log_2(8 \\cdot 4)$ usando propiedades de los logaritmos.\n\n¿Qué expresión corresponde aplicar antes de calcular el valor final?",
+    "options": [
+      "$\\log_2(8) + \\log_2(4)$",
+      "$\\log_2(8) \\cdot \\log_2(4)$",
+      "$\\log_2(8) - \\log_2(4)$",
+      "$\\log_2(8 + 4)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La propiedad del producto $\\log_b(x\\cdot y) = \\log_b(x) + \\log_b(y)$ convierte el logaritmo de un producto en una suma de logaritmos.",
+    "feedback_incorrect": [
+      null,
+      "La propiedad del producto convierte el logaritmo de un producto en una suma, no en un producto de logaritmos.",
+      "Esa expresión corresponde a la propiedad del cociente, pero acá los dos números están multiplicados, no divididos.",
+      "Sumar los números dentro del logaritmo no es una propiedad válida; el logaritmo de una suma no se puede simplificar así."
+    ],
+    "explanation": "Antes de calcular el valor final, hay que identificar la **propiedad del logaritmo** que corresponde a la operación dentro del argumento.\n\nComo $8 \\cdot 4$ es un producto, se aplica la propiedad $\\log_b(x\\cdot y) = \\log_b(x) + \\log_b(y)$:\n$$\\log_2(8\\cdot4) = \\log_2(8) + \\log_2(4)$$\nUn error frecuente es confundir esta propiedad con la del cociente (que resta) o intentar sumar los números antes de aplicar el logaritmo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

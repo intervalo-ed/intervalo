@@ -1,6 +1,8 @@
 ## Patrón de modernización: tema `trigonometric`
 
-Llevado de 47 → 200 ejercicios (50 × LEXI / CLSF / FORM / GRAF).
+> **CLSF archivado (jul-2026):** se sacó de este topic al podar a un máximo de 3 ítems (skills) por topic. Contenido preservado en `backend/content/archive/analisis/white/functions/trigonometric/CLSF.json`. No generar CLSF para este topic en rondas futuras; el resto de este documento sigue mencionando CLSF en registros de auditoría históricos, que quedan como referencia, no como guía de generación.
+
+Llevado de 47 → 150 ejercicios activos (50 × LEXI / FORM / GRAF; CLSF archivado).
 
 **Convenciones de notación:**
 - Texto de ejercicio: `\operatorname{sen}(x)` (notación española).

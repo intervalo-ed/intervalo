@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere simplificar la expresión $3x(2x - 5) + 4x$.\n\n¿Qué expresión corresponde al resultado de aplicar primero la propiedad distributiva?",
+    "options": [
+      "$6x^2 - 15x + 4x$",
+      "$6x^2 - 5x + 4x$",
+      "$5x^2 - 15x + 4x$",
+      "$6x^2 - 15 + 4x$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Distribuir $3x$ sobre cada término del paréntesis da $3x\\cdot2x - 3x\\cdot5 = 6x^2 - 15x$, y luego se suma el término $4x$ que queda afuera.",
+    "feedback_incorrect": [
+      null,
+      "Ahí falta multiplicar $3x$ por el $2$ del primer término del paréntesis, solo se distribuyó parcialmente.",
+      "El coeficiente de $x^2$ está mal: $3x\\cdot2x=6x^2$, no $5x^2$.",
+      "Al distribuir sobre $-5$ el resultado es $-15x$ (con la $x$), no $-15$ solo."
+    ],
+    "explanation": "Antes de sumar términos semejantes, hay que identificar la **expresión correcta** tras aplicar la propiedad distributiva.\n\nDistribuyendo $3x$ sobre cada término entre paréntesis:\n$$3x(2x-5) = 3x\\cdot2x - 3x\\cdot5 = 6x^2 - 15x$$\nSumando el término $4x$ que ya estaba afuera del paréntesis:\n$$6x^2 - 15x + 4x$$\nUn error frecuente es distribuir sobre un solo término del paréntesis y olvidar el otro.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Se quiere expresar el número $47500$ en notación científica.\n\n¿Qué expresión corresponde?",
+    "options": [
+      "$4{,}75 \\times 10^{4}$",
+      "$47{,}5 \\times 10^{3}$",
+      "$4{,}75 \\times 10^{5}$",
+      "$475 \\times 10^{2}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Moviendo la coma 4 lugares a la izquierda para dejar un solo dígito antes de la coma, el exponente de $10$ queda en $4$.",
+    "feedback_incorrect": [
+      null,
+      "El coeficiente ahí no cumple $1 \\leq |a| < 10$, tiene dos dígitos antes de la coma.",
+      "Ese exponente corresponde a mover la coma un lugar de más.",
+      "El coeficiente ahí no cumple $1 \\leq |a| < 10$, tiene tres dígitos antes de la coma."
+    ],
+    "explanation": "Antes de calcular, hay que identificar la **expresión en notación científica** que cumple $a \\times 10^n$ con $1 \\leq |a| < 10$.\n\nPara $47500$, hay que mover la coma hasta dejar un solo dígito antes de ella: $4{,}75$, y contar cuántos lugares se movió (4 hacia la izquierda), lo que da el exponente:\n$$47500 = 4{,}75 \\times 10^{4}$$\nUn error frecuente es dejar más de un dígito antes de la coma en el coeficiente, lo que rompe la condición $1 \\leq |a| < 10$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]
