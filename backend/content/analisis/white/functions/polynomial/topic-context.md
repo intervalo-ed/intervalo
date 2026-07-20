@@ -51,7 +51,7 @@ Incluidas en FORM polynomial (y algunos FORM quadratic):
 
 ### Distribución objetivo, con `tags` (ver `authoring-context.md` §Etiquetas)
 
-Taxonomía diseñada leyendo los 200 ítems reales (jul-2026, mismo proceso que `linear`/`quadratic`). El slug es el valor exacto que va en `"tags": ["<slug>"]` de cada ítem.
+Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso que `linear`/`quadratic`). El slug es el valor exacto que va en `"tags": ["<slug>"]` de cada ejercicio.
 
 **LEXI (50):**
 
@@ -179,15 +179,15 @@ Cuárticas:
 
 Este documento describía el contenido conceptual pero no había pasado por la auditoría de formato/gamificación que sí tienen `linear` y `quadratic`. Verificado programáticamente sobre los 4 JSON:
 
-1. **`feedback_incorrect` falta o es un duplicado ilegítimo del `feedback_correct`** en los 200 ítems:
+1. **`feedback_incorrect` falta o es un duplicado ilegítimo del `feedback_correct`** en los 200 ejercicios:
    - Vacío (`""`): LEXI 39, CLSF 36, FORM 40, GRAF 50.
    - `string` no vacío pero **duplicado/parafraseo de `feedback_correct`** (legacy, mismo bug que en `quadratic`; en algunos casos incluso revela la respuesta correcta explícitamente, ej. "La correcta es $f(x)=x^3-2x+5$"): LEXI 11, CLSF 14, FORM 10, GRAF 0.
-   - Ningún ítem tiene hoy el `array<string|null>` correcto. Completar/reescribir los 200 desde cero como `array` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
+   - Ningún ejercicio tiene hoy el `array<string|null>` correcto. Completar/reescribir los 200 desde cero como `array` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
 2. **`\n\n` pegado a bloques `$$...$$`**: LEXI 13, CLSF 2, FORM 38 (la mayoría del archivo), GRAF 26. Mismo patrón que `quadratic`: pasos de álgebra intermedios en `explanation` abren cada fórmula con `\n\n$$...$$\n\n` en vez de un solo `\n`.
 3. **Em-dash `—`/en-dash `–`**: LEXI 7, CLSF 3, FORM 3, GRAF 0.
-4. **Explicaciones con viñetas `•`/sub-ítems `-`**: LEXI 13, CLSF 24, FORM 13, GRAF 18. Reescribir a los 3 párrafos de prosa (concepto → aplicación → cierre) de `authoring-context.md` §Estructura de la explicación.
+4. **Explicaciones con viñetas `•`/sub-ejercicios `-`**: LEXI 13, CLSF 24, FORM 13, GRAF 18. Reescribir a los 3 párrafos de prosa (concepto → aplicación → cierre) de `authoring-context.md` §Estructura de la explicación.
 5. **`explanation` bajo 300 caracteres** (mínimo vigente en `authoring-context.md`, no 250 como decía una versión anterior de esta nota): FORM 18, GRAF 11 (LEXI y CLSF ya cumplían el umbral viejo, verificar de nuevo contra 300). Engordar el párrafo de concepto general, no rellenar con relleno.
-6. **Cierres con humor/antropomorfismo**: no se detectaron casos claros en los 4 JSON (a diferencia de `quadratic`). Igual revisar al tocar cada ítem: el cierre por defecto es advertencia/consejo neutro.
+6. **Cierres con humor/antropomorfismo**: no se detectaron casos claros en los 4 JSON (a diferencia de `quadratic`). Igual revisar al tocar cada ejercicio: el cierre por defecto es advertencia/consejo neutro.
 7. **`correct_index` sesgado**: LEXI {0:5,1:16,2:24,3:5}, CLSF {0:7,1:21,2:15,3:7}, FORM {0:11,1:24,2:11,3:4}, GRAF {0:18,1:23,2:8,3:1}. GRAF es el más urgente (casi nada en índice 3). Rebalancear a ~{0:12,1:13,2:12,3:13} reordenando `options` (mismo contenido, nueva posición) y sincronizando `feedback_incorrect`.
 8. **Convivencia Cuadrática/Polinómica**: verificado, sin violaciones en los 50 de CLSF. Mantener la regla al reescribir/reordenar opciones.
 
@@ -203,7 +203,7 @@ Este documento describía el contenido conceptual pero no había pasado por la a
 
 ### Hallazgos de auditoría (ronda 1, jul-2026)
 
-Auditoría en vivo vía `/test`, muestra al azar de 11 ítems (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`). Los patrones que aparecieron acá son evidencia de que **hay que revisar los 200 ítems** contra las mismas reglas, no solo los 11 citados:
+Auditoría en vivo vía `/test`, muestra al azar de 11 ejercicios (no exhaustiva, ver expectativa de alcance en `generation-prompt.md`). Los patrones que aparecieron acá son evidencia de que **hay que revisar los 200 ejercicios** contra las mismas reglas, no solo los 11 citados:
 
 - `white_polynomial_LEXI_11`: párrafos de `explanation` demasiado largos; la opción correcta `$\mathbb{R}$ (todos los reales)` lleva una glosa aclaratoria que las demás no tienen, se delata; mezcla de registro (opciones en LaTeX + una opción en prosa libre).
 - `white_polynomial_FORM_25`: párrafos largos; fórmula display con 2 igualdades encadenadas (`(2x+1)^2 = (2x)^2 + ... = 4x^2+4x+1`) debió partirse en 3 líneas verticales (`A`, `=B`, `=C`).
@@ -219,27 +219,27 @@ Auditoría en vivo vía `/test`, muestra al azar de 11 ítems (no exhaustiva, ve
 
 ### Correcciones de formato transversales de esta ronda, checklist explícito
 
-Patrones concretos a aplicar en los 200 ítems al refactorizar, más allá de los ya listados en "Estado (auditoría jul-2026)":
+Patrones concretos a aplicar en los 200 ejercicios al refactorizar, más allá de los ya listados en "Estado (auditoría jul-2026)":
 
-1. **Preferencia por fórmula centrada sobre LaTeX inline en `explanation`** cuando la fórmula es la función del ítem o un resultado central: sacarla a su propio bloque `$$...$$` en vez de tejerla en la oración.
+1. **Preferencia por fórmula centrada sobre LaTeX inline en `explanation`** cuando la fórmula es la función del ejercicio o un resultado central: sacarla a su propio bloque `$$...$$` en vez de tejerla en la oración.
 2. **Opciones: preferir LaTeX/notación simbólica sobre prosa**, y nunca una glosa aclaratoria (`(todos los reales)`, `(grado 4)`) solo en la opción correcta.
 3. **Derivaciones de 2+ igualdades**, tanto en `explanation` como (sobre todo) en `feedback_correct`: partir en bloque `aligned` vertical o en varios `$$...$$` apilados, nunca una cadena horizontal `A=B=C=D`. Una sola igualdad corta puede quedar en una línea.
 4. **Ninguna línea individual de un `aligned` debe quedar ancha por sí sola** (ej. una expansión de varios términos en una sola fila): si un paso es inherentemente largo, sumar un paso intermedio o simplificar la expresión.
-5. **Nunca invocar derivadas, límites ni integrales** en `explanation` ni `feedback_incorrect` (frontera de `course-context.md` para `white`): justificar monotonía/extremos con evaluación en puntos, comportamiento en extremos por grado/signo, o lectura directa del gráfico. **Confirmado como sesgo sistémico en 3 topics seguidos**: reapareció en `exponential` (`white_exponential_CLSF_38`) y de nuevo en `logarithmic` (`white_logarithmic_LEXI_42`, `LEXI_10`), ambos con notación de límite. No es un defecto puntual de este topic, revisar el 100% de los ítems de cualquier topic todavía no auditado (`rational`, `trigonometric`) contra esta regla por default.
+5. **Nunca invocar derivadas, límites ni integrales** en `explanation` ni `feedback_incorrect` (frontera de `course-context.md` para `white`): justificar monotonía/extremos con evaluación en puntos, comportamiento en extremos por grado/signo, o lectura directa del gráfico. **Confirmado como sesgo sistémico en 3 topics seguidos**: reapareció en `exponential` (`white_exponential_CLSF_38`) y de nuevo en `logarithmic` (`white_logarithmic_LEXI_42`, `LEXI_10`), ambos con notación de límite. No es un defecto puntual de este topic, revisar el 100% de los ejercicios de cualquier topic todavía no auditado (`rational`, `trigonometric`) contra esta regla por default.
 6. **`feedback_correct` se mantiene en 1 oración corta con el resultado final**, nunca una derivación completa encadenada; los pasos intermedios van en `explanation`.
 7. **Cerrar la oración en punto antes de una fórmula display**, nunca dejarla tejida a mitad de oración (regla ya vigente desde `definition`, reforzar en `question` de GRAF).
 
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ítems por skill: `array` del largo de `options`, `null` en el correcto (incluye reescribir los `string` legacy que duplican `feedback_correct`)
+- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto (incluye reescribir los `string` legacy que duplican `feedback_correct`)
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes
 - [ ] `correct_index` variado, no concentrado en un solo índice (objetivo ~12-13 por índice)
 - [ ] Montos con `\$` escapado
 - [ ] "Cuadrática" y "Polinómica" nunca en la misma grilla de opciones (CLSF)
-- [ ] Cada ítem tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (sección "Distribución objetivo" arriba); contar por slug y verificar que coincide con la cantidad de la tabla
+- [ ] Cada ejercicio tiene `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill (sección "Distribución objetivo" arriba); contar por slug y verificar que coincide con la cantidad de la tabla
 

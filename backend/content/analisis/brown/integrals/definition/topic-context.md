@@ -2,7 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `definition`
 
-Skills en este topic: `LEXI`, `FORM`, `ESTR`. **50 ítems cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `FORM`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `FORM`, `ESTR`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico es la **puerta de entrada al cinturón brown**: define qué es la integral indefinida, fija el vocabulario (integrando, diferencial, primitiva, constante de integración) y prepara el terreno para el tópico siguiente (`reglas`), donde el alumno va a aplicar las fórmulas de integración directa.
 
@@ -24,19 +26,19 @@ En este tópico se trabaja **sin ejecutar el cálculo integral final**. El alumn
 
 **Prohibido**:
 
-- **Aplicar la regla de la potencia para integrar** ($\int x^n \, dx = \tfrac{x^{n+1}}{n+1} + C$) como paso resolutivo dentro de un ítem. En ESTR se puede indicar la **reescritura previa** ($\tfrac{1}{x^3} \to x^{-3}$), pero no dar el resultado ya integrado.
+- **Aplicar la regla de la potencia para integrar** ($\int x^n \, dx = \tfrac{x^{n+1}}{n+1} + C$) como paso resolutivo dentro de un ejercicio. En ESTR se puede indicar la **reescritura previa** ($\tfrac{1}{x^3} \to x^{-3}$), pero no dar el resultado ya integrado.
 - **Integral definida** ($\int_a^b$), **área bajo la curva**, **Teorema Fundamental del Cálculo**: la definida es un tópico posterior de este mismo cinturón (`definite`); el TFC aplicado avanzado queda fuera del alcance del curso. Se pueden usar como **distractores explícitos** en LEXI sub-B para descartar la confusión "la integral devuelve un área" en esta etapa.
 - **Integración por sustitución** ($u$-sub) o **por partes**: tópicos siguientes; no aparecen ni como método ni como distractor razonable acá.
 - **Justificar por sumas de Riemann** o construcciones de tipo "límite de la suma": el alumno todavía no vio la definición integral formal; se toma la antiderivada como definición operativa.
-- **Constante de integración omitida**: todo ítem que muestre una primitiva sin $+ C$ (fuera de contextos donde se auditara explícitamente esa omisión) se descarta. La familia infinita de primitivas es constitutiva del concepto.
+- **Constante de integración omitida**: todo ejercicio que muestre una primitiva sin $+ C$ (fuera de contextos donde se auditara explícitamente esa omisión) se descarta. La familia infinita de primitivas es constitutiva del concepto.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ítems:
+Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`. Estructura: (a) nombrar el objeto matemático evaluado (concepto de primitiva, anatomía de la notación, linealidad, reescritura), (b) desarrollar la lógica con al menos un `\begin{aligned}` donde corresponda, (c) cerrar con advertencia técnica sobre la confusión típica (integrando ≠ resultado, $dx$ no multiplica, no separar productos, $\tfrac{1}{x^n} = x^{-n}$). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -48,15 +50,15 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 **Anatomía matemática y consolidación del Sistema 1** para el nuevo operador. Reconocimiento de qué pieza de la notación cumple qué rol y de la relación conceptual entre primitiva y derivada. Sin cálculo.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -83,7 +85,7 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Qué evalúa
 **Comprensión teórica de la linealidad** del operador integral. Desarmar un integrando en integrales elementales sin ejecutar el cálculo. Distinguir propiedades válidas (linealidad) de propiedades falsas (integral de un producto ≠ producto de integrales; integral de un cociente ≠ cociente de integrales).
@@ -91,7 +93,7 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 ### Cardinalidad
 **3 opciones por defecto**. **4 opciones** cuando los esqueletos de la respuesta son numéricos cortos que entran en la grilla 2×2 (≤ 35 caracteres cada uno) — típicamente en sub-A cuando las opciones son formas como `"4∫x²dx - 3∫sin x dx"`.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -117,15 +119,15 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Decisiones de acondicionamiento algebraico** previas al armado. Bloquear vicios operativos que arruinarían el cálculo posterior. Preparar el terreno para el tópico `reglas` reconociendo qué expresiones **necesitan reescritura** antes de aplicar cualquier fórmula de integración.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -155,13 +157,13 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Pre-revisión programática (script propio contra el snowball completo de `authoring-context.md`) sobre los ítems de prueba existentes, antes de completar la generación:
+Pre-revisión programática (script propio contra el snowball completo de `authoring-context.md`) sobre los ejercicios de prueba existentes, antes de completar la generación:
 
-- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`LEXI`, `FORM`, `ESTR`, 45 ítems) tenían el bloque de desarrollo de la `explanation` pegado con `\n\n$$` en vez de `\n$$` (violación de la regla 2). Corregido con un script de reemplazo mecánico (`\n\n$$` → `\n$$`, `$$\n\n` → `$$\n`) sobre los 3 archivos. Si aparece de nuevo en ítems nuevos, es un error de generación, no un bug de render.
-- **`FORM`: 15/15 ítems abren con `"Considerá la integral\n$$...$$"`.** Es una cláusula completa (verbo + objeto), **solo le falta el `:`** antes del bloque (regla 32) y variar la redacción ítem a ítem (hoy es 100% idéntica).
-- **`ESTR`: 15/15 ítems abren con `"Antes de resolver\n$$...$$\n¿qué paso previo conviene dar?"`.** Esto es más grave que un simple opener: es **una sola oración cortada por la fórmula en el medio** (la pregunta sigue en minúscula, gramaticalmente parte de "antes de resolver X"), viola directamente la **regla crítica 9**, no solo la 32. Reescribir como `"Antes de resolver esta integral:\n$$...$$\n¿Qué paso previo conviene dar?"` (cierre propio + pregunta nueva en mayúscula).
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`LEXI`, `FORM`, `ESTR`, 45 ejercicios) tenían el bloque de desarrollo de la `explanation` pegado con `\n\n$$` en vez de `\n$$` (violación de la regla 2). Corregido con un script de reemplazo mecánico (`\n\n$$` → `\n$$`, `$$\n\n` → `$$\n`) sobre los 3 archivos. Si aparece de nuevo en ejercicios nuevos, es un error de generación, no un bug de render.
+- **`FORM`: 15/15 ejercicios abren con `"Considerá la integral\n$$...$$"`.** Es una cláusula completa (verbo + objeto), **solo le falta el `:`** antes del bloque (regla 32) y variar la redacción ejercicio a ejercicio (hoy es 100% idéntica).
+- **`ESTR`: 15/15 ejercicios abren con `"Antes de resolver\n$$...$$\n¿qué paso previo conviene dar?"`.** Esto es más grave que un simple opener: es **una sola oración cortada por la fórmula en el medio** (la pregunta sigue en minúscula, gramaticalmente parte de "antes de resolver X"), viola directamente la **regla crítica 9**, no solo la 32. Reescribir como `"Antes de resolver esta integral:\n$$...$$\n¿Qué paso previo conviene dar?"` (cierre propio + pregunta nueva en mayúscula).
 - **`LEXI`: aperturas variadas pero varias incompletas** (`"En la notación"`, `"En la misma notación"`, `"En"` a secas, `"Al escribir"`). A diferencia de "Considerá la integral", estos son fragmentos sin objeto propio: el `:` no los arregla, necesitan reescritura completa.
-- **`ESTR`: opciones con ratio de longitud alto** (ej. `[23, 51, 21]` caracteres), la del medio casi el doble de las otras dos. Revisar paridad (regla 4/15) al completar los 50 ítems.
+- **`ESTR`: opciones con ratio de longitud alto** (ej. `[23, 51, 21]` caracteres), la del medio casi el doble de las otras dos. Revisar paridad (regla 4/15) al completar los 50 ejercicios.
 - **Nota de vocabulario, no es un hallazgo real**: `FORM` usa "linealidad" con frecuencia en `explanation` como **el nombre correcto de la propiedad** del operador integral (∫(f+g)=∫f+∫g, ∫kf=k∫f). La entrada de la tabla de vocabulario prohibido en `authoring-context.md` banea "linealidad" **solo como nombre de estrategia en `options`** (contexto de `violet/derivatives`, donde competía con "múltiplo escalar"); acá es terminología legítima en prosa y no hay que tocarla.
 
 ---
@@ -169,34 +171,34 @@ Pre-revisión programática (script propio contra el snowball completo de `autho
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de fórmulas de integración directa (regla de la potencia, integrales de $e^x$, $\sin x$, $\ln x$, etc.)
 - [ ] Ninguna mención de integral definida, área bajo la curva, TFC, sustitución o integración por partes como métodos aplicables acá
 - [ ] Explicaciones en 3 párrafos de prosa; estructura conceptual; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] Constante de integración $C$ presente en todo resultado mostrado como primitiva
-- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo en ítems nuevos)
+- [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo en ejercicios nuevos)
 - [ ] **`"Considerá la integral"` (FORM) tiene el `:` antes del bloque `$$...$$`** (ya es cláusula completa); **`"Antes de resolver"` (ESTR) está reescrito como cláusula completa que no corta la oración con la fórmula en el medio** (regla crítica 9 y 32); aperturas de LEXI variadas y completas
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo; solo anatomía y relaciones conceptuales
 - [ ] Sub-A con opciones que etiquetan los términos como texto exacto
 - [ ] Sub-B con opciones tipo "$F' = f$" para auditar la relación con la derivada
-- [ ] "La integral devuelve un área" y "las curvas se cruzan en el origen" presentes como distractores en al menos algunos ítems de sub-B
+- [ ] "La integral devuelve un área" y "las curvas se cruzan en el origen" presentes como distractores en al menos algunos ejercicios de sub-B
 
 **FORM:**
-- [ ] 50 ítems; **3 opciones por defecto**, **4 opciones** cuando la respuesta sea numérica corta que entre en grilla 2×2 (≤ 35 caracteres)
+- [ ] 50 ejercicios; **3 opciones por defecto**, **4 opciones** cuando la respuesta sea numérica corta que entre en grilla 2×2 (≤ 35 caracteres)
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Sin cálculo final; solo forma armada aplicando linealidad
 - [ ] Sub-A con opciones tipo `"4∫x²dx - 3∫sin x dx"` textuales
 - [ ] Sub-B con opciones que incluyen una separación indebida (producto o cociente) y una opción "no se puede separar así"
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Sin cálculo final; solo elección del paso previo de acondicionamiento
 - [ ] Sub-A con opciones tipo "Desarrollar el binomio y luego integrar" textuales; distractor mayoritario "integrar el interior y elevar al cuadrado" o "derivar el integrando"

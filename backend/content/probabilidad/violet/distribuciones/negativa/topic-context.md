@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `negativa`
 
 Skills en este topic: `CLSF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `CLSF`, `FORM`.
+
 Concepto: generaliza la geométrica: cantidad de ensayos hasta acumular $r$ éxitos. $P(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r}$, $E[X]=r/p$. Coincide con `geometrica` cuando $r=1$.
 
 **Frontera con el resto del topic:** distinguir de `geometrica` (caso particular $r=1$) y de `binomial` ($n$ fijo, no se detiene al llegar a $r$ éxitos).
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: generaliza la geométrica: cantidad de ensayos hasta acumular $r$ éxi
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -50,11 +52,11 @@ Concepto: generaliza la geométrica: cantidad de ensayos hasta acumular $r$ éxi
 
 - **Contextos válidos**: vendedor que busca $r$ ventas, curriculums enviados hasta $r$ respuestas positivas, intentos hasta acumular $r$ aciertos.
 - **$r$ siempre $\geq 2$** en `reconocer-negativa` (para no solaparse con `geometrica`, que cubre $r=1$).
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
-- [ ] Todo ítem de `reconocer-negativa` tiene $r\geq 2$ explícito
+- [ ] Todo ejercicio de `reconocer-negativa` tiene $r\geq 2$ explícito
 - [ ] El distractor de binomial especifica que el experimento se detiene al llegar a $r$ éxitos, no en un $n$ fijo
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

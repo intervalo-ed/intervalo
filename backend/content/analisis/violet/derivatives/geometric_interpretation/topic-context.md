@@ -2,7 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `geometric_interpretation`
 
-Skills en este topic: `LEXI`, `GRAF`, `ESTR`, `RESL`. **50 ítems cada uno (200 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `ESTR`, `RESL`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+
+Este topic tiene 4 ítems (uno por skill): `LEXI`, `GRAF`, `ESTR`, `RESL`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -29,13 +31,13 @@ Como el alumno **aún no conoce las reglas prácticas**, todos los cálculos num
 
 **No hay `CLSF` en este tópico** — el foco es **puramente espacial y geométrico**, así que el rol conceptual de clasificación se retira. El vocabulario y la teoría los cubre `LEXI`; la lectura visual, `GRAF`; el armado y ejecución, `ESTR` y `RESL`.
 
-Los ítems que quiebren cualquiera de las reglas duras se descartan y se reescriben.
+Los ejercicios que quiebren cualquiera de las reglas duras se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 4 skills)
 
-Reglas de authoring que se aplican al escribir los 200 ítems:
+Reglas de authoring que se aplican al escribir los 200 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto geométrico abstracto, (b) desarrollo formal en `\begin{aligned}` si hay cálculo, (c) cierre con advertencia o regla útil. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor ni antropomorfismos.
@@ -47,21 +49,21 @@ Reglas de authoring que se aplican al escribir los 200 ítems:
 
 ---
 
-## `feedback_incorrect` en los 200 ítems
+## `feedback_incorrect` en los 200 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del error, en segunda persona amable. Una oración por distractor.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la **anatomía** de la fórmula punto-pendiente.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -85,7 +87,7 @@ Afianzar el **vocabulario geométrico** de las rectas asociadas a una curva y la
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyendo la cuadrícula.
@@ -94,7 +96,7 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - **3 opciones** para preguntas categóricas (cuál es tangente, hay/no hay tangente horizontal).
 - **4 opciones** para respuestas numéricas cortas (valor de pendiente estimado).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -116,19 +118,19 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - **Múltiples rectas dibujadas** en sub-A, cada una etiquetada mínimamente (colores o letras).
 - **Sub-B con pendientes enteras o medios** ($m \in \{-2, -1, -0{,}5, 0, 0{,}5, 1, 2, 3\}$) para lecturas limpias.
 - **Sub-C con vértices claros** y sin ambigüedad (no incluir puntos de inflexión aún).
-- Ningún ítem pide la **ecuación** de la tangente desde el gráfico (eso va a ESTR).
+- Ningún ejercicio pide la **ecuación** de la tangente desde el gráfico (eso va a ESTR).
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Armar** y **calcular** la ecuación analítica de la recta tangente y de la secante a partir de datos numéricos.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -157,7 +159,7 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Usar la recta tangente** ya construida (o los datos suficientes para construirla) para responder preguntas geométricas: intersecciones con los ejes, condición de paralelismo con otra recta, y aplicación del **Teorema del Valor Medio** de forma cualitativa.
@@ -166,7 +168,7 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 - **4 opciones** cuando la respuesta es un valor numérico o una ecuación corta.
 - **3 opciones** cuando la respuesta es categórica o cualitativa.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -195,14 +197,14 @@ Interpretar **gráficamente** tangentes, secantes y estimar **pendientes** leyen
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-No hubo ítems puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ítems con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 50 ítems por skill: variar la redacción ítem a ítem y cerrar siempre la oración introductoria.
+No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad (regla crítica 32, nueva): `RESL` abre 6/11 ejercicios con `"La recta tangente a una función en cierto punto es\n$$...$$"` y varios más con `"Sabiendo que"`; `LEXI` abre con `"En la ecuación punto-pendiente de la recta tangente\n$$...$$"` y `"En la misma ecuación\n$$...$$"`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Aplicar la corrección al completar hasta 50 ejercicios por skill: variar la redacción ejercicio a ejercicio y cerrar siempre la oración introductoria.
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de reglas prácticas de derivación (potencia, producto, cociente, cadena); ninguna función elemental (sin, cos, exp, log, √)
 - [ ] Solo lineales, cuadráticas o valores dados de $f(a)$ y $f'(a)$
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -210,29 +212,29 @@ No hubo ítems puntuales de este topic en el archivo de correcciones de esta ron
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] **Ningún enunciado abre con un opener corto y genérico** ("La recta tangente a una función en cierto punto es", "Sabiendo que", "En la ecuación punto-pendiente") sin cerrar la oración antes del bloque `$$...$$` (regla crítica 32, confirmado como patrón dominante en los 4 archivos)
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de una misma derivación (regla crítica 30)
-- [ ] **Ningún ítem que dependa de la fórmula punto-pendiente la asume vista en otro ítem**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
+- [ ] **Ningún ejercicio que dependa de la fórmula punto-pendiente la asume vista en otro ejercicio**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Negrita en primera mención de `recta tangente`, `recta secante`, `pendiente`, `punto de tangencia`, `aproximación lineal`
 - [ ] Textos exactos `"Secante"`, `"Tangente"`, `"Recta transversal"` cuando aplique
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn` o gráfico embebido; `graph_view` cuadrado, escala 1:1
+- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado, escala 1:1
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Sub-B con pendientes enteras o medios; grilla claramente escalada
-- [ ] Ningún ítem pide la ecuación de la tangente desde el gráfico
+- [ ] Ningún ejercicio pide la ecuación de la tangente desde el gráfico
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (25/15/10)
 - [ ] Sub-A con $f(a)$ y $f'(a)$ dados numéricamente o con función lineal/cuadrática
-- [ ] Sub-C con $f'(x)$ explícito; ningún ítem pide derivar previamente
+- [ ] Sub-C con $f'(x)$ explícito; ningún ejercicio pide derivar previamente
 - [ ] Explicaciones con `\begin{aligned}` mostrando distribuir → despejar
 
 **RESL:**
-- [ ] 50 ítems; cardinalidad ajustada (4 numérica / 3 categórica)
+- [ ] 50 ejercicios; cardinalidad ajustada (4 numérica / 3 categórica)
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Sub-B con paralelismo vía $f'(x) = m$ (no perpendicularidad, no $f(x) = m$)
 - [ ] Sub-C sin pedir el valor de $c$; textos exactos en opciones cualitativas

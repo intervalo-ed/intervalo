@@ -4,13 +4,15 @@ Belt: `brown`, Unit: `vectores`, Topic: `correlacion`
 
 Skills en este topic: `FORM`, `RESL`.
 
+Este topic tiene 2 ítems (uno por skill): `FORM`, `RESL`.
+
 Concepto: el coeficiente de correlación $\rho_{X,Y}=\dfrac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y}$, $-1\leq\rho\leq1$, estandariza la covarianza para medir la fuerza de la relación lineal entre $X$ e $Y$.
 
 **Frontera con el resto de la unidad:** reutiliza directamente `covarianza`. Último topic antes de `independencia_vec`, que retoma la relación (y la limitación) entre covarianza cero e independencia.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: el coeficiente de correlación $\rho_{X,Y}=\dfrac{\mathrm{Cov}(X,Y)}{\
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -49,12 +51,12 @@ Concepto: el coeficiente de correlación $\rho_{X,Y}=\dfrac{\mathrm{Cov}(X,Y)}{\
 ## Reglas específicas del topic
 
 - **Reutilizar los valores de covarianza** del topic anterior cuando aplique, para reforzar la conexión conceptual.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 - **La interpretación de $\rho\approx0$ nunca afirma independencia** sin matizar que solo descarta relación lineal (ver confusión de la tabla de arriba); este matiz se retoma formalmente en `independencia_vec`.
 
 ## Checklist del topic
 
-- [ ] Ningún ítem acepta $\rho$ fuera de $[-1,1]$
-- [ ] Ningún ítem afirma que $\rho\approx0$ implica independencia sin matizar "relación lineal"
+- [ ] Ningún ejercicio acepta $\rho$ fuera de $[-1,1]$
+- [ ] Ningún ejercicio afirma que $\rho\approx0$ implica independencia sin matizar "relación lineal"
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

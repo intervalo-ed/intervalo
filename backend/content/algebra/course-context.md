@@ -14,7 +14,7 @@ La progresión de cinturones sigue el orden `white → blue → violet → brown
 
 | Cinturón | Unidad(es) | Temas | Estado |
 |----------|--------|-------|--------|
-| `white` | `aritmetica` | divisibilidad, fracciones, potenciación, radicales, notación (científica), absoluto (valor absoluto), propiedades (algebraicas), logaritmos | Oculto (`hidden`): solo 1 ítem de ejemplo por topic, pendiente poblar |
+| `white` | `aritmetica` | divisibilidad, fracciones, potenciación, radicales, notación (científica), absoluto (valor absoluto), propiedades (algebraicas), logaritmos | Oculto (`hidden`): solo 1 ejercicio de ejemplo por topic, pendiente poblar |
 | `blue` | `vectors` | definición, operaciones, norma, escalar, ortogonalidad, producto, rectas, planos | Visible |
 | `violet` | `matrices` | definición, operaciones, transpuesta, determinantes, inversa, sistemas, eliminación | Visible |
 | `brown` | `spaces` + `transformations` | spaces: subespacios, combinaciones, independencia, generadores, bases, dimensión / transformations: definición, núcleo, imagen, teorema, asociada | Oculto (`hidden`) |

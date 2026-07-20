@@ -2,13 +2,15 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `differentiation_rules`
 
-Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ítems cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+
+Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `basic_rules`. Renombrado (`differentiation_rules/`) y los `external_id` se van a regenerar en la próxima seed (`violet_differentiation_rules_form_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos se **trasladaron** a las skills nuevas:
 
-- `LEXI.json` → **`FORM.json`** (los 10 ítems son reconocimiento de fórmulas de derivación, que ahora vive en FORM).
-- `ESTR.json` → **`ESTR.json`** (10 ítems se mantienen; encajan con el nuevo alcance).
-- `RESL.json` → **`RESL.json`** (10 ítems, ya venía del merge con la vieja DERI).
+- `LEXI.json` → **`FORM.json`** (los 10 ejercicios son reconocimiento de fórmulas de derivación, que ahora vive en FORM).
+- `ESTR.json` → **`ESTR.json`** (10 ejercicios se mantienen; encajan con el nuevo alcance).
+- `RESL.json` → **`RESL.json`** (10 ejercicios, ya venía del merge con la vieja DERI).
 
 El contenido "APLI" que el prompt original incluía (tangentes rápidas + problemas de razón) queda absorbido en **RESL** dentro de este topic-context — coherente con la fusión APLI → RESL. El refactor a la nueva distribución completa (50 por skill) se hace en otro turno.
 
@@ -31,13 +33,13 @@ En este tópico, el alumno **aplica fórmulas directas**. El uso del límite ya 
 - Regla de la **cadena**: nada de $(g \circ h)'$, ni argumentos internos no triviales (no $\sin(2x + 1)$; sí $\sin x$).
 - **Justificar por límite** cualquier derivada elemental — se toma como fórmula conocida.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ítems:
+Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos los términos, (b) aplicamos la regla a cada uno usando `\begin{aligned}`, (c) sumamos/restamos los resultados y cierre con advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -49,13 +51,13 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## `feedback_incorrect` en los 150 ítems
+## `feedback_incorrect` en los 150 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del error específico del distractor, en segunda persona amable, contrastando con el procedimiento correcto.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Qué evalúa
 **Reconocimiento** de las fórmulas de derivación para funciones elementales y de la **notación**. No hay cálculo compuesto: se identifica la fórmula que corresponde.
@@ -64,7 +66,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 - **3 opciones** cuando la respuesta es una fórmula o descripción textual.
 - **4 opciones** cuando la respuesta es numérica corta.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -89,15 +91,15 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Elección del método**, planificación del orden de aplicación de reglas y **descomposición** de expresiones antes de derivar.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -120,15 +122,15 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** del cálculo de la derivada aplicando fórmulas y linealidad, más las **aplicaciones directas** (tangentes rápidas, razones de cambio) que antes vivían en APLI.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -161,7 +163,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-Auditoría en vivo (`/test`) sobre ítems ya existentes:
+Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 
 - **`ESTR_05`** (`ex_139`): el enunciado ("En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?") condensa contexto y pregunta en una sola oración. Separar en **2 párrafos**: uno introductorio que sitúa el término dentro de una suma más grande, otro que hace la pregunta puntual.
 - **`ESTR_12`** (`ex_146`): patrón de apertura `"En\n$$f(x) = 2e^x - \cos x + 6$$\n¿cuántos términos distintos hay que derivar por separado?"` — abre con la palabra corta "En" pegada directo al bloque `$$...$$`, sin cerrar la oración, y la pregunta que sigue no arranca en mayúscula tras un cierre propio. **Esto originó la regla crítica 32**, nueva en `authoring-context.md` esta ronda. Reescribir con una oración introductoria sustantiva que cierre en `.`/`:` antes de la fórmula, y la pregunta en su propia oración después.
@@ -171,7 +173,7 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla del producto, cociente o cadena; ninguna función compuesta
 - [ ] Ningún desarrollo por límite del cociente incremental (fórmulas directas)
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -182,19 +184,19 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; solo pasos reales de la misma derivación (regla crítica 30)
 
 **FORM:**
-- [ ] 50 ítems; cardinalidad 3 (fórmulas/textuales) o 4 (numéricas)
+- [ ] 50 ejercicios; cardinalidad 3 (fórmulas/textuales) o 4 (numéricas)
 - [ ] Distribución A/B respetada (35/15)
 - [ ] Negrita en primera mención de `regla de la potencia`, `regla de la constante`, `derivada elemental`
 - [ ] Sub-B con opciones que muestran notaciones, no prosa
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición
 - [ ] Textos exactos en opciones de elección de regla (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C/D respetada (15/20/10/5)
 - [ ] Explicaciones con estructura algorítmica (identificar → aplicar → combinar)
 - [ ] Ningún argumento interno no trivial en funciones elementales

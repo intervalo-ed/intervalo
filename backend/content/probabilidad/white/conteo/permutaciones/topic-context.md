@@ -4,13 +4,15 @@ Belt: `white`, Unit: `conteo`, Topic: `permutaciones`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: las **permutaciones** cuentan las formas de ordenar $n$ elementos distintos cuando el orden importa y se usan **todos** los elementos disponibles ($P_n = n!$). Con elementos repetidos, se divide por el factorial de cada grupo idéntico.
 
 **Frontera con el resto de la unidad:** si el problema elige y ordena solo un **subconjunto** de $k < n$ elementos, es `variaciones`, no `permutaciones`. Si el orden no importa, es `combinaciones`. La distinción "¿se usan todos los elementos?" es la que separa `permutaciones` de `variaciones`, y es la fuente principal de distractores en `CLSF`.
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 Reconocer la **técnica** que corresponde, sin calcular.
 
@@ -27,7 +29,7 @@ Reconocer la **técnica** que corresponde, sin calcular.
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 Armar la **expresión**.
 
@@ -42,7 +44,7 @@ Armar la **expresión**.
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 Calcular el **resultado numérico**.
 
@@ -80,7 +82,7 @@ Calcular el **resultado numérico**.
 
 ## Checklist del topic
 
-- [ ] Todo ítem de `CLSF`/`FORM`/`RESL` de permutación simple usa **todos** los elementos del conjunto, nunca un subconjunto (eso rompe la frontera con `variaciones`)
+- [ ] Todo ejercicio de `CLSF`/`FORM`/`RESL` de permutación simple usa **todos** los elementos del conjunto, nunca un subconjunto (eso rompe la frontera con `variaciones`)
 - [ ] Anagramas usan palabras de 4-6 letras con a lo sumo un grupo repetido
 - [ ] Los distractores de "en realidad es variación/combinación" describen la situación, no nombran la fórmula
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target

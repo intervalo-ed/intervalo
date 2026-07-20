@@ -14,21 +14,21 @@ Todos los comandos se corren **desde `backend/`**.
 El contenido se construye en rondas. **Hoy arrancamos la ronda 2.** No mezcles el
 trabajo de una ronda con el de otra.
 
-- **Ronda 1 (hecha):** se generó un set de prueba chico por skill (15 ítems) para
-  las unidades `blue`, `violet` y `brown`, y el set completo (50 ítems por skill)
+- **Ronda 1 (hecha):** se generó un set de prueba chico por skill (15 ejercicios) para
+  las unidades `blue`, `violet` y `brown`, y el set completo (50 ejercicios por skill)
   para `white`. Sobre ese contenido se hicieron auditorías manuales y se
   documentaron los hallazgos por topic.
-- **Ronda 2 (esta):** **regenerar y corregir en el lugar los ítems que ya
+- **Ronda 2 (esta):** **regenerar y corregir en el lugar los ejercicios que ya
   existen**, contra los hallazgos de auditoría y todas las reglas de
-  `authoring-context.md`. **No se agregan ni se quitan ítems.** El objetivo es
+  `authoring-context.md`. **No se agregan ni se quitan ejercicios.** El objetivo es
   llevar el contenido existente a calidad final, no aumentar la cantidad.
 - **Ronda 3 (futura, solo si la ronda 2 quedó validada):** completar cada skill de
-  `blue`/`violet`/`brown` desde sus 15 ítems hasta los 50 de la meta, siguiendo la
+  `blue`/`violet`/`brown` desde sus 15 ejercicios hasta los 50 de la meta, siguiendo la
   distribución por sub-familia de cada `topic-context.md`.
 
-**Regla de oro de la ronda 2:** la cantidad de ítems de cada archivo `.json` **no
-cambia**. Si un archivo tiene 15 ítems, sale con 15. Si tiene 50, sale con 50.
-Donde un `generation-prompt.md` diga "completar hasta 50" o "ítems nuevos", es
+**Regla de oro de la ronda 2:** la cantidad de ejercicios de cada archivo `.json` **no
+cambia**. Si un archivo tiene 15 ejercicios, sale con 15. Si tiene 50, sale con 50.
+Donde un `generation-prompt.md` diga "completar hasta 50" o "ejercicios nuevos", es
 lenguaje heredado de la planificación de la ronda 3: en la ronda 2 se ignora (cada
 prompt de `blue`/`violet`/`brown` lo aclara en su callout de alcance).
 
@@ -36,14 +36,14 @@ prompt de `blue`/`violet`/`brown` lo aclara en su callout de alcance).
 
 ## Alcance: los 25 topics
 
-`white` ya está en 50 ítems por skill, así que su ronda 2 es un **refactor en el
+`white` ya está en 50 ejercicios por skill, así que su ronda 2 es un **refactor en el
 lugar** del set completo (no tiene ronda 3). `blue`/`violet`/`brown` están en 15
 por skill: ronda 2 regenera esos 15, ronda 3 los lleva a 50.
 
 El quinto cinturón `black` (análisis de funciones, optimización, áreas, TFC) **está
 fuera de alcance** y no tiene contenido en el repo.
 
-| Belt / unit | Topic | Skills | Ítems/skill (ronda 2) |
+| Belt / unit | Topic | Skills | Ejercicios/skill (ronda 2) |
 |-------------|-------|--------|:---------------------:|
 | white/functions | definition | LEXI, CLSF | 50 |
 | white/functions | linear | LEXI, CLSF, FORM, GRAF | 50 |
@@ -108,13 +108,13 @@ seguí, no la pises.
 ### 2. Planificar (en el chat, antes de tocar un `.json`)
 
 Seguí el "Paso 1" del `generation-prompt.md`: por skill y sub-familia, qué
-corrección aplica a cada ítem existente. En la ronda 2 **no hay ítems nuevos**:
+corrección aplica a cada ejercicio existente. En la ronda 2 **no hay ejercicios nuevos**:
 cada uno de los 15 (o 50 en `white`) se revisa y se reescribe donde haga falta.
-Mostrá 1-2 ítems reescritos como muestra antes de hacer el resto.
+Mostrá 1-2 ejercicios reescritos como muestra antes de hacer el resto.
 
 ### 3. Ejecutar
 
-Reescribí los ítems en sus `.json`. No cambies la cantidad. No toques
+Reescribí los ejercicios en sus `.json`. No cambies la cantidad. No toques
 `external_id`, `belt`, `topic`, `exercise_type` si aparecen (los pone el seeder).
 
 ### 4. Seedear (formato + integridad)
@@ -123,7 +123,7 @@ Reescribí los ítems en sus `.json`. No cambies la cantidad. No toques
 python seed_content.py --course analisis
 ```
 
-Tiene que correr sin errores. Debería reportar los ítems del topic como `updated`.
+Tiene que correr sin errores. Debería reportar los ejercicios del topic como `updated`.
 
 ### 5. Validar (reglas automatizables)
 
@@ -150,13 +150,13 @@ Flags útiles: `--check options,structure` para correr solo algunas familias;
 **Lo que el validador NO chequea** (queda en el checklist manual del punto 6, no es
 automatizable): que la explicación justifique el *porqué* y no solo el *qué* (regla
 25), que un `\begin{aligned}` no aliñe datos sueltos en vez de una derivación real
-(regla 30), que cada ítem reintroduzca su definición central (regla 31), y las
+(regla 30), que cada ejercicio reintroduzca su definición central (regla 31), y las
 **reglas duras propias del topic** (`+C` obligatorio, límites actualizados al
 sustituir, frontera matemática del belt, etc.).
 
 ### 6. Checklist manual del topic
 
-Corré el checklist del final del `topic-context.md`, ítem por ítem, prestando
+Corré el checklist del final del `topic-context.md`, ejercicio por ejercicio, prestando
 atención a los puntos que el validador no cubre (regla 25/30/31 y las reglas duras
 del topic).
 
@@ -166,7 +166,7 @@ Con el seeder sin errores, `validate_content.py` en **0 ERRORs** y el checklist
 manual limpio, commiteá con el formato del `generation-prompt.md`:
 
 ```
-feat(analisis/<belt>/<topic>): regenerar ítems de prueba y correcciones de la ronda
+feat(analisis/<belt>/<topic>): regenerar ejercicios de prueba y correcciones de la ronda
 ```
 
 En el cuerpo del commit resumí: qué se corrigió y por qué regla, los warnings que
@@ -188,4 +188,4 @@ Si algo de 4/5/6 no cierra, **no commitees**: arreglá y repetí desde el punto 
   `\lim^-`/`\lim^+` sin punto de tendencia (`blue`), y el `\n` literal como texto.
   No los vuelvas a reportar como si fueran nuevos; solo asegurate de no
   reintroducirlos.
-- No cambies la cantidad de ítems (ronda 2). No adelantes temas del belt siguiente.
+- No cambies la cantidad de ejercicios (ronda 2). No adelantes temas del belt siguiente.

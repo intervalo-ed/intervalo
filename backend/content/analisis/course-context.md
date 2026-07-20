@@ -43,11 +43,11 @@ Cada `generation-instructions.md` de cinturón repite su propia frontera en la s
 
 En **todos los topics** de esta unidad (`definition`, `lateral_limits`, `infinite_limits`, `continuity`, `factorization`, `rationalization`), las `explanation` priorizan la explicación intuitiva de la **noción de límite** en juego, no solo la resolución mecánica del problema puntual.
 
-Es una extensión de la regla crítica 25 de `authoring-context.md` (el porqué, no solo el qué), un paso más allá: además de razonar por qué el mecanismo del ítem funciona, agregar **1 o 2 párrafos cortos** que construyan la intuición general de la noción de límite en juego (qué representa, por qué se define así, qué problema resuelve), en el mismo lenguaje formal ya establecido en `authoring-context.md` (sin antropomorfismo, sin humor forzado). La estructura de 3 partes de la explicación sigue siendo la base; estos párrafos son un agregado, no un reemplazo.
+Es una extensión de la regla crítica 25 de `authoring-context.md` (el porqué, no solo el qué), un paso más allá: además de razonar por qué el mecanismo del ejercicio funciona, agregar **1 o 2 párrafos cortos** que construyan la intuición general de la noción de límite en juego (qué representa, por qué se define así, qué problema resuelve), en el mismo lenguaje formal ya establecido en `authoring-context.md` (sin antropomorfismo, sin humor forzado). La estructura de 3 partes de la explicación sigue siendo la base; estos párrafos son un agregado, no un reemplazo.
 
-Aplica a todo campo `explanation` de la unidad al generar o regenerar ítems, no solo a los ítems puntuales ya señalados en auditorías previas. Sumar este chequeo al checklist de cada topic al auditarlo.
+Aplica a todo campo `explanation` de la unidad al generar o regenerar ejercicios, no solo a los ejercicios puntuales ya señalados en auditorías previas. Sumar este chequeo al checklist de cada topic al auditarlo.
 
-**Ejemplo ya aplicado** (sub-familia "tamaño del salto" de `lateral_limits`): no alcanza con calcular $\lim^+ - \lim^-$ y dar el resultado; la explicación agrega un párrafo construyendo la intuición de por qué esa resta representa el tamaño del salto (la distancia entre las dos alturas a las que "apunta" cada rama al acercarse al punto de quiebre), antes de aplicarlo al caso puntual del ítem.
+**Ejemplo ya aplicado** (sub-familia "tamaño del salto" de `lateral_limits`): no alcanza con calcular $\lim^+ - \lim^-$ y dar el resultado; la explicación agrega un párrafo construyendo la intuición de por qué esa resta representa el tamaño del salto (la distancia entre las dos alturas a las que "apunta" cada rama al acercarse al punto de quiebre), antes de aplicarlo al caso puntual del ejercicio.
 
 ## Convenciones transversales del curso
 

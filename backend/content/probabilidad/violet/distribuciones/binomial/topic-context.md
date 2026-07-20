@@ -4,13 +4,15 @@ Belt: `violet`, Unit: `distribuciones`, Topic: `binomial`
 
 Skills en este topic: `CLSF`, `FORM`.
 
+Este topic tiene 2 ítems (uno por skill): `CLSF`, `FORM`.
+
 Concepto: $X\sim Bin(n,p)$ modela la cantidad de éxitos en $n$ ensayos independientes idénticos con probabilidad de éxito constante $p$. $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$, $E[X]=np$, $\mathrm{Var}(X)=np(1-p)$.
 
 **Frontera con el resto del topic:** primera distribución de la unidad. La distinción con `geometrica` (busca el primer éxito, no cuenta éxitos en $n$ fijos) y con `hipergeometrica` (sin reposición, población finita) es la fuente principal de distractores en `CLSF` en ambos topics.
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: $X\sim Bin(n,p)$ modela la cantidad de éxitos en $n$ ensayos independ
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -50,11 +52,11 @@ Concepto: $X\sim Bin(n,p)$ modela la cantidad de éxitos en $n$ ensayos independ
 
 - **Contextos válidos**: monedas/dados lanzados $n$ veces, tasa de defectos en $n$ piezas, encuestas con $n$ personas y una probabilidad fija de respuesta.
 - **$n$ acotado** (≤30) para que $\binom{n}{k}$ no genere números que se descarten por magnitud a ojo.
-- **Cada ítem reintroduce la fórmula** que usa (regla crítica 31).
+- **Cada ejercicio reintroduce la fórmula** que usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Todo contexto de `reconocer-binomial` tiene $n$ fijo y ensayos independientes idénticos
 - [ ] Los distractores de geométrica/hipergeométrica describen la situación sin nombrar la fórmula de la otra distribución
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
-- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ítems numéricos → 4 opciones ≤35 caracteres
+- [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; ejercicios numéricos → 4 opciones ≤35 caracteres

@@ -2,7 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `infinite_limits`
 
-Skills en este topic: `LEXI`, `GRAF`, `RESL`. **50 ítems cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+
+Este topic tiene 3 ítems (uno por skill): `LEXI`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`LEXI`, `GRAF`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -34,13 +36,13 @@ Toda resolución analítica se basa en:
 2. **División por la mayor potencia** o **dominancia de grados** en racionales cuando $x \to \pm\infty$.
 3. **Dominancia de familias** (exponencial $\succ$ polinómica $\succ$ logarítmica) como argumento teórico, sin cálculo.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ítems (misma línea que los otros topic-contexts):
+Reglas de authoring que se aplican al escribir los 150 ejercicios (misma línea que los otros topic-contexts):
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto, (b) aplicación paso a paso al caso (usar `\begin{aligned}` para desarrollos), (c) cierre útil o advertencia técnica en voz neutra. Sin viñetas `•`, sin sub-`-`, sin em-dash `—`, sin humor ni antropomorfismos.
@@ -56,21 +58,21 @@ Reglas de authoring que se aplican al escribir los 150 ítems (misma línea que 
 
 ---
 
-## `feedback_incorrect` en los 150 ítems
+## `feedback_incorrect` en los 150 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las reglas teóricas de **dominancia** y **asintotismo**. Diferenciar $\tfrac{k}{\infty}$ de $\tfrac{k}{0}$, contrastar asíntota horizontal vs vertical, comparar velocidades de crecimiento entre familias.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -96,7 +98,7 @@ Destruir los falsos paradigmas del **álgebra del infinito** y formalizar las re
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 Identificar el **comportamiento asintótico** a partir de una lectura visual: la altura a la que se estabiliza la curva en los extremos, la recta vertical donde diverge, y la asimetría entre extremos opuestos.
@@ -105,7 +107,7 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 - **4 opciones** cuando la respuesta es un valor numérico o una ecuación de recta corta.
 - **3 opciones** cuando la respuesta es una propiedad conceptual (existe/no existe, tiene asíntota, es par, etc.).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -123,7 +125,7 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 - **Confundir asíntota con cota**: creer que la curva no puede pasar la asíntota. La curva puede cruzar una asíntota horizontal en la región central; la asíntota describe el comportamiento en los extremos.
 
 ### Reglas específicas
-- **Gráficos con al menos una asíntota clara** (horizontal, vertical, o ambas según el ítem).
+- **Gráficos con al menos una asíntota clara** (horizontal, vertical, o ambas según el ejercicio).
 - **Puntos abiertos vs. cerrados** distinguidos si hay huecos removibles cerca de la asíntota.
 - **`graph_view` con la asíntota bien centrada**: se debe ver la aproximación a la recta por al menos un lado.
 - Cuando la respuesta es una asíntota, escribir la ecuación de la recta: `y = 2`, `x = -3` (no solo `2` o `-3`).
@@ -131,15 +133,15 @@ Identificar el **comportamiento asintótico** a partir de una lectura visual: la
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 Calcular la tendencia por límite directo o aplicando reglas de **dominancia de grados** en racionales cuando $x \to \pm\infty$, y evaluar **límites infinitos direccionales** analizando el signo del cero en el denominador cuando $x \to a$.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Opciones numéricas o expresiones cortas (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -170,26 +172,26 @@ Calcular la tendencia por límite directo o aplicando reglas de **dominancia de 
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_infinito_1.md`), aplicar al regenerar:
+Corrección puntual del usuario sobre ejercicios de prueba de este topic (`correciones_analisis_limites_infinito_1.md`), aplicar al regenerar:
 
-- **`GRAF_15`**: el enunciado abría con "En la misma gráfica racional del ítem anterior" y la `explanation` cerraba con "Junto con el ítem anterior...". **Violación directa de la regla crítica 24** (nunca enmarcar un ítem respecto de otro de la sesión), en dos campos del mismo ítem. Cada ítem de `GRAF` tiene que describir su propio gráfico de forma autocontenida (o embeber el gráfico y preguntar directo), nunca asumir que el alumno vio el ítem previo.
+- **`GRAF_15`**: el enunciado abría con "En la misma gráfica racional del ejercicio anterior" y la `explanation` cerraba con "Junto con el ejercicio anterior...". **Violación directa de la regla crítica 24** (nunca enmarcar un ejercicio respecto de otro de la sesión), en dos campos del mismo ejercicio. Cada ejercicio de `GRAF` tiene que describir su propio gráfico de forma autocontenida (o embeber el gráfico y preguntar directo), nunca asumir que el alumno vio el ejercicio previo.
 - **`RESL_07`**: el desarrollo en `\begin{aligned}` tenía una línea final que encadenaba 2 igualdades ("&= \lim_{x\to+\infty} 2x^2 = +\infty"), en vez de partirla en un tercer renglón. Recurrencia de la aclaración ya documentada en *Fórmulas anchas* de `authoring-context.md` ("pasar a `aligned` no alcanza si una línea individual sigue siendo larga"): cada renglón del `aligned` tiene que ser corto por sí solo, si un paso sigue siendo largo, se parte en un renglón más.
 - **`GRAF_08`**: uso de la palabra "escapa"/"escapan" para describir la divergencia cerca de la asíntota vertical. Motivó agregar **"escapar"/"escapa" al vocabulario prohibido** de `authoring-context.md` (reemplazo: "diverge", "crece sin cota", "tiende a $\pm\infty$").
-- **2 capturas de pantalla (ítems de dominancia exponencial vs. polinómica y de $\infty-\infty$)**: bloques `$$...$$` con una oración completa en español metida vía `\text{...}` junto a los símbolos (ej. `$$a^x \succ x^{100} \quad \text{cuando } x \to +\infty\text{, aunque tarde...}$$`), desbordando el ancho de la pantalla y literalmente cortados. **Esto originó la regla crítica 26, nueva en `authoring-context.md`**: un bloque `$$...$$` lleva solo símbolos y números, las palabras siempre van en la prosa que rodea la fórmula, nunca dentro de `\text{}` como oración completa.
+- **2 capturas de pantalla (ejercicios de dominancia exponencial vs. polinómica y de $\infty-\infty$)**: bloques `$$...$$` con una oración completa en español metida vía `\text{...}` junto a los símbolos (ej. `$$a^x \succ x^{100} \quad \text{cuando } x \to +\infty\text{, aunque tarde...}$$`), desbordando el ancho de la pantalla y literalmente cortados. **Esto originó la regla crítica 26, nueva en `authoring-context.md`**: un bloque `$$...$$` lleva solo símbolos y números, las palabras siempre van en la prosa que rodea la fórmula, nunca dentro de `\text{}` como oración completa.
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas, integrales, factorización ni racionalización
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash, humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios
 - [ ] Notación consistente para $\pm\infty$; `No existe` como texto exacto cuando aplique
-- [ ] **Ningún ítem se enmarca respecto de otro de la sesión** (regla crítica 24), ni en `question` ni en `explanation`: cada `GRAF` describe o embebe su propio gráfico de forma autocontenida
+- [ ] **Ningún ejercicio se enmarca respecto de otro de la sesión** (regla crítica 24), ni en `question` ni en `explanation`: cada `GRAF` describe o embebe su propio gráfico de forma autocontenida
 - [ ] **El concepto abstracto de cada `explanation` justifica el porqué, no solo declara el qué** (regla crítica 25): dominancia de grados, dominancia entre familias, y por qué $\infty-\infty$ es indeterminación se razonan, no solo se nombran
 - [ ] Cada `explanation` suma 1-2 párrafos de intuición general de la noción de límite en juego, no solo la resolución del caso puntual (ver `course-context.md` §Refuerzo de intuición en `blue`)
 - [ ] **Ningún bloque `$$...$$` mete una oración completa en español vía `\text{...}`** (regla crítica 26): las palabras van en la prosa, la fórmula solo lleva símbolos
@@ -197,21 +199,21 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 - [ ] Sin la palabra "escapar"/"escapa" para describir divergencia (usar "diverge", "crece sin cota", "tiende a $\pm\infty$")
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Negrita en primera mención de `límites al infinito`, `límites infinitos`, `asíntota horizontal`, `asíntota vertical`, `dominancia`, `divergencia`
-- [ ] Ningún ítem sugiere que $\tfrac{0}{0}$, $\tfrac{\infty}{\infty}$ o $\infty - \infty$ se puedan resolver con las técnicas de este tópico
+- [ ] Ningún ejercicio sugiere que $\tfrac{0}{0}$, $\tfrac{\infty}{\infty}$ o $\infty - \infty$ se puedan resolver con las técnicas de este tópico
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn` o gráfico embebido; asíntotas claramente visibles
+- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; asíntotas claramente visibles
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Asíntotas escritas como ecuación de recta (`y = L`, `x = a`), no como valor suelto
 - [ ] Cardinalidad ajustada: 4 si numérica/recta, 3 si conceptual
 - [ ] Opciones de existencia con `Sí` / `No` / `No se puede determinar`
-- [ ] Ningún ítem asume que el alumno vio el gráfico de otro ítem ("la misma gráfica del ítem anterior")
+- [ ] Ningún ejercicio asume que el alumno vio el gráfico de otro ejercicio ("la misma gráfica del ejercicio anterior")
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (20/10/20)
 - [ ] Racionales exclusivamente en A y B; sin exponenciales, logs ni raíces
 - [ ] Sub-C con laterales explícitos; el signo del $0^{\pm}$ y el signo del numerador se justifican en la explicación

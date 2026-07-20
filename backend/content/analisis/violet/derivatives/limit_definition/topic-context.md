@@ -2,7 +2,9 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `limit_definition`
 
-Skills en este topic: `LEXI`, `CLSF`, `GRAF`, `ESTR`. **50 ítems cada uno (200 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `CLSF`, `GRAF`, `ESTR`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
+
+Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `GRAF`, `ESTR`. **50 ejercicios cada uno (200 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`LEXI`, `CLSF`, `GRAF`, `ESTR`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -31,13 +33,13 @@ La resolución se hace paso a paso: (1) plantear el cociente incremental, (2) ev
 
 **No se piden** ecuaciones de rectas tangentes ($y = mx + b$) ni el cálculo numérico de la pendiente de la secante en este tópico. Toda la geometría acá es de **diagnóstico visual** del signo o de la existencia de la derivada. Los cálculos de tangente pertenecen al tópico `geometric_interpretation`.
 
-Los ítems que quiebren cualquiera de las reglas duras se descartan y se reescriben.
+Los ejercicios que quiebren cualquiera de las reglas duras se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 4 skills)
 
-Reglas de authoring que se aplican al escribir los 200 ítems:
+Reglas de authoring que se aplican al escribir los 200 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`. KaTeX agrega su propio margen.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto / regla, (b) desarrollo formal en `\begin{aligned}` si hay más de un paso algebraico, (c) cierre con advertencia técnica o consejo práctico. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin antropomorfismos ni humor.
@@ -49,21 +51,21 @@ Reglas de authoring que se aplican al escribir los 200 ítems:
 
 ---
 
-## `feedback_incorrect` en los 200 ítems
+## `feedback_incorrect` en los 200 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Afianzar la **notación**, la **anatomía** de la fórmula del límite y la diferenciación conceptual de **tasa de cambio instantánea** vs. promedio.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -87,15 +89,15 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 ### Qué evalúa
 Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin hacer cálculos: implicaciones lógicas, contraejemplos clásicos, condiciones necesarias vs. suficientes.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -103,7 +105,7 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 |-------------|------|------|:-----:|
 | A. Teorema diferenciabilidad ⇒ continuidad | Consolidar la implicación: **diferenciable ⇒ continua**, pero **continua ⇏ diferenciable**. Reconocer que una función con salto es no diferenciable **por** no ser continua. | `teorema-diferenciable-implica-continua` | 20 |
 | B. Casos teóricos de no-diferenciabilidad | Clasificar por qué una función no es derivable en un punto: quiebre (laterales del cociente incremental difieren), salto (falla continuidad), tangente vertical (derivada infinita). Sin gráfico, con descripción analítica. | `casos-teoricos-no-diferenciabilidad` | 15 |
-| C. El contraejemplo de $\|x\|$ | El caso paradigmático: $f(x) = \|x\|$ es continua en $x = 0$ pero no diferenciable ahí, porque el cociente incremental tiene laterales $-1$ y $+1$. Ítems que aíslen esta situación. | `contraejemplo-valor-absoluto` | 15 |
+| C. El contraejemplo de $\|x\|$ | El caso paradigmático: $f(x) = \|x\|$ es continua en $x = 0$ pero no diferenciable ahí, porque el cociente incremental tiene laterales $-1$ y $+1$. Ejercicios que aíslen esta situación. | `contraejemplo-valor-absoluto` | 15 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Implicación invertida**: sostener que "continua ⇒ diferenciable". El contraejemplo es $|x|$: continua en $0$, no derivable.
@@ -119,7 +121,7 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 **Diagnóstico visual** del comportamiento de la derivada leyendo la gráfica de $f$: signo, ceros, y pérdida de diferenciabilidad.
@@ -128,7 +130,7 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 - **3 opciones** para preguntas categóricas (signo de $f'$, existencia de la derivada).
 - **4 opciones** para respuestas numéricas cortas (valor de $x$ donde $f' = 0$, etc.).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -146,7 +148,7 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 - **$f'(a) = 0$ leído como "no derivable"**: en un vértice suave con tangente horizontal, decir que la derivada no existe. Existe y vale $0$.
 
 ### Reglas específicas
-- **Gráficos claros**, un solo comportamiento por ítem (una zona de subida, un vértice, un quiebre).
+- **Gráficos claros**, un solo comportamiento por ejercicio (una zona de subida, un vértice, un quiebre).
 - **Vértices suaves como distractor** en sub-C (no son puntos de no-diferenciabilidad).
 - Cuando la respuesta es un signo, opciones con textos exactos: `"Positiva"`, `"Negativa"`, `"Cero"`, `"No existe"`.
 - **Sin pedir el valor numérico** de $f'(a)$; ese cálculo va en ESTR o en el tópico siguiente.
@@ -154,15 +156,15 @@ Evaluar la **relación jerárquica entre diferenciabilidad y continuidad** sin h
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusivamente por definición**: plantear el cociente incremental, expandir, simplificar, factorizar $h$, cancelar y tomar el límite.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -194,47 +196,47 @@ Ejecutar la **secuencia algebraica** para calcular $f'(x)$ o $f'(a)$ **exclusiva
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-Auditoría en vivo (`/test`) sobre ítems ya existentes, más un patrón dominante detectado al escanear los 4 archivos completos:
+Auditoría en vivo (`/test`) sobre ejercicios ya existentes, más un patrón dominante detectado al escanear los 4 archivos completos:
 
 - **`LEXI_08`** (`ex_007`): el enunciado condensa contexto + pregunta en una sola oración larga ("Al tomar el límite cuando $h \to 0$ del cociente incremental... la tasa de cambio promedio se transforma en..."). Reescribir en **2 párrafos**: uno que sitúa el proceso, otro que hace la pregunta puntual con las mismas opciones.
-- **`ESTR_11`** (`ex_055`) y **`LEXI_05`** (`ex_004`): ambos asumen que el alumno ya tiene presente la fórmula del cociente incremental de otro ítem de la sesión y arrancan directo en un tecnicismo derivado de ella (factorizar $h$ en $2xh+h^2$; qué representa el denominador $h$). **Violación de la regla crítica 31** (nueva esta ronda): reintroducir la definición $f'(a) = \lim_{h \to 0} \tfrac{f(a+h)-f(a)}{h}$ con su LaTeX centrado antes de la pregunta puntual, en los dos casos.
-- **Patrón dominante confirmado en los 4 archivos completos** (no solo los 2 ítems de arriba): `ESTR` abre 12/15 ítems con la plantilla idéntica `"Calculé, por definición, la derivada de\n$$...$$"`. Es una cláusula completa (verbo + objeto), el problema es que **le falta el `:`** y se repite idéntica en los 12 ítems; agregar el `:` y variar la redacción alcanza, no hace falta reescribir el enunciado entero. `LEXI_01` abre con `"En la misma fórmula\n$$...$$"`: acá sí es un fragmento sin objeto propio, necesita reescribirse como cláusula completa. **Violación de la regla crítica 32** (nueva esta ronda) en ambos casos. Al completar hasta 50 ítems por skill, variar la redacción de apertura ítem a ítem y cerrar siempre con `:` los openers que ya son cláusulas completas.
+- **`ESTR_11`** (`ex_055`) y **`LEXI_05`** (`ex_004`): ambos asumen que el alumno ya tiene presente la fórmula del cociente incremental de otro ejercicio de la sesión y arrancan directo en un tecnicismo derivado de ella (factorizar $h$ en $2xh+h^2$; qué representa el denominador $h$). **Violación de la regla crítica 31** (nueva esta ronda): reintroducir la definición $f'(a) = \lim_{h \to 0} \tfrac{f(a+h)-f(a)}{h}$ con su LaTeX centrado antes de la pregunta puntual, en los dos casos.
+- **Patrón dominante confirmado en los 4 archivos completos** (no solo los 2 ejercicios de arriba): `ESTR` abre 12/15 ejercicios con la plantilla idéntica `"Calculé, por definición, la derivada de\n$$...$$"`. Es una cláusula completa (verbo + objeto), el problema es que **le falta el `:`** y se repite idéntica en los 12 ejercicios; agregar el `:` y variar la redacción alcanza, no hace falta reescribir el enunciado entero. `LEXI_01` abre con `"En la misma fórmula\n$$...$$"`: acá sí es un fragmento sin objeto propio, necesita reescribirse como cláusula completa. **Violación de la regla crítica 32** (nueva esta ronda) en ambos casos. Al completar hasta 50 ejercicios por skill, variar la redacción de apertura ejercicio a ejercicio y cerrar siempre con `:` los openers que ya son cláusulas completas.
 
 ---
 
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de reglas prácticas de derivación (potencia, producto, cociente, cadena)
 - [ ] Ninguna ecuación de recta tangente ni cálculo numérico de pendiente de secante (reservado para el tópico siguiente)
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
-- [ ] **Ningún ítem que dependa de la fórmula del cociente incremental la asume vista en otro ítem**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
-- [ ] **"Calculá, por definición, la derivada de" tiene el `:` antes del bloque `$$...$$`** (es cláusula completa, solo faltaba la puntuación); **"En la misma fórmula" está reescrito como cláusula completa** (fragmento sin objeto propio). Redacción variada ítem a ítem en ambos casos (regla crítica 32)
+- [ ] **Ningún ejercicio que dependa de la fórmula del cociente incremental la asume vista en otro ejercicio**: la reintroduce con LaTeX centrado antes de la pregunta puntual (regla crítica 31)
+- [ ] **"Calculá, por definición, la derivada de" tiene el `:` antes del bloque `$$...$$`** (es cláusula completa, solo faltaba la puntuación); **"En la misma fórmula" está reescrito como cláusula completa** (fragmento sin objeto propio). Redacción variada ejercicio a ejercicio en ambos casos (regla crítica 32)
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente**; esa alineación es solo para pasos reales de una misma derivación (regla crítica 30)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Negrita en primera mención de `derivada`, `tasa de cambio instantánea`, `cociente incremental`, `notación de Leibniz`, `notación de Lagrange`
 
 **CLSF:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Sin cálculos; solo lógica y clasificación teórica
 - [ ] Textos exactos `"Diferenciable"`, `"Continua pero no diferenciable"`, `"Discontinua"`, `"No se puede determinar"` cuando aplique
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn` o gráfico embebido; `graph_view` cuadrado
+- [ ] 50 ejercicios con `graph_fn` o gráfico embebido; `graph_view` cuadrado
 - [ ] Distribución A/B/C respetada (20/15/15)
 - [ ] Vértices suaves incluidos como distractor en sub-C
 - [ ] Cardinalidad ajustada: 3 si categórica, 4 si numérica
-- [ ] Ningún ítem pide el valor numérico de $f'(a)$
+- [ ] Ningún ejercicio pide el valor numérico de $f'(a)$
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (25/15/10)
 - [ ] Todo desarrollo por definición del límite del cociente incremental; ningún atajo
 - [ ] Solo polinomios de grado $\leq 2$; sin funciones elementales

@@ -85,13 +85,13 @@ a ambos lados para ver claramente las dos ramas.
 
 Este documento tiene dos secciones "Patrón de modernización" duplicadas de sesiones anteriores (contenido solapado, no se reescriben acá por edición mínima). Verificado programáticamente sobre los 4 JSON:
 
-1. **`feedback_incorrect` falta en los 200 ítems** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
+1. **`feedback_incorrect` falta en los 200 ejercicios** (los 4 skills en `""`, sin excepción). Completar como `array<string|null>` paralelo a `options`, `null` en el índice correcto, voz descriptiva nunca acusatoria (`authoring-context.md` §Pistas).
 2. **`\n\n` pegado a bloques `$$...$$`**: mínimo en este tema, LEXI 1 (#10), CLSF 3 (#10,12,13), FORM 1 (#10), GRAF 0. No es un problema extendido acá.
 3. **Em-dash/en-dash**: ninguno detectado en los 4 JSON.
-4. **Viñetas `•`/sub-ítems `-`**: casi inexistentes, CLSF 1 (#11), FORM 5 (#39,40,42,48,49), GRAF 1 (#10), LEXI 0.
+4. **Viñetas `•`/sub-ejercicios `-`**: casi inexistentes, CLSF 1 (#11), FORM 5 (#39,40,42,48,49), GRAF 1 (#10), LEXI 0.
 5. **`explanation` bajo 300 caracteres** (mínimo vigente en `authoring-context.md`, no 250), **el defecto dominante del tema**: LEXI 46/50, CLSF 36/50, FORM 48/50, **GRAF 49/50 (prácticamente todo el archivo)**, conteos tomados contra el umbral viejo de 250, verificar de nuevo contra 300 (van a subir). El patrón es 1-2 oraciones de concepto sin aplicación desglosada ni cierre. Hay que sumar el paso de aplicación al caso concreto y/o un cierre de advertencia/consejo.
 6. **Cierres con humor/antropomorfismo**: no se detectaron casos.
-7. **`correct_index`, el sesgo más extremo de toda la unidad**: LEXI {0:43,1:3,2:2,3:2}, CLSF {0:40,1:4,2:4,3:2}, FORM {0:42,1:4,2:2,3:2}, GRAF {0:42,1:3,2:2,3:3}. **En los 4 skills, la correcta está casi siempre en el índice 0** (84-86% de los ítems). Rebalancear a ~{0:12,1:13,2:12,3:13} reordenando `options` (mismo contenido, nueva posición) y sincronizando `feedback_incorrect`; en la práctica hay que tocar el orden de opciones de la enorme mayoría de los 200 ítems del tema.
+7. **`correct_index`, el sesgo más extremo de toda la unidad**: LEXI {0:43,1:3,2:2,3:2}, CLSF {0:40,1:4,2:4,3:2}, FORM {0:42,1:4,2:2,3:2}, GRAF {0:42,1:3,2:2,3:3}. **En los 4 skills, la correcta está casi siempre en el índice 0** (84-86% de los ejercicios). Rebalancear a ~{0:12,1:13,2:12,3:13} reordenando `options` (mismo contenido, nueva posición) y sincronizando `feedback_incorrect`; en la práctica hay que tocar el orden de opciones de la enorme mayoría de los 200 ejercicios del tema.
 
 ### Confusiones fuente para `feedback_incorrect`, por skill
 
@@ -106,22 +106,22 @@ Este documento tiene dos secciones "Patrón de modernización" duplicadas de ses
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal:**
-- [ ] `feedback_incorrect` completo en los 50 ítems por skill: `array` del largo de `options`, `null` en el correcto
+- [ ] `feedback_incorrect` completo en los 50 ejercicios por skill: `array` del largo de `options`, `null` en el correcto
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$`
 - [ ] Ningún em-dash `—` ni en-dash `–`
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `explanation` supera los 300 caracteres entre las 3 partes (foco urgente: prácticamente todo el tema; el umbral es 300, no 250, corregido tras auditoría de `polynomial`)
 - [ ] `correct_index` variado, no concentrado en índice 0 (objetivo ~12-13 por índice; es el rebalanceo más grande de la unidad)
 - [ ] Montos con `\$` escapado
-- [ ] Cada ítem lleva `"tags": ["<slug>"]` según la tabla de distribución de su skill (ver sección más abajo), y el conteo por slug coincide con el target
+- [ ] Cada ejercicio lleva `"tags": ["<slug>"]` según la tabla de distribución de su skill (ver sección más abajo), y el conteo por slug coincide con el target
 - [ ] Fórmula central del `question` separada del texto en su propio bloque `$$...$$`, nunca tejida inline (sobre todo fracciones); ver hallazgos de esta ronda
 - [ ] Opciones compuestas (2+ valores relacionados) sin re-etiquetar cada valor si la pregunta ya fija el orden
 - [ ] Sin preámbulo en CLSF/GRAF que restablezca en prosa rasgos que el gráfico ya muestra directamente
 
 ### Hallazgos de auditoría (ronda 1, jul-2026)
 
-15 ítems corregidos por el usuario en esta ronda (`correciones_analisis_funciones_racional_13_7.md`). El hallazgo más nuevo y con más peso (6/15 ítems, 40% del batch) es que **la fórmula central del enunciado no puede ir tejida inline dentro de la pregunta, sobre todo si es una fracción**: tiene que ir en su propio bloque `$$...$$` centrado, con el texto acompañándola en oraciones separadas. Esto extiende a `question` una preferencia que hasta ahora solo estaba documentada para `explanation` (ver regla crítica 18 en `authoring-context.md`).
+15 ejercicios corregidos por el usuario en esta ronda (`correciones_analisis_funciones_racional_13_7.md`). El hallazgo más nuevo y con más peso (6/15 ejercicios, 40% del batch) es que **la fórmula central del enunciado no puede ir tejida inline dentro de la pregunta, sobre todo si es una fracción**: tiene que ir en su propio bloque `$$...$$` centrado, con el texto acompañándola en oraciones separadas. Esto extiende a `question` una preferencia que hasta ahora solo estaba documentada para `explanation` (ver regla crítica 18 en `authoring-context.md`).
 
 - `FORM_08`, `CLSF_20`: `explanation` sin separación de párrafos y sin fórmula centrada fuera del texto.
 - `LEXI_45`, `CLSF_43`, `FORM_14`, `GRAF_02`: `explanation` sin ningún `\n\n` entre párrafos (mismo sesgo sistémico que polynomial/exponential/logarithmic, ahora confirmado en un 5° topic).
@@ -136,14 +136,14 @@ Este documento tiene dos secciones "Patrón de modernización" duplicadas de ses
 - `GRAF_02`: `explanation` sin separación de párrafos.
 - `CLSF_37`: paréntesis en las opciones mal usado (justificación técnica solo en la correcta) y distractor "Polinómica de grado 2" problemático (regla crítica 4/registro de opciones).
 - `CLSF_15`: el enunciado tenía un párrafo inicial describiendo rasgos que el propio gráfico ya muestra ("dos ramas separadas... se aplanan..."), redundante. Nueva aclaración a la sección *Planteos de GRAF*.
-- `CLSF_39`: **ítem roto**, la pregunta ("¿cuál función tiene imagen $\mathbb{R}$?") no coincide con las opciones dadas (ninguna opción tiene imagen $\mathbb{R}$ real, todas tienen alguna restricción). Hay que corregir o regenerar este ítem específico al refactorizar, no es un problema de formato sino de contenido incorrecto.
+- `CLSF_39`: **ejercicio roto**, la pregunta ("¿cuál función tiene imagen $\mathbb{R}$?") no coincide con las opciones dadas (ninguna opción tiene imagen $\mathbb{R}$ real, todas tienen alguna restricción). Hay que corregir o regenerar este ejercicio específico al refactorizar, no es un problema de formato sino de contenido incorrecto.
 - `LEXI_47`: opciones con aclaraciones entre paréntesis ("Dos ($x=2$ y $x=-2$)") que dan pistas de más; debían quedar todas igual de escuetas. `explanation` sin separación de párrafos.
 
 ### Distribución objetivo, con `tags`
 
-Diseñada leyendo los 200 ítems reales (dump de `question`+opción correcta por skill). Los conteos son sobre el archivo actual; al refactorizar, mantené el total por sub-familia.
+Diseñada leyendo los 200 ejercicios reales (dump de `question`+opción correcta por skill). Los conteos son sobre el archivo actual; al refactorizar, mantené el total por sub-familia.
 
-**LEXI** (50 ítems):
+**LEXI** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -163,7 +163,7 @@ Diseñada leyendo los 200 ítems reales (dump de `question`+opción correcta por
 | Conteo de ramas | 1 | `conteo-ramas` |
 | **Total** | **50** | |
 
-**CLSF** (50 ítems):
+**CLSF** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -180,7 +180,7 @@ Diseñada leyendo los 200 ítems reales (dump de `question`+opción correcta por
 | Afirmaciones generales verdadero/falso sobre racionales | 2 | `afirmaciones-generales-vf` |
 | **Total** | **50** | |
 
-**FORM** (50 ítems):
+**FORM** (50 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -196,14 +196,14 @@ Diseñada leyendo los 200 ítems reales (dump de `question`+opción correcta por
 | Interceptos con los ejes | 6 | `interceptos-ejes-form` |
 | Fórmula desde propiedades (AV+AH+punto dados) | 2 | `formula-desde-propiedades` |
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
-| Combinado AV+AH+valor puntual en un mismo ítem | 5 | `combinado-av-ah-valor` |
+| Combinado AV+AH+valor puntual en un mismo ejercicio | 5 | `combinado-av-ah-valor` |
 | Comportamiento en el infinito | 1 | `comportamiento-infinito-form` |
 | Hallar un parámetro $k$ dado un punto de paso | 1 | `hallar-parametro-k` |
 | **Total** | **50** | |
 
-**GRAF** (50 ítems, reagrupa los tipos A/B/C ya documentados arriba):
+**GRAF** (50 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
 
-*Tipo A — leer propiedad directamente del gráfico (31 ítems):*
+*Tipo A — leer propiedad directamente del gráfico (31 ejercicios):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -225,7 +225,7 @@ Diseñada leyendo los 200 ítems reales (dump de `question`+opción correcta por
 | Cantidad de ramas | 1 | `cantidad-ramas` |
 | Signo de la función en un intervalo | 1 | `signo-en-intervalo` |
 
-*Tipo B — identificar fórmula desde el gráfico (15 ítems):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
+*Tipo B — identificar fórmula desde el gráfico (15 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
 
-*Tipo C — contexto cotidiano con $k/x$ (4 ítems):* slug único `contexto-cotidiano-racional`.
+*Tipo C — contexto cotidiano con $k/x$ (4 ejercicios):* slug único `contexto-cotidiano-racional`.
 

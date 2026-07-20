@@ -4,13 +4,15 @@ Belt: `blue`, Unit: `variables`, Topic: `definicion_var`
 
 Skills en este topic: `LEXI`, `CLSF`.
 
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `CLSF`.
+
 Concepto: una **variable aleatoria** $X:\Omega\to\mathbb{R}$ asigna un valor numérico a cada resultado del espacio muestral. Según el conjunto de valores que toma, se clasifica en **discreta** (contable, típicamente conteos) o **continua** (recorre un intervalo real, típicamente mediciones).
 
-**Frontera con el resto de la unidad:** ronda 1 de este topic apunta a 15 ítems/skill (ver `generation/content-probabilidad-round1/0-generation-prompt.md`). Ningún ítem calcula todavía función puntual, densidad, acumulada, esperanza ni varianza; eso empieza en los topics siguientes.
+**Frontera con el resto de la unidad:** ronda 1 de este topic apunta a 15 ejercicios/skill (ver `generation/content-probabilidad-round1/0-generation-prompt.md`). Ningún ejercicio calcula todavía función puntual, densidad, acumulada, esperanza ni varianza; eso empieza en los topics siguientes.
 
 ---
 
-## LEXI, 15 ítems
+## LEXI, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: una **variable aleatoria** $X:\Omega\to\mathbb{R}$ asigna un valor num
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -47,11 +49,11 @@ Concepto: una **variable aleatoria** $X:\Omega\to\mathbb{R}$ asigna un valor num
 
 - **Contextos discretos válidos**: cantidad de clientes, de llamadas, de artículos defectuosos, de caras en $n$ tiradas.
 - **Contextos continuos válidos**: tiempo de espera, duración de una batería, peso, altura, temperatura.
-- **Reintroducir la definición** de variable aleatoria en cada ítem que la evalúa indirectamente (regla crítica 31), incluso en `CLSF`.
+- **Reintroducir la definición** de variable aleatoria en cada ejercicio que la evalúa indirectamente (regla crítica 31), incluso en `CLSF`.
 
 ## Checklist del topic
 
 - [ ] Cada contexto de `CLSF` es inequívocamente discreto o continuo, salvo la sub-familia de caso borde
-- [ ] Ningún ítem asume función puntual, densidad, acumulada, esperanza o varianza
+- [ ] Ningún ejercicio asume función puntual, densidad, acumulada, esperanza o varianza
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: LEXI/CLSF conceptual → 3 opciones

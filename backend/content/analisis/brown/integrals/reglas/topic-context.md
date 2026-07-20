@@ -2,7 +2,9 @@
 
 Belt: `brown`, Unit: `integrals`, Topic: `reglas`
 
-Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ítems cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+
+Este topic tiene 3 ítems (uno por skill): `FORM`, `ESTR`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico es el **primer sitio donde el alumno ejecuta cálculo integral final**. Se apoya en la anatomía y la linealidad que se fijaron en `definition` para aplicar la **tabla de integrales inmediatas** y resolver integrales que combinan sumas, restas y múltiplos escalares de funciones elementales.
 
@@ -35,17 +37,17 @@ En este tópico se aplican **únicamente las fórmulas de la tabla + linealidad 
 - **Integración por partes**: idem. Ningún $\int u \, dv$.
 - **Integral definida** ($\int_a^b$), **área bajo la curva**, **TFC**: fuera de scope.
 - **Exponentes irracionales** ($x^\pi$, $x^{\sqrt{2}}$): fuera. **Alcance de exponentes**: enteros positivos, enteros negativos (incluye caso especial $n = -1$ vía $\ln|x|$) y fraccionarios simples ($\tfrac{1}{2}$, $\tfrac{1}{3}$, $\tfrac{2}{3}$, $-\tfrac{1}{2}$, etc.).
-- **Constante de integración $C$ omitida**: todo resultado que muestre una primitiva **sin** $+C$ es incorrecto. Esta regla vale en las respuestas correctas **y** aparece como distractor plausible ("olvidé la $C$") en al menos algunos ítems.
+- **Constante de integración $C$ omitida**: todo resultado que muestre una primitiva **sin** $+C$ es incorrecto. Esta regla vale en las respuestas correctas **y** aparece como distractor plausible ("olvidé la $C$") en al menos algunos ejercicios.
 - **Valor absoluto omitido en $\ln$**: $\int \tfrac{1}{x} \, dx = \ln|x| + C$ **siempre** con valor absoluto. La versión sin valor absoluto ($\ln x + C$) queda como distractor plausible.
 - **Familias trigonométricas raras**: $\csc^2 x$, $\sec x \tan x$, $\csc x \cot x$ están **fuera de scope** en este tópico (no forman parte del set básico universitario cubierto acá). El set es exactamente: $\sin x$, $\cos x$, $\sec^2 x$.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ítems:
+Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificar la fórmula de tabla aplicable (o el paso previo de linealidad/reescritura si corresponde), (b) aplicar la fórmula usando `\begin{aligned}` cuando hay más de un término, (c) simplificar, agregar $+C$ y cerrar con advertencia técnica sobre el error común (signo del $-\cos x$, valor absoluto en $\ln$, coeficiente arrastrado, $C$ olvidada). Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -58,7 +60,7 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Qué evalúa
 **Consolidación de la memoria de la tabla de integrales inmediatas**, auditando el **reconocimiento inverso** (Sistema 1: reconocer de una la primitiva sin cálculo intermedio) y el **pensamiento inverso** (dada una función, decir qué se derivó para llegar a ella).
@@ -66,7 +68,7 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 ### Cardinalidad
 **3 opciones por defecto**. **4 opciones** cuando los resultados numéricos son cortos y entran en grilla 2×2 (≤ 35 caracteres cada uno) — típicamente en sub-A cuando la respuesta es una primitiva compacta como `"$\\sin x + C$"`.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -95,15 +97,15 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Detección de trampas visuales, constantes disfrazadas y discriminación de familias** antes de aplicar la fórmula. Bloquea el impulso automático de "integrar todo lo que parece $x$" o de "confundir potencia con exponencial por el símbolo $e$". Sin cálculo numérico final.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -131,21 +133,21 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del cálculo integral**: aplicar la **linealidad** aprendida en `definition` combinada con las **fórmulas de tabla** aprendidas en FORM, en integrales que combinan varios términos. Sistema 2 completo: identificar cada término, aplicar la regla que corresponde, sumar/restar con signos correctos, incluir $+C$.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
 - **Sin contextos cotidianos**. Mecánica pura de la fórmula.
 - **Sin función compuesta** en el integrando (ni $\sin(2x)$, ni $e^{3x}$, ni $\ln(x^2)$). Todo el integrando es suma/resta de funciones elementales evaluadas en $x$ solo, cada una con su coeficiente escalar. La composición es tópico de `sustitución`.
-- **$+C$ obligatorio en todas las opciones** (incluidos los distractores, para forzar la comparación por contenido, no por presencia/ausencia de la constante). Excepción única controlada: **en algún ítem específico**, una opción **sin** $+C$ puede aparecer como distractor deliberado "olvidé la constante" — con `feedback_incorrect` explícito.
+- **$+C$ obligatorio en todas las opciones** (incluidos los distractores, para forzar la comparación por contenido, no por presencia/ausencia de la constante). Excepción única controlada: **en algún ejercicio específico**, una opción **sin** $+C$ puede aparecer como distractor deliberado "olvidé la constante" — con `feedback_incorrect` explícito.
 - **Alcance de exponentes**: enteros positivos y negativos (incluida la excepción $n = -1$ que dispara $\ln|x|$), fraccionarios simples. Ningún irracional.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -171,8 +173,8 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 - **Ningún término del integrando puede ser compuesto** ($\sin(2x)$, $e^{-x}$, $\ln(x + 1)$). Todo evaluado en $x$ solo.
 - **Coeficientes escalares enteros pequeños** ($1, 2, 3, 4, 5, -1, -2, -3$) o fraccionarios simples ($\tfrac{1}{2}$, $\tfrac{1}{3}$).
 - **Exponentes** dentro del alcance: enteros y fraccionarios simples; incluye caso especial $n = -1$.
-- **$+C$ en todas las opciones** de todos los ítems, salvo distractor deliberado "olvidé $C$" en ítems marcados.
-- **Sub-B con reescritura previa**: los ítems que requieren reescribir (por ejemplo, $\sqrt{x}$ como $x^{1/2}$) se incluyen acá; la respuesta correcta muestra el resultado ya integrado. La reescritura se explica en la explicación paso a paso.
+- **$+C$ en todas las opciones** de todos los ejercicios, salvo distractor deliberado "olvidé $C$" en ejercicios marcados.
+- **Sub-B con reescritura previa**: los ejercicios que requieren reescribir (por ejemplo, $\sqrt{x}$ como $x^{1/2}$) se incluyen acá; la respuesta correcta muestra el resultado ya integrado. La reescritura se explica en la explicación paso a paso.
 - **Resultado como expresión simplificada final**: no dejar $\tfrac{5x^0}{0}$ ni $\tfrac{x^4}{4} \cdot 4$; escribir la primitiva compacta.
 - **Decimales con coma** (`4,3`).
 
@@ -180,11 +182,11 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Pre-revisión programática sobre los ítems de prueba existentes:
+Pre-revisión programática sobre los ejercicios de prueba existentes:
 
-- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`FORM`, `ESTR`, `RESL`, 45 ítems) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico que se usó en `definition`.
-- **`ESTR`: 15/15 ítems abren con `"Considerá la integral\n$$...$$"`.** Cláusula completa, solo le falta el `:` (regla 32) y variar la redacción.
-- **`RESL`: 15/15 ítems abren con la palabra suelta `"Calculá\n$$...$$"`**, sin ningún objeto explícito (ni siquiera "la integral"). Es un imperativo con la fórmula como objeto directo: **cláusula completa, solo le falta el `:`** (`"Calculá:\n$$...$$"`) y variar la redacción (hoy 100% idéntica en los 15 ítems).
+- **[CORREGIDO EN CONTENIDO] Bug `\n\n$$` generalizado**: los 3 archivos (`FORM`, `ESTR`, `RESL`, 45 ejercicios) tenían el bloque de desarrollo pegado con `\n\n$$` en vez de `\n$$`. Corregido con el mismo script de reemplazo mecánico que se usó en `definition`.
+- **`ESTR`: 15/15 ejercicios abren con `"Considerá la integral\n$$...$$"`.** Cláusula completa, solo le falta el `:` (regla 32) y variar la redacción.
+- **`RESL`: 15/15 ejercicios abren con la palabra suelta `"Calculá\n$$...$$"`**, sin ningún objeto explícito (ni siquiera "la integral"). Es un imperativo con la fórmula como objeto directo: **cláusula completa, solo le falta el `:`** (`"Calculá:\n$$...$$"`) y variar la redacción (hoy 100% idéntica en los 15 ejercicios).
 - **`FORM`: 8/15 con `"Calculá\n$$...$$"`** (mismo caso que RESL, solo falta `:`) **y 7/15 con `"¿Qué función, al derivarse, da\n$$...$$?"`**. Este último es una pregunta única con la fórmula como objeto embebido, cerrando junto con el `?`; es un patrón distinto y más aceptable que un preámbulo colgante (no corta una oración en dos), pero conviene variar la redacción igual para no repetirlo en el 100% de sub-B.
 
 ---
@@ -192,7 +194,7 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de sustitución, partes, integral definida, TFC, ni áreas
 - [ ] Ninguna función compuesta en el integrando (argumentos internos = $x$ solo)
 - [ ] Ningún exponente irracional ($x^\pi$, $x^{\sqrt 2}$)
@@ -202,18 +204,18 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 - [ ] `correct_index` variado
 - [ ] Decimales con coma; sin nombres propios; variables inline en la prosa
 - [ ] `$$...$$` pegado con un solo `\n` (bug corregido en la ronda anterior, no reintroducirlo)
-- [ ] **`"Considerá la integral"` (ESTR) y `"Calculá"` (FORM/RESL) tienen el `:` antes del bloque `$$...$$`** y varían de redacción ítem a ítem (regla crítica 32)
+- [ ] **`"Considerá la integral"` (ESTR) y `"Calculá"` (FORM/RESL) tienen el `:` antes del bloque `$$...$$`** y varían de redacción ejercicio a ejercicio (regla crítica 32)
 - [ ] Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente (regla crítica 30)
 
 **FORM:**
-- [ ] 50 ítems; **3 opciones por defecto**, **4 opciones** cuando las respuestas cortas entren en grilla 2×2 (≤ 35 caracteres)
+- [ ] 50 ejercicios; **3 opciones por defecto**, **4 opciones** cuando las respuestas cortas entren en grilla 2×2 (≤ 35 caracteres)
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Set de familias cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, constante
 - [ ] Nada de $\csc^2 x$, $\sec x \tan x$, $\csc x \cot x$
 - [ ] Sub-A con reconocimiento directo de tabla; sub-B con pregunta inversa ("¿qué se derivó para llegar a X?")
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de regla
 - [ ] Sub-A con distractor mayoritario = regla exponencial o de la potencia sobre constante
@@ -221,7 +223,7 @@ Pre-revisión programática sobre los ítems de prueba existentes:
 - [ ] Textos exactos en opciones de elección de regla (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Distribución A/B respetada (25/25)
 - [ ] $+C$ en todas las opciones; excepción única "olvidé $C$" como distractor deliberado marcado en el `feedback_incorrect`

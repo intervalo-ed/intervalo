@@ -2,9 +2,11 @@
 
 Belt: `violet`, Unit: `derivatives`, Topic: `product`
 
-Skills en este topic: `ESTR`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
-**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_product_estr_01…`, `violet_product_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ítems del split viejo (`ESTR` = 6, `RESL` heredado del merge DERI/APLI) se **trasladaron** a las skills nuevas de este tópico como material de referencia; la distribución completa (50 por skill) se hace en otro turno.
+Este topic tiene 2 ítems (uno por skill): `ESTR`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+**Estado.** Este tópico surgió del split de `product_quotient` en `product/` + `quotient/`. Los `external_id` se regeneran al reseedear (`violet_product_estr_01…`, `violet_product_resl_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios del split viejo (`ESTR` = 6, `RESL` heredado del merge DERI/APLI) se **trasladaron** a las skills nuevas de este tópico como material de referencia; la distribución completa (50 por skill) se hace en otro turno.
 
 El contenido "APLI" que existía antes del merge DERI/INTG/APLI → RESL queda absorbido en **RESL** — coherente con la fusión de skills a nivel curso.
 
@@ -22,19 +24,19 @@ En este tópico se **aplica la regla del producto** sobre funciones que ya son p
 
 **Prohibido**:
 
-- Regla del **cociente**: sin $\left(\tfrac{u}{v}\right)'$. Si aparece un cociente, reescribir como potencia negativa solo si el denominador es un monomio ($\tfrac{1}{x^n} \to x^{-n}$); si no, el ítem sale de scope.
+- Regla del **cociente**: sin $\left(\tfrac{u}{v}\right)'$. Si aparece un cociente, reescribir como potencia negativa solo si el denominador es un monomio ($\tfrac{1}{x^n} \to x^{-n}$); si no, el ejercicio sale de scope.
 - Regla de la **cadena**: los factores $u$ y $v$ tienen argumento interno = $x$ solo. Nada de $u(x) = \sin(2x + 1)$ o $v(x) = e^{-x}$.
 - **Justificar por límite** la regla del producto — se toma como fórmula conocida derivada del cociente incremental de la definición.
 - **Producto de 3 o más factores** — solo binario $u \cdot v$.
 - **Contextos cotidianos en RESL** (ver §RESL).
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`, con enfoque **algorítmico**: (a) identificamos $u$ y $v$ y calculamos $u'$ y $v'$ usando `\begin{aligned}`, (b) aplicamos la fórmula $u'v + uv'$, (c) simplificamos y cerramos con advertencia técnica. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (prohibido estricto)**, sin humor.
@@ -46,15 +48,15 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## ESTR, 50 ítems
+## ESTR, 50 ejercicios
 
 ### Qué evalúa
 **Auditoría de la toma de decisiones previa al cálculo**. No se ejecuta la derivación completa: se decide **qué regla aplicar** y **cómo desglosar la expresión** en factores. Sin cálculo numérico final.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -82,19 +84,19 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla del producto: identificar $u$ y $v$, calcular $u'$ y $v'$, armar $u'v + uv'$ y **evaluar en un punto** $x = a$ donde al menos un término de la suma se anula.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Expresiones cortas (**$\leq 35$ caracteres**).
 
 ### Restricciones estrictas
 - **Sin contextos cotidianos**. La habilidad evalúa mecánica pura de la fórmula, no modelado.
 - **Anulación forzada**: en toda evaluación puntual en $x = a$, **al menos uno de los términos de la suma** ($u'(a) v(a)$ o $u(a) v'(a)$) debe anularse resultando en $0$. Esto simplifica el cálculo final y desplaza el foco a la elección correcta de qué término se anula y por qué, en vez de a la aritmética.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -129,7 +131,7 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ## Hallazgos de auditoría (ronda 2, jul-2026)
 
-Auditoría en vivo (`/test`) sobre ítems ya existentes:
+Auditoría en vivo (`/test`) sobre ejercicios ya existentes:
 
 - **`ESTR_01`** (`ex_165`): la opción usaba `"Linealidad (múltiplo escalar)"`, con "linealidad" como término poco familiar para el alumno. Corregido en el texto exacto prescripto arriba (§ESTR → Reglas específicas): ahora es `"Múltiplo escalar"` a secas, y se agregó a la tabla de vocabulario prohibido de `authoring-context.md`.
 - **`RESL_07`** (`ex_186`): la primera oración de la `explanation` amontonaba demasiado LaTeX inline (identificar $u,v,u',v'$ todo tejido en una sola oración). Además, el `\begin{aligned}` alineaba con columna de `=` dos líneas de **datos sueltos evaluados** ($u'(0)=0, v(0)=1$ y $u(0)=3, v'(0)=1$) junto con una tercera línea que sí era el **resultado real** de aplicar la fórmula, mezclando dos cosas distintas en la misma alineación. **Confirma la regla crítica 30**, nueva en `authoring-context.md` esta ronda (el hallazgo que más claramente la motivó fue el mismo patrón en `chain_rule/RESL_12`). Reescribir así: los datos evaluados van en una oración de prosa (o líneas simples sin `&`), y el `aligned` con columna de `=` queda solo para el cálculo real que aplica la fórmula.
@@ -141,7 +143,7 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna aplicación de regla del cociente o cadena; ninguna función compuesta en $u$ o $v$
 - [ ] Ningún desarrollo por límite; producto binario únicamente
 - [ ] Explicaciones en 3 párrafos de prosa; estructura algorítmica; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
@@ -150,20 +152,20 @@ Auditoría en vivo (`/test`) sobre ítems ya existentes:
 - [ ] **Ninguna opción dice "linealidad" a secas** (reincidencia confirmada en `ESTR_01`); siempre "múltiplo escalar"
 - [ ] **Ningún `\begin{aligned}` alinea con `=` datos evaluados de forma independiente junto con el cálculo real** (reincidencia confirmada en `RESL_07`, regla crítica 30): datos sueltos van en prosa, la alineación queda solo para el cálculo que aplica la fórmula
 - [ ] **Ningún párrafo de `explanation` acumula 2+ fragmentos LaTeX inline sueltos** en la oración que identifica $u,v,u',v'$ (regla 21)
-- [ ] **"Sabiendo que" y "Para derivar" reescritos como cláusula completa** (fragmentos sin objeto propio, el `:` no los arregla); **"Considerá la función" con el `:` agregado** antes del bloque `$$...$$` (ya es cláusula completa). Redacción variada ítem a ítem (regla crítica 32)
+- [ ] **"Sabiendo que" y "Para derivar" reescritos como cláusula completa** (fragmentos sin objeto propio, el `:` no los arregla); **"Considerá la función" con el `:` agregado** antes del bloque `$$...$$` (ya es cláusula completa). Redacción variada ejercicio a ejercicio (regla crítica 32)
 
 **ESTR:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B respetada (25/25)
 - [ ] Ningún cálculo numérico final; solo elección de método/descomposición
 - [ ] Sub-A con distractor mayoritario = "regla del producto"; sub-B con opciones tipo `"u = x^2, v = \ln x"` textuales
 - [ ] Textos exactos en opciones de elección de estrategia (ver §Reglas específicas)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Sin contextos cotidianos
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
-- [ ] Todos los ítems cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
+- [ ] Todos los ejercicios cumplen la **anulación forzada** ($u'(a) v(a) = 0$ o $u(a) v'(a) = 0$)
 - [ ] Explicaciones con estructura algorítmica (identificar $u,v,u',v'$ → aplicar fórmula señalando anulación → simplificar)
 - [ ] Ningún argumento interno no trivial; producto binario únicamente
 - [ ] Sub-D con datos abstractos presentados como igualdades numéricas en el enunciado

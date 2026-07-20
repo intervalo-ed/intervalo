@@ -4,13 +4,15 @@ Belt: `brown`, Unit: `vectores`, Topic: `conjunta`
 
 Skills en este topic: `CLSF`, `FORM`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `FORM`, `RESL`.
+
 Concepto: la **distribución conjunta** describe el comportamiento simultáneo de dos variables aleatorias. Discreta: $p(x,y)=P(X=x,Y=y)$, $\sum_{x,y}p(x,y)=1$. Continua: $f(x,y)$, $\iint f(x,y)\,dx\,dy=1$.
 
 **Frontera con el resto de la unidad:** primer topic de `vectores`, base de `marginales`, `covarianza`, `correlacion` e `independencia_vec`. Solo tablas discretas chicas en `RESL` (nunca densidades continuas con integral doble no trivial, ver nota de dependencia en `course-context.md`).
 
 ---
 
-## CLSF, 15 ítems
+## CLSF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **distribución conjunta** describe el comportamiento simultáneo d
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -32,7 +34,7 @@ Concepto: la **distribución conjunta** describe el comportamiento simultáneo d
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -61,11 +63,11 @@ Concepto: la **distribución conjunta** describe el comportamiento simultáneo d
 
 - **Tablas discretas con dominio $2\times2$ a $3\times3$**, siempre con la suma total dada o verificable a mano.
 - **Nunca una densidad continua que requiera integral doble no trivial** en `RESL`; si se necesita, usar valores ya integrados o una región rectangular simple.
-- **Cada ítem reintroduce la condición de normalización** cuando la usa (regla crítica 31).
+- **Cada ejercicio reintroduce la condición de normalización** cuando la usa (regla crítica 31).
 
 ## Checklist del topic
 
 - [ ] Toda tabla discreta de `RESL` tiene dominio entre $2\times2$ y $3\times3$
-- [ ] Ningún ítem de `RESL` requiere integral doble no trivial
+- [ ] Ningún ejercicio de `RESL` requiere integral doble no trivial
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres

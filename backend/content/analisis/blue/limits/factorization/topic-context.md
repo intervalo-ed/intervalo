@@ -2,7 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `factorization`
 
-Skills en este topic: `LEXI`, `RESL`. **50 ítems cada uno (100 en total)** al cerrar el refactor.
+Skills en este topic: `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
+
+Este topic tiene 2 ítems (uno por skill): `LEXI`, `RESL`. **50 ejercicios cada uno (100 en total)** al cerrar el refactor.
 
 **Estado.** Este tópico reemplaza a `factorizacion` (rename ES→EN). La carpeta fue renombrada (`blue/limits/factorization/`) y los `external_id` se van a regenerar en la próxima seed (`blue_factorization_lexi_01…`), lo que rompe el progreso guardado en DB — asumido y aceptado. Los ejercicios viejos (`LEXI`, `ESTR`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno.
 
@@ -27,7 +29,7 @@ Este doc especifica el alcance nuevo, las reglas duras de restricción y la dist
 
 La única herramienta permitida para salvar la indeterminación $\tfrac{0}{0}$ en este tópico es la **factorización polinómica** seguida de **cancelación del factor común** $(x - a)$.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
@@ -37,7 +39,7 @@ Los ítems que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 2 skills)
 
-Reglas de authoring que se aplican al escribir los 100 ítems:
+Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto algebraico aplicado, (b) desarrollo formal paso a paso usando `\begin{aligned}` (factorización → cancelación → sustitución), (c) cierre técnico formal. Sin viñetas `•`, sin sub-`-`, **sin em-dash `—` (estrictamente prohibido en todo el contenido)**, sin humor.
@@ -50,21 +52,21 @@ Reglas de authoring que se aplican al escribir los 100 ítems:
 
 ---
 
-## `feedback_incorrect` en los 100 ítems
+## `feedback_incorrect` en los 100 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual de **estructuras polinómicas** (formas típicas de factoreo) y afianzamiento de la **lógica de cancelación** detrás del método. Este skill no calcula límites completos: se enfoca en la identificación del caso y en la teoría del teorema del factor.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -90,15 +92,15 @@ Reconocimiento visual de **estructuras polinómicas** (formas típicas de factor
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y **evaluar** el límite resultante por sustitución directa.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -131,11 +133,11 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_factorizacion_1.md`), aplicar al regenerar:
+Corrección puntual del usuario sobre ejercicios de prueba de este topic (`correciones_analisis_limites_factorizacion_1.md`), aplicar al regenerar:
 
 - **`LEXI_15`**: la palabra "salvar" está de más ("...ya no alcanza para salvar una indeterminación"), redundante y coloquial; recortar a algo tipo "...ya no resuelve una indeterminación". Además, la `explanation` mete texto en español dentro de un bloque `$$...$$` (`\text{la factorización ya no alcanza}`), **violación directa de la regla crítica 26**. También en el `question`, la fracción $\tfrac{0}{0}$ queda tejida inline en la misma oración de la pregunta; mejor una oración más formal en el enunciado, y la fórmula del límite igualada a $0/0$ en su propio bloque `$$...$$` separado (extensión de la regla crítica 18 a este patrón).
-- **`RESL_02`, `RESL_09`** (y 3 ítems más de `RESL` con el mismo patrón): el desarrollo en `\begin{aligned}` deja caer el `\lim_{x \to a}` después de la primera línea y usa una flecha `\xrightarrow{x \to a}` en el paso final en vez de mantener el límite explícito. **Motivó la regla crítica 29, nueva en `authoring-context.md`**: todas las líneas del desarrollo mantienen `\lim_{x \to a}` explícito, hasta el resultado final. También motivó la **regla crítica 28**: la fracción $\tfrac{0}{0}$ tejida inline en la prosa ("da $\dfrac{0}{0}$") debería ir en su forma horizontal simple `0/0`, sin LaTeX apilado.
-- **Ítem de diferencia de cuadrados (LEXI, sin `external_id` visible en la captura)**: sugerencia estructural de reordenar la `explanation`: presentar primero la identidad abstracta (ya está), una oración de transición, y luego el desarrollo en 3 líneas de `aligned` (expresión original → paso intermedio → forma factorizada) en vez de 2 líneas. Aplicar esta estructura de 3 pasos al regenerar los ítems de este patrón.
+- **`RESL_02`, `RESL_09`** (y 3 ejercicios más de `RESL` con el mismo patrón): el desarrollo en `\begin{aligned}` deja caer el `\lim_{x \to a}` después de la primera línea y usa una flecha `\xrightarrow{x \to a}` en el paso final en vez de mantener el límite explícito. **Motivó la regla crítica 29, nueva en `authoring-context.md`**: todas las líneas del desarrollo mantienen `\lim_{x \to a}` explícito, hasta el resultado final. También motivó la **regla crítica 28**: la fracción $\tfrac{0}{0}$ tejida inline en la prosa ("da $\dfrac{0}{0}$") debería ir en su forma horizontal simple `0/0`, sin LaTeX apilado.
+- **Ejercicio de diferencia de cuadrados (LEXI, sin `external_id` visible en la captura)**: sugerencia estructural de reordenar la `explanation`: presentar primero la identidad abstracta (ya está), una oración de transición, y luego el desarrollo en 3 líneas de `aligned` (expresión original → paso intermedio → forma factorizada) en vez de 2 líneas. Aplicar esta estructura de 3 pasos al regenerar los ejercicios de este patrón.
 - **`LEXI_08`**: el enunciado tiene 2 oraciones completas sin separar en párrafos (`\n\n`); separarlas al regenerar.
 
 ---
@@ -143,7 +145,7 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 2 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de L'Hôpital, derivadas ni racionalización como método aplicado acá
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] `feedback_correct` conciso (una frase); desarrollo completo en `explanation` con `\begin{aligned}`
@@ -157,14 +159,14 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 - [ ] La fórmula del límite igualada a $0/0$, cuando se menciona en el enunciado, va separada del texto en su propio bloque `$$...$$` (extensión de la regla crítica 18, ver hallazgo `LEXI_15`)
 
 **LEXI:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C/D respetada (15/15/10/10)
 - [ ] Negrita en primera mención de `factorización`, `indeterminación`, `diferencia de cuadrados`, `trinomio cuadrado perfecto`, `factor común`, `teorema del factor`
 - [ ] Textos exactos en opciones de clasificación (`"Diferencia de cuadrados"`, `"Trinomio cuadrado perfecto"`, `"Factor común"`, `"Trinomio general"`, `"No factoriza en R"`)
 - [ ] Explicaciones de "diferencia de cuadrados" con desarrollo de 3 líneas (expresión original → paso intermedio → forma factorizada) y una oración de transición antes del bloque (ver hallazgo)
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (20/20/10)
 - [ ] Todo enunciado presenta $\tfrac{0}{0}$ por sustitución directa (verificado)
 - [ ] Explicaciones con la secuencia diagnóstico → factorización → cancelación → sustitución

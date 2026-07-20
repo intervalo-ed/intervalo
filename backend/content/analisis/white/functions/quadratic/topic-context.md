@@ -2,14 +2,16 @@
 
 Belt: `white`, Unit: `functions`, Topic: `quadratic`
 
-Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ítems cada uno (200 en total).
+Skills en este topic: `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
+
+Este topic tiene 4 ítems (uno por skill): `LEXI`, `CLSF`, `FORM`, `GRAF`. 50 ejercicios cada uno (200 en total).
 
 **Estado.** Los ejercicios (enunciados, opciones y respuestas correctas) están validados y se conservan. Este documento especifica lo que falta para dejar el tema al día con las convenciones actuales:
 
-1. **`feedback_incorrect`** que falta en 175/200 ítems (LEXI 50, CLSF 36, FORM 39, GRAF 50).
+1. **`feedback_incorrect`** que falta en 175/200 ejercicios (LEXI 50, CLSF 36, FORM 39, GRAF 50).
 2. **Correcciones de formato** pendientes (31 explicaciones con viñetas).
 3. **Distribución objetivo** de cada skill, para preservarla en cualquier refactor.
-4. **Reescritura de `explanation` por las reglas globales nuevas** (párrafos ≤200 caracteres, dos puntos solo para introducir fórmula display, nunca como nexo de cláusula, sin rótulo+dos puntos, negrita obligatoria en primera mención de dominio/imagen/codominio/preimagen/unicidad, mayúscula después de bloque display, fórmulas anchas partidas en pasos). Esto **no está cuantificado**: los 11 `external_id` de "Hallazgos de auditoría" salieron de revisar una muestra al azar, no los 200 ítems. Dado lo sistemático de estos patrones en la muestra, es esperable que la mayoría de las 200 `explanation` necesiten alguna reescritura de párrafos, no es un ajuste menor sobre pocos ítems.
+4. **Reescritura de `explanation` por las reglas globales nuevas** (párrafos ≤200 caracteres, dos puntos solo para introducir fórmula display, nunca como nexo de cláusula, sin rótulo+dos puntos, negrita obligatoria en primera mención de dominio/imagen/codominio/preimagen/unicidad, mayúscula después de bloque display, fórmulas anchas partidas en pasos). Esto **no está cuantificado**: los 11 `external_id` de "Hallazgos de auditoría" salieron de revisar una muestra al azar, no los 200 ejercicios. Dado lo sistemático de estos patrones en la muestra, es esperable que la mayoría de las 200 `explanation` necesiten alguna reescritura de párrafos, no es un ajuste menor sobre pocos ejercicios.
 
 No se pide reescribir los problemas matemáticos: se pide corregir el formato (incluida la prosa de `explanation` bajo las reglas del punto 4), sumar los feedback, rebalancear el `correct_index` y no romper la distribución.
 
@@ -17,13 +19,13 @@ No se pide reescribir los problemas matemáticos: se pide corregir el formato (i
 
 ## Correcciones de `explanation` de esta ronda, checklist explícito
 
-Lista de los patrones de corrección aplicados sobre `explanation` durante la auditoría en vivo, para que quede clarísimo qué revisar en los 200 ítems (no son reglas nuevas de `authoring-context.md`, son la aplicación concreta de esas reglas a este topic):
+Lista de los patrones de corrección aplicados sobre `explanation` durante la auditoría en vivo, para que quede clarísimo qué revisar en los 200 ejercicios (no son reglas nuevas de `authoring-context.md`, son la aplicación concreta de esas reglas a este topic):
 
 1. **Párrafos que superan ~200 caracteres** (ideal ~100): partir en dos o más párrafos separados por `\n\n`. Ejemplo real: `CLSF_01`, `FORM_01`, `GRAF_25` tenían párrafos únicos de 240-380 caracteres.
-2. **Dos puntos `:` usados como nexo de cláusula** en vez de coma o punto (la única excepción válida es cerrar en `:` para introducir un bloque `$$...$$` inmediatamente después). Ejemplo: `"cumple un rol distinto: $a$ es..."` → `"cumple un rol distinto. El coeficiente..."`. Aparece en casi todos los ítems tocados (`CLSF_01`, `FORM_01`, `FORM_10`, `LEXI_40`, `GRAF_25`, `GRAF_02`, `LEXI_49`, `CLSF_45`).
+2. **Dos puntos `:` usados como nexo de cláusula** en vez de coma o punto (la única excepción válida es cerrar en `:` para introducir un bloque `$$...$$` inmediatamente después). Ejemplo: `"cumple un rol distinto: $a$ es..."` → `"cumple un rol distinto. El coeficiente..."`. Aparece en casi todos los ejercicios tocados (`CLSF_01`, `FORM_01`, `FORM_10`, `LEXI_40`, `GRAF_25`, `GRAF_02`, `LEXI_49`, `CLSF_45`).
 3. **Rótulo corto + dos puntos abriendo un párrafo u oración** ("Conclusión:", "Trampa del signo:", "La regla general:", "Una consecuencia útil:", "Es al revés:", "Los roles están invertidos:", "Atención con los signos:"): integrar la idea en prosa narrativa, sin el rótulo. Aparece en `CLSF_01`, `FORM_10`, `LEXI_40`, `LEXI_49`, `FORM_06`.
 4. **Fragmento sin puntuación de cierre antes de un bloque `$$...$$`**: el texto previo al bloque display debe terminar en `.` o `:`, nunca quedar colgando. Encontrado en `GRAF_25`, `GRAF_02`.
-5. **Minúscula en la primera palabra después de un bloque `$$...$$`**: debe ir en mayúscula igual que después de cualquier punto. Mismo par de ítems que el punto anterior (`GRAF_25`, `GRAF_02`).
+5. **Minúscula en la primera palabra después de un bloque `$$...$$`**: debe ir en mayúscula igual que después de cualquier punto. Mismo par de ejercicios que el punto anterior (`GRAF_25`, `GRAF_02`).
 6. **Más de 1 aclaración entre paréntesis en la misma oración**: dejar como máximo una, narrar el resto. Encontrado en `CLSF_01`, `GRAF_02`.
 7. **Negrita faltante en primera mención de conceptos clave obligatorios** (`dominio`, `imagen`, `codominio`, `preimagen`, `unicidad`) en `question` y en `explanation`, por campo. Encontrado en `CLSF_45`.
 8. **Fórmulas fuera de párrafo demasiado anchas**: nunca encadenar varias igualdades en una sola fórmula display, ni meter una expansión de varios términos en fórmula inline. Partir en pasos: apilar bloques `$$...$$` cortos sin texto si el paso se entiende solo, o con una frase de transición si hace falta narrarlo. Encontrado en `FORM_06`.
@@ -33,11 +35,11 @@ Lista de los patrones de corrección aplicados sobre `explanation` durante la au
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Revisión manual ítem por ítem vía `/test`, corregidos en vivo durante la auditoría. Son ejemplos concretos de violaciones a `authoring-context.md` (párrafos largos, dos puntos como nexo de cláusula, rótulo+dos puntos, negrita faltante, longitud de opciones, fórmulas anchas). **Todo el topic** (no solo los ítems citados) debe revisarse contra estas reglas al refactorizar, no únicamente los `external_id` listados abajo:
+Revisión manual ejercicio por ejercicio vía `/test`, corregidos en vivo durante la auditoría. Son ejemplos concretos de violaciones a `authoring-context.md` (párrafos largos, dos puntos como nexo de cláusula, rótulo+dos puntos, negrita faltante, longitud de opciones, fórmulas anchas). **Todo el topic** (no solo los ejercicios citados) debe revisarse contra estas reglas al refactorizar, no únicamente los `external_id` listados abajo:
 
 - **`white_quadratic_CLSF_01`**: párrafo de `explanation` de +240 caracteres, dos paréntesis en una misma oración y "Conclusión:" como rótulo+dos puntos. Corregido: 4 párrafos cortos, sin paréntesis dobles ni rótulo.
 - **`white_quadratic_LEXI_32`**: opción correcta ("La posición del eje de simetría y del vértice en $x$") casi el doble de larga que los 3 distractores, se delataba sola. Acortada a "La posición del vértice en $x$".
-- **`white_quadratic_FORM_10`** (dos ítems, líneas ~76 y ~218 de `FORM.json`): opciones de pares ordenados con `\;` (espacio fino LaTeX) que sumaban caracteres crudos sin sumar ancho visual, sacándolas del límite de grilla. Reemplazado por espacio común. La misma `explanation` tenía demasiado LaTeX inline y dos rótulos+dos puntos ("Trampa del signo:", "La regla general:"); reescrita con los pasos clave en bloques `$$...$$` centrados y sin rótulos.
+- **`white_quadratic_FORM_10`** (dos ejercicios, líneas ~76 y ~218 de `FORM.json`): opciones de pares ordenados con `\;` (espacio fino LaTeX) que sumaban caracteres crudos sin sumar ancho visual, sacándolas del límite de grilla. Reemplazado por espacio común. La misma `explanation` tenía demasiado LaTeX inline y dos rótulos+dos puntos ("Trampa del signo:", "La regla general:"); reescrita con los pasos clave en bloques `$$...$$` centrados y sin rótulos.
 - **`white_quadratic_FORM_01`**: párrafo de `explanation` de ~380 caracteres enumerando $a$, $b$, $c$ en una sola oración, más dos puntos como nexo de cláusula en dos lugares (incluido un `feedback_incorrect`). Partido en párrafos cortos, dos puntos reemplazados por coma/punto.
 - **`white_quadratic_LEXI_40`**: dos `feedback_incorrect` con rótulo+dos puntos ("Los roles están invertidos:", "Es al revés:"), tres dos-puntos-como-nexo en la `explanation`, y opción correcta desproporcionadamente larga y elaborada frente al resto. Todo corregido.
 - **`white_quadratic_GRAF_25`** y **`white_quadratic_GRAF_02`**: párrafos largos, dos-puntos-como-nexo, y el bug transversal de **fórmula display sin puntuación de cierre antes** (el fragmento previo a `$$...$$` no terminaba en `.` ni `:`) seguido de **minúscula después del bloque display** (viola la regla crítica 10). Revisar el resto del topic por este mismo patrón donde haya bloques `$$...$$` intercalados en prosa.
@@ -52,33 +54,33 @@ Revisión manual ítem por ítem vía `/test`, corregidos en vivo durante la aud
 
 Defectos detectados en la auditoría (jul-2026). **Corrección sobre la auditoría anterior**: la afirmación de que cuadráticas ya estaba limpia en `\n\n$$` pegado a display y en em-dash `—` era incorrecta, verificado programáticamente sobre los 4 JSON. Los defectos reales que quedan:
 
-1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 10, CLSF 5, FORM 30 ítems; GRAF 0, ya limpio). Viola la regla crítica 2 del `authoring-context.md`: un solo `\n` antes y después de cada bloque display, nunca `\n\n`. Concentrado sobre todo en `explanation` de FORM, donde cada paso intermedio abre su fórmula con `\n\n$$...$$\n\n`.
+1. **`\n\n` pegado a bloques `$$...$$`** (LEXI 10, CLSF 5, FORM 30 ejercicios; GRAF 0, ya limpio). Viola la regla crítica 2 del `authoring-context.md`: un solo `\n` antes y después de cada bloque display, nunca `\n\n`. Concentrado sobre todo en `explanation` de FORM, donde cada paso intermedio abre su fórmula con `\n\n$$...$$\n\n`.
    - ❌ `se calcula como:\n\n$$x_v = -\frac{b}{2a}$$\n\nCon $a = 4$...`
    - ✅ `se calcula como\n$$x_v = -\frac{b}{2a}$$\ncon $a = 4$...`
-2. **Em-dash `—` y en-dash `–`** (LEXI 8, FORM 6 ítems; CLSF y GRAF limpios). Prohibidos (regla crítica 6). Reemplazar por `,`, `:`, `;` o `.`. Coinciden en buena parte con los ítems de viñetas de LEXI.
-3. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ítems con `-`.
+2. **Em-dash `—` y en-dash `–`** (LEXI 8, FORM 6 ejercicios; CLSF y GRAF limpios). Prohibidos (regla crítica 6). Reemplazar por `,`, `:`, `;` o `.`. Coinciden en buena parte con los ejercicios de viñetas de LEXI.
+3. **Explicaciones con viñetas `•` y sub-viñetas `-`** (LEXI 15, CLSF 8, FORM 5, GRAF 3). Estilo viejo. Reescribir a la **estructura de 3 párrafos de prosa** (concepto general → aplicación al caso → cierre útil), separados por `\n\n`. Sin listas con `•`, sin sub-ejercicios con `-`.
    - ❌ `• $a$ es el coeficiente principal.\n• $b$ y $c$ son...`
    - ✅ Prosa: `El **coeficiente principal** $a$ define la apertura y el signo de la concavidad; $b$ y $c$ acompañan sin cambiar la familia.`
 4. **Cierres con humor o antropomorfismo**. El cierre de la `explanation` debe ser **advertencia del error típico o consejo práctico**, en voz neutra (regla crítica 7 del `authoring-context.md`). Nada de remates de chiste.
 5. **`correct_index` muy sesgado a un índice** (LEXI: 38/50 en índice 1; CLSF: 23/50 en índice 1; GRAF: 28/50 en índice 1 y **cero en índice 3**). El runtime baraja igual, pero como fuente dificulta auditar pistas delatoras. Al pasar por refactor, variar el índice correcto y garantizar presencia mínima en los cuatro índices para GRAF.
-6. **`explanation` bajo el mínimo de 300 caracteres** (regla de *Extensión mínima* del `authoring-context.md`, actualizado de 250 a 300): GRAF 39/50, FORM 22/50, CLSF 2/50, LEXI 0/50 (estimado sobre el umbral viejo, revisar de nuevo contra 300 al refactorizar). En GRAF son casi todas: solo cubren concepto + aplicación en 2-3 renglones cortos y no llegan al mínimo; hay que engordar el concepto general o sumar un cierre de advertencia/consejo (no ambos si el cierre no aporta, ver regla crítica 7) para cruzar el umbral sin inflar con relleno. **Además**, cada párrafo individual debe quedar en ≤200 caracteres (ideal ~100): no alcanza con sumar longitud total si un párrafo se hace demasiado largo para llegar al mínimo (ver ítem `white_quadratic_CLSF_01` corregido en la auditoría, que tenía un párrafo de más de 240 caracteres con dos paréntesis y un rótulo "Conclusión:").
+6. **`explanation` bajo el mínimo de 300 caracteres** (regla de *Extensión mínima* del `authoring-context.md`, actualizado de 250 a 300): GRAF 39/50, FORM 22/50, CLSF 2/50, LEXI 0/50 (estimado sobre el umbral viejo, revisar de nuevo contra 300 al refactorizar). En GRAF son casi todas: solo cubren concepto + aplicación en 2-3 renglones cortos y no llegan al mínimo; hay que engordar el concepto general o sumar un cierre de advertencia/consejo (no ambos si el cierre no aporta, ver regla crítica 7) para cruzar el umbral sin inflar con relleno. **Además**, cada párrafo individual debe quedar en ≤200 caracteres (ideal ~100): no alcanza con sumar longitud total si un párrafo se hace demasiado largo para llegar al mínimo (ver ejercicio `white_quadratic_CLSF_01` corregido en la auditoría, que tenía un párrafo de más de 240 caracteres con dos paréntesis y un rótulo "Conclusión:").
 
 ---
 
-## `feedback_incorrect`, falta en los 200 ítems
+## `feedback_incorrect`, falta en los 200 ejercicios
 
 Hoy 175/200 son `""` (string vacío, legacy). Los 25 restantes (CLSF 14, FORM 11) **no están resueltos tampoco**: el campo es un `string` (no un `array`) que repite o parafrasea el `feedback_correct` explicando por qué la opción correcta es correcta, no una pista por distractor. Tratarlos igual que los `""`: descartar el contenido existente y escribir desde cero el `array<string|null>` paralelo a `options`, mismo largo, `null` en el índice correcto. Voz **descriptiva del concepto**, nunca acusatoria (`"confunde X con Y"` prohibido; ver `authoring-context.md` §Pistas). Una oración por distractor, autosuficiente. Las confusiones fuente por skill están en cada sección.
 
 ---
 
-## LEXI, 50 ítems
+## LEXI, 50 ejercicios
 
 ### Qué evalúa
 Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c$, formas **vértice** $a(x-h)^2 + k$ y **factorizada** $a(x-r_1)(x-r_2)$, identificar **vértice**, **eje de simetría**, **raíces** (ceros), **ordenada al origen** $c$, **concavidad** (signo de $a$), **coeficiente principal**, dominio e imagen, máximo vs mínimo, raíz simple vs doble, discriminante.
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `LEXI.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `LEXI.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -113,7 +115,7 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 ### Qué evalúa
 Clasificar a qué familia pertenece una función: cuadrática vs. lineal, exponencial o logarítmica. Dos entradas: desde la **fórmula** ($f(x) = 3x^2 - x$ es cuadrática; $2x + 1$, $3^x$, $\log x$ no) y desde una **situación cotidiana** (producto de dos magnitudes lineales, tiro con gravedad, precio×cantidad con demanda decreciente → cuadrática; tasa constante → lineal; factor multiplicativo → exponencial). Incluye también concavidad, monotonía por intervalos e imagen acotada por el vértice desde gráfico.
@@ -122,7 +124,7 @@ Clasificar a qué familia pertenece una función: cuadrática vs. lineal, expone
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `CLSF.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `CLSF.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -154,7 +156,7 @@ Clasificar a qué familia pertenece una función: cuadrática vs. lineal, expone
 
 ---
 
-## FORM, 50 ítems
+## FORM, 50 ejercicios
 
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / factorizada desde una situación:
@@ -167,7 +169,7 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ### Distribución objetivo
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `FORM.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `FORM.json`:
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
@@ -203,7 +205,7 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 Leer una parábola desde su gráfico: **vértice** (valor y coordenada del óptimo), **concavidad** (signo de $a$), **raíces** (dónde toca el eje, solo si abre hacia abajo con el valle debajo del cero), **eje de simetría** (misma altura dos veces), **ordenada al origen** $c$ (valor de partida $f(0)$), lectura $f(v)$, y comparación crece-vs-decrece antes/después del vértice. Los 50 tienen `graph_fn`.
@@ -229,7 +231,7 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 
 ### Arquetipos de pregunta
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ítems actuales de `GRAF.json`:
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`. Conteo verificado leyendo los 50 ejercicios actuales de `GRAF.json`:
 
 | Arquetipo | Slug | Cantidad actual |
 |-----------|------|-----------------:|
@@ -266,31 +268,31 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 4 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: `array` del largo de `options`, `null` en el correcto, una pista descriptiva por distractor (incluye reescribir los que hoy son `string` no vacío, son duplicados del `feedback_correct`)
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: `array` del largo de `options`, `null` en el correcto, una pista descriptiva por distractor (incluye reescribir los que hoy son `string` no vacío, son duplicados del `feedback_correct`)
 - [ ] Ningún `\n\n` pegado a un bloque `$$...$$` (un solo `\n`)
 - [ ] Ningún em-dash `—` ni en-dash `–` en ningún campo
-- [ ] Ninguna explicación con viñetas `•` ni sub-ítems `-`: todas en 3 párrafos de prosa
+- [ ] Ninguna explicación con viñetas `•` ni sub-ejercicios `-`: todas en 3 párrafos de prosa
 - [ ] Cierres de `explanation` en advertencia/consejo, sin humor ni antropomorfismo
 - [ ] `correct_index` variado, no concentrado en un solo índice
 - [ ] `explanation` supera los 300 caracteres en total, y cada párrafo individual queda en ≤200 caracteres (ideal ~100)
 - [ ] Montos con `\$` escapado
 
 **LEXI:**
-- [ ] 50 ítems; negrita en primera mención de `parábola`/`vértice`/`eje de simetría`/`raíces`/`ordenada al origen`/`concavidad`/`coeficiente principal`/`dominio`/`imagen`
+- [ ] 50 ejercicios; negrita en primera mención de `parábola`/`vértice`/`eje de simetría`/`raíces`/`ordenada al origen`/`concavidad`/`coeficiente principal`/`dominio`/`imagen`
 - [ ] Conceptuales puros a 3 opciones cuando no hay una cuarta confusión real; numéricos a 4
 
 **CLSF:**
-- [ ] 50 ítems; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
+- [ ] 50 ejercicios; clasificación de familia con las 4 opciones (Lineal/Cuadrática/Exponencial/Logarítmica)
 - [ ] Nunca "Cuadrática" y "Polinómica" juntas en la misma grilla
 - [ ] Contexto y pregunta separados por `\n\n`, pregunta con la magnitud nombrada
 
 **FORM:**
-- [ ] 50 ítems; forma final de la fórmula en el enunciado, paso intermedio en la explicación
+- [ ] 50 ejercicios; forma final de la fórmula en el enunciado, paso intermedio en la explicación
 - [ ] Distractores de signo de $h$, `c`↔raíz, $b$ sin signo, apertura invertida presentes
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn`, `graph_view` cuadrado y `|a| ≤ 0.5`
+- [ ] 50 ejercicios con `graph_fn`, `graph_view` cuadrado y `|a| ≤ 0.5`
 - [ ] Verificado numéricamente que las raíces (para las de $a < 0$) caen dentro del `graph_view`
 - [ ] Los 9 arquetipos cubiertos al menos una vez
-- [ ] Mínimos ($a > 0$) sin ítems de raíz ni de duración
+- [ ] Mínimos ($a > 0$) sin ejercicios de raíz ni de duración
 - [ ] `correct_index` con presencia mínima en los cuatro índices (hoy no hay ninguno en 3)

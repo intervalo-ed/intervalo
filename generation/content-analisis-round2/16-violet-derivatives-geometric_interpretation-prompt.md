@@ -7,23 +7,23 @@ No commitear directo a `main`.
 
 > **Antes de arrancar**: leé `backend/content/generation-workflow.md`, el flujo completo de la ronda (ciclo por topic, validadores automáticos, criterios de commit). Este prompt es el detalle de UN topic dentro de ese flujo.
 
-> **Alcance de la ronda 2 (importante):** en esta ronda **no se generan ítems nuevos**. Cada skill de este topic tiene **15 ítems de prueba** y el trabajo es **regenerarlos/corregirlos en el lugar** contra los hallazgos y todas las reglas, **sin agregar ni quitar ninguno**. Completar cada skill hasta 50 ítems es trabajo de la **ronda 3**, posterior y solo si la ronda 2 quedó validada. Donde más abajo este prompt diga "completar hasta 50", "ítems nuevos" o "los N ítems finales", interpretalo como esos 15 ítems existentes.
+> **Alcance de la ronda 2 (importante):** en esta ronda **no se generan ejercicios nuevos**. Cada skill de este topic tiene **15 ejercicios de prueba** y el trabajo es **regenerarlos/corregirlos en el lugar** contra los hallazgos y todas las reglas, **sin agregar ni quitar ninguno**. Completar cada skill hasta 50 ejercicios es trabajo de la **ronda 3**, posterior y solo si la ronda 2 quedó validada. Donde más abajo este prompt diga "completar hasta 50", "ejercicios nuevos" o "los N ejercicios finales", interpretalo como esos 15 ejercicios existentes.
 
 ## Contexto
 
-Este topic hoy tiene ítems de prueba (no los 50×4=200 de la meta). En la **ronda 2** solo se **regeneran y corrigen los 15 ítems de prueba que ya existen** por skill, sin agregar nuevos (ver el callout de alcance arriba).
+Este topic hoy tiene ejercicios de prueba (no los 50×4=200 de la meta). En la **ronda 2** solo se **regeneran y corrigen los 15 ejercicios de prueba que ya existen** por skill, sin agregar nuevos (ver el callout de alcance arriba).
 
-No hubo ítems puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes (documentado en `topic-context.md` sección **"Hallazgos de auditoría (ronda 2, jul-2026)"**) confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad: `RESL` abre con `"La recta tangente a una función en cierto punto es"` y `"Sabiendo que"`; `LEXI` con `"En la ecuación punto-pendiente..."`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Esto es una instancia más de la regla crítica 32, nueva en `authoring-context.md` esta ronda.
+No hubo ejercicios puntuales de este topic en el archivo de correcciones de esta ronda, pero el escaneo de los 4 archivos existentes (documentado en `topic-context.md` sección **"Hallazgos de auditoría (ronda 2, jul-2026)"**) confirma el mismo **patrón dominante de apertura corta** encontrado en el resto de la unidad: `RESL` abre con `"La recta tangente a una función en cierto punto es"` y `"Sabiendo que"`; `LEXI` con `"En la ecuación punto-pendiente..."`; `ESTR` con `"Sabiendo que"`. Ninguno cierra la oración antes del bloque `$$...$$`. Esto es una instancia más de la regla crítica 32, nueva en `authoring-context.md` esta ronda.
 
-**Esta ronda también agrega las reglas críticas 30 y 31** (originadas en otros topics de esta misma unidad, aplican igual acá): aligned solo para derivaciones reales, y reintroducir la definición central en cada ítem.
+**Esta ronda también agrega las reglas críticas 30 y 31** (originadas en otros topics de esta misma unidad, aplican igual acá): aligned solo para derivaciones reales, y reintroducir la definición central en cada ejercicio.
 
-## Recordatorio prioritario, antes de generar un solo ítem
+## Recordatorio prioritario, antes de generar un solo ejercicio
 
-De todas las reglas de `authoring-context.md`, estas son las que más rompen la experiencia cuando se pasan por alto en esta unidad. Chequealas en cada ítem a medida que lo escribís, no solo al final:
+De todas las reglas de `authoring-context.md`, estas son las que más rompen la experiencia cuando se pasan por alto en esta unidad. Chequealas en cada ejercicio a medida que lo escribís, no solo al final:
 
-1. **Sin openers cortos y genéricos (regla 32, nueva, confirmado como patrón dominante en este topic).** Nunca abrir con `"La recta tangente a una función en cierto punto es"`, `"Sabiendo que"`, `"En la ecuación punto-pendiente"` pegado directo a un bloque `$$...$$` sin cerrar la oración. La introducción es sustantiva, varía ítem a ítem, cierra en `.`/`:`, y la pregunta arranca después en mayúscula.
+1. **Sin openers cortos y genéricos (regla 32, nueva, confirmado como patrón dominante en este topic).** Nunca abrir con `"La recta tangente a una función en cierto punto es"`, `"Sabiendo que"`, `"En la ecuación punto-pendiente"` pegado directo a un bloque `$$...$$` sin cerrar la oración. La introducción es sustantiva, varía ejercicio a ejercicio, cierra en `.`/`:`, y la pregunta arranca después en mayúscula.
 2. **Aligned solo para derivaciones reales (regla 30, nueva).** Nunca alinear con `=` datos o valores evaluados de forma independiente.
-3. **Reintroducir la definición central en cada ítem (regla 31, nueva).** Este topic gira en torno a la fórmula punto-pendiente $y = f'(a)(x-a) + f(a)$: cualquier ítem que la necesite para plantear su pregunta la reintroduce con LaTeX centrado.
+3. **Reintroducir la definición central en cada ejercicio (regla 31, nueva).** Este topic gira en torno a la fórmula punto-pendiente $y = f'(a)(x-a) + f(a)$: cualquier ejercicio que la necesite para plantear su pregunta la reintroduce con LaTeX centrado.
 4. **Paridad de opciones (reglas críticas 4 y 15).** Ninguna opción puede quedar como la única notablemente más larga/elaborada NI la única más corta/pelada que el resto.
 
 ## Leer antes de escribir una sola línea, en este orden
@@ -48,14 +48,14 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
    - En `options` con fracciones cortas de grilla 2×2, preferir notación de barra (`1/3`) sobre `\frac`/`\dfrac` (regla 20).
    - 2+ fragmentos LaTeX inline en el mismo párrafo de `explanation` es señal de dividir el párrafo (regla 21).
    - En opciones `CLSF` que ya son una fórmula, no agregar el nombre de familia entre paréntesis (regla 22, no aplica, este topic no tiene `CLSF`, ver regla dura 2 del topic).
-   - Nunca enmarcar un ítem respecto de otro ítem de la sesión; todo ítem abstracto sitúa el concepto desde la primera oración (regla 24): aplica sobre todo a `LEXI` sub-A/C.
+   - Nunca enmarcar un ejercicio respecto de otro ejercicio de la sesión; todo ejercicio abstracto sitúa el concepto desde la primera oración (regla 24): aplica sobre todo a `LEXI` sub-A/C.
    - El concepto abstracto de la `explanation` justifica el porqué, no solo declara el qué (regla 25).
    - Un bloque `$$...$$` lleva solo símbolos y números, nunca una oración completa en español con `\text{...}` (regla 26).
    - Un límite lateral siempre lleva el punto de tendencia en el subíndice (regla 27, no aplica directo, este topic no usa laterales).
    - La fracción $\tfrac{0}{0}$ apilada nunca va tejida dentro de un párrafo de prosa (regla 28, no aplica directo, este topic no trabaja indeterminaciones).
    - En el desarrollo `aligned` de un límite, `\lim` se repite en TODAS las líneas (regla 29, no aplica directo, este topic no desarrolla límites, ver en cambio regla 30).
    - **Regla 30 (nueva): un `aligned` con columna de `=` es solo para una ecuación que se despeja o una expresión que se transforma paso a paso, nunca para listar datos evaluados de forma independiente.**
-   - **Regla 31 (nueva): todo ítem reintroduce la definición/fórmula central que usa, sin asumir que el alumno ya la vio en otro ítem.** En este topic aplica a la fórmula punto-pendiente $y = f'(a)(x-a) + f(a)$.
+   - **Regla 31 (nueva): todo ejercicio reintroduce la definición/fórmula central que usa, sin asumir que el alumno ya la vio en otro ejercicio.** En este topic aplica a la fórmula punto-pendiente $y = f'(a)(x-a) + f(a)$.
    - **Regla 32 (nueva, confirmada como patrón dominante en este topic): sin openers cortos y genéricos pegados a un bloque `$$...$$` sin cerrar la oración.** Nada de `"La recta tangente a una función en cierto punto es"` ni `"Sabiendo que"` repetidos como plantilla.
    - Preferencia por fórmula centrada sobre LaTeX inline en `explanation` cuando la fórmula es el objeto central.
    - Preferencia por notación LaTeX/simbólica sobre prosa en `options`.
@@ -65,17 +65,17 @@ De todas las reglas de `authoring-context.md`, estas son las que más rompen la 
    - `explanation` ≥ 300 caracteres, estructura de 3 partes (concepto abstracto con el porqué, aplicación paso a paso, cierre útil).
 2. `backend/content/analisis/course-context.md` — estado matemático del alumno en `violet`.
 3. `backend/content/analisis/violet/derivatives/geometric_interpretation/topic-context.md` — este topic. Tiene las **2 reglas duras de restricción** (solo lineales/cuadráticas o datos numéricos dados, sin `CLSF`), la **distribución objetivo con `tags`** por skill, las **confusiones fuente** por skill, y **"Hallazgos de auditoría (ronda 2, jul-2026)"**.
-4. `backend/content/authoring-context.md` sección **"Etiquetas (tags)"**: cada ítem lleva `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill.
+4. `backend/content/authoring-context.md` sección **"Etiquetas (tags)"**: cada ejercicio lleva `"tags": ["<slug>"]` con el slug de su fila en la tabla de distribución de su skill.
 
 ## Objetivo
 
 Sobre `LEXI.json`, `GRAF.json`, `ESTR.json` y `RESL.json` de `backend/content/analisis/violet/derivatives/geometric_interpretation/`:
 
-- **Regenerar los 15 ítems de prueba por skill que ya existen** (sin agregar ni quitar; completar a 50 es la ronda 3), partiendo de los ítems de prueba existentes.
-- **Corregir los ítems existentes** contra el patrón de apertura corta: variar la redacción ítem a ítem y cerrar siempre la oración introductoria antes del bloque `$$...$$`.
+- **Regenerar los 15 ejercicios de prueba por skill que ya existen** (sin agregar ni quitar; completar a 50 es la ronda 3), partiendo de los ejercicios de prueba existentes.
+- **Corregir los ejercicios existentes** contra el patrón de apertura corta: variar la redacción ejercicio a ejercicio y cerrar siempre la oración introductoria antes del bloque `$$...$$`.
 - **Respetar las 2 reglas duras de restricción**: solo funciones lineales/cuadráticas o datos numéricos dados (nada de funciones elementales ni reglas prácticas de derivación), y sin `CLSF` en este topic.
-- **Cada ítem lleva `"tags": ["<slug>"]`** según la tabla de distribución de su skill. No inventar slugs nuevos.
-- **`feedback_incorrect` completo** en los 15 ítems de prueba por skill.
+- **Cada ejercicio lleva `"tags": ["<slug>"]`** según la tabla de distribución de su skill. No inventar slugs nuevos.
+- **`feedback_incorrect` completo** en los 15 ejercicios de prueba por skill.
 - **`correct_index` variado**, no concentrado en un solo índice.
 
 ## Qué SI está fuera de alcance
@@ -87,13 +87,13 @@ Sobre `LEXI.json`, `GRAF.json`, `ESTR.json` y `RESL.json` de `backend/content/an
 
 ## Cómo proceder: planificar, ejecutar, commitear
 
-**Paso 1 — Plan, antes de tocar un solo ítem.** Escribí en el chat el plan: qué corrección aplica a cada ítem de prueba existente por sub-familia, qué pasa con los existentes, y cómo quedaría reescrita una apertura de cada skill (`LEXI`, `RESL`, `ESTR`) sin el opener corto, con redacción variada, antes de escribir el resto.
+**Paso 1 — Plan, antes de tocar un solo ejercicio.** Escribí en el chat el plan: qué corrección aplica a cada ejercicio de prueba existente por sub-familia, qué pasa con los existentes, y cómo quedaría reescrita una apertura de cada skill (`LEXI`, `RESL`, `ESTR`) sin el opener corto, con redacción variada, antes de escribir el resto.
 
 **Paso 2 — Ejecutar** la generación/corrección sobre los 4 archivos según el plan.
 
 **Paso 3 — Commit solo si todo salió bien.** Antes de commitear:
-1. Corré el checklist transversal + por skill de `topic-context.md` sobre los 15 ítems de prueba por skill. Prestá atención especial a: las 2 reglas duras (cero tolerancia), regla 30 (aligned solo para derivaciones reales), regla 31 (fórmula punto-pendiente reintroducida en cada ítem que la necesite), regla 32 (sin openers cortos, redacción variada, confirmado como patrón dominante en este topic), `tags` completos y coincidentes con la tabla.
+1. Corré el checklist transversal + por skill de `topic-context.md` sobre los 15 ejercicios de prueba por skill. Prestá atención especial a: las 2 reglas duras (cero tolerancia), regla 30 (aligned solo para derivaciones reales), regla 31 (fórmula punto-pendiente reintroducida en cada ejercicio que la necesite), regla 32 (sin openers cortos, redacción variada, confirmado como patrón dominante en este topic), `tags` completos y coincidentes con la tabla.
 2. Validá el formato con el seeder: desde `backend/`, `python seed_content.py --course analisis` (sin `--all`) y revisá que no tire errores sobre este topic.
 3. Si el seeder tira error o el checklist no cierra, **no commitees**: arreglá primero y repetí la validación.
-4. Recién con el checklist limpio y el seeder sin errores, commiteá con mensaje tipo `feat(analisis/violet/geometric_interpretation): regenerar ítems de prueba y reglas globales de la ronda`.
-5. En el mensaje del commit, resumí: cuántos de los 15 ítems de prueba se corrigieron y por qué regla, y el conteo final por `tags` de cada skill.
+4. Recién con el checklist limpio y el seeder sin errores, commiteá con mensaje tipo `feat(analisis/violet/geometric_interpretation): regenerar ejercicios de prueba y reglas globales de la ronda`.
+5. En el mensaje del commit, resumí: cuántos de los 15 ejercicios de prueba se corrigieron y por qué regla, y el conteo final por `tags` de cada skill.

@@ -2,7 +2,9 @@
 
 Belt: `blue`, Unit: `limits`, Topic: `continuity`
 
-Skills en este topic: `CLSF`, `GRAF`, `RESL`. **50 ítems cada uno (150 en total)** al cerrar el refactor.
+Skills en este topic: `CLSF`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
+
+Este topic tiene 3 ítems (uno por skill): `CLSF`, `GRAF`, `RESL`. **50 ejercicios cada uno (150 en total)** al cerrar el refactor.
 
 **Estado.** Los ejercicios viejos (`CLSF`, `GRAF`, `RESL`) se dejan tal cual en el folder por ahora; el refactor a la nueva distribución se hace en otro turno. Este doc especifica el alcance nuevo, las reglas duras de restricción y la distribución objetivo por skill.
 
@@ -45,7 +47,7 @@ Toda verificación analítica se sostiene exclusivamente en:
 2. La **evaluación puntual** $f(a)$.
 3. La **comparación** entre ambos según las 3 condiciones.
 
-Los ítems que quiebren esta regla se descartan y se reescriben.
+Los ejercicios que quiebren esta regla se descartan y se reescriben.
 
 ---
 
@@ -55,7 +57,7 @@ Los ítems que quiebren esta regla se descartan y se reescriben.
 
 ## Correcciones de formato transversales (los 3 skills)
 
-Reglas de authoring que se aplican al escribir los 150 ítems:
+Reglas de authoring que se aplican al escribir los 150 ejercicios:
 
 1. **`$$...$$` display separados por un solo `\n`**, nunca `\n\n`.
 2. **Explicaciones en 3 párrafos de prosa** separados por `\n\n`: (a) concepto abstracto / regla, (b) aplicación paso a paso al ejemplo (usar `\begin{aligned}` si hay más de un paso), (c) cierre con advertencia técnica o consejo práctico. Sin viñetas `•`, sin sub-`-`, sin em-dash `—` **(estrictamente prohibido en cualquier campo)**, sin humor ni antropomorfismos.
@@ -67,21 +69,21 @@ Reglas de authoring que se aplican al escribir los 150 ítems:
 
 ---
 
-## `feedback_incorrect` en los 150 ítems
+## `feedback_incorrect` en los 150 ejercicios
 
 Completar con `array<string|null>` paralelo a `options`, `null` en el índice correcto. Voz descriptiva del concepto, en segunda persona amable. Una oración por distractor, autosuficiente.
 
 ---
 
-## CLSF, 50 ítems
+## CLSF, 50 ejercicios
 
 ### Qué evalúa
 Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de discontinuidad **sin estímulo visual**. Es el skill que reemplaza el rol conceptual que en otros tópicos cumple `LEXI`.
 
 ### Cardinalidad
-**Exactamente 3 opciones** por ítem.
+**Exactamente 3 opciones** por ejercicio.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -108,7 +110,7 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 ---
 
-## GRAF, 50 ítems
+## GRAF, 50 ejercicios
 
 ### Qué evalúa
 Leer e identificar **fracturas geométricas** y su tipo directamente del gráfico. Diagnóstico visual del punto de discontinuidad y clasificación del tipo.
@@ -117,7 +119,7 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 - **4 opciones** cuando la respuesta es un valor de $x$ o $y$.
 - **3 opciones** cuando la respuesta es una clasificación de tipo.
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -137,23 +139,23 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 - **Punto abierto ↔ cerrado invertidos**: leer un círculo lleno como abierto o al revés, y errar el diagnóstico.
 
 ### Reglas específicas
-- **Gráficos que exhiben exactamente una discontinuidad** por ítem, salvo en distractores explícitos del enunciado.
+- **Gráficos que exhiben exactamente una discontinuidad** por ejercicio, salvo en distractores explícitos del enunciado.
 - **Puntos abiertos vs. cerrados** claramente distinguidos; convención declarada en el enunciado si hace falta.
 - **Vértices suaves incluidos como distractor** en sub-A (no son discontinuidades).
 - Opciones de clasificación con textos exactos: `"Removible"`, `"De salto"`, `"Esencial"`, `"Continua"`.
-- **Distractor prohibido en sub-A**: no incluir el $y$-valor cuando se pregunta por el $x$-valor (típica confusión de ejes, se acepta solo si el ítem la usa deliberadamente).
+- **Distractor prohibido en sub-A**: no incluir el $y$-valor cuando se pregunta por el $x$-valor (típica confusión de ejes, se acepta solo si el ejercicio la usa deliberadamente).
 
 ---
 
-## RESL, 50 ítems
+## RESL, 50 ejercicios
 
 ### Qué evalúa
 Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la continuidad** despejando parámetros en funciones a trozos.
 
 ### Cardinalidad
-**Exactamente 4 opciones** por ítem (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
+**Exactamente 4 opciones** por ejercicio (grilla 2×2). Valores numéricos cortos (**$\leq 35$ caracteres**).
 
-`tags` (ver `authoring-context.md` §Etiquetas): cada ítem lleva el slug de su fila como `"tags": ["<slug>"]`.
+`tags` (ver `authoring-context.md` §Etiquetas): cada ejercicio lleva el slug de su fila como `"tags": ["<slug>"]`.
 
 ### Distribución por sub-familia
 
@@ -173,7 +175,7 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 ### Reglas específicas
 - **Funciones a trozos** con 2 ramas por defecto, punto de quiebre único.
-- **En sub-B, un solo parámetro por ítem** (una sola incógnita $k$ o $c$). Si el ítem exige dos parámetros, se justifica explícitamente y se cuenta como sub-B avanzada.
+- **En sub-B, un solo parámetro por ejercicio** (una sola incógnita $k$ o $c$). Si el ejercicio exige dos parámetros, se justifica explícitamente y se cuenta como sub-B avanzada.
 - **Explicaciones con `\begin{aligned}`** para el despeje de parámetros y para el cálculo de laterales.
 - **Diagnóstico en sub-A** con opciones `"Continua"` / `"Removible"` / `"De salto"` / `"Esencial"` (no `"No existe"`).
 - **En sub-C**, cuando la función tiene múltiples puntos fuera del dominio (ej. denominador cuadrático con 2 raíces reales), el enunciado especifica qué se pide (todos, el menor, el positivo).
@@ -184,9 +186,9 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 ## Hallazgos de auditoría (ronda 1, jul-2026)
 
-Corrección puntual del usuario sobre ítems de prueba de este topic (`correciones_analisis_limites_continuidad_1.md`), aplicar al regenerar:
+Corrección puntual del usuario sobre ejercicios de prueba de este topic (`correciones_analisis_limites_continuidad_1.md`), aplicar al regenerar:
 
-- **Error generalizado de notación**: `\lim^-`/`\lim^+` sin el punto de tendencia en el subíndice, encontrado en `CLSF.json` de este topic y en los 3 archivos de `lateral_limits` (33 ocurrencias en 10 ítems en total). **Ya corregido con un script** (cada ocurrencia reescrita a `\lim_{x \to a^-}`/`\lim_{x \to a^+}` con el punto de tendencia correcto de cada ítem) y **documentado como regla crítica 27, nueva en `authoring-context.md`**.
+- **Error generalizado de notación**: `\lim^-`/`\lim^+` sin el punto de tendencia en el subíndice, encontrado en `CLSF.json` de este topic y en los 3 archivos de `lateral_limits` (33 ocurrencias en 10 ejercicios en total). **Ya corregido con un script** (cada ocurrencia reescrita a `\lim_{x \to a^-}`/`\lim_{x \to a^+}` con el punto de tendencia correcto de cada ejercicio) y **documentado como regla crítica 27, nueva en `authoring-context.md`**.
 - **`RESL_06`**: la `explanation` está bien pero se puede reestructurar para mayor claridad: evaluar ambos laterales primero, una oración de transición, y luego 2 renglones más de `aligned` para plantear la igualdad de ramas y el resultado final de $k$, empezando ese segundo bloque con la flecha para marcar la continuidad de la operación (en vez de mezclar la evaluación de laterales y el despeje en el mismo bloque). Aplicar este ordenamiento en sub-B al regenerar.
 - **`GRAF_07`**: el enunciado decía "la curva de una racional" pero el `graph_fn` (`Piecewise` de $(x^2-1)/(x+1)$ con hueco) se ve visualmente como una **recta** (se simplifica a $y=x-1$ con un hueco), no como una curva racional típica. Al describir el gráfico en el enunciado, usar una palabra que coincida con lo que el alumno ve ("una recta con un punto removido"), no el nombre técnico de la familia original si la simplificación cambia el aspecto visual.
 
@@ -195,7 +197,7 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 ## Checklist del topic, verificar antes de dar por cerrado cada skill
 
 **Transversal (los 3 skills):**
-- [ ] `feedback_incorrect` completo en los 50 ítems: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
+- [ ] `feedback_incorrect` completo en los 50 ejercicios: array del largo de `options`, `null` en el correcto, una oración por distractor en segunda persona amable
 - [ ] Ninguna mención de derivadas, L'Hôpital, integrales, o "función suave / sin picos"
 - [ ] Explicaciones en 3 párrafos de prosa; sin viñetas, sub-`-`, em-dash (prohibido estricto), humor
 - [ ] Cierres de `explanation` en advertencia/consejo, voz neutra
@@ -207,22 +209,22 @@ Corrección puntual del usuario sobre ítems de prueba de este topic (`correcion
 - [ ] La descripción del gráfico en `GRAF` coincide con lo que se ve visualmente, no con el nombre técnico de la familia original si la simplificación cambia el aspecto (ver hallazgo `GRAF_07`)
 
 **CLSF:**
-- [ ] 50 ítems; **exactamente 3 opciones** por ítem
+- [ ] 50 ejercicios; **exactamente 3 opciones** por ejercicio
 - [ ] Distribución A/B/C respetada (25/20/5, ronda 2: más peso a las 3 condiciones formales)
 - [ ] Negrita en primera mención de `continua`, `discontinuidad`, `removible`, `de salto`, `esencial`
 - [ ] Sub-A y sub-B trabajan con datos numéricos concretos; sub-C es teórica sin datos numéricos
 
 **GRAF:**
-- [ ] 50 ítems con `graph_fn` o gráfico embebido
+- [ ] 50 ejercicios con `graph_fn` o gráfico embebido
 - [ ] Distribución A/B respetada (10/40, ronda 2: más peso a clasificación visual)
 - [ ] Vértices suaves incluidos como distractor en sub-A (no son discontinuidades)
 - [ ] Puntos abiertos vs. cerrados claramente distinguidos
 - [ ] Cardinalidad ajustada: 4 si valor $x$/$y$, 3 si clasificación
 
 **RESL:**
-- [ ] 50 ítems; **exactamente 4 opciones** por ítem, cada opción $\leq 35$ caracteres
+- [ ] 50 ejercicios; **exactamente 4 opciones** por ejercicio, cada opción $\leq 35$ caracteres
 - [ ] Distribución A/B/C respetada (15/25/10)
 - [ ] Funciones a trozos con 2 ramas y punto de quiebre único (por defecto)
-- [ ] Sub-B con un solo parámetro por ítem, verificando $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$ en el despeje
+- [ ] Sub-B con un solo parámetro por ejercicio, verificando $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$ en el despeje
 - [ ] Sub-C con dominio bien definido; el enunciado precisa qué punto se pide cuando hay varios candidatos
 - [ ] Ninguna aplicación de L'Hôpital

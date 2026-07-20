@@ -4,13 +4,15 @@ Belt: `blue`, Unit: `variables`, Topic: `densidad`
 
 Skills en este topic: `FORM`, `GRAF`, `RESL`.
 
+Este topic tiene 3 ítems (uno por skill): `FORM`, `GRAF`, `RESL`.
+
 Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\leq X\leq b)=\int_a^b f(x)\,dx$ y $\int_{-\infty}^{\infty} f(x)\,dx=1$. $P(X=x)=0$ para cualquier valor puntual.
 
 **Nota de dependencia con integrales** (ver `probabilidad/course-context.md`): usar exclusivamente densidades **uniformes** (rectángulo) o **lineales simples** ($f(x)=kx$ en un intervalo corto), donde el área se calcula como superficie geométrica (rectángulo o triángulo) sin necesidad de técnica de integración. Nunca una densidad que exija antiderivada no trivial en este topic.
 
 ---
 
-## FORM, 15 ítems
+## FORM, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -21,7 +23,7 @@ Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\
 
 ---
 
-## GRAF, 15 ítems
+## GRAF, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -32,7 +34,7 @@ Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\
 
 ---
 
-## RESL, 15 ítems
+## RESL, 15 ejercicios
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
@@ -61,13 +63,13 @@ Concepto: la **función de densidad** $f(x)$ de una variable continua, con $P(a\
 ## Reglas específicas del topic
 
 - **Solo densidades uniformes o lineales simples**, con intervalos de longitud entera chica (2 a 5). Nunca pedir una antiderivada no trivial (ver nota de dependencia arriba).
-- **Cada ítem reintroduce** la condición de normalización o la fórmula de probabilidad como área cuando la usa (regla crítica 31).
-- **En `explanation`**, cuando se calcule un área, mostrar la fórmula geométrica (base × altura, o base × altura / 2) antes que notación de integral, salvo que el ítem pida explícitamente reconocer la notación $\int$ (sub-familia `formula-probabilidad-area`).
+- **Cada ejercicio reintroduce** la condición de normalización o la fórmula de probabilidad como área cuando la usa (regla crítica 31).
+- **En `explanation`**, cuando se calcule un área, mostrar la fórmula geométrica (base × altura, o base × altura / 2) antes que notación de integral, salvo que el ejercicio pida explícitamente reconocer la notación $\int$ (sub-familia `formula-probabilidad-area`).
 
 ## Checklist del topic
 
 - [ ] Toda densidad es uniforme o lineal simple, nunca requiere antiderivada no trivial
 - [ ] Los intervalos del dominio son enteros y de longitud ≤5
-- [ ] Ningún ítem confunde $f(x)$ con $P(X=x)$
+- [ ] Ningún ejercicio confunde $f(x)$ con $P(X=x)$
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: FORM conceptual → 3 opciones; GRAF/RESL numérico → 4 opciones ≤35 caracteres
