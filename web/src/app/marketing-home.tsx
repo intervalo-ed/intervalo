@@ -482,13 +482,13 @@ export default function MarketingHome() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/about"
-              className="inline-flex items-center rounded-[4px] border-[1.5px] border-[rgba(19,19,36,0.35)] px-8 py-[0.9rem] font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#131324] transition-colors duration-150 hover:border-[rgba(19,19,36,0.5)] hover:bg-[rgba(19,19,36,0.08)]"
+              className="inline-flex h-[52px] items-center justify-center rounded-[4px] border-[1.5px] border-[rgba(19,19,36,0.35)] px-8 font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#131324] transition-colors duration-150 hover:border-[rgba(19,19,36,0.5)] hover:bg-[rgba(19,19,36,0.08)]"
             >
               Conocer más
             </Link>
             <Link
               href="/onboarding"
-              className="inline-flex items-center rounded-[4px] bg-[#131324] px-8 py-[0.9rem] font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#7E80F7] transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(0,0,0,0.4)]"
+              className="inline-flex h-[52px] items-center justify-center rounded-[4px] bg-[#131324] px-8 font-mono text-[0.9rem] font-medium uppercase tracking-[0.1em] text-[#7E80F7] transition-[transform,box-shadow] duration-150 hover:-translate-y-px hover:shadow-[0_6px_22px_rgba(0,0,0,0.4)]"
             >
               Probar ahora
             </Link>
