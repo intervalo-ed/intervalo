@@ -27,8 +27,8 @@ import type { ReactNode } from "react"
 export type TopicEditState = "locked" | "unlocked" | "suspended"
 
 const confirmCls =
-  "h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-const cancelCls = "h-10 w-full rounded-md bg-background dark:bg-background"
+  "h-10 w-full sm:w-auto rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+const cancelCls = "h-10 w-full sm:w-auto rounded-md bg-background dark:bg-background"
 
 // Mismo tamaño que los pills de ítem (h-6 w-9) para igualar el ritmo vertical.
 const btnCls = "flex h-6 w-9 items-center justify-center rounded-md border"

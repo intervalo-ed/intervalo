@@ -818,13 +818,13 @@ function ExitButton() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction
-            className="h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+            className="h-10 w-full sm:w-auto rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => router.push("/")}
           >
             Salir
           </AlertDialogAction>
           <AlertDialogCancel
-            className="h-10 w-full rounded-md bg-background dark:bg-background"
+            className="h-10 w-full sm:w-auto rounded-md bg-background dark:bg-background"
           >
             Seguir
           </AlertDialogCancel>

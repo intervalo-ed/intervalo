@@ -346,7 +346,7 @@ export default function DashboardEntry() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogAction
-                        className="h-10 w-full rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
+                        className="h-10 w-full sm:w-auto rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
                         onClick={() =>
                           editor.resetCourse.mutate(undefined, {
                             onSuccess: () => setEditing(false),
@@ -355,7 +355,7 @@ export default function DashboardEntry() {
                       >
                         Reiniciar
                       </AlertDialogAction>
-                      <AlertDialogCancel className="h-10 w-full rounded-md bg-background dark:bg-background">
+                      <AlertDialogCancel className="h-10 w-full sm:w-auto rounded-md bg-background dark:bg-background">
                         Cancelar
                       </AlertDialogCancel>
                     </AlertDialogFooter>
