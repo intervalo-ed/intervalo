@@ -1,4 +1,3 @@
-import { BottomNav } from "@/components/bottom-nav"
 import { Wordmark } from "@/components/wordmark"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import Link from "next/link"
@@ -15,7 +14,6 @@ export default function ProfilePage() {
       <ScreenBody>
         <ProfileContent />
       </ScreenBody>
-      <BottomNav />
     </Screen>
   )
 }

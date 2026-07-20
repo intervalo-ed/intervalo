@@ -1,6 +1,5 @@
 "use client"
 
-import { BottomNav } from "@/components/bottom-nav"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
@@ -17,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Spinner } from "@/components/ui/spinner"
 import { Switch } from "@/components/ui/switch"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -63,6 +63,15 @@ const EMPTY_EXPANDED = new Set<string>()
 
 function topicKey(belt: BeltKey, topic: string): string {
   return `${belt}/${topic}`
+}
+
+function MetricSkeleton() {
+  return (
+    <div className="flex flex-col gap-1.5 rounded-md border border-white/10 bg-white/5 p-3">
+      <Skeleton className="h-[1.125rem] w-8" />
+      <Skeleton className="h-[0.7rem] w-16" />
+    </div>
+  )
 }
 
 // Qué unidades están expandidas, persistido entre visitas. Se lee del
@@ -282,6 +291,12 @@ export default function PracticeConfig() {
               busy={false}
               onChange={setCount}
             />
+          ) : statsQuery.isPending ? (
+            <div className="grid grid-cols-3 gap-2">
+              <MetricSkeleton />
+              <MetricSkeleton />
+              <MetricSkeleton />
+            </div>
           ) : (
             <div className="grid grid-cols-3 gap-2">
               <Metric
@@ -394,8 +409,6 @@ export default function PracticeConfig() {
           </Alert>
         )}
       </ScreenBody>
-
-      <BottomNav />
     </Screen>
   )
 }

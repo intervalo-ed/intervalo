@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Spinner } from "@/components/ui/spinner"
 import {
   Select,
@@ -70,27 +71,27 @@ export function LeaderboardContent() {
         <Metric
           label="Estudiantes registrados"
           value={
-            <span className="inline-flex items-center gap-1.5">
-              {summary.data ? (
+            summary.data ? (
+              <span className="inline-flex items-center gap-1.5">
                 <CountUp value={summary.data.total_students} format={fmt} />
-              ) : (
-                "…"
-              )}
-              <UsersIcon className="size-[0.85em] text-primary" />
-            </span>
+                <UsersIcon className="size-[0.85em] text-primary" />
+              </span>
+            ) : (
+              <Skeleton className="h-[1.125rem] w-10" />
+            )
           }
         />
         <Metric
           label="Ejercicios completados"
           value={
-            <span className="inline-flex items-center gap-1.5">
-              {summary.data ? (
+            summary.data ? (
+              <span className="inline-flex items-center gap-1.5">
                 <CountUp value={summary.data.total_exercises} format={fmt} />
-              ) : (
-                "…"
-              )}
-              <LayersIcon className="size-[0.85em] text-primary" />
-            </span>
+                <LayersIcon className="size-[0.85em] text-primary" />
+              </span>
+            ) : (
+              <Skeleton className="h-[1.125rem] w-10" />
+            )
           }
         />
       </div>
