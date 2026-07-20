@@ -1266,6 +1266,8 @@ def get_summary_db(
     return {
         "session_id": str(session_id_db),
         "user_name": "",
+        "mode": db_session.mode,
+        "course": _get_course_slug(course_id, db),
         "total": total,
         "correct": correct_count,
         "first_try_correct": first_try_correct,
@@ -1474,5 +1476,7 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
         ))
         db.delete(r)
     cp.iteration += 1
+    slug = _get_course_slug(course_id, db)
+    cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
     db.commit()
     return cp.iteration

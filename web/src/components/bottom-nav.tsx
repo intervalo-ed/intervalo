@@ -6,7 +6,7 @@ import { useProfileNews } from "@/lib/nav/profile-news"
 import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
 import { LayersIcon, TargetIcon, TrophyIcon, UserIcon } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 
 const TABS = [
   { href: "/", label: "Repasar", icon: LayersIcon },
@@ -15,8 +15,14 @@ const TABS = [
   { href: "/profile", label: "Perfil", icon: UserIcon },
 ] as const
 
+// "/" y "/practice" comparten el mismo curso activo (query param `course`):
+// pasar de uno al otro por la tab bar debe mantener el curso en el que estabas.
+const COURSE_SCOPED_HREFS = new Set<(typeof TABS)[number]["href"]>(["/", "/practice"])
+
 export function BottomNav() {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const course = searchParams.get("course")
   const rankingNews = useRankingNews()
   const profileNews = useProfileNews()
   const badgesAvailable = useBadgesAvailable()
@@ -26,6 +32,10 @@ export function BottomNav() {
       <ul className="mx-auto flex w-full max-w-2xl items-stretch">
         {TABS.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href
+          const linkHref =
+            course && COURSE_SCOPED_HREFS.has(href)
+              ? `${href}?course=${course}`
+              : href
           const showDot =
             (href === "/leaderboard" && rankingNews) ||
             (href === "/profile" && profileNews && badgesAvailable)
@@ -34,7 +44,7 @@ export function BottomNav() {
           return (
             <li key={href} className="flex-1">
               <Link
-                href={href}
+                href={linkHref}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "flex flex-col items-center gap-1 pt-[var(--nav-pt)] pb-[var(--nav-pb)] text-xs transition-colors",
