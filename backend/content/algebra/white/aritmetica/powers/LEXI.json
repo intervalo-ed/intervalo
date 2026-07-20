@@ -1,0 +1,18 @@
+[
+  {
+    "question": "En la expresión $a^n$, la base $a$ se multiplica por sí misma una cierta cantidad de veces.\n\n¿Qué nombre recibe $n$ en esa expresión?",
+    "options": ["Exponente", "Base", "Coeficiente"],
+    "correct_index": 0,
+    "feedback_correct": "El $n$ indica cuántas veces se multiplica la base por sí misma: es el exponente.",
+    "feedback_incorrect": [
+      null,
+      "La base es $a$, el factor que se repite; $n$ es quien indica cuántas veces se repite.",
+      "El coeficiente multiplica a toda la potencia desde afuera, no indica repeticiones de la base."
+    ],
+    "explanation": "En una **potencia** $a^n$, la base $a$ es el número que se multiplica por sí mismo, y el **exponente** $n$ indica cuántas veces se repite esa multiplicación.\n\nPor ejemplo, en $5^3$, la base es $5$ y el exponente es $3$, lo que significa $5 \\times 5 \\times 5$.\n\nUna confusión común es invertir los roles y pensar que el exponente es el número que se repite, cuando en realidad ese es siempre el papel de la base.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

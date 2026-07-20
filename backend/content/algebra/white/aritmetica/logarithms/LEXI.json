@@ -1,0 +1,18 @@
+[
+  {
+    "question": "En la expresión $\\log_b(x)$, el número $b$ determina a qué número hay que elevarlo para obtener $x$.\n\n¿Qué nombre recibe $b$ en esa expresión?",
+    "options": ["Base", "Argumento", "Exponente"],
+    "correct_index": 0,
+    "feedback_correct": "El número que se eleva a una potencia para obtener $x$ es la base del logaritmo.",
+    "feedback_incorrect": [
+      null,
+      "El argumento es $x$, el número al que se le calcula el logaritmo, no el que se eleva a una potencia.",
+      "El exponente es el resultado del logaritmo, no un dato de entrada de la expresión."
+    ],
+    "explanation": "En un **logaritmo** $\\log_b(x)$, la **base** $b$ es el número que se eleva a una potencia, y el **argumento** $x$ es el número al que se le calcula el logaritmo.\n\nPor ejemplo, en $\\log_2(8)$, la base es $2$ y el argumento es $8$, y el resultado es $3$ porque $2^3=8$.\n\nUna confusión común es confundir la base del logaritmo con su resultado, cuando en realidad el resultado es el exponente al que se eleva la base.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

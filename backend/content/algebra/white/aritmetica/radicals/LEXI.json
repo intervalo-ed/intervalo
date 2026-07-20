@@ -1,0 +1,18 @@
+[
+  {
+    "question": "En la expresión $\\sqrt[n]{a}$, el número $n$ indica qué tipo de raíz se está calculando (cuadrada, cúbica, etc.).\n\n¿Qué nombre recibe $n$ en esa expresión?",
+    "options": ["Índice", "Radicando", "Coeficiente"],
+    "correct_index": 0,
+    "feedback_correct": "El número que indica el tipo de raíz, ubicado en la muesca del símbolo, es el índice.",
+    "feedback_incorrect": [
+      null,
+      "El radicando es $a$, el número al que se le calcula la raíz, no el que indica el tipo de raíz.",
+      "El coeficiente multiplicaría a toda la raíz desde afuera, no indica el tipo de raíz."
+    ],
+    "explanation": "En una **raíz** $\\sqrt[n]{a}$, el **índice** $n$ indica qué tipo de raíz se calcula (cuadrada si $n=2$, cúbica si $n=3$, etc.), mientras que el **radicando** $a$ es el número al que se le calcula esa raíz.\n\nPor ejemplo, en $\\sqrt[3]{27}$, el índice es $3$ y el radicando es $27$, y el resultado es $3$ porque $3^3=27$.\n\nUna confusión común es no fijarse en el índice y asumir siempre raíz cuadrada, incluso cuando la muesca indica un índice distinto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]
