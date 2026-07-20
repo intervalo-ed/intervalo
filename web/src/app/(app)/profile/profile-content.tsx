@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
+import { ProfileSkeleton } from "@/components/tab-skeletons"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useMe } from "@/app/UseMe"
 import { ProfileHeaderCard } from "./profile-header-card"
@@ -88,24 +88,6 @@ export function ProfileContent() {
         onOpenChange={setApodoOpen}
         current={me.data?.display_name ?? ""}
       />
-    </div>
-  )
-}
-
-function ProfileSkeleton() {
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-3 rounded-md border border-border px-4 py-2.5">
-        <div className="flex min-w-0 flex-1 flex-col gap-2">
-          <Skeleton className="h-5 w-28" />
-          <Skeleton className="h-3 w-20" />
-        </div>
-        <Skeleton className="size-16 shrink-0" />
-      </div>
-      <Skeleton className="h-12 w-full rounded-md" />
-      <Skeleton className="h-12 w-full rounded-md" />
-      <Skeleton className="h-12 w-full rounded-md" />
-      <Skeleton className="h-12 w-full rounded-md" />
     </div>
   )
 }
