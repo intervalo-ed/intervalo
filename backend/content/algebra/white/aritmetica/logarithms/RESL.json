@@ -1,6 +1,6 @@
 [
   {
-    "question": "El **logaritmo** en base $b$ de un número $x$ es el exponente al que hay que elevar $b$ para obtener $x$.\n$$\\log_b(x) = y \\iff b^y = x$$\nAl calcular:\n$$\\log_3(81)$$\n¿Cuál es su valor?",
+    "question": "Al calcular el **logaritmo**:\n$$\\log_3(81)$$\n¿Cuál es su valor?",
     "options": [
       "$4$",
       "$27$",

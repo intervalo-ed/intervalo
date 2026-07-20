@@ -1,6 +1,6 @@
 [
   {
-    "question": "El **máximo común divisor**, también llamado MCD, de dos números es el mayor número que los divide a ambos sin dejar resto.\n\nUn taller organiza dos lotes de piezas, uno de $36$ unidades y otro de $60$, y quiere formar grupos iguales del mayor tamaño posible sin que sobren piezas de ningún lote.\n\n¿Cuál es el tamaño máximo de cada grupo?",
+    "question": "Un taller organiza dos lotes de piezas, uno de $36$ unidades y otro de $60$, y quiere formar grupos iguales del mayor tamaño posible sin que sobren piezas de ningún lote, es decir, busca el **máximo común divisor** entre ambas cantidades.\n\n¿Cuál es el tamaño máximo de cada grupo?",
     "options": [
       "$12$",
       "$6$",

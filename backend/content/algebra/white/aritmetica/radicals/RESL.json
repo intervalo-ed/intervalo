@@ -1,6 +1,6 @@
 [
   {
-    "question": "**Racionalizar un denominador** significa reescribir una fracción para que no queden raíces en el denominador, multiplicando arriba y abajo por un factor adecuado.\n\nAl racionalizar la fracción:\n$$\\frac{3}{\\sqrt{5}}$$\n¿Cuál es el resultado equivalente sin raíz en el denominador?",
+    "question": "Al **racionalizar** la fracción:\n$$\\frac{3}{\\sqrt{5}}$$\n¿Cuál es el resultado equivalente sin raíz en el denominador?",
     "options": [
       "$\\frac{3\\sqrt{5}}{5}$",
       "$\\frac{3}{5}$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "El **valor absoluto** de un número mide su distancia al cero, así que una ecuación con valor absoluto igualado a un valor positivo tiene, en general, dos soluciones.\n\nAl resolver la ecuación:\n$$|2x-3|=7$$\n¿Cuál es el conjunto solución?",
+    "question": "Al resolver la ecuación con **valor absoluto**:\n$$|2x-3|=7$$\n¿Cuál es el conjunto solución?",
     "options": [
       "$\\{5, -2\\}$",
       "$\\{5\\}$",
