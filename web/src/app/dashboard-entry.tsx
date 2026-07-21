@@ -10,6 +10,7 @@ import {
   type BeltGridRow,
 } from "@/components/belt-grid"
 import { Metric } from "@/components/metric-card"
+import { DashboardSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -473,60 +474,6 @@ export default function DashboardEntry() {
   )
 }
 
-function DashboardSkeleton() {
-  // Filas por contenedor, como los primeros cinturones reales (Funciones=7, Límites=6).
-  const beltRows = [7, 6]
-  return (
-    <div className="flex animate-pulse flex-col gap-4">
-      {/* 3 indicadores (mismo card: p-3, valor text-lg + label 2 líneas) */}
-      <div className="grid grid-cols-3 gap-2">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
-          >
-            <div className="h-[18px] w-12 rounded bg-white/10" />
-            <div className="flex flex-col gap-2">
-              <div className="h-2.5 w-full rounded bg-white/10" />
-              <div className="h-2.5 w-2/3 rounded bg-white/10" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* botón Repasar */}
-      <div className="h-12 w-full rounded-md bg-white/10" />
-
-      {/* contenedores de unidad (p-4, gap-3; header título + ícono info) */}
-      {beltRows.map((nRows, b) => (
-        <div
-          key={b}
-          className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div className="h-[18px] w-32 rounded bg-white/10" />
-            <div className="size-7 rounded bg-white/10" />
-          </div>
-          <div className="flex flex-col gap-2.5">
-            {Array.from({ length: nRows }).map((_, r) => (
-              <div
-                key={r}
-                className="flex items-center justify-between gap-3"
-              >
-                <div className="h-3.5 w-24 rounded bg-white/10" />
-                <div className="flex gap-1">
-                  {[0, 1, 2].map((p) => (
-                    <div key={p} className="h-6 w-9 rounded-md bg-white/10" />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 function topicEditState(ts: TopicStates[string] | undefined): TopicEditState {
   if (!ts) return "locked"
