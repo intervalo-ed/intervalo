@@ -207,7 +207,7 @@
     "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
+    "question": "Integrá aplicando cambio de variable:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|x^2+5|+C$",
@@ -225,11 +225,12 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|x^2+5|+C \\end{aligned}$$\nCuando el numerador coincide exactamente con $du$, sin ningún coeficiente sobrante, no hace falta ningún ajuste adicional de constante.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2+5$. Cuando el numerador coincide exactamente con $du$, no necesitamos ajuste de constante adicional.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{\\ln x}{x}\\,dx$$",
+    "question": "Resolvé usando sustitución:\n$$\\int \\frac{\\ln x}{x}\\,dx$$",
     "options": [
       "$\\frac{\\ln x^2}{2}+C$",
       "$\\frac{u^2}{2}+C$",
@@ -247,11 +248,12 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\\\ &= \\frac{(\\ln x)^2}{2}+C \\end{aligned}$$\nEl paréntesis alrededor de $\\ln x$ es importante, el cuadrado afecta a todo el logaritmo, no solo a la $x$ dentro de él.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\ln x$. El paréntesis alrededor de $\\ln x$ es importante: el cuadrado afecta a todo el logaritmo, no solo al argumento $x$.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int \\sin^3 x \\cos x\\,dx$$",
+    "question": "Mediante cambio de variable, calculá:\n$$\\int \\sin^3 x \\cos x\\,dx$$",
     "options": [
       "$\\sin^4 x+C$",
       "$\\frac{\\cos^4 x}{4}+C$",
@@ -269,8 +271,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\\\ &= \\frac{\\sin^4 x}{4}+C \\end{aligned}$$\nEl factor $\\cos x$ del integrando original se absorbe por completo dentro de $du$, dejando una potencia simple de $u$ para integrar.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\sin x$. El factor $\\cos x$ del integrando se absorbe completamente dentro de $du$, dejando una potencia simple de $u$.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
     "question": "Calculá\n$$\\int 2x\\,e^{x^2}\\,dx$$",

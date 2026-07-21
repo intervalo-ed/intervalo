@@ -115,7 +115,7 @@
     "tags": ["aplicacion-directa-una-iteracion"]
   },
   {
-    "question": "Calculá\n$$\\int 3x\\sin x\\,dx$$",
+    "question": "Integrá por partes:\n$$\\int 3x\\sin x\\,dx$$",
     "options": [
       "$-3x\\cos x+3\\sin x$",
       "$-3x\\cos x+3\\sin x+C$",
@@ -134,10 +134,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=3x$, $dv=\\sin x\\,dx$, con $du=3\\,dx$ y $v=-\\cos x$.\n$$\\begin{aligned} \\int 3x\\sin x\\,dx &= 3x(-\\cos x) - \\int (-\\cos x)(3\\,dx) \\\\ &= -3x\\cos x + 3\\int \\cos x\\,dx \\\\ &= -3x\\cos x+3\\sin x+C \\end{aligned}$$\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["aplicacion-directa-una-iteracion"]
   },
   {
-    "question": "Calculá\n$$\\int 2xe^x\\,dx$$",
+    "question": "Resolvé aplicando la fórmula de partes:\n$$\\int 2xe^x\\,dx$$",
     "options": [
       "$xe^x-2e^x+C$",
       "$2xe^x-2e^x$",
@@ -156,7 +157,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=2x$, $dv=e^x\\,dx$, con $du=2\\,dx$ y $v=e^x$.\n$$\\begin{aligned} \\int 2xe^x\\,dx &= 2xe^x - \\int e^x(2\\,dx) \\\\ &= 2xe^x - 2\\int e^x\\,dx \\\\ &= 2xe^x-2e^x+C \\end{aligned}$$\nEl coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["aplicacion-directa-una-iteracion"]
   },
   {
     "question": "Calculá\n$$\\int (x+1)\\cos x\\,dx$$",
