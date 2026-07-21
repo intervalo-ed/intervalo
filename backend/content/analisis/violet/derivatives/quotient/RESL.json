@@ -184,7 +184,7 @@
     "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x+1}{\\cos x+3}$$\ncalculá $f'(0)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x+1}{\\cos x+3}$$\nCalculá $f'(0)$.",
     "options": [
       "$1/4$",
       "$-1/4$",
@@ -203,7 +203,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x+1$, $v(x)=\\cos x+3$, con $u'(x)=1$ y $v'(x)=-\\sin x$.\n\n$$\\begin{aligned} u(0) &= 1, \\quad v'(0) = -\\sin 0 = 0 \\\\ u'(0) &= 1, \\quad v(0) = 4 \\\\ f'(0) &= \\frac{1\\cdot 4-0}{4^2} = \\frac{4}{16} = \\frac{1}{4} \\end{aligned}$$\nEl término $u(0)v'(0)$ se anula porque $x=0$ anula la derivada de $v$, y el resultado queda determinado por el primer término del numerador.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
     "question": "Sabiendo que\n$$f(x) = \\frac{x^2}{x+1}$$\nhallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
