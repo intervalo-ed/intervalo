@@ -184,7 +184,7 @@
     "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int x\\cos(x^2)\\,dx$$",
+    "question": "Resolvé por sustitución:\n$$\\int x\\cos(x^2)\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\sin(x^2)+C$",
       "$\\frac{1}{2}x\\sin(x^2)+C$",
@@ -202,8 +202,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(x^2)+C \\end{aligned}$$\nEl factor $x$ del integrando original se absorbe por completo dentro de $du$, no debería sobrevivir sin transformar en el resultado final.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2$. El factor $x$ del integrando se absorbe completamente dentro de $du$, no debe quedar multiplicando en la respuesta final.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
     "question": "Calculá\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
