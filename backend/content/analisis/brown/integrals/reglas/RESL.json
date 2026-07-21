@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá\n$$\\int (4x^3 - 2\\sin x)\\,dx$$",
+    "question": "Calculá:\n$$\\int (4x^3 - 2\\sin x)\\,dx$$",
     "options": [
       "$x^4+2\\cos x+C$",
       "$x^4-2\\cos x+C$",
@@ -22,7 +22,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (6x^2 + \\cos x)\\,dx$$",
+    "question": "Resolvé:\n$$\\int (6x^2 + \\cos x)\\,dx$$",
     "options": [
       "$2x^2+\\sin x+C$",
       "$2x^3+\\sin x+C$",
@@ -44,7 +44,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (3e^x - 4x)\\,dx$$",
+    "question": "Integrá:\n$$\\int (3e^x - 4x)\\,dx$$",
     "options": [
       "$3xe^{x-1}-2x^2+C$",
       "$3e^x+2x^2+C$",
@@ -66,7 +66,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (-5\\sin x + 2)\\,dx$$",
+    "question": "¿Cuál es el resultado de\n$$\\int (-5\\sin x + 2)\\,dx$$?",
     "options": [
       "$-5\\cos x+2x+C$",
       "$5\\cos x+2+C$",
@@ -88,7 +88,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (x^5 - 3\\cos x)\\,dx$$",
+    "question": "Encontrá:\n$$\\int (x^5 - 3\\cos x)\\,dx$$",
     "options": [
       "$\\frac{x^6}{6}-3\\sin x+C$",
       "$x^6-3\\sin x+C$",
@@ -110,7 +110,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (2\\sec^2 x - x^2)\\,dx$$",
+    "question": "Calculá:\n$$\\int (2\\sec^2 x - x^2)\\,dx$$",
     "options": [
       "$-2\\tan x-\\frac{x^3}{3}+C$",
       "$2\\tan x-\\frac{x^3}{3}+C$",
@@ -132,7 +132,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (7 - 4e^x)\\,dx$$",
+    "question": "Resolvé esta integral:\n$$\\int (7 - 4e^x)\\,dx$$",
     "options": [
       "$7x-4xe^{x-1}+C$",
       "$7x+4e^x+C$",
@@ -154,7 +154,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int (3\\cos x + 8x^3)\\,dx$$",
+    "question": "¿Cuál es la primitiva de\n$$\\int (3\\cos x + 8x^3)\\,dx$$?",
     "options": [
       "$3\\sin x+8x^4+C$",
       "$-3\\sin x+2x^4+C$",
@@ -176,7 +176,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(x^2+\\frac{5}{x}\\right)\\,dx$$",
+    "question": "Integrá:\n$$\\int \\left(x^2+\\frac{5}{x}\\right)\\,dx$$",
     "options": [
       "$\\frac{x^3}{3}+5\\ln|x|+C$",
       "$\\frac{x^3}{3}+5\\ln x+C$",
@@ -198,7 +198,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(\\frac{3}{x}+x^3\\right)\\,dx$$",
+    "question": "Hallá:\n$$\\int \\left(\\frac{3}{x}+x^3\\right)\\,dx$$",
     "options": [
       "$-\\frac{3}{x^2}+\\frac{x^4}{4}+C$",
       "$3\\ln|x|+\\frac{x^4}{4}+C$",
@@ -220,7 +220,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$",
+    "question": "Calculá:\n$$\\int \\left(x^{1/2}+\\frac{2}{x}\\right)\\,dx$$",
     "options": [
       "$\\frac{1}{2}x^{3/2}+2\\ln|x|+C$",
       "$\\frac{2}{3}x^{3/2}-\\frac{2}{x}+C$",
@@ -242,7 +242,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$",
+    "question": "¿Cuál integral resulta de\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$?",
     "options": [
       "$2x^2-\\ln x+C$",
       "$2x^2+\\ln|x|+C$",
@@ -264,7 +264,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$",
+    "question": "Resolvé:\n$$\\int \\left(x^{-2}+3x\\right)\\,dx$$",
     "options": [
       "$-\\frac{1}{x}+\\frac{3x^2}{2}+C$",
       "$\\ln|x|+\\frac{3x^2}{2}+C$",
@@ -286,7 +286,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(\\frac{6}{x}-x^2\\right)\\,dx$$",
+    "question": "Encontrá la primitiva de:\n$$\\int \\left(\\frac{6}{x}-x^2\\right)\\,dx$$",
     "options": [
       "$-\\frac{6}{x^2}-\\frac{x^3}{3}+C$",
       "$6\\ln|x|-\\frac{x^3}{3}+C$",
@@ -308,7 +308,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$",
+    "question": "¿Cuál es el resultado de resolver\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$?",
     "options": [
       "$\\frac{x^4}{4}+4\\ln|x|+C$",
       "$x^4-4\\ln|x|+C$",

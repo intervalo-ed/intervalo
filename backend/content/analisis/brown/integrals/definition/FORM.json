@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la integral\n$$\\int (4x^2 - 3\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Considerá la integral:\n$$\\int (4x^2 - 3\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$4\\int x^2\\,dx - 3\\int \\sin x\\,dx$",
       "$4\\int x^2\\,dx + 3\\int \\sin x\\,dx$",
@@ -20,7 +20,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Analiza la integral:\n$$\\int (x+\\sin x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$\\int (x+\\sin x)\\,dx$",
       "$\\int x\\,dx + \\int \\sin x\\,dx$",
@@ -40,7 +40,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (5x^3 - 2x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Observá la integral:\n$$\\int (5x^3 - 2x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$5\\int x^3\\,dx + 2\\int x\\,dx$",
       "$\\int 5x^3\\,dx - \\int 2x\\,dx$",
@@ -60,7 +60,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int 7e^x\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "En esta integral:\n$$\\int 7e^x\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$7\\int e^x\\,dx$",
       "$\\int 7e^x\\,dx$",
@@ -80,7 +80,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (x^2+x-4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Frente a la integral:\n$$\\int (x^2+x-4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$\\int x^{2+1}\\,dx$",
       "$\\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$",
@@ -100,7 +100,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (-6\\cos x+x^4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Considerá la integral:\n$$\\int (-6\\cos x+x^4)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$6\\int\\cos x\\,dx+\\int x^4\\,dx$",
       "$\\int -6\\cos x\\,dx+\\int x^4\\,dx$",
@@ -120,7 +120,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Analiza la integral:\n$$\\int (2x-9\\ln x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$2\\int x\\,dx-9\\int \\ln x\\,dx$",
       "$2\\int x\\,dx+9\\int \\ln x\\,dx$",
@@ -140,7 +140,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (x^3+2x^2-x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
+    "question": "Observá la integral:\n$$\\int (x^3+2x^2-x)\\,dx$$\n¿Cuál es la forma correctamente armada usando linealidad?",
     "options": [
       "$\\int x^3\\,dx+\\int 2x^2\\,dx-\\int x\\,dx$",
       "$\\int x^3\\,dx+2\\int x^2\\,dx-\\int x\\,dx$",
@@ -160,7 +160,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int x\\cos x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "En esta integral:\n$$\\int x\\cos x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int x\\,dx \\cdot \\int \\cos x\\,dx$",
       "Sí, es $\\int x\\,dx + \\int \\cos x\\,dx$",
@@ -180,7 +180,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Frente a la integral:\n$$\\int \\frac{\\sin x}{x}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "No, la integral de un cociente no es el cociente de las integrales",
       "Sí, es $\\dfrac{\\int \\sin x\\,dx}{\\int x\\,dx}$",
@@ -200,7 +200,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Considerá la integral:\n$$\\int e^x \\ln x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int e^x\\,dx + \\int \\ln x\\,dx$",
       "No, la integral de un producto no es el producto de las integrales",
@@ -220,7 +220,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Analiza la integral:\n$$\\int (3x+5)\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "No, hay que integrar por partes",
       "No, hay que usar sustitución",
@@ -240,7 +240,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Observá la integral:\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\dfrac{1}{5}\\int(x^2+3)\\,dx$",
       "No, hay que aplicar la regla del cociente para integrales",
@@ -260,7 +260,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int x^2 \\cdot 4\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "En esta integral:\n$$\\int x^2 \\cdot 4\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "No, hay que aplicar integración por partes",
       "Sí, es $4\\int x^2\\,dx$, el $4$ es un escalar",
@@ -280,7 +280,7 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la integral\n$$\\int \\tan x \\cdot \\sec x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
+    "question": "Frente a la integral:\n$$\\int \\tan x \\cdot \\sec x\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
       "Sí, es $\\int \\tan x\\,dx \\cdot \\int \\sec x\\,dx$",
       "Sí, es $\\int \\tan x\\,dx + \\int \\sec x\\,dx$",

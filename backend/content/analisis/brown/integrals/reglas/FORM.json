@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá\n$$\\int \\cos x\\,dx$$",
+    "question": "Calculá:\n$$\\int \\cos x\\,dx$$",
     "options": [
       "$\\sin x + C$",
       "$-\\sin x + C$",
@@ -22,7 +22,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int e^x\\,dx$$",
+    "question": "Encontrá la primitiva de:\n$$\\int e^x\\,dx$$",
     "options": [
       "$\\frac{e^{x+1}}{x+1} + C$",
       "$e^x + C$",
@@ -44,7 +44,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\sec^2 x\\,dx$$",
+    "question": "¿Cuál es la primitiva de\n$$\\int \\sec^2 x\\,dx$$?",
     "options": [
       "$\\tan x$",
       "$-\\tan x + C$",
@@ -66,7 +66,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\sin x\\,dx$$",
+    "question": "Integrá:\n$$\\int \\sin x\\,dx$$",
     "options": [
       "$\\cos x + C$",
       "$-\\cos x$",
@@ -88,7 +88,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int \\frac{1}{x}\\,dx$$",
+    "question": "¿Cuál función integra a\n$$\\int \\frac{1}{x}\\,dx$$?",
     "options": [
       "$\\ln|x| + C$",
       "$\\ln x + C$",
@@ -110,7 +110,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int x^3\\,dx$$",
+    "question": "Calculá:\n$$\\int x^3\\,dx$$",
     "options": [
       "$4x^2 + C$",
       "$\\frac{x^4}{4} + C$",
@@ -132,7 +132,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int 5\\,dx$$",
+    "question": "Resolvé la integral de:\n$$\\int 5\\,dx$$",
     "options": [
       "$0 + C$",
       "$5x$",
@@ -154,7 +154,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá\n$$\\int 2^x\\,dx$$",
+    "question": "Encontrá:\n$$\\int 2^x\\,dx$$",
     "options": [
       "$2^x + C$",
       "$\\frac{2^{x+1}}{x+1} + C$",
@@ -176,7 +176,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$\\frac{1}{x}$$?",
+    "question": "Calculá:\n$$\\frac{1}{x}$$",
     "options": [
       "$\\ln x + C$",
       "$-\\frac{1}{x^2} + C$",
@@ -196,7 +196,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$e^x$$?",
+    "question": "Encontrá la primitiva de:\n$$e^x$$",
     "options": [
       "$e^x + C$",
       "$xe^{x-1} + C$",
@@ -216,7 +216,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$\\cos x$$?",
+    "question": "¿Cuál es la primitiva de\n$$\\cos x$$?",
     "options": [
       "$-\\cos x + C$",
       "$\\sin x + C$",
@@ -236,7 +236,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$\\sin x$$?",
+    "question": "Integrá:\n$$\\sin x$$",
     "options": [
       "$\\cos x + C$",
       "$\\sin x + C$",
@@ -256,7 +256,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$\\sec^2 x$$?",
+    "question": "¿Cuál función integra a\n$$\\sec^2 x$$?",
     "options": [
       "$\\tan x + C$",
       "$\\sec x\\tan x + C$",
@@ -276,7 +276,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$x^4$$?",
+    "question": "Calculá:\n$$x^4$$",
     "options": [
       "$5x^3 + C$",
       "$\\frac{x^5}{5} + C$",
@@ -296,7 +296,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Qué función, al derivarse, da\n$$7 \\text{ (una constante)}$$?",
+    "question": "Resolvé la integral de:\n$$7 \\text{ (una constante)}$$",
     "options": [
       "$7 + C$",
       "$0 + C$",

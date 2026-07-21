@@ -1,6 +1,6 @@
 [
   {
-    "question": "En la notación\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $f(x)$?",
+    "question": "En la notación integral estándar\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué es $f(x)$?",
     "options": [
       "$f(x)$ es el integrando",
       "$f(x)$ es la primitiva",
@@ -20,7 +20,7 @@
     "reviewed": false
   },
   {
-    "question": "En la misma notación\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
+    "question": "En esa misma notación\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
       "El diferencial, que marca la variable de integración",
@@ -120,7 +120,7 @@
     "reviewed": false
   },
   {
-    "question": "Al escribir\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
+    "question": "Al escribir una integral indefinida como\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
     "options": [
       "Marca que la integración es respecto de la variable $x$",
       "Multiplica aritméticamente al $3x$",
