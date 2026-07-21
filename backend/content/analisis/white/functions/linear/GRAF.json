@@ -383,7 +383,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función cuando $x = 0$\n$$f(0) = b$$\nEn este caso es el precio de la suscripción, que además es el mismo todos los meses porque la recta es horizontal: pendiente cero.\n\nUna función constante también es lineal, con $m = 0$: no crece ni decrece, solo mantiene su altura.\n\nEn rectas horizontales el único dato relevante es la ordenada al origen: no busques ritmos de cambio donde la inclinación es nula.",
+    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función cuando $x = 0$:\n$$f(0) = b$$\nEn este caso es el precio de la suscripción, que además es el mismo todos los meses porque la recta es horizontal: pendiente cero.\n\nUna función constante también es lineal, con $m = 0$: no crece ni decrece, solo mantiene su altura.\n\nEn rectas horizontales el único dato relevante es la ordenada al origen: no busques ritmos de cambio donde la inclinación es nula.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -413,7 +413,7 @@
       -1,
       11
     ],
-    "explanation": "El punto donde la recta corta el eje vertical es el costo cuando $x = 0$\n$$f(0) = b$$\nEs decir, con cero horas de uso: el cargo fijo por retirar la bici.\n\nEn el gráfico, la recta nace a esa altura y desde ahí sube con cada hora pedaleada.\n\nLos dos números del alquiler viven en lugares distintos del dibujo: el fijo es el arranque sobre el eje vertical; la tarifa horaria es la inclinación. Leer uno donde va el otro es el error clásico.",
+    "explanation": "El punto donde la recta corta el eje vertical es el costo cuando $x = 0$:\n$$f(0) = b$$\nEs decir, con cero horas de uso: el cargo fijo por retirar la bici.\n\nEn el gráfico, la recta nace a esa altura y desde ahí sube con cada hora pedaleada.\n\nLos dos números del alquiler viven en lugares distintos del dibujo: el fijo es el arranque sobre el eje vertical; la tarifa horaria es la inclinación. Leer uno donde va el otro es el error clásico.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -473,7 +473,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical muestra el gasto cuando $x = 0$\n$$f(0) = b$$\nSin ninguna exportación en el mes: el abono fijo.\n\nLa pendiente, suave en este caso, es el extra por cada exportación: la recta sube medio ciento de pesos por unidad.\n\nEl piso del gasto se lee en el eje vertical y el ritmo en la inclinación: si la pregunta dice \"aunque no se use\", la respuesta está siempre en la ordenada al origen.",
+    "explanation": "El corte con el eje vertical muestra el gasto cuando $x = 0$:\n$$f(0) = b$$\nSin ninguna exportación en el mes: el abono fijo.\n\nLa pendiente, suave en este caso, es el extra por cada exportación: la recta sube medio ciento de pesos por unidad.\n\nEl piso del gasto se lee en el eje vertical y el ritmo en la inclinación: si la pregunta dice \"aunque no se use\", la respuesta está siempre en la ordenada al origen.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -1223,7 +1223,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(4)$, buscá la altura de la recta en $x = 4$\n$$f(4) = -4 + 9 = 5$$\nAl día 4 faltan 5 ejercicios.\n\nLa recta baja porque la tarea se achica: arrancó con 9 pendientes (ordenada al origen) y se resuelve uno por día (pendiente $-1$).\n\nEn rectas descendentes revisá el sentido de la lectura: cada día de más que avances lee un ejercicio de menos, y viceversa.",
+    "explanation": "Para leer $f(4)$, buscá la altura de la recta en $x = 4$:\n$$f(4) = -4 + 9 = 5$$\nAl día 4 faltan 5 ejercicios.\n\nLa recta baja porque la tarea se achica: arrancó con 9 pendientes (ordenada al origen) y se resuelve uno por día (pendiente $-1$).\n\nEn rectas descendentes revisá el sentido de la lectura: cada día de más que avances lee un ejercicio de menos, y viceversa.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1283,7 +1283,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\nA la semana 6 acumula 6 kilos reciclados.\n\nLa cuenta une el arranque de 2 kilos con el ritmo de dos tercios de kilo semanal: seis semanas aportan 4 kilos más.\n\nCon pendientes fraccionarias es fácil desviarse un kilo en la lectura visual: confirmá el punto con la cuenta antes de responder.",
+    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$:\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\nA la semana 6 acumula 6 kilos reciclados.\n\nLa cuenta une el arranque de 2 kilos con el ritmo de dos tercios de kilo semanal: seis semanas aportan 4 kilos más.\n\nCon pendientes fraccionarias es fácil desviarse un kilo en la lectura visual: confirmá el punto con la cuenta antes de responder.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"

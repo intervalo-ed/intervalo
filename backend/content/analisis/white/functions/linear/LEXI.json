@@ -89,7 +89,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nCuidado con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
+    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nCuidado con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"
@@ -427,7 +427,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor de $x$ donde la función vale cero se llama raíz (o cero) de la función. Para una lineal $f(x) = mx + b$ con $m \\neq 0$\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY geométricamente la recta corta el eje $X$ en el punto $(-b/m, 0)$.\n\nLa raíz es un número, el valor de $x$; el punto del plano es el par $(-b/m, 0)$.\n\nNo la mezcles con la **ordenada al origen**, que es el corte con el eje $Y$: cada corte tiene su nombre y su eje.",
+    "explanation": "El valor de $x$ donde la función vale cero se llama raíz (o cero) de la función. Para una lineal $f(x) = mx + b$ con $m \\neq 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY geométricamente la recta corta el eje $X$ en el punto $(-b/m, 0)$.\n\nLa raíz es un número, el valor de $x$; el punto del plano es el par $(-b/m, 0)$.\n\nNo la mezcles con la **ordenada al origen**, que es el corte con el eje $Y$: cada corte tiene su nombre y su eje.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -669,7 +669,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nLos errores típicos son de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
+    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nLos errores típicos son de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -694,7 +694,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la raíz se resuelve $f(x) = 0$\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\nVerificación: $f(4) = -2 \\cdot 4 + 8 = 0$.\n\nAl dividir $-8$ entre $-2$ los signos se cancelan y el resultado es positivo.\n\nEl error más común en estas cuentas es manejar mal el signo del coeficiente negativo: conviene despejar en dos pasos y recién al final dividir, mirando los signos de ambos lados.",
+    "explanation": "Para hallar la raíz se resuelve $f(x) = 0$:\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\nVerificación: $f(4) = -2 \\cdot 4 + 8 = 0$.\n\nAl dividir $-8$ entre $-2$ los signos se cancelan y el resultado es positivo.\n\nEl error más común en estas cuentas es manejar mal el signo del coeficiente negativo: conviene despejar en dos pasos y recién al final dividir, mirando los signos de ambos lados.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1013,7 +1013,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**. Si $m > 0$, para cualquier par de puntos con $x_2 > x_1$\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\nPorque ambos factores son positivos. Entonces $f(x_2) > f(x_1)$: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
+    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**. Si $m > 0$, para cualquier par de puntos con $x_2 > x_1$:\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\nPorque ambos factores son positivos. Entonces $f(x_2) > f(x_1)$: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -1061,7 +1061,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz se obtiene resolviendo $f(x) = 0$\n$$\\begin{aligned} mx + b &= 0 \\\\ mx &= -b \\\\ x &= -\\frac{b}{m} \\end{aligned}$$\nEsta fórmula vale para cualquier lineal con $m \\neq 0$.\n\nEl detalle que decide todo es el signo: al pasar $b$ restando queda $-b$ en el numerador.\n\nSi la raíz que calculaste no verifica $f(x) = 0$ al sustituir, casi seguro el error fue ese signo o dividir los parámetros al revés.",
+    "explanation": "La raíz se obtiene resolviendo $f(x) = 0$:\n$$\\begin{aligned} mx + b &= 0 \\\\ mx &= -b \\\\ x &= -\\frac{b}{m} \\end{aligned}$$\nEsta fórmula vale para cualquier lineal con $m \\neq 0$.\n\nEl detalle que decide todo es el signo: al pasar $b$ restando queda $-b$ en el numerador.\n\nSi la raíz que calculaste no verifica $f(x) = 0$ al sustituir, casi seguro el error fue ese signo o dividir los parámetros al revés.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"

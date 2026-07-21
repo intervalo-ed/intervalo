@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo $f(x) = 0$\n$$-x + 5 = 0 \\implies -x = -5 \\implies x = 5$$\nVerificación: $f(5) = -5 + 5 = 0$.\n\nEl paso delicado es el último: dividir (o multiplicar) por $-1$ ambos lados. Los dos signos negativos se cancelan y el resultado es positivo.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero; en $x = 0$ la función vale 5.",
+    "explanation": "Resolviendo $f(x) = 0$:\n$$-x + 5 = 0 \\implies -x = -5 \\implies x = 5$$\nVerificación: $f(5) = -5 + 5 = 0$.\n\nEl paso delicado es el último: dividir (o multiplicar) por $-1$ ambos lados. Los dos signos negativos se cancelan y el resultado es positivo.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero; en $x = 0$ la función vale 5.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo $f(x) = 0$\n$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$\nVerificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nCon pendientes fraccionarias, el error típico es dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
+    "explanation": "Resolviendo $f(x) = 0$:\n$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$\nVerificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nCon pendientes fraccionarias, el error típico es dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1038,7 +1038,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$\n$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$\nCon 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nDividir el objetivo completo por la comisión (sin restar el base) es el error típico: el fijo no se gana vendiendo, ya estaba.",
+    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:\n$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$\nCon 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nDividir el objetivo completo por la comisión (sin restar el base) es el error típico: el fijo no se gana vendiendo, ya estaba.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1238,7 +1238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar la función en $k = 3$\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nEl viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
+    "explanation": "Evaluar la función en $k = 3$:\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nEl viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

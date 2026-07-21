@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx \\text{ (con signo cambiado)}$$\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
+    "explanation": "Las **integrales cíclicas**, como el producto de una exponencial y una función trigonométrica, no reducen su complejidad al aplicar partes repetidamente.\n$$\\int e^x\\sin x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\sin x\\,dx$$\n\n(con signo cambiado)\nEn vez de seguir aplicando el método indefinidamente, hay que tratar la integral original como una incógnita y despejarla algebraicamente.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx \\text{ (con signo cambiado)}$$\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
+    "explanation": "Igual que con $e^x\\sin x$, el producto de una exponencial y un coseno genera una **integral cíclica**.\n$$\\int e^x\\cos x\\,dx \\xrightarrow{\\text{2 aplicaciones}} \\int e^x\\cos x\\,dx$$\n\n(con signo cambiado)\nEl diagnóstico correcto acá no es seguir aplicando el método, sino reconocer el ciclo y despejar la integral original de la ecuación resultante.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

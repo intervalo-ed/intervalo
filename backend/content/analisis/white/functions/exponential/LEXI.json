@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3) \\implies \\text{desplazamiento 3 unidades a la derecha}$$\nVerificación: $g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
+    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$\n\nEsta transformación representa un desplazamiento de 3 unidades a la derecha.\nVerificación: $g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
     "reviewed": false,
     "tags": [
       "numero-e-concepto"
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $x > 0$, mayor **base** → mayor valor:\n$$b_1 > b_2 > 1 \\implies b_1^x > b_2^x \\quad \\text{(para } x > 0\\text{)}$$\nEl dominio natural es todo $\\mathbb{R}$ porque la exponencial $b^x$ existe para **cualquier número real** como exponente, no hay restricción algebraica. Esto contrasta con funciones racionales (denominador ≠ 0), raíces pares (radicando ≥ 0) o logaritmos (argumento > 0). La capacidad de aceptar exponentes negativos, fraccionarios e irracionales es lo que hace a la exponencial tan versátil en modelado.",
+    "explanation": "Para $x > 0$, mayor **base** → mayor valor:\n$$b_1 > b_2 > 1 \\implies b_1^x > b_2^x \\quad (\\text{for } x > 0)$$\nEl dominio natural es todo $\\mathbb{R}$ porque la exponencial $b^x$ existe para **cualquier número real** como exponente, no hay restricción algebraica. Esto contrasta con funciones racionales (denominador ≠ 0), raíces pares (radicando ≥ 0) o logaritmos (argumento > 0). La capacidad de aceptar exponentes negativos, fraccionarios e irracionales es lo que hace a la exponencial tan versátil en modelado.",
     "reviewed": false,
     "tags": [
       "dominio-razonamiento"
