@@ -36,12 +36,14 @@ export function DashboardSkeleton() {
   const beltRows = [7, 6]
   return (
     <div className="flex flex-col gap-4">
-      <CourseSwitcherSkeleton />
-
-      <div className="grid grid-cols-3 gap-2">
-        {[0, 1, 2].map((i) => (
-          <MetricCardSkeleton key={i} />
-        ))}
+      {/* switcher + métricas agrupados con gap-2, como en dashboard-entry */}
+      <div className="flex flex-col gap-2">
+        <CourseSwitcherSkeleton />
+        <div className="grid grid-cols-3 gap-2">
+          {[0, 1, 2].map((i) => (
+            <MetricCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
 
       {/* botón Repasar */}
@@ -51,7 +53,7 @@ export function DashboardSkeleton() {
       {beltRows.map((nRows, b) => (
         <div
           key={b}
-          className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
+          className="flex flex-col gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4"
         >
           <div className="flex items-start justify-between gap-3">
             <Skeleton className="h-[18px] w-32" />
@@ -107,8 +109,10 @@ export function PracticeSkeleton() {
   )
 }
 
-// Mismas medidas que Metric del leaderboard (px-3 py-[14px]) y las filas de
-// la lista (rank + nombre + tag + xp).
+// Mismas medidas que Metric del leaderboard (px-3 py-[14px], valor text-lg
+// leading-none + label text-[0.7rem] leading-tight de 14px), los FilterBox
+// (px-3 py-[10px], valor de 12px + fila de label de 13px) y las filas de la
+// lista (py-3 + contenido text-sm de 20px = 44px de alto total).
 export function LeaderboardSkeleton() {
   const nameW = ["w-24", "w-32", "w-28", "w-36", "w-24", "w-32", "w-28", "w-20"]
   return (
@@ -121,13 +125,22 @@ export function LeaderboardSkeleton() {
               className="flex flex-col justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[14px]"
             >
               <Skeleton className="h-[1.125rem] w-10" />
-              <Skeleton className="h-2.5 w-24" />
+              <Skeleton className="h-3.5 w-24" />
             </div>
           ))}
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[0, 1, 2].map((i) => (
-            <Skeleton key={i} className="h-[52px] w-full" />
+            <div
+              key={i}
+              className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px]"
+            >
+              <Skeleton className="h-3 w-14" />
+              <div className="flex h-[13px] items-center justify-between gap-1">
+                <Skeleton className="h-2.5 w-12" />
+                <Skeleton className="size-3" />
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -136,7 +149,7 @@ export function LeaderboardSkeleton() {
         {nameW.map((w, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+            className="flex h-11 items-center gap-3 rounded-lg px-4 ring-1 ring-foreground/10"
           >
             <Skeleton className="h-3.5 w-3" />
             <Skeleton className={`h-3.5 ${w} flex-1`} />
