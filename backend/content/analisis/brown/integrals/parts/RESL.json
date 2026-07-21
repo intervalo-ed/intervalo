@@ -207,7 +207,7 @@
     "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
-    "question": "Calculá\n$$\\int x\\ln x\\,dx$$",
+    "question": "Integrá y simplifica:\n$$\\int x\\ln x\\,dx$$",
     "options": [
       "$x^2\\ln x-\\frac{x^2}{4}+C$",
       "$\\frac{x^2(2\\ln x-1)}{4}+C$",
@@ -226,7 +226,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
     "question": "Calculá\n$$\\int \\ln(2x)\\,dx$$",

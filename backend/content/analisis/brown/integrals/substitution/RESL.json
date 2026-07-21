@@ -322,7 +322,7 @@
     "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
+    "question": "Integrá mediante cambio de variable:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
     "options": [
       "$\\ln|x^2-3|+C$",
       "$4\\ln|x^2-3|+C$",
@@ -340,7 +340,8 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\\\ &= 2\\ln|x^2-3|+C \\end{aligned}$$\nCuando el numerador es un múltiplo de $du$ en vez de coincidir exactamente, ese múltiplo sobrevive como coeficiente del logaritmo final.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2-3$. Cuando el numerador es un múltiplo de $du$, ese múltiplo se mantiene como coeficiente del logaritmo final.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   }
 ]
