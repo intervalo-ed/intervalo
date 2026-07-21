@@ -24,7 +24,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremos-locales"
+    ]
   },
   {
     "question": "La gráfica muestra una función polinómica de grado 3.\n\n¿El coeficiente principal es positivo o negativo?",
@@ -51,7 +54,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremos-locales"
+    ]
   },
   {
     "question": "La gráfica muestra una función polinómica.\n\n¿Cuál es el grado mínimo posible?",
@@ -78,7 +84,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremos-locales"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$.\n\n¿Cuánto vale $f(0)$?",
@@ -96,7 +105,7 @@
       null,
       "Ese valor corresponde a otro punto del gráfico, releé la altura justo donde la curva cruza el eje vertical."
     ],
-    "explanation": "Evaluando directamente en $x = 0$:\n$$f(0) = \\frac{(0^2-1)(0^2-4)}{4} = \\frac{(-1)(-4)}{4} = \\frac{4}{4} = 1$$\nEl gráfico confirma que la curva **corta el eje $y$ en $y = 1$** (entre los dos mínimos locales). $f(0) = 1$ también es el **término independiente** de la forma estándar.",
+    "explanation": "La **ordenada al origen** $f(0)$ es el valor donde la curva cruza el eje $Y$. Para calcularlo, evaluamos la función en $x = 0$.\n\nEvaluando $f(0) = \frac{(0^2-1)(0^2-4)}{4} = \frac{(-1)(-4)}{4} = \frac{4}{4} = 1$. En el gráfico, esto se visualiza como el punto donde la curva intersecta el eje vertical en $y = 1$. Este punto siempre ocurre en las coordenadas $(0, f(0))$, lo que proporciona una forma rápida de verificar la fórmula leyendo el gráfico.\n\nPara cualquier polinomio, $f(0)$ es simplemente el **término independiente** de la expresión, que puede extraerse sin necesidad de cálculos si se escribe en forma estándar.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -105,7 +114,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremos-locales"
+    ]
   },
   {
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Hacia dónde tienden los extremos de la curva cuando $x \\to \\pm\\infty$?",
@@ -132,7 +144,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 3 con raíz en $x = 0$.\n\nEn $x = 0$, ¿la curva cruza el eje $x$ o lo toca sin cruzar?",
@@ -159,7 +174,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Cuántos extremos locales tiene?",
@@ -186,7 +204,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Cuántos extremos locales tiene?",
@@ -213,7 +234,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-grado"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿La función es creciente en todo $\\mathbb{R}$ (sin ningún extremo local)?",
@@ -231,7 +255,7 @@
       "Buscá algún valle real en la curva, un tramo donde primero baje y después retome la subida.",
       "Mirá la tendencia general de la curva de izquierda a derecha, no solo un tramo puntual."
     ],
-    "explanation": "$f(x) = x^3/8$ es un monomio de grado impar con coef. positivo. Su derivada:\n$$\\begin{aligned} f'(x) &= \\frac{3x^2}{8} \\geq 0 \\\\ \\text{para todo } x \\end{aligned}$$\nComo $f'(x) \\geq 0$ (nunca negativo), la función **nunca decrece**: es globalmente creciente.\nEn $x = 0$, $f'(0) = 0$ (punto de inflexión), pero no es un extremo: la función no cambia de tendencia.",
+    "explanation": "La gráfica muestra $f(x) = x^3/8$, un polinomio de **grado** 3 (impar) con **coeficiente positivo**.\n\nLos polinomios de grado impar con coeficiente positivo son **globalmente crecientes**: suben continuamente desde $-\\infty$ hasta $+\\infty$, nunca bajan. Esto significa que no tienen ni máximos locales ni mínimos locales; solo tienen un **punto de inflexión** (donde cambia la curvatura) pero no cambian de dirección.\n\nEn $f(x) = x^3/8$, el punto de inflexión está en $(0, 0)$. La función sube a la izquierda del origen, pasa por el origen, y sigue subiendo hacia la derecha.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -240,7 +264,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-grado"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 3 con coeficiente principal positivo.\n\n¿La imagen (rango) de $f$ es $\\mathbb{R}$ completo?",
@@ -267,7 +294,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-grado"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal positivo.\n\n¿La imagen de $f$ está acotada por abajo (tiene un mínimo global)?",
@@ -294,7 +324,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-extremos"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{-x(x-2)(x+2)}{4}$.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to -\\infty$?",
@@ -321,7 +354,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-extremos"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Cuánto vale $f(0)$?",
@@ -348,7 +384,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-extremos"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 4.\n\n¿Cuántas raíces reales tiene?",
@@ -375,7 +414,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿Cuántas raíces reales tiene?",
@@ -393,7 +435,7 @@
       "Fijate si esos cruces son realmente puntos distintos o el mismo punto contado dos veces.",
       "La multiplicidad de la raíz no significa que haya varios cruces distintos con el eje."
     ],
-    "explanation": "$x^3/8 = 0 \\Rightarrow x^3 = 0 \\Rightarrow x = 0$.\n\nLa única raíz real es $x = 0$, con multiplicidad 3 (raíz **triple**).\nEn el gráfico se ve que la curva cruza el eje $x$ **una sola vez**, en el origen, con una inflexión característica (cruza pero con pendiente cero).",
+    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tiene exactamente la misma cantidad de raíces reales que su grado cuando todas son simples (no repetidas). Sin embargo, esta función tiene una **raíz de multiplicidad 3** en $x = 0$.\n\nAlgebraicamente, $x^3/8 = 0 \\Rightarrow x^3 = 0 \\Rightarrow x = 0$. La raíz $x = 0$ tiene multiplicidad 3 porque el factor $(x - 0)^3 = x^3$ aparece en la forma factorizada. Gráficamente, una raíz triple se ve como un punto donde la curva **toca y cruza** el eje $X$ con inflexión (cambio de curvatura), no solo toca sin cruzar como una raíz doble.\n\nPor lo tanto, aunque grado es 3, existe solo **1 raíz real distinta**, pero con multiplicidad 3.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -402,7 +444,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{(x^2-1)(x^2-4)}{4}$.\n\nEntre $x = 1$ y $x = 2$, ¿la curva está por encima o por debajo del eje $x$?",
@@ -429,7 +474,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-multiplicidad-raiz"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 4.\n\n¿Cuántos máximos locales tiene?",
@@ -456,7 +504,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-multiplicidad-raiz"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿Qué ocurre con $f(x)$ cuando $x \\to +\\infty$?",
@@ -474,7 +525,7 @@
       "La curva no aplana su crecimiento en el extremo derecho, sigue alejándose del eje.",
       null
     ],
-    "explanation": "El término dominante de $f(x) = x(x-2)(x+2)/4$ es $x^3/4$.\n\nCuando $x \\to +\\infty$:\n$$\\frac{x^3}{4} \\to +\\infty$$\nGrado **impar**, coef. **positivo** → la curva **sube** a la derecha (y baja a la izquierda). En el gráfico se confirma que la curva va hacia arriba cuando $x$ crece.",
+    "explanation": "Una función polinómica puede tener raíces reales simples, dobles, triples o de mayor multiplicidad. Para este polinomio $f(x) = x(x-2)(x+2)$, cada factor lineal aparece una sola vez en la forma factorizada.\n\nEsto significa que cada raíz ($x = 0, x = 2, x = -2$) es **simple** (multiplicidad 1). Gráficamente, una raíz simple es un punto donde la curva **cruza** el eje $X$ limpiamente, cambiando de signo. En el gráfico se ven claramente los tres cruces distintos: la curva pasa de negativa a positiva o viceversa en cada raíz.\n\nCon grado 3 y 3 raíces reales simples, este polinomio tiene el máximo de raíces que un cúbico puede tener, confirmado por la regla de que un polinomio de grado $n$ tiene exactamente $n$ raíces (contando multiplicidades).",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -483,7 +534,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-imagen"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal negativo.\n\n¿La función tiene mínimo global?",
@@ -510,7 +564,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-imagen"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{-x(x-2)(x+2)}{4}$.\n\n¿Cuántos extremos locales tiene?",
@@ -537,7 +594,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremo-global"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿El grado del polinomio es par o impar?",
@@ -564,7 +624,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremo-global"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio.\n\n¿El grado es par o impar?",
@@ -591,7 +654,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-signo-coeficiente"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x^3}{8}$.\n\n¿El dominio de $f$ es $\\mathbb{R}$?",
@@ -609,7 +675,7 @@
       "La curva también está dibujada para valores negativos de $x$, revisá el lado izquierdo del gráfico.",
       "La curva sigue extendiéndose hacia ambos bordes del gráfico sin cortarse."
     ],
-    "explanation": "Una de las propiedades fundamentales de los **polinomios** es que son funciones que se pueden evaluar en **cualquier número real** sin restricciones.\n\nNo hay divisiones por cero, raíces cuadradas de negativos, ni logaritmos. El dominio de todo polinomio es $\\mathbb{R} = (-\\infty, +\\infty)$.",
+    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$ hasta $+\\infty$ (o viceversa si el coeficiente principal es negativo). El término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$, el término $x^3$ es negativo y muy grande en magnitud, así que $f(x) \\to -\\infty$. Cuando $x \\to +\\infty$, el término $x^3$ es positivo y muy grande, así que $f(x) \\to +\\infty$. Esto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -618,7 +684,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-monotonia-global"
+    ]
   },
   {
     "question": "La gráfica muestra un polinomio con raíz en $x = 0$. La curva **toca** el eje $x$ en ese punto sin cruzarlo.\n\n¿Cuál es la multiplicidad de esa raíz?",
@@ -645,7 +714,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-signo-intervalo"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = \\dfrac{x(x-2)(x+2)}{4}$.\n\n¿La función tiene mínimo global?",
@@ -672,7 +744,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-dominio"
+    ]
   },
   {
     "question": "La gráfica muestra una curva polinómica de grado 3 con raíces en $x = -2$, $x = 0$ y $x = 2$, y coeficiente principal positivo.\n\n¿Cuál de estas expresiones corresponde a la curva?",
@@ -690,7 +765,7 @@
       "Revisá qué tan lejos del eje $x$ llegan los picos y valles de la curva dibujada, la escala importa.",
       null
     ],
-    "explanation": "Raíces en $x = -2$, $0$, $2$ → factores $(x+2)$, $x$, $(x-2)$.\nCoef. principal positivo → $a > 0$.\n$$f(x) = \\frac{x(x-2)(x+2)}{4}$$\nLa escala $1/4$ hace que la curva sea visible en la ventana. La opción negativa tendría la curva invertida (bajando a la derecha).",
+    "explanation": "Para un **polinomio de grado 3** dado gráficamente, el número y multiplicidad de las raíces se leen directamente del gráfico: cada vez que cruza el eje $X$ hay una raíz simple, y cada vez que toca sin cruzar hay una raíz de multiplicidad par.\n\nUna cúbica puede tener como máximo 3 raíces reales: si todas son simples (diferentes), hay 3 cruces del eje $X$ y 2 extremos locales (máximo local + mínimo local). El gráfico muestra esta forma característica de **S**.\n\nContando en el gráfico: si hay 3 puntos distintos donde la curva cruza el eje $X$, tenemos 3 raíces reales simples. Este es el máximo posible para una cúbica, confirmando que $n - 1 = 2$ cambios de dirección (un máximo local y un mínimo local) aparecen entre las raíces.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -699,7 +774,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x = -1$, $x = 0$ y $x = 3$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
@@ -726,7 +804,10 @@
       -2,
       2
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -2$, $x = -1$, $x = 1$ y $x = 2$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
@@ -744,7 +825,7 @@
       null,
       "Compará qué tan altos son los picos de la curva dibujada con esta expresión sin ajustar la escala."
     ],
-    "explanation": "Las raíces $\\pm 1$ dan factor $(x-1)(x+1) = x^2-1$. Las raíces $\\pm 2$ dan factor $(x-2)(x+2) = x^2-4$.\n$$f(x) = \\frac{(x^2-1)(x^2-4)}{4}$$\nCon coef. positivo, la curva tiene forma de W (ambos extremos arriba). La opción negativa daría forma M (ambos extremos abajo).",
+    "explanation": "Un **polinomio de grado 4** (cuártica) tiene una forma característica en **W** o **M** según el signo del coeficiente principal. El número de raíces reales se lee del gráfico contando cuántas veces cruza el eje $X$.\n\nSi todas las raíces son simples (multiplicidad 1), hay 4 cruces distintos y exactamente $4 - 1 = 3$ extremos locales: dos máximos locales y un mínimo local (forma W), o dos mínimos locales y un máximo (forma M invertida). El número de extremos está siempre entre 0 y $n-1 = 3$ para una cuártica.\n\nEn el gráfico de grado 4 con las 4 raíces mostradas, se ven claramente los picos y valles característicos, permitiendo verificar que se trata de un polinomio de ese grado específico sin necesidad de la fórmula algebraica.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -753,7 +834,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x = -2$, $x = 0$ y $x = 2$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde a la curva?",
@@ -771,7 +855,7 @@
       "Contá las raíces visibles en el gráfico, a esta expresión le falta una.",
       "Fijate si la curva cruza o toca cada una de las raíces marcadas en el gráfico."
     ],
-    "explanation": "Las mismas raíces $-2$, $0$, $2$ que en el gráfico anterior, pero con coef. **negativo**:\n$$f(x) = \\frac{-x(x-2)(x+2)}{4}$$\nEl signo negativo **invierte** la curva: sube a la izquierda y baja a la derecha (en lugar de la S normal). En el gráfico se observa que la curva **baja** cuando $x$ crece.",
+    "explanation": "Un **polinomio de grado 3** con raíces reales distintas forma la característica forma de **S**: sube, baja, vuelve a subir (o el patrón inverso si el coeficiente principal es negativo). Las 3 raíces simples crean 2 intervalos internos donde ocurren los cambios de dirección.\n\nEntre la primera y segunda raíz hay un **máximo local**; entre la segunda y tercera hay un **mínimo local**. El gráfico confirma esta estructura: cruces en el eje $X$ separados por un pico y luego un valle. Este es el patrón universal de las cúbicas con 3 raíces reales simples.\n\nLeyendo el gráfico, se identifican las coordenadas aproximadas de las raíces (dónde cruza) y los extremos locales (dónde están los picos/valles), lo que permite reconstruir información sobre la fórmula sin conocerla explícitamente.",
     "has_math": true,
     "graph_fn": "-x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -780,7 +864,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva con raíz **doble** en $x = 0$ (toca sin cruzar) y raíz simple en $x = 3$ (cruza).\n\n¿Cuál expresión corresponde a la curva?",
@@ -807,7 +894,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -2$, $x = -1$, $x = 1$ y $x = 2$, y coeficiente principal **negativo** (forma M).\n\n¿Cuál expresión corresponde a la curva?",
@@ -825,7 +915,7 @@
       "Contá cuántos puntos distintos toca la curva sobre el eje $x$ en el gráfico.",
       "Revisá si el gráfico muestra dos o cuatro cruces con el eje $x$."
     ],
-    "explanation": "Raíces $\\pm 1$ y $\\pm 2$ → factores $(x^2-1)$ y $(x^2-4)$. Coef. negativo:\n$$f(x) = \\frac{-(x^2-1)(x^2-4)}{4}$$\nCon coef. negativo, los extremos apuntan hacia $-\\infty$ → forma **M** (ambos lados bajan). La versión positiva da forma **W** (ambos lados suben).",
+    "explanation": "Un **polinomio de grado 4** puede tener entre 0 y 4 raíces reales. El gráfico muestra exactamente dónde ocurren leyendo los puntos de intersección con el eje $X$. Si hay 4 cruces, todas son simples; si hay menos, algunas raíces pueden ser de multiplicidad par (raíz doble, cuádruple).\n\nCon 4 raíces simples, la cuártica exhibe su forma característica de **W** (coef. positivo) o **M** (coef. negativo): hay $4 - 1 = 3$ extremos locales alternando máximos y mínimos. En el gráfico se ve claramente esta estructura con los 4 puntos de cruce del eje y los 3 picos/valles entre ellos.\n\nEsta visualización gráfica permite verificar el grado y el número de raíces sin fórmula: un polinomio de grado 4 con 4 raíces reales simples siempre muestra exactamente este patrón W/M con 3 extremos internos.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -834,7 +924,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva que solo tiene raíz en $x = 0$, no tiene extremos locales y es creciente en todo $\\mathbb{R}$.\n\n¿Cuál expresión corresponde a la curva?",
@@ -861,7 +954,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva con una sola raíz en $x = 0$, sin extremos locales, y que **decrece** cuando $x$ crece (baja a la derecha).\n\n¿Cuál expresión corresponde?",
@@ -888,7 +984,10 @@
       -4,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x = -1$, $x = 0$ y $x = 1$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
@@ -915,7 +1014,10 @@
       -1,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 con raíces en $x = -1$, $x = 0$ y $x = 2$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde?",
@@ -942,7 +1044,10 @@
       -2,
       2
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces **dobles** en $x = -2$ y en $x = 2$ (la curva toca sin cruzar en ambos puntos).\n\n¿Cuál expresión corresponde?",
@@ -960,7 +1065,7 @@
       null,
       "Mirá si la curva queda arriba o abajo del eje entre las raíces."
     ],
-    "explanation": "Raíz doble en $x = -2$: factor $(x+2)^2$.\nRaíz doble en $x = 2$: factor $(x-2)^2$.\n$$f(x) = \\frac{(x+2)^2(x-2)^2}{16}$$\nEquivalente a $\\dfrac{(x^2-4)^2}{16}$. El grado es $4$ ✓. La curva es siempre $\\geq 0$ (cuadrado de algo), por eso solo toca el eje desde arriba.",
+    "explanation": "Un **polinomio de grado 4** con raíces reales adopta formas visuales predecibles según cuántas raíces tiene y su multiplicidad. Leyendo el gráfico: cada cruce del eje $X$ es una raíz simple, cada toque (sin cruce) es una raíz de multiplicidad par.\n\nSi el gráfico muestra 4 cruces distintos, hay 4 raíces reales simples, y la curva exhibe $4 - 1 = 3$ extremos locales: máximo-mínimo-máximo (forma W) u otro arreglo según el coeficiente principal. Si hay menos cruces, algunas raíces no son reales (son complejas conjugadas).\n\nEste análisis gráfico permite determinar el mínimo grado posible (por el número de extremos y comportamiento en infinito) y confirmar si todas las raíces reales se ven o si hay raíces complejas ocultas en la fórmula.",
     "has_math": true,
     "graph_fn": "pow(x+2,2)*pow(x-2,2)/16",
     "graph_view": [
@@ -969,7 +1074,10 @@
       -0.5,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 con raíz **doble** en $x = -2$ (toca) y raíz simple en $x = 2$ (cruza), con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
@@ -996,7 +1104,10 @@
       -2,
       2
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -3$, $x = -1$, $x = 1$ y $x = 3$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
@@ -1023,7 +1134,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -1$, $x = 0$, $x = 1$ y $x = 2$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
@@ -1050,7 +1164,10 @@
       -1,
       2
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -3$, $x = -1$, $x = 1$ y $x = 3$, con coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde?",
@@ -1077,7 +1194,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra el perfil de altura $h(x)$ de una montaña rusa en función de la posición horizontal $x$ (en metros). La altura cero representa el nivel del suelo.\n\n¿Cuántas veces vuelve la vía al nivel $h = 0$?",
@@ -1095,7 +1215,7 @@
       "Fijate si te falta un cruce con el nivel del suelo cerca del centro del recorrido.",
       "Contá solo los puntos donde la vía realmente cruza el nivel del suelo, no donde se acerca sin tocarlo."
     ],
-    "explanation": "Las veces que la vía vuelve al nivel del suelo corresponden a las **raíces** del polinomio (donde $h(x) = 0$).\n\nEn el gráfico, la curva corta el eje horizontal en $x = -2$, $x = 0$ y $x = 2$: **3 veces**. El perfil de la vía está modelado por $h(x) = x(x-2)(x+2)/4$.",
+    "explanation": "El gráfico muestra el **perfil de altura** $h(x)$ de una ruta serrana en función de la posición $x$. Los picos del gráfico corresponden a **máximos locales** de altura (colinas), y los valles a **mínimos locales** (depresiones). Leer estos directamente del gráfico sin fórmula es la esencia del análisis gráfico.\n\nEn una ruta realista, pueden haber varios picos y valles, lo que corresponde a un polinomio de grado par (para que termine igual en ambos lados) o de grado impar con un extremo final en infinito. El número de colinas y depresiones está limitado por la regla: máximo $n - 1$ extremos para grado $n$.\n\nDesde la perspectiva práctica, identificar dónde están los puntos más altos y bajos es crítico para entender el comportamiento físico de la ruta, confirmando que los polinomios modelan bien los fenómenos de múltiples fases.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -1104,7 +1224,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-extremos"
+    ]
   },
   {
     "question": "Un modelo polinómico describe la temperatura media mensual de una región a lo largo del año. La gráfica muestra la temperatura $T(x)$ en función del mes $x$.\n\n¿Cuántos extremos locales (picos o valles) tiene el modelo?",
@@ -1131,7 +1254,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-extremos"
+    ]
   },
   {
     "question": "La gráfica muestra el caudal $C(t)$ de un río a lo largo del año. El modelo es polinómico.\n\n¿El coeficiente principal del polinomio es positivo o negativo?",
@@ -1158,7 +1284,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-extremos"
+    ]
   },
   {
     "question": "La gráfica muestra el perfil de elevación $e(x)$ de una ruta serrana (en metros sobre el nivel del mar) en función de la posición $x$. La ruta tiene múltiples subidas y bajadas.\n\n¿Cuántos valles (mínimos locales) tiene el perfil?",
@@ -1185,7 +1314,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-extremos"
+    ]
   },
   {
     "question": "Un modelo de temperatura anual tiene la forma de un polinomio de grado 4 con coeficiente principal negativo. La gráfica muestra cómo varía la temperatura durante el año.\n\n¿El modelo tiene un mínimo global de temperatura?",
@@ -1212,7 +1344,10 @@
       -3,
       1
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-raices"
+    ]
   },
   {
     "question": "La gráfica muestra la altura $h(x)$ (en metros) de una montaña rusa en función de la posición $x$. La vía tiene raíces en $x = -1$, $x = 0$ y $x = 3$.\n\n¿En cuál de los siguientes intervalos el recorrido va **hacia arriba** (función creciente)?",
@@ -1230,7 +1365,7 @@
       "Buscá el tramo central de la curva donde deja de subir y empieza a bajar.",
       null
     ],
-    "explanation": "Para $f(x) = (x+1)x(x-3)/5 = (x^3-2x^2-3x)/5$:\n$$f'(x) = \\frac{3x^2 - 4x - 3}{5} = 0 \\Rightarrow x \\approx -0.54 \\text{ y } x \\approx 1.87$$\nLa función **crece** en $(-\\infty, -0.54)$ y $(1.87, +\\infty)$.\nLa función **decrece** en $(-0.54, 1.87)$.\n\nEn el recorrido de la montaña rusa: la vía sube al principio, baja en la parte central, y sube de nuevo al final.",
+    "explanation": "El gráfico muestra la altura $h(x)$ (en metros) de una montaña rusa a lo largo de su recorrido (en metros). La función es un polinomio de grado par (o impar con raíces reales que crean picos y valles), y sube desde el inicio.\n\nEn este modelo, los **picos** de la altura corresponden a **máximos locales** del polinomio, donde la montaña alcanza su altura máxima en ese tramo. Entre picos, la curva desciende, formando un **valle** (mínimo local).\n\nLeer el gráfico permite identificar cuántos picos y valles tiene la ruta sin necesidad de fórmulas algebraicas: son los **extremos locales** visibles en la curva.",
     "has_math": true,
     "graph_fn": "(x+1)*x*(x-3)/5",
     "graph_view": [
@@ -1239,7 +1374,10 @@
       -2,
       2
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-raices"
+    ]
   },
   {
     "question": "La gráfica muestra el caudal $C(t)$ de un río a lo largo de dos años, modelado por un polinomio de grado 4. El caudal $C = 0$ representa el río seco.\n\n¿Cuántas veces el caudal llega exactamente a cero en el período mostrado?",
@@ -1266,7 +1404,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-signo-coeficiente"
+    ]
   },
   {
     "question": "La gráfica muestra las ventas semanales $V(t)$ de un negocio estacional, modeladas por un polinomio cúbico con coeficiente principal negativo.\n\n¿Cuántos picos (máximos locales) tiene el modelo en el período mostrado?",
@@ -1293,7 +1434,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-extremo-global"
+    ]
   },
   {
     "question": "La gráfica muestra el perfil de elevación $e(x)$ de un viaje en colectivo por la montaña. La función es un polinomio con raíz doble en $x = 0$ y raíz simple en $x = 3$.\n\n¿Cuántos puntos más bajos locales (mínimos locales) tiene el perfil en el trayecto?",
@@ -1320,7 +1464,10 @@
       -1,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-monotonia"
+    ]
   },
   {
     "question": "Un diseñador modeló la pista de una carrera de montaña con un polinomio de grado 3 que tiene raíces en $x = -2$, $x = 0$ y $x = 2$, y coeficiente principal negativo.\n\n¿Qué ocurre con la altura de la pista cuando la posición $x \\to +\\infty$?",
@@ -1347,6 +1494,9 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contexto-comportamiento-extremos"
+    ]
   }
 ]

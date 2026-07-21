@@ -22,7 +22,10 @@
       5
     ],
     "explanation": "El **signo de la derivada** en un punto se lee directamente de si la curva sube, baja o queda horizontal justo ahí.\n\nEsta parábola tiene su vértice en $x=2$, así que a la izquierda de ese punto, incluido $x=0$, la curva está descendiendo hacia el mínimo.\n\nCuando la curva baja de izquierda a derecha, la derivada en ese tramo es **negativa**, sin importar cuánto valga numéricamente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la misma gráfica de $f(x) = x^2 - 4x + 3$, ¿cuál es el signo de $f'(4)$?",
@@ -47,7 +50,10 @@
       5
     ],
     "explanation": "El vértice de esta parábola está en $x=2$, y a partir de ahí la curva cambia de dirección y comienza a **subir**.\n\nEn $x=4$, ya bien a la derecha del vértice, la pendiente de la curva es claramente positiva, la función crece a medida que $x$ aumenta.\n\nConviene ubicar siempre el vértice primero, porque marca el punto exacto donde el signo de la derivada cambia.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2$.\n\n¿Cuál es el signo de $f'(-1)$?",
@@ -72,7 +78,10 @@
       3
     ],
     "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=0$, así que su comportamiento es opuesto al de una parábola estándar.\n\nA la izquierda del vértice, incluido $x=-1$, la curva está subiendo hacia el máximo, así que la derivada ahí es **positiva**.\n\nEs un error común aplicar el mismo patrón de signos que en una parábola que se abre hacia arriba, conviene primero fijarse hacia dónde se abre la curva.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la misma gráfica de $f(x) = -x^2 + 2$, ¿cuál es el signo de $f'(1)$?",
@@ -97,7 +106,10 @@
       3
     ],
     "explanation": "Con vértice en $x=0$ y abriéndose hacia abajo, esta parábola alcanza su máximo ahí y luego comienza a **descender**.\n\nEn $x=1$, a la derecha del vértice, la curva ya está bajando, así que la derivada en ese punto es negativa.\n\nRecordar la forma general, hacia arriba o hacia abajo, evita confundir el signo de la derivada a cada lado del vértice.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x + 1$.\n\n¿Cuál es el signo de $f'(1)$?",
@@ -122,7 +134,10 @@
       5
     ],
     "explanation": "Esta parábola tiene vértice en $x=1$, el punto exacto donde la curva deja de bajar y empieza a subir.\n\nEn ese instante, la recta tangente a la curva queda perfectamente horizontal, así que la derivada vale **cero** justo ahí.\n\nEste tipo de punto, un vértice suave, sigue siendo diferenciable, la derivada existe y vale cero, no hay que confundirlo con un quiebre.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^3$.\n\n¿Cuál es el signo de $f'(0)$?",
@@ -147,7 +162,10 @@
       4
     ],
     "explanation": "Esta curva crece en todo su dominio, pero en $x=0$ presenta una **meseta**, un instante donde la pendiente se aplana antes de seguir subiendo.\n\nEse aplanamiento momentáneo hace que la recta tangente en $x=0$ quede horizontal, así que $f'(0)=0$, aunque la función siga siendo creciente a ambos lados.\n\nEste caso muestra que una derivada nula no siempre marca un máximo o un mínimo, acá es apenas una pausa dentro de un crecimiento continuo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "signo-de-la-derivada-visual"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^2 - 4x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
@@ -174,7 +192,10 @@
       5
     ],
     "explanation": "La derivada de una parábola se anula exactamente en su **vértice**, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene vértice en $x=2$, mientras que $x=1$ y $x=3$ son sus raíces, los puntos donde $f(x)=0$, no donde $f'(x)=0$.\n\nConfundir ceros de la función con ceros de la derivada es un error frecuente, conviene siempre distinguir dónde la curva toca el eje de dónde la curva queda horizontal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = -x^2 + 4$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
@@ -201,7 +222,10 @@
       5
     ],
     "explanation": "El vértice de esta parábola invertida está en $x=0$, y es exactamente ahí donde la recta tangente queda horizontal y $f'(x)=0$.\n\nLas raíces de la función, $x=-2$ y $x=2$, son los puntos donde la curva cruza el eje horizontal, un concepto distinto al de dónde se anula la derivada.\n\nAntes de responder este tipo de preguntas, conviene ubicar primero el vértice de la parábola, ahí es donde vive el único cero de $f'$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^2 - 2x - 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
@@ -228,7 +252,10 @@
       5
     ],
     "explanation": "El vértice de esta parábola se ubica en $x=1$, justo a mitad de camino entre sus dos raíces, $x=-1$ y $x=3$.\n\nEn ese punto la curva pasa de bajar a subir, y la recta tangente ahí queda horizontal, así que $f'(1)=0$.\n\nLos cortes con el eje horizontal son un dato distinto, útil para otras preguntas, pero no marcan dónde se anula la derivada.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = -x^2 + 2x + 3$.\n\n¿En qué valor de $x$ se anula $f'(x)$?",
@@ -255,7 +282,10 @@
       6
     ],
     "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=1$, el punto donde alcanza su valor máximo.\n\nJusto ahí, la curva deja de subir y empieza a bajar, así que la recta tangente queda horizontal y $f'(1)=0$.\n\nLas raíces, $x=-1$ y $x=3$, marcan dónde la curva cruza el eje, un dato geométrico distinto al de dónde se anula la pendiente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra una parábola con vértice en $x=2$ y raíces en $x=0$ y $x=4$.\n\n¿En cuál de estos valores se cumple $f'(x)=0$?",
@@ -282,7 +312,10 @@
       5
     ],
     "explanation": "Toda parábola tiene un único vértice, y es justo ahí donde la recta tangente queda horizontal y la derivada se anula.\n\nEn esta gráfica el vértice está marcado en $x=2$, exactamente a mitad de camino entre las dos raíces, $x=0$ y $x=4$.\n\nLas raíces son puntos donde $f(x)=0$, mientras que el vértice es el único punto donde $f'(x)=0$, distinguir ambos conceptos evita el error más común de esta familia de ejercicios.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = |x-2| + 1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en $x=2$?",
@@ -307,7 +340,10 @@
       5
     ],
     "explanation": "Esta gráfica muestra un **quiebre** típico en $x=2$, el punto donde el valor absoluto cambia de rama.\n\nLa función es continua ahí, las dos ramas se encuentran en el mismo valor, pero no es diferenciable, porque cada rama llega con una pendiente distinta.\n\nEste tipo de pico anguloso es la versión gráfica exacta del contraejemplo $|x|$, solo que desplazado a otro punto del dominio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-ceros-derivada"
+    ]
   },
   {
     "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
@@ -332,7 +368,10 @@
       8
     ],
     "explanation": "En un **salto**, los dos tramos de la función se acercan a alturas distintas, así que la función deja de ser continua en ese punto.\n\nComo la continuidad es condición necesaria para la derivada, la falla de continuidad ya alcanza para descartar también la diferenciabilidad.\n\nEste caso se distingue del quiebre porque ahí la función sí llega a un único valor por ambos lados, acá directamente hay dos alturas distintas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "diagnostico-esquinas-y-saltos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^2$, con un punto marcado en su vértice, $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
@@ -357,7 +396,10 @@
       6
     ],
     "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre es el error más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "diagnostico-esquinas-y-saltos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x) = x^{1/3}$, con un punto marcado en $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
@@ -382,6 +424,9 @@
       2
     ],
     "explanation": "Esta curva se vuelve completamente vertical justo en $x=0$, un caso distinto tanto del salto como del quiebre.\n\nEn ese punto, el cociente incremental tiende a $+\\infty$ tanto por izquierda como por derecha, así que el límite no converge a ningún número real y la derivada no existe.\n\nEste caso, la **tangente vertical**, conviene distinguirlo bien del quiebre, ahí los laterales dan valores finitos distintos, acá ambos se disparan a infinito.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "diagnostico-esquinas-y-saltos"
+    ]
   }
 ]

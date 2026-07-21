@@ -17,7 +17,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Frente a cualquier suma de términos, el primer paso siempre es reconocer la **linealidad**, que permite derivar cada término por separado.\n\nUna vez identificada la suma, cada término se resuelve con la regla elemental que le corresponda, sin mezclar ni combinar los términos entre sí.\n\nAplicar reglas para productos o composiciones cuando en realidad hay una suma es un error de planificación, no de cálculo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
     "question": "Para derivar\n$$f(x) = \\frac{1}{x^3}$$\ncon las reglas de este tópico, ¿qué paso previo hay que dar?",
@@ -37,7 +40,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\n$$\\frac{1}{x^3} = x^{-3}$$\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "jerarquia-de-reglas"
+    ]
   },
   {
     "question": "Para derivar\n$$f(x) = \\sqrt{x}$$\ncon las reglas de este tópico, ¿qué paso previo conviene dar?",
@@ -57,10 +63,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\n$$\\sqrt{x} = x^{1/2}$$\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "jerarquia-de-reglas"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 5x^4 - 2x + 7$$\n¿qué regla permite derivar cada término por separado antes de combinar los resultados?",
+    "question": "Considerá la siguiente función:\n$$f(x) = 5x^4 - 2x + 7$$\n¿Qué regla permite derivar cada término por separado antes de combinar los resultados?",
     "options": [
       "Linealidad (suma/resta)",
       "Regla del producto",
@@ -77,7 +86,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\n$$(5x^4 - 2x + 7)' = (5x^4)' - (2x)' + (7)'$$\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "jerarquia-de-reglas"
+    ]
   },
   {
     "question": "En el término $5x^4$ dentro de una suma más grande, ¿qué combinación de reglas corresponde aplicar?",
@@ -97,7 +109,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(5x^4)' = 5 \\cdot (x^4)' = 5 \\cdot 4x^3 = 20x^3$$\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "jerarquia-de-reglas"
+    ]
   },
   {
     "question": "¿En qué orden conviene derivar\n$$f(x) = 4\\ln x + 3\\cos x$$?",
@@ -117,7 +132,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El orden correcto siempre empieza por reconocer la estructura general de la expresión, en este caso una suma de dos términos.\n\nUna vez identificada esa **linealidad**, cada término se deriva con la regla elemental que le corresponde, el logaritmo con su fórmula y el coseno con la suya.\n\nIntentar combinar o mezclar los términos antes de derivar rompe la estructura de la expresión y suele llevar a errores de planificación.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
     "question": "Para derivar\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
@@ -137,7 +155,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\n$$\\frac{x^3}{5} = \\frac{1}{5} \\cdot x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
     "question": "¿Qué regla corresponde aplicar a una constante aislada, como el término $-8$ dentro de una suma más grande?",
@@ -157,10 +178,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n\n$$(-8)' = 0$$\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $\\sin x$?",
+    "question": "Dada la función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $\\sin x$?",
     "options": [
       "Regla de la potencia",
       "Derivada de logaritmo",
@@ -177,10 +201,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Antes de derivar una suma, conviene identificar el tipo de función elemental que es cada término por separado.\n\nEl término $\\sin x$ es una función trigonométrica, así que le corresponde la **derivada trigonométrica** del seno, $\\cos x$, sin mezclarla con las reglas de los otros términos.\n\nEsta identificación previa evita aplicar por error la regla de otro tipo de función a un término que no le corresponde.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $-\\ln x$?",
+    "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $-\\ln x$?",
     "options": [
       "Derivada de logaritmo",
       "Derivada trigonométrica",
@@ -197,10 +224,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El término $-\\ln x$ combina un signo negativo con la función logaritmo natural.\n\nEl signo negativo se conserva sin cambios, mientras que $\\ln x$ se deriva con su **derivada de logaritmo** correspondiente, $\\frac{1}{x}$.\n\nSeparar el signo del tipo de función ayuda a no perder ninguno de los dos detalles al armar el resultado final.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿qué regla corresponde aplicar al término $3x^2$?",
+    "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $3x^2$?",
     "options": [
       "Regla de la constante",
       "Múltiplo escalar junto con la regla de la potencia",
@@ -217,10 +247,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(3x^2)' = 3 \\cdot 2x = 6x$$\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 2e^x - \\cos x + 6$$\n¿cuántos términos distintos hay que derivar por separado?",
+    "question": "Considerá la función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Cuántos términos distintos hay que derivar por separado?",
     "options": [
       "Dos",
       "Uno",
@@ -237,10 +270,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres, el término exponencial $2e^x$, el término trigonométrico $-\\cos x$ y el término constante $6$.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = 2e^x - \\cos x + 6$$\n¿qué regla corresponde aplicar al término $6$?",
+    "question": "En la misma función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Qué regla corresponde aplicar al término $6$?",
     "options": [
       "Regla de la constante",
       "Múltiplo escalar",
@@ -257,10 +293,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El término $6$ es un número fijo, sin ninguna dependencia de $x$, así que corresponde la **regla de la constante**, sin importar qué tan grande sea ese número.\n\n$$(6)' = 0$$\nEste término desaparece por completo del resultado final, sin dejar ningún rastro en la derivada de la función completa, a diferencia de los términos que sí dependen de $x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   },
   {
-    "question": "En\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿qué regla corresponde aplicar al término $x^5$?",
+    "question": "Observá la función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $x^5$?",
     "options": [
       "Múltiplo escalar",
       "Regla de la potencia",
@@ -277,10 +316,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\n$$(x^5)' = 5x^4$$\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "jerarquia-de-reglas"
+    ]
   },
   {
-    "question": "En\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿qué regla corresponde aplicar al término $-4\\tan x$?",
+    "question": "En la misma función:\n$$f(x) = x^5 - 4\\tan x + \\ln x$$\n¿Qué regla corresponde aplicar al término $-4\\tan x$?",
     "options": [
       "Regla de la potencia",
       "Derivada de exponencial",
@@ -297,6 +339,9 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo escalar** junto con la derivada trigonométrica.\n\n$$(-4\\tan x)' = -4 \\sec^2 x$$\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "descomposicion-de-funciones"
+    ]
   }
 ]

@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que exista **unicidad**, la función debe transformar cada entrada en una única salida. Acá cada cantidad de compras determina un solo puntaje mediante $$p(x) = 3x + 1$$ A una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. Para verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
+    "explanation": "Para que exista **unicidad**, la función debe transformar cada entrada en una **única** salida. Acá cada cantidad de compras determina un solo puntaje mediante $$p(x) = 3x + 1$$ A una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. Para verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
     "reviewed": false,
     "tags": [
       "unicidad"
@@ -356,7 +356,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta. La única prohibición en una fracción es que el denominador valga cero, $$x - 3 \\neq 0 \\implies x \\neq 3$$ Para el resto de la recta numérica, la función trabaja de maravilla. En una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
+    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta. La **única** prohibición en una fracción es que el denominador valga cero, $$x - 3 \\neq 0 \\implies x \\neq 3$$ Para el resto de la recta numérica, la función trabaja de maravilla. En una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -657,7 +657,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver. En este modelo, las salidas declaradas conforman el conjunto $$\\{r, a, v\\}$$ Si en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la imagen se achicaría al par $\\{r, v\\}$.",
+    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver. En este modelo, las salidas declaradas conforman el conjunto $$\\{r, a, v\\}$$ Si en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la **imagen** se achicaría al par $\\{r, v\\}$.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -749,7 +749,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto: $$\\begin{aligned} f(1) &= I \\\\ f(2) &= P \\\\ f(3) &= I \\end{aligned}$$ Los valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el codominio $\\{P, I\\}$.",
+    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto: $$\\begin{aligned} f(1) &= I \\\\ f(2) &= P \\\\ f(3) &= I \\end{aligned}$$ Los valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -774,7 +774,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés: $$\\begin{aligned} f(1) &= 2 \\\\ f(2) &= 4 \\\\ f(3) &= 6 \\end{aligned}$$ Agrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del dominio: cambiá las entradas y cambia el conjunto de salidas.",
+    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés: $$\\begin{aligned} f(1) &= 2 \\\\ f(2) &= 4 \\\\ f(3) &= 6 \\end{aligned}$$ Agrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -879,7 +879,7 @@
     ]
   },
   {
-    "question": "Una función constante asocia el número 5 a cualquier entrada del dominio. $$f(x) = 5, \\qquad x \\in \\mathbb{R}$$ ¿Cuál es el conjunto **imagen** de esta función?",
+    "question": "Una función constante asocia el número 5 a cualquier entrada del **dominio**. $$f(x) = 5, \\qquad x \\in \\mathbb{R}$$ ¿Cuál es el conjunto **imagen** de esta función?",
     "options": [
       "$\\{5\\}$",
       "$\\mathbb{R}$",
@@ -897,7 +897,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad. Como la función aplasta cualquier valor que ingresa devolviendo siempre el 5, $$f(\\text{cualquier cosa}) = 5$$ El conjunto imagen consta de un único elemento, el $\\{5\\}$. En una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
+    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad. Como la función aplasta cualquier valor que ingresa devolviendo siempre el 5, $$f(\\text{cualquier cosa}) = 5$$ El conjunto imagen consta de un **único** elemento, el $\\{5\\}$. En una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1112,7 +1112,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida. Como la función aplana todo el universo numérico en el 8, $$g(x) = 10 \\implies \\text{Imposible}$$ No hay preimagen que solucione esto. Si un valor no pertenece a la imagen no tiene preimagen: no hay entrada que lo produzca.",
+    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida. Como la función aplana todo el universo numérico en el 8, $$g(x) = 10 \\implies \\text{Imposible}$$ No hay preimagen que solucione esto. Si un valor no pertenece a la **imagen** no tiene preimagen: no hay entrada que lo produzca.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1160,7 +1160,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor que alimenta a la función para se define un resultado en particular adquiere el nombre de **preimagen**. Acá el 4 viaja por el procesamiento de la función y desemboca en $$V(4) = 64$$ Decimos que el 4 asume su puesto de preimagen del 64. No confundas la preimagen con la imagen: el 4 es la preimagen del 64, es decir la entrada, no la salida.",
+    "explanation": "El valor que alimenta a la función para se define un resultado en particular adquiere el nombre de **preimagen**. Acá el 4 viaja por el procesamiento de la función y desemboca en $$V(4) = 64$$ Decimos que el 4 asume su puesto de preimagen del 64. No confundas la preimagen con la **imagen**: el 4 es la preimagen del 64, es decir la entrada, no la salida.",
     "reviewed": false,
     "tags": [
       "preimagen-puntual"

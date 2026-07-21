@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x^2-4}{e^x}$$\ncalculá $f'(2)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x^2-4}{e^x}$$\nCalculá $f'(2)$.",
     "options": [
       "$4/e^2$",
       "$-4/e^2$",
@@ -19,10 +19,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(2) &= 0, \\quad v'(2) = e^2 \\\\ u'(2) &= 4, \\quad v(2) = e^2 \\\\ f'(2) &= \\frac{u'(2)v(2)-u(2)v'(2)}{v(2)^2} = \\frac{4e^2-0}{e^4} = \\frac{4}{e^2} \\end{aligned}$$\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz del **numerador** original, así que el resultado se simplifica a $u'(2)/v(2)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-raiz-numerador-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x-1}{e^x}$$\ncalculá $f'(1)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x-1}{e^x}$$\nCalculá $f'(1)$.",
     "options": [
       "$0$",
       "$1/e$",
@@ -41,10 +42,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u(1) &= 0, \\quad v'(1) = e \\\\ u'(1) &= 1, \\quad v(1) = e \\\\ f'(1) &= \\frac{u'(1)v(1)-u(1)v'(1)}{v(1)^2} = \\frac{e-0}{e^2} = \\frac{1}{e} \\end{aligned}$$\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz del numerador original, y el resultado queda determinado por $u'(1)/v(1)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-raiz-numerador-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x^2-9}{x}$$\ncalculá $f'(3)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x^2-9}{x}$$\nCalculá $f'(3)$.",
     "options": [
       "$6$",
       "$0$",
@@ -63,10 +65,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x^2-9$, $v(x)=x$, con $u'(x)=2x$ y $v'(x)=1$.\n\n$$\\begin{aligned} u(3) &= 0, \\quad v'(3) = 1 \\\\ u'(3) &= 6, \\quad v(3) = 3 \\\\ f'(3) &= \\frac{u'(3)v(3)-u(3)v'(3)}{v(3)^2} = \\frac{18-0}{9} = 2 \\end{aligned}$$\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz del numerador original, y el resultado queda determinado por $u'(3)/v(3)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-raiz-numerador-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x+5}{x^2}$$\ncalculá $f'(-5)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x+5}{x^2}$$\nCalculá $f'(-5)$.",
     "options": [
       "$-1/25$",
       "$25$",
@@ -85,10 +88,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$.\n\n$$\\begin{aligned} u(-5) &= 0, \\quad v'(-5) = -10 \\\\ u'(-5) &= 1, \\quad v(-5) = 25 \\\\ f'(-5) &= \\frac{u'(-5)v(-5)-u(-5)v'(-5)}{v(-5)^2} = \\frac{25-0}{625} = \\frac{1}{25} \\end{aligned}$$\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz del numerador original, y el resultado queda determinado por $u'(-5)/v(-5)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-raiz-numerador-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x-4}{\\ln x}$$\ncalculá $f'(4)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x-4}{\\ln x}$$\nCalculá $f'(4)$.",
     "options": [
       "$1/\\ln 4$",
       "$-1/\\ln 4$",
@@ -107,10 +111,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x-4$, $v(x)=\\ln x$, con $u'(x)=1$ y $v'(x)=\\frac{1}{x}$.\n\n$$\\begin{aligned} u(4) &= 0, \\quad v'(4) = \\frac{1}{4} \\\\ u'(4) &= 1, \\quad v(4) = \\ln 4 \\\\ f'(4) &= \\frac{u'(4)v(4)-u(4)v'(4)}{v(4)^2} = \\frac{\\ln 4-0}{(\\ln 4)^2} = \\frac{1}{\\ln 4} \\end{aligned}$$\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz del numerador original, y el resultado queda determinado por $u'(4)/v(4)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-raiz-numerador-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{\\sin x}{x}$$\ncalculá $f'(\\pi/2)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{\\sin x}{x}$$\nCalculá $f'(\\pi/2)$.",
     "options": [
       "$0$",
       "$-4/\\pi^2$",
@@ -129,10 +134,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=\\sin x$, $v(x)=x$, con $u'(x)=\\cos x$ y $v'(x)=1$.\n\n$$\\begin{aligned} u'(\\pi/2) &= \\cos(\\pi/2) = 0, \\quad v(\\pi/2) = \\pi/2 \\\\ u(\\pi/2) &= 1, \\quad v'(\\pi/2) = 1 \\\\ f'(\\pi/2) &= \\frac{0-1\\cdot 1}{(\\pi/2)^2} = -\\frac{4}{\\pi^2} \\end{aligned}$$\nEl término $u'(\\pi/2)v(\\pi/2)$ se anula porque $x=\\pi/2$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{\\cos x}{x^2+x+1}$$\ncalculá $f'(0)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{\\cos x}{x^2+x+1}$$\nCalculá $f'(0)$.",
     "options": [
       "$0$",
       "$-2$",
@@ -151,10 +157,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+x+1$, con $u'(x)=-\\sin x$ y $v'(x)=2x+1$.\n\n$$\\begin{aligned} u'(0) &= -\\sin 0 = 0, \\quad v(0) = 1 \\\\ u(0) &= 1, \\quad v'(0) = 1 \\\\ f'(0) &= \\frac{0-1\\cdot 1}{1^2} = -1 \\end{aligned}$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x^2+4}{e^x}$$\ncalculá $f'(0)$.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x^2+4}{e^x}$$\nCalculá $f'(0)$.",
     "options": [
       "$4$",
       "$0$",
@@ -173,7 +180,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x^2+4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$.\n\n$$\\begin{aligned} u'(0) &= 0, \\quad v(0) = 1 \\\\ u(0) &= 4, \\quad v'(0) = 1 \\\\ f'(0) &= \\frac{0-4\\cdot 1}{1^2} = -4 \\end{aligned}$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, y el resultado queda determinado por el segundo término con signo negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
     "question": "Sabiendo que\n$$f(x) = \\frac{x+1}{\\cos x+3}$$\ncalculá $f'(0)$.",

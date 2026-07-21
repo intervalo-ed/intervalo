@@ -19,7 +19,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:\n$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$\nEl mayor de todos es $5$, por lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\nUn error típico es contar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
@@ -46,7 +49,10 @@
       5
     ],
     "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1. Raíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$, raíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$. La gráfica confirma tres cruces con el eje $X$.\n\n**2. Comportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos. La opción $x^3 + 3x$ no tiene raíces reales distintas de $0$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál es el grado de $p(x) = 2x^3 - x^5 + 4$?",
@@ -68,7 +74,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El grado de un polinomio **no depende del orden** en que estén escritos los términos, sino del mayor exponente presente entre todos ellos.\n\nEn $p(x) = 2x^3 - x^5 + 4$, el término $-x^5$ tiene exponente $5$, que es mayor que $3$ y que $0$. Aunque $-x^5$ está en el segundo lugar de la escritura, sigue siendo el **término de mayor grado**:\n$$\\begin{aligned} \\deg(p) &= 5 \\\\ \\text{coeficiente principal} &= -1 \\end{aligned}$$\nEl coeficiente principal es $-1$, negativo, lo que hace que la curva suba a la izquierda y baje a la derecha en vez de al revés. Guiarse por la posición en la que está escrito el término y no por su exponente real es el error más común en este tipo de ejercicio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál es el coeficiente principal de $p(x) = -2x^3 + 5x - 1$?",
@@ -90,7 +99,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$, de grado $3$, así que el coeficiente principal es $-2$. Los otros términos no compiten por ese lugar: $5x$ es de grado $1$ y aporta el coeficiente $5$, mientras que $-1$ es el término independiente, de grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha. Confundir el coeficiente principal con el término independiente, tomando el $-1$ en vez del $-2$, es el error más frecuente en este tipo de lectura.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
@@ -117,7 +129,10 @@
       8
     ],
     "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1. Extremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo. Descarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2. Raíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$. La opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál es el valor de $p(0)$ para $p(x) = x^3 - 4x + 3$?",
@@ -139,7 +154,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para **evaluar** un polinomio en un punto, se sustituye la variable $x$ por ese valor y se calcula el resultado numérico.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n$$p(0) = (0)^3 - 4(0) + 3 = 0 - 0 + 3 = 3$$\nEste resultado siempre coincide con el **término independiente** $a_0$ del polinomio, ya que todos los términos que llevan $x$ se anulan al multiplicarse por $0$. Por eso $p(0)$ también es la ordenada al origen: el punto donde la curva cruza el eje $Y$ es $(0, 3)$. Confundir $p(0)$ con el coeficiente principal o con otro término es un error común cuando el polinomio tiene varios términos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál de estas expresiones representa un polinomio de grado 2?",
@@ -161,7 +179,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente: $x^3+2$ tiene grado $3$, $4x-1$ tiene grado $1$ (es lineal), y $x^4$ tiene grado $4$. La opción $3x^2-7$ tiene como mayor potencia $x^2$, así que es de grado $2$, aunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nSu gráfica es una parábola con vértice en $(0,-7)$, abierta hacia arriba. Fijarse solo en la cantidad de términos en vez del mayor exponente es la confusión más común al clasificar el grado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál de estas expresiones corresponde a la curva del gráfico?",
@@ -188,7 +209,10 @@
       3
     ],
     "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$. En cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuántos términos tiene $p(x) = x^5 - x^3 + x - 1$?",
@@ -210,7 +234,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El número de **términos** de un polinomio es la cantidad de monomios distintos que lo componen, sin contar los que tuvieran coeficiente $0$.\n\nEn $p(x) = x^5 - x^3 + x - 1$ cada monomio tiene un grado distinto:\n$$\\underbrace{x^5}_{\\text{grado }5} \\;-\\; \\underbrace{x^3}_{\\text{grado }3} \\;+\\; \\underbrace{x}_{\\text{grado }1} \\;-\\; \\underbrace{1}_{\\text{grado }0}$$\nSon $4$ términos en total, ya que ninguno se combina con otro al tener todos grados diferentes. Los grados $4$ y $2$ están ausentes, no hay término $x^4$ ni $x^2$, y eso no cambia la cuenta: contar espacios vacíos entre exponentes en vez de monomios presentes es el error más común en este tipo de ejercicio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ]
   },
   {
     "question": "¿Cuál es el valor de $p(1)$ para $p(x) = x^4 - 2x^2 + 1$?",
@@ -232,7 +259,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Se evalúa sustituyendo $x = 1$ en cada término del polinomio:\n$$p(1) = (1)^4 - 2(1)^2 + 1 = 1 - 2 + 1 = 0$$\nEl resultado $p(1) = 0$ significa que $x=1$ es una raíz del polinomio. Factorizando se confirma el porqué:\n$$p(x) = x^4 - 2x^2 + 1 = (x^2-1)^2 = (x-1)^2(x+1)^2$$\nTanto $x=1$ como $x=-1$ son raíces dobles, así que la curva toca el eje $X$ sin cruzarlo en esos dos puntos. Confundir un valor que anula al polinomio con un valor cualquiera de la variable es un error frecuente al leer el resultado de una evaluación.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "En $p(x) = 3x^4 - 2x^3 + x - 8$, ¿cuál es el coeficiente del término de grado $3$?",
@@ -254,7 +284,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "Para $p(x) = x^5 - 3x^3 + 2x - 7$, ¿cuánto vale $p(0)$?",
@@ -276,7 +309,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "Para $p(x) = x^3 - x + 2$, ¿cuánto vale $p(-1)$?",
@@ -298,7 +334,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "Para $f(x) = 2x^3 - 3x^2 + 1$, ¿cuánto vale $f(2)$?",
@@ -320,7 +359,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "Se tienen $p(x) = x^4 + 2x$ y $q(x) = x^3 - x^4 + 1$.\n\n¿Cuál es el grado de $p(x) + q(x)$?",
@@ -342,7 +384,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La función es $f(x) = (x - 1)(x + 3)(x - 5)$.\n\n¿Cuáles son sus raíces?",
@@ -364,7 +409,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "Un polinomio de grado 3 con coeficiente principal $1$ tiene raíces en $x = 0$, $x = 2$ y $x = -3$.\n\n¿Cuál es su forma factorizada?",
@@ -386,7 +434,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "La función es $f(x) = x(x - 4)(x + 1)$.\n\n¿Cuánto vale $f(2)$?",
@@ -408,7 +459,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "La función es $p(x) = (x - 2)^2(x + 1)$.\n\n¿Cuáles son sus raíces y qué tipo son?",
@@ -430,7 +484,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "La función es $p(x) = 2(x + 3)(x - 1)$.\n\n¿Cuál es el coeficiente principal?",
@@ -452,7 +509,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "¿Cuál es el grado del polinomio $q(x) = (x^2 + 1)(x^3 - x)$?",
@@ -474,7 +534,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "Un polinomio de grado 2 con coeficiente principal $-1$ tiene raíces en $x = -1$ y $x = 3$.\n\n¿Cuál es su forma factorizada?",
@@ -496,7 +559,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-cubo-binomio"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(x + 4)^2$?",
@@ -518,7 +584,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "leer-coeficientes"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(x - 5)^2$?",
@@ -540,7 +609,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "leer-coeficientes"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(2x + 1)^2$?",
@@ -562,7 +634,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "leer-coeficientes"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(3x - 2)^2$?",
@@ -584,7 +659,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "leer-coeficientes"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $x^2 - 16$?",
@@ -606,7 +684,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-bcp"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $9x^2 - 4$?",
@@ -628,7 +709,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-bcp"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $x^2 + 6x + 9$?",
@@ -650,7 +734,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-bcp"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $x^2 - 10x + 25$?",
@@ -672,7 +759,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-bcp"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(x + 1)^3$?",
@@ -694,7 +784,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-suma-diferencia-cubos"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(x - 2)^3$?",
@@ -716,7 +809,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-suma-diferencia-cubos"
+    ]
   },
   {
     "question": "En la expansión de $(x - 3)^3$, ¿cuál es el coeficiente de $x^2$?",
@@ -738,7 +834,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-suma-diferencia-cubos"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $x^3 + 8$?",
@@ -760,7 +859,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-suma-diferencia-cubos"
+    ]
   },
   {
     "question": "¿Cuál es la factorización de $x^3 - 27$?",
@@ -782,7 +884,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grado-desde-formula"
+    ]
   },
   {
     "question": "¿Cuál es la única raíz real de $x^3 + 1$?",
@@ -804,7 +909,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grado-desde-formula"
+    ]
   },
   {
     "question": "¿Cuál es la expansión de $(2x + 1)^3$?",
@@ -826,7 +934,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grado-desde-formula"
+    ]
   },
   {
     "question": "¿Cuál es el coeficiente del término independiente en la expansión de $(x - 1)^3$?",
@@ -848,7 +959,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raices-desde-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas expresiones es equivalente a $8x^3 - 1$?",
@@ -870,7 +984,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raices-desde-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva polinómica de grado 3 con raíces en $x = -2$, $x = 0$ y $x = 2$, y coeficiente principal positivo.\n\n¿Cuál de estas expresiones corresponde a la curva?",
@@ -897,7 +1014,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raices-desde-formula"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x = -2$, $x = -1$, $x = 1$ y $x = 2$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
@@ -924,7 +1044,10 @@
       -3,
       4
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grado-operaciones"
+    ]
   },
   {
     "question": "La gráfica muestra una curva de grado 3 que toca el eje $x$ en $x = 0$ sin cruzarlo, y lo cruza en $x = 3$.\n\n¿Cuál de estas expresiones corresponde a esa curva?",
@@ -951,7 +1074,10 @@
       -2,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grado-operaciones"
+    ]
   },
   {
     "question": "La gráfica muestra una curva con raíces en $x = -2$, $x = 0$ y $x = 2$, con coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde a esa curva?",
@@ -978,7 +1104,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "armar-forma-factorizada"
+    ]
   },
   {
     "question": "La gráfica muestra la curva de $f(x) = x(x-2)(x+1)/2$.\n\n¿Cuánto vale $f(0)$?",
@@ -1005,7 +1134,10 @@
       -3,
       3
     ],
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "armar-forma-factorizada"
+    ]
   },
   {
     "question": "Para $p(x) = x^3 - 2x^2 + x - 3$, ¿cuánto vale $p(-1)$?",
@@ -1027,7 +1159,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-diferencia-cuadrados"
+    ]
   },
   {
     "question": "La función es $f(x) = (x - 1)(x + 2)(x - 3)$.\n\n¿Cuánto vale $f(0)$?",
@@ -1049,7 +1184,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-diferencia-cuadrados"
+    ]
   },
   {
     "question": "La función es $f(x) = x(x - 4)(x + 2)$.\n\n¿Cuáles son los valores de $x$ donde $f(x) = 0$?",
@@ -1071,7 +1209,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-bcp"
+    ]
   },
   {
     "question": "¿Cuál es el coeficiente principal de $-(x - 1)(x + 2)(x - 3)$?",
@@ -1093,7 +1234,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "factorizar-bcp"
+    ]
   },
   {
     "question": "Al expandir $(x - 1)^2(x + 3)$, ¿cuál es el coeficiente de $x^2$?",
@@ -1115,7 +1259,10 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "contar-terminos"
+    ]
   },
   {
     "question": "¿Cuál es el término independiente (constante) de $(x + 2)^3$?",
@@ -1137,6 +1284,9 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expandir-producto-tres-factores"
+    ]
   }
 ]

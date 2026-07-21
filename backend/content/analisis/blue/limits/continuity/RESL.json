@@ -18,8 +18,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (2x+1) &= 3 \\\\ \\lim_{x \\to 1^+} (x^2+2) &= 3 \\\\ f(1) &= 1^2 + 2 = 3 \\end{aligned}$$\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad.\n\nConviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
-    "reviewed": false
+    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n\nEl límite es \"hacia dónde se aproxima\" la función desde cada lado; el valor puntual es \"dónde está realmente\" definida. Si los tres coinciden, todas las condiciones se cumplen. $$\\begin{aligned} \\lim_{x \\to 1^-} (2x+1) &= 3 \\\\ \\lim_{x \\to 1^+} (x^2+2) &= 3 \\\\ f(1) &= 1^2 + 2 = 3 \\end{aligned}$$\n\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad. Conviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
+    "reviewed": false,
+    "tags": [
+      "verificacion-punto-critico"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
@@ -40,8 +43,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El procedimiento estándar es sustituir $x=2$ en cada rama por separado, sin mezclar ambas expresiones.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (x+4) &= 6 \\\\ \\lim_{x \\to 2^+} (3x-1) &= 5 \\end{aligned}$$\nComo $6 \\neq 5$, el límite bilateral no existe: la segunda condición de continuidad falla directamente.\n\nEl error más común acá es calcular una sola rama y asumir que alcanza; siempre hay que verificar las dos para poder comparar.",
-    "reviewed": false
+    "explanation": "El procedimiento estándar es sustituir $x=2$ en cada rama por separado, sin mezclar ambas expresiones.\n\nCuando los límites laterales apuntan a valores distintos, significa que la función está \"dividida\" en su aproximación: no converge a un único valor desde ambos lados. $$\\begin{aligned} \\lim_{x \\to 2^-} (x+4) &= 6 \\\\ \\lim_{x \\to 2^+} (3x-1) &= 5 \\end{aligned}$$\n\nComo $6 \\neq 5$, el límite bilateral no existe: la segunda condición de continuidad falla directamente. El error más común acá es calcular una sola rama y asumir que alcanza; siempre hay que verificar las dos para poder comparar.",
+    "reviewed": false,
+    "tags": [
+      "verificacion-punto-critico"
+    ]
   },
   {
     "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{x^2 - 9}{x - 3}, & x \\neq 3 \\\\ 5, & x = 3 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=3$?",
@@ -62,8 +68,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa da $\\tfrac{0}{0}$, conviene factorizar antes de concluir que el límite no existe.\n$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla.\n\nEl valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
-    "reviewed": false
+    "explanation": "Cuando la sustitución directa da $\\tfrac{0}{0}$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real. $$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\n\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla. El valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
+    "reviewed": false,
+    "tags": [
+      "verificacion-punto-critico"
+    ]
   },
   {
     "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{1}{x - 2}, & x < 2 \\\\ x, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
@@ -84,8 +93,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de comparar valores, conviene revisar si algún lateral diverge en vez de converger a un número finito.\n$$\\begin{aligned} \\lim_{x \\to 2^-} \\frac{1}{x-2} &= -\\infty \\\\ \\lim_{x \\to 2^+} x &= 2 \\end{aligned}$$\nEl lateral izquierdo diverge a $-\\infty$, así que el límite bilateral ni siquiera existe como número real.\n\nCon un solo lateral divergente alcanza para clasificar la falla como esencial, sin necesidad de mirar la otra rama con más detalle.",
-    "reviewed": false
+    "explanation": "Antes de comparar valores, conviene revisar si algún lateral diverge en vez de converger a un número finito.\n\nUna divergencia a infinito en uno de los lados significa que el límite no existe como número finito: la función \"escapa\" sin control en esa dirección. Incluso si el otro lado converge, tenemos una falla grave. $$\\begin{aligned} \\lim_{x \\to 2^-} \\frac{1}{x-2} &= -\\infty \\\\ \\lim_{x \\to 2^+} x &= 2 \\end{aligned}$$\n\nEl lateral izquierdo diverge a $-\\infty$, así que el límite bilateral ni siquiera existe como número real. Con un solo lateral divergente alcanza para clasificar la falla como esencial, sin necesidad de mirar la otra rama con más detalle.",
+    "reviewed": false,
+    "tags": [
+      "verificacion-punto-critico"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
@@ -106,8 +118,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (kx+1) &= 2k+1 \\\\ \\lim_{x \\to 2^+} (x^2-3) &= 1 \\\\ 2k+1 &= 1 \\Rightarrow k = 0 \\end{aligned}$$\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nEl error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
-    "reviewed": false
+    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos. $$\\begin{aligned} \\lim_{x \\to 2^-} (kx+1) &= 2k+1 \\\\ \\lim_{x \\to 2^+} (x^2-3) &= 1 \\\\ 2k+1 &= 1 \\Rightarrow k = 0 \\end{aligned}$$\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$. El error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
@@ -128,8 +143,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El procedimiento es el mismo sin importar el punto de quiebre: se igualan las dos ramas evaluadas en ese valor de $x$.\n$$\\begin{aligned} \\lim_{x \\to 3^-} (2x+k) &= 6+k \\\\ \\lim_{x \\to 3^+} (x^2-2) &= 7 \\\\ 6+k &= 7 \\Rightarrow k=1 \\end{aligned}$$\nCon $k=1$ ambas ramas llegan a $y=7$ en $x=3$.\n\nConviene resolver primero el valor numérico de la rama sin parámetro antes de armar la ecuación completa, así se evitan errores de arrastre.",
-    "reviewed": false
+    "explanation": "El procedimiento es el mismo sin importar el punto de quiebre: se igualan las dos ramas evaluadas en ese valor de $x$.\n\nLa continuidad en un punto de quiebre exige que ambas ramas \"acuerden\" en el mismo valor: ambos límites laterales deben coincidir. $$\\begin{aligned} \\lim_{x \\to 3^-} (2x+k) &= 6+k \\\\ \\lim_{x \\to 3^+} (x^2-2) &= 7 \\\\ 6+k &= 7 \\Rightarrow k=1 \\end{aligned}$$\n\nCon $k=1$ ambas ramas llegan a $y=7$ en $x=3$. Conviene resolver primero el valor numérico de la rama sin parámetro antes de armar la ecuación completa, así se evitan errores de arrastre.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
@@ -150,8 +168,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se igualan los dos laterales evaluados en el punto de quiebre y se despeja el parámetro desde ahí.\n$$\\begin{aligned} \\lim_{x \\to 4^-} (kx-2) &= 4k-2 \\\\ \\lim_{x \\to 4^+} (3x+2) &= 14 \\\\ 4k-2 &= 14 \\Rightarrow k = 4 \\end{aligned}$$\nCon $k=4$ ambas ramas llegan a $y=14$ en $x=4$.\n\nUn despeje con dos pasos, primero sumar y después dividir, conviene hacerlo en ese orden para no perder el signo del término independiente.",
-    "reviewed": false
+    "explanation": "Se igualan los dos laterales evaluados en el punto de quiebre y se despeja el parámetro desde ahí.\n\nEl límite lateral izquierdo es a qué se aproxima la función por la izquierda; el derecho es a qué se aproxima por la derecha. Para continuidad, ambas aproximaciones deben alcanzar el mismo valor. $$\\begin{aligned} \\lim_{x \\to 4^-} (kx-2) &= 4k-2 \\\\ \\lim_{x \\to 4^+} (3x+2) &= 14 \\\\ 4k-2 &= 14 \\Rightarrow k = 4 \\end{aligned}$$\n\nCon $k=4$ ambas ramas llegan a $y=14$ en $x=4$. Un despeje con dos pasos, primero sumar y después dividir, conviene hacerlo en ese orden para no perder el signo del término independiente.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
@@ -172,8 +193,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el parámetro está en la rama derecha, el procedimiento es idéntico: primero se resuelve la rama sin incógnita.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (x^2+1) &= 2 \\\\ \\lim_{x \\to 1^+} (kx+3) &= k+3 \\\\ k+3 &= 2 \\Rightarrow k=-1 \\end{aligned}$$\nCon $k=-1$ ambas ramas llegan a $y=2$ en $x=1$.\n\nQue el parámetro esté a la derecha o a la izquierda del punto de quiebre no cambia el método: siempre se igualan ambas ramas entre sí.",
-    "reviewed": false
+    "explanation": "Cuando el parámetro está en la rama derecha, el procedimiento es idéntico: primero se resuelve la rama sin incógnita.\n\nCada rama de una función a trozos tiene su propia aproximación hacia el punto de quiebre. Ambas deben llegar al mismo valor para que la función sea continua. $$\\begin{aligned} \\lim_{x \\to 1^-} (x^2+1) &= 2 \\\\ \\lim_{x \\to 1^+} (kx+3) &= k+3 \\\\ k+3 &= 2 \\Rightarrow k=-1 \\end{aligned}$$\n\nCon $k=-1$ ambas ramas llegan a $y=2$ en $x=1$. Que el parámetro esté a la derecha o a la izquierda del punto de quiebre no cambia el método: siempre se igualan ambas ramas entre sí.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
@@ -194,8 +218,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de quiebre negativo, conviene sustituir con cuidado el signo de $x$ dentro de cada rama.\n$$\\begin{aligned} \\lim_{x \\to -1^-} (kx-1) &= -k-1 \\\\ \\lim_{x \\to -1^+} (x^2+3) &= 4 \\\\ -k-1 &= 4 \\Rightarrow k=-5 \\end{aligned}$$\nCon $k=-5$ ambas ramas llegan a $y=4$ en $x=-1$.\n\nSustituir un punto de quiebre negativo dentro de un término con parámetro es la fuente más común de errores de signo en este tipo de despeje.",
-    "reviewed": false
+    "explanation": "Con un punto de quiebre negativo, conviene sustituir con cuidado el signo de $x$ dentro de cada rama.\n\nCuando el punto de quiebre es negativo, la sustitución en expresiones con parámetros trae complicaciones de signo. Es fácil perder un signo negativo y obtener una respuesta con signo invertido. $$\\begin{aligned} \\lim_{x \\to -1^-} (kx-1) &= -k-1 \\\\ \\lim_{x \\to -1^+} (x^2+3) &= 4 \\\\ -k-1 &= 4 \\Rightarrow k=-5 \\end{aligned}$$\n\nCon $k=-5$ ambas ramas llegan a $y=4$ en $x=-1$. Sustituir un punto de quiebre negativo dentro de un término con parámetro es la fuente más común de errores de signo en este tipo de despeje.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
@@ -216,8 +243,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se calcula primero el valor de la rama sin parámetro, y después se arma la ecuación con la rama que sí lo tiene.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (5x+k) &= 10+k \\\\ \\lim_{x \\to 2^+} (x^2+x) &= 6 \\\\ 10+k &= 6 \\Rightarrow k=-4 \\end{aligned}$$\nCon $k=-4$ ambas ramas llegan a $y=6$ en $x=2$.\n\nCuando el resultado de $k$ es negativo, conviene volver a sustituirlo en la rama original para confirmar que las dos ramas efectivamente coinciden.",
-    "reviewed": false
+    "explanation": "Se calcula primero el valor de la rama sin parámetro, y después se arma la ecuación con la rama que sí lo tiene.\n\nEl límite lateral es \"hacia dónde apunta\" cada rama; para continuidad, ambas aproximaciones deben alcanzar el mismo destino. $$\\begin{aligned} \\lim_{x \\to 2^-} (5x+k) &= 10+k \\\\ \\lim_{x \\to 2^+} (x^2+x) &= 6 \\\\ 10+k &= 6 \\Rightarrow k=-4 \\end{aligned}$$\n\nCon $k=-4$ ambas ramas llegan a $y=6$ en $x=2$. Cuando el resultado de $k$ es negativo, conviene volver a sustituirlo en la rama original para confirmar que las dos ramas efectivamente coinciden.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
@@ -238,8 +268,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Nuevamente, primero se resuelve la rama sin incógnita, y recién después se iguala con la rama que tiene el parámetro.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (kx+7) &= k+7 \\\\ \\lim_{x \\to 1^+} (4x+5) &= 9 \\\\ k+7 &= 9 \\Rightarrow k=2 \\end{aligned}$$\nCon $k=2$ ambas ramas llegan a $y=9$ en $x=1$.\n\nRestar el término independiente antes de aislar $k$ evita el error de arrastrar un número de más en el resultado final.",
-    "reviewed": false
+    "explanation": "Nuevamente, primero se resuelve la rama sin incógnita, y recién después se iguala con la rama que tiene el parámetro.\n\nEl límite es el destino hacia el cual la función se aproxima desde cada lado del punto de quiebre. Para que sea continua, los dos destinos deben ser el mismo. $$\\begin{aligned} \\lim_{x \\to 1^-} (kx+7) &= k+7 \\\\ \\lim_{x \\to 1^+} (4x+5) &= 9 \\\\ k+7 &= 9 \\Rightarrow k=2 \\end{aligned}$$\n\nCon $k=2$ ambas ramas llegan a $y=9$ en $x=1$. Restar el término independiente antes de aislar $k$ evita el error de arrastrar un número de más en el resultado final.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
@@ -260,8 +293,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El mismo método de siempre aplica también cuando el resultado del parámetro no es un número entero.\n$$\\begin{aligned} \\lim_{x \\to 2^-} (x^2-2) &= 2 \\\\ \\lim_{x \\to 2^+} (kx+1) &= 2k+1 \\\\ 2k+1 &= 2 \\Rightarrow k=0{,}5 \\end{aligned}$$\nCon $k=0{,}5$ ambas ramas llegan a $y=2$ en $x=2$.\n\nUn parámetro decimal no cambia el procedimiento algebraico, solo conviene revisar la división final con cuidado antes de dar la respuesta.",
-    "reviewed": false
+    "explanation": "El mismo método de siempre aplica también cuando el resultado del parámetro no es un número entero.\n\nLa continuidad no exige que el parámetro sea un número entero: solo que ambas ramas converjan al mismo valor, sea este un entero, una fracción o un decimal. $$\\begin{aligned} \\lim_{x \\to 2^-} (x^2-2) &= 2 \\\\ \\lim_{x \\to 2^+} (kx+1) &= 2k+1 \\\\ 2k+1 &= 2 \\Rightarrow k=0{,}5 \\end{aligned}$$\n\nCon $k=0{,}5$ ambas ramas llegan a $y=2$ en $x=2$. Un parámetro decimal no cambia el procedimiento algebraico, solo conviene revisar la división final con cuidado antes de dar la respuesta.",
+    "reviewed": false,
+    "tags": [
+      "despeje-parametro-continuidad"
+    ]
   },
   {
     "question": "Una función racional está dada por\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿En qué valor negativo de $x$ presenta $r$ una discontinuidad?",
@@ -282,8 +318,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El dominio de una racional excluye los valores que anulan el denominador, y ahí es exactamente donde aparece la discontinuidad.\n$$x^2 - 9 = 0 \\Rightarrow x = 3 \\ \\text{o} \\ x = -3$$\nComo la consigna pide el valor negativo, la respuesta es $x=-3$.\n\nCuando el denominador tiene dos raíces reales, conviene prestar atención a cuál pide exactamente el enunciado antes de responder.",
-    "reviewed": false
+    "explanation": "El dominio de una racional excluye los valores que anulan el denominador, y ahí es exactamente donde aparece la discontinuidad.\n\nEl denominador de una fracción no puede ser cero: cuando se anula, la función no está definida en ese punto y hay una discontinuidad. El límite lateral diverge a infinito en esos puntos. $$x^2 - 9 = 0 \\Rightarrow x = 3 \\ \\text{o} \\ x = -3$$\n\nComo la consigna pide el valor negativo, la respuesta es $x=-3$. Cuando el denominador tiene dos raíces reales, conviene prestar atención a cuál pide exactamente el enunciado antes de responder.",
+    "reviewed": false,
+    "tags": [
+      "dominio-racionales-raices"
+    ]
   },
   {
     "question": "Una función con raíz par está dada por\n$$f(x) = \\sqrt{x - 5}$$\n¿Cuál es el valor de $x$ que marca la frontera del dominio de $f$?",
@@ -304,8 +343,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una raíz de índice par exige que su argumento sea mayor o igual a $0$, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n$$x - 5 = 0 \\Rightarrow x = 5$$\nPara $x < 5$ el argumento sería negativo y la expresión no estaría definida en los reales.\n\nLa frontera en sí, $x=5$, sí pertenece al dominio porque la raíz de $0$ está perfectamente definida; el problema empieza estrictamente antes de ese valor.",
-    "reviewed": false
+    "explanation": "Una raíz de índice par exige que su argumento sea mayor o igual a $0$, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl dominio de una raíz par está limitado por su argumento: si el argumento es negativo, no hay un número real que sea raíz de eso. El punto donde el argumento es exactamente $0$ es la frontera: a partir de ahí, hacia valores más pequeños, la función no está definida. $$x - 5 = 0 \\Rightarrow x = 5$$\n\nPara $x < 5$ el argumento sería negativo y la expresión no estaría definida en los reales. La frontera en sí, $x=5$, sí pertenece al dominio porque la raíz de $0$ está perfectamente definida; el problema empieza estrictamente antes de ese valor.",
+    "reviewed": false,
+    "tags": [
+      "dominio-racionales-raices"
+    ]
   },
   {
     "question": "Una función logarítmica está dada por\n$$f(x) = \\ln(x + 2)$$\n¿Cuál es el valor de $x$ que queda justo en la frontera del dominio de $f$?",
@@ -326,7 +368,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n$$x + 2 = 0 \\Rightarrow x = -2$$\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí.\n\nConfundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
-    "reviewed": false
+    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl logaritmo no puede evaluarse en cero ni en números negativos: no hay número real cuya potencia de $e$ sea cero o negativa. El dominio comienza exactamente donde el argumento es positivo. $$x + 2 = 0 \\Rightarrow x = -2$$\n\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí. Confundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
+    "reviewed": false,
+    "tags": [
+      "dominio-racionales-raices"
+    ]
   }
 ]

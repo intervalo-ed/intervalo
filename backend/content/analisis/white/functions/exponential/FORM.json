@@ -128,7 +128,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n$$f(1) = 1{,}7^1 = 1{,}7$$\nLa curva pasa por $(0, 1)$ y $(1, 1{,}7)$: la base es $b = 1{,}7$.\n\nMayor base → crecimiento más empinado para $x > 0$. La opción $2^x$ crecería más rápido; $(0{,}5)^x$ sería decreciente.",
+    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n$$f(1) = 1{,}7^1 = 1{,}7$$\nSi $f(1) = b$, entonces $b$ es la **base** de la exponencial $f(x) = a \\cdot b^x$. Con $f(0) = 5$ (la ordenada al origen), tenemos $a = 5$. Así que la fórmula es $f(x) = 5 \\cdot (1{,}7)^x$. Evaluar en dos puntos distintos permite despejar tanto el coeficiente inicial $a$ como la base $b$, una técnica clave para armar modelos exponenciales desde datos reales.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluación directa en $f(x) = 2^x$:\n$$f(2) = 2^2 = 4$$\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$, $f(3) = 8$, ...\n\nCada incremento de $1$ en $x$ **duplica** el valor. Este crecimiento multiplicativo (en lugar de aditivo) es la esencia del **crecimiento exponencial**.",
+    "explanation": "Evaluación directa en $f(x) = 2^x$:\n$$f(2) = 2^2 = 4$$\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$. Cada paso multiplica por 2. Para valores negativos: $f(-1) = 2^{-1} = 1/2 = 0{,}5$ y $f(-2) = 1/4 = 0{,}25$. Esto ilustra cómo la exponencial con base $> 1$ crece rápidamente a la derecha (valores grandes positivos) y decrece hacia 0 a la izquierda (valores pequeños positivos). Evaluar en varios puntos ayuda a reconocer la curva.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Tasa de crecimiento $r = 25\\% = 0{,}25$: base $b = 1 + r = 1{,}25$.\n$$U(t) = 5000 \\cdot (1{,}25)^t$$\nVerificación: $U(1) = 5000 \\cdot 1{,}25 = 6250$ (sube $1250$), $U(2) = 5000 \\cdot 1{,}5625 = 7812$ (sube $1562$). La ganancia mensual aumenta con el paso del tiempo, eso es crecimiento exponencial.",
+    "explanation": "Tasa de crecimiento $r = 25\\% = 0{,}25$: base $b = 1 + r = 1{,}25$.\n$$U(t) = 5000 \\cdot (1{,}25)^t$$\nEvaluar en $t = 3$:\n$$U(3) = 5000 \\cdot (1{,}25)^3 = 5000 \\cdot 1{,}953125 \\approx 9766$$\nLa fórmula general de crecimiento exponencial es $f(t) = P_0(1+r)^t$, donde $P_0$ es el valor inicial, $r$ es la tasa (expresada como decimal), y $t$ es el tiempo. Así, $r = 25\\% = 0{,}25$ y $b = 1{,}25$ encapsula el crecimiento del 25% por período.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar en $x = -1$:\n$$f(-1) = 4 \\cdot 3^{-1} = 4 \\cdot \\frac{1}{3} = \\frac{4}{3} \\approx 1{,}33$$\nEl exponente negativo da la inversa: $3^{-1} = \\frac{1}{3}$. El resultado es positivo (no confundir el signo del exponente con el signo del resultado).",
+    "explanation": "Evaluar en $x = -1$:\n$$f(-1) = 4 \\cdot 3^{-1} = 4 \\cdot \\frac{1}{3} = \\frac{4}{3} \\approx 1{,}33$$\nEl exponente negativo invierte la base en forma de fracción: $b^{-n} = 1/b^n$. Así, $3^{-1} = 1/3$ y $3^{-2} = 1/9$. Evaluar exponenciales en exponentes negativos requiere recordar esta regla y calcular con cuidado. Es común evaluar $f(0)$ y $f(1)$ para leer rápidamente el coeficiente $a$ y la base $b$ de un gráfico.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$f(2) = 1000 \\cdot (1{,}05)^2 = 1000 \\cdot 1{,}1025 = 1102{,}50$$\n$(1{,}05)^2 = 1{,}05 \\times 1{,}05 = 1{,}1025$.\n\nComparar con interés simple: $1000 \\cdot 0{,}05 \\cdot 2 = 100$, total $\\$1100$. El interés compuesto da $\\$2{,}50$ más gracias a los intereses sobre intereses.",
+    "explanation": "$$f(2) = 1000 \\cdot (1{,}05)^2 = 1000 \\cdot 1{,}1025 = 1102{,}50$$\n$(1{,}05)^2 = 1{,}05 \\times 1{,}05 = 1{,}1025$. En interés compuesto, $P(t) = P_0(1+r)^t$ donde $r = 0{,}05$ (5% anual). Tras 2 años, el capital inicial se multiplica por $1{,}1025$, ganando \\$102{,}50 en intereses. El crecimiento acelera porque cada año suma interés sobre el capital anterior más los intereses ya ganados: es exponencial, no lineal.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -883,7 +883,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Modelo: $M(t) = 3000 \\cdot (1{,}15)^t$.\n$$M(2) = 3000 \\cdot (1{,}15)^2 = 3000 \\cdot 1{,}3225 = 3967{,}50$$\n$(1{,}15)^2 = 1{,}15 \\times 1{,}15 = 1{,}3225$. Con interés simple sería $3000 \\cdot 1{,}30 = \\$3900$ (distractor A). El compuesto da más por los intereses sobre intereses.",
+    "explanation": "Modelo: $M(t) = 3000 \\cdot (1{,}15)^t$.\n$$M(2) = 3000 \\cdot (1{,}15)^2 = 3000 \\cdot 1{,}3225 = 3967{,}50$$\n$(1{,}15)^2 = 1{,}3225$ por cálculo directo. Este es un crecimiento del 15% anual: tras 2 años, el monto inicial se multiplicó por 1{,}3225, un incremento neto del 32{,}25%. No es simplemente $2 \\times 15\\% = 30\\%$ porque el segundo año computa interés sobre el monto ya incrementado (interés compuesto). Por eso los modelos exponenciales son más realistas que los lineales en finanzas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$$\\begin{aligned} 2 \\cdot e^x &> 0 \\implies 2 \\cdot e^x - 1 > -1 \\\\ \\text{para todo } x \\end{aligned}$$\nLa imagen es $(-1, +\\infty)$: intervalo abierto porque $e^x \\to 0^+$ (nunca llega a $0$), entonces $2e^x - 1 \\to -1$ (nunca llega a $-1$). La asíntota horizontal es $y = -1$.",
+    "explanation": "$$\\begin{aligned} 2 \\cdot e^x &> 0 \\implies 2 \\cdot e^x - 1 > -1 \\end{aligned}$$\nComo $e^x > 0$ siempre, multiplicarlo por 2 también da un valor positivo. Así, $2 \\cdot e^x - 1$ toma todos los valores mayores que $-1$. La imagen de esta función es $(-1, +\\infty)$, acotada inferiormente por la asíntota horizontal $y = -1$ pero sin límite superior. Resolver desigualdades exponenciales requiere usar la inyectividad y la monotonía de la base.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"

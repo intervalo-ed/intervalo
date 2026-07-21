@@ -17,7 +17,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **regla de la potencia** es una de las derivadas elementales más usadas, baja el exponente como coeficiente y lo reduce en uno.\n\n$$(x^n)' = n x^{n-1}$$\nEsta fórmula se toma como conocida en este tópico, no hace falta justificarla mediante el límite del cociente incremental.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $x^5$?",
@@ -37,7 +40,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\n$$(x^5)' = 5x^{5-1} = 5x^4$$\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de una función constante $f(x) = c$?",
@@ -57,7 +63,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **regla de la constante** establece que la derivada de cualquier función constante, sin importar su valor, siempre da cero.\n\n$$(c)' = 0$$\nEsto tiene sentido porque una constante no cambia, así que su tasa de cambio instantánea es nula en todo punto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $7x^3$?",
@@ -77,7 +86,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\n$$(7x^3)' = 7 \\cdot 3 x^2 = 21x^2$$\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $e^x$?",
@@ -97,7 +109,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La función $e^x$ es la única **derivada elemental** que coincide exactamente con su propia función original.\n\n$$(e^x)' = e^x$$\nConviene no confundirla con una potencia de $x$, la variable está en el exponente, no en la base, así que la regla de la potencia no aplica acá.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $a^x$, con $a$ una constante positiva distinta de $1$?",
@@ -117,7 +132,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\n$$(a^x)' = a^x \\ln a$$\nEl caso $a=e$ es especial porque $\\ln e = 1$, por eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $\\ln x$?",
@@ -137,7 +155,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La derivada del **logaritmo natural** es una de las derivadas elementales más usadas del tópico.\n\n$$(\\ln x)' = \\frac{1}{x}$$\nEsta fórmula se toma como conocida, sin necesidad de justificarla por límite, y aparece con frecuencia combinada con otros términos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $\\sin x$?",
@@ -157,7 +178,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Entre las **derivadas elementales** trigonométricas, la del seno es la más simple, sin ningún signo que ajustar.\n\n$$(\\sin x)' = \\cos x$$\nConviene distinguirla bien de la derivada del coseno, que sí lleva un signo negativo, ese es el error más frecuente entre ambas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $\\cos x$?",
@@ -177,7 +201,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "A diferencia de la derivada del seno, la del coseno lleva un signo negativo que no se puede omitir.\n\n$$(\\cos x)' = -\\sin x$$\nEste signo negativo es el detalle que más se pierde al memorizar esta fórmula, conviene revisarlo siempre antes de dar la respuesta final.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $\\tan x$?",
@@ -197,7 +224,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La derivada de la **tangente** se toma como fórmula elemental conocida, sin necesidad de derivarla como cociente entre seno y coseno.\n\n$$(\\tan x)' = \\sec^2 x$$\nEsta fórmula conviene memorizarla directamente en este tópico, ya que la regla del cociente todavía no está disponible como herramienta.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "¿Cuál es la derivada de $x^{-2}$?",
@@ -217,7 +247,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **regla de la potencia** se aplica exactamente igual cuando el exponente es negativo, sin ningún ajuste adicional.\n\n$$(x^{-2})' = -2x^{-2-1} = -2x^{-3}$$\nEl signo negativo del exponente original baja como parte del coeficiente, y la resta de uno se hace sobre ese mismo exponente negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "derivadas-elementales"
+    ]
   },
   {
     "question": "Si $y = f(x)$, ¿cuál de las siguientes notaciones es equivalente a $f'(x)$?",
@@ -237,7 +270,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n\n$$f'(x) = \\frac{dy}{dx}$$\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-y-operadores"
+    ]
   },
   {
     "question": "¿Qué representa el operador $\\frac{d}{dx}[\\cdot]$?",
@@ -257,7 +293,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\n$$\\frac{d}{dx}[x^3] = 3x^2$$\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-y-operadores"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes es una notación válida para la derivada de $f$?",
@@ -277,7 +316,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El operador $D$ es otra forma válida de anotar la derivada, equivalente a $f'$ o a $\\frac{df}{dx}$, aunque menos frecuente en los libros introductorios.\n\n$$Df = f'$$\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-y-operadores"
+    ]
   },
   {
     "question": "¿Es correcto simplificar $\\frac{dy}{dx}$ cancelando $dy$ con $dx$ como si fuera una fracción algebraica común?",
@@ -297,6 +339,9 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nEsta confusión es frecuente justamente porque la notación fue diseñada para evocar esa idea, aunque formalmente no funcione así.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-y-operadores"
+    ]
   }
 ]
