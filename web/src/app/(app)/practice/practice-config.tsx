@@ -346,9 +346,11 @@ export default function PracticeConfig() {
             {!hintDismissed && (
               <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
                 <p className="text-sm text-foreground/60">
-                  Elegí los temas que querés practicar. Ajustá en{" "}
-                  <SettingsIcon className="inline size-3.5 align-middle" /> la cantidad
-                  de ejercicios.
+                  Elegí los temas que querés practicar.
+                  <br />
+                  Ajustá en{" "}
+                  <SettingsIcon className="inline size-3.5 align-middle" /> la
+                  cantidad de ejercicios.
                 </p>
                 <button
                   type="button"
