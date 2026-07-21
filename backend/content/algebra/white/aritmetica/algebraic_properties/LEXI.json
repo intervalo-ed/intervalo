@@ -1,0 +1,18 @@
+[
+  {
+    "question": "La igualdad $a\\cdot(b+c) = a\\cdot b + a\\cdot c$ permite repartir un factor entre los términos de una suma.\n\n¿Qué propiedad describe esa igualdad?",
+    "options": ["Propiedad distributiva", "Propiedad asociativa", "Propiedad conmutativa"],
+    "correct_index": 0,
+    "feedback_correct": "Repartir el factor $a$ entre los términos de la suma es exactamente lo que define a la propiedad distributiva.",
+    "feedback_incorrect": [
+      null,
+      "La propiedad asociativa cambia cómo se agrupan los términos con paréntesis, no reparte un factor sobre una suma.",
+      "La propiedad conmutativa cambia el orden de los términos, no reparte un factor sobre una suma."
+    ],
+    "explanation": "La **propiedad distributiva** establece que multiplicar un factor por una suma equivale a multiplicar ese factor por cada término y sumar los resultados:\n$$a\\cdot(b+c) = a\\cdot b + a\\cdot c$$\nPor ejemplo, $3\\cdot(4+5) = 3\\cdot4 + 3\\cdot5 = 12+15=27$, el mismo resultado que sumar primero y multiplicar después.\n\nUna confusión común es aplicar el factor a un solo término del paréntesis y olvidar el resto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false
+  }
+]

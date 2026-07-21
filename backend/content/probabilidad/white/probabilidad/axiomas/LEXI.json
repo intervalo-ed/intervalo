@@ -1,5 +1,26 @@
 [
   {
+    "question": "¿Cuál de las siguientes afirmaciones corresponde al segundo axioma de Kolmogorov?",
+    "options": [
+      "$P(\\Omega) = 1$.",
+      "$P(A) \\geq 0$ para todo evento $A$.",
+      "$P(A \\cup B) = P(A) + P(B)$ si $A \\cap B = \\emptyset$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El segundo axioma establece que la probabilidad del evento seguro es 1.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la propiedad de no negatividad, el primer axioma.",
+      "Esa es la propiedad de aditividad para eventos excluyentes, el tercer axioma."
+    ],
+    "explanation": "Los **axiomas de Kolmogorov** son tres reglas básicas que definen qué es una probabilidad válida. El segundo axioma establece que la probabilidad del espacio muestral completo vale $1$:\n$$P(\\Omega) = 1$$\nEsto refleja que, al realizar el experimento, algún resultado del espacio ocurre con certeza.\n\nLa confusión típica es mezclar el orden o el contenido de los tres axiomas; conviene asociar cada uno a su idea: no negatividad, certeza del espacio total, y aditividad para excluyentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-axioma"]
+  },
+  {
     "question": "¿Cuál de las siguientes propiedades NO forma parte de los **axiomas de Kolmogorov** de la probabilidad?",
     "options": [
       "$P(A) \\geq 0$ para todo evento $A$.",
@@ -15,10 +36,74 @@
       "Es el axioma de aditividad para excluyentes, sí forma parte del sistema.",
       null
     ],
-    "explanation": "Los tres **axiomas de Kolmogorov** son:\n$$\\begin{aligned} &1)\\ P(A) \\geq 0 \\\\ &2)\\ P(\\Omega) = 1 \\\\ &3)\\ P(A \\cup B) = P(A) + P(B) \\text{ si } A \\cap B = \\emptyset \\end{aligned}$$\n\nLa fórmula del complemento $P(A^c) = 1 - P(A)$ es cierta, pero es una **consecuencia** de los axiomas 2 y 3 (aplicando aditividad a $\\Omega = A \\cup A^c$), no un axioma independiente.\n\nUna confusión típica es tratar toda propiedad conocida de la probabilidad como axioma; recordá que los axiomas son la base mínima desde la que se demuestra todo el resto.",
+    "explanation": "Los tres **axiomas de Kolmogorov** son:\n$$\\begin{aligned} &1)\\ P(A) \\geq 0 \\\\ &2)\\ P(\\Omega) = 1 \\\\ &3)\\ P(A \\cup B) = P(A) + P(B) \\text{ si } A \\cap B = \\emptyset \\end{aligned}$$\nLa fórmula del complemento $P(A^c) = 1 - P(A)$ es cierta, pero es una **consecuencia** de los axiomas 2 y 3 (aplicando aditividad a $\\Omega = A \\cup A^c$), no un axioma independiente.\n\nUna confusión típica es tratar toda propiedad conocida de la probabilidad como axioma; recordá que los axiomas son la base mínima desde la que se demuestra todo el resto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["axioma-vs-derivada"]
+  },
+  {
+    "question": "Sabiendo que $P(A)=0{,}4$, ¿cuál es la fórmula que permite calcular $P(A^c)$?",
+    "options": [
+      "$P(A^c) = 1 - P(A)$.",
+      "$P(A^c) = P(A)$.",
+      "$P(A^c) = P(\\Omega) + P(A)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El complemento de $A$ se calcula restando su probabilidad a $1$.",
+    "feedback_incorrect": [
+      null,
+      "Esa igualdad solo se cumple si $P(A)=0{,}5$, no en general.",
+      "Esa suma puede superar $1$, algo imposible para una probabilidad."
+    ],
+    "explanation": "La **regla del complemento** dice que la probabilidad de que un evento NO ocurra es $1$ menos la probabilidad de que sí ocurra:\n$$P(A^c) = 1 - P(A)$$\nSe deduce de los axiomas, ya que $A$ y $A^c$ son mutuamente excluyentes y juntos cubren todo $\\Omega$.\n\nLa confusión típica es calcular directamente $P(A)$ cuando la pregunta pide el complemento, olvidando restar de $1$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento-prob"]
+  },
+  {
+    "question": "Dados dos eventos $A$ y $B$ que pueden ocurrir a la vez (no necesariamente excluyentes), ¿cuál es la fórmula general para $P(A\\cup B)$?",
+    "options": [
+      "$P(A) + P(B) - P(A\\cap B)$.",
+      "$P(A) + P(B)$.",
+      "$P(A)\\cdot P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La regla general resta la intersección para no contarla dos veces.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma solo vale si los eventos son mutuamente excluyentes, un caso particular.",
+      "Ese producto corresponde a otra propiedad (independencia), no a la unión de dos eventos."
+    ],
+    "explanation": "La **regla general de la unión** calcula $P(A\\cup B)$ para dos eventos cualesquiera, sean o no excluyentes:\n$$P(A\\cup B) = P(A) + P(B) - P(A\\cap B)$$\nRestar $P(A\\cap B)$ evita contar dos veces los resultados que pertenecen a ambos eventos a la vez.\n\nLa confusión típica es usar la suma simple $P(A)+P(B)$ sin restar la intersección, válida solo cuando los eventos son mutuamente excluyentes.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-regla-union"]
+  },
+  {
+    "question": "¿Cuál es el rango de valores posibles para $P(A)$, la probabilidad de cualquier evento $A$?",
+    "options": [
+      "$0 \\leq P(A) \\leq 1$.",
+      "$-1 \\leq P(A) \\leq 1$.",
+      "$P(A)$ puede ser cualquier número real."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Por los axiomas, toda probabilidad está acotada entre $0$ y $1$.",
+    "feedback_incorrect": [
+      null,
+      "Los valores negativos no son posibles: el primer axioma exige $P(A)\\geq 0$.",
+      "La probabilidad siempre está acotada por el segundo axioma, $P(\\Omega)=1$, que fija el máximo."
+    ],
+    "explanation": "Los axiomas de Kolmogorov garantizan que toda probabilidad está acotada:\n$$0 \\leq P(A) \\leq 1$$\nEl mínimo $0$ corresponde al evento imposible y el máximo $1$ al evento seguro; ningún evento puede tener una probabilidad fuera de ese rango.\n\nLa confusión típica es aceptar como válido un resultado calculado fuera de $[0,1]$, en vez de usarlo como señal de que hubo un error en el cálculo.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-rango-probabilidad"]
   }
 ]

@@ -30,6 +30,7 @@ export function CourseSwitcher({
         size="icon-sm"
         aria-label="Curso anterior"
         onClick={onPrev}
+        className={cn(editing && "text-[#7E80F7] hover:text-[#7E80F7]")}
       >
         <ChevronLeft />
       </Button>
@@ -42,7 +43,14 @@ export function CourseSwitcher({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
         >
-          <span className="text-sm font-semibold">{COURSE_LABEL[course]}</span>
+          <span
+            className={cn(
+              "text-sm font-semibold",
+              editing && "text-[#7E80F7]",
+            )}
+          >
+            {COURSE_LABEL[course]}
+          </span>
           {onToggleEdit && (
             <button
               type="button"
@@ -52,7 +60,7 @@ export function CourseSwitcher({
               className={cn(
                 "flex size-6 items-center justify-center transition-colors",
                 editing
-                  ? "text-primary"
+                  ? "text-[#7E80F7]"
                   : "text-foreground/50 hover:text-foreground",
               )}
             >
@@ -66,6 +74,7 @@ export function CourseSwitcher({
         size="icon-sm"
         aria-label="Curso siguiente"
         onClick={onNext}
+        className={cn(editing && "text-[#7E80F7] hover:text-[#7E80F7]")}
       >
         <ChevronRight />
       </Button>

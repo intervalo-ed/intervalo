@@ -1,5 +1,44 @@
 [
   {
+    "question": "Se sabe que $P(A)=0{,}6$ y $P(B)=0{,}5$, con $A$ y $B$ eventos independientes.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}3$", "$1{,}1$", "$0{,}1$", "$1{,}2$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(A\\cap B)=P(A)\\cdot P(B)=0{,}6\\times 0{,}5=0{,}3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado suma en vez de multiplicar las probabilidades dadas.",
+      "Ese resultado resta en vez de multiplicar las probabilidades dadas.",
+      "Ese valor supera $1$, algo imposible; además no corresponde a multiplicar los datos dados."
+    ],
+    "explanation": "Para eventos **independientes**, la probabilidad de la intersección es el producto de las probabilidades individuales:\n$$P(A\\cap B) = P(A)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}6 \\times 0{,}5 = 0{,}3$$\nLa confusión típica es sumar las probabilidades en vez de multiplicarlas, un error que puede incluso dar un resultado mayor a $1$, una señal clara de que algo está mal.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-interseccion"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}3$, $P(B)=0{,}4$ y $P(A\\cap B)=0{,}12$.\n\n¿Los eventos $A$ y $B$ son independientes?",
+    "options": [
+      "Sí, porque $0{,}3\\times 0{,}4=0{,}12$ coincide con $P(A\\cap B)$.",
+      "No, porque $P(A)\\neq P(B)$.",
+      "No, porque $P(A\\cap B)$ es menor que $P(A)$ y $P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El producto de las probabilidades individuales coincide exactamente con la intersección dada.",
+    "feedback_incorrect": [
+      null,
+      "Que $P(A)$ y $P(B)$ tengan valores distintos no es el criterio de independencia; lo que importa es la igualdad con el producto.",
+      "Que $P(A\\cap B)$ sea menor que cada probabilidad individual es normal y esperable, no indica dependencia por sí solo."
+    ],
+    "explanation": "Para verificar independencia se compara $P(A\\cap B)$ contra el producto $P(A)\\cdot P(B)$:\n$$P(A)\\cdot P(B) = 0{,}3\\times 0{,}4 = 0{,}12$$\nComo este producto coincide exactamente con el valor dado $P(A\\cap B)=0{,}12$, los eventos son independientes.\n\nLa confusión típica es usar otro criterio (comparar los valores de $P(A)$ y $P(B)$ entre sí, o su tamaño relativo a la intersección) en vez de verificar específicamente la igualdad con el producto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-verificacion"]
+  },
+  {
     "question": "Se lanza una moneda balanceada 3 veces de forma independiente.\n\n¿Cuál es la probabilidad de obtener cara en las 3 tiradas?",
     "options": [
       "$\\dfrac{1}{2}$",
@@ -15,10 +54,11 @@
       null,
       "Ese es $3 \\cdot (1/8)$, la probabilidad de exactamente 1 cara en 3 tiradas, no las 3 caras seguidas."
     ],
-    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran los tres a la vez es el producto de sus probabilidades individuales:\n$$P(C_1 \\cap C_2 \\cap C_3) = P(C_1) \\cdot P(C_2) \\cdot P(C_3)$$\n\nCon cada tirada dando $P(C) = 1/2$:\n$$\\left(\\frac{1}{2}\\right)^{3} = \\frac{1}{8}$$\n\nLa confusión típica es sumar probabilidades ($3 \\cdot 1/2 = 3/2$) o dividir; recordá que \"y\" pide multiplicar bajo independencia, mientras que \"o\" en eventos excluyentes suma.",
+    "explanation": "Cuando los eventos son **independientes**, la probabilidad de que ocurran los tres a la vez es el producto de sus probabilidades individuales:\n$$P(C_1 \\cap C_2 \\cap C_3) = P(C_1) \\cdot P(C_2) \\cdot P(C_3)$$\nCon cada tirada dando $P(C) = 1/2$:\n$$\\left(\\frac{1}{2}\\right)^{3} = \\frac{1}{8}$$\nLa confusión típica es sumar probabilidades ($3 \\cdot 1/2 = 3/2$) o dividir; recordá que \"y\" pide multiplicar bajo independencia, mientras que \"o\" en eventos excluyentes suma.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-repeticion"]
   }
 ]

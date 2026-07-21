@@ -13,10 +13,113 @@
       "Un evento elemental es un único resultado, no el conjunto de todos.",
       "Un evento compuesto es un subconjunto del espacio, no el conjunto total."
     ],
-    "explanation": "El **espacio muestral**, denotado $\\Omega$ o $S$, es el conjunto de todos los resultados posibles de un experimento aleatorio. Sobre él se definen los eventos como subconjuntos.\n\nEn el lanzamiento de un dado de 6 caras:\n$$\\Omega = \\{1, 2, 3, 4, 5, 6\\}$$\n\nLa confusión típica es intercambiar espacio muestral y evento: el espacio es el marco global de referencia, y cada evento es un subconjunto de él que agrupa uno o más resultados.",
+    "explanation": "El **espacio muestral**, denotado $\\Omega$ o $S$, es el conjunto de todos los resultados posibles de un experimento aleatorio. Sobre él se definen los eventos como subconjuntos.\n\nEn el lanzamiento de un dado de 6 caras:\n$$\\Omega = \\{1, 2, 3, 4, 5, 6\\}$$\nLa confusión típica es intercambiar espacio muestral y evento: el espacio es el marco global de referencia, y cada evento es un subconjunto de él que agrupa uno o más resultados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["definicion-espacio-muestral"]
+  },
+  {
+    "question": "En probabilidad, ¿cómo se llama a cualquier subconjunto del espacio muestral $\\Omega$?",
+    "options": ["Espacio muestral.", "Evento.", "Experimento aleatorio."],
+    "correct_index": 1,
+    "feedback_correct": "Un evento es cualquier subconjunto de $\\Omega$, sea de uno o varios resultados.",
+    "feedback_incorrect": [
+      "El espacio muestral es el conjunto total de resultados, no un subconjunto particular.",
+      null,
+      "El experimento aleatorio es el proceso que genera los resultados, no un subconjunto de ellos."
+    ],
+    "explanation": "Un **evento** es cualquier subconjunto $A \\subseteq \\Omega$ del espacio muestral: puede agrupar un único resultado o varios.\n\nPor ejemplo, al lanzar un dado con $\\Omega = \\{1,2,3,4,5,6\\}$, el subconjunto $A = \\{2,4,6\\}$ (sacar par) es un evento.\n\nLa confusión típica es tratar \"evento\" como sinónimo de \"resultado individual\": un evento puede contener uno o varios resultados, mientras que un resultado es un único elemento de $\\Omega$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-evento"]
+  },
+  {
+    "question": "Se lanza un dado de 6 caras. Considerá el evento $A = \\{4\\}$, formado por un único resultado del espacio muestral.\n\n¿Qué nombre recibe este tipo de evento?",
+    "options": ["Suceso elemental.", "Suceso compuesto.", "Evento seguro."],
+    "correct_index": 0,
+    "feedback_correct": "Un evento con un único resultado del espacio muestral se llama suceso elemental.",
+    "feedback_incorrect": [
+      null,
+      "Un suceso compuesto agrupa dos o más resultados, no uno solo.",
+      "El evento seguro es todo $\\Omega$, no un único resultado."
+    ],
+    "explanation": "Un **suceso elemental** es un evento formado por un único resultado del espacio muestral, el nivel más simple de evento posible.\n\nEn $\\Omega = \\{1,2,3,4,5,6\\}$, el evento $A=\\{4\\}$ contiene solo el resultado $4$, así que es un suceso elemental.\n\nLa confusión típica es tratar un evento con 2 o más resultados (suceso compuesto) como si también fuera elemental: la diferencia está exactamente en la cantidad de resultados que agrupa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-suceso-elemental"]
+  },
+  {
+    "question": "Se lanza un dado de 6 caras y se define el evento $A = \\{1,2,3,4,5,6\\}$, que coincide exactamente con el espacio muestral completo.\n\n¿Qué nombre recibe este evento?",
+    "options": ["Evento imposible.", "Suceso elemental.", "Evento seguro."],
+    "correct_index": 2,
+    "feedback_correct": "El evento que coincide con todo $\\Omega$ siempre ocurre: es el evento seguro.",
+    "feedback_incorrect": [
+      "El evento imposible es $\\emptyset$, el que nunca ocurre; acá pasa lo contrario.",
+      "Un suceso elemental tiene un único resultado, no los seis posibles.",
+      null
+    ],
+    "explanation": "El **evento seguro** es el evento que coincide con todo el espacio muestral $\\Omega$: como agrupa todos los resultados posibles, siempre ocurre sin importar qué resultado salga.\n\nEn el dado, $A=\\{1,2,3,4,5,6\\}=\\Omega$ es el evento seguro, con probabilidad $1$.\n\nUna confusión común es pensar que el evento seguro es el resultado más probable, cuando en realidad es el único evento que agrupa absolutamente todos los resultados del experimento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-evento-seguro"]
+  },
+  {
+    "question": "Se lanza un dado de 6 caras y se define el evento $A$: sacar un $7$.\n\n¿Qué nombre recibe un evento que no contiene ningún resultado del espacio muestral?",
+    "options": ["Evento imposible.", "Evento seguro.", "Suceso compuesto."],
+    "correct_index": 0,
+    "feedback_correct": "Un evento sin resultados del espacio muestral es el evento imposible, $\\emptyset$.",
+    "feedback_incorrect": [
+      null,
+      "El evento seguro es $\\Omega$ completo, el que siempre ocurre; acá pasa lo contrario.",
+      "Un suceso compuesto agrupa dos o más resultados reales; $\\emptyset$ no contiene ninguno."
+    ],
+    "explanation": "El **evento imposible**, denotado $\\emptyset$, es el evento que no contiene ningún resultado del espacio muestral: nunca puede ocurrir.\n\nEn el dado con $\\Omega=\\{1,2,3,4,5,6\\}$, sacar un $7$ no corresponde a ningún resultado posible, así que ese evento es $\\emptyset$.\n\nUna confusión frecuente es confundir el evento imposible con un evento simplemente poco probable: un evento poco probable sí puede ocurrir, mientras que $\\emptyset$ nunca ocurre por definición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-evento-imposible"]
+  },
+  {
+    "question": "En el lanzamiento de un dado con $\\Omega=\\{1,2,3,4,5,6\\}$, se define el evento $A=\\{2,4,6\\}$ (sacar par).\n\n¿Qué nombre recibe el evento formado por los resultados de $\\Omega$ que NO están en $A$?",
+    "options": ["Intersección de $A$ con $\\Omega$.", "Complemento de $A$.", "Unión de $A$ con $\\Omega$."],
+    "correct_index": 1,
+    "feedback_correct": "El complemento $A^c$ agrupa todos los resultados de $\\Omega$ que no pertenecen a $A$.",
+    "feedback_incorrect": [
+      "La intersección de $A$ con $\\Omega$ es el propio $A$, no los resultados que le faltan.",
+      null,
+      "La unión de $A$ con $\\Omega$ es $\\Omega$ completo, no específicamente los resultados que le faltan a $A$."
+    ],
+    "explanation": "El **complemento** de un evento $A$, denotado $A^c$, es el conjunto de todos los resultados de $\\Omega$ que no pertenecen a $A$.\n\nCon $\\Omega=\\{1,2,3,4,5,6\\}$ y $A=\\{2,4,6\\}$ (par), el complemento es $A^c=\\{1,3,5\\}$ (impar).\n\nLa confusión típica es confundir el complemento con una operación entre dos eventos distintos (unión o intersección): el complemento se define sobre un solo evento y el espacio muestral completo, no requiere un segundo evento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-complemento"]
+  },
+  {
+    "question": "Se lanza un dado y se definen los eventos $A=\\{1,2\\}$ y $B=\\{5,6\\}$, que no comparten ningún resultado en común.\n\n¿Qué nombre reciben dos eventos que no comparten ningún resultado?",
+    "options": ["Complementarios.", "Elementales.", "Mutuamente excluyentes."],
+    "correct_index": 2,
+    "feedback_correct": "Dos eventos sin resultados en común ($A\\cap B=\\emptyset$) son mutuamente excluyentes.",
+    "feedback_incorrect": [
+      "Ser complementarios exige además que $A$ y $B$ cubran juntos todo $\\Omega$, algo que acá no se pidió verificar.",
+      "Elemental describe a un evento de un único resultado, no la relación entre dos eventos distintos.",
+      null
+    ],
+    "explanation": "Dos eventos $A$ y $B$ son **mutuamente excluyentes** cuando no comparten ningún resultado, es decir $A\\cap B=\\emptyset$: si ocurre uno, el otro no puede ocurrir a la vez.\n\nCon $A=\\{1,2\\}$ y $B=\\{5,6\\}$, no hay ningún resultado en común, así que son mutuamente excluyentes.\n\nUna confusión común es pensar que basta con que los eventos parezcan distintos para ser excluyentes; hay que verificar explícitamente que su intersección sea vacía, no alcanza con una impresión general.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["definicion-mutuamente-excluyentes"]
   }
 ]

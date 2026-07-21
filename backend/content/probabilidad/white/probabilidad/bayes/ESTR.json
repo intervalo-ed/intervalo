@@ -13,10 +13,53 @@
       null,
       "No corresponde independencia: precisamente el interés está en cómo la evidencia (test positivo) actualiza la probabilidad de estar enfermo."
     ],
-    "explanation": "El **teorema de Bayes** invierte un condicional conocido usando la probabilidad a priori y la probabilidad total de la evidencia:\n$$P(E|+) = \\frac{P(+|E) \\cdot P(E)}{P(+)}$$\n\nAcá $P(+) = P(+|E) \\cdot P(E) + P(+|S) \\cdot P(S) = 0{,}95 \\cdot 0{,}01 + 0{,}05 \\cdot 0{,}99 \\approx 0{,}0590$, y entonces:\n$$P(E|+) = \\frac{0{,}0095}{0{,}0590} \\approx 0{,}161$$\n\nLa confusión típica es asumir que el test positivo implica alta probabilidad de enfermedad; cuando la a priori $P(E)$ es muy baja, la evidencia positiva sube la probabilidad pero no la lleva cerca de 1.",
+    "explanation": "El **teorema de Bayes** invierte un condicional conocido usando la probabilidad a priori y la probabilidad total de la evidencia:\n$$P(E|+) = \\frac{P(+|E) \\cdot P(E)}{P(+)}$$\nAcá $P(+) = P(+|E) \\cdot P(E) + P(+|S) \\cdot P(S) = 0{,}95 \\cdot 0{,}01 + 0{,}05 \\cdot 0{,}99 \\approx 0{,}0590$, y entonces:\n$$P(E|+) = \\frac{0{,}0095}{0{,}0590} \\approx 0{,}161$$\nLa confusión típica es asumir que el test positivo implica alta probabilidad de enfermedad; cuando la a priori $P(E)$ es muy baja, la evidencia positiva sube la probabilidad pero no la lleva cerca de 1.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-bayes"]
+  },
+  {
+    "question": "Se sabe que $P(\\text{positivo}|\\text{enfermo})=0{,}9$ y se pregunta directamente por esa misma probabilidad: la chance de que el test dé positivo sabiendo que el paciente está enfermo.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Usar directamente el dato $P(\\text{positivo}|\\text{enfermo})=0{,}9$, sin aplicar Bayes.",
+      "Aplicar el teorema de Bayes para invertir el condicional.",
+      "Calcular primero $P(\\text{positivo})$ con probabilidad total antes de responder."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "La pregunta pide la misma dirección del dato: no hace falta invertir nada.",
+    "feedback_incorrect": [
+      null,
+      "Bayes invierte la dirección del condicional; acá la pregunta ya está en la misma dirección que el dato, no hace falta invertir.",
+      "No hace falta calcular la probabilidad total de la evidencia si no se necesita invertir el condicional."
+    ],
+    "explanation": "El **teorema de Bayes** solo es necesario cuando el dato viene en una dirección y se pide la dirección contraria. Si la pregunta pide exactamente lo mismo que ya está dado, no hace falta ningún cálculo adicional.\n\nAcá el dato es $P(\\text{positivo}|\\text{enfermo})$ y la pregunta pide justamente esa misma probabilidad, así que la respuesta es directamente $0{,}9$.\n\nLa confusión típica es aplicar Bayes automáticamente ante cualquier problema con condicionales, sin verificar primero si el dato y la pregunta ya apuntan en la misma dirección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-condicional-directa"]
+  },
+  {
+    "question": "Para calcular $P(\\text{enfermo}|\\text{positivo})$ con el teorema de Bayes, se necesita el denominador $P(\\text{positivo})$.\n\n¿Cómo se obtiene ese denominador?",
+    "options": [
+      "Con el teorema de la probabilidad total, sumando sobre enfermo y sano.",
+      "Es un dato que siempre viene directamente en el enunciado.",
+      "Se calcula como el complemento de $P(\\text{enfermo})$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El denominador de Bayes es la probabilidad total de la evidencia, sumando todos los escenarios posibles.",
+    "feedback_incorrect": [
+      null,
+      "A veces el enunciado da $P(\\text{positivo})$ directamente, pero en general hay que calcularlo combinando los escenarios con probabilidad total.",
+      "El complemento de $P(\\text{enfermo})$ es $P(\\text{sano})$, no la probabilidad de que el test dé positivo."
+    ],
+    "explanation": "En el **teorema de Bayes**, el denominador $P(B)$ representa la probabilidad total de la evidencia, considerando todos los escenarios posibles que podrían producirla:\n$$P(B) = P(B|\\text{enfermo})P(\\text{enfermo}) + P(B|\\text{sano})P(\\text{sano})$$\nSe calcula exactamente con el teorema de la probabilidad total, combinando cada escenario con su probabilidad condicional de dar esa evidencia.\n\nLa confusión típica es tratar el denominador como un dato dado sin más, en vez de reconocer que casi siempre hay que construirlo combinando los escenarios de la partición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-denominador-total"]
   }
 ]

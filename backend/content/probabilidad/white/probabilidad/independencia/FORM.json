@@ -15,10 +15,53 @@
       null,
       "La división aparece en la fórmula de condicional, no en la intersección de independientes."
     ],
-    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\n\nCon los datos:\n$$P(A \\cap B) = 0{,}4 \\cdot 0{,}3 = 0{,}12$$\n\nLa confusión típica es aplicar suma pensando en \"probabilidad total\" o restar buscando el complemento: la marca clara de independencia es la multiplicación de las probabilidades individuales.",
+    "explanation": "La **independencia** de dos eventos $A$ y $B$ equivale a la condición:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nCon los datos:\n$$P(A \\cap B) = 0{,}4 \\cdot 0{,}3 = 0{,}12$$\nLa confusión típica es aplicar suma pensando en \"probabilidad total\" o restar buscando el complemento: la marca clara de independencia es la multiplicación de las probabilidades individuales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "En un experimento, $P(A)=0{,}5$, $P(B)=0{,}4$ y $P(A\\cap B)=0{,}2$.\n\n¿Qué comparación permite verificar si $A$ y $B$ son independientes?",
+    "options": [
+      "Comparar $P(A\\cap B)$ con $P(A)\\cdot P(B)$.",
+      "Comparar $P(A)$ con $P(B)$.",
+      "Comparar $P(A\\cap B)$ con $P(A)+P(B)$."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Son independientes si y solo si $P(A\\cap B)=P(A)\\cdot P(B)$.",
+    "feedback_incorrect": [
+      null,
+      "Comparar $P(A)$ con $P(B)$ no dice nada sobre si se afectan entre sí, solo compara sus tamaños individuales.",
+      "Esa suma corresponde a otra propiedad (unión de excluyentes), no al criterio de independencia."
+    ],
+    "explanation": "Para **verificar** si dos eventos son independientes, se compara la probabilidad de su intersección contra el producto de sus probabilidades individuales:\n$$P(A\\cap B) \\overset{?}{=} P(A)\\cdot P(B)$$\nEn este caso, $P(A)\\cdot P(B)=0{,}5\\times 0{,}4=0{,}2$, que coincide con $P(A\\cap B)=0{,}2$: los eventos son independientes.\n\nLa confusión típica es comparar directamente $P(A)$ con $P(B)$ o usar la suma en vez del producto, cuando el criterio de independencia siempre se apoya en la multiplicación.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-verificacion"]
+  },
+  {
+    "question": "Se lanzan 3 monedas balanceadas de forma independiente. Definimos $A$, $B$ y $C$ como obtener cara en cada una.\n\n¿Qué expresión da $P(A\\cap B\\cap C)$?",
+    "options": [
+      "$P(A)\\cdot P(B)\\cdot P(C)$",
+      "$P(A)+P(B)+P(C)$",
+      "$P(A)\\cdot P(B)+P(C)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Con independencia mutua, la intersección de varios eventos es el producto de sus probabilidades.",
+    "feedback_incorrect": [
+      null,
+      "Esa suma corresponde a una unión de eventos excluyentes, no a la intersección de eventos independientes.",
+      "Esa expresión mezcla producto y suma sin ningún criterio válido para 3 eventos independientes."
+    ],
+    "explanation": "Cuando 3 (o más) eventos son mutuamente independientes, la probabilidad de que ocurran todos a la vez es el producto de sus probabilidades individuales, extendiendo la regla de 2 eventos:\n$$P(A\\cap B\\cap C) = P(A)\\cdot P(B)\\cdot P(C)$$\nCon las 3 monedas, cada una con $P(\\text{cara})=1/2$, resulta $P(A\\cap B\\cap C)=(1/2)^3=1/8$.\n\nLa confusión típica es sumar las probabilidades individuales en vez de multiplicarlas, un error que se agrava a medida que aumenta la cantidad de eventos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-eventos"]
   }
 ]

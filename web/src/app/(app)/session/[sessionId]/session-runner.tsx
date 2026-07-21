@@ -46,13 +46,19 @@ const LATEX_NAMED_FUNCTIONS =
 // Estima el ancho visual renderizado de una opción con LaTeX, en vez de contar
 // caracteres de código fuente (que sobrestima el peso de comandos como \sqrt o
 // \frac, cortos en pantalla pero largos en texto plano).
+//
+// \dfrac fuerza displaystyle (numerador/denominador a tamaño completo), más
+// ancho por carácter que el textstyle comprimido de \frac inline: se pesa
+// 1.4x (incluida una raíz anidada dentro, ej. 3√5/5) para que la grilla 2x2
+// no subestime su ancho real.
 function latexVisualLength(option: string): number {
   let s = option.replace(/\$/g, "")
   s = s.replace(/\\operatorname\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length))
   s = s.replace(/\\sqrt\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length + 1))
   s = s.replace(
-    /\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g,
-    (_, num, den) => "x".repeat(Math.max(num.length, den.length)),
+    /\\(d)?frac\{([^{}]*)\}\{([^{}]*)\}/g,
+    (_, isDisplay, num, den) =>
+      "x".repeat(Math.ceil(Math.max(num.length, den.length) * (isDisplay ? 1.4 : 1))),
   )
   s = s.replace(LATEX_NAMED_FUNCTIONS, (_, name) => "x".repeat(name.length))
   s = s.replace(/\\[a-zA-Z]+/g, "x")
@@ -842,13 +848,13 @@ function ExitButton() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction
-            className="h-10 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+            className="h-10 w-full sm:w-auto rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
             onClick={() => router.push("/")}
           >
             Salir
           </AlertDialogAction>
           <AlertDialogCancel
-            className="h-10 w-full rounded-md bg-background dark:bg-background"
+            className="h-10 w-full sm:w-auto rounded-md bg-background dark:bg-background"
           >
             Seguir
           </AlertDialogCancel>

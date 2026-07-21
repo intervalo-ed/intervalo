@@ -1030,6 +1030,10 @@ export interface components {
             session_id: string;
             /** User Name */
             user_name: string;
+            /** Mode */
+            mode: string;
+            /** Course */
+            course: string;
             /** Total */
             total: number;
             /** Correct */

@@ -9,9 +9,9 @@ import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
 import { cn } from "@/lib/utils"
 import { useEmojiState } from "./UseEmojiState"
 
-// Mismo lenguaje visual que los botones outline (rounded-md, border-border, bg).
-const surfaceCls =
-  "rounded-md border border-border bg-background dark:border-input dark:bg-input/30"
+// Mismo lenguaje visual que el primer contenedor de las otras tabs (Metric en
+// Repasar/Practicar/Ranking: border-white/10 bg-white/5).
+const surfaceCls = "rounded-md border border-white/10 bg-white/5"
 
 function PencilButton({
   onClick,

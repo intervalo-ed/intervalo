@@ -1,6 +1,5 @@
 "use client"
 
-import { BottomNav } from "@/components/bottom-nav"
 import MathText from "@/components/math-text"
 import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
@@ -11,6 +10,7 @@ import {
   type BeltGridRow,
 } from "@/components/belt-grid"
 import { Metric } from "@/components/metric-card"
+import { DashboardSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -64,6 +64,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { CourseEditorRow, type TopicEditState } from "./course-editor-row"
 import { EditorStepper } from "./editor-stepper"
+import { useDebouncedStepper } from "./UseDebouncedStepper"
 import { useCourseEditor } from "./UseCourseEditor"
 import { useLeaderboard } from "./(app)/leaderboard/UseLeaderboard"
 import { useStartSession } from "./UseStartSession"
@@ -147,11 +148,41 @@ export default function DashboardEntry() {
     }
   }, [course])
 
+  // La URL de "/" siempre debe tener ?course=, para que la tab bar pueda
+  // pasarlo a /practice (y viceversa) sin perderlo. Si no vino en la URL,
+  // se escribe recién cuando ya sabemos el curso resuelto (alguna de las 3
+  // queries respondió) — antes de eso `course` es un default transitorio
+  // ("analisis") que no hay que congelar en la URL.
+  const lastCourseKnown =
+    analisisQuery.data !== undefined ||
+    probabilidadQuery.data !== undefined ||
+    algebraQuery.data !== undefined
+  useEffect(() => {
+    if (!lastCourseKnown || isCourseId(urlCourse)) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("course", course)
+    router.replace(`/?${params.toString()}`)
+  }, [lastCourseKnown, urlCourse, course, searchParams, router])
+
   const activeQuery = queryByCourse[course]
   const { data, isLoading, isError, error } = activeQuery
 
   const [editing, setEditing] = useState(false)
   const editor = useCourseEditor(course)
+  const capStepper = useDebouncedStepper({
+    serverValue: data?.active_cap ?? 0,
+    mutate: (v) => editor.setCap.mutate(v),
+  })
+  const sessionStepper = useDebouncedStepper({
+    serverValue: data?.session_size ?? 0,
+    mutate: (v) => editor.setSessionSize.mutate(v),
+  })
+
+  function closeEditing() {
+    capStepper.flush()
+    sessionStepper.flush()
+    setEditing(false)
+  }
 
   const setCourse = useCallback(
     ({ next }: { next: CourseId }) => {
@@ -249,7 +280,7 @@ export default function DashboardEntry() {
               onPrev={goPrev}
               onNext={goNext}
               editing={editing}
-              onToggleEdit={() => setEditing((v) => !v)}
+              onToggleEdit={() => (editing ? closeEditing() : setEditing(true))}
             />
 
             {editing ? (
@@ -257,18 +288,18 @@ export default function DashboardEntry() {
                 <EditorStepper
                   label="Ítems activos"
                   help="Cuántos ítems tenés aprendiendo a la vez. Subir el número desbloquea más temas para tus repasos; bajarlo vuelve a bloquear los últimos. Los ítems ya consolidados no se ven afectados."
-                  value={data.active_cap}
+                  value={capStepper.value}
                   max={data.total_items}
                   busy={editor.setCap.isPending}
-                  onChange={(v) => editor.setCap.mutate(v)}
+                  onChange={capStepper.setValue}
                 />
                 <EditorStepper
                   label="Ejercicios por sesión"
                   help="El máximo de ejercicios que entran en cada sesión de repaso. Si hay más pendientes, el resto aparece en las próximas sesiones."
-                  value={data.session_size}
+                  value={sessionStepper.value}
                   max={data.session_size_max}
                   busy={editor.setSessionSize.isPending}
-                  onChange={(v) => editor.setSessionSize.mutate(v)}
+                  onChange={sessionStepper.setValue}
                 />
               </div>
             ) : (
@@ -346,16 +377,20 @@ export default function DashboardEntry() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogAction
-                        className="h-10 w-full rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
+                        className="h-10 w-full sm:w-auto rounded-md border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-400"
                         onClick={() =>
                           editor.resetCourse.mutate(undefined, {
-                            onSuccess: () => setEditing(false),
+                            onSuccess: () => {
+                              capStepper.cancel()
+                              sessionStepper.cancel()
+                              setEditing(false)
+                            },
                           })
                         }
                       >
                         Reiniciar
                       </AlertDialogAction>
-                      <AlertDialogCancel className="h-10 w-full rounded-md bg-background dark:bg-background">
+                      <AlertDialogCancel className="h-10 w-full sm:w-auto rounded-md bg-background dark:bg-background">
                         Cancelar
                       </AlertDialogCancel>
                     </AlertDialogFooter>
@@ -365,7 +400,7 @@ export default function DashboardEntry() {
                   size="lg"
                   variant="outline"
                   className={saveEditCls}
-                  onClick={() => setEditing(false)}
+                  onClick={closeEditing}
                 >
                   <CheckIcon className="size-4" />
                   Listo
@@ -435,66 +470,10 @@ export default function DashboardEntry() {
           </div>
         )}
       </ScreenBody>
-
-      {contentReady && <BottomNav />}
     </Screen>
   )
 }
 
-function DashboardSkeleton() {
-  // Filas por contenedor, como los primeros cinturones reales (Funciones=7, Límites=6).
-  const beltRows = [7, 6]
-  return (
-    <div className="flex animate-pulse flex-col gap-4">
-      {/* 3 indicadores (mismo card: p-3, valor text-lg + label 2 líneas) */}
-      <div className="grid grid-cols-3 gap-2">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="flex flex-col gap-1 rounded-md border border-white/10 bg-white/5 p-3"
-          >
-            <div className="h-[18px] w-12 rounded bg-white/10" />
-            <div className="flex flex-col gap-2">
-              <div className="h-2.5 w-full rounded bg-white/10" />
-              <div className="h-2.5 w-2/3 rounded bg-white/10" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* botón Repasar */}
-      <div className="h-12 w-full rounded-md bg-white/10" />
-
-      {/* contenedores de unidad (p-4, gap-3; header título + ícono info) */}
-      {beltRows.map((nRows, b) => (
-        <div
-          key={b}
-          className="flex flex-col gap-3 rounded-md border border-white/10 p-4"
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div className="h-[18px] w-32 rounded bg-white/10" />
-            <div className="size-7 rounded bg-white/10" />
-          </div>
-          <div className="flex flex-col gap-2.5">
-            {Array.from({ length: nRows }).map((_, r) => (
-              <div
-                key={r}
-                className="flex items-center justify-between gap-3"
-              >
-                <div className="h-3.5 w-24 rounded bg-white/10" />
-                <div className="flex gap-1">
-                  {[0, 1, 2].map((p) => (
-                    <div key={p} className="h-6 w-9 rounded-md bg-white/10" />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 function topicEditState(ts: TopicStates[string] | undefined): TopicEditState {
   if (!ts) return "locked"

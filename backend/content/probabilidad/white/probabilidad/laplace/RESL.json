@@ -1,5 +1,69 @@
 [
   {
+    "question": "Se extrae una carta de un mazo español de 40 cartas.\n\n¿Cuál es la probabilidad de que sea una figura (10, 11 o 12 de cualquier palo, 12 cartas en total)?",
+    "options": ["$12/40$", "$3/40$", "$4/40$", "$10/40$"],
+    "correct_index": 0,
+    "feedback_correct": "Hay 12 figuras entre las 40 cartas: $P=12/40$.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador cuenta solo un tipo de figura por palo, olvidando los otros 3 palos.",
+      "Ese numerador cuenta solo los palos, no las 12 cartas de figura en total.",
+      "Ese numerador corresponde a un valor distinto de carta, no a la cantidad total de figuras."
+    ],
+    "explanation": "Con la **regla de Laplace**, la probabilidad se calcula contando los casos favorables sobre los posibles.\n\nEn un mazo de 40 cartas, hay 3 figuras (10, 11, 12) por cada uno de los 4 palos, es decir $3\\times 4=12$ cartas favorables sobre 40 posibles:\n$$P(\\text{figura}) = \\frac{12}{40}$$\nLa confusión típica es contar solo un palo o solo un valor de figura, en vez de multiplicar correctamente valores por palos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-conteo-simple"]
+  },
+  {
+    "question": "De un grupo de 12 personas (7 mujeres y 5 hombres), se elige un comité de 3 personas al azar.\n\n¿Cuál es la probabilidad de que el comité esté formado solo por mujeres?",
+    "options": [
+      "$\\dfrac{35}{220}$",
+      "$\\dfrac{7}{12}$",
+      "$\\dfrac{1}{220}$",
+      "$\\dfrac{21}{220}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "$\\binom{7}{3}=35$ comités posibles solo de mujeres sobre $\\binom{12}{3}=220$ comités totales.",
+    "feedback_incorrect": [
+      null,
+      "Esa fracción compara personas individuales, no cuenta las formas de armar el comité completo.",
+      "Ese numerador no corresponde a ninguna forma válida de elegir 3 personas.",
+      "Ese numerador corresponde a $\\binom{7}{2}$, no a elegir las 3 personas del comité entre las mujeres."
+    ],
+    "explanation": "Cuando se elige un subconjunto de personas sin importar el orden, favorables y posibles se cuentan con **combinaciones**.\n\nLos comités posibles son $\\binom{12}{3}=220$, y los favorables (comités de solo mujeres) son $\\binom{7}{3}=35$:\n$$P(\\text{solo mujeres}) = \\frac{35}{220}$$\nLa confusión típica es comparar la cantidad de mujeres con el total de personas ($7/12$) en vez de contar las combinaciones completas de 3 personas.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-combinaciones"]
+  },
+  {
+    "question": "En una caja hay 10 bombillas, de las cuales 2 están fundidas. Se eligen 3 bombillas al azar.\n\n¿Cuál es la probabilidad de que al menos una esté fundida?",
+    "options": [
+      "$1-\\dfrac{\\binom{8}{3}}{\\binom{10}{3}}$",
+      "$\\dfrac{\\binom{2}{3}}{\\binom{10}{3}}$",
+      "$\\dfrac{2}{10}$",
+      "$\\dfrac{\\binom{8}{3}}{\\binom{10}{3}}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al menos una fundida es el complemento de ninguna fundida (las 3 sanas).",
+    "feedback_incorrect": [
+      null,
+      "$\\binom{2}{3}$ no existe como conteo válido: no se pueden elegir 3 bombillas entre solo 2 fundidas.",
+      "Esa fracción compara cantidades individuales, no formas de elegir 3 bombillas.",
+      "Ese cociente es la probabilidad de que NINGUNA esté fundida, el evento complementario al pedido."
+    ],
+    "explanation": "\"Al menos una\" conviene resolverlo con el **complemento**: se calcula la probabilidad de que ninguna esté fundida (las 3 elegidas son sanas) y se resta de $1$.\n\nHay $\\binom{8}{3}$ formas de elegir 3 bombillas sanas entre las 8 que no están fundidas, sobre $\\binom{10}{3}$ formas totales:\n$$P(\\text{al menos una fundida}) = 1 - \\frac{\\binom{8}{3}}{\\binom{10}{3}}$$\nLa confusión típica es intentar contar directamente los casos con 1, 2 o 3 fundidas por separado, un camino mucho más largo que el complemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-con-complemento"]
+  },
+  {
     "question": "Se lanzan dos dados de 6 caras y se observa la suma de los valores.\n\n¿Cuál es la probabilidad de obtener una suma igual a 7?",
     "options": [
       "$\\dfrac{1}{6}$",
@@ -15,10 +79,11 @@
       "Ese resultado sale de contar solo 3 pares (no considerar $(a,b)$ y $(b,a)$ como distintos).",
       "Estás poniendo el valor 7 en el numerador; los favorables son los PARES cuya suma da 7, no el número 7."
     ],
-    "explanation": "La **regla de Laplace** exige contar bien casos favorables y posibles. Con dos dados hay $6 \\times 6 = 36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 7 son:\n$$\\begin{aligned} (1,6),\\ (2,5),\\ (3,4),\\\\ (4,3),\\ (5,2),\\ (6,1) \\end{aligned}$$\n\nSon 6 pares favorables, así que:\n$$P(\\text{suma}=7) = \\frac{6}{36} = \\frac{1}{6}$$\n\nLa confusión típica es contar solo las combinaciones no ordenadas y obtener 3 pares; en dos dados distinguibles $(1,6)$ y $(6,1)$ son resultados distintos del espacio muestral.",
+    "explanation": "La **regla de Laplace** exige contar bien casos favorables y posibles. Con dos dados hay $6 \\times 6 = 36$ pares ordenados posibles, todos equiprobables.\n\nLos pares que suman 7 son:\n$$\\begin{aligned} (1,6),\\ (2,5),\\ (3,4),\\\\ (4,3),\\ (5,2),\\ (6,1) \\end{aligned}$$\nSon 6 pares favorables, así que:\n$$P(\\text{suma}=7) = \\frac{6}{36} = \\frac{1}{6}$$\nLa confusión típica es contar solo las combinaciones no ordenadas y obtener 3 pares; en dos dados distinguibles $(1,6)$ y $(6,1)$ son resultados distintos del espacio muestral.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-suma-valores"]
   }
 ]

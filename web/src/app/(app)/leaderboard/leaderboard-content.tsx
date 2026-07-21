@@ -5,6 +5,7 @@ import { CountUp } from "@/components/count-up"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Spinner } from "@/components/ui/spinner"
+import { LeaderboardSkeleton } from "@/components/tab-skeletons"
 import {
   Select,
   SelectContent,
@@ -60,6 +61,10 @@ export function LeaderboardContent() {
   const summary = useLeaderboardSummary({ university: uni, career })
   const universities = summary.data?.universities ?? []
 
+  if (!summary.data) {
+    return <LeaderboardSkeleton />
+  }
+
   return (
     <div className="flex h-full min-h-0 flex-col gap-4">
       {/* Cabecera: mismo agrupado/espaciado que el switcher + métricas de
@@ -71,11 +76,7 @@ export function LeaderboardContent() {
           label="Estudiantes registrados"
           value={
             <span className="inline-flex items-center gap-1.5">
-              {summary.data ? (
-                <CountUp value={summary.data.total_students} format={fmt} />
-              ) : (
-                "…"
-              )}
+              <CountUp value={summary.data.total_students} format={fmt} />
               <UsersIcon className="size-[0.85em] text-primary" />
             </span>
           }
@@ -84,11 +85,7 @@ export function LeaderboardContent() {
           label="Ejercicios completados"
           value={
             <span className="inline-flex items-center gap-1.5">
-              {summary.data ? (
-                <CountUp value={summary.data.total_exercises} format={fmt} />
-              ) : (
-                "…"
-              )}
+              <CountUp value={summary.data.total_exercises} format={fmt} />
               <LayersIcon className="size-[0.85em] text-primary" />
             </span>
           }

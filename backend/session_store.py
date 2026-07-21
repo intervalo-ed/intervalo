@@ -514,7 +514,12 @@ def _rows_to_unit_states(
     return states, attempted
 
 
-ACTIVE_CAP_DEFAULT = 18
+ACTIVE_CAP_DEFAULTS = {
+    "analisis": 11,
+    "probabilidad": 11,
+    "algebra": 12,
+}
+ACTIVE_CAP_DEFAULT_FALLBACK = 18
 
 # Límites del "máximo de ejercicios por sesión" configurable.
 SESSION_SIZE_MIN = 1
@@ -528,11 +533,12 @@ def _get_course_progress(user_id: int, course_id: int, db: DBSession) -> CourseP
         CourseProgress.course_id == course_id,
     ).first()
     if cp is None:
+        slug = _get_course_slug(course_id, db)
         cp = CourseProgress(
             user_id=user_id,
             course_id=course_id,
             iteration=1,
-            active_cap=ACTIVE_CAP_DEFAULT,
+            active_cap=ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK),
         )
         db.add(cp)
         db.commit()
@@ -1260,6 +1266,8 @@ def get_summary_db(
     return {
         "session_id": str(session_id_db),
         "user_name": "",
+        "mode": db_session.mode,
+        "course": _get_course_slug(course_id, db),
         "total": total,
         "correct": correct_count,
         "first_try_correct": first_try_correct,
@@ -1468,5 +1476,7 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
         ))
         db.delete(r)
     cp.iteration += 1
+    slug = _get_course_slug(course_id, db)
+    cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
     db.commit()
     return cp.iteration

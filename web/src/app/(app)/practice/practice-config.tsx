@@ -1,10 +1,10 @@
 "use client"
 
-import { BottomNav } from "@/components/bottom-nav"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import MathText from "@/components/math-text"
 import { Metric, accuracyColor } from "@/components/metric-card"
+import { PracticeSkeleton } from "@/components/tab-skeletons"
 import { Wordmark } from "@/components/wordmark"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -264,138 +264,144 @@ export default function PracticeConfig() {
       </ScreenHeader>
 
       <ScreenBody className="gap-4 py-4">
-        <div className="flex flex-col gap-2">
-          <CourseSwitcher
-            course={course}
-            onPrev={prevCourse}
-            onNext={nextCourse}
-            editing={editing}
-            onToggleEdit={() => setEditing((v) => !v)}
-          />
-
-          {editing ? (
-            <EditorStepper
-              label="Ejercicios por sesión"
-              help="Cuántos ejercicios entran en cada sesión de práctica que arranques."
-              value={count ?? DEFAULT_COUNT}
-              max={50}
-              busy={false}
-              onChange={setCount}
-            />
-          ) : (
-            <div className="grid grid-cols-3 gap-2">
-              <Metric
-                label="Sesiones completadas"
-                value={
-                  <CountUp variant="ease" value={sessionsCompleted} duration={1000} />
-                }
-              />
-              <Metric
-                label="Ejercicios completados"
-                value={<CountUp variant="ease" value={answered} duration={1000} />}
-              />
-              <Metric
-                label="Ejercicios acertados"
-                value={
-                  <span style={{ color: accuracyColor(accuracyPct) }}>
-                    <CountUp variant="ease" value={accuracyPct} duration={1000} />%
-                  </span>
-                }
-              />
-            </div>
-          )}
-        </div>
-
-        {editing ? (
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              size="lg"
-              variant="outline"
-              className={resetConfigCls}
-              onClick={() => setCount(DEFAULT_COUNT)}
-            >
-              <RotateCcwIcon className="size-4" />
-              Restablecer
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className={saveConfigCls}
-              onClick={() => setEditing(false)}
-            >
-              <CheckIcon className="size-4" />
-              Guardar
-            </Button>
-          </div>
+        {statsQuery.isPending ? (
+          <PracticeSkeleton />
         ) : (
-          <Button
-            size="lg"
-            className={ctaCls}
-            onClick={onStart}
-            disabled={!canStart || startPractice.isPending}
-          >
-            {startPractice.isPending ? <Spinner /> : null}
-            {startPractice.isPending ? "Cargando…" : "Practicar"}
-          </Button>
-        )}
+          <>
+            <div className="flex flex-col gap-2">
+              <CourseSwitcher
+                course={course}
+                onPrev={prevCourse}
+                onNext={nextCourse}
+                editing={editing}
+                onToggleEdit={() => setEditing((v) => !v)}
+              />
 
-        {!hintDismissed && (
-          <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
-            <p className="text-sm text-foreground/60">
-              Elegí los temas que querés practicar. Ajustá en{" "}
-              <SettingsIcon className="inline size-3.5 align-middle" /> la cantidad
-              de ejercicios.
-            </p>
-            <button
-              type="button"
-              aria-label="Cerrar"
-              className="shrink-0 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
-              onClick={dismissHint}
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-        )}
-
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={course}
-            className="flex flex-col gap-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            {unitEntries.map(({ belt, unit, topics }) => {
-              const id = `${course}:${belt}/${unit.key}`
-              const checked = topics.some((t) => enabled.has(topicKey(belt, t.key)))
-              return (
-                <PracticeUnitCard
-                  key={id}
-                  belt={belt}
-                  course={course}
-                  unit={unit}
-                  topics={topics}
-                  checked={checked}
-                  onToggleUnit={() => toggleUnit(belt, topics)}
-                  expanded={expanded.has(id)}
-                  onToggleExpanded={() => toggleExpanded(id)}
-                  enabled={enabled}
-                  onToggleTopic={(topic) => toggleTopic(belt, topic)}
+              {editing ? (
+                <EditorStepper
+                  label="Ejercicios por sesión"
+                  help="Cuántos ejercicios entran en cada sesión de práctica que arranques."
+                  value={count ?? DEFAULT_COUNT}
+                  max={50}
+                  busy={false}
+                  onChange={setCount}
                 />
-              )
-            })}
-          </motion.div>
-        </AnimatePresence>
+              ) : (
+                <div className="grid grid-cols-3 gap-2">
+                  <Metric
+                    label="Sesiones completadas"
+                    value={
+                      <CountUp variant="ease" value={sessionsCompleted} duration={1000} />
+                    }
+                  />
+                  <Metric
+                    label="Ejercicios completados"
+                    value={<CountUp variant="ease" value={answered} duration={1000} />}
+                  />
+                  <Metric
+                    label="Ejercicios acertados"
+                    value={
+                      <span style={{ color: accuracyColor(accuracyPct) }}>
+                        <CountUp variant="ease" value={accuracyPct} duration={1000} />%
+                      </span>
+                    }
+                  />
+                </div>
+              )}
+            </div>
 
-        {startPractice.isError && (
-          <Alert variant="destructive">
-            <AlertDescription>{startPractice.error.message}</AlertDescription>
-          </Alert>
+            {editing ? (
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className={resetConfigCls}
+                  onClick={() => setCount(DEFAULT_COUNT)}
+                >
+                  <RotateCcwIcon className="size-4" />
+                  Restablecer
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className={saveConfigCls}
+                  onClick={() => setEditing(false)}
+                >
+                  <CheckIcon className="size-4" />
+                  Guardar
+                </Button>
+              </div>
+            ) : (
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={onStart}
+                disabled={!canStart || startPractice.isPending}
+              >
+                {startPractice.isPending ? <Spinner /> : null}
+                {startPractice.isPending ? "Cargando…" : "Practicar"}
+              </Button>
+            )}
+
+            {!hintDismissed && (
+              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
+                <p className="text-sm text-foreground/60">
+                  Elegí los temas que querés practicar.
+                  <br />
+                  Ajustá en{" "}
+                  <SettingsIcon className="inline size-3.5 align-middle" /> la
+                  cantidad de ejercicios.
+                </p>
+                <button
+                  type="button"
+                  aria-label="Cerrar"
+                  className="shrink-0 text-foreground/40 outline-none transition-colors hover:text-foreground/70"
+                  onClick={dismissHint}
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+            )}
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={course}
+                className="flex flex-col gap-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {unitEntries.map(({ belt, unit, topics }) => {
+                  const id = `${course}:${belt}/${unit.key}`
+                  const checked = topics.some((t) => enabled.has(topicKey(belt, t.key)))
+                  return (
+                    <PracticeUnitCard
+                      key={id}
+                      belt={belt}
+                      course={course}
+                      unit={unit}
+                      topics={topics}
+                      checked={checked}
+                      onToggleUnit={() => toggleUnit(belt, topics)}
+                      expanded={expanded.has(id)}
+                      onToggleExpanded={() => toggleExpanded(id)}
+                      enabled={enabled}
+                      onToggleTopic={(topic) => toggleTopic(belt, topic)}
+                    />
+                  )
+                })}
+              </motion.div>
+            </AnimatePresence>
+
+            {startPractice.isError && (
+              <Alert variant="destructive">
+                <AlertDescription>{startPractice.error.message}</AlertDescription>
+              </Alert>
+            )}
+          </>
         )}
       </ScreenBody>
-
-      <BottomNav />
     </Screen>
   )
 }

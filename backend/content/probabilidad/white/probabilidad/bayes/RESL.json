@@ -1,5 +1,23 @@
 [
   {
+    "question": "En un control de calidad, el 3% de los productos es defectuoso. Un detector identifica correctamente el 98% de los defectuosos como defectuosos, y el 1% de los productos sanos son marcados por error como defectuosos.\n\nUn producto fue marcado como defectuoso por el detector. ¿Cuál es la probabilidad de que realmente sea defectuoso?",
+    "options": ["$\\approx 0{,}753$", "$\\approx 0{,}030$", "$\\approx 0{,}980$", "$\\approx 0{,}500$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(D|M)=\\dfrac{0{,}98\\times0{,}03}{0{,}98\\times0{,}03+0{,}01\\times0{,}97}\\approx 0{,}753$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es $P(D)$, la probabilidad a priori, sin usar la evidencia de la marca del detector.",
+      "Ese es $P(M|D)$, la verosimilitud, no la probabilidad pedida $P(D|M)$.",
+      "La probabilidad a priori de defecto (3%) es baja, pero el detector es muy preciso: el resultado no queda en un punto medio arbitrario."
+    ],
+    "explanation": "Se aplica el **teorema de Bayes** para invertir el condicional: se conoce $P(\\text{marcado}|D)$ y se pide $P(D|\\text{marcado})$.\n\nEl denominador se arma con probabilidad total:\n$$P(M) = 0{,}98\\times0{,}03 + 0{,}01\\times0{,}97 = 0{,}0294+0{,}0097=0{,}0391$$\nEntonces:\n$$P(D|M) = \\frac{0{,}0294}{0{,}0391} \\approx 0{,}753$$\nLa confusión típica es confundir la verosimilitud $P(M|D)=0{,}98$ (muy alta) con la probabilidad final $P(D|M)$, que también depende de qué tan común es el defecto en general.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-dos-escenarios"]
+  },
+  {
     "question": "En una urna, hay dos cajas idénticas. La caja $A$ tiene 3 bolas rojas y 1 blanca; la caja $B$ tiene 1 roja y 3 blancas.\n\nSe elige una caja al azar y se saca una bola. La bola resultó roja.\n\n¿Cuál es la probabilidad de que la bola provenga de la caja $A$?",
     "options": [
       "$\\dfrac{1}{2}$",
@@ -15,10 +33,29 @@
       null,
       "Ese es $P(A \\cap \\text{roja}) = (1/2)(3/4)$ sin dividir por la probabilidad total de sacar roja."
     ],
-    "explanation": "Se aplica el **teorema de Bayes** con la evidencia \"salió roja\":\n$$P(A|R) = \\frac{P(R|A) \\cdot P(A)}{P(R)}$$\n\nLos ingredientes son:\n$$\\begin{aligned} P(R|A) &= 3/4 \\\\ P(R|B) &= 1/4 \\\\ P(A) = P(B) &= 1/2 \\\\ P(R) &= (3/4)(1/2)+(1/4)(1/2) = 1/2 \\end{aligned}$$\n\nEntonces $P(A|R) = (3/8)/(1/2) = 3/4$.\n\nLa confusión típica es responder $1/2$ pensando que las cajas son equiprobables: la evidencia \"salió roja\" actualiza la creencia hacia la caja con más rojas, así que la caja $A$ pasa de $1/2$ a $3/4$.",
+    "explanation": "Se aplica el **teorema de Bayes** con la evidencia \"salió roja\":\n$$P(A|R) = \\frac{P(R|A) \\cdot P(A)}{P(R)}$$\nLos ingredientes son:\n$$\\begin{aligned} P(R|A) &= 3/4 \\\\ P(R|B) &= 1/4 \\\\ P(A) = P(B) &= 1/2 \\\\ P(R) &= (3/4)(1/2)+(1/4)(1/2) = 1/2 \\end{aligned}$$\nEntonces $P(A|R) = (3/8)/(1/2) = 3/4$.\n\nLa confusión típica es responder $1/2$ pensando que las cajas son equiprobables: la evidencia \"salió roja\" actualiza la creencia hacia la caja con más rojas, así que la caja $A$ pasa de $1/2$ a $3/4$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-urnas"]
+  },
+  {
+    "question": "Una fábrica de celulares recibe pantallas de 3 proveedores: A (50%), B (30%) y C (20%). Las tasas de falla son 0,02 para A, 0,04 para B y 0,10 para C.\n\nSe encuentra una pantalla fallada. ¿Cuál es la probabilidad de que provenga del proveedor C?",
+    "options": ["$\\approx 0{,}488$", "$\\approx 0{,}200$", "$\\approx 0{,}100$", "$\\approx 0{,}049$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(C|F)=\\dfrac{0{,}10\\times0{,}2}{0{,}02\\times0{,}5+0{,}04\\times0{,}3+0{,}10\\times0{,}2}\\approx0{,}488$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el peso a priori $P(C)$, sin usar la evidencia de que la pantalla falló.",
+      "Ese es $P(F|C)$, la verosimilitud del proveedor C, no la probabilidad pedida.",
+      "Ese resultado no corresponde a ningún cociente de la fórmula de Bayes; falta considerar los 3 proveedores en el denominador."
+    ],
+    "explanation": "Con 3 escenarios (proveedores), el **teorema de Bayes** pone en el denominador la probabilidad total de la falla, sumando la contribución de los 3:\n$$P(F) = 0{,}02\\times0{,}5+0{,}04\\times0{,}3+0{,}10\\times0{,}2 = 0{,}01+0{,}012+0{,}02=0{,}042$$\nEntonces:\n$$P(C|F) = \\frac{0{,}10\\times0{,}2}{0{,}042} = \\frac{0{,}02}{0{,}042} \\approx 0{,}488$$\nLa confusión típica es olvidar sumar la contribución de A y B en el denominador, dejando la normalización incompleta y el resultado final incorrecto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-tres-o-mas-escenarios"]
   }
 ]

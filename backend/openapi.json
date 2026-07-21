@@ -2718,6 +2718,14 @@
             "type": "string",
             "title": "User Name"
           },
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "course": {
+            "type": "string",
+            "title": "Course"
+          },
           "total": {
             "type": "integer",
             "title": "Total"
@@ -2763,6 +2771,8 @@
         "required": [
           "session_id",
           "user_name",
+          "mode",
+          "course",
           "total",
           "correct",
           "first_try_correct",

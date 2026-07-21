@@ -15,10 +15,53 @@
       "Estás invirtiendo la fracción; recordá que el denominador es la probabilidad de la evidencia $B$.",
       "Bayes no suma: relaciona multiplicativamente la verosimilitud, la a priori y la probabilidad total."
     ],
-    "explanation": "El **teorema de Bayes** se deduce de la definición del condicional aplicada dos veces:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$\n\nCada componente tiene un nombre estándar:\n$$\\begin{aligned} &P(A): \\text{ a priori} \\\\ &P(B|A): \\text{ verosimilitud} \\\\ &P(B): \\text{ probabilidad total de la evidencia} \\end{aligned}$$\n\nLa confusión típica es olvidar dividir por $P(B)$ (queda una cantidad no normalizada) o invertir numerador y denominador; la clave conceptual es que Bayes es una manera de reordenar $P(A \\cap B) = P(A|B) P(B) = P(B|A) P(A)$.",
+    "explanation": "El **teorema de Bayes** se deduce de la definición del condicional aplicada dos veces:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$\nCada componente tiene un nombre estándar: $P(A)$ es la a priori, $P(B|A)$ es la verosimilitud, y $P(B)$ es la probabilidad total de la evidencia.\n\nLa confusión típica es olvidar dividir por $P(B)$ (queda una cantidad no normalizada) o invertir numerador y denominador; la clave conceptual es que Bayes es una manera de reordenar $P(A \\cap B) = P(A|B) P(B) = P(B|A) P(A)$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, A_2, A_3$ una partición de $\\Omega$ y $B$ la evidencia observada.\n\n¿Qué expresión corresponde al teorema de Bayes para $P(A_1|B)$ con 3 escenarios?",
+    "options": [
+      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)}$",
+      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)}$",
+      "$P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador es el escenario de interés y el denominador suma los 3 escenarios con probabilidad total.",
+    "feedback_incorrect": [
+      null,
+      "Ese denominador se simplifica incorrectamente, cancelando información de los otros escenarios.",
+      "Esa expresión es solo el denominador (probabilidad total de $B$), sin el cociente que da la probabilidad pedida."
+    ],
+    "explanation": "Con 3 (o más) escenarios en la partición, el **teorema de Bayes** mantiene la misma estructura: el escenario de interés en el numerador, y todos los escenarios sumados con probabilidad total en el denominador.\n$$P(A_1|B) = \\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)}$$\nLa confusión típica es omitir alguno de los términos del denominador al aumentar la cantidad de escenarios, dejando la normalización incompleta.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde correctamente al teorema de Bayes con 2 escenarios $A_1, A_2$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$",
+      "$\\dfrac{P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$",
+      "$\\dfrac{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}{P(B|A_1)P(A_1)}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El numerador debe incluir el condicional $P(B|A_1)$ junto con el peso $P(A_1)$.",
+    "feedback_incorrect": [
+      null,
+      "Ese numerador olvida multiplicar por $P(B|A_1)$, un factor imprescindible de Bayes.",
+      "Esa expresión invierte numerador y denominador respecto de la fórmula correcta."
+    ],
+    "explanation": "El **teorema de Bayes** con 2 escenarios pone en el numerador el condicional y el peso del escenario de interés, y en el denominador la probabilidad total de la evidencia:\n$$P(A_1|B) = \\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)}$$\nLas otras variantes omiten un factor en el numerador o invierten la fracción completa.\n\nLa confusión típica es olvidar que el numerador necesita el producto completo $P(B|A_1)P(A_1)$, no solo uno de los dos factores.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]

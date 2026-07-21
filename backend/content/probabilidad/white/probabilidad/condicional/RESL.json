@@ -1,5 +1,23 @@
 [
   {
+    "question": "En una encuesta, $P(A)=0{,}6$ (usa transporte público), $P(B)=0{,}5$ (vive en el centro) y $P(A\\cap B)=0{,}3$.\n\nCalculá $P(A|B)$: la probabilidad de usar transporte público dado que vive en el centro.",
+    "options": ["$0{,}6$", "$0{,}3$", "$0{,}5$", "$0{,}15$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(A|B)=P(A\\cap B)/P(B)=0{,}3/0{,}5=0{,}6$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de $P(A\\cap B)$ solo, sin dividir por $P(B)$.",
+      "Ese es el valor de $P(B)$, no el resultado del cociente.",
+      "Ese resultado sale de multiplicar en vez de dividir $P(A\\cap B)$ por $P(B)$."
+    ],
+    "explanation": "Cuando ya se conocen $P(A\\cap B)$ y $P(B)$, calcular la condicional es aplicar directamente la fórmula:\n$$P(A|B) = \\frac{P(A\\cap B)}{P(B)}$$\nCon los datos:\n$$P(A|B) = \\frac{0{,}3}{0{,}5} = 0{,}6$$\nLa confusión típica es responder alguno de los datos ya dados en el enunciado sin realizar el cociente que define al condicional.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-desde-datos"]
+  },
+  {
     "question": "Se lanza un dado balanceado.\n\nSabiendo que el resultado fue par, ¿cuál es la probabilidad de que además haya sido mayor o igual a 4?",
     "options": [
       "$\\dfrac{1}{6}$",
@@ -15,10 +33,29 @@
       null,
       "Ese es $P(\\text{par}) = 3/6$; no es la condicional, es la probabilidad de la condición."
     ],
-    "explanation": "En **probabilidad condicional** el espacio se restringe al evento conocido:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\n\nCon $B = \\{2, 4, 6\\}$ (pares) y $A = \\{4, 5, 6\\}$ ($\\geq 4$), la intersección es $A \\cap B = \\{4, 6\\}$, así que:\n$$P(A|B) = \\frac{2/6}{3/6} = \\frac{2}{3}$$\n\nUna forma equivalente y más directa es contar sobre el espacio reducido: entre los 3 pares $\\{2, 4, 6\\}$, 2 son $\\geq 4$, así que $2/3$. La confusión típica es olvidar restringir y dividir por 6 en lugar de por 3.",
+    "explanation": "En **probabilidad condicional** el espacio se restringe al evento conocido:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\nCon $B = \\{2, 4, 6\\}$ (pares) y $A = \\{4, 5, 6\\}$ ($\\geq 4$), la intersección es $A \\cap B = \\{4, 6\\}$, así que:\n$$P(A|B) = \\frac{2/6}{3/6} = \\frac{2}{3}$$\nUna forma equivalente y más directa es contar sobre el espacio reducido: entre los 3 pares $\\{2, 4, 6\\}$, 2 son $\\geq 4$, así que $2/3$. La confusión típica es olvidar restringir y dividir por 6 en lugar de por 3.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-conteo-directo"]
+  },
+  {
+    "question": "Se sabe que $P(A|B)=0{,}75$ y $P(B)=0{,}4$.\n\nCalculá $P(A\\cap B)$.",
+    "options": ["$0{,}3$", "$0{,}35$", "$1{,}875$", "$0{,}55$"],
+    "correct_index": 0,
+    "feedback_correct": "$P(A\\cap B)=P(A|B)\\cdot P(B)=0{,}75\\times 0{,}4=0{,}3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de restar en vez de multiplicar los valores dados.",
+      "Ese resultado divide $P(A|B)$ por $P(B)$ en vez de multiplicar.",
+      "Ese resultado suma en vez de multiplicar los valores dados."
+    ],
+    "explanation": "Despejando la definición de probabilidad condicional $P(A|B)=P(A\\cap B)/P(B)$, la intersección se obtiene multiplicando:\n$$P(A\\cap B) = P(A|B)\\cdot P(B)$$\nCon los datos:\n$$P(A\\cap B) = 0{,}75 \\times 0{,}4 = 0{,}3$$\nLa confusión típica es dividir en vez de multiplicar al despejar, invirtiendo la operación necesaria para aislar la intersección.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-despejar-interseccion"]
   }
 ]

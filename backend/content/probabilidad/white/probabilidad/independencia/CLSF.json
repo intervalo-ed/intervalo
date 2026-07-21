@@ -9,13 +9,57 @@
     "correct_index": 0,
     "feedback_correct": "Cada dado se lanza por separado; el resultado del primero no altera al segundo.",
     "feedback_incorrect": [
+      null,
       "Excluyentes serían si no pudieran ocurrir juntos; acá pueden salir 6 en ambos dados a la vez.",
       "Los lanzamientos son físicamente independientes: no hay conexión entre dados que haga cambiar la probabilidad del segundo."
     ],
-    "explanation": "Dos eventos son **independientes** cuando la ocurrencia de uno no aporta información sobre la probabilidad del otro. Formalmente:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\n\nEn los dos dados $P(A) = P(B) = 1/6$ y $P(A \\cap B) = 1/36 = (1/6) \\cdot (1/6)$, así que la condición se cumple.\n\nLa confusión típica es asociar independencia con exclusión: excluyentes significa que NO pueden ocurrir juntos, mientras que independientes significa que uno no altera la probabilidad del otro. En dos dados los eventos pueden ocurrir juntos y son independientes.",
+    "explanation": "Dos eventos son **independientes** cuando la ocurrencia de uno no aporta información sobre la probabilidad del otro. Formalmente:\n$$P(A \\cap B) = P(A) \\cdot P(B)$$\nEn los dos dados $P(A) = P(B) = 1/6$ y $P(A \\cap B) = 1/36 = (1/6) \\cdot (1/6)$, así que la condición se cumple.\n\nLa confusión típica es asociar independencia con exclusión: excluyentes significa que NO pueden ocurrir juntos, mientras que independientes significa que uno no altera la probabilidad del otro. En dos dados los eventos pueden ocurrir juntos y son independientes.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-independencia"]
+  },
+  {
+    "question": "De una urna con 10 bolas (4 rojas y 6 azules) se extraen 2 bolas sin reposición. Definimos:\n\n$A$ = la primera bola es roja\n$B$ = la segunda bola es roja\n\n¿Cuál es la relación entre $A$ y $B$?",
+    "options": [
+      "Son dependientes: extraer la primera cambia la composición para la segunda.",
+      "Son independientes: cada extracción es un evento separado.",
+      "Son mutuamente excluyentes: no pueden ser ambas rojas."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Sin reposición, sacar la primera roja deja 3 rojas de 9 bolas, cambiando $P(B)$.",
+    "feedback_incorrect": [
+      null,
+      "Sin reposición, el resultado de la primera extracción sí modifica las probabilidades de la segunda.",
+      "Ambas extracciones pueden dar roja perfectamente; no son excluyentes."
+    ],
+    "explanation": "Dos eventos son **dependientes** cuando la ocurrencia de uno cambia la probabilidad del otro. La extracción **sin reposición** es el caso típico: al sacar la primera bola, la composición de la urna cambia para la segunda.\n\nSi la primera bola es roja, quedan 3 rojas de 9 bolas para la segunda extracción, en vez de las 4 de 10 originales: $P(B|A)\\neq P(B)$.\n\nLa confusión típica es tratar cualquier extracción al azar como independiente, sin distinguir si hay o no reposición del elemento extraído.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-dependencia"]
+  },
+  {
+    "question": "Se lanzan dos dados balanceados. Definimos $A$ = el primer dado sale par y $B$ = el segundo dado sale impar.\n\n¿Cuál es la relación correcta entre $A$ y $B$?",
+    "options": [
+      "Son independientes, aunque no son mutuamente excluyentes.",
+      "Son mutuamente excluyentes, porque uno pide par y el otro impar.",
+      "No pueden ser independientes porque describen resultados opuestos."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Los dados son físicamente separados: $P(A\\cap B)=P(A)\\cdot P(B)$, y además pueden ocurrir juntos.",
+    "feedback_incorrect": [
+      null,
+      "Que las condiciones sean par/impar no impide que ocurran a la vez: son sobre dados distintos, así que sí pueden coexistir.",
+      "Describir resultados «opuestos» en apariencia no implica exclusión mutua ni dependencia: son sobre dados distintos y no se afectan entre sí."
+    ],
+    "explanation": "Independencia y mutua exclusión son conceptos distintos: dos eventos mutuamente excluyentes casi nunca son independientes, salvo el caso trivial de probabilidad $0$.\n\nAcá $A$ (primer dado par) y $B$ (segundo dado impar) son sobre dados distintos, así que pueden ocurrir juntos ($A\\cap B\\neq\\emptyset$) y son independientes: $P(A\\cap B)=P(A)\\cdot P(B)=(1/2)(1/2)=1/4$.\n\nLa confusión típica es pensar que condiciones \"opuestas\" (par/impar) implican exclusión mutua, sin notar que se aplican a experimentos físicamente separados.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-mutuamente-excluyentes"]
   }
 ]
