@@ -315,15 +315,18 @@ def check_feedbacks(items, file, F: Findings) -> None:
 
 # --- Structure: tags contra la tabla del topic-context ------------------------
 
-SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
+SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
 
 
 def parse_distribution(topic_context: Path) -> dict[str, int]:
-    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant."""
+    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant y menciones en prose."""
     targets: dict[str, int] = {}
     if not topic_context.exists():
         return targets
-    for line in topic_context.read_text(encoding="utf-8").splitlines():
+    text = topic_context.read_text(encoding="utf-8")
+
+    # Parse tablas markdown
+    for line in text.splitlines():
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -333,13 +336,22 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
             m = SLUG_CELL_RE.fullmatch(c)
             if m:
                 slug = m.group(1)
-        # la celda de cantidad es la última numérica de la fila
+        # la celda de cantidad es la última numérica de la fila (puede tener ~ al inicio)
         for c in reversed(cells):
-            if re.fullmatch(r"\d+", c):
-                count = int(c)
+            m = re.fullmatch(r"~?(\d+)", c)
+            if m:
+                count = int(m.group(1))
                 break
         if slug and count is not None:
             targets[slug] = targets.get(slug, 0) + count
+
+    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
+    for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
+        count_str, slug = m.groups()
+        count = int(count_str)
+        if slug and count:
+            targets[slug] = targets.get(slug, 0) + count
+
     return targets
 
 
