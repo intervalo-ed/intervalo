@@ -320,5 +320,28 @@
     "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(0)=5$, buscamos $g'(5)=3$:\n\n$$(g\\circ h)'(0) = g'(h(0)) \\cdot h'(0) = g'(5) \\cdot (-1) = 3\\cdot(-1) = -3$$\nEl signo negativo de $h'(0)=-1$ se traslada directamente al resultado final, sin ningún otro ajuste adicional.",
     "reviewed": false,
     "tags": ["evaluacion-datos-abstractos-cadena"]
+  },
+  {
+    "question": "Si $h(3)=1$, $h'(3)=2$ y $g'(1)=-4$, calculá $(g\\circ h)'(3)$.",
+    "options": [
+      "$-6$",
+      "$-2$",
+      "$-8$",
+      "$6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, $g'(h(3))\\cdot h'(3) = (-4)\\cdot 2 = -8$.",
+    "feedback_incorrect": [
+      "Sumaste los valores en vez de multiplicarlos, la **regla de la cadena** multiplica los dos factores.",
+      "Usaste $g'(h(3)) \\cdot h(3)$ en vez de $g'(h(3)) \\cdot h'(3)$, revisá qué factor corresponde.",
+      null,
+      "Revisá el signo, $g'(1)=-4$ es negativo, así que el producto final también lo es."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(3)=1$, buscamos $g'(1)=-4$:\n\n$$(g\\circ h)'(3) = g'(h(3)) \\cdot h'(3) = g'(1) \\cdot 2 = (-4)\\cdot 2 = -8$$\nLa derivada de la exterior se busca evaluada en $h(3)=1$, no en $3$, ese es el paso crítico de la **regla de la cadena**.",
+    "reviewed": false,
+    "tags": ["evaluacion-datos-abstractos-cadena"]
   }
 ]

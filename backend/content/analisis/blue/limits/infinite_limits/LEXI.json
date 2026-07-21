@@ -16,8 +16,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador de un cociente crece sin cota y el numerador queda fijo, el resultado se aplasta hacia $0$. No hay ambigüedad sobre el resultado final, así que no es una indeterminación.\n$$\\lim_{x \\to +\\infty} \\frac{5}{x} = 0$$\nConviene no confundir este caso con $\\frac{0}{0}$, donde ambos términos se anulan a la vez y sí hace falta un análisis adicional para resolverlo.",
-    "reviewed": false
+    "explanation": "La noción de **límite al infinito** aparece cuando preguntamos qué le pasa a una función a medida que $x$ crece sin cota en una dirección. En este caso, dividir una cantidad fija entre algo que se hace arbitrariamente grande reduce el cociente hacia $0$, no por casualidad sino por la estructura misma de la división.\n\nCuando el denominador de un cociente crece sin cota y el numerador queda fijo, el resultado se aplasta hacia $0$. No hay ambigüedad sobre el resultado final, así que no es una indeterminación.\n$$\\lim_{x \\to +\\infty} \\frac{5}{x} = 0$$\n\nConviene no confundir este caso con $\\frac{0}{0}$, donde ambos términos se anulan a la vez y sí hace falta un análisis adicional para resolverlo.",
+    "reviewed": false,
+    "tags": ["algebra-infinito-cero"]
   },
   {
     "question": "Un cociente tiene numerador $3$ fijo y denominador que tiende a $0^+$.\n\n¿Qué le pasa al valor del cociente $\\frac{3}{x}$ cuando $x \\to 0^+$?",
@@ -36,8 +37,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador de un cociente se acerca a $0$ por valores positivos y el numerador es una constante distinta de cero, el cociente crece sin cota. Es una **divergencia**, no una indeterminación, porque el numerador no colabora con ninguna ambigüedad.\n$$\\lim_{x \\to 0^+} \\frac{3}{x} = +\\infty$$\nEste comportamiento es la base para identificar una asíntota vertical más adelante en el tema.",
-    "reviewed": false
+    "explanation": "Los **límites infinitos** (donde el resultado es $\\pm\\infty$) marcan la frontera donde una función deja de mantenerse acotada y comienza a dispararse sin control. Diferente del límite finito, aquí estamos viendo qué ocurre cuando algo colabora activamente a que el resultado explote.\n\nCuando el denominador de un cociente se acerca a $0$ por valores positivos y el numerador es una constante distinta de cero, el cociente crece sin cota. Es una **divergencia**, no una indeterminación, porque el numerador no colabora con ninguna ambigüedad.\n$$\\lim_{x \\to 0^+} \\frac{3}{x} = +\\infty$$\n\nEste comportamiento es la base para identificar una asíntota vertical más adelante en el tema.",
+    "reviewed": false,
+    "tags": ["algebra-infinito-cero"]
   },
   {
     "question": "¿Cuál de las siguientes expresiones es efectivamente una indeterminación?",
@@ -56,8 +58,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una indeterminación ocurre cuando el resultado de una operación no queda definido por la forma general de la expresión, y depende del caso particular. $\\frac{0}{0}$ es el ejemplo clásico: ambos términos se anulan a la vez y el resultado final puede ser cualquier número, $\\infty$, o no existir, según la función concreta.\n$$\\frac{0}{0} \\ \\text{requiere análisis adicional}$$\nEn cambio, $\\frac{5}{0}$ y $\\frac{5}{\\infty}$ tienen un solo término que se mueve, así que el resultado queda determinado sin ambigüedad.",
-    "reviewed": false
+    "explanation": "Una indeterminación es un formato simbólico que no define por sí solo cuál será el resultado, porque la respuesta depende del caso específico. Esta es una categoría central en el análisis de **límites**: hay símbolos que se ven similares pero que unos son determinados y otros no.\n\nUna indeterminación ocurre cuando el resultado de una operación no queda definido por la forma general de la expresión, y depende del caso particular. $\\frac{0}{0}$ es el ejemplo clásico: ambos términos se anulan a la vez y el resultado final puede ser cualquier número, $\\infty$, o no existir, según la función concreta.\n$$\\frac{0}{0} \\ \\text{requiere análisis adicional}$$\n\nEn cambio, $\\frac{5}{0}$ y $\\frac{5}{\\infty}$ tienen un solo término que se mueve, así que el resultado queda determinado sin ambigüedad.",
+    "reviewed": false,
+    "tags": ["algebra-infinito-cero"]
   },
   {
     "question": "¿Qué tipo de expresión es $\\frac{\\infty}{\\infty}$, cuando tanto numerador como denominador crecen sin cota?",
@@ -76,8 +79,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando tanto el numerador como el denominador de un cociente crecen sin cota, no alcanza con saber que ambos se disparan para determinar el resultado. Lo que decide el valor final es la **dominancia** relativa entre ambos crecimientos.\n$$\\frac{\\infty}{\\infty} \\ \\text{requiere comparar el ritmo de crecimiento de cada término}$$\nUn error común es asumir que, por simetría notacional, el resultado siempre da $1$ o siempre diverge, cuando en realidad depende del caso concreto.",
-    "reviewed": false
+    "explanation": "Una indeterminación como $\\frac{\\infty}{\\infty}$ enseña que no se puede confiar en la notación: dos símbolos iguales arriba y abajo no permiten cancelar. Lo que importa es la **velocidad** relativa de crecimiento, concepto que es central en toda esta unidad de **límites**.\n\nCuando tanto el numerador como el denominador de un cociente crecen sin cota, no alcanza con saber que ambos se disparan para determinar el resultado. Lo que decide el valor final es la **dominancia** relativa entre ambos crecimientos.\n$$\\frac{\\infty}{\\infty} \\ \\text{requiere comparar el ritmo de crecimiento de cada término}$$\n\nUn error común es asumir que, por simetría notacional, el resultado siempre da $1$ o siempre diverge, cuando en realidad depende del caso concreto.",
+    "reviewed": false,
+    "tags": ["algebra-infinito-cero"]
   },
   {
     "question": "¿Qué resultado tiene, en general, la resta $\\infty - \\infty$ entre dos cantidades que crecen sin cota?",
@@ -96,8 +100,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La resta $\\infty - \\infty$ es una de las indeterminaciones clásicas, junto con $\\frac{0}{0}$ y $\\frac{\\infty}{\\infty}$. Restar dos cantidades que crecen sin cota no se cancela automáticamente por parecerse en notación, el resultado depende de qué tan rápido crece cada término.\n$$\\infty - \\infty \\ \\text{no se resuelve por cancelación directa}$$\nEste tipo de indeterminación exige reescribir la expresión antes de evaluar la tendencia, algo que se retoma en profundidad en temas posteriores.",
-    "reviewed": false
+    "explanation": "La resta $\\infty - \\infty$ ilustra por qué la intuición algebraica de cancelación falla en el infinito. Cuando dos cantidades crecen sin cota, restarlas no produce un resultado predecible: el resultado depende de cuánto más rápido crece una que la otra.\n\nLa resta $\\infty - \\infty$ es una de las indeterminaciones clásicas, junto con $\\frac{0}{0}$ y $\\frac{\\infty}{\\infty}$. Restar dos cantidades que crecen sin cota no se cancela automáticamente por parecerse en notación, el resultado depende de qué tan rápido crece cada término.\n$$\\infty - \\infty \\ \\text{no se resuelve por cancelación directa}$$\n\nEste tipo de indeterminación exige reescribir la expresión antes de evaluar la tendencia, algo que se retoma en profundidad en temas posteriores.",
+    "reviewed": false,
+    "tags": ["algebra-infinito-cero"]
   },
   {
     "question": "Cuando $x \\to \\pm\\infty$ y una función se acerca a un valor finito $L$, se dice que tiene una **asíntota horizontal**.\n\n¿Cuál es la recta que describe este comportamiento?",
@@ -116,8 +121,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **asíntota horizontal** describe el valor al que se estabiliza una función a medida que $x$ crece o decrece sin cota. Se escribe siempre como una recta horizontal, de la forma $y = L$, nunca en términos de $x$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to L \\ \\Rightarrow \\ y = L$$\nUn error frecuente es escribir la asíntota como $x = L$, invirtiendo los roles de la variable y del valor de estabilización.",
-    "reviewed": false
+    "explanation": "Las **asíntotas** son rectas que describen el comportamiento de una función en los extremos o en puntos de ruptura. En el caso horizontal, la recta marca la altura hacia la cual se \"alinea\" la curva conforme $x$ se aleja de cualquier región central.\n\nUna **asíntota horizontal** describe el valor al que se estabiliza una función a medida que $x$ crece o decrece sin cota. Se escribe siempre como una recta horizontal, de la forma $y = L$, nunca en términos de $x$.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to L \\ \\Rightarrow \\ y = L$$\n\nUn error frecuente es escribir la asíntota como $x = L$, invirtiendo los roles de la variable y del valor de estabilización.",
+    "reviewed": false,
+    "tags": ["contraste-asintotas"]
   },
   {
     "question": "Cuando $x \\to a$ (un valor finito) y una función diverge a $\\pm\\infty$, se dice que tiene una **asíntota vertical**.\n\n¿Cuál es la recta que describe este comportamiento?",
@@ -136,8 +142,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **asíntota vertical** aparece cuando una función diverge a medida que $x$ se acerca a un valor puntual $a$. Se escribe siempre como una recta vertical, de la forma $x = a$, marcando el punto exacto del eje horizontal donde ocurre la ruptura.\n$$x \\to a \\ \\Rightarrow \\ f(x) \\to \\pm\\infty \\ \\Rightarrow \\ x = a$$\nConfundir esta recta con $y = a$ es el error más común al nombrar una asíntota vertical.",
-    "reviewed": false
+    "explanation": "La **asíntota vertical** marca un punto de no definición o un punto de ruptura, donde la función se dispara en una dirección horizontal específica. Es distinta de la horizontal porque no describe estabilidad sino divergencia.\n\nUna **asíntota vertical** aparece cuando una función diverge a medida que $x$ se acerca a un valor puntual $a$. Se escribe siempre como una recta vertical, de la forma $x = a$, marcando el punto exacto del eje horizontal donde ocurre la ruptura.\n$$x \\to a \\ \\Rightarrow \\ f(x) \\to \\pm\\infty \\ \\Rightarrow \\ x = a$$\n\nConfundir esta recta con $y = a$ es el error más común al nombrar una asíntota vertical.",
+    "reviewed": false,
+    "tags": ["contraste-asintotas"]
   },
   {
     "question": "Al leer una gráfica, buscar el comportamiento en los extremos izquierdo y derecho del eje $x$ corresponde a analizar $x \\to \\pm\\infty$.\n\n¿Qué tipo de asíntota se identifica con esa lectura?",
@@ -156,11 +163,12 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Leer una gráfica de extremo a extremo, siguiendo la curva hacia la izquierda y hacia la derecha, es exactamente analizar el comportamiento cuando $x \\to \\pm\\infty$. Ese análisis identifica la altura de estabilización, la **asíntota horizontal**.\n$$\\text{extremos del eje } x \\ \\leftrightarrow \\ x \\to \\pm\\infty \\ \\leftrightarrow \\ \\text{asíntota horizontal}$$\nEn cambio, buscar una recta vertical donde la curva se rompe requiere fijarse en un punto interior del dominio, no en los extremos.",
-    "reviewed": false
+    "explanation": "La **lectura visual de un gráfico** es una habilidad clave para entender **límites** sin cálculos: mirar hacia dónde va la función en los extremos del dominio observable es exactamente analizar el comportamiento cuando $x \\to \\pm\\infty$.\n\nLeer una gráfica de extremo a extremo, siguiendo la curva hacia la izquierda y hacia la derecha, es exactamente analizar el comportamiento cuando $x \\to \\pm\\infty$. Ese análisis identifica la altura de estabilización, la **asíntota horizontal**.\n$$\\text{extremos del eje } x \\ \\leftrightarrow \\ x \\to \\pm\\infty \\ \\leftrightarrow \\ \\text{asíntota horizontal}$$\n\nEn cambio, buscar una recta vertical donde la curva se rompe requiere fijarse en un punto interior del dominio, no en los extremos.",
+    "reviewed": false,
+    "tags": ["contraste-asintotas"]
   },
   {
-    "question": "Se busca una recta $x = a$ tal que la función se rompa y escape a $\\pm\\infty$ exactamente en ese punto.\n\n¿Qué tipo de asíntota describe esa recta?",
+    "question": "Se busca una recta $x = a$ tal que la función se rompa y diverja a $\\pm\\infty$ exactamente en ese punto.\n\n¿Qué tipo de asíntota describe esa recta?",
     "options": [
       "Vertical",
       "Horizontal",
@@ -168,7 +176,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto: una recta $x = a$ donde la función escapa a $\\pm\\infty$ es, por definición, una asíntota vertical.",
+    "feedback_correct": "Correcto: una recta $x = a$ donde la función diverja a $\\pm\\infty$ es, por definición, una asíntota vertical.",
     "feedback_incorrect": [
       null,
       "La asíntota horizontal se escribe como $y = L$, no como $x = a$, y describe el comportamiento en los extremos, no en un punto puntual.",
@@ -176,8 +184,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una recta de la forma $x = a$ marca un valor puntual del dominio, no un extremo del recorrido de $x$. Cuando la función escapa a $\\pm\\infty$ exactamente en ese punto, la recta describe una **asíntota vertical**.\n$$x = a \\ \\text{con} \\ f(x) \\to \\pm\\infty \\ \\Rightarrow \\ \\text{asíntota vertical}$$\nRecordar que la forma de la ecuación, en términos de $x$ o de $y$, es la pista más rápida para distinguir vertical de horizontal sin necesidad de graficar.",
-    "reviewed": false
+    "explanation": "El término **asíntota vertical** marca el límite del dominio visual: es el valor de $x$ donde la función cesa de ser gráficamente representable en pantalla porque explota. La recta vertical es la frontera de la ruptura.\n\nUna recta de la forma $x = a$ marca un valor puntual del dominio, no un extremo del recorrido de $x$. Cuando la función diverge a $\\pm\\infty$ exactamente en ese punto, la recta describe una **asíntota vertical**.\n$$x = a \\ \\text{con} \\ f(x) \\to \\pm\\infty \\ \\Rightarrow \\ \\text{asíntota vertical}$$\n\nRecordar que la forma de la ecuación, en términos de $x$ o de $y$, es la pista más rápida para distinguir vertical de horizontal sin necesidad de graficar.",
+    "reviewed": false,
+    "tags": ["contraste-asintotas"]
   },
   {
     "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
@@ -196,8 +205,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función racional, la **dominancia** de grados determina el comportamiento cuando $x \\to \\infty$. Si el denominador crece más rápido que el numerador, el cociente completo se achica hacia $0$.\n$$\\deg(Q) > \\deg(P) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = 0$$\nEste resultado es puramente teórico, alcanza con comparar los grados, sin necesidad de conocer los coeficientes exactos.",
-    "reviewed": false
+    "explanation": "La **dominancia** de grados es una regla que funciona como un atajo conceptual: sin cálculos, solo comparando qué potencia de $x$ aparece más alta, se puede predecir el comportamiento de una función racional en el infinito. Esto es una aplicación directa de la idea de que el término con mayor crecimiento \"gana\".\n\nEn una función racional, la **dominancia** de grados determina el comportamiento cuando $x \\to \\infty$. Si el denominador crece más rápido que el numerador, el cociente completo se achica hacia $0$.\n$$\\deg(Q) > \\deg(P) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = 0$$\n\nEste resultado es puramente teórico, alcanza con comparar los grados, sin necesidad de conocer los coeficientes exactos.",
+    "reviewed": false,
+    "tags": ["dominancia-grados-racionales"]
   },
   {
     "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
@@ -216,8 +226,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador de una función racional tiene grado mayor que el denominador, el numerador domina el crecimiento y el cociente diverge, positivo o negativo según los signos y la paridad de los grados.\n$$\\deg(P) > \\deg(Q) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = \\pm\\infty$$\nEs habitual aplicar por error la regla del caso anterior, conviene siempre identificar primero cuál de los dos grados es mayor antes de concluir.",
-    "reviewed": false
+    "explanation": "La **dominancia** de grados muestra que hay un orden jerárquico: el numerador que crece más rápido \"tira\" la función hacia el infinito. Si el numerador domina, el cociente se deja llevar por esa dominancia y diverge, sin importar qué tan grande sea el denominador.\n\nCuando el numerador de una función racional tiene grado mayor que el denominador, el numerador domina el crecimiento y el cociente diverge, positivo o negativo según los signos y la paridad de los grados.\n$$\\deg(P) > \\deg(Q) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = \\pm\\infty$$\n\nEs habitual aplicar por error la regla del caso anterior, conviene siempre identificar primero cuál de los dos grados es mayor antes de concluir.",
+    "reviewed": false,
+    "tags": ["dominancia-grados-racionales"]
   },
   {
     "question": "En una función racional $\\frac{P(x)}{Q(x)}$, el numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$?",
@@ -236,8 +247,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador de una función racional tienen el mismo grado, ninguno domina por completo al otro. Al dividir ambos por la mayor potencia común, los términos de menor grado se aplastan hacia $0$ y sobrevive únicamente el cociente entre los coeficientes principales.\n$$\\lim_{x \\to \\infty} \\frac{a_n x^n + \\ldots}{b_n x^n + \\ldots} = \\frac{a_n}{b_n}$$\nEste caso es el único de los tres donde el resultado depende de valores numéricos concretos, no solo de la comparación de grados.",
-    "reviewed": false
+    "explanation": "Cuando los grados coinciden exactamente, ninguno de los dos \"gana\" al otro: crecen al mismo ritmo. El resultado es una **asíntota horizontal**, que es el cociente entre los dos \"líderes\", los coeficientes principales. Esta es la transición interesante: cuando hay equilibrio entre numerador y denominador.\n\nCuando numerador y denominador de una función racional tienen el mismo grado, ninguno domina por completo al otro. Al dividir ambos por la mayor potencia común, los términos de menor grado se aplastan hacia $0$ y sobrevive únicamente el cociente entre los coeficientes principales.\n$$\\lim_{x \\to \\infty} \\frac{a_n x^n + \\ldots}{b_n x^n + \\ldots} = \\frac{a_n}{b_n}$$\n\nEste caso es el único de los tres donde el resultado depende de valores numéricos concretos, no solo de la comparación de grados.",
+    "reviewed": false,
+    "tags": ["dominancia-grados-racionales"]
   },
   {
     "question": "Entre una función exponencial y una función polinómica de cualquier grado, ¿cuál domina el crecimiento cuando $x \\to +\\infty$?",
@@ -256,8 +268,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **dominancia** entre familias de funciones sigue un orden fijo cuando $x \\to +\\infty$: la exponencial supera a cualquier polinomio, sin importar el grado de este último.\n$$a^x \\ \\succ \\ x^n \\quad \\text{para cualquier } n, \\text{ cuando } x \\to +\\infty$$\nUn polinomio de grado enorme puede parecer imponente, pero la exponencial siempre termina despegándose de cualquier polinomio a medida que $x$ crece.",
-    "reviewed": false
+    "explanation": "Las **familias de funciones** tienen un orden de dominancia que es independiente de sus parámetros concretos: la exponencial siempre \"le gana\" a cualquier polinomio, sin excepciones. Este es un hecho profundo del análisis, que no depende de ajustar bases o coeficientes.\n\nLa **dominancia** entre familias de funciones sigue un orden fijo cuando $x \\to +\\infty$: la exponencial supera a cualquier polinomio, sin importar el grado de este último.\n$$a^x \\ \\succ \\ x^n \\quad \\text{para cualquier } n, \\text{ cuando } x \\to +\\infty$$\n\nUn polinomio de grado enorme puede parecer imponente, pero la exponencial siempre termina despegándose de cualquier polinomio a medida que $x$ crece.",
+    "reviewed": false,
+    "tags": ["crecimiento-exponencial-vs-polinomico"]
   },
   {
     "question": "Entre una función polinómica y una función logarítmica, ¿cuál domina el crecimiento cuando $x \\to +\\infty$?",
@@ -276,8 +289,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El orden de **dominancia** entre familias de funciones también ubica al logaritmo como la familia de crecimiento más lento. Cualquier polinomio, incluso uno de grado bajo, supera al logaritmo cuando $x \\to +\\infty$.\n$$x^n \\ \\succ \\ \\log_a(x) \\quad \\text{para cualquier } n \\geq 1, \\text{ cuando } x \\to +\\infty$$\nEl orden completo de dominancia, de mayor a menor crecimiento, es exponencial, luego polinómica, luego logarítmica.",
-    "reviewed": false
+    "explanation": "El logaritmo es la función que crece más lentamente entre todas las que se estudian en este curso. Incluso un simple polinomio de grado $1$ (una recta con pendiente positiva) termina superándolo. Esta jerarquía es parte de la estructura profunda de los **límites** y el crecimiento.\n\nEl orden de **dominancia** entre familias de funciones también ubica al logaritmo como la familia de crecimiento más lento. Cualquier polinomio, incluso uno de grado bajo, supera al logaritmo cuando $x \\to +\\infty$.\n$$x^n \\ \\succ \\ \\log_a(x) \\quad \\text{para cualquier } n \\geq 1, \\text{ cuando } x \\to +\\infty$$\n\nEl orden completo de dominancia, de mayor a menor crecimiento, es exponencial, luego polinómica, luego logarítmica.",
+    "reviewed": false,
+    "tags": ["crecimiento-exponencial-vs-polinomico"]
   },
   {
     "question": "Se comparan un polinomio de grado $100$ y una función exponencial, cuando $x \\to +\\infty$.\n\n¿Cuál de las dos domina el crecimiento?",
@@ -296,7 +310,8 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un grado alto en un polinomio solo retrasa el punto donde la exponencial lo supera visualmente, pero no cambia el resultado final. La **dominancia** de la exponencial sobre cualquier polinomio es válida sin importar cuán grande sea el grado.\n$$a^x \\ \\succ \\ x^{100} \\quad \\text{cuando } x \\to +\\infty, \\text{ aunque tarde en notarse}$$\nEste es uno de los errores más comunes del tema: asumir que un grado enorme cambia el resultado, cuando en realidad solo desplaza el punto de cruce entre ambas curvas.",
-    "reviewed": false
+    "explanation": "Aunque grado $100$ suene enormemente alto, la exponencial no es solamente más rápida: crece de forma cualitativamente diferente, sin frenos de ningún tipo. El concepto de **dominancia entre familias** revela que la exponencial está en una categoría superior de crecimiento, incapaz de ser alcanzada por ningún polinomio.\n\nUn grado alto en un polinomio solo retrasa el punto donde la exponencial lo supera visualmente, pero no cambia el resultado final. La **dominancia** de la exponencial sobre cualquier polinomio es válida sin importar cuán grande sea el grado.\n$$a^x \\ \\succ \\ x^{100} \\quad \\text{cuando } x \\to +\\infty, \\text{ aunque tarde en notarse}$$\n\nEste es uno de los errores más comunes del tema: asumir que un grado enorme cambia el resultado, cuando en realidad solo desplaza el punto de cruce entre ambas curvas.",
+    "reviewed": false,
+    "tags": ["crecimiento-exponencial-vs-polinomico"]
   }
 ]

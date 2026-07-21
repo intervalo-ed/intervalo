@@ -207,12 +207,12 @@
     "tags": ["anulacion-derivada-nula-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x^2}{x+1}$$\nhallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x^2}{x+1}$$\nHallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=1$ y $x=-2$",
       "$x=0$ y $x=-2$",
-      "$x=0$ solamente",
-      "$x=-2$ solamente"
+      "$x=0$",
+      "$x=-2$"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -226,15 +226,16 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **tangente horizontal** aparece donde el numerador de la derivada se anula, sin importar el denominador siempre que $v \\neq 0$.\n\n$$\\begin{aligned} u'v-uv' &= 2x(x+1)-x^2\\cdot 1 \\\\ &= x^2+2x \\\\ &= x(x+2) \\end{aligned}$$\nIgualando a cero, $x(x+2)=0$ da las dos soluciones $x=0$ y $x=-2$, ambas dentro del dominio porque no anulan el denominador $x+1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["tangentes-horizontales-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x}{x^2+1}$$\nhallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x}{x^2+1}$$\nHallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
-      "$x=-1$ solamente",
+      "$x=-1$",
       "$x=0$ y $x=1$",
       "$x=1$ y $x=-1$",
-      "$x=1$ solamente"
+      "$x=1$"
     ],
     "correct_index": 2,
     "has_math": true,

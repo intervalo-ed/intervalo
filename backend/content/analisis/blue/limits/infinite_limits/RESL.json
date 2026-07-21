@@ -18,8 +18,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando numerador y denominador de una función racional tienen el mismo grado, el límite al infinito se calcula aplicando la regla de **dominancia** de grados, con el cociente de los coeficientes que acompañan a la mayor potencia de $x$.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5} &= \\lim_{x \\to +\\infty} \\frac{3 + \\frac{1}{x}}{1 - \\frac{5}{x^2}} \\\\ &= \\frac{3}{1} = 3 \\end{aligned}$$\nDividir todo por $x^2$, la mayor potencia presente, hace que los términos de menor grado se aplasten hacia $0$ y sobreviva solo el cociente de coeficientes principales.",
-    "reviewed": false
+    "explanation": "El cálculo de **límites al infinito** en funciones racionales sigue un patrón claro basado en comparar grados. Cuando ambos polinomios crecen con la misma potencia, la carrera entre ellos es equilibrada y solo los coeficientes principales deciden el resultado.\n\nCuando numerador y denominador de una función racional tienen el mismo grado, el límite al infinito se calcula aplicando la regla de **dominancia** de grados, con el cociente de los coeficientes que acompañan a la mayor potencia de $x$.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{3x^2 + x}{x^2 - 5} &= \\lim_{x \\to +\\infty} \\frac{3 + \\frac{1}{x}}{1 - \\frac{5}{x^2}} \\\\ &= \\frac{3}{1} = 3 \\end{aligned}$$\n\nDividir todo por $x^2$, la mayor potencia presente, hace que los términos de menor grado se aplasten hacia $0$ y sobreviva solo el cociente de coeficientes principales.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito, prestando atención al signo del coeficiente principal:\n$$\\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4}$$",
@@ -40,8 +41,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente de coeficientes principales conserva el signo de cada coeficiente, incluyendo los negativos. Ignorar el signo es uno de los errores más comunes al aplicar esta regla de **dominancia**.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} &= \\frac{-2}{1} \\\\ &= -2 \\end{aligned}$$\nConviene siempre escribir el signo del coeficiente principal explícitamente antes de simplificar, para no perderlo en el camino.",
-    "reviewed": false
+    "explanation": "Los signos en los **límites** son tan importantes como las magnitudes. El cociente de coeficientes principales es el paso final, pero solo si se arrastra el signo de cada coeficiente correctamente a través de todo el cálculo.\n\nEl cociente de coeficientes principales conserva el signo de cada coeficiente, incluyendo los negativos. Ignorar el signo es uno de los errores más comunes al aplicar esta regla de **dominancia**.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} &= \\frac{-2}{1} \\\\ &= -2 \\end{aligned}$$\n\nConviene siempre escribir el signo del coeficiente principal explícitamente antes de simplificar, para no perderlo en el camino.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito, comparando el grado del numerador con el del denominador:\n$$\\lim_{x \\to -\\infty} \\frac{5x + 1}{x^3 - 2x}$$",
@@ -62,8 +64,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador de una función racional tiene grado mayor que el numerador, el denominador domina el crecimiento y el cociente completo tiende a $0$, sin importar la dirección de $x$.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{5x+1}{x^3-2x} &= \\lim_{x \\to -\\infty} \\frac{\\frac{5}{x^2} + \\frac{1}{x^3}}{1 - \\frac{2}{x^2}} \\\\ &= \\frac{0}{1} = 0 \\end{aligned}$$\nEste resultado no depende del signo de $x$, mientras el denominador siga teniendo grado estrictamente mayor, el límite es $0$ en ambos extremos.",
-    "reviewed": false
+    "explanation": "La **dominancia de grados** enseña que un polinomio de grado mayor siempre gana la carrera, sin importar el signo de $x$. Un denominador fuerte achata cualquier numerador más débil, no importa hacia dónde corra $x$.\n\nCuando el denominador de una función racional tiene grado mayor que el numerador, el denominador domina el crecimiento y el cociente completo tiende a $0$, sin importar la dirección de $x$.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{5x+1}{x^3-2x} &= \\lim_{x \\to -\\infty} \\frac{\\frac{5}{x^2} + \\frac{1}{x^3}}{1 - \\frac{2}{x^2}} \\\\ &= \\frac{0}{1} = 0 \\end{aligned}$$\n\nEste resultado no depende del signo de $x$, mientras el denominador siga teniendo grado estrictamente mayor, el límite es $0$ en ambos extremos.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3 + 6}$$",
@@ -84,8 +87,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente de coeficientes principales se calcula con los signos incluidos, tanto del numerador como del denominador.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3+6} &= \\frac{4}{-2} \\\\ &= -\\frac{1}{2} \\end{aligned}$$\nUn error común es simplificar el signo negativo del denominador como si fuera positivo, invirtiendo el resultado final.",
-    "reviewed": false
+    "explanation": "Los signos negativos en los coeficientes principales son fáciles de olvidar porque mentalmente uno separa el \"signo\" del \"valor numérico\". Pero en el cálculo de **límites**, el signo es parte integral del coeficiente y afecta directamente el resultado.\n\nEl cociente de coeficientes principales se calcula con los signos incluidos, tanto del numerador como del denominador.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{4x^3 - x}{-2x^3+6} &= \\frac{4}{-2} \\\\ &= -\\frac{1}{2} \\end{aligned}$$\n\nUn error común es simplificar el signo negativo del denominador como si fuera positivo, invirtiendo el resultado final.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{-3x + 2}{x^2 + 1}$$",
@@ -106,8 +110,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El grado del denominador es mayor que el del numerador, así que el denominador domina y el cociente se aplasta hacia $0$, sin importar el signo del coeficiente principal del numerador.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-3x+2}{x^2+1} &= \\lim_{x \\to +\\infty} \\frac{-\\frac{3}{x} + \\frac{2}{x^2}}{1 + \\frac{1}{x^2}} \\\\ &= \\frac{0}{1} = 0 \\end{aligned}$$\nEl signo negativo del coeficiente principal del numerador no afecta el resultado en este caso, porque el denominador ya asegura que todo se aplaste a $0$.",
-    "reviewed": false
+    "explanation": "A veces el numerador es negativo, pero eso no cambia el hecho de que el denominador lo domina. Un numerador negativo débil sigue siendo dominado por un denominador positivo fuerte. La **dominancia de grados** es más fuerte que cualquier signo.\n\nEl grado del denominador es mayor que el del numerador, así que el denominador domina y el cociente se aplasta hacia $0$, sin importar el signo del coeficiente principal del numerador.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-3x+2}{x^2+1} &= \\lim_{x \\to +\\infty} \\frac{-\\frac{3}{x} + \\frac{2}{x^2}}{1 + \\frac{1}{x^2}} \\\\ &= \\frac{0}{1} = 0 \\end{aligned}$$\n\nEl signo negativo del coeficiente principal del numerador no afecta el resultado en este caso, porque el denominador ya asegura que todo se aplaste a $0$.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4 + x}$$",
@@ -128,8 +133,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con grados iguales, sobrevive el cociente entre los coeficientes que acompañan a la mayor potencia, respetando ambos signos.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4+x} &= \\frac{1}{-5} \\\\ &= -\\frac{1}{5} \\end{aligned}$$\nInvertir el orden del cociente, o perder alguno de los dos signos, son los dos errores más comunes al resolver este tipo de límite.",
-    "reviewed": false
+    "explanation": "Cuando ambos polinomios tienen el mismo grado, los coeficientes principales deciden completamente el resultado. Invertir su orden o equivocarse de signo transforma completamente la respuesta de $\\frac{1}{5}$ a $-\\frac{1}{5}$.\n\nCon grados iguales, sobrevive el cociente entre los coeficientes que acompañan a la mayor potencia, respetando ambos signos.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{x^4 - 6x^2}{-5x^4+x} &= \\frac{1}{-5} \\\\ &= -\\frac{1}{5} \\end{aligned}$$\n\nInvertir el orden del cociente, o perder alguno de los dos signos, son los dos errores más comunes al resolver este tipo de límite.",
+    "reviewed": false,
+    "tags": ["racionales-mismo-grado-o-denominador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{2x^3 - 5x}{x + 1}$$",
@@ -150,8 +156,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador de una función racional tiene grado mayor que el denominador, el cociente diverge. El signo final surge de cruzar el signo del coeficiente principal con la dirección de $x$ y la paridad de la potencia resultante.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{2x^3-5x}{x+1} &\\approx \\lim_{x \\to +\\infty} \\frac{2x^3}{x} \\\\ &= \\lim_{x \\to +\\infty} 2x^2 = +\\infty \\end{aligned}$$\nComo $x \\to +\\infty$ y el coeficiente resultante es positivo con potencia par, el resultado es $+\\infty$ sin ambigüedad de signo.",
-    "reviewed": false
+    "explanation": "Cuando el numerador gana en grado, la función abandona la idea de converger a un valor finito y comienza a divergir. La dirección de esa divergencia depende de cruzar el signo del coeficiente principal con la dirección de $x$.\n\nCuando el numerador de una función racional tiene grado mayor que el denominador, el cociente diverge. El signo final surge de cruzar el signo del coeficiente principal con la dirección de $x$ y la paridad de la potencia resultante.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{2x^3-5x}{x+1} &\\approx \\lim_{x \\to +\\infty} \\frac{2x^3}{x} \\\\ &= \\lim_{x \\to +\\infty} 2x^2 = +\\infty \\end{aligned}$$\n\nComo $x \\to +\\infty$ y el coeficiente resultante es positivo con potencia par, el resultado es $+\\infty$ sin ambigüedad de signo.",
+    "reviewed": false,
+    "tags": ["racionales-gana-numerador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to -\\infty} \\frac{x^4 - 3x}{x + 2}$$",
@@ -172,8 +179,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{x^4-3x}{x+2} &\\approx \\lim_{x \\to -\\infty} \\frac{x^4}{x} \\\\ &= \\lim_{x \\to -\\infty} x^3 = -\\infty \\end{aligned}$$\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ da $-\\infty$. Con potencia par, el signo de $x$ no importaría.",
-    "reviewed": false
+    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos. Esta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, no $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n$$\\begin{aligned} \\lim_{x \\to -\\infty} \\frac{x^4-3x}{x+2} &\\approx \\lim_{x \\to -\\infty} \\frac{x^4}{x} \\\\ &= \\lim_{x \\to -\\infty} x^3 = -\\infty \\end{aligned}$$\n\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ da $-\\infty$. Con potencia par, el signo de $x$ no importaría.",
+    "reviewed": false,
+    "tags": ["racionales-gana-numerador"]
   },
   {
     "question": "Calculá el siguiente límite al infinito:\n$$\\lim_{x \\to +\\infty} \\frac{-x^3 + x}{x^2 - 4}$$",
@@ -194,8 +202,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo del coeficiente principal del numerador se combina con la dirección de $x$ para determinar el signo final del resultado divergente.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-x^3+x}{x^2-4} &\\approx \\lim_{x \\to +\\infty} \\frac{-x^3}{x^2} \\\\ &= \\lim_{x \\to +\\infty} (-x) = -\\infty \\end{aligned}$$\nIgnorar el signo negativo del coeficiente principal es el error más frecuente en este tipo de ejercicio, conviene arrastrarlo explícitamente en cada paso.",
-    "reviewed": false
+    "explanation": "El signo del coeficiente principal es el \"motor\" que dirige la divergencia. Un coeficiente principal negativo apunta la divergencia hacia $-\\infty$, mientras que uno positivo la apunta hacia $+\\infty$. No se puede ignorar ese detalle sin cambiar completamente el resultado.\n\nEl signo negativo del coeficiente principal del numerador se combina con la dirección de $x$ para determinar el signo final del resultado divergente.\n$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-x^3+x}{x^2-4} &\\approx \\lim_{x \\to +\\infty} \\frac{-x^3}{x^2} \\\\ &= \\lim_{x \\to +\\infty} (-x) = -\\infty \\end{aligned}$$\n\nIgnorar el signo negativo del coeficiente principal es el error más frecuente en este tipo de ejercicio, conviene arrastrarlo explícitamente en cada paso.",
+    "reviewed": false,
+    "tags": ["racionales-gana-numerador"]
   },
   {
     "question": "Calculá el siguiente límite lateral, correspondiente a una **asíntota vertical**:\n$$\\lim_{x \\to 2^+} \\frac{1}{x - 2}$$",
@@ -216,8 +225,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para calcular un límite infinito cerca de una **asíntota vertical**, hay que analizar el signo del denominador cuando se acerca a $0$ desde la dirección indicada.\n$$x \\to 2^+ \\ \\Rightarrow \\ x - 2 \\to 0^+$$\nComo el numerador es positivo y el denominador tiende a $0^+$, el cociente completo diverge a $+\\infty$. Cruzar el signo del numerador con el signo del $0$ lateral es el paso clave de este cálculo.",
-    "reviewed": false
+    "explanation": "Los **límites infinitos** laterales muestran que la función no puede simplemente \"saltarse\" un punto: se ve forzada a diverger. El signo de esa divergencia depende de hacia qué lado de cero tiende el denominador cuando $x$ se aproxima de una dirección específica.\n\nPara calcular un límite infinito cerca de una **asíntota vertical**, hay que analizar el signo del denominador cuando se acerca a $0$ desde la dirección indicada.\n$$x \\to 2^+ \\ \\Rightarrow \\ x - 2 \\to 0^+$$\n\nComo el numerador es positivo y el denominador tiende a $0^+$, el cociente completo diverge a $+\\infty$. Cruzar el signo del numerador con el signo del $0$ lateral es el paso clave de este cálculo.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   },
   {
     "question": "Calculá el siguiente límite lateral:\n$$\\lim_{x \\to 2^-} \\frac{1}{x - 2}$$",
@@ -238,8 +248,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $x \\to 2^-$, los valores de $x$ son menores que $2$, así que $x-2$ es negativo y tiende a $0^-$.\n$$x \\to 2^- \\ \\Rightarrow \\ x - 2 \\to 0^-$$\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$. Este resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
-    "reviewed": false
+    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) produce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo. Este cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, así que $x-2$ es negativo y tiende a $0^-$.\n$$x \\to 2^- \\ \\Rightarrow \\ x - 2 \\to 0^-$$\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$. Este resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   },
   {
     "question": "Calculá el siguiente límite lateral:\n$$\\lim_{x \\to 2^+} \\frac{-3}{x - 2}$$",
@@ -260,8 +271,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del numerador se cruza con el signo del $0$ lateral del denominador para determinar el signo final del resultado.\n$$x \\to 2^+ \\Rightarrow x - 2 \\to 0^+$$\nComo el numerador vale $-3$ (negativo) y el denominador tiende a $0^+$, el cociente completo diverge a $-\\infty$. Un numerador negativo invierte el signo que tendría el mismo límite con numerador positivo.",
-    "reviewed": false
+    "explanation": "Un numerador negativo actúa como un \"inversor de signo\" para la divergencia. Cuando el denominador es positivo pero muy chico, y el numerador es negativo, el resultado gira hacia $-\\infty$. El numerador decide, junto con el signo del denominador, cuál es la dirección final.\n\nEl signo del numerador se cruza con el signo del $0$ lateral del denominador para determinar el signo final del resultado.\n$$x \\to 2^+ \\Rightarrow x - 2 \\to 0^+$$\n\nComo el numerador vale $-3$ (negativo) y el denominador tiende a $0^+$, el cociente completo diverge a $-\\infty$. Un numerador negativo invierte el signo que tendría el mismo límite con numerador positivo.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   },
   {
     "question": "Calculá el siguiente límite lateral:\n$$\\lim_{x \\to 2^-} \\frac{-3}{x - 2}$$",
@@ -282,8 +294,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ambos signos, el del numerador y el del $0$ lateral del denominador, son negativos, el cociente resulta positivo.\n$$x \\to 2^- \\Rightarrow x - 2 \\to 0^-$$\nCon numerador $-3$ y denominador tendiendo a $0^-$, el cociente completo diverge a $+\\infty$. Dos signos negativos que se combinan en una división producen un resultado positivo, igual que en cualquier cociente de números reales.",
-    "reviewed": false
+    "explanation": "Dos signos negativos combinados en una división producen un resultado positivo, exactamente como en aritmética de números reales. Cuando el numerador es negativo y el denominador tiende a $0^-$, la **divergencia** resultante apunta hacia $+\\infty$.\n\nCuando ambos signos, el del numerador y el del $0$ lateral del denominador, son negativos, el cociente resulta positivo.\n$$x \\to 2^- \\Rightarrow x - 2 \\to 0^-$$\n\nCon numerador $-3$ y denominador tendiendo a $0^-$, el cociente completo diverge a $+\\infty$. Dos signos negativos que se combinan en una división producen un resultado positivo, igual que en cualquier cociente de números reales.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   },
   {
     "question": "Calculá el siguiente límite, si existe:\n$$\\lim_{x \\to 3} \\frac{2}{x - 3}$$",
@@ -304,8 +317,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de evaluar un límite bilateral cerca de una posible **asíntota vertical**, conviene calcular ambos laterales por separado y compararlos.\n$$\\begin{aligned} \\lim_{x \\to 3^-} \\frac{2}{x-3} &= -\\infty \\\\ \\lim_{x \\to 3^+} \\frac{2}{x-3} &= +\\infty \\end{aligned}$$\nComo los dos laterales divergen con signos opuestos, el límite bilateral no existe. Este es el criterio estándar para reportar No existe en un límite infinito con laterales discordantes.",
-    "reviewed": false
+    "explanation": "Un **límite bilateral** es una prueba más exigente que los laterales: ambos lados tienen que coincidir. Si divergen hacia $+\\infty$ de un lado y $-\\infty$ del otro, la función no tiene un **límite** en ese punto, aunque sí tenga **asíntota vertical**. La función está garantizada a diverger, pero sin una dirección única.\n\nAntes de evaluar un límite bilateral cerca de una posible **asíntota vertical**, conviene calcular ambos laterales por separado y compararlos.\n$$\\begin{aligned} \\lim_{x \\to 3^-} \\frac{2}{x-3} &= -\\infty \\\\ \\lim_{x \\to 3^+} \\frac{2}{x-3} &= +\\infty \\end{aligned}$$\n\nComo los dos laterales divergen con signos opuestos, el límite bilateral no existe. Este es el criterio estándar para reportar No existe en un límite infinito con laterales discordantes.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   },
   {
     "question": "Calculá el siguiente límite lateral:\n$$\\lim_{x \\to 1^+} \\frac{5}{1 - x}$$",
@@ -326,7 +340,8 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador está escrito como $1-x$ en vez de $x-1$, conviene analizar el signo con cuidado antes de concluir.\n$$x \\to 1^+ \\Rightarrow x > 1 \\Rightarrow 1 - x \\to 0^-$$\nCon numerador positivo $5$ y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$. El orden de la resta dentro del denominador puede invertir el signo del $0$ lateral respecto al caso más común $x-a$.",
-    "reviewed": false
+    "explanation": "Cuando el denominador está escrito en un orden distinto al habitual (como $1-x$ en lugar de $x-1$), es fácil equivocarse en el análisis de signos. El cuidado en esta etapa de análisis es crucial porque determinará completamente hacia dónde diverge la función.\n\nCuando el denominador está escrito como $1-x$ en vez de $x-1$, conviene analizar el signo con cuidado antes de concluir.\n$$x \\to 1^+ \\Rightarrow x > 1 \\Rightarrow 1 - x \\to 0^-$$\n\nCon numerador positivo $5$ y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$. El orden de la resta dentro del denominador puede invertir el signo del $0$ lateral respecto al caso más común $x-a$.",
+    "reviewed": false,
+    "tags": ["calculo-asintota-vertical"]
   }
 ]

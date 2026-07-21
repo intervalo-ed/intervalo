@@ -24,7 +24,10 @@
       11
     ],
     "explanation": "El **vértice** de una parábola es su punto más alto cuando la curva abre hacia abajo, o su punto más bajo cuando abre hacia arriba. Toda la información sobre el máximo o el mínimo del fenómeno está concentrada ahí, en un único punto del gráfico.\n\nEn este salto, el vértice está en\n$$(4,\\ 8)$$\nla coordenada vertical, 8, es la altura máxima que alcanza la pelota, y la horizontal, 4, es el instante en el que eso ocurre.\n\nConviene no perder de vista que el vértice guarda dos datos distintos, uno para la altura y otro para el momento en que se produce, y la pregunta acá apunta solo al primero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Un sapo da un salto y la gráfica muestra su altura, en centímetros, según los segundos.\n\n¿A los cuántos segundos está en el punto más alto del salto?",
@@ -51,7 +54,10 @@
       9
     ],
     "explanation": "En una parábola que abre hacia abajo, el **vértice** marca el punto más alto de todo el recorrido, y su coordenada horizontal indica en qué momento se llega a esa altura máxima.\n\nAcá el vértice está en:\n$$(4, 4)$$\nAsí que a los 4 segundos el sapo alcanza el punto más alto de su salto, a 4 centímetros de altura.\n\nConviene distinguir bien las dos coordenadas del vértice, una responde cuánto vale la altura y la otra responde cuándo ocurre, y acá la pregunta apunta al cuándo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un delfín salta fuera del agua y la gráfica muestra su altura sobre la superficie, en metros, según los segundos.\n\n¿A los cuántos segundos vuelve a entrar al agua?",
@@ -78,7 +84,10 @@
       9
     ],
     "explanation": "El delfín vuelve al agua cuando su altura es cero, es decir donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n\nLa parábola arranca en $x = 0$, sube y vuelve a cortar el eje en\n$$x = 4$$\nCuatro segundos de vuelo y de vuelta al agua.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Se lanza una pelota al aro y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está la pelota a los 2 segundos?",
@@ -105,7 +114,10 @@
       11
     ],
     "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto exacto de la curva que está justo arriba (o abajo) de esa marca en el eje.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice\n$$f(2) = -0{,}5\\,(2-4)^2 + 8 = 6$$\nla pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un cohete de agua sube y baja, y la gráfica muestra su altura, en metros, según los segundos.\n\nA los 2 segundos está a 5 metros subiendo. ¿En qué otro momento vuelve a estar a 5 metros?",
@@ -132,7 +144,10 @@
       13
     ],
     "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6. Si a los 2 segundos está a 5 metros, 4 antes del vértice, vuelve a estar a 5 metros 4 segundos después:\n$$6 + 4 = 10$$\nSubiendo y bajando, la altura se repite como un espejo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "El agua de una manguera sale y forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
@@ -159,7 +174,10 @@
       11
     ],
     "explanation": "Cuando algo se mueve dibujando un arco en el aire, ya sea en el tiempo o en el espacio, ese recorrido es una parábola y su **vértice** concentra el dato del punto más alto: la coordenada vertical dice cuánto sube, y la horizontal dice dónde ocurre eso.\n\nAcá el vértice del chorro está en\n$$(4,\\ 8)$$\nasí que a 4 metros de la manguera el agua llega a su altura máxima, 8 metros, antes de empezar a caer del otro lado.\n\nEs un buen hábito separar mentalmente las dos coordenadas del vértice, la altura por un lado y la distancia por el otro, para no responder una cuando se pregunta por la otra.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "Un skater despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal recorrida, también en metros.\n\n¿A qué distancia del despegue vuelve a tocar el piso?",
@@ -186,7 +204,10 @@
       13
     ],
     "explanation": "El skater toca el piso cuando su altura es cero, exactamente donde la parábola cruza el eje horizontal. Ese punto es una **raíz**, y en un salto que empieza y termina al ras del piso hay dos: una al despegar y otra al aterrizar.\n\nAcá despega en $x = 0$ y vuelve a cortar el eje en\n$$x = 12$$\nasí que toca el piso a los 12 metros de la rampa.\n\nConviene no confundir esta raíz con el vértice: el vértice marca la altura máxima del salto, mientras que la raíz marca dónde la altura vuelve a valer cero. Si la parábola abriera hacia arriba, el valle quedaría por encima del piso y no habría raíz para calcular.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Un puesto de limonada prueba distintos precios. Muy barato deja poca ganancia y muy caro espanta a los clientes.\n\nLa gráfica muestra la ganancia del día, en miles de pesos, según el precio del vaso, en cientos de pesos.\n\n¿Qué precio deja la mayor ganancia?",
@@ -213,7 +234,10 @@
       11
     ],
     "explanation": "En una parábola que abre hacia abajo, el punto más alto es el **vértice**.\n\nEl precio que deja la mayor ganancia es la coordenada horizontal del vértice, acá\n$$x = 5$$\nMuy barato casi no deja margen y muy caro espanta a la gente, el equilibrio está en \\$500 el vaso.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un puesto de panchos prueba distintos precios. La gráfica muestra la ganancia diaria, en miles de pesos, según el precio del pancho, en cientos de pesos.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
@@ -240,7 +264,10 @@
       11
     ],
     "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como techo o como piso. Cuando abre hacia abajo el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba el vértice queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice es el punto más alto de toda la curva, el precio que deja la mayor ganancia del puesto. No hay ningún otro precio, ni más barato ni más caro, que supere ese resultado.\n\nConviene recordar que el sentido de apertura y el tipo de extremo van siempre de la mano: no existe una parábola que abra hacia abajo y tenga un mínimo, ni una que abra hacia arriba y tenga un máximo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Una fábrica mide su costo por unidad según cuántas unidades produce por hora. La gráfica muestra el costo por unidad, en cientos de pesos, según la cantidad producida, en decenas.\n\n¿Con qué nivel de producción el costo por unidad es el más bajo?",
@@ -267,7 +294,10 @@
       11
     ],
     "explanation": "Cuando una parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl nivel de producción con menor costo es la coordenada horizontal del vértice, acá\n$$x = 5$$\nProducir muy poco o demasiado sale caro, el costo más bajo está en el medio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "eje-simetria"
+    ]
   },
   {
     "question": "Se tira un globo de agua hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
@@ -294,7 +324,10 @@
       11
     ],
     "explanation": "Cuando algo sale del piso, sube y vuelve a caer, el tiempo total en el aire es el intervalo entre las dos **raíces** de la parábola, los instantes en los que la altura vale cero.\n\nAcá la parábola corta el eje en\n$$\\begin{aligned} x &= 0 \\\\ x &= 8 \\end{aligned}$$\nasí que el globo sale del piso en el segundo 0 y vuelve a tocarlo en el segundo 8, ocho segundos de vuelo en total.\n\nEs un error común confundir el instante del punto más alto con la duración completa: el vértice marca solo la mitad del recorrido, no el momento del aterrizaje.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un clavadista salta desde un trampolín, sube un poco y cae al agua. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura saltó?",
@@ -321,7 +354,10 @@
       11
     ],
     "explanation": "La **ordenada al origen** de una función es su valor cuando la variable independiente vale cero, el punto donde la curva corta el eje vertical. En un contexto de altura contra tiempo, ese valor representa la altura de partida, antes de que empiece a transcurrir el tiempo del movimiento.\n\nAcá corresponde evaluar la parábola en el instante inicial\n$$f(0) = 4$$\nasí que el clavadista saltó desde 4 metros de altura.\n\nConviene no confundir este valor con la coordenada del vértice: el trampolín marca el punto de partida, mientras que el vértice marca la altura máxima que alcanza después, en el aire, antes de caer.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "concavidad"
+    ]
   },
   {
     "question": "Una pelota de tenis sale hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿En qué tramo la pelota está subiendo?",
@@ -348,7 +384,10 @@
       11
     ],
     "explanation": "En una parábola que abre hacia abajo, la curva **crece hasta el vértice** y **decrece después** de él: a la izquierda del punto más alto la función sube, y a la derecha baja. Esa es la manera de leer si algo está subiendo o bajando a partir de la forma de la curva, sin necesidad de calcular ninguna velocidad.\n\nAcá el vértice está en $x = 4$, así que la pelota sube en el tramo antes de los 4 segundos y baja en el tramo después.\n\nUn resbalón típico es mirar solo un lado del vértice y generalizar para todo el recorrido: la parábola cambia de sentido justo en ese punto, nunca antes ni después.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Un fuego artificial sube y explota justo en su punto más alto. La gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos explota?",
@@ -375,7 +414,10 @@
       13
     ],
     "explanation": "El punto más alto de cualquier trayectoria en forma de parábola es su **vértice**, y la coordenada horizontal de ese punto indica en qué momento se alcanza esa altura máxima, sin importar cuál sea el valor de la altura en sí.\n\nAcá el vértice está en $x = 6$, así que el instante del punto más alto es\n$$x = 6$$\nel fuego artificial explota a los 6 segundos de encendida la mecha.\n\nConviene no mezclar esta coordenada horizontal con la altura del vértice: una responde cuándo ocurre el máximo, la otra responde cuánto mide.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Un atleta hace salto en alto y la gráfica muestra la altura de su cuerpo, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
@@ -402,7 +444,10 @@
       11
     ],
     "explanation": "En un salto que sube y vuelve a bajar, el punto más alto de todo el recorrido es el **vértice** de la parábola que describe la altura del cuerpo en función del tiempo. La coordenada vertical de ese punto es, precisamente, la altura máxima alcanzada.\n\nAcá el vértice está en\n$$(2,\\ 2)$$\nasí que la altura máxima del salto es 2 metros.\n\nNinguna otra altura del gráfico supera ese valor, ni antes ni después del vértice, porque la parábola abre hacia abajo y el vértice es, por definición, el techo de toda la curva.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Se lanza un dardo hacia arriba en una feria y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos llega a su punto más alto?",
@@ -429,7 +474,10 @@
       11
     ],
     "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo su recorrido, y su coordenada horizontal indica exactamente en qué instante se produce ese máximo, sin importar cuánto valga la altura en ese momento.\n\nAcá esa coordenada es\n$$x = 6$$\nasí que el dardo llega a su punto más alto a los 6 segundos de haber sido lanzado.\n\nUn punto cercano al vértice, un segundo antes o después, todavía no es el vértice: solo la coordenada exacta marca el instante del máximo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "duracion"
+    ]
   },
   {
     "question": "Una pelota de golf sale despedida hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A los cuántos segundos toca el suelo?",
@@ -456,7 +504,10 @@
       11
     ],
     "explanation": "Una pelota que sale despedida hacia arriba y vuelve a caer describe una parábola, y el instante en que toca el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal. Ese punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en\n$$x = 8$$\nasí que la pelota toca el suelo a los 8 segundos de haber salido despedida.\n\nConviene no confundir esta raíz con el instante del vértice: el vértice marca el momento del punto más alto, mientras que la raíz marca el final del recorrido, cuando la altura vuelve a cero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Una pelota de ping-pong rebota hacia arriba y la gráfica muestra su altura, en centímetros, según los segundos.\n\nA los 2 segundos está a 6 cm subiendo. ¿En qué otro momento vuelve a estar a 6 cm?",
@@ -483,7 +534,10 @@
       11
     ],
     "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría. Eso significa que, salvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, una vez de cada lado, siempre a la misma distancia de ese eje.\n\nAcá el vértice está en $x = 4$: los 2 segundos del enunciado quedan a 2 unidades de distancia del vértice, así que el otro instante con la misma altura está a esa misma distancia, del otro lado\n$$4 + 2 = 6$$\nla pelota vuelve a estar a 6 cm a los 6 segundos.\n\nEl truco de la simetría es medir la distancia al vértice una sola vez y después repetirla, en vez de contar los segundos desde el principio del recorrido.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Un salmón salta para remontar una cascada y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 4 segundos?",
@@ -510,7 +564,10 @@
       13
     ],
     "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nel salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "Un drone de juguete sube y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuál es la altura máxima que alcanza?",
@@ -537,7 +594,10 @@
       11
     ],
     "explanation": "En un vuelo que sube y vuelve a bajar, el punto más alto de todo el recorrido es el **vértice** de la parábola que describe la altura en función del tiempo. Ningún otro punto de la curva supera esa altura, porque el vértice es, por definición, el techo de una parábola que abre hacia abajo.\n\nAcá el vértice está en\n$$(5,\\ 8)$$\nasí que la altura máxima que alcanza el drone es 8 metros.\n\nConviene comparar esa coordenada con las demás alturas del gráfico: cualquier otro punto de la curva, antes o después del vértice, va a estar siempre por debajo de ese valor.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Un malabarista lanza una pelota al aire y la gráfica muestra su altura, en metros, según los segundos.\n\n¿A qué altura está a los 6 segundos?",
@@ -564,7 +624,10 @@
       11
     ],
     "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función ahí, buscando el punto de la curva que está exactamente arriba de esa marca en el eje horizontal.\n\nAcá se pide la altura a los 6 segundos, así que hay que reemplazar $x$ por 6 en la fórmula\n$$f(6) = -0{,}5\\,(6-4)^2 + 8 = 6$$\nla pelota está a 6 metros de altura en ese instante, ya bajando después de haber pasado por el vértice a los 4 segundos.\n\nUna forma de verificar el resultado es notar que, por la simetría de la parábola, esta misma altura de 6 metros también se dio a los 2 segundos, en la subida.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un saltamontes pega un salto y la gráfica muestra su altura, en centímetros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
@@ -591,7 +654,10 @@
       11
     ],
     "explanation": "Cuando algo sale del piso, sube y cae de nuevo, el tiempo total en el aire es el intervalo entre las dos **raíces** de la parábola, los instantes en los que la altura vuelve a valer cero.\n\nAcá la parábola corta el eje en\n$$\\begin{aligned} x &= 0 \\\\ x &= 4 \\end{aligned}$$\nasí que el saltamontes sale del piso en el segundo 0 y vuelve a tocarlo en el segundo 4, cuatro segundos de salto en total.\n\nUn error frecuente es confundir el instante del punto más alto, a mitad de camino entre las dos raíces, con la duración completa del salto: el vértice marca solo la mitad del recorrido.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un cohete de juguete despega desde una plataforma, sube y cae. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura despegó?",
@@ -618,7 +684,10 @@
       11
     ],
     "explanation": "La **ordenada al origen** de una función es su valor cuando la variable independiente es cero, el punto donde la curva corta el eje vertical. En un movimiento de altura contra tiempo, ese valor es la altura de partida, antes de que arranque a correr el reloj.\n\nAcá corresponde evaluar en el instante inicial\n$$f(0) = 2$$\nasí que el cohete despegó desde 2 metros de altura.\n\nEsa plataforma de lanzamiento da una ventaja inicial, pero el punto más alto de todo el vuelo llega después, en el vértice, y es un valor distinto al de partida.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Un jugador hace un tiro libre y la gráfica muestra la altura de la pelota, en metros, según los segundos.\n\n¿A qué altura está la pelota a los 3 segundos?",
@@ -645,7 +714,10 @@
       11
     ],
     "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función ahí, buscando el punto de la curva que está exactamente arriba de esa marca en el eje horizontal.\n\nAcá se pide la altura a los 3 segundos, así que hay que reemplazar $x$ por 3 en la fórmula\n$$f(3) = -0{,}5\\,(3-5)^2 + 8 = 6$$\nla pelota está a 6 metros de altura en ese instante, todavía subiendo hacia el aro.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 5 segundos, con una altura mayor.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "eje-simetria"
+    ]
   },
   {
     "question": "Una pelota de vóley sube por encima de la red y vuelve a bajar. La gráfica muestra su altura, en metros, según los segundos.\n\nA los 4 segundos está a 6 metros subiendo. ¿En qué otro momento vuelve a estar a 6 metros?",
@@ -672,7 +744,10 @@
       11
     ],
     "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 6$, y los 4 segundos del enunciado quedan a 2 unidades de distancia.\n\nEl instante simétrico está a esa misma distancia del otro lado del vértice:\n$$6 + 2 = 8$$\nLa pelota vuelve a estar a 6 metros a los 8 segundos.\n\nConviene medir la distancia al vértice una sola vez y repetirla del otro lado, en vez de contar los segundos desde el arranque del recorrido.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "Un cohete de agua sube bien alto y vuelve a caer. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Cuánto tiempo estuvo en el aire?",
@@ -699,7 +774,10 @@
       13
     ],
     "explanation": "Cuando algo sale disparado del piso, sube y cae de nuevo, el tiempo total en el aire es el intervalo entre las dos **raíces** de la parábola, los instantes en los que la altura vuelve a valer cero.\n\nAcá la parábola corta el eje en\n$$\\begin{aligned} x &= 0 \\\\ x &= 12 \\end{aligned}$$\nasí que el cohete de agua sale en el segundo 0 y vuelve a caer en el segundo 12, doce segundos de vuelo en total.\n\nConviene no confundir el instante del punto más alto, a mitad de camino entre ambas raíces, con la duración completa: el vértice marca solo la mitad del recorrido, no el momento del aterrizaje.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Una rana salta de una orilla a la otra y la gráfica muestra su altura sobre el agua, en centímetros, según los segundos.\n\n¿A los cuántos segundos vuelve a tocar el suelo?",
@@ -726,7 +804,10 @@
       11
     ],
     "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal. Ese punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en\n$$x = 8$$\nasí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro es el error más frecuente al leer este tipo de gráfico.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "En un tiro libre, la pelota dibuja un arco. La gráfica muestra su altura, en metros, según la distancia horizontal recorrida, también en metros.\n\n¿Cuál es la altura máxima que alcanza la pelota?",
@@ -753,7 +834,10 @@
       11
     ],
     "explanation": "Cuando algo se mueve dibujando un arco, ya sea en el aire o sobre una superficie, ese recorrido es una parábola y su **vértice** es el punto más alto de todo el trayecto. La coordenada vertical de ese punto es exactamente la altura máxima alcanzada.\n\nAcá el vértice está en\n$$(4,\\ 8)$$\nasí que la altura máxima que alcanza la pelota en su arco es 8 metros.\n\nNinguna otra distancia horizontal del recorrido da una altura mayor a esa, porque el vértice concentra el punto más alto de toda la parábola.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "concavidad"
+    ]
   },
   {
     "question": "Una moto despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la rampa vuelve a tocar el piso?",
@@ -780,7 +864,10 @@
       13
     ],
     "explanation": "Una moto que despega de una rampa describe una parábola en el aire, y el punto en el que vuelve a tocar el piso es aquel en el que su altura vale cero, donde la curva cruza el eje horizontal. Ese punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en\n$$x = 12$$\nasí que la moto toca el piso a los 12 metros de distancia de la rampa.\n\nEsta raíz marca el final del salto, un punto distinto del vértice, que marca la altura máxima alcanzada en el aire; conviene no leer uno por el otro.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un bombero apunta la manguera y el agua forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
@@ -807,7 +894,10 @@
       11
     ],
     "explanation": "El chorro de una manguera apuntada hacia arriba dibuja una parábola en el aire, y su punto más alto es el **vértice** de esa curva. La coordenada vertical del vértice es, exactamente, la altura máxima que llega a alcanzar el agua.\n\nAcá el vértice está en\n$$(5,\\ 8)$$\nasí que la altura máxima del chorro es 8 metros.\n\nCualquier otro punto del arco, antes o después de esa distancia, corresponde a una altura menor, porque el vértice concentra el techo de toda la curva.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Un jugador tira al aro desde lejos y la pelota traza un arco. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué altura está la pelota a los 4 metros de distancia?",
@@ -834,7 +924,10 @@
       13
     ],
     "explanation": "Leer la altura de una parábola a una distancia puntual significa evaluar la función ahí, buscando el punto de la curva que está exactamente arriba de esa marca en el eje horizontal.\n\nAcá se pide la altura a los 4 metros de distancia, así que hay que reemplazar $x$ por 4 en la fórmula\n$$f(4) = -0{,}25\\,(4-6)^2 + 9 = 8$$\nla pelota está a 8 metros de altura en ese punto del arco, todavía subiendo hacia el punto más alto.\n\nEsa altura todavía no es la máxima: el vértice está más adelante, a los 6 metros de distancia, con una altura mayor.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Una moto hace un salto largo y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia del despegue vuelve a tocar el piso?",
@@ -861,7 +954,10 @@
       11
     ],
     "explanation": "Cuando el despegue de un salto no ocurre justo en el cero del eje horizontal, la parábola tiene dos **raíces** distintas de cero: una marca el punto de despegue y la otra el punto de aterrizaje, y ninguna de las dos coincide con el vértice.\n\nAcá la parábola corta el eje horizontal en $x = 2$ y en\n$$x = 10$$\nla moto toca el piso otra vez a los 10 metros de distancia horizontal, la segunda de esas dos raíces.\n\nConviene ubicar bien cuál de las dos raíces corresponde al aterrizaje: la primera marca el despegue y la segunda, más adelante en el eje, marca el punto en el que la moto vuelve a tocar el piso.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "duracion"
+    ]
   },
   {
     "question": "El agua de una manguera de jardín forma un arco. La gráfica muestra la altura del chorro, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la manguera el chorro está más alto?",
@@ -888,7 +984,10 @@
       11
     ],
     "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo el arco, y su coordenada horizontal indica a qué distancia del origen se produce ese máximo, sin importar cuánto valga la altura en ese punto.\n\nAcá esa coordenada es\n$$x = 5$$\nasí que el chorro llega a su punto más alto a los 5 metros de la manguera.\n\nUn punto cercano al vértice, un metro antes o después, todavía no es el vértice: solo esa coordenada exacta marca la distancia del máximo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "sube-baja"
+    ]
   },
   {
     "question": "Un delfín salta y dibuja un arco sobre el agua. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura máxima del salto?",
@@ -915,7 +1014,10 @@
       11
     ],
     "explanation": "Cuando un salto dibuja un arco sobre una superficie, ese recorrido es una parábola, y su **vértice** es el punto más alto de toda la curva. La coordenada vertical del vértice es exactamente la altura máxima que se alcanza.\n\nAcá el vértice está en\n$$(2,\\ 2)$$\nasí que la altura máxima del salto es 2 metros.\n\nNinguna otra distancia horizontal del arco da una altura mayor a esa, porque el vértice concentra el punto más alto de toda la parábola.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un auto rinde mejor a velocidades intermedias. A velocidades bajas o muy altas, el consumo sube. La gráfica muestra el rendimiento, en kilómetros por litro, según la velocidad en decenas de km/h.\n\n¿A qué velocidad rinde más?",
@@ -942,7 +1044,10 @@
       11
     ],
     "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,\n$$x = 6 \\ \\text{(decenas)} = 60 \\ \\text{km/h}$$\nNi a paso de tortuga ni a los pingos, el punto justo está en el medio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "Un teatro prueba distintos precios de entrada. La gráfica muestra la recaudación de la noche, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Cuál es la recaudación máxima posible?",
@@ -969,7 +1074,10 @@
       11
     ],
     "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación suele dibujar una parábola que abre hacia abajo, con un **máximo** en su vértice: ningún otro precio da un resultado mejor que ese.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,\n$$(5,\\ 8)$$\nocho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Un bar quiere saber cuántas mesas conviene poner. Con pocas desaprovecha el espacio y con demasiadas los clientes se van. La gráfica muestra la ganancia de la noche, en miles de pesos, según la cantidad de mesas.\n\n¿Cuántas mesas dan la mayor ganancia?",
@@ -996,7 +1104,10 @@
       13
     ],
     "explanation": "Cuando una ganancia depende de una cantidad que tiene un punto óptimo, como pasa con las mesas de un bar, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en el vértice: ni con muy pocas mesas ni con demasiadas se logra el mejor resultado.\n\nAcá la cantidad ideal es la coordenada horizontal del vértice,\n$$x = 6$$\nseis mesas dan la mayor ganancia de la noche.\n\nPoner menos mesas desaprovecha el espacio disponible, y poner de más termina espantando a los clientes por lo apretado del lugar; el óptimo está siempre en algún punto intermedio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen"
+    ]
   },
   {
     "question": "Un recital prueba distintos precios de entrada. La gráfica muestra la ganancia, en millones de pesos, según el precio.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
@@ -1023,7 +1134,10 @@
       11
     ],
     "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso. Cuando abre hacia abajo, el vértice queda por encima de todo el resto de la curva y es un máximo; cuando abre hacia arriba, queda por debajo de todo lo demás y es un mínimo.\n\nEn este gráfico la parábola abre hacia abajo, así que el vértice representa la mayor ganancia posible del recital, con un precio de entrada óptimo en el medio: ni tan bajo que deje poco margen, ni tan alto que espante al público.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos: una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Una promo vende paquetes de figuritas. La gráfica muestra el ingreso, en miles de pesos, según cuántos paquetes entran en la promo.\n\n¿Cuál es el ingreso si la promo trae 4 paquetes?",
@@ -1050,7 +1164,10 @@
       11
     ],
     "explanation": "Leer el ingreso de una parábola para una cantidad puntual significa evaluar la función ahí, buscando el punto de la curva que está exactamente arriba de esa marca en el eje horizontal.\n\nAcá se pide el ingreso con 4 paquetes, así que hay que reemplazar $x$ por 4 en la fórmula\n$$f(4) = -0{,}5\\,(4-6)^2 + 8 = 6$$\nel ingreso con esa cantidad de paquetes es 6 mil pesos.\n\nTodavía no es el ingreso máximo: el vértice está en 6 paquetes, con un resultado mayor, así que conviene no confundir un punto cualquiera de la curva con el punto más alto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "Una impresora produce más o menos páginas buenas según su velocidad de impresión. Muy lenta produce poco y muy rápida traba el papel. La gráfica muestra las páginas buenas por minuto según la velocidad en decenas.\n\n¿Cuál es el máximo de páginas buenas por minuto?",
@@ -1077,7 +1194,10 @@
       11
     ],
     "explanation": "Cuando una cantidad producida depende de una velocidad y existe un punto óptimo, como pasa con las páginas buenas de una impresora, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en su vértice.\n\nAcá el tope de páginas buenas por minuto es la coordenada vertical del vértice,\n$$(5,\\ 8)$$\nocho páginas por minuto, a la velocidad marcada por la coordenada horizontal.\n\nImprimir más lento de lo necesario desaprovecha la máquina, y apurarla de más traba el papel; el mejor resultado siempre queda en un punto intermedio, nunca en los extremos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Una cafetería prueba distintos precios para el café. La gráfica muestra la ganancia diaria, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Qué precio deja la mayor ganancia?",
@@ -1104,7 +1224,10 @@
       13
     ],
     "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,\n$$x = 6 \\ \\text{(cientos)} = \\$600$$\nMuy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "duracion"
+    ]
   },
   {
     "question": "Un cable cuelga entre dos postes y se hunde en el medio. La gráfica muestra la altura del cable, en metros, según la distancia horizontal, también en metros.\n\n¿En qué punto el cable cuelga más bajo?",
@@ -1131,7 +1254,10 @@
       11
     ],
     "explanation": "Cuando una parábola abre hacia arriba, su **vértice** es el punto más bajo de toda la curva, un mínimo: no hay ningún otro punto que quede por debajo de esa altura.\n\nAcá el lugar donde el cable cuelga más bajo es la coordenada horizontal del vértice,\n$$x = 5$$\na los 5 metros de distancia entre los dos postes.\n\nEste es un patrón típico de cualquier cable o soga que cuelga sujeta en sus dos extremos: siempre se hunde más en el punto medio entre los dos apoyos, nunca cerca de las puntas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "eje-simetria"
+    ]
   },
   {
     "question": "En una madrugada la temperatura baja y después vuelve a subir. La gráfica muestra la temperatura, en grados, según la hora.\n\n¿Cuál es la temperatura más baja de la noche?",
@@ -1158,7 +1284,10 @@
       13
     ],
     "explanation": "Cuando una magnitud baja y después se recupera, como la temperatura durante una madrugada, esa relación con la hora suele dibujar una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro momento de la noche registra un valor más bajo que ese.\n\nAcá la temperatura mínima es la coordenada vertical del vértice,\n$$(6,\\ 1)$$\nun grado, en la hora marcada por la coordenada horizontal.\n\nComo el vértice queda por encima del eje horizontal, la temperatura nunca llega a cero ni a valores negativos en este gráfico, se queda siempre por encima de su piso mínimo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "concavidad"
+    ]
   },
   {
     "question": "En una rampa con forma de U, un skater baja y vuelve a subir del otro lado. La gráfica muestra su altura, en metros, según los segundos.\n\n¿El recorrido tiene un punto más alto o un punto más bajo?",
@@ -1185,7 +1314,10 @@
       11
     ],
     "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como piso o como techo. Cuando abre hacia arriba, el vértice queda por debajo de todo el resto de la curva y es un mínimo; cuando abre hacia abajo, queda por encima de todo lo demás y es un máximo.\n\nEn este gráfico la parábola abre hacia arriba, así que el vértice es el punto más bajo de todo el recorrido, el fondo de la rampa en forma de U por donde pasa el skater antes de volver a subir del otro lado.\n\nEl sentido de apertura y el tipo de extremo van siempre juntos: una parábola que abre hacia arriba nunca tiene un máximo, y una que abre hacia abajo nunca tiene un mínimo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "Durante una sequía el nivel de un río baja y después se recupera. La gráfica muestra el nivel, en metros, según los meses.\n\n¿En qué mes el río está más bajo?",
@@ -1212,7 +1344,10 @@
       11
     ],
     "explanation": "Cuando una magnitud baja durante un tiempo y después se recupera, como el nivel de un río en sequía, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un nivel más bajo que ese.\n\nAcá el mes de menor nivel es la coordenada horizontal del vértice,\n$$x = 6$$\nel río toca fondo en el sexto mes.\n\nAntes de ese mes el nivel todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto donde el descenso se detiene y arranca la subida.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-fv"
+    ]
   },
   {
     "question": "Una guirnalda de luces cuelga entre dos columnas y se hunde en el medio. La gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿Cuál es la altura mínima de la guirnalda?",
@@ -1239,7 +1374,10 @@
       11
     ],
     "explanation": "Cuando algo cuelga sujeto en sus dos extremos, como una guirnalda entre dos columnas, la curva que forma abre hacia arriba y su **vértice** es el punto más bajo de todo el recorrido, un mínimo: no hay ningún punto de la guirnalda que quede por debajo de esa altura.\n\nAcá la altura mínima es la coordenada vertical del vértice,\n$$(4,\\ 2)$$\ndos metros, justo en el medio de las dos columnas.\n\nCerca de cada columna la guirnalda cuelga más alta, y solo en el punto medio llega a su altura más baja; ese patrón se repite en cualquier cable o cuerda sujeta por los dos extremos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   },
   {
     "question": "Un auto baja la velocidad para tomar una curva y después acelera de nuevo. La gráfica muestra su velocidad, en decenas de km/h, según los segundos.\n\n¿Cuál es la velocidad mínima en la curva?",
@@ -1266,7 +1404,10 @@
       11
     ],
     "explanation": "Cuando una velocidad baja para tomar una curva cerrada y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro instante de la maniobra registra una velocidad más baja que esa.\n\nAcá la velocidad mínima es la coordenada vertical del vértice,\n$$(5,\\ 2)\\ \\text{(decenas)} = 20 \\ \\text{km/h}$$\nen lo más cerrado de la curva.\n\nAntes de ese instante el auto todavía viene frenando, y después empieza a acelerar de nuevo; el vértice es el único punto exacto donde deja de bajar la velocidad.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "raiz"
+    ]
   },
   {
     "question": "El costo de fabricar cada unidad cambia según cuánto se produce. La gráfica muestra el costo por unidad, en cientos de pesos, según la cantidad, en decenas.\n\n¿Cuál es el costo por unidad si se producen 8 decenas?",
@@ -1293,7 +1434,10 @@
       11
     ],
     "explanation": "Leer el costo de una parábola para un nivel de producción puntual significa evaluar la función ahí, buscando el punto de la curva que está exactamente arriba de esa marca en el eje horizontal.\n\nAcá se pide el costo con 8 decenas producidas, así que hay que reemplazar $x$ por 8 en la fórmula\n$$f(8) = 0{,}25\\,(8-4)^2 + 2 = 6$$\nel costo por unidad en ese nivel es 6.\n\nEse valor está bastante lejos del mínimo, que se da en 4 decenas: producir de más también encarece cada unidad, no solo producir de menos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ]
   },
   {
     "question": "El cable de un puente colgante se hunde en el medio. La gráfica muestra su altura sobre el agua, en metros, según la distancia horizontal, también en metros.\n\nA los 2 metros el cable está a 5 metros de altura. ¿A qué distancia vuelve a estar a 5 metros?",
@@ -1320,7 +1464,10 @@
       11
     ],
     "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría. Salvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 4$: los 2 metros del enunciado quedan a 2 unidades de distancia del vértice, así que el otro punto con la misma altura está a esa misma distancia, del otro lado\n$$4 + 2 = 6$$\nel cable vuelve a estar a 5 metros de altura a los 6 metros de distancia.\n\nUn puente colgante bien construido es igual de los dos lados de su punto más bajo, así que medir la distancia al vértice de un lado alcanza para saber la del otro.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen"
+    ]
   },
   {
     "question": "El saldo de una cuenta baja unos meses y después se recupera. La gráfica muestra el saldo, en miles de pesos, según el mes.\n\n¿En qué mes el saldo toca su punto más bajo?",
@@ -1347,6 +1494,9 @@
       11
     ],
     "explanation": "Cuando un saldo baja durante unos meses y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un saldo más bajo que ese.\n\nAcá el mes de menor saldo es la coordenada horizontal del vértice,\n$$x = 5$$\nla cuenta toca fondo en el quinto mes.\n\nAntes de ese mes el saldo todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto exacto donde el descenso se frena y arranca la recuperación.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "vertice-x"
+    ]
   }
 ]
