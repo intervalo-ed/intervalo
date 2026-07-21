@@ -76,7 +76,7 @@
       "$e$",
       "$0$"
     ],
-    "correct_index": 2,
+    "correct_index": 3,
     "has_math": true,
     "feedback_correct": "Correcto, $h'(\\pi)=0$ colapsa todo el producto a cero.",
     "feedback_incorrect": [
