@@ -25,7 +25,9 @@
     ],
     "explanation": "La **integral definida** calcula el **área neta**, sumando las regiones sobre el eje $x$ y restando las que quedan debajo.\nEl triángulo de arriba mide $\\tfrac{1}{2}\\cdot 2\\cdot 2 = 2$. El triángulo de abajo también mide $\\tfrac{1}{2}\\cdot 2\\cdot 2 = 2$.\nComo los dos triángulos tienen exactamente la misma área, la resta da cero, aunque la figura completa ocupe una superficie visible.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x-1$ en el intervalo $[0,4]$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -51,9 +53,11 @@
       -2,
       4
     ],
-    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.",
+    "explanation": "Identificamos las dos regiones que separa el cruce por cero en $x=1$.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\nEl **área neta** resulta de restar la región de abajo a la de arriba, $4,5-0,5=4$, no de sumarlas.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x-2$ en el intervalo $[0,6]$.\n\n¿Cuál es el valor de $\\int_0^6 f(x)\\,dx$?",
@@ -81,7 +85,9 @@
     ],
     "explanation": "La misma función que antes, pero en un intervalo más largo, cambia por completo el resultado de la **integral definida**.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 2\\cdot 2 = 2$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\nEl área neta es $8-2=6$, distinta del resultado con el intervalo $[0,4]$, porque ahora el triángulo de arriba es mucho más grande.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=2x-4$ en el intervalo $[0,4]$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -109,7 +115,9 @@
     ],
     "explanation": "Aunque la pendiente sea más pronunciada que en los ejemplos anteriores, el criterio de área neta no cambia.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$.\nLos dos triángulos vuelven a tener la misma área, así que el resultado neto es cero, sin importar que la recta esté más inclinada.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=2x-2$ en el intervalo $[0,4]$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -137,7 +145,9 @@
     ],
     "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 2 = 1$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 6 = 9$.\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x$ en el intervalo $[-1,3]$.\n\n¿Cuál es el valor de $\\int_{-1}^3 f(x)\\,dx$?",
@@ -165,7 +175,9 @@
     ],
     "explanation": "La función $f(x)=x$ cruza el eje exactamente en el origen, dividiendo el intervalo $[-1,3]$ de forma desigual.\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\nEl área neta es $4,5-0,5=4$, el intervalo asimétrico respecto del cruce por cero hace que el triángulo de arriba pese mucho más.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x-4$ en el intervalo $[0,4]$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -193,7 +205,9 @@
     ],
     "explanation": "En este caso, la función $f(x)=x-4$ queda completamente por debajo del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\nLa región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\nComo toda la región está debajo del eje, la integral definida devuelve esa área con signo negativo, $-8$, aunque la superficie geométrica sea $8$.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=4-x$ en el intervalo $[0,4]$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -221,7 +235,9 @@
     ],
     "explanation": "A diferencia del ejemplo anterior, $f(x)=4-x$ queda completamente arriba del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\nLa región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\nComo toda la región está arriba del eje, la integral definida coincide exactamente con la superficie geométrica, sin ningún cambio de signo.",
     "reviewed": false,
-    "tags": ["lectura-area-con-signos"]
+    "tags": [
+      "lectura-area-con-signos"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=x$ en el intervalo $[0,3]$, con $\\int_0^3 f(x)\\,dx=4,5$.\n\n¿Cuál es el valor de $\\int_3^0 f(x)\\,dx$?",
@@ -247,7 +263,9 @@
     ],
     "explanation": "Una de las **propiedades de los límites de integración** establece que invertir el orden de los límites cambia el signo del resultado.\n$$\\int_3^0 f(x)\\,dx = -\\int_0^3 f(x)\\,dx = -4,5$$\nEsta propiedad tiene sentido si se piensa en la integral como una acumulación con dirección, recorrer el intervalo al revés cambia el sentido de esa acumulación.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=x^2-1$.\n\n¿Cuál es el valor de $\\int_2^2 f(x)\\,dx$?",
@@ -271,9 +289,11 @@
       -2,
       4
     ],
-    "explanation": "Cuando los dos **límites de integración** coinciden, el intervalo sobre el que se integra tiene ancho cero.\n$$\\int_2^2 f(x)\\,dx = 0$$\nEsta propiedad vale para cualquier función, sin importar su forma, no hace falta ningún cálculo adicional para reconocerla.",
+    "explanation": "Cuando los dos **límites de integración** coinciden, el intervalo sobre el que se integra tiene ancho cero.\n$$\\int_2^2 f(x)\\,dx = 0$$\nEsta propiedad vale para cualquier función, sin importar su forma, no hace falta ningún cálculo adicional para reconocerla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra una función $f$ con $\\int_0^2 f(x)\\,dx=2$ y $\\int_2^4 f(x)\\,dx=6$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -297,9 +317,11 @@
       -1,
       5
     ],
-    "explanation": "La propiedad de **aditividad** permite fraccionar una integral en dos intervalos contiguos y sumar los resultados.\n$$\\int_0^2 f(x)\\,dx + \\int_2^4 f(x)\\,dx = \\int_0^4 f(x)\\,dx$$\nCon los valores dados, $2+6=8$, la integral sobre todo el intervalo es simplemente la suma de sus dos partes.",
+    "explanation": "La propiedad de **aditividad** permite fraccionar una integral en dos intervalos contiguos y sumar los resultados.\n$$\\int_0^2 f(x)\\,dx + \\int_2^4 f(x)\\,dx = \\int_0^4 f(x)\\,dx$$\nCon los valores dados, $2+6=8$, la integral sobre todo el intervalo es simplemente la suma de sus dos partes.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=4-x$ en el intervalo $[0,4]$, con $\\int_0^4 f(x)\\,dx=8$.\n\n¿Cuál es el valor de $\\int_4^0 f(x)\\,dx$?",
@@ -325,7 +347,9 @@
     ],
     "explanation": "Igual que en cualquier otra función, invertir los **límites de integración** cambia el signo del resultado, sin importar la forma de la curva.\n$$\\int_4^0 f(x)\\,dx = -\\int_0^4 f(x)\\,dx = -8$$\nEsta propiedad es puramente algebraica, no depende de que la región esté arriba o abajo del eje, solo del orden en que se recorren los límites.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=\\sin x$.\n\n¿Cuál es el valor de $\\int_{\\pi}^{\\pi} f(x)\\,dx$?",
@@ -351,7 +375,9 @@
     ],
     "explanation": "Sin importar qué tan complicada sea la función, dos **límites de integración** iguales siempre dan un intervalo de ancho cero.\n$$\\int_{\\pi}^{\\pi} f(x)\\,dx = 0$$\nEsta propiedad se cumple incluso para funciones trigonométricas u otras funciones más complejas, no hace falta ningún cálculo con la fórmula concreta.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=x-2$ en el intervalo $[0,4]$, con $\\int_0^2 f(x)\\,dx=-2$ y $\\int_2^4 f(x)\\,dx=2$.\n\n¿Cuál es el valor de $\\int_0^4 f(x)\\,dx$?",
@@ -377,7 +403,9 @@
     ],
     "explanation": "La **aditividad** suma los dos tramos contiguos respetando el signo que tenga cada uno, sin tomar valores absolutos.\n$$\\int_0^2 f(x)\\,dx + \\int_2^4 f(x)\\,dx = -2+2 = 0$$\nEl tramo negativo y el positivo se cancelan exactamente, un resultado consistente con que la función forme dos triángulos de igual área a cada lado del cruce.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   },
   {
     "question": "En la gráfica se muestra $f(x)=x-3$ en el intervalo $[0,4]$. La **integral definida** $\\int_0^4 f(x)\\,dx$ dio un valor negativo.\n\n¿Qué significa esto sobre el área geométrica de la región?",
@@ -403,6 +431,8 @@
     ],
     "explanation": "Conviene distinguir entre dos conceptos: la **integral definida** (que computa área con signo) y el área geométrica (la superficie física de la región, siempre positiva).\n$$\\text{integral definida} \\neq \\text{área geométrica}$$\nLa integral definida puede devolver un valor negativo cuando la región debajo del eje domina sobre la de arriba. Esto no significa que exista una superficie negativa, solo que el balance neto es negativo.",
     "reviewed": false,
-    "tags": ["propiedades-limites-integracion"]
+    "tags": [
+      "propiedades-limites-integracion"
+    ]
   }
 ]

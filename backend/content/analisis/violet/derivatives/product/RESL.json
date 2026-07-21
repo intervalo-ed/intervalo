@@ -18,9 +18,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u(2)=0$, $v'(2)=e^2$, $u'(2)=4$ y $v(2)=e^2$:\n$$f'(2) = u'(2)v(2) + u(2)v'(2) = 4e^2 + 0$$\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u$, así que solo queda el aporte de $u'(2)v(2)$.",
+    "explanation": "Identificamos $u(x)=x^2-4$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u(2)=0$, $v'(2)=e^2$, $u'(2)=4$ y $v(2)=e^2$:\n$$f'(2) = u'(2)v(2) + u(2)v'(2) = 4e^2 + 0$$\nEl término $u(2)v'(2)$ se anula porque $x=2$ es raíz de $u$, así que solo queda el aporte de $u'(2)v(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-raiz-producto"]
+    "tags": [
+      "anulacion-por-raiz-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
@@ -41,9 +43,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$. Con $u(1)=0$, $v'(1)=e$, $u'(1)=1$ y $v(1)=e$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = e + 0$$\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz de $u$, así que el resultado final queda determinado solo por $u'(1)v(1)$.",
+    "explanation": "Identificamos $u(x)=x-1$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$. Con $u(1)=0$, $v'(1)=e$, $u'(1)=1$ y $v(1)=e$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = e + 0$$\nEl término $u(1)v'(1)$ se anula porque $x=1$ es raíz de $u$, así que el resultado final queda determinado solo por $u'(1)v(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-raiz-producto"]
+    "tags": [
+      "anulacion-por-raiz-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
@@ -66,7 +70,9 @@
     "graph_view": null,
     "explanation": "Identificamos $u(x)=x^2-9$, $v(x)=\\ln x$, con $u'(x)=2x$ y $v'(x)=\\frac{1}{x}$. Con $u(3)=0$, $v'(3)=\\frac{1}{3}$, $u'(3)=6$ y $v(3)=\\ln 3$:\n$$f'(3) = u'(3)v(3) + u(3)v'(3) = 6\\ln 3 + 0$$\nEl término $u(3)v'(3)$ se anula porque $x=3$ es raíz de $u$, así que el resultado queda determinado por $u'(3)v(3)$.",
     "reviewed": false,
-    "tags": ["anulacion-por-raiz-producto"]
+    "tags": [
+      "anulacion-por-raiz-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
@@ -87,9 +93,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$. Con $u(-5)=0$, $v'(-5)=-10$, $u'(-5)=1$ y $v(-5)=25$:\n$$f'(-5) = u'(-5)v(-5) + u(-5)v'(-5) = 25 + 0$$\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz de $u$, así que el resultado final queda determinado por $u'(-5)v(-5)$.",
+    "explanation": "Identificamos $u(x)=x+5$, $v(x)=x^2$, con $u'(x)=1$ y $v'(x)=2x$. Con $u(-5)=0$, $v'(-5)=-10$, $u'(-5)=1$ y $v(-5)=25$:\n$$f'(-5) = u'(-5)v(-5) + u(-5)v'(-5) = 25 + 0$$\nEl término $u(-5)v'(-5)$ se anula porque $x=-5$ es raíz de $u$, así que el resultado final queda determinado por $u'(-5)v(-5)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-raiz-producto"]
+    "tags": [
+      "anulacion-por-raiz-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x-4)e^x$$\nCalculá $f'(4)$.",
@@ -110,9 +118,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$. Con $u(4)=0$, $v'(4)=e^4$, $u'(4)=1$ y $v(4)=e^4$:\n$$f'(4) = u'(4)v(4) + u(4)v'(4) = e^4 + 0$$\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz de $u$, así que el resultado queda determinado por $u'(4)v(4)$.",
+    "explanation": "Identificamos $u(x)=x-4$, $v(x)=e^x$, con $u'(x)=1$ y $v'(x)=e^x$. Con $u(4)=0$, $v'(4)=e^4$, $u'(4)=1$ y $v(4)=e^4$:\n$$f'(4) = u'(4)v(4) + u(4)v'(4) = e^4 + 0$$\nEl término $u(4)v'(4)$ se anula porque $x=4$ es raíz de $u$, así que el resultado queda determinado por $u'(4)v(4)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-raiz-producto"]
+    "tags": [
+      "anulacion-por-raiz-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
@@ -133,9 +143,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=e^x$, con $u'(x)=-\\sin x$ y $v'(x)=e^x$. Con $u'(0)=-\\sin 0=0$, $v(0)=1$, $u(0)=1$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0 + 1$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.",
+    "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=e^x$, con $u'(x)=-\\sin x$ y $v'(x)=e^x$. Con $u'(0)=-\\sin 0=0$, $v(0)=1$, $u(0)=1$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0 + 1$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-derivada-nula-producto"]
+    "tags": [
+      "anulacion-por-derivada-nula-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
@@ -156,9 +168,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2+3$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u'(0)=0$, $v(0)=1$, $u(0)=3$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0 + 3$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.",
+    "explanation": "Identificamos $u(x)=x^2+3$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u'(0)=0$, $v(0)=1$, $u(0)=3$ y $v'(0)=1$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0 + 3$$\nEl término $u'(0)v(0)$ se anula porque $x=0$ anula la derivada de $u$, así que el resultado queda determinado por $u(0)v'(0)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-derivada-nula-producto"]
+    "tags": [
+      "anulacion-por-derivada-nula-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\nCalculá $f'(\\pi)$.",
@@ -181,7 +195,9 @@
     "graph_view": null,
     "explanation": "Identificamos $u(x)=\\cos x$, $v(x)=x^2+2$, con $u'(x)=-\\sin x$ y $v'(x)=2x$. Con $u'(\\pi)=-\\sin\\pi=0$, $v(\\pi)=\\pi^2+2$, $u(\\pi)=-1$ y $v'(\\pi)=2\\pi$:\n$$f'(\\pi) = u'(\\pi)v(\\pi) + u(\\pi)v'(\\pi) = 0 + (-1)(2\\pi) = -2\\pi$$\nEl término $u'(\\pi)v(\\pi)$ se anula porque $x=\\pi$ anula la derivada de $u$, así que el resultado queda determinado por $u(\\pi)v'(\\pi)$.",
     "reviewed": false,
-    "tags": ["anulacion-por-derivada-nula-producto"]
+    "tags": [
+      "anulacion-por-derivada-nula-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
@@ -202,9 +218,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=(x-1)^2+5$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$. Con $u'(1)=0$, $v(1)=e$, $u(1)=5$ y $v'(1)=e$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = 0 + 5e$$\nEl término $u'(1)v(1)$ se anula porque $x=1$ es el vértice de $u$, así que el resultado queda determinado por $u(1)v'(1)$.",
+    "explanation": "Identificamos $u(x)=(x-1)^2+5$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$. Con $u'(1)=0$, $v(1)=e$, $u(1)=5$ y $v'(1)=e$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = 0 + 5e$$\nEl término $u'(1)v(1)$ se anula porque $x=1$ es el vértice de $u$, así que el resultado queda determinado por $u(1)v'(1)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-por-derivada-nula-producto"]
+    "tags": [
+      "anulacion-por-derivada-nula-producto"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
@@ -225,9 +243,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=x^2$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u(0)=0$ y $u'(0)=0$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0\\cdot 1 + 0\\cdot 1 = 0$$\nComo $u(0)$ y $u'(0)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "explanation": "Identificamos $u(x)=x^2$, $v(x)=e^x$, con $u'(x)=2x$ y $v'(x)=e^x$. Con $u(0)=0$ y $u'(0)=0$:\n$$f'(0) = u'(0)v(0) + u(0)v'(0) = 0\\cdot 1 + 0\\cdot 1 = 0$$\nComo $u(0)$ y $u'(0)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-cruzada-completa"]
+    "tags": [
+      "anulacion-cruzada-completa"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
@@ -248,9 +268,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=(x-1)^2$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$. Con $u(1)=0$ y $u'(1)=0$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = 0\\cdot e + 0\\cdot e = 0$$\nComo $u(1)$ y $u'(1)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "explanation": "Identificamos $u(x)=(x-1)^2$, $v(x)=e^x$, con $u'(x)=2(x-1)$ y $v'(x)=e^x$. Con $u(1)=0$ y $u'(1)=0$:\n$$f'(1) = u'(1)v(1) + u(1)v'(1) = 0\\cdot e + 0\\cdot e = 0$$\nComo $u(1)$ y $u'(1)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-cruzada-completa"]
+    "tags": [
+      "anulacion-cruzada-completa"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
@@ -271,9 +293,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u(x)=(x+2)^2$, $v(x)=\\cos x$, con $u'(x)=2(x+2)$ y $v'(x)=-\\sin x$. Con $u(-2)=0$ y $u'(-2)=0$:\n$$f'(-2) = u'(-2)v(-2) + u(-2)v'(-2) = 0 + 0 = 0$$\nComo $u(-2)$ y $u'(-2)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.",
+    "explanation": "Identificamos $u(x)=(x+2)^2$, $v(x)=\\cos x$, con $u'(x)=2(x+2)$ y $v'(x)=-\\sin x$. Con $u(-2)=0$ y $u'(-2)=0$:\n$$f'(-2) = u'(-2)v(-2) + u(-2)v'(-2) = 0 + 0 = 0$$\nComo $u(-2)$ y $u'(-2)$ se anulan a la vez, los dos términos de la suma quedan en cero, sin importar el valor de $v$ en ese punto.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["anulacion-cruzada-completa"]
+    "tags": [
+      "anulacion-cruzada-completa"
+    ]
   },
   {
     "question": "Si $f(2)=0$, $f'(2)=5$, $g(2)=4$, $g'(2)=-1$, calculá $(f\\cdot g)'(2)$.",
@@ -294,9 +318,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla del producto** se aplica directamente con los datos dados:\n$$f'(2)g(2) + f(2)g'(2) = 5\\cdot 4 + 0\\cdot(-1) = 20$$\nEl dato $f(2)=0$ anula el segundo término de la suma, dejando el resultado final determinado únicamente por $f'(2)g(2)$.",
+    "explanation": "La fórmula de la **regla del producto** se aplica directamente con los datos dados:\n$$f'(2)g(2) + f(2)g'(2) = 5\\cdot 4 + 0\\cdot(-1) = 20$$\nEl dato $f(2)=0$ anula el segundo término de la suma, dejando el resultado final determinado únicamente por $f'(2)g(2)$.\n\nEsta fórmula aparece frecuentemente en problemas de tasas relacionadas, donde dos cantidades cambian simultáneamente. Dominar el reconocimiento de cuál término domina (cuando uno es cero o muy pequeño) te da una herramienta valiosa para anticipar comportamientos.",
     "reviewed": false,
-    "tags": ["evaluacion-datos-abstractos-producto"]
+    "tags": [
+      "evaluacion-datos-abstractos-producto"
+    ]
   },
   {
     "question": "Si $f(1)=3$, $f'(1)=0$, $g(1)=-2$, $g'(1)=6$, calculá $(f\\cdot g)'(1)$.",
@@ -317,9 +343,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados:\n$$f'(1)g(1) + f(1)g'(1) = 0\\cdot(-2) + 3\\cdot 6 = 18$$\nEl dato $f'(1)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(1)g'(1)$.",
+    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados:\n$$f'(1)g(1) + f(1)g'(1) = 0\\cdot(-2) + 3\\cdot 6 = 18$$\nEl dato $f'(1)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(1)g'(1)$.\n\nEsta situación ilustra un patrón importante: cuando una de las derivadas vale cero en un punto, solo una parte de la fórmula contribuye al resultado. Reconocer estos \"términos anulados\" acelera el cálculo y te ayuda a anticipar el resultado. Notá cómo el dato que parecía irrelevante (el $0$ en $f'(1)$) en realidad está simplificando todo el problema.",
     "reviewed": false,
-    "tags": ["evaluacion-datos-abstractos-producto"]
+    "tags": [
+      "evaluacion-datos-abstractos-producto"
+    ]
   },
   {
     "question": "Si $f(0)=5$, $f'(0)=-2$, $g(0)=0$, $g'(0)=3$, calculá $(f\\cdot g)'(0)$.",
@@ -340,8 +368,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados:\n$$f'(0)g(0) + f(0)g'(0) = (-2)\\cdot 0 + 5\\cdot 3 = 15$$\nEl dato $g(0)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(0)g'(0)$.",
+    "explanation": "Aplicamos la fórmula del producto directamente con los datos dados:\n$$f'(0)g(0) + f(0)g'(0) = (-2)\\cdot 0 + 5\\cdot 3 = 15$$\nEl dato $g(0)=0$ anula el primer término de la suma, dejando el resultado final determinado únicamente por $f(0)g'(0)$.\n\nEsta situación ilustra un patrón importante: cuando una de las funciones vale cero en un punto, solo una parte de la fórmula contribuye al resultado. Reconocer estos \"términos anulados\" acelera el cálculo y te ayuda a anticipar el resultado. Notá cómo el dato que parecía irrelevante (el $0$ en $g(0)$) en realidad está simplificando todo el problema.",
     "reviewed": false,
-    "tags": ["evaluacion-datos-abstractos-producto"]
+    "tags": [
+      "evaluacion-datos-abstractos-producto"
+    ]
   }
 ]

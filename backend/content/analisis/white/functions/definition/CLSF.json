@@ -538,7 +538,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada no admite radicando negativo, $$a \\geq 0$$ Para $a < 0$ la raíz no está definida en los reales. Ojo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada no admite radicando negativo, $$a \\geq 0$$ Para $a < 0$ la raíz no está definida en los reales. Ojo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -663,7 +663,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde el denominador es cero. $$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$ Por eso esos dos valores quedan afuera. La confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.",
+    "explanation": "El ****dominio** natural** excluye los valores donde el denominador es cero. $$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$ Por eso esos dos valores quedan afuera. La confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -813,7 +813,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza. Acá el **codominio** es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es $$\\{2, 3, \\dots, 10\\}$$ La confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza. Acá el **codominio** es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es $$\\{2, 3, \\dots, 10\\}$$ La confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -1113,7 +1113,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$ Así que el 0 tiene dos preimágenes. El error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.",
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$ Así que el 0 tiene dos preimágenes. El error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un número es **preimagen** de $y$ cuando la función lo transforma en $y$. Acá $$f(5) = 2 \\cdot 5 = 10$$ así que el 5 se transforma en 10 y es su preimagen. La confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la función dé 10.",
+    "explanation": "Un número es **preimagen** de $y$ cuando la función lo transforma en $y$. Acá $f(5) = 2 \\cdot 5 = 10$ Así que el 5 se transforma en 10 y es su preimagen. La confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la función dé 10.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$. Acá $$g(6) = 18$$ así que 18 es la imagen de 6 y el 6 es una preimagen de 18. Decir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.",
+    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$. Acá $g(6) = 18$ Así que 18 es la imagen de 6 y el 6 es una preimagen de 18. Decir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"

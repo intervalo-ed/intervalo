@@ -1,6 +1,6 @@
 [
   {
-    "question": "Una **función a trozos** está dada por\n$$f(x) = \\begin{cases} 2x + 1, & x < 1 \\\\ x^2 + 2, & x \\geq 1 \\end{cases}$$\n¿Cómo se clasifica $f$ en el **punto de quiebre** $x=1$?",
+    "question": "Una **función a trozos** está dada por:\n$$f(x) = \\begin{cases} 2x + 1, & x < 1 \\\\ x^2 + 2, & x \\geq 1 \\end{cases}$$\n¿Cómo se clasifica $f$ en el **punto de quiebre** $x=1$?",
     "options": [
       "Continua",
       "Removible",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x + 4, & x < 2 \\\\ 3x - 1, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
       "Continua",
       "De salto",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{x^2 - 9}{x - 3}, & x \\neq 3 \\\\ 5, & x = 3 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=3$?",
+    "question": "Una función está dada por:\n$$f(x) = \\begin{cases} \\dfrac{x^2 - 9}{x - 3}, & x \\neq 3 \\\\ 5, & x = 3 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=3$?",
     "options": [
       "Continua",
       "De salto",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Una función está dada por\n$$f(x) = \\begin{cases} \\dfrac{1}{x - 2}, & x < 2 \\\\ x, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
+    "question": "Una función está dada por:\n$$f(x) = \\begin{cases} \\dfrac{1}{x - 2}, & x < 2 \\\\ x, & x \\geq 2 \\end{cases}$$\n¿Cómo se clasifica $f$ en $x=2$?",
     "options": [
       "Continua",
       "Removible",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx + 1, & x < 2 \\\\ x^2 - 3, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 1$",
       "$k = 0$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} 2x + k, & x < 3 \\\\ x^2 - 2, & x \\geq 3 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=3$?",
     "options": [
       "$k = 7$",
       "$k = -1$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx - 2, & x < 4 \\\\ 3x + 2, & x \\geq 4 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=4$?",
     "options": [
       "$k = 3$",
       "$k = 3{,}5$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x^2 + 1, & x < 1 \\\\ kx + 3, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
     "options": [
       "$k = -1$",
       "$k = 1$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx - 1, & x < -1 \\\\ x^2 + 3, & x \\geq -1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=-1$?",
     "options": [
       "$k = 5$",
       "$k = -3$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} 5x + k, & x < 2 \\\\ x^2 + x, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 4$",
       "$k = -10$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} kx + 7, & x < 1 \\\\ 4x + 5, & x \\geq 1 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=1$?",
     "options": [
       "$k = 2$",
       "$k = 9$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está dada por\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
+    "question": "Una función a trozos está dada por:\n$$f(x) = \\begin{cases} x^2 - 2, & x < 2 \\\\ kx + 1, & x \\geq 2 \\end{cases}$$\n¿Qué valor de $k$ hace que $f$ sea continua en $x=2$?",
     "options": [
       "$k = 1$",
       "$k = 0{,}5$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Una función racional está dada por\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿En qué valor negativo de $x$ presenta $r$ una discontinuidad?",
+    "question": "Una función racional está dada por:\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿En qué valor negativo de $x$ presenta $r$ una discontinuidad?",
     "options": [
       "$x = 3$",
       "$x = -9$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Una función con raíz par está dada por\n$$f(x) = \\sqrt{x - 5}$$\n¿Cuál es el valor de $x$ que marca la frontera del dominio de $f$?",
+    "question": "Una función con raíz par está dada por:\n$$f(x) = \\sqrt{x - 5}$$\n¿Cuál es el valor de $x$ que marca la frontera del dominio de $f$?",
     "options": [
       "$x = 5$",
       "$x = -5$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Una función logarítmica está dada por\n$$f(x) = \\ln(x + 2)$$\n¿Cuál es el valor de $x$ que queda justo en la frontera del dominio de $f$?",
+    "question": "Una función logarítmica está dada por:\n$$f(x) = \\ln(x + 2)$$\n¿Cuál es el valor de $x$ que queda justo en la frontera del dominio de $f$?",
     "options": [
       "$x = 0$",
       "$x = -2$",

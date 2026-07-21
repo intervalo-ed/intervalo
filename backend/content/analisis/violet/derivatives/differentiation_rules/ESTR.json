@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de derivar\n$$f(x) = 3x^2 + \\sin x$$\n¿qué es lo primero que hay que reconocer?",
+    "question": "Antes de derivar:\n$$f(x) = 3x^2 + \\sin x$$\n¿qué es lo primero que hay que reconocer?",
     "options": [
       "Que se deriva término a término por linealidad",
       "Que hay que aplicar la regla del producto entre los dos términos",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Para derivar\n$$f(x) = \\frac{1}{x^3}$$\ncon las reglas de este tópico, ¿qué paso previo hay que dar?",
+    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\ncon las reglas de este tópico, ¿qué paso previo hay que dar?",
     "options": [
       "Dejarla como está y derivar el numerador y el denominador por separado",
       "Reescribir la expresión como $x^{-3}$ y aplicar la regla de la potencia",
@@ -39,14 +39,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\n$$\\frac{1}{x^3} = x^{-3}$$\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.",
+    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n$$\\frac{1}{x^3} = x^{-3}$$\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
     ]
   },
   {
-    "question": "Para derivar\n$$f(x) = \\sqrt{x}$$\ncon las reglas de este tópico, ¿qué paso previo conviene dar?",
+    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\ncon las reglas de este tópico, ¿qué paso previo conviene dar?",
     "options": [
       "Aplicar la regla del cociente sobre la raíz",
       "Tratarla como una función trigonométrica compuesta",
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\n$$\\sqrt{x} = x^{1/2}$$\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.",
+    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n$$\\sqrt{x} = x^{1/2}$$\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\n$$(5x^4 - 2x + 7)' = (5x^4)' - (2x)' + (7)'$$\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.",
+    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n$$(5x^4 - 2x + 7)' = (5x^4)' - (2x)' + (7)'$$\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -108,14 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(5x^4)' = 5 \\cdot (x^4)' = 5 \\cdot 4x^3 = 20x^3$$\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.",
+    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n$$(5x^4)' = 5 \\cdot (x^4)' = 5 \\cdot 4x^3 = 20x^3$$\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
     ]
   },
   {
-    "question": "¿En qué orden conviene derivar\n$$f(x) = 4\\ln x + 3\\cos x$$?",
+    "question": "¿En qué orden conviene derivar:\n$$f(x) = 4\\ln x + 3\\cos x$$?",
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Para derivar\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
+    "question": "Para derivar:\n$$f(x) = \\frac{x^3}{5}$$\n¿qué paso conviene dar primero?",
     "options": [
       "Ver el $\\frac{1}{5}$ como un múltiplo escalar constante y derivar $x^3$ con la potencia",
       "Aplicar la regla del cociente entre $x^3$ y $5$",
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\n$$\\frac{x^3}{5} = \\frac{1}{5} \\cdot x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.",
+    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n$$\\frac{x^3}{5} = \\frac{1}{5} \\cdot x^3$$\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n\n$$(-8)' = 0$$\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.",
+    "explanation": "Cualquier término que sea un número fijo, sin ninguna variable, se resuelve directamente con la **regla de la constante**.\n$$(-8)' = 0$$\nEste paso es sencillo, pero conviene identificarlo explícitamente dentro de sumas más largas, para no dejarlo arrastrado por error en el resultado final.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\n$$(3x^2)' = 3 \\cdot 2x = 6x$$\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.",
+    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n$$(3x^2)' = 3 \\cdot 2x = 6x$$\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $6$ es un número fijo, sin ninguna dependencia de $x$, así que corresponde la **regla de la constante**, sin importar qué tan grande sea ese número.\n\n$$(6)' = 0$$\nEste término desaparece por completo del resultado final, sin dejar ningún rastro en la derivada de la función completa, a diferencia de los términos que sí dependen de $x$.",
+    "explanation": "El término $6$ es un número fijo, sin ninguna dependencia de $x$, así que corresponde la **regla de la constante**, sin importar qué tan grande sea ese número.\n$$(6)' = 0$$\nEste término desaparece por completo del resultado final, sin dejar ningún rastro en la derivada de la función completa, a diferencia de los términos que sí dependen de $x$.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\n$$(x^5)' = 5x^4$$\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.",
+    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n$$(x^5)' = 5x^4$$\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo escalar** junto con la derivada trigonométrica.\n\n$$(-4\\tan x)' = -4 \\sec^2 x$$\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
+    "explanation": "El término $-4\\tan x$ combina un coeficiente numérico con una función trigonométrica, así que corresponde el **múltiplo escalar** junto con la derivada trigonométrica.\n$$(-4\\tan x)' = -4 \\sec^2 x$$\nEl coeficiente se conserva multiplicando al resultado de derivar la tangente, exactamente igual que con cualquier otra función elemental.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"

@@ -413,7 +413,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n\n$$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\n&= [0,\\; 2]\n\\end{aligned}$$\n\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$. La opción $[-1,1]$ es el rango sin desplazamiento. La opción $[1,2]$ tendría amplitud $0{,}5$. La imagen correcta es $[0,2]$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n$$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\n&= [0,\\; 2]:\n\\end{aligned}$$\n\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$. La opción $[-1,1]$ es el rango sin desplazamiento. La opción $[1,2]$ tendría amplitud $0{,}5$. La imagen correcta es $[0,2]$.",
     "reviewed": false,
     "tags": [
       "conteo-periodos-completos"
@@ -443,7 +443,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad. En el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas, lo que confirma período $=2\\pi/2=\\pi$.\n\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi\n\\end{aligned}$$\n\nLa opción $4\\pi$ sería con $B=1/2$. La opción $2\\pi$ ignoraría el $B=2$. La opción $\\pi/2$ necesitaría $B=4$. El período correcto es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad. En el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas, lo que confirma período $=2\\pi/2=\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi:\n\\end{aligned}$$\n\nLa opción $4\\pi$ sería con $B=1/2$. La opción $2\\pi$ ignoraría el $B=2$. La opción $\\pi/2$ necesitaría $B=4$. El período correcto es $\\pi$.",
     "reviewed": false,
     "tags": [
       "conteo-periodos-completos"
@@ -593,7 +593,7 @@
       -2,
       2
     ],
-    "explanation": "Para evaluar $f(\\pi)=-\\cos(\\pi)$, se usa $\\cos(\\pi)=-1$:\n\n$$\\begin{aligned}\nf(\\pi) &= -\\cos(\\pi) \\\\\n&= -(-1) \\\\\n&= 1\n\\end{aligned}$$\n\nEl gráfico confirma: en $x=\\pi$, la curva de $-\\cos(x)$ alcanza su máximo $1$ (pues es la reflexión del coseno, cuyo mínimo en $\\pi$ se convierte en máximo). La opción $-1$ sería $\\cos(\\pi)$, sin el signo negativo.",
+    "explanation": "Para evaluar $f(\\pi)=-\\cos(\\pi)$, se usa $\\cos(\\pi)=-1$:\n$$\\begin{aligned}\nf(\\pi) &= -\\cos(\\pi) \\\\\n&= -(-1) \\\\\n&= 1:\n\\end{aligned}$$\n\nEl gráfico confirma: en $x=\\pi$, la curva de $-\\cos(x)$ alcanza su máximo $1$ (pues es la reflexión del coseno, cuyo mínimo en $\\pi$ se convierte en máximo). La opción $-1$ sería $\\cos(\\pi)$, sin el signo negativo.",
     "reviewed": false,
     "tags": [
       "valor-max-min-grafico"
@@ -653,7 +653,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben:\n\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{\\text{largo del intervalo}}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2\n\\end{aligned}$$\n\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$. La opción $1$ sería el resultado con $B=1$. La opción $4$ necesitaría $B=4$.",
+    "explanation": "En $f(x)=\\cos(2x)$, el período es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben:\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{\\text{largo del intervalo}}{T} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2:\n\\end{aligned}$$\n\nEl gráfico lo confirma: se ven exactamente dos ondas completas en $[0,2\\pi]$. La opción $1$ sería el resultado con $B=1$. La opción $4$ necesitaría $B=4$.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico-trig"
@@ -713,7 +713,7 @@
       -3,
       1
     ],
-    "explanation": "El **mínimo** de $f(x)=\\operatorname{sen}(x)-1$ se alcanza cuando $\\operatorname{sen}(x)=-1$:\n\n$$\\begin{aligned}\nf_{\\min} &= -1 + D \\\\\n&= -1 + (-1) \\\\\n&= -2\n\\end{aligned}$$\n\nLa opción $-1$ es el mínimo del seno sin desplazamiento, o el valor de $D$. La opción $0$ es el mínimo si $D=1$. El gráfico muestra la curva tocando $y=-2$ en su punto más bajo: ese es el mínimo.",
+    "explanation": "El **mínimo** de $f(x)=\\operatorname{sen}(x)-1$ se alcanza cuando $\\operatorname{sen}(x)=-1$:\n$$\\begin{aligned}\nf_{\\min} &= -1 + D \\\\\n&= -1 + (-1) \\\\\n&= -2:\n\\end{aligned}$$\n\nLa opción $-1$ es el mínimo del seno sin desplazamiento, o el valor de $D$. La opción $0$ es el mínimo si $D=1$. El gráfico muestra la curva tocando $y=-2$ en su punto más bajo: ese es el mínimo.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -743,7 +743,7 @@
       -2,
       2
     ],
-    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}\n\\end{aligned}$$\n\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
+    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$\n\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -803,7 +803,7 @@
       -4,
       4
     ],
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $3$ da:\n\n$$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]\n\\end{aligned}$$\n\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo), y no supera esos valores. La opción $[-1,1]$ es la imagen sin amplificar. La opción $[0,3]$ solo cubriría la mitad positiva.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles. Como $\\operatorname{sen}(x)\\in[-1,1]$, multiplicar por $3$ da:\n$$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]:\n\\end{aligned}$$\n\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo), y no supera esos valores. La opción $[-1,1]$ es la imagen sin amplificar. La opción $[0,3]$ solo cubriría la mitad positiva.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -833,7 +833,7 @@
       5,
       35
     ],
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n\n$$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\n&= 10\\cdot0+20 \\\\\n&= 20\\,°C\n\\end{aligned}$$\n\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$). El modelo indica que a las $6$ el día apenas empieza a calentarse.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n$$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\n&= 10\\cdot0+20 \\\\\n&= 20\\,°C:\n\\end{aligned}$$\n\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$). El modelo indica que a las $6$ el día apenas empieza a calentarse.",
     "reviewed": false,
     "tags": [
       "ceros-valores-especificos"
@@ -863,7 +863,7 @@
       5,
       35
     ],
-    "explanation": "El **máximo** de $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$ ocurre cuando $\\operatorname{sen}=1$:\n\n$$\\begin{aligned}\n\\frac{\\pi}{12}(h-6) &= \\frac{\\pi}{2} \\\\\nh - 6 &= 6 \\\\\nh &= 12\n\\end{aligned}$$\n\nLa temperatura máxima ($30°C$) ocurre a las $12{:}00$ del mediodía. El gráfico muestra el pico en $h=12$. La opción $h=18$ daría el valor de vuelta al equilibrio (tarde).",
+    "explanation": "El **máximo** de $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$ ocurre cuando $\\operatorname{sen}=1$:\n$$\\begin{aligned}\n\\frac{\\pi}{12}(h-6) &= \\frac{\\pi}{2} \\\\\nh - 6 &= 6 \\\\\nh &= 12:\n\\end{aligned}$$\n\nLa temperatura máxima ($30°C$) ocurre a las $12{:}00$ del mediodía. El gráfico muestra el pico en $h=12$. La opción $h=18$ daría el valor de vuelta al equilibrio (tarde).",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-grafico"
@@ -923,7 +923,7 @@
       -2,
       2
     ],
-    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$. Con $T=2\\pi/B$:\n\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}\n\\end{aligned}$$\n\nLa función es $\\operatorname{sen}(x/2)$. La opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$). La opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos). Solo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$. Con $T=2\\pi/B$:\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}:\n\\end{aligned}$$\n\nLa función es $\\operatorname{sen}(x/2)$. La opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$). La opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos). Solo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
     "reviewed": false,
     "tags": [
       "primera-raiz-positiva"
@@ -1013,7 +1013,7 @@
       -3,
       3
     ],
-    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $\\pi$. Se determinan $A$ y $B$:\n\n$$\\begin{aligned}\nA &= \\frac{2-(-2)}{2} = 2 \\\\\nB &= \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$$\n\nLa función arranca en $0$ en $x=0$ (seno, no coseno). Luego: $f(x)=2\\,\\operatorname{sen}(2x)$. La opción $2\\cos(x)$ tiene período $2\\pi$, no $\\pi$. La opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, no $2$.",
+    "explanation": "La onda tiene máximo $2$, mínimo $-2$ y período $\\pi$. Se determinan $A$ y $B$:\n$$\\begin{aligned}\nA &= \\frac{2-(-2)}{2} = 2 \\\\\nB &= \\frac{2\\pi}{\\pi} = 2:\n\\end{aligned}$$\n\nLa función arranca en $0$ en $x=0$ (seno, no coseno). Luego: $f(x)=2\\,\\operatorname{sen}(2x)$. La opción $2\\cos(x)$ tiene período $2\\pi$, no $\\pi$. La opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, no $2$.",
     "reviewed": false,
     "tags": [
       "ubicacion-minimo"
@@ -1073,7 +1073,7 @@
       -1,
       10
     ],
-    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n\n$$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\n&= -3+5 \\\\\n&= 2\\,\\text{m}\n\\end{aligned}$$\n\nLa opción $3$ m es solo la amplitud. La opción $5$ m es el eje de oscilación. La opción $8$ m es el máximo. El nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n$$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\n&= -3+5 \\\\\n&= 2\\,\\text{m}:\n\\end{aligned}$$\n\nLa opción $3$ m es solo la amplitud. La opción $5$ m es el eje de oscilación. La opción $8$ m es el máximo. El nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1103,7 +1103,7 @@
       -1,
       10
     ],
-    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1+5 \\\\\n&= 3+5 \\\\\n&= 8\\,\\text{m}\n\\end{aligned}$$\n\nLa opción $5$ m es el nivel medio (eje de oscilación). La opción $3$ m es la amplitud. La opción $6$ m no corresponde a ningún valor del modelo. El máximo de la marea es $8$ m.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:\n$$\\begin{aligned}\nh_{\\max} &= 3\\cdot1+5 \\\\\n&= 3+5 \\\\\n&= 8\\,\\text{m}:\n\\end{aligned}$$\n\nLa opción $5$ m es el nivel medio (eje de oscilación). La opción $3$ m es la amplitud. La opción $6$ m no corresponde a ningún valor del modelo. El máximo de la marea es $8$ m.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1253,7 +1253,7 @@
       -2,
       2
     ],
-    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$. En $x=\\pi$:\n\n$$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 1\n\\end{aligned}$$\n\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo). En el gráfico, $x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
+    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$. En $x=\\pi$:\n$$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 1:\n\\end{aligned}$$\n\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo). En el gráfico, $x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1283,7 +1283,7 @@
       -350,
       350
     ],
-    "explanation": "Para $I(t)=311\\,\\operatorname{sen}(100\\pi t)$, en $t=0$:\n\n$$\\begin{aligned}\nI(0) &= 311\\,\\operatorname{sen}(100\\pi\\cdot0) \\\\\n&= 311\\,\\operatorname{sen}(0) \\\\\n&= 311\\cdot0 \\\\\n&= 0\\,\\text{A}\n\\end{aligned}$$\n\nLa corriente alterna empieza en $0$ porque el modelo usa el seno (que vale $0$ en $t=0$). El valor $311$ A es la amplitud, no el valor inicial. El gráfico parte del origen.",
+    "explanation": "Para $I(t)=311\\,\\operatorname{sen}(100\\pi t)$, en $t=0$:\n$$\\begin{aligned}\nI(0) &= 311\\,\\operatorname{sen}(100\\pi\\cdot0) \\\\\n&= 311\\,\\operatorname{sen}(0) \\\\\n&= 311\\cdot0 \\\\\n&= 0\\,\\text{A}:\n\\end{aligned}$$\n\nLa corriente alterna empieza en $0$ porque el modelo usa el seno (que vale $0$ en $t=0$). El valor $311$ A es la amplitud, no el valor inicial. El gráfico parte del origen.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1313,7 +1313,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$), no del período:\n\n$$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]\n\\end{aligned}$$\n\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical. La imagen es $[0,2]$. La opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$. La opción $[1,3]$ ignoraría la parte negativa del seno.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$), no del período:\n$$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]:\n\\end{aligned}$$\n\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical. La imagen es $[0,2]$. La opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$. La opción $[1,3]$ ignoraría la parte negativa del seno.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1343,7 +1343,7 @@
       -3,
       1
     ],
-    "explanation": "La onda tiene máximo $0$ y mínimo $-2$. Con estos datos:\n\n$$\\begin{aligned}\nD &= \\frac{0+(-2)}{2} = -1 \\\\\nA &= \\frac{0-(-2)}{2} = 1\n\\end{aligned}$$\n\nLa fórmula es $\\operatorname{sen}(x)-1$. Verificación: máx $= 1-1=0$ ✓, mín $= -1-1=-2$ ✓. La opción $-\\operatorname{sen}(x)-1$ tendría el mismo rango pero la curva invertida (partiría del mínimo en $x=0$).",
+    "explanation": "La onda tiene máximo $0$ y mínimo $-2$. Con estos datos:\n$$\\begin{aligned}\nD &= \\frac{0+(-2)}{2} = -1 \\\\\nA &= \\frac{0-(-2)}{2} = 1:\n\\end{aligned}$$\n\nLa fórmula es $\\operatorname{sen}(x)-1$. Verificación: máx $= 1-1=0$ ✓, mín $= -1-1=-2$ ✓. La opción $-\\operatorname{sen}(x)-1$ tendría el mismo rango pero la curva invertida (partiría del mínimo en $x=0$).",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1373,7 +1373,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el período es $\\pi$ y hay un máximo por ciclo. En el intervalo $[0,4\\pi]$:\n\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{4\\pi}{\\pi} = 4 \\\\\n\\text{máximos} &= 4 \\times 1 = 4\n\\end{aligned}$$\n\nLos máximos ocurren en $x=\\pi/4, 5\\pi/4, 9\\pi/4, 13\\pi/4$: exactamente $4$ máximos en $[0,4\\pi]$. La opción $2$ contaría solo un período. La opción $1$ contaría medio período.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el período es $\\pi$ y hay un máximo por ciclo. En el intervalo $[0,4\\pi]$:\n$$\\begin{aligned}\n\\text{ciclos} &= \\frac{4\\pi}{\\pi} = 4 \\\\\n\\text{máximos} &= 4 \\times 1 = 4:\n\\end{aligned}$$\n\nLos máximos ocurren en $x=\\pi/4, 5\\pi/4, 9\\pi/4, 13\\pi/4$: exactamente $4$ máximos en $[0,4\\pi]$. La opción $2$ contaría solo un período. La opción $1$ contaría medio período.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"
@@ -1403,7 +1403,7 @@
       0,
       30
     ],
-    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n\n$$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\n&= 8\\cos(0)+15 \\\\\n&= 8\\cdot1+15 \\\\\n&= 23\\,°C\n\\end{aligned}$$\n\nEn enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$. La opción $15°C$ sería la temperatura media (eje de oscilación). La opción $7°C$ sería el mínimo.",
+    "explanation": "Para $T(m)=8\\cos\\!\\left(\\tfrac{\\pi}{6}(m-1)\\right)+15$, en enero ($m=1$):\n$$\\begin{aligned}\nT(1) &= 8\\cos\\!\\left(\\frac{\\pi}{6}(1-1)\\right)+15 \\\\\n&= 8\\cos(0)+15 \\\\\n&= 8\\cdot1+15 \\\\\n&= 23\\,°C:\n\\end{aligned}$$\n\nEn enero ($m=1$) el argumento es $0$ y el coseno vale $1$: la temperatura es el máximo del modelo, $23°C$. La opción $15°C$ sería la temperatura media (eje de oscilación). La opción $7°C$ sería el mínimo.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"
@@ -1433,7 +1433,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=-\\cos(x)+1$ se construye en pasos:\n\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x)+1 &\\in [0,2]\n\\end{aligned}$$\n\nLa reflexión conserva el rango $[-1,1]$; el desplazamiento $+1$ lo eleva a $[0,2]$. En el gráfico la curva toca $y=0$ (mínimo, cuando $\\cos=1$) y $y=2$ (máximo, cuando $\\cos=-1$).",
+    "explanation": "La **imagen** de $f(x)=-\\cos(x)+1$ se construye en pasos:\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x) &\\in [-1,1] \\\\\n-\\cos(x)+1 &\\in [0,2]:\n\\end{aligned}$$\n\nLa reflexión conserva el rango $[-1,1]$; el desplazamiento $+1$ lo eleva a $[0,2]$. En el gráfico la curva toca $y=0$ (mínimo, cuando $\\cos=1$) y $y=2$ (máximo, cuando $\\cos=-1$).",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"
@@ -1463,7 +1463,7 @@
       -2,
       4
     ],
-    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n\n$$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$$\n\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
+    "explanation": "La onda tiene máximo $3$, mínimo $-1$ y período $2\\pi$. Se extraen los parámetros:\n$$\\begin{aligned}\nA &= \\frac{3-(-1)}{2} = 2 \\\\\nD &= \\frac{3+(-1)}{2} = 1 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1:\n\\end{aligned}$$\n\nLa curva arranca en $0$ en $x=0$ (patrón del seno). Fórmula: $2\\,\\operatorname{sen}(x)+1$. La opción $2\\cos(x)+1$ tendría $f(0)=3$ (máximo), no $1$. La opción $\\operatorname{sen}(x)+2$ tendría $A=1$.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"

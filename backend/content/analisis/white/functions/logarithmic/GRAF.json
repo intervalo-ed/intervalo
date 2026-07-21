@@ -173,7 +173,7 @@
       -3,
       5
     ],
-    "explanation": "La curva logarítmica crece sin cota superior ($f(x) \\to +\\infty$ cuando $x \\to +\\infty$) y cae sin cota inferior ($f(x) \\to -\\infty$ cuando $x \\to 0^+$).\n\nImagen: $\\mathbb{R}$ (todos los reales). Contrasta con la exponencial, cuya imagen es $(0, +\\infty)$.",
+    "explanation": "La curva logarítmica crece sin cota superior ($f(x) \\to +\\infty$ cuando $x \\to +\\infty$) y cae sin cota inferior ($f(x) \\to -\\infty$ cuando $x \\to 0^+$).\n\nImagen: $\\mathbb{R}$ (todos los reales). Contrasta con la exponencial, cuya imagen es $(0, +\\infty)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
     "reviewed": false,
     "tags": [
       "lectura-imagen"
@@ -683,7 +683,7 @@
       -4,
       4
     ],
-    "explanation": "La imagen de $\\log_2(x)$ es $\\mathbb{R}$. Al multiplicar por $-1$, los valores positivos se vuelven negativos y viceversa, pero siguen cubriendo $\\mathbb{R}$.\n\nEn el gráfico, la curva puede tomar cualquier valor real (sube indefinidamente hacia $x = 0^+$ y baja indefinidamente para $x$ grande).",
+    "explanation": "La imagen de $\\log_2(x)$ es $\\mathbb{R}$. Al multiplicar por $-1$, los valores positivos se vuelven negativos y viceversa, pero siguen cubriendo $\\mathbb{R}$.\n\nEn el gráfico, la curva puede tomar cualquier valor real (sube indefinidamente hacia $x = 0^+$ y baja indefinidamente para $x$ grande).\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -893,7 +893,7 @@
       -2,
       5
     ],
-    "explanation": "Claves:\n1. Asíntota en $x = 0$, creciente, pasa por $(1, 0)$.\n2. El punto clave es $(e,\\, 1) \\approx (2{,}7,\\, 1)$: si en $x \\approx 2{,}7$ la curva vale $1$, la base es $e$.\n3. Vs $\\log_2(x)$: en $x = 2$ vale $1$, en $x \\approx 2{,}7$ vale algo distinto de $1$.\n\nFórmula: $f(x) = \\ln(x)$.",
+    "explanation": "Claves:\n1. Asíntota en $x = 0$, creciente, pasa por $(1, 0)$.\n2. El punto clave es $(e,\\, 1) \\approx (2{,}7,\\, 1)$: si en $x \\approx 2{,}7$ la curva vale $1$, la base es $e$.\n3. Vs $\\log_2(x)$: en $x = 2$ vale $1$, en $x \\approx 2{,}7$ vale algo distinto de $1$.\n\nFórmula: $f(x) = \\ln(x)$.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica. A diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite. Visualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -953,7 +953,7 @@
       -4,
       6
     ],
-    "explanation": "Claves:\n1. Asíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento.\n2. En $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$.\n3. $\\log_2(2x) = 1 + \\log_2(x)$ es distinto: en $x=1$ vale $1$, no $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.",
+    "explanation": "Claves:\n1. Asíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento.\n2. En $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$.\n3. $\\log_2(2x) = 1 + \\log_2(x)$ es distinto: en $x=1$ vale $1$, no $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica. A diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite. Visualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -1043,7 +1043,7 @@
       -2,
       4
     ],
-    "explanation": "Claves:\n1. En $x = 4$ la curva vale $y = 1$: el punto $(4, 1)$ identifica base $4$.\n2. Vs $\\log_2(x)$: esa vale $1$ en $x = 2$.\n3. Vs $\\log_3(x)$: esa vale $1$ en $x = 3$.\n4. $\\log_4(x)$ crece más lentamente que $\\log_2(x)$ y $\\log_3(x)$ porque la base es mayor.\n\nFórmula: $f(x) = \\log_4(x)$.",
+    "explanation": "Claves:\n1. En $x = 4$ la curva vale $y = 1$: el punto $(4, 1)$ identifica base $4$.\n2. Vs $\\log_2(x)$: esa vale $1$ en $x = 2$.\n3. Vs $\\log_3(x)$: esa vale $1$ en $x = 3$.\n4. $\\log_4(x)$ crece más lentamente que $\\log_2(x)$ y $\\log_3(x)$ porque la base es mayor.\n\nFórmula: $f(x) = \\log_4(x)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

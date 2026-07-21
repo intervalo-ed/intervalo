@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = mx + b$, la ordenada al origen es el término independiente, el que no tiene $x$ al lado.\n\nPara $f(x) = 4x - 7$ los parámetros son $m = 4$ y $b = -7$. La verificación directa es evaluar en cero\n$$f(0) = 4 \\cdot 0 - 7 = -7$$\nel valor donde la recta corta el eje $Y$.\n\nEl signo pertenece al término: leer $7$ en lugar de $-7$ ubica el corte del lado equivocado del eje.",
+    "explanation": "En $f(x) = mx + b$, la ordenada al origen es el término independiente, el que no tiene $x$ al lado.\n\nPara $f(x) = 4x - 7$ los parámetros son $m = 4$ y $b = -7$. La verificación directa es evaluar en cero\n$$f(0) = 4 \\cdot 0 - 7 = -7$$\nEl valor donde la recta corta el eje $Y$.\n\nEl signo pertenece al término: leer $7$ en lugar de $-7$ ubica el corte del lado equivocado del eje.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la función no está en forma estándar, conviene reordenarla primero\n$$f(x) = 6 - 2x = -2x + 6$$\nAhí se leen los parámetros sin riesgo: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar en qué posición venga escrito el término.\n\nEn fórmulas desordenadas el error típico es doble: tomar el primer número como pendiente o perder el signo del coeficiente. Reordenar antes de leer evita los dos.",
+    "explanation": "Cuando la función no está en forma estándar, conviene reordenarla primero:\n$$f(x) = 6 - 2x = -2x + 6$$\nAhí se leen los parámetros sin riesgo: $m = -2$ y $b = 6$.\n\nLa pendiente es siempre el coeficiente de $x$, sin importar en qué posición venga escrito el término.\n\nEn fórmulas desordenadas el error típico es doble: tomar el primer número como pendiente o perder el signo del coeficiente. Reordenar antes de leer evita los dos.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde\n$$f(x) = mx + b = 3x + (-2) = 3x - 2$$\nla pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
+    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:\n$$f(x) = mx + b = 3x + (-2) = 3x - 2$$\nLa pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituyendo los parámetros en el molde\n$$f(x) = (-1) \\cdot x + 4 = -x + 4$$\nla pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
+    "explanation": "Sustituyendo los parámetros en el molde:\n$$f(x) = (-1) \\cdot x + 4 = -x + 4$$\nLa pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda\n$$f(x) = 2x + 5$$\nsin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "explanation": "Un punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda\n$$f(x) = 2x + 5$$\nSin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -388,7 +388,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$. Subir 3 unidades por cada unidad de avance es la pendiente $m = 3$.\n\nSustituyendo en el molde\n$$y = 3x + 0 = 3x$$\nla ecuación es $y = 3x$, una relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
+    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$. Subir 3 unidades por cada unidad de avance es la pendiente $m = 3$.\n\nSustituyendo en el molde:\n$$y = 3x + 0 = 3x$$\nLa ecuación es $y = 3x$, una relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -413,7 +413,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente es la razón entre el cambio vertical y el horizontal\n$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$\nla recta sube 2 unidades por cada unidad de avance.\n\nEl orden del cociente importa: la variación vertical va en el numerador y la horizontal en el denominador; invertirlo produce $\\frac{1}{2}$, la confusión clásica.\n\nTampoco alcanza con la subida sola: la pendiente siempre compara las dos variaciones entre sí.",
+    "explanation": "La pendiente es la razón entre el cambio vertical y el horizontal:\n$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$\nLa recta sube 2 unidades por cada unidad de avance.\n\nEl orden del cociente importa: la variación vertical va en el numerador y la horizontal en el denominador; invertirlo produce $\\frac{1}{2}$, la confusión clásica.\n\nTampoco alcanza con la subida sola: la pendiente siempre compara las dos variaciones entre sí.",
     "reviewed": false,
     "tags": [
       "pendiente-concepto-tasa"
@@ -438,7 +438,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente\n$$C(k) = 200k + 500$$\nlos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: el número que multiplica a la variable es siempre el que se cobra por unidad.",
+    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:\n$$C(k) = 200k + 500$$\nLos \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: el número que multiplica a la variable es siempre el que se cobra por unidad.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo combina la visita (fija) con la tarifa horaria (variable)\n$$C(h) = 300h + 1500$$\ncon $b = 1500$ el monto que se paga una sola vez y $m = 300$ el que acompaña a cada hora.\n\nLa verificación inmediata es $C(0) = 1500$: venir ya cuesta eso, sin trabajar ninguna hora.\n\nAntes de elegir, preguntate qué monto se repite por unidad de tiempo: ese es el que tiene que multiplicar a la variable.",
+    "explanation": "El costo combina la visita (fija) con la tarifa horaria (variable):\n$$C(h) = 300h + 1500$$\ncon $b = 1500$ el monto que se paga una sola vez y $m = 300$ el que acompaña a cada hora.\n\nLa verificación inmediata es $C(0) = 1500$: venir ya cuesta eso, sin trabajar ninguna hora.\n\nAntes de elegir, preguntate qué monto se repite por unidad de tiempo: ese es el que tiene que multiplicar a la variable.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -488,7 +488,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen parte de 100 litros y pierde 5 por minuto: la tasa es negativa\n$$V(t) = 100 - 5t$$\ncon $b = 100$ (volumen inicial) y $m = -5$ (pérdida por minuto).\n\nLa verificación rápida: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros en el primer minuto.\n\nEn procesos que decrecen, revisá dos cosas antes de responder: que el valor inicial esté como término independiente y que el término variable reste.",
+    "explanation": "El volumen parte de 100 litros y pierde 5 por minuto: la tasa es negativa:\n$$V(t) = 100 - 5t$$\ncon $b = 100$ (volumen inicial) y $m = -5$ (pérdida por minuto).\n\nLa verificación rápida: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros en el primer minuto.\n\nEn procesos que decrecen, revisá dos cosas antes de responder: que el valor inicial esté como término independiente y que el término variable reste.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -538,7 +538,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro\n$$C(k) = 600 + 250k$$\ndonde $b = 600$ es la bajada de bandera y $m = 250$ la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero: $C(0) = 600$, lo que cuesta subir al taxi sin viajar.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: la que multiplica a la variable es la pendiente, el monto por unidad.",
+    "explanation": "El costo del viaje combina el fijo con la tarifa por kilómetro:\n$$C(k) = 600 + 250k$$\ndonde $b = 600$ es la bajada de bandera y $m = 250$ la tarifa que acompaña a cada kilómetro.\n\nLa verificación rápida es evaluar en cero: $C(0) = 600$, lo que cuesta subir al taxi sin viajar.\n\nEl error frecuente es intercambiar la tarifa por km con la bajada de bandera: la que multiplica a la variable es la pendiente, el monto por unidad.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -563,7 +563,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo fijo se paga una sola vez y la tarifa acompaña a cada hora\n$$C(h) = 2000 + 500h$$\ncon $b = 2000$ (la visita) y $m = 500$ (cada hora de trabajo).\n\nEvaluá en cero para verificar: $C(0) = 2000$, el costo de que venga sin trabajar todavía.\n\nAl armar la fórmula desde el enunciado, asigná primero el rol de cada número: el que no depende de la variable va suelto; el que se repite por unidad, multiplicando.",
+    "explanation": "El costo fijo se paga una sola vez y la tarifa acompaña a cada hora:\n$$C(h) = 2000 + 500h$$\ncon $b = 2000$ (la visita) y $m = 500$ (cada hora de trabajo).\n\nEvaluá en cero para verificar: $C(0) = 2000$, el costo de que venga sin trabajar todavía.\n\nAl armar la fórmula desde el enunciado, asigná primero el rol de cada número: el que no depende de la variable va suelto; el que se repite por unidad, multiplicando.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen arranca en 80 litros y pierde 4 por minuto: la pendiente es negativa\n$$V(t) = 80 - 4t$$\ncon $b = 80$ (volumen inicial) y $m = -4$ (tasa de vaciado).\n\nPara verificar, evaluá el arranque: $V(0) = 80$, y un minuto después $V(1) = 76$: bajó 4 litros, como dice el enunciado.\n\nEn procesos que decrecen, el error típico es escribir la tasa sumando: si la cantidad baja, el término con la variable tiene que restar.",
+    "explanation": "El volumen arranca en 80 litros y pierde 4 por minuto: la pendiente es negativa:\n$$V(t) = 80 - 4t$$\ncon $b = 80$ (volumen inicial) y $m = -4$ (tasa de vaciado).\n\nPara verificar, evaluá el arranque: $V(0) = 80$, y un minuto después $V(1) = 76$: bajó 4 litros, como dice el enunciado.\n\nEn procesos que decrecen, el error típico es escribir la tasa sumando: si la cantidad baja, el término con la variable tiene que restar.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -638,7 +638,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El sueldo combina la parte fija con el bono por producción\n$$S(p) = 15000 + 200p$$\ncon $b = 15000$ (el fijo mensual) y $m = 200$ (el adicional por cada pieza).\n\nLa verificación: $S(0) = 15000$, lo que cobra un mes sin producir ninguna pieza.\n\nEl intercambio de $m$ y $b$ es el distractor clásico en sueldos: preguntate cuál de los dos montos se repite con cada pieza; ese es el que multiplica a la variable.",
+    "explanation": "El sueldo combina la parte fija con el bono por producción:\n$$S(p) = 15000 + 200p$$\ncon $b = 15000$ (el fijo mensual) y $m = 200$ (el adicional por cada pieza).\n\nLa verificación: $S(0) = 15000$, lo que cobra un mes sin producir ninguna pieza.\n\nEl intercambio de $m$ y $b$ es el distractor clásico en sueldos: preguntate cuál de los dos montos se repite con cada pieza; ese es el que multiplica a la variable.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -663,7 +663,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente\n$$F(k) = 12k + 400$$\nComo la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación: $F(0) = 400$, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
+    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente:\n$$F(k) = 12k + 400$$\nComo la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación: $F(0) = 400$, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -688,7 +688,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el valor inicial es cero, la recta pasa por el origen y el término independiente desaparece\n$$A(m) = 5000m$$\ncon $b = 0$ (empieza sin ahorros) y $m = 5000$ (el depósito mensual).\n\nVerificación: $A(0) = 0$ y $A(1) = 5000$, un depósito acumulado.\n\nQue no haya término suelto no es un dato faltante: es la traducción exacta de \"empieza sin ahorros\". No agregues una ordenada que el enunciado no da.",
+    "explanation": "Cuando el valor inicial es cero, la recta pasa por el origen y el término independiente desaparece:\n$$A(m) = 5000m$$\ncon $b = 0$ (empieza sin ahorros) y $m = 5000$ (el depósito mensual).\n\nVerificación: $A(0) = 0$ y $A(1) = 5000$, un depósito acumulado.\n\nQue no haya término suelto no es un dato faltante: es la traducción exacta de \"empieza sin ahorros\". No agregues una ordenada que el enunciado no da.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -713,7 +713,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo combina el cargo fijo con la tarifa horaria\n$$C(h) = 300 + 150h$$\ncon $b = 300$ (se paga al alquilar, sin importar el tiempo) y $m = 150$ (cada hora de uso).\n\nVerificación: $C(0) = 300$ y cada hora agrega \\$150 exactos.\n\nPara no cruzar los montos, buscá en el enunciado la palabra que indica repetición (\"por hora\", \"por km\", \"por unidad\"): ese monto es siempre la pendiente.",
+    "explanation": "El costo combina el cargo fijo con la tarifa horaria:\n$$C(h) = 300 + 150h$$\ncon $b = 300$ (se paga al alquilar, sin importar el tiempo) y $m = 150$ (cada hora de uso).\n\nVerificación: $C(0) = 300$ y cada hora agrega \\$150 exactos.\n\nPara no cruzar los montos, buscá en el enunciado la palabra que indica repetición (\"por hora\", \"por km\", \"por unidad\"): ese monto es siempre la pendiente.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -738,7 +738,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La temperatura parte de 22°C y baja 3°C por hora: la tasa es negativa\n$$T(h) = 22 - 3h$$\ncon $b = 22$ (temperatura al inicio de la noche) y $m = -3$ (el descenso horario).\n\nVerificación: $T(0) = 22$ y $T(1) = 19$, bajó 3 grados en la primera hora.\n\nCuando la magnitud desciende, el término con la variable resta: escribirlo sumando invierte el fenómeno completo.",
+    "explanation": "La temperatura parte de 22°C y baja 3°C por hora: la tasa es negativa:\n$$T(h) = 22 - 3h$$\ncon $b = 22$ (temperatura al inicio de la noche) y $m = -3$ (el descenso horario).\n\nVerificación: $T(0) = 22$ y $T(1) = 19$, bajó 3 grados en la primera hora.\n\nCuando la magnitud desciende, el término con la variable resta: escribirlo sumando invierte el fenómeno completo.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -788,7 +788,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo mensual combina el abono fijo con el precio por GB adicional\n$$P(g) = 1800 + 90g$$\ncon $b = 1800$ (se paga siempre) y $m = 90$ (cada GB extra).\n\nVerificación: $P(0) = 1800$, la factura de un mes sin excedentes.\n\nEl monto que aparece junto a \"por cada\" en el enunciado es la pendiente; el otro es el término fijo. Esa lectura evita el intercambio clásico de parámetros.",
+    "explanation": "El costo mensual combina el abono fijo con el precio por GB adicional:\n$$P(g) = 1800 + 90g$$\ncon $b = 1800$ (se paga siempre) y $m = 90$ (cada GB extra).\n\nVerificación: $P(0) = 1800$, la factura de un mes sin excedentes.\n\nEl monto que aparece junto a \"por cada\" en el enunciado es la pendiente; el otro es el término fijo. Esa lectura evita el intercambio clásico de parámetros.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -813,7 +813,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La distancia al origen parte de 3 km y crece 5 km por cada hora de caminata\n$$d(h) = 3 + 5h$$\ncon $b = 3$ (posición inicial) y $m = 5$ (la velocidad).\n\nVerificación: $d(0) = 3$ y $d(1) = 8$, avanzó 5 km en la primera hora.\n\nEn cinemática lineal los roles son estables: la posición inicial es la ordenada al origen y la velocidad es la pendiente. Cruzarlos duplica o achica el recorrido calculado.",
+    "explanation": "La distancia al origen parte de 3 km y crece 5 km por cada hora de caminata:\n$$d(h) = 3 + 5h$$\ncon $b = 3$ (posición inicial) y $m = 5$ (la velocidad).\n\nVerificación: $d(0) = 3$ y $d(1) = 8$, avanzó 5 km en la primera hora.\n\nEn cinemática lineal los roles son estables: la posición inicial es la ordenada al origen y la velocidad es la pendiente. Cruzarlos duplica o achica el recorrido calculado.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -838,7 +838,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La altura parte de 6 cm y suma 2 cm por semana\n$$h(s) = 6 + 2s$$\ncon $b = 6$ (la altura al comenzar) y $m = 2$ (el crecimiento semanal).\n\nVerificación: $h(0) = 6$ y $h(1) = 8$, creció 2 cm en la primera semana.\n\nCuando la magnitud aumenta, el término variable suma; escribirlo restando modela una planta que se achica, lo contrario del enunciado.",
+    "explanation": "La altura parte de 6 cm y suma 2 cm por semana:\n$$h(s) = 6 + 2s$$\ncon $b = 6$ (la altura al comenzar) y $m = 2$ (el crecimiento semanal).\n\nVerificación: $h(0) = 6$ y $h(1) = 8$, creció 2 cm en la primera semana.\n\nCuando la magnitud aumenta, el término variable suma; escribirlo restando modela una planta que se achica, lo contrario del enunciado.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -863,7 +863,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La nafta restante parte de 45 litros y cada viaje descuenta 9\n$$Q(v) = 45 - 9v$$\ncon $b = 45$ (el tanque lleno) y $m = -9$ (el consumo por viaje).\n\nVerificación: $Q(0) = 45$ y $Q(1) = 36$, un viaje consumido.\n\nDistinguí la magnitud pedida: lo que queda baja desde 45; lo gastado ($9v$) sube desde cero. El enunciado pregunta por la primera, y confundirlas invierte toda la fórmula.",
+    "explanation": "La nafta restante parte de 45 litros y cada viaje descuenta 9:\n$$Q(v) = 45 - 9v$$\ncon $b = 45$ (el tanque lleno) y $m = -9$ (el consumo por viaje).\n\nVerificación: $Q(0) = 45$ y $Q(1) = 36$, un viaje consumido.\n\nDistinguí la magnitud pedida: lo que queda baja desde 45; lo gastado ($9v$) sube desde cero. El enunciado pregunta por la primera, y confundirlas invierte toda la fórmula.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -1013,7 +1013,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar una función es reemplazar la variable por el valor dado y hacer la cuenta\n$$f(3) = 5 - 3 = 2$$\nla salida es 2.\n\nEl signo menos delante de la $x$ es parte de la fórmula: indica que al 5 se le resta la entrada.\n\nLa lectura apurada de $5 - x$ como \"$5$ más $x$\" es el desliz típico: fijate siempre qué operación conecta el término independiente con la variable antes de sustituir.",
+    "explanation": "Evaluar una función es reemplazar la variable por el valor dado y hacer la cuenta:\n$$f(3) = 5 - 3 = 2$$\nLa salida es 2.\n\nEl signo menos delante de la $x$ es parte de la fórmula: indica que al 5 se le resta la entrada.\n\nLa lectura apurada de $5 - x$ como \"$5$ más $x$\" es el desliz típico: fijate siempre qué operación conecta el término independiente con la variable antes de sustituir.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1063,7 +1063,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo fijo es lo que se cobra aunque no se trabaje ninguna hora: el valor de la función en cero\n$$C(0) = 300 + 250 \\cdot 0 = 300$$\nPor eso el fijo es la ordenada al origen, \\$300.\n\nLos \\$250 son la tarifa horaria (la pendiente) y \\$550 es lo que costaría una visita con una hora de trabajo.\n\nEvaluar en cero es el test infalible para el término fijo: lo que sobrevive a $h = 0$ es lo que se paga siempre.",
+    "explanation": "El costo fijo es lo que se cobra aunque no se trabaje ninguna hora: el valor de la función en cero:\n$$C(0) = 300 + 250 \\cdot 0 = 300$$\nPor eso el fijo es la ordenada al origen, \\$300.\n\nLos \\$250 son la tarifa horaria (la pendiente) y \\$550 es lo que costaría una visita con una hora de trabajo.\n\nEvaluar en cero es el test infalible para el término fijo: lo que sobrevive a $h = 0$ es lo que se paga siempre.",
     "reviewed": false,
     "tags": [
       "leer-parametro-contexto"
@@ -1113,7 +1113,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación es sustituir cada parámetro en su lugar del molde\n$$f(x) = mx + b = 2x + 3$$\nla pendiente 2 pegada a la $x$ y la ordenada al origen 3 como término suelto.\n\nVerificación doble: $f(0) = 3$ (la ordenada) y $f(1) = 5$, que subió 2 (la pendiente).\n\nEl intercambio de $m$ y $b$ es el distractor más elegido en este formato: los dos números del enunciado no son intercambiables, cada uno tiene su posición.",
+    "explanation": "Construir la ecuación es sustituir cada parámetro en su lugar del molde:\n$$f(x) = mx + b = 2x + 3$$\nLa pendiente 2 pegada a la $x$ y la ordenada al origen 3 como término suelto.\n\nVerificación doble: $f(0) = 3$ (la ordenada) y $f(1) = 5$, que subió 2 (la pendiente).\n\nEl intercambio de $m$ y $b$ es el distractor más elegido en este formato: los dos números del enunciado no son intercambiables, cada uno tiene su posición.",
     "reviewed": false,
     "tags": [
       "pendiente-concepto-tasa"
@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\npor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es $f(x) = 3x + 5$.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
+    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\nPor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es $f(x) = 3x + 5$.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nla recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nLa recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada\n$$\\begin{aligned} 3x - 6 &= 9 \\\\ 3x &= 15 \\\\ x &= 5 \\end{aligned}$$\nVerificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda $9 + 6 = 15$, no $9 - 6$.\n\nNo confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:\n$$\\begin{aligned} 3x - 6 &= 9 \\\\ 3x &= 15 \\\\ x &= 5 \\end{aligned}$$\nVerificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda $9 + 6 = 15$, no $9 - 6$.\n\nNo confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"
@@ -1238,7 +1238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar la función en $k = 3$\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nel viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
+    "explanation": "Evaluar la función en $k = 3$\n$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$\nEl viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nLos errores típicos son de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"
@@ -1263,7 +1263,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen parte de 100 litros y pierde 5 por hora\n$$V(h) = 100 - 5h$$\ncon $b = 100$ (el contenido inicial) y $m = -5$ (la pérdida horaria, restando).\n\nVerificación: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta. Un tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
+    "explanation": "El volumen parte de 100 litros y pierde 5 por hora:\n$$V(h) = 100 - 5h$$\ncon $b = 100$ (el contenido inicial) y $m = -5$ (la pérdida horaria, restando).\n\nVerificación: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta. Un tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"

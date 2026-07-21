@@ -23,7 +23,7 @@
       -1,
       11
     ],
-    "explanation": "El punto donde la recta toca el eje vertical es el valor de la función en $x = 0$\n$$f(0) = b$$\nla ordenada al origen. Acá $x = 0$ significa cero kilómetros recorridos: es lo que se paga por subir al remis, la bajada de bandera.\n\nEn el gráfico ese costo se lee a la altura donde la recta corta el eje: el viaje arranca en ese valor y desde ahí sube.\n\nNo lo confundas con el costo por kilómetro: ese es la pendiente, cuánto sube la recta por cada paso a la derecha, no dónde arranca.",
+    "explanation": "El punto donde la recta toca el eje vertical es el valor de la función en $x = 0$\n$$f(0) = b$$\nLa ordenada al origen. Acá $x = 0$ significa cero kilómetros recorridos: es lo que se paga por subir al remis, la bajada de bandera.\n\nEn el gráfico ese costo se lee a la altura donde la recta corta el eje: el viaje arranca en ese valor y desde ahí sube.\n\nNo lo confundas con el costo por kilómetro: ese es la pendiente, cuánto sube la recta por cada paso a la derecha, no dónde arranca.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -143,7 +143,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia entre dos valores de una lineal depende solo de la pendiente y del ancho del intervalo\n$$f(3) - f(1) = 2 \\cdot (3 - 1) = 4$$\nen unidades del gráfico son 4 cientos de pesos: \\$400.\n\nCada kWh extra encarece la factura \\$200 (la pendiente) y entre 1 y 3 hay dos kWh de diferencia.\n\nEl costo fijo no entra en la resta: al comparar dos consumos se cancela solo. Los errores típicos son contar un solo kWh o mirar el total en lugar de la diferencia.",
+    "explanation": "La diferencia entre dos valores de una lineal depende solo de la pendiente y del ancho del intervalo:\n$$f(3) - f(1) = 2 \\cdot (3 - 1) = 4$$\nEn unidades del gráfico son 4 cientos de pesos: \\$400.\n\nCada kWh extra encarece la factura \\$200 (la pendiente) y entre 1 y 3 hay dos kWh de diferencia.\n\nEl costo fijo no entra en la resta: al comparar dos consumos se cancela solo. Los errores típicos son contar un solo kWh o mirar el total en lugar de la diferencia.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -173,7 +173,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia entre dos valores de una función lineal depende solo de la pendiente y del tramo recorrido\n$$f(3) - f(1) = 3 \\cdot (3 - 1) = 6$$\ndos estaciones de diferencia, a 3 minutos por estación: 6 minutos.\n\nLa espera inicial aparece en ambos viajes y se cancela en la resta: no influye en la comparación.\n\nCuidado con leer el total en lugar de la diferencia: los 10 minutos del viaje largo incluyen la espera; la pregunta compara los dos viajes entre sí.",
+    "explanation": "La diferencia entre dos valores de una función lineal depende solo de la pendiente y del tramo recorrido:\n$$f(3) - f(1) = 3 \\cdot (3 - 1) = 6$$\ndos estaciones de diferencia, a 3 minutos por estación: 6 minutos.\n\nLa espera inicial aparece en ambos viajes y se cancela en la resta: no influye en la comparación.\n\nCuidado con leer el total en lugar de la diferencia: los 10 minutos del viaje largo incluyen la espera; la pregunta compara los dos viajes entre sí.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -203,7 +203,7 @@
       -1,
       11
     ],
-    "explanation": "El consumo por hora es la pendiente de la recta: cuánto baja por cada unidad que avanza el eje horizontal\n$$m = -2$$\nel bidón pierde 2 litros por hora.\n\nEn el gráfico se mide comparando dos horas consecutivas: de una a la siguiente, la altura cae 2 litros. El signo negativo dice que baja; el valor absoluto, cuánto.\n\nNo respondas la altura inicial (10 litros): esa es la ordenada al origen. El ritmo de consumo se lee en la inclinación, no en el punto de partida.",
+    "explanation": "El consumo por hora es la pendiente de la recta: cuánto baja por cada unidad que avanza el eje horizontal:\n$$m = -2$$\nEl bidón pierde 2 litros por hora.\n\nEn el gráfico se mide comparando dos horas consecutivas: de una a la siguiente, la altura cae 2 litros. El signo negativo dice que baja; el valor absoluto, cuánto.\n\nNo respondas la altura inicial (10 litros): esa es la ordenada al origen. El ritmo de consumo se lee en la inclinación, no en el punto de partida.",
     "reviewed": false,
     "tags": [
       "raiz-agotamiento"
@@ -233,7 +233,7 @@
       -1,
       11
     ],
-    "explanation": "Lo que se suma por nivel es la pendiente de la recta: cuánto sube por cada unidad del eje horizontal\n$$m = 3$$\n3 mil puntos por nivel superado.\n\nEn el gráfico, entre un nivel y el siguiente la recta sube siempre lo mismo; el bonus inicial de 2 mil es la altura de partida sobre el eje vertical.\n\nSepará los dos roles antes de responder: la ordenada al origen dice con cuánto se arranca; la pendiente, a qué ritmo se acumula.",
+    "explanation": "Lo que se suma por nivel es la pendiente de la recta: cuánto sube por cada unidad del eje horizontal:\n$$m = 3$$\n3 mil puntos por nivel superado.\n\nEn el gráfico, entre un nivel y el siguiente la recta sube siempre lo mismo; el bonus inicial de 2 mil es la altura de partida sobre el eje vertical.\n\nSepará los dos roles antes de responder: la ordenada al origen dice con cuánto se arranca; la pendiente, a qué ritmo se acumula.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -263,7 +263,7 @@
       -1,
       11
     ],
-    "explanation": "Leer $f(3)$ en el gráfico es ubicar $x = 3$ sobre el eje horizontal y mirar a qué altura pasa la recta\n$$f(3) = 2 \\cdot 3 + 3 = 9$$\na los 3 minutos el líquido está a 9 °C.\n\nLa recta cuenta la historia completa: arrancó a 3 °C (el corte con el eje vertical) y sube 2 °C por minuto (la pendiente).\n\nPara no desviarte en la lectura, seguí la vertical desde $x = 3$ hasta tocar la recta y recién ahí mirá el eje de temperaturas.",
+    "explanation": "Leer $f(3)$ en el gráfico es ubicar $x = 3$ sobre el eje horizontal y mirar a qué altura pasa la recta\n$$f(3) = 2 \\cdot 3 + 3 = 9$$\nA los 3 minutos el líquido está a 9 °C.\n\nLa recta cuenta la historia completa: arrancó a 3 °C (el corte con el eje vertical) y sube 2 °C por minuto (la pendiente).\n\nPara no desviarte en la lectura, seguí la vertical desde $x = 3$ hasta tocar la recta y recién ahí mirá el eje de temperaturas.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -293,7 +293,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(3)$, ubicá $x = 3$ en el eje horizontal y mirá a qué altura llega la recta\n$$f(3) = 3 \\cdot 3 + 1 = 10$$\na las 3 semanas el ahorro total es de \\$10 mil.\n\nLa recta resume las dos partes: arrancó con \\$1 mil ya guardado (el corte con el eje vertical) y suma \\$3 mil por semana (la pendiente).\n\nEl error típico es olvidar el punto de partida y contar solo lo nuevo: la altura de la recta ya incluye lo que había al empezar.",
+    "explanation": "Para leer $f(3)$, ubicá $x = 3$ en el eje horizontal y mirá a qué altura llega la recta\n$$f(3) = 3 \\cdot 3 + 1 = 10$$\nA las 3 semanas el ahorro total es de \\$10 mil.\n\nLa recta resume las dos partes: arrancó con \\$1 mil ya guardado (el corte con el eje vertical) y suma \\$3 mil por semana (la pendiente).\n\nEl error típico es olvidar el punto de partida y contar solo lo nuevo: la altura de la recta ya incluye lo que había al empezar.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -323,7 +323,7 @@
       -1,
       11
     ],
-    "explanation": "Para saber cuándo la función alcanza un valor, se busca en el gráfico dónde la recta llega a esa altura\n$$2x + 1 = 9 \\implies x = 4$$\na las 4 horas el ciclista completa los 9 kilómetros.\n\nLa lectura es la inversa de evaluar: acá se conoce la altura (9 km) y se busca el punto del eje horizontal donde la recta la toca.\n\nTrazá la horizontal en $y = 9$ hasta cortar la recta y bajá al eje de horas: leer al revés (desde las horas) lleva a responder la altura equivocada.",
+    "explanation": "Para saber cuándo la función alcanza un valor, se busca en el gráfico dónde la recta llega a esa altura:\n$$2x + 1 = 9 \\implies x = 4$$\nA las 4 horas el ciclista completa los 9 kilómetros.\n\nLa lectura es la inversa de evaluar: acá se conoce la altura (9 km) y se busca el punto del eje horizontal donde la recta la toca.\n\nTrazá la horizontal en $y = 9$ hasta cortar la recta y bajá al eje de horas: leer al revés (desde las horas) lleva a responder la altura equivocada.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -353,7 +353,7 @@
       -1,
       11
     ],
-    "explanation": "El costo llega a \\$1.100 cuando la recta alcanza la altura 11 (en cientos de pesos)\n$$3x + 2 = 11 \\implies x = 3$$\na las 3 horas de trabajo.\n\nLa recta parte de 2 (el fijo de la visita, ya incluido desde el arranque) y sube 3 por hora: por eso a las 3 horas acumula 11.\n\nPara resolverlo sobre el gráfico, trazá la horizontal en $y = 11$ y bajá desde el cruce hasta el eje de horas; no olvides que el fijo ya está contado en la altura.",
+    "explanation": "El costo llega a \\$1.100 cuando la recta alcanza la altura 11 (en cientos de pesos):\n$$3x + 2 = 11 \\implies x = 3$$\nA las 3 horas de trabajo.\n\nLa recta parte de 2 (el fijo de la visita, ya incluido desde el arranque) y sube 3 por hora: por eso a las 3 horas acumula 11.\n\nPara resolverlo sobre el gráfico, trazá la horizontal en $y = 11$ y bajá desde el cruce hasta el eje de horas; no olvides que el fijo ya está contado en la altura.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -413,7 +413,7 @@
       -1,
       11
     ],
-    "explanation": "El punto donde la recta corta el eje vertical es el costo cuando $x = 0$\n$$f(0) = b$$\nes decir, con cero horas de uso: el cargo fijo por retirar la bici.\n\nEn el gráfico, la recta nace a esa altura y desde ahí sube con cada hora pedaleada.\n\nLos dos números del alquiler viven en lugares distintos del dibujo: el fijo es el arranque sobre el eje vertical; la tarifa horaria es la inclinación. Leer uno donde va el otro es el error clásico.",
+    "explanation": "El punto donde la recta corta el eje vertical es el costo cuando $x = 0$\n$$f(0) = b$$\nEs decir, con cero horas de uso: el cargo fijo por retirar la bici.\n\nEn el gráfico, la recta nace a esa altura y desde ahí sube con cada hora pedaleada.\n\nLos dos números del alquiler viven en lugares distintos del dibujo: el fijo es el arranque sobre el eje vertical; la tarifa horaria es la inclinación. Leer uno donde va el otro es el error clásico.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -443,7 +443,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función antes de hacer ningún viaje\n$$f(0) = b$$\nel crédito con el que arrancó la tarjeta.\n\nLa recta baja porque cada viaje descuenta un monto fijo: esa caída por viaje es la pendiente.\n\nCada pregunta tiene su eje: cuánto había al empezar se lee en el vertical; cuántos viajes alcanza, en el horizontal, donde la recta toca cero. No los intercambies.",
+    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función antes de hacer ningún viaje\n$$f(0) = b$$\nEl crédito con el que arrancó la tarjeta.\n\nLa recta baja porque cada viaje descuenta un monto fijo: esa caída por viaje es la pendiente.\n\nCada pregunta tiene su eje: cuánto había al empezar se lee en el vertical; cuántos viajes alcanza, en el horizontal, donde la recta toca cero. No los intercambies.",
     "reviewed": false,
     "tags": [
       "raiz-agotamiento"
@@ -473,7 +473,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical muestra el gasto cuando $x = 0$\n$$f(0) = b$$\nsin ninguna exportación en el mes: el abono fijo.\n\nLa pendiente, suave en este caso, es el extra por cada exportación: la recta sube medio ciento de pesos por unidad.\n\nEl piso del gasto se lee en el eje vertical y el ritmo en la inclinación: si la pregunta dice \"aunque no se use\", la respuesta está siempre en la ordenada al origen.",
+    "explanation": "El corte con el eje vertical muestra el gasto cuando $x = 0$\n$$f(0) = b$$\nSin ninguna exportación en el mes: el abono fijo.\n\nLa pendiente, suave en este caso, es el extra por cada exportación: la recta sube medio ciento de pesos por unidad.\n\nEl piso del gasto se lee en el eje vertical y el ritmo en la inclinación: si la pregunta dice \"aunque no se use\", la respuesta está siempre en la ordenada al origen.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -503,7 +503,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el gasto con cero descargas\n$$f(0) = b$$\nel cargo fijo del mes, que se paga aunque no se descargue nada.\n\nLo que crece con cada descarga es la pendiente de la recta; el punto de partida no depende del uso.\n\nAntes de responder este tipo de pregunta, traducila a la función: \"sin ninguna descarga\" significa $x = 0$, y el valor en $x = 0$ es siempre la ordenada al origen.",
+    "explanation": "El corte con el eje vertical es $f(0)$, el gasto con cero descargas\n$$f(0) = b$$\nEl cargo fijo del mes, que se paga aunque no se descargue nada.\n\nLo que crece con cada descarga es la pendiente de la recta; el punto de partida no depende del uso.\n\nAntes de responder este tipo de pregunta, traducila a la función: \"sin ninguna descarga\" significa $x = 0$, y el valor en $x = 0$ es siempre la ordenada al origen.",
     "reviewed": false,
     "tags": [
       "ordenada-origen-concepto"
@@ -533,7 +533,7 @@
       -1,
       11
     ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el combustible cuando todavía no se recorrió nada\n$$f(0) = b$$\nel tanque con el que salió la moto.\n\nLa recta baja porque cada kilómetro consume: esa caída por km es la pendiente, y el punto donde toca el eje horizontal es donde la nafta se acaba.\n\nCada dato del contexto tiene su lugar fijo en el dibujo: inicial en el eje vertical, consumo en la inclinación, agotamiento en el eje horizontal.",
+    "explanation": "El corte con el eje vertical es $f(0)$, el combustible cuando todavía no se recorrió nada\n$$f(0) = b$$\nEl tanque con el que salió la moto.\n\nLa recta baja porque cada kilómetro consume: esa caída por km es la pendiente, y el punto donde toca el eje horizontal es donde la nafta se acaba.\n\nCada dato del contexto tiene su lugar fijo en el dibujo: inicial en el eje vertical, consumo en la inclinación, agotamiento en el eje horizontal.",
     "reviewed": false,
     "tags": [
       "raiz-agotamiento"
@@ -563,7 +563,7 @@
       -1,
       11
     ],
-    "explanation": "La vela se consume por completo cuando su altura llega a cero, es decir cuando $f(x) = 0$: el cruce de la recta con el eje horizontal\n$$-x + 6 = 0 \\implies x = 6$$\na las 6 horas se termina.\n\nEn el gráfico, la recta parte de los 6 cm iniciales y baja un centímetro por hora hasta tocar el eje.\n\nQue el valor inicial y la hora final coincidan acá (ambos 6) es casualidad de la pendiente $-1$: no asumas esa igualdad en otros gráficos; buscá siempre el cruce con el eje horizontal.",
+    "explanation": "La vela se consume por completo cuando su altura llega a cero, es decir cuando $f(x) = 0$: el cruce de la recta con el eje horizontal\n$$-x + 6 = 0 \\implies x = 6$$\nA las 6 horas se termina.\n\nEn el gráfico, la recta parte de los 6 cm iniciales y baja un centímetro por hora hasta tocar el eje.\n\nQue el valor inicial y la hora final coincidan acá (ambos 6) es casualidad de la pendiente $-1$: no asumas esa igualdad en otros gráficos; buscá siempre el cruce con el eje horizontal.",
     "reviewed": false,
     "tags": [
       "raiz-agotamiento"
@@ -593,7 +593,7 @@
       -6,
       6
     ],
-    "explanation": "El saldo llega a cero cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal\n$$x - 4 = 0 \\implies x = 4$$\nen la semana 4 la deuda queda saldada.\n\nEste gráfico arranca por debajo del eje (saldo negativo, la cuenta en rojo) y sube una unidad por semana hasta cruzarlo.\n\nLa parte de la recta bajo el eje también se lee: representa deuda, no ausencia de datos. El cruce marca el cambio de signo, de deber a tener.",
+    "explanation": "El saldo llega a cero cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal\n$$x - 4 = 0 \\implies x = 4$$\nEn la semana 4 la deuda queda saldada.\n\nEste gráfico arranca por debajo del eje (saldo negativo, la cuenta en rojo) y sube una unidad por semana hasta cruzarlo.\n\nLa parte de la recta bajo el eje también se lee: representa deuda, no ausencia de datos. El cruce marca el cambio de signo, de deber a tener.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -623,7 +623,7 @@
       -1,
       11
     ],
-    "explanation": "La batería se agota cuando la carga llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal\n$$-\\frac{1}{2}x + 4 = 0 \\implies x = 8$$\na las 8 horas queda en cero.\n\nCon una pendiente suave ($-\\frac{1}{2}$), la recta tarda el doble de lo que sugiere el valor inicial: parte de 4 y baja medio punto por hora.\n\nNo dividas mal la lectura: el 4 del eje vertical es cuánta carga había, y la respuesta vive en el eje horizontal, donde la recta toca el cero.",
+    "explanation": "La batería se agota cuando la carga llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal\n$$-\\frac{1}{2}x + 4 = 0 \\implies x = 8$$\nA las 8 horas queda en cero.\n\nCon una pendiente suave ($-\\frac{1}{2}$), la recta tarda el doble de lo que sugiere el valor inicial: parte de 4 y baja medio punto por hora.\n\nNo dividas mal la lectura: el 4 del eje vertical es cuánta carga había, y la respuesta vive en el eje horizontal, donde la recta toca el cero.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -653,7 +653,7 @@
       -6,
       6
     ],
-    "explanation": "La temperatura llega a cero grados cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal\n$$\\frac{1}{3}x - 2 = 0 \\implies x = 6$$\na las 6 horas de apagada la cámara.\n\nLa recta arranca en $-2$ (bajo cero, por debajo del eje) y sube un tercio de grado por hora hasta cruzarlo.\n\nLas gráficas que empiezan bajo el eje se leen igual que las demás: el tramo negativo es información real (frío bajo cero) y el cruce marca el instante del cero exacto.",
+    "explanation": "La temperatura llega a cero grados cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal\n$$\\frac{1}{3}x - 2 = 0 \\implies x = 6$$\nA las 6 horas de apagada la cámara.\n\nLa recta arranca en $-2$ (bajo cero, por debajo del eje) y sube un tercio de grado por hora hasta cruzarlo.\n\nLas gráficas que empiezan bajo el eje se leen igual que las demás: el tramo negativo es información real (frío bajo cero) y el cruce marca el instante del cero exacto.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -713,7 +713,7 @@
       -1,
       11
     ],
-    "explanation": "Las entradas se agotan cuando la cantidad llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal\n$$-\\frac{2}{3}x + 4 = 0 \\implies x = 6$$\na las 6 horas de iniciada la venta.\n\nLa recta parte de 4 mil entradas y baja dos tercios de mil por hora, un ritmo que vacía el stock en 6 horas.\n\nVerificá el cruce despejando o siguiendo la recta con el dedo: responder el valor inicial (4) en lugar del cruce es la confusión de ejes más frecuente.",
+    "explanation": "Las entradas se agotan cuando la cantidad llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal\n$$-\\frac{2}{3}x + 4 = 0 \\implies x = 6$$\nA las 6 horas de iniciada la venta.\n\nLa recta parte de 4 mil entradas y baja dos tercios de mil por hora, un ritmo que vacía el stock en 6 horas.\n\nVerificá el cruce despejando o siguiendo la recta con el dedo: responder el valor inicial (4) en lugar del cruce es la confusión de ejes más frecuente.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -743,7 +743,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo\n$$f(8) - f(3) = 0 \\cdot (8 - 3) = 0$$\ny con pendiente cero la diferencia es nula: ambos pagan lo mismo.\n\nLa recta horizontal es la firma de la tarifa plana: la factura vale 6 mil pesos consuma lo que se consuma.\n\nAntes de calcular diferencias, mirá la inclinación: si la recta es horizontal, no hay nada que restar, y cualquier número distinto de cero delata una pendiente inventada.",
+    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo:\n$$f(8) - f(3) = 0 \\cdot (8 - 3) = 0$$\ny con pendiente cero la diferencia es nula: ambos pagan lo mismo.\n\nLa recta horizontal es la firma de la tarifa plana: la factura vale 6 mil pesos consuma lo que se consuma.\n\nAntes de calcular diferencias, mirá la inclinación: si la recta es horizontal, no hay nada que restar, y cualquier número distinto de cero delata una pendiente inventada.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -773,7 +773,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo\n$$f(20) - f(5) = 0 \\cdot (20 - 5) = 0$$\ny en una recta horizontal la pendiente es cero: la asistencia no mueve el abono.\n\nEl gráfico lo dice de un vistazo: la altura es la misma en el día 5 y en el día 20.\n\nCuando la recta es horizontal, cualquier diferencia distinta de cero es una pendiente inventada: verificá la inclinación antes de restar valores.",
+    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo:\n$$f(20) - f(5) = 0 \\cdot (20 - 5) = 0$$\ny en una recta horizontal la pendiente es cero: la asistencia no mueve el abono.\n\nEl gráfico lo dice de un vistazo: la altura es la misma en el día 5 y en el día 20.\n\nCuando la recta es horizontal, cualquier diferencia distinta de cero es una pendiente inventada: verificá la inclinación antes de restar valores.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -803,7 +803,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia en una lineal es la pendiente por el ancho del intervalo\n$$f(7) - f(3) = 1 \\cdot (7 - 3) = 4$$\ncuatro cientos de pesos: \\$400.\n\nCada hora de taller suma \\$100 (la pendiente) y entre 3 y 7 horas hay cuatro de diferencia.\n\nEl fijo de inscripción aparece en los dos totales y desaparece en la resta: si tu cuenta lo incluye, la diferencia queda inflada.",
+    "explanation": "La diferencia en una lineal es la pendiente por el ancho del intervalo:\n$$f(7) - f(3) = 1 \\cdot (7 - 3) = 4$$\ncuatro cientos de pesos: \\$400.\n\nCada hora de taller suma \\$100 (la pendiente) y entre 3 y 7 horas hay cuatro de diferencia.\n\nEl fijo de inscripción aparece en los dos totales y desaparece en la resta: si tu cuenta lo incluye, la diferencia queda inflada.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -833,7 +833,7 @@
       -1,
       11
     ],
-    "explanation": "La caída entre dos momentos es la pendiente por el ancho del intervalo\n$$f(3) - f(8) = 1 \\cdot (8 - 3) = 5$$\ncinco cientos de litros menos.\n\nEl tanque pierde 100 litros por hora (la pendiente, en valor absoluto) durante las 5 horas que separan los dos instantes.\n\nEl error de este formato suele estar en el ancho del intervalo: contá bien las horas entre los dos puntos antes de multiplicar por el ritmo.",
+    "explanation": "La caída entre dos momentos es la pendiente por el ancho del intervalo:\n$$f(3) - f(8) = 1 \\cdot (8 - 3) = 5$$\ncinco cientos de litros menos.\n\nEl tanque pierde 100 litros por hora (la pendiente, en valor absoluto) durante las 5 horas que separan los dos instantes.\n\nEl error de este formato suele estar en el ancho del intervalo: contá bien las horas entre los dos puntos antes de multiplicar por el ritmo.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -863,7 +863,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia depende solo de la pendiente y del ancho del intervalo\n$$f(8) - f(2) = \\frac{1}{2} \\cdot (8 - 2) = 3$$\nla planta creció 3 cm entre las dos semanas.\n\nEl ritmo es de medio centímetro por semana y el tramo tiene seis semanas: la cuenta cierra sin mirar el alto inicial, que se cancela en la resta.\n\nNo respondas la altura final: la pregunta compara dos momentos, y comparar es restar, no leer un solo punto.",
+    "explanation": "La diferencia depende solo de la pendiente y del ancho del intervalo:\n$$f(8) - f(2) = \\frac{1}{2} \\cdot (8 - 2) = 3$$\nLa planta creció 3 cm entre las dos semanas.\n\nEl ritmo es de medio centímetro por semana y el tramo tiene seis semanas: la cuenta cierra sin mirar el alto inicial, que se cancela en la resta.\n\nNo respondas la altura final: la pregunta compara dos momentos, y comparar es restar, no leer un solo punto.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -893,7 +893,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia depende de la pendiente y del tramo recorrido\n$$f(6) - f(3) = \\frac{2}{3} \\cdot (6 - 3) = 2$$\ndos kilómetros más entre la hora 3 y la hora 6.\n\nLa ventaja inicial aparece en ambos valores y se cancela en la resta: solo cuentan el ritmo y el ancho del intervalo.\n\nCuidado con confundir las unidades de los ejes: el 3 del intervalo son horas; la respuesta se mide en kilómetros, sobre el eje vertical.",
+    "explanation": "La diferencia depende de la pendiente y del tramo recorrido:\n$$f(6) - f(3) = \\frac{2}{3} \\cdot (6 - 3) = 2$$\ndos kilómetros más entre la hora 3 y la hora 6.\n\nLa ventaja inicial aparece en ambos valores y se cancela en la resta: solo cuentan el ritmo y el ancho del intervalo.\n\nCuidado con confundir las unidades de los ejes: el 3 del intervalo son horas; la respuesta se mide en kilómetros, sobre el eje vertical.",
     "reviewed": false,
     "tags": [
       "lectura-x-dado-y"
@@ -923,7 +923,7 @@
       -1,
       11
     ],
-    "explanation": "La diferencia entre dos momentos es la pendiente por el ancho del intervalo\n$$f(4) - f(2) = \\frac{3}{2} \\cdot (4 - 2) = 3$$\ntres litros más entre la hora 2 y la hora 4.\n\nLa gotera aporta un litro y medio por hora (la pendiente) y el intervalo dura dos horas.\n\nEl agua que había al principio no participa: al restar dos valores de la misma recta, el punto de partida desaparece y solo queda el cambio acumulado.",
+    "explanation": "La diferencia entre dos momentos es la pendiente por el ancho del intervalo:\n$$f(4) - f(2) = \\frac{3}{2} \\cdot (4 - 2) = 3$$\nTres litros más entre la hora 2 y la hora 4.\n\nLa gotera aporta un litro y medio por hora (la pendiente) y el intervalo dura dos horas.\n\nEl agua que había al principio no participa: al restar dos valores de la misma recta, el punto de partida desaparece y solo queda el cambio acumulado.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -953,7 +953,7 @@
       -1,
       11
     ],
-    "explanation": "El cambio por hora es la pendiente de la recta, y una recta horizontal tiene pendiente cero\n$$m = 0$$\nla temperatura no cambia: el termostato la mantiene fija.\n\nLa altura constante de 5 grados es la ordenada al origen, el valor de la función en todo momento.\n\nNo conviertas la altura en ritmo: que la recta esté a 5 grados no significa que cambie 5 por hora. En horizontales, el único número que describe variación es el cero.",
+    "explanation": "El cambio por hora es la pendiente de la recta, y una recta horizontal tiene pendiente cero:\n$$m = 0$$\nLa temperatura no cambia: el termostato la mantiene fija.\n\nLa altura constante de 5 grados es la ordenada al origen, el valor de la función en todo momento.\n\nNo conviertas la altura en ritmo: que la recta esté a 5 grados no significa que cambie 5 por hora. En horizontales, el único número que describe variación es el cero.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -983,7 +983,7 @@
       -1,
       11
     ],
-    "explanation": "La variación por día es la pendiente, y en una recta horizontal la pendiente vale cero\n$$m = 0$$\nel nivel del lago no cambia de un día al otro.\n\nLos 3 metros que muestra el gráfico son la altura constante, la ordenada al origen: describen dónde está el nivel, no cómo se mueve.\n\nDistinguí siempre valor de variación: el eje vertical responde \"cuánto hay\" y la inclinación responde \"cuánto cambia\". En una horizontal, lo segundo es cero.",
+    "explanation": "La variación por día es la pendiente, y en una recta horizontal la pendiente vale cero:\n$$m = 0$$\nEl nivel del lago no cambia de un día al otro.\n\nLos 3 metros que muestra el gráfico son la altura constante, la ordenada al origen: describen dónde está el nivel, no cómo se mueve.\n\nDistinguí siempre valor de variación: el eje vertical responde \"cuánto hay\" y la inclinación responde \"cuánto cambia\". En una horizontal, lo segundo es cero.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1013,7 +1013,7 @@
       -1,
       11
     ],
-    "explanation": "El ritmo de llenado es la pendiente: cuánto sube la recta por cada hora\n$$m = 1$$\nentra mil litros por hora.\n\nSe mide comparando dos horas consecutivas: de una a la siguiente, la altura crece exactamente una unidad. El agua inicial (2 mil litros) es el punto de partida y no afecta el ritmo.\n\nNo leas la altura de la recta como si fuera la pendiente: una recta puede estar alta y subir despacio; el ritmo se ve en la inclinación.",
+    "explanation": "El ritmo de llenado es la pendiente: cuánto sube la recta por cada hora:\n$$m = 1$$\nentra mil litros por hora.\n\nSe mide comparando dos horas consecutivas: de una a la siguiente, la altura crece exactamente una unidad. El agua inicial (2 mil litros) es el punto de partida y no afecta el ritmo.\n\nNo leas la altura de la recta como si fuera la pendiente: una recta puede estar alta y subir despacio; el ritmo se ve en la inclinación.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1043,7 +1043,7 @@
       -1,
       11
     ],
-    "explanation": "El ritmo de derretimiento es la pendiente de la recta: cuánto baja por cada hora de sol\n$$m = -1$$\nun centímetro por hora.\n\nEl signo negativo indica que baja; el valor absoluto, cuánto. En el gráfico: entre una hora y la siguiente, la altura cae exactamente un centímetro.\n\nLa altura inicial de 8 cm es otro dato, la ordenada al origen: dice cuánta nieve había, no a qué velocidad se va.",
+    "explanation": "El ritmo de derretimiento es la pendiente de la recta: cuánto baja por cada hora de sol:\n$$m = -1$$\nUn centímetro por hora.\n\nEl signo negativo indica que baja; el valor absoluto, cuánto. En el gráfico: entre una hora y la siguiente, la altura cae exactamente un centímetro.\n\nLa altura inicial de 8 cm es otro dato, la ordenada al origen: dice cuánta nieve había, no a qué velocidad se va.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1073,7 +1073,7 @@
       -1,
       11
     ],
-    "explanation": "La pendiente es cuánto sube la recta por cada unidad del eje horizontal\n$$m = \\frac{1}{2}$$\nmedio centímetro por minuto.\n\nEn el gráfico la recta sube 1 cm cada 2 minutos: la pendiente es el cociente entre esa subida y ese avance, no la subida sola.\n\nCon pendientes fraccionarias conviene medir sobre varios cuadritos y recién después dividir: leer \"sube 1\" sin mirar cuántos minutos tardó duplica el ritmo real.",
+    "explanation": "La pendiente es cuánto sube la recta por cada unidad del eje horizontal:\n$$m = \\frac{1}{2}$$\nmedio centímetro por minuto.\n\nEn el gráfico la recta sube 1 cm cada 2 minutos: la pendiente es el cociente entre esa subida y ese avance, no la subida sola.\n\nCon pendientes fraccionarias conviene medir sobre varios cuadritos y recién después dividir: leer \"sube 1\" sin mirar cuántos minutos tardó duplica el ritmo real.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1103,7 +1103,7 @@
       -1,
       11
     ],
-    "explanation": "La pendiente de la recta es un tercio\n$$m = \\frac{1}{3}$$\npor cada café el puntaje sube un tercio de punto, así que se necesitan 3 cafés para sumar un punto entero.\n\nLa pregunta invierte la lectura habitual: en lugar de \"cuánto sube por unidad\", pide \"cuántas unidades para subir 1\". Es el recíproco de la pendiente.\n\nPara verificarlo en el gráfico, buscá cuántos pasos a la derecha necesita la recta para ganar una unidad de altura: ahí está la respuesta.",
+    "explanation": "La pendiente de la recta es un tercio:\n$$m = \\frac{1}{3}$$\nPor cada café el puntaje sube un tercio de punto, así que se necesitan 3 cafés para sumar un punto entero.\n\nLa pregunta invierte la lectura habitual: en lugar de \"cuánto sube por unidad\", pide \"cuántas unidades para subir 1\". Es el recíproco de la pendiente.\n\nPara verificarlo en el gráfico, buscá cuántos pasos a la derecha necesita la recta para ganar una unidad de altura: ahí está la respuesta.",
     "reviewed": false,
     "tags": [
       "lectura-y-dado-x"
@@ -1133,7 +1133,7 @@
       -1,
       11
     ],
-    "explanation": "El consumo diario es la pendiente de la recta, en valor absoluto\n$$m = -\\frac{1}{2}$$\nel saldo baja medio GB por día.\n\nEn el gráfico la recta pierde 1 GB cada 2 días: la pendiente divide esa caída por el ancho del tramo.\n\nEl error típico con pendientes fraccionarias es reportar la caída sin dividir por los días que tardó: medí el tramo completo y recién después hacé el cociente.",
+    "explanation": "El consumo diario es la pendiente de la recta, en valor absoluto:\n$$m = -\\frac{1}{2}$$\nEl saldo baja medio GB por día.\n\nEn el gráfico la recta pierde 1 GB cada 2 días: la pendiente divide esa caída por el ancho del tramo.\n\nEl error típico con pendientes fraccionarias es reportar la caída sin dividir por los días que tardó: medí el tramo completo y recién después hacé el cociente.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1253,7 +1253,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(6)$, ubicá $x = 6$ y mirá la altura de la recta\n$$f(6) = \\frac{1}{2} \\cdot 6 + 2 = 5$$\na la semana 6 la enredadera mide 5 cm.\n\nLa recta combina el alto del trasplante (2 cm, la ordenada al origen) con el crecimiento de medio centímetro por semana (la pendiente).\n\nNo repitas el número del eje horizontal como respuesta: la semana consultada y la altura leída son datos distintos, cada uno en su eje.",
+    "explanation": "Para leer $f(6)$, ubicá $x = 6$ y mirá la altura de la recta\n$$f(6) = \\frac{1}{2} \\cdot 6 + 2 = 5$$\nA la semana 6 la enredadera mide 5 cm.\n\nLa recta combina el alto del trasplante (2 cm, la ordenada al origen) con el crecimiento de medio centímetro por semana (la pendiente).\n\nNo repitas el número del eje horizontal como respuesta: la semana consultada y la altura leída son datos distintos, cada uno en su eje.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1283,7 +1283,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\na la semana 6 acumula 6 kilos reciclados.\n\nLa cuenta une el arranque de 2 kilos con el ritmo de dos tercios de kilo semanal: seis semanas aportan 4 kilos más.\n\nCon pendientes fraccionarias es fácil desviarse un kilo en la lectura visual: confirmá el punto con la cuenta antes de responder.",
+    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\nA la semana 6 acumula 6 kilos reciclados.\n\nLa cuenta une el arranque de 2 kilos con el ritmo de dos tercios de kilo semanal: seis semanas aportan 4 kilos más.\n\nCon pendientes fraccionarias es fácil desviarse un kilo en la lectura visual: confirmá el punto con la cuenta antes de responder.",
     "reviewed": false,
     "tags": [
       "pendiente-tasa"
@@ -1313,7 +1313,7 @@
       -1,
       11
     ],
-    "explanation": "Para leer $f(4)$, ubicá $x = 4$ y mirá la altura de la recta\n$$f(4) = -\\frac{1}{2} \\cdot 4 + 8 = 6$$\na las 4 decenas de páginas quedan 6 ml de tinta.\n\nLa recta parte de 8 ml (la carga completa) y baja medio mililitro por cada decena impresa.\n\nCuando el eje horizontal viene en decenas, el desliz típico es contar páginas sueltas: cada paso del gráfico son diez páginas, no una.",
+    "explanation": "Para leer $f(4)$, ubicá $x = 4$ y mirá la altura de la recta\n$$f(4) = -\\frac{1}{2} \\cdot 4 + 8 = 6$$\nA las 4 decenas de páginas quedan 6 ml de tinta.\n\nLa recta parte de 8 ml (la carga completa) y baja medio mililitro por cada decena impresa.\n\nCuando el eje horizontal viene en decenas, el desliz típico es contar páginas sueltas: cada paso del gráfico son diez páginas, no una.",
     "reviewed": false,
     "tags": [
       "raiz-agotamiento"
@@ -1343,7 +1343,7 @@
       -1,
       11
     ],
-    "explanation": "Para saber cuándo la función alcanza un valor, buscá dónde la recta llega a esa altura\n$$x + 3 = 8 \\implies x = 5$$\na los 5 meses el club junta 8 decenas de socios.\n\nLa recta parte de las 3 decenas del grupo fundador y suma una decena por mes: cinco meses después alcanza las 8.\n\nResolvelo trazando la horizontal en $y = 8$ y bajando al eje de meses: leer al revés (subir desde un mes elegido a ojo) suele errarle por uno.",
+    "explanation": "Para saber cuándo la función alcanza un valor, buscá dónde la recta llega a esa altura:\n$$x + 3 = 8 \\implies x = 5$$\nA los 5 meses el club junta 8 decenas de socios.\n\nLa recta parte de las 3 decenas del grupo fundador y suma una decena por mes: cinco meses después alcanza las 8.\n\nResolvelo trazando la horizontal en $y = 8$ y bajando al eje de meses: leer al revés (subir desde un mes elegido a ojo) suele errarle por uno.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1373,7 +1373,7 @@
       -1,
       11
     ],
-    "explanation": "Hay que encontrar cuándo la función baja hasta el valor 4\n$$-x + 10 = 4 \\implies x = 6$$\nal día 6 quedan exactamente 4 galletas.\n\nLa recta parte de 10 y pierde una galleta por día: seis días después está en 4.\n\nEn rectas descendentes, \"llegar a un valor\" significa cruzarlo bajando: trazá la horizontal en $y = 4$ y quedate con el primer día en que la recta la toca.",
+    "explanation": "Hay que encontrar cuándo la función baja hasta el valor 4:\n$$-x + 10 = 4 \\implies x = 6$$\nal día 6 quedan exactamente 4 galletas.\n\nLa recta parte de 10 y pierde una galleta por día: seis días después está en 4.\n\nEn rectas descendentes, \"llegar a un valor\" significa cruzarlo bajando: trazá la horizontal en $y = 4$ y quedate con el primer día en que la recta la toca.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1403,7 +1403,7 @@
       -1,
       11
     ],
-    "explanation": "El agua llega a 6 metros cuando la recta alcanza esa altura\n$$\\frac{1}{2}x + 2 = 6 \\implies x = 8$$\na las 8 horas de llenado.\n\nCon una pendiente de medio metro por hora, subir los 4 metros que faltan desde los 2 iniciales lleva 8 horas.\n\nEl dato inicial descuenta camino: la recta no arranca de cero. Restá primero lo que ya había antes de dividir por el ritmo.",
+    "explanation": "El agua llega a 6 metros cuando la recta alcanza esa altura:\n$$\\frac{1}{2}x + 2 = 6 \\implies x = 8$$\nA las 8 horas de llenado.\n\nCon una pendiente de medio metro por hora, subir los 4 metros que faltan desde los 2 iniciales lleva 8 horas.\n\nEl dato inicial descuenta camino: la recta no arranca de cero. Restá primero lo que ya había antes de dividir por el ritmo.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1433,7 +1433,7 @@
       -1,
       11
     ],
-    "explanation": "El ahorro llega a 4 mil cuando la recta alcanza esa altura\n$$\\frac{1}{3}x + 1 = 4 \\implies x = 9$$\na los 9 años.\n\nDesde el depósito inicial de 1 mil faltan 3 mil, y a un tercio por año eso lleva exactamente 9 años.\n\nCon pendientes chicas, los cruces quedan lejos: no estimes a ojo; despejá o seguí la recta hasta el valor pedido, porque un año de error es fácil de cometer.",
+    "explanation": "El ahorro llega a 4 mil cuando la recta alcanza esa altura:\n$$\\frac{1}{3}x + 1 = 4 \\implies x = 9$$\nA los 9 años.\n\nDesde el depósito inicial de 1 mil faltan 3 mil, y a un tercio por año eso lleva exactamente 9 años.\n\nCon pendientes chicas, los cruces quedan lejos: no estimes a ojo; despejá o seguí la recta hasta el valor pedido, porque un año de error es fácil de cometer.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1463,7 +1463,7 @@
       -1,
       11
     ],
-    "explanation": "Los 6 capítulos se alcanzan cuando la recta llega a esa altura\n$$\\frac{2}{3}x + 2 = 6 \\implies x = 6$$\nen 6 noches.\n\nYa había 2 capítulos vistos (la ordenada al origen) y el ritmo es de dos tercios por noche: las 6 noches aportan los 4 que faltaban.\n\nQue la respuesta coincida con el valor buscado (6 y 6) es una casualidad de este gráfico: verificá siempre con el despeje en lugar de asumir simetrías.",
+    "explanation": "Los 6 capítulos se alcanzan cuando la recta llega a esa altura:\n$$\\frac{2}{3}x + 2 = 6 \\implies x = 6$$\nEn 6 noches.\n\nYa había 2 capítulos vistos (la ordenada al origen) y el ritmo es de dos tercios por noche: las 6 noches aportan los 4 que faltaban.\n\nQue la respuesta coincida con el valor buscado (6 y 6) es una casualidad de este gráfico: verificá siempre con el despeje en lugar de asumir simetrías.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"
@@ -1493,7 +1493,7 @@
       -1,
       11
     ],
-    "explanation": "El crédito baja a 4 cuando la recta desciende hasta esa altura\n$$-\\frac{1}{2}x + 9 = 4 \\implies x = 10$$\nal día 10 de cursada.\n\nDesde los 9 cientos iniciales hay que perder 5, y a medio ciento por día eso tarda 10 días.\n\nEn descensos suaves conviene resolver la ecuación en vez de contar cuadritos: la recta cruza alturas intermedias (4,5, por ejemplo) que invitan a responder un día antes o después del correcto.",
+    "explanation": "El crédito baja a 4 cuando la recta desciende hasta esa altura:\n$$-\\frac{1}{2}x + 9 = 4 \\implies x = 10$$\nal día 10 de cursada.\n\nDesde los 9 cientos iniciales hay que perder 5, y a medio ciento por día eso tarda 10 días.\n\nEn descensos suaves conviene resolver la ecuación en vez de contar cuadritos: la recta cruza alturas intermedias (4,5, por ejemplo) que invitan a responder un día antes o después del correcto.",
     "reviewed": false,
     "tags": [
       "pendiente-diferencia"

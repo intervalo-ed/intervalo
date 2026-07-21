@@ -18,7 +18,9 @@
     "graph_view": null,
     "explanation": "Antes de aplicar la regla del producto, conviene revisar si alguno de los factores es simplemente una constante.\n\nEn $4\\sin x$, el $4$ no depende de $x$, así que corresponde tratarlo como **múltiplo escalar** por linealidad, sin necesidad de derivar dos factores. La derivada es $4 \\cdot (\\sin x)' = 4\\cos x$.\n\nAplicar la **regla del producto** acá no sería incorrecto en el resultado, pero es un rodeo innecesario frente a una vía mucho más directa.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -37,9 +39,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar la regla del producto conviene revisar si el producto se puede **distribuir** en un polinomio más simple.\n\n$$(x+2)(x-2) = x^2 - 4$$\nUna vez distribuida, la derivada se calcula directamente por la regla de la potencia: $(x^2 - 4)' = 2x$.\n\nEste atajo algebraico evita el trabajo de identificar $u$, $v$, $u'$ y $v'$ por separado cuando el polinomio resultante es trivial de derivar.",
+    "explanation": "Antes de aplicar la regla del producto conviene revisar si el producto se puede **distribuir** en un polinomio más simple.\n$$(x+2)(x-2) = x^2 - 4$$\nUna vez distribuida, la derivada se calcula directamente por la regla de la potencia: $(x^2 - 4)' = 2x$.\n\nEste atajo algebraico evita el trabajo de identificar $u$, $v$, $u'$ y $v'$ por separado cuando el polinomio resultante es trivial de derivar.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -58,9 +62,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ambos factores son potencias de la misma base, conviene fusionarlas en una sola potencia antes de derivar.\n\n$$x^2 \\cdot x^3 = x^{2+3} = x^5$$\nLa derivada de una única potencia es directa por la regla de la potencia: $(x^5)' = 5x^4$.\n\nEste reescribimiento evita el trabajo adicional de identificar dos factores separados e invocar la **regla del producto**.",
+    "explanation": "Cuando ambos factores son potencias de la misma base, conviene fusionarlas en una sola potencia antes de derivar.\n$$x^2 \\cdot x^3 = x^{2+3} = x^5$$\nLa derivada de una única potencia es directa por la regla de la potencia: $(x^5)' = 5x^4$.\n\nEste reescribimiento evita el trabajo adicional de identificar dos factores separados e invocar la **regla del producto**.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -79,9 +85,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo escalar**, no como un segundo factor.\n\n$$(7\\cos x)' = 7 \\cdot (\\cos x)' = -7\\sin x$$\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto.",
+    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo escalar**, no como un segundo factor.\n$$(7\\cos x)' = 7 \\cdot (\\cos x)' = -7\\sin x$$\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -100,9 +108,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un producto de dos binomios siempre se puede **distribuir** en un polinomio, y ese polinomio se deriva término a término.\n\n$$(x-1)(x+5) = x^2+4x-5$$\nLa derivada es $(x^2+4x-5)' = 2x+4$.\n\nDistribuir primero evita tener que identificar factores $u$ y $v$ para una expresión que, en el fondo, es apenas un polinomio cuadrático simple.",
+    "explanation": "Un producto de dos binomios siempre se puede **distribuir** en un polinomio, y ese polinomio se deriva término a término.\n$$(x-1)(x+5) = x^2+4x-5$$\nLa derivada es $(x^2+4x-5)' = 2x+4$.\n\nDistribuir primero evita tener que identificar factores $u$ y $v$ para una expresión que, en el fondo, es apenas un polinomio cuadrático simple.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -121,9 +131,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos potencias de la misma base, incluso con exponentes negativos, se fusionan sumando los exponentes.\n\n$$x^4 \\cdot x^{-1} = x^{4-1} = x^3$$\nLa derivada de la potencia resultante es $(x^3)' = 3x^2$.\n\nEste reescribimiento evita el trabajo innecesario de armar el producto de dos factores por separado cuando ya disponemos de una regla directa para potencias.",
+    "explanation": "Dos potencias de la misma base, incluso con exponentes negativos, se fusionan sumando los exponentes.\n$$x^4 \\cdot x^{-1} = x^{4-1} = x^3$$\nLa derivada de la potencia resultante es $(x^3)' = 3x^2$.\n\nEste reescribimiento evita el trabajo innecesario de armar el producto de dos factores por separado cuando ya disponemos de una regla directa para potencias.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -142,9 +154,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n\n$$(-3e^x)' = -3 \\cdot (e^x)' = -3e^x$$\nTratarlo como **múltiplo escalar** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.",
+    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n$$(-3e^x)' = -3 \\cdot (e^x)' = -3e^x$$\nTratarlo como **múltiplo escalar** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Considerá la función:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -163,9 +177,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto de un binomio por sí mismo es un caso particular que conviene **distribuir** antes de derivar, igual que cualquier otro producto de binomios.\n\n$$(x+3)(x+3) = (x+3)^2 = x^2+6x+9$$\nUna vez distribuido, el polinomio se deriva directamente: $(x^2+6x+9)' = 2x+6$.\n\nEste atajo algebraico evita invocar la **regla del producto** cuando una distribución previa simplifica notablemente el cálculo.",
+    "explanation": "El producto de un binomio por sí mismo es un caso particular que conviene **distribuir** antes de derivar, igual que cualquier otro producto de binomios.\n$$(x+3)(x+3) = (x+3)^2 = x^2+6x+9$$\nUna vez distribuido, el polinomio se deriva directamente: $(x^2+6x+9)' = 2x+6$.\n\nEste atajo algebraico evita invocar la **regla del producto** cuando una distribución previa simplifica notablemente el cálculo.",
     "reviewed": false,
-    "tags": ["falsos-positivos-alternativas-algebraicas"]
+    "tags": [
+      "falsos-positivos-alternativas-algebraicas"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = x^2 \\ln x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -184,9 +200,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n\n$$u=x^2, \\quad v=\\ln x$$\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$) y logaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
+    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n$$u=x^2, \\quad v=\\ln x$$\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$) y logaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\, e^x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -205,9 +223,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n\n$$u=x^{1/2}, \\quad v=e^x$$\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$) y exponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
+    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n$$u=x^{1/2}, \\quad v=e^x$$\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$) y exponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = x\\sin x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -226,9 +246,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x\\sin x$ hay dos familias elementales claramente distintas: una potencial y una trigonométrica.\n\n$$u=x, \\quad v=\\sin x$$\nCon esta separación, $u$ se deriva por la regla de la potencia (dando $u'=1$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** combinando correctamente los dos términos $u'v$ y $uv'$ sin mezclar las derivadas.",
+    "explanation": "En $x\\sin x$ hay dos familias elementales claramente distintas: una potencial y una trigonométrica.\n$$u=x, \\quad v=\\sin x$$\nCon esta separación, $u$ se deriva por la regla de la potencia (dando $u'=1$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** combinando correctamente los dos términos $u'v$ y $uv'$ sin mezclar las derivadas.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = x^3\\cos x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -247,9 +269,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El corte natural entre familias elementales deja toda la potencia de un lado y la función trigonométrica del otro.\n\n$$u=x^3, \\quad v=\\cos x$$\nAhí $u$ se deriva por la regla de la potencia (dando $u'=3x^2$) y $v$ por la derivada trigonométrica del coseno (dando $v'=-\\sin x$).\n\nCortar en el medio de una potencia, dejando parte de $x^3$ mezclada con $\\cos x$, complica innecesariamente la identificación de los factores y sus derivadas.",
+    "explanation": "El corte natural entre familias elementales deja toda la potencia de un lado y la función trigonométrica del otro.\n$$u=x^3, \\quad v=\\cos x$$\nAhí $u$ se deriva por la regla de la potencia (dando $u'=3x^2$) y $v$ por la derivada trigonométrica del coseno (dando $v'=-\\sin x$).\n\nCortar en el medio de una potencia, dejando parte de $x^3$ mezclada con $\\cos x$, complica innecesariamente la identificación de los factores y sus derivadas.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = e^x\\ln x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -268,9 +292,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^x\\ln x$ conviven dos familias elementales distintas: la exponencial y la logarítmica, cada una con su propia fórmula de derivación.\n\n$$u=e^x, \\quad v=\\ln x$$\nCon esta separación, $u$ se deriva con la regla de la exponencial (dando $u'=e^x$) y $v$ con la derivada del logaritmo (dando $v'=1/x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** sin mezclar ambos procedimientos de derivación.",
+    "explanation": "En $e^x\\ln x$ conviven dos familias elementales distintas: la exponencial y la logarítmica, cada una con su propia fórmula de derivación.\n$$u=e^x, \\quad v=\\ln x$$\nCon esta separación, $u$ se deriva con la regla de la exponencial (dando $u'=e^x$) y $v$ con la derivada del logaritmo (dando $v'=1/x$).\n\nSeparar cada familia de funciones es lo que permite aplicar la **regla del producto** sin mezclar ambos procedimientos de derivación.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = x^2\\tan x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -289,9 +315,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier producto de una potencia y una función trigonométrica, el corte va justo en el límite entre ambas familias.\n\n$$u=x^2, \\quad v=\\tan x$$\nCon esta descomposición, $u$ se deriva por la regla de la potencia (dando $u'=2x$) y $v$ por la derivada trigonométrica de la tangente (dando $v'=\\sec^2 x$).\n\nSeparar cada familia de funciones permite aplicar la **regla del producto** de forma clara, sin confundir los factores ni sus respectivas derivadas.",
+    "explanation": "Igual que con cualquier producto de una potencia y una función trigonométrica, el corte va justo en el límite entre ambas familias.\n$$u=x^2, \\quad v=\\tan x$$\nCon esta descomposición, $u$ se deriva por la regla de la potencia (dando $u'=2x$) y $v$ por la derivada trigonométrica de la tangente (dando $v'=\\sec^2 x$).\n\nSeparar cada familia de funciones permite aplicar la **regla del producto** de forma clara, sin confundir los factores ni sus respectivas derivadas.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   },
   {
     "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
@@ -310,8 +338,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n\n$$u=x^{1/2}, \\quad v=\\sin x$$\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
+    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n$$u=x^{1/2}, \\quad v=\\sin x$$\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
     "reviewed": false,
-    "tags": ["identificacion-esqueleto-y-factores"]
+    "tags": [
+      "identificacion-esqueleto-y-factores"
+    ]
   }
 ]

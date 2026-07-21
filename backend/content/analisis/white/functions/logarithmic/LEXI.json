@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$, buscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n$$2^y = \\frac{1}{2} = 2^{-1} \\implies y = -1$$\nCuando el argumento está entre $0$ y $1$ (para base $b > 1$), el logaritmo es negativo.",
+    "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$, buscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n$$2^y = \\frac{1}{2} = 2^{-1} \\implies y = -1$$\nCuando el argumento está entre $0$ y $1$ (para base $b > 1$), el logaritmo es negativo.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del cociente**:\n$$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$$\nEjemplo: $\\log_2\\!\\left(\\frac{8}{2}\\right) = \\log_2(8) - \\log_2(2) = 3 - 1 = 2 = \\log_2(4)$ \n\nEl logaritmo convierte divisiones en restas, igual que convierte multiplicaciones en sumas.",
+    "explanation": "La **propiedad del cociente**:\n$$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$$\nEjemplo: $\\log_2\\!\\left(\\frac{8}{2}\\right) = \\log_2(8) - \\log_2(2) = 3 - 1 = 2 = \\log_2(4)$ \n\nEl logaritmo convierte divisiones en restas, igual que convierte multiplicaciones en sumas.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Propiedad fundamental: $\\log_b(b) = 1$ para cualquier **base** válida $b$:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\nEl punto $(b,\\, 1)$ siempre pertenece a la gráfica de $\\log_b(x)$.\n\nEjemplos: $\\log_2(2) = 1$, $\\log_3(3) = 1$, $\\log_{10}(10) = 1$, $\\ln(e) = 1$.",
+    "explanation": "Propiedad fundamental: $\\log_b(b) = 1$ para cualquier **base** válida $b$:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\nEl punto $(b,\\, 1)$ siempre pertenece a la gráfica de $\\log_b(x)$.\n\nEjemplos: $\\log_2(2) = 1$, $\\log_3(3) = 1$, $\\log_{10}(10) = 1$, $\\ln(e) = 1$.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_{0{,}5}(2) = y \\iff 0{,}5^y = 2$.\n\nComo $0{,}5 = 2^{-1}$, tenemos $(2^{-1})^y = 2^1$, es decir $2^{-y} = 2^1$, luego $y = -1$.\n\nLos logaritmos con **base** $0 < b < 1$ son **decrecientes**: valores mayores del argumento dan logaritmos negativos. Nota: $\\log_{0{,}5}(x) = -\\log_2(x)$.",
+    "explanation": "$\\log_{0{,}5}(2) = y \\iff 0{,}5^y = 2$.\n\nComo $0{,}5 = 2^{-1}$, tenemos $(2^{-1})^y = 2^1$, es decir $2^{-y} = 2^1$, luego $y = -1$.\n\nLos logaritmos con **base** $0 < b < 1$ son **decrecientes**: valores mayores del argumento dan logaritmos negativos. Nota: $\\log_{0{,}5}(x) = -\\log_2(x)$.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función **inyectiva** nunca asigna el mismo valor a dos entradas distintas.\n\nLa logarítmica es estrictamente monótona, por lo que es inyectiva. Esto permite cancelar logaritmos en ecuaciones:\n\nSi $\\log_b(a) = \\log_b(c)$ con $a, c > 0$, entonces $a = c$.",
+    "explanation": "Una función **inyectiva** nunca asigna el mismo valor a dos entradas distintas.\n\nLa logarítmica es estrictamente monótona, por lo que es inyectiva. Esto permite cancelar logaritmos en ecuaciones:\n\nSi $\\log_b(a) = \\log_b(c)$ con $a, c > 0$, entonces $a = c$.\n\nLa inyectividad es una propiedad \"silenciosa\" de los logaritmos que a menudo das por sentada: si te dicen que $\\log_2(a) = \\log_2(c)$, automáticamente pensás que $a = c$ sin dudas. Eso es porque la función logarítmica es estrictamente creciente (o decreciente si la base está entre 0 y 1), lo que impide que dos valores distintos caigan en la misma salida. Esta propiedad hace que la logarítmica sea invertible, a diferencia de funciones como $x^2$ que sí asigna dos entradas a la misma salida.",
     "reviewed": false,
     "tags": [
       "propiedad-inyectividad-log"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por $-1$ produce una reflexión respecto al eje $X$: los valores se invierten.\n\n$g(x) = \\log_2(x)$ es creciente; $f(x) = -\\log_2(x)$ es decreciente.\n\nAmbas comparten **dominio** ($x > 0$), **imagen** ($\\mathbb{R}$), **asíntota** vertical ($x = 0$) y el punto $(1, 0)$.",
+    "explanation": "Multiplicar por $-1$ produce una reflexión respecto al eje $X$: los valores se invierten.\n\n$g(x) = \\log_2(x)$ es creciente; $f(x) = -\\log_2(x)$ es decreciente.\n\nAmbas comparten **dominio** ($x > 0$), **imagen** ($\\mathbb{R}$), **asíntota** vertical ($x = 0$) y el punto $(1, 0)$.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Propiedad universal: $\\log_b(1) = 0$ para cualquier base válida $b$.\n\nPor qué: $b^0 = 1$ siempre, entonces $\\log_b(1) = 0$.\n\nNo confundir con $f(0) = \\ln(0)$, que **no existe** (el **dominio** es $x > 0$). El logaritmo de $1$ es cero, no el logaritmo de cero.",
+    "explanation": "Propiedad universal: $\\log_b(1) = 0$ para cualquier base válida $b$.\n\nPor qué: $b^0 = 1$ siempre, entonces $\\log_b(1) = 0$.\n\nNo confundir con $f(0) = \\ln(0)$, que **no existe** (el **dominio** es $x > 0$). El logaritmo de $1$ es cero, no el logaritmo de cero.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $\\log_2(x)$ es $\\mathbb{R}$. Multiplicar por $-1$ refleja la curva, pero no la acota:\n\nCuando $\\log_2(x) \\to -\\infty$, $-\\log_2(x) \\to +\\infty$. Cuando $\\log_2(x) \\to +\\infty$, $-\\log_2(x) \\to -\\infty$.\n\nLa imagen sigue siendo $\\mathbb{R}$.",
+    "explanation": "La **imagen** de $\\log_2(x)$ es $\\mathbb{R}$. Multiplicar por $-1$ refleja la curva, pero no la acota:\n\nCuando $\\log_2(x) \\to -\\infty$, $-\\log_2(x) \\to +\\infty$. Cuando $\\log_2(x) \\to +\\infty$, $-\\log_2(x) \\to -\\infty$.\n\nLa imagen sigue siendo $\\mathbb{R}$.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "imagen-basica"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.",
+    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"

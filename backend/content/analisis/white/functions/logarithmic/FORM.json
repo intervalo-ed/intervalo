@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(4) = \\log_2(4)$, hay que encontrar el exponente al que hay que elevar $2$ para obtener $4$:\n$$\\log_2(4) = y \\iff 2^y = 4$$\nComo $2^2 = 4$, resulta $y = 2$. Entonces:\n$$f(4) = \\log_2(4) = 2$$\nEsto corresponde al punto $(4,\\, 2)$ en la gráfica de $f(x) = \\log_2(x)$.",
+    "explanation": "Para evaluar $f(4) = \\log_2(4)$, hay que encontrar el exponente al que hay que elevar $2$ para obtener $4$:\n$$\\log_2(4) = y \\iff 2^y = 4$$\nComo $2^2 = 4$, resulta $y = 2$. Entonces:\n$$f(4) = \\log_2(4) = 2$$\nEsto corresponde al punto $(4,\\, 2)$ en la gráfica de $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El argumento debe ser positivo:\n$$3x - 6 > 0 \\implies 3x > 6 \\implies x > 2$$\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNota: no confundir el coeficiente $3$ con la asíntota. La asíntota es donde el argumento es cero, es decir $3x = 6 \\implies x = 2$, no $x = 3$ ni $x = 6$.",
+    "explanation": "El argumento debe ser positivo:\n$$3x - 6 > 0 \\implies 3x > 6 \\implies x > 2$$\nDominio: $(2, +\\infty)$. Asíntota vertical: $x = 2$.\n\nNota: no confundir el coeficiente $3$ con la asíntota. La asíntota es donde el argumento es cero, es decir $3x = 6 \\implies x = 2$, no $x = 3$ ni $x = 6$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -463,7 +463,7 @@
       -3,
       5
     ],
-    "explanation": "Claves para leer el gráfico:\n1. Asíntota vertical en $x = 0$ → argumento es $x$ sin desplazamiento.\n2. Pasa por $(1, 0)$ → $f(1) = 0$ → no hay desplazamiento vertical.\n3. Es creciente → base $b > 1$.\n4. Pasa por $(2, 1)$ → $f(2) = 1$ → base $b = 2$.\n\nConclusión: $f(x) = \\log_2(x)$.",
+    "explanation": "Claves para leer el gráfico:\n1. Asíntota vertical en $x = 0$ → argumento es $x$ sin desplazamiento.\n2. Pasa por $(1, 0)$ → $f(1) = 0$ → no hay desplazamiento vertical.\n3. Es creciente → base $b > 1$.\n4. Pasa por $(2, 1)$ → $f(2) = 1$ → base $b = 2$.\n\nConclusión: $f(x) = \\log_2(x)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -723,7 +723,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$, o sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.",
+    "explanation": "Asíntota vertical en $x = 3$ → el argumento se anula en $x = 3$, o sea argumento $= (x - 3)$.\n\nVerificamos el punto $(4, 0)$: $\\log_2(4 - 3) = \\log_2(1) = 0$ .\n\nLa base $2$ se confirma porque para $x = 5$: $\\log_2(5 - 3) = \\log_2(2) = 1$, es decir el punto $(5, 1)$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-desde-formula"

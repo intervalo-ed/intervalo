@@ -1,13 +1,15 @@
 [
   {
-    "question": "Antes de calcular un límite, conviene reconocer el caso de **factorización** que corresponde. Considerá la expresión\n$$x^2 - 25$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Antes de calcular un límite, conviene reconocer el caso de **factorización** que corresponde. Considerá la expresión:\n$$x^2 - 25$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Diferencia de cuadrados",
       "Factor común"
     ],
     "correct_index": 1,
-    "tags": ["identificacion-casos-factoreo"],
+    "tags": [
+      "identificacion-casos-factoreo"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, $x^2-25=(x-5)(x+5)$ es diferencia de cuadrados.",
     "feedback_incorrect": [
@@ -21,14 +23,16 @@
     "reviewed": false
   },
   {
-    "question": "Considerá ahora la expresión\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
+    "question": "Considerá ahora la expresión:\n$$x^2 + 25$$\n¿Qué caso de factoreo corresponde a esta expresión dentro de los números reales?",
     "options": [
       "Diferencia de cuadrados",
       "Trinomio cuadrado perfecto",
       "No factoriza en R"
     ],
     "correct_index": 2,
-    "tags": ["identificacion-casos-factoreo"],
+    "tags": [
+      "identificacion-casos-factoreo"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, una suma de dos cuadrados no se factoriza en $\\mathbb{R}$.",
     "feedback_incorrect": [
@@ -42,14 +46,16 @@
     "reviewed": false
   },
   {
-    "question": "Un enunciado presenta la expresión\n$$x^2 + 8x + 16$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Un enunciado presenta la expresión:\n$$x^2 + 8x + 16$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
       "Trinomio cuadrado perfecto",
       "Trinomio general",
       "Factor común"
     ],
     "correct_index": 0,
-    "tags": ["identificacion-casos-factoreo"],
+    "tags": [
+      "identificacion-casos-factoreo"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, $8x$ es exactamente el doble producto de $x$ y $4$.",
     "feedback_incorrect": [
@@ -63,14 +69,16 @@
     "reviewed": false
   },
   {
-    "question": "Considerá la expresión\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
+    "question": "Considerá la expresión:\n$$3x^2 + 9x$$\n¿Qué caso de factoreo corresponde a esta expresión?",
     "options": [
       "Trinomio general",
       "Factor común",
       "Diferencia de cuadrados"
     ],
     "correct_index": 1,
-    "tags": ["identificacion-casos-factoreo"],
+    "tags": [
+      "identificacion-casos-factoreo"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, $3x$ es el máximo factor que comparten ambos términos.",
     "feedback_incorrect": [
@@ -84,14 +92,16 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la **factorización** correcta de la expresión\n$$x^2 + 7x + 6$$\nconsiderando el caso de trinomio que corresponde?",
+    "question": "¿Cuál es la **factorización** correcta de la expresión:\n$$x^2 + 7x + 6$$\nconsiderando el caso de trinomio que corresponde?",
     "options": [
       "$(x+2)(x+3)$",
       "$(x-1)(x-6)$",
       "$(x+1)(x+6)$"
     ],
     "correct_index": 2,
-    "tags": ["identificacion-casos-factoreo"],
+    "tags": [
+      "identificacion-casos-factoreo"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, $1$ y $6$ suman $7$ y multiplican $6$.",
     "feedback_incorrect": [
@@ -112,7 +122,9 @@
       "$x$"
     ],
     "correct_index": 0,
-    "tags": ["teorema-del-factor"],
+    "tags": [
+      "teorema-del-factor"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, el factor obligatorio es $(x-4)$.",
     "feedback_incorrect": [
@@ -133,7 +145,9 @@
       "$(x+2)^2$"
     ],
     "correct_index": 1,
-    "tags": ["teorema-del-factor"],
+    "tags": [
+      "teorema-del-factor"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, el factor obligatorio es $(x+2)$.",
     "feedback_incorrect": [
@@ -154,7 +168,9 @@
       "$x$"
     ],
     "correct_index": 2,
-    "tags": ["teorema-del-factor"],
+    "tags": [
+      "teorema-del-factor"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, cuando $a=0$ el factor obligatorio es simplemente $x$.",
     "feedback_incorrect": [
@@ -175,7 +191,9 @@
       "Que la función es discontinua en todo su dominio"
     ],
     "correct_index": 0,
-    "tags": ["teorema-del-factor"],
+    "tags": [
+      "teorema-del-factor"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, esa es la garantía central del teorema del factor.",
     "feedback_incorrect": [
@@ -196,7 +214,9 @@
       "Que el límite tiende a infinito"
     ],
     "correct_index": 1,
-    "tags": ["naturaleza-indeterminacion"],
+    "tags": [
+      "naturaleza-indeterminacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, la indeterminación señala que hay un factor común para cancelar.",
     "feedback_incorrect": [
@@ -217,7 +237,9 @@
       "Vale $1$"
     ],
     "correct_index": 0,
-    "tags": ["naturaleza-indeterminacion"],
+    "tags": [
+      "naturaleza-indeterminacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, 0/0 es una indeterminación, no un número.",
     "feedback_incorrect": [
@@ -238,7 +260,9 @@
       "Factorizar numerador y denominador para buscar el factor cancelable"
     ],
     "correct_index": 2,
-    "tags": ["naturaleza-indeterminacion"],
+    "tags": [
+      "naturaleza-indeterminacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, la indeterminación es una instrucción para factorizar y cancelar.",
     "feedback_incorrect": [
@@ -252,14 +276,16 @@
     "reviewed": false
   },
   {
-    "question": "Un límite presenta la expresión\n$$\\frac{x^2-9}{x-3}$$\nque da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
+    "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nque da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
     "options": [
       "Que ambos, numerador y denominador, sean expresiones polinómicas sin raíces",
       "Que el denominador tenga grado mayor al del numerador",
       "Que el límite tienda a un número negativo"
     ],
     "correct_index": 0,
-    "tags": ["racionalizacion-vs-factorizacion"],
+    "tags": [
+      "racionalizacion-vs-factorizacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, sin raíces de por medio, la factorización polinómica es la herramienta que corresponde.",
     "feedback_incorrect": [
@@ -273,14 +299,16 @@
     "reviewed": false
   },
   {
-    "question": "Un límite presenta la expresión\n$$\\frac{\\sqrt{x}-2}{x-4}$$\nque da 0/0 al sustituir $x=4$. ¿Se puede resolver esta indeterminación aplicando **factorización** polinómica?",
+    "question": "Un límite presenta la expresión:\n$$\\frac{\\sqrt{x}-2}{x-4}$$\nque da 0/0 al sustituir $x=4$. ¿Se puede resolver esta indeterminación aplicando **factorización** polinómica?",
     "options": [
       "No, la raíz cuadrada impide factorizar como si fuera un polinomio",
       "Sí, cancelando directamente la raíz con el denominador",
       "Sí, elevando toda la expresión al cuadrado antes de sustituir"
     ],
     "correct_index": 0,
-    "tags": ["racionalizacion-vs-factorizacion"],
+    "tags": [
+      "racionalizacion-vs-factorizacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, la raíz cuadrada rompe la estructura polinómica que la factorización necesita.",
     "feedback_incorrect": [
@@ -301,7 +329,9 @@
       "La presencia de una raíz cuadrada en la expresión"
     ],
     "correct_index": 2,
-    "tags": ["racionalizacion-vs-factorizacion"],
+    "tags": [
+      "racionalizacion-vs-factorizacion"
+    ],
     "has_math": true,
     "feedback_correct": "Correcto, una raíz cuadrada rompe la estructura polinómica necesaria para factorizar.",
     "feedback_incorrect": [

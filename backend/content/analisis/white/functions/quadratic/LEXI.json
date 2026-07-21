@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "El **vértice** es el punto extremo de la **parábola**: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n$$x_v = -\\frac{b}{2a}$$\nluego $y_v = f(x_v)$. Para $f(x) = x^2 - 4x + 3$: $x_v = -(-4)/(2 \\cdot 1) = 2$, $y_v = 4 - 8 + 3 = -1$. El vértice es $(2, -1)$.\n\nLas **raíces** son las intersecciones con el eje $X$, la **ordenada al origen** es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas.",
+    "explanation": "El **vértice** es el punto extremo de la **parábola**: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n$$x_v = -\\frac{b}{2a}$$\nLuego $y_v = f(x_v)$. Para $f(x) = x^2 - 4x + 3$: $x_v = -(-4)/(2 \\cdot 1) = 2$, $y_v = 4 - 8 + 3 = -1$. El vértice es $(2, -1)$.\n\nLas **raíces** son las intersecciones con el eje $X$, la **ordenada al origen** es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "Considerá las dos **parábolas**\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\nEntre las dos, ¿qué le pasa a la que tiene $|a|$ más grande?",
+    "question": "Considerá las dos **parábolas**:\n$$f(x) = 3x^2 + 1$$\n$$g(x) = 0{,}5x^2 + 1$$\nEntre las dos, ¿qué le pasa a la que tiene $|a|$ más grande?",
     "options": [
       "Es más angosta o cerrada",
       "Es más abierta",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "Considerá las dos **parábolas**\n$$p(x) = 0{,}2x^2 - 3$$\n$$q(x) = 4x^2 - 3$$\n¿Cuál de las dos se ve más abierta o ancha?",
+    "question": "Considerá las dos **parábolas**:\n$$p(x) = 0{,}2x^2 - 3$$\n$$q(x) = 4x^2 - 3$$\n¿Cuál de las dos se ve más abierta o ancha?",
     "options": [
       "$p(x) = 0{,}2x^2 - 3$",
       "$q(x) = 4x^2 - 3$",

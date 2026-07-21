@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **derivada** de una función en un punto se define mediante el límite\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
+    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
     "options": [
       "El incremento que tiende a cero",
       "El punto fijo donde se calcula la derivada",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "La **derivada** de una función se define mediante el límite\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$ en esta expresión?",
+    "question": "La **derivada** de una función se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$ en esta expresión?",
     "options": [
       "La variable independiente que recorre todo el dominio",
       "El punto fijo donde se evalúa la derivada",
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n\n$$\\begin{aligned} \\text{numerador} &= f(a+h) - f(a) \\\\ &= \\text{variación de } y \\end{aligned}$$\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
+    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n$$\\begin{aligned} \\text{numerador} &= f(a+h) - f(a) \\\\ &= \\text{variación de } y \\end{aligned}$$\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n\n$$\\frac{f(a+h) - f(a)}{h}$$\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
+    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n$$\\frac{f(a+h) - f(a)}{h}$$\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"

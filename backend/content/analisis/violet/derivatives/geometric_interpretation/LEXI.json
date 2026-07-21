@@ -18,7 +18,9 @@
     "graph_view": null,
     "explanation": "La **recta tangente** es la que toca a la curva en un único punto y, en ese punto, apunta exactamente en la misma dirección que la curva.\nEsta coincidencia de dirección es lo que la distingue de cualquier otra recta que simplemente pase por ese punto sin seguir la misma inclinación.\nConviene no confundirla con la secante, que necesita dos puntos de contacto con la curva para quedar definida.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "¿Cómo se llama la recta que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
@@ -39,7 +41,9 @@
     "graph_view": null,
     "explanation": "La **recta secante** queda definida por dos puntos distintos de la curva, y su pendiente coincide con la tasa de cambio media de $f$ entre esos dos puntos.\nA diferencia de la tangente, la secante no necesita coincidir con la dirección instantánea de la curva en ningún punto particular.\nEsta distinción es la base para entender por qué, al acercar los dos puntos, la secante se transforma gradualmente en la tangente.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "¿Cómo se llama el punto donde la recta tangente toca a la curva?",
@@ -60,7 +64,9 @@
     "graph_view": null,
     "explanation": "El **punto de tangencia** es el lugar exacto donde la recta tangente entra en contacto con la curva, y sus coordenadas son $(a, f(a))$ para el punto $a$ elegido.\nEse punto funciona como el ancla de toda la recta tangente, a partir de él se construye la ecuación completa usando la pendiente $f'(a)$.\nNo hay que confundirlo con el origen de coordenadas, que es siempre $(0,0)$ sin importar en qué punto se trace la tangente.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "La pendiente de la recta secante entre dos puntos de $f$ representa:",
@@ -81,7 +87,9 @@
     "graph_view": null,
     "explanation": "Toda **recta secante** representa una tasa de cambio media, porque su pendiente compara la variación de $f$ entre dos puntos separados del dominio.\nEsta tasa promedio no dice nada sobre qué tan rápido cambia $f$ en un punto puntual, solo resume el cambio total entre los dos extremos elegidos.\nRecién cuando esos dos puntos se acercan hasta coincidir, la tasa media se transforma en la tasa instantánea de la tangente.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "La pendiente de la recta tangente en un punto representa:",
@@ -102,7 +110,9 @@
     "graph_view": null,
     "explanation": "La pendiente de la **recta tangente** en un punto coincide, por definición, con la tasa de cambio instantánea de $f$ ahí, es decir, con $f'(a)$.\nEste valor describe qué tan rápido cambia la función justo en ese punto, sin necesidad de comparar con ningún otro punto del dominio.\nConfundir esta pendiente con $f(a)$ es un error frecuente, $f(a)$ es apenas la altura del punto de tangencia, no su inclinación.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "Si se toman dos puntos muy cercanos entre sí sobre la curva, sin tomar ningún límite, la recta que los une:",
@@ -123,7 +133,9 @@
     "graph_view": null,
     "explanation": "Mientras existan dos puntos distintos sobre la curva, aunque estén muy cerca uno del otro, la recta que los une sigue siendo una **secante**.\nEsta recta se transforma en tangente recién cuando se toma el límite formal, haciendo que la distancia entre los dos puntos tienda exactamente a cero.\nEste matiz suele pasarse por alto, la cercanía visual no reemplaza al proceso de límite que define matemáticamente la tangente.",
     "reviewed": false,
-    "tags": ["vocabulario-geometrico-secante-tangente"]
+    "tags": [
+      "vocabulario-geometrico-secante-tangente"
+    ]
   },
   {
     "question": "En la ecuación punto-pendiente de la recta tangente:\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa $f'(a)$?",
@@ -144,7 +156,9 @@
     "graph_view": null,
     "explanation": "En la ecuación punto-pendiente de la **recta tangente**, el coeficiente que multiplica a $(x-a)$ es siempre la **pendiente** de la recta, es decir, $f'(a)$.\nEste valor mide qué tan inclinada queda la recta, mientras que el resto de la fórmula se encarga de anclarla en el punto correcto del plano.\nConfundir $f'(a)$ con $f(a)$ es el error más frecuente de esta fórmula, uno es la pendiente y el otro es la altura del punto de tangencia.",
     "reviewed": false,
-    "tags": ["anatomia-formula-punto-pendiente"]
+    "tags": [
+      "anatomia-formula-punto-pendiente"
+    ]
   },
   {
     "question": "En la misma ecuación:\n$$y = f'(a)(x-a) + f(a)$$\n¿qué representa el punto $(a, f(a))$?",
@@ -165,7 +179,9 @@
     "graph_view": null,
     "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$.\nUn error típico es pensar que este punto es la ordenada al origen, que solo coincidiría con $(a, f(a))$ en el caso particular de que $a=0$.",
     "reviewed": false,
-    "tags": ["anatomia-formula-punto-pendiente"]
+    "tags": [
+      "anatomia-formula-punto-pendiente"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes es una forma equivalente de la ecuación punto-pendiente:\n$$y = f'(a)(x-a) + f(a)$$?",
@@ -184,9 +200,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La ecuación punto-pendiente admite formas equivalentes, siempre que se respete qué número multiplica a $(x-a)$ y cuál se suma al final.\n$$y - f(a) = f'(a)(x-a)$$\nes simplemente la misma fórmula con $f(a)$ pasado al otro lado de la igualdad, sin alterar ni la pendiente ni el punto de anclaje.\nCualquier variante que multiplique a $(x-a)$ por $f(a)$ en lugar de $f'(a)$, o que omita el $-a$, rompe el significado geométrico de la fórmula.",
+    "explanation": "La ecuación punto-pendiente admite formas equivalentes, siempre que se respete qué número multiplica a $(x-a)$ y cuál se suma al final.\n$$y - f(a) = f'(a)(x-a)$$\nEs simplemente la misma fórmula con $f(a)$ pasado al otro lado de la igualdad, sin alterar ni la pendiente ni el punto de anclaje.\nCualquier variante que multiplique a $(x-a)$ por $f(a)$ en lugar de $f'(a)$, o que omita el $-a$, rompe el significado geométrico de la fórmula.",
     "reviewed": false,
-    "tags": ["anatomia-formula-punto-pendiente"]
+    "tags": [
+      "anatomia-formula-punto-pendiente"
+    ]
   },
   {
     "question": "¿Qué papel cumple $a$ dentro de la ecuación punto-pendiente?",
@@ -207,7 +225,9 @@
     "graph_view": null,
     "explanation": "Dentro de la ecuación punto-pendiente, $a$ es la coordenada $x$ del **punto de tangencia**, el lugar del dominio donde se traza la recta.\nJunto con $f(a)$, forma las coordenadas completas del punto de anclaje, $(a, f(a))$, sobre el que se apoya toda la construcción de la recta.\nCambiar el valor de $a$ cambia tanto el punto de tangencia como, en general, la pendiente $f'(a)$, así que ambos datos van siempre atados entre sí.",
     "reviewed": false,
-    "tags": ["anatomia-formula-punto-pendiente"]
+    "tags": [
+      "anatomia-formula-punto-pendiente"
+    ]
   },
   {
     "question": "Sabiendo que $f(3)=7$ y $f'(3)=2$, ¿cuál es la ecuación punto-pendiente de la tangente en $x=3$?",
@@ -226,9 +246,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la ecuación punto-pendiente basta con sustituir los datos numéricos en la fórmula general, $y = f'(a)(x-a) + f(a)$.\n$$y = 2(x-3) + 7$$\nCon $a=3$, $f(3)=7$ y $f'(3)=2$, la pendiente $2$ acompaña siempre a $(x-3)$, y el valor $7$ se suma al final, sin invertir ninguno de los dos roles.",
+    "explanation": "Para armar la ecuación punto-pendiente basta con sustituir los datos numéricos en la fórmula general, $y = f'(a)(x-a) + f(a)$.\n$$y = 2(x-3) + 7$$\nCon $a=3$, $f(3)=7$ y $f'(3)=2$, la pendiente $2$ acompaña siempre a $(x-3)$, y el valor $7$ se suma al final, sin invertir ninguno de los dos roles.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
-    "tags": ["anatomia-formula-punto-pendiente"]
+    "tags": [
+      "anatomia-formula-punto-pendiente"
+    ]
   },
   {
     "question": "¿Por qué la recta tangente funciona como la **aproximación lineal** de $f$ cerca del punto de tangencia?",
@@ -249,7 +271,9 @@
     "graph_view": null,
     "explanation": "La recta tangente funciona como **aproximación lineal** de $f$ porque, en el punto de tangencia, coincide exactamente con el valor de la función y con su dirección instantánea.\nEsa doble coincidencia hace que, para puntos cercanos al de tangencia, los valores de la recta y de la curva queden muy próximos entre sí.\nEsta propiedad es puramente local, no hay ninguna garantía de que la aproximación siga siendo buena a medida que uno se aleja del punto de contacto.",
     "reviewed": false,
-    "tags": ["aproximacion-lineal-local"]
+    "tags": [
+      "aproximacion-lineal-local"
+    ]
   },
   {
     "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
@@ -270,7 +294,9 @@
     "graph_view": null,
     "explanation": "Cuanto más se aleja un punto del **punto de tangencia**, mayor es la diferencia entre el valor real de $f$ y el valor que predice la recta tangente.\nEsto ocurre porque la tangente solo replica el comportamiento de $f$ en un entorno chico, no captura la curvatura que va apareciendo más lejos.\nPor eso la aproximación lineal es una herramienta local, útil cerca del punto elegido, pero cada vez menos confiable a medida que uno se desplaza.",
     "reviewed": false,
-    "tags": ["aproximacion-lineal-local"]
+    "tags": [
+      "aproximacion-lineal-local"
+    ]
   },
   {
     "question": "¿Es correcto afirmar que la recta tangente aproxima bien a $f$ en todo el dominio?",
@@ -291,7 +317,9 @@
     "graph_view": null,
     "explanation": "La afirmación de que la tangente aproxima bien a $f$ en **todo** el dominio es falsa en general, la buena aproximación se limita a un entorno chico del punto de tangencia.\nLejos de ese punto, la curvatura propia de $f$ hace que la curva se aparte cada vez más de la recta, por más que ambas coincidan exactamente en el punto de contacto.\nEsta es una de las confusiones más comunes del tema, la aproximación lineal es una herramienta local, nunca global, salvo que $f$ sea ella misma una recta.",
     "reviewed": false,
-    "tags": ["aproximacion-lineal-local"]
+    "tags": [
+      "aproximacion-lineal-local"
+    ]
   },
   {
     "question": "Cuanto mayor es la curvatura de $f$ cerca del punto de tangencia, ¿qué pasa con la **aproximación lineal**?",
@@ -312,6 +340,8 @@
     "graph_view": null,
     "explanation": "La **aproximación lineal** depende de cuánto se curva $f$ cerca del punto de tangencia, cuanto mayor es esa curvatura, más rápido se separan la recta y la curva real.\nEn zonas donde $f$ es casi recta, la tangente se mantiene cercana durante un tramo más largo; en zonas muy curvadas, el error crece enseguida.\nEsta relación entre curvatura y calidad de la aproximación es la razón por la que, más adelante en el curso, se estudian formas de medir y corregir ese error.",
     "reviewed": false,
-    "tags": ["aproximacion-lineal-local"]
+    "tags": [
+      "aproximacion-lineal-local"
+    ]
   }
 ]

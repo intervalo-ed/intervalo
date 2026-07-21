@@ -116,7 +116,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.",
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false
   },
   {
@@ -156,7 +156,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.",
+    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false
   },
   {
@@ -196,7 +196,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.",
+    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
     "reviewed": false
   },
   {
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.",
+    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false
   },
   {
@@ -276,7 +276,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.",
+    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false
   },
   {
@@ -296,7 +296,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.",
+    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false
   }
 ]

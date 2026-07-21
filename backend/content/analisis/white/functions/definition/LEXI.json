@@ -135,7 +135,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la función tiene sentido matemático y contextual. Repartir entre 0 personas no se puede, porque la expresión $$\\frac{1200}{0}$$ no está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$). Al calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
+    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la función tiene sentido matemático y contextual. Repartir entre 0 personas no se puede, porque la expresión $\\frac{1200}{0}$ No está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$). Al calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -231,7 +231,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de valores que alimentan a la función. En este sistema las entradas son las horas del día, $$\\{0, \\dots, 23\\}$$ Las temperaturas posibles actúan como salidas. El dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.",
+    "explanation": "El **dominio** es el conjunto de valores que alimentan a la función. En este sistema las entradas son las horas del día, $$\\{0, \\dots, 23\\}$$ Las temperaturas posibles actúan como salidas. El dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -657,7 +657,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver. En este modelo, las salidas declaradas conforman el conjunto $$\\{r, a, v\\}$$ Si en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la **imagen** se achicaría al par $\\{r, v\\}$.",
+    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver. En este modelo, las salidas declaradas conforman el conjunto $$\\{r, a, v\\}$$ Si en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la **imagen** se achicaría al par $\\{r, v\\}$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -749,7 +749,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto: $$\\begin{aligned} f(1) &= I \\\\ f(2) &= P \\\\ f(3) &= I \\end{aligned}$$ Los valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.",
+    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto: $$\\begin{aligned} f(1) &= I \\\\ f(2) &= P \\\\ f(3) &= I \\end{aligned}$$ Los valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -968,7 +968,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el marco de una función, la salida directa que produce una entrada toma el título de **imagen**. En la cuenta de impuestos, al procesar el monto base, $$F(1000) = 1210$$ El 1210 ocupa el lugar de la imagen del 1000. La imagen de $1000$ es el valor que sale al aplicarle la función: $1210$.",
+    "explanation": "En el marco de una función, la salida directa que produce una entrada toma el título de **imagen**. En la cuenta de impuestos, al procesar el monto base, $$F(1000) = 1210$$ El 1210 ocupa el lugar de la imagen del 1000. La imagen de $1000$ es el valor que sale al aplicarle la función: $1210$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1014,7 +1014,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función particular que se logra desde una entrada se clasifica como su **imagen**. Al meter el 6 en la función que duplica valores, obtenés $$f(6) = 12$$ El 12 cumple el rol de imagen puntual del 6. La imagen puntual del $6$ es el valor que devuelve la función al evaluarla: $12$.",
+    "explanation": "La función particular que se logra desde una entrada se clasifica como su **imagen**. Al meter el 6 en la función que duplica valores, obtenés $$f(6) = 12$$ El 12 cumple el rol de imagen puntual del 6. La imagen puntual del $6$ es el valor que devuelve la función al evaluarla: $12$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado. En este escenario económico, $$R(1000) = 50$$ El 1000 se consagra como la preimagen del 50, la entrada que la función transforma en esa salida.",
+    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado. En este escenario económico, $$R(1000) = 50$$ El 1000 se consagra como la preimagen del 50, la entrada que la función transforma en esa salida.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-puntual"

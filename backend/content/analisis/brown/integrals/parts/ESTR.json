@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T) al elegir $u$.\n$$u=x, \\quad dv=\\sin x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.",
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T) al elegir $u$.\n$$u=x, \\quad dv=\\sin x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para la función trigonométrica.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n$$u=\\ln x, \\quad dv=x^3\\,dx$$\nEsta elección deja $du=\\frac{1}{x}\\,dx$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.",
+    "explanation": "Sin importar el grado del polinomio, la regla **LIATE** sigue priorizando el logaritmo por sobre la función algebraica.\n$$u=\\ln x, \\quad dv=x^3\\,dx$$\nEsta elección deja $du=\\frac{1}{x}\\,dx$, un factor que cancela exactamente una potencia de $x$ en la integral remanente.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza Algebraica (A) por sobre Exponencial (E).\n$$u=x, \\quad dv=e^{3x}\\,dx$$\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.",
+    "explanation": "Igual que con cualquier producto de polinomio y exponencial, LIATE prioriza Algebraica (A) por sobre Exponencial (E).\n$$u=x, \\quad dv=e^{3x}\\,dx$$\nEl coeficiente $3$ dentro del exponente no cambia esta elección, solo va a requerir un ajuste de constante al integrar $dv$.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T), sin importar si la función es seno o coseno.\n$$u=x, \\quad dv=\\cos x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.",
+    "explanation": "La regla LIATE prioriza Algebraica (A) por sobre Trigonométrica (T), sin importar si la función es seno o coseno.\n$$u=x, \\quad dv=\\cos x\\,dx$$\nCon esta elección, $du=dx$ simplifica el polinomio a una constante, dejando una integral remanente inmediata para el coseno.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n$$u=\\ln x, \\quad dv=2x\\,dx$$\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.",
+    "explanation": "El coeficiente $2$ no cambia la prioridad de LIATE, el logaritmo sigue siendo la elección correcta para $u$.\n$$u=\\ln x, \\quad dv=2x\\,dx$$\nEste coeficiente simplemente se arrastra al calcular $v$, sin alterar en nada la jerarquía de elección entre logaritmo y algebraica.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando Algebraica (A) por sobre Exponencial (E).\n$$u=x^2, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.",
+    "explanation": "Aunque el grado del polinomio sea mayor, LIATE sigue priorizando Algebraica (A) por sobre Exponencial (E).\n$$u=x^2, \\quad dv=e^x\\,dx$$\nCon esta elección, $du=2x\\,dx$ reduce el grado del polinomio en uno, aunque en este caso hará falta repetir el método una vez más.\n\nLa regla LIATE es una nemotecnia que funciona porque la jerarquía respeta cómo se simplifican los términos bajo integración. Algebraica > Inversa > Trigonométrica > Exponencial es el orden donde, al derivar $u$, obtenés algo \"más simple\". Practicar con varios ejemplos internaliza este ranking automáticamente, y después de algunos ejercicios ya no necesitarás pensar en LIATE cada vez.",
     "reviewed": false,
     "tags": [
       "eleccion-variables-regla-liate"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{2}\\int x\\,dx$$\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.",
+    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n$$\\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx = \\frac{1}{2}\\int x\\,dx$$\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nLa integración por partes es una herramienta versátil pero requiere buen juicio al elegir $u$. Una mala elección puede llevarte a una integral aún más difícil. Por eso la regla LIATE es tan valiosa: te ahorra ensayos y errores.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

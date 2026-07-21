@@ -66,7 +66,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es el resultado de\n$$\\int (-5\\sin x + 2)\\,dx$$?",
+    "question": "¿Cuál es el resultado de:\n$$\\int (-5\\sin x + 2)\\,dx$$?",
     "options": [
       "$-5\\cos x+2x+C$",
       "$5\\cos x+2+C$",
@@ -154,7 +154,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la primitiva de\n$$\\int (3\\cos x + 8x^3)\\,dx$$?",
+    "question": "¿Cuál es la primitiva de:\n$$\\int (3\\cos x + 8x^3)\\,dx$$?",
     "options": [
       "$3\\sin x+8x^4+C$",
       "$-3\\sin x+2x^4+C$",
@@ -242,7 +242,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál integral resulta de\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$?",
+    "question": "¿Cuál integral resulta de:\n$$\\int \\left(4x-\\frac{1}{x}\\right)\\,dx$$?",
     "options": [
       "$2x^2-\\ln x+C$",
       "$2x^2+\\ln|x|+C$",
@@ -308,7 +308,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es el resultado de resolver\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$?",
+    "question": "¿Cuál es el resultado de resolver:\n$$\\int \\left(x^3-\\frac{4}{x}\\right)\\,dx$$?",
     "options": [
       "$\\frac{x^4}{4}+4\\ln|x|+C$",
       "$x^4-4\\ln|x|+C$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá, por definición, la derivada de\n$$f(x) = x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Calculá, por definición, la derivada de:\n$$f(x) = x^2$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$2x$",
       "$x^2$",
@@ -18,14 +18,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para derivar por definición se plantea el cociente incremental y se expande $(x+h)^2$ con cuidado de no perder el término cruzado.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2 - x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2 + 2xh + h^2 - x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h)}{h} \\\\ &= \\lim_{h \\to 0} (2x+h) \\\\ &= 2x \\end{aligned}$$\nEl paso más delicado es conservar el término $2xh$ al expandir el binomio, sin él la factorización de $h$ queda incompleta y el resultado final se pierde.",
+    "explanation": "Para derivar por definición se plantea el cociente incremental y se expande $(x+h)^2$ con cuidado de no perder el término cruzado.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2 - x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2 + 2xh + h^2 - x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h)}{h} \\\\ &= \\lim_{h \\to 0} (2x+h) \\\\ &= 2x \\end{aligned}$$\nEl paso más delicado es conservar el término $2xh$ al expandir el binomio, sin él la factorización de $h$ queda incompleta y el resultado final se pierde.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Mediante la definición del límite del cociente incremental, calculá la derivada de\n$$f(x) = x^2 + 3$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Mediante la definición del límite del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 3$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$3$",
       "$2x+3$",
@@ -43,14 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar por definición una función con término constante, esa constante desaparece apenas se plantea la resta $f(x+h)-f(x)$.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2+3 - (x^2+3)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2+3-x^2-3}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h)}{h} \\\\ &= 2x \\end{aligned}$$\nConviene verificar siempre que los términos constantes se cancelen entre sí antes de seguir simplificando, si sobreviven algo salió mal en la resta.",
+    "explanation": "Al derivar por definición una función con término constante, esa constante desaparece apenas se plantea la resta $f(x+h)-f(x)$.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2+3 - (x^2+3)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2+3-x^2-3}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h)}{h} \\\\ &= 2x \\end{aligned}$$\nConviene verificar siempre que los términos constantes se cancelen entre sí antes de seguir simplificando, si sobreviven algo salió mal en la resta.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Aplicando la definición, derivá\n$$f(x) = 2x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Aplicando la definición, derivá:\n$$f(x) = 2x^2$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$4x+2h$",
       "$2x^2$",
@@ -68,14 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{2(x+h)^2 - 2x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2x^2+4xh+2h^2-2x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(4x+2h)}{h} \\\\ &= 4x \\end{aligned}$$\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$, dando $4xh$ en vez de $2xh$.",
+    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{2(x+h)^2 - 2x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2x^2+4xh+2h^2-2x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(4x+2h)}{h} \\\\ &= 4x \\end{aligned}$$\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$, dando $4xh$ en vez de $2xh$.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Usando el límite del cociente incremental, obtené la derivada de\n$$f(x) = x^2 - 4x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Usando el límite del cociente incremental, obtené la derivada de:\n$$f(x) = x^2 - 4x$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$2x+4$",
       "$2x-4+h$",
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina un término cuadrático y uno lineal, cada uno aporta su propia parte al resultado final.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2 - 4(x+h) - (x^2-4x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2-4x-4h-x^2+4x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h-4)}{h} \\\\ &= 2x-4 \\end{aligned}$$\nConviene distribuir el signo menos con cuidado en $-4(x+h)$, un error de signo ahí arrastra un error en todo el resultado final.",
+    "explanation": "Esta función combina un término cuadrático y uno lineal, cada uno aporta su propia parte al resultado final.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2 - 4(x+h) - (x^2-4x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2-4x-4h-x^2+4x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h-4)}{h} \\\\ &= 2x-4 \\end{aligned}$$\nConviene distribuir el signo menos con cuidado en $-4(x+h)$, un error de signo ahí arrastra un error en todo el resultado final.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un signo negativo delante del cuadrado, hay que distribuirlo en los tres términos de la expansión del binomio, no solo en el primero.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{-(x+h)^2 - (-x^2)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{-x^2-2xh-h^2+x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(-2x-h)}{h} \\\\ &= -2x \\end{aligned}$$\nUn error frecuente es distribuir el signo negativo solo en el primer término del binomio expandido, dejando el término cruzado con signo positivo por error.",
+    "explanation": "Con un signo negativo delante del cuadrado, hay que distribuirlo en los tres términos de la expansión del binomio, no solo en el primero.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{-(x+h)^2 - (-x^2)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{-x^2-2xh-h^2+x^2}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(-2x-h)}{h} \\\\ &= -2x \\end{aligned}$$\nUn error frecuente es distribuir el signo negativo solo en el primer término del binomio expandido, dejando el término cruzado con signo positivo por error.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Planteá el cociente incremental y calculá la derivada de\n$$f(x) = 3x^2 + 2x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Planteá el cociente incremental y calculá la derivada de:\n$$f(x) = 3x^2 + 2x$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$6x+2h+2$",
       "$6x+2$",
@@ -143,14 +143,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina un término cuadrático con coeficiente $3$ y uno lineal con coeficiente $2$, cada uno se desarrolla por separado dentro del mismo cociente.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{3(x+h)^2+2(x+h) - (3x^2+2x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3x^2+6xh+3h^2+2x+2h-3x^2-2x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(6x+3h+2)}{h} \\\\ &= 6x+2 \\end{aligned}$$\nConviene expandir cada término del polinomio por separado y recién al final agrupar los aportes, mezclar los coeficientes antes de tiempo suele generar errores de cálculo.",
+    "explanation": "Esta función combina un término cuadrático con coeficiente $3$ y uno lineal con coeficiente $2$, cada uno se desarrolla por separado dentro del mismo cociente.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{3(x+h)^2+2(x+h) - (3x^2+2x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3x^2+6xh+3h^2+2x+2h-3x^2-2x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(6x+3h+2)}{h} \\\\ &= 6x+2 \\end{aligned}$$\nConviene expandir cada término del polinomio por separado y recién al final agrupar los aportes, mezclar los coeficientes antes de tiempo suele generar errores de cálculo.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Por definición, mediante el límite, calculá la derivada de\n$$f(x) = -2x^2 + x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Por definición, mediante el límite, calculá la derivada de:\n$$f(x) = -2x^2 + x$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$4x+1$",
       "$-2x+1$",
@@ -168,14 +168,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente negativo en el término cuadrático y uno positivo en el lineal, conviene llevar los signos por separado durante toda la expansión.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{-2(x+h)^2+(x+h) - (-2x^2+x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{-2x^2-4xh-2h^2+x+h+2x^2-x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(-4x-2h+1)}{h} \\\\ &= -4x+1 \\end{aligned}$$\nCuando conviven un coeficiente negativo y uno positivo en la misma función, conviene revisar el signo de cada término por separado antes de sumarlos.",
+    "explanation": "Con un coeficiente negativo en el término cuadrático y uno positivo en el lineal, conviene llevar los signos por separado durante toda la expansión.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{-2(x+h)^2+(x+h) - (-2x^2+x)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{-2x^2-4xh-2h^2+x+h+2x^2-x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(-4x-2h+1)}{h} \\\\ &= -4x+1 \\end{aligned}$$\nCuando conviven un coeficiente negativo y uno positivo en la misma función, conviene revisar el signo de cada término por separado antes de sumarlos.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Utilizando exclusivamente la definición del cociente incremental, calculá la derivada de\n$$f(x) = x^2 + 4x + 5$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Utilizando exclusivamente la definición del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 4x + 5$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$2x+5$",
       "$2x+4+h$",
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina los tres tipos de término, cuadrático, lineal y constante, así que sirve para repasar el desarrollo completo de una sola vez.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2+4(x+h)+5 - (x^2+4x+5)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2+4x+4h+5-x^2-4x-5}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h+4)}{h} \\\\ &= 2x+4 \\end{aligned}$$\nCada tipo de término deja un rastro distinto en la derivada, el cuadrático aporta $2x$, el lineal aporta su coeficiente, y la constante se cancela por completo.",
+    "explanation": "Esta función combina los tres tipos de término, cuadrático, lineal y constante, así que sirve para repasar el desarrollo completo de una sola vez.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{(x+h)^2+4(x+h)+5 - (x^2+4x+5)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{x^2+2xh+h^2+4x+4h+5-x^2-4x-5}{h} \\\\ &= \\lim_{h \\to 0} \\frac{h(2x+h+4)}{h} \\\\ &= 2x+4 \\end{aligned}$$\nCada tipo de término deja un rastro distinto en la derivada, el cuadrático aporta $2x$, el lineal aporta su coeficiente, y la constante se cancela por completo.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
     ]
   },
   {
-    "question": "Al plantear el cociente incremental de\n$$f(x) = x^2$$\ny expandir $(x+h)^2$, ¿cuál es el numerador antes de simplificar?",
+    "question": "Al plantear el cociente incremental de:\n$$f(x) = x^2$$\ny expandir $(x+h)^2$, ¿cuál es el numerador antes de simplificar?",
     "options": [
       "$x^2+2xh+h^2-x^2$",
       "$x^2+h^2-x^2$",
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El primer paso del método por definición es plantear el numerador completo, $f(x+h)-f(x)$, antes de simplificar nada.\n\n$$\\begin{aligned} f(x+h)-f(x) &= (x+h)^2 - x^2 \\\\ &= x^2+2xh+h^2-x^2 \\end{aligned}$$\nEscribir este paso intermedio completo, sin saltarlo, ayuda a detectar rápido si se olvidó el término cruzado $2xh$ o si se olvidó restar $f(x)$.",
+    "explanation": "El primer paso del método por definición es plantear el numerador completo, $f(x+h)-f(x)$, antes de simplificar nada.\n$$\\begin{aligned} f(x+h)-f(x) &= (x+h)^2 - x^2 \\\\ &= x^2+2xh+h^2-x^2 \\end{aligned}$$\nEscribir este paso intermedio completo, sin saltarlo, ayuda a detectar rápido si se olvidó el término cruzado $2xh$ o si se olvidó restar $f(x)$.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n\n$$\\begin{aligned} x^2+2xh+h^2-x^2 &= 2xh+h^2 \\end{aligned}$$\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.",
+    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n$$\\begin{aligned} x^2+2xh+h^2-x^2 &= 2xh+h^2 \\end{aligned}$$\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n\n$$\\begin{aligned} 2xh+h^2 &= h \\cdot 2x + h \\cdot h \\\\ &= h(2x+h) \\end{aligned}$$\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.",
+    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n$$\\begin{aligned} 2xh+h^2 &= h \\cdot 2x + h \\cdot h \\\\ &= h(2x+h) \\end{aligned}$$\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -293,14 +293,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una vez cancelado el $h$ del numerador y el denominador, queda una expresión sin ninguna indeterminación, lista para evaluar el límite directamente.\n\n$$\\begin{aligned} \\lim_{h \\to 0} \\frac{h(2x+h)}{h} &= \\lim_{h \\to 0} (2x+h) \\\\ &= 2x \\end{aligned}$$\nEste es el paso final del método, sustituir $h=0$ recién después de cancelar es válido porque ya no queda ningún $h$ en el denominador.",
+    "explanation": "Una vez cancelado el $h$ del numerador y el denominador, queda una expresión sin ninguna indeterminación, lista para evaluar el límite directamente.\n$$\\begin{aligned} \\lim_{h \\to 0} \\frac{h(2x+h)}{h} &= \\lim_{h \\to 0} (2x+h) \\\\ &= 2x \\end{aligned}$$\nEste es el paso final del método, sustituir $h=0$ recién después de cancelar es válido porque ya no queda ningún $h$ en el denominador.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de\n$$f(x) = 5$$",
+    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 5$$",
     "options": [
       "$0$",
       "$5$",
@@ -318,14 +318,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función constante, $f(x+h)$ y $f(x)$ valen exactamente lo mismo, así que el numerador del cociente incremental es siempre cero.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{5-5}{h} \\\\ &= \\lim_{h \\to 0} \\frac{0}{h} \\\\ &= 0 \\end{aligned}$$\nEste es el caso más simple del método por definición, útil para verificar que el procedimiento se aplica bien antes de pasar a casos con más álgebra.",
+    "explanation": "Para una función constante, $f(x+h)$ y $f(x)$ valen exactamente lo mismo, así que el numerador del cociente incremental es siempre cero.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{5-5}{h} \\\\ &= \\lim_{h \\to 0} \\frac{0}{h} \\\\ &= 0 \\end{aligned}$$\nEste es el caso más simple del método por definición, útil para verificar que el procedimiento se aplica bien antes de pasar a casos con más álgebra.",
     "reviewed": false,
     "tags": [
       "lineales-y-constantes-cociente"
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de\n$$f(x) = 3x$$",
+    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 3x$$",
     "options": [
       "$3+h$",
       "$3$",
@@ -343,14 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función lineal sin término constante, el cociente incremental se simplifica de forma directa, sin necesidad de expandir ningún binomio cuadrático.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{3(x+h)-3x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3x+3h-3x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3h}{h} \\\\ &= 3 \\end{aligned}$$\nEn una función lineal, la derivada coincide siempre con el coeficiente que acompaña a $x$, el mismo resultado que después dará la regla práctica, pero acá se llega por definición.",
+    "explanation": "Para una función lineal sin término constante, el cociente incremental se simplifica de forma directa, sin necesidad de expandir ningún binomio cuadrático.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{3(x+h)-3x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3x+3h-3x}{h} \\\\ &= \\lim_{h \\to 0} \\frac{3h}{h} \\\\ &= 3 \\end{aligned}$$\nEn una función lineal, la derivada coincide siempre con el coeficiente que acompaña a $x$, el mismo resultado que después dará la regla práctica, pero acá se llega por definición.",
     "reviewed": false,
     "tags": [
       "lineales-y-constantes-cociente"
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de\n$$f(x) = 2x+7$$",
+    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 2x+7$$",
     "options": [
       "$7$",
       "$2+h$",
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina un término lineal con uno constante, y el desarrollo muestra cómo la constante se cancela apenas se plantea la resta.\n\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{2(x+h)+7-(2x+7)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2x+2h+7-2x-7}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2h}{h} \\\\ &= 2 \\end{aligned}$$\nEl término independiente de una función lineal nunca aparece en la derivada, solo influye en dónde corta la recta al eje vertical, no en su pendiente.",
+    "explanation": "Esta función combina un término lineal con uno constante, y el desarrollo muestra cómo la constante se cancela apenas se plantea la resta.\n$$\\begin{aligned} f'(x) &= \\lim_{h \\to 0} \\frac{2(x+h)+7-(2x+7)}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2x+2h+7-2x-7}{h} \\\\ &= \\lim_{h \\to 0} \\frac{2h}{h} \\\\ &= 2 \\end{aligned}$$\nEl término independiente de una función lineal nunca aparece en la derivada, solo influye en dónde corta la recta al eje vertical, no en su pendiente.",
     "reviewed": false,
     "tags": [
       "lineales-y-constantes-cociente"

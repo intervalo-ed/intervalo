@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite es una forma de entender a qué valor se aproxima una función, incluso en puntos donde quizá no esté definida. Cuando la sustitución directa da 0/0, la función está pidiendo una transformación algebraica.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como el numerador tiene $\\sqrt{x+25}-5$, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+25}+5$.\n\n$$\\begin{aligned} \\frac{\\sqrt{x+25}-5}{x} \\cdot \\frac{\\sqrt{x+25}+5}{\\sqrt{x+25}+5} &= \\frac{(x+25)-25}{x(\\sqrt{x+25}+5)} \\\\ &= \\frac{x}{x(\\sqrt{x+25}+5)} \\\\ &= \\frac{1}{\\sqrt{x+25}+5} \\end{aligned}$$\n\nSustituyendo $x=0$: $\\tfrac{1}{\\sqrt{25}+5} = \\tfrac{1}{5+5} = \\tfrac{1}{10}$.\n\nConviene verificar que el radicando en $x=0$ dé un cuadrado perfecto antes de sustituir, así se evita un error de cálculo final.",
+    "explanation": "Un límite es una forma de entender a qué valor se aproxima una función, incluso en puntos donde quizá no esté definida. Cuando la sustitución directa da 0/0, la función está pidiendo una transformación algebraica.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como el numerador tiene $\\sqrt{x+25}-5$, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+25}+5$.\n$$\\begin{aligned} \\frac{\\sqrt{x+25}-5}{x} \\cdot \\frac{\\sqrt{x+25}+5}{\\sqrt{x+25}+5} &= \\frac{(x+25)-25}{x(\\sqrt{x+25}+5)} \\\\ &= \\frac{x}{x(\\sqrt{x+25}+5)} \\\\ &= \\frac{1}{\\sqrt{x+25}+5} \\end{aligned}$$\n\nSustituyendo $x=0$: $\\tfrac{1}{\\sqrt{25}+5} = \\tfrac{1}{5+5} = \\tfrac{1}{10}$.\n\nConviene verificar que el radicando en $x=0$ dé un cuadrado perfecto antes de sustituir, así se evita un error de cálculo final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La indeterminación 0/0 significa que tanto el numerador como el denominador se anulan en el punto límite. Racionalizar es la técnica que permite romper esa mutual cancelación y exponer el factor común que realmente causa la indeterminación.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como el numerador tiene $\\sqrt{x+24}-5$, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+24}+5$.\n\n$$\\begin{aligned} \\frac{\\sqrt{x+24}-5}{x-1} \\cdot \\frac{\\sqrt{x+24}+5}{\\sqrt{x+24}+5} &= \\frac{(x+24)-25}{(x-1)(\\sqrt{x+24}+5)} \\\\ &= \\frac{x-1}{(x-1)(\\sqrt{x+24}+5)} \\\\ &= \\frac{1}{\\sqrt{x+24}+5} \\end{aligned}$$\n\nSustituyendo $x=1$: $\\tfrac{1}{\\sqrt{25}+5} = \\tfrac{1}{5+5} = \\tfrac{1}{10}$.\n\nCancelar el factor $(x-1)$ antes de sustituir es el paso que realmente resuelve la indeterminación, no alcanza con simplificar la raíz sola.",
+    "explanation": "La indeterminación 0/0 significa que tanto el numerador como el denominador se anulan en el punto límite. Racionalizar es la técnica que permite romper esa mutual cancelación y exponer el factor común que realmente causa la indeterminación.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como el numerador tiene $\\sqrt{x+24}-5$, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+24}+5$.\n$$\\begin{aligned} \\frac{\\sqrt{x+24}-5}{x-1} \\cdot \\frac{\\sqrt{x+24}+5}{\\sqrt{x+24}+5} &= \\frac{(x+24)-25}{(x-1)(\\sqrt{x+24}+5)} \\\\ &= \\frac{x-1}{(x-1)(\\sqrt{x+24}+5)} \\\\ &= \\frac{1}{\\sqrt{x+24}+5} \\end{aligned}$$\n\nSustituyendo $x=1$: $\\tfrac{1}{\\sqrt{25}+5} = \\tfrac{1}{5+5} = \\tfrac{1}{10}$.\n\nCancelar el factor $(x-1)$ antes de sustituir es el paso que realmente resuelve la indeterminación, no alcanza con simplificar la raíz sola.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Racionalizar expone el factor problemático y permite cancelarlo. Una vez cancelado, ya no hay indeterminación: el límite es simplemente la evaluación de la expresión simplificada.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+1$.\n\n$$\\begin{aligned} \\frac{x-1}{\\sqrt{x}-1} \\cdot \\frac{\\sqrt{x}+1}{\\sqrt{x}+1} &= \\frac{(x-1)(\\sqrt{x}+1)}{x-1} \\\\ &= \\sqrt{x}+1 \\end{aligned}$$\n\nSustituyendo $x=1$: $\\sqrt{1}+1 = 1+1 = 2$.\n\nEl factor $(x-1)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
+    "explanation": "Racionalizar expone el factor problemático y permite cancelarlo. Una vez cancelado, ya no hay indeterminación: el límite es simplemente la evaluación de la expresión simplificada.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+1$.\n$$\\begin{aligned} \\frac{x-1}{\\sqrt{x}-1} \\cdot \\frac{\\sqrt{x}+1}{\\sqrt{x}+1} &= \\frac{(x-1)(\\sqrt{x}+1)}{x-1} \\\\ &= \\sqrt{x}+1 \\end{aligned}$$\n\nSustituyendo $x=1$: $\\sqrt{1}+1 = 1+1 = 2$.\n\nEl factor $(x-1)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La técnica del conjugado en el denominador aprovecha la diferencia de cuadrados para exponer un factor cancelable. Una vez cancelado, el límite es el valor de la función simplificada en el punto de tendencia.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n\n$$\\begin{aligned} \\frac{x-16}{\\sqrt{x}-4} \\cdot \\frac{\\sqrt{x}+4}{\\sqrt{x}+4} &= \\frac{(x-16)(\\sqrt{x}+4)}{x-16} \\\\ &= \\sqrt{x}+4 \\end{aligned}$$\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl radicando $16$ fue elegido por dar un cuadrado perfecto exacto, lo que evita cálculos pesados en el paso final.",
+    "explanation": "La técnica del conjugado en el denominador aprovecha la diferencia de cuadrados para exponer un factor cancelable. Una vez cancelado, el límite es el valor de la función simplificada en el punto de tendencia.\n\nLa sustitución directa da $\\tfrac{0}{0}$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n$$\\begin{aligned} \\frac{x-16}{\\sqrt{x}-4} \\cdot \\frac{\\sqrt{x}+4}{\\sqrt{x}+4} &= \\frac{(x-16)(\\sqrt{x}+4)}{x-16} \\\\ &= \\sqrt{x}+4 \\end{aligned}$$\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl radicando $16$ fue elegido por dar un cuadrado perfecto exacto, lo que evita cálculos pesados en el paso final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"

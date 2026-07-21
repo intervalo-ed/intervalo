@@ -1,6 +1,6 @@
 [
   {
-    "question": "Una **función a trozos** está definida por\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
+    "question": "Una **función a trozos** está definida por:\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^-} f(x)$?",
     "options": [
       "$7$",
       "$6$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Con la misma **función a trozos**\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
+    "question": "Con la misma **función a trozos**:\n$$f(x) = \\begin{cases} x + 2 & \\text{si } x < 3 \\\\ 3x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
     "options": [
       "$7$",
       "$5$",
@@ -43,14 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\n\nComo $\\lim_{x \\to 3^-} f(x) = 5 \\neq 7 = \\lim_{x \\to 3^+} f(x)$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
+    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\n\nComo $\\lim_{x \\to 3^-} f(x) = 5 \\neq 7 = \\lim_{x \\to 3^+} f(x)$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -68,14 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una rama tiene coeficiente negativo, conviene sustituir con cuidado para no perder el signo en el resultado final.\n\n$$\\lim_{x \\to 2^-} f(x) = -(2) + 1 = -2 + 1 = -1$$\n\nEl signo negativo de la pendiente afecta directamente el resultado, un descuido acá es la fuente más común de error en ramas con coeficientes negativos.",
+    "explanation": "Cuando una rama tiene coeficiente negativo, conviene sustituir con cuidado para no perder el signo en el resultado final.\n$$\\lim_{x \\to 2^-} f(x) = -(2) + 1 = -2 + 1 = -1$$\n\nEl signo negativo de la pendiente afecta directamente el resultado, un descuido acá es la fuente más común de error en ramas con coeficientes negativos.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 2x - 1 & \\text{si } x \\leq 1 \\\\ x + 4 & \\text{si } x > 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} 2x - 1 & \\text{si } x \\leq 1 \\\\ x + 4 & \\text{si } x > 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x)$?",
     "options": [
       "$5$",
       "$1$",
@@ -93,14 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.\n\n$$\\lim_{x \\to 1^-} f(x) = 2(1) - 1 = 1$$\nse usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
+    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.\n$$\\lim_{x \\to 1^-} f(x) = 2(1) - 1 = 1$$\nse usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 1 \\\\ x^2 + 4 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 1 \\\\ x^2 + 4 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
     "options": [
       "$2$",
       "$4$",
@@ -118,14 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con ramas cuadráticas, la sustitución directa sigue siendo el procedimiento correcto: se eleva al cuadrado el punto de tendencia y se aplica la rama correspondiente.\n\n$$\\lim_{x \\to 1^+} f(x) = (1)^2 + 4 = 1 + 4 = 5$$\n\nEl grado del polinomio en cada rama no cambia el procedimiento, solo hay que elegir la rama correcta según la dirección pedida y sustituir.",
+    "explanation": "Con ramas cuadráticas, la sustitución directa sigue siendo el procedimiento correcto: se eleva al cuadrado el punto de tendencia y se aplica la rama correspondiente.\n$$\\lim_{x \\to 1^+} f(x) = (1)^2 + 4 = 1 + 4 = 5$$\n\nEl grado del polinomio en cada rama no cambia el procedimiento, solo hay que elegir la rama correcta según la dirección pedida y sustituir.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 3x & \\text{si } x < 0 \\\\ x + 5 & \\text{si } x \\geq 0 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} 3x & \\text{si } x < 0 \\\\ x + 5 & \\text{si } x \\geq 0 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
     "options": [
       "$5$",
       "$3$",
@@ -143,14 +143,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.\n\n$$\\lim_{x \\to 0^-} f(x) = 3 \\cdot 0 = 0$$\nusando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) es la confusión clásica de invertir el sentido de la aproximación pedida.",
+    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.\n$$\\lim_{x \\to 0^-} f(x) = 3 \\cdot 0 = 0$$\nusando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) es la confusión clásica de invertir el sentido de la aproximación pedida.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 3 & \\text{si } x < 2 \\\\ 3x - 1 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 3 & \\text{si } x < 2 \\\\ 3x - 1 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No existe",
       "$5$",
@@ -168,14 +168,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para el **límite bilateral** de una función a trozos, se evalúan las dos ramas en el punto de quiebre, y si coinciden, ese valor común es el límite.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 2 + 3 = 5 \\\\ \\lim_{x \\to 2^+} f(x) &= 3(2) - 1 = 5 \\end{aligned}$$\ncomo ambas ramas dan el mismo valor, $\\lim_{x \\to 2} f(x) = 5$.\n\nAntes de responder 'no existe' por reflejo, siempre conviene evaluar ambas ramas y comparar los resultados.",
+    "explanation": "Para el **límite bilateral** de una función a trozos, se evalúan las dos ramas en el punto de quiebre, y si coinciden, ese valor común es el límite.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 2 + 3 = 5 \\\\ \\lim_{x \\to 2^+} f(x) &= 3(2) - 1 = 5 \\end{aligned}$$\ncomo ambas ramas dan el mismo valor, $\\lim_{x \\to 2} f(x) = 5$.\n\nAntes de responder 'no existe' por reflejo, siempre conviene evaluar ambas ramas y comparar los resultados.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "$2$",
       "$6$",
@@ -193,14 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando las dos ramas de una función a trozos dan valores distintos en el punto de quiebre, el límite bilateral no existe, sin importar cuáles sean esos valores.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 1 + 1 = 2 \\\\ \\lim_{x \\to 1^+} f(x) &= 1 + 5 = 6 \\end{aligned}$$\ncomo $2 \\neq 6$, la respuesta correcta es 'No existe'.\n\nNo corresponde elegir ninguno de los dos valores como si fuera el bilateral: cuando difieren, la única respuesta válida es la inexistencia.",
+    "explanation": "Cuando las dos ramas de una función a trozos dan valores distintos en el punto de quiebre, el límite bilateral no existe, sin importar cuáles sean esos valores.\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 1 + 1 = 2 \\\\ \\lim_{x \\to 1^+} f(x) &= 1 + 5 = 6 \\end{aligned}$$\ncomo $2 \\neq 6$, la respuesta correcta es 'No existe'.\n\nNo corresponde elegir ninguno de los dos valores como si fuera el bilateral: cuando difieren, la única respuesta válida es la inexistencia.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
     "options": [
       "$4{,}5$",
       "No existe",
@@ -218,14 +218,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El procedimiento del **límite bilateral** no cambia cuando los coeficientes son decimales: se evalúa cada rama por sustitución directa y se comparan los resultados.\n\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1{,}5 = 4{,}5 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 1{,}5 = 6 - 1{,}5 = 4{,}5 \\end{aligned}$$\n\nComo ambas ramas coinciden en $4{,}5$, ese es el valor del límite bilateral, escrito siempre con coma decimal.",
+    "explanation": "El procedimiento del **límite bilateral** no cambia cuando los coeficientes son decimales: se evalúa cada rama por sustitución directa y se comparan los resultados.\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1{,}5 = 4{,}5 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 1{,}5 = 6 - 1{,}5 = 4{,}5 \\end{aligned}$$\n\nComo ambas ramas coinciden en $4{,}5$, ese es el valor del límite bilateral, escrito siempre con coma decimal.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
     "options": [
       "$3$",
       "$-3$",
@@ -243,14 +243,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando las dos ramas de una función a trozos difieren solo en el signo, siguen siendo valores distintos, y el límite bilateral no existe igual que en cualquier otro caso de ramas desiguales.\n\n$$\\begin{aligned} \\lim_{x \\to 5^-} f(x) &= 5 - 2 = 3 \\\\ \\lim_{x \\to 5^+} f(x) &= -5 + 2 = -3 \\end{aligned}$$\ncomo $3 \\neq -3$, la respuesta es 'No existe'.\n\nQue los dos valores sean opuestos en signo no los vuelve iguales: la condición del teorema de existencia exige coincidencia exacta, no solo la misma magnitud.",
+    "explanation": "Cuando las dos ramas de una función a trozos difieren solo en el signo, siguen siendo valores distintos, y el límite bilateral no existe igual que en cualquier otro caso de ramas desiguales.\n$$\\begin{aligned} \\lim_{x \\to 5^-} f(x) &= 5 - 2 = 3 \\\\ \\lim_{x \\to 5^+} f(x) &= -5 + 2 = -3 \\end{aligned}$$\ncomo $3 \\neq -3$, la respuesta es 'No existe'.\n\nQue los dos valores sean opuestos en signo no los vuelve iguales: la condición del teorema de existencia exige coincidencia exacta, no solo la misma magnitud.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Una función a trozos está definida por\n$$f(x) = \\begin{cases} 3x - 4 & \\text{si } x < 2 \\\\ x & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} 3x - 4 & \\text{si } x < 2 \\\\ x & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No existe",
       "$2$",
@@ -268,14 +268,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3(2) - 4 = 2 \\\\ \\lim_{x \\to 2^+} f(x) &= 2 \\end{aligned}$$\ncomo ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
+    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3(2) - 4 = 2 \\\\ \\lim_{x \\to 2^+} f(x) &= 2 \\end{aligned}$$\ncomo ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Una función a trozos, de tres ramas, está definida por\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 0 \\\\ x + 1 & \\text{si } 0 \\leq x < 3 \\\\ 2x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "question": "Una función a trozos, de tres ramas, está definida por:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 0 \\\\ x + 1 & \\text{si } 0 \\leq x < 3 \\\\ 2x - 2 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
     "options": [
       "$4$",
       "No existe",
@@ -293,14 +293,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.\n\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1 = 4 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 2 = 4 \\end{aligned}$$\ncomo ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1 = 4 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 2 = 4 \\end{aligned}$$\ncomo ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
     ]
   },
   {
-    "question": "Considerá la expresión con **valor absoluto**\n$$f(x) = \\frac{|x|}{x}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
+    "question": "Considerá la expresión con **valor absoluto**:\n$$f(x) = \\frac{|x|}{x}$$\n¿Cuánto vale $\\lim_{x \\to 0^-} f(x)$?",
     "options": [
       "$1$",
       "$0$",
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite bilateral** de esta expresión exige comparar los dos laterales, que ya se calcularon por ramas en los casos anteriores.\n\n$$\\begin{aligned} \\lim_{x \\to c^-} f(x) &= -1 \\\\ \\lim_{x \\to c^+} f(x) &= 1 \\end{aligned}$$\ncomo $-1 \\neq 1$, el límite bilateral no existe.\n\nEsta expresión es un ejemplo clásico de laterales que difieren exclusivamente en el signo: alcanza con esa diferencia, por mínima que parezca, para que el bilateral no exista.",
+    "explanation": "El **límite bilateral** de esta expresión exige comparar los dos laterales, que ya se calcularon por ramas en los casos anteriores.\n$$\\begin{aligned} \\lim_{x \\to c^-} f(x) &= -1 \\\\ \\lim_{x \\to c^+} f(x) &= 1 \\end{aligned}$$\ncomo $-1 \\neq 1$, el límite bilateral no existe.\n\nEsta expresión es un ejemplo clásico de laterales que difieren exclusivamente en el signo: alcanza con esa diferencia, por mínima que parezca, para que el bilateral no exista.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"
