@@ -87,3 +87,4 @@ Calcular el **resultado numérico**.
 - [ ] Los distractores de "en realidad es variación/combinación" describen la situación, no nombran la fórmula
 - [ ] `tags` con el slug de la tabla, conteo por slug verificado contra el target
 - [ ] Cardinalidad: CLSF/FORM conceptual → 3 opciones; RESL numérico → 4 opciones ≤35 caracteres
+- [ ] Toda vez que la `explanation` mencione (aunque sea como distractor) una fórmula con fracción ($V_{n,k}=\dfrac{n!}{(n-k)!}$, $\binom{n}{k}$, permutación con repetición), razona intuitivamente el numerador y en especial el denominador (regla crítica 25 de `authoring-context.md`), no solo la declara

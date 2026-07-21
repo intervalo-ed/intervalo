@@ -13,7 +13,7 @@
       "En variación el orden importa; acá los 4 miembros del comité son intercambiables entre sí.",
       "La permutación completa ordena todos los elementos; acá se elige un subconjunto sin ordenar."
     ],
-    "explanation": "Las **combinaciones** cuentan las formas de elegir un subconjunto de $k$ elementos entre $n$, sin importar el orden dentro del subconjunto:\n$$C_{n,k} = \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el comité los 4 miembros no tienen roles diferenciados, así que el grupo $\\{A, B, C, D\\}$ es el mismo que $\\{D, C, B, A\\}$: corresponde combinación de 12 tomados de 4.\n\nEl criterio decisivo para distinguir combinación de variación es siempre el mismo: si el problema asigna etiquetas o roles distintos a las posiciones (titular/suplente, 1º/2º/3º), es variación; si todas las posiciones son intercambiables, es combinación.",
+    "explanation": "Las **combinaciones** cuentan las formas de elegir un subconjunto de elementos, sin importar el orden dentro del subconjunto.\n\nEn el comité los 4 miembros no tienen roles diferenciados, así que nombrarlos en cualquier orden sigue siendo el mismo grupo: corresponde combinación de 12 tomados de 4.\n\nEl criterio decisivo para distinguir combinación de variación es siempre el mismo: si el problema asigna etiquetas o roles distintos a las posiciones (titular/suplente, 1º/2º/3º), es variación.\n\nSi todas las posiciones son intercambiables, es combinación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -24,17 +24,15 @@
     "question": "En un equipo de 10 jugadores se quiere elegir un capitán y un vicecapitán, dos roles distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 10 tomados de 2?",
     "options": [
       "No, porque capitán y vicecapitán son roles distintos, así que el orden de elección importa.",
-      "Sí, porque se eligen solo 2 de los 10 jugadores.",
-      "Sí, porque ambos elegidos forman parte del mismo grupo de liderazgo."
+      "Sí, porque se eligen solo 2 jugadores de los 10 disponibles en el equipo."
     ],
     "correct_index": 0,
     "feedback_correct": "Con roles distintos entre los elegidos, intercambiarlos cambia el resultado: corresponde variación, no combinación.",
     "feedback_incorrect": [
       null,
-      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si los roles son distintos.",
-      "Que ambos formen parte del mismo grupo no borra la diferencia de roles entre capitán y vicecapitán."
+      "Elegir un subconjunto menor es parte de ambas técnicas; lo que decide entre combinación y variación es si los roles son distintos."
     ],
-    "explanation": "La **combinación** aplica cuando los $k$ elegidos no tienen roles diferenciados entre sí. Cuando cada elegido ocupa un rol distinto, como capitán y vicecapitán, el orden de asignación importa y corresponde **variación**.\n\nAcá capitán y vicecapitán son roles distintos, así que asignar a A como capitán y B como vice es un resultado distinto de asignar a B como capitán y A como vice.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus roles cambia el resultado, no es combinación.",
+    "explanation": "La **combinación** aplica cuando los elegidos no tienen roles diferenciados entre sí; si cada uno ocupa un rol distinto, como capitán y vicecapitán, corresponde **variación**.\n\nAcá capitán y vicecapitán son roles distintos, así que asignar a A como capitán y B como vice es un resultado distinto de asignar a B como capitán y A como vice.\n\nEl criterio decisivo sigue siendo el mismo: si intercambiar a los elegidos entre sus roles cambia el resultado, no es combinación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -44,18 +42,16 @@
   {
     "question": "Un menú ofrece 5 entradas y, de forma independiente, 3 postres, y un cliente arma su pedido eligiendo una entrada y un postre.\n\n¿Corresponde tratar este problema como una combinación de 8 tomados de 2?",
     "options": [
-      "No, porque las entradas y los postres son dos conjuntos distintos, no se elige un subconjunto de un mismo total.",
-      "Sí, porque en total se eligen 2 elementos.",
-      "Sí, porque el orden entre entrada y postre no importa."
+      "No: las entradas y los postres son conjuntos distintos, no un subconjunto de un mismo total.",
+      "Sí, porque en total se eligen 2 elementos entre las opciones del menú."
     ],
     "correct_index": 0,
     "feedback_correct": "La combinación elige un subconjunto de un mismo conjunto; acá hay dos conjuntos separados y se elige un elemento de cada uno.",
     "feedback_incorrect": [
       null,
-      "Que se elijan 2 elementos en total no alcanza: la combinación exige que ambos salgan del mismo conjunto de opciones.",
-      "Que el orden no importe entre entrada y postre no convierte esto en una elección de subconjunto de un mismo total."
+      "Que se elijan 2 elementos en total no alcanza: la combinación exige que ambos salgan del mismo conjunto de opciones."
     ],
-    "explanation": "La **combinación** cuenta las formas de elegir un subconjunto de $k$ elementos dentro de un único conjunto de $n$. Cuando los elementos elegidos provienen de conjuntos distintos, corresponde en cambio la regla del producto.\n\nAcá la entrada sale de un conjunto de 5 opciones y el postre de otro conjunto de 3 opciones, decisiones independientes que se multiplican: $5\\times3=15$.\n\nLa pista para no confundirlos es preguntarse si los elementos elegidos compiten dentro de un mismo total, o si provienen de categorías separadas.",
+    "explanation": "La **combinación** elige un subconjunto dentro de un único conjunto. Si los elementos provienen de conjuntos distintos, corresponde la regla del producto.\n\nAcá la entrada sale de un conjunto de 5 opciones y el postre de otro conjunto de 3 opciones, decisiones independientes que se multiplican: $5\\times3=15$.\n\nLa pista para no confundirlos es preguntarse si los elementos elegidos compiten dentro de un mismo total, o si provienen de categorías separadas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -65,9 +61,9 @@
   {
     "question": "De un grupo de 10 personas se quiere formar un comité de 4 integrantes que incluya obligatoriamente a una persona en particular.\n\n¿Cómo se cuenta la cantidad de comités posibles?",
     "options": [
-      "Eligiendo los 3 integrantes restantes entre las otras 9 personas: $\\binom{9}{3}$.",
-      "Eligiendo los 4 integrantes entre las 10 personas: $\\binom{10}{4}$.",
-      "Eligiendo los 4 integrantes entre las 9 personas restantes: $\\binom{9}{4}$."
+      "Eligiendo los 3 integrantes restantes entre las otras 9 personas: $\\dbinom{9}{3}$.",
+      "Eligiendo los 4 integrantes entre las 10 personas: $\\dbinom{10}{4}$.",
+      "Eligiendo los 4 integrantes entre las 9 personas restantes: $\\dbinom{9}{4}$."
     ],
     "correct_index": 0,
     "feedback_correct": "Como esa persona ya está fija en el comité, solo falta elegir a los otros 3 entre las 9 restantes.",
@@ -76,7 +72,7 @@
       "Ese conteo no fija a la persona obligatoria, permite comités que no la incluyan.",
       "Ese conteo elige 4 personas entre las 9 restantes, mandando afuera a la persona que en realidad va fija en el comité."
     ],
-    "explanation": "Cuando una combinación exige incluir un elemento fijo, ese elemento ya no se elige: solo se cuenta cuántas formas hay de completar el resto del subconjunto.\n\nCon la persona fija ya dentro del comité, quedan $9$ personas disponibles para completar los $3$ lugares restantes:\n$$\\binom{9}{3}$$\nUn error común es seguir contando como si la persona obligatoria todavía compitiera por un lugar, cuando en realidad ya ocupa uno de los $4$ desde el principio.",
+    "explanation": "Cuando una combinación exige incluir un elemento fijo, ese elemento ya no se elige: solo se cuenta cuántas formas hay de completar el resto del subconjunto.\n\nCon la persona fija ya dentro del comité, quedan 9 personas disponibles para completar los 3 lugares restantes:\n$$\\binom{9}{3}$$\nAsí se cuenta el resto del comité.\n\nUn error común es seguir contando como si la persona obligatoria todavía compitiera por un lugar, cuando en realidad ya ocupa uno de los 4 desde el principio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
