@@ -4,7 +4,7 @@
     "options": [
       "Reescribir como potencia negativa",
       "Regla del cociente",
-      "Múltiplo escalar (linealidad)"
+      "Múltiplo escalar"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -17,7 +17,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\n$$\\frac{5}{x^3} = 5x^{-3}$$\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$, $u'$ y $v'$ por separado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["falsos-positivos-alternativas-cociente"]
   },
   {
     "question": "Considerá la función\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
@@ -37,13 +38,14 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Igual que con cualquier constante dividida por una potencia de $x$, conviene reescribir la expresión antes de derivar.\n\n$$\\frac{7}{x^2} = 7x^{-2}$$\nEsta reescritura evita el trabajo adicional de la regla del cociente frente a una función que, en el fondo, es una potencia simple.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["falsos-positivos-alternativas-cociente"]
   },
   {
     "question": "Considerá la función\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Reescribir como potencia negativa"
     ],
     "correct_index": 2,
@@ -57,12 +59,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El signo negativo del coeficiente no cambia el análisis, la expresión sigue siendo una constante dividida por una potencia de $x$.\n\n$$\\frac{-4}{x^5} = -4x^{-5}$$\nCon esta reescritura, la derivada se calcula directamente con la regla de la potencia, sin recurrir a la fórmula del cociente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["falsos-positivos-alternativas-cociente"]
   },
   {
     "question": "Considerá la función\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Regla del cociente",
       "Regla del producto"
     ],
@@ -77,7 +80,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando el denominador es una constante, dividir equivale a multiplicar por su recíproco, un simple **múltiplo escalar**.\n\n$$\\frac{x^2+1}{4} = \\frac{1}{4}(x^2+1)$$\nCon esa reinterpretación, la derivada se calcula con linealidad y la regla de la potencia, sin necesitar la fórmula completa del cociente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["falsos-positivos-alternativas-cociente"]
   },
   {
     "question": "Considerá la función\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",

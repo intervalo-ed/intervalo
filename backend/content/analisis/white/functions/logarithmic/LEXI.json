@@ -19,7 +19,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una **función logarítmica** tiene la forma $f(x) = \\log_a(x)$, donde $a > 0$ y $a \\neq 1$ es la **base**.\n\nEl logaritmo responde a la pregunta: ¿a qué potencia hay que elevar $a$ para obtener $x$?\n$$\\log_a(x) = y \\iff a^y = x$$\nAsí, $f(x) = \\log_2(x)$ es logarítmica (base 2), mientras que $2^x$ es exponencial, $x^2$ es polinómica y $1/x$ es racional.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cómo se llama la línea vertical que actúa como frontera para esta función?",
@@ -46,7 +47,8 @@
       5
     ],
     "explanation": "La **asíntota vertical** es una recta vertical $x = c$ que la función se acerca pero nunca toca ni cruza.\n\nPara $f(x) = \\log_2(x)$, la asíntota está en $x = 0$ porque el logaritmo no está definido para $x \\leq 0$.\n\nA medida que $x \\to 0^+$, la función se va a $-\\infty$:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\nLa recta $x = 0$ (el eje $Y$) actúa como una **frontera infranqueable** para la gráfica.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Para qué valores de $x$ está definida la función $f(x) = \\log(x)$?",
@@ -68,7 +70,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué? Porque $\\log(x) = y$ equivale a $10^y = x$. Como $10^y > 0$ para cualquier $y$ real, no existe ningún $y$ tal que $10^y = 0$ o $10^y < 0$.\n\nEn otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$, no vale $0$ ahí).",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es la relación entre $f(x) = 2^x$ y $g(x) = \\log_2(x)$?",
@@ -90,7 +93,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Dos funciones son **inversas** cuando una deshace lo que hace la otra. Para $f(x) = 2^x$ y $g(x) = \\log_2(x)$:\n$$\\begin{aligned} \\log_2(2^x) &= x \\\\ 2^{\\log_2(x)} &= x \\end{aligned}$$\nGeométricamente, las gráficas de una función y su inversa son **simétricas respecto a la recta** $y = x$.\n\nEsta propiedad es general: $\\log_b(b^x) = x$ y $b^{\\log_b x} = x$ para cualquier base válida $b$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál de estas NO es una **función logarítmica**?",
@@ -112,7 +116,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función **exponencial** tiene la variable en el exponente: $f(x) = a^x$.\nUna función **logarítmica** tiene la variable dentro de un logaritmo: $f(x) = \\log_a(x)$.\n\nAmbas son inversas entre sí. $f(x) = 2^x$ es exponencial (base 2), no logarítmica.\n\nLas otras opciones sí son logarítmicas: $\\log_2(x)$ (base 2), $\\ln(x) = \\log_e(x)$ (base $e$) y $\\log(x+1)$ (base 10 con argumento desplazado).",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿En qué valor de $x$ se encuentra la **asíntota vertical** de esta función?",
@@ -139,7 +144,8 @@
       5
     ],
     "explanation": "Para encontrar la **asíntota vertical** de $f(x) = \\log_b(x)$, hay que determinar dónde el argumento se anula o se vuelve negativo.\n\nComo $\\log_2(x)$ requiere $x > 0$, la frontera es $x = 0$:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\nLa recta $x = 0$ es la asíntota vertical. La opción $y = 0$ sería una **asíntota horizontal**, que las funciones logarítmicas básicas no tienen.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2(1)$?",
@@ -161,7 +167,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad fundamental** es que $\\log_b(1) = 0$ para cualquier base válida $b > 0$, $b \\neq 1$.\n\n¿Por qué? Porque $b^0 = 1$ siempre. Entonces:\n$$\\log_b(1) = 0 \\iff b^0 = 1 \\checkmark$$\nAplicado al caso: $\\log_2(1) = 0$ porque $2^0 = 1$.\n\nEsta propiedad implica que **todas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$**.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_{10}(10)$?",
@@ -183,7 +190,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad fundamental** es que $\\log_b(b) = 1$ para cualquier base válida $b$.\n\n¿Por qué? Porque $b^1 = b$ siempre. Entonces:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\nAplicado: $\\log_{10}(10) = 1$ porque $10^1 = 10$.\n\nEsto significa que **todas las funciones logarítmicas básicas pasan por el punto $(b,\\, 1)$**, donde $b$ es la base.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿La **función logarítmica** (con **base** $> 1$) es creciente o decreciente?",
@@ -210,7 +218,8 @@
       5
     ],
     "explanation": "El comportamiento de $f(x) = \\log_a(x)$ depende del valor de la **base** $a$. Cuando $a > 1$, la función es **creciente**, es decir que a mayor $x$ corresponde un mayor $f(x)$, aunque crece cada vez con más lentitud. Cuando $0 < a < 1$, en cambio, la función es decreciente.\n\nEn ambos casos la curva pasa por el punto $(1,\\, 0)$ y tiene una **asíntota vertical** en $x = 0$. Para $\\log_2(x)$, que tiene base $2 > 1$, se cumple $f(1) = 0$, $f(2) = 1$, $f(4) = 2$ y $f(8) = 3$: los valores suben, aunque cada duplicación del argumento suma solo una unidad al resultado.\n\nConviene mirar siempre el valor de la base antes de decidir si la curva sube o baja, porque a diferencia de la exponencial, acá crecer significa hacerlo cada vez más despacio, nunca de forma acelerada.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál de estas funciones tiene **asíntota vertical**?",
@@ -232,7 +241,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una **asíntota vertical** aparece cuando una función tiende a $\\pm\\infty$ al acercarse a un valor de $x$.\n\n$f(x) = \\ln(x)$ tiene asíntota vertical en $x = 0$ porque:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\nLas otras funciones no tienen asíntota vertical: $x^2$ y $3x - 1$ están definidas en todos los reales, y $2^x$ tampoco tiene restricciones de dominio (aunque sí tiene asíntota **horizontal** en $y = 0$).",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Por qué $\\ln(x)$ no está definido para $x \\leq 0$?",
@@ -254,7 +264,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir $\\ln(x) = t$ equivale a decir $e^t = x$. Como $e^t > 0$ para todo $t \\in \\mathbb{R}$, nunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso, si $x \\leq 0$, no hay ningún real $t$ que satisfaga $e^t = x$, y $\\ln(x)$ queda sin definir en ese caso. El **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier $\\log_b(x)$ con $b > 0$ y $b \\neq 1$ exige $x > 0$, porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es la **imagen** de $f(x) = \\log_2(x)$?",
@@ -276,7 +287,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **imagen** de $f(x) = \\log_b(x)$ es $\\mathbb{R}$, es decir, todos los números reales.\n\nEsto contrasta con la exponencial $b^x$, cuya imagen es $(0, +\\infty)$, solo positivos. Son funciones inversas: lo que una tiene como **dominio**, la otra lo tiene como imagen.\n\nCuando $x \\to 0^+$, $\\log_b(x) \\to -\\infty$. Cuando $x \\to +\\infty$, $\\log_b(x) \\to +\\infty$. De ahí que la imagen abarque todos los reales.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{2}\\right)$?",
@@ -298,7 +310,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$, buscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n$$2^y = \\frac{1}{2} = 2^{-1} \\implies y = -1$$\nCuando el argumento está entre $0$ y $1$ (para base $b > 1$), el logaritmo es negativo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log(100)$?",
@@ -320,7 +333,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Sin subíndice, $\\log$ significa logaritmo en **base** $10$, la llamada base decimal, que es la convención estándar cuando no se escribe explícitamente la base.\n$$\\log(100) = \\log_{10}(100) = 2 \\iff 10^2 = 100$$\nEl patrón se repite con cualquier potencia de diez: $\\log(10) = 1$, $\\log(100) = 2$, $\\log(1000) = 3$ y, en general, $\\log(10^n) = n$ para cualquier exponente entero $n$. Basta con contar cuántos ceros tiene el argumento para leer directamente el resultado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\ln(e^2)$?",
@@ -342,7 +356,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad de la potencia** del logaritmo dice que $\\log_b(x^n) = n \\cdot \\log_b(x)$: el exponente baja y multiplica al logaritmo. Aplicada acá: $\\ln(e^2) = 2 \\cdot \\ln(e) = 2 \\cdot 1 = 2$, porque $\\ln(e) = 1$ siempre.\n\nEste patrón se repite con cualquier exponente: $\\ln(e^n) = n$ para todo $n \\in \\mathbb{R}$. Por ejemplo, $\\ln(e^3) = 3$, $\\ln(e^{-1}) = -1$ y $\\ln(\\sqrt{e}) = \\ln(e^{1/2}) = \\frac{1}{2}$.\n\nConviene recordar que $\\ln$ y la función $e^{(\\ )}$ se cancelan mutuamente por ser funciones inversas, así que $\\ln(e^n)$ nunca requiere una cuenta larga.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál de estas igualdades es una propiedad válida del **logaritmo**?",
@@ -364,7 +379,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad del producto** del logaritmo convierte una multiplicación dentro del logaritmo en una suma de logaritmos:\n$$\\log_b(x \\cdot y) = \\log_b(x) + \\log_b(y)$$\nPor ejemplo, $\\log_2(4 \\cdot 8) = \\log_2(4) + \\log_2(8) = 2 + 3 = 5$, que coincide con $\\log_2(32) = 5$ calculado directamente.\n\nEsta propiedad aplica exclusivamente a productos dentro del logaritmo, nunca a sumas: $\\log_b(x+y)$ no se puede separar en $\\log_b(x) + \\log_b(y)$, esa es la confusión más común con esta regla.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Qué simplificación permite la propiedad del cociente del **logaritmo**?",
@@ -385,8 +401,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad del cociente**:\n$$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$$\nEjemplo: $\\log_2\\!\\left(\\frac{8}{2}\\right) = \\log_2(8) - \\log_2(2) = 3 - 1 = 2 = \\log_2(4)$ ✓\n\nEl logaritmo convierte divisiones en restas, igual que convierte multiplicaciones en sumas.",
-    "reviewed": false
+    "explanation": "La **propiedad del cociente**:\n$$\\log_b\\!\\left(\\frac{x}{y}\\right) = \\log_b(x) - \\log_b(y)$$\nEjemplo: $\\log_2\\!\\left(\\frac{8}{2}\\right) = \\log_2(8) - \\log_2(2) = 3 - 1 = 2 = \\log_2(4)$ \n\nEl logaritmo convierte divisiones en restas, igual que convierte multiplicaciones en sumas.",
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2(x^3)$ usando las propiedades del **logaritmo**?",
@@ -408,7 +425,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad de la potencia** dice que el exponente dentro del logaritmo baja y pasa a multiplicar por fuera:\n$$\\log_b(x^n) = n \\cdot \\log_b(x)$$\nPor ejemplo, $\\log_2(8) = \\log_2(2^3) = 3 \\cdot \\log_2(2) = 3 \\cdot 1 = 3$, que coincide con el valor directo de $\\log_2(8)$.\n\nEl error más común es olvidar el factor $n$ que multiplica, o confundir la potencia del argumento con una potencia aplicada al resultado del logaritmo, que es una operación distinta.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es la fórmula de cambio de **base** para $\\log_b(x)$?",
@@ -430,7 +448,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo usando una calculadora que solo tenga logaritmo natural o base $10$:\n$$\\log_b(x) = \\frac{\\ln(x)}{\\ln(b)}$$\nPor ejemplo, $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.\n\nEl orden importa: el argumento $x$ va siempre en el numerador y la base $b$ en el denominador. Invertir esa fracción es el error más frecuente al aplicar esta fórmula.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_3(3)$?",
@@ -452,7 +471,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Propiedad fundamental: $\\log_b(b) = 1$ para cualquier **base** válida $b$:\n$$\\log_b(b) = 1 \\iff b^1 = b \\checkmark$$\nEl punto $(b,\\, 1)$ siempre pertenece a la gráfica de $\\log_b(x)$.\n\nEjemplos: $\\log_2(2) = 1$, $\\log_3(3) = 1$, $\\log_{10}(10) = 1$, $\\ln(e) = 1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_{0{,}5}(2)$?",
@@ -474,7 +494,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_{0{,}5}(2) = y \\iff 0{,}5^y = 2$.\n\nComo $0{,}5 = 2^{-1}$, tenemos $(2^{-1})^y = 2^1$, es decir $2^{-y} = 2^1$, luego $y = -1$.\n\nLos logaritmos con **base** $0 < b < 1$ son **decrecientes**: valores mayores del argumento dan logaritmos negativos. Nota: $\\log_{0{,}5}(x) = -\\log_2(x)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "Si $\\log_2(a) = \\log_2(c)$, ¿qué puede concluirse?",
@@ -496,7 +517,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función **inyectiva** nunca asigna el mismo valor a dos entradas distintas.\n\nLa logarítmica es estrictamente monótona, por lo que es inyectiva. Esto permite cancelar logaritmos en ecuaciones:\n\nSi $\\log_b(a) = \\log_b(c)$ con $a, c > 0$, entonces $a = c$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "Si $f(x) = 3^x$, ¿cuál es su función inversa $f^{-1}(x)$?",
@@ -518,7 +540,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La inversa de una función exponencial $f(x) = b^x$ es siempre $f^{-1}(x) = \\log_b(x)$, porque una deshace exactamente lo que hace la otra. Para $b = 3$:\n$$\\begin{aligned} \\log_3(3^x) &= x \\\\ 3^{\\log_3(x)} &= x \\end{aligned}$$\nAmbas identidades se cumplen para cualquier $x$ en el dominio correspondiente.\n\nGeométricamente, las gráficas de $f$ y $f^{-1}$ son simétricas respecto a la recta $y = x$: reflejar una sobre esa recta produce la otra. Esta relación exponencial-logarítmica es la pareja de funciones inversas más común del tema.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Dónde está la **asíntota vertical** de $f(x) = \\log_2(x - 3)$?",
@@ -540,7 +563,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **asíntota vertical** ocurre donde el argumento del logaritmo se anula, ya que ahí la función deja de estar definida:\n$$x - 3 = 0 \\implies x = 3$$\nPor lo tanto, la asíntota vertical es $x = 3$ y el **dominio** de la función es $(3, +\\infty)$.\n\nLa regla general es que $\\log_b(x - h)$ siempre tiene su asíntota en $x = h$: el desplazamiento horizontal del argumento mueve la barrera vertical exactamente esa misma cantidad, sin afectar la forma de la curva.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Dónde está la **asíntota vertical** de $f(x) = \\log_2(x) + 5$?",
@@ -562,7 +586,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para $f(x) = \\log_2(x) + 5$, el argumento sigue siendo $x$, entonces la asíntota sigue en $x = 0$.\n\nEl $+5$ es un desplazamiento vertical que sube la curva, pero no modifica la asíntota ni el **dominio**.\n\nContraste: $\\log_2(x - 5)$ tiene asíntota en $x = 5$ (desplazamiento horizontal del argumento).",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cómo es $f(x) = -\\log_2(x)$ en comparación con $g(x) = \\log_2(x)$?",
@@ -584,7 +609,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Multiplicar por $-1$ produce una reflexión respecto al eje $X$: los valores se invierten.\n\n$g(x) = \\log_2(x)$ es creciente; $f(x) = -\\log_2(x)$ es decreciente.\n\nAmbas comparten **dominio** ($x > 0$), **imagen** ($\\mathbb{R}$), **asíntota** vertical ($x = 0$) y el punto $(1, 0)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Qué ocurre con $\\log_2(x)$ cuando $x$ se acerca a $0$ por la derecha ($x \\to 0^+$)?",
@@ -606,7 +632,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando el argumento se acerca a $0$ por la derecha:\n$$\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$$\nEjemplos: $\\log_2(1) = 0$, $\\log_2(0{,}5) = -1$, $\\log_2(0{,}25) = -2$, $\\log_2(0{,}125) = -3$.\n\nLa curva cae verticalmente al acercarse desde la derecha, eso es precisamente lo que define la **asíntota vertical** en $x = 0$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Tiene $f(x) = \\ln(x)$ una **asíntota horizontal** cuando $x \\to +\\infty$?",
@@ -628,7 +655,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene **asíntota horizontal**. Contraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando $x \\to -\\infty$. Son inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
@@ -650,7 +678,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El logaritmo es la **inversa de la exponencial**. Aparece cuando se despeja el tiempo $t$.\n\nEjemplo: una inversión crece según $M(t) = M_0 \\cdot (1{,}1)^t$. Para saber cuándo llega a $M$:\n$$t = \\log_{1{,}1}\\!\\left(\\frac{M}{M_0}\\right)$$\nLa función 'monto después de $t$ años' es exponencial; la función 'cuántos años para llegar a $X$' es logarítmica.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_3(27)$?",
@@ -672,7 +701,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_3(27) = y$ significa buscar el exponente $y$ tal que $3^y = 27$. Como $27 = 3^3$, se cumple $y=3$:\n$$3^y = 27 = 3^3 \\implies y = 3$$\nEsto corresponde al punto $(27,\\, 3)$ en la gráfica de $f(x) = \\log_3(x)$.\n\nEl método mental más rápido es preguntarse '¿a qué potencia se eleva $3$ para obtener $27$?'. Contar las multiplicaciones sucesivas ($3, 9, 27$) muestra que hicieron falta tres pasos, de ahí el resultado $3$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\ln(1)$?",
@@ -694,7 +724,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Propiedad universal: $\\log_b(1) = 0$ para cualquier base válida $b$.\n\nPor qué: $b^0 = 1$ siempre, entonces $\\log_b(1) = 0$.\n\nNo confundir con $f(0) = \\ln(0)$, que **no existe** (el **dominio** es $x > 0$). El logaritmo de $1$ es cero, no el logaritmo de cero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2(8)$?",
@@ -716,7 +747,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_2(8) = y$ equivale a preguntar a qué exponente hay que elevar la **base** $2$ para obtener $8$. Como $8 = 2^3$, se cumple $y = 3$:\n$$2^y = 8 = 2^3 \\implies y = 3$$\nLa serie de potencias de $2$ ayuda a visualizarlo: $\\log_2(2) = 1$, $\\log_2(4) = 2$, $\\log_2(8) = 3$, $\\log_2(16) = 4$. Cada vez que el argumento se duplica, el resultado sube exactamente una unidad, una consecuencia directa de que la base es $2$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es el **dominio** de $f(x) = \\ln(x + 3)$?",
@@ -738,7 +770,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El argumento del logaritmo debe ser estrictamente positivo:\n$$x + 3 > 0 \\implies x > -3$$\nPor lo tanto, el **dominio** es $(-3, +\\infty)$ y la **asíntota vertical** está en $x = -3$, justo donde el argumento se anula.\n\nEl intercepto con el eje $X$ está donde $\\ln(x+3) = 0$, es decir donde $x + 3 = 1$, o sea $x = -2$. Conviene recordar que el desplazamiento horizontal del argumento mueve tanto el dominio como la asíntota en la misma dirección y magnitud.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es la **imagen** de $f(x) = -\\log_2(x)$?",
@@ -760,7 +793,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **imagen** de $\\log_2(x)$ es $\\mathbb{R}$. Multiplicar por $-1$ refleja la curva, pero no la acota:\n\nCuando $\\log_2(x) \\to -\\infty$, $-\\log_2(x) \\to +\\infty$. Cuando $\\log_2(x) \\to +\\infty$, $-\\log_2(x) \\to -\\infty$.\n\nLa imagen sigue siendo $\\mathbb{R}$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "Para $x = 8$, ¿qué relación hay entre $\\log_2(8)$ y $\\log_4(8)$?",
@@ -782,7 +816,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_2(8) = 3$, porque $2^3 = 8$. Para $\\log_4(8)$ se busca el exponente que satisface $4^y = 8$:\n$$\\begin{aligned} 4^y &= 8 \\\\ (2^2)^y &= 2^3 \\\\ y &= \\frac{3}{2} \\end{aligned}$$\nComo $3 > 1{,}5$, se cumple $\\log_2(8) > \\log_4(8)$.\n\nEsta comparación sigue una regla general: para un mismo argumento $x > 1$, cuanto mayor es la base, menor es el valor del logaritmo, porque hace falta un exponente más chico para llegar al mismo resultado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2(4) + \\log_2(8)$?",
@@ -804,7 +839,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Por la **propiedad del producto** del logaritmo:\n$$\\log_2(4) + \\log_2(8) = \\log_2(4 \\cdot 8) = \\log_2(32)$$\nComo $2^5 = 32$, ese valor equivale numéricamente a $5$. Las opciones '$5$' y '$\\log_2(32)$' representan el mismo número, pero la fórmula de producto es la forma más directa de llegar ahí sin calcular cada logaritmo por separado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es el **dominio** de $f(x) = \\log_2(-x)$?",
@@ -826,7 +862,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para que $f(x) = \\log_2(-x)$ esté definida, el argumento $-x$ debe ser positivo:\n$$-x > 0 \\implies x < 0$$\nEl **dominio** es entonces $(-\\infty, 0)$, y la **asíntota vertical** queda en $x = 0$, igual que en la función sin reflejar.\n\nEsta función es la reflexión horizontal de $\\log_2(x)$: la curva se 'voltea' respecto al eje $Y$ y queda por completo en el semiplano de los $x$ negativos, en vez de en el de los positivos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál es la función inversa de $f(x) = 10^x$?",
@@ -848,7 +885,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La inversa de una exponencial $b^x$ es siempre $\\log_b(x)$, la misma base pero con los roles de exponente y argumento invertidos. Para $b = 10$:\n$$\\begin{aligned} \\log(10^x) &= x \\\\ 10^{\\log(x)} &= x \\end{aligned}$$\nAmbas identidades confirman que $\\log(x)$, el logaritmo en base $10$, deshace exactamente lo que hace $10^x$.\n\nOjo con confundir bases: $\\ln(x) = \\log_e(x)$ es la inversa de $e^x$, no de $10^x$. Cada exponencial tiene su propia inversa logarítmica, con la misma base.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_5(1)$?",
@@ -870,7 +908,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "**Propiedad universal**: $\\log_b(1) = 0$ para cualquier base $b > 0$ con $b \\neq 1$, porque $b^0 = 1$ siempre, sin importar cuál sea la base. Aplicado acá: $\\log_5(1) = 0$ porque $5^0 = 1$.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$, el mismo punto para cualquier base. Conviene no confundir esta propiedad con $\\log_b(b) = 1$, que es la otra igualdad fundamental y corresponde al punto $(b,\\, 1)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_2\\!\\left(\\dfrac{1}{4}\\right)$?",
@@ -892,7 +931,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_2\\!\\left(\\frac{1}{4}\\right) = y$ busca el exponente que cumple $2^y = \\frac{1}{4}$. Como $\\frac{1}{4} = 2^{-2}$, resulta $y = -2$:\n$$2^y = \\frac{1}{4} = 2^{-2} \\implies y = -2$$\nEl patrón de potencias negativas ayuda a visualizarlo: $\\frac{1}{2} = 2^{-1}$, $\\frac{1}{4} = 2^{-2}$, $\\frac{1}{8} = 2^{-3}$.\n\nEn general, para cualquier argumento entre $0$ y $1$ con **base** $b > 1$, el logaritmo siempre da un resultado negativo, porque hace falta un exponente negativo para achicar la base hasta una fracción.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿A cuál de estas expresiones es equivalente $2 \\cdot \\log_2(x)$?",
@@ -914,7 +954,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **propiedad de la potencia** dice que un factor multiplicativo delante del logaritmo puede subir como exponente del argumento:\n$$2 \\cdot \\log_2(x) = \\log_2(x^2)$$\nEsta es la misma regla $n \\cdot \\log_b(x) = \\log_b(x^n)$ aplicada en sentido inverso, de derecha a izquierda.\n\nVerificación con $x = 4$: $2 \\cdot \\log_2(4) = 2 \\cdot 2 = 4$ y $\\log_2(4^2) = \\log_2(16) = 4$, coinciden. Conviene no confundir esta regla con la propiedad del producto, que suma dos logaritmos distintos en vez de multiplicar uno solo por un factor.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Tiene $f(x) = \\log_2(x)$ algún máximo o mínimo local?",
@@ -936,7 +977,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una función estrictamente monótona no puede tener extremos locales: para que haya un máximo o mínimo, la función debe cambiar de dirección.\n\nComo $\\log_2(x)$ es estrictamente creciente en $(0, +\\infty)$, no tiene máximos ni mínimos locales.\n\nNota: $\\lim_{x \\to 0^+} \\log_2(x) = -\\infty$ no es un mínimo, ese límite nunca se alcanza.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿En qué punto pasa la gráfica de $f(x) = \\ln(x)$ a altura $y = 1$?",
@@ -958,7 +1000,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La igualdad $\\ln(x) = 1$ se cumple cuando $x = e \\approx 2{,}718$, el número que define la base del logaritmo natural. Este valor no es casualidad: por la propiedad fundamental $\\log_b(b) = 1$, cualquier logaritmo alcanza la altura $1$ exactamente cuando el argumento coincide con su propia base.\n\nPara $\\ln(x)$ hay dos puntos clave que conviene memorizar: $(1,\\, 0)$, donde la curva cruza el eje $X$, y $(e,\\, 1)$, donde alcanza la altura $1$. Ambos se derivan de las dos propiedades universales del logaritmo, $\\log_b(1)=0$ y $\\log_b(b)=1$.\n\nEl mismo patrón se repite en cualquier base: para $\\log_2(x)$ el punto análogo es $(2,\\, 1)$, y para $\\log_{10}(x)$ es $(10,\\, 1)$. Conviene no confundir este punto con $(1,\\,0)$, que siempre corresponde a la altura $0$, no a la altura $1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_4(16)$?",
@@ -980,7 +1023,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log_4(16) = y$ busca el exponente que cumple $4^y = 16$. Como $16 = 4^2$, resulta $y = 2$:\n$$4^y = 16 = 4^2 \\implies y = 2$$\nOtra manera de verlo es reescribir todo en **base** común $2$: $16 = 2^4$ y $4 = 2^2$, entonces $\\log_4(16) = \\frac{4}{2} = 2$, dividiendo los exponentes respectivos.\n\nEste segundo método, pasar a una base común y dividir exponentes, es útil cuando la base y el argumento comparten un factor primo, como acá que ambos son potencias de $2$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "Si $\\log_2(x) = 3$, ¿cuánto vale $x$?",
@@ -1002,7 +1046,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Para resolver una ecuación de la forma $\\log_b(x) = c$, se usa directamente la definición del **logaritmo**:\n$$\\log_b(x) = c \\iff x = b^c$$\nAcá, $\\log_2(x) = 3$ significa que $2$ elevado a la potencia $3$ debe dar $x$, entonces $x = 2^3 = 8$.\n\nEste tipo de ecuación aparece constantemente al despejar el argumento de un logaritmo, y el error más común es invertir la relación, escribiendo $x = c^b$ en vez de $x = b^c$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál de estas funciones tiene una **asíntota vertical**?",
@@ -1024,7 +1069,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n$$\\lim_{x \\to 0^+} \\ln(x) = -\\infty$$\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_6(6^5)$?",
@@ -1046,7 +1092,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Por la **propiedad de la potencia**, el exponente $5$ baja y multiplica al logaritmo:\n$$\\log_6(6^5) = 5 \\cdot \\log_6(6) = 5 \\cdot 1 = 5$$\nComo $\\log_6(6) = 1$ por ser el logaritmo de la propia base, el resultado final es simplemente $5$.\n\nEste es un caso particular del resultado general $\\log_b(b^n) = n$, válido para cualquier base $b$ y exponente $n$: el logaritmo y la exponencial en la misma base se cancelan mutuamente por ser funciones inversas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuál de estas funciones tiene **dominio** exactamente $(0, +\\infty)$?",
@@ -1068,7 +1115,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\log(x)$ requiere $x > 0$, así que su **dominio** es exactamente $(0, +\\infty)$.\n\nLas otras funciones tienen dominios distintos: $2^x$ tiene dominio $\\mathbb{R}$, $x^2$ también tiene dominio $\\mathbb{R}$, y $\\sqrt{x}$ tiene dominio $[0, +\\infty)$, que incluye $x=0$, a diferencia del logaritmo, que excluye el cero por completo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿Cuánto vale $\\log_3(9) - \\log_3(3)$?",
@@ -1090,7 +1138,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Por la **propiedad del cociente**, una resta de logaritmos con la misma base equivale al logaritmo del cociente de los argumentos:\n$$\\log_3(9) - \\log_3(3) = \\log_3\\!\\left(\\frac{9}{3}\\right) = \\log_3(3) = 1$$\nTambién se puede calcular cada término por separado: $\\log_3(9) = 2$ porque $3^2=9$, y $\\log_3(3) = 1$ porque $3^1=3$, entonces $2 - 1 = 1$.\n\nAmbos caminos llegan al mismo resultado, y conviene practicar los dos: la propiedad del cociente es más rápida cuando la división simplifica, y el cálculo directo sirve como verificación.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   },
   {
     "question": "¿A cuál expresión es equivalente $\\ln(e^{2x})$?",
@@ -1112,6 +1161,7 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n$$\\ln(e^{2x}) = 2x \\cdot \\ln(e) = 2x \\cdot 1 = 2x$$\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier $u \\in \\mathbb{R}$, y con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$, que sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$, un caso distinto donde el exponente está afuera de la base $e$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": []
   }
 ]

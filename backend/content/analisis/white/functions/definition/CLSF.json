@@ -1,6 +1,6 @@
 [
   {
-    "question": "Un catálogo carga el precio de cada producto por su código. Al revisar, el producto con código 88 aparece en dos filas, una a \\$1500 y otra a \\$1800.\n\n¿La asignación de códigos a precios define una función?",
+    "question": "Un catálogo carga el precio de cada producto por su código. Al revisar, el producto con código 88 aparece en dos filas, una a \\$1500 y otra a \\$1800. ¿La asignación de códigos a precios define una función?",
     "options": [
       "No, el código 88 queda con dos precios distintos",
       "Sí, porque los dos precios son válidos",
@@ -16,11 +16,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el código 88 aparece con dos precios,\n$$\\begin{aligned} 88 &\\mapsto 1500 \\\\ 88 &\\mapsto 1800 \\end{aligned}$$\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nEs el caso típico de datos duplicados: no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el código 88 aparece con dos precios, $$\\begin{aligned} 88 &\\mapsto 1500 \\\\ 88 &\\mapsto 1800 \\end{aligned}$$ Como una misma entrada tiene dos salidas, la asignación no es función. Es el caso típico de datos duplicados: no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7.\n\n¿La asignación de códigos a pasillos define una función?",
+    "question": "Un depósito registra en qué pasillo está cada medicamento. El medicamento con código 4 figura a la vez en el pasillo 3 y en el pasillo 7. ¿La asignación de códigos a pasillos define una función?",
     "options": [
       "Sí, un objeto puede estar en dos lugares",
       "No, el medicamento 4 tiene dos pasillos asignados",
@@ -36,11 +39,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el medicamento con código 4 figura en dos pasillos,\n$$\\begin{aligned} 4 &\\mapsto 3 \\\\ 4 &\\mapsto 7 \\end{aligned}$$\nUna entrada con dos salidas rompe la condición, así que no es función.\n\nQue en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el medicamento con código 4 figura en dos pasillos, $$\\begin{aligned} 4 &\\mapsto 3 \\\\ 4 &\\mapsto 7 \\end{aligned}$$ Una entrada con dos salidas rompe la condición, así que no es función. Que en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Un sistema guarda la nota final de cada alumno. Para el alumno 12 quedaron cargadas la nota vieja, 4, y la del recuperatorio, 7.\n\n¿La asignación de alumnos a nota final define una función?",
+    "question": "Un sistema guarda la nota final de cada alumno. Para el alumno 12 quedaron cargadas la nota vieja, 4, y la del recuperatorio, 7. ¿La asignación de alumnos a nota final define una función?",
     "options": [
       "Sí, se toma la nota más alta",
       "No, porque una nota debería superar el 6",
@@ -56,11 +62,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el alumno 12 quedó con dos notas finales,\n$$\\begin{aligned} 12 &\\mapsto 4 \\\\ 12 &\\mapsto 7 \\end{aligned}$$\nDos salidas para la misma entrada rompen la unicidad, así que no es función.\n\nElegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el alumno 12 quedó con dos notas finales, $$\\begin{aligned} 12 &\\mapsto 4 \\\\ 12 &\\mapsto 7 \\end{aligned}$$ Dos salidas para la misma entrada rompen la unicidad, así que no es función. Elegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Una tabla convierte cada talla europea en una talla local. La talla 40 aparece convertida a M en una fila y a L en otra.\n\n¿La conversión de tallas define una función?",
+    "question": "Una tabla convierte cada talla europea en una talla local. La talla 40 aparece convertida a M en una fila y a L en otra. ¿La conversión de tallas define una función?",
     "options": [
       "Sí, M y L son tallas válidas",
       "No, la talla 40 se convierte en dos tallas",
@@ -76,11 +85,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá la talla 40 se convierte en dos tallas locales,\n$$\\begin{aligned} 40 &\\mapsto \\text{M} \\\\ 40 &\\mapsto \\text{L} \\end{aligned}$$\nUna entrada con dos salidas no define función.\n\nQue M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá la talla 40 se convierte en dos tallas locales, $$\\begin{aligned} 40 &\\mapsto \\text{M} \\\\ 40 &\\mapsto \\text{L} \\end{aligned}$$ Una entrada con dos salidas no define función. Que M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Un registro guarda la posición de un móvil en cada instante. Por un error de señal, para el instante 10 quedaron anotadas dos posiciones distintas.\n\n¿La asignación de instantes a posiciones define una función?",
+    "question": "Un registro guarda la posición de un móvil en cada instante. Por un error de señal, para el instante 10 quedaron anotadas dos posiciones distintas. ¿La asignación de instantes a posiciones define una función?",
     "options": [
       "Sí, el registro puede dar varias posiciones",
       "No, el instante 10 tiene dos posiciones",
@@ -96,11 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el instante 10 quedó con dos posiciones registradas.\n\nComo una misma entrada tiene dos salidas, el registro no define una función de instante a posición.\n\nEl error de señal produce justo lo que la unicidad prohíbe: dos salidas para un mismo instante.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el instante 10 quedó con dos posiciones registradas. Como una misma entrada tiene dos salidas, el registro no define una función de instante a posición. El error de señal produce justo lo que la unicidad prohíbe: dos salidas para un mismo instante.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Un padrón asocia a cada documento un domicilio. Una persona que se mudó figura con su documento en dos domicilios activos al mismo tiempo.\n\n¿La asignación de documentos a domicilios define una función?",
+    "question": "Un padrón asocia a cada documento un domicilio. Una persona que se mudó figura con su documento en dos domicilios activos al mismo tiempo. ¿La asignación de documentos a domicilios define una función?",
     "options": [
       "No, ese documento queda con dos domicilios",
       "Sí, mientras los dos domicilios existan",
@@ -116,11 +131,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá un mismo documento figura en dos domicilios activos a la vez.\n\nUna entrada con dos salidas rompe la condición, así que la asignación de documento a domicilio no es función.\n\nMientras el padrón no resuelva cuál domicilio vale, el dato duplicado impide tratarlo como función.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá un mismo documento figura en dos domicilios activos a la vez. Una entrada con dos salidas rompe la condición, así que la asignación de documento a domicilio no es función. Mientras el padrón no resuelva cuál domicilio vale, el dato duplicado impide tratarlo como función.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "Una carta asigna un precio a cada plato. El plato del día, con el mismo nombre, figura a \\$2000 en la versión de mediodía y a \\$2500 en la de la noche.\n\n¿La asignación de platos a precios define una función?",
+    "question": "Una carta asigna un precio a cada plato. El plato del día, con el mismo nombre, figura a \\$2000 en la versión de mediodía y a \\$2500 en la de la noche. ¿La asignación de platos a precios define una función?",
     "options": [
       "Sí, los dos precios son razonables",
       "No, porque faltan precios de otros platos",
@@ -136,11 +154,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá el mismo plato figura con dos precios,\n$$\\begin{aligned} \\text{plato} &\\mapsto 2000 \\\\ \\text{plato} &\\mapsto 2500 \\end{aligned}$$\nDos salidas para la misma entrada no definen función.\n\nPara modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el mismo plato figura con dos precios, $$\\begin{aligned} \\text{plato} &\\mapsto 2000 \\\\ \\text{plato} &\\mapsto 2500 \\end{aligned}$$ Dos salidas para la misma entrada no definen función. Para modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'.",
+    "reviewed": false,
+    "tags": [
+      "unicidad-rota-disfrazada"
+    ]
   },
   {
-    "question": "La regla del valor absoluto asigna al $-5$ el valor $5$ y al $5$ también el valor $5$.\n$$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$\n¿Esta regla define una función?",
+    "question": "La regla del valor absoluto asigna al $-5$ el valor $5$ y al $5$ también el valor $5$. $$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$ ¿Esta función define una función?",
     "options": [
       "Sí, cada número tiene un único valor absoluto",
       "No, dos números distintos dan el mismo resultado",
@@ -156,11 +177,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas.\n\nAcá cada número tiene un solo valor absoluto,\n$$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$\nQue $-5$ y $5$ compartan salida no rompe nada, así que es función.\n\nLa confusión central es leer la unicidad al revés: dos entradas con la misma salida no invalidan la función.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada número tiene un solo valor absoluto, $$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$ Que $-5$ y $5$ compartan salida no rompe nada, así que es función. La confusión central es leer la unicidad al revés: dos entradas con la misma salida no invalidan la función.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "La regla que eleva al cuadrado da $f(-4) = 16$ y $f(4) = 16$, el mismo resultado para dos entradas distintas.\n$$\\begin{aligned} f(-4) &= 16 \\\\ f(4) &= 16 \\end{aligned}$$\n¿Esta regla define una función?",
+    "question": "La función que eleva al cuadrado da $f(-4) = 16$ y $f(4) = 16$, el mismo resultado para dos entradas distintas. $$\\begin{aligned} f(-4) &= 16 \\\\ f(4) &= 16 \\end{aligned}$$ ¿Esta función define una función?",
     "options": [
       "No, el $-4$ y el $4$ dan lo mismo",
       "Sí, cada número tiene un único cuadrado",
@@ -176,11 +200,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$ comparten la salida $16$, pero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la unicidad al revés: mira las salidas por entrada, no las entradas por salida.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada. Acá $-4$ y $4$ comparten la salida $16$, pero cada uno tiene una sola salida. La condición se cumple, así que es función. La confusión central es leer la unicidad al revés: mira las salidas por entrada, no las entradas por salida.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Un sistema impositivo asigna a cada ingreso mensual una categoría. Los ingresos de 80000 y 90000 pesos caen los dos en la categoría 3.\n$$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$\n¿Esta regla define una función?",
+    "question": "Un sistema impositivo asigna a cada ingreso mensual una categoría. Los ingresos de 80000 y 90000 pesos caen los dos en la categoría 3. $$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$ ¿Esta función define una función?",
     "options": [
       "Sí, cada ingreso tiene una sola categoría",
       "No, dos ingresos comparten la categoría 3",
@@ -196,11 +223,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nAcá cada ingreso cae en una sola categoría,\n$$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$\nQue dos ingresos compartan la categoría 3 no rompe la unicidad, así que es función.\n\nEl requisito mira cada entrada por separado: una sola salida por ingreso, sin importar si otros ingresos coinciden.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ingreso cae en una sola categoría, $$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$ Que dos ingresos compartan la categoría 3 no rompe la unicidad, así que es función. El requisito mira cada entrada por separado: una sola salida por ingreso, sin importar si otros ingresos coinciden.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Una encuesta registra la materia favorita de cada estudiante. Los estudiantes 1 y 3 eligieron los dos Matemática.\n$$\\begin{aligned} 1 &\\mapsto \\text{Mat} \\\\ 2 &\\mapsto \\text{His} \\\\ 3 &\\mapsto \\text{Mat} \\end{aligned}$$\n¿Esta asignación define una función?",
+    "question": "Una encuesta registra la materia favorita de cada estudiante. Los estudiantes 1 y 3 eligieron los dos Matemática. $$\\begin{aligned} 1 &\\mapsto \\text{Mat} \\\\ 2 &\\mapsto \\text{His} \\\\ 3 &\\mapsto \\text{Mat} \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, la materia se repite entre estudiantes",
       "No, faltan materias por elegir",
@@ -216,11 +246,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas.\n\nAcá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada.\n\nLa asignación es función.\n\nEl error clásico es pedir salidas distintas: eso sería otra propiedad, no la condición de función.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada. La asignación es función. El error clásico es pedir salidas distintas: eso sería otra propiedad, no la condición de función.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Una regla asigna el valor 0 a todos los números enteros del 1 al 100.\n$$f(x) = 0, \\qquad x \\in \\{1, \\dots, 100\\}$$\n¿Esta regla define una función?",
+    "question": "Una función asigna el valor 0 a todos los números enteros del 1 al 100. $$f(x) = 0, \\qquad x \\in \\{1, \\dots, 100\\}$$ ¿Esta función define una función?",
     "options": [
       "Sí, cada número tiene una sola salida, el $0$",
       "No, todos comparten la misma salida",
@@ -236,11 +269,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá todas las entradas dan el mismo valor, el $0$, pero cada una tiene exactamente una salida.\n\nQue compartan el resultado no rompe nada, así que es función.\n\nLa confusión típica es exigir salidas variadas: una función constante es válida, su imagen es $\\{0\\}$.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá todas las entradas dan el mismo valor, el $0$, pero cada una tiene exactamente una salida. Que compartan el resultado no rompe nada, así que es función. La confusión típica es exigir salidas variadas: una función constante es válida, su imagen es $\\{0\\}$.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%.\n$$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$\n¿Esta asignación define una función?",
+    "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
       "Sí, cada monto recibe un solo cupón",
@@ -256,11 +292,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nAcá cada monto recibe un solo cupón; que \\$1000 y \\$1200 coincidan en el 10% no rompe nada.\n\nLa asignación es función.\n\nLa confusión central es creer que compartir salida invalida la función: la unicidad mira cada entrada, no exige un monto distinto por cupón.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada monto recibe un solo cupón; que \\$1000 y \\$1200 coincidan en el 10% no rompe nada. La asignación es función. La confusión central es creer que compartir salida invalida la función: la unicidad mira cada entrada, no exige un monto distinto por cupón.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Una app redondea cada precio al peso más cercano. Los precios de \\$4,20 y \\$4,40 se redondean los dos a \\$4.\n\n¿Esta regla define una función?",
+    "question": "Una app redondea cada precio al peso más cercano. Los precios de \\$4,20 y \\$4,40 se redondean los dos a \\$4. ¿Esta función define una función?",
     "options": [
       "Sí, cada precio se redondea a un solo valor",
       "No, dos precios distintos dan el mismo redondeo",
@@ -276,11 +315,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida.\n\nAcá cada precio se redondea a un solo valor; que \\$4,20 y \\$4,40 caigan los dos en \\$4 no rompe nada.\n\nLa regla es función.\n\nLa confusión clásica es pensar que juntar entradas en la misma salida invalida la función: la unicidad solo pide una salida por entrada.",
-    "reviewed": false
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá cada precio se redondea a un solo valor; que \\$4,20 y \\$4,40 caigan los dos en \\$4 no rompe nada. La función es función. La confusión clásica es pensar que juntar entradas en la misma salida invalida la función: la unicidad solo pide una salida por entrada.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Un parte del clima asigna a cada ciudad su temperatura de hoy. Dos ciudades distintas marcan las dos 18°C.\n$$\\begin{aligned} \\text{ciudad A} &\\mapsto 18 \\\\ \\text{ciudad B} &\\mapsto 18 \\end{aligned}$$\n¿Esta asignación define una función?",
+    "question": "Un parte del clima asigna a cada ciudad su temperatura de hoy. Dos ciudades distintas marcan las dos 18°C. $$\\begin{aligned} \\text{ciudad A} &\\mapsto 18 \\\\ \\text{ciudad B} &\\mapsto 18 \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos ciudades comparten la misma temperatura",
       "Sí, cada ciudad tiene una sola temperatura",
@@ -296,16 +338,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida.\n\nAcá cada ciudad tiene una sola temperatura; que dos coincidan en $18$ no rompe nada.\n\nLa asignación es función.\n\nEl error central es leer la unicidad al revés: no se exige una temperatura distinta por ciudad, solo una temperatura por ciudad.",
-    "reviewed": false
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ciudad tiene una sola temperatura; que dos coincidan en $18$ no rompe nada. La asignación es función. El error central es leer la unicidad al revés: no se exige una temperatura distinta por ciudad, solo una temperatura por ciudad.",
+    "reviewed": false,
+    "tags": [
+      "trampa-inyectividad"
+    ]
   },
   {
-    "question": "Una panadería cobra \\$250 por factura y vende hasta 12 por cliente. El precio de $n$ facturas es\n$$f(n) = 250\\,n, \\qquad n \\in \\{1, \\dots, 12\\}$$\n¿Cuál de estos conjuntos es el **dominio** de $f$?",
+    "question": "Una panadería cobra \\$250 por factura y vende hasta 12 por cliente. El precio de $n$ facturas es $$f(n) = 250\\,n, \\qquad n \\in \\{1, \\dots, 12\\}$$ ¿Cuál de estos conjuntos es el **dominio** de $f$?",
     "options": [
       "$\\{1, \\dots, 12\\}$",
       "$\\{250, \\dots, 3000\\}$",
       "El número $250$",
-      "Todos los reales"
+      "$\\mathbb{R}$"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -318,15 +363,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son las cantidades de facturas,\n$$n \\in \\{1, \\dots, 12\\}$$\nLos precios que salen forman la imagen, no el dominio.\n\nLa confusión típica es tomar los valores de salida como dominio: fijate siempre qué se ingresa a la regla, no qué devuelve.",
-    "reviewed": false
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las cantidades de facturas, $$n \\in \\{1, \\dots, 12\\}$$ Los precios que salen forman la imagen, no el dominio. La confusión típica es tomar los valores de salida como dominio: fijate siempre qué se ingresa a la función, no qué devuelve.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Una función convierte temperaturas en Celsius, de 0 a 100, en grados Fahrenheit, de 32 a 212.\n$$F : \\{0, \\dots, 100\\} \\to \\{32, \\dots, 212\\}$$\n¿Cuál es el **dominio** de $F$?",
+    "question": "Una función convierte temperaturas en Celsius, de 0 a 100, en grados Fahrenheit, de 32 a 212. $$F : \\{0, \\dots, 100\\} \\to \\{32, \\dots, 212\\}$$ ¿Cuál es el **dominio** de $F$?",
     "options": [
       "$\\{32, \\dots, 212\\}$",
       "$\\{0, \\dots, 100\\}$",
-      "Todos los reales",
+      "$\\mathbb{R}$",
       "El número $100$"
     ],
     "correct_index": 1,
@@ -340,11 +388,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son las temperaturas en Celsius,\n$$\\{0, \\dots, 100\\}$$\nLas temperaturas en Fahrenheit son las salidas, así que forman el codominio.\n\nEl error clásico es mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra.",
-    "reviewed": false
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las temperaturas en Celsius, $$\\{0, \\dots, 100\\}$$ Las temperaturas en Fahrenheit son las salidas, así que forman el codominio. El error clásico es mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades.\n$$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$\n¿Cuál de estos conjuntos es el **dominio**?",
+    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades. $$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$ ¿Cuál de estos conjuntos es el **dominio**?",
     "options": [
       "$\\{0, \\dots, 500\\}$",
       "$\\{1, \\dots, 500\\}$",
@@ -362,11 +413,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son los vendedores, numerados del 1 al 12,\n$$\\{1, \\dots, 12\\}$$\nLas unidades posibles forman el codominio y las efectivamente vendidas, la imagen.\n\nContar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
-    "reviewed": false
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son los vendedores, numerados del 1 al 12, $$\\{1, \\dots, 12\\}$$ Las unidades posibles forman el codominio y las efectivamente vendidas, la imagen. Contar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Una encuesta corta hace 3 preguntas y cada respuesta se registra como sí o no.\n$$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$\n¿Cuál es el **dominio** de $E$?",
+    "question": "Una encuesta corta hace 3 preguntas y cada respuesta se registra como sí o no. $$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$ ¿Cuál es el **dominio** de $E$?",
     "options": [
       "Las respuestas $S$ y $N$",
       "Las 3 preguntas de la encuesta",
@@ -384,11 +438,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la regla.\n\nAcá las entradas son las tres preguntas, $\\{1, 2, 3\\}$. Las respuestas $S$ y $N$ son las salidas posibles, el codominio.\n\nLas respuestas concretas del encuestado forman la imagen.\n\nLa confusión frecuente es contar las preguntas: el dominio es el conjunto de preguntas, no su número.",
-    "reviewed": false
+    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la función. Acá las entradas son las tres preguntas, $\\{1, 2, 3\\}$. Las respuestas $S$ y $N$ son las salidas posibles, el codominio. Las respuestas concretas del encuestado forman la imagen. La confusión frecuente es contar las preguntas: el dominio es el conjunto de preguntas, no su número.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Un almacén registra el stock de cada producto por su código. Al producto 104 le quedan 8 unidades.\n$$S(104) = 8$$\n¿El $104$ pertenece al **dominio** o a la imagen de $S$?",
+    "question": "Un almacén registra el stock de cada producto por su código. Al producto 104 le quedan 8 unidades. $$S(104) = 8$$ ¿El $104$ pertenece al **dominio** o a la imagen de $S$?",
     "options": [
       "Del dominio, es una entrada",
       "De la imagen, es una salida",
@@ -406,11 +463,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** contiene las entradas de la función y la imagen contiene las salidas.\n\nAcá el $104$ es el código que se ingresa a la regla,\n$$S(104) = 8$$\nEl $8$ es el stock que sale, así que pertenece a la imagen.\n\nEl error típico es guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.",
-    "reviewed": false
+    "explanation": "El **dominio** contiene las entradas de la función y la imagen contiene las salidas. Acá el $104$ es el código que se ingresa a la función, $$S(104) = 8$$ El $8$ es el stock que sale, así que pertenece a la imagen. El error típico es guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Un cine numera sus 6 salas y a cada una le asigna la película que proyecta.\n$$S : \\{1, \\dots, 6\\} \\to \\{\\text{películas}\\}$$\n¿Cuál es el **dominio** de $S$?",
+    "question": "Un cine numera sus 6 salas y a cada una le asigna la película que proyecta. $$S : \\{1, \\dots, 6\\} \\to \\{\\text{películas}\\}$$ ¿Cuál es el **dominio** de $S$?",
     "options": [
       "El conjunto de las 6 salas",
       "El conjunto de películas",
@@ -428,11 +488,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la regla transforma.\n\nAcá las entradas son las seis salas, numeradas del 1 al 6. Cada sala se asigna a una película.\n\nLas películas son las salidas, así que forman la imagen o el codominio, no el dominio.\n\nLa confusión habitual es fijarse en lo más visible, la película; el dominio es lo que entra, la sala.",
-    "reviewed": false
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las seis salas, numeradas del 1 al 6. Cada sala se asigna a una película. Las películas son las salidas, así que forman la imagen o el codominio, no el dominio. La confusión habitual es fijarse en lo más visible, la película; el dominio es lo que entra, la sala.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$h(x) = \\frac{1}{2x + 4}$$\n¿Qué valor excluye el **dominio natural** de esta regla?",
+    "question": "Una función transforma $x$ según $$h(x) = \\frac{1}{2x + 4}$$ ¿Qué valor excluye el **dominio natural** de esta función?",
     "options": [
       "$x = -2$",
       "$x = 0$",
@@ -450,16 +513,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** excluye los valores donde la regla no está definida.\n\nUna división no admite denominador cero,\n$$2x + 4 = 0 \\implies x = -2$$\nPor eso $x = -2$ queda fuera del dominio natural.\n\nEl error común es probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el único punto prohibido.",
-    "reviewed": false
+    "explanation": "El **dominio natural** excluye los valores donde la función no está definida. Una división no admite denominador cero, $$2x + 4 = 0 \\implies x = -2$$ Por eso $x = -2$ queda fuera del dominio natural. El error común es probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el único punto prohibido.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es\n$$L(a) = \\sqrt{a}$$\n¿Qué condición define el **dominio natural** de esta regla?",
+    "question": "El lado de un cuadrado a partir de su área $a$, en metros cuadrados, es $$L(a) = \\sqrt{a}$$ ¿Qué condición define el **dominio natural** de esta función?",
     "options": [
       "$a \\neq 0$",
       "$a \\geq 0$",
       "$a > 100$",
-      "Todos los reales"
+      "$\\mathbb{R}$"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -472,11 +538,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo,\n$$a \\geq 0$$\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.",
-    "reviewed": false
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada no admite radicando negativo, $$a \\geq 0$$ Para $a < 0$ la raíz no está definida en los reales. Ojo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$k(x) = \\sqrt{x + 3}$$\n¿Cuál es la restricción que define el **dominio natural**?",
+    "question": "Una función transforma $x$ según $$k(x) = \\sqrt{x + 3}$$ ¿Cuál es la restricción que define el **dominio natural**?",
     "options": [
       "$x \\geq 3$",
       "$x \\geq 0$",
@@ -494,16 +563,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo,\n$$x + 3 \\geq 0 \\implies x \\geq -3$$\nPara $x < -3$ el radicando sería negativo.\n\nLa confusión típica es leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.",
-    "reviewed": false
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo, $$x + 3 \\geq 0 \\implies x \\geq -3$$ Para $x < -3$ el radicando sería negativo. La confusión típica es leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$m(x) = \\frac{1}{\\sqrt{x}}$$\n¿Cuál es el **dominio natural** de esta regla?",
+    "question": "Una función transforma $x$ según $$m(x) = \\frac{1}{\\sqrt{x}}$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$x > 0$",
       "$x \\geq 0$",
       "$x \\neq 0$",
-      "Todos los reales"
+      "$\\mathbb{R}$"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -516,15 +588,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
-    "reviewed": false
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido. Hay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$. Combinando ambas queda $x > 0$. El descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es\n$$t(v) = \\frac{60}{v}$$\n¿Qué condición define el **dominio natural**?",
+    "question": "Para recorrer 60 km, el tiempo a $v$ km/h es $$t(v) = \\frac{60}{v}$$ ¿Qué condición define el **dominio natural**?",
     "options": [
       "$v \\geq 60$",
       "$v \\neq 60$",
-      "Todos los reales",
+      "$\\mathbb{R}$",
       "$v > 0$"
     ],
     "correct_index": 3,
@@ -538,11 +613,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico,\n$$v > 0$$\nEse es el dominio natural.\n\nCuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
-    "reviewed": false
+    "explanation": "El **dominio natural** combina lo que permite la fórmula y lo que permite el contexto. Dividir entre cero no está definido y una velocidad negativa no tiene sentido físico, $$v > 0$$ Ese es el dominio natural. Cuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$f(x) = \\sqrt{16 - x^2}$$\n¿Cuál es el **dominio natural**?",
+    "question": "Una función transforma $x$ según $$f(x) = \\sqrt{16 - x^2}$$ ¿Cuál es el **dominio natural**?",
     "options": [
       "$-4 \\leq x \\leq 4$",
       "$x \\leq 4$",
@@ -560,11 +638,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz exige radicando no negativo,\n$$16 - x^2 \\geq 0 \\implies x^2 \\leq 16 \\implies -4 \\leq x \\leq 4$$\nFuera de ese intervalo el radicando es negativo.\n\nEl error frecuente es quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.",
-    "reviewed": false
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido. La raíz exige radicando no negativo, $$16 - x^2 \\geq 0 \\implies x^2 \\leq 16 \\implies -4 \\leq x \\leq 4$$ Fuera de ese intervalo el radicando es negativo. El error frecuente es quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una función racional está dada por\n$$r(x) = \\frac{1}{x^2 - 9}$$\n¿Qué valores no están en el **dominio natural**?",
+    "question": "Una función racional está dada por $$r(x) = \\frac{1}{x^2 - 9}$$ ¿Qué valores no están en el **dominio natural**?",
     "options": [
       "$x = 3$ y $x = -3$",
       "Solo $x = 9$",
@@ -582,11 +663,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** excluye los valores donde el denominador es cero.\n\n$$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$\nPor eso esos dos valores quedan afuera.\n\nLa confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.",
-    "reviewed": false
+    "explanation": "El **dominio natural** excluye los valores donde el denominador es cero. $$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$ Por eso esos dos valores quedan afuera. La confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$g(x) = \\sqrt{5 - x}$$\n¿Cuál es la restricción del **dominio natural**?",
+    "question": "Una función transforma $x$ según $$g(x) = \\sqrt{5 - x}$$ ¿Cuál es la restricción del **dominio natural**?",
     "options": [
       "$x \\geq 5$",
       "$x \\leq 5$",
@@ -604,11 +688,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** es el mayor conjunto donde la regla tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo,\n$$5 - x \\geq 0 \\implies x \\leq 5$$\nPara $x > 5$ el radicando sería negativo.\n\nOjo con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.",
-    "reviewed": false
+    "explanation": "El **dominio natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo, $$5 - x \\geq 0 \\implies x \\leq 5$$ Para $x > 5$ el radicando sería negativo. Ojo con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Una regla transforma $x$ según\n$$f(x) = \\frac{x + 1}{x - 5}$$\n¿Qué valor no está en el **dominio natural**?",
+    "question": "Una función transforma $x$ según $$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el **dominio natural**?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -626,15 +713,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** excluye los valores donde la regla no está definida.\n\nEl denominador no puede ser cero,\n$$x - 5 = 0 \\implies x = 5$$\nPor eso $x = 5$ no pertenece al dominio natural.\n\nEl numerador no impone restricciones: aunque se anule, la regla sigue definida; solo el denominador cero rompe la división.",
-    "reviewed": false
+    "explanation": "El **dominio natural** excluye los valores donde la función no está definida. El denominador no puede ser cero, $$x - 5 = 0 \\implies x = 5$$ Por eso $x = 5$ no pertenece al dominio natural. El numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es\n$$C(k) = 350\\,k$$\n¿Cuál es el **dominio natural** de esta regla?",
+    "question": "El costo de $k$ kg de fruta a \\$350 el kilo es $$C(k) = 350\\,k$$ ¿Cuál es el **dominio natural** de esta función?",
     "options": [
       "$k \\geq 0$",
       "$k \\geq 350$",
-      "Todos los reales",
+      "$\\mathbb{R}$",
       "$k = 350$"
     ],
     "correct_index": 0,
@@ -648,15 +738,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio natural** combina la fórmula y el contexto.\n\nAlgebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido,\n$$k \\geq 0$$\nEse es el dominio natural.\n\nEl descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
-    "reviewed": false
+    "explanation": "El **dominio natural** combina la fórmula y el contexto. Algebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido, $$k \\geq 0$$ Ese es el dominio natural. El descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ]
   },
   {
-    "question": "Un examen puede dar notas enteras del 0 al 100. En un curso, las únicas notas que aparecieron fueron 60, 75 y 90.\n$$N : \\{\\text{alumnos}\\} \\to \\{0, \\dots, 100\\}$$\n¿Cuál es el conjunto **imagen** de $N$?",
+    "question": "Un examen puede dar notas enteras del 0 al 100. En un curso, las únicas notas que aparecieron fueron 60, 75 y 90. $$N : \\{\\text{alumnos}\\} \\to \\{0, \\dots, 100\\}$$ ¿Cuál es el conjunto **imagen** de $N$?",
     "options": [
       "$\\{60, 75, 90\\}$",
       "$\\{0, 1, \\dots, 100\\}$",
-      "El conjunto de alumnos",
+      "$\\{\\text{alumnos}\\}$",
       "El promedio, $75$"
     ],
     "correct_index": 0,
@@ -670,11 +763,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la regla realmente alcanza, no todas las posibles.\n\nAcá el codominio es $\\{0, \\dots, 100\\}$, pero solo se dieron\n$$\\{60, 75, 90\\}$$\nEse es el conjunto imagen.\n\nLa confusión típica es dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el codominio es $\\{0, \\dots, 100\\}$, pero solo se dieron $$\\{60, 75, 90\\}$$ Ese es el conjunto imagen. La confusión típica es dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L.\n$$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$\n¿Cuál es el conjunto **imagen** de $T$?",
+    "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L. $$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$ ¿Cuál es el conjunto **imagen** de $T$?",
     "options": [
       "$\\{S, M, L\\}$",
       "$\\{M, L\\}$",
@@ -692,16 +788,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la regla realmente alcanza, no todas las posibles.\n\nAcá el codominio incluye S, M y L, pero solo se asignan M y L.\n\nEl conjunto imagen es $\\{M, L\\}$.\n\nEl error frecuente es copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el codominio incluye S, M y L, pero solo se asignan M y L. El conjunto imagen es $\\{M, L\\}$. El error frecuente es copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Un examen puede dar notas del 0 al 10. En un grupo de 30 alumnos, nadie sacó 0 ni 1.\n$$N : \\{\\text{alumnos}\\} \\to \\{0, 1, \\dots, 10\\}$$\n¿Cuál es el conjunto **imagen** de $N$ en este grupo?",
+    "question": "Un examen puede dar notas del 0 al 10. En un grupo de 30 alumnos, nadie sacó 0 ni 1. $$N : \\{\\text{alumnos}\\} \\to \\{0, 1, \\dots, 10\\}$$ ¿Cuál es el conjunto **imagen** de $N$ en este grupo?",
     "options": [
       "$\\{0, 1, \\dots, 10\\}$",
       "$\\{0, 1\\}$",
       "$\\{2, 3, \\dots, 10\\}$",
-      "El conjunto de alumnos"
+      "$\\{\\text{alumnos}\\}$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -714,11 +813,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la regla realmente alcanza.\n\nAcá el codominio es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es\n$$\\{2, 3, \\dots, 10\\}$$\nLa confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza. Acá el codominio es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es $$\\{2, 3, \\dots, 10\\}$$ La confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "La función $f$ tiene dominio los enteros y codominio los reales, y transforma cada entero en su cubo.\n$$\\begin{aligned} f : \\mathbb{Z} &\\to \\mathbb{R} \\\\ f(x) &= x^3 \\end{aligned}$$\n¿El conjunto **imagen** de $f$ es igual al codominio $\\mathbb{R}$?",
+    "question": "La función $f$ tiene dominio los enteros y codominio los reales, y transforma cada entero en su cubo. $$\\begin{aligned} f : \\mathbb{Z} &\\to \\mathbb{R} \\\\ f(x) &= x^3 \\end{aligned}$$ ¿El conjunto **imagen** de $f$ es igual al codominio $\\mathbb{R}$?",
     "options": [
       "No, solo los cubos de enteros",
       "Sí, todo real es cubo de un entero",
@@ -736,11 +838,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, que pueden ser menos que el codominio.\n\nAcá el codominio es $\\mathbb{R}$, pero solo se alcanzan cubos de enteros, como\n$$0,\\ 1,\\ 8,\\ 27,\\ -1,\\ -8$$\nNúmeros como $\\sqrt{2}$ no son cubo de ningún entero.\n\nEl error habitual es suponer imagen igual a codominio; solo coinciden cuando toda salida posible se alcanza.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, que pueden ser menos que el codominio. Acá el codominio es $\\mathbb{R}$, pero solo se alcanzan cubos de enteros, como $$0,\\ 1,\\ 8,\\ 27,\\ -1,\\ -8$$ Números como $\\sqrt{2}$ no son cubo de ningún entero. El error habitual es suponer imagen igual a codominio; solo coinciden cuando toda salida posible se alcanza.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Una regla asigna el valor 7 a todos los números del 1 al 20.\n$$f(x) = 7, \\qquad x \\in \\{1, \\dots, 20\\}$$\n¿Cuál es el conjunto **imagen** de $f$?",
+    "question": "Una función asigna el valor 7 a todos los números del 1 al 20. $$f(x) = 7, \\qquad x \\in \\{1, \\dots, 20\\}$$ ¿Cuál es el conjunto **imagen** de $f$?",
     "options": [
       "$\\{1, \\dots, 20\\}$",
       "$\\{1, \\dots, 7\\}$",
@@ -758,11 +863,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** reúne las salidas que la regla realmente alcanza.\n\nAcá la regla produce siempre el mismo valor,\n$$f(1) = f(2) = \\dots = f(20) = 7$$\nPor eso la imagen es $\\{7\\}$, con un solo elemento.\n\nLa confusión típica es dar el dominio; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza. Acá la función produce siempre el mismo valor, $$f(1) = f(2) = \\dots = f(20) = 7$$ Por eso la imagen es $\\{7\\}$, con un solo elemento. La confusión típica es dar el dominio; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Una función $f$ tiene dominio $\\{1, 2, 3\\}$ y codominio $\\{1, \\dots, 100\\}$. Las salidas son $f(1) = 10$, $f(2) = 20$, $f(3) = 30$.\n$$\\begin{aligned} f(1) &= 10 \\\\ f(2) &= 20 \\\\ f(3) &= 30 \\end{aligned}$$\n¿Cuál es el conjunto **imagen** de $f$?",
+    "question": "Una función $f$ tiene dominio $\\{1, 2, 3\\}$ y codominio $\\{1, \\dots, 100\\}$. Las salidas son $f(1) = 10$, $f(2) = 20$, $f(3) = 30$. $$\\begin{aligned} f(1) &= 10 \\\\ f(2) &= 20 \\\\ f(3) &= 30 \\end{aligned}$$ ¿Cuál es el conjunto **imagen** de $f$?",
     "options": [
       "$\\{10, 20, 30\\}$",
       "$\\{1, \\dots, 100\\}$",
@@ -780,16 +888,19 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no el codominio entero.\n\nAcá el codominio es $\\{1, \\dots, 100\\}$, pero la función solo produce\n$$10,\\ 20,\\ 30$$\nAsí que la imagen es $\\{10, 20, 30\\}$.\n\nEl error clásico es dar el conjunto de llegada declarado; la imagen se arma con los resultados reales, no con lo que se prometió.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no el codominio entero. Acá el codominio es $\\{1, \\dots, 100\\}$, pero la función solo produce $$10,\\ 20,\\ 30$$ Así que la imagen es $\\{10, 20, 30\\}$. El error clásico es dar el conjunto de llegada declarado; la imagen se arma con los resultados reales, no con lo que se prometió.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "La regla $f(x) = x^2$ con dominio $\\{0, 1, 2, 3\\}$ produce las salidas 0, 1, 4 y 9.\n$$f(x) = x^2, \\qquad x \\in \\{0, 1, 2, 3\\}$$\n¿Cuál es el conjunto **imagen**?",
+    "question": "La función $f(x) = x^2$ con dominio $\\{0, 1, 2, 3\\}$ produce las salidas 0, 1, 4 y 9. $$f(x) = x^2, \\qquad x \\in \\{0, 1, 2, 3\\}$$ ¿Cuál es el conjunto **imagen**?",
     "options": [
       "$\\{0, 1, 2, 3\\}$",
       "$\\{0, 1, 4, 9\\}$",
-      "$\\{0, \\dots, 9\\}$",
-      "Todos los reales $\\geq 0$"
+      "$\\mathbb{R}$",
+      "$[0, +\\infty)$"
     ],
     "correct_index": 1,
     "has_math": true,
@@ -802,11 +913,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo.\n\nAcá la función solo produce\n$$0,\\ 1,\\ 4,\\ 9$$\nAsí que la imagen es exactamente $\\{0, 1, 4, 9\\}$.\n\nLa confusión típica es rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo. Acá la función solo produce $$0,\\ 1,\\ 4,\\ 9$$ Así que la imagen es exactamente $\\{0, 1, 4, 9\\}$. La confusión típica es rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Una máquina puede cobrar montos de \\$100 a \\$500. Los productos cargados hoy cuestan \\$200 y \\$350.\n$$M : \\{\\text{productos}\\} \\to \\{100, \\dots, 500\\}$$\n¿Cuál es el conjunto **imagen** de $M$?",
+    "question": "Una máquina puede cobrar montos de \\$100 a \\$500. Los productos cargados hoy cuestan \\$200 y \\$350. $$M : \\{\\text{productos}\\} \\to \\{100, \\dots, 500\\}$$ ¿Cuál es el conjunto **imagen** de $M$?",
     "options": [
       "$\\{200, 350\\}$",
       "De \\$100 a \\$500",
@@ -824,11 +938,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles.\n\nAcá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra\n$$\\{200, 350\\}$$\nEsa es la imagen.\n\nEl error frecuente es dar el rango de lo que la máquina podría cobrar, el codominio; la imagen se queda con lo efectivamente cobrado.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles. Acá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra $$\\{200, 350\\}$$ Esa es la imagen. El error frecuente es dar el rango de lo que la máquina podría cobrar, el codominio; la imagen se queda con lo efectivamente cobrado.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Una función asigna a cada uno de 3 sabores su color de envase. Los colores disponibles son rojo, verde y azul, pero los sabores usan solo rojo y azul.\n$$C : \\{\\text{sabores}\\} \\to \\{r, v, a\\}$$\n¿Cuál es el conjunto **imagen** de $C$?",
+    "question": "Una función asigna a cada uno de 3 sabores su color de envase. Los colores disponibles son rojo, verde y azul, pero los sabores usan solo rojo y azul. $$C : \\{\\text{sabores}\\} \\to \\{r, v, a\\}$$ ¿Cuál es el conjunto **imagen** de $C$?",
     "options": [
       "$\\{$rojo, verde, azul$\\}$",
       "El conjunto de sabores",
@@ -846,11 +963,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles.\n\nAcá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul.\n\nLa imagen es $\\{$rojo, azul$\\}$.\n\nEl error habitual es incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen.",
-    "reviewed": false
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles. Acá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul. La imagen es $\\{$rojo, azul$\\}$. El error habitual es incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ]
   },
   {
-    "question": "Un examen tiene 3 preguntas y cada una se puntúa con 0, 1 o 2 según la respuesta.\n$$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$\n¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
+    "question": "Un examen tiene 3 preguntas y cada una se puntúa con 0, 1 o 2 según la respuesta. $$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$ ¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
     "options": [
       "El codominio, las salidas posibles",
       "El dominio de la función",
@@ -868,11 +988,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde pueden caer las salidas, no necesariamente las que se alcanzan.\n\nAcá los puntajes posibles por pregunta son $\\{0, 1, 2\\}$. Las preguntas son el dominio; los puntajes efectivamente sacados forman la imagen.\n\nQue exista el $2$ como posibilidad no obliga a sacarlo en ninguna pregunta.\n\nLa confusión típica es igualar codominio con imagen; el codominio es lo que se puede, la imagen es lo que pasa.",
-    "reviewed": false
+    "explanation": "El **codominio** es el conjunto donde pueden caer las salidas, no necesariamente las que se alcanzan. Acá los puntajes posibles por pregunta son $\\{0, 1, 2\\}$. Las preguntas son el dominio; los puntajes efectivamente sacados forman la imagen. Que exista el $2$ como posibilidad no obliga a sacarlo en ninguna pregunta. La confusión típica es igualar codominio con imagen; el codominio es lo que se puede, la imagen es lo que pasa.",
+    "reviewed": false,
+    "tags": [
+      "codominio-identificacion"
+    ]
   },
   {
-    "question": "Una función asigna a cada uno de 4 empleados su turno de trabajo.\n$$T : \\{1, 2, 3, 4\\} \\to \\{m, t, n\\}$$\nLos turnos posibles son mañana, tarde y noche. ¿Qué representa ese conjunto de turnos?",
+    "question": "Una función asigna a cada uno de 4 empleados su turno de trabajo. $$T : \\{1, 2, 3, 4\\} \\to \\{m, t, n\\}$$ Los turnos posibles son mañana, tarde y noche. ¿Qué representa ese conjunto de turnos?",
     "options": [
       "El dominio, los empleados",
       "El codominio, los turnos posibles",
@@ -890,11 +1013,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo.\n\nAcá los turnos posibles, mañana, tarde y noche, son el conjunto de llegada. Los empleados son el dominio.\n\nSi alguno de los tres turnos no se asignara, seguiría estando en el codominio pero no en la imagen.\n\nEl error clásico es llamarlo imagen; la imagen depende de qué turnos se usan de verdad, el codominio no.",
-    "reviewed": false
+    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los turnos posibles, mañana, tarde y noche, son el conjunto de llegada. Los empleados son el dominio. Si alguno de los tres turnos no se asignara, seguiría estando en el codominio pero no en la imagen. El error clásico es llamarlo imagen; la imagen depende de qué turnos se usan de verdad, el codominio no.",
+    "reviewed": false,
+    "tags": [
+      "codominio-identificacion"
+    ]
   },
   {
-    "question": "Un semáforo asigna a cada una de sus 3 posiciones un color.\n$$S : \\{1, 2, 3\\} \\to \\{r, a, v\\}$$\nLos colores posibles son rojo, amarillo y verde. ¿Qué representa ese conjunto de colores?",
+    "question": "Un semáforo asigna a cada una de sus 3 posiciones un color. $$S : \\{1, 2, 3\\} \\to \\{r, a, v\\}$$ Los colores posibles son rojo, amarillo y verde. ¿Qué representa ese conjunto de colores?",
     "options": [
       "El dominio de la función",
       "El color más frecuente",
@@ -912,15 +1038,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo.\n\nAcá los colores posibles, rojo, amarillo y verde, son el conjunto de llegada. Las posiciones del semáforo son el dominio.\n\nLos colores que efectivamente aparecen forman la imagen.\n\nLa confusión típica es tomar el conjunto de llegada como imagen; solo coinciden si los tres colores se usan.",
-    "reviewed": false
+    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los colores posibles, rojo, amarillo y verde, son el conjunto de llegada. Las posiciones del semáforo son el dominio. Los colores que efectivamente aparecen forman la imagen. La confusión típica es tomar el conjunto de llegada como imagen; solo coinciden si los tres colores se usan.",
+    "reviewed": false,
+    "tags": [
+      "codominio-identificacion"
+    ]
   },
   {
-    "question": "Un test devuelve a cada alumno un nivel entre A, B, C y D. En este grupo solo aparecieron B y C.\n$$N : \\{\\text{alumnos}\\} \\to \\{A, B, C, D\\}$$\n¿Cuál es el **codominio**, y no la imagen?",
+    "question": "Un test devuelve a cada alumno un nivel entre A, B, C y D. En este grupo solo aparecieron B y C. $$N : \\{\\text{alumnos}\\} \\to \\{A, B, C, D\\}$$ ¿Cuál es el **codominio**, y no la imagen?",
     "options": [
       "$\\{A, B, C, D\\}$",
       "$\\{B, C\\}$",
-      "El conjunto de alumnos",
+      "$\\{\\text{alumnos}\\}$",
       "El nivel más común, B"
     ],
     "correct_index": 0,
@@ -934,11 +1063,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de llegada completo; la imagen son las salidas que efectivamente aparecen.\n\nAcá el conjunto de llegada es $\\{A, B, C, D\\}$, aunque en el grupo solo salieron B y C.\n\nEsos dos forman la imagen, no el codominio.\n\nEl error frecuente es confundirlos; el codominio no cambia con el grupo, la imagen sí.",
-    "reviewed": false
+    "explanation": "El **codominio** es el conjunto de llegada completo; la imagen son las salidas que efectivamente aparecen. Acá el conjunto de llegada es $\\{A, B, C, D\\}$, aunque en el grupo solo salieron B y C. Esos dos forman la imagen, no el codominio. El error frecuente es confundirlos; el codominio no cambia con el grupo, la imagen sí.",
+    "reviewed": false,
+    "tags": [
+      "codominio-identificacion"
+    ]
   },
   {
-    "question": "Un juego asigna puntos por nivel. Los niveles 3 y 5 dan los dos 100 puntos.\n$$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$\n¿Qué son el 3 y el 5 respecto del 100?",
+    "question": "Un juego asigna puntos por nivel. Los niveles 3 y 5 dan los dos 100 puntos. $$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$ ¿Qué son el 3 y el 5 respecto del 100?",
     "options": [
       "Dos preimágenes de $100$",
       "Dos imágenes de $100$",
@@ -956,11 +1088,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nAcá tanto el 3 como el 5 dan 100,\n$$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$\nPor eso ambos son preimágenes de 100: un valor puede tener varias.\n\nLa confusión clásica es llamarlos imágenes; la imagen es la salida 100, las entradas que caen ahí son las preimágenes.",
-    "reviewed": false
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Acá tanto el 3 como el 5 dan 100, $$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$ Por eso ambos son preimágenes de 100: un valor puede tener varias. La confusión clásica es llamarlos imágenes; la imagen es la salida 100, las entradas que caen ahí son las preimágenes.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   },
   {
-    "question": "Una regla transforma cada número según\n$$f(x) = x^2 - 4$$\n¿Cuáles son las **preimágenes** del 0?",
+    "question": "Una función transforma cada número según $$f(x) = x^2 - 4$$ ¿Cuáles son las **preimágenes** del 0?",
     "options": [
       "Solo el $2$",
       "$2$ y $-2$",
@@ -978,11 +1113,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nHay que resolver\n$$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$\nAsí que el 0 tiene dos preimágenes.\n\nEl error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.",
-    "reviewed": false
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$ Así que el 0 tiene dos preimágenes. El error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   },
   {
-    "question": "Una regla transforma cada número en su doble.\n$$f(x) = 2x$$\n¿El número 5 es **preimagen** del 10?",
+    "question": "Una función transforma cada número en su doble. $$f(x) = 2x$$ ¿El número 5 es **preimagen** del 10?",
     "options": [
       "No, el $5$ es menor que el $10$",
       "No, el $10$ ya es imagen de otro",
@@ -1000,11 +1138,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un número es **preimagen** de $y$ cuando la regla lo transforma en $y$.\n\nAcá\n$$f(5) = 2 \\cdot 5 = 10$$\nasí que el 5 se transforma en 10 y es su preimagen.\n\nLa confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la regla dé 10.",
-    "reviewed": false
+    "explanation": "Un número es **preimagen** de $y$ cuando la función lo transforma en $y$. Acá $$f(5) = 2 \\cdot 5 = 10$$ así que el 5 se transforma en 10 y es su preimagen. La confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la función dé 10.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   },
   {
-    "question": "Una regla transforma cada número según\n$$f(x) = x^2 + 1$$\n¿Tiene **preimagen** el valor 0?",
+    "question": "Una función transforma cada número según $$f(x) = x^2 + 1$$ ¿Tiene **preimagen** el valor 0?",
     "options": [
       "No, porque $x^2 + 1 \\geq 1$ siempre",
       "Sí, el $0$ siempre tiene preimagen",
@@ -1022,11 +1163,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que\n$$f(x) = x^2 + 1 \\geq 1$$\nEl valor 0 nunca se alcanza, así que no tiene preimagen.\n\nEl error habitual es probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la regla antes de buscar preimágenes.",
-    "reviewed": false
+    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$. Acá $x^2 \\geq 0$ para todo real, así que $$f(x) = x^2 + 1 \\geq 1$$ El valor 0 nunca se alcanza, así que no tiene preimagen. El error habitual es probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   },
   {
-    "question": "La regla $f(x) = x^2$ da $f(4) = 16$ y $f(-4) = 16$.\n$$\\begin{aligned} f(4) &= 16 \\\\ f(-4) &= 16 \\end{aligned}$$\n¿Cuántas **preimágenes** tiene el 16 bajo esta regla?",
+    "question": "La función $f(x) = x^2$ da $f(4) = 16$ y $f(-4) = 16$. $$\\begin{aligned} f(4) &= 16 \\\\ f(-4) &= 16 \\end{aligned}$$ ¿Cuántas **preimágenes** tiene el 16 bajo esta función?",
     "options": [
       "Una sola, el $4$",
       "Cuatro",
@@ -1044,11 +1188,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nHay que resolver\n$$x^2 = 16 \\implies x = 4 \\text{ o } x = -4$$\nEl 16 tiene exactamente dos preimágenes.\n\nLa confusión típica es pensar que ser imagen impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él.",
-    "reviewed": false
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 = 16 \\implies x = 4 \\text{ o } x = -4$$ El 16 tiene exactamente dos preimágenes. La confusión típica es pensar que ser imagen impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   },
   {
-    "question": "Una regla transforma el número 6 en 18.\n$$g(6) = 18$$\n¿Cuál de estas afirmaciones es **incorrecta**?",
+    "question": "Una función transforma el número 6 en 18. $$g(6) = 18$$ ¿Cuál de estas afirmaciones es **incorrecta**?",
     "options": [
       "$6$ es la imagen de $18$",
       "$18$ es la imagen de $6$",
@@ -1066,7 +1213,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si la regla transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una preimagen de $y$.\n\nAcá\n$$g(6) = 18$$\nasí que 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.",
-    "reviewed": false
+    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una preimagen de $y$. Acá $$g(6) = 18$$ así que 18 es la imagen de 6 y el 6 es una preimagen de 18. Decir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ]
   }
 ]
