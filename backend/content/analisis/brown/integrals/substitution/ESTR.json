@@ -21,7 +21,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Al analizar la integral:\n$$\\int x\\cos(x^2)\\,dx$$\nusando **cambio de variable**, ¿cuál es la elección correcta de $u$?",
+    "question": "Al analizar la integral:\n$$\\int x\\cos(x^2)\\,dx$$\nUsando **cambio de variable**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\cos(x^2)$",
       "$u=x^2$",
@@ -37,7 +37,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide con la mitad de $du$, lo que confirma que esta elección de $u$ hace colapsar el integrando correctamente.",
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
     "reviewed": false,
     "tags": ["identificacion-anatomica-de-u"]
   },
@@ -58,7 +58,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $e^{3x+1}$, la interior es $3x+1$, un polinomio de grado $1$.\n$$u = 3x+1 \\implies du = 3\\,dx$$\nCuando la derivada del interior es solo una constante, el ajuste del **diferencial** es directo, sin fracciones o signos complejos.",
+    "explanation": "En la **función compuesta** $e^{3x+1}$, la interior es el polinomio lineal $3x+1$. Este es uno de los casos más simples de sustitución.\n$$u = 3x+1 \\implies du = 3\\,dx$$\nCuando la derivada del interior es solo una constante (en este caso $3$), el ajuste del **diferencial** se convierte en una simple división, sin fracciones complicadas o múltiples signos que considerar.",
     "reviewed": false,
     "tags": ["identificacion-anatomica-de-u"]
   },
