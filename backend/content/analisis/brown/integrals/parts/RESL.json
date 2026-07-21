@@ -92,7 +92,7 @@
     "tags": ["aplicacion-directa-una-iteracion"]
   },
   {
-    "question": "Calculá\n$$\\int xe^{-x}\\,dx$$",
+    "question": "Hallá el antiderivada:\n$$\\int xe^{-x}\\,dx$$",
     "options": [
       "$-xe^{-x}-e^{-x}+C$",
       "$xe^{-x}-e^{-x}+C$",
@@ -111,7 +111,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=x$, $dv=e^{-x}\\,dx$, con $du=dx$ y $v=-e^{-x}$.\n$$\\begin{aligned} \\int xe^{-x}\\,dx &= x(-e^{-x}) - \\int (-e^{-x})\\,dx \\\\ &= -xe^{-x} + \\int e^{-x}\\,dx \\\\ &= -xe^{-x}-e^{-x}+C \\end{aligned}$$\nEl signo negativo del exponente arrastra un signo negativo en $v$, que se combina con el de la fórmula en el segundo término.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["aplicacion-directa-una-iteracion"]
   },
   {
     "question": "Calculá\n$$\\int 3x\\sin x\\,dx$$",

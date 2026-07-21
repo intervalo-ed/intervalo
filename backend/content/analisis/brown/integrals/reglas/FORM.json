@@ -176,7 +176,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá:\n$$\\frac{1}{x}$$",
+    "question": "¿Cuál es la función que, al derivarse, produce\n$$\\frac{1}{x}$$?",
     "options": [
       "$\\ln x + C$",
       "$-\\frac{1}{x^2} + C$",
@@ -196,7 +196,7 @@
     "reviewed": false
   },
   {
-    "question": "Encontrá la primitiva de:\n$$e^x$$",
+    "question": "¿Qué primitiva obtenés si derivás inversamente\n$$e^x$$?",
     "options": [
       "$e^x + C$",
       "$xe^{x-1} + C$",
@@ -216,7 +216,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la primitiva de\n$$\\cos x$$?",
+    "question": "¿Qué función tiene derivada igual a\n$$\\cos x$$?",
     "options": [
       "$-\\cos x + C$",
       "$\\sin x + C$",
@@ -236,7 +236,7 @@
     "reviewed": false
   },
   {
-    "question": "Integrá:\n$$\\sin x$$",
+    "question": "Invertí el proceso: ¿cuál función se deriva a\n$$\\sin x$$?",
     "options": [
       "$\\cos x + C$",
       "$\\sin x + C$",
@@ -256,7 +256,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál función integra a\n$$\\sec^2 x$$?",
+    "question": "¿Cuál primitiva se origina de\n$$\\sec^2 x$$?",
     "options": [
       "$\\tan x + C$",
       "$\\sec x\\tan x + C$",
@@ -276,7 +276,7 @@
     "reviewed": false
   },
   {
-    "question": "Calculá:\n$$x^4$$",
+    "question": "Al pensar inversamente, ¿qué función se derivaría a\n$$x^4$$?",
     "options": [
       "$5x^3 + C$",
       "$\\frac{x^5}{5} + C$",
@@ -296,7 +296,7 @@
     "reviewed": false
   },
   {
-    "question": "Resolvé la integral de:\n$$7 \\text{ (una constante)}$$",
+    "question": "¿Cuál es su función original si su derivada es\n$$7 \\text{ (una constante)}$$?",
     "options": [
       "$7 + C$",
       "$0 + C$",
