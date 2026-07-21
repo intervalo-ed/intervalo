@@ -1,6 +1,6 @@
 [
   {
-    "question": "Para la función:\n$$f(x) = e^{x^2+1}$$\ncalculá $f'(0)$.",
+    "question": "Para la función:\n$$f(x) = e^{x^2+1}$$\nCalculá $f'(0)$.",
     "options": [
       "$0$",
       "$e$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = (x^2+2)^4$$\ncalculá $f'(0)$.",
+    "question": "Para la función:\n$$f(x) = (x^2+2)^4$$\nCalculá $f'(0)$.",
     "options": [
       "$-1$",
       "$0$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = (x^2-1)^4$$\ncalculá $f'(0)$.",
+    "question": "Para la función:\n$$f(x) = (x^2-1)^4$$\nCalculá $f'(0)$.",
     "options": [
       "$4$",
       "$-1$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{\\cos x}$$\ncalculá $f'(\\pi)$.",
+    "question": "Para la función:\n$$f(x) = e^{\\cos x}$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$1/e$",
       "$-1$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\ln(\\sin x)$$\ncalculá $f'(\\pi/2)$.",
+    "question": "Para la función:\n$$f(x) = \\ln(\\sin x)$$\nCalculá $f'(\\pi/2)$.",
     "options": [
       "$0$",
       "$1$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{\\sin x}$$\ncalculá $f'(\\pi)$.",
+    "question": "Para la función:\n$$f(x) = e^{\\sin x}$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$-e^{\\pi}$",
       "$0$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\sin(\\cos x)$$\ncalculá $f'(\\pi/2)$.",
+    "question": "Para la función:\n$$f(x) = \\sin(\\cos x)$$\nCalculá $f'(\\pi/2)$.",
     "options": [
       "$1$",
       "$0$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\ln(x+1)$$\ncalculá $f'(0)$.",
+    "question": "Para la función:\n$$f(x) = \\ln(x+1)$$\nCalculá $f'(0)$.",
     "options": [
       "$1$",
       "$0$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\cos(\\ln x)$$\ncalculá $f'(1)$.",
+    "question": "Para la función:\n$$f(x) = \\cos(\\ln x)$$\nCalculá $f'(1)$.",
     "options": [
       "$2$",
       "$0$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{2x-2}$$\ncalculá $f'(1)$.",
+    "question": "Para la función:\n$$f(x) = e^{2x-2}$$\nCalculá $f'(1)$.",
     "options": [
       "$1$",
       "$-2$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\sin(x-\\pi)$$\ncalculá $f'(\\pi)$.",
+    "question": "Para la función:\n$$f(x) = \\sin(x-\\pi)$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$0$",
       "$-1$",

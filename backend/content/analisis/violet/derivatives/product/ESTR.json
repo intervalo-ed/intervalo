@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = x^2 \\ln x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = x^2 \\ln x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x, v=x\\ln x$",
       "$u=x^2\\ln x, v=1$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\, e^x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\, e^x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x^{1/2}, v=e^x$",
       "$u=x, v=\\frac{1}{2}e^x$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = x\\sin x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = x\\sin x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x\\sin x, v=1$",
       "$u=x, v=\\sin x$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = x^3\\cos x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = x^3\\cos x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x^2, v=x\\cos x$",
       "$u=x^3\\cos x, v=1$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = e^x\\ln x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = e^x\\ln x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=e^x, v=\\ln x$",
       "$u=e^x\\ln x, v=1$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = x^2\\tan x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = x^2\\tan x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x^2\\tan x, v=1$",
       "$u=x^2, v=\\tan x$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\ncon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = \\sqrt{x}\\,\\sin x$$\nCon la **regla del producto**, ¿cómo se identifican los factores $u$ y $v$?",
     "options": [
       "$u=x, v=\\frac{1}{2}\\sin x$",
       "$u=\\sqrt{x}\\sin x, v=1$",

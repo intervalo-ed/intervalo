@@ -92,7 +92,7 @@
     "reviewed": false
   },
   {
-    "question": "¿Cuál es la **factorización** correcta de la expresión:\n$$x^2 + 7x + 6$$\nconsiderando el caso de trinomio que corresponde?",
+    "question": "¿Cuál es la **factorización** correcta de la expresión:\n$$x^2 + 7x + 6$$\nConsiderando el caso de trinomio que corresponde?",
     "options": [
       "$(x+2)(x+3)$",
       "$(x-1)(x-6)$",
@@ -341,7 +341,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión. Cualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".\n$$\\sqrt{\\phantom{x}} \\;\\Rightarrow\\; \\text{la factorización ya no alcanza}$$\nLos métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales. Confundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde. El protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización.",
+    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión. Cualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".\n$$\\sqrt{\\phantom{x}} \\;\\Rightarrow$$\n\nCuando aparece un radical, la factorización ya no alcanza como herramienta.\n\n$$Los métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales. Confundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde. El protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización..",
     "reviewed": false
   }
 ]

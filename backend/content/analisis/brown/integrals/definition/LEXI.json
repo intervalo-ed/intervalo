@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "¿Es correcto afirmar que:\n$$\\int f(x)\\,dx$$\nda como resultado un único número, el área bajo la curva?",
+    "question": "¿Es correcto afirmar que:\n$$\\int f(x)\\,dx$$\nDa como resultado un único número, el área bajo la curva?",
     "options": [
       "Sí, siempre da el área bajo la curva de $f$",
       "Sí, pero solo cuando $f$ es positiva",

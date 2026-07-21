@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una indeterminación como $\\frac{\\infty}{\\infty}$ enseña que no se puede confiar en la notación: dos símbolos iguales arriba y abajo no permiten cancelar. Lo que importa es la **velocidad** relativa de crecimiento, concepto que es central en toda esta unidad de **límites**.\n\nCuando tanto el numerador como el denominador de un cociente crecen sin cota, no alcanza con saber que ambos se disparan para determinar el resultado. Lo que decide el valor final es la **dominancia** relativa entre ambos crecimientos.\n$$\\frac{\\infty}{\\infty} \\ \\text{requiere comparar el ritmo de crecimiento de cada término}$$\nUn error común es asumir que, por simetría notacional, el resultado siempre da $1$ o siempre diverge, cuando en realidad depende del caso concreto.",
+    "explanation": "Una indeterminación como $\\frac{\\infty}{\\infty}$ enseña que no se puede confiar en la notación: dos símbolos iguales arriba y abajo no permiten cancelar. Lo que importa es la **velocidad** relativa de crecimiento, concepto que es central en toda esta unidad de **límites**.\n\nCuando tanto el numerador como el denominador de un cociente crecen sin cota, no alcanza con saber que ambos se disparan para determinar el resultado. Lo que decide el valor final es la **dominancia** relativa entre ambos crecimientos.\nEsta indeterminación requiere comparar el ritmo de crecimiento de cada término.\n$$\\frac{\\infty}{\\infty}$$\nUn error común es asumir que, por simetría notacional, el resultado siempre da $1$ o siempre diverge, cuando en realidad depende del caso concreto.",
     "reviewed": false,
     "tags": [
       "algebra-infinito-cero"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La resta $\\infty - \\infty$ ilustra por qué la intuición algebraica de cancelación falla en el infinito. Cuando dos cantidades crecen sin cota, restarlas no produce un resultado predecible: el resultado depende de cuánto más rápido crece una que la otra.\n\nLa resta $\\infty - \\infty$ es una de las indeterminaciones clásicas, junto con una indeterminación $0/0$ y $\\frac{\\infty}{\\infty}$. Restar dos cantidades que crecen sin cota no se cancela automáticamente por parecerse en notación, el resultado depende de qué tan rápido crece cada término.\n$$\\infty - \\infty \\ \\text{no se resuelve por cancelación directa}$$\nEste tipo de indeterminación exige reescribir la expresión antes de evaluar la tendencia, algo que se retoma en profundidad en temas posteriores.",
+    "explanation": "La resta $\\infty - \\infty$ ilustra por qué la intuición algebraica de cancelación falla en el infinito. Cuando dos cantidades crecen sin cota, restarlas no produce un resultado predecible: el resultado depende de cuánto más rápido crece una que la otra.\n\nLa resta $\\infty - \\infty$ es una de las indeterminaciones clásicas, junto con una indeterminación $0/0$ y $\\frac{\\infty}{\\infty}$. Restar dos cantidades que crecen sin cota no se cancela automáticamente por parecerse en notación, el resultado depende de qué tan rápido crece cada término.\n$$\\infty - \\infty$$\nEsta indeterminación no se resuelve por cancelación directa.\nEste tipo de indeterminación exige reescribir la expresión antes de evaluar la tendencia, algo que se retoma en profundidad en temas posteriores.",
     "reviewed": false,
     "tags": [
       "algebra-infinito-cero"

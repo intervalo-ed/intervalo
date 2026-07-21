@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema de existencia** del **límite bilateral** establece el criterio decisivo para determinar si existe un único límite bilateral en un punto. La idea central es que los dos **límites laterales** deben 'apuntar' exactamente al mismo valor: si uno apunta a una altura distinta del otro, no hay acuerdo entre ambas direcciones, y el límite bilateral no existe.\n$$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x) \\text{ existe y vale ese valor común}$$\nSi ambos laterales dan $7$, entonces $\\lim_{x \\to a} f(x) = 7$. Si uno da $7$ y el otro $5$, el bilateral no existe.\n\nEsta condición es totalmente independiente de $f(a)$ y del tipo de función: solo depende de la coincidencia entre los dos laterales.",
+    "explanation": "El **teorema de existencia** del **límite bilateral** establece el criterio decisivo para determinar si existe un único límite bilateral en un punto. La idea central es que los dos **límites laterales** deben 'apuntar' exactamente al mismo valor: si uno apunta a una altura distinta del otro, no hay acuerdo entre ambas direcciones, y el límite bilateral no existe.\n$$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x)$$\n\nEl límite bilateral existe y vale ese valor común.\n\nSi ambos laterales dan $7$, entonces $\\lim_{x \\to a} f(x) = 7$. Si uno da $7$ y el otro $5$, el bilateral no existe.\n\nEsta condición es totalmente independiente de $f(a)$ y del tipo de función: solo depende de la coincidencia entre los dos laterales.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

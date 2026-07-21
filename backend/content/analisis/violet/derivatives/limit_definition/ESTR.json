@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá, por definición, la derivada de:\n$$f(x) = x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Calculá, por definición, la derivada de:\n$$f(x) = x^2$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$2x$",
       "$x^2$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Mediante la definición del límite del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 3$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Mediante la definición del límite del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 3$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$3$",
       "$2x+3$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Aplicando la definición, derivá:\n$$f(x) = 2x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Aplicando la definición, derivá:\n$$f(x) = 2x^2$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$4x+2h$",
       "$2x^2$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Usando el límite del cociente incremental, obtené la derivada de:\n$$f(x) = x^2 - 4x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Usando el límite del cociente incremental, obtené la derivada de:\n$$f(x) = x^2 - 4x$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$2x+4$",
       "$2x-4+h$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Expandiendo el cociente incremental por definición, calculá $f'(x)$ para:\n$$f(x) = -x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Expandiendo el cociente incremental por definición, calculá $f'(x)$ para:\n$$f(x) = -x^2$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$-2x$",
       "$2x$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Planteá el cociente incremental y calculá la derivada de:\n$$f(x) = 3x^2 + 2x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Planteá el cociente incremental y calculá la derivada de:\n$$f(x) = 3x^2 + 2x$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$6x+2h+2$",
       "$6x+2$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Por definición, mediante el límite, calculá la derivada de:\n$$f(x) = -2x^2 + x$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Por definición, mediante el límite, calculá la derivada de:\n$$f(x) = -2x^2 + x$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$4x+1$",
       "$-2x+1$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Utilizando exclusivamente la definición del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 4x + 5$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Utilizando exclusivamente la definición del cociente incremental, calculá la derivada de:\n$$f(x) = x^2 + 4x + 5$$\nExpandiendo el límite del cociente incremental.",
     "options": [
       "$2x+5$",
       "$2x+4+h$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Al plantear el cociente incremental de:\n$$f(x) = x^2$$\ny expandir $(x+h)^2$, ¿cuál es el numerador antes de simplificar?",
+    "question": "Al plantear el cociente incremental de:\n$$f(x) = x^2$$\nY expandir $(x+h)^2$, ¿cuál es el numerador antes de simplificar?",
     "options": [
       "$x^2+2xh+h^2-x^2$",
       "$x^2+h^2-x^2$",

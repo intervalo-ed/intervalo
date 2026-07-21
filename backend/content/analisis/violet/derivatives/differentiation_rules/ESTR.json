@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\ncon las reglas de este tópico, ¿qué paso previo hay que dar?",
+    "question": "Para derivar:\n$$f(x) = \\frac{1}{x^3}$$\nCon las reglas de este tópico, ¿qué paso previo hay que dar?",
     "options": [
       "Dejarla como está y derivar el numerador y el denominador por separado",
       "Reescribir la expresión como $x^{-3}$ y aplicar la regla de la potencia",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\ncon las reglas de este tópico, ¿qué paso previo conviene dar?",
+    "question": "Para derivar:\n$$f(x) = \\sqrt{x}$$\nCon las reglas de este tópico, ¿qué paso previo conviene dar?",
     "options": [
       "Aplicar la regla del cociente sobre la raíz",
       "Tratarla como una función trigonométrica compuesta",

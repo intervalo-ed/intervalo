@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f(x) = x^3$$\nhallá $f'(2)$.",
+    "question": "Sabiendo que:\n$$f(x) = x^3$$\nHallá $f'(2)$.",
     "options": [
       "$8$",
       "$3$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f(x) = \\sin x$$\nhallá $f'(0)$.",
+    "question": "Sabiendo que:\n$$f(x) = \\sin x$$\nHallá $f'(0)$.",
     "options": [
       "$0$",
       "$-1$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f(x) = e^x + x$$\nhallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
+    "question": "Sabiendo que:\n$$f(x) = e^x + x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x+1$",
       "$y=2x-1$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f(x) = x^2$$\nhallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=4x+1$.",
+    "question": "Sabiendo que:\n$$f(x) = x^2$$\nHallá el valor de $x$ donde la tangente a $f$ es paralela a la recta $y=4x+1$.",
     "options": [
       "$x=4$",
       "$x=8$",

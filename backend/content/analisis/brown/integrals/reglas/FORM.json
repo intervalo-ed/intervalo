@@ -338,7 +338,7 @@
     ]
   },
   {
-    "question": "¿Cuál es su función original si su derivada es:\n$$7 \\text{ (una constante)}$$?",
+    "question": "¿Cuál es su función original si su derivada es:\n$$7$$\n(una constante)?",
     "options": [
       "$7 + C$",
       "$0 + C$",

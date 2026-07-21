@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{x^2+1}{x+\\frac{1}{x}}$$\ncon la regla del cociente, ¿cuál es el denominador $v$?",
+    "question": "Para derivar:\n$$f(x) = \\frac{x^2+1}{x+\\frac{1}{x}}$$\nCon la regla del cociente, ¿cuál es el denominador $v$?",
     "options": [
       "$v=x+\\frac{1}{x}$, la expresión completa del denominador",
       "$v=x$, solo el primer término del denominador",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Para derivar:\n$$f(x) = \\frac{\\sin x}{x^2}$$\ncon la regla del cociente, ¿cómo se identifican $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = \\frac{\\sin x}{x^2}$$\nCon la regla del cociente, ¿cómo se identifican $u$ y $v$?",
     "options": [
       "$u=\\sin x \\cdot x^2, v=1$",
       "$u=\\sin x, v=x^2$",

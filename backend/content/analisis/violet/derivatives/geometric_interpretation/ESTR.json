@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f'(x)=2x-4$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=2x-4$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=2$",
       "$x=-2$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f'(x)=-3x+9$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=-3x+9$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=9$",
       "$x=3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Sabiendo que:\n$$f'(x)=4x+8$$\nhallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Sabiendo que:\n$$f'(x)=4x+8$$\nHallá el valor de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
       "$x=-32$",
       "$x=8$",
