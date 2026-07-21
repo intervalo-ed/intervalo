@@ -1043,7 +1043,7 @@
       -1,
       11
     ],
-    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n$$x = 60 \\ \\text{km/h}$$\n\n(6 decenas = 60 km/h)\nNi a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda. Notá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n$$x = 60 \\ \\text{km/h}$$\n(6 decenas = 60 km/h)\nNi a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda. Notá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1223,7 +1223,7 @@
       -1,
       13
     ],
-    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,:\n$$x = \\$600$$\n\n(6 cientos = $600)\nMuy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda. Notá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,:\n$$x = \\$600$$\n(6 cientos = $600)\nMuy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda. Notá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1403,7 +1403,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una velocidad baja para tomar una curva cerrada y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro instante de la maniobra registra una velocidad más baja que esa.\n\nAcá la velocidad mínima es la coordenada vertical del vértice,:\n$$(5,\\ 20 \\ \\text{km/h})$$\n\n(2 decenas = 20 km/h)\nEn lo más cerrado de la curva.\n\nAntes de ese instante el auto todavía viene frenando, y después empieza a acelerar de nuevo; el vértice es el único punto exacto donde deja de bajar la velocidad.",
+    "explanation": "Cuando una velocidad baja para tomar una curva cerrada y después se recupera, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro instante de la maniobra registra una velocidad más baja que esa.\n\nAcá la velocidad mínima es la coordenada vertical del vértice,:\n$$(5,\\ 20 \\ \\text{km/h})$$\n(2 decenas = 20 km/h)\nEn lo más cerrado de la curva.\n\nAntes de ese instante el auto todavía viene frenando, y después empieza a acelerar de nuevo; el vértice es el único punto exacto donde deja de bajar la velocidad.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"

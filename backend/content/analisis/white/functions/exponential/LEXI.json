@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$\n\nEsta transformación representa un desplazamiento de 3 unidades a la derecha.\nVerificación: $g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
+    "explanation": "Al restar una constante al exponente ($x - h$), la curva se desplaza **horizontalmente** en la dirección opuesta al signo:\n$$g(x) = 2^{x-3} = f(x-3)$$\nEsta transformación representa un desplazamiento de 3 unidades a la derecha.\nVerificación: $g(3) = 2^0 = 1 = f(0)$. El punto $(0, 1)$ de $f$ pasó al punto $(3, 1)$ de $g$.",
     "reviewed": false,
     "tags": [
       "numero-e-concepto"

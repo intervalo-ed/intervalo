@@ -153,7 +153,7 @@
       -5,
       6
     ],
-    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n$$\\Delta > 0 \\implies \\text{dos raíces reales distintas}$$\n$$\\Delta = 0 \\implies \\text{una raíz real}$$\n\n(doble, es decir, con multiplicidad 2)\n$$\\Delta < 0 \\implies \\text{ninguna raíz real}$$\nPara $f(x) = x^2 - 4$: $\\Delta = 0 - 4(1)(-4) = 16 > 0$, hay dos raíces: $x = 2$ y $x = -2$.",
+    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n$$\\Delta > 0 \\implies \\text{dos raíces reales distintas}$$\n$$\\Delta = 0 \\implies \\text{una raíz real}$$\n(doble, es decir, con multiplicidad 2).\n$$\\Delta < 0 \\implies \\text{ninguna raíz real}$$\nPara $f(x) = x^2 - 4$: $\\Delta = 0 - 4(1)(-4) = 16 > 0$, hay dos raíces: $x = 2$ y $x = -2$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"

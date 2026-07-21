@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para identificar los parámetros conviene reescribir en la forma canónica $f(x) = mx + b$\n$$f(x) = 7 - 3x = -3x + 7$$\nAhí se lee $m = -3$ (la **pendiente**) y $b = 7$ (la **ordenada al origen**).\n\nLa ordenada al origen es el valor de la función en cero: $f(0) = 7$. El orden en que venga escrita la fórmula no cambia los roles de los parámetros.\n\nCuando la fórmula viene desordenada como $7 - 3x$, el error típico es leer el primer número como pendiente: primero reordená, después identificá.",
+    "explanation": "Para identificar los parámetros conviene reescribir en la forma canónica $f(x) = mx + b$.\n$$f(x) = 7 - 3x = -3x + 7$$\nAhí se lee $m = -3$ (la **pendiente**) y $b = 7$ (la **ordenada al origen**).\n\nLa ordenada al origen es el valor de la función en cero: $f(0) = 7$. El orden en que venga escrita la fórmula no cambia los roles de los parámetros.\n\nCuando la fórmula viene desordenada como $7 - 3x$, el error típico es leer el primer número como pendiente: primero reordená, después identificá.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"

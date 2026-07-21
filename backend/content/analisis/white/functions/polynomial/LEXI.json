@@ -355,7 +355,7 @@
       "Con grado impar los extremos van en sentidos opuestos, uno hacia $+\\infty$ y el otro hacia $-\\infty$, no ambos hacia el mismo lado.",
       "Con grado impar y coeficiente negativo, un extremo va hacia $+\\infty$ y el otro hacia $-\\infty$: no coinciden ambos en el mismo sentido."
     ],
-    "explanation": "Tabla de comportamiento en **extremos**:\n\n| **Grado** | Coef. principal | $x \\to -\\infty$ | $x \\to +\\infty$ |\n|-------|-----------------|----------|----------|\n| Par | $+$ | $+\\infty$ | $+\\infty$ |\n| Par | $-$ | $-\\infty$ | $-\\infty$ |\n| Impar | $+$ | $-\\infty$ | $+\\infty$ |\n| Impar | $-$ | $+\\infty$ | $-\\infty$ |\n\nLa única opción verdadera: grado par, coef. negativo → ambos extremos $-\\infty$.\n\nLas otras tres son falsas: grado par siempre da extremos en la **misma** dirección (no opuesta); grado impar siempre da extremos en **sentidos opuestos** (no iguales).",
+    "explanation": "Tabla de comportamiento en **extremos**:\n\n| **Grado** | Coef. principal | $x \\to -\\infty$ | $x \\to +\\infty$ |\n|-------|-----------------|----------|----------|\n| Par | $+$ | $+\\infty$ | $+\\infty$ |\n| Par | $-$ | $-\\infty$ | $-\\infty$ |\n| Impar | $+$ | $-\\infty$ | $+\\infty$ |\n| Impar | $-$ | $+\\infty$ | $-\\infty$ |.\n\nLa única opción verdadera: grado par, coef. negativo → ambos extremos $-\\infty$.\n\nLas otras tres son falsas: grado par siempre da extremos en la **misma** dirección (no opuesta); grado impar siempre da extremos en **sentidos opuestos** (no iguales).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

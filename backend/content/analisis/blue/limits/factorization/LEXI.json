@@ -341,7 +341,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión. Cualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".\n$$\\sqrt{\\phantom{x}} \\;\\Rightarrow$$\n\nCuando aparece un radical, la factorización ya no alcanza como herramienta.\n\n$$Los métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales. Confundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde. El protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización..",
+    "explanation": "La señal que marca el límite de aplicabilidad de la **factorización** es la presencia de un radical dentro de la expresión. Cualquier raíz cuadrada, raíz cúbica o potencia fraccionaria es la alarma de \"factorización no funcionará\".\n$$\\sqrt{\\phantom{x}} \\;\\Rightarrow$$\nCuando aparece un radical, la factorización ya no alcanza como herramienta.\n$$Los métodos de factoreo trabajan exclusivamente sobre productos de polinomios, no sobre radicales. Confundir esta señal con el grado o la forma superficial de la expresión lleva a intentar factorizar donde no corresponde. El protocolo es claro: si ves una raíz en una indeterminación 0/0, la herramienta correcta es la **racionalización**, no la factorización..",
     "reviewed": false
   }
 ]

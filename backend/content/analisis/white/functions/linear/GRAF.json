@@ -1,1502 +1,1212 @@
 [
   {
-    "question": "Un remis cobra una tarifa fija al subir al auto, más un monto por kilómetro recorrido.\n\nLa gráfica muestra el costo total, en cientos de pesos, según los kilómetros.\n\n¿Qué representa el valor donde la recta toca el eje vertical?",
+    "question": "¿Cuál de estas expresiones representa una función lineal?",
     "options": [
-      "El costo del viaje aunque no se recorra ningún kilómetro",
-      "El costo por cada kilómetro adicional",
-      "La distancia máxima que cubre el remis",
-      "El kilómetro donde el costo se duplica"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El valor $f(0) = 3$ es la bajada de bandera, el costo fijo sin haber recorrido ningún kilómetro.",
-    "feedback_incorrect": [
-      null,
-      "El costo por kilómetro es la inclinación de la recta, no el punto donde toca el eje: mirá cuánto sube por cada paso a la derecha.",
-      "El gráfico no muestra ningún tope de distancia: la recta sigue subiendo mientras haya kilómetros.",
-      "La recta no marca duplicaciones: el valor sobre el eje vertical habla del costo antes de arrancar."
-    ],
-    "graph_fn": "2*x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El punto donde la recta toca el eje vertical es el valor de la función en $x = 0$\n$$f(0) = b$$\nLa ordenada al origen. Acá $x = 0$ significa cero kilómetros recorridos: es lo que se paga por subir al remis, la bajada de bandera.\n\nEn el gráfico ese costo se lee a la altura donde la recta corta el eje: el viaje arranca en ese valor y desde ahí sube.\n\nNo lo confundas con el costo por kilómetro: ese es la pendiente, cuánto sube la recta por cada paso a la derecha, no dónde arranca.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen-concepto"
-    ]
-  },
-  {
-    "question": "Un plomero cobra un monto fijo por presentarse en el domicilio, más una tarifa por hora de trabajo.\n\nLa gráfica muestra el cobro total, en cientos de pesos, según las horas trabajadas.\n\n¿Qué significa el punto donde la recta corta el eje vertical?",
-    "options": [
-      "El costo por hora de mano de obra",
-      "Las horas máximas que trabaja",
-      "Lo que cobra aunque no trabaje ninguna hora",
-      "El momento en que el cobro se vuelve constante"
+      "$f(x) = x^2$",
+      "$f(x) = 3^x$",
+      "$f(x) = 5x - 2$",
+      "$f(x) = \\log(x)$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(0) = 2$ es el costo de la visita, lo que se paga aunque el plomero no toque nada.",
+    "feedback_correct": "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
     "feedback_incorrect": [
-      "El costo por hora es la pendiente, lo que la recta sube con cada hora; el corte con el eje vertical es otra cosa.",
-      "El gráfico no fija un máximo de horas: la recta sigue mientras avance el eje horizontal.",
+      "El exponente 2 curva la gráfica en forma de parábola; en una lineal la $x$ aparece con exponente 1.",
+      "Acá la $x$ está en el exponente, y eso es el sello de la familia exponencial, no de una recta.",
       null,
-      "La recta nunca se vuelve horizontal: el cobro sigue subiendo con cada hora."
+      "Cuando la $x$ vive adentro de un logaritmo la función crece frenándose; una lineal cambia siempre al mismo ritmo."
     ],
-    "graph_fn": "3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El punto donde la recta corta el eje vertical es $f(0)$, el valor de la función cuando la variable vale cero:\n$$f(0) = b$$\nAcá cero horas trabajadas no significa cobro cero: el plomero ya se presentó en el domicilio, y ese costo fijo es la ordenada al origen.\n\nEn el gráfico, la recta arranca a esa altura y desde ahí sube con cada hora de trabajo.\n\nPara no mezclar los roles: lo que se cobra por hora es la pendiente (cuánto sube la recta) y lo que se cobra por venir es el corte con el eje vertical.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales. El parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
     "reviewed": false,
     "tags": [
-      "ordenada-origen-concepto"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra los gigabytes de datos móviles que le quedan a alguien según los días del mes.\n\nArrancó con el paquete completo y no compró datos extra.\n\n¿En qué día se queda sin datos por completo?",
+    "question": "¿Cuál de estas **no** es una función lineal?",
     "options": [
-      "Día 3",
-      "Día 5",
-      "Día 8",
-      "Día 4"
+      "$f(x) = 3x + 4$",
+      "$f(x) = x^2 + 1$",
+      "$f(x) = -x + 7$",
+      "$f(x) = 5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^2 + 1$ tiene un término cuadrático, por eso NO es lineal.",
+    "feedback_incorrect": [
+      "$3x + 4$ tiene la $x$ con exponente 1 y responde al molde $mx + b$, así que es lineal.",
+      null,
+      "$-x + 7$ es $mx + b$ con $m = -1$: el signo negativo no la saca de la familia lineal.",
+      "$f(x) = 5$ es una lineal con pendiente cero: se escribe $0 \\cdot x + 5$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal tiene la forma $f(x) = mx + b$, con la variable $x$ apareciendo solo con exponente 1. Una constante como $f(x) = 5$ también entra en el molde, con **pendiente** $m = 0$.\n\nEn $f(x) = x^2 + 1$ el término $x^2$ tiene exponente 2: la gráfica deja de ser una recta y pasa a ser una parábola. Es una función cuadrática.\n\nEl error típico es descartar $f(x) = 5$ por no tener $x$ a la vista: las constantes son lineales de pendiente cero; la que queda afuera es la que eleva la variable.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ]
+  },
+  {
+    "question": "En $f(x) = mx + b$, ¿cómo se llama el coeficiente $m$?",
+    "options": [
+      "Raíz",
+      "Ordenada al origen",
+      "Pendiente"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$m$ se llama pendiente e indica cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": [
+      "La raíz es el valor de $x$ donde la función vale cero, no el número que multiplica a $x$.",
+      "La ordenada al origen es el término $b$, el valor de la función en $x = 0$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma canónica $f(x) = mx + b$, el coeficiente $m$ que multiplica a $x$ es la **pendiente**. Mide la tasa de cambio de la función:\n$$m = \\frac{\\Delta y}{\\Delta x}$$\nEs decir, cuántas unidades varía $f(x)$ cuando $x$ aumenta una unidad.\n\nEl otro parámetro, $b$, es la **ordenada al origen**: el valor $f(0)$, donde la recta corta el eje $Y$. Juntos, $m$ y $b$ determinan por completo la recta.\n\nPara no mezclarlos, mirá qué acompaña a cada número: el que multiplica a la variable es la pendiente; el que está solo es la ordenada al origen.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ]
+  },
+  {
+    "question": "¿Cómo se llama el número $b$ en $f(x) = mx + b$?",
+    "options": [
+      "Ordenada al origen",
+      "Pendiente",
+      "Raíz"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El número $b$ es la ordenada al origen: $f(0) = b$.",
+    "feedback_incorrect": [
+      null,
+      "La pendiente es $m$, el número que multiplica a $x$, no el término suelto.",
+      "La raíz es el valor de $x$ que hace $f(x) = 0$; acá $b$ es el valor de la función en $x = 0$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $f(x) = mx + b$, el término independiente $b$ se llama **ordenada al origen**. Es el valor que toma la función cuando $x = 0$:\n$$f(0) = m \\cdot 0 + b = b$$\nY geométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nNo importa cómo esté escrita la función: $b$ siempre es la constante que no tiene $x$ al lado.\n\nCuidado con cruzarla con la raíz: la ordenada al origen corta el eje vertical; la raíz, el horizontal.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ]
+  },
+  {
+    "question": "Una función lineal con **pendiente** positiva ($m > 0$) es...",
+    "options": [
+      "Decreciente",
+      "Creciente",
+      "Constante"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si $m > 0$, la recta sube de izquierda a derecha: la función es creciente.",
+    "feedback_incorrect": [
+      "Que baje al avanzar corresponde al caso $m < 0$; acá el signo de la pendiente es positivo.",
+      null,
+      "Constante sería con $m = 0$, cuando la recta queda horizontal."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de la **pendiente** determina la monotonía de una función lineal en forma global: con $m > 0$ la función es creciente, con $m < 0$ decreciente y con $m = 0$ constante.\n\nCon $m > 0$, por cada unidad que aumenta $x$, el valor $f(x)$ sube exactamente $m$ unidades: la recta asciende de izquierda a derecha en todo $\\mathbb{R}$.\n\nA diferencia de una cuadrática o una trigonométrica, una recta con $m \\neq 0$ nunca cambia de dirección: el comportamiento es el mismo en todo el **dominio**.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-signo-pendiente"
+    ]
+  },
+  {
+    "question": "¿A qué familia de funciones pertenece $f(x) = 4 - x$?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica",
+      "Lineal"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Los datos se agotan cuando la carga llega a cero. La recta cruza el eje horizontal en $x = 4$.",
+    "feedback_correct": "$4 - x$ puede escribirse como $-x + 4$, que es la forma $mx + b$: lineal.",
     "feedback_incorrect": [
-      "Al día 3 la recta todavía está por encima del eje: quedan datos.",
-      "Para el día 5 la recta ya cruzó el eje: los datos se terminaron antes.",
-      "El 8 es el tamaño inicial del paquete (la altura sobre el eje vertical), no el día en que se agota.",
+      "Para ser cuadrática necesitaría un término con $x^2$, y acá la $x$ aparece con exponente 1.",
+      "Sería exponencial si la $x$ estuviera en el exponente, como en $3^x$.",
+      "Sería logarítmica si la $x$ apareciera dentro de un logaritmo.",
       null
     ],
-    "graph_fn": "-2*x + 8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Quedarse sin datos significa que la cantidad llega a cero, es decir $f(x) = 0$: el punto donde la recta cruza el eje horizontal:\n$$-2x + 8 = 0 \\implies x = 4$$\nEl paquete se agota el día 4.\n\nEn el gráfico se lee directo: la recta baja desde los 8 GB iniciales y toca el eje en $x = 4$.\n\nCuidado con responder el valor del eje vertical: el 8 es cuánto había al empezar, no cuándo se acaba. El agotamiento se busca sobre el eje horizontal.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A veces una función lineal no viene escrita en la forma canónica $f(x) = mx + b$. Reordenando los términos:\n$$f(x) = 4 - x = -x + 4$$\nSe ve que $m = -1$ y $b = 4$: es una función lineal con **pendiente** negativa y **ordenada al origen** $4$.\n\nLa familia no depende del orden en que estén escritos los términos, sino de cómo aparece la variable: acá $x$ tiene exponente 1 y no está dentro de raíces, logaritmos ni exponentes.\n\nCuando el enunciado venga desordenado, reescribí primero en la forma $mx + b$: leer los parámetros sin reordenar es la fuente clásica de errores de signo.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra las unidades en stock de un producto, en docenas, según los días transcurridos desde el último reabastecimiento.\n\nCada día se despacha la misma cantidad.\n\n¿En qué día se agota completamente el stock?",
+    "question": "¿Cómo se llama una función lineal cuya **pendiente** es cero?",
     "options": [
-      "Día 3",
-      "Día 4",
-      "Día 5",
-      "Día 9"
+      "Función identidad",
+      "Función afín",
+      "Función constante"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La recta cruza el eje horizontal en $x = 3$. El día 3 el stock llega a cero.",
+    "feedback_correct": "Cuando $m = 0$, $f(x) = b$ es constante: su gráfica es una recta horizontal.",
     "feedback_incorrect": [
-      null,
-      "Al día 4 la recta ya está por debajo del eje: el stock se terminó antes.",
-      "Para el día 5 hace rato que no hay stock: mirá dónde la recta toca el eje horizontal.",
-      "El 9 es el stock inicial, la altura donde la recta corta el eje vertical, no el día del agotamiento."
+      "La identidad es $f(x) = x$, que tiene pendiente 1: devuelve cada entrada sin cambios.",
+      "Afín es el nombre general de las $f(x) = mx + b$ con $b \\neq 0$; acá lo que se anula es la pendiente, no el término independiente.",
+      null
     ],
-    "graph_fn": "-3*x + 9",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El stock se agota cuando llega a cero, es decir cuando $f(x) = 0$: el cruce de la recta con el eje horizontal:\n$$-3x + 9 = 0 \\implies x = 3$$\nEl día 3 el depósito queda vacío.\n\nEn el gráfico, la recta parte de 9 docenas y baja 3 por día, tocando el eje justo en $x = 3$.\n\nNo mezcles los dos ejes: la altura inicial (9) vive en el vertical y responde \"cuánto había\"; el agotamiento vive en el horizontal y responde \"cuándo\".",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando la **pendiente** es cero ($m = 0$), la fórmula $f(x) = mx + b$ se reduce a:\n$$f(x) = b$$\nUna función que devuelve siempre el mismo valor sin importar la entrada. Se llama función constante.\n\nSu gráfica es una recta horizontal que corta el eje $Y$ en $(0, b)$ y no corta el eje $X$, salvo que $b = 0$. No crece ni decrece: la tasa de cambio es exactamente cero.\n\nNo la mezcles con la función identidad $f(x) = x$: la identidad tiene pendiente 1; la constante, pendiente 0.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "nombre-parametros"
     ]
   },
   {
-    "question": "La gráfica muestra el costo mensual de electricidad, en cientos de pesos, según los kWh consumidos por encima del mínimo garantizado.\n\n¿Cuántos pesos más paga quien consume 3 kWh respecto a quien consume 1 kWh?",
+    "question": "¿Cuál es la característica visual distintiva de una función lineal?",
     "options": [
-      "\\$200",
-      "\\$400",
-      "\\$600",
-      "\\$800"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(3) - f(1) = 7 - 3 = 4$, es decir \\$400. Dos kWh de diferencia, a \\$200 cada uno.",
-    "feedback_incorrect": [
-      "\\$200 es la diferencia por un solo kWh; entre 1 y 3 hay dos.",
-      null,
-      "\\$600 sería la diferencia de tres kWh; el intervalo entre 1 y 3 tiene dos.",
-      "\\$800 mira el costo total en lugar de la diferencia: compará solo cuánto sube la recta entre los dos puntos."
-    ],
-    "graph_fn": "2*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia entre dos valores de una lineal depende solo de la pendiente y del ancho del intervalo:\n$$f(3) - f(1) = 2 \\cdot (3 - 1) = 4$$\nEn unidades del gráfico son 4 cientos de pesos: \\$400.\n\nCada kWh extra encarece la factura \\$200 (la pendiente) y entre 1 y 3 hay dos kWh de diferencia.\n\nEl costo fijo no entra en la resta: al comparar dos consumos se cancela solo. Los errores típicos son contar un solo kWh o mirar el total en lugar de la diferencia.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen-concepto"
-    ]
-  },
-  {
-    "question": "La gráfica muestra el tiempo total de viaje, en minutos, según la cantidad de estaciones recorridas desde el centro, incluyendo el tiempo de espera inicial.\n\n¿Cuántos minutos más tarda quien viaja hasta la estación 3 respecto a quien baja en la estación 1?",
-    "options": [
-      "3 min",
-      "6 min",
-      "9 min",
-      "10 min"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(3) - f(1) = 10 - 4 = 6$ minutos. Dos estaciones a 3 minutos cada una.",
-    "feedback_incorrect": [
-      "3 minutos es la diferencia de una sola estación; entre la 1 y la 3 hay dos.",
-      null,
-      "9 minutos serían tres estaciones de diferencia; el tramo tiene dos.",
-      "10 es el tiempo total hasta la estación 3, no la diferencia entre los dos viajes."
-    ],
-    "graph_fn": "3*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia entre dos valores de una función lineal depende solo de la pendiente y del tramo recorrido:\n$$f(3) - f(1) = 3 \\cdot (3 - 1) = 6$$\nDos estaciones de diferencia, a 3 minutos por estación: 6 minutos.\n\nLa espera inicial aparece en ambos viajes y se cancela en la resta: no influye en la comparación.\n\nCuidado con leer el total en lugar de la diferencia: los 10 minutos del viaje largo incluyen la espera; la pregunta compara los dos viajes entre sí.",
-    "reviewed": false,
-    "tags": [
-      "lectura-y-dado-x"
-    ]
-  },
-  {
-    "question": "La gráfica muestra los litros que le quedan a un bidón de agua según las horas, mientras se va usando.\n\nEl bidón no se recarga en ese período.\n\n¿Cuántos litros consume por hora?",
-    "options": [
-      "1 litro",
-      "5 litros",
-      "10 litros",
-      "2 litros"
+      "Es periódica",
+      "Su gráfica es una parábola",
+      "Tiene asíntotas horizontales",
+      "Su gráfica es una línea recta"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La recta baja 2 unidades por cada hora: se consumen 2 litros por hora.",
+    "feedback_correct": "La gráfica de toda función lineal $f(x) = mx + b$ es siempre una línea recta.",
     "feedback_incorrect": [
-      "La recta baja más de una unidad por hora: medí el descenso entre dos horas consecutivas.",
-      "El 5 es una altura intermedia de la recta, no cuánto baja por hora.",
-      "El 10 es el contenido inicial del bidón, la altura sobre el eje vertical.",
+      "Periódica es una función que repite un patrón, como el seno; una recta nunca vuelve a repetirse.",
+      "La parábola es la marca de las cuadráticas: aparece cuando hay un término $x^2$.",
+      "Las asíntotas horizontales aparecen en exponenciales o racionales; una recta con pendiente no nula sube o baja sin frenarse.",
       null
     ],
-    "graph_fn": "-2*x + 10",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El consumo por hora es la pendiente de la recta: cuánto baja por cada unidad que avanza el eje horizontal:\n$$m = -2$$\nEl bidón pierde 2 litros por hora.\n\nEn el gráfico se mide comparando dos horas consecutivas: de una a la siguiente, la altura cae 2 litros. El signo negativo dice que baja; el valor absoluto, cuánto.\n\nNo respondas la altura inicial (10 litros): esa es la ordenada al origen. El ritmo de consumo se lee en la inclinación, no en el punto de partida.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es una línea recta. La razón es que la **pendiente** es constante: por cada unidad que avanza $x$, el valor $f(x)$ cambia exactamente $m$ unidades, siempre lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: con $m > 0$ es una recta ascendente, con $m < 0$ descendente y con $m = 0$ horizontal.\n\nSi una gráfica se dobla aunque sea un poco, la tasa de cambio no es constante y la función no puede ser lineal.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "propiedades-generales"
     ]
   },
   {
-    "question": "La gráfica muestra el puntaje acumulado en un videojuego, en miles de puntos, según los niveles superados.\n\nSe arranca con un bonus inicial.\n\n¿Cuántos miles de puntos suma por cada nivel superado?",
+    "question": "¿Cuántas veces corta el eje X una función lineal con **pendiente** no nula?",
     "options": [
-      "2 mil",
-      "3 mil",
-      "5 mil",
-      "6 mil"
+      "Una vez",
+      "Cero veces",
+      "Dos veces",
+      "Infinitas veces"
     ],
-    "correct_index": 1,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La recta sube 3 unidades por nivel: la pendiente es 3 mil puntos por nivel.",
+    "feedback_correct": "Una función lineal con $m \\neq 0$ corta al eje $X$ exactamente una vez, en su raíz.",
     "feedback_incorrect": [
-      "2 mil es el bonus inicial, la altura donde la recta corta el eje vertical.",
       null,
-      "5 mil es el puntaje total al superar el primer nivel (bonus incluido), no lo que suma cada nivel.",
-      "6 mil es lo que se suma en dos niveles, no en uno: medí la subida entre niveles consecutivos."
+      "No cortar nunca el eje $X$ es lo que pasa con una constante $f(x) = b$ con $b \\neq 0$; con pendiente no nula la recta siempre lo cruza.",
+      "Dos cortes son típicos de una parábola; una recta no puede volver a subir o bajar para cruzar de nuevo.",
+      "Infinitos cortes solo ocurren con la función nula $f(x) = 0$, que tiene pendiente cero."
     ],
-    "graph_fn": "3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Lo que se suma por nivel es la pendiente de la recta: cuánto sube por cada unidad del eje horizontal:\n$$m = 3$$\n3 mil puntos por nivel superado.\n\nEn el gráfico, entre un nivel y el siguiente la recta sube siempre lo mismo; el bonus inicial de 2 mil es la altura de partida sobre el eje vertical.\n\nSepará los dos roles antes de responder: la ordenada al origen dice con cuánto se arranca; la pendiente, a qué ritmo se acumula.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ corta el eje $X$ exactamente una vez. El punto de corte es la raíz, que se obtiene resolviendo:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY como $m \\neq 0$, esa ecuación tiene siempre una única solución.\n\nUna recta no puede cruzar el eje dos veces: para volver a cruzarlo tendría que cambiar de dirección, y la **pendiente** constante lo impide.\n\nEl caso sin corte queda reservado a las constantes $f(x) = b$ con $b \\neq 0$: una recta horizontal que nunca toca el eje $X$.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "propiedades-generales"
     ]
   },
   {
-    "question": "La gráfica muestra la temperatura, en grados Celsius, de un líquido mientras se calienta según los minutos desde que se encendió el calefactor.\n\n¿Cuál es la temperatura a los 3 minutos?",
+    "question": "¿Qué es la **ordenada al origen** en términos de la función?",
     "options": [
-      "7 °C",
-      "8 °C",
-      "9 °C",
-      "10 °C"
+      "El valor de $f(0)$",
+      "La raíz de la función",
+      "La pendiente"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(3) = 2 \\cdot 3 + 3 = 9$ °C. Buscá en la gráfica el punto con $x = 3$.",
+    "feedback_correct": "La ordenada al origen es $f(0)$, el valor de la función cuando $x = 0$.",
     "feedback_incorrect": [
-      "7 °C es la temperatura de un momento anterior: ubicá $x = 3$ y subí hasta la recta.",
-      "8 °C no es la altura de la recta en $x = 3$: revisá la lectura cuadrito a cuadrito.",
       null,
-      "10 °C corresponde a una lectura pasada de largo: a los 3 minutos la recta no llega tan alto."
+      "La raíz es el valor de $x$ donde la función se anula, o sea el corte con el eje $X$, no con el $Y$.",
+      "La pendiente es $m$, la inclinación de la recta; la ordenada al origen es el otro parámetro."
     ],
-    "graph_fn": "2*x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Leer $f(3)$ en el gráfico es ubicar $x = 3$ sobre el eje horizontal y mirar a qué altura pasa la recta:\n$$f(3) = 2 \\cdot 3 + 3 = 9$$\nA los 3 minutos el líquido está a 9 °C.\n\nLa recta cuenta la historia completa: arrancó a 3 °C (el corte con el eje vertical) y sube 2 °C por minuto (la pendiente).\n\nPara no desviarte en la lectura, seguí la vertical desde $x = 3$ hasta tocar la recta y recién ahí mirá el eje de temperaturas.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** $b$ es el valor que toma la función cuando la entrada es cero:\n$$f(0) = b$$\nGeométricamente es el punto $(0, b)$ donde la recta corta el eje $Y$.\n\nEn cualquier función lineal $f(x) = mx + b$, evaluar en $x = 0$ anula el término con $x$ y deja solo la constante: por eso la ordenada al origen se lee directo de la fórmula.\n\nPara distinguirla de la raíz, pensá en los ejes: la ordenada al origen vive en el eje vertical ($x = 0$); la raíz, en el horizontal ($f(x) = 0$).",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "propiedades-generales"
     ]
   },
   {
-    "question": "La gráfica muestra el ahorro total, en miles de pesos, de una persona según las semanas, considerando que ya tenía algo guardado al empezar.\n\n¿Cuánto tiene ahorrado a las 3 semanas?",
+    "question": "En $f(x) = 7 - 3x$, ¿cuál es la **ordenada al origen**?",
     "options": [
-      "\\$8 mil",
-      "\\$9 mil",
-      "\\$10 mil",
-      "\\$12 mil"
+      "$7$",
+      "$-3$",
+      "$-3x$",
+      "$x$"
     ],
-    "correct_index": 2,
+    "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(3) = 3 \\cdot 3 + 1 = 10$, es decir \\$10 mil. Buscá el punto con $x = 3$ en la gráfica.",
+    "feedback_correct": "El $7$ es la ordenada al origen: $f(0) = 7$.",
     "feedback_incorrect": [
-      "\\$8 mil no es la altura de la recta en $x = 3$: revisá la lectura sobre el gráfico.",
-      "\\$9 mil cuenta solo lo ahorrado en las 3 semanas y deja afuera lo que ya tenía guardado.",
       null,
-      "\\$12 mil lee una semana de más: la pregunta es a las 3 semanas exactas."
+      "$-3$ es la pendiente, el número que multiplica a $x$ una vez reordenada la fórmula.",
+      "$-3x$ es el término completo que acompaña a la variable, no el término independiente.",
+      "$x$ es la variable de entrada, no un parámetro de la recta."
     ],
-    "graph_fn": "3*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(3)$, ubicá $x = 3$ en el eje horizontal y mirá a qué altura llega la recta:\n$$f(3) = 3 \\cdot 3 + 1 = 10$$\nA las 3 semanas el ahorro total es de \\$10 mil.\n\nLa recta resume las dos partes: arrancó con \\$1 mil ya guardado (el corte con el eje vertical) y suma \\$3 mil por semana (la pendiente).\n\nEl error típico es olvidar el punto de partida y contar solo lo nuevo: la altura de la recta ya incluye lo que había al empezar.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para identificar los parámetros conviene reescribir en la forma canónica $f(x) = mx + b$.\n$$f(x) = 7 - 3x = -3x + 7$$\nAhí se lee $m = -3$ (la **pendiente**) y $b = 7$ (la **ordenada al origen**).\n\nLa ordenada al origen es el valor de la función en cero: $f(0) = 7$. El orden en que venga escrita la fórmula no cambia los roles de los parámetros.\n\nCuando la fórmula viene desordenada como $7 - 3x$, el error típico es leer el primer número como pendiente: primero reordená, después identificá.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "ordenada-calculo"
     ]
   },
   {
-    "question": "La gráfica muestra los kilómetros recorridos por un ciclista según las horas de pedaleo, contando una ventaja inicial con la que arrancó.\n\n¿A las cuántas horas llega a los 9 kilómetros?",
+    "question": "En $f(x) = 2x + 5$, ¿cuál es la **pendiente**?",
     "options": [
-      "3 hs",
-      "5 hs",
-      "6 hs",
-      "4 hs"
+      "$5$",
+      "$2x$",
+      "$x$",
+      "$2$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 9$ cuando $x = 4$. A las 4 horas el ciclista llega a 9 km.",
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = 2$.",
     "feedback_incorrect": [
-      "A las 3 horas la recta va por los 7 km: todavía no llega a 9.",
-      "A las 5 horas ya pasó los 9 km.",
-      "A las 6 horas está aún más lejos: buscá el primer cruce con la altura 9.",
+      "$5$ es la ordenada al origen, el término que no tiene $x$ al lado.",
+      "$2x$ es el término completo con la variable; la pendiente es solo el coeficiente que multiplica.",
+      "$x$ es la variable de entrada, no un parámetro.",
       null
     ],
-    "graph_fn": "2*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para saber cuándo la función alcanza un valor, se busca en el gráfico dónde la recta llega a esa altura:\n$$2x + 1 = 9 \\implies x = 4$$\nA las 4 horas el ciclista completa los 9 kilómetros.\n\nLa lectura es la inversa de evaluar: acá se conoce la altura (9 km) y se busca el punto del eje horizontal donde la recta la toca.\n\nTrazá la horizontal en $y = 9$ hasta cortar la recta y bajá al eje de horas: leer al revés (desde las horas) lleva a responder la altura equivocada.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$. Para $f(x) = 2x + 5$ el coeficiente de $x$ es $2$, así que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$, el valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nOjo con responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "pendiente-calculo"
     ]
   },
   {
-    "question": "La gráfica muestra el monto total cobrado por un electricista, en cientos de pesos, según las horas de trabajo, incluyendo el costo fijo de la visita.\n\n¿A las cuántas horas de trabajo el costo total llega a \\$1.100?",
+    "question": "Una función lineal con **pendiente** negativa ($m < 0$) es...",
     "options": [
-      "2 hs",
-      "3 hs",
-      "4 hs",
-      "5 hs"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 11$ cuando $x = 3$. A las 3 horas el costo llega a \\$1.100.",
-    "feedback_incorrect": [
-      "A las 2 horas el total va por \\$800: todavía no llega.",
-      null,
-      "A las 4 horas el costo ya superó los \\$1.100.",
-      "A las 5 horas está muy por encima: buscá dónde la recta toca la altura 11."
-    ],
-    "graph_fn": "3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El costo llega a \\$1.100 cuando la recta alcanza la altura 11 (en cientos de pesos):\n$$3x + 2 = 11 \\implies x = 3$$\nA las 3 horas de trabajo.\n\nLa recta parte de 2 (el fijo de la visita, ya incluido desde el arranque) y sube 3 por hora: por eso a las 3 horas acumula 11.\n\nPara resolverlo sobre el gráfico, trazá la horizontal en $y = 11$ y bajá desde el cruce hasta el eje de horas; no olvides que el fijo ya está contado en la altura.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen-concepto"
-    ]
-  },
-  {
-    "question": "La gráfica muestra el precio de una suscripción mensual, en miles de pesos, según el mes. El precio no cambia nunca.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
-    "options": [
-      "El precio mensual, que es siempre el mismo",
-      "Cuánto aumenta el precio cada mes",
-      "La cantidad de meses del contrato",
-      "El mes en que el precio baja"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Como la recta es horizontal, $f(0)$ es el precio fijo, el mismo todos los meses.",
-    "feedback_incorrect": [
-      null,
-      "La recta es horizontal: no aumenta nada mes a mes, la pendiente es cero.",
-      "Los meses se cuentan sobre el eje horizontal; el corte con el vertical es un precio, no una cantidad de meses.",
-      "La recta nunca baja: se mantiene a la misma altura durante todo el contrato."
-    ],
-    "graph_fn": "0*x + 5",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función cuando $x = 0$:\n$$f(0) = b$$\nEn este caso es el precio de la suscripción, que además es el mismo todos los meses porque la recta es horizontal: pendiente cero.\n\nUna función constante también es lineal, con $m = 0$: no crece ni decrece, solo mantiene su altura.\n\nEn rectas horizontales el único dato relevante es la ordenada al origen: no busques ritmos de cambio donde la inclinación es nula.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen-concepto"
-    ]
-  },
-  {
-    "question": "Un alquiler de bicicletas cobra un fijo al retirar la bici más un monto por hora.\n\nLa gráfica muestra el costo total, en cientos de pesos, según las horas.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
-    "options": [
-      "El costo por cada hora de uso",
-      "La cantidad máxima de horas",
-      "El costo fijo de retirar la bici, sin haber pedaleado",
-      "La hora en que conviene devolverla"
+      "Creciente",
+      "Constante",
+      "Decreciente"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(0) = 4$ es el cargo fijo de retiro, lo que se paga aunque la bici no se mueva.",
+    "feedback_correct": "Si $m < 0$, la recta baja de izquierda a derecha: la función es decreciente.",
     "feedback_incorrect": [
-      "El costo por hora es la pendiente, cuánto sube la recta con cada hora; el corte con el eje es el punto de partida.",
-      "El gráfico no marca tope de horas: la recta sigue subiendo.",
-      null,
-      "El gráfico no dice nada de conveniencia: solo muestra cómo crece el costo con las horas."
+      "Subir al avanzar corresponde a $m > 0$; acá el signo es negativo.",
+      "Constante sería con $m = 0$; una pendiente negativa hace bajar la recta.",
+      null
     ],
-    "graph_fn": "x + 4",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El punto donde la recta corta el eje vertical es el costo cuando $x = 0$:\n$$f(0) = b$$\nEs decir, con cero horas de uso: el cargo fijo por retirar la bici.\n\nEn el gráfico, la recta nace a esa altura y desde ahí sube con cada hora pedaleada.\n\nLos dos números del alquiler viven en lugares distintos del dibujo: el fijo es el arranque sobre el eje vertical; la tarifa horaria es la inclinación. Leer uno donde va el otro es el error clásico.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de la **pendiente** fija la monotonía global de una recta. Con $m < 0$, cuando $x$ aumenta el valor $f(x)$ disminuye: la función es decreciente en todo $\\mathbb{R}$.\n\nConcretamente, por cada unidad que avanza $x$ la función baja $|m|$ unidades, siempre al mismo ritmo.\n\nLa monotonía de una lineal no cambia por tramos: decrece en todo su **dominio**, sin intervalos de subida.",
     "reviewed": false,
     "tags": [
-      "ordenada-origen-concepto"
+      "monotonia-signo-pendiente"
     ]
   },
   {
-    "question": "La gráfica muestra el crédito que queda en una tarjeta prepaga de transporte, en cientos de pesos, según los viajes hechos.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "question": "¿Cuál es el **dominio natural** de una función lineal $f(x) = ax + b$?",
     "options": [
-      "El crédito inicial, antes de hacer ningún viaje",
-      "El costo de cada viaje",
-      "La cantidad de viajes disponibles",
-      "El viaje en que se agota el crédito"
+      "$(0, +\\infty)$",
+      "$[a, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$"
     ],
-    "correct_index": 0,
+    "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(0) = 9$ es el crédito inicial, lo que había en la tarjeta antes de viajar.",
+    "feedback_correct": "Las funciones lineales están definidas para todo $x \\in \\mathbb{R}$, ya que solo involucran suma y multiplicación.",
     "feedback_incorrect": [
+      "Ese conjunto excluye a los negativos y al cero, pero nada impide evaluar una recta ahí.",
+      "El parámetro $a$ es la pendiente y no restringe qué entradas se pueden usar.",
       null,
-      "El costo de cada viaje es la pendiente (cuánto baja la recta por viaje), no el corte con el eje.",
-      "La cantidad de viajes posibles se lee sobre el eje horizontal, donde la recta llega a cero.",
-      "El viaje en que se agota el crédito es el cruce con el eje horizontal, no con el vertical."
+      "Excluir el cero haría falta si hubiera una división por $x$, y acá no la hay."
     ],
-    "graph_fn": "-x + 9",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el valor de la función antes de hacer ningún viaje:\n$$f(0) = b$$\nEl crédito con el que arrancó la tarjeta.\n\nLa recta baja porque cada viaje descuenta un monto fijo: esa caída por viaje es la pendiente.\n\nCada pregunta tiene su eje: cuánto había al empezar se lee en el vertical; cuántos viajes alcanza, en el horizontal, donde la recta toca cero. No los intercambies.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural de una función es el conjunto más grande de números reales donde la fórmula está definida.\n\nEn $f(x) = ax + b$ las únicas operaciones son multiplicar por $a$ y sumar $b$, y ambas tienen resultado para cualquier real: no hay divisiones que se anulen, raíces de negativos ni logaritmos. Por eso el dominio de toda función lineal es $\\mathbb{R}$.\n\nLas restricciones de dominio aparecen cuando la variable queda en un denominador, dentro de una raíz par o de un logaritmo; si ves una de esas, la función ya no es lineal.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "dominio-imagen"
     ]
   },
   {
-    "question": "Una app de edición cobra un abono fijo más un extra por cada exportación.\n\nLa gráfica muestra el gasto mensual, en cientos de pesos, según las exportaciones.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "question": "¿Cuál es la **imagen** de la función constante $f(x) = 5$?",
     "options": [
-      "El abono fijo, aunque no se exporte nada",
-      "El costo de cada exportación",
-      "El máximo de exportaciones permitidas",
-      "La exportación en que sube el precio"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f(0) = 3$ es el abono fijo, lo que se paga aunque no se exporte nada ese mes.",
-    "feedback_incorrect": [
-      null,
-      "El costo por exportación es la pendiente, la subida de la recta por cada paso a la derecha.",
-      "El gráfico no marca máximos: la recta sigue subiendo con cada exportación.",
-      "En una recta la tarifa no cambia nunca: la pendiente es constante en todo el recorrido."
-    ],
-    "graph_fn": "0.5*x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El corte con el eje vertical muestra el gasto cuando $x = 0$:\n$$f(0) = b$$\nSin ninguna exportación en el mes: el abono fijo.\n\nLa pendiente, suave en este caso, es el extra por cada exportación: la recta sube medio ciento de pesos por unidad.\n\nEl piso del gasto se lee en el eje vertical y el ritmo en la inclinación: si la pregunta dice \"aunque no se use\", la respuesta está siempre en la ordenada al origen.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen-concepto"
-    ]
-  },
-  {
-    "question": "Un servicio de música cobra un fijo mensual más un cargo por descarga para escuchar sin conexión.\n\nLa gráfica muestra el gasto, en cientos de pesos, según las descargas.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
-    "options": [
-      "El costo de cada descarga",
-      "El cargo fijo mensual, sin ninguna descarga",
-      "El tope de descargas del plan",
-      "La descarga en que cambia la tarifa"
+      "$\\mathbb{R}$",
+      "$\\{5\\}$",
+      "$[0, 5]$",
+      "$(0, +\\infty)$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = 2$ es el cargo fijo del mes, lo que se paga aunque no se descargue nada.",
+    "feedback_correct": "La función siempre devuelve $5$. La imagen es el conjunto unitario $\\{5\\}$.",
     "feedback_incorrect": [
-      "El costo por descarga es la pendiente de la recta, no el punto donde corta el eje vertical.",
+      "$\\mathbb{R}$ sería la imagen de una lineal con pendiente distinta de cero; acá la salida no varía.",
       null,
-      "El gráfico no muestra ningún tope: la recta sigue mientras haya descargas.",
-      "En una recta la tarifa no cambia: la pendiente es la misma en todo el recorrido."
+      "Ese intervalo contiene infinitos valores entre 0 y 5, pero la función nunca devuelve ninguno distinto de 5.",
+      "La función no recorre todos los positivos: devuelve un único valor."
     ],
-    "graph_fn": "2/3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el gasto con cero descargas:\n$$f(0) = b$$\nEl cargo fijo del mes, que se paga aunque no se descargue nada.\n\nLo que crece con cada descarga es la pendiente de la recta; el punto de partida no depende del uso.\n\nAntes de responder este tipo de pregunta, traducila a la función: \"sin ninguna descarga\" significa $x = 0$, y el valor en $x = 0$ es siempre la ordenada al origen.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** de una función es el conjunto de valores que efectivamente salen de ella.\n\nEn $f(x) = 5$ la salida es siempre $5$, sin importar qué entrada uses: $f(0) = 5$, $f(100) = 5$, $f(-3) = 5$. Por eso la imagen es el conjunto unitario $\\{5\\}$.\n\nNo la mezcles con el **dominio**: la función acepta cualquier real como entrada, pero produce una única salida. Con $m = 0$ la imagen colapsa a un punto.",
     "reviewed": false,
     "tags": [
-      "ordenada-origen-concepto"
+      "dominio-imagen"
     ]
   },
   {
-    "question": "La gráfica muestra los litros de combustible en el tanque de una moto, en litros, según los kilómetros recorridos.\n\n¿Qué representa el valor donde la recta corta el eje vertical?",
+    "question": "Una función lineal $f(x) = mx + b$ con $m \\neq 0$ tiene **imagen**...",
     "options": [
-      "El combustible inicial, antes de arrancar",
-      "El consumo por kilómetro",
-      "Los kilómetros que faltan para llenar",
-      "El kilómetro en que se queda sin nafta"
+      "$\\{b\\}$",
+      "$[b, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$[0, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Si $m \\neq 0$, la función alcanza todos los valores reales.",
+    "feedback_incorrect": [
+      "La imagen $\\{b\\}$ corresponde a la constante $m = 0$; con pendiente no nula la salida no queda fija.",
+      "Ese conjunto tiene un piso en $b$, pero la recta también baja de $b$ cuando $x$ va hacia el lado negativo.",
+      null,
+      "La recta no se frena en el cero: también toma valores negativos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para una función lineal con $m \\neq 0$, la **imagen** es todo $\\mathbb{R}$. Como la recta no es horizontal, sube o baja sin límite y cubre todo el eje $Y$: cualquier valor $y$ se alcanza resolviendo:\n$$mx + b = y \\implies x = \\frac{y - b}{m}$$\nQue siempre tiene solución.\n\nEl **dominio** también es $\\mathbb{R}$: entran todos los reales y salen todos los reales.\n\nEl único caso distinto es $m = 0$: la función constante tiene imagen $\\{b\\}$, un solo punto. Antes de responder por la imagen, chequeá si la **pendiente** puede ser cero.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ]
+  },
+  {
+    "question": "¿Cuál es el nombre del punto donde una recta corta el eje Y?",
+    "options": [
+      "Vértice",
+      "Ordenada al origen",
+      "Raíz"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El punto donde la recta corta el eje Y se llama ordenada al origen (o intercepto en Y).",
+    "feedback_incorrect": [
+      "El vértice es el punto extremo de una parábola; una recta no tiene vértice.",
+      null,
+      "La raíz es el corte con el eje $X$, el horizontal, no con el $Y$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El punto donde una recta corta el eje $Y$ se llama **ordenada al origen** (también intercepto en $Y$). Se calcula evaluando la función en cero:\n$$f(0) = b$$\nLo que da el punto $(0, b)$.\n\nEl otro corte importante es con el eje $X$: ahí el valor de la función es cero y el punto se llama raíz o cero de la función.\n\nPara no cruzarlos, asociá cada nombre con su eje: ordenada al origen con el eje vertical; raíz con el horizontal.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "¿Cuál es el nombre del valor de $x$ donde una recta corta el eje X?",
+    "options": [
+      "Raíz o cero",
+      "Ordenada al origen",
+      "Vértice"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(0) = 8$ es el combustible inicial, lo que había en el tanque antes de arrancar.",
+    "feedback_correct": "El valor de $x$ donde la recta cruza el eje X se llama raíz o cero de la función.",
     "feedback_incorrect": [
       null,
-      "El consumo por kilómetro es la pendiente, cuánto baja la recta por cada km recorrido.",
-      "El eje vertical no mide kilómetros: muestra litros de combustible.",
-      "El kilómetro donde se queda sin nafta es el cruce con el eje horizontal, no con el vertical."
+      "La ordenada al origen es el corte con el eje $Y$, el vertical, cuando $x = 0$.",
+      "El vértice es propio de las parábolas; una recta no tiene punto de giro."
     ],
-    "graph_fn": "-0.5*x + 8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El corte con el eje vertical es $f(0)$, el combustible cuando todavía no se recorrió nada:\n$$f(0) = b$$\nEl tanque con el que salió la moto.\n\nLa recta baja porque cada kilómetro consume: esa caída por km es la pendiente, y el punto donde toca el eje horizontal es donde la nafta se acaba.\n\nCada dato del contexto tiene su lugar fijo en el dibujo: inicial en el eje vertical, consumo en la inclinación, agotamiento en el eje horizontal.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El valor de $x$ donde la función vale cero se llama raíz (o cero) de la función. Para una lineal $f(x) = mx + b$ con $m \\neq 0$:\n$$mx + b = 0 \\implies x = -\\frac{b}{m}$$\nY geométricamente la recta corta el eje $X$ en el punto $(-b/m, 0)$.\n\nLa raíz es un número, el valor de $x$; el punto del plano es el par $(-b/m, 0)$.\n\nNo la mezcles con la **ordenada al origen**, que es el corte con el eje $Y$: cada corte tiene su nombre y su eje.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "propiedades-generales"
     ]
   },
   {
-    "question": "La gráfica muestra la altura de una vela encendida, en centímetros, según las horas que lleva prendida.\n\n¿A las cuántas horas se consume del todo?",
+    "question": "¿Cuál es la diferencia entre **pendiente** positiva y negativa?",
     "options": [
-      "5 hs",
-      "7 hs",
-      "4 hs",
-      "6 hs"
+      "Con pendiente positiva no hay raíz",
+      "Con pendiente positiva la recta sube; con negativa baja",
+      "Solo afecta el dominio"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con pendiente positiva ($m > 0$) la recta sube; con negativa ($m < 0$) baja.",
+    "feedback_incorrect": [
+      "La raíz existe igual con cualquier pendiente no nula: la recta siempre cruza el eje $X$ una vez.",
+      null,
+      "El dominio de una lineal es $\\mathbb{R}$ sin importar el signo de la pendiente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente** $m$ determina la dirección de la recta: con $m > 0$ sube de izquierda a derecha (función creciente), con $m < 0$ baja (función decreciente) y con $m = 0$ queda horizontal (función constante).\n\nAdemás del signo, el valor absoluto $|m|$ mide la inclinación: una pendiente grande da una recta empinada; una chica, una recta casi horizontal.\n\nEl signo de $m$ no toca ni el **dominio** ni la existencia de la raíz: con cualquier $m \\neq 0$ el dominio sigue siendo $\\mathbb{R}$ y hay exactamente una raíz.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ]
+  },
+  {
+    "question": "¿Qué significado tiene la **pendiente** en términos de variación?",
+    "options": [
+      "Es el valor de $f(0)$",
+      "Es la raíz de la función",
+      "Es la tasa de cambio de $f$ respecto a $x$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La pendiente mide cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": [
+      "$f(0)$ es la ordenada al origen, el otro parámetro de la recta.",
+      "La raíz es el valor de $x$ que anula la función; no mide variación.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente** $m$ es la tasa de cambio de la función:\n$$m = \\frac{\\Delta f}{\\Delta x} = \\frac{f(x_2) - f(x_1)}{x_2 - x_1}$$\nEs decir, cuánto cambia la salida por cada unidad que cambia la entrada.\n\nEn una función lineal esta tasa es constante: con $m = 3$, cada vez que $x$ sube una unidad, $f(x)$ sube exactamente $3$, en cualquier tramo de la recta.\n\nEs el dato clave para interpretar contextos: tarifas por kilómetro, ritmos de llenado o velocidades son pendientes, no valores iniciales.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ]
+  },
+  {
+    "question": "¿Pertenece $f(x) = \\dfrac{x}{2} + 3$ a la familia lineal?",
+    "options": [
+      "No, porque tiene división",
+      "No, porque $x$ no está multiplicada",
+      "Sí, es lineal"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\frac{x}{2} + 3$ puede escribirse como $\\frac{1}{2}x + 3$, que es $mx + b$ con $m = \\frac{1}{2}$.",
+    "feedback_incorrect": [
+      "La división por 2 es una constante que multiplica: $\\frac{x}{2} = \\frac{1}{2}x$, y eso no rompe el molde lineal.",
+      "La $x$ sí está multiplicada, por la constante $\\frac{1}{2}$: dividir por 2 es multiplicar por un medio.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dividir la variable por una constante es lo mismo que multiplicarla por una fracción:\n$$f(x) = \\frac{x}{2} + 3 = \\frac{1}{2}x + 3$$\nQue es exactamente la forma $mx + b$ con $m = \\frac{1}{2}$ y $b = 3$. Es una función lineal con **pendiente** fraccionaria.\n\nLo que sí rompe la linealidad es que la variable quede en el denominador, como en $\\frac{2}{x}$: ahí la función pasa a ser racional.\n\nAntes de descartar por ver una división, fijate quién divide a quién: constante dividiendo a $x$ es lineal; $x$ dividiendo es otra familia.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ]
+  },
+  {
+    "question": "¿Cuál es la **pendiente** de $f(x) = -x$?",
+    "options": [
+      "$0$",
+      "$-1$",
+      "$1$",
+      "$x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = -x = -1 \\cdot x + 0$, la pendiente es $m = -1$.",
+    "feedback_incorrect": [
+      "Pendiente 0 sería una constante horizontal, y esta recta baja.",
+      null,
+      "El signo cuenta: $-x$ es $(-1) \\cdot x$, no $(+1) \\cdot x$.",
+      "$x$ es la variable, no el coeficiente que la multiplica."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función $f(x) = -x$ puede escribirse en forma canónica:\n$$f(x) = -1 \\cdot x + 0$$\nCon **pendiente** $m = -1$ y **ordenada al origen** $b = 0$.\n\nLa recta pasa por el origen $(0, 0)$ y baja una unidad por cada unidad que avanza $x$: es decreciente.\n\nCuando la variable aparece sola con un signo menos, el coeficiente es $-1$ aunque no esté escrito; leer pendiente $1$ sin el signo es el error clásico.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-calculo"
+    ]
+  },
+  {
+    "question": "¿Cuál es la **pendiente** de $f(x) = 10$?",
+    "options": [
+      "$0$",
+      "$10$",
+      "$1$",
+      "No tiene pendiente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En $f(x) = 10 = 0 \\cdot x + 10$, la pendiente es $m = 0$.",
+    "feedback_incorrect": [
+      null,
+      "$10$ es la ordenada al origen, el valor constante que devuelve la función.",
+      "Pendiente 1 corresponde a la identidad $f(x) = x$, que sube; esta recta es horizontal.",
+      "Toda recta no vertical tiene pendiente; en las constantes vale exactamente 0."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función constante puede escribirse en el molde lineal:\n$$f(x) = 0 \\cdot x + 10$$\nCon **pendiente** $m = 0$ y **ordenada al origen** $b = 10$.\n\nLa gráfica es una recta horizontal a altura 10: no sube ni baja porque la tasa de cambio es cero.\n\nDecir que \"no tiene pendiente\" es distinto de \"pendiente cero\": la pendiente existe y vale 0. La que no tiene pendiente definida es una recta vertical, que ni siquiera es función.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-calculo"
+    ]
+  },
+  {
+    "question": "¿Cuál es la diferencia entre **dominio** e **imagen** en $f(x) = 2x + 3$?",
+    "options": [
+      "No hay diferencia",
+      "Dominio = entradas; imagen = salidas",
+      "Dominio es $x$; imagen es $m$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio son los valores de $x$ que entran; la imagen, los valores de $f(x)$ que salen.",
+    "feedback_incorrect": [
+      "Son conjuntos distintos por definición: uno vive en el eje de entradas y el otro en el de salidas, aunque acá ambos resulten ser $\\mathbb{R}$.",
+      null,
+      "$m$ es la pendiente, un parámetro fijo de la recta; la imagen es un conjunto de valores de salida."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En cualquier función, el **dominio** es el conjunto de entradas válidas (los valores de $x$ que se pueden usar) y la **imagen** es el conjunto de salidas que efectivamente se producen (los valores que toma $f(x)$).\n\nPara $f(x) = 2x + 3$ ambos conjuntos dan $\\mathbb{R}$: entra cualquier real y, como la recta sube sin límite, sale cualquier real.\n\nQue los dos conjuntos coincidan acá no borra la diferencia conceptual: en una constante, por ejemplo, el dominio sigue siendo $\\mathbb{R}$ pero la imagen se reduce a un punto.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ]
+  },
+  {
+    "question": "Si restringís el **dominio** de $f(x) = 2x$ al intervalo $[1, 4]$, ¿cuál es la **imagen**?",
+    "options": [
+      "$[1, 4]$",
+      "$[0, 8]$",
+      "$(2, 8)$",
+      "$[2, 8]$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La vela se consume cuando la altura llega a cero. La recta cruza el eje horizontal en $x = 6$.",
+    "feedback_correct": "$f(1) = 2$ y $f(4) = 8$. Como $f$ es creciente, la imagen de $[1, 4]$ es $[2, 8]$.",
     "feedback_incorrect": [
-      "A las 5 horas todavía queda un centímetro de vela.",
-      "A las 7 horas la recta ya estaría por debajo del eje: la vela se terminó antes.",
-      "A las 4 horas quedan 2 cm: mirá dónde la recta toca el eje horizontal.",
+      "Ese es el dominio restringido; la imagen se obtiene aplicando la función a esos valores.",
+      "El 0 no se alcanza: la entrada más chica es 1 y produce $f(1) = 2$.",
+      "Los extremos se incluyen: el intervalo de entrada es cerrado y la función alcanza $f(1) = 2$ y $f(4) = 8$.",
       null
     ],
-    "graph_fn": "-x + 6",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La vela se consume por completo cuando su altura llega a cero, es decir cuando $f(x) = 0$: el cruce de la recta con el eje horizontal:\n$$-x + 6 = 0 \\implies x = 6$$\nA las 6 horas se termina.\n\nEn el gráfico, la recta parte de los 6 cm iniciales y baja un centímetro por hora hasta tocar el eje.\n\nQue el valor inicial y la hora final coincidan acá (ambos 6) es casualidad de la pendiente $-1$: no asumas esa igualdad en otros gráficos; buscá siempre el cruce con el eje horizontal.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la **imagen** de una lineal sobre un **dominio** restringido alcanza con evaluar los extremos:\n$$\\begin{aligned} f(1) &= 2 \\cdot 1 = 2 \\\\ f(4) &= 2 \\cdot 4 = 8 \\end{aligned}$$\nComo $f(x) = 2x$ es creciente ($m = 2 > 0$), la imagen de $[1, 4]$ es $[2, 8]$.\n\nLa monotonía es lo que permite mirar solo los extremos: la recta no sube ni baja de más entre medio.\n\nSi la **pendiente** fuera negativa, el orden se invertiría: el extremo izquierdo del dominio daría el valor más alto. Chequeá el signo de $m$ antes de armar el intervalo.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "dominio-imagen"
     ]
   },
   {
-    "question": "La gráfica muestra el saldo de una cuenta, en miles de pesos, según las semanas de ahorro. Arrancó en rojo y se va recuperando.\n\n¿En qué semana el saldo llega a cero?",
+    "question": "¿En qué intervalo crece $f(x) = 3x - 7$?",
     "options": [
-      "Semana 4",
-      "Semana 3",
-      "Semana 5",
-      "Semana 6"
+      "$(0, +\\infty)$",
+      "$(-\\infty, 7/3)$",
+      "$\\mathbb{R}$",
+      "$(7/3, +\\infty)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Como $m = 3 > 0$, la función es creciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "La función también crece en los negativos: la pendiente no cambia al cruzar el cero.",
+      "Ese intervalo apunta a la raíz $x = 7/3$, pero la raíz no es un punto de cambio de monotonía.",
+      null,
+      "La recta no empieza a crecer a partir de la raíz: ya venía creciendo desde antes."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal con **pendiente** no nula es monótona en todo su **dominio**: o crece siempre o decrece siempre.\n\nPara $f(x) = 3x - 7$ la pendiente es $m = 3 > 0$, así que la función es creciente en todo $\\mathbb{R}$, sin tramos de bajada ni mesetas.\n\nEl distractor típico son los intervalos armados con la raíz $x = 7/3$: la raíz marca dónde la función cambia de signo, no dónde cambia de dirección. Las rectas nunca cambian de dirección.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-signo-pendiente"
+    ]
+  },
+  {
+    "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$(-\\infty, 5/2)$",
+      "$(5/2, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Como $m = -2 < 0$, la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "La recta también baja en los negativos; el 0 no marca ningún cambio.",
+      null,
+      "Ese intervalo termina en la raíz $x = 5/2$, pero ahí la función solo cruza el eje, no cambia de dirección.",
+      "A la derecha de la raíz la función sigue bajando igual que antes: no hay cambio de monotonía."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para $f(x) = -2x + 5$ la **pendiente** es $m = -2 < 0$: la función es decreciente en todo $\\mathbb{R}$.\n\nLa monotonía de una recta es global: por cada unidad que avanza $x$, la salida baja 2 unidades, tanto a la izquierda como a la derecha de cualquier punto.\n\nEl valor $x = 5/2$, donde $f(x) = 0$, es la raíz: ahí la función cambia de signo (pasa de positiva a negativa), pero no de monotonía. Distinguir cambio de signo de cambio de dirección evita este error.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-signo-pendiente"
+    ]
+  },
+  {
+    "question": "¿Cuál es la raíz de $f(x) = 3x - 9$?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 9$",
+      "$x = 0$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "El saldo llega a cero cuando la recta cruza el eje horizontal, en $x = 4$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $3x - 9 = 0 \\implies x = 3$.",
     "feedback_incorrect": [
       null,
-      "En la semana 3 el saldo sigue en rojo: la recta está por debajo del eje.",
-      "En la semana 5 el saldo ya es positivo: el cruce fue antes.",
-      "En la semana 6 hace rato que salió del rojo: buscá el cruce exacto con el eje."
+      "El signo queda al revés en el despeje: de $3x = 9$ sale $x = 3$, positivo.",
+      "$9$ es el término independiente sin dividir por el coeficiente 3.",
+      "$x = 0$ da $f(0) = -9$, que es la ordenada al origen, no la raíz."
     ],
-    "graph_fn": "x - 4",
-    "graph_view": [
-      -2,
-      10,
-      -6,
-      6
-    ],
-    "explanation": "El saldo llega a cero cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal:\n$$x - 4 = 0 \\implies x = 4$$\nEn la semana 4 la deuda queda saldada.\n\nEste gráfico arranca por debajo del eje (saldo negativo, la cuenta en rojo) y sube una unidad por semana hasta cruzarlo.\n\nLa parte de la recta bajo el eje también se lee: representa deuda, no ausencia de datos. El cruce marca el cambio de signo, de deber a tener.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nLos errores típicos son de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "raiz-calculo"
     ]
   },
   {
-    "question": "La gráfica muestra la carga de una batería externa, en miles de mAh, según las horas de uso. Arrancó llena.\n\n¿A las cuántas horas se agota por completo?",
+    "question": "¿Cuál es la raíz de $f(x) = -2x + 8$?",
     "options": [
-      "6 hs",
-      "7 hs",
-      "8 hs",
-      "4 hs"
+      "$x = -4$",
+      "$x = 2$",
+      "$x = 4$",
+      "$x = -2$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La batería se agota cuando la carga llega a cero. La recta cruza el eje horizontal en $x = 8$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $-2x + 8 = 0 \\implies x = 4$.",
     "feedback_incorrect": [
-      "A las 6 horas todavía le queda una unidad de carga: la recta no llegó al eje.",
-      "A las 7 horas queda media unidad de carga.",
+      "El signo se pierde en el despeje: $-2x = -8$ da $x = 4$ positivo, porque ambos lados son negativos.",
+      "Ese valor no sale de la ecuación: la cuenta es dividir 8 entre 2 con los signos bien llevados.",
       null,
-      "El 4 es la carga inicial en miles de mAh (la altura sobre el eje vertical), no la hora del apagado."
+      "Acá hay dos deslices juntos: el cociente es $8/2 = 4$ y el signo final es positivo."
     ],
-    "graph_fn": "-0.5*x + 4",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La batería se agota cuando la carga llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal:\n$$-\\frac{1}{2}x + 4 = 0 \\implies x = 8$$\nA las 8 horas queda en cero.\n\nCon una pendiente suave ($-\\frac{1}{2}$), la recta tarda el doble de lo que sugiere el valor inicial: parte de 4 y baja medio punto por hora.\n\nNo dividas mal la lectura: el 4 del eje vertical es cuánta carga había, y la respuesta vive en el eje horizontal, donde la recta toca el cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la raíz se resuelve $f(x) = 0$:\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\nVerificación: $f(4) = -2 \\cdot 4 + 8 = 0$.\n\nAl dividir $-8$ entre $-2$ los signos se cancelan y el resultado es positivo.\n\nEl error más común en estas cuentas es manejar mal el signo del coeficiente negativo: conviene despejar en dos pasos y recién al final dividir, mirando los signos de ambos lados.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "raiz-calculo"
     ]
   },
   {
-    "question": "La gráfica muestra la temperatura de una cámara frigorífica, en grados, según las horas desde que se apagó. Arrancó bajo cero.\n\n¿A las cuántas horas la temperatura llega a cero grados?",
+    "question": "¿Cuál es la **ordenada al origen** de $f(x) = -x + 4$?",
     "options": [
-      "6 hs",
-      "5 hs",
-      "7 hs",
-      "2 hs"
+      "$-1$",
+      "$-4$",
+      "$1$",
+      "$4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La ordenada al origen es $b = 4$: $f(0) = 4$.",
+    "feedback_incorrect": [
+      "$-1$ es la pendiente, el coeficiente que multiplica a $x$.",
+      "El signo negativo de la fórmula acompaña a la $x$, no al 4.",
+      "Ese es el coeficiente de $x$ con el signo cambiado, no el término independiente.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **ordenada al origen** es el valor de la función en cero:\n$$f(0) = -0 + 4 = 4$$\nEn la forma canónica $f(x) = -1 \\cdot x + 4$, los parámetros son $m = -1$ (la **pendiente**) y $b = 4$.\n\nGeométricamente, la recta corta el eje $Y$ en el punto $(0, 4)$.\n\nEl signo menos de la fórmula pertenece al término de la $x$: no lo arrastres al término independiente al leer los parámetros.",
+    "reviewed": false,
+    "tags": [
+      "ordenada-calculo"
+    ]
+  },
+  {
+    "question": "Un taxi arranca con tarifa $T(k) = 500 + 200k$ en pesos, donde $k$ = km. ¿Cuál es el parámetro $b$?",
+    "options": [
+      "$200$",
+      "$500$",
+      "$k$",
+      "$500 + 200$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $T(k) = 500 + 200k$, el término independiente es $b = 500$ pesos.",
+    "feedback_incorrect": [
+      "$200$ es la tarifa por kilómetro, el coeficiente que multiplica a $k$: eso es la pendiente.",
+      null,
+      "$k$ es la variable independiente (los kilómetros), no un parámetro fijo.",
+      "Sumar los dos números mezcla roles: cada parámetro se lee por separado de la fórmula."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Reordenando la fórmula a la forma canónica:\n$$T(k) = 200k + 500$$\nSe identifican los parámetros: $m = 200$ es la tarifa por kilómetro (la **pendiente**) y $b = 500$ es la bajada de bandera (la **ordenada al origen**).\n\nEl parámetro $b$ es el término que no tiene $k$ multiplicando: es lo que se paga aunque el viaje mida cero kilómetros, $T(0) = 500$.\n\nEn los contextos de tarifas, la pista es qué depende de la variable: lo que multiplica a $k$ varía con el viaje; lo suelto es fijo.",
+    "reviewed": false,
+    "tags": [
+      "parametros-contexto"
+    ]
+  },
+  {
+    "question": "Un plomero cobra $C(h) = 1500 + 800h$ pesos, donde $h$ = horas. ¿Cuál es el parámetro $m$?",
+    "options": [
+      "$800$",
+      "$1500$",
+      "$h$",
+      "$2300$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La temperatura llega a cero cuando la recta cruza el eje horizontal, en $x = 6$.",
+    "feedback_correct": "En $C(h) = 800h + 1500$, el coeficiente de $h$ es $m = 800$ pesos/hora.",
     "feedback_incorrect": [
       null,
-      "A las 5 horas la temperatura sigue bajo cero: la recta aún no cruzó el eje.",
-      "A las 7 horas ya está sobre cero: el cruce fue antes.",
-      "El 2 se relaciona con los grados iniciales bajo cero, no con la hora del cruce."
+      "$1500$ es el costo fijo de la visita, el término que no depende de las horas: la ordenada al origen.",
+      "$h$ es la variable independiente (las horas), no un parámetro.",
+      "$2300$ es la suma de los dos parámetros, que da $C(1)$, no el valor de $m$."
     ],
-    "graph_fn": "1/3*x - 2",
-    "graph_view": [
-      -2,
-      10,
-      -6,
-      6
-    ],
-    "explanation": "La temperatura llega a cero grados cuando $f(x) = 0$: el punto donde la recta cruza el eje horizontal:\n$$\\frac{1}{3}x - 2 = 0 \\implies x = 6$$\nA las 6 horas de apagada la cámara.\n\nLa recta arranca en $-2$ (bajo cero, por debajo del eje) y sube un tercio de grado por hora hasta cruzarlo.\n\nLas gráficas que empiezan bajo el eje se leen igual que las demás: el tramo negativo es información real (frío bajo cero) y el cruce marca el instante del cero exacto.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma canónica:\n$$C(h) = 800h + 1500$$\nEl parámetro $m = 800$ es lo que multiplica a la variable $h$: la tarifa por hora, es decir la **pendiente**. El término suelto $b = 1500$ es el costo fijo, la **ordenada al origen**.\n\nLa pendiente responde a la pregunta de cuánto sube el costo por cada hora extra de trabajo.\n\nPara chequear, evaluá: $C(0) = 1500$ (solo el fijo) y cada hora agrega 800. Si la cuenta con tu candidato a $m$ no reproduce eso, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "parametros-contexto"
     ]
   },
   {
-    "question": "La gráfica muestra el agua que queda en un bidón, en litros, según los días de una excursión.\n\n¿En qué día se vacía por completo el bidón?",
+    "question": "Un abono de celular es $P(g) = 1200 + 80g$ pesos, donde $g$ = GB extra. ¿Cuál es la tarifa por GB?",
     "options": [
-      "Día 7",
-      "Día 8",
-      "Día 9",
-      "Día 3"
+      "$1200$",
+      "$1200 + 80$",
+      "$80$",
+      "$g$"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "El bidón se vacía cuando la recta cruza el eje horizontal, en $x = 9$.",
+    "feedback_correct": "La tarifa por GB es el coeficiente de $g$: $m = 80$ pesos/GB.",
     "feedback_incorrect": [
-      "Al día 7 todavía quedan unos dos tercios de litro: la recta sigue sobre el eje.",
-      "Al día 8 queda un tercio: aún no tocó el eje.",
+      "$1200$ es el abono fijo del mes, lo que se paga sin consumir GB extra.",
+      "Esa suma es lo que costaría el mes con un GB extra, $P(1)$, no la tarifa unitaria.",
       null,
-      "El 3 es el agua inicial del bidón, la altura sobre el eje vertical."
+      "$g$ es la variable (los GB consumidos), no un precio."
     ],
-    "graph_fn": "-1/3*x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El bidón se vacía cuando el agua llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal:\n$$-\\frac{1}{3}x + 3 = 0 \\implies x = 9$$\nAl día 9 de excursión.\n\nLa pendiente suave ($-\\frac{1}{3}$) estira la duración: aunque el bidón tenga solo 3 litros, a un tercio por día alcanza para 9 días.\n\nNo leas el valor inicial como respuesta: los 3 litros dicen cuánto había; el día del vaciado se busca donde la recta toca el eje horizontal.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la fórmula reordenada:\n$$P(g) = 80g + 1200$$\nLa tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$. El abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra.\n\nCada GB adicional suma exactamente 80 pesos a la factura: eso es lo que significa la pendiente en este contexto.\n\nLa confusión típica es responder el número más grande por parecer más importante: el rol se decide por la posición en la fórmula, no por el tamaño.",
     "reviewed": false,
     "tags": [
-      "raiz-agotamiento"
+      "parametros-contexto"
     ]
   },
   {
-    "question": "La gráfica muestra las entradas que quedan para un recital, en miles, según las horas desde que salieron a la venta.\n\n¿A las cuántas horas se agotan las entradas?",
+    "question": "Un tanque tiene 60 litros y pierde 4 L/h. ¿Cuál es el parámetro $m$?",
     "options": [
-      "5 hs",
-      "7 hs",
-      "4 hs",
-      "6 hs"
+      "$60$",
+      "$4$",
+      "$-60$",
+      "$-4$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Las entradas se agotan cuando la recta cruza el eje horizontal, en $x = 6$.",
+    "feedback_correct": "Como el tanque pierde, la pendiente es negativa: $m = -4$ L/h.",
     "feedback_incorrect": [
-      "A las 5 horas quedan entradas: la recta sigue por encima del eje.",
-      "A las 7 horas la recta ya cruzó el eje: se agotaron antes.",
-      "El 4 es la cantidad inicial en miles, la altura sobre el eje vertical, no la hora de agotamiento.",
+      "$60$ es el volumen inicial, la ordenada al origen.",
+      "El 4 sin signo dice cuánto cambia, pero no hacia dónde: el volumen baja, así que el coeficiente es negativo.",
+      "El signo negativo va en la tasa de cambio, no en el valor inicial: el tanque arranca con 60 litros.",
       null
     ],
-    "graph_fn": "-2/3*x + 4",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Las entradas se agotan cuando la cantidad llega a cero, es decir cuando $f(x) = 0$: el cruce con el eje horizontal:\n$$-\\frac{2}{3}x + 4 = 0 \\implies x = 6$$\nA las 6 horas de iniciada la venta.\n\nLa recta parte de 4 mil entradas y baja dos tercios de mil por hora, un ritmo que vacía el stock en 6 horas.\n\nVerificá el cruce despejando o siguiendo la recta con el dedo: responder el valor inicial (4) en lugar del cruce es la confusión de ejes más frecuente.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El volumen del tanque sigue la fórmula:\n$$V(t) = -4t + 60$$\nCon **pendiente** $m = -4$ (la tasa de pérdida) y **ordenada al origen** $b = 60$ (el volumen inicial).\n\nLa pendiente es negativa porque la cantidad disminuye con el tiempo: cada hora que pasa, el volumen baja 4 litros.\n\nEn procesos que decrecen (vaciado, depreciación, descarga de batería) el error clásico es escribir la tasa con signo positivo: preguntate siempre si la magnitud sube o baja antes de fijar el signo de $m$.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "parametros-contexto"
     ]
   },
   {
-    "question": "La gráfica muestra la factura mensual de internet, en miles de pesos, según los gigabytes consumidos. El plan es de tarifa plana.\n\n¿Cuánto más paga quien consume 8 GB respecto a quien consume 3 GB?",
+    "question": "Un sueldo es $S(v) = 3000 + 50v$ pesos, donde $v$ es la cantidad de ventas.\n\n¿Cuál es el sueldo base cuando no hay ninguna venta?",
     "options": [
-      "Nada, paga lo mismo",
-      "\\$3 mil",
-      "\\$5 mil",
-      "\\$6 mil"
+      "$3000$",
+      "$50$",
+      "$50v$",
+      "$3050$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Como la recta es horizontal, $f(8) - f(3) = 0$: la tarifa plana no cambia con el consumo.",
+    "feedback_correct": "El sueldo base es la ordenada al origen: $b = 3000$ pesos.",
     "feedback_incorrect": [
       null,
-      "Esa cuenta le pone pendiente a una recta horizontal: acá la altura no cambia con el consumo.",
-      "El 5 es el ancho del intervalo de consumo (de 3 a 8 GB), no una diferencia de plata.",
-      "El 6 es la altura de la recta (la tarifa plana), no lo que cambia entre consumos."
+      "$50$ es la comisión por venta, el coeficiente de $v$: la pendiente.",
+      "$50v$ es el término variable completo, que vale 0 cuando no hay ventas.",
+      "$3050$ es el sueldo con una venta, $S(1)$, no el básico."
     ],
-    "graph_fn": "0*x + 6",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo:\n$$f(8) - f(3) = 0 \\cdot (8 - 3) = 0$$\nY con pendiente cero la diferencia es nula: ambos pagan lo mismo.\n\nLa recta horizontal es la firma de la tarifa plana: la factura vale 6 mil pesos consuma lo que se consuma.\n\nAntes de calcular diferencias, mirá la inclinación: si la recta es horizontal, no hay nada que restar, y cualquier número distinto de cero delata una pendiente inventada.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El sueldo sigue la forma canónica:\n$$S(v) = 50v + 3000$$\nCon **pendiente** $m = 50$ (la comisión por venta) y **ordenada al origen** $b = 3000$ (el sueldo base).\n\nEl sueldo base es lo que se cobra sin vender nada: $S(0) = 3000$. Es el término que no depende de la variable $v$.\n\nPara verificar cualquier lectura de parámetros en un contexto, evaluá la función en cero: lo que queda es siempre la parte fija.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "parametros-contexto"
     ]
   },
   {
-    "question": "La gráfica muestra el abono mensual de un gimnasio, en miles de pesos, según los días que se asiste. El abono es fijo.\n\n¿Cuánto más paga quien va 20 días respecto a quien va 5 días?",
+    "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
-      "\\$4 mil",
-      "\\$15 mil",
-      "Nada, paga lo mismo",
-      "\\$2 mil"
+      "Lineal",
+      "Raíz (irracional)",
+      "Cuadrática",
+      "Constante"
     ],
-    "correct_index": 2,
+    "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La recta es horizontal, así que $f(20) - f(5) = 0$: el abono no depende de la asistencia.",
+    "feedback_correct": "$\\sqrt{x}$ no es lineal porque $x$ está bajo una raíz, no como $mx + b$.",
     "feedback_incorrect": [
-      "El 4 es la altura de la recta (el abono mensual), no una diferencia entre asistencias.",
-      "Esa cuenta multiplica los días por un costo que no existe: la recta no sube con la asistencia.",
+      "Para ser lineal la $x$ debería aparecer multiplicada por una constante, no adentro de una raíz.",
       null,
-      "No hay diferencia que calcular: la recta es horizontal durante todo el mes."
+      "La cuadrática eleva la variable al cuadrado; acá pasa lo contrario, se le saca raíz.",
+      "Una constante devuelve siempre el mismo valor, y $\\sqrt{x}$ cambia con cada entrada."
     ],
-    "graph_fn": "0*x + 4",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia entre dos valores de una lineal es la pendiente por el ancho del intervalo:\n$$f(20) - f(5) = 0 \\cdot (20 - 5) = 0$$\nY en una recta horizontal la pendiente es cero: la asistencia no mueve el abono.\n\nEl gráfico lo dice de un vistazo: la altura es la misma en el día 5 y en el día 20.\n\nCuando la recta es horizontal, cualquier diferencia distinta de cero es una pendiente inventada: verificá la inclinación antes de restar valores.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal debe poder escribirse como $f(x) = mx + b$, con la variable multiplicada por una constante.\n\nEn $f(x) = \\sqrt{x}$ la variable está dentro de una raíz cuadrada: eso la ubica en la familia de las funciones radicales (o irracionales). Además su **dominio** ya no es todo $\\mathbb{R}$, sino $[0, +\\infty)$.\n\nLa ubicación de la $x$ es el criterio de familia: multiplicada es lineal, al cuadrado es cuadrática, en el exponente es exponencial y dentro de una raíz es radical.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra el costo de un taller, en cientos de pesos, según las horas de duración, con un fijo de inscripción.\n\n¿Cuántos pesos más paga quien toma 7 horas respecto a quien toma 3 horas?",
+    "question": "¿A qué familia pertenece $f(x) = 2^x$?",
     "options": [
-      "\\$200",
-      "\\$300",
-      "\\$400",
-      "\\$500"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f(7) - f(3) = 9 - 5 = 4$, es decir \\$400. Cuatro horas de diferencia, a \\$100 cada una.",
-    "feedback_incorrect": [
-      "\\$200 cuenta solo dos horas de diferencia; entre 3 y 7 hay cuatro.",
-      "\\$300 cuenta tres horas; el intervalo tiene cuatro.",
-      null,
-      "\\$500 mete el fijo de inscripción en la resta, y el fijo se cancela al comparar."
-    ],
-    "graph_fn": "x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia en una lineal es la pendiente por el ancho del intervalo:\n$$f(7) - f(3) = 1 \\cdot (7 - 3) = 4$$\nCuatro cientos de pesos: \\$400.\n\nCada hora de taller suma \\$100 (la pendiente) y entre 3 y 7 horas hay cuatro de diferencia.\n\nEl fijo de inscripción aparece en los dos totales y desaparece en la resta: si tu cuenta lo incluye, la diferencia queda inflada.",
-    "reviewed": false,
-    "tags": [
-      "lectura-x-dado-y"
-    ]
-  },
-  {
-    "question": "La gráfica muestra el agua en un tanque, en cientos de litros, según las horas de uso, sin recarga.\n\n¿Cuántos cientos de litros menos hay a las 8 horas que a las 3 horas?",
-    "options": [
-      "3",
-      "4",
-      "5",
-      "6"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f(3) - f(8) = 7 - 2 = 5$. Cinco horas de uso, a 100 litros por hora.",
-    "feedback_incorrect": [
-      "3 no es el ancho del intervalo: entre la hora 3 y la 8 pasan 5 horas.",
-      "4 cuenta una hora de menos en el intervalo.",
-      null,
-      "6 cuenta una hora de más: el tramo va de la hora 3 a la 8."
-    ],
-    "graph_fn": "-x + 10",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La caída entre dos momentos es la pendiente por el ancho del intervalo:\n$$f(3) - f(8) = 1 \\cdot (8 - 3) = 5$$\nCinco cientos de litros menos.\n\nEl tanque pierde 100 litros por hora (la pendiente, en valor absoluto) durante las 5 horas que separan los dos instantes.\n\nEl error de este formato suele estar en el ancho del intervalo: contá bien las horas entre los dos puntos antes de multiplicar por el ritmo.",
-    "reviewed": false,
-    "tags": [
-      "lectura-x-dado-y"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la altura de una planta, en centímetros, según las semanas, con un alto inicial al transplantarla.\n\n¿Cuántos centímetros más mide a la semana 8 que a la semana 2?",
-    "options": [
-      "2 cm",
-      "4 cm",
-      "5 cm",
-      "3 cm"
+      "Lineal",
+      "Polinómica",
+      "Logarítmica",
+      "Exponencial"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$f(8) - f(2) = 5 - 2 = 3$ cm. Seis semanas a medio centímetro por semana.",
+    "feedback_correct": "$2^x$ no es lineal porque $x$ está en el exponente, no como $mx + b$.",
     "feedback_incorrect": [
-      "2 cm es lo que crece en 4 semanas, no en las 6 del intervalo.",
-      "4 cm sería el crecimiento de 8 semanas; el tramo va de la semana 2 a la 8.",
-      "El 5 es la altura final de la planta, no la diferencia entre los dos momentos.",
+      "En una lineal la $x$ multiplica a una constante; acá está arriba, en el exponente.",
+      "En una polinómica la $x$ está en la base con exponentes fijos, como $x^2$ o $x^3$; acá la variable es el exponente.",
+      "La logarítmica es la inversa: ahí la $x$ va dentro del logaritmo, no en el exponente.",
       null
     ],
-    "graph_fn": "0.5*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia depende solo de la pendiente y del ancho del intervalo:\n$$f(8) - f(2) = \\frac{1}{2} \\cdot (8 - 2) = 3$$\nLa planta creció 3 cm entre las dos semanas.\n\nEl ritmo es de medio centímetro por semana y el tramo tiene seis semanas: la cuenta cierra sin mirar el alto inicial, que se cancela en la resta.\n\nNo respondas la altura final: la pregunta compara dos momentos, y comparar es restar, no leer un solo punto.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = 2^x$ la variable está en el exponente, y esa es la marca de la familia exponencial.\n\nLa diferencia con una lineal está en el ritmo de cambio: una recta suma una cantidad fija por paso, mientras que una exponencial multiplica por un factor fijo por paso, y eso acelera (o frena) el crecimiento.\n\nPara clasificar, ubicá la $x$: en la base con exponente 1 es lineal, con exponente 2 es cuadrática, en el exponente es exponencial y dentro de un $\\log$ es logarítmica.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra la distancia recorrida en una caminata, en kilómetros, según las horas, con una ventaja inicial.\n\n¿Cuántos kilómetros más recorre en la hora 6 respecto a la hora 3?",
+    "question": "¿A qué familia pertenece $f(x) = \\log(x)$?",
     "options": [
-      "1 km",
-      "2 km",
-      "3 km",
-      "4 km"
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(x)$ no es lineal porque $x$ está dentro de un logaritmo, no como $mx + b$.",
+    "feedback_incorrect": [
+      "En una lineal la $x$ aparece multiplicada por una constante, nunca dentro de un logaritmo.",
+      "La cuadrática requiere un término $x^2$, y acá no lo hay.",
+      null,
+      "La exponencial pone la $x$ en el exponente; el logaritmo es su función inversa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En $f(x) = \\log(x)$ la variable está dentro de un logaritmo: la función es logarítmica.\n\nSus rasgos la separan de una recta: su **dominio** es solo $(0, +\\infty)$ y crece cada vez más despacio, mientras que una lineal está definida en todo $\\mathbb{R}$ y avanza siempre al mismo ritmo.\n\nRegla rápida de clasificación: $x$ multiplicada es lineal, $x$ al cuadrado es cuadrática, $x$ en el exponente es exponencial y $x$ dentro del $\\log$ es logarítmica.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ]
+  },
+  {
+    "question": "¿Es $f(x) = (x-1)(x+1)$ una función lineal?",
+    "options": [
+      "Sí",
+      "No, porque se expande a $x^2 - 1$",
+      "No, porque tiene paréntesis"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(6) - f(3) = 5 - 3 = 2$ km. Tres horas, a dos tercios de kilómetro por hora.",
+    "feedback_correct": "$(x-1)(x+1) = x^2 - 1$, que tiene un término $x^2$: no es lineal.",
     "feedback_incorrect": [
-      "1 km queda corto: son tres horas a dos tercios de kilómetro por hora.",
+      "Antes de decidir hay que expandir el producto: aparece un término con $x^2$.",
       null,
-      "El 3 es el ancho del intervalo en horas, no los kilómetros recorridos.",
-      "4 km correspondería a seis horas de marcha; el tramo tiene tres."
+      "Los paréntesis por sí solos no descartan nada; lo que importa es qué queda al expandir."
     ],
-    "graph_fn": "2/3*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia depende de la pendiente y del tramo recorrido:\n$$f(6) - f(3) = \\frac{2}{3} \\cdot (6 - 3) = 2$$\nDos kilómetros más entre la hora 3 y la hora 6.\n\nLa ventaja inicial aparece en ambos valores y se cancela en la resta: solo cuentan el ritmo y el ancho del intervalo.\n\nCuidado con confundir las unidades de los ejes: el 3 del intervalo son horas; la respuesta se mide en kilómetros, sobre el eje vertical.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para clasificar una función escrita como producto conviene expandirla:\n$$(x-1)(x+1) = x^2 - 1$$\nEl término $x^2$ revela que es una función cuadrática, no lineal.\n\nLa forma $mx + b$ exige que la variable tenga exponente exactamente 1 una vez simplificada la expresión.\n\nNi los paréntesis ni la apariencia compacta deciden la familia: expandí y simplificá primero, y clasificá después.",
     "reviewed": false,
     "tags": [
-      "lectura-x-dado-y"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra los litros de agua en un balde bajo una gotera, en litros, según las horas, con algo de agua al inicio.\n\n¿Cuántos litros más hay en la hora 4 respecto a la hora 2?",
+    "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "2 litros",
-      "3 litros",
-      "4 litros",
-      "6 litros"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(4) - f(2) = 7 - 4 = 3$ litros. Dos horas, a un litro y medio por hora.",
-    "feedback_incorrect": [
-      "2 litros queda corto: la gotera aporta un litro y medio por hora durante dos horas.",
-      null,
-      "El 4 es la altura de la recta en la hora 2, no la diferencia entre los dos momentos.",
-      "6 litros correspondería a cuatro horas de gotera; el intervalo tiene dos."
-    ],
-    "graph_fn": "1.5*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La diferencia entre dos momentos es la pendiente por el ancho del intervalo:\n$$f(4) - f(2) = \\frac{3}{2} \\cdot (4 - 2) = 3$$\nTres litros más entre la hora 2 y la hora 4.\n\nLa gotera aporta un litro y medio por hora (la pendiente) y el intervalo dura dos horas.\n\nEl agua que había al principio no participa: al restar dos valores de la misma recta, el punto de partida desaparece y solo queda el cambio acumulado.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-tasa"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la temperatura de una sala con termostato, en grados, según las horas. El termostato la mantiene fija.\n\n¿Cuántos grados cambia la temperatura por hora?",
-    "options": [
-      "0, se mantiene constante",
-      "5 grados",
-      "Sube 5 por hora",
-      "Baja 5 por hora"
+      "Sí, es $3x + 6$",
+      "No, porque tiene paréntesis",
+      "No, porque multiplica"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La recta es horizontal, así que la pendiente es cero: la temperatura no cambia.",
+    "feedback_correct": "Expandiendo $3(x + 2) = 3x + 6$, que es la forma $mx + b$: sí es lineal.",
     "feedback_incorrect": [
       null,
-      "El 5 es la altura de la recta (la temperatura fija), no un cambio por hora.",
-      "Para subir, la recta debería inclinarse hacia arriba, y es horizontal.",
-      "Para bajar debería inclinarse hacia abajo: acá la altura no se mueve."
+      "Los paréntesis se eliminan distribuyendo, y lo que queda es un molde $mx + b$.",
+      "Multiplicar por una constante es justamente lo que hace una lineal: lo que rompería la familia es multiplicar $x$ por sí misma."
     ],
-    "graph_fn": "0*x + 5",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El cambio por hora es la pendiente de la recta, y una recta horizontal tiene pendiente cero:\n$$m = 0$$\nLa temperatura no cambia: el termostato la mantiene fija.\n\nLa altura constante de 5 grados es la ordenada al origen, el valor de la función en todo momento.\n\nNo conviertas la altura en ritmo: que la recta esté a 5 grados no significa que cambie 5 por hora. En horizontales, el único número que describe variación es el cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Distribuyendo el 3 sobre el paréntesis:\n$$f(x) = 3(x + 2) = 3x + 6$$\nQueda la forma canónica $mx + b$ con **pendiente** $m = 3$ y **ordenada al origen** $b = 6$: sí es una función lineal.\n\nLa presentación de la fórmula no define la familia; lo que importa es la expresión simplificada.\n\nAntes de clasificar, llevá siempre la función a su forma más simple: muchos distractores viven de la apariencia sin simplificar.",
     "reviewed": false,
     "tags": [
-      "pendiente-tasa"
+      "identificacion-formula"
     ]
   },
   {
-    "question": "La gráfica muestra el nivel de un lago regulado por una represa, en metros, según los días. El nivel se mantiene estable.\n\n¿Cuántos metros cambia el nivel por día?",
+    "question": "¿Cuál es el **dominio** de $f(x) = \\dfrac{1}{x-2}$?",
     "options": [
-      "3 metros",
-      "0, se mantiene constante",
-      "Sube 3 por día",
-      "Baja 3 por día"
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{2\\}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "$(0, +\\infty)$"
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La recta es horizontal: la pendiente es cero y el nivel no varía.",
+    "feedback_correct": "$\\frac{1}{x-2}$ no está definida en $x = 2$ (división por cero), así que el dominio es $\\mathbb{R} \\setminus \\{2\\}$.",
     "feedback_incorrect": [
-      "El 3 es la altura de la recta (el nivel del lago), no un cambio diario.",
+      "Hay un valor problemático: en $x = 2$ el denominador se anula y la división no está definida.",
       null,
-      "Una recta horizontal no sube: la pendiente es cero.",
-      "Tampoco baja: la altura es la misma todos los días."
+      "El cero no anula este denominador: $0 - 2 = -2$, la función está definida ahí; el valor excluido es otro.",
+      "La función también acepta negativos: el único valor prohibido es el que anula el denominador."
     ],
-    "graph_fn": "0*x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La variación por día es la pendiente, y en una recta horizontal la pendiente vale cero:\n$$m = 0$$\nEl nivel del lago no cambia de un día al otro.\n\nLos 3 metros que muestra el gráfico son la altura constante, la ordenada al origen: describen dónde está el nivel, no cómo se mueve.\n\nDistinguí siempre valor de variación: el eje vertical responde \"cuánto hay\" y la inclinación responde \"cuánto cambia\". En una horizontal, lo segundo es cero.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural excluye los valores donde la fórmula no se puede calcular. Acá la única operación riesgosa es la división:\n$$x - 2 = 0 \\implies x = 2$$\nAsí que el dominio es $\\mathbb{R} \\setminus \\{2\\}$.\n\nEsta función no es lineal, es racional, y sirve de contraste: una lineal $f(x) = mx + b$ no tiene ninguna operación que falle y su dominio es todo $\\mathbb{R}$.\n\nSi una función tiene huecos en el dominio, ya no puede ser lineal: es una señal inmediata de otra familia.",
     "reviewed": false,
     "tags": [
-      "pendiente-tasa"
+      "dominio-imagen"
     ]
   },
   {
-    "question": "La gráfica muestra la cantidad de agua en una pileta que se llena, en miles de litros, según las horas, con algo de agua al inicio.\n\n¿Cuántos miles de litros entran por hora?",
+    "question": "¿Por qué la función $f(x) = mx + b$ con $m > 0$ nunca decrece?",
     "options": [
-      "1",
-      "2",
-      "3",
-      "4"
+      "Porque $b > 0$",
+      "Porque la pendiente positiva hace que $f$ suba constantemente",
+      "Porque el dominio es $\\mathbb{R}$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Si $m > 0$, entonces $f(x_2) - f(x_1) = m(x_2 - x_1) > 0$ cuando $x_2 > x_1$: la función siempre sube.",
+    "feedback_incorrect": [
+      "El signo de $b$ no interviene: solo desplaza la recta hacia arriba o abajo, no cambia su dirección.",
+      null,
+      "El dominio dice qué entradas acepta la función, no hacia dónde va la recta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**. Si $m > 0$, para cualquier par de puntos con $x_2 > x_1$:\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\nPorque ambos factores son positivos. Entonces $f(x_2) > f(x_1)$: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ]
+  },
+  {
+    "question": "¿Por qué una función lineal con $m \\neq 0$ no tiene máximo ni mínimo?",
+    "options": [
+      "Porque sube o baja sin límite",
+      "Porque el dominio es $\\mathbb{R}$",
+      "Porque la pendiente es constante y no cero"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La recta sube 1 unidad por hora: la pendiente es 1, mil litros por hora.",
+    "feedback_correct": "Si $m \\neq 0$, la función sube o baja sin límite: nunca alcanza máximo ni mínimo.",
     "feedback_incorrect": [
       null,
-      "El 2 es el agua del arranque (la altura sobre el eje vertical), no el ritmo de entrada.",
-      "El 3 es la altura de la recta en la primera hora, no cuánto sube por hora.",
-      "La recta no sube 4 unidades por hora: medí entre dos horas consecutivas."
+      "Tener dominio $\\mathbb{R}$ no alcanza: una función acotada también puede tener dominio $\\mathbb{R}$ y sí alcanzar extremos.",
+      "Que la pendiente sea constante describe la forma de recta, pero la ausencia de extremos viene de que los valores nunca se frenan."
     ],
-    "graph_fn": "x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El ritmo de llenado es la pendiente: cuánto sube la recta por cada hora:\n$$m = 1$$\nEntra mil litros por hora.\n\nSe mide comparando dos horas consecutivas: de una a la siguiente, la altura crece exactamente una unidad. El agua inicial (2 mil litros) es el punto de partida y no afecta el ritmo.\n\nNo leas la altura de la recta como si fuera la pendiente: una recta puede estar alta y subir despacio; el ritmo se ve en la inclinación.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una lineal con $m \\neq 0$ es monótona en todo $\\mathbb{R}$: si $m > 0$ crece indefinidamente hacia $+\\infty$, y si $m < 0$ decrece hacia $-\\infty$. En ambos casos, para cualquier valor alcanzado siempre hay otro mayor (o menor) más adelante: no existe máximo ni mínimo.\n\nSobre un **dominio** restringido la historia cambia: en un intervalo cerrado $[a, b]$ la recta sí alcanza máximo y mínimo, en los extremos.\n\nLa función constante ($m = 0$) es el caso curioso: su único valor $b$ es máximo y mínimo a la vez.",
     "reviewed": false,
     "tags": [
-      "pendiente-tasa"
+      "propiedades-generales"
     ]
   },
   {
-    "question": "La gráfica muestra la nieve acumulada en un techo, en centímetros, según las horas de sol, mientras se derrite.\n\n¿Cuántos centímetros baja por hora?",
+    "question": "¿Cuál es la fórmula para la raíz de $f(x) = mx + b$ (con $m \\neq 0$)?",
     "options": [
-      "2",
-      "3",
-      "1",
-      "8"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La recta baja 1 unidad por hora: la pendiente es $-1$, un centímetro por hora.",
-    "feedback_incorrect": [
-      "La recta no baja 2 por hora: compará la altura entre dos horas consecutivas.",
-      "Tampoco baja 3: el descenso por hora es más suave.",
-      null,
-      "El 8 es la nieve inicial, la altura donde la recta corta el eje vertical."
-    ],
-    "graph_fn": "-x + 8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El ritmo de derretimiento es la pendiente de la recta: cuánto baja por cada hora de sol:\n$$m = -1$$\nUn centímetro por hora.\n\nEl signo negativo indica que baja; el valor absoluto, cuánto. En el gráfico: entre una hora y la siguiente, la altura cae exactamente un centímetro.\n\nLa altura inicial de 8 cm es otro dato, la ordenada al origen: dice cuánta nieve había, no a qué velocidad se va.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-tasa"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la altura del agua en un florero que se llena de a poco, en centímetros, según los minutos.\n\n¿Cuántos centímetros sube por minuto?",
-    "options": [
-      "0,5 cm",
-      "1 cm",
-      "2 cm",
-      "1,5 cm"
+      "$x = -b/m$",
+      "$x = b/m$",
+      "$x = m/b$",
+      "$x = b - m$"
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La recta sube 1 cm cada 2 minutos, es decir medio centímetro por minuto: la pendiente es $0{,}5$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $mx + b = 0 \\implies x = -b/m$.",
     "feedback_incorrect": [
       null,
-      "1 cm es lo que sube cada 2 minutos, no por minuto.",
-      "El 2 es la altura inicial del agua en el florero, no el ritmo de subida.",
-      "1,5 no sale del gráfico: la subida es de 1 cm cada 2 minutos."
+      "Le falta el cambio de signo: al pasar $b$ al otro lado queda $mx = -b$.",
+      "Los parámetros quedaron invertidos: se divide el término independiente por el coeficiente, no al revés.",
+      "Restar los parámetros no despeja la ecuación $mx + b = 0$; hay que dividir."
     ],
-    "graph_fn": "0.5*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La pendiente es cuánto sube la recta por cada unidad del eje horizontal:\n$$m = \\frac{1}{2}$$\nMedio centímetro por minuto.\n\nEn el gráfico la recta sube 1 cm cada 2 minutos: la pendiente es el cociente entre esa subida y ese avance, no la subida sola.\n\nCon pendientes fraccionarias conviene medir sobre varios cuadritos y recién después dividir: leer \"sube 1\" sin mirar cuántos minutos tardó duplica el ritmo real.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz se obtiene resolviendo $f(x) = 0$:\n$$\\begin{aligned} mx + b &= 0 \\\\ mx &= -b \\\\ x &= -\\frac{b}{m} \\end{aligned}$$\nEsta fórmula vale para cualquier lineal con $m \\neq 0$.\n\nEl detalle que decide todo es el signo: al pasar $b$ restando queda $-b$ en el numerador.\n\nSi la raíz que calculaste no verifica $f(x) = 0$ al sustituir, casi seguro el error fue ese signo o dividir los parámetros al revés.",
     "reviewed": false,
     "tags": [
-      "pendiente-tasa"
+      "monotonia-signo-pendiente"
     ]
   },
   {
-    "question": "La gráfica muestra los puntos de fidelidad de un café, en puntos, según los cafés comprados, con un bonus de bienvenida.\n\n¿Cada cuántos cafés el puntaje aumenta en 1?",
+    "question": "¿Cuál es la diferencia entre la recta $y = 2x$ y la recta $y = 2x + 3$?",
     "options": [
-      "Cada 2 cafés",
-      "Cada 4 cafés",
-      "Cada 1 café",
-      "Cada 3 cafés"
+      "La primera no es lineal",
+      "La segunda es más empinada",
+      "Tienen la misma pendiente pero diferente ordenada al origen"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Ambas son lineales. $y = 2x$ tiene $b = 0$; $y = 2x + 3$ tiene $b = 3$. Mismo $m$, diferente $b$.",
+    "feedback_incorrect": [
+      "$y = 2x$ es perfectamente lineal: es el caso con ordenada al origen cero.",
+      "La inclinación la fija la pendiente, que es 2 en ambas; el $+3$ no empina, desplaza.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Ambas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación. Lo que cambia es la **ordenada al origen**: $y = 2x$ pasa por $(0, 0)$ y $y = 2x + 3$ pasa por $(0, 3)$.\n\nGeométricamente, la segunda es la primera desplazada 3 unidades hacia arriba. Al tener igual pendiente, son paralelas: nunca se cruzan.\n\nSumar una constante nunca cambia la inclinación de una recta; solo la traslada verticalmente. Empinar requiere tocar el coeficiente de $x$.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ]
+  },
+  {
+    "question": "¿Cuántas rectas lineales pasan por un punto dado $(x_0, y_0)$?",
+    "options": [
+      "Una",
+      "Infinitas",
+      "Depende del punto"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Por un punto dado pasan infinitas rectas: una para cada pendiente $m$.",
+    "feedback_incorrect": [
+      "Una sola queda determinada recién con dos puntos; con uno solo sobran grados de libertad.",
+      null,
+      "El punto concreto no cambia el conteo: por cualquier punto del plano pasan infinitas rectas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Por un único punto pasan infinitas rectas: una por cada valor posible de la **pendiente**. Fijado $m$, el parámetro $b$ queda determinado por:\n$$y_0 = mx_0 + b \\implies b = y_0 - mx_0$$\nAsí que cada elección de $m$ produce una recta distinta que atraviesa el punto.\n\nUn punto impone una sola condición y la recta tiene dos parámetros ($m$ y $b$): queda un grado de libertad.\n\nPara determinar una recta única hacen falta dos datos independientes: dos puntos, o un punto y la pendiente.",
+    "reviewed": false,
+    "tags": [
+      "raiz-calculo"
+    ]
+  },
+  {
+    "question": "¿Cuántas rectas lineales pasan por dos puntos distintos dados?",
+    "options": [
+      "Una",
+      "Infinitas",
+      "Depende de los puntos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Por dos puntos distintos pasa exactamente una recta lineal.",
+    "feedback_incorrect": [
+      null,
+      "Infinitas pasan por un solo punto; el segundo punto fija la pendiente y elimina esa libertad.",
+      "Para dos puntos con distinta abscisa la respuesta es siempre la misma: exactamente una."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dados dos puntos distintos $(x_1, y_1)$ y $(x_2, y_2)$ con $x_1 \\neq x_2$, existe una única función lineal que pasa por ambos. La **pendiente** queda forzada por:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nY la **ordenada al origen** se despeja sustituyendo cualquiera de los dos puntos.\n\nDos condiciones para dos parámetros: el sistema queda cerrado y la solución es única.\n\nEs el principio de que dos puntos determinan una recta: con un solo punto el problema queda abierto, y un tercer punto puede volverlo imposible.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-signo-pendiente"
+    ]
+  },
+  {
+    "question": "¿Cuál es la **imagen** de $f(x) = 3x + 2$ restringida al **dominio** $[0, 5]$?",
+    "options": [
+      "$[0, 5]$",
+      "$[2, 17]$",
+      "$[3, 15]$",
+      "$(0, 5)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 2$ y $f(5) = 17$. Como es creciente, la imagen es $[2, 17]$.",
+    "feedback_incorrect": [
+      "Ese es el dominio de entrada, no lo que devuelve la función.",
+      null,
+      "Esos valores salen de multiplicar los extremos por 3 sin sumarles el 2 de la fórmula.",
+      "Ese intervalo repite el dominio y además excluye los extremos, que sí se alcanzan."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la **imagen** sobre un **dominio** restringido, evaluá la función en los extremos:\n$$\\begin{aligned} f(0) &= 3 \\cdot 0 + 2 = 2 \\\\ f(5) &= 3 \\cdot 5 + 2 = 17 \\end{aligned}$$\nComo $f$ es creciente ($m = 3 > 0$), la imagen del intervalo $[0, 5]$ es $[2, 17]$.\n\nEl intervalo de salida hereda los corchetes: si el dominio incluye sus extremos, la imagen también.\n\nAplicá la fórmula completa a cada extremo: dejar el $+2$ afuera o devolver el propio dominio son los tropiezos habituales de este tipo de ítem.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ]
+  },
+  {
+    "question": "¿Cuál es la **imagen** de $f(x) = -2x + 5$ restringida al **dominio** $[1, 3]$?",
+    "options": [
+      "$[1, 3]$",
+      "$[2, 5]$",
+      "$[-1, 5]$",
+      "$[-1, 3]$"
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La recta sube 1 punto cada 3 cafés: la pendiente es un tercio.",
+    "feedback_correct": "$f(1) = 3$ y $f(3) = -1$. Como es decreciente, la imagen es $[-1, 3]$.",
     "feedback_incorrect": [
-      "Con 2 cafés el puntaje sube dos tercios: todavía no completa un punto.",
-      "Con 4 cafés el punto entero se completó antes.",
-      "Un punto por café sería pendiente 1, mucho más empinada que esta recta.",
+      "Ese es el dominio; la imagen se obtiene evaluando la función en él.",
+      "Esos valores no son $f(1)$ ni $f(3)$: revisá las evaluaciones con la fórmula completa.",
+      "El 5 es $f(0)$, pero el 0 quedó afuera del dominio restringido.",
       null
     ],
-    "graph_fn": "1/3*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La pendiente de la recta es un tercio:\n$$m = \\frac{1}{3}$$\nPor cada café el puntaje sube un tercio de punto, así que se necesitan 3 cafés para sumar un punto entero.\n\nLa pregunta invierte la lectura habitual: en lugar de \"cuánto sube por unidad\", pide \"cuántas unidades para subir 1\". Es el recíproco de la pendiente.\n\nPara verificarlo en el gráfico, buscá cuántos pasos a la derecha necesita la recta para ganar una unidad de altura: ahí está la respuesta.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluando la función en los extremos del **dominio** restringido:\n$$\\begin{aligned} f(1) &= -2 \\cdot 1 + 5 = 3 \\\\ f(3) &= -2 \\cdot 3 + 5 = -1 \\end{aligned}$$\nComo $f$ es decreciente ($m = -2 < 0$), el extremo izquierdo da el valor más alto. La **imagen** es $[-1, 3]$.\n\nEl intervalo imagen se escribe siempre de menor a mayor, aunque la función lo recorra al revés.\n\nCon **pendiente** negativa, no asumas que $f(1) < f(3)$: la monotonía invierte el orden de los extremos.",
     "reviewed": false,
     "tags": [
-      "lectura-y-dado-x"
+      "dominio-imagen"
     ]
   },
   {
-    "question": "La gráfica muestra el saldo de datos de un plan, en gigabytes, según los días del mes.\n\n¿Cuántos gigabytes baja el saldo por día?",
+    "question": "¿Qué caracteriza matemáticamente a una función lineal entre todas las funciones?",
     "options": [
-      "1 GB",
-      "0,5 GB",
-      "2 GB",
-      "1,5 GB"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La recta baja 1 GB cada 2 días, es decir medio GB por día: la pendiente es $-0{,}5$.",
-    "feedback_incorrect": [
-      "1 GB es lo que baja cada 2 días, no por día.",
-      null,
-      "2 GB por día vaciaría el plan en menos de una semana: la recta baja más suave.",
-      "1,5 no coincide con el gráfico: el descenso es de 1 GB cada 2 días."
-    ],
-    "graph_fn": "-0.5*x + 9",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El consumo diario es la pendiente de la recta, en valor absoluto:\n$$m = -\\frac{1}{2}$$\nEl saldo baja medio GB por día.\n\nEn el gráfico la recta pierde 1 GB cada 2 días: la pendiente divide esa caída por el ancho del tramo.\n\nEl error típico con pendientes fraccionarias es reportar la caída sin dividir por los días que tardó: medí el tramo completo y recién después hacé el cociente.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-tasa"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la altura de vuelo de un avión en crucero, en miles de pies, según los minutos. Vuela a altura constante.\n\n¿A qué altura está a los 5 minutos?",
-    "options": [
-      "5",
-      "7",
-      "12",
-      "0"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(5) = 7$. Como la recta es horizontal, vale lo mismo en todo momento.",
-    "feedback_incorrect": [
-      "El 5 es el minuto consultado, no la altura de la recta.",
-      null,
-      "12 suma el minuto y la altura, que viven en ejes distintos.",
-      "La recta no está sobre el eje: el avión vuela a altura constante, no a cero."
-    ],
-    "graph_fn": "0*x + 7",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Leer $f(5)$ es ubicar $x = 5$ y mirar a qué altura pasa la recta:\n$$f(5) = 7$$\n7 mil pies, la misma altura que en cualquier otro minuto: la recta es horizontal.\n\nEn una función constante la evaluación no depende del punto: la pendiente cero congela el valor.\n\nNo mezcles los ejes en la lectura: el 5 vive en el eje del tiempo; la respuesta se lee en el eje de altura, donde la recta se mantiene en 7.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la cantidad de páginas leídas de un libro, en decenas, según los días, contando un arranque previo.\n\n¿Cuántas decenas de páginas lleva al día 6?",
-    "options": [
-      "6",
-      "7",
-      "8",
-      "9"
+      "Pasa por el origen",
+      "Está definida en $\\mathbb{R}$",
+      "Tiene tasa de cambio constante"
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(6) = 6 + 2 = 8$. Buscá en la gráfica el punto con $x = 6$.",
+    "feedback_correct": "Una función lineal se caracteriza por tener **tasa de cambio constante**: $\\frac{\\Delta y}{\\Delta x} = m$ para cualquier intervalo.",
     "feedback_incorrect": [
-      "El 6 es el día consultado, no la altura de la recta en ese día.",
-      "7 lee un día de menos: ubicá $x = 6$ exacto.",
-      null,
-      "9 lee un día de más: la pregunta es al día 6."
-    ],
-    "graph_fn": "x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(6)$, ubicá $x = 6$ en el eje horizontal y mirá a qué altura queda la recta:\n$$f(6) = 6 + 2 = 8$$\nOcho decenas: 80 páginas leídas.\n\nLa recta junta las dos partes de la historia: el arranque previo de 2 decenas (ordenada al origen) más 1 decena por día (pendiente).\n\nAl evaluar sobre el gráfico, subí en vertical desde el día exacto: correrse un día a la izquierda o a la derecha desplaza la lectura en una decena entera.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-tasa"
-    ]
-  },
-  {
-    "question": "La gráfica muestra los ejercicios que faltan en una tarea, en cantidad, según los días.\n\n¿Cuántos ejercicios faltan al día 4?",
-    "options": [
-      "4",
-      "5",
-      "6",
-      "7"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(4) = -4 + 9 = 5$. Buscá el punto con $x = 4$ en la gráfica.",
-    "feedback_incorrect": [
-      "El 4 es el día consultado, no los ejercicios que faltan.",
-      null,
-      "6 lee un día de menos: al día 3 faltaban 6.",
-      "7 corresponde al día 2: avanzá hasta $x = 4$."
-    ],
-    "graph_fn": "-x + 9",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(4)$, buscá la altura de la recta en $x = 4$:\n$$f(4) = -4 + 9 = 5$$\nAl día 4 faltan 5 ejercicios.\n\nLa recta baja porque la tarea se achica: arrancó con 9 pendientes (ordenada al origen) y se resuelve uno por día (pendiente $-1$).\n\nEn rectas descendentes revisá el sentido de la lectura: cada día de más que avances lee un ejercicio de menos, y viceversa.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra cuánto creció una enredadera, en centímetros, según las semanas, con un alto al plantarla.\n\n¿Cuánto mide a la semana 6?",
-    "options": [
-      "4 cm",
-      "6 cm",
-      "7 cm",
-      "5 cm"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f(6) = \\frac{1}{2}\\cdot 6 + 2 = 5$ cm. Buscá el punto con $x = 6$.",
-    "feedback_incorrect": [
-      "4 cm es la altura de la recta en la semana 4, no en la 6.",
-      "6 es el número de la semana consultada, no la altura de la enredadera.",
-      "7 cm queda por encima de la recta: a la semana 6 no llega tan alto.",
+      "Pasar por el origen solo ocurre cuando $b = 0$; la mayoría de las rectas no lo hace.",
+      "Estar definida en todo $\\mathbb{R}$ también les pasa a cuadráticas, cúbicas y muchas otras: no distingue a las lineales.",
       null
     ],
-    "graph_fn": "0.5*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(6)$, ubicá $x = 6$ y mirá la altura de la recta:\n$$f(6) = \\frac{1}{2} \\cdot 6 + 2 = 5$$\nA la semana 6 la enredadera mide 5 cm.\n\nLa recta combina el alto del trasplante (2 cm, la ordenada al origen) con el crecimiento de medio centímetro por semana (la pendiente).\n\nNo repitas el número del eje horizontal como respuesta: la semana consultada y la altura leída son datos distintos, cada uno en su eje.",
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La propiedad que define a una función lineal es la tasa de cambio constante:\n$$\\frac{f(x_2) - f(x_1)}{x_2 - x_1} = m$$\nPara cualquier par de puntos: el cociente no depende de dónde se mida. Eso es exactamente lo que hace que la gráfica sea una recta.\n\nLas demás propiedades (**dominio** $\\mathbb{R}$, **imagen** $\\mathbb{R}$ cuando $m \\neq 0$, un solo corte con cada eje) son consecuencias de esta.\n\nPara testear linealidad en una tabla de valores, mirá los cocientes de diferencias: si alguno cambia, no hay recta posible.",
     "reviewed": false,
     "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra los kilos de residuos reciclados acumulados, en kilos, según las semanas, con algo ya juntado al empezar.\n\n¿Cuántos kilos lleva a la semana 6?",
-    "options": [
-      "5 kg",
-      "6 kg",
-      "7 kg",
-      "8 kg"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(6) = \\frac{2}{3}\\cdot 6 + 2 = 6$ kg. Buscá el punto con $x = 6$.",
-    "feedback_incorrect": [
-      "5 kg queda corto: revisá la altura exacta de la recta en $x = 6$.",
-      null,
-      "7 kg lee por encima de la recta en la semana 6.",
-      "8 kg corresponde a una semana posterior: la pregunta es la semana 6."
-    ],
-    "graph_fn": "2/3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(6)$, buscá la altura de la recta en $x = 6$:\n$$f(6) = \\frac{2}{3} \\cdot 6 + 2 = 6$$\nA la semana 6 acumula 6 kilos reciclados.\n\nLa cuenta une el arranque de 2 kilos con el ritmo de dos tercios de kilo semanal: seis semanas aportan 4 kilos más.\n\nCon pendientes fraccionarias es fácil desviarse un kilo en la lectura visual: confirmá el punto con la cuenta antes de responder.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-tasa"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la tinta que queda en un cartucho, en mililitros, según las decenas de páginas impresas.\n\n¿Cuántos mililitros quedan a las 4 decenas de páginas?",
-    "options": [
-      "5 ml",
-      "6 ml",
-      "7 ml",
-      "8 ml"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(4) = -\\frac{1}{2}\\cdot 4 + 8 = 6$ ml. Buscá el punto con $x = 4$.",
-    "feedback_incorrect": [
-      "5 ml corresponde a una lectura posterior: ubicá $x = 4$ exacto.",
-      null,
-      "7 ml lee una decena de menos: a las 2 decenas quedaban 7.",
-      "El 8 es la tinta inicial del cartucho, la altura sobre el eje vertical."
-    ],
-    "graph_fn": "-0.5*x + 8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para leer $f(4)$, ubicá $x = 4$ y mirá la altura de la recta:\n$$f(4) = -\\frac{1}{2} \\cdot 4 + 8 = 6$$\nA las 4 decenas de páginas quedan 6 ml de tinta.\n\nLa recta parte de 8 ml (la carga completa) y baja medio mililitro por cada decena impresa.\n\nCuando el eje horizontal viene en decenas, el desliz típico es contar páginas sueltas: cada paso del gráfico son diez páginas, no una.",
-    "reviewed": false,
-    "tags": [
-      "raiz-agotamiento"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la cantidad de socios de un club, en decenas, según los meses, con un grupo fundador inicial.\n\n¿A los cuántos meses el club llega a 8 decenas de socios?",
-    "options": [
-      "4 meses",
-      "6 meses",
-      "7 meses",
-      "5 meses"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 8$ cuando $x = 5$. A los 5 meses llega a 8 decenas.",
-    "feedback_incorrect": [
-      "A los 4 meses la recta va por 7 decenas: todavía no llega a 8.",
-      "A los 6 meses ya la pasó.",
-      "A los 7 está aún más arriba: buscá el primer cruce con la altura 8.",
-      null
-    ],
-    "graph_fn": "x + 3",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Para saber cuándo la función alcanza un valor, buscá dónde la recta llega a esa altura:\n$$x + 3 = 8 \\implies x = 5$$\nA los 5 meses el club junta 8 decenas de socios.\n\nLa recta parte de las 3 decenas del grupo fundador y suma una decena por mes: cinco meses después alcanza las 8.\n\nResolvelo trazando la horizontal en $y = 8$ y bajando al eje de meses: leer al revés (subir desde un mes elegido a ojo) suele errarle por uno.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra las galletas que quedan en un frasco, en cantidad, según los días.\n\n¿A los cuántos días quedan solo 4 galletas?",
-    "options": [
-      "5 días",
-      "7 días",
-      "6 días",
-      "8 días"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La recta baja hasta $y = 4$ cuando $x = 6$. Al día 6 quedan 4 galletas.",
-    "feedback_incorrect": [
-      "Al día 5 todavía quedan 5 galletas.",
-      "Al día 7 ya quedan solo 3: el cruce con la altura 4 fue antes.",
-      null,
-      "Al día 8 quedan 2: la recta pasó la altura 4 hace dos días."
-    ],
-    "graph_fn": "-x + 10",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Hay que encontrar cuándo la función baja hasta el valor 4:\n$$-x + 10 = 4 \\implies x = 6$$\nAl día 6 quedan exactamente 4 galletas.\n\nLa recta parte de 10 y pierde una galleta por día: seis días después está en 4.\n\nEn rectas descendentes, \"llegar a un valor\" significa cruzarlo bajando: trazá la horizontal en $y = 4$ y quedate con el primer día en que la recta la toca.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra la altura del agua en un tanque que se llena lento, en metros, según las horas, con algo de agua al inicio.\n\n¿A las cuántas horas el agua llega a 6 metros?",
-    "options": [
-      "6 hs",
-      "7 hs",
-      "8 hs",
-      "9 hs"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 6$ cuando $x = 8$. A las 8 horas llega a 6 metros.",
-    "feedback_incorrect": [
-      "A las 6 horas el agua va por los 5 metros.",
-      "A las 7 horas va por 5,5: aún no llega.",
-      null,
-      "A las 9 horas ya superó los 6 metros: buscá el primer momento en que la recta toca esa altura."
-    ],
-    "graph_fn": "0.5*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El agua llega a 6 metros cuando la recta alcanza esa altura:\n$$\\frac{1}{2}x + 2 = 6 \\implies x = 8$$\nA las 8 horas de llenado.\n\nCon una pendiente de medio metro por hora, subir los 4 metros que faltan desde los 2 iniciales lleva 8 horas.\n\nEl dato inicial descuenta camino: la recta no arranca de cero. Restá primero lo que ya había antes de dividir por el ritmo.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra el nivel de una cuenta de ahorro, en miles de dólares, según los años, con un depósito inicial.\n\n¿En cuántos años el ahorro llega a 4 mil?",
-    "options": [
-      "7 años",
-      "8 años",
-      "9 años",
-      "10 años"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 4$ cuando $x = 9$. A los 9 años llega a 4 mil.",
-    "feedback_incorrect": [
-      "A los 7 años el ahorro ronda los 3,3 mil: falta.",
-      "A los 8 años tampoco llega a los 4 mil.",
-      null,
-      "A los 10 años ya lo pasó: el cruce exacto con la altura 4 es antes."
-    ],
-    "graph_fn": "1/3*x + 1",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El ahorro llega a 4 mil cuando la recta alcanza esa altura:\n$$\\frac{1}{3}x + 1 = 4 \\implies x = 9$$\nA los 9 años.\n\nDesde el depósito inicial de 1 mil faltan 3 mil, y a un tercio por año eso lleva exactamente 9 años.\n\nCon pendientes chicas, los cruces quedan lejos: no estimes a ojo; despejá o seguí la recta hasta el valor pedido, porque un año de error es fácil de cometer.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra los capítulos vistos de una serie, en cantidad, según las noches, contando los que ya había visto.\n\n¿En cuántas noches llega a 6 capítulos?",
-    "options": [
-      "5 noches",
-      "7 noches",
-      "8 noches",
-      "6 noches"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La recta alcanza $y = 6$ cuando $x = 6$. En 6 noches llega a 6 capítulos.",
-    "feedback_incorrect": [
-      "A las 5 noches lleva 5 capítulos y un tercio: todavía no llega a 6.",
-      "A las 7 noches ya pasó los 6 capítulos.",
-      "A las 8 está aún más adelante: buscá el primer cruce con la altura 6.",
-      null
-    ],
-    "graph_fn": "2/3*x + 2",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Los 6 capítulos se alcanzan cuando la recta llega a esa altura:\n$$\\frac{2}{3}x + 2 = 6 \\implies x = 6$$\nEn 6 noches.\n\nYa había 2 capítulos vistos (la ordenada al origen) y el ritmo es de dos tercios por noche: las 6 noches aportan los 4 que faltaban.\n\nQue la respuesta coincida con el valor buscado (6 y 6) es una casualidad de este gráfico: verificá siempre con el despeje en lugar de asumir simetrías.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
-    ]
-  },
-  {
-    "question": "La gráfica muestra el crédito de una tarjeta de fotocopias, en cientos de pesos, según los días de cursada.\n\n¿A los cuántos días el crédito baja a 4?",
-    "options": [
-      "8 días",
-      "9 días",
-      "10 días",
-      "11 días"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "La recta baja hasta $y = 4$ cuando $x = 10$. Al día 10 el crédito llega a 4.",
-    "feedback_incorrect": [
-      "Al día 8 el crédito va por 5: todavía no bajó a 4.",
-      "Al día 9 está en 4,5.",
-      null,
-      "Al día 11 ya quedó por debajo de 4: el cruce exacto es antes."
-    ],
-    "graph_fn": "-0.5*x + 9",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El crédito baja a 4 cuando la recta desciende hasta esa altura:\n$$-\\frac{1}{2}x + 9 = 4 \\implies x = 10$$\nAl día 10 de cursada.\n\nDesde los 9 cientos iniciales hay que perder 5, y a medio ciento por día eso tarda 10 días.\n\nEn descensos suaves conviene resolver la ecuación en vez de contar cuadritos: la recta cruza alturas intermedias (4,5, por ejemplo) que invitan a responder un día antes o después del correcto.",
-    "reviewed": false,
-    "tags": [
-      "pendiente-diferencia"
+      "identificacion-formula"
     ]
   }
 ]
