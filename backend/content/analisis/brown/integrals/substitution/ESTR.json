@@ -18,7 +18,9 @@
     "graph_view": null,
     "explanation": "La **integración por sustitución** busca una **función compuesta** cuya interior tenga derivada que aparezca en el resto del integrando.\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nCon esa elección, el $\\frac{1}{x}\\,dx$ coincide exactamente con $du$, dejando la integral lista en términos de la nueva variable.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Al analizar la integral:\n$$\\int x\\cos(x^2)\\,dx$$\nUsando **cambio de variable**, ¿cuál es la elección correcta de $u$?",
@@ -39,7 +41,9 @@
     "graph_view": null,
     "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Observá la integral:\n$$\\int e^{3x+1}\\,dx$$\nPara aplicar el **cambio de variable**, ¿cuál es la elección correcta de $u$?",
@@ -60,7 +64,9 @@
     "graph_view": null,
     "explanation": "En la **función compuesta** $e^{3x+1}$, la interior es el polinomio lineal $3x+1$. Este es uno de los casos más simples de sustitución.\n$$u = 3x+1 \\implies du = 3\\,dx$$\nCuando la derivada del interior es solo una constante (en este caso $3$), el ajuste del **diferencial** se convierte en una simple división, sin fracciones complicadas o múltiples signos que considerar.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Dada la integral:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\nSi usamos **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
@@ -81,7 +87,9 @@
     "graph_view": null,
     "explanation": "En una fracción donde el numerador contiene exactamente la **derivada** del denominador, el **cambio de variable** es el denominador mismo.\n$$u = x^2+5 \\implies du = 2x\\,dx$$\nEsta anatomía, numerador = derivada del denominador, es una señal clave para reconocer que la sustitución colapsa correctamente.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Analizá la integral:\n$$\\int \\sin(4x)\\,dx$$\nPor **sustitución**, ¿cuál es la elección correcta de $u$?",
@@ -102,7 +110,9 @@
     "graph_view": null,
     "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Evaluá la integral:\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\nAl aplicar **cambio de variable**, ¿cuál es la elección correcta de $u$?",
@@ -123,7 +133,9 @@
     "graph_view": null,
     "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nReconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Reconocé el patrón en:\n$$\\int 2x\\,e^{x^2}\\,dx$$\nPor **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
@@ -144,7 +156,9 @@
     "graph_view": null,
     "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**. El cambio de variable simplifica la integral inmediatamente.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Estudiá la estructura de:\n$$\\int \\cos x \\sin^3 x\\,dx$$\nAl usar **sustitución**, ¿cuál es la elección correcta de $u$?",
@@ -165,7 +179,9 @@
     "graph_view": null,
     "explanation": "En la **función compuesta** $\\sin^3 x$, la base $\\sin x$ es la interior cuya **derivada** es $\\cos x$, que multiplica al integrando.\n$$u = \\sin x \\implies du = \\cos x\\,dx$$\nCon esta elección, la integral se transforma en $\\int u^3\\,du$, una potencia simple de $u$, dejando clara la estructura después de la sustitución.",
     "reviewed": false,
-    "tags": ["identificacion-anatomica-de-u"]
+    "tags": [
+      "identificacion-anatomica-de-u"
+    ]
   },
   {
     "question": "Dada la sustitución $u=5x-2$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -186,7 +202,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=5x-2$ respecto de $x$, se obtiene $du=5\\,dx$, y despejar $dx$ requiere dividir ambos lados por el coeficiente.\n$$\\begin{aligned} u &= 5x-2 \\\\ du &= 5\\,dx \\\\ dx &= \\frac{1}{5}\\,du \\end{aligned}$$\nEste **diferencial** ajustado es el que entra en la integral, recordando que dividir (no multiplicar) es el paso correcto al despejar.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=3x+1$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -207,7 +225,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=3x+1$, se obtiene $du=3\\,dx$, y el despeje de $dx$ requiere dividir por el coeficiente lineal.\n$$\\begin{aligned} u &= 3x+1 \\\\ du &= 3\\,dx \\\\ dx &= \\frac{1}{3}\\,du \\end{aligned}$$\nEste ajuste del **diferencial** es el que permite reemplazar correctamente el $dx$ original en términos de $du$.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=\\frac{x}{2}$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -228,7 +248,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=\\frac{x}{2}$, se obtiene $du=\\frac{1}{2}dx$, y el despeje de $dx$ requiere multiplicar por el recíproco del coeficiente.\n$$\\begin{aligned} u &= \\frac{x}{2} \\\\ du &= \\frac{1}{2}\\,dx \\\\ dx &= 2\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, invertirlo al despejar es el paso clave: multiplicar en vez de dividir es lo contrario del caso con enteros.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=-2x$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -249,7 +271,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=-2x$, se obtiene $du=-2\\,dx$, y el signo negativo se conserva al despejar $dx$.\n$$\\begin{aligned} u &= -2x \\\\ du &= -2\\,dx \\\\ dx &= -\\frac{1}{2}\\,du \\end{aligned}$$\nPerder el signo negativo en el despeje del **diferencial** es un error común, conviene revisarlo con la misma atención que el valor numérico del coeficiente.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=4x-7$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -270,7 +294,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=4x-7$, se obtiene $du=4\\,dx$, sin que el término constante $-7$ afecte el resultado.\n$$\\begin{aligned} u &= 4x-7 \\\\ du &= 4\\,dx \\\\ dx &= \\frac{1}{4}\\,du \\end{aligned}$$\nLas constantes dentro de $u$ desaparecen al derivar, así que solo el coeficiente de $x$ determina el ajuste del **diferencial**.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=\\frac{x}{3}+1$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -291,7 +317,9 @@
     "graph_view": null,
     "explanation": "Al derivar $u=\\frac{x}{3}+1$, se obtiene $du=\\frac{1}{3}dx$, sin que la constante $+1$ afecte el resultado.\n$$\\begin{aligned} u &= \\frac{x}{3}+1 \\\\ du &= \\frac{1}{3}\\,dx \\\\ dx &= 3\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, invertirlo al despejar es el paso clave: multiplicar por $3$ en vez de dividir.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   },
   {
     "question": "Dada la sustitución $u=-x+5$, ¿cómo queda expresado $dx$ en términos de $du$?",
@@ -312,6 +340,8 @@
     "graph_view": null,
     "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado. La constante $+5$ desaparece en la derivación.\n$$\\begin{aligned} u &= -x+5 \\\\ du &= -dx \\\\ dx &= -du \\end{aligned}$$\nAunque el coeficiente sea el simple $-1$, el signo es una parte crítica del **diferencial** y debe despejarse cuidadosamente sin omisiones, porque afecta el resultado final de la integración.",
     "reviewed": false,
-    "tags": ["ajuste-del-diferencial"]
+    "tags": [
+      "ajuste-del-diferencial"
+    ]
   }
 ]

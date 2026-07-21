@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\sin(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Analizá la función:\n$$f(x) = \\sin(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\sin(x) \\cdot x^2$",
       "$g(u)=\\sin u, h(x)=x^2$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = e^{\\ln x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Observá la función:\n$$f(x) = e^{\\ln x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=e^x$",
       "No es una composición, $e^{\\ln x}$ ya es $x$ sin derivar nada",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\ln(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Examiná la función:\n$$f(x) = \\ln(x^2)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=\\ln u, h(x)=x^2$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Analizá la función:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\ln x \\cdot \\ln x$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Observá la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=3u+1, h(x)=\\cos x$",
       "No es una composición, la interior es lineal así que no aplica **regla de la cadena**",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Examiná la función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=e^u, h(x)=3x$",
       "$g(u)=3u, h(x)=e^x$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Analizá la función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\tan x \\cdot \\tan x$",
       "$g(u)=u^2, h(x)=\\tan x$",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Observá la función:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar (linealidad)",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Examiná la función:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla del producto**",
       "**Regla de la cadena**",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Analizá la función:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del cociente",
       "**Regla de la cadena**",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Observá la función:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Regla del producto",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Examiná la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Múltiplo escalar (linealidad)",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Analizá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "**Múltiplo escalar (linealidad)**",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x^2 \\cdot \\cos x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Observá la función:\n$$f(x) = x^2 \\cdot \\cos x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Regla del cociente",

@@ -48,7 +48,7 @@
       -3,
       4
     ],
-    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$, entonces el argumento es $x + 1$.\n2. **Intercepto con el eje $X$**: la curva corta en $(0,\\, 0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$ \n\nConclusión: $f(x) = \\log_2(x + 1)$.",
+    "explanation": "Para leer una función logarítmica desde su gráfica, observá dos claves:\n\n1. **Asíntota vertical**: la curva cae a $-\\infty$ en $x = -1$ → el argumento se anula en $x = -1$, entonces el argumento es $x + 1$.\n2. **Intercepto con el eje $X$**: la curva corta en $(0,\\, 0)$ → $\\log_2(0 + 1) = \\log_2(1) = 0$\n\nConclusión: $f(x) = \\log_2(x + 1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -714,7 +714,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Asíntota en $x = 3$ → argumento $(x-3)$. Pasa por $(4,0)$: $\\log_2(4-3) = \\log_2(1) = 0$ ✓.",
+    "feedback_correct": "Asíntota en $x = 3$ → argumento $(x-3)$. Pasa por $(4,0)$: $\\log_2(4-3) = \\log_2(1) = 0$ .",
     "feedback_incorrect": [
       "Esa asíntota quedaría en $x=-3$, hacia la izquierda, cuando el enunciado pide la asíntota en $x=3$, hacia la derecha.",
       "Con base $3$ el punto $(4,0)$ no se verifica de la misma forma; además cambiar la base sin necesidad no está justificado por los datos.",
@@ -1039,7 +1039,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Asíntota en $x = -1$ → argumento $(x+1)$. Pasa por $(0,0)$: $\\log_2(0+1)=0$ ✓.",
+    "feedback_correct": "Asíntota en $x = -1$ → argumento $(x+1)$. Pasa por $(0,0)$: $\\log_2(0+1)=0$ .",
     "feedback_incorrect": [
       "Esa asíntota quedaría en $x=1$, hacia la derecha, cuando el enunciado pide la asíntota en $x=-1$, hacia la izquierda.",
       "Esa expresión es un desplazamiento vertical, no horizontal; la asíntota de $\\log_2(x)-1$ sigue en $x=0$, no en $x=-1$.",

@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente—solo cambiando el signo externo—asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nConfundir el signo interno con el externo es el error más frecuente en este paso: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
+    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nConfundir el signo interno con el externo es el error más frecuente en este paso: revisar cuál de los dos hay que invertir evita perder el resto del ejercicio.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reconocer la identidad en sentido inverso—dado un resultado, identificar qué conjugados lo producen—refuerza la comprensión de cómo funciona la racionalización en un límite.\n\nReconocer la **identidad fundamental** en sentido inverso ayuda a identificar qué conjugados generan un resultado dado. Acá $x - 25$ tiene la forma $u - c^2$ con $u=x$ y $c=5$.\n$$(\\sqrt{x}-5)(\\sqrt{x}+5) = x - 25$$\nSolo el producto con signos opuestos entre los términos externos produce esa **diferencia de cuadrados**; con signos iguales se obtiene un cuadrado del binomio, que conserva un término con raíz.\n\nPracticar esta lectura inversa ayuda a reconocer rápido el conjugado correcto en un límite nuevo, antes incluso de multiplicar.",
+    "explanation": "Reconocer la identidad en sentido inverso-dado un resultado, identificar qué conjugados lo producen-refuerza la comprensión de cómo funciona la racionalización en un límite.\n\nReconocer la **identidad fundamental** en sentido inverso ayuda a identificar qué conjugados generan un resultado dado. Acá $x - 25$ tiene la forma $u - c^2$ con $u=x$ y $c=5$.\n$$(\\sqrt{x}-5)(\\sqrt{x}+5) = x - 25$$\nSolo el producto con signos opuestos entre los términos externos produce esa **diferencia de cuadrados**; con signos iguales se obtiene un cuadrado del binomio, que conserva un término con raíz.\n\nPracticar esta lectura inversa ayuda a reconocer rápido el conjugado correcto en un límite nuevo, antes incluso de multiplicar.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -238,7 +238,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Con una raíz cuadrada presente y $\\tfrac{0}{0}$ al sustituir, corresponde multiplicar por el conjugado.",
+    "feedback_correct": "Con una raíz cuadrada presente y una indeterminación al sustituir, corresponde multiplicar por el conjugado.",
     "feedback_incorrect": [
       "Sustituir $x=0$ directamente da $\\tfrac{0}{0}$, así que hace falta transformar la expresión antes de poder evaluarla.",
       "El límite sí tiene solución: la indeterminación con raíz cuadrada se resuelve con la técnica del conjugado, no queda sin resolver.",

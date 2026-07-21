@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Distribuir y derivar por potencia",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = x^2 \\cdot x^3$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = 7\\cos x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del producto",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla de la potencia",
       "Distribuir y derivar por potencia",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = x^4 \\cdot x^{-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = -3e^x$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del producto",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = (x+3)(x+3)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Reescribir como potencia única",
       "Distribuir y derivar por potencia",

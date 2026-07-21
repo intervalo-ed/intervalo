@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función es el valor al que se **acerca** la salida $f(x)$ a medida que la entrada $x$ se acerca al punto de tendencia. Para polinomios y funciones continuas, ese acercamiento coincide exactamente con reemplazar $x$ en la fórmula, porque no hay saltos ni huecos.\n\nCuando la función es un polinomio y no hay ninguna restricción en el punto, el límite se calcula por **sustitución directa**: se reemplaza $x$ por el valor de tendencia y se opera, porque el polinomio está definido en todo punto y se comporta de forma suave.\n$$\\begin{aligned} \\lim_{x \\to 2} (3x+1) &= 3(2)+1 \\\\ &= 7 \\end{aligned}$$\n\nConviene siempre reemplazar primero y recién después operar, así se evita perder algún término de la expresión.",
+    "explanation": "El **límite** de una función es el valor al que se **acerca** la salida $f(x)$ a medida que la entrada $x$ se acerca al punto de tendencia. Para polinomios y funciones continuas, ese acercamiento coincide exactamente con reemplazar $x$ en la fórmula, porque no hay saltos ni huecos.\n\nCuando la función es un polinomio y no hay ninguna restricción en el punto, el límite se calcula por **sustitución directa**: se reemplaza $x$ por el valor de tendencia y se opera, porque el polinomio está definido en todo punto y se comporta de forma suave.\n$$\\begin{aligned} \\lim_{x \\to 2} (3x+1) &= 3(2)+1 \\\\ &= 7 \\end{aligned}$$\nConviene siempre reemplazar primero y recién después operar, así se evita perder algún término de la expresión.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una variable se eleva a una potencia **par**, el signo de la base desaparece al elevar, así que el resultado de la **sustitución directa** siempre es positivo o cero, sin importar el signo de la entrada. La potencia par \"limpia\" el signo.\n$$\\begin{aligned} \\lim_{x \\to -2} x^2 &= (-2)^2 \\\\ &= 4 \\end{aligned}$$\n\nEl acercamiento de $x$ a $-2$ por la izquierda ($-2{,}01, -2{,}001$) produce valores de $x^2$ que se acercan a $4$ por arriba: $4{,}0401, 4{,}004001$. El destino positivo es fijo.\n\nArrastrar el signo negativo al resultado final es el error más frecuente en potencias pares con tendencias negativas: recordá que el cuadrado de cualquier número, positivo o negativo, siempre da positivo.",
+    "explanation": "Cuando una variable se eleva a una potencia **par**, el signo de la base desaparece al elevar, así que el resultado de la **sustitución directa** siempre es positivo o cero, sin importar el signo de la entrada. La potencia par \"limpia\" el signo.\n$$\\begin{aligned} \\lim_{x \\to -2} x^2 &= (-2)^2 \\\\ &= 4 \\end{aligned}$$\nEl acercamiento de $x$ a $-2$ por la izquierda ($-2{,}01, -2{,}001$) produce valores de $x^2$ que se acercan a $4$ por arriba: $4{,}0401, 4{,}004001$. El destino positivo es fijo.\n\nArrastrar el signo negativo al resultado final es el error más frecuente en potencias pares con tendencias negativas: recordá que el cuadrado de cualquier número, positivo o negativo, siempre da positivo.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de las potencias pares, las potencias **impares** conservan el signo de la base al evaluarlas: si la base es negativa, el resultado también es negativo. El signo se propaga a través de la multiplicación reiterada.\n$$\\begin{aligned} \\lim_{x \\to -2} x^3 &= (-2)^3 \\\\ &= -8 \\end{aligned}$$\n\nEl acercamiento de $x$ a $-2$ produce valores de $x^3$ que se acercan a $-8$, siempre negativos: $(-2{,}01)^3 \\approx -8{,}12$, $(-2{,}001)^3 \\approx -8{,}012$. El destino negativo es necesario.\n\nAntes de responder, conviene chequear si el exponente es par o impar, porque cambia fundamentalmente si el signo se conserva o desaparece en la respuesta final.",
+    "explanation": "A diferencia de las potencias pares, las potencias **impares** conservan el signo de la base al evaluarlas: si la base es negativa, el resultado también es negativo. El signo se propaga a través de la multiplicación reiterada.\n$$\\begin{aligned} \\lim_{x \\to -2} x^3 &= (-2)^3 \\\\ &= -8 \\end{aligned}$$\nEl acercamiento de $x$ a $-2$ produce valores de $x^3$ que se acercan a $-8$, siempre negativos: $(-2{,}01)^3 \\approx -8{,}12$, $(-2{,}001)^3 \\approx -8{,}012$. El destino negativo es necesario.\n\nAntes de responder, conviene chequear si el exponente es par o impar, porque cambia fundamentalmente si el signo se conserva o desaparece en la respuesta final.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función **constante** es siempre esa misma constante, sin importar a qué valor tienda $x$, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$. La constante es ajena al movimiento de $x$.\n$$\\lim_{x \\to 5} 8 = 8$$\n\nEl destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nConfundir la constante con el punto de tendencia es un error común: recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
+    "explanation": "El **límite** de una función **constante** es siempre esa misma constante, sin importar a qué valor tienda $x$, porque $f(x)=8$ no cambia nunca: evaluando en $4{,}99, 5{,}01, 100$ siempre se obtiene $8$. La constante es ajena al movimiento de $x$.\n$$\\lim_{x \\to 5} 8 = 8$$\nEl destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nConfundir la constante con el punto de tendencia es un error común: recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en **cada término** por separado y respetando los signos y operaciones de la expresión original. Cada parte se transforma, luego se suman o restan.\n$$\\begin{aligned} \\lim_{x \\to 3} (x^2-2x+1) &= 3^2 - 2(3) + 1 \\\\ &= 9-6+1 \\\\ &= 4 \\end{aligned}$$\n\nEl acercamiento de $x$ a $3$ produce valores de la expresión que convergen a $4$: evaluando en $2{,}99$ se obtiene $(2{,}99)^2 - 2(2{,}99) + 1 \\approx 3{,}9601$. El destino es $4$.\n\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo o terminar en el camino: primero sustituí todo, después operá término a término.",
+    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en **cada término** por separado y respetando los signos y operaciones de la expresión original. Cada parte se transforma, luego se suman o restan.\n$$\\begin{aligned} \\lim_{x \\to 3} (x^2-2x+1) &= 3^2 - 2(3) + 1 \\\\ &= 9-6+1 \\\\ &= 4 \\end{aligned}$$\nEl acercamiento de $x$ a $3$ produce valores de la expresión que convergen a $4$: evaluando en $2{,}99$ se obtiene $(2{,}99)^2 - 2(2{,}99) + 1 \\approx 3{,}9601$. El destino es $4$.\n\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo o terminar en el camino: primero sustituí todo, después operá término a término.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **denominador** de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica algebraica adicional: el destino del cociente está determinado por la sustitución directa de numerador y denominador.\n$$\\begin{aligned} \\lim_{x \\to 1} \\frac{x+3}{x+2} &= \\frac{1+3}{1+2} \\\\ &= \\frac{4}{3} \\end{aligned}$$\n\nEl acercamiento de $x$ a $1$ produce cocientes que convergen a $4/3$: en $x=0{,}99$ el cociente es $\\approx 1{,}3267$, en $x=1{,}01$ es $\\approx 1{,}3303$. El destino es $4/3 \\approx 1{,}333$.\n\nAntes de aplicar otra técnica (factorización, etc.), siempre conviene chequear si el denominador se anula en el punto: si no se anula, el trabajo ya terminó.",
+    "explanation": "Cuando el **denominador** de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica algebraica adicional: el destino del cociente está determinado por la sustitución directa de numerador y denominador.\n$$\\begin{aligned} \\lim_{x \\to 1} \\frac{x+3}{x+2} &= \\frac{1+3}{1+2} \\\\ &= \\frac{4}{3} \\end{aligned}$$\nEl acercamiento de $x$ a $1$ produce cocientes que convergen a $4/3$: en $x=0{,}99$ el cociente es $\\approx 1{,}3267$, en $x=1{,}01$ es $\\approx 1{,}3303$. El destino es $4/3 \\approx 1{,}333$.\n\nAntes de aplicar otra técnica (factorización, etc.), siempre conviene chequear si el denominador se anula en el punto: si no se anula, el trabajo ya terminó.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **argumento** de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida: se reemplaza dentro de la raíz, se opera, y recién después se aplica la raíz.\n$$\\begin{aligned} \\lim_{x \\to 4} \\sqrt{x+5} &= \\sqrt{4+5} \\\\ &= \\sqrt{9} \\\\ &= 3 \\end{aligned}$$\n\nEl acercamiento de $x$ a $4$ produce valores de $\\sqrt{x+5}$ que convergen a $3$: en $x=3{,}99$ se obtiene $\\sqrt{8{,}99} \\approx 2{,}998$, en $x=4{,}01$ se obtiene $\\sqrt{9{,}01} \\approx 3{,}0017$. El destino es $3$.\n\nConviene siempre resolver la expresión dentro de la raíz y recién después aplicar la raíz, así se evita mezclar ambas operaciones y perder precisión.",
+    "explanation": "Cuando el **argumento** de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida: se reemplaza dentro de la raíz, se opera, y recién después se aplica la raíz.\n$$\\begin{aligned} \\lim_{x \\to 4} \\sqrt{x+5} &= \\sqrt{4+5} \\\\ &= \\sqrt{9} \\\\ &= 3 \\end{aligned}$$\nEl acercamiento de $x$ a $4$ produce valores de $\\sqrt{x+5}$ que convergen a $3$: en $x=3{,}99$ se obtiene $\\sqrt{8{,}99} \\approx 2{,}998$, en $x=4{,}01$ se obtiene $\\sqrt{9{,}01} \\approx 3{,}0017$. El destino es $3$.\n\nConviene siempre resolver la expresión dentro de la raíz y recién después aplicar la raíz, así se evita mezclar ambas operaciones y perder precisión.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda expresión con un término elevado al cuadrado necesita un tratamiento especial: si el **denominador** no se anula en el punto de tendencia, la **sustitución directa** es suficiente, aunque numerador y denominador tengan potencias.\n$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-4}{x-1} &= \\frac{3^2-4}{3-1} \\\\ &= \\frac{5}{2} \\end{aligned}$$\n\nEl acercamiento de $x$ a $3$ produce cocientes que convergen a $5/2 = 2{,}5$: el numerador se acerca a $5$, el denominador se acerca a $2$, el cociente se acerca a $2{,}5$.\n\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario: primero conviene chequear si hace falta, y solo después aplicar técnicas más complejas si realmente es necesario.",
+    "explanation": "No toda expresión con un término elevado al cuadrado necesita un tratamiento especial: si el **denominador** no se anula en el punto de tendencia, la **sustitución directa** es suficiente, aunque numerador y denominador tengan potencias.\n$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-4}{x-1} &= \\frac{3^2-4}{3-1} \\\\ &= \\frac{5}{2} \\end{aligned}$$\nEl acercamiento de $x$ a $3$ produce cocientes que convergen a $5/2 = 2{,}5$: el numerador se acerca a $5$, el denominador se acerca a $2$, el cociente se acerca a $2{,}5$.\n\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario: primero conviene chequear si hace falta, y solo después aplicar técnicas más complejas si realmente es necesario.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ni el **denominador** se anula ni el **argumento** de la raíz es negativo en el punto de tendencia, la **sustitución directa** resuelve la expresión combinada de una sola vez sin necesidad de separar las operaciones.\n$$\\begin{aligned} \\lim_{x \\to 0} \\frac{\\sqrt{x+9}}{x+3} &= \\frac{\\sqrt{0+9}}{0+3} \\\\ &= \\frac{3}{3} \\\\ &= 1 \\end{aligned}$$\n\nEl acercamiento de $x$ a $0$ produce cocientes de raíces que convergen a $1$: ambas partes se estabilizan en sus destinos, el cociente final se estabiliza en $1$.\n\nCon expresiones combinadas conviene resolver primero la raíz y recién después la división, para no mezclar ambos pasos y mantener claridad en cada transformación.",
+    "explanation": "Cuando ni el **denominador** se anula ni el **argumento** de la raíz es negativo en el punto de tendencia, la **sustitución directa** resuelve la expresión combinada de una sola vez sin necesidad de separar las operaciones.\n$$\\begin{aligned} \\lim_{x \\to 0} \\frac{\\sqrt{x+9}}{x+3} &= \\frac{\\sqrt{0+9}}{0+3} \\\\ &= \\frac{3}{3} \\\\ &= 1 \\end{aligned}$$\nEl acercamiento de $x$ a $0$ produce cocientes de raíces que convergen a $1$: ambas partes se estabilizan en sus destinos, el cociente final se estabiliza en $1$.\n\nCon expresiones combinadas conviene resolver primero la raíz y recién después la división, para no mezclar ambos pasos y mantener claridad en cada transformación.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(af + g)$ también existe y se calcula separado.\n$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$\n\nEsta separación funciona porque el límite respeta operaciones lineales: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo equivale a sumar su valor absoluto: un detalle de signo que conviene revisar siempre antes de responder, es un error frecuente.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(af + g)$ también existe y se calcula separado.\n$$\\begin{aligned} \\lim_{x \\to a} [2f(x)-g(x)] &= 2\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 2(3) - (-2) \\\\ &= 8 \\end{aligned}$$\nEsta separación funciona porque el límite respeta operaciones lineales: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo equivale a sumar su valor absoluto: un detalle de signo que conviene revisar siempre antes de responder, es un error frecuente.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión **combina suma y escalar**, cada propiedad se aplica por separado, sin mezclar ambos límites en una sola operación: el escalar multiplica solo al término que acompaña, no se distribuye sobre los demás.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)+3g(x)] &= \\lim_{x \\to a} f(x) + 3\\lim_{x \\to a} g(x) \\\\ &= 4 + 3(1) \\\\ &= 7 \\end{aligned}$$\n\nEsta separación respeta la estructura de la expresión: si $3$ acompaña a $g$, multiplica a $\\lim g$, no a $\\lim f$. La linealidad preserva la forma original.\n\nDistribuir el escalar sobre ambos términos cuando solo acompaña a uno es un error frecuente: conviene aplicar el escalar solo al término que lo lleva, dejar el otro intacto.",
+    "explanation": "Cuando una expresión **combina suma y escalar**, cada propiedad se aplica por separado, sin mezclar ambos límites en una sola operación: el escalar multiplica solo al término que acompaña, no se distribuye sobre los demás.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)+3g(x)] &= \\lim_{x \\to a} f(x) + 3\\lim_{x \\to a} g(x) \\\\ &= 4 + 3(1) \\\\ &= 7 \\end{aligned}$$\nEsta separación respeta la estructura de la expresión: si $3$ acompaña a $g$, multiplica a $\\lim g$, no a $\\lim f$. La linealidad preserva la forma original.\n\nDistribuir el escalar sobre ambos términos cuando solo acompaña a uno es un error frecuente: conviene aplicar el escalar solo al término que lo lleva, dejar el otro intacto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos. La linealidad preserva la estructura original, no agrega términos nuevos.\n$$\\begin{aligned} \\lim_{x \\to a} [3f(x)-g(x)] &= 3\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 3(5) - 2 \\\\ &= 13 \\end{aligned}$$\n\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre $3f$ y $g$, sin interferencias.\n\nAntes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
+    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos. La linealidad preserva la estructura original, no agrega términos nuevos.\n$$\\begin{aligned} \\lim_{x \\to a} [3f(x)-g(x)] &= 3\\lim_{x \\to a} f(x) - \\lim_{x \\to a} g(x) \\\\ &= 3(5) - 2 \\\\ &= 13 \\end{aligned}$$\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre $3f$ y $g$, sin interferencias.\n\nAntes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado, siempre que ambos existan: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)\\cdot g(x)] &= \\lim_{x \\to a} f(x) \\cdot \\lim_{x \\to a} g(x) \\\\ &= 2 \\cdot 5 \\\\ &= 10 \\end{aligned}$$\n\nEste resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
+    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado, siempre que ambos existan: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.\n$$\\begin{aligned} \\lim_{x \\to a} [f(x)\\cdot g(x)] &= \\lim_{x \\to a} f(x) \\cdot \\lim_{x \\to a} g(x) \\\\ &= 2 \\cdot 5 \\\\ &= 10 \\end{aligned}$$\nEste resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$.\n$$\\begin{aligned} \\lim_{x \\to a} \\frac{f(x)}{g(x)} &= \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)} \\\\ &= \\frac{8}{4} \\\\ &= 2 \\end{aligned}$$\n\nEsta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente. Saltear este chequeo es un error que genera respuestas sin sentido.",
+    "explanation": "La **propiedad de cociente** permite dividir los límites por separado, siempre que el **límite del denominador sea distinto de $0$**: si $\\lim g \\neq 0$, entonces $\\lim(f/g) = (\\lim f)/(\\lim g)$.\n$$\\begin{aligned} \\lim_{x \\to a} \\frac{f(x)}{g(x)} &= \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)} \\\\ &= \\frac{8}{4} \\\\ &= 2 \\end{aligned}$$\nEsta condición \"denominador no nulo\" es **obligatoria**: si el denominador tiende a $0$, la propiedad falla y el resultado puede ser una indeterminación o una tendencia al infinito.\n\nLa propiedad exige chequear primero que el límite del denominador no sea $0$, antes de aplicar la división directamente. Saltear este chequeo es un error que genera respuestas sin sentido.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$. Si se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\neq \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)}$$\n\nEn este caso, con $\\lim_{x \\to a} g(x) = 0$, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ es un error frecuente que detrás se esconde la pregunta: \"¿Puedo separar esta división?\". Si el denominador tiende a $0$, la respuesta es no.",
+    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$. Si se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n$$\\lim_{x \\to a} \\frac{f(x)}{g(x)} \\neq \\frac{\\lim_{x \\to a} f(x)}{\\lim_{x \\to a} g(x)}$$\nEn este caso, con $\\lim_{x \\to a} g(x) = 0$, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ es un error frecuente que detrás se esconde la pregunta: \"¿Puedo separar esta división?\". Si el denominador tiende a $0$, la respuesta es no.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"

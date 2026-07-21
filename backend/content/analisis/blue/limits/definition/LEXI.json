@@ -215,7 +215,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$\\tfrac{0}{0}$ es un estado de pausa, no una conclusión sobre el límite.",
+    "feedback_correct": "una indeterminación es un estado de pausa, no una conclusión sobre el límite.",
     "feedback_incorrect": [
       "$\\tfrac{0}{0}$ no significa que el límite no exista, significa que la sustitución directa no alcanza para decidirlo todavía.",
       null,

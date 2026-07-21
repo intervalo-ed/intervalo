@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Reescribir como potencia negativa",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
       "Múltiplo escalar",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Regla del cociente",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
       "Reescribir como potencia negativa",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Simplificar el cociente primero",
       "Regla del cociente",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
       "Simplificar el cociente primero",

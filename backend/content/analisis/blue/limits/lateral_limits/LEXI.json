@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "La notación:\n$$\\lim_{x \\to 3^+} f(x)$$\nse lee de una manera precisa en términos de acercamiento.\n\n¿Cuál de las siguientes lecturas es correcta?",
+    "question": "La notación:\n$$\\lim_{x \\to 3^+} f(x)$$\nSe lee de una manera precisa en términos de acercamiento.\n\n¿Cuál de las siguientes lecturas es correcta?",
     "options": [
       "El valor de $f(x)$ cuando $x$ se acerca a $3$ por valores menores, como $2{,}99$",
       "El valor de $f(3)$ elevado al signo positivo",
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores. La lectura completa describe el valor al que tiende $f(x)$ cuando $x$ toma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula\n$$\\lim_{x \\to 3^+} f(x) = 3{,}01 + 1 \\approx 4$$\nsiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
+    "explanation": "El símbolo $x \\to a^+$ indica que la variable se aproxima al punto $a$ desde valores mayores. La lectura completa describe el valor al que tiende $f(x)$ cuando $x$ toma valores cada vez más próximos a $a$ por encima.\n\nPor ejemplo, si $f(x) = x+1$, al acercarse por la derecha se calcula:\n$$\\lim_{x \\to 3^+} f(x) = 3{,}01 + 1 \\approx 4$$\nSiguiendo esa misma dirección de valores mayores que $3$.\n\nConviene no confundir el superíndice de dirección con un exponente: no se está elevando nada al cuadrado ni al positivo, es solo una etiqueta del sentido de aproximación.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$. En $x \\to (-2)^+$, el signo dentro del paréntesis es parte del número $-2$, y el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos:\n$$-1{,}9,\\ -1{,}99,\\ -1{,}999, \\dots$$\ntodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera), porque ambos símbolos son iguales pero cumplen roles distintos.",
+    "explanation": "Cuando el punto de tendencia $a$ es negativo, hay que distinguir con cuidado el superíndice de dirección del signo propio de $a$. En $x \\to (-2)^+$, el signo dentro del paréntesis es parte del número $-2$, y el superíndice $+$ fuera del paréntesis indica acercamiento por la derecha.\n\nAcercarse por la derecha a $-2$ significa tomar valores mayores que $-2$ pero cada vez más próximos:\n$$-1{,}9,\\ -1{,}99,\\ -1{,}999, \\dots$$\nTodos ubicados a la derecha de $-2$ en la recta numérica.\n\nEste es el único caso donde conviene detenerse a separar visualmente el signo del número (dentro del paréntesis) del signo de la dirección (superíndice fuera), porque ambos símbolos son iguales pero cumplen roles distintos.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\ncon el signo inmediatamente después del $5$.\n\nEste es un error de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
+    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$, dentro de la expresión $x \\to a$, nunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo, para 'tender a $5$ por la izquierda', el signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nEste es un error de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí. El **teorema de existencia** es indiferente: la condición es clara — ambos laterales deben apuntar al mismo valor. Si apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto. Cuando:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
+    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí. El **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor. Si apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto. Cuando:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"

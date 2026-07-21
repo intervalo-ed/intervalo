@@ -51,7 +51,7 @@
     "explanation": "La **amplitud** es la distancia del eje central ($y=0$) al valor máximo (o mínimo) de la onda.\nEn una función de la forma $A\\cdot\\operatorname{sen}(x)$, la amplitud es $|A|$.\nEn este gráfico la curva llega hasta $y=2$ y baja hasta $y=-2$: amplitud $=2$.\nEl **período** y la frecuencia describen la velocidad de la oscilación, no su tamaño vertical. La fase desplaza la onda horizontalmente.",
     "reviewed": false,
     "tags": [
-      "amplitud"
+      "descripcion-abstracta-otra-familia"
     ]
   },
   {
@@ -101,7 +101,7 @@
     "explanation": "La **amplitud** de $A\\cdot\\cos(x)$ es el valor absoluto del coeficiente: $|A|$.\nAquí $A=4$, así que la función oscila entre $-4$ y $4$, y la amplitud es $4$.\nEl coeficiente multiplicativo estira o comprime la onda **verticalmente**; no afecta al **período**.\n$\\pi$ y $2\\pi$ son valores de período, no de amplitud. El valor $1$ sería la amplitud del coseno sin escalar.",
     "reviewed": false,
     "tags": [
-      "amplitud"
+      "descripcion-abstracta-otra-familia"
     ]
   },
   {
@@ -411,7 +411,7 @@
     "explanation": "En el **círculo unitario**, el ángulo $\\theta=0$ corresponde al punto $P=(1,0)$. El coseno es la coordenada $x$ de ese punto: $\\cos(0)=1$.\n\nEl coseno arranca en su **máximo** ($1$) cuando $\\theta=0$, a diferencia del seno que arranca en $0$. Por eso la gráfica del coseno tiene un pico en el origen, mientras que la del seno tiene un cruce por cero.\n\n$\\cos(0)=1$: conviene recordar que el coseno arranca en su valor máximo, mientras que el seno arranca en $0$ y todavía no alcanzó ningún extremo.",
     "reviewed": false,
     "tags": [
-      "amplitud"
+      "descripcion-abstracta-otra-familia"
     ]
   },
   {
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\n\nCiclos en $[0,2\\pi]$: $2\\pi/\\pi=2$. La función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una. La función completa ciclos al doble de velocidad.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia: el **período** es $T=2\\pi/2=\\pi$. En el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\nCiclos en $[0,2\\pi]$: $2\\pi/\\pi=2$. La función completa dos oscilaciones donde $\\operatorname{sen}(x)$ solo completa una. La función completa ciclos al doble de velocidad.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-lexi"
@@ -611,7 +611,7 @@
     "explanation": "En $f(x)=\\operatorname{sen}(x)+D$, el parámetro $D$ es el **desplazamiento vertical**: traslada todo el gráfico hacia arriba (si $D>0$) o hacia abajo (si $D<0$). El eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia. Solo se mueve el piso: máximo $=1+D$, mínimo $=-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
     "reviewed": false,
     "tags": [
-      "amplitud"
+      "descripcion-abstracta-otra-familia"
     ]
   },
   {
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.\n$$\\begin{aligned}\n\\text{máx} &= D + |A| \\\\\n&= 1 + 3 \\\\\n&= 4:\n\\end{aligned}$$\n\nLa opción $3$ es la **amplitud** ($|A|$), no el máximo. La opción $1$ es el **desplazamiento** ($D$). El máximo siempre suma ambos. Para la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)+D$, el **máximo** se alcanza cuando $\\operatorname{sen}(x)=1$: en ese punto $f=D+|A|$.\n$$\\begin{aligned}\n\\text{máx} &= D + |A| \\\\\n&= 1 + 3 \\\\\n&= 4:\n\\end{aligned}$$\nLa opción $3$ es la **amplitud** ($|A|$), no el máximo. La opción $1$ es el **desplazamiento** ($D$). El máximo siempre suma ambos. Para la función $3\\,\\operatorname{sen}(x)+1$, la cima está en $y=4$.",
     "reviewed": false,
     "tags": [
       "extremos-con-transformacion"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$\n\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$\nTanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$; la $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"
@@ -761,7 +761,7 @@
     "explanation": "Si $f(x)=\\operatorname{sen}(x)$, entonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$: donde $f$ valía $y$, $g$ vale $-y$. Los máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo **período** ($2\\pi$), misma **amplitud** ($1$), mismo **dominio** ($\\mathbb{R}$), misma **imagen** ($[-1,1]$). Propiedad cambiada: la monotonía se invierte, donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
     "reviewed": false,
     "tags": [
-      "amplitud"
+      "descripcion-abstracta-otra-familia"
     ]
   },
   {
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\n\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. $\\pi/2$ correspondería a $B=4$. Con $B=2$, la respuesta correcta es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el **período** a la mitad: $T=2\\pi/B=2\\pi/2=\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{2} \\\\\n&= \\pi:\n\\end{aligned}$$\nLos distractores $2\\pi$ (sin modificar $B$) y $4\\pi$ (como si $B=1/2$) son errores frecuentes. $\\pi/2$ correspondería a $B=4$. Con $B=2$, la respuesta correcta es $\\pi$.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/2} \\\\\n&= 4\\pi:\n\\end{aligned}$$\n\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
+    "explanation": "En $g(x)=\\operatorname{sen}(x/2)$, el coeficiente $B=1/2$ **estira** el **período** al doble: $T=2\\pi/B=2\\pi/(1/2)=4\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{1/2} \\\\\n&= 4\\pi:\n\\end{aligned}$$\nUn $B$ menor que $1$ hace que la onda tarde más en completar un ciclo. Con $B=1/2$, la onda va a paso de tortuga: $4\\pi\\approx12{,}57$ unidades por ciclo.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.\n$$\\begin{aligned}\n\\text{imagen} &= [-1+3,\\; 1+3] \\\\\n&= [2,\\; 4]:\n\\end{aligned}$$\n\nLa opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**. La clave es sumar $D$ a ambos extremos del rango base.",
+    "explanation": "La **imagen** de $f(x)=\\cos(x)+3$ se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.\n$$\\begin{aligned}\n\\text{imagen} &= [-1+3,\\; 1+3] \\\\\n&= [2,\\; 4]:\n\\end{aligned}$$\nLa opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**. La clave es sumar $D$ a ambos extremos del rango base.",
     "reviewed": false,
     "tags": [
       "imagen-transformada"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La relación entre coseno y seno como desfase se establece con la identidad $\\cos(x)=\\operatorname{sen}\\!\\left(x+\\dfrac{\\pi}{2}\\right)$. Esto significa que el coseno está **adelantado** $\\pi/2$ respecto al seno.\n\nVerificación: $\\cos(0)=1$ y $\\operatorname{sen}(0+\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ ✓. La opción $\\cos(x)=\\operatorname{sen}(x-\\pi/2)$ tiene el signo del desfase invertido: eso da $\\cos(0)=\\operatorname{sen}(-\\pi/2)=-1$ ✗.\n\nConviene fijar bien el signo del desfase: el coseno alcanza su máximo $\\pi/2$ radianes antes que el seno, y por eso la relación correcta suma $\\pi/2$ al argumento en vez de restarlo.",
+    "explanation": "La relación entre coseno y seno como desfase se establece con la identidad $\\cos(x)=\\operatorname{sen}\\!\\left(x+\\dfrac{\\pi}{2}\\right)$. Esto significa que el coseno está **adelantado** $\\pi/2$ respecto al seno.\n\nVerificación: $\\cos(0)=1$ y $\\operatorname{sen}(0+\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ . La opción $\\cos(x)=\\operatorname{sen}(x-\\pi/2)$ tiene el signo del desfase invertido: eso da $\\cos(0)=\\operatorname{sen}(-\\pi/2)=-1$ .\n\nConviene fijar bien el signo del desfase: el coseno alcanza su máximo $\\pi/2$ radianes antes que el seno, y por eso la relación correcta suma $\\pi/2$ al argumento en vez de restarlo.",
     "reviewed": false,
     "tags": [
       "extremos-con-transformacion"

@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Analizá la integral:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica (despejar la original)",
       "Requiere una iteración",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Observá la integral:\n$$\\int x^5\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "No se puede resolver por partes",
       "Requiere una iteración",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Examiná la integral:\n$$\\int x^2\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Requiere una iteración",
       "Es cíclica (despejar la original)",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Analizá la integral:\n$$\\int e^x\\cos x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica (despejar la original)",
       "Requiere una iteración",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Observá la integral:\n$$\\int x\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Es cíclica (despejar la original)",
       "Requiere una iteración",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Considerá la integral:\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
+    "question": "Examiná la integral:\n$$\\int x^{10}\\ln x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
       "Requiere diez iteraciones",
       "Requiere dos iteraciones",

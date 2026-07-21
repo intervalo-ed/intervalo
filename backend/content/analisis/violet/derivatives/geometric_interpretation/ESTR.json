@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x)=x^2-4$$\nHallá la ecuación de la recta tangente en $x=1$, en la forma $y=mx+b$.",
+    "question": "Analizá la función:\n$$f(x)=x^2-4$$\nHallá la ecuación de la recta tangente en $x=1$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x-1$",
       "$y=2x-5$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x)=-x^2+2x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
+    "question": "Observá la función:\n$$f(x)=-x^2+2x$$\nHallá la ecuación de la recta tangente en $x=0$, en la forma $y=mx+b$.",
     "options": [
       "$y=2x+2$",
       "$y=-2x$",

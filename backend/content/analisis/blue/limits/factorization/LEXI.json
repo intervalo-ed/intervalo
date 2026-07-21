@@ -276,7 +276,7 @@
     "reviewed": false
   },
   {
-    "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nque da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
+    "question": "Un límite presenta la expresión:\n$$\\frac{x^2-9}{x-3}$$\nQue da 0/0 al sustituir. ¿Qué característica de la expresión permite aplicar **factorización** para salvar la indeterminación?",
     "options": [
       "Que ambos, numerador y denominador, sean expresiones polinómicas sin raíces",
       "Que el denominador tenga grado mayor al del numerador",
@@ -299,7 +299,7 @@
     "reviewed": false
   },
   {
-    "question": "Un límite presenta la expresión:\n$$\\frac{\\sqrt{x}-2}{x-4}$$\nque da 0/0 al sustituir $x=4$. ¿Se puede resolver esta indeterminación aplicando **factorización** polinómica?",
+    "question": "Un límite presenta la expresión:\n$$\\frac{\\sqrt{x}-2}{x-4}$$\nQue da 0/0 al sustituir $x=4$. ¿Se puede resolver esta indeterminación aplicando **factorización** polinómica?",
     "options": [
       "No, la raíz cuadrada impide factorizar como si fuera un polinomio",
       "Sí, cancelando directamente la raíz con el denominador",

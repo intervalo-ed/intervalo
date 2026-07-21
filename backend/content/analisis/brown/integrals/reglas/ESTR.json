@@ -17,7 +17,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Aunque $\\pi$ tenga una apariencia matemática especial, sigue siendo un **número fijo**, así que corresponde la **regla de la constante**.\n$$\\int \\pi\\,dx = \\pi x + C$$\nNo hay ninguna variable $x$ dentro del integrando, así que ninguna regla de función elemental aplica acá, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-directo-antiderivadas"
+    ]
   },
   {
     "question": "Analizá esta integral:\n$$\\int e^2\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -37,7 +40,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$e^2$ es un **número fijo**, aproximadamente $7,389$, sin ninguna variable $x$ dentro de su valor.\n$$\\int e^2\\,dx = e^2 x + C$$\nConfundir esta constante con la exponencial $e^x$ es un error frecuente, la presencia visual de $e$ no basta para decidir la regla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-inversa-derivada"
+    ]
   },
   {
     "question": "Observá la integral:\n$$\\int \\ln 5\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -57,7 +63,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\ln 5$ es un **número fijo**, aproximadamente $1,609$, sin ninguna variable $x$ dentro de su valor.\n$$\\int \\ln 5\\,dx = (\\ln 5)x + C$$\nEl símbolo $\\ln$ evoca la regla del logaritmo, pero acá está evaluado en un número concreto, así que el integrando es apenas una constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "constantes-enganosas"
+    ]
   },
   {
     "question": "Considerá el integrando:\n$$\\int \\sqrt{2}\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -77,7 +86,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\sqrt{2}$ es un **número fijo**, sin ninguna dependencia de $x$, aunque su apariencia recuerde a una expresión algebraica.\n$$\\int \\sqrt{2}\\,dx = \\sqrt{2}\\,x + C$$\nLa presencia de una raíz no implica automáticamente una potencia de $x$, hay que verificar primero si la variable está realmente presente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "discriminacion-de-familias"
+    ]
   },
   {
     "question": "Identificá la estructura:\n$$\\int 3^2\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -97,7 +109,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La expresión $3^2$ ya está completamente evaluada, es el número fijo $9$, sin ninguna variable $x$ presente.\n$$\\int 3^2\\,dx = 9x + C$$\nNi la base ni el exponente dependen de $x$ en esta expresión, así que ninguna regla de función elemental aplica, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "suma-resta-terminos-elementales"
+    ]
   },
   {
     "question": "Analizá el siguiente:\n$$\\int \\cos(\\pi/3)\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -117,7 +132,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El coseno evaluado en un ángulo fijo, $\\pi/3$, da como resultado un **número fijo**, en este caso $\\frac{1}{2}$.\n$$\\int \\cos(\\pi/3)\\,dx = \\frac{1}{2}x + C$$\nLa presencia de la función trigonométrica en la escritura no implica que la variable de integración esté involucrada, acá el ángulo ya está fijo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "polinomios-fracciones-simples-combinadas"
+    ]
   },
   {
     "question": "Observá este integrando:\n$$\\int e^{\\ln 4}\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -137,7 +155,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La expresión $e^{\\ln 4}$ se simplifica por completo a $4$, ya que la exponencial y el logaritmo natural son operaciones inversas.\n$$\\int e^{\\ln 4}\\,dx = 4x + C$$\nAntes de decidir la regla, conviene simplificar cualquier combinación de exponencial y logaritmo que resulte en un número fijo sin variable.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-directo-antiderivadas"
+    ]
   },
   {
     "question": "Reconocé el tipo de función en:\n$$\\int (-7)\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -157,7 +178,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El signo negativo no cambia el análisis, $-7$ sigue siendo un **número fijo**, sin ninguna variable $x$ presente.\n$$\\int (-7)\\,dx = -7x + C$$\nLa regla de la constante se aplica igual sin importar el signo del número, el signo simplemente se conserva en el resultado.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-inversa-derivada"
+    ]
   },
   {
     "question": "Considerá la siguiente expresión:\n$$\\int x^e\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -177,7 +201,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $x^e$, la variable $x$ está en la **base**, y el exponente $e$ es apenas un número real fijo.\n$$\\int x^e\\,dx = \\frac{x^{e+1}}{e+1} + C$$\nConfundir esta estructura con una exponencial es un error frecuente, hay que revisar siempre en qué posición está la variable, base o exponente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "constantes-enganosas"
+    ]
   },
   {
     "question": "¿Qué tipo de función es:\n$$\\int e^x\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -197,7 +224,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $e^x$, la variable $x$ está en el **exponente**, y la base es la constante $e$, la estructura típica de la regla exponencial.\n$$\\int e^x\\,dx = e^x + C$$\nEsta estructura es opuesta a $x^e$, donde la variable está en la base, la posición de $x$ es lo que decide qué regla corresponde en cada caso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "discriminacion-de-familias"
+    ]
   },
   {
     "question": "Decidí qué regla aplica a:\n$$\\int x^2\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -217,7 +247,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, la estructura típica de la **regla de la potencia**.\n$$\\int x^2\\,dx = \\frac{x^3}{3} + C$$\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "suma-resta-terminos-elementales"
+    ]
   },
   {
     "question": "Analizá la forma de:\n$$\\int 2^x\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -237,7 +270,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En $2^x$, la variable está en el exponente, pero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "polinomios-fracciones-simples-combinadas"
+    ]
   },
   {
     "question": "Observá con cuidado:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -257,7 +293,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La expresión $\\frac{1}{x}$ equivale a $x^{-1}$, exactamente el exponente que queda excluido de la **regla de la potencia**.\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEste caso especial, $n=-1$, tiene su propia entrada en la tabla porque la fórmula general de la potencia produciría una división por cero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "reconocimiento-directo-antiderivadas"
+    ]
   },
   {
     "question": "Categorizá:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -277,7 +316,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La expresión $\\frac{1}{x^2}$ equivale a $x^{-2}$, un exponente distinto de $-1$, así que la **regla de la potencia** general sigue aplicando sin excepción.\n$$\\int \\frac{1}{x^2}\\,dx = \\frac{x^{-1}}{-1} + C = -\\frac{1}{x} + C$$\nConfundir cualquier fracción con potencia negativa con el caso del logaritmo es un error frecuente, la excepción es exclusivamente $n=-1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "identificacion-inversa-derivada"
+    ]
   },
   {
     "question": "Identificá qué regla usar para:\n$$\\int \\cos x\\,dx$$\n¿Qué regla corresponde aplicar?",
@@ -297,6 +339,9 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "$\\cos x$ pertenece a la familia trigonométrica de la **tabla de integrales inmediatas**, con su propia fórmula directa.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nNinguna otra regla de la tabla, potencia ni exponencial, se aplica a esta familia, cada una tiene su propia fórmula específica.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "constantes-enganosas"
+    ]
   }
 ]

@@ -19,7 +19,7 @@
     "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida. Acá la entrada es la cuenta y la salida es el saldo. Si fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez. Ojo, no confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "imagen-identificacion"
     ]
   },
   {
@@ -42,7 +42,7 @@
     "explanation": "La **unicidad** asegura que cada entrada de una función tenga exactamente una salida asociada. Si el termómetro cumple esto, a las 14:00 horas registrará una sola medición válida, sin importar si ese valor vuelve a repetirse más tarde. Que esa medición se repita en otro horario no rompe la unicidad: importa que cada instante tenga una sola lectura, no que cada lectura ocurra una sola vez.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "imagen-identificacion"
     ]
   },
   {
@@ -65,7 +65,7 @@
     "explanation": "Para que exista **unicidad**, la función debe transformar cada entrada en una **única** salida. Acá cada cantidad de compras determina un solo puntaje mediante $$p(x) = 3x + 1$$ A una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. Para verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "imagen-identificacion"
     ]
   },
   {
@@ -88,7 +88,7 @@
     "explanation": "La **unicidad** requiere que cada entrada se asocie con una sola salida, sin excepciones. Acá el producto 305 recibe dos descuentos diferentes, $$\\begin{aligned} 305 &\\mapsto 10\\% \\\\ 305 &\\mapsto 20\\% \\end{aligned}$$ Esa ambigüedad rompe la condición fundamental para ser función. Un sistema de caja que le asigna dos precios al mismo producto no tiene un error de tipeo: tiene un problema de unicidad.",
     "reviewed": false,
     "tags": [
-      "unicidad"
+      "imagen-identificacion"
     ]
   },
   {
@@ -113,7 +113,7 @@
     "explanation": "El **dominio** es el conjunto de entradas que la función transforma y para las cuales está definida. Acá las únicas cantidades de bochas que podés pedir forman el conjunto $$n \\in \\{1,2,3,4\\}$$ Los precios resultantes forman la **imagen**. No confundas el dominio con la imagen: acá el dominio son las cantidades que podés pedir, no los precios que resultan.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -138,7 +138,7 @@
     "explanation": "El **dominio** natural es el mayor conjunto de valores donde la función tiene sentido matemático y contextual. Repartir entre 0 personas no se puede, porque la expresión $\\frac{1200}{0}$ No está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$). Al calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -163,7 +163,7 @@
     "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que lo de adentro no sea negativo, así que $$\\frac{h}{5} \\geq 0$$ Esto da como resultado $h \\geq 0$. El dominio natural sale de las restricciones de la función: acá, que el radicando no sea negativo.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -186,7 +186,7 @@
     "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función. Acá las entradas son los ciudadanos, numerados del 1 al 40000, que se escriben como $$\\{1,\\dots,40000\\}$$ Los expedientes generados pertenecen al **codominio**. No mezcles el dominio con el codominio: los ciudadanos son las entradas; los expedientes que se generan viven en el conjunto de llegada.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -209,7 +209,7 @@
     "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**. Acá las entradas que vas a procesar son los tipos de copia, $$\\{bn, co\\}$$ Los precios resultantes forman la **imagen** de la función. El dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -234,7 +234,7 @@
     "explanation": "El **dominio** es el conjunto de valores que alimentan a la función. En este sistema las entradas son las horas del día, $$\\{0, \\dots, 23\\}$$ Las temperaturas posibles actúan como salidas. El dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -259,7 +259,7 @@
     "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema. Dividir entre 0 no está definido, y un viaje no puede durar tiempo negativo, así que $$t > 0$$ Ese es el conjunto válido para evaluar la función. Para el dominio natural combiná las dos restricciones: la matemática (no dividir por cero) y la del problema (el tiempo no puede ser negativo).",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -284,7 +284,7 @@
     "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que su contenido no sea negativo, por lo tanto: $$2x - 6 \\geq 0 \\implies x \\geq 3$$ El error típico es olvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -309,7 +309,7 @@
     "explanation": "¿Qué pasaría si el **dominio** incluyera un valor que la función no puede procesar? La función se rompería. Dividir entre 0 no está definido en matemáticas, y no podés invitar a cantidades negativas de personas, así que $$n \\geq 1$$ Un dominio natural descarta tanto lo que rompe la cuenta (dividir por cero) como lo que no tiene sentido en el contexto (personas negativas).",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -334,7 +334,7 @@
     "explanation": "El **dominio** natural se compone de las entradas que sobreviven a las restricciones de la fórmula. La raíz cuadrada necesita que su interior sea mayor o igual a cero, $$10 - x \\geq 0 \\implies 10 \\geq x$$ Para todo $x \\leq 10$ la función funciona bien. El límite del dominio lo pone la raíz: para $x > 10$ el radicando se vuelve negativo y la función deja de estar definida.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -359,7 +359,7 @@
     "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta. La **única** prohibición en una fracción es que el denominador valga cero, $$x - 3 \\neq 0 \\implies x \\neq 3$$ Para el resto de la recta numérica, la función trabaja de maravilla. En una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -384,7 +384,7 @@
     "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema. La raíz cuadrada exige un radicando no negativo, $$\\frac{A}{\\pi} \\geq 0 \\implies A \\geq 0$$ Además, un área negativa no existe geométricamente. Acá el dominio combina dos condiciones: el radicando no negativo y que el área tenga sentido geométrico ($A \\geq 0$).",
     "reviewed": false,
     "tags": [
-      "dominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -706,7 +706,7 @@
     "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función. Acá las únicas etiquetas que el sistema admite ingresar son $$\\{0, 1\\}$$ Los alumnos rinden y toman el lugar del **dominio**. Un formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -729,7 +729,7 @@
     "explanation": "El **codominio** establece el espacio total de respuestas que la función matemática puede entregar. En este hardware, las salidas posibles conviven en el segmento $$[50, 200]$$ Lo que los usuarios compren en la realidad constituye el conjunto **imagen**. Aunque nadie compre cierto valor, sigue estando en el codominio; la imagen es solo lo que se compró de verdad.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -752,7 +752,7 @@
     "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto: $$\\begin{aligned} f(1) &= I \\\\ f(2) &= P \\\\ f(3) &= I \\end{aligned}$$ Los valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -777,7 +777,7 @@
     "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés: $$\\begin{aligned} f(1) &= 2 \\\\ f(2) &= 4 \\\\ f(3) &= 6 \\end{aligned}$$ Agrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -802,7 +802,7 @@
     "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar. Al elevar las entradas al cuadrado, surgen estos números: $$\\begin{aligned} (-3)^2 &= 9 \\\\ (-1)^2 &= 1 \\\\ 0^2 &= 0 \\\\ 1^2 &= 1 \\\\ 3^2 &= 9 \\end{aligned}$$ Limpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$. Ojo con los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {
@@ -825,7 +825,7 @@
     "explanation": "La **imagen** agrupa las paradas que la función (el aparato) logra concretar. El **codominio** oficial marca del 1 al 20, pero la realidad mecánica excluye los pisos averiados. Por eso la imagen es ese grupo recortado sin el 13 y el 17. La imagen puede ser más chica que el codominio: los pisos averiados están en el conjunto de llegada pero no en la imagen.",
     "reviewed": false,
     "tags": [
-      "codominio"
+      "imagen-identificacion"
     ]
   },
   {

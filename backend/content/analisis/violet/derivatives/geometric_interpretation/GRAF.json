@@ -23,7 +23,9 @@
     ],
     "explanation": "Para reconocer una **recta tangente** en una gráfica, hay que fijarse si la recta sigue exactamente la misma dirección que la curva justo en el punto de contacto, sin ningún quiebre.\nEn este caso, la recta se une a la curva en $x=1$ sin cambiar de dirección, y además no vuelve a cruzarla en ningún otro punto visible.\nEsa ausencia de quiebre y de segundo cruce es la señal gráfica más confiable de que se trata de una verdadera tangente.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
@@ -49,7 +51,9 @@
     ],
     "explanation": "Esta recta se une a la curva en $x=1$ con un cambio de dirección visible, y vuelve a cruzarla en $x=3$, ambos dentro del rango de la vista.\nEse segundo punto de cruce es la marca distintiva de una **recta secante**, que se apoya en dos puntos de la curva en vez de uno solo.\nSu pendiente representa la tasa de cambio media entre esos dos puntos, no la pendiente instantánea de ninguno de los dos por separado.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la curva $f(x)=x^2$ junto con una tercera recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
@@ -75,7 +79,9 @@
     ],
     "explanation": "En este caso la recta se une a la curva en $x=1$, pero cambia bruscamente de dirección respecto de la curva original.\nA diferencia de la secante, esta recta no vuelve a cruzar la curva dentro del tramo mostrado, así que no cumple la definición de dos puntos de contacto.\nEste tipo de recta, que corta con un ángulo distinto sin ser ni tangente ni secante dentro de la vista, se clasifica como **recta transversal**.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
@@ -101,7 +107,9 @@
     ],
     "explanation": "En esta parábola invertida, la recta se une a la curva en $x=1$ manteniendo exactamente la misma dirección, sin ningún quiebre visible.\nAdemás, la recta no vuelve a cruzar la curva en ningún otro punto de la vista, lo que confirma que se trata de una **recta tangente**.\nEste mismo criterio, sin quiebre y sin segundo cruce, sirve para identificar tangentes sin importar si la parábola se abre hacia arriba o hacia abajo.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con otra recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
@@ -127,7 +135,9 @@
     ],
     "explanation": "Esta recta se une a la curva en $x=1$ con un cambio de dirección, y vuelve a cruzarla en $x=2$, ambos dentro del rango de la vista.\nEse segundo cruce es la marca distintiva de una **recta secante**, que se apoya en dos puntos de la curva en vez de uno solo.\nSu pendiente representa la tasa de cambio media entre esos dos puntos, no la pendiente instantánea de ninguno de los dos por separado.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la curva $f(x)=-x^2+4$ junto con una tercera recta que se une a ella en el punto marcado.\n¿La recta que se une a la curva en ese punto es tangente ahí?",
@@ -153,7 +163,9 @@
     ],
     "explanation": "Acá la recta se une a la curva en $x=1$ con un cambio de dirección evidente respecto de la curva original.\nDentro del tramo mostrado, la recta no vuelve a cruzar la parábola, así que tampoco cumple la definición de secante.\nEste tipo de contacto, con quiebre y sin segundo cruce visible, corresponde a una **recta transversal**, ni tangente ni secante.",
     "reviewed": false,
-    "tags": ["identificacion-visual-tangente"]
+    "tags": [
+      "identificacion-visual-tangente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
@@ -181,7 +193,9 @@
     ],
     "explanation": "Para leer la **pendiente** de una recta en la grilla, hay que contar cuánto sube o baja la recta, $\\Delta y$, por cada paso horizontal, $\\Delta x$.\nEn esta recta, por cada unidad que se avanza en $x$, la recta sube $2$ unidades en $y$, así que $f'(a)=2$.\nConviene siempre contar el desplazamiento vertical dividido por el horizontal, invertir el orden es el error más común al leer pendientes en una grilla.",
     "reviewed": false,
-    "tags": ["lectura-de-pendiente"]
+    "tags": [
+      "lectura-de-pendiente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
@@ -209,7 +223,9 @@
     ],
     "explanation": "Esta recta desciende a medida que $x$ crece, así que su pendiente es negativa.\nContando la grilla, por cada unidad que avanza en $x$, la recta baja exactamente $1$ unidad en $y$, lo que da $f'(a)=-1$.\nUna pendiente de $-1$ forma un ángulo de $45°$ hacia abajo, útil como referencia visual rápida para comparar con otras pendientes.",
     "reviewed": false,
-    "tags": ["lectura-de-pendiente"]
+    "tags": [
+      "lectura-de-pendiente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
@@ -237,7 +253,9 @@
     ],
     "explanation": "En esta recta, el avance horizontal es más grande que la subida vertical, señal de que la pendiente es un número entre $0$ y $1$.\nContando con cuidado la grilla, la recta sube $1$ unidad por cada $2$ unidades de avance en $x$, lo que da $f'(a)=0,5$.\nPendientes fraccionarias como esta son más fáciles de leer contando varios pasos horizontales seguidos, en vez de uno solo.",
     "reviewed": false,
-    "tags": ["lectura-de-pendiente"]
+    "tags": [
+      "lectura-de-pendiente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
@@ -265,7 +283,9 @@
     ],
     "explanation": "Esta recta desciende con bastante inclinación, señal de que su pendiente tiene un valor absoluto mayor a $1$.\nContando la grilla, por cada unidad de avance en $x$, la recta baja $2$ unidades en $y$, lo que da $f'(a)=-2$.\nCuanto más empinada se ve la recta, mayor es el valor absoluto de su pendiente, sin importar si sube o baja.",
     "reviewed": false,
-    "tags": ["lectura-de-pendiente"]
+    "tags": [
+      "lectura-de-pendiente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la recta tangente a una función $f$ en el punto de tangencia marcado.\n¿Cuál es el valor de $f'(a)$, leyendo la pendiente en la grilla?",
@@ -293,7 +313,9 @@
     ],
     "explanation": "Esta recta es la más inclinada de la serie, sube $3$ unidades en $y$ por cada unidad que avanza en $x$.\nEse ritmo de subida tan pronunciado da una pendiente $f'(a)=3$, más del doble que una recta a $45°$.\nContar varios pasos horizontales completos, en vez de fijarse en un solo cuadradito, ayuda a leer con precisión pendientes grandes como esta.",
     "reviewed": false,
-    "tags": ["lectura-de-pendiente"]
+    "tags": [
+      "lectura-de-pendiente"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x^2-6x+5$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
@@ -321,7 +343,9 @@
     ],
     "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\nEsta parábola tiene su vértice en $x=3$, mientras que $x=1$ y $x=5$ son sus raíces, puntos donde $f(x)=0$ pero la tangente no es horizontal.\nConfundir raíces con el punto de tangente horizontal es un error frecuente, conviene siempre ubicar primero el vértice antes de responder.",
     "reviewed": false,
-    "tags": ["extremos-tangentes-horizontales"]
+    "tags": [
+      "extremos-tangentes-horizontales"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=-x^2+4x$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
@@ -349,7 +373,9 @@
     ],
     "explanation": "Esta parábola se abre hacia abajo, con vértice en $x=2$, el único punto donde la recta tangente queda horizontal.\nLas raíces, $x=0$ y $x=4$, marcan dónde la curva cruza el eje, un dato geométrico distinto de dónde la pendiente se anula.\nEl vértice siempre se ubica a mitad de camino entre las dos raíces de una parábola, un atajo útil para verificar la respuesta.",
     "reviewed": false,
-    "tags": ["extremos-tangentes-horizontales"]
+    "tags": [
+      "extremos-tangentes-horizontales"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x^2+2x-3$.\n¿En qué valor de $x$ la recta tangente a la curva es horizontal?",
@@ -377,7 +403,9 @@
     ],
     "explanation": "El vértice de esta parábola está en $x=-1$, exactamente a mitad de camino entre sus dos raíces, $x=-3$ y $x=1$.\nEn ese punto la recta tangente a la curva queda perfectamente horizontal, porque la función pasa de bajar a subir justo ahí.\nUbicar primero las raíces y promediarlas es una forma rápida de encontrar el vértice sin tener que analizar la curva completa.",
     "reviewed": false,
-    "tags": ["extremos-tangentes-horizontales"]
+    "tags": [
+      "extremos-tangentes-horizontales"
+    ]
   },
   {
     "question": "En la gráfica se muestra la función $f(x)=x^2-2x-3$, con un único vértice visible.\n¿Existe algún punto donde la recta tangente a la curva sea horizontal?",
@@ -403,6 +431,8 @@
     ],
     "explanation": "Toda parábola tiene exactamente un vértice, y ese es el único lugar donde la recta tangente a la curva queda horizontal.\nEn cualquier otro punto del dominio, incluidas las raíces donde $f(x)=0$, la tangente conserva una pendiente distinta de cero.\nEste resultado es general para cualquier parábola, sin importar hacia dónde se abra ni dónde estén ubicadas sus raíces.",
     "reviewed": false,
-    "tags": ["extremos-tangentes-horizontales"]
+    "tags": [
+      "extremos-tangentes-horizontales"
+    ]
   }
 ]

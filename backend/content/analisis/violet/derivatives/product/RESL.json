@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
+    "question": "Analizá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$-e$",
       "$e$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
+    "question": "Observá la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
     "options": [
       "$6\\ln 9$",
       "$0$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
+    "question": "Examiná la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
     "options": [
       "$-25$",
       "$10$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x-4)e^x$$\nCalculá $f'(4)$.",
+    "question": "Analizá la función:\n$$f(x) = (x-4)e^x$$\nCalculá $f'(4)$.",
     "options": [
       "$e^4$",
       "$4e^4$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "Observá la función:\n$$f(x) = \\cos x \\cdot e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$e$",
       "$1$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
+    "question": "Examiná la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$-3$",
       "$6$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\nCalculá $f'(\\pi)$.",
+    "question": "Analizá la función:\n$$f(x) = \\cos x \\cdot (x^2+2)$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$2\\pi$",
       "$-\\pi$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
+    "question": "Observá la función:\n$$f(x) = \\big((x-1)^2+5\\big)e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$5e$",
       "$0$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "Examiná la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$e$",
       "$0$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
+    "question": "Analizá la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$2e$",
       "$-e$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
+    "question": "Observá la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
     "options": [
       "$4$",
       "$-4$",

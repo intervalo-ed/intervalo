@@ -386,7 +386,7 @@
     "explanation": "En $f(x)=\\frac{2x+1}{x-3}$, numerador y denominador tienen ambos grado $1$, así que la **asíntota horizontal** es el cociente de los coeficientes principales: $\\frac{2}{1}=2$. Para $x$ muy grande, los términos independientes ($+1$ y $-3$) pesan cada vez menos frente a $2x$ y $x$, y la fracción se aproxima a $\\frac{2x}{x}=2$. Por eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
     "reviewed": false,
     "tags": [
-      "transformaciones"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -636,7 +636,7 @@
     "explanation": "Ambos excluyen un punto del **dominio**, pero tienen naturaleza distinta. En un **agujero** (por ejemplo $\\frac{(x-2)(x+1)}{x-2}$), el factor problemático se cancela y la función se puede reparar en ese punto. En una **asíntota vertical** (por ejemplo $\\frac{1}{x-2}$), el factor no se cancela y la función explota: no hay manera de rellenar ese hueco con un solo valor.",
     "reviewed": false,
     "tags": [
-      "transformaciones"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -761,7 +761,7 @@
     "explanation": "Reemplazar $x$ por $x-3$ dentro de una función produce un desplazamiento horizontal: la curva se mueve $3$ unidades hacia la derecha. En $f(x)=\\frac{1}{x-3}$ respecto a $g(x)=\\frac{1}{x}$, la asíntota vertical se traslada de $x=0$ a $x=3$, y toda la forma de la curva viaja con ella. Un desplazamiento vertical, en cambio, se produce sumando o restando una constante fuera de la fracción, no dentro del denominador.",
     "reviewed": false,
     "tags": [
-      "transformaciones"
+      "cuadrantes-ramas"
     ]
   },
   {
@@ -1261,7 +1261,7 @@
     "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ... **asíntotas verticales** (no siempre exactamente una). La **imagen** no siempre es $\\mathbb{R}$ (por ejemplo $\\frac{1}{x^2+1}$ tiene imagen $(0,1]$). Sí pueden cruzar el eje $X$ cuando el numerador tiene raíces. Lo verdadero es que son **continuas en su dominio**.",
     "reviewed": false,
     "tags": [
-      "transformaciones"
+      "cuadrantes-ramas"
     ]
   }
 ]

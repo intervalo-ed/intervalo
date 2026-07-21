@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=x^2+1$, con $g'(u)=e^u$ y $h'(x)=2x$. Con $h(0)=1$ y $g'(1)=e$, el producto de la **regla de la cadena** es:\n$$f'(0) = g'(h(0)) \\cdot h'(0) = e \\cdot 0 = 0$$\nAunque la **capa exterior** evaluada en $h(0)$ dé un valor distinto de cero, el factor $h'(0)=0$ colapsa todo el producto, sin importar el resto.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=x^2+1$, con $g'(u)=e^u$ y $h'(x)=2x$. Con $h(0)=1$ y $g'(1)=e$, el producto de la **regla de la cadena** es:\n$$f'(0) = g'(h(0)) \\cdot h'(0) = e \\cdot 0 = 0$$\nAunque la **capa exterior** evaluada en $h(0)$ dé un valor distinto de cero, el factor $h'(0)=0$ colapsa todo el producto, sin importar el resto. Este patrón de \"anulación por derivada interna nula\" es muy importante en cálculo: una única derivada cero en la cadena anula todo el resultado final, sin excepciones ni compensaciones posibles.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2+2$, con $g'(u)=4u^3$ y $h'(x)=2x$. Con $h(0)=2$ y $g'(2)=4 \\cdot 2^3 = 32$, aplicamos:\n$$f'(0) = g'(h(0)) \\cdot h'(0) = 32 \\cdot 0 = 0$$\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar qué tan grande sea el valor de la capa exterior evaluada en $h(0)$.",
+    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2+2$, con $g'(u)=4u^3$ y $h'(x)=2x$. Con $h(0)=2$ y $g'(2)=4 \\cdot 2^3 = 32$, aplicamos:\n$$f'(0) = g'(h(0)) \\cdot h'(0) = 32 \\cdot 0 = 0$$\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar qué tan grande sea el valor de la capa exterior evaluada en $h(0)$. Este patrón de \"anulación por derivada interna nula\" es crucial en la cadena.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"

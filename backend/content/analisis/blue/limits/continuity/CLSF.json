@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n\nUna forma de pensar en los límites laterales es como dos \"aproximaciones\" independientes que nos dicen hacia dónde \"apunta\" la función desde cada dirección. Si ambas apuntan al mismo valor, entonces la función tiene un objetivo común desde ambos lados. $$\\lim_{x \\to a^-} f(x) = 3 = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x) = 3$$\n\nPero $f(a)$ no está definida, así que falta la primera condición de continuidad. Un límite existente sin punto definido es exactamente el caso de una **discontinuidad** removible: se arregla con una sola redefinición.",
+    "explanation": "Cuando el límite lateral izquierdo y el derecho coinciden, el límite bilateral existe y toma ese mismo valor.\n\nUna forma de pensar en los límites laterales es como dos \"aproximaciones\" independientes que nos dicen hacia dónde \"apunta\" la función desde cada dirección. Si ambas apuntan al mismo valor, entonces la función tiene un objetivo común desde ambos lados. $$\\lim_{x \\to a^-} f(x) = 3 = \\lim_{x \\to a^+} f(x) \\Rightarrow \\lim_{x \\to a} f(x) = 3$$\nPero $f(a)$ no está definida, así que falta la primera condición de continuidad. Un límite existente sin punto definido es exactamente el caso de una **discontinuidad** removible: se arregla con una sola redefinición.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta desde ambos lados. La función está \"dividida\" en su aproximación. $$\\lim_{x \\to a^-} f(x) = 4 \\neq 6 = \\lim_{x \\to a^+} f(x)$$\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla. Esta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
+    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta desde ambos lados. La función está \"dividida\" en su aproximación. $$\\lim_{x \\to a^-} f(x) = 4 \\neq 6 = \\lim_{x \\to a^+} f(x)$$\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla. Esta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n\nLa divergencia a infinito en uno de los lados significa que la función \"escapa\" sin control en esa dirección, y ningún valor finito podría capturar su comportamiento. Incluso si el otro lado converge a un número finito, tenemos un desequilibrio fundamental. $$\\lim_{x \\to a^-} f(x) = +\\infty \\Rightarrow \\text{el bilateral no existe}$$\n\nEl lado derecho converge a $5$, pero eso no compensa la divergencia del lado izquierdo. Basta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
+    "explanation": "Cuando alguno de los límites laterales diverge a infinito, ya no importa el valor del otro lateral: la discontinuidad es la más grave de las tres.\n\nLa divergencia a infinito en uno de los lados significa que la función \"escapa\" sin control en esa dirección, y ningún valor finito podría capturar su comportamiento. Incluso si el otro lado converge a un número finito, tenemos un desequilibrio fundamental. $$\\lim_{x \\to a^-} f(x) = +\\infty \\Rightarrow \\text{el bilateral no existe}$$\nEl lado derecho converge a $5$, pero eso no compensa la divergencia del lado izquierdo. Basta un único lateral infinito para descartar tanto la removible como la de salto y clasificarla directamente como **esencial**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que todo \"funciona a la perfección\": la función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que la función toma en el punto mismo. No hay ruptura, no hay salto, no hay escape al infinito. $$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = f(a) = 2$$\n\nNo hace falta redefinir nada ni hay ninguna rama que corregir. Este es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
+    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que todo \"funciona a la perfección\": la función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que la función toma en el punto mismo. No hay ruptura, no hay salto, no hay escape al infinito. $$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = f(a) = 2$$\nNo hace falta redefinir nada ni hay ninguna rama que corregir. Este es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n\nLa existencia del límite bilateral es un logro importante: nos dice que la función se aproxima de forma consistente desde ambos lados. Sin embargo, la consistencia en la aproximación no garantiza que la función esté realmente \"colocada\" en el punto correcto. $$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = 5 \\neq 9 = f(a)$$\n\nEl límite y el valor puntual son números distintos, así que falla exclusivamente la tercera condición. Con el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como removible, sin necesidad de mirar ningún otro dato.",
+    "explanation": "El límite bilateral existe cuando los dos laterales coinciden, y acá ambos valen $5$.\n\nLa existencia del límite bilateral es un logro importante: nos dice que la función se aproxima de forma consistente desde ambos lados. Sin embargo, la consistencia en la aproximación no garantiza que la función esté realmente \"colocada\" en el punto correcto. $$\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = 5 \\neq 9 = f(a)$$\nEl límite y el valor puntual son números distintos, así que falla exclusivamente la tercera condición. Con el límite bien definido pero descolgado del valor puntual, el caso queda clasificado como removible, sin necesidad de mirar ningún otro dato.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n\nUna divergencia, aunque sea \"simétrica\" desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito. Cuando ambas ramas apuntan hacia infinito, no hay un valor común finito hacia el cual converjan. $$\\lim_{x \\to a^-} f(x) = -\\infty = \\lim_{x \\to a^+} f(x) \\Rightarrow \\text{no hay límite finito}$$\n\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$. Cualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría esencial.",
+    "explanation": "Que ambos laterales diverjan hacia el mismo infinito no cambia la clasificación: la condición de existencia pide un número real finito, y $-\\infty$ no lo es.\n\nUna divergencia, aunque sea \"simétrica\" desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito. Cuando ambas ramas apuntan hacia infinito, no hay un valor común finito hacia el cual converjan. $$\\lim_{x \\to a^-} f(x) = -\\infty = \\lim_{x \\to a^+} f(x) \\Rightarrow \\text{no hay límite finito}$$\nAunque coincidan en dirección, ninguno de los dos laterales entrega un valor con el que comparar $f(a)$. Cualquier divergencia lateral, coincida o no con la del otro lado, cae siempre en la categoría esencial.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"

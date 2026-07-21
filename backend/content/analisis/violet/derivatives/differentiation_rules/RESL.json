@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = \\ln x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = \\ln x$$",
     "options": [
       "$-1/x$",
       "$1/x$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = \\cos x$$",
+    "question": "Hallá la derivada de:\n$$f(x) = \\cos x$$",
     "options": [
       "$\\cos x$",
       "$-\\cos x$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = e^x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = e^x$$",
     "options": [
       "$xe^{x-1}$",
       "$e^{x-1}$",
@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = 4x^3 - 2\\sin x + \\ln x$$",
     "options": [
       "$12x^2-2\\cos x+1/x$",
       "$4x^2-2\\cos x+1/x$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = 5x^2 + 3\\cos x - 4$$",
+    "question": "Hallá la derivada de:\n$$f(x) = 5x^2 + 3\\cos x - 4$$",
     "options": [
       "$10x-3\\sin x-4$",
       "$10x-3\\sin x$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = x^4 - 6\\tan x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = x^4 - 6\\tan x$$",
     "options": [
       "$x^3-6\\sec^2x$",
       "$4x^3-\\sec^2x$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = 2e^x + 5x$$",
+    "question": "Resolvé la derivada de:\n$$f(x) = 2e^x + 5x$$",
     "options": [
       "$2e^x+5x$",
       "$2xe^{x-1}+5$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = 7 - 3x^2 + \\sin x$$",
+    "question": "Hallá la derivada de:\n$$f(x) = 7 - 3x^2 + \\sin x$$",
     "options": [
       "$-6x+\\cos x$",
       "$-6x-\\cos x$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Calculá la derivada de:\n$$f(x) = \\ln x + 4\\cos x$$",
+    "question": "Evaluá la derivada de:\n$$f(x) = \\ln x + 4\\cos x$$",
     "options": [
       "$1/x-4\\cos x$",
       "$1/x-4\\sin x$",

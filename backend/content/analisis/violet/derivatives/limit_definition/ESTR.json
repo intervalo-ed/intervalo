@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "Expandiendo el cociente incremental por definición, calculá $f'(x)$ para\n$$f(x) = -x^2$$\nexpandiendo el límite del cociente incremental.",
+    "question": "Expandiendo el cociente incremental por definición, calculá $f'(x)$ para:\n$$f(x) = -x^2$$\nexpandiendo el límite del cociente incremental.",
     "options": [
       "$-2x$",
       "$2x$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 5$$",
+    "question": "Resolvé, por definición, la derivada de:\n$$f(x) = 5$$",
     "options": [
       "$0$",
       "$5$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 3x$$",
+    "question": "Hallá, por definición, la derivada de:\n$$f(x) = 3x$$",
     "options": [
       "$3+h$",
       "$3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "Calculá, por definición, la derivada de:\n$$f(x) = 2x+7$$",
+    "question": "Evaluá, por definición, la derivada de:\n$$f(x) = 2x+7$$",
     "options": [
       "$7$",
       "$2+h$",
