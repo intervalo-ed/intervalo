@@ -100,7 +100,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es simplemente una constante.\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, argumento lineal dentro de una función trigonométrica, es uno de los casos más frecuentes de sustitución inmediata.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
     "reviewed": false,
     "tags": ["identificacion-anatomica-de-u"]
   },
