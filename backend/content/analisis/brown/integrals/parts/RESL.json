@@ -253,7 +253,7 @@
     "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
-    "question": "Calculá\n$$\\int 3\\ln x\\,dx$$",
+    "question": "Resolvé:\n$$\\int 3\\ln x\\,dx$$",
     "options": [
       "$3x\\ln x+3x+C$",
       "$-3x+C$",
@@ -272,10 +272,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El coeficiente $3$ acompaña al logaritmo durante todo el desarrollo, tanto en el término $uv$ como en la integral remanente.\n$$\\begin{aligned} \\int 3\\ln x\\,dx &= 3\\left(x\\ln x - \\int x\\cdot\\frac{1}{x}\\,dx\\right) \\\\ &= 3(x\\ln x-x) \\\\ &= 3x\\ln x-3x+C \\end{aligned}$$\nAplicar la linealidad primero, sacando el $3$ fuera de la integral, simplifica el desarrollo antes de aplicar el factor oculto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
-    "question": "Calculá\n$$\\int x^3\\ln x\\,dx$$",
+    "question": "Aplicá partes con el logaritmo:\n$$\\int x^3\\ln x\\,dx$$",
     "options": [
       "$\\frac{x^4(4\\ln x-1)}{16}+C$",
       "$\\frac{x^4(\\ln x-1)}{4}+C$",
@@ -294,10 +295,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
-    "question": "Calculá\n$$\\int \\ln(x-1)\\,dx$$",
+    "question": "Hallá el antiderivada con factor oculto:\n$$\\int \\ln(x-1)\\,dx$$",
     "options": [
       "$x\\ln(x-1)-x+C$",
       "$(x-1)\\ln(x-1)-x+C$",
@@ -316,7 +318,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$, pero conviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
     "question": "Calculá\n$$\\int x^2\\ln x\\,dx$$",

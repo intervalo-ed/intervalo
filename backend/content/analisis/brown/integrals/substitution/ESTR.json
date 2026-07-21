@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la integral\n$$\\int \\frac{\\ln x}{x}\\,dx$$\nPara aplicar **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
+    "question": "Considerá la integral:\n$$\\int \\frac{\\ln x}{x}\\,dx$$\nPara aplicar **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\ln x$",
       "$u=\\frac{\\ln x}{x}$",
@@ -21,7 +21,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Al analizar la integral\n$$\\int x\\cos(x^2)\\,dx$$\nusando **cambio de variable**, ¿cuál es la elección correcta de $u$?",
+    "question": "Al analizar la integral:\n$$\\int x\\cos(x^2)\\,dx$$\nusando **cambio de variable**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\cos(x^2)$",
       "$u=x^2$",
@@ -42,7 +42,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Observá la integral\n$$\\int e^{3x+1}\\,dx$$\nPara aplicar el **cambio de variable**, ¿cuál es la elección correcta de $u$?",
+    "question": "Observá la integral:\n$$\\int e^{3x+1}\\,dx$$\nPara aplicar el **cambio de variable**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=3$",
       "$u=e^{3x+1}$",
@@ -63,7 +63,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Dada la integral\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\nsi usamos **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
+    "question": "Dada la integral:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$\nSi usamos **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=x^2+5$",
       "$u=2x$",
@@ -84,7 +84,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Para resolver\n$$\\int \\sin(4x)\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "question": "Analizá la integral:\n$$\\int \\sin(4x)\\,dx$$\nPor **sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\sin(4x)$",
       "$u=4x$",
@@ -105,7 +105,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Para resolver\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "question": "Evaluá la integral:\n$$\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$$\nAl aplicar **cambio de variable**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\frac{1}{x}$",
       "$u=\\cos(\\ln x)$",
