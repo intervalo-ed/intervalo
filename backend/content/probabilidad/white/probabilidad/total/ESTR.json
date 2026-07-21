@@ -13,10 +13,53 @@
       null,
       "El complemento no ayuda a mezclar dos condicionales distintas; ese descompone un evento con su contrario, no combina escenarios."
     ],
-    "explanation": "El **teorema de la probabilidad total** permite calcular $P(D)$ cuando el espacio se descompone en escenarios excluyentes $A_i$ y se conoce $P(D|A_i)$:\n$$P(D) = \\sum_i P(D|A_i) \\cdot P(A_i)$$\n\nAcá $A_1$ = línea 1 y $A_2$ = línea 2, con $P(A_1) = 0{,}6$, $P(A_2) = 0{,}4$, $P(D|A_1) = 0{,}05$ y $P(D|A_2) = 0{,}08$:\n$$P(D) = 0{,}05 \\cdot 0{,}6 + 0{,}08 \\cdot 0{,}4 = 0{,}062$$\n\nLa confusión típica es promediar las tasas de defecto sin ponderar por el peso de cada línea; la ponderación por $P(A_i)$ es lo que hace que el resultado refleje la mezcla real de la producción.",
+    "explanation": "El **teorema de la probabilidad total** permite calcular $P(D)$ cuando el espacio se descompone en escenarios excluyentes $A_i$ y se conoce $P(D|A_i)$:\n$$P(D) = \\sum_i P(D|A_i) \\cdot P(A_i)$$\nAcá $A_1$ = línea 1 y $A_2$ = línea 2, con $P(A_1) = 0{,}6$, $P(A_2) = 0{,}4$, $P(D|A_1) = 0{,}05$ y $P(D|A_2) = 0{,}08$:\n$$P(D) = 0{,}05 \\cdot 0{,}6 + 0{,}08 \\cdot 0{,}4 = 0{,}062$$\nLa confusión típica es promediar las tasas de defecto sin ponderar por el peso de cada línea; la ponderación por $P(A_i)$ es lo que hace que el resultado refleje la mezcla real de la producción.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-probabilidad-total"]
+  },
+  {
+    "question": "En una encuesta, se sabe que $P(A|B)=0{,}4$ donde $B$ es un único evento conocido (no hay partición de escenarios).\n\nSe pregunta directamente por $P(A|B)$.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Usar directamente la fórmula de probabilidad condicional, sin descomponer en escenarios.",
+      "Aplicar probabilidad total, sumando sobre una partición de $\\Omega$.",
+      "Calcular primero $P(B)$ con probabilidad total antes de responder."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El dato ya es la condicional pedida: no hace falta descomponer en escenarios ni ponderar nada.",
+    "feedback_incorrect": [
+      null,
+      "No hay ninguna partición de escenarios en el enunciado: aplicar probabilidad total acá agrega un paso innecesario.",
+      "El valor de $P(A|B)$ ya viene dado directamente; no hace falta calcular $P(B)$ para responder lo que se pregunta."
+    ],
+    "explanation": "No todo problema con probabilidades condicionales requiere el **teorema de la probabilidad total**: hace falta que el evento final dependa de varios escenarios distintos con probabilidades distintas.\n\nAcá el enunciado ya da directamente $P(A|B)=0{,}4$ para un único evento condición, sin mencionar ningún otro escenario alternativo, así que la respuesta es ese mismo valor.\n\nLa confusión típica es aplicar la suma ponderada de probabilidad total por reflejo ante cualquier condicional, sin verificar primero si realmente existen varios escenarios en juego.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-condicional-simple"]
+  },
+  {
+    "question": "En un problema se proponen los escenarios $A_1$ (35%), $A_2$ (40%) y $A_3$ (20%) como partición del espacio muestral.\n\n¿Esta partición es válida para aplicar probabilidad total?",
+    "options": [
+      "No, porque $0{,}35+0{,}40+0{,}20=0{,}95\\neq 1$: falta cubrir el 5% restante.",
+      "Sí, porque los tres escenarios son mutuamente excluyentes.",
+      "Sí, porque hay más de un escenario propuesto."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Una partición válida debe cubrir todo $\\Omega$: los pesos deben sumar exactamente 1.",
+    "feedback_incorrect": [
+      null,
+      "Ser excluyentes es necesario pero no alcanza: además deben cubrir juntos todo el espacio muestral.",
+      "La cantidad de escenarios no garantiza que cubran todo $\\Omega$; lo que hay que chequear es que los pesos sumen 1."
+    ],
+    "explanation": "Para que $\\{A_1,A_2,A_3\\}$ sea una **partición** válida de $\\Omega$, además de ser mutuamente excluyentes, deben cubrir todo el espacio muestral: sus probabilidades deben sumar exactamente $1$.\n\nCon $0{,}35+0{,}40+0{,}20=0{,}95$, falta un 5% del espacio muestral sin asignar a ningún escenario, así que la partición está incompleta.\n\nLa confusión típica es verificar solo que los escenarios no se superpongan, sin chequear también que la suma de sus pesos cubra el 100% del espacio.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["verificar-particion"]
   }
 ]

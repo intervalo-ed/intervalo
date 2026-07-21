@@ -11,14 +11,82 @@
     "feedback_correct": "Regla de Laplace: casos favorables ($3$ rojas) sobre casos posibles ($8$ bolas).",
     "feedback_incorrect": [
       "Estás dividiendo rojas por azules; el denominador de Laplace es el TOTAL de casos, no los desfavorables.",
-      "Esa es la probabilidad de sacar una azul, no una roja.",
       null,
+      "Esa es la probabilidad de sacar una azul, no una roja.",
       "Estás invirtiendo la fracción; la probabilidad nunca supera 1 así que el numerador es siempre ≤ denominador."
     ],
-    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y todos los resultados son equiprobables:\n$$P(A) = \\frac{\\text{Casos favorables}}{\\text{Casos posibles}}$$\n\nEn la urna, hay 3 casos favorables (sacar cualquier bola roja) sobre 8 casos posibles (cualquier bola del total), así que:\n$$P(\\text{roja}) = \\frac{3}{8}$$\n\nLa confusión típica es poner en el denominador solo los casos desfavorables ($3/5$) o invertir la fracción; recordá que el denominador siempre representa el total del espacio muestral, no una parte.",
+    "explanation": "La **regla de Laplace** aplica cuando el espacio muestral es finito y todos los resultados son equiprobables:\n$$P(A) = \\frac{\\text{Casos favorables}}{\\text{Casos posibles}}$$\nEn la urna, hay 3 casos favorables (sacar cualquier bola roja) sobre 8 casos posibles (cualquier bola del total), así que:\n$$P(\\text{roja}) = \\frac{3}{8}$$\nLa confusión típica es poner en el denominador solo los casos desfavorables ($3/5$) o invertir la fracción; recordá que el denominador siempre representa el total del espacio muestral, no una parte.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-conteo-simple"]
+  },
+  {
+    "question": "De una urna con 10 bolas numeradas del 1 al 10, se extraen 3 bolas al azar sin reposición.\n\n¿Qué expresión da la probabilidad de que las 3 bolas extraídas sean todas pares (hay 5 bolas pares en la urna)?",
+    "options": [
+      "$\\dfrac{\\binom{5}{3}}{\\binom{10}{3}}$",
+      "$\\dfrac{5}{10}$",
+      "$\\dfrac{\\binom{5}{3}}{\\binom{5}{3}}$",
+      "$\\dfrac{3}{10}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Favorables: elegir 3 de las 5 pares. Posibles: elegir 3 de las 10 totales.",
+    "feedback_incorrect": [
+      null,
+      "Esa fracción compara cantidades individuales, no combina las formas de elegir 3 bolas a la vez.",
+      "Ese cociente da siempre 1, porque el numerador y el denominador cuentan el mismo grupo.",
+      "Ese valor no surge de contar formas de elegir 3 bolas entre las disponibles."
+    ],
+    "explanation": "Cuando se extraen varios elementos sin reposición y el orden no importa, favorables y posibles se cuentan con **combinaciones**.\n\nLos casos posibles son todas las formas de elegir 3 bolas de las 10 totales, $\\binom{10}{3}$. Los favorables son las formas de elegir 3 bolas entre las 5 pares, $\\binom{5}{3}$:\n$$P(\\text{las 3 pares}) = \\frac{\\binom{5}{3}}{\\binom{10}{3}}$$\nLa confusión típica es comparar cantidades individuales de bolas ($5/10$) en vez de contar las formas de elegir el subconjunto completo con combinaciones.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-combinaciones"]
+  },
+  {
+    "question": "Se lanza una moneda equilibrada 4 veces.\n\n¿Qué expresión da la probabilidad de obtener al menos una cara?",
+    "options": [
+      "$1-\\dfrac{1}{16}$",
+      "$\\dfrac{1}{16}$",
+      "$\\dfrac{4}{16}$",
+      "$1-\\dfrac{4}{16}$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Al menos una cara es el complemento de ninguna cara (todas cecas), que tiene probabilidad $1/16$.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la probabilidad de que NO salga ninguna cara, el evento complementario al pedido.",
+      "Ese numerador no corresponde a contar las secuencias sin ninguna cara.",
+      "Ese resto no descuenta la probabilidad correcta del evento «ninguna cara»."
+    ],
+    "explanation": "\"Al menos uno\" conviene resolverlo con el **complemento**: en vez de contar directamente todos los casos con una o más caras, se calcula el caso contrario (ninguna cara) y se resta de $1$.\n\nCon 4 lanzamientos hay $2^4=16$ secuencias posibles, y solo una tiene ninguna cara (todas ceca), así que:\n$$P(\\text{al menos una cara}) = 1 - \\frac{1}{16}$$\nLa confusión típica es intentar sumar directamente las probabilidades de \"exactamente 1 cara\", \"exactamente 2\", etc., un camino mucho más largo que usar el complemento.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-con-complemento"]
+  },
+  {
+    "question": "Un dado está cargado de forma que el número 6 sale con el doble de frecuencia que cualquier otro número.\n\n¿Por qué NO se puede usar la regla de Laplace para calcular $P(6)$ como $1/6$?",
+    "options": [
+      "Porque el espacio muestral no es equiprobable: los resultados no tienen la misma chance.",
+      "Porque el dado tiene más de 6 caras.",
+      "Porque la regla de Laplace solo aplica a monedas, no a dados."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Laplace exige equiprobabilidad; acá el 6 tiene más chance que los demás números.",
+    "feedback_incorrect": [
+      null,
+      "El dado sigue teniendo 6 caras; el problema no es la cantidad de resultados.",
+      "La regla de Laplace aplica a cualquier experimento con resultados igual de probables, no está restringida a un tipo de objeto."
+    ],
+    "explanation": "La **regla de Laplace** $P(A)=\\text{favorables}/\\text{posibles}$ solo es válida cuando el espacio muestral es **equiprobable**: todos los resultados tienen exactamente la misma chance de ocurrir.\n\nComo el dado está cargado y el 6 sale con el doble de frecuencia que los demás números, los 6 resultados ya no son igual de probables, así que $1/6$ subestima la probabilidad real de sacar un 6.\n\nLa confusión típica es aplicar Laplace de forma automática por tratarse de un dado, sin verificar primero si el enunciado garantiza que todos los resultados son igual de probables.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-no-equiprobable"]
   }
 ]

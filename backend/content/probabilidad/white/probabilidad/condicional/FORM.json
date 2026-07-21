@@ -15,10 +15,51 @@
       "Estás invirtiendo la fracción; el denominador es siempre la probabilidad de la condición conocida ($B$).",
       "La condicional no se resuelve restando; se define como el cociente entre intersección y condición."
     ],
-    "explanation": "La **probabilidad condicional** se define como:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\n\nCon los datos:\n$$P(A|B) = \\frac{0{,}15}{0{,}6} = 0{,}25$$\n\nUna confusión típica es invertir numerador y denominador (poner $P(B)$ arriba): el denominador es siempre la probabilidad de lo que se sabe que ocurrió, y el numerador es la probabilidad de que ambos eventos ocurran a la vez.",
+    "explanation": "La **probabilidad condicional** se define como:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}$$\nCon los datos:\n$$P(A|B) = \\frac{0{,}15}{0{,}6} = 0{,}25$$\nUna confusión típica es invertir numerador y denominador (poner $P(B)$ arriba): el denominador es siempre la probabilidad de lo que se sabe que ocurrió, y el numerador es la probabilidad de que ambos eventos ocurran a la vez.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-directa"]
+  },
+  {
+    "question": "Se sabe que $P(A|B)=0{,}4$ y $P(B)=0{,}25$.\n\n¿Qué expresión permite calcular $P(A\\cap B)$?",
+    "options": ["$P(A|B)\\cdot P(B)$", "$P(A|B)/P(B)$", "$P(A|B)+P(B)$"],
+    "correct_index": 0,
+    "feedback_correct": "Despejando de la fórmula condicional, la intersección es el producto.",
+    "feedback_incorrect": [
+      null,
+      "Ese cociente correspondería si se buscara $P(A|B)$ conociendo $P(A\\cap B)$ y $P(B)$, no al revés.",
+      "La intersección no se obtiene sumando; la fórmula condicional relaciona estos valores por un producto."
+    ],
+    "explanation": "De la definición $P(A|B) = P(A\\cap B)/P(B)$ se puede despejar la intersección multiplicando ambos lados por $P(B)$:\n$$P(A\\cap B) = P(A|B)\\cdot P(B)$$\nCon los valores dados, $P(A\\cap B) = 0{,}4\\times 0{,}25 = 0{,}1$.\n\nLa confusión típica es dividir en vez de multiplicar al despejar, confundiendo la dirección de la operación inversa.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["despejar-interseccion"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde correctamente a la probabilidad condicional $P(A|B)$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$\\dfrac{P(A\\cap B)}{P(B)}$",
+      "$\\dfrac{P(B)}{P(A\\cap B)}$",
+      "$\\dfrac{P(A)}{P(B)}$",
+      "$P(A\\cap B)\\cdot P(B)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El condicional divide la intersección por la probabilidad de la condición conocida.",
+    "feedback_incorrect": [
+      null,
+      "Esa fracción invierte numerador y denominador respecto de la definición correcta.",
+      "Esa fracción usa $P(A)$ en vez de $P(A\\cap B)$ en el numerador, ignorando la restricción a $B$.",
+      "Ese producto no corresponde a ninguna forma válida de la fórmula condicional."
+    ],
+    "explanation": "La **probabilidad condicional** de $A$ dado $B$ se define como el cociente entre la probabilidad de que ambos ocurran y la probabilidad de la condición conocida:\n$$P(A|B) = \\frac{P(A\\cap B)}{P(B)}$$\nLas otras expresiones invierten el cociente o usan $P(A)$ en vez de $P(A\\cap B)$, ignorando que hay que restringir al espacio de $B$.\n\nLa confusión típica es olvidar que el numerador debe ser específicamente la intersección, no la probabilidad simple de $A$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]

@@ -13,10 +13,49 @@
       "El complemento se aplica al evento contrario, no a un condicional; además el condicional no está determinado solo por $P(B)$.",
       "Podés multiplicar $P(A) \\cdot P(B)$ solo si sabés que $A$ y $B$ son independientes, y $0{,}4 \\cdot 0{,}5 = 0{,}2$ coincide, pero eso es una consecuencia, no la fórmula del condicional."
     ],
-    "explanation": "La **probabilidad condicional** mide la probabilidad de un evento sabiendo que ya ocurrió otro:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}, \\quad P(B) > 0$$\n\nCon los datos: $P(A|B) = 0{,}2 / 0{,}5 = 0{,}4$.\n\nLa lectura conceptual es que el espacio muestral \"se reduce\" a $B$ y la probabilidad de $A$ se recalcula sobre esa restricción. La confusión típica es mezclar independencia (que multiplica) con condicional (que divide): el condicional siempre normaliza por la condición conocida.",
+    "explanation": "La **probabilidad condicional** mide la probabilidad de un evento sabiendo que ya ocurrió otro:\n$$P(A|B) = \\frac{P(A \\cap B)}{P(B)}, \\quad P(B) > 0$$\nCon los datos: $P(A|B) = 0{,}2 / 0{,}5 = 0{,}4$.\n\nLa lectura conceptual es que el espacio muestral \"se reduce\" a $B$ y la probabilidad de $A$ se recalcula sobre esa restricción. La confusión típica es mezclar independencia (que multiplica) con condicional (que divide): el condicional siempre normaliza por la condición conocida.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["reconocer-condicional"]
+  },
+  {
+    "question": "En una fábrica, $P(\\text{defectuosa})=0{,}05$.\n\nSe elige una pieza al azar de toda la producción y se pregunta por la probabilidad de que sea defectuosa.\n\n¿Qué estrategia corresponde?",
+    "options": [
+      "Usar directamente $P(\\text{defectuosa})=0{,}05$, sin condicional.",
+      "Aplicar $P(A|B)=P(A\\cap B)/P(B)$ con algún evento $B$.",
+      "Calcular el complemento de la probabilidad dada."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "No hay ninguna condición previa mencionada: es probabilidad simple, no condicional.",
+    "feedback_incorrect": [
+      null,
+      "No hay ningún evento $B$ que ya se sepa que ocurrió; aplicar la fórmula condicional acá no tiene sentido.",
+      "La pregunta no pide el evento contrario, pide directamente la probabilidad de ser defectuosa."
+    ],
+    "explanation": "No toda pregunta con probabilidades es un problema de **condicional**: hace falta que el enunciado indique que ya se sabe que ocurrió otro evento antes de preguntar por el primero.\n\nAcá se pregunta por $P(\\text{defectuosa})$ sobre toda la producción, sin ninguna restricción previa, así que el dato $0{,}05$ ya es la respuesta directa.\n\nLa confusión típica es aplicar la fórmula condicional por reflejo ante cualquier problema de probabilidad, sin verificar primero si el enunciado realmente impone una condición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["distractor-probabilidad-simple"]
+  },
+  {
+    "question": "En un hospital, se sabe que entre los pacientes que dieron positivo en un test ($B$), cierta proporción realmente tiene la enfermedad ($A$).\n\nSe pregunta: dado que un paciente dio positivo, ¿cuál es la probabilidad de que tenga la enfermedad?\n\n¿Qué expresión corresponde?",
+    "options": ["$P(A|B)$", "$P(B|A)$", "$P(A\\cap B)$"],
+    "correct_index": 0,
+    "feedback_correct": "La condición dada es «dio positivo» ($B$), y se pregunta por «tiene la enfermedad» ($A$): es $P(A|B)$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión pregunta lo opuesto: la probabilidad de dar positivo sabiendo que tiene la enfermedad, no lo que pide el enunciado.",
+      "La intersección no restringe el espacio a la condición conocida, solo da la probabilidad de que ambos eventos ocurran a la vez."
+    ],
+    "explanation": "Al identificar un condicional, hay que distinguir cuál evento aparece como **condición** (lo que ya se sabe que ocurrió) y cuál es la **incógnita** (lo que se pregunta).\n\nAcá la condición es «dio positivo» ($B$) y la incógnita es «tiene la enfermedad» ($A$), así que la expresión correcta es $P(A|B)$.\n\nLa confusión típica es invertir el orden y calcular $P(B|A)$ (probabilidad de dar positivo sabiendo que tiene la enfermedad), que es una pregunta distinta con un valor generalmente distinto.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-direccion-condicional"]
   }
 ]

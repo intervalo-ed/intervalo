@@ -15,10 +15,53 @@
       "Ese es el condicional $P(B|A_1)$ para un solo escenario, no la probabilidad total.",
       "Esa expresión mezcla probabilidades de la partición con $P(B)$ sin sentido conceptual claro."
     ],
-    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{A_1, \\dots, A_n\\}$ es una partición del espacio muestral (excluyentes y cubren todo $\\Omega$):\n$$P(B) = \\sum_i P(B|A_i) \\cdot P(A_i)$$\n\nCada término suma la contribución de $B$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nLa confusión típica es sumar los condicionales sin ponderar: sin el peso $P(A_i)$ la suma no representa una probabilidad válida (puede superar 1) y pierde la lógica de \"mezcla\" de los escenarios.",
+    "explanation": "El **teorema de la probabilidad total** aplica cuando $\\{A_1, \\dots, A_n\\}$ es una partición del espacio muestral (excluyentes y cubren todo $\\Omega$):\n$$P(B) = \\sum_i P(B|A_i) \\cdot P(A_i)$$\nCada término suma la contribución de $B$ dentro de cada escenario, pesada por qué tan probable es ese escenario.\n\nLa confusión típica es sumar los condicionales sin ponderar: sin el peso $P(A_i)$ la suma no representa una probabilidad válida (puede superar 1) y pierde la lógica de \"mezcla\" de los escenarios.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["formula-dos-escenarios"]
+  },
+  {
+    "question": "Sean $A_1, A_2, A_3$ una partición de $\\Omega$ y $B$ un evento cualquiera.\n\n¿Qué expresión corresponde al teorema de la probabilidad total para $P(B)$ con 3 escenarios?",
+    "options": [
+      "$P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)$",
+      "$P(B|A_1)+P(B|A_2)+P(B|A_3)$",
+      "$P(A_1)P(A_2)P(A_3)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Se suman los 3 términos, cada uno ponderado por el peso de su escenario.",
+    "feedback_incorrect": [
+      null,
+      "Faltan los pesos $P(A_i)$: sumar condicionales sin ponderar no da una probabilidad válida.",
+      "Ese producto multiplica los pesos de los escenarios entre sí, sin involucrar ninguna probabilidad condicional de $B$."
+    ],
+    "explanation": "El teorema de la probabilidad total se extiende directamente a cualquier cantidad de escenarios de la partición: cada uno aporta su condicional ponderado por su propio peso.\n$$P(B) = P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+P(B|A_3)P(A_3)$$\nCon 3 escenarios, simplemente se suma un tercer término más respecto del caso de 2 escenarios.\n\nLa confusión típica es olvidar alguno de los 3 términos de la suma, dejando el cálculo incompleto al aumentar la cantidad de escenarios.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["formula-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Entre las siguientes expresiones, se busca identificar cuál corresponde correctamente al teorema de la probabilidad total con 2 escenarios $A_1, A_2$.\n\n¿Cuál es la expresión correcta?",
+    "options": [
+      "$P(B|A_1)P(A_1)+P(B|A_2)P(A_2)$",
+      "$P(A_1|B)P(A_1)+P(A_2|B)P(A_2)$",
+      "$P(B|A_1)P(A_2)+P(B|A_2)P(A_1)$"
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Cada condicional se pondera por el peso de SU PROPIO escenario, en el orden correcto.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión invierte el condicional, usando $P(A_i|B)$ en vez de $P(B|A_i)$.",
+      "Esa expresión cruza los pesos: cada condicional debe multiplicarse por el peso de su propio escenario, no el del otro."
+    ],
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional exactamente por el peso de su propio escenario:\n$$P(B) = P(B|A_1)P(A_1)+P(B|A_2)P(A_2)$$\nLas otras variantes invierten el condicional o cruzan los pesos entre escenarios, dos errores distintos que rompen la fórmula.\n\nLa confusión típica es armar el producto con el peso equivocado (el del otro escenario) o confundir la dirección del condicional dentro de cada término.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["identificar-formula-correcta"]
   }
 ]
