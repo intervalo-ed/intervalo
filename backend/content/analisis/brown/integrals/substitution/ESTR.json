@@ -310,7 +310,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente conservado.\n$$\\begin{aligned} u &= -x+5 \\\\ du &= -dx \\\\ dx &= -du \\end{aligned}$$\nAunque el coeficiente sea $-1$, el signo es parte del **diferencial** y debe despejarse con cuidado, sin desaparecer del resultado final.",
+    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado. La constante $+5$ desaparece en la derivación.\n$$\\begin{aligned} u &= -x+5 \\\\ du &= -dx \\\\ dx &= -du \\end{aligned}$$\nAunque el coeficiente sea el simple $-1$, el signo es una parte crítica del **diferencial** y debe despejarse cuidadosamente sin omisiones, porque afecta el resultado final de la integración.",
     "reviewed": false,
     "tags": ["ajuste-del-diferencial"]
   }
