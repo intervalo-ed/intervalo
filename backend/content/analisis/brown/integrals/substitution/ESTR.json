@@ -121,7 +121,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es $\\ln x$, y su **derivada** es $\\frac{1}{x}$.\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nReconocer este patrón, una función trascendente como interior, es clave para identificar sustituciones con logaritmos y funciones trigonométricas.",
+    "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nReconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
     "reviewed": false,
     "tags": ["identificacion-anatomica-de-u"]
   },
@@ -142,7 +142,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente en el integrando.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste caso no necesita ningún ajuste de **diferencial**, el $2x\\,dx$ del integrando coincide exactamente con $du$.",
+    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**. El cambio de variable simplifica la integral inmediatamente.",
     "reviewed": false,
     "tags": ["identificacion-anatomica-de-u"]
   },
