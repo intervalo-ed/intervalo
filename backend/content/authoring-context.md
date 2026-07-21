@@ -65,9 +65,11 @@ Estas reglas son las que más se violan y las que más rompen el render o la coh
 19. **Opciones compuestas: no repetir la etiqueta de eje/variable si la pregunta ya fija el orden.** Cuando una opción combina dos o más valores relacionados (ej. intercepto en $X$ y en $Y$) y la pregunta ya establece en qué orden se piden, no hace falta prefijar cada valor con su rótulo dentro de la opción.
     - ❌ `"Eje $X$: $x=-\dfrac{1}{2}$; eje $Y$: $y=\dfrac{1}{5}$"` (la pregunta ya pidió "el intercepto con el eje $X$ y el eje $Y$", en ese orden)
     - ✅ `"$x=-\dfrac{1}{2}$, $y=\dfrac{1}{5}$"`
-20. **En `options` con fracciones cortas destinadas a grilla 2×2, preferir notación de barra (`x/y`) sobre `\frac{x}{y}`/`\dfrac{x}{y}`.** Cuando las 4 opciones son valores numéricos cortos que van a activar la grilla compacta, una fracción apilada (`\frac`/`\dfrac`) ocupa más alto que las demás opciones y rompe la uniformidad visual de la grilla. Usá `1/3` en vez de `\dfrac{1}{3}` en ese contexto. Esto es una excepción puntual a la preferencia general por LaTeX (regla de *Notación consistente*): acá el criterio es "todas las opciones ocupan una sola línea pareja", no la densidad simbólica.
-    - ❌ `["$-3$", "$6$", "$\dfrac{1}{3}$", "$3$"]` (la fracción apilada desentona en altura con los enteros)
-    - ✅ `["$-3$", "$6$", "$1/3$", "$3$"]`
+20. **En `options` de 4 fracciones cortas, usar `\dfrac{x}{y}` (apilada, displaystyle) en todas, no notación de barra (`x/y`) ni `\frac` (textstyle, se ve chica).** Cuando las 4 opciones son fracciones cortas (numerador y denominador de 1-2 dígitos, con o sin `\sqrt`), `\dfrac` en las 4 mantiene la altura uniforme entre sí y activa la grilla 2×2 igual (el heurístico de `latexVisualLength` en `session-runner.tsx` pesa `\dfrac` 1.4x por ser más ancho por carácter que `\frac`, pero el límite de 12 sigue sobrando para fracciones de 1-2 dígitos). Si el set **mezcla** fracciones con enteros sueltos (`$-3$`, `$6$`, `$\dfrac{1}{3}$`, `$3$`), ahí sí la fracción apilada desentona en altura contra los enteros: en ese caso puntual, usar `x/y` de barra para los términos fraccionarios, no `\dfrac`.
+    - ❌ `["$\frac{1}{2}$", "$\frac{2}{3}$", "$\frac{1}{4}$", "$\frac{3}{4}$"]` (frac textstyle, se ve chico y desparejo con el resto de la UI)
+    - ✅ `["$\dfrac{1}{2}$", "$\dfrac{2}{3}$", "$\dfrac{1}{4}$", "$\dfrac{3}{4}$"]`
+    - ❌ `["$-3$", "$6$", "$\dfrac{1}{3}$", "$3$"]` (mezcla fracción con enteros sueltos, la fracción apilada desentona en altura)
+    - ✅ `["$-3$", "$6$", "$1/3$", "$3$"]` (mezcla: acá sí, barra)
 21. **2 o más fragmentos LaTeX inline (`$...$`) en el mismo párrafo de `explanation` es señal de dividir el párrafo.** No es solo una preferencia de estilo, es un umbral concreto: si una oración o párrafo acumula 2+ expresiones `$...$` sueltas tejidas en la prosa, separalo en párrafos más cortos (`\n\n`) o sacá la fórmula central a un bloque `$$...$$`. Párrafos con múltiples inline sueltos leen como una lista de verificaciones (`✓`/`✗`) camuflada en prosa, no como una explicación narrada.
     - ❌ `Verificando cada opción: $-\cos(0)=-1$ y $-\cos(\pi)=1$. Las otras: $\operatorname{sen}(0)=0$; $-\operatorname{sen}(0)=0$; $\cos(0)=1$.` (5 fragmentos inline en un solo párrafo, ilegible)
     - ✅ separar la verificación de la opción correcta (con su fórmula en bloque `$$...$$` si hace falta) del resto en un párrafo aparte, narrando en prosa por qué las demás no cumplen sin encadenar todos los cálculos sueltos.
@@ -203,7 +205,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - **Respuesta numérica corta** (un número, un conjunto chico, un intervalo, una expresión tipo `x ≥ 3`): **4 opciones**. Cuatro variantes del error de cálculo son cómodas de distinguir y **triggean la grilla 2×2** del frontend (ver límites exactos más abajo, distintos si la opción tiene LaTeX o es texto plano).
 - **Binario** (2 opciones): reservado para casos donde el criterio es genuinamente binario y no hay una tercera confusión plausible (ej. "¿cumple unicidad? Sí/No"). En LEXI y CLSF de definición esto es raro, casi siempre hay una tercera confusión.
 
-**Regla mecánica:** si las respuestas son valores numéricos (`$5$`, `$\{1,2,3\}$`, `$x \geq 3$`) o expresiones cortas, hacé 4 opciones y verificá que todas quepan en el límite de caracteres correspondiente (≤16 si la opción tiene `$...$`, ≤25 si es texto plano) para que el frontend las renderice en grilla 2×2 compacta. Si la respuesta es un párrafo, una descripción, o una ecuación completa (`$C(h) = 300 + 150h$`), hacé 3 opciones (no van a entrar en grilla y quedan como lista vertical) — una ecuación con operadores y coeficientes desborda la caja de la grilla aunque el string crudo sea corto, porque KaTeX renderiza el LaTeX mucho más ancho por carácter que texto plano.
+**Regla mecánica:** si las respuestas son valores numéricos (`$5$`, `$\{1,2,3\}$`, `$x \geq 3$`, fracciones cortas `$\dfrac{5}{12}$`) o expresiones cortas, hacé 4 opciones y verificá que todas quepan en el límite correspondiente (ancho visual estimado ≤12 si la opción tiene `$...$`, ≤25 caracteres crudos si es texto plano) para que el frontend las renderice en grilla 2×2 compacta. Si la respuesta es un párrafo, una descripción, o una ecuación completa (`$C(h) = 300 + 150h$`), hacé 3 opciones (no van a entrar en grilla y quedan como lista vertical) — una ecuación con operadores y coeficientes desborda la caja de la grilla aunque el string crudo sea corto, porque KaTeX renderiza el LaTeX mucho más ancho por carácter que texto plano.
 
 **Guía por skill:**
 - `ESTR`, `CLSF` (conceptual): **3 opciones por defecto.** Binario solo si el criterio es genuinamente sí/no y no hay tercera confusión.
@@ -211,7 +213,7 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 - `GRAF` (lectura de gráfico): 3 cuando la propiedad leída es categórica; 4 cuando hay que elegir entre fórmulas o valores numéricos leídos del gráfico (grilla 2×2 si son cortos).
 - `RESL` (cálculo, incluida aplicación en contexto): **4 sigue siendo el default**, porque acá la cantidad de errores de procedimiento clásicos sí sostiene 4 distractores reales. Si los 4 son numéricos cortos, se renderizan en grilla 2×2.
 
-**Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4` y todas las opciones caben en el límite de caracteres correspondiente: **≤16 si alguna opción contiene `$` (LaTeX)**, **≤25 si el set es texto plano**. El límite es más estricto en LaTeX porque KaTeX renderiza mucho más ancho por carácter que texto normal (cursiva, espaciado de operadores). Aprovechá el compactado siempre que la respuesta lo permita, pero no fuerces una ecuación completa a entrar recortando texto: si no entra en el límite, va como lista vertical de 3 o 4 opciones.
+**Grilla 2×2 en frontend:** el componente activa layout `grid grid-cols-2` cuando `options.length === 4` y todas las opciones caben en el límite correspondiente: **ancho visual estimado ≤12 si alguna opción contiene `$` (LaTeX)**, **≤25 caracteres crudos si el set es texto plano**. El límite es más estricto en LaTeX porque KaTeX renderiza mucho más ancho por carácter que texto normal (cursiva, espaciado de operadores); fracciones cortas (`\frac`/`\dfrac`, 1-2 dígitos por numerador/denominador) entran cómodas en ese límite. Aprovechá el compactado siempre que la respuesta lo permita, pero no fuerces una ecuación completa a entrar recortando texto: si no entra en el límite, va como lista vertical de 3 o 4 opciones.
 
 **Precedente:** unicidad en `CLSF` reformulada como "¿esta función cumple el criterio de unicidad?" con 2 opciones (Sí/No), caso raro de binario legítimo.
 
@@ -221,16 +223,16 @@ El `external_id` se infiere de la ruta del archivo (`{belt}_{topic}_{skill}_{NN}
 
 Para el skill de cálculo (`RESL`) y para cualquier ejercicio de respuesta numérica corta, cuando las 4 opciones son valores numéricos o expresiones cortas, el front las presenta en una **grilla compacta 2×2** en vez de la lista vertical apilada.
 
-**Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4` y todas las opciones caben en el límite de caracteres correspondiente (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, función `hasLatex`/`limit` cerca de la línea 435):
+**Estado: implementado.** El componente activa el layout `grid grid-cols-2` cuando `exercise.options.length === 4` y todas las opciones caben en el límite correspondiente (ver `web/src/app/(app)/session/[sessionId]/session-runner.tsx`, función `latexVisualLength`/`hasLatex`/`limit` cerca de la línea 460):
 
-- **Si alguna opción contiene `$` (LaTeX)**: límite **≤16 caracteres** por opción.
-- **Si ninguna opción tiene `$` (texto plano)**: límite **≤25 caracteres** por opción.
+- **Si alguna opción contiene `$` (LaTeX)**: límite **≤12**, medido no en caracteres crudos sino en un ancho visual estimado (`latexVisualLength`): `\operatorname{}`/`\sqrt{}`/`\frac{}{}`/`\dfrac{}{}`/funciones nombradas (`\sin`, `\log`, etc.) se colapsan a su ancho aproximado en pantalla en vez de contar cada carácter de código LaTeX. `\dfrac` pesa 1.4x el ancho de `\frac` (displaystyle vs. textstyle, más ancho por carácter).
+- **Si ninguna opción tiene `$` (texto plano)**: límite **≤25 caracteres** crudos por opción.
 
-El límite de LaTeX es más chico porque KaTeX renderiza mucho más ancho por carácter que texto plano: una ecuación como `$C(h) = 300 + 150h$` (19 caracteres crudos) desborda la caja de la grilla aunque el string sea corto. Reservá la grilla para valores/expresiones genuinamente cortas (`$5$`, `$x \geq 3$`, `$\{1,2,3\}$`, `$(-1, -5)$`), no para ecuaciones completas con operadores y coeficientes.
+El heurístico de LaTeX existe porque contar caracteres crudos sobre/subestima el ancho real: una ecuación como `$C(h) = 300 + 150h$` desborda la caja de la grilla aunque el string sea corto, mientras que `$\dfrac{5}{12}$` (14 caracteres crudos) es en realidad angosta una vez colapsada la fracción. Reservá la grilla para valores/expresiones genuinamente cortas (`$5$`, `$x \geq 3$`, `$\{1,2,3\}$`, `$(-1, -5)$`, fracciones de 1-2 dígitos como `$\dfrac{5}{12}$`), no para ecuaciones completas con operadores y coeficientes.
 
 **Ojo con `\;` y otros comandos de espaciado LaTeX en pares ordenados.** El heurístico cuenta caracteres crudos, no ancho renderizado: preferí un espacio común después de la coma (`$(-1, -5)$`) en vez de `\;` (`$(-1,\; -5)$`), que suma caracteres sin sumar ancho visual real.
 
-**Nunca** metas HTML ni tablas dentro del string de `options` para forzar una grilla: el `options` es un array plano de strings y el layout lo decide el componente. Tu única palanca es la cardinalidad (4) y la longitud (≤16 con LaTeX, ≤25 en texto plano) de cada opción.
+**Nunca** metas HTML ni tablas dentro del string de `options` para forzar una grilla: el `options` es un array plano de strings y el layout lo decide el componente. Tu única palanca es la cardinalidad (4) y la longitud (ancho visual ≤12 con LaTeX, ≤25 caracteres en texto plano) de cada opción.
 
 ---
 
@@ -572,7 +574,7 @@ Están duplicadas arriba a propósito, para que también estén disponibles al f
 - NUNCA repetir la etiqueta de eje/variable en una opción compuesta si la pregunta ya fija el orden de los valores.
 - NUNCA describir en prosa, antes de la pregunta, rasgos de un gráfico que el gráfico ya muestra directamente (distinto del contexto cotidiano real, que sí va).
 - NUNCA envolver un `\begin{aligned}` en `$...$` inline; siempre `$$...$$` display, con un solo `\\` por salto de línea (nunca `\\\\`).
-- NUNCA usar `\frac`/`\dfrac` en opciones cortas de grilla 2×2 cuando una notación de barra (`1/3`) mantiene todas las opciones a la misma altura.
+- NUNCA usar `\frac` (textstyle, se ve chico) en opciones de fracciones cortas de grilla 2×2; usar `\dfrac` (apilada, displaystyle) en las 4. Reservar la notación de barra (`1/3`) para cuando el set mezcla fracciones con enteros sueltos y la fracción apilada desentona en altura contra ellos.
 - NUNCA acumular 2 o más fórmulas LaTeX inline sueltas en el mismo párrafo de `explanation`; es señal de dividir el párrafo o subir la fórmula central a `$$...$$`.
 - NUNCA agregar el nombre de familia entre paréntesis al lado de una opción que ya es una fórmula autoexplicativa.
 - NUNCA declarar una regla, clasificación o resultado en el concepto abstracto sin razonar el mecanismo que lo produce.
