@@ -276,7 +276,7 @@
     "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int 2x\\,e^{x^2}\\,dx$$",
+    "question": "Integrá por sustitución:\n$$\\int 2x\\,e^{x^2}\\,dx$$",
     "options": [
       "$e^{x^2}+C$",
       "$2xe^{x^2}+C$",
@@ -294,11 +294,12 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\\\ &= e^{x^2}+C \\end{aligned}$$\nCuando el factor que multiplica coincide exactamente con $du$, sin ningún coeficiente sobrante, el resultado no necesita ningún ajuste adicional.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2$. Cuando el factor multiplicador coincide exactamente con $du$, no necesitamos ajuste de constante adicional.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$",
+    "question": "Resolvé aplicando sustitución:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|\\sin x|+C$",
@@ -316,8 +317,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|\\sin x|+C \\end{aligned}$$\nEste patrón, derivada del denominador en el numerador, es el mismo que dispara el logaritmo en cualquier fracción de este tipo.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\sin x$. Este patrón, donde el numerador es la derivada del denominador, siempre dispara el logaritmo.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
     "question": "Calculá\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
