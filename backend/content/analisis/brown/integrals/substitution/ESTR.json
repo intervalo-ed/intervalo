@@ -126,7 +126,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Para resolver\n$$\\int 2x\\,e^{x^2}\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "question": "Reconocé el patrón en:\n$$\\int 2x\\,e^{x^2}\\,dx$$\nPor **integración por sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=x^2$",
       "$u=2x$",
@@ -147,7 +147,7 @@
     "tags": ["identificacion-anatomica-de-u"]
   },
   {
-    "question": "Para resolver\n$$\\int \\cos x \\sin^3 x\\,dx$$\npor sustitución, ¿cuál es la elección correcta de $u$?",
+    "question": "Estudiá la estructura de:\n$$\\int \\cos x \\sin^3 x\\,dx$$\nAl usar **sustitución**, ¿cuál es la elección correcta de $u$?",
     "options": [
       "$u=\\sin^3 x$",
       "$u=\\sin x$",
