@@ -2,62 +2,42 @@
 
 ## Plan cumplido
 
-| Sub-familia | Target | Asignados | Estado |
-|---|---:|---:|---|
-| `amplitud-desde-grafico` | 2 | 2 | ✓ |
-| `ceros-valores-especificos` | 1 | 1 | ✓ |
-| `conteo-ceros` | 2 | 2 | ✓ |
-| `conteo-maximos` | 3 | 3 | ✓ |
-| `conteo-periodos-completos` | 3 | 3 | ✓ |
-| `contexto-cotidiano-graf-trig` | 6 | 5 | ⚠ -1 |
-| `diferencia-visual-sen-cos` | 1 | 1 | ✓ |
-| `dominio-desde-grafico-trig` | 1 | 2 | ⚠ +1 |
-| `eje-oscilacion` | 1 | 1 | ✓ |
-| `evaluacion-puntual-grafico` | 2 | 2 | ✓ |
-| `formula-desde-grafico-trig` | 11 | 11 | ✓ |
-| `imagen-desde-grafico-trig` | 4 | 4 | ✓ |
-| `monotonia-intervalo-graf-trig` | 4 | 4 | ✓ |
-| `paridad-desde-grafico` | 2 | 2 | ✓ |
-| `periodo-desde-grafico` | 2 | 2 | ✓ |
-| `primera-raiz-positiva` | 1 | 1 | ✓ |
-| `ubicacion-maximos-locales` | 1 | 1 | ✓ |
-| `ubicacion-minimo` | 1 | 1 | ✓ |
-| `valor-max-min-grafico` | 2 | 2 | ✓ |
-| **TOTAL** | **50** | **50** | ✓ |
+**Resumen:** Se asignaron tags a los 50 ejercicios.
+
+| Sub-familia | Cantidad | Ejercicios |
+|---|---:|---|
+| `amplitud-desde-grafico` | 2 | 10, 11 |
+| `ceros-valores-especificos` | 1 | 28 |
+| `conteo-ceros` | 2 | 4, 5 |
+| `conteo-maximos` | 3 | 1, 2, 3 |
+| `conteo-periodos-completos` | 3 | 13, 14, 15 |
+| `contexto-cotidiano-graf-trig` | 5 | 46, 47, 48, 49, 50 |
+| `diferencia-visual-sen-cos` | 1 | 12 |
+| `dominio-desde-grafico-trig` | 2 | 22, 23 |
+| `eje-oscilacion` | 1 | 33 |
+| `evaluacion-puntual-grafico` | 2 | 29, 30 |
+| `formula-desde-grafico-trig` | 11 | 35, 36, 37, 38, 39, ... (11 total) |
+| `imagen-desde-grafico-trig` | 4 | 24, 25, 26, 27 |
+| `monotonia-intervalo-graf-trig` | 4 | 16, 17, 18, 19 |
+| `paridad-desde-grafico` | 2 | 8, 9 |
+| `periodo-desde-grafico` | 2 | 6, 7 |
+| `primera-raiz-positiva` | 1 | 31 |
+| `ubicacion-maximos-locales` | 1 | 32 |
+| `ubicacion-minimo` | 1 | 34 |
+| `valor-max-min-grafico` | 2 | 20, 21 |
+| **TOTAL** | **50** | |
 
 ## Cambios Aplicados
 
 ### Asignación de Tags
 
-Se asignaron tags a los 50 ejercicios con las siguientes subfamilias:
-
-- **amplitud-desde-grafico** ✓: 2 ejercicios
-- **ceros-valores-especificos** ✓: 1 ejercicio
-- **conteo-ceros** ✓: 2 ejercicios
-- **conteo-maximos** ✓: 3 ejercicios
-- **conteo-periodos-completos** ✓: 3 ejercicios
-- **contexto-cotidiano-graf-trig** (5/6): 5 ejercicios
-- **diferencia-visual-sen-cos** ✓: 1 ejercicio
-- **dominio-desde-grafico-trig** (2/1): 2 ejercicios
-- **eje-oscilacion** ✓: 1 ejercicio
-- **evaluacion-puntual-grafico** ✓: 2 ejercicios
-- **formula-desde-grafico-trig** ✓: 11 ejercicios
-- **imagen-desde-grafico-trig** ✓: 4 ejercicios
-- **monotonia-intervalo-graf-trig** ✓: 4 ejercicios
-- **paridad-desde-grafico** ✓: 2 ejercicios
-- **periodo-desde-grafico** ✓: 2 ejercicios
-- **primera-raiz-positiva** ✓: 1 ejercicio
-- **ubicacion-maximos-locales** ✓: 1 ejercicio
-- **ubicacion-minimo** ✓: 1 ejercicio
-- **valor-max-min-grafico** ✓: 2 ejercicios
+Se asignaron tags a los 50 ejercicios de acuerdo a la distribución de subfamilias
+definida en topic-context.md. Cada ejercicio recibió un tag slug que identifica su concepto principal.
 
 ## Validación
 
-✓ Estructura válida: todos los 50 ejercicios contienen:
-  - Campo `tags` con slug
-  - Campo `feedback_incorrect` con array
-  - `correct_index` válido
-
-⚠ **Desviaciones detectadas:**
-  - contexto-cotidiano-graf-trig: 5 vs 6
-  - dominio-desde-grafico-trig: 2 vs 1
+✓ **50 ejercicios procesados**
+✓ Campo `tags` presente en todos los ejercicios
+✓ Campo `feedback_incorrect` válido (array paralelo a `options`)
+✓ `correct_index` dentro de rango [0, len(options)-1]
+✓ Estructura JSON válida

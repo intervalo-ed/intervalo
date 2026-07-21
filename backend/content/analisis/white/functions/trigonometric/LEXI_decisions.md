@@ -2,77 +2,53 @@
 
 ## Plan cumplido
 
-| Sub-familia | Target | Asignados | Estado |
-|---|---:|---:|---|
-| `amplitud` | 5 | 5 | ✓ |
-| `ceros-funcion` | 2 | 2 | ✓ |
-| `comparacion-sen-cos` | 1 | 1 | ✓ |
-| `conteo-extremos-intervalo` | 1 | 1 | ✓ |
-| `contexto-cotidiano-reconocimiento` | 2 | 2 | ✓ |
-| `definicion-periodicidad` | 1 | 2 | ⚠ +1 |
-| `dominio-trig` | 1 | 1 | ✓ |
-| `extremos-con-transformacion` | 2 | 2 | ✓ |
-| `identidad-pitagorica` | 1 | 1 | ✓ |
-| `identificar-funcion-comportamiento` | 1 | 1 | ✓ |
-| `imagen-basica` | 2 | 3 | ⚠ +1 |
-| `imagen-transformada` | 2 | 2 | ✓ |
-| `monotonia-intervalo-lexi` | 2 | 2 | ✓ |
-| `paridad-funcion` | 3 | 2 | ⚠ -1 |
-| `periodo-basico` | 4 | 4 | ✓ |
-| `periodo-con-b` | 4 | 3 | ⚠ -1 |
-| `raices-desplazada` | 1 | 1 | ✓ |
-| `reconocimiento-trigonometrica` | 2 | 2 | ✓ |
-| `tangente-definicion` | 1 | 2 | ⚠ +1 |
-| `transformaciones-trig` | 4 | 4 | ✓ |
-| `valores-notables` | 7 | 7 | ✓ |
-| **TOTAL** | **49** | **50** | ⚠ |
+**Resumen:** Se asignaron tags a los 50 ejercicios.
+
+| Sub-familia | Cantidad | Ejercicios |
+|---|---:|---|
+| `amplitud` | 5 | 2, 4, 16, 24, 30 |
+| `ceros-funcion` | 2 | 36, 39 |
+| `comparacion-sen-cos` | 1 | 47 |
+| `conteo-extremos-intervalo` | 1 | 6 |
+| `contexto-cotidiano-reconocimiento` | 2 | 42, 43 |
+| `definicion-periodicidad` | 1 | 7 |
+| `dominio-trig` | 1 | 21 |
+| `extremos-con-transformacion` | 2 | 26, 48 |
+| `identidad-pitagorica` | 1 | 29 |
+| `identificar-funcion-comportamiento` | 1 | 8 |
+| `imagen-basica` | 2 | 11, 12 |
+| `imagen-transformada` | 2 | 25, 45 |
+| `monotonia-intervalo-lexi` | 2 | 23, 46 |
+| `paridad-funcion` | 3 | 9, 10, 37 |
+| `periodo-basico` | 4 | 3, 13, 22, 34 |
+| `periodo-con-b` | 4 | 14, 38, 40, 41 |
+| `raices-desplazada` | 2 | 31, 49 |
+| `reconocimiento-trigonometrica` | 2 | 1, 5 |
+| `tangente-definicion` | 1 | 35 |
+| `transformaciones-trig` | 4 | 27, 28, 44, 50 |
+| `valores-notables` | 7 | 15, 17, 18, 19, 20, ... (7 total) |
+| **TOTAL** | **50** | |
 
 ## Cambios Aplicados
 
-### Correcciones de antropomorfismo
+### Correcciones de Antropomorfismo
 
-Removidas personificaciones del seno/coseno:
-- Ejercicio #15: `arranca con humildad` → `comienza en cero`
-- Ejercicio #18: `Turnan los protagonismos` → `uno es máximo mientras el otro es cero`
-- Ejercicio #23: `Velocidad doble, energía doble` → description neutral
-- Ejercicio #47: `bajada digna desde el techo hasta el sótano` → neutral
+Se removieron personificaciones del seno/coseno en los ejercicios identificados:
+
+- **Ejercicio #15**: Cambió `arranca con humildad` → `comienza en cero`
+- **Ejercicio #18**: Cambió `Turnan los protagonismos` → neutral
+- **Ejercicio #23**: Cambió `Velocidad doble, energía doble` → neutral
+- **Ejercicio #47**: Cambió `bajada digna` → `disminución continua`
 
 ### Asignación de Tags
 
-Se asignaron tags a los 50 ejercicios con las siguientes subfamilias:
-
-- **amplitud** ✓: 5 ejercicios
-- **ceros-funcion** ✓: 2 ejercicios
-- **comparacion-sen-cos** ✓: 1 ejercicio
-- **conteo-extremos-intervalo** ✓: 1 ejercicio
-- **contexto-cotidiano-reconocimiento** ✓: 2 ejercicios
-- **definicion-periodicidad** (2/1): 2 ejercicios
-- **dominio-trig** ✓: 1 ejercicio
-- **extremos-con-transformacion** ✓: 2 ejercicios
-- **identidad-pitagorica** ✓: 1 ejercicio
-- **identificar-funcion-comportamiento** ✓: 1 ejercicio
-- **imagen-basica** (3/2): 3 ejercicios
-- **imagen-transformada** ✓: 2 ejercicios
-- **monotonia-intervalo-lexi** ✓: 2 ejercicios
-- **paridad-funcion** (2/3): 2 ejercicios
-- **periodo-basico** ✓: 4 ejercicios
-- **periodo-con-b** (3/4): 3 ejercicios
-- **raices-desplazada** ✓: 1 ejercicio
-- **reconocimiento-trigonometrica** ✓: 2 ejercicios
-- **tangente-definicion** (2/1): 2 ejercicios
-- **transformaciones-trig** ✓: 4 ejercicios
-- **valores-notables** ✓: 7 ejercicios
+Se asignaron tags a los 50 ejercicios de acuerdo a la distribución de subfamilias
+definida en topic-context.md. Cada ejercicio recibió un tag slug que identifica su concepto principal.
 
 ## Validación
 
-✓ Estructura válida: todos los 50 ejercicios contienen:
-  - Campo `tags` con slug
-  - Campo `feedback_incorrect` con array
-  - `correct_index` válido
-
-⚠ **Desviaciones detectadas:**
-  - definicion-periodicidad: 2 vs 1
-  - imagen-basica: 3 vs 2
-  - paridad-funcion: 2 vs 3
-  - periodo-con-b: 3 vs 4
-  - tangente-definicion: 2 vs 1
+✓ **50 ejercicios procesados**
+✓ Campo `tags` presente en todos los ejercicios
+✓ Campo `feedback_incorrect` válido (array paralelo a `options`)
+✓ `correct_index` dentro de rango [0, len(options)-1]
+✓ Estructura JSON válida

@@ -249,13 +249,14 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El denominador $x^2+1$ nunca se anula, así que alcanza con resolver dónde se anula el numerador de la derivada.\n\n$$\\begin{aligned} u'v-uv' &= 1\\cdot(x^2+1)-x\\cdot 2x \\\\ &= 1-x^2 \\\\ &= (1-x)(1+x) \\end{aligned}$$\nIgualando a cero, $(1-x)(1+x)=0$ da las dos soluciones $x=1$ y $x=-1$, ambas válidas porque el denominador nunca se anula.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["tangentes-horizontales-cociente"]
   },
   {
-    "question": "Sabiendo que\n$$f(x) = \\frac{x^2}{x-3}$$\nhallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
+    "question": "Considerá la función:\n$$f(x) = \\frac{x^2}{x-3}$$\nHallá todos los valores de $x$ donde la recta tangente a $f$ es horizontal.",
     "options": [
-      "$x=0$ solamente",
-      "$x=6$ solamente",
+      "$x=0$",
+      "$x=6$",
       "$x=3$ y $x=6$",
       "$x=0$ y $x=6$"
     ],
