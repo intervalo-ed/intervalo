@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa da $\\tfrac{0}{0}$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real. $$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla. El valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
+    "explanation": "Cuando la sustitución directa da una indeterminación $0/0$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real. $$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla. El valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"

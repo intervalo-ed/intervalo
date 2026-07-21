@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$, que da la **indeterminación** $\\tfrac{0}{0}$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara $\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
       "Factorizar",
@@ -219,18 +219,18 @@
     "feedback_incorrect": [
       "La racionalización se reserva para expresiones con raíz cuadrada, y acá el cociente es puramente polinómico.",
       null,
-      "La sustitución directa en $x=3$ da $\\tfrac{0}{0}$, así que hace falta transformar la expresión antes de evaluar."
+      "La sustitución directa en $x=3$ da una indeterminación $0/0$, así que hace falta transformar la expresión antes de evaluar."
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar cualquier técnica algebraica, conviene diagnosticar qué transformación necesita la expresión. El límite es una herramienta para entender el comportamiento de una función donde la sustitución directa falla; si la sustitución ya da un valor, ese valor es directamente el límite.\n\nDiagnosticar la técnica correcta empieza por revisar dos cosas: si aparece **indeterminación** al sustituir y si la expresión tiene alguna raíz cuadrada.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\nAl sustituir $x=3$ se obtiene $\\tfrac{0}{0}$, pero como no hay ninguna raíz en el cociente, la indeterminación se resuelve factorizando el polinomio del numerador, no racionalizando.\n\nLa racionalización solo entra en juego cuando la indeterminación viene acompañada de al menos una raíz cuadrada en la expresión.",
+    "explanation": "Antes de aplicar cualquier técnica algebraica, conviene diagnosticar qué transformación necesita la expresión. El límite es una herramienta para entender el comportamiento de una función donde la sustitución directa falla; si la sustitución ya da un valor, ese valor es directamente el límite.\n\nDiagnosticar la técnica correcta empieza por revisar dos cosas: si aparece **indeterminación** al sustituir y si la expresión tiene alguna raíz cuadrada.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\nAl sustituir $x=3$ se obtiene una indeterminación $0/0$, pero como no hay ninguna raíz en el cociente, la indeterminación se resuelve factorizando el polinomio del numerador, no racionalizando.\n\nLa racionalización solo entra en juego cuando la indeterminación viene acompañada de al menos una raíz cuadrada en la expresión.",
     "reviewed": false,
     "tags": [
       "diagnostico-racionalizar-vs-factorizar"
     ]
   },
   {
-    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$, que da la indeterminación $\\tfrac{0}{0}$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$, que da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
@@ -240,13 +240,13 @@
     "has_math": true,
     "feedback_correct": "Con una raíz cuadrada presente y una indeterminación al sustituir, corresponde multiplicar por el conjugado.",
     "feedback_incorrect": [
-      "Sustituir $x=0$ directamente da $\\tfrac{0}{0}$, así que hace falta transformar la expresión antes de poder evaluarla.",
+      "Sustituir $x=0$ directamente da una indeterminación $0/0$, así que hace falta transformar la expresión antes de poder evaluarla.",
       "El límite sí tiene solución: la indeterminación con raíz cuadrada se resuelve con la técnica del conjugado, no queda sin resolver.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Diagnosticar correctamente es el primer paso. Un límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** $\\tfrac{0}{0}$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+1}-1}{x}$$\nAl sustituir $x=0$ se obtiene $\\tfrac{0}{0}$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**: multiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
+    "explanation": "Diagnosticar correctamente es el primer paso. Un límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** una indeterminación $0/0$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+1}-1}{x}$$\nAl sustituir $x=0$ se obtiene una indeterminación $0/0$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**: multiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
     "reviewed": false,
     "tags": [
       "diagnostico-racionalizar-vs-factorizar"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1. Esta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con $\\tfrac{0}{0}$; si ya da un número, ese número es directamente el límite.",
+    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1. Esta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si multiplicamos solo el numerador, dejamos de multiplicar por 1: en cambio, multiplicamos la función original por algo distinto a 1, lo que modifica su valor y hace que el límite calculado ya no sea el del problema original.\n\nMultiplicar por el **conjugado** rompe la raíz mediante la **diferencia de cuadrados**, lo que deja expuesto un factor común con el denominador.\n$$\\frac{(\\sqrt{u}-c)(\\sqrt{u}+c)}{(x-a)(\\sqrt{u}+c)} = \\frac{u-c^2}{(x-a)(\\sqrt{u}+c)}$$\nSi $u - c^2$ resulta múltiplo de $(x-a)$, ese factor se cancela y la **indeterminación** desaparece antes de sustituir.\n\nSin esa cancelación, sustituir directamente seguiría dando $\\tfrac{0}{0}$: el conjugado es un medio para llegar al factor cancelable, no un fin en sí mismo.",
+    "explanation": "Si multiplicamos solo el numerador, dejamos de multiplicar por 1: en cambio, multiplicamos la función original por algo distinto a 1, lo que modifica su valor y hace que el límite calculado ya no sea el del problema original.\n\nMultiplicar por el **conjugado** rompe la raíz mediante la **diferencia de cuadrados**, lo que deja expuesto un factor común con el denominador.\n$$\\frac{(\\sqrt{u}-c)(\\sqrt{u}+c)}{(x-a)(\\sqrt{u}+c)} = \\frac{u-c^2}{(x-a)(\\sqrt{u}+c)}$$\nSi $u - c^2$ resulta múltiplo de $(x-a)$, ese factor se cancela y la **indeterminación** desaparece antes de sustituir.\n\nSin esa cancelación, sustituir directamente seguiría dando una indeterminación $0/0$: el conjugado es un medio para llegar al factor cancelable, no un fin en sí mismo.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

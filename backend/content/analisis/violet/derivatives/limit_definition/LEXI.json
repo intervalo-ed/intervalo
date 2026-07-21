@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental tiene la forma $\\frac{f(a+h)-f(a)}{h}$, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ y el denominador también queda $0$.\n\nEsa forma $\\frac{0}{0}$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
+    "explanation": "El cociente incremental tiene la forma $\\frac{f(a+h)-f(a)}{h}$, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ y el denominador también queda $0$.\n\nEsa forma una indeterminación $0/0$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
