@@ -230,7 +230,7 @@
     "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
-    "question": "Calculá\n$$\\int \\ln(2x)\\,dx$$",
+    "question": "Hallá:\n$$\\int \\ln(2x)\\,dx$$",
     "options": [
       "$-x+C$",
       "$\\ln(2x)-x+C$",
@@ -249,7 +249,8 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$, así que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["factor-oculto-reducciones-cortas"]
   },
   {
     "question": "Calculá\n$$\\int 3\\ln x\\,dx$$",
