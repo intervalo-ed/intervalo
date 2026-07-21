@@ -138,7 +138,7 @@
     "tags": ["sustitucion-lineal-inmediata"]
   },
   {
-    "question": "Calculá\n$$\\int \\cos(2x-1)\\,dx$$",
+    "question": "Mediante cambio de variable, resolvé:\n$$\\int \\cos(2x-1)\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\cos(2x-1)+C$",
       "$\\sin(2x-1)+C$",
@@ -156,11 +156,12 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(2x-1)+C \\end{aligned}$$\nEl término constante $-1$ dentro del argumento no afecta el ajuste del diferencial, solo el coeficiente $2$ que multiplica a $x$ importa.",
-    "reviewed": false
+    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nAl volver a $x$, reemplazamos $u$ por $2x-1$. Nota que el término constante $-1$ no afecta el **diferencial**, solo importa el coeficiente $2$ de $x$.",
+    "reviewed": false,
+    "tags": ["sustitucion-lineal-inmediata"]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{1}{2x+3}\\,dx$$",
+    "question": "Utilizando sustitución, resolvé:\n$$\\int \\frac{1}{2x+3}\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\ln(2x+3)+C$",
       "$\\ln|2x+3|+C$",
@@ -178,8 +179,9 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\\\ &= \\frac{1}{2}\\ln|2x+3|+C \\end{aligned}$$\nEl valor absoluto dentro del logaritmo es obligatorio siempre, sin importar si la sustitución lineal tiene coeficiente distinto de $1$.",
-    "reviewed": false
+    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $2x+3$. El valor absoluto dentro del logaritmo es obligatorio siempre, protegiendo el dominio completo de la función original.",
+    "reviewed": false,
+    "tags": ["sustitucion-grado-superior-trascendentes"]
   },
   {
     "question": "Calculá\n$$\\int x\\cos(x^2)\\,dx$$",
