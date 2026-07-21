@@ -1,5 +1,26 @@
 [
   {
+    "question": "Se lanza un dado de 6 caras, con espacio muestral $\\Omega=\\{1,2,3,4,5,6\\}$. Se propone el conjunto $B=\\{2,4,7\\}$.\n\n¿$B$ es un evento válido de este experimento?",
+    "options": [
+      "No, porque $7$ no pertenece a $\\Omega$.",
+      "Sí, porque tiene el mismo tamaño que otros eventos válidos.",
+      "Sí, porque todo conjunto de números es un evento válido."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "Un evento debe ser subconjunto de $\\Omega$; como $7\\notin\\Omega$, $B$ no es válido.",
+    "feedback_incorrect": [
+      null,
+      "El tamaño del conjunto no garantiza validez: lo que importa es que cada elemento pertenezca a $\\Omega$.",
+      "Un evento debe cumplir $A\\subseteq\\Omega$: no cualquier conjunto de números califica, solo los formados por resultados posibles."
+    ],
+    "explanation": "Un **evento** válido debe ser un subconjunto del espacio muestral: $A\\subseteq\\Omega$, es decir, cada uno de sus elementos debe ser un resultado posible del experimento.\n\nCon $\\Omega=\\{1,2,3,4,5,6\\}$, el conjunto $B=\\{2,4,7\\}$ incluye el $7$, que no es un resultado posible del dado, así que $B$ no es un evento válido.\n\nLa confusión típica es evaluar solo la forma del conjunto (cantidad de elementos, tipo de dato) sin verificar que cada elemento pertenezca efectivamente a $\\Omega$.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["validar-subconjunto"]
+  },
+  {
     "question": "Se lanza una moneda dos veces y se registra la secuencia de caras (C) y cecas (X).\n\nConsiderá el subconjunto $A = \\{CC, CX\\}$.\n\n¿Qué es $A$ respecto del espacio muestral?",
     "options": [
       "Un evento elemental.",
@@ -17,6 +38,45 @@
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["clasificar-tipo-evento"]
+  },
+  {
+    "question": "Se extrae una carta de un mazo español de 40 cartas. Se definen los eventos $A$: sacar una espada, y $B$: sacar un as.\n\n¿$A$ y $B$ son mutuamente excluyentes?",
+    "options": [
+      "No, porque el as de espadas pertenece a ambos eventos.",
+      "Sí, porque espada y as son categorías distintas.",
+      "Sí, porque ningún as es una espada."
+    ],
+    "correct_index": 0,
+    "feedback_correct": "El as de espadas pertenece a $A$ y a $B$ a la vez, así que $A\\cap B\\neq\\emptyset$.",
+    "feedback_incorrect": [
+      null,
+      "Que las categorías tengan nombres distintos no implica que sus conjuntos de cartas no se crucen: hay que revisar la intersección concreta.",
+      "El mazo sí tiene un as de espadas, una carta que pertenece a los dos eventos a la vez."
+    ],
+    "explanation": "Dos eventos son **mutuamente excluyentes** cuando su intersección es vacía: $A\\cap B=\\emptyset$. Para verificarlo hay que revisar si existe algún resultado que pertenezca a ambos a la vez, no alcanza con que las categorías suenen distintas.\n\nCon $A$ = espada y $B$ = as, la carta as de espadas pertenece a los dos eventos simultáneamente, así que $A\\cap B=\\{\\text{as de espadas}\\}\\neq\\emptyset$.\n\nLa confusión típica es asumir exclusión mutua por la sola diferencia nominal entre categorías, sin listar explícitamente los resultados compartidos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["reconocer-mutuamente-excluyentes"]
+  },
+  {
+    "question": "Se lanza un dado con $\\Omega=\\{1,2,3,4,5,6\\}$. Se definen $A=\\{1,2,3\\}$ y $B=\\{3,4,5\\}$.\n\n¿Cuál es el resultado de $A\\cap B$?",
+    "options": ["$\\{3\\}$.", "$\\{1,2,3,4,5\\}$.", "$\\{6\\}$."],
+    "correct_index": 0,
+    "feedback_correct": "La intersección agrupa los resultados que están en los dos eventos a la vez: solo el $3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese conjunto es la unión $A\\cup B$, no la intersección: agrupa todos los resultados de ambos eventos sin repetir.",
+      "Ese es el complemento de $A\\cup B$ respecto de $\\Omega$, no la intersección entre $A$ y $B$."
+    ],
+    "explanation": "La **intersección** $A\\cap B$ agrupa únicamente los resultados que pertenecen a $A$ y a $B$ a la vez.\n\nCon $A=\\{1,2,3\\}$ y $B=\\{3,4,5\\}$, el único resultado compartido por ambos es el $3$, así que $A\\cap B=\\{3\\}$.\n\nLa confusión típica es calcular la unión (todos los resultados de cualquiera de los dos eventos) cuando se pide la intersección, o viceversa: conviene siempre preguntarse si se buscan los elementos compartidos o el total combinado.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["operar-entre-eventos"]
   }
 ]

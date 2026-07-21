@@ -10,10 +10,47 @@
       "Ese resultado sale de promediar 0,1 y 0,2 sin usar los pesos 0,7 y 0,3 de cada servicio.",
       "Ese es $P(Y)$; no es una probabilidad total, es solo el peso de un escenario."
     ],
-    "explanation": "El **teorema de la probabilidad total** pondera cada condicional por el peso del escenario:\n$$P(T) = P(T|X) \\cdot P(X) + P(T|Y) \\cdot P(Y)$$\n\nCon los datos:\n$$P(T) = 0{,}1 \\cdot 0{,}7 + 0{,}2 \\cdot 0{,}3 = 0{,}07 + 0{,}06 = 0{,}13$$\n\nLa confusión típica es promediar las dos probabilidades condicionales ignorando que un servicio manda más pedidos que el otro; sin pesos, el resultado no refleja el flujo real de envíos.",
+    "explanation": "El **teorema de la probabilidad total** pondera cada condicional por el peso del escenario:\n$$P(T) = P(T|X) \\cdot P(X) + P(T|Y) \\cdot P(Y)$$\nCon los datos:\n$$P(T) = 0{,}1 \\cdot 0{,}7 + 0{,}2 \\cdot 0{,}3 = 0{,}07 + 0{,}06 = 0{,}13$$\nLa confusión típica es promediar las dos probabilidades condicionales ignorando que un servicio manda más pedidos que el otro; sin pesos, el resultado no refleja el flujo real de envíos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["resl-dos-escenarios"]
+  },
+  {
+    "question": "Una tienda recibe productos de 3 proveedores: A (50%), B (30%) y C (20%).\n\nLa probabilidad de que un producto sea defectuoso es 0,02 para A, 0,05 para B y 0,10 para C.\n\n¿Cuál es la probabilidad de que un producto elegido al azar sea defectuoso?",
+    "options": ["$0{,}041$", "$0{,}057$", "$0{,}170$", "$0{,}020$"],
+    "correct_index": 0,
+    "feedback_correct": "$0{,}02\\times0{,}5+0{,}05\\times0{,}3+0{,}10\\times0{,}2=0{,}041$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado sale de promediar las 3 tasas sin ponderar por la proporción de cada proveedor.",
+      "Ese resultado suma las 3 tasas de defecto directamente, sin ponderar por los pesos.",
+      "Ese es solo el valor de A; falta sumar la contribución de B y C."
+    ],
+    "explanation": "Con 3 escenarios (proveedores), el teorema de la probabilidad total suma cada tasa de defecto ponderada por la proporción que ese proveedor aporta:\n$$P(D) = P(D|A)P(A)+P(D|B)P(B)+P(D|C)P(C)$$\nCon los datos:\n$$0{,}02\\times0{,}5+0{,}05\\times0{,}3+0{,}10\\times0{,}2 = 0{,}01+0{,}015+0{,}02 = 0{,}041$$\nLa confusión típica es promediar las 3 tasas sin pesos, ignorando que los proveedores no aportan la misma cantidad de productos.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-tres-o-mas-escenarios"]
+  },
+  {
+    "question": "Se sabe que $P(B)=0{,}14$, y que la partición tiene dos escenarios: $P(A_1)=0{,}6$, $P(A_2)=0{,}4$, con $P(B|A_1)=0{,}1$.\n\nCalculá $P(B|A_2)$.",
+    "options": ["$0{,}2$", "$0{,}14$", "$0{,}5$", "$0{,}08$"],
+    "correct_index": 0,
+    "feedback_correct": "Despejando: $0{,}14=0{,}1\\times0{,}6+P(B|A_2)\\times0{,}4 \\Rightarrow P(B|A_2)=0{,}2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de $P(B)$ ya dado, no el condicional despejado del segundo escenario.",
+      "Ese valor no surge de despejar correctamente la ecuación de probabilidad total.",
+      "Ese resultado sale de dividir mal los términos en vez de despejar la incógnita paso a paso."
+    ],
+    "explanation": "De la fórmula $P(B)=P(B|A_1)P(A_1)+P(B|A_2)P(A_2)$ se puede despejar un condicional desconocido si se conocen los demás términos.\n\nCon $0{,}14 = 0{,}1\\times0{,}6 + P(B|A_2)\\times0{,}4$, se obtiene $0{,}14-0{,}06=0{,}08=P(B|A_2)\\times0{,}4$, así que $P(B|A_2)=0{,}08/0{,}4=0{,}2$.\n\nLa confusión típica es despejar sin restar primero el término ya conocido, o dividir por el peso equivocado de la partición.",
+    "has_math": true,
+    "graph_fn": null,
+    "graph_view": null,
+    "reviewed": false,
+    "tags": ["resl-despejar-condicional"]
   }
 ]
