@@ -272,10 +272,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Antes de resolver, conviene recordar que $x=3$ queda excluido del dominio porque anula el denominador de $f$.\n\n$$\\begin{aligned} u'v-uv' &= 2x(x-3)-x^2\\cdot 1 \\\\ &= x^2-6x \\\\ &= x(x-6) \\end{aligned}$$\nIgualando a cero, $x(x-6)=0$ da las soluciones $x=0$ y $x=6$, ambas dentro del dominio porque ninguna coincide con $x=3$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["tangentes-horizontales-cociente"]
   },
   {
-    "question": "Si $f(2)=0$, $f'(2)=3$, $g(2)=4$, $g'(2)=-1$, calculá $\\left(\\frac{f}{g}\\right)'(2)$.",
+    "question": "Dados $f(2)=0$, $f'(2)=3$, $g(2)=4$, $g'(2)=-1$, calculá $\\left(\\frac{f}{g}\\right)'(2)$.",
     "options": [
       "$3/4$",
       "$-3/4$",
@@ -294,10 +295,11 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La fórmula de la **regla del cociente** se aplica directamente con los datos dados, sin necesidad de calcular ninguna derivada.\n\n$$\\begin{aligned} \\left(\\frac{f}{g}\\right)'(2) &= \\frac{f'(2)g(2)-f(2)g'(2)}{g(2)^2} \\\\ &= \\frac{3\\cdot 4-0\\cdot(-1)}{4^2} \\\\ &= \\frac{12}{16} = \\frac{3}{4} \\end{aligned}$$\nEl dato $f(2)=0$ anula el segundo término del numerador, dejando el resultado final determinado por $f'(2)g(2)$ dividido por $g(2)^2$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": ["evaluacion-datos-abstractos-cociente"]
   },
   {
-    "question": "Si $f(1)=5$, $f'(1)=0$, $g(1)=2$, $g'(1)=3$, calculá $\\left(\\frac{f}{g}\\right)'(1)$.",
+    "question": "Dados $f(1)=5$, $f'(1)=0$, $g(1)=2$, $g'(1)=3$, calculá $\\left(\\frac{f}{g}\\right)'(1)$.",
     "options": [
       "$0$",
       "$-15/4$",
