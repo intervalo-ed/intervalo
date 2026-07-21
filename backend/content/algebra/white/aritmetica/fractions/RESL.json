@@ -2,10 +2,10 @@
   {
     "question": "Un tanque se llena $\\frac{2}{3}$ de su capacidad en la primera hora de bombeo, y una **fracción** más, $\\frac{1}{4}$, en la segunda hora.\n\n¿Qué fracción del tanque queda llena después de las dos horas?",
     "options": [
-      "$\\frac{11}{12}$",
-      "$\\frac{3}{7}$",
-      "$\\frac{3}{4}$",
-      "$\\frac{5}{12}$"
+      "$\\dfrac{11}{12}$",
+      "$\\dfrac{3}{7}$",
+      "$\\dfrac{3}{4}$",
+      "$\\dfrac{5}{12}$"
     ],
     "correct_index": 0,
     "feedback_correct": "Con denominador común $12$: $\\frac{2}{3}=\\frac{8}{12}$ y $\\frac{1}{4}=\\frac{3}{12}$, que suman $\\frac{11}{12}$.",

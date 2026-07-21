@@ -46,13 +46,19 @@ const LATEX_NAMED_FUNCTIONS =
 // Estima el ancho visual renderizado de una opción con LaTeX, en vez de contar
 // caracteres de código fuente (que sobrestima el peso de comandos como \sqrt o
 // \frac, cortos en pantalla pero largos en texto plano).
+//
+// \dfrac fuerza displaystyle (numerador/denominador a tamaño completo), más
+// ancho por carácter que el textstyle comprimido de \frac inline: se pesa
+// 1.4x (incluida una raíz anidada dentro, ej. 3√5/5) para que la grilla 2x2
+// no subestime su ancho real.
 function latexVisualLength(option: string): number {
   let s = option.replace(/\$/g, "")
   s = s.replace(/\\operatorname\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length))
   s = s.replace(/\\sqrt\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length + 1))
   s = s.replace(
-    /\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g,
-    (_, num, den) => "x".repeat(Math.max(num.length, den.length)),
+    /\\(d)?frac\{([^{}]*)\}\{([^{}]*)\}/g,
+    (_, isDisplay, num, den) =>
+      "x".repeat(Math.ceil(Math.max(num.length, den.length) * (isDisplay ? 1.4 : 1))),
   )
   s = s.replace(LATEX_NAMED_FUNCTIONS, (_, name) => "x".repeat(name.length))
   s = s.replace(/\\[a-zA-Z]+/g, "x")
@@ -458,15 +464,7 @@ export default function SessionRunner({ sessionId }: { sessionId: string }) {
                   {(() => {
                     const hasLatex = exercise.options.some((o) => o.includes("$"))
                     const limit = hasLatex ? 12 : 25
-                    // Una raíz anidada dentro de una fracción (ej. 3√5/5) pesa poco en
-                    // el estimado de ancho, pero el símbolo de raíz + la barra de
-                    // fracción apiladas se leen recargadas y chicas comprimidas a la
-                    // mitad del ancho en la grilla — para esa combinación, mejor lista.
-                    const hasNestedSqrtFrac = exercise.options.some(
-                      (o) => /\\sqrt/.test(o) && /\\d?frac/.test(o),
-                    )
                     const useGrid =
-                      !hasNestedSqrtFrac &&
                       exercise.options.length === 4 &&
                       exercise.options.every((o) =>
                         (hasLatex ? latexVisualLength(o) : o.length) <= limit,

@@ -2,10 +2,10 @@
   {
     "question": "Al **racionalizar** la fracción:\n$$\\frac{3}{\\sqrt{5}}$$\n¿Cuál es el resultado equivalente sin raíz en el denominador?",
     "options": [
-      "$\\frac{3\\sqrt{5}}{5}$",
-      "$\\frac{3}{5}$",
-      "$\\frac{3\\sqrt{5}}{25}$",
-      "$\\frac{9}{5}$"
+      "$\\dfrac{3\\sqrt{5}}{5}$",
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{3\\sqrt{5}}{25}$",
+      "$\\dfrac{9}{5}$"
     ],
     "correct_index": 0,
     "feedback_correct": "Multiplicando numerador y denominador por $\\sqrt{5}$: $\\dfrac{3}{\\sqrt5}\\cdot\\dfrac{\\sqrt5}{\\sqrt5}=\\dfrac{3\\sqrt5}{5}$.",
