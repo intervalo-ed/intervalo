@@ -13,7 +13,7 @@
       null,
       "La permutación completa ordena TODOS los elementos; acá solo se eligen 2 de los 8."
     ],
-    "explanation": "Las **variaciones** cuentan la cantidad de formas de elegir y ordenar $k$ elementos entre un total de $n$, cuando el orden importa:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nAcá se eligen $k=2$ empleados entre $n=8$ y el orden importa (director ≠ subdirector), así que corresponde una variación de 8 tomados de 2.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si intercambiar dos elementos elegidos genera un resultado distinto. Si dos puestos son intercambiables (misma etiqueta), es combinación; si son diferenciables, es variación.",
+    "explanation": "Las **variaciones** cuentan la cantidad de formas de elegir y ordenar elementos de un total, cuando el orden importa:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nAcá se eligen 2 empleados entre 8 y el orden importa (director ≠ subdirector).\n\nCorresponde una variación de 8 tomados de 2.\n\nEl criterio para distinguir combinación de variación es siempre el mismo: preguntarse si intercambiar dos elementos elegidos genera un resultado distinto.\n\nSi dos puestos son intercambiables (misma etiqueta), es combinación; si son diferenciables, es variación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -23,16 +23,14 @@
   {
     "question": "En un curso de 10 estudiantes se quiere elegir una pareja de 2 representantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 2?",
     "options": [
-      "No, porque los dos representantes no tienen roles distintos, así que el orden entre ellos no importa.",
-      "Sí, porque se eligen solo 2 de los 10 estudiantes.",
-      "Sí, porque hay 2 posiciones a llenar."
+      "No: los dos representantes no tienen roles distintos, así que el orden entre ellos no importa.",
+      "Sí, porque se eligen solo 2 representantes de los 10 estudiantes del curso."
     ],
     "correct_index": 0,
     "feedback_correct": "Sin roles distintos entre los elegidos, intercambiarlos no cambia el resultado: corresponde combinación, no variación.",
     "feedback_incorrect": [
       null,
-      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe.",
-      "Que haya 2 lugares no implica que sean distinguibles entre sí; acá ambos representantes cumplen el mismo rol."
+      "Elegir un subconjunto menor es necesario para variación, pero no alcanza: además hace falta que el orden entre los elegidos importe."
     ],
     "explanation": "La **variación** exige que el orden entre los $k$ elegidos importe, es decir, que intercambiarlos produzca un resultado distinto. La **combinación** aplica cuando esos roles son intercambiables.\n\nAcá los 2 representantes no tienen roles diferenciados (ninguno es \"titular\" del otro), así que el par $\\{A,B\\}$ es el mismo resultado que $\\{B,A\\}$.\n\nEl criterio decisivo sigue siendo el mismo: si cambiar el orden de los elegidos genera un resultado distinto, es variación; si no, es combinación.",
     "has_math": true,
@@ -45,17 +43,15 @@
     "question": "En una carrera de 5 corredores se quiere asignar los puestos 1º, 2º, 3º, 4º y 5º completos, usando a todos los corredores.\n\n¿Corresponde tratar este problema como una variación de 5 tomados de 3?",
     "options": [
       "No, porque se usan los 5 corredores completos, no un subconjunto de 3.",
-      "Sí, porque el orden de llegada importa.",
-      "Sí, porque ningún corredor puede repetir puesto."
+      "Sí, porque el orden en que llegan los corredores importa."
     ],
     "correct_index": 0,
     "feedback_correct": "Cuando se asignan TODOS los elementos disponibles, la técnica correcta es la permutación, no la variación de un subconjunto menor.",
     "feedback_incorrect": [
       null,
-      "Que el orden importe es necesario para variación, pero acá además se usan todos los elementos, lo que la convierte en permutación.",
-      "Que no se repita un corredor en dos puestos también es cierto en la permutación completa, no distingue el caso de variación."
+      "Que el orden importe es necesario para variación, pero acá además se usan todos los elementos, lo que la convierte en permutación."
     ],
-    "explanation": "La **variación** elige y ordena un subconjunto de $k<n$ elementos, dejando elementos sin usar. Cuando $k=n$ (se usan todos), el conteo colapsa a la **permutación**, $V_{n,n}=n!$.\n\nAcá se asignan los 5 puestos entre los 5 corredores, sin que sobre ninguno, así que corresponde permutación de 5 elementos, no variación de un subconjunto.\n\nLa pista para distinguirlos es preguntarse si sobran elementos sin asignar al terminar el conteo; si no sobra ninguno, es permutación.",
+    "explanation": "La **variación** elige y ordena un subconjunto de $k<n$ elementos, dejando elementos sin usar. Cuando se usan todos los elementos ($k=n$), el conteo colapsa a la **permutación**.\n\nAcá se asignan los 5 puestos entre los 5 corredores, sin que sobre ninguno, así que corresponde permutación de 5 elementos, no variación de un subconjunto.\n\nLa pista para distinguirlos es preguntarse si sobran elementos sin asignar al terminar el conteo; si no sobra ninguno, es permutación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -65,18 +61,16 @@
   {
     "question": "Un examen de 3 preguntas se responde eligiendo, en cada una, una opción entre las mismas 4 disponibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una variación de 4 tomados de 3?",
     "options": [
-      "No, porque las opciones no salen de un mismo conjunto que se agota al elegir, se repiten libremente en cada pregunta.",
-      "Sí, porque hay 3 posiciones a llenar en orden.",
-      "Sí, porque el orden de las preguntas importa."
+      "No: las opciones no se agotan al elegir, se repiten libremente en cada pregunta.",
+      "Sí, porque hay 3 posiciones que se llenan siguiendo un orden fijo."
     ],
     "correct_index": 0,
     "feedback_correct": "En la variación los elementos elegidos no se reponen; acá las mismas 4 opciones están disponibles en cada pregunta sin agotarse.",
     "feedback_incorrect": [
       null,
-      "Tener 3 posiciones no alcanza: en la variación esas posiciones agotan elementos de un mismo conjunto sin reposición, algo que acá no ocurre.",
-      "El orden de las preguntas está fijo de antemano, lo que varía es la opción elegida en cada una, con reposición completa."
+      "Tener 3 posiciones no alcanza: en la variación esas posiciones agotan elementos de un mismo conjunto sin reposición, algo que acá no ocurre."
     ],
-    "explanation": "La **variación** elige elementos de un conjunto que se va agotando, sin reposición. Cuando cada paso vuelve a tener las mismas opciones completas disponibles, corresponde la regla del producto.\n\nAcá cada una de las 3 preguntas elige independientemente entre las mismas 4 opciones, sin que elegir una la saque del conjunto para la siguiente pregunta, así que el conteo es $4\\times4\\times4$, no una variación.\n\nLa pista para distinguirlos es notar si el conjunto de opciones se reduce a medida que se elige, o si se repite completo en cada paso.",
+    "explanation": "La **variación** elige elementos de un conjunto que se va agotando, sin reposición. Cuando cada paso vuelve a tener las mismas opciones completas disponibles, corresponde la regla del producto.\n\nAcá cada una de las 3 preguntas elige independientemente entre las mismas 4 opciones, sin que elegir una la saque del conjunto: el conteo es $4\\times4\\times4$, no una variación.\n\nLa pista para distinguirlos es notar si el conjunto de opciones se reduce a medida que se elige, o si se repite completo en cada paso.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

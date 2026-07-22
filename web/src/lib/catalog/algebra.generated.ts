@@ -88,26 +88,6 @@ export const catalog: Catalog = {
           "description": "Las **operaciones aritméticas fundamentales** (fracciones, potencias, radicales, notación, valor absoluto y propiedades algebraicas básicas) son la base operativa sobre la que se apoya el resto del álgebra.\n$$\\frac{a}{b}, \\quad a^n, \\quad \\sqrt[n]{a}$$\nDominarlas evita que un error de cálculo bloquee el razonamiento en temas más avanzados.",
           "topics": [
             {
-              "key": "divisibility",
-              "name": "Divisibilidad",
-              "tooltip": "Un número $a$ es **divisor** de $b$ cuando $b$ es múltiplo exacto de $a$, sin resto.\n$$b = a \\times k, \\quad k \\in \\mathbb{Z}$$\nEl **MCD** (máximo común divisor) y el **MCM** (mínimo común múltiplo) se obtienen descomponiendo los números en sus factores primos, y son la base para simplificar fracciones y operar con denominadores distintos.",
-              "short_description": "El **MCD** y el **MCM** se obtienen factorizando números en primos.\n$$b = a \\times k$$",
-              "skills": [
-                "RESL",
-                "FORM"
-              ]
-            },
-            {
-              "key": "fractions",
-              "name": "Fracciones",
-              "tooltip": "Una **fracción** $\\dfrac{a}{b}$ representa una división no resuelta entre un numerador y un denominador distinto de cero.\n$$\\frac{a}{b} + \\frac{c}{d} = \\frac{ad + bc}{bd}$$\nSumar, restar, multiplicar y dividir fracciones, y simplificarlas usando el MCD, es la operación aritmética que más arrastra errores hacia el álgebra simbólica.",
-              "short_description": "Las **fracciones** se combinan mediante reglas propias de suma, resta, producto y división.\n$$\\frac{a}{b} + \\frac{c}{d} = \\frac{ad+bc}{bd}$$",
-              "skills": [
-                "RESL",
-                "FORM"
-              ]
-            },
-            {
               "key": "powers",
               "name": "Potenciación",
               "tooltip": "La **potenciación** $a^n$ representa la multiplicación repetida de una base $a$ por sí misma $n$ veces.\n$$a^m \\cdot a^n = a^{m+n}, \\quad a^{-n} = \\frac{1}{a^n}$$\nSus propiedades (producto y cociente de potencias de igual base, potencia de potencia, exponente negativo y fraccionario) son la herramienta operativa detrás de toda la notación algebraica posterior.",
