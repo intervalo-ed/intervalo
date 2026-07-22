@@ -85,6 +85,19 @@ def paragraphs(s: str) -> list[str]:
     return [p for p in s.split("\n\n") if p.strip()]
 
 
+def prose_segments(p: str) -> list[str]:
+    r"""Tramos de prosa de un párrafo, separados por las fórmulas centradas.
+
+    Una fórmula `$$...$$` es un corte de lectura: KaTeX displayMode le agrega
+    margen vertical, así que el ojo ve bloques separados. Como el formato
+    obliga a un solo `\n` junto a `$$` (nunca `\n\n`), sin este corte la prosa
+    de antes y la de después se medirían como un único párrafo, y el remedio
+    que la regla 21 propone ("sacá la fórmula central a un bloque `$$...$$`")
+    nunca bajaría el conteo.
+    """
+    return [s for s in DISPLAY_RE.split(p) if s.strip()]
+
+
 def word_count(s: str) -> int:
     return len([w for w in re.split(r"\s+", s.strip()) if w])
 
@@ -227,16 +240,19 @@ def check_explanations(items, file, F: Findings) -> None:
             if not stripped.endswith((".", ":", "?", "!", "$")):
                 F.add("ERROR", "explanations", "17", file, label,
                       f"párrafo sin puntuación terminal: ...{stripped[-40:]!r}")
-            prose = DISPLAY_RE.sub(" ", p)
-            prose_flat = re.sub(r"\s+", " ", prose).strip()
-            if len(prose_flat) > PARAGRAPH_PROSE_MAX:
-                F.add("WARNING", "explanations", "párrafos", file, label,
-                      f"párrafo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
-                      f"{prose_flat[:60]!r}...")
-            inline_count = len(INLINE_RE.findall(prose))
-            if inline_count >= INLINE_FRAGMENTS_WARN:
-                F.add("WARNING", "explanations", "21", file, label,
-                      f"{inline_count} fragmentos LaTeX inline en el mismo párrafo")
+            # El largo de prosa y la densidad de inline se miden por tramo
+            # entre fórmulas centradas, no sobre el párrafo entero (ver
+            # prose_segments).
+            for prose in prose_segments(p):
+                prose_flat = re.sub(r"\s+", " ", prose).strip()
+                if len(prose_flat) > PARAGRAPH_PROSE_MAX:
+                    F.add("WARNING", "explanations", "párrafos", file, label,
+                          f"tramo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
+                          f"{prose_flat[:60]!r}...")
+                inline_count = len(INLINE_RE.findall(prose))
+                if inline_count >= INLINE_FRAGMENTS_WARN:
+                    F.add("WARNING", "explanations", "21", file, label,
+                          f"{inline_count} fragmentos LaTeX inline en el mismo tramo de prosa")
 
 
 def check_questions(items, file, F: Findings) -> None:

@@ -344,6 +344,16 @@ Al elevar al cuadrado se obtiene\n$$0^2 = 0, \quad (\pm 1)^2 = 1$$\nLas salidas 
 Una función transforma cada entrada en una única salida.\n\nAcá el 9 podría transformarse en 3 o en $-3$.
 ```
 
+**Cómo se miden los límites de párrafo cuando hay una fórmula centrada en el medio.**
+El tope de 200 caracteres de prosa y el umbral de 2+ inline de la regla 21 aplican a
+**cada tramo de prosa entre bloques `$$...$$`**, no al párrafo completo. Una fórmula
+centrada ya corta la lectura (displayMode agrega margen vertical), así que la prosa de
+antes y la de después son tramos separados a los ojos del lector. Sin este criterio, la
+regla del `\n` simple pegado a `$$` haría que un párrafo bien escrito se midiera como un
+solo bloque largo, y el remedio que la propia regla 21 recomienda ("sacá la fórmula
+central a un bloque `$$...$$`") nunca bajaría el conteo. `validate_content.py` lo
+implementa así en `prose_segments()`.
+
 ### Fórmulas anchas: partir en pasos, nunca scroll horizontal
 
 El frontend **no** agrega scroll horizontal a los bloques `$$...$$` ni a las fórmulas inline: una fórmula que no entra en el ancho de pantalla se corta contra el borde, y no hay que resolverlo con scroll. Nunca encadenes varias igualdades largas en una sola fórmula (`$$f(x) = 1 \cdot (x-1)^2 + (-3) = (x-1)^2 - 3$$`) ni pongas una expansión de varios términos en una fórmula inline (`$...$`, que además renderiza con `white-space: nowrap` y no puede partirse en dos líneas). Partí la derivación en **varios bloques `$$...$$` cortos, uno por paso**.
