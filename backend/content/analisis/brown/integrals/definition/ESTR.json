@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de resolver\n$$\\int (x+2)^2\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Desarrollar el binomio y luego integrar",
       "Integrar el interior y elevar al cuadrado",
@@ -17,10 +17,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Frente a un binomio elevado al cuadrado dentro de una integral, el paso previo obligatorio es **desarrollarlo** en un polinomio simple.\n$$(x+2)^2 = x^2+4x+4$$\nRecién con el trinomio desarrollado, cada término queda listo para integrarse por separado usando linealidad, sin necesitar ninguna regla especial para potencias de binomios.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{x^3+5x}{x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Derivar el integrando",
       "Repartir el denominador",
@@ -37,10 +40,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando un polinomio se divide por un monomio, conviene **repartir** esa división entre cada término del numerador.\n$$\\frac{x^3+5x}{x} = \\frac{x^3}{x}+\\frac{5x}{x} = x^2+5$$\nCon la expresión repartida, queda un polinomio simple que se integra directamente por linealidad, sin ninguna regla especial de cocientes.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int x(x^2-1)\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int x(x^2-1)\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
       "Derivar el integrando",
@@ -57,10 +63,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Frente a un producto entre un monomio y un binomio, el paso previo obligatorio es **distribuir** antes de integrar.\n$$x(x^2-1) = x^3-x$$\nCon el producto ya distribuido, cada término se integra por separado usando linealidad, evitando cualquier confusión con reglas de producto que todavía no aplican acá.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Repartir el denominador",
       "Integrar el numerador y el denominador por separado",
@@ -77,10 +86,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Igual que con cualquier cociente entre un polinomio y un monomio, conviene repartir la división término a término.\n$$\\frac{x^4-3x^2}{x^2} = \\frac{x^4}{x^2}-\\frac{3x^2}{x^2} = x^2-3$$\nUna vez repartido, el resultado es un polinomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "limites-linealidad-falsas-propiedades"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int (x-3)^2\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int (x-3)^2\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Derivar el integrando",
       "Desarrollar el binomio y luego integrar",
@@ -97,10 +109,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Igual que con cualquier binomio al cuadrado, el paso previo es desarrollarlo por completo antes de integrar término a término.\n$$(x-3)^2 = x^2-6x+9$$\nEl signo negativo dentro del binomio no cambia el procedimiento, solo hay que distribuirlo con cuidado al expandir el cuadrado y conservar el término cruzado.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "expansion-distribucion-obligatoria"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int x^2(x-4)\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
       "Derivar el integrando",
@@ -116,11 +131,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.",
-    "reviewed": false
+    "explanation": "Con un producto entre una potencia y un binomio, conviene distribuir antes de integrar cada término por separado.\n$$x^2(x-4) = x^3-4x^2$$\nEsta distribución evita tener que aplicar la regla del producto para integrales, una herramienta que no existe de forma directa como sí existe para derivar.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "reviewed": false,
+    "tags": [
+      "reescritura-potencias-y-raices"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Repartir el denominador",
       "Integrar el numerador y el denominador por separado",
@@ -137,10 +155,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Con un denominador que también lleva un coeficiente numérico, la repartición sigue funcionando igual, término a término.\n$$\\frac{6x^2+2x}{2x} = \\frac{6x^2}{2x}+\\frac{2x}{2x} = 3x+1$$\nEl resultado queda como un binomio simple, listo para integrarse por linealidad sin ninguna regla adicional de cocientes.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int (2x+1)^2\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Derivar el integrando",
       "Desarrollar el binomio y luego integrar",
@@ -156,11 +177,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.",
-    "reviewed": false
+    "explanation": "Con un coeficiente distinto de $1$ dentro del binomio, el desarrollo sigue el mismo patrón, cuidando bien el término cruzado.\n$$(2x+1)^2 = 4x^2+4x+1$$\nEl coeficiente $2$ dentro del binomio termina afectando a los tres términos del trinomio desarrollado, no solo al primero.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{3}$",
@@ -177,10 +201,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Antes de integrar cualquier fracción con potencia en el denominador, conviene reescribirla como una **potencia negativa**.\n$$\\frac{1}{x^3} = x^{-3}$$\nEsta reescritura es la que habilita usar directamente la regla de la potencia en el tópico siguiente, sin necesidad de ninguna fórmula especial para fracciones.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\sqrt{x}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir la raíz como potencia fraccionaria: $x^{1/2}$",
       "Dejar la expresión sin reescribir",
@@ -196,11 +223,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.",
-    "reviewed": false
+    "explanation": "Toda raíz se puede escribir como una **potencia fraccionaria**, un paso previo obligatorio antes de integrar.\n$$\\sqrt{x} = x^{1/2}$$\nCon esta reescritura, la expresión queda lista para la regla de la potencia del tópico siguiente, sin necesitar ninguna fórmula especial para raíces.\n\nLa reescritura de expresiones es una habilidad algebraica fundamental que acelera los cálculos de integrales.",
+    "reviewed": false,
+    "tags": [
+      "limites-linealidad-falsas-propiedades"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{3/2}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{2/3}$",
@@ -216,11 +246,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.",
-    "reviewed": false
+    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, el exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n$$\\sqrt[3]{x^2} = x^{2/3}$$\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "reviewed": false,
+    "tags": [
+      "expansion-distribucion-obligatoria"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{1/2}$",
@@ -237,10 +270,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Esta expresión combina dos reescrituras en una sola, la raíz se convierte en exponente fraccionario y el denominador cambia el signo del exponente.\n$$\\frac{1}{\\sqrt{x}} = \\frac{1}{x^{1/2}} = x^{-1/2}$$\nAplicar ambas reescrituras a la vez es lo que deja la expresión lista para la regla de la potencia del tópico siguiente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "reescritura-potencias-y-raices"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia negativa: $x^{-5}$",
       "Dejar la expresión sin reescribir",
@@ -257,10 +293,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Igual que con cualquier fracción con potencia en el denominador, conviene reescribirla como potencia negativa antes de integrar.\n$$\\frac{1}{x^5} = x^{-5}$$\nEl exponente original del denominador pasa arriba con el signo cambiado, un patrón que se repite siempre igual sin importar el valor del exponente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-notacion-integral"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{4/3}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{3/4}$",
@@ -276,11 +315,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.",
-    "reviewed": false
+    "explanation": "Con una raíz cuarta sobre $x^3$, el exponente fraccionario resultante conserva el mismo patrón, potencia arriba, índice abajo.\n$$\\sqrt[4]{x^3} = x^{3/4}$$\nEste patrón se aplica exactamente igual sin importar qué índice o qué potencia aparezcan dentro de la raíz.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "reviewed": false,
+    "tags": [
+      "concepto-primitiva-traslacion-geometrica"
+    ]
   },
   {
-    "question": "Antes de resolver\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿qué paso previo conviene dar?",
+    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{2}$",
@@ -296,7 +338,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.",
-    "reviewed": false
+    "explanation": "Este es el caso más simple de reescritura, una fracción con potencia cuadrada en el denominador.\n$$\\frac{1}{x^2} = x^{-2}$$\nPracticar este patrón con exponentes chicos ayuda a automatizarlo antes de aplicarlo en expresiones más largas con varios términos.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ te permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$). Aquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$. Este patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "reviewed": false,
+    "tags": [
+      "extraccion-separacion-terminos"
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **derivada** de una función en un punto se define mediante el límite\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
+    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
     "options": [
       "El incremento que tiende a cero",
       "El punto fijo donde se calcula la derivada",
@@ -17,10 +17,13 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El **cociente incremental** compara el valor de $f$ en dos puntos cercanos, $a$ y $a+h$, y $h$ es la distancia entre ambos, un número que se va achicando hasta acercarse a cero.\n\nCuando $h \\to 0$, el punto $a+h$ se acerca cada vez más a $a$, y el cociente deja de medir una variación entre dos puntos separados para capturar la tasa de cambio justo en $a$.\n\nEs común mezclar $h$ con $a$ o con $x$: conviene recordar que $a$ es el punto de estudio, fijo durante todo el cálculo, mientras que $h$ es el único que se mueve hacia cero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
-    "question": "En la misma fórmula\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$?",
+    "question": "La **derivada** de una función se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$ en esta expresión?",
     "options": [
       "La variable independiente que recorre todo el dominio",
       "El punto fijo donde se evalúa la derivada",
@@ -37,7 +40,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El punto $a$ es el lugar del dominio donde se quiere conocer la **derivada**, y permanece fijo durante todo el cálculo del límite.\n\nEl incremento $h$ es el que se mueve, acercando el punto $a+h$ a $a$ hasta que la distancia entre ambos se hace cero.\n\nSi $a$ cambiara junto con $h$, el cociente ya no describiría la tasa de cambio en un punto concreto sino en varios a la vez, así que fijarlo es lo que le da sentido al resultado $f'(a)$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
     "question": "Al intentar calcular $f'(a)$ sustituyendo directamente $h=0$ en el cociente incremental, ¿por qué se obtiene una indeterminación?",
@@ -56,8 +62,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental tiene la forma $\\frac{f(a+h)-f(a)}{h}$, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ y el denominador también queda $0$.\n\nEsa forma $\\frac{0}{0}$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
-    "reviewed": false
+    "explanation": "El cociente incremental tiene la forma $\\frac{f(a+h)-f(a)}{h}$, y al sustituir $h=0$ el numerador queda $f(a)-f(a)=0$ y el denominador también queda $0$.\n\nEsa forma una indeterminación $0/0$ es una **indeterminación**: no dice que el límite no exista, sino que hace falta simplificar algebraicamente antes de poder evaluarlo.\n\nPor eso el procedimiento siempre pasa por expandir el numerador, cancelar los términos que se anulan y factorizar $h$ antes de tomar el límite, nunca por sustituir de entrada.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
     "question": "Dado el cociente incremental $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el numerador $f(a+h) - f(a)$?",
@@ -76,8 +85,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n\n$$\\begin{aligned} \\text{numerador} &= f(a+h) - f(a) \\\\ &= \\text{variación de } y \\end{aligned}$$\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
-    "reviewed": false
+    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n$$\\begin{aligned} \\text{numerador} &= f(a+h) - f(a) \\\\ &= \\text{variación de } y \\end{aligned}$$\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
     "question": "En el mismo cociente $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el denominador $h$?",
@@ -97,7 +109,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El denominador $h$ mide el desplazamiento en el eje horizontal, cuánto se movió la variable independiente desde $a$ hasta $a+h$.\n\nDividir la variación de $f$ por esa variación en $x$ es exactamente lo que convierte una diferencia de valores en una **tasa de cambio**, comparable entre distintas funciones.\n\nSin esa división, el numerador solo diría cuánto cambió $f$, pero no si ese cambio fue rápido o lento respecto del desplazamiento en $x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes expresiones corresponde correctamente al cociente incremental de $f$ en el punto $a$?",
@@ -116,8 +131,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n\n$$\\frac{f(a+h) - f(a)}{h}$$\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
-    "reviewed": false
+    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n$$\\frac{f(a+h) - f(a)}{h}$$\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-del-limite"
+    ]
   },
   {
     "question": "Sin tomar ningún límite, el cociente $\\frac{f(b)-f(a)}{b-a}$ representa...",
@@ -137,7 +155,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando se calcula $\\frac{f(b)-f(a)}{b-a}$ para dos puntos fijos y separados, sin ningún límite de por medio, el resultado es una **tasa de cambio promedio**: describe cuánto varió $f$ en promedio a lo largo de todo el intervalo $[a,b]$.\n\nEsa tasa no dice nada sobre qué tan rápido cambia $f$ en un punto puntual del intervalo, solo resume el cambio total repartido de forma uniforme.\n\nRecién al hacer que $b$ se acerque a $a$ mediante un límite, esa tasa promedio se concentra en un único punto y pasa a llamarse instantánea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "tasa-instantanea-vs-promedio"
+    ]
   },
   {
     "question": "Al tomar el límite cuando $h \\to 0$ del cociente incremental $\\frac{f(a+h)-f(a)}{h}$, la tasa de cambio promedio se transforma en...",
@@ -157,7 +178,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El límite $h \\to 0$ hace que el segundo punto del cociente, $a+h$, se acerque cada vez más al primero, $a$, hasta que la distancia entre ambos se hace cero.\n\nEn ese proceso, la tasa promedio del intervalo se va concentrando en un único punto, y en el límite pasa a describir la **tasa de cambio instantánea** justo en $a$.\n\nEsta es la diferencia clave entre trabajar con dos puntos separados y trabajar con el límite, uno describe un tramo, el otro describe un instante.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "tasa-instantanea-vs-promedio"
+    ]
   },
   {
     "question": "¿Con qué concepto geométrico se corresponde la tasa de cambio promedio de $f$ entre $a$ y $b$?",
@@ -177,7 +201,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Una recta que une dos puntos de la curva se llama **secante**, y su pendiente se calcula exactamente igual que la tasa de cambio promedio, dividiendo la diferencia de alturas por la diferencia de posiciones horizontales.\n\nPor eso, sin tomar ningún límite, hablar de tasa promedio y hablar de pendiente de la secante entre $a$ y $b$ es lo mismo.\n\nConfundir esta secante con la tangente es un error frecuente, la tangente aparece recién cuando el segundo punto colapsa sobre el primero.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "tasa-instantanea-vs-promedio"
+    ]
   },
   {
     "question": "¿Con qué concepto geométrico se corresponde la tasa de cambio instantánea de $f$ en el punto $a$?",
@@ -197,7 +224,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Cuando el segundo punto del cociente incremental colapsa sobre $a$ mediante el límite, la recta secante que los unía se convierte en la **recta tangente** en $a$.\n\nLa pendiente de esa tangente es, por definición, la tasa de cambio instantánea de $f$ en ese punto, un único número que describe qué tan rápido cambia $f$ justo ahí.\n\nEste tópico no pide todavía calcular la ecuación de esa recta, solo reconocer la equivalencia conceptual entre tasa instantánea y pendiente de la tangente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "tasa-instantanea-vs-promedio"
+    ]
   },
   {
     "question": "Si se calcula $\\frac{f(a+h)-f(a)}{h}$ para un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
@@ -217,7 +247,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "Mientras $h$ conserve un valor fijo distinto de cero, el cociente $\\frac{f(a+h)-f(a)}{h}$ describe un intervalo real, $[a, a+h]$, y su resultado es la **tasa de cambio promedio** en ese tramo.\n\nRecién cuando ese $h$ se hace tender a cero mediante un límite, el intervalo se colapsa y la tasa deja de ser promedio para volverse instantánea.\n\nEs un error común dar por instantáneo cualquier cociente incremental, aunque no tenga el símbolo de límite escrito.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "tasa-instantanea-vs-promedio"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes notaciones corresponde a la **notación de Leibniz** para la derivada de $y=f(x)$?",
@@ -237,7 +270,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **notación de Leibniz** escribe la derivada como un cociente de diferenciales, $\\frac{dy}{dx}$, y resalta la idea de derivada como razón entre una variación infinitesimal de $y$ y una de $x$.\n\nEsta notación convive con otras equivalentes, como $f'(x)$ de Lagrange, todas describen el mismo objeto matemático.\n\nConviene no confundirla con $\\frac{\\Delta y}{\\Delta x}$, que usa incrementos finitos y describe una tasa promedio, no instantánea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-formal-derivada"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes notaciones corresponde a la **notación de Lagrange**?",
@@ -257,7 +293,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "La **notación de Lagrange** marca la derivada con un apóstrofe sobre el nombre de la función, $f'(x)$, sin escribir explícitamente respecto de qué variable se deriva.\n\nEs la notación más compacta de las tres, y por eso es la que más se usa cuando no hace falta aclarar la variable de derivación.\n\nExisten otras equivalentes para el mismo objeto, como $\\frac{dy}{dx}$ de Leibniz o $\\dot{f}$ de Newton, cada una útil en distintos contextos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-formal-derivada"
+    ]
   },
   {
     "question": "¿Qué diferencia a $\\frac{\\Delta y}{\\Delta x}$ de $\\frac{dy}{dx}$?",
@@ -277,7 +316,10 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El símbolo $\\Delta$ describe una variación finita, la diferencia entre dos valores concretos y separados, así que $\\frac{\\Delta y}{\\Delta x}$ siempre corresponde a una tasa de cambio promedio.\n\nEl símbolo $d$, en cambio, aparece únicamente después de tomar el límite cuando esa variación tiende a cero, y por eso $\\frac{dy}{dx}$ representa la tasa de cambio instantánea.\n\nConfundir ambos símbolos es un error frecuente, sobre todo porque se parecen visualmente, pero uno describe un intervalo entero y el otro un único punto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-formal-derivada"
+    ]
   },
   {
     "question": "¿Cuál es la **notación de Lagrange** correctamente escrita para la derivada de $f$ evaluada en $x$?",
@@ -297,6 +339,9 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "En la **notación de Lagrange**, el apóstrofe se coloca directamente sobre el nombre de la función, $f'$, indicando que primero se deriva la función completa.\n\nRecién después se agrega el paréntesis con el punto de evaluación, $f'(x)$, para indicar en qué valor se calcula esa derivada.\n\nEscribir $f(x)'$ deja el orden lógico al revés, como si se derivara un número ya evaluado, y por eso es una notación incorrecta que conviene evitar.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "notacion-formal-derivada"
+    ]
   }
 ]

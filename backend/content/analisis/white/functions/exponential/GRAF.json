@@ -24,7 +24,10 @@
       8.5
     ],
     "explanation": "Señal visual: la curva **sube** de izquierda a derecha, lo que indica que la función es **creciente**.\n\nEsto ocurre cuando la base $b > 1$: cada paso hacia la derecha multiplica el valor anterior por un número mayor que $1$, y la curva tiene asíntota horizontal en $y = 0$ hacia la izquierda mientras crece sin límite hacia la derecha.\n\nUna confusión típica es mirar solo un tramo corto del gráfico y sacar conclusiones apresuradas: para clasificar la monotonía de una exponencial hay que recorrer toda la curva, porque nunca cambia de sentido a mitad de camino.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-valor-puntual"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿La función es creciente o decreciente?",
@@ -51,7 +54,10 @@
       8.5
     ],
     "explanation": "Señal visual: la curva **baja** de izquierda a derecha, lo que indica que la función es **decreciente**.\n\nEsto ocurre cuando la base cumple $0 < b < 1$: cada paso hacia la derecha multiplica el valor anterior por un número menor que $1$, y por eso la asíntota horizontal $y = 0$ queda hacia la derecha del gráfico.\n\nUna confusión frecuente es asociar toda exponencial con crecimiento porque el nombre suena a algo que se dispara: la base entre $0$ y $1$ produce exactamente el efecto contrario, un decaimiento constante hacia la asíntota.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuál es la ecuación de la asíntota horizontal?",
@@ -78,7 +84,10 @@
       8.5
     ],
     "explanation": "La curva se aplana y se acerca al eje $x$ cuando $x \\to +\\infty$, pero nunca lo toca.\n\nLa **asíntota horizontal** es $y = 0$ (el eje $x$): esta es la asíntota estándar de toda exponencial $b^x$ sin desplazamiento vertical, y describe el límite al que tiende la función sin llegar nunca a alcanzarlo.\n\nUn error común es confundir la asíntota con una raíz de la función: acercarse a una recta no es lo mismo que tocarla, y la exponencial nunca cruza esa línea.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-monotonia"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con desplazamiento vertical.\n\n¿Cuál es la asíntota horizontal de esta curva?",
@@ -105,7 +114,10 @@
       9.0
     ],
     "explanation": "Cuando la curva se aproxima pero nunca alcanza la recta $y = 2$, esa recta es la **asíntota horizontal**.\n\nEsta exponencial tiene la forma $f(x) = b^x + 2$: el $+2$ desplaza la asíntota de $y = 0$ a $y = 2$, porque suma una constante a cada valor de la exponencial base sin alterar su forma de crecimiento.\n\nConviene recordar que un desplazamiento vertical mueve la asíntota pero no cambia si la curva es creciente o decreciente: eso depende únicamente de la base.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-asintota"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial decreciente.\n\n¿Hacia qué valor se aproxima la función cuando $x \\to +\\infty$?",
@@ -132,7 +144,10 @@
       9.0
     ],
     "explanation": "La función decrece y se acerca a $y = 1$ sin nunca alcanzarlo.\n\nLa asíntota horizontal es $y = 1$: la función tiene la forma $b^x + 1$ con $0 < b < 1$, y a medida que $x$ crece el término $b^x$ se hace cada vez más chico hasta casi desaparecer, dejando solo el $+1$.\n\nEs un error común pensar que toda exponencial decreciente termina en $0$: eso solo pasa cuando no hay desplazamiento vertical, acá la asíntota quedó movida.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-infinito"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuánto vale $f(0)$?",
@@ -159,7 +174,10 @@
       8.5
     ],
     "explanation": "El punto donde la curva cruza el eje $Y$ es $(0, f(0))$.\n\nPara $f(x) = b^x$: $f(0) = b^0 = 1$, porque cualquier número distinto de cero elevado a la potencia $0$ da $1$. Toda exponencial sin coeficiente $a$ pasa por el punto fijo $(0, 1)$, sin importar cuál sea la base.\n\nConviene recordar este punto como referencia rápida: si el gráfico no corta el eje vertical en $1$, es señal de que hay un coeficiente $a$ multiplicando o un desplazamiento vertical.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuánto vale $f(0)$?",
@@ -186,7 +204,10 @@
       10
     ],
     "explanation": "Leer el valor en el eje $Y$: el punto donde $x = 0$ da $f(0) = a$, porque $b^0 = 1$ y solo queda el coeficiente $a$ multiplicando.\n\nAquí la curva pasa por $(0, 2)$, entonces el coeficiente $a = 2$ en la fórmula $f(x) = 2 \\cdot b^x$: ese coeficiente estira o achica verticalmente la curva sin mover la asíntota.\n\nUn error típico es confundir este valor inicial con la base $b$, que en cambio se lee comparando dos puntos consecutivos de la curva.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuánto vale $f(0)$?",
@@ -213,7 +234,10 @@
       10
     ],
     "explanation": "El punto $(0, 3)$ indica que $f(0) = a = 3$, ya que al evaluar en $x = 0$ cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente.\n\nEn la fórmula $f(x) = a \\cdot b^x$, el coeficiente $a$ es siempre el valor que la función toma cuando $x = 0$, y actúa como un factor de escala vertical sobre toda la curva.\n\nNo hay que confundir este coeficiente con la base $b$: $a$ se lee directamente en el eje vertical, mientras que $b$ requiere comparar dos puntos consecutivos.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-monotonia"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con asíntota horizontal en $y = 0$.\n\n¿Cuál es la imagen de la función?",
@@ -240,7 +264,10 @@
       8.5
     ],
     "explanation": "La curva exponencial es siempre **positiva** (nunca toca el eje $x$, que es la asíntota) y crece sin límite hacia uno de los dos lados del gráfico.\n\nLa **imagen** es $(0, +\\infty)$: se excluye el $0$ porque es un límite asintótico que la curva se acerca pero nunca alcanza, y no hay ninguna cota superior porque crece indefinidamente.\n\nConfundir la imagen con el dominio es un error clásico: el dominio de toda exponencial es $\\mathbb{R}$, pero la imagen queda restringida por la asíntota.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-imagen"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con asíntota horizontal en $y = 1$.\n\n¿Cuál es la imagen de la función?",
@@ -267,7 +294,10 @@
       10
     ],
     "explanation": "La función tiene la forma $b^x + 1$ con $b > 1$:\n$$\\begin{aligned} f(x) &= b^x + 1 > 0 + 1 = 1 \\\\ \\text{para todo } x \\end{aligned}$$\nLa **imagen** es $(1, +\\infty)$, un intervalo abierto porque $b^x \\to 0^+$ pero nunca llega a $0$, así que la suma nunca llega a tocar el $1$ aunque se acerque todo lo que se quiera.\n\nUn desplazamiento vertical mueve la asíntota y con ella toda la imagen, pero no cambia si la función es creciente o decreciente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-valor-puntual"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con asíntota en $y = 0$.\n\n¿La función tiene algún cero (raíz real)?",
@@ -294,7 +324,10 @@
       8.5
     ],
     "explanation": "Una **raíz** es donde $f(x) = 0$, es decir, donde la curva cruza el eje horizontal. La exponencial es siempre positiva:\n$$b^x > 0 \\quad \\text{para todo } x \\in \\mathbb{R}$$\nLa curva **se acerca** al eje $x$ (su asíntota) pero nunca lo toca, sin importar cuán grande sea $|x|$.\n\nEste es un error frecuente: confundir la asíntota con una raíz. Acercarse indefinidamente a una recta nunca es lo mismo que cruzarla, y por eso ninguna exponencial básica tiene raíces reales.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-infinito"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con asíntota en $y = -1$.\n\n¿La función tiene alguna raíz real?",
@@ -321,7 +354,10 @@
       8.5
     ],
     "explanation": "La función tiene la forma $f(x) = b^x - 1$, con asíntota horizontal en $y = -1$. Cuando $x \\to -\\infty$ la función se acerca a $-1$, un valor negativo, y cuando $x \\to +\\infty$ crece sin límite hacia valores positivos.\n\nComo la curva pasa de valores negativos a valores positivos sin saltos, por continuidad existe algún punto donde $f(x) = 0$. Aquí ocurre cuando $b^x = 1$, es decir en $x = 0$, ya que $f(0) = b^0 - 1 = 1 - 1 = 0$.\n\nUn desplazamiento vertical que baje la asíntota por debajo del eje horizontal siempre genera exactamente una raíz real, a diferencia de la exponencial básica sin desplazar, que nunca cruza el eje.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-extremos-locales"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿En qué intervalo es creciente la función?",
@@ -348,7 +384,10 @@
       8.5
     ],
     "explanation": "La curva sube de forma ininterrumpida desde $x = -\\infty$ hasta $x = +\\infty$, sin ningún tramo plano ni ningún retroceso.\n\nUna exponencial con $b > 1$ es **estrictamente creciente en todo $\\mathbb{R}$**: no hay intervalos de decrecimiento ni puntos donde cambie de dirección, a diferencia de funciones como la cuadrática que sí tienen un tramo creciente y otro decreciente separados por un vértice.\n\nConviene recordar esta propiedad como sello distintivo de la exponencial: monotonía única en todo el dominio, sin excepciones.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuántos extremos locales tiene la función?",
@@ -375,7 +414,10 @@
       8.5
     ],
     "explanation": "Un **extremo local** requiere que la función cambie de creciente a decreciente, o de decreciente a creciente, en algún punto del dominio.\n\nLa exponencial nunca cambia de dirección: es siempre creciente o siempre decreciente en todo su dominio, sin excepción.\n\nPor eso el resultado es **ningún** extremo local: a diferencia de la parábola, que tiene un vértice, o de una función polinómica con varios picos, la exponencial mantiene un único sentido de variación de punta a punta.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-monotonia"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial que pasa por $(0, 1)$.\n\n¿Cuánto vale $f(1)$?",
@@ -402,7 +444,10 @@
       8.5
     ],
     "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando) y se lee en el gráfico que $f(1) = 2$, entonces:\n$$f(1) = b^1 = b = 2$$\nLa base $b$ se puede leer directamente del punto $(1, f(1))$, porque cualquier número elevado a la potencia $1$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "comparar-bases-grafico"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial que pasa por $(0, 1)$.\n\n¿Cuánto vale $f(1)$?",
@@ -429,7 +474,10 @@
       8.5
     ],
     "explanation": "Para una exponencial decreciente que pasa por $(0, 1)$, el valor en $x = 1$ coincide con la base:\n$$f(1) = b^1 = b$$\nAquí $f(1) = 0{,}5 < 1$, lo que confirma que la base cumple $0 < b < 1$, condición necesaria para que la curva decrezca en vez de crecer.\n\nRecordá que este atajo de leer la base directamente en $x = 1$ solo aplica cuando no hay coeficiente $a$ multiplicando ni desplazamiento vertical.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-dominio"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial creciente.\n\n¿Qué le pasa a la función cuando $x \\to -\\infty$?",
@@ -456,7 +504,10 @@
       9.5
     ],
     "explanation": "La exponencial creciente $b^x$ con $b > 1$ tiene dos comportamientos opuestos en los extremos del dominio. Hacia $x \\to +\\infty$ la función crece sin límite, cada vez más rápido, mientras que hacia $x \\to -\\infty$ se acerca a $0$ desde arriba sin nunca tocarlo.\n\nPor eso la asíntota horizontal $y = 0$ queda del lado izquierdo del gráfico cuando la exponencial es creciente, y no del lado derecho como muchas veces se supone por analogía con otras funciones.\n\nConviene recordar que la exponencial nunca cruza esa asíntota ni se vuelve negativa: siempre queda por encima del eje horizontal, sin importar qué tan lejos hacia la izquierda se mire.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial decreciente con asíntota $y = 0$.\n\n¿Qué le pasa a la función cuando $x \\to -\\infty$?",
@@ -483,7 +534,10 @@
       8.5
     ],
     "explanation": "La exponencial decreciente $b^x$ con $0 < b < 1$ también tiene dos comportamientos opuestos en los extremos. Hacia $x \\to +\\infty$ la función se acerca a $0$ sin tocarlo, que es la asíntota del lado derecho, mientras que hacia $x \\to -\\infty$ crece sin límite hacia valores cada vez más grandes.\n\nEsto puede resultar contraintuitivo: una función llamada decreciente termina siendo enorme cuando $x$ es muy negativo, precisamente porque decrecer significa que los valores bajan a medida que $x$ aumenta, no al revés.\n\nUn buen recordatorio práctico es que en toda exponencial, creciente o decreciente, el lado que diverge y el lado que se aplana contra la asíntota siempre son opuestos entre sí.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-asintota"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial.\n\n¿Cuál es el dominio de la función?",
@@ -510,7 +564,10 @@
       8.5
     ],
     "explanation": "La función exponencial está definida para **todo** $x$ real: no hay ningún valor de entrada que produzca una operación imposible, a diferencia de otras familias con restricciones (como el logaritmo o las funciones racionales).\n\nLa curva se extiende sin interrupciones de $x = -\\infty$ a $x = +\\infty$, siempre con un único valor de salida por cada entrada.\n\nEste **dominio** $\\mathbb{R}$ completo es una propiedad constante de toda exponencial $b^x$, sin importar cuál sea la base ni si hay coeficiente o desplazamiento.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-valor-puntual"
+    ]
   },
   {
     "question": "La gráfica muestra dos funciones exponenciales. Ambas pasan por $(0, 1)$.\n\nLa curva **más empinada** para $x > 0$, ¿tiene base mayor o menor que la otra?",
@@ -537,7 +594,10 @@
       9.5
     ],
     "explanation": "Para dos bases $b_1 > b_2 > 1$ y $x > 0$ se cumple:\n$$b_1^x > b_2^x$$\nLa curva más empinada corresponde a la mayor base, porque un número mayor elevado a una misma potencia positiva da un resultado más grande.\n\nAmbas curvas pasan por el punto fijo $(0, 1)$, pero divergen apenas $x$ se aleja de $0$: para $x < 0$ la relación se invierte y la curva de base mayor queda por debajo, más cerca del eje horizontal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial con asíntota en $y = 1$.\n\n¿Cuánto vale $f(0)$?",
@@ -564,7 +624,10 @@
       9.0
     ],
     "explanation": "Con asíntota en $y = 1$, la forma de la función es $f(x) = b^x + 1$:\n$$f(0) = b^0 + 1 = 1 + 1 = 2$$\nIndependientemente de cuál sea la base $b$, el valor $f(0)$ siempre da $2$ cuando la asíntota está en $y = 1$, porque cualquier base elevada a la potencia $0$ da $1$.\n\nEste patrón es útil como atajo: el valor de $f(0)$ en una exponencial desplazada verticalmente es siempre uno más que la altura de la asíntota.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-comportamiento-infinito"
+    ]
   },
   {
     "question": "La gráfica muestra una función exponencial. La curva siempre está **por encima** del eje $x$.\n\n¿Cuántos ceros (raíces) tiene?",
@@ -591,7 +654,10 @@
       8.5
     ],
     "explanation": "Una función tiene raíz donde $f(x) = 0$, es decir, donde la curva toca el eje $x$.\n\nSi la curva está siempre por encima del eje ($f(x) > 0$ para todo $x$), nunca lo toca, así que tiene **cero raíces**.\n\nLa exponencial básica $b^x$ siempre es positiva, tiene asíntota en $y = 0$ pero nunca la cruza, sin importar cuán grande o pequeño sea $x$. Este resultado vale para cualquier exponencial sin desplazamiento vertical: acercarse a la asíntota nunca equivale a cruzarla.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-monotonia"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = (0{,}5)^x$. Usando la gráfica, ¿cuánto vale $f(-2)$?",
@@ -618,7 +684,10 @@
       8.5
     ],
     "explanation": "$$f(-2) = (0{,}5)^{-2} = \\left(\\frac{1}{2}\\right)^{-2} = 2^2 = 4$$\nUn exponente negativo invierte la base antes de elevarla a la potencia positiva correspondiente, por eso $(0{,}5)^{-2}$ termina siendo $2^2$.\n\nEn el gráfico, el punto $(-2, 4)$ está sobre la curva: como la función es decreciente, al leerla hacia la izquierda del eje vertical los valores se vuelven cada vez más grandes en vez de acercarse a la asíntota.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-raices"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = 2 \\cdot (1{,}5)^x$.\n\n¿Cuánto vale $f(2)$ aproximadamente? Usar que $(1{,}5)^2 = 2{,}25$.",
@@ -645,7 +714,10 @@
       10
     ],
     "explanation": "Evaluar en $x = 2$:\n$$f(2) = 2 \\cdot (1{,}5)^2 = 2 \\cdot 2{,}25 = 4{,}5$$\nEl coeficiente $a = 2$ multiplica al resultado de elevar la base a la potencia, nunca se suma ni se eleva junto con ella.\n\nEn la gráfica, el punto $(2, 4{,}5)$ está sobre la curva, y sirve como referencia para verificar visualmente que el cálculo algebraico coincide con lo que muestra el trazo.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-imagen"
+    ]
   },
   {
     "question": "La gráfica muestra $f(x) = 3 \\cdot (0{,}6)^x$.\n\n¿Cuánto vale $f(1)$?",
@@ -672,7 +744,10 @@
       10
     ],
     "explanation": "$$f(1) = 3 \\cdot (0{,}6)^1 = 3 \\cdot 0{,}6 = 1{,}8$$\nEl coeficiente $a = 3$ multiplica a la base elevada a la potencia $x$, y cualquier número elevado a la potencia $1$ es igual a sí mismo, por eso alcanza con multiplicar $3$ por $0{,}6$.\n\nEn la gráfica, el punto $(1, 1{,}8)$ está sobre la curva. La función cayó de $3$ a $1{,}8$ en un solo paso, es decir perdió el $40\\%$ de su valor, coherente con una base $0{,}6$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-valor-puntual"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -699,7 +774,10 @@
       8.5
     ],
     "explanation": "La clave para distinguir entre fórmulas parecidas es comparar la rapidez del crecimiento en un mismo punto del gráfico. En $x = 4$, la base $2$ da $2^4 = 16$, mientras que la base $1{,}5$ da apenas $(1{,}5)^4 \\approx 5{,}06$: una diferencia grande para el mismo valor de $x$.\n\nCuanto mayor es la base, más rápido se dispara la curva hacia la derecha, y cuanto más cerca de $1$ está la base, más suave y lenta es la subida.\n\nComo esta curva crece de forma moderada y no se dispara con la misma rapidez que $2^x$ o $3^x$, corresponde a la menor de las bases ofrecidas, siguiendo el orden $1{,}5 < 2 < 3$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -726,7 +804,10 @@
       8.5
     ],
     "explanation": "Para distinguir entre distintas bases menores que $1$, conviene comparar cuánto le queda a la función en un mismo punto positivo del eje horizontal. Con base $0{,}7$, en $x = 4$ el valor es $f = 0{,}24$, un decaimiento relativamente lento, mientras que con base $0{,}3$ el valor en $x = 4$ cae hasta apenas $f = 0{,}0081$, un decaimiento mucho más brusco.\n\nCuanto más chica es la base (más cerca de $0$), más rápido se aplasta la curva contra el eje horizontal.\n\nComo esta curva todavía conserva un valor apreciable para $x$ positivo, en vez de desplomarse casi de inmediato, corresponde a la base mayor entre las opciones decrecientes, es decir $0{,}7$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -753,7 +834,10 @@
       9.0
     ],
     "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal. Acá la curva pasa por $(0, 3)$ y se aplana hacia $y = 2$ del lado izquierdo, y la fórmula $2^x + 2$ cumple ambas condiciones porque $2^0 + 2 = 3$ y el $+2$ desplaza la asíntota de $0$ a $2$.\n\nLas otras opciones fallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$, mientras que $3 \\cdot 2^x$ cambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -780,7 +864,10 @@
       9.0
     ],
     "explanation": "Para elegir entre fórmulas parecidas conviene revisar tres señales por separado: el sentido de la curva, la altura de la asíntota y el punto de corte con el eje vertical. Esta curva es decreciente, lo que exige una base menor que $1$ y descarta de entrada la opción con base $1{,}5$.\n\nLa asíntota está en $y = 1$, no en $y = 0$, lo que descarta la fórmula sin desplazamiento vertical. Además, en $x = 0$ la curva pasa por $(0, 2)$, y solo $(0{,}5)^0 + 1 = 2$ cumple esa condición, mientras que el signo negativo delante de la potencia daría $-(0{,}5)^0 + 1 = 0$.\n\nLa fórmula que satisface las tres señales a la vez es $(0{,}5)^x + 1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -807,7 +894,10 @@
       10
     ],
     "explanation": "El punto de corte con el eje vertical es $(0, 2)$, lo que indica que el coeficiente $a = 2$ multiplica a la base, y descarta de entrada la fórmula sin coeficiente, que pasaría por $(0, 1)$.\n\nLa curva es creciente, así que la base debe ser mayor que $1$, lo que descarta la opción con base $0{,}5$. Además, la asíntota está en $y = 0$, sin desplazamiento vertical, lo que descarta la fórmula que suma una constante y movería esa asíntota a $y = 2$.\n\nLa única fórmula que cumple las tres condiciones a la vez, coeficiente, monotonía y asíntota, es $2 \\cdot (1{,}5)^x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -834,7 +924,10 @@
       10
     ],
     "explanation": "La curva es decreciente, lo que exige una base menor que $1$ y descarta de entrada las dos fórmulas con bases mayores a $1$, que subirían en vez de bajar.\n\nAdemás, el punto de corte con el eje vertical es $(0, 3)$, lo que indica un coeficiente $a = 3$ multiplicando a la base, y descarta la opción sin coeficiente, que pasaría por $(0, 1)$.\n\nLa fórmula que combina coeficiente $a = 3$ y base $0{,}6 < 1$ es $3 \\cdot (0{,}6)^x$, coherente con una curva que arranca alto y se aplana hacia $0$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -861,7 +954,10 @@
       9.0
     ],
     "explanation": "El punto de corte con el eje vertical es $(0, 4)$, lo que indica un coeficiente $a = 4$ multiplicando a la base, y descarta la fórmula sin coeficiente, que pasaría por $(0, 1)$.\n\nLa curva es decreciente, así que la base debe cumplir $0 < b < 1$, lo que descarta la opción con base $2$. Además, la asíntota está en $y = 0$, sin desplazamiento vertical, lo que descarta la fórmula que suma una constante.\n\nLa fórmula que combina las tres señales, coeficiente $4$, base decreciente y asíntota en $0$, es $4 \\cdot (0{,}5)^x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -888,7 +984,10 @@
       9.5
     ],
     "explanation": "Una forma directa de distinguir entre bases parecidas es leer el punto $(1, f(1))$ en el gráfico, porque cualquier base elevada a la potencia $1$ es igual a sí misma. Para las cuatro opciones, ese valor sería $3$ para base $3$, aproximadamente $2{,}7$ para $e$, $2$ para base $2$ y $1{,}5$ para base $1{,}5$.\n\nCuanto mayor es la base, más alto queda ese punto y más empinada se ve la curva justo después de $x = 0$.\n\nComo esta curva pasa por $(1, 3)$, la más empinada de las cuatro, corresponde a la base $3$, la mayor entre las opciones ofrecidas.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -915,7 +1014,10 @@
       8.5
     ],
     "explanation": "La curva es creciente, lo que exige una base mayor que $1$ y descarta las opciones con base menor a $1$ o con signo negativo, que producirían decaimiento o inversión de la curva.\n\nLa asíntota está en $y = -1$, por debajo del eje horizontal, lo que descarta la fórmula sin desplazamiento vertical, cuya asíntota quedaría en $y = 0$. Además, en $x = 0$ la curva pasa por el origen, ya que $2^0 - 1 = 0$, coherente con ese desplazamiento.\n\nLa fórmula que combina base creciente, asíntota desplazada y paso por el origen es $2^x - 1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -942,7 +1044,10 @@
       10
     ],
     "explanation": "El punto de corte con el eje vertical es $(0, 3)$, y solo la fórmula con coeficiente $2$ y desplazamiento $+1$ da ese valor, ya que $2 \\cdot 1 + 1 = 3$; las opciones sin uno de esos dos elementos dan $f(0) = 2$.\n\nLa curva es creciente, así que la base debe ser mayor que $1$, lo que descarta la opción con base $0{,}5$. Además, la asíntota está en $y = 1$, lo que descarta la fórmula sin desplazamiento vertical.\n\nLa única fórmula que cumple coeficiente, desplazamiento y monotonía a la vez es $2 \\cdot (1{,}5)^x + 1$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -969,7 +1074,10 @@
       8.5
     ],
     "explanation": "Para distinguir entre bases decrecientes parecidas conviene comparar el valor de la función en un mismo punto positivo, por ejemplo $x = 3$. Ahí, la base $0{,}3$ da $0{,}027$, la base $0{,}5$ da $0{,}125$ y la base $0{,}7$ da $0{,}343$: cuanto más chica es la base, más rápido cae la curva hacia la asíntota.\n\nUna curva muy empinada que cae casi de inmediato corresponde a la base más pequeña entre las opciones, ya que multiplicar repetidamente por un número muy chico reduce el valor mucho más rápido.\n\nComo esta curva decae con mucha rapidez, corresponde a la base menor de las cuatro, es decir $0{,}3$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -996,7 +1104,10 @@
       10
     ],
     "explanation": "El punto de corte con el eje vertical es $(0, 3)$, lo que indica un coeficiente $a = 3$ multiplicando a la base, y descarta la fórmula sin coeficiente, que pasaría por $(0, 1)$.\n\nLa curva es decreciente, lo que descarta la opción con base mayor a $1$. Además, la asíntota está en $y = 0$, sin desplazamiento vertical, lo que descarta la fórmula con signo negativo, cuya asíntota quedaría en $y = 3$.\n\nLa fórmula que combina coeficiente, base decreciente y asíntota en $0$ es $3 \\cdot (0{,}6)^x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -1023,7 +1134,10 @@
       10
     ],
     "explanation": "La curva es creciente, lo que descarta las opciones con base menor a $1$, que producirían decaimiento en vez de crecimiento.\n\nEl punto de corte con el eje vertical es $(0, 3)$, lo que indica un coeficiente $a = 3$ multiplicando a la base, y descarta la fórmula sin coeficiente, que pasaría por $(0, 1)$. Además, en $x = 1$ la curva llega a $6$, y como $6 = 3 \\cdot 2$, la base debe ser $2$.\n\nLa fórmula que combina coeficiente $3$, base creciente igual a $2$ y el punto $(1, 6)$ es $3 \\cdot 2^x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -1050,7 +1164,10 @@
       8.5
     ],
     "explanation": "Leer el punto $(1, f(1))$ en el gráfico es un atajo directo, porque cualquier base elevada a la potencia $1$ es igual a sí misma. Acá la curva pasa por $(1, 2)$, lo que señala directamente que la base es $2$.\n\nComparando con las otras opciones, $e^1 \\approx 2{,}7$ daría una curva algo más empinada, y $(1{,}5)^1 = 1{,}5$ una curva algo más suave que la que muestra este gráfico.\n\nLa curva intermedia entre esas dos, ni tan empinada como $e^x$ ni tan suave como $(1{,}5)^x$, corresponde a la base $2$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "¿Cuál de estas fórmulas corresponde a la curva del gráfico?",
@@ -1077,7 +1194,10 @@
       9.0
     ],
     "explanation": "El punto de corte con el eje vertical es $(0, 4)$, lo que indica un coeficiente $a = 4$ multiplicando a la base en la expresión $a \\cdot b^x$.\n\nLa curva es decreciente, lo que descarta la opción con base mayor a $1$. Además, la asíntota está en $y = 0$, sin desplazamiento vertical, lo que descarta las fórmulas que suman una constante y moverían esa asíntota hacia arriba.\n\nLa fórmula que combina coeficiente $4$, base decreciente y asíntota en $0$ es $4 \\cdot (0{,}5)^x$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ]
   },
   {
     "question": "La gráfica muestra la cantidad de bacterias $B$ (en miles) en función de las horas $t$.\nLa colonia empieza con 2000 bacterias y se duplica cada hora.\n\n¿Cuántas bacterias hay después de $2$ horas?",
@@ -1104,7 +1224,10 @@
       10
     ],
     "explanation": "Modelo: $B(t) = 2 \\cdot 2^t$ (en miles), donde el coeficiente $2$ es la cantidad inicial y la base $2$ representa la duplicación cada hora.\n$$B(2) = 2 \\cdot 2^2 = 8 \\text{ miles} = 8000$$\nEn la gráfica, el punto $(2, 8)$ está sobre la curva.\n\nCuando algo se duplica cada período, el exponente cuenta cuántas veces se aplicó esa duplicación, no cuántas unidades de tiempo pasaron sumadas linealmente.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra una inversión de \\$1000 que crece un $50\\%$ anual.\nEl eje $y$ muestra el monto en miles de pesos, el eje $x$ muestra los años.\n\n¿Cuánto vale la inversión después de $1$ año?",
@@ -1131,7 +1254,10 @@
       8.5
     ],
     "explanation": "Modelo: $M(t) = 1 \\cdot (1{,}5)^t$ (en miles de pesos), donde el factor $1{,}5$ representa un crecimiento del $50\\%$ por año.\n$$M(1) = (1{,}5)^1 = 1{,}5 \\text{ miles} = 1500$$\nLa inversión creció un $50\\%$ en el primer año, pasando de \\$1000 a \\$1500.\n\nEsta es la marca típica de un proceso exponencial en contexto financiero: el crecimiento se aplica sobre el monto acumulado, no sobre el monto inicial fijo de cada período.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra cómo se enfría una taza de café. El eje $y$ muestra la diferencia de temperatura con el ambiente (en °C) y el eje $x$ el tiempo en minutos.\nAl inicio, la diferencia es $3$ °C.\n\n¿Qué le pasa a la diferencia de temperatura a medida que pasa el tiempo?",
@@ -1158,7 +1284,10 @@
       8.5
     ],
     "explanation": "La curva exponencial decreciente tiende a $y = 0$ a medida que pasa el tiempo:\n$$D(t) \\to 0 \\text{ cuando } t \\to +\\infty$$\nEn la práctica, el café se va enfriando cada vez más lento hasta acercarse a la temperatura del ambiente, sin llegar a igualarla exactamente en un tiempo finito.\n\nLa diferencia de temperatura es cada vez más pequeña pero siempre positiva: este modelo se conoce como la **Ley de enfriamiento de Newton**, y es un ejemplo clásico de decaimiento exponencial con asíntota en $0$.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra el valor de una moto (en miles de \\$) en función de los años.\nLa moto costó \\$3000 y pierde valor cada año.\n\n¿Cuánto vale la moto después de $1$ año aproximadamente?",
@@ -1185,7 +1314,10 @@
       10
     ],
     "explanation": "Modelo: $V(t) = 3 \\cdot (0{,}6)^t$ (en miles de pesos), donde la base $0{,}6$ indica que cada año queda el $60\\%$ del valor del año anterior.\n$$V(1) = 3 \\cdot 0{,}6 = 1{,}8 \\text{ miles} = 1800$$\nLa moto perdió el $40\\%$ de su valor en el primer año, pasando de \\$3000 a \\$1800.\n\nEste tipo de depreciación por porcentaje fijo es exponencial, a diferencia de una depreciación por monto fijo cada año, que sería lineal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra el número de usuarios de una app (en miles) en función de los meses.\nArranca con $1000$ usuarios y crece un $50\\%$ por mes.\n\n¿Cuántos usuarios hay al final del primer mes?",
@@ -1212,7 +1344,10 @@
       8.5
     ],
     "explanation": "Modelo: $U(t) = 1 \\cdot (1{,}5)^t$ (en miles de usuarios), donde el factor $1{,}5$ representa un crecimiento del $50\\%$ mensual.\n$$U(1) = 1{,}5 \\text{ miles} = 1500$$\nEl $50\\%$ de $1000$ es $500$; sumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra la temperatura de un horno que se enfría luego de apagarse.\nEl eje $y$ muestra la temperatura en decenas de grados, el eje $x$ los minutos.\nLa temperatura ambiente es $20°C$ (la asíntota de la curva es $y = 2$ en el gráfico).\n\n¿Cuál es la temperatura a la que tiende el horno a medida que pasa el tiempo?",
@@ -1239,7 +1374,10 @@
       9.0
     ],
     "explanation": "La **asíntota horizontal** $y = k$ es el valor al que se acerca la función sin nunca alcanzarlo del todo. En este gráfico, $y = 2$ (en decenas de grados) corresponde a $20°C$, la temperatura del ambiente.\n\nLa **Ley de enfriamiento de Newton** modela esta situación: la temperatura del objeto decae exponencialmente hacia la temperatura ambiente, cada vez más lento a medida que se acerca a ella.\n\nUn error común es pensar que el objeto termina exactamente en $0°C$: en realidad tiende a la temperatura del entorno, que acá es $20°C$, no al cero absoluto.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra el saldo de una cuenta bancaria (en miles de \\$) con interés compuesto.\nEl saldo inicial es \\$2000.\n\n¿Cuánto hay en la cuenta después de $2$ años si el punto $(2, 4{,}5)$ está en la curva?",
@@ -1266,7 +1404,10 @@
       10
     ],
     "explanation": "Leer el punto $(2, 4{,}5)$ de la gráfica:\n$$M(2) = 4{,}5 \\text{ miles de pesos} = 4500$$\nEl saldo creció de \\$2000 a \\$4500 en 2 años, más del doble del monto inicial gracias al interés compuesto.\n\nA diferencia del interés simple, en el interés compuesto cada período el interés se calcula sobre el saldo acumulado, no solo sobre el capital inicial, y por eso el crecimiento es exponencial en vez de lineal.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "evaluar-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra cuántos gramos quedan de una muestra radiactiva en función de los años.\nEmpieza con $4$ gramos.\n\n¿Cuántos gramos quedan después de $1$ año?",
@@ -1293,7 +1434,10 @@
       9.0
     ],
     "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:\n$$M(1) = 4 \\cdot (0{,}5)^1 = 2$$\nCada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año, y corresponde a una base $b = 0{,}5$ en el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $0$, solo se acerca cada vez más a esa asíntota.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "comportamiento-infinito-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra el crecimiento de seguidores en redes (en miles) de un canal.\nEmpieza con $3000$ seguidores y crece un $20\\%$ mensual.\n\n¿Qué valor tiene la curva en $t = 0$?",
@@ -1320,7 +1464,10 @@
       10
     ],
     "explanation": "El punto $(0, 3)$ es donde la curva corta el eje $y$:\n$$S(0) = 3 \\cdot (1{,}2)^0 = 3 \\cdot 1 = 3 \\text{ miles}$$\nEste es el valor inicial de la curva, los $3000$ seguidores del comienzo, ya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente $a = 3$.\n\nEste valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "asintota-contexto"
+    ]
   },
   {
     "question": "La gráfica muestra el precio de un producto electrónico (en cientos de \\$) en función de los años desde su lanzamiento. El precio baja un $40\\%$ anual.\n\nSi el producto lanzó a \\$300, ¿qué precio tiene después de $2$ años? Usar que $(0{,}6)^2 = 0{,}36$.",
@@ -1347,6 +1494,9 @@
       10
     ],
     "explanation": "Modelo: $P(t) = 3 \\cdot (0{,}6)^t$ (en cientos de pesos), donde la base $0{,}6$ indica que cada año queda el $60\\%$ del precio del año anterior.\n$$P(2) = 3 \\cdot 0{,}36 = 1{,}08 \\text{ cientos} = \\$108$$\nEl producto perdió el $64\\%$ de su valor en dos años, pasando de \\$300 a \\$108.\n\nEsta caída acumulada mayor al $40\\%$ simple de un año es propia del decaimiento exponencial: el porcentaje se aplica sobre el precio ya reducido del período anterior, no sobre el precio original.",
-    "reviewed": false
+    "reviewed": false,
+    "tags": [
+      "lectura-ordenada-origen-contexto"
+    ]
   }
 ]

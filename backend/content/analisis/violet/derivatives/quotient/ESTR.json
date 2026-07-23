@@ -1,10 +1,10 @@
 [
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Considerá la función:\n$$f(x) = \\frac{5}{x^3}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Reescribir como potencia negativa",
       "Regla del cociente",
-      "Múltiplo escalar (linealidad)"
+      "Múltiplo escalar"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -16,11 +16,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\n$$\\frac{5}{x^3} = 5x^{-3}$$\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$, $u'$ y $v'$ por separado.",
-    "reviewed": false
+    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n$$\\frac{5}{x^3} = 5x^{-3}$$\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$, $u'$ y $v'$ por separado.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{7}{x^2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
       "Reescribir como potencia negativa",
@@ -36,14 +39,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier constante dividida por una potencia de $x$, conviene reescribir la expresión antes de derivar.\n\n$$\\frac{7}{x^2} = 7x^{-2}$$\nEsta reescritura evita el trabajo adicional de la regla del cociente frente a una función que, en el fondo, es una potencia simple.",
-    "reviewed": false
+    "explanation": "Igual que con cualquier constante dividida por una potencia de $x$, conviene reescribir la expresión antes de derivar.\n$$\\frac{7}{x^2} = 7x^{-2}$$\nEsta reescritura evita el trabajo adicional de la regla del cociente frente a una función que, en el fondo, es una potencia simple.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = \\frac{-4}{x^5}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Reescribir como potencia negativa"
     ],
     "correct_index": 2,
@@ -56,13 +62,16 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo del coeficiente no cambia el análisis, la expresión sigue siendo una constante dividida por una potencia de $x$.\n\n$$\\frac{-4}{x^5} = -4x^{-5}$$\nCon esta reescritura, la derivada se calcula directamente con la regla de la potencia, sin recurrir a la fórmula del cociente.",
-    "reviewed": false
+    "explanation": "El signo negativo del coeficiente no cambia el análisis, la expresión sigue siendo una constante dividida por una potencia de $x$.\n$$\\frac{-4}{x^5} = -4x^{-5}$$\nCon esta reescritura, la derivada se calcula directamente con la regla de la potencia, sin recurrir a la fórmula del cociente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = \\frac{x^2+1}{4}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Regla del cociente",
       "Regla del producto"
     ],
@@ -76,14 +85,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador es una constante, dividir equivale a multiplicar por su recíproco, un simple **múltiplo escalar**.\n\n$$\\frac{x^2+1}{4} = \\frac{1}{4}(x^2+1)$$\nCon esa reinterpretación, la derivada se calcula con linealidad y la regla de la potencia, sin necesitar la fórmula completa del cociente.",
-    "reviewed": false
+    "explanation": "Cuando el denominador es una constante, dividir equivale a multiplicar por su recíproco, un simple **múltiplo escalar**.\n$$\\frac{x^2+1}{4} = \\frac{1}{4}(x^2+1)$$\nCon esa reinterpretación, la derivada se calcula con linealidad y la regla de la potencia, sin necesitar la fórmula completa del cociente.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{2x^2-6}{2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Regla del cociente"
     ],
     "correct_index": 1,
@@ -96,15 +108,18 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\n$$\\frac{2x^2-6}{2} = \\frac{1}{2}(2x^2-6)$$\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$, $u'$ y $v'$ para una constante en el denominador.",
-    "reviewed": false
+    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n$$\\frac{2x^2-6}{2} = \\frac{1}{2}(2x^2-6)$$\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$, $u'$ y $v'$ para una constante en el denominador.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Observá la función:\n$$f(x) = \\frac{x^3+5}{10}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla del cociente",
       "Reescribir como potencia negativa",
-      "Múltiplo escalar (linealidad)"
+      "Múltiplo escalar"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -116,11 +131,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un denominador constante, toda la fracción equivale a multiplicar el numerador por un número fijo.\n\n$$\\frac{x^3+5}{10} = \\frac{1}{10}(x^3+5)$$\nEsta reinterpretación como múltiplo escalar habilita derivar con linealidad, sin necesidad de identificar factores para una regla del cociente.",
-    "reviewed": false
+    "explanation": "Con un denominador constante, toda la fracción equivale a multiplicar el numerador por un número fijo.\n$$\\frac{x^3+5}{10} = \\frac{1}{10}(x^3+5)$$\nEsta reinterpretación como múltiplo escalar habilita derivar con linealidad, sin necesidad de identificar factores para una regla del cociente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Examiná la función:\n$$f(x) = \\frac{x^2-1}{x-1}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Simplificar el cociente primero",
       "Regla del cociente",
@@ -136,13 +154,16 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar la regla del cociente, conviene revisar si el numerador se puede factorizar y cancelar con el denominador.\n\n$$\\frac{x^2-1}{x-1} = \\frac{(x-1)(x+1)}{x-1} = x+1, \\quad x \\neq 1$$\nUna vez simplificada, la expresión es apenas una función lineal, cuya derivada se obtiene de inmediato, sin necesidad de la fórmula completa del cociente.",
-    "reviewed": false
+    "explanation": "Antes de aplicar la regla del cociente, conviene revisar si el numerador se puede factorizar y cancelar con el denominador.\n$$\\frac{x^2-1}{x-1} = \\frac{(x-1)(x+1)}{x-1} = x+1, \\quad x \\neq 1$$\nUna vez simplificada, la expresión es apenas una función lineal, cuya derivada se obtiene de inmediato, sin necesidad de la fórmula completa del cociente.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
-    "question": "Considerá la función\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
+    "question": "Analizá la función:\n$$f(x) = \\frac{x^3-8}{x-2}$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Simplificar el cociente primero",
       "Regla del cociente"
     ],
@@ -156,8 +177,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El numerador $x^3-8$ es una diferencia de cubos que factoriza exactamente con el denominador $x-2$.\n\n$$\\frac{x^3-8}{x-2} = \\frac{(x-2)(x^2+2x+4)}{x-2} = x^2+2x+4, \\quad x \\neq 2$$\nCon esta simplificación, la derivada se obtiene directamente por la regla de la potencia y la linealidad, sin recurrir a la fórmula del cociente.",
-    "reviewed": false
+    "explanation": "El numerador $x^3-8$ es una diferencia de cubos que factoriza exactamente con el denominador $x-2$.\n$$\\frac{x^3-8}{x-2} = \\frac{(x-2)(x^2+2x+4)}{x-2} = x^2+2x+4, \\quad x \\neq 2$$\nCon esta simplificación, la derivada se obtiene directamente por la regla de la potencia y la linealidad, sin recurrir a la fórmula del cociente.",
+    "reviewed": false,
+    "tags": [
+      "falsos-positivos-alternativas-cociente"
+    ]
   },
   {
     "question": "¿Cuál es la fórmula correcta de la **regla del cociente** para $\\left(\\frac{u}{v}\\right)'$?",
@@ -176,8 +200,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nA diferencia de la regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado.",
-    "reviewed": false
+    "explanation": "La **regla del cociente** tiene un orden estricto en la resta del numerador, que no se puede invertir sin cambiar el resultado.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nA diferencia de la regla del producto, acá el orden de la resta importa, y el **denominador** siempre queda elevado al cuadrado.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
     "question": "En la regla del cociente, ¿qué término va primero dentro de la resta del **numerador**?",
@@ -196,8 +223,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El orden dentro del **numerador** de la regla del cociente no es arbitrario, primero va el término con la derivada de $u$.\n\n$$u'v - uv'$$\nInvertir este orden cambia el signo de toda la derivada, un error frecuente al confundir esta fórmula con la del producto, donde el orden sí es indistinto.",
-    "reviewed": false
+    "explanation": "El orden dentro del **numerador** de la regla del cociente no es arbitrario, primero va el término con la derivada de $u$.\n$$u'v - uv'$$\nInvertir este orden cambia el signo de toda la derivada, un error frecuente al confundir esta fórmula con la del producto, donde el orden sí es indistinto.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
     "question": "¿Qué exponente lleva el **denominador** en la regla del cociente?",
@@ -216,8 +246,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **denominador** de la derivada de un cociente siempre aparece elevado al cuadrado, sin importar la forma de la función original.\n\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nDejar de lado este cuadrado es uno de los errores más frecuentes al aplicar la fórmula, conviene revisarlo siempre antes de dar el resultado final.",
-    "reviewed": false
+    "explanation": "El **denominador** de la derivada de un cociente siempre aparece elevado al cuadrado, sin importar la forma de la función original.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nDejar de lado este cuadrado es uno de los errores más frecuentes al aplicar la fórmula, conviene revisarlo siempre antes de dar el resultado final.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
     "question": "¿De qué depende el signo de $f'(x)$ cuando $f(x)=\\frac{u(x)}{v(x)}$?",
@@ -236,11 +269,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como el **denominador** de la fórmula siempre queda elevado al cuadrado, su valor nunca es negativo mientras $v \\neq 0$.\n\n$$v(x)^2 > 0 \\quad \\text{siempre que } v(x) \\neq 0$$\nPor eso, el signo completo de $f'(x)$ queda determinado exclusivamente por el numerador $u'v-uv'$, sin ningún aporte del denominador.",
-    "reviewed": false
+    "explanation": "Como el **denominador** de la fórmula siempre queda elevado al cuadrado, su valor nunca es negativo mientras $v \\neq 0$.\n$$v(x)^2 > 0 \\quad \\text{siempre que } v(x) \\neq 0$$\nPor eso, el signo completo de $f'(x)$ queda determinado exclusivamente por el numerador $u'v-uv'$, sin ningún aporte del denominador.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
-    "question": "Para derivar\n$$f(x) = \\frac{x^2+1}{x+\\frac{1}{x}}$$\ncon la regla del cociente, ¿cuál es el denominador $v$?",
+    "question": "Para derivar:\n$$f(x) = \\frac{x^2+1}{x+\\frac{1}{x}}$$\nCon la regla del cociente, ¿cuál es el denominador $v$?",
     "options": [
       "$v=x+\\frac{1}{x}$, la expresión completa del denominador",
       "$v=x$, solo el primer término del denominador",
@@ -256,11 +292,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **denominador** de una fracción es a su vez una suma de varios términos, $v$ tiene que abarcar la expresión entera.\n\n$$v(x) = x+\\frac{1}{x}$$\nTomar solo una parte del denominador rompe la estructura de la fórmula, la identificación de $u$ y $v$ siempre respeta los límites de la fracción original.",
-    "reviewed": false
+    "explanation": "Cuando el **denominador** de una fracción es a su vez una suma de varios términos, $v$ tiene que abarcar la expresión entera.\n$$v(x) = x+\\frac{1}{x}$$\nTomar solo una parte del denominador rompe la estructura de la fórmula, la identificación de $u$ y $v$ siempre respeta los límites de la fracción original.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
-    "question": "Para derivar\n$$f(x) = \\frac{\\sin x}{x^2}$$\ncon la regla del cociente, ¿cómo se identifican $u$ y $v$?",
+    "question": "Para derivar:\n$$f(x) = \\frac{\\sin x}{x^2}$$\nCon la regla del cociente, ¿cómo se identifican $u$ y $v$?",
     "options": [
       "$u=\\sin x \\cdot x^2, v=1$",
       "$u=\\sin x, v=x^2$",
@@ -276,8 +315,11 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la regla del cociente, la identificación de $u$ y $v$ respeta siempre la posición original en la fracción.\n\n$$u=\\sin x, \\quad v=x^2$$\nEl **numerador** de la fracción es siempre $u$, y el **denominador** es siempre $v$, invertir estos roles rompe por completo la fórmula.",
-    "reviewed": false
+    "explanation": "En la regla del cociente, la identificación de $u$ y $v$ respeta siempre la posición original en la fracción.\n$$u=\\sin x, \\quad v=x^2$$\nEl **numerador** de la fracción es siempre $u$, y el **denominador** es siempre $v$, invertir estos roles rompe por completo la fórmula.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   },
   {
     "question": "¿Cuál de las siguientes expresiones corresponde correctamente a la **regla del cociente**?",
@@ -296,7 +338,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.",
-    "reviewed": false
+    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n$$\\left(\\frac{u}{v}\\right)' = \\frac{u'v-uv'}{v^2}$$\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.",
+    "reviewed": false,
+    "tags": [
+      "anatomia-signos-y-dominio-cociente"
+    ]
   }
 ]

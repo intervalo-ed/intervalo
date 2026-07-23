@@ -23,8 +23,11 @@
       -1,
       8
     ],
-    "explanation": "Para leer un **límite lateral** en una gráfica, hay que identificar primero cuál rama está activa en la dirección pedida y seguirla visualmente hasta el punto de tendencia.\n\nEn este caso, para $x<1$ la función sigue la rama $f(x)=x+1$. Al acercarse a $x=1$ desde la izquierda:\n$$\\lim_{x \\to 1^-} f(x) = 1 + 1 = 2$$\n\nConviene no mezclar esta lectura con la rama derecha, que en $x=1$ llega a una altura distinta: ese es el salto que separa ambas ramas.",
-    "reviewed": false
+    "explanation": "Para leer un **límite lateral** en una gráfica, hay que identificar primero cuál rama está activa en la dirección pedida y seguirla visualmente hasta el punto de tendencia.\n\nEn este caso, para $x<1$ la función sigue la rama $f(x)=x+1$. Al acercarse a $x=1$ desde la izquierda:\n$$\\lim_{x \\to 1^-} f(x) = 1 + 1 = 2$$\nConviene no mezclar esta lectura con la rama derecha, que en $x=1$ llega a una altura distinta: ese es el salto que separa ambas ramas.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "En la misma gráfica, con el quiebre en $x=1$.\n\n¿Cuánto vale $\\lim_{x \\to 1^+} f(x)$?",
@@ -50,8 +53,11 @@
       -1,
       8
     ],
-    "explanation": "Para el **límite lateral** por la derecha, se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n\n$$\\lim_{x \\to 1^+} f(x) = 1 + 4 = 5$$\nComo $\\lim_{x \\to 1^-} f(x) = 2 \\neq 5 = \\lim_{x \\to 1^+} f(x)$, el límite bilateral en $x=1$ no existe.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.",
-    "reviewed": false
+    "explanation": "Para el **límite lateral** por la derecha, se sigue la rama activa para $x \\geq 1$ y se observa a qué altura llega al acercarse a $x=1$.\n$$\\lim_{x \\to 1^+} f(x) = 1 + 4 = 5$$\nComo $\\lim_{x \\to 1^-} f(x) = 2 \\neq 5 = \\lim_{x \\to 1^+} f(x)$, el límite bilateral en $x=1$ no existe.\n\nLa gráfica muestra un salto de $3$ unidades hacia arriba exactamente en el punto de quiebre.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "En la gráfica se muestra un **salto** en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
@@ -77,8 +83,11 @@
       -2,
       9
     ],
-    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$, ignorando por completo hacia dónde va la rama del otro lado.\n\n$$\\lim_{x \\to 2^-} f(x) = 2 \\cdot 2 = 4$$\nmientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nConfundir el lado contrario con el lateral pedido es el error más común al leer un salto en una gráfica.",
-    "reviewed": false
+    "explanation": "Al pedir el límite por la izquierda, hay que seguir exclusivamente la rama activa para $x<2$, ignorando por completo hacia dónde va la rama del otro lado.\n$$\\lim_{x \\to 2^-} f(x) = 2 \\cdot 2 = 4$$\nMientras que por la derecha la rama $x+5$ llega a $7$, el valor del lado contrario.\n\nConfundir el lado contrario con el lateral pedido es el error más común al leer un salto en una gráfica.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "La gráfica marca un **hueco** en $x=3$ con un punto abierto, y un punto cerrado a otra altura en el mismo $x=3$.\n\n¿Cuánto vale $\\lim_{x \\to 3^+} f(x)$?",
@@ -104,8 +113,11 @@
       -1,
       11
     ],
-    "explanation": "El punto cerrado marcado en la gráfica representa $f(3)$, el valor puntual de la función, mientras que el **límite lateral** se lee siguiendo la rama abierta hacia la que tiende la curva.\n\n$$\\lim_{x \\to 3^+} f(x) = 3 + 1 = 4$$\naunque el punto cerrado esté marcado en $y=9$.\n\nEl punto cerrado y el límite lateral son dos lecturas distintas de la misma gráfica: uno es el valor real de la función, el otro es hacia dónde tiende.",
-    "reviewed": false
+    "explanation": "El punto cerrado marcado en la gráfica representa $f(3)$, el valor puntual de la función, mientras que el **límite lateral** se lee siguiendo la rama abierta hacia la que tiende la curva.\n$$\\lim_{x \\to 3^+} f(x) = 3 + 1 = 4$$\nAunque el punto cerrado esté marcado en $y=9$.\n\nEl punto cerrado y el límite lateral son dos lecturas distintas de la misma gráfica: uno es el valor real de la función, el otro es hacia dónde tiende.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "La gráfica tiene forma de V, típica de una expresión con **valor absoluto**, con el vértice en $x=2$.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
@@ -131,8 +143,11 @@
       -1,
       4
     ],
-    "explanation": "Una gráfica con forma de V, como la de una expresión con **valor absoluto**, tiene dos ramas rectas que se encuentran en el vértice. Para leer el límite lateral, se sigue la rama correspondiente hasta ese punto.\n\n$$\\lim_{x \\to 2^-} |x-2| = |2-2| = 0$$\nla rama izquierda desciende linealmente hasta tocar $y=0$ en $x=2$.\n\nEn este caso particular, como la V es continua en el vértice, el límite por la izquierda coincide con el límite por la derecha y con el valor de la función.",
-    "reviewed": false
+    "explanation": "Una gráfica con forma de V, como la de una expresión con **valor absoluto**, tiene dos ramas rectas que se encuentran en el vértice. Para leer el límite lateral, se sigue la rama correspondiente hasta ese punto.\n$$\\lim_{x \\to 2^-} |x-2| = |2-2| = 0$$\nLa rama izquierda desciende linealmente hasta tocar $y=0$ en $x=2$.\n\nEn este caso particular, como la V es continua en el vértice, el límite por la izquierda coincide con el límite por la derecha y con el valor de la función.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "Una tarifa de transporte cobra un monto según el tramo recorrido, con un **salto** justo en el kilómetro $2$.\n\nLa gráfica muestra el costo, en cientos de pesos, según los kilómetros recorridos.\n\n¿Cuánto vale $\\lim_{x \\to 2^+} f(x)$?",
@@ -158,8 +173,11 @@
       -1,
       7
     ],
-    "explanation": "En un contexto de tarifas por tramos, cada tramo corresponde a una rama constante de la gráfica, y el salto ocurre exactamente en el kilómetro donde cambia la tarifa.\n\nPara $x \\geq 2$ el costo es de $5$ (cientos de pesos), así que\n$$\\lim_{x \\to 2^+} f(x) = 5$$\n\nEste comportamiento escalonado es habitual en tarifas de transporte: el costo salta de un tramo a otro sin pasar por valores intermedios.",
-    "reviewed": false
+    "explanation": "En un contexto de tarifas por tramos, cada tramo corresponde a una rama constante de la gráfica, y el salto ocurre exactamente en el kilómetro donde cambia la tarifa.\n\nPara $x \\geq 2$ el costo es de $5$ (cientos de pesos), así que:\n$$\\lim_{x \\to 2^+} f(x) = 5$$\nEste comportamiento escalonado es habitual en tarifas de transporte: el costo salta de un tramo a otro sin pasar por valores intermedios.",
+    "reviewed": false,
+    "tags": [
+      "lectura-lateral-pura"
+    ]
   },
   {
     "question": "La gráfica muestra un **salto** en $x=0$.\n\n¿Existe $\\lim_{x \\to 0} f(x)$?",
@@ -183,8 +201,11 @@
       -2,
       6
     ],
-    "explanation": "Cuando la gráfica muestra un **salto**, los dos límites laterales llegan a alturas distintas, y el **teorema de existencia** exige que coincidan para que el límite bilateral exista.\n\n$$\\begin{aligned} \\lim_{x \\to 0^-} f(x) &= 0 \\\\ \\lim_{x \\to 0^+} f(x) &= 3 \\end{aligned}$$\ncomo $0 \\neq 3$, el límite bilateral no existe.\n\nEl salto visible en la gráfica es justamente la señal directa de esta falta de coincidencia.",
-    "reviewed": false
+    "explanation": "Cuando la gráfica muestra un **salto**, los dos límites laterales llegan a alturas distintas, y el **teorema de existencia** exige que coincidan para que el límite bilateral exista.\n$$\\begin{aligned} \\lim_{x \\to 0^-} f(x) &= 0 \\\\ \\lim_{x \\to 0^+} f(x) &= 3 \\end{aligned}$$\nComo $0 \\neq 3$, el límite bilateral no existe.\n\nEl salto visible en la gráfica es justamente la señal directa de esta falta de coincidencia.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "La gráfica muestra una parábola continua, sin ningún quiebre visible.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
@@ -208,8 +229,11 @@
       -1,
       9
     ],
-    "explanation": "En un tramo continuo de la gráfica, la curva se acerca al mismo valor desde ambos lados de cualquier punto, sin importar cuál se elija.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} x^2 &= 1 \\\\ \\lim_{x \\to 1^+} x^2 &= 1 \\\\ \\Rightarrow \\lim_{x \\to 1} x^2 &= 1 \\end{aligned}$$\n\nComo la parábola no presenta ningún salto ni hueco en ese tramo, el límite bilateral existe en cualquier punto de la curva.",
-    "reviewed": false
+    "explanation": "En un tramo continuo de la gráfica, la curva se acerca al mismo valor desde ambos lados de cualquier punto, sin importar cuál se elija.\n$$\\begin{aligned} \\lim_{x \\to 1^-} x^2 &= 1 \\\\ \\lim_{x \\to 1^+} x^2 &= 1 \\\\ \\Rightarrow \\lim_{x \\to 1} x^2 &= 1 \\end{aligned}$$\nComo la parábola no presenta ningún salto ni hueco en ese tramo, el límite bilateral existe en cualquier punto de la curva.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "La gráfica muestra un **hueco** en $x=1$, pero ambas ramas se acercan a la misma altura desde los dos lados.\n\n¿Existe $\\lim_{x \\to 1} f(x)$?",
@@ -233,8 +257,11 @@
       -1,
       7
     ],
-    "explanation": "Un **hueco** en la gráfica solo indica que $f(a)$ no está definida o difiere del límite, pero no impide que los dos límites laterales coincidan entre sí.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} (x+3) &= 4 \\\\ \\lim_{x \\to 1^+} (x+3) &= 4 \\\\ \\Rightarrow \\lim_{x \\to 1} f(x) &= 4 \\end{aligned}$$\n\nEl hueco desvincula el límite del valor puntual $f(1)$, pero no de la existencia del límite bilateral en sí.",
-    "reviewed": false
+    "explanation": "Un **hueco** en la gráfica solo indica que $f(a)$ no está definida o difiere del límite, pero no impide que los dos límites laterales coincidan entre sí.\n$$\\begin{aligned} \\lim_{x \\to 1^-} (x+3) &= 4 \\\\ \\lim_{x \\to 1^+} (x+3) &= 4 \\\\ \\Rightarrow \\lim_{x \\to 1} f(x) &= 4 \\end{aligned}$$\nEl hueco desvincula el límite del valor puntual $f(1)$, pero no de la existencia del límite bilateral en sí.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "La gráfica combina un **hueco** en $x=2$ con un **salto**: las dos ramas no llegan a la misma altura.\n\n¿Existe $\\lim_{x \\to 2} f(x)$?",
@@ -258,8 +285,11 @@
       -2,
       8
     ],
-    "explanation": "Cuando una gráfica combina un hueco con un salto, lo que decide la existencia del límite bilateral es exclusivamente la comparación entre los dos límites laterales, no la presencia del hueco.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 2 \\\\ \\lim_{x \\to 2^+} f(x) &= 5 \\end{aligned}$$\ncomo $2 \\neq 5$, el límite bilateral no existe, independientemente de que además haya un hueco en $f(2)$.\n\nEl hueco por sí solo nunca impide la existencia del límite, pero acá el problema real es que las ramas ya son distintas entre sí.",
-    "reviewed": false
+    "explanation": "Cuando una gráfica combina un hueco con un salto, lo que decide la existencia del límite bilateral es exclusivamente la comparación entre los dos límites laterales, no la presencia del hueco.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 2 \\\\ \\lim_{x \\to 2^+} f(x) &= 5 \\end{aligned}$$\nComo $2 \\neq 5$, el límite bilateral no existe, independientemente de que además haya un hueco en $f(2)$.\n\nEl hueco por sí solo nunca impide la existencia del límite, pero acá el problema real es que las ramas ya son distintas entre sí.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "La gráfica marca dos puntos: uno en $x=-1$, dentro de un tramo sin interrupciones, y otro en $x=2$, donde hay un **salto**.\n\n¿En cuál de los dos puntos existe el límite bilateral?",
@@ -283,8 +313,11 @@
       -2,
       12
     ],
-    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por separado.\n\n$$\\begin{aligned} x &= -1: \\lim_{x \\to (-1)^-} f(x) = \\lim_{x \\to (-1)^+} f(x) = 2 \\\\ x &= 2: \\lim_{x \\to 2^-} f(x) = 5 \\neq 8 = \\lim_{x \\to 2^+} f(x) \\end{aligned}$$\nEn $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe. En $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
-    "reviewed": false
+    "explanation": "Para comparar dos puntos marcados en una misma gráfica, conviene evaluar el criterio de existencia en cada uno por separado.\n$$\\begin{aligned} x &= -1: \\lim_{x \\to (-1)^-} f(x) = \\lim_{x \\to (-1)^+} f(x) = 2 \\\\ x &= 2: \\lim_{x \\to 2^-} f(x) = 5 \\neq 8 = \\lim_{x \\to 2^+} f(x) \\end{aligned}$$\nEn $x=-1$ la función pertenece a un único tramo sin interrupciones, así que el límite bilateral existe. En $x=2$ hay un salto, así que no existe.\n\nUna misma gráfica puede tener puntos donde el límite bilateral existe y otros donde no, según haya o no un salto en ese punto específico.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "En la gráfica, en $x=2$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x) + \\lim_{x \\to 2^+} f(x)$?",
@@ -310,8 +343,11 @@
       -1,
       9
     ],
-    "explanation": "Aunque el **límite bilateral** no exista cuando hay un salto, los dos límites laterales siguen siendo números reales que se pueden operar entre sí, como sumarlos.\n\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3 \\\\ \\lim_{x \\to 2^+} f(x) &= 6 \\\\ 3 + 6 &= 9 \\end{aligned}$$\n\nLa inexistencia del bilateral no impide operar con los laterales por separado, cada uno se lee de su rama correspondiente y se suma como cualquier número real.",
-    "reviewed": false
+    "explanation": "Aunque el **límite bilateral** no exista cuando hay un salto, los dos límites laterales siguen siendo números reales que se pueden operar entre sí, como sumarlos.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= 3 \\\\ \\lim_{x \\to 2^+} f(x) &= 6 \\\\ 3 + 6 &= 9 \\end{aligned}$$\nLa inexistencia del bilateral no impide operar con los laterales por separado, cada uno se lee de su rama correspondiente y se suma como cualquier número real.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "En la gráfica, en $x=1$ se observa un **salto**.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
@@ -337,8 +373,11 @@
       -1,
       10
     ],
-    "explanation": "Para restar dos límites laterales leídos de una gráfica, primero se identifica cada uno por separado, respetando el orden que pide la consigna.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 6 \\\\ \\lim_{x \\to 1^+} f(x) &= 3 \\\\ 6 - 3 &= 3 \\end{aligned}$$\n\nEl orden de la resta importa: invertirlo cambia el signo del resultado, por eso conviene identificar primero cuál lateral corresponde a cada término antes de restar.",
-    "reviewed": false
+    "explanation": "Para restar dos límites laterales leídos de una gráfica, primero se identifica cada uno por separado, respetando el orden que pide la consigna.\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= 6 \\\\ \\lim_{x \\to 1^+} f(x) &= 3 \\\\ 6 - 3 &= 3 \\end{aligned}$$\nEl orden de la resta importa: invertirlo cambia el signo del resultado, por eso conviene identificar primero cuál lateral corresponde a cada término antes de restar.",
+    "reviewed": false,
+    "tags": [
+      "diagnostico-bilateral-visual"
+    ]
   },
   {
     "question": "La gráfica marca dos puntos de quiebre: en $x=0$ y en $x=3$.\n\n¿Cuál es el valor del límite lateral más grande entre $\\lim_{x \\to 0^+} f(x)$ y $\\lim_{x \\to 3^-} f(x)$?",
@@ -364,8 +403,11 @@
       -2,
       11
     ],
-    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica, se lee cada uno por separado antes de decidir cuál es mayor.\n\n$$\\begin{aligned} \\lim_{x \\to 0^+} f(x) &= 5 \\\\ \\lim_{x \\to 3^-} f(x) &= 8 \\end{aligned}$$\ncomo $8 > 5$, el límite lateral más grande es el de $x \\to 3^-$.\n\nNo hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos: cualquier par de límites laterales existentes son números reales comparables.",
-    "reviewed": false
+    "explanation": "Para comparar dos límites laterales de puntos distintos de la misma gráfica, se lee cada uno por separado antes de decidir cuál es mayor.\n$$\\begin{aligned} \\lim_{x \\to 0^+} f(x) &= 5 \\\\ \\lim_{x \\to 3^-} f(x) &= 8 \\end{aligned}$$\nComo $8 > 5$, el límite lateral más grande es el de $x \\to 3^-$.\n\nNo hace falta que ambos puntos pertenezcan al mismo salto para poder compararlos: cualquier par de límites laterales existentes son números reales comparables.",
+    "reviewed": false,
+    "tags": [
+      "tamano-del-salto-visual"
+    ]
   },
   {
     "question": "En la gráfica, en $x=1$ ambos límites laterales tienen valor negativo.\n\n¿Cuánto vale $\\lim_{x \\to 1^-} f(x) - \\lim_{x \\to 1^+} f(x)$?",
@@ -391,7 +433,10 @@
       -9,
       3
     ],
-    "explanation": "Al restar dos límites laterales negativos, conviene prestar especial atención al signo del segundo término antes de operar.\n\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= -5 \\\\ \\lim_{x \\to 1^+} f(x) &= -1 \\\\ -5 - (-1) &= -5 + 1 = -4 \\end{aligned}$$\n\nRestar un número negativo equivale a sumar su opuesto, un descuido de signo en este paso es la fuente más común de error en este tipo de cálculo.",
-    "reviewed": false
+    "explanation": "Al restar dos límites laterales negativos, conviene prestar especial atención al signo del segundo término antes de operar.\n$$\\begin{aligned} \\lim_{x \\to 1^-} f(x) &= -5 \\\\ \\lim_{x \\to 1^+} f(x) &= -1 \\\\ -5 - (-1) &= -5 + 1 = -4 \\end{aligned}$$\nRestar un número negativo equivale a sumar su opuesto, un descuido de signo en este paso es la fuente más común de error en este tipo de cálculo.",
+    "reviewed": false,
+    "tags": [
+      "tamano-del-salto-visual"
+    ]
   }
 ]

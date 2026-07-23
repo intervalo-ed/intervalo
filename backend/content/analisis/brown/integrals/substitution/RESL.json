@@ -1,6 +1,6 @@
 [
   {
-    "question": "Calculá\n$$\\int e^{4x+1}\\,dx$$",
+    "question": "Resolvé mediante **integración por sustitución**:\n$$\\int e^{4x+1}\\,dx$$",
     "options": [
       "$\\frac{1}{4}e^{4x+1}+C$",
       "$e^{4x+1}+C$",
@@ -18,11 +18,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\\\ &= \\frac{1}{4}e^{4x+1}+C \\end{aligned}$$\nEl paso final vuelve a la variable $x$, reemplazando $u$ por $4x+1$, la respuesta nunca queda expresada en $u$.",
-    "reviewed": false
+    "explanation": "Identificamos $u=4x+1$, con $du=4\\,dx$, así que $dx=\\frac{1}{4}\\,du$.\n$$\\begin{aligned} \\int e^{4x+1}\\,dx &= \\int e^u \\cdot \\frac{1}{4}\\,du \\\\ &= \\frac{1}{4}e^u + C \\end{aligned}$$\nVolviendo a la variable $x$, reemplazamos $u$ por $4x+1$ para obtener la respuesta final: $\\frac{1}{4}e^{4x+1}+C$. La respuesta nunca queda expresada en la variable auxiliar $u$.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\cos(3x)\\,dx$$",
+    "question": "Utilizando sustitución, integrá:\n$$\\int \\cos(3x)\\,dx$$",
     "options": [
       "$\\sin(3x)+C$",
       "$\\frac{1}{3}\\sin(3x)+C$",
@@ -40,11 +43,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int \\cos(3x)\\,dx &= \\int \\cos u \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\sin u + C \\\\ &= \\frac{1}{3}\\sin(3x)+C \\end{aligned}$$\nLa primitiva del coseno no lleva signo negativo, a diferencia de la del seno, ese es el detalle que más se pierde en este tipo de ítem.",
-    "reviewed": false
+    "explanation": "Identificamos $u=3x$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int \\cos(3x)\\,dx &= \\int \\cos u \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\sin u + C \\end{aligned}$$\nAl volver a $x$, reemplazamos $u$ por $3x$ para obtener $\\frac{1}{3}\\sin(3x)+C$. La primitiva de $\\cos$ es $\\sin$ sin signo negativo, diferente de la primitiva de $\\sin$.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int (2x-1)^5\\,dx$$",
+    "question": "Aplicando **cambio de variable**, resolvé:\n$$\\int (2x-1)^5\\,dx$$",
     "options": [
       "$(2x-1)^6+C$",
       "$6(2x-1)^6+C$",
@@ -62,11 +68,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int (2x-1)^5\\,dx &= \\int u^5 \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\cdot\\frac{u^6}{6} + C \\\\ &= \\frac{(2x-1)^6}{12}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $6$ de la regla de la potencia y el $2$ del ajuste del diferencial, ambos multiplicados dan $12$.",
-    "reviewed": false
+    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int (2x-1)^5\\,dx &= \\int u^5 \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\cdot\\frac{u^6}{6} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $2x-1$. El denominador final es $12 = 2 \\times 6$, combinando el coeficiente de la sustitución con el nuevo exponente de la regla de potencia.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\sin(5x)\\,dx$$",
+    "question": "Mediante sustitución, calculá:\n$$\\int \\sin(5x)\\,dx$$",
     "options": [
       "$\\frac{1}{5}\\cos(5x)+C$",
       "$-\\frac{1}{5}\\sin(5x)+C$",
@@ -84,11 +93,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=5x$, con $du=5\\,dx$, así que $dx=\\frac{1}{5}\\,du$.\n$$\\begin{aligned} \\int \\sin(5x)\\,dx &= \\int \\sin u \\cdot \\frac{1}{5}\\,du \\\\ &= -\\frac{1}{5}\\cos u + C \\\\ &= -\\frac{1}{5}\\cos(5x)+C \\end{aligned}$$\nEl signo negativo de la primitiva del seno se conserva sin cambios, sin importar el coeficiente lineal de la sustitución.",
-    "reviewed": false
+    "explanation": "Identificamos $u=5x$, con $du=5\\,dx$, así que $dx=\\frac{1}{5}\\,du$.\n$$\\begin{aligned} \\int \\sin(5x)\\,dx &= \\int \\sin u \\cdot \\frac{1}{5}\\,du \\\\ &= -\\frac{1}{5}\\cos u + C \\end{aligned}$$\nAl volver a $x$, reemplazamos $u$ por $5x$ para obtener $-\\frac{1}{5}\\cos(5x)+C$. El signo negativo de la primitiva de seno siempre se conserva, sin importar el coeficiente.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int e^{-2x}\\,dx$$",
+    "question": "Resolvé por sustitución:\n$$\\int e^{-2x}\\,dx$$",
     "options": [
       "$-\\frac{1}{2}e^{-2x}+C$",
       "$\\frac{1}{2}e^{-2x}+C$",
@@ -106,11 +118,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=-2x$, con $du=-2\\,dx$, así que $dx=-\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int e^{-2x}\\,dx &= \\int e^u \\cdot \\left(-\\frac{1}{2}\\right)\\,du \\\\ &= -\\frac{1}{2}e^u + C \\\\ &= -\\frac{1}{2}e^{-2x}+C \\end{aligned}$$\nEl signo negativo del coeficiente de la sustitución se traslada directamente al resultado final, sin ningún otro ajuste adicional.",
-    "reviewed": false
+    "explanation": "Identificamos $u=-2x$, con $du=-2\\,dx$, así que $dx=-\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int e^{-2x}\\,dx &= \\int e^u \\cdot \\left(-\\frac{1}{2}\\right)\\,du \\\\ &= -\\frac{1}{2}e^u + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $-2x$. El signo negativo del coeficiente se traslada directamente al resultado, formando parte del factor que divide.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int (3x+2)^4\\,dx$$",
+    "question": "Integrá aplicando sustitución:\n$$\\int (3x+2)^4\\,dx$$",
     "options": [
       "$5(3x+2)^5+C$",
       "$\\frac{(3x+2)^5}{15}+C$",
@@ -128,11 +143,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=3x+2$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int (3x+2)^4\\,dx &= \\int u^4 \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\cdot\\frac{u^5}{5} + C \\\\ &= \\frac{(3x+2)^5}{15}+C \\end{aligned}$$\nEl denominador final combina el $5$ de la regla de la potencia y el $3$ del ajuste del diferencial, ambos multiplicados dan $15$.",
-    "reviewed": false
+    "explanation": "Identificamos $u=3x+2$, con $du=3\\,dx$, así que $dx=\\frac{1}{3}\\,du$.\n$$\\begin{aligned} \\int (3x+2)^4\\,dx &= \\int u^4 \\cdot \\frac{1}{3}\\,du \\\\ &= \\frac{1}{3}\\cdot\\frac{u^5}{5} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $3x+2$. El denominador final es $15 = 3 \\times 5$, combinando el coeficiente de la sustitución con el nuevo exponente.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\cos(2x-1)\\,dx$$",
+    "question": "Mediante cambio de variable, resolvé:\n$$\\int \\cos(2x-1)\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\cos(2x-1)+C$",
       "$\\sin(2x-1)+C$",
@@ -150,11 +168,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(2x-1)+C \\end{aligned}$$\nEl término constante $-1$ dentro del argumento no afecta el ajuste del diferencial, solo el coeficiente $2$ que multiplica a $x$ importa.",
-    "reviewed": false
+    "explanation": "Identificamos $u=2x-1$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\cos(2x-1)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nAl volver a $x$, reemplazamos $u$ por $2x-1$. Nota que el término constante $-1$ no afecta el **diferencial**, solo importa el coeficiente $2$ de $x$.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-lineal-inmediata"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{1}{2x+3}\\,dx$$",
+    "question": "Utilizando sustitución, resolvé:\n$$\\int \\frac{1}{2x+3}\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\ln(2x+3)+C$",
       "$\\ln|2x+3|+C$",
@@ -172,11 +193,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\\\ &= \\frac{1}{2}\\ln|2x+3|+C \\end{aligned}$$\nEl valor absoluto dentro del logaritmo es obligatorio siempre, sin importar si la sustitución lineal tiene coeficiente distinto de $1$.",
-    "reviewed": false
+    "explanation": "Identificamos $u=2x+3$, con $du=2\\,dx$, así que $dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int \\frac{1}{2x+3}\\,dx &= \\int \\frac{1}{u} \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $2x+3$. El valor absoluto dentro del logaritmo es obligatorio siempre, protegiendo el dominio completo de la función original.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int x\\cos(x^2)\\,dx$$",
+    "question": "Hallá por sustitución:\n$$\\int x\\cos(x^2)\\,dx$$",
     "options": [
       "$\\frac{1}{2}\\sin(x^2)+C$",
       "$\\frac{1}{2}x\\sin(x^2)+C$",
@@ -194,11 +218,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\\\ &= \\frac{1}{2}\\sin(x^2)+C \\end{aligned}$$\nEl factor $x$ del integrando original se absorbe por completo dentro de $du$, no debería sobrevivir sin transformar en el resultado final.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, así que $x\\,dx=\\frac{1}{2}\\,du$.\n$$\\begin{aligned} \\int x\\cos(x^2)\\,dx &= \\int \\cos u \\cdot \\frac{1}{2}\\,du \\\\ &= \\frac{1}{2}\\sin u + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2$. El factor $x$ del integrando se absorbe completamente dentro de $du$, no debe quedar multiplicando en la respuesta final.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
+    "question": "Integrá aplicando cambio de variable:\n$$\\int \\frac{2x}{x^2+5}\\,dx$$",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|x^2+5|+C$",
@@ -216,11 +243,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|x^2+5|+C \\end{aligned}$$\nCuando el numerador coincide exactamente con $du$, sin ningún coeficiente sobrante, no hace falta ningún ajuste adicional de constante.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2+5$, con $du=2x\\,dx$, exactamente el numerador del integrando.\n$$\\begin{aligned} \\int \\frac{2x}{x^2+5}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2+5$. Cuando el numerador coincide exactamente con $du$, no necesitamos ajuste de constante adicional.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{\\ln x}{x}\\,dx$$",
+    "question": "Resolvé usando sustitución:\n$$\\int \\frac{\\ln x}{x}\\,dx$$",
     "options": [
       "$\\frac{\\ln x^2}{2}+C$",
       "$\\frac{u^2}{2}+C$",
@@ -238,11 +268,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\\\ &= \\frac{(\\ln x)^2}{2}+C \\end{aligned}$$\nEl paréntesis alrededor de $\\ln x$ es importante, el cuadrado afecta a todo el logaritmo, no solo a la $x$ dentro de él.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\ln x$, con $du=\\frac{1}{x}\\,dx$, exactamente el resto del integrando.\n$$\\begin{aligned} \\int \\frac{\\ln x}{x}\\,dx &= \\int u\\,du \\\\ &= \\frac{u^2}{2} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\ln x$. El paréntesis alrededor de $\\ln x$ es importante: el cuadrado afecta a todo el logaritmo, no solo al argumento $x$.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\sin^3 x \\cos x\\,dx$$",
+    "question": "Mediante cambio de variable, calculá:\n$$\\int \\sin^3 x \\cos x\\,dx$$",
     "options": [
       "$\\sin^4 x+C$",
       "$\\frac{\\cos^4 x}{4}+C$",
@@ -260,11 +293,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\\\ &= \\frac{\\sin^4 x}{4}+C \\end{aligned}$$\nEl factor $\\cos x$ del integrando original se absorbe por completo dentro de $du$, dejando una potencia simple de $u$ para integrar.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el otro factor del integrando.\n$$\\begin{aligned} \\int \\sin^3 x\\cos x\\,dx &= \\int u^3\\,du \\\\ &= \\frac{u^4}{4} + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\sin x$. El factor $\\cos x$ del integrando se absorbe completamente dentro de $du$, dejando una potencia simple de $u$.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int 2x\\,e^{x^2}\\,dx$$",
+    "question": "Integrá por sustitución:\n$$\\int 2x\\,e^{x^2}\\,dx$$",
     "options": [
       "$e^{x^2}+C$",
       "$2xe^{x^2}+C$",
@@ -282,11 +318,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\\\ &= e^{x^2}+C \\end{aligned}$$\nCuando el factor que multiplica coincide exactamente con $du$, sin ningún coeficiente sobrante, el resultado no necesita ningún ajuste adicional.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2$, con $du=2x\\,dx$, exactamente el factor que acompaña a la exponencial.\n$$\\begin{aligned} \\int 2xe^{x^2}\\,dx &= \\int e^u\\,du \\\\ &= e^u + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2$. Cuando el factor multiplicador coincide exactamente con $du$, no necesitamos ajuste de constante adicional.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$",
+    "question": "Resolvé aplicando sustitución:\n$$\\int \\frac{\\cos x}{\\sin x}\\,dx$$",
     "options": [
       "$\\ln|u|+C$",
       "$\\ln|\\sin x|+C$",
@@ -304,11 +343,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\\\ &= \\ln|\\sin x|+C \\end{aligned}$$\nEste patrón, derivada del denominador en el numerador, es el mismo que dispara el logaritmo en cualquier fracción de este tipo.",
-    "reviewed": false
+    "explanation": "Identificamos $u=\\sin x$, con $du=\\cos x\\,dx$, exactamente el numerador de la fracción.\n$$\\begin{aligned} \\int \\frac{\\cos x}{\\sin x}\\,dx &= \\int \\frac{1}{u}\\,du \\\\ &= \\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $\\sin x$. Este patrón, donde el numerador es la derivada del denominador, siempre dispara el logaritmo.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   },
   {
-    "question": "Calculá\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
+    "question": "Integrá mediante cambio de variable:\n$$\\int \\frac{4x}{x^2-3}\\,dx$$",
     "options": [
       "$\\ln|x^2-3|+C$",
       "$4\\ln|x^2-3|+C$",
@@ -326,7 +368,10 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\\\ &= 2\\ln|x^2-3|+C \\end{aligned}$$\nCuando el numerador es un múltiplo de $du$ en vez de coincidir exactamente, ese múltiplo sobrevive como coeficiente del logaritmo final.",
-    "reviewed": false
+    "explanation": "Identificamos $u=x^2-3$, con $du=2x\\,dx$, así que $4x\\,dx=2\\,du$.\n$$\\begin{aligned} \\int \\frac{4x}{x^2-3}\\,dx &= \\int \\frac{2}{u}\\,du \\\\ &= 2\\ln|u| + C \\end{aligned}$$\nVolviendo a $x$, reemplazamos $u$ por $x^2-3$. Cuando el numerador es un múltiplo de $du$, ese múltiplo se mantiene como coeficiente del logaritmo final.",
+    "reviewed": false,
+    "tags": [
+      "sustitucion-grado-superior-trascendentes"
+    ]
   }
 ]

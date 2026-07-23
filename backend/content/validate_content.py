@@ -85,6 +85,19 @@ def paragraphs(s: str) -> list[str]:
     return [p for p in s.split("\n\n") if p.strip()]
 
 
+def prose_segments(p: str) -> list[str]:
+    r"""Tramos de prosa de un párrafo, separados por las fórmulas centradas.
+
+    Una fórmula `$$...$$` es un corte de lectura: KaTeX displayMode le agrega
+    margen vertical, así que el ojo ve bloques separados. Como el formato
+    obliga a un solo `\n` junto a `$$` (nunca `\n\n`), sin este corte la prosa
+    de antes y la de después se medirían como un único párrafo, y el remedio
+    que la regla 21 propone ("sacá la fórmula central a un bloque `$$...$$`")
+    nunca bajaría el conteo.
+    """
+    return [s for s in DISPLAY_RE.split(p) if s.strip()]
+
+
 def word_count(s: str) -> int:
     return len([w for w in re.split(r"\s+", s.strip()) if w])
 
@@ -227,16 +240,19 @@ def check_explanations(items, file, F: Findings) -> None:
             if not stripped.endswith((".", ":", "?", "!", "$")):
                 F.add("ERROR", "explanations", "17", file, label,
                       f"párrafo sin puntuación terminal: ...{stripped[-40:]!r}")
-            prose = DISPLAY_RE.sub(" ", p)
-            prose_flat = re.sub(r"\s+", " ", prose).strip()
-            if len(prose_flat) > PARAGRAPH_PROSE_MAX:
-                F.add("WARNING", "explanations", "párrafos", file, label,
-                      f"párrafo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
-                      f"{prose_flat[:60]!r}...")
-            inline_count = len(INLINE_RE.findall(prose))
-            if inline_count >= INLINE_FRAGMENTS_WARN:
-                F.add("WARNING", "explanations", "21", file, label,
-                      f"{inline_count} fragmentos LaTeX inline en el mismo párrafo")
+            # El largo de prosa y la densidad de inline se miden por tramo
+            # entre fórmulas centradas, no sobre el párrafo entero (ver
+            # prose_segments).
+            for prose in prose_segments(p):
+                prose_flat = re.sub(r"\s+", " ", prose).strip()
+                if len(prose_flat) > PARAGRAPH_PROSE_MAX:
+                    F.add("WARNING", "explanations", "párrafos", file, label,
+                          f"tramo de prosa de {len(prose_flat)} chars (máx {PARAGRAPH_PROSE_MAX}): "
+                          f"{prose_flat[:60]!r}...")
+                inline_count = len(INLINE_RE.findall(prose))
+                if inline_count >= INLINE_FRAGMENTS_WARN:
+                    F.add("WARNING", "explanations", "21", file, label,
+                          f"{inline_count} fragmentos LaTeX inline en el mismo tramo de prosa")
 
 
 def check_questions(items, file, F: Findings) -> None:
@@ -315,15 +331,18 @@ def check_feedbacks(items, file, F: Findings) -> None:
 
 # --- Structure: tags contra la tabla del topic-context ------------------------
 
-SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`")
+SLUG_CELL_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`")
 
 
 def parse_distribution(topic_context: Path) -> dict[str, int]:
-    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant."""
+    """Extrae {slug: cantidad} de las tablas markdown con columna Slug/Cant y menciones en prose."""
     targets: dict[str, int] = {}
     if not topic_context.exists():
         return targets
-    for line in topic_context.read_text(encoding="utf-8").splitlines():
+    text = topic_context.read_text(encoding="utf-8")
+
+    # Parse tablas markdown
+    for line in text.splitlines():
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -333,13 +352,22 @@ def parse_distribution(topic_context: Path) -> dict[str, int]:
             m = SLUG_CELL_RE.fullmatch(c)
             if m:
                 slug = m.group(1)
-        # la celda de cantidad es la última numérica de la fila
+        # la celda de cantidad es la última numérica de la fila (puede tener ~ al inicio)
         for c in reversed(cells):
-            if re.fullmatch(r"\d+", c):
-                count = int(c)
+            m = re.fullmatch(r"~?(\d+)", c)
+            if m:
+                count = int(m.group(1))
                 break
         if slug and count is not None:
             targets[slug] = targets.get(slug, 0) + count
+
+    # Parse menciones inline: "(NN ejercicios):* ... slug único `slug`"
+    for m in re.finditer(r"\((\d+)\s+ejercicios[^`]*slug\s+único\s+`([a-z0-9]+(?:-[a-z0-9]+)*)`", text):
+        count_str, slug = m.groups()
+        count = int(count_str)
+        if slug and count:
+            targets[slug] = targets.get(slug, 0) + count
+
     return targets
 
 
