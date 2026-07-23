@@ -35,9 +35,9 @@ import { useUser } from "@clerk/nextjs"
 import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon, X } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
-import { useMemo, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import { EditorStepper } from "@/app/editor-stepper"
 import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"
@@ -137,11 +137,23 @@ export default function PracticeConfig() {
     parseAsInteger.withDefault(DEFAULT_COUNT),
   )
   const [editing, setEditing] = useState(false)
+  // clearOnDefault:false mantiene ?course= en la URL aunque sea el curso default
+  // (analisis); si no, nuqs lo borra y la tab bar no puede pasarlo a "/".
   const [course, setCourse] = useQueryState(
     "course",
-    parseAsStringLiteral(COURSE_ORDER).withDefault("analisis"),
+    parseAsStringLiteral(COURSE_ORDER)
+      .withDefault("analisis")
+      .withOptions({ clearOnDefault: false }),
   )
   const beltOrder = useMemo(() => beltOrderFor({ course }), [course])
+
+  // La URL de /practice siempre debe tener ?course= para que la tab bar lo pueda
+  // pasar a "/" (y viceversa) sin perderlo. Si se entró sin el parámetro, se
+  // escribe el curso resuelto (mismo criterio que dashboard-entry.tsx).
+  const rawCourse = useSearchParams().get("course")
+  useEffect(() => {
+    if (rawCourse === null) void setCourse(course)
+  }, [rawCourse, course, setCourse])
 
   const statsQuery = usePracticeStats({ course })
   const sessionsCompleted = statsQuery.data?.sessions_completed ?? 0
