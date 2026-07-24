@@ -61,6 +61,14 @@ DIAGNOSTIC_CLOSE_RE = re.compile(
     r"|error(es)?\s+(com[uú]n(es)?|frecuente|cl[aá]sico|habitual|t[ií]pico(s)?))\b",
     re.IGNORECASE,
 )
+# Regla 34 (cont.): filler genérico que reemplaza la rotulación sin cambiar
+# el problema de fondo, marcador breve tipo "Ojo:"/"Cuidado con..." (regla
+# 34 solo admite las 4 familias: consecuencia directa, segunda persona,
+# gerundio/infinitivo al frente, u otros caso a caso), y comparación/
+# contraste tipo "A diferencia de X, acá...".
+FILLER_CLOSE_RE = re.compile(r"^es\s+(f[aá]cil|tentador)\b", re.IGNORECASE)
+MARKER_CLOSE_RE = re.compile(r"^(ojo|atenci[oó]n|cuidado)\b", re.IGNORECASE)
+CONTRAST_CLOSE_RE = re.compile(r"^a\s+diferencia\s+de\b", re.IGNORECASE)
 
 EMDASH = "—"
 ENDASH = "–"
@@ -72,6 +80,9 @@ DISPLAY_RE = re.compile(r"\$\$.*?\$\$", re.DOTALL)
 INLINE_RE = re.compile(r"(?<!\$)\$(?!\$)([^$\n]+)\$(?!\$)")
 TEXTCMD_RE = re.compile(r"\\text\{([^{}]*)\}")
 LATEX_CMD_RE = re.compile(r"\\[a-zA-Z]+")
+# Regla 35: primer signo que conecta el juicio corto ("Sí"/"No"/"Es
+# verdadera"/"Es falsa") con la razón que sigue, fuera de zonas math.
+CONNECTOR_RE = re.compile(r"[,:]")
 
 
 def render_len(s: str) -> int:
@@ -160,6 +171,19 @@ def check_options(items, file, F: Findings) -> None:
             role = "la correcta" if which == ci else f"un distractor (#{which})"
             F.add("WARNING", "options", "4", file, label,
                   f"paréntesis aclaratorio solo en {role}: {opts[which]!r}")
+
+        # Puntuación de conector inconsistente entre opciones (regla 35).
+        styles: dict[int, str] = {}
+        for i, o in enumerate(opts):
+            m = CONNECTOR_RE.search(strip_math(o))
+            if m:
+                styles[i] = m.group(0)
+        distinct = set(styles.values())
+        if len(distinct) > 1:
+            ci_style = styles.get(ci)
+            F.add("WARNING", "options", "35", file, label,
+                  f"puntuación de conector mezclada entre opciones {styles} "
+                  f"(la correcta usa {ci_style!r}); preferí ',' en todas")
 
         # Relleno "solamente" asimétrico.
         has_only = ["solamente" in o.lower() for o in opts]
@@ -252,6 +276,15 @@ def check_explanations(items, file, F: Findings) -> None:
             if DIAGNOSTIC_CLOSE_RE.match(last):
                 F.add("WARNING", "explanations", "34", file, label,
                       f"cierre anunciado como advertencia de diagnóstico: {last[:70]!r}...")
+            elif FILLER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con filler genérico 'Es fácil/tentador' (no es una de las 4 familias permitidas): {last[:70]!r}...")
+            elif MARKER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con marcador breve tipo 'Ojo/Cuidado/Atención' (prohibido explícito): {last[:70]!r}...")
+            elif CONTRAST_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre por comparación/contraste 'A diferencia de...' (prohibido explícito): {last[:70]!r}...")
 
 
 def check_questions(items, file, F: Findings) -> None:
