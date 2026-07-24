@@ -71,7 +71,7 @@
   {
     "question": "Un dado está cargado de forma que el número 6 sale con el doble de frecuencia que cualquier otro número.\n\n¿Por qué NO se puede usar la regla de Laplace para calcular $P(6)$ como $1/6$?",
     "options": [
-      "Porque el espacio muestral no es equiprobable: los resultados no tienen la misma chance.",
+      "Porque los resultados no tienen la misma chance, el espacio muestral no es equiprobable.",
       "Porque el dado tiene más de 6 caras.",
       "Porque la regla de Laplace solo aplica a monedas, no a dados."
     ],

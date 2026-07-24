@@ -33,7 +33,7 @@
       "Esa es la permutación completa, que usa todos los $n$ elementos, no un subconjunto de $k$.",
       "Esa expresión no cancela los elementos no elegidos, le falta dividir también por $(n-k)!$."
     ],
-    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nEs fácil olvidar alguno de los dos factores del denominador; uno cancela el orden interno y el otro los elementos no elegidos.",
+    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nSi te olvidás de uno de los dos factores del denominador, dejás sin cancelar el orden interno o los elementos no elegidos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

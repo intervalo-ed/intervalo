@@ -10,7 +10,7 @@
       null,
       "Estás usando la vocal como si tuviera 10 opciones, pero son 5."
     ],
-    "explanation": "La **regla del producto** encadena decisiones independientes: cada decisión aporta su propia cantidad de opciones, y el total es el producto de todas.\n\nAcá hay tres decisiones independientes (permitir repetición mantiene el número de opciones en cada dígito):\n$$5 \\times 10 \\times 10 = 500$$\nSon 500 códigos posibles.\n\nEs fácil olvidar alguna de las decisiones al armar el producto: conviene enumerar mentalmente los \"casilleros\" antes de multiplicar.",
+    "explanation": "La **regla del producto** encadena decisiones independientes: cada decisión aporta su propia cantidad de opciones, y el total es el producto de todas.\n\nAcá hay tres decisiones independientes (permitir repetición mantiene el número de opciones en cada dígito):\n$$5 \\times 10 \\times 10 = 500$$\nSon 500 códigos posibles.\n\nOlvidar alguna de las decisiones al armar el producto deja el resultado incompleto: conviene enumerar mentalmente los \"casilleros\" antes de multiplicar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -46,7 +46,7 @@
       "Ese resultado suma $3+2+5$ directamente, sin multiplicar primero entrada y bebida dentro del combo.",
       "Ese resultado multiplica las 3 partes juntas ($3\\times2\\times5$) en vez de sumar los platos únicos como alternativa aparte."
     ],
-    "explanation": "Cuando un problema combina una **regla del producto** dentro de una rama y una **regla de la suma** entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $3 \\times 2 = 6$ variantes, y el puesto ofrece además $5$ platos únicos como alternativa aparte:\n$$3 \\times 2 + 5 = 11$$\nHay 11 opciones en total.\n\nEs fácil sumar todos los números sueltos por igual, sin distinguir qué decisiones son secuenciales y cuáles son alternativas.",
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una rama y una **regla de la suma** entre ramas, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $3 \\times 2 = 6$ variantes, y el puesto ofrece además $5$ platos únicos como alternativa aparte:\n$$3 \\times 2 + 5 = 11$$\nHay 11 opciones en total.\n\nSumar todos los números sueltos por igual da un total que no corresponde a nada real: hay que distinguir qué decisiones son secuenciales (se multiplican) y cuáles son alternativas (se suman).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,7 +64,7 @@
       "Ese resultado aplica la restricción a dos dígitos ($9\\times9\\times10$) en vez de a uno solo.",
       null
     ],
-    "explanation": "Una restricción puntual en la regla del producto solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$ (9 opciones), y los otros dos aceptan cualquier valor del 0 al 9 (10 opciones cada uno):\n$$9 \\times 10 \\times 10 = 900$$\nHay 900 contraseñas posibles.\n\nEs fácil aplicar la restricción a todos los dígitos por igual, cuando el enunciado la fija solo sobre uno de los pasos.",
+    "explanation": "Una restricción puntual en la regla del producto solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$ (9 opciones), y los otros dos aceptan cualquier valor del 0 al 9 (10 opciones cada uno):\n$$9 \\times 10 \\times 10 = 900$$\nHay 900 contraseñas posibles.\n\nSi aplicás la restricción a los tres dígitos por igual, subestimás el total: el enunciado la fija solo sobre uno de los pasos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

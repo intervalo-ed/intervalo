@@ -82,7 +82,7 @@
   {
     "question": "Un examen tiene 4 preguntas y cada una se responde eligiendo una opción entre 3 posibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una permutación de 4 elementos?",
     "options": [
-      "No: cada pregunta tiene sus propias opciones y no se reordena un mismo conjunto.",
+      "No, porque cada pregunta tiene sus propias opciones y no se reordena un mismo conjunto.",
       "Sí, porque hay 4 posiciones que se llenan siguiendo un orden determinado."
     ],
     "correct_index": 0,

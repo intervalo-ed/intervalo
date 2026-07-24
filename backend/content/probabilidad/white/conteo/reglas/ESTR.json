@@ -55,7 +55,7 @@
       "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por B, y esa parte se suma.",
       null
     ],
-    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas ($3 \\times 2 = 6$ formas), y el vuelo directo es una alternativa aparte con $4$ opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nEs fácil aplicar una sola de las dos reglas a todo el problema, sin notar que cada tramo necesita su propio análisis antes de combinarlos.",
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas ($3 \\times 2 = 6$ formas), y el vuelo directo es una alternativa aparte con $4$ opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nAplicar una sola de las dos reglas a todo el problema deja afuera la mitad del razonamiento: cada tramo necesita su propio análisis antes de combinarlos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -65,7 +65,7 @@
   {
     "question": "En una carrera de 5 atletas hay que determinar quién llega primero y quién llega segundo, sin que un mismo atleta pueda ocupar los dos puestos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
     "options": [
-      "No: hace falta elegir un subconjunto y además ordenarlo, algo que el producto o la suma directos no resuelven.",
+      "No, porque hace falta elegir un subconjunto y ordenarlo, algo que el producto o la suma no resuelven.",
       "Sí, regla del producto: cada puesto es una decisión independiente con las mismas 5 opciones."
     ],
     "correct_index": 0,

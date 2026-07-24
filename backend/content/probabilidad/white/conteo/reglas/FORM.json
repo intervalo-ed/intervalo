@@ -46,7 +46,7 @@
       "Estás multiplicando también por los 4 platos únicos, pero esos son una alternativa aparte, no una tercera decisión del mismo combo.",
       "Estás sumando entrada y postre antes de multiplicar por los platos únicos, una combinación que no representa ninguna de las dos alternativas del enunciado."
     ],
-    "explanation": "Cuando un problema combina una **regla del producto** dentro de una alternativa de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $2 \\times 3 = 6$ variantes, y el restaurante ofrece además $4$ platos únicos como alternativa aparte:\n$$2 \\times 3 + 4 = 10$$\nHay 10 opciones en total.\n\nEs fácil sumar todos los números sueltos sin distinguir qué decisiones son secuenciales (van multiplicadas) y cuáles son alternativas excluyentes (van sumadas).",
+    "explanation": "Cuando un problema combina una **regla del producto** dentro de una alternativa de una **regla de la suma**, primero se resuelve cada producto y después se suman las ramas excluyentes.\n\nEl combo tiene $2 \\times 3 = 6$ variantes, y el restaurante ofrece además $4$ platos únicos como alternativa aparte:\n$$2 \\times 3 + 4 = 10$$\nHay 10 opciones en total.\n\nSi sumás todos los números sueltos sin distinguir qué es secuencial (se multiplica) de qué es alternativa (se suma), el resultado no representa ninguna de las dos reglas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -64,7 +64,7 @@
       "Esa expresión suma las opciones de cada dígito en vez de multiplicarlas, tratando la contraseña como si fuera una elección única entre alternativas.",
       null
     ],
-    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$, así que tiene 9 opciones; los otros dos dígitos aceptan cualquier valor del 0 al 9, con 10 opciones cada uno:\n$$9 \\times 10 \\times 10 = 900$$\nHay 900 contraseñas posibles.\n\nEs fácil aplicar la restricción a todos los dígitos por igual, cuando en realidad solo pesa sobre el paso que el enunciado menciona explícitamente.",
+    "explanation": "La **regla del producto** con una restricción puntual solo reduce las opciones del paso afectado, dejando el resto sin cambios.\n\nEl primer dígito no puede ser $0$, así que tiene 9 opciones; los otros dos dígitos aceptan cualquier valor del 0 al 9, con 10 opciones cada uno:\n$$9 \\times 10 \\times 10 = 900$$\nHay 900 contraseñas posibles.\n\nAplicar la restricción a los tres dígitos por igual da $9\times9\times9=729$, un número menor al real: la restricción solo pesa sobre el paso que el enunciado menciona explícitamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -82,7 +82,7 @@
       "Ese resultado cuenta cada rama dos veces, una por cada camino principal, en vez de sumar las sub-rutas de cada rama una sola vez.",
       "Ese resultado mezcla el número de caminos principales con las sub-rutas de ambas ramas en un solo producto, sin corresponder a ningún camino real del mapa."
     ],
-    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7$$\nHay 7 rutas posibles en total.\n\nEs fácil contar los nodos intermedios en vez de las ramas completas: lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
+    "explanation": "En un árbol de decisiones, el total de caminos de la raíz a una hoja es la suma de las ramas completas de cada bifurcación, no el producto entre ellas.\n\nAcá hay 2 caminos principales, uno con 4 sub-rutas y otro con 3 sub-rutas, cada camino llevando a un destino distinto dentro de la misma rama:\n$$4 + 3 = 7$$\nHay 7 rutas posibles en total.\n\nSi contás los nodos intermedios en vez de las ramas completas, perdés de vista que lo que importa es cada camino de punta a punta, no los pasos sueltos en el medio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

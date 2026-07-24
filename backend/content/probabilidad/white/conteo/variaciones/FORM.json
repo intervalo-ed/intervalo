@@ -33,7 +33,7 @@
       "Esa es la combinación, que además divide por $k!$ para ignorar el orden entre los elegidos.",
       "Esa expresión divide por el factorial de los elementos elegidos en vez de por el de los no elegidos, un cociente distinto al de variación."
     ],
-    "explanation": "Elegir y ordenar algunos elementos multiplica opciones decrecientes: la primera posición tiene todas las opciones, la segunda una menos, y así sucesivamente:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!} = n(n-1)\\cdots(n-k+1)$$\nAsí queda la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que no se eligieron.\n\nSi se usaran todos los elementos, el denominador desaparece y queda la permutación simple.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las formas de reordenarlos entre sí:\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nEse factor extra distingue al binomial de la variación.\n\nEs fácil confundir el cociente, dividiendo por $k!$ en vez de por $(n-k)!$; conviene recordar que el denominador de la variación cancela los elementos que NO se usan, no los que sí se eligen.",
+    "explanation": "Elegir y ordenar algunos elementos multiplica opciones decrecientes: la primera posición tiene todas las opciones, la segunda una menos, y así sucesivamente:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!} = n(n-1)\\cdots(n-k+1)$$\nAsí queda la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que no se eligieron.\n\nSi se usaran todos los elementos, el denominador desaparece y queda la permutación simple.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las formas de reordenarlos entre sí:\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nEse factor extra distingue al binomial de la variación.\n\nConfundir el cociente y dividir por $k!$ en vez de por $(n-k)!$ da la fórmula de la combinación, no la variación: acá el denominador cancela los que NO se usan, no los que sí se eligen.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -51,7 +51,7 @@
       "Ese producto tiene un factor de más: hay que detenerse justo en $k=3$ factores, no seguir hasta el cuarto.",
       "Esos factores no son consecutivos decrecientes desde 9, sino que saltean números."
     ],
-    "explanation": "La variación se puede escribir como un producto de factores decrecientes, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\cdots \\times (n-k+1)$$\nCon 9 y 3 se multiplican 3 factores decrecientes desde el 9:\n$$9 \\times 8 \\times 7 = 504$$\nEl resultado es 504.\n\nEs fácil multiplicar un factor de más o de menos; conviene contar explícitamente que la cantidad de factores coincida con la cantidad elegida.",
+    "explanation": "La variación se puede escribir como un producto de factores decrecientes, sin pasar por el cociente de factoriales:\n$$V_{n,k} = n \\times (n-1) \\times \\cdots \\times (n-k+1)$$\nCon 9 y 3 se multiplican 3 factores decrecientes desde el 9:\n$$9 \\times 8 \\times 7 = 504$$\nEl resultado es 504.\n\nSi multiplicás un factor de más o de menos, el resultado queda mal: contá explícitamente que la cantidad de factores coincida con la cantidad elegida.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

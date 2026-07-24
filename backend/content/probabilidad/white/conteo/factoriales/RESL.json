@@ -77,17 +77,17 @@
     "tags": ["comparacion-factoriales"]
   },
   {
-    "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{6!}{2!\\,3!}$$\n¿Cuál es el resultado?",
-    "options": ["$120$", "$60$", "$360$", "$6$"],
-    "correct_index": 1,
+    "question": "Encontrá el resultado de la siguiente fracción de factoriales:\n$$\\frac{5!}{2!\\,3!}$$\n¿Cuál es el resultado?",
+    "options": ["$10$", "$20$", "$60$", "$120$"],
+    "correct_index": 0,
     "feedback_correct": "Se expanden los tres factoriales y se divide.",
     "feedback_incorrect": [
-      "Ese resultado solo divide por $3!$ y se olvida de dividir también por $2!$.",
       null,
+      "Ese resultado solo divide por $3!$ y se olvida de dividir también por $2!$.",
       "Ese resultado solo divide por $2!$ y se olvida de dividir también por $3!$.",
-      "Ese resultado divide por el producto $2!\\times3!$ dos veces, un paso de más que no corresponde."
+      "Ese resultado no divide nada: es $5!$ sin repartir entre los dos grupos del denominador."
     ],
-    "explanation": "Para evaluar una fracción con varios factoriales en el denominador, primero se expande cada factorial y después se realiza la división completa.\n\nCon 6!=720, 2!=2 y 3!=6:\n$$\\frac{6!}{2!\\,3!} = \\frac{720}{2 \\times 6} = \\frac{720}{12} = 60$$\nEl resultado es 60.\n\nEs fácil olvidar uno de los dos factores del denominador, dividiendo solo por uno de ellos en vez de por el producto completo.",
+    "explanation": "Para evaluar una fracción con varios factoriales en el denominador, primero se expande cada factorial y después se realiza la división completa.\n\nCon 5!=120, 2!=2 y 3!=6:\n$$\\frac{5!}{2!\\,3!} = \\frac{120}{2 \\times 6} = \\frac{120}{12} = 10$$\nEl resultado es 10.\n\nSi dividís solo por uno de los dos factores del denominador, en vez de por el producto completo, el resultado te queda mucho más grande de lo real.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

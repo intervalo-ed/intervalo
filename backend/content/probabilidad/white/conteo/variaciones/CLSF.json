@@ -23,7 +23,7 @@
   {
     "question": "En un curso de 10 estudiantes se quiere elegir una pareja de 2 representantes, sin diferenciar roles entre ellos.\n\n¿Corresponde tratar este problema como una variación de 10 tomados de 2?",
     "options": [
-      "No: los representantes no tienen roles distintos, el orden entre ellos no importa.",
+      "No, porque los representantes no tienen roles distintos, el orden entre ellos no importa.",
       "Sí, porque se eligen solo 2 representantes de los 10 estudiantes del curso."
     ],
     "correct_index": 0,
@@ -61,7 +61,7 @@
   {
     "question": "Un examen de 3 preguntas se responde eligiendo, en cada una, una opción entre las mismas 4 disponibles, de forma independiente entre preguntas.\n\n¿Corresponde tratar este problema como una variación de 4 tomados de 3?",
     "options": [
-      "No: las opciones no se agotan al elegir, se repiten en cada pregunta.",
+      "No, porque las opciones no se agotan al elegir, se repiten en cada pregunta.",
       "Sí, porque hay 3 posiciones que se llenan siguiendo un orden fijo."
     ],
     "correct_index": 0,

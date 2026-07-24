@@ -79,7 +79,7 @@
   {
     "question": "Se quiere identificar si la siguiente igualdad es correcta, sin necesariamente calcular $7!$:\n$$4! + 3! = 7!$$\n¿Cuál es la conclusión correcta?",
     "options": [
-      "Es falsa: los factoriales no se suman igual que sus índices.",
+      "Es falsa, porque el factorial no se distribuye sobre la suma.",
       "Es verdadera, por la relación recursiva del factorial.",
       "Es falsa, porque falta multiplicar ambos lados por $2!$.",
       "Es verdadera, porque $4+3=7$."
