@@ -53,6 +53,15 @@ ACCUSATORY_STARTS = [
     "Ignora", "Ignorás", "Interpreta", "Falla en", "Se olvidó", "Falta",
 ]
 
+# Regla 34: el cierre de `explanation` no se anuncia como advertencia de
+# diagnóstico ("La confusión típica es...", "Un error común es..."), va en
+# voz narrativa directa.
+DIAGNOSTIC_CLOSE_RE = re.compile(
+    r"^(la|una?)\s+(confusi[oó]n(\s+t[ií]pica)?|trampa(\s+t[ií]pica)?"
+    r"|errores?\s+(com[uú]n(es)?|frecuente|cl[aá]sico|habitual))\b",
+    re.IGNORECASE,
+)
+
 EMDASH = "—"
 ENDASH = "–"
 CHECKMARKS = ("✓", "✗", "✘")
@@ -222,7 +231,8 @@ def check_explanations(items, file, F: Findings) -> None:
                   f"explanation de {len(text)} chars (mínimo {EXPLANATION_MIN})")
         _check_text_common(text, "explanations", file, label, F)
         _check_display_flow(text, "explanations", file, label, F)
-        for p in paragraphs(text):
+        paras = paragraphs(text)
+        for p in paras:
             stripped = p.rstrip()
             if not stripped.endswith((".", ":", "?", "!", "$")):
                 F.add("ERROR", "explanations", "17", file, label,
@@ -237,6 +247,11 @@ def check_explanations(items, file, F: Findings) -> None:
             if inline_count >= INLINE_FRAGMENTS_WARN:
                 F.add("WARNING", "explanations", "21", file, label,
                       f"{inline_count} fragmentos LaTeX inline en el mismo párrafo")
+        if paras:
+            last = re.sub(r"^\*\*([^*]+)\*\*", r"\1", paras[-1].strip())
+            if DIAGNOSTIC_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre anunciado como advertencia de diagnóstico: {last[:70]!r}...")
 
 
 def check_questions(items, file, F: Findings) -> None:
