@@ -54,11 +54,18 @@ ACCUSATORY_STARTS = [
 ]
 
 # Regla 34: el cierre de `explanation` no se anuncia como advertencia de
-# diagnóstico ("La confusión típica es...", "Un error común es..."), va en
-# voz narrativa directa.
+# diagnóstico ("La confusión típica es...", "Un error común es...", "Es un
+# error frecuente...", "X es la trampa habitual"), va en voz narrativa
+# directa. Busca en todo el último párrafo (no solo al inicio) porque el
+# rótulo puede aparecer como segunda oración o como predicado al final.
 DIAGNOSTIC_CLOSE_RE = re.compile(
-    r"^(la|una?)\s+(confusi[oó]n(\s+t[ií]pica)?|trampa(\s+t[ií]pica)?"
-    r"|errores?\s+(com[uú]n(es)?|frecuente|cl[aá]sico|habitual))\b",
+    r"(?:"
+    r"\b(el|la|los|las|una?|este|esta|estos|estas)\s+(confusi[oó]n(es)?|error(es)?|trampa(s)?)\b"
+    r"(?:\s+(?:m[aá]s\s+)?(?:t[ií]pic[oa]s?|com[uú]n(?:es)?|frecuente(?:s)?|cl[aá]sico(?:a)?s?|habitual(?:es)?|grave(?:s)?))?"
+    r"\s+(?:es|son)\b"
+    r"|"
+    r"(?<!no )es\s+(?:un|una|la|el|los|las)\s+(?:m[aá]s\s+)?(?:t[ií]pic[oa]s?|com[uú]n(?:es)?|frecuente(?:s)?|cl[aá]sico(?:a)?s?|habitual(?:es)?|grave(?:s)?)?\s*(confusi[oó]n(es)?|error(es)?|trampa(s)?)\b"
+    r")",
     re.IGNORECASE,
 )
 
@@ -265,7 +272,7 @@ def check_explanations(items, file, F: Findings) -> None:
                           f"{inline_count} fragmentos LaTeX inline en el mismo tramo de prosa")
         if paras:
             last = re.sub(r"^\*\*([^*]+)\*\*", r"\1", paras[-1].strip())
-            if DIAGNOSTIC_CLOSE_RE.match(last):
+            if DIAGNOSTIC_CLOSE_RE.search(last):
                 F.add("WARNING", "explanations", "34", file, label,
                       f"cierre anunciado como advertencia de diagnóstico: {last[:70]!r}...")
 

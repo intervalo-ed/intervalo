@@ -13,12 +13,17 @@ Todos los comandos se corren **desde `backend/`**. Trabajás en la branch
 
 ## Estado del que partís
 
-El contenido de `analisis` ya valida con **0 ERRORS**, pero tiene **~3700 WARNINGS**. Esos
+El contenido de `analisis` ya valida con **0 ERRORS**, pero tiene **~4000 WARNINGS**. Esos
 warnings son deuda real de calidad, no ruido: el único artefacto de medición que había
 (párrafos de prosa cortados por fórmulas centradas) ya se corrigió en el validador
 (`prose_segments()`, commit `d767776`). Lo que queda hay que resolverlo tocando el contenido.
 El umbral de `options / 4` y `options / 15` también se endureció (1.2x/0.8x en vez de
 1.5x/0.6x); ver el catálogo abajo para el detalle.
+
+El regex de `explanations / 34` tenía varios gaps de cobertura (no detectaba "error" singular
+por un typo, ni "error típico", ni el artículo "El", ni el patrón predicado "X es un error
+frecuente" en vez de apertura de oración). Corregidos, el conteo real subió de 7 a **296**:
+la mayoría del corpus tenía el patrón, solo que el validador no lo veía.
 
 Un ERROR es una violación inequívoca (explanation < 300, `\n\n` pegado a `$$`, feedback mal
 formado, tag inválido, etc.): **nunca se commitea con ERRORS**. Un WARNING es una heurística
@@ -173,10 +178,11 @@ hay que reescribir: pasar la fórmula clave a bloque o verbalizar los símbolos.
 #### `explanations / 34` — cierre anunciado como advertencia de diagnóstico
 
 **Qué mide.** El último párrafo de `explanation` abre con "La confusión típica es...",
-"Un error común/frecuente/clásico es...", "La trampa (típica) es..." o variantes. **Regla
-34.** No es que el contenido esté mal: el problema es la forma, rotular la oración como
-advertencia antes de decirla se lee como informe de auditoría repetido ejercicio tras
-ejercicio, no como alguien explicando.
+"Un error común/frecuente/clásico/típico es...", "La trampa (típica) es...", o lo dice como
+predicado en cualquier posición del párrafo ("X es un error frecuente", "Y es la trampa
+habitual"). **Regla 34.** No es que el contenido esté mal: el problema es la forma, rotular
+la oración como advertencia antes (o en vez) de decirla se lee como informe de auditoría
+repetido ejercicio tras ejercicio, no como alguien explicando.
 
 **Criterio.** Reescribí la misma idea en voz narrativa directa, sin el rótulo. Afirmá el
 punto directo, o usá un conector variado ("Ojo:", "Acá conviene...", segunda persona: "Si
@@ -314,7 +320,7 @@ distribución del `topic-context.md`.
 
 ## Apéndice: números de referencia
 
-Distribución de los ~3700 warnings al momento de escribir este prompt (corré el validador
+Distribución de los ~4000 warnings al momento de escribir este prompt (corré el validador
 para el conteo vivo). Sirve para saber cuántos esperar por tipo y detectar si algo se
 disparó al corregir.
 
@@ -322,6 +328,7 @@ disparó al corregir.
 |---|---:|---|---|
 | explanations / 21 | 1441 | B (~⅓ reescritura) | dividir tramo o sacar fórmula a `$$` |
 | explanations / párrafos | 1145 | B (~14% reescritura) | cortar en límite de oración con `\n\n` |
+| explanations / 34 | 296 | B | reescribir el cierre en voz narrativa directa |
 | options / 4 | 221 | C | igualar registro de opciones |
 | structure / tags | 234 | D (207 ignorar, 27 reales) | re-etiquetar/redistribuir en white |
 | feedbacks / fórmulas anchas | 218 | C | mover derivación a explanation |
@@ -330,7 +337,6 @@ disparó al corregir.
 | options / 15 | 54 | C | igualar registro de opciones |
 | explanations / 26 | 28 | B | mover `\text{}` a la prosa |
 | questions / 32 | 20 | B | variar aperturas repetidas |
-| explanations / 34 | 7 | B | reescribir el cierre en voz narrativa directa |
 
 `options / 4` y `options / 15` subieron (177→221, 25→54) por el umbral más estricto
 (1.2x/0.8x en vez de 1.5x/0.6x), no por contenido nuevo.
