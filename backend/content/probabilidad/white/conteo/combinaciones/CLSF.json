@@ -23,7 +23,7 @@
   {
     "question": "En un equipo de 10 jugadores se quiere elegir un capitán y un vicecapitán, dos roles distintos entre sí.\n\n¿Corresponde tratar este problema como una combinación de 10 tomados de 2?",
     "options": [
-      "No, porque capitán y vicecapitán son roles distintos, así que el orden de elección importa.",
+      "No, porque capitán y vicecapitán son roles distintos y el orden importa.",
       "Sí, porque se eligen solo 2 jugadores de los 10 disponibles en el equipo."
     ],
     "correct_index": 0,
@@ -42,7 +42,7 @@
   {
     "question": "Un menú ofrece 5 entradas y, de forma independiente, 3 postres, y un cliente arma su pedido eligiendo una entrada y un postre.\n\n¿Corresponde tratar este problema como una combinación de 8 tomados de 2?",
     "options": [
-      "No: las entradas y los postres son conjuntos distintos, no un subconjunto de un mismo total.",
+      "No, porque entradas y postres son conjuntos distintos, no un mismo total.",
       "Sí, porque en total se eligen 2 elementos entre las opciones del menú."
     ],
     "correct_index": 0,
@@ -72,7 +72,7 @@
       "Ese conteo no fija a la persona obligatoria, permite comités que no la incluyan.",
       "Ese conteo elige 4 personas entre las 9 restantes, mandando afuera a la persona que en realidad va fija en el comité."
     ],
-    "explanation": "Cuando una combinación exige incluir un elemento fijo, ese elemento ya no se elige: solo se cuenta cuántas formas hay de completar el resto del subconjunto.\n\nCon la persona fija ya dentro del comité, quedan 9 personas disponibles para completar los 3 lugares restantes:\n$$\\binom{9}{3}$$\nAsí se cuenta el resto del comité.\n\nUn error común es seguir contando como si la persona obligatoria todavía compitiera por un lugar, cuando en realidad ya ocupa uno de los 4 desde el principio.",
+    "explanation": "Cuando una combinación exige incluir un elemento fijo, ese elemento ya no se elige: solo se cuenta cuántas formas hay de completar el resto del subconjunto.\n\nCon la persona fija ya dentro del comité, quedan 9 personas disponibles para completar los 3 lugares restantes:\n$$\\binom{9}{3}$$\nAsí se cuenta el resto del comité.\n\nContar a esa persona como si todavía compitiera por un lugar infla el resultado: ya ocupa uno de los 4 desde el principio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

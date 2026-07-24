@@ -10,7 +10,7 @@
       "Esa potencia permitiría repetir integrantes en varias posiciones, algo que no corresponde al ordenar personas distintas sin reposición.",
       "Esa expresión divide como si hubiera un grupo de elementos repetidos, pero acá los 6 integrantes son todos distintos."
     ],
-    "explanation": "La **permutación simple** de elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon 6 integrantes ordenándose en fila, la expresión correcta es $6!$.\n\nUna confusión típica es aplicar el binomial o una potencia, fórmulas reservadas para subconjuntos o decisiones con repetición, no para ordenar un conjunto fijo de elementos distintos.",
+    "explanation": "La **permutación simple** de elementos distintos, usando todos, se calcula como:\n$$P_n = n!$$\nCon 6 integrantes ordenándose en fila, la expresión correcta es $6!$.\n\nEl binomial o una potencia se aplican fácil por error acá: son fórmulas reservadas para subconjuntos o decisiones con repetición, no para ordenar un conjunto fijo de elementos distintos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -33,7 +33,7 @@
       "Estás dividiendo también por el $2!$ de otro grupo repetido, pero solo hay UN grupo de letras iguales (las dos A).",
       "El binomial cuenta subconjuntos sin orden; acá se están ordenando todas las letras."
     ],
-    "explanation": "La **permutación con repetición** se usa para ordenar elementos entre los cuales hay grupos indistinguibles: se divide el factorial total por el factorial de cada grupo repetido.\n\nEn CASA hay 4 letras con un solo grupo repetido (dos A), así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12$$\nSon 12 anagramas distintos.\n\nLa trampa típica es olvidar dividir y contar los reordenamientos como si las A fueran distintas; recordá que solo se divide por los grupos con al menos 2 elementos idénticos.",
+    "explanation": "La **permutación con repetición** se usa para ordenar elementos entre los cuales hay grupos indistinguibles: se divide el factorial total por el factorial de cada grupo repetido.\n\nSi las 4 letras fueran todas distintas, $4!$ contaría cada orden como único.\n\nPero hay dos A idénticas: intercambiarlas entre sí no cambia la palabra, aunque el $4!$ las cuenta como si fueran distintas.\n\nPor eso hay que dividir por $2!$, que es la cantidad de esos intercambios que no producen una palabra nueva.\n\nEn CASA hay 4 letras con un solo grupo repetido (dos A), así que:\n$$\\frac{4!}{2!} = \\frac{24}{2} = 12$$\nSon 12 anagramas distintos.\n\nOlvidar dividir y contar los reordenamientos como si las A fueran distintas es el desliz más común; recordá que solo se divide por los grupos con al menos 2 elementos idénticos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -51,7 +51,7 @@
       "Esa es la fórmula de la combinación, que ignora el orden dentro del subconjunto elegido.",
       "Esa potencia permitiría repetir elementos en varias posiciones, algo que la permutación simple no admite."
     ],
-    "explanation": "Ordenar todos los elementos es una secuencia de decisiones: el primer lugar tiene n opciones, el segundo n-1, y así hasta el último, con una sola opción:\n$$P_n = n(n-1)\\cdots 1 = n!$$\nAsí se arma la permutación.\n\nElegir y ordenar solo $k$ de esos elementos multiplica las mismas opciones decrecientes, pero se corta en el lugar $k$-ésimo:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\nEsa es la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que quedaron sin elegir.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las $k!$ formas de ordenarlos entre sí:\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nEse factor extra distingue al binomial de la variación.\n\nUn error común es confundir estas tres fórmulas parecidas; conviene fijarse si se usan todos los elementos (permutación), un subconjunto ordenado (variación) o sin orden (combinación).",
+    "explanation": "Ordenar todos los elementos es una secuencia de decisiones: el primer lugar tiene n opciones, el segundo n-1, y así hasta el último, con una sola opción:\n$$P_n = n(n-1)\\cdots 1 = n!$$\nAsí se arma la permutación.\n\nElegir y ordenar solo $k$ de esos elementos multiplica las mismas opciones decrecientes, pero se corta en el lugar $k$-ésimo:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\nEsa es la variación.\n\nEl numerador ordena todos los elementos, y el denominador cancela las órdenes internas de los que quedaron sin elegir.\n\nSi además no importara el orden entre los elegidos, hace falta dividir también por las $k!$ formas de ordenarlos entre sí:\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nEse factor extra distingue al binomial de la variación.\n\nEstas tres fórmulas parecidas se confunden fácil; conviene fijarse si se usan todos los elementos (permutación), un subconjunto ordenado (variación) o sin orden (combinación).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

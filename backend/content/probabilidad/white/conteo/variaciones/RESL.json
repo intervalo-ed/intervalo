@@ -10,7 +10,7 @@
       null,
       "Ese es $6^{2}$: aparece si se permite que la misma persona ocupe los dos cargos, pero acá titular y suplente deben ser distintos."
     ],
-    "explanation": "En una **variación** sin repetición se eligen y ordenan algunos elementos de un total, sin repetir ninguno.\n\nCon 6 estudiantes y 2 cargos distintos:\n$$V_{6,2} = \\frac{6!}{4!} = 6 \\times 5 = 30$$\nHay 30 asignaciones posibles.\n\nLa confusión típica es aplicar $6^{2}$ (arreglo CON repetición) sin notar que un mismo estudiante no puede ser titular y suplente a la vez; siempre revisá si el enunciado prohíbe la repetición.",
+    "explanation": "En una **variación** sin repetición se eligen y ordenan algunos elementos de un total, sin repetir ninguno.\n\nCon 6 estudiantes y 2 cargos distintos:\n$$V_{6,2} = \\frac{6!}{4!} = 6 \\times 5 = 30$$\nHay 30 asignaciones posibles.\n\nAplicar $6^{2}$ (arreglo CON repetición) es fácil sin notar que un mismo estudiante no puede ser titular y suplente a la vez; siempre revisá si el enunciado prohíbe la repetición.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -28,7 +28,7 @@
       "La combinación nunca supera a la variación con los mismos $n,k$: ignorar el orden reduce el conteo, no lo aumenta.",
       "Es al revés: la variación es la que multiplica a la combinación por $k!$, no la divide."
     ],
-    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 7 y 2 ($k!=2$): la combinación vale 21 y la variación $21\\times2=42$.\n\nUn error común es asumir que ambas técnicas dan el mismo número; el factor que las distingue siempre es $k!$, la cantidad de ordenamientos internos del subconjunto elegido.",
+    "explanation": "Las dos fórmulas comparten el mismo numerador y el mismo factor $(n-k)!$ en el denominador:\n$$V_{n,k} = \\dfrac{n!}{(n-k)!}$$\n$$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$$\nLa única diferencia es el $k!$ extra que divide al binomial.\n\nDividir una fórmula por la otra cancela todo lo demás:\n$$\\dfrac{V_{n,k}}{\\binom{n}{k}} = k!$$\nPor eso la variación es $k!$ veces la combinación.\n\nLa variación cuenta cada subconjunto elegido tantas veces como formas de ordenarlo internamente; la combinación ya perdió esa información al dividir por $k!$.\n\nCon 7 y 2 ($k!=2$): la combinación vale 21 y la variación $21\\times2=42$.\n\nEs tentador asumir que ambas técnicas dan el mismo número; el factor que las distingue siempre es $k!$, la cantidad de ordenamientos internos del subconjunto elegido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -46,7 +46,7 @@
       null,
       "Ese resultado permite que la misma persona ocupe los dos cargos, algo que el enunciado prohíbe."
     ],
-    "explanation": "Cuando se eligen y asignan cargos distintos entre varias personas, sin repetir a nadie, corresponde una **variación**:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nCon 9 socios y 2 cargos distintos:\n$$V_{9,2} = 9 \\times 8 = 72$$\nHay 72 asignaciones posibles.\n\nUn error común es no reconocer la variación cuando el enunciado no usa su notación explícita; conviene fijarse en palabras clave como \"cargos distintos\", que señalan que el orden importa.",
+    "explanation": "Cuando se eligen y asignan cargos distintos entre varias personas, sin repetir a nadie, corresponde una **variación**:\n$$V_{n,k} = \\frac{n!}{(n-k)!}$$\nCon 9 socios y 2 cargos distintos:\n$$V_{9,2} = 9 \\times 8 = 72$$\nHay 72 asignaciones posibles.\n\nEs fácil no reconocer la variación cuando el enunciado no usa su notación explícita; conviene fijarse en palabras clave como \"cargos distintos\", que señalan que el orden importa.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

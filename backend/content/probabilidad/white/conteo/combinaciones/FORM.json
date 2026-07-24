@@ -15,7 +15,7 @@
       null,
       "Ese es el arreglo con repetición: acá se eligen 3 cartas distintas del mazo, sin reposición."
     ],
-    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo hay 40 cartas y se eligen 3:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\nHay 9880 combinaciones posibles.\n\nUn error clásico es confundir la fórmula con la de variación y olvidar dividir por $k!$: recordá que ese factor es exactamente lo que \"borra\" el orden dentro del subgrupo elegido.",
+    "explanation": "Las **combinaciones** eligen elementos de un total sin orden:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nEn el mazo hay 40 cartas y se eligen 3:\n$$\\binom{40}{3} = \\frac{40!}{3!\\,37!} = \\frac{40 \\times 39 \\times 38}{6} = 9880$$\nHay 9880 combinaciones posibles.\n\nConfundir esta fórmula con la de variación y olvidar dividir por $k!$ es fácil: ese factor es justo lo que \"borra\" el orden dentro del subgrupo elegido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -33,7 +33,7 @@
       "Esa es la permutación completa, que usa todos los $n$ elementos, no un subconjunto de $k$.",
       "Esa expresión no cancela los elementos no elegidos, le falta dividir también por $(n-k)!$."
     ],
-    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nUn error común es olvidar alguno de los dos factores del denominador; conviene recordar que uno cancela el orden interno y el otro los elementos no elegidos.",
+    "explanation": "La **combinación** de elementos tomados de un total, sin importar el orden, se define como:\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$\nSin el $k!$ del denominador queda la variación, que sí distingue el orden.\n\nEs fácil olvidar alguno de los dos factores del denominador; uno cancela el orden interno y el otro los elementos no elegidos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -51,7 +51,7 @@
       "Ese valor sería el de $\\dbinom{10}{4}$, no el de $\\dbinom{10}{7}$.",
       "Ese valor sería el de $\\dbinom{10}{2}$, no el de $\\dbinom{10}{7}$."
     ],
-    "explanation": "La **combinación** cumple la propiedad de simetría:\n$$\\binom{n}{k} = \\binom{n}{n-k}$$\nElegir $k$ elementos para incluir equivale a elegir $n-k$ elementos para dejar afuera.\n\nCon 10 y 7, se cumple $10-7=3$, así que $\\binom{10}{7}=\\binom{10}{3}=120$.\n\nUna confusión común es no reconocer esta simetría y recalcular todo el cociente de factoriales, cuando alcanza con identificar el par $k$ y $n-k$.",
+    "explanation": "La **combinación** cumple la propiedad de simetría:\n$$\\binom{n}{k} = \\binom{n}{n-k}$$\nElegir $k$ elementos para incluir equivale a elegir $n-k$ elementos para dejar afuera.\n\nCon 10 y 7, se cumple $10-7=3$, así que $\\binom{10}{7}=\\binom{10}{3}=120$.\n\nSi no se reconoce esta simetría, se termina recalculando todo el cociente de factoriales, cuando alcanza con identificar el par $k$ y $n-k$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -69,7 +69,7 @@
       "Esa expresión no descarta a la persona excluida, sigue contando comités donde podría participar.",
       "Esa expresión reduce en uno la cantidad de integrantes a elegir, un ajuste que no corresponde a excluir a una persona del total disponible."
     ],
-    "explanation": "Cuando una combinación excluye obligatoriamente a un elemento, ese elemento simplemente se saca del conjunto disponible antes de elegir.\n\nCon la persona excluida, quedan $n-1$ personas para elegir los $k$ integrantes del comité:\n$$\\binom{n-1}{k}$$\nAsí se arma el comité sin esa persona.\n\nUn error común es confundir este caso con el de incluir a alguien obligatoriamente; conviene distinguir si el elemento fijo ya ocupa un lugar o directamente no está disponible.",
+    "explanation": "Cuando una combinación excluye obligatoriamente a un elemento, ese elemento simplemente se saca del conjunto disponible antes de elegir.\n\nCon la persona excluida, quedan $n-1$ personas para elegir los $k$ integrantes del comité:\n$$\\binom{n-1}{k}$$\nAsí se arma el comité sin esa persona.\n\nEste caso se confunde fácil con el de incluir a alguien obligatoriamente; conviene distinguir si el elemento fijo ya ocupa un lugar o directamente no está disponible.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

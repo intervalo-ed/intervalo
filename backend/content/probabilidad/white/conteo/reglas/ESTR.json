@@ -13,7 +13,7 @@
       null,
       "No se está eligiendo un subconjunto de un mismo conjunto de opciones, son dos decisiones distintas en secuencia."
     ],
-    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá el comensal elige entrada (4 opciones) y además plato principal (6 opciones), así que:\n$$4 \\times 6 = 24$$\nSon 24 menús posibles en total.\n\nEl error clásico es sumar en vez de multiplicar cuando en realidad ambas decisiones se toman juntas, no como alternativas.",
+    "explanation": "La **regla del producto** aplica cuando un resultado se arma encadenando dos o más decisiones independientes: se multiplican las opciones de cada paso.\n\nAcá el comensal elige entrada (4 opciones) y además plato principal (6 opciones), así que:\n$$4 \\times 6 = 24$$\nSon 24 menús posibles en total.\n\nSumar en vez de multiplicar es el desliz más común acá, cuando en realidad ambas decisiones se toman juntas, no como alternativas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -34,7 +34,7 @@
       "No hay dos decisiones seguidas, solo una: se elige entre categorías, no se combinan.",
       "No se está eligiendo un subconjunto de caracteres, se elige uno único entre alternativas mutuamente excluyentes."
     ],
-    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá la clave es una letra ($27$ opciones) o un dígito ($10$ opciones), nunca las dos cosas a la vez, así que:\n$$27 + 10 = 37$$\nHay 37 claves posibles en total.\n\nEl error clásico es aplicar producto en cuanto aparecen dos conjuntos: el producto solo cabe si se toma un elemento de cada uno, no si se elige entre uno u otro.",
+    "explanation": "La **regla de la suma** aplica cuando un resultado proviene de una sola de varias categorías **mutuamente excluyentes**: se cuenta cada categoría por separado y se suma.\n\nAcá la clave es una letra ($27$ opciones) o un dígito ($10$ opciones), nunca las dos cosas a la vez, así que:\n$$27 + 10 = 37$$\nHay 37 claves posibles en total.\n\nAplicar producto en cuanto aparecen dos conjuntos es un desliz fácil: el producto solo cabe si se toma un elemento de cada uno, no si se elige entre uno u otro.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -55,7 +55,7 @@
       "El producto solo no alcanza: el vuelo directo es una alternativa aparte, excluyente de la opción de pasar por B, y esa parte se suma.",
       null
     ],
-    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas ($3 \\times 2 = 6$ formas), y el vuelo directo es una alternativa aparte con $4$ opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nUn error común es aplicar una sola de las dos reglas a todo el problema, sin notar que cada tramo necesita su propio análisis antes de combinarlos.",
+    "explanation": "Cuando un problema tiene una rama con decisiones consecutivas y otra rama como alternativa excluyente, primero se resuelve el producto dentro de cada rama y después se suman las ramas entre sí.\n\nPasar por B son 2 decisiones consecutivas ($3 \\times 2 = 6$ formas), y el vuelo directo es una alternativa aparte con $4$ opciones:\n$$3 \\times 2 + 4 = 10$$\nEn total hay 10 formas de viajar.\n\nEs fácil aplicar una sola de las dos reglas a todo el problema, sin notar que cada tramo necesita su propio análisis antes de combinarlos.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -65,7 +65,7 @@
   {
     "question": "En una carrera de 5 atletas hay que determinar quién llega primero y quién llega segundo, sin que un mismo atleta pueda ocupar los dos puestos.\n\n¿Corresponde aplicar directamente la regla del producto o de la suma para contar los resultados posibles?",
     "options": [
-      "No: hace falta elegir un subconjunto de atletas y además ordenarlo, algo que el producto y la suma directos no resuelven.",
+      "No: hace falta elegir un subconjunto y además ordenarlo, algo que el producto o la suma directos no resuelven.",
       "Sí, regla del producto: cada puesto es una decisión independiente con las mismas 5 opciones."
     ],
     "correct_index": 0,

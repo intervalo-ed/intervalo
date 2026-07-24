@@ -10,7 +10,7 @@
       null,
       "Ese es $6^{6}$, una potencia en vez del producto decreciente que define al factorial."
     ],
-    "explanation": "El **factorial** de un número natural es el producto de todos los enteros positivos desde 1 hasta ese número:\n$$n! = n \\times (n-1) \\times \\cdots \\times 1$$\nPara 6:\n$$6! = 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 720$$\nEl resultado es 720.\n\nUna confusión común es confundir el factorial con una potencia; conviene siempre expandir el producto decreciente completo antes de multiplicar.",
+    "explanation": "El **factorial** de un número natural es el producto de todos los enteros positivos desde 1 hasta ese número:\n$$n! = n \\times (n-1) \\times \\cdots \\times 1$$\nPara 6:\n$$6! = 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 720$$\nEl resultado es 720.\n\nEl factorial se confunde fácil con una potencia; conviene siempre expandir el producto decreciente completo antes de multiplicar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -28,7 +28,7 @@
       null,
       "Ese es el valor de $7!$ completo, sin simplificar contra $5!$ del denominador."
     ],
-    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $5!$ se cancela con parte de $7!$, dejando:\n$$\\frac{7!}{5!} = \\frac{7 \\times 6 \\times 5!}{5!} = 7 \\times 6 = 42$$\nEl resultado es 42.\n\nLa confusión típica es tratar el factorial como un exponente o una resta y calcular 7-5=2; el factorial es un producto y la simplificación se hace factor por factor.",
+    "explanation": "El **factorial** tiene una propiedad de cancelación: al dividir un factorial mayor por uno menor, los factores comunes se simplifican.\n\nEl $5!$ se cancela con parte de $7!$, dejando:\n$$\\frac{7!}{5!} = \\frac{7 \\times 6 \\times 5!}{5!} = 7 \\times 6 = 42$$\nEl resultado es 42.\n\nTratar el factorial como un exponente o una resta lleva a calcular $7-5=2$; el factorial es un producto y la simplificación se hace factor por factor.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -46,7 +46,7 @@
       null,
       "Ese es el valor de $5!$ solo, sin restarle $4!$."
     ],
-    "explanation": "Para operar una suma o resta de factoriales hay que **expandir cada uno primero** y recién ahí operar los valores numéricos.\n\nCon $5!=120$ y $4!=24$:\n$$5! - 4! = 120 - 24 = 96$$\nEl resultado es 96.\n\nUn error clásico es restar directamente los índices (5-4=1) sin expandir ningún factorial, tratando al símbolo $!$ como una operación lineal.",
+    "explanation": "Para operar una suma o resta de factoriales hay que **expandir cada uno primero** y recién ahí operar los valores numéricos.\n\nCon $5!=120$ y $4!=24$:\n$$5! - 4! = 120 - 24 = 96$$\nEl resultado es 96.\n\nRestar los índices directo ($5-4=1$) da un número parecido por casualidad: el $!$ no es una operación lineal, hay que expandir cada factorial antes de simplificar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -56,7 +56,7 @@
   {
     "question": "Se quiere comparar $5!$ y $6!$ sin calcular ambos valores completos.\n\n¿Cuál de las siguientes afirmaciones es correcta?",
     "options": [
-      "$6! = 6 \\times 5!$, así que $6!$ es mayor.",
+      "Por la relación recursiva, $6! = 6 \\times 5!$, así que $6!$ es mayor.",
       "$5!$ es mayor, porque $5<6$ aporta menos factores.",
       "Ambos son iguales, porque difieren en un solo factor.",
       "$6!$ es menor, porque tiene un factor más que divide al resultado."
@@ -69,7 +69,7 @@
       "Un factor más en el producto no los deja iguales, los aleja: agregar un factor mayor a $1$ siempre agranda el resultado.",
       "El factor extra en $6!$ multiplica el resultado, no lo divide: agregar un factor mayor a $1$ siempre agranda el producto."
     ],
-    "explanation": "Comparar factoriales sin calcularlos completos se apoya en la relación recursiva $n! = n \\times (n-1)!$.\n\nComo $6! = 6 \\times 5!$, multiplicar $5!$ por 6 necesariamente lo agranda:\n$$6! > 5!$$\nPor eso es mayor.\n\nUn error típico es comparar directamente los índices en vez del producto completo; el índice más grande siempre gana, pero razonarlo por la recursión evita calcular ambos valores enteros.",
+    "explanation": "Comparar factoriales sin calcularlos completos se apoya en la relación recursiva $n! = n \\times (n-1)!$.\n\nComo $6! = 6 \\times 5!$, multiplicar $5!$ por 6 necesariamente lo agranda:\n$$6! > 5!$$\nPor eso es mayor.\n\nComparar directamente los índices en vez del producto completo es un desliz fácil; el índice más grande siempre gana, pero razonarlo por la recursión evita calcular ambos valores enteros.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -87,7 +87,7 @@
       "Ese resultado solo divide por $2!$ y se olvida de dividir también por $3!$.",
       "Ese resultado divide por el producto $2!\\times3!$ dos veces, un paso de más que no corresponde."
     ],
-    "explanation": "Para evaluar una fracción con varios factoriales en el denominador, primero se expande cada factorial y después se realiza la división completa.\n\nCon 6!=720, 2!=2 y 3!=6:\n$$\\frac{6!}{2!\\,3!} = \\frac{720}{2 \\times 6} = \\frac{720}{12} = 60$$\nEl resultado es 60.\n\nUn error común es olvidar uno de los dos factores del denominador, dividiendo solo por uno de ellos en vez de por el producto completo.",
+    "explanation": "Para evaluar una fracción con varios factoriales en el denominador, primero se expande cada factorial y después se realiza la división completa.\n\nCon 6!=720, 2!=2 y 3!=6:\n$$\\frac{6!}{2!\\,3!} = \\frac{720}{2 \\times 6} = \\frac{720}{12} = 60$$\nEl resultado es 60.\n\nEs fácil olvidar uno de los dos factores del denominador, dividiendo solo por uno de ellos en vez de por el producto completo.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
