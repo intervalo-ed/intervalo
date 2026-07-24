@@ -25,6 +25,13 @@ por un typo, ni "error típico", ni el artículo "El", ni el patrón predicado "
 frecuente" en vez de apertura de oración). Corregidos, el conteo real subió de 7 a **296**:
 la mayoría del corpus tenía el patrón, solo que el validador no lo veía.
 
+Regla 33 (cierre de `explanation`) además se cerró a **4 familias permitidas** (consecuencia
+directa, segunda persona, gerundio/infinitivo al frente, otros caso a caso), agregando 3
+prohibiciones explícitas al validador: filler genérico "Es fácil/tentador..." (0 casos en
+`analisis`, es una muletilla de la ronda 1 de `probabilidad`), marcador breve tipo
+"Ojo:/Cuidado con..." (8 casos) y comparación/contraste "A diferencia de X, acá..." (4 casos).
+Total `explanations / 34` ahora **308**.
+
 Un ERROR es una violación inequívoca (explanation < 300, `\n\n` pegado a `$$`, feedback mal
 formado, tag inválido, etc.): **nunca se commitea con ERRORS**. Un WARNING es una heurística
 que puede tener falsos positivos: se revisa con criterio (ver "Meta" abajo).
@@ -180,15 +187,29 @@ hay que reescribir: pasar la fórmula clave a bloque o verbalizar los símbolos.
 **Qué mide.** El último párrafo de `explanation` abre con "La confusión típica es...",
 "Un error común/frecuente/clásico/típico es...", "La trampa (típica) es...", o lo dice como
 predicado en cualquier posición del párrafo ("X es un error frecuente", "Y es la trampa
-habitual"). **Regla 34.** No es que el contenido esté mal: el problema es la forma, rotular
-la oración como advertencia antes (o en vez) de decirla se lee como informe de auditoría
-repetido ejercicio tras ejercicio, no como alguien explicando.
+habitual"). **Regla 33 (rule id `34` en el validador).** El validador también marca 3
+variantes de reemplazo que caen en el mismo problema de fondo:
+- Filler genérico "Es fácil...`/`Es tentador..." como sustituto de la rotulación.
+- Marcador breve "Ojo:"/"Atención:"/"Cuidado con..." (8 casos en `analisis`).
+- Comparación/contraste "A diferencia de X, acá..." (4 casos en `analisis`).
 
-**Criterio.** Reescribí la misma idea en voz narrativa directa, sin el rótulo. Afirmá el
-punto directo, o usá un conector variado ("Ojo:", "Acá conviene...", segunda persona: "Si
-dividís antes de restar, te vas a equivocar de..."). El contenido de fondo (qué error se
-comete y por qué) normalmente **no cambia**, solo la forma de decirlo. Variá el conector
-entre ítems del mismo archivo para no generar un nuevo patrón repetido (regla 32).
+No es que el contenido esté mal: el problema es la forma, rotular la oración como
+advertencia antes (o en vez) de decirla se lee como informe de auditoría repetido ejercicio
+tras ejercicio, no como alguien explicando.
+
+**Criterio.** Reescribí la misma idea en voz narrativa directa, usando una de estas **4
+familias** (variando entre ítems del mismo archivo, nunca la misma en todo el archivo):
+1. **Consecuencia directa**: qué pasa si se hace mal. *"Restar los índices en vez de
+   expandir da un número parecido por casualidad."*
+2. **Segunda persona**: dirigirse al alumno. *"Si dividís antes de restar, te vas a
+   equivocar de resultado."*
+3. **Gerundio/infinitivo al frente**: la acción incorrecta como sujeto. *"Confundir esta
+   fórmula con la de variación es fácil de arrastrar de un ejercicio a otro."*
+4. **Otros, caso a caso**: sin plantilla fija, siempre que no repita las anteriores.
+
+El contenido de fondo (qué error se comete y por qué) normalmente **no cambia**, solo la
+forma de decirlo. Ninguna de las 4 familias usa "Ojo:"/"Cuidado" ni "A diferencia de" — esos
+quedan explícitamente prohibidos, no son una familia más.
 
 ```
 ❌  Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún
@@ -328,7 +349,7 @@ disparó al corregir.
 |---|---:|---|---|
 | explanations / 21 | 1441 | B (~⅓ reescritura) | dividir tramo o sacar fórmula a `$$` |
 | explanations / párrafos | 1145 | B (~14% reescritura) | cortar en límite de oración con `\n\n` |
-| explanations / 34 | 296 | B | reescribir el cierre en voz narrativa directa |
+| explanations / 34 | 308 | B | reescribir el cierre en voz narrativa directa |
 | options / 4 | 221 | C | igualar registro de opciones |
 | structure / tags | 234 | D (207 ignorar, 27 reales) | re-etiquetar/redistribuir en white |
 | feedbacks / fórmulas anchas | 218 | C | mover derivación a explanation |

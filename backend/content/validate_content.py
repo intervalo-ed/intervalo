@@ -68,6 +68,14 @@ DIAGNOSTIC_CLOSE_RE = re.compile(
     r")",
     re.IGNORECASE,
 )
+# Regla 34 (cont.): filler genérico que reemplaza la rotulación sin cambiar
+# el problema de fondo, marcador breve tipo "Ojo:"/"Cuidado con..." (regla
+# 34 solo admite las 4 familias: consecuencia directa, segunda persona,
+# gerundio/infinitivo al frente, u otros caso a caso), y comparación/
+# contraste tipo "A diferencia de X, acá...".
+FILLER_CLOSE_RE = re.compile(r"^es\s+(f[aá]cil|tentador)\b", re.IGNORECASE)
+MARKER_CLOSE_RE = re.compile(r"^(ojo|atenci[oó]n|cuidado)\b", re.IGNORECASE)
+CONTRAST_CLOSE_RE = re.compile(r"^a\s+diferencia\s+de\b", re.IGNORECASE)
 
 EMDASH = "—"
 ENDASH = "–"
@@ -275,6 +283,15 @@ def check_explanations(items, file, F: Findings) -> None:
             if DIAGNOSTIC_CLOSE_RE.search(last):
                 F.add("WARNING", "explanations", "34", file, label,
                       f"cierre anunciado como advertencia de diagnóstico: {last[:70]!r}...")
+            elif FILLER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con filler genérico 'Es fácil/tentador' (no es una de las 4 familias permitidas): {last[:70]!r}...")
+            elif MARKER_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre con marcador breve tipo 'Ojo/Cuidado/Atención' (prohibido explícito): {last[:70]!r}...")
+            elif CONTRAST_CLOSE_RE.match(last):
+                F.add("WARNING", "explanations", "34", file, label,
+                      f"cierre por comparación/contraste 'A diferencia de...' (prohibido explícito): {last[:70]!r}...")
 
 
 def check_questions(items, file, F: Findings) -> None:
