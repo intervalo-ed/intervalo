@@ -168,6 +168,27 @@ hay que reescribir: pasar la fórmula clave a bloque o verbalizar los símbolos.
 ✅  $$F_1(x) - F_2(x) = C_1 - C_2$$\nEsa diferencia es constante para todo $x$.
 ```
 
+#### `explanations / 34` — cierre anunciado como advertencia de diagnóstico
+
+**Qué mide.** El último párrafo de `explanation` abre con "La confusión típica es...",
+"Un error común/frecuente/clásico es...", "La trampa (típica) es..." o variantes. **Regla
+34.** No es que el contenido esté mal: el problema es la forma, rotular la oración como
+advertencia antes de decirla se lee como informe de auditoría repetido ejercicio tras
+ejercicio, no como alguien explicando.
+
+**Criterio.** Reescribí la misma idea en voz narrativa directa, sin el rótulo. Afirmá el
+punto directo, o usá un conector variado ("Ojo:", "Acá conviene...", segunda persona: "Si
+dividís antes de restar, te vas a equivocar de..."). El contenido de fondo (qué error se
+comete y por qué) normalmente **no cambia**, solo la forma de decirlo. Variá el conector
+entre ítems del mismo archivo para no generar un nuevo patrón repetido (regla 32).
+
+```
+❌  Un error clásico es restar directamente los índices ($5-4=1$) sin expandir ningún
+    factorial, tratando al símbolo $!$ como una operación lineal.
+✅  Restar los índices directo ($5-4=1$) da un número parecido por casualidad: el $!$ no
+    es una operación lineal, hay que expandir cada factorial antes de simplificar.
+```
+
 #### `questions / 32` — misma apertura literal en 3+ ítems del archivo
 
 **Qué mide.** Una plantilla de enunciado repetida (`Observá la función:`, `Hallá:`) en 3 o
@@ -299,6 +320,7 @@ disparó al corregir.
 | explanations / 26 | 28 | B | mover `\text{}` a la prosa |
 | options / 15 | 25 | C | igualar registro de opciones |
 | questions / 32 | 20 | B | variar aperturas repetidas |
+| explanations / 34 | 7 | B | reescribir el cierre en voz narrativa directa |
 
 Por unidad, la tasa de warnings por ítem es pareja (~1.7–2.1); el volumen de `white` es solo
 porque tiene 1150 de los 1780 ítems del curso.
