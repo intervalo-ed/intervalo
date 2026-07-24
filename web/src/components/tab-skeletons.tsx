@@ -80,7 +80,7 @@ export function DashboardSkeleton() {
 export function PracticeSkeleton() {
   const unitRows = [1, 1, 1, 1, 1]
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-2">
         <CourseSwitcherSkeleton />
         <div className="grid grid-cols-3 gap-2">

@@ -275,7 +275,7 @@ export default function PracticeConfig() {
         </Link>
       </ScreenHeader>
 
-      <ScreenBody className="gap-4 py-4">
+      <ScreenBody className="gap-3 py-4">
         {statsQuery.isPending ? (
           <PracticeSkeleton />
         ) : (
@@ -356,7 +356,7 @@ export default function PracticeConfig() {
             )}
 
             {!hintDismissed && (
-              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-4">
+              <div className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-white/[0.01] p-3">
                 <p className="text-sm text-foreground/60">
                   Elegí los temas que querés practicar.
                   <br />
