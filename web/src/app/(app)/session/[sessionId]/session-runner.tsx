@@ -53,6 +53,10 @@ const LATEX_NAMED_FUNCTIONS =
 // no subestime su ancho real.
 function latexVisualLength(option: string): number {
   let s = option.replace(/\$/g, "")
+  // Comandos de espaciado (\,, \;, \:, \!) renderizan un hueco angosto, no un
+  // caracter: si no se descartan antes de medir, inflan el ancho estimado de
+  // fracciones como k!\,(n-k)! muy por encima de su ancho real en pantalla.
+  s = s.replace(/\\[,;:!]/g, "")
   s = s.replace(/\\operatorname\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length))
   s = s.replace(/\\sqrt\{([^{}]*)\}/g, (_, inner) => "x".repeat(inner.length + 1))
   s = s.replace(
