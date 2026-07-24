@@ -37,8 +37,8 @@ ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
-LONGEST_RATIO = 1.5      # correcta más larga: > ratio x mediana de distractores
-SHORTEST_RATIO = 0.6     # correcta más corta: < ratio x mediana de distractores
+LONGEST_RATIO = 1.2      # correcta más larga: > ratio x mediana de distractores
+SHORTEST_RATIO = 0.8     # correcta más corta: < ratio x mediana de distractores
 MIN_ABS_GAP = 5          # y la diferencia absoluta (render) supera este piso
 OPENER_REPEAT_FRACTION = 0.3   # misma apertura en >=30% de los ítems del archivo
 OPENER_REPEAT_MIN = 3
@@ -57,8 +57,8 @@ ACCUSATORY_STARTS = [
 # diagnóstico ("La confusión típica es...", "Un error común es..."), va en
 # voz narrativa directa.
 DIAGNOSTIC_CLOSE_RE = re.compile(
-    r"^(la|una?)\s+(confusi[oó]n(\s+t[ií]pica)?|trampa(\s+t[ií]pica)?"
-    r"|errores?\s+(com[uú]n(es)?|frecuente|cl[aá]sico|habitual))\b",
+    r"^(el|la|una?)\s+(confusi[oó]n(\s+t[ií]pica)?|trampa(\s+t[ií]pica)?"
+    r"|error(es)?\s+(com[uú]n(es)?|frecuente|cl[aá]sico|habitual|t[ií]pico(s)?))\b",
     re.IGNORECASE,
 )
 
