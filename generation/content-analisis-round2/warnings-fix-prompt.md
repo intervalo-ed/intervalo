@@ -13,10 +13,12 @@ Todos los comandos se corren **desde `backend/`**. Trabajás en la branch
 
 ## Estado del que partís
 
-El contenido de `analisis` ya valida con **0 ERRORS**, pero tiene **~3600 WARNINGS**. Esos
+El contenido de `analisis` ya valida con **0 ERRORS**, pero tiene **~3700 WARNINGS**. Esos
 warnings son deuda real de calidad, no ruido: el único artefacto de medición que había
 (párrafos de prosa cortados por fórmulas centradas) ya se corrigió en el validador
 (`prose_segments()`, commit `d767776`). Lo que queda hay que resolverlo tocando el contenido.
+El umbral de `options / 4` y `options / 15` también se endureció (1.2x/0.8x en vez de
+1.5x/0.6x); ver el catálogo abajo para el detalle.
 
 Un ERROR es una violación inequívoca (explanation < 300, `\n\n` pegado a `$$`, feedback mal
 formado, tag inválido, etc.): **nunca se commitea con ERRORS**. Un WARNING es una heurística
@@ -208,6 +210,14 @@ valor de la siguiente expresión:" se varió a "Resolvé la siguiente resta de f
 aclaratorio que ningún distractor tiene**. **Reglas 4 y 15.** Es el warning de **mayor
 impacto pedagógico**: el alumno puede acertar por la forma, sin saber el contenido.
 
+**⚠️ Umbral ajustado.** El ratio que dispara este check se endureció de 1.5x/0.6x a
+**1.2x/0.8x** de la mediana de los distractores (antes se toleraba hasta un 50% más larga o
+un 40% más corta sin marcar nada; ahora alcanza con 20%). Esto subió el conteo de `analisis`
+de 202 a 275 casos: hay asimetrías reales que el umbral viejo dejaba pasar (ej. una opción de
+64 caracteres contra un distractor de 43, ratio 1.49, invisible con el umbral anterior pero
+perceptible a simple vista, sobre todo cuando hace que la opción envuelva a un segundo
+renglón mientras las demás quedan en uno solo).
+
 **Criterio.** Igualar el registro sin filtrar la respuesta. Dos caminos legítimos:
 - Acortar la correcta a su idea esencial.
 - Dar a los distractores algo que **compita de verdad** (una razón plausible), no relleno.
@@ -304,7 +314,7 @@ distribución del `topic-context.md`.
 
 ## Apéndice: números de referencia
 
-Distribución de los ~3600 warnings al momento de escribir este prompt (corré el validador
+Distribución de los ~3700 warnings al momento de escribir este prompt (corré el validador
 para el conteo vivo). Sirve para saber cuántos esperar por tipo y detectar si algo se
 disparó al corregir.
 
@@ -312,15 +322,18 @@ disparó al corregir.
 |---|---:|---|---|
 | explanations / 21 | 1441 | B (~⅓ reescritura) | dividir tramo o sacar fórmula a `$$` |
 | explanations / párrafos | 1145 | B (~14% reescritura) | cortar en límite de oración con `\n\n` |
+| options / 4 | 221 | C | igualar registro de opciones |
 | structure / tags | 234 | D (207 ignorar, 27 reales) | re-etiquetar/redistribuir en white |
 | feedbacks / fórmulas anchas | 218 | C | mover derivación a explanation |
-| options / 4 | 177 | C | igualar registro de opciones |
 | feedbacks / anti-acusación | 173 | C | reformular (verbo vs sustantivo) |
 | questions / 18 | 158 | C | sacar fórmula central a `$$` |
+| options / 15 | 54 | C | igualar registro de opciones |
 | explanations / 26 | 28 | B | mover `\text{}` a la prosa |
-| options / 15 | 25 | C | igualar registro de opciones |
 | questions / 32 | 20 | B | variar aperturas repetidas |
 | explanations / 34 | 7 | B | reescribir el cierre en voz narrativa directa |
+
+`options / 4` y `options / 15` subieron (177→221, 25→54) por el umbral más estricto
+(1.2x/0.8x en vez de 1.5x/0.6x), no por contenido nuevo.
 
 Por unidad, la tasa de warnings por ítem es pareja (~1.7–2.1); el volumen de `white` es solo
 porque tiene 1150 de los 1780 ítems del curso.

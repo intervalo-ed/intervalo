@@ -37,8 +37,8 @@ ALL_CHECKS = ["options", "explanations", "questions", "feedbacks", "structure"]
 
 # --- Umbrales calibrables -----------------------------------------------------
 
-LONGEST_RATIO = 1.5      # correcta más larga: > ratio x mediana de distractores
-SHORTEST_RATIO = 0.6     # correcta más corta: < ratio x mediana de distractores
+LONGEST_RATIO = 1.2      # correcta más larga: > ratio x mediana de distractores
+SHORTEST_RATIO = 0.8     # correcta más corta: < ratio x mediana de distractores
 MIN_ABS_GAP = 5          # y la diferencia absoluta (render) supera este piso
 OPENER_REPEAT_FRACTION = 0.3   # misma apertura en >=30% de los ítems del archivo
 OPENER_REPEAT_MIN = 3
