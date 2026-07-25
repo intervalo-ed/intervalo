@@ -12,15 +12,26 @@ export function useEnrollMutation() {
       university,
       career,
       name,
+      course,
+      motivation,
       introItemCorrect,
     }: {
       university: string
       career: string
       name?: string | null
+      course?: string
+      motivation?: string
       introItemCorrect?: boolean
     }) => {
       const { data, error } = await api.POST("/user/enroll", {
-        body: { university, career, name, intro_item_correct: introItemCorrect ?? null },
+        body: {
+          university,
+          career,
+          name,
+          course: course ?? null,
+          motivation: motivation ?? null,
+          intro_item_correct: introItemCorrect ?? null,
+        },
       })
       if (error) throw error
       return data

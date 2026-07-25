@@ -2035,6 +2035,28 @@
             ],
             "title": "Name"
           },
+          "course": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course"
+          },
+          "motivation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Motivation"
+          },
           "intro_item_correct": {
             "anyOf": [
               {

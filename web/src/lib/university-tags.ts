@@ -81,7 +81,7 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
     key: "UADE",
     fullName: "Universidad Argentina de la Empresa",
     color: "#E3A73C",
-    font: { fontFamily: "var(--font-uade)", fontWeight: 600, letterSpacing: "0.06em" },
+    font: { fontFamily: "var(--font-uade)", fontWeight: 450, letterSpacing: "0.06em" },
     tagFontSize: "8.3px",
     tagDy: 0.6,
   },
@@ -105,8 +105,19 @@ export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromE
   UNIVERSITY_TAGS.map((u) => [u.key, u]),
 )
 
-// Los 3 accesos directos del step de universidad del onboarding.
-export const PRESET_UNIVERSITIES = ["UBA", "UTN", "UNSAM"]
+// Los accesos directos del step de universidad del onboarding (grilla 3×3).
+// Se excluyen ITBA, UNLaM y UNS de las 12 tags; el resto entra a "Otra".
+export const ONBOARDING_UNIVERSITIES = [
+  "UBA",
+  "UTN",
+  "UNSAM",
+  "UNLP",
+  "UNC",
+  "UNR",
+  "UNL",
+  "UNT",
+  "UADE",
+]
 
 function normalize(s: string): string {
   return s

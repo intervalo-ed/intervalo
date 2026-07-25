@@ -286,29 +286,41 @@ def _create_topic_units(
     return types
 
 
-# Ítem del ejercicio de prueba del onboarding: belt white, tema definición, léxico.
-_INTRO_ITEM = TopicKey(belt=Belt.WHITE, topic="definition")
-_INTRO_ITEM_EXERCISE_TYPE = "LEXI"
+# Ítem del ejercicio de prueba del onboarding, por curso: el primer ítem real de
+# cada curso (primer skill del primer tema del cinturón blanco). Mapea uno a uno
+# con el ejercicio que muestra el wizard en el front (ver ONBOARDING_EXERCISES).
+_INTRO_ITEM_BY_COURSE: dict[str, tuple[TopicKey, str]] = {
+    "analisis": (TopicKey(belt=Belt.WHITE, topic="definition"), "LEXI"),
+    "algebra": (TopicKey(belt=Belt.WHITE, topic="powers"), "LEXI"),
+    "probabilidad": (TopicKey(belt=Belt.WHITE, topic="reglas"), "FORM"),
+}
+# Fallback para cursos no mapeados (o datos viejos sin curso).
+_INTRO_ITEM_DEFAULT = _INTRO_ITEM_BY_COURSE["analisis"]
 
 
 def seed_intro_item(user_id: int, course_id: int, correct: bool, db: DBSession) -> None:
-    """Persiste el resultado del ejercicio de prueba del onboarding sobre el ítem
-    white/definition/LEXI, aplicándole el mismo update SM-2 que una respuesta real.
+    """Persiste el resultado del ejercicio de prueba del onboarding sobre el primer
+    ítem del curso, aplicándole el mismo update SM-2 que una respuesta real.
 
     Acierto al primer intento (calidad 5) lo agenda para mañana, así queda fuera de
     la primera sesión. Fallo (calidad 0) lo deja pendiente para hoy, así aparece en
-    la primera sesión. Crea las units del tema definición si todavía no existen; el
-    resto de los temas los desbloquea la primera sesión (_ensure_active_units)."""
-    if not _topic_has_any_units(user_id, course_id, _INTRO_ITEM, db):
-        _create_topic_units(user_id, course_id, _INTRO_ITEM, db)
+    la primera sesión. Crea las units del tema si todavía no existen; el resto de los
+    temas los desbloquea la primera sesión (_ensure_active_units)."""
+    course = db.query(Course).filter(Course.id == course_id).first()
+    intro_item, intro_type = _INTRO_ITEM_BY_COURSE.get(
+        course.slug if course else "", _INTRO_ITEM_DEFAULT
+    )
+
+    if not _topic_has_any_units(user_id, course_id, intro_item, db):
+        _create_topic_units(user_id, course_id, intro_item, db)
         db.flush()
 
     row = db.query(UnitState).filter(
         UnitState.user_id == user_id,
         UnitState.course_id == course_id,
-        UnitState.belt == _INTRO_ITEM.belt.value,
-        UnitState.topic == _INTRO_ITEM.topic,
-        UnitState.exercise_type == _INTRO_ITEM_EXERCISE_TYPE,
+        UnitState.belt == intro_item.belt.value,
+        UnitState.topic == intro_item.topic,
+        UnitState.exercise_type == intro_type,
     ).first()
     if row is None:
         return
