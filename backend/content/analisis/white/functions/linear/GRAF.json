@@ -185,7 +185,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es una línea recta. La razón es que la **pendiente** es constante: por cada unidad que avanza $x$, el valor $f(x)$ cambia exactamente $m$ unidades, siempre lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: con $m > 0$ es una recta ascendente, con $m < 0$ descendente y con $m = 0$ horizontal.\n\nSi una gráfica se dobla aunque sea un poco, la tasa de cambio no es constante y la función no puede ser lineal.",
+    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es una línea recta.\n\nLa razón es que la **pendiente** es constante: por cada unidad que avanza $x$, el valor $f(x)$ cambia exactamente $m$ unidades, siempre lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: con $m > 0$ es una recta ascendente, con $m < 0$ descendente y con $m = 0$ horizontal.\n\nSi una gráfica se dobla aunque sea un poco, la tasa de cambio no es constante y la función no puede ser lineal.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$. Para $f(x) = 2x + 5$ el coeficiente de $x$ es $2$, así que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$, el valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nOjo con responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
+    "explanation": "En la forma $f(x) = mx + b$, la **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = 2x + 5$ el coeficiente de $x$ es $2$, así que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$, el valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nOjo con responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -331,7 +331,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural de una función es el conjunto más grande de números reales donde la fórmula está definida.\n\nEn $f(x) = ax + b$ las únicas operaciones son multiplicar por $a$ y sumar $b$, y ambas tienen resultado para cualquier real: no hay divisiones que se anulen, raíces de negativos ni logaritmos. Por eso el dominio de toda función lineal es $\\mathbb{R}$.\n\nLas restricciones de dominio aparecen cuando la variable queda en un denominador, dentro de una raíz par o de un logaritmo; si ves una de esas, la función ya no es lineal.",
+    "explanation": "El **dominio** natural de una función es el conjunto más grande de números reales donde la fórmula está definida.\n\nEn $f(x) = ax + b$ las únicas operaciones son multiplicar por $a$ y sumar $b$, y ambas tienen resultado para cualquier real: no hay divisiones que se anulen, raíces de negativos ni logaritmos.\n\nPor eso el dominio de toda función lineal es $\\mathbb{R}$.\n\nLas restricciones de dominio aparecen cuando la variable queda en un denominador, dentro de una raíz par o de un logaritmo; si ves una de esas, la función ya no es lineal.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -644,7 +644,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x) = -2x + 5$ la **pendiente** es $m = -2 < 0$: la función es decreciente en todo $\\mathbb{R}$.\n\nLa monotonía de una recta es global: por cada unidad que avanza $x$, la salida baja 2 unidades, tanto a la izquierda como a la derecha de cualquier punto.\n\nEl valor $x = 5/2$, donde $f(x) = 0$, es la raíz: ahí la función cambia de signo (pasa de positiva a negativa), pero no de monotonía. Distinguir cambio de signo de cambio de dirección evita este error.",
+    "explanation": "Para $f(x) = -2x + 5$ la **pendiente** es $m = -2 < 0$: la función es decreciente en todo $\\mathbb{R}$.\n\nLa monotonía de una recta es global: por cada unidad que avanza $x$, la salida baja 2 unidades, tanto a la izquierda como a la derecha de cualquier punto.\n\nEl valor $x = 5/2$, donde $f(x) = 0$, es la raíz: ahí la función cambia de signo (pasa de positiva a negativa), pero no de monotonía.\n\nDistinguir cambio de signo de cambio de dirección evita este error.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"
@@ -869,7 +869,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal debe poder escribirse como $f(x) = mx + b$, con la variable multiplicada por una constante.\n\nEn $f(x) = \\sqrt{x}$ la variable está dentro de una raíz cuadrada: eso la ubica en la familia de las funciones radicales (o irracionales). Además su **dominio** ya no es todo $\\mathbb{R}$, sino $[0, +\\infty)$.\n\nLa ubicación de la $x$ es el criterio de familia: multiplicada es lineal, al cuadrado es cuadrática, en el exponente es exponencial y dentro de una raíz es radical.",
+    "explanation": "Una función lineal debe poder escribirse como $f(x) = mx + b$, con la variable multiplicada por una constante.\n\nEn $f(x) = \\sqrt{x}$ la variable está dentro de una raíz cuadrada: eso la ubica en la familia de las funciones radicales (o irracionales).\n\nAdemás su **dominio** ya no es todo $\\mathbb{R}$, sino $[0, +\\infty)$.\n\nLa ubicación de la $x$ es el criterio de familia: multiplicada es lineal, al cuadrado es cuadrática, en el exponente es exponencial y dentro de una raíz es radical.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -1036,7 +1036,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una lineal con $m \\neq 0$ es monótona en todo $\\mathbb{R}$: si $m > 0$ crece indefinidamente hacia $+\\infty$, y si $m < 0$ decrece hacia $-\\infty$. En ambos casos, para cualquier valor alcanzado siempre hay otro mayor (o menor) más adelante: no existe máximo ni mínimo.\n\nSobre un **dominio** restringido la historia cambia: en un intervalo cerrado $[a, b]$ la recta sí alcanza máximo y mínimo, en los extremos.\n\nLa función constante ($m = 0$) es el caso curioso: su único valor $b$ es máximo y mínimo a la vez.",
+    "explanation": "Una lineal con $m \\neq 0$ es monótona en todo $\\mathbb{R}$: si $m > 0$ crece indefinidamente hacia $+\\infty$, y si $m < 0$ decrece hacia $-\\infty$.\n\nEn ambos casos, para cualquier valor alcanzado siempre hay otro mayor (o menor) más adelante: no existe máximo ni mínimo.\n\nSobre un **dominio** restringido la historia cambia: en un intervalo cerrado $[a, b]$ la recta sí alcanza máximo y mínimo, en los extremos.\n\nLa función constante ($m = 0$) es el caso curioso: su único valor $b$ es máximo y mínimo a la vez.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"

@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aunque $\\pi$ tenga una apariencia matemática especial, sigue siendo un **número fijo**, así que corresponde la **regla de la constante**.\n$$\\int \\pi\\,dx = \\pi x + C$$\nNo hay ninguna variable $x$ dentro del integrando, así que ninguna regla de función elemental aplica acá, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Aunque $\\pi$ tenga una apariencia matemática especial, sigue siendo un **número fijo**, así que corresponde la **regla de la constante**.\n$$\\int \\pi\\,dx = \\pi x + C$$\nNo hay ninguna variable $x$ dentro del integrando, así que ninguna regla de función elemental aplica acá, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$e^2$ es un **número fijo**, aproximadamente $7,389$, sin ninguna variable $x$ dentro de su valor.\n$$\\int e^2\\,dx = e^2 x + C$$\nConfundir esta constante con la exponencial $e^x$ es un error frecuente, la presencia visual de $e$ no basta para decidir la regla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "$e^2$ es un **número fijo**, aproximadamente $7,389$, sin ninguna variable $x$ dentro de su valor.\n$$\\int e^2\\,dx = e^2 x + C$$\nConfundir esta constante con la exponencial $e^x$ es un error frecuente, la presencia visual de $e$ no basta para decidir la regla.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\ln 5$ es un **número fijo**, aproximadamente $1,609$, sin ninguna variable $x$ dentro de su valor.\n$$\\int \\ln 5\\,dx = (\\ln 5)x + C$$\nEl símbolo $\\ln$ evoca la regla del logaritmo, pero acá está evaluado en un número concreto, así que el integrando es apenas una constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "$\\ln 5$ es un **número fijo**, aproximadamente $1,609$, sin ninguna variable $x$ dentro de su valor.\n$$\\int \\ln 5\\,dx = (\\ln 5)x + C$$\nEl símbolo $\\ln$ evoca la regla del logaritmo, pero acá está evaluado en un número concreto, así que el integrando es apenas una constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La expresión $3^2$ ya está completamente evaluada, es el número fijo $9$, sin ninguna variable $x$ presente.\n$$\\int 3^2\\,dx = 9x + C$$\nNi la base ni el exponente dependen de $x$ en esta expresión, así que ninguna regla de función elemental aplica, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La expresión $3^2$ ya está completamente evaluada, es el número fijo $9$, sin ninguna variable $x$ presente.\n$$\\int 3^2\\,dx = 9x + C$$\nNi la base ni el exponente dependen de $x$ en esta expresión, así que ninguna regla de función elemental aplica, solo la de la constante.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo no cambia el análisis, $-7$ sigue siendo un **número fijo**, sin ninguna variable $x$ presente.\n$$\\int (-7)\\,dx = -7x + C$$\nLa regla de la constante se aplica igual sin importar el signo del número, el signo simplemente se conserva en el resultado.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El signo negativo no cambia el análisis, $-7$ sigue siendo un **número fijo**, sin ninguna variable $x$ presente.\n$$\\int (-7)\\,dx = -7x + C$$\nLa regla de la constante se aplica igual sin importar el signo del número, el signo simplemente se conserva en el resultado.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x^e$, la variable $x$ está en la **base**, y el exponente $e$ es apenas un número real fijo.\n$$\\int x^e\\,dx = \\frac{x^{e+1}}{e+1} + C$$\nConfundir esta estructura con una exponencial es un error frecuente, hay que revisar siempre en qué posición está la variable, base o exponente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $x^e$, la variable $x$ está en la **base**, y el exponente $e$ es apenas un número real fijo.\n$$\\int x^e\\,dx = \\frac{x^{e+1}}{e+1} + C$$\nConfundir esta estructura con una exponencial es un error frecuente, hay que revisar siempre en qué posición está la variable, base o exponente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^x$, la variable $x$ está en el **exponente**, y la base es la constante $e$, la estructura típica de la regla exponencial.\n$$\\int e^x\\,dx = e^x + C$$\nEsta estructura es opuesta a $x^e$, donde la variable está en la base, la posición de $x$ es lo que decide qué regla corresponde en cada caso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $e^x$, la variable $x$ está en el **exponente**, y la base es la constante $e$, la estructura típica de la regla exponencial.\n$$\\int e^x\\,dx = e^x + C$$\nEsta estructura es opuesta a $x^e$, donde la variable está en la base, la posición de $x$ es lo que decide qué regla corresponde en cada caso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, la estructura típica de la **regla de la potencia**.\n$$\\int x^2\\,dx = \\frac{x^3}{3} + C$$\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $x^2$, la base es la variable $x$ y el exponente es el número fijo $2$, la estructura típica de la **regla de la potencia**.\n$$\\int x^2\\,dx = \\frac{x^3}{3} + C$$\nEste caso se distingue con claridad de $2^x$, donde los roles de base y exponente están invertidos.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\cos x$ pertenece a la familia trigonométrica de la **tabla de integrales inmediatas**, con su propia fórmula directa.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nNinguna otra regla de la tabla, potencia ni exponencial, se aplica a esta familia, cada una tiene su propia fórmula específica.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "$\\cos x$ pertenece a la familia trigonométrica de la **tabla de integrales inmediatas**, con su propia fórmula directa.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nNinguna otra regla de la tabla, potencia ni exponencial, se aplica a esta familia, cada una tiene su propia fórmula específica.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"

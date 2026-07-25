@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $\\sin^2(x)$ significa $(\\sin x)^2$, así que la **función compuesta** eleva al cuadrado el resultado del seno.\n$$g(u)=u^2, \\quad h(x)=\\sin x$$\nEsta jerarquía se mezcla con frecuencia con $\\sin(x^2)$, donde los roles de exterior e interior quedan intercambiados.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La notación $\\sin^2(x)$ significa $(\\sin x)^2$, así que la **función compuesta** eleva al cuadrado el resultado del seno.\n$$g(u)=u^2, \\quad h(x)=\\sin x$$\nEsta jerarquía se mezcla con frecuencia con $\\sin(x^2)$, donde los roles de exterior e interior quedan intercambiados.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(x^2)$, el seno se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el seno.\n$$g(u)=\\sin u, \\quad h(x)=x^2$$\nLeer $x^2$ como una multiplicación $x \\cdot x$ dentro del seno es un error frecuente, la composición evalúa, no distribuye.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\sin(x^2)$, el seno se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el seno.\n$$g(u)=\\sin u, \\quad h(x)=x^2$$\nLeer $x^2$ como una multiplicación $x \\cdot x$ dentro del seno es un error frecuente, la composición evalúa, no distribuye.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\ln(x^2)$, el logaritmo se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el logaritmo.\n$$g(u)=\\ln u, \\quad h(x)=x^2$$\nEsta jerarquía suele intercambiarse con la de $(\\ln x)^2$, donde en cambio el cuadrado envuelve al logaritmo.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\ln(x^2)$, el logaritmo se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el logaritmo.\n$$g(u)=\\ln u, \\quad h(x)=x^2$$\nEsta jerarquía suele intercambiarse con la de $(\\ln x)^2$, donde en cambio el cuadrado envuelve al logaritmo.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $(\\ln x)^2$, el resultado del logaritmo se eleva al cuadrado, así que la **capa exterior** es la función cuadrática.\n$$g(u)=u^2, \\quad h(x)=\\ln x$$\nDistinguir esta jerarquía de la de $\\ln(x^2)$ exige prestar atención a qué operación queda más afuera en la escritura de la expresión.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $(\\ln x)^2$, el resultado del logaritmo se eleva al cuadrado, así que la **capa exterior** es la función cuadrática.\n$$g(u)=u^2, \\quad h(x)=\\ln x$$\nDistinguir esta jerarquía de la de $\\ln(x^2)$ exige prestar atención a qué operación queda más afuera en la escritura de la expresión.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\cos(3x+1)$, el coseno se aplica sobre el resultado de la expresión lineal $3x+1$, así que esa expresión es la **capa interior**.\n$$g(u)=\\cos u, \\quad h(x)=3x+1$$\nQue la interior sea una función lineal no cancela la composición, sigue exigiendo multiplicar por $h'(x)=3$ al derivar.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\cos(3x+1)$, el coseno se aplica sobre el resultado de la expresión lineal $3x+1$, así que esa expresión es la **capa interior**.\n$$g(u)=\\cos u, \\quad h(x)=3x+1$$\nQue la interior sea una función lineal no cancela la composición, sigue exigiendo multiplicar por $h'(x)=3$ al derivar.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$, con el cuadrado como **capa exterior**.\n$$g(u)=u^2, \\quad h(x)=\\tan x$$\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$, con el cuadrado como **capa exterior**.\n$$g(u)=u^2, \\quad h(x)=\\tan x$$\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $x^2$ y $\\cos x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**.\n$$(x^2 \\cos x)' = 2x\\cos x - x^2\\sin x$$\nNo hay ningún argumento compuesto en esta expresión, el coseno evalúa directamente $x$, sin ninguna función anidada adentro.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Acá $x^2$ y $\\cos x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**.\n$$(x^2 \\cos x)' = 2x\\cos x - x^2\\sin x$$\nNo hay ningún argumento compuesto en esta expresión, el coseno evalúa directamente $x$, sin ninguna función anidada adentro.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

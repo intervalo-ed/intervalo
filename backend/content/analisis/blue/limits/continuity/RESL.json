@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n\nEl límite es \"hacia dónde se aproxima\" la función desde cada lado; el valor puntual es \"dónde está realmente\" definida. Si los tres coinciden, todas las condiciones se cumplen. $$\\begin{aligned} \\lim_{x \\to 1^-} (2x+1) &= 3 \\\\ \\lim_{x \\to 1^+} (x^2+2) &= 3 \\\\ f(1) &= 1^2 + 2 = 3 \\end{aligned}$$\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad. Conviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
+    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n\nEl límite es \"hacia dónde se aproxima\" la función desde cada lado; el valor puntual es \"dónde está realmente\" definida. Si los tres coinciden, todas las condiciones se cumplen.\n\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad.\n\nConviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El procedimiento estándar es sustituir $x=2$ en cada rama por separado, sin mezclar ambas expresiones.\n\nCuando los límites laterales apuntan a valores distintos, significa que la función está \"dividida\" en su aproximación: no converge a un único valor desde ambos lados. $$\\begin{aligned} \\lim_{x \\to 2^-} (x+4) &= 6 \\\\ \\lim_{x \\to 2^+} (3x-1) &= 5 \\end{aligned}$$\nComo $6 \\neq 5$, el límite bilateral no existe: la segunda condición de continuidad falla directamente. El error más común acá es calcular una sola rama y asumir que alcanza; siempre hay que verificar las dos para poder comparar.",
+    "explanation": "El procedimiento estándar es sustituir $x=2$ en cada rama por separado, sin mezclar ambas expresiones.\n\nCuando los límites laterales apuntan a valores distintos, significa que la función está \"dividida\" en su aproximación: no converge a un único valor desde ambos lados.\n\nComo $6 \\neq 5$, el límite bilateral no existe: la segunda condición de continuidad falla directamente.\n\nEl error más común acá es calcular una sola rama y asumir que alcanza; siempre hay que verificar las dos para poder comparar.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa da una indeterminación $0/0$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real. $$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-9}{x-3} &= \\lim_{x \\to 3} \\frac{(x-3)(x+3)}{x-3} \\\\ &= \\lim_{x \\to 3} (x+3) = 6 \\end{aligned}$$\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla. El valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
+    "explanation": "Cuando la sustitución directa da una indeterminación $0/0$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real.\n\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla.\n\nEl valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de comparar valores, conviene revisar si algún lateral diverge en vez de converger a un número finito.\n\nUna divergencia a infinito en uno de los lados significa que el límite no existe como número finito: la función \"escapa\" sin control en esa dirección. Incluso si el otro lado converge, tenemos una falla grave. $$\\begin{aligned} \\lim_{x \\to 2^-} \\frac{1}{x-2} &= -\\infty \\\\ \\lim_{x \\to 2^+} x &= 2 \\end{aligned}$$\nEl lateral izquierdo diverge a $-\\infty$, así que el límite bilateral ni siquiera existe como número real. Con un solo lateral divergente alcanza para clasificar la falla como esencial, sin necesidad de mirar la otra rama con más detalle.",
+    "explanation": "Antes de comparar valores, conviene revisar si algún lateral diverge en vez de converger a un número finito.\n\nUna divergencia a infinito en uno de los lados significa que el límite no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nIncluso si el otro lado converge, tenemos una falla grave.\n\nEl lateral izquierdo diverge a $-\\infty$, así que el límite bilateral ni siquiera existe como número real.\n\nCon un solo lateral divergente alcanza para clasificar la falla como esencial, sin necesidad de mirar la otra rama con más detalle.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos. $$\\begin{aligned} \\lim_{x \\to 2^-} (kx+1) &= 2k+1 \\\\ \\lim_{x \\to 2^+} (x^2-3) &= 1 \\\\ 2k+1 &= 1 \\Rightarrow k = 0 \\end{aligned}$$\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$. El error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
+    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos.\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nEl error más frecuente es igualar solo una rama a un número cualquiera sin verificar que la otra rama, evaluada en el mismo punto, dé el mismo resultado.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una raíz de índice par exige que su argumento sea mayor o igual a $0$, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl dominio de una raíz par está limitado por su argumento: si el argumento es negativo, no hay un número real que sea raíz de eso. El punto donde el argumento es exactamente $0$ es la frontera: a partir de ahí, hacia valores más pequeños, la función no está definida. $$x - 5 = 0 \\Rightarrow x = 5$$\nPara $x < 5$ el argumento sería negativo y la expresión no estaría definida en los reales. La frontera en sí, $x=5$, sí pertenece al dominio porque la raíz de $0$ está perfectamente definida; el problema empieza estrictamente antes de ese valor.",
+    "explanation": "Una raíz de índice par exige que su argumento sea mayor o igual a $0$, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl dominio de una raíz par está limitado por su argumento: si el argumento es negativo, no hay un número real que sea raíz de eso.\n\nEl punto donde el argumento es exactamente $0$ es la frontera: a partir de ahí, hacia valores más pequeños, la función no está definida.\n\nPara $x < 5$ el argumento sería negativo y la expresión no estaría definida en los reales.\n\nLa frontera en sí, $x=5$, sí pertenece al dominio porque la raíz de $0$ está perfectamente definida; el problema empieza estrictamente antes de ese valor.",
     "reviewed": false,
     "tags": [
       "dominio-racionales-raices"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl logaritmo no puede evaluarse en cero ni en números negativos: no hay número real cuya potencia de $e$ sea cero o negativa. El dominio comienza exactamente donde el argumento es positivo. $$x + 2 = 0 \\Rightarrow x = -2$$\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí. Confundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
+    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl logaritmo no puede evaluarse en cero ni en números negativos: no hay número real cuya potencia de $e$ sea cero o negativa. El dominio comienza exactamente donde el argumento es positivo.\n\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí.\n\nConfundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
     "reviewed": false,
     "tags": [
       "dominio-racionales-raices"

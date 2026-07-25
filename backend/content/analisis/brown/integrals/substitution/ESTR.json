@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $e^{3x+1}$, la interior es el polinomio lineal $3x+1$. Este es uno de los casos más simples de sustitución.\n$$u = 3x+1 \\implies du = 3\\,dx$$\nCuando la derivada del interior es solo una constante (en este caso $3$), el ajuste del **diferencial** se convierte en una simple división, sin fracciones complicadas o múltiples signos que considerar.",
+    "explanation": "En la **función compuesta** $e^{3x+1}$, la interior es el polinomio lineal $3x+1$. Este es uno de los casos más simples de sustitución.\n\nCuando la derivada del interior es solo una constante (en este caso $3$), el ajuste del **diferencial** se convierte en una simple división, sin fracciones complicadas o múltiples signos que considerar.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.\n\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**. El cambio de variable simplifica la integral inmediatamente.",
+    "explanation": "En la **función compuesta** $e^{x^2}$, la interior es $x^2$ y su **derivada** es $2x$, que aparece exactamente multiplicando a la exponencial en el integrando.\n\nEste es un caso especial donde el $2x\\,dx$ del integrando coincide exactamente con $du$, sin necesidad de ningún ajuste adicional del **diferencial**.\n\nEl cambio de variable simplifica la integral inmediatamente.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"

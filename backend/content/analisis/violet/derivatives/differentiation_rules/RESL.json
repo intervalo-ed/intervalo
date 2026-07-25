@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término, una potencia de $x$ con exponente $6$.\n$$\\begin{aligned} f'(x) &= 6x^{6-1} \\\\ &= 6x^5 \\end{aligned}$$\nEl coeficiente que baja siempre coincide con el exponente original, y el nuevo exponente queda uno menos que el de partida.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos un único término, una potencia de $x$ con exponente $6$.\n$$\\begin{aligned} f'(x) &= 6x^{6-1} \\\\ &= 6x^5 \\end{aligned}$$\nEl coeficiente que baja siempre coincide con el exponente original, y el nuevo exponente queda uno menos que el de partida.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales-aplicacion"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos un único término en la expresión, la función logaritmo natural, sin ningún coeficiente que la acompañe.\n$$f'(x) = \\frac{1}{x}$$\nEsta fórmula elemental se aplica directamente, sin necesidad de ningún paso algebraico adicional, ni de reescribir la expresión de ninguna forma.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos un único término en la expresión, la función logaritmo natural, sin ningún coeficiente que la acompañe.\n$$f'(x) = \\frac{1}{x}$$\nEsta fórmula elemental se aplica directamente, sin necesidad de ningún paso algebraico adicional, ni de reescribir la expresión de ninguna forma.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales-aplicacion"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno potencial y uno trigonométrico.\n$$\\begin{aligned} f'(x) &= (x^4)' - (6\\tan x)' \\\\ &= 4x^3 - 6\\sec^2 x \\end{aligned}$$\nEl coeficiente $6$ se conserva multiplicando al resultado de derivar la tangente, sin alterar la fórmula elemental de esa función.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos dos términos, uno potencial y uno trigonométrico.\n$$\\begin{aligned} f'(x) &= (x^4)' - (6\\tan x)' \\\\ &= 4x^3 - 6\\sec^2 x \\end{aligned}$$\nEl coeficiente $6$ se conserva multiplicando al resultado de derivar la tangente, sin alterar la fórmula elemental de esa función.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "combinaciones-lineales"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno exponencial y uno lineal.\n$$\\begin{aligned} f'(x) &= (2e^x)' + (5x)' \\\\ &= 2e^x + 5 \\end{aligned}$$\nEl término exponencial se mantiene igual a sí mismo multiplicado por su coeficiente, mientras que el término lineal deriva a su propio coeficiente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos dos términos, uno exponencial y uno lineal.\n$$\\begin{aligned} f'(x) &= (2e^x)' + (5x)' \\\\ &= 2e^x + 5 \\end{aligned}$$\nEl término exponencial se mantiene igual a sí mismo multiplicado por su coeficiente, mientras que el término lineal deriva a su propio coeficiente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "combinaciones-lineales"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos dos términos, uno logarítmico y uno trigonométrico.\n$$\\begin{aligned} f'(x) &= (\\ln x)' + (4\\cos x)' \\\\ &= \\frac{1}{x} - 4\\sin x \\end{aligned}$$\nEl coeficiente $4$ se conserva multiplicando al resultado de derivar el coseno, junto con el signo negativo propio de esa fórmula.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos dos términos, uno logarítmico y uno trigonométrico.\n$$\\begin{aligned} f'(x) &= (\\ln x)' + (4\\cos x)' \\\\ &= \\frac{1}{x} - 4\\sin x \\end{aligned}$$\nEl coeficiente $4$ se conserva multiplicando al resultado de derivar el coseno, junto con el signo negativo propio de esa fórmula.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "combinaciones-lineales"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n$$\\begin{aligned} f'(x) &= 3x^2 \\\\ f'(2) &= 3 \\cdot 2^2 = 12 \\end{aligned}$$\nEvaluar antes de derivar es un error común en este tipo de ítem, siempre hay que derivar la función completa primero.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n$$\\begin{aligned} f'(x) &= 3x^2 \\\\ f'(2) &= 3 \\cdot 2^2 = 12 \\end{aligned}$$\nEvaluar antes de derivar es un error común en este tipo de ítem, siempre hay que derivar la función completa primero.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "tangentes-rapidas"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n$$\\begin{aligned} f'(x) &= \\cos x \\\\ f'(0) &= \\cos 0 = 1 \\end{aligned}$$\nConfundir $f(0)$ con $f'(0)$ es el error más común en este tipo de ítem, siempre hay que derivar primero.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Primero se deriva la función completa, y recién después se sustituye el valor puntual.\n$$\\begin{aligned} f'(x) &= \\cos x \\\\ f'(0) &= \\cos 0 = 1 \\end{aligned}$$\nConfundir $f(0)$ con $f'(0)$ es el error más común en este tipo de ítem, siempre hay que derivar primero.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "tangentes-rapidas"

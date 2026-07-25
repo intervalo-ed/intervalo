@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.\n$$\\begin{aligned} \\lim_{x \\to 3^-} f(x) &= 3 + 1 = 4 \\\\ \\lim_{x \\to 3^+} f(x) &= 2(3) - 2 = 4 \\end{aligned}$$\nComo ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.\n\nComo ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"

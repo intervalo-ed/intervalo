@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en $f(x) = ax^2 + bx + c$.\n\nPara $f(x) = 2x^2 - 5x + 1$, el término en $x$ es $-5x$, por lo que $b = -5$. El signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$, y $c = 1$ es la constante. El valor de $b$ influye en la posición del eje de simetría: $x_v = -b/(2a) = -(-5)/(2 \\cdot 2) = 5/4$. Un error frecuente es escribir $b = 5$ (sin el signo negativo).",
+    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en $f(x) = ax^2 + bx + c$.\n\nPara $f(x) = 2x^2 - 5x + 1$, el término en $x$ es $-5x$, por lo que $b = -5$. El signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$, y $c = 1$ es la constante. El valor de $b$ influye en la posición del eje de simetría: $x_v = -b/(2a) = -(-5)/(2 \\cdot 2) = 5/4$.\n\nUn error frecuente es escribir $b = 5$ (sin el signo negativo).",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$: comparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$, entonces $h = +3$ (no $h = -3$). La regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$. El vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
+    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$: comparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$, entonces $h = +3$ (no $h = -3$). La regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$.\n\nEl vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
     "reviewed": false,
     "tags": [
       "vertice-desde-forma"
@@ -128,7 +128,7 @@
       -2,
       6
     ],
-    "explanation": "De la gráfica se leen dos datos: el **vértice** y la **concavidad**.\n\nVértice en $(0, 4)$: en forma de vértice $a(x-h)^2 + k$, esto da $h = 0$ y $k = 4$, es decir $a(x-0)^2 + 4 = ax^2 + 4$.\nLa parábola se abre hacia **abajo**: $a < 0$, y la amplitud parece ser $|a| = 1$, entonces $a = -1$.\n\nResultado: $f(x) = -x^2 + 4$. Verificación: $f(0) = 4$ , $f(2) = -4 + 4 = 0$  (raíz en $x=2$). La opción $x^2 + 4$ tendría $a > 0$ (apertura hacia arriba), incorrecta.",
+    "explanation": "De la gráfica se leen dos datos: el **vértice** y la **concavidad**.\n\nVértice en $(0, 4)$: en forma de vértice $a(x-h)^2 + k$, esto da $h = 0$ y $k = 4$, es decir $a(x-0)^2 + 4 = ax^2 + 4$.\n\nLa parábola se abre hacia **abajo**: $a < 0$, y la amplitud parece ser $|a| = 1$, entonces $a = -1$.\n\nResultado: $f(x) = -x^2 + 4$. Verificación: $f(0) = 4$ , $f(2) = -4 + 4 = 0$  (raíz en $x=2$). La opción $x^2 + 4$ tendría $a > 0$ (apertura hacia arriba), incorrecta.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **forma factorizada** $f(x) = a(x - r_1)(x - r_2)$, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n$$x - 2 = 0 \\implies x = 2$$\n$$x + 1 = 0 \\implies x = -1$$\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo. El factor $(x-2)$ da la raíz $x = +2$ (no $-2$), y el factor $(x+1) = (x-(-1))$ da la raíz $x = -1$ (no $+1$). La forma factorizada hace que leer las raíces sea inmediato, sin necesidad de usar la fórmula cuadrática.",
+    "explanation": "En la **forma factorizada** $f(x) = a(x - r_1)(x - r_2)$, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n$$x - 2 = 0 \\implies x = 2$$\n$$x + 1 = 0 \\implies x = -1$$\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo. El factor $(x-2)$ da la raíz $x = +2$ (no $-2$), y el factor $(x+1) = (x-(-1))$ da la raíz $x = -1$ (no $+1$).\n\nLa forma factorizada hace que leer las raíces sea inmediato, sin necesidad de usar la fórmula cuadrática.",
     "reviewed": false,
     "tags": [
       "raices-desde-formula"
@@ -330,7 +330,7 @@
       null,
       "Este valor corresponde al coeficiente de $x$ sin el signo, no al término independiente."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **término independiente** $c$ es la constante que no acompaña a ninguna potencia de $x$: es el número que queda solo al final de la expresión.\n\nPara $f(x) = x^2 - 6x + 9$, el término sin $x$ es $9$, por lo que $c = 9$. Además, $c$ coincide siempre con $f(0)$: al evaluar $f(0) = 0^2 - 6(0) + 9 = 9$ se confirma el mismo valor, porque reemplazar $x$ por $0$ anula todos los términos que sí tienen $x$.\n\nUn error típico es confundir $c$ con el coeficiente de $x$ (acá $-6$) por estar cerca en la expresión: fijate siempre cuál de los tres números no tiene ninguna $x$ multiplicando.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **término independiente** $c$ es la constante que no acompaña a ninguna potencia de $x$: es el número que queda solo al final de la expresión.\n\nPara $f(x) = x^2 - 6x + 9$, el término sin $x$ es $9$, por lo que $c = 9$.\n\nAdemás, $c$ coincide siempre con $f(0)$: al evaluar $f(0) = 0^2 - 6(0) + 9 = 9$ se confirma el mismo valor, porque reemplazar $x$ por $0$ anula todos los términos que sí tienen $x$.\n\nUn error típico es confundir $c$ con el coeficiente de $x$ (acá $-6$) por estar cerca en la expresión: fijate siempre cuál de los tres números no tiene ninguna $x$ multiplicando.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -555,7 +555,7 @@
       "Esta cuenta se detiene en $-3 \\cdot 4$ y olvida sumar el $+12$ final de la expresión.",
       "Este valor sale de sumar en vez de restar dentro del paréntesis, o de duplicar el signo negativo por error."
     ],
-    "explanation": "Evaluar una función en un valor concreto de $x$ significa reemplazar ese valor en la expresión y resolver la cuenta paso a paso, respetando el orden de operaciones.\n\nPara $f(x) = -3(x-1)^2+12$ en $x=3$:\n$$f(3) = -3(3-1)^2 + 12 = -3 \\cdot 4 + 12 = -12 + 12 = 0$$\nEl resultado es $0$.\n\nQue el resultado sea $0$ significa que $x=3$ es una raíz de la función. Por la simetría de la parábola respecto al vértice $x=1$, la otra raíz está en $x=-1$: confundir el resultado de evaluar con el valor del vértice es un error frecuente en este tipo de cuenta.",
+    "explanation": "Evaluar una función en un valor concreto de $x$ significa reemplazar ese valor en la expresión y resolver la cuenta paso a paso, respetando el orden de operaciones.\n\nPara $f(x) = -3(x-1)^2+12$ en $x=3$:\n$$f(3) = -3(3-1)^2 + 12 = -3 \\cdot 4 + 12 = -12 + 12 = 0$$\nEl resultado es $0$.\n\nQue el resultado sea $0$ significa que $x=3$ es una raíz de la función.\n\nPor la simetría de la parábola respecto al vértice $x=1$, la otra raíz está en $x=-1$: confundir el resultado de evaluar con el valor del vértice es un error frecuente en este tipo de cuenta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -705,7 +705,7 @@
       null,
       "Esta expresión corresponde a raíces $6$ y $-6$ (una diferencia de cuadrados), no a $0$ y $6$."
     ],
-    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla $f(x) = a(x-r_1)(x-r_2)$, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$, $r_2=6$ y $a=1$:\n$$f(x) = (x-0)(x-6) = x(x-6) = x^2 - 6x$$\nLa opción $x(x+6)$ tendría raíces $0$ y $-6$, porque ese factor se anula en $x=-6$ y no en $x=6$: confundir el signo de una raíz al escribir su factor es el error más frecuente en este tipo de construcción. Verificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
+    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla $f(x) = a(x-r_1)(x-r_2)$, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$, $r_2=6$ y $a=1$:\n\nLa opción $x(x+6)$ tendría raíces $0$ y $-6$, porque ese factor se anula en $x=-6$ y no en $x=6$: confundir el signo de una raíz al escribir su factor es el error más frecuente en este tipo de construcción.\n\nVerificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -730,7 +730,7 @@
       "Ambos factores $(x-5)$ dan la misma raíz: es una raíz doble, no dos raíces distintas.",
       "Una parábola nunca toca el eje $x$ en infinitos puntos, como máximo en dos."
     ],
-    "explanation": "$f(x) = (x - 5)^2 = (x - 5)(x - 5)$: ambos factores dan la misma raíz $x = 5$.\n\nSe dice que $x = 5$ es una **raíz doble**: la parábola toca el eje $x$ en ese punto pero no lo cruza.\n\nVisualizando: el vértice $(5, 0)$ está exactamente sobre el eje horizontal.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "$f(x) = (x - 5)^2 = (x - 5)(x - 5)$: ambos factores dan la misma raíz $x = 5$.\n\nSe dice que $x = 5$ es una **raíz doble**: la parábola toca el eje $x$ en ese punto pero no lo cruza.\n\nVisualizando: el vértice $(5, 0)$ está exactamente sobre el eje horizontal.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -755,7 +755,7 @@
       "Este valor sale de sumar $3$ y $7$ sin los signos correctos de cada raíz.",
       "Este valor es el producto de las raíces, no la suma: revisá qué operación pide el enunciado."
     ],
-    "explanation": "Las raíces se leen directamente de la forma factorizada, buscando el valor que anula cada factor: para $f(x) = -(x+3)(x-7)$, el primer factor se anula en $x=-3$ y el segundo en $x=7$.\n\nLa suma de las raíces es $-3+7=4$.\n\nUna propiedad útil para verificar el resultado: la suma de las raíces siempre coincide con el doble de la abscisa del vértice. Acá el vértice está en $x=(-3+7)/2=2$, y $2\\cdot 2=4$, lo que confirma la suma calculada.",
+    "explanation": "Las raíces se leen directamente de la forma factorizada, buscando el valor que anula cada factor: para $f(x) = -(x+3)(x-7)$, el primer factor se anula en $x=-3$ y el segundo en $x=7$.\n\nLa suma de las raíces es $-3+7=4$.\n\nUna propiedad útil para verificar el resultado: la suma de las raíces siempre coincide con el doble de la abscisa del vértice.\n\nAcá el vértice está en $x=(-3+7)/2=2$, y $2\\cdot 2=4$, lo que confirma la suma calculada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -780,7 +780,7 @@
       null,
       "Este punto invierte el orden de las coordenadas: el vértice se escribe como $(h,k)$, no $(k,h)$."
     ],
-    "explanation": "En la forma de vértice $f(x)=a(x-h)^2+k$, el vértice es siempre el punto $(h,k)$, sin importar el valor de $a$ que va adelante del paréntesis.\n\nPara $f(x) = 3(x-2)^2$, comparando con la forma general se identifica $h=2$ y $k=0$, ya que no hay término constante sumado al final. El vértice es $(2,0)$.\n\nComo $k=0$, el vértice cae exactamente sobre el eje $x$, y por eso $x=2$ es también la única raíz de la función, una raíz doble. El coeficiente $3$ no mueve el vértice: solo afecta cuán angosta es la parábola.",
+    "explanation": "En la forma de vértice $f(x)=a(x-h)^2+k$, el vértice es siempre el punto $(h,k)$, sin importar el valor de $a$ que va adelante del paréntesis.\n\nPara $f(x) = 3(x-2)^2$, comparando con la forma general se identifica $h=2$ y $k=0$, ya que no hay término constante sumado al final. El vértice es $(2,0)$.\n\nComo $k=0$, el vértice cae exactamente sobre el eje $x$, y por eso $x=2$ es también la única raíz de la función, una raíz doble.\n\nEl coeficiente $3$ no mueve el vértice: solo afecta cuán angosta es la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -805,7 +805,7 @@
       "Esa es la fórmula del perímetro del cuadrado, la suma de sus cuatro lados, no el área.",
       "Sumar los lados en vez de multiplicarlos da una magnitud lineal, no el área cuadrática."
     ],
-    "explanation": "El **área** de un cuadrado se calcula multiplicando lado por lado, mientras que el **perímetro** se calcula sumando los cuatro lados: son dos magnitudes distintas que crecen de forma distinta con $x$.\n\nCon lado $x$, el área es:\n$$A(x) = x \\cdot x = x^2$$\nUna función cuadrática.\n\n$A(x)=4x$ sería el perímetro del cuadrado, los cuatro lados sumados, no el área. La diferencia entre multiplicar los lados (cuadrática) y sumarlos (lineal) es justamente lo que separa una función cuadrática de una lineal en este tipo de contexto geométrico.",
+    "explanation": "El **área** de un cuadrado se calcula multiplicando lado por lado, mientras que el **perímetro** se calcula sumando los cuatro lados: son dos magnitudes distintas que crecen de forma distinta con $x$.\n\nCon lado $x$, el área es:\n$$A(x) = x \\cdot x = x^2$$\nUna función cuadrática.\n\n$A(x)=4x$ sería el perímetro del cuadrado, los cuatro lados sumados, no el área.\n\nLa diferencia entre multiplicar los lados (cuadrática) y sumarlos (lineal) es justamente lo que separa una función cuadrática de una lineal en este tipo de contexto geométrico.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -830,7 +830,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $10$.",
       null
     ],
-    "explanation": "El área de un rectángulo es siempre base por altura. Acá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$, es decir $y=10-x$: ese es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n$$A(x) = x \\cdot (10 - x) = 10x - x^2$$\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$. La función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
+    "explanation": "El área de un rectángulo es siempre base por altura. Acá el perímetro total de alambre es $20$ m, por lo que $2(x+y)=20$, es decir $y=10-x$: ese es el lado opuesto que da el enunciado.\n\nEl área en función del ancho $x$ es:\n\nLa opción $A(x)=20x-x^2$ surge de usar el perímetro completo como si fuera el lado opuesto, en vez de dividirlo entre dos para obtener $10-x$.\n\nLa función tiene su área máxima en $x=5$, formando un cuadrado, con $25$ m².",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       null,
       "Estos coeficientes intercambian los roles de $v_0$ y de $\\frac{1}{2}g$: revisá cuál dato corresponde a cada término."
     ],
-    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n$$h(t) = 20t - \\frac{1}{2}(10)t^2 = 20t - 5t^2$$\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima. Confundir el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, es el error más común al armar esta ecuación.",
+    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nConfundir el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, es el error más común al armar esta ecuación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -880,7 +880,7 @@
       "El signo del término lineal quedó negativo: la velocidad inicial suma altura al principio, no resta.",
       null
     ],
-    "explanation": "La fórmula general de un tiro vertical con altura inicial es $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$: el término constante es la altura de partida, el lineal el impulso inicial, y el cuadrático la desaceleración por gravedad.\n\nCon $h_0=5$, $v_0=10$ y $g=10$:\n$$h(t) = 5 + 10t - 5t^2$$\nEl signo del término cuadrático es siempre negativo en este tipo de problema, porque la gravedad actúa frenando el movimiento hacia arriba. La opción $h(t)=5+10t+5t^2$ tendría el signo invertido, algo que solo tendría sentido si la gravedad empujara hacia arriba en vez de hacia abajo, situación que no ocurre en la Tierra.",
+    "explanation": "La fórmula general de un tiro vertical con altura inicial es $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$: el término constante es la altura de partida, el lineal el impulso inicial, y el cuadrático la desaceleración por gravedad.\n\nCon $h_0=5$, $v_0=10$ y $g=10$:\n\nEl signo del término cuadrático es siempre negativo en este tipo de problema, porque la gravedad actúa frenando el movimiento hacia arriba.\n\nLa opción $h(t)=5+10t+5t^2$ tendría el signo invertido, algo que solo tendría sentido si la gravedad empujara hacia arriba en vez de hacia abajo, situación que no ocurre en la Tierra.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       "Esta expresión tiene el signo general invertido respecto al área real, que debe ser positiva para $x$ entre $0$ y $8$.",
       "Esta expresión no descuenta lo que se pierde al restar el propio ancho del largo: falta el término cuadrático."
     ],
-    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$: ese es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n$$A(x) = x(8-x) = 8x - x^2$$\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m². Usar el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis es el error más común al armar esta ecuación.",
+    "explanation": "Con una cuerda de $16$ metros para cercar un rectángulo, el perímetro cumple $2(x+y)=16$, es decir $x+y=8$, por lo que el largo es $y=8-x$: ese es el semiperímetro que da el enunciado, no el perímetro completo.\n\nEl área en función del ancho $x$ es:\n\nEl área máxima se alcanza en $x=4$ m, formando un cuadrado de $4 \\times 4 = 16$ m².\n\nUsar el perímetro completo, $16$, en vez del semiperímetro, $8$, dentro del paréntesis es el error más común al armar esta ecuación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -955,7 +955,7 @@
       "El signo del término cuadrático quedó positivo: la gravedad hace bajar la altura, así que ese término debe restar.",
       "Esta expresión da valores negativos crecientes desde el inicio, lo opuesto a una altura que decrece desde $45$."
     ],
-    "explanation": "En una caída libre, el objeto parte con velocidad inicial nula ($v_0=0$), así que la fórmula general $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$ pierde su término lineal por completo.\n\nCon $h_0=45$ y $g=10$:\n$$h(t) = 45 - \\frac{1}{2}(10)t^2 = 45 - 5t^2$$\nLa opción $h(t)=45t-5t^2$ incluye un término lineal $45t$, que correspondería a lanzar el objeto hacia arriba con una velocidad inicial de 45 m/s, algo que contradice la idea de simplemente soltarlo desde la azotea.",
+    "explanation": "En una caída libre, el objeto parte con velocidad inicial nula ($v_0=0$), así que la fórmula general $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$ pierde su término lineal por completo.\n\nCon $h_0=45$ y $g=10$:\n\nLa opción $h(t)=45t-5t^2$ incluye un término lineal $45t$, que correspondería a lanzar el objeto hacia arriba con una velocidad inicial de 45 m/s, algo que contradice la idea de simplemente soltarlo desde la azotea.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1055,7 +1055,7 @@
       "Con ese signo la parábola abriría hacia arriba, pero la gráfica muestra una apertura hacia abajo.",
       "El vértice de esta expresión está en $(2,-4)$, no en $(2,4)$ como muestra la gráfica."
     ],
-    "explanation": "De la gráfica se leen dos datos clave:\n\n1. **Vértice** $(2, 4)$: indica $h = 2$, $k = 4$.\n2. **Abre hacia abajo**: indica $a < 0$.\n\nCon $a = -1$: $f(x) = -(x-2)^2 + 4$.\n\nVerificación con las raíces: $-(x-2)^2 + 4 = 0 \\Rightarrow (x-2)^2 = 4 \\Rightarrow x = 0$ o $x = 4$ \n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "De la gráfica se leen dos datos clave:\n\n1. **Vértice** $(2, 4)$: indica $h = 2$, $k = 4$.\n2. **Abre hacia abajo**: indica $a < 0$.\n\nCon $a = -1$: $f(x) = -(x-2)^2 + 4$.\n\nVerificación con las raíces: $-(x-2)^2 + 4 = 0 \\Rightarrow (x-2)^2 = 4 \\Rightarrow x = 0$ o $x = 4$ \n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "has_math": true,
     "graph_fn": "-pow(x-2,2)+4",
     "graph_view": [
@@ -1085,7 +1085,7 @@
       null,
       "El valor de $k$ quedó positivo: ese vértice está en $(3,1)$, no en $(3,-1)$."
     ],
-    "explanation": "De un gráfico se leen dos datos para armar la forma de vértice: la posición del vértice $(h,k)$ y la concavidad, que indica el signo de $a$.\n\nCon vértice $(3,-1)$ y parábola que abre hacia arriba ($a=1>0$):\n$$f(x) = (x-3)^2 - 1$$\nLa opción $(x+3)^2-1$ pondría el vértice en $(-3,-1)$, porque el signo de $h$ siempre se invierte dentro del paréntesis. La opción $(x-3)^2+1$ pondría el vértice en $(3,1)$, con $k$ positivo en vez de negativo: revisar por separado el signo de $h$ y el de $k$ evita ambos errores.",
+    "explanation": "De un gráfico se leen dos datos para armar la forma de vértice: la posición del vértice $(h,k)$ y la concavidad, que indica el signo de $a$.\n\nCon vértice $(3,-1)$ y parábola que abre hacia arriba ($a=1>0$):\n\nLa opción $(x+3)^2-1$ pondría el vértice en $(-3,-1)$, porque el signo de $h$ siempre se invierte dentro del paréntesis.\n\nLa opción $(x-3)^2+1$ pondría el vértice en $(3,1)$, con $k$ positivo en vez de negativo: revisar por separado el signo de $h$ y el de $k$ evita ambos errores.",
     "has_math": true,
     "graph_fn": "pow(x-3,2)-1",
     "graph_view": [
@@ -1115,7 +1115,7 @@
       "Esta expresión no tiene término independiente: el vértice quedaría en $(0,0)$, no en $(0,8)$ como muestra la gráfica.",
       null
     ],
-    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice. Acá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$. El vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n$$f(x) = -0{,}5x^2 + 8$$\nConfundir una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) es el error más común al estimar el coeficiente a simple vista.",
+    "explanation": "Leer una parábola desde su gráfico implica identificar tres datos: la concavidad, la amplitud relativa y el vértice.\n\nAcá la parábola abre hacia abajo, así que $a<0$, y se ve más ancha que $-x^2$, lo que indica $|a|<1$, probablemente $a=-0{,}5$. El vértice está sobre el eje $y$ en $(0,k)$, por lo que $h=0$.\n\nCon las raíces en $x=\\pm 4$, se despeja $k$ a partir de $-0{,}5(\\pm 4)^2+k=0$, lo que da $k=8$:\n$$f(x) = -0{,}5x^2 + 8$$\nConfundir una parábola más ancha ($|a|<1$) con una más angosta ($|a|>1$) es el error más común al estimar el coeficiente a simple vista.",
     "has_math": true,
     "graph_fn": "-0.5*pow(x,2)+8",
     "graph_view": [
@@ -1145,7 +1145,7 @@
       "El segundo factor debería anularse en $x=4$, no en $x=-4$: revisá el signo de esa raíz.",
       null
     ],
-    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n$$f(x) = (x-(-2))(x-4) = (x+2)(x-4)$$\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales. Confundir el signo de la raíz con el signo dentro del factor es la trampa más frecuente al leer un gráfico y traducirlo a forma factorizada.",
+    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces $r_1=-2$ y $r_2=4$ y $a=1$:\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$, con ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor es la trampa más frecuente al leer un gráfico y traducirlo a forma factorizada.",
     "has_math": true,
     "graph_fn": "pow(x,2)-2*x-8",
     "graph_view": [
@@ -1175,7 +1175,7 @@
       "El valor de $k$ quedó positivo: ese vértice está en $(2,2)$, no en $(2,-2)$.",
       null
     ],
-    "explanation": "Leer una parábola angosta desde su gráfico implica identificar el vértice, la concavidad y la amplitud relativa comparada con $x^2$. Acá el vértice está en $(2,-2)$, por lo que $h=2$ y $k=-2$; la parábola abre hacia arriba, por lo que $a>0$; y se ve más angosta que $x^2$, lo que indica $a>1$, probablemente $a=2$.\n\nCon esos valores:\n$$f(x) = 2(x-2)^2 - 2$$\nComo verificación, la raíz visible en $x=1$ debe anular la función: $2(1-2)^2-2=2(1)-2=0$, lo que confirma el coeficiente elegido. Confundir una parábola más angosta ($a>1$) con una más ancha ($a<1$) es un error común al estimarla a simple vista.",
+    "explanation": "Leer una parábola angosta desde su gráfico implica identificar el vértice, la concavidad y la amplitud relativa comparada con $x^2$.\n\nAcá el vértice está en $(2,-2)$, por lo que $h=2$ y $k=-2$; la parábola abre hacia arriba, por lo que $a>0$; y se ve más angosta que $x^2$, lo que indica $a>1$, probablemente $a=2$.\n\nCon esos valores:\n\nComo verificación, la raíz visible en $x=1$ debe anular la función: $2(1-2)^2-2=2(1)-2=0$, lo que confirma el coeficiente elegido.\n\nConfundir una parábola más angosta ($a>1$) con una más ancha ($a<1$) es un error común al estimarla a simple vista.",
     "has_math": true,
     "graph_fn": "2*pow(x-2,2)-2",
     "graph_view": [
@@ -1205,7 +1205,7 @@
       null,
       "Este resultado suma en vez de restar el término $3(4)$: revisá el signo de ese término."
     ],
-    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias, después las multiplicaciones, y por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n$$f(4) = 4^2 - 3(4) + 2 = 16 - 12 + 2 = 6$$\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el producto.",
+    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias, después las multiplicaciones, y por último las sumas y restas.\n\nPara $f(x)=x^2-3x+2$ en $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el producto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1230,7 +1230,7 @@
       null,
       "El $t=2$ s es el instante de altura máxima, el vértice de la parábola, no un momento en que la pelota toca el suelo."
     ],
-    "explanation": "La pelota toca el suelo cuando $h(t)=0$, así que hay que factorizar sacando el factor común $t$ e igualar cada factor a cero por separado.\n\nPara $h(t)=-5t^2+20t$:\n$$\\begin{aligned} -5t^2+20t &= 0 \\\\ t(-5t+20) &= 0 \\end{aligned}$$\nEsto da $t=0$, el instante de lanzamiento, y $t=4$ s, el aterrizaje.\n\nAmbas soluciones son válidas y tienen sentido físico distinto: quedarse solo con una de las dos raíces es el error más frecuente en este tipo de ecuación. El máximo de altura ocurre en $t=2$ s, justo en el punto medio entre ambas raíces.",
+    "explanation": "La pelota toca el suelo cuando $h(t)=0$, así que hay que factorizar sacando el factor común $t$ e igualar cada factor a cero por separado.\n\nPara $h(t)=-5t^2+20t$:\n$$\\begin{aligned} -5t^2+20t &= 0 \\\\ t(-5t+20) &= 0 \\end{aligned}$$\nEsto da $t=0$, el instante de lanzamiento, y $t=4$ s, el aterrizaje.\n\nAmbas soluciones son válidas y tienen sentido físico distinto: quedarse solo con una de las dos raíces es el error más frecuente en este tipo de ecuación.\n\nEl máximo de altura ocurre en $t=2$ s, justo en el punto medio entre ambas raíces.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1255,7 +1255,7 @@
       "Estos valores parecen salir de dividir los coeficientes originales sin factorizar correctamente el trinomio.",
       "El signo de la segunda raíz quedó invertido: el factor correcto es $(x-3)$, que se anula en $x=3$, no en $x=-3$."
     ],
-    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n$$2x^2-8x+6 = 2(x^2-4x+3) = 2(x-1)(x-3)$$\nLas raíces son $x=1$ y $x=3$.\n\nOlvidar sacar el factor común $2$ antes de buscar los dos números que suman $-4$ y multiplican $3$ es el error más frecuente al factorizar este tipo de expresión. Verificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
+    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n$$2x^2-8x+6 = 2(x^2-4x+3) = 2(x-1)(x-3)$$\nLas raíces son $x=1$ y $x=3$.\n\nOlvidar sacar el factor común $2$ antes de buscar los dos números que suman $-4$ y multiplican $3$ es el error más frecuente al factorizar este tipo de expresión.\n\nVerificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

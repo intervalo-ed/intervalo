@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** establece que la derivada de cualquier función constante, sin importar su valor, siempre da cero.\n$$(c)' = 0$$\nEsto tiene sentido porque una constante no cambia, así que su tasa de cambio instantánea es nula en todo punto.\n\nEsta regla es el punto de partida para todas las demás. Si practicas la idea de que \"sin cambio, sin derivada\", entenderás mejor por qué la mayoría de las reglas de derivación se diseñan alrededor de cómo cambian las funciones. Una constante es lo opuesto al cambio, así que su derivada es cero.",
+    "explanation": "La **regla de la constante** establece que la derivada de cualquier función constante, sin importar su valor, siempre da cero.\n$$(c)' = 0$$\nEsto tiene sentido porque una constante no cambia, así que su tasa de cambio instantánea es nula en todo punto.\n\nEsta regla es el punto de partida para todas las demás.\n\nSi practicas la idea de que \"sin cambio, sin derivada\", entenderás mejor por qué la mayoría de las reglas de derivación se diseñan alrededor de cómo cambian las funciones.\n\nUna constante es lo opuesto al cambio, así que su derivada es cero.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n$$f'(x) = \\frac{dy}{dx}$$\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nAlgunas comunidades científicas prefieren $f'(x)$, otras prefieren $\\frac{dy}{dx}$; en análisis vectorial verás $\\nabla f$. Saber cambiar entre notaciones te permite leer literatura en distintos campos sin confusión. Además, cada notación enfatiza un aspecto distinto: $f'$ subraya la regla, $\\frac{dy}{dx}$ subraya la relación entre cambios.",
+    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n$$f'(x) = \\frac{dy}{dx}$$\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nAlgunas comunidades científicas prefieren $f'(x)$, otras prefieren $\\frac{dy}{dx}$; en análisis vectorial verás $\\nabla f$.\n\nSaber cambiar entre notaciones te permite leer literatura en distintos campos sin confusión.\n\nAdemás, cada notación enfatiza un aspecto distinto: $f'$ subraya la regla, $\\frac{dy}{dx}$ subraya la relación entre cambios.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

@@ -1263,7 +1263,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El volumen parte de 100 litros y pierde 5 por hora:\n$$V(h) = 100 - 5h$$\nCon $b = 100$ (el contenido inicial) y $m = -5$ (la pérdida horaria, restando).\n\nVerificación: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta. Un tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
+    "explanation": "El volumen parte de 100 litros y pierde 5 por hora:\n$$V(h) = 100 - 5h$$\nCon $b = 100$ (el contenido inicial) y $m = -5$ (la pérdida horaria, restando).\n\nVerificación: $V(0) = 100$ y $V(1) = 95$, bajó exactamente 5 litros.\n\nAntes de elegir, corré el test de sensatez física: la fórmula debe arrancar en el valor inicial del enunciado y moverse en la dirección correcta.\n\nUn tanque que empieza en $-5$ litros o que gana volumen delata parámetros cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
