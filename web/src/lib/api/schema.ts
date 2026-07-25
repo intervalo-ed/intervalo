@@ -791,6 +791,10 @@ export interface components {
             career: string;
             /** Name */
             name?: string | null;
+            /** Course */
+            course?: string | null;
+            /** Motivation */
+            motivation?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
         };

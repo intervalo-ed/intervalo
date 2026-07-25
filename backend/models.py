@@ -86,6 +86,7 @@ class Enrollment(Base):
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
     career = Column(String(200), nullable=True)
+    motivation = Column(String(50), nullable=True)
     enrolled_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (UniqueConstraint("user_id", "course_id", name="unique_user_course"),)

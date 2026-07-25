@@ -341,7 +341,12 @@ class EnrollmentRequest(BaseModel):
     university: str
     career: str
     name: str | None = None
-    # Resultado del ejercicio de prueba del onboarding (white/definition/LEXI).
+    # Curso elegido en el onboarding (slug). None → analisis, por compatibilidad
+    # con clientes/datos viejos que no mandaban curso.
+    course: str | None = None
+    # Motivación elegida en el onboarding (slug corto: cursada/bases/conceptos).
+    motivation: str | None = None
+    # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
 
@@ -353,15 +358,10 @@ def enroll_user(
     db: Session = Depends(get_db)
 ):
     """Enroll user in a course with onboarding data."""
-    from models import Enrollment, Course
+    from models import Enrollment
 
-    # Default course_id to 1 for now (analisis-1)
-    course_id = 1
-
-    # Check if course exists
-    course = db.query(Course).filter(Course.id == course_id).first()
-    if not course:
-        raise HTTPException(status_code=400, detail="Course not found")
+    # Curso elegido en el onboarding (slug → id). Default analisis para compat.
+    course_id = _resolve_course_id(body.course, db)
 
     # Check if already enrolled
     existing = db.query(Enrollment).filter(
@@ -373,6 +373,7 @@ def enroll_user(
         # Update enrollment
         existing.university = body.university
         existing.career = body.career
+        existing.motivation = body.motivation
     else:
         # Create new enrollment
         enrollment = Enrollment(
@@ -380,6 +381,7 @@ def enroll_user(
             course_id=course_id,
             university=body.university,
             career=body.career,
+            motivation=body.motivation,
         )
         db.add(enrollment)
 
@@ -390,8 +392,8 @@ def enroll_user(
     db.commit()
 
     # Solo en una alta nueva: persistir el resultado del ejercicio de prueba del
-    # onboarding sobre el ítem white/definition/LEXI (acierto → mañana, fuera de
-    # la 1ª sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
+    # onboarding sobre el primer ítem del curso (acierto → mañana, fuera de la 1ª
+    # sesión; fallo → hoy, dentro). En re-enrollment no se toca el progreso.
     if not existing and body.intro_item_correct is not None:
         from session_store import seed_intro_item
         seed_intro_item(current_user.id, course_id, body.intro_item_correct, db)
