@@ -279,7 +279,7 @@
     "question": "Un comercio aplica un descuento según el monto de compra. Las compras de \\$1000 y de \\$1200 reciben las dos el mismo cupón del 10%. $$\\begin{aligned} 1000 &\\mapsto 10\\% \\\\ 1200 &\\mapsto 10\\% \\end{aligned}$$ ¿Esta asignación define una función?",
     "options": [
       "No, dos montos distintos reciben el mismo cupón",
-      "Sí es función en toda su extensión",
+      "Sí es función, cada monto tiene un único cupón",
       "No, falta que cada cupón tenga un solo monto"
     ],
     "correct_index": 1,

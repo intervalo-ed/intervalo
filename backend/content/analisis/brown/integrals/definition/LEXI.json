@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos primitivas de la misma función $f$ difieren siempre en una constante fija, sin importar el valor de $x$.\n$$F_1(x) - F_2(x) = C_1 - C_2, \\quad \\text{constante para todo } x$$\nComo esa distancia vertical nunca cambia, las curvas de ambas primitivas jamás llegan a tocarse en ningún punto del dominio.",
+    "explanation": "Dos primitivas de la misma función $f$ difieren siempre en una constante fija, sin importar el valor de $x$.\n$$F_1(x) - F_2(x) = C_1 - C_2, \\quad \\text{constante}$$\nEsta diferencia es constante para todo $x$. Como esa distancia vertical nunca cambia, las curvas de ambas primitivas jamás llegan a tocarse en ningún punto del dominio.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La condición $F'(x)=f(x)$ es exactamente la definición operativa de **primitiva**: una función cuya derivada reproduce a $f$.\n$$F'(x) = f(x) \\iff F \\text{ es primitiva de } f$$\nEsta equivalencia es el punto de partida de todo el cinturón de integrales, integrar y derivar son operaciones inversas entre sí.",
+    "explanation": "La condición $F'(x)=f(x)$ es exactamente la definición operativa de **primitiva**: una función cuya derivada reproduce a $f$.\n$$F'(x) = f(x) \\iff F \\text{ es primitiva}$$\n$F$ es primitiva de $f$. Esta equivalencia es el punto de partida de todo el cinturón de integrales, integrar y derivar son operaciones inversas entre sí.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
