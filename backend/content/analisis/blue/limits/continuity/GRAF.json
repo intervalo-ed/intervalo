@@ -83,7 +83,7 @@
       -6,
       6
     ],
-    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, sin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección. Aunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
+    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, sin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nAunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -143,7 +143,7 @@
       -5,
       2
     ],
-    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí. El enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nEste razonamiento muestra que frecuente: hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
+    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí.\n\nEl enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nEste razonamiento muestra que frecuente: hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -289,7 +289,7 @@
       -1,
       8
     ],
-    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida. Si hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro.\n\nLa curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nEste razonamiento muestra que de lectura: acá no hay dos ramas, solo una rama con su valor puntual corrido.",
+    "explanation": "Que el punto cerrado esté desplazado a otra altura no cambia la clasificación: sigue habiendo una sola rama cuyo límite existe, solo que $f(1)$ toma un valor distinto.\n\nEl círculo abierto marca adónde se aproxima la función; el punto cerrado marca dónde está realmente definida.\n\nSi hay solo una rama de cada lado pero los dos valores son distintos, la función se aproxima a un valor pero está \"colocada\" en otro.\n\nLa curva se acerca a $y=4$ desde ambos lados, mientras que el punto cerrado marca $f(1)=7$.\n\nEste razonamiento muestra que de lectura: acá no hay dos ramas, solo una rama con su valor puntual corrido.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"

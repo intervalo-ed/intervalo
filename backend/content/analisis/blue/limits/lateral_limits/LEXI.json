@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí. El **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor.\n\nSi apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto. Cuando:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
+    "explanation": "Un **salto** visible en la gráfica es exactamente la manifestación de que los dos **límites laterales** no coinciden entre sí.\n\nEl **teorema de existencia** es indiferente: la condición es clara - ambos laterales deben apuntar al mismo valor.\n\nSi apuntan a valores distintos, el bilateral no existe, sin excepciones.\n\nNo hay ningún 'rescate' posible: no se puede promediar, no se puede tomar uno de los dos lados, no se puede ignorar el salto.\n\nCuando:\n$$\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$$\nEl límite bilateral simplemente no existe.\n\nLos dos laterales individuales siguen siendo números válidos y operables entre sí (se pueden sumar, comparar, etc.), pero no se combinan en un único límite bilateral.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"

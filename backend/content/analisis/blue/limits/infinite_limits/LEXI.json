@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La noción de **límite al infinito** aparece cuando preguntamos qué le pasa a una función a medida que $x$ crece sin cota en una dirección.\n\nEn este caso, dividir una cantidad fija entre algo que se hace arbitrariamente grande reduce el cociente hacia $0$, no por casualidad sino por la estructura misma de la división.\n\nCuando el denominador de un cociente crece sin cota y el numerador queda fijo, el resultado se aplasta hacia $0$. No hay ambigüedad sobre el resultado final, así que no es una indeterminación.$$\\lim_{x \\to +\\infty} \\frac{5}{x} = 0$$Conviene no confundir este caso con una indeterminación $0/0$, donde ambos términos se anulan a la vez y sí hace falta un análisis adicional para resolverlo.",
+    "explanation": "La noción de **límite al infinito** aparece cuando preguntamos qué le pasa a una función a medida que $x$ crece sin cota en una dirección.\n\nEn este caso, dividir una cantidad fija entre algo que se hace arbitrariamente grande reduce el cociente hacia $0$, no por casualidad sino por la estructura misma de la división.\n\nCuando el denominador de un cociente crece sin cota y el numerador queda fijo, el resultado se aplasta hacia $0$.\n\nNo hay ambigüedad sobre el resultado final, así que no es una indeterminación.$$\\lim_{x \\to +\\infty} \\frac{5}{x} = 0$$Conviene no confundir este caso con una indeterminación $0/0$, donde ambos términos se anulan a la vez y sí hace falta un análisis adicional para resolverlo.",
     "reviewed": false,
     "tags": [
       "algebra-infinito-cero"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **dominancia** de grados es una regla que funciona como un atajo conceptual.\n\n: sin cálculos, solo comparando qué potencia de $x$ aparece más alta, se puede predecir el comportamiento de una función racional en el infinito.\n\nEsto es una aplicación directa de la idea de que el término con mayor crecimiento \"gana\".\n\nEn una función racional, la **dominancia** de grados determina el comportamiento cuando $x \\to \\infty$. Si el denominador crece más rápido que el numerador, el cociente completo se achica hacia $0$.$$\\deg(Q) > \\deg(P) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = 0$$Este resultado es puramente teórico, alcanza con comparar los grados, sin necesidad de conocer los coeficientes exactos.",
+    "explanation": "La **dominancia** de grados es una regla que funciona como un atajo conceptual.\n\n: sin cálculos, solo comparando qué potencia de $x$ aparece más alta, se puede predecir el comportamiento de una función racional en el infinito.\n\nEsto es una aplicación directa de la idea de que el término con mayor crecimiento \"gana\".\n\nEn una función racional, la **dominancia** de grados determina el comportamiento cuando $x \\to \\infty$.\n\nSi el denominador crece más rápido que el numerador, el cociente completo se achica hacia $0$.$$\\deg(Q) > \\deg(P) \\ \\Rightarrow \\ \\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = 0$$Este resultado es puramente teórico, alcanza con comparar los grados, sin necesidad de conocer los coeficientes exactos.",
     "reviewed": false,
     "tags": [
       "dominancia-grados-racionales"

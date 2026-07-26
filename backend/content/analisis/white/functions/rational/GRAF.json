@@ -143,7 +143,7 @@
       -5,
       5
     ],
-    "explanation": "Cada raíz real y no cancelada del denominador de una racional genera exactamente una **asíntota vertical**. El denominador $x+1$ tiene una sola raíz: $x+1=0\\Rightarrow x=-1$. Una raíz en el denominador equivale a una sola asíntota vertical.\n\nNo hay que confundir esto con contar también las raíces del numerador, que no generan asíntotas.",
+    "explanation": "Cada raíz real y no cancelada del denominador de una racional genera exactamente una **asíntota vertical**.\n\nEl denominador $x+1$ tiene una sola raíz: $x+1=0\\Rightarrow x=-1$. Una raíz en el denominador equivale a una sola asíntota vertical.\n\nNo hay que confundir esto con contar también las raíces del numerador, que no generan asíntotas.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-graf"
@@ -173,7 +173,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales. Acá numerador y denominador tienen el mismo grado (ambos lineales), así que $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$.\n\nUsar $y=0$ de memoria sin fijarse primero si los grados realmente son distintos.",
+    "explanation": "La **asíntota horizontal** de una racional depende de comparar los grados de numerador y denominador: si son iguales, la AH es el cociente de los coeficientes principales.\n\nAcá numerador y denominador tienen el mismo grado (ambos lineales), así que $\\frac{x+1}{x-2}\\to\\frac{1}{1}=1$ cuando $x\\to\\infty$.\n\nUsar $y=0$ de memoria sin fijarse primero si los grados realmente son distintos.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -233,7 +233,7 @@
       -6,
       6
     ],
-    "explanation": "En una función racional con una **asíntota vertical**, el dominio queda partido en dos intervalos, y cada uno genera su propia rama de la curva. Cerca de la asíntota vertical, las dos ramas van en sentidos opuestos: una tiende a $+\\infty$ y la otra a $-\\infty$. Esto es lo opuesto a una parábola, donde ambos extremos van en el mismo sentido.\n\nAntes de responder, conviene mirar el gráfico rama por rama en vez de la curva completa de un vistazo.",
+    "explanation": "En una función racional con una **asíntota vertical**, el dominio queda partido en dos intervalos, y cada uno genera su propia rama de la curva.\n\nCerca de la asíntota vertical, las dos ramas van en sentidos opuestos: una tiende a $+\\infty$ y la otra a $-\\infty$. Esto es lo opuesto a una parábola, donde ambos extremos van en el mismo sentido.\n\nAntes de responder, conviene mirar el gráfico rama por rama en vez de la curva completa de un vistazo.",
     "reviewed": false,
     "tags": [
       "valor-asintota-horizontal"
@@ -293,7 +293,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional siempre coincide con los valores que anulan el denominador, nunca con los que anulan el numerador. Acá el denominador $x+1$ vale cero cuando $x+1=0\\Rightarrow x=-1$.\n\nEn el gráfico, la función explota verticalmente al acercarse a $x=-1$.\n\nConviene resolver la ecuación del denominador con cuidado antes de leer el signo del resultado.",
+    "explanation": "La **asíntota vertical** de una racional siempre coincide con los valores que anulan el denominador, nunca con los que anulan el numerador.\n\nAcá el denominador $x+1$ vale cero cuando $x+1=0\\Rightarrow x=-1$.\n\nEn el gráfico, la función explota verticalmente al acercarse a $x=-1$.\n\nConviene resolver la ecuación del denominador con cuidado antes de leer el signo del resultado.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf"
@@ -353,7 +353,7 @@
       -4,
       4
     ],
-    "explanation": "La cantidad de **asíntotas verticales** de una racional coincide con la cantidad de raíces reales distintas del denominador, siempre que no se cancelen con el numerador. El denominador $x^2-4=(x-2)(x+2)$ tiene dos raíces reales distintas.\n\n$x=2$ y $x=-2$. Cada una genera una asíntota vertical, y la gráfica muestra tres ramas separadas por esas dos AV.\n\nConviene factorizar siempre antes de contar, para no perder ninguna raíz.",
+    "explanation": "La cantidad de **asíntotas verticales** de una racional coincide con la cantidad de raíces reales distintas del denominador, siempre que no se cancelen con el numerador.\n\nEl denominador $x^2-4=(x-2)(x+2)$ tiene dos raíces reales distintas.\n\n$x=2$ y $x=-2$. Cada una genera una asíntota vertical, y la gráfica muestra tres ramas separadas por esas dos AV.\n\nConviene factorizar siempre antes de contar, para no perder ninguna raíz.",
     "reviewed": false,
     "tags": [
       "valor-aproximado"
@@ -563,7 +563,7 @@
       -5,
       5
     ],
-    "explanation": "El **dominio** de una función racional es todo $\\mathbb{R}$ excepto los valores que anulan el denominador, ya que ahí la división no está definida. La AV en $x=-1$ significa que el denominador se anula ahí.\n\n$x=-1$ no pertenece al dominio. El dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.\n\nConviene no confundir esta exclusión puntual con restringir todo un intervalo completo.",
+    "explanation": "El **dominio** de una función racional es todo $\\mathbb{R}$ excepto los valores que anulan el denominador, ya que ahí la división no está definida.\n\nLa AV en $x=-1$ significa que el denominador se anula ahí.\n\n$x=-1$ no pertenece al dominio. El dominio es $\\mathbb{R}\\setminus\\{-1\\}=(-\\infty,-1)\\cup(-1,+\\infty)$.\n\nConviene no confundir esta exclusión puntual con restringir todo un intervalo completo.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -593,7 +593,7 @@
       -5,
       5
     ],
-    "explanation": "Un **máximo** o un **mínimo** son puntos donde la función deja de crecer para empezar a decrecer, o viceversa, algo que no ocurre si la curva es siempre estrictamente creciente o decreciente. En cada rama de $f(x)=\\frac{1}{x}$, la función decrece estrictamente, sin ningún punto donde cambie de tendencia.\n\nLas asíntotas son líneas que la curva se acerca pero nunca alcanza, así que tampoco cuentan como extremos.",
+    "explanation": "Un **máximo** o un **mínimo** son puntos donde la función deja de crecer para empezar a decrecer, o viceversa, algo que no ocurre si la curva es siempre estrictamente creciente o decreciente.\n\nEn cada rama de $f(x)=\\frac{1}{x}$, la función decrece estrictamente, sin ningún punto donde cambie de tendencia.\n\nLas asíntotas son líneas que la curva se acerca pero nunca alcanza, así que tampoco cuentan como extremos.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-totales"
@@ -623,7 +623,7 @@
       -6,
       6
     ],
-    "explanation": "Los **ceros** de una función racional son los valores donde se anula el numerador, siempre que el denominador no se anule en ese mismo punto. La función vale cero cuando el numerador $3x=0$, es decir, $x=0$. El denominador $0^2-1=-1\\neq0$, así que $x=0$ sí pertenece al dominio. Hay un solo cero, en $x=0$.\n\nConviene siempre verificar el denominador en ese punto antes de confirmar que el cero es válido.",
+    "explanation": "Los **ceros** de una función racional son los valores donde se anula el numerador, siempre que el denominador no se anule en ese mismo punto.\n\nLa función vale cero cuando el numerador $3x=0$, es decir, $x=0$. El denominador $0^2-1=-1\\neq0$, así que $x=0$ sí pertenece al dominio. Hay un solo cero, en $x=0$.\n\nConviene siempre verificar el denominador en ese punto antes de confirmar que el cero es válido.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -893,7 +893,7 @@
       -4,
       4
     ],
-    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada AV parte el dominio en un tramo adicional. El denominador $x^2-4=(x-2)(x+2)$ se anula en $x=2$.\n\n$x=-2$: dos asíntotas verticales. Cada AV separa la gráfica en ramas: $(-\\infty,-2)$, $(-2,2)$ y $(2,+\\infty)$, es decir, tres ramas.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo.",
+    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada AV parte el dominio en un tramo adicional.\n\nEl denominador $x^2-4=(x-2)(x+2)$ se anula en $x=2$.\n\n$x=-2$: dos asíntotas verticales. Cada AV separa la gráfica en ramas: $(-\\infty,-2)$, $(-2,2)$ y $(2,+\\infty)$, es decir, tres ramas.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

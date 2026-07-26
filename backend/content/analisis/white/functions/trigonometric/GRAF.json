@@ -23,7 +23,7 @@
       -2,
       2
     ],
-    "explanation": "En cada período $[0,2\\pi]$, el seno **sube una vez** (máximo en $x=\\pi/2$, valor $1$) y **baja una vez** (mínimo en $x=3\\pi/2$, valor $-1$). Hay exactamente un máximo local por período. Si buscás 2 máximos necesitás el intervalo $[0,4\\pi]$.\n\nEn la gráfica, identificá el único pico positivo dentro de $[0,2\\pi]$.",
+    "explanation": "En cada período $[0,2\\pi]$, el seno **sube una vez** (máximo en $x=\\pi/2$, valor $1$) y **baja una vez** (mínimo en $x=3\\pi/2$, valor $-1$).\n\nHay exactamente un máximo local por período. Si buscás 2 máximos necesitás el intervalo $[0,4\\pi]$.\n\nEn la gráfica, identificá el único pico positivo dentro de $[0,2\\pi]$.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"

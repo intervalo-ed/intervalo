@@ -873,7 +873,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa $\\sqrt{2}$. El coseno es cateto adyacente sobre hipotenusa:$$\\begin{aligned}\n\\cos\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\n&= \\frac{\\sqrt{2}}{2}:\n\\end{aligned}$$La opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$.\n\nA $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
+    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa $\\sqrt{2}$.\n\nEl coseno es cateto adyacente sobre hipotenusa:$$\\begin{aligned}\n\\cos\\!\\left(\\frac{\\pi}{4}\\right) &= \\frac{1}{\\sqrt{2}} \\\\\n&= \\frac{\\sqrt{2}}{2}:\n\\end{aligned}$$La opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$.\n\nA $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"

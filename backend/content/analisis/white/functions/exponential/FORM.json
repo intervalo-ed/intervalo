@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$Es irracional y transcendente. La función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nNo confundir con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal).",
+    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$Es irracional y transcendente.\n\nLa función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nNo confundir con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal).",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"

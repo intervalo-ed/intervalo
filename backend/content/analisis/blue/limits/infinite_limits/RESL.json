@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los signos en los **límites** son tan importantes como las magnitudes.\n\nEl cociente de coeficientes principales es el paso final, pero solo si se arrastra el signo de cada coeficiente correctamente a través de todo el cálculo.\n\nEl cociente de coeficientes principales conserva el signo de cada coeficiente, incluyendo los negativos. Ignorar el signo es uno de los errores más comunes al aplicar esta regla de **dominancia**.$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} &= \\frac{-2}{1} \\\\ &= -2 \\end{aligned}$$Conviene siempre escribir el signo del coeficiente principal explícitamente antes de simplificar, para no perderlo en el camino.",
+    "explanation": "Los signos en los **límites** son tan importantes como las magnitudes.\n\nEl cociente de coeficientes principales es el paso final, pero solo si se arrastra el signo de cada coeficiente correctamente a través de todo el cálculo.\n\nEl cociente de coeficientes principales conserva el signo de cada coeficiente, incluyendo los negativos.\n\nIgnorar el signo es uno de los errores más comunes al aplicar esta regla de **dominancia**.$$\\begin{aligned} \\lim_{x \\to +\\infty} \\frac{-2x^2 + 7x}{x^2 + 4} &= \\frac{-2}{1} \\\\ &= -2 \\end{aligned}$$Conviene siempre escribir el signo del coeficiente principal explícitamente antes de simplificar, para no perderlo en el camino.",
     "reviewed": false,
     "tags": [
       "racionales-mismo-grado-o-denominador"

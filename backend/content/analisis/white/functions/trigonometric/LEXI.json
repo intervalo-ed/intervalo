@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** es la longitud del intervalo más corto en que la función completa un ciclo y vuelve a repetirse. A mayor período, la onda se \"estira\" horizontalmente; a menor período, se comprime. La **amplitud** mide el tamaño vertical, no horizontal. La **frecuencia** es el recíproco del período ($f=1/T$).\n\nLa **fase** desplaza la onda horizontalmente pero no cambia su longitud.",
+    "explanation": "El **período** es la longitud del intervalo más corto en que la función completa un ciclo y vuelve a repetirse.\n\nA mayor período, la onda se \"estira\" horizontalmente; a menor período, se comprime. La **amplitud** mide el tamaño vertical, no horizontal. La **frecuencia** es el recíproco del período ($f=1/T$).\n\nLa **fase** desplaza la onda horizontalmente pero no cambia su longitud.",
     "reviewed": false,
     "tags": [
       "definicion-periodicidad"
@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(0)=0$ y $\\operatorname{sen}(\\pi/2)=1$: el seno parte de cero en el origen y alcanza su **máximo** en $x=\\pi/2$. El coseno hace lo opuesto: vale $1$ en $x=0$ y se anula en $x=\\pi/2$. El $-\\operatorname{sen}(x)$ parte de $0$.\n\nBaja a $-1$ (mínimo) en $x=\\pi/2$.\n\nEstos valores especiales son la clave para identificar cada función trigonométrica.",
+    "explanation": "$\\operatorname{sen}(0)=0$ y $\\operatorname{sen}(\\pi/2)=1$: el seno parte de cero en el origen y alcanza su **máximo** en $x=\\pi/2$.\n\nEl coseno hace lo opuesto: vale $1$ en $x=0$ y se anula en $x=\\pi/2$. El $-\\operatorname{sen}(x)$ parte de $0$.\n\nBaja a $-1$ (mínimo) en $x=\\pi/2$.\n\nEstos valores especiales son la clave para identificar cada función trigonométrica.",
     "reviewed": false,
     "tags": [
       "identificar-funcion-comportamiento"

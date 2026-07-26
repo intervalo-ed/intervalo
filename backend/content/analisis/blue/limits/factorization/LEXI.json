@@ -111,7 +111,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$. Vericando ambas condiciones simultáneamente:$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$Probar solo el producto correcto sin verificar también que la suma coincida te va a llevar a respuestas incorrectas.\n\nTambién, invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal produce errores.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
+    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$.\n\nVericando ambas condiciones simultáneamente:$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$Probar solo el producto correcto sin verificar también que la suma coincida te va a llevar a respuestas incorrectas.\n\nTambién, invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal produce errores.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
     "reviewed": false
   },
   {
@@ -134,7 +134,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico. Si $P(4) = 0$, entonces:$$P(x) = (x-4) \\cdot Q(x)$$Como tanto el numerador como el denominador se anulan en $x=4$, ambos deben contener el factor $(x-4)$. Ese es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$.\n\nLa belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
+    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico.\n\nSi $P(4) = 0$, entonces:$$P(x) = (x-4) \\cdot Q(x)$$Como tanto el numerador como el denominador se anulan en $x=4$, ambos deben contener el factor $(x-4)$.\n\nEse es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$.\n\nLa belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
     "reviewed": false
   },
   {

@@ -113,7 +113,7 @@
       -5,
       5
     ],
-    "explanation": "Aunque la pendiente sea más pronunciada que en los ejemplos anteriores, el criterio de área neta no cambia. El triángulo de abajo mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$.\n\nLos dos triángulos vuelven a tener la misma área, así que el resultado neto es cero, sin importar que la recta esté más inclinada.",
+    "explanation": "Aunque la pendiente sea más pronunciada que en los ejemplos anteriores, el criterio de área neta no cambia.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 2\\cdot 4 = 4$.\n\nLos dos triángulos vuelven a tener la misma área, así que el resultado neto es cero, sin importar que la recta esté más inclinada.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
@@ -143,7 +143,7 @@
       -3,
       7
     ],
-    "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos. El triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 2 = 1$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 6 = 9$.\n\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.",
+    "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 2 = 1$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 6 = 9$.\n\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
@@ -203,7 +203,7 @@
       -5,
       1
     ],
-    "explanation": "En este caso, la función $f(x)=x-4$ queda completamente por debajo del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho. La región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está debajo del eje, la integral definida devuelve esa área con signo negativo, $-8$, aunque la superficie geométrica sea $8$.",
+    "explanation": "En este caso, la función $f(x)=x-4$ queda completamente por debajo del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\n\nLa región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está debajo del eje, la integral definida devuelve esa área con signo negativo, $-8$, aunque la superficie geométrica sea $8$.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
@@ -233,7 +233,7 @@
       -1,
       5
     ],
-    "explanation": "A diferencia del ejemplo anterior, $f(x)=4-x$ queda completamente arriba del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho. La región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está arriba del eje, la integral definida coincide exactamente con la superficie geométrica, sin ningún cambio de signo.",
+    "explanation": "A diferencia del ejemplo anterior, $f(x)=4-x$ queda completamente arriba del eje en todo el intervalo $[0,4]$, tocando cero recién en el extremo derecho.\n\nLa región triangular completa tiene una superficie de $\\tfrac{1}{2}\\cdot 4\\cdot 4 = 8$.\n\nComo toda la región está arriba del eje, la integral definida coincide exactamente con la superficie geométrica, sin ningún cambio de signo.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"

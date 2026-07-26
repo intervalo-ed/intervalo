@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad que define a una **función racional** es ser el cociente de dos polinomios, $f(x)=\\dfrac{P(x)}{Q(x)}$ con $Q(x)$ no idénticamente nulo. Esto incluye casos donde el numerador o el denominador son constantes, como $f(x)=\\frac{1}{x}$.\n\nNo toda racional es decreciente, no toda tiene asíntota oblicua (solo cuando $\\deg P=\\deg Q+1$) y su dominio no siempre es todo $\\mathbb{R}$, ya que se excluyen los ceros del denominador.",
+    "explanation": "La propiedad que define a una **función racional** es ser el cociente de dos polinomios, $f(x)=\\dfrac{P(x)}{Q(x)}$ con $Q(x)$ no idénticamente nulo.\n\nEsto incluye casos donde el numerador o el denominador son constantes, como $f(x)=\\frac{1}{x}$.\n\nNo toda racional es decreciente, no toda tiene asíntota oblicua (solo cuando $\\deg P=\\deg Q+1$) y su dominio no siempre es todo $\\mathbb{R}$, ya que se excluyen los ceros del denominador.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función racional** $f(x)=\\dfrac{P(x)}{Q(x)}$ no está definida cuando el denominador $Q(x)$ vale cero, porque la división por cero no existe matemáticamente. Si $Q(x_0)=0$ para algún $x_0$, ese punto queda excluido del **dominio**.\n\nSuele generar una asíntota vertical o un agujero. Que el numerador $P(x)$ sea cero no genera ningún problema: la función simplemente vale $0$ ahí.\n\nEl signo de $f(x)$ o de $x$ tampoco afecta si la función está definida.",
+    "explanation": "Una **función racional** $f(x)=\\dfrac{P(x)}{Q(x)}$ no está definida cuando el denominador $Q(x)$ vale cero, porque la división por cero no existe matemáticamente.\n\nSi $Q(x_0)=0$ para algún $x_0$, ese punto queda excluido del **dominio**.\n\nSuele generar una asíntota vertical o un agujero. Que el numerador $P(x)$ sea cero no genera ningún problema: la función simplemente vale $0$ ahí.\n\nEl signo de $f(x)$ o de $x$ tampoco afecta si la función está definida.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es menor que el del denominador, la fracción se hace cada vez más chica a medida que $x$ crece o decrece sin límite, porque el denominador domina. La **asíntota horizontal** en ese caso siempre es $y=0$.\n\nEjemplos: $\\frac{1}{x}\\to0$ o $\\frac{x}{x^2}=\\frac{1}{x}\\to0$.\n\nEste caso siempre tiene asíntota horizontal, a diferencia de cuando el numerador tiene grado mayor, donde puede no existir.",
+    "explanation": "Cuando el grado del numerador es menor que el del denominador, la fracción se hace cada vez más chica a medida que $x$ crece o decrece sin límite, porque el denominador domina.\n\nLa **asíntota horizontal** en ese caso siempre es $y=0$.\n\nEjemplos: $\\frac{1}{x}\\to0$ o $\\frac{x}{x^2}=\\frac{1}{x}\\to0$.\n\nEste caso siempre tiene asíntota horizontal, a diferencia de cuando el numerador tiene grado mayor, donde puede no existir.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los interceptos con el eje $X$ de $f(x)=\\dfrac{P(x)}{Q(x)}$ son los valores donde la función vale $0$,.\n\nUna fracción vale $0$ únicamente cuando su numerador vale $0$ (siempre que el denominador no se anule ahí también). Por eso se resuelve $P(x)=0$ y se descartan las soluciones que también anulen $Q(x)$.\n\nResolver $Q(x)=0$ da, en cambio, las asíntotas verticales o los agujeros, no los cruces por el eje $X$.",
+    "explanation": "Los interceptos con el eje $X$ de $f(x)=\\dfrac{P(x)}{Q(x)}$ son los valores donde la función vale $0$,.\n\nUna fracción vale $0$ únicamente cuando su numerador vale $0$ (siempre que el denominador no se anule ahí también).\n\nPor eso se resuelve $P(x)=0$ y se descartan las soluciones que también anulen $Q(x)$.\n\nResolver $Q(x)=0$ da, en cambio, las asíntotas verticales o los agujeros, no los cruces por el eje $X$.",
     "reviewed": false,
     "tags": [
       "imagen-rango"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es mayor que el del denominador, la función crece (o decrece) sin cota cuando $x\\to\\pm\\infty$, así que no existe **asíntota horizontal**. En cambio, sí puede existir una asíntota oblicua si el grado del numerador supera al del denominador en exactamente uno.\n\nLos otros dos casos, grado menor o grados iguales, siempre tienen asíntota horizontal, en $y=0$ o en el cociente de coeficientes principales respectivamente.",
+    "explanation": "Cuando el grado del numerador es mayor que el del denominador, la función crece (o decrece) sin cota cuando $x\\to\\pm\\infty$, así que no existe **asíntota horizontal**.\n\nEn cambio, sí puede existir una asíntota oblicua si el grado del numerador supera al del denominador en exactamente uno.\n\nLos otros dos casos, grado menor o grados iguales, siempre tienen asíntota horizontal, en $y=0$ o en el cociente de coeficientes principales respectivamente.",
     "reviewed": false,
     "tags": [
       "imagen-rango"
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota oblicua** aparece cuando el grado del numerador supera en exactamente uno al del denominador. Al hacer la división polinomial en ese caso, el cociente resulta una expresión lineal $ax+b$ más un resto que tiende a cero cuando $x\\to\\pm\\infty$, así que la función se aproxima a la recta $y=ax+b$.\n\nSi los grados son iguales o el denominador tiene grado mayor, en cambio, la asíntota es horizontal, no oblicua.",
+    "explanation": "La **asíntota oblicua** aparece cuando el grado del numerador supera en exactamente uno al del denominador.\n\nAl hacer la división polinomial en ese caso, el cociente resulta una expresión lineal $ax+b$ más un resto que tiende a cero cuando $x\\to\\pm\\infty$, así que la función se aproxima a la recta $y=ax+b$.\n\nSi los grados son iguales o el denominador tiene grado mayor, en cambio, la asíntota es horizontal, no oblicua.",
     "reviewed": false,
     "tags": [
       "comportamiento-en-infinito"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales. En $f(x)=\\frac{-2x+1}{x+5}$ ese cociente es $\\frac{-2}{1}=-2$, así que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ tienden a $y=0$ (numerador de grado menor), y $\\frac{x-2}{x}$ tiende a $y=1$.",
+    "explanation": "La **asíntota horizontal**, cuando los grados de numerador y denominador coinciden, es el cociente de los coeficientes principales.\n\nEn $f(x)=\\frac{-2x+1}{x+5}$ ese cociente es $\\frac{-2}{1}=-2$, así que su asíntota horizontal es $y=-2$.\n\nLas otras opciones tienen asíntotas distintas: $\\frac{1}{x+2}$ y $\\frac{2}{x}$ tienden a $y=0$ (numerador de grado menor), y $\\frac{x-2}{x}$ tiende a $y=1$.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"

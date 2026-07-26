@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Derivación:**\n$2x + 4 = 0 \\Rightarrow x = -2$\n\nPara hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador. Acá el denominador es $2x+4$:$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$La asíntota vertical es $x=-2$.\n\nOlvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
+    "explanation": "**Derivación:**\n$2x + 4 = 0 \\Rightarrow x = -2$\n\nPara hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador.\n\nAcá el denominador es $2x+4$:$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$La asíntota vertical es $x=-2$.\n\nOlvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -748,7 +748,7 @@
       -5,
       5
     ],
-    "explanation": "Para leer un valor aproximado del gráfico, ubicamos $x=3$ en el eje horizontal y miramos la altura de la curva en ese punto. Algebraicamente, la función es $f(x)=\\frac{1}{x-1}$, así que:$$f(3)=\\frac{1}{3-1}=\\frac{1}{2}=0{,}5$$El punto $(3;\\,0{,}5)$ está sobre la rama derecha, bastante cerca del eje $X$, coherente con que la rama se aplana hacia la asíntota horizontal $y=0$ a medida que $x$ crece.\n\nLeer la coordenada $x$ equivocada en el eje, por ejemplo evaluando en $x=2$ en vez de $x=3$.",
+    "explanation": "Para leer un valor aproximado del gráfico, ubicamos $x=3$ en el eje horizontal y miramos la altura de la curva en ese punto.\n\nAlgebraicamente, la función es $f(x)=\\frac{1}{x-1}$, así que:$$f(3)=\\frac{1}{3-1}=\\frac{1}{2}=0{,}5$$El punto $(3;\\,0{,}5)$ está sobre la rama derecha, bastante cerca del eje $X$, coherente con que la rama se aplana hacia la asíntota horizontal $y=0$ a medida que $x$ crece.\n\nLeer la coordenada $x$ equivocada en el eje, por ejemplo evaluando en $x=2$ en vez de $x=3$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form"

@@ -769,7 +769,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica:\n$$C(h) = 800h + 1500$$\nEl parámetro $m = 800$ es lo que multiplica a la variable $h$: la tarifa por hora, es decir la **pendiente**. El término suelto $b = 1500$ es el costo fijo, la **ordenada al origen**.\n\nLa pendiente responde a la pregunta de cuánto sube el costo por cada hora extra de trabajo.\n\nPara chequear, evaluá: $C(0) = 1500$ (solo el fijo) y cada hora agrega 800. Si la cuenta con tu candidato a $m$ no reproduce eso, los parámetros están cruzados.",
+    "explanation": "En la forma canónica:\n$$C(h) = 800h + 1500$$\nEl parámetro $m = 800$ es lo que multiplica a la variable $h$: la tarifa por hora, es decir la **pendiente**.\n\nEl término suelto $b = 1500$ es el costo fijo, la **ordenada al origen**.\n\nLa pendiente responde a la pregunta de cuánto sube el costo por cada hora extra de trabajo.\n\nPara chequear, evaluá: $C(0) = 1500$ (solo el fijo) y cada hora agrega 800. Si la cuenta con tu candidato a $m$ no reproduce eso, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "parametros-contexto"
@@ -794,7 +794,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la fórmula reordenada:\n$$P(g) = 80g + 1200$$\nLa tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$. El abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra.\n\nCada GB adicional suma exactamente 80 pesos a la factura: eso es lo que significa la pendiente en este contexto.\n\nEste razonamiento muestra que responder el número más grande por parecer más importante: el rol se decide por la posición en la fórmula, no por el tamaño.",
+    "explanation": "En la fórmula reordenada:\n$$P(g) = 80g + 1200$$\nLa tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$.\n\nEl abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra.\n\nCada GB adicional suma exactamente 80 pesos a la factura: eso es lo que significa la pendiente en este contexto.\n\nEste razonamiento muestra que responder el número más grande por parecer más importante: el rol se decide por la posición en la fórmula, no por el tamaño.",
     "reviewed": false,
     "tags": [
       "parametros-contexto"
@@ -1203,7 +1203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad que define a una función lineal es la tasa de cambio constante:\n$$\\frac{f(x_2) - f(x_1)}{x_2 - x_1} = m$$\nPara cualquier par de puntos: el cociente no depende de dónde se mida. Eso es exactamente lo que hace que la gráfica sea una recta.\n\nLas demás propiedades (**dominio** $\\mathbb{R}$, **imagen** $\\mathbb{R}$ cuando $m \\neq 0$, un solo corte con cada eje) son consecuencias de esta.\n\nPara testear linealidad en una tabla de valores, mirá los cocientes de diferencias: si alguno cambia, no hay recta posible.",
+    "explanation": "La propiedad que define a una función lineal es la tasa de cambio constante:\n$$\\frac{f(x_2) - f(x_1)}{x_2 - x_1} = m$$\nPara cualquier par de puntos: el cociente no depende de dónde se mida.\n\nEso es exactamente lo que hace que la gráfica sea una recta.\n\nLas demás propiedades (**dominio** $\\mathbb{R}$, **imagen** $\\mathbb{R}$ cuando $m \\neq 0$, un solo corte con cada eje) son consecuencias de esta.\n\nPara testear linealidad en una tabla de valores, mirá los cocientes de diferencias: si alguno cambia, no hay recta posible.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
