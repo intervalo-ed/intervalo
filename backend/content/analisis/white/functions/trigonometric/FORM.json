@@ -823,7 +823,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para : con amplitud $4$ y período $\\pi$.\n$$f(x)=A\\,\\operatorname{sen}(Bx)$$\nse determinan $A$ y $B$:\n$$\\begin{aligned}\nA &= 4 \\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2:\n\\end{aligned}$$\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$.\n\nLa opción : tiene $A=\\pi$ y $B=4$:\n$$\\pi\\,\\operatorname{sen}(4x)$$\nNi la amplitud ni el período coinciden.\n\nLa opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$.\n\nno $\\pi$.",
+    "explanation": "Para : con amplitud $4$ y período $\\pi$.\n$$f(x)=A\\,\\operatorname{sen}(Bx)$$\nSe determinan $A$ y $B$:\n$$\\begin{aligned}\nA &= 4 \\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2:\n\\end{aligned}$$\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$.\n\nLa opción : tiene $A=\\pi$ y $B=4$:\n$$\\pi\\,\\operatorname{sen}(4x)$$\nNi la amplitud ni el período coinciden.\n\nLa opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$.\n\nno $\\pi$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -1003,7 +1003,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dada onda con máximo $6$.\n\nmínimo $2$ y período $2\\pi$.\n\nse calculan $A$.\n\n$D$ y $B$:\n$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1:\n\\end{aligned}$$\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción : tiene amplitud $6$ y mínimo $-4$.\n$$6\\,\\operatorname{sen}(x)+2$$\nno $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$.\n\nno $2$.",
+    "explanation": "Dada onda con máximo $6$.\n\nmínimo $2$ y período $2\\pi$.\n\nse calculan $A$.\n\n$D$ y $B$:\n$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1:\n\\end{aligned}$$\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción : tiene amplitud $6$ y mínimo $-4$.\n$$6\\,\\operatorname{sen}(x)+2$$\nNo $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$.\n\nNo $2$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"

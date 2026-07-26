@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos.\n\nAcá : se anula en $x=3$ y en $x=-3$.\n$$x^2-9=(x-3)(x+3)$$\nasí que el dominio es:\n$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-3,3\\}=(-\\infty,-3)\\cup(-3,3)\\cup(3,+\\infty)$$\nOlvidar una de las dos raíces y escribir el dominio con un solo punto excluido.\n\no confundir el término independiente $9$ con la raíz real.\n\nque en realidad es $\\pm3$.",
+    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos.\n\nAcá : se anula en $x=3$ y en $x=-3$.\n$$x^2-9=(x-3)(x+3)$$\nAsí que el dominio es:\n$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-3,3\\}=(-\\infty,-3)\\cup(-3,3)\\cup(3,+\\infty)$$\nOlvidar una de las dos raíces y escribir el dominio con un solo punto excluido.\n\no confundir el término independiente $9$ con la raíz real.\n\nque en realidad es $\\pm3$.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-form"
