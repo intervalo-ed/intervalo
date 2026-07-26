@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n$$\\begin{aligned} \\text{numerador} &= f(a+h) - f(a) \\\\ &= \\text{variación de } y \\end{aligned}$$\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
+    "explanation": "El numerador $f(a+h)-f(a)$ mide cuánto cambia el valor de la función al pasar del punto $a$ al punto $a+h$, es decir, la **variación vertical**.\n\nEsta variación todavía no es la derivada, porque falta relacionarla con cuánto se movió $x$, eso es exactamente lo que hace la división por $h$ en el denominador.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n$$\\frac{f(a+h) - f(a)}{h}$$\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
+    "explanation": "El cociente incremental resta primero los dos valores de la función, $f(a+h)$ y $f(a)$, y recién después divide esa diferencia por $h$.\n\nCualquier reordenamiento de esa estructura, dividir antes de restar, o dividir por $a$ en vez de por $h$, rompe el significado del cociente como tasa de cambio entre dos puntos cercanos.",
     "reviewed": false,
     "tags": [
       "anatomia-del-limite"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una recta que une dos puntos de la curva se llama **secante**, y su pendiente se calcula exactamente igual que la tasa de cambio promedio, dividiendo la diferencia de alturas por la diferencia de posiciones horizontales.\n\nPor eso, sin tomar ningún límite, hablar de tasa promedio y hablar de pendiente de la secante entre $a$ y $b$ es lo mismo.\n\nConfundir esta secante con la tangente es un error frecuente, la tangente aparece recién cuando el segundo punto colapsa sobre el primero.",
+    "explanation": "Una recta que une dos puntos de la curva se llama **secante**, y su pendiente se calcula exactamente igual que la tasa de cambio promedio, dividiendo la diferencia de alturas por la diferencia de posiciones horizontales.\n\nPor eso, sin tomar ningún límite, hablar de tasa promedio y hablar de pendiente de la secante entre $a$ y $b$ es lo mismo.\n\nConfundir esta secante con la tangente , la tangente aparece recién cuando el segundo punto colapsa sobre el primero.",
     "reviewed": false,
     "tags": [
       "tasa-instantanea-vs-promedio"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Mientras $h$ conserve un valor fijo distinto de cero, el cociente $\\frac{f(a+h)-f(a)}{h}$ describe un intervalo real, $[a, a+h]$, y su resultado es la **tasa de cambio promedio** en ese tramo.\n\nRecién cuando ese $h$ se hace tender a cero mediante un límite, el intervalo se colapsa y la tasa deja de ser promedio para volverse instantánea.\n\nEs un error común dar por instantáneo cualquier cociente incremental, aunque no tenga el símbolo de límite escrito.",
+    "explanation": "Mientras $h$ conserve un valor fijo distinto de cero, el cociente $\\frac{f(a+h)-f(a)}{h}$ describe un intervalo real, $[a, a+h]$, y su resultado es la **tasa de cambio promedio** en ese tramo.\n\nRecién cuando ese $h$ se hace tender a cero mediante un límite, el intervalo se colapsa y la tasa deja de ser promedio para volverse instantánea.\n\ndar por instantáneo cualquier cociente incremental, aunque no tenga el símbolo de límite escrito.",
     "reviewed": false,
     "tags": [
       "tasa-instantanea-vs-promedio"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\Delta$ describe una variación finita, la diferencia entre dos valores concretos y separados, así que $\\frac{\\Delta y}{\\Delta x}$ siempre corresponde a una tasa de cambio promedio.\n\nEl símbolo $d$, en cambio, aparece únicamente después de tomar el límite cuando esa variación tiende a cero, y por eso $\\frac{dy}{dx}$ representa la tasa de cambio instantánea.\n\nConfundir ambos símbolos es un error frecuente, sobre todo porque se parecen visualmente, pero uno describe un intervalo entero y el otro un único punto.",
+    "explanation": "El símbolo $\\Delta$ describe una variación finita, la diferencia entre dos valores concretos y separados, así que $\\frac{\\Delta y}{\\Delta x}$ siempre corresponde a una tasa de cambio promedio.\n\nEl símbolo $d$, en cambio, aparece únicamente después de tomar el límite cuando esa variación tiende a cero, y por eso $\\frac{dy}{dx}$ representa la tasa de cambio instantánea.\n\nConfundir ambos símbolos , sobre todo porque se parecen visualmente, pero uno describe un intervalo entero y el otro un único punto.",
     "reviewed": false,
     "tags": [
       "notacion-formal-derivada"
@@ -333,7 +333,7 @@
     "feedback_correct": "Correcto, el apóstrofe va pegado a $f$, y recién después se evalúa en $x$.",
     "feedback_incorrect": [
       "El apóstrofe va sobre $f$, no sobre la expresión ya evaluada, así se deriva primero y se evalúa después.",
-      "Falta el paréntesis que indica dónde se evalúa la función derivada, sin él la notación queda ambigua.",
+      "Hay que el paréntesis que indica dónde se evalúa la función derivada, sin él la notación queda ambigua.",
       null
     ],
     "graph_fn": null,
