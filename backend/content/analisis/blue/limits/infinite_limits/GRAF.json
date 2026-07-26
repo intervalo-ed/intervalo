@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "La **asíntota horizontal** de una función se define como el valor $L$ que cumple $\\lim_{x \\to \\pm\\infty} f(x) = L$, y ese límite determina la altura exacta de la recta, incluyendo su signo.\n\nAl leer en el gráfico que la curva se estabiliza en una altura **negativa**, el signo es parte fundamental de la información: no es lo mismo $y=-2$ que $y=2$. El error común es registrar solo la magnitud (valor absoluto) de esa altura y luego olvidar que era negativa al escribir la ecuación. En este caso, observar que las dos ramas descienden asimétricamente hacia abajo confirma que $L=-2$, no $L=2$.",
+    "explanation": "La **asíntota horizontal** de una función se define como el valor $L$ que cumple $\\lim_{x \\to \\pm\\infty} f(x) = L$, y ese límite determina la altura exacta de la recta, incluyendo su signo.\n\nAl leer en el gráfico que la curva se estabiliza en una altura **negativa**, el signo es parte fundamental de la información: no es lo mismo $y=-2$ que $y=2$. El error común es registrar solo la magnitud (valor absoluto) de esa altura y luego olvidar que era negativa al escribir la ecuación.\n\nEn este caso, observar que las dos ramas descienden asimétricamente hacia abajo confirma que $L=-2$, no $L=2$.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -141,7 +141,7 @@
       -1,
       6
     ],
-    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota. En esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 3$$\nLa curva puede cruzar esa altura en la zona central del gráfico sin que eso afecte la existencia de la asíntota en los extremos.",
+    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota.\n\nEn esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota.$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 3$$\nLa curva puede cruzar esa altura en la zona central del gráfico sin que eso afecte la existencia de la asíntota en los extremos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "La definición de **asíntota horizontal** es $\\lim_{x \\to \\pm\\infty} f(x) = L$, que se refiere exclusivamente al comportamiento de la función en los extremos, cuando $x$ toma valores muy grandes en valor absoluto.\n\nUn concepto erróneo frecuente es creer que la asíntota horizontal define una \"barrera\" que la función nunca puede cruzar, pero la realidad es que la curva puede intersectar esa recta en cualquier punto intermedio (zona central) sin que eso invalide su condición de asíntota. Lo que importa es que cuando $x \\to +\\infty$ y $x \\to -\\infty$, la distancia entre $f(x)$ y la altura $L$ tienda a cero, aunque en el trayecto la función haya subido, bajado, oscilado o cruzado esa altura múltiples veces.",
+    "explanation": "La definición de **asíntota horizontal** es $\\lim_{x \\to \\pm\\infty} f(x) = L$, que se refiere exclusivamente al comportamiento de la función en los extremos, cuando $x$ toma valores muy grandes en valor absoluto.\n\nUn concepto erróneo frecuente es creer que la asíntota horizontal define una \"barrera\" que la función nunca puede cruzar, pero la realidad es que la curva puede intersectar esa recta en cualquier punto intermedio (zona central) sin que eso invalide su condición de asíntota.\n\nLo que importa es que cuando $x \\to +\\infty$ y $x \\to -\\infty$, la distancia entre $f(x)$ y la altura $L$ tienda a cero, aunque en el trayecto la función haya subido, bajado, oscilado o cruzado esa altura múltiples veces.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -199,7 +199,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una gráfica es la recta $x=a$ donde la función no está definida y diverge a $\\pm\\infty$. No hay que confundirla con la raíz de la función, el punto donde la curva cruza el eje horizontal.\n$$x \\to 3 \\ \\Rightarrow \\ f(x) \\to \\pm\\infty$$\nEn esta gráfica, la curva cruza el eje horizontal en $x=1$ pero se rompe en $x=3$, dos lecturas distintas de la misma curva.",
+    "explanation": "La **asíntota vertical** de una gráfica es la recta $x=a$ donde la función no está definida y diverge a $\\pm\\infty$.\n\nNo hay que confundirla con la raíz de la función, el punto donde la curva cruza el eje horizontal.$$x \\to 3 \\ \\Rightarrow \\ f(x) \\to \\pm\\infty$$\nEn esta gráfica, la curva cruza el eje horizontal en $x=1$ pero se rompe en $x=3$, dos lecturas distintas de la misma curva.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -257,7 +257,7 @@
       -8,
       8
     ],
-    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$. En esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.\n$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= -\\infty \\\\ \\lim_{x \\to 2^+} f(x) &= +\\infty \\end{aligned}$$\nNo hace falta que ambas ramas vayan en la misma dirección para que exista la asíntota vertical, alcanza con que al menos una diverga al infinito.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.$$\\begin{aligned} \\lim_{x \\to 2^-} f(x) &= -\\infty \\\\ \\lim_{x \\to 2^+} f(x) &= +\\infty \\end{aligned}$$\nNo hace falta que ambas ramas vayan en la misma dirección para que exista la asíntota vertical, alcanza con que al menos una diverga al infinito.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -315,7 +315,7 @@
       -3,
       10
     ],
-    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$. Una parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.\n$$\\text{sin rupturas visibles} \\ \\Rightarrow \\ \\text{sin asíntota vertical}$$\nNo toda función tiene asíntota vertical, los polinomios completos, como las parábolas, nunca la tienen.",
+    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$.\n\nUna parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.$$\\text{sin rupturas visibles} \\ \\Rightarrow \\ \\text{sin asíntota vertical}$$\nNo toda función tiene asíntota vertical, los polinomios completos, como las parábolas, nunca la tienen.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -345,7 +345,7 @@
       -1,
       10
     ],
-    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta. Un extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEste razonamiento muestra que frecuente al leer gráficas de funciones exponenciales.",
+    "explanation": "La **asimetría en el infinito** es típica de funciones exponenciales crecientes: los dos extremos se comportan de forma radicalmente distinta.\n\nUn extremo alcanza una **asíntota horizontal**, mientras el otro diverge sin freno.\n\nEste razonamiento muestra que frecuente al leer gráficas de funciones exponenciales.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -375,7 +375,7 @@
       -1,
       10
     ],
-    "explanation": "Mientras un extremo de la gráfica se estabiliza en una **asíntota horizontal**, el otro extremo se abre completamente hacia una **divergencia**. Esta es la esencia de la **asimetría en el infinito**: dos comportamientos cualitativamente diferentes en los dos extremos de $x$.\n\nHacia $x \\to +\\infty$, una función exponencial creciente no se estabiliza en ningún valor, sigue creciendo sin cota.\n$$\\lim_{x \\to +\\infty} 2^x = +\\infty$$\nEsta gráfica confirma que mientras un extremo se aplana en $y=0$, el otro diverge, dos comportamientos completamente distintos en la misma curva.",
+    "explanation": "Mientras un extremo de la gráfica se estabiliza en una **asíntota horizontal**, el otro extremo se abre completamente hacia una **divergencia**.\n\nEsta es la esencia de la **asimetría en el infinito**: dos comportamientos cualitativamente diferentes en los dos extremos de $x$.\n\nHacia $x \\to +\\infty$, una función exponencial creciente no se estabiliza en ningún valor, sigue creciendo sin cota.\n$$\\lim_{x \\to +\\infty} 2^x = +\\infty$$\nEsta gráfica confirma que mientras un extremo se aplana en $y=0$, el otro diverge, dos comportamientos completamente distintos en la misma curva.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -405,7 +405,7 @@
       -8,
       8
     ],
-    "explanation": "En funciones racionales donde el numerador domina en grado, la **asimetría en el infinito** surge de la paridad de la potencia dominante. Con un grado impar en el numerador, los dos extremos divergen en direcciones opuestas, reflejando la inversión de signo que produce una potencia impar.\n\nEn funciones racionales donde el numerador domina en grado, cada extremo se analiza por separado. Acá el grado del numerador es impar, así que el signo del resultado se invierte entre un extremo y el otro.\n$$\\lim_{x \\to -\\infty} \\frac{x^3}{x^2+1} = -\\infty$$\nNo hay que asumir que ambos extremos divergen con el mismo signo, esta es una gráfica típica de un polinomio de grado impar que domina sobre el denominador.",
+    "explanation": "En funciones racionales donde el numerador domina en grado, la **asimetría en el infinito** surge de la paridad de la potencia dominante.\n\nCon un grado impar en el numerador, los dos extremos divergen en direcciones opuestas, reflejando la inversión de signo que produce una potencia impar.\n\nEn funciones racionales donde el numerador domina en grado, cada extremo se analiza por separado.\n\nAcá el grado del numerador es impar, así que el signo del resultado se invierte entre un extremo y el otro.$$\\lim_{x \\to -\\infty} \\frac{x^3}{x^2+1} = -\\infty$$\nNo hay que asumir que ambos extremos divergen con el mismo signo, esta es una gráfica típica de un polinomio de grado impar que domina sobre el denominador.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"
@@ -435,7 +435,7 @@
       -8,
       8
     ],
-    "explanation": "La **asimetría en el infinito** característica de potencias impares es un reflejo directo de cómo el signo de $x$ afecta a una función cuando crece sin límite. Hacia $x \\to +\\infty$, la función sube, mientras que hacia $x \\to -\\infty$, baja: es el espejo exacto de su propio comportamiento.\n\nHacia $x \\to +\\infty$, el numerador de grado impar domina con signo positivo, así que la función crece sin cota.\n$$\\lim_{x \\to +\\infty} \\frac{x^3}{x^2+1} = +\\infty$$\nJunto con la gráfica anterior, esta confirma que ambos extremos divergen pero con signos opuestos, la asimetría completa del comportamiento en el infinito.",
+    "explanation": "La **asimetría en el infinito** característica de potencias impares es un reflejo directo de cómo el signo de $x$ afecta a una función cuando crece sin límite.\n\nHacia $x \\to +\\infty$, la función sube, mientras que hacia $x \\to -\\infty$, baja: es el espejo exacto de su propio comportamiento.\n\nHacia $x \\to +\\infty$, el numerador de grado impar domina con signo positivo, así que la función crece sin cota.\n$$\\lim_{x \\to +\\infty} \\frac{x^3}{x^2+1} = +\\infty$$\nJunto con la gráfica anterior, esta confirma que ambos extremos divergen pero con signos opuestos, la asimetría completa del comportamiento en el infinito.",
     "reviewed": false,
     "tags": [
       "asimetria-en-el-infinito"

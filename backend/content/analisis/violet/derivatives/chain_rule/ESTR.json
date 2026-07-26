@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^{\\ln x}$, la exponencial se aplica sobre el resultado del logaritmo natural, así que la **capa exterior** es la exponencial.\n\nAunque esta composición particular se simplifique algebraicamente a $x$, identificar bien su anatomía sigue siendo el primer paso antes de decidir cómo derivarla. La **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
+    "explanation": "En $e^{\\ln x}$, la exponencial se aplica sobre el resultado del logaritmo natural, así que la **capa exterior** es la exponencial.\n\nAunque esta composición particular se simplifique algebraicamente a $x$, identificar bien su anatomía sigue siendo el primer paso antes de decidir cómo derivarla.\n\nLa **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^{3x}$, la exponencial se aplica sobre el resultado de la expresión lineal $3x$, así que esa expresión es la **capa interior**.\n\nConfundir esta composición con el producto $3x \\cdot e^x$ , la variable $x$ acá vive dentro del exponente, no multiplicando afuera. La **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
+    "explanation": "En $e^{3x}$, la exponencial se aplica sobre el resultado de la expresión lineal $3x$, así que esa expresión es la **capa interior**.\n\nConfundir esta composición con el producto $3x \\cdot e^x$ , la variable $x$ acá vive dentro del exponente, no multiplicando afuera.\n\nLa **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la variable aparece dentro del exponente de una exponencial junto con un coeficiente, se trata de una **función compuesta**, no de un producto.\n\nConfundir esta estructura con un producto , la clave está en notar que $3x$ vive dentro del exponente, no multiplicando por fuera. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Cuando la variable aparece dentro del exponente de una exponencial junto con un coeficiente, se trata de una **función compuesta**, no de un producto.\n\nConfundir esta estructura con un producto , la clave está en notar que $3x$ vive dentro del exponente, no multiplicando por fuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nMirando de cerca, confundir esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nMirando de cerca, confundir esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el argumento de una función elemental es distinto de $x$ solo, como $x^2$ dentro del logaritmo, corresponde la **regla de la cadena**.\n\nNo hay ningún producto ni cociente en esta estructura, el logaritmo simplemente se evalúa sobre el resultado de elevar $x$ al cuadrado. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Cuando el argumento de una función elemental es distinto de $x$ solo, como $x^2$ dentro del logaritmo, corresponde la **regla de la cadena**.\n\nNo hay ningún producto ni cociente en esta estructura, el logaritmo simplemente se evalúa sobre el resultado de elevar $x$ al cuadrado.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $\\sin x$ ocupa el numerador y $x$ el denominador de una fracción, una estructura de **cociente**, no de composición.\n\nAunque visualmente aparezcan dos funciones juntas, acá ninguna se evalúa dentro de la otra, están simplemente divididas. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Acá $\\sin x$ ocupa el numerador y $x$ el denominador de una fracción, una estructura de **cociente**, no de composición.\n\nAunque visualmente aparezcan dos funciones juntas, acá ninguna se evalúa dentro de la otra, están simplemente divididas.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el medicamento con código 4 figura en dos pasillos.\n\nUna entrada con dos salidas rompe la condición, así que no es función. Que en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el medicamento con código 4 figura en dos pasillos.\n\nUna entrada con dos salidas rompe la condición, así que no es función. Que en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el alumno 12 quedó con dos notas finales.\n\nDos salidas para la misma entrada rompen la **unicidad**, así que no es función. Elegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el alumno 12 quedó con dos notas finales.\n\nDos salidas para la misma entrada rompen la **unicidad**, así que no es función. Elegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá la talla 40 se convierte en dos tallas locales.\n\nUna entrada con dos salidas no define función. Que M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá la talla 40 se convierte en dos tallas locales.\n\nUna entrada con dos salidas no define función. Que M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el mismo plato figura con dos precios.\n\nDos salidas para la misma entrada no definen función. Para modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el mismo plato figura con dos precios.\n\nDos salidas para la misma entrada no definen función. Para modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada.\n\nLa asignación es función. pedir salidas distintas: eso sería otra propiedad, no la condición de función. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada.\n\nLa asignación es función. pedir salidas distintas: eso sería otra propiedad, no la condición de función.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -363,7 +363,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las cantidades de facturas.\n\nLos precios que salen forman la **imagen**, no el dominio. tomar los valores de salida como dominio: fijate siempre qué se ingresa a la función, no qué devuelve. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las cantidades de facturas.\n\nLos precios que salen forman la **imagen**, no el dominio. tomar los valores de salida como dominio: fijate siempre qué se ingresa a la función, no qué devuelve.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -388,7 +388,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las temperaturas en Celsius.\n\nLas temperaturas en Fahrenheit son las salidas, así que forman el **codominio**. mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las temperaturas en Celsius.\n\nLas temperaturas en Fahrenheit son las salidas, así que forman el **codominio**. mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas. Acá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas. Acá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -513,7 +513,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. Una división no admite denominador cero.\n\nPor eso $x = -2$ queda fuera del dominio natural. probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. Una división no admite denominador cero.\n\nPor eso $x = -2$ queda fuera del dominio natural. probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -563,7 +563,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x < -3$ el radicando sería negativo. leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x < -3$ el radicando sería negativo. leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -638,7 +638,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz exige radicando no negativo.\n\nFuera de ese intervalo el radicando es negativo. quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz exige radicando no negativo.\n\nFuera de ese intervalo el radicando es negativo. quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -688,7 +688,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nTenés que verificar que con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nTenés que verificar que con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -713,7 +713,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. El denominador no puede ser cero.\n\nPor eso $x = 5$ no pertenece al dominio natural. El numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. El denominador no puede ser cero.\n\nPor eso $x = 5$ no pertenece al dominio natural. El numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -763,7 +763,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** es $\\{0, \\dots, 100\\}$, pero solo se dieron.\n\nEse es el conjunto imagen. dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** es $\\{0, \\dots, 100\\}$, pero solo se dieron.\n\nEse es el conjunto imagen. dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -788,7 +788,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** incluye S, M y L, pero solo se asignan M y L.\n\nEl conjunto imagen es $\\{M, L\\}$. copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** incluye S, M y L, pero solo se asignan M y L.\n\nEl conjunto imagen es $\\{M, L\\}$. copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -863,7 +863,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza. Acá la función produce siempre el mismo valor.\n\nPor eso la imagen es $\\{7\\}$, con un solo elemento. dar el **dominio**; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza. Acá la función produce siempre el mismo valor.\n\nPor eso la imagen es $\\{7\\}$, con un solo elemento. dar el **dominio**; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -913,7 +913,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo. Acá la función solo produce.\n\nAsí que la imagen es exactamente $\\{0, 1, 4, 9\\}$. rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo. Acá la función solo produce.\n\nAsí que la imagen es exactamente $\\{0, 1, 4, 9\\}$. rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles. Acá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles. Acá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -963,7 +963,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles. Acá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul.\n\nLa imagen es $\\{$rojo, azul$\\}$. incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles. Acá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul.\n\nLa imagen es $\\{$rojo, azul$\\}$. incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -1163,7 +1163,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que.\n\nEl valor 0 nunca se alcanza, así que no tiene preimagen. probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que.\n\nEl valor 0 nunca se alcanza, así que no tiene preimagen. probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver.\n\nEl 16 tiene exactamente dos preimágenes. pensar que ser **imagen** impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver.\n\nEl 16 tiene exactamente dos preimágenes. pensar que ser **imagen** impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"

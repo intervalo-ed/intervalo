@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^x$ y aplicamos Barrow.\n\nEl error más común acá es asumir que $F(0)=0$ porque el límite inferior es cero, pero $e^0=1$, no cero.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\". Pero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
+    "explanation": "Armamos la primitiva $F(x)=e^x$ y aplicamos Barrow.\n\nEl error más común acá es asumir que $F(0)=0$ porque el límite inferior es cero, pero $e^0=1$, no cero.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\".\n\nPero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\". Pero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
+    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\".\n\nPero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para aplicar la regla de Barrow correctamente, hay que evaluar la primitiva en ambos límites sin excepciones, independientemente de que uno de ellos sea cero.\n$$F(x)=\\frac{2e^{2x}}{2}=e^{2x}$$\n$$\\int_0^1 2e^{2x}\\,dx = \\left[e^{2x}\\right]_0^1 = e^2 - e^0 = e^2 - 1$$\nEl error conceptual típico es asumir que \"como el límite inferior es $0$, la evaluación en $x=0$ debe dar $0$\". Esto es falso. La propiedad $e^0=1$ (no cero) siempre se aplica, y esa evaluación es fundamental para obtener el resultado correcto. No se puede descartar el término $F(0)$ solo porque el límite sea cero.",
+    "explanation": "Para aplicar la regla de Barrow correctamente, hay que evaluar la primitiva en ambos límites sin excepciones, independientemente de que uno de ellos sea cero.\n$$F(x)=\\frac{2e^{2x}}{2}=e^{2x}$$\n$$\\int_0^1 2e^{2x}\\,dx = \\left[e^{2x}\\right]_0^1 = e^2 - e^0 = e^2 - 1$$El error conceptual típico es asumir que \"como el límite inferior es $0$, la evaluación en $x=0$ debe dar $0$\". Esto es falso. La propiedad $e^0=1$ (no cero) siempre se aplica, y esa evaluación es fundamental para obtener el resultado correcto.\n\nNo se puede descartar el término $F(0)$ solo porque el límite sea cero.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

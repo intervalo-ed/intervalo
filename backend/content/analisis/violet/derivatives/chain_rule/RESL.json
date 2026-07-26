@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$, con $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon $h(\\pi)=\\cos\\pi = -1$ y $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$, con $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon $h(\\pi)=\\cos\\pi = -1$ y $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=x+1$, con $g'(u)=\\frac{1}{u}$ y $h'(x)=1$.\n\nEl ancla es $h(0)=0+1=1$, que simplifica $g'(1)=\\frac{1}{1}=1$.\n\nAdemás $h'(0)=1$:\n\nEl ancla $h(0)=1$ simplifica la capa exterior a un valor trivial, evitando cualquier cálculo complicado con logaritmos. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=x+1$, con $g'(u)=\\frac{1}{u}$ y $h'(x)=1$.\n\nEl ancla es $h(0)=0+1=1$, que simplifica $g'(1)=\\frac{1}{1}=1$.\n\nAdemás $h'(0)=1$:\n\nEl ancla $h(0)=1$ simplifica la capa exterior a un valor trivial, evitando cualquier cálculo complicado con logaritmos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=2x-2$, con $g'(u)=e^u$ y $h'(x)=2$.\n\nEl ancla es $h(1)=2(1)-2=0$, que simplifica $g'(0)=e^0=1$.\n\nAdemás $h'(1)=2$:\n\nEl ancla $h(1)=0$ simplifica la capa exterior, dejando el resultado final determinado enteramente por la derivada interior. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=2x-2$, con $g'(u)=e^u$ y $h'(x)=2$.\n\nEl ancla es $h(1)=2(1)-2=0$, que simplifica $g'(0)=e^0=1$.\n\nAdemás $h'(1)=2$:\n\nEl ancla $h(1)=0$ simplifica la capa exterior, dejando el resultado final determinado enteramente por la derivada interior.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=x-\\pi$, con $g'(u)=\\cos u$ y $h'(x)=1$.\n\nEl ancla es $h(\\pi)=\\pi-\\pi=0$, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás $h'(\\pi)=1$:\n\nEl ancla $h(\\pi)=0$ simplifica la capa exterior, evitando cualquier cálculo trigonométrico complicado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=x-\\pi$, con $g'(u)=\\cos u$ y $h'(x)=1$.\n\nEl ancla es $h(\\pi)=\\pi-\\pi=0$, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás $h'(\\pi)=1$:\n\nEl ancla $h(\\pi)=0$ simplifica la capa exterior, evitando cualquier cálculo trigonométrico complicado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula de la **regla de la cadena** se aplica directamente con los datos dados.\n\nComo $h(2)=3$, la derivada de la exterior se evalúa en $3$, no en $2$:\n\nLa derivada de la exterior se busca evaluada en $h(2)=3$, no en $2$, ese es el detalle que más se pierde en este tipo de ítem. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La fórmula de la **regla de la cadena** se aplica directamente con los datos dados.\n\nComo $h(2)=3$, la derivada de la exterior se evalúa en $3$, no en $2$:\n\nLa derivada de la exterior se busca evaluada en $h(2)=3$, no en $2$, ese es el detalle que más se pierde en este tipo de ítem.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(1)=0$, buscamos $g'(0)=2$:\n\nEl dato $h(1)=0$ indica en qué punto evaluar la derivada de la exterior, sin anular por sí solo el resultado. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(1)=0$, buscamos $g'(0)=2$:\n\nEl dato $h(1)=0$ indica en qué punto evaluar la derivada de la exterior, sin anular por sí solo el resultado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(0)=5$, buscamos $g'(5)=3$:\n\nEl signo negativo de $h'(0)=-1$ se traslada directamente al resultado final, sin ningún otro ajuste adicional. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(0)=5$, buscamos $g'(5)=3$:\n\nEl signo negativo de $h'(0)=-1$ se traslada directamente al resultado final, sin ningún otro ajuste adicional.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(3)=1$, buscamos $g'(1)=-4$:\n\nLa derivada de la exterior se busca evaluada en $h(3)=1$, no en $3$, ese es el paso crítico de la **regla de la cadena**. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicamos la fórmula de la **regla de la cadena** directamente con los datos dados. Como $h(3)=1$, buscamos $g'(1)=-4$:\n\nLa derivada de la exterior se busca evaluada en $h(3)=1$, no en $3$, ese es el paso crítico de la **regla de la cadena**.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-datos-abstractos-cadena"

@@ -1043,7 +1043,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto de corte con el eje vertical es $(0, 3)$, y solo la fórmula con coeficiente $2$ y desplazamiento $+1$ da ese valor, ya que $2 \\cdot 1 + 1 = 3$; las opciones sin uno de esos dos elementos dan $f(0) = 2$.\n\nLa curva es creciente, así que la base debe ser mayor que $1$, lo que descarta la opción con base $0{,}5$.\n\nAdemás, la asíntota está en $y = 1$, lo que descarta la fórmula sin desplazamiento vertical.\n\nLa única fórmula que cumple coeficiente, desplazamiento y monotonía a la vez es $2 \\cdot (1{,}5)^x + 1$.",
+    "explanation": "El punto de corte con el eje vertical es $(0, 3)$, y solo la fórmula con coeficiente $2$ y desplazamiento $+1$ da ese valor, ya que $2 \\cdot 1 + 1 = 3$.\n\nLas opciones sin uno de esos dos elementos dan $f(0) = 2$.\n\nLa curva es creciente, así que la base debe ser mayor que $1$, lo que descarta la opción con base $0{,}5$.\n\nAdemás, la asíntota está en $y = 1$, lo que descarta la fórmula sin desplazamiento vertical.\n\nLa única fórmula que cumple coeficiente, desplazamiento y monotonía a la vez es $2 \\cdot (1{,}5)^x + 1$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

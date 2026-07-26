@@ -160,7 +160,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que lo de adentro no sea negativo, así que.\n\nEsto da como resultado $h \\geq 0$. El dominio natural sale de las restricciones de la función: acá, que el radicando no sea negativo. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que lo de adentro no sea negativo, así que.\n\nEsto da como resultado $h \\geq 0$. El dominio natural sale de las restricciones de la función: acá, que el radicando no sea negativo.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -206,7 +206,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**. Acá las entradas que vas a procesar son los tipos de copia.\n\nLos precios resultantes forman la **imagen** de la función. El dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**. Acá las entradas que vas a procesar son los tipos de copia.\n\nLos precios resultantes forman la **imagen** de la función. El dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -281,7 +281,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n\nolvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n\nolvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -703,7 +703,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función. Acá las únicas etiquetas que el sistema admite ingresar son.\n\nLos alumnos rinden y toman el lugar del **dominio**. Un formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función. Acá las únicas etiquetas que el sistema admite ingresar son.\n\nLos alumnos rinden y toman el lugar del **dominio**. Un formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -774,7 +774,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -847,7 +847,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática. Al extraer el valor absoluto de cada término inicial.\n\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$. Al armar la imagen quedate solo con los resultados distintos: $\\{0, 2, 4\\}$, sin repetir. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática. Al extraer el valor absoluto de cada término inicial.\n\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$. Al armar la imagen quedate solo con los resultados distintos: $\\{0, 2, 4\\}$, sin repetir.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1039,7 +1039,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo. Para atrapar a la preimagen del 0, necesitás despejar la ecuación.\n\nLa preimagen buscada es el 3. Preimagen no es $f(k)$: acá no evaluás, despejás qué entrada produce la salida $0$. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo. Para atrapar a la preimagen del 0, necesitás despejar la ecuación.\n\nLa preimagen buscada es el 3. Preimagen no es $f(k)$: acá no evaluás, despejás qué entrada produce la salida $0$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1064,7 +1064,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida. Acá se busca destrabar la expresión.\n\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$.\n\nUn mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida. Acá se busca destrabar la expresión.\n\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$.\n\nUn mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1089,7 +1089,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** reúnen todas las raíces que apuntan hacia una misma salida en la función. Para hallar las raíces del 1 en esta función, armás la igualdad $|x| = 1$, que se separa en.\n\nUna salida puede presumir de varias preimágenes sin romper las funcións de juego. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** reúnen todas las raíces que apuntan hacia una misma salida en la función. Para hallar las raíces del 1 en esta función, armás la igualdad $|x| = 1$, que se separa en.\n\nUna salida puede presumir de varias preimágenes sin romper las funcións de juego.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1112,7 +1112,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida. Como la función aplana todo el universo numérico en el 8.\n\nNo hay preimagen que solucione esto. Si un valor no pertenece a la **imagen** no tiene preimagen: no hay entrada que lo produzca. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida. Como la función aplana todo el universo numérico en el 8.\n\nNo hay preimagen que solucione esto. Si un valor no pertenece a la **imagen** no tiene preimagen: no hay entrada que lo produzca.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"

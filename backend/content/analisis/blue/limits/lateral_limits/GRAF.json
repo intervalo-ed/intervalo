@@ -143,7 +143,7 @@
       -1,
       4
     ],
-    "explanation": "Una gráfica con forma de V, como la de una expresión con **valor absoluto**, tiene dos ramas rectas que se encuentran en el vértice. Para leer el límite lateral, se sigue la rama correspondiente hasta ese punto.\n$$\\lim_{x \\to 2^-} |x-2| = |2-2| = 0$$\nLa rama izquierda desciende linealmente hasta tocar $y=0$ en $x=2$.\n\nEn este caso particular, como la V es continua en el vértice, el límite por la izquierda coincide con el límite por la derecha y con el valor de la función.",
+    "explanation": "Una gráfica con forma de V, como la de una expresión con **valor absoluto**, tiene dos ramas rectas que se encuentran en el vértice.\n\nPara leer el límite lateral, se sigue la rama correspondiente hasta ese punto.$$\\lim_{x \\to 2^-} |x-2| = |2-2| = 0$$\nLa rama izquierda desciende linealmente hasta tocar $y=0$ en $x=2$.\n\nEn este caso particular, como la V es continua en el vértice, el límite por la izquierda coincide con el límite por la derecha y con el valor de la función.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"

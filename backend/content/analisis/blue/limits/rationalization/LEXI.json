@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites. Cuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nSi olvidas revisar cuál signo corresponde cambiar, multiplicarás por un conjugado incorrecto y la raíz no desaparecerá como es debido.",
+    "explanation": "El **conjugado** es una herramienta algebraica clave para trabajar con raíces en límites.\n\nCuando encontramos una indeterminación 0/0 causada por una raíz cuadrada, el conjugado nos permite transformar la expresión sin cambiar su valor en el límite.\n\nEl **conjugado** de una expresión con raíz cuadrada del tipo $\\sqrt{u} - c$ se construye cambiando únicamente el signo entre los dos términos externos, sin alterar el radicando.\n$$\\sqrt{x+4} - 2 \\;\\to\\; \\sqrt{x+4} + 2$$\nAl multiplicar la expresión original por este conjugado se dispara la **diferencia de cuadrados**, que rompe la raíz y permite cancelar el factor problemático.\n\nSi olvidas revisar cuál signo corresponde cambiar, multiplicarás por un conjugado incorrecto y la raíz no desaparecerá como es debido.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces. El conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nSi cambias el signo del radicando en lugar del signo externo, tu conjugado no funcionará para romper la raíz cuando lo necesites.",
+    "explanation": "Identificar el conjugado correctamente es fundamental para resolver límites con raíces.\n\nEl conjugado prepara la estructura para que, al multiplicar, la raíz desaparezca mediante la diferencia de cuadrados.\n\nEl **conjugado** de una expresión con raíz cuadrada se arma invirtiendo el signo entre los dos términos externos, sin modificar el radicando.\n$$\\sqrt{x+9} + 5 \\;\\to\\; \\sqrt{x+9} - 5$$\nAl multiplicar por este conjugado se genera una **diferencia de cuadrados** que libera el radicando, quedando $(x+9) - 25$.\n\nSi cambias el signo del radicando en lugar del signo externo, tu conjugado no funcionará para romper la raíz cuando lo necesites.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjugado es la clave para una racionalización exitosa. Construirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nSi inviertes el signo equivocado, perderás la estructura que permite aplicar la diferencia de cuadrados y desbloquear la raíz.",
+    "explanation": "El conjugado es la clave para una racionalización exitosa.\n\nConstruirlo correctamente-solo cambiando el signo externo-asegura que luego podamos aplicar la identidad de diferencia de cuadrados para romper la raíz.\n\nPara armar el **conjugado** de $\\sqrt{u} - c$ se invierte solo el signo entre los dos términos externos, dejando intacto el radicando $u$.\n$$\\sqrt{2x+1} - 3 \\;\\to\\; \\sqrt{2x+1} + 3$$\nAl multiplicar la expresión original por este conjugado, la **diferencia de cuadrados** transforma el numerador en $(2x+1) - 9$, sin raíces.\n\nSi inviertes el signo equivocado, perderás la estructura que permite aplicar la diferencia de cuadrados y desbloquear la raíz.",
     "reviewed": false,
     "tags": [
       "identificacion-del-conjugado"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La identidad fundamental de la racionalización explica cómo una raíz cuadrada y su conjugado, al multiplicarse, producen siempre una diferencia de cuadrados sin raíces. Es el puente entre la forma complicada (con raíz) y la forma simple (sin raíz) que necesitamos para resolver el límite.\n\nLa **identidad fundamental** de la racionalización establece que el producto de una expresión con raíz por su **conjugado** siempre da una **diferencia de cuadrados**.\n$$(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$$\nLos términos cruzados $c\\sqrt{u}$ y $-c\\sqrt{u}$ se cancelan entre sí, y solo sobrevive el radicando menos el cuadrado del otro término.\n\nEsta identidad se confunde con frecuencia con el cuadrado de un binomio, que sí conserva un término con raíz: la clave para distinguirlas es que acá los signos entre los términos son opuestos.",
+    "explanation": "La identidad fundamental de la racionalización explica cómo una raíz cuadrada y su conjugado, al multiplicarse, producen siempre una diferencia de cuadrados sin raíces.\n\nEs el puente entre la forma complicada (con raíz) y la forma simple (sin raíz) que necesitamos para resolver el límite.\n\nLa **identidad fundamental** de la racionalización establece que el producto de una expresión con raíz por su **conjugado** siempre da una **diferencia de cuadrados**.\n$$(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$$\nLos términos cruzados $c\\sqrt{u}$ y $-c\\sqrt{u}$ se cancelan entre sí, y solo sobrevive el radicando menos el cuadrado del otro término.\n\nEsta identidad se confunde con frecuencia con el cuadrado de un binomio, que sí conserva un término con raíz: la clave para distinguirlas es que acá los signos entre los términos son opuestos.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de aplicar cualquier técnica algebraica, conviene diagnosticar qué transformación necesita la expresión. El límite es una herramienta para entender el comportamiento de una función donde la sustitución directa falla; si la sustitución ya da un valor, ese valor es directamente el límite.\n\nDiagnosticar la técnica correcta empieza por revisar dos cosas: si aparece **indeterminación** al sustituir y si la expresión tiene alguna raíz cuadrada.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\nAl sustituir $x=3$ se obtiene una indeterminación $0/0$, pero como no hay ninguna raíz en el cociente, la indeterminación se resuelve factorizando el polinomio del numerador, no racionalizando.\n\nLa racionalización solo entra en juego cuando la indeterminación viene acompañada de al menos una raíz cuadrada en la expresión.",
+    "explanation": "Antes de aplicar cualquier técnica algebraica, conviene diagnosticar qué transformación necesita la expresión.\n\nEl límite es una herramienta para entender el comportamiento de una función donde la sustitución directa falla; si la sustitución ya da un valor, ese valor es directamente el límite.\n\nDiagnosticar la técnica correcta empieza por revisar dos cosas: si aparece **indeterminación** al sustituir y si la expresión tiene alguna raíz cuadrada.\n$$\\lim_{x \\to 3} \\frac{x^2-9}{x-3}$$\nAl sustituir $x=3$ se obtiene una indeterminación $0/0$, pero como no hay ninguna raíz en el cociente, la indeterminación se resuelve factorizando el polinomio del numerador, no racionalizando.\n\nLa racionalización solo entra en juego cuando la indeterminación viene acompañada de al menos una raíz cuadrada en la expresión.",
     "reviewed": false,
     "tags": [
       "diagnostico-racionalizar-vs-factorizar"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1. Esta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
+    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n$$\\lim_{x \\to 2} \\frac{\\sqrt{x+7}}{x+1}$$\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El propósito de multiplicar por el conjugado es transformar algebraicamente la expresión para que la indeterminación desaparezca. Un límite nos ayuda a entender a qué valor se aproxima la función, incluso en puntos donde no está definida.\n\nEl **conjugado** se multiplica arriba y abajo porque la fracción $\\tfrac{\\text{conjugado}}{\\text{conjugado}}$ es igual a $1$.\n$$\\frac{f(x)}{g(x)} \\cdot \\frac{\\text{conjugado}}{\\text{conjugado}} = \\frac{f(x)}{g(x)}$$\nMultiplicar por $1$ transforma la forma de la expresión sin cambiar su valor, lo que permite reescribirla hasta que la **indeterminación** desaparezca.\n\nSi se multiplicara solo el numerador, la función dejaría de ser la misma, y el límite calculado ya no correspondería al original.",
+    "explanation": "El propósito de multiplicar por el conjugado es transformar algebraicamente la expresión para que la indeterminación desaparezca.\n\nUn límite nos ayuda a entender a qué valor se aproxima la función, incluso en puntos donde no está definida.\n\nEl **conjugado** se multiplica arriba y abajo porque la fracción $\\tfrac{\\text{conjugado}}{\\text{conjugado}}$ es igual a $1$.\n$$\\frac{f(x)}{g(x)} \\cdot \\frac{\\text{conjugado}}{\\text{conjugado}} = \\frac{f(x)}{g(x)}$$\nMultiplicar por $1$ transforma la forma de la expresión sin cambiar su valor, lo que permite reescribirla hasta que la **indeterminación** desaparezca.\n\nSi se multiplicara solo el numerador, la función dejaría de ser la misma, y el límite calculado ya no correspondería al original.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original. Un límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n$$\\frac{f(x) \\cdot \\text{conjugado}}{g(x)} \\neq \\frac{f(x)}{g(x)}$$\nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste razonamiento muestra que grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
+    "explanation": "Multiplicar solo una parte de la fracción es un error grave porque no preserva el límite original.\n\nUn límite no es solo un número calculado; es el valor al que una función tiende, y modificar la función cambia ese límite.\n\nEl **conjugado** solo sirve como herramienta de transformación si se multiplica por $\\tfrac{\\text{conjugado}}{\\text{conjugado}} = 1$, arriba y abajo por igual.\n$$\\frac{f(x) \\cdot \\text{conjugado}}{g(x)} \\neq \\frac{f(x)}{g(x)}$$\nAl multiplicar solo el numerador, la fracción deja de ser una multiplicación por $1$ y pasa a representar una función distinta a la original.\n\nEste razonamiento muestra que grave porque el límite calculado ya no corresponde al problema planteado, aunque el álgebra intermedia parezca correcta.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

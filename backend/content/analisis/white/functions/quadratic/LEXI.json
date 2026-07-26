@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda.\n\nY la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar; y la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar.\n\nY la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$; $b$ es el coeficiente lineal, que acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que $x_v = -\\dfrac{b}{2a}$: no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar $f(x) = ax^2 + bx + c$, por eso se llama **coeficiente lineal**.\n\nLos tres coeficientes de la forma estándar tienen roles distintos: $a$ es el **coeficiente principal**, que acompaña a $x^2$; $b$ es el coeficiente lineal, que acompaña a $x$.\n\nY $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que $x_v = -\\dfrac{b}{2a}$: no trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

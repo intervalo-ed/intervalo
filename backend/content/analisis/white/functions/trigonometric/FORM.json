@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central.\nAquí $A=3$, así que la onda oscila entre $-3$ y $3$.\n$B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
+    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central. Aquí $A=3$, así que la onda oscila entre $-3$ y $3$. $B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\n\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\operatorname{sen}(\\pi)=0$: el seno se anula en todos los **múltiplos enteros de $\\pi$**:\n\n$x=0,\\pi,2\\pi,3\\pi,\\ldots$\nEn $x=\\pi$ el seno completa su primer ciclo y regresa a cero.\nNo confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o $\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
+    "explanation": "$\\operatorname{sen}(\\pi)=0$: el seno se anula en todos los **múltiplos enteros de $\\pi$**:\n\n$x=0,\\pi,2\\pi,3\\pi,\\ldots$ En $x=\\pi$ el seno completa su primer ciclo y regresa a cero. No confundir con $\\operatorname{sen}(\\pi/2)=1$ (máximo) o $\\operatorname{sen}(3\\pi/2)=-1$ (mínimo).\n\nLos ceros del seno son exactamente en $x=k\\pi$ para todo entero $k$.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"

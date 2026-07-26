@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando una función aparece como $\\frac{1}{x^n}$, conviene **reescribirla** como una potencia con exponente negativo antes de derivar.\n\nCon esa reescritura, la regla de la potencia se aplica sin ningún problema, evitando la necesidad de una regla del cociente que todavía no corresponde usar.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Toda raíz se puede escribir como una potencia con exponente fraccionario, lo que habilita usar directamente la **regla de la potencia**.\n\nEsta reescritura previa es un paso obligatorio antes de derivar, sin ella la expresión no encaja en ninguna de las fórmulas elementales conocidas.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "La propiedad de **linealidad** de la derivada permite descomponer una suma o resta en la suma o resta de las derivadas de cada término.\n\nReconocer esta propiedad primero evita intentar aplicar reglas que no corresponden, como la del producto o la cadena, sobre una simple suma de términos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando un término combina un coeficiente numérico con una potencia de $x$, corresponde aplicar el **múltiplo escalar** junto con la regla de la potencia.\n\nEl coeficiente se conserva multiplicando al resultado de derivar la potencia, sin que haga falta ninguna otra regla adicional.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Dividir por una constante equivale a multiplicar por su recíproco, así que $\\frac{x^3}{5}$ se puede pensar como $\\frac{1}{5}x^3$.\n\nCon esa reinterpretación, el problema se resuelve con **múltiplo escalar** y la regla de la potencia, sin necesitar ninguna regla del cociente.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El término $3x^2$ combina un coeficiente numérico con una potencia de $x$, así que corresponde el **múltiplo escalar** junto con la regla de la potencia.\n\nCada término dentro de una suma se identifica y se resuelve por separado, antes de combinar todos los resultados al final.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "El término $x^5$ no lleva ningún coeficiente visible distinto de $1$, así que se resuelve directamente con la **regla de la potencia**, sin necesidad de múltiplo escalar.\n\nReconocer cuándo un coeficiente está presente y cuándo no lo está evita agregar pasos innecesarios al procedimiento.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "jerarquia-de-reglas"

@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = a \\cdot b^x$, evaluar en $x = 0$:\n\nEl valor inicial es siempre el coeficiente $a$.\n\nEsto es diferente de una función lineal $f(x) = mx + c$, donde el término independiente es $c$ pero el ritmo de cambio es constante; en la exponencial, el ritmo **acelera** o **desacelera** según la base $b$.\n\nConocer $f(0)$ nos permite escribir la fórmula completa si también conocemos un segundo punto.",
+    "explanation": "En $f(x) = a \\cdot b^x$, evaluar en $x = 0$:\n\nEl valor inicial es siempre el coeficiente $a$.\n\nEsto es diferente de una función lineal $f(x) = mx + c$, donde el término independiente es $c$ pero el ritmo de cambio es constante.\n\nEn la exponencial, el ritmo **acelera** o **desacelera** según la base $b$.\n\nConocer $f(0)$ nos permite escribir la fórmula completa si también conocemos un segundo punto.",
     "reviewed": false,
     "tags": [
       "numero-e-concepto"
