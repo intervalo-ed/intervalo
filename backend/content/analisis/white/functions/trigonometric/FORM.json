@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**: determina cuánto se aleja la onda del eje central.\n\nAquí $A=3$.\n\nasí que la onda oscila entre $-3$ y $3$. $B=2$ controla el período ($T=\\pi$) y : desplaza la fase horizontalmente.Cada parámetro tiene un rol independiente: no confundir amplitud con período ni con fase.",
+    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la amplitud.\n\nLa amplitud determina cuánto se aleja la onda del eje central. En este caso, $A=3$, así que la onda oscila entre $-3$.\n\ny $3$.\n\nEl parámetro $B=2$ controla el período, que se calcula como $T=\\frac{2\\pi}{B}=\\pi$.\n\nEl término $C$ desplaza la función horizontalmente (fase).\n\nCada parámetro tiene un rol independiente: no confundir amplitud con período ni con fase.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"
@@ -48,7 +48,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es :.no el seno.\n$2\\cos(x)$ llegaría hasta $y=2$.\n\npero la amplitud del gráfico es $1$. : tendría período $\\pi$ (más corto).pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
+    "explanation": "La diferencia principal es dónde comienza la onda.\n\nEn $\\operatorname{sen}(x)$: el valor en $x=0$ es $0$, y el máximo ocurre en $x=\\pi/2$.\n\nEn $\\cos(x)$: el valor en $x=0$ es $1$ (máximo), y el primer cero ocurre en $x=\\pi/2$.\n\nAmbas funciones oscilan entre $-1$ y $1$, con período $2\\pi$, pero coseno está **desplazado** $\\pi/2$ hacia la izquierda respecto del seno.\n\nPor eso decimos que $\\cos(x) = \\operatorname{sen}(x + \\pi/2)$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -128,7 +128,7 @@
       -1,
       3
     ],
-    "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$\\operatorname{sen}(x)+1$ oscila entre $0$ y $2$ (centrada en $y=1$ en lugar de $y=0$).\n\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$. : bajaría hasta $y=-2$.$2\\operatorname{sen}(x)$ oscilaría simétricamente entre $-2$ y $2$.",
+    "explanation": "Cuando multiplicamos $\\operatorname{sen}(x)$ por una constante $A$, estiramos o comprimimos la onda verticalmente.\n\nLa función $A \\cdot \\operatorname{sen}(x)$ oscila entre $-A$ y $A$.\n\nEl valor $|A|$ se llama **amplitud**: es la distancia del eje central al pico más extremo.\n\nEjemplos:\n- Si $A=1$: amplitud $1$ (seno básico).\n- Si $A=3$: amplitud $3$ (la onda se triplica verticalmente).\n- Si $A=-2$: amplitud $2$ (la onda se refleja y duplica).",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -208,7 +208,7 @@
       -3,
       3
     ],
-    "explanation": "La curva oscila entre $-2$ y $2$ (amplitud $2$) y arranca en su máximo en $x=0$: eso define a :.El coseno \"empieza en el techo\".\n\nel seno \"empieza en el medio\". $\\cos(x)$ tendría amplitud $1$ (llegaría solo hasta $y=1$). : empezaría en $y=0$.$\\cos(2x)$ tendría período $\\pi$ (la mitad del visible).\n\nAmplitud y valor en $x=0$ determinan la expresión.",
+    "explanation": "El **período** es la distancia horizontal que la onda necesita para completar un ciclo.\n\nPara $\\operatorname{sen}(x)$ el período es $2\\pi$ radianes.\n\nCuando escribimos $\\operatorname{sen}(Bx)$, el parámetro $B$ comprime o estira el período. La fórmula es: $T = \\frac{2\\pi}{|B|}$.\n\nEjemplos:\n- Si $B=1$: período $T=2\\pi$ (seno básico).\n- Si $B=2$: período $T=\\pi$ (mitad del período, onda más rápida).\n- Si $B=1/2$: período $T=4\\pi$ (el doble, onda más lenta).",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo.\n\nEl coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$ y $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si :.$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno.\n\nNo hay trampa.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, la **amplitud** es $|A|$: la distancia del eje central al máximo o mínimo.\n\nEl coeficiente $A$ estira o comprime la onda verticalmente.\n\nPara $f(x)=3\\,\\operatorname{sen}(x)$: $|A|=3$.\n\nLa función oscila entre $-3$.\n\ny $3$.\n\nLa opción $1$ es la amplitud del seno sin escalar. $6$ sería la amplitud si :.$\\pi$ no es amplitud sino período.\n\nAmplitud $= |A| = 3$: tan fácil como leer el coeficiente delante del seno.\n\nNo hay trampa.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$.\n\nCon $B=4$:\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLos distractores $8\\pi$ y $4\\pi$ son múltiplos de $\\pi$.\n\nno el cociente. $\\pi$ correspondería a $B=2$.\n\nCon $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/|B|$.\n\nCon $B=4$:\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{4} \\\\\n&= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLos distractores $8\\pi$.\n\ny $4\\pi$ son múltiplos de $\\pi$.\n\nno el cociente. $\\pi$ correspondería a $B=2$.\n\nCon $B=4$ el ciclo se comprime a $\\pi/2$ unidades.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nporque $60°$ y $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
+    "explanation": "El ángulo $\\pi/3=60°$ pertenece al triángulo $30°$-$60°$-$90°$ con proporciones :.El coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nNótese la simetría: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)=1/2$.\n\nporque $60°$.\n\ny $30°$ son complementarios.\n\nEl distractor $\\sqrt{3}/2$ es $\\cos(\\pi/6)=\\operatorname{sen}(\\pi/3)$: el ángulo opuesto del mismo triángulo.\n\n$\\cos(60°)=1/2$: el mismo valor que $\\operatorname{sen}(30°)$.\n\nLa tabla trigonométrica tiene más simetrías que un copo de nieve.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -748,7 +748,7 @@
       -4,
       4
     ],
-    "explanation": "Una onda con máximo $M$ y mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3:\n\\end{aligned}$$\nLa opción $6$ es el rango total (de mínimo a máximo).\n\nno la amplitud.\n\nLa amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Una onda con máximo $M$.\n\ny mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3:\n\\end{aligned}$$\nLa opción $6$ es el rango total (de mínimo a máximo).\n\nno la amplitud.\n\nLa amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -823,7 +823,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una onda con amplitud $4$ y período $\\pi$, usamos:\n$$f(x)=A\\,\\operatorname{sen}(Bx)$$\nSe determinan $A$ y $B$:\n$$\\begin{aligned}\nA &= 4 \\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$$\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$.\n\nLa opción $\\pi\\,\\operatorname{sen}(4x)$ tiene $A=\\pi$ y $B=4$: ni la amplitud ni el período coinciden.\n\nLa opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$, no $\\pi$.",
+    "explanation": "Para una onda con amplitud $4$.\n\ny período $\\pi$, usamos:\n$$f(x)=A\\,\\operatorname{sen}(Bx)$$\nSe determinan $A$.\n\ny $B$:\n$$\\begin{aligned}\nA &= 4 \\\\\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{\\pi} = 2\n\\end{aligned}$$\nLuego $f(x)=4\\,\\operatorname{sen}(2x)$.\n\nLa opción $\\pi\\,\\operatorname{sen}(4x)$ tiene $A=\\pi$.\n\ny $B=4$: ni la amplitud ni el período coinciden.\n\nLa opción $4\\,\\operatorname{sen}(\\pi x)$ tendría período $2$, no $\\pi$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -903,7 +903,7 @@
       -1,
       3
     ],
-    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente.\n\nEn $f(x)=\\operatorname{sen}(x)+1$.\n\nla curva oscila entre $0$ y $2$ centrada en :.: porque la función suma $1$ al seno estándar:el mínimo pasa de $-1$ a $0$ y el máximo de $1$ a $2$.\n\nEl promedio entre $0$ y $2$ es :.La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$.\n\nSimple.",
+    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente.\n\nEn $f(x)=\\operatorname{sen}(x)+1$.\n\nla curva oscila entre $0$.\n\ny $2$ centrada en :.: porque la función suma $1$ al seno estándar:el mínimo pasa de $-1$ a $0$.\n\ny el máximo de $1$ a $2$.\n\nEl promedio entre $0$.\n\ny $2$ es :.La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$.\n\nSimple.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -953,7 +953,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una onda con máximo $M=5$ y mínimo $m=-5$.\n\nla **amplitud** es:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5:\n\\end{aligned}$$\nLa opción $10$ es el rango total (de $-5$ a $5$).\n\nLa opción : dividiría por $4$ en vez de $2$.\n$$2{,}5$$\nLa amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Para una onda con máximo $M=5$.\n\ny mínimo $m=-5$.\n\nla **amplitud** es:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5:\n\\end{aligned}$$\nLa opción $10$ es el rango total (de $-5$ a $5$).\n\nLa opción : dividiría por $4$ en vez de $2$.\n$$2{,}5$$\nLa amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1003,7 +1003,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dada una onda con máximo $6$, mínimo $2$ y período $2\\pi$, se calculan $A$, $D$ y $B$:\n$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$$\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$ y mínimo $-4$: No $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$: No $2$.",
+    "explanation": "Dada una onda con máximo $6$, mínimo $2$.\n\ny período $2\\pi$, se calculan $A$, $D$.\n\ny $B$:\n$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1\n\\end{aligned}$$\nLuego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$.\n\ny mínimo $-4$: No $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$: No $2$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
