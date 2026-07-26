@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = 3 \\cdot (0{,}5)^x$, ¿cuál es la base de la exponencial?",
+    "question": "Considerá la función:\n$$f(x) = 3 \\cdot (0{,}5)^x$$\n¿cuál es la base de la exponencial?",
     "options": [
       "$0{,}5$",
       "$3$",
@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica $f(x) = a \\cdot b^x$, el coeficiente $a$ es el factor de escala que multiplica a la potencia, y $b$ es la base, el número que efectivamente se eleva al exponente $x$.\n\nEn $f(x) = 3 \\cdot (0{,}5)^x$, el factor de escala es $a = 3$ y la base es $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**.\n\nEl $3$ no es la base: es el valor de $f(0) = 3 \\cdot 1 = 3$, el punto donde la curva corta el eje vertical.",
+    "explanation": "En la forma canónica $f(x) = a \\cdot b^x$.\n\nel coeficiente $a$ es el factor de escala que multiplica a la potencia.\n\ny $b$ es la base.\n\nel número que efectivamente se eleva al exponente $x$.\n\nEn $f(x) = 3 \\cdot (0{,}5)^x$.\n\nel factor de escala es $a = 3$ y la base es $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**.\n\nEl $3$ no es la base: es el valor de $f(0) = 3 \\cdot 1 = 3$, el punto donde la curva corta el eje vertical.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -48,14 +48,14 @@
       -0.5,
       6
     ],
-    "explanation": "Para leer una exponencial desde su gráfica:\n1. ¿Crece o decrece? → **Decrece**: $b < 1$\n2. ¿Pasa por $(0, 1)$? → Sí: $a = 1$ (no hay coeficiente extra)\n3. ¿Cuál es la base? → En $(1, 0{,}5)$: $f(1) = b = 0{,}5$\n\nLa fórmula es $f(x) = (0{,}5)^x$. No es $-2^x$ porque esa función es negativa; esta curva es siempre positiva.",
+    "explanation": "Para leer una exponencial desde su gráfica:\n1. ¿Crece o decrece? → **Decrece**: $b < 1$\n2. ¿Pasa por $(0.\n\n1)$? → Sí: $a = 1$ (no hay coeficiente extra)\n3. ¿Cuál es la base? → En $(1.\n\n0{,}5)$: $f(1) = b = 0{,}5$.\n\nLa fórmula es $f(x) = (0{,}5)^x$.\n\nNo es $-2^x$ porque esa función es negativa; esta curva es siempre positiva.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
     ]
   },
   {
-    "question": "En $f(x) = 4 \\cdot 3^x$, ¿cuál es el factor de escala (coeficiente $a$)?",
+    "question": "Considerá la función:\n$$f(x) = 4 \\cdot 3^x$$\n¿cuál es el factor de escala (coeficiente $a$)?",
     "options": [
       "$x$",
       "$3$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 5 \\cdot 2^x$, ¿cuánto vale $f(0)$?",
+    "question": "Considerá la función:\n$$f(x) = 5 \\cdot 2^x$$\n¿cuánto vale $f(0)$?",
     "options": [
       "$10$",
       "$1$",
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(0)$ en $f(x) = 5 \\cdot 2^x$:\n$$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$$\nSe usa la propiedad $b^0 = 1$ para cualquier $b > 0$.\n\nEsto confirma la regla general: en $f(x) = a \\cdot b^x$, el valor en $x = 0$ es siempre igual al **coeficiente** $a$. Por eso $a$ se llama también **valor inicial** en modelos de crecimiento.",
+    "explanation": "Para evaluar $f(0)$ en $f(x) = 5 \\cdot 2^x$:\n$$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$$\nSe usa la propiedad $b^0 = 1$ para cualquier $b > 0$.\n\nEsto confirma la regla general: en $f(x) = a \\cdot b^x$.\n\nel valor en $x = 0$ es siempre igual al **coeficiente** $a$.\n\nPor eso $a$ se llama también **valor inicial** en modelos de crecimiento.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
@@ -128,7 +128,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n\nSi $f(1) = b$, entonces $b$ es la **base** de la exponencial $f(x) = a \\cdot b^x$.\n\nCon $f(0) = 5$ (la ordenada al origen), tenemos $a = 5$.\n\nAsí que la fórmula es $f(x) = 5 \\cdot (1{,}7)^x$.\n\nEvaluar en dos puntos distintos permite despejar tanto el coeficiente inicial $a$ como la base $b$, una técnica clave para armar modelos exponenciales desde datos reales.",
+    "explanation": "Para distinguir exponenciales en una gráfica, verificar el punto $(1, f(1))$:\n\nSi $f(1) = b$.\n\nentonces $b$ es la **base** de la exponencial $f(x) = a \\cdot b^x$.\n\nCon $f(0) = 5$ (la ordenada al origen), tenemos $a = 5$.\n\nAsí que la fórmula es $f(x) = 5 \\cdot (1{,}7)^x$.\n\nEvaluar en dos puntos distintos permite despejar tanto el coeficiente inicial $a$ como la base $b$, una técnica clave para armar modelos exponenciales desde datos reales.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:\n$$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2{,}71828\\ldots$$\nEs irracional y transcendente. La función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nNo confundir con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal).",
+    "explanation": "El **número de Euler** $e$ es la base de la exponencial natural:Es irracional y transcendente.\n\nLa función $f(x) = e^x$ es especial en cálculo porque es la **única función que es su propia derivada**: $\\frac{d}{dx}e^x = e^x$.\n\nSi no tenés cuidado, con $\\pi \\approx 3{,}14$ (relacionado con el círculo) ni con 10 (base del sistema decimal)..",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluando en $x = 0$:\n$$f(0) = a \\cdot b^0 = a \\cdot 1 = a$$\nEntonces $f(0) = a$. Si nos dicen que $f(0) = 3$, concluimos que $a = 3$.\n\nEsta es la forma más directa de determinar el **coeficiente** $a$: basta leer el valor de la función en el eje $Y$ (la ordenada al origen). No hace falta conocer $b$.",
+    "explanation": "Evaluando en $x = 0$:\n$$f(0) = a \\cdot b^0 = a \\cdot 1 = a$$\nEntonces $f(0) = a$.\n\nSi nos dicen que $f(0) = 3$, concluimos que $a = 3$.\n\nEsta es la forma más directa de determinar el **coeficiente** $a$: basta leer el valor de la función en el eje $Y$ (la ordenada al origen).\n\nNo hace falta conocer $b$.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -208,7 +208,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La función $f(x) = 2^{x+1}$ es un **desplazamiento horizontal** de $2^x$:\n\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$.\n\nEn general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda; restar $h$, a la derecha.",
+    "explanation": "La función $f(x) = 2^{x+1}$ es un **desplazamiento horizontal** de $2^x$:\n\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$.\n\nEn general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda; restar $h$.\n\na la derecha.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -233,14 +233,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(1)$ en $f(x) = 4 \\cdot 2^x$, sustituir $x = 1$:\n\nObservar el patrón: $f(0) = 4$ y $f(1) = 8$.\n\nEl valor se **duplicó** al aumentar $x$ en 1 unidad.\n\nEsta es la propiedad clave de una exponencial con base $2$: cada paso en $x$ multiplica el resultado por $2$ (la base).\n\nEn general, de $x$ a $x+1$, $f$ se multiplica por $b$.",
+    "explanation": "Para evaluar $f(1)$ en $f(x) = 4 \\cdot 2^x$.\n\nsustituir $x = 1$:\n\nObservar el patrón: $f(0) = 4$ y $f(1) = 8$.\n\nEl valor se **duplicó** al aumentar $x$ en 1 unidad.\n\nEsta es la propiedad clave de una exponencial con base ::cada paso en $x$ multiplica el resultado por $2$ (la base).\n\nEn general.\n\nde $x$ a $x+1$.\n\n$f$ se multiplica por $b$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
     ]
   },
   {
-    "question": "¿Cuánto vale $f(2)$ para $f(x) = 2^x$?",
+    "question": "Determiná el valor de $f(2)$ para $f(x) = 2^x$?",
     "options": [
       "$2$",
       "$8$",
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluación directa en $f(x) = 2^x$:\n\nVerificar el patrón de crecimiento: $f(0) = 1$, $f(1) = 2$, $f(2) = 4$.\n\nCada paso multiplica por 2. Para valores negativos: $f(-1) = 2^{-1} = 1/2 = 0{,}5$ y $f(-2) = 1/4 = 0{,}25$.\n\nEsto ilustra cómo la exponencial con base $> 1$ crece rápidamente a la derecha (valores grandes positivos) y decrece hacia 0 a la izquierda (valores pequeños positivos).\n\nEvaluar en varios puntos ayuda a reconocer la curva.",
+    "explanation": "Evaluación directa en $f(x) = 2^x$:\n\nVerificar el patrón de crecimiento: $f(0) = 1$.\n\n$f(1) = 2$.\n\n$f(2) = 4$.\n\nCada paso multiplica por 2.\n\nPara valores negativos: $f(-1) = 2^{-1} = 1/2 = 0{,}5$ y $f(-2) = 1/4 = 0{,}25$.\n\nEsto ilustra cómo la exponencial con base $> 1$ crece rápidamente a la derecha (valores grandes positivos) y decrece hacia 0 a la izquierda (valores pequeños positivos).\n\nEvaluar en varios puntos ayuda a reconocer la curva.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el dominio de $f(x) = 3^{x-2} + 1$, analizamos si hay algún $x$ para el que la función no esté definida.\n\nEl exponente es $u = x - 2$: una traslación que toma valores en $\\mathbb{R}$ sin restricción.\n\nComo $3^u$ está definida para todo $u \\in \\mathbb{R}$, el dominio de $f$ es $\\mathbb{R}$.\n\nImportante: las traslaciones como $3^{x-2}$ o los escalados como $3^{2x}$ **no restringen el dominio**.\n\nLo que sí restringiría el dominio sería, por ejemplo, $\\log(x-2)$, que exige $x > 2$.",
+    "explanation": "Para hallar el dominio de $f(x) = 3^{x-2} + 1$, analizamos si hay algún $x$ para el que la función no esté definida.\n\nEl exponente es $u = x - 2$: una traslación que toma valores en $\\mathbb{R}$ sin restricción.\n\nComo $3^u$ está definida para todo $u \\in \\mathbb{R}$.\n\nel dominio de $f$ es $\\mathbb{R}$.\n\nImportante: las traslaciones como $3^{x-2}$ o los escalados como $3^{2x}$ **no restringen el dominio**.\n\nLo que sí restringiría el dominio sería, por ejemplo, $\\log(x-2)$, que exige $x > 2$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$, donde $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$, $B(1) = 600$, $B(2) = 1200$, cada hora el valor se duplica.\n\nEl error más común es escribir el $2$ como coeficiente y el $300$ como base, invirtiendo los roles de $a$ y $b$.",
+    "explanation": "El modelo de crecimiento exponencial general es $B(t) = B_0 \\cdot b^t$.\n\ndonde $B_0$ es la cantidad inicial y $b$ es el factor por el que se multiplica la cantidad en cada período.\n\nAcá el valor inicial es $B_0 = 300$ y, como la colonia se duplica cada hora, el factor multiplicativo es $b = 2$.\n\nVerificación: $B(0) = 300$.\n\n$B(1) = 600$.\n\n$B(2) = 1200$.\n\ncada hora el valor se duplica.\n\nLo importante a notar: Más común es escribir el $2$ como coeficiente y el $300$ como base.\n\ninvirtiendo los roles de $a$ y $b$..",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para interés compuesto con tasa $r$ anual, el monto se modela como $M(t) = C_0 \\cdot (1 + r)^t$, así que la base no es la tasa sola sino uno más la tasa.\n\nAcá $C_0 = 2000$ y $r = 0{,}10$, entonces la base es $1 + 0{,}10 = 1{,}10$: $M(t) = 2000 \\cdot (1{,}10)^t$.\n\nEl distractor $2000 + 200t$ corresponde a interés simple, una suma fija de \\$200 por año. El interés compuesto crece más rápido porque cada año los intereses también generan intereses.",
+    "explanation": "Para interés compuesto con tasa $r$ anual, el monto se modela como $M(t) = C_0 \\cdot (1 + r)^t$, así que la base no es la tasa sola sino uno más la tasa.\n\nAcá $C_0 = 2000$ y $r = 0{,}10$.\n\nentonces la base es $1 + 0{,}10 = 1{,}10$: $M(t) = 2000 \\cdot (1{,}10)^t$.\n\nEl distractor $2000 + 200t$ corresponde a interés simple, una suma fija de \\$200 por año.\n\nEl interés compuesto crece más rápido porque cada año los intereses también generan intereses.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si pierde el $20\\%$ anual, queda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1$: exponencial decreciente.\n\nComparación con el distractor A ($40000 - 8000t$): ese modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después. El modelo exponencial siempre da positivo.",
+    "explanation": "Si pierde el $20\\%$ anual.\n\nqueda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1$: exponencial decreciente.\n\nComparación con el distractor A (:):\n$$40000 - 8000t$$\nEse modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después.\n\nEl modelo exponencial siempre da positivo.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Tasa de crecimiento $r = 25\\% = 0{,}25$: base $b = 1 + r = 1{,}25$.\n\nEvaluar en $t = 3$:\n\nLa fórmula general de crecimiento exponencial es $f(t) = P_0(1+r)^t$, donde $P_0$ es el valor inicial, $r$ es la tasa (expresada como decimal), y $t$ es el tiempo.\n\nAsí, $r = 25\\% = 0{,}25$ y $b = 1{,}25$ encapsula el crecimiento del 25% por período.",
+    "explanation": "Tasa de crecimiento $r = 25\\% = 0{,}25$: base $b = 1 + r = 1{,}25$.\n\nEvaluar en $t = 3$:\n\nLa fórmula general de crecimiento exponencial es $f(t) = P_0(1+r)^t$.\n\ndonde $P_0$ es el valor inicial.\n\n$r$ es la tasa (expresada como decimal).\n\ny $t$ es el tiempo.\n\nAsí, $r = 25\\% = 0{,}25$ y $b = 1{,}25$ encapsula el crecimiento del 25% por período.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar una potencia con exponente entero se multiplica la base por sí misma tantas veces como indique el exponente.\n\n$(0{,}5)^3 = 0{,}5 \\times 0{,}5 \\times 0{,}5 = 0{,}125$.\n\nLa función decrece rápido: en $3$ pasos, el valor cae de $5$ a $0{,}625$.\n\nCon base menor a $1$, cuanto mayor el exponente, más chico el resultado, nunca llega a $0$ ni se vuelve negativo.",
+    "explanation": "Para evaluar una potencia con exponente entero se multiplica la base por sí misma tantas veces como indique el exponente.\n\n$(0{,}5)^3 = 0{,}5 \\times 0{,}5 \\times 0{,}5 = 0{,}125$.\n\nLa función decrece rápido: en $3$ pasos.\n\nel valor cae de $5$ a $0{,}625$.\n\nCon base menor a $1$, cuanto mayor el exponente, más chico el resultado, nunca llega a $0$ ni se vuelve negativo.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos, primero se lee $a$ directamente como $f(0)$, y luego se despeja $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2. $f(1) = a \\cdot b = 6b = 12 \\implies b = 2$.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$. dividir al revés, $f(0)/f(1)$, o intercambiar los valores de $a$ y $b$ entre sí.",
+    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos.\n\nprimero se lee $a$ directamente como $f(0)$.\n\ny luego se despeja $b$ dividiendo : sobre $f(0)$.1. $f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2. $f(1) = a \\cdot b = 6b = 12 \\implies b = 2$.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$. dividir al revés.\n\n$f(0)/f(1)$.\n\no intercambiar los valores de $a$ y $b$ entre sí.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial, primero se lee $a$ como el valor en $x=0$, y luego se obtiene $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a = 8$. 2. $f(1) = 8b = 4 \\implies b = 0{,}5$.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$. Como $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, es el error más común al despejar $b$.",
+    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial.\n\nprimero se lee $a$ como el valor en $x=0$.\n\ny luego se obtiene $b$ dividiendo : sobre $f(0)$.1. $f(0) = a = 8$. 2. $f(1) = 8b = 4 \\implies b = 0{,}5$.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$.\n\nComo $b = 0{,}5 < 1$: función **decreciente**.\n\nConfundir el cociente con el producto, o invertir cuál punto va en el numerador, más común al despejar $b$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -533,14 +533,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota horizontal de una exponencial $b^x$ sin desplazar es $y=0$, porque $b^x \\to 0$ cuando $x \\to -\\infty$ (si $b>1$).\n\nSumar o restar una constante al final de la fórmula desplaza esa asíntota la misma cantidad.\n\nPara $f(x) = 3^x$: $\\lim_{x \\to -\\infty} 3^x = 0$.\n\nPara $f(x) = 3^x - 2$: $\\lim_{x \\to -\\infty}(3^x - 2) = 0 - 2 = -2$.\n\nLa asíntota es $y = -2$ y la imagen de $f$ es $(-2, +\\infty)$.\n\nEl desplazamiento vertical mueve la asíntota, no hay que confundirlo con el valor de $f(0)$.",
+    "explanation": "La asíntota horizontal de una exponencial $b^x$ sin desplazar es $y=0$.\n\nporque $b^x \\to 0$ cuando : (si $b>1$).Sumar o restar una constante al final de la fórmula desplaza esa asíntota la misma cantidad.\n\nPara $f(x) = 3^x$: $\\lim_{x \\to -\\infty} 3^x = 0$.\n\nPara $f(x) = 3^x - 2$: $\\lim_{x \\to -\\infty}(3^x - 2) = 0 - 2 = -2$.\n\nLa asíntota es $y = -2$ y la imagen de $f$ es $(-2.\n\n+\\infty)$.\n\nEl desplazamiento vertical mueve la asíntota, no hay que confundirlo con el valor de $f(0)$.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
     ]
   },
   {
-    "question": "¿Cuánto vale $f(0)$ para $f(x) = 2^x + 7$?",
+    "question": "Hallá el valor de $f(0)$ para $f(x) = 2^x + 7$?",
     "options": [
       "$7$",
       "$2$",
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia, así que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante.\n$$f(0) = 2^0 + 7 = 1 + 7 = 8$$\nSin el desplazamiento, $2^x$ en $x=0$ vale $1$; acá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades, incluida la asíntota horizontal, que pasa de $y=0$ a $y=7$.",
+    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de producto de potencias de igual base dice que $b^{m+n}=b^m\\cdot b^n$, así que un exponente que es una suma se puede separar en un producto de potencias.\n\nEsto muestra que un desplazamiento horizontal, sumar $h$ al exponente, equivale a un escalado vertical, multiplicar por $b^h$.\n\nAcá $h=3$: $2^{x+3}=8\\cdot2^x$. sumar el $3$ como si fuera un término aparte, en vez de aplicar la propiedad de exponentes.",
+    "explanation": "La propiedad de producto de potencias de igual base dice que $b^{m+n}=b^m\\cdot b^n$, así que un exponente que es una suma se puede separar en un producto de potencias.\n\nEsto muestra que un desplazamiento horizontal, sumar $h$ al exponente, equivale a un escalado vertical, multiplicar por $b^h$.\n\nAcá $h=3$: :.sumar el $3$ como si fuera un término aparte.\n\nen vez de aplicar la propiedad de exponentes.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -608,14 +608,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$, así que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.\n$$4^x = (2^2)^x = 2^{2x}$$\nEsto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$, $4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. sumar el $2$ al exponente ($2^{x+2}$) en vez de multiplicarlo.",
+    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$.\n\nasí que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente. sumar el $2$ al exponente (:) en vez de multiplicarlo.",
     "reviewed": false,
     "tags": [
       "dominio-basico"
     ]
   },
   {
-    "question": "¿Cuánto vale $(3^x)^2$?",
+    "question": "Calculá: $(3^x)^2$?",
     "options": [
       "$9^x$",
       "$3^{x^2}$",
@@ -633,14 +633,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia establece que $(b^m)^n=b^{mn}$: al elevar una potencia a otro exponente, los exponentes se multiplican entre sí, no se suman ni se elevan entre ellos.\n$$(3^x)^2 = 3^{2x} = (3^2)^x = 9^x$$\nVerificación con $x=1$: $(3^1)^2=9=9^1$. El error más frecuente es sumar los exponentes, como si fuera un producto de potencias de igual base, en vez de multiplicarlos.",
+    "explanation": "La propiedad de potencia de potencia establece que $(b^m)^n=b^{mn}$: al elevar una potencia a otro exponente, los exponentes se multiplican entre sí, no se suman ni se elevan entre ellos.\n$$(3^x)^2 = 3^{2x} = (3^2)^x = 9^x$$\nVerificación con $x=1$: $(3^1)^2=9=9^1$. sumar los exponentes, como si fuera un producto de potencias de igual base, en vez de multiplicarlos.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
     ]
   },
   {
-    "question": "¿Cuál de estas expresiones equivale a $\\dfrac{2^x}{2^3}$?",
+    "question": "Tomá en cuenta la función:\n$$\\dfrac{2^x}{2^3}$$\n¿Cuál de estas expresiones equivale a?",
     "options": [
       "$2^{x-3}$",
       "$2^{x+3}$",
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$, la base contiene la tasa de crecimiento sumada a $1$, así que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base, no leerla directamente.\n\nCada período, la población crece un $6\\%$ de su valor actual, no un $106\\%$ ni un $1{,}06\\%$.\n\nConfundir la base completa con la tasa de crecimiento es el error más común de este tipo de lectura.",
+    "explanation": "En el modelo de crecimiento exponencial $P(t)=P_0\\cdot(1+r)^t$.\n\nla base contiene la tasa de crecimiento sumada a $1$.\n\nasí que para hallar el porcentaje de crecimiento hay que restarle $1$ a la base.\n\nno leerla directamente.\n\nCada período.\n\nla población crece un $6\\%$ de su valor actual.\n\nno un $106\\%$ ni un $1{,}06\\%$.\n\nConfundir la base completa con la tasa de crecimiento más común de este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -738,7 +738,7 @@
       -0.5,
       10
     ],
-    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$), y un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Confundir el valor de $f(0)$ con la base es el error más frecuente al leer un gráfico.",
+    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos: el valor donde corta el eje vertical (que da $a$).\n\nsi crece o decrece (que indica si $b$ es mayor o menor que $1$).\n\ny un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: : da $a = 2$.2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: : da $b \\approx 1{,}5$.Fórmula: $f(x) = 2 \\cdot (1{,}5)^x$.\n\nConfundir el valor de $f(0)$ con la base más frecuente al leer un gráfico.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -768,7 +768,7 @@
       -0.5,
       10
     ],
-    "explanation": "Al leer una exponencial en un gráfico conviene identificar primero el corte con el eje vertical, que da el coeficiente $a$, y después revisar si la curva sube o baja para saber si la base es mayor o menor que $1$.\n\n1. $f(0) = 3$ da $a = 3$. 2.\n\nLa curva decrece: $b < 1$. 3.\n\nEn $x=1$: $f(1) \\approx 1{,}8 = 3 \\cdot 0{,}6$ da $b = 0{,}6$.\n\nFórmula: $f(x) = 3 \\cdot (0{,}6)^x$. Confundir el corte en el eje vertical con la base, o leer mal si la curva sube o baja, son los errores más comunes en este tipo de lectura.",
+    "explanation": "Al leer una exponencial en un gráfico conviene identificar primero el corte con el eje vertical.\n\nque da el coeficiente $a$.\n\ny después revisar si la curva sube o baja para saber si la base es mayor o menor que $1$.\n\n1. $f(0) = 3$ da $a = 3$. 2.\n\nLa curva decrece: $b < 1$. 3.\n\nEn $x=1$: : da $b = 0{,}6$.Fórmula: $f(x) = 3 \\cdot (0{,}6)^x$.\n\nConfundir el corte en el eje vertical con la base, o leer mal si la curva sube o baja, son los errores más comunes en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "tasa-crecimiento-porcentaje"
@@ -798,7 +798,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$, señal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$, que coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
+    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -828,7 +828,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para leer un desplazamiento vertical en una curva decreciente, primero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$, señal de un desplazamiento $+1$. 2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$, coincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$. Confundir la altura de la asíntota con el valor de $f(0)$ es el error más frecuente en este tipo de lectura.",
+    "explanation": "Para leer un desplazamiento vertical en una curva decreciente.\n\nprimero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$.\n\nseñal de un desplazamiento $+1$. 2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$.\n\ncoincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$.\n\nConfundir la altura de la asíntota con el valor de $f(0)$ más frecuente en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -858,7 +858,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$, conviene comparar cuánto vale cada una en un punto alejado del origen, ya que cuanto mayor es la base, más rápido crece la curva.\n\nEn $x=2$, $e^2 \\approx 7{,}39$, $(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo $e \\approx 2{,}718$ es mayor que $2$ y que $1{,}5$, la función $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
+    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$.\n\nconviene comparar cuánto vale cada una en un punto alejado del origen.\n\nya que cuanto mayor es la base.\n\nmás rápido crece la curva.\n\nEn $x=2$.\n\n$e^2 \\approx 7{,}39$.\n\n$(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo : es mayor que $2$ y que $1{,}5$.la función $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
@@ -883,7 +883,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Modelo: $M(t) = 3000 \\cdot (1{,}15)^t$.\n\n$(1{,}15)^2 = 1{,}3225$ por cálculo directo. Este es un crecimiento del 15% anual: tras 2 años, el monto inicial se multiplicó por 1{,}3225, un incremento neto del 32{,}25%.\n\nNo es simplemente $2 \\times 15\\% = 30\\%$ porque el segundo año computa interés sobre el monto ya incrementado (interés compuesto).\n\nPor eso los modelos exponenciales son más realistas que los lineales en finanzas.",
+    "explanation": "Modelo: $M(t) = 3000 \\cdot (1{,}15)^t$.\n\n$(1{,}15)^2 = 1{,}3225$ por cálculo directo.\n\nEste es un crecimiento del 15% anual: tras 2 años, el monto inicial se multiplicó por 1{,}3225, un incremento neto del 32{,}25%.\n\nNo es simplemente $2 \\times 15\\% = 30\\%$ porque el segundo año computa interés sobre el monto ya incrementado (interés compuesto).\n\nPor eso los modelos exponenciales son más realistas que los lineales en finanzas.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 7 \\cdot (1{,}2)^{x-3}$, ¿cuánto vale $f(3)$?",
+    "question": "Considerá la función:\n$$f(x) = 7 \\cdot (1{,}2)^{x-3}$$\n¿cuánto vale $f(3)$?",
     "options": [
       "$7$",
       "$21$",
@@ -933,14 +933,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como $x-3$, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal $h=3$ mueve el punto de partida: el 'valor inicial' $7$ ocurre en $x=3$ en lugar de en $x=0$.\n\nConfundir este desplazamiento con un valor inicial distinto de $7$ es el error más común en este tipo de evaluación.",
+    "explanation": "Cuando el exponente tiene un desplazamiento horizontal, como $x-3$, hay que sustituir primero el valor de $x$ y resolver la resta dentro del exponente antes de aplicar la potencia.\n\nEl desplazamiento horizontal : mueve el punto de partida:el 'valor inicial' $7$ ocurre en $x=3$ en lugar de en $x=0$.\n\nSi confundís este desplazamiento con un valor inicial distinto de $7$ más común en este tipo de evaluación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
     ]
   },
   {
-    "question": "En $f(x) = 2 \\cdot e^{x+1}$, ¿cuánto vale $f(0)$?",
+    "question": "Considerá la función:\n$$f(x) = 2 \\cdot e^{x+1}$$\n¿cuánto vale $f(0)$?",
     "options": [
       "$2$",
       "$2e$",
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: $2 \\cdot e^{x+1} = 2e \\cdot e^x$.\n\nAsí, el valor inicial de esta función desplazada no es $2$ sino $2e$, porque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
+    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento $+1$ en el exponente equivale a multiplicar por $e$: :.Así, el valor inicial de esta función desplazada no es $2$ sino $2e$, porque el corrimiento horizontal también reescala el coeficiente que multiplica a la exponencial.",
     "reviewed": false,
     "tags": [
       "determinar-a-b-desde-dos-puntos"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el modelo $B(t) = B_0 \\cdot b^t$, cada unidad de tiempo multiplica el valor anterior por la base, en vez de sumarle una cantidad fija, así que hay que aplicar la potencia completa, no sumar duplicaciones sueltas.\n\nSecuencia completa: $100 \\to 200 \\to 400 \\to 800 \\to 1600$.\n\nCada hora la cantidad se duplica respecto de la hora anterior, no respecto del valor inicial, por eso el resultado final crece cada vez más rápido.",
+    "explanation": "En el modelo $B(t) = B_0 \\cdot b^t$.\n\ncada unidad de tiempo multiplica el valor anterior por la base.\n\nen vez de sumarle una cantidad fija.\n\nasí que hay que aplicar la potencia completa.\n\nno sumar duplicaciones sueltas.\n\nSecuencia completa: $100 \\to 200 \\to 400 \\to 800 \\to 1600$.\n\nCada hora la cantidad se duplica respecto de la hora anterior, no respecto del valor inicial, por eso el resultado final crece cada vez más rápido.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La vida media indica cuánto tarda una cantidad en reducirse a la mitad, así que el modelo es $M(t) = M_0 \\cdot (0{,}5)^t$ cuando $t$ se mide en unidades de vida media, y hay que aplicar la potencia completa según el tiempo transcurrido.\n\nSecuencia completa: $80 \\to 40 \\to 20 \\to 10$ gramos.\n\nConfundir cuántas veces se aplicó la mitad con el número de años, o detenerse antes de completar las tres reducciones, es el error más común en este tipo de ejercicios.",
+    "explanation": "La vida media indica cuánto tarda una cantidad en reducirse a la mitad.\n\nasí que el modelo es $M(t) = M_0 \\cdot (0{,}5)^t$ cuando $t$ se mide en unidades de vida media.\n\ny hay que aplicar la potencia completa según el tiempo transcurrido.\n\nSecuencia completa: $80 \\to 40 \\to 20 \\to 10$ gramos.\n\nConfundir cuántas veces se aplicó la mitad con el número de años, o detenerse antes de completar las tres reducciones, más común en este tipo de ejercicios.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1024,7 +1024,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = 4$ y $b = 3$: $f(x) = 4 \\cdot 3^x$.",
+    "feedback_correct": "$f(x) = 4 \\cdot 3^x$.",
     "feedback_incorrect": [
       "Ahí $a$ y $b$ quedaron invertidos: el $4$ dado en el punto $(0,4)$ tiene que ser el coeficiente, y el $3$ la base.",
       null,
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la fórmula de una exponencial a partir de un punto y una base, el valor donde la curva corta el eje vertical es directamente el coeficiente $a$, y la base dada se coloca tal cual en el exponente.\n\nDatos: $f(0) = 4 \\implies a = 4$; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y $f(1) = 4 \\cdot 3 = 12$. intercambiar los roles de $a$ y $b$, escribiendo el $3$ como coeficiente y el $4$ como base.",
+    "explanation": "Para armar la fórmula de una exponencial a partir de un punto y una base.\n\nel valor donde la curva corta el eje vertical es directamente el coeficiente $a$.\n\ny la base dada se coloca tal cual en el exponente.\n\nDatos: $f(0) = 4 \\implies a = 4$; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y :.intercambiar los roles de $a$ y $b$.\n\nescribiendo el $3$ como coeficiente y el $4$ como base.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ a partir de dos puntos, $a$ se lee directamente como $f(0)$, y $b$ se obtiene dividiendo el segundo valor sobre el primero, nunca al revés.\n\n1. $a = f(0) = 10$.\n2. $b = \\dfrac{f(1)}{f(0)} = \\dfrac{8}{10} = 0{,}8$.\n\nResultado: $f(x) = 10 \\cdot (0{,}8)^x$, una exponencial decreciente porque $b<1$.\n\nVerificación: $f(1) = 10 \\cdot 0{,}8 = 8$. Dividir al revés, $f(0)/f(1)$, es el error más común al despejar la base.",
+    "explanation": "Para hallar $a$ y $b$ a partir de dos puntos.\n\n$a$ se lee directamente como $f(0)$.\n\ny $b$ se obtiene dividiendo el segundo valor sobre el primero.\n\nnunca al revés.\n\n1. $a = f(0) = 10$.\n2. $b = \\dfrac{f(1)}{f(0)} = \\dfrac{8}{10} = 0{,}8$.\n\nResultado: $f(x) = 10 \\cdot (0{,}8)^x$, una exponencial decreciente porque $b<1$.\n\nVerificación: $f(1) = 10 \\cdot 0{,}8 = 8$.\n\nDividir al revés, $f(0)/f(1)$, más común al despejar la base.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el dominio de una función exponencial desplazada, hay que revisar si el exponente impone alguna restricción sobre los valores de $x$; sumar o restar una constante al final nunca restringe el dominio, solo desplaza la curva verticalmente.\n\nEl exponente $-x$ toma valores en $\\mathbb{R}$ para todo $x \\in \\mathbb{R}$.\n\nComo $e^u$ acepta cualquier $u$ real, el dominio de $f$ es $\\mathbb{R}$.\n\nEl $+3$ solo mueve la asíntota, sin afectar el dominio.\n\nConfundir el rango de valores de $y$ (la imagen) con el conjunto de entradas válidas de $x$ (el dominio) en este tipo de ejercicio.",
+    "explanation": "Para hallar el dominio de una función exponencial desplazada.\n\nhay que revisar si el exponente impone alguna restricción sobre los valores de $x$; sumar o restar una constante al final nunca restringe el dominio.\n\nsolo desplaza la curva verticalmente.\n\nEl exponente $-x$ toma valores en $\\mathbb{R}$ para todo :.Como $e^u$ acepta cualquier $u$ real.\n\nel dominio de $f$ es $\\mathbb{R}$.\n\nEl $+3$ solo mueve la asíntota, sin afectar el dominio.\n\nConfundir el rango de valores de $y$ (la imagen) con el conjunto de entradas válidas de $x$ (el dominio) en este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar una función exponencial en $t=0$ siempre da como resultado el coeficiente $a$, sin importar la base ni la tasa, porque cualquier base elevada a la $0$ vale $1$.\n\nEn $t=0$, antes de que transcurra ningún período y de que se generen intereses, el monto es exactamente el capital inicial.\n\nConfundir este punto de partida con un valor ya afectado por la tasa al leer modelos de interés compuesto.",
+    "explanation": "Evaluar una función exponencial en $t=0$ siempre da como resultado el coeficiente $a$.\n\nsin importar la base ni la tasa.\n\nporque cualquier base elevada a la $0$ vale $1$.\n\nEn $t=0$, antes de que transcurra ningún período y de que se generen intereses, el monto es exactamente el capital inicial.\n\nConfundir este punto de partida con un valor ya afectado por la tasa al leer modelos de interés compuesto.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función exponencial acepta cualquier exponente real, no solo números enteros, así que se puede evaluar en tiempos intermedios como un año y medio aplicando la potencia fraccionaria directamente.\n\n$(1{,}2)^{1{,}5} = (1{,}2)^1 \\cdot (1{,}2)^{0{,}5} = 1{,}2 \\cdot \\sqrt{1{,}2} \\approx 1{,}315$.\n\nTratar el exponente no entero como si hubiera que redondearlo a $1$ o a $2$ es el error más común al evaluar en tiempos intermedios.",
+    "explanation": "La función exponencial acepta cualquier exponente real, no solo números enteros, así que se puede evaluar en tiempos intermedios como un año y medio aplicando la potencia fraccionaria directamente.\n\n$(1{,}2)^{1{,}5} = (1{,}2)^1 \\cdot (1{,}2)^{0{,}5} = 1{,}2 \\cdot \\sqrt{1{,}2} \\approx 1{,}315$.\n\nTratar el exponente no entero como si hubiera que redondearlo a $1$ o a $2$ más común al evaluar en tiempos intermedios.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1174,7 +1174,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$A(0) = 1000$ y $B(0) = 2000$: en $t = 0$, $B$ vale el doble que $A$.",
+    "feedback_correct": "En $t = 0$, $B$ vale el doble que $A$.",
     "feedback_incorrect": [
       "$A$ tiene la base más grande, pero eso determina qué tan rápido crece, no cuánto vale en $t=0$: ahí manda el coeficiente $a$ de cada modelo.",
       null,
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para comparar dos modelos exponenciales en un instante dado, hay que evaluar ambas fórmulas en ese valor de $t$; el coeficiente $a$ de cada una determina directamente cuánto vale la función en $t=0$, sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo, $A$ tiene mayor base ($1{,}5>1{,}2$), así que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
+    "explanation": "Para comparar dos modelos exponenciales en un instante dado.\n\nhay que evaluar ambas fórmulas en ese valor de $t$; el coeficiente $a$ de cada una determina directamente cuánto vale la función en :.sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo.\n\n$A$ tiene mayor base ($1{,}5>1{,}2$).\n\nasí que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-desplazada"
@@ -1208,14 +1208,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman, así que primero hay que sumar los dos exponentes tal como están escritos, sin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante, $9$, que no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nTratar la suma de exponentes como si fuera un producto que genera $x^2$ es el error más frecuente en este tipo de simplificación.",
+    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman.\n\nasí que primero hay que sumar los dos exponentes tal como están escritos.\n\nsin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante.\n\n$9$.\n\nque no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nSi tratás la suma de exponentes como si fuera un producto que genera $x^2$ más frecuente en este tipo de simplificación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
     ]
   },
   {
-    "question": "¿Cuánto vale $\\dfrac{5^{x+2}}{5^x}$?",
+    "question": "Estudiá la función:\n$$\\dfrac{5^{x+2}}{5^x}$$\n¿Cuánto vale?",
     "options": [
       "$5^2 = 25$",
       "$5^{2x}$",
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de cociente de potencias de igual base indica que los exponentes se restan, así que hay que restar el exponente del denominador al del numerador antes de evaluar la potencia resultante.\n\nEl resultado es una constante, $25$, que no depende de $x$: los términos con $x$ se cancelan al restar los exponentes.\n\nConfundir la resta de exponentes con una resta directa de los números $2$ y nada más, o dejar la $x$ suelta en el resultado, son errores frecuentes acá.",
+    "explanation": "La propiedad de cociente de potencias de igual base indica que los exponentes se restan, así que hay que restar el exponente del denominador al del numerador antes de evaluar la potencia resultante.\n\nEl resultado es una constante.\n\n$25$.\n\nque no depende de $x$: los términos con $x$ se cancelan al restar los exponentes.\n\nConfundir la resta de exponentes con una resta directa de los números $2$ y nada más, o dejar la $x$ suelta en el resultado, son errores frecuentes acá.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -1242,7 +1242,7 @@
   {
     "question": "Para $f(x) = 6 \\cdot 2^x$, ¿cuánto vale $f(-2)$?",
     "options": [
-      "$-24$",
+      "$-24$ por error común",
       "$24$",
       "$3$",
       "$\\dfrac{6}{4} = 1{,}5$"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un exponente negativo no cambia el signo del resultado, invierte la base: $b^{-n}=\\dfrac{1}{b^n}$, un número siempre positivo si la base lo es.\n$$f(-2) = 6 \\cdot 2^{-2} = 6 \\cdot \\frac{1}{4} = \\frac{6}{4} = 1{,}5$$\nEl error más común es pensar que el signo del exponente se traslada al resultado, dando un valor negativo; en realidad, un exponente negativo solo achica el número, sin volverlo negativo.",
+    "explanation": "Un exponente negativo no cambia el signo del resultado, invierte la base: $b^{-n}=\\dfrac{1}{b^n}$, un número siempre positivo si la base lo es.\n$$f(-2) = 6 \\cdot 2^{-2} = 6 \\cdot \\frac{1}{4} = \\frac{6}{4} = 1{,}5$$ pensar que el signo del exponente se traslada al resultado, dando un valor negativo; en realidad, un exponente negativo solo achica el número, sin volverlo negativo.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un exponente negativo invierte la base en vez de cambiarle el signo al resultado, siguiendo la regla $b^{-n}=\\dfrac{1}{b^n}$.\n\nEl resultado es positivo y menor que $1$, aproximadamente $0{,}67$.\n\nPensar que el signo negativo del exponente se traslada al resultado final, dando un número negativo, es el error más frecuente al evaluar potencias con exponente negativo.",
+    "explanation": "Un exponente negativo invierte la base en vez de cambiarle el signo al resultado, siguiendo la regla $b^{-n}=\\dfrac{1}{b^n}$.\n\nEl resultado es positivo y menor que $1$, aproximadamente $0{,}67$.\n\nPensar que el signo negativo del exponente se traslada al resultado final, dando un número negativo, más frecuente al evaluar potencias con exponente negativo.",
     "reviewed": false,
     "tags": [
       "comparar-dos-modelos"

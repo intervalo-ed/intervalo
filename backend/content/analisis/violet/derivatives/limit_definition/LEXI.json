@@ -1,6 +1,6 @@
 [
   {
-    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $h$ en esta expresión?",
+    "question": "La **derivada** de una función en un punto se define mediante el límite:\n$:$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $h$ en esta expresión?",
     "options": [
       "El incremento que tiende a cero",
       "El punto fijo donde se calcula la derivada",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "La **derivada** de una función se define mediante el límite:\n$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n¿Qué representa $a$ en esta expresión?",
+    "question": "La **derivada** de una función se define mediante el límite:\n$:$$f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}$$\n$\n¿Qué representa $a$ en esta expresión?",
     "options": [
       "La variable independiente que recorre todo el dominio",
       "El punto fijo donde se evalúa la derivada",
@@ -50,7 +50,7 @@
     "options": [
       "Porque $h$ no puede tomar valores reales",
       "Porque $f(a+h)$ nunca está definida en $a$",
-      "Porque el numerador y el denominador se anulan al mismo tiempo"
+      "Porque el numerador en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Dado el cociente incremental $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el numerador $f(a+h) - f(a)$?",
+    "question": "Para la función:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿qué representa el numerador $f(a+h) - f(a)$?",
     "options": [
       "La variación del valor de la función entre $a$ y $a+h$",
       "La distancia entre los puntos $a$ y $a+h$ en el eje $x$",
@@ -92,10 +92,10 @@
     ]
   },
   {
-    "question": "En el mismo cociente $\\frac{f(a+h) - f(a)}{h}$, ¿qué representa el denominador $h$?",
+    "question": "Tomá en cuenta la función:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
-      "La variación de la variable independiente respecto de $a$",
+      "La variación de variable independiente",
       "La variación del valor de la función"
     ],
     "correct_index": 1,
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Sin tomar ningún límite, el cociente $\\frac{f(b)-f(a)}{b-a}$ representa...",
+    "question": "Estudiá la función:\n$$\\frac{f(b)-f(a)}{b-a}$$\nRepresenta...",
     "options": [
       "La tasa de cambio promedio de $f$ entre $a$ y $b$",
       "La tasa de cambio instantánea de $f$ en $a$",
@@ -161,10 +161,10 @@
     ]
   },
   {
-    "question": "Al tomar el límite cuando $h \\to 0$ del cociente incremental $\\frac{f(a+h)-f(a)}{h}$, la tasa de cambio promedio se transforma en...",
+    "question": "Examiná la función:\n$$\\frac{f(a+h)-f(a)}{h}$$\nLa tasa de cambio promedio se transforma en...",
     "options": [
       "La pendiente de una recta secante distinta",
-      "La tasa de cambio instantánea en $a$",
+      "La tasa de cambio instantánea en $a$ por la regla",
       "La tasa de cambio promedio en un intervalo más chico"
     ],
     "correct_index": 1,
@@ -188,7 +188,7 @@
     "options": [
       "La pendiente de la recta tangente en $a$",
       "El área bajo la curva entre $a$ y $b$",
-      "La pendiente de la recta secante que pasa por $(a,f(a))$ y $(b,f(b))$"
+      "La pendiente de la recta secante"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -230,10 +230,10 @@
     ]
   },
   {
-    "question": "Si se calcula $\\frac{f(a+h)-f(a)}{h}$ para un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
+    "question": "Considerá la función:\n$$\\frac{f(a+h)-f(a)}{h}$$\nPara un valor fijo de $h$, sin tomar ningún límite, ¿qué tasa se obtiene?",
     "options": [
       "La derivada de $f$ en $a+h$",
-      "Una tasa de cambio promedio en el intervalo $[a, a+h]$",
+      "Una tasa de cambio promedio en",
       "La tasa de cambio instantánea en $a$"
     ],
     "correct_index": 1,
@@ -299,10 +299,10 @@
     ]
   },
   {
-    "question": "¿Qué diferencia a $\\frac{\\Delta y}{\\Delta x}$ de $\\frac{dy}{dx}$?",
+    "question": "Observá la siguiente función:\n$$\\frac{\\Delta y}{\\Delta x}$$\nDe $\\frac{dy}{dx}$?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
-      "$\\frac{\\Delta y}{\\Delta x}$ es una variación finita y $\\frac{dy}{dx}$ es el límite cuando esa variación tiende a cero",
+      "$\\frac{\\Delta y}{\\Delta x}$ es una variación",
       "Son exactamente la misma expresión escrita con otra letra"
     ],
     "correct_index": 1,

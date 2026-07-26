@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Aplicando la **regla de la potencia** con $n=5$, el exponente baja multiplicando y se reduce en una unidad.\n\nEl coeficiente y la resta del exponente siempre van juntos, dejar de lado cualquiera de los dos da un resultado incompleto, y conviene revisar ambos pasos antes de dar la respuesta.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Con un coeficiente multiplicando a la potencia, se combina el **múltiplo escalar** con la regla de la potencia en un solo paso.\n\nEl coeficiente original se multiplica por el exponente que baja, no se mantiene aparte del resultado, ese producto es justamente lo que da el nuevo coeficiente.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$, por eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$, por eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -276,9 +276,9 @@
     ]
   },
   {
-    "question": "¿Qué representa el operador $\\frac{d}{dx}[\\cdot]$?",
+    "question": "Sea la función:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa el operador?",
     "options": [
-      "Un operador que deriva la expresión que tiene adentro respecto de $x$",
+      "Regla de aplicación",
       "Una fracción que se puede simplificar cancelando las $d$",
       "El valor numérico de la derivada en un punto"
     ],
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El símbolo $\\frac{d}{dx}[\\cdot]$ funciona como un **operador**, toma la expresión que va dentro de los corchetes y devuelve su derivada respecto de $x$.\n\nNo hay que confundir este símbolo con una fracción algebraica, las letras $d$ no representan cantidades que se puedan cancelar entre sí.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
@@ -322,11 +322,11 @@
     ]
   },
   {
-    "question": "¿Es correcto simplificar $\\frac{dy}{dx}$ cancelando $dy$ con $dx$ como si fuera una fracción algebraica común?",
+    "question": "Analiza la función:\n$$\\frac{dy}{dx}$$\nCancelando $dy$ con $dx$ como si fuera una fracción algebraica común?",
     "options": [
       "Sí, siempre se puede cancelar como cualquier fracción",
       "Sí, pero solo si $y$ es lineal",
-      "No, es una notación que representa un límite, no una fracción para simplificar"
+      "No, es una notación que representa"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nEsta confusión es frecuente justamente porque la notación fue diseñada para evocar esa idea, aunque formalmente no funcione así.",
+    "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nLa notación fue diseñada para ser clara cuando ambas variables están presentes, pero genera ambigüedad cuando solo una varía.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

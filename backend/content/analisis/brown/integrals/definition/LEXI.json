@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **integrando** es la función que se coloca dentro del símbolo de integral, la que se va a integrar.\n\nConfundir el integrando con la primitiva es un error de dirección, uno es la entrada de la operación y el otro es su resultado.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **integrando** es la función que se coloca dentro del símbolo de integral, la que se va a integrar.\n\nConfundir el integrando con la primitiva es un error de dirección, uno es la entrada de la operación y el otro es su resultado.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "anatomia-notacion-integral"
@@ -26,7 +26,7 @@
     "question": "En esa misma notación:\n$$\\int f(x)\\,dx = F(x) + C$$\n¿qué representa $dx$?",
     "options": [
       "La primitiva de la función",
-      "El diferencial, que marca la variable de integración",
+      "El diferencial. por definición",
       "Un factor que multiplica al integrando"
     ],
     "correct_index": 1,
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando, sin actuar como un número que se pueda multiplicar o cancelar.\n\nLeer $dx$ como si fuera un factor aritmético es un error frecuente, su función es puramente notacional, marca la variable del proceso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **diferencial** $dx$ indica respecto de qué variable se está integrando, sin actuar como un número que se pueda multiplicar o cancelar.\n\nLeer $dx$ como si fuera un factor aritmético es un error frecuente, su función es puramente notacional, marca la variable del proceso.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"
@@ -50,7 +50,7 @@
     "options": [
       "Una sumatoria discreta de términos",
       "El símbolo de la derivada",
-      "El operador integral"
+      "El operador integral en el contexto"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El símbolo $\\int$ es el **operador integral**, distinto de cualquier sumatoria discreta como $\\sum$.\n\nAunque históricamente el símbolo evoque una suma continua, en la notación operativa de este curso se trata simplemente como el operador que produce la primitiva.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El símbolo $\\int$ es el **operador integral**, distinto de cualquier sumatoria discreta como $\\sum$.\n\nAunque históricamente el símbolo evoque una suma continua, en la notación operativa de este curso se trata simplemente como el operador que produce la primitiva.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **primitiva** $F(x)$ es el resultado de aplicar la integración al integrando $f(x)$.\n\nEs la función de salida de todo el proceso, mientras que $f(x)$ es la de entrada, invertir estos roles es la confusión más común de esta notación.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **primitiva** $F(x)$ es el resultado de aplicar la integración al integrando $f(x)$.\n\nEs la función de salida de todo el proceso, mientras que $f(x)$ es la de entrada, invertir estos roles es la confusión más común de esta notación.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"
@@ -95,7 +95,7 @@
     "question": "¿Qué representa $C$ en el resultado $F(x) + C$?",
     "options": [
       "El valor numérico de la integral definida",
-      "La constante de integración, parte inseparable del resultado",
+      "La constante de integración. según la regla",
       "Un valor fijo universal igual para toda integral"
     ],
     "correct_index": 1,
@@ -140,7 +140,7 @@
   {
     "question": "Al escribir una integral indefinida como:\n$$\\int 3x\\,dx$$\n¿qué rol cumple $dx$ en esa expresión?",
     "options": [
-      "Marca que la integración es respecto de la variable $x$",
+      "Marca que la integración es respecto",
       "Multiplica aritméticamente al $3x$",
       "Indica el límite superior de la integral"
     ],
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **primitiva** de $f$ es cualquier función $F$ cuya derivada, al calcularla, devuelve exactamente $f$.\n\nEsta relación es la definición operativa de todo el tópico, integrar es literalmente buscar una función que, al derivarla, reproduzca la función original.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Una **primitiva** de $f$ es cualquier función $F$ cuya derivada, al calcularla, devuelve exactamente $f$.\n\nEsta relación es la definición operativa de todo el tópico, integrar es literalmente buscar una función que, al derivarla, reproduzca la función original.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"
@@ -211,7 +211,7 @@
     "options": [
       "$F(x)+5$, para cualquier constante",
       "$F(x) \\cdot 5$",
-      "$F(x)^2$"
+      "$F(x)^2$ sin validar el contexto"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sumar cualquier constante a una **primitiva** no cambia su derivada, porque la derivada de una constante es cero.\n\nEste es exactamente el motivo por el que la integral indefinida siempre se escribe con un $+C$ al final, hay infinitas primitivas posibles.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Sumar cualquier constante a una **primitiva** no cambia su derivada, porque la derivada de una constante es cero.\n\nEste es exactamente el motivo por el que la integral indefinida siempre se escribe con un $+C$ al final, hay infinitas primitivas posibles.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "limites-linealidad-falsas-propiedades"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **integral indefinida** $\\int f(x)\\,dx$ devuelve una familia entera de funciones, $F(x)+C$, no un número.\n\nEl área bajo la curva es el resultado de una operación distinta, la integral definida con límites de integración, que se estudia en un tópico posterior.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **integral indefinida** $\\int f(x)\\,dx$ devuelve una familia entera de funciones, $F(x)+C$, no un número.\n\nEl área bajo la curva es el resultado de una operación distinta, la integral definida con límites de integración, que se estudia en un tópico posterior.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "reescritura-potencias-y-raices"
@@ -278,7 +278,7 @@
   {
     "question": "¿Pueden dos primitivas distintas de la misma función $f$ cruzarse en algún punto?",
     "options": [
-      "No, al diferir en una constante, nunca se cruzan",
+      "No, al diferir en una constante",
       "Sí, se cruzan siempre en el origen",
       "Sí, se cruzan en el punto donde $f(x)=0$"
     ],
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $F_1$ y $F_2$ comparten la misma derivada $f$, sus gráficas tienen exactamente la misma forma, solo desplazada verticalmente.\n\nEsta diferencia constante es la que garantiza que ambas curvas sean paralelas, con la misma pendiente en cada punto del dominio.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Como $F_1$ y $F_2$ comparten la misma derivada $f$, sus gráficas tienen exactamente la misma forma, solo desplazada verticalmente.\n\nEsta diferencia constante es la que garantiza que ambas curvas sean paralelas, con la misma pendiente en cada punto del dominio.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "extraccion-separacion-terminos"

@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $\\sin^2(x)$ significa $(\\sin x)^2$, así que la **función compuesta** eleva al cuadrado el resultado del seno.\n\nEsta jerarquía se mezcla con frecuencia con $\\sin(x^2)$, donde los roles de exterior e interior quedan intercambiados.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La notación $\\sin^2(x)$ significa $(\\sin x)^2$, así que la **función compuesta** eleva al cuadrado el resultado del seno.\n\nEsta jerarquía se mezcla con frecuencia con $\\sin(x^2)$, donde los roles de exterior e interior quedan intercambiados.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(x^2)$, el seno se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el seno.\n\nLeer $x^2$ como una multiplicación $x \\cdot x$ dentro del seno es un error frecuente, la composición evalúa, no distribuye.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\sin(x^2)$, el seno se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el seno.\n\nLeer $x^2$ como una multiplicación $x \\cdot x$ dentro del seno es un error frecuente, la composición evalúa, no distribuye.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^{\\ln x}$, la exponencial se aplica sobre el resultado del logaritmo natural, así que la **capa exterior** es la exponencial.\n\nAunque esta composición particular se simplifique algebraicamente a $x$, identificar bien su anatomía sigue siendo el primer paso antes de decidir cómo derivarla. La **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
+    "explanation": "En $e^{\\ln x}$, la exponencial se aplica sobre el resultado del logaritmo natural, así que la **capa exterior** es la exponencial.\n\nAunque esta composición particular se simplifique algebraicamente a $x$, identificar bien su anatomía sigue siendo el primer paso antes de decidir cómo derivarla.\n\nLa **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\ln(x^2)$, el logaritmo se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el logaritmo.\n\nEsta jerarquía suele intercambiarse con la de $(\\ln x)^2$, donde en cambio el cuadrado envuelve al logaritmo.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\ln(x^2)$, el logaritmo se aplica sobre el resultado de elevar $x$ al cuadrado, así que la **capa exterior** es el logaritmo.\n\nEsta jerarquía suele intercambiarse con la de $(\\ln x)^2$, donde en cambio el cuadrado envuelve al logaritmo.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -108,14 +108,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $(\\ln x)^2$, el resultado del logaritmo se eleva al cuadrado, así que la **capa exterior** es la función cuadrática.\n\nDistinguir esta jerarquía de la de $\\ln(x^2)$ exige prestar atención a qué operación queda más afuera en la escritura de la expresión.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $(\\ln x)^2$, el resultado del logaritmo se eleva al cuadrado, así que la **capa exterior** es la función cuadrática.\n\nDistinguir esta jerarquía de la de $\\ln(x^2)$ exige prestar atención a qué operación queda más afuera en la escritura de la expresión.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Para la función:\n$$f(x) = \\cos(3x+1)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=3u+1, h(x)=\\cos x$",
       "No es una composición, la interior es lineal así que no aplica **regla de la cadena**",
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\cos(3x+1)$, el coseno se aplica sobre el resultado de la expresión lineal $3x+1$, así que esa expresión es la **capa interior**.\n\nQue la interior sea una función lineal no cancela la composición, sigue exigiendo multiplicar por $h'(x)=3$ al derivar.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En $\\cos(3x+1)$, el coseno se aplica sobre el resultado de la expresión lineal $3x+1$, así que esa expresión es la **capa interior**.\n\nQue la interior sea una función lineal no cancela la composición, sigue exigiendo multiplicar por $h'(x)=3$ al derivar.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $e^{3x}$, la exponencial se aplica sobre el resultado de la expresión lineal $3x$, así que esa expresión es la **capa interior**.\n\nConfundir esta composición con el producto $3x \\cdot e^x$ , la variable $x$ acá vive dentro del exponente, no multiplicando afuera. La **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
+    "explanation": "En $e^{3x}$, la exponencial se aplica sobre el resultado de la expresión lineal $3x$, así que esa expresión es la **capa interior**.\n\nConfundir esta composición con el producto $3x \\cdot e^x$ , la variable $x$ acá vive dentro del exponente, no multiplicando afuera.\n\nLa **regla de la cadena** es el mecanismo que conecta estas capas: la derivada de la composición es el producto de las derivadas de cada capa, evaluadas en el punto correcto de la cadena.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -177,17 +177,17 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$, con el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$, con el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Dada:\n$$f(x) = e^{3x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "**Regla de la cadena**"
     ],
     "correct_index": 2,
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la variable aparece dentro del exponente de una exponencial junto con un coeficiente, se trata de una **función compuesta**, no de un producto.\n\nConfundir esta estructura con un producto , la clave está en notar que $3x$ vive dentro del exponente, no multiplicando por fuera. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Cuando la variable aparece dentro del exponente de una exponencial junto con un coeficiente, se trata de una **función compuesta**, no de un producto.\n\nConfundir esta estructura con un producto , la clave está en notar que $3x$ vive dentro del exponente, no multiplicando por fuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -211,7 +211,7 @@
     "options": [
       "**Regla del producto**",
       "**Regla de la cadena**",
-      "Múltiplo escalar (linealidad)"
+      "Múltiplo escalar"
     ],
     "correct_index": 0,
     "has_math": true,
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nEs fácil confundir esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Acá $3x$ y $e^x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**, no de composición.\n\nSi confundís esta expresión con $e^{3x}$, pero acá la variable $x$ nunca queda dentro del exponente de una exponencial más grande.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación., obtienes un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -246,14 +246,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el argumento de una función elemental es distinto de $x$ solo, como $x^2$ dentro del logaritmo, corresponde la **regla de la cadena**.\n\nNo hay ningún producto ni cociente en esta estructura, el logaritmo simplemente se evalúa sobre el resultado de elevar $x$ al cuadrado. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Cuando el argumento de una función elemental es distinto de $x$ solo, como $x^2$ dentro del logaritmo, corresponde la **regla de la cadena**.\n\nNo hay ningún producto ni cociente en esta estructura, el logaritmo simplemente se evalúa sobre el resultado de elevar $x$ al cuadrado.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Considerá:\n$$f(x) = \\frac{\\sin x}{x}$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Regla del producto",
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $\\sin x$ ocupa el numerador y $x$ el denominador de una fracción, una estructura de **cociente**, no de composición.\n\nAunque visualmente aparezcan dos funciones juntas, acá ninguna se evalúa dentro de la otra, están simplemente divididas. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "Acá $\\sin x$ ocupa el numerador y $x$ el denominador de una fracción, una estructura de **cociente**, no de composición.\n\nAunque visualmente aparezcan dos funciones juntas, acá ninguna se evalúa dentro de la otra, están simplemente divididas.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -279,7 +279,7 @@
     "question": "Examiná la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
-      "Múltiplo escalar (linealidad)",
+      "Múltiplo escalar",
       "Regla del producto"
     ],
     "correct_index": 0,
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -302,7 +302,7 @@
     "question": "Analizá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
-      "**Múltiplo escalar (linealidad)**",
+      "**Múltiplo escalar **",
       "**Regla de la cadena**"
     ],
     "correct_index": 1,
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**. Identificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acá $x^2$ y $\\cos x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**.\n\nNo hay ningún argumento compuesto en esta expresión, el coseno evalúa directamente $x$, sin ninguna función anidada adentro.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Acá $x^2$ y $\\cos x$ son dos factores completamente separados que se multiplican entre sí, una estructura de **producto**.\n\nNo hay ningún argumento compuesto en esta expresión, el coseno evalúa directamente $x$, sin ninguna función anidada adentro.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

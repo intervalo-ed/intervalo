@@ -348,7 +348,7 @@
   {
     "question": "En la gráfica se muestra una función a trozos con un salto en $x=1$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
-      "Presenta un salto, no es continua ni diferenciable",
+      "Presenta un salto. en el contexto",
       "Es diferenciable en $x=1$",
       "Es continua pero no diferenciable en $x=1$"
     ],
@@ -377,7 +377,7 @@
     "question": "En la gráfica se muestra la función $f(x) = x^2$, con un punto marcado en su vértice, $x=0$.\n\n¿Qué le pasa a la diferenciabilidad de $f$ en ese punto?",
     "options": [
       "Presenta un salto, no es continua ahí",
-      "Es diferenciable, con tangente horizontal, $f'(0)=0$",
+      "Es diferenciable, con tangente horizontal, $f' =0$",
       "Presenta un quiebre, no es diferenciable ahí"
     ],
     "correct_index": 1,
@@ -395,7 +395,7 @@
       -1,
       6
     ],
-    "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre es el error más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
+    "explanation": "El vértice de una parábola es un **vértice suave**, no un pico anguloso, las dos ramas de la curva se acercan a ese punto con la misma pendiente.\n\nEsa pendiente compartida vale cero, así que la función es diferenciable ahí, con $f'(0)=0$, exactamente igual que en cualquier otro punto de la parábola.\n\nConfundir un vértice suave con un quiebre más frecuente de esta sub-familia, la diferencia clave es si la pendiente coincide o no a ambos lados.",
     "reviewed": false,
     "tags": [
       "diagnostico-esquinas-y-saltos"

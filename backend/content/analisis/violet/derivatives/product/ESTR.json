@@ -26,7 +26,7 @@
     "question": "Analizá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
-      "Distribuir y derivar por potencia",
+      "Distribuir términos",
       "Regla del producto"
     ],
     "correct_index": 1,
@@ -50,7 +50,7 @@
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
-      "Reescribir como potencia única"
+      "Simplificar potencias"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo escalar**, no como un segundo factor.\n\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Igual que con cualquier constante multiplicando a una función, el $7$ en $7\\cos x$ se trata como **múltiplo escalar**, no como un segundo factor.\n\nReconocer una constante aislada antes de derivar ahorra el trabajo de armar innecesariamente los dos factores de un producto.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"
@@ -95,7 +95,7 @@
     "question": "Analizá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla de la potencia",
-      "Distribuir y derivar por potencia",
+      "Distribuir y simplificar",
       "Regla del producto"
     ],
     "correct_index": 1,
@@ -119,7 +119,7 @@
     "options": [
       "Regla del producto",
       "Múltiplo escalar",
-      "Reescribir como potencia única"
+      "Convertir potencias"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n\nTratarlo como **múltiplo escalar** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El signo negativo del coeficiente no cambia el análisis: $-3$ sigue siendo una constante multiplicando a la función.\n\nTratarlo como **múltiplo escalar** evita el trabajo innecesario de identificar dos factores donde en realidad hay una única función elemental.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-algebraicas"

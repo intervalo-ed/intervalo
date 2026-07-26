@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$, los exponentes de cada término son:\n$$\\begin{aligned} 4x^5 &\\to \\text{exponente } 5 \\\\ -3x^3 &\\to \\text{exponente } 3 \\\\ x &\\to \\text{exponente } 1 \\\\ -7 &\\to \\text{exponente } 0 \\end{aligned}$$\nEl mayor de todos es $5$, por lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$, el número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
+    "explanation": "El **grado** de un polinomio se obtiene inspeccionando los exponentes de todos los términos y quedándose con el mayor de ellos, sin importar el orden en que estén escritos.\n\nEn $p(x) = 4x^5 - 3x^3 + x - 7$.\n\nlos exponentes de cada término son:\n \nEl mayor de todos es $5$.\n\npor lo tanto $\\deg(p) = 5$ y el coeficiente principal es $4$.\n\nel número que acompaña a $x^5$.\n\ncontar la cantidad de términos en vez de mirar el exponente máximo: acá hay 4 términos pero el grado es 5, son cosas distintas.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -48,7 +48,7 @@
       -5,
       5
     ],
-    "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1.\n\nRaíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$, raíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$.\n\nLa gráfica confirma tres cruces con el eje $X$.\n\n**2. Comportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos.\n\nLa opción $x^3 + 3x$ no tiene raíces reales distintas de $0$.",
+    "explanation": "Para identificar la fórmula a partir de la gráfica, se usan dos pistas:\n\n**1.\n\nRaíces:** $f(x) = x^3 - 3x = x(x^2 - 3) = x(x-\\sqrt{3})(x+\\sqrt{3})$.\n\nraíces en $x = 0$ y $x = \\pm\\sqrt{3} \\approx \\pm 1.73$.\n\nLa gráfica confirma tres cruces con el eje $X$.\n\n**2.\n\nComportamiento en extremos:** coeficiente principal $+1 > 0$ y grado impar → sube a la derecha, baja a la izquierda.\n\nLa opción $-x^3 + 3x$ tendría las mismas raíces pero los extremos invertidos.\n\nLa opción $x^3 + 3x$ no tiene raíces reales distintas de $0$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El grado de un polinomio **no depende del orden** en que estén escritos los términos, sino del mayor exponente presente entre todos ellos.\n\nEn $p(x) = 2x^3 - x^5 + 4$, el término $-x^5$ tiene exponente $5$, que es mayor que $3$ y que $0$.\n\nAunque $-x^5$ está en el segundo lugar de la escritura, sigue siendo el **término de mayor grado**:\n\nEl coeficiente principal es $-1$, negativo, lo que hace que la curva suba a la izquierda y baje a la derecha en vez de al revés.\n\nGuiarse por la posición en la que está escrito el término y no por su exponente real es el error más común en este tipo de ejercicio.",
+    "explanation": "El grado de un polinomio **no depende del orden** en que estén escritos los términos, sino del mayor exponente presente entre todos ellos.\n\nEn $p(x) = 2x^3 - x^5 + 4$.\n\nel término $-x^5$ tiene exponente $5$.\n\nque es mayor que $3$ y que $0$.\n\nAunque $-x^5$ está en el segundo lugar de la escritura, sigue siendo el **término de mayor grado**:\n\nEl coeficiente principal es $-1$, negativo, lo que hace que la curva suba a la izquierda y baje a la derecha en vez de al revés.\n\nSi te guías por la posición en que está escrito el término en lugar del exponente real, terminas leyendo el grado incorrectamente.\n\nLa posición en la página es engañosa; el exponente es lo que importa.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$, de grado $3$, así que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar: $5x$ es de grado $1$ y aporta el coeficiente $5$, mientras que $-1$ es el término independiente, de grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nConfundir el coeficiente principal con el término independiente, tomando el $-1$ en vez del $-2$, es el error más frecuente en este tipo de lectura.",
+    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$.\n\nde grado $3$.\n\nasí que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar: $5x$ es de grado $1$ y aporta el coeficiente $5$.\n\nmientras que $-1$ es el término independiente.\n\nde grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nLo que hay que fijarse: Si confundes el coeficiente principal con el término independiente y tomas el $-1$ en vez del $-2$, vas a describir mal el comportamiento de la curva en los extremos.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -128,7 +128,7 @@
       -2,
       8
     ],
-    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1. Extremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
+    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1.\n\nExtremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para **evaluar** un polinomio en un punto, se sustituye la variable $x$ por ese valor y se calcula el resultado numérico.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n\nEste resultado siempre coincide con el **término independiente** $a_0$ del polinomio, ya que todos los términos que llevan $x$ se anulan al multiplicarse por $0$.\n\nPor eso $p(0)$ también es la ordenada al origen: el punto donde la curva cruza el eje $Y$ es $(0, 3)$.\n\nConfundir $p(0)$ con el coeficiente principal o con otro término es un error común cuando el polinomio tiene varios términos.",
+    "explanation": "Para **evaluar** un polinomio en un punto, se sustituye la variable $x$ por ese valor y se calcula el resultado numérico.\n\nPara $p(x) = x^3 - 4x + 3$ en $x = 0$:\n\nEste resultado siempre coincide con el **término independiente** $a_0$ del polinomio.\n\nya que todos los términos que llevan $x$ se anulan al multiplicarse por $0$.\n\nPor eso $p(0)$ también es la ordenada al origen: el punto donde la curva cruza el eje $Y$ es $(0.\n\n3)$.\n\nSi no tenés cuidado, $p(0)$ con el coeficiente principal o con otro término es un error común cuando el polinomio tiene varios términos..",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente: $x^3+2$ tiene grado $3$, $4x-1$ tiene grado $1$ (es lineal), y $x^4$ tiene grado $4$.\n\nLa opción $3x^2-7$ tiene como mayor potencia $x^2$, así que es de grado $2$, aunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nSu gráfica es una parábola con vértice en $(0,-7)$, abierta hacia arriba. Fijarse solo en la cantidad de términos en vez del mayor exponente es la confusión más común al clasificar el grado.",
+    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente: $x^3+2$ tiene grado $3$.\n\n$4x-1$ tiene grado $1$ (es lineal).\n\ny $x^4$ tiene grado $4$.\n\nLa opción $3x^2-7$ tiene como mayor potencia $x^2$.\n\nasí que es de grado $2$.\n\naunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nSu gráfica es una parábola con vértice en $(0,-7)$, abierta hacia arriba.\n\nFijarse solo en la cantidad de términos en vez del mayor exponente más común al clasificar el grado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -208,7 +208,7 @@
       -3,
       3
     ],
-    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$.\n\nEn cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
+    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1.\n\nComportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar.\n\nDescarta $x^3 - x$ y $x^3 + x$.\n\n**2.\n\nRaíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$.\n\nEn cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios distintos que lo componen, sin contar los que tuvieran coeficiente $0$.\n\nEn $p(x) = x^5 - x^3 + x - 1$ cada monomio tiene un grado distinto:\n\nSon $4$ términos en total, ya que ninguno se combina con otro al tener todos grados diferentes.\n\nLos grados $4$ y $2$ están ausentes, no hay término $x^4$ ni $x^2$, y eso no cambia la cuenta: contar espacios vacíos entre exponentes en vez de monomios presentes es el error más común en este tipo de ejercicio.",
+    "explanation": "El número de **términos** de un polinomio es la cantidad de monomios distintos que lo componen, sin contar los que tuvieran coeficiente $0$.\n\nEn $p(x) = x^5 - x^3 + x - 1$ cada monomio tiene un grado distinto:\n\nSon $4$ términos en total, ya que ninguno se combina con otro al tener todos grados diferentes.\n\nLos grados $4$ y $2$ están ausentes.\n\nno hay término $x^4$ ni $x^2$.\n\ny eso no cambia la cuenta: contar espacios vacíos entre exponentes en vez de monomios presentes más común en este tipo de ejercicio.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -258,14 +258,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se evalúa sustituyendo $x = 1$ en cada término del polinomio:\n\nEl resultado $p(1) = 0$ significa que $x=1$ es una raíz del polinomio. Factorizando se confirma el porqué:\n\nTanto $x=1$ como $x=-1$ son raíces dobles, así que la curva toca el eje $X$ sin cruzarlo en esos dos puntos.\n\nConfundir un valor que anula al polinomio con un valor cualquiera de la variable al leer el resultado de una evaluación.",
+    "explanation": "Se evalúa sustituyendo $x = 1$ en cada término del polinomio:\n\nEl resultado $p(1) = 0$ significa que $x=1$ es una raíz del polinomio.\n\nFactorizando se confirma el porqué:\n\nTanto $x=1$ como $x=-1$ son raíces dobles.\n\nasí que la curva toca el eje $X$ sin cruzarlo en esos dos puntos.\n\nSi no tenés cuidado, un valor que anula al polinomio con un valor cualquiera de la variable al leer el resultado de una evaluación..",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
     ]
   },
   {
-    "question": "En $p(x) = 3x^4 - 2x^3 + x - 8$, ¿cuál es el coeficiente del término de grado $3$?",
+    "question": "Considerá la función:\n$$p(x) = 3x^4 - 2x^3 + x - 8$$\n¿cuál es el coeficiente del término de grado $3$?",
     "options": [
       "$-2$",
       "$3$",
@@ -280,7 +280,7 @@
       "El $1$ acompaña al término lineal $x$, de grado $1$, no al término de grado $3$.",
       "El $-8$ es el término independiente, de grado $0$, no el coeficiente del término de grado $3$."
     ],
-    "explanation": "En la forma estándar $a_n x^n + \\cdots$, el coeficiente de un término es el número que lo multiplica directamente, incluyendo su signo.\n\nEn $p(x) = 3x^4 - 2x^3 + x - 8$ el término de grado $3$ es $-2x^3$, así que su coeficiente es $-2$.\n\nLos demás términos no compiten por ese lugar, el de grado $4$ tiene coeficiente $3$, el de grado $1$ tiene coeficiente $1$ y el término independiente es $-8$.\n\nEl signo negativo forma parte del coeficiente: es $-2$, no $2$. Separar el signo del número y quedarse solo con el valor absoluto es el error más común al leer coeficientes en la forma estándar.",
+    "explanation": "En la forma estándar $a_n x^n + \\cdots$, el coeficiente de un término es el número que lo multiplica directamente, incluyendo su signo.\n\nEn $p(x) = 3x^4 - 2x^3 + x - 8$ el término de grado $3$ es $-2x^3$.\n\nasí que su coeficiente es $-2$.\n\nLos demás términos no compiten por ese lugar.\n\nel de grado $4$ tiene coeficiente $3$.\n\nel de grado $1$ tiene coeficiente $1$ y el término independiente es $-8$.\n\nEl signo negativo forma parte del coeficiente: es $-2$, no $2$.\n\nSeparar el signo del número y quedarse solo con el valor absoluto más común al leer coeficientes en la forma estándar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -305,7 +305,7 @@
       "El $-3$ es el coeficiente del término $-3x^3$, no el término independiente que queda al evaluar en $0$.",
       null
     ],
-    "explanation": "Evaluar un polinomio en $x=0$ anula automáticamente todos los términos que llevan la variable, porque cualquier potencia positiva de $0$ da $0$:\n\nEl resultado siempre coincide con el **término independiente** $a_0$ del polinomio, en este caso $-7$, sin importar cuántos términos con $x$ tenga la expresión.\n\nEsto significa que la curva corta el eje $Y$ en el punto $(0,-7)$, un dato que se lee directamente de la fórmula sin necesidad de graficar.\n\nBuscar el término independiente entre los que sí tienen $x$, en vez del que queda solo, es la confusión más frecuente en este tipo de evaluación.",
+    "explanation": "Evaluar un polinomio en $x=0$ anula automáticamente todos los términos que llevan la variable.\n\nporque cualquier potencia positiva de $0$ da $0$:\n\nEl resultado siempre coincide con el **término independiente** $a_0$ del polinomio.\n\nen este caso $-7$.\n\nsin importar cuántos términos con $x$ tenga la expresión.\n\nEsto significa que la curva corta el eje $Y$ en el punto $(0,-7)$, un dato que se lee directamente de la fórmula sin necesidad de graficar.\n\nBuscar el término independiente entre los que sí tienen $x$, en vez del que queda solo, más frecuente en este tipo de evaluación.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -330,7 +330,7 @@
       "El $0$ sugeriría que $x=-1$ es raíz del polinomio, pero al evaluar el resultado no da cero.",
       null
     ],
-    "explanation": "Para evaluar un polinomio en un número negativo hay que tener cuidado con el signo de cada potencia, ya que una potencia impar de un número negativo da negativo.\n\nReemplazando $x=-1$ en $p(x) = x^3 - x + 2$:\n\nEl paso que más se presta a error es $(-1)^3$, ya que multiplicar tres veces un negativo da negativo: $(-1)(-1)(-1) = -1$, no $1$.\n\nConfundir potencias pares con impares al elevar un número negativo es el error de signo más común en este tipo de cálculo.",
+    "explanation": "Para evaluar un polinomio en un número negativo hay que tener cuidado con el signo de cada potencia, ya que una potencia impar de un número negativo da negativo.\n\nReemplazando $x=-1$ en $p(x) = x^3 - x + 2$:\n\nEl paso que más se presta a error es $(-1)^3$.\n\nya que multiplicar tres veces un negativo da negativo: $(-1)(-1)(-1) = -1$.\n\nno $1$.\n\nPotencias pares con impares al elevar un número negativo de signo más común en este tipo de cálculo..\n\nEs lo que ocurre directamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -355,7 +355,7 @@
       "Ese valor aparece si se suman los términos en vez de respetar los signos de $-3x^2$ y $+1$.",
       "Ese sería el resultado si se calculara mal alguna de las potencias antes de multiplicar por el coeficiente."
     ],
-    "explanation": "Para **evaluar** un polinomio en un punto se sustituye la variable por ese valor, respetando el orden de las operaciones: primero las potencias, después los productos y por último las sumas.\n\nSustituyendo $x=2$ en $f(x) = 2x^3 - 3x^2 + 1$:\n\nEl paso más delicado es calcular las potencias antes de multiplicar por el coeficiente: $2^3=8$ y $2^2=4$ deben resolverse primero.\n\nMultiplicar el coeficiente por la base antes de elevarla al exponente es un error de orden de operaciones frecuente en este tipo de cálculo.",
+    "explanation": "Para **evaluar** un polinomio en un punto se sustituye la variable por ese valor, respetando el orden de las operaciones: primero las potencias, después los productos y por último las sumas.\n\nSustituyendo $x=2$ en $f(x) = 2x^3 - 3x^2 + 1$:\n\nEl paso más delicado es calcular las potencias antes de multiplicar por el coeficiente: $2^3=8$ y $2^2=4$ deben resolverse primero.\n\nSi multiplicás el coeficiente por la base antes de elevarla al exponente de orden de operaciones frecuente en este tipo de cálculo., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -380,7 +380,7 @@
       null,
       "El $7$ no corresponde a ningún cálculo directo de grado para esta suma de polinomios."
     ],
-    "explanation": "El grado de una suma de polinomios es, en general, el mayor de los grados de los sumandos, salvo que los términos de mayor grado se cancelen entre sí.\n\nSumando término a término $p(x)=x^4+2x$ y $q(x)=x^3-x^4+1$:\n\nLos términos $x^4$ y $-x^4$ se cancelan, así que el grado de la suma queda en $3$, no en $4$.\n\nEsto muestra que el grado de una suma puede ser menor que el de cada sumando cuando los coeficientes de mayor grado se anulan entre sí, algo que no ocurre nunca al multiplicar dos polinomios, donde el grado del producto sí es siempre la suma de los grados.",
+    "explanation": "El grado de una suma de polinomios es, en general, el mayor de los grados de los sumandos, salvo que los términos de mayor grado se cancelen entre sí.\n\nSumando término a término $p(x)=x^4+2x$ y $q(x)=x^3-x^4+1$:\n\nLos términos $x^4$ y $-x^4$ se cancelan.\n\nasí que el grado de la suma queda en $3$.\n\nno en $4$.\n\nEsto muestra que el grado de una suma puede ser menor que el de cada sumando cuando los coeficientes de mayor grado se anulan entre sí.\n\nalgo que no ocurre nunca al multiplicar dos polinomios.\n\ndonde el grado del producto sí es siempre la suma de los grados.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -398,14 +398,14 @@
       "$x = -1,\\ x = -3,\\ x = 5$"
     ],
     "correct_index": 2,
-    "feedback_correct": "Las raíces son los valores que anulan cada factor: $x=1$, $x=-3$, $x=5$.",
+    "feedback_correct": "Las raíces son $1, -3, 5$.",
     "feedback_incorrect": [
       "El $3$ sale de no invertir el signo del factor $(x+3)$, que en realidad da la raíz $x=-3$.",
       "El signo de $x=-1$ invierte el factor $(x-1)$, que en realidad da la raíz $x=+1$, y lo mismo pasa con $x=-5$ frente a $(x-5)$.",
       null,
       "El signo de $x=-1$ invierte el factor $(x-1)$, que en realidad da la raíz $x=+1$."
     ],
-    "explanation": "Las **raíces** de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable.\n\nPara $f(x) = (x-1)(x+3)(x-5)$:\n\nEl signo de cada raíz es siempre opuesto al signo que aparece dentro del factor, el factor $(x+3)$ da la raíz $x=-3$, no $x=+3$.\n\nLeer el signo del factor tal cual, sin invertirlo al despejar, es el error de signo más común al pasar de la forma factorizada a las raíces.",
+    "explanation": "Las **raíces** de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable.\n\nPara $f(x) = (x-1)(x+3)(x-5)$:\n\nEl signo de cada raíz es siempre opuesto al signo que aparece dentro del factor.\n\nel factor $(x+3)$ da la raíz $x=-3$.\n\nno $x=+3$.\n\nLeer el signo del factor tal cual, sin invertirlo al despejar, de signo más común al pasar de la forma factorizada a las raíces.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -430,7 +430,7 @@
       "A esta opción le falta el factor $x$, así que no incluye la raíz en $x=0$.",
       "El factor $(x-3)$ correspondería a la raíz $x=3$, pero la raíz dada es $x=-3$."
     ],
-    "explanation": "La forma factorizada de un polinomio con coeficiente principal $a$ y raíces $r_1, r_2, r_3$ es $f(x) = a(x-r_1)(x-r_2)(x-r_3)$, donde cada raíz aparece con el signo cambiado dentro del paréntesis.\n\nCon $a=1$ y raíces $0$, $2$ y $-3$:\n$$f(x) = (x-0)(x-2)(x-(-3)) = x(x-2)(x+3)$$\nSe puede verificar sustituyendo cada raíz:\n$$\\begin{aligned} f(0) &= 0 \\\\ f(2) &= 2 \\cdot 0 \\cdot 5 = 0 \\\\ f(-3) &= (-3)(-5)(0) = 0 \\end{aligned}$$\nLos tres factores se anulan exactamente en las raíces dadas. El error más común es escribir el factor con el mismo signo de la raíz, poniendo $(x+2)$ en vez de $(x-2)$ para una raíz positiva.",
+    "explanation": "La forma factorizada de un polinomio con coeficiente principal $a$ y raíces $r_1.\n\nr_2.\n\nr_3$ es $f(x) = a(x-r_1)(x-r_2)(x-r_3)$.\n\ndonde cada raíz aparece con el signo cambiado dentro del paréntesis.\n\nCon $a=1$ y raíces $0$\n\n$2$ y $-3$:\n \nSe puede verificar sustituyendo cada raíz:\n \nLos tres factores se anulan exactamente en las raíces dadas. escribir el factor con el mismo signo de la raíz.\n\nponiendo $(x+2)$ en vez de $(x-2)$ para una raíz positiva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -480,7 +480,7 @@
       "Los signos de las raíces están invertidos, los factores $(x-2)$ y $(x+1)$ dan raíces $2$ y $-1$, no $-2$ y $1$.",
       "Al factor $(x-2)^2$ le corresponde multiplicidad doble, no simple, aunque el otro factor sí sea simple."
     ],
-    "explanation": "La **multiplicidad** de una raíz es la cantidad de veces que su factor se repite en la forma factorizada, y determina si la curva cruza o solo toca el eje $X$ en ese punto.\n\nEn $p(x) = (x-2)^2(x+1)$ el factor $(x-2)$ aparece elevado al cuadrado, es decir dos veces, así que $x=2$ es una raíz doble donde la curva toca el eje sin cruzarlo.\n\nEl factor $(x+1)$ aparece una sola vez, así que $x=-1$ es una raíz simple donde la curva sí cruza el eje.\n\nEl grado del polinomio, $3$, coincide con la suma de las multiplicidades, $2+1=3$, una forma rápida de verificar que no quedó ninguna raíz sin contar.\n\nConfundir cuál raíz es doble y cuál es simple, por ejemplo asignando la multiplicidad al factor equivocado, es el error más frecuente en este tipo de lectura.",
+    "explanation": "La **multiplicidad** de una raíz es la cantidad de veces que su factor se repite en la forma factorizada, y determina si la curva cruza o solo toca el eje $X$ en ese punto.\n\nEn $p(x) = (x-2)^2(x+1)$ el factor $(x-2)$ aparece elevado al cuadrado.\n\nes decir dos veces.\n\nasí que $x=2$ es una raíz doble donde la curva toca el eje sin cruzarlo.\n\nEl factor $(x+1)$ aparece una sola vez, así que $x=-1$ es una raíz simple donde la curva sí cruza el eje.\n\nEl grado del polinomio, $3$, coincide con la suma de las multiplicidades, $2+1=3$, una forma rápida de verificar que no quedó ninguna raíz sin contar.\n\nDejarse llevar por este error produce que cuál raíz es doble y cuál es simple, por ejemplo asignando la multiplicidad al factor equivocado, más frecuente en este tipo de lectura..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -505,7 +505,7 @@
       "El $-6$ es el término independiente de la forma expandida, no el coeficiente principal.",
       "El $3$ es uno de los números dentro de un paréntesis, no el factor que multiplica a todo el producto."
     ],
-    "explanation": "En la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, el **coeficiente principal** es el factor $a$ que multiplica a todo el producto, el que queda fuera de los paréntesis.\n\nEn $p(x) = 2(x+3)(x-1)$ ese factor es $a=2$, sin necesidad de expandir nada más.\n\nPara verificarlo, si se expande la expresión: $2(x+3)(x-1) = 2(x^2+2x-3) = 2x^2+4x-6$, el coeficiente de $x^2$ vuelve a ser $2$.\n\nConfundir el factor $a$ con alguno de los números que aparecen dentro de los paréntesis es el error más común al leer el coeficiente principal en la forma factorizada.",
+    "explanation": "En la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, el **coeficiente principal** es el factor $a$ que multiplica a todo el producto, el que queda fuera de los paréntesis.\n\nEn $p(x) = 2(x+3)(x-1)$ ese factor es $a=2$, sin necesidad de expandir nada más.\n\nPara verificarlo.\n\nsi se expande la expresión: $2(x+3)(x-1) = 2(x^2+2x-3) = 2x^2+4x-6$.\n\nel coeficiente de $x^2$ vuelve a ser $2$.\n\nLo importante a notar: El factor $a$ con alguno de los números que aparecen dentro de los paréntesis más común al leer el coeficiente principal en la forma factorizada..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -530,7 +530,7 @@
       "El $6$ saldría de multiplicar los grados en vez de sumarlos.",
       null
     ],
-    "explanation": "El grado del producto de dos polinomios es siempre la **suma** de los grados de cada factor, a diferencia de la suma de polinomios, donde el grado puede reducirse por cancelación.\n\nCon $\\deg(x^2+1)=2$ y $\\deg(x^3-x)=3$:\n\nSe puede verificar mirando el término dominante del producto, $(x^2)(x^3) = x^5$, que efectivamente tiene grado $5$ y nunca se cancela con otro término del mismo grado.\n\nConfundir esta regla con la del grado de una suma, donde a veces sí hay cancelación, es el error más frecuente en este tipo de ejercicio.",
+    "explanation": "El grado del producto de dos polinomios es siempre la **suma** de los grados de cada factor, a diferencia de la suma de polinomios, donde el grado puede reducirse por cancelación.\n\nCon $\\deg(x^2+1)=2$ y $\\deg(x^3-x)=3$:\n\nSe puede verificar mirando el término dominante del producto, $(x^2)(x^3) = x^5$, que efectivamente tiene grado $5$ y nunca se cancela con otro término del mismo grado.\n\nEsta regla con la del grado de una suma, donde a veces sí hay cancelación, más frecuente en este tipo de ejercicio..\n\nEs lo que ocurre directamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -555,7 +555,7 @@
       "Los signos dentro de los paréntesis están invertidos, las raíces son $-1$ y $3$, no $1$ y $-3$.",
       "A esta opción le falta el coeficiente $a=-1$ y además tiene los signos de las raíces invertidos."
     ],
-    "explanation": "La forma factorizada con coeficiente principal $a$ y raíces $r_1, r_2$ es $f(x) = a(x-r_1)(x-r_2)$, donde cada raíz cambia de signo al entrar en el paréntesis.\n\nCon $a=-1$, $r_1=-1$ y $r_2=3$:\n\nSe puede verificar sustituyendo las raíces: $f(-1) = -(0)(-4) = 0$ y $f(3) = -(4)(0) = 0$, ambos dan cero como corresponde.\n\nEl coeficiente negativo hace que la parábola abra hacia abajo en vez de hacia arriba.\n\nOlvidar distribuir el signo negativo de $a$ a los dos factores, dejando solo uno con el signo cambiado, al construir esta forma.",
+    "explanation": "La forma factorizada con coeficiente principal $a$ y raíces $r_1.\n\nr_2$ es $f(x) = a(x-r_1)(x-r_2)$.\n\ndonde cada raíz cambia de signo al entrar en el paréntesis.\n\nCon $a=-1$.\n\n$r_1=-1$ y $r_2=3$:\n\nSe puede verificar sustituyendo las raíces: $f(-1) = -(0)(-4) = 0$ y $f(3) = -(4)(0) = 0$, ambos dan cero como corresponde.\n\nEl coeficiente negativo hace que la parábola abra hacia abajo en vez de hacia arriba.\n\nOlvidar distribuir el signo negativo de $a$ a los dos factores, dejando solo uno con el signo cambiado, al construir esta forma.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -580,7 +580,7 @@
       null,
       "El signo del término cruzado es positivo en este caso, porque el binomio es una suma $(x+4)$, no una resta."
     ],
-    "explanation": "El **binomio cuadrado perfecto** sigue el patrón $(a+b)^2 = a^2 + 2ab + b^2$, con tres términos: el cuadrado del primero, el doble producto y el cuadrado del segundo.\n\nCon $a=x$ y $b=4$:\n\nEl término del medio, $2ab=8x$, es el que más se olvida al expandir de memoria, quedándose solo con los cuadrados de los extremos.\n\nEse término del medio **siempre existe** en un binomio cuadrado, escribir $x^2+16$ y saltearlo es el error más frecuente en esta identidad.",
+    "explanation": "El **binomio cuadrado perfecto** sigue el patrón $(a+b)^2 = a^2 + 2ab + b^2$, con tres términos: el cuadrado del primero, el doble producto y el cuadrado del segundo.\n\nCon $a=x$ y $b=4$:\n\nEl término del medio, $2ab=8x$, es el que más se olvida al expandir de memoria, quedándose solo con los cuadrados de los extremos.\n\nEse término del medio **siempre existe** en un binomio cuadrado, escribir $x^2+16$ y saltearlo más frecuente en esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -605,7 +605,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(x-5)$, no una suma.",
       "El cuadrado de $5$ siempre da positivo, $25$, sin importar que $b$ tenga signo negativo dentro del binomio."
     ],
-    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término, $-10x$ es el doble producto $-2(x)(5)$, y $25$ es el cuadrado de $5$, positivo porque todo cuadrado lo es.\n\nConfundir esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, es el error más frecuente en esta identidad.",
+    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -630,7 +630,7 @@
       "El término cruzado correcto es $2ab=4x$, no $2x$, se olvidó multiplicar por $2$ correctamente.",
       null
     ],
-    "explanation": "El binomio cuadrado perfecto $(a+b)^2=a^2+2ab+b^2$ también aplica cuando $a$ ya trae un coeficiente numérico, y ese coeficiente se eleva al cuadrado junto con la variable.\n\nCon $a=2x$ y $b=1$:\n\nEl paso más delicado es $(2x)^2$, que da $4x^2$ y no $2x^2$, porque el $2$ también se eleva al cuadrado junto con la $x$.\n\nOlvidar elevar al cuadrado el coeficiente numérico del binomio, quedándose solo con el coeficiente original, es el error más común al expandir este tipo de expresión.",
+    "explanation": "El binomio cuadrado perfecto $(a+b)^2=a^2+2ab+b^2$ también aplica cuando $a$ ya trae un coeficiente numérico, y ese coeficiente se eleva al cuadrado junto con la variable.\n\nCon $a=2x$ y $b=1$:\n\nEl paso más delicado es $(2x)^2$.\n\nque da $4x^2$ y no $2x^2$.\n\nporque el $2$ también se eleva al cuadrado junto con la $x$.\n\nSi olvidás elevar al cuadrado el coeficiente numérico del binomio, quedándose solo con el coeficiente original, más común al expandir este tipo de expresión., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(3x-2)$, no una suma.",
       null
     ],
-    "explanation": "El binomio cuadrado perfecto $(a-b)^2=a^2-2ab+b^2$ exige elevar al cuadrado el coeficiente numérico de cada término, no solo la variable.\n\nCon $a=3x$ y $b=2$:\n\nCada pieza se calcula por separado: $(3x)^2=9x^2$, el doble producto $2(3x)(2)=12x$ con signo negativo, y $2^2=4$.\n\nLa opción $9x^2-4$ corresponde en cambio a la diferencia de cuadrados $(3x+2)(3x-2)$, que no tiene término lineal, confundir ambas identidades .",
+    "explanation": "El binomio cuadrado perfecto $(a-b)^2=a^2-2ab+b^2$ exige elevar al cuadrado el coeficiente numérico de cada término, no solo la variable.\n\nCon $a=3x$ y $b=2$:\n\nCada pieza se calcula por separado: $(3x)^2=9x^2$.\n\nel doble producto $2(3x)(2)=12x$ con signo negativo.\n\ny $2^2=4$.\n\nLa opción $9x^2-4$ corresponde en cambio a la diferencia de cuadrados $(3x+2)(3x-2)$, que no tiene término lineal, confundir ambas identidades .",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -680,7 +680,7 @@
       null,
       "Esos factores no corresponden a ningún cuadrado reconocible de $x^2-16$."
     ],
-    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$) y $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números es el error más común acá.",
+    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$) y $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números más común acá.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -705,7 +705,7 @@
       null,
       "Ese es el cuadrado del binomio con signo positivo, que expandido da un término lineal $+12x$ que no aparece en $9x^2-4$."
     ],
-    "explanation": "Para factorizar una **diferencia de cuadrados** hay que reconocer cada término como un cuadrado perfecto, $9x^2=(3x)^2$ y $4=2^2$, y aplicar $a^2-b^2=(a+b)(a-b)$.\n\nCon $a=3x$ y $b=2$:\n\nA diferencia de esto, $(3x-2)^2=9x^2-12x+4$ es el cuadrado del binomio, con un término lineal $-12x$ que en $9x^2-4$ no existe.\n\nVerificar que la expresión no tenga término lineal antes de aplicar diferencia de cuadrados evita confundirla con un binomio cuadrado perfecto que comparte los mismos dos números.",
+    "explanation": "Para factorizar una **diferencia de cuadrados** hay que reconocer cada término como un cuadrado perfecto.\n\n$9x^2=(3x)^2$ y $4=2^2$.\n\ny aplicar $a^2-b^2=(a+b)(a-b)$.\n\nCon $a=3x$ y $b=2$:\n\nA diferencia de esto.\n\n$(3x-2)^2=9x^2-12x+4$ es el cuadrado del binomio.\n\ncon un término lineal $-12x$ que en $9x^2-4$ no existe.\n\nVerificar que la expresión no tenga término lineal antes de aplicar diferencia de cuadrados evita confundirla con un binomio cuadrado perfecto que comparte los mismos dos números.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -730,7 +730,7 @@
       null,
       "El signo del término central en $(x-3)^2$ es negativo, $-6x$, pero la expresión a factorizar tiene $+6x$."
     ],
-    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$, $a^2=x^2$ da $a=x$ y $b^2=9$ da $b=3$, y el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:\n$$x^2 + 6x + 9 = (x+3)^2$$\nLa opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados, sin término lineal, confundir una expresión con término lineal con una diferencia de cuadrados es el error más frecuente al identificar esta identidad.",
+    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$\n\n$a^2=x^2$ da $a=x$ y $b^2=9$ da $b=3$.\n\ny el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:\n \nLa opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados.\n\nsin término lineal.\n\nconfundir una expresión con término lineal con una diferencia de cuadrados más frecuente al identificar esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -755,7 +755,7 @@
       "El signo del término central en $(x+5)^2$ es positivo, $+10x$, pero la expresión a factorizar tiene $-10x$.",
       null
     ],
-    "explanation": "El patrón $a^2-2ab+b^2=(a-b)^2$ se reconoce identificando los dos cuadrados en los extremos y comprobando que el término del medio sea el doble producto correspondiente.\n\nCon $a=x$ y $b=5$, el doble producto $2ab=2(x)(5)=10x$ coincide con el término central de la expresión, que aparece con signo negativo:\n\nLa opción $(x-5)(x+5)=x^2-25$ corresponde en cambio a la diferencia de cuadrados, sin término lineal, mientras que aquí el término $-10x$ sí está presente.\n\nVerificar primero si hay término lineal antes de elegir entre estas dos identidades evita confundirlas.",
+    "explanation": "El patrón $a^2-2ab+b^2=(a-b)^2$ se reconoce identificando los dos cuadrados en los extremos y comprobando que el término del medio sea el doble producto correspondiente.\n\nCon $a=x$ y $b=5$.\n\nel doble producto $2ab=2(x)(5)=10x$ coincide con el término central de la expresión.\n\nque aparece con signo negativo:\n\nLa opción $(x-5)(x+5)=x^2-25$ corresponde en cambio a la diferencia de cuadrados, sin término lineal, mientras que aquí el término $-10x$ sí está presente.\n\nVerificar primero si hay término lineal antes de elegir entre estas dos identidades evita confundirlas.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -773,14 +773,14 @@
       "$x^3 + 2x^2 + 2x + 1$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$(x+1)^3 = x^3 + 3x^2 + 3x + 1$: cubo del binomio con $a=x$, $b=1$.",
+    "feedback_correct": "Cubo del binomio con resultado $x^3 + 3x^2 + 3x + 1$.",
     "feedback_incorrect": [
       "Esa expresión corresponde a la factorización de suma de cubos, no a la expansión del cubo de un binomio, que tiene cuatro términos.",
       null,
       "A esta opción le falta el término $3x^2$, el cubo de un binomio siempre tiene cuatro términos, no tres.",
       "Los coeficientes $3$ y $3$ del cubo del binomio se reemplazaron por $2$ y $2$, revisá la fórmula $3a^2b$ y $3ab^2$."
     ],
-    "explanation": "El **cubo del binomio** sigue el patrón $(a+b)^3=a^3+3a^2b+3ab^2+b^3$, con cuatro términos en vez de los tres del cuadrado del binomio.\n\nCon $a=x$ y $b=1$:\n\nEl error más frecuente es escribir solo $x^3+1$, confundiendo esta expansión con la identidad de suma de cubos, o saltear el término $3x^2$ y quedarse con $x^3+3x+1$.\n\nLos cuatro términos, con coeficientes $1,3,3,1$, siempre están presentes en el cubo de un binomio.",
+    "explanation": "El **cubo del binomio** sigue el patrón $(a+b)^3=a^3+3a^2b+3ab^2+b^3$, con cuatro términos en vez de los tres del cuadrado del binomio.\n\nCon $a=x$ y $b=1$:\n\nEl error más frecuente es escribir solo $x^3+1$.\n\nconfundiendo esta expansión con la identidad de suma de cubos.\n\no saltear el término $3x^2$ y quedarse con $x^3+3x+1$.\n\nLos cuatro términos, con coeficientes $1,3,3,1$, siempre están presentes en el cubo de un binomio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -805,7 +805,7 @@
       "Todos los signos positivos corresponden a la expansión de $(x+2)^3$, no a $(x-2)^3$, donde los signos alternan.",
       null
     ],
-    "explanation": "El cubo de una diferencia sigue el patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$, donde los signos alternan entre positivo y negativo a lo largo de los cuatro términos.\n\nCon $a=x$ y $b=2$:\n\nLos signos siguen el patrón $+,-,+,-$, alternando en cada término.\n\nLa opción $x^3-8$ correspondería en cambio a la diferencia de cubos $x^3-2^3=(x-2)(x^2+2x+4)$, una factorización distinta que no incluye los términos intermedios, confundir el cubo de un binomio con la diferencia de cubos porque comparten los mismos dos números.",
+    "explanation": "El cubo de una diferencia sigue el patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$, donde los signos alternan entre positivo y negativo a lo largo de los cuatro términos.\n\nCon $a=x$ y $b=2$:\n\nLos signos siguen el patrón $+,-,+,-$, alternando en cada término.\n\nLa opción $x^3-8$ correspondería en cambio a la diferencia de cubos $x^3-2^3=(x-2)(x^2+2x+4)$.\n\nuna factorización distinta que no incluye los términos intermedios.\n\nconfundir el cubo de un binomio con la diferencia de cubos porque comparten los mismos dos números.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -830,7 +830,7 @@
       null,
       "El $3$ es solo el valor de $b$, falta multiplicarlo por el $-3$ del patrón para obtener el coeficiente completo."
     ],
-    "explanation": "Cuando solo se pide un coeficiente puntual de una expansión, no hace falta desarrollar los cuatro términos completos, alcanza con identificar cuál término del patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$ corresponde al grado pedido.\n\nCon $a=x$ y $b=3$, el término de grado $2$ es $-3a^2b$:\n\nEl coeficiente buscado es $-9$. Expandiendo la identidad completa se confirma: $(x-3)^3 = x^3-9x^2+27x-27$.\n\nCalcular todos los términos cuando solo se pide uno es un desperdicio de tiempo evitable si se identifica directamente qué término del patrón corresponde al grado pedido.",
+    "explanation": "Cuando solo se pide un coeficiente puntual de una expansión.\n\nno hace falta desarrollar los cuatro términos completos.\n\nalcanza con identificar cuál término del patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$ corresponde al grado pedido.\n\nCon $a=x$ y $b=3$.\n\nel término de grado $2$ es $-3a^2b$:\n\nEl coeficiente buscado es $-9$.\n\nExpandiendo la identidad completa se confirma: $(x-3)^3 = x^3-9x^2+27x-27$.\n\nCalcular todos los términos cuando solo se pide uno es un desperdicio de tiempo evitable si se identifica directamente qué término del patrón corresponde al grado pedido.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       null,
       "El signo del término central del segundo factor debe ser negativo, $-ab=-2x$, no positivo."
     ],
-    "explanation": "La **suma de cubos** factoriza según $a^3+b^3=(a+b)(a^2-ab+b^2)$, con el primer factor sumando y el segundo factor con signo negativo en el término central.\n\nCon $a=x$ y $b=2$, ya que $8=2^3$:\n\nEl signo del término central en el segundo factor es negativo, $-ab=-2x$, aunque el primer factor sea una suma.\n\nConfundir el signo de este término central con el del binomio $(x+2)^2=x^2+4x+4$, que sí lleva signo positivo, es el error más frecuente al aplicar esta identidad.",
+    "explanation": "La **suma de cubos** factoriza según $a^3+b^3=(a+b)(a^2-ab+b^2)$, con el primer factor sumando y el segundo factor con signo negativo en el término central.\n\nCon $a=x$ y $b=2$.\n\nya que $8=2^3$:\n\nEl signo del término central en el segundo factor es negativo, $-ab=-2x$, aunque el primer factor sea una suma.\n\nConfundir el signo de este término central con el del binomio $(x+2)^2=x^2+4x+4$, que sí lleva signo positivo, más frecuente al aplicar esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -880,7 +880,7 @@
       "El signo del término central del segundo factor debe ser positivo, $+ab=+3x$, no negativo.",
       "El primer factor debe llevar signo negativo, $(x-3)$, ya que se trata de una diferencia de cubos, no una suma."
     ],
-    "explanation": "La **diferencia de cubos** factoriza según $a^3-b^3=(a-b)(a^2+ab+b^2)$, con el primer factor restando y el segundo factor con todos los signos positivos.\n\nCon $a=x$ y $b=3$, ya que $27=3^3$:\n\nEl signo del término central en el segundo factor es positivo, $+ab=+3x$, justo al revés de lo que ocurre en la suma de cubos, donde ese término central es negativo.\n\nRecordar que en la diferencia de cubos el primer factor lleva el signo negativo y el segundo factor queda todo en positivo ayuda a no invertir los signos entre ambas identidades.",
+    "explanation": "La **diferencia de cubos** factoriza según $a^3-b^3=(a-b)(a^2+ab+b^2)$, con el primer factor restando y el segundo factor con todos los signos positivos.\n\nCon $a=x$ y $b=3$.\n\nya que $27=3^3$:\n\nEl signo del término central en el segundo factor es positivo, $+ab=+3x$, justo al revés de lo que ocurre en la suma de cubos, donde ese término central es negativo.\n\nRecordar que en la diferencia de cubos el primer factor lleva el signo negativo y el segundo factor queda todo en positivo ayuda a no invertir los signos entre ambas identidades.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -905,7 +905,7 @@
       "Ese valor no anula al polinomio, $0^3+1=1 \\neq 0$, no es raíz.",
       "Sí tiene una raíz real, $x=-1$, aunque el factor cuadrático restante no aporte más raíces reales."
     ],
-    "explanation": "Para encontrar las raíces reales de un polinomio conviene factorizarlo primero. Por suma de cubos, $x^3+1=(x+1)(x^2-x+1)$.\n\nCada factor se analiza por separado. El factor lineal $x+1=0$ da la raíz $x=-1$.\n\nEl factor cuadrático $x^2-x+1=0$ tiene discriminante $\\Delta = 1-4=-3$, negativo, lo que significa que no tiene raíces reales, solo un par de raíces complejas conjugadas.\n\nPor eso la única raíz real de todo el polinomio es $x=-1$, aunque el polinomio tenga grado $3$.\n\nSuponer que un polinomio de grado $n$ siempre tiene $n$ raíces reales, sin revisar si el factor cuadrático remanente tiene discriminante negativo, es el error más frecuente en este tipo de análisis.",
+    "explanation": "Para encontrar las raíces reales de un polinomio conviene factorizarlo primero.\n\nPor suma de cubos, $x^3+1=(x+1)(x^2-x+1)$.\n\nCada factor se analiza por separado.\n\nEl factor lineal $x+1=0$ da la raíz $x=-1$.\n\nEl factor cuadrático $x^2-x+1=0$ tiene discriminante $\\Delta = 1-4=-3$, negativo, lo que significa que no tiene raíces reales, solo un par de raíces complejas conjugadas.\n\nPor eso la única raíz real de todo el polinomio es $x=-1$, aunque el polinomio tenga grado $3$.\n\nSi suponés que un polinomio de grado $n$ siempre tiene $n$ raíces reales.\n\nsin revisar si el factor cuadrático remanente tiene discriminante negativo.\n\nmás frecuente en este tipo de análisis..\n\nobtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       "El coeficiente del término $x^2$ está mal calculado, $3(2x)^2(1)=12x^2$, no $6x^2$.",
       null
     ],
-    "explanation": "El patrón $(a+b)^3=a^3+3a^2b+3ab^2+b^3$ también aplica cuando $a$ trae un coeficiente numérico, que se eleva al cubo junto con la variable.\n\nCon $a=2x$ y $b=1$:\n\nEl paso más delicado es $(2x)^3$, que da $8x^3$ y no $2x^3$, porque el coeficiente $2$ también se eleva al cubo, $2^3=8$.\n\nOlvidar elevar al cubo el coeficiente numérico del binomio es el error más frecuente al expandir este tipo de expresión.",
+    "explanation": "El patrón $(a+b)^3=a^3+3a^2b+3ab^2+b^3$ también aplica cuando $a$ trae un coeficiente numérico, que se eleva al cubo junto con la variable.\n\nCon $a=2x$ y $b=1$:\n\nEl paso más delicado es $(2x)^3$.\n\nque da $8x^3$ y no $2x^3$.\n\nporque el coeficiente $2$ también se eleva al cubo.\n\n$2^3=8$.\n\nSi olvidás elevar al cubo el coeficiente numérico del binomio más frecuente al expandir este tipo de expresión., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -955,7 +955,7 @@
       "El $3$ es el coeficiente del término $3x$, de grado $1$, no el término independiente de grado $0$.",
       null
     ],
-    "explanation": "El término independiente de una expansión es el que no lleva variable, en el patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$ ese lugar lo ocupa $-b^3$.\n\nCon $a=x$ y $b=1$:\n\nEl término independiente es $-b^3=-1^3=-1$.\n\nUna forma rápida de verificarlo sin expandir todo es evaluar el binomio en $x=0$, ya que ese valor siempre coincide con el término independiente: $(0-1)^3=(-1)^3=-1$.\n\nOlvidar el signo negativo al elevar $b$ al cubo es el error más frecuente al calcular este término.",
+    "explanation": "El término independiente de una expansión es el que no lleva variable, en el patrón $(a-b)^3=a^3-3a^2b+3ab^2-b^3$ ese lugar lo ocupa $-b^3$.\n\nCon $a=x$ y $b=1$:\n\nEl término independiente es $-b^3=-1^3=-1$.\n\nUna forma rápida de verificarlo sin expandir todo es evaluar el binomio en $x=0$, ya que ese valor siempre coincide con el término independiente: $(0-1)^3=(-1)^3=-1$.\n\nOlvidar el signo negativo al elevar $b$ al cubo más frecuente al calcular este término.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -980,7 +980,7 @@
       "El segundo factor debe llevar todos los signos positivos en la diferencia de cubos, no el término central negativo.",
       "El primer factor debe llevar signo negativo, $(2x-1)$, ya que se trata de una diferencia de cubos, no una suma."
     ],
-    "explanation": "La diferencia de cubos factoriza según $a^3-b^3=(a-b)(a^2+ab+b^2)$, con el segundo factor llevando todos los signos positivos.\n\nCon $a=2x$ y $b=1$, ya que $(2x)^3=8x^3$ y $1^3=1$:\n\nEl segundo factor lleva todos los signos positivos en la diferencia de cubos, a diferencia de $(2x-1)^3=8x^3-12x^2+6x-1$, que es una expansión distinta con cuatro términos.\n\nConfundir la factorización de una diferencia de cubos con el cubo de un binomio, porque comparten los mismos dos números, es el error más frecuente en este tipo de ejercicio.",
+    "explanation": "La diferencia de cubos factoriza según $a^3-b^3=(a-b)(a^2+ab+b^2)$, con el segundo factor llevando todos los signos positivos.\n\nCon $a=2x$ y $b=1$.\n\nya que $(2x)^3=8x^3$ y $1^3=1$:\n\nEl segundo factor lleva todos los signos positivos en la diferencia de cubos, a diferencia de $(2x-1)^3=8x^3-12x^2+6x-1$, que es una expansión distinta con cuatro términos.\n\nConfundir la factorización de una diferencia de cubos con el cubo de un binomio, porque comparten los mismos dos números, más frecuente en este tipo de ejercicio.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1005,7 +1005,7 @@
       "Esta versión repite la raíz $2$ como doble y le falta la raíz en $-2$, distinto de las tres raíces simples del gráfico.",
       "A esta opción le falta el factor $x$, así que no incluye la raíz en $x=0$ que muestra el gráfico."
     ],
-    "explanation": "Con raíces $r_1=-2$, $r_2=0$ y $r_3=2$, y coeficiente principal $a=1$, positivo:\n\nEn un polinomio de grado impar, un coeficiente principal positivo hace que la curva suba a la derecha y baje a la izquierda, tal como se ve en el gráfico.\n\nSi el coeficiente fuera negativo, el comportamiento se invertiría.\n\nSe puede verificar sustituyendo cada raíz, $f(-2)=(-2)(-4)(0)=0$, $f(0)=0$ y $f(2)=2(0)(4)=0$, los tres factores se anulan exactamente donde el gráfico cruza el eje.\n\nInvertir el signo del coeficiente principal al leer la dirección de los extremos de un gráfico es el error más común en este tipo de lectura.",
+    "explanation": "Con raíces $r_1=-2$.\n\n$r_2=0$ y $r_3=2$.\n\ny coeficiente principal $a=1$.\n\npositivo:\n\nEn un polinomio de grado impar, un coeficiente principal positivo hace que la curva suba a la derecha y baje a la izquierda, tal como se ve en el gráfico.\n\nSi el coeficiente fuera negativo, el comportamiento se invertiría.\n\nSe puede verificar sustituyendo cada raíz.\n\n$f(-2)=(-2)(-4)(0)=0$.\n\n$f(0)=0$ y $f(2)=2(0)(4)=0$.\n\nlos tres factores se anulan exactamente donde el gráfico cruza el eje.\n\nInvertir el signo del coeficiente principal al leer la dirección de los extremos de un gráfico más común en este tipo de lectura.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -1035,7 +1035,7 @@
       "Esta versión no tiene raíces reales, $x^2+1$ y $x^2+4$ nunca se anulan, y el gráfico sí muestra cuatro cruces con el eje.",
       "A esta expresión le faltan dos raíces, es de grado $2$ y el gráfico muestra un polinomio de grado $4$ con cuatro raíces."
     ],
-    "explanation": "Con raíces $\\pm 1$ y $\\pm 2$, los cuatro factores lineales se pueden agrupar en pares como diferencia de cuadrados:\n\nAl expandir, $(x^2-1)(x^2-4) = x^4-5x^2+4$, con coeficiente principal $+1$, positivo.\n\nEn un polinomio de grado par, un coeficiente principal positivo hace que ambos extremos de la curva apunten hacia arriba, tal como se ve en el gráfico.\n\nLa opción con el signo negativo al frente tendría los dos extremos apuntando hacia abajo en vez de hacia arriba, invertir ese signo al leer la dirección de los extremos es el error más frecuente en este tipo de gráfico.",
+    "explanation": "Con raíces $\\pm 1$ y $\\pm 2$, los cuatro factores lineales se pueden agrupar en pares como diferencia de cuadrados:\n\nAl expandir, $(x^2-1)(x^2-4) = x^4-5x^2+4$, con coeficiente principal $+1$, positivo.\n\nEn un polinomio de grado par, un coeficiente principal positivo hace que ambos extremos de la curva apunten hacia arriba, tal como se ve en el gráfico.\n\nLa opción con el signo negativo al frente tendría los dos extremos apuntando hacia abajo en vez de hacia arriba.\n\ninvertir ese signo al leer la dirección de los extremos más frecuente en este tipo de gráfico.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -1058,14 +1058,14 @@
       "$f(x) = -x^2(x - 3)$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Raíz doble en $x=0$ (toca sin cruzar) y simple en $x=3$ (cruza): $f(x) = x^2(x-3)$.",
+    "feedback_correct": "$f(x) = x^2(x-3)$.",
     "feedback_incorrect": [
       "A esta opción le falta la multiplicidad doble en $x=0$, con raíces simples la curva cruzaría en los dos puntos en vez de tocar en uno.",
       null,
       "Las multiplicidades están invertidas, en esta versión la raíz doble estaría en $x=3$ y la simple en $x=0$, al revés de lo que muestra el gráfico.",
       "El signo del coeficiente principal está invertido, esta versión tendría los extremos apuntando al revés de lo que muestra el gráfico."
     ],
-    "explanation": "En un gráfico, la **multiplicidad** de una raíz se distingue por cómo la curva atraviesa el eje $X$: si lo toca y rebota sin cruzarlo, la multiplicidad es par, y si lo cruza de lleno, es impar.\n\nEn este gráfico, la curva toca sin cruzar en $x=0$, así que esa raíz tiene multiplicidad par, la más simple es doble, con factor $x^2$.\n\nEn $x=3$ la curva sí cruza, así que esa raíz es simple, con factor $(x-3)$. Juntando ambos factores:\n\nEl grado resultante, $2+1=3$, coincide con el grado indicado en el enunciado.\n\nLa opción $x(x-3)^2$ invierte la situación, raíz simple en $0$ y doble en $3$, justo lo contrario de lo que muestra este gráfico, asignar la multiplicidad a la raíz equivocada es el error más frecuente en este tipo de lectura.",
+    "explanation": "En un gráfico, la **multiplicidad** de una raíz se distingue por cómo la curva atraviesa el eje $X$: si lo toca y rebota sin cruzarlo, la multiplicidad es par, y si lo cruza de lleno, es impar.\n\nEn este gráfico, la curva toca sin cruzar en $x=0$, así que esa raíz tiene multiplicidad par, la más simple es doble, con factor $x^2$.\n\nEn $x=3$ la curva sí cruza, así que esa raíz es simple, con factor $(x-3)$.\n\nJuntando ambos factores:\n\nEl grado resultante, $2+1=3$, coincide con el grado indicado en el enunciado.\n\nLa opción $x(x-3)^2$ invierte la situación.\n\nraíz simple en $0$ y doble en $3$.\n\njusto lo contrario de lo que muestra este gráfico.\n\nasignar la multiplicidad a la raíz equivocada más frecuente en este tipo de lectura.",
     "has_math": true,
     "graph_fn": "pow(x,2)*(x-3)/5",
     "graph_view": [
@@ -1125,7 +1125,7 @@
       null,
       "El $1$ no corresponde a ningún cálculo directo de $f(0)$ para esta función."
     ],
-    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$, el factor $x$ se anula sin importar los demás factores, así que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la función.",
+    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la función.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+1)/2",
     "graph_view": [
@@ -1180,7 +1180,7 @@
       "$f(0)=0$ sería cierto si $x=0$ fuera raíz de la función, pero las raíces acá son $1$, $-2$ y $3$.",
       "El $-2$ es uno de los números dentro de un paréntesis, no el resultado de multiplicar los tres factores evaluados en $0$."
     ],
-    "explanation": "En la forma factorizada, evaluar en $x=0$ es directo, alcanza con sustituir ese valor en cada factor y multiplicar los tres resultados:\n\nEste resultado, $f(0)=6$, coincide con el término independiente de la forma estándar del polinomio.\n\nSi se expande la expresión, $f(x)=x^3-2x^2-5x+6$, el término independiente vuelve a ser $6$, confirmando que ambas formas describen la misma función.\n\nPerder algún signo negativo al multiplicar los tres factores es el error más frecuente en este tipo de evaluación.",
+    "explanation": "En la forma factorizada, evaluar en $x=0$ es directo, alcanza con sustituir ese valor en cada factor y multiplicar los tres resultados:\n\nEste resultado, $f(0)=6$, coincide con el término independiente de la forma estándar del polinomio.\n\nSi se expande la expresión, $f(x)=x^3-2x^2-5x+6$, el término independiente vuelve a ser $6$, confirmando que ambas formas describen la misma función.\n\nSi perdés algún signo negativo al multiplicar los tres factores más frecuente en este tipo de evaluación., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1198,14 +1198,14 @@
       "$x = 1,\\ x = 4,\\ x = -2$"
     ],
     "correct_index": 1,
-    "feedback_correct": "Los factores se anulan en $x=0$, $x=4$ y $x=-2$.",
+    "feedback_correct": "Los factores se anulan en $0, 4, -2$.",
     "feedback_incorrect": [
       "El signo de la raíz $2$ está invertido, el factor $(x+2)$ da la raíz $x=-2$, no $x=+2$.",
       null,
       "Los signos de las raíces $4$ y $2$ están ambos invertidos respecto de lo que indican sus factores.",
       "El factor $x$ da la raíz $x=0$, no $x=1$, ya que se anula cuando la variable vale cero."
     ],
-    "explanation": "Las raíces de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable, y el signo de cada raíz siempre queda opuesto al signo que aparece dentro del factor.\n\nPara $f(x) = x(x-4)(x+2)$:\n\nLas raíces son $x=0$, $x=4$ y $x=-2$.\n\nEl factor $(x+2)$ da la raíz $x=-2$, no $x=+2$, el signo dentro del paréntesis se invierte al despejar.\n\nLeer el signo del factor tal cual, sin invertirlo, es el error de signo más común al pasar de la forma factorizada a las raíces.",
+    "explanation": "Las raíces de un polinomio en forma factorizada se obtienen igualando cada factor a cero y despejando la variable, y el signo de cada raíz siempre queda opuesto al signo que aparece dentro del factor.\n\nPara $f(x) = x(x-4)(x+2)$:\n\nLas raíces son $x=0$.\n\n$x=4$ y $x=-2$.\n\nEl factor $(x+2)$ da la raíz $x=-2$.\n\nno $x=+2$.\n\nel signo dentro del paréntesis se invierte al despejar.\n\nSi leés el signo del factor tal cual, sin invertirlo, de signo más común al pasar de la forma factorizada a las raíces., obtienes un resultado incorrecto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1230,7 +1230,7 @@
       "El $6$ sale de multiplicar los términos independientes de cada factor, eso da el término independiente del polinomio, no el coeficiente principal.",
       "El $-6$ es el término independiente del polinomio completo, no el coeficiente que acompaña al término de mayor grado."
     ],
-    "explanation": "El coeficiente principal de un producto de factores lineales se obtiene multiplicando los coeficientes de $x$ en cada factor junto con cualquier signo que multiplique a todo el producto.\n\nEn $-(x-1)(x+2)(x-3)$, el signo negativo al frente se multiplica por los tres coeficientes de $x$, que son todos $1$:\n\nEl coeficiente principal es $-1$.\n\nEl número $6$ que aparece como distractor sale de multiplicar los términos independientes de cada factor, $(-1)(2)(-3)=6$, eso da el término independiente del polinomio, no el coeficiente principal.\n\nConfundir estos dos coeficientes al leer una expresión factorizada.",
+    "explanation": "El coeficiente principal de un producto de factores lineales se obtiene multiplicando los coeficientes de $x$ en cada factor junto con cualquier signo que multiplique a todo el producto.\n\nEn $-(x-1)(x+2)(x-3)$.\n\nel signo negativo al frente se multiplica por los tres coeficientes de $x$.\n\nque son todos $1$:\n\nEl coeficiente principal es $-1$.\n\nEl número $6$ que aparece como distractor sale de multiplicar los términos independientes de cada factor, $(-1)(2)(-3)=6$, eso da el término independiente del polinomio, no el coeficiente principal.\n\nConfundir estos dos coeficientes al leer una expresión factorizada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1255,7 +1255,7 @@
       "El $3$ es el coeficiente de $(x+3)$, no el coeficiente de $x^2$ en el producto expandido.",
       "Ese valor sale de un error de signo al combinar los dos términos de grado $2$ del producto."
     ],
-    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$. Después, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado, $3x^2$ del primer término por $x$ y $-2x^2$ del segundo término por $3$, que juntos dan $1 \\cdot x^2$.\n\nOlvidar sumar todos los aportes a un mismo grado, quedándose solo con uno de los dos términos, es el error más frecuente al expandir un producto de tres factores.",
+    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$.\n\nDespués, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado.\n\n$3x^2$ del primer término por $x$ y $-2x^2$ del segundo término por $3$.\n\nque juntos dan $1 \\cdot x^2$.\n\nOlvidar sumar todos los aportes a un mismo grado, quedándose solo con uno de los dos términos, más frecuente al expandir un producto de tres factores.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

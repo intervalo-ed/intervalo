@@ -83,7 +83,7 @@
       -1,
       9
     ],
-    "explanation": "El delfín vuelve al agua cuando su altura es cero, es decir donde la parábola cruza el eje horizontal. Ese punto es una **raíz**.\n\nLa parábola arranca en $x = 0$, sube y vuelve a cortar el eje en:\n\nCuatro segundos de vuelo y de vuelta al agua.\n\nLas raíces de una parábola son críticas porque marcan los puntos donde la función cambia de signo.\n\nEn contextos físicos como este, representan los instantes donde la posición regresa a un valor de referencia.\n\nPracticar la lectura de raíces en gráficos te prepara para identificar puntos clave sin resolver ecuaciones algebraicamente.",
+    "explanation": "El delfín vuelve al agua cuando su altura es cero, es decir donde la parábola cruza el eje horizontal.\n\nEse punto es una **raíz**.\n\nLa parábola arranca en $x = 0$, sube y vuelve a cortar el eje en:\n\nCuatro segundos de vuelo y de vuelta al agua.\n\nLas raíces de una parábola son críticas porque marcan los puntos donde la función cambia de signo.\n\nEn contextos físicos como este, representan los instantes donde la posición regresa a un valor de referencia.\n\nPracticar la lectura de raíces en gráficos te prepara para identificar puntos clave sin resolver ecuaciones algebraicamente.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -129,7 +129,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, que está en $x = 6$. El punto simétrico de $x = 2$ es $x = 10$.",
+    "feedback_correct": "El vértice está en $x = 6$.",
     "feedback_incorrect": [
       "Medí la distancia entre los 2 segundos dados y el vértice, y buscá el mismo instante del otro lado.",
       null,
@@ -233,7 +233,7 @@
       -1,
       11
     ],
-    "explanation": "En una parábola que abre hacia abajo, el punto más alto es el **vértice**.\n\nEl precio que deja la mayor ganancia es la coordenada horizontal del vértice, acá:\n\nMuy barato casi no deja margen y muy caro espanta a la gente, el equilibrio está en \\$500 el vaso.\n\nLa forma de la parábola visualmente te dice mucho sobre el comportamiento antes de hacer cálculos. Desarrollar intuición gráfica es tan importante como las fórmulas algebraicas.",
+    "explanation": "En una parábola que abre hacia abajo, el punto más alto es el **vértice**.\n\nEl precio que deja la mayor ganancia es la coordenada horizontal del vértice, acá:\n\nMuy barato casi no deja margen y muy caro espanta a la gente, el equilibrio está en \\$500 el vaso.\n\nLa forma de la parábola visualmente te dice mucho sobre el comportamiento antes de hacer cálculos.\n\nDesarrollar intuición gráfica es tan importante como las fórmulas algebraicas.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -293,7 +293,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl nivel de producción con menor costo es la coordenada horizontal del vértice, acá:\n\nProducir muy poco o demasiado sale caro, el costo más bajo está en el medio.\n\nLa forma de la parábola visualmente te dice mucho sobre el comportamiento antes de hacer cálculos. Desarrollar intuición gráfica es tan importante como las fórmulas algebraicas.",
+    "explanation": "Cuando una parábola abre hacia arriba, el vértice es su punto más bajo, un **mínimo**.\n\nEl nivel de producción con menor costo es la coordenada horizontal del vértice, acá:\n\nProducir muy poco o demasiado sale caro, el costo más bajo está en el medio.\n\nLa forma de la parábola visualmente te dice mucho sobre el comportamiento antes de hacer cálculos.\n\nDesarrollar intuición gráfica es tan importante como las fórmulas algebraicas.",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -519,7 +519,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_correct": "El vértice está en $x = 4$.",
     "feedback_incorrect": [
       "Fijate cuántos segundos hay entre los 2 segundos dados y el vértice en $x=4$; el instante simétrico debe estar a esa misma distancia, del otro lado del vértice.",
       "Ese instante no guarda la misma distancia al vértice que los 2 segundos iniciales; revisá la resta antes de sumarla del otro lado.",
@@ -729,7 +729,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 6$. El simétrico de $x = 4$ es $x = 8$.",
+    "feedback_correct": "El vértice está en $x = 6$.",
     "feedback_incorrect": [
       "Fijate cuántos segundos hay entre los 4 segundos dados y el vértice en $x = 6$; el instante simétrico debe quedar a esa misma distancia, del otro lado.",
       "Esa distancia al vértice no coincide con la de los 4 segundos iniciales; revisá la resta antes de sumarla del otro lado.",
@@ -803,7 +803,7 @@
       -1,
       11
     ],
-    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro es el error más frecuente al leer este tipo de gráfico.",
+    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro más frecuente al leer este tipo de gráfico.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -1043,7 +1043,7 @@
       -1,
       11
     ],
-    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n\n(6 decenas = 60 km/h) Ni a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n\n(6 decenas = 60 km/h) Ni a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función.\n\nEn problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1223,7 +1223,7 @@
       -1,
       13
     ],
-    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,:\n\n(6 cientos = $600) Muy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función. En problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "La ganancia según el precio dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nEl precio ideal es su coordenada horizontal,:\n\n(6 cientos = $600) Muy barato no deja margen y muy caro espanta, el equilibrio está en \\$600.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función.\n\nEn problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1449,7 +1449,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_correct": "El vértice está en $x = 4$.",
     "feedback_incorrect": [
       "Fijate cuántos metros hay entre los 2 metros dados y el vértice en $x = 4$; el punto simétrico debe estar a esa misma distancia, del otro lado.",
       null,
