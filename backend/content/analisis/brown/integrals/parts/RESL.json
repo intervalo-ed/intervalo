@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$, pero conviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.\n$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
+    "explanation": "Elegimos $u=\\ln(x-1)$, $dv=1\\,dx$,.\n\nConviene tomar $v=x-1$ en vez de $v=x$, ambas son primitivas válidas de $1$.$$\\begin{aligned} du &= \\frac{1}{x-1}\\,dx, \\quad v = x-1 \\\\ \\int \\ln(x-1)\\,dx &= (x-1)\\ln(x-1) - \\int (x-1)\\cdot\\frac{1}{x-1}\\,dx \\\\ &= (x-1)\\ln(x-1)-x+C \\end{aligned}$$\nElegir $v=x-1$ en vez de $v=x$ es una decisión estratégica, cancela exactamente el denominador de $du$ sin dejar una fracción incómoda.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla, la **regla del logaritmo**.\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$\nEl valor absoluto es obligatorio, porque $\\frac{1}{x}$ está definida tanto para $x>0$ como para $x<0$, y $\\ln x$ solo cubriría la mitad positiva del dominio.",
+    "explanation": "El caso $n=-1$ es la única excepción de la **regla de la potencia**, y por eso tiene su propia entrada en la tabla, la **regla del logaritmo**.\n$$\\int \\frac{1}{x}\\,dx = \\ln|x| + C$$El valor absoluto es obligatorio, porque $\\frac{1}{x}$ está definida tanto para $x>0$ como para $x<0$,.\n\n$\\ln x$ solo cubriría la mitad positiva del dominio.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"

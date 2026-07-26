@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$, y se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$ aparecen cuatro monomios: $4x^5$ de **grado** $5$, $-x^3$ de grado $3$, $2x$ de grado $1$ y el **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
+    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$, y se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$ aparecen cuatro monomios: $4x^5$ de **grado** $5$, $-x^3$ de grado $3$, $2x$ de grado $1$.\n\nEl **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
     "reviewed": false,
     "tags": [
       "contar-terminos"
@@ -530,7 +530,7 @@
       "La forma de vértice es propia de las cuadráticas, escrita como $a(x-h)^2+k$; un polinomio general de grado alto no se expresa así.",
       "Ese nombre no corresponde a ninguna de las dos formas estándar de trabajar con polinomios: ni la que ordena por grado ni la que expone raíces se llama así."
     ],
-    "explanation": "La **forma estándar** de un polinomio organiza sus términos de mayor a menor **grado**:\n\nEsta forma tiene la ventaja de mostrar directamente varias propiedades del polinomio.\n\nEn ella, el grado se lee de inmediato como el mayor exponente $n$, el coeficiente principal es $a_n$ (el primer coeficiente) y el **término independiente** es $a_0$ (el último, la constante sin $x$).\n\nLa forma factorizada, en contraste, muestra las **raíces** pero no deja ver el grado ni los coeficientes sin expandir el producto.\n\nElegir la forma correcta según lo que se pregunta ahorra pasos innecesarios.",
+    "explanation": "La **forma estándar** de un polinomio organiza sus términos de mayor a menor **grado**:\n\nEsta forma tiene la ventaja de mostrar directamente varias propiedades del polinomio.\n\nEn ella, el grado se lee de inmediato como el mayor exponente $n$, el coeficiente principal es $a_n$ (el primer coeficiente).\n\nEl **término independiente** es $a_0$ (el último, la constante sin $x$).\n\nLa forma factorizada, en contraste, muestra las **raíces** pero no deja ver el grado ni los coeficientes sin expandir el producto.\n\nElegir la forma correcta según lo que se pregunta ahorra pasos innecesarios.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1155,7 +1155,7 @@
       null,
       "El $+0$ no aporta un segundo término real, pero escribirlo así no es la forma más limpia de mostrar un monomio de grado 5."
     ],
-    "explanation": "Un **monomio** es un caso particular de polinomio que tiene exactamente un término, de la forma $ax^k$ con $a \\neq 0$.\n\nDe las opciones, $5x^4+x$ y $x^5-x^4$ tienen dos términos cada una, así que son binomios, no monomios.\n\nLa expresión $-3x^5$ tiene un solo término, de **grado** $5$, así que sí es un monomio.\n\nLa opción $x^5+0$ es algebraicamente igual a $x^5$, pero escribir el $+0$ de forma explícita la vuelve una redacción ambigua para lo que se busca en este ítem.\n\nVale la pena distinguir monomio (un término), binomio (dos términos) y trinomio (tres términos): la cantidad de términos, no el grado, es lo que define cada categoría.",
+    "explanation": "Un **monomio** es un caso particular de polinomio que tiene exactamente un término, de la forma $ax^k$ con $a \\neq 0$.\n\nDe las opciones, $5x^4+x$ y $x^5-x^4$ tienen dos términos cada una, así que son binomios, no monomios.\n\nLa expresión $-3x^5$ tiene un solo término, de **grado** $5$, así que sí es un monomio.\n\nLa opción $x^5+0$ es algebraicamente igual a $x^5$,.\n\nEscribir el $+0$ de forma explícita la vuelve una redacción ambigua para lo que se busca en este ítem.\n\nVale la pena distinguir monomio (un término), binomio (dos términos) y trinomio (tres términos): la cantidad de términos, no el grado, es lo que define cada categoría.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

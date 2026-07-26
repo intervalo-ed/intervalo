@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $2^x$, la variable está en el exponente, pero la base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.\n$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
+    "explanation": "En $2^x$, la variable está en el exponente,.\n\nLa base es $2$, distinta de $e$, así que corresponde la **regla exponencial** general.$$\\int 2^x\\,dx = \\frac{2^x}{\\ln 2} + C$$\nSolo cuando la base es exactamente $e$ desaparece el factor $\\ln a$ del resultado, para cualquier otra base ese factor es obligatorio.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"

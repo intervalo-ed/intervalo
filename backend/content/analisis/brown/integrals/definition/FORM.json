@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **linealidad** del operador integral permite separar sumas y restas en integrales independientes, garantizando que cada término mantenga su estructura.\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$Un error de escritura frecuente al aplicar la linealidad por primera vez es olvidar el diferencial en uno de los términos separados. Cada integral independiente necesita su propio símbolo $\\int$ y su propio diferencial $dx$. La forma $\\int x + \\int \\sin x\\,dx$ es incorrecta porque le falta el $dx$ al primer término.\n\nEl $dx$ siempre acompaña a su integral más cercana.",
+    "explanation": "La **linealidad** del operador integral permite separar sumas y restas en integrales independientes, garantizando que cada término mantenga su estructura.\n$$\\int (x+\\sin x)\\,dx = \\int x\\,dx + \\int \\sin x\\,dx$$Un error de escritura frecuente al aplicar la linealidad por primera vez es olvidar el diferencial en uno de los términos separados. Cada integral independiente necesita su propio símbolo $\\int$.\n\nSu propio diferencial $dx$. La forma $\\int x + \\int \\sin x\\,dx$ es incorrecta porque le falta el $dx$ al primer término.\n\nEl $dx$ siempre acompaña a su integral más cercana.",
     "reviewed": false,
     "tags": [
       "concepto-primitiva-traslacion-geometrica"

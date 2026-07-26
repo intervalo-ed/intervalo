@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un polinomio de grado $n$ tiene, a lo sumo, $n$ **raíces** reales distintas.\n\nComo una función cuadrática tiene **grado 2** (el término de mayor grado es $x^2$), el tope de raíces reales que puede alcanzar es **2**.\n\nEl número exacto de raíces depende del discriminante $\\Delta = b^2 - 4ac$: con $\\Delta > 0$ la **parábola** corta el eje $X$ en dos puntos distintos y hay dos raíces, con $\\Delta = 0$ la parábola es tangente al eje en el **vértice** y hay una raíz doble, y con $\\Delta < 0$ la parábola no toca el eje y no hay raíces reales.\n\nNingún polinomio de grado 2 puede tener tres o más raíces reales distintas, ese salto solo aparece en polinomios de grado mayor.",
+    "explanation": "Un polinomio de grado $n$ tiene, a lo sumo, $n$ **raíces** reales distintas.\n\nComo una función cuadrática tiene **grado 2** (el término de mayor grado es $x^2$), el tope de raíces reales que puede alcanzar es **2**.\n\nEl número exacto de raíces depende del discriminante $\\Delta = b^2 - 4ac$: con $\\Delta > 0$ la **parábola** corta el eje $X$ en dos puntos distintos.\n\nHay dos raíces, con $\\Delta = 0$ la parábola es tangente al eje en el **vértice** y hay una raíz doble, y con $\\Delta < 0$ la parábola no toca el eje y no hay raíces reales.\n\nNingún polinomio de grado 2 puede tener tres o más raíces reales distintas, ese salto solo aparece en polinomios de grado mayor.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce.",
+    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$),.\n\nLa **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"

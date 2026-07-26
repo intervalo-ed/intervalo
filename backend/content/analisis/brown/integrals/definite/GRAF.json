@@ -173,7 +173,7 @@
       -2,
       5
     ],
-    "explanation": "La función $f(x)=x$ cruza el eje exactamente en el origen, dividiendo el intervalo $[-1,3]$ de forma desigual. El triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\n\nEl área neta es $4,5-0,5=4$, el intervalo asimétrico respecto del cruce por cero hace que el triángulo de arriba pese mucho más.",
+    "explanation": "La función $f(x)=x$ cruza el eje exactamente en el origen, dividiendo el intervalo $[-1,3]$ de forma desigual.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 1 = 0,5$. El triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 3 = 4,5$.\n\nEl área neta es $4,5-0,5=4$, el intervalo asimétrico respecto del cruce por cero hace que el triángulo de arriba pese mucho más.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"

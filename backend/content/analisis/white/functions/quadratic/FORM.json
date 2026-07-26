@@ -505,7 +505,7 @@
       "Estos valores invierten el signo del vértice y usan el $-9$ sin haber despejado el cuadrado.",
       "Estos valores no surgen de sumar y restar $3$ al vértice $x=4$, que es lo que da las raíces reales."
     ],
-    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara $f(x) = (x-4)^2 - 9$:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá $x=4$ es el punto medio entre $1$ y $7$, a distancia $3$ de cada lado.",
+    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara $f(x) = (x-4)^2 - 9$:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá $x=4$ es el punto medio entre $1$.\n\n$7$, a distancia $3$ de cada lado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

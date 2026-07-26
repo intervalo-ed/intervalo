@@ -23,7 +23,7 @@
       -1,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza el eje vertical.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2$$\nEn esta gráfica la curva cruza el eje $y$ en $3$, pero se estabiliza en $2$ hacia ambos extremos, dos lecturas distintas que conviene no mezclar.",
+    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza el eje vertical.\n$$x \\to \\pm\\infty \\ \\Rightarrow \\ f(x) \\to 2$$En esta gráfica la curva cruza el eje $y$ en $3$,.\n\nSe estabiliza en $2$ hacia ambos extremos, dos lecturas distintas que conviene no mezclar.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"

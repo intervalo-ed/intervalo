@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: $3^x > 2^x$ para todo $x > 0$.\n\nAmbas curvas parten del mismo punto $(0, 1)$, porque $b^0=1$ sin importar la base, pero a partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
+    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: $3^x > 2^x$ para todo $x > 0$.\n\nAmbas curvas parten del mismo punto $(0, 1)$, porque $b^0=1$ sin importar la base,.\n\nA partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
     "reviewed": false,
     "tags": [
       "comparacion-bases"
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función exponencial estándar exige que la **base** sea positiva, $b>0$, precisamente para que $b^x$ esté bien definida en todo $x$ real.\n\nCon una base negativa como $-2$, el problema aparece en los exponentes fraccionarios: $(-2)^{0{,}5} = \\sqrt{-2}$, y la raíz cuadrada de un número negativo no es un número real.\n\nLa expresión $(-2)^x$ sí está definida para exponentes enteros, como $(-2)^2=4$ o $(-2)^3=-8$, pero no para todos los reales, que es justo lo que exige la definición de función exponencial.\n\nPor eso la condición estándar $b>0$ excluye las bases negativas, sin importar cuán grande o chica sea su magnitud.",
+    "explanation": "Una función exponencial estándar exige que la **base** sea positiva, $b>0$, precisamente para que $b^x$ esté bien definida en todo $x$ real.\n\nCon una base negativa como $-2$, el problema aparece en los exponentes fraccionarios: $(-2)^{0{,}5} = \\sqrt{-2}$, y la raíz cuadrada de un número negativo no es un número real.\n\nLa expresión $(-2)^x$ sí está definida para exponentes enteros, como $(-2)^2=4$ o $(-2)^3=-8$,.\n\nNo para todos los reales, que es justo lo que exige la definición de función exponencial.\n\nPor eso la condición estándar $b>0$ excluye las bases negativas, sin importar cuán grande o chica sea su magnitud.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x) = 2^x$, el **dominio** es todo $\\mathbb{R}$, porque la exponencial acepta cualquier número real como exponente, sin restricciones de raíces ni logaritmos.\n\nLa **imagen**, en cambio, es $(0, +\\infty)$, no $\\mathbb{R}$ completo.\n\nEsto ocurre porque $2^x$ es siempre positivo, se acerca a $0$ pero nunca lo alcanza gracias a su **asíntota horizontal** en $y=0$, y crece sin límite hacia $+\\infty$ del otro lado.\n\nPor eso la afirmación falsa es decir que la imagen es $\\mathbb{R}$: los valores negativos son inalcanzables para cualquier exponencial con coeficiente positivo.\n\nNo confundir dominio (todo lo que puede entrar) con imagen (lo que efectivamente sale).",
+    "explanation": "Para $f(x) = 2^x$, el **dominio** es todo $\\mathbb{R}$, porque la exponencial acepta cualquier número real como exponente, sin restricciones de raíces ni logaritmos.\n\nLa **imagen**, en cambio, es $(0, +\\infty)$, no $\\mathbb{R}$ completo.\n\nEsto ocurre porque $2^x$ es siempre positivo, se acerca a $0$.\n\nNunca lo alcanza gracias a su **asíntota horizontal** en $y=0$, y crece sin límite hacia $+\\infty$ del otro lado.\n\nPor eso la afirmación falsa es decir que la imagen es $\\mathbb{R}$: los valores negativos son inalcanzables para cualquier exponencial con coeficiente positivo.\n\nNo confundir dominio (todo lo que puede entrar) con imagen (lo que efectivamente sale).",
     "reviewed": false,
     "tags": [
       "afirmacion-falsa-identificar"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $2^0=1$ y la función es estrictamente creciente, comparar cualquier $x$ contra $0$ alcanza para saber si $2^x$ queda por debajo o por encima de $1$:\n\nPara $x<0$ la función toma valores positivos pero menores que $1$, por ejemplo $2^{-1}=0{,}5$ o $2^{-3}=0{,}125$: se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$, positivo da más que $1$, cero da exactamente $1$.",
+    "explanation": "Como $2^0=1$ y la función es estrictamente creciente, comparar cualquier $x$ contra $0$ alcanza para saber si $2^x$ queda por debajo o por encima de $1$:\n\nPara $x<0$ la función toma valores positivos.\n\nMenores que $1$, por ejemplo $2^{-1}=0{,}5$ o $2^{-3}=0{,}125$: se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$, positivo da más que $1$, cero da exactamente $1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"

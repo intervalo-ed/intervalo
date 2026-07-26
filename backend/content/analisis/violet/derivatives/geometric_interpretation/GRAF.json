@@ -341,7 +341,7 @@
       -6,
       6
     ],
-    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$, mientras que $x=1$ y $x=5$ son sus raíces, puntos donde $f(x)=0$ pero la tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal , conviene siempre ubicar primero el vértice antes de responder.",
+    "explanation": "La **recta tangente** es horizontal únicamente en el vértice de la parábola, el punto donde la curva deja de bajar y empieza a subir.\n\nEsta parábola tiene su vértice en $x=3$, mientras que $x=1$ y $x=5$ son sus raíces, puntos donde $f(x)=0$.\n\nLa tangente no es horizontal.\n\nConfundir raíces con el punto de tangente horizontal , conviene siempre ubicar primero el vértice antes de responder.",
     "reviewed": false,
     "tags": [
       "extremos-tangentes-horizontales"

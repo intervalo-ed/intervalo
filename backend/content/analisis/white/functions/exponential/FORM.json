@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica $f(x) = a \\cdot b^x$, el coeficiente $a$ es el factor de escala que multiplica a la potencia, y $b$ es la base, el número que efectivamente se eleva al exponente $x$.\n\nEn $f(x) = 3 \\cdot (0{,}5)^x$, el factor de escala es $a = 3$ y la base es $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**.\n\nEl $3$ no es la base: es el valor de $f(0) = 3 \\cdot 1 = 3$, el punto donde la curva corta el eje vertical.",
+    "explanation": "En la forma canónica $f(x) = a \\cdot b^x$, el coeficiente $a$ es el factor de escala que multiplica a la potencia,.\n\n$b$ es la base, el número que efectivamente se eleva al exponente $x$.\n\nEn $f(x) = 3 \\cdot (0{,}5)^x$, el factor de escala es $a = 3$ y la base es $b = 0{,}5$.\n\nComo $0 < 0{,}5 < 1$, la función es **decreciente**.\n\nEl $3$ no es la base: es el valor de $f(0) = 3 \\cdot 1 = 3$, el punto donde la curva corta el eje vertical.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos, primero se lee $a$ directamente como $f(0)$, y luego se despeja $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2. $f(1) = a \\cdot b = 6b = 12 \\implies b = 2$.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$.\n\nDividir al revés, $f(0)/f(1)$, o intercambiar los valores de $a$ y $b$ entre sí.",
+    "explanation": "Para determinar los parámetros de $f(x)=a\\cdot b^x$ a partir de dos puntos, primero se lee $a$ directamente como $f(0)$,.\n\nLuego se despeja $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a \\cdot b^0 = a \\implies a = 6$.\n2. $f(1) = a \\cdot b = 6b = 12 \\implies b = 2$.\n\nResultado: $f(x) = 6 \\cdot 2^x$.\n\nVerificación: $f(0) = 6$ y $f(1) = 12$.\n\nDividir al revés, $f(0)/f(1)$, o intercambiar los valores de $a$ y $b$ entre sí.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -738,7 +738,7 @@
       -0.5,
       10
     ],
-    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos:\n\nEl valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$), y un segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Si confundís el valor de $f(0)$ con la base, entonces vas a identificar incorrectamente la fórmula desde el gráfico.",
+    "explanation": "Para leer una exponencial desde su gráfica hay que identificar tres datos:\n\nEl valor donde corta el eje vertical (que da $a$), si crece o decrece (que indica si $b$ es mayor o menor que $1$),.\n\nUn segundo punto para calcular $b$ con precisión.\n\n1.\n\nPunto en $x=0$: $f(0) = 2$ da $a = 2$. 2.\n\nLa curva es creciente: $b > 1$. 3.\n\nEn $x=1$: $f(1) \\approx 3 = 2 \\cdot 1{,}5$ da $b \\approx 1{,}5$.\n\nFórmula: $f(x) = 2 \\cdot (1{,}5)^x$. Si confundís el valor de $f(0)$ con la base, entonces vas a identificar incorrectamente la fórmula desde el gráfico.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -798,7 +798,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$, señal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$, que coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
+    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$, señal de un desplazamiento $+2$.\n\n2. $f(0) = 2^0 + 2 = 1 + 2 = 3$, que coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -828,7 +828,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para leer un desplazamiento vertical en una curva decreciente, primero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$, señal de un desplazamiento $+1$. 2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$, coincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$. Mezclar la altura de la asíntota con el valor de $f(0)$ lleva a malinterpretar la fórmula en este tipo de lectura.",
+    "explanation": "Para leer un desplazamiento vertical en una curva decreciente, primero se identifica la altura de la asíntota horizontal y después se verifica que el punto en $x=0$ sea coherente con esa altura más el valor sin desplazar.\n\n1.\n\nAsíntota horizontal: $y = 1$, señal de un desplazamiento $+1$.\n\n2. $f(0) = (0{,}5)^0 + 1 = 1 + 1 = 2$, coincide con el punto $(0,2)$. 3.\n\nLa curva decrece hacia $y=1$ sin cruzarla.\n\nFórmula: $f(x) = (0{,}5)^x + 1$. Mezclar la altura de la asíntota con el valor de $f(0)$ lleva a malinterpretar la fórmula en este tipo de lectura.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"

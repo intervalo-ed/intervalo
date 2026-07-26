@@ -23,7 +23,7 @@
       -1,
       8
     ],
-    "explanation": "Para detectar dónde falla la **continuidad** en una gráfica, hay que recorrerla buscando huecos, saltos o ramas que escapan al infinito.\n\nCuando la función \"se acerca\" a un valor finito desde ambos lados pero no está definida en el punto exacto, el límite bilateral existe pero falta $f(a)$: es la firma de una discontinuidad removible.\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados de $x=2$, pero el punto marcado está en $y=5$: eso es exactamente un hueco.\n\nLos demás valores marcados, $x=0$, $x=-1$ y $x=4$, pertenecen a tramos donde la curva sigue su forma habitual sin ninguna ruptura visible.",
+    "explanation": "Para detectar dónde falla la **continuidad** en una gráfica, hay que recorrerla buscando huecos, saltos o ramas que escapan al infinito.\n\nCuando la función \"se acerca\" a un valor finito desde ambos lados pero no está definida en el punto exacto, el límite bilateral existe pero falta $f(a)$: es la firma de una discontinuidad removible.\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados de $x=2$,.\n\nEl punto marcado está en $y=5$: eso es exactamente un hueco.\n\nLos demás valores marcados, $x=0$, $x=-1$ y $x=4$, pertenecen a tramos donde la curva sigue su forma habitual sin ninguna ruptura visible.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"

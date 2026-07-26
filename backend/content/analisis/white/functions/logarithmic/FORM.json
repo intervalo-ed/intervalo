@@ -1123,7 +1123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Derivación:**\n$(1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$\n\nPara que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses, la deuda recién se triplica del todo al completarse el mes $23$, pero el valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
+    "explanation": "**Derivación:**\n$(1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$\n\nPara que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses, la deuda recién se triplica del todo al completarse el mes $23$,.\n\nEl valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

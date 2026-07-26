@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn $\\lim_{x \\to 3} f(x)$, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3)$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nSi confundís la tendencia con una igualdad puntual, perderás la diferencia fundamental entre acercarse y llegar: la flecha $x \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia el punto sin alcanzarlo.",
+    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn $\\lim_{x \\to 3} f(x)$, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$,.\n\nSe observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3)$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nSi confundís la tendencia con una igualdad puntual, perderás la diferencia fundamental entre acercarse y llegar: la flecha $x \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia el punto sin alcanzarlo.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo (de cualquier base) solo está definido cuando su argumento es **positivo**.\n\n, así que antes de sustituir directo en un límite con logaritmo hay que verificar que el argumento sea positivo en el punto de tendencia.\n\nEs una restricción del dominio que limita la validez de la sustitución.\n\nEn $x \\to 3$, el argumento de $\\log(x-1)$ vale $3-1=2$, que es positivo, entonces la sustitución directa es legal y $\\lim_{x \\to 3} \\log(x-1) = \\log(2)$. El dominio se respeta en el punto.\n\nSi el argumento diera $0$ o un número negativo en el punto , la sustitución directa dejaría de ser válida y habría que analizar el caso como una indeterminación o una tendencia especial.\n\n, no un cálculo directo.",
+    "explanation": "El logaritmo (de cualquier base) solo está definido cuando su argumento es **positivo**.\n\n, así que antes de sustituir directo en un límite con logaritmo hay que verificar que el argumento sea positivo en el punto de tendencia.\n\nEs una restricción del dominio que limita la validez de la sustitución.\n\nEn $x \\to 3$, el argumento de $\\log(x-1)$ vale $3-1=2$, que es positivo, entonces la sustitución directa es legal.\n\n$\\lim_{x \\to 3} \\log(x-1) = \\log(2)$. El dominio se respeta en el punto.\n\nSi el argumento diera $0$ o un número negativo en el punto , la sustitución directa dejaría de ser válida y habría que analizar el caso como una indeterminación o una tendencia especial.\n\n, no un cálculo directo.",
     "reviewed": false,
     "tags": [
       "condiciones-sustitucion-directa"

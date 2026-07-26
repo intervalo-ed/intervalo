@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central. Aquí $A=3$, así que la onda oscila entre $-3$ y $3$. $B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\n\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
+    "explanation": "En la forma general $f(x)=A\\cdot\\operatorname{sen}(Bx+C)$, el coeficiente $A$ es la **amplitud**:\n\nDetermina cuánto se aleja la onda del eje central. Aquí $A=3$, así que la onda oscila entre $-3$ y $3$.\n\n$B=2$ controla el período ($T=\\pi$) y $C=\\pi/4$ desplaza la fase horizontalmente.\n\nCada parámetro tiene un rol independiente:\n\nNo confundir amplitud con período ni con fase.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"
@@ -48,7 +48,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es $f(x)=\\cos(x)$, no el seno.\n\n$2\\cos(x)$ llegaría hasta $y=2$, pero la amplitud del gráfico es $1$.\n\n$\\cos(2x)$ tendría período $\\pi$ (más corto), pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
+    "explanation": "$\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es $f(x)=\\cos(x)$, no el seno.\n\n$2\\cos(x)$ llegaría hasta $y=2$,.\n\nLa amplitud del gráfico es $1$.\n\n$\\cos(2x)$ tendría período $\\pi$ (más corto),.\n\nEl gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **amplitud** es el valor absoluto del coeficiente:\n\n$|A|$.\nEn $f(x)=-3\\cos(x)$, $A=-3$, entonces amplitud $=|-3|=3$.\nEl signo negativo refleja la onda (lo que era máximo ahora es mínimo), pero no cambia su tamaño.\nLa amplitud siempre es positiva:\n\nMide distancia, no dirección.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **amplitud** es el valor absoluto del coeficiente:\n\n$|A|$. En $f(x)=-3\\cos(x)$, $A=-3$, entonces amplitud $=|-3|=3$. El signo negativo refleja la onda (lo que era máximo ahora es mínimo),.\n\nNo cambia su tamaño. La amplitud siempre es positiva:\n\nMide distancia, no dirección.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es siempre $|A|$: el valor absoluto del coeficiente. El signo de $A$ indica si la onda está reflejada verticalmente, pero no afecta la amplitud.\n\nPara $f(x)=-4\\,\\operatorname{sen}(x)$: $|A|=|-4|=4$.\n\nLa onda oscila entre $-4$ y $4$, igual que $4\\,\\operatorname{sen}(x)$, pero invertida.\n\nLa opción $-4$ es el coeficiente con signo, no la amplitud. $8$ sería el rango total, no la amplitud.\n\nAmplitud $= |-4| = 4$: el signo negativo voltea la onda pero no la aplana ni la estira.",
+    "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es siempre $|A|$: el valor absoluto del coeficiente. El signo de $A$ indica si la onda está reflejada verticalmente,.\n\nNo afecta la amplitud.\n\nPara $f(x)=-4\\,\\operatorname{sen}(x)$: $|A|=|-4|=4$.\n\nLa onda oscila entre $-4$ y $4$, igual que $4\\,\\operatorname{sen}(x)$, pero invertida.\n\nLa opción $-4$ es el coeficiente con signo, no la amplitud. $8$ sería el rango total, no la amplitud.\n\nAmplitud $= |-4| = 4$: el signo negativo voltea la onda pero no la aplana ni la estira.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$ y la imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen.\n\nEn $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)$ no depende del coeficiente $B=2$ en el argumento: ese solo cambia el período. La amplitud sigue siendo $|A|=1$.\n\nLa imagen sigue siendo $[-1,1]$.\n\nResumen: el coeficiente del argumento ($B$) afecta el **período** ($T=2\\pi/B$); el coeficiente delante del seno ($A$) afecta la **amplitud** y la imagen.\n\nEn $\\operatorname{sen}(2x)$, $A=1$ y la imagen es $[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\n$B$ comprime el período, pero no aplasta ni estira la onda verticalmente. La imagen $[-1,1]$ es inamovible si $A=1$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=-\\cos(x)$ se obtiene negando el coseno. Como $\\cos(x)\\in[-1,1]$, su negación $-\\cos(x)$ también está en $[-1,1]$ (los extremos se intercambian pero el conjunto es el mismo).\n\n$-\\cos(x)\\in[-1,1]$: cuando $\\cos=1$, $-\\cos=-1$ (mínimo); cuando $\\cos=-1$, $-\\cos=1$ (máximo).\n\nLa imagen de $-\\cos(x)$ es exactamente $[-1,1]$, igual que la de $\\cos(x)$.\n\nNegar el coseno invierte sus extremos pero no cambia el rango: $[-1,1]$ sigue siendo $[-1,1]$, al revés.",
+    "explanation": "La **imagen** de $f(x)=-\\cos(x)$ se obtiene negando el coseno. Como $\\cos(x)\\in[-1,1]$, su negación $-\\cos(x)$ también está en $[-1,1]$ (los extremos se intercambian.\n\nEl conjunto es el mismo).\n\n$-\\cos(x)\\in[-1,1]$: cuando $\\cos=1$, $-\\cos=-1$ (mínimo); cuando $\\cos=-1$, $-\\cos=1$ (máximo).\n\nLa imagen de $-\\cos(x)$ es exactamente $[-1,1]$, igual que la de $\\cos(x)$.\n\nNegar el coseno invierte sus extremos pero no cambia el rango: $[-1,1]$ sigue siendo $[-1,1]$, al revés.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Datos usados:**\n$\\operatorname{sen}(u)$ $u = \\pi/2$ $u = x - \\pi/2$\n\nLa función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:$$\\begin{aligned}\nx - \\frac{\\pi}{2} &= \\frac{\\pi}{2} \\\\\nx &= \\frac{\\pi}{2} + \\frac{\\pi}{2} \\\\\nx &= \\pi:\n\\end{aligned}$$Verificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ . El máximo del seno se desplazó de $x=\\pi/2$ a $x=\\pi$ por el desfase $-\\pi/2$.",
+    "explanation": "**Datos usados:**\n$\\operatorname{sen}(u)$ $u = \\pi/2$ $u = x - \\pi/2$\n\nLa función $f(x)=\\operatorname{sen}(x-\\pi/2)$ alcanza su máximo cuando el argumento es $\\pi/2$:$$\\begin{aligned}\nx - \\frac{\\pi}{2} &= \\frac{\\pi}{2} \\\\\nx &= \\frac{\\pi}{2} + \\frac{\\pi}{2} \\\\\nx &= \\pi:\n\\end{aligned}$$Verificación: $f(\\pi)=\\operatorname{sen}(\\pi-\\pi/2)=\\operatorname{sen}(\\pi/2)=1$ .\n\nEl máximo del seno se desplazó de $x=\\pi/2$ a $x=\\pi$ por el desfase $-\\pi/2$.",
     "reviewed": false,
     "tags": [
       "primer-extremo-desfase"
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:$$\\begin{aligned}\nT_{\\max} &= 10 \\cdot 1 + 20 \\\\\n&= 10 + 20 \\\\\n&= 30\\,°C:\n\\end{aligned}$$El desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$), pero no cambia el valor máximo. La opción $10°C$ es solo la amplitud. La opción $20°C$ es el eje de oscilación.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, el **máximo** ocurre cuando $\\operatorname{sen}=1$:$$\\begin{aligned}\nT_{\\max} &= 10 \\cdot 1 + 20 \\\\\n&= 10 + 20 \\\\\n&= 30\\,°C:\n\\end{aligned}$$El desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$),.\n\nNo cambia el valor máximo. La opción $10°C$ es solo la amplitud. La opción $20°C$ es el eje de oscilación.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"

@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La igualdad $\\ln(x) = 1$ se cumple cuando $x = e \\approx 2{,}718$, el número que define la base del logaritmo natural.\n\nEste valor no es casualidad: por la propiedad fundamental $\\log_b(b) = 1$, cualquier logaritmo alcanza la altura $1$ exactamente cuando el argumento coincide con su propia base.\n\nPara $\\ln(x)$ hay dos puntos clave que conviene memorizar: $(1,\\, 0)$, donde la curva cruza el eje $X$, y $(e,\\, 1)$, donde alcanza la altura $1$.\n\nAmbos se derivan de las dos propiedades universales del logaritmo, $\\log_b(1)=0$ y $\\log_b(b)=1$.\n\nEl mismo patrón se repite en cualquier base: para $\\log_2(x)$ el punto análogo es $(2,\\, 1)$, y para $\\log_{10}(x)$ es $(10,\\, 1)$.\n\nConviene no confundir este punto con $(1,\\,0)$, que siempre corresponde a la altura $0$, no a la altura $1$.",
+    "explanation": "La igualdad $\\ln(x) = 1$ se cumple cuando $x = e \\approx 2{,}718$, el número que define la base del logaritmo natural.\n\nEste valor no es casualidad: por la propiedad fundamental $\\log_b(b) = 1$, cualquier logaritmo alcanza la altura $1$ exactamente cuando el argumento coincide con su propia base.\n\nPara $\\ln(x)$ hay dos puntos clave que conviene memorizar: $(1,\\, 0)$, donde la curva cruza el eje $X$,.\n\n$(e,\\, 1)$, donde alcanza la altura $1$.\n\nAmbos se derivan de las dos propiedades universales del logaritmo, $\\log_b(1)=0$ y $\\log_b(b)=1$.\n\nEl mismo patrón se repite en cualquier base: para $\\log_2(x)$ el punto análogo es $(2,\\, 1)$, y para $\\log_{10}(x)$ es $(10,\\, 1)$.\n\nConviene no confundir este punto con $(1,\\,0)$, que siempre corresponde a la altura $0$, no a la altura $1$.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
+    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$, mientras que $x^3-2$.\n\n$2x+1$ están definidas en todo $\\mathbb{R}$, sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log(x)$ requiere $x > 0$, así que su **dominio** es exactamente $(0, +\\infty)$.\n\nLas otras funciones tienen dominios distintos: $2^x$ tiene dominio $\\mathbb{R}$, $x^2$ también tiene dominio $\\mathbb{R}$, y $\\sqrt{x}$ tiene dominio $[0, +\\infty)$, que incluye $x=0$, a diferencia del logaritmo, que excluye el cero por completo.",
+    "explanation": "$\\log(x)$ requiere $x > 0$, así que su **dominio** es exactamente $(0, +\\infty)$.\n\nLas otras funciones tienen dominios distintos: $2^x$ tiene dominio $\\mathbb{R}$, $x^2$ también tiene dominio $\\mathbb{R}$,.\n\n$\\sqrt{x}$ tiene dominio $[0, +\\infty)$, que incluye $x=0$, a diferencia del logaritmo, que excluye el cero por completo.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"

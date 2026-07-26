@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$) y logaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
+    "explanation": "El **factor** natural para aplicar la regla del producto separa las distintas familias de funciones elementales presentes en la expresión.\n\nCada uno de estos dos factores se deriva con su propia regla elemental: potencia para $u$ (dando $u'=2x$).\n\nLogaritmo para $v$ (dando $v'=1/x$).\n\nSeparar cada familia de funciones en su propio factor es lo que permite aplicar la **regla del producto** sin mezclar las derivadas de ambas.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$) y exponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
+    "explanation": "Antes de identificar los factores, la raíz se reescribe como una potencia fraccionaria, un paso previo obligatorio.\n\nCon esa reescritura, cada factor queda listo para derivarse con su regla elemental: potencia fraccionaria para $u$ (dando $u'=\\frac{1}{2}x^{-1/2}$).\n\nExponencial para $v$ (dando $v'=e^x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con una modificación al factor exponencial.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$) y $v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
+    "explanation": "Como en cualquier expresión con una raíz, el primer paso es reescribirla como potencia fraccionaria antes de identificar los factores.\n\nCon esa reescritura, $u$ se deriva por la regla de la potencia fraccionaria (dando $u'=\\frac{1}{2}x^{-1/2}$).\n\n$v$ por la derivada trigonométrica del seno (dando $v'=\\cos x$).\n\nSeparar cada familia de funciones evita confundir el coeficiente de la derivada de la raíz con cualquier modificación al factor trigonométrico.",
     "reviewed": false,
     "tags": [
       "identificacion-esqueleto-y-factores"

@@ -293,7 +293,7 @@
       -4,
       4
     ],
-    "explanation": "Reflejar una curva respecto al eje $X$ multiplica todas sus alturas por $-1$, pero un punto que ya vale $0$ se queda exactamente en el mismo lugar.\n\n$-\\log_2(x) = 0 \\implies \\log_2(x) = 0 \\implies x = 1$.\n\nLa reflexión respecto al eje $X$ no desplaza el punto $(1, 0)$: ambas curvas, $\\log_2(x)$ y $-\\log_2(x)$, pasan por $(1, 0)$, ese punto fijo no cambia con la reflexión.",
+    "explanation": "Reflejar una curva respecto al eje $X$ multiplica todas sus alturas por $-1$,.\n\nUn punto que ya vale $0$ se queda exactamente en el mismo lugar.\n\n$-\\log_2(x) = 0 \\implies \\log_2(x) = 0 \\implies x = 1$.\n\nLa reflexión respecto al eje $X$ no desplaza el punto $(1, 0)$: ambas curvas, $\\log_2(x)$ y $-\\log_2(x)$, pasan por $(1, 0)$, ese punto fijo no cambia con la reflexión.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para encontrar dónde una función racional no está definida, se iguala a cero el **denominador**, sin mirar el numerador.\n\nAcá el denominador de $f(x)=\\frac{x^2-1}{x-1}$ es $x-1$, y se anula cuando $x-1=0\\Rightarrow x=1$.\n\nEse es el valor excluido del dominio.\n\nNotá que el numerador $x^2-1$ también vale cero en $x=1$ (porque $x^2-1=(x-1)(x+1)$), pero eso no cambia nada: la función sigue sin estar definida ahí, aunque el límite exista y se genere un agujero en vez de una asíntota vertical.",
+    "explanation": "Para encontrar dónde una función racional no está definida, se iguala a cero el **denominador**, sin mirar el numerador.\n\nAcá el denominador de $f(x)=\\frac{x^2-1}{x-1}$ es $x-1$, y se anula cuando $x-1=0\\Rightarrow x=1$.\n\nEse es el valor excluido del dominio.\n\nNotá que el numerador $x^2-1$ también vale cero en $x=1$ (porque $x^2-1=(x-1)(x+1)$),.\n\nEso no cambia nada: la función sigue sin estar definida ahí, aunque el límite exista y se genere un agujero en vez de una asíntota vertical.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-form"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical.\n\nAcá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$.\n\nEl factor $(x-1)$ se cancela, así que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$, pero $f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí.\n\nSi confundís esta situación con una asíntota vertical, entonces interpretarás incorrectamente si el factor se cancela o no.",
+    "explanation": "Cuando un factor del denominador se cancela con uno igual en el numerador, aparece un agujero en vez de una asíntota vertical.\n\nAcá factorizamos: $\\frac{x^2-1}{x-1}=\\frac{(x-1)(x+1)}{x-1}=x+1$ para todo $x\\neq1$.\n\nEl factor $(x-1)$ se cancela, así que el límite de la función cuando $x\\to1$ existe y vale $1+1=2$,.\n\n$f(1)$ en sí **no está definida**, porque en la expresión original el denominador se anula justo ahí.\n\nSi confundís esta situación con una asíntota vertical, entonces interpretarás incorrectamente si el factor se cancela o no.",
     "reviewed": false,
     "tags": [
       "dominio-form"

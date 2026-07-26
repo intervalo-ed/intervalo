@@ -23,7 +23,7 @@
       -5,
       5
     ],
-    "explanation": "En una función racional, la **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador), y la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$. $f(x)=\\frac{1}{x}$ tiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota.\n\nContar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
+    "explanation": "En una función racional, la **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador),.\n\nLa **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$. $f(x)=\\frac{1}{x}$ tiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom). Son 2 asíntotas en total: ambos ejes coordenados actúan como asíntota.\n\nContar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico"
@@ -413,7 +413,7 @@
       -5,
       5
     ],
-    "explanation": "La **asíntota horizontal** es la recta a la que se acerca la curva cuando $x$ toma valores muy grandes o muy negativos, y se lee mirando hacia dónde se aplanan las ramas en el gráfico. Cuando $x\\to\\pm\\infty$, la función $\\frac{1}{x+1}\\to0$: las ramas se acercan cada vez más al eje $X$, así que la AH es $y=0$.\n\nConviene siempre confirmar la altura mirando ambos extremos del gráfico, no solo uno de los dos lados.",
+    "explanation": "La **asíntota horizontal** es la recta a la que se acerca la curva cuando $x$ toma valores muy grandes o muy negativos,.\n\nSe lee mirando hacia dónde se aplanan las ramas en el gráfico. Cuando $x\\to\\pm\\infty$, la función $\\frac{1}{x+1}\\to0$: las ramas se acercan cada vez más al eje $X$, así que la AH es $y=0$.\n\nConviene siempre confirmar la altura mirando ambos extremos del gráfico, no solo uno de los dos lados.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-graf"
@@ -443,7 +443,7 @@
       -6,
       6
     ],
-    "explanation": "Una función cruza el eje $X$ solo en los valores donde el **numerador** se anula, sin que el denominador se anule ahí también. Para cruzar el eje $X$ acá, la función debería valer $0$, pero $\\frac{2}{x}=0$ no tiene solución porque el numerador es $2$, una constante que nunca se anula. La función nunca cruza el eje $X$.\n\nNo hay que confundir esto con buscar dónde se anula el denominador, que da la asíntota vertical.",
+    "explanation": "Una función cruza el eje $X$ solo en los valores donde el **numerador** se anula, sin que el denominador se anule ahí también. Para cruzar el eje $X$ acá, la función debería valer $0$,.\n\n$\\frac{2}{x}=0$ no tiene solución porque el numerador es $2$, una constante que nunca se anula. La función nunca cruza el eje $X$.\n\nNo hay que confundir esto con buscar dónde se anula el denominador, que da la asíntota vertical.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -473,7 +473,7 @@
       -6,
       6
     ],
-    "explanation": "El intercepto con el eje $Y$ de cualquier función se obtiene evaluando $f(0)$, siempre que $x=0$ pertenezca al dominio. Acá $f(0)=\\frac{2}{0+1}=\\frac{2}{1}=2$: en el gráfico, la curva pasa por el punto $(0, 2)$.\n\nAntes de calcularlo conviene revisar que el denominador no se anule en $x=0$, porque en ese caso el intercepto con el eje $Y$ directamente no existiría.",
+    "explanation": "El intercepto con el eje $Y$ de cualquier función se obtiene evaluando $f(0)$, siempre que $x=0$ pertenezca al dominio.\n\nAcá $f(0)=\\frac{2}{0+1}=\\frac{2}{1}=2$: en el gráfico, la curva pasa por el punto $(0, 2)$.\n\nAntes de calcularlo conviene revisar que el denominador no se anule en $x=0$, porque en ese caso el intercepto con el eje $Y$ directamente no existiría.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -653,7 +653,7 @@
       -5,
       5
     ],
-    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma $f(x)$, y para una racional suele excluir la altura de la asíntota horizontal. $f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ y negativos para $x<0$, pero nunca vale cero. La imagen es $\\mathbb{R}\\setminus\\{0\\}$.\n\nNo conviene confundir la imagen con el dominio: acá el valor excluido del dominio y el de la imagen coinciden por casualidad, pero son conceptos distintos.",
+    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma $f(x)$, y para una racional suele excluir la altura de la asíntota horizontal. $f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ y negativos para $x<0$,.\n\nNunca vale cero. La imagen es $\\mathbb{R}\\setminus\\{0\\}$.\n\nNo conviene confundir la imagen con el dominio: acá el valor excluido del dominio y el de la imagen coinciden por casualidad, pero son conceptos distintos.",
     "reviewed": false,
     "tags": [
       "interceptos-x-graf"
@@ -683,7 +683,7 @@
       -5,
       5
     ],
-    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$ y leer su altura correspondiente en el eje $Y$. $f(3)=\\frac{2}{3-1}=\\frac{2}{2}=1$: en la gráfica, el punto $(3, 1)$ está en la rama derecha, a la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
+    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$.\n\nLeer su altura correspondiente en el eje $Y$. $f(3)=\\frac{2}{3-1}=\\frac{2}{2}=1$: en la gráfica, el punto $(3, 1)$ está en la rama derecha, a la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -713,7 +713,7 @@
       -5,
       5
     ],
-    "explanation": "Una función es **impar** cuando $f(-x)=-f(x)$ para todo $x$ del dominio, y esa propiedad se traduce en una gráfica simétrica respecto al origen de coordenadas. Para $f(x)=\\frac{1}{x}$: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como $f(-x)=-f(x)$, la función es impar, y su gráfica es simétrica respecto al origen $(0,0)$.\n\nNo hay que confundir esta simetría con la de una función par, que sería simétrica respecto al eje $Y$.",
+    "explanation": "Una función es **impar** cuando $f(-x)=-f(x)$ para todo $x$ del dominio, y esa propiedad se traduce en una gráfica simétrica respecto al origen de coordenadas.\n\nPara $f(x)=\\frac{1}{x}$: $f(-x)=\\frac{1}{-x}=-\\frac{1}{x}=-f(x)$. Como $f(-x)=-f(x)$, la función es impar, y su gráfica es simétrica respecto al origen $(0,0)$.\n\nNo hay que confundir esta simetría con la de una función par, que sería simétrica respecto al eje $Y$.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-racional"
@@ -743,7 +743,7 @@
       -5,
       5
     ],
-    "explanation": "Cerca de una **asíntota vertical**, el signo del denominador determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$, y ese signo puede cambiar según el lado por el que se acerque $x$. Cuando $x\\to2^+$: $x-2\\to0^+$ (positivo pequeño), así que $\\frac{1}{x-2}\\to+\\infty$. La rama derecha sube sin límite al acercarse a la AV.\n\nConviene siempre evaluar el signo del denominador por separado a cada lado, en vez de asumir que es el mismo de los dos lados.",
+    "explanation": "Cerca de una **asíntota vertical**, el signo del denominador determina si la curva se dispara hacia $+\\infty$ o hacia $-\\infty$,.\n\nEse signo puede cambiar según el lado por el que se acerque $x$. Cuando $x\\to2^+$: $x-2\\to0^+$ (positivo pequeño), así que $\\frac{1}{x-2}\\to+\\infty$. La rama derecha sube sin límite al acercarse a la AV.\n\nConviene siempre evaluar el signo del denominador por separado a cada lado, en vez de asumir que es el mismo de los dos lados.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -833,7 +833,7 @@
       -1,
       8
     ],
-    "explanation": "Cuando el denominador de una racional tiene exponente **par**, su valor nunca es negativo, así que la función mantiene el mismo signo a ambos lados de la asíntota vertical. $f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre, por eso la función es siempre positiva. Cuando $x\\to0^+$ o $x\\to0^-$, $x^2\\to0^+$ y $f\\to+\\infty$. Ambas ramas suben.\n\nEsto contrasta con denominadores de exponente impar, donde las ramas van en direcciones opuestas.",
+    "explanation": "Cuando el denominador de una racional tiene exponente **par**, su valor nunca es negativo, así que la función mantiene el mismo signo a ambos lados de la asíntota vertical. $f(x)=\\frac{1}{x^2}$: el denominador $x^2>0$ siempre, por eso la función es siempre positiva. Cuando $x\\to0^+$ o $x\\to0^-$, $x^2\\to0^+$.\n\n$f\\to+\\infty$. Ambas ramas suben.\n\nEsto contrasta con denominadores de exponente impar, donde las ramas van en direcciones opuestas.",
     "reviewed": false,
     "tags": [
       "interceptos-y-graf"
@@ -863,7 +863,7 @@
       -5,
       5
     ],
-    "explanation": "El **intercepto** con el eje $Y$ de cualquier función se calcula evaluando $f(0)$, siempre que el denominador no se anule justo en ese punto. Acá $f(0)=\\frac{1}{0-3}=\\frac{1}{-3}=-\\frac{1}{3}$. El denominador $0-3=-3\\neq0$, así que el intercepto existe. En la gráfica, la curva cruza el eje $Y$ en $y=-\\frac{1}{3}\\approx-0{,}33$.\n\nNo conviene olvidar el signo negativo del denominador al hacer la cuenta.",
+    "explanation": "El **intercepto** con el eje $Y$ de cualquier función se calcula evaluando $f(0)$, siempre que el denominador no se anule justo en ese punto. Acá $f(0)=\\frac{1}{0-3}=\\frac{1}{-3}=-\\frac{1}{3}$.\n\nEl denominador $0-3=-3\\neq0$, así que el intercepto existe. En la gráfica, la curva cruza el eje $Y$ en $y=-\\frac{1}{3}\\approx-0{,}33$.\n\nNo conviene olvidar el signo negativo del denominador al hacer la cuenta.",
     "reviewed": false,
     "tags": [
       "valor-aproximado"
@@ -893,7 +893,7 @@
       -4,
       4
     ],
-    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada AV parte el dominio en un tramo adicional. El denominador $x^2-4=(x-2)(x+2)$ se anula en $x=2$ y $x=-2$: dos asíntotas verticales. Cada AV separa la gráfica en ramas: $(-\\infty,-2)$, $(-2,2)$ y $(2,+\\infty)$, es decir, tres ramas.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo.",
+    "explanation": "La cantidad de **ramas** de una función racional es siempre una más que la cantidad de asíntotas verticales, porque cada AV parte el dominio en un tramo adicional. El denominador $x^2-4=(x-2)(x+2)$ se anula en $x=2$.\n\n$x=-2$: dos asíntotas verticales. Cada AV separa la gráfica en ramas: $(-\\infty,-2)$, $(-2,2)$ y $(2,+\\infty)$, es decir, tres ramas.\n\nConviene contar primero las asíntotas verticales y sumarle uno, en vez de contar las ramas directamente a ojo.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -953,7 +953,7 @@
       -5,
       5
     ],
-    "explanation": "Para armar la fórmula de una hipérbola a partir del gráfico hay que leer tres datos por separado: dónde está la **asíntota vertical** (el denominador), dónde está la horizontal (el desplazamiento) y en qué cuadrantes caen las ramas (el signo). AV en $x=0$ → denominador $x$. AH en $y=0$ → constante sobre lineal, sin desplazamiento. Ramas en 1.° y 3.° → función impar con $k>0$. La fórmula es $f(x)=\\frac{1}{x}$.\n\nConfundir cuál parámetro mueve la AV y cuál la AH.",
+    "explanation": "Para armar la fórmula de una hipérbola a partir del gráfico hay que leer tres datos por separado: dónde está la **asíntota vertical** (el denominador), dónde está la horizontal (el desplazamiento).\n\nEn qué cuadrantes caen las ramas (el signo). AV en $x=0$ → denominador $x$. AH en $y=0$ → constante sobre lineal, sin desplazamiento. Ramas en 1.° y 3.° → función impar con $k>0$. La fórmula es $f(x)=\\frac{1}{x}$.\n\nConfundir cuál parámetro mueve la AV y cuál la AH.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -983,7 +983,7 @@
       -5,
       5
     ],
-    "explanation": "El parámetro que controla la **asíntota vertical** es el valor que se resta o suma a $x$ en el denominador, mientras que un término sumado fuera de la fracción controla la asíntota horizontal. AV en $x=3$ → denominador $x-3$. AH en $y=0$ → la función tiende a $0$ sin corrimiento vertical. La fórmula es $f(x)=\\frac{1}{x-3}$.\n\nConviene no confundir el parámetro que desplaza la AV con el que desplazaría la AH.",
+    "explanation": "El parámetro que controla la **asíntota vertical** es el valor que se resta o suma a $x$ en el denominador, mientras que un término sumado fuera de la fracción controla la asíntota horizontal. AV en $x=3$ → denominador $x-3$.\n\nAH en $y=0$ → la función tiende a $0$ sin corrimiento vertical. La fórmula es $f(x)=\\frac{1}{x-3}$.\n\nConviene no confundir el parámetro que desplaza la AV con el que desplazaría la AH.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1013,7 +1013,7 @@
       -5,
       5
     ],
-    "explanation": "El signo del numerador de una hipérbola determina en qué par de cuadrantes caen las ramas: positivo va en 1.° y 3.°, negativo invierte el patrón. AV en $x=-2$ → denominador $x+2$. Las ramas en 2.° y 4.° cuadrante (relativas a $x=-2$) indican un numerador negativo. La fórmula es $f(x)=\\frac{-1}{x+2}$.\n\nNo alcanza con acertar el denominador si el signo del numerador queda invertido.",
+    "explanation": "El signo del numerador de una hipérbola determina en qué par de cuadrantes caen las ramas: positivo va en 1.°.\n\n3.°, negativo invierte el patrón. AV en $x=-2$ → denominador $x+2$. Las ramas en 2.° y 4.° cuadrante (relativas a $x=-2$) indican un numerador negativo. La fórmula es $f(x)=\\frac{-1}{x+2}$.\n\nNo alcanza con acertar el denominador si el signo del numerador queda invertido.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1043,7 +1043,7 @@
       -4,
       6
     ],
-    "explanation": "Cuando la **asíntota horizontal** no está en $y=0$, hace falta sumar un término fuera de la fracción que desplace toda la curva verticalmente. AV en $x=1$ → denominador $x-1$. AH en $y=1$ → desplazamiento vertical $+1$. La fórmula es $\\frac{1}{x-1}+1$. Dato extra: $\\frac{x}{x-1}=\\frac{(x-1)+1}{x-1}=1+\\frac{1}{x-1}$ da la misma curva, aunque escrita de otra forma.\n\nConviene simplificar antes de descartar una opción por su apariencia.",
+    "explanation": "Cuando la **asíntota horizontal** no está en $y=0$, hace falta sumar un término fuera de la fracción que desplace toda la curva verticalmente.\n\nAV en $x=1$ → denominador $x-1$. AH en $y=1$ → desplazamiento vertical $+1$. La fórmula es $\\frac{1}{x-1}+1$. Dato extra: $\\frac{x}{x-1}=\\frac{(x-1)+1}{x-1}=1+\\frac{1}{x-1}$ da la misma curva, aunque escrita de otra forma.\n\nConviene simplificar antes de descartar una opción por su apariencia.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"
@@ -1073,7 +1073,7 @@
       -4,
       6
     ],
-    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, conviene dividir para reescribir la fracción como una constante más un término que sí tiene la forma $k/(x-a)$, y así comparar más fácil con el gráfico. $\\frac{x}{x-2}$: AV en $x=2$ (denominador=0). Coeficientes principales iguales (1/1): AH en $y=1$. También: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.\n\nSimplificar así evita confundir fórmulas que parecen distintas pero describen la misma curva.",
+    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, conviene dividir para reescribir la fracción como una constante más un término que sí tiene la forma $k/(x-a)$, y así comparar más fácil con el gráfico. $\\frac{x}{x-2}$: AV en $x=2$ (denominador=0).\n\nCoeficientes principales iguales (1/1): AH en $y=1$. También: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.\n\nSimplificar así evita confundir fórmulas que parecen distintas pero describen la misma curva.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-racional"
@@ -1133,7 +1133,7 @@
       -4,
       4
     ],
-    "explanation": "Cuando el gráfico muestra **dos asíntotas verticales**, el denominador debe tener dos raíces reales distintas, lo que sugiere un denominador cuadrático factorizable. AV en $x=2$ y $x=-2$ → denominador $x^2-4$. AH en $y=0$ → numerador constante, de grado menor al denominador. La fórmula es $f(x)=\\frac{1}{x^2-4}$.\n\nConviene comparar los grados de numerador y denominador antes de fijar la AH, no solo contar las AV.",
+    "explanation": "Cuando el gráfico muestra **dos asíntotas verticales**, el denominador debe tener dos raíces reales distintas, lo que sugiere un denominador cuadrático factorizable. AV en $x=2$.\n\n$x=-2$ → denominador $x^2-4$. AH en $y=0$ → numerador constante, de grado menor al denominador. La fórmula es $f(x)=\\frac{1}{x^2-4}$.\n\nConviene comparar los grados de numerador y denominador antes de fijar la AH, no solo contar las AV.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-graf"
@@ -1163,7 +1163,7 @@
       -4,
       6
     ],
-    "explanation": "Cuando la asíntota horizontal no es $y=0$, hay dos maneras de lograrla: subiendo el grado del numerador para que el cociente de coeficientes principales dé ese valor, o sumando un desplazamiento vertical explícito, y ambas dan curvas distintas. AV en $x=-3$ → denominador $x+3$. AH en $y=2$ → cociente de coeficientes principales $\\frac{2}{1}=2$, lo que corresponde a $\\frac{2x}{x+3}$.\n\nLa opción con $+2$ explícito también tendría AH en $y=2$, pero sus interceptos serían distintos.",
+    "explanation": "Cuando la asíntota horizontal no es $y=0$, hay dos maneras de lograrla: subiendo el grado del numerador para que el cociente de coeficientes principales dé ese valor, o sumando un desplazamiento vertical explícito,.\n\nAmbas dan curvas distintas. AV en $x=-3$ → denominador $x+3$. AH en $y=2$ → cociente de coeficientes principales $\\frac{2}{1}=2$, lo que corresponde a $\\frac{2x}{x+3}$.\n\nLa opción con $+2$ explícito también tendría AH en $y=2$, pero sus interceptos serían distintos.",
     "reviewed": false,
     "tags": [
       "limites-laterales-av"
@@ -1223,7 +1223,7 @@
       -2,
       8
     ],
-    "explanation": "Cuando numerador y denominador de una racional tienen el **mismo grado**, la asíntota horizontal queda determinada por el cociente de sus coeficientes principales. AV en $x=2$ → denominador $x-2$. AH en $y=3$ → cociente de coeficientes principales $3/1=3$. La fórmula $\\frac{3x-4}{x-2}$ cumple ambas condiciones. Verificación extra: el intercepto $Y$ es $f(0)=\\frac{-4}{-2}=2$.\n\nConviene siempre chequear un segundo dato del gráfico además de la AV y la AH.",
+    "explanation": "Cuando numerador y denominador de una racional tienen el **mismo grado**, la asíntota horizontal queda determinada por el cociente de sus coeficientes principales. AV en $x=2$ → denominador $x-2$.\n\nAH en $y=3$ → cociente de coeficientes principales $3/1=3$. La fórmula $\\frac{3x-4}{x-2}$ cumple ambas condiciones. Verificación extra: el intercepto $Y$ es $f(0)=\\frac{-4}{-2}=2$.\n\nConviene siempre chequear un segundo dato del gráfico además de la AV y la AH.",
     "reviewed": false,
     "tags": [
       "ubicacion-asintota-vertical"
@@ -1283,7 +1283,7 @@
       -6,
       2
     ],
-    "explanation": "Cuando la asíntota horizontal es un número negativo, el cociente de los coeficientes principales de numerador y denominador también tiene que dar negativo. AV en $x=-1$ → denominador $x+1$. AH en $y=-2$ → cociente de coeficientes $-2/1=-2$. La fórmula es $f(x)=\\frac{-2x}{x+1}$.\n\nConviene prestar atención al signo del coeficiente, no solo a su valor absoluto, al comparar con el gráfico.",
+    "explanation": "Cuando la asíntota horizontal es un número negativo, el cociente de los coeficientes principales de numerador.\n\nDenominador también tiene que dar negativo. AV en $x=-1$ → denominador $x+1$. AH en $y=-2$ → cociente de coeficientes $-2/1=-2$. La fórmula es $f(x)=\\frac{-2x}{x+1}$.\n\nConviene prestar atención al signo del coeficiente, no solo a su valor absoluto, al comparar con el gráfico.",
     "reviewed": false,
     "tags": [
       "ubicacion-asintota-vertical"
@@ -1343,7 +1343,7 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH. AV en $x=5$ → denominador $x-5$. La AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): $f(x)=\\frac{1}{x-5}-1$.\n\nVerificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente, pero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV.\n\nUn término sumado fuera de la fracción fija la AH. AV en $x=5$ → denominador $x-5$. La AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): $f(x)=\\frac{1}{x-5}-1$.\n\nVerificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente, pero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"
