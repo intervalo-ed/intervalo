@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el código 88 aparece con dos precios, $$\\begin{aligned} 88 &\\mapsto 1500 \\\\ 88 &\\mapsto 1800 \\end{aligned}$$ Como una misma entrada tiene dos salidas, la asignación no es función. Es el caso típico de datos duplicados: no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el código 88 aparece con dos precios,\n\nComo una misma entrada tiene dos salidas, la asignación no es función.\n\nEs el caso típico de datos duplicados: no alcanza con que los dos importes existan, la definición exige una sola salida por entrada.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el medicamento con código 4 figura en dos pasillos, $$\\begin{aligned} 4 &\\mapsto 3 \\\\ 4 &\\mapsto 7 \\end{aligned}$$ Una entrada con dos salidas rompe la condición, así que no es función. Que en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el medicamento con código 4 figura en dos pasillos,\n\nUna entrada con dos salidas rompe la condición, así que no es función. Que en la realidad el objeto esté en dos lugares es lo que impide modelarlo como función de código a pasillo.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el alumno 12 quedó con dos notas finales, $$\\begin{aligned} 12 &\\mapsto 4 \\\\ 12 &\\mapsto 7 \\end{aligned}$$ Dos salidas para la misma entrada rompen la **unicidad**, así que no es función. Elegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el alumno 12 quedó con dos notas finales,\n\nDos salidas para la misma entrada rompen la **unicidad**, así que no es función. Elegir cuál nota vale sería corregir el dato; tal como está cargado, la asignación no cumple la definición.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá la talla 40 se convierte en dos tallas locales, $$\\begin{aligned} 40 &\\mapsto \\text{M} \\\\ 40 &\\mapsto \\text{L} \\end{aligned}$$ Una entrada con dos salidas no define función. Que M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá la talla 40 se convierte en dos tallas locales,\n\nUna entrada con dos salidas no define función. Que M y L sean tallas válidas no ayuda: el problema no es el valor de la salida, sino que haya dos para la misma entrada.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el instante 10 quedó con dos posiciones registradas. Como una misma entrada tiene dos salidas, el registro no define una función de instante a posición. El error de señal produce justo lo que la **unicidad** prohíbe: dos salidas para un mismo instante.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el instante 10 quedó con dos posiciones registradas.\n\nComo una misma entrada tiene dos salidas, el registro no define una función de instante a posición. El error de señal produce justo lo que la **unicidad** prohíbe: dos salidas para un mismo instante.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá un mismo documento figura en dos domicilios activos a la vez. Una entrada con dos salidas rompe la condición, así que la asignación de documento a domicilio no es función. Mientras el padrón no resuelva cuál domicilio vale, el dato duplicado impide tratarlo como función.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá un mismo documento figura en dos domicilios activos a la vez.\n\nUna entrada con dos salidas rompe la condición, así que la asignación de documento a domicilio no es función.\n\nMientras el padrón no resuelva cuál domicilio vale, el dato duplicado impide tratarlo como función.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el mismo plato figura con dos precios, $$\\begin{aligned} \\text{plato} &\\mapsto 2000 \\\\ \\text{plato} &\\mapsto 2500 \\end{aligned}$$ Dos salidas para la misma entrada no definen función. Para modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá el mismo plato figura con dos precios,\n\nDos salidas para la misma entrada no definen función. Para modelarlo como función habría que separar las entradas, por ejemplo 'plato de mediodía' y 'plato de noche'.",
     "reviewed": false,
     "tags": [
       "unicidad-rota-disfrazada"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada número tiene un solo valor absoluto, $$\\begin{aligned} f(-5) &= 5 \\\\ f(5) &= 5 \\end{aligned}$$ Que $-5$ y $5$ compartan salida no rompe nada, así que es función. La confusión central es leer la **unicidad** al revés: dos entradas con la misma salida no invalidan la función.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada número tiene un solo valor absoluto,\n\nQue $-5$ y $5$ compartan salida no rompe nada, así que es función. La confusión central es leer la **unicidad** al revés: dos entradas con la misma salida no invalidan la función.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada. Acá $-4$ y $4$ comparten la salida $16$, pero cada uno tiene una sola salida. La condición se cumple, así que es función. La confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$ comparten la salida $16$, pero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función. La confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -223,7 +223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ingreso cae en una sola categoría, $$\\begin{aligned} f(80000) &= 3 \\\\ f(90000) &= 3 \\end{aligned}$$ Que dos ingresos compartan la categoría 3 no rompe la **unicidad**, así que es función. El requisito mira cada entrada por separado: una sola salida por ingreso, sin importar si otros ingresos coinciden.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ingreso cae en una sola categoría,\n\nQue dos ingresos compartan la categoría 3 no rompe la **unicidad**, así que es función.\n\nEl requisito mira cada entrada por separado: una sola salida por ingreso, sin importar si otros ingresos coinciden.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada. La asignación es función. El error clásico es pedir salidas distintas: eso sería otra propiedad, no la condición de función.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que las salidas sean distintas. Acá cada estudiante elige una sola materia; que dos coincidan en Matemática no rompe nada.\n\nLa asignación es función. pedir salidas distintas: eso sería otra propiedad, no la condición de función.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá todas las entradas dan el mismo valor, el $0$, pero cada una tiene exactamente una salida. Que compartan el resultado no rompe nada, así que es función. La confusión típica es exigir salidas variadas: una función constante es válida, su **imagen** es $\\{0\\}$.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá todas las entradas dan el mismo valor, el $0$, pero cada una tiene exactamente una salida.\n\nQue compartan el resultado no rompe nada, así que es función. exigir salidas variadas: una función constante es válida, su **imagen** es $\\{0\\}$.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -292,7 +292,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada monto recibe un solo cupón; que \\$1000 y \\$1200 coincidan en el 10% no rompe nada. La asignación es función. La confusión central es creer que compartir salida invalida la función: la **unicidad** mira cada entrada, no exige un monto distinto por cupón.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada monto recibe un solo cupón; que \\$1000 y \\$1200 coincidan en el 10% no rompe nada. La asignación es función.\n\nLa confusión central es creer que compartir salida invalida la función: la **unicidad** mira cada entrada, no exige un monto distinto por cupón.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá cada precio se redondea a un solo valor; que \\$4,20 y \\$4,40 caigan los dos en \\$4 no rompe nada. La función es función. La confusión clásica es pensar que juntar entradas en la misma salida invalida la función: la **unicidad** solo pide una salida por entrada.",
+    "explanation": "Una **función** asigna a cada entrada una **única** salida. Acá cada precio se redondea a un solo valor; que \\$4,20 y \\$4,40 caigan los dos en \\$4 no rompe nada. La función es función.\n\nLa confusión clásica es pensar que juntar entradas en la misma salida invalida la función: la **unicidad** solo pide una salida por entrada.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ciudad tiene una sola temperatura; que dos coincidan en $18$ no rompe nada. La asignación es función. El error central es leer la **unicidad** al revés: no se exige una temperatura distinta por ciudad, solo una temperatura por ciudad.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida. Acá cada ciudad tiene una sola temperatura; que dos coincidan en $18$ no rompe nada. La asignación es función.\n\nEl error central es leer la **unicidad** al revés: no se exige una temperatura distinta por ciudad, solo una temperatura por ciudad.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -363,7 +363,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las cantidades de facturas, $$n \\in \\{1, \\dots, 12\\}$$ Los precios que salen forman la **imagen**, no el dominio. La confusión típica es tomar los valores de salida como dominio: fijate siempre qué se ingresa a la función, no qué devuelve.",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las cantidades de facturas,\n\nLos precios que salen forman la **imagen**, no el dominio. tomar los valores de salida como dominio: fijate siempre qué se ingresa a la función, no qué devuelve.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -388,7 +388,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las temperaturas en Celsius, $$\\{0, \\dots, 100\\}$$ Las temperaturas en Fahrenheit son las salidas, así que forman el **codominio**. El error clásico es mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra.",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las temperaturas en Celsius,\n\nLas temperaturas en Fahrenheit son las salidas, así que forman el **codominio**. mirar el conjunto de llegada: el dominio siempre está del lado de lo que entra.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -413,7 +413,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son los vendedores, numerados del 1 al 12, $$\\{1, \\dots, 12\\}$$ Las unidades posibles forman el **codominio** y las efectivamente vendidas, la **imagen**. Contar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son los vendedores, numerados del 1 al 12,\n\nLas unidades posibles forman el **codominio** y las efectivamente vendidas, la **imagen**. Contar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -438,7 +438,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la función. Acá las entradas son las tres preguntas, $\\{1, 2, 3\\}$. Las respuestas $S$ y $N$ son las salidas posibles, el **codominio**. Las respuestas concretas del encuestado forman la **imagen**. La confusión frecuente es contar las preguntas: el dominio es el conjunto de preguntas, no su número.",
+    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la función. Acá las entradas son las tres preguntas, $\\{1, 2, 3\\}$.\n\nLas respuestas $S$ y $N$ son las salidas posibles, el **codominio**.\n\nLas respuestas concretas del encuestado forman la **imagen**. contar las preguntas: el dominio es el conjunto de preguntas, no su número.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas. Acá el $104$ es el código que se ingresa a la función, $$S(104) = 8$$ El $8$ es el stock que sale, así que pertenece a la imagen. El error típico es guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.",
+    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas. Acá el $104$ es el código que se ingresa a la función,\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -488,7 +488,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las seis salas, numeradas del 1 al 6. Cada sala se asigna a una película. Las películas son las salidas, así que forman la **imagen** o el **codominio**, no el dominio. La confusión habitual es fijarse en lo más visible, la película; el dominio es lo que entra, la sala.",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma. Acá las entradas son las seis salas, numeradas del 1 al 6. Cada sala se asigna a una película.\n\nLas películas son las salidas, así que forman la **imagen** o el **codominio**, no el dominio. fijarse en lo más visible, la película; el dominio es lo que entra, la sala.",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -513,7 +513,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. Una división no admite denominador cero, $$2x + 4 = 0 \\implies x = -2$$ Por eso $x = -2$ queda fuera del dominio natural. El error común es probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido.",
+    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. Una división no admite denominador cero,\n\nPor eso $x = -2$ queda fuera del dominio natural. probar valores al azar; conviene igualar el denominador a cero y resolver, ahí está el **único** punto prohibido.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -538,7 +538,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada no admite radicando negativo, $$a \\geq 0$$ Para $a < 0$ la raíz no está definida en los reales. Ojo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada no admite radicando negativo,\n\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -563,7 +563,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo, $$x + 3 \\geq 0 \\implies x \\geq -3$$ Para $x < -3$ el radicando sería negativo. La confusión típica es leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo,\n\nPara $x < -3$ el radicando sería negativo. leer el $3$ como la cota; la restricción sale de despejar el radicando completo, no del número suelto.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. Hay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$. Combinando ambas queda $x > 0$. El descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$. El descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto. Dividir entre cero no está definido y una velocidad negativa no tiene sentido físico, $$v > 0$$ Ese es el dominio natural. Cuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto. Dividir entre cero no está definido y una velocidad negativa no tiene sentido físico,\n\nEse es el dominio natural. Cuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -638,7 +638,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz exige radicando no negativo, $$16 - x^2 \\geq 0 \\implies x^2 \\leq 16 \\implies -4 \\leq x \\leq 4$$ Fuera de ese intervalo el radicando es negativo. El error frecuente es quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz exige radicando no negativo,\n\nFuera de ese intervalo el radicando es negativo. quedarse con una sola desigualdad; $x^2 \\leq 16$ acota por los dos lados, no solo por arriba.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -663,7 +663,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde el denominador es cero. $$x^2 - 9 = 0 \\implies x^2 = 9 \\implies x = 3 \\text{ o } x = -3$$ Por eso esos dos valores quedan afuera. La confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El ****dominio** natural** excluye los valores donde el denominador es cero.\n\nPor eso esos dos valores quedan afuera. La confusión clásica es despejar mal la raíz y quedarse con un solo valor; $x^2 = 9$ tiene dos soluciones, $\\pm 3$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -688,7 +688,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo, $$5 - x \\geq 0 \\implies x \\leq 5$$ Para $x > 5$ el radicando sería negativo. Ojo con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido. La raíz cuadrada exige radicando no negativo,\n\nPara $x > 5$ el radicando sería negativo.\n\nOjo con el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -713,7 +713,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. El denominador no puede ser cero, $$x - 5 = 0 \\implies x = 5$$ Por eso $x = 5$ no pertenece al dominio natural. El numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.",
+    "explanation": "El ****dominio** natural** excluye los valores donde la función no está definida. El denominador no puede ser cero,\n\nPor eso $x = 5$ no pertenece al dominio natural. El numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -738,7 +738,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina la fórmula y el contexto. Algebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido, $$k \\geq 0$$ Ese es el dominio natural. El descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
+    "explanation": "El ****dominio** natural** combina la fórmula y el contexto. Algebraicamente la fórmula funciona para cualquier real, pero comprar kilos negativos no tiene sentido,\n\nEse es el dominio natural. El descuido habitual es tomar todos los reales por mirar solo la fórmula; en contextos concretos el sentido físico también restringe.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -763,7 +763,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** es $\\{0, \\dots, 100\\}$, pero solo se dieron $$\\{60, 75, 90\\}$$ Ese es el conjunto imagen. La confusión típica es dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale.",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** es $\\{0, \\dots, 100\\}$, pero solo se dieron\n\nEse es el conjunto imagen. dar el conjunto de llegada completo; la imagen se queda solo con lo que efectivamente sale.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -788,7 +788,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** incluye S, M y L, pero solo se asignan M y L. El conjunto imagen es $\\{M, L\\}$. El error frecuente es copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen.",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles. Acá el **codominio** incluye S, M y L, pero solo se asignan M y L.\n\nEl conjunto imagen es $\\{M, L\\}$. copiar el conjunto de llegada; si una salida posible nunca se usa, no entra en la imagen.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -813,7 +813,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza. Acá el **codominio** es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es $$\\{2, 3, \\dots, 10\\}$$ La confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza. Acá el **codominio** es $\\{0, \\dots, 10\\}$, pero como nadie sacó 0 ni 1, la imagen es\n\nLa confusión clásica es listar las notas ausentes; la imagen guarda lo que sí salió, no lo que faltó.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -838,7 +838,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, que pueden ser menos que el **codominio**. Acá el codominio es $\\mathbb{R}$, pero solo se alcanzan cubos de enteros, como $$0,\\ 1,\\ 8,\\ 27,\\ -1,\\ -8$$ Números como $\\sqrt{2}$ no son cubo de ningún entero. El error habitual es suponer imagen igual a codominio; solo coinciden cuando toda salida posible se alcanza.",
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, que pueden ser menos que el **codominio**. Acá el codominio es $\\mathbb{R}$, pero solo se alcanzan cubos de enteros, como\n\nNúmeros como $\\sqrt{2}$ no son cubo de ningún entero. suponer imagen igual a codominio; solo coinciden cuando toda salida posible se alcanza.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -863,7 +863,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza. Acá la función produce siempre el mismo valor, $$f(1) = f(2) = \\dots = f(20) = 7$$ Por eso la imagen es $\\{7\\}$, con un solo elemento. La confusión típica es dar el **dominio**; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números.",
+    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza. Acá la función produce siempre el mismo valor,\n\nPor eso la imagen es $\\{7\\}$, con un solo elemento. dar el **dominio**; la imagen mira lo que sale, y acá sale siempre 7, aunque entren veinte números.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -888,7 +888,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no el **codominio** entero. Acá el codominio es $\\{1, \\dots, 100\\}$, pero la función solo produce $$10,\\ 20,\\ 30$$ Así que la imagen es $\\{10, 20, 30\\}$. El error clásico es dar el conjunto de llegada declarado; la imagen se arma con los resultados reales, no con lo que se prometió.",
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no el **codominio** entero. Acá el codominio es $\\{1, \\dots, 100\\}$, pero la función solo produce\n\nAsí que la imagen es $\\{10, 20, 30\\}$. dar el conjunto de llegada declarado; la imagen se arma con los resultados reales, no con lo que se prometió.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -913,7 +913,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo. Acá la función solo produce $$0,\\ 1,\\ 4,\\ 9$$ Así que la imagen es exactamente $\\{0, 1, 4, 9\\}$. La confusión típica es rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales.",
+    "explanation": "El conjunto **imagen** son las salidas efectivamente alcanzadas, no un rango continuo. Acá la función solo produce\n\nAsí que la imagen es exactamente $\\{0, 1, 4, 9\\}$. rellenar los huecos; $\\{0, \\dots, 9\\}$ incluiría 2, 3, 5, que nunca salen; la imagen guarda solo los valores reales.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles. Acá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra $$\\{200, 350\\}$$ Esa es la imagen. El error frecuente es dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles. Acá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -963,7 +963,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles. Acá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul. La imagen es $\\{$rojo, azul$\\}$. El error habitual es incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen.",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las disponibles. Acá los colores posibles son rojo, verde y azul, pero solo se usan rojo y azul.\n\nLa imagen es $\\{$rojo, azul$\\}$. incluir el verde por estar disponible; si ningún sabor lo usa, no forma parte de la imagen.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -988,7 +988,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde pueden caer las salidas, no necesariamente las que se alcanzan. Acá los puntajes posibles por pregunta son $\\{0, 1, 2\\}$. Las preguntas son el **dominio**; los puntajes efectivamente sacados forman la **imagen**. Que exista el $2$ como posibilidad no obliga a sacarlo en ninguna pregunta. La confusión típica es igualar codominio con imagen; el codominio es lo que se puede, la imagen es lo que pasa.",
+    "explanation": "El **codominio** es el conjunto donde pueden caer las salidas, no necesariamente las que se alcanzan. Acá los puntajes posibles por pregunta son $\\{0, 1, 2\\}$.\n\nLas preguntas son el **dominio**; los puntajes efectivamente sacados forman la **imagen**.\n\nQue exista el $2$ como posibilidad no obliga a sacarlo en ninguna pregunta. igualar codominio con imagen; el codominio es lo que se puede, la imagen es lo que pasa.",
     "reviewed": false,
     "tags": [
       "codominio-identificacion"
@@ -1013,7 +1013,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los turnos posibles, mañana, tarde y noche, son el conjunto de llegada. Los empleados son el **dominio**. Si alguno de los tres turnos no se asignara, seguiría estando en el codominio pero no en la **imagen**. El error clásico es llamarlo imagen; la imagen depende de qué turnos se usan de verdad, el codominio no.",
+    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los turnos posibles, mañana, tarde y noche, son el conjunto de llegada. Los empleados son el **dominio**.\n\nSi alguno de los tres turnos no se asignara, seguiría estando en el codominio pero no en la **imagen**. llamarlo imagen; la imagen depende de qué turnos se usan de verdad, el codominio no.",
     "reviewed": false,
     "tags": [
       "codominio-identificacion"
@@ -1038,7 +1038,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los colores posibles, rojo, amarillo y verde, son el conjunto de llegada. Las posiciones del semáforo son el **dominio**. Los colores que efectivamente aparecen forman la **imagen**. La confusión típica es tomar el conjunto de llegada como imagen; solo coinciden si los tres colores se usan.",
+    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo. Acá los colores posibles, rojo, amarillo y verde, son el conjunto de llegada.\n\nLas posiciones del semáforo son el **dominio**. Los colores que efectivamente aparecen forman la **imagen**. tomar el conjunto de llegada como imagen; solo coinciden si los tres colores se usan.",
     "reviewed": false,
     "tags": [
       "codominio-identificacion"
@@ -1063,7 +1063,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto de llegada completo; la **imagen** son las salidas que efectivamente aparecen. Acá el conjunto de llegada es $\\{A, B, C, D\\}$, aunque en el grupo solo salieron B y C. Esos dos forman la imagen, no el codominio. El error frecuente es confundirlos; el codominio no cambia con el grupo, la imagen sí.",
+    "explanation": "El **codominio** es el conjunto de llegada completo; la **imagen** son las salidas que efectivamente aparecen. Acá el conjunto de llegada es $\\{A, B, C, D\\}$, aunque en el grupo solo salieron B y C.\n\nEsos dos forman la imagen, no el codominio. confundirlos; el codominio no cambia con el grupo, la imagen sí.",
     "reviewed": false,
     "tags": [
       "codominio-identificacion"
@@ -1088,7 +1088,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Acá tanto el 3 como el 5 dan 100, $$\\begin{aligned} p(3) &= 100 \\\\ p(5) &= 100 \\end{aligned}$$ Por eso ambos son preimágenes de 100: un valor puede tener varias. La confusión clásica es llamarlos imágenes; la **imagen** es la salida 100, las entradas que caen ahí son las preimágenes.",
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Acá tanto el 3 como el 5 dan 100,\n\nPor eso ambos son preimágenes de 100: un valor puede tener varias. La confusión clásica es llamarlos imágenes; la **imagen** es la salida 100, las entradas que caen ahí son las preimágenes.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1113,7 +1113,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 - 4 = 0 \\implies x^2 = 4 \\implies x = 2 \\text{ o } x = -2$$ Así que el 0 tiene dos preimágenes. El error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver\n\nAsí que el 0 tiene dos preimágenes. El error típico es quedarse con la raíz positiva; $x^2 = 4$ también admite $-2$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un número es **preimagen** de $y$ cuando la función lo transforma en $y$. Acá $f(5) = 2 \\cdot 5 = 10$ Así que el 5 se transforma en 10 y es su preimagen. La confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la función dé 10.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Un número es **preimagen** de $y$ cuando la función lo transforma en $y$.\n\nAcá $f(5) = 2 \\cdot 5 = 10$ Así que el 5 se transforma en 10 y es su preimagen.\n\nLa confusión frecuente es fijarse en el tamaño; que 5 sea menor que 10 no dice nada, lo que importa es que al aplicar la función dé 10.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1163,7 +1163,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$. Acá $x^2 \\geq 0$ para todo real, así que $$f(x) = x^2 + 1 \\geq 1$$ El valor 0 nunca se alcanza, así que no tiene preimagen. El error habitual es probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.",
+    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que\n\nEl valor 0 nunca se alcanza, así que no tiene preimagen. probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1181,14 +1181,14 @@
     "has_math": true,
     "feedback_correct": "Tanto el 4 como el $-4$ dan 16, así que el 16 tiene dos preimágenes.",
     "feedback_incorrect": [
-      "Falta una: también $(-4)^2 = 16$.",
+      "Hay que una: también $(-4)^2 = 16$.",
       "Solo hay dos soluciones de $x^2 = 16$, no cuatro.",
       "Que 16 sea una imagen no impide que tenga preimágenes; de hecho tiene dos.",
       null
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver $$x^2 = 16 \\implies x = 4 \\text{ o } x = -4$$ El 16 tiene exactamente dos preimágenes. La confusión típica es pensar que ser **imagen** impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él.",
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$. Hay que resolver\n\nEl 16 tiene exactamente dos preimágenes. pensar que ser **imagen** impide tener preimágenes; al revés, que 16 sea una salida es lo que hace que existan entradas que caen en él.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$. Acá $g(6) = 18$ Así que 18 es la imagen de 6 y el 6 es una preimagen de 18. Decir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos. Si encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$.\n\nAcá $g(6) = 18$ Así que 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n$$\\begin{aligned} f(x) &= ax^2 + bx + c \\\\ a &\\neq 0 \\end{aligned}$$\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). $f(x) = \\sqrt{x}$ es una función **raíz** (potencia $1/2$).\n\nSolo $f(x) = 2x^2 - x + 1$ tiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
+    "explanation": "Una función es **cuadrática** si y solo si puede escribirse como:\n\nEl término $ax^2$ es el que define la familia: la variable $x$ aparece elevada exactamente al cuadrado como término de mayor grado.\n\n$f(x) = 4x - 7$ es lineal ($x$ a la primera potencia). $f(x) = 2^x$ es exponencial ($x$ en el exponente). $f(x) = \\sqrt{x}$ es una función **raíz** (potencia $1/2$).\n\nSolo $f(x) = 2x^2 - x + 1$ tiene la forma $ax^2 + bx + c$ con $a = 2 \\neq 0$: es **cuadrática**.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "El **vértice** es el punto extremo de la **parábola**: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n$$x_v = -\\frac{b}{2a}$$\nLuego $y_v = f(x_v)$. Para $f(x) = x^2 - 4x + 3$: $x_v = -(-4)/(2 \\cdot 1) = 2$, $y_v = 4 - 8 + 3 = -1$. El vértice es $(2, -1)$.\n\nLas **raíces** son las intersecciones con el eje $X$, la **ordenada al origen** es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas.",
+    "explanation": "El **vértice** es el punto extremo de la **parábola**: el mínimo si $a > 0$ (parábola abierta hacia arriba) o el máximo si $a < 0$ (abierta hacia abajo).\n\nSu coordenada $x$ se calcula con la fórmula:\n\nLuego $y_v = f(x_v)$.\n\nPara $f(x) = x^2 - 4x + 3$: $x_v = -(-4)/(2 \\cdot 1) = 2$, $y_v = 4 - 8 + 3 = -1$.\n\nEl vértice es $(2, -1)$.\n\nLas **raíces** son las intersecciones con el eje $X$, la **ordenada al origen** es el valor $f(0) = c$, y las asíntotas no existen en funciones cuadráticas.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del coeficiente $a$ determina la **concavidad** de la **parábola**:\n$$a > 0 \\implies \\text{abre hacia arriba} \\implies \\text{**vértice** es mínimo}$$\n$$a < 0 \\implies \\text{abre hacia abajo} \\implies \\text{vértice es máximo}$$\nIntuitivamente: cuando $|x|$ crece, el término $ax^2$ domina. Si $a > 0$, los valores de $f$ crecen sin límite en ambas direcciones, por lo que el vértice es el punto más bajo.\n\nEsta propiedad es fundamental: determina si el problema tiene solución mínima o máxima (optimización).",
+    "explanation": "El signo del coeficiente $a$ determina la **concavidad** de la **parábola**:\n\nIntuitivamente: cuando $|x|$ crece, el término $ax^2$ domina.\n\nSi $a > 0$, los valores de $f$ crecen sin límite en ambas direcciones, por lo que el vértice es el punto más bajo.\n\nEsta propiedad es fundamental: determina si el problema tiene solución mínima o máxima (optimización).",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: $f(x) = x^2$.\nEn una función **exponencial**, la base es la constante y $x$ es el exponente: $f(x) = 2^x$.\n\nLas demás opciones son cuadráticas: $x^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), y $(x-1)^2 = x^2 - 2x + 1$ (forma de **vértice**). Solo $2^x$ pertenece a otra familia.",
+    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: $f(x) = x^2$.\n\nEn una función **exponencial**, la base es la constante y $x$ es el exponente: $f(x) = 2^x$.\n\nLas demás opciones son cuadráticas: $x^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), y $(x-1)^2 = x^2 - 2x + 1$ (forma de **vértice**).\n\nSolo $2^x$ pertenece a otra familia.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -153,7 +153,7 @@
       -5,
       6
     ],
-    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n$$\\Delta > 0 \\implies \\text{dos raíces reales distintas}$$\n$$\\Delta = 0 \\implies \\text{una raíz real}$$\n(doble, es decir, con multiplicidad 2).\n$$\\Delta < 0 \\implies \\text{ninguna raíz real}$$\nPara $f(x) = x^2 - 4$: $\\Delta = 0 - 4(1)(-4) = 16 > 0$, hay dos raíces: $x = 2$ y $x = -2$.",
+    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, es decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante** $\\Delta = b^2 - 4ac$:\n\n(doble, es decir, con multiplicidad 2).\n\nPara $f(x) = x^2 - 4$: $\\Delta = 0 - 4(1)(-4) = 16 > 0$, hay dos raíces: $x = 2$ y $x = -2$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un polinomio de grado $n$ tiene, a lo sumo, $n$ **raíces** reales distintas. Como una función cuadrática tiene **grado 2** (el término de mayor grado es $x^2$), el tope de raíces reales que puede alcanzar es **2**.\n\nEl número exacto de raíces depende del discriminante $\\Delta = b^2 - 4ac$: con $\\Delta > 0$ la **parábola** corta el eje $X$ en dos puntos distintos y hay dos raíces, con $\\Delta = 0$ la parábola es tangente al eje en el **vértice** y hay una raíz doble, y con $\\Delta < 0$ la parábola no toca el eje y no hay raíces reales.\n\nNingún polinomio de grado 2 puede tener tres o más raíces reales distintas, ese salto solo aparece en polinomios de grado mayor.",
+    "explanation": "Un polinomio de grado $n$ tiene, a lo sumo, $n$ **raíces** reales distintas.\n\nComo una función cuadrática tiene **grado 2** (el término de mayor grado es $x^2$), el tope de raíces reales que puede alcanzar es **2**.\n\nEl número exacto de raíces depende del discriminante $\\Delta = b^2 - 4ac$: con $\\Delta > 0$ la **parábola** corta el eje $X$ en dos puntos distintos y hay dos raíces, con $\\Delta = 0$ la parábola es tangente al eje en el **vértice** y hay una raíz doble, y con $\\Delta < 0$ la parábola no toca el eje y no hay raíces reales.\n\nNingún polinomio de grado 2 puede tener tres o más raíces reales distintas, ese salto solo aparece en polinomios de grado mayor.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -208,7 +208,7 @@
       -4,
       6
     ],
-    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n$$x = -\\frac{b}{2a}$$\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene $x_v = (r_1 + r_2)/2$. Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
+    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene $x_v = (r_1 + r_2)/2$.\n\nLas asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**. Cuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar; y la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica. La condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, $b$, $c$; la forma de **vértice** $f(x) = a(x-h)^2 + k$, donde el vértice es $(h, k)$, útil para graficar; y la forma factorizada $f(x) = a(x - r_1)(x - r_2)$, donde las **raíces** son $r_1$ y $r_2$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $mx + b$ es lineal, $a \\cdot b^x$ es exponencial, $\\log_a(x)$ es logarítmica.\n\nLa condición $a \\neq 0$ es indispensable para que sea cuadrática y no lineal.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n$$\\begin{aligned} (-3)^2 &= 9 \\geq 0 \\\\ 0^2 &= 0 \\\\ 5^2 &= 25 \\geq 0 \\end{aligned}$$\nEl **dominio** de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce.",
+    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de $f(x) = x^2$ es $\\mathbb{R}$ (acepta cualquier $x$), pero la **imagen** es $[0, +\\infty)$: el valor $x^2 = 0$ se alcanza solo en $x = 0$, y para todo $x \\neq 0$ se tiene $x^2 > 0$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $x$ acepta $f$; la imagen dice qué valores efectivamente produce.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **término independiente** $c$ es el único término que no está multiplicado por la variable $x$.\n\nSu rasgo más útil es que coincide con la **ordenada al origen**, el valor de la función en $x = 0$:\n$$f(0) = a \\cdot 0^2 + b \\cdot 0 + c = c$$\nPor eso, mirando la fórmula ya sabés en qué altura la **parábola** corta el eje $Y$, sin hacer ninguna cuenta.",
+    "explanation": "El **término independiente** $c$ es el único término que no está multiplicado por la variable $x$.\n\nSu rasgo más útil es que coincide con la **ordenada al origen**, el valor de la función en $x = 0$:\n\nPor eso, mirando la fórmula ya sabés en qué altura la **parábola** corta el eje $Y$, sin hacer ninguna cuenta.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"
@@ -354,7 +354,7 @@
       "Ese es el término lineal, el que acompaña a $x$ elevada a la primera potencia.",
       null,
       "Ese es el término independiente, el que no lleva ninguna potencia de $x$.",
-      "Falta el coeficiente $3$; el término cuadrático incluye tanto el coeficiente como la potencia."
+      "Hay que el coeficiente $3$; el término cuadrático incluye tanto el coeficiente como la potencia."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La forma $f(x) = a(x - h)^2 + k$ se llama **forma de vértice** porque deja el vértice a la vista sin necesidad de hacer ninguna cuenta: el vértice es directamente el punto $(h, k)$.\n\nExisten tres formas equivalentes de escribir una cuadrática, y cada una muestra un dato distinto de un vistazo. La forma estándar $ax^2 + bx + c$ muestra los coeficientes, la forma de vértice $a(x-h)^2 + k$ muestra el vértice, y la forma factorizada $a(x - r_1)(x - r_2)$ muestra las **raíces**.\n\nLas tres describen la misma **parábola**, solo cambia qué información queda a la vista según lo que necesites leer.",
+    "explanation": "La forma $f(x) = a(x - h)^2 + k$ se llama **forma de vértice** porque deja el vértice a la vista sin necesidad de hacer ninguna cuenta: el vértice es directamente el punto $(h, k)$.\n\nExisten tres formas equivalentes de escribir una cuadrática, y cada una muestra un dato distinto de un vistazo.\n\nLa forma estándar $ax^2 + bx + c$ muestra los coeficientes, la forma de vértice $a(x-h)^2 + k$ muestra el vértice, y la forma factorizada $a(x - r_1)(x - r_2)$ muestra las **raíces**.\n\nLas tres describen la misma **parábola**, solo cambia qué información queda a la vista según lo que necesites leer.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **raíces** de una función son los valores de $x$ donde $f(x) = 0$, y reciben distintos nombres según el contexto en el que se las mencione.\n\nSe las llama ceros porque ahí la función vale cero, y cortes con el eje $X$ porque ahí la **parábola** cruza el eje horizontal. Los tres nombres (raíces, ceros, cortes) señalan exactamente el mismo lugar de la gráfica.\n\nUna cuadrática puede tener dos, una o ninguna raíz real, según si la parábola corta, toca o esquiva el eje $X$.",
+    "explanation": "Las **raíces** de una función son los valores de $x$ donde $f(x) = 0$, y reciben distintos nombres según el contexto en el que se las mencione.\n\nSe las llama ceros porque ahí la función vale cero, y cortes con el eje $X$ porque ahí la **parábola** cruza el eje horizontal.\n\nLos tres nombres (raíces, ceros, cortes) señalan exactamente el mismo lugar de la gráfica.\n\nUna cuadrática puede tener dos, una o ninguna raíz real, según si la parábola corta, toca o esquiva el eje $X$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas válidas. En una cuadrática $f(x) = ax^2 + bx + c$ podés meter cualquier número real: elevar al cuadrado, multiplicar y sumar nunca se rompe.\n\nPor eso el dominio es siempre:\n$$\\text{Dom}(f) = \\mathbb{R}$$\nLo que sí queda acotado es la **imagen**, porque el **vértice** pone un techo o un piso. Pero entrar, entran todos los reales.",
+    "explanation": "El **dominio** es el conjunto de entradas válidas. En una cuadrática $f(x) = ax^2 + bx + c$ podés meter cualquier número real: elevar al cuadrado, multiplicar y sumar nunca se rompe.\n\nPor eso el dominio es siempre:\n\nLo que sí queda acotado es la **imagen**, porque el **vértice** pone un techo o un piso. Pero entrar, entran todos los reales.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce. En una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice $(h, k)$ es el punto más bajo: la función nunca baja de $k$, pero sube sin límite. Entonces:\n$$\\text{Im}(f) = [k, +\\infty)$$\nOjo con el detalle: el valor extremo es $k$, la coordenada $y$ del vértice, no $h$. La $h$ vive en el eje horizontal.",
+    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce. En una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice $(h, k)$ es el punto más bajo: la función nunca baja de $k$, pero sube sin límite.\n\nEntonces:\n\nOjo con el detalle: el valor extremo es $k$, la coordenada $y$ del vértice, no $h$.\n\nLa $h$ vive en el eje horizontal.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El tamaño de $|a|$ regula qué tan abierta se ve la **parábola**, y a veces al revés de lo que la intuición sugiere: cuanto menor es $|a|$, más lento crece la curva.\n\nSi $|a|$ está cerca de $0$, la parábola crece lento y se ve abierta y ancha. Si $|a|$ es grande, en cambio, crece rápido y se ve angosta.\n\nPor ejemplo, $f(x) = 0{,}2x^2$ es mucho más ancha que $f(x) = 3x^2$. Conviene recordar que el tamaño de $|a|$ manda sobre la apertura, sin importar su signo.",
+    "explanation": "El tamaño de $|a|$ regula qué tan abierta se ve la **parábola**, y a veces al revés de lo que la intuición sugiere: cuanto menor es $|a|$, más lento crece la curva.\n\nSi $|a|$ está cerca de $0$, la parábola crece lento y se ve abierta y ancha.\n\nSi $|a|$ es grande, en cambio, crece rápido y se ve angosta.\n\nPor ejemplo, $f(x) = 0{,}2x^2$ es mucho más ancha que $f(x) = 3x^2$.\n\nConviene recordar que el tamaño de $|a|$ manda sobre la apertura, sin importar su signo.",
     "reviewed": false,
     "tags": [
       "coeficiente-a-forma"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **raíces reales** son los puntos donde la **parábola** cruza o toca el eje $X$, es decir donde $f(x) = 0$.\n\nSi la parábola flota entera por encima del eje (o entera por debajo), nunca vale cero, así que **no tiene raíces reales**. Esto pasa cuando el discriminante es negativo:\n$$\\Delta = b^2 - 4ac < 0$$\nEjemplo: $f(x) = x^2 + 1$ está siempre por encima del eje, su mínimo es $1$. No hay ningún real que la haga valer cero.",
+    "explanation": "Las **raíces reales** son los puntos donde la **parábola** cruza o toca el eje $X$, es decir donde $f(x) = 0$.\n\nSi la parábola flota entera por encima del eje (o entera por debajo), nunca vale cero, así que **no tiene raíces reales**. Esto pasa cuando el discriminante es negativo:\n\nEjemplo: $f(x) = x^2 + 1$ está siempre por encima del eje, su mínimo es $1$. No hay ningún real que la haga valer cero.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la **parábola** es **tangente** al eje $X$, tocándolo en su **vértice** sin cruzarlo, hay exactamente **una raíz real**, que se llama **raíz doble**.\n\nEsto ocurre cuando el discriminante es cero:\n$$\\Delta = b^2 - 4ac = 0$$\nEn ese caso el vértice está apoyado justo sobre el eje $X$. Ejemplo: $f(x) = (x - 3)^2$ toca el eje solo en $x = 3$. Es el caso justo entre tener dos raíces y no tener ninguna.",
+    "explanation": "Cuando la **parábola** es **tangente** al eje $X$, tocándolo en su **vértice** sin cruzarlo, hay exactamente **una raíz real**, que se llama **raíz doble**.\n\nEsto ocurre cuando el discriminante es cero:\n\nEn ese caso el vértice está apoyado justo sobre el eje $X$.\n\nEjemplo: $f(x) = (x - 3)^2$ toca el eje solo en $x = 3$. Es el caso justo entre tener dos raíces y no tener ninguna.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -733,7 +733,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **eje de simetría** de la gráfica de una función cuadrática es siempre una recta **vertical**, de la forma $x = h$.\n\nTiene que ser vertical porque la **parábola** se refleja de izquierda a derecha alrededor del **vértice**. Una recta horizontal no podría partirla en dos mitades iguales: cortaría las dos ramas a la vez.\n\nSu ecuación es $x = -\\dfrac{b}{2a}$, justo la coordenada $x$ del vértice.",
+    "explanation": "El **eje de simetría** de la gráfica de una función cuadrática es siempre una recta **vertical**, de la forma $x = h$.\n\nTiene que ser vertical porque la **parábola** se refleja de izquierda a derecha alrededor del **vértice**.\n\nUna recta horizontal no podría partirla en dos mitades iguales: cortaría las dos ramas a la vez.\n\nSu ecuación es $x = -\\dfrac{b}{2a}$, justo la coordenada $x$ del vértice.",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gracia de la **forma de vértice** $f(x) = a(x - h)^2 + k$ es que las coordenadas del vértice están escritas adentro: el vértice es $(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés. Si ves $(x - 3)$, entonces $h = 3$; si ves $(x + 3) = (x - (-3))$, entonces $h = -3$.\n\nEn cambio $k$ aparece tal cual, sumando afuera. Leer mal el signo de $h$ es el tropiezo clásico.",
+    "explanation": "La gracia de la **forma de vértice** $f(x) = a(x - h)^2 + k$ es que las coordenadas del vértice están escritas adentro: el vértice es $(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés.\n\nSi ves $(x - 3)$, entonces $h = 3$; si ves $(x + 3) = (x - (-3))$, entonces $h = -3$.\n\nEn cambio $k$ aparece tal cual, sumando afuera. Leer mal el signo de $h$ es el tropiezo clásico.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de **vértice** $f(x) = a(x - h)^2 + k$, el número $k$ es la coordenada $y$ del vértice, o sea el **valor extremo** de la función.\n\nEl término $a(x - h)^2$ nunca cambia de signo: si $a > 0$ siempre suma algo $\\geq 0$ a $k$, así que $k$ es lo mínimo que puede valer $f$. Si $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**. La parte $(x-h)^2$ solo lo empuja hacia un lado.",
+    "explanation": "En la forma de **vértice** $f(x) = a(x - h)^2 + k$, el número $k$ es la coordenada $y$ del vértice, o sea el **valor extremo** de la función.\n\nEl término $a(x - h)^2$ nunca cambia de signo: si $a > 0$ siempre suma algo $\\geq 0$ a $k$, así que $k$ es lo mínimo que puede valer $f$.\n\nSi $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**. La parte $(x-h)^2$ solo lo empuja hacia un lado.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -808,7 +808,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de **vértice**, $h$ dice **dónde** está el vértice sobre el eje horizontal: su coordenada $x$. Y como el vértice vive sobre el **eje de simetría**, también define esa recta: $x = h$.\n\nMientras $k$ responde *cuánto* vale el extremo, $h$ responde *dónde* (o *cuándo*) ocurre.\n\nRecordá el signo invertido: en $(x - h)$, un $(x - 4)$ significa $h = 4$. El vértice se corre hacia el valor que iguala el paréntesis a cero.",
+    "explanation": "En la forma de **vértice**, $h$ dice **dónde** está el vértice sobre el eje horizontal: su coordenada $x$.\n\nY como el vértice vive sobre el **eje de simetría**, también define esa recta: $x = h$.\n\nMientras $k$ responde *cuánto* vale el extremo, $h$ responde *dónde* (o *cuándo*) ocurre.\n\nRecordá el signo invertido: en $(x - h)$, un $(x - 4)$ significa $h = 4$.\n\nEl vértice se corre hacia el valor que iguala el paréntesis a cero.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Tocar el suelo significa altura cero, y los valores donde la función vale cero son las **raíces** de la **parábola**.\n\nUn tiro que parte del piso tiene dos raíces: el instante de salida y el instante de aterrizaje. Entre ambas, la pelota estuvo en el aire; afuera, la fórmula daría alturas negativas que ya no tienen sentido físico.\n\nLa distancia entre las dos raíces es, ni más ni menos, el tiempo total de vuelo.",
+    "explanation": "Tocar el suelo significa altura cero, y los valores donde la función vale cero son las **raíces** de la **parábola**.\n\nUn tiro que parte del piso tiene dos raíces: el instante de salida y el instante de aterrizaje.\n\nEntre ambas, la pelota estuvo en el aire; afuera, la fórmula daría alturas negativas que ya no tienen sentido físico.\n\nLa distancia entre las dos raíces es, ni más ni menos, el tiempo total de vuelo.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **ordenada al origen** es el punto donde la **parábola** cruza el eje $Y$, y eso ocurre exactamente en $x = 0$.\n\nAl evaluar ahí, los términos con $x$ se borran:\n$$f(0) = a \\cdot 0^2 + b \\cdot 0 + c = c$$\nPor eso la ordenada al origen siempre es el término independiente $c$, leíble de un vistazo en la forma estándar. Es el dato más barato de toda la cuadrática.",
+    "explanation": "La **ordenada al origen** es el punto donde la **parábola** cruza el eje $Y$, y eso ocurre exactamente en $x = 0$.\n\nAl evaluar ahí, los términos con $x$ se borran:\n\nPor eso la ordenada al origen siempre es el término independiente $c$, leíble de un vistazo en la forma estándar. Es el dato más barato de toda la cuadrática.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **raíz** y el **vértice** son dos puntos notables distintos de la **parábola**, y conviene no mezclarlos.\n\nLa raíz es el valor de $x$ donde $f(x) = 0$, es decir donde la parábola corta el eje $X$; puede haber dos, una o ninguna. El vértice, en cambio, es el punto extremo de la parábola, donde alcanza su máximo o su mínimo, y siempre hay exactamente uno.\n\nUna parábola puede no tener raíces, pero siempre tiene vértice. Mezclar ambos lleva a responder dónde toca el suelo cuando la pregunta era por la altura máxima.",
+    "explanation": "La **raíz** y el **vértice** son dos puntos notables distintos de la **parábola**, y conviene no mezclarlos.\n\nLa raíz es el valor de $x$ donde $f(x) = 0$, es decir donde la parábola corta el eje $X$; puede haber dos, una o ninguna.\n\nEl vértice, en cambio, es el punto extremo de la parábola, donde alcanza su máximo o su mínimo, y siempre hay exactamente uno.\n\nUna parábola puede no tener raíces, pero siempre tiene vértice. Mezclar ambos lleva a responder dónde toca el suelo cuando la pregunta era por la altura máxima.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad. El **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$, mientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso. Esa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
+    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad.\n\nEl **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$, mientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso. Esa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cada forma de una cuadrática está pensada para leer un dato distinto de un vistazo. Para el **vértice**, la más cómoda es la **forma de vértice**:\n$$f(x) = a(x - h)^2 + k \\;\\Rightarrow\\; V = (h, k)$$\nEn cambio, desde la forma estándar habría que calcular $x_v = -\\dfrac{b}{2a}$ y después evaluar. Es la diferencia entre leer el dato y trabajar para conseguirlo.\n\nElegir la forma adecuada antes de empezar es la mitad del problema resuelto.",
+    "explanation": "Cada forma de una cuadrática está pensada para leer un dato distinto de un vistazo. Para el **vértice**, la más cómoda es la **forma de vértice**:\n\nEn cambio, desde la forma estándar habría que calcular $x_v = -\\dfrac{b}{2a}$ y después evaluar. Es la diferencia entre leer el dato y trabajar para conseguirlo.\n\nElegir la forma adecuada antes de empezar es la mitad del problema resuelto.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para leer las **raíces** sin esfuerzo, la mejor forma es la **factorizada**:\n$$f(x) = a(x - r_1)(x - r_2)$$\nUn producto vale cero cuando uno de sus factores vale cero, así que las raíces son $x = r_1$ y $x = r_2$, escritas a la vista.\n\nDesde la forma estándar harían falta la fórmula resolvente; desde la factorizada las raíces ya están servidas. Cada forma es una herramienta para un trabajo distinto.",
+    "explanation": "Para leer las **raíces** sin esfuerzo, la mejor forma es la **factorizada**:\n\nUn producto vale cero cuando uno de sus factores vale cero, así que las raíces son $x = r_1$ y $x = r_2$, escritas a la vista.\n\nDesde la forma estándar harían falta la fórmula resolvente; desde la factorizada las raíces ya están servidas. Cada forma es una herramienta para un trabajo distinto.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -1223,7 +1223,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo de $a$ decide la **concavidad** (hacia dónde abre) y, con ella, si el **vértice** es máximo o mínimo. Pero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real: elevar al cuadrado y multiplicar nunca falla. Por eso:\n$$\\text{Dom}(f) = \\mathbb{R} \\quad \\text{en todos los casos.}$$\nLo que sí cambia con el signo de $a$ es la **imagen**: hacia arriba queda $[k, +\\infty)$, hacia abajo $(-\\infty, k]$.\n\nConviene no mezclar ambos conceptos: el dominio de una cuadrática nunca cambia, pero la imagen sí depende del signo de $a$ y de la posición del vértice.",
+    "explanation": "El signo de $a$ decide la **concavidad** (hacia dónde abre) y, con ella, si el **vértice** es máximo o mínimo. Pero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real: elevar al cuadrado y multiplicar nunca falla. Por eso:\n\nLo que sí cambia con el signo de $a$ es la **imagen**: hacia arriba queda $[k, +\\infty)$, hacia abajo $(-\\infty, k]$.\n\nConviene no mezclar ambos conceptos: el dominio de una cuadrática nunca cambia, pero la imagen sí depende del signo de $a$ y de la posición del vértice.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -1248,7 +1248,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **parábola** es **simétrica** respecto de su eje vertical. Eso significa que para cada punto de una rama hay un gemelo en la otra, a la misma altura.\n\nEsos dos puntos están a **igual distancia del eje de simetría**, uno a cada lado. Por eso el eje pasa justo por el medio de cualquier par de puntos de igual altura.\n\nComo consecuencia, el **vértice** está en el punto medio entre las dos **raíces**:\n$$x_v = \\dfrac{r_1 + r_2}{2}$$\nLa simetría hace gran parte del trabajo gratis.",
+    "explanation": "La **parábola** es **simétrica** respecto de su eje vertical. Eso significa que para cada punto de una rama hay un gemelo en la otra, a la misma altura.\n\nEsos dos puntos están a **igual distancia del eje de simetría**, uno a cada lado. Por eso el eje pasa justo por el medio de cualquier par de puntos de igual altura.\n\nComo consecuencia, el **vértice** está en el punto medio entre las dos **raíces**:\n\nLa simetría hace gran parte del trabajo gratis.",
     "reviewed": false,
     "tags": [
       "eje-simetria"
