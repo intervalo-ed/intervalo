@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada **eje de simetría**, y posee exactamente un punto extremo llamado\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales.\n\nLa parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas).",
+    "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada **eje de simetría**, y posee exactamente un punto extremo llamado.\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales.\n\nLa parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas).",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**, \n\nla base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$), \n\n\n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
+    "explanation": "La diferencia clave entre $x^2$ y $2^x$ es la posición de la variable:\n\nEn una función **cuadrática**, $x$ es la base y el exponente es el número constante $2$: :.En una función **exponencial**.\n\nla base es la constante y $x$ es el exponente:\n$$f(x) = 2^x$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n.\n\nLas demás opciones son cuadráticas: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2 + 3$ (forma $ax^2 + c$), $-x^2 + 1$ (con $a = -1$).\n\ny : (forma de **vértice**).Solo $2^x$ pertenece a otra familia.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -153,7 +153,7 @@
       -5,
       6
     ],
-    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$, \n\nes decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante**.\n$$\\Delta = b^2 - 4ac$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n:\n\n(doble, es decir, con multiplicidad 2).\n\nPara $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nF(x) = x^2 - 4$: :, hay dos raíces:$x = 2$ y $x = -2$.",
+    "explanation": "Las **raíces** (o ceros) de una función cuadrática son los valores de $x$ donde $f(x) = 0$.\n\nes decir, los puntos donde la **parábola** intersecta al eje $X$.\n\nEl número de raíces reales se determina con el **discriminante**.\n$$\\Delta = b^2 - 4ac$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n:\n\n(doble, es decir, con multiplicidad 2).\n\nPara $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nF(x) = x^2 - 4$: :, hay dos raíces:$x = 2$ y $x = -2$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en.\n$$f(x) = ax^2 + bx + c$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en.\n$$f(x) = ax^2 + bx + c$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$, \n\n$b$, $c$; la forma de **vértice** $f(x) =$$f(x) = a(x - r_1)(x - r_2)$$\n, donde las **raíces** son $r_1$ y $r_2.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nMx + b$ es lineal, : es exponencial, $\\log_a(x)$ es logarítmica.",
+    "explanation": "Una función cuadrática puede escribirse en tres formas equivalentes: la forma estándar $f(x) = ax^2 + bx + c$, que muestra directamente los coeficientes $a$.\n\n$b$, $c$; la forma de **vértice** $f(x) =$$f(x) = a(x - r_1)(x - r_2)$$\n, donde las **raíces** son $r_1$ y $r_2.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$, útil para resolver.\n\nLas otras opciones corresponden a otras familias: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nMx + b$ es lineal, : es exponencial, $\\log_a(x)$ es logarítmica.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de.\n$$f(x) = x^2$$Es $\\mathbb{R}$ (acepta cualquier $x$), \n\npero la **imagen** es ::el valor $x^2 = 0$ se alcanza solo en $x = 0$, \n\ny para todo $x \\neq 0$ se tiene $x^2 > 0.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$ acepta $f$; la imagen dice qué valores efectivamente produce.",
+    "explanation": "Cuando calculás $x^2$, el resultado siempre es no negativo, sin importar el signo de $x$:\n\nEl **dominio** de.\n$$f(x) = x^2$$Es $\\mathbb{R}$ (acepta cualquier $x$).\n\npero la **imagen** es ::el valor $x^2 = 0$ se alcanza solo en $x = 0$.\n\ny para todo $x \\neq 0$ se tiene $x^2 > 0.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n\nEsto ilustra una distinción clave: el dominio dice qué valores de $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$ acepta $f$; la imagen dice qué valores efectivamente produce.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma estándar :, cada coeficiente cumple un rol distinto:$a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$, \n\ny $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si.\n$$a = 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, el término $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2$ desaparece y la función pasa a ser lineal.\n\nSin él, no hay **parábola**.",
+    "explanation": "En la forma estándar :, cada coeficiente cumple un rol distinto:$a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$.\n\ny $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si.\n$$a = 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, el término $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2$ desaparece y la función pasa a ser lineal.\n\nSin él, no hay **parábola**.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gracia de la **forma de vértice**.\n$$f(x) = a(x - h)^2 + k$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\nEs que las coordenadas del vértice están escritas adentro: el vértice es $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés.\n\nSi ves $(x - 3)$, entonces $h = 3$; \n\nsi ves :, entonces $h = -3$.En cambio $k$ aparece tal cual, sumando afuera.\n\nLeer mal el signo de $h$ es el tropiezo clásico.",
+    "explanation": "La gracia de la **forma de vértice**.\n$$f(x) = a(x - h)^2 + k$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\nEs que las coordenadas del vértice están escritas adentro: el vértice es $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés.\n\nSi ves $(x - 3)$, entonces $h = 3$;.\n\nsi ves :, entonces $h = -3$.En cambio $k$ aparece tal cual, sumando afuera.\n\nLeer mal el signo de $h$ es el tropiezo clásico.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de **vértice**.\n$$f(x) = a(x - h)^2 + k$$\n, el número $k$ es la coordenada $y.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ del vértice, o sea el **valor extremo** de la función.\n\nEl término : nunca cambia de signo:si $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA > 0$ siempre suma algo $\\geq 0$ a $k$, \n\nasí que $k$ es lo mínimo que puede valer $f$.\n\nSi $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**.\n\nLa parte $(x-h)^2$ solo lo empuja hacia un lado.",
+    "explanation": "En la forma de **vértice**.\n$$f(x) = a(x - h)^2 + k$$\n, el número $k$ es la coordenada $y.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ del vértice, o sea el **valor extremo** de la función.\n\nEl término : nunca cambia de signo:si $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA > 0$ siempre suma algo $\\geq 0$ a $k$.\n\nasí que $k$ es lo mínimo que puede valer $f$.\n\nSi $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**.\n\nLa parte $(x-h)^2$ solo lo empuja hacia un lado.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente.\n$$b$$\nAcompaña a la $x.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; \n\ny $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, \n\nya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente.\n$$b$$\nAcompaña a la $x.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**.Los tres coeficientes de la forma estándar tienen roles distintos: $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nA$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$;.\n\ny $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**.\n\nya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -1173,7 +1173,7 @@
       -1,
       11
     ],
-    "explanation": "Esta **parábola** abre hacia arriba, y su punto más bajo, donde la curva deja de bajar y empieza a subir, es el **vértice**.\n\nComo.\n$$a > 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, ese vértice es un **mínimo**: ningún otro punto de la parábola está más abajo, y sobre él pasa el **eje de simetría**.\n\nNo confundir con la **raíz** (corte con el eje $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$) ni con la **ordenada al origen** (corte con el eje $Y$): el vértice es el extremo de la curva, esté donde esté",
+    "explanation": "Esta **parábola** abre hacia arriba, y su punto más bajo, donde la curva deja de bajar y empieza a subir, es el **vértice**.\n\nComo.\n$$a > 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, ese vértice es un **mínimo**: ningún otro punto de la parábola está más abajo, y sobre él pasa el **eje de simetría**.\n\nNo confundir con la **raíz** (corte con el eje $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX$) ni con la **ordenada al origen** (corte con el eje $Y$): el vértice es el extremo de la curva, esté donde esté.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -1273,7 +1273,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con.\n$$a \\neq 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**, hay a lo sumo dos **raíces**, existe simetría respecto de un eje vertical, y\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2$ como protagonista.",
+    "explanation": "Lo que vuelve cuadrática a una función es que su término de mayor grado sea de grado 2: un $ax^2$ con.\n$$a \\neq 0$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$.\n$$\n, y ningún término de grado superior.\n\nDe esa sola condición se desprenden todas sus propiedades: la gráfica tiene forma de **parábola** con un único **vértice**, hay a lo sumo dos **raíces**, existe simetría respecto de un eje vertical, y.\n\nCada familia tiene su propia firma: la recta crece a ritmo fijo, la exponencial multiplica por un factor constante, la logarítmica desacelera.\n\nLa cuadrática es la que tiene a $$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\n$\nX^2$ como protagonista.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"

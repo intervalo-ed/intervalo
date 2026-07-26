@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$, \n\nel exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ \n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
+    "explanation": "En una raíz de índice $n$ sobre una potencia $x^m$.\n\nel exponente fraccionario resultante tiene $m$ arriba y $n$ abajo.\n\nInvertir esta fracción es un error frecuente, conviene recordar que el índice de la raíz siempre va en el denominador del exponente.\n\nReescribir $\\frac{1}{x^2}$ como $x^{-2}$ \n\nte permite usar la fórmula de potencia $\\int x^n\\,dx = \\frac{x^{n+1}}{n+1} + C$ (siempre que $n \\neq -1$).\n\nAquí $n = -2$, así que la integral es $\\frac{x^{-1}}{-1} = -\\frac{1}{x}$.\n\nEste patrón de reescritura es tan útil que conviene practicarlo hasta automatizarlo antes de enfrentar expresiones complicadas con múltiples términos.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"

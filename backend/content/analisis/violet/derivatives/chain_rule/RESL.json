@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2+2$, \n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=2$ y.\n$$g'(2)=4 \\cdot 2^3 = 32$$\n, aplicamos:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar qué tan grande sea el valor de la capa exterior evaluada en $h(0)$.\n\nEste patrón de \"anulación por derivada interna nula\" es crucial en la cadena.",
+    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2+2$.\n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=2$ y.\n$$g'(2)=4 \\cdot 2^3 = 32$$\n, aplicamos:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar qué tan grande sea el valor de la capa exterior evaluada en $h(0)$.\n\nEste patrón de \"anulación por derivada interna nula\" es crucial en la cadena.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2-1$, \n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=-1$ y.\n$$g'(-1)=4 \\cdot (-1)^3 = -4$$\n, el cálculo es:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar el signo o la magnitud del valor de la capa exterior.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Identificamos $g(u)=u^4$, $h(x)=x^2-1$.\n\ncon $g'(u)=4u^3$ y $h'(x)=2x$.\n\nCon $h(0)=-1$ y.\n$$g'(-1)=4 \\cdot (-1)^3 = -4$$\n, el cálculo es:\n\nEl factor $h'(0)=0$ colapsa todo el producto, sin importar el signo o la magnitud del valor de la capa exterior.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$, \n\ncon $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon.\n$$h(\\pi)=\\cos\\pi = -1$$\nY $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\cos x$.\n\ncon $g'(u)=e^u$ y $h'(x)=-\\sin x$.\n\nCon.\n$$h(\\pi)=\\cos\\pi = -1$$\nY $g'(-1)=e^{-1}$, además $h'(\\pi)=-\\sin\\pi=0$:\n\nEl factor $h'(\\pi)=0$ colapsa todo el producto, sin importar el valor de la capa exterior evaluada en $h(\\pi)$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=\\sin x$, \n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=\\cos x$.\n\nCon $h(\\pi/2)=\\sin(\\pi/2)=1$ y $g'(1)=\\frac{1}{1}=1$, además.\n$$h'(\\pi/2)=\\cos(\\pi/2)=0$$\n:\n\nEl factor $h'(\\pi/2)=0$ colapsa todo el producto, sin importar que la capa exterior evaluada en $h(\\pi/2)$ dé un valor distinto de cero.",
+    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=\\sin x$.\n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=\\cos x$.\n\nCon $h(\\pi/2)=\\sin(\\pi/2)=1$ y $g'(1)=\\frac{1}{1}=1$, además.\n$$h'(\\pi/2)=\\cos(\\pi/2)=0$$\n:\n\nEl factor $h'(\\pi/2)=0$ colapsa todo el producto, sin importar que la capa exterior evaluada en $h(\\pi/2)$ dé un valor distinto de cero.",
     "reviewed": false,
     "tags": [
       "anulacion-derivada-interna-nula"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\sin x$, \n\ncon $g'(u)=e^u$ y $h'(x)=\\cos x$.\n\nEl ancla es $h(\\pi)=\\sin\\pi=0$, que simplifica $g'(0)=e^0=1$.\n\nAdemás.\n$$h'(\\pi)=\\cos\\pi=-1$$\n, así que:\n\nEl ancla $h(\\pi)=0$ es lo que permite simplificar la capa exterior a un valor trivial, en vez de dejar una exponencial complicada.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=\\sin x$.\n\ncon $g'(u)=e^u$ y $h'(x)=\\cos x$.\n\nEl ancla es $h(\\pi)=\\sin\\pi=0$, que simplifica $g'(0)=e^0=1$.\n\nAdemás.\n$$h'(\\pi)=\\cos\\pi=-1$$\n, así que:\n\nEl ancla $h(\\pi)=0$ es lo que permite simplificar la capa exterior a un valor trivial, en vez de dejar una exponencial complicada.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=\\cos x$, \n\ncon $g'(u)=\\cos u$ y $h'(x)=-\\sin x$.\n\nEl ancla es $h(\\pi/2)=\\cos(\\pi/2)=0$, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás.\n$$h'(\\pi/2)=-\\sin(\\pi/2)=-1$$\n, así que:\n\nEl ancla $h(\\pi/2)=0$ simplifica la capa exterior a un coseno evaluado en cero, un valor trivial igual a $1$.",
+    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=\\cos x$.\n\ncon $g'(u)=\\cos u$ y $h'(x)=-\\sin x$.\n\nEl ancla es $h(\\pi/2)=\\cos(\\pi/2)=0$, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás.\n$$h'(\\pi/2)=-\\sin(\\pi/2)=-1$$\n, así que:\n\nEl ancla $h(\\pi/2)=0$ simplifica la capa exterior a un coseno evaluado en cero, un valor trivial igual a $1$.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=x+1$, \n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=1$.\n\nEl ancla es $h(0)=0+1=1$, que simplifica.\n$$g'(1)=\\frac{1}{1}=1$$\n.\n\nAdemás $h'(0)=1$:\n\nEl ancla $h(0)=1$ simplifica la capa exterior a un valor trivial, evitando cualquier cálculo complicado con logaritmos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\ln u$, $h(x)=x+1$.\n\ncon $g'(u)=\\frac{1}{u}$ y $h'(x)=1$.\n\nEl ancla es $h(0)=0+1=1$, que simplifica.\n$$g'(1)=\\frac{1}{1}=1$$\n.\n\nAdemás $h'(0)=1$:\n\nEl ancla $h(0)=1$ simplifica la capa exterior a un valor trivial, evitando cualquier cálculo complicado con logaritmos.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\cos u$, $h(x)=\\ln x$, \n\ncon $g'(u)=-\\sin u$ y $h'(x)=\\frac{1}{x}$.\n\nEl ancla es $h(1)=\\ln 1=0$, que simplifica $g'(0)=-\\sin 0=0$.\n\nAdemás.\n$$h'(1)=\\frac{1}{1}=1$$\n:\n\nAcá el ancla $h(1)=0$ simplifica la capa exterior a $-\\sin 0=0$, y ese cero en la exterior es el que colapsa todo el producto.",
+    "explanation": "Identificamos $g(u)=\\cos u$, $h(x)=\\ln x$.\n\ncon $g'(u)=-\\sin u$ y $h'(x)=\\frac{1}{x}$.\n\nEl ancla es $h(1)=\\ln 1=0$, que simplifica $g'(0)=-\\sin 0=0$.\n\nAdemás.\n$$h'(1)=\\frac{1}{1}=1$$\n:\n\nAcá el ancla $h(1)=0$ simplifica la capa exterior a $-\\sin 0=0$, y ese cero en la exterior es el que colapsa todo el producto.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=e^u$, $h(x)=2x-2$, \n\ncon $g'(u)=e^u$ y $h'(x)=2$.\n\nEl ancla es.\n$$h(1)=2(1)-2=0$$\n, que simplifica $g'(0)=e^0=1$.\n\nAdemás $h'(1)=2$:\n\nEl ancla $h(1)=0$ simplifica la capa exterior, dejando el resultado final determinado enteramente por la derivada interior.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=e^u$, $h(x)=2x-2$.\n\ncon $g'(u)=e^u$ y $h'(x)=2$.\n\nEl ancla es.\n$$h(1)=2(1)-2=0$$\n, que simplifica $g'(0)=e^0=1$.\n\nAdemás $h'(1)=2$:\n\nEl ancla $h(1)=0$ simplifica la capa exterior, dejando el resultado final determinado enteramente por la derivada interior.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=x-\\pi$, \n\ncon $g'(u)=\\cos u$ y $h'(x)=1$.\n\nEl ancla es.\n$$h(\\pi)=\\pi-\\pi=0$$\n, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás $h'(\\pi)=1$:\n\nEl ancla $h(\\pi)=0$ simplifica la capa exterior, evitando cualquier cálculo trigonométrico complicado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Identificamos $g(u)=\\sin u$, $h(x)=x-\\pi$.\n\ncon $g'(u)=\\cos u$ y $h'(x)=1$.\n\nEl ancla es.\n$$h(\\pi)=\\pi-\\pi=0$$\n, que simplifica $g'(0)=\\cos 0=1$.\n\nAdemás $h'(\\pi)=1$:\n\nEl ancla $h(\\pi)=0$ simplifica la capa exterior, evitando cualquier cálculo trigonométrico complicado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "evaluacion-ancla-trivial"

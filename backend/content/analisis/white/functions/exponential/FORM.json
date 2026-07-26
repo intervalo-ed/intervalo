@@ -208,7 +208,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La función.\n$$f(x) = 2^{x+1}$$\nEs un **desplazamiento horizontal** de $2^x$:\n\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$.\n\nEn general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda; \n\nrestar $h$.\n\na la derecha.",
+    "explanation": "La función.\n$$f(x) = 2^{x+1}$$\nEs un **desplazamiento horizontal** de $2^x$:\n\nEsto desplaza la curva **1 unidad a la izquierda** (o equivalentemente, la escala por factor $2$).\n\nLa curva pasa por $(-1, 1)$ en lugar de $(0, 1)$.\n\nEn general: sumar $h$ al exponente desplaza $h$ unidades a la izquierda;.\n\nrestar $h$.\n\na la derecha.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar.\n$$f(0)$$\nPrimero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá \n\nese $1$ se convierte en $8$ \n\nporque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
+    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nasí que para evaluar.\n$$f(0)$$\nPrimero hay que resolver $2^0$ y recién después sumar la constante.Sin el desplazamiento.\n\n: en $x=0$ vale $1$;acá.\n\nese $1$ se convierte en $8$ \n\nporque toda la curva subió $7$ unidades.\n\nincluida la asíntota horizontal.\n\nque pasa de $y=0$ a $y=7$.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -798,7 +798,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2.\n$$f(0) = 2^0 + 2 = 1 + 2 = 3$$\n.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
+    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2.\n$$f(0) = 2^0 + 2 = 1 + 2 = 3$$\n.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -858,7 +858,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$.\n\nconviene comparar cuánto vale cada una en un punto alejado del origen.\n\nya que cuanto mayor es la base.\n\nmás rápido crece la curva.\n\nEn $x=2$.\n$$e^2 \\approx 7{,}39$$\n.\n\n$(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo : es mayor que $2$ y que $1{,}5$.la \n\nfunción $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
+    "explanation": "Para distinguir entre varias exponenciales con el mismo punto de partida en $(0,1)$.\n\nconviene comparar cuánto vale cada una en un punto alejado del origen.\n\nya que cuanto mayor es la base.\n\nmás rápido crece la curva.\n\nEn $x=2$.\n$$e^2 \\approx 7{,}39$$\n.\n\n$(1{,}5)^2 = 2{,}25$ y $2^2 = 4$: la curva más empinada corresponde siempre a la mayor base.\n\nComo : es mayor que $2$ y que $1{,}5$.la.\n\nfunción $e^x$ crece más rápido que las otras dos para $x>0$.\n\nTodas comparten el punto $(0,1)$, así que la diferencia solo se nota alejándose del origen.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"

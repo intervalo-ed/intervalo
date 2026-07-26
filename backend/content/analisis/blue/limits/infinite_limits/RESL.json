@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$, \n\nno $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ \n\nda $-\\infty$.\n\nCon potencia par, el signo de $x$ no importaría.",
+    "explanation": "Cuando una potencia es impar, el signo de $x$ importa: números negativos elevados a potencias impares siguen siendo negativos.\n\nEsta es la razón por la que $\\lim_{x \\to -\\infty}$ de un monomio de grado impar diverge hacia $-\\infty$.\n\nno $+\\infty$.\n\nCuando el numerador tiene grado mayor, conviene simplificar al término dominante para identificar la potencia resultante y su paridad.\n\nComo la potencia resultante es $3$ (impar) y el coeficiente es positivo, cruzar con $x \\to -\\infty$ \n\nda $-\\infty$.\n\nCon potencia par, el signo de $x$ no importaría.",
     "reviewed": false,
     "tags": [
       "racionales-gana-numerador"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$) \n\nproduce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$, \n\n\n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
+    "explanation": "Acercarse desde la izquierda ($x \\to 2^-$) vs. desde la derecha ($x \\to 2^+$).\n\nproduce resultados opuestos porque un lado del $0$ es positivo y el otro es negativo.\n\nEste cambio de signo en el denominador es lo que produce dos límites distintos que se combinan para decir que el límite bilateral no existe.\n\nCuando $x \\to 2^-$, los valores de $x$ son menores que $2$.\n\nasí que $x-2$ es negativo y tiende a $0^-$.\n\nCon numerador positivo y denominador tendiendo a $0^-$, el cociente diverge a $-\\infty$.\n\nEste resultado, junto con el ítem anterior, muestra que el límite bilateral en $x=2$ no existe.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un numerador negativo actúa como un \"inversor de signo\" para la divergencia.\n\nCuando el denominador es positivo pero muy chico, y el numerador es negativo, el resultado gira hacia $-\\infty$.\n\nEl numerador decide, junto con el signo del denominador, cuál es la dirección final.\n\nEl signo del numerador se cruza con el signo del $0$ lateral del denominador para determinar el signo final del resultado.\n\nComo el numerador vale $-3$ (negativo) y el denominador tiende a $0^+$, \n\nel cociente completo diverge a $-\\infty$.\n\nUn numerador negativo invierte el signo que tendría el mismo límite con numerador positivo.",
+    "explanation": "Un numerador negativo actúa como un \"inversor de signo\" para la divergencia.\n\nCuando el denominador es positivo pero muy chico, y el numerador es negativo, el resultado gira hacia $-\\infty$.\n\nEl numerador decide, junto con el signo del denominador, cuál es la dirección final.\n\nEl signo del numerador se cruza con el signo del $0$ lateral del denominador para determinar el signo final del resultado.\n\nComo el numerador vale $-3$ (negativo) y el denominador tiende a $0^+$.\n\nel cociente completo diverge a $-\\infty$.\n\nUn numerador negativo invierte el signo que tendría el mismo límite con numerador positivo.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos signos negativos combinados en una división producen un resultado positivo, exactamente como en aritmética de números reales.\n\nCuando el numerador es negativo y el denominador tiende a $0^-$, la **divergencia** resultante apunta hacia $+\\infty$.\n\nCuando ambos signos, el del numerador y el del $0$ lateral del denominador, son negativos, el cociente resulta positivo.\n\nCon numerador $-3$ y denominador tendiendo a $0^-$, \n\nel cociente completo diverge a $+\\infty$.\n\nDos signos negativos que se combinan en una división producen un resultado positivo, igual que en cualquier cociente de números reales.",
+    "explanation": "Dos signos negativos combinados en una división producen un resultado positivo, exactamente como en aritmética de números reales.\n\nCuando el numerador es negativo y el denominador tiende a $0^-$, la **divergencia** resultante apunta hacia $+\\infty$.\n\nCuando ambos signos, el del numerador y el del $0$ lateral del denominador, son negativos, el cociente resulta positivo.\n\nCon numerador $-3$ y denominador tendiendo a $0^-$.\n\nel cociente completo diverge a $+\\infty$.\n\nDos signos negativos que se combinan en una división producen un resultado positivo, igual que en cualquier cociente de números reales.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador está escrito en un orden distinto al habitual (como $1-x$ en lugar de $x-1$), es fácil equivocarse en el análisis de signos.\n\nEl cuidado en esta etapa de análisis es crucial porque determinará completamente hacia dónde diverge la función.\n\nCuando el denominador está escrito como $1-x$ en vez de $x-1$, conviene analizar el signo con cuidado antes de concluir.\n\nCon numerador positivo $5$ y denominador tendiendo a $0^-$, \n\nel cociente diverge a $-\\infty$.\n\nEl orden de la resta dentro del denominador puede invertir el signo del $0$ lateral respecto al caso más común $x-a$.",
+    "explanation": "Cuando el denominador está escrito en un orden distinto al habitual (como $1-x$ en lugar de $x-1$), es fácil equivocarse en el análisis de signos.\n\nEl cuidado en esta etapa de análisis es crucial porque determinará completamente hacia dónde diverge la función.\n\nCuando el denominador está escrito como $1-x$ en vez de $x-1$, conviene analizar el signo con cuidado antes de concluir.\n\nCon numerador positivo $5$ y denominador tendiendo a $0^-$.\n\nel cociente diverge a $-\\infty$.\n\nEl orden de la resta dentro del denominador puede invertir el signo del $0$ lateral respecto al caso más común $x-a$.",
     "reviewed": false,
     "tags": [
       "calculo-asintota-vertical"

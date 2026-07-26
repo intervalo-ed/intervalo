@@ -53,7 +53,7 @@
       -2,
       2
     ],
-    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en :).Si no se incluyen los extremos, \n\n\n\nquedaría solo $x=\\pi$: un único cero interior.",
+    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en :).Si no se incluyen los extremos.\n\nquedaría solo $x=\\pi$: un único cero interior.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -203,7 +203,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y :.Son **2 ceros** (sin incluir los extremos del intervalo, \n\ndonde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
+    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y :.Son **2 ceros** (sin incluir los extremos del intervalo.\n\ndonde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
     "reviewed": false,
     "tags": [
       "periodo-desde-grafico"
@@ -533,7 +533,7 @@
       -2,
       2
     ],
-    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ; \n\n: ;$-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
+    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ;.\n\n: ;$-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -563,7 +563,7 @@
       -3,
       3
     ],
-    "explanation": "Las **raíces** de : son los valores $x$ donde $f(x)=0$.es \n\ndecir donde $\\operatorname{sen}(x)=0$.\n\nEl factor $2$ no afecta las raíces.\n\n$\\operatorname{sen}(x)=0$ en $x=k\\pi$.\n\nEn $[0,2\\pi]$: $x=0$.\n\n$x=\\pi$.\n\n$x=2\\pi$.\n\nSon tres raíces.\n\nLa opción $x=\\pi/2$ y $x=3\\pi/2$ da los **extremos**, no las raíces.\n\nEl $2$ delante del seno no mueve las raíces: solo amplifica.\n\nEl seno sigue cruzando el eje en los mismos múltiplos de $\\pi$.",
+    "explanation": "Las **raíces** de : son los valores $x$ donde $f(x)=0$.es.\n\ndecir donde $\\operatorname{sen}(x)=0$.\n\nEl factor $2$ no afecta las raíces.\n\n$\\operatorname{sen}(x)=0$ en $x=k\\pi$.\n\nEn $[0,2\\pi]$: $x=0$.\n\n$x=\\pi$.\n\n$x=2\\pi$.\n\nSon tres raíces.\n\nLa opción $x=\\pi/2$ y $x=3\\pi/2$ da los **extremos**, no las raíces.\n\nEl $2$ delante del seno no mueve las raíces: solo amplifica.\n\nEl seno sigue cruzando el eje en los mismos múltiplos de $\\pi$.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -1043,7 +1043,7 @@
       -2,
       2
     ],
-    "explanation": "El **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) \n\nocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ \n\ny se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$.\n\nLa opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$).\n\nLa opción $x=2k\\pi$ da los **máximos**.\n\nLa opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
+    "explanation": "El **mínimo** de $f(x)=\\cos(x)$ (valor $-1$).\n\nocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ \n\ny se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$.\n\nLa opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$).\n\nLa opción $x=2k\\pi$ da los **máximos**.\n\nLa opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1133,7 +1133,7 @@
       -2,
       2
     ],
-    "explanation": "La onda tiene mínimo $-1$ en $x=0$ \n\ny máximo $1$ en :.Verificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; : ;$\\cos(0)=1$ \n\n(el máximo debería estar en $x=0$.\n\nno el mínimo).\n\nSolo : arranca en $-1$ y llega al máximo en $\\pi$.$-\\cos(x)$: \n\n\n\nel coseno dado vuelta.\n\nEl mínimo en el origen y el máximo a $\\pi$ de distancia.",
+    "explanation": "La onda tiene mínimo $-1$ en $x=0$ \n\ny máximo $1$ en :.Verificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; : ;$\\cos(0)=1$ \n\n(el máximo debería estar en $x=0$.\n\nno el mínimo).\n\nSolo : arranca en $-1$ y llega al máximo en $\\pi$.$-\\cos(x)$: \n\nel coseno dado vuelta.\n\nEl mínimo en el origen y el máximo a $\\pi$ de distancia.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1163,7 +1163,7 @@
       -2,
       2
     ],
-    "explanation": "En el intervalo $[3\\pi/2.\n\n2\\pi]$.\n\nel ángulo va del extremo inferior del círculo unitario $(0,-1)$ al punto inicial $(1,0)$.\n\nLa coordenada $y$ (el seno) **sube** de : a $0$:la \n\nfunción es **creciente de $-1$ a $0$**.\n\nComparación: en $[\\pi/2.\n\n3\\pi/2]$ el seno baja de $1$ a $-1$ (decreciente).\n\nEn $[3\\pi/2.\n\n2\\pi]$ sube de $-1$ a $0$: creciente.\n\nLa opción correcta describe este tramo final del ciclo.\n\n$[3\\pi/2, 2\\pi]$: el seno saliendo del sótano hacia la planta baja.\n\nUn tramo corto, pero muy creciente.",
+    "explanation": "En el intervalo $[3\\pi/2.\n\n2\\pi]$.\n\nel ángulo va del extremo inferior del círculo unitario $(0,-1)$ al punto inicial $(1,0)$.\n\nLa coordenada $y$ (el seno) **sube** de : a $0$:la.\n\nfunción es **creciente de $-1$ a $0$**.\n\nComparación: en $[\\pi/2.\n\n3\\pi/2]$ el seno baja de $1$ a $-1$ (decreciente).\n\nEn $[3\\pi/2.\n\n2\\pi]$ sube de $-1$ a $0$: creciente.\n\nLa opción correcta describe este tramo final del ciclo.\n\n$[3\\pi/2, 2\\pi]$: el seno saliendo del sótano hacia la planta baja.\n\nUn tramo corto, pero muy creciente.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1223,7 +1223,7 @@
       -4,
       4
     ],
-    "explanation": "La onda tiene amplitud $3$.\n\nperíodo : y **en $x=0$ vale $3$** \n\n(el máximo).El candidato con máximo en el origen es el **coseno**: $f(x)=3\\cos(x)$.\n\nVerificaciones: $3\\cos(0)=3$  (máximo). $3\\,\\operatorname{sen}(0)=0$ .\n\nLa opción : tiene amplitud $1$ y período $2\\pi/3$:nada coincide.\n\nAmplitud $3$ + máximo en el origen: combinación exclusiva del coseno escalado.\n\nEl seno nunca arranca en el pico.",
+    "explanation": "La onda tiene amplitud $3$.\n\nperíodo : y **en $x=0$ vale $3$**.\n\n(el máximo).El candidato con máximo en el origen es el **coseno**: $f(x)=3\\cos(x)$.\n\nVerificaciones: $3\\cos(0)=3$  (máximo). $3\\,\\operatorname{sen}(0)=0$ .\n\nLa opción : tiene amplitud $1$ y período $2\\pi/3$:nada coincide.\n\nAmplitud $3$ + máximo en el origen: combinación exclusiva del coseno escalado.\n\nEl seno nunca arranca en el pico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1313,7 +1313,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) \n\ny el desplazamiento ($D=1$).\n\nno del período:El coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical.\n\nLa imagen es $[0,2]$.\n\nLa opción : tendría desplazamiento $D=1$ con amplitud $2$.La \n\nopción $[1,3]$ ignoraría la parte negativa del seno.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$).\n\ny el desplazamiento ($D=1$).\n\nno del período:El coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical.\n\nLa imagen es $[0,2]$.\n\nLa opción : tendría desplazamiento $D=1$ con amplitud $2$.La.\n\nopción $[1,3]$ ignoraría la parte negativa del seno.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1493,7 +1493,7 @@
       -2,
       2
     ],
-    "explanation": "En el intervalo $[\\pi.\n\n2\\pi]$.\n\nel ángulo va del extremo izquierdo del círculo unitario $(-1,0)$ hasta el extremo derecho $(1,0)$.\n\nLa coordenada $x$ (el coseno) **sube** de : a $1$:la \n\nfunción es **creciente de $-1$ a $1$**.\n\nValores clave: $\\cos(\\pi)=-1$ (mínimo).\n\n$\\cos(3\\pi/2)=0$.\n\n$\\cos(2\\pi)=1$ (máximo).\n\nTodos crecientes en ese orden.\n\nEl coseno decrece en $[0,\\pi]$ y crece en $[\\pi,2\\pi]$.\n\n$[\\pi, 2\\pi]$: el coseno en modo recuperación.\n\nViene del sótano y llega de vuelta al techo justo a tiempo para el próximo ciclo.",
+    "explanation": "En el intervalo $[\\pi.\n\n2\\pi]$.\n\nel ángulo va del extremo izquierdo del círculo unitario $(-1,0)$ hasta el extremo derecho $(1,0)$.\n\nLa coordenada $x$ (el coseno) **sube** de : a $1$:la.\n\nfunción es **creciente de $-1$ a $1$**.\n\nValores clave: $\\cos(\\pi)=-1$ (mínimo).\n\n$\\cos(3\\pi/2)=0$.\n\n$\\cos(2\\pi)=1$ (máximo).\n\nTodos crecientes en ese orden.\n\nEl coseno decrece en $[0,\\pi]$ y crece en $[\\pi,2\\pi]$.\n\n$[\\pi, 2\\pi]$: el coseno en modo recuperación.\n\nViene del sótano y llega de vuelta al techo justo a tiempo para el próximo ciclo.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"

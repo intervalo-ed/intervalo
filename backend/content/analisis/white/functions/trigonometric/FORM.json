@@ -798,7 +798,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$.\n\nse usa el valor estándar $\\cos(\\pi)=-1$:\n$.\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3:\n\\end{aligned}$$\n$\n$\\pi$ radianes ($=180°$) \n\nlleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$.\n\nluego $\\cos(\\pi)=-1$.\n\nEl factor $3$ da el resultado final $-3$.",
+    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$.\n\nse usa el valor estándar $\\cos(\\pi)=-1$:\n$.\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3:\n\\end{aligned}$$\n$\n$\\pi$ radianes ($=180°$).\n\nlleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$.\n\nluego $\\cos(\\pi)=-1$.\n\nEl factor $3$ da el resultado final $-3$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **amplitud** de.\n$$f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$$\nEs $|A|=|1/2|=1/2$.\n\nEl coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$.\n\nmínimo $=-1/2$.\n\nimagen $=[-1/2,1/2]$.\n\nLa opción : dividiría por $4$;la opción $2$ invertiría el coeficiente; \n\nla opción $1$ ignoraría el factor $1/2$.\n\nLa amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía.\n\nMisma melodía, volumen reducido a la mitad.",
+    "explanation": "La **amplitud** de.\n$$f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$$\nEs $|A|=|1/2|=1/2$.\n\nEl coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$.\n\nmínimo $=-1/2$.\n\nimagen $=[-1/2,1/2]$.\n\nLa opción : dividiría por $4$;la opción $2$ invertiría el coeficiente;.\n\nla opción $1$ ignoraría el factor $1/2$.\n\nLa amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía.\n\nMisma melodía, volumen reducido a la mitad.",
     "reviewed": false,
     "tags": [
       "cruce-eje-x"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\operatorname{sen}(x/2)$$\nNo depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período.\n\nLa amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; \n\nla opción : sería el dominio.$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio.\n\nLa imagen $[-1,1]$ no se negocia.",
+    "explanation": "La **imagen** de.\n$$f(x)=\\operatorname{sen}(x/2)$$\nNo depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período.\n\nLa amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$;.\n\nla opción : sería el dominio.$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio.\n\nLa imagen $[-1,1]$ no se negocia.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"

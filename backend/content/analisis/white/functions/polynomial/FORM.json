@@ -128,7 +128,7 @@
       -2,
       8
     ],
-    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1.\n\nExtremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) \n\ny $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ \n\ny $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
+    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1.\n\nExtremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$).\n\ny $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ \n\ny $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -605,7 +605,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(x-5)$, no una suma.",
       "El cuadrado de $5$ siempre da positivo, $25$, sin importar que $b$ tenga signo negativo dentro del binomio."
     ],
-    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
+    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -680,7 +680,7 @@
       null,
       "Esos factores no corresponden a ningún cuadrado reconocible de $x^2-16$."
     ],
-    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$) \n\ny $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números más común acá.",
+    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$).\n\ny $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números más común acá.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1125,7 +1125,7 @@
       null,
       "El $1$ no corresponde a ningún cálculo directo de $f(0)$ para esta función."
     ],
-    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la",
+    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+1)/2",
     "graph_view": [

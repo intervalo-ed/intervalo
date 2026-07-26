@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función **exponencial** tiene la variable en el exponente: $f(x) = a^x$.\n\nUna función **logarítmica** tiene la variable dentro de un logaritmo: $f(x) = \\log_a(x)$.\n\nAmbas son inversas entre sí. $f(x) = 2^x$ es exponencial (base 2), no logarítmica.\n\nLas otras opciones sí son logarítmicas: $\\log_2(x)$ (base 2).\n\n$\\ln(x) = \\log_e(x)$ (base $e$) \n\ny $\\log(x+1)$ (base 10 con argumento desplazado).",
+    "explanation": "Una función **exponencial** tiene la variable en el exponente: $f(x) = a^x$.\n\nUna función **logarítmica** tiene la variable dentro de un logaritmo: $f(x) = \\log_a(x)$.\n\nAmbas son inversas entre sí. $f(x) = 2^x$ es exponencial (base 2), no logarítmica.\n\nLas otras opciones sí son logarítmicas: $\\log_2(x)$ (base 2).\n\n$\\ln(x) = \\log_e(x)$ (base $e$).\n\ny $\\log(x+1)$ (base 10 con argumento desplazado).",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Propiedad universal**: : para cualquier base $b > 0$ con $b \\neq 1$.porque \n\n$b^0 = 1$ siempre.\n\nsin importar cuál sea la base.\n\nAplicado acá: $\\log_5(1) = 0$ porque $5^0 = 1$.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$, el mismo punto para cualquier base.\n\nConviene no confundir esta propiedad con $\\log_b(b) = 1$, que es la otra igualdad fundamental y corresponde al punto $(b,\\, 1)$.",
+    "explanation": "**Propiedad universal**: : para cualquier base $b > 0$ con $b \\neq 1$.porque.\n\n$b^0 = 1$ siempre.\n\nsin importar cuál sea la base.\n\nAplicado acá: $\\log_5(1) = 0$ porque $5^0 = 1$.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$, el mismo punto para cualquier base.\n\nConviene no confundir esta propiedad con $\\log_b(b) = 1$, que es la otra igualdad fundamental y corresponde al punto $(b,\\, 1)$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_4(16) = y$ busca el exponente que cumple $4^y = 16$.\n\nComo $16 = 4^2$, resulta $y = 2$:\n\nOtra manera de verlo es reescribir todo en **base** común $2$: : y $4 = 2^2$.entonces \n\n$\\log_4(16) = \\frac{4}{2} = 2$.\n\ndividiendo los exponentes respectivos.\n\nEste segundo método, pasar a una base común y dividir exponentes, es útil cuando la base y el argumento comparten un factor primo, como acá que ambos son potencias de $2$.",
+    "explanation": "$\\log_4(16) = y$ busca el exponente que cumple $4^y = 16$.\n\nComo $16 = 4^2$, resulta $y = 2$:\n\nOtra manera de verlo es reescribir todo en **base** común $2$: : y $4 = 2^2$.entonces.\n\n$\\log_4(16) = \\frac{4}{2} = 2$.\n\ndividiendo los exponentes respectivos.\n\nEste segundo método, pasar a una base común y dividir exponentes, es útil cuando la base y el argumento comparten un factor primo, como acá que ambos son potencias de $2$.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"

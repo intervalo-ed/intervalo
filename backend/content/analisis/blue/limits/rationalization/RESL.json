@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite con signo invertido en el numerador (4-x en lugar de x-4) oculta un factor -1 que es fácil olvidar.\n\nReconocer el signo oculto desde el principio previene errores en el resultado final.\n\nEl numerador $4-x$ tiene el signo invertido respecto de $x-4$, \n\nya que $4-x = -(x-4)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+2$:\n\nSustituyendo $x=4$: $-(\\sqrt{4}+2) = -(2+2) = -4$.\n\nEl signo oculto en $4-x$ de este tipo de límite: conviene reescribirlo como $-(x-4)$ antes de cancelar, para no perder el signo negativo final.",
+    "explanation": "Un límite con signo invertido en el numerador (4-x en lugar de x-4) oculta un factor -1 que es fácil olvidar.\n\nReconocer el signo oculto desde el principio previene errores en el resultado final.\n\nEl numerador $4-x$ tiene el signo invertido respecto de $x-4$.\n\nya que $4-x = -(x-4)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+2$:\n\nSustituyendo $x=4$: $-(\\sqrt{4}+2) = -(2+2) = -4$.\n\nEl signo oculto en $4-x$ de este tipo de límite: conviene reescribirlo como $-(x-4)$ antes de cancelar, para no perder el signo negativo final.",
     "reviewed": false,
     "tags": [
       "cancelacion-signos-ocultos"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo invertido en el numerador se transforma en un signo negativo en el resultado.\n\nUn límite no es solo la cancelación de factores, sino también seguimiento cuidadoso de los signos que se propagan.\n\nEl numerador $9-x$ tiene el signo invertido respecto de $x-9$, \n\nya que $9-x = -(x-9)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+3$:\n\nSustituyendo $x=9$: $-(\\sqrt{9}+3) = -(3+3) = -6$.\n\nAntes de cancelar conviene reescribir $9-x$ como $-(x-9)$: así el signo negativo queda explícito y no se pierde al simplificar.",
+    "explanation": "El signo invertido en el numerador se transforma en un signo negativo en el resultado.\n\nUn límite no es solo la cancelación de factores, sino también seguimiento cuidadoso de los signos que se propagan.\n\nEl numerador $9-x$ tiene el signo invertido respecto de $x-9$.\n\nya que $9-x = -(x-9)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+3$:\n\nSustituyendo $x=9$: $-(\\sqrt{9}+3) = -(3+3) = -6$.\n\nAntes de cancelar conviene reescribir $9-x$ como $-(x-9)$: así el signo negativo queda explícito y no se pierde al simplificar.",
     "reviewed": false,
     "tags": [
       "cancelacion-signos-ocultos"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador tiene el signo cambiado, extraer el -1 explícitamente (p.ej., 25-x = -(x-25)) ayuda a ver que el límite será negativo.\n\nEsto demuestra cómo los detalles algebraicos determinan el valor final del límite.\n\nEl numerador $25-x$ tiene el signo invertido respecto de $x-25$, \n\nya que $25-x = -(x-25)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+5$:\n\nSustituyendo $x=25$: $-(\\sqrt{25}+5) = -(5+5) = -10$.\n\nCuando el numerador aparece con el signo cambiado respecto de $(x-a)$, extraer el $-1$ antes de cancelar evita arrastrar un error de signo hasta el resultado final.",
+    "explanation": "Cuando el numerador tiene el signo cambiado, extraer el -1 explícitamente (p.ej., 25-x = -(x-25)) ayuda a ver que el límite será negativo.\n\nEsto demuestra cómo los detalles algebraicos determinan el valor final del límite.\n\nEl numerador $25-x$ tiene el signo invertido respecto de $x-25$.\n\nya que $25-x = -(x-25)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+5$:\n\nSustituyendo $x=25$: $-(\\sqrt{25}+5) = -(5+5) = -10$.\n\nCuando el numerador aparece con el signo cambiado respecto de $(x-a)$, extraer el $-1$ antes de cancelar evita arrastrar un error de signo hasta el resultado final.",
     "reviewed": false,
     "tags": [
       "cancelacion-signos-ocultos"

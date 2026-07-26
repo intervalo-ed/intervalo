@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "La **forma de vértice**.\n$$f(x) = a(x-h)^2 + k$$\nPermite leer directamente el vértice $(h.\n\nk)$ y la concavidad desde $a$.\n\nDe la gráfica: vértice en $(2, -1)$ y apertura hacia arriba ($a > 0$).\n\nEntonces $h = 2$.\n\n$k = -1$.\n\n$a = 1$:\n\nAtención con los signos: : significa $h = +2$ (no $h = -2$).La \n\nopción $(x+2)^2 - 1$ daría vértice en $(-2.\n\n-1)$.\n\nno en $(2.\n\n-1)$.",
+    "explanation": "La **forma de vértice**.\n$$f(x) = a(x-h)^2 + k$$\nPermite leer directamente el vértice $(h.\n\nk)$ y la concavidad desde $a$.\n\nDe la gráfica: vértice en $(2, -1)$ y apertura hacia arriba ($a > 0$).\n\nEntonces $h = 2$.\n\n$k = -1$.\n\n$a = 1$:\n\nAtención con los signos: : significa $h = +2$ (no $h = -2$).La.\n\nopción $(x+2)^2 - 1$ daría vértice en $(-2.\n\n-1)$.\n\nno en $(2.\n\n-1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -208,7 +208,7 @@
       -5,
       5
     ],
-    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en : y $x = 3$.y \n\nla apertura hacia arriba ($a > 0$).\n\nCon raíces : y $r_2 = 3$ y $a = 1$.la forma factorizada es:\n\nVerificación:\n$$f(-1) = 1 + 2 - 3 = 0$$\n, $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción : tendría raíces en $x = 1$ y $x = -3$ (distintas).El eje de simetría es $x = (-1+3)/2 = 1$, \n\n\n\nque coincide con el vértice visible en la gráfica.",
+    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en : y $x = 3$.y.\n\nla apertura hacia arriba ($a > 0$).\n\nCon raíces : y $r_2 = 3$ y $a = 1$.la forma factorizada es:\n\nVerificación:\n$$f(-1) = 1 + 2 - 3 = 0$$\n, $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción : tendría raíces en $x = 1$ y $x = -3$ (distintas).El eje de simetría es $x = (-1+3)/2 = 1$.\n\nque coincide con el vértice visible en la gráfica.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **forma factorizada**.\n$$f(x) = a(x - r_1)(x - r_2)$$\n, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo.\n\nEl factor $(x-2)$ da la raíz : (no $-2$).y el factor : da la raíz $x = -1$ (no $+1$).La forma factorizada hace que leer las raíces sea inmediato, \n\n\n\nsin necesidad de usar la fórmula cuadrática.",
+    "explanation": "En la **forma factorizada**.\n$$f(x) = a(x - r_1)(x - r_2)$$\n, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo.\n\nEl factor $(x-2)$ da la raíz : (no $-2$).y el factor : da la raíz $x = -1$ (no $+1$).La forma factorizada hace que leer las raíces sea inmediato.\n\nsin necesidad de usar la fórmula cuadrática.",
     "reviewed": false,
     "tags": [
       "raices-desde-formula"
@@ -405,7 +405,7 @@
       "Ese es $c$, el término independiente, no el coeficiente lineal.",
       "El coeficiente de $x$ en esta función es negativo: falta el signo menos."
     ],
-    "explanation": "En la forma estándar.\n$$f(x) = ax^2 + bx + c$$\n.\n\nel **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia.\n\ndistinto del coeficiente $a$ que acompaña a : y de la constante $c$.Para \n\n$f(x) = 3x^2 - 6x + 2$.\n\nel término en $x$ es $-6x$.\n\npor lo que $b = -6$.\n\nincluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
+    "explanation": "En la forma estándar.\n$$f(x) = ax^2 + bx + c$$\n.\n\nel **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia.\n\ndistinto del coeficiente $a$ que acompaña a : y de la constante $c$.Para.\n\n$f(x) = 3x^2 - 6x + 2$.\n\nel término en $x$ es $-6x$.\n\npor lo que $b = -6$.\n\nincluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -505,7 +505,7 @@
       "Estos valores invierten el signo del vértice y usan el $-9$ sin haber despejado el cuadrado.",
       "Estos valores no surgen de sumar y restar $3$ al vértice $x=4$, que es lo que da las raíces reales."
     ],
-    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara.\n$$f(x) = (x-4)^2 - 9$$\n:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá : es el punto medio entre $1$ y $7$.a \n\ndistancia $3$ de cada lado.",
+    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara.\n$$f(x) = (x-4)^2 - 9$$\n:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá : es el punto medio entre $1$ y $7$.a.\n\ndistancia $3$ de cada lado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -605,7 +605,7 @@
       "El valor de $k$ es positivo, $8$: acá el signo quedó invertido.",
       null
     ],
-    "explanation": "Construir la forma de vértice a partir de un vértice y un coeficiente $a$ dados es directo: se reemplazan los valores en la plantilla.\n$$f(x)=a(x-h)^2+k$$\n, respetando el signo de cada uno.\n\nCon $(h,k)=(5,8)$ y $a=-0{,}5$:\n\nComo $a<0$.\n\nla parábola abre hacia abajo y su máximo.\n\n$8$.\n\nse alcanza exactamente en $x=5$.\n\nUn coeficiente $|a|<1$ como : produce una parábola más ancha que $-x^2$:confundir \n\nel signo o el valor de $a$ cambia tanto la orientación como la amplitud de la curva.",
+    "explanation": "Construir la forma de vértice a partir de un vértice y un coeficiente $a$ dados es directo: se reemplazan los valores en la plantilla.\n$$f(x)=a(x-h)^2+k$$\n, respetando el signo de cada uno.\n\nCon $(h,k)=(5,8)$ y $a=-0{,}5$:\n\nComo $a<0$.\n\nla parábola abre hacia abajo y su máximo.\n\n$8$.\n\nse alcanza exactamente en $x=5$.\n\nUn coeficiente $|a|<1$ como : produce una parábola más ancha que $-x^2$:confundir.\n\nel signo o el valor de $a$ cambia tanto la orientación como la amplitud de la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -705,7 +705,7 @@
       null,
       "Esta expresión corresponde a raíces $6$ y $-6$ (una diferencia de cuadrados), no a $0$ y $6$."
     ],
-    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla.\n$$f(x) = a(x-r_1)(x-r_2)$$\n, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$.\n\n$r_2=6$ y $a=1$:\n\nLa opción : tendría raíces $0$ y $-6$.porque \n\nese factor se anula en $x=-6$ y no en $x=6$: confundir el signo de una raíz al escribir su factor es el error más frecuente en este tipo de construcción.\n\nVerificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
+    "explanation": "Armar la ecuación a partir de las raíces sigue la plantilla.\n$$f(x) = a(x-r_1)(x-r_2)$$\n, reemplazando cada raíz con el signo invertido dentro de su factor.\n\nCon $r_1=0$.\n\n$r_2=6$ y $a=1$:\n\nLa opción : tendría raíces $0$ y $-6$.porque.\n\nese factor se anula en $x=-6$ y no en $x=6$: confundir el signo de una raíz al escribir su factor es el error más frecuente en este tipo de construcción.\n\nVerificación: $f(0)=0$ y $f(6)=6\\cdot 0=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1205,7 +1205,7 @@
       null,
       "Este resultado suma en vez de restar el término $3(4)$: revisá el signo de ese término."
     ],
-    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias.\n\ndespués las multiplicaciones.\n\ny por último las sumas y restas.\n\nPara.\n$$f(x)=x^2-3x+2$$\nEn $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el",
+    "explanation": "Evaluar una función en un valor concreto significa reemplazar $x$ por ese número en toda la expresión y resolver respetando el orden de operaciones: primero las potencias.\n\ndespués las multiplicaciones.\n\ny por último las sumas y restas.\n\nPara.\n$$f(x)=x^2-3x+2$$\nEn $x=4$:\n\nHacerlo en ese orden, primero $4^2=16$, luego $3\\times 4=12$ y recién después la resta y la suma, evita el error más común de este tipo de cuenta: restar o sumar antes de resolver la potencia y el.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$, \n\npor eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para una exponencial de base general $a$, la derivada conserva la función original pero agrega un factor multiplicativo $\\ln a$.\n\nEl caso $a=e$ es especial porque $\\ln e = 1$.\n\npor eso $(e^x)'=e^x$ sin ningún factor extra visible, mientras que cualquier otra base sí necesita ese factor.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "derivadas-elementales"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nAlgunas comunidades científicas prefieren $f'(x)$, otras prefieren $\\frac{dy}{dx}$; \n\nen análisis vectorial verás $\\nabla f$.\n\nSaber cambiar entre notaciones te permite leer literatura en distintos campos sin confusión.\n\nAdemás, cada notación enfatiza un aspecto distinto: $f'$ subraya la regla, $\\frac{dy}{dx}$ subraya la relación entre cambios.",
+    "explanation": "La derivada de una función admite varias notaciones equivalentes, todas describen el mismo objeto matemático.\n\nConviene reconocer estas equivalencias de notación para poder leer indistintamente cualquiera de ellas en un enunciado.\n\nAlgunas comunidades científicas prefieren $f'(x)$, otras prefieren $\\frac{dy}{dx}$;.\n\nen análisis vectorial verás $\\nabla f$.\n\nSaber cambiar entre notaciones te permite leer literatura en distintos campos sin confusión.\n\nAdemás, cada notación enfatiza un aspecto distinto: $f'$ subraya la regla, $\\frac{dy}{dx}$ subraya la relación entre cambios.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El operador $D$ es otra forma válida de anotar la derivada, equivalente a $f'$ o a $\\frac{df}{dx}$, \n\n\n\naunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
+    "explanation": "El operador $D$ es otra forma válida de anotar la derivada, equivalente a $f'$ o a $\\frac{df}{dx}$.\n\naunque menos frecuente en los libros introductorios.\n\nCualquiera de estas notaciones describe el mismo objeto matemático, así que conviene reconocerlas todas sin depender de una sola forma de escritura para identificar una derivada.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"

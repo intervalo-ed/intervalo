@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite bilateral** depende de cómo la función se comporta en el entorno de $a$: los valores de $f(x)$ \n\ncuando $x$ se acerca desde ambos lados.\n\nLa definición del límite bilateral NUNCA menciona qué pasa exactamente en el punto $a$ mismo.\n\nPor eso $f(a)$ puede no existir, estar definida pero diferir del límite, o cualquier otro caso: el límite existe o no según lo que hagan los laterales.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nentonces $\\lim_{x \\to a} f(x) = 5$.\n\nEso es cierto sin importar si $f(a)$ existe, vale 5, vale 100, o está completamente indefinida.\n\nEsta independencia entre el límite y el valor puntual es fundamental para entender conceptos como el **hueco** en una gráfica: la curva puede aproximarse a un valor con total precisión aunque ese",
+    "explanation": "El **límite bilateral** depende de cómo la función se comporta en el entorno de $a$: los valores de $f(x)$ \n\ncuando $x$ se acerca desde ambos lados.\n\nLa definición del límite bilateral NUNCA menciona qué pasa exactamente en el punto $a$ mismo.\n\nPor eso $f(a)$ puede no existir, estar definida pero diferir del límite, o cualquier otro caso: el límite existe o no según lo que hagan los laterales.\n\nSi $\\lim_{x \\to a^-} f(x) = 5$ y $\\lim_{x \\to a^+} f(x) = 5$.\n\nentonces $\\lim_{x \\to a} f(x) = 5$.\n\nEso es cierto sin importar si $f(a)$ existe, vale 5, vale 100, o está completamente indefinida.\n\nEsta independencia entre el límite y el valor puntual es fundamental para entender conceptos como el **hueco** en una gráfica: la curva puede aproximarse a un valor con total precisión aunque ese.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde\n\nEn el umbral $t=1$ hora.\n\nsi la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos.\n\nasí que por el **teorema de existencia**.\n\nel **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía.\n\nEl salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
+    "explanation": "Contextos cotidianos como tarifas escalonadas reproducen exactamente el comportamiento de un **salto** matemático: la función $C(t)$ (costo en función del tiempo $t$ en horas) tiende a un valor desde.\n\nEn el umbral $t=1$ hora.\n\nsi la tarifa inicial era \\$500 y sube a \\$800 justo al completar la hora:\n \nLos dos **límites laterales** son distintos.\n\nasí que por el **teorema de existencia**.\n\nel **límite bilateral** no existe en ese punto.\n\nEste patrón es universal en sistemas de facturación: estacionamiento, transporte, telefonía.\n\nEl salto es inherente a la estructura de precios por tramos, no es un error, es el comportamiento esperado.",
     "reviewed": false,
     "tags": [
       "discontinuidad-por-salto"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica.\n\nEl caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral.\n\nConfundir estas dos afirmaciones frecuente de lógica.",
+    "explanation": "La inexistencia del **límite bilateral** es una conclusión lógica sobre la relación entre dos números existentes, no sobre la existencia de esos números.\n\nEl **teorema de existencia** establece que si ambos laterales son números concretos y no coinciden, entonces el bilateral no existe.\n\nLa afirmación de tu compañero invierte la lógica.\n\nEl caso más representativo de bilateral inexistente es precisamente cuando ambos **límites laterales** existen como números reales perfectamente definidos, pero $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to.\n\nEn otras palabras: no coincidencia de laterales existentes ↔ inexistencia del bilateral.\n\nConfundir estas dos afirmaciones frecuente de lógica.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

@@ -1343,7 +1343,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$; \n\n\n\nsumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
+    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$;.\n\nsumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1433,7 +1433,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año, \n\n\n\ny corresponde a una base.\n$$b = 0{,}5$.\n$$\nEn el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $$\n0$, solo se acerca cada vez más a esa asíntota.",
+    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año.\n\ny corresponde a una base.\n$$b = 0{,}5$.\n$$\nEn el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $$\n0$, solo se acerca cada vez más a esa asíntota.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito-contexto"

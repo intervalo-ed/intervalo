@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$, \n\n$u'$ y $v'$ por separado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$.\n\n$u'$ y $v'$ por separado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$, \n\n$u'$ y $v'$ para una constante en el denominador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$.\n\n$u'$ y $v'$ para una constante en el denominador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la",
+    "explanation": "La fórmula completa de la regla del cociente combina dos detalles que se pierden con frecuencia, el orden de la resta y el cuadrado del denominador.\n\nVerificar ambos detalles a la vez, orden y exponente, evita los dos errores más comunes al reproducir esta fórmula de memoria.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la.",
     "reviewed": false,
     "tags": [
       "anatomia-signos-y-dominio-cociente"

@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A diferencia de las potencias pares, las potencias **impares** conservan el signo de la base al evaluarlas: si la base es negativa, el resultado también es negativo.\n\nEl signo se propaga a través de la multiplicación reiterada.\n\nEl acercamiento de $x$ a $-2$ produce valores de $x^3$ que se acercan a $-8$, \n\n\n\nsiempre negativos:\n$$(-2{,}01)^3 \\approx -8{,}12$$\n, :.El destino negativo es necesario.\n\nAntes de responder, conviene chequear si el exponente es par o impar, porque cambia fundamentalmente si el signo se conserva o desaparece en la respuesta final.",
+    "explanation": "A diferencia de las potencias pares, las potencias **impares** conservan el signo de la base al evaluarlas: si la base es negativa, el resultado también es negativo.\n\nEl signo se propaga a través de la multiplicación reiterada.\n\nEl acercamiento de $x$ a $-2$ produce valores de $x^3$ que se acercan a $-8$.\n\nsiempre negativos:\n$$(-2{,}01)^3 \\approx -8{,}12$$\n, :.El destino negativo es necesario.\n\nAntes de responder, conviene chequear si el exponente es par o impar, porque cambia fundamentalmente si el signo se conserva o desaparece en la respuesta final.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda expresión con un término elevado al cuadrado necesita un tratamiento especial.\n\n: si el **denominador** no se anula en el punto de tendencia, la **sustitución directa** es suficiente, aunque numerador y denominador tengan potencias.\n\nEl acercamiento de $x$ a $3$ produce cocientes que convergen a ::el numerador se acerca a $5$, \n\n\n\nel denominador se acerca a $2$, el cociente se acerca a.\n$$2{,}5$$\n.\n\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario.\n\n: primero conviene chequear si hace falta, y solo después aplicar técnicas más complejas si realmente es necesario.",
+    "explanation": "No toda expresión con un término elevado al cuadrado necesita un tratamiento especial.\n\n: si el **denominador** no se anula en el punto de tendencia, la **sustitución directa** es suficiente, aunque numerador y denominador tengan potencias.\n\nEl acercamiento de $x$ a $3$ produce cocientes que convergen a ::el numerador se acerca a $5$.\n\nel denominador se acerca a $2$, el cociente se acerca a.\n$$2{,}5$$\n.\n\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario.\n\n: primero conviene chequear si hace falta, y solo después aplicar técnicas más complejas si realmente es necesario.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando ni el **denominador** se anula ni el **argumento** de la raíz es negativo en el punto de tendencia.\n\n, la **sustitución directa** resuelve la expresión combinada de una sola vez sin necesidad de separar las operaciones.\n\nEl acercamiento de.\n$$x$$\nA $0$ produce cocientes de raíces que convergen a $1$: ambas partes se estabilizan en sus destinos, \n\nel cociente final se estabiliza en $1$.\n\nCon expresiones combinadas conviene resolver primero la raíz y recién después la división, para no mezclar ambos pasos y mantener claridad en cada transformación.",
+    "explanation": "Cuando ni el **denominador** se anula ni el **argumento** de la raíz es negativo en el punto de tendencia.\n\n, la **sustitución directa** resuelve la expresión combinada de una sola vez sin necesidad de separar las operaciones.\n\nEl acercamiento de.\n$$x$$\nA $0$ produce cocientes de raíces que convergen a $1$: ambas partes se estabilizan en sus destinos.\n\nel cociente final se estabiliza en $1$.\n\nCon expresiones combinadas conviene resolver primero la raíz y recién después la división, para no mezclar ambos pasos y mantener claridad en cada transformación.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, \n\n\n\nsin él obtendrías algo completamente distinto.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$.\n\nsin él obtendrías algo completamente distinto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), \n\n\n\nambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta",
+    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto).\n\nambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"

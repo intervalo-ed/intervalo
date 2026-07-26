@@ -915,7 +915,7 @@
       "Contá cuántos puntos distintos toca la curva sobre el eje $x$ en el gráfico.",
       "Revisá si el gráfico muestra dos o cuatro cruces con el eje $x$."
     ],
-    "explanation": "Un **polinomio de grado 4** puede tener entre 0 y 4 raíces reales.\n\nEl gráfico muestra exactamente dónde ocurren leyendo los puntos de intersección con el eje $X$.\n\nSi hay 4 cruces, todas son simples; si hay menos, algunas raíces pueden ser de multiplicidad par (raíz doble, cuádruple).\n\nCon 4 raíces simples, la cuártica exhibe su forma característica de **W** (coef. positivo) o **M** (coef. negativo): hay $4 - 1 = 3$ extremos locales alternando máximos y mínimos.\n\nEn el gráfico se ve claramente esta estructura con los 4 puntos de cruce del eje y los 3 picos/valles entre ellos.\n\nEsta visualización gráfica permite verificar el grado y el número de raíces sin fórmula: un polinomio de grado 4 con 4 raíces reales simples siempre muestra exactamente este patrón W/M con 3 extremos",
+    "explanation": "Un **polinomio de grado 4** puede tener entre 0 y 4 raíces reales.\n\nEl gráfico muestra exactamente dónde ocurren leyendo los puntos de intersección con el eje $X$.\n\nSi hay 4 cruces, todas son simples; si hay menos, algunas raíces pueden ser de multiplicidad par (raíz doble, cuádruple).\n\nCon 4 raíces simples, la cuártica exhibe su forma característica de **W** (coef. positivo) o **M** (coef. negativo): hay $4 - 1 = 3$ extremos locales alternando máximos y mínimos.\n\nEn el gráfico se ve claramente esta estructura con los 4 puntos de cruce del eje y los 3 picos/valles entre ellos.\n\nEsta visualización gráfica permite verificar el grado y el número de raíces sin fórmula: un polinomio de grado 4 con 4 raíces reales simples siempre muestra exactamente este patrón W/M con 3 extremos.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -1005,7 +1005,7 @@
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una.",
       null
     ],
-    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; \n\n$f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
+    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$;.\n\n$f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
     "has_math": true,
     "graph_fn": "x*(x+1)*(x-1)/2",
     "graph_view": [
@@ -1065,7 +1065,7 @@
       null,
       "Mirá si la curva queda arriba o abajo del eje entre las raíces."
     ],
-    "explanation": "Un **polinomio de grado 4** con raíces reales adopta formas visuales predecibles según cuántas raíces tiene y su multiplicidad.\n\nLeyendo el gráfico: cada cruce del eje $X$ es una raíz simple, cada toque (sin cruce) es una raíz de multiplicidad par.\n\nSi el gráfico muestra 4 cruces distintos, hay 4 raíces reales simples, y la curva exhibe $4 - 1 = 3$ extremos locales: máximo-mínimo-máximo (forma W) u otro arreglo según el coeficiente principal.\n\nSi hay menos cruces, algunas raíces no son reales (son complejas conjugadas).\n\nEste análisis gráfico permite determinar el mínimo grado posible (por el número de extremos y comportamiento en infinito) y confirmar si todas las raíces reales se ven o si hay raíces complejas",
+    "explanation": "Un **polinomio de grado 4** con raíces reales adopta formas visuales predecibles según cuántas raíces tiene y su multiplicidad.\n\nLeyendo el gráfico: cada cruce del eje $X$ es una raíz simple, cada toque (sin cruce) es una raíz de multiplicidad par.\n\nSi el gráfico muestra 4 cruces distintos, hay 4 raíces reales simples, y la curva exhibe $4 - 1 = 3$ extremos locales: máximo-mínimo-máximo (forma W) u otro arreglo según el coeficiente principal.\n\nSi hay menos cruces, algunas raíces no son reales (son complejas conjugadas).\n\nEste análisis gráfico permite determinar el mínimo grado posible (por el número de extremos y comportamiento en infinito) y confirmar si todas las raíces reales se ven o si hay raíces complejas.",
     "has_math": true,
     "graph_fn": "pow(x+2,2)*pow(x-2,2)/16",
     "graph_view": [

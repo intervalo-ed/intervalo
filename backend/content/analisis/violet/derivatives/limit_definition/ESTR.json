@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para derivar por definición se plantea el cociente incremental y se expande $(x+h)^2$ con cuidado de no perder el término cruzado.\n\nEl paso más delicado es conservar el término $2xh$ al expandir el binomio, sin él la factorización de $h$ queda incompleta y el resultado final se pierde.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Para derivar por definición se plantea el cociente incremental y se expande $(x+h)^2$ con cuidado de no perder el término cruzado.\n\nEl paso más delicado es conservar el término $2xh$ al expandir el binomio, sin él la factorización de $h$ queda incompleta y el resultado final se pierde.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar por definición una función con término constante, esa constante desaparece apenas se plantea la resta $f(x+h)-f(x)$.\n\nConviene verificar siempre que los términos constantes se cancelen entre sí antes de seguir simplificando, si sobreviven algo salió mal en la resta.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Al derivar por definición una función con término constante, esa constante desaparece apenas se plantea la resta $f(x+h)-f(x)$.\n\nConviene verificar siempre que los términos constantes se cancelen entre sí antes de seguir simplificando, si sobreviven algo salió mal en la resta.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$, \n\ndando $4xh$ en vez de $2xh$.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$.\n\ndando $4xh$ en vez de $2xh$.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina un término cuadrático y uno lineal, cada uno aporta su propia parte al resultado final.\n\nConviene distribuir el signo menos con cuidado en $-4(x+h)$, un error de signo ahí arrastra un error en todo el resultado final.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Esta función combina un término cuadrático y uno lineal, cada uno aporta su propia parte al resultado final.\n\nConviene distribuir el signo menos con cuidado en $-4(x+h)$, un error de signo ahí arrastra un error en todo el resultado final.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un signo negativo delante del cuadrado, hay que distribuirlo en los tres términos de la expansión del binomio, no solo en el primero.\n\ndistribuir el signo negativo solo en el primer término del binomio expandido, dejando el término cruzado con signo positivo por error.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Con un signo negativo delante del cuadrado, hay que distribuirlo en los tres términos de la expansión del binomio, no solo en el primero.\n\ndistribuir el signo negativo solo en el primer término del binomio expandido, dejando el término cruzado con signo positivo por error.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente negativo en el término cuadrático y uno positivo en el lineal, conviene llevar los signos por separado durante toda la expansión.\n\nCuando conviven un coeficiente negativo y uno positivo en la misma función, conviene revisar el signo de cada término por separado antes de sumarlos.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Con un coeficiente negativo en el término cuadrático y uno positivo en el lineal, conviene llevar los signos por separado durante toda la expansión.\n\nCuando conviven un coeficiente negativo y uno positivo en la misma función, conviene revisar el signo de cada término por separado antes de sumarlos.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de",
+    "explanation": "Después de expandir el binomio, los dos términos $x^2$ se cancelan entre sí, y en el numerador solo sobreviven los términos que contienen $h$.\n\nEste numerador simplificado es el que se factoriza en el paso siguiente, sacando $h$ como factor común de ambos términos.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de",
+    "explanation": "Factorizar consiste en identificar el factor que divide exactamente a ambos términos del numerador, en este caso $h$.\n\nEste paso es el que permite cancelar el $h$ del denominador en el paso siguiente, sin factorizar correctamente esa cancelación no es válida.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una vez cancelado el $h$ del numerador y el denominador, queda una expresión sin ninguna indeterminación, lista para evaluar el límite directamente.\n\nEste es el paso final del método, sustituir $h=0$ recién después de cancelar es válido porque ya no queda ningún $h$ en el denominador.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Una vez cancelado el $h$ del numerador y el denominador, queda una expresión sin ninguna indeterminación, lista para evaluar el límite directamente.\n\nEste es el paso final del método, sustituir $h=0$ recién después de cancelar es válido porque ya no queda ningún $h$ en el denominador.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "pasos-intermedios-del-limite"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función constante, $f(x+h)$ y $f(x)$ valen exactamente lo mismo, así que el numerador del cociente incremental es siempre cero.\n\nEste es el caso más simple del método por definición, útil para verificar que el procedimiento se aplica bien antes de pasar a casos con más álgebra.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Para una función constante, $f(x+h)$ y $f(x)$ valen exactamente lo mismo, así que el numerador del cociente incremental es siempre cero.\n\nEste es el caso más simple del método por definición, útil para verificar que el procedimiento se aplica bien antes de pasar a casos con más álgebra.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "lineales-y-constantes-cociente"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina un término lineal con uno constante, y el desarrollo muestra cómo la constante se cancela apenas se plantea la resta.\n\nEl término independiente de una función lineal nunca aparece en la derivada, solo influye en dónde corta la recta al eje vertical, no en su pendiente.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es",
+    "explanation": "Esta función combina un término lineal con uno constante, y el desarrollo muestra cómo la constante se cancela apenas se plantea la resta.\n\nEl término independiente de una función lineal nunca aparece en la derivada, solo influye en dónde corta la recta al eje vertical, no en su pendiente.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño; el límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es.",
     "reviewed": false,
     "tags": [
       "lineales-y-constantes-cociente"

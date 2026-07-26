@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$, \n\n\n\nun doble signo que suele perderse si se apura el paso.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$.\n\nun doble signo que suele perderse si se apura el paso.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la",
+    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nCuando $f(a)=0$, conviene verificar dos veces que no se sume ninguna constante de más, ese error es fácil de cometer por costumbre.\n\nEn ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
