@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo. El superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$, los valores que toma $x$ son cada vez más cercanos a $2$.\n\nSiempre menores: $1{,}9$, luego $1{,}99$, luego $1{,}999$, y así sucesivamente.\n\nSi olvidas que la dirección va pegada a la flecha de tendencia y no al punto en sí, confundirás el símbolo de acercamiento con el número mismo.",
+    "explanation": "La notación $x \\to a^-$ describe una dirección de aproximación, no un número negativo. El superíndice se lee pegado al símbolo de acercamiento, nunca como si modificara el valor de $a$.\n\nEn el caso $x \\to 2^-$, los valores que toma $x$ son cada vez más cercanos a $2$.\n\nSiempre menores: $1{,}9$.\n\nLuego $1{,}99$, luego $1{,}999$, y así sucesivamente.\n\nSi olvidas que la dirección va pegada a la flecha de tendencia y no al punto en sí, confundirás el símbolo de acercamiento con el número mismo.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"
