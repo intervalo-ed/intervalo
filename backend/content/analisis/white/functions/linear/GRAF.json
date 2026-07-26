@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales.\n\nEl parámetro $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
+    "explanation": "Una función lineal es la que puede escribirse en la forma:\n$$f(x) = mx + b$$\nDonde $m$ y $b$ son constantes reales.\n\nEl parámetro $m$ es la **pendiente**.\n\nQue mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de $f(0)$.\n\nEn $f(x) = 5x - 2$ la variable aparece con exponente 1, multiplicada por una constante y con un término independiente: exactamente el molde $mx + b$. Su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: el criterio es dónde y cómo aparece la variable.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -112,7 +112,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo de la **pendiente** determina la monotonía de una función lineal en forma global.\n\nCon $m > 0$ la función es creciente, con $m < 0$ decreciente y con $m = 0$ constante.\n\nCon $m > 0$, por cada unidad que aumenta $x$, el valor $f(x)$ sube exactamente $m$ unidades.\n\nLa recta asciende de izquierda a derecha en todo $\\mathbb{R}$.\n\nLa diferencia es que una cuadrática o una trigonométrica, una recta con $m \\neq 0$ nunca cambia de dirección: el comportamiento es el mismo en todo el **dominio**.",
+    "explanation": "El signo de la **pendiente** determina la monotonía de una función lineal en forma global.\n\nCon $m > 0$ la función es creciente,.\n\ncon $m < 0$ decreciente y con $m = 0$ constante.\n\nCon $m > 0$, por cada unidad que aumenta $x$, el valor $f(x)$ sube exactamente $m$ unidades.\n\nLa recta asciende de izquierda a derecha en todo $\\mathbb{R}$.\n\nLa diferencia es que una cuadrática o una trigonométrica, una recta con $m \\neq 0$ nunca cambia de dirección: el comportamiento es el mismo en todo el **dominio**.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"
@@ -185,7 +185,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es una línea recta.\n\nLa razón es que la **pendiente** es constante: por cada unidad que avanza $x$, el valor $f(x)$ cambia exactamente $m$ unidades, siempre lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: con $m > 0$ es una recta ascendente, con $m < 0$ descendente y con $m = 0$ horizontal.\n\nSi una gráfica se dobla aunque sea un poco, la tasa de cambio no es constante y la función no puede ser lineal.",
+    "explanation": "La gráfica de toda función lineal $f(x) = mx + b$ es una línea recta.\n\nLa razón es que la **pendiente** es constante: por cada unidad que avanza $x$, el valor $f(x)$ cambia exactamente $m$ unidades, siempre lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: con $m > 0$ es una recta ascendente,.\n\ncon $m < 0$ descendente y con $m = 0$ horizontal.\n\nSi una gráfica se dobla aunque sea un poco, la tasa de cambio no es constante y la función no puede ser lineal.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -450,7 +450,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **pendiente** $m$ determina la dirección de la recta: con $m > 0$ sube de izquierda a derecha (función creciente), con $m < 0$ baja (función decreciente).\n\nCon $m = 0$ queda horizontal (función constante).\n\nAdemás del signo, el valor absoluto $|m|$ mide la inclinación: una pendiente grande da una recta empinada; una chica, una recta casi horizontal.\n\nEl signo de $m$ no toca ni el **dominio** ni la existencia de la raíz: con cualquier $m \\neq 0$ el dominio sigue siendo $\\mathbb{R}$ y hay exactamente una raíz.",
+    "explanation": "La **pendiente** $m$ determina la dirección de la recta: con $m > 0$ sube de izquierda a derecha (función creciente),.\n\ncon $m < 0$ baja (función decreciente).\n\nCon $m = 0$ queda horizontal (función constante).\n\nAdemás del signo, el valor absoluto $|m|$ mide la inclinación: una pendiente grande da una recta empinada; una chica, una recta casi horizontal.\n\nEl signo de $m$ no toca ni el **dominio** ni la existencia de la raíz: con cualquier $m \\neq 0$ el dominio sigue siendo $\\mathbb{R}$ y hay exactamente una raíz.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"

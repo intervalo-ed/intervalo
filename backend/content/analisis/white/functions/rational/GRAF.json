@@ -383,7 +383,7 @@
       -5,
       5
     ],
-    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\n\nLa curva tiene una línea vertical en $x=-1$, la AV, que corresponde a que el denominador $x+1$ se anula en $x=-1$.\n\nLeer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
+    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\n\nLa curva tiene una línea vertical en $x=-1$, la AV.\n\nQue corresponde a que el denominador $x+1$ se anula en $x=-1$.\n\nLeer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -923,7 +923,7 @@
       -4,
       4
     ],
-    "explanation": "El **signo** de una función racional en un intervalo se determina evaluando el signo del numerador y del denominador por separado, y combinándolos según la regla de los signos. Para $x$ entre $-2$ y $2$.\n\n$x^2<4$, así que $x^2-4<0$.\n\nEl numerador es $1>0$, y la fracción $\\frac{1}{\\text{negativo}}$ da negativo: la función es negativa en $(-2,2)$, y la rama del medio está por debajo del eje $X$.\n\nConviene evaluar el signo tramo por tramo, no asumir que es el mismo en todo el dominio.",
+    "explanation": "El **signo** de una función racional en un intervalo se determina evaluando el signo del numerador y del denominador por separado, y combinándolos según la regla de los signos. Para $x$ entre $-2$ y $2$.\n\n$x^2<4$, así que $x^2-4<0$.\n\nEl numerador es $1>0$.\n\nY la fracción $\\frac{1}{\\text{negativo}}$ da negativo: la función es negativa en $(-2,2)$.\n\nY la rama del medio está por debajo del eje $X$.\n\nConviene evaluar el signo tramo por tramo, no asumir que es el mismo en todo el dominio.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-racional"

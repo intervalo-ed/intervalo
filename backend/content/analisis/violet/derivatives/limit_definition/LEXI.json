@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **notación de Leibniz** escribe la derivada como un cociente de diferenciales, $\\frac{dy}{dx}$, y resalta la idea de derivada como razón entre una variación infinitesimal de $y$ y una de $x$.\n\nEsta notación convive con otras equivalentes, como $f'(x)$ de Lagrange, todas describen el mismo objeto matemático.\n\nConviene no confundirla con $\\frac{\\Delta y}{\\Delta x}$, que usa incrementos finitos y describe una tasa promedio, no instantánea.",
+    "explanation": "La **notación de Leibniz** escribe la derivada como un cociente de diferenciales, $\\frac{dy}{dx}$.\n\nY resalta la idea de derivada como razón entre una variación infinitesimal de $y$ y una de $x$.\n\nEsta notación convive con otras equivalentes, como $f'(x)$ de Lagrange, todas describen el mismo objeto matemático.\n\nConviene no confundirla con $\\frac{\\Delta y}{\\Delta x}$, que usa incrementos finitos y describe una tasa promedio, no instantánea.",
     "reviewed": false,
     "tags": [
       "notacion-formal-derivada"

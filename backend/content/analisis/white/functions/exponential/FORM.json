@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia, así que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante.$$f(0) = 2^0 + 7 = 1 + 7 = 8$$Sin el desplazamiento, $2^x$ en $x=0$ vale $1$.\n\nAcá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades, incluida la asíntota horizontal, que pasa de $y=0$ a $y=7$.",
+    "explanation": "El desplazamiento vertical $+7$ se suma después de calcular la potencia.\n\nAsí que para evaluar $f(0)$ primero hay que resolver $2^0$ y recién después sumar la constante.$$f(0) = 2^0 + 7 = 1 + 7 = 8$$Sin el desplazamiento, $2^x$ en $x=0$ vale $1$.\n\nAcá ese $1$ se convierte en $8$ porque toda la curva subió $7$ unidades, incluida la asíntota horizontal, que pasa de $y=0$ a $y=7$.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$, así que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.$$4^x = (2^2)^x = 2^{2x}$$Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$, $4^x$ crece el doble de rápido que $2^x$ en la escala del exponente.\n\nSumar el $2$ al exponente ($2^{x+2}$) en vez de multiplicarlo.",
+    "explanation": "La propiedad de potencia de potencia dice que $(b^m)^n=b^{mn}$, así que para convertir $4^x$ a base $2$ conviene escribir $4$ como $2^2$ y aplicar esa regla.$$4^x = (2^2)^x = 2^{2x}$$Esto permite comparar bases distintas en una misma escala: como el exponente quedó multiplicado por $2$.\n\n$4^x$ crece el doble de rápido que $2^x$ en la escala del exponente.\n\nSumar el $2$ al exponente ($2^{x+2}$) en vez de multiplicarlo.",
     "reviewed": false,
     "tags": [
       "dominio-basico"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman, así que primero hay que sumar los dos exponentes tal como están escritos, sin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante, $9$, que no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nSi tratas la suma de exponentes como si fuera un producto que genera $x^2$, entonces vas a malinterpretar la simplificación.",
+    "explanation": "La propiedad de producto de potencias de igual base indica que los exponentes se suman, así que primero hay que sumar los dos exponentes tal como están escritos, sin multiplicarlos ni tratarlos como términos cuadráticos.\n\nEl resultado es una constante, $9$.\n\nQue no depende de $x$: los términos con $x$ se cancelan entre sí al sumar los exponentes.\n\nSi tratas la suma de exponentes como si fuera un producto que genera $x^2$, entonces vas a malinterpretar la simplificación.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de cociente de potencias de igual base indica que los exponentes se restan, así que hay que restar el exponente del denominador al del numerador antes de evaluar la potencia resultante.\n\nEl resultado es una constante, $25$, que no depende de $x$: los términos con $x$ se cancelan al restar los exponentes.\n\nConfundir la resta de exponentes con una resta directa de los números $2$ y nada más, o dejar la $x$ suelta en el resultado, son errores frecuentes acá.",
+    "explanation": "La propiedad de cociente de potencias de igual base indica que los exponentes se restan, así que hay que restar el exponente del denominador al del numerador antes de evaluar la potencia resultante.\n\nEl resultado es una constante, $25$.\n\nQue no depende de $x$: los términos con $x$ se cancelan al restar los exponentes.\n\nConfundir la resta de exponentes con una resta directa de los números $2$ y nada más, o dejar la $x$ suelta en el resultado, son errores frecuentes acá.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"

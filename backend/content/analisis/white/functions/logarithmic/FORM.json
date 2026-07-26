@@ -128,7 +128,7 @@
       -3,
       4
     ],
-    "explanation": "La gráfica tiene asíntota vertical en $x = 1$ (desplazada 1 unidad a la derecha respecto a la forma básica).\n\nEso significa que el argumento del logaritmo se anula en $x = 1$, es decir, el argumento es $(x - 1)$:\n\nVerificación con el intercepto: $f(x) = 0$ cuando $x - 1 = 1$, es decir, en $x = 2$.\n\nLa curva cruza el eje $X$ en $(2,\\, 0)$",
+    "explanation": "La gráfica tiene asíntota vertical en $x = 1$ (desplazada 1 unidad a la derecha respecto a la forma básica).\n\nEso significa que el argumento del logaritmo se anula en $x = 1$, es decir, el argumento es $(x - 1)$:\n\nVerificación con el intercepto: $f(x) = 0$ cuando $x - 1 = 1$.\n\nEs decir, en $x = 2$.\n\nLa curva cruza el eje $X$ en $(2,\\, 0)$",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar un logaritmo significa encontrar el exponente al que hay que elevar la base para obtener el argumento.\n\nPara $f(9) = \\log_3(9)$, se busca $y$ tal que $3^y = 9$.\n\nPor lo tanto $f(9) = 2$, y el punto $(9,\\, 2)$ pertenece a la gráfica de $f(x) = \\log_3(x)$.\n\nconfundir el resultado del logaritmo con el propio argumento: $\\log_3(9)$ no es $9$, es el exponente que produce ese $9$.",
+    "explanation": "Evaluar un logaritmo significa encontrar el exponente al que hay que elevar la base para obtener el argumento.\n\nPara $f(9) = \\log_3(9)$, se busca $y$ tal que $3^y = 9$.\n\nPor lo tanto $f(9) = 2$.\n\nY el punto $(9,\\, 2)$ pertenece a la gráfica de $f(x) = \\log_3(x)$.\n\nconfundir el resultado del logaritmo con el propio argumento: $\\log_3(9)$ no es $9$, es el exponente que produce ese $9$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -698,7 +698,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$, es decir $x > 2$, mientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nSi te quedás con la condición menos restrictiva en vez de con la que realmente acota el conjunto, entonces vas a obtener un dominio incorrecto.",
+    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después hay que quedarse con la condición más restrictiva entre todas.\n\nPara $f(x) = \\log(x - 2) + \\log(x + 2)$, el primer término exige $x - 2 > 0$.\n\nEs decir $x > 2$.\n\nMientras que el segundo exige $x + 2 > 0$, es decir $x > -2$.\n\nAmbas condiciones deben cumplirse simultáneamente, así que se toma la intersección de los dos intervalos.\n\nComo $x > 2$ ya implica $x > -2$, la condición más exigente es $x > 2$, y ese es el dominio final: $(2, +\\infty)$.\n\nSi te quedás con la condición menos restrictiva en vez de con la que realmente acota el conjunto, entonces vas a obtener un dominio incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -848,7 +848,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$, y después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$, y $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nAplicar una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar, produce un resultado incorrecto.",
+    "explanation": "Resolver este tipo de expresiones requiere aplicar dos propiedades en cadena: primero la del producto, para separar $9$ de $x^2$.\n\nY después la de la potencia, para bajar el exponente $2$.\n\nSe usa $\\log_3(9) = 2$ porque $3^2 = 9$.\n\nY $\\log_3(x^2) = 2\\log_3(x)$ por la propiedad de la potencia.\n\nAplicar una sola propiedad y olvidar la otra, dejando el $9$ sin convertir o el exponente $2$ sin bajar, produce un resultado incorrecto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -898,7 +898,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$.\n\nPorque  $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical:\n\nLa asíntota aparece donde el argumento se anula ($x=1$ en este caso), mientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá, es decir en $x=2$.",
+    "explanation": "El **intercepto con el eje $X$** de una función logarítmica aparece siempre donde el argumento vale $1$.\n\nPorque  $\\log_b(1) = 0$ para cualquier base válida.\n\nLa curva pasa por el punto $(2,\\, 0)$.\n\nNo confundir este cruce con la asíntota vertical:\n\nLa asíntota aparece donde el argumento se anula ($x=1$ en este caso).\n\nMientras que el cruce por el eje $X$ aparece donde el argumento vale $1$ más allá.\n\nEs decir en $x=2$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1073,7 +1073,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$, y ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$.\n\nCuando  en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
+    "explanation": "Para evaluar una función con un factor multiplicativo delante del logaritmo, primero se calcula el logaritmo y recién después se multiplica por ese factor.\n\nSe usa $\\log_2(4) = 2$ porque $2^2 = 4$.\n\nY ese resultado se multiplica por el factor $2$ que acompaña a toda la expresión.\n\naplicar el factor multiplicativo dentro del logaritmo, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$.\n\nCuando  en realidad son expresiones distintas: $2\\log_2(x) = \\log_2(x^2)$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1153,7 +1153,7 @@
       -3,
       5
     ],
-    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos.\n\nEl logaritmo siempre pasa por $(1,0)$, y el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$, lo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$, invirtiendo las coordenadas y confundiendo la base con el argumento.",
+    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos.\n\nEl logaritmo siempre pasa por $(1,0)$.\n\nY el punto $(b,1)$ revela directamente la base $b$.\n\nEn este gráfico, la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nPero además pasa por $(3,1)$, lo que significa $f(3)=1$: la base que cumple eso es exactamente $3$.\n\nConclusión: $f(x) = \\log_3(x)$. leer el punto $(b,1)$ como si fuera $(1,b)$, invirtiendo las coordenadas y confundiendo la base con el argumento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"

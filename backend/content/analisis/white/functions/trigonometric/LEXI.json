@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(x)$ es $2\\pi$ radianes: la onda completa un ciclo exacto cada $2\\pi$.\n\nSe repite indefinidamente. Si dividís el período por $2\\pi$ obtenés $1$ ciclo por unidad de $2\\pi$.\n\nOpciones como $\\pi$ corresponderían a $\\operatorname{sen}(2x)$, y $4\\pi$ a $\\operatorname{sen}(x/2)$.\n\nMemorizar $T=2\\pi$ para el seno (y el coseno) básicos es fundamental.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(x)$ es $2\\pi$ radianes: la onda completa un ciclo exacto cada $2\\pi$.\n\nSe repite indefinidamente. Si dividís el período por $2\\pi$ obtenés $1$ ciclo por unidad de $2\\pi$.\n\nOpciones como $\\pi$ corresponderían a $\\operatorname{sen}(2x)$.\n\nY $4\\pi$ a $\\operatorname{sen}(x/2)$.\n\nMemorizar $T=2\\pi$ para el seno (y el coseno) básicos es fundamental.",
     "reviewed": false,
     "tags": [
       "periodo-basico"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, el parámetro $|A|$ es la **amplitud**: la distancia desde el eje de simetría $y=0$ hasta el máximo o el mínimo.\n\nLa función oscila entre $-|A|$ y $|A|$.\n\nSi $A=3$: máximo $=3$, mínimo $=-3$, amplitud $=3$.\n\nEl coeficiente $A$ estira la onda **verticalmente** sin modificar el **período** ni la posición horizontal.\n\nEl período depende de $B$ (en el argumento), no de $A$.\n\nMayor $|A|$ = onda más dramática. Pequeño $|A|$ = onda que ni se nota en el gráfico.",
+    "explanation": "En $f(x)=A\\,\\operatorname{sen}(x)$, el parámetro $|A|$ es la **amplitud**: la distancia desde el eje de simetría $y=0$ hasta el máximo o el mínimo.\n\nLa función oscila entre $-|A|$ y $|A|$.\n\nSi $A=3$: máximo $=3$.\n\nMínimo $=-3$, amplitud $=3$.\n\nEl coeficiente $A$ estira la onda **verticalmente** sin modificar el **período** ni la posición horizontal.\n\nEl período depende de $B$ (en el argumento), no de $A$.\n\nMayor $|A|$ = onda más dramática. Pequeño $|A|$ = onda que ni se nota en el gráfico.",
     "reviewed": false,
     "tags": [
       "periodo-con-b"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si $f(x)=\\operatorname{sen}(x)$, entonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$.\n\nDonde $f$ valía $y$, $g$ vale $-y$.\n\nLos máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo **período** ($2\\pi$), misma **amplitud** ($1$), mismo **dominio** ($\\mathbb{R}$), misma **imagen** ($[-1,1]$).\n\nPropiedad cambiada: la monotonía se invierte, donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
+    "explanation": "Si $f(x)=\\operatorname{sen}(x)$.\n\nEntonces $g(x)=-\\operatorname{sen}(x)$ refleja cada valor de $f$ respecto al eje $X$.\n\nDonde $f$ valía $y$.\n\n$g$ vale $-y$.\n\nLos máximos de $f$ se convierten en mínimos de $g$ y viceversa.\n\nPropiedades conservadas: mismo **período** ($2\\pi$), misma **amplitud** ($1$), mismo **dominio** ($\\mathbb{R}$), misma **imagen** ($[-1,1]$).\n\nPropiedad cambiada: la monotonía se invierte, donde $f$ crecía, $g$ decrece.\n\nMultiplicar por $-1$: la curva se mira al espejo y sale con todo al revés.",
     "reviewed": false,
     "tags": [
       "descripcion-abstracta-otra-familia"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las funciones $\\operatorname{sen}(x)$ y $\\cos(x)$ tienen exactamente las mismas propiedades globales.\n\n**período** $2\\pi$, **amplitud** $1$, **dominio** $\\mathbb{R}$, **imagen** $[-1,1]$.\n\nSe diferencian solo en la **fase inicial**: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$.\n\nLas afirmaciones incorrectas son: que tienen diferente amplitud (ambas tienen $1$), que tienen diferente período (ambas tienen $2\\pi$), y que son la misma función (están desfasadas $\\pi/2$).\n\nSon gemelas con distinta hora de partida.\n\nSeno y coseno: mismo cuerpo, mismo período, misma amplitud. El coseno solo llegó antes a la fiesta por $\\pi/2$.",
+    "explanation": "Las funciones $\\operatorname{sen}(x)$ y $\\cos(x)$ tienen exactamente las mismas propiedades globales.\n\n**período** $2\\pi$, **amplitud** $1$, **dominio** $\\mathbb{R}$, **imagen** $[-1,1]$.\n\nSe diferencian solo en la **fase inicial**: $\\cos(x)=\\operatorname{sen}(x+\\pi/2)$.\n\nLas afirmaciones incorrectas son: que tienen diferente amplitud (ambas tienen $1$).\n\nQue tienen diferente período (ambas tienen $2\\pi$), y que son la misma función (están desfasadas $\\pi/2$).\n\nSon gemelas con distinta hora de partida.\n\nSeno y coseno: mismo cuerpo, mismo período, misma amplitud. El coseno solo llegó antes a la fiesta por $\\pi/2$.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-lexi"

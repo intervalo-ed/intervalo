@@ -263,7 +263,7 @@
       -4,
       4
     ],
-    "explanation": "La asíntota vertical de una logarítmica depende únicamente de dónde se anula su argumento, no de un factor multiplicativo por afuera del logaritmo.\n\nEl signo negativo no afecta la asíntota: $-\\log_2(x)$ sigue teniendo argumento $x$, que se anula en $x=0$.\n\nAsíntota vertical: $x = 0$.\n\nLa curva viene de $+\\infty$ junto al eje $Y$ y luego desciende, justo al revés que $\\log_2(x)$ sin negar.",
+    "explanation": "La asíntota vertical de una logarítmica depende únicamente de dónde se anula su argumento, no de un factor multiplicativo por afuera del logaritmo.\n\nEl signo negativo no afecta la asíntota: $-\\log_2(x)$ sigue teniendo argumento $x$.\n\nQue se anula en $x=0$.\n\nAsíntota vertical: $x = 0$.\n\nLa curva viene de $+\\infty$ junto al eje $Y$ y luego desciende, justo al revés que $\\log_2(x)$ sin negar.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite es una forma de entender a qué valor se aproxima una función, incluso en puntos donde quizá no esté definida.\n\nCuando la sustitución directa da 0/0, la función está pidiendo una transformación algebraica.\n\nLa sustitución directa da una indeterminación $0/0$, y la presencia de $\\sqrt{x+9}-3$ en el numerador indica que corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+9}+3$.\n\nSustituyendo $x=0$: $\\tfrac{1}{\\sqrt{9}+3} = \\tfrac{1}{3+3} = \\tfrac{1}{6}$.\n\nolvidar que el $3$ del denominador aparece dos veces, una por cada término del conjugado evaluado: conviene escribir $\\sqrt{9}+3$ completo antes de sumar.",
+    "explanation": "Un límite es una forma de entender a qué valor se aproxima una función, incluso en puntos donde quizá no esté definida.\n\nCuando la sustitución directa da 0/0, la función está pidiendo una transformación algebraica.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nY la presencia de $\\sqrt{x+9}-3$ en el numerador indica que corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x+9}+3$.\n\nSustituyendo $x=0$: $\\tfrac{1}{\\sqrt{9}+3} = \\tfrac{1}{3+3} = \\tfrac{1}{6}$.\n\nolvidar que el $3$ del denominador aparece dos veces, una por cada término del conjugado evaluado: conviene escribir $\\sqrt{9}+3$ completo antes de sumar.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-numerador"

@@ -21,7 +21,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=2$ en el numerador da $4 - 4 = 0$, y en el denominador da $0$, así que tenemos una indeterminación 0/0.\n\nCuando ambas partes se anulan en el mismo punto, el **teorema del factor** garantiza que comparten un factor común. La **factorización** exhibe ese factor.\n\nEl numerador es una **diferencia de cuadrados**, que factoriza como:$$\\begin{aligned} \\lim_{x \\to 2}\\frac{x^2-4}{x-2} &= \\lim_{x \\to 2}\\frac{(x-2)(x+2)}{x-2} \\\\ &= \\lim_{x \\to 2}(x+2) \\\\ &= 4 \\end{aligned}$$La idea central es que el factor $(x-2)$ que causa la indeterminación aparece tanto en numerador como denominador, permitiendo la cancelación.\n\nTras eliminar ese obstáculo, la sustitución directa en la expresión simplificada funciona sin problemas.",
+    "explanation": "La sustitución directa de $x=2$ en el numerador da $4 - 4 = 0$.\n\nY en el denominador da $0$, así que tenemos una indeterminación 0/0.\n\nCuando ambas partes se anulan en el mismo punto, el **teorema del factor** garantiza que comparten un factor común. La **factorización** exhibe ese factor.\n\nEl numerador es una **diferencia de cuadrados**, que factoriza como:$$\\begin{aligned} \\lim_{x \\to 2}\\frac{x^2-4}{x-2} &= \\lim_{x \\to 2}\\frac{(x-2)(x+2)}{x-2} \\\\ &= \\lim_{x \\to 2}(x+2) \\\\ &= 4 \\end{aligned}$$La idea central es que el factor $(x-2)$ que causa la indeterminación aparece tanto en numerador como denominador, permitiendo la cancelación.\n\nTras eliminar ese obstáculo, la sustitución directa en la expresión simplificada funciona sin problemas.",
     "reviewed": false
   },
   {
@@ -96,7 +96,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=-1$ da 0/0. El numerador es una **diferencia de cuadrados**:$$\\begin{aligned} \\lim_{x \\to -1}\\frac{x^2-1}{x+1} &= \\lim_{x \\to -1}\\frac{(x-1)(x+1)}{x+1} \\\\ &= \\lim_{x \\to -1}(x-1) \\\\ &= -2 \\end{aligned}$$Aquí es importante notar que evaluamos en un valor negativo. Después de cancelar $(x+1)$, el cociente simplificado es $x-1$, que en $x=-1$ efectivamente da un resultado negativo.\n\nEl límite no evita los números negativos, simplemente nos pide ser cuidadosos con los signos en la evaluación final.",
+    "explanation": "La sustitución directa de $x=-1$ da 0/0. El numerador es una **diferencia de cuadrados**:$$\\begin{aligned} \\lim_{x \\to -1}\\frac{x^2-1}{x+1} &= \\lim_{x \\to -1}\\frac{(x-1)(x+1)}{x+1} \\\\ &= \\lim_{x \\to -1}(x-1) \\\\ &= -2 \\end{aligned}$$Aquí es importante notar que evaluamos en un valor negativo. Después de cancelar $(x+1)$, el cociente simplificado es $x-1$.\n\nQue en $x=-1$ efectivamente da un resultado negativo.\n\nEl límite no evita los números negativos, simplemente nos pide ser cuidadosos con los signos en la evaluación final.",
     "reviewed": false
   },
   {
@@ -371,7 +371,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La sustitución directa de $x=-2$ da 0/0. El numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**, así que ambos se factorizan:$$\\begin{aligned} \\lim_{x \\to -2}\\frac{x^2-4}{x^2+5x+6} &= \\lim_{x \\to -2}\\frac{(x-2)(x+2)}{(x+2)(x+3)} \\\\ &= \\lim_{x \\to -2}\\frac{x-2}{x+3} \\\\ &= -4 \\end{aligned}$$Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$, obtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
+    "explanation": "La sustitución directa de $x=-2$ da 0/0. El numerador es una **diferencia de cuadrados** y el denominador es un **trinomio**, así que ambos se factorizan:$$\\begin{aligned} \\lim_{x \\to -2}\\frac{x^2-4}{x^2+5x+6} &= \\lim_{x \\to -2}\\frac{(x-2)(x+2)}{(x+2)(x+3)} \\\\ &= \\lim_{x \\to -2}\\frac{x-2}{x+3} \\\\ &= -4 \\end{aligned}$$Al evaluar el cociente simplificado $\\frac{x-2}{x+3}$ en $x=-2$.\n\nObtenemos $\\frac{-2-2}{-2+3} = \\frac{-4}{1} = -4$.\n\nEl límite es negativo porque el numerador del cociente simplificado es negativo y el denominador es positivo.\n\nLa indeterminación original 0/0 se resolvió únicamente mediante factorización completa de ambas partes.",
     "reviewed": false
   }
 ]

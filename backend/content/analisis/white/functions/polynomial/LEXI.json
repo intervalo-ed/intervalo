@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$, y se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$ aparecen cuatro monomios: $4x^5$ de **grado** $5$, $-x^3$ de grado $3$, $2x$ de grado $1$.\n\nEl **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
+    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$.\n\nY se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn $p(x) = 4x^5 - x^3 + 2x - 9$ aparecen cuatro monomios: $4x^5$ de **grado** $5$.\n\n$-x^3$ de grado $3$.\n\n$2x$ de grado $1$.\n\nEl **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
     "reviewed": false,
     "tags": [
       "contar-terminos"
@@ -355,7 +355,7 @@
       "Con grado impar los extremos van en sentidos opuestos, uno hacia $+\\infty$ y el otro hacia $-\\infty$, no ambos hacia el mismo lado.",
       "Con grado impar y coeficiente negativo, un extremo va hacia $+\\infty$ y el otro hacia $-\\infty$: no coinciden ambos en el mismo sentido."
     ],
-    "explanation": "El comportamiento en extremos de un polinomio depende de dos cosas: el grado y el coeficiente principal.\n\n**Grado par, coeficiente positivo**: ambos extremos van hacia $+\\infty$.\n\n**Grado par, coeficiente negativo**: ambos extremos van hacia $-\\infty$.\n\n**Grado impar, coeficiente positivo**: cuando $x \\to -\\infty$ va a $-\\infty$, y cuando $x \\to +\\infty$ va a $+\\infty$.\n\n**Grado impar, coeficiente negativo**: invierte los direcciones anteriores.\n\nLa clave es que el término de mayor grado domina completamente en extremos. Los coeficientes de términos menores son insignificantes.",
+    "explanation": "El comportamiento en extremos de un polinomio depende de dos cosas: el grado y el coeficiente principal.\n\n**Grado par, coeficiente positivo**: ambos extremos van hacia $+\\infty$.\n\n**Grado par, coeficiente negativo**: ambos extremos van hacia $-\\infty$.\n\n**Grado impar, coeficiente positivo**: cuando $x \\to -\\infty$ va a $-\\infty$.\n\nY cuando $x \\to +\\infty$ va a $+\\infty$.\n\n**Grado impar, coeficiente negativo**: invierte los direcciones anteriores.\n\nLa clave es que el término de mayor grado domina completamente en extremos. Los coeficientes de términos menores son insignificantes.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -505,7 +505,7 @@
       "El coeficiente principal $a_n$ se identifica directo en la forma estándar; en la factorizada queda repartido entre el factor $a$ y las raíces.",
       "El término independiente se lee evaluando en $x=0$ desde la forma estándar; la factorizada no lo expone directamente sin hacer la cuenta."
     ],
-    "explanation": "Cada forma de escribir un **polinomio** tiene su ventaja según lo que se necesite leer.\n\nLa forma estándar $a_n x^n + \\cdots + a_0$ muestra directamente el **grado**, el coeficiente principal y el **término independiente**.\n\nLa **forma factorizada** $a(x-r_1)(x-r_2)\\cdots$, en cambio, expone directamente las **raíces** $r_1, r_2, \\ldots$ del polinomio, sin necesidad de resolver ninguna ecuación.\n\nPor ejemplo, $f(x) = 2(x-3)(x+1)(x-5)$ tiene raíces $x=3$, $x=-1$ y $x=5$: se leen de un vistazo.\n\nConviene elegir la forma según la pregunta: si se pide el grado o los coeficientes, conviene expandir a la forma estándar.\n\nSi se pide dónde corta la curva al eje $x$, la factorizada ahorra todo el trabajo algebraico.",
+    "explanation": "Cada forma de escribir un **polinomio** tiene su ventaja según lo que se necesite leer.\n\nLa forma estándar $a_n x^n + \\cdots + a_0$ muestra directamente el **grado**, el coeficiente principal y el **término independiente**.\n\nLa **forma factorizada** $a(x-r_1)(x-r_2)\\cdots$, en cambio, expone directamente las **raíces** $r_1, r_2, \\ldots$ del polinomio, sin necesidad de resolver ninguna ecuación.\n\nPor ejemplo, $f(x) = 2(x-3)(x+1)(x-5)$ tiene raíces $x=3$.\n\n$x=-1$ y $x=5$: se leen de un vistazo.\n\nConviene elegir la forma según la pregunta: si se pide el grado o los coeficientes, conviene expandir a la forma estándar.\n\nSi se pide dónde corta la curva al eje $x$, la factorizada ahorra todo el trabajo algebraico.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

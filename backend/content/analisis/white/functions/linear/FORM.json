@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La ordenada al origen es el término sin $x$, que coincide con el valor de la función en cero:$$f(0) = -3 \\cdot 0 + 9 = 9$$Para $f(x) = -3x + 9$, entonces, $b = 9$ y la pendiente es $m = -3$.\n\nEl orden en que aparecen los números en la fórmula no define su rol: lo define estar o no pegado a la variable.\n\nElegir el primer número que se ve es el reflejo a evitar: identificá el término independiente evaluando mentalmente en $x = 0$.",
+    "explanation": "La ordenada al origen es el término sin $x$, que coincide con el valor de la función en cero:$$f(0) = -3 \\cdot 0 + 9 = 9$$Para $f(x) = -3x + 9$.\n\nEntonces, $b = 9$ y la pendiente es $m = -3$.\n\nEl orden en que aparecen los números en la fórmula no define su rol: lo define estar o no pegado a la variable.\n\nElegir el primer número que se ve es el reflejo a evitar: identificá el término independiente evaluando mentalmente en $x = 0$.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"

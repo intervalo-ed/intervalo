@@ -833,7 +833,7 @@
       5,
       35
     ],
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n$$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\n&= 10\\cdot0+20 \\\\\n&= 20\\,°C:\n\\end{aligned}$$\nA las 6 a.m. el argumento es $0$, el seno vale $0$, y la temperatura es exactamente la media del ciclo ($20°C$).\n\nEl modelo indica que a las $6$ el día apenas empieza a calentarse.",
+    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$, en $h=6$:\n$$\\begin{aligned}\nT(6) &= 10\\,\\operatorname{sen}\\!\\left(\\frac{\\pi}{12}(6-6)\\right)+20 \\\\\n&= 10\\,\\operatorname{sen}(0)+20 \\\\\n&= 10\\cdot0+20 \\\\\n&= 20\\,°C:\n\\end{aligned}$$\nA las 6 a.m. el argumento es $0$, el seno vale $0$.\n\nY la temperatura es exactamente la media del ciclo ($20°C$).\n\nEl modelo indica que a las $6$ el día apenas empieza a calentarse.",
     "reviewed": false,
     "tags": [
       "ceros-valores-especificos"

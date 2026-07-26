@@ -928,7 +928,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2:\n\\end{aligned}$$El resultado $T=2$ (dos unidades en el eje $x$, no $2\\pi$).\n\nLa opción $\\pi$ confunde el numerador con el resultado.\n\nLa opción $2\\pi$ ignora el $B=\\pi$.\n\nLa opción $1/\\pi$ invierte el cociente.\n\nCon $B=\\pi$, el período es simplemente $2$.",
+    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} \\\\\n&= \\frac{2\\pi}{\\pi} \\\\\n&= 2:\n\\end{aligned}$$El resultado $T=2$ (dos unidades en el eje $x$.\n\nNo $2\\pi$).\n\nLa opción $\\pi$ confunde el numerador con el resultado.\n\nLa opción $2\\pi$ ignora el $B=\\pi$.\n\nLa opción $1/\\pi$ invierte el cociente.\n\nCon $B=\\pi$, el período es simplemente $2$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -978,7 +978,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior.\n\nEl seno es la coordenada $y$:$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1:\n\\end{aligned}$$Este es el **mínimo global** del seno.\n\nLa opción $0$ sería $\\operatorname{sen}(0)$, $\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$.\n\nLa opción $1$ sería $\\operatorname{sen}(\\pi/2)$.\n\nA $270°$ la curva está en el fondo.",
+    "explanation": "El ángulo $3\\pi/2=270°$ corresponde al punto $(0,-1)$ en el círculo unitario: el extremo inferior.\n\nEl seno es la coordenada $y$:$$\\begin{aligned}\n\\operatorname{sen}\\!\\left(\\frac{3\\pi}{2}\\right) &= -1:\n\\end{aligned}$$Este es el **mínimo global** del seno.\n\nLa opción $0$ sería $\\operatorname{sen}(0)$.\n\n$\\operatorname{sen}(\\pi)$ o $\\operatorname{sen}(2\\pi)$.\n\nLa opción $1$ sería $\\operatorname{sen}(\\pi/2)$.\n\nA $270°$ la curva está en el fondo.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"

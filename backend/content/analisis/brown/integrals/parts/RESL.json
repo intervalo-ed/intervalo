@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\,dx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
+    "explanation": "Elegimos $u=x$.\n\n$dv=e^{2x}\\,dx$.\n\nCon $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n$$\\begin{aligned} \\int xe^{2x}\\,dx &= x\\cdot\\frac{e^{2x}}{2} - \\int \\frac{e^{2x}}{2}\\,dx \\\\ &= \\frac{xe^{2x}}{2} - \\frac{1}{2}\\cdot\\frac{e^{2x}}{2} \\\\ &= \\frac{xe^{2x}}{2}-\\frac{e^{2x}}{4}+C \\\\ &= \\frac{e^{2x}(2x-1)}{4}+C \\end{aligned}$$\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
+    "explanation": "Elegimos $u=\\ln x$.\n\n$dv=x\\,dx$.\n\nCon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n$$\\begin{aligned} \\int x\\ln x\\,dx &= \\frac{x^2}{2}\\ln x - \\int \\frac{x^2}{2}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^2}{2}\\ln x - \\frac{1}{2}\\int x\\,dx \\\\ &= \\frac{x^2\\ln x}{2}-\\frac{x^2}{4}+C \\\\ &= \\frac{x^2(2\\ln x-1)}{4}+C \\end{aligned}$$\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$, así que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
+    "explanation": "Igual que con $\\ln x$ solo, $\\ln(2x)$ se resuelve con el **factor oculto**, tratando $dv=1\\,dx$.\n$$\\begin{aligned} u &= \\ln(2x), \\quad dv = 1\\,dx \\\\ du &= \\frac{1}{x}\\,dx, \\quad v = x \\\\ \\int \\ln(2x)\\,dx &= x\\ln(2x) - \\int x\\cdot\\frac{1}{x}\\,dx \\\\ &= x\\ln(2x)-x+C \\end{aligned}$$\nLa derivada de $\\ln(2x)$ sigue siendo $\\frac{1}{x}$.\n\nAsí que el desarrollo queda idéntico al caso de $\\ln x$ solo, salvo por el argumento.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^3\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
+    "explanation": "Elegimos $u=\\ln x$.\n\n$dv=x^3\\,dx$.\n\nCon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^4}{4}$.\n$$\\begin{aligned} \\int x^3\\ln x\\,dx &= \\frac{x^4}{4}\\ln x - \\int \\frac{x^4}{4}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^4}{4}\\ln x - \\frac{1}{4}\\int x^3\\,dx \\\\ &= \\frac{x^4\\ln x}{4}-\\frac{x^4}{16}+C \\\\ &= \\frac{x^4(4\\ln x-1)}{16}+C \\end{aligned}$$\nEl denominador final combina dos factores, el $4$ de la regla de la potencia y el $4$ del factor que arrastra $v$, ambos multiplicados dan $16$.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x^2\\,dx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
+    "explanation": "Elegimos $u=\\ln x$.\n\n$dv=x^2\\,dx$.\n\nCon $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^3}{3}$.\n$$\\begin{aligned} \\int x^2\\ln x\\,dx &= \\frac{x^3}{3}\\ln x - \\int \\frac{x^3}{3}\\cdot\\frac{1}{x}\\,dx \\\\ &= \\frac{x^3}{3}\\ln x - \\frac{1}{3}\\int x^2\\,dx \\\\ &= \\frac{x^3\\ln x}{3}-\\frac{x^3}{9}+C \\\\ &= \\frac{x^3(3\\ln x-1)}{9}+C \\end{aligned}$$\nEste caso cierra en una única aplicación del método, sin importar el grado del polinomio, porque $u=\\ln x$ es quien se deriva.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar $u=\\frac{x}{2}$, se obtiene $du=\\frac{1}{2}dx$, y el despeje de $dx$ requiere multiplicar por el recíproco del coeficiente.\n$$\\begin{aligned} u &= \\frac{x}{2} \\\\ du &= \\frac{1}{2}\\,dx \\\\ dx &= 2\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, invertirlo al despejar es el paso clave: multiplicar en vez de dividir es lo contrario del caso con enteros.",
+    "explanation": "Al derivar $u=\\frac{x}{2}$, se obtiene $du=\\frac{1}{2}dx$.\n\nY el despeje de $dx$ requiere multiplicar por el recíproco del coeficiente.\n$$\\begin{aligned} u &= \\frac{x}{2} \\\\ du &= \\frac{1}{2}\\,dx \\\\ dx &= 2\\,du \\end{aligned}$$\nCon un coeficiente fraccionario, invertirlo al despejar es el paso clave: multiplicar en vez de dividir es lo contrario del caso con enteros.",
     "reviewed": false,
     "tags": [
       "ajuste-del-diferencial"

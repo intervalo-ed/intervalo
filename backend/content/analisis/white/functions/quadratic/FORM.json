@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto. El **coeficiente cuadrático** $a$ define la concavidad y la apertura de la parábola.\n\nEl coeficiente lineal $b$ desplaza el eje de simetría, y el término independiente $c$ es el valor de $f(0)$.\n\nPara $f(x) = 3x^2 - 6x + 2$ se identifica $a = 3$, $b = -6$ y $c = 2$ comparando término a término con la forma general.\n\nEl coeficiente cuadrático pedido es entonces $a = 3$.\n\nSi lees el primer número de la expresión sin fijarse qué potencia de $x$ acompaña, entonces vas a identificar el coeficiente equivocado.\n\nAcá el $-6$ corresponde a $x$, no a $x^2$.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, cada coeficiente cumple un rol distinto. El **coeficiente cuadrático** $a$ define la concavidad y la apertura de la parábola.\n\nEl coeficiente lineal $b$ desplaza el eje de simetría, y el término independiente $c$ es el valor de $f(0)$.\n\nPara $f(x) = 3x^2 - 6x + 2$ se identifica $a = 3$.\n\n$b = -6$ y $c = 2$ comparando término a término con la forma general.\n\nEl coeficiente cuadrático pedido es entonces $a = 3$.\n\nSi lees el primer número de la expresión sin fijarse qué potencia de $x$ acompaña, entonces vas a identificar el coeficiente equivocado.\n\nAcá el $-6$ corresponde a $x$, no a $x^2$.",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en $f(x) = ax^2 + bx + c$.\n\nPara $f(x) = 2x^2 - 5x + 1$, el término en $x$ es $-5x$, por lo que $b = -5$.\n\nEl signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$, y $c = 1$ es la constante.\n\nEl valor de $b$ influye en la posición del eje de simetría: $x_v = -b/(2a) = -(-5)/(2 \\cdot 2) = 5/4$. escribir $b = 5$ (sin el signo negativo).",
+    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en $f(x) = ax^2 + bx + c$.\n\nPara $f(x) = 2x^2 - 5x + 1$, el término en $x$ es $-5x$, por lo que $b = -5$.\n\nEl signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$.\n\nY $c = 1$ es la constante.\n\nEl valor de $b$ influye en la posición del eje de simetría: $x_v = -b/(2a) = -(-5)/(2 \\cdot 2) = 5/4$. escribir $b = 5$ (sin el signo negativo).",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$:\n\nComparando con $a(x-h)^2 + k$, se tiene $a = -1$, $h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$.\n\nEntonces  $h = +3$ (no $h = -3$).\n\nLa regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$.\n\nEl vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
+    "explanation": "En la forma de vértice $f(x) = a(x-h)^2 + k$, el vértice es exactamente el punto $(h, k)$.\n\nPara $f(x) = -(x-3)^2 + 2$:\n\nComparando con $a(x-h)^2 + k$, se tiene $a = -1$.\n\n$h = 3$, $k = 2$.\n\nTrampa frecuente: el término es $(x - 3)^2$, no $(x + 3)^2$.\n\nEntonces  $h = +3$ (no $h = -3$).\n\nLa regla es que el vértice tiene la coordenada que **anula** el factor: $(x-3) = 0 \\Rightarrow x = 3$.\n\nEl vértice es $(3, 2)$ y, como $a = -1 < 0$, es un **máximo**.",
     "reviewed": false,
     "tags": [
       "vertice-desde-forma"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **término independiente** $c$ es la constante en $f(x) = ax^2 + bx + c$: el número que no multiplica a ninguna potencia de $x$.\n\nPara $f(x) = 2x^2 - 8x + 6$:\n\n$a = 2$ (coeficiente de $x^2$), $b = -8$ (coeficiente de $x$), $c = 6$ (constante).\n\nInterpretación geométrica importante: $c = f(0)$, es decir, $c$ es la **ordenada al origen** (el punto donde la parábola cruza el eje $Y$).\n\nVerificación: $f(0) = 2(0)^2 - 8(0) + 6 = 6$ .",
+    "explanation": "El **término independiente** $c$ es la constante en $f(x) = ax^2 + bx + c$: el número que no multiplica a ninguna potencia de $x$.\n\nPara $f(x) = 2x^2 - 8x + 6$:\n\n$a = 2$ (coeficiente de $x^2$), $b = -8$ (coeficiente de $x$), $c = 6$ (constante).\n\nInterpretación geométrica importante: $c = f(0)$.\n\nEs decir, $c$ es la **ordenada al origen** (el punto donde la parábola cruza el eje $Y$).\n\nVerificación: $f(0) = 2(0)^2 - 8(0) + 6 = 6$ .",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -480,7 +480,7 @@
       "El coeficiente $a$ es negativo en este caso: acá quedó positivo, lo que invertiría la apertura de la parábola.",
       null
     ],
-    "explanation": "La forma de vértice $f(x) = a(x-h)^2 + k$ se arma reemplazando directamente los valores de $h$, $k$ y $a$, respetando el signo de cada uno tal como aparece.\n\nCon $(h,k) = (3,-4)$ y $a = -2$:\n\nEl signo de $h=3$ produce el factor $(x-3)$, y el signo de $k=-4$ se escribe tal cual al final de la expresión.\n\nLa opción $-2(x-3)^2+4$ cambia el signo de $k$:\n\nCon $k$ positivo el vértice quedaría en $(3,4)$, no en $(3,-4)$ como pide el enunciado.",
+    "explanation": "La forma de vértice $f(x) = a(x-h)^2 + k$ se arma reemplazando directamente los valores de $h$.\n\n$k$ y $a$, respetando el signo de cada uno tal como aparece.\n\nCon $(h,k) = (3,-4)$ y $a = -2$:\n\nEl signo de $h=3$ produce el factor $(x-3)$.\n\nY el signo de $k=-4$ se escribe tal cual al final de la expresión.\n\nLa opción $-2(x-3)^2+4$ cambia el signo de $k$:\n\nCon $k$ positivo el vértice quedaría en $(3,4)$, no en $(3,-4)$ como pide el enunciado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -530,7 +530,7 @@
       "Estos valores surgen de no dividir por el coeficiente $2$ antes de despejar el cuadrado.",
       "El $-1$ es la coordenada del vértice, no una raíz de la función."
     ],
-    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$, y las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado:\n\nSi olvidás dividir por el coeficiente $2$ antes de despejar, entonces va a ser incorrecta tu solución.",
+    "explanation": "Para hallar las raíces de una función en forma de vértice, se iguala a cero y se despeja $x$ deshaciendo primero el cuadrado.\n\nPara $f(x) = 2(x+1)^2 - 8$:\n\nEsto da $x = 1$ y $x = -3$.\n\nEl vértice es $(-1,-8)$.\n\nY las raíces quedan simétricas respecto a $x=-1$, a distancia $2$ de cada lado:\n\nSi olvidás dividir por el coeficiente $2$ antes de despejar, entonces va a ser incorrecta tu solución.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "El segundo factor debería anularse en $x=-1$, no en $x=1$: revisá el signo de esa raíz.",
       "El primer factor debería anularse en $x=3$, no en $x=-3$: revisá el signo de esa raíz."
     ],
-    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$, y raíz $-1$ da factor $(x+1)$.\n\nSumar en vez de invertir el signo dentro del paréntesis produce una forma incorrecta.",
+    "explanation": "La forma factorizada $f(x)=a(x-r_1)(x-r_2)$ se arma reemplazando cada raíz en su propio factor, con el signo dentro del paréntesis siempre opuesto al de la raíz.\n\nCon $r_1=3$, $r_2=-1$ y $a=1$:\n\nEl patrón se repite siempre: raíz $+3$ da factor $(x-3)$.\n\nY raíz $-1$ da factor $(x+1)$.\n\nSumar en vez de invertir el signo dentro del paréntesis produce una forma incorrecta.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -680,7 +680,7 @@
       "La raíz del primer factor es $x=4$, porque $(x-4)=0$ da $x=4$, no $x=-4$.",
       null
     ],
-    "explanation": "**Datos usados:**\n$f(x) = 0$ $(x - 4) = 0$ $(x + 2) = 0$ $x = 4$\n\nEn la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, las **raíces** son los valores de $x$ que anulan cada factor por separado, sin importar el valor del coeficiente $a$ que va adelante.\n\nPara $f(x) = -2(x-4)(x+2)$, el primer factor se anula cuando $x-4=0$, es decir $x=4$, y el segundo cuando $x+2=0$, es decir $x=-2$.\n\nLas raíces son $x=4$ y $x=-2$.\n\nEl coeficiente $-2$ no afecta las raíces, solo la apertura y la escala vertical de la parábola: intentar usarlo para calcular las raíces en vez de mirar solo los factores entre paréntesis.",
+    "explanation": "**Datos usados:**\n$f(x) = 0$ $(x - 4) = 0$ $(x + 2) = 0$ $x = 4$\n\nEn la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, las **raíces** son los valores de $x$ que anulan cada factor por separado, sin importar el valor del coeficiente $a$ que va adelante.\n\nPara $f(x) = -2(x-4)(x+2)$, el primer factor se anula cuando $x-4=0$.\n\nEs decir $x=4$, y el segundo cuando $x+2=0$.\n\nEs decir $x=-2$.\n\nLas raíces son $x=4$ y $x=-2$.\n\nEl coeficiente $-2$ no afecta las raíces, solo la apertura y la escala vertical de la parábola: intentar usarlo para calcular las raíces en vez de mirar solo los factores entre paréntesis.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -780,7 +780,7 @@
       null,
       "Este punto invierte el orden de las coordenadas: el vértice se escribe como $(h,k)$, no $(k,h)$."
     ],
-    "explanation": "En la forma de vértice $f(x)=a(x-h)^2+k$, el vértice es siempre el punto $(h,k)$, sin importar el valor de $a$ que va adelante del paréntesis.\n\nPara $f(x) = 3(x-2)^2$, comparando con la forma general se identifica $h=2$ y $k=0$, ya que no hay término constante sumado al final.\n\nEl vértice es $(2,0)$.\n\nComo $k=0$, el vértice cae exactamente sobre el eje $x$, y por eso $x=2$ es también la única raíz de la función, una raíz doble.\n\nEl coeficiente $3$ no mueve el vértice: solo afecta cuán angosta es la parábola.",
+    "explanation": "En la forma de vértice $f(x)=a(x-h)^2+k$, el vértice es siempre el punto $(h,k)$, sin importar el valor de $a$ que va adelante del paréntesis.\n\nPara $f(x) = 3(x-2)^2$, comparando con la forma general se identifica $h=2$ y $k=0$, ya que no hay término constante sumado al final.\n\nEl vértice es $(2,0)$.\n\nComo $k=0$, el vértice cae exactamente sobre el eje $x$.\n\nY por eso $x=2$ es también la única raíz de la función, una raíz doble.\n\nEl coeficiente $3$ no mueve el vértice: solo afecta cuán angosta es la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1055,7 +1055,7 @@
       "Con ese signo la parábola abriría hacia arriba, pero la gráfica muestra una apertura hacia abajo.",
       "El vértice de esta expresión está en $(2,-4)$, no en $(2,4)$ como muestra la gráfica."
     ],
-    "explanation": "De la gráfica se leen dos datos clave:\n\n1. **Vértice** $(2, 4)$: indica $h = 2$, $k = 4$. 2. **Abre hacia abajo**: indica $a < 0$.\n\nCon $a = -1$: $f(x) = -(x-2)^2 + 4$.\n\nVerificación con las raíces: $-(x-2)^2 + 4 = 0 \\Rightarrow (x-2)^2 = 4 \\Rightarrow x = 0$ o $x = 4$\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "De la gráfica se leen dos datos clave:\n\n1. **Vértice** $(2, 4)$: indica $h = 2$.\n\n$k = 4$. 2. **Abre hacia abajo**: indica $a < 0$.\n\nCon $a = -1$: $f(x) = -(x-2)^2 + 4$.\n\nVerificación con las raíces: $-(x-2)^2 + 4 = 0 \\Rightarrow (x-2)^2 = 4 \\Rightarrow x = 0$ o $x = 4$\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "has_math": true,
     "graph_fn": "-pow(x-2,2)+4",
     "graph_view": [

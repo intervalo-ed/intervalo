@@ -1005,7 +1005,7 @@
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una.",
       null
     ],
-    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$, $r_2 = 0$, $r_3 = 1$ dan los factores $(x+1)$, $x$, $(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
+    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$, $(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
     "has_math": true,
     "graph_fn": "x*(x+1)*(x-1)/2",
     "graph_view": [
@@ -1125,7 +1125,7 @@
       "Contá cuántos puntos distintos toca la curva sobre el eje $x$.",
       null
     ],
-    "explanation": "Cuando dos raíces son opuestas entre sí, como $1$ y $-1$, su producto de factores se simplifica a una diferencia de cuadrados: $(x-1)(x+1) = x^2-1$.\n\nLo mismo ocurre con las raíces $3$ y $-3$, que dan $(x^2-9)$.\n\nRaíces $\\pm 1$ dan el factor $(x^2-1)$, y raíces $\\pm 3$ dan el factor $(x^2-9)$:\n\nVerificando $f(0) = (-1)(-9)/8 = 9/8 \\approx 1{,}1$, la curva corta el eje $y$ apenas por encima de $y=1$, tal como se ve en el gráfico.\n\nLa escala $1/8$ hace que la curva sea visible dentro de la ventana mostrada.\n\nConviene siempre chequear el valor de $f(0)$ contra el gráfico antes de confirmar una fórmula candidata, porque un error de escala o de signo suele notarse ahí primero.",
+    "explanation": "Cuando dos raíces son opuestas entre sí, como $1$ y $-1$, su producto de factores se simplifica a una diferencia de cuadrados: $(x-1)(x+1) = x^2-1$.\n\nLo mismo ocurre con las raíces $3$ y $-3$.\n\nQue dan $(x^2-9)$.\n\nRaíces $\\pm 1$ dan el factor $(x^2-1)$.\n\nY raíces $\\pm 3$ dan el factor $(x^2-9)$:\n\nVerificando $f(0) = (-1)(-9)/8 = 9/8 \\approx 1{,}1$, la curva corta el eje $y$ apenas por encima de $y=1$, tal como se ve en el gráfico.\n\nLa escala $1/8$ hace que la curva sea visible dentro de la ventana mostrada.\n\nConviene siempre chequear el valor de $f(0)$ contra el gráfico antes de confirmar una fórmula candidata, porque un error de escala o de signo suele notarse ahí primero.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-9)/8",
     "graph_view": [

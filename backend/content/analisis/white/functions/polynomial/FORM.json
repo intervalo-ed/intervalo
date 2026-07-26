@@ -705,7 +705,7 @@
       null,
       "Ese es el cuadrado del binomio con signo positivo, que expandido da un término lineal $+12x$ que no aparece en $9x^2-4$."
     ],
-    "explanation": "Para factorizar una **diferencia de cuadrados** hay que reconocer cada término como un cuadrado perfecto, $9x^2=(3x)^2$ y $4=2^2$, y aplicar $a^2-b^2=(a+b)(a-b)$.\n\nCon $a=3x$ y $b=2$:\n\nA diferencia de esto, $(3x-2)^2=9x^2-12x+4$ es el cuadrado del binomio, con un término lineal $-12x$ que en $9x^2-4$ no existe.\n\nVerificar que la expresión no tenga término lineal antes de aplicar diferencia de cuadrados evita confundirla con un binomio cuadrado perfecto que comparte los mismos dos números.",
+    "explanation": "Para factorizar una **diferencia de cuadrados** hay que reconocer cada término como un cuadrado perfecto, $9x^2=(3x)^2$ y $4=2^2$.\n\nY aplicar $a^2-b^2=(a+b)(a-b)$.\n\nCon $a=3x$ y $b=2$:\n\nA diferencia de esto, $(3x-2)^2=9x^2-12x+4$ es el cuadrado del binomio, con un término lineal $-12x$ que en $9x^2-4$ no existe.\n\nVerificar que la expresión no tenga término lineal antes de aplicar diferencia de cuadrados evita confundirla con un binomio cuadrado perfecto que comparte los mismos dos números.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1230,7 +1230,7 @@
       "El $6$ sale de multiplicar los términos independientes de cada factor, eso da el término independiente del polinomio, no el coeficiente principal.",
       "El $-6$ es el término independiente del polinomio completo, no el coeficiente que acompaña al término de mayor grado."
     ],
-    "explanation": "El coeficiente principal de un producto de factores lineales se obtiene multiplicando los coeficientes de $x$ en cada factor junto con cualquier signo que multiplique a todo el producto.\n\nEn $-(x-1)(x+2)(x-3)$, el signo negativo al frente se multiplica por los tres coeficientes de $x$, que son todos $1$:\n\nEl coeficiente principal es $-1$.\n\nEl número $6$ que aparece como distractor sale de multiplicar los términos independientes de cada factor, $(-1)(2)(-3)=6$, eso da el término independiente del polinomio, no el coeficiente principal.\n\nConfundir estos dos coeficientes al leer una expresión factorizada.",
+    "explanation": "El coeficiente principal de un producto de factores lineales se obtiene multiplicando los coeficientes de $x$ en cada factor junto con cualquier signo que multiplique a todo el producto.\n\nEn $-(x-1)(x+2)(x-3)$, el signo negativo al frente se multiplica por los tres coeficientes de $x$.\n\nQue son todos $1$:\n\nEl coeficiente principal es $-1$.\n\nEl número $6$ que aparece como distractor sale de multiplicar los términos independientes de cada factor, $(-1)(2)(-3)=6$, eso da el término independiente del polinomio, no el coeficiente principal.\n\nConfundir estos dos coeficientes al leer una expresión factorizada.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1255,7 +1255,7 @@
       "El $3$ es el coeficiente de $(x+3)$, no el coeficiente de $x^2$ en el producto expandido.",
       "Ese valor sale de un error de signo al combinar los dos términos de grado $2$ del producto."
     ],
-    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$. Después, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado, $3x^2$ del primer término por $x$.\n\n$-2x^2$ del segundo término por $3$, que juntos dan $1 \\cdot x^2$.\n\nIgnorar el sumar todos los aportes a un mismo grado y quedarse solo con uno de los dos términos lleva a resultados incorrectos al expandir un producto.",
+    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$. Después, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado, $3x^2$ del primer término por $x$.\n\n$-2x^2$ del segundo término por $3$.\n\nQue juntos dan $1 \\cdot x^2$.\n\nIgnorar el sumar todos los aportes a un mismo grado y quedarse solo con uno de los dos términos lleva a resultados incorrectos al expandir un producto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

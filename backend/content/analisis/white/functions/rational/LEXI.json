@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural de una función son todos los valores de $x$ para los que la fórmula tiene sentido. En $f(x)=\\frac{1}{x}$, la única restricción viene del denominador.\n\nNo puede valer $0$. Cualquier otro real, positivo o negativo, es válido.\n\nPor eso el dominio es $\\mathbb{R}\\setminus\\{0\\}$, y no una restricción de signo como $x>0$ o $x\\geq1$, que no tiene relación con dónde se anula el denominador.",
+    "explanation": "El **dominio** natural de una función son todos los valores de $x$ para los que la fórmula tiene sentido. En $f(x)=\\frac{1}{x}$, la única restricción viene del denominador.\n\nNo puede valer $0$. Cualquier otro real, positivo o negativo, es válido.\n\nPor eso el dominio es $\\mathbb{R}\\setminus\\{0\\}$.\n\nY no una restricción de signo como $x>0$ o $x\\geq1$, que no tiene relación con dónde se anula el denominador.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ de una función racional es $f(0)$, y ese valor existe únicamente cuando $x=0$ pertenece al **dominio**, es decir, cuando el denominador no se anula ahí.\n\nSi el denominador vale $0$ en $x=0$, como en $f(x)=\\frac{1}{x}$, no hay intercepto con el eje $Y$ porque la función tiene ahí una asíntota vertical.\n\nEn cambio, $f(x)=\\frac{x+1}{x-2}$ sí lo tiene, porque $x=0$ no anula su denominador.",
+    "explanation": "El intercepto con el eje $Y$ de una función racional es $f(0)$.\n\nY ese valor existe únicamente cuando $x=0$ pertenece al **dominio**, es decir, cuando el denominador no se anula ahí.\n\nSi el denominador vale $0$ en $x=0$, como en $f(x)=\\frac{1}{x}$, no hay intercepto con el eje $Y$ porque la función tiene ahí una asíntota vertical.\n\nEn cambio, $f(x)=\\frac{x+1}{x-2}$ sí lo tiene, porque $x=0$ no anula su denominador.",
     "reviewed": false,
     "tags": [
       "reconocimiento-funcion-racional"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para clasificar $f(x)=\\frac{1}{x^2}$ como par o impar se compara $f(-x)$ con $f(x)$.\n\n$f(-x)=\\frac{1}{(-x)^2}=\\frac{1}{x^2}=f(x)$. Como se cumple $f(-x)=f(x)$, la función es par,.\n\nSu gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$, que es impar y solo toma valores de un signo en cada rama, $\\frac{1}{x^2}$ siempre da valores positivos, sin importar el signo de $x$.",
+    "explanation": "Para clasificar $f(x)=\\frac{1}{x^2}$ como par o impar se compara $f(-x)$ con $f(x)$.\n\n$f(-x)=\\frac{1}{(-x)^2}=\\frac{1}{x^2}=f(x)$. Como se cumple $f(-x)=f(x)$, la función es par,.\n\nSu gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nQue es impar y solo toma valores de un signo en cada rama, $\\frac{1}{x^2}$ siempre da valores positivos, sin importar el signo de $x$.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de una función racional se determina sobre la expresión original, antes de simplificar. $g(x)=\\frac{x-1}{x(x-1)}$ tiene denominador $x(x-1)$, que se anula en $x=0$.\n\nEn $x=1$: ambos quedan excluidos, aunque la fracción se simplifique a $\\frac{1}{x}$ para $x\\neq1$.\n\nPor eso el dominio de $g$ es $\\mathbb{R}\\setminus\\{0,1\\}$, distinto del de $f(x)=\\frac{1}{x}$, que solo excluye $x=0$.\n\nEn $x=1$, $g$ tiene un agujero.",
+    "explanation": "El **dominio** de una función racional se determina sobre la expresión original, antes de simplificar. $g(x)=\\frac{x-1}{x(x-1)}$ tiene denominador $x(x-1)$.\n\nQue se anula en $x=0$.\n\nEn $x=1$: ambos quedan excluidos.\n\nAunque la fracción se simplifique a $\\frac{1}{x}$ para $x\\neq1$.\n\nPor eso el dominio de $g$ es $\\mathbb{R}\\setminus\\{0,1\\}$, distinto del de $f(x)=\\frac{1}{x}$.\n\nQue solo excluye $x=0$.\n\nEn $x=1$, $g$ tiene un agujero.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando $P(c)=0$ y $Q(c)=0$, el factor $(x-c)$ aparece en ambos polinomios.\n\nTras cancelar ese factor común, la función está definida cerca de $c$.\n\nNo en $c$ mismo: hay un **agujero** (discontinuidad evitable), no una asíntota.\n\nEjemplo: $\\frac{x-c}{x-c}=1$ para $x\\neq c$, pero no está definida en $c$.\n\nLo importante es distinguir entre asíntota (donde la función se dispara al infinito) y agujero (donde ambos numerador y denominador se anulan simultáneamente).",
+    "explanation": "Cuando $P(c)=0$ y $Q(c)=0$, el factor $(x-c)$ aparece en ambos polinomios.\n\nTras cancelar ese factor común, la función está definida cerca de $c$.\n\nNo en $c$ mismo: hay un **agujero** (discontinuidad evitable), no una asíntota.\n\nEjemplo: $\\frac{x-c}{x-c}=1$ para $x\\neq c$.\n\nPero no está definida en $c$.\n\nLo importante es distinguir entre asíntota (donde la función se dispara al infinito) y agujero (donde ambos numerador y denominador se anulan simultáneamente).",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
