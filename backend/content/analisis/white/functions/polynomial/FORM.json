@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **polinomio de grado 2** tiene la forma general $f(x) = ax^2 + bx + c$ con $a \\neq 0$, también llamado polinomio cuadrático.\n\nRevisando cada opción por su mayor exponente:\n\n$x^3+2$ tiene grado $3$, $4x-1$ tiene grado $1$ (es lineal), y $x^4$ tiene grado $4$.\n\nLa opción $3x^2-7$ tiene como mayor potencia $x^2$, así que es de grado $2$, aunque le falte el término lineal $bx$ (equivale a $b=0$).\n\nEste razonamiento muestra que más común al clasificar el grado.",
+    "explanation": "La factorización es el proceso inverso de la multiplicación: expresar un polinomio como producto de factores más simples.\n\nEjemplos comunes incluyen factor común, diferencia de cuadrados $a^2 - b^2 = (a-b)(a+b)$, trinomios cuadrados perfectos, y suma/diferencia de cubos.\n\nFactorizar es útil para simplificar fracciones racionales, encontrar raíces, y resolver ecuaciones polinómicas.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -730,7 +730,7 @@
       null,
       "El signo del término central en $(x-3)^2$ es negativo, $-6x$, pero la expresión a factorizar tiene $+6x$."
     ],
-    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn este caso: $x^2$ es el cuadrado de $x$, el $9$ es el cuadrado de $3$, y el término $6x$ debe cumplir $6x=2\\cdot x\\cdot 3=2ab$.\n\nLa verificación confirma: $2ab=2(x)(3)=6x$. Luego, $x^2+6x+9=(x+3)^2$.\n\nEl error más frecuente al identificar esta identidad es confundir el \"término del medio\" con algún otro valor, o creer que debe ser $2\\cdot(x+3)$ en lugar del doble producto de las bases.\n\nVerificar que $2ab$ sea exactamente el coeficiente del término lineal evita este error.",
+    "explanation": "El grado de una suma de polinomios es generalmente el máximo de los grados de los sumandos.\n\nSin embargo, cuando los términos principales se cancelan (por ser opuestos), el grado de la suma puede ser menor. \n\nPor ejemplo: $(x^3 + 2) + (-x^3 + 1) = 3$, que tiene grado 0, mucho menor que 3. El polinomio resultante es solo una constante.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

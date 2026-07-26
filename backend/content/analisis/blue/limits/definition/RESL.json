@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en **cada término** por separado y respetando los signos y operaciones de la expresión original.\n\nCada parte se transforma, luego se suman o restan.$$\\begin{aligned} \\lim_{x \\to 3} (x^2-2x+1) &= 3^2 - 2(3) + 1 \\\\ &= 9-6+1 \\\\ &= 4 \\end{aligned}$$El acercamiento de $x$ a $3$ produce valores de la expresión que convergen a $4$: evaluando en $2{,}99$ se obtiene $(2{,}99)^2 - 2(2{,}99) + 1 \\approx 3{,}9601$. El destino es $4$.\n\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo o terminar en el camino: primero sustituí todo, después operá término a término.",
+    "explanation": "Calcular un límite algebraicamente significa encontrar el valor exacto usando técnicas de simplificación, sin necesidad de evaluar la función directamente.\n\nEl procedimiento típico es: sustituir el valor directamente. Si no obtenemos una indeterminación, ese es el límite.\n\nSi obtenemos una indeterminación (como $0/0$), aplicamos técnicas algebraicas: factorización, racionalización, identidades trigonométricas, o conjugados para simplificar.\n\nUna vez simplificada la expresión, reintentas la sustitución para encontrar el valor final.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda expresión con un término elevado al cuadrado necesita un tratamiento especial.\n\n: si el **denominador** no se anula en el punto de tendencia, la **sustitución directa** es suficiente, aunque numerador y denominador tengan potencias.$$\\begin{aligned} \\lim_{x \\to 3} \\frac{x^2-4}{x-1} &= \\frac{3^2-4}{3-1} \\\\ &= \\frac{5}{2} \\end{aligned}$$El acercamiento de $x$ a $3$ produce cocientes que convergen a $5/2 = 2{,}5$: el numerador se acerca a $5$, el denominador se acerca a $2$, el cociente se acerca a $2{,}5$.\n\nBuscar una raíz para cancelar cuando la sustitución directa ya funciona es un esfuerzo innecesario.\n\n: primero conviene chequear si hace falta, y solo después aplicar técnicas más complejas si realmente es necesario.",
+    "explanation": "La indeterminación ocurre cuando al sustituir $x = a$ obtenemos formas imprecisas. Una de ellas es cuando numerador y denominador se anulan.\n\nEjemplo: para $\\lim_{x \\to 1} \\frac{x^2-1}{x-1}$, la sustitución directa da una forma indeterminada. Esto indica que hay factores comunes que pueden cancelarse.\n\nLa indeterminación infinito sobre infinito $\\frac{\\infty}{\\infty}$ ocurre en cocientes de funciones que crecen. Se resuelve dividiendo por el término dominante.\n\nOtras indeterminaciones incluyen $\\infty - \\infty$, $0 \\cdot \\infty$, $0^0$, y exponentes. Cada una tiene técnicas específicas para resolverla.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"

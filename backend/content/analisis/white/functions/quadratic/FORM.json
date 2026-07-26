@@ -405,7 +405,7 @@
       "Ese es $c$, el término independiente, no el coeficiente lineal.",
       "El coeficiente de $x$ en esta función es negativo: falta el signo menos."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$, el **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia, distinto del coeficiente $a$ que acompaña a $x^2$ y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$, el término en $x$ es $-6x$, por lo que $b = -6$, incluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ produce lectura incorrecta: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
+    "explanation": "El vértice es el punto más importante de una parábola: es donde la función alcanza su máximo (si abre hacia abajo) o mínimo (si abre hacia arriba).\n\nLa coordenada $x$ del vértice es $x = -\\frac{b}{2a}$ para $f(x) = ax^2 + bx + c$.\n\nEl vértice marca el único punto donde cambia la dirección: antes de él la función crece o decrece en una dirección, y después cambia.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

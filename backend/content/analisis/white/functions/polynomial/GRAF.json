@@ -1035,7 +1035,7 @@
       "Fijate en qué valores exactos del eje la curva toca cero.",
       "Revisá con cuidado los signos de los puntos donde la curva cruza el eje."
     ],
-    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$, $0$, $2$ dan los factores $(x+1)$, $x$, $(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores, por ejemplo escribir $(x-1)$ en lugar de $(x+1)$ para la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
+    "explanation": "El comportamiento en extremos de un polinomio está completamente determinado por dos factores: el grado y el coeficiente principal.\n\nEn extremos (cuando $|x| \\to \\infty$), el término de mayor grado domina completamente. Los demás términos son insignificantes.\n\nEsto significa que un polinomio se comporta como su término principal: si es $5x^4$, se comporta como $5x^4$ en ambos extremos (hacia $+\\infty$).",
     "has_math": true,
     "graph_fn": "-(x+1)*x*(x-2)/4",
     "graph_view": [

@@ -1003,7 +1003,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dada onda con máximo $6$, mínimo $2$ y período $2\\pi$, se calculan $A$, $D$ y $B$:$$\\begin{aligned}\nA &= \\frac{6-2}{2} = 2 \\\\\nD &= \\frac{6+2}{2} = 4 \\\\\nB &= \\frac{2\\pi}{2\\pi} = 1:\n\\end{aligned}$$Luego $f(x)=2\\,\\operatorname{sen}(x)+4$.\n\nLa opción $6\\,\\operatorname{sen}(x)+2$ tiene amplitud $6$ y mínimo $-4$, no $2$.\n\nLa opción $4\\,\\operatorname{sen}(x)+4$ tiene amplitud $4$, no $2$.",
+    "explanation": "La función tangente $\\tan(x) = \\frac{\\sin(x)}{\\cos(x)}$ es el cociente entre seno y coseno.\n\nEl dominio de la tangente excluye los puntos donde se anula el coseno: $x = \\pi/2 + k\\pi$ (donde $k$ es cualquier entero).\n\nEn esos puntos, la tangente tiene asíntotas verticales. Entre las asíntotas, la tangente crece sin límite de $-\\infty$ a $+\\infty$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
