@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **factorización** identifica factores comunes entre expresiones que son productos de polinomios, pero $\\sqrt{x}-2$ no es un polinomio, contiene una raíz.\n\nLa estructura algebraica es completamente distinta.$$\\sqrt{x} - 2 \\neq (x-a)(x-b)$$Los métodos de factoreo trabajan sobre productos de polinomios, y esta expresión no tiene esa forma. Cuando aparece una raíz en una indeterminación 0/0, la factorización deja de ser aplicable.\n\nPara estas situaciones hace falta otra herramienta, como la **racionalización**, que es el tema de la unidad siguiente.\n\nDistinguir cuándo factorizar y cuándo racionalizar es una de las decisiones más importantes en esta unidad.",
+    "explanation": "La **factorización** identifica factores comunes entre expresiones que son productos de polinomios, pero $\\sqrt{x}-2$ no es un polinomio, contiene una raíz.\n\nLa estructura algebraica es completamente distinta.$$\\sqrt{x} - 2 \\neq (x-a)(x-b)$$Los métodos de factoreo trabajan sobre productos de polinomios, y esta expresión no tiene esa forma.\n\nCuando aparece una raíz en una indeterminación 0/0, la factorización deja de ser aplicable.\n\nPara estas situaciones hace falta otra herramienta, como la **racionalización**, que es el tema de la unidad siguiente.\n\nDistinguir cuándo factorizar y cuándo racionalizar es una de las decisiones más importantes en esta unidad.",
     "reviewed": false
   },
   {

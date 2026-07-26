@@ -153,7 +153,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional aparece en cada valor de $x$ donde el denominador se anula sin cancelarse con el numerador. En $f(x)=\\frac{1}{x-1}$, el denominador $x-1$ tiene una única raíz real, $x=1$, así que hay exactamente una asíntota vertical.\n\nPara contar bien, hay que factorizar el denominador y descartar las raíces que también anulen el numerador, esas producen un agujero en vez de una asíntota.",
+    "explanation": "La **asíntota vertical** de una racional aparece en cada valor de $x$ donde el denominador se anula sin cancelarse con el numerador.\n\nEn $f(x)=\\frac{1}{x-1}$, el denominador $x-1$ tiene una única raíz real, $x=1$, así que hay exactamente una asíntota vertical.\n\nPara contar bien, hay que factorizar el denominador y descartar las raíces que también anulen el numerador, esas producen un agujero en vez de una asíntota.",
     "reviewed": false,
     "tags": [
       "imagen-rango"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **agujero** (hole) es una discontinuidad evitable: se produce cuando un mismo factor aparece tanto en el numerador como en el denominador y se cancela algebraicamente. Por ejemplo, en $\\frac{(x-2)(x+1)}{x-2}$, el factor $(x-2)$ se cancela y la expresión se simplifica a $x+1$,.\n\nSigue sin estar definida en $x=2$ porque ahí el denominador original se anulaba.\n\nEl límite de la función en ese punto sí existe, a diferencia de lo que ocurre en una asíntota vertical.",
+    "explanation": "Un **agujero** (hole) es una discontinuidad evitable: se produce cuando un mismo factor aparece tanto en el numerador como en el denominador y se cancela algebraicamente.\n\nPor ejemplo, en $\\frac{(x-2)(x+1)}{x-2}$, el factor $(x-2)$ se cancela y la expresión se simplifica a $x+1$,.\n\nSigue sin estar definida en $x=2$ porque ahí el denominador original se anulaba.\n\nEl límite de la función en ese punto sí existe, a diferencia de lo que ocurre en una asíntota vertical.",
     "reviewed": false,
     "tags": [
       "asintota-oblicua"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x\\to\\pm\\infty$, así que la curva puede cruzarla perfectamente para valores finitos de $x$. Por ejemplo, $f(x)=\\frac{x}{x^2+1}$ tiene asíntota horizontal en $y=0$.\n\nPasa exactamente por $y=0$ en $x=0$.\n\nLa asíntota vertical es distinta: ahí la función nunca está definida, así que jamás puede cruzarla.",
+    "explanation": "La **asíntota horizontal** solo describe el comportamiento de la **función racional** cuando $x\\to\\pm\\infty$, así que la curva puede cruzarla perfectamente para valores finitos de $x$.\n\nPor ejemplo, $f(x)=\\frac{x}{x^2+1}$ tiene asíntota horizontal en $y=0$.\n\nPasa exactamente por $y=0$ en $x=0$.\n\nLa asíntota vertical es distinta: ahí la función nunca está definida, así que jamás puede cruzarla.",
     "reviewed": false,
     "tags": [
       "extremos-monotonia"
@@ -883,7 +883,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal. Para $f(x)=\\frac{x^2+1}{x}$, dividiendo se obtiene $f(x)=x+\\frac{1}{x}$. Cuando $x\\to\\pm\\infty$, el resto $\\frac{1}{x}\\to0$.\n\nLa función se acerca cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
+    "explanation": "Cuando el grado del numerador es exactamente uno más que el del denominador, aparece una **asíntota oblicua** en vez de horizontal.\n\nPara $f(x)=\\frac{x^2+1}{x}$, dividiendo se obtiene $f(x)=x+\\frac{1}{x}$. Cuando $x\\to\\pm\\infty$, el resto $\\frac{1}{x}\\to0$.\n\nLa función se acerca cada vez más a la recta $y=x$.\n\nEsa recta, obtenida del cociente de la división, es la asíntota oblicua.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los polinomios son continuos en todo $\\mathbb{R}$, y el cociente de dos funciones continuas sigue siendo continuo en todos los puntos donde el denominador no se anula. Por eso toda **función racional** es **continua** en todo su **dominio**: no puede haber saltos dentro de él.\n\nLa discontinuidad solo aparece justo en los puntos excluidos (donde el denominador se anula), nunca dentro del dominio mismo.",
+    "explanation": "Los polinomios son continuos en todo $\\mathbb{R}$, y el cociente de dos funciones continuas sigue siendo continuo en todos los puntos donde el denominador no se anula.\n\nPor eso toda **función racional** es **continua** en todo su **dominio**: no puede haber saltos dentro de él.\n\nLa discontinuidad solo aparece justo en los puntos excluidos (donde el denominador se anula), nunca dentro del dominio mismo.",
     "reviewed": false,
     "tags": [
       "dominio-restriccion"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El comportamiento asintótico de una racional cuando $x\\to+\\infty$ depende del signo del cociente de los coeficientes principales de numerador y denominador. Si ese cociente es positivo, las ramas de la función se acercan a valores positivos; si es negativo, a valores negativos.\n\nEste signo no afecta la posición de la asíntota vertical (que depende de las raíces del denominador) ni determina por sí solo si existe asíntota horizontal.",
+    "explanation": "El comportamiento asintótico de una racional cuando $x\\to+\\infty$ depende del signo del cociente de los coeficientes principales de numerador y denominador.\n\nSi ese cociente es positivo, las ramas de la función se acercan a valores positivos; si es negativo, a valores negativos.\n\nEste signo no afecta la posición de la asíntota vertical (que depende de las raíces del denominador) ni determina por sí solo si existe asíntota horizontal.",
     "reviewed": false,
     "tags": [
       "reconocimiento-funcion-racional"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ... **asíntotas verticales** (no siempre exactamente una). La **imagen** no siempre es $\\mathbb{R}$ (por ejemplo $\\frac{1}{x^2+1}$ tiene imagen $(0,1]$). Sí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
+    "explanation": "Afirmaciones falsas: pueden tener 0, 1, 2, ...\n\n**asíntotas verticales** (no siempre exactamente una). La **imagen** no siempre es $\\mathbb{R}$ (por ejemplo $\\frac{1}{x^2+1}$ tiene imagen $(0,1]$). Sí pueden cruzar el eje $X$ cuando el numerador tiene raíces.\n\nLo verdadero es que son **continuas en su dominio**.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"

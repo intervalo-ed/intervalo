@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$. Despejando $B$ a partir de $T=\\pi/3$:$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{\\pi/3} \\\\\n&= 2\\pi \\cdot \\frac{3}{\\pi} \\\\\n&= 6:\n\\end{aligned}$$La opción $3$ es el inverso del período (no es $B$).\n\nLas opciones $1/6$ y $1/3$ son demasiado pequeñas.\n\nUn período corto $\\pi/3$ exige un $B$ grande ($6$): la onda completa 6 ciclos en $2\\pi$.",
+    "explanation": "El **período** de $f(x)=\\operatorname{sen}(Bx)$ es $T=2\\pi/B$.\n\nDespejando $B$ a partir de $T=\\pi/3$:$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} \\\\\n&= \\frac{2\\pi}{\\pi/3} \\\\\n&= 2\\pi \\cdot \\frac{3}{\\pi} \\\\\n&= 6:\n\\end{aligned}$$La opción $3$ es el inverso del período (no es $B$).\n\nLas opciones $1/6$ y $1/3$ son demasiado pequeñas.\n\nUn período corto $\\pi/3$ exige un $B$ grande ($6$): la onda completa 6 ciclos en $2\\pi$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"

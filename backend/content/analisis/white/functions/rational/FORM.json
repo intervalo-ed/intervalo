@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio. Acá:$$f(0)=\\frac{3(0)+6}{0-4}=\\frac{6}{-4}=-\\frac{3}{2}$$El denominador $0-4=-4$ no se anula, así que $x=0$ sí pertenece al dominio y el intercepto existe.\n\nOlvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:$$f(0)=\\frac{3(0)+6}{0-4}=\\frac{6}{-4}=-\\frac{3}{2}$$El denominador $0-4=-4$ no se anula, así que $x=0$ sí pertenece al dominio y el intercepto existe.\n\nOlvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio. Acá:$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$El denominador $0+1=1$ no se anula, así que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$.\n\nOlvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
+    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$El denominador $0+1=1$ no se anula, así que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$.\n\nOlvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
     "reviewed": false,
     "tags": [
       "formula-desde-propiedades"

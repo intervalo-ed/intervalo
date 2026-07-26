@@ -1013,7 +1013,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**. Si $m > 0$, para cualquier par de puntos con $x_2 > x_1$:\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\nPorque ambos factores son positivos. Entonces $f(x_2) > f(x_1)$: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
+    "explanation": "La monotonía de una lineal sale directamente del signo de la **pendiente**.\n\nSi $m > 0$, para cualquier par de puntos con $x_2 > x_1$:\n$$f(x_2) - f(x_1) = m(x_2 - x_1) > 0$$\nPorque ambos factores son positivos. Entonces $f(x_2) > f(x_1)$: la función crece en todo $\\mathbb{R}$.\n\nLa **ordenada al origen** no participa en la resta: $b$ se cancela, y por eso desplazar la recta no afecta su dirección.\n\nSepará los roles: $m$ gobierna la dirección y la inclinación; $b$, solo la altura.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -1107,7 +1107,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Por un único punto pasan infinitas rectas: una por cada valor posible de la **pendiente**. Fijado $m$, el parámetro $b$ queda determinado por:\n$$y_0 = mx_0 + b \\implies b = y_0 - mx_0$$\nAsí que cada elección de $m$ produce una recta distinta que atraviesa el punto.\n\nUn punto impone una sola condición y la recta tiene dos parámetros ($m$ y $b$): queda un grado de libertad.\n\nPara determinar una recta única hacen falta dos datos independientes: dos puntos, o un punto y la pendiente.",
+    "explanation": "Por un único punto pasan infinitas rectas: una por cada valor posible de la **pendiente**.\n\nFijado $m$, el parámetro $b$ queda determinado por:\n$$y_0 = mx_0 + b \\implies b = y_0 - mx_0$$\nAsí que cada elección de $m$ produce una recta distinta que atraviesa el punto.\n\nUn punto impone una sola condición y la recta tiene dos parámetros ($m$ y $b$): queda un grado de libertad.\n\nPara determinar una recta única hacen falta dos datos independientes: dos puntos, o un punto y la pendiente.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1130,7 +1130,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dados dos puntos distintos $(x_1, y_1)$ y $(x_2, y_2)$ con $x_1 \\neq x_2$, existe una única función lineal que pasa por ambos. La **pendiente** queda forzada por:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nY la **ordenada al origen** se despeja sustituyendo cualquiera de los dos puntos.\n\nDos condiciones para dos parámetros: el sistema queda cerrado y la solución es única.\n\nEs el principio de que dos puntos determinan una recta: con un solo punto el problema queda abierto, y un tercer punto puede volverlo imposible.",
+    "explanation": "Dados dos puntos distintos $(x_1, y_1)$ y $(x_2, y_2)$ con $x_1 \\neq x_2$, existe una única función lineal que pasa por ambos.\n\nLa **pendiente** queda forzada por:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nY la **ordenada al origen** se despeja sustituyendo cualquiera de los dos puntos.\n\nDos condiciones para dos parámetros: el sistema queda cerrado y la solución es única.\n\nEs el principio de que dos puntos determinan una recta: con un solo punto el problema queda abierto, y un tercer punto puede volverlo imposible.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"

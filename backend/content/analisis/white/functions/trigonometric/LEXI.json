@@ -233,7 +233,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: es una función **par**. Su gráfica es simétrica respecto al eje $Y$: la mitad izquierda es el espejo de la derecha. El seno, en cambio, es **impar**: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\n\nEn el gráfico podés verificarlo: los valores en $x<0$ replican exactamente los de $x>0$.",
+    "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: es una función **par**.\n\nSu gráfica es simétrica respecto al eje $Y$: la mitad izquierda es el espejo de la derecha. El seno, en cambio, es **impar**: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\n\nEn el gráfico podés verificarlo: los valores en $x<0$ replican exactamente los de $x>0$.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$Tanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$.\n\nLa $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$, el **mínimo** se alcanza cuando $\\cos(x)=-1$.\n\nen ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$Tanto si $A>0$ como si $A<0$, siempre se resta $|A|$ del **desplazamiento** $D$. La opción $-1$ es solo $D$.\n\nLa $-2$ es $-|A|$ sin el desplazamiento. El mínimo real es $-3$.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"

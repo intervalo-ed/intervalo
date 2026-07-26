@@ -23,7 +23,7 @@
       -1,
       8
     ],
-    "explanation": "Para leer un **límite lateral** en una gráfica, hay que identificar primero cuál rama está activa en la dirección pedida y seguirla visualmente hasta el punto de tendencia.\n\nEn este caso, para $x<1$ la función sigue la rama $f(x)=x+1$. Al acercarse a $x=1$ desde la izquierda:\n$$\\lim_{x \\to 1^-} f(x) = 1 + 1 = 2$$\nConviene no mezclar esta lectura con la rama derecha, que en $x=1$ llega a una altura distinta: ese es el salto que separa ambas ramas.",
+    "explanation": "Para leer un **límite lateral** en una gráfica, hay que identificar primero cuál rama está activa en la dirección pedida y seguirla visualmente hasta el punto de tendencia.\n\nEn este caso, para $x<1$ la función sigue la rama $f(x)=x+1$.\n\nAl acercarse a $x=1$ desde la izquierda:\n$$\\lim_{x \\to 1^-} f(x) = 1 + 1 = 2$$\nConviene no mezclar esta lectura con la rama derecha, que en $x=1$ llega a una altura distinta: ese es el salto que separa ambas ramas.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"
@@ -113,7 +113,7 @@
       -1,
       11
     ],
-    "explanation": "El punto cerrado marcado en la gráfica representa $f(3)$, el valor puntual de la función, mientras que el **límite lateral** se lee siguiendo la rama abierta hacia la que tiende la curva.\n$$\\lim_{x \\to 3^+} f(x) = 3 + 1 = 4$$\nAunque el punto cerrado esté marcado en $y=9$.\n\nEl punto cerrado y el límite lateral son dos lecturas distintas de la misma gráfica: uno es el valor real de la función, el otro es hacia dónde tiende.",
+    "explanation": "El punto cerrado marcado en la gráfica representa $f(3)$, el valor puntual de la función.\n\nQue el **límite lateral** se lee siguiendo la rama abierta hacia la que tiende la curva.\n$$\\lim_{x \\to 3^+} f(x) = 3 + 1 = 4$$\nAunque el punto cerrado esté marcado en $y=9$.\n\nEl punto cerrado y el límite lateral son dos lecturas distintas de la misma gráfica: uno es el valor real de la función, el otro es hacia dónde tiende.",
     "reviewed": false,
     "tags": [
       "lectura-lateral-pura"

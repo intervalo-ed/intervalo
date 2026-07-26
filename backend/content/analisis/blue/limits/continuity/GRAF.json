@@ -113,7 +113,7 @@
       -1,
       6
     ],
-    "explanation": "Un vértice como el de una V, típico del **valor absoluto**, es un pico pero no una ruptura: ambas ramas llegan al mismo punto y coinciden con el valor de la función ahí, así que es continuo.\n\nLa suavidad (o falta de ella) en una gráfica no determina la continuidad: lo que importa es si hay un \"agujero\", un \"salto\" o una \"explosión al infinito\" en la aproximación. Aunque las dos ramas formen un pico, el límite bilateral existe y coincide con $f(3)$.\n\nEl único punto donde la gráfica realmente falla es el hueco en $x=3$, donde el círculo abierto muestra que $f(3)$ no coincide con el límite.\n\nEste razonamiento muestra que clásico de lectura: la suavidad de la curva es un tema aparte, acá solo importa si hay hueco, salto o asíntota.",
+    "explanation": "Un vértice como el de una V, típico del **valor absoluto**, es un pico pero no una ruptura: ambas ramas llegan al mismo punto y coinciden con el valor de la función ahí, así que es continuo.\n\nLa suavidad (o falta de ella) en una gráfica no determina la continuidad: lo que importa es si hay un \"agujero\", un \"salto\" o una \"explosión al infinito\" en la aproximación.\n\nAunque las dos ramas formen un pico, el límite bilateral existe y coincide con $f(3)$.\n\nEl único punto donde la gráfica realmente falla es el hueco en $x=3$, donde el círculo abierto muestra que $f(3)$ no coincide con el límite.\n\nEste razonamiento muestra que clásico de lectura: la suavidad de la curva es un tema aparte, acá solo importa si hay hueco, salto o asíntota.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -345,7 +345,7 @@
       -6,
       6
     ],
-    "explanation": "Que ambas ramas disparen hacia el mismo infinito, en vez de uno hacia $+\\infty$ y otro hacia $-\\infty$, no cambia la clasificación: sigue habiendo una asíntota vertical.\n\nUna divergencia a infinito, aunque sea simétrica desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito. Cuando ambas ramas apuntan hacia infinito en la misma dirección, el efecto es todavía más claro visualmente, pero la conclusión es idéntica.\n\nEn $f(x) = \\dfrac{1}{(x-1)^2}$, cerca de $x=1$ ambos lados de la curva escapan hacia $+\\infty$.\n\nAlcanza con que un lateral diverja para clasificar la falla como esencial, sin importar si el otro lateral diverge en la misma dirección o en la opuesta.",
+    "explanation": "Que ambas ramas disparen hacia el mismo infinito, en vez de uno hacia $+\\infty$ y otro hacia $-\\infty$, no cambia la clasificación: sigue habiendo una asíntota vertical.\n\nUna divergencia a infinito, aunque sea simétrica desde ambos lados, sigue siendo una divergencia: el límite no existe como número finito.\n\nCuando ambas ramas apuntan hacia infinito en la misma dirección, el efecto es todavía más claro visualmente, pero la conclusión es idéntica.\n\nEn $f(x) = \\dfrac{1}{(x-1)^2}$, cerca de $x=1$ ambos lados de la curva escapan hacia $+\\infty$.\n\nAlcanza con que un lateral diverja para clasificar la falla como esencial, sin importar si el otro lateral diverge en la misma dirección o en la opuesta.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"
@@ -373,7 +373,7 @@
       -1,
       5
     ],
-    "explanation": "Un vértice como el de una V no es una **discontinuidad**: es un pico, y la suavidad de la curva no forma parte de las tres condiciones de continuidad.\n\nLa continuidad se define por tres criterios muy específicos: que la función esté definida, que el límite exista, y que ambos coincidan. Un pico satisface todas estas condiciones: ambas ramas se aproximan al mismo valor, y la función está definida ahí exactamente en ese valor.\n\nLas dos ramas que forman la V llegan exactamente al mismo valor en $x=-2$, y ese valor coincide con $f(-2)$, así que las tres condiciones se cumplen.\n\nConfundir un pico con una ruptura es uno de los errores más comunes al leer gráficas: acá no hay ni hueco, ni salto, ni asíntota, solo un cambio de pendiente.",
+    "explanation": "Un vértice como el de una V no es una **discontinuidad**: es un pico, y la suavidad de la curva no forma parte de las tres condiciones de continuidad.\n\nLa continuidad se define por tres criterios muy específicos: que la función esté definida, que el límite exista, y que ambos coincidan.\n\nUn pico satisface todas estas condiciones: ambas ramas se aproximan al mismo valor, y la función está definida ahí exactamente en ese valor.\n\nLas dos ramas que forman la V llegan exactamente al mismo valor en $x=-2$, y ese valor coincide con $f(-2)$, así que las tres condiciones se cumplen.\n\nConfundir un pico con una ruptura es uno de los errores más comunes al leer gráficas: acá no hay ni hueco, ni salto, ni asíntota, solo un cambio de pendiente.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"
@@ -429,7 +429,7 @@
       -1,
       8
     ],
-    "explanation": "Que ambas ramas disparen hacia $+\\infty$ desde ambos lados confirma la presencia de una asíntota vertical.\n\nUna asíntota vertical es un punto donde la función diverge: conforme $x$ se acerca a ese valor, $f(x)$ crece sin control en magnitud, sin acercarse a ningún número finito. La divergencia a infinito ocurre cuando hay una división por cero u otra singularidad que rompe el dominio.\n\nEn $f(x) = \\dfrac{1}{(x-1)^2}$, cerca de $x=1$ ambos lados de la curva escapan hacia $+\\infty$.\n\nEs la categoría más grave: ningún valor de $f(1)$ podría arreglar un comportamiento que ya diverge en ambos lados.",
+    "explanation": "Que ambas ramas disparen hacia $+\\infty$ desde ambos lados confirma la presencia de una asíntota vertical.\n\nUna asíntota vertical es un punto donde la función diverge: conforme $x$ se acerca a ese valor, $f(x)$ crece sin control en magnitud, sin acercarse a ningún número finito.\n\nLa divergencia a infinito ocurre cuando hay una división por cero u otra singularidad que rompe el dominio.\n\nEn $f(x) = \\dfrac{1}{(x-1)^2}$, cerca de $x=1$ ambos lados de la curva escapan hacia $+\\infty$.\n\nEs la categoría más grave: ningún valor de $f(1)$ podría arreglar un comportamiento que ya diverge en ambos lados.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"

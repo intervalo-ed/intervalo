@@ -323,7 +323,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Una **raíz** es donde $f(x) = 0$, es decir, donde la curva cruza el eje horizontal. La exponencial es siempre positiva:\n$$b^x > 0 \\quad \\text{para todo } x \\in \\mathbb{R}$$\nLa curva **se acerca** al eje $x$ (su asíntota) pero nunca lo toca, sin importar cuán grande sea $|x|$.\n\nEste : confundir la asíntota con una raíz. Acercarse indefinidamente a una recta nunca es lo mismo que cruzarla, y por eso ninguna exponencial básica tiene raíces reales.",
+    "explanation": "Una **raíz** es donde $f(x) = 0$, es decir, donde la curva cruza el eje horizontal.\n\nLa exponencial es siempre positiva:\n$$b^x > 0 \\quad \\text{para todo } x \\in \\mathbb{R}$$\nLa curva **se acerca** al eje $x$ (su asíntota) pero nunca lo toca, sin importar cuán grande sea $|x|$.\n\nEste : confundir la asíntota con una raíz. Acercarse indefinidamente a una recta nunca es lo mismo que cruzarla, y por eso ninguna exponencial básica tiene raíces reales.",
     "reviewed": false,
     "tags": [
       "lectura-comportamiento-infinito"
@@ -383,7 +383,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "La curva sube de forma ininterrumpida desde $x = -\\infty$ hasta $x = +\\infty$, sin ningún tramo plano ni ningún retroceso.\n\nUna exponencial con $b > 1$ es **estrictamente creciente en todo $\\mathbb{R}$**: no hay intervalos de decrecimiento ni puntos donde cambie de dirección, a diferencia de funciones como la cuadrática que sí tienen un tramo creciente y otro decreciente separados por un vértice.\n\nConviene recordar esta propiedad como sello distintivo de la exponencial: monotonía única en todo el dominio, sin excepciones.",
+    "explanation": "La curva sube de forma ininterrumpida desde $x = -\\infty$ hasta $x = +\\infty$, sin ningún tramo plano ni ningún retroceso.\n\nUna exponencial con $b > 1$ es **estrictamente creciente en todo $\\mathbb{R}$**.\n\nno hay intervalos de decrecimiento ni puntos donde cambie de dirección, a diferencia de funciones como la cuadrática que sí tienen un tramo creciente y otro decreciente separados por un vértice.\n\nConviene recordar esta propiedad como sello distintivo de la exponencial: monotonía única en todo el dominio, sin excepciones.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen"
@@ -443,7 +443,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando) y se lee en el gráfico que $f(1) = 2$, entonces:\n$$f(1) = b^1 = b = 2$$\nLa base $b$ se puede leer directamente del punto $(1, f(1))$, porque cualquier número elevado a la potencia $1$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
+    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando) y se lee en el gráfico que $f(1) = 2$, entonces:\n$$f(1) = b^1 = b = 2$$\nLa base $b$ se puede leer directamente del punto $(1, f(1))$.\n\nCualquier número elevado a la potencia $1$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
     "reviewed": false,
     "tags": [
       "comparar-bases-grafico"
@@ -623,7 +623,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "**Datos usados:**\n$(0, 2)$ $y = 1$ $b^0 = 1$\n\nCon asíntota en $y = 1$, la forma de la función es $f(x) = b^x + 1$:\n$$f(0) = b^0 + 1 = 1 + 1 = 2$$\nIndependientemente de cuál sea la base $b$, el valor $f(0)$ siempre da $2$ cuando la asíntota está en $y = 1$, porque cualquier base elevada a la potencia $0$ da $1$.\n\nEste patrón es útil como atajo: el valor de $f(0)$ en una exponencial desplazada verticalmente es siempre uno más que la altura de la asíntota.",
+    "explanation": "**Datos usados:**\n$(0, 2)$ $y = 1$ $b^0 = 1$\n\nCon asíntota en $y = 1$, la forma de la función es $f(x) = b^x + 1$:\n$$f(0) = b^0 + 1 = 1 + 1 = 2$$\nIndependientemente de cuál sea la base $b$, el valor $f(0)$ siempre da $2$ cuando la asíntota está en $y = 1$.\n\nCualquier base elevada a la potencia $0$ da $1$.\n\nEste patrón es útil como atajo: el valor de $f(0)$ en una exponencial desplazada verticalmente es siempre uno más que la altura de la asíntota.",
     "reviewed": false,
     "tags": [
       "lectura-comportamiento-infinito"

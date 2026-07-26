@@ -113,7 +113,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: la mitad izquierda del gráfico es el **espejo** de la derecha respecto al eje $Y$. Esto lo define como función **par**. El seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\n\nEn el gráfico verificás la paridad mirando si los valores en $x<0$ replican los de $x>0$.",
+    "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: la mitad izquierda del gráfico es el **espejo** de la derecha respecto al eje $Y$.\n\nEsto lo define como función **par**. El seno es impar: $\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$, con simetría respecto al origen.\n\nEn el gráfico verificás la paridad mirando si los valores en $x<0$ replican los de $x>0$.",
     "reviewed": false,
     "tags": [
       "conteo-ceros"
@@ -383,7 +383,7 @@
       -2,
       2
     ],
-    "explanation": "El **dominio** de $f(x)=\\cos(x)$ es el conjunto de todos los $x$ para los que la función está definida. El coseno (y el seno) están definidos para **cualquier** número real.\n\nEn el gráfico se confirma: la curva se extiende sin interrupciones hacia la izquierda y la derecha, sin huecos, sin saltos, sin asíntotas. La opción $(0,+\\infty)$ sería el dominio de una logarítmica. La opción $[-\\pi,\\pi]$ sería una restricción arbitraria.\n\nLa opción $[-1,1]$ es la **imagen**, no el dominio.\n\nDominio $\\mathbb{R}$: el coseno no excluye a nadie. Todo ángulo es bienvenido.",
+    "explanation": "El **dominio** de $f(x)=\\cos(x)$ es el conjunto de todos los $x$ para los que la función está definida. El coseno (y el seno) están definidos para **cualquier** número real.\n\nEn el gráfico se confirma: la curva se extiende sin interrupciones hacia la izquierda y la derecha, sin huecos, sin saltos, sin asíntotas.\n\nLa opción $(0,+\\infty)$ sería el dominio de una logarítmica. La opción $[-\\pi,\\pi]$ sería una restricción arbitraria.\n\nLa opción $[-1,1]$ es la **imagen**, no el dominio.\n\nDominio $\\mathbb{R}$: el coseno no excluye a nadie. Todo ángulo es bienvenido.",
     "reviewed": false,
     "tags": [
       "conteo-periodos-completos"

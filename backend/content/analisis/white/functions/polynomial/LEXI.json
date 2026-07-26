@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un polinomio es una expresión formada solo por sumas de términos $a_k x^k$ donde cada exponente $k$ es un entero no negativo, sin que la variable aparezca en denominadores, dentro de **raíces**, en el exponente ni dentro de funciones especiales como el logaritmo.\n\nEn este ítem, $f(x) = 3x^4 - x^2 + 5$ cumple la condición: los exponentes $4$, $2$ y $0$ son todos enteros no negativos, así que es un polinomio de **grado** $4$.\n\nEn cambio, $\\dfrac{1}{x} + 3$ equivale a $x^{-1} + 3$ con exponente negativo, $2^x - 1$ tiene la variable en el exponente (es exponencial) y $\\ln(x+1)$ es logarítmica.\n\ndejarse guiar por la sola presencia de una potencia de $x$ sin fijarse en dónde aparece: una potencia negativa, una variable en el exponente o una $x$ dentro de un logaritmo sacan a la expresión de la familia polinómica aunque a primera vista se parezca a una.",
+    "explanation": "Un polinomio es una expresión formada solo por sumas de términos $a_k x^k$ donde cada exponente $k$ es un entero no negativo, sin que la variable aparezca en denominadores, dentro de **raíces**, en el exponente ni dentro de funciones especiales como el logaritmo.\n\nEn este ítem, $f(x) = 3x^4 - x^2 + 5$ cumple la condición: los exponentes $4$, $2$ y $0$ son todos enteros no negativos, así que es un polinomio de **grado** $4$.\n\nEn cambio, $\\dfrac{1}{x} + 3$ equivale a $x^{-1} + 3$ con exponente negativo, $2^x - 1$ tiene la variable en el exponente (es exponencial) y $\\ln(x+1)$ es logarítmica.\n\ndejarse guiar por la sola presencia de una potencia de $x$ sin fijarse en dónde aparece.\n\nuna potencia negativa, una variable en el exponente o una $x$ dentro de un logaritmo sacan a la expresión de la familia polinómica aunque a primera vista se parezca a una.",
     "reviewed": false,
     "tags": [
       "identificar-polinomio"
@@ -330,7 +330,7 @@
       "Ese patrón de extremos en sentidos opuestos es propio del grado impar; acá el grado es par, así que ambos extremos van en la misma dirección.",
       "Esa combinación mezcla un patrón de grado impar con la dirección invertida; con grado par los dos extremos coinciden en el mismo sentido."
     ],
-    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):\n$$x \\to \\pm\\infty \\Rightarrow p(x) \\to +\\infty$$\nAmbos **extremos** apuntan hacia arriba, como una parábola $x^2$. La forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).",
+    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):\n$$x \\to \\pm\\infty \\Rightarrow p(x) \\to +\\infty$$\nAmbos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -705,7 +705,7 @@
       "El vértice es un término asociado a la parábola de una cuadrática; los polinomios de grado mayor no tienen un único vértice.",
       null
     ],
-    "explanation": "Un **punto de inflexión** es un punto donde la curva cambia de concavidad, es decir, pasa de curvarse hacia arriba (cóncava) a curvarse hacia abajo (convexa), o viceversa.\n\nPor ejemplo, $f(x) = x^3$ tiene un punto de inflexión en el origen $(0,0)$: a la izquierda la curva es convexa y a la derecha es cóncava, aunque la función sea creciente en todo momento.\n\nConviene no confundir este concepto con un **extremo local**: en el extremo la función deja de crecer para empezar a decrecer (o viceversa), mientras que en la inflexión la función puede seguir creciendo o decreciendo sin pausa, solo cambia la forma de la curva.",
+    "explanation": "Un **punto de inflexión** es un punto donde la curva cambia de concavidad, es decir, pasa de curvarse hacia arriba (cóncava) a curvarse hacia abajo (convexa), o viceversa.\n\nPor ejemplo, $f(x) = x^3$ tiene un punto de inflexión en el origen $(0,0)$: a la izquierda la curva es convexa y a la derecha es cóncava, aunque la función sea creciente en todo momento.\n\nConviene no confundir este concepto con un **extremo local**.\n\nen el extremo la función deja de crecer para empezar a decrecer (o viceversa), mientras que en la inflexión la función puede seguir creciendo o decreciendo sin pausa, solo cambia la forma de la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

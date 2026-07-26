@@ -113,7 +113,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una racional se ubica siempre en los valores que anulan el denominador, siempre que el numerador no se anule ahí también. En este caso $x-2=0\\Rightarrow x=2$: en el gráfico se ve que la función explota verticalmente en ese punto.\n\nLeer el signo opuesto o confundir la raíz del denominador con un cero del numerador.",
+    "explanation": "La **asíntota vertical** de una racional se ubica siempre en los valores que anulan el denominador, siempre que el numerador no se anule ahí también.\n\nEn este caso $x-2=0\\Rightarrow x=2$: en el gráfico se ve que la función explota verticalmente en ese punto.\n\nLeer el signo opuesto o confundir la raíz del denominador con un cero del numerador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -383,7 +383,7 @@
       -5,
       5
     ],
-    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula. La curva tiene una línea vertical en $x=-1$, la AV, que corresponde a que el denominador $x+1$ se anula en $x=-1$.\n\nLeer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
+    "explanation": "La **asíntota vertical** de una función racional es la recta vertical a la que se acerca la curva sin tocarla nunca, ubicada donde el denominador se anula.\n\nLa curva tiene una línea vertical en $x=-1$, la AV, que corresponde a que el denominador $x+1$ se anula en $x=-1$.\n\nLeer la asíntota con el signo invertido directamente del gráfico sin verificarlo con la ecuación del denominador.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -1073,7 +1073,7 @@
       -4,
       6
     ],
-    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, conviene dividir para reescribir la fracción como una constante más un término que sí tiene la forma $k/(x-a)$, y así comparar más fácil con el gráfico. $\\frac{x}{x-2}$: AV en $x=2$ (denominador=0).\n\nCoeficientes principales iguales (1/1): AH en $y=1$. También: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.\n\nSimplificar así evita confundir fórmulas que parecen distintas pero describen la misma curva.",
+    "explanation": "Cuando numerador y denominador tienen el **mismo grado**, conviene dividir para reescribir la fracción como una constante más un término que sí tiene la forma $k/(x-a)$, y así comparar más fácil con el gráfico.\n\n$\\frac{x}{x-2}$: AV en $x=2$ (denominador=0).\n\nCoeficientes principales iguales (1/1): AH en $y=1$. También: $\\frac{x}{x-2}=1+\\frac{2}{x-2}$, que es $\\frac{1}{x-2}$ escalada y desplazada.\n\nSimplificar así evita confundir fórmulas que parecen distintas pero describen la misma curva.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-racional"
