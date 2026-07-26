@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$.\n\nde grado $3$.\n\nasí que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar: $5x$ es de grado $1$ y aporta el coeficiente $5$.\n\nmientras que $-1$ es el término independiente.\n\nde grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nLo que hay que fijarse: Si confundes el coeficiente principal con el término independiente y tomas el $-1$ en vez del $-2$, vas a describir mal el comportamiento de la curva en los extremos.",
+    "explanation": "El **coeficiente principal** $a_n$ es el número que multiplica al término de mayor grado del polinomio.\n\nEn $p(x) = -2x^3 + 5x - 1$ el término de mayor grado es $-2x^3$.\n\nde grado $3$.\n\nasí que el coeficiente principal es $-2$.\n\nLos otros términos no compiten por ese lugar: $5x$ es de grado $1$ \n\ny aporta el coeficiente $5$.\n\nmientras que $-1$ es el término independiente.\n\nde grado $0$.\n\nComo el coeficiente principal es negativo y el grado es impar, la curva sube a la izquierda y baja a la derecha.\n\nLo que hay que fijarse: Si confundes el coeficiente principal con el término independiente y tomas el $-1$ en vez del $-2$, vas a describir mal el comportamiento de la curva en los extremos.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -128,7 +128,7 @@
       -2,
       8
     ],
-    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1.\n\nExtremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$) y $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ y $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
+    "explanation": "Se usan dos criterios para identificar la fórmula:\n\n**1.\n\nExtremos de la curva:** ambos apuntan hacia $+\\infty$ → grado par con coeficiente principal positivo.\n\nDescarta $-x^4 + 5x^2 - 4$ (extremos hacia $-\\infty$).\n\ny $x^3 - 5x$ (extremos opuestos).\n\n**2.\n\nRaíces:** $x^4 - 5x^2 + 4 = (x^2-1)(x^2-4) = 0$ da raíces en $x = \\pm 1$ \n\ny $x = \\pm 2$.\n\nLa opción $x^4 + 5x^2 + 4 = (x^2+1)(x^2+4)$ no tiene raíces reales.\n\nLa fórmula correcta es $f(x) = x^4 - 5x^2 + 4$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -280,7 +280,7 @@
       "El $1$ acompaña al término lineal $x$, de grado $1$, no al término de grado $3$.",
       "El $-8$ es el término independiente, de grado $0$, no el coeficiente del término de grado $3$."
     ],
-    "explanation": "En la forma estándar $a_n x^n + \\cdots$, el coeficiente de un término es el número que lo multiplica directamente, incluyendo su signo.\n\nEn $p(x) = 3x^4 - 2x^3 + x - 8$ el término de grado $3$ es $-2x^3$.\n\nasí que su coeficiente es $-2$.\n\nLos demás términos no compiten por ese lugar.\n\nel de grado $4$ tiene coeficiente $3$.\n\nel de grado $1$ tiene coeficiente $1$ y el término independiente es $-8$.\n\nEl signo negativo forma parte del coeficiente: es $-2$, no $2$.\n\nSeparar el signo del número y quedarse solo con el valor absoluto más común al leer coeficientes en la forma estándar.",
+    "explanation": "En la forma estándar $a_n x^n + \\cdots$, el coeficiente de un término es el número que lo multiplica directamente, incluyendo su signo.\n\nEn $p(x) = 3x^4 - 2x^3 + x - 8$ el término de grado $3$ \n\nes $-2x^3$.\n\nasí que su coeficiente es $-2$.\n\nLos demás términos no compiten por ese lugar.\n\nel de grado $4$ tiene coeficiente $3$.\n\nel de grado $1$ tiene coeficiente $1$ \n\ny el término independiente es $-8$.\n\nEl signo negativo forma parte del coeficiente: es $-2$, no $2$.\n\nSeparar el signo del número y quedarse solo con el valor absoluto más común al leer coeficientes en la forma estándar.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -605,7 +605,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(x-5)$, no una suma.",
       "El cuadrado de $5$ siempre da positivo, $25$, sin importar que $b$ tenga signo negativo dentro del binomio."
     ],
-    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
+    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -680,7 +680,7 @@
       null,
       "Esos factores no corresponden a ningún cuadrado reconocible de $x^2-16$."
     ],
-    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$) y $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números más común acá.",
+    "explanation": "La **diferencia de cuadrados** sigue el patrón $a^2-b^2=(a+b)(a-b)$, dos factores que solo difieren en el signo del segundo término.\n\nReconociendo $a^2=x^2$ (con $a=x$).\n\ny $b^2=16=4^2$ (con $b=4$):\n\nLa verificación confirma el resultado, $(x+4)(x-4) = x^2-4x+4x-16 = x^2-16$, ya que los términos lineales se cancelan entre sí.\n\nLa opción $(x-4)^2=x^2-8x+16$ corresponde en cambio al cuadrado del binomio, que sí tiene término lineal, confundir ambas identidades porque comparten los mismos números más común acá.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -730,7 +730,7 @@
       null,
       "El signo del término central en $(x-3)^2$ es negativo, $-6x$, pero la expresión a factorizar tiene $+6x$."
     ],
-    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$\n\n$a^2=x^2$ da $a=x$ y $b^2=9$ da $b=3$.\n\ny el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:\n \nLa opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados.\n\nsin término lineal.\n\nconfundir una expresión con término lineal con una diferencia de cuadrados más frecuente al identificar esta identidad.",
+    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn $x^2+6x+9$\n\n$a^2=x^2$ da $a=x$ \n\ny $b^2=9$ da $b=3$.\n\ny el término central $2ab=2(x)(3)=6x$ coincide exactamente con el que aparece en la expresión:\n \nLa opción $(x+3)(x-3)=x^2-9$ corresponde en cambio a la diferencia de cuadrados.\n\nsin término lineal.\n\nconfundir una expresión con término lineal con una diferencia de cuadrados más frecuente al identificar esta identidad.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1125,7 +1125,7 @@
       null,
       "El $1$ no corresponde a ningún cálculo directo de $f(0)$ para esta función."
     ],
-    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la función.",
+    "explanation": "Para evaluar una función en forma factorizada en un punto, se sustituye ese valor en cada factor y se multiplica.\n\nEvaluando $x=0$ en $f(x) = x(x-2)(x+1)/2$:\n\nComo $x=0$ es una de las raíces de $f$.\n\nel factor $x$ se anula sin importar los demás factores.\n\nasí que $f(0)=0$ siempre.\n\nEn el gráfico esto se ve como que la curva pasa exactamente por el origen $(0,0)$, un dato que se puede leer directamente sin calcular nada si se identifica primero cuáles son las raíces de la.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+1)/2",
     "graph_view": [
@@ -1255,7 +1255,7 @@
       "El $3$ es el coeficiente de $(x+3)$, no el coeficiente de $x^2$ en el producto expandido.",
       "Ese valor sale de un error de signo al combinar los dos términos de grado $2$ del producto."
     ],
-    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$.\n\nDespués, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado.\n\n$3x^2$ del primer término por $x$ y $-2x^2$ del segundo término por $3$.\n\nque juntos dan $1 \\cdot x^2$.\n\nOlvidar sumar todos los aportes a un mismo grado, quedándose solo con uno de los dos términos, más frecuente al expandir un producto de tres factores.",
+    "explanation": "Cuando hay que expandir un producto de más de dos factores conviene hacerlo en dos pasos, primero el binomio cuadrado y después la multiplicación restante.\n\nPrimero, $(x-1)^2 = x^2-2x+1$.\n\nDespués, multiplicando por el tercer factor:\n\nEl coeficiente de $x^2$ sale de sumar los dos aportes de ese grado.\n\n$3x^2$ del primer término por $x$ \n\ny $-2x^2$ del segundo término por $3$.\n\nque juntos dan $1 \\cdot x^2$.\n\nOlvidar sumar todos los aportes a un mismo grado, quedándose solo con uno de los dos términos, más frecuente al expandir un producto de tres factores.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

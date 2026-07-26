@@ -113,7 +113,7 @@
       -1,
       11
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto exacto de la curva que está justo arriba (o abajo) de esa marca en el eje.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
+    "explanation": "Leer la altura de una parábola en un instante puntual significa evaluar la función en ese valor de la coordenada horizontal, buscando el punto de la curva que está justo arriba (o abajo) de esa.\n\nAcá se pide la altura a los 2 segundos, así que hay que reemplazar $x$ por 2 en la fórmula del vértice:\n\nLa pelota está a 6 metros en ese instante.\n\nEsa altura todavía no es la máxima, la pelota sigue subiendo camino al vértice; conviene no confundir un punto cualquiera del recorrido con el punto más alto.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -413,7 +413,7 @@
       -1,
       13
     ],
-    "explanation": "El punto más alto de cualquier trayectoria en forma de parábola es su **vértice**, y la coordenada horizontal de ese punto indica en qué momento se alcanza esa altura máxima, sin importar cuál sea el valor de la altura en sí.\n\nAcá el vértice está en $x = 6$, así que el instante del punto más alto es:\n\nEl fuego artificial explota a los 6 segundos de encendida la mecha.\n\nConviene no mezclar esta coordenada horizontal con la altura del vértice: una responde cuándo ocurre el máximo, la otra responde cuánto mide.",
+    "explanation": "El punto más alto de cualquier trayectoria en forma de parábola es su **vértice**, y la coordenada horizontal de ese punto indica en qué momento se alcanza esa altura máxima, sin importar cuál sea el.\n\nAcá el vértice está en $x = 6$, así que el instante del punto más alto es:\n\nEl fuego artificial explota a los 6 segundos de encendida la mecha.\n\nConviene no mezclar esta coordenada horizontal con la altura del vértice: una responde cuándo ocurre el máximo, la otra responde cuánto mide.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -473,7 +473,7 @@
       -1,
       11
     ],
-    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo su recorrido, y su coordenada horizontal indica exactamente en qué instante se produce ese máximo, sin importar cuánto valga la altura en ese momento.\n\nAcá esa coordenada es:\n\nAsí que el dardo llega a su punto más alto a los 6 segundos de haber sido lanzado.\n\nUn punto cercano al vértice, un segundo antes o después, todavía no es el vértice: solo la coordenada exacta marca el instante del máximo.",
+    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo su recorrido, y su coordenada horizontal indica exactamente en qué instante se produce ese máximo, sin importar cuánto.\n\nAcá esa coordenada es:\n\nAsí que el dardo llega a su punto más alto a los 6 segundos de haber sido lanzado.\n\nUn punto cercano al vértice, un segundo antes o después, todavía no es el vértice: solo la coordenada exacta marca el instante del máximo.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -503,7 +503,7 @@
       -1,
       11
     ],
-    "explanation": "Una pelota que sale despedida hacia arriba y vuelve a caer describe una parábola, y el instante en que toca el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la pelota toca el suelo a los 8 segundos de haber salido despedida.\n\nConviene no confundir esta raíz con el instante del vértice: el vértice marca el momento del punto más alto, mientras que la raíz marca el final del recorrido, cuando la altura vuelve a cero.",
+    "explanation": "Una pelota que sale despedida hacia arriba y vuelve a caer describe una parábola, y el instante en que toca el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la pelota toca el suelo a los 8 segundos de haber salido despedida.\n\nConviene no confundir esta raíz con el instante del vértice: el vértice marca el momento del punto más alto, mientras que la raíz marca el final del recorrido, cuando la altura vuelve a cero.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -563,7 +563,7 @@
       -1,
       13
     ],
-    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca en el eje.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima:\n\nel vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
+    "explanation": "Leer la altura de una parábola en un instante puntual es evaluar la función en ese valor de la coordenada horizontal, es decir, encontrar el punto de la curva que está exactamente arriba de esa marca.\n\nAcá se pide la altura a los 4 segundos, así que hay que reemplazar $x$ por 4 en la fórmula:\n\nEl salmón está a 8 metros de altura en ese instante.\n\nEsa altura todavía no es la máxima:\n\nel vértice está más adelante, a los 6 segundos, con una altura mayor, así que conviene no confundir un punto cualquiera del recorrido con el punto más alto de todos.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -803,7 +803,7 @@
       -1,
       11
     ],
-    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro más frecuente al leer este tipo de gráfico.",
+    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro más frecuente al leer este tipo de gráfico.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -983,7 +983,7 @@
       -1,
       11
     ],
-    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo el arco, y su coordenada horizontal indica a qué distancia del origen se produce ese máximo, sin importar cuánto valga la altura en ese punto.\n\nAcá esa coordenada es:\n\nAsí que el chorro llega a su punto más alto a los 5 metros de la manguera.\n\nUn punto cercano al vértice, un metro antes o después, todavía no es el vértice: solo esa coordenada exacta marca la distancia del máximo.",
+    "explanation": "El **vértice** de una parábola que abre hacia abajo es el punto más alto de todo el arco, y su coordenada horizontal indica a qué distancia del origen se produce ese máximo, sin importar cuánto valga.\n\nAcá esa coordenada es:\n\nAsí que el chorro llega a su punto más alto a los 5 metros de la manguera.\n\nUn punto cercano al vértice, un metro antes o después, todavía no es el vértice: solo esa coordenada exacta marca la distancia del máximo.",
     "reviewed": false,
     "tags": [
       "sube-baja"
@@ -1043,7 +1043,7 @@
       -1,
       11
     ],
-    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo, con un **máximo** en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal,:\n\n(6 decenas = 60 km/h) Ni a paso de tortuga ni a los pingos, el punto justo está en el medio.\n\nEl vértice de una parábola hacia abajo siempre es el punto que maximiza la función.\n\nEn problemas de optimización como este, el vértice es tu destino natural de búsqueda.\n\nNotá cómo la simetría de la parábola garantiza que el máximo cae exactamente en el eje de simetría $x = -b/(2a)$, sin necesidad de derivadas ni cálculos complicados.",
+    "explanation": "El rendimiento según la velocidad dibuja una parábola hacia abajo con máximo en el vértice.\n\nLa velocidad de mayor rendimiento es su coordenada horizontal: 6 decenas = 60 km/h, el punto justo en el medio.\n\nEl vértice de una parábola hacia abajo maximiza la función; en optimización es tu destino natural. La simetría garantiza que el máximo cae en $x = -b/(2a)$, sin derivadas.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1073,7 +1073,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación suele dibujar una parábola que abre hacia abajo, con un **máximo** en su vértice: ningún otro precio da un resultado mejor que ese.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
+    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación dibuja una parábola que abre hacia abajo, con un **máximo**.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -1193,7 +1193,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una cantidad producida depende de una velocidad y existe un punto óptimo, como pasa con las páginas buenas de una impresora, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en su vértice.\n\nAcá el tope de páginas buenas por minuto es la coordenada vertical del vértice,:\n\nOcho páginas por minuto, a la velocidad marcada por la coordenada horizontal.\n\nImprimir más lento de lo necesario desaprovecha la máquina, y apurarla de más traba el papel; el mejor resultado siempre queda en un punto intermedio, nunca en los extremos.",
+    "explanation": "Cuando una cantidad producida depende de una velocidad y existe un punto óptimo, como pasa con las páginas buenas de una impresora, esa relación dibuja una parábola que abre hacia abajo, con un.\n\nAcá el tope de páginas buenas por minuto es la coordenada vertical del vértice,:\n\nOcho páginas por minuto, a la velocidad marcada por la coordenada horizontal.\n\nImprimir más lento de lo necesario desaprovecha la máquina, y apurarla de más traba el papel; el mejor resultado siempre queda en un punto intermedio, nunca en los extremos.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -1313,7 +1313,7 @@
       -1,
       11
     ],
-    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como piso o como techo.\n\nCuando abre hacia arriba, el vértice queda por debajo de todo el resto de la curva y es un mínimo; cuando abre hacia abajo, queda por encima de todo lo demás y es un máximo.\n\nEn este gráfico la parábola abre hacia arriba, así que el vértice es el punto más bajo de todo el recorrido, el fondo de la rampa en forma de U por donde pasa el skater antes de volver a subir del otro lado.\n\nEl sentido de apertura y el tipo de extremo van siempre juntos: una parábola que abre hacia arriba nunca tiene un máximo, y una que abre hacia abajo nunca tiene un mínimo.",
+    "explanation": "La **concavidad** de una parábola indica para qué lado abre la curva, y de eso depende si el vértice funciona como piso o como techo.\n\nCuando abre hacia arriba, el vértice queda por debajo de todo el resto de la curva y es un mínimo; cuando abre hacia abajo, queda por encima de todo lo demás y es un máximo.\n\nEn este gráfico la parábola abre hacia arriba, así que el vértice es el punto más bajo de todo el recorrido, el fondo de la rampa en forma de U por donde pasa el skater antes de volver a subir del.\n\nEl sentido de apertura y el tipo de extremo van siempre juntos: una parábola que abre hacia arriba nunca tiene un máximo, y una que abre hacia abajo nunca tiene un mínimo.",
     "reviewed": false,
     "tags": [
       "vertice-y"
@@ -1343,7 +1343,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una magnitud baja durante un tiempo y después se recupera, como el nivel de un río en sequía, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro mes registra un nivel más bajo que ese.\n\nAcá el mes de menor nivel es la coordenada horizontal del vértice,:\n\nEl río toca fondo en el sexto mes.\n\nAntes de ese mes el nivel todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto donde el descenso se detiene y arranca la subida.",
+    "explanation": "Cuando una magnitud baja durante un tiempo y después se recupera, como el nivel de un río en sequía, esa relación con el tiempo dibuja una parábola que abre hacia arriba, con un **mínimo** en el.\n\nAcá el mes de menor nivel es la coordenada horizontal del vértice,:\n\nEl río toca fondo en el sexto mes.\n\nAntes de ese mes el nivel todavía viene bajando, y después empieza a recuperarse poco a poco; el vértice es el único punto donde el descenso se detiene y arranca la subida.",
     "reviewed": false,
     "tags": [
       "lectura-fv"

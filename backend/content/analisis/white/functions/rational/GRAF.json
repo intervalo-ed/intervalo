@@ -23,7 +23,7 @@
       -5,
       5
     ],
-    "explanation": "En una función racional.\n\nla **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador).\n\ny la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$.\n$f(x)=\\frac{1}{x}$ tiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom).\n\nSon 2 asíntotas en total: ambos ejes coordenados actúan como asíntota. contar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
+    "explanation": "En una función racional.\n\nla **asíntota vertical** aparece en los valores que anulan el denominador (sin anular el numerador).\n\ny la **asíntota horizontal** describe el comportamiento de la curva cuando $x\\to\\pm\\infty$.\n$f(x)=\\frac{1}{x}$ \n\ntiene AV en $x=0$ (denominador=0) y AH en $y=0$ (grado num < denom).\n\nSon 2 asíntotas en total: ambos ejes coordenados actúan como asíntota. contar solo una de las dos y olvidar la otra: conviene repasar por separado el denominador y el límite en el infinito.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico"
@@ -53,7 +53,7 @@
       -5,
       5
     ],
-    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces $f>0$ (1.° cuadrante); si $x<0$ entonces $f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nConviene no confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
+    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces $f>0$ (1.° cuadrante);.\n\nsi $x<0$ entonces $f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nConviene no confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico"
@@ -263,7 +263,7 @@
       -5,
       5
     ],
-    "explanation": "Una función racional puede tener a la vez una asíntota vertical (donde se anula el denominador) y una horizontal (el límite de la curva cuando $x\\to\\pm\\infty$).\n\ny hay que contar ambas por separado.\n$f(x)=\\frac{1}{x-1}$ tiene AV en $x=1$ y AH en $y=0$ (grado numerador 0 < grado denominador 1).\n\nSon 2 asíntotas en total. detenerse en la vertical y olvidar revisar también el comportamiento en el infinito.",
+    "explanation": "Una función racional puede tener a la vez una asíntota vertical (donde se anula el denominador) y una horizontal (el límite de la curva cuando $x\\to\\pm\\infty$).\n\ny hay que contar ambas por separado.\n$f(x)=\\frac{1}{x-1}$ tiene AV en $x=1$ \n\ny AH en $y=0$ (grado numerador 0 < grado denominador 1).\n\nSon 2 asíntotas en total. detenerse en la vertical y olvidar revisar también el comportamiento en el infinito.",
     "reviewed": false,
     "tags": [
       "cantidad-ramas"
@@ -323,7 +323,7 @@
       -4,
       4
     ],
-    "explanation": "Una función es **decreciente** en un intervalo cuando.\n\na medida que $x$ aumenta.\n\nel valor de la función disminuye.\n\ny esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn la rama izquierda $(-\\infty.\n\n0)$.\n\nla función va de valores cercanos a $0^-$ hacia : a medida que $x$ crece hacia $0$.En la rama derecha $(0.\n\n+\\infty)$.\n\nla función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
+    "explanation": "Una función es **decreciente** en un intervalo cuando.\n\na medida que $x$ aumenta.\n\nel valor de la función disminuye.\n\ny esto se evalúa por separado en cada tramo del dominio cuando hay una asíntota vertical de por medio.\n\nLa gráfica de $f(x) = 1/x$ tiene dos ramas separadas por la asíntota vertical $x = 0$.\n\nEn la rama izquierda $(-\\infty.\n\n0)$.\n\nla función va de valores cercanos a $0^-$ hacia : a medida que $x$ \n\ncrece hacia $0$.En la rama derecha $(0.\n\n+\\infty)$.\n\nla función va de $+\\infty$ hacia valores cercanos a $0^+$.\n\nEn ambos tramos la tendencia es decreciente.\n\nCon confundir 'la curva sube entre las dos ramas' con comportamiento creciente: ese salto es una discontinuidad en la asíntota vertical, no crecimiento real de la función.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -653,7 +653,7 @@
       -5,
       5
     ],
-    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma $f(x)$.\n\ny para una racional suele excluir la altura de la asíntota horizontal.\n$f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ y negativos para $x<0$.\n\npero nunca vale cero.\n\nLa imagen es $\\mathbb{R}\\setminus\\{0\\}$.\n\nNo conviene confundir la imagen con el dominio: acá el valor excluido del dominio y el de la imagen coinciden por casualidad, pero son conceptos distintos.",
+    "explanation": "La **imagen** de una función es el conjunto de todos los valores que efectivamente toma $f(x)$.\n\ny para una racional suele excluir la altura de la asíntota horizontal.\n$f(x)=\\frac{1}{x}$ toma valores positivos para $x>0$ \n\ny negativos para $x<0$.\n\npero nunca vale cero.\n\nLa imagen es $\\mathbb{R}\\setminus\\{0\\}$.\n\nNo conviene confundir la imagen con el dominio: acá el valor excluido del dominio y el de la imagen coinciden por casualidad, pero son conceptos distintos.",
     "reviewed": false,
     "tags": [
       "interceptos-x-graf"
@@ -683,7 +683,7 @@
       -5,
       5
     ],
-    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$ y leer su altura correspondiente en el eje $Y$. ::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
+    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$\n\nes $3$ y leer su altura correspondiente en el eje $Y$\n\n.\n\n::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -923,7 +923,7 @@
       -4,
       4
     ],
-    "explanation": "El **signo** de una función racional en un intervalo se determina evaluando el signo del numerador y del denominador por separado, y combinándolos según la regla de los signos.\n\nPara $x$ entre $-2$ y $2$: :.así que $x^2-4<0$.\n\nEl numerador es $1>0$.\n\ny la fracción $\\frac{1}{\\text{negativo}}$ da negativo: la función es negativa en $(-2,2)$.\n\ny la rama del medio está por debajo del eje $X$.\n\nConviene evaluar el signo tramo por tramo, no asumir que es el mismo en todo el dominio.",
+    "explanation": "El **signo** de una función racional en un intervalo se determina evaluando el signo del numerador y del denominador por separado, y combinándolos según la regla de los signos.\n\nPara $x$ entre $-2$ \n\ny $2$: :.así que $x^2-4<0$.\n\nEl numerador es $1>0$.\n\ny la fracción $\\frac{1}{\\text{negativo}}$ da negativo: la función es negativa en $(-2,2)$.\n\ny la rama del medio está por debajo del eje $X$.\n\nConviene evaluar el signo tramo por tramo, no asumir que es el mismo en todo el dominio.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-racional"
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de : a $x=4$ y la AH sigue en $y=0$.Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
+    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ \n\npor $x-4$: :.La AV pasa de : a $x=4$ \n\ny la AH sigue en $y=0$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1343,7 +1343,7 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): :.Verificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente, pero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ \n\n(desplazamiento $-1$): :.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"
@@ -1433,7 +1433,7 @@
       0,
       12
     ],
-    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico, la intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
+    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico.\n\nla intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-totales"

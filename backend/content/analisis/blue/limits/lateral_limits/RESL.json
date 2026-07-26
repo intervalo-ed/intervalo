@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para un **límite lateral** de una función a trozos, se elige la rama que corresponde a la dirección de aproximación pedida, y se sustituye directamente el punto de tendencia en esa rama.\n\nComo se pide $x \\to 3^-$, se usa la rama $x<3$:La rama $3x-2$, válida para $x \\geq 3$, no interviene en este cálculo aunque el punto de quiebre sea el mismo.",
+    "explanation": "Para un **límite lateral** de una función a trozos, se elige la rama que corresponde a la dirección de aproximación pedida, y se sustituye directamente el punto de tendencia en esa rama.\n\nComo se pide $x \\to 3^-$,.\n\nse usa la rama $x<3$:La rama $3x-2$.\n\nválida para $x \\geq 3$, no interviene en este cálculo aunque el punto de quiebre sea el mismo.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\nComo $\\lim_{x \\to 3^-} f(x) = 5 \\neq 7 = \\lim_{x \\to 3^+} f(x)$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.",
+    "explanation": "Para el límite por la derecha se usa la rama activa en $x \\geq 3$, sustituyendo el punto de tendencia directamente.\n$$\\lim_{x \\to 3^+} f(x) = 3 \\cdot 3 - 2 = 9 - 2 = 7$$\nComo $\\lim_{x \\to 3^-} f(x) = 5 \\neq 7 = \\lim_{x \\to 3^+} f(x)$, el **límite bilateral** en $x=3$ no existe, aunque cada lateral por separado sí esté perfectamente definido.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.Se usa la rama $2x-1$ porque describe los valores $x \\leq 1$, que incluyen a los que se acercan por la izquierda.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.",
+    "explanation": "El límite lateral no depende de si el punto de quiebre usa $\\leq$ o $<$ en la definición de la rama, depende exclusivamente de la dirección de aproximación.\n\nQue el punto de quiebre 'pertenezca' a una rama por la convención $\\leq$ no cambia qué rama corresponde al lateral izquierdo o al derecho.\n\nRecordá siempre verificar este paso antes de responder,.\n\n es fundamental para dominar el concepto.\n\n de la definición de la función a trozos.\n\n Los laterales son los mismos ya sea que el punto se defina con $\\leq$ o con $<$ porque el límite se toma en el proceso de acercamiento,.\n\n no en el punto exacto.\n\nEl símbolo usado en la definición ($\\leq$ o $<$).\n\nsolo afecta el valor $f(a)$,.\n\n no el comportamiento de la función al acercarse a $a$.\n\n Esta es una propiedad importante:\n\n cambia la definición en el punto exacto pero no cambia los límites laterales ni el límite bilateral.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.Usando la rama $3x$, válida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) clásica de invertir el sentido de la aproximación pedida.",
+    "explanation": "Al pedir un límite por la izquierda, hay que sustituir exclusivamente en la rama definida para $x$ menores al punto de tendencia, nunca en la del otro lado.Usando la rama $3x$.\n\nválida para $x<0$.\n\nTomar por error la rama de $x \\geq 0$ ($x+5=5$) clásica de invertir el sentido de la aproximación pedida.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "trozos-un-lateral"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.Como ambas ramas coinciden en $2$, el límite bilateral existe y vale $2$.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
+    "explanation": "No toda función a trozos con dos ramas distintas produce un salto: hay que evaluar siempre antes de decidir, sin asumir que 'No existe' es la respuesta por defecto.\n\nElegir 'No existe' sin verificar primero ambas ramas es un reflejo apresurado: hay que confirmar la coincidencia o la diferencia antes de responder.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese cálculo.Como ambas coinciden, $\\lim_{x \\to 3} f(x) = 4$.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
+    "explanation": "En una función a trozos de tres ramas, cada punto de quiebre se analiza por separado: solo importan las dos ramas que se encuentran exactamente en ese punto, las demás son irrelevantes para ese.\n\nLa rama del extremo izquierdo, que solo interviene en el otro punto de quiebre ($x=0$), no aporta nada al cálculo del límite en $x=3$.",
     "reviewed": false,
     "tags": [
       "trozos-bilateral"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver un límite con **valor absoluto**, conviene reescribirlo por ramas antes de sustituir: $|x| = -x$ si $x<0$, y $|x| = x$ si $x \\geq 0$.\n\nComo se pide $x \\to 0^-$, se usa la rama $x<0$:El signo del numerador cambia según el lado de aproximación, por eso conviene siempre separar el valor absoluto en sus dos ramas antes de simplificar.",
+    "explanation": "Para resolver un límite con **valor absoluto**, conviene reescribirlo por ramas antes de sustituir: $|x| = -x$ si $x<0$.\n\ny $|x| = x$ si $x \\geq 0$.\n\nComo se pide $x \\to 0^-$, se usa la rama $x<0$:El signo del numerador cambia según el lado de aproximación, por eso conviene siempre separar el valor absoluto en sus dos ramas antes de simplificar.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $|x|$, conviene reescribir $|x-c|$ por ramas: vale $x-c$ si $x \\geq c$, y vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$, se usa la rama $x \\geq c$:Por la derecha de $c$ el numerador y el denominador coinciden en signo, así que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.",
+    "explanation": "Igual que con $|x|$,.\n\nconviene reescribir $|x-c|$ por ramas:\n\n vale $x-c$ si $x \\geq c$.\n\ny vale $-(x-c)$ si $x<c$.\n\nComo se pide $x \\to c^+$,.\n\nse usa la rama $x \\geq c$:Por la derecha de $c$ el numerador y el denominador coinciden en signo.\n\nasí que el cociente vale $1$, mientras que por la izquierda cambia a $-1$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "laterales-valor-absoluto"

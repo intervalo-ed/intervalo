@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Observá el comportamiento:\n$$f(x) = (\\ln x)^2$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\ln x \\cdot \\ln x$",
       "$g(u)=u^2, h(x)=\\ln x$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Considerá esta función:\n$$f(x) = e^{3x}$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "$g(u)=e^u, h(x)=3x$",
       "$g(u)=3u, h(x)=e^x$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
+    "question": "Estudiá esta función:\n$$f(x) = \\tan^2(x)$$\n¿Cómo se identifican la **capa exterior** $g$ y la **capa interior** $h$?",
     "options": [
       "No es una composición, es un producto $\\tan x \\cdot \\tan x$",
       "$g(u)=u^2, h(x)=\\tan x$",
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $\\sin^2(x)$, la notación $\\tan^2(x)$ significa $(\\tan x)^2$, con el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Igual que con $\\sin^2(x)$,.\n\nla notación $\\tan^2(x)$ significa $(\\tan x)^2$.\n\ncon el cuadrado como **capa exterior**.\n\nEsta convención de notación, exponente pegado al nombre de la función trigonométrica, es la misma en seno, coseno y tangente.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "identificacion-capas-jerarquia"
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Investigá el patrón:\n$$f(x) = 3x \\cdot e^x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla del producto**",
       "**Regla de la cadena**",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Analizá con cuidado:\n$$f(x) = \\ln(x^2)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del cociente",
       "**Regla de la cadena**",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Evaluá la función:\n$$f(x) = \\sin(5x)$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "**Regla de la cadena**",
       "Múltiplo escalar",
@@ -292,14 +292,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $\\sin(5x)$, el $5$ multiplica a $x$ dentro del argumento del seno, formando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $\\sin(5x)$,.\n\nel $5$ multiplica a $x$ dentro del argumento del seno.\n\nformando la **capa interior** de una composición.\n\nAunque el $5$ recuerde a un múltiplo escalar, acá está atrapado dentro del argumento del seno, no multiplicando a la función completa desde afuera.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
+    "question": "Examiná en detalle:\n$$f(x) = 5\\sin x$$\n¿Qué **regla de derivación** corresponde aplicar?",
     "options": [
       "Regla del producto",
       "**Múltiplo escalar **",
@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera, mientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
+    "explanation": "En $5\\sin x$, el $5$ multiplica a la función seno completa desde afuera.\n\nmientras que el argumento del seno sigue siendo $x$ solo.\n\nEsta estructura se resuelve con **múltiplo escalar**, distinta de $\\sin(5x)$, donde el $5$ vive dentro del argumento y exige la **regla de la cadena**.\n\nIdentificar la estructura es el primer paso antes de calcular: cada estructura tiene su regla, y confundirlas invierte toda la derivación.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-producto-composicion"

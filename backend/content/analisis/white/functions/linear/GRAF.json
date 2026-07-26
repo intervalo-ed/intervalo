@@ -137,7 +137,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "A veces una función lineal no viene escrita en la forma canónica.\n$$f(x) = mx + b$$\n.\n\nReordenando los términos:\n \nSe ve que $m = -1$ y $b = 4$: es una función lineal con **pendiente** negativa y **ordenada al origen** $4$.\n\nLa familia no depende del orden en que estén escritos los términos, sino de cómo aparece la variable: acá $x$ tiene exponente 1 y no está dentro de raíces, logaritmos ni exponentes.\n\nCuando el enunciado venga desordenado, reescribí primero en la forma $mx + b$: leer los parámetros sin reordenar es la fuente clásica de errores de signo.",
+    "explanation": "A veces una función lineal no viene escrita en la forma canónica.\n$$f(x) = mx + b$$\n.\n\nReordenando los términos:\n \nSe ve que $m = -1$ y $b = 4$: \n\nes una función lineal con **pendiente** negativa y **ordenada al origen** $4$.\n\nLa familia no depende del orden en que estén escritos los términos, sino de cómo aparece la variable: acá $x$ tiene exponente 1 y no está dentro de raíces, logaritmos ni exponentes.\n\nCuando el enunciado venga desordenado, reescribí primero en la forma $mx + b$: leer los parámetros sin reordenar es la fuente clásica de errores de signo.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -210,7 +210,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal.\n$$f(x) = mx + b$$\nCon $m \\neq 0$ corta el eje $X$ exactamente una vez.\n\nEl punto de corte es la raíz, que se obtiene resolviendo:Y como $m \\neq 0$, esa ecuación tiene siempre una única solución.\n\nUna recta no puede cruzar el eje dos veces: para volver a cruzarlo tendría que cambiar de dirección, y la **pendiente** constante lo impide.\n\nEl caso sin corte queda reservado a las constantes $f(x) = b$ con $b \\neq 0$: una recta horizontal que nunca toca el eje $X$.",
+    "explanation": "Una función lineal.\n$$f(x) = mx + b$$\nCon $m \\neq 0$ corta el eje $X$ exactamente una vez.\n\nEl punto de corte es la raíz, que se obtiene resolviendo:Y como $m \\neq 0$, esa ecuación tiene siempre una única solución.\n\nUna recta no puede cruzar el eje dos veces: para volver a cruzarlo tendría que cambiar de dirección, y la **pendiente** constante lo impide.\n\nEl caso sin corte queda reservado a las constantes $f(x) = b$ con $b \\neq 0$: \n\nuna recta horizontal que nunca toca el eje $X$.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma.\n$$f(x) = mx + b$$\n.\n\nla **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = 2x + 5$ el coeficiente de $x$ es $2$.\n\nasí que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$.\n\nel valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nCon responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
+    "explanation": "En la forma.\n$$f(x) = mx + b$$\n.\n\nla **pendiente** $m$ es el número que multiplica a $x$.\n\nPara $f(x) = 2x + 5$ el coeficiente de $x$ \n\nes $2$.\n\nasí que $m = 2$; el término independiente $5$ es la **ordenada al origen**.\n\nLa pendiente indica que por cada unidad que avanza $x$.\n\nel valor $f(x)$ sube $2$ unidades: es la tasa de cambio de la función.\n\nCon responder el término completo $2x$: la pendiente es el número solo, sin la variable.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -919,7 +919,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En.\n$$f(x) = \\log(x)$$\nLa variable está dentro de un logaritmo: la función es logarítmica.\n\nSus rasgos la separan de una recta: su **dominio** es solo $(0, +\\infty)$ y crece cada vez más despacio, mientras que una lineal está definida en todo $\\mathbb{R}$ y avanza siempre al mismo ritmo.\n\nRegla rápida de clasificación: $x$ multiplicada es lineal.\n\n$x$ al cuadrado es cuadrática.\n\n$x$ en el exponente es exponencial y $x$ dentro del $\\log$ es logarítmica.",
+    "explanation": "En.\n$$f(x) = \\log(x)$$\nLa variable está dentro de un logaritmo: la función es logarítmica.\n\nSus rasgos la separan de una recta: su **dominio** es solo $(0, +\\infty)$ y crece cada vez más despacio, mientras que una lineal está definida en todo $\\mathbb{R}$ y avanza siempre al mismo ritmo.\n\nRegla rápida de clasificación: $x$ multiplicada es lineal.\n\n$x$ al cuadrado es cuadrática.\n\n$x$ en el exponente es exponencial y $x$ \n\ndentro del $\\log$ es logarítmica.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"

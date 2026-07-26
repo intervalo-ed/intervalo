@@ -405,7 +405,7 @@
       "La curva sí atraviesa el eje horizontal en varios puntos visibles.",
       null
     ],
-    "explanation": "Un polinomio de grado $4$ puede tener entre $0$ y $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
+    "explanation": "Un polinomio de grado $4$ puede tener entre $0$.\n\ny $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -675,7 +675,7 @@
       "La curva también está dibujada para valores negativos de $x$, revisá el lado izquierdo del gráfico.",
       "La curva sigue extendiéndose hacia ambos bordes del gráfico sin cortarse."
     ],
-    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$ hasta $+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
+    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$.\n\nhasta $+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -795,7 +795,7 @@
       "Mirá hacia dónde apunta la curva en el extremo derecho del gráfico, sube, no baja.",
       "Contá todos los puntos donde la curva cruza el eje, a esta expresión le falta una raíz."
     ],
-    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n$$f(x) = \\frac{(x+1) \\cdot x \\cdot (x-3)}{5}$$\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz $3$ da factor $(x-3)$.\n\nno $(x+3)$.",
+    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n$$f(x) = \\frac{(x+1) \\cdot x \\cdot (x-3)}{5}$$\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz $3$.\n\nda factor $(x-3)$.\n\nno $(x+3)$.",
     "has_math": true,
     "graph_fn": "(x+1)*x*(x-3)/5",
     "graph_view": [
@@ -915,7 +915,7 @@
       "Contá cuántos puntos distintos toca la curva sobre el eje $x$ en el gráfico.",
       "Revisá si el gráfico muestra dos o cuatro cruces con el eje $x$."
     ],
-    "explanation": "Un **polinomio de grado 4** puede tener entre 0 y 4 raíces reales.\n\nEl gráfico muestra exactamente dónde ocurren leyendo los puntos de intersección con el eje $X$.\n\nSi hay 4 cruces, todas son simples; si hay menos, algunas raíces pueden ser de multiplicidad par (raíz doble, cuádruple).\n\nCon 4 raíces simples, la cuártica exhibe su forma característica de **W** (coef. positivo) o **M** (coef. negativo): hay $4 - 1 = 3$ extremos locales alternando máximos y mínimos.\n\nEn el gráfico se ve claramente esta estructura con los 4 puntos de cruce del eje y los 3 picos/valles entre ellos.\n\nEsta visualización gráfica permite verificar el grado y el número de raíces sin fórmula: un polinomio de grado 4 con 4 raíces reales simples siempre muestra exactamente este patrón W/M con 3 extremos internos.",
+    "explanation": "Un **polinomio de grado 4** puede tener entre 0 y 4 raíces reales.\n\nEl gráfico muestra exactamente dónde ocurren leyendo los puntos de intersección con el eje $X$.\n\nSi hay 4 cruces, todas son simples; si hay menos, algunas raíces pueden ser de multiplicidad par (raíz doble, cuádruple).\n\nCon 4 raíces simples, la cuártica exhibe su forma característica de **W** (coef. positivo) o **M** (coef. negativo): hay $4 - 1 = 3$ extremos locales alternando máximos y mínimos.\n\nEn el gráfico se ve claramente esta estructura con los 4 puntos de cruce del eje y los 3 picos/valles entre ellos.\n\nEsta visualización gráfica permite verificar el grado y el número de raíces sin fórmula: un polinomio de grado 4 con 4 raíces reales simples siempre muestra exactamente este patrón W/M con 3 extremos.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -1005,7 +1005,7 @@
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una.",
       null
     ],
-    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
+    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$;.\n\n$f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
     "has_math": true,
     "graph_fn": "x*(x+1)*(x-1)/2",
     "graph_view": [
@@ -1035,7 +1035,7 @@
       "Fijate en qué valores exactos del eje la curva toca cero.",
       "Revisá con cuidado los signos de los puntos donde la curva cruza el eje."
     ],
-    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de $(x+1)$ para la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
+    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de $(x+1)$.\n\npara la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
     "has_math": true,
     "graph_fn": "-(x+1)*x*(x-2)/4",
     "graph_view": [
@@ -1065,7 +1065,7 @@
       null,
       "Mirá si la curva queda arriba o abajo del eje entre las raíces."
     ],
-    "explanation": "Un **polinomio de grado 4** con raíces reales adopta formas visuales predecibles según cuántas raíces tiene y su multiplicidad.\n\nLeyendo el gráfico: cada cruce del eje $X$ es una raíz simple, cada toque (sin cruce) es una raíz de multiplicidad par.\n\nSi el gráfico muestra 4 cruces distintos, hay 4 raíces reales simples, y la curva exhibe $4 - 1 = 3$ extremos locales: máximo-mínimo-máximo (forma W) u otro arreglo según el coeficiente principal.\n\nSi hay menos cruces, algunas raíces no son reales (son complejas conjugadas).\n\nEste análisis gráfico permite determinar el mínimo grado posible (por el número de extremos y comportamiento en infinito) y confirmar si todas las raíces reales se ven o si hay raíces complejas ocultas en la fórmula.",
+    "explanation": "Un **polinomio de grado 4** con raíces reales adopta formas visuales predecibles según cuántas raíces tiene y su multiplicidad.\n\nLeyendo el gráfico: cada cruce del eje $X$ es una raíz simple, cada toque (sin cruce) es una raíz de multiplicidad par.\n\nSi el gráfico muestra 4 cruces distintos, hay 4 raíces reales simples, y la curva exhibe $4 - 1 = 3$ extremos locales: máximo-mínimo-máximo (forma W) u otro arreglo según el coeficiente principal.\n\nSi hay menos cruces, algunas raíces no son reales (son complejas conjugadas).\n\nEste análisis gráfico permite determinar el mínimo grado posible (por el número de extremos y comportamiento en infinito) y confirmar si todas las raíces reales se ven o si hay raíces complejas.",
     "has_math": true,
     "graph_fn": "pow(x+2,2)*pow(x-2,2)/16",
     "graph_view": [
@@ -1335,7 +1335,7 @@
       "El mínimo global se evalúa en todo el dominio de la función, no solo en la parte del año que se graficó.",
       "La existencia de mínimo global depende del grado y el signo del coeficiente principal, no de las raíces del modelo."
     ],
-    "explanation": "Como modelo matemático, el polinomio de grado 4 con coef. negativo cumple:El modelo **no tiene mínimo global**: en teoría, la temperatura podría bajar sin límite si se extrapola fuera del rango modelado.\n\nEn la práctica, el modelo es válido solo para el año en cuestión.\n\nMatemáticamente, no hay piso.",
+    "explanation": "Como modelo matemático, un polinomio de grado 4 con coeficiente principal negativo tiene ambos extremos apuntando hacia $-\\infty$ cuando $x \\to \\pm\\infty$..\n\nEsto significa que matemáticamente no existe un mínimo global: conforme te alejas arbitrariamente en cualquier dirección, la temperatura modelada desciende indefinidamente.\n\nEn la práctica, el modelo es válido solo dentro del rango de datos históricos para el año en cuestión.\n\nFuera de ese rango, la función polinómica sigue sus propias leyes matemáticas, que pueden no corresponder a la realidad física.\n\nMatemáticamente, sin restricción de dominio, no hay piso: el modelo nunca alcanza un valor mínimo absoluto.\n\nEsta diferencia entre el comportamiento matemático de la función y su validez práctica como modelo real es crucial para interpretar resultados correctamente.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [

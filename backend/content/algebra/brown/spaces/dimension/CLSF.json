@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La dimensión de $\\mathbb{R}^n$ coincide siempre con el valor de $n$.\n\nPara $\\mathbb{R}^3$, la base canónica $\\{(1,0,0),(0,1,0),(0,0,1)\\}$ tiene exactamente 3 vectores.\n\nNinguna base de $\\mathbb{R}^3$ puede tener una cantidad distinta de elementos, sea cual sea la base elegida.",
+    "explanation": "La dimensión de $\\mathbb{R}^n$ coincide siempre con el valor de $n$.\n\nPara $\\mathbb{R}^3$, la base canónica $\\{(1,0,0),(0,1,0),(0,0,1)\\}$ tiene exactamente 3 vectores.\n\nNinguna base de $\\mathbb{R}^3$ puede tener una cantidad distinta de elementos, sea cual sea la base elegida. con el valor de $n$. Para generar $\\mathbb{R}^n$ se necesitan exactamente $n$ vectores linealmente independientes, ni más ni menos. Esta dimensión refleja el número de grados de libertad en el espacio: en $\\mathbb{R}^2$ (el plano) necesitas 2 direcciones independientes para alcanzar cualquier punto, en $\\mathbb{R}^3$ (el espacio 3D) necesitas 3 direcciones, y así sucesivamente. La dimensión es una propiedad invariante de cada espacio euclidiano.",
     "reviewed": false
   }
 ]

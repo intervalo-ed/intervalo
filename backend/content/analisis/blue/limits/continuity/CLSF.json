@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función \"se aproxima\" cuando $x$ se acerca a $a$ desde ambos lados, independientemente de si el punto $x=a$ está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
+    "explanation": "Una función es **continua** en un punto solo si se cumplen tres condiciones a la vez: que el valor puntual esté definido, que el límite bilateral exista, y que ambos coincidan.\n\nEl límite representa el valor hacia el cual la función \"se aproxima\" cuando $x$ se acerca a $a$ desde ambos lados.\n\nindependientemente de si el punto $x=a$ está definido.\n\nEn este caso el límite existe y vale $4$, pero $f(a)$ no está definida, así que falla la primera condición desde el arranque.\n\nCuando el límite existe y es finito pero el punto falta o no coincide, la falla siempre se clasifica como **removible**, porque alcanza con redefinir un único valor para arreglarla.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado:\n\nel izquierdo es a qué se acerca cuando $x$ se acerca a $a$ por valores menores, y el derecho es a qué se acerca por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$, dos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque $f(a)$ sí esté definida.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
+    "explanation": "La segunda condición de continuidad exige que el límite bilateral exista, lo que a su vez requiere que el límite lateral izquierdo y el derecho coincidan.\n\nLos límites laterales son los valores hacia los cuales la función se aproxima desde cada lado:\n\nel izquierdo es a qué se acerca cuando $x$ se acerca a $a$ por valores menores, y el derecho es a qué se acerca por valores mayores.\n\nAcá el lateral izquierdo vale $3$ y el derecho vale $7$.\n\ndos números finitos pero distintos entre sí, así que el límite bilateral no existe aunque $f(a)$ sí esté definida.\n\nCuando ambos laterales son finitos pero no coinciden, la falla se clasifica siempre como **de salto**, sin importar si el valor puntual está definido o no.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una falla se llama **esencial** cuando al menos uno de los límites laterales diverge a infinito o no existe por oscilación, sin importar qué pase con el otro lateral.\n\nLa divergencia a infinito significa que conforme $x$ se acerca a $a$, el valor de $f(x)$ crece sin cota en magnitud, sin estabilizarse en ningún número finito.\n\nEn este caso el lateral izquierdo crece sin cota hacia $+\\infty$, mientras que el derecho sí converge a $2$.\n\nCon que uno solo diverja alcanza para descartar tanto la continuidad como la clasificación removible o de salto.\n\nEsta es la categoría más grave de las tres: no hay forma de arreglarla redefiniendo un único punto, porque el problema no es puntual sino de comportamiento infinito cerca de $a$.",
+    "explanation": "Una falla se llama **esencial** cuando al menos uno de los límites laterales diverge a infinito o no existe por oscilación, sin importar qué pase con el otro lateral.\n\nLa divergencia a infinito significa que conforme $x$ se acerca a $a$.\n\nel valor de $f(x)$ crece sin cota en magnitud, sin estabilizarse en ningún número finito.\n\nEn este caso el lateral izquierdo crece sin cota hacia $+\\infty$, mientras que el derecho sí converge a $2$.\n\nCon que uno solo diverja alcanza para descartar tanto la continuidad como la clasificación removible o de salto.\n\nEsta es la categoría más grave de las tres: no hay forma de arreglarla redefiniendo un único punto, porque el problema no es puntual sino de comportamiento infinito cerca de $a$.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas:\n\nel límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$, mientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida, pero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
+    "explanation": "La tercera condición de continuidad exige que el límite bilateral coincida exactamente con el valor de la función en ese punto.\n\nEl límite y el valor puntual son dos cosas distintas:\n\nel límite es hacia adónde la función se aproxima conforme $x$ se acerca a $a$.\n\nmientras que $f(a)$ es el valor que la función realmente toma en ese punto, si está definido.\n\nAcá el límite vale $8$ y $f(a)$ está definida.\n\npero en $2$, un valor distinto.\n\nLas dos primeras condiciones se cumplen, solo falla la comparación final entre ambos.\n\nEste tipo de falla es la que da lugar a la **discontinuidad removible**: el límite ya hizo todo el trabajo, alcanza con redefinir $f(a)=8$ para reparar el punto.",
     "reviewed": false,
     "tags": [
       "condiciones-formales-continuidad"
@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta desde ambos lados.\n\nLa función está \"dividida\" en su aproximación.\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
+    "explanation": "Cuando los dos límites laterales son números finitos pero distintos entre sí, el límite bilateral directamente no existe.\n\nAunque cada rama se aproxime a un valor concreto cuando $x$ se acerca a $a$, el hecho de que estos valores sean diferentes significa que no hay un único \"objetivo\" hacia el cual la función apunta.\n\nLa función está \"dividida\" en su aproximación.\n\nNo hace falta ni siquiera conocer $f(a)$ para descartar la continuidad: la segunda condición ya falla.\n\nEsta combinación de laterales finitos y distintos es la firma exacta de una **discontinuidad de salto**.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es continua.\n\nPara $f(x) = \\sqrt{x-2}$ el argumento es $x-2$, así que se necesita $x - 2 \\geq 0$, es decir $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
+    "explanation": "Una raíz de índice par solo está definida cuando su argumento es mayor o igual a $0$, y dentro de ese dominio la función es continua.\n\nPara $f(x) = \\sqrt{x-2}$ el argumento es $x-2$.\n\nasí que se necesita $x - 2 \\geq 0$, es decir $x \\geq 2$.\n\nFuera de ese conjunto la raíz no arroja un número real, por lo que la pregunta de continuidad ni siquiera se plantea ahí.",
     "reviewed": false,
     "tags": [
       "continuidad-por-familias"

@@ -143,7 +143,7 @@
       -3,
       7
     ],
-    "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 2 = 1$.\n\nEl triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 6 = 9$.\n\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.",
+    "explanation": "El cruce por cero ocurre en $x=1$, dividiendo el intervalo en dos triángulos de tamaños muy distintos.\n\nEl triángulo de abajo mide $\\tfrac{1}{2}\\cdot 1\\cdot 2 = 1$.\n\nEl triángulo de arriba mide $\\tfrac{1}{2}\\cdot 3\\cdot 6 = 9$.\n\nEl área neta es $9-1=8$, el triángulo grande de arriba domina el resultado, pero el pequeño de abajo igual se resta.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "lectura-area-con-signos"
@@ -373,7 +373,7 @@
       -2,
       2
     ],
-    "explanation": "Sin importar qué tan complicada sea la función, dos **límites de integración** iguales siempre dan un intervalo de ancho cero.\n$$\\int_{\\pi}^{\\pi} f(x)\\,dx = 0$$\nEsta propiedad se cumple incluso para funciones trigonométricas u otras funciones más complejas, no hace falta ningún cálculo con la fórmula concreta.",
+    "explanation": "Sin importar qué tan complicada sea la función, dos **límites de integración** iguales siempre dan un intervalo de ancho cero.\n$$\\int_{\\pi}^{\\pi} f(x)\\,dx = 0$$\nEsta propiedad se cumple incluso para funciones trigonométricas u otras funciones más complejas, no hace falta ningún cálculo con la fórmula concreta.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"
@@ -429,7 +429,7 @@
       -4,
       2
     ],
-    "explanation": "Conviene distinguir entre dos conceptos: la **integral definida** (que computa área con signo) y el área geométrica (la superficie física de la región, siempre positiva).La integral definida puede devolver un valor negativo cuando la región debajo del eje domina sobre la de arriba.\n\nEsto no significa que exista una superficie negativa, solo que el balance neto es negativo.",
+    "explanation": "Conviene distinguir entre dos conceptos: la **integral definida** (que computa área con signo) y el área geométrica (la superficie física de la región, siempre positiva).\n\nEsto no significa que exista una superficie negativa, solo que el balance neto es negativo.\n\nRecordá siempre verificar este paso antes de responder,es fundamental para dominar el concepto.\n\nque computa área neta bajo la curva entre dos límites específicos,y la **antiderivada** (integral indefinida) que describe una familia completa de funciones cuya derivada es el integrando.\n\nLa integral definida produce un número;la integral indefinida produce una función.\n\nEl teorema fundamental del cálculo conecta ambas: si $F$ es antiderivada de $f$,.\n\nentonces $\\int_a^b f(x)\\,dx = F(b) - F(a)$.\n\nConfundir estos dos conceptos conduce a errores graves en cálculos de integrales.",
     "reviewed": false,
     "tags": [
       "propiedades-limites-integracion"

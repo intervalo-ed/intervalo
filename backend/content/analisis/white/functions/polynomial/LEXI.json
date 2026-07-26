@@ -48,7 +48,7 @@
       -5,
       5
     ],
-    "explanation": "Una **raíz real** de $p(x)$ es un valor : tal que $p(r) = 0$.es decir.\n\nun punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).Por lo tanto, tiene como máximo $n$ raíces reales.\n\nPara : (grado $3$):el máximo es $3$ raíces reales.\n\nEn este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
+    "explanation": "Una **raíz real** de $p(x)$ es un valor : tal que $p(r) = 0$.es decir.\n\nun punto donde la curva corta al eje $X$.\n\nEl **Teorema Fundamental del Álgebra** establece que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).\n\nPara : (grado $3$):el máximo es $3$ raíces reales.\n\nEn este caso se alcanzan: $x = -\\sqrt{3},\\; 0,\\; \\sqrt{3}$.",
     "reviewed": false,
     "tags": [
       "raices-cantidad-maxima"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).El mayor es $7$, por lo tanto:No importa el orden en que estén escritos los términos ni los valores de los coeficientes: solo importa la mayor potencia con coeficiente distinto de cero.",
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).\n\nEl término con la mayor potencia domina el comportamiento del polinomio para valores grandes de $x$,.\n\nasí que el grado se identifica directamente observando cuál término tiene el exponente más alto.\n\nUn polinomio de grado 3 tiene el término $x^3$ como su mayor poder,.\n\nun polinomio de grado 5 tiene $x^5$,.\n\ny así sucesivamente.\n\nEsta identificación del grado es esencial para entender el comportamiento gráfico y algebraico del polinomio.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$.\n\ny se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn : aparecen cuatro monomios:$4x^5$ de **grado** $5$.\n\n$-x^3$ de grado $3$.\n\n$2x$ de grado $1$ y el **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
+    "explanation": "Un **término** (o monomio) de un polinomio es una expresión de la forma $a_k x^k$.\n\ny se cuentan separando la expresión por los signos $+$ y $-$ que los conectan.\n\nEn : aparecen cuatro monomios:$4x^5$ de **grado** $5$.\n\n$-x^3$ de grado $3$.\n\n$2x$ de grado $1$ \n\ny el **término independiente** $-9$ de grado $0$.\n\nEn total son $4$ términos, aunque el grado del polinomio (la mayor potencia presente) sea $5$.\n\nEl error más común es confundir el grado del polinomio con la cantidad de términos, o directamente olvidar contar el término independiente porque no lleva una $x$ visible.\n\nUn polinomio con exactamente dos términos se llama binomio, y con tres, trinomio.",
     "reviewed": false,
     "tags": [
       "contar-terminos"
@@ -305,7 +305,7 @@
       "Los extremos en la misma dirección corresponden a grado par; acá el grado es impar, así que van en sentidos opuestos.",
       "Esa dirección se da con coeficiente principal negativo; acá el coeficiente principal es positivo, así que el sentido se invierte."
     ],
-    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.",
+    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -330,7 +330,7 @@
       "Ese patrón de extremos en sentidos opuestos es propio del grado impar; acá el grado es par, así que ambos extremos van en la misma dirección.",
       "Esa combinación mezcla un patrón de grado impar con la dirección invertida; con grado par los dos extremos coinciden en el mismo sentido."
     ],
-    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):Ambos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).",
+    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):Ambos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -355,7 +355,7 @@
       "Con grado impar los extremos van en sentidos opuestos, uno hacia $+\\infty$ y el otro hacia $-\\infty$, no ambos hacia el mismo lado.",
       "Con grado impar y coeficiente negativo, un extremo va hacia $+\\infty$ y el otro hacia $-\\infty$: no coinciden ambos en el mismo sentido."
     ],
-    "explanation": "Tabla de comportamiento en **extremos**:\n\n| **Grado** | Coef. principal | $x \\to -\\infty$ | $x \\to +\\infty$ |\n|-------|-----------------|----------|----------|\n| Par | $+$ | $+\\infty$ | $+\\infty$ |\n| Par | $-$ | $-\\infty$ | $-\\infty$ |\n| Impar | $+$ | $-\\infty$ | $+\\infty$ |\n| Impar | $-$ | $+\\infty$ | $-\\infty$ |.\n\nLa única opción verdadera: grado par, coef. negativo → ambos extremos $-\\infty$.\n\nLas otras tres son falsas: grado par siempre da extremos en la **misma** dirección (no opuesta); grado impar siempre da extremos en **sentidos opuestos** (no iguales).",
+    "explanation": "Tabla de comportamiento en **extremos**:\n\n| **Grado** | Coef.\n\nLa única opción verdadera: grado par, coef. negativo → ambos extremos $-\\infty$.\n\nLas otras tres son falsas: grado par siempre da extremos en la **misma** dirección (no opuesta); grado impar siempre da extremos en **sentidos opuestos** (no iguales).",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -630,7 +630,7 @@
       "'Simétrica' es un término genérico que no especifica el tipo de simetría; la condición $f(-x)=-f(x)$ tiene un nombre propio y más preciso.",
       "La periodicidad implica que la función se repite a intervalos regulares, algo que no tiene relación con la igualdad dada."
     ],
-    "explanation": "Una función **impar** cumple $f(-x) = -f(x)$ para todo $x$.\n\nSu gráfica tiene simetría respecto al **origen** (rotación de 180°).\n\nVerificación para $f(x) = x^3 - x$:Un polinomio impar solo tiene potencias impares ($x^1, x^3, x^5, \\ldots$). $f(0) = 0$ siempre (pasa por el origen).\n\nContraste: una función **par** cumple $f(-x) = f(x)$ y es simétrica respecto al eje $y$.",
+    "explanation": "Una función **impar** cumple $f(-x) = -f(x)$ para todo $x$.\n\nSu gráfica tiene simetría respecto al **origen** (rotación de 180°).\n\nVerificación para $f(x) = x^3 - x$:Un polinomio impar solo tiene potencias impares ($x^1, x^3, x^5, \\ldots$). \n\n$f(0) = 0$ siempre (pasa por el origen).\n\nContraste: una función **par** cumple $f(-x) = f(x)$ y es simétrica respecto al eje $y$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "Esa cifra saldría de multiplicar los grados en vez de sumarlos: el grado del producto de dos polinomios es la suma de sus grados, no el producto.",
       "Ese es el grado de uno solo de los factores; al multiplicar dos polinomios, el grado del resultado crece, no se queda igual al mayor de los dos."
     ],
-    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados:Razón: el término de mayor grado del producto es el producto de los términos de mayor grado de cada uno.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$.\n\nel término de mayor grado del producto es $a_3 b_2 \\cdot x^5$.\n\nAsí que $\\deg(p \\cdot q) = 3 + 2 = 5$.",
+    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados:Razón: el término de mayor grado del producto es el producto de los términos de mayor grado de cada uno.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$.\n\nel término de mayor grado del producto es $a_3 b_2 \\cdot x^5$.\n\nAsí que $\\deg(p \\cdot q) = 3 + 2 = 5$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -730,7 +730,7 @@
       "Ese total superaría las 3 raíces que tiene el polinomio en total, contando también la real: no puede haber más raíces complejas que el total menos la real.",
       null
     ],
-    "explanation": "El **Teorema Fundamental del Álgebra** dice que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).Si el polinomio tiene coeficientes reales, las raíces complejas vienen **en pares conjugados**: si $a + bi$ es raíz, también lo es $a - bi$.\n\nGrado 3 → 3 raíces totales.\n\nSi 1 es real.\n\nquedan 2 que forman un par conjugado: $a + bi$ y $a - bi$ (con :).Siempre un número par de raíces complejas no reales.",
+    "explanation": "El **Teorema Fundamental del Álgebra** dice que un polinomio de **grado** $n$ tiene exactamente $n$ **raíces** en : (contando **multiplicidades**).\n\nGrado 3 → 3 raíces totales.\n\nSi 1 es real.\n\nquedan 2 que forman un par conjugado: $a + bi$ y $a - bi$ (con :).Siempre un número par de raíces complejas no reales.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -855,7 +855,7 @@
       "Ese es el desarrollo de $(a+b)^2$; acá el binomio es una resta, así que el término central lleva signo negativo.",
       "El cuadrado del segundo término, $b^2$, siempre queda positivo al elevarlo al cuadrado, sin importar que $b$ vaya con signo negativo en el binomio original."
     ],
-    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nOlvidar el término central $-2ab$ y responder $a^2-b^2$ (que en realidad corresponde a :).o cambiarle el signo al $b^2$ del final.\n\nque siempre queda positivo sin importar el signo de $b$.",
+    "explanation": "Para expandir $(a-b)^2$ conviene pensarlo como el producto $(a-b)(a-b)$ y aplicar la propiedad distributiva completa, término a término.\n\nAl distribuir se obtiene $a^2 - ab - ab + b^2$, y al agrupar los dos términos cruzados iguales queda $a^2 - 2ab + b^2$.\n\nLos tres términos son: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo (siempre positivo, porque es un cuadrado).\n\nOlvidar el término central $-2ab$ y responder $a^2-b^2$ \n\n(que en realidad corresponde a :).o cambiarle el signo al $b^2$ del final.\n\nque siempre queda positivo sin importar el signo de $b$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -880,7 +880,7 @@
       null,
       "Ese resultado duplica los cuadrados como si el producto fuera $(a+b)+(a-b)$ en vez de $(a+b)(a-b)$: la operación acá es una multiplicación, no una suma."
     ],
-    "explanation": "$(a+b)(a-b) = a \\cdot a - a \\cdot b + b \\cdot a - b \\cdot b = a^2 - ab + ab - b^2 = a^2 - b^2$\n\nLos términos cruzados $-ab$ y $+ab$ se cancelan.\n\nResultado: **diferencia de cuadrados**.\n\nAplicación directa: $x^2 - 9 = (x+3)(x-3)$.\n\nSi la expresión tiene la forma $A^2 - B^2$, se factoriza inmediatamente como $(A+B)(A-B)$.",
+    "explanation": "$(a+b)(a-b) = a \\cdot a - a \\cdot b + b \\cdot a - b \\cdot b = a^2 - ab + ab - b^2 = a^2 - b^2$\n\nLos términos cruzados $-ab$ y $+ab$ se cancelan.\n\nResultado: **diferencia de cuadrados**.\n\nAplicación directa: $x^2 - 9 = (x+3)(x-3)$.\n\nSi la expresión tiene la forma $A^2 - B^2$, se factoriza inmediatamente como $(A+B)(A-B)$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -905,7 +905,7 @@
       null,
       "Ese valor es $2^3$, la cantidad de productos posibles antes de agrupar los términos semejantes, no la cantidad de términos que quedan en el resultado final."
     ],
-    "explanation": "$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$\n\nLa expansión tiene **4 términos**: 1. $a^3$: cubo del primero. 2. ::tres veces $a^2b$. 3. $3ab^2$: tres veces $ab^2$. 4. $b^3$: cubo del segundo.\n\nLos coeficientes $1, 3, 3, 1$ son la tercera fila del **triángulo de Pascal**.\n\nEl $8 = 2^3$ es el número de productos posibles antes de combinar, no el de términos del resultado.",
+    "explanation": "$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$\n\nLa expansión tiene **4 términos**: 1. $a^3$: cubo del primero. 2. ::tres veces $a^2b$. \n\n3. $3ab^2$: tres veces $ab^2$. \n\n4. $b^3$: cubo del segundo.\n\nLos coeficientes $1, 3, 3, 1$ son la tercera fila del **triángulo de Pascal**.\n\nEl $8 = 2^3$ es el número de productos posibles antes de combinar, no el de términos del resultado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       null,
       "Los signos ahí no alternan de forma correcta: en $(a-b)^3$ los signos van $+,-,+,-$, y el último término también debe llevar signo negativo."
     ],
-    "explanation": "$(a-b)^3$ se obtiene reemplazando $b$ por $-b$ en $(a+b)^3$:\n$$(a-b)^3 = a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.",
+    "explanation": "$(a-b)^3$ se obtiene reemplazando $b$ \n\npor $-b$ en $(a+b)^3$:\n$$(a-b)^3 = a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1180,7 +1180,7 @@
       null,
       "'Reducida' no es el nombre técnico de ninguna de las formas habituales de un polinomio; la que muestra las raíces tiene un nombre propio."
     ],
-    "explanation": "La **forma factorizada** de un polinomio de **grado** 3 es:\n\nCada factor $(x - r_k)$ se anula en $x = r_k$.\n\nlo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nEjemplo: $p(x) = 2(x-1)(x+2)(x-3)$ tiene raíces $x = 1$.\n\n$x = -2$ y $x = 3$.\n\nde lectura inmediata.",
+    "explanation": "La **forma factorizada** de un polinomio de **grado** 3 es:\n\nCada factor $(x - r_k)$ se anula en $x = r_k$.\n\nlo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nEjemplo: $p(x) = 2(x-1)(x+2)(x-3)$ tiene raíces $x = 1$.\n\n$x = -2$ y $x = 3$.\n\nde lectura inmediata.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$ comparten la salida $16$, pero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
+    "explanation": "Una **función** pide que cada entrada tenga una **única** salida, no que cada salida venga de una sola entrada.\n\nAcá $-4$ y $4$\n\ncomparten la salida $16$.\n\npero cada uno tiene una sola salida.\n\nLa condición se cumple, así que es función.\n\nLa confusión central es leer la **unicidad** al revés: mira las salidas por entrada, no las entradas por salida.",
     "reviewed": false,
     "tags": [
       "trampa-inyectividad"
@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas.\n\nAcá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** contiene las entradas de la función y la **imagen** contiene las salidas.\n\nAcá el $104$ es el código que se ingresa a la función.\n\nEl $8$ es el stock que sale, así que pertenece a la imagen. guiarse por el número más chico o más grande; mirá el rol, qué entra y qué sale, no el tamaño.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-identificacion"
@@ -538,7 +538,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo.\n\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe, así que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada no admite radicando negativo.\n\nPara $a < 0$ la raíz no está definida en los reales.\n\nOjo con excluir el $0$: $\\sqrt{0} = 0$ existe.\n\nasí que la condición es $a \\geq 0$, no $a > 0$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$, es decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nHay dos restricciones a la vez: la raíz exige $x \\geq 0$ y el denominador exige $\\sqrt{x} \\neq 0$.\n\nes decir $x \\neq 0$.\n\nCombinando ambas queda $x > 0$.\n\nEl descuido habitual es aplicar una sola restricción; cuando se apilan raíz y división, hay que cruzar las dos condiciones.",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -688,7 +688,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nCon el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$, no $x \\geq 5$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El ****dominio** natural** es el mayor conjunto donde la función tiene sentido.\n\nLa raíz cuadrada exige radicando no negativo.\n\nPara $x > 5$ el radicando sería negativo.\n\nCon el sentido de la desigualdad: como la $x$ está restando, al despejar queda $x \\leq 5$.\n\nno $x \\geq 5$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio-natural"
@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles.\n\nAcá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El conjunto **imagen** son las salidas realmente alcanzadas, no todas las posibles.\n\nAcá la máquina admite montos de \\$100 a \\$500, pero hoy solo cobra.\n\nEsa es la imagen. dar el rango de lo que la máquina podría cobrar, el **codominio**; la imagen se queda con lo efectivamente cobrado.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -1163,7 +1163,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ con $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que.\n\nEl valor 0 nunca se alcanza, así que no tiene preimagen. probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "Un valor $y$ tiene **preimagen** solo si existe algún $x$ \n\ncon $f(x) = y$.\n\nAcá $x^2 \\geq 0$ para todo real, así que.\n\nEl valor 0 nunca se alcanza, así que no tiene preimagen. probar $-1$; pero $f(-1) = 2$, conviene mirar el mínimo de la función antes de buscar preimágenes.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si la función transforma $x$ en $y$, entonces $y$ es la **imagen** de $x$ y $x$ es una **preimagen** de $y$.\n\nAcá $g(6) = 18$ Así que 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Si la función transforma $x$ en $y$.\n\nentonces $y$ es la **imagen** de $x$ \n\ny $x$ es una **preimagen** de $y$.\n\nAcá $g(6) = 18$ Así que 18 es la imagen de 6 y el 6 es una preimagen de 18.\n\nDecir que 6 es la imagen de 18 invierte los roles, por eso es la afirmación incorrecta.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
