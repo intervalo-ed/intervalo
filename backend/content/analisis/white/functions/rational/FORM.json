@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar los valores excluidos del **dominio** de una función racional, igualamos a cero el denominador, nunca el numerador. Acá el denominador es $x-5$, así que resolvemos $x-5=0\\Rightarrow x=5$. Ese es el único valor donde $f(x)=\\frac{2x+3}{x-5}$ no está definida, porque dividir entre cero no tiene sentido. Un error frecuente es igualar el numerador ($2x+3=0$) en lugar del denominador: eso da las raíces de la función, no los valores prohibidos del dominio.",
+    "explanation": "Para hallar los valores excluidos del **dominio** de una función racional, igualamos a cero el denominador, nunca el numerador. Acá el denominador es $x-5$, así que resolvemos $x-5=0\\Rightarrow x=5$. Ese es el único valor donde $f(x)=\\frac{2x+3}{x-5}$ no está definida, porque dividir entre cero no tiene sentido. igualar el numerador ($2x+3=0$) en lugar del denominador: eso da las raíces de la función, no los valores prohibidos del dominio.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -34,7 +34,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La asíntota vertical en $x = 1$ y la horizontal en $y = 0$ corresponden a $f(x) = \\dfrac{1}{x-1}$.",
+    "feedback_correct": "La asíntota vertical en $x = \\dfrac{1}{x-1}$.",
     "feedback_incorrect": [
       "Esa fórmula tendría la asíntota vertical en $x=-1$, pero el gráfico la muestra en $x=1$: revisá el signo dentro del denominador.",
       null,
@@ -48,7 +48,7 @@
       -6,
       6
     ],
-    "explanation": "Para armar la fórmula a partir del gráfico hay que leer dos datos: dónde está la **asíntota vertical** y dónde está la horizontal. Acá la curva se dispara cerca de $x=1$, así que el denominador debe anularse ahí: $x-1=0\\Rightarrow x=1$. La asíntota horizontal en $y=0$ confirma que el grado del numerador (0) es menor al del denominador (1), así que el numerador es una constante simple. Resultado: $f(x)=\\frac{1}{x-1}$. Un error típico es invertir el signo dentro del paréntesis y escribir $x+1$, lo que desplazaría la asíntota al lado opuesto del eje.",
+    "explanation": "Para armar la fórmula a partir del gráfico hay que leer dos datos: dónde está la **asíntota vertical** y dónde está la horizontal. Acá la curva se dispara cerca de $x=1$, así que el denominador debe anularse ahí: $x-1=0\\Rightarrow x=1$. La asíntota horizontal en $y=0$ confirma que el grado del numerador (0) es menor al del denominador (1), así que el numerador es una constante simple. Resultado: $f(x)=\\frac{1}{x-1}$. invertir el signo dentro del paréntesis y escribir $x+1$, lo que desplazaría la asíntota al lado opuesto del eje.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador es una diferencia de cuadrados, conviene factorizarlo antes de buscar sus raíces. Acá $x^2-4=(x-2)(x+2)$, que se anula cuando $x=2$ o $x=-2$. Ambos valores quedan excluidos del **dominio** de $f(x)=\\frac{2}{x^2-4}$, y generan dos asíntotas verticales, una en cada raíz. Un error común es tomar el $4$ directamente como valor excluido en vez de resolver $x^2=4$, confundiendo el término independiente con la raíz real de la ecuación.",
+    "explanation": "Cuando el denominador es una diferencia de cuadrados, conviene factorizarlo antes de buscar sus raíces. Acá $x^2-4=(x-2)(x+2)$, que se anula cuando $x=2$ o $x=-2$. Ambos valores quedan excluidos del **dominio** de $f(x)=\\frac{2}{x^2-4}$, y generan dos asíntotas verticales, una en cada raíz. tomar el $4$ directamente como valor excluido en vez de resolver $x^2=4$, confundiendo el término independiente con la raíz real de la ecuación.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -128,7 +128,7 @@
       -6,
       6
     ],
-    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$. Después miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante. Juntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$. Un error frecuente al leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
+    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$. Después miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante. Juntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$. al leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -153,7 +153,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador y el denominador de una racional tienen el **mismo grado**, la asíntota horizontal es el cociente de los coeficientes principales, no el resultado de evaluar la función en algún punto. Acá ambos son de grado 1: el coeficiente principal del numerador es $3$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{3}{1}=3$. Podés verificarlo dividiendo cada término entre $x$: $\\frac{3x+1}{x-2}=\\frac{3+1/x}{1-2/x}$, que tiende a $3/1=3$ cuando $x\\to\\infty$. Un error clásico es confundir esta asíntota con el valor que anula el denominador.",
+    "explanation": "Cuando el numerador y el denominador de una racional tienen el **mismo grado**, la asíntota horizontal es el cociente de los coeficientes principales, no el resultado de evaluar la función en algún punto. Acá ambos son de grado 1: el coeficiente principal del numerador es $3$ y el del denominador es $1$, así que la asíntota horizontal es $y=\\frac{3}{1}=3$. Podés verificarlo dividiendo cada término entre $x$: $\\frac{3x+1}{x-2}=\\frac{3+1/x}{1-2/x}$, que tiende a $3/1=3$ cuando $x\\to\\infty$. confundir esta asíntota con el valor que anula el denominador.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -194,7 +194,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La asíntota vertical en $x = 3$ y la horizontal en $y = 1$ (desplazada arriba): $f(x) = \\frac{1}{x-3} + 1$.",
+    "feedback_correct": "La asíntota vertical en $x = \\frac{1}{x-3} + 1$.",
     "feedback_incorrect": [
       "Esa expresión tiene un numerador $x$ (no constante), lo que agregaría un cero en $x=0$ y cambiaría el comportamiento cerca de la asíntota; además no tiene el desplazamiento vertical que muestra el gráfico.",
       "Esa fórmula tiene la asíntota horizontal en $y=0$, pero el gráfico muestra la curva desplazada, con la asíntota horizontal en $y=1$.",
@@ -208,7 +208,7 @@
       -5,
       7
     ],
-    "explanation": "Para leer una fórmula desde el gráfico hay que combinar dos datos: dónde está la **asíntota vertical** y dónde está la horizontal. Acá la curva se dispara cerca de $x=3$, así que el denominador es $x-3$. La asíntota horizontal no está en $y=0$ sino en $y=1$, lo que indica un desplazamiento vertical de $+1$ unidad respecto de la hipérbola básica $\\frac{1}{x-3}$. Combinando ambos datos, la fórmula es $f(x)=\\frac{1}{x-3}+1$. Un error frecuente es asumir que toda racional tiene su asíntota horizontal en $y=0$ sin revisar si hay un término sumado que la desplace.",
+    "explanation": "Para leer una fórmula desde el gráfico hay que combinar dos datos: dónde está la **asíntota vertical** y dónde está la horizontal. Acá la curva se dispara cerca de $x=3$, así que el denominador es $x-3$. La asíntota horizontal no está en $y=0$ sino en $y=1$, lo que indica un desplazamiento vertical de $+1$ unidad respecto de la hipérbola básica $\\frac{1}{x-3}$. Combinando ambos datos, la fórmula es $f(x)=\\frac{1}{x-3}+1$. asumir que toda racional tiene su asíntota horizontal en $y=0$ sin revisar si hay un término sumado que la desplace.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -224,7 +224,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$x^2 - 9 = (x-3)(x+3) = 0$ cuando $x = 3$ o $x = -3$.",
+    "feedback_correct": "$x^2 - 9 = -3$.",
     "feedback_incorrect": [
       null,
       "Esos números salen de tomar el $9$ directamente como raíz, en vez de resolver $x^2=9$, que da $x=\\pm3$, no $\\pm9$.",
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los valores excluidos del **dominio** de una racional salen siempre de resolver denominador $=0$, nunca de tomar un número que aparece suelto en la expresión. Acá el denominador $x^2-9$ es una diferencia de cuadrados: $x^2-9=(x-3)(x+3)$, que se anula en $x=3$ y en $x=-3$. Ambos valores quedan excluidos del dominio de $f(x)=\\frac{x-2}{x^2-9}$, y cada uno genera una asíntota vertical distinta. Un error común es tomar la raíz cuadrada del $9$ sin resolver la ecuación correctamente, o directamente usar el $9$ como si fuera el valor excluido.",
+    "explanation": "Los valores excluidos del **dominio** de una racional salen siempre de resolver denominador $=0$, nunca de tomar un número que aparece suelto en la expresión. Acá el denominador $x^2-9$ es una diferencia de cuadrados: $x^2-9=(x-3)(x+3)$, que se anula en $x=3$ y en $x=-3$. Ambos valores quedan excluidos del dominio de $f(x)=\\frac{x-2}{x^2-9}$, y cada uno genera una asíntota vertical distinta. tomar la raíz cuadrada del $9$ sin resolver la ecuación correctamente, o directamente usar el $9$ como si fuera el valor excluido.",
     "reviewed": false,
     "tags": [
       "evaluacion-en-agujero"
@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador (aquí $0$, porque el numerador es una constante) es **menor** que el grado del denominador (aquí $1$), la función racional se acerca a cero a medida que $x$ crece en valor absoluto. Concretamente, $\\frac{5}{x}\\to0$ tanto cuando $x\\to+\\infty$ como cuando $x\\to-\\infty$. Por eso la asíntota horizontal es $y=0$. Un error típico es confundir esta recta con la asíntota vertical, que en este caso es $x=0$ y describe el comportamiento cerca del punto donde el denominador se anula, no en el infinito.",
+    "explanation": "Cuando el grado del numerador (aquí $0$, porque el numerador es una constante) es **menor** que el grado del denominador (aquí $1$), la función racional se acerca a cero a medida que $x$ crece en valor absoluto. Concretamente, $\\frac{5}{x}\\to0$ tanto cuando $x\\to+\\infty$ como cuando $x\\to-\\infty$. Por eso la asíntota horizontal es $y=0$. confundir esta recta con la asíntota vertical, que en este caso es $x=0$ y describe el comportamiento cerca del punto donde el denominador se anula, no en el infinito.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -299,7 +299,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(3) = \\frac{2(3)-1}{3+2} = \\frac{5}{5} = 1$.",
+    "feedback_correct": "$f(3) = 1$.",
     "feedback_incorrect": [
       null,
       "Ese valor sale de no restar bien en el numerador: $2(3)-1=5$, no $6$; revisá la resta antes de dividir.",
@@ -324,7 +324,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$g(-2) = \\frac{(-2)^2+1}{-2+3} = \\frac{5}{1} = 5$.",
+    "feedback_correct": "$g(-2) = 5$.",
     "feedback_incorrect": [
       "Ese valor sale de no elevar al cuadrado el $-2$ correctamente, o de dividir antes de sumar; revisá el orden de operaciones en el numerador.",
       null,
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $g(-2)$, sustituimos $x=-2$ en cada parte de la expresión por separado, respetando el orden de operaciones. Primero el numerador:\n$$(-2)^2+1=4+1=5$$\nLuego el denominador:\n$$-2+3=1$$\nDividiendo, $g(-2)=\\frac{5}{1}=5$. Un error frecuente es olvidar que elevar un número negativo al cuadrado da un resultado positivo, lo que llevaría a calcular el numerador como $-4+1=-3$ en vez de $5$.",
+    "explanation": "Para evaluar $g(-2)$, sustituimos $x=-2$ en cada parte de la expresión por separado, respetando el orden de operaciones. Primero el numerador:\n$$(-2)^2+1=4+1=5$$\nLuego el denominador:\n$$-2+3=1$$\nDividiendo, $g(-2)=\\frac{5}{1}=5$. olvidar que elevar un número negativo al cuadrado da un resultado positivo, lo que llevaría a calcular el numerador como $-4+1=-3$ en vez de $5$.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -349,7 +349,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$f(0) = \\frac{3(0)+6}{0-4} = \\frac{6}{-4} = -\\frac{3}{2}$.",
+    "feedback_correct": "$f(0) = -\\frac{3}{2}$.",
     "feedback_incorrect": [
       "Ese valor tiene el signo cambiado: el numerador $3(0)+6=6$ es positivo, pero el denominador $0-4=-4$ es negativo, así que el cociente debe ser negativo.",
       "Ese sería el numerador solo, sin dividir por el denominador; falta completar la división por $0-4=-4$.",
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio. Acá:\n$$f(0)=\\frac{3(0)+6}{0-4}=\\frac{6}{-4}=-\\frac{3}{2}$$\nEl denominador $0-4=-4$ no se anula, así que $x=0$ sí pertenece al dominio y el intercepto existe. Un error común es olvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio. Acá:\n$$f(0)=\\frac{3(0)+6}{0-4}=\\frac{6}{-4}=-\\frac{3}{2}$$\nEl denominador $0-4=-4$ no se anula, así que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota vertical de una racional aparece donde el denominador se anula. Acá el denominador es $3x-6$, así que resolvemos:\n$$3x-6=0 \\Rightarrow 3x=6 \\Rightarrow x=2$$\nLa asíntota vertical está en $x=2$. Un error frecuente es tomar el término independiente ($6$) directamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$), lo que confundiría $x=6$ con la raíz real de la ecuación.",
+    "explanation": "La asíntota vertical de una racional aparece donde el denominador se anula. Acá el denominador es $3x-6$, así que resolvemos:\n$$3x-6=0 \\Rightarrow 3x=6 \\Rightarrow x=2$$\nLa asíntota vertical está en $x=2$. tomar el término independiente ($6$) directamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$), lo que confundiría $x=6$ con la raíz real de la ecuación.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador. Acá el denominador es $2x+4$:\n$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$\nLa asíntota vertical es $x=-2$. Un error típico es olvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
+    "explanation": "Para hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador. Acá el denominador es $2x+4$:\n$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$\nLa asíntota vertical es $x=-2$. olvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -424,7 +424,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$x^2-4x+3=(x-1)(x-3)=0$ en $x=1$ y $x=3$: dos AV.",
+    "feedback_correct": "$x^2-4x+3 = 3$: dos AV.",
     "feedback_incorrect": [
       "Ese conteo encuentra solo una de las dos raíces del denominador; $x^2-4x+3$ se factoriza en dos factores distintos, y cada uno da una asíntota.",
       null,
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas (si se anulara, sería un agujero, no una asíntota). Acá $x^2-4x+3=(x-1)(x-3)$, con raíces $x=1$ y $x=3$. El numerador $x+1$ evaluado en esos puntos da $1+1=2$ y $3+1=4$, ambos distintos de cero, así que las dos raíces generan asíntotas verticales genuinas. Un error común es factorizar mal o quedarse con una sola raíz, subestimando la cantidad real de asíntotas.",
+    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas (si se anulara, sería un agujero, no una asíntota). Acá $x^2-4x+3=(x-1)(x-3)$, con raíces $x=1$ y $x=3$. El numerador $x+1$ evaluado en esos puntos da $1+1=2$ y $3+1=4$, ambos distintos de cero, así que las dos raíces generan asíntotas verticales genuinas. factorizar mal o quedarse con una sola raíz, subestimando la cantidad real de asíntotas.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que $|x|$ crece, sin importar los coeficientes exactos. Acá el numerador $3$ tiene grado $0$ (es una constante) y el denominador $x^2-1$ tiene grado $2$. Como $0<2$, la asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. Un error común es intentar armar un cociente de coeficientes principales como si los grados fueran iguales, cuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
+    "explanation": "Cuando el grado del numerador es menor que el del denominador, la función racional tiende a cero a medida que $|x|$ crece, sin importar los coeficientes exactos. Acá el numerador $3$ tiene grado $0$ (es una constante) y el denominador $x^2-1$ tiene grado $2$. Como $0<2$, la asíntota horizontal es $y=0$: la curva se aplana hacia el eje $X$ en ambos extremos. intentar armar un cociente de coeficientes principales como si los grados fueran iguales, cuando en realidad esa regla solo aplica cuando ambos grados coinciden.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -549,7 +549,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2-9=(x-3)(x+3)=0$ en $x=\\pm3$: dos valores excluidos.",
+    "feedback_correct": "$x^2-9 = \\pm3$: dos valores excluidos.",
     "feedback_incorrect": [
       "Ese dominio solo excluye $x=3$, pero el denominador $x^2-9$ también se anula en $x=-3$; falta partir la recta en tres tramos.",
       "Ese conjunto excluye el $9$ directamente, pero hay que resolver $x^2-9=0$, que da $x=\\pm3$, no $x=9$.",
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos. Acá $x^2-9=(x-3)(x+3)$ se anula en $x=3$ y en $x=-3$, así que el dominio es:\n$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-3,3\\}=(-\\infty,-3)\\cup(-3,3)\\cup(3,+\\infty)$$\nUn error frecuente es olvidar una de las dos raíces y escribir el dominio con un solo punto excluido, o confundir el término independiente $9$ con la raíz real, que en realidad es $\\pm3$.",
+    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos. Acá $x^2-9=(x-3)(x+3)$ se anula en $x=3$ y en $x=-3$, así que el dominio es:\n$$\\text{Dom}(f)=\\mathbb{R}\\setminus\\{-3,3\\}=(-\\infty,-3)\\cup(-3,3)\\cup(3,+\\infty)$$\nOlvidar una de las dos raíces y escribir el dominio con un solo punto excluido, o confundir el término independiente $9$ con la raíz real, que en realidad es $\\pm3$.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-form"
@@ -574,7 +574,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$2x - 6 = 0 \\Rightarrow x = 3$ (y el denominador $3 + 1 = 4 \\neq 0$).",
+    "feedback_correct": "$2x - 6 = 4 \\neq 0$).",
     "feedback_incorrect": [
       "Ese valor anula el denominador (es la asíntota vertical), no el numerador; el intercepto con el eje $X$ sale de igualar el numerador a cero.",
       "Ese valor sale de tomar el término independiente del numerador sin cambiarle el signo al despejar.",
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $X$ de una racional se halla igualando el numerador a cero, siempre que ese valor no anule también el denominador (si lo anulara, sería un agujero o una indeterminación, no una raíz real). Acá resolvemos $2x-6=0\\Rightarrow x=3$. Verificamos que el denominador no se anule ahí: $3+1=4\\neq0$, así que el intercepto es válido. Un error común es despejar mal el signo del término independiente y obtener $x=6$ en lugar de $x=3$, olvidando dividir por el coeficiente $2$.",
+    "explanation": "El intercepto con el eje $X$ de una racional se halla igualando el numerador a cero, siempre que ese valor no anule también el denominador (si lo anulara, sería un agujero o una indeterminación, no una raíz real). Acá resolvemos $2x-6=0\\Rightarrow x=3$. Verificamos que el denominador no se anule ahí: $3+1=4\\neq0$, así que el intercepto es válido. despejar mal el signo del término independiente y obtener $x=6$ en lugar de $x=3$, olvidando dividir por el coeficiente $2$.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función vale cero únicamente donde su numerador se anula, siempre que ese punto no anule también el denominador. Acá el numerador de $f(x)=\\frac{5}{x-2}$ es la constante $5$, que nunca puede valer cero sin importar el valor de $x$. Por lo tanto, la función **no tiene intercepto con el eje $X$**: la curva nunca toca el eje horizontal, solo se acerca a él (la asíntota horizontal es $y=0$). Un error común es confundir esta pregunta con hallar la asíntota vertical, que sí existe en $x=2$ pero corresponde a otro concepto.",
+    "explanation": "Una función vale cero únicamente donde su numerador se anula, siempre que ese punto no anule también el denominador. Acá el numerador de $f(x)=\\frac{5}{x-2}$ es la constante $5$, que nunca puede valer cero sin importar el valor de $x$. Por lo tanto, la función **no tiene intercepto con el eje $X$**: la curva nunca toca el eje horizontal, solo se acerca a él (la asíntota horizontal es $y=0$). confundir esta pregunta con hallar la asíntota vertical, que sí existe en $x=2$ pero corresponde a otro concepto.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito-form"
@@ -624,7 +624,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = \\frac{0-4}{0+1} = \\frac{-4}{1} = -4$.",
+    "feedback_correct": "$f(0) = -4$.",
     "feedback_incorrect": [
       "Ese valor tiene el signo cambiado; el numerador $0^2-4=-4$ es negativo.",
       null,
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio. Acá:\n$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$\nEl denominador $0+1=1$ no se anula, así que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$. Un error frecuente es olvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
+    "explanation": "El intercepto con el eje $Y$ se halla evaluando la función en $x=0$, siempre que ese punto esté en el dominio. Acá:\n$$f(0)=\\frac{0^2-4}{0+1}=\\frac{-4}{1}=-4$$\nEl denominador $0+1=1$ no se anula, así que $x=0$ pertenece al dominio y el intercepto existe en $y=-4$. olvidar el signo negativo del numerador y reportar el resultado como positivo, o confundir este cálculo con buscar el intercepto con el eje $X$, que requiere igualar el numerador a cero en vez de sustituir $x=0$.",
     "reviewed": false,
     "tags": [
       "formula-desde-propiedades"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El intercepto con el eje $Y$ existe solo si $x=0$ pertenece al **dominio** de la función. Acá el denominador de $f(x)=\\frac{x+3}{x}$ es justamente $x$, que se anula en $x=0$. Como el punto donde queremos evaluar coincide con el punto excluido del dominio, $f(0)$ **no existe**: la función tiene una asíntota vertical en $x=0$, que es precisamente el eje $Y$. Un error común es evaluar solo el numerador ($0+3=3$) sin verificar antes que el denominador no se anule, dando un resultado que en realidad no corresponde a ningún punto real de la curva.",
+    "explanation": "El intercepto con el eje $Y$ existe solo si $x=0$ pertenece al **dominio** de la función. Acá el denominador de $f(x)=\\frac{x+3}{x}$ es justamente $x$, que se anula en $x=0$. Como el punto donde queremos evaluar coincide con el punto excluido del dominio, $f(0)$ **no existe**: la función tiene una asíntota vertical en $x=0$, que es precisamente el eje $Y$. evaluar solo el numerador ($0+3=3$) sin verificar antes que el denominador no se anule, dando un resultado que en realidad no corresponde a ningún punto real de la curva.",
     "reviewed": false,
     "tags": [
       "evaluacion-desde-grafico"
@@ -688,7 +688,7 @@
       -5,
       5
     ],
-    "explanation": "La asíntota vertical es la línea vertical hacia la que la curva se dispara sin nunca tocarla, porque el denominador de la función se anula justo ahí. En el gráfico, observamos que ambas ramas de la curva tienden a $+\\infty$ o $-\\infty$ a medida que $x$ se acerca a $1$ por izquierda y derecha. Por eso la asíntota vertical es $x=1$, que corresponde algebraicamente a resolver el denominador $x-1=0$. Un error común al leer el gráfico es confundir el eje donde ocurre el disparo, buscando la asíntota en el eje horizontal en vez del vertical.",
+    "explanation": "La asíntota vertical es la línea vertical hacia la que la curva se dispara sin nunca tocarla, porque el denominador de la función se anula justo ahí. En el gráfico, observamos que ambas ramas de la curva tienden a $+\\infty$ o $-\\infty$ a medida que $x$ se acerca a $1$ por izquierda y derecha. Por eso la asíntota vertical es $x=1$, que corresponde algebraicamente a resolver el denominador $x-1=0$. al leer el gráfico es confundir el eje donde ocurre el disparo, buscando la asíntota en el eje horizontal en vez del vertical.",
     "reviewed": false,
     "tags": [
       "evaluacion-en-agujero"
@@ -718,7 +718,7 @@
       -6,
       6
     ],
-    "explanation": "La asíntota horizontal es la línea horizontal hacia la que se aplanan las ramas de la curva a medida que $x$ crece o decrece sin límite. En el gráfico, tanto la rama izquierda como la derecha se acercan cada vez más al eje $X$ sin llegar a tocarlo, lo que indica que la asíntota horizontal es $y=0$. Este comportamiento es típico de racionales donde el numerador es constante y el denominador crece: cuanto más grande el denominador, más chico el cociente. Un error común es confundir esta lectura con la asíntota vertical, que se lee en el eje opuesto.",
+    "explanation": "La asíntota horizontal es la línea horizontal hacia la que se aplanan las ramas de la curva a medida que $x$ crece o decrece sin límite. En el gráfico, tanto la rama izquierda como la derecha se acercan cada vez más al eje $X$ sin llegar a tocarlo, lo que indica que la asíntota horizontal es $y=0$. Este comportamiento es típico de racionales donde el numerador es constante y el denominador crece: cuanto más grande el denominador, más chico el cociente. confundir esta lectura con la asíntota vertical, que se lee en el eje opuesto.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form"
@@ -734,7 +734,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(3) = 1/(3-1) = 1/2 = 0{,}5$: el punto $(3; 0{,}5)$ está en la curva.",
+    "feedback_correct": "$f(3) = 0{,}5$: el punto $(3; 0{,}5)$ está en la curva.",
     "feedback_incorrect": [
       "Ese valor sale de evaluar $f(2)$ en vez de $f(3)$; revisá qué coordenada $x$ pide la pregunta.",
       null,
@@ -748,7 +748,7 @@
       -5,
       5
     ],
-    "explanation": "Para leer un valor aproximado del gráfico, ubicamos $x=3$ en el eje horizontal y miramos la altura de la curva en ese punto. Algebraicamente, la función es $f(x)=\\frac{1}{x-1}$, así que:\n$$f(3)=\\frac{1}{3-1}=\\frac{1}{2}=0{,}5$$\nEl punto $(3;\\,0{,}5)$ está sobre la rama derecha, bastante cerca del eje $X$, coherente con que la rama se aplana hacia la asíntota horizontal $y=0$ a medida que $x$ crece. Un error común es leer la coordenada $x$ equivocada en el eje, por ejemplo evaluando en $x=2$ en vez de $x=3$.",
+    "explanation": "Para leer un valor aproximado del gráfico, ubicamos $x=3$ en el eje horizontal y miramos la altura de la curva en ese punto. Algebraicamente, la función es $f(x)=\\frac{1}{x-1}$, así que:\n$$f(3)=\\frac{1}{3-1}=\\frac{1}{2}=0{,}5$$\nEl punto $(3;\\,0{,}5)$ está sobre la rama derecha, bastante cerca del eje $X$, coherente con que la rama se aplana hacia la asíntota horizontal $y=0$ a medida que $x$ crece. leer la coordenada $x$ equivocada en el eje, por ejemplo evaluando en $x=2$ en vez de $x=3$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-form"
@@ -778,7 +778,7 @@
       -5,
       5
     ],
-    "explanation": "Para leer la asíntota vertical en un gráfico, buscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia $+\\infty$ o $-\\infty$ sin llegar a cruzarlo. En este gráfico, ese comportamiento ocurre cerca de $x=-2$. Algebraicamente, eso corresponde a resolver el denominador $x+2=0\\Rightarrow x=-2$. Un error frecuente al leer gráficos es confundir el lado del eje donde ocurre el disparo, tomando el valor con el signo opuesto al que realmente muestra la curva.",
+    "explanation": "Para leer la asíntota vertical en un gráfico, buscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia $+\\infty$ o $-\\infty$ sin llegar a cruzarlo. En este gráfico, ese comportamiento ocurre cerca de $x=-2$. Algebraicamente, eso corresponde a resolver el denominador $x+2=0\\Rightarrow x=-2$. al leer gráficos es confundir el lado del eje donde ocurre el disparo, tomando el valor con el signo opuesto al que realmente muestra la curva.",
     "reviewed": false,
     "tags": [
       "transformaciones-form"
@@ -794,7 +794,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "AV en $x=3$ y AH en $y=1$ corresponden a $f(x) = 1/(x-3) + 1$.",
+    "feedback_correct": "AV en $x = 1/(x-3) + 1$.",
     "feedback_incorrect": [
       "Esa fórmula tiene la asíntota horizontal en $y=0$, pero el enunciado dice que está en $y=1$: falta el desplazamiento vertical.",
       "Esa expresión tiene un numerador $x$ (no constante), lo que agregaría un cero y cambiaría el comportamiento cerca de la asíntota vertical; además no incluye el desplazamiento vertical indicado.",
@@ -808,7 +808,7 @@
       -4,
       6
     ],
-    "explanation": "El enunciado ya adelanta un dato clave: la asíntota horizontal está en $y=1$, no en $y=0$. Eso significa que la hipérbola básica está desplazada verticalmente. La asíntota vertical en $x=3$ indica que el denominador es $x-3$, así que partimos de $\\frac{1}{x-3}$, cuya asíntota horizontal natural es $y=0$. Para llevarla a $y=1$, sumamos $1$ a toda la expresión: $f(x)=\\frac{1}{x-3}+1$. Un error común es ignorar el desplazamiento vertical señalado en el enunciado y elegir la fórmula sin el $+1$, aunque tenga la asíntota vertical correcta.",
+    "explanation": "El enunciado ya adelanta un dato clave: la asíntota horizontal está en $y=1$, no en $y=0$. Eso significa que la hipérbola básica está desplazada verticalmente. La asíntota vertical en $x=3$ indica que el denominador es $x-3$, así que partimos de $\\frac{1}{x-3}$, cuya asíntota horizontal natural es $y=0$. Para llevarla a $y=1$, sumamos $1$ a toda la expresión: $f(x)=\\frac{1}{x-3}+1$. ignorar el desplazamiento vertical señalado en el enunciado y elegir la fórmula sin el $+1$, aunque tenga la asíntota vertical correcta.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$, su forma general es $f(x)=\\frac{k}{x-a}$, con $k$ una constante a determinar usando un punto conocido. Acá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$. Usamos el punto $(0,-3)$:\n$$\\frac{k}{0-2}=-3 \\Rightarrow \\frac{k}{-2}=-3 \\Rightarrow k=6$$\nLa fórmula es $f(x)=\\frac{6}{x-2}$. Un error frecuente es despejar mal el signo al multiplicar ambos lados por $-2$, obteniendo $k=-6$ en vez de $k=6$.",
+    "explanation": "Cuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$, su forma general es $f(x)=\\frac{k}{x-a}$, con $k$ una constante a determinar usando un punto conocido. Acá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$. Usamos el punto $(0,-3)$:\n$$\\frac{k}{0-2}=-3 \\Rightarrow \\frac{k}{-2}=-3 \\Rightarrow k=6$$\nLa fórmula es $f(x)=\\frac{6}{x-2}$. despejar mal el signo al multiplicar ambos lados por $-2$, obteniendo $k=-6$ en vez de $k=6$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma $f(x)=\\frac{k}{x-a}$. Acá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$. Usamos el punto $(1,1)$ para hallar $k$:\n$$\\frac{k}{1+1}=1 \\Rightarrow \\frac{k}{2}=1 \\Rightarrow k=2$$\nLa fórmula es $f(x)=\\frac{2}{x+1}$. Un error común es dejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva, lo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
+    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma $f(x)=\\frac{k}{x-a}$. Acá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$. Usamos el punto $(1,1)$ para hallar $k$:\n$$\\frac{k}{1+1}=1 \\Rightarrow \\frac{k}{2}=1 \\Rightarrow k=2$$\nLa fórmula es $f(x)=\\frac{2}{x+1}$. dejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva, lo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
@@ -883,7 +883,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sumar o restar una constante fuera de la fracción desplaza toda la curva verticalmente, sin afectar la posición de la asíntota vertical. Acá pasamos de $g(x)=\\frac{1}{x}$ a $f(x)=\\frac{1}{x}-3$, restando $3$ al resultado final. Eso mueve cada punto de la curva $3$ unidades hacia abajo, y en particular la asíntota horizontal pasa de $y=0$ a $y=-3$. Un error común es confundir este tipo de cambio con un desplazamiento horizontal, que en cambio modificaría la variable dentro del denominador (por ejemplo $\\frac{1}{x-3}$).",
+    "explanation": "Sumar o restar una constante fuera de la fracción desplaza toda la curva verticalmente, sin afectar la posición de la asíntota vertical. Acá pasamos de $g(x)=\\frac{1}{x}$ a $f(x)=\\frac{1}{x}-3$, restando $3$ al resultado final. Eso mueve cada punto de la curva $3$ unidades hacia abajo, y en particular la asíntota horizontal pasa de $y=0$ a $y=-3$. confundir este tipo de cambio con un desplazamiento horizontal, que en cambio modificaría la variable dentro del denominador (por ejemplo $\\frac{1}{x-3}$).",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -899,7 +899,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "El denominador $x + 5 = 0$ en $x = -5$: la AV es $x = -5$.",
+    "feedback_correct": "El denominador $x + 5 = -5$.",
     "feedback_incorrect": [
       "Ese valor tiene el signo cambiado; el denominador es $x+5$, que se anula en $x=-5$, no en $x=5$.",
       "Ese valor corresponde al desplazamiento vertical ($-2$), que no afecta la asíntota vertical; la AV depende solo del denominador.",
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una función de la forma $\\frac{k}{x-a}+b$, la asíntota vertical depende solo de $a$ y la asíntota horizontal depende solo de $b$: el numerador $k$ no afecta a ninguna de las dos. Acá $a=4$: el denominador $x-4$ se anula en $x=4$, así que la AV es $x=4$. Cuando $x\\to\\pm\\infty$, la fracción $\\frac{3}{x-4}$ tiende a $0$, y queda $f(x)\\to2$: la AH es $y=2$. Un error frecuente es sumar el numerador al desplazamiento vertical, confundiendo $3$ con parte de la asíntota horizontal.",
+    "explanation": "En una función de la forma $\\frac{k}{x-a}+b$, la asíntota vertical depende solo de $a$ y la asíntota horizontal depende solo de $b$: el numerador $k$ no afecta a ninguna de las dos. Acá $a=4$: el denominador $x-4$ se anula en $x=4$, así que la AV es $x=4$. Cuando $x\\to\\pm\\infty$, la fracción $\\frac{3}{x-4}$ tiende a $0$, y queda $f(x)\\to2$: la AH es $y=2$. sumar el numerador al desplazamiento vertical, confundiendo $3$ con parte de la asíntota horizontal.",
     "reviewed": false,
     "tags": [
       "hallar-parametro-k"
@@ -949,7 +949,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(6) = \\frac{3}{6-4} + 2 = \\frac{3}{2} + 2 = \\frac{7}{2}$.",
+    "feedback_correct": "$f(6) = \\frac{7}{2}$.",
     "feedback_incorrect": [
       "Ese valor sale de redondear mal la fracción $\\frac{3}{2}$; conviene dejarla como fracción o decimal exacto antes de sumar el $2$.",
       null,
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$, sustituimos $x=6$ y resolvemos por partes:\n$$f(6)=\\frac{3}{6-4}+2=\\frac{3}{2}+2=1{,}5+2=3{,}5=\\frac{7}{2}$$\nEl resultado es $\\frac{7}{2}$. Un error común es sumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.",
+    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$, sustituimos $x=6$ y resolvemos por partes:\n$$f(6)=\\frac{3}{6-4}+2=\\frac{3}{2}+2=1{,}5+2=3{,}5=\\frac{7}{2}$$\nEl resultado es $\\frac{7}{2}$. sumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -1024,7 +1024,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "AV: $x-3=0\\Rightarrow x=3$; AH: cocientes iguales $1/1=1$; $f(0)=\\frac{2}{-3}=-\\frac{2}{3}$.",
+    "feedback_correct": "AV: $x-3 = -\\frac{2}{3}$.",
     "feedback_incorrect": [
       null,
       "El signo de la AV está invertido: el denominador es $x-3$, que se anula en $x=3$, no en $x=-2$; además ese $f(0)$ no corresponde a esta función.",
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado. La asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$. La asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$. Por último, el intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. Un error frecuente es calcular la AH como si el grado del numerador fuera menor, dando $y=0$ en vez de $y=1$.",
+    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado. La asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$. La asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$. Por último, el intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$. calcular la AH como si el grado del numerador fuera menor, dando $y=0$ en vez de $y=1$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -1049,7 +1049,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "AV: $x+2=0$; AH: constante sobre lineal→$y=0$; $f(0)=4/(0+2)=2$.",
+    "feedback_correct": "AV: $x+2 = 2$.",
     "feedback_incorrect": [
       "El signo de la AV está invertido: el denominador es $x+2$, que se anula en $x=-2$, no en $x=2$.",
       null,
@@ -1058,7 +1058,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función combina tres datos que conviene resolver por separado. La asíntota vertical sale de igualar el denominador a cero: $x+2=0\\Rightarrow x=-2$. La asíntota horizontal sale de comparar grados: el numerador es constante (grado $0$) y el denominador es lineal (grado $1$), y como el grado del numerador es menor, la asíntota horizontal es $y=0$. El intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{4}{0+2}=\\frac{4}{2}=2$. Un error común es confundir el numerador $4$ con el valor de la asíntota horizontal, cuando en realidad esa asíntota es $y=0$ porque el grado del numerador es menor.",
+    "explanation": "Esta función combina tres datos que conviene resolver por separado. La asíntota vertical sale de igualar el denominador a cero: $x+2=0\\Rightarrow x=-2$. La asíntota horizontal sale de comparar grados: el numerador es constante (grado $0$) y el denominador es lineal (grado $1$), y como el grado del numerador es menor, la asíntota horizontal es $y=0$. El intercepto con el eje $Y$ sale de evaluar $f(0)=\\frac{4}{0+2}=\\frac{4}{2}=2$. confundir el numerador $4$ con el valor de la asíntota horizontal, cuando en realidad esa asíntota es $y=0$ porque el grado del numerador es menor.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas. Acá $x^2-1=(x-1)(x+1)$ se anula en $x=1$ y en $x=-1$. Evaluamos el numerador $x^2+3x$ en esos puntos: en $x=1$ da $1+3=4$, y en $x=-1$ da $1-3=-2$; ninguno es cero, así que ambas raíces del denominador generan asíntotas verticales genuinas. Hay dos AV. Un error frecuente es quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
+    "explanation": "Para contar las asíntotas verticales, factorizamos el denominador y buscamos todas sus raíces reales, verificando que el numerador no se anule en ninguna de ellas. Acá $x^2-1=(x-1)(x+1)$ se anula en $x=1$ y en $x=-1$. Evaluamos el numerador $x^2+3x$ en esos puntos: en $x=1$ da $1+3=4$, y en $x=-1$ da $1-3=-2$; ninguno es cero, así que ambas raíces del denominador generan asíntotas verticales genuinas. Hay dos AV. quedarse con una sola raíz al factorizar apurado, subestimando la cantidad real de asíntotas.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -1099,7 +1099,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Numerador=0: $2x+1=0\\Rightarrow x=-1/2$; $f(0)=(1)/(0-5)=-1/5$.",
+    "feedback_correct": "Numerador = -1/5$.",
     "feedback_incorrect": [
       "Ese valor de intercepto $X$ es la asíntota vertical (donde se anula el denominador), no la raíz del numerador; además el intercepto $Y$ no coincide con evaluar $f(0)$ correctamente.",
       "Esos valores están invertidos entre sí y ninguno corresponde a resolver numerador $=0$ ni a evaluar $f(0)$ correctamente.",
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función pide dos interceptos distintos, que se calculan con procedimientos diferentes. El intercepto con el eje $X$ sale de igualar el numerador a cero: $2x+1=0\\Rightarrow x=-\\frac{1}{2}$, y verificamos que no anule el denominador ($-\\frac{1}{2}-5=-\\frac{11}{2}\\neq0$). El intercepto con el eje $Y$ sale de evaluar la función en $x=0$: $f(0)=\\frac{2(0)+1}{0-5}=\\frac{1}{-5}=-\\frac{1}{5}$. Un error común es confundir estos dos procedimientos, por ejemplo igualando el denominador a cero para buscar el intercepto con el eje $X$ en vez del numerador.",
+    "explanation": "Esta función pide dos interceptos distintos, que se calculan con procedimientos diferentes. El intercepto con el eje $X$ sale de igualar el numerador a cero: $2x+1=0\\Rightarrow x=-\\frac{1}{2}$, y verificamos que no anule el denominador ($-\\frac{1}{2}-5=-\\frac{11}{2}\\neq0$). El intercepto con el eje $Y$ sale de evaluar la función en $x=0$: $f(0)=\\frac{2(0)+1}{0-5}=\\frac{1}{-5}=-\\frac{1}{5}$. confundir estos dos procedimientos, por ejemplo igualando el denominador a cero para buscar el intercepto con el eje $X$ en vez del numerador.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1149,7 +1149,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(1) = 2 \\Rightarrow \\frac{k}{1+3} = 2 \\Rightarrow \\frac{k}{4} = 2 \\Rightarrow k = 8$.",
+    "feedback_correct": "$f(1) = 8$.",
     "feedback_incorrect": [
       "Ese valor sale de no completar la multiplicación al despejar $k$; revisá el paso final de la ecuación $\\frac{k}{4}=2$.",
       null,
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la constante $k$ de una función de la forma $f(x)=\\frac{k}{x+3}$, usamos el punto dado y despejamos. Sustituimos $x=1$, $f(1)=2$:\n$$\\frac{k}{1+3}=2 \\Rightarrow \\frac{k}{4}=2 \\Rightarrow k=8$$\nEl valor de $k$ es $8$. Un error frecuente es quedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$, o multiplicar por el valor equivocado del denominador.",
+    "explanation": "Para hallar la constante $k$ de una función de la forma $f(x)=\\frac{k}{x+3}$, usamos el punto dado y despejamos. Sustituimos $x=1$, $f(1)=2$:\n$$\\frac{k}{1+3}=2 \\Rightarrow \\frac{k}{4}=2 \\Rightarrow k=8$$\nEl valor de $k$ es $8$. quedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$, o multiplicar por el valor equivocado del denominador.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador. Cuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal. En su lugar, aparece una asíntota oblicua, una recta inclinada que se obtiene dividiendo el numerador entre el denominador. Un error frecuente es aplicar automáticamente la regla de grados iguales o de grado del numerador menor sin antes verificar cuál grado es mayor.",
+    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador. Cuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal. En su lugar, aparece una asíntota oblicua, una recta inclinada que se obtiene dividiendo el numerador entre el denominador. aplicar automáticamente la regla de grados iguales o de grado del numerador menor sin antes verificar cuál grado es mayor.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -1199,7 +1199,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^2+2x+1=(x+1)^2=0$ solo en $x=-1$: se excluye ese único punto.",
+    "feedback_correct": "$x^2+2x+1 = -1$: se excluye ese único punto.",
     "feedback_incorrect": [
       "Ese valor no anula el denominador; el denominador es $(x+1)^2$, que se anula solo en $x=-1$, no en $x=2$.",
       "$\\mathbb{R}$ sería el dominio si el denominador nunca se anulara, pero $(x+1)^2$ sí tiene una raíz real.",
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida. Acá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**. El numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$), así que hay una asíntota vertical en $x=-1$. El dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos. Un error común es asumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
+    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida. Acá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**. El numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$), así que hay una asíntota vertical en $x=-1$. El dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos. asumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -1224,7 +1224,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$x^2-9=0 \\Rightarrow x=\\pm3$. Ninguno anula el denominador ($3+5=8$; $-3+5=2$).",
+    "feedback_correct": "$x^2-9 = 2$).",
     "feedback_incorrect": [
       "Ese valor sale de tomar el término independiente del numerador ($9$) directamente como raíz, en vez de resolver $x^2-9=0$, que da $x=\\pm3$.",
       "Ese valor anula el denominador (es la asíntota vertical), no el numerador; los interceptos con el eje $X$ salen de igualar el numerador a cero.",
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los interceptos con el eje $X$ salen de igualar el numerador a cero, y luego se verifica que esos valores no anulen también el denominador. Acá $x^2-9=(x-3)(x+3)=0$ da dos raíces, $x=3$ y $x=-3$. Comprobamos el denominador en ambos puntos: $3+5=8$ y $-3+5=2$, ninguno es cero, así que los dos interceptos son válidos. Un error frecuente es tomar la raíz cuadrada del término independiente sin factorizar correctamente, o confundir este cálculo con el que se usa para hallar la asíntota vertical, que en cambio requiere igualar el denominador a cero.",
+    "explanation": "Los interceptos con el eje $X$ salen de igualar el numerador a cero, y luego se verifica que esos valores no anulen también el denominador. Acá $x^2-9=(x-3)(x+3)=0$ da dos raíces, $x=3$ y $x=-3$. Comprobamos el denominador en ambos puntos: $3+5=8$ y $-3+5=2$, ninguno es cero, así que los dos interceptos son válidos. tomar la raíz cuadrada del término independiente sin factorizar correctamente, o confundir este cálculo con el que se usa para hallar la asíntota vertical, que en cambio requiere igualar el denominador a cero.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función pide dos datos que se calculan con procedimientos distintos. La asíntota vertical sale de igualar el denominador a cero: $2x+6=0\\Rightarrow x=-3$. La asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{5}{2}$. La AV es $x=-3$ y la AH es $y=\\frac{5}{2}$. Un error común es invertir el cociente de coeficientes (poniendo el del denominador arriba), lo que daría $\\frac{2}{5}$ en vez de $\\frac{5}{2}$.",
+    "explanation": "Esta función pide dos datos que se calculan con procedimientos distintos. La asíntota vertical sale de igualar el denominador a cero: $2x+6=0\\Rightarrow x=-3$. La asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{5}{2}$. La AV es $x=-3$ y la AH es $y=\\frac{5}{2}$. invertir el cociente de coeficientes (poniendo el del denominador arriba), lo que daría $\\frac{2}{5}$ en vez de $\\frac{5}{2}$.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1274,7 +1274,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Denominador: $(x-2)(x+2)=0$ en $x=\\pm2$. Grado num (1) < denom (2): AH $y=0$.",
+    "feedback_correct": "Denominador: $(x-2)(x+2) = 0$.",
     "feedback_incorrect": [
       "Ese conteo encuentra solo una de las dos raíces del denominador, y la AH está mal calculada: el numerador es de grado menor, así que la AH es $y=0$, no $y=3$.",
       "Ese valor no corresponde a ninguna raíz real del denominador $x^2-4$; factorizalo como producto de dos binomios para encontrar las raíces correctas.",
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para describir completamente las asíntotas de esta función hay que analizar denominador y numerador por separado. El denominador es una diferencia de cuadrados: $x^2-4=(x-2)(x+2)$, que se anula en $x=2$ y en $x=-2$, dando dos asíntotas verticales. Comparando grados, el numerador $3x$ es de grado 1 y el denominador de grado 2, así que la asíntota horizontal es $y=0$. Además, el numerador se anula en $x=0$, un punto que no coincide con ninguna raíz del denominador, así que ahí la curva cruza el eje $X$. Un error común es contar mal las raíces del denominador o calcular la AH como si los grados fueran iguales.",
+    "explanation": "Para describir completamente las asíntotas de esta función hay que analizar denominador y numerador por separado. El denominador es una diferencia de cuadrados: $x^2-4=(x-2)(x+2)$, que se anula en $x=2$ y en $x=-2$, dando dos asíntotas verticales. Comparando grados, el numerador $3x$ es de grado 1 y el denominador de grado 2, así que la asíntota horizontal es $y=0$. Además, el numerador se anula en $x=0$, un punto que no coincide con ninguna raíz del denominador, así que ahí la curva cruza el eje $X$. contar mal las raíces del denominador o calcular la AH como si los grados fueran iguales.",
     "reviewed": false,
     "tags": [
       "formula-desde-propiedades"
