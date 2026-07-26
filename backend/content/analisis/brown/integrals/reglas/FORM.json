@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n$$\\int \\cos x\\,dx = \\sin x + C$$\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
+    "explanation": "La **tabla de integrales inmediatas** incluye la primitiva del coseno como uno de sus casos directos, sin necesidad de ningún cálculo intermedio.\n\nEsta primitiva no lleva ningún signo adicional, a diferencia de la del seno, que sí incluye un signo negativo que conviene no perder.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n$$\\int \\sin x\\,dx = -\\cos x + C$$\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
+    "explanation": "La primitiva del seno lleva un signo negativo que no se puede omitir, es uno de los detalles que más se pierde de la **tabla de integrales inmediatas**.\n\nEste signo se explica porque $(-\\cos x)'=\\sin x$, la derivada del coseno ya trae un signo negativo, y al invertir el proceso ese signo se cancela.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n$$\\int 5\\,dx = 5x + C$$\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
+    "explanation": "La **regla de la constante** convierte cualquier número fijo $k$ en $kx$ al integrarlo, sumando siempre la constante de integración al final.\n\nNo hay que mezclar esta regla con la derivada de una constante, que sí da cero, acá la operación va en el sentido inverso, de derivada a primitiva.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -216,7 +216,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n$$(\\ln|x|)' = \\frac{1}{x}$$\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
+    "explanation": "La pregunta pide pensar en sentido inverso, qué función produce $\\frac{1}{x}$ al ser derivada, en vez de calcular una derivada directamente.\n\nEste es exactamente el caso especial de la **regla del logaritmo**, la única excepción dentro de la familia de potencias que exige valor absoluto.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"
@@ -239,7 +239,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n$$(e^x)' = e^x$$\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
+    "explanation": "La única función elemental cuya derivada coincide exactamente consigo misma es $e^x$, un caso particular dentro de toda la tabla.\n\nEste pensamiento inverso confirma que la **regla exponencial** de base $e$ es una operación que se auto-preserva, sin ningún factor adicional multiplicando.",
     "reviewed": false,
     "tags": [
       "discriminacion-de-familias"
@@ -262,7 +262,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n$$(\\sin x)' = \\cos x$$\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
+    "explanation": "El pensamiento inverso pregunta qué función, al derivarse, reproduce exactamente $\\cos x$, sin ningún signo ni coeficiente adicional.\n\nEsta relación es la base de la primitiva del coseno en la **tabla de integrales inmediatas**, y conviene verificarla siempre derivando el resultado propuesto.",
     "reviewed": false,
     "tags": [
       "suma-resta-terminos-elementales"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n$$(\\tan x)' = \\sec^2 x$$\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
+    "explanation": "El pensamiento inverso pregunta qué función produce exactamente $\\sec^2 x$ al derivarse, sin ningún ajuste de signo intermedio.\n\nEsta relación es directa y sin ambigüedad de signo, a diferencia de las primitivas trigonométricas del seno y el coseno, que sí requieren revisar el signo con cuidado.",
     "reviewed": false,
     "tags": [
       "reconocimiento-directo-antiderivadas"
@@ -354,7 +354,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n$$(7x)' = 7$$\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
+    "explanation": "El pensamiento inverso confirma que multiplicar la constante por $x$ es justamente lo que la reproduce al derivar, sin dejar ningún residuo.\n\nEsta verificación es la forma más directa de recordar la **regla de la constante** sin memorizarla mecánicamente, apoyándose en la relación inversa con la derivada.",
     "reviewed": false,
     "tags": [
       "constantes-enganosas"

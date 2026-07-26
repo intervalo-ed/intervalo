@@ -154,7 +154,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona.\n\nSin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$ y $c = 3$.\n\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nRestar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
+    "explanation": "El producto del conjugado genera una diferencia de cuadrados, que es la razón por la que la técnica funciona.\n\nSin esta identidad, no tendríamos una forma de eliminar la raíz y resolver el límite.\n\nLa **diferencia de cuadrados** indica que $(\\sqrt{u} - c)(\\sqrt{u} + c) = u - c^2$, con $u = x+9$\n\ny $c = 3$.\n\nEl radicando pierde la raíz apenas se aplica la identidad, sin necesidad de ningún otro paso algebraico.\n\nRestar $c$ en lugar de $c^2$: conviene elevar al cuadrado el segundo término antes de restar.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando multiplicamos una raíz por su conjugado, el resultado es una diferencia de cuadrados.\n\nEsta transformación es lo que hace que la indeterminación 0/0 sea resoluble mediante cancelación.\n\nLa **diferencia de cuadrados** aplicada a $\\sqrt{u} - c$ y su conjugado da $u - c^2$, acá con $u = x+16$ y $c=4$.\n\nComo en toda aplicación de esta identidad, el resultado queda libre de raíces apenas se resuelve el cuadrado del segundo término.\n\nConviene siempre identificar primero quién es $u$ y quién es $c$ antes de operar, para no restar el valor sin elevarlo al cuadrado.",
+    "explanation": "Cuando multiplicamos una raíz por su conjugado, el resultado es una diferencia de cuadrados.\n\nEsta transformación es lo que hace que la indeterminación 0/0 sea resoluble mediante cancelación.\n\nLa **diferencia de cuadrados** aplicada a $\\sqrt{u} - c$ y su conjugado da $u - c^2$\n\nacá con $u = x+16$ y $c=4$.\n\nComo en toda aplicación de esta identidad, el resultado queda libre de raíces apenas se resuelve el cuadrado del segundo término.\n\nConviene siempre identificar primero quién es $u$ y quién es $c$ antes de operar, para no restar el valor sin elevarlo al cuadrado.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"
@@ -246,7 +246,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Diagnosticar correctamente es el primer paso.\n\nUn límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** una indeterminación $0/0$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n\nAl sustituir $x=0$ se obtiene una indeterminación $0/0$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**: multiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
+    "explanation": "Diagnosticar correctamente es el primer paso.\n\nUn límite con indeterminación 0/0 y una raíz cuadrada reclama la técnica del conjugado específicamente, porque es lo que rompe la raíz y expone el factor cancelable.\n\nEl diagnóstico combina dos señales: la **indeterminación** una indeterminación $0/0$ al sustituir y la presencia de una raíz cuadrada en la expresión.\n\nAl sustituir $x=0$ se obtiene una indeterminación $0/0$, y como hay una raíz cuadrada en el numerador, corresponde **racionalizar**:\n\nmultiplicar arriba y abajo por el conjugado $\\sqrt{x+1}+1$.\n\nNo alcanza con detectar la indeterminación, hay que revisar también si la expresión tiene raíz, porque eso determina si la técnica es racionalizar o factorizar.",
     "reviewed": false,
     "tags": [
       "diagnostico-racionalizar-vs-factorizar"
@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n\nAl sustituir $x=2$: $\\sqrt{9} = 3$ y el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
+    "explanation": "Multiplicar por el conjugado tanto arriba como abajo mantiene la función sin cambios: equivale a multiplicar por 1.\n\nEsta operación es válida porque un límite mide el comportamiento de la función cerca del punto, no en el punto mismo.\n\nAntes de aplicar cualquier técnica hay que verificar si sustituir directamente produce una **indeterminación**.\n\nAl sustituir $x=2$: $\\sqrt{9} = 3$\n\ny el denominador da $3$, entonces el cociente es $\\tfrac{3}{3} = 1$, un valor finito.\n\nRacionalizar o factorizar solo tiene sentido cuando la sustitución directa falla con una indeterminación $0/0$; si ya da un número, ese número es directamente el límite.",
     "reviewed": false,
     "tags": [
       "proposito-logico-conjugado"

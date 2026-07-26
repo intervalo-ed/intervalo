@@ -315,7 +315,7 @@
       "Esta propiedad depende de la paridad del grado que ya se indica en el enunciado, no hace falta otra condición.",
       "La existencia de un piso en la imagen depende del grado y el signo del coeficiente principal, no de dónde estén las raíces."
     ],
-    "explanation": "Para grado $4$ con coef. positivo:\n$$\\begin{aligned} \\lim_{x &\\to +\\infty} f(x) = +\\infty \\\\ \\lim_{x &\\to -\\infty} f(x) = +\\infty \\end{aligned}$$\nLa curva siempre vuelve hacia arriba en los extremos: debe existir un **mínimo global**. La imagen está **acotada por abajo**; hay un valor mínimo que $f$ alcanza y nunca baja de allí.",
+    "explanation": "Para grado $4$ con coef. positivo:\n\nLa curva siempre vuelve hacia arriba en los extremos: debe existir un **mínimo global**. La imagen está **acotada por abajo**; hay un valor mínimo que $f$ alcanza y nunca baja de allí.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -405,7 +405,7 @@
       "La curva sí atraviesa el eje horizontal en varios puntos visibles.",
       null
     ],
-    "explanation": "Un polinomio de grado $4$ puede tener entre $0$ y $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
+    "explanation": "Un polinomio de grado $4$ puede tener entre $0$\n\ny $4$ raíces reales.\n\ndependiendo de cuántas de sus raíces sean números reales y cuántas resulten complejas.\n\nque siempre aparecen en pares conjugados.\n\nContando los puntos donde la curva **cruza** el eje $x$: $x = -2$.\n\n$x = -1$.\n\n$x = 1$ y $x = 2$.\n\nse llega a **4 raíces reales**.\n\ntodas simples porque la curva atraviesa el eje en cada una.\n\nEste gráfico muestra el máximo posible de raíces reales para un polinomio de grado $4$.\n\nConviene revisar los cuatro cruces con cuidado, especialmente los más cercanos a los bordes del gráfico, para no perder ninguno en el conteo.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -465,7 +465,7 @@
       null,
       "Entre dos raíces consecutivas la función mantiene el mismo signo en todo el tramo."
     ],
-    "explanation": "Las raíces del polinomio en ese sector son $x = 1$ y $x = 2$.\n\nEntre dos raíces consecutivas, la función tiene signo constante.\n\nEvaluando en $x = 1.5$:\n$$f(1.5) = \\frac{(2.25-1)(2.25-4)}{4} = \\frac{1.25 \\cdot (-1.75)}{4} \\approx -0.55$$\nComo $f(1.5) < 0$.\n\nla curva está **por debajo** del eje $x$ en el intervalo $(1.\n\n2)$.",
+    "explanation": "Las raíces del polinomio en ese sector son $x = 1$ y $x = 2$.\n\nEntre dos raíces consecutivas, la función tiene signo constante.\n\nEvaluando en $x = 1.5$:\n\nComo $f(1.5) < 0$.\n\nla curva está **por debajo** del eje $x$ en el intervalo $(1.\n\n2)$.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -555,7 +555,7 @@
       "El mínimo global se define en todo el dominio, no solo en la parte visible del gráfico.",
       "La existencia de mínimo global depende del signo del coeficiente principal y la paridad del grado, no de dónde estén las raíces."
     ],
-    "explanation": "Mínimo global: el valor más bajo que alcanza la función en **todo** $\\mathbb{R}$.\n\nPara grado 4 con coef. negativo:\n$$\\lim_{x\\to\\pm\\infty} f(x) = -\\infty$$\nLa función puede bajar indefinidamente: **no existe mínimo global**.\n\nSí existe un **máximo global** (la curva tiene forma de M). Contrasta con grado 4 y coef. positivo (W), que sí tiene mínimo global.",
+    "explanation": "Mínimo global: el valor más bajo que alcanza la función en **todo** $\\mathbb{R}$.\n\nPara grado 4 con coef. negativo:\n\nLa función puede bajar indefinidamente: **no existe mínimo global**.\n\nSí existe un **máximo global** (la curva tiene forma de M). Contrasta con grado 4 y coef. positivo (W), que sí tiene mínimo global.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -675,7 +675,7 @@
       "La curva también está dibujada para valores negativos de $x$, revisá el lado izquierdo del gráfico.",
       "La curva sigue extendiéndose hacia ambos bordes del gráfico sin cortarse."
     ],
-    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde $-\\infty$ hasta $+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
+    "explanation": "Un **polinomio de grado impar** como $f(x) = x^3/8$ tendrá siempre un comportamiento donde va desde.\n\n$-\\infty$ hasta.\n\n$+\\infty$ (o viceversa si el coeficiente principal es negativo).\n\nEl término de mayor potencia domina el comportamiento en los extremos.\n\nPara $f(x) = x^3/8$: cuando $x \\to -\\infty$.\n\nel término $x^3$ es negativo y muy grande en magnitud.\n\nasí que $f(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$.\n\nel término $x^3$ es positivo y muy grande.\n\nasí que $f(x) \\to +\\infty$.\n\nEsto significa que la gráfica sube desde abajo a la izquierda y continúa subiendo hacia arriba a la derecha.\n\nPor la continuidad del polinomio, debe cruzar el eje $X$ al menos una vez, lo que corresponde a la raíz $x = 0$ que está en el origen.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -795,7 +795,7 @@
       "Mirá hacia dónde apunta la curva en el extremo derecho del gráfico, sube, no baja.",
       "Contá todos los puntos donde la curva cruza el eje, a esta expresión le falta una raíz."
     ],
-    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n$$f(x) = \\frac{(x+1) \\cdot x \\cdot (x-3)}{5}$$\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz $3$ da factor $(x-3)$.\n\nno $(x+3)$.",
+    "explanation": "Raíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 3$ → factores $(x - (-1)) = (x+1)$.\n\n$x$.\n\n$(x-3)$.\n\nLa forma factorizada con coef. $a = 1/5$ (escala):\n\nError clásico: invertir signos dentro de los factores.\n\nRaíz $-1$ da factor $(x+1)$.\n\nno $(x-1)$; raíz.\n\n$3$ da factor.\n\n$(x-3)$.\n\nno $(x+3)$.",
     "has_math": true,
     "graph_fn": "(x+1)*x*(x-3)/5",
     "graph_view": [
@@ -1005,7 +1005,7 @@
       "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una.",
       null
     ],
-    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada.\n\ny el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$; $f(0) = 0$; $f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
+    "explanation": "Cada raíz $r$ de un polinomio corresponde a un factor $(x-r)$ en su forma factorizada.\n\ny el coeficiente que multiplica el producto ajusta la escala vertical de la curva sin mover los cruces con el eje.\n\nRaíces $r_1 = -1$.\n\n$r_2 = 0$.\n\n$r_3 = 1$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-1)$:\n\nCon escala $a = 1/2$:\n\nVerificando las raíces: $f(-1) = (-1)(0)(-2)/2 = 0$;.\n\n$f(0) = 0$;.\n\n$f(1) = (1)(2)(0)/2 = 0$.\n\nConviene siempre confirmar la fórmula evaluándola en cada raíz marcada en el gráfico antes de darla por correcta.",
     "has_math": true,
     "graph_fn": "x*(x+1)*(x-1)/2",
     "graph_view": [
@@ -1035,7 +1035,7 @@
       "Fijate en qué valores exactos del eje la curva toca cero.",
       "Revisá con cuidado los signos de los puntos donde la curva cruza el eje."
     ],
-    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de $(x+1)$ para la raíz $-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
+    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da lugar a un factor $(x-r)$, y el signo del coeficiente que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nRaíces $-1$.\n\n$0$.\n\n$2$ dan los factores $(x+1)$.\n\n$x$.\n\n$(x-2)$.\n\nCon coeficiente negativo:\n\nLa curva baja a la derecha, confirmando el coeficiente negativo, y en $x = 0$ se cumple $f(0) = 0$ porque esa raíz forma parte del producto.\n\ninvertir el signo dentro de alguno de los factores.\n\npor ejemplo escribir $(x-1)$ en lugar de.\n\n$(x+1)$ para la raíz.\n\n$-1$.\n\nConviene siempre verificar cada factor evaluando la fórmula en su raíz correspondiente.",
     "has_math": true,
     "graph_fn": "-(x+1)*x*(x-2)/4",
     "graph_view": [

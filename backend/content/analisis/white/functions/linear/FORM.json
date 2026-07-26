@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma canónica $f(x) = mx + b$, la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara : el coeficiente de $x$ es $-3$:la recta baja 3 unidades por cada unidad que avanza $x$.\n\nEl $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
+    "explanation": "En la forma canónica $f(x) = mx + b$, la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara : el coeficiente de $x$ es.\n\n$-3$:la recta baja 3 unidades por cada unidad que avanza.\n\n$x$.\n\nEl $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn :, los parámetros son $m = \\frac{1}{2}$ y $b = 5$. La lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
+    "explanation": "Una pendiente puede ser fraccionaria sin dejar de ser una pendiente: sigue siendo el coeficiente que multiplica a $x$.\n\nEn :, los parámetros son $m = \\frac{1}{2}$ y $b = 5$.\n\nLa lectura práctica: por cada 2 unidades que avanza $x$, la función sube 1.\n\nNo desarmes la fracción: ni el numerador ni el denominador por separado son la pendiente; el coeficiente completo es $\\frac{1}{2}$.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:La pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
+    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:La pendiente $3$ multiplica a $x$\n\ny la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituyendo los parámetros en el molde:La pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
+    "explanation": "Sustituyendo los parámetros en el molde:La pendiente $-1$ hace bajar la recta.\n\ny la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -513,7 +513,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La deuda parte de \\$10000 y baja \\$500 por mes:Con $b = 10000$ (deuda inicial) y $m = -500$ (reducción mensual).\n\nVerificación: $D(0) = 10000$ y $D(1) = 9500$, bajó justo una cuota.\n\nEl molde de estos procesos es siempre el mismo: valor inicial como término independiente y tasa restando cuando la magnitud disminuye.",
+    "explanation": "La deuda parte de \\$10000.\n\ny baja \\$500 por mes:Con $b = 10000$ (deuda inicial) y $m = -500$ (reducción mensual).\n\nVerificación: $D(0) = 10000$ y $D(1) = 9500$, bajó justo una cuota.\n\nEl molde de estos procesos es siempre el mismo: valor inicial como término independiente y tasa restando cuando la magnitud disminuye.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La deuda parte de \\$60000 y cada mes se le descuentan \\$4000:Con $b = 60000$ (deuda inicial) y $m = -4000$ (pago mensual, con signo negativo porque reduce el saldo).\n\nVerificación: $D(0) = 60000$ y $D(1) = 56000$, bajó exactamente un pago.\n\nDistinguí qué mide la función: la deuda restante baja desde el inicial; el total pagado ($4000m$) sube desde cero.\n\nSon dos rectas distintas y el enunciado pide la primera.",
+    "explanation": "La deuda parte de \\$60000.\n\ny cada mes se le descuentan \\$4000:Con $b = 60000$ (deuda inicial) y $m = -4000$ (pago mensual, con signo negativo porque reduce el saldo).\n\nVerificación: $D(0) = 60000$ y $D(1) = 56000$, bajó exactamente un pago.\n\nDistinguí qué mide la función: la deuda restante baja desde el inicial; el total pagado ($4000m$) sube desde cero.\n\nSon dos rectas distintas y el enunciado pide la primera.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -663,7 +663,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente:Como la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula: lo que importa es qué número multiplica a $k$.\n\nLa verificación: $F(0) = 400$, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
+    "explanation": "El cargo fijo es la ordenada al origen y el precio por kWh es la pendiente:Como la suma es conmutativa, $400 + 12k$ y $12k + 400$ son la misma fórmula:\n\nlo que importa es qué número multiplica a $k$.\n\nLa verificación: $F(0) = 400$, la factura con consumo cero.\n\nEl distractor de parámetros cruzados cobraría \\$400 por cada kWh: antes de elegir, identificá cuál monto se repite por unidad de consumo.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -763,7 +763,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El saldo parte de \\$800 y cada viaje descuenta \\$60:Con $b = 800$ (la carga inicial) y $m = -60$ (el costo de cada viaje, restando).\n\nVerificación: $S(0) = 800$ y $S(1) = 740$, un viaje descontado.\n\nEn modelos de saldo, el signo del término variable determina si aumenta o disminuye; invertirlo produce el efecto opuesto.",
+    "explanation": "El saldo parte de \\$800.\n\ny cada viaje descuenta \\$60:Con $b = 800$ (la carga inicial) y $m = -60$ (el costo de cada viaje, restando).\n\nVerificación: $S(0) = 800$ y $S(1) = 740$, un viaje descontado.\n\nEn modelos de saldo, el signo del término variable determina si aumenta o disminuye; invertirlo produce el efecto opuesto.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -888,7 +888,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El precio por unidad parte de \\$3000 y baja \\$200 por cada unidad adicional:Con $b = 3000$ (el precio base) y $m = -200$ (el descuento por unidad, restando).\n\nVerificación: $P(0) = 3000$ y $P(1) = 2800$, un descuento aplicado.\n\nLa palabra \"descuento\" define el signo antes de escribir nada: si el precio baja con cada unidad, el término variable tiene que restar.",
+    "explanation": "El precio por unidad parte de \\$3000.\n\ny baja \\$200 por cada unidad adicional:Con $b = 3000$ (el precio base) y $m = -200$ (el descuento por unidad, restando).\n\nVerificación: $P(0) = 3000$ y $P(1) = 2800$, un descuento aplicado.\n\nLa palabra \"descuento\" define el signo antes de escribir nada: si el precio baja con cada unidad, el término variable tiene que restar.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -938,7 +938,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La ordenada al origen es el término sin $x$, que coincide con el valor de la función en cero:Para $f(x) = -3x + 9$, entonces, $b = 9$ y la pendiente es $m = -3$.\n\nEl orden en que aparecen los números en la fórmula no define su rol: lo define estar o no pegado a la variable.\n\nElegir el primer número que se ve es el reflejo a evitar: identificá el término independiente evaluando mentalmente en $x = 0$.",
+    "explanation": "La ordenada al origen es el término sin $x$, que coincide con el valor de la función en cero:Para $f(x) = -3x + 9$\n\nentonces, $b = 9$ y la pendiente es $m = -3$.\n\nEl orden en que aparecen los números en la fórmula no define su rol: lo define estar o no pegado a la variable.\n\nElegir el primer número que se ve es el reflejo a evitar: identificá el término independiente evaluando mentalmente en $x = 0$.",
     "reviewed": false,
     "tags": [
       "ordenada-calculo"
@@ -1088,7 +1088,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando los coeficientes de $x$: $3$, $1$ y $0{,}5$ son positivos (funciones crecientes), mientras que $-2x + 7$ tiene ::es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie.\n\nMirá solo el signo del número que multiplica a la $x$.",
+    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando los coeficientes de $x$: $3$\n\n$1$ y $0{, }5$ son positivos (funciones crecientes).\n\nmientras que $-2x + 7$ tiene ::es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie.\n\nMirá solo el signo del número que multiplica a la $x$.",
     "reviewed": false,
     "tags": [
       "propiedades-generales"
@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\nPor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es :.\n$$f(x) = 3x + 5$$\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
+    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:\n\nPor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es :.\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nLa recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda :.\n$$f(x) = 2x + 4$$\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:\n\nLa recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda :.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"

@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$, dando $4xh$ en vez de $2xh$.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño;.\n\nel límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es la derivada.",
+    "explanation": "Con un coeficiente distinto de $1$, hay que arrastrarlo con cuidado durante toda la expansión del binomio.\n\nEl coeficiente $2$ multiplica a todo el binomio expandido, así que el término cruzado también queda multiplicado por $2$\n\ndando $4xh$ en vez de $2xh$.\n\nLa **regla del cociente** es necesaria cuando el denominador cambia: no se simplifica a un cociente de derivadas, sino a una fórmula especial que involucra el numerador, denominador y sus derivadas.\n\nEl cociente de incrementos $\\frac{f(x+h)-f(x)}{h}$ mide la velocidad promedio sobre un intervalo pequeño;.\n\nel límite cuando $h \\to 0$ convierte esa velocidad promedio en velocidad instantánea, que es la derivada.",
     "reviewed": false,
     "tags": [
       "cuadraticas-y-el-binomio"

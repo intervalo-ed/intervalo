@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una variable se eleva a una potencia **par**, el signo de la base desaparece al elevar , así que el resultado de la **sustitución directa** siempre es positivo o cero.\n\n, sin importar el signo de la entrada.\n\nLa potencia par \"limpia\" el signo.\n\nEl acercamiento de $x$ a $-2$ por la izquierda ($-2{,}01, -2{,}001$) produce valores de $x^2$ que se acercan a $4$ por arriba: :. El destino positivo es fijo.\n\nArrastrar el signo negativo al resultado final es el error más frecuente en potencias pares con tendencias negativas: recordá que el cuadrado de cualquier número, positivo o negativo.\n\n, siempre da positivo.",
+    "explanation": "Cuando una variable se eleva a una potencia **par**, el signo de la base desaparece al elevar , así que el resultado de la **sustitución directa** siempre es positivo o cero.\n\n, sin importar el signo de la entrada.\n\nLa potencia par \"limpia\" el signo.\n\nEl acercamiento de $x$ a $-2$ por la izquierda ($-2{.\n\n}01, -2{,}001$) produce valores de $x^2$ que se acercan a $4$ por arriba: :. El destino positivo es fijo.\n\nArrastrar el signo negativo al resultado final es el error más frecuente en potencias pares con tendencias negativas: recordá que el cuadrado de cualquier número, positivo o negativo.\n\n, siempre da positivo.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en : siempre se obtiene $8$. La constante es ajena al movimiento de $x$. El\n\ndestino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nAsí entonces, recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
+    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque $f(x)=8$ no cambia nunca: evaluando en : siempre se obtiene $8$.\n\nLa constante es ajena al movimiento de $x$. El.\n\ndestino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nAsí entonces, recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces :\n\ntambién existe y se calcula separado. Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$. Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, sin él obtendrías algo completamente distinto.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si $\\lim f$ existe y $\\lim g$ existe, entonces :\n\ntambién existe y se calcula separado. Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.\n\nEse cambio de signo es lo que lleva la respuesta de $6$ a $8$, sin él obtendrías algo completamente distinto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una expresión **combina suma y escalar**, cada propiedad se aplica por separado.\n\n, sin mezclar ambos límites en una sola operación: el escalar multiplica solo al término que acompaña, no se distribuye sobre los demás.\n\nEsta separación respeta la estructura de la expresión: si $3$ acompaña a $g$, multiplica a :, no a $\\lim f$. La linealidad preserva la forma original.\n\nDistribuir el escalar sobre ambos términos cuando solo acompaña a uno es un error frecuente: conviene aplicar el escalar solo al término que lo lleva, dejar el otro intacto.",
+    "explanation": "Cuando una expresión **combina suma y escalar**, cada propiedad se aplica por separado.\n\n, sin mezclar ambos límites en una sola operación: el escalar multiplica solo al término que acompaña, no se distribuye sobre los demás.\n\nEsta separación respeta la estructura de la expresión: si $3$ acompaña a $g$\n\nmultiplica a :, no a $\\lim f$. La linealidad preserva la forma original.\n\nDistribuir el escalar sobre ambos términos cuando solo acompaña a uno es un error frecuente: conviene aplicar el escalar solo al término que lo lleva, dejar el otro intacto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre : y $g$.\n\nsin interferencias. Antes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
+    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar $3$ multiplica a $f$, la resta actúa entre :\n\ny $g$.\n\nsin interferencias. Antes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado.\n\n, siempre que ambos existan: si $\\lim f$ existe y $\\lim g$ existe, entonces $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.\n\nEste resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
+    "explanation": "La **propiedad de producto** indica que el límite de un producto de funciones es el **producto** de sus límites por separado.\n\n, siempre que ambos existan: si $\\lim f$ existe.\n\ny $\\lim g$ existe, entonces $\\lim(f \\cdot g)$ existe y se calcula como el producto de los límites.\n\nEste resultado funciona porque el producto de límites refleja el destino del producto de funciones: cuando ambas convergen a valores fijos, su producto converge al producto de esos valores.\n\nConfundir producto con suma es un desliz común cuando se opera rápido: conviene fijarse bien en el símbolo de la expresión original para no mezclar operaciones.",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"

@@ -443,7 +443,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando) y se lee en el gráfico que $f(1) = 2$.\n\nentonces:La base $b$ se puede leer directamente del punto $(1.\n\nf(1))$.\n\nporque cualquier número elevado a la potencia $1$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
+    "explanation": "Si $f(0) = 1$ (no hay coeficiente $a$ multiplicando).\n\ny se lee en el gráfico que $f(1) = 2$.\n\nentonces:La base $b$ se puede leer directamente del punto $(1.\n\nf(1))$.\n\nporque cualquier número elevado a la potencia $1$ es igual a sí mismo.\n\nEste atajo solo funciona cuando la curva pasa por $(0, 1)$, es decir cuando no hay coeficiente $a$ ni desplazamiento vertical de por medio.",
     "reviewed": false,
     "tags": [
       "comparar-bases-grafico"
@@ -473,7 +473,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para una exponencial decreciente que pasa por $(0, 1)$, el valor en $x = 1$ coincide con la base:Aquí $f(1) = 0{,}5 < 1$.\n\nlo que confirma que la base cumple $0 < b < 1$, condición necesaria para que la curva decrezca en vez de crecer.\n\nRecordá que este atajo de leer la base directamente en $x = 1$ solo aplica cuando no hay coeficiente $a$ multiplicando ni desplazamiento vertical.",
+    "explanation": "Para una exponencial decreciente que pasa por $(0.\n\n1)$, el valor en $x = 1$ coincide con la base:Aquí $f(1) = 0{,}5 < 1$.\n\nlo que confirma que la base cumple $0 < b < 1$, condición necesaria para que la curva decrezca en vez de crecer.\n\nRecordá que este atajo de leer la base directamente en $x = 1$ solo aplica cuando no hay coeficiente $a$ multiplicando ni desplazamiento vertical.",
     "reviewed": false,
     "tags": [
       "lectura-dominio"
@@ -593,7 +593,7 @@
       -0.5,
       9.5
     ],
-    "explanation": "Para dos bases $b_1 > b_2 > 1$ y $x > 0$ se cumple:La curva más empinada corresponde a la mayor base, porque un número mayor elevado a una misma potencia positiva da un resultado más grande.\n\nAmbas curvas pasan por el punto fijo $(0.\n\n1)$.\n\npero divergen apenas $x$ se aleja de $0$: para $x < 0$ la relación se invierte y la curva de base mayor queda por debajo.\n\nmás cerca del eje horizontal.",
+    "explanation": "Para dos bases $b_1 > b_2 > 1$ y $x > 0$ se cumple:La curva más empinada corresponde a la mayor base, porque un número mayor elevado a una misma potencia positiva da un resultado más grande.\n\nAmbas curvas pasan por el punto fijo $(0.\n\n1)$.\n\npero divergen apenas $x$ se aleja de $0$:\n\npara $x < 0$ la relación se invierte y la curva de base mayor queda por debajo.\n\nmás cerca del eje horizontal.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen"
@@ -833,7 +833,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$. Las otras opciones\n\nfallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$.\n\nmientras que $3 \\cdot 2^x$ cambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
+    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$. Las otras opciones.\n\nfallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$.\n\nmientras que $3 \\cdot 2^x$ cambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -923,7 +923,7 @@
       -0.5,
       10
     ],
-    "explanation": "La curva es decreciente, lo que exige una base menor que $1$ y descarta de entrada las dos fórmulas con bases mayores a $1$, que subirían en vez de bajar.\n\nAdemás.\n\nel punto de corte con el eje vertical es $(0.\n\n3)$.\n\nlo que indica un coeficiente $a = 3$ multiplicando a la base.\n\ny descarta la opción sin coeficiente.\n\nque pasaría por $(0.\n\n1)$.\n\nLa fórmula que combina coeficiente $a = 3$ y base $0{,}6 < 1$ es :.coherente con una curva que arranca alto y se aplana hacia $0$.",
+    "explanation": "La curva es decreciente, lo que exige una base menor que $1$ y descarta de entrada las dos fórmulas con bases mayores a $1$, que subirían en vez de bajar.\n\nAdemás.\n\nel punto de corte con el eje vertical es $(0.\n\n3)$.\n\nlo que indica un coeficiente $a = 3$ multiplicando a la base.\n\ny descarta la opción sin coeficiente.\n\nque pasaría por $(0.\n\n1)$.\n\nLa fórmula que combina coeficiente $a = 3$\n\ny base $0{,}6 < 1$ es :.coherente con una curva que arranca alto y se aplana hacia $0$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -983,7 +983,7 @@
       -0.5,
       9.5
     ],
-    "explanation": "Una forma directa de distinguir entre bases parecidas es leer el punto $(1, f(1))$ en el gráfico, porque cualquier base elevada a la potencia $1$ es igual a sí misma.\n\nPara las cuatro opciones.\n\nese valor sería $3$ para base $3$.\n\naproximadamente $2{,}7$ para $e$.\n\n$2$ para base $2$ y : para base :. Cuanto mayor es la base, más alto queda ese punto y más empinada se ve la curva justo después de $x = 0$.\n\nComo esta curva pasa por $(1, 3)$, la más empinada de las cuatro, corresponde a la base $3$, la mayor entre las opciones ofrecidas.",
+    "explanation": "Una forma directa de distinguir entre bases parecidas es leer el punto $(1, f(1))$ en el gráfico, porque cualquier base elevada a la potencia $1$ es igual a sí misma.\n\nPara las cuatro opciones.\n\nese valor sería $3$ para base $3$.\n\naproximadamente $2{,}7$ para $e$.\n\n$2$ para base $2$ y : para base :.\n\nCuanto mayor es la base, más alto queda ese punto y más empinada se ve la curva justo después de $x = 0$.\n\nComo esta curva pasa por $(1, 3)$, la más empinada de las cuatro, corresponde a la base $3$, la mayor entre las opciones ofrecidas.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1073,7 +1073,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para distinguir entre bases decrecientes parecidas conviene comparar el valor de la función en un mismo punto positivo, por ejemplo $x = 3$.\n\nAhí.\n\nla base $0{,}3$ da $0{,}027$.\n\nla base $0{,}5$ da : y la base $0{,}7$ da $0{,}343$:cuanto más chica es la base.\n\nmás rápido cae la curva hacia la asíntota.\n\nUna curva muy empinada que cae casi de inmediato corresponde a la base más pequeña entre las opciones, ya que multiplicar repetidamente por un número muy chico reduce el valor mucho más rápido.\n\nComo esta curva decae con mucha rapidez, corresponde a la base menor de las cuatro, es decir $0{,}3$.",
+    "explanation": "Para distinguir entre bases decrecientes parecidas conviene comparar el valor de la función en un mismo punto positivo, por ejemplo $x = 3$.\n\nAhí.\n\nla base $0{,}3$ da $0{,}027$.\n\nla base $0{,}5$ da :\n\ny la base $0{,}7$ da $0{,}343$:cuanto más chica es la base.\n\nmás rápido cae la curva hacia la asíntota.\n\nUna curva muy empinada que cae casi de inmediato corresponde a la base más pequeña entre las opciones, ya que multiplicar repetidamente por un número muy chico reduce el valor mucho más rápido.\n\nComo esta curva decae con mucha rapidez, corresponde a la base menor de las cuatro, es decir $0{,}3$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1253,7 +1253,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Modelo: $M(t) = 1 \\cdot (1{,}5)^t$ (en miles de pesos).\n\ndonde el factor $1{,}5$ representa un crecimiento del $50\\%$ por año. La inversión creció un $50\\%$ en el primer año.\n\npasando de \\$1000 a \\$1500.\n\nEsta es la marca típica de un proceso exponencial en contexto financiero: el crecimiento se aplica sobre el monto acumulado, no sobre el monto inicial fijo de cada período.",
+    "explanation": "Modelo: $M(t) = 1 \\cdot (1{,}5)^t$ (en miles de pesos).\n\ndonde el factor $1{,}5$ representa un crecimiento del $50\\%$ por año.\n\nLa inversión creció un $50\\%$ en el primer año.\n\npasando de \\$1000 a \\$1500.\n\nEsta es la marca típica de un proceso exponencial en contexto financiero: el crecimiento se aplica sobre el monto acumulado, no sobre el monto inicial fijo de cada período.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1313,7 +1313,7 @@
       -0.5,
       10
     ],
-    "explanation": "Modelo: $V(t) = 3 \\cdot (0{,}6)^t$ (en miles de pesos).\n\ndonde la base $0{,}6$ indica que cada año queda el $60\\%$ del valor del año anterior. La moto perdió el $40\\%$ de su valor en el primer año.\n\npasando de \\$3000 a \\$1800.\n\nEste tipo de depreciación por porcentaje fijo es exponencial, a diferencia de una depreciación por monto fijo cada año, que sería lineal.",
+    "explanation": "Modelo: $V(t) = 3 \\cdot (0{,}6)^t$ (en miles de pesos).\n\ndonde la base $0{,}6$ indica que cada año queda el $60\\%$ del valor del año anterior.\n\nLa moto perdió el $40\\%$ de su valor en el primer año.\n\npasando de \\$3000 a \\$1800.\n\nEste tipo de depreciación por porcentaje fijo es exponencial, a diferencia de una depreciación por monto fijo cada año, que sería lineal.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1433,7 +1433,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año.\n\ny corresponde a una base $b = 0{,}5$ en el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $0$, solo se acerca cada vez más a esa asíntota.",
+    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior:\n\nla **vida media** de esta muestra es $1$ año.\n\ny corresponde a una base $b = 0{,}5$ en el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $0$, solo se acerca cada vez más a esa asíntota.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito-contexto"
@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto $(0.\n\n3)$ es donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente :. Este valor en $t = 0$ es el punto de partida sobre el\n\nque después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
+    "explanation": "El punto $(0.\n\n3)$ es donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente :.\n\nEste valor en $t = 0$ es el punto de partida sobre el.\n\nque después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"
@@ -1493,7 +1493,7 @@
       -0.5,
       10
     ],
-    "explanation": "Modelo: $P(t) = 3 \\cdot (0{,}6)^t$ (en cientos de pesos).\n\ndonde la base $0{,}6$ indica que cada año queda el $60\\%$ del precio del año anterior. El producto perdió el $64\\%$ de su valor en dos años.\n\npasando de \\$300 a \\$108.\n\nEsta caída acumulada mayor al $40\\%$ simple de un año es propia del decaimiento exponencial: el porcentaje se aplica sobre el precio ya reducido del período anterior, no sobre el precio original.",
+    "explanation": "Modelo: $P(t) = 3 \\cdot (0{,}6)^t$ (en cientos de pesos).\n\ndonde la base $0{,}6$ indica que cada año queda el $60\\%$ del precio del año anterior.\n\nEl producto perdió el $64\\%$ de su valor en dos años.\n\npasando de \\$300 a \\$108.\n\nEsta caída acumulada mayor al $40\\%$ simple de un año es propia del decaimiento exponencial: el porcentaje se aplica sobre el precio ya reducido del período anterior, no sobre el precio original.",
     "reviewed": false,
     "tags": [
       "lectura-ordenada-origen-contexto"

@@ -83,7 +83,7 @@
       -3,
       5
     ],
-    "explanation": "Toda logarítmica de la forma $\\log_b(x)$ cumple : para cualquier base $b$.porque $b^0 = 1$ siempre.\n\n$\\log_2(1) = 0$ porque $2^0 = 1$.\n\nEl punto $(1, 0)$ es universal en logarítmicas básicas: sin importar la base, la curva siempre pasa por ahí.\n\nNo confundir ese punto fijo con $(b, 1)$, que sí depende de la base y sirve para identificarla.",
+    "explanation": "Toda logarítmica de la forma $\\log_b(x)$ cumple :\n\npara cualquier base $b$.porque $b^0 = 1$ siempre.\n\n$\\log_2(1) = 0$ porque $2^0 = 1$.\n\nEl punto $(1, 0)$ es universal en logarítmicas básicas: sin importar la base, la curva siempre pasa por ahí.\n\nNo confundir ese punto fijo con $(b, 1)$, que sí depende de la base y sirve para identificarla.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -173,7 +173,7 @@
       -3,
       5
     ],
-    "explanation": "La curva logarítmica crece sin cota superior ($f(x) \\to +\\infty$ cuando $x \\to +\\infty$) y cae sin cota inferior ($f(x) \\to -\\infty$ cuando $x \\to 0^+$).\n\nImagen: $\\mathbb{R}$ (todos los reales).\n\nContrasta con la exponencial, cuya imagen es $(0, +\\infty)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
+    "explanation": "La curva logarítmica crece sin cota superior ($f(x) \\to +\\infty$ cuando $x \\to +\\infty$).\n\ny cae sin cota inferior ($f(x) \\to -\\infty$ cuando $x \\to 0^+$).\n\nImagen: $\\mathbb{R}$ (todos los reales).\n\nContrasta con la exponencial, cuya imagen es $(0, +\\infty)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
     "reviewed": false,
     "tags": [
       "lectura-imagen"
@@ -203,7 +203,7 @@
       -3,
       5
     ],
-    "explanation": "El punto $(b.\n\n1)$ pertenece siempre a la curva de $\\log_b(x)$.\n\nporque $\\log_b(b) = 1$ para cualquier base.\n\nEn el gráfico.\n\nen $x = 2$ la curva vale $y = 1$: : porque $2^1 = 2$. Ese punto $(2, 1)$ es justamente la clave para leer que la base de esta curva es $2$, sin necesidad de memorizar la fórmula.",
+    "explanation": "El punto $(b.\n\n1)$ pertenece siempre a la curva de $\\log_b(x)$.\n\nporque $\\log_b(b) = 1$ para cualquier base.\n\nEn el gráfico.\n\nen $x = 2$ la curva vale.\n\n$y = 1$: : porque.\n\n$2^1 = 2$. Ese punto.\n\n$(2, 1)$ es justamente la clave para leer que la base de esta curva es.\n\n$2$, sin necesidad de memorizar la fórmula.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -233,7 +233,7 @@
       -4,
       4
     ],
-    "explanation": "Multiplicar una función por $-1$ refleja su gráfico respecto al eje $X$: todo lo que antes subía, ahora baja, y viceversa.\n\n$f(x) = -\\log_2(x)$ es la reflexión de $\\log_2(x)$ respecto al eje $X$.\n\nComo $\\log_2(x)$ es creciente, $-\\log_2(x)$ es **estrictamente decreciente**, al avanzar a la derecha la curva siempre baja.\n\nNo hay que confundir este signo negado con un cambio de base menor a $1$, ambos dan curvas decrecientes pero por motivos distintos.",
+    "explanation": "Multiplicar una función por $-1$ refleja su gráfico respecto al eje $X$: todo lo que antes subía, ahora baja, y viceversa.\n\n$f(x) = -\\log_2(x)$ es la reflexión de.\n\n$\\log_2(x)$ respecto al eje.\n\n$X$.\n\nComo $\\log_2(x)$ es creciente, $-\\log_2(x)$ es **estrictamente decreciente**, al avanzar a la derecha la curva siempre baja.\n\nNo hay que confundir este signo negado con un cambio de base menor a $1$, ambos dan curvas decrecientes pero por motivos distintos.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"
@@ -473,7 +473,7 @@
       -3,
       4
     ],
-    "explanation": "El cruce con el eje $X$ de una logarítmica desplazada horizontalmente se calcula igualando el argumento a $1$.\n\nya que $\\log_b(1) = 0$ para cualquier base.\n\n$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$.\n\nEl intercepto con el eje $X$ se desplaza de $x = 1$ (de la básica) a $x = 2$ (desplazada en $+1$ unidad horizontal).",
+    "explanation": "El cruce con el eje $X$ de una logarítmica desplazada horizontalmente se calcula igualando el argumento a $1$.\n\nya que $\\log_b(1) = 0$ para cualquier base.\n\n$\\log_2(x - 1) = 0 \\implies x - 1 = 2^0 = 1 \\implies x = 2$.\n\nEl intercepto con el eje $X$ se desplaza de.\n\n$x = 1$ (de la básica) a.\n\n$x = 2$ (desplazada en.\n\n$+1$ unidad horizontal).",
     "reviewed": false,
     "tags": [
       "lectura-raiz-cruce-x"
@@ -593,7 +593,7 @@
       -3,
       5
     ],
-    "explanation": "Evaluar $\\log_b(x)$ en un punto significa preguntarse a qué potencia hay que elevar la base $b$ para obtener $x$.\n\n$\\log_3(9) = 2$ porque $3^2 = 9$.\n\nEn el gráfico, en $x = 9$ la curva alcanza $y = 2$.\n\nConviene apoyarse en potencias conocidas de la base antes de intentar leer un valor no entero directamente del gráfico.",
+    "explanation": "Evaluar $\\log_b(x)$ en un punto significa preguntarse a qué potencia hay que elevar la base.\n\n$b$ para obtener.\n\n$x$.\n\n$\\log_3(9) = 2$ porque $3^2 = 9$.\n\nEn el gráfico, en $x = 9$ la curva alcanza $y = 2$.\n\nConviene apoyarse en potencias conocidas de la base antes de intentar leer un valor no entero directamente del gráfico.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -743,7 +743,7 @@
       -2,
       6
     ],
-    "explanation": "Un desplazamiento vertical no cambia el comportamiento en el infinito de una logarítmica, sigue creciendo sin cota aunque toda la curva se haya corrido hacia arriba o abajo.\n\n$f(x) = \\log_2(x) + 1$ es estrictamente creciente y $f(x) \\to +\\infty$ cuando $x \\to +\\infty$.\n\nNo tiene valor máximo, la curva siempre puede subir más, aunque lo hace cada vez más lentamente a medida que $x$ crece.",
+    "explanation": "Un desplazamiento vertical no cambia el comportamiento en el infinito de una logarítmica, sigue creciendo sin cota aunque toda la curva se haya corrido hacia arriba o abajo.\n\n$f(x) = \\log_2(x) + 1$ es estrictamente creciente.\n\ny $f(x) \\to +\\infty$ cuando $x \\to +\\infty$.\n\nNo tiene valor máximo, la curva siempre puede subir más, aunque lo hace cada vez más lentamente a medida que $x$ crece.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -803,7 +803,7 @@
       -2,
       6
     ],
-    "explanation": "Cuando la asíntota vertical no se movió pero el punto $(1, \\cdot)$ no da $0$, la diferencia entre esos dos valores es exactamente el desplazamiento vertical de la curva.\n\nClaves: 1.\n\nAsíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$: : (no $0$) → desplazamiento vertical $+1$.3.\n\nEn $x = 2$: : → confirma base $2$ con desplazamiento $+1$. Fórmula: $f(x) = \\log_2(x) + 1$.",
+    "explanation": "Cuando la asíntota vertical no se movió pero el punto $(1, \\cdot)$ no da $0$, la diferencia entre esos dos valores es exactamente el desplazamiento vertical de la curva.\n\nClaves: 1.\n\nAsíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$:\n\n: (no $0$) → desplazamiento vertical $+1$.3.\n\nEn $x = 2$: : → confirma base.\n\n$2$ con desplazamiento.\n\n$+1$. Fórmula:\n\n$f(x) = \\log_2(x) + 1$.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"
@@ -953,7 +953,7 @@
       -4,
       6
     ],
-    "explanation": "Claves: 1.\n\nAsíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento. 2.\n\nEn $x = 2$: $f(2) = 2\\cdot 1 = 2$ (no $1$) → escala vertical $\\times 2$. 3. : es distinto:en $x=1$ vale $1$.\n\nno $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica.\n\nA diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite.\n\nVisualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
+    "explanation": "Claves: 1.\n\nAsíntota en $x = 0$, pasa por $(1, 0)$ → sin desplazamiento. 2.\n\nEn $x = 2$:\n\n$f(2) = 2\\cdot 1 = 2$ (no.\n\n$1$) → escala vertical.\n\n$\\times 2$. 3. : es distinto:en.\n\n$x=1$ vale.\n\n$1$.\n\nno $0$.\n\nFórmula: $f(x) = 2\\cdot\\log_2(x)$.\n\nLa asíntota vertical es el \"borde del dominio\" de la función logarítmica.\n\nA diferencia de las funciones polinómicas que están definidas en toda la recta, los logaritmos necesitan un argumento positivo, así que siempre hay un límite.\n\nVisualmente, la curva se pega a esta línea sin cruzarla, un comportamiento que aparece también en funciones racionales y exponenciales negativas.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -983,7 +983,7 @@
       -4,
       4
     ],
-    "explanation": "Un desplazamiento vertical negativo baja toda la curva la misma cantidad, sin mover la asíntota ni cambiar el dominio, solo corre el punto donde cruza el eje $X$.\n\nClaves: 1.\n\nAsíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$: : (no pasa por $(1,0)$).3.\n\nIntercepto con eje $X$ en $x = 2$: : . Fórmula: $f(x) = \\log_2(x) - 1$.",
+    "explanation": "Un desplazamiento vertical negativo baja toda la curva la misma cantidad, sin mover la asíntota ni cambiar el dominio, solo corre el punto donde cruza el eje $X$.\n\nClaves: 1.\n\nAsíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$: : (no pasa por $(1,0)$).3.\n\nIntercepto con eje $X$ en $x = 2$: : .\n\nFórmula: $f(x) = \\log_2(x) - 1$.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -1043,7 +1043,7 @@
       -2,
       4
     ],
-    "explanation": "Claves: 1.\n\nEn $x = 4$ la curva vale $y = 1$: el punto $(4.\n\n1)$ identifica base $4$. 2.\n\nVs ::esa vale $1$ en $x = 2$. 3.\n\nVs ::esa vale $1$ en $x = 3$. 4. $\\log_4(x)$ crece más lentamente que $\\log_2(x)$ y $\\log_3(x)$ porque la base es mayor.\n\nFórmula: $f(x) = \\log_4(x)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
+    "explanation": "Claves: 1.\n\nEn $x = 4$ la curva vale $y = 1$: el punto $(4.\n\n1)$ identifica base $4$. 2.\n\nVs ::esa vale $1$ en $x = 2$. 3.\n\nVs ::esa vale $1$ en.\n\n$x = 3$. 4.\n\n$\\log_4(x)$ crece más lentamente que.\n\n$\\log_2(x)$ y.\n\n$\\log_3(x)$ porque la base es mayor.\n\nFórmula: $f(x) = \\log_4(x)$.\n\nComprender el comportamiento gráfico de funciones logarítmicas es esencial para resolver problemas de escala exponencial, crecimiento y decaimiento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1133,7 +1133,7 @@
       -3,
       5
     ],
-    "explanation": "Combinar una reflexión con un desplazamiento vertical requiere revisar ambos efectos por separado: primero el signo cambia la dirección, después la constante corre toda la curva.\n\nClaves: 1. **Decreciente** → logaritmo negado. 2.\n\nEn $x = 1$: : (no pasa por $(1,0)$).3.\n\nEn $x = 2$: : → raíz en $x = 2$. Fórmula: $f(x) = -\\log_2(x) + 1$.",
+    "explanation": "Combinar una reflexión con un desplazamiento vertical requiere revisar ambos efectos por separado: primero el signo cambia la dirección, después la constante corre toda la curva.\n\nClaves: 1. **Decreciente** → logaritmo negado. 2.\n\nEn $x = 1$: : (no pasa por $(1,0)$).3.\n\nEn $x = 2$: : → raíz en $x = 2$.\n\nFórmula: $f(x) = -\\log_2(x) + 1$.",
     "reviewed": false,
     "tags": [
       "lectura-raiz-cruce-x"
@@ -1163,7 +1163,7 @@
       -2,
       5
     ],
-    "explanation": "Cuando una curva combina desplazamiento horizontal y vertical, conviene verificar primero la asíntota (que solo depende del corrimiento horizontal) y después comparar alturas en dos puntos distintos.\n\nClaves: 1.\n\nAsíntota en $x = 1$ → argumento $(x - 1)$. 2.\n\nEn $x = 2$: $f(2) = \\log_2(1) + 1 = 0 + 1 = 1$ (no es el intercepto sino un punto elevado por el $+1$). 3.\n\nEn $x = 3$: $f(3) = \\log_2(2) + 1 = 2$ .\n\nFórmula: $f(x) = \\log_2(x - 1) + 1$.",
+    "explanation": "Cuando una curva combina desplazamiento horizontal y vertical, conviene verificar primero la asíntota (que solo depende del corrimiento horizontal) y después comparar alturas en dos puntos distintos.\n\nClaves: 1.\n\nAsíntota en $x = 1$ → argumento $(x - 1)$. 2.\n\nEn $x = 2$:\n\n$f(2) = \\log_2(1) + 1 = 0 + 1 = 1$ (no es el intercepto sino un punto elevado por el $+1$). 3.\n\nEn $x = 3$: $f(3) = \\log_2(2) + 1 = 2$ .\n\nFórmula: $f(x) = \\log_2(x - 1) + 1$.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -1193,7 +1193,7 @@
       -4,
       4
     ],
-    "explanation": "Una curva decreciente pero con dominio $x>0$ (sin reflejo del dominio hacia los negativos) indica una base entre $0$ y $1$.\n\nno un logaritmo negado por fuera.\n\nClaves: 1. **Decreciente** y dominio $x > 0$ → base $< 1$. 2.\n\nEn $x = 0{,}5$: $\\log_{0{,}5}(0{,}5) = 1$ → pasa por $(0{,}5,\\.\n\n1)$. 3.\n\nEn $x = 2$: $\\log_{0{,}5}(2) = -1$ → pasa por $(2,\\.\n\n-1)$.\n\nFórmula: $f(x) = \\log_{0{,}5}(x)$.",
+    "explanation": "Una curva decreciente pero con dominio $x>0$ (sin reflejo del dominio hacia los negativos) indica una base entre $0$\n\ny $1$.\n\nno un logaritmo negado por fuera.\n\nClaves: 1. **Decreciente** y dominio $x > 0$ → base $< 1$. 2.\n\nEn $x = 0{,}5$: $\\log_{0{,}5}(0{,}5) = 1$ → pasa por $(0{,}5,\\.\n\n1)$. 3.\n\nEn $x = 2$: $\\log_{0{,}5}(2) = -1$ → pasa por $(2,\\.\n\n-1)$.\n\nFórmula: $f(x) = \\log_{0{,}5}(x)$.",
     "reviewed": false,
     "tags": [
       "lectura-monotonia"
@@ -1223,7 +1223,7 @@
       -3,
       5
     ],
-    "explanation": "En modelos de crecimiento por factor (inversión, población, deuda).\n\nel tiempo necesario para alcanzar un factor $x$ es $t(x) = \\log_b(x)$, el logaritmo del factor en la base de crecimiento por período.\n\nPara $x = 4$ (la inversión creció $4$ veces): :. Son $2$ períodos de duplicación.\n\nNota: no se pide triplicar sino cuadruplicar (el enunciado usa «triplicarse» de forma informal para referirse a un factor $4$).\n\nDe todos modos, $\\log_2(4)=2$ es la lectura correcta del gráfico en ese punto.",
+    "explanation": "En modelos de crecimiento por factor (inversión, población, deuda).\n\nel tiempo necesario para alcanzar un factor $x$ es $t(x) = \\log_b(x)$, el logaritmo del factor en la base de crecimiento por período.\n\nPara $x = 4$ (la inversión creció $4$ veces): :.\n\nSon $2$ períodos de duplicación.\n\nNota: no se pide triplicar sino cuadruplicar (el enunciado usa «triplicarse» de forma informal para referirse a un factor $4$).\n\nDe todos modos, $\\log_2(4)=2$ es la lectura correcta del gráfico en ese punto.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

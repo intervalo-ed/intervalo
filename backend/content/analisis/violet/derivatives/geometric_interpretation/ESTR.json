@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el punto de tangencia está en $a=0$, la fórmula se simplifica porque $(x-a)$ queda directamente $x$.\n\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Cuando el punto de tangencia está en $a=0$\n\nla fórmula se simplifica porque $(x-a)$ queda directamente $x$.\n\nEste caso particular sirve para verificar rápido que los roles de $f'(a)$ como pendiente y $f(a)$ como término independiente no se intercambien.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con $a$ negativo se convierte en $(x+1)$, un doble signo que suele perderse si se apura el paso.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "Con un punto de tangencia en $a=-1$ negativo, conviene prestar especial atención al signo dentro del paréntesis $(x-(-1))$.\n\nEl paréntesis $(x-a)$ con.\n\n$a$ negativo se convierte en.\n\n$(x+1)$, un doble signo que suele perderse si se apura el paso.\n\nLa recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$ y $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Para una función lineal, la pendiente $f'(x)$ es siempre la misma en todo el dominio, así que $f'(2)=3$\n\ny $f(2)=7$.\n\nEl resultado coincide exactamente con la función original, un caso particular que muestra que la tangente a una recta es la recta misma.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"

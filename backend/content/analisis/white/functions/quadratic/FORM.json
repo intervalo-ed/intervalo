@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite leer directamente el vértice $(h.\n\nk)$ y la concavidad desde $a$.\n\nDe la gráfica: vértice en $(2, -1)$ y apertura hacia arriba ($a > 0$).\n\nEntonces $h = 2$.\n\n$k = -1$.\n\n$a = 1$:\n\nAtención con los signos: : significa $h = +2$ (no $h = -2$). La opción $(x+2)^2 - 1$ daría vértice en $(-2.\n\n-1)$.\n\nno en $(2.\n\n-1)$.",
+    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite leer directamente el vértice $(h.\n\nk)$ y la concavidad desde $a$.\n\nDe la gráfica: vértice en $(2, -1)$ y apertura hacia arriba ($a > 0$).\n\nEntonces $h = 2$.\n\n$k = -1$.\n\n$a = 1$:\n\nAtención con los signos: : significa $h = +2$ (no $h = -2$).\n\nLa opción $(x+2)^2 - 1$ daría vértice en $(-2.\n\n-1)$.\n\nno en $(2.\n\n-1)$.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en :. Para $f(x) = 2x^2 - 5x + 1$.\n\nel término en $x$ es $-5x$.\n\npor lo que $b = -5$.\n\nEl signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$.\n\ny $c = 1$ es la constante.\n\nEl valor de $b$ influye en la posición del eje de simetría: :.escribir $b = 5$ (sin el signo negativo).",
+    "explanation": "El **coeficiente lineal** $b$ es el número que multiplica directamente a $x$ (a la primera potencia) en :.\n\nPara $f(x) = 2x^2 - 5x + 1$.\n\nel término en $x$ es $-5x$.\n\npor lo que $b = -5$.\n\nEl signo negativo forma parte del coeficiente.\n\nNo confundir: $a = 2$ es el coeficiente de $x^2$.\n\ny $c = 1$ es la constante.\n\nEl valor de $b$ influye en la posición del eje de simetría: :.escribir $b = 5$ (sin el signo negativo).",
     "reviewed": false,
     "tags": [
       "leer-coeficientes"
@@ -208,7 +208,7 @@
       -5,
       5
     ],
-    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en : y $x = 3$.y la apertura hacia arriba ($a > 0$).\n\nCon raíces : y $r_2 = 3$ y $a = 1$.la forma factorizada es:\n\nVerificación: $f(-1) = 1 + 2 - 3 = 0$ , $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción : tendría raíces en $x = 1$ y $x = -3$ (distintas). El eje de simetría es $x = (-1+3)/2 = 1$, que coincide con el vértice visible en la gráfica.",
+    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en :\n\ny $x = 3$.y la apertura hacia arriba ($a > 0$).\n\nCon raíces : y $r_2 = 3$ y $a = 1$.la forma factorizada es:\n\nVerificación: $f(-1) = 1 + 2 - 3 = 0$ , $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción : tendría raíces en $x = 1$ y $x = -3$ (distintas).\n\nEl eje de simetría es $x = (-1+3)/2 = 1$, que coincide con el vértice visible en la gráfica.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Es fácil confundir el dominio de $f(x) = x^2 - 4$ con sus ceros o su imagen.\n\nEl **dominio** pregunta: ¿para qué $x$ puedo calcular $f(x)$?\n\nComo $f$ solo usa potencia y resta, siempre podés calcularlo.\n\nEl dominio es $\\mathbb{R}$.\n\nLos valores $x = -2$ y $x = 2$ son los **ceros** de $f$ (donde :).no restricciones del dominio.\n\nLa **imagen** de $f$ sí es $[-4.\n\n+\\infty)$.\n\nya que el mínimo se alcanza en $x = 0$: $f(0) = -4$.",
+    "explanation": "Es fácil confundir el dominio de $f(x) = x^2 - 4$ con sus ceros o su imagen.\n\nEl **dominio** pregunta: ¿para qué $x$ puedo calcular $f(x)$?\n\nComo $f$ solo usa potencia y resta, siempre podés calcularlo.\n\nEl dominio es $\\mathbb{R}$.\n\nLos valores $x = -2$\n\ny $x = 2$ son los **ceros** de $f$ (donde :).no restricciones del dominio.\n\nLa **imagen** de $f$ sí es $[-4.\n\n+\\infty)$.\n\nya que el mínimo se alcanza en $x = 0$: $f(0) = -4$.",
     "reviewed": false,
     "tags": [
       "raices-desde-formula"
@@ -405,7 +405,7 @@
       "Ese es $c$, el término independiente, no el coeficiente lineal.",
       "El coeficiente de $x$ en esta función es negativo: falta el signo menos."
     ],
-    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$.\n\nel **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia.\n\ndistinto del coeficiente $a$ que acompaña a : y de la constante $c$. Para $f(x) = 3x^2 - 6x + 2$.\n\nel término en $x$ es $-6x$.\n\npor lo que $b = -6$.\n\nincluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
+    "explanation": "En la forma estándar $f(x) = ax^2 + bx + c$.\n\nel **coeficiente lineal** $b$ es el número que acompaña a $x$ elevado a la primera potencia.\n\ndistinto del coeficiente $a$ que acompaña a : y de la constante $c$.\n\nPara $f(x) = 3x^2 - 6x + 2$.\n\nel término en $x$ es $-6x$.\n\npor lo que $b = -6$.\n\nincluyendo el signo negativo como parte del coeficiente.\n\nOmitir el signo y reportar $b = 6$ más frecuente en este tipo de lectura: ese signo determina, entre otras cosas, hacia qué lado se desplaza el eje de simetría de la parábola.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -455,7 +455,7 @@
       null,
       "Esta opción invierte el signo tanto de $h$ como de $k$ respecto del vértice pedido."
     ],
-    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite construir la ecuación de una parábola directamente a partir de su vértice $(h,k)$ y su coeficiente $a$.\n\nCon $(h,k) = (-2, 5)$ y $a = 1$, se reemplaza:\n\nEl signo dentro del paréntesis queda opuesto al de $h$: como $h = -2$.\n\nel factor correcto es $(x+2)$.\n\nno $(x-2)$.\n\nEste cambio de signo es la trampa más común de la forma de vértice: escribir $(x-h)$ tal cual sin invertir el signo produce el vértice equivocado.",
+    "explanation": "La **forma de vértice** $f(x) = a(x-h)^2 + k$ permite construir la ecuación de una parábola directamente a partir de su vértice $(h,k)$\n\ny su coeficiente $a$.\n\nCon $(h,k) = (-2, 5)$ y $a = 1$, se reemplaza:\n\nEl signo dentro del paréntesis queda opuesto al de $h$: como $h = -2$.\n\nel factor correcto es $(x+2)$.\n\nno $(x-2)$.\n\nEste cambio de signo es la trampa más común de la forma de vértice: escribir $(x-h)$ tal cual sin invertir el signo produce el vértice equivocado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -480,7 +480,7 @@
       "El coeficiente $a$ es negativo en este caso: acá quedó positivo, lo que invertiría la apertura de la parábola.",
       null
     ],
-    "explanation": "La forma de vértice $f(x) = a(x-h)^2 + k$ se arma reemplazando directamente los valores de $h$.\n\n$k$ y $a$.\n\nrespetando el signo de cada uno tal como aparece.\n\nCon $(h,k) = (3,-4)$ y $a = -2$:\n\nEl signo de $h=3$ produce el factor $(x-3)$.\n\ny el signo de $k=-4$ se escribe tal cual al final de la expresión.\n\nLa opción : cambia el signo de $k$:con $k$ positivo el vértice quedaría en $(3,4)$.\n\nno en $(3,-4)$ como pide el enunciado.",
+    "explanation": "La forma de vértice $f(x) = a(x-h)^2 + k$ se arma reemplazando directamente los valores de $h$.\n\n$k$ y $a$.\n\nrespetando el signo de cada uno tal como aparece.\n\nCon $(h,k) = (3,-4)$ y $a = -2$:\n\nEl signo de $h=3$ produce el factor $(x-3)$.\n\ny el signo de $k=-4$ se escribe tal cual al final de la expresión.\n\nLa opción : cambia el signo de $k$:con $k$ positivo el vértice quedaría en $(3.\n\n4)$.\n\nno en $(3,-4)$ como pide el enunciado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -505,7 +505,7 @@
       "Estos valores invierten el signo del vértice y usan el $-9$ sin haber despejado el cuadrado.",
       "Estos valores no surgen de sumar y restar $3$ al vértice $x=4$, que es lo que da las raíces reales."
     ],
-    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara $f(x) = (x-4)^2 - 9$:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá : es el punto medio entre $1$ y $7$.a distancia $3$ de cada lado.",
+    "explanation": "Para encontrar las **raíces** de una función en forma de vértice, se iguala a cero y se despeja $x$ paso a paso, aislando primero el cuadrado y después la variable.\n\nPara $f(x) = (x-4)^2 - 9$:\n\nEsto da $x = 7$ y $x = 1$.\n\nLas raíces siempre quedan ubicadas de forma simétrica respecto al vértice: acá : es el punto medio entre $1$\n\ny $7$.a distancia $3$ de cada lado.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -605,7 +605,7 @@
       "El valor de $k$ es positivo, $8$: acá el signo quedó invertido.",
       null
     ],
-    "explanation": "Construir la forma de vértice a partir de un vértice y un coeficiente $a$ dados es directo: se reemplazan los valores en la plantilla $f(x)=a(x-h)^2+k$, respetando el signo de cada uno.\n\nCon $(h,k)=(5,8)$ y $a=-0{,}5$:\n\nComo $a<0$.\n\nla parábola abre hacia abajo y su máximo.\n\n$8$.\n\nse alcanza exactamente en $x=5$.\n\nUn coeficiente $|a|<1$ como : produce una parábola más ancha que $-x^2$:confundir el signo o el valor de $a$ cambia tanto la orientación como la amplitud de la curva.",
+    "explanation": "Construir la forma de vértice a partir de un vértice y un coeficiente $a$ dados es directo: se reemplazan los valores en la plantilla $f(x)=a(x-h)^2+k$, respetando el signo de cada uno.\n\nCon $(h,k)=(5,8)$ y $a=-0{,}5$:\n\nComo $a<0$.\n\nla parábola abre hacia abajo y su máximo.\n\n$8$.\n\nse alcanza exactamente en $x=5$.\n\nUn coeficiente $|a|<1$ como :\n\nproduce una parábola más ancha que $-x^2$:confundir el signo o el valor de $a$ cambia tanto la orientación como la amplitud de la curva.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1145,7 +1145,7 @@
       "El segundo factor debería anularse en $x=4$, no en $x=-4$: revisá el signo de esa raíz.",
       null
     ],
-    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon $r_1=-2$ y $r_2=4$ y $a=1$, la forma factorizada es $f(x)=(x+2)(x-4)$.\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$ y $-4$:\n$$(x-2)(x+4)$$\nCon ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor es más frecuente al leer un gráfico y traducirlo a forma factorizada.",
+    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon $r_1=-2$ y $r_2=4$ y $a=1$, la forma factorizada es $f(x)=(x+2)(x-4)$.\n\nLa opción $(x-2)(x+4)$ tendría raíces $2$\n\ny $-4$:\n\n\nCon ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor es más frecuente al leer un gráfico y traducirlo a forma factorizada.",
     "has_math": true,
     "graph_fn": "pow(x,2)-2*x-8",
     "graph_view": [
@@ -1255,7 +1255,7 @@
       "Estos valores parecen salir de dividir los coeficientes originales sin factorizar correctamente el trinomio.",
       "El signo de la segunda raíz quedó invertido: el factor correcto es $(x-3)$, que se anula en $x=3$, no en $x=-3$."
     ],
-    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n\nLas raíces son $x=1$ y $x=3$.\n\nOlvidar sacar el factor común $2$ antes de buscar los dos números que suman $-4$ y multiplican $3$ es el error más frecuente al factorizar este tipo de expresión.\n\nVerificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
+    "explanation": "Cuando el coeficiente principal no es $1$, conviene sacar ese factor común antes de factorizar el resto de la expresión en dos binomios.\n\nPara $f(x)=2x^2-8x+6$:\n\nLas raíces son $x=1$ y $x=3$.\n\nOlvidar sacar el factor común $2$ antes de buscar los dos números que suman $-4$\n\ny multiplican $3$ es el error más frecuente al factorizar este tipo de expresión.\n\nVerificación: $f(1)=2-8+6=0$ y $f(3)=18-24+6=0$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1280,7 +1280,7 @@
       null,
       "Con $x=5$ el área es máxima, $25$ m², pero acá se pide dónde el área vale exactamente $21$ m², un valor menor al máximo."
     ],
-    "explanation": "Para hallar los valores de $x$ que dan un área específica, se iguala la función a ese valor y se resuelve la ecuación cuadrática resultante, generalmente llevándola primero a la forma $ax^2+bx+c=0$.\n\nPara $A(x)=x(10-x)=21$:\n\nEsto da $x=3$ y $x=7$.\n\nTiene sentido que haya dos soluciones: un corral de $3\\times 7$ y uno de $7\\times 3$ tienen la misma área de $21$ m².\n\nporque son el mismo rectángulo con los lados intercambiados.\n\nsimétrico respecto al ancho óptimo $x=5$.",
+    "explanation": "Para hallar los valores de $x$ que dan un área específica, se iguala la función a ese valor y se resuelve la ecuación cuadrática resultante, generalmente llevándola primero a la forma $ax^2+bx+c=0$.\n\nPara $A(x)=x(10-x)=21$:\n\nEsto da $x=3$ y $x=7$.\n\nTiene sentido que haya dos soluciones: un corral de $3\\times 7$\n\ny uno de $7\\times 3$ tienen la misma área de $21$ m².\n\nporque son el mismo rectángulo con los lados intercambiados.\n\nsimétrico respecto al ancho óptimo $x=5$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

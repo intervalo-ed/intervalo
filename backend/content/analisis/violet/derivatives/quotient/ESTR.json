@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$, $u'$ y $v'$ por separado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Cuando el numerador es una constante y el denominador es una potencia de $x$, conviene reescribir toda la expresión como una potencia negativa.\n\nCon esa reescritura, la derivada se obtiene directamente por la regla de la potencia, sin necesidad de identificar $u$, $v$\n\n$u'$ y $v'$ por separado.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$, $u'$ y $v'$ para una constante en el denominador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "El denominador $2$ es una constante fija, así que toda la expresión se puede pensar como un múltiplo escalar del numerador.\n\nDerivar con linealidad y la regla de la potencia resulta mucho más directo que armar $u$, $v$\n\n$u'$ y $v'$ para una constante en el denominador.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "falsos-positivos-alternativas-cociente"

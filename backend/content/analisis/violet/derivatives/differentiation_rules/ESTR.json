@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres, el término exponencial $2e^x$, el término trigonométrico $-\\cos x$ y el término constante $6$.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
+    "explanation": "El primer paso frente a cualquier expresión con varios términos es contar cuántas partes distintas hay que derivar por separado.\n\nEn este caso hay tres, el término exponencial $2e^x$, el término trigonométrico $-\\cos x$\n\ny el término constante $6$.\n\nDescomponer completa la expresión antes de derivar evita saltear algún término o mezclar las reglas que le corresponden a cada uno.",
     "reviewed": false,
     "tags": [
       "descomposicion-de-funciones"

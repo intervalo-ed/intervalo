@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **cuadrática** si puede expresarse en la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$.\n\nEl término $ax^2$ es lo que la hace cuadrática (grado 2).\n\nLos parámetros tienen significados específicos:\n- $a$: coeficiente que determina la concavidad (arriba si $a > 0$, abajo si $a < 0$).\n- $b$: coeficiente que afecta el eje de simetría.\n- $c$: término independiente igual a $f(0)$.\n\nEjemplos de funciones cuadráticas: $f(x) = x^2$, $f(x) = -2x^2 + 3x + 1$, $f(x) = (x-3)^2$.",
+    "explanation": "Una función es **cuadrática** si puede expresarse en la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$.\n\nEl término $ax^2$ es lo que la hace cuadrática (grado 2).\n\nLos parámetros tienen significados específicos:\n- $a$: coeficiente que determina la concavidad (arriba si $a > 0$, abajo si $a < 0$).\n- $b$: coeficiente que afecta el eje de simetría.\n- $c$: término independiente igual a $f(0)$.\n\nEjemplos de funciones cuadráticas: $f(x) = x^2$\n\n$f(x) = -2x^2 + 3x + 1$, $f(x) = (x-3)^2$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **concavidad** describe hacia dónde abre la parábola.\n\nEl signo del coeficiente $a$ en $f(x) = ax^2 + bx + c$ determina completamente la concavidad:\n- Si $a > 0$: la parábola abre **hacia arriba** (concava hacia arriba, U-shaped).\n- Si $a < 0$: la parábola abre **hacia abajo** (concava hacia abajo, ∩-shaped).\n\nLa magnitud de $a$ (cuán grande es en valor absoluto) controla cuán \"abierta\" o \"cerrada\" es la parábola.\nUn valor $|a|$ más grande → parábola más cerrada.",
+    "explanation": "La **concavidad** describe hacia dónde abre la parábola.\n\nEl signo del coeficiente $a$ en $f(x) = ax^2 + bx + c$ determina completamente la concavidad:\n\n- Si $a > 0$: la parábola abre **hacia arriba** (concava hacia arriba, U-shaped).\n- Si $a < 0$: la parábola abre **hacia abajo** (concava hacia abajo, ∩-shaped).\n\nLa magnitud de $a$ (cuán grande es en valor absoluto) controla cuán \"abierta\" o \"cerrada\" es la parábola.\nUn valor $|a|$ más grande → parábola más cerrada.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -153,7 +153,7 @@
       -5,
       6
     ],
-    "explanation": "Los **ceros** o **raíces** de una función cuadrática son los valores de $x$ donde $f(x) = 0$.\n\nGeométricamente: son los puntos donde el gráfico corta al eje $x$.\n\nCantidad de raíces:\n- **Dos raíces reales diferentes**: parábola corta el eje $x$ en dos puntos.\n- **Una raíz real (doble)**: parábola toca el eje $x$ en un solo punto (vértice en el eje).\n- **Sin raíces reales**: parábola no corta el eje $x$ (siempre positiva o siempre negativa).\n\nPara encontrar raíces, usamos la fórmula: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$.",
+    "explanation": "Los **ceros** o **raíces** de una función cuadrática son los valores de $x$ donde $f(x) = 0$.\n\nGeométricamente: son los puntos donde el gráfico corta al eje $x$.\n\nCantidad de raíces:\n- **Dos raíces reales diferentes**: parábola corta el eje $x$ en dos puntos. - **Una raíz real (doble)**: parábola toca el eje $x$ en un solo punto (vértice en el eje).\n\n- **Sin raíces reales**: parábola no corta el eje $x$ (siempre positiva o siempre negativa).\n\nPara encontrar raíces, usamos la fórmula: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **eje de simetría** es la línea vertical que divide la parábola en dos mitades idénticas.\n\nUbicación: $x = -\\frac{b}{2a}$ (la coordenada $x$ del vértice).\n\nPropiedad: Si reflejas cualquier punto de la parábola sobre este eje, obtienes otro punto en la parábola.\n\nEjemplo: Si la parábola $f(x) = x^2 - 4x + 3$ tiene eje de simetría en $x = 2$:\n- El punto $(0, 3)$ refleja a $(4, 3)$\n- El punto $(1, 0)$ refleja a $(3, 0)$\n\nEl eje de simetría es fundamental para entender y graficar parábolas.",
+    "explanation": "El **eje de simetría** es la línea vertical que divide la parábola en dos mitades idénticas.\n\nUbicación: $x = -\\frac{b}{2a}$ (la coordenada $x$ del vértice).\n\nPropiedad: Si reflejas cualquier punto de la parábola sobre este eje, obtienes otro punto en la parábola.\n\nEjemplo: Si la parábola $f(x) = x^2 - 4x + 3$ tiene eje de simetría en $x = 2$:\n- El punto $(0.\n\n3)$ refleja a $(4, 3)$\n- El punto $(1, 0)$ refleja a $(3.\n\n0)$\n\nEl eje de simetría es fundamental para entender y graficar parábolas.",
     "reviewed": false,
     "tags": [
       "raices-discriminante"
@@ -208,7 +208,7 @@
       -4,
       6
     ],
-    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje.\n\ny el vértice tiene :. Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
+    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$\n\nel vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje.\n\ny el vértice tiene :. Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda;.\n\ny la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U.\n\ny el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda;.\n\ny la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma estándar :, cada coeficiente cumple un rol distinto:$a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$, y $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si $a = 0$, el término $x^2$ desaparece y la función pasa a ser lineal.\n\nSin él, no hay **parábola**.",
+    "explanation": "En la forma estándar :, cada coeficiente cumple un rol distinto:$a$ es el **coeficiente principal**, el que acompaña a $x^2$ y define la **concavidad** y la apertura de la curva.\n\nLos otros dos coeficientes acompañan al resto de los términos: $b$ es el coeficiente lineal, que acompaña a $x$.\n\ny $c$ es el término independiente, el que aparece solo sin ninguna variable.\n\nEl coeficiente principal es indispensable para que la función sea cuadrática: si $a = 0$, el término $x^2$ desaparece y la función pasa a ser lineal.\n\nSin él, no hay **parábola**.",
     "reviewed": false,
     "tags": [
       "coeficientes-nombre"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce.\n\nEn una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice : es el punto más bajo:la función nunca baja de $k$, pero sube sin límite.\n\nEntonces:\n\nOjo con el detalle: el valor extremo es :, la coordenada $y$ del vértice, no $h$. La $h$ vive en el eje horizontal.",
+    "explanation": "La **imagen** es el conjunto de valores que la función realmente produce.\n\nEn una cuadrática, el **vértice** marca el extremo.\n\nSi la **parábola** **abre hacia arriba** ($a > 0$), el vértice : es el punto más bajo:la función nunca baja de $k$, pero sube sin límite.\n\nEntonces:\n\nOjo con el detalle: el valor extremo es :, la coordenada $y$ del vértice, no $h$.\n\nLa $h$ vive en el eje horizontal.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor extremo de una cuadrática, su máximo o su mínimo, es la coordenada $y$ del **vértice**, no la coordenada $x$.\n\nSi el vértice es $(h, k)$, la coordenada $x = h$ dice dónde o cuándo ocurre el extremo, mientras que la coordenada $y = k$ dice cuánto vale ese extremo.\n\nEn problemas de optimización esta diferencia lo es todo: $h$ es el precio que conviene fijar, $k$ es la ganancia que efectivamente se consigue.\n\nMezclarlas lleva a reportar el número equivocado.",
+    "explanation": "El valor extremo de una cuadrática, su máximo o su mínimo, es la coordenada $y$ del **vértice**, no la coordenada $x$.\n\nSi el vértice es $(h.\n\nk)$, la coordenada $x = h$ dice dónde o cuándo ocurre el extremo, mientras que la coordenada $y = k$ dice cuánto vale ese extremo.\n\nEn problemas de optimización esta diferencia lo es todo: $h$ es el precio que conviene fijar, $k$ es la ganancia que efectivamente se consigue.\n\nMezclarlas lleva a reportar el número equivocado.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gracia de la **forma de vértice** $f(x) = a(x - h)^2 + k$ es que las coordenadas del vértice están escritas adentro: el vértice es $(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés.\n\nSi ves $(x - 3)$, entonces $h = 3$; si ves :, entonces $h = -3$. En cambio $k$ aparece tal cual, sumando afuera.\n\nLeer mal el signo de $h$ es el tropiezo clásico.",
+    "explanation": "La gracia de la **forma de vértice** $f(x) = a(x - h)^2 + k$ es que las coordenadas del vértice están escritas adentro: el vértice es $(h, k)$.\n\nUn detalle que confunde: en $(x - h)$ el signo va al revés.\n\nSi ves $(x - 3)$, entonces $h = 3$; si ves :\n\nentonces $h = -3$. En cambio $k$ aparece tal cual, sumando afuera.\n\nLeer mal el signo de $h$ es el tropiezo clásico.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma de **vértice** $f(x) = a(x - h)^2 + k$, el número $k$ es la coordenada $y$ del vértice, o sea el **valor extremo** de la función.\n\nEl término : nunca cambia de signo:si $a > 0$ siempre suma algo $\\geq 0$ a $k$, así que $k$ es lo mínimo que puede valer $f$.\n\nSi $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**.\n\nLa parte $(x-h)^2$ solo lo empuja hacia un lado.",
+    "explanation": "En la forma de **vértice** $f(x) = a(x - h)^2 + k$\n\nel número $k$ es la coordenada $y$ del vértice, o sea el **valor extremo** de la función.\n\nEl término : nunca cambia de signo:si $a > 0$ siempre suma algo $\\geq 0$ a $k$, así que $k$ es lo mínimo que puede valer $f$.\n\nSi $a < 0$, siempre resta, y $k$ es el máximo.\n\nPor eso $k$ es el techo o el piso de la **imagen**.\n\nLa parte $(x-h)^2$ solo lo empuja hacia un lado.",
     "reviewed": false,
     "tags": [
       "vertice-parametros"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**. Los tres coeficientes de la forma estándar tienen roles distintos:\n\n$a$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal, que acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$, el coeficiente $b$ ayuda a ubicar el **vértice**, ya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
+    "explanation": "El coeficiente $b$ acompaña a la $x$ de primer grado en la forma estándar :, por eso se llama **coeficiente lineal**. Los tres coeficientes de la forma estándar tienen roles distintos:\n\n$a$ es el **coeficiente principal**, que acompaña a .$b$ es el coeficiente lineal.\n\nque acompaña a $x$; y $c$ es el término independiente, que va solo.\n\nJunto con $a$\n\nel coeficiente $b$ ayuda a ubicar el **vértice**, ya que ::no trabaja solo, siempre lo hace en conjunto con $a$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad.\n\nEl **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$, mientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso.\n\nEsa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
+    "explanation": "Esta distinción vale para toda función, y en las cuadráticas se ve con claridad.\n\nEl **dominio** son los valores de $x$ que la función acepta, y la **imagen** son los valores de $y$ que efectivamente produce.\n\nEn una cuadrática el dominio es siempre todo $\\mathbb{R}$\n\nmientras que la imagen queda acotada por el **vértice**, $[k, +\\infty)$ si abre hacia arriba o $(-\\infty, k]$ si abre hacia abajo.\n\nEntran todos los valores de $x$, pero no salen todos los valores de $y$, porque el vértice pone un techo o un piso.\n\nEsa asimetría entre dominio e imagen es una marca propia de la **parábola**.",
     "reviewed": false,
     "tags": [
       "dominio-imagen"
