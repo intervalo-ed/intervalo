@@ -605,7 +605,7 @@
       "El signo del término cruzado debe ser negativo, porque el binomio es una resta $(x-5)$, no una suma.",
       "El cuadrado de $5$ siempre da positivo, $25$, sin importar que $b$ tenga signo negativo dentro del binomio."
     ],
-    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo, y el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
+    "explanation": "El patrón $(a-b)^2 = a^2 - 2ab + b^2$ tiene tres términos: el cuadrado del primero, el doble producto con signo negativo,\n\ny el cuadrado del segundo, que siempre es positivo sin importar el signo de $b$.\n\nCon $a=x$ y $b=5$:\n\nCada pieza aporta lo suyo: $x^2$ es el cuadrado del primer término.\n\n$-10x$ es el doble producto $-2(x)(5)$.\n\ny $25$ es el cuadrado de $5$.\n\npositivo porque todo cuadrado lo es.\n\nLo importante a notar: Esta expresión con la diferencia de cuadrados $(x+5)(x-5)=x^2-25$, que no tiene término lineal, más frecuente en esta identidad..",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

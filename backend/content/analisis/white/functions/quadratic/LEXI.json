@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada **eje de simetría**, y posee exactamente un punto extremo llamado **vértice**.\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales.\n\nLa parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas).",
+    "explanation": "La gráfica de toda función cuadrática $f(x) = ax^2 + bx + c$ es una **parábola**.\n\nCaracterísticas visuales de la parábola: tiene forma de U (o U invertida), es **simétrica** respecto a una recta vertical llamada **eje de simetría**,\n\ny posee exactamente un punto extremo llamado **vértice**.\n\nLa hipérbola y la circunferencia son curvas distintas, y la recta es la gráfica de funciones lineales.\n\nLa parábola es exclusiva de las funciones cuadráticas (y de sus generalizaciones cónicas).",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -208,7 +208,7 @@
       -4,
       6
     ],
-    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje, y el vértice tiene :.Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
+    "explanation": "El **eje de simetría** es la recta vertical $x = x_v$ que pasa por el **vértice** y divide la **parábola** en dos mitades especulares.\n\nSu ecuación se obtiene con:\n\nPara $f(x) = (x-2)^2 - 3$, el vértice es $(2, -3)$, entonces el eje de simetría es $x = 2$.\n\nEsta propiedad es útil: si conocés una **raíz** $r_1$, la otra raíz $r_2$ está en el lado opuesto del eje,\n\ny el vértice tiene :.Las asíntotas no existen en cuadráticas (son propias de racionales y logarítmicas).",
     "reviewed": false,
     "tags": [
       "eje-simetria"
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda; y la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
+    "explanation": "El signo del **coeficiente principal** $a$ determina la **concavidad** de la **parábola**.\n\nCuando $a < 0$ en $f(x) = ax^2 + bx + c$, el término cuadrático resta en vez de sumar, por lo que la curva se **abre hacia abajo** y el **vértice** queda por encima de todo el resto de la curva.\n\nComparando los dos casos, con $a > 0$ la parábola tiene forma de U y el vértice es un mínimo global, mientras que con $a < 0$ la parábola tiene forma de $\\cap$ y el vértice es un máximo global.\n\nUna parábola con $a < 0$ no decrece en todo su **dominio**, decrece solo a la derecha del vértice y crece a la izquierda;.\n\ny la existencia de **raíces** reales depende del discriminante, no del signo de $a$.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -408,7 +408,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La forma $f(x) = a(x - r_1)(x - r_2)$ se llama **factorizada** porque la **parábola** aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo: la función vale $0$ cuando alguno de los factores vale $0$, o sea en : y en $x = r_2$.Si querés resolver $f(x) = 0$, esta es la forma que te ahorra trabajo.\n\nSi la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
+    "explanation": "La forma $f(x) = a(x - r_1)(x - r_2)$ se llama **factorizada** porque la **parábola** aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo: la función vale $0$ cuando alguno de los factores vale $0$,\n\no sea en : y en $x = r_2$.Si querés resolver $f(x) = 0$, esta es la forma que te ahorra trabajo.\n\nSi la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
     "reviewed": false,
     "tags": [
       "formas-de-la-funcion"

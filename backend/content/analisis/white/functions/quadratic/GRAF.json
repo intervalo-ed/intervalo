@@ -503,7 +503,7 @@
       -1,
       11
     ],
-    "explanation": "Una pelota que sale despedida hacia arriba y vuelve a caer describe una parábola, y el instante en que toca el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la pelota toca el suelo a los 8 segundos de haber salido despedida.\n\nConviene no confundir esta raíz con el instante del vértice: el vértice marca el momento del punto más alto, mientras que la raíz marca el final del recorrido, cuando la altura vuelve a cero.",
+    "explanation": "Una pelota que sale despedida hacia arriba y vuelve a caer describe una parábola,\n\ny el instante en que toca el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la pelota toca el suelo a los 8 segundos de haber salido despedida.\n\nConviene no confundir esta raíz con el instante del vértice: el vértice marca el momento del punto más alto, mientras que la raíz marca el final del recorrido, cuando la altura vuelve a cero.",
     "reviewed": false,
     "tags": [
       "vertice-x"
@@ -803,7 +803,7 @@
       -1,
       11
     ],
-    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire, y el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro más frecuente al leer este tipo de gráfico.",
+    "explanation": "Una rana que salta de una orilla a la otra describe una parábola en el aire,\n\ny el instante en que vuelve a tocar el suelo es aquel en el que su altura vale cero, es decir, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la rana toca el suelo a los 8 segundos de haber saltado.\n\nEsta raíz marca el final del salto, distinto del instante del vértice, que marca el momento del punto más alto; confundir uno con el otro más frecuente al leer este tipo de gráfico.",
     "reviewed": false,
     "tags": [
       "vertice-y"

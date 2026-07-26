@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn $\\lim_{x \\to 3} f(x)$, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$, y se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3)$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha $x \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
+    "explanation": "El **límite** formaliza la idea de **tendencia**: describe qué pasa con $f(x)$ a medida que $x$ toma valores cada vez más próximos a un número $a$\n\n, sin necesitar que $x$ llegue a valer exactamente $a$.\n\nEsta separación entre el proceso (acercamiento) y el destino (número $L$) es el corazón de la noción.\n\nEn $\\lim_{x \\to 3} f(x)$, la flecha $\\to$ indica que se evalúa $f$ en valores como $2{,}9$, $2{,}99$, $2{,}999$, $3{,}01$, cada vez más cercanos a $3$,\n\ny se observa a qué número se acerca el resultado.\n\n, sin necesidad de calcular $f(3)$.\n\nEl proceso de acercamiento es lo central, no el punto exacto.\n\nAsí entonces, la flecha $x \\to a$ nunca significa $x = a$, siempre describe un movimiento hacia sin llegar al punto.",
     "reviewed": false,
     "tags": [
       "lectura-notacion"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una tabla de valores es una forma **numérica** de estimar una **tendencia**.\n\n: si $f(x)$ se acerca cada vez más a un número a medida que $x$ se acerca a $a$ desde ambos lados, esa convergencia sugiere que el límite existe y vale ese número.\n\nLas tablas son el primer método práctico para reconocer límites.\n\nEn este caso, los valores para $x=1{,}9$ y $x=1{,}99$, acercándose desde la izquierda, y $x=2{,}01$ y $x=2{,}1$, desde la derecha, convergen a $6$: esto sugiere :.La convergencia bilateral es la señal clave.\n\nUna tabla es evidencia numérica, no una demostración algebraica, pero alcanza para reconocer el valor esperado del límite y para descartar opciones incorrectas.",
+    "explanation": "Una tabla de valores es una forma **numérica** de estimar una **tendencia**.\n\n: si $f(x)$ se acerca cada vez más a un número a medida que $x$ se acerca a $a$ desde ambos lados, esa convergencia sugiere que el límite existe y vale ese número.\n\nLas tablas son el primer método práctico para reconocer límites.\n\nEn este caso, los valores para $x=1{,}9$ y $x=1{,}99$, acercándose desde la izquierda,\n\ny $x=2{,}01$ y $x=2{,}1$, desde la derecha, convergen a $6$: esto sugiere :.La convergencia bilateral es la señal clave.\n\nUna tabla es evidencia numérica, no una demostración algebraica, pero alcanza para reconocer el valor esperado del límite y para descartar opciones incorrectas.",
     "reviewed": false,
     "tags": [
       "independencia-limite-valor"

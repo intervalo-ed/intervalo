@@ -1433,7 +1433,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año, y corresponde a una base $b = 0{,}5$ en el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $0$, solo se acerca cada vez más a esa asíntota.",
+    "explanation": "La curva pasa por $(0, 4)$ y $(1, 2)$:Cada año queda la mitad de lo que había el año anterior: la **vida media** de esta muestra es $1$ año,\n\ny corresponde a una base $b = 0{,}5$ en el modelo exponencial.\n\nConviene no confundir la vida media con el tiempo que tarda en desaparecer del todo: matemáticamente la cantidad nunca llega exactamente a $0$, solo se acerca cada vez más a esa asíntota.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito-contexto"

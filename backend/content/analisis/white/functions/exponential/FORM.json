@@ -798,7 +798,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula, y ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
+    "explanation": "Cuando una exponencial tiene un desplazamiento vertical, la asíntota horizontal se mueve la misma cantidad que se suma o resta al final de la fórmula,\n\ny ese mismo corrimiento afecta el valor de $f(0)$.\n\n1.\n\nAsíntota horizontal: $y = 2$.\n\nseñal de un desplazamiento $+2$. 2. $f(0) = 2^0 + 2 = 1 + 2 = 3$.\n\nque coincide con el corte en $(0,3)$.\n\nFórmula: $f(x) = 2^x + 2$. confundir el valor donde la curva corta el eje vertical con la altura de la asíntota, cuando son dos datos distintos que hay que leer por separado.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

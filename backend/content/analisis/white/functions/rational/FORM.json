@@ -128,7 +128,7 @@
       -6,
       6
     ],
-    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$. al leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
+    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir $x+2=0\\Rightarrow x=-2$.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$..\n\nal leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador.\n\nCuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal.\n\nEn su lugar.\n\naparece una asíntota oblicua.\n\nuna recta inclinada que se obtiene dividiendo el numerador entre el denominador. aplicar automáticamente la regla de grados iguales o de grado del numerador menor sin antes verificar cuál grado es mayor.",
+    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador.\n\nCuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal.\n\nEn su lugar.\n\naparece una asíntota oblicua.\n\nuna recta inclinada que se obtiene dividiendo el numerador entre el denominador..\n\naplicar automáticamente la regla de grados iguales o de grado del numerador menor sin antes verificar cuál grado es mayor.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida.\n\nAcá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**.\n\nEl numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$).\n\nasí que hay una asíntota vertical en $x=-1$.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos. asumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
+    "explanation": "Antes de excluir puntos del dominio, conviene factorizar el denominador para detectar si alguna raíz está repetida.\n\nAcá $x^2+2x+1=(x+1)^2$, un cuadrado perfecto que se anula solo en $x=-1$, aunque sea una raíz **doble**.\n\nEl numerador $x-2$ no se anula en ese punto ($-1-2=-3\\neq0$).\n\nasí que hay una asíntota vertical en $x=-1$.\n\nEl dominio es $\\mathbb{R}\\setminus\\{-1\\}$: un único valor excluido, no dos..\n\nasumir que un denominador cuadrático siempre da dos raíces distintas, sin revisar si en realidad es un cuadrado perfecto con raíz doble.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

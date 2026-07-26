@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$.No confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$.No confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar;.\n\nla respuesta es el valor de $x$ que lo produce.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"
