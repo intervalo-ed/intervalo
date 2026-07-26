@@ -64,7 +64,7 @@
       "Recordá que: tomar el límite cuando $h \\to 0$, ese término todavía conserva $h$ sin cancelar.",
       "Ese es el valor de la función original, todavía falta desarrollar el cociente incremental completo.",
       null,
-      "Falta una multiplicación: multiplicar por el coeficiente $2$ que acompaña al término cuadrático, se perdió en algún paso de la simplificación."
+      "Hay que una multiplicación: multiplicar por el coeficiente $2$ que acompaña al término cuadrático, se perdió en algún paso de la simplificación."
     ],
     "graph_fn": null,
     "graph_view": null,

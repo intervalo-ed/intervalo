@@ -112,7 +112,7 @@
     "feedback_correct": "Correcto, cada término se derivó con su regla correspondiente.",
     "feedback_incorrect": [
       null,
-      "Falta una multiplicación: multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
+      "Hay que una multiplicación: multiplicar el coeficiente $4$ por el exponente $3$ que baja, quedó incompleto.",
       "Perdiste el signo negativo del término $-2\\sin x$, su derivada es $-2\\cos x$.",
       "El signo del término logarítmico es positivo, la derivada de $\\ln x$ es $\\frac{1}{x}$ sin signo negativo."
     ],
@@ -139,7 +139,7 @@
       "La constante $-4$ tiene derivada cero, no debería aparecer en el resultado final.",
       null,
       "Perdiste el signo negativo del término $3\\cos x$, su derivada es $-3\\sin x$.",
-      "Falta una multiplicación: multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
+      "Hay que una multiplicación: multiplicar el coeficiente $5$ por el exponente $2$ que baja, quedó incompleto."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -213,7 +213,7 @@
     "feedback_incorrect": [
       null,
       "El signo del término trigonométrico es positivo, la derivada de $\\sin x$ es $\\cos x$ sin signo negativo.",
-      "Falta una multiplicación: multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
+      "Hay que una multiplicación: multiplicar el coeficiente $3$ por el exponente $2$ que baja, quedó incompleto.",
       "La constante $7$ tiene derivada cero, no debería aparecer en el resultado final."
     ],
     "graph_fn": null,
@@ -264,7 +264,7 @@
       "Ese es el valor de $f(2)$, la función original, no de su derivada $f'(2)$.",
       "Recordá que: evaluar $x^2$ en $x=2$, ese valor es solo el coeficiente sin evaluar.",
       null,
-      "Falta una multiplicación: elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
+      "Hay que una multiplicación: elevar al cuadrado antes de multiplicar, $3 \\cdot 2^2$, no $3 \\cdot 2$."
     ],
     "graph_fn": null,
     "graph_view": null,
@@ -339,7 +339,7 @@
       "Recordá que: derivar el término lineal $-2t$, quedó copiado sin cambios en vez de derivarlo a $-2$.",
       null,
       "Recordá que: derivar el término lineal $-2t$, cuya derivada es $-2$, no debería desaparecer del resultado.",
-      "Falta una multiplicación: multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
+      "Hay que una multiplicación: multiplicar el coeficiente $1$ por el exponente $3$ que baja, en este caso coincide pero conviene revisarlo igual."
     ],
     "graph_fn": null,
     "graph_view": null,

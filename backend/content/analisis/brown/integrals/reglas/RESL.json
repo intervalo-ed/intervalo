@@ -164,7 +164,7 @@
       "Esa forma sale de aplicar la regla de la potencia al término exponencial, pero $e^x$ se integra con la regla exponencial.",
       "El signo del término exponencial es negativo, revisá el signo original del enunciado.",
       null,
-      "Falta una multiplicación: multiplicar la constante $7$ por $x$ al integrarla, la regla de la constante lo exige."
+      "Hay que una multiplicación: multiplicar la constante $7$ por $x$ al integrarla, la regla de la constante lo exige."
     ],
     "graph_fn": null,
     "graph_view": null,
