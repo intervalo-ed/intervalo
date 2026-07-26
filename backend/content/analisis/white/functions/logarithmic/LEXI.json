@@ -643,9 +643,9 @@
     "question": "¿Cómo es $f(x) = -\\log_2(x)$ en comparación con $g(x) = \\log_2(x)$?",
     "options": [
       "Es la misma función",
-      "Es decreciente",
+      "Siempre decreciente",
       "Tiene dominio $x < 0$",
-      "La función es decreciente"
+      "Decreciente siempre"
     ],
     "correct_index": 1,
     "has_math": true,

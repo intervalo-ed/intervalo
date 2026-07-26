@@ -243,7 +243,7 @@
     "question": "¿Cuál es la forma estándar de una función cuadrática?",
     "options": [
       "$f(x) = mx + b$",
-      "$f(x) = ax^2 + bx + c$",
+      "$f(x) = ax^2 + bx$",
       "$f(x) = a \\cdot b^x$",
       "$f(x) = \\log_a(x)$"
     ],
@@ -1092,8 +1092,8 @@
   {
     "question": "¿Hacia dónde abre la **parábola** del gráfico?",
     "options": [
-      "La parábola se abre hacia abajo",
-      "Hacia abajo",
+      "Abre hacia abajo",
+      "Abre hacia abajo",
       "Hacia la derecha",
       "Hacia la izquierda"
     ],

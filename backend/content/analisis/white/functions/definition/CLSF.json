@@ -773,7 +773,7 @@
     "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L. $$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$ ¿Cuál es el conjunto **imagen** de $T$?",
     "options": [
       "$\\{S, M, L\\}$",
-      "El conjunto de tallas $\\{M, L\\}$",
+      "Tallas $\\{M, L\\}$",
       "$\\{60, \\dots, 100\\}$",
       "Solo la talla M"
     ],
@@ -850,7 +850,7 @@
       "$\\{1, \\dots, 20\\}$",
       "$\\{1, \\dots, 7\\}$",
       "El número $20$",
-      "El conjunto imagen $\\{7\\}$"
+      "Imagen $\\{7\\}$"
     ],
     "correct_index": 3,
     "has_math": true,

@@ -1094,7 +1094,7 @@
     "options": [
       "$f(x) = \\dfrac{1}{x + 2}$",
       "$f(x) = \\dfrac{x - 2}{x}$",
-      "$f(x) = \\dfrac{-2x + 1}{x + 5}$",
+      "$f(x) = \\frac{-2x+1}{x+5}$",
       "$f(x) = \\dfrac{2}{x}$"
     ],
     "correct_index": 2,

@@ -2,7 +2,7 @@
   {
     "question": "¿Cuál de estas funciones es un polinomio de **grado** 3?",
     "options": [
-      "$f(x) = x^3 - 2x + 5$",
+      "$f(x) = x^3 - 2x$",
       "$f(x) = x^2 + 1$",
       "$f(x) = 4x - 1$",
       "$f(x) = x^4$"
@@ -267,9 +267,9 @@
   {
     "question": "¿Cuál es el **dominio** natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
     "options": [
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$(0, +\\infty)$",
-      "El dominio es $\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "Depende del grado del polinomio"
     ],
     "correct_index": 0,
@@ -442,7 +442,7 @@
   {
     "question": "¿Cuál es la **imagen** de $f(x) = x^3$?",
     "options": [
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$[0, +\\infty)$",
       "$(0, +\\infty)$",
       "$[-1, 1]$"
@@ -592,7 +592,7 @@
   {
     "question": "¿Cuál de estas afirmaciones describe a un polinomio par?",
     "options": [
-      "Solo tiene potencias de grado par y $f(-x) =",
+      "Solo potencias pares y $f(-x) = f(x)$",
       "Solo tiene potencias de grado impar",
       "Tiene exactamente un número par de términos",
       "Su grado es un número par"
@@ -1019,8 +1019,8 @@
     "options": [
       "$[0, +\\infty)$",
       "$(-\\infty, -7^{1/100}] \\cup [7^{1/100}, +\\infty)$",
-      "El dominio es $\\mathbb{R}$",
-      "$\\mathbb{R}$"
+      "Todo $\\mathbb{R}$",
+      "Todo $\\mathbb{R}$"
     ],
     "correct_index": 3,
     "feedback_correct": "Todo polinomio, sin importar su grado, tiene dominio $\\mathbb{R}$.",

@@ -123,8 +123,8 @@
     "options": [
       "Cuadrática",
       "Exponencial",
-      "Función lineal",
-      "Lineal"
+      "Tipo lineal",
+      "Tipo lineal"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -317,7 +317,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$[a, +\\infty)$",
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$\\mathbb{R} \\setminus \\{0\\}$"
     ],
     "correct_index": 2,
@@ -367,7 +367,7 @@
     "options": [
       "$\\{b\\}$",
       "$[b, +\\infty)$",
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$[0, +\\infty)$"
     ],
     "correct_index": 2,
@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "El dominio es $\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,8 +629,8 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "$\\mathbb{R}$",
-      "El dominio es $\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$(5/2, +\\infty)$"
     ],
     "correct_index": 1,
@@ -853,8 +853,8 @@
   {
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
-      "El cero o raíz de la función",
-      "Raíz",
+      "Raíz de $f$",
+      "La raíz de $f$",
       "Cuadrática",
       "Constante"
     ],

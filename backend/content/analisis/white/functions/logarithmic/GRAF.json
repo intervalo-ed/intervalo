@@ -152,9 +152,9 @@
   {
     "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
     "options": [
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$(0,\\, +\\infty)$",
-      "El dominio es $\\mathbb{R}$",
+      "Todo $\\mathbb{R}^{+}$",
       "$(-\\infty,\\, 1)$"
     ],
     "correct_index": 0,
@@ -663,7 +663,7 @@
     "question": "¿Cuál es la imagen (recorrido) de la función del gráfico?",
     "options": [
       "$(0,\\, +\\infty)$",
-      "$\\mathbb{R}$",
+      "Todo $\\mathbb{R}$",
       "$(-\\infty,\\, 0)$",
       "$[-1,\\, 1]$"
     ],

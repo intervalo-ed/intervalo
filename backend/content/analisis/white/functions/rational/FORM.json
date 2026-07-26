@@ -268,7 +268,7 @@
     "question": "Analiza:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es el dominio de?",
     "options": [
       "$(-\\infty, 3]$",
-      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$\\mathbb{R}-\\{3\\}$",
       "$(3, +\\infty)$",
       "$(-3, +\\infty)$"
     ],
@@ -1117,7 +1117,7 @@
   {
     "question": "Considerá la función:\n$$f(x) = \\dfrac{x-1}{x+1}$$\n¿Cuánto vale $f(10)$ si?",
     "options": [
-      "$f(10) = \\dfrac{9}{11} \\approx 0{,}82$; cuando $x \\to \\infty$, $f \\to 1$",
+      "$f(10) = \\dfrac{9}{11}$; $f \\to 1$ as $x \\to \\infty$",
       "$f(10) = 9$; cuando $x \\to \\infty$, $f \\to 0$",
       "$f(10) = 11$; cuando $x \\to \\infty$, $f \\to 1$",
       "$f(10) = \\dfrac{9}{11}$; cuando $x \\to \\infty$, $f \\to 0$"
