@@ -638,7 +638,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $g(x)=2\\cos(x)+1$ se construye en pasos:\n$$\\begin{aligned}\n\\cos(x) &\\in [-1,1] \\\\\n2\\cos(x) &\\in [-2,2] \\\\\n2\\cos(x)+1 &\\in [-1,3]:\n\\end{aligned}$$\nLa opción $[0,4]$ se obtiene si se suma $2$ en vez de $1$.\n\nLa opción $[-2,2]$ olvida el desplazamiento vertical.\n\nLa opción $[1,3]$ toma $[0,2]+1$ en vez de :.\n$$[-2,2]+1$$\nEl rango final es $[-1,3]$.",
+    "explanation": "Si un gráfico comienza en un máximo, la función es coseno (con posible desplazamiento).\n\nSi comienza en cero con pendiente positiva, es seno.\n\nSi comienza en un mínimo, es seno negativo o coseno invertido.\n\nUna vez identificado el tipo (seno vs coseno), se miden amplitud y período para determinar $A$ y $B$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -748,7 +748,7 @@
       -4,
       4
     ],
-    "explanation": "Una onda con máximo $M$.\n\ny mínimo $m$ tiene **amplitud** $A$ igual a la mitad de la diferencia:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{3 - (-3)}{2} \\\\\n&= \\frac{6}{2} \\\\\n&= 3:\n\\end{aligned}$$\nLa opción $6$ es el rango total (de mínimo a máximo).\n\nno la amplitud.\n\nLa amplitud es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Multiplicar por $-1$ refleja la gráfica sobre el eje horizontal.\n\nLa función $-\\operatorname{sen}(x)$ es el reflejo de $\\operatorname{sen}(x)$.\n\nPropiedades del reflejo:\n- El período no cambia.\n- La amplitud mantiene su valor absoluto.\n- Los máximos se vuelven mínimos y viceversa.\n\nPor ejemplo, $\\operatorname{sen}(x)$ tiene máximo $1$ en $x=\\pi/2$, pero $-\\operatorname{sen}(x)$ tiene mínimo $-1$ en el mismo punto.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -773,7 +773,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=-2\\,\\operatorname{sen}(x)+1$.\n\nel **mínimo** se alcanza cuando $-2\\,\\operatorname{sen}(x)$ es mínimo.\n\nlo que ocurre cuando $\\operatorname{sen}(x)=1$:La fórmula $D-|A|$ funciona independientemente del signo de $A$: siempre restamos $|A|$ del desplazamiento.\n\nLa opción $-2$ ignora el desplazamiento $D=1$.\n\nLa opción $3$ es el máximo, no el mínimo.",
+    "explanation": "Cuando combinamos amplitud, período, fase y desplazamiento vertical, la forma general es:\n$$f(x) = A \\operatorname{sen}(B(x-C)) + D$$\nCada parámetro afecta de forma independiente:\n- $A$ controla la amplitud.\n- $B$ controla el período como $T = 2\\pi/|B|$.\n- $C$ desplaza la onda $C$ unidades horizontalmente.\n- $D$ desplaza $D$ unidades verticalmente.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-form"
@@ -798,7 +798,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(\\pi)=3\\cos(\\pi)$.\n\nse usa el valor estándar $\\cos(\\pi)=-1$:\n$$\\begin{aligned}\nf(\\pi) &= 3\\cos(\\pi) \\\\\n&= 3 \\cdot (-1) \\\\\n&= -3:\n\\end{aligned}$$\n$\\pi$ radianes ($=180°$) lleva al punto $(-1,0)$ del círculo unitario: coordenada $x=-1$.\n\nluego $\\cos(\\pi)=-1$.\n\nEl factor $3$ da el resultado final $-3$.",
+    "explanation": "El período de $\\operatorname{sen}(Bx)$ se calcula con la fórmula: $T = \\frac{2\\pi}{|B|}$.\n\nSi $B=3$, entonces $T = \\frac{2\\pi}{3}$ (período más corto que seno básico, onda más rápida).\n\nSi $B=1/2$, entonces $T = 4\\pi$ (período más largo, onda más lenta).\n\nLa relación es inversa: cuanto mayor es $|B|$, más rápido oscila la onda y menor es su período. Esta es una transformación fundamental en la familia de funciones trigonométricas.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -873,7 +873,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ángulo $\\pi/4=45°$ corresponde al triángulo isósceles rectángulo con catetos $1$ e hipotenusa :.El coseno es cateto adyacente sobre hipotenusa:La opción $1/2$ corresponde a $\\cos(60°)=\\cos(\\pi/3)$.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(30°)=\\cos(\\pi/6)$.\n\nA $45°$, seno y coseno son iguales: ambos $\\sqrt{2}/2$.",
+    "explanation": "Para identificar transformaciones compositas en un gráfico:\n\nCompare la función original con la transformada observando:\n- **Altura**: ¿cambió la amplitud?\n- **Ancho**: ¿cambió el período (más rápido/lento)?\n- **Posición horizontal**: ¿se desplazó (fase)?\n- **Posición vertical**: ¿subió o bajó?\n\nLuego asigne valores a $A$, $B$, $C$, y $D$ según lo observado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -903,7 +903,7 @@
       -1,
       3
     ],
-    "explanation": "El **eje de oscilación** (desplazamiento vertical $D$) es el valor alrededor del cual la función oscila simétricamente.\n\nEn $f(x)=\\operatorname{sen}(x)+1$.\n\nla curva oscila entre $0$.\n\ny $2$ centrada en :.: porque la función suma $1$ al seno estándar:el mínimo pasa de $-1$ a $0$.\n\ny el máximo de $1$ a $2$.\n\nEl promedio entre $0$.\n\ny $2$ es :.La opción $D=0$ sería el seno sin desplazamiento.\n\nEl eje de oscilación es el valor medio entre el máximo y el mínimo: $(0+2)/2=1$.\n\nSimple.",
+    "explanation": "El **dominio** de seno y coseno es $\\mathbb{R}$ (todos los números reales).\n\nEl **rango** depende de la amplitud:\n- Para $\\operatorname{sen}(x)$: rango es $[-1, 1]$.\n- Para $A \\operatorname{sen}(x)$: rango es $[-|A|, |A|]$.\n- Para $A \\operatorname{sen}(x) + D$: rango es $[D - |A|, D + |A|]$.\n\nLa amplitud $A$ y el desplazamiento $D$ son los únicos parámetros que afectan el rango.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa-trig"
@@ -928,7 +928,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(\\pi x)$ se calcula con $B=\\pi$:El resultado $T=2$ (dos unidades en el eje $x$.\n\nno $2\\pi$).\n\nLa opción $\\pi$ confunde el numerador con el resultado.\n\nLa opción $2\\pi$ ignora el $B=\\pi$.\n\nLa opción $1/\\pi$ invierte el cociente.\n\nCon $B=\\pi$, el período es simplemente $2$.",
+    "explanation": "Las funciones inversas de trigonométricas ($\\arcsin$, $\\arccos$, $\\arctan$) invierten el proceso.\n\nSi $\\operatorname{sen}(\\theta) = y$, entonces $\\arcsin(y) = \\theta$.\n\nSin embargo, como seno no es inyectiva en todo $\\mathbb{R}$, las inversas se definen en dominios restringidos:\n- $\\arcsin$ tiene dominio $[-1, 1]$ y rango $[-\\pi/2, \\pi/2]$.\n- $\\arccos$ tiene dominio $[-1, 1]$ y rango $[0, \\pi]$.\n\nLa restricción es necesaria para que la inversa exista como función.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -953,7 +953,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para una onda con máximo $M=5$.\n\ny mínimo $m=-5$.\n\nla **amplitud** es:\n$$\\begin{aligned}\nA &= \\frac{M - m}{2} \\\\\n&= \\frac{5 - (-5)}{2} \\\\\n&= \\frac{10}{2} \\\\\n&= 5:\n\\end{aligned}$$\nLa opción $10$ es el rango total (de $-5$ a $5$).\n\nLa opción : dividiría por $4$ en vez de $2$.\n$$2{,}5$$\nLa amplitud siempre es la **mitad** del rango total: la distancia del eje central al pico.",
+    "explanation": "Para graficar una transformación trigonométrica:\n\n1. Identificar la función base (seno vs coseno).\n2. Aplicar la amplitud $A$ (estira verticalmente).\n3. Aplicar el período usando $B$ (comprime horizontalmente).\n4. Aplicar el desplazamiento de fase (traslada horizontalmente).\n5. Aplicar el desplazamiento vertical $D$ (traslada verticalmente).\n\nEl orden de aplicación es importante: primero transformaciones horizontales, luego verticales.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1028,7 +1028,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)-1$ se obtiene escalando y desplazando:\n$$\\begin{aligned}\n\\operatorname{sen}(x) &\\in [-1,1] \\\\\n3\\,\\operatorname{sen}(x) &\\in [-3,3] \\\\\n3\\,\\operatorname{sen}(x)-1 &\\in [-4,2]:\n\\end{aligned}$$\nLa opción $[-1,3]$ usa $A=1$ en vez de $A=3$.\n\nLa opción $[-3,3]$ olvida el desplazamiento $-1$.\n\nLa imagen correcta $[-4,2]$ suma el desplazamiento al rango escalado.",
+    "explanation": "Una tabla de valores permite leer las características de la onda sin gráfico.\n\nDe una tabla podemos extraer:\n- **Amplitud**: distancia del valor central al máximo.\n- **Período**: distancia horizontal entre valores que se repiten.\n- **Desplazamiento vertical**: promedio entre máximo y mínimo.\n\nEjemplo: si los valores oscilan entre $2$ y $6$, la amplitud es $2$ y el eje central es $4$.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **amplitud** de $f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$ es $|A|=|1/2|=1/2$.\n\nEl coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$.\n\nmínimo $=-1/2$.\n\nimagen $=[-1/2,1/2]$.\n\nLa opción : dividiría por $4$;la opción $2$ invertiría el coeficiente; la opción $1$ ignoraría el factor $1/2$.\n\nLa amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía.\n\nMisma melodía, volumen reducido a la mitad.",
+    "explanation": "Cualquier transformación lineal de una función trigonométrica produce otra función periódica.\n\nLa forma general es $f(x) = A \\operatorname{sen}(Bx + C) + D$ donde cada parámetro tiene un significado específico.\n\nPropiedades preservadas:\n- La periodicidad se mantiene (aunque el período cambie).\n- La onda sigue siendo simétrica.\n- Las transformaciones son composiciones de estiramientos, compresiones y traslaciones.",
     "reviewed": false,
     "tags": [
       "cruce-eje-x"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x/2)$ no depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período.\n\nLa amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; la opción : sería el dominio.$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio.\n\nLa imagen $[-1,1]$ no se negocia.",
+    "explanation": "Errores comunes al leer gráficos trigonométricos:\n\n- **Confundir amplitud con período**: la amplitud es vertical, el período es horizontal.\n- **Olvidar el desplazamiento vertical**: la onda puede no oscilar alrededor del eje $x$.\n- **Lectura incorrecta del período**: debe medir entre dos picos (o dos valles) consecutivos.\n- **Mezclar fases con desplazamientos verticales**: están en diferentes categorías.\n\nLa práctica y atención al detalle son clave para evitar estos errores.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"
@@ -1283,7 +1283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $T(h)=10\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{12}(h-6)\\right)+20$.\n\nel **máximo** ocurre cuando $\\operatorname{sen}=1$:El desfase $(h-6)$ desplaza el horario del máximo (ocurre a $h=12$).\n\npero no cambia el valor máximo.\n\nLa opción $10°C$ es solo la amplitud.\n\nLa opción $20°C$ es el eje de oscilación.",
+    "explanation": "Para resolver ecuaciones del tipo $\\operatorname{sen}(x) = a$:\n\n1. Verificar que $-1 \\leq a \\leq 1$ (rango de seno).\n2. Usar $x = \\arcsin(a)$ para la solución principal.\n3. Recordar que seno tiene infinitas soluciones por periocidad.\n\nLa solución general es $x = \\arcsin(a) + 2\\pi k$ o $x = \\pi - \\arcsin(a) + 2\\pi k$ para $k \\in \\mathbb{Z}$.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"
