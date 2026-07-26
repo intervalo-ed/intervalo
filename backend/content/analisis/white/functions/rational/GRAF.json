@@ -1133,7 +1133,7 @@
       -4,
       4
     ],
-    "explanation": "Cuando el gráfico muestra **dos asíntotas verticales**, el denominador debe tener dos raíces reales distintas, lo que sugiere un denominador cuadrático factorizable.\n\nAV en $x=2$ y $x=-2$ → denominador :.\n$$x^2-4$$\n\nAH en $y=0$ → numerador constante, de grado menor al denominador.\n\nLa fórmula es $f(x)=\\frac{1}{x^2-4}$.\n\nConviene comparar los grados de numerador y denominador antes de fijar la AH, no solo contar las AV.",
+    "explanation": "Cuando el gráfico muestra **dos asíntotas verticales**, el denominador debe tener dos raíces reales distintas, lo que sugiere un denominador cuadrático factorizable.\n\nAV en $x=2$ y $x=-2$ → denominador :.\n$$x^2-4$$\nAH en $y=0$ → numerador constante, de grado menor al denominador.\n\nLa fórmula es $f(x)=\\frac{1}{x^2-4}$.\n\nConviene comparar los grados de numerador y denominador antes de fijar la AH, no solo contar las AV.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-graf"

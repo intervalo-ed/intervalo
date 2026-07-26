@@ -1138,7 +1138,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\nPor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es :.\n$$f(x) = 3x + 5$$\n\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
+    "explanation": "La pendiente entre dos puntos es el cociente de las variaciones:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{8 - 5}{1 - 0} = 3$$\nPor cada unidad de avance, la función sube 3.\n\nComo uno de los puntos es $(0, 5)$, además se lee la ordenada al origen $b = 5$: la recta completa es :.\n$$f(x) = 3x + 5$$\nLa pendiente mide el cambio, no los valores en sí: ni el 5 ni el 8 por separado responden la pregunta; lo que importa es la diferencia entre ellos.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nLa recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda :.\n$$f(x) = 2x + 4$$\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$\nLa recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda :.\n$$f(x) = 2x + 4$$\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"

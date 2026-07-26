@@ -258,7 +258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El seno oscila siempre entre $-1$ y $1$: su **rango** es :.\n$$[-1,1]$$\n\nEl valor máximo absoluto es $1$.\n\nalcanzado en $x=\\pi/2+2k\\pi$ para todo entero $k$.\n\nA diferencia de $e^x$ o $x^2$.\n\nel seno nunca crece hacia ::\n$$\\infty$$\nEstá acotado. $2\\pi$ y $\\pi$ son valores del **período**.\n\nno valores de la función.",
+    "explanation": "El seno oscila siempre entre $-1$ y $1$: su **rango** es :.\n$$[-1,1]$$\nEl valor máximo absoluto es $1$.\n\nalcanzado en $x=\\pi/2+2k\\pi$ para todo entero $k$.\n\nA diferencia de $e^x$ o $x^2$.\n\nel seno nunca crece hacia ::\n$$\\infty$$\nEstá acotado. $2\\pi$ y $\\pi$ son valores del **período**.\n\nno valores de la función.",
     "reviewed": false,
     "tags": [
       "paridad-funcion"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $g(x)=A\\cos(x)+D$.\n\nel **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$\nTanto si $A>0$ como si $A<0$.\n\nsiempre se resta $|A|$ del **desplazamiento** $D$.\n\nLa opción $-1$ es solo $D$; la $-2$ es : sin el desplazamiento.\n$$-|A|$$\n\nEl mínimo real es $-3$.",
+    "explanation": "En $g(x)=A\\cos(x)+D$.\n\nel **mínimo** se alcanza cuando $\\cos(x)=-1$: en ese punto $g=D-|A|$.\n$$\\begin{aligned}\n\\text{mín} &= D - |A| \\\\\n&= -1 - 2 \\\\\n&= -3:\n\\end{aligned}$$\nTanto si $A>0$ como si $A<0$.\n\nsiempre se resta $|A|$ del **desplazamiento** $D$.\n\nLa opción $-1$ es solo $D$; la $-2$ es : sin el desplazamiento.\n$$-|A|$$\nEl mínimo real es $-3$.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"

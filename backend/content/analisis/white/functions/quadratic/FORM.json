@@ -1145,7 +1145,7 @@
       "El segundo factor debería anularse en $x=4$, no en $x=-4$: revisá el signo de esa raíz.",
       null
     ],
-    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces : y $r_2=4$ y $a=1$:\n$$r_1=-2$$\n\nLa opción : tendría raíces $2$ y $-4$.\n$$(x-2)(x+4)$$\n\ncon ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor más frecuente al leer un gráfico y traducirlo a forma factorizada.",
+    "explanation": "Para armar la forma factorizada desde las raíces leídas en un gráfico, cada raíz entra en su propio factor con el signo invertido dentro del paréntesis.\n\nCon raíces : y $r_2=4$ y $a=1$:\n$$r_1=-2$$\nLa opción : tendría raíces $2$ y $-4$.\n$$(x-2)(x+4)$$\ncon ambos signos invertidos respecto de las raíces reales.\n\nConfundir el signo de la raíz con el signo dentro del factor más frecuente al leer un gráfico y traducirlo a forma factorizada.",
     "has_math": true,
     "graph_fn": "pow(x,2)-2*x-8",
     "graph_view": [
