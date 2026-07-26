@@ -48,7 +48,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Una **asíntota horizontal** es una recta horizontal $y = k$ que la curva se aproxima infinitamente pero nunca toca.\n\nPara $f(x) = 2^x$, cuando $x \\to -\\infty$:\n\nLa función se acerca a $y = 0$ sin llegar.\n\nLa **imagen** de $f$ es siempre positiva: $(0, +\\infty)$.\n\nEsta propiedad vale para toda exponencial $a \\cdot b^x$ con $a > 0$: la asíntota horizontal es $y = 0$.",
+    "explanation": "Una **asíntota horizontal** es una recta horizontal $y = k$ que la curva se aproxima infinitamente pero nunca toca.\n\nPara $f(x) = 2^x$, cuando $x \\to -\\infty$:\n\nLa función se acerca a $y = 0$ sin llegar.\n\nLa **imagen** de $f$ es siempre positiva: $(0, +\\infty)$.\n\nEsta propiedad vale para toda exponencial : con $a > 0$:la asíntota horizontal es $y = 0$.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:\n$$\\begin{aligned} f(x) &= a \\cdot b^x \\\\ (b &> 0,\\; b \\neq 1) \\end{aligned}$$\nContraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
+    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:Contraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
     "reviewed": false,
     "tags": [
       "ubicacion-variable-exponente"
@@ -123,7 +123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = x^3$ es una función **polinómica** de grado 3: la variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
+    "explanation": ": es una función **polinómica** de grado 3:\n$$f(x) = x^3$$\nla variable $x$ está en la **base** y el exponente $3$ es constante.\n\nLas funciones exponenciales tienen la forma $b^x$.\n\ncon la **base constante** y el **exponente variable**:\n$$3^x,\\quad e^x,\\quad (0{,}5)^x \\quad \\text{son todas exponenciales}$$\nNo confundir: $x^3$ (polinómica) vs. $3^x$ (exponencial).",
     "reviewed": false,
     "tags": [
       "identificar-exponencial"
@@ -153,7 +153,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Para $f(x) = 2^x$.\n\nanalizamos el límite cuando $x$ tiende a $-\\infty$:\n$$\\lim_{x \\to -\\infty} 2^x = 0$$\nLa función se acerca arbitrariamente a $y = 0$ sin tocarlo nunca.\n\nya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la **asíntota horizontal**.\n\nRecordar: no hay asíntota vertical en las funciones exponenciales.",
+    "explanation": "Para $f(x) = 2^x$.\n\nanalizamos el límite cuando $x$ tiende a $-\\infty$:La función se acerca arbitrariamente a $y = 0$ sin tocarlo nunca.\n\nya que $2^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nLa recta $y = 0$ (el **eje $x$**) es la **asíntota horizontal**.\n\nRecordar: no hay asíntota vertical en las funciones exponenciales.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = a \\cdot b^x$.\n\nla **base** $b$ es el parámetro que determina si la función crece ($b > 1$) o decrece ($0 < b < 1$).\n\nEl coeficiente $a$, en cambio, escala la curva verticalmente: cambia la **imagen** de la función, pero no su **monotonía**.\n\nUn coeficiente negativo, por ejemplo, refleja la curva pero no invierte si sube o baja según $x$ crece.\n\nAquí $b = 2 > 1$, así que la función es creciente.\n\nEl exponente $x$ tampoco decide la monotonía por sí solo, ya que es la variable de entrada, no un parámetro fijo de la fórmula.",
+    "explanation": "En $f(x) = a \\cdot b^x$.\n\nla **base** $b$ es el parámetro que determina si la función crece ($b > 1$) o decrece (:).El coeficiente $a$, en cambio, escala la curva verticalmente: cambia la **imagen** de la función, pero no su **monotonía**.\n\nUn coeficiente negativo, por ejemplo, refleja la curva pero no invierte si sube o baja según $x$ crece.\n\nAquí $b = 2 > 1$, así que la función es creciente.\n\nEl exponente $x$ tampoco decide la monotonía por sí solo, ya que es la variable de entrada, no un parámetro fijo de la fórmula.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -458,7 +458,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$. La función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nUna depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
+    "explanation": "Para modelar una **depreciación** del $r\\%$ anual:\n\nCon $r = 0{,}20$ (pierde 20% anual), la base es $0{,}80 < 1$.\n\nLa función decrece exponencialmente hacia 0 pero nunca lo alcanza.\n\nEsto modela realidades como el enfriamiento de un objeto (Newton) o la desintegración radiactiva, donde el cambio es proporcional al valor actual.\n\nUna depreciación lineal (que llega a 0 en tiempo finito), la exponencial **nunca** llega a 0.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal"
@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **vida media** $T_{1/2}$ es el tiempo tal que:\n\nEn radiactividad, si una sustancia tiene vida media de 5 años, tras 5 años queda la mitad, tras 10 años queda la cuarta parte, etc.\n\nEl concepto es central en química nuclear y medicina (datación de fósiles, dosis de radiofármacos). A pesar del desplazamiento vertical, la vida media depende solo de la base $b$, no de $a$.",
+    "explanation": "La **vida media** $T_{1/2}$ es el tiempo tal que:\n\nEn radiactividad, si una sustancia tiene vida media de 5 años, tras 5 años queda la mitad, tras 10 años queda la cuarta parte, etc.\n\nEl concepto es central en química nuclear y medicina (datación de fósiles, dosis de radiofármacos).\n\nA pesar del desplazamiento vertical, la vida media depende solo de la base $b$, no de $a$.",
     "reviewed": false,
     "tags": [
       "dominio-imagen-basica"
@@ -533,7 +533,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **número de Euler** $e$ es una constante matemática irracional:\n\nEs la única base para la cual la derivada de $e^x$ es exactamente $e^x$ (una propiedad de cálculo que se aprenderá en niveles avanzados).\n\nAparece naturalmente en procesos de crecimiento continuo: bacterias, inversiones a interés continuo, decaimiento radiactivo. Usar base $e$ simplifica muchas fórmulas en ciencia e ingeniería.",
+    "explanation": "El **número de Euler** $e$ es una constante matemática irracional:\n\nEs la única base para la cual la derivada de $e^x$ es exactamente $e^x$ (una propiedad de cálculo que se aprenderá en niveles avanzados).\n\nAparece naturalmente en procesos de crecimiento continuo: bacterias, inversiones a interés continuo, decaimiento radiactivo.\n\nUsar base $e$ simplifica muchas fórmulas en ciencia e ingeniería.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito"
@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x) = e^x$ tiene la propiedad extraordinaria de ser **su propia derivada**:\n$$\\frac{d}{dx} e^x = e^x$$\nEsto la hace fundamental en ecuaciones diferenciales y modelos de crecimiento continuo. Es la única función (salvo multiplicar por constante) con esta propiedad.\n\nNo confundir con la regla de potencias: $\\frac{d}{dx} x^n = n \\cdot x^{n-1}$, que aplica cuando la variable está en la **base**, no en el exponente.",
+    "explanation": "La función $f(x) = e^x$ tiene la propiedad extraordinaria de ser **su propia derivada**:Esto la hace fundamental en ecuaciones diferenciales y modelos de crecimiento continuo.\n\nEs la única función (salvo multiplicar por constante) con esta propiedad.\n\nNo confundir con la regla de potencias: $\\frac{d}{dx} x^n = n \\cdot x^{n-1}$, que aplica cuando la variable está en la **base**, no en el exponente.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -608,7 +608,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota horizontal** de $f(x) = 3^x$ es $y = 0$.\n\nAl sumar una constante $k$:\n\nEl desplazamiento vertical **mueve la asíntota** pero no la forma de la curva. Si $b > 1$, la exponencial es creciente; si $0 < b < 1$, es decreciente.\n\nEl tipo de monotonía no cambia con el desplazamiento, solo su velocidad. Reconocer la asíntota permite predecir el comportamiento en infinito sin calcular valores grandes.",
+    "explanation": "La **asíntota horizontal** de $f(x) = 3^x$ es $y = 0$.\n\nAl sumar una constante $k$:\n\nEl desplazamiento vertical **mueve la asíntota** pero no la forma de la curva.\n\nSi $b > 1$, la exponencial es creciente; si $0 < b < 1$, es decreciente.\n\nEl tipo de monotonía no cambia con el desplazamiento, solo su velocidad.\n\nReconocer la asíntota permite predecir el comportamiento en infinito sin calcular valores grandes.",
     "reviewed": false,
     "tags": [
       "monotonia-segun-base"
@@ -633,7 +633,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x) = 2^x$: **imagen** = $(0, +\\infty)$. Al sumar 3:\n\nAsí que **imagen** de $g$ = $(3, +\\infty)$.\n\nEl desplazamiento vertical corre la imagen completa: si $g(x) = f(x) + k$, entonces $\\text{imagen de } g = \\text{imagen de } f + k$.\n\nEsto es útil para determinar qué valores la función puede tomar, un concepto crucial para resolver ecuaciones y comprender el rango de una relación.",
+    "explanation": "Para $f(x) = 2^x$: **imagen** = $(0, +\\infty)$.\n\nAl sumar 3:\n\nAsí que **imagen** de $g$ = $(3, +\\infty)$.\n\nEl desplazamiento vertical corre la imagen completa: si $g(x) = f(x) + k$, entonces $\\text{imagen de } g = \\text{imagen de } f + k$.\n\nEsto es útil para determinar qué valores la función puede tomar, un concepto crucial para resolver ecuaciones y comprender el rango de una relación.",
     "reviewed": false,
     "tags": [
       "extremos-locales-inexistentes"
@@ -683,7 +683,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n$$f(x) = 2^x > 0 \\implies g(x) = -2^x < 0 \\text{ para todo } x$$\nLa **imagen** es $(-\\infty.\n\n0)$: siempre negativa.\n\ncon **asíntota horizontal** $y = 0$ por abajo.\n\nNota: se excluye el $0$ porque $-2^x$ se acerca a $0$ pero nunca llega.",
+    "explanation": "Reflexión vertical: multiplicar por $-1$ invierte el signo de todos los valores.\n$$f(x) = 2^x > 0 \\implies g(x) = -2^x < 0 \\text{ para todo } x$$\nLa **imagen** es $(-\\infty.\n\n0)$: siempre negativa.\n\ncon **asíntota horizontal** $y = 0$ por abajo.\n\nNota: se excluye el $0$ porque : se acerca a $0$ pero nunca llega.\n$$-2^x$$\n",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion-exponencial-simple"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La base $b = 1$ quedó excluida de la definición porque $1^x = 1$ para todo $x$:\n\nTampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, fuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
+    "explanation": "La base $b = 1$ quedó excluida de la definición porque : para todo $x$:Tampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, fuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"
@@ -733,7 +733,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **exponente negativo** es la inversa multiplicativa:\n\nUna función es **inyectiva** si cada salida proviene de una sola entrada: si $b^{x_1} = b^{x_2}$, entonces $x_1 = x_2$.\n\nLas exponenciales son inyectivas porque cada base genera valores distintos para exponentes distintos.\n\nEsto es diferente de que dos entradas compartan la misma salida (inyectividad inversa, que es otra cosa). La inyectividad permite despejar ecuaciones exponenciales con garantía de solución única.",
+    "explanation": "El **exponente negativo** es la inversa multiplicativa:\n\nUna función es **inyectiva** si cada salida proviene de una sola entrada: si $b^{x_1} = b^{x_2}$, entonces $x_1 = x_2$.\n\nLas exponenciales son inyectivas porque cada base genera valores distintos para exponentes distintos.\n\nEsto es diferente de que dos entradas compartan la misma salida (inyectividad inversa, que es otra cosa).\n\nLa inyectividad permite despejar ecuaciones exponenciales con garantía de solución única.",
     "reviewed": false,
     "tags": [
       "inyectividad-exponencial"
@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencias de igual **base** establece que al multiplicar dos potencias con la misma base, los exponentes se suman:\n\nEsto viene de contar cuántas veces se multiplica $b$ por sí mismo: $b^m$ son $m$ factores de $b$ y $b^n$ son $n$ factores más.\n\nen total $m+n$ factores.\n\nCon $m=3$ y $n=4$: $2^3 \\cdot 2^4 = 2^{3+4} = 2^7$.\n\nEn la función exponencial esto explica el comportamiento multiplicativo entre valores consecutivos:\n\nCada unidad que avanza $x$, el valor se multiplica por $b$.\n\nNo confundir con multiplicar las bases directamente: $2^3 \\cdot 2^4$ no es $4^7$, porque las bases no cambian al sumar los exponentes.",
+    "explanation": "La propiedad de potencias de igual **base** establece que al multiplicar dos potencias con la misma base, los exponentes se suman:\n\nEsto viene de contar cuántas veces se multiplica $b$ por sí mismo: $b^m$ son $m$ factores de $b$ y $b^n$ son $n$ factores más.\n\nen total $m+n$ factores.\n\nCon $m=3$ y $n=4$: :.En la función exponencial esto explica el comportamiento multiplicativo entre valores consecutivos:\n\nCada unidad que avanza $x$, el valor se multiplica por $b$.\n\nNo confundir con multiplicar las bases directamente: $2^3 \\cdot 2^4$ no es $4^7$, porque las bases no cambian al sumar los exponentes.",
     "reviewed": false,
     "tags": [
       "transformacion-horizontal"
@@ -783,7 +783,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: $(b^x)^2 = b^{2x}$.\n\nUn ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$.\n\nque muestra cómo convertir entre bases distintas: cualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
+    "explanation": "La regla de potencia de potencia indica que al elevar una potencia a otro exponente, los exponentes se multiplican entre sí:\n\nA diferencia de la multiplicación de potencias de igual **base** (donde los exponentes se suman), acá hay un exponente aplicado sobre otro exponente, y esa operación multiplica.\n\nCon $m=x$ y $n=2$: :.Un ejemplo concreto es $(2^x)^2 = 2^{2x} = 4^x$.\n\nque muestra cómo convertir entre bases distintas: cualquier potencia de $2$ elevada al cuadrado se puede reescribir como una potencia de $4$.\n\nEsta conversión es útil para comparar exponenciales con distinta base pero relacionadas entre sí, como $4^x$ y $2^x$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra:\n\nEntonces $f^{-1}(x) = \\log_2(x)$. En términos de gráfica, la inversa se obtiene reflejando la curva en la recta $y = x$.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$.\n\nSu inversa, el logaritmo, tiene dominio $(0, +\\infty)$ e imagen $\\mathbb{R}$: exactamente al revés.",
+    "explanation": "Dos funciones son **inversas** si una deshace lo que hace la otra:\n\nEntonces $f^{-1}(x) = \\log_2(x)$.\n\nEn términos de gráfica, la inversa se obtiene reflejando la curva en la recta $y = x$.\n\nLa exponencial tiene **dominio** $\\mathbb{R}$ e **imagen** $(0, +\\infty)$.\n\nSu inversa, el logaritmo, tiene dominio $(0, +\\infty)$ e imagen $\\mathbb{R}$: exactamente al revés.",
     "reviewed": false,
     "tags": [
       "valor-inicial-f0"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las raíces son los valores de $x$ donde $f(x) = 0$.\n\nPara $f(x) = 3^x$:\n\nPorque $3^x > 0$ para todo $x \\in \\mathbb{R}$, nunca puede ser 0.\n\nCualquier exponencial $a \\cdot b^x$ con $a > 0$ y $b > 0$ cumple lo mismo: siempre es positiva.\n\nLas funciones que sí tienen raíces (como polinomios o trigonométricas) tienen un comportamiento diferente: pueden cruzar el eje $x$, la exponencial nunca.",
+    "explanation": "Las raíces son los valores de $x$ donde $f(x) = 0$.\n\nPara $f(x) = 3^x$:\n\nPorque $3^x > 0$ para todo $x \\in \\mathbb{R}$, nunca puede ser 0.\n\nCualquier exponencial : con $a > 0$ y $b > 0$ cumple lo mismo:siempre es positiva.\n\nLas funciones que sí tienen raíces (como polinomios o trigonométricas) tienen un comportamiento diferente: pueden cruzar el eje $x$, la exponencial nunca.",
     "reviewed": false,
     "tags": [
       "comportamiento-infinito"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: $3^x > 2^x$ para todo $x > 0$.\n\nAmbas curvas parten del mismo punto $(0.\n\n1)$.\n\nporque $b^0=1$ sin importar la base.\n\npero a partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
+    "explanation": "Cuando dos exponenciales con distinta **base** parten del mismo **valor inicial**, la de mayor base crece más rápido para $x$ positivo.\n\nEn general, para bases $b_1 > b_2 > 1$ y $x > 0$:\n\nCon $b_1=3$ y $b_2=2$: : para todo $x > 0$.Ambas curvas parten del mismo punto $(0.\n\n1)$.\n\nporque $b^0=1$ sin importar la base.\n\npero a partir de ahí la de base $3$ se despega más rápido.\n\nEsta relación se invierte para $x < 0$: ahí $2^x > 3^x$, porque elevar una base mayor a un exponente negativo produce un resultado más chico.\n\nPor eso la comparación entre bases no es universal para todo $x$, sino que depende del signo del exponente.",
     "reviewed": false,
     "tags": [
       "comparacion-bases"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para $f(x) = b^x$ con $0 < b < 1$:\n\nLa función **decrece hacia 0** a la derecha (valor positivo muy chico) pero nunca lo alcanza (asíntota horizontal en $y = 0$). A la izquierda crece sin cota.\n\nEs lo opuesto de $b > 1$: la dirección se invierte. Ambos casos (crecimiento y decaimiento exponencial) son monótonos en todo $\\mathbb{R}$, nunca tienen máximos ni mínimos locales.",
+    "explanation": "Para $f(x) = b^x$ con $0 < b < 1$:\n\nLa función **decrece hacia 0** a la derecha (valor positivo muy chico) pero nunca lo alcanza (asíntota horizontal en $y = 0$).\n\nA la izquierda crece sin cota.\n\nEs lo opuesto de $b > 1$: la dirección se invierte.\n\nAmbos casos (crecimiento y decaimiento exponencial) son monótonos en todo $\\mathbb{R}$, nunca tienen máximos ni mínimos locales.",
     "reviewed": false,
     "tags": [
       "monotonia-segun-base"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La condición $b \\neq 1$ se impone porque:\n$$1^x = 1 \\quad \\text{para todo } x$$\nUna función constante no tiene **asíntota** informativa ni **monotonía**: es trivial.\n\nLa condición $b > 0$ se impone porque para $b < 0$.\n\nexpresiones como $b^{0{,}5} = \\sqrt{b}$ no son reales.\n\npor lo que la función no estaría bien definida en $\\mathbb{R}$.",
+    "explanation": "La condición $b \\neq 1$ se impone porque:Una función constante no tiene **asíntota** informativa ni **monotonía**: es trivial.\n\nLa condición $b > 0$ se impone porque para $b < 0$.\n\nexpresiones como $b^{0{,}5} = \\sqrt{b}$ no son reales.\n\npor lo que la función no estaría bien definida en $\\mathbb{R}$.",
     "reviewed": false,
     "tags": [
       "identificar-exponencial"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un extremo local existe donde la función cambia de creciente a decreciente (o viceversa). Como $f(x) = 5^x$ es **siempre creciente**, no tiene ningún punto así.\n\nComparación: una polinómica de grado 3 puede tener hasta 2 extremos locales; una de grado 4, hasta 3. La exponencial, en cambio, no tiene ninguno.",
+    "explanation": "Un extremo local existe donde la función cambia de creciente a decreciente (o viceversa).\n\nComo $f(x) = 5^x$ es **siempre creciente**, no tiene ningún punto así.\n\nComparación: una polinómica de grado 3 puede tener hasta 2 extremos locales; una de grado 4, hasta 3.\n\nLa exponencial, en cambio, no tiene ninguno.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion-exponencial-simple"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Como $2^0=1$ y la función es estrictamente creciente.\n\ncomparar cualquier $x$ contra $0$ alcanza para saber si $2^x$ queda por debajo o por encima de $1$:\n\nPara $x<0$ la función toma valores positivos pero menores que $1$.\n\npor ejemplo $2^{-1}=0{,}5$ o $2^{-3}=0{,}125$: se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$.\n\npositivo da más que $1$.\n\ncero da exactamente $1$.",
+    "explanation": "Como $2^0=1$ y la función es estrictamente creciente.\n\ncomparar cualquier $x$ contra $0$ alcanza para saber si : queda por debajo o por encima de $1$:Para $x<0$ la función toma valores positivos pero menores que $1$.\n\npor ejemplo $2^{-1}=0{,}5$ o ::se acerca a $0$ sin llegar nunca a tocarlo.\n\nLa función nunca es negativa ni vale exactamente cero, así que ese caso queda descartado de entrada.\n\nEsta relación entre el signo del exponente y el resultado frente a $1$ es la misma para cualquier exponencial con **base** mayor que $1$: negativo da menos que $1$.\n\npositivo da más que $1$.\n\ncero da exactamente $1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"

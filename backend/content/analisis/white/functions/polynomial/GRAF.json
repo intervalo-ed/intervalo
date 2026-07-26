@@ -75,7 +75,7 @@
       "Revisá si el número de extremos locales que aparecen en el gráfico realmente cabe en un polinomio de ese grado.",
       "Buscá el grado más chico que todavía permite esa cantidad de extremos, no cualquier grado mayor que también la permite."
     ],
-    "explanation": "Un polinomio de grado $n$ puede tener **como máximo $n-1$ extremos locales**.\n\nEste gráfico muestra 3 extremos locales (dos mínimos y un máximo, o viceversa). Para tener 3 extremos se necesita $n - 1 \\geq 3$, es decir, $n \\geq 4$.\n\nAdemás, la forma W (ambos extremos hacia arriba) confirma grado **par**: grado mínimo = $4$.",
+    "explanation": "Un polinomio de grado $n$ puede tener **como máximo $n-1$ extremos locales**.\n\nEste gráfico muestra 3 extremos locales (dos mínimos y un máximo, o viceversa).\n\nPara tener 3 extremos se necesita $n - 1 \\geq 3$, es decir, $n \\geq 4$.\n\nAdemás, la forma W (ambos extremos hacia arriba) confirma grado **par**: grado mínimo = $4$.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -105,7 +105,7 @@
       null,
       "Ese valor corresponde a otro punto del gráfico, releé la altura justo donde la curva cruza el eje vertical."
     ],
-    "explanation": "La **ordenada al origen** $f(0)$ es el valor donde la curva cruza el eje $Y$.\n\nPara calcularlo, evaluamos la función en $x = 0$.\n\nEvaluando $f(0) = rac{(0^2-1)(0^2-4)}{4} = rac{(-1)(-4)}{4} = rac{4}{4} = 1$. En el gráfico, esto se visualiza como el punto donde la curva intersecta el eje vertical en $y = 1$.\n\nEste punto siempre ocurre en las coordenadas $(0, f(0))$, lo que proporciona una forma rápida de verificar la fórmula leyendo el gráfico.\n\nPara cualquier polinomio, $f(0)$ es simplemente el **término independiente** de la expresión, que puede extraerse sin necesidad de cálculos si se escribe en forma estándar.",
+    "explanation": "La **ordenada al origen** $f(0)$ es el valor donde la curva cruza el eje $Y$.\n\nPara calcularlo, evaluamos la función en $x = 0$.\n\nEvaluando $f(0) = rac{(0^2-1)(0^2-4)}{4} = rac{(-1)(-4)}{4} = rac{4}{4} = 1$.\n\nEn el gráfico, esto se visualiza como el punto donde la curva intersecta el eje vertical en $y = 1$.\n\nEste punto siempre ocurre en las coordenadas $(0, f(0))$, lo que proporciona una forma rápida de verificar la fórmula leyendo el gráfico.\n\nPara cualquier polinomio, $f(0)$ es simplemente el **término independiente** de la expresión, que puede extraerse sin necesidad de cálculos si se escribe en forma estándar.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -165,7 +165,7 @@
       "La forma de la curva justo en ese punto sí muestra si rebota o atraviesa el eje.",
       null
     ],
-    "explanation": "La **multiplicidad** de una raíz determina cómo se comporta la curva justo en ese punto del eje $x$.\n\nCuando la multiplicidad es impar (1, 3, ...), la curva atraviesa el eje y cambia de signo; cuando es par (2, 4, ...), la curva se acerca, toca el eje y vuelve para el mismo lado, sin cambiar de signo.\n\nEn este gráfico, la curva baja hasta llegar a $x = 0$ y después vuelve a subir del mismo lado, sin cruzar hacia valores negativos.\n\nEse comportamiento de rebote corresponde a una raíz de multiplicidad par, siendo 2 (raíz doble) la más simple y frecuente en estos modelos.\n\nasumir que toda raíz visible en un gráfico cruza el eje. Antes de contar una raíz como simple, conviene mirar con cuidado si la curva realmente cambia de lado o solo lo toca y regresa.",
+    "explanation": "La **multiplicidad** de una raíz determina cómo se comporta la curva justo en ese punto del eje $x$.\n\nCuando la multiplicidad es impar (1, 3, ...), la curva atraviesa el eje y cambia de signo; cuando es par (2, 4, ...), la curva se acerca, toca el eje y vuelve para el mismo lado, sin cambiar de signo.\n\nEn este gráfico, la curva baja hasta llegar a $x = 0$ y después vuelve a subir del mismo lado, sin cruzar hacia valores negativos.\n\nEse comportamiento de rebote corresponde a una raíz de multiplicidad par, siendo 2 (raíz doble) la más simple y frecuente en estos modelos.\n\nasumir que toda raíz visible en un gráfico cruza el eje.\n\nAntes de contar una raíz como simple, conviene mirar con cuidado si la curva realmente cambia de lado o solo lo toca y regresa.",
     "has_math": true,
     "graph_fn": "pow(x,2)*(x-3)/5",
     "graph_view": [
@@ -195,7 +195,7 @@
       "Revisá el lado izquierdo y el derecho del gráfico por separado, hay un cambio de tendencia en cada uno.",
       "No cuentes las raíces (cruces con el eje) como si fueran picos o valles."
     ],
-    "explanation": "Un polinomio de grado $n$ tiene **como máximo $n - 1$ extremos locales**.\n\nPara grado $3$: máximo $2$ extremos locales. En este gráfico se ven claramente un máximo local (izquierda) y un mínimo local (derecha): **2 extremos**.\n\nNo confundir con raíces (3 cruces con el eje $x$): los extremos son picos y valles, no cruces.",
+    "explanation": "Un polinomio de grado $n$ tiene **como máximo $n - 1$ extremos locales**.\n\nPara grado $3$: máximo $2$ extremos locales.\n\nEn este gráfico se ven claramente un máximo local (izquierda) y un mínimo local (derecha): **2 extremos**.\n\nNo confundir con raíces (3 cruces con el eje $x$): los extremos son picos y valles, no cruces.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -255,7 +255,7 @@
       "Buscá algún valle real en la curva, un tramo donde primero baje y después retome la subida.",
       "Mirá la tendencia general de la curva de izquierda a derecha, no solo un tramo puntual."
     ],
-    "explanation": "La gráfica muestra $f(x) = x^3/8$, un polinomio de **grado** 3 (impar) con **coeficiente positivo**.\n\nLos polinomios de grado impar con coeficiente positivo son **globalmente crecientes**: suben continuamente desde $-\\infty$ hasta $+\\infty$, nunca bajan.\n\nEsto significa que no tienen ni máximos locales ni mínimos locales; solo tienen un **punto de inflexión** (donde cambia la curvatura) pero no cambian de dirección.\n\nEn $f(x) = x^3/8$, el punto de inflexión está en $(0, 0)$. La función sube a la izquierda del origen, pasa por el origen, y sigue subiendo hacia la derecha.",
+    "explanation": "La gráfica muestra $f(x) = x^3/8$, un polinomio de **grado** 3 (impar) con **coeficiente positivo**.\n\nLos polinomios de grado impar con coeficiente positivo son **globalmente crecientes**: suben continuamente desde $-\\infty$ hasta $+\\infty$, nunca bajan.\n\nEsto significa que no tienen ni máximos locales ni mínimos locales; solo tienen un **punto de inflexión** (donde cambia la curvatura) pero no cambian de dirección.\n\nEn $f(x) = x^3/8$, el punto de inflexión está en $(0, 0)$.\n\nLa función sube a la izquierda del origen, pasa por el origen, y sigue subiendo hacia la derecha.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -375,7 +375,7 @@
       "Ese número no coincide con la altura de la curva justo en el eje vertical.",
       "Revisá el punto exacto donde la curva cruza el eje vertical, no un valor cercano."
     ],
-    "explanation": "El valor $f(0)$ es la **ordenada al origen**, el punto exacto donde la curva cruza el eje vertical, y coincide con el término independiente cuando el polinomio está escrito en forma estándar.\n\nEvaluando en $x = 0$:\n\nComo $x = 0$ es una de las raíces del polinomio, $f(0) = 0$ necesariamente. En el gráfico se puede verificar que la curva **pasa por el origen**, el punto donde se cruzan ambos ejes.\n\nEl valor $f(0)$ solo coincide con una raíz cuando $x=0$ es justamente uno de los ceros del polinomio. Conviene no dar por sentado ese cruce sin revisarlo en el gráfico o en la fórmula.",
+    "explanation": "El valor $f(0)$ es la **ordenada al origen**, el punto exacto donde la curva cruza el eje vertical, y coincide con el término independiente cuando el polinomio está escrito en forma estándar.\n\nEvaluando en $x = 0$:\n\nComo $x = 0$ es una de las raíces del polinomio, $f(0) = 0$ necesariamente.\n\nEn el gráfico se puede verificar que la curva **pasa por el origen**, el punto donde se cruzan ambos ejes.\n\nEl valor $f(0)$ solo coincide con una raíz cuando $x=0$ es justamente uno de los ceros del polinomio.\n\nConviene no dar por sentado ese cruce sin revisarlo en el gráfico o en la fórmula.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -495,7 +495,7 @@
       "Fijate cuáles de los extremos son picos y cuáles son valles, no todos son del mismo tipo.",
       "Ese número corresponde al total de extremos locales, no solo a los picos."
     ],
-    "explanation": "Un **máximo local** es un pico de la curva, un punto donde la función deja de crecer y empieza a decrecer, a diferencia de un mínimo local, que es un valle donde ocurre lo contrario.\n\nUn polinomio de grado $4$ puede tener hasta $3$ extremos locales en total, repartidos entre picos y valles.\n\nEl polinomio de este gráfico tiene **3 extremos locales** en total: 2 mínimos y 1 máximo. Solo hay **1 máximo local**, el pico central de la curva, ubicado alrededor de $x = 0$, donde $f(0) = 1$.\n\nLos otros dos extremos son mínimos locales, ubicados a los costados.\n\nConviene distinguir con cuidado los picos de los valles antes de contarlos por separado, en vez de sumar todos los extremos como si fueran del mismo tipo.",
+    "explanation": "Un **máximo local** es un pico de la curva, un punto donde la función deja de crecer y empieza a decrecer, a diferencia de un mínimo local, que es un valle donde ocurre lo contrario.\n\nUn polinomio de grado $4$ puede tener hasta $3$ extremos locales en total, repartidos entre picos y valles.\n\nEl polinomio de este gráfico tiene **3 extremos locales** en total: 2 mínimos y 1 máximo.\n\nSolo hay **1 máximo local**, el pico central de la curva, ubicado alrededor de $x = 0$, donde $f(0) = 1$.\n\nLos otros dos extremos son mínimos locales, ubicados a los costados.\n\nConviene distinguir con cuidado los picos de los valles antes de contarlos por separado, en vez de sumar todos los extremos como si fueran del mismo tipo.",
     "has_math": true,
     "graph_fn": "(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [
@@ -615,7 +615,7 @@
       "El comportamiento en los extremos del gráfico ya alcanza para definir la paridad del grado.",
       "Un grado cero daría una función constante, sin la forma creciente que se ve acá."
     ],
-    "explanation": "La paridad del grado de un polinomio se puede leer directamente del comportamiento de la curva en sus dos extremos.\n\nCuando los extremos van en la misma dirección, ambos hacia arriba o ambos hacia abajo, el grado es par; cuando van en direcciones opuestas, uno hacia arriba y el otro hacia abajo, el grado es impar.\n\nEn este gráfico la curva sube claramente hacia la derecha y baja hacia la izquierda, una combinación de direcciones opuestas.\n\nEsa asimetría entre los dos lados es la señal característica de un grado impar, en este caso grado $3$.\n\nfijarse solo en uno de los extremos y suponer la paridad sin comparar ambos lados. La regla siempre exige mirar el par completo de extremos antes de decidir si el grado es par o impar.",
+    "explanation": "La paridad del grado de un polinomio se puede leer directamente del comportamiento de la curva en sus dos extremos.\n\nCuando los extremos van en la misma dirección, ambos hacia arriba o ambos hacia abajo, el grado es par; cuando van en direcciones opuestas, uno hacia arriba y el otro hacia abajo, el grado es impar.\n\nEn este gráfico la curva sube claramente hacia la derecha y baja hacia la izquierda, una combinación de direcciones opuestas.\n\nEsa asimetría entre los dos lados es la señal característica de un grado impar, en este caso grado $3$.\n\nfijarse solo en uno de los extremos y suponer la paridad sin comparar ambos lados.\n\nLa regla siempre exige mirar el par completo de extremos antes de decidir si el grado es par o impar.",
     "has_math": true,
     "graph_fn": "pow(x,3)/8",
     "graph_view": [
@@ -735,7 +735,7 @@
       "El mínimo global se evalúa en todo el dominio, no solo en la parte central del gráfico.",
       "En polinomios de grado impar la ausencia de mínimo global no depende del signo del coeficiente, revisá la paridad del grado."
     ],
-    "explanation": "**Mínimo global** significa el valor más bajo de $f$ en todo $\\mathbb{R}$.\n\nPara grado **impar**: cuando $x \\to -\\infty$, $f \\to -\\infty$. La función baja indefinidamente, por lo que **no existe un mínimo global**.\n\nExisten mínimos **locales** (valles en el gráfico), pero no uno global. Solo los polinomios de grado par con coef. positivo tienen mínimo global.",
+    "explanation": "**Mínimo global** significa el valor más bajo de $f$ en todo $\\mathbb{R}$.\n\nPara grado **impar**: cuando $x \\to -\\infty$, $f \\to -\\infty$.\n\nLa función baja indefinidamente, por lo que **no existe un mínimo global**.\n\nExisten mínimos **locales** (valles en el gráfico), pero no uno global.\n\nSolo los polinomios de grado par con coef. positivo tienen mínimo global.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [
@@ -1335,7 +1335,7 @@
       "El mínimo global se evalúa en todo el dominio de la función, no solo en la parte del año que se graficó.",
       "La existencia de mínimo global depende del grado y el signo del coeficiente principal, no de las raíces del modelo."
     ],
-    "explanation": "Como modelo matemático, el polinomio de grado 4 con coef. negativo cumple:\n$$\\lim_{t\\to\\pm\\infty} T(t) = -\\infty$$\nEl modelo **no tiene mínimo global**: en teoría, la temperatura podría bajar sin límite si se extrapola fuera del rango modelado.\n\nEn la práctica, el modelo es válido solo para el año en cuestión. Matemáticamente, no hay piso.",
+    "explanation": "Como modelo matemático, el polinomio de grado 4 con coef. negativo cumple:El modelo **no tiene mínimo global**: en teoría, la temperatura podría bajar sin límite si se extrapola fuera del rango modelado.\n\nEn la práctica, el modelo es válido solo para el año en cuestión.\n\nMatemáticamente, no hay piso.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [

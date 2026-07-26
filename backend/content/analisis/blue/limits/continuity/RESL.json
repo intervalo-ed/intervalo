@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n\nEl límite es \"hacia dónde se aproxima\" la función desde cada lado; el valor puntual es \"dónde está realmente\" definida. Si los tres coinciden, todas las condiciones se cumplen.\n\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad.\n\nConviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
+    "explanation": "Para diagnosticar continuidad en un punto de quiebre sin parámetros, se calculan por sustitución directa el límite lateral izquierdo, el derecho, y el valor puntual, y se comparan los tres.\n\nEl límite es \"hacia dónde se aproxima\" la función desde cada lado; el valor puntual es \"dónde está realmente\" definida.\n\nSi los tres coinciden, todas las condiciones se cumplen.\n\nLos tres valores coinciden en $3$, así que se cumplen las tres condiciones de continuidad.\n\nConviene siempre evaluar la rama que corresponde según la desigualdad estricta o no estricta del punto de quiebre antes de sustituir.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa da una indeterminación $0/0$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados. Mediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real.\n\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla.\n\nEl valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
+    "explanation": "Cuando la sustitución directa da una indeterminación $0/0$, conviene factorizar antes de concluir que el límite no existe.\n\nEl límite bilateral es el valor común hacia el cual la función se aproxima desde ambos lados.\n\nMediante factorización podemos \"simplificar\" la indeterminación y descubrir cuál es ese valor real.\n\nEl límite existe y vale $6$, pero el valor asignado es $f(3)=5$, así que la tercera condición falla.\n\nEl valor puntual definido «a mano» en una rama separada suele ser justamente el que rompe la comparación final.",
     "reviewed": false,
     "tags": [
       "verificacion-punto-critico"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\". Para que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos.\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nIgualas solo una rama a un número cualquiera: sin verificar que la otra rama evaluada en el mismo punto dé el mismo resultado, el parámetro encontrado no funciona efectivamente en ambas direcciones.",
+    "explanation": "Para despejar un parámetro que fuerza continuidad, se igualan el límite lateral izquierdo, el derecho y $f(a)$ en una sola ecuación.\n\nEl límite es lo que la función \"quiere ser\" desde ambos lados; $f(a)$ es adónde realmente \"está\".\n\nPara que sean continuos, deben coincidir: el parámetro que hace eso es el que buscamos.\n\nCon $k=0$ ambas ramas llegan exactamente a $y=1$ en $x=2$.\n\nIgualas solo una rama a un número cualquiera: sin verificar que la otra rama evaluada en el mismo punto dé el mismo resultado, el parámetro encontrado no funciona efectivamente en ambas direcciones.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Se igualan los dos laterales evaluados en el punto de quiebre y se despeja el parámetro desde ahí.\n\nEl límite lateral izquierdo es a qué se aproxima la función por la izquierda; el derecho es a qué se aproxima por la derecha. Para continuidad, ambas aproximaciones deben alcanzar el mismo valor.\n\nCon $k=4$ ambas ramas llegan a $y=14$ en $x=4$.\n\nUn despeje con dos pasos, primero sumar y después dividir, conviene hacerlo en ese orden para no perder el signo del término independiente.",
+    "explanation": "Se igualan los dos laterales evaluados en el punto de quiebre y se despeja el parámetro desde ahí.\n\nEl límite lateral izquierdo es a qué se aproxima la función por la izquierda; el derecho es a qué se aproxima por la derecha.\n\nPara continuidad, ambas aproximaciones deben alcanzar el mismo valor.\n\nCon $k=4$ ambas ramas llegan a $y=14$ en $x=4$.\n\nUn despeje con dos pasos, primero sumar y después dividir, conviene hacerlo en ese orden para no perder el signo del término independiente.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el parámetro está en la rama derecha, el procedimiento es idéntico: primero se resuelve la rama sin incógnita.\n\nCada rama de una función a trozos tiene su propia aproximación hacia el punto de quiebre. Ambas deben llegar al mismo valor para que la función sea continua.\n\nCon $k=-1$ ambas ramas llegan a $y=2$ en $x=1$.\n\nQue el parámetro esté a la derecha o a la izquierda del punto de quiebre no cambia el método: siempre se igualan ambas ramas entre sí.",
+    "explanation": "Cuando el parámetro está en la rama derecha, el procedimiento es idéntico: primero se resuelve la rama sin incógnita.\n\nCada rama de una función a trozos tiene su propia aproximación hacia el punto de quiebre.\n\nAmbas deben llegar al mismo valor para que la función sea continua.\n\nCon $k=-1$ ambas ramas llegan a $y=2$ en $x=1$.\n\nQue el parámetro esté a la derecha o a la izquierda del punto de quiebre no cambia el método: siempre se igualan ambas ramas entre sí.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un punto de quiebre negativo, conviene sustituir con cuidado el signo de $x$ dentro de cada rama.\n\nCuando el punto de quiebre es negativo, la sustitución en expresiones con parámetros trae complicaciones de signo. Es fácil perder un signo negativo y obtener una respuesta con signo invertido.\n\nCon $k=-5$ ambas ramas llegan a $y=4$ en $x=-1$.\n\nSustituir un punto de quiebre negativo dentro de un término con parámetro es la fuente más común de errores de signo en este tipo de despeje.",
+    "explanation": "Con un punto de quiebre negativo, conviene sustituir con cuidado el signo de $x$ dentro de cada rama.\n\nCuando el punto de quiebre es negativo, la sustitución en expresiones con parámetros trae complicaciones de signo.\n\nEs fácil perder un signo negativo y obtener una respuesta con signo invertido.\n\nCon $k=-5$ ambas ramas llegan a $y=4$ en $x=-1$.\n\nSustituir un punto de quiebre negativo dentro de un término con parámetro es la fuente más común de errores de signo en este tipo de despeje.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Nuevamente, primero se resuelve la rama sin incógnita, y recién después se iguala con la rama que tiene el parámetro.\n\nEl límite es el destino hacia el cual la función se aproxima desde cada lado del punto de quiebre. Para que sea continua, los dos destinos deben ser el mismo.\n\nCon $k=2$ ambas ramas llegan a $y=9$ en $x=1$.\n\nRestar el término independiente antes de aislar $k$ evita el error de arrastrar un número de más en el resultado final.",
+    "explanation": "Nuevamente, primero se resuelve la rama sin incógnita, y recién después se iguala con la rama que tiene el parámetro.\n\nEl límite es el destino hacia el cual la función se aproxima desde cada lado del punto de quiebre.\n\nPara que sea continua, los dos destinos deben ser el mismo.\n\nCon $k=2$ ambas ramas llegan a $y=9$ en $x=1$.\n\nRestar el término independiente antes de aislar $k$ evita el error de arrastrar un número de más en el resultado final.",
     "reviewed": false,
     "tags": [
       "despeje-parametro-continuidad"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El dominio de una racional excluye los valores que anulan el denominador, y ahí es exactamente donde aparece la discontinuidad.\n\nEl denominador de una fracción no puede ser cero: cuando se anula, la función no está definida en ese punto y hay una discontinuidad. El límite lateral diverge a infinito en esos puntos.\n\nComo la consigna pide el valor negativo, la respuesta es $x=-3$. Cuando el denominador tiene dos raíces reales, conviene prestar atención a cuál pide exactamente el enunciado antes de responder.",
+    "explanation": "El dominio de una racional excluye los valores que anulan el denominador, y ahí es exactamente donde aparece la discontinuidad.\n\nEl denominador de una fracción no puede ser cero: cuando se anula, la función no está definida en ese punto y hay una discontinuidad.\n\nEl límite lateral diverge a infinito en esos puntos.\n\nComo la consigna pide el valor negativo, la respuesta es $x=-3$.\n\nCuando el denominador tiene dos raíces reales, conviene prestar atención a cuál pide exactamente el enunciado antes de responder.",
     "reviewed": false,
     "tags": [
       "dominio-racionales-raices"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl logaritmo no puede evaluarse en cero ni en números negativos: no hay número real cuya potencia de $e$ sea cero o negativa. El dominio comienza exactamente donde el argumento es positivo.\n\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí.\n\nConfundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
+    "explanation": "El logaritmo natural solo está definido para argumento estrictamente positivo, así que la frontera del dominio es donde el argumento vale exactamente $0$.\n\nEl logaritmo no puede evaluarse en cero ni en números negativos: no hay número real cuya potencia de $e$ sea cero o negativa.\n\nEl dominio comienza exactamente donde el argumento es positivo.\n\nPara $x \\leq -2$ el argumento es cero o negativo y $\\ln$ no está definido ahí.\n\nConfundir el argumento del logaritmo con la variable $x$ misma es un desliz típico: siempre hay que despejar la condición sobre el argumento primero.",
     "reviewed": false,
     "tags": [
       "dominio-racionales-raices"

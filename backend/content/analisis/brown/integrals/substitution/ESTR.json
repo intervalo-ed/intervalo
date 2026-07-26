@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.\n$$u = x^2 \\implies du = 2x\\,dx$$\nEl factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$.\n\nEsta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.El factor $x$ del integrando coincide exactamente con la mitad de $du$, lo que confirma que esta elección de $u$ hace que el integrando se transforme correctamente en términos de $u$ y $du$.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.\n$$u = 4x \\implies du = 4\\,dx$$\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.Este patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.\n$$u = \\ln x \\implies du = \\frac{1}{x}\\,dx$$\nReconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
+    "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.Reconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado. La constante $+5$ desaparece en la derivación.\n$$\\begin{aligned} u &= -x+5 \\\\ du &= -dx \\\\ dx &= -du \\end{aligned}$$\nAunque el coeficiente sea el simple $-1$, el signo es una parte crítica del **diferencial** y debe despejarse cuidadosamente sin omisiones, porque afecta el resultado final de la integración.",
+    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado.\n\nLa constante $+5$ desaparece en la derivación.Aunque el coeficiente sea el simple $-1$, el signo es una parte crítica del **diferencial** y debe despejarse cuidadosamente sin omisiones, porque afecta el resultado final de la integración.",
     "reviewed": false,
     "tags": [
       "ajuste-del-diferencial"

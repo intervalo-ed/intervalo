@@ -53,7 +53,7 @@
       -2,
       2
     ],
-    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en $3\\pi/2$).\n\nSi no se incluyen los extremos, quedaría solo $x=\\pi$: un único cero interior.",
+    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en :).Si no se incluyen los extremos, quedaría solo $x=\\pi$: un único cero interior.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -173,7 +173,7 @@
       -4,
       4
     ],
-    "explanation": "La **amplitud** es la distancia del eje central ($y=0$) al valor extremo de la onda.\n\nLa curva llega hasta $y=3$ y baja hasta $y=-3$: amplitud $=3$.\n\nNo se suma $3+3=6$: la amplitud es solo la mitad del recorrido total, medida desde el eje.\n$2\\pi$ es un valor de período, no de amplitud.\n\nAmplitud $=1$ sería el seno sin escalar.",
+    "explanation": "La **amplitud** es la distancia del eje central ($y=0$) al valor extremo de la onda.\n\nLa curva llega hasta $y=3$ y baja hasta ::amplitud $=3$.\n\nNo se suma $3+3=6$: la amplitud es solo la mitad del recorrido total, medida desde el eje.\n$2\\pi$ es un valor de período, no de amplitud.\n\nAmplitud $=1$ sería el seno sin escalar.",
     "reviewed": false,
     "tags": [
       "periodo-desde-grafico"
@@ -203,7 +203,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y $x=\\frac{3\\pi}{2}$.\n\nSon **2 ceros** (sin incluir los extremos del intervalo, donde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
+    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y :.Son **2 ceros** (sin incluir los extremos del intervalo, donde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
     "reviewed": false,
     "tags": [
       "periodo-desde-grafico"
@@ -233,7 +233,7 @@
       -2,
       2
     ],
-    "explanation": "La diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\n\nEl coseno arranca desde el techo; el seno desde el eje.\n\nAmbos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\n\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
+    "explanation": "La diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que :.El coseno arranca desde el techo; el seno desde el eje.\n\nAmbos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\n\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
     "reviewed": false,
     "tags": [
       "paridad-desde-grafico"
@@ -323,7 +323,7 @@
       -2,
       2
     ],
-    "explanation": "En la gráfica de $f(x) = \\sin(x)$, un tramo **creciente** es aquel donde la curva sube de izquierda a derecha.\n\nLos tramos crecientes de $\\sin$ son $[-\\pi/2 + 2k\\pi,\\ \\pi/2 + 2k\\pi]$ para $k \\in \\mathbb{Z}$.\n\nDe las opciones.\n\nen $[-\\pi/2.\n\n\\pi/2]$ la curva sube desde $-1$ hasta $1$ pasando por el cero.\n\nasí que es el único tramo creciente.\n\nEn $[-\\pi.\n\n0]$ la curva baja de $0$ a $-1$ y luego sube de $-1$ a $0$.\n\npor lo que no es monótona en ese intervalo.\n\nEn $[\\pi/2.\n\n3\\pi/2]$ la curva baja desde $1$ hasta $-1$.\n\nes decreciente.\n\nY en $[\\pi, 2\\pi]$ la curva baja y luego sube, tampoco es monótona.\n\nPara identificar un tramo creciente de un vistazo, ubicá dónde la curva pasa por un mínimo y seguí hasta el próximo máximo: ese es siempre el tramo que crece.",
+    "explanation": "En la gráfica de $f(x) = \\sin(x)$, un tramo **creciente** es aquel donde la curva sube de izquierda a derecha.\n\nLos tramos crecientes de $\\sin$ son : para $k \\in \\mathbb{Z}$.De las opciones.\n\nen $[-\\pi/2.\n\n\\pi/2]$ la curva sube desde $-1$ hasta $1$ pasando por el cero.\n\nasí que es el único tramo creciente.\n\nEn $[-\\pi.\n\n0]:0$ a $-1$ y luego sube de $-1$ a $0$.por lo que no es monótona en ese intervalo.\n\nEn $[\\pi/2.\n\n3\\pi/2]$ la curva baja desde $1$ hasta $-1$.\n\nes decreciente.\n\nY en $[\\pi, 2\\pi]$ la curva baja y luego sube, tampoco es monótona.\n\nPara identificar un tramo creciente de un vistazo, ubicá dónde la curva pasa por un mínimo y seguí hasta el próximo máximo: ese es siempre el tramo que crece.",
     "reviewed": false,
     "tags": [
       "amplitud-desde-grafico"
@@ -413,7 +413,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:\n$$\\begin{aligned}\n\\text{imagen} &= [-1+1,\\; 1+1] \\\\\n&= [0,\\; 2]:\n\\end{aligned}$$\nEn el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$.\n\nLa opción $[-1,1]$ es el rango sin desplazamiento.\n\nLa opción $[1,2]$ tendría amplitud $0{,}5$.\n\nLa imagen correcta es $[0,2]$.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(x)+1$ se obtiene desplazando el rango base $[-1,1]$ hacia arriba $1$ unidad:En el gráfico: el mínimo de la curva toca $y=0$ y el máximo llega a $y=2$.\n\nLa opción $[-1,1]$ es el rango sin desplazamiento.\n\nLa opción $[1,2]$ tendría amplitud $0{,}5$.\n\nLa imagen correcta es $[0,2]$.",
     "reviewed": false,
     "tags": [
       "conteo-periodos-completos"
@@ -443,7 +443,7 @@
       -2,
       2
     ],
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad.\n\nEn el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas.\n\nlo que confirma período $=2\\pi/2=\\pi$.\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{B} = \\frac{2\\pi}{2} = \\pi:\n\\end{aligned}$$\nLa opción $4\\pi$ sería con $B=1/2$.\n\nLa opción $2\\pi$ ignoraría el $B=2$.\n\nLa opción $\\pi/2$ necesitaría $B=4$.\n\nEl período correcto es $\\pi$.",
+    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ comprime el período a la mitad.\n\nEn el gráfico se cuentan los ciclos: en el intervalo $[0,2\\pi]$ hay exactamente **dos** oscilaciones completas.\n\nlo que confirma período $=2\\pi/2=\\pi$.La opción $4\\pi$ sería con $B=1/2$.\n\nLa opción $2\\pi$ ignoraría el $B=2$.\n\nLa opción $\\pi/2$ necesitaría $B=4$.\n\nEl período correcto es $\\pi$.",
     "reviewed": false,
     "tags": [
       "conteo-periodos-completos"
@@ -503,7 +503,7 @@
       -4,
       4
     ],
-    "explanation": "La onda tiene máximo $3$.\n\nmínimo $-3$.\n\nperíodo $2\\pi$.\n\ny en $x=0$ vale $0$.\n\nLas señales apuntan a $f(x)=3\\,\\operatorname{sen}(x)$: amplitud $3$ implica coeficiente $A=3$.\n\nperíodo $2\\pi$ implica $B=1$.\n\ny $f(0)=3\\,\\operatorname{sen}(0)=0$  (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada.\n\nLa opción $\\operatorname{sen}(3x)$ tiene amplitud $1$.\n\nno $3$.\n\nLa que arranca en $0$ con amplitud $3$ es $3\\,\\operatorname{sen}(x)$.",
+    "explanation": "La onda tiene máximo $3$.\n\nmínimo $-3$.\n\nperíodo $2\\pi$.\n\ny en $x=0$ vale $0$.\n\nLas señales apuntan a ::amplitud $3$ implica coeficiente $A=3$.\n\nperíodo $2\\pi$ implica $B=1$.\n\ny $f(0)=3\\,\\operatorname{sen}(0)=0$  (el seno empieza en cero).\n\nLa opción $3\\cos(x)$ tiene $f(0)=3\\neq0$: descartada.\n\nLa opción $\\operatorname{sen}(3x)$ tiene amplitud $1$.\n\nno $3$.\n\nLa que arranca en $0$ con amplitud $3$ es :.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -533,7 +533,7 @@
       -2,
       2
     ],
-    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ; $-\\operatorname{sen}(0)=0$ ; $-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
+    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ; : ;$-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -563,7 +563,7 @@
       -3,
       3
     ],
-    "explanation": "Las **raíces** de $f(x)=2\\,\\operatorname{sen}(x)$ son los valores $x$ donde $f(x)=0$.\n\nes decir donde $\\operatorname{sen}(x)=0$.\n\nEl factor $2$ no afecta las raíces.\n\n$\\operatorname{sen}(x)=0$ en $x=k\\pi$.\n\nEn $[0,2\\pi]$: $x=0$.\n\n$x=\\pi$.\n\n$x=2\\pi$.\n\nSon tres raíces.\n\nLa opción $x=\\pi/2$ y $x=3\\pi/2$ da los **extremos**, no las raíces.\n\nEl $2$ delante del seno no mueve las raíces: solo amplifica.\n\nEl seno sigue cruzando el eje en los mismos múltiplos de $\\pi$.",
+    "explanation": "Las **raíces** de : son los valores $x$ donde $f(x)=0$.es decir donde $\\operatorname{sen}(x)=0$.\n\nEl factor $2$ no afecta las raíces.\n\n$\\operatorname{sen}(x)=0$ en $x=k\\pi$.\n\nEn $[0,2\\pi]$: $x=0$.\n\n$x=\\pi$.\n\n$x=2\\pi$.\n\nSon tres raíces.\n\nLa opción $x=\\pi/2$ y $x=3\\pi/2$ da los **extremos**, no las raíces.\n\nEl $2$ delante del seno no mueve las raíces: solo amplifica.\n\nEl seno sigue cruzando el eje en los mismos múltiplos de $\\pi$.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"
@@ -623,7 +623,7 @@
       -1,
       3
     ],
-    "explanation": "Una onda con máximo $2$.\n\nmínimo $0$ y período $2\\pi$ tiene amplitud $A=(2-0)/2=1$ y desplazamiento $D=(2+0)/2=1$.\n\nCon $B=1$ la fórmula es $\\operatorname{sen}(x)+1$.\n\nVerificaciones: $\\operatorname{sen}(0)+1=1$ (valor inicial).\n\nmáximo $=1+1=2$.\n\nmínimo $=-1+1=0$ .\n\nLa opción $2\\,\\operatorname{sen}(x)$ tiene mínimo $-2$.\n\nLa opción $\\cos(x)+2$ tiene mínimo $1$.\n\nOnda entre $0$ y $2$: amplitud $1$.\n\ndesplazamiento $+1$.\n\nEl seno estándar subió de piso.",
+    "explanation": "Una onda con máximo $2$.\n\nmínimo $0$ y período $2\\pi$ tiene amplitud : y desplazamiento $D=(2+0)/2=1$.Con $B=1$ la fórmula es $\\operatorname{sen}(x)+1$.\n\nVerificaciones: $\\operatorname{sen}(0)+1=1$ (valor inicial).\n\nmáximo $=1+1=2$.\n\nmínimo $=-1+1=0$ .\n\nLa opción $2\\,\\operatorname{sen}(x)$ tiene mínimo $-2$.\n\nLa opción $\\cos(x)+2$ tiene mínimo $1$.\n\nOnda entre : y $2$:amplitud $1$.\n\ndesplazamiento $+1$.\n\nEl seno estándar subió de piso.",
     "reviewed": false,
     "tags": [
       "valor-max-min-grafico"
@@ -743,7 +743,7 @@
       -2,
       2
     ],
-    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$.\n\nes decir $x=k\\pi/2$.\n\nLa primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula).\n\nLa opción $x=\\pi$ es la segunda raíz positiva no nula.\n\nLa opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
+    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$.\n\nes decir $x=k\\pi/2$.\n\nLa primera raíz positiva **no nula** es:La raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula).\n\nLa opción $x=\\pi$ es la segunda raíz positiva no nula.\n\nLa opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -773,7 +773,7 @@
       -2,
       2
     ],
-    "explanation": "La curva en $x=0$ vale $0$ y **desciende primero** (hacia el mínimo $-1$ en $x=\\pi/2$).\n\nEsa es la firma de $-\\operatorname{sen}(x)$: el seno negado baja antes de subir.\n\nVerificaciones: $-\\operatorname{sen}(0)=0$ ; mínimo en $x=\\pi/2$: $-\\operatorname{sen}(\\pi/2)=-1$ .\n\nEl seno estándar sube en $[0,\\pi/2]$; $-\\cos(x)$ empieza en $-1$ (no en $0$).\n\n$-\\operatorname{sen}(x)$: el pesimista que en el primer paso baja.\n\nDespués sube, pero ya estableció el tono.",
+    "explanation": "La curva en $x=0$ vale $0$ y **desciende primero** (hacia el mínimo $-1$ en :).Esa es la firma de $-\\operatorname{sen}(x)$: el seno negado baja antes de subir.\n\nVerificaciones: $-\\operatorname{sen}(0)=0$ ; mínimo en $x=\\pi/2$: : .El seno estándar sube en :;$-\\cos(x)$ empieza en $-1$ (no en $0$).\n\n$-\\operatorname{sen}(x)$: el pesimista que en el primer paso baja.\n\nDespués sube, pero ya estableció el tono.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -803,7 +803,7 @@
       -4,
       4
     ],
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles.\n\nComo $\\operatorname{sen}(x)\\in[-1,1]$.\n\nmultiplicar por $3$ da:\n$$\\begin{aligned}\n3\\,\\operatorname{sen}(x) &\\in [-3,3]:\n\\end{aligned}$$\nEn el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo).\n\ny no supera esos valores.\n\nLa opción $[-1,1]$ es la imagen sin amplificar.\n\nLa opción $[0,3]$ solo cubriría la mitad positiva.",
+    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores posibles.\n\nComo $\\operatorname{sen}(x)\\in[-1,1]$.\n\nmultiplicar por $3$ da:En el gráfico: la curva toca $y=3$ (máximo) y $y=-3$ (mínimo).\n\ny no supera esos valores.\n\nLa opción $[-1,1]$ es la imagen sin amplificar.\n\nLa opción $[0,3]$ solo cubriría la mitad positiva.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -893,7 +893,7 @@
       -2,
       2
     ],
-    "explanation": "Los **máximos locales** de $f(x)=\\operatorname{sen}(x)$ ocurren donde la función alcanza el valor $1$: eso sucede en $x=\\pi/2$ y luego cada $2\\pi$.\n\nSolución general: $x=\\pi/2+2k\\pi$, $k\\in\\mathbb{Z}$.\n\nLa opción $x=k\\pi$ da los **ceros** del seno (raíces), no los máximos.\n\nLa opción $x=\\pi/4+k\\pi$ no corresponde a ningún valor especial del seno.\n\nMáximos del seno en $\\pi/2, 5\\pi/2, 9\\pi/2, \\ldots$: cada $2\\pi$, el seno vuelve a tocar el techo.",
+    "explanation": "Los **máximos locales** de : ocurren donde la función alcanza el valor $1$:eso sucede en $x=\\pi/2$ y luego cada $2\\pi$.\n\nSolución general: $x=\\pi/2+2k\\pi$, $k\\in\\mathbb{Z}$.\n\nLa opción $x=k\\pi$ da los **ceros** del seno (raíces), no los máximos.\n\nLa opción $x=\\pi/4+k\\pi$ no corresponde a ningún valor especial del seno.\n\nMáximos del seno en $\\pi/2, 5\\pi/2, 9\\pi/2, \\ldots$: cada $2\\pi$, el seno vuelve a tocar el techo.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-grafico"
@@ -923,7 +923,7 @@
       -2,
       2
     ],
-    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$.\n\nCon $T=2\\pi/B$:\n$$\\begin{aligned}\nB &= \\frac{2\\pi}{T} = \\frac{2\\pi}{4\\pi} = \\frac{1}{2}:\n\\end{aligned}$$\nLa función es $\\operatorname{sen}(x/2)$.\n\nLa opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$).\n\nLa opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos).\n\nSolo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
+    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$.\n\nCon $T=2\\pi/B$:La función es $\\operatorname{sen}(x/2)$.\n\nLa opción $\\operatorname{sen}(2x)$ tendría período $\\pi$ (cuatro ciclos en $[0,4\\pi]$).\n\nLa opción $2\\,\\operatorname{sen}(x)$ tendría período $2\\pi$ (dos ciclos).\n\nSolo $\\operatorname{sen}(x/2)$ hace un único ciclo en $4\\pi$.",
     "reviewed": false,
     "tags": [
       "primera-raiz-positiva"
@@ -1073,7 +1073,7 @@
       -1,
       10
     ],
-    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$.\n\nel **mínimo** ocurre cuando $\\operatorname{sen}=-1$:\n$$\\begin{aligned}\nh_{\\min} &= 3\\cdot(-1)+5 \\\\\n&= -3+5 \\\\\n&= 2\\,\\text{m}:\n\\end{aligned}$$\nLa opción $3$ m es solo la amplitud.\n\nLa opción $5$ m es el eje de oscilación.\n\nLa opción $8$ m es el máximo.\n\nEl nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
+    "explanation": "Para $h(t)=3\\,\\operatorname{sen}\\!\\left(\\tfrac{\\pi}{6}t\\right)+5$.\n\nel **mínimo** ocurre cuando $\\operatorname{sen}=-1$:La opción $3$ m es solo la amplitud.\n\nLa opción $5$ m es el eje de oscilación.\n\nLa opción $8$ m es el máximo.\n\nEl nivel mínimo del mar (marea baja) en este modelo es $2$ m sobre el nivel de referencia.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1133,7 +1133,7 @@
       -2,
       2
     ],
-    "explanation": "La onda tiene mínimo $-1$ en $x=0$ y máximo $1$ en $x=\\pi$.\n\nVerificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; $-\\operatorname{sen}(0)=0$ ; $\\cos(0)=1$  (el máximo debería estar en $x=0$.\n\nno el mínimo).\n\nSolo $f(x)=-\\cos(x)$ arranca en $-1$ y llega al máximo en $\\pi$.\n\n$-\\cos(x)$: el coseno dado vuelta.\n\nEl mínimo en el origen y el máximo a $\\pi$ de distancia.",
+    "explanation": "La onda tiene mínimo $-1$ en $x=0$ y máximo $1$ en :.Verificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; : ;$\\cos(0)=1$ (el máximo debería estar en $x=0$.\n\nno el mínimo).\n\nSolo : arranca en $-1$ y llega al máximo en $\\pi$.$-\\cos(x)$: el coseno dado vuelta.\n\nEl mínimo en el origen y el máximo a $\\pi$ de distancia.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1163,7 +1163,7 @@
       -2,
       2
     ],
-    "explanation": "En el intervalo $[3\\pi/2.\n\n2\\pi]$.\n\nel ángulo va del extremo inferior del círculo unitario $(0,-1)$ al punto inicial $(1,0)$.\n\nLa coordenada $y$ (el seno) **sube** de $-1$ a $0$: la función es **creciente de $-1$ a $0$**.\n\nComparación: en $[\\pi/2.\n\n3\\pi/2]$ el seno baja de $1$ a $-1$ (decreciente).\n\nEn $[3\\pi/2.\n\n2\\pi]$ sube de $-1$ a $0$: creciente.\n\nLa opción correcta describe este tramo final del ciclo.\n\n$[3\\pi/2, 2\\pi]$: el seno saliendo del sótano hacia la planta baja.\n\nUn tramo corto, pero muy creciente.",
+    "explanation": "En el intervalo $[3\\pi/2.\n\n2\\pi]$.\n\nel ángulo va del extremo inferior del círculo unitario $(0,-1)$ al punto inicial $(1,0)$.\n\nLa coordenada $y$ (el seno) **sube** de : a $0$:la función es **creciente de $-1$ a $0$**.\n\nComparación: en $[\\pi/2.\n\n3\\pi/2]$ el seno baja de $1$ a $-1$ (decreciente).\n\nEn $[3\\pi/2.\n\n2\\pi]$ sube de $-1$ a $0$: creciente.\n\nLa opción correcta describe este tramo final del ciclo.\n\n$[3\\pi/2, 2\\pi]$: el seno saliendo del sótano hacia la planta baja.\n\nUn tramo corto, pero muy creciente.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1193,7 +1193,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno es una función **par**: $\\cos(-x)=\\cos(x)$ para todo $x$.\n\nEsto significa que su gráfica es simétrica respecto al **eje $Y$**.\n\nEn el gráfico: los valores a izquierda y derecha del eje $Y$ son espejo uno del otro.\n\nLa opción 'simétrico respecto al eje $X$' no es correcta: $\\cos(-x)=\\cos(x)$ implica simetría vertical (eje $Y$).\n\nno horizontal.\n\nLa simetría respecto al eje $X$ implicaría $f(x)=-f(x)$.\n\nlo que solo es posible si $f=0$.\n\nEje $Y$ como espejo del coseno: si doblás el gráfico por el eje vertical, las dos mitades coinciden.",
+    "explanation": "El coseno es una función **par**: $\\cos(-x)=\\cos(x)$ para todo $x$.\n\nEsto significa que su gráfica es simétrica respecto al **eje $Y$**.\n\nEn el gráfico: los valores a izquierda y derecha del eje $Y$ son espejo uno del otro.\n\nLa opción 'simétrico respecto al eje $X$' no es correcta: : implica simetría vertical (eje $Y$).no horizontal.\n\nLa simetría respecto al eje $X$ implicaría $f(x)=-f(x)$.\n\nlo que solo es posible si $f=0$.\n\nEje $Y$ como espejo del coseno: si doblás el gráfico por el eje vertical, las dos mitades coinciden.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1223,7 +1223,7 @@
       -4,
       4
     ],
-    "explanation": "La onda tiene amplitud $3$.\n\nperíodo $2\\pi$ y **en $x=0$ vale $3$** (el máximo).\n\nEl candidato con máximo en el origen es el **coseno**: $f(x)=3\\cos(x)$.\n\nVerificaciones: $3\\cos(0)=3$  (máximo). $3\\,\\operatorname{sen}(0)=0$ .\n\nLa opción $\\operatorname{sen}(3x)$ tiene amplitud $1$ y período $2\\pi/3$: nada coincide.\n\nAmplitud $3$ + máximo en el origen: combinación exclusiva del coseno escalado.\n\nEl seno nunca arranca en el pico.",
+    "explanation": "La onda tiene amplitud $3$.\n\nperíodo : y **en $x=0$ vale $3$** (el máximo).El candidato con máximo en el origen es el **coseno**: $f(x)=3\\cos(x)$.\n\nVerificaciones: $3\\cos(0)=3$  (máximo). $3\\,\\operatorname{sen}(0)=0$ .\n\nLa opción : tiene amplitud $1$ y período $2\\pi/3$:nada coincide.\n\nAmplitud $3$ + máximo en el origen: combinación exclusiva del coseno escalado.\n\nEl seno nunca arranca en el pico.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1253,7 +1253,7 @@
       -2,
       2
     ],
-    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$.\n\nEn $x=\\pi$:\n$$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 1:\n\\end{aligned}$$\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo).\n\nEn el gráfico.\n\n$x=\\pi$ es exactamente el primer pico de $\\operatorname{sen}(x/2)$: el argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
+    "explanation": "La función es $f(x)=\\operatorname{sen}(x/2)$.\n\nEn $x=\\pi$:\n$$\\begin{aligned}\nf(\\pi) &= \\operatorname{sen}\\!\\left(\\frac{\\pi}{2}\\right) \\\\\n&= 1:\n\\end{aligned}$$\n$\\pi/2$ es el ángulo de $90°$: el seno vale $1$ allí (su máximo).\n\nEn el gráfico.\n\n$x=\\pi$ es exactamente el primer pico de ::\n$$\\operatorname{sen}(x/2)$$\nel argumento $x/2$ llega a $\\pi/2$ cuando $x=\\pi$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1313,7 +1313,7 @@
       -1,
       3
     ],
-    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$).\n\nno del período:\n$$\\begin{aligned}\n\\operatorname{sen}(2x) &\\in [-1,1] \\\\\n\\operatorname{sen}(2x)+1 &\\in [0,2]:\n\\end{aligned}$$\nEl coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical.\n\nLa imagen es $[0,2]$.\n\nLa opción $[-1,3]$ tendría desplazamiento $D=1$ con amplitud $2$.\n\nLa opción $[1,3]$ ignoraría la parte negativa del seno.",
+    "explanation": "La **imagen** de $f(x)=\\operatorname{sen}(2x)+1$ depende de la amplitud ($A=1$) y el desplazamiento ($D=1$).\n\nno del período:El coeficiente $B=2$ comprime el período a $\\pi$ pero no afecta el rango vertical.\n\nLa imagen es $[0,2]$.\n\nLa opción : tendría desplazamiento $D=1$ con amplitud $2$.La opción $[1,3]$ ignoraría la parte negativa del seno.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1493,7 +1493,7 @@
       -2,
       2
     ],
-    "explanation": "En el intervalo $[\\pi.\n\n2\\pi]$.\n\nel ángulo va del extremo izquierdo del círculo unitario $(-1,0)$ hasta el extremo derecho $(1,0)$.\n\nLa coordenada $x$ (el coseno) **sube** de $-1$ a $1$: la función es **creciente de $-1$ a $1$**.\n\nValores clave: $\\cos(\\pi)=-1$ (mínimo).\n\n$\\cos(3\\pi/2)=0$.\n\n$\\cos(2\\pi)=1$ (máximo).\n\nTodos crecientes en ese orden.\n\nEl coseno decrece en $[0,\\pi]$ y crece en $[\\pi,2\\pi]$.\n\n$[\\pi, 2\\pi]$: el coseno en modo recuperación.\n\nViene del sótano y llega de vuelta al techo justo a tiempo para el próximo ciclo.",
+    "explanation": "En el intervalo $[\\pi.\n\n2\\pi]$.\n\nel ángulo va del extremo izquierdo del círculo unitario $(-1,0)$ hasta el extremo derecho $(1,0)$.\n\nLa coordenada $x$ (el coseno) **sube** de : a $1$:la función es **creciente de $-1$ a $1$**.\n\nValores clave: $\\cos(\\pi)=-1$ (mínimo).\n\n$\\cos(3\\pi/2)=0$.\n\n$\\cos(2\\pi)=1$ (máximo).\n\nTodos crecientes en ese orden.\n\nEl coseno decrece en $[0,\\pi]$ y crece en $[\\pi,2\\pi]$.\n\n$[\\pi, 2\\pi]$: el coseno en modo recuperación.\n\nViene del sótano y llega de vuelta al techo justo a tiempo para el próximo ciclo.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-graf-trig"

@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué?\n\nPorque $\\log(x) = y$ equivale a $10^y = x$.\n\nComo $10^y > 0$ para cualquier $y$ real.\n\nno existe ningún $y$ tal que $10^y = 0$ o $10^y < 0$.\n\nEn otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$.\n\nno vale $0$ ahí).",
+    "explanation": "El **dominio** de $f(x) = \\log(x)$ es $x > 0$, es decir, solo los reales positivos.\n\n¿Por qué?\n\nPorque $\\log(x) = y$ equivale a $10^y = x$.\n\nComo $10^y > 0$ para cualquier $y$ real.\n\nno existe ningún $y$ tal que : o $10^y < 0$.En otras palabras: no se puede calcular el logaritmo de cero ni de números negativos.\n\nNota: $x = 0$ **no** está en el dominio (el logaritmo tiende a $-\\infty$.\n\nno vale $0$ ahí).",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos funciones son **inversas** cuando una deshace lo que hace la otra.\n\nPara $f(x) = 2^x$ y $g(x) = \\log_2(x)$:\n\nGeométricamente, las gráficas de una función y su inversa son **simétricas respecto a la recta** $y = x$.\n\nEsta propiedad es general: $\\log_b(b^x) = x$ y $b^{\\log_b x} = x$ para cualquier base válida $b$.",
+    "explanation": "Dos funciones son **inversas** cuando una deshace lo que hace la otra.\n\nPara $f(x) = 2^x$ y $g(x) = \\log_2(x)$:\n\nGeométricamente, las gráficas de una función y su inversa son **simétricas respecto a la recta** $y = x$.\n\nEsta propiedad es general: $\\log_b(b^x) = x$ y : para cualquier base válida $b$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir $\\ln(x) = t$ equivale a decir $e^t = x$.\n\nComo $e^t > 0$ para todo $t \\in \\mathbb{R}$, nunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier $\\log_b(x)$ con $b > 0$ y $b \\neq 1$ exige $x > 0$.\n\nporque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
+    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$: decir : equivale a decir $e^t = x$.Como $e^t > 0$ para todo $t \\in \\mathbb{R}$, nunca existe un exponente que produzca un resultado negativo o nulo.\n\nPor eso.\n\nsi $x \\leq 0$.\n\nno hay ningún real $t$ que satisfaga $e^t = x$.\n\ny $\\ln(x)$ queda sin definir en ese caso.\n\nEl **dominio** de $\\ln(x)$ es entonces $(0, +\\infty)$: solo admite argumentos estrictamente positivos.\n\nEsta restricción no es exclusiva del logaritmo natural: cualquier : con $b > 0$ y $b \\neq 1$ exige $x > 0$.porque ninguna base positiva elevada a un exponente real puede dar cero ni un número negativo.",
     "reviewed": false,
     "tags": [
       "dominio-razonamiento"
@@ -308,7 +308,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de $f(x) = \\log_b(x)$ es $\\mathbb{R}$, es decir, todos los números reales.\n\nEsto contrasta con la exponencial $b^x$, cuya imagen es $(0, +\\infty)$, solo positivos. Son funciones inversas: lo que una tiene como **dominio**, la otra lo tiene como imagen.\n\nCuando $x \\to 0^+$, $\\log_b(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$, $\\log_b(x) \\to +\\infty$. De ahí que la imagen abarque todos los reales.",
+    "explanation": "La **imagen** de $f(x) = \\log_b(x)$ es $\\mathbb{R}$, es decir, todos los números reales.\n\nEsto contrasta con la exponencial $b^x$, cuya imagen es $(0, +\\infty)$, solo positivos.\n\nSon funciones inversas: lo que una tiene como **dominio**, la otra lo tiene como imagen.\n\nCuando $x \\to 0^+$, $\\log_b(x) \\to -\\infty$.\n\nCuando $x \\to +\\infty$, $\\log_b(x) \\to +\\infty$.\n\nDe ahí que la imagen abarque todos los reales.",
     "reviewed": false,
     "tags": [
       "dominio-basico"
@@ -333,7 +333,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$.\n\nbuscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n\nCuando el argumento está entre $0$ y $1$ (para base $b > 1$).\n\nel logaritmo es negativo.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
+    "explanation": "Para resolver $\\log_2\\!\\left(\\frac{1}{2}\\right)$.\n\nbuscamos el exponente al que hay que elevar $2$ para obtener $\\frac{1}{2}$:\n\nCuando el argumento está entre $0$ y $1$ (para base :).el logaritmo es negativo.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -483,7 +483,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo usando una calculadora que solo tenga logaritmo natural o base $10$:\n\nPor ejemplo, $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.\n\nEl orden importa: el argumento $x$ va siempre en el numerador y la base $b$ en el denominador. Invertir esa fracción más frecuente al aplicar esta fórmula.",
+    "explanation": "La **fórmula de cambio de base** permite calcular cualquier logaritmo usando una calculadora que solo tenga logaritmo natural o base $10$:\n\nPor ejemplo, $\\log_2(10) = \\dfrac{\\ln(10)}{\\ln(2)} \\approx \\dfrac{2{,}303}{0{,}693} \\approx 3{,}32$.\n\nEl orden importa: el argumento $x$ va siempre en el numerador y la base $b$ en el denominador.\n\nInvertir esa fracción más frecuente al aplicar esta fórmula.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -583,7 +583,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La inversa de una función exponencial $f(x) = b^x$ es siempre $f^{-1}(x) = \\log_b(x)$, porque una deshace exactamente lo que hace la otra.\n\nPara $b = 3$:\n\nAmbas identidades se cumplen para cualquier $x$ en el dominio correspondiente.\n\nGeométricamente.\n\nlas gráficas de $f$ y $f^{-1}$ son simétricas respecto a la recta $y = x$: reflejar una sobre esa recta produce la otra.\n\nEsta relación exponencial-logarítmica es la pareja de funciones inversas más común del tema.",
+    "explanation": "La inversa de una función exponencial $f(x) = b^x$ es siempre $f^{-1}(x) = \\log_b(x)$, porque una deshace exactamente lo que hace la otra.\n\nPara $b = 3$:\n\nAmbas identidades se cumplen para cualquier $x$ en el dominio correspondiente.\n\nGeométricamente.\n\nlas gráficas de $f$ y : son simétricas respecto a la recta $y = x$:reflejar una sobre esa recta produce la otra.\n\nEsta relación exponencial-logarítmica es la pareja de funciones inversas más común del tema.",
     "reviewed": false,
     "tags": [
       "identificar-logaritmica"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene **asíntota horizontal**.\n\nContraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando $x \\to -\\infty$.\n\nSon inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
+    "explanation": "$\\displaystyle\\lim_{x \\to +\\infty} \\ln(x) = +\\infty$: la función crece sin cota, aunque muy lentamente.\n\nNo tiene **asíntota horizontal**.\n\nContraste con la exponencial $e^x$: tiene asíntota horizontal en $y = 0$ cuando :.Son inversas: lo que una tiene como asíntota horizontal, la otra lo tiene como asíntota vertical.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -733,7 +733,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El logaritmo es la **inversa de la exponencial**. Aparece cuando se despeja el tiempo $t$.\n\nEjemplo: una inversión crece según $M(t) = M_0 \\cdot (1{,}1)^t$. Para saber cuándo llega a $M$:\n\nLa función 'monto después de $t$ años' es exponencial; la función 'cuántos años para llegar a $X$' es logarítmica.",
+    "explanation": "El logaritmo es la **inversa de la exponencial**.\n\nAparece cuando se despeja el tiempo $t$.\n\nEjemplo: una inversión crece según $M(t) = M_0 \\cdot (1{,}1)^t$.\n\nPara saber cuándo llega a $M$:\n\nLa función 'monto después de $t$ años' es exponencial; la función 'cuántos años para llegar a $X$' es logarítmica.",
     "reviewed": false,
     "tags": [
       "funcion-inversa-logaritmo"
@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que $f(x) = \\log_2(-x)$ esté definida, el argumento $-x$ debe ser positivo:\n\nEl **dominio** es entonces $(-\\infty, 0)$, y la **asíntota vertical** queda en $x = 0$, igual que en la función sin reflejar.\n\nEsta función es la reflexión horizontal de $\\log_2(x)$: la curva se 'voltea' respecto al eje $Y$ y queda por completo en el semiplano de los $x$ negativos.\n\nen vez de en el de los positivos.",
+    "explanation": "Para que $f(x) = \\log_2(-x)$ esté definida, el argumento $-x$ debe ser positivo:\n\nEl **dominio** es entonces $(-\\infty, 0)$, y la **asíntota vertical** queda en $x = 0$, igual que en la función sin reflejar.\n\nEsta función es la reflexión horizontal de ::la curva se 'voltea' respecto al eje $Y$ y queda por completo en el semiplano de los $x$ negativos.\n\nen vez de en el de los positivos.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -983,7 +983,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "**Propiedad universal**: $\\log_b(1) = 0$ para cualquier base $b > 0$ con $b \\neq 1$.\n\nporque $b^0 = 1$ siempre.\n\nsin importar cuál sea la base.\n\nAplicado acá: $\\log_5(1) = 0$ porque $5^0 = 1$.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$, el mismo punto para cualquier base.\n\nConviene no confundir esta propiedad con $\\log_b(b) = 1$, que es la otra igualdad fundamental y corresponde al punto $(b,\\, 1)$.",
+    "explanation": "**Propiedad universal**: : para cualquier base $b > 0$ con $b \\neq 1$.porque $b^0 = 1$ siempre.\n\nsin importar cuál sea la base.\n\nAplicado acá: $\\log_5(1) = 0$ porque $5^0 = 1$.\n\nTodas las funciones logarítmicas básicas pasan por el punto $(1,\\, 0)$, el mismo punto para cualquier base.\n\nConviene no confundir esta propiedad con $\\log_b(b) = 1$, que es la otra igualdad fundamental y corresponde al punto $(b,\\, 1)$.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -1008,7 +1008,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_2\\!\\left(\\frac{1}{4}\\right) = y$ busca el exponente que cumple $2^y = \\frac{1}{4}$.\n\nComo $\\frac{1}{4} = 2^{-2}$, resulta $y = -2$:\n\nEl patrón de potencias negativas ayuda a visualizarlo: $\\frac{1}{2} = 2^{-1}$.\n\n$\\frac{1}{4} = 2^{-2}$.\n\n$\\frac{1}{8} = 2^{-3}$.\n\nEn general.\n\npara cualquier argumento entre $0$ y $1$ con **base** $b > 1$.\n\nel logaritmo siempre da un resultado negativo.\n\nporque hace falta un exponente negativo para achicar la base hasta una fracción.",
+    "explanation": "$\\log_2\\!\\left(\\frac{1}{4}\\right) = y$ busca el exponente que cumple $2^y = \\frac{1}{4}$.\n\nComo $\\frac{1}{4} = 2^{-2}$, resulta $y = -2$:\n\nEl patrón de potencias negativas ayuda a visualizarlo: $\\frac{1}{2} = 2^{-1}$.\n\n$\\frac{1}{4} = 2^{-2}$.\n\n$\\frac{1}{8} = 2^{-3}$.\n\nEn general.\n\npara cualquier argumento entre $0$ y $1$ con **base** :.el logaritmo siempre da un resultado negativo.\n\nporque hace falta un exponente negativo para achicar la base hasta una fracción.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de la potencia** dice que un factor multiplicativo delante del logaritmo puede subir como exponente del argumento:\n\nEsta es la misma regla $n \\cdot \\log_b(x) = \\log_b(x^n)$ aplicada en sentido inverso, de derecha a izquierda.\n\nVerificación con $x = 4$: $2 \\cdot \\log_2(4) = 2 \\cdot 2 = 4$ y $\\log_2(4^2) = \\log_2(16) = 4$.\n\ncoinciden.\n\nConviene no confundir esta regla con la propiedad del producto, que suma dos logaritmos distintos en vez de multiplicar uno solo por un factor.",
+    "explanation": "La **propiedad de la potencia** dice que un factor multiplicativo delante del logaritmo puede subir como exponente del argumento:\n\nEsta es la misma regla $n \\cdot \\log_b(x) = \\log_b(x^n)$ aplicada en sentido inverso, de derecha a izquierda.\n\nVerificación con $x = 4$: : y $\\log_2(4^2) = \\log_2(16) = 4$.coinciden.\n\nConviene no confundir esta regla con la propiedad del producto, que suma dos logaritmos distintos en vez de multiplicar uno solo por un factor.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-log"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$\\log_4(16) = y$ busca el exponente que cumple $4^y = 16$.\n\nComo $16 = 4^2$, resulta $y = 2$:\n\nOtra manera de verlo es reescribir todo en **base** común $2$: $16 = 2^4$ y $4 = 2^2$.\n\nentonces $\\log_4(16) = \\frac{4}{2} = 2$.\n\ndividiendo los exponentes respectivos.\n\nEste segundo método, pasar a una base común y dividir exponentes, es útil cuando la base y el argumento comparten un factor primo, como acá que ambos son potencias de $2$.",
+    "explanation": "$\\log_4(16) = y$ busca el exponente que cumple $4^y = 16$.\n\nComo $16 = 4^2$, resulta $y = 2$:\n\nOtra manera de verlo es reescribir todo en **base** común $2$: : y $4 = 2^2$.entonces $\\log_4(16) = \\frac{4}{2} = 2$.\n\ndividiendo los exponentes respectivos.\n\nEste segundo método, pasar a una base común y dividir exponentes, es útil cuando la base y el argumento comparten un factor primo, como acá que ambos son potencias de $2$.",
     "reviewed": false,
     "tags": [
       "evaluar-log-directo"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$.\n\nmientras que $x^3-2$ y $2x+1$ están definidas en todo $\\mathbb{R}$.\n\nsin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
+    "explanation": "$f(x) = \\ln(x)$ tiene **asíntota vertical** en $x = 0$:\n\nLas otras opciones no tienen asíntota vertical: $3^x$ tiene asíntota horizontal en $y=0$.\n\nmientras que $x^3-2$ y $2x+1$ están definidas en todo :.sin ninguna restricción de dominio.\n\nLas propiedades de inyectividad y monotonía de los logaritmos son herramientas poderosas para resolver ecuaciones sin enumerarlas.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-nombre-concepto"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier $u \\in \\mathbb{R}$.\n\ny con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$.\n\nque sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$.\n\nun caso distinto donde el exponente está afuera de la base $e$.",
+    "explanation": "Usando la **propiedad de la potencia** y sabiendo que $\\ln(e) = 1$:\n\nEsta simplificación también puede verse como una consecuencia directa de que $\\ln$ y la función $e^{(\\ )}$ son inversas entre sí: $\\ln(e^u) = u$ para cualquier :.y con $u = 2x$ el resultado es simplemente $2x$.\n\nConviene distinguir esto de $2\\ln(x)$.\n\nque sería el resultado de aplicar la propiedad de la potencia a $\\ln(x^2)$.\n\nun caso distinto donde el exponente está afuera de la base $e$.",
     "reviewed": false,
     "tags": [
       "funcion-inversa-logaritmo"

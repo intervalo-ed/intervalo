@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=e^x$ y aplicamos Barrow.\n\nEl error más común acá es asumir que $F(0)=0$ porque el límite inferior es cero, pero $e^0=1$, no cero.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\". Pero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
+    "explanation": "Armamos la primitiva $F(x)=e^x$ y aplicamos Barrow.\n\nEl error más común acá es asumir que $F(0)=0$ porque el límite inferior es cero, pero $e^0=1$, no cero.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\".\n\nPero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\". Pero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
+    "explanation": "Armamos la primitiva $F(x)=-\\cos x$ y aplicamos Barrow.\n\nEl signo negativo de la primitiva del seno hay que arrastrarlo con cuidado al evaluar en ambos límites, no solo en uno.\n\nLa confusión con $e^0=1$ es muy común porque mentalmente asociamos \"$0$ en el límite inferior\" con \"resultado nulo\".\n\nPero la regla de Barrow aplicada correctamente siempre sustituye cada límite en la primitiva, sin excepciones.\n\nAnota en tus apuntes: límite inferior cero no implica antiderivada cero; siempre evalúa.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"

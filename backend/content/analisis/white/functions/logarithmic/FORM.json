@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **asíntota vertical** ocurre donde el argumento del logaritmo se anula, es decir, donde la función deja de estar definida.\n\nPara $f(x) = \\log_3(x - 2)$, el argumento es $(x - 2)$. Se anula cuando:\n\nPor lo tanto, la asíntota vertical es $x = 2$ y el dominio es $x > 2$.\n\nRegla general: si el argumento es $(x - c)$, la asíntota vertical está en $x = c$.",
+    "explanation": "La **asíntota vertical** ocurre donde el argumento del logaritmo se anula, es decir, donde la función deja de estar definida.\n\nPara $f(x) = \\log_3(x - 2)$, el argumento es $(x - 2)$.\n\nSe anula cuando:\n\nPor lo tanto, la asíntota vertical es $x = 2$ y el dominio es $x > 2$.\n\nRegla general: si el argumento es $(x - c)$, la asíntota vertical está en $x = c$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -433,7 +433,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota vertical de una función logarítmica aparece donde su argumento se anula, ya que ahí la función deja de estar definida.\n\nPara $f(x) = \\ln(x + 4)$, el argumento es $(x + 4)$. Se anula cuando:\n\nLa asíntota vertical es $x = -4$ y el dominio es $(-4, +\\infty)$.\n\nEl intercepto con el eje $X$ se obtiene con $\\ln(x+4) = 0 \\implies x + 4 = 1 \\implies x = -3$.\n\nno invertir el signo al despejar: el $+4$ dentro del paréntesis obliga a restar $4$ de ambos lados, no a sumarlo.",
+    "explanation": "La asíntota vertical de una función logarítmica aparece donde su argumento se anula, ya que ahí la función deja de estar definida.\n\nPara $f(x) = \\ln(x + 4)$, el argumento es $(x + 4)$.\n\nSe anula cuando:\n\nLa asíntota vertical es $x = -4$ y el dominio es $(-4, +\\infty)$.\n\nEl intercepto con el eje $X$ se obtiene con $\\ln(x+4) = 0 \\implies x + 4 = 1 \\implies x = -3$.\n\nno invertir el signo al despejar: el $+4$ dentro del paréntesis obliga a restar $4$ de ambos lados, no a sumarlo.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -523,7 +523,7 @@
       -4,
       4
     ],
-    "explanation": "Cuando una curva logarítmica es decreciente, la causa más común es un signo negativo multiplicando al logaritmo, ya que eso refleja la curva sobre el eje $X$.\n\nEn este gráfico, el dominio sigue siendo $x > 0$ con asíntota en $x = 0$, pero la curva decrece en vez de crecer.\n\nVerificamos que sigue pasando por $(1, 0)$: $-\\log_2(1) = 0$.\n\nPara $x > 1$, como $\\log_2(x) > 0$, el signo negativo hace que la curva baje.\n\nConclusión: $f(x) = -\\log_2(x)$. No confundir esta reflexión vertical con un reflejo horizontal como $\\log_2(-x)$, que cambiaría el dominio a los negativos en vez de invertir el crecimiento.",
+    "explanation": "Cuando una curva logarítmica es decreciente, la causa más común es un signo negativo multiplicando al logaritmo, ya que eso refleja la curva sobre el eje $X$.\n\nEn este gráfico, el dominio sigue siendo $x > 0$ con asíntota en $x = 0$, pero la curva decrece en vez de crecer.\n\nVerificamos que sigue pasando por $(1, 0)$: $-\\log_2(1) = 0$.\n\nPara $x > 1$, como $\\log_2(x) > 0$, el signo negativo hace que la curva baje.\n\nConclusión: $f(x) = -\\log_2(x)$.\n\nNo confundir esta reflexión vertical con un reflejo horizontal como $\\log_2(-x)$, que cambiaría el dominio a los negativos en vez de invertir el crecimiento.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -823,7 +823,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El argumento debe ser positivo:\n\nDominio: $(-\\infty, 4)$. Asíntota vertical: $x = 4$.\n\nEsta función es la imagen especular de $\\ln(x - 4)$: la curva se refleja horizontalmente y queda en el semiplano $x < 4$.\n\nAl multiplicar o dividir por $-1$ para despejar $x$, la desigualdad cambia de sentido, un paso que suele olvidarse.",
+    "explanation": "El argumento debe ser positivo:\n\nDominio: $(-\\infty, 4)$.\n\nAsíntota vertical: $x = 4$.\n\nEsta función es la imagen especular de $\\ln(x - 4)$: la curva se refleja horizontalmente y queda en el semiplano $x < 4$.\n\nAl multiplicar o dividir por $-1$ para despejar $x$, la desigualdad cambia de sentido, un paso que suele olvidarse.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -923,7 +923,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar cuántos períodos hacen falta en un crecimiento exponencial, primero se aísla la potencia dividiendo por el valor inicial, y después se identifica el exponente.\n\nHacen falta $5$ horas. Este despeje es, en el fondo, un logaritmo: $t = \\log_2(32) = 5$, ya que el logaritmo es la operación que deshace la potencia para encontrar el exponente.\n\nconfundir el factor de crecimiento ($32$, cuántas veces se multiplicó la población) con el tiempo transcurrido, que es el exponente que produjo ese factor.",
+    "explanation": "Para despejar cuántos períodos hacen falta en un crecimiento exponencial, primero se aísla la potencia dividiendo por el valor inicial, y después se identifica el exponente.\n\nHacen falta $5$ horas.\n\nEste despeje es, en el fondo, un logaritmo: $t = \\log_2(32) = 5$, ya que el logaritmo es la operación que deshace la potencia para encontrar el exponente.\n\nconfundir el factor de crecimiento ($32$, cuántas veces se multiplicó la población) con el tiempo transcurrido, que es el exponente que produjo ese factor.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1228,7 +1228,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota vertical de una función logarítmica está donde su argumento se anula. Para $f(x) = \\log_2(2x+6)$, el argumento es $(2x+6)$, así que hay que resolver esa ecuación paso a paso.\n\nLa asíntota vertical es $x = -3$ y el dominio es $(-3, +\\infty)$.\n\nolvidar dividir por el coeficiente $2$ después de despejar, o invertir el signo al pasar el $6$ al otro lado de la ecuación.",
+    "explanation": "La asíntota vertical de una función logarítmica está donde su argumento se anula.\n\nPara $f(x) = \\log_2(2x+6)$, el argumento es $(2x+6)$, así que hay que resolver esa ecuación paso a paso.\n\nLa asíntota vertical es $x = -3$ y el dominio es $(-3, +\\infty)$.\n\nolvidar dividir por el coeficiente $2$ después de despejar, o invertir el signo al pasar el $6$ al otro lado de la ecuación.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

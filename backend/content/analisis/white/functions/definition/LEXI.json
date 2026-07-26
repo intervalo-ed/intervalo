@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida. Acá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nNo confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
+    "explanation": "La **unicidad** exige que una función asigne a cada entrada una sola salida.\n\nAcá la entrada es la cuenta y la salida es el saldo.\n\nSi fallara esta propiedad, una misma cuenta podría devolver \\$100 y \\$5000 a la vez.\n\nNo confundas unicidad con inyectividad: acá se exige que cada cuenta tenga un solo saldo, no que cada saldo venga de una sola cuenta.",
     "reviewed": false,
     "tags": [
       "unicidad"
@@ -62,7 +62,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que exista **unicidad**, la función debe transformar cada entrada en una **única** salida. Acá cada cantidad de compras determina un solo puntaje mediante.\n\nA una misma compra nunca le tocan dos puntajes, así que se cumple el requisito. Para verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
+    "explanation": "Para que exista **unicidad**, la función debe transformar cada entrada en una **única** salida.\n\nAcá cada cantidad de compras determina un solo puntaje mediante.\n\nA una misma compra nunca le tocan dos puntajes, así que se cumple el requisito.\n\nPara verificar la unicidad alcanza con chequear que ninguna entrada quede asociada a dos salidas distintas.",
     "reviewed": false,
     "tags": [
       "unicidad"
@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **unicidad** requiere que cada entrada se asocie con una sola salida, sin excepciones. Acá el producto 305 recibe dos descuentos diferentes.\n\nEsa ambigüedad rompe la condición fundamental para ser función. Un sistema de caja que le asigna dos precios al mismo producto no tiene un error de tipeo: tiene un problema de unicidad.",
+    "explanation": "La **unicidad** requiere que cada entrada se asocie con una sola salida, sin excepciones.\n\nAcá el producto 305 recibe dos descuentos diferentes.\n\nEsa ambigüedad rompe la condición fundamental para ser función.\n\nUn sistema de caja que le asigna dos precios al mismo producto no tiene un error de tipeo: tiene un problema de unicidad.",
     "reviewed": false,
     "tags": [
       "unicidad"
@@ -110,7 +110,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma y para las cuales está definida. Acá las únicas cantidades de bochas que podés pedir forman el conjunto.\n\nLos precios resultantes forman la **imagen**. No confundas el dominio con la imagen: acá el dominio son las cantidades que podés pedir, no los precios que resultan.",
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma y para las cuales está definida.\n\nAcá las únicas cantidades de bochas que podés pedir forman el conjunto.\n\nLos precios resultantes forman la **imagen**.\n\nNo confundas el dominio con la imagen: acá el dominio son las cantidades que podés pedir, no los precios que resultan.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -135,7 +135,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la función tiene sentido matemático y contextual.\n\nRepartir entre 0 personas no se puede, porque la expresión $\\frac{1200}{0}$ No está definida. Por eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$).\n\nAl calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
+    "explanation": "El **dominio** natural es el mayor conjunto de valores donde la función tiene sentido matemático y contextual.\n\nRepartir entre 0 personas no se puede, porque la expresión $\\frac{1200}{0}$ No está definida.\n\nPor eso, hace falta que los asistentes sean al menos uno ($n \\geq 1$).\n\nAl calcular un dominio natural revisá siempre dos frentes: que no haya división por cero y que el valor tenga sentido en el contexto.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -160,7 +160,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que lo de adentro no sea negativo, así que.\n\nEsto da como resultado $h \\geq 0$. El dominio natural sale de las restricciones de la función: acá, que el radicando no sea negativo. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** natural reúne los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que lo de adentro no sea negativo, así que.\n\nEsto da como resultado $h \\geq 0$.\n\nEl dominio natural sale de las restricciones de la función: acá, que el radicando no sea negativo.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -183,7 +183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función. Acá las entradas son los ciudadanos, numerados del 1 al 40000, que se escriben como.\n\nLos expedientes generados pertenecen al **codominio**. No mezcles el dominio con el codominio: los ciudadanos son las entradas; los expedientes que se generan viven en el conjunto de llegada.",
+    "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función.\n\nAcá las entradas son los ciudadanos, numerados del 1 al 40000, que se escriben como.\n\nLos expedientes generados pertenecen al **codominio**.\n\nNo mezcles el dominio con el codominio: los ciudadanos son las entradas; los expedientes que se generan viven en el conjunto de llegada.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -206,7 +206,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "¿Qué conjunto le entra a la función? Eso conforma el **dominio**. Acá las entradas que vas a procesar son los tipos de copia.\n\nLos precios resultantes forman la **imagen** de la función. El dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "¿Qué conjunto le entra a la función?\n\nEso conforma el **dominio**.\n\nAcá las entradas que vas a procesar son los tipos de copia.\n\nLos precios resultantes forman la **imagen** de la función.\n\nEl dominio son los tipos de copia que entran; los precios que salen forman la imagen, no el dominio.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -231,7 +231,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de valores que alimentan a la función. En este sistema las entradas son las horas del día.\n\nLas temperaturas posibles actúan como salidas. El dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **dominio** es el conjunto de valores que alimentan a la función.\n\nEn este sistema las entradas son las horas del día.\n\nLas temperaturas posibles actúan como salidas.\n\nEl dominio lo fija el contexto: acá las horas válidas van de 0 a 23, nada fuera de eso.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -256,7 +256,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema. Dividir entre 0 no está definido, y un viaje no puede durar tiempo negativo, así que.\n\nEse es el conjunto válido para evaluar la función. Para el dominio natural combiná las dos restricciones: la matemática (no dividir por cero) y la del problema (el tiempo no puede ser negativo).",
+    "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema.\n\nDividir entre 0 no está definido, y un viaje no puede durar tiempo negativo, así que.\n\nEse es el conjunto válido para evaluar la función.\n\nPara el dominio natural combiná las dos restricciones: la matemática (no dividir por cero) y la del problema (el tiempo no puede ser negativo).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -281,7 +281,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver. La raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n\nolvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **dominio** natural reúne todos los valores de entrada donde la operación se puede resolver.\n\nLa raíz cuadrada exige que su contenido no sea negativo, por lo tanto:\n\nolvidar la condición del radicando: sin $2x - 6 \\geq 0$, la raíz no está definida en los reales.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -306,7 +306,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "¿Qué pasaría si el **dominio** incluyera un valor que la función no puede procesar? La función se rompería.\n\nDividir entre 0 no está definido en matemáticas, y no podés invitar a cantidades negativas de personas, así que.\n\nUn dominio natural descarta tanto lo que rompe la cuenta (dividir por cero) como lo que no tiene sentido en el contexto (personas negativas).",
+    "explanation": "¿Qué pasaría si el **dominio** incluyera un valor que la función no puede procesar?\n\nLa función se rompería.\n\nDividir entre 0 no está definido en matemáticas, y no podés invitar a cantidades negativas de personas, así que.\n\nUn dominio natural descarta tanto lo que rompe la cuenta (dividir por cero) como lo que no tiene sentido en el contexto (personas negativas).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -331,7 +331,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural se compone de las entradas que sobreviven a las restricciones de la fórmula. La raíz cuadrada necesita que su interior sea mayor o igual a cero.\n\nPara todo $x \\leq 10$ la función funciona bien. El límite del dominio lo pone la raíz: para $x > 10$ el radicando se vuelve negativo y la función deja de estar definida.",
+    "explanation": "El **dominio** natural se compone de las entradas que sobreviven a las restricciones de la fórmula.\n\nLa raíz cuadrada necesita que su interior sea mayor o igual a cero.\n\nPara todo $x \\leq 10$ la función funciona bien.\n\nEl límite del dominio lo pone la raíz: para $x > 10$ el radicando se vuelve negativo y la función deja de estar definida.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -356,7 +356,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta. La **única** prohibición en una fracción es que el denominador valga cero.\n\nPara el resto de la recta numérica, la función trabaja de maravilla. En una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
+    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta.\n\nLa **única** prohibición en una fracción es que el denominador valga cero.\n\nPara el resto de la recta numérica, la función trabaja de maravilla.\n\nEn una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -381,7 +381,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema. La raíz cuadrada exige un radicando no negativo.\n\nAdemás, un área negativa no existe geométricamente. Acá el dominio combina dos condiciones: el radicando no negativo y que el área tenga sentido geométrico ($A \\geq 0$).",
+    "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema.\n\nLa raíz cuadrada exige un radicando no negativo.\n\nAdemás, un área negativa no existe geométricamente.\n\nAcá el dominio combina dos condiciones: el radicando no negativo y que el área tenga sentido geométrico ($A \\geq 0$).",
     "reviewed": false,
     "tags": [
       "dominio"
@@ -404,7 +404,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la entrada que elegís libremente para alimentar la función. Acá decidís cuántos kilómetros $k$ vas a viajar, y a partir de ahí se calcula lo demás.\n\nEl precio final $T$ depende de esa elección.\n\nLa independiente es la que elegís vos ($k$); la dependiente ($T$) queda determinada por esa elección.",
+    "explanation": "La variable **independiente** es la entrada que elegís libremente para alimentar la función.\n\nAcá decidís cuántos kilómetros $k$ vas a viajar, y a partir de ahí se calcula lo demás.\n\nEl precio final $T$ depende de esa elección.\n\nLa independiente es la que elegís vos ($k$); la dependiente ($T$) queda determinada por esa elección.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -427,7 +427,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la función. Acá ingresás las horas extra $h$, y el total se obtiene de.\n\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente.\n\nReconocés la dependiente porque es la salida de la función: $S$ se calcula a partir de $h$, no al revés.",
+    "explanation": "La variable **dependiente** es aquella que resulta como salida al aplicar la función.\n\nAcá ingresás las horas extra $h$, y el total se obtiene de.\n\nComo $S$ está sujeta a cuántas horas decidas trabajar, asume el rol dependiente.\n\nReconocés la dependiente porque es la salida de la función: $S$ se calcula a partir de $h$, no al revés.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -450,7 +450,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo. En esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**.\n\nNo inviertas los roles: el tiempo $h$ es la entrada libre; el gasto $C$ es lo que resulta, la dependiente.",
+    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo.\n\nEn esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**.\n\nNo inviertas los roles: el tiempo $h$ es la entrada libre; el gasto $C$ es lo que resulta, la dependiente.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -473,7 +473,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es el valor final que entrega la función, subordinado a la entrada. Acá elegís qué volumen $v$ vas a cargar. El monto final sale de.\n\nComo $P$ necesita del dato $v$ para existir, es dependiente.\n\nLa dependiente es siempre la que necesita del otro dato para existir: sin $v$ no hay $P$.",
+    "explanation": "La variable **dependiente** es el valor final que entrega la función, subordinado a la entrada.\n\nAcá elegís qué volumen $v$ vas a cargar.\n\nEl monto final sale de.\n\nComo $P$ necesita del dato $v$ para existir, es dependiente.\n\nLa dependiente es siempre la que necesita del otro dato para existir: sin $v$ no hay $P$.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -496,7 +496,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es la salida que arroja el modelo luego de realizar los cálculos. Acá elegís cuántos objetos $m$ cargar, y el peso definitivo se obtiene con.\n\nComo $W$ responde directamente a esa cantidad, ocupa el rol dependiente.\n\nEl peso $W$ es la dependiente porque queda fijado por la cantidad $m$ que elegís, no al revés.",
+    "explanation": "La variable **dependiente** es la salida que arroja el modelo luego de realizar los cálculos.\n\nAcá elegís cuántos objetos $m$ cargar, y el peso definitivo se obtiene con.\n\nComo $W$ responde directamente a esa cantidad, ocupa el rol dependiente.\n\nEl peso $W$ es la dependiente porque queda fijado por la cantidad $m$ que elegís, no al revés.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -519,7 +519,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la magnitud libre que acciona el comportamiento de la función. Acá el cronómetro marca el tiempo $t$, y a partir de ese dato se deduce la distancia.\n\nLa distancia final $d$ está obligada a seguir al tiempo.\n\nLa independiente es la que avanza sola ($t$); la distancia $d$ es la que la sigue, la dependiente.",
+    "explanation": "La variable **independiente** es la magnitud libre que acciona el comportamiento de la función.\n\nAcá el cronómetro marca el tiempo $t$, y a partir de ese dato se deduce la distancia.\n\nLa distancia final $d$ está obligada a seguir al tiempo.\n\nLa independiente es la que avanza sola ($t$); la distancia $d$ es la que la sigue, la dependiente.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -542,7 +542,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** es el resultado, el valor que reacciona a los cambios en la entrada. La función procesa el precio original $p$ del artículo que llevás. El monto descontado emerge de.\n\nComo $D$ precisa de un precio para determinarse, asume el rol dependiente.\n\nLa dependiente es el resultado ($D$): reacciona al precio $p$, que es el dato de entrada.",
+    "explanation": "La variable **dependiente** es el resultado, el valor que reacciona a los cambios en la entrada.\n\nLa función procesa el precio original $p$ del artículo que llevás.\n\nEl monto descontado emerge de.\n\nComo $D$ precisa de un precio para determinarse, asume el rol dependiente.\n\nLa dependiente es el resultado ($D$): reacciona al precio $p$, que es el dato de entrada.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -565,7 +565,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es la entrada, el dato que ingresás para que la cuenta empiece. En esta estructura, introducís el valor en Celsius $c$, y la función lo transforma.\n\nEl resultado $F$ obedece a esa elección y es la variable **dependiente**.\n\nIdentificás la dependiente por el sentido de la flecha: ingresás $c$ y obtenés $F$, nunca al revés.",
+    "explanation": "La variable **independiente** es la entrada, el dato que ingresás para que la cuenta empiece.\n\nEn esta estructura, introducís el valor en Celsius $c$, y la función lo transforma.\n\nEl resultado $F$ obedece a esa elección y es la variable **dependiente**.\n\nIdentificás la dependiente por el sentido de la flecha: ingresás $c$ y obtenés $F$, nunca al revés.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -588,7 +588,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **dependiente** corresponde a la salida, el efecto que produce la función matemática. Acá ingresás el tiempo transcurrido $a$. El monto de ganancias surge de.\n\nComo $I$ no puede calcularse sin saber los años, juega el rol dependiente.\n\nLa dependiente es la salida: $I$ no se puede calcular sin antes fijar los años $a$.",
+    "explanation": "La variable **dependiente** corresponde a la salida, el efecto que produce la función matemática.\n\nAcá ingresás el tiempo transcurrido $a$.\n\nEl monto de ganancias surge de.\n\nComo $I$ no puede calcularse sin saber los años, juega el rol dependiente.\n\nLa dependiente es la salida: $I$ no se puede calcular sin antes fijar los años $a$.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"
@@ -611,7 +611,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde van a caer las salidas, estén todas en uso o no. Acá las salidas teóricas posibles van del 0 al 100.\n\nLas notas realmente obtenidas forman el conjunto **imagen**. No confundas codominio con imagen: el codominio es todo lo que se podría obtener (0 a 100); la imagen, lo que realmente se obtuvo.",
+    "explanation": "El **codominio** es el conjunto donde van a caer las salidas, estén todas en uso o no.\n\nAcá las salidas teóricas posibles van del 0 al 100.\n\nLas notas realmente obtenidas forman el conjunto **imagen**.\n\nNo confundas codominio con imagen: el codominio es todo lo que se podría obtener (0 a 100); la imagen, lo que realmente se obtuvo.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -634,7 +634,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto completo que contiene a los resultados potenciales de la función. Las salidas son las cantidades de asientos, que por arquitectura habitan en.\n\nLos tamaños que existen en la realidad forman el conjunto **imagen**. El codominio es el conjunto de llegada declarado; la imagen es el subconjunto que efectivamente se usa.",
+    "explanation": "El **codominio** es el conjunto completo que contiene a los resultados potenciales de la función.\n\nLas salidas son las cantidades de asientos, que por arquitectura habitan en.\n\nLos tamaños que existen en la realidad forman el conjunto **imagen**.\n\nEl codominio es el conjunto de llegada declarado; la imagen es el subconjunto que efectivamente se usa.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -657,7 +657,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver. En este modelo, las salidas declaradas conforman el conjunto.\n\nSi en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la **imagen** se achicaría al par $\\{r, v\\}$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "El **codominio** agrupa a las salidas teóricas que la función promete devolver.\n\nEn este modelo, las salidas declaradas conforman el conjunto.\n\nSi en un ciclo particular nunca se llegara al amarillo, el codominio no cambiaría, pero la **imagen** se achicaría al par $\\{r, v\\}$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -680,7 +680,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** oficia de contenedor oficial para todos los valores de salida permitidos. Acá las funcións del negocio estipulan que los precios rondan en.\n\nLos montos cobrados en la práctica conforman el conjunto **imagen**. El codominio fija el rango teórico de precios; lo que realmente se cobra forma la imagen, que puede ser más chica.",
+    "explanation": "El **codominio** oficia de contenedor oficial para todos los valores de salida permitidos.\n\nAcá las funcións del negocio estipulan que los precios rondan en.\n\nLos montos cobrados en la práctica conforman el conjunto **imagen**.\n\nEl codominio fija el rango teórico de precios; lo que realmente se cobra forma la imagen, que puede ser más chica.",
     "reviewed": false,
     "tags": [
       "imagen-puntual"
@@ -703,7 +703,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función. Acá las únicas etiquetas que el sistema admite ingresar son.\n\nLos alumnos rinden y toman el lugar del **dominio**. Un formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función.\n\nAcá las únicas etiquetas que el sistema admite ingresar son.\n\nLos alumnos rinden y toman el lugar del **dominio**.\n\nUn formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -726,7 +726,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **codominio** establece el espacio total de respuestas que la función matemática puede entregar. En este hardware, las salidas posibles conviven en el segmento.\n\nLo que los usuarios compren en la realidad constituye el conjunto **imagen**. Aunque nadie compre cierto valor, sigue estando en el codominio; la imagen es solo lo que se compró de verdad.",
+    "explanation": "El **codominio** establece el espacio total de respuestas que la función matemática puede entregar.\n\nEn este hardware, las salidas posibles conviven en el segmento.\n\nLo que los usuarios compren en la realidad constituye el conjunto **imagen**.\n\nAunque nadie compre cierto valor, sigue estando en el codominio; la imagen es solo lo que se compró de verdad.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -749,7 +749,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad. Al aplicar la clasificación al conjunto:\n\nLos valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La **imagen** congrega las salidas que la función alcanza y genera de verdad.\n\nAl aplicar la clasificación al conjunto:\n\nLos valores $P$ e $I$ aparecen al menos una vez, así que la imagen coincide con el **codominio** $\\{P, I\\}$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -774,7 +774,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función. Al multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$. La imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas. La **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **imagen** empaqueta todas las salidas efectivas que se cosechan al usar la función.\n\nAl multiplicar cada número permitido por 2, obtenés:\n\nAgrupando esos resultados surge el conjunto $\\{2, 4, 6\\}$.\n\nLa imagen depende del **dominio**: cambiá las entradas y cambia el conjunto de salidas.\n\nLa **regla del producto** es lo que permite derivar cuando dos funciones se multiplican sin expandir: el resultado combina la derivada de la primera con la segunda, más la primera con la derivada de la segunda.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -799,7 +799,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar. Al elevar las entradas al cuadrado, surgen estos números:\n\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$.\n\nCon los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
+    "explanation": "La **imagen** compila los resultados únicos que expulsa la función al operar.\n\nAl elevar las entradas al cuadrado, surgen estos números:\n\nLimpiando los repetidos, las salidas reales forman el conjunto $\\{0, 1, 9\\}$.\n\nCon los repetidos: la imagen junta valores distintos, así que $9$ y $1$ se cuentan una sola vez aunque provengan de dos entradas.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -822,7 +822,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** agrupa las paradas que la función (el aparato) logra concretar. El **codominio** oficial marca del 1 al 20, pero la realidad mecánica excluye los pisos averiados.\n\nPor eso la imagen es ese grupo recortado sin el 13 y el 17. La imagen puede ser más chica que el codominio: los pisos averiados están en el conjunto de llegada pero no en la imagen.",
+    "explanation": "La **imagen** agrupa las paradas que la función (el aparato) logra concretar.\n\nEl **codominio** oficial marca del 1 al 20, pero la realidad mecánica excluye los pisos averiados.\n\nPor eso la imagen es ese grupo recortado sin el 13 y el 17.\n\nLa imagen puede ser más chica que el codominio: los pisos averiados están en el conjunto de llegada pero no en la imagen.",
     "reviewed": false,
     "tags": [
       "codominio"
@@ -847,7 +847,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática. Al extraer el valor absoluto de cada término inicial.\n\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$. Al armar la imagen quedate solo con los resultados distintos: $\\{0, 2, 4\\}$, sin repetir. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **imagen** colecciona las respuestas reales que fabrica la expresión matemática.\n\nAl extraer el valor absoluto de cada término inicial.\n\nSi agrupás los diferentes, te queda el conjunto $\\{0, 2, 4\\}$.\n\nAl armar la imagen quedate solo con los resultados distintos: $\\{0, 2, 4\\}$, sin repetir.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -872,7 +872,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El conjunto **imagen** reúne los valores distintos que la función efectivamente produce, sin importar cuántas veces se repita cada uno.\n\nAl aplicar la función a los cinco productos, aparecen los precios:\n\nEliminando los repetidos quedan $\\{100, 150, 200\\}$. Un kiosco puede tener 500 productos y solo tres precios distintos, y la imagen tampoco crecería por eso.",
+    "explanation": "El conjunto **imagen** reúne los valores distintos que la función efectivamente produce, sin importar cuántas veces se repita cada uno.\n\nAl aplicar la función a los cinco productos, aparecen los precios:\n\nEliminando los repetidos quedan $\\{100, 150, 200\\}$.\n\nUn kiosco puede tener 500 productos y solo tres precios distintos, y la imagen tampoco crecería por eso.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -897,7 +897,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad. Como la función aplasta cualquier valor que ingresa devolviendo siempre el 5.\n\nEl conjunto imagen consta de un **único** elemento, el $\\{5\\}$. En una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
+    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad.\n\nComo la función aplasta cualquier valor que ingresa devolviendo siempre el 5.\n\nEl conjunto imagen consta de un **único** elemento, el $\\{5\\}$.\n\nEn una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -922,7 +922,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** contiene estrictamente los números que escupe la función, sin agregar valores intermedios inventados.\n\nEn este modelo de escalones, la función solo tiene dos respuestas programadas en su interior:\n\nPor eso la imagen es exactamente $\\{1000, 2000\\}$. La imagen contiene solo los valores que la función realmente devuelve: no agregues intermedios que la función nunca produce.",
+    "explanation": "La **imagen** contiene estrictamente los números que escupe la función, sin agregar valores intermedios inventados.\n\nEn este modelo de escalones, la función solo tiene dos respuestas programadas en su interior:\n\nPor eso la imagen es exactamente $\\{1000, 2000\\}$.\n\nLa imagen contiene solo los valores que la función realmente devuelve: no agregues intermedios que la función nunca produce.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -945,7 +945,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función convierte una entrada $x$ en un resultado $y$, llamamos **imagen** de $x$ a esa salida.\n\nAcá el modelo recibe un 3 y lo empuja a través del cubo:\n\nPor eso afirmamos que el 27 es la imagen puntual del 3. La imagen de un punto es el resultado de evaluar la función en ese punto: $f(3) = 27$.",
+    "explanation": "Si una función convierte una entrada $x$ en un resultado $y$, llamamos **imagen** de $x$ a esa salida.\n\nAcá el modelo recibe un 3 y lo empuja a través del cubo:\n\nPor eso afirmamos que el 27 es la imagen puntual del 3.\n\nLa imagen de un punto es el resultado de evaluar la función en ese punto: $f(3) = 27$.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -968,7 +968,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En el marco de una función, la salida directa que produce una entrada toma el título de **imagen**. En la cuenta de impuestos, al procesar el monto base.\n\nEl 1210 ocupa el lugar de la imagen del 1000. La imagen de $1000$ es el valor que sale al aplicarle la función: $1210$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "En el marco de una función, la salida directa que produce una entrada toma el título de **imagen**.\n\nEn la cuenta de impuestos, al procesar el monto base.\n\nEl 1210 ocupa el lugar de la imagen del 1000.\n\nLa imagen de $1000$ es el valor que sale al aplicarle la función: $1210$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -991,7 +991,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor producido al aplicar una función sobre un número específico se bautiza como su **imagen**. Al procesar el dato en la expresión cuadrática.\n\nEl 5 asume su puesto de imagen del $-2$. Cuidado con el orden: primero se eleva al cuadrado y después se suma, por eso $f(-2) = 5$ y no un número negativo.",
+    "explanation": "El valor producido al aplicar una función sobre un número específico se bautiza como su **imagen**.\n\nAl procesar el dato en la expresión cuadrática.\n\nEl 5 asume su puesto de imagen del $-2$.\n\nCuidado con el orden: primero se eleva al cuadrado y después se suma, por eso $f(-2) = 5$ y no un número negativo.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1014,7 +1014,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función particular que se logra desde una entrada se clasifica como su **imagen**. Al meter el 6 en la función que duplica valores, obtenés.\n\nEl 12 cumple el rol de imagen puntual del 6. La imagen puntual del $6$ es el valor que devuelve la función al evaluarla: $12$.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "La función particular que se logra desde una entrada se clasifica como su **imagen**.\n\nAl meter el 6 en la función que duplica valores, obtenés.\n\nEl 12 cumple el rol de imagen puntual del 6.\n\nLa imagen puntual del $6$ es el valor que devuelve la función al evaluarla: $12$.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "imagen-conjunto"
@@ -1039,7 +1039,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo. Para atrapar a la preimagen del 0, necesitás despejar la ecuación.\n\nLa preimagen buscada es el 3. Preimagen no es $f(k)$: acá no evaluás, despejás qué entrada produce la salida $0$. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **preimagen** de un valor de salida es el número exacto que tuviste que ingresar para conseguirlo.\n\nPara atrapar a la preimagen del 0, necesitás despejar la ecuación.\n\nLa preimagen buscada es el 3.\n\nPreimagen no es $f(k)$: acá no evaluás, despejás qué entrada produce la salida $0$.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1064,7 +1064,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida. Acá se busca destrabar la expresión.\n\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$.\n\nUn mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** de un resultado agrupan a todos los candidatos de entrada que fabrican esa misma salida.\n\nAcá se busca destrabar la expresión.\n\nEso alberga dos soluciones distintas: $x=5$ y $x=-5$.\n\nUn mismo valor puede tener varias preimágenes: acá el $25$ proviene tanto de $5$ como de $-5$.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1089,7 +1089,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **preimágenes** reúnen todas las raíces que apuntan hacia una misma salida en la función. Para hallar las raíces del 1 en esta función, armás la igualdad $|x| = 1$, que se separa en.\n\nUna salida puede presumir de varias preimágenes sin romper las funcións de juego. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "Las **preimágenes** reúnen todas las raíces que apuntan hacia una misma salida en la función.\n\nPara hallar las raíces del 1 en esta función, armás la igualdad $|x| = 1$, que se separa en.\n\nUna salida puede presumir de varias preimágenes sin romper las funcións de juego.\n\nAntes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1112,7 +1112,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida. Como la función aplana todo el universo numérico en el 8.\n\nNo hay preimagen que solucione esto. Si un valor no pertenece a la **imagen** no tiene preimagen: no hay entrada que lo produzca. Una función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
+    "explanation": "La **preimagen** de un valor solo existe si la función es capaz de se definelo como salida.\n\nComo la función aplana todo el universo numérico en el 8.\n\nNo hay preimagen que solucione esto.\n\nSi un valor no pertenece a la **imagen** no tiene preimagen: no hay entrada que lo produzca.\n\nUna función es una máquina de transformación que toma cada entrada del dominio y le asigna una única salida en el codominio (el rango es la parte del codominio que realmente se alcanza).",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1137,7 +1137,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **preimagen** invierte el interrogante: te dan el resultado y te exigen averiguar la entrada. Para rastrear la fuente del costo 35, igualás el modelo.\n\nLa preimagen pedida es el 5. Un registro que anota el costo 35 sin poder decir de qué compra vino tendría un problema de trazabilidad: acá, despejando, la preimagen es sin ambigüedad el 5.",
+    "explanation": "La **preimagen** invierte el interrogante: te dan el resultado y te exigen averiguar la entrada.\n\nPara rastrear la fuente del costo 35, igualás el modelo.\n\nLa preimagen pedida es el 5.\n\nUn registro que anota el costo 35 sin poder decir de qué compra vino tendría un problema de trazabilidad: acá, despejando, la preimagen es sin ambigüedad el 5.",
     "reviewed": false,
     "tags": [
       "preimagen-calculo"
@@ -1160,7 +1160,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El valor que alimenta a la función para se define un resultado en particular adquiere el nombre de **preimagen**. Acá el 4 viaja por el procesamiento de la función y desemboca en.\n\nDecimos que el 4 asume su puesto de preimagen del 64. No confundas la preimagen con la **imagen**: el 4 es la preimagen del 64, es decir la entrada, no la salida.",
+    "explanation": "El valor que alimenta a la función para se define un resultado en particular adquiere el nombre de **preimagen**.\n\nAcá el 4 viaja por el procesamiento de la función y desemboca en.\n\nDecimos que el 4 asume su puesto de preimagen del 64.\n\nNo confundas la preimagen con la **imagen**: el 4 es la preimagen del 64, es decir la entrada, no la salida.",
     "reviewed": false,
     "tags": [
       "preimagen-puntual"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado. En este escenario económico.\n\nEl 1000 se consagra como la preimagen del 50, la entrada que la función transforma en esa salida.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "Si una función convierte una entrada en cierta salida, la entrada original oficia de **preimagen** de dicho resultado.\n\nEn este escenario económico.\n\nEl 1000 se consagra como la preimagen del 50, la entrada que la función transforma en esa salida.\n\nEsta es una habilidad fundamental en matemáticas.\n\nPracticar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "reviewed": false,
     "tags": [
       "preimagen-puntual"

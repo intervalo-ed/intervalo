@@ -85,7 +85,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$.\n\ndentro de la expresión $x \\to a$.\n\nnunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo.\n\npara 'tender a $5$ por la izquierda'.\n\nel signo va junto al $5$:\n$$\\lim_{x \\to 5^-} f(x)$$\nCon el signo inmediatamente después del $5$.\n\nEste de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
+    "explanation": "El superíndice de dirección siempre se escribe pegado al punto de tendencia $a$.\n\ndentro de la expresión $x \\to a$.\n\nnunca pegado a $f(x)$ ni al nombre de la función.\n\nEn el ejemplo.\n\npara 'tender a $5$ por la izquierda'.\n\nel signo va junto al $5$:Con el signo inmediatamente después del $5$.\n\nEste de tipeo frecuente al pasar la notación de un apunte a una calculadora o a un procesador de texto: conviene revisar que el signo quede pegado al número de tendencia, no a la función.",
     "reviewed": false,
     "tags": [
       "notacion-y-direccion-lateral"

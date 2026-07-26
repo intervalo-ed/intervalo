@@ -208,7 +208,7 @@
       -3,
       3
     ],
-    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1. Comportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar. Descarta $x^3 - x$ y $x^3 + x$.\n\n**2. Raíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$.\n\nEn cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
+    "explanation": "Para distinguir entre las cuatro opciones, se usan dos criterios:\n\n**1.\n\nComportamiento en extremos:** la curva sube a la izquierda y baja a la derecha → coeficiente principal **negativo** y grado impar.\n\nDescarta $x^3 - x$ y $x^3 + x$.\n\n**2.\n\nRaíces:** $-x^3 + x = -x(x^2-1) = -x(x-1)(x+1) = 0$ da raíces en $x = 0, \\pm 1$.\n\nEn cambio, $-x^3 - x = -x(x^2+1) = 0$ solo tiene la raíz $x = 0$.\n\nLa gráfica muestra tres cruces con el eje $X$: la fórmula es $f(x) = -x^3 + x$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -530,7 +530,7 @@
       "El $6$ saldría de multiplicar los grados en vez de sumarlos.",
       null
     ],
-    "explanation": "El grado del producto de dos polinomios es siempre la **suma** de los grados de cada factor, a diferencia de la suma de polinomios, donde el grado puede reducirse por cancelación.\n\nCon $\\deg(x^2+1)=2$ y $\\deg(x^3-x)=3$:\n\nSe puede verificar mirando el término dominante del producto, $(x^2)(x^3) = x^5$, que efectivamente tiene grado $5$ y nunca se cancela con otro término del mismo grado.\n\nEsta regla con la del grado de una suma, donde a veces sí hay cancelación, más frecuente en este tipo de ejercicio.. Es lo que ocurre directamente.",
+    "explanation": "El grado del producto de dos polinomios es siempre la **suma** de los grados de cada factor, a diferencia de la suma de polinomios, donde el grado puede reducirse por cancelación.\n\nCon $\\deg(x^2+1)=2$ y $\\deg(x^3-x)=3$:\n\nSe puede verificar mirando el término dominante del producto, $(x^2)(x^3) = x^5$, que efectivamente tiene grado $5$ y nunca se cancela con otro término del mismo grado.\n\nEsta regla con la del grado de una suma, donde a veces sí hay cancelación, más frecuente en este tipo de ejercicio..\n\nEs lo que ocurre directamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

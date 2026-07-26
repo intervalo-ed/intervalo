@@ -200,7 +200,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que todo \"funciona a la perfección\": la función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que la función toma en el punto mismo.\n\nNo hay ruptura, no hay salto, no hay escape al infinito.\n\nNo hace falta redefinir nada ni hay ninguna rama que corregir. Este es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
+    "explanation": "Cuando el límite lateral izquierdo, el derecho y el valor puntual coinciden los tres en el mismo número, se cumplen las tres condiciones a la vez.\n\nLa coincidencia de los tres valores significa que todo \"funciona a la perfección\": la función se aproxima al mismo valor desde ambos lados, y ese valor es exactamente el que la función toma en el punto mismo.\n\nNo hay ruptura, no hay salto, no hay escape al infinito.\n\nNo hace falta redefinir nada ni hay ninguna rama que corregir.\n\nEste es el único escenario entre los cuatro posibles donde el diagnóstico final es simplemente que la función es continua en ese punto.",
     "reviewed": false,
     "tags": [
       "clasificacion-analitica-discontinuidad"

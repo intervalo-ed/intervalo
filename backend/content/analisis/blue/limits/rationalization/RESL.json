@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la raíz está abajo, la racionalización la mueve al numerador transformando el denominador en un polinomio simple.\n\nAsí se expone el factor cancelable de forma diferente que cuando la raíz está arriba.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+2$.\n\nSustituyendo $x=4$: $\\sqrt{4}+2 = 2+2 = 4$.\n\nCuando la raíz está abajo, el factor $(x-4)$ queda en el numerador tras multiplicar, así que se cancela directamente sin tocar la raíz.",
+    "explanation": "Cuando la raíz está abajo, la racionalización la mueve al numerador transformando el denominador en un polinomio simple.\n\nAsí se expone el factor cancelable de forma diferente que cuando la raíz está arriba.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+2$.\n\nSustituyendo $x=4$: $\\sqrt{4}+2 = 2+2 = 4$.\n\nCuando la raíz está abajo, el factor $(x-4)$ queda en el numerador tras multiplicar, así que se cancela directamente sin tocar la raíz.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Racionalizar un denominador con raíz es estratégico: multiplica la raíz arriba (por el conjugado) e introduce el factor común (x-a) en el numerador, donde puede cancelarse contra el original.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+3$.\n\nSustituyendo $x=9$: $\\sqrt{9}+3 = 3+3 = 6$.\n\nDespués de cancelar $(x-9)$ queda solo la expresión $\\sqrt{x}+3$: sustituir ahí es directo y no requiere ningún paso adicional.",
+    "explanation": "Racionalizar un denominador con raíz es estratégico: multiplica la raíz arriba (por el conjugado) e introduce el factor común (x-a) en el numerador, donde puede cancelarse contra el original.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+3$.\n\nSustituyendo $x=9$: $\\sqrt{9}+3 = 3+3 = 6$.\n\nDespués de cancelar $(x-9)$ queda solo la expresión $\\sqrt{x}+3$: sustituir ahí es directo y no requiere ningún paso adicional.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con la raíz en el denominador, después de racionalizar queda una expresión más simple donde el límite es directo.\n\nEl límite representa cómo se comporta la función cerca del punto, una vez resuelta la indeterminación.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl factor $(x-16)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
+    "explanation": "Con la raíz en el denominador, después de racionalizar queda una expresión más simple donde el límite es directo.\n\nEl límite representa cómo se comporta la función cerca del punto, una vez resuelta la indeterminación.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl factor $(x-16)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Racionalizar el denominador transforma la singularidad en una forma resoluble. El límite es la evaluación de esa forma simplificada, que ya no tiene indeterminación.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+5$.\n\nSustituyendo $x=25$: $\\sqrt{25}+5 = 5+5 = 10$.\n\nRacionalizar el denominador deja siempre el factor cancelable en el numerador, distinto del caso donde la raíz está arriba: conviene identificar de qué lado está antes de multiplicar.",
+    "explanation": "Racionalizar el denominador transforma la singularidad en una forma resoluble.\n\nEl límite es la evaluación de esa forma simplificada, que ya no tiene indeterminación.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+5$.\n\nSustituyendo $x=25$: $\\sqrt{25}+5 = 5+5 = 10$.\n\nRacionalizar el denominador deja siempre el factor cancelable en el numerador, distinto del caso donde la raíz está arriba: conviene identificar de qué lado está antes de multiplicar.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -268,7 +268,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Racionalizar expone el factor problemático y permite cancelarlo. Una vez cancelado, ya no hay indeterminación: el límite es simplemente la evaluación de la expresión simplificada.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+1$.\n\nSustituyendo $x=1$: $\\sqrt{1}+1 = 1+1 = 2$.\n\nEl factor $(x-1)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
+    "explanation": "Racionalizar expone el factor problemático y permite cancelarlo.\n\nUna vez cancelado, ya no hay indeterminación: el límite es simplemente la evaluación de la expresión simplificada.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+1$.\n\nSustituyendo $x=1$: $\\sqrt{1}+1 = 1+1 = 2$.\n\nEl factor $(x-1)$ del numerador se cancela directamente contra el que aparece al racionalizar, sin necesidad de ningún otro ajuste algebraico.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La técnica del conjugado en el denominador aprovecha la diferencia de cuadrados para exponer un factor cancelable.\n\nUna vez cancelado, el límite es el valor de la función simplificada en el punto de tendencia.\n\nLa sustitución directa da una indeterminación $0/0$. Como la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl radicando $16$ fue elegido por dar un cuadrado perfecto exacto, lo que evita cálculos pesados en el paso final.",
+    "explanation": "La técnica del conjugado en el denominador aprovecha la diferencia de cuadrados para exponer un factor cancelable.\n\nUna vez cancelado, el límite es el valor de la función simplificada en el punto de tendencia.\n\nLa sustitución directa da una indeterminación $0/0$.\n\nComo la raíz está en el denominador, corresponde **racionalizar** multiplicando por el conjugado $\\sqrt{x}+4$.\n\nSustituyendo $x=16$: $\\sqrt{16}+4 = 4+4 = 8$.\n\nEl radicando $16$ fue elegido por dar un cuadrado perfecto exacto, lo que evita cálculos pesados en el paso final.",
     "reviewed": false,
     "tags": [
       "raiz-en-el-denominador"
@@ -318,7 +318,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un límite con signo invertido en el numerador (4-x en lugar de x-4) oculta un factor -1 que es fácil olvidar. Reconocer el signo oculto desde el principio previene errores en el resultado final.\n\nEl numerador $4-x$ tiene el signo invertido respecto de $x-4$, ya que $4-x = -(x-4)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+2$:\n\nSustituyendo $x=4$: $-(\\sqrt{4}+2) = -(2+2) = -4$.\n\nEl signo oculto en $4-x$ de este tipo de límite: conviene reescribirlo como $-(x-4)$ antes de cancelar, para no perder el signo negativo final.",
+    "explanation": "Un límite con signo invertido en el numerador (4-x en lugar de x-4) oculta un factor -1 que es fácil olvidar.\n\nReconocer el signo oculto desde el principio previene errores en el resultado final.\n\nEl numerador $4-x$ tiene el signo invertido respecto de $x-4$, ya que $4-x = -(x-4)$.\n\nRacionalizando con el conjugado $\\sqrt{x}+2$:\n\nSustituyendo $x=4$: $-(\\sqrt{4}+2) = -(2+2) = -4$.\n\nEl signo oculto en $4-x$ de este tipo de límite: conviene reescribirlo como $-(x-4)$ antes de cancelar, para no perder el signo negativo final.",
     "reviewed": false,
     "tags": [
       "cancelacion-signos-ocultos"
