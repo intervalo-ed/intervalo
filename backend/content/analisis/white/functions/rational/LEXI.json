@@ -933,7 +933,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para clasificar.\n$$f(x)=\\frac{1}{x^2}$$\nComo par o impar se compara $f(-x)$ con $f(x)$: :.Como se cumple $f(-x)=f(x)$.\n\nla función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nque es impar y solo toma valores de un signo en cada rama.\n\n$\\frac{1}{x^2}$ siempre da valores positivos.\n\nsin importar el signo de $x$.",
+    "explanation": "\nComo par o impar se compara $f(-x)$ con $f(x)$: :.\n\nComo se cumple $f(-x)=f(x)$.\n\nla función es par, y su gráfica es simétrica respecto al eje $Y$.\n\nA diferencia de $\\frac{1}{x}$.\n\nque es impar y solo toma valores de un signo en cada rama.\n\n$\\frac{1}{x^2}$ siempre da valores positivos.\n\nsin importar el signo de $x$.",
     "reviewed": false,
     "tags": [
       "continuidad-en-dominio"

@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos, como si $x^2$ y $x$ se fusionaran en $x^{2+1}$.\n\nrompe por completo la estructura de la suma original.",
+    "explanation": "Con tres términos separados por sumas y restas, cada uno se convierte en su propia integral independiente, incluida la constante.\n$$\\int (x^2+x-4)\\,dx = \\int x^2\\,dx+\\int x\\,dx-\\int 4\\,dx$$\nCombinar los exponentes de distintos términos en un único resultado (como si $x^2$ y $x$ se fusionaran) es un error frecuente.\n\nTal intento rompe completamente la estructura de la suma original.",
     "reviewed": false,
     "tags": [
       "expansion-distribucion-obligatoria"
