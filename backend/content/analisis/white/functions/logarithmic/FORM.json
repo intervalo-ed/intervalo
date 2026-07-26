@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = \\log_5(x)$, ¿cuál es la base del logaritmo?",
+    "question": "Considerá:\n$$f(x) = \\log_5(x)$$\n¿cuál es la base del logaritmo?",
     "options": [
       "$5$",
       "$x$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\log_3(x - 2)$, ¿cuál es la asíntota vertical?",
+    "question": "Considerá:\n$$f(x) = \\log_3(x - 2)$$\n¿cuál es la asíntota vertical?",
     "options": [
       "$x = 2$",
       "$x = 3$",
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 2 \\cdot \\log(x)$, ¿cuál es el factor multiplicativo?",
+    "question": "Considerá:\n$$f(x) = 2 \\cdot \\log(x)$$\n¿cuál es el factor multiplicativo?",
     "options": [
       "$x$",
       "$10$",
@@ -955,7 +955,7 @@
     ]
   },
   {
-    "question": "$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$\\ln(x) + 2$",
       "$\\ln(x) - 2$",
@@ -1080,7 +1080,7 @@
     ]
   },
   {
-    "question": "$\\log_2\\!\\left(\\dfrac{16}{x}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\log_2\\!\\left(\\dfrac{16}{x}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$16 - \\log_2(x)$",
       "$\\dfrac{4}{\\log_2(x)}$",

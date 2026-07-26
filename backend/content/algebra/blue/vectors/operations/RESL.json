@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $\\vec{u} = (2, -3)$ y $\\vec{v} = (-1, 4)$, ¿cuánto vale $\\vec{u} + \\vec{v}$?",
+    "question": "Considerá:\n$$\\vec{u} = (2, -3)$$\ny $\\vec{v} = (-1, 4)$, ¿cuánto vale $\\vec{u} + \\vec{v}$?",
     "options": [
       "$(1, 1)$",
       "$(3, -7)$",

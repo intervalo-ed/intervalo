@@ -301,7 +301,7 @@
     "reviewed": false
   },
   {
-    "question": "Para $f(x) = (x - 1)^2 + 2$, ¿en qué intervalo es creciente?",
+    "question": "Considerá:\n$$f(x) = (x - 1)^2 + 2$$\n¿en qué intervalo es creciente?",
     "options": [
       "$[1,\\ +\\infty)$",
       "$(-\\infty,\\ 1]$",
@@ -763,7 +763,7 @@
     "reviewed": false
   },
   {
-    "question": "Para $f(x) = 2x^2 - 12x + 10$, ¿en qué intervalo es decreciente la función?",
+    "question": "Considerá la función:\n$$f(x) = 2x^2 - 12x + 10$$\n¿en qué intervalo es decreciente la función?",
     "options": [
       "$[3, +\\infty)$",
       "$(-\\infty, 3]$",
@@ -807,7 +807,7 @@
     "reviewed": false
   },
   {
-    "question": "Para $f(x) = -(x - 5)^2 + 8$, ¿en qué intervalo es creciente la función?",
+    "question": "Considerá la función:\n$$f(x) = -(x - 5)^2 + 8$$\n¿en qué intervalo es creciente la función?",
     "options": [
       "$[5, +\\infty)$",
       "$(-\\infty, 5]$",

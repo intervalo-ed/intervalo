@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $\\vec{u}=(1,2)$ y $\\vec{v}=(3,-1)$, ¿cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
+    "question": "Considerá:\n$$\\vec{u}=(1,2)$$\ny $\\vec{v}=(3,-1)$, ¿cuánto vale $\\vec{u}\\cdot\\vec{v}$?",
     "options": [
       "$1$",
       "$5$",

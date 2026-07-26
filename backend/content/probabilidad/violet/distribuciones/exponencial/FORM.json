@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim Exp(\\lambda)$ una variable exponencial con tasa $\\lambda$.\n\n¿Cuál es su función de densidad?",
+    "question": "Considerá la función:\n$$X \\sim Exp(\\lambda)$$\nuna variable exponencial con tasa $\\lambda$.\n\n¿Cuál es su función de densidad?",
     "options": [
       "$f(x) = \\lambda e^{-\\lambda x}$ para $x \\geq 0$",
       "$f(x) = e^{-\\lambda x}$ para $x \\geq 0$",

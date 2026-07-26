@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "En $p(x) = 3x^4 - 2x^3 + x - 8$, ¿cuál es el coeficiente del término de grado $3$?",
+    "question": "Considerá:\n$$p(x) = 3x^4 - 2x^3 + x - 8$$\n¿cuál es el coeficiente del término de grado $3$?",
     "options": [
       "$-2$",
       "$3$",
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "Para $p(x) = x^5 - 3x^3 + 2x - 7$, ¿cuánto vale $p(0)$?",
+    "question": "Considerá la función:\n$$p(x) = x^5 - 3x^3 + 2x - 7$$\n¿cuánto vale $p(0)$?",
     "options": [
       "$0$",
       "$1$",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "Para $p(x) = x^3 - x + 2$, ¿cuánto vale $p(-1)$?",
+    "question": "Considerá la función:\n$$p(x) = x^3 - x + 2$$\n¿cuánto vale $p(-1)$?",
     "options": [
       "$4$",
       "$-2$",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = 2x^3 - 3x^2 + 1$, ¿cuánto vale $f(2)$?",
+    "question": "Considerá la función:\n$$f(x) = 2x^3 - 3x^2 + 1$$\n¿cuánto vale $f(2)$?",
     "options": [
       "$5$",
       "$3$",
@@ -1140,7 +1140,7 @@
     ]
   },
   {
-    "question": "Para $p(x) = x^3 - 2x^2 + x - 3$, ¿cuánto vale $p(-1)$?",
+    "question": "Considerá la función:\n$$p(x) = x^3 - 2x^2 + x - 3$$\n¿cuánto vale $p(-1)$?",
     "options": [
       "$-7$",
       "$1$",

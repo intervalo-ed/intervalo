@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "$\\frac{\\Delta y}{\\Delta x}$\n¿Qué diferencia a?",
+    "question": "Considerá:\n$$\\frac{\\Delta y}{\\Delta x}$$\n¿Qué diferencia a?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
       "$\\frac{\\Delta y}{\\Delta x}$ es una variación finita y $\\frac{dy}{dx}$ es el límite cuando esa variación tiende a cero",

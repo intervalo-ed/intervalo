@@ -111,7 +111,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$. Vericando ambas condiciones simultáneamente:$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$Una confusión típica es probar solo el producto correcto sin verificar también que la suma coincida.\n\n, o invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
+    "explanation": "Para factorizar un **trinomio** de la forma $x^2 + bx + c$ hay que encontrar dos números que sumados den $b$ y multiplicados den $c$.\n\nEl procedimiento es sistemático: primero lista los pares de factores de $c$, luego verifica cuál par suma exactamente $b$. Vericando ambas condiciones simultáneamente:$$\\begin{aligned} 1 + 6 &= 7 \\\\ 1 \\cdot 6 &= 6 \\end{aligned}$$Probar solo el producto correcto sin verificar también que la suma coincida te va a llevar a respuestas incorrectas.\n\nTambién, invertir los signos cuando el término independiente es positivo pero se olvida revisar el signo del término lineal produce errores.\n\nEn límites con indeterminación $0/0$, una factorización correcta del trinomio revela inmediatamente el factor cancelable.",
     "reviewed": false
   },
   {
@@ -272,7 +272,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia.\n\nEs un protocolo automático: si ves 0/0, factoriza.$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow \\text{sustituir de nuevo} \\end{aligned}$$Saltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación.\n\nLa indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
+    "explanation": "Cuando la sustitución directa produce 0/0, el paso siguiente es aplicar **factorización** al numerador y al denominador para exhibir el factor común que ambos comparten en el valor de tendencia.\n\nEs un protocolo automático: si ves 0/0, factoriza.$$\\begin{aligned} \\text{0/0} &\\Rightarrow \\text{factorizar} \\\\ &\\Rightarrow \\text{cancelar} \\\\ &\\Rightarrow sustituir de nuevo \\end{aligned}$$Saltear este proceso y responder directamente que no existe o que vale cero sin factorizar es el error más frecuente frente a esta indeterminación.\n\nLa indeterminación es un **indicador de trabajo pendiente**, no un veredicto final.",
     "reviewed": false
   },
   {

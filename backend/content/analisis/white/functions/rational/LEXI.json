@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{P(x)}{Q(x)}$\n¿Cuándo no está definida una **función racional**?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo no está definida una **función racional**?",
     "options": [
       "Cuando $f(x) < 0$",
       "Cuando el numerador $P(x)$ es cero",
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Cómo se llama la **asíntota horizontal** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cómo se llama la **asíntota horizontal** de?",
     "options": [
       "$y = 1$",
       "$x = 0$",
@@ -185,7 +185,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Cuál es el **dominio** natural de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es el **dominio** natural de?",
     "options": [
       "Solo $x \\geq 1$",
       "Todos los reales",
@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{p(x)}{q(x)}$\n¿Por qué las **funciones racionales**?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{p(x)}{q(x)}$$\n¿Por qué las **funciones racionales**?",
     "options": [
       "Porque el numerador $p(x)$ puede ser cero",
       "Porque la división por cero no está definida, y $q(x)$ puede valer cero para ciertos $x$",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Cuál es la **imagen** (rango) de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es la **imagen** (rango) de?",
     "options": [
       "$(0, +\\infty)$ (solo positivos)",
       "$\\mathbb{R}$ (todos los reales)",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{P(x)}{Q(x)}$\n¿Qué determina la **asíntota horizontal** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Qué determina la **asíntota horizontal** de?",
     "options": [
       "El cociente de los coeficientes principales de $P$ y $Q$",
       "La raíz del denominador",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{2x + 1}{x - 3}$\n¿Qué es la **asíntota horizontal** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{2x + 1}{x - 3}$$\n¿Qué es la **asíntota horizontal** de?",
     "options": [
       "$y = 1$",
       "$y = 2$",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x + 3}{x - 1}$\n¿Cuál es el intercepto con el eje $Y$ de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x + 3}{x - 1}$$\n¿Cuál es el intercepto con el eje $Y$ de?",
     "options": [
       "$f(0) = 3$",
       "$f(0) = -3$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{P(x)}{Q(x)}$\n¿Cómo se encuentran los interceptos con el eje $X$ de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cómo se encuentran los interceptos con el eje $X$ de?",
     "options": [
       "Resolviendo $Q(x) = 0$",
       "Evaluando $f(0)$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x - 4}{x + 2}$\n¿Cuál es el intercepto con el eje $X$ de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x - 4}{x + 2}$$\n¿Cuál es el intercepto con el eje $X$ de?",
     "options": [
       "$x = 4$",
       "$x = -2$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Es?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Es?",
     "options": [
       "Par, porque $f(-x) = f(x)$",
       "Impar, porque $f(-x) = -f(x)$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x-2}$\n¿Qué le pasa a?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-2}$$\n¿Qué le pasa a?",
     "options": [
       "La función tiende a $+\\infty$",
       "La función tiende a $-\\infty$",
@@ -665,7 +665,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x-2}$\n¿Qué le pasa a?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-2}$$\n¿Qué le pasa a?",
     "options": [
       "La función tiende a $+\\infty$",
       "La función tiende a $-\\infty$",
@@ -690,7 +690,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Tiene extremos locales?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Tiene extremos locales?",
     "options": [
       "Sí, tiene un mínimo en $x = 1$",
       "Sí, tiene un máximo en $x = -1$",
@@ -715,7 +715,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x^2 - 1}{(x-1)(x+3)}$\n¿Cuál es el **dominio** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 - 1}{(x-1)(x+3)}$$\n¿Cuál es el **dominio** de?",
     "options": [
       "$\\mathbb{R} \\setminus \\{1\\}$",
       "$\\mathbb{R} \\setminus \\{-3\\}$",
@@ -740,7 +740,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x-3}$\n¿Qué transformación produce?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-3}$$\n¿Qué transformación produce?",
     "options": [
       "Desplazamiento horizontal de 3 unidades a la derecha",
       "Desplazamiento vertical de 3 unidades hacia arriba",
@@ -765,7 +765,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x} + 2$\n¿Qué transformación produce?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x} + 2$$\n¿Qué transformación produce?",
     "options": [
       "Desplazamiento horizontal de 2 unidades a la derecha",
       "Desplazamiento vertical de 2 unidades hacia arriba",
@@ -790,7 +790,7 @@
     ]
   },
   {
-    "question": "$f(x) = -\\dfrac{1}{x}$\n¿Qué produce el signo negativo en?",
+    "question": "Considerá:\n$$f(x) = -\\dfrac{1}{x}$$\n¿Qué produce el signo negativo en?",
     "options": [
       "Reflexión respecto al eje $Y$",
       "Desplazamiento vertical de $-1$",
@@ -815,7 +815,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$\n¿Cuántas **asíntotas verticales** tiene?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 + 1}{x^3 - x}$$\n¿Cuántas **asíntotas verticales** tiene?",
     "options": [
       "1 (en $x = 0$)",
       "2 (en $x = 1$ y $x = -1$)",
@@ -840,7 +840,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{P(x)}{Q(x)}$\n¿Cuándo NO tiene **asíntota horizontal**?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuándo NO tiene **asíntota horizontal**?",
     "options": [
       "Cuando el grado del numerador es mayor que el del denominador",
       "Cuando el grado del numerador es menor que el del denominador",
@@ -865,7 +865,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x^2 + 1}{x}$\n¿Cuál es la **asíntota oblicua** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 + 1}{x}$$\n¿Cuál es la **asíntota oblicua** de?",
     "options": [
       "$y = x + 1$",
       "$y = x$",
@@ -890,7 +890,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{k}{x-a} + b$, ¿cuáles son la **asíntota vertical** y la asíntota horizontal?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿cuáles son la **asíntota vertical** y la asíntota horizontal?",
     "options": [
       "AV: $x = b$ y AH: $y = a$",
       "AV: $x = k$ y AH: $y = 0$",
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x^2}$\n¿Es?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x^2}$$\n¿Es?",
     "options": [
       "Impar, porque $f(-x) = -f(x)$",
       "Ninguna de las dos",
@@ -940,7 +940,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{k}{x-a} + b$\n¿Cuál es la imagen de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{k}{x-a} + b$$\n¿Cuál es la imagen de?",
     "options": [
       "$\\mathbb{R} \\setminus \\{b\\}$",
       "$\\mathbb{R}$",
@@ -965,7 +965,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x}$\n¿Cuál es la diferencia entre el dominio de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿Cuál es la diferencia entre el dominio de?",
     "options": [
       "Son idénticos: $\\mathbb{R}\\setminus\\{0\\}$",
       "$g$ tiene dominio $\\mathbb{R}\\setminus\\{0,1\\}$ aunque se simplifique a $\\frac{1}{x}$",
@@ -990,7 +990,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{P(x)}{Q(x)}$\n¿Cuántas **asíntotas verticales** puede tener una **función racional**?",
+    "question": "Considerá la función:\n$$f(x) = \\dfrac{P(x)}{Q(x)}$$\n¿Cuántas **asíntotas verticales** puede tener una **función racional**?",
     "options": [
       "Siempre exactamente una",
       "A lo sumo dos",
@@ -1065,7 +1065,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{5}{x}$\n¿Qué le pasa a?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{5}{x}$$\n¿Qué le pasa a?",
     "options": [
       "Tiende a $5$",
       "Tiende a $0$ por arriba ($0^+$)",
@@ -1115,7 +1115,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{1}{x}$, ¿cuál de estos enunciados es correcto?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x}$$\n¿cuál de estos enunciados es correcto?",
     "options": [
       "Su dominio es $\\mathbb{R}$ y su imagen es $\\mathbb{R} \\setminus \\{0\\}$",
       "Su dominio es $\\mathbb{R} \\setminus \\{0\\}$ y su imagen es $\\mathbb{R}$",
@@ -1140,7 +1140,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{k}{x}$\n¿Qué efecto tiene multiplicar por $k>1$ en?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{k}{x}$$\n¿Qué efecto tiene multiplicar por $k>1$ en?",
     "options": [
       "Estira la curva verticalmente: los valores de la función se multiplican por $k$",
       "Desplaza la curva $k$ unidades a la derecha",
@@ -1165,7 +1165,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x^2 - 4}{x + 1}$\n¿Cuántas raíces reales tiene?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 - 4}{x + 1}$$\n¿Cuántas raíces reales tiene?",
     "options": [
       "Una sola ($x = 2$)",
       "Dos ($x = 2$ y $x = -2$)",

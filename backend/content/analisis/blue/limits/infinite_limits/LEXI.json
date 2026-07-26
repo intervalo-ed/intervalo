@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "$\\frac{\\infty}{\\infty}$\n¿Qué tipo de expresión es?",
+    "question": "Considerá:\n$$\\frac{\\infty}{\\infty}$$\n¿Qué tipo de expresión es?",
     "options": [
       "Siempre vale $1$",
       "Una indeterminación",

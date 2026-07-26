@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "En $f(x) = mx + b$, ¿cómo se llama el coeficiente $m$?",
+    "question": "Considerá:\n$$f(x) = mx + b$$\n¿cómo se llama el coeficiente $m$?",
     "options": [
       "Raíz",
       "Ordenada al origen",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 7 - 3x$, ¿cuál es la **ordenada al origen**?",
+    "question": "Considerá:\n$$f(x) = 7 - 3x$$\n¿cuál es la **ordenada al origen**?",
     "options": [
       "$7$",
       "$-3$",
@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 2x + 5$, ¿cuál es la **pendiente**?",
+    "question": "Considerá:\n$$f(x) = 2x + 5$$\n¿cuál es la **pendiente**?",
     "options": [
       "$5$",
       "$2x$",
@@ -480,7 +480,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x}{2} + 3$\n¿Pertenece?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x}{2} + 3$$\n¿Pertenece?",
     "options": [
       "No, porque tiene división",
       "No, porque $x$ no está multiplicada",
@@ -972,7 +972,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x-2}$\n¿Cuál es el **dominio** de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-2}$$\n¿Cuál es el **dominio** de?",
     "options": [
       "$\\mathbb{R}$",
       "$\\mathbb{R} \\setminus \\{2\\}$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\ny $0$ fuera de ese intervalo.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria continua con densidad\n$$f(x) = \\frac{1}{4} \\quad \\text{para } 0 \\leq x \\leq 4$$\ny $0$ fuera de ese intervalo.\n\n¿Cuánto vale $F(3) = P(X \\leq 3)$?",
     "options": [
       "$\\dfrac{1}{4}$",
       "$\\dfrac{1}{2}$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria continua con densidad\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\ny $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria continua con densidad\n$$f(x) = 2x \\quad \\text{para } 0 \\leq x \\leq 1$$\ny $0$ fuera de ese intervalo.\n\nCalculá $P(0 \\leq X \\leq 1/2)$.",
     "options": [
       "$\\dfrac{1}{2}$",
       "$\\dfrac{1}{4}$",

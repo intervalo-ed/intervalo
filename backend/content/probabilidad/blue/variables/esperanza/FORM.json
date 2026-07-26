@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué expresión define su **esperanza** $E[X]$?",
     "options": [
       "$\\sum_x p(x)$",
       "$\\sum_x x \\cdot p(x)$",

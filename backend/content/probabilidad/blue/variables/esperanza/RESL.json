@@ -1,7 +1,12 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual dada por:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n\n¿Cuánto vale $E[X]$?",
-    "options": ["$1{,}0$", "$1{,}1$", "$1{,}5$", "$3{,}0$"],
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria discreta con función de probabilidad puntual dada por:\n$$\\begin{aligned} p(0) &= 0{,}2 \\\\ p(1) &= 0{,}5 \\\\ p(2) &= 0{,}3 \\end{aligned}$$\n\n¿Cuánto vale $E[X]$?",
+    "options": [
+      "$1{,}0$",
+      "$1{,}1$",
+      "$1{,}5$",
+      "$3{,}0$"
+    ],
     "correct_index": 1,
     "feedback_correct": "$0 \\cdot 0{,}2 + 1 \\cdot 0{,}5 + 2 \\cdot 0{,}3 = 1{,}1$.",
     "feedback_incorrect": [

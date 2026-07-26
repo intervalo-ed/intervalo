@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim Geom(p)$ la cantidad de ensayos hasta el primer éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es $P(X=k)$?",
+    "question": "Considerá la función:\n$$X \\sim Geom(p)$$\nla cantidad de ensayos hasta el primer éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es $P(X=k)$?",
     "options": [
       "$p^{k}(1-p)^{k}$",
       "$(1-p)^{k-1} p$",

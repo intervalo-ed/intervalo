@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Si $F$ es una **primitiva** de $f$, ¿qué otra función también es primitiva de $f$?",
+    "question": "Considerá la función:\n$$F$$\nes una **primitiva** de $f$, ¿qué otra función también es primitiva de $f$?",
     "options": [
       "$F(x)+5$, para cualquier constante",
       "$F(x) \\cdot 5$",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Si $F'(x) = f(x)$ para todo $x$, ¿qué se puede afirmar sobre $F$?",
+    "question": "Considerá:\n$$F'(x) = f(x)$$\npara todo $x$, ¿qué se puede afirmar sobre $F$?",
     "options": [
       "$F$ es la integral definida de $f$",
       "$F$ es una primitiva de $f$",

@@ -415,7 +415,7 @@
     ]
   },
   {
-    "question": "$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{2}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{2}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$0$",
       "$\\dfrac{\\sqrt{2}}{2}$",
@@ -440,7 +440,7 @@
     ]
   },
   {
-    "question": "$\\cos\\!\\left(\\dfrac{\\pi}{2}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\cos\\!\\left(\\dfrac{\\pi}{2}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$1$",
       "$0$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "Si $f(x) = \\operatorname{sen}(Bx)$ con $B > 0$, ¿cuál es el **período** de $f$?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(Bx)$$\ncon $B > 0$, ¿cuál es el **período** de $f$?",
     "options": [
       "$2\\pi \\cdot B$",
       "$\\dfrac{\\pi}{B}$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\operatorname{sen}(2x)$, ¿cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
     "options": [
       "$1$",
       "$4$",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\operatorname{sen}(x) + D$, ¿qué efecto produce el parámetro $D$?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x) + D$$\n¿qué efecto produce el parámetro $D$?",
     "options": [
       "Cambia la amplitud",
       "Comprime el período",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\operatorname{sen}(x - C)$, ¿qué produce el parámetro $C > 0$?",
+    "question": "Considerá:\n$$f(x) = \\operatorname{sen}(x - C)$$\n¿qué produce el parámetro $C > 0$?",
     "options": [
       "Desplazamiento hacia la izquierda",
       "Compresión horizontal",
@@ -765,7 +765,7 @@
     ]
   },
   {
-    "question": "$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$\\dfrac{1}{2}$",
@@ -790,7 +790,7 @@
     ]
   },
   {
-    "question": "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right)$\n¿Cuánto vale?",
+    "question": "Considerá:\n$$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right)$$\n¿Cuánto vale?",
     "options": [
       "$\\dfrac{\\sqrt{3}}{2}$",
       "$1$",
@@ -1015,7 +1015,7 @@
     ]
   },
   {
-    "question": "$g(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$\n¿Cuál es el **período** de?",
+    "question": "Considerá:\n$$g(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuál es el **período** de?",
     "options": [
       "$\\pi$",
       "$2\\pi$",
@@ -1240,7 +1240,7 @@
     ]
   },
   {
-    "question": "En $f(x) = -3\\,\\cos(x)$, ¿cuál es la **amplitud** de la función?",
+    "question": "Considerá la función:\n$$f(x) = -3\\,\\cos(x)$$\n¿cuál es la **amplitud** de la función?",
     "options": [
       "$-3$",
       "$3$",

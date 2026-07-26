@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria continua con función de **densidad** $f(x)$.\n\n¿Qué expresión da $P(a \\leq X \\leq b)$?",
     "options": [
       "$f(b) - f(a)$",
       "$\\displaystyle \\int_a^b f(x)\\,dx$",

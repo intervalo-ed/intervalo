@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $\\dim(V)=5$ y $\\dim(\\ker(T))=2$, ¿cuánto vale $\\dim(\\text{Im}(T))$?",
+    "question": "Considerá:\n$$\\dim(V)=5$$\ny $\\dim(\\ker(T))=2$, ¿cuánto vale $\\dim(\\text{Im}(T))$?",
     "options": [
       "$3$",
       "$7$",

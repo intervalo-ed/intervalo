@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ la cantidad de ensayos hasta obtener el $r$-ésimo éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Considerá la función:\n$$X$$\nla cantidad de ensayos hasta obtener el $r$-ésimo éxito, con probabilidad $p$ por ensayo.\n\n¿Cuál es la fórmula de $P(X=k)$?",
     "options": [
       "$\\binom{k-1}{r-1} p^{r}(1-p)^{k-r}$",
       "$\\binom{k}{r} p^{r}(1-p)^{k-r}$",

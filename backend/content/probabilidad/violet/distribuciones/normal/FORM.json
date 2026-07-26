@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim N(\\mu, \\sigma^{2})$.\n\n¿Qué transformación estandariza $X$ a una normal $N(0, 1)$?",
+    "question": "Considerá:\n$$X \\sim N(\\mu, \\sigma^{2})$$\n.\n\n¿Qué transformación estandariza $X$ a una normal $N(0, 1)$?",
     "options": [
       "$Z = X - \\mu$",
       "$Z = X / \\sigma$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria y $F(x)$ su función de distribución acumulada.\n\n¿Qué representa $F(x)$?",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria y $F(x)$ su función de distribución acumulada.\n\n¿Qué representa $F(x)$?",
     "options": [
       "$P(X = x)$",
       "$P(X \\leq x)$",

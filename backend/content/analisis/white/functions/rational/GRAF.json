@@ -60,7 +60,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x^2 - 4}$\n¿Cuántas asíntotas verticales tiene?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x^2 - 4}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "0",
       "1 (en $x = 4$)",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{x}{x+1}$\n¿Cuántas asíntotas verticales tiene?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{x}{x+1}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1 (en $x = -1$)",
       "2",
@@ -180,7 +180,7 @@
     ]
   },
   {
-    "question": "Para $f(x) = \\dfrac{2x+1}{x-3}$, ¿cuál es la asíntota horizontal?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{2x+1}{x-3}$$\n¿cuál es la asíntota horizontal?",
     "options": [
       "$y = -3$",
       "$y = 1$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{x-1}$\n¿Cuántas asíntotas tiene en total?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x-1}$$\n¿Cuántas asíntotas tiene en total?",
     "options": [
       "2 (una vertical $x=1$ y una horizontal $y=0$)",
       "1 (solo la vertical $x=1$)",

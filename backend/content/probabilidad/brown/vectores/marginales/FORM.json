@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $(X, Y)$ un vector continuo con densidad conjunta $f(x, y)$.\n\n¿Qué expresión da la marginal $f_X(x)$?",
+    "question": "Considerá la función:\n$$(X, Y)$$\nun vector continuo con densidad conjunta $f(x, y)$.\n\n¿Qué expresión da la marginal $f_X(x)$?",
     "options": [
       "$f_X(x) = f(x, x)$",
       "$f_X(x) = \\displaystyle \\int_{-\\infty}^{\\infty} f(x, y)\\,dy$",

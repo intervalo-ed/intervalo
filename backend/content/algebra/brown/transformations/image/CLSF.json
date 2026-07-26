@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $T(x,y)=(x,0)$, ¿cuál de estos vectores pertenece a la **imagen** de $T$?",
+    "question": "Considerá:\n$$T(x,y)=(x,0)$$\n¿cuál de estos vectores pertenece a la **imagen** de $T$?",
     "options": [
       "$(3,0)$",
       "$(0,3)$",

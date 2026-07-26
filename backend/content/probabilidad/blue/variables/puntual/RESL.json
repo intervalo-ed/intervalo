@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ la cantidad de caras al lanzar 2 monedas balanceadas.\n\n¿Cuál es $P(X = 1)$?",
+    "question": "Considerá la función:\n$$X$$\nla cantidad de caras al lanzar 2 monedas balanceadas.\n\n¿Cuál es $P(X = 1)$?",
     "options": [
       "$\\dfrac{1}{4}$",
       "$\\dfrac{1}{2}$",

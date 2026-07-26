@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$, ¿cuánto vale el elemento $(A^T)_{2,1}$?",
+    "question": "Considerá:\n$$A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$$\n¿cuánto vale el elemento $(A^T)_{2,1}$?",
     "options": [
       "$2$",
       "$4$",

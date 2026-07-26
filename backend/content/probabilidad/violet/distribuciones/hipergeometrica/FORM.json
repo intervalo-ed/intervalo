@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ el número de éxitos al extraer $n$ elementos sin reposición de una población de $N$ elementos con $K$ éxitos.\n\n¿Cuál es $P(X=k)$?",
+    "question": "Considerá la función:\n$$X$$\nel número de éxitos al extraer $n$ elementos sin reposición de una población de $N$ elementos con $K$ éxitos.\n\n¿Cuál es $P(X=k)$?",
     "options": [
       "$\\binom{n}{k} p^{k}(1-p)^{n-k}$",
       "$\\dfrac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}$",

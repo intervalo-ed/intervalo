@@ -1,7 +1,12 @@
 [
   {
-    "question": "Sea $(X, Y)$ un vector discreto con función de probabilidad conjunta dada por la tabla:\n$$\\begin{aligned} p(0, 0) &= 0{,}1 \\\\ p(0, 1) &= 0{,}2 \\\\ p(1, 0) &= 0{,}3 \\\\ p(1, 1) &= 0{,}4 \\end{aligned}$$\n\n¿Cuánto vale $P(X + Y = 1)$?",
-    "options": ["$0{,}1$", "$0{,}3$", "$0{,}5$", "$0{,}7$"],
+    "question": "Considerá la función:\n$$(X, Y)$$\nun vector discreto con función de probabilidad conjunta dada por la tabla:\n$$\\begin{aligned} p(0, 0) &= 0{,}1 \\\\ p(0, 1) &= 0{,}2 \\\\ p(1, 0) &= 0{,}3 \\\\ p(1, 1) &= 0{,}4 \\end{aligned}$$\n\n¿Cuánto vale $P(X + Y = 1)$?",
+    "options": [
+      "$0{,}1$",
+      "$0{,}3$",
+      "$0{,}5$",
+      "$0{,}7$"
+    ],
     "correct_index": 2,
     "feedback_correct": "$P(0,1) + P(1,0) = 0{,}2 + 0{,}3 = 0{,}5$.",
     "feedback_incorrect": [

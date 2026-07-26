@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 6 \\cdot 3^x$, ¿cuál es el **valor inicial** $f(0)$?",
+    "question": "Considerá la función:\n$$f(x) = 6 \\cdot 3^x$$\n¿cuál es el **valor inicial** $f(0)$?",
     "options": [
       "$6$",
       "$3$",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 4 \\cdot 2^x$, ¿cuál parámetro determina si la función crece o decrece?",
+    "question": "Considerá la función:\n$$f(x) = 4 \\cdot 2^x$$\n¿cuál parámetro determina si la función crece o decrece?",
     "options": [
       "El coeficiente $a = 4$",
       "El exponente $x$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "Si $f(x) = 2^x$ y $g(x) = 2^{x-3}$, ¿cómo se relacionan sus gráficas?",
+    "question": "Considerá la función:\n$$f(x) = 2^x$$\ny $g(x) = 2^{x-3}$, ¿cómo se relacionan sus gráficas?",
     "options": [
       "$g$ está desplazada 3 unidades hacia la izquierda",
       "$g$ está desplazada 3 unidades hacia la derecha",
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "question": "Si $f(x) = 3^x$ y $g(x) = 3^x + 5$, ¿cuál es la **asíntota horizontal** de $g$?",
+    "question": "Considerá la función:\n$$f(x) = 3^x$$\ny $g(x) = 3^x + 5$, ¿cuál es la **asíntota horizontal** de $g$?",
     "options": [
       "$y = 0$",
       "$y = 3$",
@@ -665,7 +665,7 @@
     ]
   },
   {
-    "question": "Si $f(x) = 2^x$, ¿cuál es la **imagen** de $g(x) = -2^x$?",
+    "question": "Considerá la función:\n$$f(x) = 2^x$$\n¿cuál es la **imagen** de $g(x) = -2^x$?",
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 0)$",
@@ -890,7 +890,7 @@
     ]
   },
   {
-    "question": "Para $x = 5$, ¿cuál de estas funciones tiene el mayor valor?",
+    "question": "Considerá:\n$$x = 5$$\n¿cuál de estas funciones tiene el mayor valor?",
     "options": [
       "$f(x) = 1{,}5^x$",
       "$f(x) = 2^x$",
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "Para $x > 0$, ¿cómo se ordena $f(x) = 2^x$ respecto a $g(x) = 3^x$?",
+    "question": "Considerá la función:\n$$x > 0$$\n¿cómo se ordena $f(x) = 2^x$ respecto a $g(x) = 3^x$?",
     "options": [
       "Siempre $f(x) > g(x)$",
       "Siempre $f(x) = g(x)$",
@@ -1190,7 +1190,7 @@
     ]
   },
   {
-    "question": "Si $2^x = 8$, ¿cuánto vale $x$?",
+    "question": "Considerá:\n$$2^x = 8$$\n¿cuánto vale $x$?",
     "options": [
       "$x = 2$",
       "$x = 4$",
@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "Si $3^x = \\dfrac{1}{9}$, ¿cuánto vale $x$?",
+    "question": "Considerá:\n$$3^x = \\dfrac{1}{9}$$\n¿cuánto vale $x$?",
     "options": [
       "$x = -2$",
       "$x = 2$",

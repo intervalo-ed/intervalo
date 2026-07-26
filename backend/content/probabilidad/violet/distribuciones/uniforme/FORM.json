@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim U(a, b)$ una variable aleatoria uniforme continua sobre $[a, b]$.\n\n¿Cuál es su función de densidad?",
+    "question": "Considerá la función:\n$$X \\sim U(a, b)$$\nuna variable aleatoria uniforme continua sobre $[a, b]$.\n\n¿Cuál es su función de densidad?",
     "options": [
       "$f(x) = \\dfrac{1}{b-a}$ sobre $[a, b]$",
       "$f(x) = \\dfrac{x-a}{b-a}$ sobre $[a, b]$",

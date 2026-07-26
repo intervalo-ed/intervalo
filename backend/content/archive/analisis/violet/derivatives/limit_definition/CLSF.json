@@ -80,7 +80,7 @@
     "reviewed": false
   },
   {
-    "question": "Si $f$ es **diferenciable** en $x=a$, ¿cuál de las siguientes afirmaciones es necesariamente cierta?",
+    "question": "Considerá:\n$$f$$\nes **diferenciable** en $x=a$, ¿cuál de las siguientes afirmaciones es necesariamente cierta?",
     "options": [
       "$f$ no está definida en algún punto cercano a $a$",
       "$f$ es continua en $a$",
@@ -120,7 +120,7 @@
     "reviewed": false
   },
   {
-    "question": "En $x=a$, los límites laterales del cociente incremental de $f$ existen pero son distintos entre sí. ¿A qué caso de no diferenciabilidad corresponde?",
+    "question": "Dado el límite:\n$$x=a$$\nlos límites laterales del cociente incremental de $f$ existen pero son distintos entre sí. ¿A qué caso de no diferenciabilidad corresponde?",
     "options": [
       "Un quiebre, es decir, un pico anguloso",
       "Un salto de discontinuidad",
@@ -140,7 +140,7 @@
     "reviewed": false
   },
   {
-    "question": "En $x=a$, la función presenta un salto, los límites laterales de $f$ son distintos entre sí. ¿Por qué no es diferenciable ahí?",
+    "question": "Considerá la función:\n$$x=a$$\nla función presenta un salto, los límites laterales de $f$ son distintos entre sí. ¿Por qué no es diferenciable ahí?",
     "options": [
       "Porque la derivada vale infinito en ese punto",
       "Porque al no ser continua, tampoco puede ser diferenciable",
@@ -160,7 +160,7 @@
     "reviewed": false
   },
   {
-    "question": "En $x=a$, el cociente incremental de $f$ tiende a $+\\infty$ o $-\\infty$ por ambos lados. ¿Qué caso de no diferenciabilidad describe esta situación?",
+    "question": "Considerá:\n$$x=a$$\nel cociente incremental de $f$ tiende a $+\\infty$ o $-\\infty$ por ambos lados. ¿Qué caso de no diferenciabilidad describe esta situación?",
     "options": [
       "Un quiebre",
       "Un salto",

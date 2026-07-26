@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim Bin(n, p)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Considerá la función:\n$$X \\sim Bin(n, p)$$\n.\n\n¿Cuál es la fórmula de $P(X=k)$?",
     "options": [
       "$p^{k}(1-p)^{n-k}$",
       "$\\binom{n}{k} p^{k}(1-p)^{n-k}$",

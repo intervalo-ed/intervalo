@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X \\sim Pois(\\lambda)$.\n\n¿Cuál es la fórmula de $P(X=k)$?",
+    "question": "Considerá la función:\n$$X \\sim Pois(\\lambda)$$\n.\n\n¿Cuál es la fórmula de $P(X=k)$?",
     "options": [
       "$\\lambda^{k} e^{-\\lambda}$",
       "$\\dfrac{e^{-\\lambda}\\lambda^{k}}{k!}$",

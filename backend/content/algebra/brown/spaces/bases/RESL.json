@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $B=\\{(1,1),(1,-1)\\}$ es base de $\\mathbb{R}^2$, ¿qué coeficientes escriben a $(4,2)$ como combinación de $B$?",
+    "question": "Considerá:\n$$B=\\{(1,1),(1,-1)\\}$$\nes base de $\\mathbb{R}^2$, ¿qué coeficientes escriben a $(4,2)$ como combinación de $B$?",
     "options": [
       "$a=3,\\ b=1$",
       "$a=1,\\ b=3$",

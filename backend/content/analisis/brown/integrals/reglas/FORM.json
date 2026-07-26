@@ -100,7 +100,7 @@
     ]
   },
   {
-    "question": "$\\int \\frac{1}{x}\\,dx$\n¿Cuál función integra a:\n$?",
+    "question": "Considerá la función:\n$$\\int \\frac{1}{x}\\,dx$$\n¿Cuál función integra a:\n$?",
     "options": [
       "$\\ln|x| + C$",
       "$\\ln x + C$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "$\\frac{1}{x}$\n¿Cuál es la función que, al derivarse, produce:\n$?",
+    "question": "Considerá la función:\n$$\\frac{1}{x}$$\n¿Cuál es la función que, al derivarse, produce:\n$?",
     "options": [
       "$\\ln x + C$",
       "$-\\frac{1}{x^2} + C$",

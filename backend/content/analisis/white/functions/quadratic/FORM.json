@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el coeficiente del término cuadrático?",
+    "question": "Considerá:\n$$f(x) = 3x^2 - 6x + 2$$\n¿cuál es el coeficiente del término cuadrático?",
     "options": [
       "$3$",
       "$-6$",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 2x^2 - 5x + 1$, ¿cuál es el coeficiente lineal ($b$)?",
+    "question": "Considerá:\n$$f(x) = 2x^2 - 5x + 1$$\n¿cuál es el coeficiente lineal ($b$)?",
     "options": [
       "$1$",
       "$2$",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "En $f(x) = -(x-3)^2 + 2$, ¿cuáles son las coordenadas del vértice?",
+    "question": "Considerá:\n$$f(x) = -(x-3)^2 + 2$$\n¿cuáles son las coordenadas del vértice?",
     "options": [
       "$(-3, -2)$",
       "$(-3, 2)$",
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 2x^2 - 8x + 6$, ¿cuál es el término independiente ($c$)?",
+    "question": "Considerá:\n$$f(x) = 2x^2 - 8x + 6$$\n¿cuál es el término independiente ($c$)?",
     "options": [
       "$6$",
       "$-8$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "En $f(x) = -3(x+1)^2 + 5$, ¿cuál es el vértice?",
+    "question": "Considerá:\n$$f(x) = -3(x+1)^2 + 5$$\n¿cuál es el vértice?",
     "options": [
       "$(1, 5)$",
       "$(-1, 5)$",
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "En $f(x) = -2x^2 + 3x - 5$, ¿cuál es el coeficiente principal $a$?",
+    "question": "Considerá:\n$$f(x) = -2x^2 + 3x - 5$$\n¿cuál es el coeficiente principal $a$?",
     "options": [
       "$3$",
       "$-5$",
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "question": "En $f(x) = x^2 - 6x + 9$, ¿cuál es el término independiente $c$?",
+    "question": "Considerá:\n$$f(x) = x^2 - 6x + 9$$\n¿cuál es el término independiente $c$?",
     "options": [
       "$-6$",
       "$1$",
@@ -340,7 +340,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 4x^2 - 8x + 1$, ¿cuál es el eje de simetría?",
+    "question": "Considerá:\n$$f(x) = 4x^2 - 8x + 1$$\n¿cuál es el eje de simetría?",
     "options": [
       "$x = 1$",
       "$x = -1$",
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 3x^2 - 6x + 2$, ¿cuál es el coeficiente lineal $b$?",
+    "question": "Considerá:\n$$f(x) = 3x^2 - 6x + 2$$\n¿cuál es el coeficiente lineal $b$?",
     "options": [
       "$3$",
       "$-6$",

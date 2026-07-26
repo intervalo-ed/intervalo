@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "Si $p(x)$ tiene **grado** 3 y $q(x)$ tiene grado 2, ¿cuál es el grado de $p(x) \\cdot q(x)$?",
+    "question": "Considerá la función:\n$$p(x)$$\ntiene **grado** 3 y $q(x)$ tiene grado 2, ¿cuál es el grado de $p(x) \\cdot q(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -665,7 +665,7 @@
     ]
   },
   {
-    "question": "Si $p(x)$ tiene **grado** 4 y $q(x)$ tiene grado 4, ¿cuál es el grado de $p(x) + q(x)$?",
+    "question": "Considerá la función:\n$$p(x)$$\ntiene **grado** 4 y $q(x)$ tiene grado 4, ¿cuál es el grado de $p(x) + q(x)$?",
     "options": [
       "Siempre $8$",
       "Siempre $4$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $f(x) = -3x + 8$, ¿cuál es la pendiente?",
+    "question": "Considerá:\n$$f(x) = -3x + 8$$\n¿cuál es la pendiente?",
     "options": [
       "$8$",
       "$-3$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 4x - 7$, ¿cuál es la ordenada al origen?",
+    "question": "Considerá:\n$$f(x) = 4x - 7$$\n¿cuál es la ordenada al origen?",
     "options": [
       "$4$",
       "$-7$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "En $f(x) = \\dfrac{1}{2}x + 5$, ¿cuál es la pendiente?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{2}x + 5$$\n¿cuál es la pendiente?",
     "options": [
       "$5$",
       "$\\dfrac{1}{2}$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "En $f(x) = 6 - 2x$, ¿cuál es la pendiente?",
+    "question": "Considerá:\n$$f(x) = 6 - 2x$$\n¿cuál es la pendiente?",
     "options": [
       "$6$",
       "$-2$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "$f(x) = \\dfrac{1}{2}x - 3$\n¿Cuál es la raíz de?",
+    "question": "Considerá:\n$$f(x) = \\dfrac{1}{2}x - 3$$\n¿Cuál es la raíz de?",
     "options": [
       "$x = 6$",
       "$x = 3$",

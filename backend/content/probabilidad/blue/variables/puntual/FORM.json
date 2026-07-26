@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué condición debe cumplir $p(x)$ sobre todo el dominio de $X$?",
+    "question": "Considerá la función:\n$$X$$\nuna variable aleatoria discreta con función de probabilidad puntual $p(x)$.\n\n¿Qué condición debe cumplir $p(x)$ sobre todo el dominio de $X$?",
     "options": [
       "$\\sum p(x) = 0$",
       "$\\sum p(x) = 1$",

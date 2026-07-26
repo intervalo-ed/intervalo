@@ -1,6 +1,6 @@
 [
   {
-    "question": "En $\\pi: 3x - 2y + z = 6$, ¿cuál es el vector normal del plano?",
+    "question": "Considerá:\n$$\\pi: 3x - 2y + z = 6$$\n¿cuál es el vector normal del plano?",
     "options": [
       "$(3,-2,1)$",
       "$(6,0,0)$",

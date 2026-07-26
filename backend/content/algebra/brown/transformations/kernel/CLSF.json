@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $T(x,y)=(x,0)$, ¿cuál de estos vectores pertenece al **núcleo** de $T$?",
+    "question": "Considerá:\n$$T(x,y)=(x,0)$$\n¿cuál de estos vectores pertenece al **núcleo** de $T$?",
     "options": [
       "$(0,5)$",
       "$(5,0)$",

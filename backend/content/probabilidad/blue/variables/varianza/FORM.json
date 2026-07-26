@@ -1,6 +1,6 @@
 [
   {
-    "question": "Sea $X$ una variable aleatoria con esperanza $\\mu = E[X]$.\n\n¿Qué expresión define la **varianza** $Var(X)$?",
+    "question": "Considerá:\n$$X$$\nuna variable aleatoria con esperanza $\\mu = E[X]$.\n\n¿Qué expresión define la **varianza** $Var(X)$?",
     "options": [
       "$E[X] - \\mu$",
       "$E[(X - \\mu)^{2}]$",

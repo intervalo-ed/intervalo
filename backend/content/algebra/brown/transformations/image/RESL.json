@@ -1,6 +1,6 @@
 [
   {
-    "question": "Si $T(x,y)=(x+y,\\,x-y)$, ¿cuánto vale $T(2,1)$?",
+    "question": "Considerá:\n$$T(x,y)=(x+y,\\,x-y)$$\n¿cuánto vale $T(2,1)$?",
     "options": [
       "$(3,1)$",
       "$(1,3)$",

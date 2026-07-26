@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Para $\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$, que da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Considerá:\n$$\\lim_{x \\to 0} \\dfrac{\\sqrt{x+1}-1}{x}$$\nque da la indeterminación una indeterminación $0/0$ y sí tiene una raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Sustitución directa",
       "Indeterminación no resoluble",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Para $\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$, ¿qué técnica corresponde aplicar?",
+    "question": "Considerá:\n$$\\lim_{x \\to 2} \\dfrac{\\sqrt{x+7}}{x+1}$$\n¿qué técnica corresponde aplicar?",
     "options": [
       "Racionalizar",
       "Factorizar",
