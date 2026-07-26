@@ -164,7 +164,7 @@
     "question": "Examiná la función:\n$$\\frac{f(a+h)-f(a)}{h}$$\nLa tasa de cambio promedio se transforma en...",
     "options": [
       "La pendiente de una recta secante distinta",
-      "La tasa de cambio instantánea en $a$",
+      "La tasa de cambio instantánea en $a$ por la regla",
       "La tasa de cambio promedio en un intervalo más chico"
     ],
     "correct_index": 1,

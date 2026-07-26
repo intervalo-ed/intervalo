@@ -593,7 +593,7 @@
     "question": "Sea la función:\n$$f(x) = \\dfrac{5}{x - 2}$$\n¿Tiene intercepto con el eje $X$ la función?",
     "options": [
       "Sí, en $x = 5$",
-      "No",
+      "No, no siempre",
       "Sí, en $x = 2$",
       "Sí, en $x = 0$"
     ],
@@ -644,7 +644,7 @@
     "options": [
       "Sí, en $y = 3$",
       "Sí, en $y = 1$",
-      "No",
+      "No, no siempre",
       "Sí, en $y = 0$"
     ],
     "correct_index": 2,

@@ -26,7 +26,7 @@
     "question": "Analizá la función:\n$$f(x) = (x+2)(x-2)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Múltiplo escalar",
-      "Distribuir y derivar por potencia",
+      "Distribuir",
       "Regla del producto"
     ],
     "correct_index": 1,
@@ -95,7 +95,7 @@
     "question": "Analizá la función:\n$$f(x) = (x-1)(x+5)$$\n¿Qué estrategia conviene usar para derivarla?",
     "options": [
       "Regla de la potencia",
-      "Distribuir y derivar por potencia",
+      "Distribuir",
       "Regla del producto"
     ],
     "correct_index": 1,

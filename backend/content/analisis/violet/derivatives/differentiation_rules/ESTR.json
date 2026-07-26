@@ -119,7 +119,7 @@
     "options": [
       "Aplicar primero la regla del producto entre los dos términos",
       "Combinar ambos términos en uno solo antes de derivar",
-      "Aplicar linealidad primero en el contexto"
+      "Aplicar linealidad primero en el contexto por la regla"
     ],
     "correct_index": 2,
     "has_math": true,

@@ -257,7 +257,7 @@
     "options": [
       "Concluir que el límite no existe",
       "Concluir que el límite vale $0$",
-      "Factorizar numerador y denominador para"
+      "Factorizar numerador"
     ],
     "correct_index": 2,
     "tags": [

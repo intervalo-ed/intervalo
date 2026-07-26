@@ -210,7 +210,7 @@
     "question": "Estudiá la función:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\nQue da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
-      "Factorizar en el contexto",
+      "Factorizar",
       "Sustitución directa"
     ],
     "correct_index": 1,

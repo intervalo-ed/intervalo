@@ -2,7 +2,7 @@
   {
     "question": "¿Cuál de estas funciones es un polinomio de **grado** 3?",
     "options": [
-      "$f(x) = x^3 - 2x + 5$",
+      "$f = x^3 - 2x + 5$",
       "$f(x) = x^2 + 1$",
       "$f(x) = 4x - 1$",
       "$f(x) = x^4$"
@@ -267,7 +267,7 @@
   {
     "question": "¿Cuál es el **dominio** natural de todo polinomio $p(x) = a_n x^n + \\cdots + a_1 x + a_0$?",
     "options": [
-      "$\\mathbb{R}$",
+      "$\\mathbb{R}$ en este contexto",
       "$(0, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{0\\}$",
       "Depende del grado del polinomio"

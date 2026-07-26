@@ -1068,7 +1068,7 @@
     "question": "El nivel del mar sube y baja con las mareas cada $\\approx 12$ horas. ¿Qué función modela mejor el nivel $h(t)$?",
     "options": [
       "$h(t) = 12t + k$",
-      "$h(t) = A\\,\\operatorname{sen}(Bt + C) + D$",
+      "$h = A\\,\\operatorname{sen} + D$",
       "$h(t) = e^{kt}$",
       "$h(t) = \\log(t)$"
     ],

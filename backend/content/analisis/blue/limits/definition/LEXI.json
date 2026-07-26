@@ -3,7 +3,7 @@
     "question": "Considerá la expresión\\n$$\\lim_{x \\to 3} f(x)$$\\n¿Qué describe mejor la flecha $\\to$ en esta notación?",
     "options": [
       "Que $x$ es igual a $3$ en ese instante",
-      "Que $x$ se acerca a $3$.",
+      "Que $x$ se acerca a $3$. por la regla",
       "Que $f(x)$ se transforma en el número $3$"
     ],
     "correct_index": 1,
@@ -165,7 +165,7 @@
     "options": [
       "Porque en toda función siempre coinciden, sin excepción",
       "Es una coincidencia numérica sin relación con las propiedades de $f$",
-      "Porque $f$ es continua en $x=3$ según la regla"
+      "Porque $f$ es continua en $x=3$ según la regla, el punto de interés"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -324,7 +324,7 @@
   {
     "question": "Una función tiene un hueco justo en $x=7$, aunque para valores cercanos se comporta como una expresión conocida.\\n\\n¿Es válido calcular $\\lim_{x \\to 7} f(x)$ por sustitución directa evaluando $f(7)$?",
     "options": [
-      "No, porque $f(7)$ no existe, hay",
+      "No, porque $f(7)$ no existe, hay por la regla",
       "Sí, siempre que el resultado sea un número finito",
       "Sí, porque todo límite se resuelve evaluando el punto exacto"
     ],

@@ -605,7 +605,7 @@
     "options": [
       "$(0, +\\infty)$",
       "$(-\\infty, 7/3)$",
-      "$\\mathbb{R}$ en esta forma",
+      "$\\mathbb{R}$",
       "$(7/3, +\\infty)$"
     ],
     "correct_index": 2,
@@ -629,7 +629,7 @@
     "question": "¿En qué intervalo decrece $f(x) = -2x + 5$?",
     "options": [
       "$(0, +\\infty)$",
-      "$\\mathbb{R}$ en esta forma",
+      "$\\mathbb{R}$",
       "$(-\\infty, 5/2)$",
       "$(5/2, +\\infty)$"
     ],
@@ -854,7 +854,7 @@
     "question": "¿A qué familia pertenece $f(x) = \\sqrt{x}$?",
     "options": [
       "Lineal",
-      "Raíz (irracional) en este contexto",
+      "Raíz",
       "Cuadrática",
       "Constante"
     ],

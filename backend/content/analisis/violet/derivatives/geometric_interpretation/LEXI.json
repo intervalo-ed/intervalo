@@ -257,7 +257,7 @@
     "options": [
       "Porque coincide con $f$ en todo su dominio",
       "Porque siempre queda por encima de la curva",
-      "Porque comparte con $f$ el mismo"
+      "Porque comparte con $f$ el mismo por la regla"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -278,7 +278,7 @@
   {
     "question": "¿Qué ocurre con la calidad de la **aproximación lineal** de la tangente a medida que uno se aleja del punto de tangencia?",
     "options": [
-      "El error entre la recta y según la regla",
+      "El error entre la recta",
       "El error se mantiene siempre igual",
       "El error desaparece por completo"
     ],

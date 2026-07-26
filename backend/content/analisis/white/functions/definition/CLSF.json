@@ -773,7 +773,7 @@
     "question": "Una tienda convierte medidas de cintura en tallas S, M o L. Las medidas van de 60 a 100 cm, pero en la práctica todos los clientes caen en M o L. $$T : \\{60, \\dots, 100\\} \\to \\{S, M, L\\}$$ ¿Cuál es el conjunto **imagen** de $T$?",
     "options": [
       "$\\{S, M, L\\}$",
-      "$\\{M, L\\}$ en esta forma",
+      "$\\{M",
       "$\\{60, \\dots, 100\\}$",
       "Solo la talla M"
     ],
@@ -850,7 +850,7 @@
       "$\\{1, \\dots, 20\\}$",
       "$\\{1, \\dots, 7\\}$",
       "El número $20$",
-      "$\\{7\\}$ en esta forma"
+      "$\\{7\\}$"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -972,7 +972,7 @@
   {
     "question": "Un examen tiene 3 preguntas y cada una se puntúa con 0, 1 o 2 según la respuesta. $$P : \\{1, 2, 3\\} \\to \\{0, 1, 2\\}$$ ¿Qué representa el conjunto $\\{0, 1, 2\\}$ en esta función?",
     "options": [
-      "El codominio",
+      "El codominio en este contexto",
       "El dominio de la función",
       "El conjunto imagen exacto",
       "El promedio de puntajes"

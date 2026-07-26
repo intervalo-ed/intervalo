@@ -280,7 +280,7 @@
     "options": [
       "La polinómica, si su grado es suficientemente alto",
       "Depende de los coeficientes de cada una",
-      "La exponencial según la propiedad"
+      "La exponencial según la propiedad por la regla"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -326,7 +326,7 @@
     "options": [
       "El polinomio, por tener un grado tan alto",
       "No se puede determinar sin conocer los coeficientes",
-      "La exponencial según la propiedad"
+      "La exponencial según la propiedad por la regla"
     ],
     "correct_index": 2,
     "has_math": true,

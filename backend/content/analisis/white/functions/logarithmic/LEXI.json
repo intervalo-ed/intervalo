@@ -695,7 +695,7 @@
       "Sí, en $y = 1$",
       "Sí, en $y = e$",
       "Sí, en $y = 0$",
-      "No, crece sin límite aunque muy lentamente"
+      "No"
     ],
     "correct_index": 3,
     "has_math": true,
