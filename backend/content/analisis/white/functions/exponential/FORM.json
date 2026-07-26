@@ -508,7 +508,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar $a$ y $b$ desde dos puntos de una exponencial, primero se lee $a$ como el valor en $x=0$, y luego se obtiene $b$ dividiendo $f(1)$ sobre $f(0)$.\n\n1. $f(0) = a = 8$. 2. $f(1) = 8b = 4 \\implies b = 0{,}5$.\n\nResultado: $f(x) = 8 \\cdot (0{,}5)^x$. Como $b = 0{,}5 < 1$: función **decreciente**.\n\nSi confundís el cociente con el producto, o invertís cuál punto va en el numerador, entonces va a ser incorrecto tu despeje de $b$.",
+    "explanation": "La función exponencial $f(x) = b^x$ con base $b > 1$ crece sin límite conforme $x$ aumenta.\n\nComparativamente, este crecimiento es mucho más rápido que el de funciones polinomiales. Mientras que $x^2$ crece cuadráticamente, $2^x$ crece multiplicativamente.\n\nPara valores grandes de $x$, la exponencial siempre superará al polinomio, por mucho que sea el grado del polinomio.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

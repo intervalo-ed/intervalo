@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x)=\\frac{2x+1}{x-3}$, numerador y denominador tienen ambos grado $1$, así que la **asíntota horizontal** es el cociente de los coeficientes principales.\n\n$\\frac{2}{1}=2$. Para $x$ muy grande, los términos independientes ($+1$ y $-3$) pesan cada vez menos frente a $2x$ y $x$, y la fracción se aproxima a $\\frac{2x}{x}=2$.\n\nPor eso la asíntota horizontal es $y=2$, no el coeficiente de un solo término aislado.",
+    "explanation": "Una asíntota vertical ocurre donde el denominador de una función racional se anula pero el numerador no.\n\nCuando $x$ se aproxima a ese punto, la función diverge a infinito. Por ejemplo, en $f(x) = \\frac{1}{x-3}$, hay una asíntota en $x = 3$.\n\nLa gráfica se aproxima indefinidamente a la línea vertical $x = 3$ sin poder cruzarla ni tocarla. Hay discontinuidad en ese punto.",
     "reviewed": false,
     "tags": [
       "cuadrantes-ramas"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para analizar qué pasa cerca de la **asíntota vertical** de $f(x)=\\frac{1}{x-2}$, conviene mirar el signo del denominador a cada lado. Si $x\\to2^+$ (por la derecha), entonces $x-2$ es un número positivo muy chico, es decir $x-2\\to0^+$. La fracción $\\frac{1}{x-2}$, con denominador positivo tendiendo a $0$, crece sin límite: tiende a $+\\infty$.\n\nPor eso la rama derecha de la gráfica sube verticalmente pegada a la asíntota.",
+    "explanation": "Para analizar el comportamiento cerca de una asíntota vertical, observa qué sucede cuando $x$ se acerca desde ambos lados.\n\nCuando $x \\to a^-$ (desde la izquierda), el denominador tiende a cero con un signo. El resultado es $\\infty$ o $-\\infty$ según ese signo.\n\nCuando $x \\to a^+$ (desde la derecha), el signo del denominador es el opuesto, así que el resultado tiene el signo opuesto también.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes"

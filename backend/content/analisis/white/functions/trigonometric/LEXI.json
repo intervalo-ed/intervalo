@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **círculo unitario** asocia cada ángulo $\\theta$ con el punto $P=(\\cos\\theta,\\,\\operatorname{sen}\\theta)$ sobre la circunferencia de radio $1$.\n\nEl ángulo $\\theta=0$ corresponde al punto $(1,0)$, cuya coordenada $y$ es $0$.\n\nPor lo tanto $\\operatorname{sen}(0)=0$. Nótese que $\\cos(0)=1$ (coordenada $x$). Los valores $1$ y $-1$ son los extremos del seno, que ocurren en $\\pi/2$ y $3\\pi/2$ respectivamente.\n\n$\\operatorname{sen}(0)=0$: el seno comienza en cero antes de dispararse al techo.",
+    "explanation": "La tangente es el cociente entre seno y coseno: $\\tan(x) = \\frac{\\sin(x)}{\\cos(x)}$.\n\nSe anula donde se anula el seno: en $x = 0, \\pi, 2\\pi, \\ldots$\n\nTiene asíntotas verticales donde se anula el coseno: en $x = \\pi/2, 3\\pi/2, \\ldots$\n\nEntre las asíntotas, la tangente crece sin límite de $-\\infty$ a $+\\infty$ en cada intervalo continuo.",
     "reviewed": false,
     "tags": [
       "valores-notables"

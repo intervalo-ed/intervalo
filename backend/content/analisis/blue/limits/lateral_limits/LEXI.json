@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Los dos **límites laterales** comparten el mismo punto de tendencia $a$: ambos estudian qué pasa con $f(x)$ cuando $x$ se acerca a $a$.\n\nLa única diferencia entre ellos es el lado desde el cual ocurre esa aproximación, izquierda o derecha.\n\nPor ejemplo, en $a=4$: $\\lim_{x \\to 4^-} f(x)$ recorre valores como $3{,}9$ y $3{,}99$, mientras que $\\lim_{x \\to 4^+} f(x)$ recorre valores como $4{,}1$ y $4{,}01$.\n\nAmbos apuntan al mismo destino, por caminos opuestos.\n\nQue compartan el punto de tendencia no implica que el resultado numérico coincida: pueden ser iguales o distintos, y esa comparación es justamente lo que determina si el límite bilateral existe.",
+    "explanation": "Los límites laterales describen el comportamiento de una función desde un solo lado del punto.\n\nEl límite izquierdo $\\lim_{x \\to a^-} f(x)$ es el valor al que $f(x)$ se aproxima cuando $x$ tiende a $a$ desde valores menores.\n\nEl límite derecho $\\lim_{x \\to a^+} f(x)$ considera $x$ acercándose a $a$ desde valores mayores.\n\nPara que exista el límite bilateral $\\lim_{x \\to a} f(x)$, ambos límites laterales deben existir y ser iguales.",
     "reviewed": false,
     "tags": [
       "teorema-existencia-bilateral"

@@ -758,7 +758,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de potencias de igual **base** establece que al multiplicar dos potencias con la misma base, los exponentes se suman:\n\nEsto viene de contar cuántas veces se multiplica $b$ por sí mismo: $b^m$ son $m$ factores de $b$ y $b^n$ son $n$ factores más, en total $m+n$ factores.\n\nCon $m=3$ y $n=4$: $2^3 \\cdot 2^4 = 2^{3+4} = 2^7$.\n\nEn la función exponencial esto explica el comportamiento multiplicativo entre valores consecutivos:\n\nCada unidad que avanza $x$, el valor se multiplica por $b$.\n\nNo confundir con multiplicar las bases directamente: $2^3 \\cdot 2^4$ no es $4^7$, porque las bases no cambian al sumar los exponentes.",
+    "explanation": "Una función exponencial $f(x) = b^x$ con base $b > 0, b \\neq 1$ está definida para todos los valores reales de $x$.\n\nEl dominio es todo $\\mathbb{R}$. Podemos elevar la base a cualquier exponente: entero, fraccionario, irracional, negativo, etc.\n\nEl rango (salida) depende del signo y el valor de la base. Si $b > 1$, el rango es $(0, \\infty)$ (todos los positivos). Si $0 < b < 1$, también es $(0, \\infty)$.",
     "reviewed": false,
     "tags": [
       "transformacion-horizontal"
