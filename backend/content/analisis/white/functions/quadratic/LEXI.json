@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **cuadrática** si puede expresarse en la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$.\n\nEl término $ax^2$ es lo que la hace cuadrática (grado 2).\n\nLos parámetros tienen significados específicos:\n- $a$: coeficiente que determina la concavidad (arriba si $a > 0$, abajo si $a < 0$).\n- $b$: coeficiente que afecta el eje de simetría.\n- $c$: término independiente igual a $f(0)$.\n\nEjemplos de funciones cuadráticas: $f(x) = x^2$\n\n$f(x) = -2x^2 + 3x + 1$, $f(x) = (x-3)^2$.",
+    "explanation": "Una función es **cuadrática** si puede expresarse en la forma $f(x) = ax^2 + bx + c$ donde $a \\neq 0$. El término $ax^2$ es lo que la hace cuadrática (grado 2).\n\nLos parámetros tienen significados específicos:\n- $a$: coeficiente que determina la concavidad (arriba si $a > 0$, abajo si $a < 0$).\n- $b$: coeficiente que afecta el eje de simetría.\n- $c$: término independiente igual a $f(0)$.\n\nEjemplos de funciones cuadráticas: $f(x) = x^2$\n\n$f(x) = -2x^2 + 3x + 1$, $f(x) = (x-3)^2$.",
     "reviewed": false,
     "tags": [
       "identificacion-formula"
@@ -48,7 +48,7 @@
       -2,
       8
     ],
-    "explanation": "El **vértice** es el punto extremo de una parábola (máximo o mínimo).\n\nUbicación: se encuentra en $x = -\\frac{b}{2a}$, y el valor $y$ se calcula evaluando en la función.\n\nPropiedades del vértice:\n- **Si $a > 0$**: parábola abre hacia arriba, vértice es **mínimo**.\n- **Si $a < 0$**: parábola abre hacia abajo, vértice es **máximo**.\n- Todas las parábolas son simétricas respecto a la línea vertical que pasa por el vértice.\n\nLa forma vértice de la parábola es $f(x) = a(x - h)^2 + k$ donde $(h,k)$ es el vértice.",
+    "explanation": "El **vértice** es el punto extremo de una parábola (máximo o mínimo). Ubicación: se encuentra en $x = -\\frac{b}{2a}$, y el valor $y$ se calcula evaluando en la función.\n\nPropiedades del vértice:\n- **Si $a > 0$**: parábola abre hacia arriba, vértice es **mínimo**.\n- **Si $a < 0$**: parábola abre hacia abajo, vértice es **máximo**.\n- Todas las parábolas son simétricas respecto a la línea vertical que pasa por el vértice.\n\nLa forma vértice de la parábola es $f(x) = a(x - h)^2 + k$ donde $(h,k)$ es el vértice.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"

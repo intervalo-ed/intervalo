@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante:\n\nel coeficiente $4$. Este patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante:\n\nel coeficiente $4$.\n\nEste patrón, un argumento lineal dentro de una función trigonométrica, es muy común y se resuelve rápidamente con sustitución: el factor que se necesita para el diferencial coincide exactamente con el coeficiente del argumento.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta** $\\cos(\\ln x)$\n\nla interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando. Reconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
+    "explanation": "En la **función compuesta** $\\cos(\\ln x)$\n\nla interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.\n\nReconocer este patrón, donde una función trascendente es interior de otra, es clave para identificar sustituciones en casos más complejos del cálculo integral.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"

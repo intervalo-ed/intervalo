@@ -953,7 +953,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para graficar una transformación trigonométrica:\n\n1. Identificar la función base (seno vs coseno). 2. Aplicar la amplitud $A$ (estira verticalmente). 3. Aplicar el período usando $B$ (comprime horizontalmente). 4. Aplicar el desplazamiento de fase (traslada horizontalmente). 5.\n\nAplicar el desplazamiento vertical $D$ (traslada verticalmente).\n\nEl orden de aplicación es importante: primero transformaciones horizontales, luego verticales.",
+    "explanation": "Para graficar una transformación trigonométrica:\n\n1. Identificar la función base (seno vs coseno). 2. Aplicar la amplitud $A$ (estira verticalmente). 3.\n\nAplicar el período usando $B$ (comprime horizontalmente). 4. Aplicar el desplazamiento de fase (traslada horizontalmente). 5. Aplicar el desplazamiento vertical $D$ (traslada verticalmente).\n\nEl orden de aplicación es importante: primero transformaciones horizontales, luego verticales.",
     "reviewed": false,
     "tags": [
       "imagen-rango-form-trig"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cualquier transformación lineal de una función trigonométrica produce otra función periódica.\n\nLa forma general es $f(x) = A \\operatorname{sen}(Bx + C) + D$ donde cada parámetro tiene un significado específico.\n\nPropiedades preservadas:\n- La periodicidad se mantiene (aunque el período cambie).\n- La onda sigue siendo simétrica.\n- Las transformaciones son composiciones de estiramientos, compresiones y traslaciones.",
+    "explanation": "Cualquier transformación lineal de una función trigonométrica produce otra función periódica. La forma general es $f(x) = A \\operatorname{sen}(Bx + C) + D$ donde cada parámetro tiene un significado específico.\n\nPropiedades preservadas:\n- La periodicidad se mantiene (aunque el período cambie).\n- La onda sigue siendo simétrica.\n- Las transformaciones son composiciones de estiramientos, compresiones y traslaciones.",
     "reviewed": false,
     "tags": [
       "cruce-eje-x"

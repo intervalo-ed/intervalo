@@ -1313,7 +1313,7 @@
       -4,
       4
     ],
-    "explanation": "En un modelo de depreciación por mitades, la fracción que conserva un bien después de $t$ períodos se relaciona con $t$ mediante un logaritmo negado, porque la fracción decrece mientras el tiempo crece.\n\n$p(0{,}5) = -\\log_2(1/2) = -(-1) = 1$.\n\nEn el gráfico, en $x = 0{,}5$ la curva vale $y = 1$.\n\nEsto significa que con $1$ período el bien llegó a la mitad de su valor original.",
+    "explanation": "En un modelo de depreciación por mitades, la fracción que conserva un bien después de $t$ períodos se relaciona con $t$ mediante un logaritmo negado, porque la fracción decrece mientras el tiempo crece.\n\n$p(0{,}5) = -\\log_2(1/2) = -(-1) = 1$.\n\nEn el gráfico, en $x = 0{,}5$ la curva vale $y = 1$. Esto significa que con $1$ período el bien llegó a la mitad de su valor original.",
     "reviewed": false,
     "tags": [
       "lectura-valor-puntual"

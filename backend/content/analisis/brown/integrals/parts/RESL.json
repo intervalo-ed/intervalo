@@ -43,7 +43,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\.\n\ndx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$.\n\nEl factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero. Este tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Elegimos $u=x$, $dv=e^{2x}\\.\n\ndx$, con $du=dx$ y $v=\\frac{e^{2x}}{2}$. El factor $\\frac{1}{2}$ que aparece al integrar $e^{2x}$ se arrastra en ambos términos del resultado final, no solo en el primero.\n\nEste tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -68,7 +68,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=x$, $dv=\\cos x\\.\n\ndx$, con $du=dx$ y $v=\\sin x$.\n\nEl doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
+    "explanation": "Elegimos $u=x$, $dv=\\cos x\\.\n\ndx$, con $du=dx$ y $v=\\sin x$. El doble signo negativo de este desarrollo, el de la fórmula y el de la primitiva del seno, se cancela dando un segundo término positivo.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\.\n\ndx$, con $du=3\\,dx$ y $v=-\\cos x$.\n\nEl coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo. La integración por partes es especialmente potente cuando el integrando es un producto de funciones de tipos distintos.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Elegimos $u=3x$, $dv=\\sin x\\.\n\ndx$, con $du=3\\,dx$ y $v=-\\cos x$. El coeficiente $3$ acompaña tanto al término $uv$ como a la integral remanente, sin perderse en ningún paso del desarrollo.\n\nLa integración por partes es especialmente potente cuando el integrando es un producto de funciones de tipos distintos.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=2x$, $dv=e^x\\.\n\ndx$, con $du=2\\,dx$ y $v=e^x$.\n\nEl coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa. Este tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Elegimos $u=2x$, $dv=e^x\\.\n\ndx$, con $du=2\\,dx$ y $v=e^x$. El coeficiente $2$ de $u$ se traslada al $du$, y ese mismo factor termina multiplicando a la integral remanente completa.\n\nEste tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "aplicacion-directa-una-iteracion"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Elegimos $u=\\ln x$, $dv=x\\.\n\ndx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$.\n\nLa integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$. Este tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Elegimos $u=\\ln x$, $dv=x\\.\n\ndx$, con $du=\\frac{1}{x}\\,dx$ y $v=\\frac{x^2}{2}$. La integral remanente se simplifica antes de resolverla, la potencia de $x$ baja de $x^2$ a $x$ gracias a la cancelación con $\\frac{1}{x}$.\n\nEste tipo de integral es muy común en aplicaciones, vale la pena dominarla completamente.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "factor-oculto-reducciones-cortas"

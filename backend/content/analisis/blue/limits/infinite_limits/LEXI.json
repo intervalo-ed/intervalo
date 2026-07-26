@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **asíntotas** son rectas que describen el comportamiento de una función en los extremos o en puntos de ruptura.\n\nEn el caso horizontal, la recta marca la altura hacia la cual se \"alinea\" la curva conforme $x$ se aleja de cualquier región central.\n\nUna **asíntota horizontal** describe el valor al que se estabiliza una función a medida que $x$ crece o decrece sin cota.\n\nSe escribe siempre como una recta horizontal, de la forma $y = L$, nunca en términos de $x$.\n\nAsí escribir la asíntota como $x = L$, invirtiendo los roles de la variable y del valor de estabilización.",
+    "explanation": "Las **asíntotas** son rectas que describen el comportamiento de una función en los extremos o en puntos de ruptura.\n\nEn el caso horizontal, la recta marca la altura hacia la cual se \"alinea\" la curva conforme $x$ se aleja de cualquier región central.\n\nUna **asíntota horizontal** describe el valor al que se estabiliza una función a medida que $x$ crece o decrece sin cota.\n\nSe escribe siempre como una recta horizontal, de la forma $y = L$, nunca en términos de $x$. Así escribir la asíntota como $x = L$, invirtiendo los roles de la variable y del valor de estabilización.",
     "reviewed": false,
     "tags": [
       "contraste-asintotas"

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético más frecuente acá.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^3}{3}+x$ y aplicamos la **Regla de Barrow**.\n\nLa resta final requiere denominador común entre la fracción y el entero, saltear ese paso aritmético más frecuente acá.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\frac{x^4}{4}$ y aplicamos Barrow.\n\nEste es el caso más simple, el límite inferior aporta cero, pero conviene igual escribir ambas evaluaciones para no perder el hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.\n\nCuando el límite inferior es cero, es especialmente importante no asumir que la primitiva también será cero en ese punto. Cada función tiene su propia evaluación: $e^0 = 1$, $\\ln(1) = 0$, $\\sin(0) = 0$, etc. Siempre evalúa explícitamente sin asumir nada.",
+    "explanation": "Armamos la primitiva $F(x)=\\frac{x^4}{4}$ y aplicamos Barrow. Este es el caso más simple, el límite inferior aporta cero, pero conviene igual escribir ambas evaluaciones para no perder el hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.\n\nCuando el límite inferior es cero, es especialmente importante no asumir que la primitiva también será cero en ese punto. Cada función tiene su propia evaluación: $e^0 = 1$, $\\ln(1) = 0$, $\\sin(0) = 0$, etc.\n\nSiempre evalúa explícitamente sin asumir nada.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores. Sin ella, tendríamos que calcular límites de sumas de Riemann, que es mucho más laborioso. Aplícala siempre en este orden: primero primitiva, luego resta limites.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
+    "explanation": "Armamos la primitiva $F(x)=\\sin x$ y aplicamos Barrow.\n\nConviene no confundir el valor del límite de integración, $\\pi/2$, con el resultado de evaluar la primitiva en ese punto.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nSin ella, tendríamos que calcular límites de sumas de Riemann, que es mucho más laborioso. Aplícala siempre en este orden: primero primitiva, luego resta limites.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Armamos la primitiva $F(x)=\\ln|x|$ y aplicamos Barrow.\n\nCon límites positivos como estos, el valor absoluto dentro del logaritmo no cambia el resultado, pero conviene mantenerlo por hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
+    "explanation": "Armamos la primitiva $F(x)=\\ln|x|$ y aplicamos Barrow. Con límites positivos como estos, el valor absoluto dentro del logaritmo no cambia el resultado, pero conviene mantenerlo por hábito.\n\nLa Regla de Barrow es el puente fundamental entre primitivas y definidas: permite convertir un problema de integral definida en una simple resta de valores.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"

@@ -450,7 +450,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo.\n\nEn esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**.\n\nNo inviertas los roles: el tiempo $h$ es la entrada libre; el gasto $C$ es lo que resulta, la dependiente.",
+    "explanation": "La variable **independiente** es el dato que suministrás al modelo para iniciar el cálculo. En esta situación el tiempo $h$ avanza y actúa como la entrada de la cuenta.\n\nEl gasto energético $C$ reacciona a ese tiempo, por lo que asume el papel **dependiente**. No inviertas los roles: el tiempo $h$ es la entrada libre; el gasto $C$ es lo que resulta, la dependiente.",
     "reviewed": false,
     "tags": [
       "variable-indep-dep"

@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nLa primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas. Aunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término. La primitiva de $\\sec^2 x$ es directamente $\\tan x$, sin ningún ajuste de signo adicional que recordar.\n\nRecordá que la primitiva de cada función elemental está dentro de tu tabla de fórmulas: no intentes inventarlas.\n\nAunque la tabla tiene muchas fórmulas, todas ellas se derivan de las reglas básicas de derivación invertidas.",
     "reviewed": false,
     "tags": [
       "polinomios-fracciones-simples-combinadas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$, un paso de simplificación que conviene no saltear. Cada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Separamos por linealidad y aplicamos la regla trigonométrica y la de la potencia a cada término.\n\nEl coeficiente $8$ dividido por el nuevo exponente $4$ da $2$, un paso de simplificación que conviene no saltear.\n\nCada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
@@ -343,7 +343,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Separamos por linealidad, reconociendo que $\\frac{6}{x}$ es el caso especial $n=-1$.\n\nEl signo negativo del segundo término se conserva sin cambios, la regla de la potencia no altera el signo en este caso. Cada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
+    "explanation": "Separamos por linealidad, reconociendo que $\\frac{6}{x}$ es el caso especial $n=-1$. El signo negativo del segundo término se conserva sin cambios, la regla de la potencia no altera el signo en este caso.\n\nCada primitiva elemental está en tu tabla de fórmulas: no intentes inventarlas caso por caso.\n\nNo dejes que este tema se vuelva un obstáculo: si lo necesitás, repasá los ejemplos anteriores y consultá con tus referencias hasta que quede completamente claro.",
     "reviewed": false,
     "tags": [
       "identificacion-inversa-derivada"
