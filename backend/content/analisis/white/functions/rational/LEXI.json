@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn.\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\n.\n\nel punto $(1,1)$ de : pasa a ser $(1,k)$ en $f$.La curva se aleja más de las asíntotas cuanto mayor es $k$, sin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
+    "explanation": "Multiplicar una función por una constante $k>1$ produce un estiramiento vertical: cada valor de la función original se multiplica por $k$.\n\nEn.\n$$f(x)=\\frac{k}{x}=k\\cdot\\frac{1}{x}$$\n.\n\nel punto $(1,1)$ de : pasa a ser $(1,k)$ en $f$.La curva se aleja más de las asíntotas cuanto mayor es $k$, \n\nsin cambiar su posición ni su signo, a diferencia de un desplazamiento o una reflexión.",
     "reviewed": false,
     "tags": [
       "asintota-vertical"

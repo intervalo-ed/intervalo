@@ -23,7 +23,7 @@
       -1,
       8
     ],
-    "explanation": "Para detectar dónde falla la **continuidad** en una gráfica, hay que recorrerla buscando huecos, saltos o ramas que escapan al infinito.\n\nCuando la función \"se acerca\" a un valor finito desde ambos lados pero no está definida en el punto exacto, el límite bilateral existe pero falta $f(a)$: es la firma de una discontinuidad removible.\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados de $x=2$, pero el punto marcado está en $y=5$: eso es exactamente un hueco.\n\nLos demás valores marcados, $x=0$, $x=-1$ y $x=4$, pertenecen a tramos donde la curva sigue su forma habitual sin ninguna ruptura visible.",
+    "explanation": "Para detectar dónde falla la **continuidad** en una gráfica, hay que recorrerla buscando huecos, saltos o ramas que escapan al infinito.\n\nCuando la función \"se acerca\" a un valor finito desde ambos lados pero no está definida en el punto exacto, el límite bilateral existe pero falta $f(a)$: es la firma de una discontinuidad removible.\n\nEn este caso la curva se acerca a $y=4$ desde ambos lados de $x=2$, \n\npero el punto marcado está en $y=5$: eso es exactamente un hueco.\n\nLos demás valores marcados, $x=0$, $x=-1$ y $x=4$, \n\npertenecen a tramos donde la curva sigue su forma habitual sin ninguna ruptura visible.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -53,7 +53,7 @@
       -1,
       7
     ],
-    "explanation": "Un **punto de quiebre** con dos ramas que llegan a alturas distintas se identifica visualmente por el corte brusco entre ambas curvas.\n\nCuando los límites laterales existen pero apuntan a valores diferentes, la función está \"dividida\" en su aproximación: no hay un único valor hacia el cual converja desde ambos lados.\n\nAcá la rama izquierda se acerca a $y=1$ y la derecha arranca en $y=4$, exactamente en $x=0$: ese salto de altura marca la falla.\n\nConviene mirar el punto exacto del corte y no un valor cercano; un tramo suave a un costado del quiebre sigue siendo perfectamente continuo.",
+    "explanation": "Un **punto de quiebre** con dos ramas que llegan a alturas distintas se identifica visualmente por el corte brusco entre ambas curvas.\n\nCuando los límites laterales existen pero apuntan a valores diferentes, la función está \"dividida\" en su aproximación: no hay un único valor hacia el cual converja desde ambos lados.\n\nAcá la rama izquierda se acerca a $y=1$ y la derecha arranca en $y=4$, \n\nexactamente en $x=0$: ese salto de altura marca la falla.\n\nConviene mirar el punto exacto del corte y no un valor cercano; un tramo suave a un costado del quiebre sigue siendo perfectamente continuo.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -83,7 +83,7 @@
       -6,
       6
     ],
-    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, sin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nAunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
+    "explanation": "Cuando una curva escapa hacia $+\\infty$ de un lado y hacia $-\\infty$ del otro, \n\nsin llegar nunca a un valor concreto, hay una asíntota vertical en ese $x$.\n\nUna divergencia a infinito significa que el límite lateral no existe como número finito: la función \"escapa\" sin control en esa dirección.\n\nAunque sea solo en un lado, la divergencia determina que hay una discontinuidad esencial.\n\nEn $f(x) = \\dfrac{1}{x-1}$ el denominador se anula en $x=1$, y ahí la gráfica dispara ambas ramas hacia el infinito.\n\nEste tipo de ruptura es la más grave de las tres, porque ningún valor finito de $f(1)$ podría reparar el comportamiento infinito de la curva a su alrededor.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -143,7 +143,7 @@
       -5,
       2
     ],
-    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí.\n\nEl enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, mientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nSi no evitás mezclar los conceptos, sucede que hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
+    "explanation": "Que la función valga $0$ en algún punto, es decir que corte el eje $x$, no tiene ninguna relación con la continuidad de ese punto.\n\nUn cero de la función es un punto donde la función \"pasa por el eje horizontal\", pero eso no genera ninguna ruptura: la función sigue siendo continua ahí.\n\nEl enunciado nombra el cruce como distractor visual.\n\nLa recta $f(x)=x-3$ cruza el eje en $x=3$ sin ningún problema, \n\nmientras que el hueco real está marcado en $x=1$, donde el círculo abierto indica que $f(1)$ no está definida.\n\nSi no evitás mezclar los conceptos, sucede que hay que buscar específicamente huecos, saltos o asíntotas, no ceros.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -173,7 +173,7 @@
       -3,
       6
     ],
-    "explanation": "Un salto entre dos ramas se ubica exactamente en el valor de $x$ donde cambia la definición de la función, no en un punto cercano de cualquiera de las dos ramas.\n\nCuando la función \"cambia de rama\", los límites laterales pueden apuntar a valores distintos: la rama izquierda se aproxima a un valor desde un lado, y la rama derecha arranca desde otro.\n\nAcá la rama izquierda se acerca a $y=-1$ cuando $x \\to -3^-$, mientras que la rama derecha arranca en $y=3$ para $x=-3$: el corte está justo ahí.\n\nElegir un valor vecino en vez del punto exacto de quiebre es un desliz típico al leer gráficas con ramas partidas.",
+    "explanation": "Un salto entre dos ramas se ubica exactamente en el valor de $x$ donde cambia la definición de la función, no en un punto cercano de cualquiera de las dos ramas.\n\nCuando la función \"cambia de rama\", los límites laterales pueden apuntar a valores distintos: la rama izquierda se aproxima a un valor desde un lado, y la rama derecha arranca desde otro.\n\nAcá la rama izquierda se acerca a $y=-1$ cuando $x \\to -3^-$, \n\nmientras que la rama derecha arranca en $y=3$ para $x=-3$: el corte está justo ahí.\n\nElegir un valor vecino en vez del punto exacto de quiebre es un desliz típico al leer gráficas con ramas partidas.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -203,7 +203,7 @@
       -3,
       4
     ],
-    "explanation": "En una racional simplificable, la curva puede parecer una recta continua salvo por un único punto puntual removido, marcado con un círculo abierto.\n\nAunque la función se vea como una recta casi en su totalidad, el círculo abierto marca el punto donde falla: el límite existe (la recta \"apunta\" a ese valor), pero $f(x)$ no está definida ahí por una división por cero en la expresión original.\n\nAcá la curva sigue $y = x - 1$ en apariencia, pero en $x=-1$ el denominador original se anula y ese punto queda excluido del dominio.\n\nEl resto de los valores marcados están sobre la misma recta sin ninguna interrupción, así que conviene enfocarse exclusivamente en el círculo abierto.",
+    "explanation": "En una racional simplificable, la curva puede parecer una recta continua salvo por un único punto puntual removido, marcado con un círculo abierto.\n\nAunque la función se vea como una recta casi en su totalidad, el círculo abierto marca el punto donde falla: el límite existe (la recta \"apunta\" a ese valor), pero $f(x)$ no está definida ahí por una\n\nAcá la curva sigue $y = x - 1$ en apariencia, pero en $x=-1$ el denominador original se anula y ese punto queda excluido del dominio.\n\nEl resto de los valores marcados están sobre la misma recta sin ninguna interrupción, así que conviene enfocarse exclusivamente en el círculo abierto.",
     "reviewed": false,
     "tags": [
       "diagnostico-visual-falla"
@@ -317,7 +317,7 @@
       -2,
       8
     ],
-    "explanation": "Dos ramas finitas que llegan a alturas distintas en el mismo valor de $x$ forman la representación visual de una **discontinuidad de salto**.\n\nCuando cada rama se aproxima a un valor finito pero esos valores son diferentes, tenemos un \"salto\" entre ellas: no hay forma de unir las dos aproximaciones porque apuntan a lugares distintos.\n\nLa rama izquierda se acerca a $y=2$ y la derecha arranca en $y=5$, un salto de $3$ unidades exactamente en $x=2$.\n\nA diferencia del hueco, acá no hay forma de reparar la falla redefiniendo un único punto: las dos ramas simplemente no se encuentran.",
+    "explanation": "Dos ramas finitas que llegan a alturas distintas en el mismo valor de $x$ forman la representación visual de una **discontinuidad de salto**.\n\nCuando cada rama se aproxima a un valor finito pero esos valores son diferentes, tenemos un \"salto\" entre ellas: no hay forma de unir las dos aproximaciones porque apuntan a lugares distintos.\n\nLa rama izquierda se acerca a $y=2$ y la derecha arranca en $y=5$, \n\nun salto de $3$ unidades exactamente en $x=2$.\n\nA diferencia del hueco, acá no hay forma de reparar la falla redefiniendo un único punto: las dos ramas simplemente no se encuentran.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"
@@ -401,7 +401,7 @@
       -1,
       7
     ],
-    "explanation": "El diccionario visual identifica dos ramas finitas a distinta altura directamente como **discontinuidad de salto**, sin necesidad de calcular nada más.\n\nCuando dos ramas de la función se acercan a valores distintos conforme $x$ se aproxima a un punto, hay un \"salto\" entre ellas: la función \"elige\" estar en uno de los dos valores, y hay un vacío donde podría estar el otro.\n\nLa rama izquierda se acerca a $y=5$ y la derecha arranca en $y=1$ exactamente en $x=-1$.\n\nLa diferencia de altura entre ambas ramas, $4$ unidades en este caso, no cambia la clasificación: alcanza con que sean distintas para que sea salto.",
+    "explanation": "El diccionario visual identifica dos ramas finitas a distinta altura directamente como **discontinuidad de salto**, sin necesidad de calcular nada más.\n\nCuando dos ramas de la función se acercan a valores distintos conforme $x$ se aproxima a un punto, hay un \"salto\" entre ellas: la función \"elige\" estar en uno de los dos valores, y hay un vacío donde\n\nLa rama izquierda se acerca a $y=5$ y la derecha arranca en $y=1$ exactamente en $x=-1$.\n\nLa diferencia de altura entre ambas ramas, $4$ unidades en este caso, no cambia la clasificación: alcanza con que sean distintas para que sea salto.",
     "reviewed": false,
     "tags": [
       "clasificacion-visual-discontinuidad"

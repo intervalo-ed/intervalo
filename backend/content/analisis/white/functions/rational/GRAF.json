@@ -53,7 +53,7 @@
       -5,
       5
     ],
-    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces $f>0$ (1.° cuadrante); si $x<0$ entonces $f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nConviene no confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
+    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces $f>0$ (1.° cuadrante); \n\nsi $x<0$ entonces $f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nConviene no confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico"
@@ -683,7 +683,7 @@
       -5,
       5
     ],
-    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$ y leer su altura correspondiente en el eje $Y$. ::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
+    "explanation": "Leer un valor aproximado de $f(3)$ en un gráfico significa ubicar el punto de la curva cuya coordenada $x$ es $3$ y leer su altura correspondiente en el eje $Y$. \n\n::en la gráfica.\n\nel punto $(3.\n\n1)$ está en la rama derecha.\n\na la derecha de la AV en $x=1$.\n\nConviene ubicar primero la asíntota vertical para no confundir de rama al leer el punto.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de : a $x=4$ y la AH sigue en $y=0$.Confundir estos dos parámetros más común al armar la fórmula desde el gráfico.",
+    "explanation": "Para desplazar horizontalmente una hipérbola, hay que reemplazar $x$ por $(x - a)$ dentro del denominador, no sumar o restar un número fuera de la fracción, que en cambio mueve la asíntota horizontal.\n\nDesplazar $\\frac{1}{x}$ cuatro unidades a la derecha equivale a reemplazar $x$ por $x-4$: :.La AV pasa de : a $x=4$ y la AH sigue en $y=0$.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"
@@ -1343,7 +1343,7 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): :.Verificamos con $(6,1)$: $f(6)=\\frac{1}{6-5}-1=1-1=0\\neq1$, el punto no coincide exactamente, pero el patrón de AV y AH sí identifica la fórmula correcta entre las opciones.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ (desplazamiento $-1$): :.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"
@@ -1433,7 +1433,7 @@
       0,
       12
     ],
-    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico, la intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
+    "explanation": "Cuando el dato conocido es el valor de salida de la función, hay que **despejar** la variable de entrada a partir de la ecuación, no simplemente leerla directamente.\n\nBuscamos $t$ tal que $v(t)=30$: : horas.En el gráfico, \n\nla intersección con $v=30$ ocurre en $t=2$.\n\nConviene despejar con cuidado en vez de invertir la fracción de memoria, para no confundir qué cantidad queda arriba y cuál abajo.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-totales"

@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:Contraste con una función polinómica como $x^3$, donde $x$ está en la **base** y el exponente es constante.\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
+    "explanation": "La **característica definitoria** de una función exponencial es que la variable $x$ aparece en el **exponente**:Contraste con una función polinómica como $x^3$, \n\ndonde $x$ está en la **base** y el\n\nEsta diferencia de posición genera comportamientos completamente distintos: las exponenciales crecen o decrecen mucho más rápido que cualquier polinomio.",
     "reviewed": false,
     "tags": [
       "ubicacion-variable-exponente"
@@ -283,7 +283,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para la función exponencial $f(x) = a^x$.\n\ncon $a > 0$ y $a \\neq 1$.\n\nla **base** positiva elevada a cualquier exponente real da siempre un resultado positivo: $a^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nCuando $x \\to -\\infty$ (con $a>1$).\n\nel valor $a^x$ se acerca a $0$ por arriba sin llegar a tocarlo.\n\nCuando $x \\to +\\infty$.\n\nen cambio.\n\n$a^x$ crece sin límite hacia $+\\infty$.\n\nPor eso la **imagen** de $f$ es $(0, +\\infty)$: el cero queda excluido porque es un límite asintótico que nunca se alcanza, y los valores negativos son directamente inalcanzables para cualquier base positiva.",
+    "explanation": "Para la función exponencial $f(x) = a^x$.\n\ncon $a > 0$ y $a \\neq 1$.\n\nla **base** positiva elevada a cualquier exponente real da siempre un resultado positivo: $a^x > 0$ para todo $x \\in \\mathbb{R}$.\n\nCuando $x \\to -\\infty$ (con $a>1$).\n\nel valor $a^x$ se acerca a $0$ por arriba sin llegar a tocarlo.\n\nCuando $x \\to +\\infty$.\n\nen cambio.\n\n$a^x$ crece sin límite hacia $+\\infty$.\n\nPor eso la **imagen** de $f$ es $(0, +\\infty)$: el cero queda excluido porque es un límite asintótico que nunca se alcanza, y los valores negativos son directamente inalcanzables para cualquier base",
     "reviewed": false,
     "tags": [
       "comparacion-bases"
@@ -383,7 +383,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En $f(x) = a \\cdot b^x$.\n\nla **base** $b$ es el parámetro que determina si la función crece ($b > 1$) o decrece (:).El coeficiente $a$, en cambio, escala la curva verticalmente: cambia la **imagen** de la función, pero no su **monotonía**.\n\nUn coeficiente negativo, por ejemplo, refleja la curva pero no invierte si sube o baja según $x$ crece.\n\nAquí $b = 2 > 1$, así que la función es creciente.\n\nEl exponente $x$ tampoco decide la monotonía por sí solo, ya que es la variable de entrada, no un parámetro fijo de la fórmula.",
+    "explanation": "En $f(x) = a \\cdot b^x$.\n\nla **base** $b$ es el parámetro que determina si la función crece ($b > 1$) o decrece (:).\n\nUn coeficiente negativo, por ejemplo, refleja la curva pero no invierte si sube o baja según $x$ crece.\n\nAquí $b = 2 > 1$, así que la función es creciente.\n\nEl exponente $x$ tampoco decide la monotonía por sí solo, ya que es la variable de entrada, no un parámetro fijo de la fórmula.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -708,7 +708,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La base $b = 1$ quedó excluida de la definición porque : para todo $x$:Tampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, fuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
+    "explanation": "La base $b = 1$ quedó excluida de la definición porque : para todo $x$:Tampoco permitimos bases negativas porque $(-2)^{1/2}$ no es real (sería $i\\sqrt{2}$, \n\nfuera del alcance del análisis real).\n\nUna base negativa también generaría valores positivos para exponentes pares y negativos para exponentes impares, perdiendo la monotonía que define a la exponencial.\n\nPor eso: $b > 0$ y $b \\neq 1$.",
     "reviewed": false,
     "tags": [
       "exclusion-base-1-o-negativa"
@@ -1208,7 +1208,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolver $2^x = 8$:\n\nSe usa la **inyectividad** de la exponencial: si dos potencias de la misma base son iguales, entonces los exponentes son iguales.\n\nEl dominio de la exponencial es todo $\\mathbb{R}$ porque no hay restricción: no hay denominador (función racional), no hay radicando (función radical), no hay argumento de logaritmo que deba ser positivo.\n\nCualquier real es un exponente válido en $b^x$.",
+    "explanation": "Resolver $2^x = 8$:\n\nSe usa la **inyectividad** de la exponencial: si dos potencias de la misma base son iguales, entonces los exponentes son iguales.\n\nEl dominio de la exponencial es todo $\\mathbb{R}$ porque no hay restricción: no hay denominador (función racional), no hay radicando (función radical), no hay argumento de logaritmo que deba ser\n\nCualquier real es un exponente válido en $b^x$.",
     "reviewed": false,
     "tags": [
       "dominio-imagen-basica"

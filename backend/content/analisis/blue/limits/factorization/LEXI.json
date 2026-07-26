@@ -65,7 +65,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura:\n\nUna forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
+    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura:\n\nUna forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
     "reviewed": false
   },
   {
@@ -134,7 +134,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico.\n\nSi $P(4) = 0$, entonces: Como tanto el numerador como el denominador se anulan en $x=4$, ambos deben contener el factor $(x-4)$.\n\nEse es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$.\n\nLa belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
+    "explanation": "El **teorema del factor** garantiza que si una expresión polinómica se anula en $x=a$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es la conexión entre raíces y estructura algebraica: cada cero de un polinomio corresponde a un factor lineal específico.\n\nSi $P(4) = 0$, entonces: Como tanto el numerador como el denominador se anulan en $x=4$, \n\nambos deben contener el factor $(x-4)$.\n\nEse es precisamente el factor que se cancela para salvar la **indeterminación** $0/0$.\n\nLa belleza del teorema es que si la sustitución da cero, la factorización automáticamente exhibe cuál factor se repite en ambos polinomios.",
     "reviewed": false
   },
   {
@@ -180,7 +180,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, porque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.\n\nConviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
+    "explanation": "El teorema del factor exige el factor $(x-a)$ para el valor de tendencia $a$.\n\nCuando $a=0$, esa expresión se reduce a $x$, \n\nporque $(x - 0) = x$.\n\nEste es un caso particular importante pero a veces invisible.\n\nConviene recordar este caso particular porque, al no tener número visible dentro del paréntesis, algunos lo pasan por alto y buscan un factor distinto al correcto, como $(x-1)$ o $(x+1)$.\n\nEn límites con tendencia $x \\to 0$, el factor cancelable es siempre una potencia de $x$ sola.",
     "reviewed": false
   },
   {
@@ -203,7 +203,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El teorema del factor establece que si un polinomio $P$ cumple $P(a)=0$, entonces $(x-a)$ es uno de sus factores.\n\nEsta es una garantía algebraica absoluta: no es una posibilidad ni una probabilidad, es una certeza.\n\nPor eso, cuando la sustitución directa da 0/0, se sabe de antemano que $(x-a)$ está presente en ambos términos del cociente.\n\nEse es el factor que hay que aislar mediante la factorización para poder cancelarlo luego.\n\nLa **indeterminación es una garantía, no una barrera**: nos asegura que la factorización funcionará.",
+    "explanation": "El teorema del factor establece que si un polinomio $P$ cumple $P(a)=0$, \n\nentonces $(x-a)$ es uno de sus factores.\n\nEsta es una garantía algebraica absoluta: no es una posibilidad ni una probabilidad, es una certeza.\n\nPor eso, cuando la sustitución directa da 0/0, se sabe de antemano que $(x-a)$ está presente en ambos términos del cociente.\n\nEse es el factor que hay que aislar mediante la factorización para poder cancelarlo luego.\n\nLa **indeterminación es una garantía, no una barrera**: nos asegura que la factorización funcionará.",
     "reviewed": false
   },
   {

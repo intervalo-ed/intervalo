@@ -833,7 +833,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$.Las otras opciones fallan en alguna de las dos señales: $2^x$ sola no tiene desplazamiento y su asíntota queda en $y = 0$.\n\nmientras que.\n$.\n$$3 \\cdot 2^x$$\n$\nCambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
+    "explanation": "Para identificar la fórmula conviene revisar dos señales del gráfico a la vez: el punto de corte con el eje vertical y la altura de la asíntota horizontal.\n\nAcá la curva pasa por $(0.\n\n3)$ y se aplana hacia $y = 2$ del lado izquierdo.\n\ny la fórmula $2^x + 2$ cumple ambas condiciones porque : y el $+2$ desplaza la asíntota de $0$ a $2$.\n\nmientras que.\n$.\n$$3 \\cdot 2^x$$\n$\nCambia el punto de corte pero tampoco mueve la asíntota.\n\nUn desplazamiento vertical (sumar una constante) mueve la asíntota; un coeficiente multiplicativo estira la curva pero la deja pegada al eje horizontal.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -1343,7 +1343,7 @@
       -0.5,
       8.5
     ],
-    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$; sumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
+    "explanation": "Modelo:\n$$U(t) = 1 \\cdot (1{,}5)^t$.\n$$\n(en miles de usuarios).\n\ndonde el factor $$\n1{,}5$ representa un crecimiento del $50\\%$ mensual.El $50\\%$ de $1000$ es $500$; \n\nsumados al valor inicial dan $1500$ usuarios al cabo del primer mes.\n\nEsta es la señal característica del crecimiento exponencial: el incremento de cada período es proporcional al valor actual, no una cantidad fija como en el crecimiento lineal.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto.\n$$(0.\n\n3)$$\nEs donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000.\n$$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $$\n0$ da $1$ y solo queda el coeficiente :.Este valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
+    "explanation": "El punto.\n$$(0.\n\n3)$$\nEs donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000.\n$$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $$\n0$ da $1$ y solo queda el coeficiente :.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

@@ -315,7 +315,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, la derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nLa integración por partes es una herramienta versátil pero requiere buen juicio al elegir $u$.\n\nUna mala elección puede llevarte a una integral aún más difícil.\n\nPor eso la regla LIATE es tan valiosa: te ahorra ensayos y errores.",
+    "explanation": "Con $u=\\ln x$ y $dv=x\\,dx$, \n\nla derivada $du=\\frac{1}{x}\\,dx$ cancela exactamente la potencia de $x$ en la integral remanente.\n\nEsa integral remanente es de tabla inmediata, así que el método cierra en una única aplicación.\n\nLa integración por partes es una herramienta versátil pero requiere buen juicio al elegir $u$.\n\nUna mala elección puede llevarte a una integral aún más difícil.\n\nPor eso la regla LIATE es tan valiosa: te ahorra ensayos y errores.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

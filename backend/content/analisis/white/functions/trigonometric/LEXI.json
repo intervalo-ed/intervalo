@@ -1083,7 +1083,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **mareas** siguen un ciclo de subida y bajada aproximadamente cada $12{,}4$ horas.\n\nEse comportamiento oscilatorio periódico es exactamente lo que captura la función.\n$$h(t)=A\\,\\operatorname{sen}(Bt+C)+D$$\n.\n\nEl parámetro : fija el **período**;$A$ es la **amplitud** de la marea; $D$ es el nivel medio; $C$ ajusta la fase inicial.\n\nLas funciones $e^{kt}$ solo crecen o decaen; $\\log(t)$ solo crece; una lineal no oscila.\n\nLas mareas eligieron el seno como modelo hace millones de años antes de que existieran los matemáticos.",
+    "explanation": "Las **mareas** siguen un ciclo de subida y bajada aproximadamente cada $12{,}4$ horas.\n\nEse comportamiento oscilatorio periódico es exactamente lo que captura la función.\n$$h(t)=A\\,\\operatorname{sen}(Bt+C)+D$$\n.\n\nEl parámetro : fija el **período**;$A$ es la **amplitud** de la marea; $D$ es el nivel medio; \n\n$C$ ajusta la fase inicial.\n\nLas funciones $e^{kt}$ solo crecen o decaen; $\\log(t)$ solo crece; una lineal no oscila.\n\nLas mareas eligieron el seno como modelo hace millones de años antes de que existieran los matemáticos.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-reconocimiento"
@@ -1108,7 +1108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar: :.Eso equivale a una **reflexión respecto al eje $Y$** combinada con la imparidad del seno, que produce una reflexión respecto al eje $X$.\n\nEn la práctica:\n$$g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$$\n.\n\nEs como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
+    "explanation": "La transformación $x\\mapsto -x$ en el argumento de $\\operatorname{sen}$ usa la **paridad** impar: :.\n\nEn la práctica:\n$$g(x)=\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$$\n.\n\nEs como reflejar la curva verticalmente (eje $X$), no horizontalmente (eje $Y$).\n\nLa reflexión respecto al eje $Y$ de una función impar es idéntica a multiplicar por $-1$.\n\nEl seno es tan impar que voltear su eje $Y$ es lo mismo que darle vuelta entera.",
     "reviewed": false,
     "tags": [
       "transformaciones-trig"
@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\cos(x)+3$$\nSe obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.La opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$. $\\mathbb{R}$ es el **dominio**.\n\nLa clave es sumar $D$ a ambos extremos del rango base.",
+    "explanation": "La **imagen** de.\n$$f(x)=\\cos(x)+3$$Se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.La opción $[-1,1]$ es el rango sin el **desplazamiento**. $[3,4]$ sería si la **amplitud** fuera $0{,}5$.\n\nLa clave es sumar $D$ a ambos extremos del rango base.",
     "reviewed": false,
     "tags": [
       "imagen-transformada"

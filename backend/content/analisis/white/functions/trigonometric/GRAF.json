@@ -53,7 +53,7 @@
       -2,
       2
     ],
-    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en :).Si no se incluyen los extremos, quedaría solo $x=\\pi$: un único cero interior.",
+    "explanation": "El seno se anula donde cruza el eje $X$: $\\operatorname{sen}(0)=0$.\n\n$\\operatorname{sen}(\\pi)=0$.\n\n$\\operatorname{sen}(2\\pi)=0$.\n\nIncluyendo ambos extremos del intervalo, hay **3 ceros** en $[0,2\\pi]$.\n\nEntre esos ceros.\n\nel seno sube hasta $1$ (en $\\pi/2$) y baja hasta $-1$ (en :).Si no se incluyen los extremos, \n\nquedaría solo $x=\\pi$: un único cero interior.",
     "reviewed": false,
     "tags": [
       "conteo-maximos"
@@ -203,7 +203,7 @@
       -2,
       2
     ],
-    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y :.Son **2 ceros** (sin incluir los extremos del intervalo, donde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
+    "explanation": "El coseno se anula en $x=\\frac{\\pi}{2}+k\\pi$.\n\nEn $[0,2\\pi]$: los dos ceros son $x=\\frac{\\pi}{2}$ y :.Son **2 ceros** (sin incluir los extremos del intervalo, \n\ndonde $\\cos(0)=1$ y $\\cos(2\\pi)=1$).\n\nA diferencia del seno que tiene 3 ceros en $[0,2\\pi]$ (incluyendo extremos), el coseno tiene 2.\n\nEsto se debe a que el coseno empieza en su máximo, no en cero.",
     "reviewed": false,
     "tags": [
       "periodo-desde-grafico"
@@ -533,7 +533,7 @@
       -2,
       2
     ],
-    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ; : ;$-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
+    "explanation": "La señal clave es que la curva **alcanza su máximo en $x=0$** (valor $1$).\n\nSolo el coseno (o $-\\operatorname{sen}$) arranca en el máximo.\n\nVerificaciones: $\\cos(0)=1$ ; $\\operatorname{sen}(0)=0$ ; \n\n: ;$-\\cos(0)=-1$ .\n\nSolo $f(x)=\\cos(x)$ tiene el máximo en el origen con amplitud $1$.\n\nMáximo en $x=0$: la firma del coseno.\n\nEl seno llega al máximo recién en $\\pi/2$; el coseno ya estaba arriba desde el principio.",
     "reviewed": false,
     "tags": [
       "monotonia-intervalo-graf-trig"

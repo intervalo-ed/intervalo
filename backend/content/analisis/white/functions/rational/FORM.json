@@ -128,7 +128,7 @@
       -6,
       6
     ],
-    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir.\n$$x+2=0\\Rightarrow x=-2$$\n.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$. al leer el gráfico es confundir el signo del parámetro dentro del denominador y escribir $x-2$, lo que ubicaría la asíntota en el lado opuesto del eje.",
+    "explanation": "Para reconstruir la fórmula desde el gráfico, primero identificamos la **asíntota vertical**: la curva se dispara cerca de $x=-2$, así que el denominador debe anularse ahí, es decir.\n$$x+2=0\\Rightarrow x=-2$$\n.\n\nDespués miramos la asíntota horizontal en $y=0$, que indica que el grado del numerador (0) es menor al del denominador (1), típico de un numerador constante.\n\nJuntando ambos datos, la fórmula es $f(x)=\\frac{1}{x+2}$.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. olvidar el signo negativo del denominador y arrastrar el resultado como positivo; conviene calcular numerador y denominador por separado antes de dividir.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -778,7 +778,7 @@
       -5,
       5
     ],
-    "explanation": "Para leer la asíntota vertical en un gráfico.\n\nbuscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia : o $-\\infty$ sin llegar a cruzarlo.En este gráfico, ese comportamiento ocurre cerca de $x=-2$.\n\nAlgebraicamente.\n\neso corresponde a resolver el denominador.\n$$x+2=0\\Rightarrow x=-2$$\n. al leer gráficos es confundir el lado del eje donde ocurre el disparo.\n\ntomando el valor con el signo opuesto al que realmente muestra la curva.",
+    "explanation": "Para leer la asíntota vertical en un gráfico.\n\nbuscamos el valor de $x$ donde ambas ramas de la curva se disparan hacia : o $-\\infty$ sin llegar a cruzarlo.En este gráfico, \n\nese comportamiento ocurre cerca de $x=-2$.\n\nAlgebraicamente.\n\neso corresponde a resolver el denominador.\n$$x+2=0\\Rightarrow x=-2$$\n. al leer gráficos es confundir el lado del eje donde ocurre el disparo.\n\ntomando el valor con el signo opuesto al que realmente muestra la curva.",
     "reviewed": false,
     "tags": [
       "transformaciones-form"
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$.\n\nsu forma general es.\n$$f(x)=\\frac{k}{x-a}$$\n.\n\ncon $k$ una constante a determinar usando un punto conocido.\n\nAcá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$.\n\nUsamos el punto $(0,-3)$:La fórmula es $f(x)=\\frac{6}{x-2}$. despejar mal el signo al multiplicar ambos lados por $-2$.\n\nobteniendo $k=-6$ en vez de $k=6$.",
+    "explanation": "Cuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$.\n\nsu forma general es.\n$$f(x)=\\frac{k}{x-a}$$\n.\n\ncon $k$ una constante a determinar usando un punto conocido.\n\nAcá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$.\n\nUsamos el punto $(0,-3)$:La fórmula es $f(x)=\\frac{6}{x-2}$. \n\ndespejar mal el signo al multiplicar ambos lados por $-2$.\n\nobteniendo $k=-6$ en vez de $k=6$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -858,7 +858,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :.Acá la asíntota vertical es $x=-1$, así que la forma es.\n$$f(x)=\\frac{k}{x+1}$$\n.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. dejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
+    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma :.Acá la asíntota vertical es $x=-1$, así que la forma es.\n$$f(x)=\\frac{k}{x+1}$$\n.\n\nUsamos el punto $(1,1)$ para hallar $k$:La fórmula es $f(x)=\\frac{2}{x+1}$. \n\ndejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva.\n\nlo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando $y=1$.\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar.\n$$f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$$\n. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
+    "explanation": "Para caracterizar completamente esta función racional hay que resolver tres cosas por separado.\n\nLa asíntota vertical sale de igualar el denominador a cero: $x-3=0\\Rightarrow x=3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{1}{1}=1$, dando\n\nPor último.\n\nel intercepto con el eje $Y$ sale de evaluar.\n$$f(0)=\\frac{0+2}{0-3}=\\frac{2}{-3}=-\\frac{2}{3}$$\n. calcular la AH como si el grado del numerador fuera menor.\n\ndando $y=0$ en vez de $y=1$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. quedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.",
+    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. \n\nquedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador.\n\nCuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal.\n\nEn su lugar.\n\naparece una asíntota oblicua.\n\nuna recta inclinada que se obtiene dividiendo el numerador entre el denominador. aplicar automáticamente la regla de grados iguales o de grado del numerador menor sin antes verificar cuál grado es mayor.",
+    "explanation": "La existencia de una asíntota horizontal depende de comparar el grado del numerador con el del denominador.\n\nCuando el grado del numerador es **mayor**, como acá (grado 3 contra grado 2), la función crece o decrece sin cota a medida que $x\\to\\pm\\infty$, y no hay asíntota horizontal.\n\nEn su lugar.\n\naparece una asíntota oblicua.\n\nuna recta inclinada que se obtiene dividiendo el numerador entre el denominador.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

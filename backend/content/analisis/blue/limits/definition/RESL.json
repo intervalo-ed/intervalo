@@ -93,7 +93,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque.\n$$f(x)=8$$\nNo cambia nunca: evaluando en : siempre se obtiene $8$.La constante es ajena al movimiento de $x$.El destino de cualquier aproximación de una constante es ella misma, porque no hay nada que cambie a medida que $x$ se mueve.\n\nAsí entonces, recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
+    "explanation": "El **límite** de una función **constante** es siempre esa misma constante , sin importar a qué valor tienda $x$\n\n, porque.\n$$f(x)=8$$No cambia nunca: evaluando en : siempre se obtiene $8$.La constante es ajena al movimiento de $x$.\n\nAsí entonces, recordá que una función constante no depende para nada de $x$, el valor de entrada es irrelevante.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, sin él obtendrías algo completamente distinto.",
+    "explanation": "Las **propiedades de linealidad** del límite permiten separar sumas, restas y escalares término a término.\n\n, siempre que cada límite exista por separado: si.\n$$\\lim f$$\nExiste y $\\lim g$ existe, entonces : también existe y se calcula separado.Esta separación funciona porque el límite respeta operaciones lineales.\n\n: cuando una función es la suma o resta de dos funciones con límites conocidos, el resultado es predecible sin necesidad de combinar las funciones antes.\n\nRestar un límite negativo: cuando sustituyes :, eso se convierte en $+2$, no en $-2$.Ese cambio de signo es lo que lleva la respuesta de $6$ a $8$, \n\nsin él obtendrías algo completamente distinto.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -293,7 +293,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar.\n$$3$$\nMultiplica a $f$, la resta actúa entre : y $g$, sin interferencias.Antes de operar, conviene marcar con claridad a qué término multiplica cada escalar de la expresión, así se evita la confusión de distribuirlo donde no corresponde.",
+    "explanation": "Un error clásico al **combinar escalar y resta** es distribuir el mismo factor sobre ambos términos de la resta, cuando en realidad el escalar solo acompaña a uno de ellos.\n\nLa linealidad preserva la estructura original, no agrega términos nuevos.\n\nCada propiedad actúa sobre el término que le corresponde: el escalar.\n$$3$$Multiplica a $f$, la resta actúa entre : y $g$, sin interferencias.",
     "reviewed": false,
     "tags": [
       "propiedades-suma-escalar"
@@ -368,7 +368,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta división?\" y responder con honestidad antes de operar.",
+    "explanation": "La **propiedad de cociente** exige que el límite del denominador sea distinto de $0$.\n\nSi se anula, no se puede separar la división en dos límites por separado, y el resultado queda como una **indeterminación** que requiere otra técnica.\n\nEn este caso, con.\n$$\\lim_{x \\to a} g(x) = 0$$\n, la fracción produce 0/0 (si $f$ también tiende a $0$) o $k/0$ (si $f$ tiende a algo distinto), ambos casos que no se resuelven por sustitución directa.\n\nAplicar la propiedad de cociente sin chequear antes que el denominador no sea $0$ te lleva a separar una división que no se puede separar; hay que hacerse siempre la pregunta \"¿Puedo separar esta",
     "reviewed": false,
     "tags": [
       "propiedades-producto-cociente"

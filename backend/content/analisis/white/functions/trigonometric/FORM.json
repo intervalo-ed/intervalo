@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la forma general.\n$$f(x)=A\\cdot\\operatorname{sen}(Bx+C)$$\n, el coeficiente $A$ es la **amplitud**: determina cuánto se aleja la onda del eje central.\n\nAquí $A=3$.\n\nasí que la onda oscila entre $-3$ y $3$. $B=2$ controla el período ($T=\\pi$) y : desplaza la fase horizontalmente.Cada parámetro tiene un rol independiente: no confundir amplitud con período ni con fase.",
+    "explanation": "En la forma general.\n$$f(x)=A\\cdot\\operatorname{sen}(Bx+C)$$\n, el coeficiente $A$ es la **amplitud**: determina cuánto se aleja la onda del eje central.\n\nAquí $A=3$.\n\nasí que la onda oscila entre $-3$ y $3$. \n\n$B=2$ controla el período ($T=\\pi$) y : desplaza la fase horizontalmente.",
     "reviewed": false,
     "tags": [
       "amplitud-calculo-form"
@@ -48,7 +48,7 @@
       -2,
       2
     ],
-    "explanation": "$\\cos(0)=1$ (máximo) mientras que.\n$$\\operatorname{sen}(0)=0$$\n.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es :.no el seno.\n$2\\cos(x)$ llegaría hasta $y=2$.\n\npero la amplitud del gráfico es $1$. : tendría período $\\pi$ (más corto).pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
+    "explanation": "$\\cos(0)=1$ (máximo) mientras que.\n$$\\operatorname{sen}(0)=0$$\n.\n\nLa curva que **arranca en su máximo** en $x=0$ con amplitud $1$ es :.no el seno.\n\n\n$2\\cos(x)$ llegaría hasta $y=2$.\n\npero la amplitud del gráfico es $1$. : tendría período $\\pi$ (más corto).pero el gráfico muestra período $2\\pi$.\n\nEl valor en $x=0$ y la amplitud son los dos datos clave para identificar la fórmula.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -128,7 +128,7 @@
       -1,
       3
     ],
-    "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$$\\operatorname{sen}(x)+1$$\nOscila entre $0$ y $2$ (centrada en $y=1$ en lugar de $y=0$).\n\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$. : bajaría hasta $y=-2$.$2\\operatorname{sen}(x)$ oscilaría simétricamente entre $-2$ y $2$.",
+    "explanation": "Sumar una constante $k$ a una función trigonométrica la **desplaza verticalmente**.\n$$\\operatorname{sen}(x)+1$$\nOscila entre $0$ y $2$ (centrada en $y=1$ en lugar de $y=0$).\n\nEl gráfico muestra exactamente eso: la onda no baja de $y=0$ y llega hasta $y=2$. \n\n: bajaría hasta $y=-2$.$2\\operatorname{sen}(x)$ oscilaría simétricamente entre $-2$ y $2$.",
     "reviewed": false,
     "tags": [
       "periodo-calculo-form"
@@ -1233,7 +1233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **amplitud** de.\n$$f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$$\nEs $|A|=|1/2|=1/2$.\n\nEl coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$.\n\nmínimo $=-1/2$.\n\nimagen $=[-1/2,1/2]$.\n\nLa opción : dividiría por $4$;la opción $2$ invertiría el coeficiente; la opción $1$ ignoraría el factor $1/2$.\n\nLa amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía.\n\nMisma melodía, volumen reducido a la mitad.",
+    "explanation": "La **amplitud** de.\n$$f(x)=\\tfrac{1}{2}\\,\\operatorname{sen}(x)$$\nEs $|A|=|1/2|=1/2$.\n\nEl coeficiente $1/2$ comprime la oscilación verticalmente a la mitad:\n\nMáximo $=1/2$.\n\nmínimo $=-1/2$.\n\nimagen $=[-1/2,1/2]$.\n\nLa opción : dividiría por $4$;la opción $2$ invertiría el coeficiente; \n\nla opción $1$ ignoraría el factor $1/2$.\n\nLa amplitud es siempre el coeficiente delante del seno en valor absoluto.\n\nAmplitud $1/2$: el seno en modo ahorro de energía.\n\nMisma melodía, volumen reducido a la mitad.",
     "reviewed": false,
     "tags": [
       "cruce-eje-x"
@@ -1258,7 +1258,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\operatorname{sen}(x/2)$$\nNo depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período.\n\nLa amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; la opción : sería el dominio.$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio.\n\nLa imagen $[-1,1]$ no se negocia.",
+    "explanation": "La **imagen** de.\n$$f(x)=\\operatorname{sen}(x/2)$$\nNo depende del coeficiente $B=1/2$ del argumento: ese solo cambia el período.\n\nLa amplitud sigue siendo $|A|=1$ (no hay coeficiente delante del seno).\n\nImagen $=[-1,1]$, igual que $\\operatorname{sen}(x)$.\n\nEl período cambia a $4\\pi$, pero el rango vertical permanece inalterado.\n\nLa opción $[-2,2]$ sería si $A=2$; \n\nla opción : sería el dominio.$\\operatorname{sen}(x/2)$: misma altura que el seno, solo que va más despacio.\n\nLa imagen $[-1,1]$ no se negocia.",
     "reviewed": false,
     "tags": [
       "contexto-cotidiano-aplicado-form"
