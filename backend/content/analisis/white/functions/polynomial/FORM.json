@@ -730,7 +730,7 @@
       null,
       "El signo del término central en $(x-3)^2$ es negativo, $-6x$, pero la expresión a factorizar tiene $+6x$."
     ],
-    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEste razonamiento muestra que más frecuente al identificar esta identidad.",
+    "explanation": "Para reconocer un **binomio cuadrado perfecto** $a^2+2ab+b^2=(a+b)^2$ hay que identificar los dos cuadrados en los extremos y verificar que el término del medio coincida con el doble producto.\n\nEn este caso: $x^2$ es el cuadrado de $x$, el $9$ es el cuadrado de $3$, y el término $6x$ debe cumplir $6x=2\\cdot x\\cdot 3=2ab$. La verificación confirma: $2ab=2(x)(3)=6x$. Luego, $x^2+6x+9=(x+3)^2$.\n\nEl error más frecuente al identificar esta identidad es confundir el \"término del medio\" con algún otro valor, o creer que debe ser $2\\cdot(x+3)$ en lugar del doble producto de las bases. Verificar que $2ab$ sea exactamente el coeficiente del término lineal evita este error.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este razonamiento muestra que aritmético más frecuente acá.",
+    "explanation": "Aplicamos la regla de Barrow: primero integramos cada término por separado, luego evaluamos en los límites.\n$$\\int_0^2 (x^2+1)\\,dx = \\left[\\frac{x^3}{3}+x\\right]_0^2 = \\left(\\frac{8}{3}+2\\right) - (0+0) = \\frac{8}{3} + \\frac{6}{3} = \\frac{14}{3}$$\nEl error aritmético más frecuente acá es olvidar sumar el término constante $+2$ (que equivale a $+\\frac{6}{3}$) cuando se evalúa la primitiva en el límite superior, o confundir la suma de fracciones con denominadores distintos.",
     "reviewed": false,
     "tags": [
       "barrow-con-reglas-directas"
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este razonamiento muestra que dejar de lado que $F(0)=1$, no cero, aunque el límite inferior sea cero.",
+    "explanation": "Para aplicar la regla de Barrow correctamente, hay que evaluar la primitiva en ambos límites sin excepciones, independientemente de que uno de ellos sea cero.\n$$F(x)=\\frac{2e^{2x}}{2}=e^{2x}$$\n$$\\int_0^1 2e^{2x}\\,dx = \\left[e^{2x}\\right]_0^1 = e^2 - e^0 = e^2 - 1$$\nEl error conceptual típico es asumir que \"como el límite inferior es $0$, la evaluación en $x=0$ debe dar $0$\". Esto es falso. La propiedad $e^0=1$ (no cero) siempre se aplica, y esa evaluación es fundamental para obtener el resultado correcto. No se puede descartar el término $F(0)$ solo porque el límite sea cero.",
     "reviewed": false,
     "tags": [
       "barrow-con-sustitucion-y-partes"

@@ -369,7 +369,7 @@
     "options": [
       "El coeficiente $a = 4$",
       "El exponente $x$",
-      "La base $b = 2$",
+      "La base de la función es $b = 2$",
       "El producto $a \\cdot b = 8$"
     ],
     "correct_index": 2,

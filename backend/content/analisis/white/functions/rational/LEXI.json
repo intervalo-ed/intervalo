@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este razonamiento muestra que dejarse llevar por la presencia de una $x$ en el denominador y no verificar que tanto arriba como abajo haya polinomios genuinos.",
+    "explanation": "Una **función racional** se define como el cociente de dos polinomios: $f(x)=\\dfrac{P(x)}{Q(x)}$, donde tanto el numerador $P(x)$ como el denominador $Q(x)$ deben ser polinomios reales.\n\nPor ejemplo: $f(x)=\\dfrac{x+1}{x-2}$ es racional porque $P(x)=x+1$ y $Q(x)=x-2$ son ambos polinomios.\n\nEl error conceptual más frecuente es dejarse llevar por la presencia de una $x$ en el denominador y asumir automáticamente que cualquier expresión con esa estructura es una función racional, sin verificar que tanto arriba como abajo haya polinomios genuinos. Por ejemplo, $f(x)=\\dfrac{1}{\\sin x}$ tiene denominador con variable, pero no es racional porque $\\sin x$ no es un polinomio.",
     "reviewed": false,
     "tags": [
       "agujero-vs-asintota"
@@ -908,7 +908,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Este razonamiento muestra que más común al leer esta forma general.",
+    "explanation": "La forma general $f(x)=\\dfrac{k}{x-a}+b$ codifica toda la información de una hipérbola en sus parámetros.\n\nLa **asíntota vertical** se ubica en $x=a$ (donde el denominador se anula, causando que $f(x)\\to\\pm\\infty$). La **asíntota horizontal** está en $y=b$ (el valor al que tiende la función cuando $x\\to\\pm\\infty$).\n\nEl parámetro $k$ determina la escala vertical: cuán empinada o plana es la curva. El error más común al leer esta forma general es confundir los roles de $a$ y $b$, o invertir los signos cuando se convierte de esta forma a las asíntotas específicas.",
     "reviewed": false,
     "tags": [
       "conteo-ramas"

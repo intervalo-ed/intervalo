@@ -154,7 +154,7 @@
     "options": [
       "$\\mathbb{R}$",
       "$(0,\\, +\\infty)$",
-      "$[0,\\, +\\infty)$",
+      "El dominio es $\\mathbb{R}$",
       "$(-\\infty,\\, 1)$"
     ],
     "correct_index": 0,

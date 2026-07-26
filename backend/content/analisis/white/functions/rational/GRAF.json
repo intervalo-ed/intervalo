@@ -305,7 +305,7 @@
       "Solo en $(-\\infty,\\ 0)$",
       "Solo en $(0,\\ +\\infty)$",
       "En ningún intervalo",
-      "En $(-\\infty,\\ 0)$ y en $(0,\\"
+      "En $(-\\infty, 0)$ y en $(0, +\\infty)$"
     ],
     "correct_index": 3,
     "has_math": true,
@@ -1193,7 +1193,7 @@
       -5,
       5
     ],
-    "explanation": "Este razonamiento muestra que más común al armar la fórmula desde el gráfico.",
+    "explanation": "El parámetro que controla la **asíntota vertical** en una hipérbola es el valor que se resta o suma a $x$ en el denominador, mientras que un término sumado fuera de la fracción controla la asíntota horizontal.\n\nAV en $x=4$ significa que el denominador se anula en $x=4$: tenemos que reemplazar $x$ por $(x-4)$ para lograr esto. AH en $y=0$ indica que no hay desplazamiento vertical, así que la fórmula es $\\frac{1}{x-4}$.\n\nEl error más común al armar la fórmula desde el gráfico es confundir el parámetro que desplaza la AV con el que desplazaría la AH, o invertir el signo dentro del paréntesis.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico"

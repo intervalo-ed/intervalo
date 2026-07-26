@@ -269,7 +269,7 @@
     "options": [
       "$\\mathbb{R}$",
       "$(0, +\\infty)$",
-      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "El dominio es $\\mathbb{R}$",
       "Depende del grado del polinomio"
     ],
     "correct_index": 0,
@@ -1019,7 +1019,7 @@
     "options": [
       "$[0, +\\infty)$",
       "$(-\\infty, -7^{1/100}] \\cup [7^{1/100}, +\\infty)$",
-      "$\\mathbb{R} \\setminus \\{0\\}$",
+      "El dominio es $\\mathbb{R}$",
       "$\\mathbb{R}$"
     ],
     "correct_index": 3,

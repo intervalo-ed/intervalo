@@ -931,7 +931,7 @@
   {
     "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
     "options": [
-      "El dominio puntual",
+      "La imagen de la función",
       "La imagen",
       "La preimagen"
     ],
@@ -979,7 +979,7 @@
     "options": [
       "Una preimagen de $-2$",
       "El dominio de la regla",
-      "La imagen de $-2$"
+      "La imagen del valor $-2$"
     ],
     "correct_index": 2,
     "has_math": true,
@@ -1002,7 +1002,7 @@
     "options": [
       "La preimagen de 6",
       "La imagen de 6",
-      "El dominio de la regla"
+      "La imagen del valor 6"
     ],
     "correct_index": 1,
     "has_math": true,

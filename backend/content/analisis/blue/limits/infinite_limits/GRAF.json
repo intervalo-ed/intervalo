@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Este razonamiento muestra que leer solo la magnitud de la altura y olvidar el signo negativo al escribir la ecuación de la recta.",
+    "explanation": "La **asíntota horizontal** de una función se define como el valor $L$ que cumple $\\lim_{x \\to \\pm\\infty} f(x) = L$, y ese límite determina la altura exacta de la recta, incluyendo su signo.\n\nAl leer en el gráfico que la curva se estabiliza en una altura **negativa**, el signo es parte fundamental de la información: no es lo mismo $y=-2$ que $y=2$. El error común es registrar solo la magnitud (valor absoluto) de esa altura y luego olvidar que era negativa al escribir la ecuación. En este caso, observar que las dos ramas descienden asimétricamente hacia abajo confirma que $L=-2$, no $L=2$.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "Este razonamiento muestra que clásico, la definición solo habla del comportamiento en los extremos.",
+    "explanation": "La definición de **asíntota horizontal** es $\\lim_{x \\to \\pm\\infty} f(x) = L$, que se refiere exclusivamente al comportamiento de la función en los extremos, cuando $x$ toma valores muy grandes en valor absoluto.\n\nUn concepto erróneo frecuente es creer que la asíntota horizontal define una \"barrera\" que la función nunca puede cruzar, pero la realidad es que la curva puede intersectar esa recta en cualquier punto intermedio (zona central) sin que eso invalide su condición de asíntota. Lo que importa es que cuando $x \\to +\\infty$ y $x \\to -\\infty$, la distancia entre $f(x)$ y la altura $L$ tienda a cero, aunque en el trayecto la función haya subido, bajado, oscilado o cruzado esa altura múltiples veces.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"

@@ -26,7 +26,7 @@
     "question": "¿Cómo se llama la recta que corta a la curva en dos puntos distintos y representa la tasa de cambio media entre ellos?",
     "options": [
       "Recta transversal",
-      "Secante",
+      "Recta secante",
       "Tangente"
     ],
     "correct_index": 1,
