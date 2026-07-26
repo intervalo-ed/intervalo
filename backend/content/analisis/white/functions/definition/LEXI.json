@@ -350,7 +350,7 @@
     "feedback_correct": "El único número prohibido es el 3, ya que convierte el divisor en cero.",
     "feedback_incorrect": [
       "Los números menores a 3 (como el 0) dan un resultado negativo, pero totalmente válido. No hace falta excluirlos.",
-      "Olvidás que si ingresa el 3, el divisor se hace cero, lo que no está definido.",
+      "Se olvidó que si ingresa el 3, el divisor se hace cero, lo que no está definido.",
       null,
       "El 0 no rompe la cuenta; $1/(0-3)$ da $-1/3$, un valor perfectamente definido."
     ],
@@ -1082,7 +1082,7 @@
     "has_math": true,
     "feedback_correct": "Tanto el 1 como el -1 logran que el módulo devuelva 1 como salida.",
     "feedback_incorrect": [
-      "Olvidás que el módulo elimina el signo negativo, haciendo que el $-1$ también califique como preimagen.",
+      "Se olvidó que el módulo elimina el signo negativo, haciendo que el $-1$ también califique como preimagen.",
       null,
       "Sí hay preimágenes: el $1$ y el $-1$ dan ambos $|x| = 1$.",
       "El $1$ también sirve: $|1| = 1$, así que también es preimagen."

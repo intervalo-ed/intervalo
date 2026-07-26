@@ -551,7 +551,7 @@
     "has_math": true,
     "feedback_correct": "$\\frac{d}{dx} e^x = e^x$: la exponencial natural es su propia derivada.",
     "feedback_incorrect": [
-      "Confundís la derivada con la base misma, $\\frac{d}{dx}e^x$ no se reduce a la constante $e$ sola.",
+      "Es fácil confundir la derivada con la base misma, $\\frac{d}{dx}e^x$ no se reduce a la constante $e$ sola.",
       "Esa fórmula aplica la regla de potencias comunes, donde la variable está en la base, no en el exponente.",
       null,
       "La derivada de $e^x$ nunca es $0$, eso ocurriría solo para una función constante, y $e^x$ no lo es."

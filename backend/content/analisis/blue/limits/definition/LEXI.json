@@ -217,9 +217,9 @@
     "has_math": true,
     "feedback_correct": "una indeterminación es un estado de pausa, no una conclusión sobre el límite.",
     "feedback_incorrect": [
-      "una indeterminación $0/0$ no significa que el límite no exista, significa que la sustitución directa no alcanza para decidirlo todavía.",
+      "Una indeterminación $0/0$ no significa que el límite no exista, significa que la sustitución directa no alcanza para decidirlo todavía.",
       null,
-      "una indeterminación $0/0$ no es un valor numérico, es una señal de que hace falta otra técnica antes de poder afirmar cuánto vale el límite."
+      "Una indeterminación $0/0$ no es un valor numérico, es una señal de que hace falta otra técnica antes de poder afirmar cuánto vale el límite."
     ],
     "graph_fn": null,
     "graph_view": null,
