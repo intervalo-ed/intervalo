@@ -95,7 +95,7 @@
     "question": "Tomá en cuenta la función:\n$$\\frac{f(a+h) - f(a)}{h}$$\n¿qué representa el denominador $h$?",
     "options": [
       "El resultado final del límite",
-      "La variación de la variable independiente",
+      "La variación de variable independiente",
       "La variación del valor de la función"
     ],
     "correct_index": 1,

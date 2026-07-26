@@ -951,7 +951,7 @@
   {
     "question": "¿Es $f(x) = 3(x + 2)$ una función lineal?",
     "options": [
-      "Sí, es $3x + 6$ siempre según la regla",
+      "Sí",
       "No, porque tiene paréntesis",
       "No, porque multiplica"
     ],

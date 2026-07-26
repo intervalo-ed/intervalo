@@ -268,7 +268,7 @@
     "question": "Considerá la función:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\nExpresado en notación de intervalos?",
     "options": [
       "$(-\\infty, 3]$",
-      "$(-\\infty, 3) \\cup (3, +\\infty)$",
+      "$(-\\infty",
       "$(3, +\\infty)$",
       "$(-3, +\\infty)$"
     ],
@@ -544,7 +544,7 @@
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
-      "$(-\\infty, -3) \\cup (-3, 3)",
+      "$(-\\infty",
       "$\\mathbb{R}$"
     ],
     "correct_index": 2,
