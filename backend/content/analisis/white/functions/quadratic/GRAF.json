@@ -1373,7 +1373,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando algo cuelga sujeto en sus dos extremos, como una guirnalda entre dos columnas, la curva que forma abre hacia arriba y su **vértice**\n\nes el punto más bajo de todo el recorrido, un mínimo: no hay ningún punto de la guirnalda que quede por debajo de esa altura.\n\nAcá la altura mínima es la coordenada vertical del vértice:\n\nDos metros, justo en el medio de las dos columnas.\n\nCerca de cada columna la guirnalda cuelga más alta, y solo en el punto medio llega a su altura más baja; ese patrón se repite en cualquier cable o cuerda sujeta por los dos extremos.",
+    "explanation": "Cuando algo cuelga sujeto en sus dos extremos, como una guirnalda entre dos columnas, la curva que forma abre hacia arriba y su **vértice**.\n\nes el punto más bajo de todo el recorrido, un mínimo: no hay ningún punto de la guirnalda que quede por debajo de esa altura.\n\nAcá la altura mínima es la coordenada vertical del vértice:\n\nDos metros, justo en el medio de las dos columnas.\n\nCerca de cada columna la guirnalda cuelga más alta, y solo en el punto medio llega a su altura más baja; ese patrón se repite en cualquier cable o cuerda sujeta por los dos extremos.",
     "reviewed": false,
     "tags": [
       "vertice-x"
