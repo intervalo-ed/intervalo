@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Considerá la función racional:\n\n$$r(x) = \\dfrac{1}{x - 3}$$\n\n.\n\n¿En qué conjunto es continua?",
+    "question": "Considerá la función racional:\n$$r(x) = \\dfrac{1}{x - 3}$$\n¿En qué conjunto es continua?",
     "options": [
       "En todo $\\mathbb{R}$ sin excepciones",
       "En su dominio, $\\mathbb{R}$ excepto $x=3$",

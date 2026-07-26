@@ -810,7 +810,7 @@
     ]
   },
   {
-    "question": "El gráfico de:\n\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\n\nMuestra la temperatura (°C) en función de la hora del día.",
+    "question": "El gráfico de:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\nMuestra la temperatura (°C) en función de la hora del día.",
     "options": [
       "$30\\,°C$",
       "$10\\,°C$",
@@ -840,7 +840,7 @@
     ]
   },
   {
-    "question": "Usando el mismo modelo:\n\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\n\n, ¿a qué hora ocurre la temperatura máxima?",
+    "question": "Usando el mismo modelo:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\n, ¿a qué hora ocurre la temperatura máxima?",
     "options": [
       "$h = 12$ (mediodía)",
       "$h = 18$ (6 p.m.)",
@@ -1050,7 +1050,7 @@
     ]
   },
   {
-    "question": "El nivel del mar (en metros) sigue el modelo:\n\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\n\n, donde $t$ es la hora del día.\n\nSegún la gráfica, ¿cuál es el nivel mínimo del mar?",
+    "question": "El nivel del mar (en metros) sigue el modelo:\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\n, donde $t$ es la hora del día.\n\nSegún la gráfica, ¿cuál es el nivel mínimo del mar?",
     "options": [
       "$3$ m",
       "$2$ m",
@@ -1080,7 +1080,7 @@
     ]
   },
   {
-    "question": "Usando el mismo modelo de mareas:\n\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\n\n, ¿cuál es el nivel máximo del mar?",
+    "question": "Usando el mismo modelo de mareas:\n$$h(t) = 3\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{6}t\\right) + 5$$\n, ¿cuál es el nivel máximo del mar?",
     "options": [
       "$5$ m",
       "$3$ m",
@@ -1230,7 +1230,7 @@
     ]
   },
   {
-    "question": "La gráfica muestra:\n\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n\n.\n\n¿Cuánto vale $f(\\pi)$?",
+    "question": "La gráfica muestra:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuánto vale $f(\\pi)$?",
     "options": [
       "$0$",
       "$1$",
@@ -1380,7 +1380,7 @@
     ]
   },
   {
-    "question": "La temperatura media mensual de una ciudad sigue:\n\n$$T(m) = 8\\,\\cos\\!\\left(\\dfrac{\\pi}{6}(m-1)\\right) + 15$$\n\n(°C), donde $m = 1$ es enero.\n\n¿Cuál es la temperatura en enero ($m = 1$)?",
+    "question": "La temperatura media mensual de una ciudad sigue:\n$$T(m) = 8\\,\\cos\\!\\left(\\dfrac{\\pi}{6}(m-1)\\right) + 15$$\n(°C), donde $m = 1$ es enero.\n\n¿Cuál es la temperatura en enero ($m = 1$)?",
     "options": [
       "$15\\,°C$",
       "$7\\,°C$",

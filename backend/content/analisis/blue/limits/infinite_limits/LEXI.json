@@ -1,6 +1,6 @@
 [
   {
-    "question": "En el estudio de los **límites al infinito**, aparece el cociente:\n\n$$\\frac{5}{x}$$\n\nCuando $x \\to +\\infty$.",
+    "question": "En el estudio de los **límites al infinito**, aparece el cociente:\n$$\\frac{5}{x}$$\nCuando $x \\to +\\infty$.",
     "options": [
       "Es una indeterminación",
       "$0$, en general",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Un cociente tiene numerador $3$ fijo y denominador que tiende a $0^+$.\n\n$$\\frac{3}{x}$$\n\n¿Qué le pasa al valor del cociente?",
+    "question": "Un cociente tiene numerador $3$ fijo y denominador que tiende a $0^+$.\n$$\\frac{3}{x}$$\n¿Qué le pasa al valor del cociente?",
     "options": [
       "Es una indeterminación",
       "Tiende a $0$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
+    "question": "En una función racional:\n$$\\frac{P(x)}{Q(x)}$$\n, el grado del denominador $Q(x)$ es estrictamente mayor que el grado del numerador $P(x)$.\n\n¿Qué sucede con:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Vale $0$, en este caso",
       "Diverge a $\\infty$",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
+    "question": "En una función racional:\n$$\\frac{P(x)}{Q(x)}$$\n, el grado del numerador $P(x)$ es estrictamente mayor que el grado del denominador $Q(x)$.\n\n¿Qué sucede con:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Diverge, por definición",
       "Vale $0$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "En una función racional:\n\n$$\\frac{P(x)}{Q(x)}$$\n\n, el numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con:\n\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n\n?",
+    "question": "En una función racional:\n$$\\frac{P(x)}{Q(x)}$$\n, el numerador $P(x)$ y el denominador $Q(x)$ tienen exactamente el mismo grado.\n\n¿Qué sucede con:\n$$\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)}$$\n?",
     "options": [
       "Vale $0$",
       "Diverge a $\\infty$",

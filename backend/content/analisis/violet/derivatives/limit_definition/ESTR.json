@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Tras cancelar $h$ en:\n\n$$\\frac{h(2x+h)}{h}$$\n\nY tomar el límite cuando $h \\to 0$, ¿qué resultado se obtiene?",
+    "question": "Tras cancelar $h$ en:\n$$\\frac{h(2x+h)}{h}$$\nY tomar el límite cuando $h \\to 0$, ¿qué resultado se obtiene?",
     "options": [
       "$2x+h$",
       "$2xh$",

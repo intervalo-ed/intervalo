@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara:\n\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n\n, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
+    "question": "Antes de resolver un límite, conviene diagnosticar qué técnica corresponde aplicar.\n\nPara:\n$$\\lim_{x \\to 3} \\dfrac{x^2-9}{x-3}$$\n, que da la **indeterminación** una indeterminación $0/0$ y no tiene ninguna raíz cuadrada, ¿qué técnica corresponde?",
     "options": [
       "Racionalizar",
       "Factorizar",
