@@ -256,8 +256,8 @@
     "question": "Una tarifa de estacionamiento cobra un monto fijo durante la primera hora y un monto mayor a partir de superar ese umbral.\n\nCerca del instante en que se cumple exactamente una hora, la tarifa muestra un **salto**: el costo justo antes del umbral es menor que el costo justo después.\n\n¿Existe el límite bilateral del costo en ese instante?",
     "options": [
       "No, no siempre: hay puntos de quiebre donde la función salta",
-      "Sí, porque el costo está definido en todo momento",
-      "Sí, porque ambas tarifas son montos fijos"
+      "Sí, porque el costo está definido y es continuo en todo momento",
+      "Sí, porque ambas tarifas son valores fijos y bien determinados"
     ],
     "correct_index": 0,
     "has_math": true,

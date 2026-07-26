@@ -255,8 +255,8 @@
   {
     "question": "Considerá la función:\n$$f(x) = 2e^x - \\cos x + 6$$\n¿Cuántos términos distintos hay que derivar por separado?",
     "options": [
-      "Dos",
-      "Uno",
+      "Dos términos",
+      "Un término solamente",
       "Potencia"
     ],
     "correct_index": 2,
