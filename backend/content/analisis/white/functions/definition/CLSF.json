@@ -613,7 +613,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nCuidado con quedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
+    "explanation": "El ****dominio** natural** combina lo que permite la fórmula y lo que permite el contexto.\n\nDividir entre cero no está definido y una velocidad negativa no tiene sentido físico.\n\nEse es el dominio natural.\n\nQuedarse solo con $v \\neq 0$; el contexto agrega que la velocidad tampoco puede ser negativa.",
     "reviewed": false,
     "tags": [
       "dominio-natural"

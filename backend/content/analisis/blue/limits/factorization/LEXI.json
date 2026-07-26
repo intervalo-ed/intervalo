@@ -65,7 +65,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura: Una forma rápida de detectar este caso es verificar si el término lineal coincide exactamente\n\ncon el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
+    "explanation": "El **trinomio cuadrado perfecto** tiene la forma $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, donde el término lineal es exactamente el doble producto de las raíces cuadradas del primer y último término.\n\nReconocer este patrón evita buscar dos números sueltos, como en el trinomio general.\n\nVerificando la estructura: Una forma rápida de detectar este caso es verificar si el término lineal coincide exactamente con el doble del producto de las raíces de los extremos antes de probar con la fórmula del trinomio general.\n\nEs un atajo que ahorra tiempo y errores de cálculo.",
     "reviewed": false
   },
   {

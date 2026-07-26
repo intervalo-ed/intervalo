@@ -53,7 +53,7 @@
       -5,
       5
     ],
-    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces.\n\n$f>0$ (1.° cuadrante); si.\n\n$x<0$ entonces.\n\n$f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nOjo con confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
+    "explanation": "El cuadrante donde cae cada rama de una hipérbola depende del signo de $x$ y del signo de $f(x)$ en simultáneo, no de uno solo.\n\nEn ::si $x>0$ entonces.\n\n$f>0$ (1.° cuadrante); si.\n\n$x<0$ entonces.\n\n$f<0$ (3.° cuadrante).\n\nLa hipérbola vive en los cuadrantes donde $x$ y $f(x)$ tienen el mismo signo.\n\nTené en cuenta que confundir esto con $-1/x$, que vive en los cuadrantes donde el signo se invierte.",
     "reviewed": false,
     "tags": [
       "dominio-desde-grafico"

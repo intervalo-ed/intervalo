@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función es **monótona** si crece siempre o decrece siempre.\n\nLa cuadrática no cumple eso: el **vértice** la parte en dos tramos opuestos.\n\nPor ejemplo, con $a > 0$ la **parábola** **decrece** a la izquierda del vértice y **crece** a la derecha.\n\nHay un cambio de sentido justo en el medio.\n\nPor eso, al hablar de crecimiento en una cuadrática, siempre hace falta aclarar *en qué intervalo*.\n\nA diferencia de una recta, acá no hay una única respuesta para todo el **dominio**.",
+    "explanation": "Una función es **monótona** si crece siempre o decrece siempre.\n\nLa cuadrática no cumple eso: el **vértice** la parte en dos tramos opuestos.\n\nPor ejemplo, con $a > 0$ la **parábola** **decrece** a la izquierda del vértice y **crece** a la derecha.\n\nHay un cambio de sentido justo en el medio.\n\nPor eso, al hablar de crecimiento en una cuadrática, siempre hace falta aclarar *en qué intervalo*.\n\nEn cambio, una recta, acá no hay una única respuesta para todo el **dominio**.",
     "reviewed": false,
     "tags": [
       "vertice-concepto"

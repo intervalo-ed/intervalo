@@ -558,7 +558,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos.\n\nEl denominador $x^2-9=(x-3)(x+3)$ se anula en $x=3$\n\ny en $x=-3$. Así que el dominio es:\n\n\nEl error más común es olvidar una de las dos raíces y escribir el dominio con un solo punto excluido, o confundir el término independiente $9$ con la raíz real, que en realidad es $\\pm3$.",
+    "explanation": "Cuando el denominador tiene dos raíces reales, el dominio queda partido en tres intervalos, no en dos.\n\nEl denominador $x^2-9=(x-3)(x+3)$ se anula en $x=3$\n\ny en $x=-3$. Así que el dominio es:\n\n\nAlgunos olvidan una de las dos raíces y escribir el dominio con un solo punto excluido, o confundir el término independiente $9$ con la raíz real, que en realidad es $\\pm3$.",
     "reviewed": false,
     "tags": [
       "cantidad-asintotas-verticales-form"

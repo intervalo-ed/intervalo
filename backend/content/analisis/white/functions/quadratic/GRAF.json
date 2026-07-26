@@ -1073,7 +1073,7 @@
       -1,
       11
     ],
-    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación\n\nsuele dibujar una parábola que abre hacia abajo, con un **máximo** en su vértice: ningún otro precio da un resultado mejor que ese.\n\nAcá el tope de recaudación es la coordenada vertical del vértice:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
+    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación suele dibujar una parábola que abre hacia abajo, con un **máximo** en su vértice: ningún otro precio da un resultado mejor que ese.\n\nAcá el tope de recaudación es la coordenada vertical del vértice:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -1103,7 +1103,7 @@
       -1,
       13
     ],
-    "explanation": "Cuando una ganancia depende de una cantidad que tiene un punto óptimo, como pasa con las mesas de un bar, esa relación dibuja una parábola\n\nque abre hacia abajo, con un **máximo** en el vértice: ni con muy pocas mesas ni con demasiadas se logra el mejor resultado.\n\nAcá la cantidad ideal es la coordenada horizontal del vértice:\n\nSeis mesas dan la mayor ganancia de la noche.\n\nPoner menos mesas desaprovecha el espacio disponible, y poner de más termina espantando a los clientes por lo apretado del lugar; el óptimo está siempre en algún punto intermedio.",
+    "explanation": "Cuando una ganancia depende de una cantidad que tiene un punto óptimo, como pasa con las mesas de un bar, esa relación dibuja una parábola que abre hacia abajo, con un **máximo** en el vértice: ni con muy pocas mesas ni con demasiadas se logra el mejor resultado.\n\nAcá la cantidad ideal es la coordenada horizontal del vértice:\n\nSeis mesas dan la mayor ganancia de la noche.\n\nPoner menos mesas desaprovecha el espacio disponible, y poner de más termina espantando a los clientes por lo apretado del lugar; el óptimo está siempre en algún punto intermedio.",
     "reviewed": false,
     "tags": [
       "ordenada-origen"
@@ -1283,7 +1283,7 @@
       -1,
       13
     ],
-    "explanation": "Cuando una magnitud baja y después se recupera, como la temperatura durante una madrugada, esa relación con la hora suele dibujar una\n\nparábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro momento de la noche registra un valor más bajo que ese.\n\nAcá la temperatura mínima es la coordenada vertical del vértice:\n\nUn grado, en la hora marcada por la coordenada horizontal.\n\nComo el vértice queda por encima del eje horizontal, la temperatura nunca llega a cero ni a valores negativos en este gráfico, se queda siempre por encima de su piso mínimo.",
+    "explanation": "Cuando una magnitud baja y después se recupera, como la temperatura durante una madrugada, esa relación con la hora suele dibujar una parábola que abre hacia arriba, con un **mínimo** en el vértice: ningún otro momento de la noche registra un valor más bajo que ese.\n\nAcá la temperatura mínima es la coordenada vertical del vértice:\n\nUn grado, en la hora marcada por la coordenada horizontal.\n\nComo el vértice queda por encima del eje horizontal, la temperatura nunca llega a cero ni a valores negativos en este gráfico, se queda siempre por encima de su piso mínimo.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
