@@ -23,7 +23,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int xe^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "En esta integral, usá integración por partes:\n$$\\int xe^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=xe^x, dv=dx$",
       "$u=x, dv=e^x\\,dx$",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x\\sin x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Aplicá integración por partes a:\n$$\\int x\\sin x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\sin x, dv=x\\,dx$",
       "$u=x\\sin x, dv=dx$",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Resolvé por partes:\n$$\\int x^3\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\ln x, dv=x^3\\,dx$",
       "$u=x^3, dv=\\ln x\\,dx$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int xe^{3x}\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Encontrá la integral por partes:\n$$\\int xe^{3x}\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=xe^{3x}, dv=dx$",
       "$u=x, dv=e^{3x}\\,dx$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Con integración por partes, hallá:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\cos x, dv=x\\,dx$",
       "$u=x\\cos x, dv=dx$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int 2x\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Verificá si es necesario iterar en:\n$$\\int 2x\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\ln x, dv=2x\\,dx$",
       "$u=2x, dv=\\ln x\\,dx$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x^2e^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Determiná la fórmula de partes para:\n$$\\int x^2e^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=x^2e^x, dv=dx$",
       "$u=x^2, dv=e^x\\,dx$",
@@ -209,7 +209,7 @@
   {
     "question": "Analizá la integral:\n$$\\int e^x\\sin x\\,dx$$\n¿Cómo se comporta al resolverla por partes?",
     "options": [
-      "Es cíclica",
+      "Es cíclica y requiere método especial",
       "Requiere una iteración",
       "Requiere dos iteraciones"
     ],

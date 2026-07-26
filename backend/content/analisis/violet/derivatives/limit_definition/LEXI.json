@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Observá la siguiente función:\n$$\\frac{\\Delta y}{\\Delta x}$$\nDe $\\frac{dy}{dx}$?",
+    "question": "Observá la siguiente función:\n$$\\frac{\\Delta y}{\\Delta x}$$\nDe \\n$$\\frac{dy}{dx}$$\\n?",
     "options": [
       "$\\frac{dy}{dx}$ representa siempre una tasa promedio",
       "$\\frac{\\Delta y}{\\Delta x}$ es una variación",

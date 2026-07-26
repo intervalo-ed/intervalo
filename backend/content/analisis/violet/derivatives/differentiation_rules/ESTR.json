@@ -257,7 +257,7 @@
     "options": [
       "Dos",
       "Uno",
-      "Potencia simple"
+      "Potencia"
     ],
     "correct_index": 2,
     "has_math": true,

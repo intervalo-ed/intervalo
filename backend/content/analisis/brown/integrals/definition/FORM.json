@@ -278,7 +278,7 @@
   {
     "question": "Considerá la integral:\n$$\\int \\frac{x^2+3}{5}\\,dx$$\n¿Se puede separar esta integral usando linealidad?",
     "options": [
-      "Término corrección",
+      "Sí, porque dividir por una constante es un múltiplo escalar aplicable",
       "No, hay que aplicar la regla del cociente para integrales",
       "No, el cociente de funciones nunca se puede separar"
     ],

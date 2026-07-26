@@ -278,7 +278,7 @@
   {
     "question": "Sea la función:\n$$\\frac{d}{dx}[\\cdot]$$\n¿Qué representa el operador?",
     "options": [
-      "Regla de aplicación",
+      "Regla de aplicación más directa sin combinar",
       "Una fracción que se puede simplificar cancelando las $d$",
       "El valor numérico de la derivada en un punto"
     ],

@@ -865,7 +865,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$g(x) = \\dfrac{1}{x}$$\n¿cómo se obtiene $f(x) = \\dfrac{1}{x} - 3$?",
+    "question": "Para la función:\n$$g(x) = \\dfrac{1}{x}$$\n¿cómo se obtiene \\n$$f(x) = \\dfrac{1}{x} - 3$$\\n?",
     "options": [
       "Desplazando $g$ 3 unidades hacia la derecha",
       "Multiplicando $g$ por $-3$",

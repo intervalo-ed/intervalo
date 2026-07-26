@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
+    "question": "Verificá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$-e$",
       "$e$",
