@@ -1,6 +1,6 @@
 [
   {
-    "question": "Para la función:\n$$f(x) = e^{x^2+1}$$\nCalculá $f'(0)$.",
+    "question": "Dada la función:\n$$f(x) = e^{x^2+1}$$\nCalculá $f'(0)$.",
     "options": [
       "$0$",
       "$e$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{\\cos x}$$\nCalculá $f'(\\pi)$.",
+    "question": "Considerá la función:\n$$f(x) = e^{\\cos x}$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$1/e$",
       "$-1$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{\\sin x}$$\nCalculá $f'(\\pi)$.",
+    "question": "Dada la función:\n$$f(x) = e^{\\sin x}$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$-e^{\\pi}$",
       "$0$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\sin(\\cos x)$$\nCalculá $f'(\\pi/2)$.",
+    "question": "Con la función:\n$$f(x) = \\sin(\\cos x)$$\nCalculá $f'(\\pi/2)$.",
     "options": [
       "$1$",
       "$0$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\ln(x+1)$$\nCalculá $f'(0)$.",
+    "question": "Considerá la función:\n$$f(x) = \\ln(x+1)$$\nCalculá $f'(0)$.",
     "options": [
       "$1$",
       "$0$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\cos(\\ln x)$$\nCalculá $f'(1)$.",
+    "question": "Con la función:\n$$f(x) = \\cos(\\ln x)$$\nCalculá $f'(1)$.",
     "options": [
       "$2$",
       "$0$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = e^{2x-2}$$\nCalculá $f'(1)$.",
+    "question": "Dada la función:\n$$f(x) = e^{2x-2}$$\nCalculá $f'(1)$.",
     "options": [
       "$1$",
       "$-2$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Para la función:\n$$f(x) = \\sin(x-\\pi)$$\nCalculá $f'(\\pi)$.",
+    "question": "Considerá la función:\n$$f(x) = \\sin(x-\\pi)$$\nCalculá $f'(\\pi)$.",
     "options": [
       "$0$",
       "$-1$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$h(2)=3$$\n$h'(2)=4$ y $g'(3)=5$, calculá $(g\\circ h)'(2)$.",
+    "question": "Analiza:\n$$h(2)=3$$\n$h'(2)=4$ y $g'(3)=5$, calculá $(g\\circ h)'(2)$.",
     "options": [
       "$20$",
       "$9$",

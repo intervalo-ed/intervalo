@@ -1024,7 +1024,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(0) = 4$ y $b = 3$: $f(x) = 4 \\cdot 3^x$.",
+    "feedback_correct": "$f(x) = 4 \\cdot 3^x$",
     "feedback_incorrect": [
       "Ahí $a$ y $b$ quedaron invertidos: el $4$ dado en el punto $(0,4)$ tiene que ser el coeficiente, y el $3$ la base.",
       null,
@@ -1033,7 +1033,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para armar la fórmula de una exponencial a partir de un punto y una base, el valor donde la curva corta el eje vertical es directamente el coeficiente $a$, y la base dada se coloca tal cual en el exponente.\n\nDatos: $f(0) = 4 \\implies a = 4$; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y $f(1) = 4 \\cdot 3 = 12$.\n\nIntercambiar los roles de $a$ y $b$, escribiendo el $3$ como coeficiente y el $4$ como base.",
+    "explanation": "**Datos usados:**\n$f(0) = 4$ $b = 3$\n\nPara armar la fórmula de una exponencial a partir de un punto y una base, el valor donde la curva corta el eje vertical es directamente el coeficiente $a$, y la base dada se coloca tal cual en el exponente.\n\nDatos: $f(0) = 4 \\implies a = 4$; base $b = 3$.\n\nFórmula: $f(x) = 4 \\cdot 3^x$.\n\nVerificación: $f(0) = 4 \\cdot 1 = 4$ y $f(1) = 4 \\cdot 3 = 12$.\n\nIntercambiar los roles de $a$ y $b$, escribiendo el $3$ como coeficiente y el $4$ como base.",
     "reviewed": false,
     "tags": [
       "evaluar-contexto"
@@ -1174,7 +1174,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$A(0) = 1000$ y $B(0) = 2000$: en $t = 0$, $B$ vale el doble que $A$.",
+    "feedback_correct": "en, vale el doble que $A$",
     "feedback_incorrect": [
       "$A$ tiene la base más grande, pero eso determina qué tan rápido crece, no cuánto vale en $t=0$: ahí manda el coeficiente $a$ de cada modelo.",
       null,
@@ -1183,7 +1183,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para comparar dos modelos exponenciales en un instante dado, hay que evaluar ambas fórmulas en ese valor de $t$.\n\nEl coeficiente $a$ de cada una determina directamente cuánto vale la función en $t=0$, sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo, $A$ tiene mayor base ($1{,}5>1{,}2$), así que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
+    "explanation": "**Datos usados:**\n$A(0) = 1000$ $B(0) = 2000$ $t = 0$ $B$\n\nPara comparar dos modelos exponenciales en un instante dado, hay que evaluar ambas fórmulas en ese valor de $t$.\n\nEl coeficiente $a$ de cada una determina directamente cuánto vale la función en $t=0$, sin importar cuál tenga la base mayor.\n\nEn el instante inicial, $B=2000$ es mayor que $A=1000$.\n\nSin embargo, $A$ tiene mayor base ($1{,}5>1{,}2$), así que a largo plazo $A$ terminará superando a $B$.\n\nConfundir el valor inicial con la velocidad de crecimiento al comparar dos exponenciales.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-desplazada"

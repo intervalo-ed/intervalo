@@ -219,7 +219,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$\\cos(0) = 1$ (máximo) y $\\operatorname{sen}(0) = 0$: esa es la diferencia clave en $x = 0$.",
+    "feedback_correct": "(máximo) y: esa es la diferencia clave en $x = 0$",
     "feedback_incorrect": [
       "Repasá la gráfica del coseno en un ciclo completo, sí cruza el eje horizontal en algún punto.",
       "Compará la altura máxima de ambas curvas, las dos llegan al mismo techo.",
@@ -233,7 +233,7 @@
       -2,
       2
     ],
-    "explanation": "La diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\nEl coseno arranca desde el techo; el seno desde el eje.\nAmbos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
+    "explanation": "**Datos usados:**\n$\\cos(0) = 1$ $\\operatorname{sen}(0) = 0$\n\nLa diferencia visual clave entre seno y coseno es el **valor en $x=0$**: $\\cos(0)=1$ (máximo) mientras que $\\operatorname{sen}(0)=0$.\nEl coseno arranca desde el techo; el seno desde el eje.\nAmbos tienen la misma amplitud ($1$) y el mismo período ($2\\pi$).\nPara identificarlos en un gráfico, mirá qué valor toman en el eje $Y$: si empieza en el máximo, es coseno.",
     "reviewed": false,
     "tags": [
       "paridad-desde-grafico"
@@ -729,7 +729,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Correcto. $\\operatorname{sen}(2x) = 0$ en $2x = \\pi$, es decir $x = \\pi/2$.",
+    "feedback_correct": "Correcto.  en, es decir $x = \\pi/2$",
     "feedback_incorrect": [
       "Ese es el segundo cruce positivo con el eje, no el primero, fijate cuál aparece antes en el gráfico.",
       "Ese punto no está sobre el eje horizontal en el gráfico, revisá dónde la curva realmente lo cruza.",
@@ -743,7 +743,7 @@
       -2,
       2
     ],
-    "explanation": "Las raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
+    "explanation": "**Datos usados:**\n$\\operatorname{sen}(2x) = 0$ $2x = \\pi$\n\nLas raíces de $\\operatorname{sen}(2x)=0$ ocurren cuando el argumento $2x=k\\pi$, es decir $x=k\\pi/2$. La primera raíz positiva **no nula** es:\n$$\\begin{aligned}\nx &= \\frac{\\pi}{2}:\n\\end{aligned}$$\nLa raíz $x=0$ existe pero es la raíz en el origen (no la primera positiva no nula). La opción $x=\\pi$ es la segunda raíz positiva no nula. La opción $x=\\pi/4$ no es raíz: $\\operatorname{sen}(2\\cdot\\pi/4)=\\operatorname{sen}(\\pi/2)=1\\neq0$.",
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
@@ -1029,7 +1029,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. $\\cos(\\pi) = -1$, $\\cos(3\\pi) = -1$, ...: $x = \\pi + 2k\\pi$.",
+    "feedback_correct": "Correcto. ,, $x = \\pi + 2k\\pi$",
     "feedback_incorrect": [
       "Esos valores incluyen también los puntos donde la curva toca el techo, no solo el piso.",
       "Esos valores marcan los picos hacia arriba, no los mínimos, fijate bien en el gráfico.",
@@ -1043,7 +1043,7 @@
       -2,
       2
     ],
-    "explanation": "El **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) ocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ y se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$). La opción $x=2k\\pi$ da los **máximos**. La opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
+    "explanation": "**Datos usados:**\n$\\cos(\\pi) = -1$ $\\cos(3\\pi) = -1$\n\nEl **mínimo** de $f(x)=\\cos(x)$ (valor $-1$) ocurre cuando el punto en el círculo unitario está en $(-1,0)$: eso es $x=\\pi$ y se repite cada $2\\pi$.\n\nSolución general: $x=\\pi+2k\\pi=(2k+1)\\pi$, $k\\in\\mathbb{Z}$. La opción $x=k\\pi$ incluiría también los máximos ($x=2k\\pi$). La opción $x=2k\\pi$ da los **máximos**. La opción $x=\\pi/2+k\\pi$ da los ceros.\n\nEl coseno toca el fondo en $\\pi, 3\\pi, 5\\pi, \\ldots$: cada vuelta completa, empieza por el mismo sótano.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
@@ -1119,7 +1119,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto. El mínimo en $x = 0$ ($f(0) = -1$) y máximo en $x = \\pi$ identifican $-\\cos(x)$.",
+    "feedback_correct": "Correcto. El mínimo en  () y máximo en identifican $-\\cos(x)$",
     "feedback_incorrect": [
       "Esa función arranca en el eje horizontal, no en el piso, revisá el valor inicial que describe el enunciado.",
       "Esa función arranca en el eje horizontal y baja primero, no arranca directamente en el piso.",
@@ -1133,7 +1133,7 @@
       -2,
       2
     ],
-    "explanation": "La onda tiene mínimo $-1$ en $x=0$ y máximo $1$ en $x=\\pi$. Verificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; $-\\operatorname{sen}(0)=0$ ; $\\cos(0)=1$  (el máximo debería estar en $x=0$, no el mínimo). Solo $f(x)=-\\cos(x)$ arranca en $-1$ y llega al máximo en $\\pi$.\n\n$-\\cos(x)$: el coseno dado vuelta. El mínimo en el origen y el máximo a $\\pi$ de distancia.",
+    "explanation": "**Datos usados:**\n$x = 0$ $f(0) = -1$ $x = \\pi$\n\nLa onda tiene mínimo $-1$ en $x=0$ y máximo $1$ en $x=\\pi$. Verificando cada opción:\n\n$-\\cos(0)=-1$  y $-\\cos(\\pi)=-(-1)=1$ .\n\nLas otras opciones: $\\operatorname{sen}(0)=0$ ; $-\\operatorname{sen}(0)=0$ ; $\\cos(0)=1$  (el máximo debería estar en $x=0$, no el mínimo). Solo $f(x)=-\\cos(x)$ arranca en $-1$ y llega al máximo en $\\pi$.\n\n$-\\cos(x)$: el coseno dado vuelta. El mínimo en el origen y el máximo a $\\pi$ de distancia.",
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"

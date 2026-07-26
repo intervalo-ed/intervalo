@@ -512,7 +512,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "En $f(x) = -x = -1 \\cdot x + 0$, la pendiente es $m = -1$.",
+    "feedback_correct": "En $-1 \\cdot x + 0$, la pendiente es $m = -1$.",
     "feedback_incorrect": [
       "Pendiente 0 sería una constante horizontal, y esta recta baja.",
       null,
@@ -521,7 +521,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La función $f(x) = -x$ puede escribirse en forma canónica:\n$$f(x) = -1 \\cdot x + 0$$\nCon **pendiente** $m = -1$ y **ordenada al origen** $b = 0$.\n\nLa recta pasa por el origen $(0, 0)$ y baja una unidad por cada unidad que avanza $x$: es decreciente.\n\nCuando la variable aparece sola con un signo menos, el coeficiente es $-1$ aunque no esté escrito; leer pendiente $1$ sin el signo es el error clásico.",
+    "explanation": "**Derivación:**\n$f(x) = -x = -1 \\cdot x + 0$\n\nLa función $f(x) = -x$ puede escribirse en forma canónica:\n$$f(x) = -1 \\cdot x + 0$$\nCon **pendiente** $m = -1$ y **ordenada al origen** $b = 0$.\n\nLa recta pasa por el origen $(0, 0)$ y baja una unidad por cada unidad que avanza $x$: es decreciente.\n\nCuando la variable aparece sola con un signo menos, el coeficiente es $-1$ aunque no esté escrito; leer pendiente $1$ sin el signo es el error clásico.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -537,7 +537,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "En $f(x) = 10 = 0 \\cdot x + 10$, la pendiente es $m = 0$.",
+    "feedback_correct": "En $0 \\cdot x + 10$, la pendiente es $m = 0$.",
     "feedback_incorrect": [
       null,
       "$10$ es la ordenada al origen, el valor constante que devuelve la función.",
@@ -546,7 +546,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una función constante puede escribirse en el molde lineal:\n$$f(x) = 0 \\cdot x + 10$$\nCon **pendiente** $m = 0$ y **ordenada al origen** $b = 10$.\n\nLa gráfica es una recta horizontal a altura 10: no sube ni baja porque la tasa de cambio es cero.\n\nDecir que \"no tiene pendiente\" es distinto de \"pendiente cero\": la pendiente existe y vale 0. La que no tiene pendiente definida es una recta vertical, que ni siquiera es función.",
+    "explanation": "**Derivación:**\n$f(x) = 10 = 0 \\cdot x + 10$\n\nUna función constante puede escribirse en el molde lineal:\n$$f(x) = 0 \\cdot x + 10$$\nCon **pendiente** $m = 0$ y **ordenada al origen** $b = 10$.\n\nLa gráfica es una recta horizontal a altura 10: no sube ni baja porque la tasa de cambio es cero.\n\nDecir que \"no tiene pendiente\" es distinto de \"pendiente cero\": la pendiente existe y vale 0. La que no tiene pendiente definida es una recta vertical, que ni siquiera es función.",
     "reviewed": false,
     "tags": [
       "pendiente-calculo"
@@ -660,7 +660,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $3x - 9 = 0 \\implies x = 3$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 3$.",
     "feedback_incorrect": [
       null,
       "El signo queda al revés en el despeje: de $3x = 9$ sale $x = 3$, positivo.",
@@ -669,7 +669,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nEste razonamiento muestra que de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
+    "explanation": "**Derivación:**\n$3x - 9 = 0 \\implies x = 3$\n\nLa raíz de una función es el valor de $x$ donde $f(x) = 0$. Para $f(x) = 3x - 9$:\n$$3x - 9 = 0 \\implies 3x = 9 \\implies x = 3$$\nVerificación: $f(3) = 3 \\cdot 3 - 9 = 0$.\n\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nEste razonamiento muestra que de signo al pasar el término restando y de división: dividí siempre el término independiente cambiado de signo por el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -685,7 +685,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $-2x + 8 = 0 \\implies x = 4$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 4$.",
     "feedback_incorrect": [
       "El signo se pierde en el despeje: $-2x = -8$ da $x = 4$ positivo, porque ambos lados son negativos.",
       "Ese valor no sale de la ecuación: la cuenta es dividir 8 entre 2 con los signos bien llevados.",
@@ -694,7 +694,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la raíz se resuelve $f(x) = 0$:\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\nVerificación: $f(4) = -2 \\cdot 4 + 8 = 0$.\n\nAl dividir $-8$ entre $-2$ los signos se cancelan y el resultado es positivo.\n\nEl error más común en estas cuentas es manejar mal el signo del coeficiente negativo: conviene despejar en dos pasos y recién al final dividir, mirando los signos de ambos lados.",
+    "explanation": "**Derivación:**\n$-2x + 8 = 0 \\implies x = 4$\n\nPara hallar la raíz se resuelve $f(x) = 0$:\n$$-2x + 8 = 0 \\implies -2x = -8 \\implies x = 4$$\nVerificación: $f(4) = -2 \\cdot 4 + 8 = 0$.\n\nAl dividir $-8$ entre $-2$ los signos se cancelan y el resultado es positivo.\n\nEl error más común en estas cuentas es manejar mal el signo del coeficiente negativo: conviene despejar en dos pasos y recién al final dividir, mirando los signos de ambos lados.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1052,7 +1052,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $mx + b = 0 \\implies x = -b/m$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = -b/m$.",
     "feedback_incorrect": [
       null,
       "Le falta el cambio de signo: al pasar $b$ al otro lado queda $mx = -b$.",
@@ -1061,7 +1061,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz se obtiene resolviendo $f(x) = 0$:\n$$\\begin{aligned} mx + b &= 0 \\\\ mx &= -b \\\\ x &= -\\frac{b}{m} \\end{aligned}$$\nEsta fórmula vale para cualquier lineal con $m \\neq 0$.\n\nEl detalle que decide todo es el signo: al pasar $b$ restando queda $-b$ en el numerador.\n\nSi la raíz que calculaste no verifica $f(x) = 0$ al sustituir, casi seguro el error fue ese signo o dividir los parámetros al revés.",
+    "explanation": "**Derivación:**\n$mx + b = 0 \\implies x = -b/m$\n\nLa raíz se obtiene resolviendo $f(x) = 0$:\n$$\\begin{aligned} mx + b &= 0 \\\\ mx &= -b \\\\ x &= -\\frac{b}{m} \\end{aligned}$$\nEsta fórmula vale para cualquier lineal con $m \\neq 0$.\n\nEl detalle que decide todo es el signo: al pasar $b$ restando queda $-b$ en el numerador.\n\nSi la raíz que calculaste no verifica $f(x) = 0$ al sustituir, casi seguro el error fue ese signo o dividir los parámetros al revés.",
     "reviewed": false,
     "tags": [
       "monotonia-signo-pendiente"
@@ -1076,7 +1076,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Ambas son lineales. $y = 2x$ tiene $b = 0$; $y = 2x + 3$ tiene $b = 3$. Mismo $m$, diferente $b$.",
+    "feedback_correct": "Ambas son lineales.  tiene; tiene. Mismo, diferente $b$",
     "feedback_incorrect": [
       "$y = 2x$ es perfectamente lineal: es el caso con ordenada al origen cero.",
       "La inclinación la fija la pendiente, que es 2 en ambas; el $+3$ no empina, desplaza.",
@@ -1084,7 +1084,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Ambas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación. Lo que cambia es la **ordenada al origen**: $y = 2x$ pasa por $(0, 0)$ y $y = 2x + 3$ pasa por $(0, 3)$.\n\nGeométricamente, la segunda es la primera desplazada 3 unidades hacia arriba. Al tener igual pendiente, son paralelas: nunca se cruzan.\n\nSumar una constante nunca cambia la inclinación de una recta; solo la traslada verticalmente. Empinar requiere tocar el coeficiente de $x$.",
+    "explanation": "**Datos usados:**\n$y = 2x$ $b = 0$ $y = 2x + 3$ $b = 3$ $m$\n\nAmbas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación. Lo que cambia es la **ordenada al origen**: $y = 2x$ pasa por $(0, 0)$ y $y = 2x + 3$ pasa por $(0, 3)$.\n\nGeométricamente, la segunda es la primera desplazada 3 unidades hacia arriba. Al tener igual pendiente, son paralelas: nunca se cruzan.\n\nSumar una constante nunca cambia la inclinación de una recta; solo la traslada verticalmente. Empinar requiere tocar el coeficiente de $x$.",
     "reviewed": false,
     "tags": [
       "nombre-parametros"

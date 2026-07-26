@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
+    "question": "Una función dada por casos se define como:\n$$f(x) = \\begin{cases} -x + 1 & \\text{si } x < 2 \\\\ x + 3 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2^-} f(x)$?",
     "options": [
       "$1$",
       "$5$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 3 & \\text{si } x < 2 \\\\ 3x - 1 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "question": "La siguiente función a trozos está dada por:\n$$f(x) = \\begin{cases} x + 3 & \\text{si } x < 2 \\\\ 3x - 1 & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No existe",
       "$5$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
+    "question": "Una función dada por casos se define como:\n$$f(x) = \\begin{cases} x + 1 & \\text{si } x < 1 \\\\ x + 5 & \\text{si } x \\geq 1 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 1} f(x)$?",
     "options": [
       "$2$",
       "$6$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
+    "question": "La siguiente función a trozos está dada por:\n$$f(x) = \\begin{cases} x + 1{,}5 & \\text{si } x < 3 \\\\ 2x - 1{,}5 & \\text{si } x \\geq 3 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 3} f(x)$?",
     "options": [
       "$4{,}5$",
       "No existe",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
+    "question": "Considerá esta función por ramas:\n$$f(x) = \\begin{cases} x - 2 & \\text{si } x < 5 \\\\ -x + 2 & \\text{si } x \\geq 5 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 5} f(x)$?",
     "options": [
       "$3$",
       "$-3$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Una función a trozos está definida por:\n$$f(x) = \\begin{cases} 3x - 4 & \\text{si } x < 2 \\\\ x & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
+    "question": "Analiza la función a trozos:\n$$f(x) = \\begin{cases} 3x - 4 & \\text{si } x < 2 \\\\ x & \\text{si } x \\geq 2 \\end{cases}$$\n¿Cuánto vale $\\lim_{x \\to 2} f(x)$?",
     "options": [
       "No existe",
       "$2$",

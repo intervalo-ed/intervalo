@@ -1098,14 +1098,14 @@
       "$3$"
     ],
     "correct_index": 2,
-    "feedback_correct": "Grado 4 → máximo 4 raíces reales. En este caso se alcanzan: $x = \\pm 1$... pero espera, $x^4 = 1$ da $x = \\pm 1$ en reales: solo 2.",
+    "feedback_correct": "Grado 4 → máximo 4 raíces reales. En este caso se alcanzan: ... pero espera,  da en reales: solo 2 $x = \\pm 1$",
     "feedback_incorrect": [
       "Esa cifra queda muy por debajo del grado del polinomio, que es lo que fija el máximo posible de raíces reales.",
       "Esa es la cantidad de raíces reales que efectivamente tiene este polinomio en particular, pero la pregunta pide el máximo posible según el grado.",
       null,
       "El máximo posible de raíces reales coincide con el grado del polinomio; para este polinomio esa cota es un número más que este valor."
     ],
-    "explanation": "El número **máximo** de **raíces** reales de un polinomio de **grado** $n$ es $n$.\n\nPara $p(x) = x^4 - 1$ el máximo posible es $4$.\n\nEn los reales: $x^4 = 1 \\Rightarrow x = \\pm 1$ (2 raíces reales). Las otras 2 son complejas: $x = \\pm i$.\n\nLa pregunta pide el máximo **posible** según el grado, no el número de raíces de este polinomio en particular. La respuesta es $4$.",
+    "explanation": "**Datos usados:**\n$x = \\pm 1$ $x^4 = 1$\n\nEl número **máximo** de **raíces** reales de un polinomio de **grado** $n$ es $n$.\n\nPara $p(x) = x^4 - 1$ el máximo posible es $4$.\n\nEn los reales: $x^4 = 1 \\Rightarrow x = \\pm 1$ (2 raíces reales). Las otras 2 son complejas: $x = \\pm i$.\n\nLa pregunta pide el máximo **posible** según el grado, no el número de raíces de este polinomio en particular. La respuesta es $4$.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

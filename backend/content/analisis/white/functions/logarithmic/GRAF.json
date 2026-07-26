@@ -969,7 +969,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "En $x=1$: $f(1)=-1$. En $x=2$: $f(2)=0$. Desplazamiento vertical $-1$.",
+    "feedback_correct": "En :. En:. Desplazamiento vertical $-1$",
     "feedback_incorrect": [
       "Revisá si la curva pasa exactamente por $(1,0)$ o si está corrida respecto de ese punto.",
       "Fijate si la asíntota vertical sigue en $x=0$ o si el corrimiento horizontal la movió a otro valor.",
@@ -983,7 +983,7 @@
       -4,
       4
     ],
-    "explanation": "Un desplazamiento vertical negativo baja toda la curva la misma cantidad, sin mover la asíntota ni cambiar el dominio, solo corre el punto donde cruza el eje $X$.\n\nClaves: 1. Asíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$: $f(1) = 0 - 1 = -1$ (no pasa por $(1,0)$). 3.\n\nIntercepto con eje $X$ en $x = 2$: $\\log_2(2) - 1 = 1 - 1 = 0$ .\n\nFórmula: $f(x) = \\log_2(x) - 1$.",
+    "explanation": "**Datos usados:**\n$x=1$ $f(1)=-1$ $x=2$ $f(2)=0$\n\nUn desplazamiento vertical negativo baja toda la curva la misma cantidad, sin mover la asíntota ni cambiar el dominio, solo corre el punto donde cruza el eje $X$.\n\nClaves: 1. Asíntota en $x = 0$ → argumento es $x$. 2.\n\nEn $x = 1$: $f(1) = 0 - 1 = -1$ (no pasa por $(1,0)$). 3.\n\nIntercepto con eje $X$ en $x = 2$: $\\log_2(2) - 1 = 1 - 1 = 0$ .\n\nFórmula: $f(x) = \\log_2(x) - 1$.",
     "reviewed": false,
     "tags": [
       "lectura-asintota"
@@ -1119,7 +1119,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Decreciente, $f(1)=1$, raíz en $x=2$: $f(x) = -\\log_2(x)+1$.",
+    "feedback_correct": "Decreciente, , raíz en $f(x) = -\\log_2(x)+1$",
     "feedback_incorrect": [
       "Revisá la altura exacta en $x=1$, sin desplazamiento vertical ese punto estaría en $y=0$, no en el valor que muestra el gráfico.",
       "Esa fórmula no tiene el signo negado, así que describe una curva creciente, y la del gráfico es decreciente.",
@@ -1133,7 +1133,7 @@
       -3,
       5
     ],
-    "explanation": "Combinar una reflexión con un desplazamiento vertical requiere revisar ambos efectos por separado: primero el signo cambia la dirección, después la constante corre toda la curva.\n\nClaves: 1. **Decreciente** → logaritmo negado. 2.\n\nEn $x = 1$: $f(1) = -0 + 1 = 1$ (no pasa por $(1,0)$). 3.\n\nEn $x = 2$: $f(2) = -1 + 1 = 0$ → raíz en $x = 2$.\n\nFórmula: $f(x) = -\\log_2(x) + 1$.",
+    "explanation": "**Datos usados:**\n$f(1)=1$ $x=2$\n\nCombinar una reflexión con un desplazamiento vertical requiere revisar ambos efectos por separado: primero el signo cambia la dirección, después la constante corre toda la curva.\n\nClaves: 1. **Decreciente** → logaritmo negado. 2.\n\nEn $x = 1$: $f(1) = -0 + 1 = 1$ (no pasa por $(1,0)$). 3.\n\nEn $x = 2$: $f(2) = -1 + 1 = 0$ → raíz en $x = 2$.\n\nFórmula: $f(x) = -\\log_2(x) + 1$.",
     "reviewed": false,
     "tags": [
       "lectura-raiz-cruce-x"

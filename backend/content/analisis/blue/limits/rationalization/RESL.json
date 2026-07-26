@@ -1,6 +1,6 @@
 [
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$",
+    "question": "¿Cuál es el valor del siguiente límite?\n$$\\lim_{x \\to 0} \\frac{\\sqrt{x+9}-3}{x}$$",
     "options": [
       "$-\\frac{1}{6}$",
       "$\\frac{1}{6}$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$",
+    "question": "Calculá el siguiente límite:\n$$\\lim_{x \\to 4} \\frac{\\sqrt{x+21}-5}{x-4}$$",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{20}$",
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$",
+    "question": "¿Cuál es el valor del siguiente límite?\n$$\\lim_{x \\to 1} \\frac{\\sqrt{x+24}-5}{x-1}$$",
     "options": [
       "$\\frac{1}{5}$",
       "$\\frac{1}{10}$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$",
+    "question": "Determiná el siguiente límite:\n$$\\lim_{x \\to 4} \\frac{x-4}{\\sqrt{x}-2}$$",
     "options": [
       "$2$",
       "$4$",
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$",
+    "question": "Calculá el siguiente límite:\n$$\\lim_{x \\to 9} \\frac{x-9}{\\sqrt{x}-3}$$",
     "options": [
       "$-6$",
       "$3$",
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
+    "question": "Determiná el siguiente límite:\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
     "options": [
       "$8$",
       "$4$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$",
+    "question": "Evaluá el siguiente límite:\n$$\\lim_{x \\to 25} \\frac{x-25}{\\sqrt{x}-5}$$",
     "options": [
       "$5$",
       "$-10$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$",
+    "question": "Evaluá el siguiente límite:\n$$\\lim_{x \\to 1} \\frac{x-1}{\\sqrt{x}-1}$$",
     "options": [
       "$2$",
       "$1$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
+    "question": "Hallá el siguiente límite:\n$$\\lim_{x \\to 16} \\frac{x-16}{\\sqrt{x}-4}$$",
     "options": [
       "$8$",
       "$4$",
@@ -300,7 +300,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$",
+    "question": "Hallá el siguiente límite:\n$$\\lim_{x \\to 4} \\frac{4-x}{\\sqrt{x}-2}$$",
     "options": [
       "$4$",
       "$-4$",
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$",
+    "question": "¿Cuál es el valor del siguiente límite?\n$$\\lim_{x \\to 9} \\frac{9-x}{\\sqrt{x}-3}$$",
     "options": [
       "$6$",
       "$-3$",
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "question": "¿Cuánto vale el siguiente límite?\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$",
+    "question": "Calculá el siguiente límite:\n$$\\lim_{x \\to 25} \\frac{25-x}{\\sqrt{x}-5}$$",
     "options": [
       "$10$",
       "$-5$",

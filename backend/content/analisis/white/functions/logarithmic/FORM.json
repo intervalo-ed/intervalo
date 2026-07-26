@@ -764,7 +764,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Despejando $t$: $(1{,}1)^t = M/1000 \\implies t = \\log_{1{,}1}(M/1000)$.",
+    "feedback_correct": "Despejando $t$: $t = \\log_{1{,}1}(M/1000)$.",
     "feedback_incorrect": [
       null,
       "Esa fórmula invierte la relación: ahí $t$ queda como exponente de una potencia, cuando lo que hay que despejar es el propio $t$ usando un logaritmo.",
@@ -773,7 +773,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para despejar el **tiempo** desde una fórmula de crecimiento exponencial, hay que aislar la potencia y después aplicar un logaritmo en la base correspondiente.\n\nPartiendo de $M = 1000 \\cdot (1{,}1)^t$, se divide por $1000$ para aislar la potencia:\n\nEsta función $t(M)$ resulta logarítmica en $M$.\n\nPor ejemplo, para $M = 2000$, $t = \\log_{1{,}1}(2) \\approx 7{,}3$ años.\n\ndespejar $M$ en vez de $t$, o intentar dividir por el factor de crecimiento en lugar de aplicar el logaritmo que deshace la potencia.",
+    "explanation": "**Derivación:**\n$(1{,}1)^t = M/1000 \\implies t = \\log_{1{,}1}(M/1000)$\n\nPara despejar el **tiempo** desde una fórmula de crecimiento exponencial, hay que aislar la potencia y después aplicar un logaritmo en la base correspondiente.\n\nPartiendo de $M = 1000 \\cdot (1{,}1)^t$, se divide por $1000$ para aislar la potencia:\n\nEsta función $t(M)$ resulta logarítmica en $M$.\n\nPor ejemplo, para $M = 2000$, $t = \\log_{1{,}1}(2) \\approx 7{,}3$ años.\n\ndespejar $M$ en vez de $t$, o intentar dividir por el factor de crecimiento en lugar de aplicar el logaritmo que deshace la potencia.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -989,7 +989,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Duplicar: $(1{,}1)^t = 2 \\implies t = \\log_{1{,}1}(2) \\approx 7{,}3$, es decir unos $7$ años.",
+    "feedback_correct": "Duplicar: $t = \\log_{1{,}1}(2) \\approx 7{,}3$, es decir unos $7$ años.",
     "feedback_incorrect": [
       "Ese valor es demasiado bajo: con $\\log_{1{,}1}(2)\\approx 7{,}3$, todavía no se llegó al factor de duplicación.",
       "Ese valor duplica la cifra correcta; revisá el valor de $\\log_{1{,}1}(2)$ dado en el enunciado antes de multiplicarlo.",
@@ -998,7 +998,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años, conviene interpretar el resultado como una aproximación:\n\nLa duplicación efectiva recién se completa en el año $8$, pero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
+    "explanation": "**Derivación:**\n$(1{,}1)^t = 2 \\implies t = \\log_{1{,}1}(2) \\approx 7{,}3$\n\nPara duplicar el capital, se plantea $M = 2M_0$ y se despeja el exponente $t$ que satisface esa igualdad, tal como se hace con cualquier problema de crecimiento exponencial.\n\nComo $7{,}3$ no es un número entero de años, conviene interpretar el resultado como una aproximación:\n\nLa duplicación efectiva recién se completa en el año $8$, pero la cifra entera más cercana entre las opciones es $7$.\n\nConviene recordar que el logaritmo en base $1{,}1$ es el que deshace exactamente la potencia $(1{,}1)^t$, y ese valor ya viene dado en el enunciado para no tener que calcularlo desde cero.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1114,7 +1114,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$(1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$, es decir unos $22$ meses.",
+    "feedback_correct": "$t = \\log_{1{,}05}(3) \\approx 22{,}5$, es decir unos $22$ meses.",
     "feedback_incorrect": [
       "Ese valor es demasiado bajo: con $\\log_{1{,}05}(3)\\approx 22{,}5$, todavía falta mucho para triplicar la deuda.",
       "Ese valor está a mitad de camino del resultado correcto; revisá el valor de $\\log_{1{,}05}(3)$ dado en el enunciado.",
@@ -1123,7 +1123,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses, la deuda recién se triplica del todo al completarse el mes $23$, pero el valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
+    "explanation": "**Derivación:**\n$(1{,}05)^t = 3 \\implies t = \\log_{1{,}05}(3) \\approx 22{,}5$\n\nPara que la deuda se triplique, se plantea $D = 3D_0$ y se despeja el exponente $t$ que satisface esa igualdad.\n\nComo $22{,}5$ no es un número entero de meses, la deuda recién se triplica del todo al completarse el mes $23$, pero el valor entero más cercano entre las opciones es $22$.\n\nEste tipo de problema pide el mismo despeje que duplicar un capital, solo que acá el factor buscado es $3$ en vez de $2$, y la base de la potencia refleja la tasa mensual de la deuda.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1269,7 +1269,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$(0{,}8)^t = 0{,}5 \\implies t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$, es decir unos $3$ años.",
+    "feedback_correct": "$t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$, es decir unos $3$ años.",
     "feedback_incorrect": [
       "Ese valor es demasiado bajo: con $\\log_{0{,}8}(0{,}5)\\approx 3{,}1$, todavía no se llegó a la mitad del valor original.",
       null,
@@ -1278,7 +1278,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para que el auto valga la mitad de su valor original, se plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$, es decir $(0{,}8)^t = 0{,}5$, y se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
+    "explanation": "**Derivación:**\n$(0{,}8)^t = 0{,}5 \\implies t = \\log_{0{,}8}(0{,}5) \\approx 3{,}1$\n\nPara que el auto valga la mitad de su valor original, se plantea $V_0/2 = V_0 \\cdot (0{,}8)^t$, es decir $(0{,}8)^t = 0{,}5$, y se despeja $t$ usando cambio de base.\n\nSon unos $3$ años.\n\nEl **cambio de base** $\\log_b(x) = \\ln(x)/\\ln(b)$ es la herramienta clave cuando la calculadora no tiene una tecla directa para logaritmos en bases no estándar como $0{,}8$.",
     "reviewed": false,
     "tags": [
       "evaluar-f"

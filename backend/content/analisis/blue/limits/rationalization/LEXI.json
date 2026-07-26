@@ -169,7 +169,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Con $u = x+16$ y $c=4$, la diferencia de cuadrados da $(x+16) - 16 = x$.",
+    "feedback_correct": "Con  y, la diferencia de cuadrados da $(x+16) - 16 = x$",
     "feedback_incorrect": [
       "Ese resultado suma $16$ en vez de restarlo: la identidad resta el cuadrado del segundo término, no lo suma.",
       "Ahí se restó $4$ en lugar de $4^2 = 16$: hay que elevar al cuadrado el segundo término antes de restar.",
@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando multiplicamos una raíz por su conjugado, el resultado es una diferencia de cuadrados. Esta transformación es lo que hace que la indeterminación 0/0 sea resoluble mediante cancelación.\n\nLa **diferencia de cuadrados** aplicada a $\\sqrt{u} - c$ y su conjugado da $u - c^2$, acá con $u = x+16$ y $c=4$.\n$$(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4) = (x+16) - 4^2 = x$$\nComo en toda aplicación de esta identidad, el resultado queda libre de raíces apenas se resuelve el cuadrado del segundo término.\n\nConviene siempre identificar primero quién es $u$ y quién es $c$ antes de operar, para no restar el valor sin elevarlo al cuadrado.",
+    "explanation": "**Datos usados:**\n$u = x+16$ $c=4$\n\nCuando multiplicamos una raíz por su conjugado, el resultado es una diferencia de cuadrados. Esta transformación es lo que hace que la indeterminación 0/0 sea resoluble mediante cancelación.\n\nLa **diferencia de cuadrados** aplicada a $\\sqrt{u} - c$ y su conjugado da $u - c^2$, acá con $u = x+16$ y $c=4$.\n$$(\\sqrt{x+16} - 4)(\\sqrt{x+16} + 4) = (x+16) - 4^2 = x$$\nComo en toda aplicación de esta identidad, el resultado queda libre de raíces apenas se resuelve el cuadrado del segundo término.\n\nConviene siempre identificar primero quién es $u$ y quién es $c$ antes de operar, para no restar el valor sin elevarlo al cuadrado.",
     "reviewed": false,
     "tags": [
       "identidad-fundamental-conjugado"

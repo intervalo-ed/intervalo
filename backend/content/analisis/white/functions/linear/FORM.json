@@ -109,7 +109,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Con $m = 3$ y $b = -2$, la ecuación es $f(x) = 3x - 2$.",
+    "feedback_correct": "Con  y, la ecuación es $f(x) = 3x - 2$",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: el $3$ es la pendiente y debe multiplicar a $x$.",
       "El signo de la ordenada al origen no corresponde: $b = -2$.",
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde:$$f(x) = mx + b = 3x + (-2) = 3x - 2$$La pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
+    "explanation": "**Datos usados:**\n$m = 3$ $b = -2$\n\nConstruir la ecuación desde los parámetros es sustituir en el molde:$$f(x) = mx + b = 3x + (-2) = 3x - 2$$La pendiente $3$ multiplica a $x$ y la ordenada al origen $-2$ va como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto.\n\nLos distractores clásicos intercambian los roles o pierden el signo del $-2$: verificá con $f(0) = -2$ y con el ritmo de subida antes de elegir.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -134,7 +134,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Con $m = -1$ y $b = 4$, la ecuación es $f(x) = -x + 4$.",
+    "feedback_correct": "Con  y, la ecuación es $f(x) = -x + 4$",
     "feedback_incorrect": [
       null,
       "Los parámetros están intercambiados: el $4$ es la ordenada al origen, no la pendiente.",
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Sustituyendo los parámetros en el molde:$$f(x) = (-1) \\cdot x + 4 = -x + 4$$La pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
+    "explanation": "**Datos usados:**\n$m = -1$ $b = 4$\n\nSustituyendo los parámetros en el molde:$$f(x) = (-1) \\cdot x + 4 = -x + 4$$La pendiente $-1$ hace bajar la recta y la ordenada al origen $4$ marca el corte con el eje $Y$.\n\nCon pendiente $-1$ el coeficiente no se escribe: el signo menos delante de la $x$ ya lo representa.\n\nVerificá los dos rasgos por separado: $f(0) = 4$ (el corte) y la recta baja (el signo de $m$); cada distractor falla en uno de los dos.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -159,7 +159,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Pasar por $(0, 5)$ significa $f(0) = 5$, así que $b = 5$. Con $m = 2$: $f(x) = 2x + 5$.",
+    "feedback_correct": "Pasar por  significa, así que. Con $f(x) = 2x + 5$",
     "feedback_incorrect": [
       "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
       null,
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Un punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda:$$f(x) = 2x + 5$$Sin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "explanation": "**Datos usados:**\n$(0, 5)$ $f(0) = 5$ $b = 5$ $m = 2$\n\nUn punto de la forma $(0, k)$ entrega directamente la ordenada al origen: si la recta pasa por $(0, 5)$, entonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda:$$f(x) = 2x + 5$$Sin necesidad de ningún despeje.\n\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación: no requiere despejar nada. El cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
     "reviewed": false,
     "tags": [
       "armar-formula-mb"
@@ -184,7 +184,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 6 = 0 \\Rightarrow x = 3$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 3$.",
     "feedback_incorrect": [
       null,
       "El signo se dio vuelta en el despeje: de $2x = 6$ sale $x = 3$ positivo.",
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz es el valor de $x$ que anula la función. Se resuelve la ecuación:$$2x - 6 = 0 \\implies 2x = 6 \\implies x = 3$$Verificación: $f(3) = 2 \\cdot 3 - 6 = 0$.\n\nEl despeje tiene dos pasos: pasar el término independiente (cambia de signo) y dividir por el coeficiente.\n\nCortar el despeje a mitad de camino, quedándose con $6$, o equivocar el signo al pasar el término son los deslices típicos de esta cuenta.",
+    "explanation": "**Derivación:**\n$2x - 6 = 0 \\Rightarrow x = 3$\n\nLa raíz es el valor de $x$ que anula la función. Se resuelve la ecuación:$$2x - 6 = 0 \\implies 2x = 6 \\implies x = 3$$Verificación: $f(3) = 2 \\cdot 3 - 6 = 0$.\n\nEl despeje tiene dos pasos: pasar el término independiente (cambia de signo) y dividir por el coeficiente.\n\nCortar el despeje a mitad de camino, quedándose con $6$, o equivocar el signo al pasar el término son los deslices típicos de esta cuenta.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -209,7 +209,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $-x + 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 5$.",
     "feedback_incorrect": [
       "El doble negativo se resuelve positivo: $-x = -5$ da $x = 5$.",
       "$1$ no anula la función: $f(1) = 4$.",
@@ -218,7 +218,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo $f(x) = 0$:$$-x + 5 = 0 \\implies -x = -5 \\implies x = 5$$Verificación: $f(5) = -5 + 5 = 0$.\n\nEl paso delicado es el último: dividir (o multiplicar) por $-1$ ambos lados. Los dos signos negativos se cancelan y el resultado es positivo.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero; en $x = 0$ la función vale 5.",
+    "explanation": "**Derivación:**\n$-x + 5 = 0 \\Rightarrow x = 5$\n\nResolviendo $f(x) = 0$:$$-x + 5 = 0 \\implies -x = -5 \\implies x = 5$$Verificación: $f(5) = -5 + 5 = 0$.\n\nEl paso delicado es el último: dividir (o multiplicar) por $-1$ ambos lados. Los dos signos negativos se cancelan y el resultado es positivo.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero; en $x = 0$ la función vale 5.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -234,7 +234,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $\\dfrac{1}{2}x - 3 = 0 \\Rightarrow x = 6$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 6$.",
     "feedback_incorrect": [
       null,
       "$3$ es el paso intermedio $\\frac{1}{2}x = 3$: queda pendiente multiplicar por 2.",
@@ -243,7 +243,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Resolviendo $f(x) = 0$:$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$Verificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nEste razonamiento muestra que dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
+    "explanation": "**Derivación:**\n$\\dfrac{1}{2}x - 3 = 0 \\Rightarrow x = 6$\n\nResolviendo $f(x) = 0$:$$\\frac{1}{2}x - 3 = 0 \\implies \\frac{1}{2}x = 3 \\implies x = 6$$Verificación: $f(6) = \\frac{1}{2} \\cdot 6 - 3 = 0$.\n\nDividir por $\\frac{1}{2}$ es multiplicar por 2: por eso la raíz es el doble del término independiente.\n\nEste razonamiento muestra que dividir por el numerador o quedarse en el paso intermedio: completá siempre el despeje y verificá sustituyendo.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -404,7 +404,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "Pendiente = $\\dfrac{\\text{subida}}{\\text{avance}} = \\dfrac{4}{2} = 2$.",
+    "feedback_correct": "Pendiente = $2$.",
     "feedback_incorrect": [
       "La fracción quedó invertida: se divide la subida por el avance, $4/2$.",
       "$4$ es solo la subida, sin dividir por el avance.",
@@ -413,7 +413,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente es la razón entre el cambio vertical y el horizontal:$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$La recta sube 2 unidades por cada unidad de avance.\n\nEl orden del cociente importa: la variación vertical va en el numerador y la horizontal en el denominador; invertirlo produce $\\frac{1}{2}$, la confusión clásica.\n\nTampoco alcanza con la subida sola: la pendiente siempre compara las dos variaciones entre sí.",
+    "explanation": "**Derivación:**\n$\\dfrac{\\text{subida}}{\\text{avance}} = \\dfrac{4}{2} = 2$\n\nLa pendiente es la razón entre el cambio vertical y el horizontal:$$m = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{2} = 2$$La recta sube 2 unidades por cada unidad de avance.\n\nEl orden del cociente importa: la variación vertical va en el numerador y la horizontal en el denominador; invertirlo produce $\\frac{1}{2}$, la confusión clásica.\n\nTampoco alcanza con la subida sola: la pendiente siempre compara las dos variaciones entre sí.",
     "reviewed": false,
     "tags": [
       "pendiente-concepto-tasa"
@@ -429,7 +429,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Costo = fijo + tarifa × km = $C(k) = 500 + 200k = 200k + 500$.",
+    "feedback_correct": "Costo = fijo + tarifa × km = $200k + 500$.",
     "feedback_incorrect": [
       "El \\$500 no depende de los kilómetros: es el término fijo, no el que multiplica a $k$.",
       null,
@@ -438,7 +438,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:$$C(k) = 200k + 500$$Los \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nSi intercambias la tarifa por km con la bajada de bandera, entonces interpretarás incorrectamente qué número se cobra por unidad.",
+    "explanation": "**Derivación:**\n$C(k) = 500 + 200k = 200k + 500$\n\nEn un costo con parte fija y tarifa por unidad, el fijo es la ordenada al origen y la tarifa es la pendiente:$$C(k) = 200k + 500$$Los \\$500 se pagan una sola vez y los \\$200 acompañan a cada kilómetro.\n\nPara chequear, evaluá en cero: $C(0) = 500$, el costo de subir al taxi sin recorrer nada.\n\nSi intercambias la tarifa por km con la bajada de bandera, entonces interpretarás incorrectamente qué número se cobra por unidad.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -454,7 +454,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Costo = fijo + tarifa × hora = $C(h) = 1500 + 300h = 300h + 1500$.",
+    "feedback_correct": "Costo = fijo + tarifa × hora = $300h + 1500$.",
     "feedback_incorrect": [
       null,
       "Los parámetros están cruzados: el \\$1500 se paga una vez, no por cada hora.",
@@ -463,7 +463,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El costo combina la visita (fija) con la tarifa horaria (variable):$$C(h) = 300h + 1500$$Con $b = 1500$ el monto que se paga una sola vez y $m = 300$ el que acompaña a cada hora.\n\nLa verificación inmediata es $C(0) = 1500$: venir ya cuesta eso, sin trabajar ninguna hora.\n\nAntes de elegir, preguntate qué monto se repite por unidad de tiempo: ese es el que tiene que multiplicar a la variable.",
+    "explanation": "**Derivación:**\n$C(h) = 1500 + 300h = 300h + 1500$\n\nEl costo combina la visita (fija) con la tarifa horaria (variable):$$C(h) = 300h + 1500$$Con $b = 1500$ el monto que se paga una sola vez y $m = 300$ el que acompaña a cada hora.\n\nLa verificación inmediata es $C(0) = 1500$: venir ya cuesta eso, sin trabajar ninguna hora.\n\nAntes de elegir, preguntate qué monto se repite por unidad de tiempo: ese es el que tiene que multiplicar a la variable.",
     "reviewed": false,
     "tags": [
       "armar-formula-cotidiano"
@@ -479,7 +479,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Volumen = inicial - pérdida × tiempo = $V(t) = 100 - 5t$.",
+    "feedback_correct": "La fórmula del volumen es $V(t) = 100 - 5t$.",
     "feedback_incorrect": [
       "El orden de la resta importa: así el tanque arranca en $-100$ litros y se llena.",
       "El signo de la tasa está al revés: el volumen baja, el término con $t$ resta.",
@@ -504,7 +504,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Deuda = inicial - reducción × mes = $D(m) = 10000 - 500m$.",
+    "feedback_correct": "La fórmula de la deuda es $D(m) = 10000 - 500m$.",
     "feedback_incorrect": [
       null,
       "El orden de la resta importa: así la deuda arranca en $-10000$ y crece.",
@@ -979,7 +979,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "La raíz es donde $f(x) = 0$: $2x - 8 = 0 \\Rightarrow x = 4$.",
+    "feedback_correct": "La raíz es donde $f(x) = 0$: $x = 4$.",
     "feedback_incorrect": [
       "$2$ es el coeficiente de $x$, no el valor que anula la función.",
       "El signo quedó al revés: al despejar, el $-8$ pasa sumando.",
@@ -988,7 +988,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La raíz es el valor de $x$ donde la función vale cero, es decir, donde la recta cruza el eje horizontal:$$2x - 8 = 0 \\implies 2x = 8 \\implies x = 4$$Verificación: $f(4) = 2 \\cdot 4 - 8 = 0$.\n\nEl despeje completo tiene dos pasos: el término independiente cruza sumando y después se divide por el coeficiente.\n\nQuedarse en el paso intermedio ($8$) o responder el coeficiente ($2$) son los atajos que fallan: terminá el despeje y verificá sustituyendo.",
+    "explanation": "**Derivación:**\n$2x - 8 = 0 \\Rightarrow x = 4$\n\nLa raíz es el valor de $x$ donde la función vale cero, es decir, donde la recta cruza el eje horizontal:$$2x - 8 = 0 \\implies 2x = 8 \\implies x = 4$$Verificación: $f(4) = 2 \\cdot 4 - 8 = 0$.\n\nEl despeje completo tiene dos pasos: el término independiente cruza sumando y después se divide por el coeficiente.\n\nQuedarse en el paso intermedio ($8$) o responder el coeficiente ($2$) son los atajos que fallan: terminá el despeje y verificá sustituyendo.",
     "reviewed": false,
     "tags": [
       "raiz-calculo"
@@ -1029,7 +1029,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$1200 + 80v = 2000 \\Rightarrow 80v = 800 \\Rightarrow v = 10$ ventas.",
+    "feedback_correct": "$v = 10$ ventas.",
     "feedback_incorrect": [
       null,
       "$25$ sale de dividir $2000/80$, sin descontar primero el sueldo base.",
@@ -1038,7 +1038,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$Con 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nEste razonamiento muestra que típico: el fijo no se gana vendiendo, ya estaba.",
+    "explanation": "**Derivación:**\n$1200 + 80v = 2000 \\Rightarrow 80v = 800 \\Rightarrow v = 10$\n\nLa pregunta pide el valor de $v$ que hace $S(v) = 2000$:$$\\begin{aligned} 1200 + 80v &= 2000 \\\\ 80v &= 800 \\\\ v &= 10 \\end{aligned}$$Con 10 ventas el sueldo llega exactamente a \\$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$800 restantes se explican por comisiones.\n\nEste razonamiento muestra que típico: el fijo no se gana vendiendo, ya estaba.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1104,7 +1104,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$m = 2$ y $b = 3$: $f(x) = 2x + 3$.",
+    "feedback_correct": "$f(x) = 2x + 3$",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: la pendiente 2 debe multiplicar a $x$.",
       "El signo de la ordenada al origen no corresponde: es $+3$.",
@@ -1113,7 +1113,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Construir la ecuación es sustituir cada parámetro en su lugar del molde:$$f(x) = mx + b = 2x + 3$$La pendiente 2 pegada a la $x$ y la ordenada al origen 3 como término suelto.\n\nVerificación doble: $f(0) = 3$ (la ordenada) y $f(1) = 5$, que subió 2 (la pendiente).\n\nEl intercambio de $m$ y $b$ es el distractor más elegido en este formato: los dos números del enunciado no son intercambiables, cada uno tiene su posición.",
+    "explanation": "**Datos usados:**\n$m = 2$ $b = 3$\n\nConstruir la ecuación es sustituir cada parámetro en su lugar del molde:$$f(x) = mx + b = 2x + 3$$La pendiente 2 pegada a la $x$ y la ordenada al origen 3 como término suelto.\n\nVerificación doble: $f(0) = 3$ (la ordenada) y $f(1) = 5$, que subió 2 (la pendiente).\n\nEl intercambio de $m$ y $b$ es el distractor más elegido en este formato: los dos números del enunciado no son intercambiables, cada uno tiene su posición.",
     "reviewed": false,
     "tags": [
       "pendiente-concepto-tasa"
@@ -1154,7 +1154,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "$f(-1) = -4(-1) + 12 = 4 + 12 = 16$.",
+    "feedback_correct": "$16$.",
     "feedback_incorrect": [
       "$8$ aparece si $-4 \\cdot (-1)$ se calcula como $-4$: dos negativos multiplicados dan positivo.",
       null,
@@ -1163,7 +1163,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar en $x = -1$ exige cuidado con los signos:$$f(-1) = -4 \\cdot (-1) + 12 = 4 + 12 = 16$$El producto de dos negativos es positivo: $-4 \\cdot (-1) = +4$, y a eso se suma el 12.\n\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.",
+    "explanation": "**Derivación:**\n$f(-1) = -4(-1) + 12 = 4 + 12 = 16$\n\nEvaluar en $x = -1$ exige cuidado con los signos:$$f(-1) = -4 \\cdot (-1) + 12 = 4 + 12 = 16$$El producto de dos negativos es positivo: $-4 \\cdot (-1) = +4$, y a eso se suma el 12.\n\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1179,7 +1179,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$m = (10-4)/(3-0) = 2$ y $b = 4$ (el punto $(0,4)$ es la ordenada al origen): $f(x) = 2x + 4$.",
+    "feedback_correct": "$2$ y $b = 4$ (el punto $(0,4)$ es la ordenada al origen): $f(x) = 2x + 4$.",
     "feedback_incorrect": [
       "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
       "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
@@ -1188,7 +1188,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pendiente sale del cociente de variaciones entre los dos puntos:$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$La recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "explanation": "**Derivación:**\n$m = (10-4)/(3-0) = 2$\n\nLa pendiente sale del cociente de variaciones entre los dos puntos:$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3} = 2$$La recta sube de a 2 por unidad.\n\nComo uno de los puntos es $(0, 4)$, la ordenada al origen se lee directo: $b = 4$. La ecuación queda $f(x) = 2x + 4$.\n\nVerificá con el segundo punto antes de responder: $f(3) = 2 \\cdot 3 + 4 = 10$. Si la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
     "reviewed": false,
     "tags": [
       "armar-formula-puntos"
@@ -1204,7 +1204,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$3x - 6 = 9 \\Rightarrow 3x = 15 \\Rightarrow x = 5$.",
+    "feedback_correct": "$x = 5$.",
     "feedback_incorrect": [
       "$1$ sale de restar el 6 en lugar de pasarlo sumando: el despeje correcto da $3x = 15$.",
       "$3$ es el coeficiente de $x$, no la solución.",
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:$$\\begin{aligned} 3x - 6 &= 9 \\\\ 3x &= 15 \\\\ x &= 5 \\end{aligned}$$Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda $9 + 6 = 15$, no $9 - 6$.\n\nNo confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
+    "explanation": "**Derivación:**\n$3x - 6 = 9 \\Rightarrow 3x = 15 \\Rightarrow x = 5$\n\nLa pregunta invierte la evaluación: se conoce la salida y se busca la entrada:$$\\begin{aligned} 3x - 6 &= 9 \\\\ 3x &= 15 \\\\ x &= 5 \\end{aligned}$$Verificación: $f(5) = 3 \\cdot 5 - 6 = 9$.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda $9 + 6 = 15$, no $9 - 6$.\n\nNo confundas los papeles de los números: el 9 es el resultado que la función debe alcanzar; la respuesta es el valor de $x$ que lo produce.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"
@@ -1229,7 +1229,7 @@
     ],
     "correct_index": 2,
     "has_math": true,
-    "feedback_correct": "$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$.",
+    "feedback_correct": "$1600$.",
     "feedback_incorrect": [
       "\\$1300 cuenta los \\$300 solo dos veces: el viaje tiene 3 kilómetros.",
       "\\$1000 suma el fijo con una sola tarifa, sin multiplicar por los kilómetros.",
@@ -1238,7 +1238,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar la función en $k = 3$:$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$El viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nEste razonamiento muestra que de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
+    "explanation": "**Derivación:**\n$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$\n\nEvaluar la función en $k = 3$:$$C(3) = 700 + 300 \\cdot 3 = 700 + 900 = 1600$$El viaje cuesta \\$1600.\n\nLa tarifa se multiplica por los kilómetros antes de sumar el fijo: son \\$900 de recorrido más \\$700 de bajada de bandera.\n\nEste razonamiento muestra que de conteo (multiplicar por menos kilómetros de los que dice el enunciado) o de omisión (dejar afuera el término fijo): repasá que la cuenta use los dos parámetros.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

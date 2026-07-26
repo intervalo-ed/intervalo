@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá la función:\n$$f(x) = (x^2-4)e^x$$\nCalculá $f'(2)$.",
+    "question": "Analiza la función:\n$$f(x) = (x^2-4)e^x$$\nCalculá $f'(2)$.",
     "options": [
       "$4e^2$",
       "$2e^2$",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
+    "question": "Examiná la función:\n$$f(x) = (x-1)e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$-e$",
       "$e$",
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
+    "question": "Examiná la función:\n$$f(x) = (x^2-9)\\ln x$$\nCalculá $f'(3)$.",
     "options": [
       "$6\\ln 9$",
       "$0$",
@@ -75,7 +75,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
+    "question": "Inspecciona la función:\n$$f(x) = (x+5)x^2$$\nCalculá $f'(-5)$.",
     "options": [
       "$-25$",
       "$10$",
@@ -150,7 +150,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
+    "question": "Analizá la función:\n$$f(x) = (x^2+3)e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$-3$",
       "$6$",
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "question": "Examiná la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
+    "question": "Observá la función:\n$$f(x) = x^2 \\cdot e^x$$\nCalculá $f'(0)$.",
     "options": [
       "$e$",
       "$0$",
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "question": "Analizá la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
+    "question": "Analiza cuidadosamente la función:\n$$f(x) = (x-1)^2 \\cdot e^x$$\nCalculá $f'(1)$.",
     "options": [
       "$2e$",
       "$-e$",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "question": "Observá la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
+    "question": "Observa con atención la función:\n$$f(x) = (x+2)^2 \\cdot \\cos x$$\nCalculá $f'(-2)$.",
     "options": [
       "$4$",
       "$-4$",

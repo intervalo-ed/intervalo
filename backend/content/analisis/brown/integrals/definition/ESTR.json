@@ -1,6 +1,6 @@
 [
   {
-    "question": "Antes de resolver esta integral:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Previo a resolver esta integral:\n$$\\int (x+2)^2\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Desarrollar el binomio y luego integrar",
       "Integrar el interior y elevar al cuadrado",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Antes de proceder con esta integral:\n$$\\int \\frac{x^4-3x^2}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Repartir el denominador, en este caso",
       "Integrar el numerador y el denominador por separado",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Previo a resolver esta integral:\n$$\\int x^2(x-4)\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Integrar el interior y elevar al cuadrado",
       "Derivar el integrando",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Para resolver esta integral, primero:\n$$\\int \\frac{6x^2+2x}{2x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Repartir el denominador, en este caso",
       "Integrar el numerador y el denominador por separado",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Antes de proceder con esta integral:\n$$\\int (2x+1)^2\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Derivar el integrando",
       "Desarrollar el binomio y luego integrar",
@@ -184,7 +184,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Para resolver esta integral, primero:\n$$\\int \\frac{1}{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{3}$",
@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Considerando esta integral:\n$$\\int \\sqrt{x}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir la raíz como potencia fraccionaria",
       "Dejar la expresión sin reescribir",
@@ -230,7 +230,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Considerando esta integral:\n$$\\int \\sqrt[3]{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{3/2}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{2/3}$",
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Previo a resolver esta integral:\n$$\\int \\frac{1}{\\sqrt{x}}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{1/2}$",
@@ -276,7 +276,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Frente a esta integral:\n$$\\int \\frac{1}{x^5}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia negativa: $x^{-5}$",
       "Dejar la expresión sin reescribir",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Antes de proceder con esta integral:\n$$\\int \\sqrt[4]{x^3}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Reescribir como potencia fraccionaria invertida: $x^{4/3}$",
       "Reescribir la raíz como potencia fraccionaria: $x^{3/4}$",
@@ -322,7 +322,7 @@
     ]
   },
   {
-    "question": "Antes de resolver esta integral:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
+    "question": "Para resolver esta integral, primero:\n$$\\int \\frac{1}{x^2}\\,dx$$\n¿Qué paso previo conviene dar?",
     "options": [
       "Dejar la expresión sin reescribir",
       "Subir la variable sin invertir el signo: $x^{2}$",

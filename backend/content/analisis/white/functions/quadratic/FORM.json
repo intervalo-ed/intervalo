@@ -194,7 +194,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La parábola tiene raíces en $x = -1$ y $x = 3$, y se abre hacia arriba: $f(x) = x^2 - 2x - 3$.",
+    "feedback_correct": "La parábola tiene raíces en  y, y se abre hacia arriba $f(x) = x^2 - 2x - 3$",
     "feedback_incorrect": [
       "Con $a$ negativo la parábola abriría hacia abajo, pero la gráfica muestra una apertura hacia arriba.",
       "Esta expresión tiene raíces en $x=1$ y $x=-3$, no en $x=-1$ y $x=3$ como muestra la gráfica.",
@@ -208,7 +208,7 @@
       -5,
       5
     ],
-    "explanation": "De la gráfica se leen las **raíces** (cruces con el eje $X$) en $x = -1$ y $x = 3$, y la apertura hacia arriba ($a > 0$).\n\nCon raíces $r_1 = -1$ y $r_2 = 3$ y $a = 1$, la forma factorizada es:\n\nVerificación: $f(-1) = 1 + 2 - 3 = 0$ , $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción $x^2 + 2x - 3$ tendría raíces en $x = 1$ y $x = -3$ (distintas).\n\nEl eje de simetría es $x = (-1+3)/2 = 1$, que coincide con el vértice visible en la gráfica.",
+    "explanation": "**Datos usados:**\n$x = -1$ $x = 3$\n\nDe la gráfica se leen las **raíces** (cruces con el eje $X$) en $x = -1$ y $x = 3$, y la apertura hacia arriba ($a > 0$).\n\nCon raíces $r_1 = -1$ y $r_2 = 3$ y $a = 1$, la forma factorizada es:\n\nVerificación: $f(-1) = 1 + 2 - 3 = 0$ , $f(3) = 9 - 6 - 3 = 0$ .\n\nLa opción $x^2 + 2x - 3$ tendría raíces en $x = 1$ y $x = -3$ (distintas).\n\nEl eje de simetría es $x = (-1+3)/2 = 1$, que coincide con el vértice visible en la gráfica.",
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
@@ -224,7 +224,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$f(x) = 0$ cuando $x - 2 = 0$ (es decir, $x = 2$) o cuando $x + 1 = 0$ (es decir, $x = -1$).",
+    "feedback_correct": "cuando (es decir,) o cuando (es decir,) $x = -1$",
     "feedback_incorrect": [
       null,
       "Estos valores invierten el signo de ambas raíces: los factores anulan en $x=2$ y $x=-1$, no al revés.",
@@ -233,7 +233,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **forma factorizada** $f(x) = a(x - r_1)(x - r_2)$, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo.\n\nEl factor $(x-2)$ da la raíz $x = +2$ (no $-2$), y el factor $(x+1) = (x-(-1))$ da la raíz $x = -1$ (no $+1$).\n\nLa forma factorizada hace que leer las raíces sea inmediato, sin necesidad de usar la fórmula cuadrática.",
+    "explanation": "**Datos usados:**\n$f(x) = 0$ $x - 2 = 0$ $x = 2$ $x + 1 = 0$\n\nEn la **forma factorizada** $f(x) = a(x - r_1)(x - r_2)$, las raíces se leen directamente: son los valores que anulan cada factor.\n\nPara $f(x) = (x-2)(x+1)$:\n\nLas raíces son $x = 2$ y $x = -1$.\n\nError frecuente: confundir el signo.\n\nEl factor $(x-2)$ da la raíz $x = +2$ (no $-2$), y el factor $(x+1) = (x-(-1))$ da la raíz $x = -1$ (no $+1$).\n\nLa forma factorizada hace que leer las raíces sea inmediato, sin necesidad de usar la fórmula cuadrática.",
     "reviewed": false,
     "tags": [
       "raices-desde-formula"
@@ -673,14 +673,14 @@
       "$x = 4$ y $x = -2$"
     ],
     "correct_index": 3,
-    "feedback_correct": "$f(x) = 0$ cuando $(x - 4) = 0$ o $(x + 2) = 0$: $x = 4$ o $x = -2$.",
+    "feedback_correct": "cuando o: o $x = -2$",
     "feedback_incorrect": [
       "Estos valores invierten el signo de ambas raíces: los factores se anulan en $x=4$ y $x=-2$, no al revés.",
       "La raíz del segundo factor es $x=-2$, porque $(x+2)=0$ da $x=-2$, no $x=2$.",
       "La raíz del primer factor es $x=4$, porque $(x-4)=0$ da $x=4$, no $x=-4$.",
       null
     ],
-    "explanation": "En la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, las **raíces** son los valores de $x$ que anulan cada factor por separado, sin importar el valor del coeficiente $a$ que va adelante.\n\nPara $f(x) = -2(x-4)(x+2)$, el primer factor se anula cuando $x-4=0$, es decir $x=4$, y el segundo cuando $x+2=0$, es decir $x=-2$.\n\nLas raíces son $x=4$ y $x=-2$.\n\nEl coeficiente $-2$ no afecta las raíces, solo la apertura y la escala vertical de la parábola: intentar usarlo para calcular las raíces en vez de mirar solo los factores entre paréntesis.",
+    "explanation": "**Datos usados:**\n$f(x) = 0$ $(x - 4) = 0$ $(x + 2) = 0$ $x = 4$\n\nEn la forma factorizada $f(x) = a(x-r_1)(x-r_2)$, las **raíces** son los valores de $x$ que anulan cada factor por separado, sin importar el valor del coeficiente $a$ que va adelante.\n\nPara $f(x) = -2(x-4)(x+2)$, el primer factor se anula cuando $x-4=0$, es decir $x=4$, y el segundo cuando $x+2=0$, es decir $x=-2$.\n\nLas raíces son $x=4$ y $x=-2$.\n\nEl coeficiente $-2$ no afecta las raíces, solo la apertura y la escala vertical de la parábola: intentar usarlo para calcular las raíces en vez de mirar solo los factores entre paréntesis.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -723,14 +723,14 @@
       "Infinitas"
     ],
     "correct_index": 1,
-    "feedback_correct": "$(x - 5)^2 = 0 \\Rightarrow x = 5$: una sola raíz.",
+    "feedback_correct": "$x = 5$: una sola raíz.",
     "feedback_incorrect": [
       "La parábola sí toca el eje $x$ en $x=5$, aunque en un único punto en vez de dos.",
       null,
       "Ambos factores $(x-5)$ dan la misma raíz: es una raíz doble, no dos raíces distintas.",
       "Una parábola nunca toca el eje $x$ en infinitos puntos, como máximo en dos."
     ],
-    "explanation": "$f(x) = (x - 5)^2 = (x - 5)(x - 5)$: ambos factores dan la misma raíz $x = 5$.\n\nSe dice que $x = 5$ es una **raíz doble**: la parábola toca el eje $x$ en ese punto pero no lo cruza.\n\nVisualizando: el vértice $(5, 0)$ está exactamente sobre el eje horizontal.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
+    "explanation": "**Derivación:**\n$(x - 5)^2 = 0 \\Rightarrow x = 5$\n\n$f(x) = (x - 5)^2 = (x - 5)(x - 5)$: ambos factores dan la misma raíz $x = 5$.\n\nSe dice que $x = 5$ es una **raíz doble**: la parábola toca el eje $x$ en ese punto pero no lo cruza.\n\nVisualizando: el vértice $(5, 0)$ está exactamente sobre el eje horizontal.\n\nEsta es una habilidad fundamental en matemáticas. Practicar múltiples variaciones del mismo concepto te ayuda a reconocer patrones y aplicarlos en contextos nuevos.\n\nSi encuentras una versión similar en tus apuntes, compárala con ésta para consolidar la idea.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -848,14 +848,14 @@
       "$h(t) = 10t - 20t^2$"
     ],
     "correct_index": 2,
-    "feedback_correct": "$v_0 = 20$, $\\frac{1}{2}g = 5$: $h(t) = 20t - 5t^2$.",
+    "feedback_correct": "$h(t) = 20t - 5t^2$",
     "feedback_incorrect": [
       "Esta expresión no tiene el término lineal que representa la velocidad inicial, y usa $g$ sin dividir entre $2$.",
       "El signo del término cuadrático quedó positivo acá: la gravedad frena el ascenso, así que ese término debe restar, no sumar.",
       null,
       "Estos coeficientes intercambian los roles de $v_0$ y de $\\frac{1}{2}g$: revisá cuál dato corresponde a cada término."
     ],
-    "explanation": "La fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nSi confundís el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, entonces vas a armar la ecuación incorrectamente.",
+    "explanation": "**Datos usados:**\n$v_0 = 20$ $\\frac{1}{2}g = 5$\n\nLa fórmula general de altura en un tiro vertical es $h(t) = v_0 t - \\frac{1}{2}g t^2$, donde el primer término representa el impulso inicial y el segundo la desaceleración por gravedad.\n\nReemplazando $v_0=20$ y $g=10$:\n\nEl vértice de esta parábola, $t_v = -b/(2a) = -20/(2\\cdot(-5)) = 2$ s, indica el instante de altura máxima.\n\nSi confundís el signo del término cuadrático, que siempre resta porque la gravedad frena la subida, entonces vas a armar la ecuación incorrectamente.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -948,14 +948,14 @@
       "$h(t) = 5t^2 - 45$"
     ],
     "correct_index": 1,
-    "feedback_correct": "$h_0 = 45$ y $\\frac{1}{2}g = 5$: $h(t) = 45 - 5t^2$.",
+    "feedback_correct": "$h(t) = 45 - 5t^2$",
     "feedback_incorrect": [
       "Este término lineal correspondería a una velocidad inicial, pero el objeto se suelta sin impulso: $v_0=0$.",
       null,
       "El signo del término cuadrático quedó positivo: la gravedad hace bajar la altura, así que ese término debe restar.",
       "Esta expresión da valores negativos crecientes desde el inicio, lo opuesto a una altura que decrece desde $45$."
     ],
-    "explanation": "En una caída libre, el objeto parte con velocidad inicial nula ($v_0=0$), así que la fórmula general $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$ pierde su término lineal por completo.\n\nCon $h_0=45$ y $g=10$:\n\nLa opción $h(t)=45t-5t^2$ incluye un término lineal $45t$, que correspondería a lanzar el objeto hacia arriba con una velocidad inicial de 45 m/s, algo que contradice la idea de simplemente soltarlo desde la azotea.",
+    "explanation": "**Datos usados:**\n$h_0 = 45$ $\\frac{1}{2}g = 5$\n\nEn una caída libre, el objeto parte con velocidad inicial nula ($v_0=0$), así que la fórmula general $h(t) = h_0 + v_0 t - \\frac{1}{2}g t^2$ pierde su término lineal por completo.\n\nCon $h_0=45$ y $g=10$:\n\nLa opción $h(t)=45t-5t^2$ incluye un término lineal $45t$, que correspondería a lanzar el objeto hacia arriba con una velocidad inicial de 45 m/s, algo que contradice la idea de simplemente soltarlo desde la azotea.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

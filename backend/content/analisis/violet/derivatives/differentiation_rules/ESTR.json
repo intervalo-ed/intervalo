@@ -207,7 +207,7 @@
     ]
   },
   {
-    "question": "En la misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $-\\ln x$?",
+    "question": "En esa misma función:\n$$f(x) = 3x^2 + \\sin x - \\ln x$$\n¿Qué regla corresponde aplicar al término $-\\ln x$?",
     "options": [
       "Derivada de logaritmo",
       "Derivada trigonométrica",

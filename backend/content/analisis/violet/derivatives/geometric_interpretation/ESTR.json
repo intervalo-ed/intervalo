@@ -109,7 +109,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(3)=9$ y $f'(3)=6$ la ecuación queda $y=6x-9$.",
+    "feedback_correct": "Correcto, con  y la ecuación queda $y=6x-9$",
     "feedback_incorrect": [
       null,
       "Hay que sumar $f(3)=9$ al final, ese término se perdió después de distribuir la pendiente.",
@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Antes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
+    "explanation": "**Datos usados:**\n$f(3)=9$ $f'(3)=6$\n\nAntes de armar la tangente hace falta obtener $f(3)$ y $f'(3)$ a partir de la función dada.\n\nCuando la función se da explícitamente, el primer paso siempre es calcular $f(a)$ y $f'(a)$ antes de sustituir en la fórmula punto-pendiente. Antes de responder, verifica tu identificación haciendo una pequeña prueba: toma un valor específico y chequea que tu estructura se mantiene; eso evita errores de lectura.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -134,7 +134,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(1)=-3$ y $f'(1)=2$ la ecuación queda $y=2x-5$.",
+    "feedback_correct": "Correcto, con  y la ecuación queda $y=2x-5$",
     "feedback_incorrect": [
       "Revisá la resta final, $-2 + (-3)$ da un resultado distinto de $-1$.",
       null,
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEste razonamiento muestra que más frecuente de este tipo de ítem. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
+    "explanation": "**Datos usados:**\n$f(1)=-3$ $f'(1)=2$\n\nCon una función que incluye un término constante, conviene calcular $f(1)$ con cuidado antes de seguir.\n\nEste razonamiento muestra que más frecuente de este tipo de ítem. La recta tangente en un punto es la mejor aproximación lineal local de la función: su ecuación usa la pendiente que es exactamente la derivada, y el punto que es exactamente el de evaluación.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"
@@ -184,7 +184,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "Correcto, con $f(0)=0$ y $f'(0)=2$ la ecuación queda $y=2x$.",
+    "feedback_correct": "Correcto, con  y la ecuación queda $y=2x$",
     "feedback_incorrect": [
       "Sumaste una constante extra, $f(0)=0$, así que no queda ningún término independiente.",
       "Revisá el signo de la pendiente, $f'(0)=2$ es positivo, no negativo.",
@@ -193,7 +193,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nTenés que verificar que de cometer por costumbre. En ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
+    "explanation": "**Datos usados:**\n$f(0)=0$ $f'(0)=2$\n\nCon $f(0)=0$, el término independiente de la tangente desaparece por completo, quedando una recta que pasa por el origen.\n\nTenés que verificar que de cometer por costumbre. En ejercicios donde se reconoce primero la estructura, el paso a paso es: (1) mirar la forma de la función, (2) identificar qué se multiplica, qué se compone, o qué aparece dividido, (3) elegir la regla que corresponda a esa forma.",
     "reviewed": false,
     "tags": [
       "armado-ecuacion-tangente"

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x^2\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según **LIATE**?",
+    "question": "A la hora de resolver esta integral por partes:\n$$\\int x^2\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según **LIATE**?",
     "options": [
       "$u=\\ln x, dv=x^2\\,dx$",
       "$u=x^2, dv=\\ln x\\,dx$",
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int xe^{3x}\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Para aplicar integración por partes en:\n$$\\int xe^{3x}\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=xe^{3x}, dv=dx$",
       "$u=x, dv=e^{3x}\\,dx$",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "A la hora de resolver esta integral por partes:\n$$\\int x\\cos x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\cos x, dv=x\\,dx$",
       "$u=x\\cos x, dv=dx$",
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int 2x\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Para aplicar integración por partes en:\n$$\\int 2x\\ln x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=\\ln x, dv=2x\\,dx$",
       "$u=2x, dv=\\ln x\\,dx$",
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "question": "Para resolver esta integral por partes:\n$$\\int x^2e^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
+    "question": "Resolviendo esta integral por partes:\n$$\\int x^2e^x\\,dx$$\n¿Cuál es la elección correcta de $u$ y $dv$ según LIATE?",
     "options": [
       "$u=x^2e^x, dv=dx$",
       "$u=x^2, dv=e^x\\,dx$",

@@ -1,6 +1,6 @@
 [
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{2x + 3}{x - 5}$$\n¿Para qué valor de $x$ no está definida?",
+    "question": "Analiza:\n$$f(x) = \\dfrac{2x + 3}{x - 5}$$\n¿Para qué valor de $x$ no está definida?",
     "options": [
       "$x = 5$",
       "$x = 3$",
@@ -9,7 +9,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La función no está definida cuando el denominador se anula: $x - 5 = 0 \\Rightarrow x = 5$.",
+    "feedback_correct": "La función no está definida cuando el denominador se anula: $x = 5$.",
     "feedback_incorrect": [
       null,
       "El $3$ es el término independiente del numerador. Para hallar dónde no está definida $f$ hay que igualar a cero el denominador, no mirar los coeficientes del numerador.",
@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar los valores excluidos del **dominio** de una función racional, igualamos a cero el denominador, nunca el numerador. Acá el denominador es $x-5$, así que resolvemos $x-5=0\\Rightarrow x=5$.\n\nEse es el único valor donde $f(x)=\\frac{2x+3}{x-5}$ no está definida, porque dividir entre cero no tiene sentido.\n\nIgualar el numerador ($2x+3=0$) en lugar del denominador: eso da las raíces de la función, no los valores prohibidos del dominio.",
+    "explanation": "**Derivación:**\n$x - 5 = 0 \\Rightarrow x = 5$\n\nPara hallar los valores excluidos del **dominio** de una función racional, igualamos a cero el denominador, nunca el numerador. Acá el denominador es $x-5$, así que resolvemos $x-5=0\\Rightarrow x=5$.\n\nEse es el único valor donde $f(x)=\\frac{2x+3}{x-5}$ no está definida, porque dividir entre cero no tiene sentido.\n\nIgualar el numerador ($2x+3=0$) en lugar del denominador: eso da las raíces de la función, no los valores prohibidos del dominio.",
     "reviewed": false,
     "tags": [
       "evaluacion-puntual"
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{2}{x^2 - 4}$$\n¿Cuáles son los valores excluidos del dominio de?",
+    "question": "Examina:\n$$f(x) = \\dfrac{2}{x^2 - 4}$$\n¿Cuáles son los valores excluidos del dominio de?",
     "options": [
       "$x = 2$",
       "$x = 4$ y $x = -4$",
@@ -89,7 +89,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$x^2 - 4 = 0 \\Rightarrow x = \\pm 2$: ambos valores excluyen el dominio.",
+    "feedback_correct": "$x = \\pm 2$: ambos valores excluyen el dominio.",
     "feedback_incorrect": [
       "Ese es solo uno de los dos valores que anulan el denominador; falta el otro factor de $x^2-4$.",
       "Esos números salen de tomar el $4$ directamente, pero hay que resolver $x^2-4=0$ y sacar la raíz cuadrada, lo que da $\\pm2$, no $\\pm4$.",
@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el denominador es una diferencia de cuadrados, conviene factorizarlo antes de buscar sus raíces.\n\nAcá $x^2-4=(x-2)(x+2)$, que se anula cuando $x=2$ o $x=-2$.\n\nAmbos valores quedan excluidos del **dominio** de $f(x)=\\frac{2}{x^2-4}$, y generan dos asíntotas verticales, una en cada raíz.\n\nTomar el $4$ directamente como valor excluido en vez de resolver $x^2=4$, confundiendo el término independiente con la raíz real de la ecuación.",
+    "explanation": "**Derivación:**\n$x^2 - 4 = 0 \\Rightarrow x = \\pm 2$\n\nCuando el denominador es una diferencia de cuadrados, conviene factorizarlo antes de buscar sus raíces.\n\nAcá $x^2-4=(x-2)(x+2)$, que se anula cuando $x=2$ o $x=-2$.\n\nAmbos valores quedan excluidos del **dominio** de $f(x)=\\frac{2}{x^2-4}$, y generan dos asíntotas verticales, una en cada raíz.\n\nTomar el $4$ directamente como valor excluido en vez de resolver $x^2=4$, confundiendo el término independiente con la raíz real de la ecuación.",
     "reviewed": false,
     "tags": [
       "asintota-horizontal-calculo"
@@ -160,7 +160,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x+1}{x-3}$$\n¿cuál es la asíntota vertical?",
+    "question": "Observa:\n$$f(x) = \\dfrac{x+1}{x-3}$$\n¿cuál es la asíntota vertical?",
     "options": [
       "$x = 1$",
       "$x = -3$",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{5}{x}$$\n¿Cuál es la asíntota horizontal de?",
+    "question": "Estudia:\n$$f(x) = \\dfrac{5}{x}$$\n¿Cuál es la asíntota horizontal de?",
     "options": [
       "$y = 5$",
       "$y = 0$",
@@ -265,7 +265,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es el dominio de?",
+    "question": "Analiza:\n$$f(x) = \\dfrac{x + 1}{x - 3}$$\n¿Cuál es el dominio de?",
     "options": [
       "$(-\\infty, 3]$",
       "$(-\\infty, 3) \\cup (3",
@@ -290,7 +290,7 @@
     ]
   },
   {
-    "question": "Considerá la función:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$ si?",
+    "question": "Analiza la función:\n$$f(x) = \\dfrac{2x - 1}{x + 2}$$\n¿Cuánto vale $f(3)$ si?",
     "options": [
       "$1$",
       "$\\dfrac{5}{3}$",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{4}{3x - 6}$$\n¿Cuál es la asíntota vertical de?",
+    "question": "Dada la siguiente situación:\n$$f(x) = \\dfrac{4}{3x - 6}$$\n¿Cuál es la asíntota vertical de?",
     "options": [
       "$x = 6$",
       "$x = 3$",
@@ -374,7 +374,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$3x - 6 = 0 \\Rightarrow x = 2$.",
+    "feedback_correct": "$x = 2$.",
     "feedback_incorrect": [
       "Ese valor sale de tomar el término independiente $6$ directamente como raíz, sin dividir por el coeficiente $3$ de $x$.",
       "Ese sería el resultado si el coeficiente de $x$ fuera $1$; acá hay que dividir por $3$ al despejar.",
@@ -383,14 +383,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La asíntota vertical de una racional aparece donde el denominador se anula. Acá el denominador es $3x-6$, así que resolvemos:$$3x-6=0 \\Rightarrow 3x=6 \\Rightarrow x=2$$La asíntota vertical está en $x=2$.\n\nTomar el término independiente ($6$) directamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$), lo que confundiría $x=6$ con la raíz real de la ecuación.",
+    "explanation": "**Derivación:**\n$3x - 6 = 0 \\Rightarrow x = 2$\n\nLa asíntota vertical de una racional aparece donde el denominador se anula. Acá el denominador es $3x-6$, así que resolvemos:$$3x-6=0 \\Rightarrow 3x=6 \\Rightarrow x=2$$La asíntota vertical está en $x=2$.\n\nTomar el término independiente ($6$) directamente como la asíntota sin dividir por el coeficiente de $x$ (acá $3$), lo que confundiría $x=6$ con la raíz real de la ecuación.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x + 3}{2x + 4}$$\n¿Cuál es la asíntota vertical de?",
+    "question": "Examina:\n$$f(x) = \\dfrac{x + 3}{2x + 4}$$\n¿Cuál es la asíntota vertical de?",
     "options": [
       "$x = -2$",
       "$x = 2$",
@@ -399,7 +399,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "$2x + 4 = 0 \\Rightarrow x = -2$.",
+    "feedback_correct": "$x = -2$.",
     "feedback_incorrect": [
       null,
       "Ese valor tiene el signo cambiado; el denominador es $2x+4$, que se anula en $x=-2$, no en $x=2$.",
@@ -408,14 +408,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador. Acá el denominador es $2x+4$:$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$La asíntota vertical es $x=-2$.\n\nOlvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
+    "explanation": "**Derivación:**\n$2x + 4 = 0 \\Rightarrow x = -2$\n\nPara hallar la asíntota vertical, igualamos a cero el denominador de la función, sin tocar el numerador. Acá el denominador es $2x+4$:$$2x+4=0 \\Rightarrow 2x=-4 \\Rightarrow x=-2$$La asíntota vertical es $x=-2$.\n\nOlvidar dividir por el coeficiente $2$ al despejar, lo que llevaría a confundir $x=-4$ con el valor correcto, o cambiar el signo por error al pasar términos de un lado a otro de la igualdad.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$$\n¿Cuántas asíntotas verticales tiene?",
+    "question": "Presta atención a:\n$$f(x) = \\dfrac{x+1}{x^2 - 4x + 3}$$\n¿Cuántas asíntotas verticales tiene?",
     "options": [
       "1 (en $x = 1$)",
       "2, en general",
@@ -440,7 +440,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{4x - 1}{2x + 3}$$\n¿Cuál es la asíntota horizontal de?",
+    "question": "Observa:\n$$f(x) = \\dfrac{4x - 1}{2x + 3}$$\n¿Cuál es la asíntota horizontal de?",
     "options": [
       "$y = 4$",
       "$y = \\dfrac{1}{2}$",
@@ -465,7 +465,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{3}{x^2 - 1}$$\n¿Cuál es la asíntota horizontal de?",
+    "question": "Nota:\n$$f(x) = \\dfrac{3}{x^2 - 1}$$\n¿Cuál es la asíntota horizontal de?",
     "options": [
       "$y = 3$",
       "$y = 1$",
@@ -490,7 +490,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{-5x + 2}{x - 1}$$\n¿Cuál es la asíntota horizontal de?",
+    "question": "Estudia:\n$$f(x) = \\dfrac{-5x + 2}{x - 1}$$\n¿Cuál es la asíntota horizontal de?",
     "options": [
       "$y = -5$",
       "$y = 5$",
@@ -515,7 +515,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es el dominio de?",
+    "question": "Reflexiona sobre:\n$$f(x) = \\dfrac{x - 1}{x + 4}$$\n¿Cuál es el dominio de?",
     "options": [
       "$(-\\infty, 4) \\cup (4, +\\infty)$",
       "$(-\\infty, -4) \\cup (-4, +\\infty)$",
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es el dominio de?",
+    "question": "Dada la siguiente situación:\n$$f(x) = \\dfrac{2}{x^2 - 9}$$\n¿Cuál es el dominio de?",
     "options": [
       "$(-\\infty, 3) \\cup (3, +\\infty)$",
       "$\\mathbb{R} \\setminus \\{9\\}$",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{2x - 6}{x + 1}$$\n¿Cuál es el intercepto con el eje $X$ de?",
+    "question": "Contempla:\n$$f(x) = \\dfrac{2x - 6}{x + 1}$$\n¿Cuál es el intercepto con el eje $X$ de?",
     "options": [
       "$x = -1$",
       "$x = 6$",
@@ -615,7 +615,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 - 4}{x + 1}$$\n¿Cuál es el intercepto con el eje $Y$ de?",
+    "question": "Presta atención a:\n$$f(x) = \\dfrac{x^2 - 4}{x + 1}$$\n¿Cuál es el intercepto con el eje $Y$ de?",
     "options": [
       "$4$",
       "$-4$",
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x + 3}{x}$$\n¿Existe el intercepto con el eje $Y$ de?",
+    "question": "Advierte:\n$$f(x) = \\dfrac{x + 3}{x}$$\n¿Existe el intercepto con el eje $Y$ de?",
     "options": [
       "Sí, en $y = 3$",
       "Sí, en $y = 1$",
@@ -824,7 +824,7 @@
     ],
     "correct_index": 0,
     "has_math": true,
-    "feedback_correct": "La forma es $k/(x-2)$. Evaluando: $k/(0-2) = -3 \\Rightarrow k = 6$.",
+    "feedback_correct": "La forma es $k/(x-2)$. Evaluando: $k = 6$.",
     "feedback_incorrect": [
       null,
       "Esa fórmula tiene el denominador correcto, pero el numerador $1$ no da el punto $(0,-3)$: evaluá $\\frac{1}{0-2}$ y vas a ver que no coincide.",
@@ -833,7 +833,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$, su forma general es $f(x)=\\frac{k}{x-a}$, con $k$ una constante a determinar usando un punto conocido.\n\nAcá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$.\n\nUsamos el punto $(0,-3)$:$$\\frac{k}{0-2}=-3 \\Rightarrow \\frac{k}{-2}=-3 \\Rightarrow k=6$$La fórmula es $f(x)=\\frac{6}{x-2}$. despejar mal el signo al multiplicar ambos lados por $-2$, obteniendo $k=-6$ en vez de $k=6$.",
+    "explanation": "**Derivación:**\n$k/(0-2) = -3 \\Rightarrow k = 6$\n\nCuando una racional tiene asíntota vertical en $x=a$ y asíntota horizontal en $y=0$, su forma general es $f(x)=\\frac{k}{x-a}$, con $k$ una constante a determinar usando un punto conocido.\n\nAcá $a=2$, así que partimos de $f(x)=\\frac{k}{x-2}$.\n\nUsamos el punto $(0,-3)$:$$\\frac{k}{0-2}=-3 \\Rightarrow \\frac{k}{-2}=-3 \\Rightarrow k=6$$La fórmula es $f(x)=\\frac{6}{x-2}$. despejar mal el signo al multiplicar ambos lados por $-2$, obteniendo $k=-6$ en vez de $k=6$.",
     "reviewed": false,
     "tags": [
       "interceptos-ejes-form"
@@ -849,7 +849,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La forma es $k/(x+1)$. Evaluando: $k/(1+1) = 1 \\Rightarrow k = 2$.",
+    "feedback_correct": "La forma es $k/(x+1)$. Evaluando: $k = 2$.",
     "feedback_incorrect": [
       "Esa fórmula tiene la asíntota vertical correcta, pero el numerador $1$ no da el punto $(1,1)$: evaluá $\\frac{1}{1+1}$ y vas a ver que no coincide.",
       null,
@@ -858,14 +858,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Una racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma $f(x)=\\frac{k}{x-a}$.\n\nAcá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$.\n\nUsamos el punto $(1,1)$ para hallar $k$:$$\\frac{k}{1+1}=1 \\Rightarrow \\frac{k}{2}=1 \\Rightarrow k=2$$La fórmula es $f(x)=\\frac{2}{x+1}$.\n\nDejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva, lo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
+    "explanation": "**Derivación:**\n$k/(1+1) = 1 \\Rightarrow k = 2$\n\nUna racional con asíntota vertical en $x=a$ y asíntota horizontal en $y=0$ tiene la forma $f(x)=\\frac{k}{x-a}$.\n\nAcá la asíntota vertical es $x=-1$, así que la forma es $f(x)=\\frac{k}{x+1}$.\n\nUsamos el punto $(1,1)$ para hallar $k$:$$\\frac{k}{1+1}=1 \\Rightarrow \\frac{k}{2}=1 \\Rightarrow k=2$$La fórmula es $f(x)=\\frac{2}{x+1}$.\n\nDejar $k=1$ sin verificar que el punto dado realmente pertenezca a la curva, lo que produce una fórmula con la asíntota correcta pero que no pasa por el punto indicado.",
     "reviewed": false,
     "tags": [
       "lectura-grafico-directa"
     ]
   },
   {
-    "question": "Considerá la función:\n$$g(x) = \\dfrac{1}{x}$$:\n$$f(x) = \\dfrac{1}{x} - 3$$\n¿cómo se obtiene?",
+    "question": "Observá la función:\n$$g(x) = \\dfrac{1}{x}$$:\n$$f(x) = \\dfrac{1}{x} - 3$$\n¿cómo se obtiene?",
     "options": [
       "Desplazando $g$ 3 unidades hacia la derecha",
       "Multiplicando $g$ por $-3$",
@@ -890,7 +890,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es la AV de?",
+    "question": "Nota:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es la AV de?",
     "options": [
       "$x = 5$",
       "$x = -2$",
@@ -915,7 +915,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la AV y la AH de?",
+    "question": "Destaca:\n$$f(x) = \\dfrac{3}{x - 4} + 2$$\n¿Cuáles son la AV y la AH de?",
     "options": [
       "AV: $x = 4$, AH: $y = 2$",
       "AV: $x = -4$, AH: $y = 2$",
@@ -965,7 +965,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿qué pasa en $x = 1$?",
+    "question": "Reflexiona sobre:\n$$f(x) = \\dfrac{x^2 - 1}{x - 1}$$\n¿qué pasa en $x = 1$?",
     "options": [
       "Hay una asíntota vertical",
       "La función vale $1$ en ese punto",
@@ -1040,7 +1040,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{4}{x + 2}$$\n¿cuál es la AV, la AH y el intercepto con el eje $Y$?",
+    "question": "Observa atentamente:\n$$f(x) = \\dfrac{4}{x + 2}$$\n¿cuál es la AV, la AH y el intercepto con el eje $Y$?",
     "options": [
       "AV: $x=2$, AH: $y=0$, intercepto $Y$: $2$",
       "AV: $x=-2$, AH: $y=0$, intercepto $Y$: $2$",
@@ -1065,7 +1065,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical de?",
+    "question": "Analiza:\n$$f(x) = \\dfrac{x^2 + 3x}{x^2 - 1}$$\n¿Cuál es la asíntota vertical de?",
     "options": [
       "Una sola AV en $x = 0$",
       "No tiene AV",
@@ -1090,7 +1090,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{2x + 1}{x - 5}$$\n¿cuáles son el intercepto con el eje $X$ y el eje $Y$?",
+    "question": "Examina:\n$$f(x) = \\dfrac{2x + 1}{x - 5}$$\n¿cuáles son el intercepto con el eje $X$ y el eje $Y$?",
     "options": [
       "Eje $X$: $x=5$; eje $Y$: $y=1$",
       "Eje $X$: $x=1$; eje $Y$: $y=5$",
@@ -1140,7 +1140,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{k}{x + 3}$$\nPasa por el punto $(1, 2)$, ¿cuánto vale $k$?",
+    "question": "Observa:\n$$f(x) = \\dfrac{k}{x + 3}$$\nPasa por el punto $(1, 2)$, ¿cuánto vale $k$?",
     "options": [
       "$2$",
       "$8$",
@@ -1165,7 +1165,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal de?",
+    "question": "Estudia:\n$$f(x) = \\dfrac{x^3 - 1}{x^2 + 1}$$\n¿Cuál es la asíntota horizontal de?",
     "options": [
       "$y = 1$",
       "$y = 0$",
@@ -1190,7 +1190,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio de?",
+    "question": "Dada la siguiente situación:\n$$f(x) = \\dfrac{x - 2}{x^2 + 2x + 1}$$\n¿Cuál es el dominio de?",
     "options": [
       "$\\mathbb{R} \\setminus \\{2\\}$",
       "$\\mathbb{R}$",
@@ -1215,7 +1215,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$ de?",
+    "question": "Presta atención a:\n$$f(x) = \\dfrac{x^2 - 9}{x + 5}$$\n¿Cuál es el intercepto con el eje $X$ de?",
     "options": [
       "$x = 9$",
       "$x = -5$",
@@ -1240,7 +1240,7 @@
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la AV y la AH de?",
+    "question": "Nota:\n$$f(x) = \\dfrac{5x - 10}{2x + 6}$$\n¿Cuáles son la AV y la AH de?",
     "options": [
       "AV: $x = 3$, AH: $y = \\dfrac{5}{2}$",
       "AV: $x = -3$, AH: $y = \\dfrac{2}{5}$",
@@ -1249,7 +1249,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "$2x+6=0 \\Rightarrow x=-3$ (AV). Cociente principal: $5/2$ (AH).",
+    "feedback_correct": "$x=-3$ (AV). Cociente principal: $5/2$ (AH).",
     "feedback_incorrect": [
       "El signo de la AV está invertido: el denominador es $2x+6$, que se anula en $x=-3$, no en $x=3$.",
       "La AH tiene el cociente invertido: hay que dividir el coeficiente principal del numerador entre el del denominador, $\\frac{5}{2}$, no al revés.",
@@ -1258,14 +1258,14 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Esta función pide dos datos que se calculan con procedimientos distintos. La asíntota vertical sale de igualar el denominador a cero: $2x+6=0\\Rightarrow x=-3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{5}{2}$.\n\nLa AV es $x=-3$ y la AH es $y=\\frac{5}{2}$.\n\nInvertir el cociente de coeficientes (poniendo el del denominador arriba), lo que daría $\\frac{2}{5}$ en vez de $\\frac{5}{2}$.",
+    "explanation": "**Derivación:**\n$2x+6=0 \\Rightarrow x=-3$\n\nEsta función pide dos datos que se calculan con procedimientos distintos. La asíntota vertical sale de igualar el denominador a cero: $2x+6=0\\Rightarrow x=-3$.\n\nLa asíntota horizontal sale de comparar los grados de numerador y denominador, que acá son ambos de grado 1, así que se calcula como el cociente de los coeficientes principales: $\\frac{5}{2}$.\n\nLa AV es $x=-3$ y la AH es $y=\\frac{5}{2}$.\n\nInvertir el cociente de coeficientes (poniendo el del denominador arriba), lo que daría $\\frac{2}{5}$ en vez de $\\frac{5}{2}$.",
     "reviewed": false,
     "tags": [
       "dominio-form"
     ]
   },
   {
-    "question": "Considerá:\n$$f(x) = \\dfrac{3x}{x^2 - 4}$$\n¿cuáles son todas las asíntotas?",
+    "question": "Reflexiona sobre:\n$$f(x) = \\dfrac{3x}{x^2 - 4}$$\n¿cuáles son todas las asíntotas?",
     "options": [
       "AV: $x=2$; AH: $y=3$",
       "AV: $x=4$; AH: $y=0$",

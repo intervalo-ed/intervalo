@@ -1208,14 +1208,14 @@
       "$4$"
     ],
     "correct_index": 1,
-    "feedback_correct": "La curva cruza el eje $h=0$ exactamente $3$ veces: en $x=-2$, $x=0$ y $x=2$.",
+    "feedback_correct": "La curva cruza el eje  exactamente veces: en, $x=2$",
     "feedback_incorrect": [
       "Recorré todo el trayecto de la vía, vuelve al nivel del suelo más de una vez.",
       null,
       "Fijate si te falta un cruce con el nivel del suelo cerca del centro del recorrido.",
       "Contá solo los puntos donde la vía realmente cruza el nivel del suelo, no donde se acerca sin tocarlo."
     ],
-    "explanation": "El gráfico muestra el **perfil de altura** $h(x)$ de una ruta serrana en función de la posición $x$.\n\nLos picos del gráfico corresponden a **máximos locales** de altura (colinas), y los valles a **mínimos locales** (depresiones).\n\nLeer estos directamente del gráfico sin fórmula es la esencia del análisis gráfico.\n\nEn una ruta realista, pueden haber varios picos y valles, lo que corresponde a un polinomio de grado par (para que termine igual en ambos lados) o de grado impar con un extremo final en infinito.\n\nEl número de colinas y depresiones está limitado por la regla: máximo $n - 1$ extremos para grado $n$.\n\nDesde la perspectiva práctica, identificar dónde están los puntos más altos y bajos es crítico para entender el comportamiento físico de la ruta, confirmando que los polinomios modelan bien los fenómenos de múltiples fases.",
+    "explanation": "**Datos usados:**\n$h=0$ $3$ $x=-2$ $x=0$\n\nEl gráfico muestra el **perfil de altura** $h(x)$ de una ruta serrana en función de la posición $x$.\n\nLos picos del gráfico corresponden a **máximos locales** de altura (colinas), y los valles a **mínimos locales** (depresiones).\n\nLeer estos directamente del gráfico sin fórmula es la esencia del análisis gráfico.\n\nEn una ruta realista, pueden haber varios picos y valles, lo que corresponde a un polinomio de grado par (para que termine igual en ambos lados) o de grado impar con un extremo final en infinito.\n\nEl número de colinas y depresiones está limitado por la regla: máximo $n - 1$ extremos para grado $n$.\n\nDesde la perspectiva práctica, identificar dónde están los puntos más altos y bajos es crítico para entender el comportamiento físico de la ruta, confirmando que los polinomios modelan bien los fenómenos de múltiples fases.",
     "has_math": true,
     "graph_fn": "x*(x-2)*(x+2)/4",
     "graph_view": [

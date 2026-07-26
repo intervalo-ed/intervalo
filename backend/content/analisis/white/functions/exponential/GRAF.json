@@ -609,7 +609,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La curva pasa por $(0, 2)$: la asíntota en $y = 1$ más $b^0 = 1$ da $f(0) = 2$.",
+    "feedback_correct": "La curva pasa por : la asíntota en más da $f(0) = 2$",
     "feedback_incorrect": [
       "Ese sería el valor de $b^0$ solo, sin sumar el desplazamiento de la asíntota: fijate cuánto suma la curva por encima de eso.",
       null,
@@ -623,7 +623,7 @@
       -0.5,
       9.0
     ],
-    "explanation": "Con asíntota en $y = 1$, la forma de la función es $f(x) = b^x + 1$:\n$$f(0) = b^0 + 1 = 1 + 1 = 2$$\nIndependientemente de cuál sea la base $b$, el valor $f(0)$ siempre da $2$ cuando la asíntota está en $y = 1$, porque cualquier base elevada a la potencia $0$ da $1$.\n\nEste patrón es útil como atajo: el valor de $f(0)$ en una exponencial desplazada verticalmente es siempre uno más que la altura de la asíntota.",
+    "explanation": "**Datos usados:**\n$(0, 2)$ $y = 1$ $b^0 = 1$\n\nCon asíntota en $y = 1$, la forma de la función es $f(x) = b^x + 1$:\n$$f(0) = b^0 + 1 = 1 + 1 = 2$$\nIndependientemente de cuál sea la base $b$, el valor $f(0)$ siempre da $2$ cuando la asíntota está en $y = 1$, porque cualquier base elevada a la potencia $0$ da $1$.\n\nEste patrón es útil como atajo: el valor de $f(0)$ en una exponencial desplazada verticalmente es siempre uno más que la altura de la asíntota.",
     "reviewed": false,
     "tags": [
       "lectura-comportamiento-infinito"
@@ -1449,7 +1449,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "En $t = 0$: $S(0) = 3$ miles $= 3000$ seguidores.",
+    "feedback_correct": "En : miles seguidores $= 3000$",
     "feedback_incorrect": [
       "Ese valor correspondería a una curva que arranca en el origen: acá el punto de corte con el eje vertical está por encima de cero.",
       "Ese valor sale de evaluar un mes después del inicio, no en $t = 0$: repasá qué pasa con la base elevada a la potencia $0$.",
@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto $(0, 3)$ es donde la curva corta el eje $y$:\n$$S(0) = 3 \\cdot (1{,}2)^0 = 3 \\cdot 1 = 3 \\text{ miles}$$\nEste es el valor inicial de la curva, los $3000$ seguidores del comienzo, ya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente $a = 3$.\n\nEste valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
+    "explanation": "**Datos usados:**\n$t = 0$ $S(0) = 3$\n\nEl punto $(0, 3)$ es donde la curva corta el eje $y$:\n$$S(0) = 3 \\cdot (1{,}2)^0 = 3 \\cdot 1 = 3 \\text{ miles}$$\nEste es el valor inicial de la curva, los $3000$ seguidores del comienzo, ya que cualquier base elevada a la potencia $0$ da $1$ y solo queda el coeficiente $a = 3$.\n\nEste valor en $t = 0$ es el punto de partida sobre el que después actúa el crecimiento porcentual de cada mes, no debe confundirse con el valor luego de aplicar algún período de crecimiento.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

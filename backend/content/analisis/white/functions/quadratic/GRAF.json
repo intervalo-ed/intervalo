@@ -129,7 +129,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, que está en $x = 6$. El punto simétrico de $x = 2$ es $x = 10$.",
+    "feedback_correct": "La parábola es simétrica respecto al vértice, que está en . El punto simétrico de es $x = 10$",
     "feedback_incorrect": [
       "Medí la distancia entre los 2 segundos dados y el vértice, y buscá el mismo instante del otro lado.",
       null,
@@ -143,7 +143,7 @@
       -1,
       13
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6.\n\nSi a los 2 segundos está a 5 metros, 4 antes del vértice, vuelve a estar a 5 metros 4 segundos después:\n\nSubiendo y bajando, la altura se repite como un espejo.",
+    "explanation": "**Datos usados:**\n$x = 6$ $x = 2$\n\nUna parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nAcá el vértice está en $x = 6$, así que cada altura se alcanza dos veces, a la misma distancia del 6.\n\nSi a los 2 segundos está a 5 metros, 4 antes del vértice, vuelve a estar a 5 metros 4 segundos después:\n\nSubiendo y bajando, la altura se repite como un espejo.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -519,7 +519,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en . El simétrico de es $x = 6$",
     "feedback_incorrect": [
       "Fijate cuántos segundos hay entre los 2 segundos dados y el vértice en $x=4$; el instante simétrico debe estar a esa misma distancia, del otro lado del vértice.",
       "Ese instante no guarda la misma distancia al vértice que los 2 segundos iniciales; revisá la resta antes de sumarla del otro lado.",
@@ -533,7 +533,7 @@
       -1,
       11
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nEso significa que, salvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, una vez de cada lado, siempre a la misma distancia de ese eje.\n\nAcá el vértice está en $x = 4$: los 2 segundos del enunciado quedan a 2 unidades de distancia del vértice, así que el otro instante con la misma altura está a esa misma distancia, del otro lado:\n\nLa pelota vuelve a estar a 6 cm a los 6 segundos.\n\nEl truco de la simetría es medir la distancia al vértice una sola vez y después repetirla, en vez de contar los segundos desde el principio del recorrido.",
+    "explanation": "**Datos usados:**\n$x = 4$ $x = 2$\n\nUna parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nEso significa que, salvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, una vez de cada lado, siempre a la misma distancia de ese eje.\n\nAcá el vértice está en $x = 4$: los 2 segundos del enunciado quedan a 2 unidades de distancia del vértice, así que el otro instante con la misma altura está a esa misma distancia, del otro lado:\n\nLa pelota vuelve a estar a 6 cm a los 6 segundos.\n\nEl truco de la simetría es medir la distancia al vértice una sola vez y después repetirla, en vez de contar los segundos desde el principio del recorrido.",
     "reviewed": false,
     "tags": [
       "lectura-fv"
@@ -729,7 +729,7 @@
     ],
     "correct_index": 3,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 6$. El simétrico de $x = 4$ es $x = 8$.",
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en . El simétrico de es $x = 8$",
     "feedback_incorrect": [
       "Fijate cuántos segundos hay entre los 4 segundos dados y el vértice en $x = 6$; el instante simétrico debe quedar a esa misma distancia, del otro lado.",
       "Esa distancia al vértice no coincide con la de los 4 segundos iniciales; revisá la resta antes de sumarla del otro lado.",
@@ -743,7 +743,7 @@
       -1,
       11
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 6$, y los 4 segundos del enunciado quedan a 2 unidades de distancia.\n\nEl instante simétrico está a esa misma distancia del otro lado del vértice:\n\nLa pelota vuelve a estar a 6 metros a los 8 segundos.\n\nConviene medir la distancia al vértice una sola vez y repetirla del otro lado, en vez de contar los segundos desde el arranque del recorrido.",
+    "explanation": "**Datos usados:**\n$x = 6$ $x = 4$\n\nUna parábola es **simétrica** respecto a la recta vertical que pasa por su vértice.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 6$, y los 4 segundos del enunciado quedan a 2 unidades de distancia.\n\nEl instante simétrico está a esa misma distancia del otro lado del vértice:\n\nLa pelota vuelve a estar a 6 metros a los 8 segundos.\n\nConviene medir la distancia al vértice una sola vez y repetirla del otro lado, en vez de contar los segundos desde el arranque del recorrido.",
     "reviewed": false,
     "tags": [
       "nombre-parabola"
@@ -1449,7 +1449,7 @@
     ],
     "correct_index": 1,
     "has_math": true,
-    "feedback_correct": "La parábola es simétrica respecto al vértice, en $x = 4$. El simétrico de $x = 2$ es $x = 6$.",
+    "feedback_correct": "La parábola es simétrica respecto al vértice, en . El simétrico de es $x = 6$",
     "feedback_incorrect": [
       "Fijate cuántos metros hay entre los 2 metros dados y el vértice en $x = 4$; el punto simétrico debe estar a esa misma distancia, del otro lado.",
       null,
@@ -1463,7 +1463,7 @@
       -1,
       11
     ],
-    "explanation": "Una parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 4$: los 2 metros del enunciado quedan a 2 unidades de distancia del vértice, así que el otro punto con la misma altura está a esa misma distancia, del otro lado:\n\nEl cable vuelve a estar a 5 metros de altura a los 6 metros de distancia.\n\nUn puente colgante bien construido es igual de los dos lados de su punto más bajo, así que medir la distancia al vértice de un lado alcanza para saber la del otro.",
+    "explanation": "**Datos usados:**\n$x = 4$ $x = 2$\n\nUna parábola es **simétrica** respecto a la recta vertical que pasa por su vértice, el eje de simetría.\n\nSalvo en el vértice mismo, cada altura de la curva se repite exactamente dos veces, siempre a la misma distancia de ese eje, una vez de cada lado.\n\nAcá el vértice está en $x = 4$: los 2 metros del enunciado quedan a 2 unidades de distancia del vértice, así que el otro punto con la misma altura está a esa misma distancia, del otro lado:\n\nEl cable vuelve a estar a 5 metros de altura a los 6 metros de distancia.\n\nUn puente colgante bien construido es igual de los dos lados de su punto más bajo, así que medir la distancia al vértice de un lado alcanza para saber la del otro.",
     "reviewed": false,
     "tags": [
       "ordenada-origen"
