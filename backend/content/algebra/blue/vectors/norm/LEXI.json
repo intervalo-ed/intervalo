@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **norma** de un vector mide su longitud en el espacio.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$\n\nPor ejemplo, el vector $\\vec{v}=(3,4)$ tiene norma $\\|\\vec{v}\\| = \\sqrt{9+16} = 5$.\n\nLa norma siempre da un número no negativo, y solo vale cero para el vector nulo.",
+    "explanation": "La **norma** de un vector mide su longitud en el espacio.\n$$\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + \\dots + v_n^2}$$\n\nPor ejemplo, el vector $\\vec{v}=(3,4)$ tiene norma $\\|\\vec{v}\\| = \\sqrt{9+16} = 5$.\n\nLa norma siempre da un número no negativo, y solo vale cero para el vector nulo.La **norma** mide magnitud y es fundamental en análisis de vectores. Aparece en cálculos de distancia, ángulos entre vectores, y en definiciones de ortogonalidad. La norma euclidiana $\\|\\vec{v}\\| = \\sqrt{v_1^2 + v_2^2 + ... + v_n^2}$ es la más común, pero existen otras normas (norma 1, norma infinito) con aplicaciones distintas. Comprender la norma es la base para trabajar con espacios vectoriales en dimensiones superiores.",
     "reviewed": false
   }
 ]

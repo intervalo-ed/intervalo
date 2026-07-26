@@ -118,7 +118,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en **cada término** por separado y respetando los signos y operaciones de la expresión original.\n\nCada parte se transforma, luego se suman o restan.\n\nEl acercamiento de $x$ a $3$ \n\nproduce valores de la expresión que convergen a $4$: evaluando en.\n\n\n$$2{,}99$$\nSe obtiene :.El destino es $4$.\n\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo o terminar en el camino: primero sustituí todo, después operá término a término.",
+    "explanation": "En un polinomio de varios términos, la **sustitución directa** se aplica reemplazando $x$ en **cada término** por separado y respetando los signos y operaciones de la expresión original.\n\nCada parte se transforma, luego se suman o restan.\n\nEl acercamiento de $x$ a $3$ \n\nproduce valores de la expresión que convergen a $4$: evaluando en.\n$$2{,}99$$\nSe obtiene :.El destino es $4$.\n\nCon varios términos conviene resolver paso a paso, así se evita perder algún signo o terminar en el camino: primero sustituí todo, después operá término a término.",
     "reviewed": false,
     "tags": [
       "sustitucion-polinomios-constantes"
@@ -143,7 +143,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **denominador** de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica algebraica adicional.\n\n: el destino del cociente está determinado por la sustitución directa de numerador y denominador.\n\nEl acercamiento de $x$ a $1$ \n\nproduce cocientes que convergen a $4/3$: en $x=0{,}99$ el cociente es.\n\n\n$$\\approx 1{,}3267$$\n, en $x=1{,}01$ es $\\approx 1{,}3303$.\n\nEl destino es :.Antes de aplicar otra técnica (factorización, etc.), siempre conviene chequear si el denominador se anula en el punto: si no se anula, el trabajo ya terminó.",
+    "explanation": "Cuando el **denominador** de una expresión racional no se anula en el punto de tendencia, la **sustitución directa** es válida y no hace falta ninguna técnica algebraica adicional.\n\n: el destino del cociente está determinado por la sustitución directa de numerador y denominador.\n\nEl acercamiento de $x$ a $1$ \n\nproduce cocientes que convergen a $4/3$: en $x=0{,}99$ el cociente es.\n$$\\approx 1{,}3267$$\n, en $x=1{,}01$ es $\\approx 1{,}3303$.\n\nEl destino es :.Antes de aplicar otra técnica (factorización, etc.), siempre conviene chequear si el denominador se anula en el punto: si no se anula, el trabajo ya terminó.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"
@@ -168,7 +168,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Cuando el **argumento** de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida: se reemplaza dentro de la raíz, se opera, y recién después se aplica la raíz.\n\nEl acercamiento de $x$ a $4$ \n\nproduce valores de $\\sqrt{x+5}$ que convergen a $3$: \n\nen $x=3{,}99$ se obtiene.\n\n\n$$\\sqrt{8{,}99} \\approx 2{,}998$$\n, en $x=4{,}01$ se obtiene :.El destino es $3$.\n\nConviene siempre resolver la expresión dentro de la raíz y recién después aplicar la raíz, así se evita mezclar ambas operaciones y perder precisión.",
+    "explanation": "Cuando el **argumento** de una raíz cuadrada es positivo en el punto de tendencia, la **sustitución directa** es válida: se reemplaza dentro de la raíz, se opera, y recién después se aplica la raíz.\n\nEl acercamiento de $x$ a $4$ \n\nproduce valores de $\\sqrt{x+5}$ que convergen a $3$: \n\nen $x=3{,}99$ se obtiene.\n$$\\sqrt{8{,}99} \\approx 2{,}998$$\n, en $x=4{,}01$ se obtiene :.El destino es $3$.\n\nConviene siempre resolver la expresión dentro de la raíz y recién después aplicar la raíz, así se evita mezclar ambas operaciones y perder precisión.",
     "reviewed": false,
     "tags": [
       "racionales-radicales-sin-indeterminacion"

@@ -1463,7 +1463,7 @@
       -0.5,
       10
     ],
-    "explanation": "El punto.\n$$(0.\n\n3)$$\nEs donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000.\n$$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $$\n0$ da $1$ y solo queda el coeficiente :.",
+    "explanation": "El punto $(0, 3)$ es donde la curva corta el eje $y$:Este es el valor inicial de la curva.\n\nlos $3000.\n$$ seguidores del comienzo.\n\nya que cualquier base elevada a la potencia $$\n0$ da $1$ y solo queda el coeficiente :. Este es el valor inicial de la función exponencial desplazada, donde la curva corta al eje $y$. En funciones de la forma $f(x) = b^x + k$, el corte con el eje $y$ ocurre en $(0, 1+k)$, así que si el corte está en $3$, significa que $k=2$. Leer el punto inicial donde la curva cruza el eje $y$ proporciona información valiosa sobre los parámetros de la exponencial.",
     "reviewed": false,
     "tags": [
       "asintota-contexto"

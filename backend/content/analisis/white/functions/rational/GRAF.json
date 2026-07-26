@@ -1343,7 +1343,7 @@
       -5,
       3
     ],
-    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ \n\n(desplazamiento $-1$): :.",
+    "explanation": "Cuando una hipérbola está desplazada tanto horizontal como verticalmente, hay que leer dos parámetros por separado: el denominador fija la AV y un término sumado fuera de la fracción fija la AH.\n\nAV en $x=5$ → denominador $x-5$.\n\nLa AH no es $y=0$ sino $y=-1$ \n\n(desplazamiento $-1$): :.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "direccion-ramas"

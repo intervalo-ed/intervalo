@@ -18,7 +18,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Dos vectores son ortogonales cuando su producto escalar es cero.\n$$\\vec{u}\\cdot\\vec{v} = 3k + 4(-6) = 3k - 24 = 0$$\n\nDespejando, $3k=24$, así que $k=8$.\n\nConviene armar la ecuación completa antes de despejar, para no perder algún término en el camino.",
+    "explanation": "Dos vectores son ortogonales cuando su producto escalar es cero.\n$$\\vec{u}\\cdot\\vec{v} = 3k + 4(-6) = 3k - 24 = 0$$\n\nDespejando, $3k=24$, así que $k=8$.\n\nConviene armar la ecuación completa antes de despejar, para no perder algún término en el camino. cuando su producto escalar es cero. Esto significa que no tienen ningún componente en la misma dirección; sus direcciones son perpendiculares. La ortogonalidad es fundamental en geometría vectorial y aparece constantemente en álgebra lineal: en bases ortonormales, en descomposiciones, y en proyecciones. Dos vectores ortogonales pueden tener magnitudes completamente diferentes; la ortogonalidad solo describe su ángulo relativo, no sus longitudes.",
     "reviewed": false
   }
 ]

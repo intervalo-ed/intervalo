@@ -1038,7 +1038,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:Con 10 ventas el sueldo llega exactamente a \\.\n$$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$$\n800 restantes se explican por comisiones.\n\nSi dividís el objetivo completo sin restar la base, perdés el descuento inicial en la comisión.",
+    "explanation": "La pregunta pide el valor de $v$ que hace $S(v) = 2000$:Con 10 ventas el sueldo llega exactamente a \\.\n$$2000.\n\nEl primer paso es descontar el sueldo base: solo los \\$$\n800 restantes se explican por comisiones.\n\nSi dividís el objetivo completo sin restar la base, perdés el descuento inicial en la comisión.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1163,7 +1163,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluar en $x = -1$ exige cuidado con los signos:El producto de dos negativos es positivo: $-4 \\cdot (-1) = +4$, y a eso se suma el 12.\n\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.",
+    "explanation": "Evaluar en $x = -1$ exige cuidado con los signos:El producto de dos negativos es positivo: $-4 \\cdot (-1) = +4$, y a eso se suma el 12.\n\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -1213,7 +1213,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación:\n$$f(5) = 3 \\cdot 5 - 6 = 9$$\n.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$.",
+    "explanation": "La pregunta invierte la evaluación: se conoce la salida y se busca la entrada:Verificación:\n$$f(5) = 3 \\cdot 5 - 6 = 9$$\n.\n\nEl $-6$ cruza el igual sumando: el lado derecho queda :, no $9 - 6$. Cuando se conoce la salida $f(x)$ y se busca la entrada $x$, se invierte el proceso: en vez de evaluar la función, se despeja la variable de la ecuación lineal. Por ejemplo, si $f(x) = 2x+3$ y se pregunta qué valor de $x$ produce $f(x)=7$, se resuelve $7 = 2x+3$ obteniendo $x=2$. Este pensamiento inverso es fundamental para resolver ecuaciones.",
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"

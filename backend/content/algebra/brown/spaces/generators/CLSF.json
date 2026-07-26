@@ -16,7 +16,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para generar $\\mathbb{R}^2$ hacen falta al menos dos vectores no paralelos.\n\n$(1,0)$ y $(0,1)$ cumplen esa condición: cualquier punto del plano se escribe como $a(1,0)+b(0,1)$.\n\nUn único vector, sea cual sea, solo genera la recta que pasa por el origen en su dirección, nunca el plano completo.",
+    "explanation": "Para generar $\\mathbb{R}^2$ hacen falta al menos dos vectores no paralelos.\n\n$(1,0)$ y $(0,1)$ cumplen esa condición: cualquier punto del plano se escribe como $a(1,0)+b(0,1)$.\n\nUn único vector, sea cual sea, solo genera la recta que pasa por el origen en su dirección, nunca el plano completo. no paralelos. Dos vectores paralelos (uno es múltiplo del otro) generan solo una línea, no el plano completo. La independencia lineal es la característica clave: los vectores deben apuntar en direcciones realmente distintas para llenar todo el espacio. Si los dos vectores son independientes, cualquier punto del plano puede escribirse como combinación lineal de ellos. Generar un espacio significa que sus combinaciones lineales cubren todos los puntos posibles.",
     "reviewed": false
   }
 ]

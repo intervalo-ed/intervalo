@@ -1335,7 +1335,7 @@
       "El mínimo global se evalúa en todo el dominio de la función, no solo en la parte del año que se graficó.",
       "La existencia de mínimo global depende del grado y el signo del coeficiente principal, no de las raíces del modelo."
     ],
-    "explanation": "Como modelo matemático, el polinomio de grado 4 con coef.\n\nEn la práctica, el modelo es válido solo para el año en cuestión.\n\nMatemáticamente, no hay piso.",
+    "explanation": "Como modelo matemático, un polinomio de grado 4 con coeficiente principal negativo tiene ambos extremos apuntando hacia $-\\infty$ cuando $x \\to \\pm\\infty$. Esto significa que matemáticamente no existe un mínimo global: conforme te alejas arbitrariamente en cualquier dirección, la temperatura modelada desciende indefinidamente. En la práctica, el modelo es válido solo dentro del rango de datos históricos para el año en cuestión. Fuera de ese rango, la función polinómica sigue sus propias leyes matemáticas, que pueden no corresponder a la realidad física. Matemáticamente, sin restricción de dominio, no hay piso: el modelo nunca alcanza un valor mínimo absoluto. Esta diferencia entre el comportamiento matemático de la función y su validez práctica como modelo real es crucial para interpretar resultados correctamente.",
     "has_math": true,
     "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
     "graph_view": [

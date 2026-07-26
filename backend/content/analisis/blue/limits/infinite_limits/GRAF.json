@@ -23,7 +23,7 @@
       -1,
       6
     ],
-    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza.",
+    "explanation": "La **asíntota horizontal** de una gráfica es la altura $y=L$ a la que se acerca la curva cuando $x \\to \\pm\\infty$, se lee mirando los extremos izquierdo y derecho del gráfico, no el punto donde cruza.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.\n\nEsta es una habilidad básica que aparecerá en contextos más complejos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -83,7 +83,7 @@
       -1,
       7
     ],
-    "explanation": "Un punto marcado en el interior de una curva, como $f(1)=3$, es un valor puntual de la función y no debe confundirse con la **asíntota horizontal**, que describe el comportamiento sostenido en los.",
+    "explanation": "Un punto marcado en el interior de una curva, como $f(1)=3$, es un valor puntual de la función y no debe confundirse con la **asíntota horizontal**, que describe el comportamiento sostenido en los extremos. La asíntota horizontal se define por lo que sucede cuando $x \\to \\pm\\infty$, no por valores en puntos específicos del interior del dominio. Por eso, aunque la curva pase por el punto $(1,3)$, la asíntota horizontal es determinada exclusivamente por hacia dónde se acerca la curva conforme $x$ crece o decrece indefinidamente.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -113,7 +113,7 @@
       -4,
       2
     ],
-    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo.\n\nEl signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico.",
+    "explanation": "Cuando una función se estabiliza en una altura negativa, la **asíntota horizontal** sigue siendo una recta $y=L$, solo que con $L$ negativo. El signo no cambia el método de lectura, se sigue mirando el comportamiento en ambos extremos del gráfico. La definición de asíntota horizontal es igual independientemente de si el valor límite es positivo, negativo o cero. La única diferencia es que en esta gráfica, conforme $x \\to \\pm\\infty$, la curva desciende hacia una altura fija por debajo del eje $x$, mientras que en gráficas con límite positivo sube hacia una altura por encima. El procedimiento de lectura es idéntico.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -141,7 +141,7 @@
       -1,
       6
     ],
-    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota.\n\nEn esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota.",
+    "explanation": "Una **asíntota horizontal** existe cuando la función se acerca a un valor finito a medida que $x$ crece o decrece sin cota. En esta gráfica la curva se aplana hacia una altura constante en ambos extremos, lo que confirma la existencia de la asíntota. La característica definidora es que la distancia vertical entre la curva y la recta $y=L$ se hace arbitrariamente pequeña conforme $x \\to \\pm\\infty$. Este comportamiento es observable en el gráfico: en las zonas muy lejanas a izquierda y derecha, la curva prácticamente se confunde con la línea horizontal. La visualización gráfica de este aplastamiento hacia una altura fija es lo que permite identificar la asíntota directamente del dibujo.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -169,7 +169,7 @@
       -1,
       4
     ],
-    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar.\n\nEs común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.",
+    "explanation": "Una **asíntota horizontal** describe el comportamiento en los extremos de la gráfica, no una barrera que la curva no puede cruzar.\n\nEs común que una función cruce su propia asíntota horizontal en la zona central, mientras se sigue acercando a ella hacia $x \\to \\pm\\infty$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-horizontal"
@@ -199,7 +199,7 @@
       -6,
       6
     ],
-    "explanation": "La **asíntota vertical** de una gráfica es la recta $x=a$ donde la función no está definida y diverge a $\\pm\\infty$.\n\nNo hay que confundirla con la raíz de la función, el punto donde la curva cruza el eje horizontal.",
+    "explanation": "La **asíntota vertical** de una gráfica es la recta $x=a$ donde la función no está definida y diverge a $\\pm\\infty$.\n\nNo hay que confundirla con la raíz de la función, el punto donde la curva cruza el eje horizontal.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.\n\nEsta es una habilidad básica que aparecerá en contextos más complejos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -229,7 +229,7 @@
       -8,
       8
     ],
-    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$.\n\nno el valor donde cruza el eje.",
+    "explanation": "Para identificar la **asíntota vertical** en una gráfica, hay que ubicar el valor de $x$ donde la curva se rompe en dos ramas que divergen hacia $+\\infty$ y $-\\infty$, no el valor donde cruza el eje. La asíntota vertical es la línea vertical en $x=a$ que marca exactamente dónde la función se vuelve indefinida y tiene un comportamiento explosivo (divergencia). Confundir la raíz (cruce con el eje $x$) con la asíntota vertical (ruptura con divergencia a infinito) es un error frecuente: ambas son puntos especiales del gráfico pero de naturaleza completamente diferente. La raíz es un valor donde $f(x)=0$, mientras que la asíntota vertical es un valor donde $f(x)$ tiende a $\\pm\\infty$.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -257,7 +257,7 @@
       -8,
       8
     ],
-    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ \n\ncerca de ese valor de $x$.\n\nEn esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota.",
+    "explanation": "Una **asíntota vertical** existe en un punto cuando al menos una de las dos ramas laterales diverge a $+\\infty$ o $-\\infty$ cerca de ese valor de $x$. En esta gráfica, una rama sube y la otra baja sin cota exactamente en el mismo punto, lo que confirma la asíntota. El comportamiento explosivo de las ramas (crecimiento o decrecimiento sin límite) es lo que distingue una asíntota vertical de otros puntos especiales. Si ambas ramas permanecen acotadas o si una sube y la otra se acerca a un valor finito, no hay asíntota vertical. Solo divergencias a infinito califican. Este gráfico ejemplifica el caso más común: una rama hacia $+\\infty$ y la otra hacia $-\\infty$ en el mismo punto, formando la característica ruptura vertical de una asíntota.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"
@@ -315,7 +315,7 @@
       -3,
       10
     ],
-    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$.\n\nUna parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.",
+    "explanation": "Una **asíntota vertical** requiere que la función diverga a $\\pm\\infty$ cerca de un valor puntual de $x$.\n\nUna parábola completa, como la de esta gráfica, está definida y es continua en todo $\\mathbb{R}$, sin ninguna ruptura.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.\n\nEsta es una habilidad básica que aparecerá en contextos más complejos.",
     "reviewed": false,
     "tags": [
       "identificacion-asintota-vertical"

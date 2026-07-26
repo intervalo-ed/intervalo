@@ -177,7 +177,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\n\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$.",
+    "explanation": "El punto $(a, f(a))$ es el **punto de tangencia**, el lugar exacto donde la recta toca a la curva y que sirve de anclaje para toda la ecuación.\n\nA partir de ese punto fijo, la fórmula extiende la recta en ambas direcciones usando la pendiente $f'(a)$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto., el lugar exacto donde la recta tangente toca la curva sin cruzarla (localmente). La recta tangente tiene exactamente la misma pendiente que la curva en ese punto. La derivada $f'(a)$ es precisamente esta pendiente de la tangente. Geométricamente, la derivada transforma el concepto algebraico de 'tasa de cambio' en una interpretación visual clara: la inclinación de la línea que mejor aproxima la curva en cada punto. El punto de tangencia y la pendiente de la tangente son dos formas complementarias de entender qué representa la derivada.",
     "reviewed": false,
     "tags": [
       "anatomia-formula-punto-pendiente"

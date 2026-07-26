@@ -1133,7 +1133,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **imagen** de.\n$$f(x)=\\cos(x)+3$$Se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.La opción $[-1,1]$ es el rango sin el **desplazamiento**. \n\n$[3,4]$ sería si la **amplitud** fuera $0{,}5$.\n\nLa clave es sumar $D$ a ambos extremos del rango base.",
+    "explanation": "La **imagen** de.\n$$f(x)=\\cos(x)+3$$Se obtiene desplazando el rango de $\\cos(x)=[-1,1]$ exactamente $3$ unidades hacia arriba.La opción $[-1,1]$ es el rango sin el **desplazamiento**. \n\n$[3,4]$ sería si la **amplitud** fuera $0{,}5$.\n\nLa clave es sumar $D$ a ambos extremos del rango base. Practicá este patrón múltiples veces para reconocerlo rápidamente.",
     "reviewed": false,
     "tags": [
       "imagen-transformada"

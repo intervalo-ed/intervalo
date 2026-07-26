@@ -73,7 +73,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :).",
+    "explanation": "El **grado** de un polinomio se determina identificando el término con la mayor potencia de $x$.\n\nEn $p(x) = x^7 - 3x^4 + 2$ los exponentes que aparecen son $7$.\n\n$4$ y $0$ (el término constante :). El término con la mayor potencia domina el comportamiento del polinomio para valores grandes de $x$, así que el grado se identifica directamente observando cuál término tiene el exponente más alto. Un polinomio de grado 3 tiene el término $x^3$ como su mayor poder, un polinomio de grado 5 tiene $x^5$, y así sucesivamente. Esta identificación del grado es esencial para entender el comportamiento gráfico y algebraico del polinomio.",
     "reviewed": false,
     "tags": [
       "grado-identificacion"
@@ -305,7 +305,7 @@
       "Los extremos en la misma dirección corresponden a grado par; acá el grado es impar, así que van en sentidos opuestos.",
       "Esa dirección se da con coeficiente principal negativo; acá el coeficiente principal es positivo, así que el sentido se invierte."
     ],
-    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.",
+    "explanation": "El comportamiento en los **extremos** depende de dos cosas: **grado** y **signo del coeficiente principal**.\n\nPara grado **impar** con coef. principal **positivo** ($a_n > 0$):\n$$\\begin{aligned} x &\\to -\\infty \\Rightarrow p(x) \\to -\\infty \\\\ x &\\to +\\infty \\Rightarrow p(x) \\to +\\infty \\end{aligned}$$\nLa curva sube a la derecha y baja a la izquierda. Memorizable: sigue la dirección de $x^3$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -330,7 +330,7 @@
       "Ese patrón de extremos en sentidos opuestos es propio del grado impar; acá el grado es par, así que ambos extremos van en la misma dirección.",
       "Esa combinación mezcla un patrón de grado impar con la dirección invertida; con grado par los dos extremos coinciden en el mismo sentido."
     ],
-    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):Ambos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).",
+    "explanation": "Para **grado** **par** con coef. principal **positivo** ($a_n > 0$):Ambos **extremos** apuntan hacia arriba, como una parábola $x^2$.\n\nLa forma típica en el gráfico es una curva en **W** (para grado 4) con ambas ramas subiendo.\n\nSi el coef. fuera negativo, ambos extremos irían hacia $-\\infty$ (forma en **M**).\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -655,7 +655,7 @@
       "Esa cifra saldría de multiplicar los grados en vez de sumarlos: el grado del producto de dos polinomios es la suma de sus grados, no el producto.",
       "Ese es el grado de uno solo de los factores; al multiplicar dos polinomios, el grado del resultado crece, no se queda igual al mayor de los dos."
     ],
-    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados:Razón: el término de mayor grado del producto es el producto de los términos de mayor grado de cada uno.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$.\n\nel término de mayor grado del producto es $a_3 b_2 \\cdot x^5$.\n\nAsí que $\\deg(p \\cdot q) = 3 + 2 = 5$.",
+    "explanation": "El **grado del producto** de dos polinomios es la **suma** de sus grados:Razón: el término de mayor grado del producto es el producto de los términos de mayor grado de cada uno.\n\nSi $p(x) = a_3 x^3 + \\ldots$ y $q(x) = b_2 x^2 + \\ldots$.\n\nel término de mayor grado del producto es $a_3 b_2 \\cdot x^5$.\n\nAsí que $\\deg(p \\cdot q) = 3 + 2 = 5$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -880,7 +880,7 @@
       null,
       "Ese resultado duplica los cuadrados como si el producto fuera $(a+b)+(a-b)$ en vez de $(a+b)(a-b)$: la operación acá es una multiplicación, no una suma."
     ],
-    "explanation": "$(a+b)(a-b) = a \\cdot a - a \\cdot b + b \\cdot a - b \\cdot b = a^2 - ab + ab - b^2 = a^2 - b^2$\n\nLos términos cruzados $-ab$ y $+ab$ se cancelan.\n\nResultado: **diferencia de cuadrados**.\n\nAplicación directa: $x^2 - 9 = (x+3)(x-3)$.\n\nSi la expresión tiene la forma $A^2 - B^2$, se factoriza inmediatamente como $(A+B)(A-B)$.",
+    "explanation": "$(a+b)(a-b) = a \\cdot a - a \\cdot b + b \\cdot a - b \\cdot b = a^2 - ab + ab - b^2 = a^2 - b^2$\n\nLos términos cruzados $-ab$ y $+ab$ se cancelan.\n\nResultado: **diferencia de cuadrados**.\n\nAplicación directa: $x^2 - 9 = (x+3)(x-3)$.\n\nSi la expresión tiene la forma $A^2 - B^2$, se factoriza inmediatamente como $(A+B)(A-B)$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -930,7 +930,7 @@
       null,
       "Los signos ahí no alternan de forma correcta: en $(a-b)^3$ los signos van $+,-,+,-$, y el último término también debe llevar signo negativo."
     ],
-    "explanation": "$(a-b)^3$ se obtiene reemplazando $b$ \n\npor $-b$ en $(a+b)^3$:\n$$(a-b)^3 = a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.",
+    "explanation": "$(a-b)^3$ se obtiene reemplazando $b$ \n\npor $-b$ en $(a+b)^3$:\n$$(a-b)^3 = a^3 + 3a^2(-b) + 3a(-b)^2 + (-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$\nLos signos **alternan**: $+.\n\n-.\n\n+.\n\n-$.\n\nEl error clásico es escribir $-$ en todos los términos o alternarlo mal.\n\nVerificación rápida: para $a=2.\n\nb=1$: $(2-1)^3 = 1$ y $8 - 12 + 6 - 1 = 1$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,
@@ -1180,7 +1180,7 @@
       null,
       "'Reducida' no es el nombre técnico de ninguna de las formas habituales de un polinomio; la que muestra las raíces tiene un nombre propio."
     ],
-    "explanation": "La **forma factorizada** de un polinomio de **grado** 3 es:\n\nCada factor $(x - r_k)$ se anula en $x = r_k$.\n\nlo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nEjemplo: $p(x) = 2(x-1)(x+2)(x-3)$ tiene raíces $x = 1$.\n\n$x = -2$ y $x = 3$.\n\nde lectura inmediata.",
+    "explanation": "La **forma factorizada** de un polinomio de **grado** 3 es:\n\nCada factor $(x - r_k)$ se anula en $x = r_k$.\n\nlo que hace que $p(r_k) = 0$.\n\nLas **raíces** se leen directamente sin resolver ninguna ecuación.\n\nEjemplo: $p(x) = 2(x-1)(x+2)(x-3)$ tiene raíces $x = 1$.\n\n$x = -2$ y $x = 3$.\n\nde lectura inmediata.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "has_math": true,
     "graph_fn": null,
     "graph_view": null,

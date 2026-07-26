@@ -98,7 +98,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(0)$ en $f(x) = 5 \\cdot 2^x$:\n$$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$$\nSe usa la propiedad $b^0 = 1$ para cualquier $b > 0.\n$$.\n\nEsto confirma la regla general: en $$\nF(x) = a \\cdot b^x$.\n\nel valor en $x = 0$ es siempre igual al **coeficiente** $a$.\n\nPor eso $a$ se llama también **valor inicial** en modelos de crecimiento.",
+    "explanation": "Para evaluar $f(0)$ en $f(x) = 5 \\cdot 2^x$:\n$$f(0) = 5 \\cdot 2^0 = 5 \\cdot 1 = 5$$\nSe usa la propiedad $b^0 = 1$ para cualquier $b > 0.\n$$.\n\nEsto confirma la regla general: en $$\nF(x) = a \\cdot b^x$.\n\nel valor en $x = 0$ es siempre igual al **coeficiente** $a$.\n\nPor eso $a$ se llama también **valor inicial** en modelos de crecimiento.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "leer-base-coeficiente"
@@ -178,7 +178,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Evaluando en $x = 0$:\n$$f(0) = a \\cdot b^0 = a \\cdot 1 = a$$\nEntonces $f(0) = a$.\n\nSi nos dicen que $f(0) = 3$, concluimos que $a = 3.\n$$.\n\nEsta es la forma más directa de determinar el **coeficiente** $$\nA$: basta leer el valor de la función en el eje $Y$ (la ordenada al origen).\n\nNo hace falta conocer $b$.",
+    "explanation": "Evaluando en $x = 0$:\n$$f(0) = a \\cdot b^0 = a \\cdot 1 = a$$\nEntonces $f(0) = a$.\n\nSi nos dicen que $f(0) = 3$, concluimos que $a = 3.\n$$.\n\nEsta es la forma más directa de determinar el **coeficiente** $$\nA$: basta leer el valor de la función en el eje $Y$ (la ordenada al origen).\n\nNo hace falta conocer $b$.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "armar-formula-contexto"
@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Si pierde el $20\\%$ anual.\n\nqueda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1.\n$$: exponencial decreciente.\n\nComparación con el distractor A (:):\n$$\n$40000 - 8000t$$\nEse modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después.\n\nEl modelo exponencial siempre da positivo.",
+    "explanation": "Si pierde el $20\\%$ anual.\n\nqueda el $80\\% = 0{,}80$:\n$$V(t) = 40000 \\cdot (0{,}80)^t$$\nBase $b = 0{,}80 < 1.\n$$: exponencial decreciente.\n\nComparación con el distractor A (:):\n$$\n$40000 - 8000t$$\nEse modelo lineal llegaría a $0$ en $t = 5$ años y daría valores negativos después.\n\nEl modelo exponencial siempre da positivo.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "evaluar-f"
@@ -658,7 +658,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La propiedad de cociente de potencias de igual base dice que $\\dfrac{b^m}{b^n}=b^{m-n}$: los exponentes se restan, no se dividen ni se suman.\n$$\\frac{2^x}{2^3} = 2^{x-3}$$\nEquivalentemente, $2^{x-3} = \\frac{1}{8}\\cdot 2^x.\n$$, un desplazamiento horizontal de $$\n3$ unidades a la derecha. sumar los exponentes, como en el producto, en vez de restarlos.",
+    "explanation": "La propiedad de cociente de potencias de igual base dice que $\\dfrac{b^m}{b^n}=b^{m-n}$: los exponentes se restan, no se dividen ni se suman.\n$$\\frac{2^x}{2^3} = 2^{x-3}$$\nEquivalentemente, $2^{x-3} = \\frac{1}{8}\\cdot 2^x.\n$$, un desplazamiento horizontal de $$\n3$ unidades a la derecha. sumar los exponentes, como en el producto, en vez de restarlos.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "propiedades-algebraicas-potencias"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento.\n$$+1$$En el exponente equivale a multiplicar por $e$: :.",
+    "explanation": "Con un desplazamiento horizontal dentro del exponente, primero se sustituye el valor de $x$ y se resuelve la suma antes de evaluar la potencia de $e$.\n\nEl desplazamiento.\n$$+1$$En el exponente equivale a multiplicar por $e$: :. En la forma general $f(x) = b^{cx}$, el factor $c$ dentro del exponente actúa como un multiplicador del crecimiento o decrecimiento. Si $c>1$, la exponencial crece más rápidamente; si $0<c<1$, crece más lentamente. Este cambio interno en el exponente es diferente a un desplazamiento horizontal exterior, y sus efectos en la gráfica son muy distintos. Reconocer dónde está el factor (dentro del exponente versus fuera) es crucial para analizar correctamente exponenciales complejas.",
     "reviewed": false,
     "tags": [
       "determinar-a-b-desde-dos-puntos"

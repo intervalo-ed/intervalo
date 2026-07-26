@@ -269,7 +269,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Igual que con $x^2e^x$, el grado $2$ \n\ndel polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n\n\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
+    "explanation": "Igual que con $x^2e^x$, el grado $2$ \n\ndel polinomio en $x^2\\sin x$ exige repetir el método una vez más.\n$$x^2 \\xrightarrow{1\\text{ iteración}} x \\xrightarrow{2\\text{ iteración}} \\text{constante}$$\nCada aplicación reduce el grado del polinomio en uno, hasta que la integral remanente quede inmediata de tabla.",
     "reviewed": false,
     "tags": [
       "diagnostico-iteracion-y-ciclos"

@@ -358,7 +358,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe.",
+    "explanation": "Para hallar el intercepto con el eje $Y$ de cualquier función, evaluamos en $x=0$, siempre que ese punto esté en el dominio.\n\nAcá:El denominador.\n$$0-4=-4$$\nNo se anula.\n\nasí que $x=0$ sí pertenece al dominio y el intercepto existe. Al evaluar $f(0)$, el término con $x$ desaparece por completo, dejando solo la constante del numerador dividida por la constante del denominador. Por ejemplo, en $f(x) = \\frac{2x+5}{x-3}$, se obtiene $f(0) = \\frac{5}{-3} = -\\frac{5}{3}$. Este intercepto es fácil de calcular y proporciona información sobre dónde la gráfica cruza el eje $y$, complementando el análisis de raíces y asíntotas.",
     "reviewed": false,
     "tags": [
       "dominio-form"
@@ -958,7 +958,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$.\n\nsustituimos $x=6$ y resolvemos por partes:\n$.\n$$f(6)=\\frac{3}{6-4}+2=\\frac{3}{2}+2=1{,}5+2=3{,}5=\\frac{7}{2}$$\n$\nEl resultado es $\\frac{7}{2}$.\n\nsumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.",
+    "explanation": "Para evaluar $f(6)$ en $f(x)=\\frac{3}{x-4}+2$.\n\nsustituimos $x=6$ y resolvemos por partes:\n$.\n$$f(6)=\\frac{3}{6-4}+2=\\frac{3}{2}+2=1{,}5+2=3{,}5=\\frac{7}{2}$$\n$\nEl resultado es $\\frac{7}{2}$.\n\nsumar el $2$ del desplazamiento vertical antes de simplificar la fracción, o directamente quedarse solo con el valor de la fracción sin sumar el desplazamiento constante.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "combinado-av-ah-valor"
@@ -1158,7 +1158,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. \n\nquedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.",
+    "explanation": "Para hallar la constante $k$ de una función de la forma.\n$$f(x)=\\frac{k}{x+3}$$\n, usamos el punto dado y despejamos.\n\nSustituimos $x=1$.\n\n$f(1)=2$:El valor de $k$ es $8$. \n\nquedarse en el paso intermedio $\\frac{k}{4}=2$ sin multiplicar ambos lados por $4$.\n\no multiplicar por el valor equivocado del denominador.\n\nRecordá siempre verificar este paso antes de responder, es fundamental para dominar el concepto.",
     "reviewed": false,
     "tags": [
       "asintota-vertical-calculo"

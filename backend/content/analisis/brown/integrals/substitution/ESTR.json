@@ -39,7 +39,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En una **función compuesta** como.\n$$\\cos(x^2)$$\n, reconocemos la interior $x^2$ cuya **derivada** es $2x$.\n\nEsta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo.",
+    "explanation": "En una **función compuesta** como $\\cos(x^2)$, reconocemos la interior $x^2$ cuya **derivada** es $2x$. Esta es la clave: buscar una función compuesta cuya derivada aparezca multiplicada por algo en el integrando. El cambio $u=x^2$ produce $du=2x\\,dx$, que es exactamente el factor $x\\,dx$ que acompaña al coseno en la integral original (multiplicado por 2). Luego el diferencial se ajusta dividiendo por 2 para obtener $dx=\\frac{du}{2x}$, simplificando la integral. Este patrón de interior + su derivada multiplicando es la piedra angular de la sustitución: encontrar esa combinación permite colapsar la función compuesta en una nueva variable.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -108,7 +108,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta**.\n$$\\sin(4x)$$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$.",
+    "explanation": "En la **función compuesta** $\\sin(4x)$, la interior es la expresión lineal $4x$, cuya **derivada** es una constante: el coeficiente $4$. Este es uno de los patrones más frecuentes en sustitución: cuando la interior es un polinomio de grado 1, su derivada es solo un número fijo. El cambio $u=4x$ produce $du=4\\,dx$, y luego dividimos por 4 para obtener $dx=\\frac{1}{4}du$. La integral se convierte en $\\frac{1}{4}\\int \\sin u\\,du$, donde la constante $4$ del denominador ajusta exactamente el diferencial, permitiendo aplicar la tabla de antiderivadas de forma directa.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -131,7 +131,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "En la **función compuesta**.\n$$\\cos(\\ln x)$$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando.",
+    "explanation": "En la **función compuesta** $\\cos(\\ln x)$, la interior es la función trascendente $\\ln x$, cuya **derivada** es $\\frac{1}{x}$, que aparece exactamente multiplicando al coseno en el integrando. Este caso ejemplifica la fuerza de la sustitución incluso con funciones no algebraicas: el cambio $u=\\ln x$ transforma la integral compleja $\\int \\frac{1}{x}\\cos(\\ln x)\\,dx$ en la simple $\\int \\cos u\\,du$. El factor $\\frac{1}{x}\\,dx$ coincide precisamente con $du$, permitiendo eliminar la composición de funciones en un paso. Reconocer que la derivada del logaritmo es precisamente el factor presente es lo que hace posible y evidente esta sustitución.",
     "reviewed": false,
     "tags": [
       "identificacion-anatomica-de-u"
@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "Al derivar.\n$$u=-x+5$$\n, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado.\n\nLa constante $+5$ desaparece en la derivación.",
+    "explanation": "Al derivar $u=-x+5$, se obtiene $du=-dx$, con el signo negativo del coeficiente lineal conservado sin cambios. La constante $+5$ desaparece completamente en la derivación, como ocurre siempre con los términos constantes. Al despejar $dx$ de la ecuación $du=-dx$, invertimos el signo para obtener $dx=-du$. Este signo negativo es fácil de perder cuando se trabaja rápidamente, pero es crítico: entra directamente en la integral transformada, pudiendo cambiar el signo del resultado final. La recomendación es siempre verificar el despeje escribiendo la igualdad en ambas direcciones antes de sustituir.",
     "reviewed": false,
     "tags": [
       "ajuste-del-diferencial"
