@@ -338,7 +338,7 @@
     ],
     "graph_fn": null,
     "graph_view": null,
-    "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nEsta confusión es frecuente justamente porque la notación fue diseñada para evocar esa idea, aunque formalmente no funcione así.",
+    "explanation": "La **notación de Leibniz** $\\frac{dy}{dx}$ recuerda visualmente a una fracción, pero en realidad representa el resultado de un límite.\n\nPor eso no es correcto tratar $dy$ y $dx$ como cantidades separadas que se puedan cancelar o manipular como en una fracción algebraica común.\n\nEste razonamiento muestra que aunque la notación fue diseñada para evocar esa idea, formalmente no funciona así.",
     "reviewed": false,
     "tags": [
       "notacion-y-operadores"
